@@ -107,9 +107,9 @@ public final class Formulas
             return _instancies[pos];
         }
         
-        private FuncAddLevel3(Stats stat)
+        private FuncAddLevel3(Stats pStat)
         {
-            super(stat, 0x10, null);
+            super(pStat, 0x10, null);
         }
         
         public void calc(Env env)
@@ -130,9 +130,9 @@ public final class Formulas
             return _instancies[pos];
         }
         
-        private FuncMultLevelMod(Stats stat)
+        private FuncMultLevelMod(Stats pStat)
         {
-            super(stat, 0x20, null);
+            super(pStat, 0x20, null);
         }
         
         public void calc(Env env)
@@ -160,9 +160,9 @@ public final class Formulas
         /**
          * Constructor of the FuncMultRegenResting.<BR><BR>
          */
-        private FuncMultRegenResting(Stats stat)
+        private FuncMultRegenResting(Stats pStat)
         {
-            super(stat, 0x20, null);
+            super(pStat, 0x20, null);
             setCondition(new ConditionPlayerState(CheckPlayerState.RESTING, true));
         }
         
@@ -171,7 +171,7 @@ public final class Formulas
          */
         public void calc(Env env)
         {
-            if (!_cond.test(env)) return;
+            if (!cond.test(env)) return;
             
             env.value *= 1.45;
         }
@@ -279,11 +279,11 @@ public final class Formulas
     
     static class FuncBowAtkRange extends Func
     {
-        private static final FuncBowAtkRange _fbar_instance = new FuncBowAtkRange();
+        private static final FuncBowAtkRange _fbarInstance = new FuncBowAtkRange();
         
         static Func getInstance() 
         {
-            return _fbar_instance;
+            return _fbarInstance;
         }
         
         private FuncBowAtkRange()
@@ -294,18 +294,18 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            if (!_cond.test(env)) return;
+            if (!cond.test(env)) return;
             env.value += 450;
         }
     }
     
     static class FuncAtkAccuracy extends Func
     {
-        static final FuncAtkAccuracy _faa_instance = new FuncAtkAccuracy();
+        static final FuncAtkAccuracy _faaInstance = new FuncAtkAccuracy();
         
         static Func getInstance() 
         {
-            return _faa_instance;
+            return _faaInstance;
         }
         
         private FuncAtkAccuracy()
@@ -325,11 +325,11 @@ public final class Formulas
     
     static class FuncAtkEvasion extends Func
     {
-        static final FuncAtkEvasion _fae_instance = new FuncAtkEvasion();
+        static final FuncAtkEvasion _faeInstance = new FuncAtkEvasion();
         
         static Func getInstance() 
         {
-            return _fae_instance;
+            return _faeInstance;
         }
         
         private FuncAtkEvasion()
@@ -348,11 +348,11 @@ public final class Formulas
     
     static class FuncAtkCritical extends Func
     {
-        static final FuncAtkCritical _fac_instance = new FuncAtkCritical();
+        static final FuncAtkCritical _facInstance = new FuncAtkCritical();
         
         static Func getInstance() 
         {
-            return _fac_instance;
+            return _facInstance;
         }
         
         private FuncAtkCritical()
@@ -377,11 +377,11 @@ public final class Formulas
     
     static class FuncMoveSpeed extends Func
     {
-        static final FuncMoveSpeed _fms_instance = new FuncMoveSpeed();
+        static final FuncMoveSpeed _fmsInstance = new FuncMoveSpeed();
         
         static Func getInstance() 
         {
-            return _fms_instance;
+            return _fmsInstance;
         }
         
         private FuncMoveSpeed()
@@ -398,11 +398,11 @@ public final class Formulas
     
     static class FuncPAtkSpeed extends Func
     {
-        static final FuncPAtkSpeed _fas_instance = new FuncPAtkSpeed();
+        static final FuncPAtkSpeed _fasInstance = new FuncPAtkSpeed();
         
         static Func getInstance() 
         {
-            return _fas_instance;
+            return _fasInstance;
         }
         
         private FuncPAtkSpeed()
@@ -419,11 +419,11 @@ public final class Formulas
     
     static class FuncMAtkSpeed extends Func
     {
-        static final FuncMAtkSpeed _fas_instance = new FuncMAtkSpeed();
+        static final FuncMAtkSpeed _fasInstance = new FuncMAtkSpeed();
         
         static Func getInstance() 
         {
-            return _fas_instance;
+            return _fasInstance;
         }
         
         private FuncMAtkSpeed()
@@ -440,11 +440,11 @@ public final class Formulas
     
     static class FuncMaxLoad extends Func
     {
-        static final FuncMaxLoad _fms_instance = new FuncMaxLoad();
+        static final FuncMaxLoad _fmsInstance = new FuncMaxLoad();
         
         static Func getInstance() 
         {
-            return _fms_instance;
+            return _fmsInstance;
         }
         
         private FuncMaxLoad()
@@ -462,11 +462,11 @@ public final class Formulas
     
     static class FuncHennaSTR extends Func
     {
-        static final FuncHennaSTR _fh_instance = new FuncHennaSTR();
+        static final FuncHennaSTR _fhInstance = new FuncHennaSTR();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaSTR()
@@ -484,11 +484,11 @@ public final class Formulas
     
     static class FuncHennaDEX extends Func
     {
-        static final FuncHennaDEX _fh_instance = new FuncHennaDEX();
+        static final FuncHennaDEX _fhInstance = new FuncHennaDEX();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaDEX()
@@ -506,11 +506,11 @@ public final class Formulas
     
     static class FuncHennaINT extends Func
     {
-        static final FuncHennaINT _fh_instance = new FuncHennaINT();
+        static final FuncHennaINT _fhInstance = new FuncHennaINT();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaINT()
@@ -528,11 +528,11 @@ public final class Formulas
     
     static class FuncHennaMEN extends Func
     {
-        static final FuncHennaMEN _fh_instance = new FuncHennaMEN();
+        static final FuncHennaMEN _fhInstance = new FuncHennaMEN();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaMEN()
@@ -550,11 +550,11 @@ public final class Formulas
     
     static class FuncHennaCON extends Func
     {
-        static final FuncHennaCON _fh_instance = new FuncHennaCON();
+        static final FuncHennaCON _fhInstance = new FuncHennaCON();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaCON()
@@ -572,11 +572,11 @@ public final class Formulas
     
     static class FuncHennaWIT extends Func
     {
-        static final FuncHennaWIT _fh_instance = new FuncHennaWIT();
+        static final FuncHennaWIT _fhInstance = new FuncHennaWIT();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaWIT()
@@ -594,11 +594,11 @@ public final class Formulas
     
     static class FuncMaxHpAdd extends Func
     {
-        static final FuncMaxHpAdd _fmha_instance = new FuncMaxHpAdd();
+        static final FuncMaxHpAdd _fmhaInstance = new FuncMaxHpAdd();
         
         static Func getInstance() 
         {
-            return _fmha_instance;
+            return _fmhaInstance;
         }
         
         private FuncMaxHpAdd()
@@ -619,11 +619,11 @@ public final class Formulas
     
     static class FuncMaxHpMul extends Func
     {
-        static final FuncMaxHpMul _fmhm_instance = new FuncMaxHpMul();
+        static final FuncMaxHpMul _fmhmInstance = new FuncMaxHpMul();
         
         static Func getInstance() 
         {
-            return _fmhm_instance;
+            return _fmhmInstance;
         }
         
         private FuncMaxHpMul()
@@ -640,11 +640,11 @@ public final class Formulas
     
     static class FuncMaxCpAdd extends Func
     {
-        static final FuncMaxCpAdd _fmca_instance = new FuncMaxCpAdd();
+        static final FuncMaxCpAdd _fmcaInstance = new FuncMaxCpAdd();
         
         static Func getInstance() 
         {
-            return _fmca_instance;
+            return _fmcaInstance;
         }
         
         private FuncMaxCpAdd()
@@ -665,11 +665,11 @@ public final class Formulas
     
     static class FuncMaxCpMul extends Func
     {
-        static final FuncMaxCpMul _fmcm_instance = new FuncMaxCpMul();
+        static final FuncMaxCpMul _fmcmInstance = new FuncMaxCpMul();
         
         static Func getInstance() 
         {
-            return _fmcm_instance;
+            return _fmcmInstance;
         }
         
         private FuncMaxCpMul()
@@ -686,11 +686,11 @@ public final class Formulas
     
     static class FuncMaxMpAdd extends Func
     {
-        static final FuncMaxMpAdd _fmma_instance = new FuncMaxMpAdd();
+        static final FuncMaxMpAdd _fmmaInstance = new FuncMaxMpAdd();
         
         static Func getInstance() 
         {
-            return _fmma_instance;
+            return _fmmaInstance;
         }
         
         private FuncMaxMpAdd()
@@ -711,11 +711,11 @@ public final class Formulas
     
     static class FuncMaxMpMul extends Func
     {
-        static final FuncMaxMpMul _fmmm_instance = new FuncMaxMpMul();
+        static final FuncMaxMpMul _fmmmInstance = new FuncMaxMpMul();
         
         static Func getInstance() 
         {
-            return _fmmm_instance;
+            return _fmmmInstance;
         }
         
         private FuncMaxMpMul()
@@ -1034,8 +1034,8 @@ public final class Formulas
         if (festivalId < 0) return 0;
         
         // Retrieve the X and Y coords for the center of the festival arena the player is in.
-        if (oracle == SevenSigns.CABAL_DAWN) festivalCenter = SevenSignsFestival.festivalDawnPlayerSpawns[festivalId];
-        else festivalCenter = SevenSignsFestival.festivalDuskPlayerSpawns[festivalId];
+        if (oracle == SevenSigns.CABAL_DAWN) festivalCenter = SevenSignsFestival.FESTIVAL_DAWN_PLAYER_SPAWNS[festivalId];
+        else festivalCenter = SevenSignsFestival.FESTIVAL_DUSK_PLAYER_SPAWNS[festivalId];
 
         // Check the distance between the player and the player spawn point, in the center of the arena.
         double distToCenter = activeChar.getDistance(festivalCenter[0], festivalCenter[1]);

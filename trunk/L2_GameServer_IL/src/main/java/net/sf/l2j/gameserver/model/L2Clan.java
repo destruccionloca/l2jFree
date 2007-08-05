@@ -96,9 +96,9 @@ public class L2Clan
 
     private boolean _hasCrestLarge;
 
-    private Forums _Forum;
+    private Forums _forum;
 
-    private List<L2Skill> _skills = new FastList<L2Skill>(); 
+    private List<L2Skill> _skillList = new FastList<L2Skill>(); 
     
     //  Clan Privileges  
     public static final int CP_NOTHING = 0;  
@@ -136,9 +136,9 @@ public class L2Clan
     public static final int SUBUNIT_KNIGHT4 = 2002; 
     
     /** FastMap(Integer, L2Skill) containing all skills of the L2Clan */
-    protected final Map<Integer, L2Skill> _Skills = new FastMap<Integer, L2Skill>();
-    protected final Map<Integer, RankPrivs> _Privs = new FastMap<Integer, RankPrivs>();
-    protected final Map<Integer, SubPledge> _SubPledges = new FastMap<Integer, SubPledge>();
+    protected final Map<Integer, L2Skill> _skills = new FastMap<Integer, L2Skill>();
+    protected final Map<Integer, RankPrivs> _privs = new FastMap<Integer, RankPrivs>();
+    protected final Map<Integer, SubPledge> _subPledges = new FastMap<Integer, SubPledge>();
     
     private int _reputationScore = 0;
     private int _rank = 0;
@@ -152,7 +152,7 @@ public class L2Clan
     public L2Clan(int clanId)
     {
         _clanId = clanId;
-        InitializePrivs();
+        initializePrivs();
         restore();
         getWarehouse().restore();
     }
@@ -167,7 +167,7 @@ public class L2Clan
     {
         _clanId = clanId;
         _name = clanName;
-        InitializePrivs();
+        initializePrivs();
     }
     
     /**
@@ -578,13 +578,13 @@ public class L2Clan
     public void setLevel(int level)
     {
         _level = level;
-        if(_Forum == null)
+        if(_forum == null)
         {
             if(_level >= 2)
             {
             	// TODO to refactor, maybe use an observable pattern
                 ForumService fs = (ForumService)L2Registry.getBean(IServiceRegistry.FORUM);
-                _Forum = fs.getForumForClanAndCreateIfNotAvailable(_name, getClanId()); 
+                _forum = fs.getForumForClanAndCreateIfNotAvailable(_name, getClanId()); 
             }
         }
     }
@@ -697,7 +697,7 @@ public class L2Clan
     
 
     @SuppressWarnings("unused")
-    private void UpdateWarsInDB()
+    private void updateWarsInDB()
     {
         java.sql.Connection con = null;
         try
@@ -833,7 +833,7 @@ public class L2Clan
                 // Create a L2Skill object for each record
                 L2Skill skill = SkillTable.getInstance().getInfo(id, level);
                 // Add the L2Skill object to the L2Clan _skills
-                _Skills.put(skill.getId(), skill);
+                _skills.put(skill.getId(), skill);
             }
             
             rset.close();
@@ -852,17 +852,17 @@ public class L2Clan
     /** used to retrieve all skills */
     public final L2Skill[] getAllSkills()
     {
-        if (_Skills == null)
+        if (_skills == null)
             return new L2Skill[0];
         
-        return _Skills.values().toArray(new L2Skill[_Skills.values().size()]);
+        return _skills.values().toArray(new L2Skill[_skills.values().size()]);
     }
     
     
     /** used to add a skill to skill list of this L2Clan */
     public L2Skill addSkill(L2Skill newSkill)
     {
-        L2Skill oldSkill    = null;
+        L2Skill oldSkill = null;
         
         if (newSkill != null)
         {
@@ -883,7 +883,7 @@ public class L2Clan
         {
             
             // Replace oldSkill by newSkill or Add the newSkill
-            oldSkill = _Skills.put(newSkill.getId(), newSkill);
+            oldSkill = _skills.put(newSkill.getId(), newSkill);
             
             
             try
@@ -930,7 +930,7 @@ public class L2Clan
     
     public void addSkillEffects(boolean notify)
     {
-        if(_Skills.size() < 1) return;
+        if(_skills.size() < 1) return;
         for (L2ClanMember temp : _members.values())
         {
             if (temp.isOnline() && temp.getPlayerInstance()!=null)
@@ -943,7 +943,7 @@ public class L2Clan
         if (cm == null)
             return;
         
-        for(L2Skill skill : _Skills.values())
+        for(L2Skill skill : _skills.values())
         {
             //TODO add skills according to members class( in ex. don't add Clan Agillity skill's effect to lower class then Baron)
             if (skill.getMinPledgeClass() <= cm.getPledgeClass())
@@ -1095,7 +1095,7 @@ public class L2Clan
     public void removeSkill(int id)
     {
         L2Skill deleteSkill = null;
-        for(L2Skill sk : _skills)
+        for(L2Skill sk : _skillList)
         {
             if(sk.getId() == id)
             {
@@ -1103,12 +1103,12 @@ public class L2Clan
                 return;
             }
         }
-        _skills.remove(deleteSkill);
+        _skillList.remove(deleteSkill);
     }
     
     public void removeSkill(L2Skill deleteSkill)
     {
-        _skills.remove(deleteSkill);
+        _skillList.remove(deleteSkill);
     }
 
     /**
@@ -1116,70 +1116,69 @@ public class L2Clan
      */
     public List<L2Skill> getSkills()
     {
-        return _skills;
+        return _skillList;
     }
     
     public class SubPledge
     {
-       private int _Id;
-       private String _Name;
-       private String _LeaderName;
-       
-       public SubPledge(int id, String name, String leaderName)
-       {
-           _Id = id;
-           _Name = name;
-           _LeaderName = leaderName;
-       }
-       
-       public int getId()
-       {
-           return _Id;
-       }
-       public String getName()
-       {
-           return _Name;
-       }
-       public String getLeaderName()
-       {
-    	   return _LeaderName;
-       }
-       
-       public void setLeaderName(String leaderName)
-       {
-           _LeaderName = leaderName;
-       }
+        private int _id;
+        private String _subPledgeName;
+        private String _leaderName;
+        
+        public SubPledge(int id, String name, String leaderName)
+        {
+            _id = id;
+            _subPledgeName = name;
+            _leaderName = leaderName;
+        }
+        
+        public int getId()
+        {
+            return _id;
+        }
+        public String getName()
+        {
+            return _subPledgeName;
+        }
+        public String getLeaderName()
+        {
+            return _leaderName;
+        }
+        
+        public void setLeaderName(String leaderName)
+        {
+            _leaderName = leaderName;
+        }
     }
     public class RankPrivs
     {
-       @SuppressWarnings("hiding")
-       private int _rank;
-       private int _party;// TODO find out what this stuff means and implement it
-       private int _privs;
-       
-       public RankPrivs(int rank, int party, int privs)
-       {
-           _rank = rank;
-           _party = party;
-           _privs = privs;
-       }
-       
-       public int getRank()
-       {
-           return _rank;
-       }
-       public int getParty()
-       {
-           return _party;
-       }
-       public int getPrivs()
-       {
-           return _privs;
-       }
-       public void setPrivs(int privs)
-       {
-           _privs = privs;
-       }
+        private int _rankId;
+        private int _party;// TODO find out what this stuff means and implement it
+        private int _rankPrivs;
+        
+        public RankPrivs(int rank, int party, int privs)
+        {
+            _rankId = rank;
+            _party = party;
+            _rankPrivs = privs;
+        }
+        
+        public int getRank()
+        {
+            return _rankId;
+        }
+        public int getParty()
+        {
+            return _party;
+        }
+        public int getPrivs()
+        {
+            return _rankPrivs;
+        }
+        public void setPrivs(int privs)
+        {
+            _rankPrivs = privs;
+        }
     }
     
     private void restoreSubPledges()
@@ -1201,7 +1200,7 @@ public class L2Clan
                 String leaderName = rset.getString("leader_name");
                 // Create a SubPledge object for each record
                 SubPledge pledge = new SubPledge(id, name, leaderName);
-                _SubPledges.put(id, pledge);
+                _subPledges.put(id, pledge);
             }
             
             rset.close();
@@ -1220,19 +1219,19 @@ public class L2Clan
     /** used to retrieve subPledge by type */
     public final SubPledge getSubPledge(int pledgeType)
     {
-        if (_SubPledges == null)
+        if (_subPledges == null)
             return null;
         
-        return _SubPledges.get(pledgeType);
+        return _subPledges.get(pledgeType);
     }
 
     /** used to retrieve subPledge by type */
     public final SubPledge getSubPledge(String pledgeName)
     {
-        if (_SubPledges == null)
+        if (_subPledges == null)
             return null;
         
-        for (SubPledge sp : _SubPledges.values())
+        for (SubPledge sp : _subPledges.values())
     	{
     		if (sp.getName().equalsIgnoreCase(pledgeName))
     		{
@@ -1245,10 +1244,10 @@ public class L2Clan
     /** used to retrieve all subPledges */
     public final SubPledge[] getAllSubPledges()
     {
-        if (_SubPledges == null)
+        if (_subPledges == null)
             return new SubPledge[0];
         
-        return _SubPledges.values().toArray(new SubPledge[_SubPledges.values().size()]);
+        return _subPledges.values().toArray(new SubPledge[_subPledges.values().size()]);
     }
     
     public SubPledge createSubPledge(L2PcInstance player, int pledgeType, String leaderName, String subPledgeName)
@@ -1297,7 +1296,7 @@ public class L2Clan
         		statement.close();
             
         		subPledge = new SubPledge(pledgeType, subPledgeName, leaderName);
-        		_SubPledges.put(pledgeType, subPledge);
+        		_subPledges.put(pledgeType, subPledge);
         		
         		if(pledgeType != -1)
         		{
@@ -1322,7 +1321,7 @@ public class L2Clan
     
     public int getAvailablePledgeTypes(int pledgeType)
     {
-        if (_SubPledges.get(pledgeType) != null)
+        if (_subPledges.get(pledgeType) != null)
         {
             //_log.warning("found sub-unit with id: "+pledgeType);
             switch(pledgeType)
@@ -1397,7 +1396,7 @@ public class L2Clan
                 // Create a SubPledge object for each record
                 //RankPrivs privs = new RankPrivs(rank, party, privileges);
                 //_Privs.put(rank, privs);
-                _Privs.get(rank).setPrivs(privileges);
+                _privs.get(rank).setPrivs(privileges);
             }
             
             rset.close();
@@ -1413,29 +1412,28 @@ public class L2Clan
         }
     }
     
-    public void InitializePrivs()
+    public void initializePrivs()
     {
         RankPrivs privs;
         for (int i=1; i < 10; i++) 
         {
             privs = new RankPrivs(i, 0, CP_NOTHING);
-            _Privs.put(i, privs);
+            _privs.put(i, privs);
         }
-            
     }
     
     public int getRankPrivs(int rank)
     {
-        if (_Privs.get(rank) != null)
-            return _Privs.get(rank).getPrivs();
+        if (_privs.get(rank) != null)
+            return _privs.get(rank).getPrivs();
         else
             return CP_NOTHING;
     }
     public void setRankPrivs(int rank, int privs)
     {
-        if (_Privs.get(rank)!= null)
+        if (_privs.get(rank)!= null)
         {
-            _Privs.get(rank).setPrivs(privs);
+            _privs.get(rank).setPrivs(privs);
             
             
             java.sql.Connection con = null;
@@ -1477,7 +1475,7 @@ public class L2Clan
         }
         else
         {
-            _Privs.put(rank, new RankPrivs(rank, 0, privs));
+            _privs.put(rank, new RankPrivs(rank, 0, privs));
             
             java.sql.Connection con = null;
             
@@ -1508,16 +1506,16 @@ public class L2Clan
     /** used to retrieve all RankPrivs */
     public final RankPrivs[] getAllRankPrivs()
     {
-        if (_Privs == null)
+        if (_privs == null)
             return new RankPrivs[0];
         
-        return _Privs.values().toArray(new RankPrivs[_Privs.values().size()]);
+        return _privs.values().toArray(new RankPrivs[_privs.values().size()]);
     }
     
     public int getLeaderSubPledge(String name)
     {
         int id = 0;
-        for (SubPledge sp : _SubPledges.values())
+        for (SubPledge sp : _subPledges.values())
         {
             if (sp.getLeaderName() == name)
                 id = sp.getId();
@@ -1587,7 +1585,7 @@ public class L2Clan
      * @param pledgeType
      * @return
      */
-    public boolean CheckClanJoinCondition(L2PcInstance activeChar, L2PcInstance target, int pledgeType)
+    public boolean checkClanJoinCondition(L2PcInstance activeChar, L2PcInstance target, int pledgeType)
     {
 		if (activeChar == null)
 		{
@@ -1674,7 +1672,7 @@ public class L2Clan
      * @param target
      * @return
      */
-    public boolean CheckAllyJoinCondition(L2PcInstance activeChar, L2PcInstance target)
+    public boolean checkAllyJoinCondition(L2PcInstance activeChar, L2PcInstance target)
     {
 		if (activeChar == null)
 		{

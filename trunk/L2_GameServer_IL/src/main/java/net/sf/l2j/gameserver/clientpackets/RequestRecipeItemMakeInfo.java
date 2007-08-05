@@ -29,7 +29,7 @@ public class RequestRecipeItemMakeInfo extends L2GameClientPacket
 	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
 	private int _id;
-	private L2PcInstance _cha;
+	private L2PcInstance _activeChar;
 	/**
 	 * packet type id 0xac
 	 * format:		cd
@@ -38,12 +38,12 @@ public class RequestRecipeItemMakeInfo extends L2GameClientPacket
     protected void readImpl()
     {
         _id = readD();
-        _cha = this.getClient().getActiveChar();
+        _activeChar = getClient().getActiveChar();
     }
 
     protected void runImpl()
 	{
-		RecipeItemMakeInfo response = new RecipeItemMakeInfo(_id, _cha);
+		RecipeItemMakeInfo response = new RecipeItemMakeInfo(_id, _activeChar);
 		sendPacket(response);
 	}
 	

@@ -26,9 +26,10 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public final class ConditionItemId extends Condition {
+public final class ConditionItemId extends Condition 
+{
 
-	final int _itemId;
+	private final int _itemId;
 	
 	public ConditionItemId(int itemId)
 	{

@@ -26,17 +26,16 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 public class FuncEnchant extends Func
 {
-
-    public FuncEnchant(Stats stat, int order, Object owner, @SuppressWarnings("unused")
+    public FuncEnchant(Stats pStat, int pOrder, Object owner, @SuppressWarnings("unused")
     Lambda lambda)
     {
-        super(stat, order, owner);
+        super(pStat, pOrder, owner);
     }
 
     public void calc(Env env)
     {
-        if (_cond != null && !_cond.test(env)) return;
-        L2ItemInstance item = (L2ItemInstance) _funcOwner;
+        if (cond != null && !cond.test(env)) return;
+        L2ItemInstance item = (L2ItemInstance) funcOwner;
         int cristall = item.getItem().getCrystalType();
         Enum itemType = item.getItemType();
 
@@ -50,13 +49,13 @@ public class FuncEnchant extends Func
             enchant = 3;
         }
 
-        if (_stat == Stats.MAGIC_DEFENCE || _stat == Stats.POWER_DEFENCE || _stat == Stats.SHIELD_DEFENCE)
+        if (stat == Stats.MAGIC_DEFENCE || stat == Stats.POWER_DEFENCE || stat == Stats.SHIELD_DEFENCE)
         {
             env.value += enchant + 3 * overenchant;
             return;
         }
 
-        if (_stat == Stats.MAGIC_ATTACK)
+        if (stat == Stats.MAGIC_ATTACK)
         {
             switch (item.getItem().getCrystalType())
             {

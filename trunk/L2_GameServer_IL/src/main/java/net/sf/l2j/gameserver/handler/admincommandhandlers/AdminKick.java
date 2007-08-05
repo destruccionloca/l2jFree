@@ -28,9 +28,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 
-public class AdminKick implements IAdminCommandHandler {
-    //private final static Log _log = LogFactory.getLog(AdminKick.class.getName());
-    private static String[] _adminCommands = {"admin_kick" ,"admin_kick_non_gm"};
+public class AdminKick implements IAdminCommandHandler
+{
+    private static final String[] ADMIN_COMMANDS = {"admin_kick" ,"admin_kick_non_gm"};
     private static final int REQUIRED_LEVEL = Config.GM_KICK;
     
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
@@ -87,11 +87,13 @@ public class AdminKick implements IAdminCommandHandler {
             player.closeNetConnection();
             } catch (Throwable t)   {} 
     }
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
     
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }
 }

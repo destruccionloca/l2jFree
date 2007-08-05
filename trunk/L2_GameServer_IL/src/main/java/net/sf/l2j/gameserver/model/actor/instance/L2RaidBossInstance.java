@@ -132,15 +132,16 @@ public final class L2RaidBossInstance extends L2MonsterInstance
         
     }
     
+	/* Unused - commented to avoid inf loop
     public void onSpawn()
     {
         RaidBossSpawnManager.getInstance().updateStatus(this, false); 
-    	super.OnSpawn();
+    	super.onSpawn();
         if (getNpcId() == 25286 || getNpcId() == 25283)
             return;
         else
             getSpawn().stopRespawn();
-    }
+    }*/
     
     /**
      * Spawn all minions at a regular interval
@@ -150,8 +151,8 @@ public final class L2RaidBossInstance extends L2MonsterInstance
     @Override
     protected void manageMinions()
     {
-        minionList.spawnMinions();
-        minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable() {
+        _minionList.spawnMinions();
+        _minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable() {
             public void run()
             {
                 // teleport raid boss home if it's too far from home location
@@ -161,7 +162,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
                     teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), true);
                     healFull(); // prevents minor exploiting with it
                 }                    
-                minionList.maintainMinions();
+                _minionList.maintainMinions();
             }
         }, 60000, getMaintenanceInterval()+Rnd.get(5000));
     }

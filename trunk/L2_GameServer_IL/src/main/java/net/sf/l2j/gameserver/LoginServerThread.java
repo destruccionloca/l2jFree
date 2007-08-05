@@ -536,7 +536,7 @@ public class LoginServerThread extends Thread
 	 */
 	public String getStatusString()
 	{
-		return ServerStatus.statusString[_status];
+		return ServerStatus.STATUS_STRING[_status];
 	}
 
 	/**

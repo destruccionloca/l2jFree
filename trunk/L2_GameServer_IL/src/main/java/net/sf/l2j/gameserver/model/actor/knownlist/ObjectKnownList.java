@@ -41,12 +41,12 @@ public class ObjectKnownList
     /**
      * Reference to the L2Object
      */
-    private L2Object _ActiveObject;
+    private L2Object _activeObject;
     
     /**
      * Map of all L2Object known by the active char
      */
-    private Map<Integer, L2Object> _KnownObjects;
+    private Map<Integer, L2Object> _knownObjects;
     
     /**
      * Logger
@@ -59,7 +59,7 @@ public class ObjectKnownList
      */
     public ObjectKnownList(L2Object activeObject)
     {
-        _ActiveObject = activeObject;
+        _activeObject = activeObject;
     }
 
     /**
@@ -137,7 +137,7 @@ public class ObjectKnownList
      */
     public L2Object getActiveObject()
     {
-        return _ActiveObject;
+        return _activeObject;
     }
 
     /**
@@ -165,9 +165,8 @@ public class ObjectKnownList
      */
     public final Map<Integer, L2Object> getKnownObjects()
     {
-        if (_KnownObjects == null)
-            _KnownObjects = new FastMap<Integer, L2Object>().setShared(true);
-        return _KnownObjects;
+        if (_knownObjects == null)
+            _knownObjects = new FastMap<Integer, L2Object>().setShared(true);
+        return _knownObjects;
     }
-    
 }

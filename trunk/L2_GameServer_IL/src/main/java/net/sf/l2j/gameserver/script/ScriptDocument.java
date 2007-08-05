@@ -37,7 +37,7 @@ import org.xml.sax.SAXException;
 public class ScriptDocument
 {
     private final static Log _log = LogFactory.getLog(ScriptDocument.class);
-    private Document document=null; 
+    private Document _document=null; 
     private String _name=null;
     
     public ScriptDocument(String name, InputStream input)
@@ -46,21 +46,24 @@ public class ScriptDocument
             return ;
         _name = name;
         
-        DocumentBuilderFactory factory =
-            DocumentBuilderFactory.newInstance();
-        try {
-           DocumentBuilder builder = factory.newDocumentBuilder();
-           document = builder.parse( input );
- 
-        } catch (SAXException sxe) {
-           // Error generated during parsing)
-           _log.error("Invalid document "+name+". Error = "+sxe.getMessage());
-
-        } catch (ParserConfigurationException pce) {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try
+        {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            _document = builder.parse( input );
+        }
+        catch (SAXException sxe)
+        {
+            // Error generated during parsing)
+            _log.error("Invalid document "+name+". Error = "+sxe.getMessage());
+        }
+        catch (ParserConfigurationException pce)
+        {
             // Parser with specified options can't be built
             _log.error(pce.getMessage(),pce);
-
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe)
+        {
            // I/O error
             _log.error(ioe.getMessage(),ioe);
         }
@@ -68,7 +71,7 @@ public class ScriptDocument
     
     public Document getDocument()
     {
-        return document;
+        return _document;
     }
     
     /**

@@ -29,10 +29,10 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConditionSlotItemId extends ConditionInventory {
-
-	final int _itemId;
-	final int _enchantLevel;
+public class ConditionSlotItemId extends ConditionInventory
+{
+	private final int _itemId;
+	private final int _enchantLevel;
 	
     public ConditionSlotItemId(int slot, int itemId, int enchantLevel)
 	{

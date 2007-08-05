@@ -27,20 +27,20 @@ import net.sf.l2j.gameserver.skills.Stats;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConditionSkillStats extends Condition {
-
-	final Stats _stat;
+public class ConditionSkillStats extends Condition
+{
+	private final Stats _stat;
 	
-    public ConditionSkillStats(Stats stat)
+	public ConditionSkillStats(Stats stat)
 	{
 		super();
 		_stat = stat;
 	}
 	
-	public boolean testImpl(Env env) {
+	public boolean testImpl(Env env)
+	{
 		if (env.skill == null)
 			return false;
 		return env.skill.getStat() == _stat;
 	}
 }
-

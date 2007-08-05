@@ -36,7 +36,7 @@ public class FaenorWorldDataParser extends FaenorParser
 {
     static Log _log = LogFactory.getLog(FaenorWorldDataParser.class.getName());
     //Script Types
-    private final static String PET_DATA        = "PetData";
+    private final static String PET_DATA = "PetData";
     
     public void parseScript(Node eventNode)
     {
@@ -53,7 +53,7 @@ public class FaenorWorldDataParser extends FaenorParser
 
     public class PetData
     {
-        public int petID;
+        public int petId;
         public int levelStart;
         public int levelEnd;
         FastMap<String, String> statValues;
@@ -69,7 +69,7 @@ public class FaenorWorldDataParser extends FaenorParser
         
         try
         {
-            petData.petID       = getInt(attribute(petNode, "ID"));
+            petData.petId       = getInt(attribute(petNode, "ID"));
             int[] levelRange    = IntList.parse(attribute(petNode, "Levels"));
             petData.levelStart  = levelRange[0];
             petData.levelEnd    = levelRange[1];
@@ -81,11 +81,11 @@ public class FaenorWorldDataParser extends FaenorParser
                     parseStat(node, petData);
                 }
             }
-            bridge.addPetData(petData.petID, petData.levelStart, petData.levelEnd, petData.statValues);
+            _bridge.addPetData(petData.petId, petData.levelStart, petData.levelEnd, petData.statValues);
         } 
         catch (Exception e)
         {
-            petData.petID = -1;
+            petData.petId = -1;
             _log.warn("Error in pet Data parser.",e);
         }
     }
@@ -107,7 +107,7 @@ public class FaenorWorldDataParser extends FaenorParser
         } 
         catch (Exception e)
         {
-            petData.petID = -1;
+            petData.petId = -1;
             System.err.println("ERROR(parseStat):" + e.getMessage());
         }
     }

@@ -19,23 +19,23 @@ public class FactionQuestManager
     protected static Log _log = LogFactory.getLog(FactionQuestManager.class.getName());
 
     // =========================================================
-    private static FactionQuestManager _Instance;
+    private static FactionQuestManager _instance;
     public static final FactionQuestManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
             if ( _log.isDebugEnabled())_log.debug("Initializing FactionQuestManager");
-            _Instance = new FactionQuestManager();
-            _Instance.load();
+            _instance = new FactionQuestManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
     // =========================================================
 
     
     // =========================================================
     // Data Field
-    private FastList<FactionQuest> _Quests;
+    private FastList<FactionQuest> _quests;
     
     // =========================================================
     // Constructor
@@ -113,7 +113,7 @@ public class FactionQuestManager
     
     public final FastList<FactionQuest> getFactionQuests()
     {
-        if (_Quests == null) _Quests = new FastList<FactionQuest>();
-        return _Quests;
+        if (_quests == null) _quests = new FastList<FactionQuest>();
+        return _quests;
     }
 }

@@ -183,27 +183,27 @@ public enum ClassId
 	maestro	          (0x76,  false,  Race.dwarf,  warsmith); 
 	
 	/** The Identifier of the Class */
-	private final int     id;
+	private final int     _id;
 	
 	/** True if the class is a mage class */
-	private final boolean isMage;
+	private final boolean _isMage;
 	
 	/** The Race object of the class */
-	private final Race    race;
+	private final Race    _race;
 	
 	/** The parent ClassId or null if this class is a root */
-	private final ClassId parent;
+	private final ClassId _parent;
 	
 	
 	/**
 	 * Constructor of ClassId.<BR><BR>
 	 */
-	private ClassId(int _id, boolean _isMage, Race _race, ClassId _parent)
+	private ClassId(int id, boolean isMage, Race race, ClassId parent)
 	{
-		this.id = _id;
-		this.isMage = _isMage;
-		this.race = _race;
-		this.parent = _parent;
+		this._id = id;
+		this._isMage = isMage;
+		this._race = race;
+		this._parent = parent;
 	}
 	
 	
@@ -212,7 +212,7 @@ public enum ClassId
 	 */
 	public final int getId()   
 	{ 
-		return id;     
+		return _id;     
 	}
 	
 	/**
@@ -220,7 +220,7 @@ public enum ClassId
 	 */
 	public final boolean isMage()  
 	{ 
-		return isMage; 
+		return _isMage; 
 	}
 	
 	/**
@@ -228,7 +228,7 @@ public enum ClassId
 	 */
 	public final Race getRace() 
 	{ 
-		return race;   
+		return _race;   
 	}
 	
 	/**
@@ -239,13 +239,13 @@ public enum ClassId
 	 */
 	public final boolean childOf(ClassId cid) 
 	{
-		if (parent == null)
+		if (_parent == null)
 			return false;
 		
-		if (parent == cid)
+		if (_parent == cid)
 			return true;
 		
-		return parent.childOf(cid);
+		return _parent.childOf(cid);
 		
 	}
 	
@@ -269,10 +269,10 @@ public enum ClassId
 	 */
 	public final int level() 
 	{
-		if (parent == null)
+		if (_parent == null)
 			return 0;
 		
-		return 1 + parent.level();
+		return 1 + _parent.level();
 	}
 	
 	/**
@@ -281,7 +281,6 @@ public enum ClassId
 	 */
 	public final ClassId getParent()
 	{
-		return parent;
+		return _parent;
 	}
-	
 }

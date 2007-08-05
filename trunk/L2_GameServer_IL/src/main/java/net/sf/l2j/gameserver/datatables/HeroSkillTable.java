@@ -27,14 +27,14 @@ import net.sf.l2j.gameserver.model.L2Skill;
 public class HeroSkillTable
 {
     private static HeroSkillTable _instance;
-    private static FastList<L2Skill> _HeroSkills;
-    private static final int[] _HeroSkillsIds = {395,396,1374,1375,1376};
+    private static FastList<L2Skill> _heroSkills;
+    private static final int[] _heroSkillsIds = {395,396,1374,1375,1376};
     
     private HeroSkillTable()
     {
-        _HeroSkills = new FastList<L2Skill>();
-        for(int _skillId : _HeroSkillsIds)
-        	_HeroSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
+        _heroSkills = new FastList<L2Skill>();
+        for(int _skillId : _heroSkillsIds)
+        	_heroSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
     }
     
     public static HeroSkillTable getInstance()
@@ -44,16 +44,16 @@ public class HeroSkillTable
         return _instance;
     }
     
-    public FastList<L2Skill> GetHeroSkills()
+    public FastList<L2Skill> getHeroSkills()
     {
-        return _HeroSkills;
+        return _heroSkills;
     }
     
 	public boolean isHeroSkill(int skillId)
 	{ 
-		for (L2Skill skill : GetHeroSkills()) 
+		for (L2Skill skill : getHeroSkills()) 
 		{ 
-			if (skill.getId()==skillId) 
+			if (skill.getId() == skillId) 
 				return true; 
 		}
 		return false; 

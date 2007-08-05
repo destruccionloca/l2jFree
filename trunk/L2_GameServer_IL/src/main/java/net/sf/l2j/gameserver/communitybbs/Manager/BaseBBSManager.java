@@ -36,46 +36,43 @@ public abstract class BaseBBSManager
 {
 	public abstract void parsecmd(String command, L2PcInstance activeChar);
 	public abstract void parsewrite(String ar1,String ar2,String ar3,String ar4,String ar5, L2PcInstance activeChar);
-	protected void separateAndSend(String html, L2PcInstance acha)
+	protected void separateAndSend(String html, L2PcInstance activeChar)
 	{
 		if (html.length() < 8180)
 		{
-			acha.sendPacket(new ShowBoard(html, "101"));
-			acha.sendPacket(new ShowBoard(null, "102"));
-			acha.sendPacket(new ShowBoard(null, "103"));
-			
+			activeChar.sendPacket(new ShowBoard(html, "101"));
+			activeChar.sendPacket(new ShowBoard(null, "102"));
+			activeChar.sendPacket(new ShowBoard(null, "103"));
 		}
 		else if (html.length() < 8180 * 2)
 		{
-			acha.sendPacket(new ShowBoard(html.substring(0, 8180), "101"));
-			acha.sendPacket(new ShowBoard(html.substring(8180, html.length()), "102"));
-			acha.sendPacket(new ShowBoard(null, "103"));
-			
+			activeChar.sendPacket(new ShowBoard(html.substring(0, 8180), "101"));
+			activeChar.sendPacket(new ShowBoard(html.substring(8180, html.length()), "102"));
+			activeChar.sendPacket(new ShowBoard(null, "103"));
 		}
 		else if (html.length() < 8180 * 3)
 		{
-			acha.sendPacket(new ShowBoard(html.substring(0, 8180), "101"));
-			acha.sendPacket(new ShowBoard(html.substring(8180, 8180 * 2), "102"));
-			acha.sendPacket(new ShowBoard(html.substring(8180 * 2, html.length()), "103"));
-			
+			activeChar.sendPacket(new ShowBoard(html.substring(0, 8180), "101"));
+			activeChar.sendPacket(new ShowBoard(html.substring(8180, 8180 * 2), "102"));
+			activeChar.sendPacket(new ShowBoard(html.substring(8180 * 2, html.length()), "103"));
 		}
 	}
 	/**
 	 * @param html
 	 */
-	protected void send1001(String html, L2PcInstance acha)
+	protected void send1001(String html, L2PcInstance activeChar)
 	{
 		if (html.length() < 8180)
 		{
-			acha.sendPacket(new ShowBoard(html, "1001"));			
+			activeChar.sendPacket(new ShowBoard(html, "1001"));			
 		}
 	}
 	/**
 	 * @param i
 	 */
-	protected void send1002(L2PcInstance acha)
+	protected void send1002(L2PcInstance activeChar)
 	{		
-		send1002(acha," "," ","0");
+		send1002(activeChar," "," ","0");
 	}
 	/**
 	 * @param activeChar

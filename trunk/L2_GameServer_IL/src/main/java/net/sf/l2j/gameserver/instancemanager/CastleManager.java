@@ -35,23 +35,23 @@ public class CastleManager
     protected static Log _log = LogFactory.getLog(CastleManager.class.getName());
 
     // =========================================================
-    private static CastleManager _Instance;
+    private static CastleManager _instance;
     public static final CastleManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
     		_log.info("Initializing CastleManager");
-            _Instance = new CastleManager();
-            _Instance.load();
+            _instance = new CastleManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
     // =========================================================
 
     
     // =========================================================
     // Data Field
-    private FastList<Castle> _Castles;
+    private FastList<Castle> _castles;
     
     // =========================================================
     // Constructor
@@ -215,7 +215,7 @@ public class CastleManager
 
     public final FastList<Castle> getCastles()
     {
-        if (_Castles == null) _Castles = new FastList<Castle>();
-        return _Castles;
+        if (_castles == null) _castles = new FastList<Castle>();
+        return _castles;
     }
 }

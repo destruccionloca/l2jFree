@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdminGm implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminGm.class.getName());
-	private static String[] _adminCommands = {"admin_gm"};
+	private static final String[] ADMIN_COMMANDS = { "admin_gm" };
 	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -50,15 +50,17 @@ public class AdminGm implements IAdminCommandHandler {
         
 		return true;
 	}
-	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
-	
-	private boolean checkLevel(int level) {
+
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
-	
+
 	private void handleGm(L2PcInstance activeChar) 
     {
 		if (activeChar.isGM())

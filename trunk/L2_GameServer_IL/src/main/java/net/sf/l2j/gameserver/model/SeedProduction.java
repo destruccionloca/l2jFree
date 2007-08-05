@@ -9,23 +9,22 @@ package net.sf.l2j.gameserver.model;
  */
 public class SeedProduction
 {
-   int seedId;
-   int canProduce;
-   int price;
-   
-   public SeedProduction(int id,int amount,int pri)
-   {
-       seedId = id;
-       canProduce = amount;
-       price = pri;
-   }
-   
-   public int getSeedId(){return seedId;}
-   public int getCanProduce(){return canProduce;}
-   //For edit the seed data by l2Emu team 23 - 29
-   public void setCanProduce(int amount){ canProduce = amount;}
-   public void setSeedId(int ID){ ID = seedId;}
-   public void setPrice(int pri){ price = pri;}
-   public int getPrice(){return price;}
-   
+    private int _seedId;
+    private int _canProduce;
+    private int _price;
+    
+    public SeedProduction(int id,int amount,int pri)
+    {
+        _seedId = id;
+        _canProduce = amount;
+        _price = pri;
+    }
+    
+    public int getSeedId(){return _seedId;}
+    public int getCanProduce(){return _canProduce;}
+    //For edit the seed data by l2Emu team 23 - 29
+    public void setCanProduce(int amount){ _canProduce = amount;}
+    public void setSeedId(int id){ _seedId = id;}
+    public void setPrice(int pri){ _price = pri;}
+    public int getPrice(){return _price;}   
 }

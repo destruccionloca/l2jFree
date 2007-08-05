@@ -39,22 +39,22 @@ public class CoupleManager
     private static final Log _log = LogFactory.getLog(CoupleManager.class.getName());
 
     // =========================================================
-    private static CoupleManager _Instance;
+    private static CoupleManager _instance;
     public static final CoupleManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
             _log.info("Initializing CoupleManager");
-            _Instance = new CoupleManager();
-            _Instance.load();
+            _instance = new CoupleManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
     // =========================================================
     
     // =========================================================
     // Data Field
-    private FastList<Couple> _Couples;
+    private FastList<Couple> _couples;
 
     
     // =========================================================
@@ -127,75 +127,75 @@ public class CoupleManager
 
     public void deleteCouple(int coupleId)
     {
-       int index = getCoupleIndex(coupleId);
-       Couple couple = getCouples().get(index);
+        int index = getCoupleIndex(coupleId);
+        Couple couple = getCouples().get(index);
         if(couple!=null)
         {
-           L2PcInstance player1 = (L2PcInstance)L2World.getInstance().findObject(couple.getPlayer1Id());
-           L2PcInstance player2 = (L2PcInstance)L2World.getInstance().findObject(couple.getPlayer2Id());
-           L2ItemInstance item = null;
+            L2PcInstance player1 = (L2PcInstance)L2World.getInstance().findObject(couple.getPlayer1Id());
+            L2PcInstance player2 = (L2PcInstance)L2World.getInstance().findObject(couple.getPlayer2Id());
+            L2ItemInstance item = null;
             if (player1 != null)
             {
-               player1.setPartnerId(0);
-               player1.setMaried(false);
-               player1.setCoupleId(0);
-               item = player1.getInventory().getItemByItemId(9140);
-               if(player1.isOnline()==1 && item!= null)
-               {
-            	   player1.destroyItem("Removing Cupids Bow", item, player1, true);
-            	   player1.getInventory().updateDatabase();
-               }
-               if(player1.isOnline()==0 && item!= null)
-               {
-            	   Integer PlayerId = player1.getObjectId();
-            	   Integer ItemId = 9140;
-            	   java.sql.Connection con = null;
-                   try
-                   {
-                       con = L2DatabaseFactory.getInstance().getConnection(con);
-                       PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
-                       statement.setInt(1, PlayerId);
-                       statement.setInt(2, ItemId);
-                       statement.execute();
-                       statement.close();
-                   }
-                   catch (Exception e) {} 
-                   finally {try { con.close(); } catch (Exception e) {}}
-               }
+                player1.setPartnerId(0);
+                player1.setMaried(false);
+                player1.setCoupleId(0);
+                item = player1.getInventory().getItemByItemId(9140);
+                if(player1.isOnline()==1 && item!= null)
+                {
+                    player1.destroyItem("Removing Cupids Bow", item, player1, true);
+                    player1.getInventory().updateDatabase();
+                }
+                if(player1.isOnline()==0 && item!= null)
+                {
+                    Integer PlayerId = player1.getObjectId();
+                    Integer ItemId = 9140;
+                    java.sql.Connection con = null;
+                    try
+                    {
+                        con = L2DatabaseFactory.getInstance().getConnection(con);
+                        PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
+                        statement.setInt(1, PlayerId);
+                        statement.setInt(2, ItemId);
+                        statement.execute();
+                        statement.close();
+                    }
+                    catch (Exception e) {} 
+                    finally {try { con.close(); } catch (Exception e) {}}
+                }
             }
             if (player2 != null)
             {
-               player2.setPartnerId(0);
-               player2.setMaried(false);
-               player2.setCoupleId(0);
-               item = player2.getInventory().getItemByItemId(9140);
-        	   if(player2.isOnline()==1  && item!= null)
-               {
-            	   player2.destroyItem("Removing Cupids Bow", item, player2, true);
-            	   player2.getInventory().updateDatabase();
-               }
-               if(player2.isOnline()==0  && item!= null)
-               {
-            	   Integer Player2Id = player2.getObjectId();
-            	   Integer Item2Id = 9140;
-            	   java.sql.Connection con = null;
-                   try
-                   {
-                       con = L2DatabaseFactory.getInstance().getConnection(con);
-                       PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
-                       statement.setInt(1, Player2Id);
-                       statement.setInt(2, Item2Id);
-                       statement.execute();
-                       statement.close();
-                   }
-                   catch (Exception e) {} 
-                   finally {try { con.close(); } catch (Exception e) {}}
-               }
+                player2.setPartnerId(0);
+                player2.setMaried(false);
+                player2.setCoupleId(0);
+                item = player2.getInventory().getItemByItemId(9140);
+                if(player2.isOnline()==1  && item!= null)
+                {
+                    player2.destroyItem("Removing Cupids Bow", item, player2, true);
+                    player2.getInventory().updateDatabase();
+                }
+                if(player2.isOnline()==0  && item!= null)
+                {
+                    Integer Player2Id = player2.getObjectId();
+                    Integer Item2Id = 9140;
+                    java.sql.Connection con = null;
+                    try
+                    {
+                        con = L2DatabaseFactory.getInstance().getConnection(con);
+                        PreparedStatement statement = con.prepareStatement("delete from items where owner_id = ? and item_id = ?");
+                        statement.setInt(1, Player2Id);
+                        statement.setInt(2, Item2Id);
+                        statement.execute();
+                        statement.close();
+                    }
+                    catch (Exception e) {} 
+                    finally {try { con.close(); } catch (Exception e) {}}
+                }
             }
             couple.divorce();
             getCouples().remove(index);
         }
-    }    
+    }
 
     public final int getCoupleIndex(int coupleId)
     {
@@ -210,7 +210,7 @@ public class CoupleManager
 
     public final FastList<Couple> getCouples()
     {
-        if (_Couples == null) _Couples = new FastList<Couple>();
-        return _Couples;
+        if (_couples == null) _couples = new FastList<Couple>();
+        return _couples;
     }
 }

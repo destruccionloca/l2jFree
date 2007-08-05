@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 public class RequestMakeMacro extends L2GameClientPacket
 {
 	private L2Macro _macro;
-    private int _commands_lenght = 0;
+    private int _commandsLenght = 0;
     private final static Log _log = LogFactory.getLog(RequestMakeMacro.class);
         
 	private static final String _C__C1_REQUESTMAKEMACRO = "[C] C1 RequestMakeMacro";
@@ -77,7 +77,7 @@ public class RequestMakeMacro extends L2GameClientPacket
             int d1         = readD(); // skill or page number for shortcuts
             int d2         = readC();
             String command = readS();
-            _commands_lenght += command.length();
+            _commandsLenght += command.length();
 			commands[i] = new L2MacroCmd(entry, type, d1, d2, command);
             if (_log.isDebugEnabled()) _log.debug("entry:"+entry+"\ttype:"+type+"\td1:"+d1+"\td2:"+d2+"\tcommand:"+command);
         }
@@ -89,7 +89,7 @@ public class RequestMakeMacro extends L2GameClientPacket
 		L2PcInstance  player = getClient().getActiveChar(); 
 		if (player == null)
 		    return;
-		if (_commands_lenght > 255)
+		if (_commandsLenght > 255)
 		{
            //Invalid macro. Refer to the Help file for instructions.
 			player.sendPacket(new SystemMessage(SystemMessageId.INVALID_MACRO));

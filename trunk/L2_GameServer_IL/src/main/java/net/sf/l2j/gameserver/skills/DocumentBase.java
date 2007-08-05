@@ -82,13 +82,13 @@ abstract class DocumentBase
 {
     static Log _log = LogFactory.getLog(DocumentBase.class.getName());
 
-    private File file;
-    protected FastMap<String, String[]> tables;
+    private File _file;
+    protected FastMap<String, String[]> _tables;
 
     DocumentBase(File pFile)
     {
-        this.file = pFile;
-        tables = new FastMap<String, String[]>();
+        _file = pFile;
+        _tables = new FastMap<String, String[]>();
     }
 
     Document parse()
@@ -99,11 +99,11 @@ abstract class DocumentBase
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setValidating(false);
             factory.setIgnoringComments(true);
-            doc = factory.newDocumentBuilder().parse(file);
+            doc = factory.newDocumentBuilder().parse(_file);
         }
         catch (Exception e)
         {
-            _log.fatal( "Error loading file " + file, e);
+            _log.fatal( "Error loading file " + _file, e);
             return null;
         }
         try
@@ -112,7 +112,7 @@ abstract class DocumentBase
         }
         catch (Exception e)
         {
-            _log.fatal( "Error in file " + file, e);
+            _log.fatal( "Error in file " + _file, e);
             return null;
         }
         return doc;
@@ -128,12 +128,12 @@ abstract class DocumentBase
 
     protected void resetTable()
     {
-        tables = new FastMap<String, String[]>();
+        _tables = new FastMap<String, String[]>();
     }
 
     protected void setTable(String name, String[] table)
     {
-        tables.put(name, table);
+        _tables.put(name, table);
     }
 
     protected void parseTemplate(Node n, Object template)
@@ -185,7 +185,7 @@ abstract class DocumentBase
         sb.setCharAt(0, Character.toUpperCase(name.charAt(0)));
         name = sb.toString();
         Lambda lambda = getLambda(n, template);
-        FuncTemplate ft = new FuncTemplate(null, null, name, null, calc._funcs.length, lambda);
+        FuncTemplate ft = new FuncTemplate(null, null, name, null, calc.funcs.length, lambda);
         calc.addFunc(ft.getFunc(new Env(), calc));
     }
 
@@ -302,8 +302,8 @@ abstract class DocumentBase
         {
             if (n.getNodeType() == Node.ELEMENT_NODE) cond.add(parseCondition(n, template));
         }
-        if (cond._conditions == null || cond._conditions.length == 0)
-            _log.fatal("Empty <and> condition in " + file);
+        if (cond.conditions == null || cond.conditions.length == 0)
+            _log.fatal("Empty <and> condition in " + _file);
         return cond;
     }
 
@@ -314,8 +314,8 @@ abstract class DocumentBase
         {
             if (n.getNodeType() == Node.ELEMENT_NODE) cond.add(parseCondition(n, template));
         }
-        if (cond._conditions == null || cond._conditions.length == 0)
-            _log.fatal("Empty <or> condition in " + file);
+        if (cond.conditions == null || cond.conditions.length == 0)
+            _log.fatal("Empty <or> condition in " + _file);
         return cond;
     }
 
@@ -328,7 +328,7 @@ abstract class DocumentBase
                 return new ConditionLogicNot(parseCondition(n, template));
             }
         }
-        _log.fatal("Empty <not> condition in " + file);
+        _log.fatal("Empty <not> condition in " + _file);
         return null;
     }
 
@@ -430,7 +430,7 @@ abstract class DocumentBase
                 break;
             }
 
-        if (cond == null) _log.fatal("Unrecognized <player> condition in " + file);
+        if (cond == null) _log.fatal("Unrecognized <player> condition in " + _file);
         return cond;
     }
 
@@ -483,7 +483,7 @@ abstract class DocumentBase
                 cond = joinAnd(cond, new ConditionTargetUsesWeaponKind(mask));
             }
         }
-        if (cond == null) _log.fatal("Unrecognized <target> condition in " + file);
+        if (cond == null) _log.fatal("Unrecognized <target> condition in " + _file);
         return cond;
     }
 
@@ -542,7 +542,7 @@ abstract class DocumentBase
                 cond = joinAnd(cond, new ConditionSlotItemId(slot, id, enchant));
             }
         }
-        if (cond == null) _log.fatal("Unrecognized <using> condition in " + file);
+        if (cond == null) _log.fatal("Unrecognized <using> condition in " + _file);
         return cond;
     }
 
@@ -564,7 +564,7 @@ abstract class DocumentBase
                 cond = joinAnd(cond, new ConditionGameChance(val));
             }
         }
-        if (cond == null) _log.fatal("Unrecognized <game> condition in " + file);
+        if (cond == null) _log.fatal("Unrecognized <game> condition in " + _file);
         return cond;
     }
 
@@ -591,9 +591,7 @@ abstract class DocumentBase
         String name = n.getAttributes().getNamedItem("name").getNodeValue().trim();
         String value = n.getAttributes().getNamedItem("val").getNodeValue().trim();
         char ch = value.length() == 0 ? ' ' : value.charAt(0);
-        if (ch == '#' || ch == '-' || Character.isDigit(ch)) set.set(name,
-        																	String.valueOf(getValue(value,
-        																			level)));
+        if (ch == '#' || ch == '-' || Character.isDigit(ch)) set.set(name,String.valueOf(getValue(value,level)));
         else set.set(name, value);
     }
 

@@ -27,16 +27,16 @@ public class Arena
 {
 	// =========================================================
     // Data Field
-	private int _ArenaId                       = 0;
-    private String _Name                       = "";
-    private FastList<int[]> _Spawn;
-    private Zone _Zone;
+	private int _arenaId                       = 0;
+    private String _name                       = "";
+    private FastList<int[]> _spawn;
+    private Zone _zone;
 
 	// =========================================================
 	// Constructor
 	public Arena(int arenaId)
 	{
-		_ArenaId = arenaId;
+		_arenaId = arenaId;
         loadData();
 	}
 
@@ -54,19 +54,19 @@ public class Arena
     {
         // TEMP UNTIL ARENA'S TABLE IS ADDED
         Zone zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Arena), getArenaId());
-        if (zone != null) _Name = zone.getName();
+        if (zone != null) _name = zone.getName();
     }
 	
 	// =========================================================
 	// Proeprty
-	public final int getArenaId() { return _ArenaId; }
+	public final int getArenaId() { return _arenaId; }
 
-    public final String getName() { return _Name; }
+    public final String getName() { return _name; }
 
     public final FastList<int[]> getSpawn()
     {
-        if (_Spawn == null) _Spawn = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ArenaSpawn), getName()).getCoords();
-        return _Spawn;
+        if (_spawn == null) _spawn = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ArenaSpawn), getName()).getCoords();
+        return _spawn;
     }
     
     public final Location getSpawnLoc()
@@ -77,7 +77,7 @@ public class Arena
 
     public final Zone getZone()
     {
-        if (_Zone == null) _Zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Arena), getName());
-        return _Zone;
+        if (_zone == null) _zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Arena), getName());
+        return _zone;
     }
 }

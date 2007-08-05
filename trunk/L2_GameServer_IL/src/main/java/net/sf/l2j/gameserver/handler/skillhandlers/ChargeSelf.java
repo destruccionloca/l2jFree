@@ -40,14 +40,12 @@ import org.apache.commons.logging.LogFactory;
 
 public class ChargeSelf implements ISkillHandler
 {
-    static Log _log = LogFactory.getLog(ChargeSelf.class.getName());
+    private static Log _log = LogFactory.getLog(ChargeSelf.class.getName());
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
-    private static SkillType[] _skillIds = {
-           SkillType.CHARGE_SELF,
-           };
+    private static final SkillType[] SKILL_IDS = { SkillType.CHARGE_SELF  };
     
     public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
     {
@@ -85,6 +83,6 @@ public class ChargeSelf implements ISkillHandler
 
     public SkillType[] getSkillIds()
     {
-        return _skillIds;
+        return SKILL_IDS;
     }
 }

@@ -28,12 +28,12 @@ public class AskJoinPledge extends L2GameServerPacket
 {
 	private static final String _S__44_ASKJOINPLEDGE = "[S] 32 AskJoinPledge";
 
-	private int _requestorId;
+	private int _requestorObjId;
 	private String _pledgeName;
 
-	public AskJoinPledge(int requestorId, String pledgeName)
+	public AskJoinPledge(int requestorObjId, String pledgeName)
 	{
-		_requestorId = requestorId;
+		_requestorObjId = requestorObjId;
 		_pledgeName = pledgeName;
 	}
 
@@ -41,7 +41,7 @@ public class AskJoinPledge extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x32);
-		writeD(_requestorId);
+		writeD(_requestorObjId);
 		writeS(_pledgeName);
 	}
 	

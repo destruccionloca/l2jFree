@@ -47,7 +47,7 @@ public class FaenorInterface implements EngineInterface
     private final static Log _log = LogFactory.getLog(FaenorInterface.class);
     private static FaenorInterface _instance;
     
-    public NpcTable _npcTable = NpcTable.getInstance();
+    public NpcTable npcTable = NpcTable.getInstance();
     
     public static FaenorInterface getInstance()
     {
@@ -70,7 +70,7 @@ public class FaenorInterface implements EngineInterface
      */
     public void addQuestDrop(int npcID, int itemID, int min, int max, int chance, String questID, String[] states)
     {
-        L2NpcTemplate npc = _npcTable.getTemplate(npcID);
+        L2NpcTemplate npc = npcTable.getTemplate(npcID);
         if (npc == null)
         {
             throw new NullPointerException();
@@ -95,21 +95,19 @@ public class FaenorInterface implements EngineInterface
     */
     public void addDrop(L2NpcTemplate npc, L2DropData drop, boolean sweep)
     {
-       if(sweep)
-           addDrop(npc, drop,-1);
-       else
-       {
-           int maxCategory = -1;
-
-           for(L2DropCategory cat:npc.getDropData())
-           {
-               if(maxCategory<cat.getCategoryType())
-                   maxCategory = cat.getCategoryType();
-           }
-           maxCategory++;
-           npc.addDropData(drop, maxCategory);
-       }
-
+        if(sweep)
+            addDrop(npc, drop,-1);
+        else
+        {
+            int maxCategory = -1;
+            for(L2DropCategory cat:npc.getDropData())
+            {
+                if(maxCategory<cat.getCategoryType())
+                    maxCategory = cat.getCategoryType();
+            }
+            maxCategory++;
+            npc.addDropData(drop, maxCategory);
+        }
     }
 
    /**
@@ -134,7 +132,6 @@ public class FaenorInterface implements EngineInterface
     {
         Announcements.getInstance().addEventAnnouncement(validDateRange, message);
     }
-    
     
     public void addPetData(int petID, int levelStart, int levelEnd, Map<String, String> stats)
     {

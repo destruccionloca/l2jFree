@@ -72,7 +72,7 @@ public class L2GroupSpawn extends L2Spawn
 			
 			mob.setSpawn(this);
 			mob.spawnMe(newlocx, newlocy, newlocz);
-			mob.OnSpawn();
+			mob.onSpawn();
 
 			if (_log.isDebugEnabled()) 
 				_log.debug("spawned Mob ID: "+_template.getNpcId()+" ,at: "

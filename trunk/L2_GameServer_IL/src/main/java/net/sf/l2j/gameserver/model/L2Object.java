@@ -51,27 +51,27 @@ public abstract class L2Object
     /**
      * Object visibility
      */
-    private boolean _IsVisible;
+    private boolean _isVisible;
     /**
      * Objects known by this object
      */
-    private ObjectKnownList _KnownList;
+    private ObjectKnownList _knownList;
     /**
      * Name of this object
      */
-    private String _Name;
+    private String _name;
     /**
      * unique identifier
      */
-    private int _ObjectId;
+    private int _objectId;
     /**
      * Appearance and type of object 
      */
-    private ObjectPoly _Poly;
+    private ObjectPoly _poly;
     /**
      * Position of object
      */
-    private ObjectPosition _Position;
+    private ObjectPosition _position;
 
     /**
      * Constructor
@@ -79,8 +79,8 @@ public abstract class L2Object
      */
     public L2Object(int objectId)
     {
-        _ObjectId = objectId;
-        _Name = "";
+        _objectId = objectId;
+        _name = "";
     }
     
     /**
@@ -120,7 +120,7 @@ public abstract class L2Object
      * <li> L2Attackable    :  Reset the Spoiled falg </li><BR><BR>
      * 
      */
-    public void OnSpawn()
+    public void onSpawn()
     {
     }
 
@@ -130,7 +130,7 @@ public abstract class L2Object
      */
     public final int getX()
     {
-        if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _IsVisible;
+        if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _isVisible;
         return getPosition().getX();
     }
 
@@ -140,7 +140,7 @@ public abstract class L2Object
      */
     public final int getY()
     {
-        if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _IsVisible;
+        if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _isVisible;
         return getPosition().getY();
     }
 
@@ -150,7 +150,7 @@ public abstract class L2Object
      */
     public final int getZ()
     {
-        if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _IsVisible;
+        if (Config.ASSERT) assert getPosition().getWorldRegion() != null || _isVisible;
         return getPosition().getZ();
     }
     
@@ -178,7 +178,7 @@ public abstract class L2Object
         
         synchronized (this) 
         {
-            _IsVisible = false;
+            _isVisible = false;
             getPosition().setWorldRegion(null);
         }
         
@@ -242,7 +242,7 @@ public abstract class L2Object
         
         synchronized (this) 
         {
-            _IsVisible = false;
+            _isVisible = false;
             getPosition().setWorldRegion(null);
         }
         
@@ -262,7 +262,7 @@ public abstract class L2Object
     {
         L2World.getInstance().removeObject(this);
         IdFactory.getInstance().releaseId(getObjectId());
-        _ObjectId = IdFactory.getInstance().getNextId();
+        _objectId = IdFactory.getInstance().getNextId();
     }
 
     /**
@@ -289,7 +289,7 @@ public abstract class L2Object
         synchronized (this) 
         {
             // Set the x,y,z position of the L2Object spawn and update its _worldregion
-            _IsVisible = true;
+            _isVisible = true;
             getPosition().setWorldRegion(L2World.getInstance().getRegion(getPosition().getWorldPosition()));
             
             // Add the L2Object spawn in the _allobjects of L2World
@@ -304,7 +304,7 @@ public abstract class L2Object
         // Add the L2Object spawn in the world as a visible object
         L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), null);
         
-        OnSpawn();
+        onSpawn();
     }
 
     /**
@@ -334,7 +334,7 @@ public abstract class L2Object
         synchronized (this) 
         {
             // Set the x,y,z position of the L2Object spawn and update its _worldregion
-            _IsVisible = true;
+            _isVisible = true;
 
             if (x > L2World.MAP_MAX_X) x = L2World.MAP_MAX_X - 5000;
             if (x < L2World.MAP_MIN_X) x = L2World.MAP_MIN_X + 5000;
@@ -356,7 +356,7 @@ public abstract class L2Object
         // Add the L2Object spawn in the world as a visible object
         L2World.getInstance().addVisibleObject(this, getPosition().getWorldRegion(), null);
         
-        OnSpawn();
+        onSpawn();
     }
     
     /**
@@ -406,8 +406,8 @@ public abstract class L2Object
      */
     public final void setIsVisible(boolean value)
     {
-        _IsVisible = value;
-        if (!_IsVisible) 
+        _isVisible = value;
+        if (!_isVisible) 
             getPosition().setWorldRegion(null);
     }
     
@@ -417,14 +417,14 @@ public abstract class L2Object
      */
     public ObjectKnownList getKnownList()
     {
-        if (_KnownList == null) _KnownList = new ObjectKnownList(this);
-        return _KnownList;
+        if (_knownList == null) _knownList = new ObjectKnownList(this);
+        return _knownList;
     }
     /**
      * Set the known list 
      * @param value the knownlist to set
      */
-    public final void setKnownList(ObjectKnownList value) { _KnownList = value; }
+    public final void setKnownList(ObjectKnownList value) { _knownList = value; }
     
     /**
      * return the name
@@ -432,7 +432,7 @@ public abstract class L2Object
      */
     public final String getName()
     {
-        return _Name;
+        return _name;
     }
     
     /**
@@ -440,7 +440,7 @@ public abstract class L2Object
      */
     public final void setName(String value)
     {
-        _Name = value;
+        _name = value;
     }
 
     /**
@@ -448,7 +448,7 @@ public abstract class L2Object
      */
     public final int getObjectId()
     {
-        return _ObjectId;
+        return _objectId;
     }
     
     /**
@@ -456,8 +456,8 @@ public abstract class L2Object
      */
     public final ObjectPoly getPoly()
     {
-        if (_Poly == null) _Poly = new ObjectPoly(this);
-        return _Poly;
+        if (_poly == null) _poly = new ObjectPoly(this);
+        return _poly;
     }
     
     /**
@@ -465,8 +465,8 @@ public abstract class L2Object
      */
     public final ObjectPosition getPosition()
     {
-        if (_Position == null) _Position = new ObjectPosition(this);
-        return _Position;
+        if (_position == null) _position = new ObjectPosition(this);
+        return _position;
     }
 
     /**

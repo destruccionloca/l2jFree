@@ -248,12 +248,12 @@ public class L2Event
         try
         {
             L2Event.participatingPlayers.add(player.getName());
-            player.eventkarma = player.getKarma();
+            player.eventKarma = player.getKarma();
             player.eventX = player.getX();
             player.eventY = player.getY();
             player.eventZ = player.getZ();
-            player.eventpkkills = player.getPkKills();
-            player.eventpvpkills = player.getPvpKills();
+            player.eventPkKills = player.getPkKills();
+            player.eventPvpKills = player.getPvpKills();
             player.eventTitle = player.getTitle();
             player.kills.clear();
             player.atEvent = true;
@@ -271,9 +271,9 @@ public class L2Event
             player.eventX = connectionLossData.get(player.getName()).eventX;
             player.eventY = connectionLossData.get(player.getName()).eventY;
             player.eventZ = connectionLossData.get(player.getName()).eventZ;
-            player.eventkarma = connectionLossData.get(player.getName()).eventkarma;
-            player.eventpvpkills = connectionLossData.get(player.getName()).eventpvpkills;
-            player.eventpkkills = connectionLossData.get(player.getName()).eventpkkills;
+            player.eventKarma = connectionLossData.get(player.getName()).eventKarma;
+            player.eventPvpKills = connectionLossData.get(player.getName()).eventPvpKills;
+            player.eventPkKills = connectionLossData.get(player.getName()).eventPkKills;
             player.eventTitle = connectionLossData.get(player.getName()).eventTitle;
             player.kills = connectionLossData.get(player.getName()).kills;
             player.eventSitForced = connectionLossData.get(player.getName()).eventSitForced;
@@ -291,9 +291,9 @@ public class L2Event
         {
             restoreChar(target);
             target.setTitle(target.eventTitle);
-            target.setKarma(target.eventkarma);
-            target.setPvpKills(target.eventpvpkills);
-            target.setPkKills(target.eventpkkills);
+            target.setKarma(target.eventKarma);
+            target.setPvpKills(target.eventPvpKills);
+            target.setPkKills(target.eventPkKills);
             target.teleToLocation(target.eventX, target.eventY, target.eventZ);
             target.kills.clear();
             target.eventSitForced = false;

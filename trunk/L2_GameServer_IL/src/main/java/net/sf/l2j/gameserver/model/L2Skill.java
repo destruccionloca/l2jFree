@@ -453,7 +453,7 @@ public abstract class L2Skill
     private final FastList<ClassId> _canLearn; // which classes can learn
     private final FastList<Integer> _teachers; // which NPC teaches
     private final boolean _isOffensive;
-    private final int _num_charges;
+    private final int _numCharges;
 
     private final int _baseCritRate;  // percent of success for skill critical hit (especially for PDAM & BLOW - they're not affected by rCrit values or buffs). Default loads -1 for all other skills but 0 to PDAM & BLOW
     private final int _lethalEffect1;     // percent of success for lethal 1st effect (hit cp to 1 or if mob hp to 50%) (only for PDAM skills)
@@ -461,7 +461,7 @@ public abstract class L2Skill
     private final boolean _directHpDmg;   // If true then dmg is being make directly 
     private final boolean _isDance;       // If true then casting more dances will cost more MP
     private final int _nextDanceCost;
-    private final float _SSBoost;         // If true skill will have SoulShot boost (power*2)
+    private final float _sSBoost;         // If true skill will have SoulShot boost (power*2)
     
     private final int _timeMulti;
 
@@ -553,7 +553,7 @@ public abstract class L2Skill
         _mulCrossLearnRace   = set.getFloat ("mulCrossLearnRace", 2.f);
         _mulCrossLearnProf   = set.getFloat ("mulCrossLearnProf", 3.f);
         _isOffensive         = set.getBool  ("offensive",isSkillTypeOffensive());
-        _num_charges = set.getInteger("num_charges", getLevel());
+        _numCharges = set.getInteger("num_charges", getLevel());
         _successRate         = set.getFloat("rate", 1);
         _minPledgeClass     = set.getInteger("minPledgeClass", 0);
 
@@ -562,7 +562,7 @@ public abstract class L2Skill
         _lethalEffect2 = set.getInteger("lethal2",0);
         _directHpDmg  = set.getBool("dmgDirectlyToHp",false);
         _nextDanceCost = set.getInteger("nextDanceCost", 0);
-        _SSBoost = set.getFloat("SSBoost", 0.f);
+        _sSBoost = set.getFloat("SSBoost", 0.f);
         
         _aggroPoints = set.getInteger("aggroPoints", 0);
 
@@ -1049,7 +1049,7 @@ public abstract class L2Skill
     
     public final float getSSBoost()
     {
-    	return _SSBoost;
+    	return _sSBoost;
     }
 
     public final int getAggroPoints()
@@ -2690,12 +2690,12 @@ public abstract class L2Skill
                     EffectCharge effect = (EffectCharge) env.target.getEffect(L2Effect.EffectType.CHARGE);
                     if (effect != null) 
                     {
-                        if (effect.num_charges < _num_charges)
+                        if (effect.numCharges < _numCharges)
                         {
-                            effect.num_charges++;
+                            effect.numCharges++;
                             env.target.updateEffectIcons();
                             SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                            sm.addString("Charged to " + effect.num_charges);
+                            sm.addString("Charged to " + effect.numCharges);
                             env.target.sendPacket(sm);
                         }                
                     }

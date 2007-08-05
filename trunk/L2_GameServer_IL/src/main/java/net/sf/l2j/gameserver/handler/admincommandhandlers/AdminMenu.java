@@ -46,7 +46,7 @@ public class AdminMenu implements IAdminCommandHandler
 {
 	private static final Log _log = LogFactory.getLog(AdminMenu.class.getName());
 
-	private static String[] _adminCommands = {
+	private static final String[] ADMIN_COMMANDS = {
 		"admin_char_manage",
 		"admin_teleport_character_to_menu",
 		"admin_recall_char_menu",
@@ -169,7 +169,7 @@ public class AdminMenu implements IAdminCommandHandler
 	}
     public String[] getAdminCommandList() 
     {
-		return _adminCommands;
+		return ADMIN_COMMANDS;
 	}
 	private boolean checkLevel(int level) 
     {

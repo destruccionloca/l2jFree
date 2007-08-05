@@ -17,7 +17,7 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
 
     String _pledgeName;
     L2Clan _clan;
-    L2PcInstance player;
+    L2PcInstance _activeChar;
     
     protected void readImpl()
     {
@@ -26,18 +26,18 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
 
     protected void runImpl()
     {
-        player = getClient().getActiveChar();
-	if (player == null)
-	    return;
-        _clan = player.getClan();
-	if (_clan == null)
-	    return;
+        _activeChar = getClient().getActiveChar();
+	    if (_activeChar == null)
+	        return;
+        _clan = _activeChar.getClan();
+	    if (_clan == null)
+	        return;
         L2Clan clan = ClanTable.getInstance().getClanByName(_pledgeName);
 
         if(clan == null)
         {
-            player.sendMessage("No such clan.");
-            player.sendPacket(new ActionFailed());
+            _activeChar.sendMessage("No such clan.");
+            _activeChar.sendPacket(new ActionFailed());
             return;                        
         }
 
@@ -45,23 +45,23 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
         
         if(!_clan.isAtWarWith(clan.getClanId()))
         {
-            player.sendMessage("You aren't at war with this clan.");
-            player.sendPacket(new ActionFailed());
+            _activeChar.sendMessage("You aren't at war with this clan.");
+            _activeChar.sendPacket(new ActionFailed());
             return;            
         }
         
         
         SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_SURRENDERED_TO_THE_S1_CLAN);
         msg.addString(_pledgeName);
-        player.sendPacket(msg);
+        _activeChar.sendPacket(msg);
         msg = null;
-        player.deathPenalty(false);
+        _activeChar.deathPenalty(false);
         ClanTable.getInstance().deleteclanswars(_clan.getClanId(), clan.getClanId());
         /*L2PcInstance leader = L2World.getInstance().getPlayer(clan.getLeaderName());
         if(leader != null && leader.isOnline() == 0)
         {
-            player.sendMessage("Clan leader isn't online.");
-            player.sendPacket(new ActionFailed());
+           _activeChar.sendMessage("Clan leader isn't online.");
+            _activeChar.sendPacket(new ActionFailed());
             return;                        
         }
         
@@ -69,13 +69,13 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
             sm.addString(leader.getName());
-            player.sendPacket(sm);
+            _activeChar.sendPacket(sm);
             return;
         } 
         
         leader.setTransactionRequester(player);
-        player.setTransactionRequester(leader);
-        leader.sendPacket(new SurrenderPledgeWar(_clan.getName(),player.getName()));*/
+        _activeChar.setTransactionRequester(leader);
+        leader.sendPacket(new SurrenderPledgeWar(_clan.getName(),_activeChar.getName()));*/
     }
     
     public String getType()

@@ -36,8 +36,8 @@ import org.apache.commons.logging.LogFactory;
  */ 
 public class DrainSoul implements ISkillHandler 
 { 
-    private final static Log _log = LogFactory.getLog(DrainSoul.class.getName()); 
-    protected SkillType[] _skillIds = {SkillType.DRAIN_SOUL};
+    private static final Log _log = LogFactory.getLog(DrainSoul.class.getName()); 
+    private static final SkillType[] SKILL_IDS = {SkillType.DRAIN_SOUL};
     
     public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
     { 
@@ -60,6 +60,6 @@ public class DrainSoul implements ISkillHandler
     
     public SkillType[] getSkillIds() 
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     } 
 }

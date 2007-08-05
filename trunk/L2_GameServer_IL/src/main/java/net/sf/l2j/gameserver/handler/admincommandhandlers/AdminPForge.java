@@ -40,7 +40,7 @@ public class AdminPForge implements IAdminCommandHandler
 {
     private final static Log _log = LogFactory.getLog(AdminPForge.class);
     //private final static Log _log = LogFactory.getLog(AdminKick.class.getName());
-    private static String[] _adminCommands = {"admin_forge","admin_forge2","admin_forge3" };
+    private static final String[] ADMIN_COMMANDS = {"admin_forge","admin_forge2","admin_forge3" };
     private static final int REQUIRED_LEVEL = Config.GM_MIN;
 	
 
@@ -232,12 +232,14 @@ public class AdminPForge implements IAdminCommandHandler
 
         adminReply.setHtml(replyMSG.toString());
         activeChar.sendPacket(adminReply); 
-	}
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    }
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
     
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }
 }

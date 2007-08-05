@@ -120,19 +120,19 @@ public class L2NpcInstance extends L2Character
     private L2Spawn _spawn;
 
     /** The flag to specify if this L2NpcInstance is busy */
-    private boolean _IsBusy = false;
+    private boolean _isBusy = false;
     
     /** The busy message for this L2NpcInstance */
-    private String _BusyMessage = "";
+    private String _busyMessage = "";
 
     /** True if endDecayTask has already been called */
     volatile boolean _isDecayed = false;
 
     /** True if a Dwarf has used Spoil on this L2NpcInstance */
-    private boolean _IsSpoil = false;
+    private boolean _isSpoil = false;
 
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
-    private int _CastleIndex = -2;
+    private int _castleIndex = -2;
     
     public boolean isEventMob = false,
                   _isEventMobTvT = false,
@@ -141,12 +141,12 @@ public class L2NpcInstance extends L2Character
                   _isEventVIPNPC = false,
                   _isEventVIPNPCEnd = false;                  
 
-    private boolean _IsInTown = false;
+    private boolean _isInTown = false;
     private int _isSpoiledBy = 0;
     
     // [L2J_JP ADD START]
     protected boolean _isInvul = false;
-    public boolean IsInvul()
+    public boolean isInvul()
     {
         return _isInvul;
     }
@@ -438,7 +438,7 @@ public class L2NpcInstance extends L2Character
      */
     public boolean isSpoil() 
     {
-        return _IsSpoil;
+        return _isSpoil;
     }
     
     /**
@@ -446,7 +446,7 @@ public class L2NpcInstance extends L2Character
      */
     public void setSpoil(boolean isSpoil) 
     {
-        _IsSpoil = isSpoil;
+        _isSpoil = isSpoil;
     }
 
     public final int getIsSpoiledBy() 
@@ -464,7 +464,7 @@ public class L2NpcInstance extends L2Character
      */
     public final boolean isBusy()
     {
-        return _IsBusy;
+        return _isBusy;
     }
     
     /**
@@ -472,7 +472,7 @@ public class L2NpcInstance extends L2Character
      */
     public void setBusy(boolean isBusy)
     {
-        _IsBusy = isBusy;
+        _isBusy = isBusy;
     }
     
     /**
@@ -480,7 +480,7 @@ public class L2NpcInstance extends L2Character
      */
     public final String getBusyMessage()
     {
-        return _BusyMessage;
+        return _busyMessage;
     }
     
     /**
@@ -488,7 +488,7 @@ public class L2NpcInstance extends L2Character
      */
     public void setBusyMessage(String message)
     {
-        _BusyMessage = message;
+        _busyMessage = message;
     }
     
     /**
@@ -522,7 +522,7 @@ public class L2NpcInstance extends L2Character
     {
         // Restrict iteractions during restart/shutdown
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_NPC_ITERACTION && Shutdown.getCounterInstance() != null 
-                && Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+                && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
             sendMessage("All NPC iteractions disabled during restart/shutdown!");
             ActionFailed af = new ActionFailed();
@@ -798,25 +798,25 @@ public class L2NpcInstance extends L2Character
     public final Castle getCastle()
     {
         // Get castle this NPC belongs to (excluding L2Attackable)
-        if (_CastleIndex < 0)
+        if (_castleIndex < 0)
         {
-            _CastleIndex = CastleManager.getInstance().getCastleIndexByTown(this);
-            if (_CastleIndex < 0)
+            _castleIndex = CastleManager.getInstance().getCastleIndexByTown(this);
+            if (_castleIndex < 0)
             {
-                _CastleIndex = CastleManager.getInstance().findNearestCastleIndex(this);
+                _castleIndex = CastleManager.getInstance().findNearestCastleIndex(this);
             }
-            else _IsInTown = true; // Npc was spawned in town
+            else _isInTown = true; // Npc was spawned in town
         }
 
-        if (_CastleIndex < 0) return null;
+        if (_castleIndex < 0) return null;
 
-        return CastleManager.getInstance().getCastles().get(_CastleIndex);
+        return CastleManager.getInstance().getCastles().get(_castleIndex);
     }
     
     public final boolean getIsInTown()
     {
-        if (_CastleIndex < 0) getCastle();
-        return _IsInTown;
+        if (_castleIndex < 0) getCastle();
+        return _isInTown;
     }
     
     /**

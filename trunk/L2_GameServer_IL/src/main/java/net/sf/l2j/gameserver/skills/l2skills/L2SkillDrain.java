@@ -30,15 +30,15 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillDrain extends L2Skill {
 
-	private float absorbPart;
-	private int   absorbAbs;
+	private float _absorbPart;
+	private int   _absorbAbs;
 	
 	public L2SkillDrain(StatsSet set) 
     {
 		super(set);
 		
-		absorbPart = set.getFloat ("absorbPart", 0.f);
-		absorbAbs  = set.getInteger("absorbAbs", 0);
+		_absorbPart = set.getFloat ("absorbPart", 0.f);
+		_absorbAbs  = set.getInteger("absorbAbs", 0);
 	}
 
 	public void useSkill(L2Character activeChar, L2Object[] targets)
@@ -95,7 +95,7 @@ public class L2SkillDrain extends L2Skill {
 					activeChar, target, this, ss, bss, mcrit);
             if (target.isPetrified()){
             damage= 0;}
-			double hpAdd = absorbAbs + absorbPart * damage;
+			double hpAdd = _absorbAbs + _absorbPart * damage;
 			double hp = ((activeChar.getStatus().getCurrentHp() + hpAdd) > activeChar.getMaxHp() ? activeChar.getMaxHp() : (activeChar.getStatus().getCurrentHp() + hpAdd));
 			
             activeChar.getStatus().setCurrentHp(hp); 
@@ -136,5 +136,4 @@ public class L2SkillDrain extends L2Skill {
         // cast self effect if any
         getEffectsSelf(activeChar);        
 	}
-	
 }

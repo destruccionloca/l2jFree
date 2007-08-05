@@ -38,8 +38,8 @@ public class L2Potion extends L2Object
 
 	private L2Character _target;
 	
-	private Future _potionhpRegTask;
-	private Future _potionmpRegTask;
+	private Future _potionHpRegTask;
+	private Future _potionMpRegTask;
 	protected int _milliseconds;
     protected double _effect;
     protected int _duration;
@@ -92,11 +92,11 @@ public class L2Potion extends L2Object
 
 	public void stopPotionHpRegeneration()
 	{
-		if (_potionhpRegTask != null)
+		if (_potionHpRegTask != null)
 		{
-			_potionhpRegTask.cancel(false);
+			_potionHpRegTask.cancel(false);
 		}
-		_potionhpRegTask = null;
+		_potionHpRegTask = null;
 		if (_log.isDebugEnabled()) _log.info("Potion HP regen stop");
 	}
 
@@ -180,19 +180,19 @@ public class L2Potion extends L2Object
 	
 	private void startPotionMpRegeneration(L2Character activeChar)
 	{
-		_potionmpRegTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(
+		_potionMpRegTask = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(
 				new PotionMpHealing(activeChar), 1000, _milliseconds);
 		if (_log.isDebugEnabled()) _log.info("Potion MP regen Started");
 	}
 
 	public void stopPotionMpRegeneration()
 	{
-		if (_potionmpRegTask != null)
+		if (_potionMpRegTask != null)
 		{
-			_potionmpRegTask.cancel(false);
+			_potionMpRegTask.cancel(false);
 		}
 
-		_potionmpRegTask = null;
+		_potionMpRegTask = null;
 		if (_log.isDebugEnabled()) _log.info("Potion MP regen stop");
 	}
 

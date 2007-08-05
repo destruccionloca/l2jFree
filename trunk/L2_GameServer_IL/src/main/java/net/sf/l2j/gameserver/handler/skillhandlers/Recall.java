@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
 public class Recall implements ISkillHandler
 {
     private final static Log _log = LogFactory.getLog(Recall.class.getName());
-    protected SkillType[] _skillIds = {SkillType.RECALL};
+    private static final SkillType[] SKILL_IDS = {SkillType.RECALL};
 
     public void useSkill(@SuppressWarnings("unused") L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets)
     {
@@ -120,7 +120,7 @@ public class Recall implements ISkillHandler
 
     public SkillType[] getSkillIds()
     {
-        return _skillIds;
+        return SKILL_IDS;
     }
     // [L2J_JP ADD SANDMAN]
     protected void doZakenTeleport(L2Object[] targets)

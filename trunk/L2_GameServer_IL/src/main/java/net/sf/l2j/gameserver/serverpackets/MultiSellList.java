@@ -106,5 +106,4 @@ public class MultiSellList extends L2GameServerPacket
     {
         return _S__D0_MULTISELLLIST;
     }
-
 }

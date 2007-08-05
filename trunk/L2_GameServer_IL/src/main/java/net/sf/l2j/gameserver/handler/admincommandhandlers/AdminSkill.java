@@ -55,7 +55,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdminSkill implements IAdminCommandHandler {
     private final static Log _log = LogFactory.getLog(AdminSkill.class.getName());
     
-    private static String[] _adminCommands = {
+    private static final String[] ADMIN_COMMANDS = {
             "admin_show_skills",
             "admin_remove_skills",
             "admin_skill_list",
@@ -214,11 +214,13 @@ public class AdminSkill implements IAdminCommandHandler {
         activeChar.sendMessage("You gave " + skillCounter + " skills to " + player.getName());
     }
 
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
     
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }
     

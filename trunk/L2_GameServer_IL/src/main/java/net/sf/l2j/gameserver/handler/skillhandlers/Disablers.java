@@ -51,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Disablers implements ISkillHandler
 {
-    protected SkillType[] _skillIds = {L2Skill.SkillType.STUN,
+    private static final SkillType[] SKILL_IDS = {L2Skill.SkillType.STUN,
                                        L2Skill.SkillType.ROOT,
                                        L2Skill.SkillType.SLEEP,
                                        L2Skill.SkillType.CONFUSION,
@@ -547,7 +547,7 @@ public class Disablers implements ISkillHandler
                         {
                             for(Func f: e.getStatFuncs())
                             {
-                                if(f._stat == Stats.MAGIC_ATTACK || f._stat == Stats.MAGIC_ATTACK_SPEED)
+                                if(f.stat == Stats.MAGIC_ATTACK || f.stat == Stats.MAGIC_ATTACK_SPEED)
                                 {
                                     e.exit();
                                     break;
@@ -575,7 +575,7 @@ public class Disablers implements ISkillHandler
                         {
                             for(Func f: e.getStatFuncs())
                             {
-                                if(f._stat == Stats.RUN_SPEED || f._stat == Stats.POWER_ATTACK_SPEED)
+                                if(f.stat == Stats.RUN_SPEED || f.stat == Stats.POWER_ATTACK_SPEED)
                                 {
                                     e.exit();
                                     break;
@@ -808,6 +808,6 @@ public class Disablers implements ISkillHandler
     }
     public SkillType[] getSkillIds() 
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     } 
 }

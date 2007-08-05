@@ -33,14 +33,14 @@ public class PetItemList extends L2GameServerPacket
 {
 	private final static Log _log = LogFactory.getLog(PetItemList.class.getName());
 	private static final String _S__cb_PETITEMLIST = "[S] b2  PetItemList";
-	private L2PetInstance _cha;
+	private L2PetInstance _activeChar;
 
-	public PetItemList(L2PetInstance cha)
+	public PetItemList(L2PetInstance character)
 	{
-		_cha = cha;
+		_activeChar = character;
 		if (_log.isDebugEnabled())
 		{
-			L2ItemInstance[] items = _cha.getInventory().getItems();
+			L2ItemInstance[] items = _activeChar.getInventory().getItems();
 			for (L2ItemInstance temp : items)
 			{
 				_log.info("item:" + temp.getItem().getName() +
@@ -53,7 +53,7 @@ public class PetItemList extends L2GameServerPacket
 	{
 		writeC(0xB2);
 		
-		L2ItemInstance[] items = _cha.getInventory().getItems();
+		L2ItemInstance[] items = _activeChar.getInventory().getItems();
 		int count = items.length; 
 		writeH(count);
 		

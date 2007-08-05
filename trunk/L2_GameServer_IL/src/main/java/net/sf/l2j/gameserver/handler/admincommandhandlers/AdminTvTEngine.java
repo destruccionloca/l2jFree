@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 public class AdminTvTEngine implements IAdminCommandHandler {
 
- private static String[] _adminCommands = {"admin_tvt",
+ private static final String[] ADMIN_COMMANDS = {"admin_tvt",
                                            "admin_tvt_name", "admin_tvt_desc", "admin_tvt_join_loc",
                                            "admin_tvt_minlvl", "admin_tvt_maxlvl",
                                            "admin_tvt_npc", "admin_tvt_npc_pos",
@@ -214,7 +214,7 @@ public class AdminTvTEngine implements IAdminCommandHandler {
 
     public String[] getAdminCommandList()
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 
     private boolean checkLevel(int level) 

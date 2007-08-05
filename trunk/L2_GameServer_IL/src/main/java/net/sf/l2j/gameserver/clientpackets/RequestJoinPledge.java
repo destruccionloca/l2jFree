@@ -35,12 +35,12 @@ public class RequestJoinPledge extends L2GameClientPacket
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestJoinPledge";
 
     private int _target;
-    private int _pledgetype;
+    private int _pledgeType;
     
     protected void readImpl()
     {
         _target  = readD();
-        _pledgetype = readD();
+        _pledgeType = readD();
     }
 
     protected void runImpl()
@@ -58,7 +58,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 
 		L2PcInstance target = (L2PcInstance) L2World.getInstance().findObject(_target);
         L2Clan clan = activeChar.getClan();
-        if (!clan.CheckClanJoinCondition(activeChar, target, _pledgetype))
+        if (!clan.checkClanJoinCondition(activeChar, target, _pledgeType))
         {
         	return;
         } 
@@ -78,7 +78,7 @@ public class RequestJoinPledge extends L2GameClientPacket
 
 	public int getPledgeType()
 	{
-		return _pledgetype;
+		return _pledgeType;
 	}
 
 	/* (non-Javadoc)

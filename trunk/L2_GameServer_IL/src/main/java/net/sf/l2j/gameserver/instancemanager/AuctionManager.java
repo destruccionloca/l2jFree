@@ -31,9 +31,9 @@ import org.apache.commons.logging.LogFactory;
 public class AuctionManager
 {
     protected static Log _log = LogFactory.getLog(AuctionManager.class.getName());
-    private static AuctionManager _Instance;
-    private List<Auction> _Auctions;
-    private static final String[] ItemInitData =
+    private static AuctionManager _instance;
+    private List<Auction> _auctions;
+    private static final String[] ITEM_INIT_DATA =
 		{
 		    "(23, 0, 'NPC', 'NPC Clan', 'ClanHall', 23, 0, 'Onyx Hall', 1, 20000000, 0, 1164841200000)",
 		    "(24, 0, 'NPC', 'NPC Clan', 'ClanHall', 24, 0, 'Topaz Hall', 1, 20000000, 0, 1164841200000)",
@@ -80,21 +80,21 @@ public class AuctionManager
 		 };
     public static final AuctionManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
     		System.out.println("Initializing AuctionManager");
-        	_Instance = new AuctionManager();
+        	_instance = new AuctionManager();
         }
-        return _Instance;
+        return _instance;
     }
     public AuctionManager()
     {
-    	_Auctions = new FastList<Auction>();
+    	_auctions = new FastList<Auction>();
     	load();
     }
     public void reload()
     {
-    	_Auctions.clear();
+    	_auctions.clear();
     	load();
     }
     private final void load()
@@ -108,7 +108,7 @@ public class AuctionManager
             statement = con.prepareStatement("SELECT id FROM auction ORDER BY id");
             rs = statement.executeQuery();
             while (rs.next())
-            	_Auctions.add(new Auction(rs.getInt("id")));
+            	_auctions.add(new Auction(rs.getInt("id")));
             statement.close();
             System.out.println("Loaded: " + getAuctions().size() + " auction(s)");
         }
@@ -142,7 +142,7 @@ public class AuctionManager
 
     public final List<Auction> getAuctions()
     {
-        return _Auctions;
+        return _auctions;
     }
     /** Init Clan NPC aution */
 	public void initNPC(int id){
@@ -159,10 +159,10 @@ public class AuctionManager
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
-            statement = con.prepareStatement("INSERT INTO `auction` VALUES "+ItemInitData[i]);
+            statement = con.prepareStatement("INSERT INTO `auction` VALUES "+ITEM_INIT_DATA[i]);
             statement.execute();
             statement.close();
-            _Auctions.add(new Auction(id));
+            _auctions.add(new Auction(id));
         }
         catch (Exception e)
         {

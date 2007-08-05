@@ -33,8 +33,7 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 
 public class FishingSkill implements ISkillHandler 
 { 
-    //private final static Log _log = LogFactory.getLog(SiegeFlag.class.getName()); 
-    protected SkillType[] _skillIds = {SkillType.PUMPING, SkillType.REELING}; 
+    private static final SkillType[] SKILL_IDS = {SkillType.PUMPING, SkillType.REELING}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
     {
@@ -42,7 +41,7 @@ public class FishingSkill implements ISkillHandler
 
         L2PcInstance player = (L2PcInstance)activeChar;
 
-        L2Fishing fish = player.GetFishCombat();
+        L2Fishing fish = player.getFishCombat();
         if (fish == null)
         {
             if (skill.getSkillType()==SkillType.PUMPING)
@@ -81,19 +80,16 @@ public class FishingSkill implements ISkillHandler
         }
         if (skill.getSkillType() == SkillType.REELING)//Realing
         {
-            fish.UseRealing(dmg, pen);
+            fish.useRealing(dmg, pen);
         }
         else//Pumping
         {
-            fish.UsePomping(dmg, pen);
+            fish.usePomping(dmg, pen);
         }
-        
-        
-        
     } 
-    
+
     public SkillType[] getSkillIds() 
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     }    
 }

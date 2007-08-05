@@ -44,7 +44,7 @@ public class L2DatabaseFactory
     // =========================================================
     // Data Field
     private static L2DatabaseFactory _instance;
-    private ProviderType _Provider_Type;
+    private ProviderType _providerType;
 	
     /**
      * Private constructor to avoid direct initialization
@@ -65,9 +65,9 @@ public class L2DatabaseFactory
             }
             
             if (Config.DATABASE_DRIVER.toLowerCase().contains("microsoft"))
-                _Provider_Type = ProviderType.MsSql;
+                _providerType = ProviderType.MsSql;
             else
-                _Provider_Type = ProviderType.MySql;
+                _providerType = ProviderType.MySql;
 		}
 		catch (Throwable e)
 		{
@@ -190,5 +190,5 @@ public class L2DatabaseFactory
 	    return ((PooledDataSource) L2Registry.getBean("dataSource")).getNumIdleConnectionsDefaultUser();
 	}
 
-    public final ProviderType getProviderType() { return _Provider_Type; }
+    public final ProviderType getProviderType() { return _providerType; }
 }

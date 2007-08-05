@@ -63,7 +63,7 @@ public class AdminAdmin implements IAdminCommandHandler {
     
     private final static Log _log = LogFactory.getLog(AdminAdmin.class);
 
- private static String[] _adminCommands = {"admin_admin","admin_admin2","admin_play_sounds","admin_play_sound",
+ private static final String[] ADMIN_COMMANDS = {"admin_admin","admin_admin2","admin_play_sounds","admin_play_sound",
                                            "admin_gmliston","admin_gmlistoff","admin_silence",
                                            "admin_atmosphere","admin_diet","admin_tradeoff",
                                            "admin_reload", "admin_reload_config", "admin_set", "admin_config_server","admin_config_server2",
@@ -434,7 +434,7 @@ public class AdminAdmin implements IAdminCommandHandler {
 
 	public String[] getAdminCommandList()
 	{
-		return _adminCommands;
+		return ADMIN_COMMANDS;
 	}
 
 	private boolean checkLevel(int level) 

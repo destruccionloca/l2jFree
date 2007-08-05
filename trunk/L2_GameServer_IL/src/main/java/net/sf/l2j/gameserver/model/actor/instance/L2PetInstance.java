@@ -87,7 +87,7 @@ public class L2PetInstance extends L2Summon
    
     private int _curWeightPenalty = 0;
 
-    private L2PetData _Data;
+    private L2PetData _data;
 
     /** The Experience before the last Death Penalty */
 	private long _expBeforeDeath = 0; 
@@ -96,13 +96,13 @@ public class L2PetInstance extends L2Summon
     
     public final L2PetData getPetData()
     {
-        if (_Data == null) 
-            _Data = PetDataTable.getInstance().getPetData(getTemplate().getNpcId(), getStat().getLevel());
+        if (_data == null) 
+            _data = PetDataTable.getInstance().getPetData(getTemplate().getNpcId(), getStat().getLevel());
         
-        return _Data;
+        return _data;
     }
     
-    public final void setPetData(L2PetData value) { _Data = value; }
+    public final void setPetData(L2PetData value) { _data = value; }
     
     /**
      * Manage Feeding Task.<BR><BR>
@@ -917,12 +917,12 @@ public class L2PetInstance extends L2Summon
             if (battleFeed)
             {
                 _feedMode = true;
-                _feedTime = _Data.getPetFeedBattle();
+                _feedTime = _data.getPetFeedBattle();
             }
             else
             {
                 _feedMode = false;
-                _feedTime = _Data.getPetFeedNormal();
+                _feedTime = _data.getPetFeedNormal();
             }
             //  pet feed time must be different than 0. Changing time to bypass divide by 0
             if (_feedTime <= 0) { _feedTime = 1; }
@@ -997,7 +997,7 @@ public class L2PetInstance extends L2Summon
 
     public int getSkillLevel(int skillId)
     {
-        if (_Skills == null || _Skills.get(skillId) == null) return -1;
+        if (_skills == null || _skills.get(skillId) == null) return -1;
         int lvl = getLevel();
         return lvl > 70 ? 7 + (lvl - 70) / 5 : lvl / 10;
     }
@@ -1027,4 +1027,3 @@ public class L2PetInstance extends L2Summon
         }
     }    
 }
-

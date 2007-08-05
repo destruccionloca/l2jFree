@@ -35,23 +35,23 @@ public class ZoneManager
     protected static Log _log = LogFactory.getLog(ZoneManager.class.getName());
 
     // =========================================================
-    private static ZoneManager _Instance;
+    private static ZoneManager _instance;
     public static final ZoneManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
     		_log.info("Initializing ZoneManager");
-        	_Instance = new ZoneManager();
-        	_Instance.load();
+        	_instance = new ZoneManager();
+        	_instance.load();
         }
-        return _Instance;
+        return _instance;
     }
     // =========================================================
 
 
     // =========================================================
     // Data Field
-    private FastList<ZoneType> _ZoneTypes;
+    private FastList<ZoneType> _zoneTypes;
     
     // =========================================================
     // Constructor
@@ -259,7 +259,7 @@ public class ZoneManager
     
     public final FastList<ZoneType> getZoneTypes()
     {
-        if (_ZoneTypes == null) _ZoneTypes = new FastList<ZoneType>();
-        return _ZoneTypes;
+        if (_zoneTypes == null) _zoneTypes = new FastList<ZoneType>();
+        return _zoneTypes;
     }
 }

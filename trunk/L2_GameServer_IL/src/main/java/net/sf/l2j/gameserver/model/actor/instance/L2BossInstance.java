@@ -159,7 +159,7 @@ public final class L2BossInstance extends L2MonsterInstance
     }
 
     @Override
-    public void OnSpawn()
+    public void onSpawn()
     {
         // [L2J_JP ADD START SANDMAN]
         // get players in lair and update known list.
@@ -188,9 +188,7 @@ public final class L2BossInstance extends L2MonsterInstance
 				}
 				break;
 		}
-        
-        super.OnSpawn();
-
+        super.onSpawn();
     }
 
     /**
@@ -217,15 +215,15 @@ public final class L2BossInstance extends L2MonsterInstance
                 break;
             // [L2J_JP ADD SANDMAN]
             case 29001: // Queen ant
-                List<L2MinionInstance> _minions = this.minionList.getSpawnedMinions();
+                List<L2MinionInstance> _minions = _minionList.getSpawnedMinions();
 
                 if (_minions.isEmpty())
                 {
-                    if (minionMaintainTask == null)
+                    if (_minionMaintainTask == null)
                     {
                         try
                         {
-                            minionMaintainTask = 
+                            _minionMaintainTask = 
                             	ThreadPoolManager.getInstance().scheduleGeneral(
                             			new RespawnNurseAnts(),NurseAntRespawnDelay);
                         }
@@ -274,7 +272,7 @@ public final class L2BossInstance extends L2MonsterInstance
         {
             try
             {
-                minionList.maintainMinions();
+                _minionList.maintainMinions();
             }
             catch (Throwable e)
             {
@@ -282,7 +280,7 @@ public final class L2BossInstance extends L2MonsterInstance
             }
             finally
             {
-            	minionMaintainTask = null;
+            	_minionMaintainTask = null;
             }
         }
     }

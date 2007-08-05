@@ -20,15 +20,15 @@ import org.apache.commons.logging.LogFactory;
 public class CrownManager
 {
     private static final Log _log = LogFactory.getLog(CrownManager.class.getName());
-    private static CrownManager _Instance;
+    private static CrownManager _instance;
     public static final CrownManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
             _log.info("Initializing CrownManager");
-            _Instance = new CrownManager();
+            _instance = new CrownManager();
         }
-        return _Instance;
+        return _instance;
     }    
     
     public void removeCrowns(L2Clan clan)

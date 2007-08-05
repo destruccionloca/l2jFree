@@ -617,4 +617,3 @@ public class L2BoatInstance extends L2Character
         this._runstate = _runstate;
     }
 }
-

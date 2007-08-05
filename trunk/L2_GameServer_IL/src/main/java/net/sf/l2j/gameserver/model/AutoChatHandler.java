@@ -319,7 +319,7 @@ public class AutoChatHandler implements SpawnListener
         private boolean _isActive;
 
         private FastMap<Integer, AutoChatDefinition> _chatDefinitions = new FastMap<Integer, AutoChatDefinition>();
-        public ScheduledFuture _chatTask;
+        protected ScheduledFuture _chatTask;
 
         protected AutoChatInstance(int npcId, String[] chatTexts, long chatDelay, int chatRange, boolean chatRandom, boolean isGlobal)
         {
@@ -344,8 +344,7 @@ public class AutoChatHandler implements SpawnListener
 
         protected AutoChatDefinition[] getChatDefinitions()
         {
-            return _chatDefinitions.values().toArray(
-                                                     new AutoChatDefinition[_chatDefinitions.values().size()]);
+            return _chatDefinitions.values().toArray(new AutoChatDefinition[_chatDefinitions.values().size()]);
         }
 
         /**
@@ -595,8 +594,7 @@ public class AutoChatHandler implements SpawnListener
             {
                 AutoChatRunner acr = new AutoChatRunner(_npcId, -1);
                 _chatTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(acr,
-                                                                                       _defaultDelay,
-                                                                                       _defaultDelay);
+                                               _defaultDelay, _defaultDelay);
             }
             else
             {
@@ -624,7 +622,7 @@ public class AutoChatHandler implements SpawnListener
             private long _chatDelay = DEFAULT_CHAT_DELAY;
             private int _chatRange = DEFAULT_CHAT_RANGE;
             private String[] _chatTexts = null;
-            private boolean isActive;
+            private boolean _isActiveDefinition;
             private boolean _randomChat;
 
             protected AutoChatDefinition(AutoChatInstance chatInst, L2NpcInstance npcInst,
@@ -667,7 +665,7 @@ public class AutoChatHandler implements SpawnListener
 
             private boolean isActive()
             {
-                return isActive;
+                return _isActiveDefinition;
             }
 
             boolean isRandomChat()
@@ -712,7 +710,7 @@ public class AutoChatHandler implements SpawnListener
                     _chatTask.cancel(false);
                 }
 
-                isActive = activeValue;
+                _isActiveDefinition = activeValue;
             }
         }
 
@@ -725,20 +723,20 @@ public class AutoChatHandler implements SpawnListener
          */
         private class AutoChatRunner implements Runnable
         {
-            protected int npcId;
-            private int objectId;
+            private int _runnerNpcId;
+            private int _objectId;
 
             protected AutoChatRunner(int pNpcId, int pObjectId)
             {
-                npcId = pNpcId;
-                objectId = pObjectId;
+                _runnerNpcId = pNpcId;
+                _objectId = pObjectId;
             }
 
             public synchronized void run()
             {
                 Random rnd = new Random();
 
-                AutoChatInstance chatInst = _registeredChats.get(npcId);
+                AutoChatInstance chatInst = _registeredChats.get(_runnerNpcId);
                 AutoChatDefinition[] chatDefinitions;
 
                 if (chatInst.isGlobal())
@@ -747,12 +745,11 @@ public class AutoChatHandler implements SpawnListener
                 }
                 else
                 {
-                    AutoChatDefinition chatDef = chatInst.getChatDefinition(objectId);
+                    AutoChatDefinition chatDef = chatInst.getChatDefinition(_objectId);
 
                     if (chatDef == null)
                     {
-                        _log.warn("AutoChatHandler: Auto chat definition is NULL for NPC ID "
-                            + _npcId + ".");
+                        _log.warn("AutoChatHandler: Auto chat definition is NULL for NPC ID "+_npcId+".");
                         return;
                     }
 

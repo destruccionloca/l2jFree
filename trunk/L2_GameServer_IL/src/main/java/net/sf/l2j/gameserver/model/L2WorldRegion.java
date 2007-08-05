@@ -50,7 +50,7 @@ public final class L2WorldRegion
     private L2ObjectSet<L2Object> _visibleObjects;
 
     private FastList<L2WorldRegion> _surroundingRegions;
-    private int tileX, tileY;
+    private int _tileX, _tileY;
     private Boolean _active = false;   
     protected ScheduledFuture _neighborsTask = null;
     public static final int MAP_MIN_X = -131072;
@@ -65,8 +65,8 @@ public final class L2WorldRegion
         _surroundingRegions = new FastList<L2WorldRegion>();
         //_surroundingRegions.add(this); //done in L2World.initRegions()
 
-        this.tileX = pTileX;
-        this.tileY = pTileY;
+        this._tileX = pTileX;
+        this._tileY = pTileY;
         
         // default a newly initialized region to inactive, unless always on is specified
         if (Config.GRIDS_ALWAYS_ON)
@@ -209,10 +209,10 @@ public final class L2WorldRegion
         // turn the geodata on or off to match the region's activation.
         if(value)
             if(_log.isDebugEnabled())
-                _log.info("Starting Grid " + tileX + ","+ tileY);
+                _log.info("Starting Grid " + _tileX + ","+ _tileY);
         else
             if(_log.isDebugEnabled())
-            _log.info("Stoping Grid " + tileX + ","+ tileY);
+            _log.info("Stoping Grid " + _tileX + ","+ _tileY);
     }
 
     /** Immediately sets self as active and starts a timer to set neighbors as active
@@ -327,7 +327,7 @@ public final class L2WorldRegion
 
     public String getName()
     {
-        return "(" + tileX + ", " + tileY + ")";
+        return "(" + _tileX + ", " + _tileY + ")";
     }
 
     /**

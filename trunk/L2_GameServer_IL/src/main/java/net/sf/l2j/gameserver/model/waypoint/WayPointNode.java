@@ -52,9 +52,9 @@ public class WayPointNode extends L2Object
     private int _id;
     private String _title, _type;
     private static final String NORMAL = "Node", SELECTED = "Selected", LINKED = "Linked";
-    private static int LINE_ID = 5560;
+    private static int _lineId = 5560;
     private static final String LINE_TYPE = "item";
-    private Map<WayPointNode, FastList<WayPointNode>> linkLists;
+    private Map<WayPointNode, FastList<WayPointNode>> _linkLists;
 
     /**
      * @param objectId
@@ -62,7 +62,7 @@ public class WayPointNode extends L2Object
     public WayPointNode(int objectId)
     {
         super(objectId);
-        linkLists = Collections.synchronizedMap(new WeakHashMap<WayPointNode, FastList<WayPointNode>>());
+        _linkLists = Collections.synchronizedMap(new WeakHashMap<WayPointNode, FastList<WayPointNode>>());
     }
 
     /* (non-Javadoc)
@@ -212,7 +212,7 @@ public class WayPointNode extends L2Object
             y1 = y1 + (modY * diffY / steps);
             z1 = z1 + (modZ * diffZ / steps);
 
-            lineNodes.add(WayPointNode.spawn(LINE_TYPE, LINE_ID, x1, y1, z1));
+            lineNodes.add(WayPointNode.spawn(LINE_TYPE, _lineId, x1, y1, z1));
         }
 
         nodeA.addLineInfo(nodeB, lineNodes);
@@ -221,7 +221,7 @@ public class WayPointNode extends L2Object
 
     public void addLineInfo(WayPointNode node, FastList<WayPointNode> line)
     {
-        linkLists.put(node, line);
+        _linkLists.put(node, line);
     }
 
     /**
@@ -245,7 +245,7 @@ public class WayPointNode extends L2Object
      */
     public void eraseLine(WayPointNode target)
     {
-        linkLists.remove(target);
+        _linkLists.remove(target);
     }
 
     /**
@@ -254,24 +254,22 @@ public class WayPointNode extends L2Object
      */
     private FastList<WayPointNode> getLineInfo(WayPointNode selectedNode)
     {
-        return linkLists.get(selectedNode);
+        return _linkLists.get(selectedNode);
     }
 
     public static void setLineId(int line_id)
     {
-        LINE_ID = line_id;
+        _lineId = line_id;
     }
 
     public FastList<WayPointNode> getLineNodes()
     {
         FastList<WayPointNode> list = new FastList<WayPointNode>();
 
-        for (FastList<WayPointNode> points : linkLists.values())
+        for (FastList<WayPointNode> points : _linkLists.values())
         {
             list.addAll(points);
         }
-
         return list;
     }
-
 }

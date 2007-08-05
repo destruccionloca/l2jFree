@@ -30,16 +30,17 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConditionTargetAggro extends Condition {
-
-	final boolean _isAggro;
+public class ConditionTargetAggro extends Condition
+{
+	private final boolean _isAggro;
 	
     public ConditionTargetAggro(boolean isAggro)
 	{
 		_isAggro = isAggro;
 	}
 	
-	public boolean testImpl(Env env) {
+	public boolean testImpl(Env env)
+	{
 		L2Character target = env.target;
 		if (target instanceof L2MonsterInstance)
 		{

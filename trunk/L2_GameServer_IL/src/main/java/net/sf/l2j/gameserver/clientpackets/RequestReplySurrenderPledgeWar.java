@@ -1,7 +1,6 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
@@ -10,8 +9,6 @@ public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
     //private final static Log _log = LogFactory.getLog(RequestReplySurrenderPledgeWar.class.getName());
 
     int _answer;
-    L2Clan _clan;
-    L2PcInstance player;
     
     protected void readImpl()
     {

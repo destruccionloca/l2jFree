@@ -38,7 +38,7 @@ public class AdminDelete implements IAdminCommandHandler
 {
     //private final static Log _log = LogFactory.getLog(AdminDelete.class.getName());
 
-    private static String[] _adminCommands = {"admin_delete"};
+    private static final String[] ADMIN_COMMANDS = {"admin_delete"};
 
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 
@@ -55,7 +55,7 @@ public class AdminDelete implements IAdminCommandHandler
 
     public String[] getAdminCommandList()
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 
     private boolean checkLevel(int level)
@@ -77,7 +77,7 @@ public class AdminDelete implements IAdminCommandHandler
             {
                 spawn.stopRespawn();
 
-                if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid())) RaidBossSpawnManager.getInstance().deleteSpawn(spawn,true);
+                if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId())) RaidBossSpawnManager.getInstance().deleteSpawn(spawn,true);
                 else SpawnTable.getInstance().deleteSpawn(spawn, true);
             }
 

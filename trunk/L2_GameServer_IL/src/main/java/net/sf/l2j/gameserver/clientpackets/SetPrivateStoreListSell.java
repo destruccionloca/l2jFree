@@ -76,7 +76,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         if (player == null) return;
         
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
 			sendPacket(new ActionFailed());
@@ -91,7 +91,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         }
         
         TradeList tradeList = player.getSellList();
-        tradeList.Clear();
+        tradeList.clear();
         tradeList.setPackaged(_packageSale);
 
         for (int i = 0; i < _count; i++)
@@ -111,7 +111,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         }
 
         // Check maximum number of allowed slots for pvt shops
-        if (_count > player.GetPrivateSellStoreLimit())
+        if (_count > player.getPrivateSellStoreLimit())
         {
             player.sendPacket(new PrivateStoreManageListSell(player));
             player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));

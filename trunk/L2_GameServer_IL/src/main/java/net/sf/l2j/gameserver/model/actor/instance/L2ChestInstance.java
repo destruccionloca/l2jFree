@@ -46,7 +46,7 @@ public final class L2ChestInstance extends L2MonsterInstance
 
 	public void onSpawn()
 	{
-		super.OnSpawn();
+		super.onSpawn();
 		_isInteracted = false;
 		_specialDrop = false;
 		setMustRewardExpSp(true);
@@ -159,6 +159,5 @@ public final class L2ChestInstance extends L2MonsterInstance
  		if (super.isMovementDisabled()) return true;
  		if (isInteracted()) return false;
  		return true;
- 	}	
-
+ 	}
 }

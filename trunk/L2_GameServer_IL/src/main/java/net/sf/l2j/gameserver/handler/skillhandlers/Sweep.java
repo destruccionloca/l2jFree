@@ -40,8 +40,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */ 
 public class Sweep implements ISkillHandler 
 { 
-    //private final static Log _log = LogFactory.getLog(Sweep.class.getName()); 
-    protected SkillType[] _skillIds = {SkillType.SWEEP}; 
+    private static final SkillType[] SKILL_IDS = {SkillType.SWEEP}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets) 
     { 
@@ -101,6 +100,6 @@ public class Sweep implements ISkillHandler
     
     public SkillType[] getSkillIds() 
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     } 
 }

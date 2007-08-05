@@ -43,13 +43,13 @@ public class ScriptPackage
 {
     private final static Log _log = LogFactory.getLog(ScriptPackage.class);
     
-    private List<ScriptDocument> scriptFiles;
-    private String name;
+    private List<ScriptDocument> _scriptFiles;
+    private String _name;
     
     public ScriptPackage(ZipFile pack)
     {
-        scriptFiles = new FastList<ScriptDocument>();
-        name = pack.getName();
+        _scriptFiles = new FastList<ScriptDocument>();
+        _name = pack.getName();
         addFiles(pack);
     }
     
@@ -58,7 +58,7 @@ public class ScriptPackage
      */
     public List<ScriptDocument> getScriptFiles()
     {
-        return scriptFiles;
+        return _scriptFiles;
     }
     
     /**
@@ -71,10 +71,13 @@ public class ScriptPackage
             ZipEntry entry = e.nextElement();
             if (entry.getName().endsWith(".xml"))
             {
-                try {
+                try
+                {
                     ScriptDocument newScript = new ScriptDocument(entry.getName(), pack.getInputStream(entry)); 
-                    scriptFiles.add(newScript);
-                } catch (IOException e1) {
+                    _scriptFiles.add(newScript);
+                }
+                catch (IOException e1)
+                {
                     _log.error(e1.getMessage(),e1);
                 }
             }
@@ -89,7 +92,7 @@ public class ScriptPackage
      */
     public String getName()
     {
-        return name;
+        return _name;
     }
     
     public String toString()
@@ -107,7 +110,6 @@ public class ScriptPackage
                 out += script.getName()+"\n";
             }
         }
-        
         return out;
     }
 }

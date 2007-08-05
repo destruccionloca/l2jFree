@@ -34,7 +34,7 @@ public abstract class GameServerBasePacket
 {
     private final static Log _log = LogFactory.getLog(GameServerBasePacket.class);
     
-	ByteArrayOutputStream _bao;
+	private ByteArrayOutputStream _bao;
 
 	protected GameServerBasePacket()
 	{

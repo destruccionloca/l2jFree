@@ -15,8 +15,8 @@ public class JailManager
 
     // =========================================================
     // Data Field
-    private static JailManager _Instance;
-    private FastList<Jail> _Jails;
+    private static JailManager _instance;
+    private FastList<Jail> _jails;
     
     // =========================================================
     // Constructor
@@ -36,8 +36,8 @@ public class JailManager
     // Method - Private
     public final void reload()
     {
-	_Jails = null;
-	load();
+        _jails = null;
+        load();
     }
     private final void load()
     {
@@ -49,12 +49,12 @@ public class JailManager
     // Property - Public
     public static final JailManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
-        	_Instance = new JailManager();
-            _Instance.load();
+        	_instance = new JailManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
 
     public final Jail getJail(int jailId)
@@ -117,7 +117,7 @@ public class JailManager
 
     public final FastList<Jail> getJails()
     {
-        if (_Jails == null) _Jails = new FastList<Jail>();
-        return _Jails;
+        if (_jails == null) _jails = new FastList<Jail>();
+        return _jails;
     }
 }

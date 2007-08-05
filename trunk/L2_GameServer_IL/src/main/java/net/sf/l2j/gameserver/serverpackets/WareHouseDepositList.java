@@ -33,29 +33,29 @@ import org.apache.commons.logging.LogFactory;
  */
 public class WareHouseDepositList extends L2GameServerPacket
 {
-	public static final int Private = 1;
-	public static final int Clan = 2;
-	public static final int Castle = 3; //not sure
-	public static final int Freight = 4; //not sure
+	public static final int PRIVATE = 1;
+	public static final int CLAN = 2;
+	public static final int CASTLE = 3; //not sure
+	public static final int FREIGHT = 4; //not sure
 	private static Log _log = LogFactory.getLog(WareHouseDepositList.class.getName());
 	private static final String _S__53_WAREHOUSEDEPOSITLIST = "[S] 41 WareHouseDepositList";
-	private L2PcInstance _player;
-	private int _playerAdena;
+	private L2PcInstance _activeChar;
+	private int _activeCharAdena;
 	private FastList<L2ItemInstance> _items;
-	private int _whtype;
+	private int _whType;
 
 	public WareHouseDepositList(L2PcInstance player, int type)
 	{
-        _player = player;
-		_whtype = type;
-		_playerAdena = _player.getAdena();
+        _activeChar = player;
+		_whType = type;
+		_activeCharAdena = _activeChar.getAdena();
 		_items = new FastList<L2ItemInstance>();
 		
-		for (L2ItemInstance temp : _player.getInventory().getAvailableItems(true))
+		for (L2ItemInstance temp : _activeChar.getInventory().getAvailableItems(true))
 			_items.add(temp);
 		
 		// augmented and shadow items can be stored in private wh
-		if (_whtype == Private)
+		if (_whType == PRIVATE)
 		{
 			for (L2ItemInstance temp :player.getInventory().getItems())
 			{
@@ -72,8 +72,8 @@ public class WareHouseDepositList extends L2GameServerPacket
         * 0x02-Clan Warehouse  
         * 0x03-Castle Warehouse  
         * 0x04-Warehouse */  
-        writeH(_whtype);        
-		writeD(_playerAdena); 
+        writeH(_whType);        
+		writeD(_activeCharAdena); 
 		int count = _items.size();
 		if (_log.isDebugEnabled()) _log.debug("count:"+count);
 		writeH(count);

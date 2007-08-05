@@ -48,8 +48,8 @@ public class RequestRestartPoint extends L2GameClientPacket
     private static final String _C__6d_REQUESTRESTARTPOINT = "[C] 6d RequestRestartPoint";
     private final static Log _log = LogFactory.getLog(RequestRestartPoint.class.getName());	
     
-    protected int     requestedPointType;
-    protected boolean continuation;
+    protected int     _requestedPointType;
+    protected boolean _continuation;
     
     /**
      * packet type id 0x6d
@@ -58,7 +58,7 @@ public class RequestRestartPoint extends L2GameClientPacket
      */
     protected void readImpl()
     {
-        requestedPointType = readD();
+        _requestedPointType = readD();
     }
     
     class DeathTask implements Runnable
@@ -77,7 +77,7 @@ public class RequestRestartPoint extends L2GameClientPacket
                 Location loc = null;
                 if (activeChar.isInJail()) // to jail
                     loc = new Location(-114356, -249645, -2984);
-                else if (requestedPointType == 1) // to clanhall
+                else if (_requestedPointType == 1) // to clanhall
                 {
                     if (activeChar.getClan().getHasHideout() == 0)
                     {
@@ -91,7 +91,7 @@ public class RequestRestartPoint extends L2GameClientPacket
                     if (ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan())!= null && ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP)!= null)
                         activeChar.restoreExp(ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan()).getFunction(ClanHall.FUNC_RESTORE_EXP).getLvl());
                 }
-                else if (requestedPointType == 2) // to castle
+                else if (_requestedPointType == 2) // to castle
                 {
                     Boolean isInDefense = false;
                     Castle castle = CastleManager.getInstance().getCastle(activeChar);                	
@@ -110,7 +110,7 @@ public class RequestRestartPoint extends L2GameClientPacket
                     }                    
                     loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Castle);
                 }
-                else if (requestedPointType == 3) // to siege HQ
+                else if (_requestedPointType == 3) // to siege HQ
                 {
                     L2SiegeClan siegeClan = null;
                     Castle castle = CastleManager.getInstance().getCastle(activeChar);
@@ -126,7 +126,7 @@ public class RequestRestartPoint extends L2GameClientPacket
                     }                    
                     loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.SiegeFlag);
                 }
-                else if (requestedPointType == 4 || // Fixed or
+                else if (_requestedPointType == 4 || // Fixed or
                         activeChar.isFestivalParticipant()) // Player is a festival participant
                 {
                     if (!activeChar.isGM() && !activeChar.isFestivalParticipant())

@@ -11,16 +11,16 @@ public class CharStat
 {
     // =========================================================
     // Data Field
-    protected L2Character _ActiveChar;
-    private long _Exp = 0;
-    private int _Sp = 0;
-    private byte _Level = 1;
+    protected L2Character _activeChar;
+    private long _exp = 0;
+    private int _sp = 0;
+    private byte _level = 1;
 
     // =========================================================
     // Constructor
     public CharStat(L2Character activeChar)
     {
-        _ActiveChar = activeChar;
+        _activeChar = activeChar;
     }
 
     // =========================================================
@@ -62,12 +62,12 @@ public class CharStat
      */
     public final double calcStat(Stats stat, double init, L2Character target, L2Skill skill)
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return init;
 
         int id = stat.ordinal();
 
-        Calculator c = _ActiveChar.getCalculators()[id];
+        Calculator c = _activeChar.getCalculators()[id];
 
         // If no Func object found, no modifier is applied
         if (c == null || c.size() == 0)
@@ -75,7 +75,7 @@ public class CharStat
 
         // Create and init an Env object to pass parameters to the Calculator
         Env env = new Env();
-        env.player = _ActiveChar;
+        env.player = _activeChar;
         env.target = target;
         env.skill = skill;
         env.value = init;
@@ -107,15 +107,15 @@ public class CharStat
      */
     public int getAccuracy()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 0;
 
-        return (int) (calcStat(Stats.ACCURACY_COMBAT, 0, null, null) / _ActiveChar.getWeaponExpertisePenalty());
+        return (int) (calcStat(Stats.ACCURACY_COMBAT, 0, null, null) / _activeChar.getWeaponExpertisePenalty());
     }
 
     public L2Character getActiveChar()
     {
-        return _ActiveChar;
+        return _activeChar;
     }
 
     /**
@@ -124,19 +124,19 @@ public class CharStat
      */
     public final float getAttackSpeedMultiplier()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
 
-        return (float) ((1.1) * getPAtkSpd() / _ActiveChar.getTemplate().getBasePAtkSpd());
+        return (float) ((1.1) * getPAtkSpd() / _activeChar.getTemplate().getBasePAtkSpd());
     }
 
     /** Return the CON of the L2Character (base+modifier). */
     public final int getCON()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
 
-        return (int) calcStat(Stats.STAT_CON, _ActiveChar.getTemplate().getBaseCON(), null, null);
+        return (int) calcStat(Stats.STAT_CON, _activeChar.getTemplate().getBaseCON(), null, null);
     }
 
     /** Return the Critical Damage rate (base+modifier) of the L2Character. */
@@ -148,10 +148,10 @@ public class CharStat
     /** Return the Critical Hit rate (base+modifier) of the L2Character. */
     public int getCriticalHit(L2Character target, L2Skill skill)
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
 
-		int criticalHit = (int) calcStat(Stats.CRITICAL_RATE, _ActiveChar.getTemplate().getBaseCritRate(), target, skill);
+		int criticalHit = (int) calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, skill);
 		
 		// Set a cap of Critical Hit at ALT_CRITICAL_CAP
 		if(criticalHit > Config.ALT_CRITICAL_CAP)
@@ -163,48 +163,48 @@ public class CharStat
     /** Return the DEX of the L2Character (base+modifier). */
     public final int getDEX()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.STAT_DEX, _ActiveChar.getTemplate().getBaseDEX(), null, null);
+        return (int) calcStat(Stats.STAT_DEX, _activeChar.getTemplate().getBaseDEX(), null, null);
     }
 
     /** Return the Attack Evasion rate (base+modifier) of the L2Character. */
     public int getEvasionRate(L2Character target)
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) (calcStat(Stats.EVASION_RATE, 0, target, null) / _ActiveChar.getArmourExpertisePenalty());
+        return (int) (calcStat(Stats.EVASION_RATE, 0, target, null) / _activeChar.getArmourExpertisePenalty());
     }
 
     public long getExp()
     {
-        return _Exp;
+        return _exp;
     }
 
     public void setExp(long value)
     {
-        _Exp = value;
+        _exp = value;
     }
 
     /** Return the INT of the L2Character (base+modifier). */
     public int getINT()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.STAT_INT, _ActiveChar.getTemplate().getBaseINT(), null, null);
+        return (int) calcStat(Stats.STAT_INT, _activeChar.getTemplate().getBaseINT(), null, null);
     }
 
     public byte getLevel()
     {
-        return _Level;
+        return _level;
     }
 
     public void setLevel(byte value)
     {
-        _Level = value;
+        _level = value;
     }
 
     /** Return the Magical Attack range (base+modifier) of the L2Character. */
@@ -213,34 +213,34 @@ public class CharStat
         if (skill != null)
             return (int) calcStat(Stats.MAGIC_ATTACK_RANGE, skill.getCastRange(), null, skill);
 
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return _ActiveChar.getTemplate().getBaseAtkRange();
+        return _activeChar.getTemplate().getBaseAtkRange();
     }
 
     public final int getMaxCp()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.MAX_CP, _ActiveChar.getTemplate().getBaseCpMax(), null, null);
+        return (int) calcStat(Stats.MAX_CP, _activeChar.getTemplate().getBaseCpMax(), null, null);
     }
 
     public int getMaxHp()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.MAX_HP, _ActiveChar.getTemplate().getBaseHpMax(), null, null);
+        return (int) calcStat(Stats.MAX_HP, _activeChar.getTemplate().getBaseHpMax(), null, null);
     }
 
     public int getMaxMp()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.MAX_MP, _ActiveChar.getTemplate().getBaseMpMax(), null, null);
+        return (int) calcStat(Stats.MAX_MP, _activeChar.getTemplate().getBaseMpMax(), null, null);
     }
 
     /**
@@ -261,15 +261,15 @@ public class CharStat
      */
     public int getMAtk(L2Character target, L2Skill skill)
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
         float bonusAtk = 1;
-        if (_ActiveChar.isChampion())
+        if (_activeChar.isChampion())
             bonusAtk = Config.CHAMPION_SPD_ATK;        
         
         // Get the base MAtk of the L2Character
-        double attack = _ActiveChar.getTemplate().getBaseMAtk() * bonusAtk;
+        double attack = _activeChar.getTemplate().getBaseMAtk() * bonusAtk;
 
         // Get the skill type to calculate its effect in function of base stats
         // of the L2Character target
@@ -280,46 +280,46 @@ public class CharStat
             switch (stat)
             {
             case AGGRESSION:
-                attack += _ActiveChar.getTemplate().getBaseAggression();
+                attack += _activeChar.getTemplate().getBaseAggression();
                 break;
             case BLEED:
-                attack += _ActiveChar.getTemplate().getBaseBleed();
+                attack += _activeChar.getTemplate().getBaseBleed();
                 break;
             case POISON:
-                attack += _ActiveChar.getTemplate().getBasePoison();
+                attack += _activeChar.getTemplate().getBasePoison();
                 break;
             case STUN:
-                attack += _ActiveChar.getTemplate().getBaseStun();
+                attack += _activeChar.getTemplate().getBaseStun();
                 break;
             case ROOT:
-                attack += _ActiveChar.getTemplate().getBaseRoot();
+                attack += _activeChar.getTemplate().getBaseRoot();
                 break;
             case MOVEMENT:
-                attack += _ActiveChar.getTemplate().getBaseMovement();
+                attack += _activeChar.getTemplate().getBaseMovement();
                 break;
             case CONFUSION:
-                attack += _ActiveChar.getTemplate().getBaseConfusion();
+                attack += _activeChar.getTemplate().getBaseConfusion();
                 break;
             case SLEEP:
-                attack += _ActiveChar.getTemplate().getBaseSleep();
+                attack += _activeChar.getTemplate().getBaseSleep();
                 break;
             case FIRE:
-                attack += _ActiveChar.getTemplate().getBaseFire();
+                attack += _activeChar.getTemplate().getBaseFire();
                 break;
             case WIND:
-                attack += _ActiveChar.getTemplate().getBaseWind();
+                attack += _activeChar.getTemplate().getBaseWind();
                 break;
             case WATER:
-                attack += _ActiveChar.getTemplate().getBaseWater();
+                attack += _activeChar.getTemplate().getBaseWater();
                 break;
             case EARTH:
-                attack += _ActiveChar.getTemplate().getBaseEarth();
+                attack += _activeChar.getTemplate().getBaseEarth();
                 break;
             case HOLY:
-                attack += _ActiveChar.getTemplate().getBaseHoly();
+                attack += _activeChar.getTemplate().getBaseHoly();
                 break;
             case DARK:
-                attack += _ActiveChar.getTemplate().getBaseDark();
+                attack += _activeChar.getTemplate().getBaseDark();
                 break;
             }
         }
@@ -338,15 +338,15 @@ public class CharStat
      */
     public int getMAtkSpd()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
         float bonusSpdAtk = 1;
-        if  (_ActiveChar.isChampion())
+        if  (_activeChar.isChampion())
             bonusSpdAtk = Config.CHAMPION_SPD_ATK;
         
-        double val = calcStat(Stats.MAGIC_ATTACK_SPEED, _ActiveChar.getTemplate().getBaseMAtkSpd() * bonusSpdAtk, null, null);
-        val /= _ActiveChar.getArmourExpertisePenalty();
+        double val = calcStat(Stats.MAGIC_ATTACK_SPEED, _activeChar.getTemplate().getBaseMAtkSpd() * bonusSpdAtk, null, null);
+        val /= _activeChar.getArmourExpertisePenalty();
         return (int) val;
     }
 
@@ -375,11 +375,11 @@ public class CharStat
      */
     public int getMDef(L2Character target, L2Skill skill)
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
         // Get the base MAtk of the L2Character
-        double defence = _ActiveChar.getTemplate().getBaseMDef();
+        double defence = _activeChar.getTemplate().getBaseMDef();
 
         // Get the skill type to calculate its effect in function of base stats
         // of the L2Character target
@@ -390,52 +390,52 @@ public class CharStat
             switch (stat)
             {
             case AGGRESSION:
-                defence += _ActiveChar.getTemplate().getBaseAggressionRes();
+                defence += _activeChar.getTemplate().getBaseAggressionRes();
                 break;
             case BLEED:
-                defence += _ActiveChar.getTemplate().getBaseBleedRes();
+                defence += _activeChar.getTemplate().getBaseBleedRes();
                 break;
             case POISON:
-                defence += _ActiveChar.getTemplate().getBasePoisonRes();
+                defence += _activeChar.getTemplate().getBasePoisonRes();
                 break;
             case STUN:
-                defence += _ActiveChar.getTemplate().getBaseStunRes();
+                defence += _activeChar.getTemplate().getBaseStunRes();
                 break;
             case ROOT:
-                defence += _ActiveChar.getTemplate().getBaseRootRes();
+                defence += _activeChar.getTemplate().getBaseRootRes();
                 break;
             case MOVEMENT:
-                defence += _ActiveChar.getTemplate().getBaseMovementRes();
+                defence += _activeChar.getTemplate().getBaseMovementRes();
                 break;
             case CONFUSION:
-                defence += _ActiveChar.getTemplate().getBaseConfusionRes();
+                defence += _activeChar.getTemplate().getBaseConfusionRes();
                 break;
             case SLEEP:
-                defence += _ActiveChar.getTemplate().getBaseSleepRes();
+                defence += _activeChar.getTemplate().getBaseSleepRes();
                 break;
             case FIRE:
-                defence += _ActiveChar.getTemplate().getBaseFireRes();
+                defence += _activeChar.getTemplate().getBaseFireRes();
                 break;
             case WIND:
-                defence += _ActiveChar.getTemplate().getBaseWindRes();
+                defence += _activeChar.getTemplate().getBaseWindRes();
                 break;
             case WATER:
-                defence += _ActiveChar.getTemplate().getBaseWaterRes();
+                defence += _activeChar.getTemplate().getBaseWaterRes();
                 break;
             case EARTH:
-                defence += _ActiveChar.getTemplate().getBaseEarthRes();
+                defence += _activeChar.getTemplate().getBaseEarthRes();
                 break;
             case HOLY:
-                defence += _ActiveChar.getTemplate().getBaseHolyRes();
+                defence += _activeChar.getTemplate().getBaseHolyRes();
                 break;
             case DARK:
-                defence += _ActiveChar.getTemplate().getBaseDarkRes();
+                defence += _activeChar.getTemplate().getBaseDarkRes();
                 break;
             }
         }
 
         // Calculate modifier for Raid Bosses
-        if (_ActiveChar.isRaid())
+        if (_activeChar.isRaid())
             defence *= Config.RAID_DEFENCE_MULTIPLIER;
 
         // Calculate the elemental Defence
@@ -471,18 +471,18 @@ public class CharStat
     /** Return the MEN of the L2Character (base+modifier). */
     public final int getMEN()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.STAT_MEN, _ActiveChar.getTemplate().getBaseMEN(), null, null);
+        return (int) calcStat(Stats.STAT_MEN, _activeChar.getTemplate().getBaseMEN(), null, null);
     }
 
     public final float getMovementSpeedMultiplier()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return getRunSpeed() * 1f / _ActiveChar.getTemplate().getBaseRunSpd();
+        return getRunSpeed() * 1f / _activeChar.getTemplate().getBaseRunSpd();
     }
 
     /**
@@ -491,10 +491,10 @@ public class CharStat
      */
     public final float getMoveSpeed()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        if (_ActiveChar.isRunning())
+        if (_activeChar.isRunning())
             return getRunSpeed();
         return getWalkSpeed();
     }
@@ -502,23 +502,23 @@ public class CharStat
     /** Return the MReuse rate (base+modifier) of the L2Character. */
     public final double getMReuseRate(L2Skill skill)
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return calcStat(Stats.MAGIC_REUSE_RATE, _ActiveChar.getTemplate().getBaseMReuseRate(), null, skill);
+        return calcStat(Stats.MAGIC_REUSE_RATE, _activeChar.getTemplate().getBaseMReuseRate(), null, skill);
     }
 
     /** Return the PAtk (base+modifier) of the L2Character. */
     public int getPAtk(L2Character target)
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
         float bonusAtk = 1;
-        if  (_ActiveChar.isChampion())
+        if  (_activeChar.isChampion())
             bonusAtk = Config.CHAMPION_ATK;        
         
-        return (int) calcStat(Stats.POWER_ATTACK, _ActiveChar.getTemplate().getBasePAtk() * bonusAtk, target, null);
+        return (int) calcStat(Stats.POWER_ATTACK, _activeChar.getTemplate().getBasePAtk() * bonusAtk, target, null);
     }
 
     /** Return the PAtk Modifier against animals. */
@@ -561,14 +561,14 @@ public class CharStat
      */
     public int getPAtkSpd()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
         float bonusSpdAtk = 1;
-        if  (_ActiveChar.isChampion())
+        if  (_activeChar.isChampion())
             bonusSpdAtk = Config.CHAMPION_SPD_ATK;        
         
-        return (int) (calcStat(Stats.POWER_ATTACK_SPEED, _ActiveChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null) / _ActiveChar.getArmourExpertisePenalty());
+        return (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null) / _activeChar.getArmourExpertisePenalty());
     }
 
     /** Return the PAtk Modifier against undead. */
@@ -585,19 +585,19 @@ public class CharStat
     /** Return the PDef (base+modifier) of the L2Character. */
     public int getPDef(L2Character target)
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.POWER_DEFENCE, (_ActiveChar.isRaid()) ? _ActiveChar.getTemplate().getBasePDef() * Config.RAID_DEFENCE_MULTIPLIER : _ActiveChar.getTemplate().getBasePDef(), target, null);
+        return (int) calcStat(Stats.POWER_DEFENCE, (_activeChar.isRaid()) ? _activeChar.getTemplate().getBasePDef() * Config.RAID_DEFENCE_MULTIPLIER : _activeChar.getTemplate().getBasePDef(), target, null);
     }
 
     /** Return the Physical Attack range (base+modifier) of the L2Character. */
     public final int getPhysicalAttackRange()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.POWER_ATTACK_RANGE, _ActiveChar.getTemplate().getBaseAtkRange(), null, null);
+        return (int) calcStat(Stats.POWER_ATTACK_RANGE, _activeChar.getTemplate().getBaseAtkRange(), null, null);
     }
 
     /** Return the Skill/Spell reuse modifier. */
@@ -612,24 +612,24 @@ public class CharStat
      */
     public int getRunSpeed()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
         // err we should be adding TO the persons run speed
         // not making it a constant
-        int val = (int) calcStat(Stats.RUN_SPEED, _ActiveChar.getTemplate().getBaseRunSpd(), null, null);
+        int val = (int) calcStat(Stats.RUN_SPEED, _activeChar.getTemplate().getBaseRunSpd(), null, null);
 
-        if (_ActiveChar.isFlying())
+        if (_activeChar.isFlying())
         {
             val += Config.WYVERN_SPEED;
             return val;
         }
-        if (_ActiveChar.isRiding())
+        if (_activeChar.isRiding())
         {
             val += Config.STRIDER_SPEED;
             return val;
         }
-        val /= _ActiveChar.getArmourExpertisePenalty();
+        val /= _activeChar.getArmourExpertisePenalty();
         return val;
     }
 
@@ -641,27 +641,27 @@ public class CharStat
 
     public int getSp()
     {
-        return _Sp;
+        return _sp;
     }
 
     public void setSp(int value)
     {
-        _Sp = value;
+        _sp = value;
     }
 
     /** Return the STR of the L2Character (base+modifier). */
     public final int getSTR()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.STAT_STR, _ActiveChar.getTemplate().getBaseSTR(), null, null);
+        return (int) calcStat(Stats.STAT_STR, _activeChar.getTemplate().getBaseSTR(), null, null);
     }
 
     /** Return the WalkSpeed (base+modifier) of the L2Character. */
     public final int getWalkSpeed()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
         return (getRunSpeed() * 70) / 100;
@@ -670,10 +670,10 @@ public class CharStat
     /** Return the WIT of the L2Character (base+modifier). */
     public final int getWIT()
     {
-        if (_ActiveChar == null)
+        if (_activeChar == null)
             return 1;
         
-        return (int) calcStat(Stats.STAT_WIT, _ActiveChar.getTemplate().getBaseWIT(), null, null);
+        return (int) calcStat(Stats.STAT_WIT, _activeChar.getTemplate().getBaseWIT(), null, null);
     }
 
     /** Return the mpConsume. */
@@ -683,8 +683,8 @@ public class CharStat
             return 1;
         
         int mpconsume = skill.getMpConsume();
-        if (skill.isDance() && _ActiveChar != null && _ActiveChar.getDanceCount() > 0)
-            mpconsume += _ActiveChar.getDanceCount() * skill.getNextDanceMpCost();
+        if (skill.isDance() && _activeChar != null && _activeChar.getDanceCount() > 0)
+            mpconsume += _activeChar.getDanceCount() * skill.getNextDanceMpCost();
 
         return (int) calcStat(Stats.MP_CONSUME, mpconsume, null, skill);
     }

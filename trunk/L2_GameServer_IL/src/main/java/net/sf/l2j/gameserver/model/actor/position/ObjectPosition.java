@@ -47,19 +47,19 @@ public class ObjectPosition
     /**
      * Reference of the L2Object that own this ObjectPosition
      */
-    private L2Object _ActiveObject;
+    private L2Object _activeObject;
     /**
      * Heading (Direction of the object)
      */
-    private int _Heading    = 0;
+    private int _heading    = 0;
     /**
      * The world position with a 3d coordinate (x,y,z)
      */
-    private Point3D _WorldPosition;
+    private Point3D _worldPosition;
     /**
      * Object localization in world : Used for items/chars that are seen in the world
      */
-    private L2WorldRegion _WorldRegion;  
+    private L2WorldRegion _worldRegion;  
 
     /**
      * Constructor with the L2Object in reference
@@ -67,7 +67,7 @@ public class ObjectPosition
      */
     public ObjectPosition(L2Object activeObject)
     {
-        _ActiveObject = activeObject;
+        _activeObject = activeObject;
         setWorldRegion(L2World.getInstance().getRegion(getWorldPosition()));
     }
     
@@ -154,7 +154,7 @@ public class ObjectPosition
      */
     private final L2Object getActiveObject()
     {
-        return _ActiveObject;
+        return _activeObject;
     }
     
     /**
@@ -162,7 +162,7 @@ public class ObjectPosition
      */
     public final int getHeading()
     {
-        return _Heading;
+        return _heading;
     }
 
     /**
@@ -170,7 +170,7 @@ public class ObjectPosition
      */
     public final void setHeading(int value)
     {
-        _Heading = value;
+        _heading = value;
     }
 
     /** 
@@ -202,9 +202,9 @@ public class ObjectPosition
      */
     public final Point3D getWorldPosition()
     {
-        if (_WorldPosition == null)
-            _WorldPosition = new Point3D(0, 0, 0);
-        return _WorldPosition;
+        if (_worldPosition == null)
+            _worldPosition = new Point3D(0, 0, 0);
+        return _worldPosition;
     }
 
     /**
@@ -235,7 +235,7 @@ public class ObjectPosition
      */
     public final L2WorldRegion getWorldRegion()
     {
-        return _WorldRegion;
+        return _worldRegion;
     }
     
     /**
@@ -243,6 +243,6 @@ public class ObjectPosition
      */
     public final void setWorldRegion(L2WorldRegion value)
     {
-        _WorldRegion = value;
+        _worldRegion = value;
     }
 }

@@ -65,7 +65,7 @@ public class AdminEditNpc implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminEditNpc.class.getName());
     private final static int PAGE_LIMIT = 7;
     
-    private static String[] _adminCommands = {
+    private static final String[] ADMIN_COMMANDS = {
             "admin_edit_npc",
             "admin_save_npc",
             "admin_show_droplist",
@@ -823,19 +823,22 @@ public class AdminEditNpc implements IAdminCommandHandler {
         return tradeLists;
     }
 
-    private boolean checkLevel(int level) {
-		return (level >= REQUIRED_LEVEL);
-	}
-    private boolean checkLevel2(int level) {
-		return (level >= REQUIRED_LEVEL2);
-	}
-	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
-	}	
-	
-	private void Show_Npc_Property(L2PcInstance adminPlayer, L2NpcTemplate npc)
-	{
+    private boolean checkLevel(int level)
+    {
+        return (level >= REQUIRED_LEVEL);
+    }
+    private boolean checkLevel2(int level)
+    {
+        return (level >= REQUIRED_LEVEL2);
+    }
+
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
+    }
+
+    private void Show_Npc_Property(L2PcInstance adminPlayer, L2NpcTemplate npc)
+    {
         NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
         String content = HtmCache.getInstance().getHtm("data/html/admin/editnpc.htm");
 	    

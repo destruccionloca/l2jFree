@@ -64,23 +64,24 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
      */
     public static enum GameClientState { CONNECTED, AUTHED, IN_GAME };
     
-    public GameClientState _state;
+    public GameClientState state;
     
     // Info
-    public String _accountName;
-    public SessionKey _sessionId;
-    public L2PcInstance _activeChar;
+    public String accountName;
+    public SessionKey sessionId;
+    public L2PcInstance activeChar;
     private ReentrantLock _activeCharLock = new ReentrantLock();
     
+    @SuppressWarnings("unused")
     private boolean _isAuthedGG;
     private long _connectionStartTime;
     private List<Integer> _charSlotMapping = new FastList<Integer>();
     
     // Task
-    /*final*/ ScheduledFuture _autoSaveInDB;
+    protected /*final*/ ScheduledFuture _autoSaveInDB;
     
     // Crypt
-    public GameCrypt _crypt;
+    public GameCrypt crypt;
     
     // Flood protection
     public byte packetsSentInSec = 0;
@@ -89,9 +90,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     public L2GameClient(MMOConnection<L2GameClient> con)
     {
         super(con);
-        _state = GameClientState.CONNECTED;
+        state = GameClientState.CONNECTED;
         _connectionStartTime = System.currentTimeMillis();
-        _crypt = new GameCrypt();
+        crypt = new GameCrypt();
         _autoSaveInDB = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(
                 new AutoSaveTask(), 300000L, 900000L
                 );
@@ -100,18 +101,18 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     public byte[] enableCrypt()
     {
         byte[] key = BlowFishKeygen.getRandomKey();
-        _crypt.setKey(key);
+        crypt.setKey(key);
         return key;
     }
     
     public GameClientState getState()
     {
-        return _state;
+        return state;
     }
     
-    public void setState(GameClientState state)
+    public void setState(GameClientState pState)
     {
-        _state = state;
+        state = pState;
     }
     
     public long getConnectionStartTime()
@@ -122,26 +123,26 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     @Override
     public boolean decrypt(ByteBuffer buf, int size)
     {
-        _crypt.decrypt(buf.array(), buf.position(), size);
+        crypt.decrypt(buf.array(), buf.position(), size);
         return true;
     }
 
     @Override
     public boolean encrypt(final ByteBuffer buf, final int size)
     {
-        _crypt.encrypt(buf.array(), buf.position(), size);
+        crypt.encrypt(buf.array(), buf.position(), size);
         buf.position(buf.position() + size);
         return true;
     }
     
     public L2PcInstance getActiveChar()
     {
-        return _activeChar;
+        return activeChar;
     }
     
-    public void setActiveChar(L2PcInstance activeChar)
+    public void setActiveChar(L2PcInstance pActiveChar)
     {
-        _activeChar = activeChar;
+        activeChar = pActiveChar;
         if (activeChar != null)
         {
         	L2World.getInstance().storeObject(this.getActiveChar());
@@ -158,24 +159,24 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
         _isAuthedGG = val;
     }
     
-    public void setAccountName(String accountName)
+    public void setAccountName(String pAccountName)
     {
-        _accountName = accountName;
+        accountName = pAccountName;
     }
     
     public String getAccountName()
     {
-        return _accountName;
+        return accountName;
     }
     
     public void setSessionId(SessionKey sk)
     {
-        _sessionId = sk;
+        sessionId = sk;
     }
     
     public SessionKey getSessionId()
     {
-        return _sessionId;
+        return sessionId;
     }
     
     public void sendPacket(L2GameServerPacket gsp)
@@ -535,7 +536,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
                     // we store all data from players who are disconnected while in an event in order to restore it in the next login
                     if (player.atEvent)
                     {
-                        EventData data = new EventData(player.eventX, player.eventY, player.eventZ, player.eventkarma, player.eventpvpkills, player.eventpkkills, player.eventTitle, player.kills, player.eventSitForced);
+                        EventData data = new EventData(player.eventX, player.eventY, player.eventZ, player.eventKarma, player.eventPvpKills, player.eventPkKills, player.eventTitle, player.kills, player.eventSitForced);
                         L2Event.connectionLossData.put(player.getName(), data);
                     }
                     if (player.isFlying()) 

@@ -53,7 +53,7 @@ public class TradeDone extends L2GameClientPacket
         if (player == null) return;
 		
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
 			player.cancelActiveTrade();
@@ -63,10 +63,10 @@ public class TradeDone extends L2GameClientPacket
 		
         TradeList trade = player.getActiveTradeList();
         if (trade == null)
-        	{
+        {
             _log.warn("player.getTradeList == null in "+getType()+" for player "+player.getName());
-        	return;
-        	}
+			return;
+        }
         if (trade.isLocked()) return;
 
 		if (_response == 1)
@@ -89,7 +89,7 @@ public class TradeDone extends L2GameClientPacket
 	            sendPacket(new ActionFailed());
 	            return;
 	        }
-	        trade.Confirm();
+	        trade.confirm();
 		}
 		else player.cancelActiveTrade();
 	}

@@ -34,40 +34,39 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class Harvester implements IItemHandler
 {
-    private static int[] _itemIds = { 5125 };
-    L2PcInstance player;
-    L2MonsterInstance target;
+    private static final int[] ITEM_IDS = { 5125 };
+    L2PcInstance _player;
+    L2MonsterInstance _target;
     
     public void useItem(L2PlayableInstance playable, L2ItemInstance _item)
     {
         InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
-        player = (L2PcInstance)playable;
+        _player = (L2PcInstance)playable;
 
-        if ( player == null )
-                      return;
-        if(player.getTarget() == null || !(player.getTarget() instanceof L2MonsterInstance))
+        if ( _player == null ) return;
+        if(_player.getTarget() == null || !(_player.getTarget() instanceof L2MonsterInstance))
         {
-            player.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+            _player.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
             return;
         }
 
-        target = (L2MonsterInstance)player.getTarget();
+        _target = (L2MonsterInstance)_player.getTarget();
         boolean send = false;
         int total = 0;
         int cropId = 0;
         
-        if (target != null && target.isSeeded() && target.isDead() && calcSuccess())
+        if (_target != null && _target.isSeeded() && _target.isDead() && calcSuccess())
         {
-        	L2Attackable.RewardItem[] items = target.takeHarvest();
+        	L2Attackable.RewardItem[] items = _target.takeHarvest();
             if (items != null && items.length > 0)
             {
                 for (L2Attackable.RewardItem ritem : items)
                 {
                     cropId = ritem.getItemId(); // always got 1 type of crop as reward
-                    if (player.isInParty()) player.getParty().distributeItem(player, ritem, true, target);
+                    if (_player.isInParty()) _player.getParty().distributeItem(_player, ritem, true, _target);
                     else
                     {
-                        L2ItemInstance item = player.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount(), player, target);
+                        L2ItemInstance item = _player.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount(), _player, _target);
                         if (iu != null) iu.addItem(item);
                         send = true;
                         total += ritem.getCount();
@@ -78,30 +77,30 @@ public class Harvester implements IItemHandler
                     SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
                     smsg.addNumber(total);
                     smsg.addItemName(cropId);
-                    player.sendPacket(smsg);
+                    _player.sendPacket(smsg);
 
-                    if (iu != null) player.sendPacket(iu);
-            		else player.sendPacket(new ItemList(player, false));
+                    if (iu != null) _player.sendPacket(iu);
+            		else _player.sendPacket(new ItemList(_player, false));
                 }
             }
         }
         else
         {
-            player.sendMessage("Target not seeded");
+            _player.sendMessage("Target not seeded");
         }
 
     }
     
     public int[] getItemIds()
     {
-        return _itemIds;
+        return ITEM_IDS;
     }
     
     private boolean calcSuccess()
     {
         int basicSuccess = 90;
-        int levelPlayer = player.getLevel();
-        int levelTarget = target.getLevel();
+        int levelPlayer = _player.getLevel();
+        int levelTarget = _target.getLevel();
 
         int diffPlayerTarget = (levelPlayer - levelTarget);
         if(diffPlayerTarget < 0)
@@ -114,7 +113,6 @@ public class Harvester implements IItemHandler
             basicSuccess -= (diffPlayerTarget - 5)*15;
         }
         
-        
         // success rate cant be less than 1%
         if(basicSuccess < 1)
             basicSuccess = 1;
@@ -126,5 +124,4 @@ public class Harvester implements IItemHandler
             return true;
         return false;
     }
-
 }

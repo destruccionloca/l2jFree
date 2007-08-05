@@ -50,9 +50,9 @@ import org.apache.commons.logging.LogFactory;
 public class AdminDoorControl implements IAdminCommandHandler
 {
     private static Log _log = LogFactory.getLog(AdminDoorControl.class.getName());
-    private static final int   REQUIRED_LEVEL  = Config.GM_DOOR;
-    private static DoorTable   _doorTable;
-    private static String[]    _adminCommands  = 
+    private static final int REQUIRED_LEVEL = Config.GM_DOOR;
+    private static DoorTable _doorTable;
+    private static final String[] ADMIN_COMMANDS = 
     {
         "admin_open",
         "admin_close",
@@ -61,53 +61,62 @@ public class AdminDoorControl implements IAdminCommandHandler
     };
     //private static final FastMap<String, Integer>   doorMap = new FastMap<String, Integer>(); //FIXME: should we jute remove this?
     
-	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{
+    public boolean useAdminCommand(String command, L2PcInstance activeChar)
+    {
         if (!Config.ALT_PRIVILEGES_ADMIN)
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
         
-		_doorTable = DoorTable.getInstance();
+        _doorTable = DoorTable.getInstance();
         
-		try {
+        try
+        {
             if (command.startsWith("admin_open "))
             {
-		int doorId = Integer.parseInt(command.substring(11));
-		if (_doorTable.getDoor(doorId) != null)
-            	    _doorTable.getDoor(doorId).openMe();
-		else {
-		  for (Castle castle: CastleManager.getInstance().getCastles())
-		    if (castle.getDoor(doorId) != null){
-            		castle.getDoor(doorId).openMe();
-		    }
-		}
+                int doorId = Integer.parseInt(command.substring(11));
+                if (_doorTable.getDoor(doorId) != null)
+                    _doorTable.getDoor(doorId).openMe();
+                else
+                {
+                    for (Castle castle: CastleManager.getInstance().getCastles())
+                    {
+                        if (castle.getDoor(doorId) != null)
+                        {
+                            castle.getDoor(doorId).openMe();
+                        }
+                    }
+                 }
             }
             else if (command.startsWith("admin_close "))
             {
-		int doorId = Integer.parseInt(command.substring(12));
-		if (_doorTable.getDoor(doorId) != null)
-            	    _doorTable.getDoor(doorId).closeMe();
-		else {
-		  for (Castle castle: CastleManager.getInstance().getCastles())
-		    if (castle.getDoor(doorId) != null){
-            		castle.getDoor(doorId).closeMe();
-		    }
-		}
+                int doorId = Integer.parseInt(command.substring(12));
+                if (_doorTable.getDoor(doorId) != null)
+                    _doorTable.getDoor(doorId).closeMe();
+                else
+                {
+                    for (Castle castle: CastleManager.getInstance().getCastles())
+                    {
+                        if (castle.getDoor(doorId) != null)
+                        {
+                            castle.getDoor(doorId).closeMe();
+                        }
+                    }
+                }
             }
             if (command.equals("admin_closeall"))
             {
                 for(L2DoorInstance door : _doorTable.getDoors())
                     door.closeMe();
-		for (Castle castle: CastleManager.getInstance().getCastles())
-		    for (L2DoorInstance door: castle.getDoors())
-            	        door.closeMe();
+                for (Castle castle: CastleManager.getInstance().getCastles())
+                    for (L2DoorInstance door: castle.getDoors())
+                        door.closeMe();
             }
             if (command.equals("admin_openall"))
             {
                 for(L2DoorInstance door : _doorTable.getDoors())
                     door.openMe();
-		for (Castle castle: CastleManager.getInstance().getCastles())
-		    for (L2DoorInstance door: castle.getDoors())
-            		door.openMe();
+                for (Castle castle: CastleManager.getInstance().getCastles())
+                    for (L2DoorInstance door: castle.getDoors())
+                        door.openMe();
             }
             if (command.equals("admin_open"))
             {
@@ -141,11 +150,11 @@ public class AdminDoorControl implements IAdminCommandHandler
         }
         
         return true;
-	}
+    }
 
     public String[] getAdminCommandList()
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 
     private boolean checkLevel(int level)
@@ -153,5 +162,3 @@ public class AdminDoorControl implements IAdminCommandHandler
         return (level >= REQUIRED_LEVEL);
     }
 }
-	
-   

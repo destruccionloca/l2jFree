@@ -290,7 +290,7 @@ public class SpawnTable implements SpawnTableMBean
                 PreparedStatement statement = con.prepareStatement("INSERT INTO "+(spawn.isCustom()?"custom_spawnlist":"spawnlist")+" (id,count,npc_templateid,locx,locy,locz,heading,respawn_delay,loc_id) values(?,?,?,?,?,?,?,?,?)");
                 statement.setInt(1, spawn.getDbId());
                 statement.setInt(2, spawn.getAmount());
-                statement.setInt(3, spawn.getNpcid());
+                statement.setInt(3, spawn.getNpcId());
                 statement.setInt(4, spawn.getLocx());
                 statement.setInt(5, spawn.getLocy());
                 statement.setInt(6, spawn.getLocz());
@@ -327,7 +327,7 @@ public class SpawnTable implements SpawnTableMBean
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("update "+(spawn.isCustom()?"custom_spawnlist":"spawnlist")+" set count=?,npc_templateid=?,locx=?,locy=?,locz=?,heading=?,respawn_delay=?,loc_id=? where id =?");
             statement.setInt(1, spawn.getAmount());
-            statement.setInt(2, spawn.getNpcid());
+            statement.setInt(2, spawn.getNpcId());
             statement.setInt(3, spawn.getLocx());
             statement.setInt(4, spawn.getLocy());
             statement.setInt(5, spawn.getLocz());

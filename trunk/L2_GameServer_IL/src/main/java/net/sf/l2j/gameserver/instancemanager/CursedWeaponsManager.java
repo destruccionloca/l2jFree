@@ -56,16 +56,16 @@ public class CursedWeaponsManager
     private static final Log _log = LogFactory.getLog(CursedWeaponsManager.class.getName());
 
     // =========================================================
-    private static CursedWeaponsManager _Instance;
+    private static CursedWeaponsManager _instance;
 
     public static final CursedWeaponsManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
-            _Instance = new CursedWeaponsManager();
-            _Instance.load();
+            _instance = new CursedWeaponsManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
 
     // =========================================================

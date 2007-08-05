@@ -57,69 +57,67 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 {
 	private final static Log _log = LogFactory.getLog(L2SepulcherNpcInstance.class.getName());
 
-    protected static Map<Integer,Integer> _HallGateKeepers = new FastMap<Integer,Integer>();
+    protected static Map<Integer,Integer> _hallGateKeepers = new FastMap<Integer,Integer>();
 
-    protected Future _CloseTask = null;
-    protected Future _SpawnNextMysteriousBoxTask = null;
-    protected Future _SpawnMonsterTask = null;
+    protected Future _closeTask = null;
+    protected Future _spawnNextMysteriousBoxTask = null;
+    protected Future _spawnMonsterTask = null;
     
     private final String _HTML_FILE_PATH = "data/html/SepulcherNpc/";
     
-    private final int _HallsKey = 7260;
+    private final int HALLS_KEY = 7260;
 
     public L2SepulcherNpcInstance(int objectID, L2NpcTemplate template)
     {
         super(objectID, template);
 
-        _HallGateKeepers.clear();
-        _HallGateKeepers.put(31925, 25150012);
-        _HallGateKeepers.put(31926, 25150013);
-        _HallGateKeepers.put(31927, 25150014);
-        _HallGateKeepers.put(31928, 25150015);
-        _HallGateKeepers.put(31929, 25150016);
-        _HallGateKeepers.put(31930, 25150002);
-        _HallGateKeepers.put(31931, 25150003);
-        _HallGateKeepers.put(31932, 25150004);
-        _HallGateKeepers.put(31933, 25150005);
-        _HallGateKeepers.put(31934, 25150006);
-        _HallGateKeepers.put(31935, 25150032);
-        _HallGateKeepers.put(31936, 25150033);
-        _HallGateKeepers.put(31937, 25150034);
-        _HallGateKeepers.put(31938, 25150035);
-        _HallGateKeepers.put(31939, 25150036);
-        _HallGateKeepers.put(31940, 25150022);
-        _HallGateKeepers.put(31941, 25150023);
-        _HallGateKeepers.put(31942, 25150024);
-        _HallGateKeepers.put(31943, 25150025);
-        _HallGateKeepers.put(31944, 25150026);
+        _hallGateKeepers.clear();
+        _hallGateKeepers.put(31925, 25150012);
+        _hallGateKeepers.put(31926, 25150013);
+        _hallGateKeepers.put(31927, 25150014);
+        _hallGateKeepers.put(31928, 25150015);
+        _hallGateKeepers.put(31929, 25150016);
+        _hallGateKeepers.put(31930, 25150002);
+        _hallGateKeepers.put(31931, 25150003);
+        _hallGateKeepers.put(31932, 25150004);
+        _hallGateKeepers.put(31933, 25150005);
+        _hallGateKeepers.put(31934, 25150006);
+        _hallGateKeepers.put(31935, 25150032);
+        _hallGateKeepers.put(31936, 25150033);
+        _hallGateKeepers.put(31937, 25150034);
+        _hallGateKeepers.put(31938, 25150035);
+        _hallGateKeepers.put(31939, 25150036);
+        _hallGateKeepers.put(31940, 25150022);
+        _hallGateKeepers.put(31941, 25150023);
+        _hallGateKeepers.put(31942, 25150024);
+        _hallGateKeepers.put(31943, 25150025);
+        _hallGateKeepers.put(31944, 25150026);
 
-        if(_CloseTask != null) _CloseTask.cancel(true);
-        if(_SpawnNextMysteriousBoxTask != null) _SpawnNextMysteriousBoxTask.cancel(true);
-        if(_SpawnMonsterTask != null) _SpawnMonsterTask.cancel(true);
-        _CloseTask = null;
-        _SpawnNextMysteriousBoxTask = null;
-        _SpawnMonsterTask = null; 
-
+        if(_closeTask != null) _closeTask.cancel(true);
+        if(_spawnNextMysteriousBoxTask != null) _spawnNextMysteriousBoxTask.cancel(true);
+        if(_spawnMonsterTask != null) _spawnMonsterTask.cancel(true);
+        _closeTask = null;
+        _spawnNextMysteriousBoxTask = null;
+        _spawnMonsterTask = null; 
     }
 
     public void deleteMe()
     {
-        if (_CloseTask != null)
+        if (_closeTask != null)
         {
-        	_CloseTask.cancel(true);
-        	_CloseTask = null;
+        	_closeTask.cancel(true);
+        	_closeTask = null;
         }
-        if (_SpawnNextMysteriousBoxTask != null)
+        if (_spawnNextMysteriousBoxTask != null)
         {
-        	_SpawnNextMysteriousBoxTask.cancel(true);
-        	_SpawnNextMysteriousBoxTask = null;
+        	_spawnNextMysteriousBoxTask.cancel(true);
+        	_spawnNextMysteriousBoxTask = null;
         }
-        if(_SpawnMonsterTask != null)
+        if(_spawnMonsterTask != null)
     	{
-        	_SpawnMonsterTask.cancel(true);
-            _SpawnMonsterTask = null; 
+        	_spawnMonsterTask.cancel(true);
+            _spawnMonsterTask = null; 
     	}
-
         super.deleteMe();
     }
 
@@ -236,8 +234,8 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             case 31486:
             case 31487:
                 reduceCurrentHp(getMaxHp() + 1, player);
-                if(_SpawnMonsterTask != null) _SpawnMonsterTask.cancel(true);
-                _SpawnMonsterTask = 
+                if(_spawnMonsterTask != null) _spawnMonsterTask.cancel(true);
+                _spawnMonsterTask = 
                 	ThreadPoolManager.getInstance().scheduleEffect(new SpawnMonster(getNpcId()),3500); 
                 break;
                 
@@ -255,7 +253,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             case 31466:
             case 31467:
                 reduceCurrentHp(getMaxHp() + 1, player);
-				player.addItem("Quest", _HallsKey, 1, player, true);
+				player.addItem("Quest", HALLS_KEY, 1, player, true);
                 break;
 
             default:
@@ -322,8 +320,8 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             }
             else if (command.startsWith("open_gate"))
             {
-                L2ItemInstance HallsKey = player.getInventory().getItemByItemId(_HallsKey);
-                if(HallsKey != null && FourSepulchersManager.getInstance().IsAttackTime())
+                L2ItemInstance hallsKey = player.getInventory().getItemByItemId(HALLS_KEY);
+                if(hallsKey != null && FourSepulchersManager.getInstance().isAttackTime())
                 {
                     switch(getNpcId())
                     {
@@ -331,10 +329,10 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
                     	case 31934:
                     	case 31939:
                     	case 31944:
-                    		FourSepulchersManager.getInstance().SpawnShadow(getNpcId());
+                    		FourSepulchersManager.getInstance().spawnShadow(getNpcId());
                     	default:
-                            OpenNextDoor(getNpcId());
-                            player.destroyItemByItemId("Quest", _HallsKey, HallsKey.getCount(), player, true);
+                            openNextDoor(getNpcId());
+                            player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
                     }                	
                 }
                 else
@@ -348,7 +346,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             }
             else if (command.startsWith("Entry"))
             {
-            	FourSepulchersManager.getInstance().Entry(getNpcId(),player);
+            	FourSepulchersManager.getInstance().entry(getNpcId(),player);
             }
             else
             {
@@ -357,14 +355,14 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
         }
     }
 
-    public void OpenNextDoor(int npcId)
+    public void openNextDoor(int npcId)
     {
-        int DoorId = _HallGateKeepers.get(npcId).intValue();
+        int doorId = _hallGateKeepers.get(npcId).intValue();
         DoorTable _doorTable = DoorTable.getInstance();
-        _doorTable.getDoor(DoorId).openMe();
+        _doorTable.getDoor(doorId).openMe();
         
-        if(_CloseTask != null) _CloseTask.cancel(true);
-        _CloseTask = ThreadPoolManager.getInstance().scheduleEffect(new CloseNextDoor(npcId,DoorId),10000);
+        if(_closeTask != null) _closeTask.cancel(true);
+        _closeTask = ThreadPoolManager.getInstance().scheduleEffect(new CloseNextDoor(npcId,doorId),10000);
     }
 
     private class CloseNextDoor implements Runnable
@@ -390,8 +388,8 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
                 _log.warn(e.getMessage());
             }
             
-            if(_SpawnNextMysteriousBoxTask != null) _SpawnNextMysteriousBoxTask.cancel(true);
-            _SpawnNextMysteriousBoxTask = ThreadPoolManager.getInstance().scheduleEffect(new SpawnNextMysteriousBox(_NpcId),10000);
+            if(_spawnNextMysteriousBoxTask != null) _spawnNextMysteriousBoxTask.cancel(true);
+            _spawnNextMysteriousBoxTask = ThreadPoolManager.getInstance().scheduleEffect(new SpawnNextMysteriousBox(_NpcId),10000);
         }
     }
 
@@ -404,7 +402,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
     	}
         public void run()
         {
-        	FourSepulchersManager.getInstance().SpawnMysteriousBox(_NpcId);
+        	FourSepulchersManager.getInstance().spawnMysteriousBox(_NpcId);
         }
     }
 
@@ -417,7 +415,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
     	}
         public void run()
         {
-            FourSepulchersManager.getInstance().SpawnMonster(_NpcId);
+            FourSepulchersManager.getInstance().spawnMonster(_NpcId);
         }
     }
 }

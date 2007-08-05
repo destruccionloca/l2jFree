@@ -43,7 +43,8 @@ public final class LambdaStats extends Lambda {
 	{
 		_stat = stat;
 	}
-	public double calc(Env env) {
+	public double calc(Env env)
+	{
 		switch (_stat)
 		{
 		case PLAYER_LEVEL:
@@ -65,5 +66,4 @@ public final class LambdaStats extends Lambda {
 		}
 		return 0;
 	}
-
 }

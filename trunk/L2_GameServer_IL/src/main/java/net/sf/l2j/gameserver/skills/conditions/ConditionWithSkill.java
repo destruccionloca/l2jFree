@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.skills.Env;
  */
 public class ConditionWithSkill extends Condition
 {
-	final boolean _skill;
+	private final boolean _skill;
 	
 	public ConditionWithSkill(boolean skill)
 	{

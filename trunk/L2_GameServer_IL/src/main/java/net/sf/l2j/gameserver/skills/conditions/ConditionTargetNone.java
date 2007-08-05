@@ -27,13 +27,14 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConditionTargetNone extends Condition {
-
+public class ConditionTargetNone extends Condition
+{
 	public ConditionTargetNone()
 	{
 	}
 	
-	public boolean testImpl(Env env) {
+	public boolean testImpl(Env env)
+	{
 		return (env.target == null);
 	}
 }

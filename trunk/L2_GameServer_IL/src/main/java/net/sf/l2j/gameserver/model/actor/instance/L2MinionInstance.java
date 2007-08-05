@@ -91,7 +91,7 @@ public final class L2MinionInstance extends L2MonsterInstance
 	}
     
     @Override
-    public void OnSpawn()
+    public void onSpawn()
     {
         // Notify Leader that Minion has Spawned
         _master.notifyMinionSpawned(this);

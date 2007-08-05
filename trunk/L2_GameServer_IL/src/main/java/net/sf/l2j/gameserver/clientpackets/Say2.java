@@ -62,7 +62,7 @@ public class Say2 extends L2GameClientPacket
     public final static int PARTYROOM_COMMANDER = 16; //(blue)
     public final static int HERO_VOICE = 17;
     
-    private final static String[] chatNames = {
+    private final static String[] CHAT_NAMES = {
         "ALL  ",
         "SHOUT",
         "TELL ",
@@ -103,7 +103,7 @@ public class Say2 extends L2GameClientPacket
         if (_log.isDebugEnabled()) 
             _log.info("Say2: Msg Type = '" + _type + "' Text = '" + _text + "'.");
         
-        if(_type >= chatNames.length)
+        if(_type >= CHAT_NAMES.length)
         {
             _log.warn("Say2: Invalid type: "+_type);
             return;
@@ -142,9 +142,9 @@ public class Say2 extends L2GameClientPacket
         if (Config.LOG_CHAT) 
         {
             if (_type == TELL)
-                _logChat.info( chatNames[_type] + "[" + activeChar.getName() + " to "+_target+"] " + _text);
+                _logChat.info( CHAT_NAMES[_type] + "[" + activeChar.getName() + " to "+_target+"] " + _text);
             else
-                _logChat.info( chatNames[_type] + "[" + activeChar.getName() + "] " + _text);
+                _logChat.info( CHAT_NAMES[_type] + "[" + activeChar.getName() + "] " + _text);
         }
 
         if(Config.USE_SAY_FILTER) 

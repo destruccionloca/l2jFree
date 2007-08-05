@@ -39,7 +39,7 @@ public class Fishing implements ISkillHandler
 { 
     //private static Logger _log = Logger.getLogger(SiegeFlag.class.getName()); 
     //protected SkillType[] _skillIds = {SkillType.FISHING};
-    protected SkillType[] _skillIds = {SkillType.FISHING}; 
+    private static final SkillType[] SKILL_IDS = {SkillType.FISHING}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
     {
@@ -49,9 +49,9 @@ public class Fishing implements ISkillHandler
         
         if (player.isFishing())
         {
-            if (player.GetFishCombat() != null) player.GetFishCombat().DoDie(false);
-            else player.EndFishing(false);
-            //Cancels fishing           
+            if (player.getFishCombat() != null) player.getFishCombat().doDie(false);
+            else player.endFishing(false);
+            //Cancels fishing
             player.sendPacket(new SystemMessage(SystemMessageId.FISHING_ATTEMPT_CANCELLED));
             return;
         }
@@ -100,7 +100,7 @@ public class Fishing implements ISkillHandler
             player.sendMessage("Not Working Yet");
             return;
         }       
-        player.SetLure(lure);
+        player.setLure(lure);
         L2ItemInstance lure2 = player.getInventory().destroyItem("Consume", player.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LHAND), 1, player, null);
 
         if (lure2 == null || lure2.getCount() == 0)
@@ -114,16 +114,11 @@ public class Fishing implements ISkillHandler
             iu.addModifiedItem(lure2);
             player.sendPacket(iu);
         }
-        player.StartFishing();      
-        
-        
-        
-        
+        player.startFishing();      
     } 
     
     public SkillType[] getSkillIds() 
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     } 
-    
 }

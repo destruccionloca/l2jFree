@@ -43,7 +43,7 @@ public class L2TradeList
 	private int _listId;
 	private boolean _confirmed;
 	private boolean _gm;
-	private String _Buystorename,_Sellstorename;
+	private String _buystorename,_sellstorename;
     
     private int _npcId;
 	
@@ -139,19 +139,19 @@ public class L2TradeList
 	}
 	public void setSellStoreName(String name)
 	{
-		_Sellstorename = name;
+		_sellstorename = name;
 	}
 	public String getSellStoreName()
 	{
-		return _Sellstorename;
+		return _sellstorename;
 	}
 	public void setBuyStoreName(String name)
 	{
-		_Buystorename = name;
+		_buystorename = name;
 	}
 	public String getBuyStoreName()
 	{
-		return _Buystorename;
+		return _buystorename;
 	}
 	
 	/**

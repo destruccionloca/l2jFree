@@ -48,7 +48,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RegionBBSManager extends BaseBBSManager
 {
     private static Logger _logChat = Logger.getLogger("chat");
-    private static RegionBBSManager _Instance = null;
+    private static RegionBBSManager _instance = null;
     private int _onlineCount = 0;
     private int _onlineCountGm = 0; 
     private static FastMap<Integer, FastList<L2PcInstance>> _onlinePlayers = new FastMap<Integer, FastList<L2PcInstance>>().setShared(true);
@@ -67,11 +67,11 @@ public class RegionBBSManager extends BaseBBSManager
      */
     public static RegionBBSManager getInstance()
     {
-        if(_Instance == null)
+        if(_instance == null)
         {
-            _Instance = new RegionBBSManager();
+            _instance = new RegionBBSManager();
         }
-        return _Instance;
+        return _instance;
     }   
     
     /* (non-Javadoc)
@@ -493,7 +493,7 @@ public class RegionBBSManager extends BaseBBSManager
         cal.set(Calendar.HOUR_OF_DAY, t / 60);
         cal.set(Calendar.MINUTE, t % 60);
         htmlCode.append(tdOpen + "Game Time: " + format.format(cal.getTime()) + tdClose + colSpacer);
-        htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.DateTimeServerStarted.getTime() + tdClose + trClose);
+        htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.dateTimeServerStarted.getTime() + tdClose + trClose);
         htmlCode.append("</table>");
    
         htmlCode.append("<table>");

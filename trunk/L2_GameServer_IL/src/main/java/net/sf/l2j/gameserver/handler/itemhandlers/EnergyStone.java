@@ -36,9 +36,9 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillCharge;
 
 public class EnergyStone implements IItemHandler 
 {
-    private static int[] _itemIds = { 5589 };
-    private EffectCharge effect;
-    private L2SkillCharge skill;
+    private static final int[] ITEM_IDS = { 5589 };
+    private EffectCharge _effect;
+    private L2SkillCharge _skill;
 
     public void useItem(L2PlayableInstance playable, L2ItemInstance item)
     {
@@ -69,24 +69,24 @@ public class EnergyStone implements IItemHandler
 
             if (activeChar.isSitting())
             {
-                     activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
-                     return;
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_MOVE_SITTING));
+                return;
             }
      
-            skill = getChargeSkill(activeChar);
-            if (skill == null)
+            _skill = getChargeSkill(activeChar);
+            if (_skill == null)
             {
-                     SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-                     sm.addItemName(5589);
-                     activeChar.sendPacket(sm);
-                     return;
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+                sm.addItemName(5589);
+                activeChar.sendPacket(sm);
+                return;
             }
      
-            effect = getChargeEffect(activeChar);
+            _effect = getChargeEffect(activeChar);
         
-            if (effect == null)
+            if (_effect == null)
             {
-                L2Skill dummy = SkillTable.getInstance().getInfo(skill.getId(),skill.getLevel());
+                L2Skill dummy = SkillTable.getInstance().getInfo(_skill.getId(),_skill.getLevel());
                 if (dummy != null) 
                 {
                 	dummy.getEffects(null, activeChar);
@@ -96,21 +96,21 @@ public class EnergyStone implements IItemHandler
                 return;
             }
     
-            if (effect.getLevel() < 2)
+            if (_effect.getLevel() < 2)
             {
-                MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, skill.getId(), 1, 1, 0);
+                MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, _skill.getId(), 1, 1, 0);
                 activeChar.sendPacket(MSU);
                 activeChar.broadcastPacket(MSU);
-                effect.addNumCharges(1);
+                _effect.addNumCharges(1);
                 activeChar.updateEffectIcons();
                 activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
             }
-            else if (effect.getLevel() == 2)
+            else if (_effect.getLevel() == 2)
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.FORCE_MAXLEVEL_REACHED));
             }
             SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-            sm.addNumber(effect.getLevel());
+            sm.addNumber(_effect.getLevel());
             activeChar.sendPacket(sm);
             return;
         }
@@ -125,29 +125,31 @@ public class EnergyStone implements IItemHandler
     
     private EffectCharge getChargeEffect(L2PcInstance activeChar)
     {
-    L2Effect[] effects = activeChar.getAllEffects();
-    for (L2Effect e : effects)
-    {
-        if (e.getSkill().getSkillType() == L2Skill.SkillType.CHARGE)
+        L2Effect[] effects = activeChar.getAllEffects();
+        for (L2Effect e : effects)
         {
-            return (EffectCharge)e;    
+            if (e.getSkill().getSkillType() == L2Skill.SkillType.CHARGE)
+            {
+                return (EffectCharge)e;    
+            }
         }
-    }
-    return null;
+        return null;
     }
     private L2SkillCharge getChargeSkill(L2PcInstance activeChar)
     {     
-    L2Skill[] skills = activeChar.getAllSkills();
-    for (L2Skill s : skills) {
-        if (s.getId() == 50 || s.getId() == 8) {
-            return (L2SkillCharge)s;
+        L2Skill[] skills = activeChar.getAllSkills();
+        for (L2Skill s : skills)
+        {
+            if (s.getId() == 50 || s.getId() == 8)
+            {
+                return (L2SkillCharge)s;
+            }
         }
-    }
-    return null;
+        return null;
     }
 
     public int[] getItemIds()
     {
-        return _itemIds;
+        return ITEM_IDS;
     }
 }

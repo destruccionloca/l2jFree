@@ -26,9 +26,9 @@ public class RequestEnchantItem extends L2GameClientPacket
 {
     protected static final Log _log = LogFactory.getLog(Inventory.class.getName());
     private static final String _C__58_REQUESTENCHANTITEM = "[C] 58 RequestEnchantItem";
-    private static final int[] enchantscrolls = {729, 730, 947, 948, 951, 952, 955, 956, 959, 960 };
-    private static final int[] crystalscrolls = {731, 732, 949, 950, 953, 954, 957, 958, 961, 962 };
-    private static final int[] blessedscrolls = {6569, 6570, 6571, 6572, 6573, 6574, 6575, 6576, 6577, 6578 };
+    private static final int[] ENCHANT_SCROLLS = {729, 730, 947, 948, 951, 952, 955, 956, 959, 960 };
+    private static final int[] CRYSTAL_SCROLLS = {731, 732, 949, 950, 953, 954, 957, 958, 961, 962 };
+    private static final int[] BLESSED_SCROLLS = {6569, 6570, 6571, 6572, 6573, 6574, 6575, 6576, 6577, 6578 };
 
     private int _objectId;
     /**
@@ -57,7 +57,7 @@ public class RequestEnchantItem extends L2GameClientPacket
 
         // Restrict enchant during restart/shutdown (because of an existing exploit)
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
             activeChar.sendMessage("Enchant isn't allowed during restart/shutdown!");
             return;
@@ -178,21 +178,21 @@ public class RequestEnchantItem extends L2GameClientPacket
         {
             maxEnchantLevel = Config.ENCHANT_MAX_WEAPON;
             
-            for (int scrollId : enchantscrolls)
+            for (int scrollId : ENCHANT_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_WEAPON;
                     enchantBreak = Config.ENCHANT_BREAK_WEAPON;
                     break;
                 }
-            for (int scrollId : crystalscrolls)
+            for (int scrollId : CRYSTAL_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_WEAPON_CRYSTAL;
                     enchantBreak = Config.ENCHANT_BREAK_WEAPON_CRYSTAL;
                     break;
                 }
-            for (int scrollId : blessedscrolls)
+            for (int scrollId : BLESSED_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_WEAPON_BLESSED;
@@ -204,21 +204,21 @@ public class RequestEnchantItem extends L2GameClientPacket
         {
             maxEnchantLevel = Config.ENCHANT_MAX_JEWELRY;
             
-            for (int scrollId : enchantscrolls)
+            for (int scrollId : ENCHANT_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_JEWELRY;
                     enchantBreak = Config.ENCHANT_BREAK_JEWELRY;
                     break;
                 }
-            for (int scrollId : crystalscrolls)
+            for (int scrollId : CRYSTAL_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_JEWELRY_CRYSTAL;
                     enchantBreak = Config.ENCHANT_BREAK_JEWELRY_CRYSTAL;
                     break;
                 }
-            for (int scrollId : blessedscrolls)
+            for (int scrollId : BLESSED_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_JEWELRY_BLESSED;
@@ -230,21 +230,21 @@ public class RequestEnchantItem extends L2GameClientPacket
         {
             maxEnchantLevel = Config.ENCHANT_MAX_ARMOR;
             
-            for (int scrollId : enchantscrolls)
+            for (int scrollId : ENCHANT_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_ARMOR;
                     enchantBreak = Config.ENCHANT_BREAK_ARMOR;
                     break;
                 }
-            for (int scrollId : crystalscrolls)
+            for (int scrollId : CRYSTAL_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_ARMOR_CRYSTAL;
                     enchantBreak = Config.ENCHANT_BREAK_ARMOR_CRYSTAL;
                     break;
                 }
-            for (int scrollId : blessedscrolls)
+            for (int scrollId : BLESSED_SCROLLS)
                 if(scroll.getItemId() == scrollId)
                 {
                     chance = Config.ENCHANT_CHANCE_ARMOR_BLESSED;

@@ -31,24 +31,24 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 //	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
 	private static final String _S__D1_PRIVATESTORELISTBUY = "[S] b8 PrivateStoreListBuy";
 	private L2PcInstance _storePlayer;
-	private L2PcInstance _player;
-	private int _playerAdena;
+	private L2PcInstance _activeChar;
+	private int _activeCharAdena;
 	private TradeList.TradeItem[] _items;
 	
 	public PrivateStoreListBuy(L2PcInstance player, L2PcInstance storePlayer)
 	{
 		_storePlayer = storePlayer;
-		_player = player;
-		_playerAdena = _player.getAdena();
+		_activeChar = player;
+		_activeCharAdena = _activeChar.getAdena();
 		_storePlayer.getSellList().updateItems(); // Update SellList for case inventory content has changed
-		_items = _storePlayer.getBuyList().getAvailableItems(_player.getInventory());
+		_items = _storePlayer.getBuyList().getAvailableItems(_activeChar.getInventory());
 	}
 	
 	protected final void writeImpl()
 	{
 		writeC(0xb8);
 		writeD(_storePlayer.getObjectId());
-		writeD(_playerAdena);
+		writeD(_activeCharAdena);
 
 		writeD(_items.length);
 

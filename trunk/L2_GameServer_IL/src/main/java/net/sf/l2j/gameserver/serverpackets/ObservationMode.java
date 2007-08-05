@@ -62,4 +62,3 @@ public class ObservationMode extends L2GameServerPacket
 		return _S__DF_OBSERVMODE;
 	}
 }
-	

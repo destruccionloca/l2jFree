@@ -63,7 +63,7 @@ public class AutoSpawnHandler
     protected FastMap<Integer, ScheduledFuture> _runningSpawns;
     protected boolean _activeState = true;
     
-	public AutoSpawnHandler()
+	private AutoSpawnHandler()
 	{
         _registeredSpawns = new FastMap<Integer, AutoSpawnInstance>();
         _runningSpawns = new FastMap<Integer, ScheduledFuture>();

@@ -137,12 +137,12 @@ public abstract class L2Effect
 
 	public final class EffectTask implements Runnable
 	{	
-		protected final int delay;
-		protected final int rate;
-		EffectTask(int _delay, int _rate)
+		protected final int _delay;
+		protected final int _rate;
+		EffectTask(int delay, int rate)
 		{
-			this.delay = _delay;
-			this.rate = _rate;
+			_delay = delay;
+			_rate = rate;
 		}
 		public void run()
 		{
@@ -486,7 +486,7 @@ public abstract class L2Effect
 		if (_state == EffectState.FINISHING || _state == EffectState.CREATED) 
 			return;
 		L2Skill sk = getSkill();
-		if (task.rate > 0)
+		if (task._rate > 0)
         {
         	if (sk.isPotion()) mi.addEffect(sk.getId(), getLevel(), sk.getBuffDuration()-(getTaskTime()*1000));
         	else mi.addEffect(sk.getId(), getLevel(), -1);

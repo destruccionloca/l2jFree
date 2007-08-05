@@ -40,8 +40,8 @@ import net.sf.l2j.gameserver.util.Broadcast;
 public class SoulShots implements IItemHandler
 {
     // All the item IDs that this handler knows.
-	private static int[] _itemIds = {5789, 1835, 1463, 1464, 1465, 1466, 1467 };
-	private static int[] _skillIds = {2039, 2150, 2151, 2152, 2153, 2154 };
+	private static final int[] ITEM_IDS = {5789, 1835, 1463, 1464, 1465, 1466, 1467 };
+	private static final int[] SKILL_IDS = {2039, 2150, 2151, 2152, 2153, 2154 };
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -107,11 +107,11 @@ public class SoulShots implements IItemHandler
         
 		// Send message to client
         activeChar.sendPacket(new SystemMessage(SystemMessageId.ENABLED_SOULSHOT));
-        Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUser(activeChar, activeChar, _skillIds[weaponGrade], 1, 0, 0), 360000/*600*/);
+        Broadcast.toSelfAndKnownPlayersInRadius(activeChar, new MagicSkillUser(activeChar, activeChar, SKILL_IDS[weaponGrade], 1, 0, 0), 360000/*600*/);
 	}
 	
 	public int[] getItemIds()
 	{
-		return _itemIds;
+		return ITEM_IDS;
 	}
 }

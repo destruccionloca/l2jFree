@@ -28,16 +28,17 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConditionPlayerHp extends Condition {
-
-	final int _hp;
+public class ConditionPlayerHp extends Condition
+{
+	private final int _hp;
 	
     public ConditionPlayerHp(int hp)
 	{
 		_hp = hp;
 	}
 	
-	public boolean testImpl(Env env) {
+	public boolean testImpl(Env env)
+	{
 		return env.player.getStatus().getCurrentHp()*100/env.player.getMaxHp() <= _hp;
 	}
 }

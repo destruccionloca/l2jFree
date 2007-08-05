@@ -386,7 +386,7 @@ public class Hero
                 if (clan != null)
                     clan.setReputationScore(clan.getReputationScore()+1000, true);
                  player.setHero(true); 
-                 for(L2Skill skill : HeroSkillTable.getInstance().GetHeroSkills())
+                 for(L2Skill skill : HeroSkillTable.getInstance().getHeroSkills())
                 	 player.addSkill(skill);
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();

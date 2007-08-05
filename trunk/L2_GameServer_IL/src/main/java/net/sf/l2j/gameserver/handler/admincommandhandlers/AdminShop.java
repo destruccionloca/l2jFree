@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdminShop implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminShop.class.getName());
 	
-	private static String[] _adminCommands = {
+	private static final String[] ADMIN_COMMANDS = {
 			"admin_buy",
 			"admin_gmshop"
 			};
@@ -68,11 +68,13 @@ public class AdminShop implements IAdminCommandHandler {
 		return true;
 	}
 	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
 	
-	private boolean checkLevel(int level) {
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
 	

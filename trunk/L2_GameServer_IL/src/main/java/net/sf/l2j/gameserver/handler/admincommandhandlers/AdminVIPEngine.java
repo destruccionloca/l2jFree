@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 public class AdminVIPEngine implements IAdminCommandHandler {
-    private static String[] _adminCommands = {  "admin_vip", 
+    private static final String[] ADMIN_COMMANDS = {  "admin_vip", 
                                                 "admin_vip_setteam", "admin_vip_randomteam",
                                                 "admin_vip_settime", "admin_vip_endnpc",
                                                 "admin_vip_setdelay", "admin_vip_joininit",
@@ -314,15 +314,18 @@ public class AdminVIPEngine implements IAdminCommandHandler {
         return true;
     }
     
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
     
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }
     
-    public void showMainPage(L2PcInstance activeChar) {
+    public void showMainPage(L2PcInstance activeChar)
+    {
         NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
         TextBuilder replyMSG = new TextBuilder("<html><body>");
         

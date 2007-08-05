@@ -63,7 +63,7 @@ public class AdminTeleport implements IAdminCommandHandler
 {
     private static final Log _log = LogFactory.getLog(AdminTeleport.class.getName());
     
-    private static String[] _adminCommands = {
+    private static final String[] ADMIN_COMMANDS = {
     	"admin_bookmark", // L2JP_JP ADD
         "admin_show_moves",
         "admin_show_moves_other",
@@ -90,7 +90,8 @@ public class AdminTeleport implements IAdminCommandHandler
     private static final int REQUIRED_LEVEL = Config.GM_TELEPORT;
     private static final int REQUIRED_LEVEL2 = Config.GM_TELEPORT_OTHER;
     
-    public boolean useAdminCommand(String command, L2PcInstance activeChar) {
+    public boolean useAdminCommand(String command, L2PcInstance activeChar)
+    {
         if (!Config.ALT_PRIVILEGES_ADMIN)
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
         if (command.startsWith("admin_bookmark"))// L2J_JP ADD
@@ -393,7 +394,7 @@ public class AdminTeleport implements IAdminCommandHandler
     
     public String[] getAdminCommandList() 
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
     
     private boolean checkLevel(int level) 
@@ -402,7 +403,8 @@ public class AdminTeleport implements IAdminCommandHandler
     }
 
     // L2J_JP ADD
-    private void bookmark(L2PcInstance activeChar, String Name){
+    private void bookmark(L2PcInstance activeChar, String Name)
+    {
         File file = new File(Config.DATAPACK_ROOT+"/"+"data/html/admin/tele/bookmark.txt");
         LineNumberReader lnr = null;
         String bookmarks = "";

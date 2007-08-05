@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 
 public class AdminPathNode implements IAdminCommandHandler
 {
-    private static String[] _adminCommands = {
+    private static final String[] ADMIN_COMMANDS = {
         "admin_pn_info",
         "admin_show_path",
         "admin_path_debug",
@@ -72,7 +72,7 @@ public class AdminPathNode implements IAdminCommandHandler
     			int gy = (activeChar.getY() - L2World.MAP_MIN_Y) >> 4;
     			int gtx = (activeChar.getTarget().getX() - L2World.MAP_MIN_X) >> 4;
     			int gty = (activeChar.getTarget().getY() - L2World.MAP_MIN_Y) >> 4;
-    			List<AbstractNodeLoc> path = GeoPathFinding.getInstance().FindPath(gx, gy, (short)activeChar.getZ(), gtx, gty, (short)activeChar.getTarget().getZ());
+    			List<AbstractNodeLoc> path = GeoPathFinding.getInstance().findPath(gx, gy, (short)activeChar.getZ(), gtx, gty, (short)activeChar.getTarget().getZ());
                 for(AbstractNodeLoc a : path)
                 {
                 	activeChar.sendMessage("x:"+a.getX()+" y:"+a.getY()+" z:"+a.getZ());
@@ -84,11 +84,13 @@ public class AdminPathNode implements IAdminCommandHandler
         return true;
     }
     
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
     
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }    
 }

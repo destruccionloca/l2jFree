@@ -37,23 +37,23 @@ public class FactionManager
     protected static Logger _log = Logger.getLogger(FactionManager.class.getName());
 
     // =========================================================
-    private static FactionManager _Instance;
+    private static FactionManager _instance;
     public static final FactionManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
             _log.info("Initializing FactionManager");
-            _Instance = new FactionManager();
-            _Instance.load();
+            _instance = new FactionManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
     // =========================================================
     
     // =========================================================
     // Data Field
-    private FastList<Faction> _Factions;
-    private FastList<String> _list_titles       = new FastList<String>();
+    private FastList<Faction> _factions;
+    private FastList<String> _listTitles       = new FastList<String>();
     
     // =========================================================
     // Method - Public
@@ -84,7 +84,7 @@ public class FactionManager
                 Faction faction = new Faction(rs.getInt("id"));
                 getFactions().add(faction);
                 for(FastMap.Entry<Integer, String> e = faction.getTitle().head(), end = faction.getTitle().tail(); (e = e.getNext()) != end;)
-                    _list_titles.add(e.getValue().toLowerCase());
+                    _listTitles.add(e.getValue().toLowerCase());
                 faction = null;
             }
 
@@ -122,13 +122,13 @@ public class FactionManager
 
     public final FastList<Faction> getFactions()
     {
-        if (_Factions == null) _Factions = new FastList<Faction>();
-        return _Factions;
+        if (_factions == null) _factions = new FastList<Faction>();
+        return _factions;
     }
     
     public final FastList<String> getFactionTitles()
     {
-        if (_list_titles == null) _list_titles = new FastList<String>();
-        return _list_titles;
+        if (_listTitles == null) _listTitles = new FastList<String>();
+        return _listTitles;
     }
 }

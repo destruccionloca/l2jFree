@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class Potions implements IItemHandler
 {
-    private static int[] _itemIds =
+    private static final int[] ITEM_IDS =
         { 65, 725, 726, 727, 728, 733, 734, 735, 1060, 1061, 1062, 1073, 1374, 1375,
                 1539, 1540, 5283, 5591, 5592, 6035, 6036, 6652, 6553, 6554, 6555,
                 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200, 8201, 8202,
@@ -53,8 +53,7 @@ public class Potions implements IItemHandler
 				8634, 8635, 8636, 8637, 8638, 8639};
 
 
-    public synchronized void useItem(L2PlayableInstance playable,
-            L2ItemInstance item)
+    public synchronized void useItem(L2PlayableInstance playable, L2ItemInstance item)
     {
         L2PcInstance activeChar;
         boolean res = false;
@@ -431,7 +430,6 @@ public class Potions implements IItemHandler
     	}
     	else
     		return true;
-    	
     }
     
     private boolean isUseable(L2PcInstance activeChar, Enum effectType, int itemId,int skillid)
@@ -456,6 +454,6 @@ public class Potions implements IItemHandler
 
     public int[] getItemIds()
     {
-        return _itemIds;
+        return ITEM_IDS;
     }
 }

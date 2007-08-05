@@ -47,8 +47,9 @@ import net.sf.l2j.gameserver.util.Util;
  * @author nuocnam
  * @version $Revision: 1.6.2.2.2.6 $ $Date: 2005/04/11 19:12:16 $
  */
-public class L2Party {
-    static double[] _bonusExpSp = {1, 1.30, 1.39, 1.50, 1.54, 1.58, 1.63, 1.67, 1.71};
+public class L2Party
+{
+    private static final double[] BONUS_EXP_SP = {1, 1.30, 1.39, 1.50, 1.54, 1.58, 1.63, 1.67, 1.71};
     
     // private final static Log _log = LogFactory.getLog(L2Party.class.getName());
     
@@ -693,12 +694,12 @@ public class L2Party {
 			
 			int i = members.size() - 1;
 			if (i < 1 ) return members;
-            if (i >= _bonusExpSp.length) i = _bonusExpSp.length -1;
+            if (i >= BONUS_EXP_SP.length) i = BONUS_EXP_SP.length -1;
 
             for (L2PlayableInstance member : members)
 			{
 				int sqLevel = member.getLevel() * member.getLevel();
-				if (sqLevel >= sqLevelSum * (1-1/(1 +_bonusExpSp[i] -_bonusExpSp[i-1])))
+				if (sqLevel >= sqLevelSum * (1-1/(1 +BONUS_EXP_SP[i] -BONUS_EXP_SP[i-1])))
 					validMembers.add(member);
 			}
 		}
@@ -709,9 +710,9 @@ public class L2Party {
 	{
 		int i = membersCount -1;
         if (i < 1 ) return 1;
-        if (i >= _bonusExpSp.length) i = _bonusExpSp.length -1;
+        if (i >= BONUS_EXP_SP.length) i = BONUS_EXP_SP.length -1;
 
-        return _bonusExpSp[i];
+        return BONUS_EXP_SP[i];
     }
     
 	private double getExpBonus(int membersCount) 

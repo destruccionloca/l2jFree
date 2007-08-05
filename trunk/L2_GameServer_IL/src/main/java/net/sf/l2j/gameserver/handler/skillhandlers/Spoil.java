@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
 public class Spoil implements ISkillHandler 
 { 
     //private static Logger _log = Logger.getLogger(Spoil.class.getName()); 
-    protected SkillType[] _skillIds = {SkillType.SPOIL};
+    private static final SkillType[] SKILL_IDS = {SkillType.SPOIL};
     
     public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
     { 
@@ -93,6 +93,6 @@ public class Spoil implements ISkillHandler
     
     public SkillType[] getSkillIds()
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     } 
 }

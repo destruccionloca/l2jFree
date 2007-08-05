@@ -221,9 +221,9 @@ public class RaidBossSpawnManager {
     public void addNewSpawn(L2Spawn spawnDat, long respawnTime, double currentHP, double currentMP, boolean storeInDb)
     {
         if (spawnDat == null) return;
-        if (_spawns.containsKey(spawnDat.getNpcid())) return;
+        if (_spawns.containsKey(spawnDat.getNpcId())) return;
 
-        int bossId = spawnDat.getNpcid();
+        int bossId = spawnDat.getNpcId();
         long time = Calendar.getInstance().getTimeInMillis();
 
         SpawnTable.getInstance().addNewSpawn(spawnDat, false);
@@ -273,7 +273,7 @@ public class RaidBossSpawnManager {
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement("INSERT INTO raidboss_spawnlist (boss_id,amount,loc_x,loc_y,loc_z,heading,respawn_time,currentHp,currentMp) values(?,?,?,?,?,?,?,?,?)");
-                statement.setInt(1, spawnDat.getNpcid());
+                statement.setInt(1, spawnDat.getNpcId());
                 statement.setInt(2, spawnDat.getAmount());
                 statement.setInt(3, spawnDat.getLocx());
                 statement.setInt(4, spawnDat.getLocy());
@@ -300,9 +300,9 @@ public class RaidBossSpawnManager {
     public void deleteSpawn(L2Spawn spawnDat, boolean updateDb)
     {
         if (spawnDat == null) return;
-        if (!_spawns.containsKey(spawnDat.getNpcid())) return;
+        if (!_spawns.containsKey(spawnDat.getNpcId())) return;
         
-        int bossId = spawnDat.getNpcid();
+        int bossId = spawnDat.getNpcId();
 
         SpawnTable.getInstance().deleteSpawn(spawnDat, false);
         _spawns.remove(bossId);

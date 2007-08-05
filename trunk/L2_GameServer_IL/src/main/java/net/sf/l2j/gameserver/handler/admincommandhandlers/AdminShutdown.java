@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 public class AdminShutdown implements IAdminCommandHandler {
 	//private final static Log _log = LogFactory.getLog(AdminShutdown.class.getName());
 	
-	private static String[] _adminCommands = {"admin_server_shutdown", "admin_server_restart", "admin_server_abort"};
+	private static final String[] ADMIN_COMMANDS = {"admin_server_shutdown", "admin_server_restart", "admin_server_abort"};
 	private static final int REQUIRED_LEVEL = Config.GM_RESTART;
 	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -77,11 +77,13 @@ public class AdminShutdown implements IAdminCommandHandler {
 		return true;
 	}
 	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
 	
-	private boolean checkLevel(int level) {
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
 

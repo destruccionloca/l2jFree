@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 public class Wedding implements IVoicedCommandHandler
 {
     protected static Log _log = LogFactory.getLog(Wedding.class);
-    private static String[] _voicedCommands = { "divorce", "engage", "gotolove" };
+    private static final String[] VOICED_COMMANDS = { "divorce", "engage", "gotolove" };
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
@@ -345,6 +345,6 @@ public class Wedding implements IVoicedCommandHandler
      */
     public String[] getVoicedCommandList()
     {
-        return _voicedCommands;
+        return VOICED_COMMANDS;
     }
 }

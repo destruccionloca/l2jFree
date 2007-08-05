@@ -35,18 +35,18 @@ import net.sf.l2j.gameserver.model.L2Character;
 public class ExFishingHpRegen extends L2GameServerPacket
 {
 	private static final String _S__FE_16_EXFISHINGHPREGEN = "[S] FE:16 ExFishingHPRegen";
-	private L2Character _character;
-	private int _time, _fishHP, _HPmode, _Anim, _GoodUse, _Penalty, _hpBarColor;
+	private L2Character _activeChar;
+	private int _time, _fishHp, _hpMode, _anim, _goodUse, _penalty, _hpBarColor;
 	
-	public ExFishingHpRegen(L2Character character, int time, int fishHP, int HPmode, int GoodUse, int anim, int penalty, int hpBarColor)
+	public ExFishingHpRegen(L2Character character, int time, int fishHp, int HPmode, int GoodUse, int anim, int penalty, int hpBarColor)
 	{
-		_character = character;
+		_activeChar = character;
 		_time = time;
-		_fishHP = fishHP;
-		_HPmode = HPmode;
-		_GoodUse = GoodUse;
-		_Anim = anim;
-		_Penalty = penalty;
+		_fishHp = fishHp;
+		_hpMode = HPmode;
+		_goodUse = GoodUse;
+		_anim = anim;
+		_penalty = penalty;
 		_hpBarColor = hpBarColor;
 	}
 
@@ -59,15 +59,14 @@ public class ExFishingHpRegen extends L2GameServerPacket
 		writeC(0xfe);
 		writeH(0x16);
 		
-		writeD(_character.getObjectId());
+		writeD(_activeChar.getObjectId());
 		writeD(_time);
-		writeD(_fishHP);
-		writeC(_HPmode); // 0 = HP stop, 1 = HP raise 
-		writeC(_GoodUse); // 0 = none, 1 = success, 2 = failed
-		writeC(_Anim); // Anim: 0 = none, 1 = reeling, 2 = pumping
-		writeD(_Penalty); // Penalty	
+		writeD(_fishHp);
+		writeC(_hpMode); // 0 = HP stop, 1 = HP raise 
+		writeC(_goodUse); // 0 = none, 1 = success, 2 = failed
+		writeC(_anim); // Anim: 0 = none, 1 = reeling, 2 = pumping
+		writeD(_penalty); // Penalty	
 		writeC(_hpBarColor); // 0 = normal hp bar, 1 = purple hp bar
-		
 	}
 
 	/* (non-Javadoc)
@@ -78,5 +77,4 @@ public class ExFishingHpRegen extends L2GameServerPacket
 	{
 		return _S__FE_16_EXFISHINGHPREGEN;
 	}
-	
 }

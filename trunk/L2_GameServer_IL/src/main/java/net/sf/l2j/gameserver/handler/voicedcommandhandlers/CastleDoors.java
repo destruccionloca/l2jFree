@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  */
 public class CastleDoors implements IVoicedCommandHandler
 {
-    private static String[] _voicedCommands = { "open", "close"}; 
+    private static final String[] VOICED_COMMANDS = { "open", "close"}; 
 
     public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
     {
@@ -60,6 +60,6 @@ public class CastleDoors implements IVoicedCommandHandler
  
     public String[] getVoicedCommandList()
     {
-        return _voicedCommands;
+        return VOICED_COMMANDS;
     }
 }

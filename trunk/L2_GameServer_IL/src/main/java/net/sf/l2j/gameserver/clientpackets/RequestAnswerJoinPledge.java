@@ -79,7 +79,7 @@ public class RequestAnswerJoinPledge extends L2GameClientPacket
 			RequestJoinPledge requestPacket = (RequestJoinPledge) requestor.getRequest().getRequestPacket();
 	        L2Clan clan = requestor.getClan();
 			// we must double check this cause during response time conditions can be changed, i.e. another player could join clan
-			if (clan.CheckClanJoinCondition(requestor, activeChar, requestPacket.getPledgeType()))
+			if (clan.checkClanJoinCondition(requestor, activeChar, requestPacket.getPledgeType()))
 	        {
 				JoinPledge jp = new JoinPledge(requestor.getClanId());
 				activeChar.sendPacket(jp);

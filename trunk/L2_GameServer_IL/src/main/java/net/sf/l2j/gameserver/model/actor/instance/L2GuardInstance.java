@@ -135,7 +135,7 @@ public final class L2GuardInstance extends L2Attackable
     /**
      * Set the home location of its L2GuardInstance.<BR><BR>
      */
-    public void OnSpawn()
+    public void onSpawn()
     {
         _homeX = getX();
         _homeY = getY();

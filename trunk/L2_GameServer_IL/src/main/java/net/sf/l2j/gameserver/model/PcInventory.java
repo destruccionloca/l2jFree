@@ -531,7 +531,7 @@ public class PcInventory extends Inventory
     
     public boolean validateCapacity(int slots)
     {
-        return (_items.size() + slots <= _owner.GetInventoryLimit());
+        return (_items.size() + slots <= _owner.getInventoryLimit());
     }
 
     public boolean validateWeight(int weight)

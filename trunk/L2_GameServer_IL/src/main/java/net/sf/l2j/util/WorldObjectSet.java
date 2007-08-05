@@ -41,11 +41,11 @@ import net.sf.l2j.gameserver.model.L2Object;
 
 public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
 {
-    private FastMap<Integer, T> objectMap;
+    private FastMap<Integer, T> _objectMap;
     
     public WorldObjectSet()
     {
-        objectMap   = new FastMap<Integer, T>().setShared(true);
+        _objectMap = new FastMap<Integer, T>().setShared(true);
     }
 
     /* (non-Javadoc)
@@ -54,7 +54,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public int size()
     {
-        return objectMap.size();
+        return _objectMap.size();
     }
 
     /* (non-Javadoc)
@@ -63,7 +63,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public boolean isEmpty()
     {
-        return objectMap.isEmpty();
+        return _objectMap.isEmpty();
     }
 
     /* (non-Javadoc)
@@ -72,7 +72,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public void clear()
     {
-        objectMap.clear();
+        _objectMap.clear();
     }
 
     /* (non-Javadoc)
@@ -81,7 +81,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public void put(T obj)
     {
-        objectMap.put(obj.getObjectId(), obj);
+        _objectMap.put(obj.getObjectId(), obj);
     }
 
     /* (non-Javadoc)
@@ -90,7 +90,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public void remove(T obj)
     {
-        objectMap.remove(obj.getObjectId());
+        _objectMap.remove(obj.getObjectId());
     }
 
     /* (non-Javadoc)
@@ -99,7 +99,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public boolean contains(T obj)
     {
-        return objectMap.containsKey(obj.getObjectId());
+        return _objectMap.containsKey(obj.getObjectId());
     }
 
     /* (non-Javadoc)
@@ -108,7 +108,7 @@ public class WorldObjectSet<T extends L2Object> extends L2ObjectSet<T>
     @Override
     public Iterator<T> iterator()
     {
-        return objectMap.values().iterator();
+        return _objectMap.values().iterator();
     }
 
 }

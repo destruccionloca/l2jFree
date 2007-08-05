@@ -49,9 +49,9 @@ public class Shutdown extends Thread implements ShutdownMBean
     private static Shutdown _instance;
     private static Shutdown _counterInstance = null;
     
-    private int secondsShut;    
+    private int _secondsShut;    
     
-    private shutdownModeType shutdownMode;
+    private shutdownModeType _shutdownMode;
     
     public enum shutdownModeType
     {
@@ -78,8 +78,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      *
      */
     public Shutdown() {
-        secondsShut = -1;
-        shutdownMode = shutdownModeType.SIGTERM;
+        _secondsShut = -1;
+        _shutdownMode = shutdownModeType.SIGTERM;
     }
     
     /**
@@ -93,8 +93,8 @@ public class Shutdown extends Thread implements ShutdownMBean
         if (seconds < 0) {
             seconds = 0;
         }
-        secondsShut = seconds;
-        shutdownMode = mode;
+        _secondsShut = seconds;
+        _shutdownMode = mode;
     }
 
     /**
@@ -164,7 +164,7 @@ public class Shutdown extends Thread implements ShutdownMBean
                 //L2DatabaseFactory.getInstance().shutdown();
             } catch (Throwable t) {}
             // server will quit, when this function ends.
-            if (_instance.shutdownMode == shutdownModeType.RESTART)
+            if (_instance._shutdownMode == shutdownModeType.RESTART)
                 Runtime.getRuntime().halt(2);
             else
                 Runtime.getRuntime().halt(0);
@@ -172,8 +172,8 @@ public class Shutdown extends Thread implements ShutdownMBean
             // gm shutdown: send warnings and then call exit to start shutdown sequence
             countdown();
             // last point where logging is operational :(
-            _log.warn("Shutdown countdown is over. " + _instance.shutdownMode.getText() + " NOW!");
-            switch (shutdownMode) {
+            _log.warn("Shutdown countdown is over. " + _instance._shutdownMode.getText() + " NOW!");
+            switch (_shutdownMode) {
                 case SHUTDOWN:
                     _instance.setMode(shutdownModeType.SHUTDOWN);
                     System.exit(0);
@@ -211,9 +211,9 @@ public class Shutdown extends Thread implements ShutdownMBean
         setMode(mode);
 
        Announcements.getInstance().announceToAll("Attention players!");
-       Announcements.getInstance().announceToAll("Server is " + shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
+       Announcements.getInstance().announceToAll("Server is " + _shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
        if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
-	        IrcManager.getInstance().getConnection().sendChan("Server is " + shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
+	        IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
        
 
         if (_counterInstance != null) {
@@ -240,11 +240,11 @@ public class Shutdown extends Thread implements ShutdownMBean
      */
     public void abort(String _initiator) {
 
-        _log.warn(_initiator + " issued shutdown ABORT. " + shutdownMode.getText() + " has been stopped!");
-        Announcements.getInstance().announceToAll("Server aborts " + shutdownMode.getText().toLowerCase() + " and continues normal operation!");
+        _log.warn(_initiator + " issued shutdown ABORT. " + _shutdownMode.getText() + " has been stopped!");
+        Announcements.getInstance().announceToAll("Server aborts " + _shutdownMode.getText().toLowerCase() + " and continues normal operation!");
 
         if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
-	        IrcManager.getInstance().getConnection().sendChan("Server aborts " + shutdownMode.getText().toLowerCase() + " and continues normal operation!");
+	        IrcManager.getInstance().getConnection().sendChan("Server aborts " + _shutdownMode.getText().toLowerCase() + " and continues normal operation!");
         
 
         if (_counterInstance != null) {
@@ -257,8 +257,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * get the current count down
      * @param mode  what mode shall be set
      */
-    public int getCountdow() {
-        return secondsShut;
+    public int getCountdown() {
+        return _secondsShut;
     }
     
     /**
@@ -266,7 +266,7 @@ public class Shutdown extends Thread implements ShutdownMBean
      * @param mode  what mode shall be set
      */
     private void setMode(shutdownModeType mode) {
-        shutdownMode = mode;
+        _shutdownMode = mode;
     }
 
     /**
@@ -274,7 +274,7 @@ public class Shutdown extends Thread implements ShutdownMBean
      *
      */
     private void _abort() {
-        shutdownMode = shutdownModeType.ABORT;
+        _shutdownMode = shutdownModeType.ABORT;
     }
 
     /**
@@ -284,13 +284,13 @@ public class Shutdown extends Thread implements ShutdownMBean
     private void countdown() {
         
         try {
-            while (secondsShut > 0) {
+            while (_secondsShut > 0) {
                 
                 int _seconds;
                 int _minutes;
                 int _hours;
 
-                _seconds = secondsShut;
+                _seconds = _secondsShut;
                 _minutes = Math.round(_seconds / 60);
                 _hours = Math.round(_seconds / 3600);
                 		
@@ -314,12 +314,12 @@ public class Shutdown extends Thread implements ShutdownMBean
                     // do nothing, we maybe are not connected to LS anymore
                 }
                  
-                secondsShut--;
+                _secondsShut--;
                     
                 int delay = 1000; //milliseconds    
                 Thread.sleep(delay);
                 
-                if(shutdownMode == shutdownModeType.ABORT) break;
+                if(_shutdownMode == shutdownModeType.ABORT) break;
             }               
         } catch (InterruptedException e) {
             //this will never happen
@@ -332,17 +332,17 @@ public class Shutdown extends Thread implements ShutdownMBean
      */
     private void saveData() {
 
-    	_log.info(shutdownMode.toString()+" received. "+shutdownMode.getText()+" NOW!");
+    	_log.info(_shutdownMode.toString()+" received. "+_shutdownMode.getText()+" NOW!");
                
         try
         {
-        	Announcements.getInstance().announceToAll("Server is " + shutdownMode.getText().toLowerCase() + " NOW!");
+        	Announcements.getInstance().announceToAll("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
         } catch (Throwable t) {
             _log.info( "", t);
         }
 
         if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
-	        IrcManager.getInstance().getConnection().sendChan("Server is " + shutdownMode.getText().toLowerCase() + " NOW!");
+	        IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
         
         // we cannt abort shutdown anymore, so i removed the "if" 
         disconnectAllCharacters();
@@ -377,7 +377,7 @@ public class Shutdown extends Thread implements ShutdownMBean
             ItemsOnGroundManager.getInstance().cleanUp();
             _log.info("ItemsOnGroundManager: All items on ground saved.");
         }
-        _log.info("Data saved. All players disconnected, "+shutdownMode.getText().toLowerCase()+".");
+        _log.info("Data saved. All players disconnected, "+_shutdownMode.getText().toLowerCase()+".");
         
         try {
             int delay = 5000;

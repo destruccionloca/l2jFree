@@ -40,7 +40,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class TakeCastle implements ISkillHandler 
 { 
     //private final static Log _log = LogFactory.getLog(TakeCastle.class.getName()); 
-    protected SkillType[] _skillIds = {SkillType.TAKECASTLE}; 
+    private static final SkillType[] SKILL_IDS = {SkillType.TAKECASTLE}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
     {
@@ -61,7 +61,7 @@ public class TakeCastle implements ISkillHandler
     
     public SkillType[] getSkillIds() 
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     } 
 
     /**

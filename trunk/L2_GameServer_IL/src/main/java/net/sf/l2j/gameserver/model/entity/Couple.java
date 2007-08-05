@@ -39,7 +39,7 @@ public class Couple
     
     // =========================================================
     // Data Field
-    private int _Id                             = 0;
+    private int _id                             = 0;
     private int _player1Id                      = 0;
     private int _player2Id                      = 0;
     private boolean _maried                     = false;
@@ -50,7 +50,7 @@ public class Couple
     // Constructor
     public Couple(int coupleId)
     {
-        this._Id = coupleId;
+        this._id = coupleId;
         
         java.sql.Connection con = null;
         try
@@ -61,7 +61,7 @@ public class Couple
             con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("Select * from couples where id = ?");
-            statement.setInt(1, this._Id);
+            statement.setInt(1, this._id);
             rs = statement.executeQuery();
 
             while (rs.next())
@@ -104,9 +104,9 @@ public class Couple
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
-            this._Id = IdFactory.getInstance().getNextId();
+            this._id = IdFactory.getInstance().getNextId();
             statement = con.prepareStatement("INSERT INTO couples (id, player1Id, player2Id, maried, affiancedDate, weddingDate) VALUES (?, ?, ?, ?, ?, ?)");
-            statement.setInt(1, this._Id);
+            statement.setInt(1, this._id);
             statement.setInt(2, this._player1Id);
             statement.setInt(3, this._player2Id);
             statement.setBoolean(4, false);
@@ -137,7 +137,7 @@ public class Couple
             statement.setBoolean(1, true);
             this._weddingDate = Calendar.getInstance();
             statement.setLong(2, this._weddingDate.getTimeInMillis());
-            statement.setInt(3, this._Id);
+            statement.setInt(3, this._id);
             statement.execute();
             statement.close();
             this._maried = true;
@@ -161,7 +161,7 @@ public class Couple
             PreparedStatement statement;
             
             statement = con.prepareStatement("DELETE FROM couples WHERE id=?");
-            statement.setInt(1, this._Id);
+            statement.setInt(1, this._id);
             statement.execute();
         }
         catch (Exception e)
@@ -174,7 +174,7 @@ public class Couple
         }
     }
     
-    public final int getId() { return this._Id; }
+    public final int getId() { return this._id; }
 
     public final int getPlayer1Id() { return this._player1Id; }
     public final int getPlayer2Id() { return this._player2Id; }    

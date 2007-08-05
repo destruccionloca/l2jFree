@@ -40,8 +40,8 @@ public class Status extends Thread
     private ServerSocket    statusServerSocket;
     
     private int                     _uptime;
-    private int                     _StatusPort;
-    private String                  _StatusPW;
+    private int                     _statusPort;
+    private String                  _statusPw;
     
     public void run()
     {
@@ -51,7 +51,7 @@ public class Status extends Thread
             {
                 Socket connection = statusServerSocket.accept();
                 
-                    new GameStatusThread(connection, _uptime, _StatusPW);
+                    new GameStatusThread(connection, _uptime, _statusPw);
                 if (this.isInterrupted())
                 {
                     try
@@ -85,18 +85,18 @@ public class Status extends Thread
         telnetSettings.load(is);
         is.close();
         
-        _StatusPort       = Integer.parseInt(telnetSettings.getProperty("StatusPort", "12345"));
-        _StatusPW         = telnetSettings.getProperty("StatusPW");
-            if (_StatusPW == null)
+        _statusPort       = Integer.parseInt(telnetSettings.getProperty("StatusPort", "12345"));
+        _statusPw         = telnetSettings.getProperty("StatusPW");
+            if (_statusPw == null)
             {
                 _log.warn("Server's Telnet Function Has No Password Defined!");
                 _log.warn("A Password Has Been Automaticly Created!");
-                _StatusPW = RndPW(10);
-                _log.warn("Password Has Been Set To: " + _StatusPW);
+                _statusPw = RndPW(10);
+                _log.warn("Password Has Been Set To: " + _statusPw);
             }
-            _log.info("StatusServer Started! - Listening on Port: " + _StatusPort);
-            _log.info("Password Has Been Set To: " + _StatusPW);
-        statusServerSocket = new ServerSocket(_StatusPort);
+            _log.info("StatusServer Started! - Listening on Port: " + _statusPort);
+            _log.info("Password Has Been Set To: " + _statusPw);
+        statusServerSocket = new ServerSocket(_statusPort);
         _uptime = (int) System.currentTimeMillis();
     }
     

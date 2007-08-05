@@ -9,22 +9,22 @@ package net.sf.l2j.gameserver.model;
  */
 public class CropProcure
 {
-    int cropId;
-    int canBuy;
-    int rewardType;
+    private int _cropId;
+    private int _canBuy;
+    private int _rewardType;
     
     public CropProcure(int id, int amount, int type)
     {
-        cropId = id;
-        canBuy = amount;
-        rewardType = type;
+        _cropId = id;
+        _canBuy = amount;
+        _rewardType = type;
     }
     
-    public int getReward(){return rewardType;}
-    public int getId(){return cropId;}
-    public int getAmount(){return canBuy;}
+    public int getReward(){return _rewardType;}
+    public int getId(){return _cropId;}
+    public int getAmount(){return _canBuy;}
     // For edit the crops data by L2Emu team 26 - 19
-    public void setReward(int rewardtype){ rewardType = rewardtype;}
-    public void setId(int id){ cropId = id; }
-    public void setAmount(int Amount){ canBuy = Amount;}
+    public void setReward(int rewardtype){ _rewardType = rewardtype;}
+    public void setId(int id){ _cropId = id; }
+    public void setAmount(int Amount){ _canBuy = Amount;}
 }

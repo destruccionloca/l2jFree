@@ -63,5 +63,3 @@ public class TradeOtherAdd extends L2GameServerPacket
 		return _S__31_TRADEOTHERADD;
 	}
 }
-
-

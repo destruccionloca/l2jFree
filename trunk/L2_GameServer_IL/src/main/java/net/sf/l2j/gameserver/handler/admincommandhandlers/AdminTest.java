@@ -46,7 +46,7 @@ public class AdminTest implements IAdminCommandHandler
         "admin_st", "admin_mp", "admin_known"
     };
 */
-    private static String[][] _adminCommands = {
+    private static final String[][] ADMIN_COMMANDS = {
     	{"admin_stats",                                       
     		
     		"Shows server performance statistics.",
@@ -299,12 +299,12 @@ public class AdminTest implements IAdminCommandHandler
      */    
     private void showAdminCommandHelp(L2PcInstance activeChar, String command)
     {
-    	for (int i=0; i < _adminCommands.length; i++)
+    	for (int i=0; i < ADMIN_COMMANDS.length; i++)
     	{
-    		if (command.equals(_adminCommands[i][0]))
+    		if (command.equals(ADMIN_COMMANDS[i][0]))
     		{
-    			for (int k=1; k < _adminCommands[i].length; k++)
-    				activeChar.sendMessage(_adminCommands[i][k]);
+    			for (int k=1; k < ADMIN_COMMANDS[i].length; k++)
+    				activeChar.sendMessage(ADMIN_COMMANDS[i][k]);
     		}
     	}
     }
@@ -314,13 +314,12 @@ public class AdminTest implements IAdminCommandHandler
      */
     public String[] getAdminCommandList()
     {
-    	String[] _adminCommandsOnly = new String[_adminCommands.length];
-    	for (int i=0; i < _adminCommands.length; i++)
+    	String[] _adminCommandsOnly = new String[ADMIN_COMMANDS.length];
+    	for (int i=0; i < ADMIN_COMMANDS.length; i++)
     	{
-    		_adminCommandsOnly[i]=_adminCommands[i][0];
+    		_adminCommandsOnly[i] = ADMIN_COMMANDS[i][0];
     	}
     	
         return _adminCommandsOnly;
     }
-
 }

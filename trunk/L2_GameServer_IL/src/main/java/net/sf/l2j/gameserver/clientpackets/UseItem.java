@@ -328,7 +328,7 @@ public class UseItem extends L2GameClientPacket
                 activeChar.refreshExpertisePenalty();
                 
 				if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-					activeChar.CheckIfWeaponIsAllowed();
+					activeChar.checkIfWeaponIsAllowed();
 
                 InventoryUpdate iu = new InventoryUpdate();
                 iu.addItems(Arrays.asList(items));

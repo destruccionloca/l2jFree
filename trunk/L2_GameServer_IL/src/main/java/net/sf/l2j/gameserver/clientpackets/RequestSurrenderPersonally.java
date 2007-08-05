@@ -17,7 +17,7 @@ public class RequestSurrenderPersonally extends L2GameClientPacket
 
     String _pledgeName;
     L2Clan _clan;
-    L2PcInstance player;
+    L2PcInstance _activeChar;
     
     protected void readImpl()
     {
@@ -26,9 +26,9 @@ public class RequestSurrenderPersonally extends L2GameClientPacket
 
     protected void runImpl()
     {
-        player = getClient().getActiveChar();
-	if (player == null)
-	    return;
+        _activeChar = getClient().getActiveChar();
+        if (_activeChar == null)
+	        return;
         _log.info("RequestSurrenderPersonally by "+getClient().getActiveChar().getName()+" with "+_pledgeName);
         _clan = getClient().getActiveChar().getClan();
         L2Clan clan = ClanTable.getInstance().getClanByName(_pledgeName);
@@ -38,25 +38,25 @@ public class RequestSurrenderPersonally extends L2GameClientPacket
         
         if(clan == null)
         {
-            player.sendMessage("No such clan.");
-            player.sendPacket(new ActionFailed());
+            _activeChar .sendMessage("No such clan.");
+            _activeChar.sendPacket(new ActionFailed());
             return;                        
         }
 
-        if(!_clan.isAtWarWith(clan.getClanId()) || player.getWantsPeace() == 1)
+        if(!_clan.isAtWarWith(clan.getClanId()) || _activeChar.getWantsPeace() == 1)
         {
-            player.sendMessage("You aren't at war with this clan.");
-            player.sendPacket(new ActionFailed());
+            _activeChar.sendMessage("You aren't at war with this clan.");
+            _activeChar.sendPacket(new ActionFailed());
             return;            
         }
         
-        player.setWantsPeace(1);
-        player.deathPenalty(false);
+        _activeChar.setWantsPeace(1);
+        _activeChar.deathPenalty(false);
         SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_PERSONALLY_SURRENDERED_TO_THE_S1_CLAN);
         msg.addString(_pledgeName);
-        player.sendPacket(msg);
+        _activeChar.sendPacket(msg);
         msg = null;
-        ClanTable.getInstance().CheckSurrender(_clan, clan);
+        ClanTable.getInstance().checkSurrender(_clan, clan);
     }
     
     public String getType()

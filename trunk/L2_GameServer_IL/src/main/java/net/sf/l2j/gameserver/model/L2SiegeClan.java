@@ -27,8 +27,8 @@ public class L2SiegeClan
 	// Instance
 	// ===============================================================
 	// Data Field
-	private int _ClanId                = 0;
-	private FastList<L2NpcInstance> _Flag  = new FastList<L2NpcInstance>();
+	private int _clanId                = 0;
+	private FastList<L2NpcInstance> _flag  = new FastList<L2NpcInstance>();
 	private int _numFlagsAdded = 0;
 	private SiegeClanType _type;
 
@@ -45,7 +45,7 @@ public class L2SiegeClan
 
 	public L2SiegeClan(int clanId, SiegeClanType type)
 	{
-		_ClanId = clanId;
+		_clanId = clanId;
 		_type = type;
 	}
 
@@ -102,12 +102,12 @@ public class L2SiegeClan
 
 	// =========================================================
 	// Proeprty
-	public final int getClanId() { return _ClanId; }
+	public final int getClanId() { return _clanId; }
 
 	public final FastList<L2NpcInstance> getFlag()
 	{
-		if (_Flag == null) _Flag  = new FastList<L2NpcInstance>();
-		return _Flag;
+		if (_flag == null) _flag  = new FastList<L2NpcInstance>();
+		return _flag;
 	}
 
 	public SiegeClanType getType() { return _type; }

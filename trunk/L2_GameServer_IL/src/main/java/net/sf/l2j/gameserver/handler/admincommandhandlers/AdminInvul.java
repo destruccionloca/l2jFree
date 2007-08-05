@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdminInvul implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminInvul.class.getName());
-	private static String[] _adminCommands = {"admin_invul", "admin_setinvul"};
+	private static final String[] ADMIN_COMMANDS = {"admin_invul", "admin_setinvul"};
 	private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -53,11 +53,13 @@ public class AdminInvul implements IAdminCommandHandler {
 		return true;
 	}
 	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
 	
-	private boolean checkLevel(int level) {
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
 	

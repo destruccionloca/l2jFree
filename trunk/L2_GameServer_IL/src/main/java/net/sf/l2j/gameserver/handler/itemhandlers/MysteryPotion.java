@@ -35,10 +35,10 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class MysteryPotion implements IItemHandler
 {
-    private static int[] _itemIds = { 5234 };
+    private static final int[] ITEM_IDS = { 5234 };
     private static final int BIGHEAD_EFFECT = 0x2000;
     private static final int MYSTERY_POTION_SKILL = 2103;
-    private static final int _effectDuration = 1200000; // 20 mins
+    private static final int EFFECT_DURATION = 1200000; // 20 mins
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -60,7 +60,7 @@ public class MysteryPotion implements IItemHandler
 		activeChar.sendPacket(sm);
 
 		MysteryPotionStop mp = new MysteryPotionStop(playable);
-		ThreadPoolManager.getInstance().scheduleEffect(mp, _effectDuration);
+		ThreadPoolManager.getInstance().scheduleEffect(mp, EFFECT_DURATION);
     }
 
 	public class MysteryPotionStop implements Runnable
@@ -86,6 +86,6 @@ public class MysteryPotion implements IItemHandler
 
     public int[] getItemIds()
     {
-        return _itemIds;
+        return ITEM_IDS;
     }
 }

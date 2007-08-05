@@ -35,27 +35,36 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  galun
  */
-public class JarClassLoader extends ClassLoader {
+public class JarClassLoader extends ClassLoader
+ {
     private static Log _log = LogFactory.getLog(JarClassLoader.class.getCanonicalName());
-    HashSet<String> jars = new HashSet<String>();
+    HashSet<String> _jars = new HashSet<String>();
 
-    public void addJarFile(String filename) {
-    	jars.add(filename);
+    public void addJarFile(String filename)
+	{
+    	_jars.add(filename);
     }
 
-    public Class<?> findClass(String name) throws ClassNotFoundException {
-    	try {
+    public Class<?> findClass(String name) throws ClassNotFoundException 
+	{
+    	try
+		{
     		byte[] b = loadClassData(name);
     		return defineClass(name, b, 0, b.length);
-    	} catch (Exception e) {
+    	}
+		catch (Exception e)
+		{
     		throw new ClassNotFoundException(name);
     	}
     }
 
-    private byte[] loadClassData(String name) throws IOException {
+    private byte[] loadClassData(String name) throws IOException
+	{
     	byte[] classData = null;
-    	for (String jarFile : jars) {
-    		try {
+    	for (String jarFile : _jars)
+		{
+    		try
+			{
     			File file = new File(jarFile);
     			ZipFile zipFile = new ZipFile(file);
     			String fileName = name.replace('.', '/') + ".class";
@@ -66,14 +75,15 @@ public class JarClassLoader extends ClassLoader {
     			DataInputStream zipStream = new DataInputStream(zipFile.getInputStream(entry));
     			zipStream.readFully(classData, 0, (int) entry.getSize());
     			break;
-    		} catch (IOException e) {
+    		}
+			catch (IOException e)
+			{
     			_log.warn( jarFile + ":" + e.toString(), e);
     			continue;
     		}
     	}
     	if (classData == null)
-    		throw new IOException("class not found in " + jars);
+    		throw new IOException("class not found in " + _jars);
     	return classData;
     }
 }
-

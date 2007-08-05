@@ -46,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdminKill implements IAdminCommandHandler 
 {
     private final static Log _log = LogFactory.getLog(AdminKill.class);
-    private static String[] _adminCommands = {"admin_kill", "admin_kill_monster"};
+    private static final String[] ADMIN_COMMANDS = {"admin_kill", "admin_kill_monster"};
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
     
     private boolean checkLevel(int level) 
@@ -150,6 +150,6 @@ public class AdminKill implements IAdminCommandHandler
     
     public String[] getAdminCommandList() 
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 }

@@ -38,9 +38,9 @@ public class FishTable
     private final static Log _log = LogFactory.getLog(SkillTreeTable.class.getName());
     private static final FishTable _instance = new FishTable();
 
-    private static List<FishData> _Fishs_Normal;
-    private static List<FishData> _Fishs_Easy;
-    private static List<FishData> _Fishs_Hard;
+    private static List<FishData> _fishsNormal;
+    private static List<FishData> _fishsEasy;
+    private static List<FishData> _fishsHard;
 
     public static FishTable getInstance()
     {
@@ -54,9 +54,9 @@ public class FishTable
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            _Fishs_Easy = new FastList<FishData>();
-            _Fishs_Normal = new FastList<FishData>();
-            _Fishs_Hard = new FastList<FishData>();
+            _fishsEasy = new FastList<FishData>();
+            _fishsNormal = new FastList<FishData>();
+            _fishsHard = new FastList<FishData>();
             FishData fish;
             PreparedStatement statement = con.prepareStatement("SELECT id, level, name, hp, hpregen, fish_type, fish_group, fish_guts, guts_check_time, wait_time, combat_time FROM fish ORDER BY id");
             ResultSet Fishes = statement.executeQuery();
@@ -77,18 +77,18 @@ public class FishTable
                     fish = new FishData(id, lvl, name, hp, hpreg, type, group, fish_guts, guts_check_time, wait_time, combat_time);
                     switch (fish.getGroup()) {
                         case 0:
-                            _Fishs_Easy.add(fish);
+                            _fishsEasy.add(fish);
                             break;
                         case 1:
-                            _Fishs_Normal.add(fish);
+                            _fishsNormal.add(fish);
                             break;
                         case 2:
-                            _Fishs_Hard.add(fish);
+                            _fishsHard.add(fish);
                     }
                 }
                 Fishes.close();
                 statement.close();
-                count = _Fishs_Easy.size() + _Fishs_Normal.size() + _Fishs_Hard.size();
+                count = _fishsEasy.size() + _fishsNormal.size() + _fishsHard.size();
         }
         catch (Exception e)
         {
@@ -106,27 +106,27 @@ public class FishTable
      * @param Fish - group
      * @return List of Fish that can be fished
      */
-    public List<FishData> getfish(int lvl, int type, int group)
+    public List<FishData> getFish(int lvl, int type, int group)
     {
         List<FishData> result = new FastList<FishData>();
-        List<FishData> _Fishs = null;
+        List<FishData> _fishs = null;
         switch (group) {
             case 0:
-                _Fishs = _Fishs_Easy;
+                _fishs = _fishsEasy;
                 break;
             case 1:
-                _Fishs = _Fishs_Normal;
+                _fishs = _fishsNormal;
                 break;
             case 2:
-                _Fishs = _Fishs_Hard;
+                _fishs = _fishsHard;
         }
-        if (_Fishs == null)
+        if (_fishs == null)
         {
             // the fish list is empty
             _log.warn("Fish are not defined !");
             return null;
         }
-        for (FishData f : _Fishs)
+        for (FishData f : _fishs)
         {
             if (f.getLevel()!= lvl) continue;
             if (f.getType() != type) continue;
@@ -136,5 +136,4 @@ public class FishTable
         if (result.size() == 0) _log.warn("Cant Find Any Fish!? - Lvl: "+lvl+" Type: " +type);
         return result;
     }
-
 }

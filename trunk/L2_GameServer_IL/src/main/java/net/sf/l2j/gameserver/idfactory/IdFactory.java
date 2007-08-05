@@ -37,7 +37,7 @@ public abstract class IdFactory
 {
 	private final static Log _log = LogFactory.getLog(IdFactory.class.getName());
 
-	protected static String[] id_updates = 
+	protected static final String[] ID_UPDATES = 
 	{
         "UPDATE items                 SET owner_id = ?    WHERE owner_id = ?",
         "UPDATE items                 SET object_id = ?   WHERE object_id = ?",
@@ -74,7 +74,7 @@ public abstract class IdFactory
         "UPDATE itemsonground        SET object_id = ?   WHERE object_id = ?"
 	};
 
-    protected static String[] id_checks = 
+    protected static final String[] ID_CHECKS = 
 	{
         "SELECT owner_id    FROM items                 WHERE object_id >= ?   AND object_id < ?",
         "SELECT object_id   FROM items                 WHERE object_id >= ?   AND object_id < ?",
@@ -102,7 +102,7 @@ public abstract class IdFactory
         "SELECT object_id   FROM itemsonground        WHERE object_id >= ?   AND object_id < ?"
 	};
 	
-    protected boolean initialized;
+    protected boolean _initialized;
 	
     public static final int FIRST_OID            = 0x10000000;
     public static final int LAST_OID             = 0x7FFFFFFF;
@@ -286,8 +286,9 @@ public abstract class IdFactory
         }
     }
 
-	public boolean isInitialized() {
-		return initialized;
+	public boolean isInitialized()
+	{
+		return _initialized;
 	}
 	
 	public static IdFactory getInstance()

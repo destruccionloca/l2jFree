@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class Remedy implements IItemHandler
 {
-	private static int[] _itemIds = { 1831, 1832, 1833, 1834, 3889 };
+	private static final int[] ITEM_IDS = { 1831, 1832, 1833, 1834, 3889 };
 	
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -137,6 +137,6 @@ public class Remedy implements IItemHandler
 	}
 	public int[] getItemIds()
 	{
-		return _itemIds;
+		return ITEM_IDS;
 	}
 }

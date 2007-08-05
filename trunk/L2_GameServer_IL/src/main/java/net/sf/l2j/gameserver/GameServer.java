@@ -129,7 +129,7 @@ public class GameServer
     private final IdFactory _idFactory;
     public static GameServer gameServer;
     
-    private static ClanHallManager CHManager;
+    private static ClanHallManager _cHManager;
     private final ItemHandler _itemHandler;
     private final SkillHandler _skillHandler;
     private final AdminCommandHandler _adminCommandHandler;
@@ -141,19 +141,19 @@ public class GameServer
     private final AutoSpawnHandler _autoSpawnHandler;
     private LoginServerThread _loginThread;
     
-    private static Status statusServer;
+    private static Status _statusServer;
     @SuppressWarnings("unused")
     private final ThreadPoolManager _threadpools;   
 
-    public static final Calendar DateTimeServerStarted = Calendar.getInstance();
+    public static final Calendar dateTimeServerStarted = Calendar.getInstance();
     
     public long getUsedMemoryMB()
     {
         return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1048576; // 1024 * 1024 = 1048576;
     }
 
-	public ClanHallManager GetCHManager(){
-		return CHManager;
+	public ClanHallManager getChManager(){
+		return _cHManager;
 	}
     
     public SelectorThread<L2GameClient> getSelectorThread()
@@ -466,7 +466,7 @@ public class GameServer
         // -------------------
 		ArenaManager.getInstance();
 		AuctionManager.getInstance();
-		CHManager = ClanHallManager.getInstance();
+		_cHManager = ClanHallManager.getInstance();
 		CastleManager.getInstance();
 		MercTicketManager.getInstance();
 		//PartyCommandManager.getInstance();
@@ -543,8 +543,8 @@ public class GameServer
         // o Enable telnet server
         // -----------------------
         if ( Config.IS_TELNET_ENABLED ) {
-            statusServer = new Status();
-            statusServer.start();
+            _statusServer = new Status();
+            _statusServer.start();
         }
         else {
             _log.info("Telnet server is currently disabled.");

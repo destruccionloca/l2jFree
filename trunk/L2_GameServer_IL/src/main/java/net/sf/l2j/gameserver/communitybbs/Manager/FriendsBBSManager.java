@@ -269,7 +269,6 @@ public class FriendsBBSManager extends BaseBBSManager
                 {
                     // ignore
                 }
-                    
         }
         else
         {
@@ -278,19 +277,17 @@ public class FriendsBBSManager extends BaseBBSManager
             activeChar.sendPacket(new ShowBoard(null,"102"));
             activeChar.sendPacket(new ShowBoard(null,"103"));  
         }
-        
     }
-    private static FriendsBBSManager _Instance = null;
+    private static FriendsBBSManager _instance = null;
     /**
      * @return
      */
     public static FriendsBBSManager getInstance()
     {
-        if(_Instance == null)
+        if(_instance == null)
         {
-            _Instance = new FriendsBBSManager();
+            _instance = new FriendsBBSManager();
         }
-        return _Instance;
+        return _instance;
     }
-
 }

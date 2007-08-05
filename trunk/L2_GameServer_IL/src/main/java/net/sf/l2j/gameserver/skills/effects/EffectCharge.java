@@ -26,15 +26,15 @@ import net.sf.l2j.gameserver.skills.Env;
 
 public class EffectCharge extends L2Effect
 {
-	public int num_charges;
+	public int numCharges;
 	
 	public EffectCharge(Env env, EffectTemplate template)
 	{
 		super(env, template);
-		num_charges = 1;
+		numCharges = 1;
 		env.target.updateEffectIcons();
         SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-        sm.addNumber(num_charges);
+        sm.addNumber(numCharges);
         getEffected().sendPacket(sm);
 	}
 
@@ -49,7 +49,7 @@ public class EffectCharge extends L2Effect
     	return true;
     }
 
-    public int getLevel() { return num_charges; }
+    public int getLevel() { return numCharges; }
 	
-	public void addNumCharges(int i) { num_charges = num_charges + i; }
+	public void addNumCharges(int i) { numCharges += i; }
 }

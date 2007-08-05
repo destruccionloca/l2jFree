@@ -43,7 +43,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class AdminFightCalculator implements IAdminCommandHandler {
 	//private final static Log _log = LogFactory.getLog(AdminFightCalculator.class.getName());
-	private static String[] _adminCommands = {
+	private static final String[] ADMIN_COMMANDS = {
 		"admin_fight_calculator",
 		"admin_fight_calculator_show",
 		"admin_fcs",
@@ -70,16 +70,19 @@ public class AdminFightCalculator implements IAdminCommandHandler {
         { }
 		return true;
 	}
-	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
-	
-	private boolean checkLevel(int level) {
+
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
-	
-	private void handleStart(String params, L2PcInstance activeChar) {
+
+	private void handleStart(String params, L2PcInstance activeChar)
+	{
 		StringTokenizer st = new StringTokenizer(params);
 		int lvl1 = 0;
 		int lvl2 = 0;

@@ -37,7 +37,7 @@ public class SQLQueue
 {
     protected static Log _log = LogFactory.getLog(SQLQueue.class.getName());
     
-    private static SQLQueue _Instance;
+    private static SQLQueue _instance;
     protected List<String> _queue1 = null;
     protected List<String> _queue2 = null;
 
@@ -50,11 +50,11 @@ public class SQLQueue
 
     public static final SQLQueue getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
-            _Instance = new SQLQueue();
+            _instance = new SQLQueue();
         }
-        return _Instance;
+        return _instance;
     }
     
     public void add(String sql)

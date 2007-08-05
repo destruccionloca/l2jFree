@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdminExpSp implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminExpSp.class.getName());
 
-	private static String[] _adminCommands = {
+	private static final String[] ADMIN_COMMANDS = {
 			"admin_add_exp_sp",
             "admin_remove_exp_sp"};
 	private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
@@ -83,12 +83,14 @@ public class AdminExpSp implements IAdminCommandHandler {
         
         return true;
 	}
-	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
-	
-	private boolean checkLevel(int level) {
+
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
 

@@ -26,28 +26,31 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-public class L2SkillCharge extends L2Skill {
-
-	final int num_charges;
+public class L2SkillCharge extends L2Skill
+{
+	final int numCharges;
 	
-	public L2SkillCharge(StatsSet set) {
+	public L2SkillCharge(StatsSet set)
+	{
 		super(set);
-		num_charges = set.getInteger("num_charges", getLevel());
+		numCharges = set.getInteger("num_charges", getLevel());
 	}
 
-	public void useSkill(L2Character caster, @SuppressWarnings("unused") L2Object[] targets) {
+	public void useSkill(L2Character caster, @SuppressWarnings("unused") L2Object[] targets)
+	{
 		if (caster.isAlikeDead())
 			return;
 		
 		// get the effect
 		EffectCharge effect = (EffectCharge) caster.getEffect(this);
-		if (effect != null) {
-			if (effect.num_charges < num_charges)
+		if (effect != null)
+		{
+			if (effect.numCharges < numCharges)
 			{
-				effect.num_charges++;
+				effect.numCharges++;
 				caster.updateEffectIcons();
                 SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
-                sm.addNumber(effect.num_charges);
+                sm.addNumber(effect.numCharges);
                 caster.sendPacket(sm);
 			}
 			else
@@ -68,5 +71,4 @@ public class L2SkillCharge extends L2Skill {
         // cast self effect if any
         getEffectsSelf(caster);        
 	}
-	
 }

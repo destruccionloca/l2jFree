@@ -38,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class EffectTemplate
 {
-    static Log _log = LogFactory.getLog(EffectTemplate.class.getName());
+    private static Log _log = LogFactory.getLog(EffectTemplate.class.getName());
 
 	private final Class<?> _func;
 	private final Constructor _constructor;
@@ -66,14 +66,20 @@ public final class EffectTemplate
 		abnormalEffect = pAbnormalEffect;
 		stackType = pStackType;
 		stackOrder = pStackOrder;
-		try {
+		try
+		{
 			_func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect"+func);
-		} catch (ClassNotFoundException e) {
+		}
+		catch (ClassNotFoundException e)
+		{
 			throw new RuntimeException(e);
 		}
-		try {
+		try
+		{
 			_constructor = _func.getConstructor(Env.class, EffectTemplate.class);
-		} catch (NoSuchMethodException e) {
+		}
+		catch (NoSuchMethodException e)
+		{
 			throw new RuntimeException(e);
 		}
 	}
@@ -82,18 +88,25 @@ public final class EffectTemplate
 	{
 		if (attachCond != null && !attachCond.test(env))
 			return null;
-		try {
+		try
+		{
 			L2Effect effect = (L2Effect)_constructor.newInstance(env, this);
 			//if (_applayCond != null)
 			//	effect.setCondition(_applayCond);
 			return effect;
-		} catch (IllegalAccessException e) {
+		}
+		catch (IllegalAccessException e)
+		{
 			e.printStackTrace();
 			return null;
-		} catch (InstantiationException e) {
+		}
+		catch (InstantiationException e)
+		{
 			e.printStackTrace();
 			return null;
-		} catch (InvocationTargetException e) {
+		}
+		catch (InvocationTargetException e)
+		{
             _log.warn("Error creating new instance of Class "+_func+" Exception was:");
 			e.getTargetException().printStackTrace();
 			return null;
@@ -116,5 +129,4 @@ public final class EffectTemplate
     		funcTemplates = tmp;
     	}
     }
-
 }

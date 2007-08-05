@@ -33,15 +33,15 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 public class L2SkillChargeDmg extends L2Skill 
 {
 
-	final int num_charges;
-	final int charge_skill_id;
+	final int numCharges;
+	final int chargeSkillId;
 	
 	public L2SkillChargeDmg(StatsSet set)
     {
 		super(set);
 		
-		num_charges = set.getInteger("num_charges", getLevel());
-		charge_skill_id = set.getInteger("charge_skill_id");
+		numCharges = set.getInteger("num_charges", getLevel());
+		chargeSkillId = set.getInteger("charge_skill_id");
 	}
 
 	public boolean checkCondition(L2Character activeChar, boolean itemOrWeapon)
@@ -49,8 +49,8 @@ public class L2SkillChargeDmg extends L2Skill
 		if (activeChar instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance)activeChar;
-			EffectCharge e = (EffectCharge)player.getEffect(charge_skill_id);
-			if(e == null || e.num_charges < this.num_charges)
+			EffectCharge e = (EffectCharge)player.getEffect(chargeSkillId);
+			if(e == null || e.numCharges < this.numCharges)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 				sm.addSkillName(this.getId());
@@ -69,8 +69,8 @@ public class L2SkillChargeDmg extends L2Skill
         }
 		
 		// get the effect
-		EffectCharge effect = (EffectCharge) caster.getEffect(charge_skill_id);
-		if (effect == null || effect.num_charges < this.num_charges)
+		EffectCharge effect = (EffectCharge) caster.getEffect(chargeSkillId);
+		if (effect == null || effect.numCharges < numCharges)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 			sm.addSkillName(this.getId());
@@ -78,21 +78,21 @@ public class L2SkillChargeDmg extends L2Skill
 			return;
 		}
         double modifier = 0;
-        modifier = (effect.num_charges-this.num_charges)*0.33;		
-		if (this.getTargetType() != SkillTargetType.TARGET_AREA && this.getTargetType() != SkillTargetType.TARGET_MULTIFACE)
-			effect.num_charges -= this.num_charges;
+        modifier = (effect.numCharges-numCharges)*0.33;		
+		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE)
+			effect.numCharges -= numCharges;
         //effect.num_charges = 0;
 		caster.updateEffectIcons();
-        if (effect.num_charges == 0)
-        	{effect.exit();}
+        if (effect.numCharges == 0)
+        	effect.exit();
         for(int index = 0;index < targets.length;index++)
         {
         	L2ItemInstance weapon = caster.getActiveWeaponInstance();
 					L2Character target = (L2Character)targets[index];
-					if (target.isAlikeDead())
-          {
-						continue;
-          }
+			if (target.isAlikeDead())
+            {
+				continue;
+            }
 			// TODO: should we use dual or not?
 			// because if so, damage are lowered but we dont do anything special with dual then
 			// like in doAttackHitByDual which in fact does the calcPhysDam call twice
@@ -102,8 +102,7 @@ public class L2SkillChargeDmg extends L2Skill
 			boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
 			boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
 			
-			int damage = (int)Formulas.getInstance().calcPhysDam(
-					caster, target, this, shld, false, false, soul);
+			int damage = (int)Formulas.getInstance().calcPhysDam(caster, target, this, shld, false, false, soul);
 			
 			if (damage > 0)
             {
@@ -130,5 +129,4 @@ public class L2SkillChargeDmg extends L2Skill
         // cast self effect if any
         getEffectsSelf(caster);
 	}
-	
 }

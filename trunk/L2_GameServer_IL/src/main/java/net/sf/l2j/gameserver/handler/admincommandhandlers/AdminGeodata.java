@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class AdminGeodata implements IAdminCommandHandler
 {
     //private static Logger _log = Logger.getLogger(AdminKill.class.getName());
-    private static String[] _adminCommands = 
+    private static final String[] ADMIN_COMMANDS = 
         {
         "admin_geo_z",
         "admin_geo_type",
@@ -101,7 +101,7 @@ public class AdminGeodata implements IAdminCommandHandler
                 {
                     byte rx = Byte.parseByte(v[0]);
                     byte ry = Byte.parseByte(v[1]);
-        			boolean result = GeoData.LoadGeodataFile(rx, ry);
+        			boolean result = GeoData.loadGeodataFile(rx, ry);
                     
                     if(result)
                         activeChar.sendMessage("GeoEngine: File for region ["+rx+","+ry+"] loaded succesfuly");
@@ -146,7 +146,7 @@ public class AdminGeodata implements IAdminCommandHandler
     
     public String[] getAdminCommandList() 
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
     
     private boolean checkLevel(int level) 

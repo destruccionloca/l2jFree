@@ -29,11 +29,11 @@ public class RequestEvaluate extends L2GameClientPacket {
 	//private final static Log _log = LogFactory.getLog(RequestEvaluate.class.getName());
 
 	@SuppressWarnings("unused")
-    private int _targetid;
+    private int _targetId;
 
     protected void readImpl()
     {
-        _targetid = readD();
+        _targetId = readD();
     }
 
     protected void runImpl()
@@ -56,7 +56,6 @@ public class RequestEvaluate extends L2GameClientPacket {
         {
             sm = new SystemMessage(SystemMessageId.ONLY_LEVEL_SUP_10_CAN_RECOMMEND);
             activeChar.sendPacket(sm);
-            sm =null;
             return;
         }
         
@@ -64,7 +63,6 @@ public class RequestEvaluate extends L2GameClientPacket {
         {
             sm = new SystemMessage(SystemMessageId.YOU_CANNOT_RECOMMEND_YOURSELF);
             activeChar.sendPacket(sm);
-            sm =null;
             return;
         }
         
@@ -72,7 +70,6 @@ public class RequestEvaluate extends L2GameClientPacket {
         {
             sm = new SystemMessage(SystemMessageId.NO_MORE_RECOMMENDATIONS_TO_HAVE);
             activeChar.sendPacket(sm);
-            sm =null;
             return;
         }
         
@@ -82,7 +79,6 @@ public class RequestEvaluate extends L2GameClientPacket {
         {
             sm = new SystemMessage(SystemMessageId.YOU_NO_LONGER_RECIVE_A_RECOMMENDATION);
             activeChar.sendPacket(sm);
-            sm =null;
             return;
         }
         
@@ -90,7 +86,6 @@ public class RequestEvaluate extends L2GameClientPacket {
         {
             sm = new SystemMessage(SystemMessageId.THAT_CHARACTER_IS_RECOMMENDED);
             activeChar.sendPacket(sm);
-            sm =null;
             return;
         }
         
@@ -104,7 +99,6 @@ public class RequestEvaluate extends L2GameClientPacket {
 		sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_RECOMMENDED);
 		sm.addString(activeChar.getName());
 		target.sendPacket(sm);
-		sm =null;
 		
         activeChar.sendPacket(new UserInfo(activeChar));
 		target.broadcastUserInfo();
@@ -113,7 +107,8 @@ public class RequestEvaluate extends L2GameClientPacket {
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
-	public String getType() {
+	public String getType()
+	{
 		return _C__B9_REQUESTEVALUATE;
 	}
 }

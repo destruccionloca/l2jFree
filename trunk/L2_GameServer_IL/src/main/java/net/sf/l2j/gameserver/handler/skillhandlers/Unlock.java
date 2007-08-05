@@ -16,7 +16,6 @@ import net.sf.l2j.gameserver.lib.Rnd;
 
 public class Unlock implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(Unlock.class.getName());
 	private static final SkillType[] SKILL_IDS = {SkillType.UNLOCK};
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")

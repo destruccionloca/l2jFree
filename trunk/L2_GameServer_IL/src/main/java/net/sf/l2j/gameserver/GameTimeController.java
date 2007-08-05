@@ -51,7 +51,7 @@ public class GameTimeController
     protected static long _gameStartTime;
     protected static boolean _isNight = false;
 
-    private static List<L2Character> movingObjects = new FastList<L2Character>();
+    private static List<L2Character> _movingObjects = new FastList<L2Character>();
 
     protected static TimerThread _timer;
     private ScheduledFuture _timerWatcher;
@@ -96,36 +96,36 @@ public class GameTimeController
     }
 
     /**
-     * Add a L2Character to movingObjects of GameTimeController.<BR><BR>
+     * Add a L2Character to _movingObjects of GameTimeController.<BR><BR>
      * 
      * <B><U> Concept</U> :</B><BR><BR>
-     * All L2Character in movement are identified in <B>movingObjects</B> of GameTimeController.<BR><BR>
+     * All L2Character in movement are identified in <B>_movingObjects</B> of GameTimeController.<BR><BR>
      * 
-     * @param cha The L2Character to add to movingObjects of GameTimeController
+     * @param cha The L2Character to add to _movingObjects of GameTimeController
      * 
      */
     public synchronized void registerMovingObject(L2Character cha)
     {
         if(cha == null) return;
-        if (!movingObjects.contains(cha)) movingObjects.add(cha);
+        if (!_movingObjects.contains(cha)) _movingObjects.add(cha);
     }
 
     /**
-     * Move all L2Characters contained in movingObjects of GameTimeController.<BR><BR>
+     * Move all L2Characters contained in _movingObjects of GameTimeController.<BR><BR>
      * 
      * <B><U> Concept</U> :</B><BR><BR>
-     * All L2Character in movement are identified in <B>movingObjects</B> of GameTimeController.<BR><BR>
+     * All L2Character in movement are identified in <B>_movingObjects</B> of GameTimeController.<BR><BR>
      * 
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Update the position of each L2Character </li>
-     * <li>If movement is finished, the L2Character is removed from movingObjects </li>
+     * <li>If movement is finished, the L2Character is removed from _movingObjects </li>
      * <li>Create a task to update the _knownObject and _knowPlayers of each L2Character that finished its movement and of their already known L2Object then notify AI with EVT_ARRIVED </li><BR><BR>
      * 
      */
     protected synchronized void moveObjects()
     {
-        // Get all L2Character from the ArrayList movingObjects and put them into a table
-        L2Character[] chars = movingObjects.toArray(new L2Character[movingObjects.size()]);
+        // Get all L2Character from the ArrayList _movingObjects and put them into a table
+        L2Character[] chars = _movingObjects.toArray(new L2Character[_movingObjects.size()]);
 
         // Create an ArrayList to contain all L2Character that are arrived to destination
         List<L2Character> ended = null;
@@ -139,10 +139,10 @@ public class GameTimeController
             // Update the position of the L2Character and return True if the movement is finished
             boolean end = cha.updatePosition(_gameTicks);
 
-            // If movement is finished, the L2Character is removed from movingObjects and added to the ArrayList ended
+            // If movement is finished, the L2Character is removed from _movingObjects and added to the ArrayList ended
             if (end)
             {
-                movingObjects.remove(cha);
+                _movingObjects.remove(cha);
                 if (ended == null) ended = new FastList<L2Character>();
 
                 ended.add(cha);

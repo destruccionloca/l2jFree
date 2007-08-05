@@ -12,7 +12,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class AdminSendHome implements IAdminCommandHandler {
     //private final static Log _log = LogFactory.getLog(AdminSendHome.class.getName());
-    private static String[] _adminCommands = {"admin_sendhome"};
+    private static final String[] ADMIN_COMMANDS = {"admin_sendhome"};
     private static final int REQUIRED_LEVEL = Config.GM_TELEPORT;
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -24,17 +24,19 @@ public class AdminSendHome implements IAdminCommandHandler {
             if(command.split(" ").length > 1)
                 handleSendhome(activeChar, command.split(" ")[1]);
             else
-            	handleSendhome(activeChar);
+                handleSendhome(activeChar);
         }
         
         return true;
     }
     
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
     
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }
     
@@ -69,5 +71,4 @@ public class AdminSendHome implements IAdminCommandHandler {
     {
     	targetChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
     }
-    
 }

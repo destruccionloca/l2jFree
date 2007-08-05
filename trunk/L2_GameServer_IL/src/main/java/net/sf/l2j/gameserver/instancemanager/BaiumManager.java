@@ -62,16 +62,16 @@ public class BaiumManager
 
     // config
     // Interval time of Boss.
-    protected int _IntervalOfBoss;
+    protected int _intervalOfBoss;
 
     // Activity time of Boss.
-    protected int _ActivityTimeOfBoss;
+    protected int _activityTimeOfBoss;
 
     // Whether it moves at random after Valakas appears is decided.
-    protected boolean _MoveAtRandom = true;
+    protected boolean _moveAtRandom = true;
 
     // location of arcangels.
-    private final int _Angellocation[][] = 
+    private final int _angelLocation[][] = 
     	{
 			{ 113004, 16209, 10076, 60242 },
 			{ 114053, 16642, 10076, 4411 },
@@ -84,54 +84,51 @@ public class BaiumManager
 			{ 115391, 17593, 10076, 55346 },
 			{ 115245, 17558, 10076, 35536 }
 		};
-    protected List<L2Spawn> _AngelSpawn1 = new FastList<L2Spawn>();
-    protected List<L2Spawn> _AngelSpawn2 = new FastList<L2Spawn>();
-    protected Map<Integer,List> _AngelSpawn = new FastMap<Integer,List>();
-    List<L2NpcInstance> _Angels = new FastList<L2NpcInstance>();
+    protected List<L2Spawn> _angelSpawn1 = new FastList<L2Spawn>();
+    protected List<L2Spawn> _angelSpawn2 = new FastList<L2Spawn>();
+    protected Map<Integer,List> _angelSpawn = new FastMap<Integer,List>();
+    List<L2NpcInstance> _angels = new FastList<L2NpcInstance>();
 
     // location of teleport cube.
-    private final int _TeleportCubeId = 29055;
-    private final int _TeleportCubeLocation[][] =
-    	{
-    		{115203,16620,10078,0}
-    	};
-    protected List<L2Spawn> _TeleportCubeSpawn = new FastList<L2Spawn>();
-    protected List<L2NpcInstance> _TeleportCube = new FastList<L2NpcInstance>();
+    private final int _teleportCubeId = 29055;
+    private final int _teleportCubeLocation[][] = { {115203,16620,10078,0} };
+    protected List<L2Spawn> _teleportCubeSpawn = new FastList<L2Spawn>();
+    protected List<L2NpcInstance> _teleportCube = new FastList<L2NpcInstance>();
     
     // list of intruders.
-    protected List<L2PcInstance> _PlayersInLair = new FastList<L2PcInstance>();
+    protected List<L2PcInstance> _playersInLair = new FastList<L2PcInstance>();
 
     // instance of statue of Baium.
-    protected L2NpcInstance _npcbaium;
+    protected L2NpcInstance _npcBaium;
 
     // spawn data of monsters.
-    protected Map<Integer,L2Spawn> _MonsterSpawn = new FastMap<Integer,L2Spawn>();
+    protected Map<Integer,L2Spawn> _monsterSpawn = new FastMap<Integer,L2Spawn>();
 
     // instance of monsters.
-    protected List<L2NpcInstance> _Monsters = new FastList<L2NpcInstance>();
+    protected List<L2NpcInstance> _monsters = new FastList<L2NpcInstance>();
 
     // tasks.
-    protected Future _CubeSpawnTask = null;
-    protected Future _MonsterSpawnTask = null;
-    protected Future _IntervalEndTask = null;
-    protected Future _ActivityTimeEndTask = null;
-    protected Future _OnPlayersAnnihilatedTask = null;
-    protected Future _SocialTask = null;
-    protected Future _MobiliseTask = null;
-    protected Future _MoveAtRandomTask = null;
-    protected Future _SocialTask2 = null;
-    protected Future _RecallPcTask = null;
-    protected Future _KillPcTask = null;
-    protected Future _CallAngelTask = null;
+    protected Future _cubeSpawnTask = null;
+    protected Future _monsterSpawnTask = null;
+    protected Future _intervalEndTask = null;
+    protected Future _activityTimeEndTask = null;
+    protected Future _onPlayersAnnihilatedTask = null;
+    protected Future _socialTask = null;
+    protected Future _mobiliseTask = null;
+    protected Future _moveAtRandomTask = null;
+    protected Future _socialTask2 = null;
+    protected Future _recallPcTask = null;
+    protected Future _killPcTask = null;
+    protected Future _callAngelTask = null;
 
     // status in lair.
-    protected boolean _IsBossSpawned = false;
-    protected boolean _IsIntervalForNextSpawn = false;
-    protected String _ZoneType;
-    protected String _QuestName;
+    protected boolean _isBossSpawned = false;
+    protected boolean _isIntervalForNextSpawn = false;
+    protected String _zoneType;
+    protected String _questName;
 
     // location of banishment
-    private final int _BanishmentLocation[][] =
+    private final int _banishmentLocation[][] =
     	{
     		{108784, 16000, -4928},
     		{113824, 10448, -5164},
@@ -153,16 +150,16 @@ public class BaiumManager
     public void init()
     {
     	// read configuration.
-    	_IntervalOfBoss = Config.FWB_INTERVALOFBAIUM;
-    	_ActivityTimeOfBoss = Config.FWB_ACTIVITYTIMEOFBAIUM;
-    	_MoveAtRandom = Config.FWB_MOVEATRANDOM;
+    	_intervalOfBoss = Config.FWB_INTERVALOFBAIUM;
+    	_activityTimeOfBoss = Config.FWB_ACTIVITYTIMEOFBAIUM;
+    	_moveAtRandom = Config.FWB_MOVEATRANDOM;
     	
     	// initialize status in lair.
-    	_IsBossSpawned = false;
-    	_IsIntervalForNextSpawn = false;
-    	_PlayersInLair.clear();
-        _ZoneType = "LairofBaium";
-        _QuestName = "baium";
+    	_isBossSpawned = false;
+    	_isIntervalForNextSpawn = false;
+    	_playersInLair.clear();
+        _zoneType = "LairofBaium";
+        _questName = "baium";
 
         // setting spawn data of monsters.
         try
@@ -174,9 +171,9 @@ public class BaiumManager
             template1 = NpcTable.getInstance().getTemplate(29020);
             tempSpawn = new L2Spawn(template1);
             tempSpawn.setAmount(1);
-            tempSpawn.setRespawnDelay(_IntervalOfBoss * 2);
+            tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
             SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
-            _MonsterSpawn.put(29020, tempSpawn);
+            _monsterSpawn.put(29020, tempSpawn);
         }
         catch (Exception e)
         {
@@ -186,20 +183,20 @@ public class BaiumManager
         // setting spawn data of teleport cube.
         try
         {
-            L2NpcTemplate Cube = NpcTable.getInstance().getTemplate(_TeleportCubeId);
+            L2NpcTemplate Cube = NpcTable.getInstance().getTemplate(_teleportCubeId);
             L2Spawn spawnDat;
-            for(int i = 0;i < _TeleportCubeLocation.length; i++)
+            for(int i = 0;i < _teleportCubeLocation.length; i++)
             {
                 spawnDat = new L2Spawn(Cube);
                 spawnDat.setAmount(1);
-                spawnDat.setLocx(_TeleportCubeLocation[i][0]);
-                spawnDat.setLocy(_TeleportCubeLocation[i][1]);
-                spawnDat.setLocz(_TeleportCubeLocation[i][2]);
-                spawnDat.setHeading(_TeleportCubeLocation[i][3]);
+                spawnDat.setLocx(_teleportCubeLocation[i][0]);
+                spawnDat.setLocy(_teleportCubeLocation[i][1]);
+                spawnDat.setLocz(_teleportCubeLocation[i][2]);
+                spawnDat.setHeading(_teleportCubeLocation[i][3]);
                 spawnDat.setRespawnDelay(60);
                 spawnDat.setLocation(0);
                 SpawnTable.getInstance().addNewSpawn(spawnDat, false);
-                _TeleportCubeSpawn.add(spawnDat);
+                _teleportCubeSpawn.add(spawnDat);
             }
         }
         catch (Exception e)
@@ -210,42 +207,42 @@ public class BaiumManager
         // setting spawn data of arcangels.
         try
         {
-            L2NpcTemplate Angel = NpcTable.getInstance().getTemplate(29021);
+            L2NpcTemplate angel = NpcTable.getInstance().getTemplate(29021);
             L2Spawn spawnDat;
-            _AngelSpawn.clear();
-            _AngelSpawn1.clear();
-            _AngelSpawn2.clear();
+            _angelSpawn.clear();
+            _angelSpawn1.clear();
+            _angelSpawn2.clear();
 
             // 5 in 10 comes.
             for (int i = 0; i < 10; i = i + 2)
             {
-                spawnDat = new L2Spawn(Angel);
+                spawnDat = new L2Spawn(angel);
                 spawnDat.setAmount(1);
-                spawnDat.setLocx(_Angellocation[i][0]);
-                spawnDat.setLocy(_Angellocation[i][1]);
-                spawnDat.setLocz(_Angellocation[i][2]);
-                spawnDat.setHeading(_Angellocation[i][3]);
+                spawnDat.setLocx(_angelLocation[i][0]);
+                spawnDat.setLocy(_angelLocation[i][1]);
+                spawnDat.setLocz(_angelLocation[i][2]);
+                spawnDat.setHeading(_angelLocation[i][3]);
                 spawnDat.setRespawnDelay(60);
                 spawnDat.setLocation(0);
                 SpawnTable.getInstance().addNewSpawn(spawnDat, false);
-                _AngelSpawn1.add(spawnDat);
+                _angelSpawn1.add(spawnDat);
             }
-            _AngelSpawn.put(0, _AngelSpawn1);
+            _angelSpawn.put(0, _angelSpawn1);
 
             for (int i = 1; i < 10; i = i + 2)
             {
-                spawnDat = new L2Spawn(Angel);
+                spawnDat = new L2Spawn(angel);
                 spawnDat.setAmount(1);
-                spawnDat.setLocx(_Angellocation[i][0]);
-                spawnDat.setLocy(_Angellocation[i][1]);
-                spawnDat.setLocz(_Angellocation[i][2]);
-                spawnDat.setHeading(_Angellocation[i][3]);
+                spawnDat.setLocx(_angelLocation[i][0]);
+                spawnDat.setLocy(_angelLocation[i][1]);
+                spawnDat.setLocz(_angelLocation[i][2]);
+                spawnDat.setHeading(_angelLocation[i][3]);
                 spawnDat.setRespawnDelay(60);
                 spawnDat.setLocation(0);
                 SpawnTable.getInstance().addNewSpawn(spawnDat, false);
-                _AngelSpawn2.add(spawnDat);
+                _angelSpawn2.add(spawnDat);
             }
-            _AngelSpawn.put(1, _AngelSpawn1);
+            _angelSpawn.put(1, _angelSpawn1);
         }
         catch (Exception e)
         {
@@ -258,20 +255,20 @@ public class BaiumManager
     // return list of intruders.
     public List<L2PcInstance> getPlayersInLair()
 	{
-		return _PlayersInLair;
+		return _playersInLair;
 	}
     
     // Arcangel advent.
     protected synchronized void adventArcAngel()
     {
     	int i = Rnd.get(2);
-    	for(L2Spawn spawn : (FastList<L2Spawn>)_AngelSpawn.get(i))
+    	for(L2Spawn spawn : (FastList<L2Spawn>)_angelSpawn.get(i))
     	{
-    		_Angels.add(spawn.doSpawn());
+    		_angels.add(spawn.doSpawn());
     	}
     	
         // set invulnerable.
-        for (L2NpcInstance angel : _Angels)
+        for (L2NpcInstance angel : _angels)
         {
         	angel.setIsInvul(true); // arcangel is invulnerable.
         }
@@ -280,40 +277,40 @@ public class BaiumManager
     // Arcangel ascension.
     public void ascensionArcAngel()
     {
-        for (L2NpcInstance Angel : _Angels)
+        for (L2NpcInstance angel : _angels)
         {
-            Angel.getSpawn().stopRespawn();
-            Angel.deleteMe();
+            angel.getSpawn().stopRespawn();
+            angel.deleteMe();
         }
-        _Angels.clear();
+        _angels.clear();
     }
 
      // do spawn baium.
     public void spawnBaium(L2NpcInstance NpcBaium)
     {
-        _npcbaium = NpcBaium;
+        _npcBaium = NpcBaium;
 
         // get target from statue,to kill a player of make Baium awake.
-        L2PcInstance target = (L2PcInstance)_npcbaium.getTarget();
+        L2PcInstance target = (L2PcInstance)_npcBaium.getTarget();
         
         // delete statue.
-        DeleteObject deo = new DeleteObject(_npcbaium);
-        _npcbaium.broadcastPacket(deo);
+        DeleteObject deo = new DeleteObject(_npcBaium);
+        _npcBaium.broadcastPacket(deo);
 
         // do spawn.
-        L2Spawn baiumSpawn = _MonsterSpawn.get(29020);
-        baiumSpawn.setLocx(_npcbaium.getX());
-        baiumSpawn.setLocy(_npcbaium.getY());
-        baiumSpawn.setLocz(_npcbaium.getZ());
-        baiumSpawn.setHeading(_npcbaium.getHeading());
+        L2Spawn baiumSpawn = _monsterSpawn.get(29020);
+        baiumSpawn.setLocx(_npcBaium.getX());
+        baiumSpawn.setLocy(_npcBaium.getY());
+        baiumSpawn.setLocz(_npcBaium.getZ());
+        baiumSpawn.setHeading(_npcBaium.getHeading());
         L2BossInstance baium = (L2BossInstance)baiumSpawn.doSpawn();
-        _Monsters.add(baium);
+        _monsters.add(baium);
 
         // decay statue.
-        _npcbaium.decayMe();
+        _npcBaium.decayMe();
         
         // stop respawn of statue.
-        _npcbaium.getSpawn().stopRespawn();
+        _npcBaium.getSpawn().stopRespawn();
 
     	// do social.
         baium.setIsImobilised(true);
@@ -325,35 +322,35 @@ public class BaiumManager
         SocialAction sa = new SocialAction(baium.getObjectId(), 2);
         baium.broadcastPacket(sa);
 
-        _SocialTask = 
+        _socialTask = 
         	ThreadPoolManager.getInstance().scheduleEffect(new Social(baium,3), 15000);
 
-        _RecallPcTask = 
+        _recallPcTask = 
         	ThreadPoolManager.getInstance().scheduleEffect(new RecallPc(target), 20000);
         
-        _SocialTask2 = 
+        _socialTask2 = 
         	ThreadPoolManager.getInstance().scheduleEffect(new Social(baium,1), 25000);
 
-        _KillPcTask = 
+        _killPcTask = 
         	ThreadPoolManager.getInstance().scheduleEffect(new KillPc(target,baium), 26000);
 
-        _CallAngelTask = 
+        _callAngelTask = 
         	ThreadPoolManager.getInstance().scheduleEffect(new CallArcAngel(),35000);
 
-        _MobiliseTask = 
+        _mobiliseTask = 
         	ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(baium),35500);
 
         // move at random.
-        if(_MoveAtRandom)
+        if(_moveAtRandom)
         {
         	L2CharPosition pos = new L2CharPosition(Rnd.get(112826, 116241),Rnd.get(15575, 16375),10078,0);
-        	_MoveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(
+        	_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(
             		new MoveAtRandom(baium,pos),36000);
         }
         
         // set delete task.
-        _ActivityTimeEndTask = 
-        	ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_ActivityTimeOfBoss);
+        _activityTimeEndTask = 
+        	ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_activityTimeOfBoss);
 
         baium = null;
     }
@@ -361,30 +358,23 @@ public class BaiumManager
     // Whether it lairs is confirmed. 
     public boolean isEnableEnterToLair()
     {
-    	if(_IsBossSpawned == false && _IsIntervalForNextSpawn == false)
-    	{
-    		return true;
-    	}
-    	else
-    	{
-    		return false;
-    	}
+        return (!_isBossSpawned && !_isIntervalForNextSpawn);
     }
 
     // update list of intruders.
     public void addPlayerToLair(L2PcInstance pc)
     {
-        if (!_PlayersInLair.contains(pc)) _PlayersInLair.add(pc);
+        if (!_playersInLair.contains(pc)) _playersInLair.add(pc);
     }
     
     // Whether the players was annihilated is confirmed. 
     public synchronized boolean isPlayersAnnihilated()
     {
-    	for (L2PcInstance pc : _PlayersInLair)
+    	for (L2PcInstance pc : _playersInLair)
 		{
 			// player is must be alive and stay inside of lair.
 			if (!pc.isDead()
-					&& ZoneManager.getInstance().checkIfInZone(_ZoneType, pc))
+					&& ZoneManager.getInstance().checkIfInZone(_zoneType, pc))
 			{
 				return false;
 			}
@@ -395,18 +385,18 @@ public class BaiumManager
     // banishes players from lair.
     public void banishesPlayers()
     {
-    	for(L2PcInstance pc : _PlayersInLair)
+    	for(L2PcInstance pc : _playersInLair)
     	{
-    		if(pc.getQuestState(_QuestName) != null) pc.getQuestState(_QuestName).exitQuest(true);
-    		if(ZoneManager.getInstance().checkIfInZone(_ZoneType, pc))
+    		if(pc.getQuestState(_questName) != null) pc.getQuestState(_questName).exitQuest(true);
+    		if(ZoneManager.getInstance().checkIfInZone(_zoneType, pc))
     		{
         		int driftX = Rnd.get(-80,80);
         		int driftY = Rnd.get(-80,80);
         		int loc = Rnd.get(3);
-        		pc.teleToLocation(_BanishmentLocation[loc][0] + driftX,_BanishmentLocation[loc][1] + driftY,_BanishmentLocation[loc][2]);
+        		pc.teleToLocation(_banishmentLocation[loc][0] + driftX,_banishmentLocation[loc][1] + driftY,_banishmentLocation[loc][2]);
     		}
     	}
-    	_PlayersInLair.clear();
+    	_playersInLair.clear();
     }
 
     // at end of activitiy time.
@@ -420,10 +410,10 @@ public class BaiumManager
     	{
     		setUnspawn();
     		
-    		if(_ActivityTimeEndTask != null)
+    		if(_activityTimeEndTask != null)
     		{
-    			_ActivityTimeEndTask.cancel(true);
-    			_ActivityTimeEndTask = null;
+    			_activityTimeEndTask.cancel(true);
+    			_activityTimeEndTask = null;
     		}
     	}
     }
@@ -436,106 +426,106 @@ public class BaiumManager
 
     	// delete monsters.
     	ascensionArcAngel();
-    	for(L2NpcInstance mob : _Monsters)
+    	for(L2NpcInstance mob : _monsters)
     	{
     		mob.getSpawn().stopRespawn();
     		mob.deleteMe();
     	}
-    	_Monsters.clear();
+    	_monsters.clear();
     	
     	// delete teleport cube.
-		for (L2NpcInstance cube : _TeleportCube)
+		for (L2NpcInstance cube : _teleportCube)
 		{
 			cube.getSpawn().stopRespawn();
 			cube.deleteMe();
 		}
-		_TeleportCube.clear();
+		_teleportCube.clear();
 		
 		// not executed tasks is canceled.
-		if(_CubeSpawnTask != null)
+		if(_cubeSpawnTask != null)
 		{
-			_CubeSpawnTask.cancel(true);
-			_CubeSpawnTask = null;
+			_cubeSpawnTask.cancel(true);
+			_cubeSpawnTask = null;
 		}
-		if(_MonsterSpawnTask != null)
+		if(_monsterSpawnTask != null)
 		{
-			_MonsterSpawnTask.cancel(true);
-			_MonsterSpawnTask = null;
+			_monsterSpawnTask.cancel(true);
+			_monsterSpawnTask = null;
 		}
-		if(_IntervalEndTask != null)
+		if(_intervalEndTask != null)
 		{
-			_IntervalEndTask.cancel(true);
-			_IntervalEndTask = null;
+			_intervalEndTask.cancel(true);
+			_intervalEndTask = null;
 		}
-		if(_ActivityTimeEndTask != null)
+		if(_activityTimeEndTask != null)
 		{
-			_ActivityTimeEndTask.cancel(true);
-			_ActivityTimeEndTask = null;
+			_activityTimeEndTask.cancel(true);
+			_activityTimeEndTask = null;
 		}
-		if(_OnPlayersAnnihilatedTask != null)
+		if(_onPlayersAnnihilatedTask != null)
 		{
-			_OnPlayersAnnihilatedTask.cancel(true);
-			_OnPlayersAnnihilatedTask = null;
+			_onPlayersAnnihilatedTask.cancel(true);
+			_onPlayersAnnihilatedTask = null;
 		}
-		if(_SocialTask != null)
+		if(_socialTask != null)
 		{
-			_SocialTask.cancel(true);
-			_SocialTask = null;
+			_socialTask.cancel(true);
+			_socialTask = null;
 		}
-		if(_MobiliseTask != null)
+		if(_mobiliseTask != null)
 		{
-			_MobiliseTask.cancel(true);
-			_MobiliseTask = null;
+			_mobiliseTask.cancel(true);
+			_mobiliseTask = null;
 		}
-		if(_MoveAtRandomTask != null)
+		if(_moveAtRandomTask != null)
 		{
-			_MoveAtRandomTask.cancel(true);
-			_MoveAtRandomTask = null;
+			_moveAtRandomTask.cancel(true);
+			_moveAtRandomTask = null;
 		}
-		if(_SocialTask2 != null)
+		if(_socialTask2 != null)
 		{
-			_SocialTask2.cancel(true);
-			_SocialTask2 = null;
+			_socialTask2.cancel(true);
+			_socialTask2 = null;
 		}
-		if(_RecallPcTask != null)
+		if(_recallPcTask != null)
 		{
-			_RecallPcTask.cancel(true);
-			_RecallPcTask = null;
+			_recallPcTask.cancel(true);
+			_recallPcTask = null;
 		}
-		if(_KillPcTask != null)
+		if(_killPcTask != null)
 		{
-			_KillPcTask.cancel(true);
-			_KillPcTask = null;
+			_killPcTask.cancel(true);
+			_killPcTask = null;
 		}
-		if(_CallAngelTask != null)
+		if(_callAngelTask != null)
 		{
-			_CallAngelTask.cancel(true);
-			_CallAngelTask = null;
+			_callAngelTask.cancel(true);
+			_callAngelTask = null;
 		}
 
 		// init state of Baium's lair.
-    	_IsBossSpawned = false;
-    	_IsIntervalForNextSpawn = true;
+    	_isBossSpawned = false;
+    	_isIntervalForNextSpawn = true;
 
 		// interval begin.
 		setInetrvalEndTask();
 
 		// set statue of Baium respawn.
-    	_npcbaium.getSpawn().setRespawnDelay(_IntervalOfBoss);
-		_npcbaium.getSpawn().startRespawn();
-		_npcbaium.getSpawn().decreaseCount(_npcbaium);
-		_npcbaium = null;
+    	_npcBaium.getSpawn().setRespawnDelay(_intervalOfBoss);
+		_npcBaium.getSpawn().startRespawn();
+		_npcBaium.getSpawn().decreaseCount(_npcBaium);
+		_npcBaium = null;
 
 	}
 
     // do spawn teleport cube.
     public void spawnCube()
     {
-		for (L2Spawn spawnDat : _TeleportCubeSpawn)
+		for (L2Spawn spawnDat : _teleportCubeSpawn)
 		{
-			_TeleportCube.add(spawnDat.doSpawn());
+			_teleportCube.add(spawnDat.doSpawn());
 		}
-    	_IsIntervalForNextSpawn = true;
+    	_isIntervalForNextSpawn = true;
     }
 
     // When the party is annihilated, they are banished.
@@ -543,7 +533,7 @@ public class BaiumManager
     {
     	if(isPlayersAnnihilated())
     	{
-    		_OnPlayersAnnihilatedTask =
+    		_onPlayersAnnihilatedTask =
 				ThreadPoolManager.getInstance().scheduleEffect(new OnPlayersAnnihilatedTask(),5000);    			
     	}
     }
@@ -561,10 +551,10 @@ public class BaiumManager
 			banishesPlayers();
 			
             // clean up task.
-            if(_OnPlayersAnnihilatedTask != null)
+            if(_onPlayersAnnihilatedTask != null)
             {
-            	_OnPlayersAnnihilatedTask.cancel(true);
-            	_OnPlayersAnnihilatedTask = null;
+            	_onPlayersAnnihilatedTask.cancel(true);
+            	_onPlayersAnnihilatedTask = null;
             }
 		}
 	}
@@ -572,8 +562,8 @@ public class BaiumManager
     // start interval.
     public void setInetrvalEndTask()
     {
-    	_IntervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(
-            	new IntervalEnd(),_IntervalOfBoss);
+    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(
+            	new IntervalEnd(),_intervalOfBoss);
     }
 
     // at end of interval.
@@ -585,11 +575,11 @@ public class BaiumManager
     	
     	public void run()
     	{
-    		_IsIntervalForNextSpawn = false;
-    		if(_IntervalEndTask != null)
+    		_isIntervalForNextSpawn = false;
+    		if(_intervalEndTask != null)
     		{
-    			_IntervalEndTask.cancel(true);
-    			_IntervalEndTask = null;
+    			_intervalEndTask.cancel(true);
+    			_intervalEndTask = null;
     		}
     	}
     }
@@ -598,7 +588,7 @@ public class BaiumManager
     public void setCubeSpawn()
     {
     	ascensionArcAngel();
-		_CubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
+		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
             	new CubeSpawn(),10000);
     }
     
@@ -629,7 +619,7 @@ public class BaiumManager
         public void run()
         {
         	_npc.getKnownList().getKnownPlayers().clear();
-    		for (L2PcInstance pc : _PlayersInLair)
+    		for (L2PcInstance pc : _playersInLair)
     		{
     			_npc.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
     		}
@@ -637,10 +627,10 @@ public class BaiumManager
     		SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
             _npc.broadcastPacket(sa);
 
-            if(_SocialTask != null)
+            if(_socialTask != null)
     		{
-    			_SocialTask.cancel(true);
-    			_SocialTask = null;
+    			_socialTask.cancel(true);
+    			_socialTask = null;
     		}
         }
     }
@@ -660,10 +650,10 @@ public class BaiumManager
         	_boss.setIsInSocialAction(false);
             
             // When it is possible to act, a social action is canceled.
-            if (_SocialTask != null)
+            if (_socialTask != null)
             {
-            	_SocialTask.cancel(true);
-                _SocialTask = null;
+            	_socialTask.cancel(true);
+                _socialTask = null;
             }
         }
     }
@@ -696,10 +686,10 @@ public class BaiumManager
     	public void run()
     	{
     		adventArcAngel();
-    		if(_CallAngelTask != null)
+    		if(_callAngelTask != null)
     		{
-        		_CallAngelTask.cancel(true);
-        		_CallAngelTask = null;
+        		_callAngelTask.cancel(true);
+        		_callAngelTask = null;
     		}
     	}
     }

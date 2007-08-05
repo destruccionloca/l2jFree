@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 public class L2Manor
 {
     private final static Log _log = LogFactory.getLog(L2Manor.class.getName());
-    private static final L2Manor INstance = new L2Manor();
+    private static final L2Manor _instance = new L2Manor();
     private static FastMap<Integer,SeedData> _seeds;
     
     private L2Manor()
@@ -33,7 +33,7 @@ public class L2Manor
     
     public static L2Manor getInstance()
     {
-        return INstance;
+        return _instance;
     }
     
     public int getSeedLevel(int seedId)
@@ -41,7 +41,7 @@ public class L2Manor
         SeedData seed = _seeds.get(seedId);
         
         if(seed != null)
-            return seed.level;
+            return seed._level;
         return -1;
     }
     
@@ -50,7 +50,7 @@ public class L2Manor
         SeedData seed = _seeds.get(seedId);
 
         if(seed != null)
-            return seed.crop;
+            return seed._crop;
         return -1;
     }
     
@@ -58,15 +58,15 @@ public class L2Manor
     {
         for(SeedData seed : _seeds.values())
         {
-            if(seed.crop == cropId)
+            if(seed._crop == cropId)
             {
                 if(type == 1)
                 {
-                    return seed.type1;
+                    return seed._type1;
                 }
                 else if(type == 2)
                 {
-                    return seed.type2;
+                    return seed._type2;
                 }
                 else if(type == 0)
                 {
@@ -83,15 +83,15 @@ public class L2Manor
     {
         for(SeedData seed : _seeds.values())
         {
-            if(seed.crop == cropId)
+            if(seed._crop == cropId)
             {
                 if(type == 1)
                 {
-                    return seed.type1amount;
+                    return seed._type1amount;
                 }
                 else if(type == 2)
                 {
-                    return seed.type2amount;
+                    return seed._type2amount;
                 }
             }
         }
@@ -113,40 +113,40 @@ public class L2Manor
             switch(castleId)
             {
                 case 1:     // Gludio Castle
-                    if(seed.GL == 1)
-                        crops.add(seed.crop);
+                    if(seed._gl == 1)
+                        crops.add(seed._crop);
                     break;
                 case 2:     // Dion castle
-                    if(seed.DI == 1)
-                        crops.add(seed.crop);
+                    if(seed._di == 1)
+                        crops.add(seed._crop);
                     break;
                 case 3:     // Giran
-                    if(seed.GI == 1)
-                        crops.add(seed.crop);
+                    if(seed._gi == 1)
+                        crops.add(seed._crop);
                     break;
                 case 4:     // Oren
-                    if(seed.OR == 1)
-                        crops.add(seed.crop);
+                    if(seed._or == 1)
+                        crops.add(seed._crop);
                     break;
                 case 5:     // Aden Castle
-                    if(seed.AD == 1)
-                        crops.add(seed.crop);
+                    if(seed._ad == 1)
+                        crops.add(seed._crop);
                     break;
                 case 6:     // Innadil Castle
-                    if(seed.IN == 1)
-                        crops.add(seed.crop);
+                    if(seed._in == 1)
+                        crops.add(seed._crop);
                     break;
                 case 7:     // Goddard Castle by L2Emu team
-                    if(seed.GO == 1)
-                        crops.add(seed.crop);
+                    if(seed._go == 1)
+                        crops.add(seed._crop);
                     break;
                 case 8:
-                    if(seed.RU == 1)  // Runne Castle by L2Emu team
-                        crops.add(seed.crop);
+                    if(seed._ru == 1)  // Runne Castle by L2Emu team
+                        crops.add(seed._crop);
                     break;
                 case 9:		// Schuttgart castle
-                    if(seed.SCH == 1)
-                        crops.add(seed.crop);
+                    if(seed._sch == 1)
+                        crops.add(seed._crop);
                     break;
                 default:
                     _log.warn("[L2Manor::getCropForCastle] invalid castle index? "+castleId);
@@ -164,40 +164,40 @@ public class L2Manor
             switch(castleId)
             {
                 case 1:     // Gludio Castle
-                    if(seed.GL == 1)
-                        seedsID.add(seed.id);
+                    if(seed._gl == 1)
+                        seedsID.add(seed._id);
                     break;
                 case 2:     // Dion castle
-                    if(seed.DI == 1)
-                        seedsID.add(seed.id);
+                    if(seed._di == 1)
+                        seedsID.add(seed._id);
                     break;
                 case 3:     // Giran
-                    if(seed.GI == 1)
-                        seedsID.add(seed.id);
+                    if(seed._gi == 1)
+                        seedsID.add(seed._id);
                     break;
                 case 4:     // Oren
-                    if(seed.OR == 1)
-                        seedsID.add(seed.id);
+                    if(seed._or == 1)
+                        seedsID.add(seed._id);
                     break;
                 case 5:     // Aden Castle
-                    if(seed.AD == 1)
-                        seedsID.add(seed.id);
+                    if(seed._ad == 1)
+                        seedsID.add(seed._id);
                     break;
                 case 6:     // Innadil Castle
-                    if(seed.IN == 1)
-                        seedsID.add(seed.id);
+                    if(seed._in == 1)
+                        seedsID.add(seed._id);
                     break;
                 case 7:     // Goddard Castle
-                    if(seed.GO == 1)
-                        seedsID.add(seed.id);
+                    if(seed._go == 1)
+                        seedsID.add(seed._id);
                     break;
                 case 8:
-                    if(seed.RU == 1)  // Runne Castle
-                        seedsID.add(seed.id);
+                    if(seed._ru == 1)  // Runne Castle
+                        seedsID.add(seed._id);
                     break;
                 case 9:
-                    if(seed.SCH == 1) //Schuttgart castle
-                        seedsID.add(seed.id);
+                    if(seed._sch == 1) //Schuttgart castle
+                        seedsID.add(seed._id);
                     break;
                 default:
                     _log.warn("[L2Manor::getSeedsForCastle] invalid castle index? "+castleId);
@@ -208,50 +208,51 @@ public class L2Manor
     }
     private class SeedData
     {
-        public SeedData(int _level,int _crop)
+        protected int _id;
+        protected int _level;          // seed level
+        protected int _crop;           // crop type
+        protected int _type1;
+        protected int _type2;
+        protected int _type1amount;
+        protected int _type2amount;
+        protected int _gl;             // Gludio Castle
+        protected int _di;             // Dion Castle
+        protected int _gi;             // Giran Castle
+        protected int _or;             // Oren Castle
+        protected int _ad;             // Aden Castle
+        protected int _in;             // Innadril Castle
+        protected int _go;             // Goddard Castle
+        protected int _ru;             // Rune Castle
+        protected int _sch;             // Schuttgart Castle
+        
+        public SeedData(int level,int crop)
         {
-            this.level = _level;
-            this.crop = _crop;
+            this._level = level;
+            this._crop = crop;
         }
         
         public void setData(int _id, int t1, int t2, int t1a, int t2a, int gl, int di, int gi, int or, int ad, int in, int go, int ru, int sch)
         {
-            this.id = _id;
-            type1 = t1;
-            type2 = t2;
-            type1amount = t1a;
-            type2amount = t2a;
-            GL = gl;
-            DI = di;
-            GI = gi;
-            OR = or;
-            AD = ad;
-            IN = in;
-            GO = go; //by L2Emu team
-            RU = ru; //by L2 Emu team
-            SCH = sch;
+            this._id = _id;
+            _type1 = t1;
+            _type2 = t2;
+            _type1amount = t1a;
+            _type2amount = t2a;
+            _gl = gl;
+            _di = di;
+            _gi = gi;
+            _or = or;
+            _ad = ad;
+            _in = in;
+            _go = go;
+            _ru = ru;
+            _sch = sch;
         }
-        
-        public int id;
-        public int level;          // seed level
-        public int crop;           // crop type
-        public int type1;
-        public int type2;
-        public int type1amount;
-        public int type2amount;
-        public int GL;             // Gludio Castle
-        public int DI;             // Dion Castle
-        public int GI;             // Giran Castle
-        public int OR;             // Oren Castle
-        public int AD;             // Aden Castle
-        public int IN;             // Innadril Castle
-        public int GO;              // Goddard Castle by L2 Emu team
-        public int RU;              // Runne Castle by L2Emu team
-        public int SCH;
     }
     
     
-    private void parseData() {
+    private void parseData()
+    {
         LineNumberReader lnr = null;
         try
         {
@@ -266,7 +267,7 @@ public class L2Manor
                     continue;
                 }
                 SeedData seed = parseList(line);
-                _seeds.put(seed.id, seed);
+                _seeds.put(seed._id, seed);
             }
 
             _log.info("ManorManager: Loaded " + _seeds.size() + " seeds");
@@ -313,7 +314,7 @@ public class L2Manor
         int RU = Integer.parseInt(st.nextToken());      // can be produced/sold in Runne Castle by L2Emu team
         int SCH = Integer.parseInt(st.nextToken());      // can be produced/sold in Schuttgart Castle 
         SeedData seed = new SeedData(level,cropId);
-        seed.setData(seedId,type1R,type2R,type1A,type2A,GL,DI,GI,OR,AD,IN,GO,RU, SCH);
+        seed.setData(seedId,type1R,type2R,type1A,type2A,GL,DI,GI,OR,AD,IN,GO,RU,SCH);
         
         return seed;
     }

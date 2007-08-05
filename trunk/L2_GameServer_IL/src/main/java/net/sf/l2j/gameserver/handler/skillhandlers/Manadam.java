@@ -21,8 +21,7 @@ import net.sf.l2j.gameserver.skills.Formulas;
  */
 public class Manadam implements ISkillHandler
 {
-	private static SkillType[] _skillIds =
-		{ SkillType.MANADAM };
+	private static final SkillType[] SKILL_IDS = { SkillType.MANADAM };
 
 	public void useSkill(@SuppressWarnings("unused")
 	L2Character activeChar, L2Skill skill, L2Object[] targets)
@@ -100,6 +99,6 @@ public class Manadam implements ISkillHandler
 
 	public SkillType[] getSkillIds()
 	{
-		return _skillIds;
+		return SKILL_IDS;
 	}
 }

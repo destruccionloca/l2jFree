@@ -28,6 +28,8 @@ public class ConditionPlayerHpPercentage extends Condition
         _p = p;
     }
 
-    public boolean testImpl(Env env) {
-        return env.player.getStatus().getCurrentHp() <= env.player.getMaxHp()*_p;    }
+    public boolean testImpl(Env env)
+    {
+        return env.player.getStatus().getCurrentHp() <= env.player.getMaxHp()*_p;
+    }
 }

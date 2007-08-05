@@ -14,8 +14,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
  */
 public class faction implements IVoicedCommandHandler
 {
-    //private static final Log _log = LogFactory.getLog(Wedding.class);
-    private static String[] _voicedCommands = { "faction" };
+    private static final String[] VOICED_COMMANDS = { "faction" };
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
@@ -48,6 +47,6 @@ public class faction implements IVoicedCommandHandler
      */
     public String[] getVoicedCommandList()
     {
-        return _voicedCommands;
+        return VOICED_COMMANDS;
     }
 }    

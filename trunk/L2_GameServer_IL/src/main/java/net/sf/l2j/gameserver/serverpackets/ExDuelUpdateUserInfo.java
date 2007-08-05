@@ -26,11 +26,11 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class ExDuelUpdateUserInfo extends L2GameServerPacket
 {
     private static final String _S__FE_4F_EXDUELUPDATEUSERINFO = "[S] FE:4F ExDuelUpdateUserInfo";
-    private L2PcInstance _cha;
+    private L2PcInstance _activeChar;
 
     public ExDuelUpdateUserInfo(L2PcInstance cha)
     {
-        _cha = cha;
+        _activeChar = cha;
     }
 
     /**
@@ -42,16 +42,16 @@ public class ExDuelUpdateUserInfo extends L2GameServerPacket
     {
         writeC(0xfe);
         writeH(0x4f);
-        writeS(_cha.getName());
-        writeD(_cha.getObjectId());
-        writeD(_cha.getClassId().getId());
-        writeD(_cha.getStat().getLevel());
-        writeD((int)_cha.getStatus().getCurrentHp());
-        writeD(_cha.getStat().getMaxHp());
-        writeD((int)_cha.getStatus().getCurrentMp());
-        writeD(_cha.getStat().getMaxMp());
-        writeD((int)_cha.getStatus().getCurrentCp());
-        writeD(_cha.getStat().getMaxCp());
+        writeS(_activeChar.getName());
+        writeD(_activeChar.getObjectId());
+        writeD(_activeChar.getClassId().getId());
+        writeD(_activeChar.getStat().getLevel());
+        writeD((int)_activeChar.getStatus().getCurrentHp());
+        writeD(_activeChar.getStat().getMaxHp());
+        writeD((int)_activeChar.getStatus().getCurrentMp());
+        writeD(_activeChar.getStat().getMaxMp());
+        writeD((int)_activeChar.getStatus().getCurrentCp());
+        writeD(_activeChar.getStat().getMaxCp());
     }
 
     /**

@@ -92,6 +92,6 @@ public class PcFreight extends ItemContainer
 
     public boolean validateCapacity(int slots)
 	{
-		return (getSize() + slots <= _owner.GetFreightLimit());
+		return (getSize() + slots <= _owner.getFreightLimit());
 	}
 }

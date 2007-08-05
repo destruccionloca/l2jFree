@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AdminTarget implements IAdminCommandHandler {
 
-	private static String[] _adminCommands = {"admin_target"};
+	private static final String[] ADMIN_COMMANDS = {"admin_target"};
 	private static final int REQUIRED_LEVEL = Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -45,11 +45,13 @@ public class AdminTarget implements IAdminCommandHandler {
 		return true;
 	}
 	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
 	
-	private boolean checkLevel(int level) {
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
 	

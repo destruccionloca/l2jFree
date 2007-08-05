@@ -169,7 +169,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     this.sendHtmlMessage(ptarget, filename, replace);
                     return;
                 }
-                else if (player.isMaryRequest())
+                else if (player.isMary())
                 {
                     // check for formalwear
                     if(Config.WEDDING_FORMALWEAR && !player.isWearingFormalWear())

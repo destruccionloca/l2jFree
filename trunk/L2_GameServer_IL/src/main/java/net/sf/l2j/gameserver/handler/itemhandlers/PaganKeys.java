@@ -17,7 +17,6 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -36,7 +35,7 @@ import net.sf.l2j.gameserver.lib.Rnd;
  */
 public class PaganKeys implements IItemHandler
 {
-	private static int[] _itemIds = {8273, 8274, 8275};
+	private static final int[] ITEM_IDS = {8273, 8274, 8275};
 	public static final int INTERACTION_DISTANCE = 100;
 	
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -136,6 +135,6 @@ public class PaganKeys implements IItemHandler
 	
 	public int[] getItemIds()
 	{
-		return _itemIds;
+		return ITEM_IDS;
 	}
 }

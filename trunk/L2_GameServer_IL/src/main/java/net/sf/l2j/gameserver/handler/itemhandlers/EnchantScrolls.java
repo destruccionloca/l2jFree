@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class EnchantScrolls implements IItemHandler
 {
-	private static int[] _itemIds = {
+	private static final int[] ITEM_IDS = {
 		729, 730, 731, 732, 6569, 6570, // a grade
 		947, 948, 949, 950, 6571, 6572, // b grade
 		951, 952, 953, 954, 6573, 6574, // c grade
@@ -46,7 +46,7 @@ public class EnchantScrolls implements IItemHandler
 
         // Restrict enchant during restart/shutdown (because of an existing exploit)
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
             activeChar.sendMessage("Enchant isn't allowed during restart/shutdown!");
             return;
@@ -60,6 +60,6 @@ public class EnchantScrolls implements IItemHandler
 	
 	public int[] getItemIds()
 	{
-		return _itemIds;
+		return ITEM_IDS;
 	}
 }
