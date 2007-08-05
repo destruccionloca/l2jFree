@@ -6861,8 +6861,9 @@ INSERT INTO `npc` VALUES
 	(29074, 29074, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
 	(29075, 29075, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
 	(29076, 29076, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b", 42, 34.5, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0);
-UPDATE npc SET aggro = 800 WHERE idTemplate IN (29019,29066,29067,29068);
+UPDATE `npc` SET aggro = 800 WHERE idTemplate IN (29019,29066,29067,29068);
 
-UPDATE npc SET aggro = 500 WHERE id IN (29014,29020,29021,29022);
-UPDATE npc SET aggro = 800 WHERE id = 29028;
-UPDATE npc SET `type` = "L2Teleporter" WHERE idTemplate = 31759;
+UPDATE `npc` SET aggro = 500 WHERE id IN (29014,29020,29021,29022);
+UPDATE `npc` SET aggro = 800 WHERE id = 29028;
+UPDATE `npc` SET `type` = "L2Teleporter" WHERE idTemplate = 31759;
+UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 31385;

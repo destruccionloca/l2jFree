@@ -27,14 +27,14 @@ class valakas(JQuest):
       else:
         st.exitQuest(1)
         return "Conditions are not right to enter to Lair of Valakas."
-    elif npcId == 31540 :    # クライン
-      if st.getQuestItemsCount(7267) > 0 :    # 使い捨て浮遊石
+    elif npcId == 31540 :    # Klein
+      if st.getQuestItemsCount(7267) > 0 :    # Check Floating Stone
         st.takeItems(7267,1)
         player.teleToLocation(183831,-115457,-3296)
         st.set("ok","1")
       else :
         st.exitQuest(1)
-        return '<html><head><body>ヴァラカスの監視者 クライン:<br>必要なアイテムを持っていません。</body></html>'
+        return '<html><head><body>Kein:<br>You don not have Floating Stone. Go take one and then come back to me.</body></html>'
     return
 
   def onKill (self,npc,player):
