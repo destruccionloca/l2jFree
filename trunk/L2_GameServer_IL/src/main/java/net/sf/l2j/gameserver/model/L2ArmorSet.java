@@ -62,17 +62,17 @@ public final class L2ArmorSet
         return containAll(_chest,legs,head,gloves,feet);
         
     }
-    public boolean containAll(int _chest, int _legs, int _head, int _gloves, int _feet)
+    public boolean containAll(int chest, int legs, int head, int gloves, int feet)
     {
-        if(_chest != 0 && _chest != _chest)
+        if(_chest != 0 && _chest != chest)
             return false;
-        if(_legs != 0 && _legs != _legs)
+        if(_legs != 0 && _legs != legs)
             return false;
-        if(_head != 0 && _head != _head)
+        if(_head != 0 && _head != head)
             return false;
-        if(_gloves != 0 && _gloves != _gloves)
+        if(_gloves != 0 && _gloves != gloves)
             return false;
-        if(_feet != 0 && _feet != _feet)
+        if(_feet != 0 && _feet != feet)
             return false;
     
         return true;
