@@ -132,7 +132,7 @@ public abstract class Quest
 	 * Set the initial state of the quest with parameter "state"
 	 * @param state
 	 */
-	public void set_initialState(State state) {
+	public void setInitialState(State state) {
 		this._initialState = state;
 	}
 	
@@ -142,7 +142,7 @@ public abstract class Quest
 	 * @return QuestState : QuestState created
 	 */
 	public QuestState newQuestState(L2PcInstance player) {
-		QuestState qs = new QuestState(this, player, get_initialState(), false);
+		QuestState qs = new QuestState(this, player, getInitialState(), false);
 		Quest.createQuestInDb(qs);
 		return qs;
 	}
@@ -151,7 +151,7 @@ public abstract class Quest
 	 * Return initial state of the quest
 	 * @return State
 	 */
-	public State get_initialState() {
+	public State getInitialState() {
 		return _initialState;
 	}
     

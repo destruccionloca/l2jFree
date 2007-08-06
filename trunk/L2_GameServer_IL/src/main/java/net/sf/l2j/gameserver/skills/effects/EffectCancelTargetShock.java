@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author decad
  *
- * Implementation of the Cancel_taget_Shock Effect
+ * Implementation of the Cancel_target_Shock Effect
  */
 public class EffectCancelTargetShock extends L2Effect {
 
