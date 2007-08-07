@@ -181,13 +181,14 @@ public final class L2RaidBossInstance extends L2MonsterInstance
      * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR> 
      * 
      */
-    public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
-    {
-        if (isPetrified())
-        {damage=0;}
-        super.reduceCurrentHp(damage, attacker, awake);
-        
-    }
+    // Duplicate code?
+    //public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
+    //{
+    //    if (isPetrified())
+    //    {damage=0;}
+    //    super.reduceCurrentHp(damage, attacker, awake);
+    //    
+    //}
 
     /**
      * Restore full Amount of HP and MP 

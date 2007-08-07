@@ -4436,6 +4436,8 @@ public abstract class L2Character extends L2Object
                 activeSummon.getOwner().sendPacket(sm);
             }
             
+            if(isPetrified()) damage = 0;
+            
             if (!miss && damage > 0)
             {
                 L2Weapon weapon = getActiveWeaponItem();
@@ -4446,7 +4448,7 @@ public abstract class L2Character extends L2Object
                     // Reduce HP of the target and calculate reflection damage to reduce HP of attacker if necessary
                     double reflectPercent = target.getStat().calcStat(Stats.REFLECT_DAMAGE_PERCENT,0,null,null);
                     
-					if (reflectPercent > 0)
+                    if (reflectPercent > 0)
                     {
                         int reflectedDamage = (int)(reflectPercent / 100. * damage);
                         damage -= reflectedDamage;
@@ -4502,8 +4504,6 @@ public abstract class L2Character extends L2Object
                     }
                 }
 
-                if (isPetrified())
-                {damage=0;}
                 target.reduceCurrentHp(damage, this);
 
                 // Notify AI with EVT_ATTACKED
