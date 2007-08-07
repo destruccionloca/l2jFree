@@ -108,8 +108,8 @@ public class FaenorScriptEngine extends ScriptEngine
 
             ScriptPackage module = new ScriptPackage(zipPack);
 
-            List<ScriptDocument> scrpts = module.getScriptFiles();
-            for (ScriptDocument script : _scripts)
+            List<ScriptDocument> scripts = module.getScriptFiles();
+            for (ScriptDocument script : scripts)
             {
                 this._scripts.add(script);
             }
