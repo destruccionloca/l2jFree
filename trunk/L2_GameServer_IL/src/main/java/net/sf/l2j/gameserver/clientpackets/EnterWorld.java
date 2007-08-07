@@ -96,8 +96,8 @@ public class EnterWorld extends L2GameClientPacket
 
 	public TaskPriority getPriority() { return TaskPriority.PR_URGENT; }
 
-	private static String Welcome_Path = "welcome" ;
-	private static String Newbie_Path = "newbie" ;
+	private static String Welcome_Path = "welcome";
+	private static String Newbie_Path = "newbie";
 	
 	/**
 	 * @param decrypt
@@ -112,7 +112,7 @@ public class EnterWorld extends L2GameClientPacket
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
         { 
-            _log.warn("EnterWorld failed! activeChar is null..."); 			
+            _log.warn("EnterWorld failed! activeChar is null...");
             this.getClient().closeNow();
 		    return;
         }
@@ -217,7 +217,7 @@ public class EnterWorld extends L2GameClientPacket
             }
         }
 
-        //Expand Skill		
+        //Expand Skill
         ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);  
         activeChar.sendPacket(esmc);
        

@@ -1404,8 +1404,7 @@ public abstract class L2Skill
         {
             if (activeChar instanceof L2PcInstance && activeChar.getTarget() instanceof L2ArtefactInstance)
             {
-                if (activeChar.getTarget() instanceof L2ArtefactInstance)
-                    return new L2Character[] {(L2ArtefactInstance) activeChar.getTarget()};
+                return new L2Character[] {(L2ArtefactInstance) activeChar.getTarget()};
             }
 
             return null;

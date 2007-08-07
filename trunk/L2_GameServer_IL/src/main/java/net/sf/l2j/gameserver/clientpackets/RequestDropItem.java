@@ -179,6 +179,10 @@ public class RequestDropItem extends L2GameClientPacket
         
 		if (item.isEquipped())
 		{
+			// Remove augementation boni on unequip
+			if (item.isAugmented())
+				item.getAugmentation().removeBoni(activeChar);
+			
 			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
 			InventoryUpdate iu = new InventoryUpdate();
 			for (int i = 0; i < unequiped.length; i++)

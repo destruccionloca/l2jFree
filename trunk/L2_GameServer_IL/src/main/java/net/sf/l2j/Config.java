@@ -71,8 +71,6 @@ public final class Config {
     public static Pattern 		TITLE_PATTERN;    				// Clan title template
     public static int 			MAX_CHARACTERS_NUMBER_PER_ACCOUNT; // Maximum number of characters per account
     public static int 			PORT_GAME;						// Game Server ports
-    public static int 			PORT_LOGIN;						// Login Server port
-    public static int 			LOGIN_TRY_BEFORE_BAN;			// Number of trys of login before ban
     public static String 		GAMESERVER_HOSTNAME;			// Hostname of the Game Server
     public static String 		DATABASE_DRIVER;				// Driver to access to database
     public static String 		DATABASE_URL;					// Path to access to database
@@ -125,7 +123,6 @@ public final class Config {
 			REQUEST_ID              = Integer.parseInt(serverSettings.getProperty("RequestServerID","0"));
 			ACCEPT_ALTERNATE_ID     = Boolean.parseBoolean(serverSettings.getProperty("AcceptAlternateID","True"));
             PORT_GAME               = Integer.parseInt(serverSettings.getProperty("GameserverPort", "7777"));
-            PORT_LOGIN              = Integer.parseInt(serverSettings.getProperty("LoginserverPort", "2106"));
             try
             {
             	CNAME_PATTERN 		    = Pattern.compile(serverSettings.getProperty("CnameTemplate", "[A-Za-z0-9\\-]{3,16}"));
@@ -166,14 +163,13 @@ public final class Config {
                 TITLE_PATTERN  = Pattern.compile("[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}");
             }
             MAX_CHARACTERS_NUMBER_PER_ACCOUNT = Integer.parseInt(serverSettings.getProperty("CharMaxNumber", "0"));
-            LOGIN_TRY_BEFORE_BAN    = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
             GAMESERVER_HOSTNAME     = serverSettings.getProperty("GameserverHostname");
-			DATAPACK_ROOT    = new File(serverSettings.getProperty("DatapackRoot", ".")).getCanonicalFile();
+            DATAPACK_ROOT    = new File(serverSettings.getProperty("DatapackRoot", ".")).getCanonicalFile();
             MIN_PROTOCOL_REVISION   = Integer.parseInt(serverSettings.getProperty("MinProtocolRevision", "694"));
             MAX_PROTOCOL_REVISION   = Integer.parseInt(serverSettings.getProperty("MaxProtocolRevision", "709"));
             if (MIN_PROTOCOL_REVISION > MAX_PROTOCOL_REVISION)
             {
-            	throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
+                throw new Error("MinProtocolRevision is bigger than MaxProtocolRevision in server configuration file.");
             }
             INTERNAL_HOSTNAME   = serverSettings.getProperty("InternalHostname", "127.0.0.1");
             INTERNAL_NETWORKS   = serverSettings.getProperty("InternalNetworks", "");
@@ -274,47 +270,50 @@ public final class Config {
     //*******************************************************************************************    
     public static final String  CHAMPIONS_FILE             	= "./config/champions.properties";
     //*******************************************************************************************
-    public static int 		CHAMPION_FREQUENCY;	// Frequency of spawn
-    public static int 		CHAMPION_HP;		// Hp multiplier
-    public static float     CHAMPION_HP_REGEN;  // HP.REG multiplier
-    public static float     CHAMPION_ATK;       // P.ATK & M.ATK multiplier
-    public static float     CHAMPION_SPD_ATK;   // Attack speed utliplier
-    public static int       CHAMPION_ADENA;     // Adena/Sealstone reward multiplier
-    public static int 		CHAMPION_REWARDS;	// Drop/Spoil rewards multiplier
-    public static int 		CHAMPION_EXP_SP;	// Exp/Sp rewards multiplier
-    public static boolean 	CHAMPION_BOSS;		// Boss is champion
-    public static int       CHAMPION_MIN_LEVEL; // Champion Minimum Level
-    public static int       CHAMPION_MAX_LEVEL; // Champion Maximum Level
-    public static boolean 	CHAMPION_MINIONS; 	// set Minions to champions when leader champion
+    public static int       CHAMPION_FREQUENCY;   // Frequency of spawn
+    public static int       CHAMPION_HP;          // Hp multiplier
+    public static float     CHAMPION_HP_REGEN;    // Hp.reg multiplier
+    public static float     CHAMPION_ATK;         // P.Atk & M.Atk multiplier
+    public static float     CHAMPION_SPD_ATK;     // Attack speed multiplier
+    public static int       CHAMPION_ADENA;       // Adena/Sealstone reward multiplier
+    public static int       CHAMPION_REWARDS;     // Drop/Spoil reward multiplier
+    public static int       CHAMPION_EXP_SP;      // Exp/Sp reward multiplier
+    public static boolean   CHAMPION_BOSS;        // Bosses can be champions
+    public static int       CHAMPION_MIN_LEVEL;   // Champion Minimum Level
+    public static int       CHAMPION_MAX_LEVEL;   // Champion Maximum Level
+    public static boolean   CHAMPION_MINIONS;     // set Minions to champions when leader champion
+    public static int       CHAMPION_SPCL_CHANCE; // Chance in % to drop an special reward item.
+    public static int       CHAMPION_SPCL_ITEM;   // Item ID that drops from Champs.
+    public static int       CHAMPION_SPCL_QTY;    // Amount of special champ drop items.
     //*******************************************************************************************    
     public static void loadChampionsConfig()
     {
-    	_log.info("loading " + CHAMPIONS_FILE);    	
-	    try
-	    {
-	        Properties championsSettings = new Properties();
-	        InputStream is               = new FileInputStream(new File(CHAMPIONS_FILE));
-	        championsSettings.load(is);
-	        is.close();
-	        
-	        CHAMPION_FREQUENCY      = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
-	        CHAMPION_HP             = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
+        _log.info("loading " + CHAMPIONS_FILE);    	
+        try
+        {
+            Properties championsSettings = new Properties();
+            InputStream is               = new FileInputStream(new File(CHAMPIONS_FILE));
+            championsSettings.load(is);
+            is.close();
+            
+            CHAMPION_FREQUENCY      = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
+            CHAMPION_HP             = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
             CHAMPION_HP_REGEN       = Float.parseFloat(championsSettings.getProperty("ChampionRegenHp","1."));    
-	        CHAMPION_REWARDS        = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
+            CHAMPION_REWARDS        = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
             CHAMPION_ADENA          = Integer.parseInt(championsSettings.getProperty("ChampionAdenasRewards", "1"));
             CHAMPION_ATK            = Float.parseFloat(championsSettings.getProperty("ChampionAtk", "1."));
             CHAMPION_SPD_ATK        = Float.parseFloat(championsSettings.getProperty("ChampionSpdAtk", "1."));
-            CHAMPION_EXP_SP        	= Integer.parseInt(championsSettings.getProperty("ChampionExpSp", "8"));
-	        CHAMPION_BOSS           = Boolean.parseBoolean(championsSettings.getProperty("ChampionBoss", "false"));
+            CHAMPION_EXP_SP         = Integer.parseInt(championsSettings.getProperty("ChampionExpSp", "8"));
+            CHAMPION_BOSS           = Boolean.parseBoolean(championsSettings.getProperty("ChampionBoss", "false"));
             CHAMPION_MIN_LEVEL      = Integer.parseInt(championsSettings.getProperty("ChampionMinLevel", "20"));
             CHAMPION_MAX_LEVEL      = Integer.parseInt(championsSettings.getProperty("ChampionMaxLevel", "60"));
-	        CHAMPION_MINIONS        = Boolean.parseBoolean(championsSettings.getProperty("ChampionMinions", "false"));
-	    }
-	    catch (Exception e)
-	    {
-	        _log.error(e.getMessage(),e);
-	        throw new Error("Failed to Load "+CHAMPIONS_FILE+" File.");
-	    }
+            CHAMPION_MINIONS        = Boolean.parseBoolean(championsSettings.getProperty("ChampionMinions", "false"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e.getMessage(),e);
+            throw new Error("Failed to Load "+CHAMPIONS_FILE+" File.");
+        }
     }
 
     
@@ -2304,6 +2303,10 @@ public final class Config {
         else if (pName.equalsIgnoreCase("ChampionMinLevel")) CHAMPION_MIN_LEVEL = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionMaxLevel")) CHAMPION_MAX_LEVEL = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionMinions")) CHAMPION_MINIONS = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("ChampionSpecialItemChance")) CHAMPION_SPCL_CHANCE = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionSpecialItemID")) CHAMPION_SPCL_ITEM = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ChampionSpecialItemAmount")) CHAMPION_SPCL_QTY = Integer.parseInt(pValue);
+
         else if (pName.equalsIgnoreCase("AllowFreight")) ALLOW_FREIGHT = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowWarehouse")) ALLOW_WAREHOUSE = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AllowWear")) ALLOW_WEAR = Boolean.valueOf(pValue);
