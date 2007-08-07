@@ -77,7 +77,7 @@ public class Status extends Thread
     
     
     
-    public void SendMessageToTelnets(String msg)
+    public void sendMessageToTelnets(String msg)
     {
     	List<LoginStatusThread> lsToRemove = new FastList<LoginStatusThread>();
     	for(LoginStatusThread ls :_loginStatus)

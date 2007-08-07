@@ -69,4 +69,8 @@ public class Rnd
 	{
 		return _rnd.nextBoolean();
 	}
+    public static final void nextBytes(byte [] array)
+    {
+        _rnd.nextBytes(array);
+    }
 }

@@ -40,10 +40,10 @@ public final class Config {
     /** Enable/disable code 'in progress' */
     public static boolean DEVELOPER;
     
-    /** Number of trys of login before ban */
+    /** Number of login tries before IP ban gets activated, default 10*/
     public static int LOGIN_TRY_BEFORE_BAN;
-    /** Duration of ban after LOGIN_TRY_BEFORE_BAN login failure */
-    public static int BAN_DURATION_AFTER_LOGIN_FAILURE;
+    /** Number of seconds the IP ban will last, default 10 minutes */
+    public static int LOGIN_BLOCK_AFTER_BAN;
     
     // Access to database
     /** Driver to access to database */
@@ -106,7 +106,7 @@ public final class Config {
             ACCEPT_NEW_GAMESERVER = Boolean.parseBoolean(serverSettings.getProperty("AcceptNewGameServer","True"));
             
             LOGIN_TRY_BEFORE_BAN = Integer.parseInt(serverSettings.getProperty("LoginTryBeforeBan", "10"));
-            BAN_DURATION_AFTER_LOGIN_FAILURE = Integer.parseInt(serverSettings.getProperty("BanDurationAfterLoginFailure", "600"));
+            LOGIN_BLOCK_AFTER_BAN    = Integer.parseInt(serverSettings.getProperty("LoginBlockAfterBan", "600"));
             GM_MIN               = Integer.parseInt(serverSettings.getProperty("GMMinLevel", "100"));
 
             DATABASE_DRIVER          = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");

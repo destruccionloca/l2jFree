@@ -27,8 +27,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class GGAuth extends L2LoginServerPacket
 {
-    static Log _log = LogFactory.getLog(GGAuth.class.getName());
-    public static int SKIP_GG_AUTH_REQUEST = 0x0b;
+    private static final Log _log = LogFactory.getLog(GGAuth.class.getName());
+    public static final int SKIP_GG_AUTH_REQUEST = 0x0b;
     
     private int _response;
     
@@ -55,4 +55,5 @@ public final class GGAuth extends L2LoginServerPacket
         writeD(0x00);
 	}
 }
+
 

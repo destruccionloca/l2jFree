@@ -29,7 +29,6 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 import javax.crypto.Cipher;
@@ -53,6 +52,7 @@ import net.sf.l2j.loginserver.thread.GameServerThread;
 import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.codec.Base64;
 import net.sf.l2j.tools.math.ScrambledKeyPair;
+import net.sf.l2j.util.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -85,8 +85,6 @@ public class LoginManager
     protected Set<L2LoginClient> _clients = new FastSet<L2LoginClient>();
 
 	private ScrambledKeyPair[] _keyPairs;
-
-	private Random _rnd = new Random();;
 
     protected byte[][] _blowfishKeys;
 
@@ -189,7 +187,7 @@ public class LoginManager
         {
             for (int j = 0; j < _blowfishKeys[i].length; j++)
             {
-                _blowfishKeys[i][j] = (byte) (_rnd.nextInt(255)+1);
+                _blowfishKeys[i][j] = (byte) (Rnd.nextInt(255)+1);
             }
         }
         _log.info("Stored "+_blowfishKeys.length+" keys for Blowfish communication");
@@ -221,7 +219,7 @@ public class LoginManager
 	{
 		SessionKey key;
 		
-		key = new SessionKey(_rnd.nextInt(),_rnd.nextInt(), _rnd.nextInt(), _rnd.nextInt());
+		key = new SessionKey(Rnd.nextInt(), Rnd.nextInt(), Rnd.nextInt(), Rnd.nextInt());
 		_loginServerClients.put(account, client);
 		return key;
 	}
@@ -240,7 +238,7 @@ public class LoginManager
 	{
 		SessionKey key;
 
-		key = new SessionKey(_rnd.nextInt(), _rnd.nextInt(), _rnd.nextInt(), _rnd.nextInt());
+		key = new SessionKey(Rnd.nextInt(), Rnd.nextInt(), Rnd.nextInt(), Rnd.nextInt());
 		_loginServerClients.put(account, client);
 		return key;
 	}	
@@ -398,15 +396,15 @@ public class LoginManager
      * @param user
      * @param banLevel
      */
-	public void setAccountAccessLevel(String user, int banLevel)
+	public void setAccountAccessLevel(String account, int banLevel)
 	{
         try
         {
-            _service.changeAccountLevel(user,banLevel);
+            _service.changeAccountLevel(account, banLevel);
         }
         catch (AccountModificationException e)
         {
-            _log.error("Could not set accessLevl for user : " + user,e);
+            _log.error("Could not set accessLevl for user : " + account,e);
         }
 	}
 	
@@ -442,7 +440,7 @@ public class LoginManager
 	 */
 	public ScrambledKeyPair getScrambledRSAKeyPair()
 	{
-		return _keyPairs[_rnd.nextInt(10)];
+		return _keyPairs[Rnd.nextInt(10)];
 	}
 	
 	
@@ -584,8 +582,8 @@ public class LoginManager
     
     		if (failedCount >= Config.LOGIN_TRY_BEFORE_BAN)
     		{
-    			// TODO Configurable ban duration (10 mins for now)
-    			BanManager.getInstance().addBanForAddress(address, 10*60*1000);
+    			_log.info("Banning '"+address.getHostAddress()+"' for "+Config.LOGIN_BLOCK_AFTER_BAN+" seconds due to "+failedCount+" invalid user/pass attempts");
+    			BanManager.getInstance().addBanForAddress(address, Config.LOGIN_BLOCK_AFTER_BAN*1000);
     		}
         }
     }
@@ -631,7 +629,7 @@ public class LoginManager
                 _logLogin.info("created new account for "+ user);
 
                 if ( L2LoginServer.statusServer != null )
-        			L2LoginServer.statusServer.SendMessageToTelnets("Account created for player "+user);
+        			L2LoginServer.statusServer.sendMessageToTelnets("Account created for player "+user);
         		
         		return true;
         		

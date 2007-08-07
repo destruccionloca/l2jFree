@@ -35,7 +35,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.RSAKeyGenParameterSpec;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javolution.util.FastMap;
 import net.sf.l2j.loginserver.beans.GameServerInfo;
@@ -43,6 +42,7 @@ import net.sf.l2j.loginserver.beans.Gameservers;
 import net.sf.l2j.loginserver.services.GameserversServices;
 import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.util.HexUtil;
+import net.sf.l2j.util.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,7 +63,6 @@ public class GameServerManager
     // RSA Config
     private static final int KEYS_SIZE = 10;
     private KeyPair[] _keyPairs;
-    private Random _rnd= new Random();;
 
 	private GameserversServices _gsServices = null;
     private GameserversServices _gsServicesXml = null;
@@ -243,7 +242,7 @@ public class GameServerManager
      */
     public KeyPair getKeyPair()
     {
-        return _keyPairs[_rnd.nextInt(10)];
+        return _keyPairs[Rnd.nextInt(10)];
     }
 
     /**

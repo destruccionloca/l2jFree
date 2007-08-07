@@ -34,7 +34,7 @@ public class KickPlayer extends ServerBasePacket
 		writeC(0x04);
 		writeS(account);
 		if ( L2LoginServer.statusServer != null )
-			L2LoginServer.statusServer.SendMessageToTelnets("Player "+account+" was kicked.");
+			L2LoginServer.statusServer.sendMessageToTelnets("Player "+account+" was kicked.");
 	}
 	
 	/* (non-Javadoc)
