@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.Random;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -29,6 +28,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2World;
@@ -437,13 +437,11 @@ public class AdminSpawn implements IAdminCommandHandler
         		
         		if (radius  >0 && count >1)
         		{
-        		    Random _rnd = new Random(); 
-
-                    int signX = (_rnd.nextInt(2) == 0) ? -1 : 1;
-                    int signY = (_rnd.nextInt(2) == 0) ? -1 : 1;
-                    int randX = _rnd.nextInt(radius);
-                    int randY = _rnd.nextInt(radius);
-                    int randH = _rnd.nextInt(0xFFFF);
+                    int signX = (Rnd.nextInt(2) == 0) ? -1 : 1;
+                    int signY = (Rnd.nextInt(2) == 0) ? -1 : 1;
+                    int randX = Rnd.nextInt(radius);
+                    int randY = Rnd.nextInt(radius);
+                    int randH = Rnd.nextInt(0xFFFF);
                     
                     x = x + signX * randX;
                     y = y + signY * randY;

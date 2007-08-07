@@ -17,9 +17,8 @@
  */
 package net.sf.l2j.gameserver.skills.l2skills;
 
-import java.util.Random;
-
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -36,7 +35,6 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public class L2SkillCreateItem extends L2Skill
 {
-    private static final Random _rnd = new Random();
     private final int[] _createItemId;
     private final int _createItemCount;
     private final int _randomCount;
@@ -64,9 +62,9 @@ public class L2SkillCreateItem extends L2Skill
         L2PcInstance player = (L2PcInstance) activeChar;
         if (activeChar instanceof L2PcInstance)
         {            
-            int rnd = _rnd.nextInt(_randomCount) + 1;
+            int rnd = Rnd.nextInt(_randomCount) + 1;
             int count = _createItemCount * rnd;
-            int rndid = _rnd.nextInt(_createItemId.length);
+            int rndid = Rnd.nextInt(_createItemId.length);
             giveItems(player, _createItemId[rndid], count);
         }
     }

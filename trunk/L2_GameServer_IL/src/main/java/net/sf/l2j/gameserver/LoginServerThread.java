@@ -32,7 +32,6 @@ import java.security.spec.RSAKeyGenParameterSpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -45,6 +44,7 @@ import net.sf.l2j.gameserver.gameserverpackets.PlayerAuthRequest;
 import net.sf.l2j.gameserver.gameserverpackets.PlayerInGame;
 import net.sf.l2j.gameserver.gameserverpackets.PlayerLogout;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.loginserverpackets.AuthResponse;
 import net.sf.l2j.gameserver.loginserverpackets.InitLS;
 import net.sf.l2j.gameserver.loginserverpackets.KickPlayer;
@@ -470,8 +470,7 @@ public class LoginServerThread extends Thread
 	public static byte[] generateHex(int size)
 	{
 		byte [] array = new byte[size]; 
-		Random rnd = new Random();
-		rnd.nextBytes(array);
+		Rnd.nextBytes(array);
 		if (_log.isDebugEnabled())_log.debug("Generated random String:  \""+array+"\"");
 		return array;
 	}

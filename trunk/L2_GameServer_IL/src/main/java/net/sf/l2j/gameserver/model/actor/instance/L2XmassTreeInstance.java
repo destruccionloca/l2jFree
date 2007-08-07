@@ -17,11 +17,11 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -47,10 +47,9 @@ public class L2XmassTreeInstance extends L2NpcInstance
 
         public void run()
         {
-            Random r = new Random();
             for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             {
-                int i = r.nextInt(3);
+                int i = Rnd.nextInt(3);
                 handleCast(player, (4262 + i));
             }
         }

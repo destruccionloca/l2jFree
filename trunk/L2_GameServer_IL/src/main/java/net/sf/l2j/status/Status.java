@@ -24,10 +24,10 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Properties;
-import java.util.Random;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.lib.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -108,20 +108,19 @@ public class Status extends Thread
         String lowerChar= "qwertyuiopasdfghjklzxcvbnm";
         String upperChar = "QWERTYUIOPASDFGHJKLZXCVBNM";
         String digits = "1234567890";
-        Random randInt = new Random();
         for (int i = 0; i < length; i++)
         {
-            int charSet = randInt.nextInt(3);
+            int charSet = Rnd.nextInt(3);
             switch (charSet)
             {
                 case 0:
-                    password.append(lowerChar.charAt(randInt.nextInt(lowerChar.length()-1)));
+                    password.append(lowerChar.charAt(Rnd.nextInt(lowerChar.length()-1)));
                     break;
                 case 1:
-                    password.append(upperChar.charAt(randInt.nextInt(upperChar.length()-1)));
+                    password.append(upperChar.charAt(Rnd.nextInt(upperChar.length()-1)));
                     break;
                 case 2:
-                    password.append(digits.charAt(randInt.nextInt(digits.length()-1)));
+                    password.append(digits.charAt(Rnd.nextInt(digits.length()-1)));
                     break;
             }
         }

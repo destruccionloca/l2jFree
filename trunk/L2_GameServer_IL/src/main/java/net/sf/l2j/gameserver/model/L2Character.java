@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.Future;
 
@@ -2360,9 +2359,6 @@ public abstract class L2Character extends L2Object
        updateAbnormalEffect();
    }
 
-   // [L2J_JP ADD]
-   private final static Random _fdRnd = new Random();
-   
     /**
      * Active the abnormal effect Fake Death flag, notify the L2Character AI and send Server->Client UserInfo/CharInfo packet.<BR><BR>
      */
@@ -2386,29 +2382,29 @@ public abstract class L2Character extends L2Object
                     case 3:
                     case 4:
                     case 5:
-                        if(_fdRnd.nextInt(100) >= 95)  //fails at 5%.
+                        if(Rnd.nextInt(100) >= 95)  //fails at 5%.
                             setIsFakeDeath(false);
                         break;
                     case 6:
-                        if(_fdRnd.nextInt(100) >= 90)  //fails at 10%.
+                        if(Rnd.nextInt(100) >= 90)  //fails at 10%.
                             setIsFakeDeath(false);
                         break;
                     case 7:
-                        if(_fdRnd.nextInt(100) >= 85)  //fails at 15%.
+                        if(Rnd.nextInt(100) >= 85)  //fails at 15%.
                             setIsFakeDeath(false);
                         break;
                     case 8:
-                        if(_fdRnd.nextInt(100) >= 80)  //fails at 20%.
+                        if(Rnd.nextInt(100) >= 80)  //fails at 20%.
                             setIsFakeDeath(false);
                         break;
                     case 9:
-                        if(_fdRnd.nextInt(100) >= 75)  //fails at 25%.
+                        if(Rnd.nextInt(100) >= 75)  //fails at 25%.
                             setIsFakeDeath(false);
                         break;
                     default:
                         if(_diff > 9)
                         {
-                            if(_fdRnd.nextInt(100) >= 50)  //fails at 50%.
+                            if(Rnd.nextInt(100) >= 50)  //fails at 50%.
                                 setIsFakeDeath(false);
                         }
                         else
@@ -2425,7 +2421,7 @@ public abstract class L2Character extends L2Object
             else
             //attacked from aggressive monster
             {
-                if(_fdRnd.nextInt(100) >= 75)  //fails at 25%.
+                if(Rnd.nextInt(100) >= 75)  //fails at 25%.
              	   setIsFakeDeath(false);
             }
         }
@@ -5145,7 +5141,7 @@ public abstract class L2Character extends L2Object
                }
        }
 
-       if (skill.isOffensive())
+       if (skill.isOffensive() && !(skill.getSkillType() == SkillType.UNLOCK) && !(skill.getSkillType() == SkillType.DELUXE_KEY_UNLOCK))
                 getAI().clientStartAutoAttack();
 
          // Notify the AI of the L2Character with EVT_FINISH_CASTING

@@ -27,7 +27,6 @@ package net.sf.l2j.gameserver.model.entity.events;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
@@ -38,6 +37,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Spawn;
@@ -661,7 +661,7 @@ public class TvT
             if (_playersShuffle.isEmpty())
                 break;
 
-            int playerToAddIndex = new Random().nextInt(_playersShuffle.size());
+            int playerToAddIndex = Rnd.nextInt(_playersShuffle.size());
             
             _players.add(_playersShuffle.get(playerToAddIndex));
             _players.get(playersCount)._teamNameTvT = _teams.get(teamCount);

@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.model;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -29,6 +28,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
@@ -734,8 +734,6 @@ public class AutoChatHandler implements SpawnListener
 
             public synchronized void run()
             {
-                Random rnd = new Random();
-
                 AutoChatInstance chatInst = _registeredChats.get(_runnerNpcId);
                 AutoChatDefinition[] chatDefinitions;
 
@@ -772,7 +770,7 @@ public class AutoChatHandler implements SpawnListener
                             if (player instanceof L2PcInstance) nearbyPlayers.add((L2PcInstance) player);
 
                         int maxIndex = chatDef.getChatTexts().length;
-                        int lastIndex = rnd.nextInt(maxIndex);
+                        int lastIndex = Rnd.nextInt(maxIndex);
 
                         String creatureName = chatNpc.getName();
                         String text;
@@ -820,25 +818,25 @@ public class AutoChatHandler implements SpawnListener
                                 
                                 if (text.indexOf("%player_random%") > -1)
                                 {
-                                	int randomPlayerIndex = rnd.nextInt(nearbyPlayers.size());
+                                	int randomPlayerIndex = Rnd.nextInt(nearbyPlayers.size());
                                 	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
                                 	text = text.replaceAll("%player_random%", randomPlayer.getName());
                                 }
                                 else if (text.indexOf("%player_killer%") > -1 && karmaPlayers.size() > 0)
                                 {
-                                	int randomPlayerIndex = karmaPlayers.get(rnd.nextInt(karmaPlayers.size()));
+                                	int randomPlayerIndex = karmaPlayers.get(Rnd.nextInt(karmaPlayers.size()));
                                 	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
                                     text = text.replaceAll("%player_killer%", randomPlayer.getName());
                                 }
                                 else if (text.indexOf("%player_cabal_winner%") > -1 && winningCabals.size() > 0)
                                 {
-                                	int randomPlayerIndex = winningCabals.get(rnd.nextInt(winningCabals.size()));
+                                	int randomPlayerIndex = winningCabals.get(Rnd.nextInt(winningCabals.size()));
                                 	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
                                     text = text.replaceAll("%player_cabal_winner%", randomPlayer.getName());
                                 }
                                 else if (text.indexOf("%player_cabal_loser%") > -1 && losingCabals.size() > 0)
                                 {
-                                	int randomPlayerIndex = losingCabals.get(rnd.nextInt(losingCabals.size()));
+                                	int randomPlayerIndex = losingCabals.get(Rnd.nextInt(losingCabals.size()));
                                 	L2PcInstance randomPlayer = nearbyPlayers.get(randomPlayerIndex);
                                     text = text.replaceAll("%player_cabal_loser%", randomPlayer.getName());
                                 }

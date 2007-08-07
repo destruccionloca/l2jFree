@@ -19,7 +19,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +31,7 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -422,9 +422,8 @@ public class AutoSpawnHandler
                     return;
                 }
                 
-                Random rnd = new Random();
                 int locationCount = locationList.length;
-				int locationIndex = rnd.nextInt(locationCount);
+				int locationIndex = Rnd.nextInt(locationCount);
                 
                 /*
                  * If random spawning is disabled, the spawn at the next set of
@@ -484,7 +483,7 @@ public class AutoSpawnHandler
 	
 	                    // To prevent spawning of more than one NPC in the exact same spot, 
 	                    // move it slightly by a small random offset.
-	                    npcInst.getPosition().setXYZ(npcInst.getX() + rnd.nextInt(50), npcInst.getY() + rnd.nextInt(50), npcInst.getZ());
+	                    npcInst.getPosition().setXYZ(npcInst.getX() + Rnd.nextInt(50), npcInst.getY() + Rnd.nextInt(50), npcInst.getZ());
 	                    
 	                    // Add the NPC instance to the list of managed instances.
 	                    spawnInst.addNpcInstance(npcInst);

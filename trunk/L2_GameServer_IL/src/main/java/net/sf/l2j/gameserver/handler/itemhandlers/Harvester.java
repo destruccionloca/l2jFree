@@ -18,10 +18,9 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import java.util.Random;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IItemHandler;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
@@ -117,8 +116,7 @@ public class Harvester implements IItemHandler
         if(basicSuccess < 1)
             basicSuccess = 1;
         
-        Random rnd = new Random();
-        int rate = rnd.nextInt(99);
+        int rate = Rnd.nextInt(99);
         
         if(rate < basicSuccess)
             return true;

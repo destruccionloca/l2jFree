@@ -37,7 +37,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -46,6 +45,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -164,8 +164,6 @@ public class Olympiad
      {-87466, -257752, -3331},
      {-114413, -213241, -3331}
     };
-    
-    protected static Random _rnd;
     
     private static enum COMP_TYPE
     {
@@ -1308,8 +1306,6 @@ public class Olympiad
         
         private HashMap<Integer, FastList<L2PcInstance>> pickOpponents(FastList<L2PcInstance> list) throws Exception
         {
-            _rnd = new Random();
-            
             HashMap<Integer, FastList<L2PcInstance>> result = 
                 new HashMap<Integer, FastList<L2PcInstance>>();
             
@@ -1331,11 +1327,11 @@ public class Olympiad
                 count++;
                 
                 FastList<L2PcInstance> opponents = new FastList<L2PcInstance>();
-                first = _rnd.nextInt(list.size());
+                first = Rnd.nextInt(list.size());
                 opponents.add(list.get(first));
                 list.remove(first);
                 
-                second = _rnd.nextInt(list.size());
+                second = Rnd.nextInt(list.size());
                 opponents.add(list.get(second));
                 list.remove(second);
                 

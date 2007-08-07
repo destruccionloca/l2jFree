@@ -18,11 +18,10 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.Random;
-
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -48,7 +47,6 @@ public final class L2SiegeGuardInstance extends L2Attackable
 {
     @SuppressWarnings("hiding")
     private final static Log _log = LogFactory.getLog(L2GuardInstance.class.getName());
-	private final Random _rnd = new Random();
 
     private int _homeX;
     private int _homeY;
@@ -197,7 +195,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 //					player.moveTo(this.getX(), this.getY(), this.getZ(), INTERACTION_DISTANCE);
 				} else 
                 {
-					SocialAction sa = new SocialAction(getObjectId(), _rnd.nextInt(8));
+					SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
 					broadcastPacket(sa);
 					sendPacket(sa);
 					showChatWindow(player, 0);
