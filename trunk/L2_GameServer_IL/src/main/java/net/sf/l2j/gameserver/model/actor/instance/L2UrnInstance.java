@@ -1,5 +1,3 @@
-package net.sf.l2j.gameserver.model.actor.instance;
-
 /*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +16,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
