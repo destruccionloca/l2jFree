@@ -228,7 +228,7 @@ public class Announcements implements AnnouncementsMBean
 		CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, "", text);
 
 		if(Config.IRC_ENABLED && Config.IRC_ANNOUNCE)
-			IrcManager.getInstance().getConnection().sendChan("Announce: " + text);
+			IrcManager.getInstance().getConnection().sendChan("10Announce: " + text);
 		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
