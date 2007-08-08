@@ -193,7 +193,7 @@ public class Say2 extends L2GameClientPacket
 
         		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout"))
 	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("!"+ activeChar.getName() +": " + _text);
+	        		IrcManager.getInstance().getConnection().sendChan("07!"+ activeChar.getName() +": " + _text);
 	        	}
                 if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("on") ||
                         (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
@@ -222,7 +222,7 @@ public class Say2 extends L2GameClientPacket
         	
 	        	if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("trade"))
 	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("+"+ activeChar.getName() +": " + _text);
+	        		IrcManager.getInstance().getConnection().sendChan("13+"+ activeChar.getName() +": " + _text);
 	        	}
                 if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on") ||
                         (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
@@ -307,7 +307,7 @@ public class Say2 extends L2GameClientPacket
                 
         		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero"))
 	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("%"+ activeChar.getName() +": " + _text);
+	        		IrcManager.getInstance().getConnection().sendChan("12%"+ activeChar.getName() +": " + _text);
 	        	}
             }
             break;
