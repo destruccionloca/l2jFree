@@ -1,19 +1,14 @@
---
+-- ---------------------------
 -- Table structure for table `minions`
---
-
+-- ---------------------------
 DROP TABLE IF EXISTS `minions`;
 CREATE TABLE `minions` (
   `boss_id` int(11) NOT NULL default '0',
   `minion_id` int(11) NOT NULL default '0',
   `amount_min` int(4) NOT NULL default '0',
   `amount_max` int(4) NOT NULL default '0',
-  PRIMARY KEY  (`boss_id`,`minion_id`)
+  PRIMARY KEY (`boss_id`,`minion_id`)
 ) DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `minions`
---
 
 -- c1 mobs
 INSERT INTO `minions` VALUES

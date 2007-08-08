@@ -1,7 +1,6 @@
--- 
+-- ---------------------------
 -- Table structure for table `lvlupgain`
--- 
-
+-- ---------------------------
 DROP TABLE IF EXISTS `lvlupgain`;
 CREATE TABLE `lvlupgain` (
   `classid` int(3) NOT NULL default '0',
@@ -15,12 +14,8 @@ CREATE TABLE `lvlupgain` (
   `defaultmpadd` decimal(4,2) NOT NULL default '0.00',
   `defaultmpmod` decimal(4,2) NOT NULL default '0.00',
   `class_lvl` int(3) NOT NULL default '0',
-  PRIMARY KEY  (`classid`)
+  PRIMARY KEY (`classid`)
 ) DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `lvlupgain`
--- 
 
 INSERT INTO `lvlupgain` VALUES ('0', '80.0', '11.83', '0.37', '32.0', '4.73', '0.22', '30.0', '5.46', '0.14', '1');
 INSERT INTO `lvlupgain` VALUES ('1', '327.0', '33.00', '0.37', '261.6', '26.40', '0.22', '144.0', '9.90', '0.14', '20');

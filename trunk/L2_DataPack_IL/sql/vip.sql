@@ -1,9 +1,8 @@
+-- ---------------------------
 -- Exported by CubicVirtuoso
--- Used with VIP engine
--- 
+-- Used with VIP engine 
 -- Table structure for table `VIPinfo`
--- 
-
+-- ---------------------------
 DROP TABLE IF EXISTS `VIPinfo`;
 CREATE TABLE IF NOT EXISTS `VIPinfo` (
   `teamID` int(11) NOT NULL,
@@ -13,12 +12,8 @@ CREATE TABLE IF NOT EXISTS `VIPinfo` (
   `startx` int(11) NOT NULL,
   `starty` int(11) NOT NULL,
   `startz` int(11) NOT NULL,
-  PRIMARY KEY  (`teamID`)
+  PRIMARY KEY (`teamID`)
 ) DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `VIPinfo`
--- 
 
 INSERT INTO `VIPinfo` VALUES (1, -84583, 242788, -3735, -101319, 213272, -3100);
 INSERT INTO `VIPinfo` VALUES (2, 45714, 49703, -3065, 55782, 81597, -3610);

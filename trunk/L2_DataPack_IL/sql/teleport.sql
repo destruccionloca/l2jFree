@@ -1,21 +1,17 @@
--- 
+-- ---------------------------
 -- Table structure for table `teleport`
--- 
-DROP TABLE IF EXISTS teleport;
-CREATE TABLE teleport (
-  Description varchar(75) default NULL,
-  id decimal(11,0) NOT NULL default '0',
-  loc_x decimal(9,0) default NULL,
-  loc_y decimal(9,0) default NULL,
-  loc_z decimal(9,0) default NULL,
-  price decimal(6,0) default NULL,
-  fornoble int(1) NOT NULL default '0',
-  PRIMARY KEY  (id)
+-- ---------------------------
+DROP TABLE IF EXISTS `teleport`;
+CREATE TABLE `teleport` (
+  `Description` varchar(75) default NULL,
+  `id` decimal(11,0) NOT NULL default '0',
+  `loc_x` decimal(9,0) default NULL,
+  `loc_y` decimal(9,0) default NULL,
+  `loc_z` decimal(9,0) default NULL,
+  `price` decimal(6,0) default NULL,
+  `fornoble` int(1) NOT NULL default '0',
+  PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `teleport`
--- 
 
 INSERT INTO teleport VALUES 
 ('Dark Elven Town -> Town of Gludio',1,-12672,122776,-3116,10000,0),
@@ -748,11 +744,9 @@ INSERT INTO `teleport` VALUES
 ('Schuttgart(artifact -> outofcastle)',15048,77562,-149119,-353,0,0);
 
 -- Update Boss Manager
-UPDATE npc SET `type` = 'L2Teleporter' WHERE idTemplate = 31759;
-UPDATE npc SET `type` = 'L2Teleporter' WHERE idTemplate = 31859;
 DELETE FROM teleport WHERE id IN (20000,20001,20002);
 INSERT INTO teleport VALUES
-	("Lair of Antharas -> Town of Giran",20000,83400,147943,-3404,0,0),
-	("Lair of Baium -> Town of Aden",20001,146331,25762,-2018,0,0),
-	("Lair of Valakas -> Town of Goddard",20002,147928,-55273,-2734,0,0),
-	("Lair of Sailren -> Primeval Isle Wharf",20004,10468,-24569,-3650,0,0);
+	('Lair of Antharas -> Town of Giran',20000,83400,147943,-3404,0,0),
+	('Lair of Baium -> Town of Aden',20001,146331,25762,-2018,0,0),
+	('Lair of Valakas -> Town of Goddard',20002,147928,-55273,-2734,0,0),
+	('Lair of Sailren -> Primeval Isle Wharf',20004,10468,-24569,-3650,0,0);

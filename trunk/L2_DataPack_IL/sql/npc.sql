@@ -1,6 +1,6 @@
---
+-- ---------------------------
 -- Table structure for table `npc`
--- 
+-- ---------------------------
 DROP TABLE IF EXISTS `npc`;
 CREATE TABLE `npc`(
   `id` decimal(11,0) NOT NULL default '0',
@@ -45,10 +45,8 @@ CREATE TABLE `npc`(
   `isUndead` int(11) default 0,
   `absorb_level` decimal(2,0) default 0,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
--- 
--- Dumping data for table `npc`
--- 
+) DEFAULT CHARSET=utf8;
+
 INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`) VALUES
 	(12077,12077,'Wolf',0,'',0,'Monster.pet_wolf',13.00,11.50,15,'male','L2Pet',40,195,164,3.95,1.21,40,43,30,21,20,25,0,0,9,19,3,17,282,0,333,0,0,0,26,137,NULL,0,0,0),
 	(12311,12311,'Hatchling of the Wind',0,'',0,'Monster.hatchling',9.00,10.00,35,'male','L2Pet',40,610,433,7.11,1.84,40,43,30,21,20,25,0,0,48,42,22,39,282,0,333,0,0,0,88,154,NULL,0,0,0),
@@ -6843,27 +6841,24 @@ INSERT INTO `npc` VALUES
 	(35008,35008,'Shamus',0, 'Sir',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,72,'male','L2SiegeGuard',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0),
 	(35009,35009,'Morpheus',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,72,'male','L2SiegeGuard',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0);
 
--- Update Sailren
-UPDATE npc SET `type` = 'L2RaidBoss' WHERE id = 29065;	
-UPDATE npc SET `type` = 'L2Teleporter' WHERE id = 32107;
-
--- Update Antharas
-DELETE FROM npc WHERE idTemplate BETWEEN 29066 AND 29076;
-INSERT INTO `npc` VALUES
-	(29066, 29066, "Antharas", 0, "", 0, "Monster.antaras", 300, 300, 79, "male", "L2Boss", 40, 11506110, 19511, 2092.02, 233.22, 60, 57, 73, 76, 70, 80, 230931687, 25593295, 11698, 7088, 24699, 1442, 333, 0, 3819, 0, 0, 0, 81, 301, "", 0, 0, 13),
-	(29067, 29067, "Antharas", 0, "", 0, "Monster.antaras", 300, 300, 79, "male", "L2Boss", 40, 13090000, 22197, 2380, 265.32, 60, 57, 73, 76, 70, 80, 262720918, 29116376, 13308, 8064, 28099, 1641, 333, 0, 3819, 0, 0, 0, 81, 301, "", 0, 0, 13),
-	(29068, 29068, "Antharas", 0, "", 0, "Monster.antaras", 300, 300, 79, "male", "L2Boss", 40, 14307370, 24261, 2601.34, 289.99, 60, 57, 73, 76, 70, 80, 287153963, 31824199, 14546, 8814, 30712, 1794, 333, 0, 3819, 0, 0, 0, 81, 301, "", 0, 0, 13),
-	(29069, 29069, "Behemoth Dragon", 0, "", 0, "Monster3.antaras_ex_a", 63, 54, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
-	(29070, 29070, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
-	(29071, 29071, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
-	(29072, 29072, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
-	(29073, 29073, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
-	(29074, 29074, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
-	(29075, 29075, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b_80p", 37, 28, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0),
-	(29076, 29076, "Dragon Bomber", 0, "", 0, "Monster3.antaras_ex_b", 42, 34.5, 78, "male", "L2Monster", 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, "", 0, 0, 0);
-UPDATE `npc` SET aggro = 800 WHERE idTemplate IN (29019,29066,29067,29068);
-
-UPDATE `npc` SET aggro = 500 WHERE id IN (29014,29020,29021,29022);
-UPDATE `npc` SET aggro = 800 WHERE id = 29028;
-UPDATE `npc` SET `type` = "L2Teleporter" WHERE idTemplate = 31759;
+-- Update Boss Manager
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 31385;
+UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` = 29065;	
+UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `id` IN ( 32107,31759,31859 );
+
+UPDATE `npc` SET `aggro` = 800 WHERE `id` IN ( 29019,29066,29067,29068,29028 );
+UPDATE `npc` SET `aggro` = 500 WHERE `id` IN (29014,29020,29021,29022);
+
+DELETE FROM `npc` WHERE `id` BETWEEN 29066 AND 29076;
+INSERT INTO `npc` VALUES
+	(29066, 29066, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 11506110, 19511, 2092.02, 233.22, 60, 57, 73, 76, 70, 80, 230931687, 25593295, 11698, 7088, 24699, 1442, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13),
+	(29067, 29067, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 13090000, 22197, 2380, 265.32, 60, 57, 73, 76, 70, 80, 262720918, 29116376, 13308, 8064, 28099, 1641, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13),
+	(29068, 29068, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 14307370, 24261, 2601.34, 289.99, 60, 57, 73, 76, 70, 80, 287153963, 31824199, 14546, 8814, 30712, 1794, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13),
+	(29069, 29069, 'Behemoth Dragon', 0, '', 0, 'Monster3.antaras_ex_a', 63, 54, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0),
+	(29070, 29070, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0),
+	(29071, 29071, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0),
+	(29072, 29072, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0),
+	(29073, 29073, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0),
+	(29074, 29074, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0),
+	(29075, 29075, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0),
+	(29076, 29076, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b', 42, 34.5, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0);

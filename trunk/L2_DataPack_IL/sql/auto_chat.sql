@@ -1,3 +1,6 @@
+-- ---------------------------
+-- Table structure for `auto_chat`
+-- ---------------------------
 DROP TABLE IF EXISTS `auto_chat`;
 CREATE TABLE `auto_chat` (
   `groupId` int(11) NOT NULL default '0',
@@ -6,7 +9,7 @@ CREATE TABLE `auto_chat` (
   `chatDelay` bigint(20) NOT NULL default '-1',
   `chatRange` smallint(6) NOT NULL default '-1',
   `chatRandom` tinyint(1) NOT NULL default '0',
-  PRIMARY KEY  (`groupId`)
+  PRIMARY KEY (`groupId`)
 ) DEFAULT CHARSET=utf8;
 
 INSERT INTO `auto_chat` VALUES 

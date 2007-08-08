@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS `fishing_skill_trees`;
---
+-- --------------------------
 --  Table structure for fishing_skill_trees
---
+-- --------------------------
+DROP TABLE IF EXISTS `fishing_skill_trees`;
 CREATE TABLE IF NOT EXISTS `fishing_skill_trees` (
   `skill_id` int(10) NOT NULL default '0',
   `level` int(10) NOT NULL default '0',
@@ -11,11 +11,9 @@ CREATE TABLE IF NOT EXISTS `fishing_skill_trees` (
   `costid` int(10) NOT NULL default '0',
   `cost` int(10) NOT NULL default '0',
   `isfordwarf` int(1) NOT NULL default '0',
-  PRIMARY KEY  (`skill_id`,`level`)
+  PRIMARY KEY (`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
---
---  Records for table fishing_skill_trees
---
+
 INSERT INTO fishing_skill_trees VALUES 
 (1313,1,'Pumping',0,10,57,10,0),
 (1313,2,'Pumping',0,12,57,50,0),

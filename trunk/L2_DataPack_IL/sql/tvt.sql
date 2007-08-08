@@ -2,7 +2,6 @@
 -- Table structure for table `tvt`
 -- Created by SqueezeD from l2jfree
 -- --------------------------------
-
 DROP TABLE IF EXISTS `tvt`;
 CREATE TABLE `tvt` (
   `eventName` varchar(255) NOT NULL default '',

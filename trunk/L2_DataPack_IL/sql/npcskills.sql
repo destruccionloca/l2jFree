@@ -1,17 +1,13 @@
--- 
+-- ---------------------------
 -- Table structure for table `npcskills`
--- 
-DROP TABLE IF EXISTS npcskills;
+-- ---------------------------
+DROP TABLE IF EXISTS `npcskills`;
 CREATE TABLE npcskills (
-  npcid int(11) NOT NULL default '0',
-  skillid int(11) NOT NULL default '0',
-  level int(11) NOT NULL default '0',
-  PRIMARY KEY  (npcid,skillid,level)
+  `npcid` int(11) NOT NULL default '0',
+  `skillid` int(11) NOT NULL default '0',
+  `level` int(11) NOT NULL default '0',
+  PRIMARY KEY (`npcid`,`skillid`,`level`)
 ) DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `npcskills`
--- 
 
 INSERT INTO `npcskills` (`npcid`, `skillid`, `level`) VALUES 
 (12077,4121,1),

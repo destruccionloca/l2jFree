@@ -1,5 +1,5 @@
 -- ---------------------------
--- Table structure for topic
+-- Table structure for `topic`
 -- ---------------------------
 CREATE TABLE IF NOT EXISTS `topic` (
   `topic_id` int(8) NOT NULL,
@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `topic` (
   `topic_ownerid` int(8) NOT NULL default '0',
   `topic_type` int(8) NOT NULL default '0',
   `topic_reply` int(8) NOT NULL default '0',
-  PRIMARY KEY  (`topic_id`),
+  PRIMARY KEY (`topic_id`),
   KEY `topic_forum_id` (`topic_forum_id`)
 ) DEFAULT CHARSET=utf8;
-

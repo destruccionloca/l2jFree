@@ -1,15 +1,15 @@
 -- ----------------------------
 -- Table structure for gm_audit
 -- ----------------------------
-CREATE TABLE IF NOT EXISTS gm_audit (
-  id INT(10) NOT NULL AUTO_INCREMENT,
-  gm_name varchar(45),
-  target varchar(45),
-  type varchar(20),
-  action varchar(200),
-  param varchar(200),
-  date date,
-  PRIMARY KEY  (id)
+CREATE TABLE IF NOT EXISTS `gm_audit` (
+  `id` INT(10) NOT NULL AUTO_INCREMENT,
+  `gm_name` varchar(45),
+  `target` varchar(45),
+  `type` varchar(20),
+  `action` varchar(200),
+  `param` varchar(200),
+  `date` date,
+  PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
 -- -----------------

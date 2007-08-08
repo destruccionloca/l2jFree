@@ -1,8 +1,11 @@
+-- ---------------------------
+-- Table structure for `auto_chat_text`
+-- ---------------------------
 DROP TABLE IF EXISTS `auto_chat_text`;
 CREATE TABLE `auto_chat_text` (
   `groupId` INT NOT NULL default '0',
   `chatText` VARCHAR(255) NOT NULL default '',
-  PRIMARY KEY  (`groupId`,`chatText`)
+  PRIMARY KEY (`groupId`,`chatText`)
 ) DEFAULT CHARSET=utf8;
 
 INSERT INTO `auto_chat_text` VALUES 

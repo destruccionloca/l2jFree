@@ -1,16 +1,12 @@
---
+-- ---------------------------
 -- Table structure for table `skill_learn`
---
-DROP TABLE IF EXISTS skill_learn;
-CREATE TABLE skill_learn (
-  npc_id int(11) NOT NULL default '0',
-  class_id int(11) NOT NULL default '0',
-  PRIMARY KEY  (npc_id,class_id)
+-- ---------------------------
+DROP TABLE IF EXISTS `skill_learn`;
+CREATE TABLE `skill_learn` (
+  `npc_id` int(11) NOT NULL default '0',
+  `class_id` int(11) NOT NULL default '0',
+  PRIMARY KEY (`npc_id`,`class_id`)
 ) DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `skill_learn`
---
 
 INSERT INTO skill_learn VALUES 
 (30010,0),

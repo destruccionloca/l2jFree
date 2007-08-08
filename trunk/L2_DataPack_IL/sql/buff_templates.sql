@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `buff_templates` (
   `char_faction` int(10) unsigned NOT NULL default '0',
   `price_adena` int(10) unsigned NOT NULL default '0',
   `price_points` int(10) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`id`,`name`,`skill_order`)
+  PRIMARY KEY (`id`,`name`,`skill_order`)
 ) DEFAULT CHARSET=utf8;
 
 --
@@ -55,10 +55,6 @@ CREATE TABLE IF NOT EXISTS `buff_templates` (
 -- price_adena - amount of adena for buff
 -- price_points - amount of faction poins for buff
 
--- 
--- Dumping data for table `buff_templates`
--- 
-
 INSERT INTO `buff_templates` VALUES 
 (1, 'SupportMagic', 4322, 'WindWalk', 1, 1, 1, 8, 25, 0, 0, 0, 0, 0),
 (1, 'SupportMagic', 4323, 'Shield', 1, 1, 2, 11, 24, 0, 0, 0, 0, 0),
@@ -71,4 +67,3 @@ INSERT INTO `buff_templates` VALUES
 (1, 'SupportMagic', 4329, 'Acumen', 1, 1, 9, 13, 22, 0, 2, 0, 0, 0),
 (1, 'SupportMagic', 4330, 'Concentration', 1, 1, 10, 14, 21, 0, 2, 0, 0, 0),
 (1, 'SupportMagic', 4331, 'Empower', 1, 1, 11, 15, 20, 0, 2, 0, 0, 0);
-

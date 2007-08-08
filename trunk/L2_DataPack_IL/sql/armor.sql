@@ -1,7 +1,6 @@
--- 
+-- ---------------------------
 -- Table structure for table `armor`
--- 
-
+-- ---------------------------
 DROP TABLE IF EXISTS `armor`;
 CREATE TABLE IF NOT EXISTS `armor` (
   `item_id` int(11) NOT NULL default '0',
@@ -25,11 +24,8 @@ CREATE TABLE IF NOT EXISTS `armor` (
   `tradeable` varchar(5) NOT NULL default 'true',
   `item_skill_id` decimal(11,0) NOT NULL default '0',
   `item_skill_lvl` decimal(11,0) NOT NULL default '0',
-  PRIMARY KEY  (`item_id`)
+  PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `armor`
 
 INSERT INTO `armor` VALUES 
  ('21','Shirt','chest','false','light','4830','cloth','none','0','-1','36','0','0','147','0','true','true','true','true','0','0'),
@@ -1051,5 +1047,5 @@ INSERT INTO `armor` VALUES
 INSERT INTO `armor` VALUES (9084, 'Shadow Item: Dark Crystal Helmet', 'head', 'true', 'none', 570, 'crystal', 'a', 0, 90, 69, 0, 0, 1740000, 139, 'true', 'true', 'true', 'true', 0, 0);
 
 -- Update
-UPDATE armor SET dropable = 'false', tradeable = 'false', destroyable = 'false' WHERE item_id IN 
+UPDATE `armor` SET dropable = 'false', tradeable = 'false', destroyable = 'false' WHERE `item_id` IN 
 ( 6834, 6835, 6836, 6837, 6838, 6839, 6840,6841 );

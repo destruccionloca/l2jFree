@@ -1,5 +1,5 @@
 -- ----------------------------
--- Table structure for itemsonground
+-- Table structure for `itemsonground`
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `itemsonground` (
   `object_id` int(11) NOT NULL default '0',
@@ -11,5 +11,5 @@ CREATE TABLE IF NOT EXISTS `itemsonground` (
   `z` int(11) NOT NULL default '0',
   `drop_time` decimal(20,0) NOT NULL default '0',
   `equipable` int(1) default '0',
-  PRIMARY KEY  (`object_id`)
+  PRIMARY KEY (`object_id`)
 ) DEFAULT CHARSET=utf8;

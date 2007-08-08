@@ -1,18 +1,18 @@
 -- ---------------------------
--- Table structure for zone
+-- Table structure for `zone`
 -- ---------------------------
-DROP TABLE IF EXISTS zone;
-CREATE TABLE zone (
-  id INT NOT NULL default 0,
-  type varchar(25) NOT NULL,
-  name varchar(40) NOT NULL,
-  x1 INT NOT NULL default 0,
-  y1 INT NOT NULL default 0,
-  x2 INT NOT NULL default 0,
-  y2 INT NOT NULL default 0,
-  z INT NOT NULL default 0,
-  z2 INT NOT NULL default 0,
-  taxById INT NOT NULL default 0
+DROP TABLE IF EXISTS `zone`;
+CREATE TABLE `zone` (
+  `id` INT NOT NULL default 0,
+  `type` varchar(25) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `x1` INT NOT NULL default 0,
+  `y1` INT NOT NULL default 0,
+  `x2` INT NOT NULL default 0,
+  `y2` INT NOT NULL default 0,
+  `z` INT NOT NULL default 0,
+  `z2` INT NOT NULL default 0,
+  `taxById` INT NOT NULL default 0
 ) DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------

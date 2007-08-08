@@ -1,3 +1,6 @@
+-- ---------------------------
+-- Table structure for `pledge_skill_trees`
+-- ---------------------------
 CREATE TABLE IF NOT EXISTS `pledge_skill_trees` (
   `skill_id` int(11) default NULL,
   `level` int(11) default NULL,
@@ -8,9 +11,6 @@ CREATE TABLE IF NOT EXISTS `pledge_skill_trees` (
   `itemId` int(11) default NULL
 ) DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records 
--- ----------------------------
 INSERT INTO `pledge_skill_trees` VALUES ('370', '1', 'Clan Body', '5', 'Clan members Max HP is raised', '500', '8166');
 INSERT INTO `pledge_skill_trees` VALUES ('370', '2', 'Clan Body', '5', 'Clan members Max HP is raised', '500', '8166');
 INSERT INTO `pledge_skill_trees` VALUES ('370', '3', 'Clan Body', '5', 'Clan members Max HP is raised', '500', '8166');

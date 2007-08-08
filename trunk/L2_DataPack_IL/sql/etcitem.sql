@@ -1,7 +1,6 @@
--- 
+-- ---------------------------
 -- Table structure for table `etcitem`
--- 
-
+-- ---------------------------
 DROP TABLE IF EXISTS `etcitem`;
 CREATE TABLE IF NOT EXISTS `etcitem` (
   `item_id` decimal(11,0) NOT NULL default '0',
@@ -21,12 +20,9 @@ CREATE TABLE IF NOT EXISTS `etcitem` (
   `tradeable` varchar(5) default NULL,
   `oldname` varchar(100) NOT NULL default '',
   `oldtype` varchar(100) NOT NULL default '',
-  PRIMARY KEY  (`item_id`)
+  PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
 
--- 
--- Dumping data for table `etcitem`
--- 
 INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`consume_type`,`material`,`crystal_type`,`duration`,`price`,`crystal_count`,`sellable`,`dropable`,`destroyable`,`tradeable`,`oldname`,`oldtype`) VALUES 
  ('17','Wooden Arrow','false','arrow','6','stackable','wood','none','-1','2','0','true','true','true','true','wooden_arrow','arrow'),
  ('57','Adena','false','none','0','asset','gold','none','-1','1','0','true','true','true','true','adena','none'),

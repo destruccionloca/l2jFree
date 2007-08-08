@@ -1,7 +1,7 @@
-DROP TABLE IF EXISTS `fish`;
--- 
+-- ---------------------------
 --  Table structure for fish
--- 
+-- ---------------------------
+DROP TABLE IF EXISTS `fish`;
 CREATE TABLE `fish` (
   `id` int(5) NOT NULL default '0',
   `level` int(5) NOT NULL default '0',
@@ -14,11 +14,8 @@ CREATE TABLE `fish` (
   `guts_check_time` INT(4) NOT NULL default '0',
   `wait_time` INT(5) NOT NULL default '0',
   `combat_time` INT(5) NOT NULL default '0',
-  PRIMARY KEY  (`id`,`level`)
+  PRIMARY KEY (`id`,`level`)
 ) DEFAULT CHARSET=utf8;
--- 
---  Records for table fish
--- 
 
 INSERT INTO `fish` VALUES
 (6411,1,'Small Green Nimble Fish',100,4,1,1,500,5000,20000,24000),

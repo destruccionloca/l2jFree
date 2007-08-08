@@ -1,19 +1,14 @@
--- 
--- Table structure for henna_trees
--- 
-DROP TABLE IF EXISTS henna_trees;
+-- ---------------------------
+-- Table structure for `henna_trees`
+-- ---------------------------
+DROP TABLE IF EXISTS `henna_trees`;
 CREATE TABLE `henna_trees` (
   `class_id` decimal(10,0) NOT NULL default 0,
   `symbol_id` decimal(10,0) NOT NULL default 0,
-  PRIMARY KEY  (`class_id`,`symbol_id`)
+  PRIMARY KEY (`class_id`,`symbol_id`)
 ) DEFAULT CHARSET=utf8;
 
--- 
--- Records for table henna_trees
--- 
-
-
-insert into henna_trees values 
+INSERT INTO `henna_trees` VALUES
 (1,1), 
 (1,2), 
 (1,3), 

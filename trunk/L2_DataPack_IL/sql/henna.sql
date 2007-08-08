@@ -1,27 +1,23 @@
---
+-- ---------------------------
 -- Table structure for table `henna`
---
-DROP TABLE IF EXISTS henna;
-CREATE TABLE henna (
-  symbol_id int(11) NOT NULL default '0',
-  symbol_name varchar(45) default NULL,
-  dye_id int(11) default NULL,
-  dye_amount int(11) default NULL,
-  price int(11) default NULL,
-  stat_INT decimal(11,0) default NULL,
-  stat_STR decimal(11,0) default NULL,
-  stat_CON decimal(11,0) default NULL,
-  stat_MEM decimal(11,0) default NULL,
-  stat_DEX decimal(11,0) default NULL,
-  stat_WIT decimal(11,0) default NULL,
-  PRIMARY KEY  (symbol_id)
+-- ---------------------------
+DROP TABLE IF EXISTS `henna`;
+CREATE TABLE `henna` (
+  `symbol_id` int(11) NOT NULL default '0',
+  `symbol_name` varchar(45) default NULL,
+  `dye_id` int(11) default NULL,
+  `dye_amount` int(11) default NULL,
+  `price` int(11) default NULL,
+  `stat_INT` decimal(11,0) default NULL,
+  `stat_STR` decimal(11,0) default NULL,
+  `stat_CON` decimal(11,0) default NULL,
+  `stat_MEM` decimal(11,0) default NULL,
+  `stat_DEX` decimal(11,0) default NULL,
+  `stat_WIT` decimal(11,0) default NULL,
+  PRIMARY KEY (`symbol_id`)
 ) DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `henna`
---
-
-INSERT INTO henna VALUES
+INSERT INTO `henna` VALUES
 (1, 'symbol_s+1c-3_d', 4445, 10, 5100, '0', '1', '-3', '0', '0', '0'), 
 (2, 'symbol_s+1d-3_d', 4446, 10, 5100, '0', '1', '0', '0', '-3', '0'), 
 (3, 'symbol_c+1s-3_d', 4447, 10, 5100, '0', '-3', '1', '0', '0', '0'), 

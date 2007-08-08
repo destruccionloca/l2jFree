@@ -1,4 +1,7 @@
-drop table if exists enchant_skill_trees;
+-- ---------------------------
+-- Table structure for `enchant_skill_trees`
+-- ---------------------------
+DROP TABLE IF EXISTS `enchant_skill_trees`;
 CREATE TABLE `enchant_skill_trees` (
   `skill_id` int(10) NOT NULL default '0',
   `level` int(10) NOT NULL default '0',
@@ -11,11 +14,10 @@ CREATE TABLE `enchant_skill_trees` (
   `success_rate76` int(3) unsigned NOT NULL default '0',
   `success_rate77` int(3) NOT NULL default '0',
   `success_rate78` int(3) NOT NULL default '0',
-  PRIMARY KEY  (`skill_id`,`level`)
+  PRIMARY KEY (`skill_id`,`level`)
 ) DEFAULT CHARSET=utf8;
 
-
-INSERT INTO enchant_skill_trees VALUES 
+INSERT INTO `enchant_skill_trees` VALUES 
 (1, 101, 'Triple Slash', 37, '+1 Power', 306000, 3060000, 37, 82, 92, 97), 
 (1, 102, 'Triple Slash', 37, '+2 Power', 315000, 3150000, 101, 80, 90, 95), 
 (1, 103, 'Triple Slash', 37, '+3 Power', 325000, 3250000, 102, 78, 88, 93), 
@@ -13362,4 +13364,3 @@ INSERT INTO enchant_skill_trees VALUES
 (1334, 128, 'Summon Cursed Man', 7, '+28 Summon', 2447000, 24470000, 127, 0, 0, 1), 
 (1334, 129, 'Summon Cursed Man', 7, '+29 Summon', 2525000, 25250000, 128, 0, 0, 1), 
 (1334, 130, 'Summon Cursed Man', 7, '+30 Summon', 2597000, 25970000, 129, 0, 0, 0);
-

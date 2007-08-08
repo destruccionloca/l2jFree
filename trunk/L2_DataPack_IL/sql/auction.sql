@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `auction` (
   `startingBid` int(11) NOT NULL default '0',
   `currentBid` int(11) NOT NULL default '0',
   `endDate` decimal(20,0) NOT NULL default '0',
-  PRIMARY KEY  (`itemType`,`itemId`,`itemObjectId`),
+  PRIMARY KEY (`itemType`,`itemId`,`itemObjectId`),
   KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;
 

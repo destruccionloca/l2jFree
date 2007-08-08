@@ -2,7 +2,6 @@
 -- Table structure for table `ctf`
 -- Created by SqueezeD from l2jfree
 -- -------------------------------
-
 DROP TABLE IF EXISTS `ctf`;
 CREATE TABLE `ctf` (
   `eventName` varchar(255) NOT NULL default '',

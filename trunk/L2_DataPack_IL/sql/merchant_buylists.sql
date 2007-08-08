@@ -1,22 +1,18 @@
---
+-- ---------------------------
 -- Table structure for table `merchant_buylists`
---
-DROP TABLE IF EXISTS merchant_buylists;
+-- ---------------------------
+DROP TABLE IF EXISTS `merchant_buylists`;
 CREATE TABLE merchant_buylists (
-  item_id decimal(9,0) NOT NULL default '0',
-  price decimal(11,0) NOT NULL default '0',
-  shop_id decimal(9,0) NOT NULL default '0',
+  `item_id` decimal(9,0) NOT NULL default '0',
+  `price` decimal(11,0) NOT NULL default '0',
+  `shop_id` decimal(9,0) NOT NULL default '0',
   `order` decimal(4,0) NOT NULL default '0',
   `count` INT( 11 ) NOT NULL DEFAULT '-1',
   `currentCount` INT( 11 ) NOT NULL DEFAULT '-1',
-  time INT NOT NULL DEFAULT '0',
-  savetimer DECIMAL(20,0) NOT NULL DEFAULT '0',
-  PRIMARY KEY  (shop_id,`order`)
+  `time` INT NOT NULL DEFAULT '0',
+  `savetimer` DECIMAL(20,0) NOT NULL DEFAULT '0',
+  PRIMARY KEY (shop_id,`order`)
 ) DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `merchant_buylists`
---
 
 INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`) VALUES 
 

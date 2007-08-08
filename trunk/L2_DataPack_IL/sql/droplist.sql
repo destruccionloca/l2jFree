@@ -18,10 +18,9 @@
 -- for drops (i.e. its chance is successful), then exactly 1 item from that category will be selected, with 
 -- such a chance that the overall probability is maintained unchanged. 
 
-
---
+-- ---------------------------
 -- Table structure for table `droplist`
---
+-- ---------------------------
 DROP TABLE IF EXISTS `droplist`;
 CREATE TABLE `droplist` (
   `mobId` INT NOT NULL DEFAULT '0',
@@ -30,13 +29,10 @@ CREATE TABLE `droplist` (
   `max` INT NOT NULL DEFAULT '0',
   `category` INT NOT NULL DEFAULT '0',
   `chance` INT NOT NULL DEFAULT '0',
-  PRIMARY KEY  (`mobId`,`itemId`,`category`),
+  PRIMARY KEY (`mobId`,`itemId`,`category`),
   KEY `key_mobId` (`mobId`)
 ) DEFAULT CHARSET=utf8;
 
--- 
--- Dumping data for table `droplist`
--- 
 -- Category Explanation (non-RaidBoss & non-GrandBoss)
 --   -1 is sweep
 --    0 is adena and one of the seal stones (your choice)

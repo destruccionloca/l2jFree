@@ -1,7 +1,6 @@
--- 
+-- ---------------------------
 -- Table structure for table `weapon`
--- 
-
+-- ---------------------------
 DROP TABLE IF EXISTS `weapon`;
 CREATE TABLE `weapon` (
   `item_id` decimal(11,0) NOT NULL default '0',
@@ -41,12 +40,8 @@ CREATE TABLE `weapon` (
   `onCrit_skill_id` decimal(11,0) NOT NULL default '0',
   `onCrit_skill_lvl` decimal(11,0) NOT NULL default '0',
   `onCrit_skill_chance` decimal(11,0) NOT NULL default '0',
-  PRIMARY KEY  (`item_id`)
+  PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `weapon`
--- 
 
 INSERT INTO `weapon` VALUES 
 ('1', 'Short Sword', 'rhand', 'false', '1600', '1', '1', 'steel', 'none', '8', '10', 'sword', '8', '0.00000', '0', '0', '0', '379', '0', '6', '-1', '768', 0, 'true', 'true', 'true', 'true', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),

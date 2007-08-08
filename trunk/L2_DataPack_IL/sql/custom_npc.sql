@@ -1,7 +1,6 @@
--- 
+-- ---------------------------
 -- Table structure for table `custom_npc`
---
-
+-- ---------------------------
 DROP TABLE IF EXISTS `custom_npc`;
 CREATE TABLE `custom_npc` (
   `id` decimal(11,0) NOT NULL default '0',
@@ -45,12 +44,8 @@ CREATE TABLE `custom_npc` (
   `faction_range` decimal(4,0) default NULL,
   `isUndead` int(11) default '0',
   `absorb_level` decimal(2,0) default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `custom_npc`
---
+  PRIMARY KEY (`id`)
+) DEFAULT CHARSET=utf8;
 
 INSERT INTO `custom_npc` VALUES (6001, 31774, 'Beryl the Cat', 0, 'ItemMall', 1, 'Monster2.queen_of_cat', 8.00, 15.00, 70, 'female', 'L2Npc', 40, 3862, 1493, NULL, NULL, 40, 43, 30, 21, 20, 10, 0, 0, 1314, 470, 780, 382, 278, 0, 253, 0, 0, 0, 80, 120, NULL, 0, 0, 0);
 INSERT INTO `custom_npc` VALUES (6002, 35461, 'Caska', 1, 'NPC Buffer', 1, 'NPC.a_teleporter_FHuman', 8.00, 25.00, 70, 'female', 'L2Npc', 40, 3862, 1494, NULL, NULL, 40, 43, 30, 21, 20, 10, 5879, 590, 1444, 514, 760, 381, 253, 0, 253, 0, 0, 0, 80, 120, NULL, NULL, 0, 0);

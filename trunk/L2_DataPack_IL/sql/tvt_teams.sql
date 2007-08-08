@@ -1,8 +1,7 @@
 -- --------------------------------
--- Table structure for tvt_teams
+-- Table structure for `tvt_teams`
 -- Created by SqueezeD from l2jfree
 -- --------------------------------
-
 DROP TABLE IF EXISTS `tvt_teams`;
 CREATE TABLE `tvt_teams` (
   `teamId` int(4) NOT NULL default '0',

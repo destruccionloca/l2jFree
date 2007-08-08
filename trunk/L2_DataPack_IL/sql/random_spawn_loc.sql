@@ -1,3 +1,6 @@
+-- ---------------------------
+-- Table structure for `random_spawn_loc`
+-- ---------------------------
 DROP TABLE IF EXISTS `random_spawn_loc`;
 CREATE TABLE `random_spawn_loc` (
   `groupId` int(11) NOT NULL default '0',
@@ -7,10 +10,6 @@ CREATE TABLE `random_spawn_loc` (
   `heading` int(11) NOT NULL default '-1',
   PRIMARY KEY  (`groupId`,`x`,`y`,`z`,`heading`)
 ) DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `l2jdb`.`random_spawn_loc`
---
 
 INSERT INTO `random_spawn_loc` VALUES 
 (1,151680,-174891,-1782,-1),

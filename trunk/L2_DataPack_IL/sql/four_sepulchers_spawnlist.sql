@@ -1,5 +1,5 @@
 -- ----------------------------
--- Table structure for four_sepulchers_spawnlist
+-- Table structure for `four_sepulchers_spawnlist`
 -- ----------------------------
 DROP TABLE IF EXISTS `four_sepulchers_spawnlist`;
 CREATE TABLE `four_sepulchers_spawnlist` (
@@ -16,12 +16,9 @@ CREATE TABLE `four_sepulchers_spawnlist` (
   `respawn_delay` int(9) NOT NULL default '0',
   `key_npc_id` int(9) NOT NULL default '0',
   `spawntype` int(9) NOT NULL default '0',
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records 
--- ----------------------------
 INSERT INTO `four_sepulchers_spawnlist` VALUES ('1', '', '1', '31468', '182074', '-85579', '-7216', '0', '0', '-32600', '3600', '31921', '0');
 INSERT INTO `four_sepulchers_spawnlist` VALUES ('2', '', '1', '31469', '183868', '-85577', '-7216', '0', '0', '-32600', '3600', '31925', '0');
 INSERT INTO `four_sepulchers_spawnlist` VALUES ('3', '', '1', '31470', '185681', '-85573', '-7216', '0', '0', '-32600', '3600', '31926', '0');

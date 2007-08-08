@@ -1,16 +1,12 @@
---
+-- ---------------------------
 -- Table structure for table `merchant_shopids`
---
-DROP TABLE IF EXISTS merchant_shopids;
-CREATE TABLE merchant_shopids (
-  shop_id decimal(9,0) NOT NULL default '0',
-  npc_id varchar(9) default NULL,
-  PRIMARY KEY  (shop_id)
+-- ---------------------------
+DROP TABLE IF EXISTS `merchant_shopids`;
+CREATE TABLE `merchant_shopids` (
+  `shop_id` decimal(9,0) NOT NULL default '0',
+  `npc_id` varchar(9) default NULL,
+  PRIMARY KEY (`shop_id`)
 ) DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `merchant_shopids`
---
 
 -- General Shops
 
@@ -581,5 +577,5 @@ INSERT INTO merchant_shopids VALUES (135461, '35461');
 INSERT INTO merchant_shopids VALUES (235461, '35461');
 INSERT INTO merchant_shopids VALUES (335461, '35461');
 
--- correction
-delete from `merchant_shopids` where shop_id in (350071,9061);
+-- Correction
+DELETE FROM `merchant_shopids` WHERE `shop_id` IN ( 350071,9061 );

@@ -2,7 +2,6 @@
 -- Table structure for ctf_teams
 -- Created by SqueezeD from l2jfree
 -- --------------------------------
-
 DROP TABLE IF EXISTS `ctf_teams`;
 CREATE TABLE `ctf_teams` (
   `teamId` int(4) NOT NULL default '0',
