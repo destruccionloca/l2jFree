@@ -13,8 +13,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul stat='pDef' order='0x30' val='1.02'/>
-    <add stat='maxHp' order='0x40' val='41'/>
+    <mul order="0x30" stat="pDef" val="1.02"/> <!-- P. Def. +2% -->
+    <add order="0x40" stat="maxHp" val="41"/> <!-- HP +41 -->
   </for>
 </skill>
 <skill id="3501" levels="1" name="Devotion Set">
@@ -29,7 +29,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul stat='mAtkSpd' order='0x30' val='1.15'/>
+    <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
   </for>
 </skill>
 <skill id="3502" levels="1" name="Mithril Heavy Armor Set">
@@ -44,7 +44,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add val='20' order='0x40' stat='poisonRes'/>
+    <add order="0x40" stat="poisonRes" val="20"/> <!-- Poison Resistance +20% -->
   </for>
 </skill>
 <skill id="3503" levels="1" name="Reinforced Leather Set">
@@ -59,7 +59,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat='maxMp' order='0x40' val='80'/>
+    <add order="0x40" stat="maxMp" val="80"/> <!-- MP +80 -->
   </for>
 </skill>
 <skill id="3504" levels="1" name="Knowledge Set">
@@ -74,8 +74,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='0.95' order='0x30' stat='regMp'/>
-    <mul val='1.10' order='0x30' stat='mAtk'/>
+    <mul order="0x30" stat="mAtk" val="1.10"/> <!-- M. Atk. +10% -->
+    <mul order="0x30" stat="regMp" val="0.95"/> <!-- MP Regeneration -5% -->
   </for>
 </skill>
 <skill id="3505" levels="1" name="Manticore Set">
@@ -90,7 +90,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat='maxMp' order='0x40' val='92'/>
+    <add order="0x40" stat="maxMp" val="92"/> <!-- MP +92 -->
   </for>
 </skill>
 <skill id="3506" levels="1" name="Brigandine Set">
@@ -105,8 +105,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul stat='pDef' order='0x30' val='1.05'/>
-    <add stat='maxHp' order='0x40' val='153'/>
+    <mul order="0x30" stat="pDef" val="1.05"/> <!-- P. Def. +5% -->
+    <add order="0x40" stat="maxHp" val="153"/> <!-- HP +153 -->
   </for>
 </skill>
 <skill id="3507" levels="1" name="Elven Mithril Set">
@@ -121,9 +121,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add val='7' order='0x40' stat='runSpd'/>
-    <add val='1' order='0x40' stat='WIT'/>
-    <sub val='1' order='0x40' stat='INT'/>
+    <add order="0x40" stat="runSpd" val="7"/> <!-- Speed +7 -->
+    <add order="0x40" stat="WIT" val="1"/> <!-- WIT +1 -->
+    <sub order="0x40" stat="INT" val="1"/> <!-- INT -1 -->
   </for>
 </skill>
 <skill id="3508" levels="1" name="Mithril Light Armor Set">
@@ -138,7 +138,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat='rEvas' order='0x40' val='4'/>
+    <add order="0x40" stat="rEvas" val="4"/> <!-- Evasion +4 -->
   </for>
 </skill>
 <skill id="3509" levels="1" name="Chain Mail Set">
@@ -153,6 +153,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+    <!-- which way is most accurate? --> <!-- P. Def. against daggers +5.24% -->
+    <!-- <add order="0x40" stat="daggerWpnRes" val="5.24"/> -->
     <mul val='1.0524' order='0x30' stat='pDef'>
       <and>
         <target using="Dagger"/>
@@ -172,8 +174,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul stat='mAtkSpd' order='0x30' val='1.15'/>
-    <mul stat='pDef' order='0x30' val='1.0524'/>
+    <mul order="0x30" stat="pDef" val="1.0524"/> <!-- P. Def. +5.24% -->
+    <mul order="0x30" stat="mAtkSpd" val="1.15"/> <!-- Casting Spd. +15% -->
   </for>
 </skill>
 <skill id="3511" levels="1" name="Plated Leather Set">
@@ -188,8 +190,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat='STR' order='0x40' val='4'/>
-    <sub stat='CON' order='0x40' val='1'/>
+    <add order="0x40" stat="STR" val="4"/> <!-- STR +4 -->
+    <sub order="0x40" stat="CON" val="1"/> <!-- CON -1 -->
   </for>
 </skill>
 <skill id="3512" levels="1" name="Composite Heavy Armor Set">
@@ -204,7 +206,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add val='5759' order='0x40' stat='maxLoad'/>
+    <add order="0x40" stat="maxLoad" val="5795"/> <!-- Point at which a weight penalty is applied +5795 -->
   </for>
 </skill>
 <skill id="3513" levels="1" name="Demon's Set">
@@ -219,9 +221,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <sub stat='maxHp' order='0x40' val='270'/>
-    <add stat='INT' order='0x40' val='4'/>
-    <sub stat='WIT' order='0x40' val='1'/>
+    <sub order="0x40" stat="maxHp" val="270"/> <!-- HP -270 -->
+    <add order="0x40" stat="INT" val="4"/> <!-- INT +4 -->
+    <sub order="0x40" stat="WIT" val="1"/> <!-- WIT -1 -->
   </for>
 </skill>
 <skill id="3514" levels="1" name="Theca Leather Light Armor Set">
@@ -236,7 +238,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul stat='pDef' order='0x30' val='1.0524'/>
+    <mul order="0x30" stat="pDef" val="1.0524"/> <!-- P. Def. +5.24% -->
   </for>
 </skill>
 <skill id="3515" levels="1" name="Drake Leather Set">
@@ -251,7 +253,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-   <mul stat='mDef' order='0x30' val='1.0524'/>
+    <mul order="0x30" stat="mDef" val="1.0524"/> <!-- M. Def. +5.24% -->
   </for>
 </skill>
 <skill id="3516" levels="1" name="Full Plate Set">
@@ -266,7 +268,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat='maxHp' order='0x40' val='270'/>
+    <add order="0x40" stat="maxHp" val="270"/> <!-- HP +270 -->
   </for>
 </skill>
 <skill id="3517" levels="1" name="Divine Set">
@@ -281,10 +283,10 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add val='171' order='0x40' stat='maxMp'/>
-    <add stat='WIT' order='0x40' val='1'/>
-    <sub stat='INT' order='0x40' val='1'/>
-    <mul stat='pDef' order='0x30' val='1.0524'/>
+    <mul order="0x30" stat="pDef" val="1.0524"/> <!-- P. Def. +5.24% -->
+    <add order="0x40" stat="maxMp" val="171"/> <!-- MP +171 -->
+    <sub order="0x40" stat="INT" val="1"/> <!-- INT -1 -->
+    <add order="0x40" stat="WIT" val="1"/> <!-- WIT +1 -->
   </for>
 </skill>
 <skill id="3518" levels="1" name="Zubei's Heavy Armor Set">
@@ -826,7 +828,7 @@ TODO: Increase lung capacity
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat='maxHp' order='0x40' val='20'/>
+    <add val='20' order='0x40' stat='maxHp'/>
   </for>
 </skill>
 <skill id="3545" levels="1" name="Equipped with Shield">
@@ -871,7 +873,7 @@ TODO: Increase lung capacity
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mull stat='rShld' order='0x30' val='1.0524'/>
+    <mul stat='rShld' order='0x30' val='1.05'/>
   </for>
 </skill>
 <skill id="3548" levels="1" name="Equipped with Shield">

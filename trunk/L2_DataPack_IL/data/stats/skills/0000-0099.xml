@@ -890,8 +890,7 @@
   <set name="reuseDelay" val="11000"/>
   <set name="skillTime" val="1080"/>
   <set name="skillType" val="BLOW"/>
-  <set name="lethal1" val="2"/>
-  <set name="lethal2" val="1"/>
+  <set name="lethal1" val="5"/>
   <set name="dmgDirectlyToHp" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
