@@ -26,7 +26,7 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
-def onAdvEvent (self,event,npc,player) : 
+ def onAdvEvent (self,event,npc,player) : 
     htmltext = event 
     st = player.getQuestState(qn) 
     if not st: return 
