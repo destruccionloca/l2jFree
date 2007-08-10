@@ -23,7 +23,7 @@ class valakas(JQuest):
           return
         else:
           st.exitQuest(1)
-          return "<html><body>Heart of Volcano:<br><br>Valakas has already awoke!<br>You are not possible to enter into Lair of Valakas.<br></body></html>"
+          return "<html><body>Heart of Volcano:<br><br>Valakas is already awake!<br>You may not enter the Lair of Valakas.<br></body></html>"
       else:
         st.exitQuest(1)
         return "Conditions are not right to enter to Lair of Valakas."
@@ -34,7 +34,7 @@ class valakas(JQuest):
         st.set("ok","1")
       else :
         st.exitQuest(1)
-        return "<html><head><body>Klein:<br>You don not have Floating Stone. Go take one and then come back to me.</body></html>"
+        return "<html><body>Klein:<br>You do not have the Floating Stone. Go get one and then come back to me.</body></html>"
     return
 
   def onKill (self,npc,player):
