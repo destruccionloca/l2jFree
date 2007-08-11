@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
  * This class handles following admin commands:
  * - invul = turns invulnerability on/off
  * 
- * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:02 $
+ * @version $Revision: 1.2.4.4 $ $Date: 2007/07/31 10:06:02 $
  */
 public class AdminInvul implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminInvul.class.getName());
@@ -63,25 +63,23 @@ public class AdminInvul implements IAdminCommandHandler {
 		return (level >= REQUIRED_LEVEL);
 	}
 	
-	private void handleInvul(L2PcInstance activeChar) {
+	private void handleInvul(L2PcInstance activeChar)
+	{
+		String text;
 		if (activeChar.isInvul())
 		{
         	activeChar.setIsInvul(false);
-        	String text = activeChar.getName() + " is now mortal";
-        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-        	sm.addString(text);
-        	activeChar.sendPacket(sm);
+        	text = activeChar.getName() + " is now mortal";
         	if (_log.isDebugEnabled())
         		_log.debug("GM: Gm removed invul mode from character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
-		} else
+		}
+		else
 		{
 			activeChar.setIsInvul(true);
-			String text = activeChar.getName() + " is now invulnerable";
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString(text);
-			activeChar.sendPacket(sm);
+			text = activeChar.getName() + " is now invulnerable";
 			if (_log.isDebugEnabled()) 
 				_log.debug("GM: Gm activated invul mode for character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
 		}
+		activeChar.sendMessage(text);
 	}
 }

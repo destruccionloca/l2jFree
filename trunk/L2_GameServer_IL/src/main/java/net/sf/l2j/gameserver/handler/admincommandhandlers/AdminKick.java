@@ -37,10 +37,8 @@ public class AdminKick implements IAdminCommandHandler
     {
 
         if (!Config.ALT_PRIVILEGES_ADMIN)
-        {
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
                 return false;
-        }
         
         if (command.startsWith("admin_kick"))
         {
@@ -54,7 +52,7 @@ public class AdminKick implements IAdminCommandHandler
                 {
                     kickPlayer (player);
                     RegionBBSManager.getInstance().changeCommunityBoard();
-
+					activeChar.sendMessage("You kicked " + player.getName() + " from the game.");
                 }
             }
         }
@@ -76,16 +74,22 @@ public class AdminKick implements IAdminCommandHandler
         
     private void kickPlayer (L2PcInstance player)
     {
-        try {
+        try
+		{
             L2GameClient.saveCharToDisk(player);
             player.sendPacket(new LeaveWorld());
             player.deleteMe();
             player.logout();
-            } catch (Throwable t)   {}
+        }
+		catch (Throwable t)
+		{}
  
-        try {
+        try
+		{
             player.closeNetConnection();
-            } catch (Throwable t)   {} 
+        }
+		catch (Throwable t)
+		{} 
     }
     public String[] getAdminCommandList()
     {

@@ -503,6 +503,11 @@ public class NpcTable implements NpcTableMBean
         return _initialized;
     }
 
+	public void replaceTemplate(L2NpcTemplate npc)
+	{
+		_npcs.put(npc.getNpcId(), npc);
+	}
+
     public L2NpcTemplate getTemplate(int id)
     {
         return _npcs.get(id);
@@ -512,6 +517,41 @@ public class NpcTable implements NpcTableMBean
     {
         return _npcs;
     }
+
+	public L2NpcTemplate getTemplateByName(String name)
+	{
+		for (L2NpcTemplate npcTemplate : _npcs.values())
+			if (npcTemplate.getName().equalsIgnoreCase(name))
+				return npcTemplate;
+		return null;
+	}
+
+	public L2NpcTemplate[] getAllOfLevel(int lvl)
+	{
+		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+		for (L2NpcTemplate t : _npcs.values())
+			if (t.getLevel()  == lvl)
+				list.add(t);
+		return list.toArray(new L2NpcTemplate[list.size()]);
+	}
+
+	public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
+	{
+		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+		for (L2NpcTemplate t : _npcs.values())
+			if (t.getLevel()  == lvl && "L2Monster".equals(t.getType()))
+				list.add(t);
+		return list.toArray(new L2NpcTemplate[list.size()]);
+	}
+
+	public L2NpcTemplate[] getAllNpcStartingWith(String letter)
+	{
+		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+		for (L2NpcTemplate t : _npcs.values())
+			if (t.getName().startsWith(letter) && "L2Npc".equals(t.getType()))
+				list.add(t);
+		return list.toArray(new L2NpcTemplate[list.size()]);
+	}
 
     /**
      * @param classType

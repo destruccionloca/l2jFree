@@ -30,15 +30,13 @@ import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
- * This class handles following admin commands: - invul = turns invulnerability
+ * This class handles following admin commands: - mons = handles monster race
  * on/off
  * 
- * @version $Revision: 1.1.6.4 $ $Date: 2005/04/11 10:06:00 $
+ * @version $Revision: 1.1.6.4 $ $Date: 2007/07/31 10:06:00 $
  */
 public class AdminMonsterRace implements IAdminCommandHandler
 {
-    //private final static Log _log = LogFactory.getLog(AdminMonsterRace.class.getName());
-
     private static final String[] ADMIN_COMMANDS = {"admin_mons"};
 
     private static final int REQUIRED_LEVEL = Config.GM_MONSTERRACE;
@@ -74,7 +72,7 @@ public class AdminMonsterRace implements IAdminCommandHandler
     private void handleSendPacket(L2PcInstance activeChar)
     {
         /*
-         * -1 0 to initial the race
+         * -1 0 to initialize the race
          * 0 15322 to start race
          * 13765 -1 in middle of race
          * -1 0 to end the race

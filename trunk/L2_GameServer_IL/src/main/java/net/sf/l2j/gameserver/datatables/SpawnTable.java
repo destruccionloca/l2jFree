@@ -26,6 +26,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -424,5 +425,35 @@ public class SpawnTable implements SpawnTableMBean
     public int getNpcSpawnCount()
     {
         return _spawntable.size();
+    }
+
+    /**
+     * Get all the spawn of a NPC<BR><BR>
+     * 
+     * @param npcId : ID of the NPC to find.
+     * @return
+     */
+    public void findNPCInstances(L2PcInstance activeChar, int npcId, int teleportIndex)
+    {
+        int index = 0;
+        for (L2Spawn spawn : _spawntable.values())
+        {
+            if (npcId == spawn.getNpcId())
+            {
+                index++;
+                if (teleportIndex > -1)
+                {
+                    if (teleportIndex == index)
+                        activeChar.teleToLocation(spawn.getLocx(), spawn.getLocy(), spawn.getLocz(), true);
+                }
+                else
+                {
+                    activeChar.sendMessage(index + " - " + spawn.getTemplate().getName() + " ("
+                        + spawn.getId() + "): " + spawn.getLocx() + " " + spawn.getLocy() + " "
+                        + spawn.getLocz());
+                }
+            }
+        }
+        if (index == 0) activeChar.sendMessage("No current spawns found.");
     }
 }

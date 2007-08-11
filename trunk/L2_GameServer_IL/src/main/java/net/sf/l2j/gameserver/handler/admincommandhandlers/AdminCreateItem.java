@@ -20,31 +20,28 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
-import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * This class handles following admin commands:
  * - itemcreate = show menu
- * - create_item id [num] = creates num items with respective id, if num is not specified num = 1
+ * - create_item <id> [num] = creates num items with respective id, if num is not specified, assumes 1.
  * 
  * @version $Revision: 1.2.2.2.2.3 $ $Date: 2005/04/11 10:06:06 $
  */
 public class AdminCreateItem implements IAdminCommandHandler {
 
 	private static final String[] ADMIN_COMMANDS = {
-			"admin_itemcreate",
-			"admin_create_item"
-			};
+		"admin_itemcreate",
+		"admin_create_item"
+	};
 	private static final int REQUIRED_LEVEL = Config.GM_CREATE_ITEM;
 
-	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
         if (!Config.ALT_PRIVILEGES_ADMIN)
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
 		
@@ -72,22 +69,16 @@ public class AdminCreateItem implements IAdminCommandHandler {
 					int idval = Integer.parseInt(id);
 					createItem(activeChar,idval,1);
 				}
-				else
-				{
-					AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
-				}
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				sm.addString("Error while creating item.");
-				activeChar.sendPacket(sm);
-			} catch (NumberFormatException nfe)
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				sm.addString("Wrong number entered.");
-				activeChar.sendPacket(sm);
+				activeChar.sendMessage("Usage: //itemcreate <itemId> [amount]");
 			}
+			catch (NumberFormatException nfe)
+			{
+				activeChar.sendMessage("Specify a valid number.");
+			}
+			AdminHelpPage.showHelpPage(activeChar, "itemcreation.htm");
 		}
 		
 		return true;
@@ -108,23 +99,6 @@ public class AdminCreateItem implements IAdminCommandHandler {
 		ItemList il = new ItemList(activeChar, true);
 		activeChar.sendPacket(il);
 		
-		SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-		sm.addString("You have spawned " + num + " item(s) number " + id + " in your inventory.");
-		activeChar.sendPacket(sm);
-				
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);		
-		TextBuilder replyMSG = new TextBuilder("<html><body>");
-		replyMSG.append("<table width=260><tr>");
-		replyMSG.append("<td width=40><button value=\"Main\" action=\"bypass -h admin_admin\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-		replyMSG.append("<td width=180><center>Item Creation Menu</center></td>");
-		replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_help itemcreation.htm\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-		replyMSG.append("</tr></table>");
-		replyMSG.append("<br><br>");
-		replyMSG.append("<table width=270><tr><td>Item Creation Complete.<br></td></tr></table>");
-		replyMSG.append("<table width=270><tr><td>You have spawned " + num + " item(s) number " + id + " in your inventory.</td></tr></table>");
-		replyMSG.append("</body></html>");
-		
-		adminReply.setHtml(replyMSG.toString());
-		activeChar.sendPacket(adminReply);
+		activeChar.sendMessage("You have spawned " + num + " item(s) number " + id + " in your inventory."); 
 	}
 }

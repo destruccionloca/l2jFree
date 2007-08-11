@@ -41,14 +41,14 @@ import org.apache.commons.logging.LogFactory;
  * - kill <radius> = If radius is specified, then ALL players only in that radius will be killed.
  * - kill_monster <radius> = If radius is specified, then ALL non-players only in that radius will be killed.
  * 
- * @version $Revision: 1.2.4.5 $ $Date: 2005/04/11 10:06:06 $
+ * @version $Revision: 1.2.4.5 $ $Date: 2007/07/31 10:06:06 $
  */
 public class AdminKill implements IAdminCommandHandler 
 {
     private final static Log _log = LogFactory.getLog(AdminKill.class);
     private static final String[] ADMIN_COMMANDS = {"admin_kill", "admin_kill_monster"};
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
-    
+   
     private boolean checkLevel(int level) 
     {
         return (level >= REQUIRED_LEVEL);
@@ -76,11 +76,10 @@ public class AdminKill implements IAdminCommandHandler
                         try 
                         {
                             int radius  = Integer.parseInt(st.nextToken());
-    
                             for (L2Character knownChar : plyr.getKnownList().getKnownCharactersInRadius(radius))
                             {
                                 if (knownChar == null || knownChar instanceof L2ControllableMobInstance || knownChar.equals(activeChar)) continue;
-                                
+
                                 kill(activeChar, knownChar);
                             }
 
