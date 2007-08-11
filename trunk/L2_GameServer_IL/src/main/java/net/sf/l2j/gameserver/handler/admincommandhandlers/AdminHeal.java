@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
- * - res = resurrects target L2Character
+ * - heal = restores HP/MP/CP on target, name or radius
  * 
  * @version $Revision: 1.2.4.5 $ $Date: 2005/04/11 10:06:06 $
  */
@@ -52,7 +52,8 @@ public class AdminHeal implements IAdminCommandHandler {
                 handleHeal((L2Character)activeChar.getTarget());
             }
         }
-        else if (command.startsWith("admin_heal")) {            
+        else if (command.startsWith("admin_heal"))
+        {
             try
             {
                 String val = command.substring(11);
@@ -74,10 +75,7 @@ public class AdminHeal implements IAdminCommandHandler {
             }
             catch (StringIndexOutOfBoundsException e)
             {
-                if ( _log.isDebugEnabled() ) _log.debug("Heal error: "+e);
-                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                sm.addString("Incorrect target/radius specified.");
-                activeChar.sendPacket(sm);
+                activeChar.sendMessage("Incorrect target/radius specified.");
             }
         }
         return true;

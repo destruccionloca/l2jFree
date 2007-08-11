@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -37,7 +39,6 @@ import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
@@ -57,9 +58,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
@@ -1337,11 +1338,11 @@ public abstract class L2Character extends L2Object
                         (skill.getSkillType() == SkillType.MANAHEAL)||
                         (skill.getSkillType() == SkillType.RESURRECT)||
                         (skill.getSkillType() == SkillType.RECALL)||
-                        (skill.getSkillType() == SkillType.POISON)||
-                        (skill.getSkillType() == SkillType.DEBUFF)||
-                        (skill.getSkillType() == SkillType.PARALYZE)||
-                        (skill.getSkillType() == SkillType.ROOT)||
-                        (skill.getSkillType() == SkillType.SLEEP)||
+                        //(skill.getSkillType() == SkillType.POISON)||
+                        //(skill.getSkillType() == SkillType.DEBUFF)||
+                        //(skill.getSkillType() == SkillType.PARALYZE)||
+                        //(skill.getSkillType() == SkillType.ROOT)||
+                        //(skill.getSkillType() == SkillType.SLEEP)||
                         (skill.getSkillType() == SkillType.DOT))
                 {
                     weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);

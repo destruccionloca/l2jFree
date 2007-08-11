@@ -40,7 +40,7 @@ public class RequestGMCommand extends L2GameClientPacket
 {
 	private static final String _C__6E_REQUESTGMCOMMAND = "[C] 6e RequestGMCommand";
 	static Log _log = LogFactory.getLog(RequestGMCommand.class.getName());
-			
+	
 	private String _targetName;
 	private int _command;
     //private final int _unknown;
@@ -63,7 +63,7 @@ public class RequestGMCommand extends L2GameClientPacket
 		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
 		L2PcInstance activeChar = getClient().getActiveChar();
 
-        if (player == null)
+		if (player == null || activeChar.getAccessLevel() < Config.GM_ALTG_MIN_LEVEL)
 			return;
 		
 		switch(_command)
@@ -107,7 +107,6 @@ public class RequestGMCommand extends L2GameClientPacket
 				sendPacket(new GMViewWarehouseWithdrawList(player));
 			    break;
 			}
-				
 		}
 	}
 

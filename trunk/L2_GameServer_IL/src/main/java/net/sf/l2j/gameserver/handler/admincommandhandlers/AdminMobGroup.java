@@ -216,16 +216,6 @@ public class AdminMobGroup implements IAdminCommandHandler
 		group.setFollowMode(target);
 	}
 
-	public String[] getAdminCommandList() 
-    {
-		return ADMIN_COMMANDS;
-	}
-
-	private boolean checkLevel(int level) 
-    {
-		return (level >= REQUIRED_LEVEL);
-	}
-
 	private void createGroup(String command, L2PcInstance activeChar) 
     {
 		int groupId;
@@ -551,5 +541,15 @@ public class AdminMobGroup implements IAdminCommandHandler
                                    " of NPC ID " + mobGroup.getTemplate().getNpcId() + " (" + mobGroup.getStatus() + ")");
         
         activeChar.sendMessage("============================");
+    }
+
+    public String[] getAdminCommandList() 
+    {
+        return ADMIN_COMMANDS;
+    }
+
+    private boolean checkLevel(int level) 
+    {
+        return (level >= REQUIRED_LEVEL);
     }
 }
