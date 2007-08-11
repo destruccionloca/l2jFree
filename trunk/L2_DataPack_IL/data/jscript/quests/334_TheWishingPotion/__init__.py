@@ -73,7 +73,7 @@ def findnpc(npcId,player):
     npclist=[]
     instance=None
     for spawn in SpawnTable.getInstance().getSpawnTable().values():
-        if spawn.getNpcid() == npcId:
+        if spawn.getNpcId() == npcId:
             instance=spawn.getLastSpawn()
             npclist.append(instance)
     for npc in npclist:

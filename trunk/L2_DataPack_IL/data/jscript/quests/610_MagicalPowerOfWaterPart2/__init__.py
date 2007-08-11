@@ -29,7 +29,7 @@ Ice_Heart = 7239
 
 def FindTemplate (npcId) :
     for spawn in SpawnTable.getInstance().getSpawnTable().values():
-        if spawn.getNpcid() == npcId:
+        if spawn.getNpcId() == npcId:
             npcinstance=spawn.getLastSpawn()
             break
     return npcinstance
