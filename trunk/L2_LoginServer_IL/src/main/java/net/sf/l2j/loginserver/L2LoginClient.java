@@ -59,11 +59,10 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	
 	private String _account;
 	private int _accessLevel;
-	private boolean _usesInternalIP;
 	private SessionKey _sessionKey;
 	private int _sessionId;
     private boolean _joinedGS;
-	
+    private String _ip;
 	private long _connectionStartTime;
 	
 	/**
@@ -73,13 +72,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	{
 		super(con);
 		_state = LoginClientState.CONNECTED;
-		String ip = this.getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
-		
-		// TODO unhardcode this
-		if (ip.startsWith("192.168") || ip.startsWith("10.0") || ip.equals("127.0.0.1"))
-		{
-			_usesInternalIP = true;
-		}
+		_ip = this.getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
 		
 		_scrambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
 		_blowfishKey = LoginManager.getInstance().getBlowfishKey();
@@ -89,9 +82,9 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 		_loginCrypt.setKey(_blowfishKey);
 	}
 	
-	public boolean usesInternalIP()
+	public String getIp()
 	{
-		return _usesInternalIP;
+		return _ip;
 	}
 	
 	/**

@@ -30,8 +30,11 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.StringTokenizer;
 
+import javolution.util.FastList;
 import javolution.util.FastSet;
 import net.sf.l2j.Config;
 import net.sf.l2j.loginserver.L2LoginServer;
@@ -54,6 +57,7 @@ import net.sf.l2j.loginserver.manager.LoginManager;
 import net.sf.l2j.loginserver.serverpackets.ServerBasePacket;
 import net.sf.l2j.tools.security.NewCrypt;
 import net.sf.l2j.tools.util.Util;
+import net.sf.l2j.util.GameServerNetConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,6 +81,9 @@ public class GameServerThread extends Thread
 	private String _connectionIp;
 
 	private GameServerInfo _gsi;
+	private List<GameServerNetConfig> _gsnc = new  FastList<GameServerNetConfig>();
+
+	private long _lastIpUpdate;
 	
     /** Authed Clients on a GameServer*/
     private Set<String> _accountsOnGameServer = new FastSet<String>();
@@ -458,7 +465,9 @@ public class GameServerThread extends Thread
 		this.setGameServerInfo(gsi);
 		gsi.setGameServerThread(this);
 		gsi.setPort(gameServerAuth.getPort());
-		setGameHosts(gameServerAuth.getExternalHost(), gameServerAuth.getInternalHost());
+		setNetConfig(gameServerAuth.getNetConfig());
+		gsi.setIp(_connectionIp);
+		
 		gsi.setMaxPlayers(gameServerAuth.getMaxPlayers());
 		gsi.setAuthed(true);
 	}	
@@ -539,55 +548,98 @@ public class GameServerThread extends Thread
 	{
 		return _accountsOnGameServer.size();
 	}	
-
-	/**
-	 * @param gameHost The gameHost to set.
-	 */
-	public void setGameHosts(String gameExternalHost, String gameInternalHost)
+	
+	public void setNetConfig(String netConfig) 
 	{
-		String oldInternal = _gsi.getInternalHost();
-		String oldExternal = _gsi.getExternalHost();
+		if (_gsnc.size() == 0) 
+		{
+			StringTokenizer hostNets = new StringTokenizer(netConfig.trim(), ";");
+
+			while (hostNets.hasMoreTokens()) 
+			{
+				String hostNet = hostNets.nextToken();
+
+				StringTokenizer addresses = new StringTokenizer(hostNet.trim(),	",");
+
+				String _host = addresses.nextToken();
+
+				GameServerNetConfig _NetConfig = new GameServerNetConfig(_host);
+
+				if (addresses.hasMoreTokens()) 
+				{
+					while (addresses.hasMoreTokens()) 
+					{
+						try 
+						{
+							StringTokenizer netmask = new StringTokenizer( addresses.nextToken().trim(), "/");
+							String _net = netmask.nextToken();
+							String _mask = netmask.nextToken();
+
+							_NetConfig.addNet(_net, _mask);
+						} catch (NoSuchElementException c) 
+						{
+							// Silence of the Lambs =)
+						}
+					}
+				} else
+					_NetConfig.addNet("0.0.0.0", "0");
+				
+				_gsnc.add(_NetConfig);
+			}
+		}
 		
-		_gsi.setExternalHost(gameExternalHost);
-		_gsi.setInternalIp(gameInternalHost);
-		
-		if (!gameExternalHost.equals("*"))
-		{
-			try
-			{
-				_gsi.setExternalIp(InetAddress.getByName(gameExternalHost).getHostAddress());
-			}
-			catch (UnknownHostException e)
-			{
-				_log.warn("Couldn't resolve hostname \""+gameExternalHost+"\"");
-			}
-		}
-		else
-		{
-			_gsi.setExternalIp(_connectionIp);
-		}
-		if(!gameInternalHost.equals("*"))
-		{
-			try
-			{
-				_gsi.setInternalIp(InetAddress.getByName(gameInternalHost).getHostAddress());
-			}
-			catch (UnknownHostException e)
-			{
-				_log.warn("Couldn't resolve hostname \""+gameInternalHost+"\"");
-			}
-		}
-		else
-		{
-			_gsi.setInternalIp(_connectionIp);
-		}
-		
-		_log.info("Updated Gameserver ["+getServerId()+"] "+GameServerManager.getInstance().getServerNameById(getServerId())+" IP's:");
-		if (oldInternal == null || !oldInternal.equalsIgnoreCase(gameInternalHost))
-			_log.info("InternalIP: "+gameInternalHost);
-		if (oldExternal == null || !oldExternal.equalsIgnoreCase(gameExternalHost))
-			_log.info("ExternalIP: "+gameExternalHost);
+		updateIPs();
 	}	
+	
+	public void updateIPs()
+	{
+
+		_lastIpUpdate = System.currentTimeMillis();
+
+		if (_gsnc.size() > 0)
+		{
+			_log.info("Updated Gameserver [" + getServerId() + "] "
+					+ GameServerManager.getInstance().getServerNameById(getServerId()) + " IP's:");
+
+			for (GameServerNetConfig _netConfig : _gsnc)
+			{
+				String _hostName = _netConfig.getHost();
+				try
+				{
+					String _hostAddress = InetAddress.getByName(_hostName).getHostAddress();
+					_netConfig.setIp(_hostAddress);
+					_log.info(!_hostName.equals(_hostAddress) ? _hostName + " (" + _hostAddress
+							+ ")" : _hostAddress);
+				} catch (UnknownHostException e)
+				{
+					_log.warn("Couldn't resolve hostname \"" + _hostName + "\"");
+				}
+			}
+		}
+	}
+	
+	public String getIp(String ip)
+	{
+		String _host = null;
+
+		if (Config.IP_UPDATE_TIME > 0
+				&& (System.currentTimeMillis() > (_lastIpUpdate + Config.IP_UPDATE_TIME)))
+			updateIPs();
+
+		for (GameServerNetConfig _netConfig : _gsnc)
+		{
+			if (_netConfig.checkHost(ip))
+			{
+				_host = _netConfig.getIp();
+				break;
+			}
+		}
+		if (_host == null)
+			_host = ip;
+
+		return _host;
+	}
+
 	
 	/**
 	 * @return Returns the isAuthed.

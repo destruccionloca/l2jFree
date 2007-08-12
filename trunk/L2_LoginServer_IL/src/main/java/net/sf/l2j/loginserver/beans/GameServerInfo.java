@@ -43,9 +43,7 @@ public class GameServerInfo
     private int _status;
     
     // network
-    private String _internalIp;
-    private String _externalIp;
-    private String _externalHost;
+    private String _ip;
     private int _port;
 
     // config
@@ -120,35 +118,15 @@ public class GameServerInfo
         return _gst.getPlayerCount();
     }
     
-    public void setInternalIp(String internalIp)
+    public void setIp(String ip)
     {
-        _internalIp = internalIp;
+    	_ip = ip;
     }
     
-    public String getInternalHost()
-    {
-        return _internalIp;
-    }
-    
-    public void setExternalIp(String externalIp)
-    {
-        _externalIp = externalIp;
-    }
-    
-    public String getExternalIp()
-    {
-        return _externalIp;
-    }
-    
-    public void setExternalHost(String externalHost)
-    {
-        _externalHost = externalHost;
-    }
-    
-    public String getExternalHost()
-    {
-        return _externalHost;
-    }
+	public String getIp()
+	{
+		return _ip;
+	}
     
     public int getPort()
     {

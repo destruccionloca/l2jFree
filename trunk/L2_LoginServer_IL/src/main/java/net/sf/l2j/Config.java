@@ -80,7 +80,9 @@ public final class Config {
     
     public static boolean AUTO_CREATE_ACCOUNTS;
     public static int     GM_MIN;
-	
+    
+    public static int     IP_UPDATE_TIME;
+    
 	public static boolean FLOOD_PROTECTION;
 	public static int FAST_CONNECTION_LIMIT;
 	public static int NORMAL_CONNECTION_TIME;
@@ -117,6 +119,8 @@ public final class Config {
             SHOW_LICENCE   = Boolean.parseBoolean(serverSettings.getProperty("ShowLicence", "true"));
             
             AUTO_CREATE_ACCOUNTS = Boolean.parseBoolean(serverSettings.getProperty("AutoCreateAccounts","True"));
+            
+            IP_UPDATE_TIME  = Integer.parseInt(serverSettings.getProperty("IpUpdateTime","0")) * 60 * 1000;
             
             FLOOD_PROTECTION       = Boolean.parseBoolean(serverSettings.getProperty("EnableFloodProtection","True"));
             FAST_CONNECTION_LIMIT  = Integer.parseInt(serverSettings.getProperty("FastConnectionLimit","15"));

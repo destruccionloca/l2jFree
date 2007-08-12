@@ -44,8 +44,8 @@ public class GameServerAuth extends ClientBasePacket
 	private boolean _acceptAlternativeId;
 	private int _maxPlayers;
 	private int _port;
-	private String _externalHost;
-	private String _internalHost;
+	private String _gsNetConfig1;
+	private String _gsNetConfig2;
 	
 	/**
 	 * @param decrypt
@@ -56,8 +56,8 @@ public class GameServerAuth extends ClientBasePacket
 		_desiredId = readC();
 		_acceptAlternativeId = (readC() == 0 ? false : true); 
 		_hostReserved = (readC() == 0 ? false : true);
-		_externalHost = readS();
-		_internalHost = readS();
+		_gsNetConfig1 = readS();
+		_gsNetConfig2 = readS();
 		_port = readH();
 		_maxPlayers = readD();
 		int size = readD();
@@ -96,21 +96,31 @@ public class GameServerAuth extends ClientBasePacket
 	}
 
 	/**
-	 * @return Returns the externalHost.
+	 * @return Returns the gameserver netconfig string.
 	 */
-	public String getExternalHost()
+	public String getNetConfig()
 	{
-		return _externalHost;
+		String _netConfig = "";
+		
+		//	network configuration string formed on server
+		if (_gsNetConfig1.contains(";") || _gsNetConfig1.contains(","))
+		{
+			_netConfig = _gsNetConfig1;
+		}
+		else // make network config string
+		{
+			if (_gsNetConfig2.length()>0) // internal hostname and default internal networks
+			{
+				_netConfig = _gsNetConfig2 + "," + "10.0.0.0/8,192.168.0.0/16" + ";";
+			}
+			if (_gsNetConfig1.length()>0) // external hostname and all avaible addresses by default
+			{
+				_netConfig += _gsNetConfig1 + "," + "0.0.0.0/0" + ";";
+			}
+		}
+		
+		return _netConfig;
 	}
-
-	/**
-	 * @return Returns the internalHost.
-	 */
-	public String getInternalHost()
-	{
-		return _internalHost;
-	}
-	
 	/**
 	 * @return Returns the port.
 	 */
