@@ -181,28 +181,6 @@ public abstract class L2Object
             _isVisible = false;
             getPosition().setWorldRegion(null);
         }
-        
-        if(this instanceof L2Attackable && getPoly().isMorphed())
-        {
-        	if(!this.getPoly().isFirstMorph())
-        	{
-        		// So the nextrespawn is normal. 
-        		L2NpcTemplate template1 = NpcTable.getInstance().getTemplate(this.getPoly().getBaseId());
-        		((L2Attackable)this).setTemplate(template1);
-        		this.getPoly().setNotMorphed();
-        		((L2Attackable)this).refreshSkills();
-        		
-        	}
-        	else
-        	{
-        		//lets morphit this time
-        		this.getPoly().setFirstMorph(false);
-        		L2NpcTemplate template1 = NpcTable.getInstance().getTemplate(this.getPoly().getPolyId());
-        		((L2Attackable)this).setTemplate(template1);
-        		((L2Attackable)this).refreshSkills();
-        	}
-        }
-
         // this can synchronize on others instancies, so it's out of
         // synchronized, to avoid deadlocks
         // Remove the L2Object from the world
