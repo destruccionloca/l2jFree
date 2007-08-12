@@ -68,13 +68,6 @@ public class AdminTest implements IAdminCommandHandler
     		"skillID - Id of skill, target list you want to see",
     		"<level> - skill level, Default is 1",
      	},
-    	{"admin_msg",                                 
-    		
-    		"Test system message.",
-    		"Usage: msg msgID",
-    		"Options:",
-    		"msgID - Id of client system message you want to see",
-     	},
     	{"admin_mp",                                 
     		
     		"Enable/disable client-server packets monitor.",
@@ -142,22 +135,6 @@ public class AdminTest implements IAdminCommandHandler
                 else
                 	activeChar.sendMessage("Skill id "+skillId+" not found.");
         	}
-            else
-            	showAdminCommandHelp(activeChar,cmd);
-        }
-        else if (cmd.equals("admin_msg"))
-        {
-            int msgId = -1;
-
-            try
-            {
-                msgId = Integer.parseInt(st.nextToken());
-            }
-            catch (Exception e)
-            {
-            }
-            if (msgId >= 0)
-            	activeChar.sendPacket(new SystemMessage(msgId));
             else
             	showAdminCommandHelp(activeChar,cmd);
         }

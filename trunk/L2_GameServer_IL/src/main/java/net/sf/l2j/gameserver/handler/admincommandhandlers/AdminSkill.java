@@ -70,10 +70,9 @@ public class AdminSkill implements IAdminCommandHandler {
         "admin_give_all_skills",
         "admin_remove_all_skills",
         "admin_ench_skills",
-		"admin_remove_all_skills",
-		"admin_add_clan_skill",
-		// L2JFREE
-		"cast_skill"
+        "admin_add_clan_skill",
+        // L2JFREE
+        "admin_cast_skill"
     };
     private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
     private static final int REQUIRED_LEVEL2 = Config.GM_CHAR_EDIT_OTHER;
