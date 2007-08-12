@@ -322,7 +322,13 @@ public enum SystemMessageId
 	 * Message: The target must be a clan member.
 	 */
 	TARGET_MUST_BE_IN_CLAN(234),
-	
+
+	/**
+	 * ID: 242<br>
+	 * Message: You must select a target
+	 */
+	YOU_MUST_SELECT_A_TARGET(242),
+
 	/**
 	 * ID: 1053<br>
 	 * Message: It is not possible to resurrect in battlefields where a siege war is taking place.
@@ -466,7 +472,13 @@ public enum SystemMessageId
 	 * Message: Your excellent shield defense was a success!
 	 */
 	YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS(1281),
-	
+
+	/**
+	 * ID: 1282<br>
+	 * Message: Your Karma has been changed to $s1
+	 */
+	YOUR_KARMA_HAS_BEEN_CHANGED_TO(1282),
+
 	/**
 	 * ID: 361<br>
 	 * Message: Over-hit!

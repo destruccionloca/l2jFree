@@ -1276,8 +1276,7 @@ public class L2Attackable extends L2NpcInstance
         if (Config.CHAMPION_FREQUENCY > 0 && isChampion() && (player.getLevel() <= getLevel()) && Config.CHAMPION_SPCL_CHANCE > 0 && (Rnd.get(100) < Config.CHAMPION_SPCL_CHANCE))
         {
             int champqty = Rnd.get(Config.CHAMPION_SPCL_QTY);
-            if (champqty == 0)  //do not allow for a zero drop
-                champqty = 1;
+            champqty++; //quantity should actually vary between 1 and whatever admin specified as max, inclusive.
 
             // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
             RewardItem item = new RewardItem(Config.CHAMPION_SPCL_ITEM,champqty);

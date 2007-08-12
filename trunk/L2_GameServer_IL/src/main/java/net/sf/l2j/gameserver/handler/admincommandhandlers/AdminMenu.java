@@ -38,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
- * - handles ever admin menu command
+ * - handles every admin menu command
  * 
  * @version $Revision: 1.3.2.6.2.4 $ $Date: 2005/04/11 10:06:06 $
  */
@@ -55,234 +55,221 @@ public class AdminMenu implements IAdminCommandHandler
 		"admin_kill_menu",
 		"admin_ban_menu",
 		"admin_unban_menu"
-		};
+	};
 	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
 
-	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-        
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+			
+		String target = (activeChar.getTarget() != null?activeChar.getTarget().getName():"no-target");
 		if (command.equals("admin_char_manage"))
-		{
-			AdminHelpPage.showHelpPage(activeChar, "charmanage.htm");
-		}
+			showMainPage(activeChar);
 		else if (command.startsWith("admin_teleport_character_to_menu"))
-        {
+		{
 			String[] data = command.split(" ");
-            if(data.length==5)
-            {
+			if(data.length==5)
+			{
 				String playerName=data[1];
-                int x=Integer.parseInt(data[2]);
-                int y=Integer.parseInt(data[3]);
-                int z=Integer.parseInt(data[4]);
-                L2PcInstance player = L2World.getInstance().getPlayer(playerName);
-                if(player!=null)
-                {
-					teleportCharacter(player,x,y,z,activeChar);
-                }
+				L2PcInstance player = L2World.getInstance().getPlayer(playerName);
+				if(player!=null)
+					teleportCharacter(player,Integer.parseInt(data[2]),Integer.parseInt(data[3]),Integer.parseInt(data[4]),activeChar);
 			}
-			AdminHelpPage.showHelpPage(activeChar, "charmanage.htm");
+			showMainPage(activeChar);
 		}
 		else if (command.startsWith("admin_recall_char_menu"))
 		{
-            try
-            {
-    		    String targetName = command.substring(23);
-    		    L2PcInstance player = L2World.getInstance().getPlayer(targetName);
-    		    int x = activeChar.getX();
-    			int y = activeChar.getY();
-    			int z = activeChar.getZ();
-    		    teleportCharacter(player,x,y,z,activeChar);
-            }
-            catch (StringIndexOutOfBoundsException e)
-            { }
+			try
+			{
+				String targetName = command.substring(23);
+				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
+				teleportCharacter(player,activeChar.getX(),activeChar.getY(),activeChar.getZ(),activeChar);
+			}
+			catch (StringIndexOutOfBoundsException e){}
 		}
 		else if (command.startsWith("admin_goto_char_menu"))
 		{
-            try
-            {
-    		    String targetName = command.substring(21);
-    		    L2PcInstance player = L2World.getInstance().getPlayer(targetName);
-    	        teleportToCharacter(activeChar, player);
-            }
-            catch (StringIndexOutOfBoundsException e)
-            { }
+			try
+			{
+				String targetName = command.substring(21);
+				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
+				teleportToCharacter(activeChar, player);
+			}
+			catch (StringIndexOutOfBoundsException e){}
 		}
 		else if (command.equals("admin_kill_menu"))
 		{
 			handleKill(activeChar);
 		}
 		else if (command.startsWith("admin_kick_menu"))
-        {
-            //_log.debugr("ADMIN KICK");
-            StringTokenizer st = new StringTokenizer(command);
-            //_log.debugr("Tokens: "+st.countTokens());
-            if (st.countTokens() > 1)
-            {
-                st.nextToken();
-                String player = st.nextToken();
-                //_log.debugr("Player1 "+player);
-                L2PcInstance plyr = L2World.getInstance().getPlayer(player);
-                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			if (st.countTokens() > 1)
+			{
+				st.nextToken();
+				String player = st.nextToken();
+				L2PcInstance plyr = L2World.getInstance().getPlayer(player);
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 				if (plyr != null)
 				{
-					//_log.debugr("Player2 "+plyr.getName());
 					plyr.logout();
 					sm.addString("You kicked " + plyr.getName() + " from the game.");
 				}
 				else
-				{
 					sm.addString("Player " + player + " was not found in the game.");
-				}
 				activeChar.sendPacket(sm);
-            }
-			AdminHelpPage.showHelpPage(activeChar, "charmanage.htm");
-        }
-		else if (command.startsWith("admin_ban_menu"))
-        {
-            StringTokenizer st = new StringTokenizer(command);
-            if (st.countTokens() > 1)
-            {
-                st.nextToken();
-                String player = st.nextToken();
-                L2PcInstance plyr = L2World.getInstance().getPlayer(player);
-                if (plyr != null)
-                {
-                    plyr.logout();
-                }
-                setAccountAccessLevel(player, activeChar, -100);
-            }
-			AdminHelpPage.showHelpPage(activeChar, "charmanage.htm");
-        }
-		else if (command.startsWith("admin_unban_menu"))
-        {
-            StringTokenizer st = new StringTokenizer(command);
-            if (st.countTokens() > 1)
-            {
-				st.nextToken();
-                String player = st.nextToken();
-                setAccountAccessLevel(player, activeChar, 0);
 			}
-			AdminHelpPage.showHelpPage(activeChar, "charmanage.htm");
-        }
+			showMainPage(activeChar);
+		}
+		else if (command.startsWith("admin_ban_menu"))
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			if (st.countTokens() > 1)
+			{
+				st.nextToken();
+				String player = st.nextToken();
+				L2PcInstance plyr = L2World.getInstance().getPlayer(player);
+				if (plyr != null)
+				{
+					plyr.logout();
+				}
+				setAccountAccessLevel(player, activeChar, -100);
+			}
+			showMainPage(activeChar);
+		}
+		else if (command.startsWith("admin_unban_menu"))
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			if (st.countTokens() > 1)
+			{
+				st.nextToken();
+				String player = st.nextToken();
+				setAccountAccessLevel(player, activeChar, 0);
+			}
+			showMainPage(activeChar);
+		}
 		return true;
 	}
-    public String[] getAdminCommandList() 
-    {
+	public String[] getAdminCommandList() 
+	{
 		return ADMIN_COMMANDS;
 	}
 	private boolean checkLevel(int level) 
-    {
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
-    private void handleKill(L2PcInstance activeChar)
-    {
-        handleKill(activeChar, null);
-    }
-	private void handleKill(L2PcInstance activeChar, String player) {
+	private void handleKill(L2PcInstance activeChar)
+	{
+		handleKill(activeChar, null);
+	}
+	private void handleKill(L2PcInstance activeChar, String player)
+	{
 		L2Object obj = activeChar.getTarget();
-        if (player != null)
-        {
-            L2PcInstance plyr = L2World.getInstance().getPlayer(player);
-            if (plyr != null)
-            {
-                obj = plyr;
-            }
-            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("You killed " + plyr.getName() + ".");
-			activeChar.sendPacket(sm);
-        }
-        
-		if ((obj != null) && (obj instanceof L2Character))
+		L2Character target = (L2Character)obj;
+		String filename = "main_menu.htm";
+		if (player != null)
 		{
-			L2Character target = (L2Character)obj;
-			target.reduceCurrentHp(target.getMaxHp()+1, activeChar);
+			L2PcInstance plyr = L2World.getInstance().getPlayer(player);
+			if (plyr != null)
+				target = plyr;
+			activeChar.sendMessage("You killed " + plyr.getName());
+		}
+		if (target != null)
+		{
+			if (target instanceof L2PcInstance)
+			{
+				target.reduceCurrentHp(target.getMaxHp() + target.getMaxCp() + 1, activeChar);
+				filename = "charmanage.htm";
+			}
+			else if (target.isChampion())
+				target.reduceCurrentHp(target.getMaxHp()*Config.CHAMPION_HP + 1, activeChar);
+			else 
+				target.reduceCurrentHp(target.getMaxHp() + 1, activeChar);
 		}
 		else
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("Incorrect target.");
-			activeChar.sendPacket(sm);
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 		}
-		AdminHelpPage.showHelpPage(activeChar, "charmanage.htm");
+		AdminHelpPage.showHelpPage(activeChar, filename);
 	}
-    private void teleportCharacter(L2PcInstance player, int x, int y, int z, L2PcInstance activeChar)
-    {
-        if (player != null) {
-        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-            sm.addString("Admin is teleporting you.");
-            player.sendPacket(sm);
 
-    		player.teleToLocation(x, y, z);
-        }
-		AdminHelpPage.showHelpPage(activeChar, "charmanage.htm");
+	private void teleportCharacter(L2PcInstance player, int x, int y, int z, L2PcInstance activeChar)
+	{
+		if (player != null) 
+		{
+			player.sendMessage("Admin is teleporting you.");
+			player.teleToLocation(x, y, z, true);
+		}
+		showMainPage(activeChar);
 	}
 	private void teleportToCharacter(L2PcInstance activeChar, L2Object target)
 	{
-	    L2PcInstance player = null;
+		L2PcInstance player = null;
 		if (target != null && target instanceof L2PcInstance) 
-		{
 			player = (L2PcInstance)target;
-		} 
 		else 
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("Incorrect target.");
-			activeChar.sendPacket(sm);
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
-		
 		if (player.getObjectId() == activeChar.getObjectId())
-		{	
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("You cannot self teleport.");
-			activeChar.sendPacket(sm);
-		}
+			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
 		else
 		{
-			int x = player.getX();
-			int y = player.getY();
-			int z = player.getZ();
-			
-			activeChar.teleToLocation(x, y, z);
-		
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("You have teleported to character " + player.getName() + ".");
-			activeChar.sendPacket(sm);
+			activeChar.teleToLocation(player.getX(), player.getY(), player.getZ(), true);
+			activeChar.sendMessage("You're teleporting yourself to character " + player.getName());
 		}
+		showMainPage(activeChar);
+	}
+	/**
+	 * @param activeChar
+	 */
+	private void showMainPage(L2PcInstance activeChar)
+	{
 		AdminHelpPage.showHelpPage(activeChar, "charmanage.htm");
 	}
-	private void setAccountAccessLevel(String user, L2PcInstance player, int banLevel)
-    {
-        java.sql.Connection con = null;
-        try
-        {           
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            
-            String stmt = "Select characters.account_name From characters Where characters.char_name = ?";
-            PreparedStatement statement = con.prepareStatement(stmt);
-            statement.setString(1, user);
-            ResultSet result = statement.executeQuery();
-            String acc_name = result.getString(1);
-            statement.close();
-            
-            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);            
-            if(acc_name.length() > 0)
-            {
-               LoginServerThread.getInstance().sendAccessLevel(acc_name, banLevel);
-               sm.addString("Account Access Level for "+user+" set to "+banLevel+".");
-            }
-            else
-               sm.addString("Couldnt find player: "+user+".");            
-            player.sendPacket(sm);
-        }
-        catch (Exception e)
-        {
-            _log.warn("Could not set accessLevl:"+e);
-        } 
-        finally 
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
-    }
+
+	private void setAccountAccessLevel(String player, L2PcInstance activeChar, int banLevel)
+	{
+		java.sql.Connection con = null;
+		try
+		{		   
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			String stmt = "SELECT account_name FROM characters WHERE char_name = ?";
+			PreparedStatement statement = con.prepareStatement(stmt);
+			statement.setString(1, player);
+			ResultSet result = statement.executeQuery();
+			if (result.next())
+			{
+				String acc_name = result.getString(1);
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+				if(acc_name.length() > 0)
+				{
+					LoginServerThread.getInstance().sendAccessLevel(acc_name, banLevel);
+					sm.addString("Account Access Level for "+player+" set to "+banLevel+".");
+				}
+				else
+					sm.addString("Couldn't find player: "+player+".");
+				activeChar.sendPacket(sm);
+			}
+			else
+				activeChar.sendMessage("Specified player name didn't lead to a valid account.");
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("Could not set accessLevel:"+e);
+			if (_log.isDebugEnabled())
+				e.printStackTrace();
+		}
+		finally 
+		{
+			try 
+			{ 
+				con.close(); 
+			}
+			catch (Exception e) {}
+		}
+	}
 }
