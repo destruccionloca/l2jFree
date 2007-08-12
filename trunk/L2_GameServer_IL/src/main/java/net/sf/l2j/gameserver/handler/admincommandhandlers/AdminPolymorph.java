@@ -37,31 +37,36 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class AdminPolymorph implements IAdminCommandHandler
 {
-    private static final String[] ADMIN_COMMANDS = { "admin_polymorph", "admin_unpolymorph",
+	private static final String[] ADMIN_COMMANDS = { "admin_polymorph", "admin_unpolymorph",
 			"admin_polymorph_menu", "admin_unpolymorph_menu"	};
 
-    private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
+	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-                return false;
-        
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
+		
 		if (command.startsWith("admin_polymorph"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
+			L2Object target = activeChar.getTarget();
 			try
 			{
 				st.nextToken();
-				String type = st.nextToken();
-				String id = st.nextToken();
-				L2Object target = activeChar.getTarget();
-				doPolymorph(activeChar, target, id, type);
+				String p1 = st.nextToken();
+				if (st.hasMoreTokens())
+				{
+					String p2 = st.nextToken();
+					doPolymorph(activeChar, target, p2, p1);
+				}
+				else
+					doPolymorph(activeChar, target, p1, "npc");
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage: //polymoprh <type> <id>");
+				activeChar.sendMessage("Usage: //polymoprh [type] <id>");
 			}
 		}
 		else if (command.equals("admin_unpolymorph"))
@@ -71,19 +76,19 @@ public class AdminPolymorph implements IAdminCommandHandler
 		if (command.contains("menu"))
 			showMainPage(activeChar);
 		return true;
-    }
+	}
 
-    public String[] getAdminCommandList()
-    {
-        return ADMIN_COMMANDS;
-    }
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
+	}
 
-    private boolean checkLevel(int level)
-    {
-        return (level >= REQUIRED_LEVEL);
-    }
+	private boolean checkLevel(int level)
+	{
+		return (level >= REQUIRED_LEVEL);
+	}
 
-    
+	
 	private void doPolymorph(L2PcInstance activeChar, L2Object obj, String id, String type)
 	{
 		if (obj != null)
@@ -99,9 +104,9 @@ public class AdminPolymorph implements IAdminCommandHandler
 				Char.sendPacket(sg);
 			}
 			//end of animation
-			//L2Character target = (L2Character) obj;
 			obj.decayMe();
 			obj.spawnMe(obj.getX(),obj.getY(),obj.getZ());
+			activeChar.sendMessage("Polymorph succeed");
 		}
 		else
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
@@ -118,6 +123,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			target.getPoly().setPolyInfo(null, "1");
 			target.decayMe();
 			target.spawnMe(target.getX(),target.getY(),target.getZ());
+			activeChar.sendMessage("Unpolymorph succeed");
 		}
 		else
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));

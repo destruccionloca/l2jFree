@@ -55,7 +55,6 @@ public class AdminMobGroup implements IAdminCommandHandler
 
 		if (command.equals("admin_mobmenu")) 
 		{
-			//AdminHelpPage.showHelpPage(activeChar, "mobgroup.htm");
 			showMainPage(activeChar,command);
 			return true;
 		}			
@@ -104,7 +103,6 @@ public class AdminMobGroup implements IAdminCommandHandler
 		else if (command.startsWith("admin_mobgroup_teleport"))
 			teleportGroup(command, activeChar);
 
-		//AdminHelpPage.showHelpPage(activeChar, );
 		showMainPage(activeChar,command);
 		return true;
 	}

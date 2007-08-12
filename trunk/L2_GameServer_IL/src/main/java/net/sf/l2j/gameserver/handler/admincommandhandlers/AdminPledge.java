@@ -103,13 +103,13 @@ public class AdminPledge implements IAdminCommandHandler
                 else
                     activeChar.sendMessage("There was a problem while destroying the clan.");
             }
-            else if (action.equals("info"))
-            {
-                activeChar.sendPacket(new GMViewPledgeInfo(player.getClan(),player));
-            }
             else if (parameter == null)
             {
                 activeChar.sendMessage("Usage: //pledge <setlevel|rep> <number>");
+            }
+            else if (action.equals("info"))
+            {
+                activeChar.sendPacket(new GMViewPledgeInfo(player.getClan(),player));
             }
             else if(action.equals("setlevel"))
             {

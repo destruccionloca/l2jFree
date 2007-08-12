@@ -431,7 +431,7 @@ public class AdminEffects implements IAdminCommandHandler
 			{
 				String target=null;
 				L2Object obj = activeChar.getTarget();
-				if (st.countTokens() == 3)
+				if (st.countTokens() == 2)
 				{
 					int social = Integer.parseInt(st.nextToken());
 					target = st.nextToken();
@@ -459,7 +459,7 @@ public class AdminEffects implements IAdminCommandHandler
 						}
 					}
 				}
-				else if (st.countTokens() == 2)
+				else if (st.countTokens() == 1)
 				{
 					int social = Integer.parseInt(st.nextToken());
 					if (obj == null)
