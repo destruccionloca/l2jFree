@@ -270,11 +270,11 @@
 </skill>
 <skill id="411" levels="3" name="Stealth">
   <table name="#mpConsume"> 27 31 34 </table>
-  <table name="#pAtk"> 1.2 1.3 1.4 </table>
-  <table name="#accCombat"> 1.1 1.15 1.2 </table>
-  <table name="#rCrit"> 1.1 1.2 1.3 </table>
-  <table name="#pDef"> 1.1 1.2 1.3 </table>
-  <table name="#mDef"> 1.15 1.25 1.35 </table>
+  <table name="#pAtk"> 0.55 0.55 0.55 </table>
+  <table name="#accCombat"> 12 12 12 </table>
+  <table name="#rEvas"> 12 8 4 </table>
+  <table name="#pDef"> 0.55 0.7 0.85 </table>
+  <table name="#mDef"> 0.55 0.7 0.85 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="hitTime" val="2000"/>
   <set name="skillTime" val="2000"/>
@@ -287,11 +287,11 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="SilentMove" abnormal="stealth" time="120" val="0">
-      <div order="0x30" stat="pAtk" val="#pAtk"/>
-      <div order="0x30" stat="accCombat" val="#accCombat"/>
-      <div order="0x30" stat="rCrit" val="#rCrit"/>
-      <div order="0x30" stat="pDef" val="#pDef"/>
-      <div order="0x30" stat="mDef" val="#mDef"/>
+      <mul order="0x50" stat="pAtk" val="#pAtk"/>
+      <sub order="0x40" stat="accCombat" val="#accCombat"/>
+      <sub order="0x40" stat="rEvas" val="#rEvas"/>
+      <mul order="0x50" stat="pDef" val="#pDef"/>
+      <mul order="0x50" stat="mDef" val="#mDef"/>
     </effect>
   </for>
 </skill>
