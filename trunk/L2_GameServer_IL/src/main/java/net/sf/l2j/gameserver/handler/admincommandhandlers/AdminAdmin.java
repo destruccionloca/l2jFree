@@ -61,8 +61,8 @@ import org.apache.commons.logging.LogFactory;
  * - manualhero = cycles olympiad and calculate new heroes. 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2007/07/28 10:06:06 $
  */
-public class AdminAdmin implements IAdminCommandHandler {
-	
+public class AdminAdmin implements IAdminCommandHandler
+{
 	private final static Log _log = LogFactory.getLog(AdminAdmin.class);
 
 	private static final String[] ADMIN_COMMANDS = {"admin_admin", "admin_admin1", "admin_admin2", "admin_admin3", "admin_admin4", "admin_admin5",
@@ -79,7 +79,7 @@ public class AdminAdmin implements IAdminCommandHandler {
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
 		
-		if (command.equals("admin_admin"))
+		if (command.startsWith("admin_admin"))
 		{
 			showMainPage(activeChar, command);
 		}
