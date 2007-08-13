@@ -261,7 +261,7 @@ public class RequestWearItem extends L2GameClientPacket
 		su.addAttribute(StatusUpdate.CUR_LOAD, _activeChar.getCurrentLoad());
 		_activeChar.sendPacket(su);
         
-        // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers
+        // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers
 		_activeChar.broadcastUserInfo();
 
         

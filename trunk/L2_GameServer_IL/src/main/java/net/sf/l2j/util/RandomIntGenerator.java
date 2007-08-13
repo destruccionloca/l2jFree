@@ -28,16 +28,16 @@ public class RandomIntGenerator{
     
     private static final Log _log = LogFactory.getLog(RandomIntGenerator.class); 
     private boolean[] buffer = new boolean[L2DropData.MAX_CHANCE];
-    private static RandomIntGenerator _Instance;
+    private static RandomIntGenerator _instance;
     
     public static final RandomIntGenerator getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
             _log.info("Initializing RandomIntGenerator");
-            _Instance = new RandomIntGenerator();
+            _instance = new RandomIntGenerator();
         }
-        return _Instance;
+        return _instance;
     }
     
     private RandomIntGenerator(){

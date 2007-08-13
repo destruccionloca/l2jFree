@@ -2942,7 +2942,7 @@ public final class L2PcInstance extends L2PlayableInstance
         ItemList il = new ItemList(getInventory().getItems(), true);
         sendPacket(il);
 
-        // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers
+        // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers
         broadcastUserInfo();
 
         // Sends message to client if requested
@@ -3446,7 +3446,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers.<BR><BR>
+     * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers.<BR><BR>
      *
      * <B><U> Concept</U> :</B><BR><BR>
      * Others L2PcInstance in the detection area of the L2PcInstance are identified in <B>_knownPlayers</B>.
@@ -3454,7 +3454,7 @@ public final class L2PcInstance extends L2PlayableInstance
      *
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Send a Server->Client packet UserInfo to this L2PcInstance (Public and Private Data)</li>
-     * <li>Send a Server->Client packet CharInfo to all L2PcInstance in _KnownPlayers of the L2PcInstance (Public data only)</li><BR><BR>
+     * <li>Send a Server->Client packet CharInfo to all L2PcInstance in _knownPlayers of the L2PcInstance (Public data only)</li><BR><BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : DON'T SEND UserInfo packet to other players instead of CharInfo packet.
      * Indeed, UserInfo packet contains PRIVATE DATA as MaxHP, STR, DEX...</B></FONT><BR><BR>
@@ -3465,7 +3465,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Send a Server->Client packet UserInfo to this L2PcInstance
         sendPacket(new UserInfo(this));
 
-        // Send a Server->Client packet CharInfo to all L2PcInstance in _KnownPlayers of the L2PcInstance
+        // Send a Server->Client packet CharInfo to all L2PcInstance in _knownPlayers of the L2PcInstance
         if (_log.isDebugEnabled())
             _log.debug("players to notify:" + getKnownList().getKnownPlayers().size()
                 + " packet: [S] 03 CharInfo");
@@ -5253,7 +5253,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Set the Intention of the AI to AI_INTENTION_IDLE </li>
      * <li>Enable all skills (set _allSkillsDisabled to False) </li>
-     * <li>Send a Server->Client Packet MagicSkillCanceld to the L2PcInstance and all L2PcInstance in the _KnownPlayers of the L2Character (broadcast) </li><BR><BR>
+     * <li>Send a Server->Client Packet MagicSkillCanceld to the L2PcInstance and all L2PcInstance in the _knownPlayers of the L2Character (broadcast) </li><BR><BR>
      *
      */
     public void cancelCastMagic()
@@ -5264,7 +5264,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Enable all skills (set _allSkillsDisabled to False)
         enableAllSkills();
 
-        // Send a Server->Client Packet MagicSkillCanceld to the L2PcInstance and all L2PcInstance in the _KnownPlayers of the L2Character (broadcast)
+        // Send a Server->Client Packet MagicSkillCanceld to the L2PcInstance and all L2PcInstance in the _knownPlayers of the L2Character (broadcast)
         MagicSkillCanceld msc = new MagicSkillCanceld(getObjectId());
 
         // Broadcast the packet to self and known players.
@@ -5301,17 +5301,17 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Update Stats of the L2PcInstance client side by sending Server->Client packet UserInfo/StatusUpdate to this L2PcInstance and CharInfo/StatusUpdate to all L2PcInstance in its _KnownPlayers (broadcast).<BR><BR>
+     * Update Stats of the L2PcInstance client side by sending Server->Client packet UserInfo/StatusUpdate to this L2PcInstance and CharInfo/StatusUpdate to all L2PcInstance in its _knownPlayers (broadcast).<BR><BR>
      */
     public void updateStats()
     {
         super.updateStats();
         refreshOverloaded();
         refreshExpertisePenalty();
-        // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers (broadcast)
+        // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers (broadcast)
         broadcastUserInfo();
 
-        // Send a Server->Client StatusUpdate packet with Karma to the L2PcInstance and to all L2PcInstance in its _KnownPlayers (broadcast)
+        // Send a Server->Client StatusUpdate packet with Karma to the L2PcInstance and to all L2PcInstance in its _knownPlayers (broadcast)
         updateKarma();
     }
 
@@ -7585,7 +7585,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _KnownPlayers.<BR><BR>
+     * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers.<BR><BR>
      *
      * <B><U> Concept</U> :</B><BR><BR>
      * Others L2PcInstance in the detection area of the L2PcInstance are identified in <B>_knownPlayers</B>.
@@ -7593,7 +7593,7 @@ public final class L2PcInstance extends L2PlayableInstance
      *
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Send a Server->Client packet UserInfo to this L2PcInstance (Public and Private Data)</li>
-     * <li>Send a Server->Client packet CharInfo to all L2PcInstance in _KnownPlayers of the L2PcInstance (Public data only)</li><BR><BR>
+     * <li>Send a Server->Client packet CharInfo to all L2PcInstance in _knownPlayers of the L2PcInstance (Public data only)</li><BR><BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : DON'T SEND UserInfo packet to other players instead of CharInfo packet.
      * Indeed, UserInfo packet contains PRIVATE DATA as MaxHP, STR, DEX...</B></FONT><BR><BR>

@@ -68,13 +68,13 @@ public class Auction
 	}
 	 public class Bidder
 	 {
-	     private String _Name;
+	     private String _name;
 	     private String _ClanName;
 	     private int _Bid;
 	     private Calendar _timeBid;
 	     public Bidder(String name, String clanName, int bid, long timeBid)
 	     {
-	         _Name = name;
+	         _name = name;
 	         _ClanName = clanName;
 	         _Bid = bid;
 	         _timeBid = Calendar.getInstance();
@@ -82,7 +82,7 @@ public class Auction
 	     }
 	     public String getName()
 	     {
-	         return _Name;
+	         return _name;
 	     }
 	     public String getClanName()
 	     {

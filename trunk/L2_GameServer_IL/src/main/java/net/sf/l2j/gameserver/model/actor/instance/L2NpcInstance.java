@@ -343,14 +343,14 @@ public class L2NpcInstance extends L2Character
     }
     
     /**
-     * Send a packet NpcInfo with state of abnormal effect to all L2PcInstance in the _KnownPlayers of the L2NpcInstance.<BR><BR>
+     * Send a packet NpcInfo with state of abnormal effect to all L2PcInstance in the _knownPlayers of the L2NpcInstance.<BR><BR>
      */
     public void updateAbnormalEffect()
     {
         //NpcInfo info = new NpcInfo(this);
         //broadcastPacket(info);
         
-        // Send a Server->Client packet NpcInfo with state of abnormal effect to all L2PcInstance in the _KnownPlayers of the L2NpcInstance
+        // Send a Server->Client packet NpcInfo with state of abnormal effect to all L2PcInstance in the _knownPlayers of the L2NpcInstance
         for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             if (player != null && this != null)
                 player.sendPacket(new NpcInfo(this, player));
@@ -1332,11 +1332,11 @@ public class L2NpcInstance extends L2Character
     }
     
     /**
-     * Send a packet SocialAction to all L2PcInstance in the _KnownPlayers of the L2NpcInstance and create a new RandomAnimation Task.<BR><BR>
+     * Send a packet SocialAction to all L2PcInstance in the _knownPlayers of the L2NpcInstance and create a new RandomAnimation Task.<BR><BR>
      */
     public void onRandomAnimation()
     {
-        // Send a packet SocialAction to all L2PcInstance in the _KnownPlayers of the L2NpcInstance
+        // Send a packet SocialAction to all L2PcInstance in the _knownPlayers of the L2NpcInstance
         SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
         broadcastPacket(sa);
         

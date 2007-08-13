@@ -27,7 +27,7 @@ public class Jail
 	// =========================================================
     // Data Field
 	private int _JailId                       = 0;
-    private String _Name                       = "";
+    private String _name                       = "";
     private FastList<int[]> _Spawn;
     private Zone _Zone;
 
@@ -52,14 +52,14 @@ public class Jail
     private void loadData()
     {
         Zone zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Jail), getJailId());
-        if (zone != null) _Name = zone.getName();
+        if (zone != null) _name = zone.getName();
     }
 	
 	// =========================================================
 	// Proeprty
 	public final int getJailId() { return _JailId; }
 
-    public final String getName() { return _Name; }
+    public final String getName() { return _name; }
 
     public final FastList<int[]> getSpawn()
     {

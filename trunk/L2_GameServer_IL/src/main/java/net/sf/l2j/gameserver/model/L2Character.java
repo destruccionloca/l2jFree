@@ -310,7 +310,7 @@ public abstract class L2Character extends L2Object
     }
 
     /**
-     * Send a packet to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character.<BR><BR>
+     * Send a packet to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character.<BR><BR>
      *
      * <B><U> Concept</U> :</B><BR><BR>
      * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.
@@ -473,7 +473,7 @@ public abstract class L2Character extends L2Object
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Stop the movement of the L2Character</li>
      * <li>Set the x,y,z position of the L2Object and if necessary modify its _worldRegion</li>
-     * <li>Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in its _KnownPlayers</li>
+     * <li>Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in its _knownPlayers</li>
      * <li>Modify the position of the pet if necessary</li><BR><BR>
      *
      */
@@ -508,7 +508,7 @@ public abstract class L2Character extends L2Object
         if (_log.isDebugEnabled()) 
             _log.debug("Teleporting to: " + x + ", " + y + ", " + z);
 
-        // Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
+        // Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
         broadcastPacket(new TeleportToLocation(this, x, y, z));
 
         // Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
@@ -550,7 +550,7 @@ public abstract class L2Character extends L2Object
      * <li>If weapon is a bow, consumme MP and set the new period of bow non re-use </li><BR><BR>
      * <li>Get the Attack Speed of the L2Character (delay (in milliseconds) before next attack) </li>
      * <li>Select the type of attack to start (Simple, Bow, Pole or Dual) and verify if SoulShot are charged then start calculation</li>
-     * <li>If the Server->Client packet Attack contains at least 1 hit, send the Server->Client packet Attack to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character</li>
+     * <li>If the Server->Client packet Attack contains at least 1 hit, send the Server->Client packet Attack to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character</li>
      * <li>Notify AI with EVT_READY_TO_ACT</li><BR><BR>
      *
      * @param target The L2Character targeted
@@ -800,7 +800,7 @@ public abstract class L2Character extends L2Object
         }
 
         // If the Server->Client packet Attack contains at least 1 hit, send the Server->Client packet Attack
-        // to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
+        // to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
         if (attack.hasHits()) 
                 broadcastPacket(attack);
 
@@ -1363,7 +1363,7 @@ public abstract class L2Character extends L2Object
             reuseDelay *= 333.0 / getPAtkSpd();
 
         // Send a Server->Client packet MagicSkillUser with target, displayId, level, skillTime, reuseDelay
-        // to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
+        // to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
         broadcastPacket(new MagicSkillUser(this, target, displayId, level, skillTime, reuseDelay));
 
         // Send a system message USE_S1 to the L2Character
@@ -5073,7 +5073,7 @@ public abstract class L2Character extends L2Object
                     if (_log.isDebugEnabled()) 
                         _log.debug("msl: "+getName()+" "+magicId+" "+level+" "+target.getTitle());
 
-                   // Send a Server->Client packet MagicSkillLaunched to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
+                   // Send a Server->Client packet MagicSkillLaunched to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
                     broadcastPacket(new MagicSkillLaunched(this, magicId, level, target));
                     
                     if (this instanceof L2PcInstance && target instanceof L2Summon)

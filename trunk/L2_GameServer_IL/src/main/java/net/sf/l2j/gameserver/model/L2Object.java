@@ -374,7 +374,7 @@ public abstract class L2Object
      */
     public final boolean isVisible() 
     {
-        //return getPosition().getWorldRegion() != null && _IsVisible;
+        //return getPosition().getWorldRegion() != null && _isVisible;
         return getPosition().getWorldRegion() != null;
     }
     /**
