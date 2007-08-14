@@ -2999,19 +2999,20 @@ public final class L2PcInstance extends L2PlayableInstance
         
         item.dropMe(this, getClientX() + Rnd.get(50) - 25, getClientY() + Rnd.get(50) - 25, getClientZ() + 20);
 
-         if (Config.AUTODESTROY_ITEM_AFTER >0 && Config.DESTROY_DROPPED_PLAYER_ITEM && !Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
-             {
-             if ( (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM) || !item.isEquipable()) 
-             ItemsAutoDestroy.getInstance().addItem(item);
-             }
-         if (Config.DESTROY_DROPPED_PLAYER_ITEM){
+        if (Config.AUTODESTROY_ITEM_AFTER >0 && Config.DESTROY_DROPPED_PLAYER_ITEM && !Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
+        {
+            if ( (item.isEquipable() && Config.DESTROY_EQUIPABLE_PLAYER_ITEM) || !item.isEquipable()) 
+            ItemsAutoDestroy.getInstance().addItem(item);
+        }
+        if (Config.DESTROY_DROPPED_PLAYER_ITEM)
+        {
             if (!item.isEquipable() || (item.isEquipable()  && Config.DESTROY_EQUIPABLE_PLAYER_ITEM ))
                 item.setProtected(false);
             else
                 item.setProtected(true);
-            }
-            else
-                item.setProtected(true);
+        }
+        else
+            item.setProtected(true);
                 
         // Send inventory update packet
         _inventory.updateInventory(item);
