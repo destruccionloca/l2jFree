@@ -74,7 +74,6 @@ public class AdminPledge implements IAdminCommandHandler
             }
             catch (NoSuchElementException nse)
             {
-                activeChar.sendMessage("Usage: //pledge <create|info|dismiss|setlevel|rep> [name|level|points]");    
             }
             if (action.equals("create"))
             {
@@ -137,7 +136,7 @@ public class AdminPledge implements IAdminCommandHandler
                 }
                 catch(NumberFormatException nfe)
                 {
-                    activeChar.sendMessage("You must enter an integer.");
+                    activeChar.sendMessage("Usage: //pledge <rep> <number>");
                 }
                 
                 L2Clan clan = player.getClan();
@@ -147,7 +146,7 @@ public class AdminPledge implements IAdminCommandHandler
                     return false;
                 }
                 clan.setReputationScore(clan.getReputationScore()+points, true);
-                activeChar.sendMessage("You "+(points>0?"add ":"remove ")+Math.abs(points)+" points "+(points>0?"to ":"from ")+clan.getName()+"'s reputation score.");
+                activeChar.sendMessage("You "+(points>0?"add ":"remove ")+Math.abs(points)+" points "+(points>0?"to ":"from ")+clan.getName()+"'s reputation. Their current score is "+clan.getReputationScore());
             }
         }
         return true;

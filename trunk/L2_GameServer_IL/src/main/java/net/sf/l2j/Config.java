@@ -1483,6 +1483,7 @@ public final class Config {
     public static boolean 	GM_STARTUP_INVISIBLE;
     public static boolean 	GM_STARTUP_SILENCE;
     public static boolean 	GM_STARTUP_AUTO_LIST;
+    public static String  	GM_ADMIN_MENU_STYLE;
     public static int 		STANDARD_RESPAWN_DELAY;	// Standard Respawn Delay
     public static boolean 	GM_HERO_AURA;			// Place an aura around the GM ?
     public static boolean 	GM_STARTUP_INVULNERABLE;	// Set the GM invulnerable at startup ?
@@ -1533,14 +1534,15 @@ public final class Config {
             GM_RES          = Integer.parseInt(gmSettings.getProperty("GMRes", "100"));
             GM_PEACEATTACK  = Integer.parseInt(gmSettings.getProperty("GMPeaceAttack", "100"));
             GM_HEAL         = Integer.parseInt(gmSettings.getProperty("GMHeal", "100"));
-            GM_IRC         	= Integer.parseInt(gmSettings.getProperty("GMIRC", "100"));
+            GM_IRC          = Integer.parseInt(gmSettings.getProperty("GMIRC", "100"));
             GM_ENCHANT      = Integer.parseInt(gmSettings.getProperty("GMEnchant", "100"));
             GM_UNBLOCK      = Integer.parseInt(gmSettings.getProperty("GMUnblock", "100"));
             GM_CACHE        = Integer.parseInt(gmSettings.getProperty("GMCache", "100"));
             GM_TALK_BLOCK   = Integer.parseInt(gmSettings.getProperty("GMTalkBlock", "100"));
             GM_TEST         = Integer.parseInt(gmSettings.getProperty("GMTest", "100"));
             GM_STARTUP_AUTO_LIST = Boolean.parseBoolean(gmSettings.getProperty("GMStartupAutoList", "True"));
-            GM_HERO_AURA 	= Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
+            GM_ADMIN_MENU_STYLE = gmSettings.getProperty("GMAdminMenuStyle", "modern");
+            GM_HERO_AURA    = Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
             GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "True"));
             STANDARD_RESPAWN_DELAY = Integer.parseInt(gmSettings.getProperty("StandardRespawnDelay", "0"));
             
@@ -2489,7 +2491,8 @@ public final class Config {
         
         else if (pName.equalsIgnoreCase("PvPTime")) PVP_TIME = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("GlobalChat")) DEFAULT_GLOBAL_CHAT = pValue;
-        else if (pName.equalsIgnoreCase("TradeChat"))  DEFAULT_TRADE_CHAT = pValue;
+        else if (pName.equalsIgnoreCase("TradeChat")) DEFAULT_TRADE_CHAT = pValue;
+		else if (pName.equalsIgnoreCase("MenuStyle")) GM_ADMIN_MENU_STYLE = pValue;
         
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("CTFAllowInterference")) CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);

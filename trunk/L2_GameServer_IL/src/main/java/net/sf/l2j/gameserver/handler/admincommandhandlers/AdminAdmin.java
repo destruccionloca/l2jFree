@@ -403,13 +403,14 @@ public class AdminAdmin implements IAdminCommandHandler
 				String pName = parameter[0].trim();
 				String pValue = parameter[1].trim();
 				if (Config.setParameterValue(pName, pValue))
-					activeChar.sendMessage("parameter set succesfully");
+					activeChar.sendMessage("parameter "+pName+" succesfully set to "+pValue);
 				else 
 					activeChar.sendMessage("Invalid parameter!");
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //set parameter=value");
+				if (cmd.length==2)
+					activeChar.sendMessage("Usage: //set parameter=vaue");
 			}
 			finally
 			{
@@ -463,7 +464,10 @@ public class AdminAdmin implements IAdminCommandHandler
 			filename="mods";
 			break;
 		default:
-			filename="main";
+			if (Config.GM_ADMIN_MENU_STYLE.equals("modern"))
+				filename="main";
+			else
+				filename="classic";
 			break;
 		}
 		AdminHelpPage.showHelpPage(activeChar, filename+"_menu.htm");
