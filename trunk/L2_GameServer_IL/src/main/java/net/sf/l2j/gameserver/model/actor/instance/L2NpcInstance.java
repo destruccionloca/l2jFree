@@ -156,14 +156,17 @@ public class L2NpcInstance extends L2Character
     }
     // [L2J_JP ADD END]
     
-    /** Task launching the function onRandomAnimation() */
+    /** Task launching the function onRandomAnimation()
+    * Scheduled for L2MonsterInstance only if AllowRandomAnimation=true
+    */
     public class RandomAnimationTask implements Runnable
     {
         public void run()
         {
-            try {
+            try
+            {
                 onRandomAnimation();
-            } 
+            }
             catch (Throwable t) {}
         }
     }

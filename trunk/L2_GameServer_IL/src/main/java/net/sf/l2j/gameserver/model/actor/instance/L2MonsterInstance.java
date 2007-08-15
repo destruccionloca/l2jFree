@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -101,9 +102,8 @@ public class L2MonsterInstance extends L2Attackable
     @Override
     public boolean hasRandomAnimation()
     {
-        // Send a packet SocialAction to all L2PcInstance in the _KnownPlayers of the L2NpcInstance
-        SocialAction sa1 = new SocialAction(2, getObjectId());
-        broadcastPacket(sa1);
+        if(!Config.ALLOW_RANDOM_ANIMATIONS)
+            return false;
         // Create a new RandomAnimation Task that will be launched after the calculated delay
         startRandomAnimation();
         return false;
@@ -117,7 +117,7 @@ public class L2MonsterInstance extends L2Attackable
         int maxWait = 30;
         
         // Calculate the delay before the next animation
-        int interval = (Rnd.nextInt(maxWait - minWait) + minWait) * 1000;
+        int interval = Rnd.get(minWait, maxWait) * 1000;
         
         // Create a RandomAnimation Task that will be launched after the calculated delay 
         ThreadPoolManager.getInstance().scheduleGeneral(new RandomAnimationTask(), interval);

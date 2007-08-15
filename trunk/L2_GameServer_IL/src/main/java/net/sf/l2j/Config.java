@@ -1027,6 +1027,7 @@ public final class Config {
     public static boolean 				ALT_DEV_NO_QUESTS;				// Alt Settings for devs
     public static boolean 				ALT_DEV_NO_SPAWNS;				// Alt Settings for devs
     public static boolean 				ONLY_GM_ITEMS_FREE;				// Only GM buy items for free
+    public static boolean				ALLOW_RANDOM_ANIMATIONS;		// Random animations for L2Monsters
     //  *******************************************************************************************
     public static void loadOptionsConfig()
     {
@@ -1083,7 +1084,8 @@ public final class Config {
             ALLOW_BOAT                      = Boolean.valueOf(optionsSettings.getProperty("AllowBoat", "False"));
             ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
             ALLOW_WEDDING                   = Boolean.valueOf(optionsSettings.getProperty("AllowWedding", "False"));
-            ALLOW_GUARDS        			= Boolean.valueOf(optionsSettings.getProperty("AllowGuards", "False"));
+            ALLOW_GUARDS                    = Boolean.valueOf(optionsSettings.getProperty("AllowGuards", "False"));
+            ALLOW_RANDOM_ANIMATIONS         = Boolean.valueOf(optionsSettings.getProperty("AllowRandomAnimations", "False"));
            
             DEFAULT_GLOBAL_CHAT             = optionsSettings.getProperty("GlobalChat", "ON");
             GLOBAL_CHAT_TIME				= Integer.parseInt(optionsSettings.getProperty("GlobalChatTime", "1"));
