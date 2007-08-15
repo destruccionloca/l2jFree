@@ -145,7 +145,11 @@ public class AdminMenu implements IAdminCommandHandler
 				L2PcInstance player = L2World.getInstance().getPlayer(targetName);
 				teleportToCharacter(activeChar, player);
 			}
-			catch (StringIndexOutOfBoundsException e){}
+			catch (StringIndexOutOfBoundsException e)
+			{
+				activeChar.sendMessage("Target not found.");
+				showMainPage(activeChar);
+			}
 		}
 		else if (command.equals("admin_kill_menu"))
 		{
@@ -250,6 +254,8 @@ public class AdminMenu implements IAdminCommandHandler
 			player.sendMessage(message);
 			player.teleToLocation(x, y, z, true);
 		}
+		else
+			activeChar.sendMessage("Target not found.");
 		showMainPage(activeChar);
 	}
 	private void teleportToCharacter(L2PcInstance activeChar, L2Object target)
