@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.model.actor.knownlist.MonsterKnownList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.MinionList;
@@ -66,22 +67,22 @@ public class L2MonsterInstance extends L2Attackable
     public L2MonsterInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-		this.getKnownList();	// init knownlist
+        this.getKnownList();	// init knownlist
         _minionList  = new MinionList(this);
+        hasRandomAnimation();
         // [L2J_JP ADD]
         if (this.getNpcId() == 29002)   // Queen Ant Larva is invulnerable.
         {
             this.setIsInvul(true);
         }
-    }   
+    }
 
     public final MonsterKnownList getKnownList()
     {
-    	if(super.getKnownList() == null || !(super.getKnownList() instanceof MonsterKnownList))
-    		this.setKnownList(new MonsterKnownList(this));
-    	return (MonsterKnownList)super.getKnownList();
+        if(super.getKnownList() == null || !(super.getKnownList() instanceof MonsterKnownList))
+            this.setKnownList(new MonsterKnownList(this));
+        return (MonsterKnownList)super.getKnownList();
     }
-        
     /**
      * Return True if the attacker is not another L2MonsterInstance.<BR><BR>
      */
@@ -95,22 +96,39 @@ public class L2MonsterInstance extends L2Attackable
     }
     
     /**
-     * Return True if the L2MonsterInstance is Agressive (aggroRange > 0).<BR><BR>
+     * Return False.<BR><BR>
      */
     @Override
+    public boolean hasRandomAnimation()
+    {
+        // Send a packet SocialAction to all L2PcInstance in the _KnownPlayers of the L2NpcInstance
+        SocialAction sa1 = new SocialAction(2, getObjectId());
+        broadcastPacket(sa1);
+        // Create a new RandomAnimation Task that will be launched after the calculated delay
+        startRandomAnimation();
+        return false;
+    }
+    /**
+     * Create a RandomAnimation Task that will be launched after the calculated delay.<BR><BR>
+     */
+    public void startRandomAnimation()
+    {
+        int minWait = 15;
+        int maxWait = 30;
+        
+        // Calculate the delay before the next animation
+        int interval = (Rnd.nextInt(maxWait - minWait) + minWait) * 1000;
+        
+        // Create a RandomAnimation Task that will be launched after the calculated delay 
+        ThreadPoolManager.getInstance().scheduleGeneral(new RandomAnimationTask(), interval);
+    }
+    /**
+     * Return True if the L2MonsterInstance is Agressive (aggroRange > 0).<BR><BR>
+     */
     public boolean isAggressive()
     {
         return (getTemplate().getAggroRange() > 0) && !this.isEventMob;
     }
-
-    /**
-     * Return False.<BR><BR>
-     */
-    public boolean hasRandomAnimation()
-    {
-        return false;
-    }
-    
     public void onSpawn()
     {
         super.onSpawn();
