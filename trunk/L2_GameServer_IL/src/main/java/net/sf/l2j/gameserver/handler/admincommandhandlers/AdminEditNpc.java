@@ -888,7 +888,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			adminReply.replace("%rHand%", String.valueOf(npc.getRhand()));
 			adminReply.replace("%lHand%", String.valueOf(npc.getLhand()));
 			adminReply.replace("%armor%", String.valueOf(npc.getArmor()));
-			adminReply.replace("%walkSpd%", String.valueOf(Util.roundTo((float)(npc.baseRunSpd*0.7),3)));
+			adminReply.replace("%walkSpd%", String.valueOf(Util.roundTo((float)(npc.getBaseRunSpd()*0.7),3)));
 			adminReply.replace("%runSpd%", String.valueOf(npc.getBaseRunSpd()));
 			adminReply.replace("%factionId%", npc.getFactionId() == null ? "" : npc.getFactionId());
 			adminReply.replace("%factionRange%", String.valueOf(npc.getFactionRange()));
@@ -896,7 +896,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			adminReply.replace("%absorbLevel%", String.valueOf(npc.getAbsorbLevel()));
 		}
 		else
-			adminReply.setHtml("<html><head><body>File not found: data/html/admin/editnpc.htm</body></html>");
+			adminReply.setHtml("<html><body>File not found: data/html/admin/editnpc.htm</body></html>");
 
 		activeChar.sendPacket(adminReply);		
 	}
