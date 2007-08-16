@@ -2440,7 +2440,7 @@ public class L2NpcInstance extends L2Character
      * @see net.sf.l2j.gameserver.model.L2Object#decayMe()
      */
     @Override
-    public void decayMe()
+    public void onDecay()
     {
          if (isDecayed()) return;
          setDecayed(true);
@@ -2449,7 +2449,7 @@ public class L2NpcInstance extends L2Character
          setChampion(false);
          
         // Remove the L2NpcInstance from the world when the decay task is launched
-        super.decayMe();
+        super.onDecay();
         
         // Decrease its spawn counter
         if (_spawn != null)
@@ -2506,7 +2506,7 @@ public class L2NpcInstance extends L2Character
         if (!isDecayed()) 
         {
            DecayTaskManager.getInstance().cancelDecayTask(this);
-           decayMe();           
+           onDecay();
        }
     }
 }
