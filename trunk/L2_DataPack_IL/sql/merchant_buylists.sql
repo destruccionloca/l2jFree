@@ -16627,4 +16627,7 @@ UPDATE `merchant_buylists` SET `price` = 2000 WHERE `item_id` = 8153 AND `price`
 UPDATE `merchant_buylists` SET `price` = 2450 WHERE `item_id` = 1520 AND `price` < 2450;
 UPDATE `merchant_buylists` SET `price` = 8000 WHERE `item_id` = 3945 AND `price` < 8000;
 UPDATE `merchant_buylists` SET `price` = 8000 WHERE `item_id` = 3946 AND `price` < 8000;
+UPDATE `merchant_buylists` SET `price` = 11550 WHERE `item_id` = 5146 AND `price` < 11550;
+UPDATE `merchant_buylists` SET `price` = 16500 WHERE `item_id` = 5256 AND `price` < 16500;
 UPDATE `merchant_buylists` SET `price` = 21000 WHERE `item_id` = 4493 AND `price` < 21000;
+UPDATE `merchant_buylists` SET `price` = 38500 WHERE `item_id` = 5262 AND `price` < 38500;
