@@ -32,8 +32,8 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
  * 
  * @version $Revision: 1.2.2.2.2.3 $ $Date: 2005/04/11 10:06:06 $
  */
-public class AdminCreateItem implements IAdminCommandHandler {
-
+public class AdminCreateItem implements IAdminCommandHandler
+{
 	private static final String[] ADMIN_COMMANDS = {
 		"admin_itemcreate",
 		"admin_create_item"

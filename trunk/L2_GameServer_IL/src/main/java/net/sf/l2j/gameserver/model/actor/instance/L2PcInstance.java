@@ -2147,7 +2147,6 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         //Active skill dwarven craft
-
         if (getSkillLevel(1321) < 1 && getRace() == Race.dwarf)
         {
             L2Skill skill = SkillTable.getInstance().getInfo(1321, 1);
@@ -2175,8 +2174,7 @@ public final class L2PcInstance extends L2PlayableInstance
             boolean countUnlearnable = true;
             int unLearnable = 0;
             int skillCounter = 0;
-            L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this,
-                                                                                    this.getClassId());
+            L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this,getClassId());
             while (skills.length > unLearnable)
             {
                 for (L2SkillLearn s : skills)

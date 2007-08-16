@@ -68,7 +68,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 					if (cw.isActivated())
 					{
 						L2PcInstance pl = cw.getPlayer();
-						activeChar.sendMessage("  Player holding: "+ pl==null ? "null" : pl.getName());
+						activeChar.sendMessage("  Player holding: "+(pl==null?"null":pl.getName()));
 						activeChar.sendMessage("    Player karma: "+cw.getPlayerKarma());
 						activeChar.sendMessage("    Time Remaining: "+(cw.getTimeLeft()/60000)+" min.");
 						activeChar.sendMessage("    Kills : "+cw.getNbKills());
@@ -98,7 +98,7 @@ public class AdminCursedWeapons implements IAdminCommandHandler
 					if (cw.isActivated())
 					{
 						L2PcInstance pl = cw.getPlayer();
-						replyMSG.append("<tr><td>Weilder:</td><td>"+ pl==null ? "null" : pl.getName()+"</td></tr>");
+						replyMSG.append("<tr><td>Weilder:</td><td>"+(pl==null?"null":pl.getName())+"</td></tr>");
 						replyMSG.append("<tr><td>Karma:</td><td>"+String.valueOf(cw.getPlayerKarma())+"</td></tr>");
 						replyMSG.append("<tr><td>Kills:</td><td>"+String.valueOf(cw.getPlayerPkKills())+"/"+String.valueOf(cw.getNbKills())+"</td></tr>");
 						replyMSG.append("<tr><td>Time remaining:</td><td>"+String.valueOf(cw.getTimeLeft()/60000)+" min.</td></tr>");

@@ -52,6 +52,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
+import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -885,9 +886,9 @@ public class AdminEditNpc implements IAdminCommandHandler
 			adminReply.replace("%aggro%", String.valueOf(npc.getAggroRange()));
 			adminReply.replace("%mAtkSpd%", String.valueOf(npc.getBaseMAtkSpd()));
 			adminReply.replace("%rHand%", String.valueOf(npc.getRhand()));
-			adminReply.replace("%lHhand%", String.valueOf(npc.getLhand()));
+			adminReply.replace("%lHand%", String.valueOf(npc.getLhand()));
 			adminReply.replace("%armor%", String.valueOf(npc.getArmor()));
-			adminReply.replace("%walkSpd%", String.valueOf(npc.getBaseRunSpd() * 0.7));
+			adminReply.replace("%walkSpd%", String.valueOf(Util.roundTo((float)(npc.baseRunSpd*0.7),3)));
 			adminReply.replace("%runSpd%", String.valueOf(npc.getBaseRunSpd()));
 			adminReply.replace("%factionId%", npc.getFactionId() == null ? "" : npc.getFactionId());
 			adminReply.replace("%factionRange%", String.valueOf(npc.getFactionRange()));

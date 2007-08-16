@@ -91,18 +91,22 @@ public class L2ClanMember
             _powerGrade = _player.getPowerGrade();
             _pledgeType = _player.getPledgeType();
             _title = _player.getTitle();
-			_apprentice = _player.getApprentice();
-			_sponsor = _player.getSponsor();
+            _apprentice = _player.getApprentice();
+            _sponsor = _player.getSponsor();
         }
-        if (player != null) {
-	        if (_clan.getLevel() > 3 && player.isClanLeader())
-	        	SiegeManager.getInstance().addSiegeSkills(player);
-        	
-            L2Skill[] skills = _clan.getAllSkills();
-            for (L2Skill sk : skills) 
+        if (player != null)
+        {
+            if (_clan.getLevel() > 3 && player.isClanLeader())
+                SiegeManager.getInstance().addSiegeSkills(player);
+            
+            if (_clan.getReputationScore() >= 0)
             {
-                if(sk.getMinPledgeClass() <= player.getPledgeClass())
-                    player.addSkill(sk, false);
+                L2Skill[] skills = _clan.getAllSkills();
+                for (L2Skill sk : skills)
+                {
+                    if(sk.getMinPledgeClass() <= player.getPledgeClass())
+                        player.addSkill(sk, false);
+                }
             }
         }
         _player = player;

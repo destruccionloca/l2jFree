@@ -53,7 +53,7 @@ public class AdminSpawn implements IAdminCommandHandler
 		{"admin_spawnsearch_menu",								 // show page with NPC search results
 
 			"Admin Menu - NPC search results.",
-			"Usage: spawnsearch_menu level|name|part string <page>",
+			"Usage: //spawnsearch_menu <level|name|part> string <page>",
 			"Options:",
 			"level - list NPC's by level <string>",
 			"name - list NPC's witch name started with <string>",
@@ -64,21 +64,21 @@ public class AdminSpawn implements IAdminCommandHandler
 	 	{"admin_spawndelay",									   // respawn delay for spawn commands
 			
 			"Set or show default respawn delay for newly spawned NPC.",
-			"Usage spawndelay <sec>",
+			"Usage //spawndelay <sec>",
 			"Options:",
 			"<sec> - set default respawn time in seconds"
 		},
 	 	{"admin_delay",									   // respawn delay for spawn commands
 			
 			"Set respawn delay for targeted NPC and save in DB.",
-			"Usage delay <sec>",
+			"Usage //delay <sec>",
 			"Options:",
 			"<sec> - set respawn time in seconds"
 		},
 	 	{"admin_spawnlist",										   // get list of NPC spawns
 			
 			"Show list of regular spawns of NPC.",
-			"Usage: spawnlist id|name",
+			"Usage: //spawnlist <id|name>",
 			"Options:",
 			"id - NPC template ID",
 			"name - NPC name (use underscope to separate words in npc name)"
@@ -86,7 +86,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	 	{"admin_spawnlist_menu",								   // show list of NPC spawns
 			
 			"Admin Menu - Show spawns of NPC.",
-			"Usage: spawnlist id|name",
+			"Usage: //spawnlist <id|name>",
 			"Options:",
 			"id - NPC template ID",
 			"name - NPC name (use underscope to separate words in npc name)"
@@ -94,7 +94,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	 	{"admin_spawn",											   // spawn NPC and save to DB's default
 			
 			"Spawn NPC and store in DB.",
-			"Usage: spawn id|name <num> <radius>",
+			"Usage: //spawn id|name <num> <radius>",
 			"Options:",
 			"id - NPC template ID",
 			"name - NPC name (use underscope to separate words in npc name)",
@@ -104,7 +104,7 @@ public class AdminSpawn implements IAdminCommandHandler
 		{"admin_cspawn",										   // spawn NPC and save to DB's custom table
 			
 			"Spawn NPC and store in DB in custom table.",
-			"Usage: cspawn id|name <num> <radius>",
+			"Usage: //cspawn <id|name> <num> <radius>",
 			"Options:",
 			"id - NPC template ID",
 			"name - NPC name (use underscope to separate words in npc name)",
@@ -114,7 +114,7 @@ public class AdminSpawn implements IAdminCommandHandler
 		{"admin_otspawn", 										   // spawn NPC but do not store spawn in DB
 			
 			"Spawn NPC and do not store in DB.",
-			"Usage: otspawn id|name <num> <radius>",
+			"Usage: //otspawn <id|name> <num> <radius>",
 			"Options:",
 			"id - NPC template ID",
 			"name - NPC name (use underscope to separate words in npc name)",
@@ -124,7 +124,7 @@ public class AdminSpawn implements IAdminCommandHandler
 		{"admin_spawn_once", 									   // spawn NPC, do not store in db and do not respawn
 			
 			"Spawn NPC and do not store in DB, do not respawn, too.",
-			"Usage: spawn_once id|name <num> <radius>",
+			"Usage: //spawn_once <id|name> <num> <radius>",
 			"Options:",
 			"id - NPC template ID",
 			"name - NPC name (use underscope to separate words in npc name)",
@@ -134,22 +134,27 @@ public class AdminSpawn implements IAdminCommandHandler
 		{"admin_unspawnall",									   // delete all spawned NPC's
 				
 			"Delete all spawned NPC's.",
-			"Usage: unspawnall",
+			"Usage: //unspawnall",
 		},
 		{"admin_respawnall",									   // delete all spawned NPC's then respawn again
 			
 			"Delete all spawned NPC's and respawn again.",
-			"Usage: respawnall",
+			"Usage: //respawnall",
 		},
 		{"admin_spawnnight",									   // spawn night creatures
 			
 			"Spawn night creatures.",
-			"Usage: spawnnight",
+			"Usage: //spawnnight",
 		},
 		{"admin_spawnday",										 // spawn day creatures
 			
 			"Spawn day creatures.",
-			"Usage: spawnday",
+			"Usage: //spawnday",
+		},
+		{"admin_spawn_reload",									 // delete all spawned NPC's then respawn again
+			
+			"Reload spawn table and respawn all NPC's",
+			"Usage: //spawn_reload"
 		}};
 	
 	public static Log _log = LogFactory.getLog(AdminSpawn.class.getName());
@@ -377,7 +382,7 @@ public class AdminSpawn implements IAdminCommandHandler
 			DayNightSpawnManager.getInstance().spawnNightCreatures();
 			activeChar.sendMessage("All nightly NPCs spawned.");
 		}
-		else if (cmd.equals("admin_respawnall"))
+		else if (cmd.equals("admin_respawnall") || cmd.equals("admin_spawn_reload"))
 		{
 			activeChar.sendMessage("NPCs respawn sequence initiated.");
 			RaidBossSpawnManager.getInstance().cleanUp();

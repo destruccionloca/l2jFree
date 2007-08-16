@@ -105,11 +105,15 @@ public final class L2NpcTemplate extends L2CharTemplate
     
     /** List of resist stats for this npc*/
     private Map<Stats, Integer> _resists;
-	
+    
     /** contains a list of quests for each event type (questStart, questAttack, questKill, etc)*/
-	private Map<Quest.QuestEventType, Quest[]> _questEvents;
-	
+    private Map<Quest.QuestEventType, Quest[]> _questEvents;
 
+    private byte _specialFaction = 0;
+
+    /** Some factions needed for special mob ai */
+    public static final byte FACTION_KETRA = 1;
+    public static final byte FACTION_VARKA = 2;
 
     /**
      * Constructor of L2Character.<BR><BR>
@@ -423,7 +427,16 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setFactionId(String factionId)
     {
-        _factionId = ( factionId == null ? null : factionId.intern() );
+        if( factionId == null)
+        {
+            _factionId = null;
+            return;
+        }
+        if(_factionId.equals("ketra"))
+            _specialFaction = FACTION_KETRA;
+        else if(_factionId.equals("varka"))
+            _specialFaction = FACTION_VARKA;
+        _factionId = factionId.intern();
     }
 
     /**
@@ -680,5 +693,10 @@ public final class L2NpcTemplate extends L2CharTemplate
     public void setJClass(String class1)
     {
         _jClass = class1;
+    }
+
+    public byte getSpecialFaction()
+    {
+        return _specialFaction;
     }
 }

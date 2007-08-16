@@ -333,7 +333,7 @@ public class EnterWorld extends L2GameClientPacket
 		}
 		
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
-				
+		
         if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
         {
             sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
@@ -530,7 +530,7 @@ public class EnterWorld extends L2GameClientPacket
     private void showPledgeSkillList(L2PcInstance activeChar)
     {
         L2Clan clan = activeChar.getClan();
-        if (clan != null)
+        if (clan != null && clan.getReputationScore() >= 0)
         {
             PledgeSkillList response = new PledgeSkillList(clan);
             L2Skill[] skills = clan.getAllSkills();

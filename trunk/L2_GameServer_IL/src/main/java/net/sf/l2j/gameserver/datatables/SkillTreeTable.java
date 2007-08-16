@@ -477,7 +477,6 @@ public class SkillTreeTable
         if (skills == null)
         {
             // the skilltree for this class is undefined, so we give an empty list
-
             _log.warning("No clan skills defined!");
             return new L2PledgeSkillLearn[0];
         }
@@ -495,7 +494,6 @@ public class SkillTreeTable
                     if (oldSkills[j].getId() == temp.getId() )
                     {
                         knownSkill = true;
-            
                         if ( oldSkills[j].getLevel() == temp.getLevel()-1)
                         {
                             // this is the next level of a skill that we know
@@ -511,7 +509,6 @@ public class SkillTreeTable
                 }
             }
         }
-            
         return result.toArray(new L2PledgeSkillLearn[result.size()]);
     }
 
