@@ -432,9 +432,9 @@ public final class L2NpcTemplate extends L2CharTemplate
             _factionId = null;
             return;
         }
-        if(_factionId.equals("ketra"))
+        if(factionId.equals("ketra"))
             _specialFaction = FACTION_KETRA;
-        else if(_factionId.equals("varka"))
+        else if(factionId.equals("varka"))
             _specialFaction = FACTION_VARKA;
         _factionId = factionId.intern();
     }

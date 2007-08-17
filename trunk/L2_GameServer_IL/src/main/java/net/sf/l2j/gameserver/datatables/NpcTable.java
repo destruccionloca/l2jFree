@@ -88,8 +88,10 @@ public class NpcTable implements NpcTableMBean
                 statement.close();
                 _log.info("NpcTable: Loaded " + _npcs.size() + " Npc Templates.");
             } 
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 _log.fatal("NPCTable: Error creating NPC table: " + e);
+                e.printStackTrace();
             }
 
             try 
