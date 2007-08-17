@@ -225,6 +225,10 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadPrivilegesConfig();
 					activeChar.sendMessage("Access config reloaded");
 				}
+				else
+				{
+					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+				}
 			}
 			catch(Exception e)
 			{
@@ -386,10 +390,14 @@ public class AdminAdmin implements IAdminCommandHandler
 					ZoneManager.getInstance().reload();
 					activeChar.sendMessage("Zones reloaded.");
 				}
+				else
+				{
+					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone>");
+				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager>");
+				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone>");
 			}
 		}
 
@@ -410,7 +418,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			catch(Exception e)
 			{
 				if (cmd.length==2)
-					activeChar.sendMessage("Usage: //set parameter=vaue");
+					activeChar.sendMessage("Usage: //set parameter=value");
 			}
 			finally
 			{

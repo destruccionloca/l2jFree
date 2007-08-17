@@ -689,105 +689,109 @@ public class GameStatusThread extends Thread
                     try
                     {
                         String type = st.nextToken();
-		
-                        if(type.equals("rates"))
+                        if (type.equals("all"))
+                        {
+                            Config.load();
+                            _print.println("All configs reloaded");
+                        }
+                        else if(type.equals("rates"))
                         {
                             Config.loadRatesConfig();
-                            _print.println("rates config reloaded");
+                            _print.println("Rates config reloaded");
                         }
                         else if(type.equals("enchant"))
                         {
                             Config.loadEnchantConfig();
-                            _print.println("enchant config reloaded");
+                            _print.println("Enchant config reloaded");
                         }
                         else if(type.equals("pvp"))
                         {
                             Config.loadPvpConfig();
-                            _print.println("pvp config reloaded");
+                            _print.println("Pvp config reloaded");
                         }
                         else if(type.equals("options"))
                         {
                             Config.loadOptionsConfig();
-                            _print.println("options config reloaded");
+                            _print.println("Options config reloaded");
                         }
                         else if(type.equals("other"))
                         {
                             Config.loadOtherConfig();
-                            _print.println("other config reloaded");
+                            _print.println("Other config reloaded");
                         }
                         else if(type.equals("alt"))
                         {
                             Config.loadAltConfig();
-                            _print.println("alt config reloaded");
+                            _print.println("Alt config reloaded");
                         }
                         else if(type.equals("clans"))
                         {
                             Config.loadClansConfig();
-                            _print.println("clans config reloaded");
+                            _print.println("Clans config reloaded");
                         }
                         else if(type.equals("champions"))
                         {
                             Config.loadChampionsConfig();
-                            _print.println("champions config reloaded");
+                            _print.println("Champions config reloaded");
                         }
                         else if(type.equals("lottery"))
                         {
                             Config.loadLotteryConfig();
-                            _print.println("lottery config reloaded");
+                            _print.println("Lottery config reloaded");
                         }
                         else if(type.equals("sepulchurs"))
                         {
                             Config.loadSepulchursConfig();
-                            _print.println("sepulchurs config reloaded");
+                            _print.println("Sepulchurs config reloaded");
                         }
                         else if(type.equals("clanhall"))
                         {
                             Config.loadClanHallConfig();
-                            _print.println("clanhall config reloaded");
+                            _print.println("Clanhall config reloaded");
                         }
                         else if(type.equals("funengines"))
                         {
                             Config.loadFunEnginesConfig();
-                            _print.println("funegines config reloaded");
+                            _print.println("Fun egines config reloaded");
                         }
                         else if(type.equals("sevensigns"))
                         {
                             Config.loadSevenSignsConfig();
-                            _print.println("sevensigns config reloaded");
+                            _print.println("Seven Signs config reloaded");
                         }
                         else if(type.equals("gmconf"))
                         {
                             Config.loadGmAccess();
-                            _print.println("gm config reloaded");
+                            _print.println("Gm config reloaded");
                         }
                         else if(type.equals("irc"))
                         {
                             Config.loadIrcConfig();
-                            _print.println("irc config reloaded");
+                            _print.println("Irc config reloaded");
                         }
                         else if(type.equals("boss"))
                         {
                             Config.loadBossConfig();
-                            _print.println("boss config reloaded");
+                            _print.println("Boss config reloaded");
                         }
                         else if(type.equals("sayfilter"))
                         {
                             Config.loadSayFilter();
-                            _print.println("sayfilter reloaded");
+                            _print.println("Sayfilter reloaded");
                         }
                         else if(type.equals("access"))
                         {
                             Config.loadPrivilegesConfig();
-                            _print.println("access config reloaded");
+                            _print.println("Access config reloaded");
                         }
                         else
                         {
-                            _print.println("Usage:  reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+                            _print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
                         }
                     }
                     catch(Exception e)
                     {
-                        _print.println("Usage:  reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+                        _print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
                     }
                 }
                 else if (_usrCommand.startsWith("reload"))
