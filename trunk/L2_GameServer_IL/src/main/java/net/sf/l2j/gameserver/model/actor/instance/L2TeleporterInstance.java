@@ -189,27 +189,28 @@ public final class L2TeleporterInstance extends L2FolkInstance
             }
             else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_GK && player.getKarma() > 0) //karma
             {
-                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                sm.addString("Go away, you're not welcome here.");
-                player.sendPacket(sm);
+                String filename = "data/html/teleporter/"+getNpcId()+"-pk.htm";
+                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+                html.setFile(filename);
+                player.sendPacket(html);
                 return;
             }
             else if (list.isForNoble() && !player.isNoble())
             {
-               String filename = "data/html/teleporter/nobleteleporter-no.htm";
-               NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+                String filename = "data/html/teleporter/nobleteleporter-no.htm";
+                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
                 html.setFile(filename);
                 html.replace("%objectId%", String.valueOf(getObjectId()));
                 html.replace("%npcname%", getName());
                 player.sendPacket(html);
-               return;
+                return;
             }
             else if (player.isAlikeDead())
             {
-               return;
-            }            
+                return;
+            }
             else if (!list.isForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.reduceAdena("Teleport", list.getPrice(), this, true)))
-			{
+            {
                 if (_log.isDebugEnabled())
                     _log.debug("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
                 player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ(), true);
@@ -219,18 +220,18 @@ public final class L2TeleporterInstance extends L2FolkInstance
                 if (_log.isDebugEnabled())                    
                     _log.debug("Teleporting player "+player.getName()+" to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
                 player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
-			}
-		}
-		else
-		{
-			_log.warn("No teleport destination with id:" +val);
-		}
-		player.sendPacket( new ActionFailed() );
-	}
+            }
+        }
+        else
+        {
+            _log.warn("No teleport destination with id:" +val);
+        }
+        player.sendPacket( new ActionFailed() );
+    }
 
-	private int validateCondition(L2PcInstance player)
-	{
-	    if (CastleManager.getInstance().getCastleIndex(this) < 0)                       // Teleporter isn't on castle ground
+    private int validateCondition(L2PcInstance player)
+    {
+        if (CastleManager.getInstance().getCastleIndex(this) < 0)                       // Teleporter isn't on castle ground
             return COND_REGULAR;                                                        // Regular access
         else if (getCastle().getSiege().getIsInProgress())                              // Teleporter is on castle ground and siege is in progress
             return COND_BUSY_BECAUSE_OF_SIEGE;                                          // Busy because of siege
@@ -239,7 +240,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
             if (getCastle().getOwnerId() == player.getClanId())                         // Clan owns castle
                 return COND_OWNER;                                                      // Owner
         }
-		
-		return COND_ALL_FALSE;
-	}
+        
+        return COND_ALL_FALSE;
+    }
 }
