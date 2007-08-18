@@ -24,7 +24,7 @@ ALT_RP_100 = 0
 
 #Quest items
 ANC_SCROLL = 5944
-DICT1  = 5891 
+DICT1  = 5891
 DICT2  = 5892 #Given as a proof for 2nd part
 MST_BK = 5890
 
@@ -64,7 +64,7 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st) :
-    id = st.getState() 
+    id = st.getState()
     htmltext = event
     if event == "yes" :
        htmltext = starting
@@ -140,13 +140,13 @@ class Quest (JQuest) :
      # a Mysterious Book may drop to any party member that still hasn't gotten it
      partyMember = self.getRandomPartyMember(player,"awaitBook","1")
      if partyMember :
-        st = partyMember.getQuestState(qn) 
+        st = partyMember.getQuestState(qn)
         drop = st.getRandom(100)
         if drop < DROP_RATE_2  and not st.getQuestItemsCount(MST_BK):
            st.giveItems(MST_BK,1)
            st.unset("awaitBook")
            st.playSound("ItemSound.quest_middle")
-     
+
      # In addition, drops go to one party member among those who are either in
      # STARTING or in STARTED state
      partyMember1 = self.getRandomPartyMemberState(player, STARTING)
@@ -164,14 +164,14 @@ class Quest (JQuest) :
      else :
          if partyMember.getQuestState(qn).getRandom(2) :
              partyMember = partyMember2
-     st = partyMember.getQuestState(qn)  
+     st = partyMember.getQuestState(qn)
      numItems, chance = divmod(DROP_RATE,MAX)
      if st.getRandom(MAX) < chance :
         numItems = numItems + 1
      if int(numItems) != 0 :
         st.giveItems(ANC_SCROLL,int(numItems))
         st.playSound("ItemSound.quest_itemget")
-     return  
+     return
 
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)
@@ -192,7 +192,7 @@ QUEST.addTalkId(WF_CLIFF)
 
 for i in MOBS :
   QUEST.addKillId(i)
-  
+
 STARTED.addQuestDrop(HR_SOBLING,DICT1,1)
 STARTED.addQuestDrop(HR_SOBLING,MST_BK,1)
 
