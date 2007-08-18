@@ -193,7 +193,6 @@ public class L2MerchantInstance extends L2FolkInstance
         {
             // this class dont know any other commands, let forward
             // the command to the parent class
-
             super.onBypassFeedback(player, command);
         }
     }
@@ -321,5 +320,4 @@ public class L2MerchantInstance extends L2FolkInstance
         }
         player.sendPacket(new ActionFailed());
     }
-
 }

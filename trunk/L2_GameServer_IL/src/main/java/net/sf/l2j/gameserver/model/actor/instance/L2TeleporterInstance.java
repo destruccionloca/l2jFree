@@ -187,14 +187,6 @@ public final class L2TeleporterInstance extends L2FolkInstance
                 player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
                 return;
             }
-            else if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_GK && player.getKarma() > 0) //karma
-            {
-                String filename = "data/html/teleporter/"+getNpcId()+"-pk.htm";
-                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-                html.setFile(filename);
-                player.sendPacket(html);
-                return;
-            }
             else if (list.isForNoble() && !player.isNoble())
             {
                 String filename = "data/html/teleporter/nobleteleporter-no.htm";

@@ -72,8 +72,8 @@ public class L2FishermanInstance extends L2MerchantInstance
         
         return "data/html/fisherman/" + pom + ".htm";
     }
-	
-	private void showBuyWindow(L2PcInstance player, int val)
+
+    private void showBuyWindow(L2PcInstance player, int val)
     {
         double taxRate = 0;
         if (getIsInTown()) taxRate = getCastle().getTaxRate();
@@ -95,8 +95,8 @@ public class L2FishermanInstance extends L2MerchantInstance
 
         player.sendPacket(new ActionFailed());
     }
-	
-	private void showSellWindow(L2PcInstance player)
+
+    private void showSellWindow(L2PcInstance player)
     {
         if (_log.isDebugEnabled()) _log.debug("Showing selllist");
 
@@ -106,34 +106,34 @@ public class L2FishermanInstance extends L2MerchantInstance
 
         player.sendPacket(new ActionFailed());
     }
-    
+
     public void onBypassFeedback(L2PcInstance player, String command)
-	{	
+    {
         if (command.startsWith("FishSkillList"))
         {
             player.setSkillLearningClassId(player.getClassId());
             showSkillList(player);
-		}
+        }
 
-		StringTokenizer st = new StringTokenizer(command, " ");
-        String command2 = st.nextToken();
-		
-		if (command2.equalsIgnoreCase("Buy"))
+        StringTokenizer st = new StringTokenizer(command, " ");
+        String cmd = st.nextToken();
+        
+        if (cmd.equalsIgnoreCase("Buy"))
         {
             if (st.countTokens() < 1) return;
             int val = Integer.parseInt(st.nextToken());
             showBuyWindow(player, val);
         }
-        else if (command2.equalsIgnoreCase("Sell"))
+        else if (cmd.equalsIgnoreCase("Sell"))
         {
-        	showSellWindow(player);
+            showSellWindow(player);
         }
         else 
         {
             super.onBypassFeedback(player, command);
         }
     }   
-    
+
     public void showSkillList(L2PcInstance player)
     {       
         L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player);
@@ -146,7 +146,7 @@ public class L2FishermanInstance extends L2MerchantInstance
             L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
             
             if (sk == null)
-				continue;	
+                continue;
             
             counts++;
             asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), s.getSpCost(), 1);
@@ -154,30 +154,24 @@ public class L2FishermanInstance extends L2MerchantInstance
         
         if (counts == 0)
         {
-            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+            SystemMessage sm;
             int minlevel = SkillTreeTable.getInstance().getMinLevelForNewSkill(player);
-            
-		    if (minlevel > 0)
+            if (minlevel > 0)
             {
                 // No more skills to learn, come back when you level.
-		        SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
-		        sm.addNumber(minlevel);
-		        player.sendPacket(sm);
-		    }
+                sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
+                sm.addNumber(minlevel);
+            }
             else
             {
-                TextBuilder sb = new TextBuilder();
-                sb.append("<html><head><body>");
-                sb.append("You've learned all skills.<br>");
-                sb.append("</body></html>");
-                html.setHtml(sb.toString());
-                player.sendPacket(html);
+                sm = new SystemMessage(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
             }
+            player.sendPacket(sm);
         }
-		else 
-		{
-		    player.sendPacket(asl);
-		}
+        else 
+        {
+            player.sendPacket(asl);
+        }
         
         player.sendPacket(new ActionFailed());
     }
