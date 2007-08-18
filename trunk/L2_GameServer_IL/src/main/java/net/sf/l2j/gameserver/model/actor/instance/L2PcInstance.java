@@ -364,7 +364,7 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
     private byte _pvpFlag;
 
-    /** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
+    /** The Siege Flag state of the L2PcInstance */
     private int _siegeStateFlag = 0;
 
     private boolean _inPvpZone;
@@ -1478,7 +1478,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /**
      * Set the Siege Flag of the L2PcInstance.<BR><BR>
-     * 0x180 sword over name, 0x80 shield, 0xC0 crown, 0x1C0 flag, none other found
+     * 0x180 sword over name, 0x80 shield (if also leader, 0xC0 crown, 0x1C0 flag)
      */
     public void setSiegeStateFlag(int siegeStateFlag)
     {
