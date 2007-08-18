@@ -91,7 +91,7 @@ class Quest (JQuest) :
 
 
  def onTalk (self,npc,player):
-   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   htmltext = "<html><body>I have nothing to say you</body></html>"
    st = player.getQuestState(qn)
    if not st : return htmltext
 
@@ -118,7 +118,7 @@ class Quest (JQuest) :
         htmltext = "30476-01.htm"
         st.exitQuest(1)
    elif npcId == 30476 and st.getInt("cond")==0 and st.getInt("onlyone")==1 :
-      htmltext = "<html><head><body>This quest have already been completed.</body></html>"
+      htmltext = "<html><body>This quest have already been completed.</body></html>"
    elif npcId == 30476 and st.getInt("cond")==1 and st.getQuestItemsCount(KAIRAS_LETTER1_ID) :
       htmltext = "30476-06.htm"
    elif npcId == 30476 and st.getInt("cond")==1 and (st.getQuestItemsCount(METHEUS_FUNERAL_JAR_ID) or st.getQuestItemsCount(KASANDRAS_REMAINS_ID)) :
@@ -449,4 +449,4 @@ STARTED.addQuestDrop(27079,BLACK_WILLOW_LEAF_ID,1)
 STARTED.addQuestDrop(31850,TIMIRIRAN_SEED_ID,1)
 STARTED.addQuestDrop(30614,METHEUS_FUNERAL_JAR_ID,1)
 
-print "importing quests: 219: Testimony Of Fate"
+print "importing quests: 219: Testimony Of Fate"

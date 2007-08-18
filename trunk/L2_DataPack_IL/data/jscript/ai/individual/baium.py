@@ -15,7 +15,7 @@ class baium (JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("baium")
-    if not st : return "<html><head><body>I have no tasks for you</body></html>"
+    if not st : return "<html><body>I have no tasks for you</body></html>"
     npcId = npc.getNpcId()
     if npcId == 29025 :
       if st.getInt("ok"):
@@ -33,7 +33,7 @@ class baium (JQuest):
         BaiumManager.getInstance().addPlayerToLair(player)
         st.set("ok","1")
       else :
-        return '<html><head><body>Angelic Vortex:<br>You do not have enough items</body></html>'
+        return '<html><body>Angelic Vortex:<br>You do not have enough items</body></html>'
     return
 
   def onKill (self,npc,player):

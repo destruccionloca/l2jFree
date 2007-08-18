@@ -280,6 +280,7 @@ __all__ = [
 # '635_InTheDimensionalRift', # Use it at your own risk
 '636_TruthBeyond',
 '637_ThroughOnceMore',
+'645_GhostsOfBatur',
 '647_InfluxOfMachines',
 '649_ALooterAndARailroadMan',
 '651_RunawayYouth',

@@ -25,28 +25,28 @@ class sailren (JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("sailren")
-    if not st : return "<html><head><body>I have no tasks for you</body></html>"
+    if not st : return "<html><body>I have no tasks for you</body></html>"
     npcId = npc.getNpcId()
     if npcId == STATUE :
       if st.getQuestItemsCount(GAZKH) :
         ENTRY_SATAT = SailrenManager.getInstance().canIntoSailrenLair(player)
         if ENTRY_SATAT == 1 or ENTRY_SATAT == 2 :
           st.exitQuest(1)
-          return "<html><head><body>Shilen's Stone Statue:<br>Another adventurers have already fought against the sailren. Do not obstruct them.</body></html>"
+          return "<html><body>Shilen's Stone Statue:<br>Another adventurers have already fought against the sailren. Do not obstruct them.</body></html>"
         elif ENTRY_SATAT == 3 :
           st.exitQuest(1)
-          return "<html><head><body>Shilen's Stone Statue:<br>The sailren is very powerful now. It is not possible to enter the inside.</body></html>"
+          return "<html><body>Shilen's Stone Statue:<br>The sailren is very powerful now. It is not possible to enter the inside.</body></html>"
         elif ENTRY_SATAT == 4 :
           st.exitQuest(1)
-          return "<html><head><body>Shilen's Stone Statue:<br>You seal the sailren alone? You should not do so! Bring the companion.</body></html>"
+          return "<html><body>Shilen's Stone Statue:<br>You seal the sailren alone? You should not do so! Bring the companion.</body></html>"
         elif ENTRY_SATAT == 0 :
           st.takeItems(GAZKH,1)
           SailrenManager.getInstance().setSailrenSpawnTask(VELOCIRAPTOR)
           SailrenManager.getInstance().entryToSailrenLair(player)
-          return "<html><head><body>Shilen's Stone Statue:<br>Please seal the sailren by your ability.</body></html>"
+          return "<html><body>Shilen's Stone Statue:<br>Please seal the sailren by your ability.</body></html>"
       else :
         st.exitQuest(1)
-        return "<html><head><body>Shilen's Stone Statue:<br><font color=""LEVEL"">Gazkh</font> is necessary for seal the sailren.</body></html>"
+        return "<html><body>Shilen's Stone Statue:<br><font color=""LEVEL"">Gazkh</font> is necessary for seal the sailren.</body></html>"
 
   def onKill (self,npc,player):
     st = player.getQuestState("sailren")
@@ -79,4 +79,4 @@ QUEST.addKillId(PTEROSAUR)
 QUEST.addKillId(TYRANNOSAURUS)
 QUEST.addKillId(SAILREN)
 
-print "AI: individuals: sailren...loaded!"
+print "AI: individuals: Sailren...loaded!"

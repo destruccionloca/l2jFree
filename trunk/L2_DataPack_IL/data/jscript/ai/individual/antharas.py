@@ -19,7 +19,7 @@ class antharas(JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("antharas")
-    if not st : return "<html><head><body>I have no tasks for you</body></html>"
+    if not st : return "<html><body>I have no tasks for you</body></html>"
     npcId = npc.getNpcId()
     if npcId == HEART:
       if AntharasManager.getInstance().isEnableEnterToLair():
