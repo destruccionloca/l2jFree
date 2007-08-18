@@ -322,7 +322,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
-        public void doCast(L2Skill skill)  
+        public void doCast(L2Skill skill)
         {
            super.doCast(skill);
            
@@ -350,7 +350,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _charId = 0x00030b7a;
 
     /** The Experience of the L2PcInstance before the last Death Penalty */
-	private long _expBeforeDeath;
+    private long _expBeforeDeath;
 
     /** The Karma of the L2PcInstance (if higher than 0, the name of the L2PcInstance appears in red) */
     private int _karma;
@@ -364,16 +364,19 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
     private byte _pvpFlag;
 
+    /** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
+    private int _siegeStateFlag = 0;
+
     private boolean _inPvpZone;
-	private boolean _inPeaceZone;
-	private boolean _inSiegeZone;
-	private boolean _inMotherTreeZone;
-	private byte _inClanHall;
-	private int _lastCompassZone; // the last compass zone update send to the client
-	private byte _zoneValidateCounter = 4;
-	
-	private boolean _isIn7sDungeon = false;
-	
+    private boolean _inPeaceZone;
+    private boolean _inSiegeZone;
+    private boolean _inMotherTreeZone;
+    private byte _inClanHall;
+    private int _lastCompassZone; // the last compass zone update send to the client
+    private byte _zoneValidateCounter = 4;
+    
+    private boolean _isIn7sDungeon = false;
+    
     private int _pledgeType = 0;
     
     /** L2PcInstance's pledge rank*/
@@ -789,6 +792,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public int getRelation(L2PcInstance target)
     {
+        // TODO: Fix, this part of the packet isn't working at the moment, even PVP flag.
         int result = 0;
         
         if (getPvpFlag() != 0)
@@ -1467,12 +1471,31 @@ public final class L2PcInstance extends L2PlayableInstance
         return _macroses;
     }
 
+    public int getSiegeStateFlag()
+    {
+        return _siegeStateFlag;
+    }
+
+    /**
+     * Set the Siege Flag of the L2PcInstance.<BR><BR>
+     * 0x180 sword over name, 0x80 shield, 0xC0 crown, 0x1C0 flag, none other found
+     */
+    public void setSiegeStateFlag(int siegeStateFlag)
+    {
+        _siegeStateFlag = siegeStateFlag;
+    }
+
     /**
      * Set the PvP Flag of the L2PcInstance.<BR><BR>
      */
     public void setPvpFlag(int pvpFlag)
     {
         _pvpFlag = (byte)pvpFlag;
+    }
+
+    public byte getPvpFlag()
+    {
+        return _pvpFlag;
     }
 
     public boolean getInPvpZone()
@@ -2232,11 +2255,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setSp(int sp)
     {
         super.getStat().setSp(sp);
-    }
-
-    public byte getPvpFlag()
-    {
-        return _pvpFlag;
     }
 
     /**

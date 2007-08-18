@@ -61,30 +61,30 @@ public class CharInfo extends L2GameServerPacket
 	private int _x, _y, _z, _heading;
 	private int _mAtkSpd, _pAtkSpd;
 	private int _runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
-    private float _moveMultiplier, _attackSpeedMultiplier;
-    private int _maxCp;
+	private float _moveMultiplier, _attackSpeedMultiplier;
+	private int _maxCp;
 
 	/**
 	 * @param _characters
 	 */
-    public CharInfo(L2PcInstance cha)
-    {
-    	_activeChar = cha;
-    	_inv = _activeChar.getInventory();
-    	_x = _activeChar.getX();
-    	_y = _activeChar.getY();
-    	_z = _activeChar.getZ();
-    	_heading = _activeChar.getHeading();
-    	_mAtkSpd = _activeChar.getMAtkSpd();
-    	_pAtkSpd = _activeChar.getPAtkSpd();
-    	_moveMultiplier  = _activeChar.getStat().getMovementSpeedMultiplier();
-    	_attackSpeedMultiplier = _activeChar.getStat().getAttackSpeedMultiplier();
-    	_runSpd         = (int)(_activeChar.getRunSpeed()/_moveMultiplier);
-    	_walkSpd        = (int)(_activeChar.getStat().getWalkSpeed()/_moveMultiplier);
-    	_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
-    	_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
-    	_maxCp = _activeChar.getMaxCp();
-    }
+	public CharInfo(L2PcInstance cha)
+	{
+		_activeChar = cha;
+		_inv = _activeChar.getInventory();
+		_x = _activeChar.getX();
+		_y = _activeChar.getY();
+		_z = _activeChar.getZ();
+		_heading = _activeChar.getHeading();
+		_mAtkSpd = _activeChar.getMAtkSpd();
+		_pAtkSpd = _activeChar.getPAtkSpd();
+		_moveMultiplier  = _activeChar.getStat().getMovementSpeedMultiplier();
+		_attackSpeedMultiplier = _activeChar.getStat().getAttackSpeedMultiplier();
+		_runSpd         = (int)(_activeChar.getRunSpeed()/_moveMultiplier);
+		_walkSpd        = (int)(_activeChar.getStat().getWalkSpeed()/_moveMultiplier);
+		_swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
+		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
+		_maxCp = _activeChar.getMaxCp();
+	}
 	
 	protected final void writeImpl()
 	{
@@ -100,7 +100,7 @@ public class CharInfo extends L2GameServerPacket
 				writeC(0x16);
 				writeD(_activeChar.getObjectId());
 				writeD(_activeChar.getPoly().getPolyId()+1000000);  // npctype id
-				writeD(_activeChar.getKarma() > 0 ? 1 : 0); 
+				writeD(_activeChar.getKarma() > 0 ? 1 : 0);
 				writeD(_x);
 				writeD(_y);
 				writeD(_z);
@@ -133,7 +133,7 @@ public class CharInfo extends L2GameServerPacket
 				writeD(0);
 				writeD(0);
 				writeD(0000);  // hmm karma ??
-	
+
 				writeH(_activeChar.getAbnormalEffect());  // C2
 				writeH(0x00);  // C2
 				writeD(0);  // C2
@@ -157,10 +157,10 @@ public class CharInfo extends L2GameServerPacket
 			writeS(_activeChar.getName());
 			writeD(_activeChar.getRace().ordinal());
 			writeD(_activeChar.getAppearance().getSex()? 1 : 0);
-			        
+
 			if (_activeChar.getClassIndex() == 0)
 				writeD(_activeChar.getClassId().getId());
-			else 
+			else
 				writeD(_activeChar.getBaseClass());
 			
 			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DHAIR));
@@ -231,7 +231,7 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_activeChar.getClanCrestId());
 			writeD(_activeChar.getAllyId());
 			writeD(_activeChar.getAllyCrestId());
-			writeD(0);	// new in rev 417   siege-flags
+			writeD(_activeChar.getSiegeStateFlag());	// siege-flags: 0x180 sword over name, 0x80 shield, 0xC0 crown, 0x1C0 flag, none other found
 			
 			writeC(_activeChar.isSitting() ? 0 : 1);	// standing = 1  sitting = 0
 			writeC(_activeChar.isRunning() ? 1 : 0);	// running = 1   walking = 0
@@ -248,22 +248,22 @@ public class CharInfo extends L2GameServerPacket
 			
 			writeC(0x00);	// find party members
 			
-	        writeD(_activeChar.getAbnormalEffect());
+			writeD(_activeChar.getAbnormalEffect());
 			writeC(_activeChar.getCharRecommendationStatus().getRecomLeft());                       //Changed by Thorgrim
 			writeH(_activeChar.getCharRecommendationStatus().getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
 			writeD(_activeChar.getClassId().getId());
 			
 			writeD(_maxCp);
 			writeD((int) _activeChar.getStatus().getCurrentCp());
-	        writeC(_activeChar.isMounted() ? 0 : _activeChar.getEnchantEffect());
+			writeC(_activeChar.isMounted() ? 0 : _activeChar.getEnchantEffect());
 			
-	        if(_activeChar.getTeam()==1)
-	        	writeC(0x01); //team circle around feet 1= Blue, 2 = red
-	        else if(_activeChar.getTeam()==2)
-	        	writeC(0x02); //team circle around feet 1= Blue, 2 = red
-	        else
-	        	writeC(0x00); //team circle around feet 1= Blue, 2 = red
-	        
+			if(_activeChar.getTeam()==1)
+				writeC(0x01); //team circle around feet 1= Blue, 2 = red
+			else if(_activeChar.getTeam()==2)
+				writeC(0x02); //team circle around feet 1= Blue, 2 = red
+			else
+				writeC(0x00); //team circle around feet 1= Blue, 2 = red
+
 			writeD(_activeChar.getClanCrestLargeId()); 
 			writeC(_activeChar.isNoble() ? 1 : 0); // Symbol on char menu ctrl+I  
 			writeC((_activeChar.isHero() || (_activeChar.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); // Hero Aura
@@ -273,21 +273,21 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_activeChar.getFishy());
 			writeD(_activeChar.getFishz());
 			
-	        writeD(_activeChar.getAppearance().getNameColor());
-	        
-	        writeD(0x00); // ??
-	        
-	        writeD(_activeChar.getPledgeClass()); 
-	        writeD(0x00); // ??
-	        
-	        writeD(_activeChar.getAppearance().getTitleColor());
-	        
-	        writeD(0x00); // ??
-	        
-	        if (_activeChar.isCursedWeaponEquiped())
-	        	writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
-	        else
-	        	writeD(0x00);
+			writeD(_activeChar.getAppearance().getNameColor());
+			
+			writeD(0x00); // isRunning() as in UserInfo?
+			
+			writeD(_activeChar.getPledgeClass()); 
+			writeD(0x00); // ??
+			
+			writeD(_activeChar.getAppearance().getTitleColor());
+			
+			writeD(0x00); // ??
+			
+			if (_activeChar.isCursedWeaponEquiped())
+				writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
+			else
+				writeD(0x00);
 		}
 	}
 	

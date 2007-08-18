@@ -240,9 +240,9 @@ public class UserInfo extends L2GameServerPacket
         if (_activeChar.getAppearance().getInvisible() && _activeChar.isGM()) title = "Invisible";
         if (_activeChar.getPoly().isMorphed())
         {
-        	L2NpcTemplate polyObj = NpcTable.getInstance().getTemplate(_activeChar.getPoly().getPolyId());
-        	if(polyObj != null)
-        		title += " - " + polyObj.getName();
+            L2NpcTemplate polyObj = NpcTable.getInstance().getTemplate(_activeChar.getPoly().getPolyId());
+            if(polyObj != null)
+                title += " - " + polyObj.getName();
         }
         writeS(title);
 
@@ -250,7 +250,7 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getClanCrestId());
         writeD(_activeChar.getAllyId());
         writeD(_activeChar.getAllyCrestId()); // ally crest id
-        writeD(_activeChar.isClanLeader() ? 0x60 : 0); // siege-flags  0x40 - leader rights  0x20 - ??
+        writeD(_activeChar.getSiegeStateFlag()); // siege-flags: 0x180 sword over name, 0x80 shield, 0xC0 crown, 0x1C0 flag, none other found
         writeC(_activeChar.getMountType()); // mount type
         writeC(_activeChar.getPrivateStoreType());
         writeC(_activeChar.hasDwarvenCraft() ? 1 : 0);
@@ -280,11 +280,11 @@ public class UserInfo extends L2GameServerPacket
         writeC(_activeChar.isMounted() ? 0 : _activeChar.getEnchantEffect());
 
         if(_activeChar.getTeam()==1)
-        	writeC(0x01); //team circle around feet 1= Blue, 2 = red
+            writeC(0x01); //team circle around feet 1= Blue, 2 = red
         else if(_activeChar.getTeam()==2)
-        	writeC(0x02); //team circle around feet 1= Blue, 2 = red
+            writeC(0x02); //team circle around feet 1= Blue, 2 = red
         else
-        	writeC(0x00); //team circle around feet 1= Blue, 2 = red
+            writeC(0x00); //team circle around feet 1= Blue, 2 = red
 
         writeD(_activeChar.getClanCrestLargeId());
         writeC(_activeChar.isNoble() ? 1 : 0); //0x01: symbol on char menu ctrl+I  
@@ -296,8 +296,8 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getFishz()); //fishing z
         writeD(_activeChar.getAppearance().getNameColor());
         
-		//new c5 
-       	writeC(_activeChar.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
+        //new c5 
+        writeC(_activeChar.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
         
         writeD(_activeChar.getPledgeClass()); //changes the text above CP on Status Window
         writeD(0x00); // ??

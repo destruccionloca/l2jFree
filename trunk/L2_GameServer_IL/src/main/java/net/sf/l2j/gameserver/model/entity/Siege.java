@@ -47,10 +47,14 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.CharInfo;
+import net.sf.l2j.gameserver.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.serverpackets.SiegeInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.gameserver.util.Broadcast;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -287,6 +291,7 @@ public class Siege
             //teleportPlayer(Siege.TeleportWhoType.Defender, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
             teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
             _isInProgress = false; // Flag so that siege instance can be started
+            updatePlayerSiegeStateFlags(true);
             saveCastleSiege(); // Save castle specific data
             clearSiegeClan(); // Clear siege clan from db
             removeArtifact(); // Remove artifact from this castle
@@ -402,6 +407,7 @@ public class Siege
                 removeDefenderFlags();       // Removes defenders' flags
                 getCastle().removeUpgrade(); // Remove all castle upgrade
                 getCastle().spawnDoor(true); // Respawn door to castle but make them weaker (50% hp)
+                updatePlayerSiegeStateFlags(false);
             }
         }
     }
@@ -428,6 +434,7 @@ public class Siege
             _isNormalSide = true; // Atk is now atk
             _isInProgress = true; // Flag so that same siege instance cannot be started again 
             loadSiegeClan(); // Load siege clan from db
+            updatePlayerSiegeStateFlags(false);
             teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport to the closest town
             //teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);      // Teleport to the second closest town
             spawnArtifact(getCastle().getCastleId()); // Spawn artifact
@@ -460,6 +467,33 @@ public class Siege
         {
             if (!inAreaOnly || (inAreaOnly && checkIfInZone(player.getX(), player.getY())))
                 player.sendMessage(message);
+        }
+    }
+
+    public void updatePlayerSiegeStateFlags(boolean clear)
+    {
+        L2Clan clan;
+        for(L2SiegeClan siegeclan : getAttackerClans())
+        {
+             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+             for (L2PcInstance member : clan.getOnlineMembers(""))
+             {
+                 if (clear) member.setSiegeStateFlag(0);
+                 else member.setSiegeStateFlag(0x180);
+                 member.sendPacket(new UserInfo(member));
+                 member.broadcastPacket(new CharInfo(member)); // actually (non-working) relation
+             }
+        }
+        for(L2SiegeClan siegeclan : getDefenderClans())
+        {
+            clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+            for (L2PcInstance member : clan.getOnlineMembers(""))
+            {
+                if (clear) member.setSiegeStateFlag(0);
+                else member.setSiegeStateFlag(0x80);
+                member.sendPacket(new UserInfo(member));
+                member.broadcastPacket(new CharInfo(member)); // actually relation
+            }
         }
     }
 
