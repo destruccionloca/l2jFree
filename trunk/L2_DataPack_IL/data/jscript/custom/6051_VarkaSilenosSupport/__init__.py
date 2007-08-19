@@ -33,11 +33,11 @@ class Quest (JQuest) :
     if str(event) in BUFF.keys() : 
         skillId,level,seeds=BUFF[event]
         if st.getQuestItemsCount(Seed) >= seeds :
-          st.takeItems(Seed,seeds)
-          npc.setTarget(player)
-          npc.doCast(SkillTable.getInstance().getInfo(skillId,level))
-          npc.setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp())
-          htmltext = "a4.htm"
+            st.takeItems(Seed,seeds)
+            npc.setTarget(player)
+            npc.doCast(SkillTable.getInstance().getInfo(skillId,level))
+            npc.setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp())
+            htmltext = "a4.htm"
      return htmltext
 
  def onFirstTalk (self,npc,player):
@@ -50,7 +50,7 @@ class Quest (JQuest) :
      Seeds = st.getQuestItemsCount(Seed)
      if npcId == Shikon :
          if Alevel == -2 :
-            htmltext = "1.htm"
+             htmltext = "1.htm"
          elif Alevel == -3 or Alevel == -4 :
              htmltext = "2.htm"
          elif Alevel == -5 :
@@ -60,7 +60,7 @@ class Quest (JQuest) :
      elif npcId == Udan :
         st.setState(STARTED)
         if Alevel > -1 :
-            htmltext = "a3.htm"
+             htmltext = "a3.htm"
         elif Alevel > -3 and Alevel < 0:
              htmltext = "a1.htm"
         elif Alevel < -2 :
