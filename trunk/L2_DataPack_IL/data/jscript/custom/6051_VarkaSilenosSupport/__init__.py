@@ -41,34 +41,34 @@ class Quest (JQuest) :
      return htmltext
 
  def onFirstTalk (self,npc,player):
-     htmltext = "<html><body>I have nothing to say to you</body></html>"
-     st = player.getQuestState(qn)
-     if not st :
-         st = self.newQuestState(player)
-     npcId = npc.getNpcId()
-     Alevel = st.getPlayer().getAllianceWithVarkaKetra()
-     Seeds = st.getQuestItemsCount(Seed)
-     if npcId == Shikon :
-         if Alevel == -2 :
-             htmltext = "1.htm"
-         elif Alevel == -3 or Alevel == -4 :
-             htmltext = "2.htm"
-         elif Alevel == -5 :
-             htmltext = "3.htm"
-         else :
-             htmltext = "no.htm"
-     elif npcId == Udan :
-        st.setState(STARTED)
-        if Alevel > -1 :
-             htmltext = "a3.htm"
-        elif Alevel > -3 and Alevel < 0:
-             htmltext = "a1.htm"
-        elif Alevel < -2 :
-             if Seeds :
-                 htmltext = "a4.htm"
-             else :
-                 htmltext = "a2.htm"
-     return htmltext
+    htmltext = "<html><body>I have nothing to say to you</body></html>"
+    st = player.getQuestState(qn)
+    if not st :
+        st = self.newQuestState(player)
+    npcId = npc.getNpcId()
+    Alevel = st.getPlayer().getAllianceWithVarkaKetra()
+    Seeds = st.getQuestItemsCount(Seed)
+    if npcId == Shikon :
+        if Alevel == -2 :
+            htmltext = "1.htm"
+        elif Alevel == -3 or Alevel == -4 :
+            htmltext = "2.htm"
+        elif Alevel == -5 :
+            htmltext = "3.htm"
+        else :
+            htmltext = "no.htm"
+    elif npcId == Udan :
+       st.setState(STARTED)
+       if Alevel > -1 :
+            htmltext = "a3.htm"
+       elif Alevel > -3 and Alevel < 0:
+            htmltext = "a1.htm"
+       elif Alevel < -2 :
+            if Seeds :
+                htmltext = "a4.htm"
+            else :
+                htmltext = "a2.htm"
+    return htmltext
 
 QUEST       = Quest(6051, qn, "custom")
 CREATED     = State('Start', QUEST)
