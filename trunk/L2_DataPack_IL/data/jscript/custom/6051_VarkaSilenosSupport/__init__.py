@@ -58,12 +58,12 @@ class Quest (JQuest) :
         else :
             htmltext = "no.htm"
     elif npcId == Udan :
-       st.setState(STARTED)
-       if Alevel > -1 :
+        st.setState(STARTED)
+        if Alevel > -1 :
             htmltext = "a3.htm"
-       elif Alevel > -3 and Alevel < 0:
+        elif Alevel > -3 and Alevel < 0:
             htmltext = "a1.htm"
-       elif Alevel < -2 :
+        elif Alevel < -2 :
             if Seeds :
                 htmltext = "a4.htm"
             else :
