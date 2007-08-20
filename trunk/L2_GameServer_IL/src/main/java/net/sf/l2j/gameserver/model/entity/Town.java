@@ -75,8 +75,10 @@ public class Town
             case 13: _redirectToTownId = 14;break;    	// Goddard => Rune
             case 14: _redirectToTownId = 13;break;    	// Rune => Goddard
             case 15: _redirectToTownId = 16;break;      // Heine => Floran (should be Giran Harbor, but its not a zone town "yet")
-            case 17: _redirectToTownId = 14;break;    	// Scuttgart => Rune
-            default: _redirectToTownId = 9;break; 		// Have to use another town here, else we cause a stack overflow :D 
+            case 17: _redirectToTownId = 14;break;    	// Schuttgart => Rune
+            //case 18: _redirectToTownId = 10;break;    // Ivory Tower => Oren
+            case 19: _redirectToTownId = 14;break;      // Primeval Isle Wharf => Rune
+            default: _redirectToTownId = 9;break; 		  // Have to use another town here, else we cause a stack overflow :D 
        }
     }
     

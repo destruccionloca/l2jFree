@@ -119,15 +119,21 @@ public class TownManager
 				return getTown(14); // Rune
 			case 15:
 				return getTown(13); // Goddard
-            case 16:
-                return getTown(17); // Scuttgart
+			case 16:
+				return getTown(17); // Schuttgart
+			/*case 17:
+				return getTown(18); // Ivory Tower*/
+			case 18:
+				return getTown(19); // Prime Isle Wharf	
 		}
 
         return getTown(16); // Default to floran
     }
+    //Nr. 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19   0-19 Values from CastleID example 9 = Schuttgart
+    //   {0,0,0,0,0,0,0,1,2,3, 4, 0, 5, 7, 8, 6, 0, 9, 0, 0}
     public final boolean townHasCastleInSeige(int townId)
     {
-    	int[] castleidarray = {0,0,0,0,0,0,0,1,2,3,4,0,5,7,8,6,0,9};
+    	int[] castleidarray = {0,0,0,0,0,0,0,1,2,3,4,0,5,7,8,6,0,9,0,0};
     	int castleIndex= castleidarray[townId] ;
      
     	if ( castleIndex > 0 )
@@ -143,7 +149,7 @@ public class TownManager
     {
         int curtown= (MapRegionTable.getInstance().getMapRegion(x, y));
         
-        int[] castleidarray = {0,0,0,0,0,0,0,1,2,3,4,0,5,7,8,6,0,9}; 
+        int[] castleidarray = {0,0,0,0,0,0,0,1,2,3,4,0,5,7,8,6,0,9,0,0}; 
         //find an instance of the castle for this town.
         int castleIndex = castleidarray[curtown];
         if ( castleIndex > 0 )

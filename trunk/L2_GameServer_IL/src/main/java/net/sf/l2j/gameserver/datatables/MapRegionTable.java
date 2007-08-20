@@ -51,7 +51,7 @@ public class MapRegionTable
 	
 	private static MapRegionTable _instance;
 	
-	private final int[][] _regions = new int[19][21];
+	private final int[][] _regions = new int[20][21];
 
     private final int[][] _pointsWithKarmas;
 
@@ -109,7 +109,7 @@ public class MapRegionTable
 			try { con.close(); } catch (Exception e) {}
 		}
         
-        _pointsWithKarmas = new int[17][3];
+        _pointsWithKarmas = new int[19][3];
         //Talking Island
         _pointsWithKarmas[0][0] = -79077;
         _pointsWithKarmas[0][1] = 240355;
@@ -174,10 +174,18 @@ public class MapRegionTable
         _pointsWithKarmas[15][0] = 147419;
         _pointsWithKarmas[15][1] = -64980;
         _pointsWithKarmas[15][2] =  -3457;
-        // Shuttgard
+        // Schuttgart
         _pointsWithKarmas[16][0] = 85184;
         _pointsWithKarmas[16][1] = -138560;
-        _pointsWithKarmas[16][2] = -2256;        
+        _pointsWithKarmas[16][2] = -2256;
+        /*// Ivory Tower
+        _pointsWithKarmas[17][0] = 0;
+        _pointsWithKarmas[17][1] = 0;
+        _pointsWithKarmas[17][2] = 0; */
+        // Prime Isle Wharf
+        _pointsWithKarmas[18][0] = 38040;
+        _pointsWithKarmas[18][1] = -38512;
+        _pointsWithKarmas[18][2] = -3508;
 	}
 	
 	public final int getMapRegion(int posX, int posY)
@@ -224,6 +232,8 @@ public class MapRegionTable
             case 14: nearestTown = "Rune Township"; break;
             case 15: nearestTown = "Town of Goddard"; break;
             case 16: nearestTown = "Town of Shuttgart"; break;  ////TODO@ (Check mapregion table)[Luno]
+            case 17: nearestTown = "Ivory Tower"; break;
+            case 18: nearestTown = "Primeval Isle Wharf"; break;
             default: nearestTown = "Town of Aden"; break;
         }
         
