@@ -196,6 +196,7 @@ INSERT INTO `zone` VALUES (15, 'Town', 'Heine', 103598, 216010, 118991, 225905, 
 INSERT INTO `zone` VALUES (16, 'Town', 'Floran Village', 0, 0, 0, 0, 0,0, 2);
 INSERT INTO `zone` VALUES (17, 'Town', 'Schuttgart', 83881, -146500, 90908, -139486, 0, 0, 9);
 INSERT INTO `zone` VALUES (18, 'Town', 'Ivory Tower', 0, 0, 0, 0, 0, 0, 4);
+INSERT INTO `zone` VALUES (19, 'Town', 'Primeval Isle Wharf', 9458, -24206, 10773, -22441, 0, 0, 5);
 
 -- -----------------------------------------
 -- Town Spawn Zones
@@ -219,6 +220,7 @@ INSERT INTO `zone` VALUES (15, 'Town Spawn', 'Heine', 111381, 219064, 0, 0, -354
 INSERT INTO `zone` VALUES (16, 'Town Spawn', 'Floran Village', 17817, 170079, 0, 0, -3530,0, 0);
 INSERT INTO `zone` VALUES (17, 'Town Spawn', 'Schuttgart', 87331, -142842, 0, 0, -1317, 0, 0);
 INSERT INTO `zone` VALUES (18, 'Town Spawn', 'Ivory Tower', 0, 0, 0, 0, 0, 0, 0);
+INSERT INTO `zone` VALUES (19, 'Town Spawn', 'Primeval Isle Wharf', 10825, -24156, 0, 0, -3645, 0, 0);
 
 -- -----------------------------------------
 -- Underground Zones
