@@ -107,7 +107,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
         
         InventoryUpdate iu = new InventoryUpdate();
         
-        if (addedOfferings.getCount() != (1 * _bonusMultiplier)) 
+        if (addedOfferings.getCount() !=  _bonusMultiplier) 
             iu.addModifiedItem(addedOfferings);
         else 
             iu.addNewItem(addedOfferings);   

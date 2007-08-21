@@ -370,14 +370,17 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                      * otherwise just remove this player from the "arena", and also remove them from the party.
                      */
                     boolean isLeader = playerParty.isLeader(player);
-                    
                     if (isLeader) {
                         SevenSignsFestival.getInstance().updateParticipants(player, null);
                     }
-                    else {
-                        SevenSignsFestival.getInstance().updateParticipants(player, playerParty);                        
-                        playerParty.removePartyMember(player);
-                    }
+                    
+                    if (playerParty.getMemberCount() > Config.ALT_FESTIVAL_MIN_PLAYER)  {
+                    	SevenSignsFestival.getInstance().updateParticipants(player, playerParty);                        
+                      playerParty.removePartyMember(player);
+                      }
+                    else
+                    player.sendMessage("Only partyleader can leave festival, if minmum party member is reached.");
+
                     break;
                 case 0: // Distribute Accumulated Bonus
                     if (!SevenSigns.getInstance().isSealValidationPeriod()) 
