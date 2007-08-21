@@ -352,26 +352,25 @@
   </for>
 </skill>
 <skill id="4216" levels="1" name="Scatter Enemy">
-  <!-- Zaken skills - teleport PC -->
-  <set name="hitTime" val="2900"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillTime" val="2900"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="800"/>
-  <set name="effectRange" val="1200"/>
-  <for>
-  </for>
-</skill>
-<skill id="4217" levels="1" name="None">
-  <!-- Zaken skills -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="-1"/>  
-  <for>
-  </for>
-</skill>
+  <!--  Zaken skills - teleport PC --> 
+  <set name="hitTime" val="2900" /> 
+  <set name="target" val="TARGET_ONE" /> 
+  <set name="skillTime" val="2900" /> 
+  <set name="skillType" val="RECALL" /> 
+  <set name="operateType" val="OP_ACTIVE" /> 
+  <set name="castRange" val="800" /> 
+  <for /> 
+  </skill>
+<skill id="4217" levels="1" name="Scatter Enemies">
+  <!--  Zaken skills --> 
+  <set name="hitTime" val="2900" /> 
+  <set name="target" val="TARGET_AURA" /> 
+  <set name="skillTime" val="2900" /> 
+  <set name="skillType" val="RECALL" /> 
+  <set name="operateType" val="OP_ACTIVE" /> 
+  <set name="castRange" val="800" /> 
+  <for /> 
+ </skill>
 <skill id="4218" levels="1" name="Absorb HP MP">
   <!-- Zaken skills -->
   <set name="magicLvl" val="60"/>

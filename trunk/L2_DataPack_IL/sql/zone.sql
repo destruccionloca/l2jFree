@@ -670,6 +670,7 @@ INSERT INTO `zone` VALUES (2120, 'LairofValakas', 'Lair of Valakas', 199755, -12
 INSERT INTO `zone` VALUES (2130, 'LairofLilith', 'Lair of Lilith', 183986, -13716, 186097, -11532, -5500, -3895, 0);
 INSERT INTO `zone` VALUES (2140, 'LairofAnakim', 'Lair of Anakim', 184008, -10681, 186107, -8589, -5500, -3895, 0);
 INSERT INTO `zone` VALUES (2150, 'LairofZaken', 'Lair of Zaken', 53182, 216945, 57311, 221151, -3775, -2690, 0);
+INSERT INTO `zone` VALUES (2151, "SunlightRoom", "Sunlight Room", 55794, 219633, 56789, 220629, -2952, -2690, 0);
 INSERT INTO `zone` VALUES (2160, 'LairofSailren', 'Lair of Sailren', 26095, -8084, 28987, -5295, -1975, -1944, 0);
 
 -- -----------------------------------------
