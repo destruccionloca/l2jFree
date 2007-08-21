@@ -334,6 +334,8 @@ public class ValakasManager
         	L2BossInstance valakas = (L2BossInstance)valakasSpawn.doSpawn();
         	_monsters.add(valakas);
         	
+        	updateKnownList(valakas);
+        	
         	// do social.
         	valakas.setIsInSocialAction(true);
             SocialAction sa = new SocialAction(valakas.getObjectId(), 3);
@@ -479,7 +481,16 @@ public class ValakasManager
 		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000);
     }
     
-    
+    // update knownlist.
+    protected void updateKnownList(L2NpcInstance boss)
+    {
+    	boss.getKnownList().getKnownPlayers().clear();
+		for (L2PcInstance pc : _playersInLair)
+		{
+			boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
+		}
+    }
+
     // do spawn teleport cube.
     private class CubeSpawn implements Runnable
     {
@@ -507,11 +518,7 @@ public class ValakasManager
 
         public void run()
         {
-        	_npc.getKnownList().getKnownPlayers().clear();
-    		for (L2PcInstance pc : _playersInLair)
-    		{
-    			_npc.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-    		}
+        	updateKnownList(_npc);
 
     		SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
             _npc.broadcastPacket(sa);

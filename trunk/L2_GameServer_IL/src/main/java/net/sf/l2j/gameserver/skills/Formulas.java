@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -31,6 +32,7 @@ import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -856,7 +858,7 @@ public final class Formulas
         double init = cha.getTemplate().getBaseHpReg();
         double hpRegenMultiplier;
         double hpRegenBonus = 0;
-        
+
         if(cha.isRaid())
            hpRegenMultiplier=Config.RAID_HP_REGEN_MULTIPLIER;
         else if(cha instanceof L2PcInstance)
@@ -866,6 +868,15 @@ public final class Formulas
         
         if (cha.isChampion())
             hpRegenMultiplier *= Config.CHAMPION_HP_REGEN;
+
+		// [L2J_JP ADD SANDMAN]
+		// The recovery power of Zaken decreases under sunlight.
+		if (cha instanceof L2BossInstance)
+		{
+			L2BossInstance boss = (L2BossInstance) cha;
+			if ((boss.getNpcId() == 29022) && (ZoneManager.getInstance().checkIfInZone("SunlightRoom", boss)) && (boss.getZ() >= -2952))
+				hpRegenMultiplier *= 0.75;
+		}
         
         if (cha instanceof L2PcInstance)
         {

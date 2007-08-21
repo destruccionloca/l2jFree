@@ -96,7 +96,7 @@ public class BaiumManager
     protected List<L2NpcInstance> _teleportCube = new FastList<L2NpcInstance>();
     
     // list of intruders.
-    protected List<L2PcInstance> _playersInLair = new FastList<L2PcInstance>();
+    protected List<L2PcInstance> _PlayersInLair = new FastList<L2PcInstance>();
 
     // instance of statue of Baium.
     protected L2NpcInstance _npcBaium;
@@ -157,7 +157,7 @@ public class BaiumManager
     	// initialize status in lair.
     	_isBossSpawned = false;
     	_isIntervalForNextSpawn = false;
-    	_playersInLair.clear();
+    	_PlayersInLair.clear();
         _zoneType = "LairofBaium";
         _questName = "baium";
 
@@ -255,7 +255,7 @@ public class BaiumManager
     // return list of intruders.
     public List<L2PcInstance> getPlayersInLair()
 	{
-		return _playersInLair;
+		return _PlayersInLair;
 	}
     
     // Arcangel advent.
@@ -311,8 +311,10 @@ public class BaiumManager
         
         // stop respawn of statue.
         _npcBaium.getSpawn().stopRespawn();
-
-    	// do social.
+        
+        updateKnownList(baium);
+    	
+        // do social.
         baium.setIsImobilised(true);
         baium.setIsInSocialAction(true);
 
@@ -364,13 +366,13 @@ public class BaiumManager
     // update list of intruders.
     public void addPlayerToLair(L2PcInstance pc)
     {
-        if (!_playersInLair.contains(pc)) _playersInLair.add(pc);
+        if (!_PlayersInLair.contains(pc)) _PlayersInLair.add(pc);
     }
     
     // Whether the players was annihilated is confirmed. 
     public synchronized boolean isPlayersAnnihilated()
     {
-    	for (L2PcInstance pc : _playersInLair)
+    	for (L2PcInstance pc : _PlayersInLair)
 		{
 			// player is must be alive and stay inside of lair.
 			if (!pc.isDead()
@@ -385,7 +387,7 @@ public class BaiumManager
     // banishes players from lair.
     public void banishesPlayers()
     {
-    	for(L2PcInstance pc : _playersInLair)
+    	for(L2PcInstance pc : _PlayersInLair)
     	{
     		if(pc.getQuestState(_questName) != null) pc.getQuestState(_questName).exitQuest(true);
     		if(ZoneManager.getInstance().checkIfInZone(_zoneType, pc))
@@ -396,7 +398,7 @@ public class BaiumManager
         		pc.teleToLocation(_banishmentLocation[loc][0] + driftX,_banishmentLocation[loc][1] + driftY,_banishmentLocation[loc][2]);
     		}
     	}
-    	_playersInLair.clear();
+    	_PlayersInLair.clear();
     }
 
     // at end of activitiy time.
@@ -518,6 +520,16 @@ public class BaiumManager
 
 	}
 
+    // update knownlist.
+    protected void updateKnownList(L2NpcInstance boss)
+    {
+    	boss.getKnownList().getKnownPlayers().clear();
+		for (L2PcInstance pc : _PlayersInLair)
+		{
+			boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
+		}
+    }
+
     // do spawn teleport cube.
     public void spawnCube()
     {
@@ -618,12 +630,8 @@ public class BaiumManager
 
         public void run()
         {
-        	_npc.getKnownList().getKnownPlayers().clear();
-    		for (L2PcInstance pc : _playersInLair)
-    		{
-    			_npc.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-    		}
-
+        	updateKnownList(_npc);
+        	
     		SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
             _npc.broadcastPacket(sa);
 

@@ -46,7 +46,7 @@ public class Recall implements ISkillHandler
     {
         // [L2J_JP ADD SANDMAN]
         // <!--- Zaken skills - teleport PC --> or <!--- Zaken skills - teleport -->
-        if(skill.getId() == 4216 || skill.getId() == 4222)
+    	if(skill.getId() == 4216 || skill.getId() == 4217 || skill.getId() == 4222)
         {
             this.doZakenTeleport(targets);
             activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);

@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -454,6 +455,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         // Order to the L2MonsterInstance to random walk (1/100)
         else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0)
         {
+	    	// [L2J_JP ADD SANDMAN]
+	    	// Instant move of zaken
+	    	if ((npc.getNpcId() == 29022) && Rnd.get(5) > 1)
+	    	{
+	    		npc.doCast(SkillTable.getInstance().getInfo(4222, 1));
+	    		return;
+	    	}
+
             int x1, y1, z1;
 
             // If NPC with random coord in territory

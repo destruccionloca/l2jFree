@@ -8966,7 +8966,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// [L2J_JP ADD SANDMAN]
 		if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofAntharas", this)
 				&& (getZ() >= -8220 && getZ() <= -4870)
-				&& (System.currentTimeMillis() - getLastAccess() >= 1800000))
+				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);

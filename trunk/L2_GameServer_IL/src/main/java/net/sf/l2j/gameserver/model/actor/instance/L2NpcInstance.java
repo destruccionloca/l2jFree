@@ -144,18 +144,6 @@ public class L2NpcInstance extends L2Character
     private boolean _isInTown = false;
     private int _isSpoiledBy = 0;
     
-    // [L2J_JP ADD START]
-    protected boolean _isInvul = false;
-    public boolean isInvul()
-    {
-        return _isInvul;
-    }
-    public void setIsInvul(boolean value)
-    {
-        _isInvul = value;
-    }
-    // [L2J_JP ADD END]
-    
     /** Task launching the function onRandomAnimation()
     * Scheduled for L2MonsterInstance only if AllowRandomAnimation=true
     */

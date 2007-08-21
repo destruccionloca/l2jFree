@@ -397,6 +397,16 @@ public class SailrenManager
     {
     	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(new IntervalEnd(),_intervalOfSailrenSpawn);
     }
+
+    // update knownlist.
+    protected void updateKnownList(L2NpcInstance boss)
+    {
+    	boss.getKnownList().getKnownPlayers().clear();
+		for (L2PcInstance pc : _playersInSailrenLair)
+		{
+			boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
+		}
+    }
     
     // spawn monster.
     private class SailrenSpawn implements Runnable
@@ -582,11 +592,7 @@ public class SailrenManager
 
         public void run()
         {
-        	_npc.getKnownList().getKnownPlayers().clear();
-    		for (L2PcInstance pc : _playersInSailrenLair)
-    		{
-    			_npc.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-    		}
+        	updateKnownList(_npc);
 
     		SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
             _npc.broadcastPacket(sa);

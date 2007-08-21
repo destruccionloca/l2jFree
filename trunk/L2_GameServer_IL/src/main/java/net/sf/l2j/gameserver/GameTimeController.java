@@ -29,6 +29,8 @@ import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -257,9 +259,28 @@ public class GameTimeController
             int h = (getGameTime() / 60) % 24; // Time in hour
             boolean tempIsNight = (h < 6);
             
-            if (tempIsNight != _isNight) { // If diff day/night state
-                _isNight = tempIsNight; // Set current day/night varible to value of temp varible
-                
+            if (tempIsNight != _isNight) 
+            { // If diff day/night state
+               _isNight = tempIsNight; // Set current day/night varible to value of temp varible
+
+                // Zaken cannot be damaged during the night. 
+                if(_isNight)
+                {
+                    for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable().values())
+                    {
+                    	if(spawn.getTemplate().getNpcId() == 29022)
+                    		spawn.getLastSpawn().setIsInvul(true);
+                    }
+                }
+                else
+                {
+                    for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable().values())
+                    {
+                    	if(spawn.getTemplate().getNpcId() == 29022)
+                    		spawn.getLastSpawn().setIsInvul(false);
+                    }
+                }
+
                 DayNightSpawnManager.getInstance().notifyChangeMode();
             }
         }

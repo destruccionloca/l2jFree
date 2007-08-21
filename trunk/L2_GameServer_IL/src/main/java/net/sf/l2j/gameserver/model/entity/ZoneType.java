@@ -63,7 +63,8 @@ public class ZoneType
         LairofLilith ("LairofLilith"),
         LairofAnakim ("LairofAnakim"),
         LairofZaken ("LairofZaken"),
-        LairofSailren ("LairofSailren");
+        LairofSailren ("LairofSailren"),
+        SunlightRoom ("SunlightRoom");
         
         private final String _zoneName;
         

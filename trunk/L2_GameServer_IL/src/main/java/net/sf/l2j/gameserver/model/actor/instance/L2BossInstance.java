@@ -22,12 +22,10 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.instancemanager.AntharasManager;
-import net.sf.l2j.gameserver.instancemanager.BaiumManager;
-import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -166,26 +164,13 @@ public final class L2BossInstance extends L2MonsterInstance
     	getKnownList().getKnownPlayers().clear();
     	switch (getNpcId())
 		{
-			case 29019: // Antharas
-			case 29066: // Antharas
-			case 29067: // Antharas
-			case 29068: // Antharas
-				for (L2Object object : AntharasManager.getInstance().getPlayersInLair())
-				{
-					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
-				}
-				break;
-			case 29020: // Baium
-				for (L2Object object : BaiumManager.getInstance().getPlayersInLair())
-				{
-					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
-				}
-				break;
-			case 29028: // Valakas
-				for (L2Object object : ValakasManager.getInstance().getPlayersInLair())
-				{
-					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
-				}
+			case 29022:	// Zaken (Note:teleport-out of instant-move execute onSpawn.)
+				if(GameTimeController.getInstance().isNowNight())
+					setIsInvul(true);
+				else
+					setIsInvul(false);
+				break;				
+			default:
 				break;
 		}
         super.onSpawn();
@@ -200,7 +185,7 @@ public final class L2BossInstance extends L2MonsterInstance
     {
 
         // [L2J_JP ADD SANDMAN]
-        if (this.IsInSocialAction()) return;
+    	if (this.IsInSocialAction() || this.isInvul()) return;
 
         switch (getTemplate().getNpcId())
         {

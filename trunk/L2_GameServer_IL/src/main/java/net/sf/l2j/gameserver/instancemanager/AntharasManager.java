@@ -114,7 +114,7 @@ public class AntharasManager
     protected List<L2NpcInstance> _teleportCube = new FastList<L2NpcInstance>();
 
     // list of intruders.
-    protected List<L2PcInstance> _playersInLair = new FastList<L2PcInstance>();
+    protected List<L2PcInstance> _PlayersInLair = new FastList<L2PcInstance>();
 
     // spawn data of monsters.
     protected Map<Integer,L2Spawn> _monsterspawn = new FastMap<Integer,L2Spawn>();
@@ -183,7 +183,7 @@ public class AntharasManager
     	// initialize status in lair.
     	_isBossSpawned = false;
     	_isIntervalForNextSpawn = false;
-    	_playersInLair.clear();
+    	_PlayersInLair.clear();
         _zoneType = "LairofAntharas";
         _questName = "antharas";
 
@@ -276,7 +276,7 @@ public class AntharasManager
     // return list of intruders.
     public List<L2PcInstance> getPlayersInLair()
 	{
-		return _playersInLair;
+		return _PlayersInLair;
 	}
     
     // Whether it lairs is confirmed. 
@@ -295,13 +295,13 @@ public class AntharasManager
     // update list of intruders.
     public void addPlayerToLair(L2PcInstance pc)
     {
-        if (!_playersInLair.contains(pc)) _playersInLair.add(pc);
+        if (!_PlayersInLair.contains(pc)) _PlayersInLair.add(pc);
     }
     
     // Whether the players was annihilated is confirmed. 
     public synchronized boolean isPlayersAnnihilated()
     {
-    	for (L2PcInstance pc : _playersInLair)
+    	for (L2PcInstance pc : _PlayersInLair)
 		{
 			// player is must be alive and stay inside of lair.
 			if (!pc.isDead()
@@ -316,7 +316,7 @@ public class AntharasManager
     // banishes players from lair.
     public void banishesPlayers()
     {
-    	for(L2PcInstance pc : _playersInLair)
+    	for(L2PcInstance pc : _PlayersInLair)
     	{
     		if(pc.getQuestState(_questName) != null) pc.getQuestState(_questName).exitQuest(true);
     		if(ZoneManager.getInstance().checkIfInZone(_zoneType, pc))
@@ -327,7 +327,7 @@ public class AntharasManager
         		pc.teleToLocation(_banishmentLocation[loc][0] + driftX,_banishmentLocation[loc][1] + driftY,_banishmentLocation[loc][2]);
     		}
     	}
-    	_playersInLair.clear();
+    	_PlayersInLair.clear();
     }
     
     // do spawn teleport cube.
@@ -390,7 +390,7 @@ public class AntharasManager
     public void setAntharasSpawnTask()
     {
     	// When someone has already invaded the lair, nothing is done.
-    	if (_playersInLair.size() >= 1) return;
+    	if (_PlayersInLair.size() >= 1) return;
 
     	if (_monsterSpawnTask == null)
         {
@@ -412,14 +412,16 @@ public class AntharasManager
         	
         	// Strength of Antharas is decided by the number of players that invaded the lair.
         	if(_oldAntharas) npcId = 29019;	// old
-        	else if(_playersInLair.size() <= _limitOfWeak) npcId = 29066;	// weak
-        	else if(_playersInLair.size() >= _limitOfNormal) npcId = 29068;	// strong
+        	else if(_PlayersInLair.size() <= _limitOfWeak) npcId = 29066;	// weak
+        	else if(_PlayersInLair.size() >= _limitOfNormal) npcId = 29068;	// strong
         	else npcId = 29067;	//normal
 
         	// do spawn.
         	L2Spawn antharasSpawn = _monsterspawn.get(npcId);
         	L2BossInstance antharas = (L2BossInstance)antharasSpawn.doSpawn();
         	_monsters.add(antharas);
+
+        	updateKnownList(antharas);
         	
         	// do social.
         	antharas.setIsImobilised(true);
@@ -440,12 +442,12 @@ public class AntharasManager
             	int intervalOfBomber;
             	
             	// Interval of minions is decided by the number of players that invaded the lair.
-            	if(_playersInLair.size() <= _limitOfWeak)	// weak
+            	if(_PlayersInLair.size() <= _limitOfWeak)	// weak
             	{
             		intervalOfBehemoth = _intervalOfBehemothOnWeak;
             		intervalOfBomber = _intervalOfBomberOnWeak;
             	}
-            	else if(_playersInLair.size() >= _limitOfNormal)	// strong
+            	else if(_PlayersInLair.size() >= _limitOfNormal)	// strong
             	{
             		intervalOfBehemoth = _intervalOfBehemothOnStrong;
             		intervalOfBomber = _intervalOfBomberOnStrong;
@@ -768,7 +770,16 @@ public class AntharasManager
             	new CubeSpawn(),10000);
     }
     
-    
+    // update knownlist.
+    protected void updateKnownList(L2NpcInstance boss)
+    {
+    	boss.getKnownList().getKnownPlayers().clear();
+		for (L2PcInstance pc : _PlayersInLair)
+		{
+			boss.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
+		}
+    }
+
     // do spawn teleport cube.
     private class CubeSpawn implements Runnable
     {
@@ -796,12 +807,8 @@ public class AntharasManager
 
         public void run()
         {
-        	_npc.getKnownList().getKnownPlayers().clear();
-    		for (L2PcInstance pc : _playersInLair)
-    		{
-    			_npc.getKnownList().getKnownPlayers().put(pc.getObjectId(), pc);
-    		}
-
+        	updateKnownList(_npc);
+        	
     		SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
             _npc.broadcastPacket(sa);
 
