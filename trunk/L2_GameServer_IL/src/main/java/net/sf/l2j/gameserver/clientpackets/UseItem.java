@@ -214,20 +214,20 @@ public class UseItem extends L2GameClientPacket
                 if (activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST)
                     activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 
-                // Don't allow weapon/shield hero equipment during Olimpia 
-                if (activeChar.isInOlympiadMode()  
-                		&& (	
-                				bodyPart == L2Item.SLOT_LR_HAND  
-                				|| bodyPart == L2Item.SLOT_L_HAND  
-                				|| bodyPart == L2Item.SLOT_R_HAND
-                			) 
-                		&& ( 
-                				(item.getItemId() >= 6611 && item.getItemId() <= 6621) ||  
-                				item.getItemId() == 6842 
-                			)
-                	) 
-                { 
-                	return; 
+                // Don't allow weapon/shield hero equipment during Olympiads
+                if (activeChar.isInOlympiadMode()
+                        && (
+                                bodyPart == L2Item.SLOT_LR_HAND
+                                || bodyPart == L2Item.SLOT_L_HAND
+                                || bodyPart == L2Item.SLOT_R_HAND
+                            )
+                        && (
+                                (item.getItemId() >= 6611 && item.getItemId() <= 6621) ||
+                                item.getItemId() == 6842 
+                            )
+                    )
+                {
+                    return;
                 }
 
                 // Equip or unEquip

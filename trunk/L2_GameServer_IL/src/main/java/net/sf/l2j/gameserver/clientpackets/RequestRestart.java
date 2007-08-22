@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.serverpackets.RestartResponse;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+import net.sf.l2j.gameserver.Olympiad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -73,8 +74,9 @@ public class RequestRestart extends L2GameClientPacket
         }
         
         // prevent from player disconnect when in Olympiad mode
-        if(player.isInOlympiadMode()) {
-        	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
+        if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player))
+        {
+            if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
             player.sendMessage("You can't restart when in Olympiad.");
             player.sendPacket(new ActionFailed());
             return;
@@ -92,11 +94,11 @@ public class RequestRestart extends L2GameClientPacket
 
         if (player.getPet() != null && !player.isBetrayed() && (player.getPet() instanceof L2PetInstance))
         {
-        	L2PetInstance pet = (L2PetInstance)player.getPet();
+            L2PetInstance pet = (L2PetInstance)player.getPet();
 
             if (pet.isAttackingNow())
             {
-            	pet.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+                pet.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
                 player.sendPacket(new ActionFailed());
                 return;
             } 

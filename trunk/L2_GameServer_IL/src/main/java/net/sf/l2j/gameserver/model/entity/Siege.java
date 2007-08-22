@@ -102,7 +102,7 @@ public class Siege
     //  - id=287 msg=[The opponent clan has begun to engrave the ruler.]           
 
     public static enum TeleportWhoType {
-        All, Attacker, Defender, Owner, Spectator
+        All, Attacker, DefenderNotOwner, Owner, Spectator
     }
 
     // ===============================================================
@@ -288,7 +288,7 @@ public class Siege
 
             removeFlags(); // Removes all flags. Note: Remove flag before teleporting players
             teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
-            //teleportPlayer(Siege.TeleportWhoType.Defender, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
+            teleportPlayer(Siege.TeleportWhoType.DefenderNotOwner, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
             teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
             _isInProgress = false; // Flag so that siege instance can be started
             updatePlayerSiegeStateFlags(true);
@@ -475,24 +475,30 @@ public class Siege
         L2Clan clan;
         for(L2SiegeClan siegeclan : getAttackerClans())
         {
-             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
-             for (L2PcInstance member : clan.getOnlineMembers(""))
-             {
-                 if (clear) member.setSiegeStateFlag(0);
-                 else member.setSiegeStateFlag(0x180);
-                 member.sendPacket(new UserInfo(member));
-                 member.broadcastPacket(new CharInfo(member)); // actually relation
-             }
+            clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+            for (L2PcInstance member : clan.getOnlineMembers(""))
+            {
+                if (clear) member.setSiegeState((byte)0);
+                else member.setSiegeState((byte)1);
+                member.sendPacket(new UserInfo(member));
+                for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
+                {
+                    player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
+                }
+            }
         }
         for(L2SiegeClan siegeclan : getDefenderClans())
         {
             clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
             for (L2PcInstance member : clan.getOnlineMembers(""))
             {
-                if (clear) member.setSiegeStateFlag(0);
-                else member.setSiegeStateFlag(0x80);
+                if (clear) member.setSiegeState((byte)0);
+                else member.setSiegeState((byte)2);
                 member.sendPacket(new UserInfo(member));
-                member.broadcastPacket(new CharInfo(member)); // actually relation
+                for (L2PcInstance player : member.getKnownList().getKnownPlayers().values())
+                {
+                    player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
+                }
             }
         }
     }
@@ -624,31 +630,32 @@ public class Siege
     public FastList<L2PcInstance> getAttackersInZone()
     {
         FastList<L2PcInstance> players = new FastList<L2PcInstance>();
-
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+        L2Clan clan;
+        for(L2SiegeClan siegeclan : getAttackerClans())
         {
-            if (player.getClan() != null && getAttackerClan(player.getClan()) != null
-                && checkIfInZone(player.getX(), player.getY())) players.add(player);
+            clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+            for (L2PcInstance player : clan.getOnlineMembers(""))
+            {
+                if (checkIfInZone(player.getX(), player.getY())) players.add(player);
+            }
         }
-
         return players;
     }
 
-    /** Return list of L2PcInstance registered as defender in the zone. */
-    public FastList<L2PcInstance> getDefendersInZone()
+    /** Return list of L2PcInstance registered as defender but not owner in the zone. */
+    public FastList<L2PcInstance> getDefendersButNotOwnersInZone()
     {
         FastList<L2PcInstance> players = new FastList<L2PcInstance>();
-
-        int ownerId = getCastle().getOwnerId();
-
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+        L2Clan clan;
+        for(L2SiegeClan siegeclan : getDefenderClans())
         {
-            if (player.getClan() != null && player.getClan().getClanId() == ownerId) continue;
-
-            if (player.getClan() != null && getDefenderClan(player.getClan()) != null
-                && checkIfInZone(player.getX(), player.getY())) players.add(player);
+            clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+            if (clan.getClanId() == getCastle().getOwnerId()) continue;
+            for (L2PcInstance player : clan.getOnlineMembers(""))
+            {
+                if (checkIfInZone(player.getX(), player.getY())) players.add(player);
+            }
         }
-
         return players;
     }
 
@@ -659,7 +666,9 @@ public class Siege
 
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
-            if (checkIfInZone(player.getX(), player.getY())) players.add(player);
+            // quick check from player states, which don't include siege number however
+        	if (!player.getInSiegeZone()) continue;
+        	if (checkIfInZone(player.getX(), player.getY())) players.add(player);
         }
 
         return players;
@@ -669,17 +678,16 @@ public class Siege
     public FastList<L2PcInstance> getOwnersInZone()
     {
         FastList<L2PcInstance> players = new FastList<L2PcInstance>();
-
-        int ownerId = getCastle().getOwnerId();
-        if (ownerId > 0)
+        L2Clan clan;
+        for(L2SiegeClan siegeclan : getDefenderClans())
         {
-            for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+            clan = ClanTable.getInstance().getClan(siegeclan.getClanId());
+            if (clan.getClanId() != getCastle().getOwnerId()) continue;
+            for (L2PcInstance player : clan.getOnlineMembers(""))
             {
-                if (player.getClan() != null && player.getClan().getClanId() == ownerId
-                    && checkIfInZone(player.getX(), player.getY())) players.add(player);
+                if (checkIfInZone(player.getX(), player.getY())) players.add(player);
             }
         }
-
         return players;
     }
 
@@ -690,11 +698,10 @@ public class Siege
 
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
-            if ( checkIfInZone(player.getX(), player.getY()) &&
-                 ( player.getClan() == null 
-                   || (getAttackerClan(player.getClan()) == null && getDefenderClan(player.getClan()) == null) 
-                 )
-               ) players.add(player);
+            // quick check from player states, which don't include siege number however
+            if (!player.getInSiegeZone() || player.getSiegeState() != 0) continue;
+            if ( checkIfInZone(player.getX(), player.getY()))
+                players.add(player);
         }
 
         return players;
@@ -849,8 +856,7 @@ public class Siege
     /**
      * Teleport players
      */
-    public void teleportPlayer(TeleportWhoType teleportWho,
-                               MapRegionTable.TeleportWhereType teleportWhere)
+    public void teleportPlayer(TeleportWhoType teleportWho, MapRegionTable.TeleportWhereType teleportWhere)
     {
         FastList<L2PcInstance> players;
         switch (teleportWho)
@@ -861,8 +867,8 @@ public class Siege
             case Attacker:
                 players = this.getAttackersInZone();
                 break;
-            case Defender:
-                players = this.getDefendersInZone();
+            case DefenderNotOwner:
+                players = this.getDefendersButNotOwnersInZone();
                 break;
             case Spectator:
                 players = this.getSpectatorsInZone();
@@ -1424,9 +1430,7 @@ public class Siege
 
     public final Zone getZone()
     {
-        return ZoneManager.getInstance().getZone(
-                                                 ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.SiegeBattleField),
+        return ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.SiegeBattleField),
                                                  getCastle().getName());
     }
-
 }

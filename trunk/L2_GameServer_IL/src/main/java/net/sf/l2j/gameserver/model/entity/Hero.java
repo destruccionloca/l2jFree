@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -380,14 +381,18 @@ public class Hero
             
             if (player != null)
             {
-                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));                 
+                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
                 player.setHero(true);
                 L2Clan clan = player.getClan();
                 if (clan != null)
+                {
                     clan.setReputationScore(clan.getReputationScore()+1000, true);
-                 player.setHero(true); 
-                 for(L2Skill skill : HeroSkillTable.getInstance().getHeroSkills())
-                	 player.addSkill(skill);
+                    clan.updateClanInDB();
+                    clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+                }
+                player.setHero(true); 
+                for(L2Skill skill : HeroSkillTable.getInstance().getHeroSkills())
+                    player.addSkill(skill);
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
             }

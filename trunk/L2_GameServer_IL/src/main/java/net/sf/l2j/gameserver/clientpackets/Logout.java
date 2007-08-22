@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+import net.sf.l2j.gameserver.Olympiad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -79,7 +80,7 @@ public class Logout extends L2GameClientPacket
                 return;                   
             }
         }
-	
+
         if(player.isFlying())
         {
             player.sendMessage("You can not log out while flying.");
@@ -99,11 +100,11 @@ public class Logout extends L2GameClientPacket
         
         if (player.getPet() != null && !player.isBetrayed() && (player.getPet() instanceof L2PetInstance))
         {
-        	L2PetInstance pet = (L2PetInstance)player.getPet();
+            L2PetInstance pet = (L2PetInstance)player.getPet();
 
             if (pet.isAttackingNow())
             {
-            	pet.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+                pet.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
                 player.sendPacket(new ActionFailed());
                 return;
             } 
@@ -111,23 +112,23 @@ public class Logout extends L2GameClientPacket
              pet.unSummon(player);
         }
         
-        if(player.atEvent) {
+        if(player.atEvent)
+        {
             player.sendMessage("A superior power doesn't allow you to leave the event.");
             return;
         }
         
-        // prevent from player disconnect when in Olympiad mode
-        if(player.isInOlympiadMode()) {
-        	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
-            player.sendMessage("You can't disconnect when in Olympiad.");
-            player.sendPacket(new ActionFailed());
+        if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player))
+        {
+            player.sendMessage("You can't logout in olympiad mode.");
             return;
         }
         
         // Prevent player from logging out if they are a festival participant
         // and it is in progress, otherwise notify party members that the player
         // is not longer a participant.
-        if (player.isFestivalParticipant()) {
+        if (player.isFestivalParticipant())
+        {
             if (SevenSignsFestival.getInstance().isFestivalInitialized()) 
             {
                 player.sendMessage("You cannot log out while you are a participant in a festival.");
@@ -138,34 +139,35 @@ public class Logout extends L2GameClientPacket
             if (playerParty != null)
                 player.getParty().broadcastToPartyMembers(SystemMessage.sendString(player.getName() + " has been removed from the upcoming festival."));
         }
+
         if (player.isFlying()) 
         { 
            player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
         }
-    	
+
         if (player.getPrivateStoreType() != 0)
         {
             player.sendMessage("Cannot log out while trading.");
             return;
         }
-        
+
         if (player.getActiveRequester() != null)
         {
             player.getActiveRequester().onTradeCancel(player);
             player.onTradeCancel(player.getActiveRequester());
         }
-        
+
         RegionBBSManager.getInstance().changeCommunityBoard();
-        
+
         player.getInventory().updateDatabase();
         player.deleteMe();
 
         // notify friends
-		notifyFriends(player);
-        
+        notifyFriends(player);
+
         //save character
         L2GameClient.saveCharToDisk(player);
-        
+
         // normally the server would send serveral "delete object" before "leaveWorld"
         // we skip that for now
         sendPacket(new LeaveWorld());

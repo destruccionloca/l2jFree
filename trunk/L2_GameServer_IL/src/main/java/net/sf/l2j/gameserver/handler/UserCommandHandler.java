@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.handler.usercommandhandlers.DisMount;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Escape;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Loc;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Mount;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.OlympiadStat;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.PartyInfo;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.Time;
 
@@ -65,6 +66,7 @@ public class UserCommandHandler
         registerUserCommandHandler(new Escape());
         registerUserCommandHandler(new Time());
         registerUserCommandHandler(new ClanWarsList());
+		registerUserCommandHandler(new OlympiadStat());
         
 	}
 	

@@ -95,33 +95,7 @@ public class L2MonsterInstance extends L2Attackable
         
         return !isEventMob;
     }
-    
-    /**
-     * Return False.<BR><BR>
-     */
-    @Override
-    public boolean hasRandomAnimation()
-    {
-        if(!Config.ALLOW_RANDOM_ANIMATIONS)
-            return false;
-        // Create a new RandomAnimation Task that will be launched after the calculated delay
-        startRandomAnimation();
-        return false;
-    }
-    /**
-     * Create a RandomAnimation Task that will be launched after the calculated delay.<BR><BR>
-     */
-    public void startRandomAnimation()
-    {
-        int minWait = 15;
-        int maxWait = 30;
-        
-        // Calculate the delay before the next animation
-        int interval = Rnd.get(minWait, maxWait) * 1000;
-        
-        // Create a RandomAnimation Task that will be launched after the calculated delay 
-        ThreadPoolManager.getInstance().scheduleGeneral(new RandomAnimationTask(), interval);
-    }
+
     /**
      * Return True if the L2MonsterInstance is Agressive (aggroRange > 0).<BR><BR>
      */
@@ -129,6 +103,7 @@ public class L2MonsterInstance extends L2Attackable
     {
         return (getTemplate().getAggroRange() > 0) && !this.isEventMob;
     }
+
     public void onSpawn()
     {
         super.onSpawn();

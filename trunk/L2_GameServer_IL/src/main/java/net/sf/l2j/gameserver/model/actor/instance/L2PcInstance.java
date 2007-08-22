@@ -162,6 +162,7 @@ import net.sf.l2j.gameserver.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfo;
+import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfoSpectator;
 import net.sf.l2j.gameserver.serverpackets.ExSetCompassZoneCode;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.HennaInfo;
@@ -256,25 +257,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public static final int STORE_PRIVATE_MANUFACTURE = 5;
     public static final int STORE_PRIVATE_PACKAGE_SELL = 8;
 
-	private static final int RELATION_PVP_FLAG      = 0x00002; // pvp ???
-	private static final int RELATION_HAS_KARMA     = 0x00004; // karma ???
-	private static final int RELATION_UNKNOWN_1     = 0x00008; // ???
-	private static final int RELATION_UNKNOWN_2     = 0x00010; // ???
-	private static final int RELATION_UNKNOWN_3     = 0x00020; // siege flags ???
-	private static final int RELATION_UNKNOWN_4     = 0x00040; // siege flags ???
-	private static final int RELATION_LEADER        = 0x00080; // leader
-	private static final int RELATION_UNKNOWN_6     = 0x00100; // siege flags ???
-	private static final int RELATION_UNKNOWN_7     = 0x00200; // true if in siege
-	private static final int RELATION_UNKNOWN_8     = 0x00400; // true when attacker
-	private static final int RELATION_UNKNOWN_9     = 0x00800; // blue siege icon, cannot have if red
-	private static final int RELATION_UNKNOWN_10    = 0x01000; // true when red icon, doesn't matter with blue
-	private static final int RELATION_UNKNOWN_11    = 0x02000; // ???
-	private static final int RELATION_UNKNOWN_12    = 0x04000; // ???
-	private static final int RELATION_MUTUAL_WAR    = 0x08000; // double fist
-	private static final int RELATION_1SIDED_WAR    = 0x10000; // single fist
-	private static final int RELATION_UNKNOWN_13    = 0x20000; // ???
-	private static final int RELATION_UNKNOWN_14    = 0x40000; // ???    
-    
     /** The table containing all minimum level needed for each Expertise (None, D, C, B, A, S)*/
     private static final int[] EXPERTISE_LEVELS = {SkillTreeTable.getInstance().getExpertiseLevel(0), //NONE
                                                    SkillTreeTable.getInstance().getExpertiseLevel(1), //D
@@ -364,8 +346,8 @@ public final class L2PcInstance extends L2PlayableInstance
     /** The PvP Flag state of the L2PcInstance (0=White, 1=Purple) */
     private byte _pvpFlag;
 
-    /** The Siege Flag state of the L2PcInstance */
-    private int _siegeStateFlag = 0;
+    /** The Siege state of the L2PcInstance */
+    private byte _siegeState = 0;
 
     private boolean _inPvpZone;
     private boolean _inPeaceZone;
@@ -629,6 +611,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _hero = false;
     private boolean _noble = false;
     private boolean _inOlympiadMode = false;
+	private boolean _olympiadStart = false;
     private int _olympiadGameId = -1;
     private int _olympiadSide = -1;
     
@@ -792,23 +775,39 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public int getRelation(L2PcInstance target)
     {
-        // TODO: Add siege icons
         int result = 0;
-        
+
+        // karma and pvp may not be required
         if (getPvpFlag() != 0)
-            result |= RELATION_PVP_FLAG;
+            result |= RelationChanged.RELATION_PVP_FLAG;
         
         if (getKarma() > 0)
-            result |= RELATION_HAS_KARMA;
+            result |= RelationChanged.RELATION_HAS_KARMA;
+        
+        if (isClanLeader())
+            result |= RelationChanged.RELATION_LEADER;
+
+        if (this.getSiegeState() != 0)
+        {
+            result |= RelationChanged.RELATION_INSIEGE;
+            if (this.getSiegeState() != target.getSiegeState())
+                result |= RelationChanged.RELATION_ENEMY;
+            else 
+                result |= RelationChanged.RELATION_ALLY;
+            if (this.getSiegeState() == 1)
+                result |= RelationChanged.RELATION_ATTACKER;
+        }
         
         if (getClan() != null && target.getClan() != null)
-        if (target.getPledgeType() != L2Clan.SUBUNIT_ACADEMY)
-                if (target.getClan().isAtWarWith(getClan().getClanId())) {
-                    result |= RELATION_1SIDED_WAR;
-                    if (getClan().isAtWarWith(target.getClan().getClanId()))
-                        result |= RELATION_MUTUAL_WAR;
+		{
+			if (target.getPledgeType() != L2Clan.SUBUNIT_ACADEMY
+				&& target.getClan().isAtWarWith(getClan().getClanId())) 
+			{
+				result |= RelationChanged.RELATION_1SIDED_WAR;
+				if (getClan().isAtWarWith(target.getClan().getClanId()))
+					result |= RelationChanged.RELATION_MUTUAL_WAR;
             }
-        
+        }
         return result;
     }
         
@@ -1471,18 +1470,18 @@ public final class L2PcInstance extends L2PlayableInstance
         return _macroses;
     }
 
-    public int getSiegeStateFlag()
+    /**
+     * Set the siege state of the L2PcInstance.<BR><BR>
+     * 1 = attacker, 2 = defender, 0 = not involved
+     */
+    public void setSiegeState(byte siegeState)
     {
-        return _siegeStateFlag;
+        _siegeState = siegeState;
     }
 
-    /**
-     * Set the Siege Flag of the L2PcInstance.<BR><BR>
-     * 0x180 sword over name, 0x80 shield (if also leader, 0xC0 crown, 0x1C0 flag)
-     */
-    public void setSiegeStateFlag(int siegeStateFlag)
+    public byte getSiegeState()
     {
-        _siegeStateFlag = siegeStateFlag;
+        return _siegeState;
     }
 
     /**
@@ -3446,12 +3445,22 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (isInOlympiadMode())
         {
+            // TODO: implement new OlympiadUserInfo
+            for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+            {
+                if (player.getOlympiadGameId()==getOlympiadGameId())
+                {
+                    if (_log.isDebugEnabled())
+                        _log.info("Send status for Olympia window of " + getObjectId() + "(" + getName() + ") to " + player.getObjectId() + "(" + player.getName() +"). CP: " + getStatus().getCurrentCp() + " HP: " + getStatus().getCurrentHp() + " MP: " + getStatus().getCurrentMp());
+                    player.sendPacket(new ExOlympiadUserInfo(this));
+                }
+            }
             if (Olympiad.getInstance().getSpectators(_olympiadGameId) != null)
             {
                 for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
                 {
                     if (spectator == null) continue;
-                    spectator.sendPacket(new ExOlympiadUserInfo(this, getOlympiadSide()));
+                    spectator.sendPacket(new ExOlympiadUserInfoSpectator(this, getOlympiadSide()));
                 }
             }
         }
@@ -6940,7 +6949,16 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Check if the attacker is not in the same party
         if (getParty() != null && getParty().getPartyMembers().contains(attacker)) return false;
-        
+
+        // Check if the attacker is in olympia and olympia start
+        if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInOlympiadMode() )
+        {
+            if (this.isInOlympiadMode() && this.isOlympiadStart() && ((L2PcInstance)attacker).getOlympiadGameId()==this.getOlympiadGameId())
+                return true;
+            else
+                return false;
+        }
+
         // Check if the attacker is not in the same clan
         if (getClan() != null && attacker != null && getClan().isMember(attacker.getName()))
             return false;
@@ -7281,24 +7299,31 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             if ((isInsidePeaceZone(this, target)) && (getAccessLevel() < Config.GM_PEACEATTACK) && !(_inEventVIP && VIP._started))
             {
-            	if(!this.isInFunEvent() || !target.isInFunEvent())
-            	{
-	                // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
-	                sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
-	                sendPacket(new ActionFailed());
-	                return;
-            	}
+                if(!this.isInFunEvent() || !target.isInFunEvent())
+                {
+                    // If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
+                    sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
+                    sendPacket(new ActionFailed());
+                    return;
+                }
+            }
+
+            if (isInOlympiadMode() && !isOlympiadStart())
+            {
+                // if L2PcInstance is in Olympia and the match isn't already start, send a Server->Client packet ActionFailed
+                sendPacket(new ActionFailed());
+                return;
             }
 
             // Check if the target is attackable
             if (!target.isAttackable() && (getAccessLevel() < Config.GM_PEACEATTACK))
             {
-            	if(!this.isInFunEvent() || !target.isInFunEvent())
-            	{
-	                // If target is not attackable, send a Server->Client packet ActionFailed
-	                sendPacket(new ActionFailed());
-	                return;
-            	}
+                if(!this.isInFunEvent() || !target.isInFunEvent())
+                {
+                    // If target is not attackable, send a Server->Client packet ActionFailed
+                    sendPacket(new ActionFailed());
+                    return;
+                }
             }
 
             // Check if a Forced ATTACK is in progress on non-attackable target
@@ -8204,6 +8229,16 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setIsInOlympiadMode(boolean b)
     {
         _inOlympiadMode = b;
+    }
+
+    public void setIsOlympiadStart(boolean b)
+    {
+        _olympiadStart = b;
+    }
+
+    public boolean isOlympiadStart()
+    {
+        return _olympiadStart;
     }
 
     public boolean isHero()

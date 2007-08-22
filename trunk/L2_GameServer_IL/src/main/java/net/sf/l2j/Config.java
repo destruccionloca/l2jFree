@@ -1009,6 +1009,8 @@ public final class Config {
     public static int           		ZONE_TOWN;						// Zone Setting
     public static int           		MIN_NPC_ANIMATION;				// random animation interval
     public static int           		MAX_NPC_ANIMATION;
+    public static int           		MIN_MONSTER_ANIMATION;
+    public static int           		MAX_MONSTER_ANIMATION;
     public static boolean       		SHOW_NPC_LVL;					// Show L2Monster level and aggro ?
     public static int           		PACKET_LIFETIME;
     public static long          		PACKET_EXECUTIONTIME;
@@ -1027,11 +1029,10 @@ public final class Config {
     public static boolean 				ALT_DEV_NO_QUESTS;				// Alt Settings for devs
     public static boolean 				ALT_DEV_NO_SPAWNS;				// Alt Settings for devs
     public static boolean 				ONLY_GM_ITEMS_FREE;				// Only GM buy items for free
-    public static boolean				ALLOW_RANDOM_ANIMATIONS;		// Random animations for L2Monsters
     //  *******************************************************************************************
     public static void loadOptionsConfig()
     {
-    	_log.info("loading " + OPTIONS_FILE);
+        _log.info("loading " + OPTIONS_FILE);
         try 
         {
             Properties optionsSettings    = new Properties();
@@ -1064,9 +1065,9 @@ public final class Config {
 
             PRECISE_DROP_CALCULATION        = Boolean.valueOf(optionsSettings.getProperty("PreciseDropCalculation", "True"));
             MULTIPLE_ITEM_DROP              = Boolean.valueOf(optionsSettings.getProperty("MultipleItemDrop", "True"));
-          
+
             COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
-         
+
             ALLOW_WAREHOUSE                 = Boolean.valueOf(optionsSettings.getProperty("AllowWarehouse", "True"));
             WAREHOUSE_CACHE                 = Boolean.valueOf(optionsSettings.getProperty("WarehouseCache", "False"));
             WAREHOUSE_CACHE_TIME            = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
@@ -1085,16 +1086,15 @@ public final class Config {
             ALLOW_CURSED_WEAPONS            = Boolean.valueOf(optionsSettings.getProperty("AllowCursedWeapons", "False"));
             ALLOW_WEDDING                   = Boolean.valueOf(optionsSettings.getProperty("AllowWedding", "False"));
             ALLOW_GUARDS                    = Boolean.valueOf(optionsSettings.getProperty("AllowGuards", "False"));
-            ALLOW_RANDOM_ANIMATIONS         = Boolean.valueOf(optionsSettings.getProperty("AllowRandomAnimations", "False"));
-           
+
             DEFAULT_GLOBAL_CHAT             = optionsSettings.getProperty("GlobalChat", "ON");
             GLOBAL_CHAT_TIME				= Integer.parseInt(optionsSettings.getProperty("GlobalChatTime", "1"));
             DEFAULT_TRADE_CHAT              = optionsSettings.getProperty("TradeChat", "ON");
             TRADE_CHAT_TIME					= Integer.parseInt(optionsSettings.getProperty("TradeChatTime", "1"));            
-        
+
             LOG_CHAT                        = Boolean.valueOf(optionsSettings.getProperty("LogChat", "false"));
             LOG_ITEMS                       = Boolean.valueOf(optionsSettings.getProperty("LogItems", "false"));
-                         
+
             GM_AUDIT                        = Boolean.valueOf(optionsSettings.getProperty("GMAudit", "False"));
 
             COMMUNITY_TYPE                  = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
@@ -1106,31 +1106,33 @@ public final class Config {
             NAME_PER_ROW_COMMUNITYBOARD     = Integer.parseInt(optionsSettings.getProperty("NamePerRowOnCommunityBoard", "5"));
             if (NAME_PER_ROW_COMMUNITYBOARD > 5) NAME_PER_ROW_COMMUNITYBOARD = 5;
             SHOW_CURSED_WEAPON_OWNER        = Boolean.valueOf(optionsSettings.getProperty("ShowCursedWeaponOwner", "False"));
-                         
+
             ZONE_TOWN                       = Integer.parseInt(optionsSettings.getProperty("ZoneTown", "0"));
-                         
+
             MAX_DRIFT_RANGE                 = Integer.parseInt(optionsSettings.getProperty("MaxDriftRange", "300"));
 
-            MIN_NPC_ANIMATION               = Integer.parseInt(optionsSettings.getProperty("MinNPCAnimation", "0"));
-            MAX_NPC_ANIMATION               = Integer.parseInt(optionsSettings.getProperty("MaxNPCAnimation", "0"));
-                         
+            MIN_NPC_ANIMATION               = Integer.parseInt(optionsSettings.getProperty("MinNPCAnimation", "10"));
+            MAX_NPC_ANIMATION               = Integer.parseInt(optionsSettings.getProperty("MaxNPCAnimation", "20"));
+            MIN_MONSTER_ANIMATION           = Integer.parseInt(optionsSettings.getProperty("MinMonsterAnimation", "5"));
+            MAX_MONSTER_ANIMATION           = Integer.parseInt(optionsSettings.getProperty("MaxMonsterAnimation", "20"));
+
             SHOW_NPC_LVL                    = Boolean.valueOf(optionsSettings.getProperty("ShowNpcLevel", "False"));
 
             FORCE_INVENTORY_UPDATE          = Boolean.valueOf(optionsSettings.getProperty("ForceInventoryUpdate", "False"));
 
             AUTODELETE_INVALID_QUEST_DATA   = Boolean.valueOf(optionsSettings.getProperty("AutoDeleteInvalidQuestData", "False"));
-                         
+
             THREAD_P_EFFECTS                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeEffects", "6"));
             THREAD_P_GENERAL                = Integer.parseInt(optionsSettings.getProperty("ThreadPoolSizeGeneral", "15"));
             GENERAL_PACKET_THREAD_CORE_SIZE = Integer.parseInt(optionsSettings.getProperty("GeneralPacketThreadCoreSize", "4"));
             IO_PACKET_THREAD_CORE_SIZE      = Integer.parseInt(optionsSettings.getProperty("UrgentPacketThreadCoreSize", "2"));
             GENERAL_THREAD_CORE_SIZE        = Integer.parseInt(optionsSettings.getProperty("GeneralThreadCoreSize", "4"));
             AI_MAX_THREAD                   = Integer.parseInt(optionsSettings.getProperty("AiMaxThread", "10"));
-                         
+
             DELETE_DAYS                     = Integer.parseInt(optionsSettings.getProperty("DeleteCharAfterDays", "7"));
-            
+
             FLOODPROTECTOR_INITIALSIZE		= Integer.parseInt(optionsSettings.getProperty("FloodProtectorInitialSize", "50"));
-            
+
             DEFAULT_PUNISH                  = Integer.parseInt(optionsSettings.getProperty("DefaultPunish", "2"));
             DEFAULT_PUNISH_PARAM            = Integer.parseInt(optionsSettings.getProperty("DefaultPunishParam", "0"));
 
@@ -1141,39 +1143,39 @@ public final class Config {
 
             PACKET_LIFETIME                 = Integer.parseInt(optionsSettings.getProperty("PacketLifeTime", "0"));
             PACKET_EXECUTIONTIME            = Long.parseLong(optionsSettings.getProperty("PacketExecutionTime", "0"));
-            
+
             BYPASS_VALIDATION               = Boolean.valueOf(optionsSettings.getProperty("BypassValidation", "False"));
-                         
+
             GAMEGUARD_ENFORCE               = Boolean.valueOf(optionsSettings.getProperty("GameGuardEnforce", "False"));
             GAMEGUARD_PROHIBITACTION        = Boolean.valueOf(optionsSettings.getProperty("GameGuardProhibitAction", "False"));
             GRIDS_ALWAYS_ON                 = Boolean.parseBoolean(optionsSettings.getProperty("GridsAlwaysOn", "False"));
             GRID_NEIGHBOR_TURNON_TIME       = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "30"));
             GRID_NEIGHBOR_TURNOFF_TIME      = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "300"));    
-                             
+
             GEODATA                         = Integer.parseInt(optionsSettings.getProperty("GeoData", "0"));
             FORCE_GEODATA                   = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True"));
-            
+
             SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
             SHOW_HTML_WELCOME               = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));
             SHOW_HTML_NEWBIE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLNewbie", "False"));
             LEVEL_HTML_NEWBIE               = Integer.parseInt(optionsSettings.getProperty("LevelShowHTMLNewbie", "10"));
             USE_SAY_FILTER                  = Boolean.parseBoolean(optionsSettings.getProperty("UseSayFilter", "false"));
-            
+
             CHAR_VIP_SKIP_SKILLS_CHECK		= Boolean.parseBoolean(optionsSettings.getProperty("CharViPSkipSkillsCheck", "false"));
             CHAR_VIP_COLOR_ENABLED			= Boolean.parseBoolean(optionsSettings.getProperty("CharViPAllowColor", "false"));
             CHAR_VIP_COLOR					= Integer.decode("0x" + optionsSettings.getProperty("CharViPNameColor", "00CCFF"));
-            
+
             ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("ShowOnlinePlayersAtStartup","True"));
             ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(optionsSettings.getProperty("OnlinePlayersAnnounceInterval","900000"));
-            
+
             ONLY_GM_ITEMS_FREE				= Boolean.valueOf(optionsSettings.getProperty("OnlyGMItemsFree", "True"));
-            
+
             // ---------------------------------------------------
             // Configuration values not found in config files
             // ---------------------------------------------------
-            
+
             CHECK_SKILLS_ON_ENTER		   	= Boolean.valueOf(optionsSettings.getProperty("CheckSkillsOnEnter","false"));
-            
+
             ALT_DEV_NO_QUESTS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
             ALT_DEV_NO_SPAWNS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
         }

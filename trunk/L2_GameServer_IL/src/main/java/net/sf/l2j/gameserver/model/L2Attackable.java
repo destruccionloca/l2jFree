@@ -2104,9 +2104,22 @@ public class L2Attackable extends L2NpcInstance
         return (_seedType < 5650); // low-grade seeds has id's below 5650
     }
     
-    
     private int getAbsorbLevel()
     {
         return getTemplate().getAbsorbLevel();
+    }
+
+    /**
+     * Check if the server allows Random Animation.<BR><BR>
+     */
+    // This is located here because L2Monster and L2FriendlyMob both extend this class. The other non-pc instances extend either L2NpcInstance or L2MonsterInstance.
+    public boolean hasRandomAnimation()
+    {
+        return ((Config.MAX_MONSTER_ANIMATION > 0) && !(this instanceof L2BossInstance));
+    }
+
+    public boolean isMob()
+    {
+        return true; // This means we use MAX_MONSTER_ANIMATION instead of MAX_NPC_ANIMATION
     }
 }

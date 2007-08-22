@@ -44,7 +44,7 @@ public class HeroSkillTable
         return _instance;
     }
     
-    public FastList<L2Skill> getHeroSkills()
+    public static FastList<L2Skill> getHeroSkills()
     {
         return _heroSkills;
     }
