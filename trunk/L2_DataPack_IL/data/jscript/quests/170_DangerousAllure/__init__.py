@@ -45,7 +45,7 @@ class Quest (JQuest) :
    elif cond :
       if st.getQuestItemsCount(NIGHTMARE_CRYSTAL) :
          htmltext = "30305-06.htm"
-         st.giveItems(57,102680 * Config.RATE_QUESTS_REWARD)
+         st.giveItems(57, (int)(102680 * Config.RATE_QUESTS_REWARD))
          st.takeItems(NIGHTMARE_CRYSTAL,-1)
          st.setState(COMPLETED)
          st.playSound("ItemSound.quest_finish")
