@@ -152,7 +152,7 @@ public class GameServer
         return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1048576; // 1024 * 1024 = 1048576;
     }
 
-	public ClanHallManager getChManager(){
+	public ClanHallManager getCHManager(){
 		return _cHManager;
 	}
     

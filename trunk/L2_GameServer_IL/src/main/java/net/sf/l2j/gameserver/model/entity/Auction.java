@@ -69,14 +69,14 @@ public class Auction
 	 public class Bidder
 	 {
 	     private String _name;
-	     private String _ClanName;
-	     private int _Bid;
+	     private String _clanName;
+	     private int _bid;
 	     private Calendar _timeBid;
 	     public Bidder(String name, String clanName, int bid, long timeBid)
 	     {
 	         _name = name;
-	         _ClanName = clanName;
-	         _Bid = bid;
+	         _clanName = clanName;
+	         _bid = bid;
 	         _timeBid = Calendar.getInstance();
 	         _timeBid.setTimeInMillis(timeBid);
 	     }
@@ -86,11 +86,11 @@ public class Auction
 	     }
 	     public String getClanName()
 	     {
-	         return _ClanName;
+	         return _clanName;
 	     }
 	     public int getBid()
 	     {
-	         return _Bid;
+	         return _bid;
 	     }
 	     public Calendar getTimeBid()
 	     {
@@ -102,7 +102,7 @@ public class Auction
 	     }
 	     public void setBid(int bid)
 	     {
-	         _Bid = bid;
+	         _bid = bid;
 	     }
 	 }
 	/** Task Sheduler for endAuction */
@@ -122,7 +122,7 @@ public class Auction
 	{
 		_id = auctionId;
 		load();
-        StartAutoTask();
+        startAutoTask();
 	}
     public Auction(int itemId, L2Clan Clan, long delay, int bid, String name)
     {
@@ -210,7 +210,7 @@ public class Auction
         finally {try { con.close(); } catch (Exception e) {}}
 	}
     /** Task Manage */
-    private void StartAutoTask()
+    private void startAutoTask()
     {
     	long currentTime = System.currentTimeMillis();
     	long taskDelay = 0;
@@ -401,11 +401,11 @@ public class Auction
     /** End of auction */
     public void endAuction()
     {
-    	if(GameServer.gameServer.getChManager() != null && GameServer.gameServer.getChManager().loaded())
+    	if(GameServer.gameServer.getCHManager() != null && GameServer.gameServer.getCHManager().loaded())
 		{
 	        if (_highestBidderId == 0 && _sellerId == 0)
 	        {
-	            StartAutoTask();
+	            startAutoTask();
 	            return;
 	        }
 	        if (_highestBidderId == 0 && _sellerId > 0)

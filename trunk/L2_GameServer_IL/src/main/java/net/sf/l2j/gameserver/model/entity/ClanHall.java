@@ -513,7 +513,7 @@ public class ClanHall
                 }
                 else
                 {
-                	if(GameServer.gameServer.getChManager() != null && GameServer.gameServer.getChManager().loaded()){
+                	if(GameServer.gameServer.getCHManager() != null && GameServer.gameServer.getCHManager().loaded()){
 		            	AuctionManager.getInstance().initNPC(getId());
 		                ClanHallManager.getInstance().setFree(getId());
                 	}else
