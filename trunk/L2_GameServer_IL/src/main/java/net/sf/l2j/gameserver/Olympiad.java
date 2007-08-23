@@ -1926,7 +1926,7 @@ public class Olympiad
              }
          }
         
-        protected void makePlayersVisible()
+        protected boolean makePlayersVisible()
         {
            /* if (_playerOne == null || _playerTwo == null)
                 return; */
