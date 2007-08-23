@@ -123,7 +123,7 @@ public final class ServerList extends L2LoginServerPacket
     {
         writeC(0x04);
         writeC(_servers.size());
-        writeC(_servers.size()-1);
+        writeC(_servers.size());
         for (ServerData server : _servers)
         {
             writeC(server._serverId); // server id
