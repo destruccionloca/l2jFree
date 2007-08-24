@@ -49,6 +49,8 @@ public class PetDataTable
     public final static int BABY_BUFFALO_ID = 12780;
     public final static int BABY_KOOKABURRA_ID = 12781;
     public final static int BABY_COUGAR_ID = 12782;
+    
+    public final static int SIN_EATER_ID = 12564;
 
     private static FastMap<Integer, FastMap<Integer, L2PetData>> petTable;
     
@@ -113,9 +115,9 @@ public class PetDataTable
                 
                 petTable.get(petId).put(petLevel,petData);
             }
-    		
-    		rset.close();
-    		statement.close();            
+            
+            rset.close();
+            statement.close();            
         }
         catch (Exception e)
         {
@@ -155,83 +157,90 @@ public class PetDataTable
     
     public static int getPetIdByItemId(int itemId)
     {
-    	for(L2Pet pet: L2Pet.values())
-    		if (pet.getControlItemId() == itemId) return pet.getNpcId();
-    	return 0;
+        for(L2Pet pet: L2Pet.values())
+            if (pet.getControlItemId() == itemId) return pet.getNpcId();
+        return 0;
     }
 
     public static int getItemIdByPetId(int npcId)
     {
-    	for(L2Pet pet: L2Pet.values())
-    		if (pet.getNpcId() == npcId) return pet.getControlItemId();
-    	return 0;
+        for(L2Pet pet: L2Pet.values())
+            if (pet.getNpcId() == npcId) return pet.getControlItemId();
+        return 0;
     }
     
     public static int getFoodItemId(int npcId)
     {
-    	for(L2Pet pet: L2Pet.values())
-    		if (pet.getNpcId() == npcId) return pet.getFoodId();
-    	return 0;
+        for(L2Pet pet: L2Pet.values())
+            if (pet.getNpcId() == npcId) return pet.getFoodId();
+        return 0;
     }
     
     public static boolean isPet(int npcId)
     {
-    	for(L2Pet pet: L2Pet.values())
-    		return (pet.getNpcId() == npcId);
-    	return false;
+        for(L2Pet pet: L2Pet.values())
+            return (pet.getNpcId() == npcId);
+        return false;
     }
     
     public static boolean isPetFood(int itemId)
     {
-    	for(L2Pet pet: L2Pet.values())
-    		return (pet.getFoodId() == itemId);
-    	return false;
+        for(L2Pet pet: L2Pet.values())
+            return (pet.getFoodId() == itemId);
+        return false;
     }
     
     public static boolean isPetItem(int itemId)
     {
-    	for(L2Pet pet: L2Pet.values())
-    		return (pet.getControlItemId() == itemId);
-    	return false;
+        for(L2Pet pet: L2Pet.values())
+            return (pet.getControlItemId() == itemId);
+        return false;
     }
 
     public static boolean isMountable(int npcId)
     {
-    	for(L2Pet pet: L2Pet.values())
-    		if (pet.getNpcId() == npcId) return pet.isMountable();
-    	return false;
+        for(L2Pet pet: L2Pet.values())
+            if (pet.getNpcId() == npcId) return pet.isMountable();
+        return false;
     }
 
     public static boolean isWolf(int npcId)
     {
-     	return ( PET_WOLF_ID == npcId);
+        return ( PET_WOLF_ID == npcId);
     }
     
     public static boolean isHatchling(int npcId)
     {
-     	return ( HATCHLING_WIND_ID == npcId || HATCHLING_STAR_ID == npcId || HATCHLING_TWILIGHT_ID == npcId );
+        return ( HATCHLING_WIND_ID == npcId || HATCHLING_STAR_ID == npcId || HATCHLING_TWILIGHT_ID == npcId );
     }
     
     public static boolean isStrider(int npcId)
     {
-     	return ( STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId );
+        return ( STRIDER_WIND_ID == npcId || STRIDER_STAR_ID == npcId || STRIDER_TWILIGHT_ID == npcId );
     }
     
     public static boolean isWyvern(int npcId)
     {
-     	return ( WYVERN_ID == npcId  );
+        return ( WYVERN_ID == npcId  );
     }
     
     public static boolean isBaby(int npcId)
     {
-     	return ( BABY_BUFFALO_ID == npcId || BABY_KOOKABURRA_ID == npcId || BABY_COUGAR_ID == npcId );
+        return ( BABY_BUFFALO_ID == npcId || BABY_KOOKABURRA_ID == npcId || BABY_COUGAR_ID == npcId );
     }
+
+    public static boolean isSinEater(int npcId)
+    {
+        return npcId == SIN_EATER_ID;
+    }
+    
     
     /**
      * This class describes basic pet info
      * NPC template id, control item id, food item id and can be pet mounted
      */
-    private static enum L2Pet {
+    private static enum L2Pet
+    {
         WOLF                    ( PET_WOLF_ID, 2375, 2515, false),
     	HATCHLING_WIND          ( HATCHLING_WIND_ID, 3500, 4038, false),
     	HATCHLING_STAR          ( HATCHLING_STAR_ID, 3501,  4038, false),
@@ -239,10 +248,11 @@ public class PetDataTable
     	STRIDER_WIND            ( STRIDER_WIND_ID, 4422, 5168, true),
     	STRIDER_STAR            ( STRIDER_STAR_ID, 4423,  5168, true),
     	STRIDER_TWILIGHT        ( STRIDER_TWILIGHT_ID,4424, 5168, true),
-    	WYVERN                  ( WYVERN_ID, 4425, 6316, true),
+    	WYVERN                  ( WYVERN_ID, 8663, 6316, true),
     	BABY_BUFFALO            ( BABY_BUFFALO_ID, 6648, 7582, false),
     	BABY_KOOKABURRA         ( BABY_KOOKABURRA_ID, 6649,  7582, false),
-    	BABY_COUGAR             ( BABY_COUGAR_ID, 6650, 7582, false);
+    	BABY_COUGAR             ( BABY_COUGAR_ID, 6650, 7582, false),
+    	SIN_EATER               ( SIN_EATER_ID, 4425, 2515, false);
         
     	private final int _npcId;
     	private final int _controlItemId;

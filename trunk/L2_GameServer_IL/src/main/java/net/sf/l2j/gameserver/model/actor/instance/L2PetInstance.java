@@ -237,10 +237,14 @@ public class L2PetInstance extends L2Summon
         // Pet's initial level is supposed to be read from DB
         // Pets start at :
         // Wolf : Level 15
-        // Hatcling : Level 35
+        // Hatchling : Level 35
         // Tested and confirmed on official servers
-        getStat().setLevel(template.getLevel());
-        
+        // Sin-eaters are defaulted at the owner's level
+        if (template.getNpcId() == 12564)
+           getStat().setLevel((byte)getOwner().getLevel());
+        else
+           getStat().setLevel(template.getLevel());
+
         _inventory = new PetInventory(this);
         int npcId = template.getNpcId();
         _mountable = PetDataTable.isMountable(npcId);
@@ -977,8 +981,12 @@ public class L2PetInstance extends L2Summon
 
     public void addExpAndSp(long addToExp, int addToSp) 
     {
-        getStat().addExpAndSp(Math.round(addToExp * Config.PET_XP_RATE), addToSp);
+        if (this.getNpcId() == 12564) //SinEater
+            getStat().addExpAndSp(Math.round(addToExp * Config.SINEATER_XP_RATE), addToSp);
+        else
+            getStat().addExpAndSp(Math.round(addToExp * Config.PET_XP_RATE), addToSp);
     }
+    
     public int getMaxFed() { return getStat().getMaxFeed(); }
     public final int getLevel() { return getStat().getLevel(); }
     public long getExpForThisLevel() { return getStat().getExpForLevel(getLevel()); }

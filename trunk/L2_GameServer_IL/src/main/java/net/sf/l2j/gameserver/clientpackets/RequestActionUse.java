@@ -377,7 +377,7 @@ public class RequestActionUse extends L2GameClientPacket
                 }
                 break;
             case 96: // Quit Party Command Channel
-                _log.info("98 Accessed");
+                _log.info("96 Accessed");
                 break;
             case 97: // Request Party Command Channel Info
                 //if (!PartyCommandManager.getInstance().isPlayerInChannel(activeChar))
@@ -386,7 +386,9 @@ public class RequestActionUse extends L2GameClientPacket
                 //PartyCommandManager.getInstance().getActiveChannelInfo(activeChar);
                 break;
             case 1000: // Siege Golem - Siege Hammer
-                useSkill(4079);
+                if (target instanceof L2DoorInstance) useSkill(4079);
+                break;
+            case 1001:
                 break;
             case 1003: // Wind Hatchling/Strider - Wild Stun
                 useSkill(4710); //TODO use correct skill lvl based on pet lvl

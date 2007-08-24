@@ -440,43 +440,44 @@ public final class Config {
     //  *******************************************************************************************
     public static final String  RATES_CONFIG_FILE           = "./config/rates.properties";    
     //  *******************************************************************************************
-    public static float   	RATE_XP;
-    public static float   	RATE_SP;
-    public static float   	RATE_PARTY_XP;
-    public static float   	RATE_PARTY_SP;
-    public static float   	RATE_QUESTS_REWARD;
-    public static float   	RATE_DROP_ADENA;
-    public static float   	RATE_CONSUMABLE_COST;
-    public static float   	RATE_CRAFT_COST;
-    public static float   	RATE_DROP_ITEMS;
-    public static float   	RATE_DROP_SPOIL;
-    public static float   	RATE_DROP_QUEST;
-    public static float   	RATE_KARMA_EXP_LOST;	
-    public static float   	RATE_SIEGE_GUARDS_PRICE;
-    public static float   	RATE_RUN_SPEED;
-    public static float   	ALT_GAME_EXPONENT_XP;     // Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef
-    public static float   	ALT_GAME_EXPONENT_SP;
-    public static int   	PLAYER_DROP_LIMIT;
-    public static int   	PLAYER_RATE_DROP;
-    public static int   	PLAYER_RATE_DROP_ITEM;
-    public static int   	PLAYER_RATE_DROP_EQUIP;    
-    public static int   	PLAYER_RATE_DROP_EQUIP_WEAPON;    
+    public static float     RATE_XP;
+    public static float     RATE_SP;
+    public static float     RATE_PARTY_XP;
+    public static float     RATE_PARTY_SP;
+    public static float     RATE_QUESTS_REWARD;
+    public static float     RATE_DROP_ADENA;
+    public static float     RATE_CONSUMABLE_COST;
+    public static float     RATE_CRAFT_COST;
+    public static float     RATE_DROP_ITEMS;
+    public static float     RATE_DROP_SPOIL;
+    public static float     RATE_DROP_QUEST;
+    public static float     RATE_KARMA_EXP_LOST;
+    public static float     RATE_SIEGE_GUARDS_PRICE;
+    public static float     RATE_RUN_SPEED;
+    public static float     ALT_GAME_EXPONENT_XP;     // Alternative Xp/Sp rewards, if not 0, then calculated as 2^((mob.level-player.level) / coef
+    public static float     ALT_GAME_EXPONENT_SP;
+    public static int       PLAYER_DROP_LIMIT;
+    public static int       PLAYER_RATE_DROP;
+    public static int       PLAYER_RATE_DROP_ITEM;
+    public static int       PLAYER_RATE_DROP_EQUIP;    
+    public static int       PLAYER_RATE_DROP_EQUIP_WEAPON;    
     public static float     PET_XP_RATE; 
- 	public static float     PET_FOOD_RATE;
-    public static float   	RATE_DROP_COMMON_HERBS;
-    public static float   	RATE_DROP_MP_HP_HERBS;
-    public static float   	RATE_DROP_GREATER_HERBS;
-    public static float   	RATE_DROP_SUPERIOR_HERBS;
-    public static float   	RATE_DROP_SPECIAL_HERBS;
-    public static int   	KARMA_DROP_LIMIT;
-    public static int   	KARMA_RATE_DROP;
-    public static int   	KARMA_RATE_DROP_ITEM;
-    public static int   	KARMA_RATE_DROP_EQUIP;    
-    public static int   	KARMA_RATE_DROP_EQUIP_WEAPON;    
+    public static float     PET_FOOD_RATE;
+    public static float     SINEATER_XP_RATE;
+    public static float     RATE_DROP_COMMON_HERBS;
+    public static float     RATE_DROP_MP_HP_HERBS;
+    public static float     RATE_DROP_GREATER_HERBS;
+    public static float     RATE_DROP_SUPERIOR_HERBS;
+    public static float     RATE_DROP_SPECIAL_HERBS;
+    public static int       KARMA_DROP_LIMIT;
+    public static int       KARMA_RATE_DROP;
+    public static int       KARMA_RATE_DROP_ITEM;
+    public static int       KARMA_RATE_DROP_EQUIP;    
+    public static int       KARMA_RATE_DROP_EQUIP_WEAPON;    
     //  *******************************************************************************************
     public static void loadRatesConfig()
     {
-    	_log.info("loading " + RATES_CONFIG_FILE);
+        _log.info("loading " + RATES_CONFIG_FILE);
         try
         {
             Properties ratesSettings    = new Properties();
@@ -513,6 +514,7 @@ public final class Config {
 
             PET_XP_RATE                     = Float.parseFloat(ratesSettings.getProperty("PetXpRate", "1."));
             PET_FOOD_RATE                   = Float.parseFloat(ratesSettings.getProperty("PetFoodRate", "1")); 
+            SINEATER_XP_RATE                = Float.parseFloat(ratesSettings.getProperty("SinEaterXpRate", "1."));
 
             KARMA_DROP_LIMIT                = Integer.parseInt(ratesSettings.getProperty("KarmaDropLimit", "10"));
             KARMA_RATE_DROP                 = Integer.parseInt(ratesSettings.getProperty("KarmaRateDrop", "70"));
