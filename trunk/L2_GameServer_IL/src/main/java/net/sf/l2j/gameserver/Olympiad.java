@@ -1462,98 +1462,102 @@ public class Olympiad
             
             for (L2PcInstance player : _players)
             {
-                //Remove Clan Skills
-                if (player.getClan() != null)
+                try
                 {
-                    for(L2Skill skill: player.getClan().getAllSkills())
+                    //Remove Clan Skills
+                    if (player.getClan() != null)
                     {
-                        player.removeSkill(skill,false);
-                     }
-                }
-
-                //Remove Hero Skills
-                if (player.isHero())
-                {
-                    for(L2Skill skill: HeroSkillTable.getHeroSkills())
-                    {
-                        player.removeSkill(skill,false);
+                        for(L2Skill skill: player.getClan().getAllSkills())
+                        {
+                            player.removeSkill(skill,false);
+                        }
                     }
-                }
-                
-                //Remove Buffs
-                player.stopAllEffects();
-                
-                //Remove Summon's Buffs
-                if (player.getPet() != null)
-                {
-                    L2Summon summon = player.getPet();
-                    summon.stopAllEffects();
+
+                    //Remove Hero Skills
+                    if (player.isHero())
+                    {
+                        for(L2Skill skill: HeroSkillTable.getHeroSkills())
+                        {
+                            player.removeSkill(skill,false);
+                        }
+                    }
+
+                    //Remove Buffs
+                    player.stopAllEffects();
                     
-                    if (summon instanceof L2PetInstance)
-                        summon.unSummon(player);
-                }
-                
-                /*if (player.getCubics() != null)
-                {
-                    for(L2CubicInstance cubic : player.getCubics().values())
+                    //Remove Summon's Buffs
+                    if (player.getPet() != null)
                     {
-                        cubic.stopAction();
-                        player.delCubic(cubic.getId());
-                    }
-                    player.getCubics().clear();
-                }*/
-                
-                //Remove player from his party
-                if (player.getParty() != null)
-                {
-                    L2Party party = player.getParty();
-                    party.removePartyMember(player);
-                }
+                        L2Summon summon = player.getPet();
+                        summon.stopAllEffects();
 
-                //Remove Hero Weapons
-                // check to prevent the using of weapon/shield on strider/wyvern
-                L2ItemInstance wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-                if (wpn == null) wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
-                if (wpn != null &&
-                        (
+                        if (summon instanceof L2PetInstance)
+                            summon.unSummon(player);
+                    }
+
+                    /*if (player.getCubics() != null)
+                    {
+                        for(L2CubicInstance cubic : player.getCubics().values())
+                        {
+                            cubic.stopAction();
+                            player.delCubic(cubic.getId());
+                        }
+                        player.getCubics().clear();
+                    }*/
+
+                    //Remove player from his party
+                    if (player.getParty() != null)
+                    {
+                        L2Party party = player.getParty();
+                        party.removePartyMember(player);
+                    }
+
+                    //Remove Hero Weapons
+                    // check to prevent the using of weapon/shield on strider/wyvern
+                    L2ItemInstance wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
+                    if (wpn == null) wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+                    if (wpn != null &&
+                            (
                                 (wpn.getItemId() >= 6611 && wpn.getItemId() <= 6621) ||
                                 wpn.getItemId() == 6842
+                            )
                         )
-                    )
-                {
-                    L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
-                    InventoryUpdate iu = new InventoryUpdate();
-                    for (int i = 0; i < unequiped.length; i++)
-                        iu.addModifiedItem(unequiped[i]);
-                    player.sendPacket(iu);
-                    player.abortAttack();
-                    player.refreshExpertisePenalty();
-                    player.broadcastUserInfo();
-
-                    // this can be 0 if the user pressed the right mousebutton twice very fast
-                    if (unequiped.length > 0)
                     {
-                        if (unequiped[0].isWear())
-                            return;
-                        SystemMessage sm = null;
-                        if (unequiped[0].getEnchantLevel() > 0){
-                            sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-                            sm.addNumber(unequiped[0].getEnchantLevel());
-                            sm.addItemName(unequiped[0].getItemId());
-                        }else{
-                            sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-                            sm.addItemName(unequiped[0].getItemId());
+                        L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
+                        InventoryUpdate iu = new InventoryUpdate();
+                        for (int i = 0; i < unequiped.length; i++)
+                            iu.addModifiedItem(unequiped[i]);
+                        player.sendPacket(iu);
+                        player.abortAttack();
+                        player.refreshExpertisePenalty();
+                        player.broadcastUserInfo();
+
+                        // this can be 0 if the user pressed the right mousebutton twice very fast
+                        if (unequiped.length > 0)
+                        {
+                            if (unequiped[0].isWear())
+                                return;
+                            SystemMessage sm = null;
+                            if (unequiped[0].getEnchantLevel() > 0)
+                            {
+                                sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
+                                sm.addNumber(unequiped[0].getEnchantLevel());
+                                sm.addItemName(unequiped[0].getItemId());
+                            }
+                            else
+                            {
+                                sm = new SystemMessage(SystemMessageId.S1_DISARMED);
+                                sm.addItemName(unequiped[0].getItemId());
+                            }
+                            player.sendPacket(sm);
                         }
-                        player.sendPacket(sm);
                     }
-                }
 
-                //Remove ss/sps/bsps automation
-                Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
+                    //Remove ss/sps/bsps automation
+                    Map<Integer, Integer> activeSoulShots = player.getAutoSoulShot();
                     for (int itemId : activeSoulShots.values())
-                    {
                         player.removeAutoSoulShot(itemId);
-                    }
+                }catch (Exception e) {}
             }
             
             _sm = new SystemMessage(SystemMessageId.THE_GAME_WILL_START_IN_S1_SECOND_S);
@@ -1639,7 +1643,6 @@ public class Olympiad
                 //_playerOne.broadcastUserInfo();
                 //_playerOne.decayMe();
                 //_playerOne.spawnMe();
-
                 //_playerTwo.getAppearance().setInvisible();
                 //_playerTwo.broadcastUserInfo();
                 //_playerTwo.decayMe();
@@ -1665,7 +1668,6 @@ public class Olympiad
             }
             catch (Exception e)
             {
-                // TODO: clear values
                 return false; 
             }
             return true;
@@ -1690,7 +1692,7 @@ public class Olympiad
         {
             try
             { 
-                _playerOne.teleToLocation(_playerOneLocation[0], _playerOneLocation[1],    _playerOneLocation[2], true);
+                _playerOne.teleToLocation(_playerOneLocation[0], _playerOneLocation[1], _playerOneLocation[2], true);
             }
             catch (Exception e) {}
             
@@ -1702,34 +1704,35 @@ public class Olympiad
             
             for (L2PcInstance player : _players)
             {
-                if (player == null) continue;
-                player.setIsInOlympiadMode(false);
-                player.setIsOlympiadStart(false);
-                player.setOlympiadSide(-1);
-                player.setOlympiadGameId(-1);
-                player.getStatus().setCurrentCp(player.getMaxCp());
-                player.getStatus().setCurrentHp(player.getMaxHp());
-                player.getStatus().setCurrentMp(player.getMaxMp());
-                player.getStatus().startHpMpRegeneration();
-
-                //Add Clan Skills
-                if (player.getClan() != null)
+                try
                 {
-                    for(L2Skill skill: player.getClan().getAllSkills())
+                    player.setIsInOlympiadMode(false);
+                    player.setIsOlympiadStart(false);
+                    player.setOlympiadSide(-1);
+                    player.setOlympiadGameId(-1);
+                    player.getStatus().setCurrentCp(player.getMaxCp());
+                    player.getStatus().setCurrentHp(player.getMaxHp());
+                    player.getStatus().setCurrentMp(player.getMaxMp());
+                    player.getStatus().startHpMpRegeneration();
+
+                    //Add Clan Skills
+                    if (player.getClan() != null)
                     {
-                        if ( skill.getMinPledgeClass() <= player.getPledgeClass() )
+                        for(L2Skill skill: player.getClan().getAllSkills())
+                        {
+                            if ( skill.getMinPledgeClass() <= player.getPledgeClass() )
+                                player.addSkill(skill,false);
+                        }
+                    }
+
+                    //Add Hero Skills
+                    if (player.isHero())
+                    {
+                        for(L2Skill skill: HeroSkillTable.getHeroSkills())
                             player.addSkill(skill,false);
-                     }
+                    }
                 }
-
-                //Add Hero Skills
-                if (player.isHero())
-                {
-                    for(L2Skill skill: HeroSkillTable.getHeroSkills())
-                    {
-                        player.addSkill(skill,false);
-                     }
-                }
+                catch(Exception e) {}
             }
         }
         
@@ -1903,8 +1906,6 @@ public class Olympiad
                     {
                         //Haste Buff to Fighters
                         skill = SkillTable.getInstance().getInfo(1086, 1);
-
-                        skill = SkillTable.getInstance().getInfo(1204, 2);
                         skill.getEffects(player, player);
                         player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getSkillTime(), 0));
                         sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -1923,14 +1924,11 @@ public class Olympiad
                     }
                 }
                 catch (Exception e) { }
-             }
-         }
+            }
+        }
         
         protected boolean makePlayersVisible()
         {
-           /* if (_playerOne == null || _playerTwo == null)
-                return; */
-            
             _sm = new SystemMessage(SystemMessageId.STARTS_THE_GAME);
             try
             {
@@ -1971,7 +1969,6 @@ public class Olympiad
             } 
             catch (Exception e)
             { 
-                // TODO: tele the other back?
                 _aborted = true;
                 return false; 
             }
@@ -2024,7 +2021,7 @@ public class Olympiad
                         if(!pc.inObserverMode()) continue;
                         pc.leaveOlympiadObserverMode();
                     }
-                    catch (Exception e) {}
+                    catch (NullPointerException e) {}
                 }
                 _spectators.clear();
             }
@@ -2039,7 +2036,7 @@ public class Olympiad
             {
                 for (L2PcInstance spec : _spectators)
                 {
-                    try { spec.sendPacket(sm); } catch (Exception e) {}
+                    try { spec.sendPacket(sm); } catch (NullPointerException e) {}
                 }
             }
         }
