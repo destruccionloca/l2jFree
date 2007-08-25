@@ -141,7 +141,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not join now!");
                     }
                    
-                    if (_command.substring(endOfId+1).startsWith("tvt_player_leave "))
+                    if (_command.substring(endOfId+1).startsWith("tvt_player_leave"))
                     {
                         if (TvT._joining)
                             TvT.removePlayer(activeChar);
