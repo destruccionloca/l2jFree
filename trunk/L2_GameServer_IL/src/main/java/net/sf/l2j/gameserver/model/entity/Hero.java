@@ -401,7 +401,6 @@ public class Hero
                     sm.addString(name);
                     sm.addNumber(1000);
                     clan.broadcastToOnlineMembers(sm);
-                    clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
                 }
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
