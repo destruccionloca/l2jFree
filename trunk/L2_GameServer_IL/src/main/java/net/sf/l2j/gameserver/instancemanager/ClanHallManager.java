@@ -48,7 +48,7 @@ public class ClanHallManager
 	{
 		if (_instance == null)
 		{
-			System.out.println("Initializing ClanHallManager");
+			_log.info("Initializing ClanHallManager");
 			_instance = new ClanHallManager();
 		}
 		return _instance;
@@ -98,13 +98,13 @@ public class ClanHallManager
             	}
             }
             statement.close();
-            System.out.println("Loaded: "+getClanHalls().size() +" clan halls");
-            System.out.println("Loaded: "+getFreeClanHalls().size() +" free clan halls");
+            _log.info("Loaded: "+getClanHalls().size() +" clan halls");
+            _log.info("Loaded: "+getFreeClanHalls().size() +" free clan halls");
             _loaded = true;
         }
         catch (Exception e)
         {
-            System.out.println("Exception: ClanHallManager.load(): " + e.getMessage());
+        	_log.fatal("Exception: ClanHallManager.load(): " + e.getMessage());
             e.printStackTrace();
         }
         finally {try { con.close(); } catch (Exception e) {}}
