@@ -25,10 +25,10 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onAdvEvent (self,event,npc,player) : 
-    htmltext = event 
-    st = player.getQuestState(qn) 
-    if not st: return 
+ def onAdvEvent (self,event,npc,player) :
+    htmltext = event
+    st = player.getQuestState(qn)
+    if not st: return
     if str(event) in BUFF.keys() :
         skillId,level,horns=BUFF[event]
         if st.getQuestItemsCount(Horn) >= horns :
@@ -78,4 +78,4 @@ QUEST.addFirstTalkId(Jumara)
 QUEST.addFirstTalkId(Asefa)
 QUEST.addTalkId(Asefa)
 
-print "importing custom data: 6050: Ketra Orc Support"
+print "importing quests: 6050: Ketra Orc Support"

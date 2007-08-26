@@ -26,11 +26,11 @@ class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
- def onAdvEvent (self,event,npc,player) : 
-    htmltext = event 
-    st = player.getQuestState(qn) 
-    if not st: return 
-    if str(event) in BUFF.keys() : 
+ def onAdvEvent (self,event,npc,player) :
+    htmltext = event
+    st = player.getQuestState(qn)
+    if not st: return
+    if str(event) in BUFF.keys() :
         skillId,level,seeds=BUFF[event]
         if st.getQuestItemsCount(Seed) >= seeds :
             st.takeItems(Seed,seeds)
@@ -38,37 +38,37 @@ class Quest (JQuest) :
             npc.doCast(SkillTable.getInstance().getInfo(skillId,level))
             npc.setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp())
             htmltext = "a4.htm"
-     return htmltext
+    return htmltext
 
  def onFirstTalk (self,npc,player):
-    htmltext = "<html><body>I have nothing to say to you</body></html>"
-    st = player.getQuestState(qn)
-    if not st :
-        st = self.newQuestState(player)
-    npcId = npc.getNpcId()
-    Alevel = st.getPlayer().getAllianceWithVarkaKetra()
-    Seeds = st.getQuestItemsCount(Seed)
-    if npcId == Shikon :
-        if Alevel == -2 :
+     htmltext = "<html><body>I have nothing to say to you</body></html>"
+     st = player.getQuestState(qn)
+     if not st :
+         st = self.newQuestState(player)
+     npcId = npc.getNpcId()
+     Alevel = st.getPlayer().getAllianceWithVarkaKetra()
+     Seeds = st.getQuestItemsCount(Seed)
+     if npcId == Shikon :
+         if Alevel == -2 :
             htmltext = "1.htm"
-        elif Alevel == -3 or Alevel == -4 :
-            htmltext = "2.htm"
-        elif Alevel == -5 :
-            htmltext = "3.htm"
-        else :
-            htmltext = "no.htm"
-    elif npcId == Udan :
+         elif Alevel == -3 or Alevel == -4 :
+             htmltext = "2.htm"
+         elif Alevel == -5 :
+             htmltext = "3.htm"
+         else :
+             htmltext = "no.htm"
+     elif npcId == Udan :
         st.setState(STARTED)
         if Alevel > -1 :
             htmltext = "a3.htm"
         elif Alevel > -3 and Alevel < 0:
-            htmltext = "a1.htm"
+             htmltext = "a1.htm"
         elif Alevel < -2 :
-            if Seeds :
-                htmltext = "a4.htm"
-            else :
-                htmltext = "a2.htm"
-    return htmltext
+             if Seeds :
+                 htmltext = "a4.htm"
+             else :
+                 htmltext = "a2.htm"
+     return htmltext
 
 QUEST       = Quest(6051, qn, "custom")
 CREATED     = State('Start', QUEST)
@@ -79,4 +79,4 @@ QUEST.addFirstTalkId(Shikon)
 QUEST.addFirstTalkId(Udan)
 QUEST.addTalkId(Udan)
 
-print "importing custom data: 6051: Varka Silenos Support"
+print "importing quests: 6051: Varka Silenos Support"
