@@ -225,17 +225,23 @@ public class EnterWorld extends L2GameClientPacket
        
         activeChar.getMacroses().sendUpdate();
 
-        sendPacket(new UserInfo(activeChar));
+        UserInfo ui = new UserInfo(activeChar);
+        sendPacket(ui);
 
-        sendPacket(new HennaInfo(activeChar));
+        HennaInfo hi = new HennaInfo(activeChar);
+        sendPacket(hi);
         
-        sendPacket(new FriendList(activeChar));
+        FriendList fl = new FriendList(activeChar);
+        sendPacket(fl);
         
-        sendPacket(new ItemList(activeChar, false));
+        ItemList il = new ItemList(activeChar, false);
+        sendPacket(il);
 
-        sendPacket(new ShortCutInit(activeChar));
+        ShortCutInit sci = new ShortCutInit(activeChar);
+        sendPacket(sci);
         
-        sendPacket(new ClientSetTime());
+        ClientSetTime cst = new ClientSetTime();
+        sendPacket(cst);
                 
         SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
         sendPacket(sm);
@@ -338,14 +344,17 @@ public class EnterWorld extends L2GameClientPacket
 		
         if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
         {
-            sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
-            sendPacket(new PledgeStatusChanged(activeChar.getClan()));
+        	PledgeShowMemberListAll psmla = new PledgeShowMemberListAll(activeChar.getClan(), activeChar);
+            sendPacket(psmla);
+            PledgeStatusChanged psc = new PledgeStatusChanged(activeChar.getClan());
+            sendPacket(psc);
         }
 	
 		if (activeChar.isAlikeDead())
 		{
 			// no broadcast needed since the player will already spawn dead to others
-			sendPacket(new Die(activeChar));
+			Die d = new Die(activeChar);
+			sendPacket(d);
 		}
 
 		if (Config.ALLOW_WATER)
@@ -360,7 +369,7 @@ public class EnterWorld extends L2GameClientPacket
         if(Config.ALLOW_WEDDING)
         {
             engage(activeChar);
-            notifyPartner(activeChar,activeChar.getPartnerId());
+            notifyPartner(activeChar, activeChar.getPartnerId());
         }
 
         // notify Friends
@@ -383,12 +392,14 @@ public class EnterWorld extends L2GameClientPacket
         
 		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED));
+			sm = new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED);
+			activeChar.sendPacket(sm);
 		}
 		
 		if (activeChar.getClan() != null)
 		{
-			activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
+			PledgeSkillList psl = new PledgeSkillList(activeChar.getClan());
+			activeChar.sendPacket(psl);
 			
 			for (Siege siege : SiegeManager.getInstance().getSieges())
 			{
@@ -403,7 +414,10 @@ public class EnterWorld extends L2GameClientPacket
         RegionBBSManager.getInstance().changeCommunityBoard();
 
         if(Config.GAMEGUARD_ENFORCE)
-            activeChar.sendPacket(new GameGuardQuery());
+        {
+            GameGuardQuery ggq = new GameGuardQuery();
+        	activeChar.sendPacket(ggq);
+        }
         
         if (TvT._savePlayers.contains(activeChar.getName()))
            TvT.addDisconnectedPlayer(activeChar);
