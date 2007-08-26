@@ -4716,16 +4716,8 @@ public abstract class L2Character extends L2Object
            L2Weapon weapon = this.getActiveWeaponItem();
            if (weapon !=null)
            {
-               switch (weapon.getItemType())
-               {
-                   case DAGGER:
-                       atkSpd = getStat().getPAtkSpd();
-                       atkSpd *= 1.15;
-                       break;
-                   default:
-                       atkSpd = getStat().getPAtkSpd();
-                }
-            }
+                        atkSpd = getStat().getPAtkSpd();
+           }
         }
         return Formulas.getInstance().calcPAtkSpd(this, target, atkSpd);
     }
