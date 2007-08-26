@@ -1544,7 +1544,7 @@
   <!-- WRONG -->
   <set name="weaponsAllowed" val="16"/>
   <set name="mpConsume" val="35"/>
-  <set name="power" val="80"/>
+  <set name="power" val="40"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="STUN"/>
   <set name="operateType" val="OP_ACTIVE"/>
