@@ -1228,6 +1228,7 @@ public final class Config {
     public static boolean 			ALT_GAME_FREE_TELEPORT;				// Alternative gaming - allow free teleporting around the world.
     public static boolean 			ALT_RECOMMEND;						// Disallow recommend character twice or more a day ?
     public static boolean 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS;	// Alternative gaming - allow sub-class addition without quest completion.
+    public static int 				MAX_SUBCLASS;						// Allow to change max number of subclasses
     public static boolean 			ALT_GAME_VIEWNPC;					// View npc stats/drop by shift-cliking it for nongm-players    
     public static boolean 			ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;	// Alternative gaming - all new characters always are newbies.
     public static boolean 			ALT_STRICT_HERO_SYSTEM;				// Strict Hero Mode
@@ -1364,6 +1365,7 @@ public final class Config {
             ALT_GAME_FREE_TELEPORT                              = Boolean.parseBoolean(altSettings.getProperty("AltFreeTeleporting", "False"));
             ALT_RECOMMEND                                       = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
             ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
+            MAX_SUBCLASS                                        = Integer.parseInt(altSettings.getProperty("MaxSubclass","3"));
             ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
             ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE                  = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
             DWARF_RECIPE_LIMIT                                  = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit","50"));
@@ -2481,6 +2483,7 @@ public final class Config {
         else if (pName.equalsIgnoreCase("AltRequireClanCastle")) ALT_GAME_REQUIRE_CLAN_CASTLE = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltFreeTeleporting")) ALT_GAME_FREE_TELEPORT = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltSubClassWithoutQuests")) ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("MaxSubclass")) MAX_SUBCLASS = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltNewCharAlwaysIsNewbie")) ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("DwarfRecipeLimit")) DWARF_RECIPE_LIMIT = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("CommonRecipeLimit")) COMMON_RECIPE_LIMIT = Integer.parseInt(pValue);        

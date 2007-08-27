@@ -8537,7 +8537,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean addSubClass(int classId, int classIndex)
     {
-        if (getTotalSubClasses() == 3 || classIndex == 0) return false;
+        if (getTotalSubClasses() == Config.MAX_SUBCLASS || classIndex == 0) return false;
 
         if (getSubClasses().containsKey(classIndex)) return false;
 
