@@ -34,7 +34,7 @@ class Quest (JQuest) :
  def onTalk (Self,npc,st):
 
    npcId = npc.getNpcId()
-   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   htmltext = "<html><body>I have nothing to say you</body></html>"
    id = st.getState()
    if id == CREATED :
      st.setState(STARTING)
@@ -88,7 +88,7 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    st = player.getQuestState(qn)
-   htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
+   htmltext = "<html><body>I have nothing to say to you.</body></html>"
    st.set("cond","0")
    st.setState(STARTED)
    return "12618-01.htm"

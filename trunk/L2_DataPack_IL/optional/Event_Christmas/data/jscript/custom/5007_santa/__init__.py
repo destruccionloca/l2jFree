@@ -36,7 +36,7 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    st = player.getQuestState(qn)
-   htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
+   htmltext = "<html><body>I have nothing to say to you.</body></html>"
    st.set("cond","0")
    st.setState(STARTED)
    return "1.htm"

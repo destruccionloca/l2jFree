@@ -141,7 +141,7 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    st = player.getQuestState(qn)
-   htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
+   htmltext = "<html><body>I have nothing to say to you.</body></html>"
    st.set("cond","0")
    st.setState(STARTED)
    return "1.htm"
@@ -153,7 +153,7 @@ COMPLETED   = State('Completed', QUEST)
 
 QUEST.setInitialState(CREATED)
 
-QUEST.addStartNpc(8227)
+QUEST.addStartNpc(7100)
 
-QUEST.addTalkId(8227)
+QUEST.addTalkId(7100)
 

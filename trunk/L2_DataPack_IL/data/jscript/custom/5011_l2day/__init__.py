@@ -45,7 +45,7 @@ def do_RequestedEvent(event, st, giveItem1Id, giveItem1Qty, giveItem2Id, giveIte
         st.giveItems(giveItem2Id, giveItem2Qty)
         st.giveItems(giveItem3Id, giveItem3Qty)
         st.giveItems(giveItem4Id, giveItem4Qty)
-        return "2.htm" 
+        return "2.htm"
     else :
         return "You do not have enough materials."
 
@@ -72,7 +72,7 @@ class Quest (JQuest) :
 
  def onTalk (Self,npcId,player):
    st = player.getQuestState(qn)
-   htmltext = "<html><head><body>I have nothing to say to you.</body></html>"
+   htmltext = "<html><body>I have nothing to say to you.</body></html>"
    st.set("cond","0")
    st.setState(STARTED)
    return InitialHtml
@@ -86,7 +86,7 @@ COMPLETED   = State('Completed', QUEST)
 QUEST.setInitialState(CREATED)
 
 QUEST.addStartNpc(31774)
-# pako the cat
+# Beryl the Cat
 QUEST.addTalkId(31774)
 
 print "done ..."
