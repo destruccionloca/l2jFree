@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.GmListTable;
@@ -218,7 +219,10 @@ public class EnterWorld extends L2GameClientPacket
                 }
             }
         }
-
+        // apply augmentation boni for equipped items
+        for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
+        	if (temp != null && temp.isEquipped()) temp.getAugmentation().applyBoni(activeChar);
+        
         //Expand Skill
         ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);  
         activeChar.sendPacket(esmc);

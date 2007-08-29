@@ -254,6 +254,10 @@ public class UseItem extends L2GameClientPacket
                        sm.addItemName(itemId);
                    }
                    activeChar.sendPacket(sm);
+
+                   // Remove augementation boni on unequip
+		            if (item.isAugmented())
+		            	item.getAugmentation().removeBoni(activeChar);
                    
                		switch(item.getEquipSlot())
                		{
@@ -280,6 +284,11 @@ public class UseItem extends L2GameClientPacket
                 	int tempBodyPart = item.getItem().getBodyPart();
                 	L2ItemInstance tempItem = activeChar.getInventory().getPaperdollItemByL2ItemId(tempBodyPart);
                 	
+                	// remove augmentation stats for replaced items
+                	// currently weapons only..
+                	if (tempItem != null && tempItem.isAugmented())
+                		tempItem.getAugmentation().removeBoni(activeChar);
+                	
                 	//check if the item replaces a wear-item
                 	if (tempItem != null && tempItem.isWear())
                 	{
@@ -305,21 +314,25 @@ public class UseItem extends L2GameClientPacket
                 		if (tempItem != null && tempItem.isWear()) return;
                 	}
 
-                   if (item.getEnchantLevel() > 0)
-                   {
-                       sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
-                       sm.addNumber(item.getEnchantLevel());
-                       sm.addItemName(itemId);
-                   }
-                   else
-                   {
-                       sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-                       sm.addItemName(itemId);
-                   }
-                   activeChar.sendPacket(sm);
-
-		            items = activeChar.getInventory().equipItemAndRecord(item);
+					if (item.getEnchantLevel() > 0)
+					{
+						sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
+						sm.addNumber(item.getEnchantLevel());
+						sm.addItemName(itemId);
+					}
+					else
+					{
+						sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
+						sm.addItemName(itemId);
+					}
+					activeChar.sendPacket(sm);
+					
+		            // Apply augementation boni on equip
+		            if (item.isAugmented())
+		            	item.getAugmentation().applyBoni(activeChar);
 		            
+					items = activeChar.getInventory().equipItemAndRecord(item);
+					
 		            // Consume mana - will start a task if required; returns if item is not a shadow item
 		            item.decreaseMana(false);
                 }
