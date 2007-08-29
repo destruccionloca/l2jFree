@@ -119,7 +119,8 @@ public class Say2 extends L2GameClientPacket
 
         if (activeChar.isChatBanned())
         {
-            {
+        	if (_type == ALL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
+        	{
 				// [L2J_JP EDIT]
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
                 return;
@@ -128,7 +129,7 @@ public class Say2 extends L2GameClientPacket
         
         if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
         {
-            if (_type == TELL || _type == SHOUT || _type == TRADE)
+            if (_type == TELL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
             {
                 activeChar.sendMessage("You can not chat with the outside of the jail.");
                 return;
