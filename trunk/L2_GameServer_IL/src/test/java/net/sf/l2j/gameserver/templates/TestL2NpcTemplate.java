@@ -57,6 +57,7 @@ public class TestL2NpcTemplate extends TestCase
         set.set("factionId", "faction id");
         set.set("factionRange",70);
         set.set("absorb_level", 71);
+        set.set("absorb_type","LAST_HIT");
         set.set("NPCFaction", 72);
         set.set("NPCFactionName", "faction name");
         set.set("jClass","class");        
@@ -138,6 +139,7 @@ public class TestL2NpcTemplate extends TestCase
         set.set("lhand",68);
         set.set("armor",69);
         set.set("factionRange",70);
+        set.set("absorb_type","LAST_HIT");
         set.set("jClass","class");            
         
         L2NpcTemplate template = new L2NpcTemplate(set);
