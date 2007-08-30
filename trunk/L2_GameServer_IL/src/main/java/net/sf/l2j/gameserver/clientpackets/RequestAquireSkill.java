@@ -292,7 +292,7 @@ public class RequestAquireSkill extends L2GameClientPacket
             return;
         }
         
-        player.addSkill(skill);
+        player.addSkill(skill, true);
         
         if (_log.isDebugEnabled()) 
             _log.debug("Learned skill " + _id + " for " + _requiredSp + " SP.");

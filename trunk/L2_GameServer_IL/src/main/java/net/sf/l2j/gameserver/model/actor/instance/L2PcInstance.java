@@ -2134,98 +2134,114 @@ public final class L2PcInstance extends L2PlayableInstance
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T give other free skills (SP needed = 0)</B></FONT><BR><BR>
      *
      */
-    public void rewardSkills()
-    {
-        // Get the Level of the L2PcInstance
-        int lvl = getLevel();
+	public void rewardSkills()
+	{
+		// Get the Level of the L2PcInstance
+		int lvl = getLevel();
 
-        // Remove beginner Lucky skill
-        if (lvl == 10)
-        {
-            L2Skill skill = SkillTable.getInstance().getInfo(194, 1);
-            skill = removeSkill(skill);
+		// Remove beginner Lucky skill
+		if (lvl == 10)
+		{
+			L2Skill skill = SkillTable.getInstance().getInfo(194, 1);
+			skill = removeSkill(skill);
 
-            if (_log.isDebugEnabled() && skill != null) _log.debug("removed skill 'Lucky' from " + getName());
-        }
+			if (_log.isDebugEnabled() && skill != null) _log.info("removed skill 'Lucky' from "+getName());
+		}
 
-        // Calculate the current higher Expertise of the L2PcInstance
-        for (int i = 0; i < EXPERTISE_LEVELS.length; i++)
-        {
-            if (lvl >= EXPERTISE_LEVELS[i]) setExpertiseIndex(i);
-        }
+		// Calculate the current higher Expertise of the L2PcInstance
+		for (int i=0; i < EXPERTISE_LEVELS.length; i++)
+		{
+			if (lvl >= EXPERTISE_LEVELS[i])
+				setExpertiseIndex(i);
+		}
 
-        // Add the Expertise skill corresponding to its Expertise level
-        if (getExpertiseIndex() > 0)
-        {
-            L2Skill skill = SkillTable.getInstance().getInfo(239, getExpertiseIndex());
-            addSkill(skill);
+		// Add the Expertise skill corresponding to its Expertise level
+		if (getExpertiseIndex() > 0)
+		{
+			L2Skill skill = SkillTable.getInstance().getInfo(239, getExpertiseIndex());
+			addSkill(skill, true);
 
-            if (_log.isDebugEnabled()) _log.debug("awarded " + getName() + " with new expertise.");
+			if (_log.isDebugEnabled()) _log.info("awarded "+getName()+" with new expertise.");
 
-        }
-        else
-        {
-            if (_log.isDebugEnabled()) _log.debug("No skills awarded at lvl: " + lvl);
-        }
+		}
+		else
+		{
+			if (_log.isDebugEnabled()) _log.info("No skills awarded at lvl: "+lvl);
+		}
 
-        //Active skill dwarven craft
-        if (getSkillLevel(1321) < 1 && getRace() == Race.dwarf)
-        {
-            L2Skill skill = SkillTable.getInstance().getInfo(1321, 1);
-            addSkill(skill);
-        }
+		//Active skill dwarven craft
 
-        //Active skill common craft
-        if (getSkillLevel(1322) < 1)
-        {
-            L2Skill skill = SkillTable.getInstance().getInfo(1322, 1);
-            addSkill(skill);
-        }
+		if (getSkillLevel(1321) < 1 && getRace() == Race.dwarf)
+		{
+			L2Skill skill = SkillTable.getInstance().getInfo(1321,1);
+			addSkill(skill, true);
+		}
 
-        for (int i = 0; i < COMMON_CRAFT_LEVELS.length; i++)
-        {
-            if (lvl >= COMMON_CRAFT_LEVELS[i] && getSkillLevel(1320) < (i + 1))
-            {
-                L2Skill skill = SkillTable.getInstance().getInfo(1320, (i + 1));
-                addSkill(skill);
-            }
-        }
+		//Active skill common craft
+		if (getSkillLevel(1322) < 1)
+		{
+			L2Skill skill = SkillTable.getInstance().getInfo(1322,1);
+			addSkill(skill, true);
+		}
 
-        if (Config.AUTO_LEARN_SKILLS)
-        {
-            boolean countUnlearnable = true;
-            int unLearnable = 0;
-            int skillCounter = 0;
-            L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this,getClassId());
-            while (skills.length > unLearnable)
-            {
-                for (L2SkillLearn s : skills)
-                {
-                    L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
-                    if (sk == null || !sk.getCanLearn(this.getClassId()))
-                    {
-                        if (countUnlearnable) unLearnable++;
-                        continue;
-                    }
-                    if (this.getSkillLevel(sk.getId()) == -1)
-                    {
-                        skillCounter++;
-                    }
-                    addSkill(sk);
-                }
-                countUnlearnable = false;
-                skills = SkillTreeTable.getInstance().getAvailableSkills(this, this.getClassId());
-            }
-            this.sendMessage("You have learn new " + skillCounter + " skills.");
-        }
+		for(int i = 0; i < COMMON_CRAFT_LEVELS.length; i++)
+		{
+			if(lvl >= COMMON_CRAFT_LEVELS[i] && getSkillLevel(1320) < (i+1))
+			{
+				L2Skill skill = SkillTable.getInstance().getInfo(1320, (i+1));
+				addSkill(skill, true);
+			}
+		}
 
-        // This function gets called on login, so not such a bad place to check weight
-        refreshOverloaded(); // Update the overloaded status of the L2PcInstance
-        refreshExpertisePenalty(); // Update the expertise status of the L2PcInstance
-    }
+		// Auto-Learn skills if activated
+		if (Config.AUTO_LEARN_SKILLS)
+		{
+			giveAvailableSkills();
+		}
+
+		// This function gets called on login, so not such a bad place to check weight
+		refreshOverloaded();		// Update the overloaded status of the L2PcInstance
+		refreshExpertisePenalty();  // Update the expertise status of the L2PcInstance
+	}
 
     /** Set the Experience value of the L2PcInstance. */
     public void setExp(long exp) { getStat().setExp(exp); }
+
+	/**
+	 * Give all available skills to the player.<br><br>
+	 *
+	 */
+	private void giveAvailableSkills()
+	{
+		int unLearnable = 0;
+		int skillCounter = 0;
+	
+		// Get available skills
+		L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
+		while (skills.length > unLearnable)
+		{
+			for (int i = 0; i < skills.length; i++)
+			{
+				L2SkillLearn s = skills[i];
+				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
+				if (sk == null || !sk.getCanLearn(getClassId()))
+				{
+					unLearnable++;
+					continue;
+				}
+	
+				if (getSkillLevel(sk.getId()) == -1)
+					skillCounter++;
+	
+				addSkill(sk, true);
+			}
+	
+			// Get new available skills
+			skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
+		}
+	
+		sendMessage("You have learned " + skillCounter + " new skills.");
+	}
 
     /**
      * Return the Race object of the L2PcInstance.<BR><BR>
@@ -6252,15 +6268,14 @@ public final class L2PcInstance extends L2PlayableInstance
         L2Skill oldSkill = super.addSkill(newSkill);
 
         // Add or update a L2PcInstance skill in the character_skills table of the database
-        if(save==true)
-            storeSkill(newSkill, oldSkill, -1);
+        if (save) storeSkill(newSkill, oldSkill, -1);
 
         return oldSkill;
     }
     
     public L2Skill addSkill(L2Skill newSkill)
     {
-        return addSkill(newSkill,true);
+        return addSkill(newSkill,false);
     }
 
     public L2Skill removeSkill(L2Skill skill, boolean store)
