@@ -1279,6 +1279,8 @@ public class TvT
             else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
                 _playersShuffle.remove(player);
             
+            if (TvT._savePlayers.contains(player.getName()))
+            	_savePlayers.remove(player.getName());
             player.getAppearance().setNameColor(player._originalNameColorTvT);
             player.setKarma(player._originalKarmaTvT);
             player.broadcastUserInfo();
