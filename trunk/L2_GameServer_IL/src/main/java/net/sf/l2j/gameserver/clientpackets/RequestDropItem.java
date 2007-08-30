@@ -41,51 +41,51 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RequestDropItem extends L2GameClientPacket
 {
-	private static final String _C__12_REQUESTDROPITEM = "[C] 12 RequestDropItem";
-	private final static Log _log = LogFactory.getLog(RequestDropItem.class.getName());
+    private static final String _C__12_REQUESTDROPITEM = "[C] 12 RequestDropItem";
+    private final static Log _log = LogFactory.getLog(RequestDropItem.class.getName());
 
-	private int _objectId;
-	private int _count;
-	private int _x;
-	private int _y;
-	private int _z;
-	/**
-	 * packet type id 0x12
-	 * 
-	 * sample
-	 * 
-	 * 12 
-	 * 09 00 00 40 		// object id
-	 * 01 00 00 00 		// count ??
-	 * fd e7 fe ff 		// x
-	 * e5 eb 03 00 		// y
-	 * bb f3 ff ff 		// z 
-	 * 
-	 * format:		cdd ddd 
-	 * @param decrypt
-	 */
+    private int _objectId;
+    private int _count;
+    private int _x;
+    private int _y;
+    private int _z;
+    /**
+     * packet type id 0x12
+     * 
+     * sample
+     * 
+     * 12 
+     * 09 00 00 40         // object id
+     * 01 00 00 00         // count ??
+     * fd e7 fe ff         // x
+     * e5 eb 03 00         // y
+     * bb f3 ff ff         // z 
+     * 
+     * format:        cdd ddd 
+     * @param decrypt
+     */
     protected void readImpl()
     {
-		_objectId = readD();
-		_count    = readD();
-		_x        = readD();
-		_y        = readD();
-		_z        = readD();
-	}
+        _objectId = readD();
+        _count    = readD();
+        _x        = readD();
+        _y        = readD();
+        _z        = readD();
+    }
 
     protected void runImpl()
-	{
+    {
         L2PcInstance activeChar = getClient().getActiveChar();
-    	if (activeChar == null) return;
-    	
-		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+        if (activeChar == null) return;
+        
+        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			activeChar.sendMessage("Transactions isn't allowed during restart/shutdown!");
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
+            activeChar.sendMessage("Transactions isn't allowed during restart/shutdown!");
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }
-		
+        
         L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
         
         if (item == null 
@@ -122,14 +122,14 @@ public class RequestDropItem extends L2GameClientPacket
         
         if(_count < 0)
         {
-        	Util.handleIllegalPlayerAction(activeChar,"[RequestDropItem] count <= 0! ban! oid: "+_objectId+" owner: "+activeChar.getName(),IllegalPlayerAction.PUNISH_KICK);
-        	return;
+            Util.handleIllegalPlayerAction(activeChar,"[RequestDropItem] count <= 0! ban! oid: "+_objectId+" owner: "+activeChar.getName(),IllegalPlayerAction.PUNISH_KICK);
+            return;
         }
         
         if(!item.isStackable() && _count > 1)
         {
-        	Util.handleIllegalPlayerAction(activeChar,"[RequestDropItem] count > 1 but item is not stackable! ban! oid: "+_objectId+" owner: "+activeChar.getName(),IllegalPlayerAction.PUNISH_KICK);
-        	return;
+            Util.handleIllegalPlayerAction(activeChar,"[RequestDropItem] count > 1 but item is not stackable! ban! oid: "+_objectId+" owner: "+activeChar.getName(),IllegalPlayerAction.PUNISH_KICK);
+            return;
         }
         
         if (Config.GM_DISABLE_TRANSACTION && activeChar.getAccessLevel() >= Config.GM_TRANSACTION_MIN && activeChar.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
@@ -138,15 +138,15 @@ public class RequestDropItem extends L2GameClientPacket
             activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }
-		
-		if (activeChar.isProcessingTransaction() || activeChar.getPrivateStoreType() != 0)
+        
+        if (activeChar.isProcessingTransaction() || activeChar.getPrivateStoreType() != 0)
         {
             activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
             return;
         }
-		if (activeChar.isFishing())
+        if (activeChar.isFishing())
         {
-			//You can't mount, dismount, break and drop items while fishing
+            //You can't mount, dismount, break and drop items while fishing
             activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_2));
             return;
         }
@@ -161,57 +161,57 @@ public class RequestDropItem extends L2GameClientPacket
             }
         }
 
-		if (L2Item.TYPE2_QUEST == item.getItem().getType2() && !activeChar.isGM())
-		{
-			if (_log.isDebugEnabled()) _log.debug(activeChar.getObjectId()+":player tried to drop quest item");
+        if (L2Item.TYPE2_QUEST == item.getItem().getType2() && !activeChar.isGM())
+        {
+            if (_log.isDebugEnabled()) _log.debug(activeChar.getObjectId()+":player tried to drop quest item");
             activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_EXCHANGE_ITEM));
             return;
-		}
-		
-		if (!activeChar.isInsideRadius(_x, _y, 150, false) || Math.abs(_z - activeChar.getZ()) > 50)
-		{ 
-			if (_log.isDebugEnabled()) _log.debug(activeChar.getObjectId()+": trying to drop too far away");
-            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_DISTANCE_TOO_FAR));
-		    return;
-		}
-
-		if (_log.isDebugEnabled()) _log.debug("requested drop item " + _objectId + "("+ item.getCount()+") at "+_x+"/"+_y+"/"+_z);
+        }
         
-		if (item.isEquipped())
-		{
-			// Remove augementation boni on unequip
-			if (item.isAugmented())
-				item.getAugmentation().removeBoni(activeChar);
-			
-			L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
-			InventoryUpdate iu = new InventoryUpdate();
-			for (int i = 0; i < unequiped.length; i++)
-			{
-				activeChar.checkSSMatch(null, unequiped[i]);				
-				iu.addModifiedItem(unequiped[i]);
-			}
-			activeChar.sendPacket(iu);
-			activeChar.broadcastUserInfo();
-		}
-		
-		L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, null, false);
-		
-		if (_log.isDebugEnabled()) _log.debug("dropping " + _objectId + " item("+_count+") at: " + _x + " " + _y + " " + _z);
+        if (!activeChar.isInsideRadius(_x, _y, 150, false) || Math.abs(_z - activeChar.getZ()) > 50)
+        { 
+            if (_log.isDebugEnabled()) _log.debug(activeChar.getObjectId()+": trying to drop too far away");
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_DISTANCE_TOO_FAR));
+            return;
+        }
 
-		activeChar.broadcastUserInfo();
+        if (_log.isDebugEnabled()) _log.debug("requested drop item " + _objectId + "("+ item.getCount()+") at "+_x+"/"+_y+"/"+_z);
+        
+        if (item.isEquipped())
+        {
+            // Remove augementation boni on unequip
+            if (item.isAugmented())
+                item.getAugmentation().removeBoni(activeChar);
+            
+            L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
+            InventoryUpdate iu = new InventoryUpdate();
+            for (int i = 0; i < unequiped.length; i++)
+            {
+                activeChar.checkSSMatch(null, unequiped[i]);                
+                iu.addModifiedItem(unequiped[i]);
+            }
+            activeChar.sendPacket(iu);
+            activeChar.broadcastUserInfo();
+        }
+        
+        L2ItemInstance dropedItem = activeChar.dropItem("Drop", _objectId, _count, _x, _y, _z, null, false);
+        
+        if (_log.isDebugEnabled()) _log.debug("dropping " + _objectId + " item("+_count+") at: " + _x + " " + _y + " " + _z);
 
-		if (dropedItem != null && dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)
+        activeChar.broadcastUserInfo();
+
+        if (dropedItem != null && dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)
         {
             String msg = "Character ("+activeChar.getName()+") has dropped ("+dropedItem.getCount()+")adena at ("+_x+","+_y+","+_z+")";
             _log.warn(msg);
             GmListTable.broadcastMessageToGMs(msg);
         }
-	}
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
-	 */
-	public String getType()
-	{
-		return _C__12_REQUESTDROPITEM;
-	}
+    }
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
+     */
+    public String getType()
+    {
+        return _C__12_REQUESTDROPITEM;
+    }
 }

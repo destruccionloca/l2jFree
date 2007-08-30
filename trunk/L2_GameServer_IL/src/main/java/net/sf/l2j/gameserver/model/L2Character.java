@@ -548,14 +548,7 @@ public abstract class L2Character extends L2Object
 
         if (isAttackingDisabled()) 
             return;
-        
-        if ((this instanceof L2PcInstance) && (((L2PcInstance)this).inObserverMode()))
-        {
-            ((L2PcInstance)this).sendMessage("Cant attack in observer mode");
-            sendPacket(new ActionFailed());
-            return;
-        }
-        
+
         // GeoData Los Check here (or dz > 1000)
         if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(this, target))
         {
@@ -565,41 +558,43 @@ public abstract class L2Character extends L2Object
             return;
         }
 
-        if (this instanceof L2PcInstance) {
-           if (((L2PcInstance)this).inObserverMode())
-           {
-               ((L2PcInstance)this).sendMessage("Cant attack in observer mode");
-               sendPacket(new ActionFailed());
-               return;
-           }
-   
-           if (target instanceof L2PcInstance)
-           {
-                if (((L2PcInstance)target).isCursedWeaponEquiped() && ((L2PcInstance)this).getLevel()<=20){
-                   ((L2PcInstance)this).sendMessage("Cant attack a cursed Player under twenty");
-                   sendPacket(new ActionFailed());
-                   return;
-                }
-                
-                if (((L2PcInstance)this).isCursedWeaponEquiped() && ((L2PcInstance)target).getLevel()<=20){
-                   ((L2PcInstance)this).sendMessage("Cant attack a newbie player with Zariche");
-                   sendPacket(new ActionFailed());
-                   return;
-                }
-                
-                if(((L2PcInstance)target).getLevel()<Config.ALT_PLAYER_PROTECTION_LEVEL )
+        if (this instanceof L2PcInstance)
+        {
+            if (((L2PcInstance)this).inObserverMode())
+            {
+                ((L2PcInstance)this).sendMessage("Cant attack in observer mode");
+                sendPacket(new ActionFailed());
+                return;
+            }
+
+            if (target instanceof L2PcInstance)
+            {
+                if (((L2PcInstance)target).isCursedWeaponEquiped() && ((L2PcInstance)this).getLevel()<=20)
                 {
-                    ((L2PcInstance)this).sendMessage("Player under newbie protection.");
+                    ((L2PcInstance)this).sendMessage("You can't attack a cursed Player under 20.");
                     sendPacket(new ActionFailed());
                     return;
                 }
-                if(((L2PcInstance)this).getLevel()<Config.ALT_PLAYER_PROTECTION_LEVEL )
+                if (((L2PcInstance)this).isCursedWeaponEquiped() && ((L2PcInstance)target).getLevel()<=20)
                 {
-                    ((L2PcInstance)this).sendMessage("Your level is to low to participate in player vs player combat.");
+                    ((L2PcInstance)this).sendMessage("You can't attack a newbie player with a cursed weapon.");
                     sendPacket(new ActionFailed());
                     return;
                 }
-           }
+
+                if(((L2PcInstance)this).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+                {
+                    ((L2PcInstance)this).sendMessage("Your level is too low to participate in player vs player combat until level "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+".");
+                    sendPacket(new ActionFailed());
+                    return;
+                }
+                else if(((L2PcInstance)target).getLevel() < Config.ALT_PLAYER_PROTECTION_LEVEL )
+                {
+                    ((L2PcInstance)this).sendMessage("Player under newbie protection until level "+String.valueOf(Config.ALT_PLAYER_PROTECTION_LEVEL)+".");
+                    sendPacket(new ActionFailed());
+                    return;
+                }
+            }
         }
         // Get the active weapon instance (always equiped in the right hand)
         L2ItemInstance weaponInst = getActiveWeaponInstance();
@@ -613,8 +608,8 @@ public abstract class L2Character extends L2Object
             ((L2PcInstance)this).sendPacket(new SystemMessage(SystemMessageId.CANNOT_ATTACK_WITH_FISHING_POLE));
             getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
  
-             ActionFailed af = new ActionFailed();
-             sendPacket(af);
+            ActionFailed af = new ActionFailed();
+            sendPacket(af);
             return;
         }
 

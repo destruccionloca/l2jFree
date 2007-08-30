@@ -64,7 +64,7 @@ public final class L2NpcTemplate extends L2CharTemplate
     /**
      * Logger
      */
-	private final static Log _log = LogFactory.getLog(L2NpcTemplate.class.getName());
+    private final static Log _log = LogFactory.getLog(L2NpcTemplate.class.getName());
 
     private int     _npcId;
     private int     _idTemplate;
@@ -84,6 +84,7 @@ public final class L2NpcTemplate extends L2CharTemplate
     private String  _factionId;
     private int     _factionRange;
     private int     _absorbLevel;
+    private AbsorbCrystalType _absorbType;
     private int     _npcFaction;
     private String  _npcFactionName;
     private String  _jClass;
@@ -115,6 +116,13 @@ public final class L2NpcTemplate extends L2CharTemplate
     public static final byte FACTION_KETRA = 1;
     public static final byte FACTION_VARKA = 2;
 
+    public static enum AbsorbCrystalType
+    {
+        LAST_HIT,
+        FULL_PARTY,
+        PARTY_ONE_RANDOM
+    }
+
     /**
      * Constructor of L2Character.<BR><BR>
      * 
@@ -142,6 +150,7 @@ public final class L2NpcTemplate extends L2CharTemplate
         setFactionId(set.getString("factionId", null));
         _factionRange  = set.getInteger("factionRange");
         _absorbLevel  = set.getInteger("absorb_level", 0);
+        _absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
         _npcFaction = set.getInteger("NPCFaction", 0);
         _npcFactionName = set.getString("NPCFactionName", "Devine Clan");
         _jClass= set.getString("jClass");
@@ -380,6 +389,22 @@ public final class L2NpcTemplate extends L2CharTemplate
     public void setAbsorbLevel(int absorb_level)
     {
         _absorbLevel = absorb_level;
+    }
+
+    /**
+     * @return the absorb_type
+     */
+    public AbsorbCrystalType getAbsorbType()
+    {
+        return _absorbType;
+    }
+
+    /**
+     * @param absorb_type the absorb type to set
+     */
+    public void setAbsorbType(AbsorbCrystalType absorb_type)
+    {
+        _absorbType = absorb_type;
     }
 
     /**

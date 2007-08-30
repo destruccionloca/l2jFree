@@ -1582,7 +1582,6 @@ public abstract class L2Skill
                     
                     if (src != null) // caster is l2playableinstance and exists
                     {
-                       
                         if(obj instanceof L2PcInstance)
                         { 
                             L2PcInstance trg = (L2PcInstance)obj;
@@ -1590,13 +1589,13 @@ public abstract class L2Skill
                             if((src.getParty() != null && trg.getParty() != null) && 
                                 src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID()) 
                                 continue;
+							
+							if(trg.getInPeaceZone()) continue;
                             
                             if(!srcInArena && ArenaManager.getInstance().getArena(trg) == null)
                             {
                                 if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0) 
                                     continue;
-                                
-                                if(trg.getInPeaceZone()) continue;
                                 
                                 if(src.getClan() != null && trg.getClan() != null)
                                 {
@@ -1639,9 +1638,9 @@ public abstract class L2Skill
                     else
                     // Skill user is not L2PlayableInstance
                     {
-                        if (effectOriginIsL2PlayableInstance && // If effect starts at L2PlayableInstance and
-                                !(obj instanceof L2PlayableInstance)) // Object is not L2PlayableInstance
-                                continue;
+                        // If effect starts at L2PlayableInstance and object is not L2PlayableInstance
+                        if (effectOriginIsL2PlayableInstance && !(obj instanceof L2PlayableInstance))
+                            continue;
                     }
                     
                     targetList.add((L2Character)obj);
@@ -2051,56 +2050,62 @@ public abstract class L2Skill
                     
                     if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(activeChar, obj))
                         continue;
-                    
-                    if(obj instanceof L2PcInstance && src != null)
-                    { 
-                        trg = (L2PcInstance)obj;
-                                                
-                        if((src.getParty() != null && trg.getParty() != null) && 
-                                src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID()) 
-                            continue;
-                        
-                        if(!srcInArena && ArenaManager.getInstance().getArena(trg) == null)
-                        {
-                            if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0) 
-                                continue;
-                            
-                            if(ZoneManager.getInstance().checkIfInZonePeace(obj)) continue;
-                            
-                            if(src.getClan() != null && trg.getClan() != null)
-                            {
-                                if(src.getClan().getClanId() == trg.getClan().getClanId()) 
-                                    continue;
-                            }
-                            
-                            if(!src.checkPvpSkill(obj, this)) 
-                                continue;
-                        }
-                    }
-                    if(obj instanceof L2Summon && src != null)
+
+                    if (src != null) // caster is l2playableinstance and exists
                     {
-                        trg = ((L2Summon)obj).getOwner();
-                        
-                        if((src.getParty() != null && trg.getParty() != null) && 
+                        if(obj instanceof L2PcInstance)
+                        { 
+                            trg = (L2PcInstance)obj;
+
+                            if((src.getParty() != null && trg.getParty() != null) && 
                                 src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID()) 
-                            continue;
-                        
-                        if(!srcInArena && ArenaManager.getInstance().getArena(trg) == null)
-                        {
-                            if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0) 
                                 continue;
-                            
-                            if(ZoneManager.getInstance().checkIfInZonePeace(obj)) continue;
-                            
-                            if(src.getClan() != null && trg.getClan() != null)
+
+                            if(trg.getInPeaceZone()) continue;
+
+                            if(!srcInArena && ArenaManager.getInstance().getArena(trg) == null)
                             {
-                                if(src.getClan().getClanId() == trg.getClan().getClanId()) 
+                                if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0) 
+                                    continue;
+
+                                if(src.getClan() != null && trg.getClan() != null)
+                                {
+                                    if(src.getClan().getClanId() == trg.getClan().getClanId()) 
+                                        continue;
+                                }
+
+                                if(!src.checkPvpSkill(obj, this)) 
                                     continue;
                             }
-                            
-                            if(!src.checkPvpSkill(trg, this)) 
+
+                            if(ZoneManager.getInstance().checkIfInZonePeace(obj)) continue;
+                        }
+                        else if(obj instanceof L2Summon)
+                        {
+                            trg = ((L2Summon)obj).getOwner();
+
+                            if((src.getParty() != null && trg.getParty() != null) && 
+                                src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID()) 
                                 continue;
-                            
+
+                            if(trg.getInPeaceZone()) continue;
+
+                            if(!srcInArena && ArenaManager.getInstance().getArena(trg) == null)
+                            {
+                                if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0) 
+                                    continue;
+
+                                if(src.getClan() != null && trg.getClan() != null)
+                                {
+                                    if(src.getClan().getClanId() == trg.getClan().getClanId()) 
+                                        continue;
+                                }
+
+                                if(!src.checkPvpSkill(trg, this)) 
+                                    continue;
+                            }
+
+                            if(ZoneManager.getInstance().checkIfInZonePeace(obj)) continue;
                         }
                     }
 
@@ -2129,7 +2134,7 @@ public abstract class L2Skill
         case TARGET_ITEM:
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-            sm.addString("Target type of skill is not currently handled");
+            sm.addString("Target type of skill is not currently handled.");
             activeChar.sendPacket(sm);
             return null;
         }
