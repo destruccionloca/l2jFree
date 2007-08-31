@@ -7,7 +7,7 @@ from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.model.actor.instance import L2PetInstance
 from net.sf.l2j.gameserver.datatables import NpcTable
 from net.sf.l2j.gameserver.datatables import SummonItemsData
-from net.sf.l2j.gameserver.handler.itemhandlers import PetSummon
+from net.sf.l2j.gameserver.handler.itemhandlers import SummonItems
 
 qn = "422_RepentYourSins"
 
