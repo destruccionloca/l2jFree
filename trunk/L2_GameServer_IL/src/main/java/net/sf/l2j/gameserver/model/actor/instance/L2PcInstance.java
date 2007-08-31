@@ -237,7 +237,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
     private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,str=?,con=?,dex=?,_int=?,men=?,wit=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,maxload=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=? WHERE obj_id=?";
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, academy_lvl, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP FROM characters WHERE obj_id=?";
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, acc, crit, evasion, mAtk, mDef, mSpd, pAtk, pDef, pSpd, runSpd, walkSpd, str, con, dex, _int, men, wit, face, hairStyle, hairColor, sex, heading, x, y, z, movement_multiplier, attack_speed_multiplier, colRad, colHeight, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, maxload, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP FROM characters WHERE obj_id=?";
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
     private static final String ADD_CHAR_SUBCLASS = "INSERT INTO character_subclasses (char_obj_id,class_id,exp,sp,level,class_index) VALUES (?,?,?,?,?,?)";
     private static final String UPDATE_CHAR_SUBCLASS = "UPDATE character_subclasses SET exp=?,sp=?,level=?,class_id=? WHERE char_obj_id=? AND class_index =?";
@@ -365,7 +365,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _rank;
     
     /** Level at which the player joined the clan as an accedemy member*/
-    private int _accademyLvl;
+    private int _lvlJoinedAcademy = 0;
 
     /** service for recommendations manipulation */
     private CharRecommendationService charRecommendationService = (CharRecommendationService)L2Registry.getBean(IServiceRegistry.CHAR_RECOMMENDATIONS);
@@ -3939,7 +3939,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Kill the L2PcInstance
         super.doDie(killer);
 
-		// Clear resurrect xp calculation
+        // Clear resurrect xp calculation
         setExpBeforeDeath(0);
 
         if (isCursedWeaponEquiped())
@@ -3951,17 +3951,19 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             L2PcInstance pk = null;
 
+            boolean clanWarKill = false;
+
             if ((killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventTvT) && _inEventTvT)
             {
                 if (TvT._teleport || TvT._started)
                 {
                     if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
                     {
-                    	((L2PcInstance)killer)._countTvTkills++;
+                        ((L2PcInstance)killer)._countTvTkills++;
                         TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
                     }
                     else
-                    	((L2PcInstance)killer).sendMessage("You'r teamkiller !!! Teamkills not counting.");
+                        ((L2PcInstance)killer).sendMessage("You'r teamkiller !!! Teamkills not counting.");
 
                     sendMessage("You will be revived and teleported to team spot in 20 seconds!");
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
@@ -4093,72 +4095,77 @@ public final class L2PcInstance extends L2PlayableInstance
                  }
             }
             else if (killer instanceof L2PcInstance)
+            {
                 pk = (L2PcInstance) killer;
+                clanWarKill = (pk.getClan() != null
+                            && getClan() != null
+                            && !isAcademyMember()
+                            && !(pk.isAcademyMember())
+                            && _clan.isAtWarWith(pk.getClanId())
+                            && pk.getClan().isAtWarWith(_clan.getClanId()));
+            }
 
             if (atEvent && pk != null)
             {
                 pk.kills.add(getName());
             }
-            if (!ArenaManager.getInstance().checkIfInZone(this) && !JailManager.getInstance().checkIfInZone(this))
+
+            boolean isArena = ArenaManager.getInstance().checkIfInZone(this);
+
+            if (!isArena && !JailManager.getInstance().checkIfInZone(this))
             {
                 if (pk == null || !pk.isCursedWeaponEquiped())
                 {
                     //if (getKarma() > 0)
                     onDieDropItem(killer);  // Check if any item should be dropped
                 
-                    if (!ArenaManager.getInstance().checkIfInZone(this))
+                    if (!isArena)
                     {
-                        boolean isKillerPc = (killer instanceof L2PcInstance);
-                        if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && ((L2PcInstance)killer).getClan().isAtWarWith(_clan.getClanId()))
-                        {
-		                    if (getClan().getReputationScore() > 0) // when your reputation score is 0 or below, the other clan cannot acquire any reputation points
-		                		((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()+2, true);
-		                    if (((L2PcInstance)killer).getClan().getReputationScore() > 0) // when the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
-		                    	_clan.setReputationScore(_clan.getReputationScore()-2, true);
-                        }
                         if (Config.ALT_GAME_DELEVEL)
                         {
                             // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
                             // NOTE: deathPenalty +- Exp will update karma
-                        	if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
-                                deathPenalty((pk != null && this.getClan() != null && pk.getClan() != null && pk.getClan().isAtWarWith(this.getClanId())));
-                        } else
+                            if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
+                                deathPenalty(clanWarKill);
+                        }
+                        else
                         {
                             onDieUpdateKarma(); // Update karma if delevel is not allowed
                         }
                     }
                 }
-                if(pk != null) 
+                if(pk != null)
                 {
                     if(Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
                     {
-                    	String announcetext = "";
-                    	// build announce text
+                        String announcetext = "";
+                        // build announce text
                         if (getPvpFlag()==0)
-                        	announcetext = pk.getName()+" has slaughtered "+this.getName();
+                            announcetext = pk.getName()+" has slaughtered "+this.getName();
                         else 
-                        	announcetext = pk.getName()+" has defeated "+this.getName();
+                            announcetext = pk.getName()+" has defeated "+this.getName();
                         
                         // announce to player
                         if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
-                        	Announcements.getInstance().announceToPlayers(announcetext);
+                            Announcements.getInstance().announceToPlayers(announcetext);
                         else
-                        	Announcements.getInstance().announceToAll(announcetext);
+                            Announcements.getInstance().announceToAll(announcetext);
                     }
-                    boolean isKillerPc = (killer instanceof L2PcInstance);
-                    if (isKillerPc && ((L2PcInstance)killer).getClan() != null && getClan() != null && _clan.isAtWarWith(((L2PcInstance) killer).getClanId()) && ((L2PcInstance)killer).getClan().isAtWarWith(_clan.getClanId()))
+                    if (clanWarKill)
                     {
-                        ((L2PcInstance) killer).getClan().setReputationScore(((L2PcInstance) killer).getClan().getReputationScore()+2, true);
-                        _clan.setReputationScore(_clan.getReputationScore()-2, true);
+                        if (getClan().getReputationScore() > 0) // when your reputation score is 0 or below, the other clan cannot acquire any reputation points
+                            pk.getClan().setReputationScore(pk.getClan().getReputationScore()+2, true);
+                        if (pk.getClan().getReputationScore() > 0) // when the opposing sides reputation score is 0 or below, your clans reputation score does not decrease
+                            _clan.setReputationScore(_clan.getReputationScore()-2, true);
                     }
                 }
             }
             else if (pk != null && Config.ALT_ANNOUNCE_PK && !ZoneManager.getInstance().checkIfInZonePvP(this))
             {
-            	if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
-            		Announcements.getInstance().announceToPlayers(pk.getName()+" has defeated "+this.getName());
-            	else
-            		Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
+                if(Config.ALT_ANNOUNCE_PK_NORMAL_MESSAGE)
+                    Announcements.getInstance().announceToPlayers(pk.getName()+" has defeated "+this.getName());
+                else
+                    Announcements.getInstance().announceToAll(pk.getName()+" has defeated "+this.getName());
             }
         }
 
@@ -4376,37 +4383,41 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
             increasePvpKills();
             // give faction pvp points
-            if (Config.FACTION_ENABLED)
-                if (targetPlayer.getSide() != getSide() && targetPlayer.getSide()!=0 && getSide()!=0 && Config.FACTION_KILL_REWARD)
+            if (Config.FACTION_ENABLED
+                && targetPlayer.getSide() != getSide()
+                && targetPlayer.getSide() != 0
+                && getSide() != 0
+                && Config.FACTION_KILL_REWARD)
                     increaseFactionKillPoints(targetPlayer.getLevel(),false);
         }
         else
         // Target player doesn't have pvp flag set
         {
             // check factions
-            if (Config.FACTION_ENABLED)
+            if (Config.FACTION_ENABLED
+                && targetPlayer.getSide() != getSide()
+                && targetPlayer.getSide() != 0
+                && getSide() != 0
+                && Config.FACTION_KILL_REWARD)
             {
-                if (targetPlayer.getSide() != getSide() && targetPlayer.getSide()!=0 && getSide()!=0 && Config.FACTION_KILL_REWARD)
-                {
-                    // give faction pk points
-                    increaseFactionKillPoints(targetPlayer.getLevel(),true);                    
-                    // no karma
-                    return;
-                }
+                // give faction pk points
+                increaseFactionKillPoints(targetPlayer.getLevel(),true);                    
+                // no karma
+                return;
             }
             
             // check about wars
-            if (targetPlayer.getClan() != null && this.getClan() != null)
+            boolean clanWarKill = (targetPlayer.getClan() != null
+                                && getClan() != null
+                                && !isAcademyMember()
+                                && !(targetPlayer.isAcademyMember())
+                                && _clan.isAtWarWith(targetPlayer.getClanId())
+                                && targetPlayer.getClan().isAtWarWith(_clan.getClanId()));
+            if (clanWarKill)
             {
-                if (this.getClan().isAtWarWith(targetPlayer.getClanId()))
-                {
-                    if (targetPlayer.getClan().isAtWarWith(this.getClanId()))
-                    {
-                        // 'Both way war' -> 'PvP Kill' 
-                        increasePvpKills();
-                        return;
-                    }
-                }
+                // 'Both way war' -> 'PvP Kill' 
+                increasePvpKills();
+                return;
             }
             
             // 'No war' or 'One way war' -> 'Normal PK'
@@ -4978,17 +4989,17 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setClan(L2Clan clan)
     {
         _clan = clan;
-		setTitle("");
-		
+        setTitle("");
+        
         if (clan == null)
         {
             _clanId = 0;
             _clanPrivileges = 0;
-			_pledgeType = 0;
-			_rank = 0;
-			_accademyLvl = 0;
-			_apprentice = 0;
-			_sponsor = 0;
+            _pledgeType = 0;
+            _rank = 0;
+            _lvlJoinedAcademy = 0;
+            _apprentice = 0;
+            _sponsor = 0;
             return;
         }
         
@@ -5737,9 +5748,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 }
                 else
                 {
-                	player.setClanPrivileges(L2Clan.CP_NOTHING);
+                    player.setClanPrivileges(L2Clan.CP_NOTHING);
                 }
-                player.setAccademyLvl(rset.getInt("academy_lvl"));
+                player.setLvlJoinedAcademy(rset.getInt("lvl_joined_academy"));
                 player.setAllianceWithVarkaKetra(rset.getInt("varka_ketra_ally"));
                 
                 // Add the L2PcInstance object in _allObjects
@@ -7009,8 +7020,12 @@ public final class L2PcInstance extends L2PlayableInstance
                 }
 
                 // Check if clan is at war
-				if (this.getClan() != null && ((L2PcInstance)attacker).getClan() != null && (this.getClan().isAtWarWith(((L2PcInstance)attacker).getClanId()) && this.getWantsPeace() == 0 && ((L2PcInstance)attacker).getWantsPeace() == 0))
-				return true;
+                if (this.getClan() != null && ((L2PcInstance)attacker).getClan() != null
+                                           && (this.getClan().isAtWarWith(((L2PcInstance)attacker).getClanId())
+                                           && this.getWantsPeace() == 0
+                                           && ((L2PcInstance)attacker).getWantsPeace() == 0
+                                           && !this.isAcademyMember()))
+                return true;
             }
         }
         else if (attacker instanceof L2SiegeGuardInstance)
@@ -8458,24 +8473,20 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         _sponsor = sponsor_id;
     }
-    
-    public void setAccademyLvl(int lvl)
-    {
-        _accademyLvl = lvl;
-    }
-    public int getAccademyLvl()
-    {
-        return _accademyLvl;
-    }
 
     public void setLvlJoinedAcademy(int lvl)
     {
-        _accademyLvl = lvl;
+        _lvlJoinedAcademy = lvl;
     }
-        
+
     public int getLvlJoinedAcademy()
     {
-        return _accademyLvl;
+        return _lvlJoinedAcademy;
+    }
+
+    public boolean isAcademyMember()
+    {
+        return _lvlJoinedAcademy > 0;
     }
     
     public void setTeam(int team)
