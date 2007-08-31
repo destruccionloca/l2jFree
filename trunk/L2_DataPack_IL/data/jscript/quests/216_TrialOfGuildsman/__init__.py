@@ -125,7 +125,7 @@ class Quest (JQuest) :
 
 
  def onTalk (self,npc,player):
-   htmltext = "<html><body>I have nothing to say you</body></html>"
+   htmltext = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
    st = player.getQuestState(qn)
    if not st : return htmltext
 
@@ -347,3 +347,5 @@ STARTED.addQuestDrop(20079,AMBER_BEAD_ID,1)
 STARTED.addQuestDrop(30688,DUNINGS_INSTRUCTIONS_ID,1)
 
 print "importing quests: 216: Trial Of Guildsman"
+
+

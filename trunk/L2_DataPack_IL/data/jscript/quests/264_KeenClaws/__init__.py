@@ -23,7 +23,7 @@ class Quest (JQuest) :
     return htmltext
 
  def onTalk (self,npc,player):
-   htmltext = "<html><body>I have nothing to say you</body></html>"
+   htmltext = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
    st = player.getQuestState(qn)
    if not st : return htmltext
 
@@ -93,4 +93,5 @@ QUEST.addKillId(20456)
 STARTED.addQuestDrop(20003,WOLF_CLAW,1)
 
 print "importing quests: 264: Keen Claws"
+
 

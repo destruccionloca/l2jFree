@@ -154,7 +154,7 @@ class Quest (JQuest) :
 
 
  def onTalk (self,npc,player):
-   htmltext = "<html><body>I have nothing to say you</body></html>"
+   htmltext = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
    st = player.getQuestState(qn)
    if not st : return htmltext
 
@@ -505,3 +505,5 @@ for item in range(3239,3276)+[3428,3023,3030]:
     STARTED.addQuestDrop(30621,item,1)
 
 print "importing quests: 221: Testimony Of Prosperity"
+
+
