@@ -194,9 +194,6 @@ public class AdminEffects implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_unpara")||command.equals("admin_unpara_menu"))
 		{
-			String type = "1";
-			if(st.hasMoreTokens())
-				type = st.nextToken();
 			try
 			{
 				L2Object target = activeChar.getTarget();
