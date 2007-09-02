@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
@@ -126,7 +127,7 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You are already engaged.");
             if(Config.WEDDING_PUNISH_INFIDELITY)
             {
-                activeChar.startAbnormalEffect((short)0x2000); // give player a Big Head
+                activeChar.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD); // give player a Big Head
                 // lets recycle the sevensigns debuffs
                 int skillId;
     

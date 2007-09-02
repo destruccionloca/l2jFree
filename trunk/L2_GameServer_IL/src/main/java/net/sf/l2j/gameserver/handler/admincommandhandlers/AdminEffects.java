@@ -166,14 +166,11 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch (StringIndexOutOfBoundsException e){}
 		}
-		else if (command.startsWith("admin_para ")||command.startsWith("admin_para_menu"))
+		else if (command.startsWith("admin_para")||command.startsWith("admin_para_menu"))
 		{
 			String type = "1";
-			try
-			{
+			if(st.hasMoreTokens())
 				type = st.nextToken();
-			}
-			catch(Exception e){}
 			try
 			{
 				L2Object target = activeChar.getTarget();
@@ -182,9 +179,9 @@ public class AdminEffects implements IAdminCommandHandler
 				{
 					player = (L2Character)target;
 					if (type.equals("1"))
-						player.startAbnormalEffect(0x0400);
+						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 					else
-						player.startAbnormalEffect(0x0800);
+						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
 					player.setIsParalyzed(true);
 					StopMove sm = new StopMove(player);
 					player.sendPacket(sm);
@@ -197,6 +194,9 @@ public class AdminEffects implements IAdminCommandHandler
 		}
 		else if (command.equals("admin_unpara")||command.equals("admin_unpara_menu"))
 		{
+			String type = "1";
+			if(st.hasMoreTokens())
+				type = st.nextToken();
 			try
 			{
 				L2Object target = activeChar.getTarget();
@@ -204,7 +204,8 @@ public class AdminEffects implements IAdminCommandHandler
 				if (target instanceof L2Character)
 				{
 					player = (L2Character)target;
-					player.stopAbnormalEffect((short)0x0400);
+					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
+					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
 					player.setIsParalyzed(false);
 				}
 			}
@@ -220,7 +221,7 @@ public class AdminEffects implements IAdminCommandHandler
 				{
 					if (!player.isGM())
 					{
-						player.startAbnormalEffect(0x0400);
+						player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 						player.setIsParalyzed(true);
 						StopMove sm = new StopMove(player);
 						player.sendPacket(sm);
@@ -238,7 +239,7 @@ public class AdminEffects implements IAdminCommandHandler
 			{
 				for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
 				{
-					player.stopAbnormalEffect(0x0400);
+					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 					player.setIsParalyzed(false);
 				}
 			}
@@ -255,7 +256,7 @@ public class AdminEffects implements IAdminCommandHandler
 				if (target instanceof L2Character) 
 				{
 					player = (L2Character)target;
-					player.startAbnormalEffect(0x2000);
+					player.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
 				}
 			}
 			catch (Exception e)
@@ -271,7 +272,7 @@ public class AdminEffects implements IAdminCommandHandler
 				if (target instanceof L2Character) 
 				{
 					player = (L2Character)target;
-					player.stopAbnormalEffect((short)0x2000);
+					player.stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
 				}
 			}
 			catch (Exception e)

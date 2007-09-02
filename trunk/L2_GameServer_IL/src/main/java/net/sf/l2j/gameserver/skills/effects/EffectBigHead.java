@@ -17,6 +17,7 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
@@ -38,11 +39,11 @@ final class EffectBigHead extends L2Effect
     }
     
     public void onStart() {
-    	getEffected().startAbnormalEffect(0x02000);
+    	getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
     }
     
     public void onExit() {
-    	getEffected().stopAbnormalEffect(0x02000);
+    	getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
     }
     
     public boolean onActionTime() {

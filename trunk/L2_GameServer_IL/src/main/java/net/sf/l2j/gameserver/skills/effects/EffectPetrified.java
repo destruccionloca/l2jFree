@@ -24,6 +24,7 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
@@ -42,12 +43,12 @@ final class EffectPetrified extends L2Effect {
     public void onStart() {
          getEffected().abortAttack();
          getEffected().abortCast();
-         getEffected().startAbnormalEffect((short)0x0800);
+         getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
          getEffected().setIsParalyzed(true);
     }
     
     public void onExit() {
-         getEffected().stopAbnormalEffect((short)0x0800);
+         getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
          getEffected().setIsParalyzed(false);
     }
     
