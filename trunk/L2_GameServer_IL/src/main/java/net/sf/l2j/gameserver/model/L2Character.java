@@ -5402,7 +5402,7 @@ public abstract class L2Character extends L2Object
     public void seeSpell(L2PcInstance caster, L2Object target, L2Skill skill) 
     {
         if (this instanceof L2Attackable)
-            ((L2Attackable)this).addDamageHate(caster, 0, (skill.getAggroPoints() / Config.ALT_BUFFER_HATE));
+            ((L2Attackable)this).addDamageHate(caster, 0, (-skill.getAggroPoints() / Config.ALT_BUFFER_HATE));
     }
 
     /**

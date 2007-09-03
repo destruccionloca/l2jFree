@@ -771,6 +771,17 @@ public class L2Attackable extends L2NpcInstance
             getAggroListRP().put(attacker, ai);
         }
 
+        // If aggro is negative, its comming from SEE_SPELL, buffs use constant 150
+        if (aggro < 0)
+        {
+            ai._hate -= (aggro*150)/(getLevel()+7);
+            aggro = -aggro;
+        }
+        // if damage == 0 -> this is case of adding only to aggro list, dont apply formula on it
+        else if (damage == 0) ai._hate += aggro;
+        // else its damage that must be added using constant 100
+        else ai._hate += (aggro*100)/(getLevel()+7);
+
         // Add new damage and aggro (=damage) to the AggroInfo object
         ai._damage += damage;
         ai._hate += (aggro*100)/(getLevel()+7);
@@ -801,7 +812,7 @@ public class L2Attackable extends L2NpcInstance
         // Notify the L2Attackable AI with EVT_ATTACKED
         if (damage > 0) 
         {
-        	getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
+            getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, attacker);
             
             try {
                 if (attacker instanceof L2PcInstance || attacker instanceof L2Summon) 
@@ -809,14 +820,22 @@ public class L2Attackable extends L2NpcInstance
                     L2PcInstance player = attacker instanceof L2PcInstance?(L2PcInstance)attacker:((L2Summon)attacker).getOwner();
                     
                     if (getTemplate().getEventQuests(Quest.QuestEventType.MOBGOTATTACKED) !=null)
-                    	for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.MOBGOTATTACKED))
-                    		quest.notifyAttack(this, player);
+                        for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.MOBGOTATTACKED))
+                            quest.notifyAttack(this, player);
                 }
             } 
             catch (Exception e) { _log.fatal("", e); }
         }
     }
-    
+
+    public void stopHating(L2Attackable target)
+    {
+        if (target == null) return;
+        AggroInfo ai = getAggroListRP().get(target);
+        if (ai == null) return;
+        ai._hate = 0;
+    }
+
     /**
      * Return the most hated L2Character of the L2Attackable _aggroList.<BR><BR>
      */
