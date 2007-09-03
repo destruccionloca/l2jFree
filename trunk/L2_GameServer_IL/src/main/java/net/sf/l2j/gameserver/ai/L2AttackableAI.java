@@ -552,6 +552,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             if (getAttackTarget() != null)
             {
                 L2Attackable npc = (L2Attackable) _actor;
+                if(getAttackTarget() instanceof L2Attackable)
                 npc.stopHating((L2Attackable)getAttackTarget());
             }
 
