@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
-import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
@@ -5403,7 +5402,7 @@ public abstract class L2Character extends L2Object
     public void seeSpell(L2PcInstance caster, L2Object target, L2Skill skill) 
     {
         if (this instanceof L2Attackable)
-            ((L2Attackable)this).addDamageHate(caster, 0, (150*skill.getAggroPoints())/(getLevel()+7)/Config.ALT_BUFFER_HATE);
+            ((L2Attackable)this).addDamageHate(caster, 0, (skill.getAggroPoints() / Config.ALT_BUFFER_HATE));
     }
 
     /**

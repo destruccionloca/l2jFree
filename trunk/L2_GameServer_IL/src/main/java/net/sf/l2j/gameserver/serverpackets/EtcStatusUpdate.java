@@ -63,18 +63,15 @@ public class EtcStatusUpdate extends L2GameServerPacket
 	int _charmOfCourage = 0;	//Charm of Courage, "Prevents experience value decreasing if killed during a siege war".
 	int _deathPenalty = 0;		////Death Penalty max lvl 15, "Combat ability is decreased due to death."
 
-	private L2PcInstance _char;
-
-	public EtcStatusUpdate(L2PcInstance active_char)
+	public EtcStatusUpdate(L2PcInstance _activeChar)
 	{
-		_char = active_char;
 		_IcreasedForce = 0;
-		_weightPenalty = _char.getWeightPenalty();
-		_messageRefusal = _char.getMessageRefusal() ? 1 : 0;
+		_weightPenalty = _activeChar.getWeightPenalty();
+		_messageRefusal = _activeChar.getMessageRefusal() ? 1 : 0;
 		_isInDangerArea = 0;
-		_expertisePenalty = _char.getexpertisePenalty() > 0 ? 1 : 0;
+		_expertisePenalty = _activeChar.getexpertisePenalty() > 0 ? 1 : 0;
 		_charmOfCourage = 0;
-		_deathPenalty = 0;		
+		_deathPenalty = 0;
 	}
 
 	/**
@@ -83,14 +80,14 @@ public class EtcStatusUpdate extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xF3);
-		writeD(_IcreasedForce);
-		writeD(_weightPenalty);
-		writeD(_messageRefusal);
-		writeD(_isInDangerArea);
-		writeD(_expertisePenalty);
-		writeD(_charmOfCourage);
-		writeD(_deathPenalty);
+		writeC(0xF3);				//several icons to a separate line (0 = disabled)
+		writeD(_IcreasedForce);		//1-7 increase force, lvl
+		writeD(_weightPenalty);		//1-4 weight penalty, lvl (1=50%, 2=66.6%, 3=80%, 4=100%)
+		writeD(_messageRefusal);	//1 = block all chat
+		writeD(_isInDangerArea);	//1 = danger area
+		writeD(_expertisePenalty);	//1 = grade penalty
+		writeD(_charmOfCourage);	//1 = charm of courage (no xp loss in siege..)
+		writeD(_deathPenalty);		//1-15 death penalty, lvl (combat ability decreased due to death)
 	}
 	
 	/**
