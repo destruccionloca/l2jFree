@@ -1742,7 +1742,7 @@ public class L2Attackable extends L2NpcInstance
         boolean doLevelup = true;
         boolean isBossMob = maxAbsorbLevel > 10 ? true : false;
         
-        L2NpcTemplate.AbsorbCrystalType absorbType = getTemplate().getAbsorbType();
+        L2NpcTemplate.AbsorbCrystalType absorbType = getTemplate().absorbType;
         
         L2PcInstance killer = (attacker instanceof L2Summon)?((L2Summon)attacker).getOwner() : (L2PcInstance)attacker;
         
