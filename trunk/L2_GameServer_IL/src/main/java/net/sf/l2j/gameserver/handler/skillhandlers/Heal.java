@@ -77,6 +77,10 @@ public class Heal implements ISkillHandler
             // We should not heal walls and door
             if(target instanceof L2DoorInstance)
             	continue;
+            
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.checkSkillCanAffectMyself(skill))
+				continue;
 
             // Player holding a cursed weapon can't be healed and can't heal
             if (target != activeChar)

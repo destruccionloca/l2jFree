@@ -81,6 +81,9 @@ public class Continuous implements ISkillHandler
         for(int index = 0;index < targets.length;index++)
         {
             target = (L2Character)targets[index];
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.checkSkillCanAffectMyself(skill))
+				continue;
 
             if(skill.getSkillType() != L2Skill.SkillType.BUFF && skill.getSkillType() != L2Skill.SkillType.HOT 
             		&& skill.getSkillType() != L2Skill.SkillType.CPHOT && skill.getSkillType() != L2Skill.SkillType.MPHOT

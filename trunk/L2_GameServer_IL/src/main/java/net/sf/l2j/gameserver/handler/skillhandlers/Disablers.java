@@ -148,9 +148,12 @@ public class Disablers implements ISkillHandler
             if (!(targets[index] instanceof L2Character)) continue;
    
             L2Character target = (L2Character) targets[index];
-           
+                       
             if (target == null || target.isDead()) //bypass if target is null or dead
                 continue;
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.checkSkillCanAffectMyself(skill))
+				continue;
             
             switch (type)
             {

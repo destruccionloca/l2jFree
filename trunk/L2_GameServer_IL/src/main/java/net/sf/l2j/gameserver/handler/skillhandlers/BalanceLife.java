@@ -67,6 +67,9 @@ public class BalanceLife implements ISkillHandler
 		for (int index = 0; index < targets.length; index++)
 		{
 			target = (L2Character) targets[index];
+			// check if skill is allowed on other.properties for raidbosses
+			if(target.checkSkillCanAffectMyself(skill))
+				continue;
 
 			// We should not heal if char is dead
 			if (target == null || target.isDead())

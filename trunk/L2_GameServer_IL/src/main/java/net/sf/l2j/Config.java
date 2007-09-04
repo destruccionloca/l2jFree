@@ -903,7 +903,8 @@ public final class Config {
                 LIST_ALLOWED_NPC_TYPES.add(npc_type.trim());
             }
             
-            FORBIDDEN_RAID_SKILLS = otherSettings.getProperty("ForbiddenRaidSkills", "1064,100");            
+            FORBIDDEN_RAID_SKILLS = otherSettings.getProperty("ForbiddenRaidSkills", "1064,100");
+            FORBIDDEN_RAID_SKILLS_LIST = new FastList<Integer>();
             for (String id : FORBIDDEN_RAID_SKILLS.trim().split(",")) {
             	FORBIDDEN_RAID_SKILLS_LIST.add(Integer.parseInt(id.trim()));
             }

@@ -68,6 +68,9 @@ public class Manadam implements ISkillHandler
 		for (int index = 0; index < targets.length; index++)
 		{
 			target = (L2Character) targets[index];
+			//check if skill is allowed on other.properties for raidbosses
+			if(target.checkSkillCanAffectMyself(skill))
+				continue;
 			
             if(target.reflectSkill(skill))
             	target = activeChar;
