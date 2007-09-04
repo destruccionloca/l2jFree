@@ -106,7 +106,7 @@ public class GeoData
      * @param target
      * @return True if cha can see target (LOS) and send usful info to PC
      */
-    public boolean canSeeTargetDebug(L2PcInstance gm, L2Object target)
+    public boolean canSeeTargetDebug(@SuppressWarnings("unused") L2PcInstance gm, L2Object target)
     {
         return true;
     }
@@ -141,12 +141,12 @@ public class GeoData
     {
         //Do Nothing
     }
-    public static void unloadGeodata(byte rx, byte ry)
+    public static void unloadGeodata(@SuppressWarnings("unused") byte rx, @SuppressWarnings("unused") byte ry)
     {
-        
     }
+    
     @Deprecated //TODO: cleanup?
-    public static boolean loadGeodataFile(byte rx, byte ry)
+    public static boolean loadGeodataFile(@SuppressWarnings("unused") byte rx, @SuppressWarnings("unused") byte ry)
     {
         return false;
     }

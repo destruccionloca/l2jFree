@@ -50,7 +50,7 @@ public class Couple
     // Constructor
     public Couple(int coupleId)
     {
-        this._id = coupleId;
+        _id = coupleId;
         
         java.sql.Connection con = null;
         try
@@ -61,20 +61,20 @@ public class Couple
             con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("Select * from couples where id = ?");
-            statement.setInt(1, this._id);
+            statement.setInt(1, _id);
             rs = statement.executeQuery();
 
             while (rs.next())
             {
-                this._player1Id = rs.getInt("player1Id");
-                this._player2Id = rs.getInt("player2Id");
-                this._maried    = rs.getBoolean("maried");
+                _player1Id = rs.getInt("player1Id");
+                _player2Id = rs.getInt("player2Id");
+                _maried    = rs.getBoolean("maried");
 
-                this._affiancedDate = Calendar.getInstance();
-                this._affiancedDate.setTimeInMillis(rs.getLong("affiancedDate"));
+                _affiancedDate = Calendar.getInstance();
+                _affiancedDate.setTimeInMillis(rs.getLong("affiancedDate"));
 
-                this._weddingDate = Calendar.getInstance();
-                this._weddingDate.setTimeInMillis(rs.getLong("weddingDate"));
+                _weddingDate = Calendar.getInstance();
+                _weddingDate.setTimeInMillis(rs.getLong("weddingDate"));
             }
             statement.close();
         }
@@ -90,28 +90,28 @@ public class Couple
         int _tempPlayer1Id = player1.getObjectId();
         int _tempPlayer2Id = player2.getObjectId();
 
-        this._player1Id = _tempPlayer1Id;
-        this._player2Id = _tempPlayer2Id;
+        _player1Id = _tempPlayer1Id;
+        _player2Id = _tempPlayer2Id;
 
-        this._affiancedDate = Calendar.getInstance();
-        this._affiancedDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        _affiancedDate = Calendar.getInstance();
+        _affiancedDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
 
-        this._weddingDate = Calendar.getInstance();
-        this._weddingDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        _weddingDate = Calendar.getInstance();
+        _weddingDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
         
         java.sql.Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
-            this._id = IdFactory.getInstance().getNextId();
+            _id = IdFactory.getInstance().getNextId();
             statement = con.prepareStatement("INSERT INTO couples (id, player1Id, player2Id, maried, affiancedDate, weddingDate) VALUES (?, ?, ?, ?, ?, ?)");
-            statement.setInt(1, this._id);
-            statement.setInt(2, this._player1Id);
-            statement.setInt(3, this._player2Id);
+            statement.setInt(1, _id);
+            statement.setInt(2, _player1Id);
+            statement.setInt(3, _player2Id);
             statement.setBoolean(4, false);
-            statement.setLong(5, this._affiancedDate.getTimeInMillis());
-            statement.setLong(6, this._weddingDate.getTimeInMillis());            
+            statement.setLong(5, _affiancedDate.getTimeInMillis());
+            statement.setLong(6, _weddingDate.getTimeInMillis());            
             statement.execute();
             statement.close();
         }
@@ -135,12 +135,12 @@ public class Couple
 
             statement = con.prepareStatement("UPDATE couples set maried = ?, weddingDate = ? where id = ?");
             statement.setBoolean(1, true);
-            this._weddingDate = Calendar.getInstance();
-            statement.setLong(2, this._weddingDate.getTimeInMillis());
-            statement.setInt(3, this._id);
+            _weddingDate = Calendar.getInstance();
+            statement.setLong(2, _weddingDate.getTimeInMillis());
+            statement.setInt(3, _id);
             statement.execute();
             statement.close();
-            this._maried = true;
+            _maried = true;
         }
         catch (Exception e)
         {
@@ -161,7 +161,7 @@ public class Couple
             PreparedStatement statement;
             
             statement = con.prepareStatement("DELETE FROM couples WHERE id=?");
-            statement.setInt(1, this._id);
+            statement.setInt(1, _id);
             statement.execute();
         }
         catch (Exception e)
@@ -174,13 +174,13 @@ public class Couple
         }
     }
     
-    public final int getId() { return this._id; }
+    public final int getId() { return _id; }
 
-    public final int getPlayer1Id() { return this._player1Id; }
-    public final int getPlayer2Id() { return this._player2Id; }    
+    public final int getPlayer1Id() { return _player1Id; }
+    public final int getPlayer2Id() { return _player2Id; }    
 
-    public final boolean getMaried() { return this._maried; }    
+    public final boolean getMaried() { return _maried; }    
 
-    public final Calendar getAffiancedDate() { return this._affiancedDate; }
-    public final Calendar getWeddingDate() { return this._weddingDate; }
+    public final Calendar getAffiancedDate() { return _affiancedDate; }
+    public final Calendar getWeddingDate() { return _weddingDate; }
 }

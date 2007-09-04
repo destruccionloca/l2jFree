@@ -48,6 +48,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
     private int _price;
     private ItemRequest[] _items;
     
+    @Override
     protected void readImpl()
     {
         _storePlayerId = readD();
@@ -90,6 +91,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         _price = (int)priceTotal;
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -141,6 +143,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         }
     }
     
+    @Override
     public String getType()
     {
         return _C__96_REQUESTPRIVATESTORESELL;

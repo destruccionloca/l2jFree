@@ -32,11 +32,13 @@ public class RequestOustPartyMember extends L2GameClientPacket{
 
 	private String _name;
 	
+    @Override
     protected void readImpl()
     {
         _name = readS();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -45,7 +47,7 @@ public class RequestOustPartyMember extends L2GameClientPacket{
 		if (activeChar.isInParty() && activeChar.getParty().isLeader(activeChar)) activeChar.getParty().oustPartyMember(_name);
 	}
 	
-	
+	@Override
 	public String getType()
 	{
 		return _C__2C_REQUESTOUSTPARTYMEMBER;

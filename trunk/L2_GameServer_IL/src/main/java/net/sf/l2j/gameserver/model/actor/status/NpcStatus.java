@@ -34,8 +34,10 @@ public class NpcStatus extends CharStatus
 
     // =========================================================
     // Method - Public
+    @Override
     public final void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
 
+    @Override
     public final void reduceHp(double value, L2Character attacker, boolean awake)
     {
         if (attacker == null || getActiveChar().isDead()) return;
@@ -53,5 +55,6 @@ public class NpcStatus extends CharStatus
 
     // =========================================================
     // Property - Public
+    @Override
     public L2NpcInstance getActiveChar() { return (L2NpcInstance)super.getActiveChar(); }
 }

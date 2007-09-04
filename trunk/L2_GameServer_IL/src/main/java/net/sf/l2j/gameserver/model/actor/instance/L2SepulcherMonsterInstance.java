@@ -49,6 +49,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		super(objectId, template);
 	}
 
+	@Override
 	public void onSpawn()
     {
 		super.onSpawn();
@@ -109,6 +110,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		}
     }
 
+    @Override
     public void doDie(L2Character killer) 
     {
 		switch(getNpcId())
@@ -220,6 +222,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
         super.doDie(killer);
     }
 
+    @Override
     public void deleteMe()
     {
         if (_victimSpawnKeyBoxTask != null)
@@ -236,6 +239,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		super.deleteMe();
     }
 
+	@Override
 	public boolean isRaid()
 	{
 		switch(getNpcId())
@@ -276,25 +280,21 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		{
             for (L2PcInstance mem : player.getParty().getPartyMembers())
             {
-                if(mem.getQuestState(questId).get("<state>") == null) return;
-                else
+                if(mem.getQuestState(questId).get("<state>") == null)
+                    return;
+                if (mem.getInventory().getItemByItemId(oldBrooch) == null)
                 {
-                    if (mem.getInventory().getItemByItemId(oldBrooch) == null)
-                    {
-    					mem.addItem("Quest", cupId, 1, mem, true);
-                    }
+                    mem.addItem("Quest", cupId, 1, mem, true);
                 }
             }
 		}
 		else
 		{
-            if(player.getQuestState(questId).get("<state>") == null) return;
-            else
+            if(player.getQuestState(questId).get("<state>") == null)
+                return;
+            if (player.getInventory().getItemByItemId(oldBrooch) == null)
             {
-                if (player.getInventory().getItemByItemId(oldBrooch) == null)
-                {
-                	player.addItem("Quest", cupId, 1, player, true);
-                }
+                player.addItem("Quest", cupId, 1, player, true);
             }
 		}
 	}

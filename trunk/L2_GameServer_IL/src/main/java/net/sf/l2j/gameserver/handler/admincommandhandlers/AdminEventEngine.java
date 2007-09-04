@@ -497,7 +497,8 @@ public class AdminEventEngine implements IAdminCommandHandler {
       
    }
    
-   String getMaxLeveledPlayer(){
+   String getMaxLeveledPlayer()
+   {
        Iterator it = L2Event.participatingPlayers.iterator();
        L2PcInstance pc = null;
        int max = 0;

@@ -42,7 +42,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RequestDestroyItem extends L2GameClientPacket
 {
-
 	private static final String _C__59_REQUESTDESTROYITEM = "[C] 59 RequestDestroyItem";
 	private final static Log _log = LogFactory.getLog(RequestDestroyItem.class.getName());
 
@@ -61,6 +60,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 	 * format:		cdd  
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
 		_objectId = 0;
@@ -72,6 +72,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 	    } catch (Exception e) {}
 	}
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -108,7 +109,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 		}
 
 		int itemId = itemToRemove.getItemId();
-        if (itemToRemove == null || itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || CursedWeaponsManager.getInstance().isCursed(itemId))
+        if (itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || CursedWeaponsManager.getInstance().isCursed(itemId))
 		{
 		    activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 		    return;
@@ -189,7 +190,8 @@ public class RequestDestroyItem extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
-	public String getType()
+	@Override
+    public String getType()
 	{
 		return _C__59_REQUESTDESTROYITEM;
 	}

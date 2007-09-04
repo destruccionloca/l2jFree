@@ -38,6 +38,7 @@ public class RequestJoinSiege extends L2GameClientPacket{
     private int _isAttacker;
     private int _isJoining;
     
+    @Override
     protected void readImpl()
     {
         _castleId = readD();
@@ -45,6 +46,7 @@ public class RequestJoinSiege extends L2GameClientPacket{
         _isJoining = readD();
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -74,6 +76,7 @@ public class RequestJoinSiege extends L2GameClientPacket{
     }
     
     
+    @Override
     public String getType()
     {
         return _C__A4_RequestJoinSiege;

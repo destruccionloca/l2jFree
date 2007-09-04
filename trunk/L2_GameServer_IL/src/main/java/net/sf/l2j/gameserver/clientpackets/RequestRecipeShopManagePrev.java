@@ -27,16 +27,17 @@ import net.sf.l2j.gameserver.serverpackets.RecipeShopSellList;
  * 
  * @version $Revision: 1.1.2.1.2.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestRecipeShopManagePrev extends L2GameClientPacket{
+public class RequestRecipeShopManagePrev extends L2GameClientPacket
+{
 	private static final String _C__B7_RequestRecipeShopPrev = "[C] b7 RequestRecipeShopPrev";
-	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreManage.class.getName());
 	
-	
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -50,15 +51,16 @@ public class RequestRecipeShopManagePrev extends L2GameClientPacket{
             return;
         }
 	
-	if (!(player.getTarget() instanceof L2PcInstance))
-	    return;
-	L2PcInstance target = (L2PcInstance)player.getTarget();
+	    if (!(player.getTarget() instanceof L2PcInstance))
+	        return;
+	    L2PcInstance target = (L2PcInstance)player.getTarget();
 		player.sendPacket(new RecipeShopSellList(player,target));
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__B7_RequestRecipeShopPrev;

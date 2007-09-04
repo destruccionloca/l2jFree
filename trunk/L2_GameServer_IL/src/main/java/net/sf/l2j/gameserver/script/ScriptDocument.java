@@ -82,6 +82,7 @@ public class ScriptDocument
         return _name;
     }
     
+    @Override
     public String toString()
     {
         return _name;

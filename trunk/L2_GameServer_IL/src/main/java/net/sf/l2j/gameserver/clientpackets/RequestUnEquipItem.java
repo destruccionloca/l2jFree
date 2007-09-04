@@ -45,11 +45,13 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	 * format:		cd 
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _slot = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) 
@@ -70,7 +72,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
         if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquiped())
         {
             // Message ?
-            activeChar.sendMessage("You cant unequip a cursed Weapon.");
+            activeChar.sendMessage("You can't unequip a cursed Weapon.");
             return;
         }
         
@@ -120,6 +122,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__11_REQUESTUNEQUIPITEM;

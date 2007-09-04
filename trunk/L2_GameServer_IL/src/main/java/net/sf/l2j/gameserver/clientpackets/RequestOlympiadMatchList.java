@@ -33,6 +33,7 @@ public class RequestOlympiadMatchList extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+    @Override
     protected void readImpl()
     {
         // trigger packet
@@ -56,5 +57,4 @@ public class RequestOlympiadMatchList extends L2GameClientPacket
 	{
 		return _C__D0_13_REQUESTOLYMPIADMATCHLIST;
 	}
-	
 }

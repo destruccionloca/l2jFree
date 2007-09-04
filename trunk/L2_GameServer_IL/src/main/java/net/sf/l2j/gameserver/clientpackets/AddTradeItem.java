@@ -51,6 +51,7 @@ public class AddTradeItem extends L2GameClientPacket
     {
     }    
     
+    @Override
     protected void readImpl()
     {
         _tradeId = readD();
@@ -59,6 +60,7 @@ public class AddTradeItem extends L2GameClientPacket
     }    
 
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -117,6 +119,7 @@ public class AddTradeItem extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__16_ADDTRADEITEM;

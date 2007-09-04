@@ -43,6 +43,7 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		_buyList = _activeChar.getBuyList().getItems(); 
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xb7);
@@ -82,7 +83,8 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
-	public String getType()
+	@Override
+    public String getType()
 	{
 		return _S__D0_PRIVATESELLLISTBUY;
 	}

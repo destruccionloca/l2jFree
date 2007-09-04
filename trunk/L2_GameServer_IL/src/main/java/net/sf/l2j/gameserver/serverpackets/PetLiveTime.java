@@ -33,6 +33,7 @@ public class PetLiveTime extends L2GameServerPacket
         _maxFed = summon.getMaxFed();
     }
 
+    @Override
     protected void writeImpl()
     {
         writeC(0xD1);
@@ -40,6 +41,7 @@ public class PetLiveTime extends L2GameServerPacket
         writeD(_curFed);
     }
 
+    @Override
     public String getType()
     {
         return _S__D1_PETLIVETIME;

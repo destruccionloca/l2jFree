@@ -44,6 +44,7 @@ public final class L2MercManagerInstance extends L2FolkInstance
         super(objectId, template);
     }
 
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -54,6 +55,7 @@ public final class L2MercManagerInstance extends L2FolkInstance
             showMessageWindow(player);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) return;

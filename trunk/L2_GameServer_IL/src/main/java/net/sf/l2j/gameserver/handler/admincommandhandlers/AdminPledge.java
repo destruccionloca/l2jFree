@@ -63,7 +63,7 @@ public class AdminPledge implements IAdminCommandHandler
         String name = player.getName();
         if(command.startsWith("admin_pledge"))
         {
-            String action = null;
+            String action = "";
             String parameter = null;
             StringTokenizer st = new StringTokenizer(command);
             try

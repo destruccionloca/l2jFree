@@ -47,7 +47,7 @@ public class ChestKey implements IItemHandler
 		L2Skill skill = SkillTable.getInstance().getInfo(2229, itemId-6664);//box key skill
 		L2Object target = activeChar.getTarget();
 
-		if (!(target instanceof L2ChestInstance) || target == null)
+		if (target == null || !(target instanceof L2ChestInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			activeChar.sendPacket(new ActionFailed());
@@ -69,5 +69,4 @@ public class ChestKey implements IItemHandler
 	{
 		return ITEM_IDS;
 	}
-
 }

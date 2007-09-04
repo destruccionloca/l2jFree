@@ -27,7 +27,6 @@ import net.sf.l2j.tools.L2Registry;
 public class RequestRecipeBookDestroy extends L2GameClientPacket 
 {
     private static final String _C__AC_REQUESTRECIPEBOOKDESTROY = "[C] AD RequestRecipeBookDestroy";
-    //private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
     private int _recipeId;
 
@@ -35,11 +34,13 @@ public class RequestRecipeBookDestroy extends L2GameClientPacket
     * Unknown Packet:ad
     * 0000: ad 02 00 00 00
     */
+    @Override
     protected void readImpl()
     {
         _recipeId = readD();
     }
             
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -64,6 +65,7 @@ public class RequestRecipeBookDestroy extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType() 
     {
         return _C__AC_REQUESTRECIPEBOOKDESTROY;

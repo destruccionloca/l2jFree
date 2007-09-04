@@ -87,7 +87,9 @@ public class PcKnownList extends PlayableKnownList
      * @param object The L2Object to add to _knownObjects and _knownPlayer
      * @param dropper The L2Character who dropped the L2Object
      */
+    @Override
     public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
+    @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
         if (!super.addKnownObject(object, dropper)) return false;
@@ -227,6 +229,7 @@ public class PcKnownList extends PlayableKnownList
      * @param object The L2Object to remove from _knownObjects and _knownPlayer
      *
      */
+    @Override
     public boolean removeKnownObject(L2Object object)
     {
             if (!super.removeKnownObject(object)) return false;
@@ -241,8 +244,10 @@ public class PcKnownList extends PlayableKnownList
 
     // =========================================================
     // Property - Public
+    @Override
     public final L2PcInstance getActiveChar() { return (L2PcInstance)super.getActiveChar(); }
 
+    @Override
     public int getDistanceToForgetObject(L2Object object) 
     { 
         // when knownlist grows, the distance to forget should be at least  
@@ -255,6 +260,7 @@ public class PcKnownList extends PlayableKnownList
         else return 2310;
     }
  
+    @Override
     public int getDistanceToWatchObject(L2Object object) 
     { 
         int knownlistSize = getKnownObjects().size(); 

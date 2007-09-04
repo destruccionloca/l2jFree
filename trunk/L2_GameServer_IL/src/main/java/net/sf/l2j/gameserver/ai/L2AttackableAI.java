@@ -198,8 +198,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
                 // Los Check
             	return GeoData.getInstance().canSeeTarget(me, target); 
-            else
-            	return false;
+                return false;
         }
         else
         { //The actor is a L2MonsterInstance
@@ -234,6 +233,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         }
     }
 
+    @Override
     protected void onEvtDead()
     {
         stopAITask();
@@ -250,6 +250,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      * @param arg1 The second parameter of the Intention
      * 
      */
+    @Override
     synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
     {
         if (intention == AI_INTENTION_IDLE || intention == AI_INTENTION_ACTIVE)
@@ -295,6 +296,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      * @param target The L2Character to attack
      *
      */
+    @Override
     protected void onIntentionAttack(L2Character target)
     {
         // Calculate the attack timeout
@@ -579,7 +581,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                     {
                         L2NpcInstance npc = (L2NpcInstance) obj;
 
-                        if (npc == null || getAttackTarget() == null || faction_id != npc.getFactionId())
+                        if (getAttackTarget() == null || faction_id != npc.getFactionId())
                             continue;
 
                         // Check if the L2Object is inside the Faction Range of the actor
@@ -783,6 +785,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
     /**
      * Manage AI thinking actions of a L2Attackable.<BR><BR>
      */
+    @Override
     protected void onEvtThink()
     {
         // Check if the actor can't use skills and if a thinking action isn't already in progress
@@ -815,6 +818,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      * @param attacker The L2Character that attacks the actor
      * 
      */
+    @Override
     protected void onEvtAttacked(L2Character attacker)
     {
     	/*if (_actor instanceof L2ChestInstance && !((L2ChestInstance)_actor).isOpenFailed())
@@ -859,6 +863,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      * @param aggro The value of hate to add to the actor against the target
      * 
      */
+    @Override
     protected void onEvtAggression(L2Character target, int aggro)
     {
     	L2Attackable me = (L2Attackable) _actor;
@@ -903,9 +908,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         		_globalAggro = -25;
         		return;
         	}
-        	else
-        		for(L2Character aggroed : me.getAggroListRP().keySet())
-        			me.addDamageHate(aggroed, 0, aggro);
+            for(L2Character aggroed : me.getAggroListRP().keySet())
+                me.addDamageHate(aggroed, 0, aggro);
         	
         	aggro = me.getHating(mostHated);
         	if (aggro <= 0) 

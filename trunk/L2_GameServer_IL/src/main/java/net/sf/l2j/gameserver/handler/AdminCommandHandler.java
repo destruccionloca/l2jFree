@@ -241,16 +241,10 @@ public class AdminCommandHandler
         {
         	if (Config.GM_COMMAND_PRIVILEGES.containsKey(cmd))
         	{
-        		if (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd))
-        			return true;
-        		else
-        			return false;
+        		return (player.getAccessLevel() >= Config.GM_COMMAND_PRIVILEGES.get(cmd));
         	}
-        	else
-        	{
-        		_log.warn("Command \""+cmd+"\" have no access level definition. Can't be used.");
-        		return false;
-        	}
+       		_log.warn("Command \""+cmd+"\" have no access level definition. Can't be used.");
+       		return false;
         }
         /*
         else
@@ -259,10 +253,7 @@ public class AdminCommandHandler
         */
         if (player.getAccessLevel()>0)
         	return true;
-        else
-        {
-        	_log.warn("GM "+player.getName()+"("+player.getObjectId()+") have no access level.");
-        	return false;
-        }
-      }
+           _log.warn("GM "+player.getName()+"("+player.getObjectId()+") have no access level.");
+           return false;
+    }
 }

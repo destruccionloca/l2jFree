@@ -38,7 +38,9 @@ public class FriendlyMobKnownList extends AttackableKnownList
 
     // =========================================================
     // Method - Public
+    @Override
     public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
+    @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
         if (!super.addKnownObject(object, dropper)) return false;
@@ -49,6 +51,7 @@ public class FriendlyMobKnownList extends AttackableKnownList
         return true;
     }
 
+    @Override
     public boolean removeKnownObject(L2Object object)
     {
         if (!super.removeKnownObject(object)) return false;
@@ -76,5 +79,6 @@ public class FriendlyMobKnownList extends AttackableKnownList
 
     // =========================================================
     // Property - Public
+    @Override
     public final L2FriendlyMobInstance getActiveChar() { return (L2FriendlyMobInstance)super.getActiveChar(); }
 }

@@ -105,18 +105,20 @@ public class EnterWorld extends L2GameClientPacket
 	/**
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         // this is just a trigger packet. it has no content
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
         { 
             _log.warn("EnterWorld failed! activeChar is null...");
-            this.getClient().closeNow();
+            getClient().closeNow();
 		    return;
         }
 		
@@ -373,7 +375,7 @@ public class EnterWorld extends L2GameClientPacket
         if(Config.ALLOW_WEDDING)
         {
             engage(activeChar);
-            notifyPartner(activeChar, activeChar.getPartnerId());
+            notifyPartner(activeChar);
         }
 
         // notify Friends
@@ -468,7 +470,7 @@ public class EnterWorld extends L2GameClientPacket
     /**
      * @param activeChar partnerid
      */
-    private void notifyPartner(L2PcInstance cha,int partnerId)
+    private void notifyPartner(L2PcInstance cha)
     {
         if(cha.getPartnerId()!=0)
         {
@@ -600,6 +602,7 @@ public class EnterWorld extends L2GameClientPacket
     /* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__03_ENTERWORLD;

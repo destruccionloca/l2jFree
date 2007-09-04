@@ -46,7 +46,6 @@ import javolution.util.FastList;
  */
 public class AquireSkillList extends L2GameServerPacket
 {
-	//private static Logger _log = Logger.getLogger(AquireSkillList.class.getName());
     public enum skillType
     {
     	Usual,
@@ -88,6 +87,7 @@ public class AquireSkillList extends L2GameServerPacket
 		_skills.add(new Skill(id, nextLevel, maxLevel, spCost, requirements));
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x8a);
@@ -107,6 +107,7 @@ public class AquireSkillList extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__A3_AQUIRESKILLLIST;

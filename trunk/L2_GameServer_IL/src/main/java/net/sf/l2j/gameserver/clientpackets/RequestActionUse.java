@@ -62,6 +62,7 @@ public class RequestActionUse extends L2GameClientPacket
      * format:      cddc
      * @param rawPacket
      */
+    @Override
     protected void readImpl()
     {
         _actionId     = readD();
@@ -69,6 +70,7 @@ public class RequestActionUse extends L2GameClientPacket
         _shiftPressed = (readC() == 1);
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -529,6 +531,7 @@ public class RequestActionUse extends L2GameClientPacket
         useSkill(skillId, activeChar.getTarget());
     }
     
+    @Override
     public String getType()
     {
         return _C__45_REQUESTACTIONUSE;

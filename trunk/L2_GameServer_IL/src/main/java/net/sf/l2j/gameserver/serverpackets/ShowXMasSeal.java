@@ -48,5 +48,4 @@ public class ShowXMasSeal extends L2GameServerPacket
 	{
 		return _S__F2_SHOWXMASSEAL;
 	}
-	
 }

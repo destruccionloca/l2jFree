@@ -65,7 +65,7 @@ public class MinionList
     public MinionList(L2MonsterInstance pMaster)
     {
         minionReferences = new FastList<L2MinionInstance>();
-        this.master = pMaster;
+        master = pMaster;
     }
 
     public int countSpawnedMinions()

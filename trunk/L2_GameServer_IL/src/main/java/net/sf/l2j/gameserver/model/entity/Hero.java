@@ -406,7 +406,7 @@ public class Hero
                 player.broadcastUserInfo();
 
                 player.setHero(true); 
-                for(L2Skill skill : HeroSkillTable.getInstance().getHeroSkills())
+                for(L2Skill skill : HeroSkillTable.getHeroSkills())
                     player.addSkill(skill);
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
@@ -521,5 +521,4 @@ public class Hero
              try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
          }
      }
-
 }

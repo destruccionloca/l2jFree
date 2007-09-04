@@ -80,8 +80,8 @@ public class Castle
     public Castle(int castleId)
     {
         _castleId = castleId;
-        this.load();
-        this.loadDoor();
+        load();
+        loadDoor();
     }
 
     // =========================================================
@@ -562,7 +562,7 @@ public class Castle
                 clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 
                 // give crowns
-                CrownManager.getInstance().giveCrowns(clan,this.getCastleId());
+                CrownManager.getInstance().giveCrowns(clan, getCastleId());
                 
                 ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000);   // Schedule owner tasks to start running 
             }

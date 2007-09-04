@@ -162,6 +162,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
      * @param arg1 The second parameter of the Intention
      * 
      */
+    @Override
     synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
     {
         if (_log.isDebugEnabled())
@@ -214,6 +215,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
      * @param target The L2Character to attack
      *
      */
+    @Override
     protected void onIntentionAttack(L2Character target)
     {
         // Calculate the attack timeout
@@ -602,6 +604,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
     /**
      * Manage AI thinking actions of a L2Attackable.<BR><BR>
      */
+    @Override
     protected void onEvtThink()
     {
         //      if(getIntention() != AI_INTENTION_IDLE && (!_actor.isVisible() || !_actor.hasAI() || !_actor.isKnownPlayers()))
@@ -637,6 +640,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
      * @param attacker The L2Character that attacks the actor
      * 
      */
+    @Override
     protected void onEvtAttacked(L2Character attacker)
     {
         // Calculate the attack timeout
@@ -671,6 +675,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
      * @param aggro The value of hate to add to the actor against the target
      * 
      */
+    @Override
     protected void onEvtAggression(L2Character target, int aggro)
     {
     	if (_actor == null) return;
@@ -721,9 +726,8 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         		_globalAggro = -25;
         		return;
         	}
-        	else
-        		for(L2Character aggroed : me.getAggroListRP().keySet())
-        			me.addDamageHate(aggroed, 0, aggro);
+                for(L2Character aggroed : me.getAggroListRP().keySet())
+                    me.addDamageHate(aggroed, 0, aggro);
         	
         	aggro = me.getHating(mostHated);
         	if (aggro <= 0) 
@@ -735,6 +739,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         }
     }
     
+    @Override
     protected void onEvtDead()
     {
         stopAITask();

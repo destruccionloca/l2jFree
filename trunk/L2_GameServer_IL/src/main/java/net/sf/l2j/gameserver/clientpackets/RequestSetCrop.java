@@ -37,6 +37,7 @@ public class RequestSetCrop extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+    @Override
     protected void readImpl()
     {
         _data1 = readD(); //??
@@ -64,7 +65,6 @@ public class RequestSetCrop extends L2GameClientPacket
 		{
 			_log.info("element: d:"+element[0]+" d:"+element[1]+" d:"+element[2]+" d:"+element[3]);
 		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -75,5 +75,4 @@ public class RequestSetCrop extends L2GameClientPacket
 	{
 		return _C__D0_0B_REQUESTSETCROP;
 	}
-
 }

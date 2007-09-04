@@ -69,6 +69,7 @@ public class RequestSellItem extends L2GameClientPacket
 	 * format:		cdd (ddd)
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _listId = readD();
@@ -93,6 +94,7 @@ public class RequestSellItem extends L2GameClientPacket
         }
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -216,6 +218,7 @@ public class RequestSellItem extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__1E_REQUESTSELLITEM;

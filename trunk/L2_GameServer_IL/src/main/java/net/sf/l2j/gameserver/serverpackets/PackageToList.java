@@ -65,5 +65,4 @@ public class PackageToList extends L2GameServerPacket
 	{
 		return _S__C2_PACKAGETOLIST;
 	}
-	
 }

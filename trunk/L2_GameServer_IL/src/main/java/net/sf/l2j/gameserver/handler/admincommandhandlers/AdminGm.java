@@ -32,12 +32,14 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:06 $
  */
-public class AdminGm implements IAdminCommandHandler {
+public class AdminGm implements IAdminCommandHandler
+{
 	private final static Log _log = LogFactory.getLog(AdminGm.class.getName());
 	private static final String[] ADMIN_COMMANDS = { "admin_gm" };
 	private static final int REQUIRED_LEVEL = Config.GM_ACCESSLEVEL;
 
-	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
 		//don't check for gm status ;)
         if (!Config.ALT_PRIVILEGES_ADMIN)
         {
@@ -72,7 +74,8 @@ public class AdminGm implements IAdminCommandHandler {
             
 			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status off");
 		} 
-        else {
+        else
+        {
             GmListTable.getInstance().addGm(activeChar);
 			activeChar.setIsGM(true);
             

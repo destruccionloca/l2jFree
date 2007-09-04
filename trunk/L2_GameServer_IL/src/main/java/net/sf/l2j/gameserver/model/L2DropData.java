@@ -160,6 +160,7 @@ public class L2DropData
      * Returns a report of the object
      * @return String
      */
+    @Override
     public String toString()
     {
         String out = "ItemID: " + getItemId() + " Min: " + getMinDrop() + 
@@ -177,6 +178,7 @@ public class L2DropData
      * @param Object to compare to the current one
      * @return boolean 
      */
+    @Override
     public boolean equals(Object o)
     {
         if (o instanceof L2DropData)

@@ -22,8 +22,6 @@ import java.sql.ResultSet;
 import java.util.Map;
 
 import javolution.util.FastMap;
-
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -180,8 +178,9 @@ public class ClanHallManager
         if (index >= 0) return _freeClanHall.get(index);
         return null;
     }
+
     /** Get Clan Hall by name */
-    public final ClanHall getClanHall(String name, Map<Integer,ClanHall> clanHall)
+    public final ClanHall getClanHall(String name)
     {
         int index = getClanHallIndex(name,_clanHall);
         if (index >= 0) return getClanHalls().get(index);

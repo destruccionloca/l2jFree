@@ -382,12 +382,12 @@ public class SkillTreeTable
         
         skills.addAll(_fishingSkillTrees);
             
-	    if (skills == null)
-	    {
-	        // the skilltree for this class is undefined, so we give an empty list
-	        _log.warning("Skilltree for fishing is not defined !");
-	        return new L2SkillLearn[0];
-	    }
+	    //if (skills == null)
+	    //{
+	    //    // the skilltree for this class is undefined, so we give an empty list
+	    //    _log.warning("Skilltree for fishing is not defined !");
+	    //    return new L2SkillLearn[0];
+	    //}
             
         if (cha.hasDwarvenCraft() && _expandDwarfCraftSkillTrees != null)
         {
@@ -434,12 +434,12 @@ public class SkillTreeTable
         
         skills.addAll(_enchantSkillTrees);
             
-        if (skills == null)
-        {
-            // the skilltree for this class is undefined, so we give an empty list
-            _log.warning("Skilltree for enchanting is not defined !");
-            return new L2EnchantSkillLearn[0];
-        }
+        //if (skills == null)
+        //{
+        //    // the skilltree for this class is undefined, so we give an empty list
+        //    _log.warning("Skilltree for enchanting is not defined !");
+        //    return new L2EnchantSkillLearn[0];
+        //}
             
         L2Skill[] oldSkills = cha.getAllSkills();
         
@@ -552,12 +552,12 @@ public class SkillTreeTable
         
         skills.addAll(_fishingSkillTrees);
             
-        if (skills == null)
-        {
-            // the skilltree for this class is undefined, so we give an empty list
-            _log.warning("SkillTree for fishing is not defined !");
-            return minLevel;
-        }
+        //if (skills == null)
+        //{
+        //    // the skilltree for this class is undefined, so we give an empty list
+        //    _log.warning("SkillTree for fishing is not defined !");
+        //    return minLevel;
+        //}
             
         if (cha.hasDwarvenCraft() && _expandDwarfCraftSkillTrees != null)
         {

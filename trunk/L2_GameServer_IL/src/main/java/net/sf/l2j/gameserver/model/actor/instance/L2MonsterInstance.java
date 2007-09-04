@@ -22,12 +22,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.model.actor.knownlist.MonsterKnownList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.MinionList;
@@ -68,20 +66,21 @@ public class L2MonsterInstance extends L2Attackable
     public L2MonsterInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        this.getKnownList();	// init knownlist
+        getKnownList();	// init knownlist
         _minionList  = new MinionList(this);
         hasRandomAnimation();
         // [L2J_JP ADD]
-        if (this.getNpcId() == 29002)   // Queen Ant Larva is invulnerable.
+        if (getNpcId() == 29002)   // Queen Ant Larva is invulnerable.
         {
-            this.setIsInvul(true);
+            setIsInvul(true);
         }
     }
 
+    @Override
     public final MonsterKnownList getKnownList()
     {
         if(super.getKnownList() == null || !(super.getKnownList() instanceof MonsterKnownList))
-            this.setKnownList(new MonsterKnownList(this));
+            setKnownList(new MonsterKnownList(this));
         return (MonsterKnownList)super.getKnownList();
     }
     /**
@@ -99,11 +98,13 @@ public class L2MonsterInstance extends L2Attackable
     /**
      * Return True if the L2MonsterInstance is Agressive (aggroRange > 0).<BR><BR>
      */
+    @Override
     public boolean isAggressive()
     {
-        return (getTemplate().getAggroRange() > 0) && !this.isEventMob;
+        return (getTemplate().getAggroRange() > 0) && !isEventMob;
     }
 
+    @Override
     public void onSpawn()
     {
         super.onSpawn();
@@ -111,12 +112,12 @@ public class L2MonsterInstance extends L2Attackable
         // [L2J_JP ADD SANDMAN]
         // in Restless Forest
         // They are repeat themselves it visible or invisible.
-        switch (this.getNpcId())
+        switch (getNpcId())
         {
             case 21548:
             case 21551:
             case 21552:
-                _hideTask = ThreadPoolManager.getInstance().scheduleEffect(new doHide(this), (this.getSpawn().getRespawnDelay()));
+                _hideTask = ThreadPoolManager.getInstance().scheduleEffect(new doHide(this), (getSpawn().getRespawnDelay()));
                 break;
         }
         
@@ -254,6 +255,7 @@ public class L2MonsterInstance extends L2Attackable
         return _minionList.hasMinions();
     }
     
+    @Override
     public void addDamageHate(L2Character attacker, int damage, int aggro)
     {
         if (!(attacker instanceof L2MonsterInstance))
@@ -306,8 +308,8 @@ public class L2MonsterInstance extends L2Attackable
     
     public void shownMe()
     {
-        if(!(this.isDead()))
-            this.spawnMe();
+        if(!isDead())
+            spawnMe();
     }
     
     private class doHide implements Runnable

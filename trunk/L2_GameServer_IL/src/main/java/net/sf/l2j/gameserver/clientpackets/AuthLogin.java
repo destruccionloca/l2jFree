@@ -50,6 +50,7 @@ public class AuthLogin extends L2GameClientPacket
     /**
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _loginName = readS().toLowerCase();
@@ -62,6 +63,7 @@ public class AuthLogin extends L2GameClientPacket
 	/** urgent messages, execute immediatly */
     public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	
+    @Override
     protected void runImpl()
 	{
 		SessionKey key = new SessionKey(_loginKey1, _loginKey2, _playKey1, _playKey2);
@@ -84,6 +86,7 @@ public class AuthLogin extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__08_AUTHLOGIN;

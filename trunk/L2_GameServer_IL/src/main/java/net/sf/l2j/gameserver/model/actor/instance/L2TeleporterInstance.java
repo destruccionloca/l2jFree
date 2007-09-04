@@ -58,6 +58,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		super(objectId, template);
 	}
 	
+	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		player.sendPacket( new ActionFailed() );
@@ -130,6 +131,8 @@ public final class L2TeleporterInstance extends L2FolkInstance
 
         super.onBypassFeedback(player, command);
 	}
+
+	@Override
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
@@ -145,7 +148,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		return "data/html/teleporter/" + pom + ".htm";
 	}
 
-	
+    @Override
     public void showChatWindow(L2PcInstance player)
 	{
 		String filename = "data/html/teleporter/castleteleporter-no.htm";

@@ -29,7 +29,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class PrivateStoreListSell extends L2GameServerPacket
 {
-//	private static final String _S__B4_PRIVATEBUYLISTSELL = "[S] 9b PrivateBuyListSell";
 	private static final String _S__B4_PRIVATESTORELISTSELL = "[S] 9b PrivateStoreListSell";
 	private L2PcInstance _storePlayer;
 	private L2PcInstance _activeChar;
@@ -48,7 +47,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 	}
 	
 	// lease shop
-	@Deprecated public PrivateStoreListSell(L2PcInstance player, L2MerchantInstance storeMerchant)
+	@Deprecated public PrivateStoreListSell(L2PcInstance player, @SuppressWarnings("unused") L2MerchantInstance storeMerchant)
 	{
 		_activeChar = player;
 		_activeCharAdena = _activeChar.getAdena();
@@ -56,6 +55,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 		_packageSale = _storePlayer.getSellList().isPackaged();
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x9b);
@@ -82,6 +82,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__B4_PRIVATESTORELISTSELL;

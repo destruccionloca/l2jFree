@@ -91,6 +91,7 @@ public class Say2 extends L2GameClientPacket
      * format:      cSd (S)
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _text = readS();
@@ -98,6 +99,7 @@ public class Say2 extends L2GameClientPacket
         _target = (_type == TELL) ? readS() : null;
     }
 
+    @Override
     protected void runImpl()
     {
         if (_log.isDebugEnabled()) 
@@ -318,6 +320,7 @@ public class Say2 extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__38_SAY2;

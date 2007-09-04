@@ -42,8 +42,10 @@ package net.sf.l2j.gameserver.clientpackets;
 public class RequestTutorialClientEvent extends L2GameClientPacket
 {
     private static final String _C__7E_REQUESTTUTORIALCLIENTEVENT = "[C] 7E RequestTutorialClientEvent";
+    @SuppressWarnings("unused")
     private int _event;
     
+    @Override
     protected void readImpl()
     {
         _event = readC(); // event
@@ -59,7 +61,6 @@ public class RequestTutorialClientEvent extends L2GameClientPacket
     protected void runImpl()
     {
         // TODO Auto-generated method stub
-
     }
 
     /**
@@ -70,5 +71,4 @@ public class RequestTutorialClientEvent extends L2GameClientPacket
     {
         return _C__7E_REQUESTTUTORIALCLIENTEVENT;
     }
-
 }

@@ -48,6 +48,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
     private int _listId;
     private int _count;
     private int[] _items;
+    @SuppressWarnings("unused")
     private FastList<CropProcure> _procureList = new FastList<CropProcure>();
     /**
      * packet type id 0xc3
@@ -79,6 +80,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
      * format:      cdd (dd) 
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _listId = readD();
@@ -88,6 +90,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
         _items = new int[_count * 2];
         for (int i = 0; i < _count; i++)
         {
+            @SuppressWarnings("unused")
             long servise = readD();
             int itemId   = readD(); _items[i * 2 + 0] = itemId;
             long cnt      = readD(); 
@@ -100,6 +103,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
         }
     }
     
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -202,6 +206,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
         su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
         player.sendPacket(su);
     }
+    @Override
     public String getType()
     {
         return _C__C3_REQUESTBUYPROCURE;

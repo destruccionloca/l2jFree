@@ -131,7 +131,8 @@ public class StackIDFactory extends IdFactory
 	}
 
 
-	public synchronized int getNextId()
+    @Override
+    public synchronized int getNextId()
     {
         	int id;
         	if (!_freeOIDStack.empty())
@@ -148,11 +149,13 @@ public class StackIDFactory extends IdFactory
 	 * return a used Object ID back to the pool
 	 * @param object ID
 	 */
-	public synchronized void releaseId(int id)
+    @Override
+    public synchronized void releaseId(int id)
     {
 		_freeOIDStack.push(id);
     }
     
+    @Override
     public int size()
     {
         return FREE_OBJECT_ID_SIZE - _curOID + FIRST_OID + _freeOIDStack.size();

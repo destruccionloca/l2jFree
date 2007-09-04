@@ -28,10 +28,9 @@ import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
 import net.sf.l2j.gameserver.datatables.EventDroplist;
-import net.sf.l2j.gameserver.datatables.EventDroplist.DateDrop;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.EventDroplist.DateDrop;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
-import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
@@ -105,6 +104,7 @@ public class L2Attackable extends L2NpcInstance
         /**
          * Verify is object is equal to this AggroInfo.<BR><BR>
          */
+        @Override
         public boolean equals(Object obj) 
         {
             return this == obj || this._attacker == _attacker;
@@ -113,11 +113,11 @@ public class L2Attackable extends L2NpcInstance
         /**
          * Return the Identifier of the attaker L2Character.<BR><BR>
          */
+        @Override
         public int hashCode() 
         {
             return this._attacker.getObjectId();
         }
-        
     }
     
     
@@ -145,11 +145,13 @@ public class L2Attackable extends L2NpcInstance
             this._dmg += pDmg;
         }
         
+        @Override
         public boolean equals(Object obj) 
         {
             return this == obj || this._attacker == _attacker;
         }
         
+        @Override
         public int hashCode() 
         {
             return this._attacker.getObjectId();
@@ -183,6 +185,7 @@ public class L2Attackable extends L2NpcInstance
         /**
          * Verify is object is equal to this AbsorberInfo.<BR><BR>
          */
+        @Override
         public boolean equals(Object obj) 
         {
             return this == obj || this._absorber == _absorber;
@@ -191,6 +194,7 @@ public class L2Attackable extends L2NpcInstance
         /**
          * Return the Identifier of the absorber L2Character.<BR><BR>
          */
+        @Override
         public int hashCode() 
         {
             return this._absorber.getObjectId();
@@ -279,21 +283,23 @@ public class L2Attackable extends L2NpcInstance
     public L2Attackable(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        this.getKnownList(); // init knownlist
+        getKnownList(); // init knownlist
         _haveToDrop = true;
         _mustGiveExpSp = true;
     }
 
+    @Override
     public AttackableKnownList getKnownList()
     {
     	if(super.getKnownList() == null || !(super.getKnownList() instanceof AttackableKnownList))
-    		this.setKnownList(new AttackableKnownList(this));
+    		setKnownList(new AttackableKnownList(this));
     	return (AttackableKnownList)super.getKnownList();
     }
     
     /**
      * Return the L2Character AI of the L2Attackable and if its null create a new one.<BR><BR>
      */
+    @Override
     public L2CharacterAI getAI() 
     {
         if (_ai == null)
@@ -337,6 +343,7 @@ public class L2Attackable extends L2NpcInstance
      * @param attacker The L2Character who attacks
      * 
      */
+    @Override
     public void reduceCurrentHp(double damage, L2Character attacker)
     {
         reduceCurrentHp(damage, attacker, true);
@@ -350,6 +357,7 @@ public class L2Attackable extends L2NpcInstance
      * @param awake The awake state (If True : stop sleeping)
      * 
      */
+    @Override
     public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
     {
         /*
@@ -361,7 +369,7 @@ public class L2Attackable extends L2NpcInstance
             if((this.getEffect(L2Effect.EffectType.CONFUSION)!=null) && (attacker.getEffect(L2Effect.EffectType.CONFUSION)!=null))
                 return;
         */
-        if (this.isEventMob) return;
+        if (isEventMob) return;
             
         // Add damage and hate to the attacker AggroInfo of the L2Attackable _aggroList
         if (attacker != null) addDamage(attacker, (int)damage);
@@ -408,6 +416,7 @@ public class L2Attackable extends L2NpcInstance
      * @param killer The L2Character that has killed the L2Attackable
      * 
      */
+    @Override
     public void doDie(L2Character killer) 
     {
         // Enhance soul crystals of the attacker if this L2Attackable had its soul absorbed
@@ -440,7 +449,7 @@ public class L2Attackable extends L2NpcInstance
         } 
         catch (Exception e) { _log.fatal("", e); }
         
-        this.setChampion(false);
+        setChampion(false);
 
         // Kill the L2NpcInstance (the corpse disappeared after 7 seconds)
         super.doDie(killer);
@@ -592,12 +601,13 @@ public class L2Attackable extends L2NpcInstance
                             }
                             
                             // Distribute the Exp and SP between the L2PcInstance and its L2Summon
-                            if (this.isChampion()) {
+                            if (isChampion())
+                            {
                                 exp *= Config.CHAMPION_EXP_SP;
                                 sp *= Config.CHAMPION_EXP_SP;
                             }
                             if (!attacker.isDead())
-                            	attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),(int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
+                                attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),(int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
                         }
                     }
                     else
@@ -693,7 +703,8 @@ public class L2Attackable extends L2NpcInstance
                         }
                         
                         // champion xp/sp :)
-                        if ( this.isChampion() ) {
+                        if (isChampion())
+                        {
                             exp *= Config.CHAMPION_EXP_SP;
                             sp *= Config.CHAMPION_EXP_SP;
                         }
@@ -931,8 +942,8 @@ public class L2Attackable extends L2NpcInstance
         // Check if we should apply our maths so deep blue mobs will not drop that easy
         if (Config.DEEPBLUE_DROP_RULES) dropChance = ((drop.getChance() - ((drop.getChance() * levelModifier)/100)) / deepBlueDrop);
 
-        if ( this.isChampion() ) {
-            
+        if (isChampion())
+        {
             if ((drop.getItemId() == 57 || (drop.getItemId() >= 6360 && drop.getItemId() <= 6362)))
             {
                 champRate = Config.CHAMPION_ADENA;
@@ -1057,7 +1068,7 @@ public class L2Attackable extends L2NpcInstance
             // At least 1 item will be dropped for sure.  So the chance will be adjusted to 100%
             // if smaller.
             
-            if (this.isChampion())
+            if (isChampion())
             {
                 if ((drop.getItemId() == 57 || (drop.getItemId() >= 6360 && drop.getItemId() <= 6362)))
                 {
@@ -1494,9 +1505,9 @@ public class L2Attackable extends L2NpcInstance
         for (int i = 0; i < item.getCount(); i++)
         {
             // Randomize drop position  
-            int newX = this.getX() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
-            int newY = this.getY() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
-            int newZ = Math.max(this.getZ(), lastAttacker.getZ()) + 20; // TODO: temp hack, do somethign nicer when we have geodatas
+            int newX = getX() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
+            int newY = getY() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
+            int newZ = Math.max(getZ(), lastAttacker.getZ()) + 20; // TODO: temp hack, do something nicer when we have geodatas
 
             // Init the dropped L2ItemInstance and add it in the world as a visible object at the position where mob was last
             ditem = ItemTable.getInstance().createItem("Loot", item.getItemId(), item.getCount(), lastAttacker, this);
@@ -2059,11 +2070,13 @@ public class L2Attackable extends L2NpcInstance
     /**
      * Return True.<BR><BR>
      */
+    @Override
     public boolean isAttackable()
     {
         return true;
     }
     
+    @Override
     public void onSpawn()
     {
         // Clear mob spoil,seed
@@ -2129,11 +2142,13 @@ public class L2Attackable extends L2NpcInstance
      * Check if the server allows Random Animation.<BR><BR>
      */
     // This is located here because L2Monster and L2FriendlyMob both extend this class. The other non-pc instances extend either L2NpcInstance or L2MonsterInstance.
+    @Override
     public boolean hasRandomAnimation()
     {
         return ((Config.MAX_MONSTER_ANIMATION > 0) && !(this instanceof L2BossInstance));
     }
 
+    @Override
     public boolean isMob()
     {
         return true; // This means we use MAX_MONSTER_ANIMATION instead of MAX_NPC_ANIMATION

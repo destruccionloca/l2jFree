@@ -1169,10 +1169,7 @@ public class FourSepulchersManager
 			}
 			return true;
 		}
-		else
-		{
-			return true;
-		}
+		return true;
     }
     
     public synchronized void onPartyAnnihilated(L2PcInstance player)

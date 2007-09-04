@@ -62,6 +62,7 @@ public class L2DoormenInstance extends L2FolkInstance
         return _clanHall;
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         player.sendPacket(new ActionFailed());
@@ -142,6 +143,7 @@ public class L2DoormenInstance extends L2FolkInstance
      * this is called when a player interacts with this NPC
      * @param player
      */
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());

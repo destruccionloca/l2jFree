@@ -22,16 +22,9 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 
-/**
- * @author Administrator
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 public class RequestRecipeShopMakeItem extends L2GameClientPacket 
 {
     private static final String _C__AF_REQUESTRECIPESHOPMAKEITEM = "[C] B6 RequestRecipeShopMakeItem";
-	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
 	private int _id;
 	private int _recipeId;
@@ -42,6 +35,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
 	 * format:		cd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _id = readD();
@@ -49,6 +43,7 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
         _unknow = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -80,9 +75,9 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType() 
     {
         return _C__AF_REQUESTRECIPESHOPMAKEITEM;
     }
-
 }

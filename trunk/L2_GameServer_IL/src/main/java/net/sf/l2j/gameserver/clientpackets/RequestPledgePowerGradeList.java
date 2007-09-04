@@ -32,11 +32,13 @@ public class RequestPledgePowerGradeList extends L2GameClientPacket
     static Log _log = LogFactory.getLog(ManagePledgePower.class.getName());
     private static final String _C__C0_REQUESTPLEDGEPOWER = "[C] C0 RequestPledgePowerGradeList";
     
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -54,6 +56,7 @@ public class RequestPledgePowerGradeList extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__C0_REQUESTPLEDGEPOWER;

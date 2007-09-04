@@ -67,5 +67,4 @@ public class PledgeReceiveWarList extends L2GameServerPacket
 	{
 		return _S__FE_3E_PLEDGERECEIVEWARELIST;
 	}
-
 }

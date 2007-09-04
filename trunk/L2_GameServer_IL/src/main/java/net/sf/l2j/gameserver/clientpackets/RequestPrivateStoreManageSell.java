@@ -33,10 +33,12 @@ public class RequestPrivateStoreManageSell extends L2GameClientPacket
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreManage.class.getName());
 	
 	
+    @Override
     protected void readImpl()
     {
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -71,6 +73,7 @@ public class RequestPrivateStoreManageSell extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__73_REQUESTPRIVATESTOREMANAGESELL;

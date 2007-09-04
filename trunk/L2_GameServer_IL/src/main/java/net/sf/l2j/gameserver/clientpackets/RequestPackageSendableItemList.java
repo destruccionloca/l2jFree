@@ -31,7 +31,8 @@ public final class RequestPackageSendableItemList extends L2GameClientPacket
 	private int _objectID;
 	
 	
-	protected void readImpl()
+	@Override
+    protected void readImpl()
 	{
 		_objectID = readD();
 	}
@@ -60,5 +61,4 @@ public final class RequestPackageSendableItemList extends L2GameClientPacket
 	{
 		return _C_9E_REQUESTPACKAGESENDABLEITEMLIST;
 	}
-
 }

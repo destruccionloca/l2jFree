@@ -88,20 +88,28 @@ public class L2DoorInstance extends L2Character
     public class AIAccessor extends L2Character.AIAccessor
     {
         protected AIAccessor() {}
+        @Override
         public L2DoorInstance getActor() { return L2DoorInstance.this; }
+        @Override
         @SuppressWarnings("unused")
         public void moveTo(int x, int y, int z, int offset) {}
+        @Override
         @SuppressWarnings("unused")
         public void moveTo(int x, int y, int z) {}
+        @Override
         @SuppressWarnings("unused")
         public void stopMove(L2CharPosition pos) {}
+        @Override
         @SuppressWarnings("unused")
         public void doAttack(L2Character target) {}
+        @Override
         @SuppressWarnings("unused")
         public void doCast(L2Skill skill) {}
     }
     
-    public L2CharacterAI getAI() {
+    @Override
+    public L2CharacterAI getAI()
+    {
         if (_ai == null)
         {
             synchronized(this)
@@ -113,7 +121,9 @@ public class L2DoorInstance extends L2Character
         return _ai;
     }
     
-    public boolean hasAI() {
+    @Override
+    public boolean hasAI()
+    {
         return (_ai != null);
     }
     
@@ -165,32 +175,35 @@ public class L2DoorInstance extends L2Character
     public L2DoorInstance(int objectId, L2CharTemplate template, int doorId, String name, boolean unlockable)
     {
         super(objectId, template);
-        this.getKnownList();	// init knownlist
-        this.getStat();			// init stats
-        this.getStatus();		// init status
+        getKnownList();	// init knownlist
+        getStat();			// init stats
+        getStatus();		// init status
         _doorId = doorId;
         _name = name;
         _unlockable = unlockable;
     }
 
+    @Override
     public final DoorKnownList getKnownList()
     {
     	if(super.getKnownList() == null || !(super.getKnownList() instanceof DoorKnownList))
-    		this.setKnownList(new DoorKnownList(this));
+    		setKnownList(new DoorKnownList(this));
     	return (DoorKnownList)super.getKnownList();
     }
     
+    @Override
     public final DoorStat getStat()
     {
     	if(super.getStat() == null || !(super.getStat() instanceof DoorStat))
-    		this.setStat(new DoorStat(this));
+    		setStat(new DoorStat(this));
     	return (DoorStat)super.getStat();
     }
     
+    @Override
     public final DoorStatus getStatus()
     {
     	if(super.getStatus() == null || !(super.getStatus() instanceof DoorStatus))
-    		this.setStatus(new DoorStatus(this));
+    		setStatus(new DoorStatus(this));
     	return (DoorStatus)super.getStatus();
     }
     
@@ -199,6 +212,7 @@ public class L2DoorInstance extends L2Character
         return _unlockable;
     }
     
+    @Override
     public final int getLevel() 
     {
         return 1;
@@ -282,6 +296,7 @@ public class L2DoorInstance extends L2Character
         return true;
     }
     
+    @Override
     public boolean isAutoAttackable(L2Character attacker)
     {
         if (isUnlockable())
@@ -302,6 +317,7 @@ public class L2DoorInstance extends L2Character
     }
 
     
+    @Override
     public void updateAbnormalEffect() {}
     
     public int getDistanceToWatchObject(L2Object object)
@@ -330,26 +346,31 @@ public class L2DoorInstance extends L2Character
     /**
      * Return null.<BR><BR>
      */ 
+    @Override
     public L2ItemInstance getActiveWeaponInstance() 
     {
         return null;
     }
     
+    @Override
     public L2Weapon getActiveWeaponItem() 
     {
         return null;
     }
 
+    @Override
     public L2ItemInstance getSecondaryWeaponInstance() 
     {
         return null;
     }
 
+    @Override
     public L2Weapon getSecondaryWeaponItem() 
     {
         return null;
     }
 
+    @Override
     public void onAction(L2PcInstance player) 
     {
         if (player == null)
@@ -404,6 +425,7 @@ public class L2DoorInstance extends L2Character
         }
     }
 
+    @Override
     public void onActionShift(L2GameClient client) 
     {
         L2PcInstance player = client.getActiveChar();
@@ -451,6 +473,7 @@ public class L2DoorInstance extends L2Character
         player.sendPacket(new ActionFailed());
     }
 
+    @Override
     public void broadcastStatusUpdate()
     {
         Collection<L2PcInstance> knownPlayers = getKnownList().getKnownPlayers().values(); 
@@ -469,7 +492,7 @@ public class L2DoorInstance extends L2Character
 
     public void onClose()
     {
-        this.closeMe();
+        closeMe();
     }
     
     public final void closeMe() 
@@ -484,6 +507,7 @@ public class L2DoorInstance extends L2Character
         broadcastStatusUpdate();
     } 
 
+    @Override
     public String toString()
     {
         return "door "+_doorId;

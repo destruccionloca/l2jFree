@@ -50,6 +50,7 @@ public class MultiSellChoose extends L2GameClientPacket
     private int _enchantment;
     private int _transactionTax;	// local handling of taxation
 
+    @Override
     protected void readImpl()
     {
         _listId = readD();
@@ -61,6 +62,7 @@ public class MultiSellChoose extends L2GameClientPacket
         _transactionTax = 0;	// initialize tax amount to 0...
     }
 
+    @Override
     public void runImpl()
     {
     	if(_amount < 1 || _amount > 5000 || _amount > Integer.MAX_VALUE )
@@ -252,7 +254,8 @@ public class MultiSellChoose extends L2GameClientPacket
 	    	if (ItemTable.getInstance().createDummyItem(e.getItemId()).isStackable())
 	    	{
 		    	inv.addItem("Multisell", e.getItemId(), (e.getItemCount() * _amount), player, player.getTarget());
-	    	} else
+	    	}
+	    	else
 	    	{
 	    		L2ItemInstance product = null;
 	            for (int i = 0; i < (e.getItemCount() * _amount); i++)
@@ -304,7 +307,7 @@ public class MultiSellChoose extends L2GameClientPacket
         su = null;
 
         // finally, give the tax to the castle...
-		if (merchant != null && merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
+		if (merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
 		    merchant.getCastle().addToTreasury(_transactionTax * _amount);
     }
 
@@ -387,6 +390,7 @@ public class MultiSellChoose extends L2GameClientPacket
         return newEntry;
     }
 
+    @Override
     public String getType()
     {
         return _C__A7_MULTISELLCHOOSE;

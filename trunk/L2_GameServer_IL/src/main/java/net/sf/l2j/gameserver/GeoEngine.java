@@ -224,9 +224,7 @@ public class GeoEngine extends GeoData
         // it might not work when distance is small and path vertical
         else if (distance2 < 82)
         {
-        	if(dz*dz > 40000) // 200 too deep/high. This value should be in sync with NLOS
-        		return false;
-        	else return true;
+        	return(dz*dz <= 40000); // 200 too deep/high. This value should be in sync with NLOS
         }
 
         // Increment in Z coordinate when moving along X or Y axis 
@@ -337,9 +335,7 @@ public class GeoEngine extends GeoData
         // it might not work when distance is small and path vertical
         else if (distance2 < 82)
         {
-        	if(dz*dz > 40000) // 200 too deep/high. This value should be in sync with NLOS
-        		return false;
-        	else return true;
+        	return(dz*dz <= 40000); // 200 too deep/high. This value should be in sync with NLOS
         }
 
         // Increment in Z coordinate when moving along X or Y axis 
@@ -479,7 +475,7 @@ public class GeoEngine extends GeoData
             		tempz = nCanMoveNext(x,y,(int)z,next_x,next_y,tz);
             		if (tempz == Double.MIN_VALUE) 
             			return new Location((x << 4) + L2World.MAP_MIN_X,(y << 4) + L2World.MAP_MIN_Y,(int)z);
-            		else z = tempz;
+            		z = tempz;
             	}
             	else
             	{
@@ -489,7 +485,7 @@ public class GeoEngine extends GeoData
             		tempz = nCanMoveNext(x,y,(int)z,next_x,next_y,tz);
             		if (tempz == Double.MIN_VALUE) 
             			return new Location((x << 4) + L2World.MAP_MIN_X,(y << 4) + L2World.MAP_MIN_Y,(int)z);
-            		else z = tempz;
+            		z = tempz;
             	}
             }
         }
@@ -511,7 +507,7 @@ public class GeoEngine extends GeoData
             		tempz = nCanMoveNext(x,y,(int)z,next_x,next_y,tz);
             		if (tempz == Double.MIN_VALUE) 
             			return new Location((x << 4) + L2World.MAP_MIN_X,(y << 4) + L2World.MAP_MIN_Y,(int)z);
-            		else z = tempz;
+            		z = tempz;
             	}
             	else
             	{
@@ -521,7 +517,7 @@ public class GeoEngine extends GeoData
             		tempz = nCanMoveNext(x,y,(int)z,next_x,next_y,tz);
             		if (tempz == Double.MIN_VALUE) 
             			return new Location((x << 4) + L2World.MAP_MIN_X,(y << 4) + L2World.MAP_MIN_Y,(int)z);
-            		else z = tempz;
+            		z = tempz;
             	}
             }
         }
@@ -903,8 +899,9 @@ public class GeoEngine extends GeoData
 			NSWE = (short)(height&0x0F);
 			height = (short)(height&0x0fff0);
 			height = (short)(height >> 1); //height / 2
-			if(checkNSWE(NSWE,x,y,tx,ty)) return height;
-			else return Double.MIN_VALUE;
+			if(checkNSWE(NSWE,x,y,tx,ty))
+			    return height;
+			return Double.MIN_VALUE;
 	    }
 	    else //multilevel, type == 2
 	    {		 
@@ -944,8 +941,9 @@ public class GeoEngine extends GeoData
 	            layers--;
 	            index += 2;
 	        }
-	        if(checkNSWE(NSWE,x,y,tx,ty)) return tempz;
-	        else return Double.MIN_VALUE;
+	        if(checkNSWE(NSWE,x,y,tx,ty))
+	            return tempz;
+	        return Double.MIN_VALUE;
 	    }
 	}
 	/**
@@ -1078,9 +1076,9 @@ public class GeoEngine extends GeoData
 	        		if(nextheight-tempz>5 && nextheight-tempz<20) return true;
 	        		return false;
 	        	}
-	        	else return true;
+	        	return true;
 	        }
-	        else return true;
+	        return true;
 	    }
 	    return checkNSWE(NSWE,x,y,x+inc_x,y+inc_y);
 	}

@@ -70,9 +70,9 @@ public class RecipeItemMaker implements Runnable
     
     public RecipeItemMaker(L2PcInstance pPlayer, L2Recipe pRecipe, L2PcInstance pTarget)
     {
-        this.player = pPlayer;
-        this.target = pTarget;
-        this.recipe = pRecipe;
+        player = pPlayer;
+        target = pTarget;
+        recipe = pRecipe;
         
         isValid = false;
         skillId = recipe.isDwarvenRecipe()  ? L2Skill.SKILL_CREATE_DWARVEN

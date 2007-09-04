@@ -405,7 +405,6 @@ public class Lottery
                 try 
                 { 
                     con.close();
-                    con=null;
                 } 
                 catch (Exception e) {}
             }
@@ -596,7 +595,6 @@ public class Lottery
         {
             try { con.close(); } catch (Exception e) {}
         }
-        
         return res;
     }
 }

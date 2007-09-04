@@ -28,6 +28,7 @@ public class ConditionPlayerHpPercentage extends Condition
         _p = p;
     }
 
+    @Override
     public boolean testImpl(Env env)
     {
         return env.player.getStatus().getCurrentHp() <= env.player.getMaxHp()*_p;

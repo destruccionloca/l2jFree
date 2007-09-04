@@ -63,7 +63,7 @@ public class CraftManager
                 return activeMakers.containsKey(player);
             }
         }
-        else return false;
+        return false;
     }
     
     /**

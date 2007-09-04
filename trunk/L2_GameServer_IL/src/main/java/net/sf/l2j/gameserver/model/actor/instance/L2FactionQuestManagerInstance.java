@@ -35,6 +35,7 @@ public class L2FactionQuestManagerInstance extends L2NpcInstance
         super(objectId, template);
     }
     
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -56,9 +57,10 @@ public class L2FactionQuestManagerInstance extends L2NpcInstance
             filename = "data/html/faction/" + String.valueOf(factionId)  +  "/start.htm";
             replace = getName();
         }
-        this.sendHtmlMessage(player, filename, replace, factionName);
+        sendHtmlMessage(player, filename, replace, factionName);
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         // standard msg
@@ -80,7 +82,7 @@ public class L2FactionQuestManagerInstance extends L2NpcInstance
             else if (command.startsWith("Join"))
                 filename = path + "wrong.htm";
         }
-        this.sendHtmlMessage(player, filename, replace, factionName);
+        sendHtmlMessage(player, filename, replace, factionName);
     } 
 
     private void sendHtmlMessage(L2PcInstance player, String filename, String replace, String factionName)

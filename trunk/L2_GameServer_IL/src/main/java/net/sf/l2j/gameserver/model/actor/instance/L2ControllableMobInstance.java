@@ -40,6 +40,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	
 	protected class ControllableAIAcessor extends AIAccessor 
     {
+		@Override
 		public void detachAI() 
         {
 			// do nothing, AI of controllable mobs can't be detached automatically
@@ -47,11 +48,13 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 	}
 	
 	
+	@Override
 	public boolean isAggressive()
     {
 		return true;
 	}
 
+	@Override
 	public int getAggroRange() 
     {
 		// force mobs to be aggro
@@ -63,6 +66,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 		super(objectId, template);
 	}
 
+	@Override
 	public L2CharacterAI getAI() 
     {
 		if (_ai == null)
@@ -83,6 +87,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 		return _ai;
 	}
 
+	@Override
 	public boolean isInvul() 
     {
 		return _isInvul;
@@ -93,6 +98,7 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 		_isInvul = isInvul;
 	}
 
+	@Override
 	public void reduceCurrentHp(double i, L2Character attacker, boolean awake) 
     {
 		if (isInvul() || isDead())
@@ -134,12 +140,14 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 		}
 	}
 
+	@Override
 	public void doDie(L2Character killer) 
     {
 		removeAI();
 		super.doDie(killer);
 	}
 
+	@Override
 	public void deleteMe() 
     {
 		removeAI();

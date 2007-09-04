@@ -34,6 +34,7 @@ public final class RequestDuelAnswerStart extends L2GameClientPacket
 	private int _unk1;
 	private int _response;
 	
+	@Override
 	protected void readImpl()
 	{
 		_partyDuel = readD();
@@ -115,5 +116,4 @@ public final class RequestDuelAnswerStart extends L2GameClientPacket
 	{
 		return _C__D0_28_REQUESTDUELANSWERSTART;
 	}
-
 }

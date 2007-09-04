@@ -380,7 +380,7 @@ public class L2BoatInstance extends L2Character
 			{
 				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmess10_1());
 			}
-			ps = new PlaySound(0,"itemsound.ship_arrival_departure",1,this.getObjectId(),this.getX(),this.getY(),this.getZ());
+			ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
 			if (knownPlayers == null || knownPlayers.isEmpty())
 				return;  
 			for (L2PcInstance player : knownPlayers)
@@ -398,7 +398,7 @@ public class L2BoatInstance extends L2Character
 			{
 				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmess5_1());
 			}
-			ps = new PlaySound(0,"itemsound.ship_5min",1,this.getObjectId(),this.getX(),this.getY(),this.getZ());
+			ps = new PlaySound(0, "itemsound.ship_5min", 1, getObjectId(), getX(), getY(), getZ());
 			if (knownPlayers == null || knownPlayers.isEmpty())
 				return;  
 			for (L2PcInstance player : knownPlayers)
@@ -417,7 +417,7 @@ public class L2BoatInstance extends L2Character
 			{
 				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmess1_1());
 			}
-			ps = new PlaySound(0,"itemsound.ship_1min",1,this.getObjectId(),this.getX(),this.getY(),this.getZ());
+			ps = new PlaySound(0, "itemsound.ship_1min", 1, getObjectId(), getX(), getY(), getZ());
 			if (knownPlayers == null || knownPlayers.isEmpty())
 				return;  
 			for (L2PcInstance player : knownPlayers)
@@ -453,7 +453,7 @@ public class L2BoatInstance extends L2Character
 			{
 				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmessb_1());
 			}
-			ps = new PlaySound(0,"itemsound.ship_arrival_departure",1,this.getObjectId(),this.getX(),this.getY(),this.getZ());
+			ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
 			for (L2PcInstance player : knownPlayers)
 			{
 				player.sendPacket(sm);
@@ -588,9 +588,9 @@ public class L2BoatInstance extends L2Character
     /**
      * @param needOnVehicleCheckLocation the needOnVehicleCheckLocation to set
      */
-    public void setNeedOnVehicleCheckLocation(boolean needOnVehicleCheckLocation)
+    public void setNeedOnVehicleCheckLocation(boolean _needOnVehicleCheckLocation)
     {
-        this.needOnVehicleCheckLocation = needOnVehicleCheckLocation;
+        needOnVehicleCheckLocation = _needOnVehicleCheckLocation;
     }
 
     /**
@@ -606,14 +606,14 @@ public class L2BoatInstance extends L2Character
      */
     public void setCycle(int cycle)
     {
-        this._cycle = cycle;
+        _cycle = cycle;
     }
 
     /**
      * @param _runstate the _runstate to set
      */
-    public void setRunstate(int _runstate)
+    public void setRunstate(int runstate)
     {
-        this._runstate = _runstate;
+        _runstate = runstate;
     }
 }

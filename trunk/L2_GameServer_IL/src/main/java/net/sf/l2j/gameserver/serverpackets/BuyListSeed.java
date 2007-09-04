@@ -29,8 +29,6 @@ public final class BuyListSeed extends L2GameServerPacket
 {
     private static final String _S__E8_BUYLISTSEED = "[S] E8 BuyListSeed";
     
-    //private static Logger _log = Logger.getLogger(BuyListSeed.class.getName());
-    
     private int _listId;
     private List<L2ItemInstance> _list = new FastList<L2ItemInstance>();
     private int _money;
@@ -46,6 +44,7 @@ public final class BuyListSeed extends L2GameServerPacket
     
     
     //;BuyListSeedPacket;ddh(h dddhh [dhhh] d)
+    @Override
     protected final void writeImpl()
     {
         writeC(0xe8);
@@ -69,6 +68,7 @@ public final class BuyListSeed extends L2GameServerPacket
         }
     }
     
+    @Override
     public String getType()
     {
         return _S__E8_BUYLISTSEED;

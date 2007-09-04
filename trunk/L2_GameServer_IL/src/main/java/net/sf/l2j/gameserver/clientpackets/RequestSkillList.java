@@ -43,11 +43,13 @@ public class RequestSkillList extends L2GameClientPacket
 	 * format:		c
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
     {
         // this is just a trigger packet. it has no content
 	}
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance cha = getClient().getActiveChar();
@@ -76,6 +78,7 @@ public class RequestSkillList extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__3F_REQUESTSKILLLIST;

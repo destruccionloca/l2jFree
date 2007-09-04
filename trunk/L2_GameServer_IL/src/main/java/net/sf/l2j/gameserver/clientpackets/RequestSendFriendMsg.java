@@ -47,12 +47,14 @@ public class RequestSendFriendMsg extends L2GameClientPacket
     private String _message;
     private String _reciever;
     
+    @Override
     protected void readImpl()
     {
         _message = readS();
         _reciever = readS();
     }
 
+    @Override
     protected void runImpl()
     {
     	L2PcInstance activeChar = getClient().getActiveChar();
@@ -60,7 +62,7 @@ public class RequestSendFriendMsg extends L2GameClientPacket
         
         L2PcInstance targetPlayer = L2World.getInstance().getPlayer(_reciever);
         
-        if (targetPlayer == null && _message != null && activeChar != null) 
+        if (targetPlayer == null && _message != null) 
         {
         	activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME));
         	return;
@@ -75,6 +77,7 @@ public class RequestSendFriendMsg extends L2GameClientPacket
         targetPlayer.sendPacket(frm);
     }
 
+    @Override
     public String getType()
     {
         return _C__CC_REQUESTSENDMSG;

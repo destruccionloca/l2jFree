@@ -32,11 +32,13 @@ public class AllyDismiss extends L2GameClientPacket
     
     private String _clanName;
     
+    @Override
     protected void readImpl()
     {
         _clanName = readS();
     }
     
+    @Override
     protected void runImpl()
     {
         if (_clanName == null)
@@ -97,6 +99,7 @@ public class AllyDismiss extends L2GameClientPacket
         player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE));
     }
     
+    @Override
     public String getType()
     {
         return _C__85_ALLYDISMISS;

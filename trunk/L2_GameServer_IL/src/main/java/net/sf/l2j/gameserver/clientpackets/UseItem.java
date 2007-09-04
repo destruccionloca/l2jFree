@@ -58,11 +58,13 @@ public class UseItem extends L2GameClientPacket
      * format:      cd
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
     }
 
+    @Override
     protected void runImpl()
     {
 
@@ -382,9 +384,9 @@ public class UseItem extends L2GameClientPacket
 //      }
     }
 
+    @Override
     public String getType()
     {
         return _C__14_USEITEM;
     }
-
 }

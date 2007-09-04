@@ -44,12 +44,14 @@ public class TradeRequest extends L2GameClientPacket
 	
 	private int _objectId;
 	
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
     }
 
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -129,6 +131,7 @@ public class TradeRequest extends L2GameClientPacket
 		player.sendPacket(sm);
 	} 
 	
+	@Override
 	public String getType()
 	{
 		return TRADEREQUEST__C__15;

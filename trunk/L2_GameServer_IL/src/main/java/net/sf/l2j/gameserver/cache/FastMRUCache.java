@@ -55,6 +55,7 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
             _node = object;
         }
         
+        @Override
         public boolean equals(Object object)
         {
             return _node == object;
@@ -67,10 +68,12 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
      */
     private static final Factory FACTORY = new Factory() {
 
+        @Override
         public Object create() {
             return new FastMRUCache();
         }
 
+        @Override
         public void cleanup(Object obj) {
             ((FastMRUCache) obj).reset();
         }
@@ -110,6 +113,7 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
     }
     
     // Implements Reusable.
+    @Override
     public synchronized void reset() {
         _map.reset();
         _cache.reset();
@@ -156,6 +160,7 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
         return result;
     }
     
+    @Override
     public synchronized boolean remove(Object key)
     {
         _cache.remove(key);
@@ -168,6 +173,7 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
         return _map;
     }
     
+    @Override
     public int size()
     {
         return _mruList.size();
@@ -183,6 +189,7 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
         return _forgetTime;
     }
     
+    @Override
     public synchronized void clear()
     {
         _cache.clear();
@@ -191,18 +198,22 @@ public class FastMRUCache<K,V> extends FastCollection implements Reusable
     }
     
     // Implements FastCollection abstract method.
+    @Override
     public final Record head() {
         return _mruList.head();
     }
 
+    @Override
     public final Record tail() {
         return _mruList.tail();
     }
 
+    @Override
     public final Object valueOf(Record record) {
         return ((FastMap.Entry) record).getKey();
     }
 
+    @Override
     public final void delete(Record record) {
         remove(((FastMap.Entry) record).getKey());
     }

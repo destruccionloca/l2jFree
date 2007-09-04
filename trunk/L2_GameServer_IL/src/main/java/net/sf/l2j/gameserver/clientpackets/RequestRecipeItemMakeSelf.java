@@ -34,7 +34,6 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RequestRecipeItemMakeSelf extends L2GameClientPacket 
 {
     private static final String _C__AF_REQUESTRECIPEITEMMAKESELF = "[C] AF RequestRecipeItemMakeSelf";
-	//private final static Log _log = LogFactory.getLog(RequestSellItem.class.getName());
 
 	private int _id;
 	/**
@@ -42,11 +41,13 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 	 * format:		cd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _id = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -79,9 +80,9 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType() 
     {
         return _C__AF_REQUESTRECIPEITEMMAKESELF;
     }
-
 }

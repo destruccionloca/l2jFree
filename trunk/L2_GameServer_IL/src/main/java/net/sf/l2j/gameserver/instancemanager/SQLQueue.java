@@ -67,6 +67,7 @@ public class SQLQueue
 
     protected class doQueue extends Thread
     {
+        @Override
         public void run()
         {
         	flush();

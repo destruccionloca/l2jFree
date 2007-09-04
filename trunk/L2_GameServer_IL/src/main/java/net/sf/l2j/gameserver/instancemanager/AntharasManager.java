@@ -282,14 +282,7 @@ public class AntharasManager
     // Whether it lairs is confirmed. 
     public boolean isEnableEnterToLair()
     {
-    	if(_isBossSpawned == false && _isIntervalForNextSpawn == false)
-    	{
-    		return true;
-    	}
-    	else
-    	{
-    		return false;
-    	}
+    	return (_isBossSpawned == false && _isIntervalForNextSpawn == false);
     }
 
     // update list of intruders.
@@ -618,8 +611,6 @@ public class AntharasManager
 				case 29076:
 					skill = SkillTable.getInstance().getInfo(5094, 1);
 					break;
-				default:
-					skill = null;
 			}
     		
     		_bomber.doCast(skill);

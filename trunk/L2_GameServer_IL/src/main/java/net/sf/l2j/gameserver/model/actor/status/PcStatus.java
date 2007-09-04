@@ -43,7 +43,9 @@ public class PcStatus extends PlayableStatus
 
     // =========================================================
     // Method - Public
+    @Override
     public final void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
+    @Override
     public final void reduceHp(double value, L2Character attacker, boolean awake)
     {
         double realValue = value;
@@ -153,5 +155,6 @@ public class PcStatus extends PlayableStatus
 
     // =========================================================
     // Property - Public
+    @Override
     public L2PcInstance getActiveChar() { return (L2PcInstance)super.getActiveChar(); }
 }

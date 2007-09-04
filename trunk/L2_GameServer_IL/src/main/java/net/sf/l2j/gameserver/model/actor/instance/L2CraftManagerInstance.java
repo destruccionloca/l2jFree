@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.recipes.model.L2RecipeComponent;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.MultiSellList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
@@ -63,12 +62,14 @@ public class L2CraftManagerInstance extends L2FolkInstance
         __l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
     }
     
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.setLastFolkNPC(this);
         super.onAction(player);
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("multisell"))
@@ -709,6 +710,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
         player.sendPacket(npcReply);
     }  
     
+    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";

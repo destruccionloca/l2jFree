@@ -306,10 +306,7 @@ public class SailrenManager
 			}
 			return true;
 		}
-		else
-		{
-			return true;
-		}
+		return true;
     }
 
     // when annihilating or limit of time coming, the compulsion movement players from the sailren's lair.

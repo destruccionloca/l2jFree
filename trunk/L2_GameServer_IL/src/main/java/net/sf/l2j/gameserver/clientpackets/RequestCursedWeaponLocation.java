@@ -33,6 +33,7 @@ public class RequestCursedWeaponLocation extends L2GameClientPacket
 {
     private static final String _C__D0_23_REQUESTCURSEDWEAPONLOCATION = "[C] D0:23 RequestCursedWeaponLocation";
 
+    @Override
     protected void readImpl()
     {
         //nothing to read it's just a trigger
@@ -75,5 +76,4 @@ public class RequestCursedWeaponLocation extends L2GameClientPacket
     {
         return _C__D0_23_REQUESTCURSEDWEAPONLOCATION;
     }
-
 }

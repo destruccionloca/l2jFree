@@ -38,6 +38,7 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+	@Override
 	protected void readImpl()
 	{
 		_itemId = readD();
@@ -47,8 +48,7 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	protected
-	void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2ItemInstance item = (L2ItemInstance)L2World.getInstance().findObject(_itemId);
@@ -104,5 +104,4 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	{
 		return _C__D0_2D_REQUESTCONFIRMCANCELITEM;
 	}
-
 }

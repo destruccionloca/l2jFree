@@ -141,6 +141,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
         }
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("FestivalDesc")) 	
@@ -488,4 +489,4 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
 
         return calCalc.get(Calendar.YEAR) + "/" + calCalc.get(Calendar.MONTH) + "/" + calCalc.get(Calendar.DAY_OF_MONTH);
     }
-}    
+}

@@ -35,6 +35,7 @@ public class ConditionUsingSkill extends Condition
 		_skillId = skillId;
 	}
 	
+	@Override
 	public boolean testImpl(Env env)
 	{
 		if (env.skill == null)

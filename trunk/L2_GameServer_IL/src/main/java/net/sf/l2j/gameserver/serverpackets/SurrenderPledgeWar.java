@@ -30,6 +30,7 @@ public class SurrenderPledgeWar extends L2GameServerPacket
         _playerName = charName;
     }
     
+    @Override
     protected final void writeImpl()
     {
         writeC(0x69);
@@ -37,6 +38,7 @@ public class SurrenderPledgeWar extends L2GameServerPacket
         writeS(_playerName);
     }
     
+    @Override
     public String getType()
     {
         return _S__81_SURRENDERPLEDGEWAR;

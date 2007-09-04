@@ -50,7 +50,7 @@ public class FactionMember
     // Constructor
     public FactionMember(int playerId)
     {
-        this._playerId = playerId;
+        _playerId = playerId;
         
         java.sql.Connection con = null;
         try
@@ -61,16 +61,16 @@ public class FactionMember
             con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("Select * from faction_members where player_id = ?");
-            statement.setInt(1, this._playerId);
+            statement.setInt(1, _playerId);
             rs = statement.executeQuery();
 
             while (rs.next())
             {
-                this._factionId = rs.getInt("faction_id");
-                this._factionPoints = rs.getInt("faction_points");
-                this._contributions = rs.getInt("contributions");
-                this._joinDate = Calendar.getInstance();
-                this._joinDate.setTimeInMillis(rs.getLong("join_date"));
+                _factionId = rs.getInt("faction_id");
+                _factionPoints = rs.getInt("faction_points");
+                _contributions = rs.getInt("contributions");
+                _joinDate = Calendar.getInstance();
+                _joinDate.setTimeInMillis(rs.getLong("join_date"));
                 Faction faction = FactionManager.getInstance().getFactions(_factionId);
                 if(faction!=null)
                 {
@@ -89,21 +89,21 @@ public class FactionMember
     
     public FactionMember(int playerId, int factionId)
     {
-        this._playerId = playerId;
-        this._factionId = factionId;
-        this._factionPoints = 0;
-        this._contributions = 0;
-        this._joinDate = Calendar.getInstance();
-        this._joinDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
+        _playerId = playerId;
+        _factionId = factionId;
+        _factionPoints = 0;
+        _contributions = 0;
+        _joinDate = Calendar.getInstance();
+        _joinDate.setTimeInMillis(Calendar.getInstance().getTimeInMillis());
         java.sql.Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             statement = con.prepareStatement("INSERT INTO faction_members (player_id, facion_id, faction_points, contributions, join_date) VALUES (?, ?, 0, 0, ?)");
-            statement.setInt(1, this._playerId);
-            statement.setInt(2, this._factionId);
-            statement.setLong(3, this._joinDate.getTimeInMillis());            
+            statement.setInt(1, _playerId);
+            statement.setInt(2, _factionId);
+            statement.setLong(3, _joinDate.getTimeInMillis());            
             statement.execute();
             statement.close();
         }
@@ -120,16 +120,16 @@ public class FactionMember
     public void quitFaction()
     {
         java.sql.Connection con = null;
-        this._factionId = 0;
-        this._factionPoints = 0;
-        this._contributions = 0;
+        _factionId = 0;
+        _factionPoints = 0;
+        _contributions = 0;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
             
             statement = con.prepareStatement("DELETE FROM faction_members WHERE player_id=?");
-            statement.setInt(1, this._playerId);
+            statement.setInt(1, _playerId);
             statement.execute();
         }
         catch (Exception e)
@@ -151,10 +151,10 @@ public class FactionMember
             PreparedStatement statement;
             
             statement = con.prepareStatement("UPDATE faction_members SET faction_points=?,contributions=?,faction_id=? WHERE player_id=?");
-            statement.setInt(1, this._factionPoints);
-            statement.setInt(2, this._contributions);
-            statement.setInt(3, this._factionId);
-            statement.setInt(4, this._playerId);
+            statement.setInt(1, _factionPoints);
+            statement.setInt(2, _contributions);
+            statement.setInt(3, _factionId);
+            statement.setInt(4, _playerId);
             statement.execute();
         }
         catch (Exception e)
@@ -169,14 +169,14 @@ public class FactionMember
     
     public void addFactionPoints(int amount)
     {
-        this._factionPoints += amount;
-        this.updateDb();
+        _factionPoints += amount;
+        updateDb();
     }
 
     public void addContributions(int amount)
     {
-        this._contributions += amount;
-        this.updateDb();
+        _contributions += amount;
+        updateDb();
     }
     
     
@@ -184,8 +184,8 @@ public class FactionMember
     {
         if(amount<getFactionPoints())
         {
-            this._factionPoints -= amount;
-            this.updateDb();            
+            _factionPoints -= amount;
+            updateDb();            
             return true;
         }
         else
@@ -194,26 +194,26 @@ public class FactionMember
     
     public void setFactionPoints(int amount)
     {
-        this._factionPoints = amount;
-        this.updateDb();
+        _factionPoints = amount;
+        updateDb();
     }
 
     public void setContribution(int amount)
     {
-        this._factionPoints = amount;
-        this.updateDb();
+        _factionPoints = amount;
+        updateDb();
     }
 
     public void setFactionId(int factionId)
     {
-        this._factionId = factionId;
-        this.updateDb();
+        _factionId = factionId;
+        updateDb();
     }
 
-    public final int getPlayerId() { return this._playerId; }
-    public final int getFactionId() { return this._factionId; }
-    public final int getSide() { return this._side; }
-    public final int getFactionPoints() { return this._factionPoints; }
-    public final int getContributions() { return this._contributions; }
-    public final Calendar getJoinDate() { return this._joinDate; }
+    public final int getPlayerId() { return _playerId; }
+    public final int getFactionId() { return _factionId; }
+    public final int getSide() { return _side; }
+    public final int getFactionPoints() { return _factionPoints; }
+    public final int getContributions() { return _contributions; }
+    public final Calendar getJoinDate() { return _joinDate; }
 }

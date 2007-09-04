@@ -23,7 +23,7 @@ import java.sql.SQLException;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.cache.CrestCache;
-import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
+import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -46,6 +46,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 	private byte[] _data;
 	
     
+    @Override
     protected void readImpl()
     {
         _length  = readD();
@@ -53,6 +54,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
         readB(_data);
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -98,7 +100,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 			
             CrestCache crestCache = CrestCache.getInstance();
             
-            int newId = BitSetIDFactory.getInstance().getNextId();
+            int newId = IdFactory.getInstance().getNextId();
             
             if(clan.hasCrest())
             {
@@ -143,6 +145,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__53_REQUESTSETPLEDGECREST;

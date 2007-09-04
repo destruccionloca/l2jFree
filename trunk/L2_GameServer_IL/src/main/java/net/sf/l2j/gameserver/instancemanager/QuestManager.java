@@ -81,7 +81,7 @@ public class QuestManager
      */
     public final boolean reload(int questId)
     {
-    	Quest q = this.getQuest(questId);
+    	Quest q = getQuest(questId);
     	if (q == null)
     	{
     		return false;
@@ -137,18 +137,18 @@ public class QuestManager
     
     public final void addQuest(Quest newQuest)
     {
-    	for (Quest quest : this.getQuests())
+    	for (Quest quest : getQuests())
         {
     		if (quest.getName().equalsIgnoreCase(newQuest.getName()))
     		{
     			_log.info("Replaced: "+quest.getName()+" with "+newQuest.getName());
-    			this.getQuests().remove(quest);
-    			this.getQuests().add(newQuest);
+    			getQuests().remove(quest);
+    			getQuests().add(newQuest);
     			return;
     		}
         }
     	
-    	this.getQuests().add(newQuest);
+    	getQuests().add(newQuest);
     }
     
     public final List<Quest> getQuests()

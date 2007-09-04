@@ -33,6 +33,7 @@ public class RequestPledgeSetMemberPowerGrade extends L2GameClientPacket
     private int _powerGrade;
     private String _member;
 
+    @Override
     protected void readImpl()
     {
         _member = readS();
@@ -72,5 +73,4 @@ public class RequestPledgeSetMemberPowerGrade extends L2GameClientPacket
     {
         return _C__D0_1C_REQUESTPLEDGESETMEMBERPOWERGRADE;
     }
-    
 }

@@ -49,6 +49,7 @@ public final class L2UrnInstance extends L2FolkInstance
     protected static int mixChance;
     protected static int tempChance;
     
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -59,6 +60,7 @@ public final class L2UrnInstance extends L2FolkInstance
             showMessageWindow(player);
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) return;
@@ -311,10 +313,8 @@ public final class L2UrnInstance extends L2FolkInstance
             mixFail = 40;
         mixChance = (Rnd.get(100));
         tempChance = (100 - (mixTemperature * mixFail));
-        if (mixChance < tempChance)
-            return true;
-        else
-            return false;
+        
+        return (mixChance < tempChance);
     }
     
     public void showSuccessWindow(L2PcInstance player, boolean urnLvl, String prodName3, int prodNum3)
@@ -357,7 +357,7 @@ public final class L2UrnInstance extends L2FolkInstance
         msg.append("</table>");
         msg.append("</body></html>");
 
-        this.sendHtmlMessage(player, msg.toString());
+        sendHtmlMessage(player, msg.toString());
     }
     
     public void showFailureWindow(L2PcInstance player)
@@ -373,7 +373,7 @@ public final class L2UrnInstance extends L2FolkInstance
         msg.append("</table>");
         msg.append("</body></html>");
 
-        this.sendHtmlMessage(player, msg.toString());
+        sendHtmlMessage(player, msg.toString());
     }
 
     public void showMessageWindow(L2PcInstance player)
@@ -386,7 +386,7 @@ public final class L2UrnInstance extends L2FolkInstance
         msg.append("</table>");
         msg.append("</body></html>");
 
-        this.sendHtmlMessage(player, msg.toString());
+        sendHtmlMessage(player, msg.toString());
     }
     
     private void sendHtmlMessage(L2PcInstance player, String htmlMessage)

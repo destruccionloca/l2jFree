@@ -431,9 +431,8 @@ public class NpcTable implements NpcTableMBean
             for (L2Skill skill : skills.values())
                 created.addSkill(skill);
             
-            if (classIds != null)
-                for (ClassId classId : classIds)
-                    created.addTeachInfo(classId);
+            for (ClassId classId : classIds)
+                created.addTeachInfo(classId);
             
             for (L2MinionData minion : minions)
                 created.addRaidData(minion);

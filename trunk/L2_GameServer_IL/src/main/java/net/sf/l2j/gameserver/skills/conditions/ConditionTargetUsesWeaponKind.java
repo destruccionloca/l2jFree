@@ -37,6 +37,7 @@ public class ConditionTargetUsesWeaponKind extends Condition
 		_weaponMask = weaponMask;
 	}
 	
+	@Override
 	public boolean testImpl(Env env) 
 	{
 		if (env.target == null)

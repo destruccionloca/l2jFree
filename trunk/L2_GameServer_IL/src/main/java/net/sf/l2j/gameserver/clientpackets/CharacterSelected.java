@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -52,6 +51,7 @@ public class CharacterSelected extends L2GameClientPacket
 	/**
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
 		_charSlot = readD();
@@ -61,6 +61,7 @@ public class CharacterSelected extends L2GameClientPacket
 		_unk4 = readD();
 	}
 
+    @Override
     protected void runImpl()
 	{
 		// if there is a playback.dat file in the current directory, it will
@@ -71,13 +72,13 @@ public class CharacterSelected extends L2GameClientPacket
 		//playLogFile(getConnection()); // try to play log file
 		// we should always be abble to acquire the lock
 		// but if we cant lock then nothing should be done (ie repeated packet)
-		if (this.getClient().getActiveCharLock().tryLock())
+		if (getClient().getActiveCharLock().tryLock())
 		{
 			try
 			{
 				// should always be null
 				// but if not then this is repeated packet and nothing should be done here
-				if (this.getClient().getActiveChar() == null)
+				if (getClient().getActiveChar() == null)
 				{
 					// The L2PcInstance must be created here, so that it can be attached to the L2GameClient
 					if (_log.isDebugEnabled())
@@ -99,17 +100,17 @@ public class CharacterSelected extends L2GameClientPacket
 						return;
 					}
 					
-					cha.setClient(this.getClient());
+					cha.setClient(getClient());
 					getClient().setActiveChar(cha);
 					
-					this.getClient().setState(GameClientState.IN_GAME);
+					getClient().setState(GameClientState.IN_GAME);
 					CharSelected cs = new CharSelected(cha, getClient().getSessionId().playOkID1);
 					sendPacket(cs);
 				}
 			}
 			finally
 			{
-				this.getClient().getActiveCharLock().unlock();
+				getClient().getActiveCharLock().unlock();
 			}
 		}
 }
@@ -205,6 +206,7 @@ public class CharacterSelected extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__0D_CHARACTERSELECTED;

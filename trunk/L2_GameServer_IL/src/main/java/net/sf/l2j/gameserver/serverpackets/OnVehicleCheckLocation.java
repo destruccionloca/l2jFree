@@ -48,8 +48,7 @@ public class OnVehicleCheckLocation extends L2GameServerPacket
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
-	protected
-	void writeImpl()
+	protected void writeImpl()
 	{
 		
 		writeC(0x5b);
@@ -69,5 +68,4 @@ public class OnVehicleCheckLocation extends L2GameServerPacket
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

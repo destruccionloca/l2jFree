@@ -46,7 +46,7 @@ public class Faction
     
     public Faction(int factionId)
     {
-        this._Id = factionId;
+        _Id = factionId;
         String _classlist                   = null;
         String _npclist                   = null;
         String _titlelist                   = null;
@@ -66,12 +66,12 @@ public class Faction
 
             while (rs.next())
             {
-                this._name = rs.getString("name");
-                this._joinprice = rs.getInt("price");
+                _name = rs.getString("name");
+                _joinprice = rs.getInt("price");
                 _classlist = rs.getString("allowed_classes");
                 _titlelist = rs.getString("titlelist");
                 _npclist = rs.getString("npcs");
-                this._points = rs.getFloat("points");
+                _points = rs.getFloat("points");
                 _tside = rs.getInt("side");
             }
             statement.close();
@@ -108,8 +108,8 @@ public class Faction
             con = L2DatabaseFactory.getInstance().getConnection(con);
 
             statement = con.prepareStatement("update factions set points = ? where id = ?");
-            statement.setFloat(1, this._points);
-            statement.setInt(2, this._Id);
+            statement.setFloat(1, _points);
+            statement.setInt(2, _Id);
             statement.execute();
         }
         catch (Exception e)
@@ -121,22 +121,22 @@ public class Faction
     
     public void addPoints(int points) 
     {
-        this._points+=points;
-        this.updateDB(); 
+        _points+=points;
+        updateDB(); 
     }
 
     public void clearPoints()
     {
-        this._points = 0;
-        this.updateDB(); 
+        _points = 0;
+        updateDB(); 
     }
 
-    public final int getId() { return this._Id; }
-    public final String getName() { return this._name; }
-    public final float getPoints() { return this._points; }
-    public final FastList<Integer> getClassList(){ return this._list_classes; } 
-    public final FastList<Integer> getNpcList(){ return this._list_npcs; }
-    public final FastMap<Integer, String> getTitle(){ return this._list_title; }
-    public final int getPrice() { return this._joinprice; }
-    public final int getSide() { return this._side; }
+    public final int getId() { return _Id; }
+    public final String getName() { return _name; }
+    public final float getPoints() { return _points; }
+    public final FastList<Integer> getClassList(){ return _list_classes; } 
+    public final FastList<Integer> getNpcList(){ return _list_npcs; }
+    public final FastMap<Integer, String> getTitle(){ return _list_title; }
+    public final int getPrice() { return _joinprice; }
+    public final int getSide() { return _side; }
 }

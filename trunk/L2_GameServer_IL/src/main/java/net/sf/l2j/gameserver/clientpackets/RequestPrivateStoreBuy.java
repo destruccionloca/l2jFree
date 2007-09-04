@@ -38,14 +38,13 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class RequestPrivateStoreBuy extends L2GameClientPacket
 {
-//  private static final String _C__79_SENDPRIVATESTOREBUYLIST = "[C] 79 SendPrivateStoreBuyList";
     private static final String _C__79_REQUESTPRIVATESTOREBUY = "[C] 79 RequestPrivateStoreBuy";
-//    private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuy.class.getName());
 
     private int _storePlayerId;
     private int _count;
     private ItemRequest[] _items;
 
+    @Override
     protected void readImpl()
     {
         _storePlayerId = readD();
@@ -65,6 +64,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         }
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -191,6 +191,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         }*/
     }
 
+    @Override
     public String getType()
     {
         return _C__79_REQUESTPRIVATESTOREBUY;

@@ -63,8 +63,7 @@ public class AdminMenu implements IAdminCommandHandler
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
-			
-		String target = (activeChar.getTarget() != null?activeChar.getTarget().getName():"no-target");
+
 		if (command.equals("admin_char_manage"))
 			showMainPage(activeChar);
 		else if (command.startsWith("admin_teleport_character_to_menu"))

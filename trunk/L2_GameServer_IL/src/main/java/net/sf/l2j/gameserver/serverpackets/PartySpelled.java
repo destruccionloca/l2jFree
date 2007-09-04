@@ -43,9 +43,9 @@ public class PartySpelled extends L2GameServerPacket
 
         public Effect(int pSkillId, int pDat, int pDuration)
         {
-            this._skillId = pSkillId;
-            this._dat = pDat;
-            this._duration = pDuration;
+            _skillId = pSkillId;
+            _dat = pDat;
+            _duration = pDuration;
         }
     }
 
@@ -55,6 +55,7 @@ public class PartySpelled extends L2GameServerPacket
         _activeChar = cha;
     }
 
+    @Override
     protected final void writeImpl()
     {
         if (_activeChar == null) return;
@@ -79,6 +80,7 @@ public class PartySpelled extends L2GameServerPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__EE_PartySpelled;

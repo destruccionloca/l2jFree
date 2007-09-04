@@ -29,11 +29,13 @@ public class AllyLeave extends L2GameClientPacket
     private static final String _C__84_ALLYLEAVE = "[C] 84 AllyLeave";
     //private static Logger _log = Logger.getLogger(AllyLeave.class.getName());
     
+    @Override
     protected void readImpl()
     {
     }
     
     
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -74,6 +76,7 @@ public class AllyLeave extends L2GameClientPacket
         player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_WITHDRAWN_FROM_ALLIANCE));
     }
     
+    @Override
     public String getType()
     {
         return _C__84_ALLYLEAVE;

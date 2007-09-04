@@ -31,6 +31,7 @@ public class GameGuardQuery extends L2GameServerPacket
     	
     }
     
+    @Override
     public void runImpl()
     {
         // Lets make user as gg-unauthorized
@@ -39,11 +40,13 @@ public class GameGuardQuery extends L2GameServerPacket
         getClient().setGameGuardOk(false);
     }
     
+    @Override
     public void writeImpl()
     {
         writeC(0xf9);
     }
     
+    @Override
     public String getType()
     {
         return _S__F9_GAMEGUARDQUERY;

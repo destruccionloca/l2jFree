@@ -56,6 +56,7 @@ public class SiegeInfo extends L2GameServerPacket
         _castle = castle;
     }
 
+    @Override
     protected final void writeImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -94,6 +95,7 @@ public class SiegeInfo extends L2GameServerPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__C9_SIEGEINFO;

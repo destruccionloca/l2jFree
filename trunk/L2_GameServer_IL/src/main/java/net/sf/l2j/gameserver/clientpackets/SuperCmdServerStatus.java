@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-
 /**
  * Format ch
  * c: (id) 0x39
@@ -30,6 +29,7 @@ class SuperCmdServerStatus extends L2GameClientPacket
 {
 	private static final String _C__39_02_SUPERCMDSERVERSTATUS = "[C] 39:02 SuperCmdServerStatus";
 
+    @Override
     protected void readImpl()
     {
         // trigger packet
@@ -42,7 +42,6 @@ class SuperCmdServerStatus extends L2GameClientPacket
     protected void runImpl()
     {
         // TODO Auto-generated method stub
-        
     }
 
 	/* (non-Javadoc)
@@ -53,5 +52,4 @@ class SuperCmdServerStatus extends L2GameClientPacket
 	{
 		return _C__39_02_SUPERCMDSERVERSTATUS;
 	}
-	
 }

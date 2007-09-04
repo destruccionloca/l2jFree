@@ -31,17 +31,19 @@ public class DummyPacket extends L2GameClientPacket
 	
 	private int _packetId;
 	
+    @Override
     protected void readImpl()
     {
-        
     }
 
+	@Override
 	public void runImpl()
 	{
 		_log.warn("DummyPacket " + _packetId + " received.");
 		//getClient().getConnection().close();
 	}
 
+	@Override
 	public String getType()
 	{
 		return "DummyPacket";

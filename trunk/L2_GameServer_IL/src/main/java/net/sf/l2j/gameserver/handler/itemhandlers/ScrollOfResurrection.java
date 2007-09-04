@@ -65,11 +65,11 @@ public class ScrollOfResurrection implements IItemHandler
 
         // SoR Animation section 
         L2Object object = activeChar.getTarget();
-        if ( object  instanceof L2Character  )
+        if (object != null && object instanceof L2Character)
         {
             L2Character target = (L2Character) object; 
     
-            if (target != null && target.isDead())
+            if (target.isDead())
             {
                 L2PcInstance targetPlayer = null;
                 

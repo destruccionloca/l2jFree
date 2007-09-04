@@ -34,6 +34,7 @@ public class CannotMoveAnymoreInVehicle extends L2GameClientPacket
 	private int _heading;
 	private int _boatId;
 
+    @Override
     protected void readImpl()
     {
         _boatId = readD();

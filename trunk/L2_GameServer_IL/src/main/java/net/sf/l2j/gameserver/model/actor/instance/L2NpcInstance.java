@@ -266,9 +266,9 @@ public class L2NpcInstance extends L2Character
         // Call the L2Character constructor to set the _template of the L2Character, copy skills from template to object 
         // and link _calculators to NPC_STD_CALCULATOR
         super(objectId, template);
-        this.getKnownList();    // init knownlist
-        this.getStat();         // init stats
-        this.getStatus();       // init status
+        getKnownList();    // init knownlist
+        getStat();         // init stats
+        getStatus();       // init status
         super.initCharStatusUpdateValues(); // init status upadte values
         
         if (template == null)
@@ -285,28 +285,32 @@ public class L2NpcInstance extends L2Character
             startRandomAnimationTimer();
     }
 
+    @Override
     public NpcKnownList getKnownList()
     {
         if(super.getKnownList() == null || !(super.getKnownList() instanceof NpcKnownList))
-            this.setKnownList(new NpcKnownList(this));
+            setKnownList(new NpcKnownList(this));
         return (NpcKnownList)super.getKnownList();
     }
     
+    @Override
     public NpcStat getStat()
     {
         if(super.getStat() == null || !(super.getStat() instanceof NpcStat))
-            this.setStat(new NpcStat(this));
+            setStat(new NpcStat(this));
         return (NpcStat)super.getStat();
     }
     
+    @Override
     public NpcStatus getStatus()
     {
         if(super.getStatus() == null || !(super.getStatus() instanceof NpcStatus))
-            this.setStatus(new NpcStatus(this));
+            setStatus(new NpcStatus(this));
         return (NpcStatus)super.getStatus();
     }
 
     /** Return the L2NpcTemplate of the L2NpcInstance. */
+    @Override
     public final L2NpcTemplate getTemplate() 
     { 
         return (L2NpcTemplate)super.getTemplate(); 
@@ -320,6 +324,7 @@ public class L2NpcInstance extends L2Character
         return getTemplate().getNpcId();
     }
     
+    @Override
     public boolean isAttackable()
     {
         return false;
@@ -345,6 +350,7 @@ public class L2NpcInstance extends L2Character
     /**
      * Return the Level of this L2NpcInstance contained in the L2NpcTemplate.<BR><BR>
      */
+    @Override
     public final int getLevel() 
     {
         return getTemplate().getLevel();
@@ -377,6 +383,7 @@ public class L2NpcInstance extends L2Character
     /**
      * Return True if this L2NpcInstance is undead in function of the L2NpcTemplate.<BR><BR>
      */
+    @Override
     public boolean isUndead()
     {
         return getTemplate().isUndead();
@@ -385,6 +392,7 @@ public class L2NpcInstance extends L2Character
     /**
      * Send a packet NpcInfo with state of abnormal effect to all L2PcInstance in the _knownPlayers of the L2NpcInstance.<BR><BR>
      */
+    @Override
     public void updateAbnormalEffect()
     {
         //NpcInfo info = new NpcInfo(this);
@@ -452,6 +460,7 @@ public class L2NpcInstance extends L2Character
      * <li> L2MonsterInstance : Check if the attacker is not another L2MonsterInstance</li>
      * <li> L2PcInstance</li><BR><BR>
      */
+    @Override
     public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker) 
     {
         return false;
@@ -558,6 +567,7 @@ public class L2NpcInstance extends L2Character
      * @param player The L2PcInstance that start an action on the L2NpcInstance
      * 
      */
+    @Override
     public void onAction(L2PcInstance player)
     {
         // Restrict iteractions during restart/shutdown
@@ -643,18 +653,18 @@ public class L2NpcInstance extends L2Character
                     broadcastPacket(sa);
                     
                     // Open a chat window on client with the text of the L2NpcInstance
-                    if (this.isEventMob)
-                       L2Event.showEventHtml(player, String.valueOf(this.getObjectId()));
+                    if (isEventMob)
+                       L2Event.showEventHtml(player, String.valueOf(getObjectId()));
                     else if (_isEventMobTvT)
-                       TvT.showEventHtml(player, String.valueOf(this.getObjectId()));
+                       TvT.showEventHtml(player, String.valueOf(getObjectId()));
                     else if (_isEventMobDM)
-                        DM.showEventHtml(player, String.valueOf(this.getObjectId()));
+                        DM.showEventHtml(player, String.valueOf(getObjectId()));
                     else if (_isEventMobCTF)
-                       CTF.showEventHtml(player, String.valueOf(this.getObjectId()));
-                    else if (this._isEventVIPNPC)
-                       VIP.showJoinHTML(player, String.valueOf(this.getObjectId()));
-                    else if (this._isEventVIPNPCEnd)
-                       VIP.showEndHTML(player, String.valueOf(this.getObjectId()));                    
+                       CTF.showEventHtml(player, String.valueOf(getObjectId()));
+                    else if (_isEventVIPNPC)
+                       VIP.showJoinHTML(player, String.valueOf(getObjectId()));
+                    else if (_isEventVIPNPCEnd)
+                       VIP.showEndHTML(player, String.valueOf(getObjectId()));                    
                     else 
                     {
                         Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.NPC_FIRST_TALK);
@@ -690,6 +700,7 @@ public class L2NpcInstance extends L2Character
      * @param client The thread that manage the player that pessed Shift and click on the L2NpcInstance
      * 
      */
+    @Override
     public void onActionShift(L2GameClient client)
     {
         // Get the L2PcInstance corresponding to the thread
@@ -1307,7 +1318,7 @@ public class L2NpcInstance extends L2Character
         
         if (_templateBuffs == null  || _templateBuffs.size() == 0) return;
 
-        this.setTarget(player);
+        setTarget(player);
         
         int _priceTotal = 0;
         // TODO: add faction points support (evil33t, im waiting for you ^^ )
@@ -1374,6 +1385,7 @@ public class L2NpcInstance extends L2Character
     /**
      * Return null (regular NPCs don't have weapons instancies).<BR><BR>
      */
+    @Override
     public L2ItemInstance getActiveWeaponInstance()
     {
         // regular NPCs dont have weapons instancies
@@ -1383,6 +1395,7 @@ public class L2NpcInstance extends L2Character
     /**
      * Return the weapon item equiped in the right hand of the L2NpcInstance or null.<BR><BR>
      */
+    @Override
     public L2Weapon getActiveWeaponItem()
     {
         // Get the weapon identifier equiped in the right hand of the L2NpcInstance
@@ -1403,6 +1416,7 @@ public class L2NpcInstance extends L2Character
     /**
      * Return null (regular NPCs don't have weapons instancies).<BR><BR>
      */
+    @Override
     public L2ItemInstance getSecondaryWeaponInstance()
     {
         // regular NPCs dont have weapons instancies
@@ -1412,6 +1426,7 @@ public class L2NpcInstance extends L2Character
     /**
      * Return the weapon item equiped in the left hand of the L2NpcInstance or null.<BR><BR>
      */
+    @Override
     public L2Weapon getSecondaryWeaponItem()
     {
         // Get the weapon identifier equiped in the right hand of the L2NpcInstance
@@ -2412,6 +2427,7 @@ public class L2NpcInstance extends L2Character
      * @param killer The L2Character who killed it
      * 
      */
+    @Override
     public void doDie(L2Character killer) 
     {
         DecayTaskManager.getInstance().addDecayTask(this);
@@ -2492,9 +2508,10 @@ public class L2NpcInstance extends L2Character
         return _spawn;
     }
     
+    @Override
     public String toString()
     {
-        return this.getTemplate().getName();
+        return getTemplate().getName();
     }
 
     public boolean isDecayed()

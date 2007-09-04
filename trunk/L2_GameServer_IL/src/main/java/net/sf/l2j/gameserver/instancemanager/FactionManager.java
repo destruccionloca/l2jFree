@@ -59,9 +59,9 @@ public class FactionManager
     // Method - Public
     public void reload()
     {
-        this.getFactions().clear();
-        this.getFactionTitles().clear();
-        this.load();
+        getFactions().clear();
+        getFactionTitles().clear();
+        load();
     }
 
     // =========================================================

@@ -48,7 +48,8 @@ public final class RequestPackageSend extends L2GameClientPacket
 	private int _objectID;
 	private int _count;
 	
-	protected void readImpl()
+	@Override
+    protected void readImpl()
 	{
 		_objectID = readD();
 		_count = readD();
@@ -64,8 +65,7 @@ public final class RequestPackageSend extends L2GameClientPacket
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	protected
-	void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

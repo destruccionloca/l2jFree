@@ -74,6 +74,7 @@ public class RequestBuyItem extends L2GameClientPacket
      * format:      cdd (dd) 
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _listId = readD();
@@ -94,6 +95,7 @@ public class RequestBuyItem extends L2GameClientPacket
         }
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -178,12 +180,9 @@ public class RequestBuyItem extends L2GameClientPacket
         		Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
         		return;
         	}
-        	else
-        	{
-        		player.sendMessage("Buylist "+_listId+" empty or not exists.");
-        		sendPacket(new ActionFailed());
-        		return;
-        	}
+       	player.sendMessage("Buylist "+_listId+" empty or not exists.");
+       		sendPacket(new ActionFailed());
+       		return;
         }
         
         if (list.isGm() && !player.isGM())
@@ -388,6 +387,7 @@ public class RequestBuyItem extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__1F_REQUESTBUYITEM;

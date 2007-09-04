@@ -31,8 +31,10 @@ package net.sf.l2j.gameserver.clientpackets;
 public class RequestTutorialLinkHtml extends L2GameClientPacket
 {
     private static final String _C__7B_REQUESTTUTORIALLINKHTML = "[C] 7B equestTutorialLinkHtml";
+    @SuppressWarnings("unused")
     private String _link;
 
+    @Override
     protected void readImpl()
     {
         _link = readS(); // link
@@ -45,7 +47,6 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
     protected void runImpl()
     {
         // TODO Auto-generated method stub
-
     }
 
     /**
@@ -56,5 +57,4 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
     {
         return _C__7B_REQUESTTUTORIALLINKHTML;
     }
-
 }

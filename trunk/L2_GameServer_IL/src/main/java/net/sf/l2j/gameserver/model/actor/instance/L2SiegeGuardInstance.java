@@ -55,16 +55,18 @@ public final class L2SiegeGuardInstance extends L2Attackable
     public L2SiegeGuardInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        this.getKnownList(); //inits the knownlist
+        getKnownList(); //inits the knownlist
     }
 
+    @Override
     public final SiegeGuardKnownList getKnownList()
     {
     	if(super.getKnownList() == null || !(super.getKnownList() instanceof SiegeGuardKnownList))
-    		this.setKnownList(new SiegeGuardKnownList(this));
+    		setKnownList(new SiegeGuardKnownList(this));
     	return (SiegeGuardKnownList)super.getKnownList();
     }
 
+	@Override
 	public L2CharacterAI getAI() 
 	{
 		synchronized(this)
@@ -81,6 +83,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	 * @param attacker The L2Character that the L2SiegeGuardInstance try to attack
 	 * 
 	 */
+    @Override
     public boolean isAutoAttackable(L2Character attacker) 
 	{
  // Attackable during siege by all except defenders
@@ -140,6 +143,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
      * extra check to see if a player should interract ot ATTACK them when clicked.
      * 
      */
+    @Override
     public void onAction(L2PcInstance player)
     {
       //  if (player == null)
@@ -207,6 +211,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 		//super.onAction(player);
     }
     
+    @Override
     public void addDamageHate(L2Character attacker, int damage, int aggro)
     {
         if (attacker == null)

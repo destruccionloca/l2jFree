@@ -54,7 +54,7 @@ final class DocumentItem extends DocumentBase
     public DocumentItem(FastMap<Integer, Item> pItemData, File file)
     {
         super(file);
-        this._itemData = pItemData;
+        _itemData = pItemData;
     }
 
     /**
@@ -65,21 +65,25 @@ final class DocumentItem extends DocumentBase
         _currentItem = item;
     }
 
+    @Override
     protected StatsSet getStatsSet()
     {
         return _currentItem.set;
     }
 
+    @Override
     protected String getTableValue(String name)
     {
         return _tables.get(name)[_currentItem.currentLevel];
     }
 
+    @Override
     protected String getTableValue(String name, int idx)
     {
         return _tables.get(name)[idx - 1];
     }
 
+    @Override
     protected void parseDocument(Document doc)
     {
         for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())

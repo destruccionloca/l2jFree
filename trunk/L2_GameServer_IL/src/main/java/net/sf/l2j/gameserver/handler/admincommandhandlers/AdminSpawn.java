@@ -184,8 +184,8 @@ public class AdminSpawn implements IAdminCommandHandler
 			}
 			else
 			{
-				String mode = null;
-				String string = null;
+				String mode = "";
+				String string = "";
 				int page = 0;
 				
 				try
@@ -193,7 +193,8 @@ public class AdminSpawn implements IAdminCommandHandler
 					mode = st.nextToken();
 					string = st.nextToken();
 					page = Integer.parseInt(st.nextToken());
-				} catch (Exception e) 
+				}
+				catch (Exception e) 
 				{
 					AdminHelpPage.showHelpPage(activeChar, "spawns.htm");
 				}

@@ -48,7 +48,7 @@ public class Recall implements ISkillHandler
         // <!--- Zaken skills - teleport PC --> or <!--- Zaken skills - teleport -->
     	if(skill.getId() == 4216 || skill.getId() == 4217 || skill.getId() == 4222)
         {
-            this.doZakenTeleport(targets);
+            doZakenTeleport(targets);
             activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
             if(activeChar instanceof L2MonsterInstance)
                 ((L2MonsterInstance)activeChar).clearAggroList();

@@ -39,6 +39,7 @@ public class FaenorEventParser extends FaenorParser
     static Log _log = LogFactory.getLog(FaenorEventParser.class.getName());
     private DateRange _eventDates = null;
     
+    @Override
     public void parseScript(Node eventNode)
     {
         String ID = attribute(eventNode, "ID");
@@ -119,6 +120,7 @@ public class FaenorEventParser extends FaenorParser
     
     static class FaenorEventParserFactory extends ParserFactory
     {
+        @Override
         public Parser create()
         {
             return(new FaenorEventParser());

@@ -35,7 +35,9 @@ public class PcFreight extends ItemContainer
         _owner = owner;
     }
     
-	public L2PcInstance getOwner() { return _owner; }
+    @Override
+    public L2PcInstance getOwner() { return _owner; }
+    @Override
     public ItemLocation getBaseLocation() { return ItemLocation.FREIGHT; }
     public void setActiveLocation(int locationId) { _activeLocationId = locationId; }
     public int getactiveLocation() { return _activeLocationId; }
@@ -44,6 +46,7 @@ public class PcFreight extends ItemContainer
 	 * Returns the quantity of items in the inventory
 	 * @return int
 	 */
+	@Override
 	public int getSize() 
 	{
 		int size = 0;
@@ -59,6 +62,7 @@ public class PcFreight extends ItemContainer
 	 * Returns the list of items in inventory
 	 * @return L2ItemInstance : items in inventory
 	 */
+	@Override
 	public L2ItemInstance[] getItems()
 	{
 		List<L2ItemInstance> list = new FastList<L2ItemInstance>();
@@ -75,6 +79,7 @@ public class PcFreight extends ItemContainer
 	 * @param itemId : int designating the ID of the item
 	 * @return L2ItemInstance designating the item or null if not found in inventory
 	 */
+	@Override
 	public L2ItemInstance getItemByItemId(int itemId)
 	{
 	    for (L2ItemInstance item : _items)
@@ -90,6 +95,7 @@ public class PcFreight extends ItemContainer
      * Adds item to PcFreight for further adjustments.
      * @param item : L2ItemInstance to be added from inventory
      */
+    @Override
     protected void addItem(L2ItemInstance item)
     {
         super.addItem(item);
@@ -99,6 +105,7 @@ public class PcFreight extends ItemContainer
     /**
 	 * Get back items in PcFreight from database
 	 */
+    @Override
     public void restore()
     {
     	int locationId = _activeLocationId;
@@ -107,6 +114,7 @@ public class PcFreight extends ItemContainer
     	_activeLocationId = locationId;
     }
 
+    @Override
     public boolean validateCapacity(int slots)
 	{
 		return (getSize() + slots <= _owner.getFreightLimit());

@@ -32,19 +32,21 @@ import net.sf.l2j.gameserver.skills.Env;
  *
  * Implementation of the Bluff Effect
  */
-final class EffectBluff extends L2Effect {
-
+final class EffectBluff extends L2Effect
+{
     public EffectBluff(Env env, EffectTemplate template)
     {
         super(env, template);
     }
 
+    @Override
     public EffectType getEffectType()
     {
         return EffectType.BLUFF; //test for bluff effect
     }
     
     /** Notify started */
+    @Override
     public void onStart()
     { 
         getEffected().startFear();
@@ -82,14 +84,16 @@ final class EffectBluff extends L2Effect {
         getEffected().setTarget(null);
         onActionTime();
     }
+    @Override
     public void onExit()
     {
         getEffected().stopFear(this);
-        
     }
+    @Override
     public boolean onActionTime()
     {
         return false;
     }
 }
+
 

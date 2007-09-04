@@ -41,6 +41,7 @@ public class ConditionSlotItemId extends ConditionInventory
 		_enchantLevel = enchantLevel;
 	}
 	
+	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.player instanceof L2PcInstance))

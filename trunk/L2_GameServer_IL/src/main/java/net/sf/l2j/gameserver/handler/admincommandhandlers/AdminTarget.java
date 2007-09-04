@@ -32,12 +32,14 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.2.4.3 $ $Date: 2005/04/11 10:05:56 $
  */
-public class AdminTarget implements IAdminCommandHandler {
+public class AdminTarget implements IAdminCommandHandler
+{
 
 	private static final String[] ADMIN_COMMANDS = {"admin_target"};
 	private static final int REQUIRED_LEVEL = Config.GM_MIN;
 
-	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
         if (!Config.ALT_PRIVILEGES_ADMIN)
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
         
@@ -55,18 +57,24 @@ public class AdminTarget implements IAdminCommandHandler {
 		return (level >= REQUIRED_LEVEL);
 	}
 	
-	private void handleTarget(String command, L2PcInstance activeChar) {
+	private void handleTarget(String command, L2PcInstance activeChar)
+	{
 		try {
 			String targetName = command.substring(13);
 			L2Object obj = L2World.getInstance().getPlayer(targetName);
-			if ((obj != null) && (obj instanceof L2PcInstance)) {
+			if ((obj != null) && (obj instanceof L2PcInstance))
+			{
 				obj.onAction(activeChar);
-			} else {
+			}
+			else
+			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 				sm.addString("Player "+targetName+" not found");
 				activeChar.sendPacket(sm);
 			}
-		} catch (IndexOutOfBoundsException e) {
+		}
+		catch (IndexOutOfBoundsException e)
+		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString("Please specify correct name.");
 			activeChar.sendPacket(sm);

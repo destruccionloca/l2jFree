@@ -43,6 +43,7 @@ public class ProtocolVersion extends L2GameClientPacket
 	 *  
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
     {
 		_version  = readD();
@@ -51,6 +52,7 @@ public class ProtocolVersion extends L2GameClientPacket
 	/** urgent messages, execute immediatly */
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 	
+    @Override
     protected void runImpl()
 	{
 		// this packet is never encrypted
@@ -76,7 +78,7 @@ public class ProtocolVersion extends L2GameClientPacket
         else
         {
             if (_log.isDebugEnabled()) _log.debug("Client Protocol Revision is ok:"+_version);
-    		KeyPacket pk = new KeyPacket(this.getClient().enableCrypt());
+    		KeyPacket pk = new KeyPacket(getClient().enableCrypt());
     		sendPacket(pk);
         }
 	}
@@ -84,6 +86,7 @@ public class ProtocolVersion extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__00_PROTOCOLVERSION;

@@ -62,6 +62,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 		super(objectId, template);
 	}
     
+    @Override
     public boolean isRaid()
     {
         return true; 
@@ -84,8 +85,10 @@ public final class L2RaidBossInstance extends L2MonsterInstance
                 || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()));
     }    
 
+    @Override
     protected int getMaintenanceInterval() { return RAIDBOSS_MAINTENANCE_INTERVAL; }
 	
+    @Override
     public void doDie(L2Character killer)
     {
         if(killer instanceof L2PlayableInstance)
@@ -118,7 +121,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
             
             L2NpcTemplate boxTemplate = NpcTable.getInstance().getTemplate(boxId);
             final L2NpcInstance box = new L2NpcInstance(IdFactory.getInstance().getNextId(), boxTemplate);
-            box.spawnMe(this.getX(), this.getY(), this.getZ());
+            box.spawnMe(getX(), getY(), getZ());
             
             ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
                 public void run()

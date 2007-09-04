@@ -36,11 +36,13 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
     L2Clan _clan;
     L2PcInstance _activeChar;
     
+    @Override
     protected void readImpl()
     {
         _pledgeName  = readS();
     }
 
+    @Override
     protected void runImpl()
     {
         _activeChar = getClient().getActiveChar();
@@ -95,6 +97,7 @@ public class RequestSurrenderPledgeWar extends L2GameClientPacket
         leader.sendPacket(new SurrenderPledgeWar(_clan.getName(),_activeChar.getName()));*/
     }
     
+    @Override
     public String getType()
     {
         return _C__51_REQUESTSURRENDERPLEDGEWAR;

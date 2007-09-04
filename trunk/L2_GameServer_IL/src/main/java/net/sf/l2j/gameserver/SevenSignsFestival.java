@@ -1875,13 +1875,13 @@ public class SevenSignsFestival implements SpawnListener
             // Sequentially set all festivals to begin, spawn the Festival Witch and notify participants.
             for (L2DarknessFestival festivalInst : _festivalInstances.values())
             {
-                festivalInst.festivalStart();
-                festivalInst.sendMessageToParticipants("The festival is about to begin!");
                 if (festivalInst != null)
                 {
                     festivalInst.festivalStart();
                     festivalInst.sendMessageToParticipants("The festival is about to begin!");
-                }                
+                }
+                else
+                    _log.warn("festivalInst = null!");
             }
             
             if (_log.isDebugEnabled())

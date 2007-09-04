@@ -28,8 +28,6 @@ import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.EnchantResult;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.ItemList;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -59,14 +57,18 @@ public class RequestEnchantItem extends L2GameClientPacket
      * format:      cd
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _objectId = 0;
-        try {
-        _objectId = readD();
-        } catch (Exception e) {}
+        try
+        {
+            _objectId = readD();
+        }
+        catch (Exception e) {}
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -401,6 +403,7 @@ public class RequestEnchantItem extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__58_REQUESTENCHANTITEM;

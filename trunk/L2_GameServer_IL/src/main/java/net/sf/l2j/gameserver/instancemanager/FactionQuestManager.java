@@ -65,8 +65,8 @@ public class FactionQuestManager
     // Method - Public
     public final void reload()
     {
-        this.getFactionQuests().clear();
-        this.load();
+        getFactionQuests().clear();
+        load();
     }
 
     // =========================================================

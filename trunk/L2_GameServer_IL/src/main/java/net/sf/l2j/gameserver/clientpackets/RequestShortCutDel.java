@@ -37,6 +37,7 @@ public class RequestShortCutDel extends L2GameClientPacket
 	 * format:		cd
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
     {
         int id = readD();
@@ -44,6 +45,7 @@ public class RequestShortCutDel extends L2GameClientPacket
         _page = id / 12;
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -57,6 +59,7 @@ public class RequestShortCutDel extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__35_REQUESTSHORTCUTDEL;

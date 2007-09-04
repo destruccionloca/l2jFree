@@ -466,8 +466,6 @@ public class AdminEffects implements IAdminCommandHandler
 				else if (st.countTokens() == 1)
 				{
 					int social = Integer.parseInt(st.nextToken());
-					if (obj == null)
-						obj = activeChar;
 					if (obj != null)
 					{
 						if (performSocial(social, obj, activeChar))
@@ -497,8 +495,6 @@ public class AdminEffects implements IAdminCommandHandler
 					level = Integer.parseInt(st.nextToken());
 				if (st.hasMoreTokens())
 					hittime = Integer.parseInt(st.nextToken());
-				if (obj == null)
-					obj = activeChar;
 				if (obj != null) 
 				{
 					if (!(obj instanceof L2Character))
@@ -559,8 +555,6 @@ public class AdminEffects implements IAdminCommandHandler
 				else if (st.countTokens() == 1)
 				{
 					int abnormal = Integer.decode("0x"+st.nextToken());
-					if (obj == null)
-						obj = activeChar;
 					if (obj != null) 
 					{
 						if (performAbnormal(abnormal,obj))
@@ -600,8 +594,7 @@ public class AdminEffects implements IAdminCommandHandler
 				character.startAbnormalEffect(action);
 			return true;
 		}
-		else
-			return false;
+		return false;
 	}
 
 	private boolean performSocial(int action, L2Object target, L2PcInstance activeChar)

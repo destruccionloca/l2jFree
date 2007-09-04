@@ -31,6 +31,7 @@ public class RequestExAcceptJoinMPCC extends L2GameClientPacket
 	private static final String _C__D0_0E_REQUESTEXASKJOINMPCC = "[C] D0:0E RequestExAcceptJoinMPCC";
 	private int _data;
 
+    @Override
     protected void readImpl()
     {
         _data = readD();
@@ -56,5 +57,4 @@ public class RequestExAcceptJoinMPCC extends L2GameClientPacket
 	{
 		return _C__D0_0E_REQUESTEXASKJOINMPCC;
 	}
-
 }

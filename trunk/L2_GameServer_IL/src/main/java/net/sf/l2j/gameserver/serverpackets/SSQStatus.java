@@ -57,6 +57,7 @@ public class SSQStatus extends L2GameServerPacket
         _page = recordPage;
     }
 
+    @Override
     protected final void writeImpl()
     {
     	int winningCabal = SevenSigns.getInstance().getCabalHighestScore();
@@ -331,14 +332,13 @@ public class SSQStatus extends L2GameServerPacket
                                     {
                                         writeC(SevenSigns.CABAL_DAWN);
                                         writeH(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
-                                        break;
                                     }
                                     else
                                     {
                                         writeC(SevenSigns.CABAL_NULL);
                                         writeH(SystemMessageId.COMPETITION_TIE_SEAL_NOT_AWARDED.getId());
-                                        break;
                                     }
+                                    break;
                     			case SevenSigns.CABAL_DAWN:
                     				if (dawnPercent >= 10)
                     				{
@@ -378,14 +378,13 @@ public class SSQStatus extends L2GameServerPacket
                                     {
                                         writeC(SevenSigns.CABAL_DUSK);
                                         writeH(SystemMessageId.SEAL_OWNED_10_MORE_VOTED.getId());
-                                        break;
                                     }
                                     else
                                     {
                         				writeC(SevenSigns.CABAL_NULL);
                         				writeH(SystemMessageId.COMPETITION_TIE_SEAL_NOT_AWARDED.getId());
-                        				break;
                                     }
+                                    break;
                     			case SevenSigns.CABAL_DAWN:
                     				if (dawnPercent >= 35)
                     				{
@@ -427,6 +426,7 @@ public class SSQStatus extends L2GameServerPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__F5_SSQStatus;

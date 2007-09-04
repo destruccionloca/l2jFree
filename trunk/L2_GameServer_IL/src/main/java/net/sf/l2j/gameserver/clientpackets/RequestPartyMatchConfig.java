@@ -48,6 +48,7 @@ public class RequestPartyMatchConfig extends L2GameClientPacket
 	 * format:		cdddS 
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _automaticRegistration    = readD();
@@ -70,6 +71,7 @@ public class RequestPartyMatchConfig extends L2GameClientPacket
         }*/
     }
 
+    @Override
     protected void runImpl()
 	{
 		if (getClient().getActiveChar() == null)
@@ -83,6 +85,7 @@ public class RequestPartyMatchConfig extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__6F_REQUESTPARTYMATCHCONFIG;

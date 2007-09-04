@@ -44,9 +44,9 @@ public final class IllegalPlayerAction implements Runnable
 {
 	private static Log _logAudit = LogFactory.getLog("audit");
 
-    String _message;
-    int _punishment;
-    L2PcInstance _actor;
+    protected String _message;
+    protected int _punishment;
+    protected L2PcInstance _actor;
     
     public static final int PUNISH_BROADCAST = 1;
     public static final int PUNISH_KICK = 2;
@@ -55,9 +55,9 @@ public final class IllegalPlayerAction implements Runnable
     
     public IllegalPlayerAction(L2PcInstance actor, String message, int punishment)
     {
-        this._message        = message;
-        this._punishment     = punishment;
-        this._actor          = actor;
+        _message        = message;
+        _punishment     = punishment;
+        _actor          = actor;
         
         switch(punishment)
         {

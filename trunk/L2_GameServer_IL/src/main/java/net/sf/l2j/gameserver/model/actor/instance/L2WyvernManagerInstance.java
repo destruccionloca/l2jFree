@@ -36,6 +36,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
         super(objectId, template);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("RideWyvern"))
@@ -101,6 +102,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             }
         }
     }
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());

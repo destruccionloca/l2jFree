@@ -39,21 +39,21 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	@Override
 	protected boolean read()
 	{
-		//System.out.println(this.getType());
 		try
 		{
-			this.readImpl();
+			readImpl();
 			return true;
 		}
 		catch (Throwable t)
 		{
-			_log.fatal("Client: "+getClient().toString()+" - Failed reading: "+this.getType()+" - L2J Server Version: "+GameServer.getVersionNumber(),t);
+			_log.fatal("Client: "+getClient().toString()+" - Failed reading: "+getType()+" - L2J Server Version: "+GameServer.getVersionNumber(),t);
 		}
 		return false;
 	}
 	
 	protected abstract void readImpl();
 	
+	@Override
 	public void run() 
 	{
 		try
@@ -70,7 +70,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 				if (getClient().packetsSentInSec > 12) return;
 			}
 			
-			this.runImpl();
+			runImpl();
             if (this instanceof MoveBackwardToLocation 
             	|| this instanceof AttackRequest 
             	|| this instanceof RequestMagicSkillUse)
@@ -92,7 +92,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 	
 	protected final void sendPacket(L2GameServerPacket gsp)
 	{
-		this.getClient().sendPacket(gsp);
+		getClient().sendPacket(gsp);
 	}
 	
 	/**

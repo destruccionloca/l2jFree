@@ -54,6 +54,7 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		super(objectId, template);
 	}
 
+    @Override
     public void onAction(L2PcInstance player)
     {
        player.sendPacket(new ActionFailed());
@@ -64,6 +65,7 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
            showChatWindow(player);
     }
 
+	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		player.sendPacket( new ActionFailed() );
@@ -98,6 +100,7 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 
         super.onBypassFeedback(player, command);
 	}
+	@Override
 	public String getHtmlPath(int npcId, int val)
 	{
 		String pom = "";
@@ -114,6 +117,7 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	}
 
 	
+	@Override
 	public void showChatWindow(L2PcInstance player)
 	{
 		String filename = "data/html/teleporter/castleteleporter-no.htm";

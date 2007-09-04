@@ -55,6 +55,7 @@ public class SellListProcure extends L2GameServerPacket
         }
     }
     
+    @Override
     protected final void writeImpl()
     {
         writeC(0xE9);
@@ -74,6 +75,7 @@ public class SellListProcure extends L2GameServerPacket
         }
     }
     
+    @Override
     public String getType()
     {
         return _S__E9_SELLLISTPROCURE;

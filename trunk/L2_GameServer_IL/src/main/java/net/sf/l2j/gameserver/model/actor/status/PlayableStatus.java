@@ -34,7 +34,9 @@ public class PlayableStatus extends CharStatus
 
     // =========================================================
     // Method - Public
+    @Override
     public void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
+    @Override
     public void reduceHp(double value, L2Character attacker, boolean awake)
     {
         if (getActiveChar().isDead()) return;
@@ -60,5 +62,6 @@ public class PlayableStatus extends CharStatus
 
     // =========================================================
     // Property - Public
+    @Override
     public L2PlayableInstance getActiveChar() { return (L2PlayableInstance)super.getActiveChar(); }
 }

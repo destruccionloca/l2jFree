@@ -576,10 +576,7 @@ public class GameServer
         {
             return version.getRevisionNumber();
         }
-        else
-        {
-            return "-1";
-        }
+        return "-1";
     }
     
     /**
@@ -593,10 +590,7 @@ public class GameServer
         {
             return version.getBuildJdk();
         }
-        else
-        {
-            return "-1";
-        }
+        return "-1";
     }    
     /**
      * Instantiate the gameserver

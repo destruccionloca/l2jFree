@@ -35,6 +35,7 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+	@Override
 	protected void readImpl()
 	{
 		_unk = readD();
@@ -69,5 +70,4 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 	{
 		return _C__D0_2F_REQUESTEXMAGICSKILLUSEGROUND;
 	}
-
 }

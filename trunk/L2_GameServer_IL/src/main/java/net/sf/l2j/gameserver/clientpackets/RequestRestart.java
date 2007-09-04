@@ -53,11 +53,13 @@ public class RequestRestart extends L2GameClientPacket
      * format:      c
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 
+    @Override
     protected void runImpl()
     {
 
@@ -102,8 +104,7 @@ public class RequestRestart extends L2GameClientPacket
                 player.sendPacket(new ActionFailed());
                 return;
             } 
-            else
-             pet.unSummon(player);
+            pet.unSummon(player);
         }
         // Prevent player from restarting if they are a festival participant
         // and it is in progress, otherwise notify party members that the player
@@ -154,7 +155,7 @@ public class RequestRestart extends L2GameClientPacket
         }
         player.getInventory().updateDatabase();
 
-        L2GameClient client = this.getClient();
+        L2GameClient client = getClient();
 
         // detach the client from the char so that the connection isnt closed in the deleteMe
         player.setClient(null);
@@ -182,6 +183,7 @@ public class RequestRestart extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__46_REQUESTRESTART;

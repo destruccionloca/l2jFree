@@ -130,10 +130,7 @@ public class BoatTrajetDAOCsv implements IBoatTrajetDAO
         {
             return _trajet.get(idWayPoint).get(boatPoint);  
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     /* (non-Javadoc)
@@ -145,10 +142,7 @@ public class BoatTrajetDAOCsv implements IBoatTrajetDAO
         {
             return _trajet.get(idWayPoint).size();  
         }
-        else
-        {
-            return 0;
-        }
+        return 0;
     }
 
     /* (non-Javadoc)

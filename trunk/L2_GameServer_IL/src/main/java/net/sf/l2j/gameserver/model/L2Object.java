@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.model;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -31,7 +30,6 @@ import net.sf.l2j.gameserver.model.actor.position.ObjectPosition;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.GetItem;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
  * Mother class of all objects in the world wich ones is it possible 
@@ -458,6 +456,7 @@ public abstract class L2Object
     /**
      * Basic implementation of toString to print the object id
      */
+    @Override
     public String toString()
     {
         return "" + getObjectId();

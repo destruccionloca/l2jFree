@@ -28,13 +28,14 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestRecipeShopManageQuit extends L2GameClientPacket
 {
 	private static final String _C__B3_RequestRecipeShopManageQuit = "[C] b2 RequestRecipeShopManageQuit";
-	//private final static Log _log = LogFactory.getLog(RequestRecipeShopManageQuit.class.getName());
 	
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 	
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -46,6 +47,7 @@ public class RequestRecipeShopManageQuit extends L2GameClientPacket
 		player.standUp();
 	}
 	
+	@Override
 	public String getType()
 	{
 		return _C__B3_RequestRecipeShopManageQuit;

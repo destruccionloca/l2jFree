@@ -37,11 +37,13 @@ public class RequestDeleteMacro extends L2GameClientPacket
 	 * format:		cd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
 		_id = readD();
 	}
 	
+    @Override
     protected void runImpl()
 	{
 		if (getClient().getActiveChar() == null)
@@ -56,9 +58,9 @@ public class RequestDeleteMacro extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__C2_REQUESTDELETEMACRO;
 	}
-
 }

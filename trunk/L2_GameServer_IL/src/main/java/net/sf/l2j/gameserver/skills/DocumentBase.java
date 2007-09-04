@@ -241,7 +241,7 @@ abstract class DocumentBase
         else if (template instanceof L2Skill && self) ((L2Skill) template).attachSelf(lt);
     }
 
-    protected void attachSkill(Node n, Object template, Condition attachCond)
+    protected void attachSkill(Node n, Object template, @SuppressWarnings("unused") Condition attachCond)
     {
         NamedNodeMap attrs = n.getAttributes();
         int id = 0, lvl = 1;

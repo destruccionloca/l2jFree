@@ -42,12 +42,14 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 	private int _objectId;
 	private int _amount;
 	
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
         _amount   = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar(); 
@@ -112,7 +114,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
         	
         int weight = ItemTable.getInstance().getTemplate(itemId).getWeight() * _amount;
         
-        if (weight > Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight((int)weight))
+        if (weight > Integer.MAX_VALUE || weight < 0 || !pet.getInventory().validateWeight(weight))
         {
             sendPacket(new SystemMessage(SystemMessageId.YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS));
             return;
@@ -122,7 +124,8 @@ public class RequestGiveItemToPet extends L2GameClientPacket
 			_log.warn("Invalid Item transfer request: " + pet.getName() + "(pet) --> " + player.getName());
 	}
 
-	public String getType()
+	@Override
+    public String getType()
 	{
 		return REQUESTCIVEITEMTOPET__C__8B;
 	}

@@ -24,11 +24,6 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
@@ -36,8 +31,9 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.2.4.5 $ $Date: 2005/04/11 10:06:06 $
  */
-public class AdminHeal implements IAdminCommandHandler {
-    private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
+public class AdminHeal implements IAdminCommandHandler
+{
+    //private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
     private static final String[] ADMIN_COMMANDS = { "admin_heal" };
     private static final int REQUIRED_LEVEL = Config.GM_HEAL;
 

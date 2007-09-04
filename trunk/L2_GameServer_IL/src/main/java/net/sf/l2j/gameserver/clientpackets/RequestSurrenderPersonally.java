@@ -36,11 +36,13 @@ public class RequestSurrenderPersonally extends L2GameClientPacket
     L2Clan _clan;
     L2PcInstance _activeChar;
     
+    @Override
     protected void readImpl()
     {
         _pledgeName  = readS();
     }
 
+    @Override
     protected void runImpl()
     {
         _activeChar = getClient().getActiveChar();
@@ -76,6 +78,7 @@ public class RequestSurrenderPersonally extends L2GameClientPacket
         ClanTable.getInstance().checkSurrender(_clan, clan);
     }
     
+    @Override
     public String getType()
     {
         return _C__69_REQUESTSURRENDERPERSONALLY;

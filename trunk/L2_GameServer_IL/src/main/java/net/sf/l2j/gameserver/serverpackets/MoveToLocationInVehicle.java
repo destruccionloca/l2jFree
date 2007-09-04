@@ -80,5 +80,4 @@ public class MoveToLocationInVehicle extends L2GameServerPacket
 	{
 		return "[S] 71 MoveToLocationInVehicle";
 	}
-
 }

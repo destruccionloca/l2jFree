@@ -38,7 +38,9 @@ public class MonsterKnownList extends AttackableKnownList
 
     // =========================================================
     // Method - Public
+    @Override
     public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
+    @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
         if (!super.addKnownObject(object, dropper)) return false;
@@ -49,6 +51,7 @@ public class MonsterKnownList extends AttackableKnownList
         return true;
     }
 
+    @Override
     public boolean removeKnownObject(L2Object object)
     {
         if (!super.removeKnownObject(object)) return false;
@@ -83,5 +86,6 @@ public class MonsterKnownList extends AttackableKnownList
 
     // =========================================================
     // Property - Public
+    @Override
     public final L2MonsterInstance getActiveChar() { return (L2MonsterInstance)super.getActiveChar(); }
 }

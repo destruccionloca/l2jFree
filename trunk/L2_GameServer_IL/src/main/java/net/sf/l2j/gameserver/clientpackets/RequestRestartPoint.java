@@ -56,6 +56,7 @@ public class RequestRestartPoint extends L2GameClientPacket
      * format:		c
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _requestedPointType = readD();
@@ -71,7 +72,6 @@ public class RequestRestartPoint extends L2GameClientPacket
         
         public void run()
         {
-//        	_log.warn(activeChar.getName()+" request restartpoint "+requestedPointType);
             try
             {
                 Location loc = null;
@@ -164,6 +164,7 @@ public class RequestRestartPoint extends L2GameClientPacket
         }
     }
     
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -211,12 +212,11 @@ public class RequestRestartPoint extends L2GameClientPacket
         
         ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), 1);
     }
-    
-    
-    
+
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__6d_REQUESTRESTARTPOINT;

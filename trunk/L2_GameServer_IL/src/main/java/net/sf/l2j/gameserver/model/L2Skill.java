@@ -1538,7 +1538,7 @@ public abstract class L2Skill
         case TARGET_AREA:
         {
             if ((!(target instanceof L2Attackable || target instanceof L2PlayableInstance)) ||  //   Target is not L2Attackable or L2PlayableInstance
-                (this.getCastRange() >= 0 && (target == null || target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
+                (getCastRange() >= 0 && (target == null || target == activeChar || target.isAlikeDead()))) //target is null or self or dead/faking
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
                 return null;
@@ -1656,7 +1656,7 @@ public abstract class L2Skill
         {
             L2Character cha;
             int radius = getSkillRadius();
-            if (this.getCastRange() >= 0 && (target instanceof L2NpcInstance || target instanceof L2SummonInstance)
+            if (getCastRange() >= 0 && (target instanceof L2NpcInstance || target instanceof L2SummonInstance)
                    && target.isUndead() && !target.isAlikeDead())
             {
                 cha = target;
@@ -1858,7 +1858,7 @@ public abstract class L2Skill
             else
                 newTarget = activeChar;
             
-            if (newTarget != activeChar || this.isSkillTypeOffensive())
+            if (newTarget != activeChar || isSkillTypeOffensive())
                 targetList.add(newTarget);
             
             for (L2Character obj : activeChar.getKnownList().getKnownCharactersInRadius(radius))
@@ -2195,9 +2195,9 @@ public abstract class L2Skill
 	    L2Clan acClan;
 	    L2Clan tgClan;
 	    L2Party acPt = activeChar.getParty();
-	    int radius = this.getSkillRadius();
+	    int radius = getSkillRadius();
 	
-	    if (this.getCastRange() <= 0 || (this.getTargetType() == SkillTargetType.TARGET_AURA)) target = activeChar;
+	    if (getCastRange() <= 0 || (getTargetType() == SkillTargetType.TARGET_AURA)) target = activeChar;
 	    else target = activeChar.getTarget();
 	
 	    if (target == null || !(target instanceof L2Character))
@@ -2206,7 +2206,7 @@ public abstract class L2Skill
 	        return null;
 	    }
 	
-	    if ((this.getTargetType() == SkillTargetType.TARGET_AREA) && (target.getObjectId() != activeChar.getObjectId()))
+	    if ((getTargetType() == SkillTargetType.TARGET_AREA) && (target.getObjectId() != activeChar.getObjectId()))
 	    {
 	        if (!((L2Character) target).isAlikeDead()) targetList.add((L2Character) target);
 	        else
@@ -2364,9 +2364,9 @@ public abstract class L2Skill
 	    L2Clan acClan;
 	    L2Clan tgClan;
 	    L2Party acPt = activeChar.getParty();
-	    int radius = this.getSkillRadius();
+	    int radius = getSkillRadius();
 	
-	    if (this.getCastRange() <= 0) target = activeChar;
+	    if (getCastRange() <= 0) target = activeChar;
 	    else target = activeChar.getTarget();
 	    FirstTarget = target;
 	
@@ -2376,7 +2376,7 @@ public abstract class L2Skill
 	        return null;
 	    }
 	
-	    int newHeading = this.getNewHeadingToTarget(activeChar, (L2Character) target);
+	    int newHeading = getNewHeadingToTarget(activeChar, (L2Character) target);
 	
 	    if (target.getObjectId() != activeChar.getObjectId())
 	    {
@@ -2395,7 +2395,7 @@ public abstract class L2Skill
 	            if (obj instanceof L2PlayableInstance)
 	            {
 	                if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
-	                else if (this.isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) target)) continue;
+	                else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) target)) continue;
 	                else if (!((L2Character) obj).isAlikeDead()) targetList.add((L2Character) obj);
 	
 	            }
@@ -2420,7 +2420,7 @@ public abstract class L2Skill
 	                continue;
 	            if (!(Util.checkIfInRange(radius, target, obj, true)))
 	            continue;
-	            else if (this.isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj))
+	            else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj))
 	                continue;
 	
 	            if (obj instanceof L2PcInstance)
@@ -2483,7 +2483,7 @@ public abstract class L2Skill
 	            if (!(obj instanceof L2PlayableInstance))
 	                continue;
 	            if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
-	            else if (this.isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj)) continue;
+	            else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj)) continue;
 	
 	            if (obj instanceof L2PcInstance)
 	            {
@@ -2522,7 +2522,7 @@ public abstract class L2Skill
 	            if (!(obj instanceof L2PlayableInstance))
 	                continue;
 	            if (!(Util.checkIfInRange(radius, target, obj, true))) continue;
-	            else if (this.isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj)) continue;
+	            else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj)) continue;
 	
 	            if (obj instanceof L2MonsterInstance)
 	            {
@@ -2767,6 +2767,7 @@ public abstract class L2Skill
        else _preCondition = c;
     }
 
+    @Override
     public String toString()
     {
         return ""+_name+"[id="+_id+",lvl="+_level+"]";

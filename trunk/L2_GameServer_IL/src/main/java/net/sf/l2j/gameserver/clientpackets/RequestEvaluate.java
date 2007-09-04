@@ -31,11 +31,13 @@ public class RequestEvaluate extends L2GameClientPacket {
 	@SuppressWarnings("unused")
     private int _targetId;
 
+    @Override
     protected void readImpl()
     {
         _targetId = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		SystemMessage sm;
@@ -107,6 +109,7 @@ public class RequestEvaluate extends L2GameClientPacket {
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__B9_REQUESTEVALUATE;

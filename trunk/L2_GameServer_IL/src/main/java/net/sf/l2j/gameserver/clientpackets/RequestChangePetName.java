@@ -35,17 +35,20 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * 
  * @version $Revision: 1.3.4.4 $ $Date: 2005/04/06 16:13:48 $
  */
-public class RequestChangePetName extends L2GameClientPacket{
+public class RequestChangePetName extends L2GameClientPacket
+{
 	private static final String REQUESTCHANGEPETNAME__C__89 = "[C] 89 RequestChangePetName";
 	//private final static Log _log = LogFactory.getLog(RequestChangePetName.class.getName());
 	
 	private String _name;
 	
+    @Override
     protected void readImpl()
     {
         _name = readS();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2Character activeChar = getClient().getActiveChar();
@@ -101,6 +104,7 @@ public class RequestChangePetName extends L2GameClientPacket{
 		}
 	}
 	
+	@Override
 	public String getType()
 	{
 		return REQUESTCHANGEPETNAME__C__89;

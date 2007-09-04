@@ -90,6 +90,7 @@ public final class L2Radar
             _z = z;
         }
 
+        @Override
         public boolean equals(Object obj)
         {
             try

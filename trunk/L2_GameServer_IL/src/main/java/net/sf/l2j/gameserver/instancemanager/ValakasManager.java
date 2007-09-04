@@ -220,14 +220,7 @@ public class ValakasManager
     {
     	if(_playersInLair.size() >= _capacity) return false;
     	
-    	if(_isBossSpawned == false && _isIntervalForNextSpawn == false)
-    	{
-    		return true;
-    	}
-    	else
-    	{
-    		return false;
-    	}
+    	return(_isBossSpawned == false && _isIntervalForNextSpawn == false);
     }
 
     // update list of intruders.

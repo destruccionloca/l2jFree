@@ -200,10 +200,10 @@ public enum ClassId
 	 */
 	private ClassId(int id, boolean isMage, Race race, ClassId parent)
 	{
-		this._id = id;
-		this._isMage = isMage;
-		this._race = race;
-		this._parent = parent;
+		_id = id;
+		_isMage = isMage;
+		_race = race;
+		_parent = parent;
 	}
 	
 	

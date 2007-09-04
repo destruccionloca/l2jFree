@@ -57,7 +57,7 @@ public class L2ManufactureList
      */
     public void setStoreName(String manufactureStoreName)
     {
-        this._manufactureStoreName = manufactureStoreName;
+        _manufactureStoreName = manufactureStoreName;
     }
 
     /**

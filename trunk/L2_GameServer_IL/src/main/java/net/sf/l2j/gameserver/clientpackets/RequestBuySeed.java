@@ -68,6 +68,7 @@ public class RequestBuySeed extends L2GameClientPacket {
      * format:      cdd (dd) 
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _listId = readD();
@@ -88,6 +89,7 @@ public class RequestBuySeed extends L2GameClientPacket {
         }
     }
     
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -175,10 +177,7 @@ public class RequestBuySeed extends L2GameClientPacket {
             {
 
                 L2TradeList list = manor.getTradeList();
-
                 price =  manor.getCastle().getSeedPrice(itemId);
-
-
 
                 if (price <= 0)
                 {
@@ -250,12 +249,14 @@ public class RequestBuySeed extends L2GameClientPacket {
             else
                 item = player.getInventory().addItem("Buy", itemId, count, player, manor);
                 
-            if (item.getCount() > count) playerIU.addModifiedItem(item);
-            else playerIU.addNewItem(item);
+            if (item.getCount() > count)
+                playerIU.addModifiedItem(item);
+            else
+                playerIU.addNewItem(item);
             int SeedCount =  manor.getCastle().getSeedAmount(itemId);
             SeedCount = SeedCount - count;
-             manor.getCastle().setSeedAmount(itemId,SeedCount);
-    manor.getCastle().saveSeedData();
+            manor.getCastle().setSeedAmount(itemId,SeedCount);
+            manor.getCastle().saveSeedData();
         }
         // Send update packets
         player.sendPacket(playerIU);
@@ -264,6 +265,7 @@ public class RequestBuySeed extends L2GameClientPacket {
         su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
         player.sendPacket(su);
     }
+    @Override
     public String getType()
     {
         return _C__C4_REQUESTBUYSEED;

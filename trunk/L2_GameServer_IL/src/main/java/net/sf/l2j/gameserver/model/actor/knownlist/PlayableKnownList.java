@@ -39,5 +39,6 @@ public class PlayableKnownList extends CharKnownList
 
     // =========================================================
     // Property - Public
+    @Override
     public L2PlayableInstance getActiveChar() { return (L2PlayableInstance)super.getActiveChar(); }
 }

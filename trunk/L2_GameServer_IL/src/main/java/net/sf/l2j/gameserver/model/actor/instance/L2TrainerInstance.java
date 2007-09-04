@@ -42,6 +42,7 @@ public final class L2TrainerInstance extends L2FolkInstance
      * this is called when a player interacts with this NPC
      * @param player
      */
+    @Override
     public void onAction(L2PcInstance player)
     {
         if (_log.isDebugEnabled()) _log.debug("Trainer activated");
@@ -49,6 +50,7 @@ public final class L2TrainerInstance extends L2FolkInstance
         super.onAction(player);
     }
 
+    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";
@@ -63,5 +65,4 @@ public final class L2TrainerInstance extends L2FolkInstance
 
         return "data/html/trainer/" + pom + ".htm";
     }
-
 }

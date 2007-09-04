@@ -58,6 +58,7 @@ public class RequestMakeMacro extends L2GameClientPacket
 	 * format:		cdSSScc (ccdcS)
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
 	{
 		int _id = readD();
@@ -84,6 +85,7 @@ public class RequestMakeMacro extends L2GameClientPacket
 		_macro = new L2Macro(_id, _icon, _name, _desc, _acronym, commands);
 	}
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance  player = getClient().getActiveChar(); 
@@ -119,6 +121,7 @@ public class RequestMakeMacro extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__C1_REQUESTMAKEMACRO;

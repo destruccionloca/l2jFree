@@ -37,6 +37,7 @@ public class RequestPledgeReorganizeMember extends L2GameClientPacket
 	@SuppressWarnings("unused")
 	private String _unk2;	
 
+    @Override
     protected void readImpl()
     {
 		_unk1 = readD();
@@ -73,5 +74,4 @@ public class RequestPledgeReorganizeMember extends L2GameClientPacket
 	{
 		return _C__D0_24_REQUESTPLEDGEREORGANIZEMEMBER;
 	}
-
 }

@@ -53,32 +53,36 @@ public abstract class L2PlayableInstance extends L2Character
 	public L2PlayableInstance(int objectId, L2CharTemplate template)
 	{
 		super(objectId, template);
-		this.getKnownList();	// init knownlist
-        this.getStat();			// init stats
-        this.getStatus();		// init status
+		getKnownList();	// init knownlist
+        getStat();			// init stats
+        getStatus();		// init status
 	}
     
+    @Override
     public PlayableKnownList getKnownList()
     {
     	if(super.getKnownList() == null || !(super.getKnownList() instanceof PlayableKnownList))
-    		this.setKnownList(new PlayableKnownList(this));
+    		setKnownList(new PlayableKnownList(this));
     	return (PlayableKnownList)super.getKnownList();
     }
     
+    @Override
     public PlayableStat getStat()
     {
     	if(super.getStat() == null || !(super.getStat() instanceof PlayableStat))
-    		this.setStat(new PlayableStat(this));
+    		setStat(new PlayableStat(this));
     	return (PlayableStat)super.getStat();
     }
     
+    @Override
     public PlayableStatus getStatus()
     {
     	if(super.getStatus() == null || !(super.getStatus() instanceof PlayableStatus))
-    		this.setStatus(new PlayableStatus(this));
+    		setStatus(new PlayableStatus(this));
     	return (PlayableStatus)super.getStatus();
     }
 
+    @Override
     public void doDie(L2Character killer)
     {
         if (killer != null)
@@ -142,6 +146,7 @@ public abstract class L2PlayableInstance extends L2Character
     /**
 	 * Return True.<BR><BR>
 	 */
+    @Override
     public boolean isAttackable()
     {
         return true;

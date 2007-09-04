@@ -107,6 +107,7 @@ public final class L2BabyPetInstance extends L2PetInstance
 		}
 	}
 	
+	@Override
 	public synchronized void doDie(L2Character killer)
 	{
 		super.doDie(killer);
@@ -118,7 +119,8 @@ public final class L2BabyPetInstance extends L2PetInstance
 		}
 	}
 
-	public synchronized void unSummon (L2PcInstance owner)
+	@Override
+	public synchronized void unSummon(L2PcInstance owner)
 	{
 		super.unSummon(owner);
 		
@@ -129,7 +131,8 @@ public final class L2BabyPetInstance extends L2PetInstance
 		}
 	}
 
-	public void doRevive()
+	@Override
+    public void doRevive()
 	{
 		super.doRevive();
 		if (_healingTask == null)

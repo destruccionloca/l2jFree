@@ -45,9 +45,6 @@ import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * This class handles following admin commands:
  * - admin|admin1/admin2/admin3/admin4/admin5 = slots for the 5 starting admin menus 
@@ -63,7 +60,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdminAdmin implements IAdminCommandHandler
 {
-	private final static Log _log = LogFactory.getLog(AdminAdmin.class);
+	//private final static Log _log = LogFactory.getLog(AdminAdmin.class);
 
 	private static final String[] ADMIN_COMMANDS = {"admin_admin", "admin_admin1", "admin_admin2", "admin_admin3", "admin_admin4", "admin_admin5",
 				"admin_gmliston", "admin_gmlistoff", "admin_silence", "admin_diet", "admin_tradeoff", "admin_reload", "admin_set", "admin_set_menu", "admin_set_mod",

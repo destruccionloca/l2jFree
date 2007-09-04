@@ -41,6 +41,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
     private int _count;
     private boolean _packageSale;
     private int[] _items; // count * 3
+    @Override
     protected void readImpl()
     {
         _packageSale = (readD() == 1);
@@ -69,7 +70,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         }
     }
 
-
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -127,6 +128,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         player.broadcastPacket(new PrivateStoreMsgSell(player));
     }
     
+    @Override
     public String getType()
     {
         return _C__74_SETPRIVATESTORELISTSELL;

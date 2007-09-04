@@ -111,7 +111,7 @@ public class FaenorScriptEngine extends ScriptEngine
             List<ScriptDocument> scripts = module.getScriptFiles();
             for (ScriptDocument script : scripts)
             {
-                this._scripts.add(script);
+                _scripts.add(script);
             }
 
         }
@@ -159,6 +159,7 @@ public class FaenorScriptEngine extends ScriptEngine
         }
     }
 
+    @Override
     public String toString()
     {
         if (_scripts.isEmpty()) return "No Packages Loaded.";

@@ -39,11 +39,13 @@ public class CharacterDelete extends L2GameClientPacket
 	// cd
 	private int _charSlot;
 
+    @Override
     protected void readImpl()
     {
         _charSlot = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("deleting slot:" + _charSlot);
@@ -81,6 +83,7 @@ public class CharacterDelete extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__0C_CHARACTERDELETE;

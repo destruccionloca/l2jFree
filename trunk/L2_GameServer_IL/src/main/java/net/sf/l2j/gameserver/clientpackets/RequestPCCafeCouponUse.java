@@ -36,6 +36,7 @@ public class RequestPCCafeCouponUse extends L2GameClientPacket
      * @param buf
      * @param client
      */
+    @Override
     protected void readImpl()
     {
         _str = readS();
@@ -59,5 +60,4 @@ public class RequestPCCafeCouponUse extends L2GameClientPacket
     {
         return _C__D0_20_REQUESTPCCAFECOUPONUSE;
     }
-    
 }

@@ -72,7 +72,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
         setOwner(owner);
         setFoodType(foodSkillId);
         setHome(x,y,z);
-        this.spawnMe(x, y, z);
+        spawnMe(x, y, z);
     }
     
     public void onReceiveFood()
@@ -129,6 +129,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
         }
     }
     
+    @Override
     public void doDie(L2Character killer)
     {
         super.doDie(killer);
@@ -157,7 +158,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
         if (owner != null)
         {
             _owner = owner;
-            this.setTitle(owner.getName());
+            setTitle(owner.getName());
             // broadcast the new title
             broadcastPacket( new NpcInfo(this, owner) );
 
@@ -188,7 +189,7 @@ public final class L2TamedBeastInstance extends L2FeedableBeastInstance
     
     public boolean isTooFarFromHome()
     {
-        return !(this.isInsideRadius(_homeX, _homeY, _homeZ, MAX_DISTANCE_FROM_HOME, true, true)); 
+        return !(isInsideRadius(_homeX, _homeY, _homeZ, MAX_DISTANCE_FROM_HOME, true, true)); 
     }
     
     public void doDespawn()

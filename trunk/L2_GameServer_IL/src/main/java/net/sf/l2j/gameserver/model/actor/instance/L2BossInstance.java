@@ -109,6 +109,7 @@ public final class L2BossInstance extends L2MonsterInstance
         super(objectId, template);
     }
 
+    @Override
     protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
 
     @Override
@@ -185,7 +186,7 @@ public final class L2BossInstance extends L2MonsterInstance
     {
 
         // [L2J_JP ADD SANDMAN]
-    	if (this.IsInSocialAction() || this.isInvul()) return;
+    	if (IsInSocialAction() || isInvul()) return;
 
         switch (getTemplate().getNpcId())
         {
@@ -224,7 +225,7 @@ public final class L2BossInstance extends L2MonsterInstance
 
                     for (L2MinionInstance m : _minions)
                     {
-                        this.callMinions();
+                        callMinions();
                         m.setTarget(this);
                         m.doCast(_heal1);
                         m.setTarget(this);

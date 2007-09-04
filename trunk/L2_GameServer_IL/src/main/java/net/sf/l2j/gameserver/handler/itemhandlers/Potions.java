@@ -428,16 +428,12 @@ public class Potions implements IItemHandler
     		activeChar.sendPacket(sm);
     		return false;
     	}
-    	else
-    		return true;
+    	return true;
     }
     
     private boolean isUseable(L2PcInstance activeChar, Enum effectType, int itemId,int skillid)
     {
-    	if(!isEffectReplaceable(activeChar,effectType,itemId) || !isUseable(activeChar,itemId,skillid))
-    		return false;
-    	else
-    		return true;
+    	return (isEffectReplaceable(activeChar,effectType,itemId) && isUseable(activeChar,itemId,skillid));
     }
 
     public boolean usePotion(L2PcInstance activeChar, int magicId, int level)

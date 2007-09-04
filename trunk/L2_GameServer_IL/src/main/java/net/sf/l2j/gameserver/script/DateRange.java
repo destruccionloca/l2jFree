@@ -45,8 +45,8 @@ public class DateRange
      */
     public DateRange(Date from, Date to)
     {
-        this._startDate   = from;
-        this._endDate     = to;
+        _startDate   = from;
+        _endDate     = to;
     }
     
     /**

@@ -27,6 +27,7 @@ public final class RequestDuelSurrender extends L2GameClientPacket
 {
 	private static final String _C__D0_30_REQUESTDUELSURRENDER = "[C] D0:30 RequestDuelSurrender";
 	
+	@Override
 	protected void readImpl()
 	{
 		// trigger
@@ -49,5 +50,4 @@ public final class RequestDuelSurrender extends L2GameClientPacket
 	{
 		return _C__D0_30_REQUESTDUELSURRENDER;
 	}
-
 }

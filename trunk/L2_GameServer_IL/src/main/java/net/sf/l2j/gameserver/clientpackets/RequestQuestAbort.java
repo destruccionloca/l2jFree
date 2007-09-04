@@ -44,11 +44,13 @@ public class RequestQuestAbort extends L2GameClientPacket
     /**
      * packet type id 0x64<p>
      */
+    @Override
     protected void readImpl()
     {
         _questId = readD();
     }
     
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -81,6 +83,7 @@ public class RequestQuestAbort extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__64_REQUESTQUESTABORT;

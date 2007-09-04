@@ -45,12 +45,14 @@ public class FinishRotating extends L2GameClientPacket
 	 * format:		cdd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
 		_degree = readD();
 		_unknown = readD();
 	}
 
+    @Override
     protected void runImpl()
 	{
 		if (getClient().getActiveChar() == null)
@@ -62,6 +64,7 @@ public class FinishRotating extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__4B_FINISHROTATING;

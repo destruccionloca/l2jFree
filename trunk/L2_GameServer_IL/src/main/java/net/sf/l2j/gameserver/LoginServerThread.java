@@ -157,6 +157,7 @@ public class LoginServerThread extends Thread
 		return _instance;
 	}
 
+	@Override
 	public void run()
 	{
 		while(true)
@@ -423,7 +424,7 @@ public class LoginServerThread extends Thread
 	public void sendLogout(String account)
 	{
 		PlayerLogout pl = new PlayerLogout(account);
-         if ( pl == null ) return;
+		if ( pl == null ) return;
 		try
 		{
 			sendPacket(pl);
@@ -610,6 +611,7 @@ public class LoginServerThread extends Thread
 			loginOkID2 = loginOK2;
 		}
 
+		@Override
 		public String toString()
 		{
 			return "PlayOk: "+playOkID1+" "+playOkID2+" LoginOk:"+loginOkID1+" "+loginOkID2;

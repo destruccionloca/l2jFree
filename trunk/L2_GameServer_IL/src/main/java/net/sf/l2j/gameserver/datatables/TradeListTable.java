@@ -207,8 +207,7 @@ public class TradeListTable
 	{
 		if (_lists.containsKey(listId))
 			return _lists.get(listId);
-		else 
-			return null;
+		return null;
 	}
 
 	public FastList<L2TradeList> getBuyListByNpcId(int npcId)

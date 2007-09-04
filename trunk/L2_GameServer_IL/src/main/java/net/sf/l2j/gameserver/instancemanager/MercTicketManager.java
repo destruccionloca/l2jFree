@@ -156,8 +156,8 @@ public class MercTicketManager
 
     public void reload()
     {
-    	this.getDroppedTickets().clear();
-    	this.load();
+    	getDroppedTickets().clear();
+    	load();
     }
 
     // =========================================================

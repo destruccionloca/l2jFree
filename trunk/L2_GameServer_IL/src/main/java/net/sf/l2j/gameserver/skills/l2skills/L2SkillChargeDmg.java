@@ -50,10 +50,10 @@ public class L2SkillChargeDmg extends L2Skill
 		{
 			L2PcInstance player = (L2PcInstance)activeChar;
 			EffectCharge e = (EffectCharge)player.getEffect(chargeSkillId);
-			if(e == null || e.numCharges < this.numCharges)
+			if(e == null || e.numCharges < numCharges)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addSkillName(this.getId());
+				sm.addSkillName(getId());
 				activeChar.sendPacket(sm);
 				return false;
 			}
@@ -73,7 +73,7 @@ public class L2SkillChargeDmg extends L2Skill
 		if (effect == null || effect.numCharges < numCharges)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-			sm.addSkillName(this.getId());
+			sm.addSkillName(getId());
 			caster.sendPacket(sm);
 			return;
 		}

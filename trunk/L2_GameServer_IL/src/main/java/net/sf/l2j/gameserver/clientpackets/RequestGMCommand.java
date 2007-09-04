@@ -50,6 +50,7 @@ public class RequestGMCommand extends L2GameClientPacket
 	 *  
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
     {
         _targetName = readS();
@@ -57,7 +58,7 @@ public class RequestGMCommand extends L2GameClientPacket
         //_unknown  = readD();
     }
 
-
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
@@ -113,6 +114,7 @@ public class RequestGMCommand extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__6E_REQUESTGMCOMMAND;

@@ -51,6 +51,7 @@ public class NpcServerThread extends Thread
     {
         _queue = new PacketsQueue();
     }
+    @Override
     public void run()
     {
         while(true)

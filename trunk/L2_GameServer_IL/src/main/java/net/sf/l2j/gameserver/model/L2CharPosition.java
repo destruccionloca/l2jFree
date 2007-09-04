@@ -33,10 +33,10 @@ public final class L2CharPosition
      */
     public L2CharPosition(int pX, int pY, int pZ, int pHeading)
     {
-        this.x = pX;
-        this.y = pY;
-        this.z = pZ;
-        this.heading = pHeading;
+        x = pX;
+        y = pY;
+        z = pZ;
+        heading = pHeading;
         objectId = (int)System.currentTimeMillis();
     }
 
@@ -44,5 +44,4 @@ public final class L2CharPosition
     {
         return objectId;
     }
-    
 }

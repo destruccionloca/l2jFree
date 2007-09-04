@@ -38,6 +38,7 @@ public class ConditionUsingItemType extends Condition
 		_mask = mask;
 	}
 	
+	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.player instanceof L2PcInstance))

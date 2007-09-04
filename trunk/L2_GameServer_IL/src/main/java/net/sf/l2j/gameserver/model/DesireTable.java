@@ -59,12 +59,12 @@ public class DesireTable
 
         DesireValue(Float pValue)
         {
-            this._value = pValue;
+            _value = pValue;
         }
 
         public void addValue(float pValue)
         {
-            this._value += pValue;
+            _value += pValue;
         }
 
         public float getValue()

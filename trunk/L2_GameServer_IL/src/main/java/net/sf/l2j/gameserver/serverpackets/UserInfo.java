@@ -90,6 +90,7 @@ public class UserInfo extends L2GameServerPacket
         if (_activeChar.getSiegeState() == 2) _relation |= 0x80;
     }
 
+    @Override
     protected final void writeImpl()
     {
         writeC(0x04);
@@ -320,6 +321,7 @@ public class UserInfo extends L2GameServerPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__04_USERINFO;

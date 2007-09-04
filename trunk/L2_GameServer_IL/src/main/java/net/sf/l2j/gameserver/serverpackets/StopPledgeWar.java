@@ -30,6 +30,7 @@ public class StopPledgeWar extends L2GameServerPacket
         _playerName = charName;
     }
     
+    @Override
     protected final void writeImpl()
     {
         writeC(0x67);
@@ -37,6 +38,7 @@ public class StopPledgeWar extends L2GameServerPacket
         writeS(_playerName);
     }
     
+    @Override
     public String getType()
     {
         return _S__7f_STOPPLEDGEWAR;

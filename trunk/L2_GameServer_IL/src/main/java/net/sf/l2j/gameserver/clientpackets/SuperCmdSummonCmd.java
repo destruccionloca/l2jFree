@@ -32,6 +32,7 @@ class SuperCmdSummonCmd extends L2GameClientPacket
 	private static final String _C__39_01_SUPERCMDSUMMONCMD = "[C] 39:01 SuperCmdSummonCmd";
 	@SuppressWarnings("unused")
 	private String _summonName;
+    @Override
     protected void readImpl()
     {
         _summonName = readS();
@@ -43,7 +44,6 @@ class SuperCmdSummonCmd extends L2GameClientPacket
     protected void runImpl()
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	/* (non-Javadoc)
@@ -54,5 +54,4 @@ class SuperCmdSummonCmd extends L2GameClientPacket
 	{
 		return _C__39_01_SUPERCMDSUMMONCMD;
 	}
-	
 }

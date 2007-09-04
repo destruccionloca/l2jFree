@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendation;
  * 
  * @deprecated not used for the moment, this class is only used for test purpose. 
  */
+@Deprecated
 public class Characters implements java.io.Serializable
 {
 
@@ -1045,6 +1046,4 @@ public class Characters implements java.io.Serializable
     {
         return characterRecommendations;
     }
-    
-    
 }

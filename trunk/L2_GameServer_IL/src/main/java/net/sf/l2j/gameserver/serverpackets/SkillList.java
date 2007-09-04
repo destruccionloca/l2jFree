@@ -52,9 +52,9 @@ public class SkillList extends L2GameServerPacket
 
         Skill(int pId, int pLevel, boolean pPassive)
         {
-            this.id = pId;
-            this.level = pLevel;
-            this.passive = pPassive;
+            id = pId;
+            level = pLevel;
+            passive = pPassive;
         }
     }
 
@@ -68,6 +68,7 @@ public class SkillList extends L2GameServerPacket
         _skills.add(new Skill(id, level, passive));
     }
 
+    @Override
     protected final void writeImpl()
     {
         writeC(0x58);
@@ -86,6 +87,7 @@ public class SkillList extends L2GameServerPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__6D_SKILLLIST;

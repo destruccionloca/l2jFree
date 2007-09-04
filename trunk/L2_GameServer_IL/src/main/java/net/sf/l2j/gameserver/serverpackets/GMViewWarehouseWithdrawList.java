@@ -57,6 +57,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
         }
     }
     
+    @Override
     protected final void writeImpl()
     {
         try
@@ -114,6 +115,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__95_GMViewWarehouseWithdrawList;

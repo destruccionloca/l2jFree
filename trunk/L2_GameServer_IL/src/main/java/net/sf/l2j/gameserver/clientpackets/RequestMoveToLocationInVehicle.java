@@ -41,6 +41,7 @@ public class RequestMoveToLocationInVehicle extends L2GameClientPacket
     
 	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 
+    @Override
     protected void readImpl()
     {
         int _x, _y, _z;
@@ -96,5 +97,4 @@ public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

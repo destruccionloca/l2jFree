@@ -121,8 +121,8 @@ public class AdminMonsterRace implements IAdminCommandHandler
 
         public RunRace(int[][] pCodes, L2PcInstance pActiveChar)
         {
-            this.codes = pCodes;
-            this.activeChar = pActiveChar;
+            codes = pCodes;
+            activeChar = pActiveChar;
         }
 
         public void run()

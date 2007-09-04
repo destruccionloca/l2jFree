@@ -39,5 +39,6 @@ public class SummonStatus extends PlayableStatus
 
     // =========================================================
     // Property - Public
+    @Override
     public L2Summon getActiveChar() { return (L2Summon)super.getActiveChar(); }
 }

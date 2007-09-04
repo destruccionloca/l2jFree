@@ -55,8 +55,7 @@ public class faction implements IVoicedCommandHandler
                 activeChar.sendPacket(factionInfo);
                 return true;
         }
-        else
-            return false;
+        return false;
     }
     
     /* (non-Javadoc)

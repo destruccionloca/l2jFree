@@ -58,6 +58,7 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
         _success = true;
     }
 
+    @Override
     protected final void writeImpl()
     {
         L2Recipe recipe = __l2RecipeService.getRecipeById(_id);
@@ -78,6 +79,7 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__D7_RECIPEITEMMAKEINFO;

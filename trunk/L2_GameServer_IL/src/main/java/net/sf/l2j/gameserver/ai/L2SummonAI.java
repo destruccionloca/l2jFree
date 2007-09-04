@@ -37,11 +37,13 @@ public class L2SummonAI extends L2CharacterAI
         super(accessor);
     }
 
+    @Override
     protected void onIntentionIdle()
     {
         onIntentionActive();
     }
 
+    @Override
     protected void onIntentionActive()
     {
         L2Summon summon = (L2Summon) _actor;
@@ -97,6 +99,7 @@ public class L2SummonAI extends L2CharacterAI
         return;
     }
 
+    @Override
     protected void onEvtThink()
     {
         if (_thinking || _actor.isAllSkillsDisabled()) return;

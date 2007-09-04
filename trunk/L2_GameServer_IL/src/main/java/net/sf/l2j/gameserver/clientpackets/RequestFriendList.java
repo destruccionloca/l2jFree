@@ -39,11 +39,13 @@ public class RequestFriendList extends L2GameClientPacket
 	 * @param rawPacket
 	 */
 	
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 	
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -75,12 +77,11 @@ public class RequestFriendList extends L2GameClientPacket
 		
 		sm = new SystemMessage(SystemMessageId.FRIEND_LIST_FOOT);
 		activeChar.sendPacket(sm);
-		
 		sm = null;
-		
 	}
 	
-	public String getType()
+	@Override
+    public String getType()
 	{
 		return _C__60_REQUESTFRIENDLIST;
 	}

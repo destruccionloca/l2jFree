@@ -61,8 +61,8 @@ public class CoupleManager
     // Method - Public
     public void reload()
     {
-        this.getCouples().clear();
-        this.load();
+        getCouples().clear();
+        load();
     }
 
     // =========================================================

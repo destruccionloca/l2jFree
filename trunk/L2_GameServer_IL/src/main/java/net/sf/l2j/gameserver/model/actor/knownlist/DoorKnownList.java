@@ -42,8 +42,10 @@ public class DoorKnownList extends CharKnownList
 
     // =========================================================
     // Property - Public
+    @Override
     public final L2DoorInstance getActiveChar() { return (L2DoorInstance)super.getActiveChar(); }
 
+    @Override
     public int getDistanceToForgetObject(L2Object object)
     {
         if (object instanceof L2SiegeGuardInstance) return 800;
@@ -53,6 +55,7 @@ public class DoorKnownList extends CharKnownList
         return 4000;
     }
 
+    @Override
     public int getDistanceToWatchObject(L2Object object)
     {
     	if (object instanceof L2SiegeGuardInstance) return 600;

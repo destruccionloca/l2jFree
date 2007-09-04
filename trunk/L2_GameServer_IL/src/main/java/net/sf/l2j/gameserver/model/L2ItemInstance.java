@@ -565,6 +565,7 @@ public final class L2ItemInstance extends L2Object
 	 * @see net.sf.l2j.gameserver.model.L2Object#onAction(net.sf.l2j.gameserver.model.L2PcInstance)
 	 * also check constraints: only soloing castle owners may pick up mercenary tickets of their castle 
 	 */
+	@Override
 	public void onAction(L2PcInstance player)
 	{
 		// this causes the validate position handler to do the pickup if the location is reached.
@@ -855,6 +856,7 @@ public final class L2ItemInstance extends L2Object
 	 * Returns false cause item can't be attacked
 	 * @return boolean false
 	 */
+    @Override
     public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker)
     {
         return false;
@@ -1103,10 +1105,10 @@ public final class L2ItemInstance extends L2Object
 	 */
 	private void updateInDb()
     {
-		if (Config.ASSERT) assert this._existsInDb;
-		if (this._wear)
+		if (Config.ASSERT) assert _existsInDb;
+		if (_wear)
 			return;
-		if (this._storedInDb)
+		if (_storedInDb)
 			return;
 		
 		java.sql.Connection con = null;
@@ -1142,10 +1144,11 @@ public final class L2ItemInstance extends L2Object
 	/**
 	 * Insert the item in database
 	 */
-	private void insertIntoDb() {
-		if (this._wear)
+	private void insertIntoDb()
+	{
+		if (_wear)
 			return;
-		if (Config.ASSERT) assert !this._existsInDb && this.getObjectId() != 0;
+		if (Config.ASSERT) assert !_existsInDb && getObjectId() != 0;
 		java.sql.Connection con = null;
 		try
 		{
@@ -1181,11 +1184,12 @@ public final class L2ItemInstance extends L2Object
 	/**
 	 * Delete item from database
 	 */
-	private void removeFromDb() {
-		if (this._wear)
+	private void removeFromDb()
+	{
+		if (_wear)
 			return;
 
-		if (Config.ASSERT) assert this._existsInDb;
+		if (Config.ASSERT) assert _existsInDb;
 		
 		_augmentation = null;
 		
@@ -1211,13 +1215,14 @@ public final class L2ItemInstance extends L2Object
 	 * Returns the item in String format
 	 * @return String
 	 */
+	@Override
 	public String toString()
 	{
 	    StringBuffer output = new StringBuffer();
-        output.append("item " + this.getObjectId() +":");
-        if (this.getEnchantLevel() > 0) output.append("+" + this.getEnchantLevel() + " ");
-        output.append(this.getItem().getName()); 
-        output.append("(" + this.getCount() + ")");
+        output.append("item " + getObjectId() +":");
+        if (getEnchantLevel() > 0) output.append("+" + getEnchantLevel() + " ");
+        output.append(getItem().getName()); 
+        output.append("(" + getCount() + ")");
         return output.toString();
 	}
     

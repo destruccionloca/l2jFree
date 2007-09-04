@@ -897,7 +897,7 @@ public final class Formulas
                 init *= calcFestivalRegenModifier(player);
             else
             {
-                double siegeModifier = this.calcSiegeRegenModifer(player);
+                double siegeModifier = calcSiegeRegenModifer(player);
                 if (siegeModifier > 0) init *= siegeModifier;
             }
             

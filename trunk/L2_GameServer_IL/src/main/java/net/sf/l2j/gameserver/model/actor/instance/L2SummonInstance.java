@@ -108,10 +108,13 @@ public class L2SummonInstance extends L2Summon
         _summonLifeTask = ThreadPoolManager.getInstance().scheduleGeneral(new SummonLifetime(getOwner(), this), SUMMON_LIFETIME_REFRESH_INTERVAL);
     }
     
-	public final int getLevel() {
+	@Override
+	public final int getLevel()
+	{
 		return (getTemplate() != null ? getTemplate().getLevel() : 0);
 	}
 	
+    @Override
     public int getSummonType()
 	{
 		return 1;
@@ -205,7 +208,8 @@ public class L2SummonInstance extends L2Summon
         getOwner().sendPacket(sm);
     }
     
-   public synchronized void doDie(L2Character killer)
+    @Override
+    public synchronized void doDie(L2Character killer)
    {
            if (_log.isDebugEnabled())
                _log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") has been killed.");
@@ -339,10 +343,13 @@ public class L2SummonInstance extends L2Summon
         }
     }
 
+    @Override
     public int getCurrentFed() { return _lifeTime; }
     
+	@Override
 	public int getMaxFed() { return SUMMON_LIFETIME_INTERVAL; }
         	
+	@Override
 	public void unSummon(L2PcInstance owner)
 	{
        	if (_log.isDebugEnabled())
@@ -361,10 +368,13 @@ public class L2SummonInstance extends L2Summon
         super.unSummon(owner);
 	}
 
+	@Override
 	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
 	{
 		return getOwner().destroyItem(process, objectId, count, reference, sendMessage);
 	}
+
+	@Override
 	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
 	{
        	if (_log.isDebugEnabled())
@@ -373,6 +383,7 @@ public class L2SummonInstance extends L2Summon
 		return getOwner().destroyItemByItemId(process, itemId, count, reference, sendMessage);
 	}
     
+    @Override
     public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
     {
     	if (miss) return;

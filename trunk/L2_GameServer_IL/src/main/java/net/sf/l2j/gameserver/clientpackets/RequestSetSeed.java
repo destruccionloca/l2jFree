@@ -37,6 +37,7 @@ public class RequestSetSeed extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+    @Override
     protected void readImpl()
     {
         _data1 = readD(); //??
@@ -73,5 +74,4 @@ public class RequestSetSeed extends L2GameClientPacket
 	{
 		return _C__D0_0A_REQUESTSETSEED;
 	}
-
 }

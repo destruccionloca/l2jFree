@@ -39,6 +39,7 @@ public class L2ControlTowerInstance extends L2NpcInstance {
 		super(objectId, template);
 	}
 
+    @Override
     public boolean isAttackable()
     {
         // Attackable during siege by attacker only
@@ -47,6 +48,7 @@ public class L2ControlTowerInstance extends L2NpcInstance {
                 && getCastle().getSiege().getIsInProgress());
     }
 
+    @Override
     public boolean isAutoAttackable(L2Character attacker) 
 	{
 		// Attackable during siege by attacker only
@@ -58,11 +60,13 @@ public class L2ControlTowerInstance extends L2NpcInstance {
 		        && getCastle().getSiege().checkIsAttacker(((L2PcInstance)attacker).getClan()));
 	}
 	
+	@Override
 	public void onForcedAttack(L2PcInstance player)
 	{
 		onAction(player);
 	}
 	
+	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (this != player.getTarget())

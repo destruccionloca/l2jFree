@@ -52,7 +52,7 @@ public class Status extends Thread
                 Socket connection = statusServerSocket.accept();
                 
                     new GameStatusThread(connection, _uptime, _statusPw);
-                if (this.isInterrupted())
+                if (isInterrupted())
                 {
                     try
                     {
@@ -64,7 +64,7 @@ public class Status extends Thread
             }
             catch (IOException e)
             {
-                if (this.isInterrupted())
+                if (isInterrupted())
                 {
                     try
                     {

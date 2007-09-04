@@ -51,6 +51,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         super(objectId, template);
     }
     
+    @Override
     public void onAction(L2PcInstance player)
     {
         if (getObjectId() != player.getTargetId())
@@ -156,6 +157,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         }
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("change_class"))

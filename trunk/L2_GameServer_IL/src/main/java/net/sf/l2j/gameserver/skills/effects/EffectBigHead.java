@@ -33,20 +33,27 @@ final class EffectBigHead extends L2Effect
         super(env, template);
     }
 
+    @Override
     public EffectType getEffectType()
     {
         return EffectType.BUFF;
     }
     
-    public void onStart() {
+    @Override
+    public void onStart()
+    {
     	getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
     }
     
-    public void onExit() {
+    @Override
+    public void onExit()
+    {
     	getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
     }
     
-    public boolean onActionTime() {
+    @Override
+    public boolean onActionTime()
+    {
         return false;
     }
 }

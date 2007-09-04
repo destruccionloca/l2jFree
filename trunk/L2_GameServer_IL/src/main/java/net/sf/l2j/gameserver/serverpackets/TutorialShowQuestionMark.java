@@ -47,5 +47,4 @@ public class TutorialShowQuestionMark extends L2GameServerPacket
 	{
 		return _S__A1_TUTORIALSHOWQUESTIONMARK;
 	}
-	
 }

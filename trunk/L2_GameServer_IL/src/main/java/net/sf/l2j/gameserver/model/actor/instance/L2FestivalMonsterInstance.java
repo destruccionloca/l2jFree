@@ -59,6 +59,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
     /**
      * Return True if the attacker is not another L2FestivalMonsterInstance.<BR><BR>
      */
+    @Override
     public boolean isAutoAttackable(L2Character attacker) 
     {
         if (attacker instanceof L2FestivalMonsterInstance)
@@ -70,6 +71,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
     /**
      * All mobs in the festival are aggressive, and have high aggro range.
      */
+    @Override
     public boolean isAggressive()
     {
         return true;
@@ -78,6 +80,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
     /**
      * All mobs in the festival really don't need random animation.
      */
+    @Override
     public boolean hasRandomAnimation()
     {
         return false;
@@ -89,6 +92,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
      * <li>Add a blood offering item to the leader of the party.</li>
      * <li>Update the party leader's inventory to show the new item addition.</li>
      */
+    @Override
     public void doItemDrop(L2Character lastAttacker)
     {
         L2PcInstance killingChar = null;

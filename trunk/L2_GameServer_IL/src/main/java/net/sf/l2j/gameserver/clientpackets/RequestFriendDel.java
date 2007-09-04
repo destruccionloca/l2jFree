@@ -31,11 +31,13 @@ public class RequestFriendDel extends L2GameClientPacket{
 
 	private String _name;
 	
+    @Override
     protected void readImpl()
     {
         _name = readS();
     }
 
+    @Override
     protected void runImpl()
 	{
 		SystemMessage sm;
@@ -80,10 +82,11 @@ public class RequestFriendDel extends L2GameClientPacket{
 			sm = null;
 	}
 	
-	
+	@Override
 	public String getType()
 	{
 		return _C__61_REQUESTFRIENDDEL;
 	}
 }
+
 

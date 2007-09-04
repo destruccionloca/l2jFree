@@ -25,8 +25,11 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
-public class AdminSendHome implements IAdminCommandHandler {
+public class AdminSendHome implements IAdminCommandHandler
+{
     private static final String[] ADMIN_COMMANDS = {"admin_sendhome"};
     private static final int REQUIRED_LEVEL = Config.GM_TELEPORT;
 
@@ -60,7 +63,8 @@ public class AdminSendHome implements IAdminCommandHandler {
         handleSendhome(activeChar, null);
     }
     
-    private void handleSendhome(L2PcInstance activeChar, String player) {
+    private void handleSendhome(L2PcInstance activeChar, String player)
+    {
         L2Object obj = activeChar.getTarget();
         
         if (player != null)
@@ -76,10 +80,10 @@ public class AdminSendHome implements IAdminCommandHandler {
         if (obj == null)
             obj = activeChar;
         
-        if ((obj != null) && (obj instanceof L2Character)) 
+        if (obj instanceof L2Character) 
             doSendhome((L2Character)obj);
         else 
-            activeChar.sendMessage("Incorrect target.");
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
     }
     
     private void doSendhome(L2Character targetChar)

@@ -69,7 +69,8 @@ public class L2PlayerAI extends L2CharacterAI
      * @param arg1 The second parameter of the Intention
      *
      */
-    synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
+    @Override
+    protected synchronized void changeIntention(CtrlIntention intention, Object arg0, Object arg1)
     {
         /*
          if (_log.isDebugEnabled())
@@ -107,6 +108,7 @@ public class L2PlayerAI extends L2CharacterAI
      * Check if actual intention is set to CAST and, if so, retrieves latest intention
      * before the actual CAST and set it as the current intention for the player
      */
+    @Override
     protected void onEvtFinishCasting()
     {
         // forget interupted actions after offensive skill
@@ -149,6 +151,7 @@ public class L2PlayerAI extends L2CharacterAI
         }
     }
 
+    @Override
     protected void onIntentionRest()
     {
         if (getIntention() != AI_INTENTION_REST)
@@ -164,11 +167,13 @@ public class L2PlayerAI extends L2CharacterAI
         }
     }
 
+    @Override
     protected void onIntentionActive()
     {
         setIntention(AI_INTENTION_IDLE);
     }
 
+    @Override
     protected void clientNotifyDead()
     {
         _clientMovingToPawnOffset = 0;
@@ -183,11 +188,8 @@ public class L2PlayerAI extends L2CharacterAI
         if (target == null) return;
         if (checkTargetLostOrDead(target))
         {
-            if (target != null)
-            {
-                // Notify the target
-                setAttackTarget(null);
-            }
+            // Notify the target
+            setAttackTarget(null);
             return;
         }
         if (maybeMoveToPawn(target, _actor.getPhysicalAttackRange())) return;
@@ -257,6 +259,7 @@ public class L2PlayerAI extends L2CharacterAI
         return;
     }
 
+    @Override
     protected void onEvtThink()
     {
         if (_thinking || _actor.isAllSkillsDisabled()) return;
@@ -280,6 +283,7 @@ public class L2PlayerAI extends L2CharacterAI
         }
     }
 
+    @Override
     protected void onEvtArrivedRevalidate()
     {
         ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(_actor));

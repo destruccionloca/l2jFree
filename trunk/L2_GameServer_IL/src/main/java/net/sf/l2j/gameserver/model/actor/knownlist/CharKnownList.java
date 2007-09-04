@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -50,7 +49,9 @@ public class CharKnownList extends ObjectKnownList
 
     // =========================================================
     // Method - Public
+    @Override
     public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
+    @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
         if (!super.addKnownObject(object, dropper)) return false;
@@ -68,6 +69,7 @@ public class CharKnownList extends ObjectKnownList
     public final boolean knowsThePlayer(L2PcInstance player) { return getActiveChar() == player || getKnownPlayers().containsKey(player.getObjectId()); }
     
     /** Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI. */
+    @Override
     public final void removeAllKnownObjects()
     {
         super.removeAllKnownObjects();
@@ -82,6 +84,7 @@ public class CharKnownList extends ObjectKnownList
         if (getActiveChar().hasAI()) getActiveChar().setAI(null);
     }
     
+    @Override
     public boolean removeKnownObject(L2Object object)
     {
         if (!super.removeKnownObject(object)) return false;
@@ -215,8 +218,10 @@ public class CharKnownList extends ObjectKnownList
 
     public L2Character getActiveChar() { return (L2Character)super.getActiveObject(); }
     
+    @Override
     public int getDistanceToForgetObject(L2Object object) { return 0; }
 
+    @Override
     public int getDistanceToWatchObject(L2Object object) { return 0; }
 
     public Collection<L2Character> getKnownCharacters()

@@ -197,10 +197,7 @@ public class HtmCache implements HtmCacheMBean
         {
             return ehCache.calculateInMemorySize()/1048576;
         }
-        else
-        {
-            return ((float)_bytesBuffLen/1048576);
-        }
+        return ((float)_bytesBuffLen/1048576);
     }
     
     /**
@@ -212,10 +209,7 @@ public class HtmCache implements HtmCacheMBean
         {
             return ehCache.getSize();
         }
-        else
-        {
-            return _loadedFiles;
-        }
+        return _loadedFiles;
     }
     
     /**
@@ -397,10 +391,7 @@ public class HtmCache implements HtmCacheMBean
         {
             return ehCache.isElementInMemory(path.hashCode());
         }
-        else
-        {
-            return mapCache.containsKey(path.hashCode());
-        }
+        return mapCache.containsKey(path.hashCode());
     }
    
     /** 

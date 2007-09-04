@@ -102,18 +102,19 @@ public class L2StaticObjectInstance extends L2Object
      * this is called when a player interacts with this NPC
      * @param player
      */
+    @Override
     public void onAction(L2PcInstance player)
     {
-    if(_type < 0) _log.info("L2StaticObjectInstance: StaticObject with invalid type! StaticObjectId: "+getStaticObjectId());
+        if(_type < 0) _log.info("L2StaticObjectInstance: StaticObject with invalid type! StaticObjectId: "+getStaticObjectId());
         // Check if the L2PcInstance already target the L2NpcInstance
         if (this != player.getTarget())
         {
             // Set the target of the L2PcInstance player
             player.setTarget(this);
             player.sendPacket(new MyTargetSelected(getObjectId(), 0));
-
-        } else {
-
+        }
+        else
+        {
             MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
             player.sendPacket(my);
 
@@ -125,23 +126,29 @@ public class L2StaticObjectInstance extends L2Object
                     
                     // Send a Server->Client packet ActionFailed (target is out of interaction range) to the L2PcInstance player
                     player.sendPacket(new ActionFailed());
-            } else {
-            if(_type == 2) {
-                String filename = "data/html/signboard.htm";
-                String content = HtmCache.getInstance().getHtm(filename);
-                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+            }
+            else
+            {
+                if(_type == 2)
+                {
+                    String filename = "data/html/signboard.htm";
+                    String content = HtmCache.getInstance().getHtm(filename);
+                    NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 
-                if (content == null) html.setHtml("<html><head><body>Signboard is missing:<br>"+filename+"</body></html>");
-                else html.setHtml(content);
+                    if (content == null) html.setHtml("<html><head><body>Signboard is missing:<br>"+filename+"</body></html>");
+                    else html.setHtml(content);
 
-                player.sendPacket(html);
-                player.sendPacket(new ActionFailed());
-            } else if(_type == 0) player.sendPacket(new ShowTownMap(_texture, getMapX(), getMapY()));
+                    player.sendPacket(html);
+                    player.sendPacket(new ActionFailed());
+                }
+                else if(_type == 0)
+                {
+                    player.sendPacket(new ShowTownMap(_texture, getMapX(), getMapY()));
                     // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
                     player.sendPacket(new ActionFailed());
+                }
             }
         }
-
     }
     
     /* (non-Javadoc)

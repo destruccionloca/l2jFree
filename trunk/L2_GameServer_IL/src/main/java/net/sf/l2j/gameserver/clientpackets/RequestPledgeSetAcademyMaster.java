@@ -36,6 +36,7 @@ public class RequestPledgeSetAcademyMaster extends L2GameClientPacket
     private int _set; // 1 set, 0 delete
     private String _targetPlayerName;
 
+    @Override
     protected void readImpl()
     {
         _set = readD();

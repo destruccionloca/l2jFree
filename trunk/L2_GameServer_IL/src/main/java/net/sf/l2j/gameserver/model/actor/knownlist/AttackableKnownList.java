@@ -42,6 +42,7 @@ public class AttackableKnownList extends NpcKnownList
 
     // =========================================================
     // Method - Public
+    @Override
     public boolean removeKnownObject(L2Object object)
     {
         if (!super.removeKnownObject(object)) return false;
@@ -67,8 +68,10 @@ public class AttackableKnownList extends NpcKnownList
 
     // =========================================================
     // Property - Public
+    @Override
     public L2Attackable getActiveChar() { return (L2Attackable)super.getActiveChar(); }
 
+    @Override
     public int getDistanceToForgetObject(L2Object object)
     {
         if (getActiveChar().getAggroListRP() != null)        
@@ -76,6 +79,7 @@ public class AttackableKnownList extends NpcKnownList
         return Math.min(2200, 2 * getDistanceToWatchObject(object));
     }
 
+    @Override
     public int getDistanceToWatchObject(L2Object object)
     {
         if (object instanceof L2FolkInstance || !(object instanceof L2Character))

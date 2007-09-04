@@ -245,9 +245,11 @@ public class AutoChatHandler implements SpawnListener
      */
     public AutoChatInstance getAutoChatInstance(int id, boolean byObjectId)
     {
-        if (!byObjectId) return _registeredChats.get(id);
-        else for (AutoChatInstance chatInst : _registeredChats.values())
-            if (chatInst.getChatDefinition(id) != null) return chatInst;
+        if (!byObjectId)
+            return _registeredChats.get(id);
+        for (AutoChatInstance chatInst : _registeredChats.values())
+            if (chatInst.getChatDefinition(id) != null)
+                return chatInst;
 
         return null;
     }
@@ -653,14 +655,16 @@ public class AutoChatHandler implements SpawnListener
 
             protected String[] getChatTexts()
             {
-                if (_chatTexts != null) return _chatTexts;
-                else return _chatInstance.getDefaultTexts();
+                if (_chatTexts != null)
+                    return _chatTexts;
+                return _chatInstance.getDefaultTexts();
             }
 
             private long getChatDelay()
             {
-                if (_chatDelay > 0) return _chatDelay;
-                else return _chatInstance.getDefaultDelay();
+                if (_chatDelay > 0)
+                    return _chatDelay;
+                return _chatInstance.getDefaultDelay();
             }
 
             private boolean isActive()

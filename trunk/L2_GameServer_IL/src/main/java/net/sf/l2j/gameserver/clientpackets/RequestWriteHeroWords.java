@@ -36,6 +36,7 @@ public class RequestWriteHeroWords extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+    @Override
     protected void readImpl()
     {
         _heroWords = readS();
@@ -48,7 +49,6 @@ public class RequestWriteHeroWords extends L2GameClientPacket
     protected void runImpl()
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	/* (non-Javadoc)
@@ -59,5 +59,4 @@ public class RequestWriteHeroWords extends L2GameClientPacket
 	{
 		return _C__FE_0C_REQUESTWRITEHEROWORDS;
 	}
-	
 }

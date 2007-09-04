@@ -27,8 +27,10 @@ package net.sf.l2j.gameserver.clientpackets;
 public class RequestTutorialQuestionMark extends L2GameClientPacket
 {
     private static final String _C__7D_REQUESTTUTORIALQUESTIONMARK = "[C] 7D RequestTutorialQuestionMark";
+    @SuppressWarnings("unused")
     private int _id;
 
+    @Override
     protected void readImpl()
     {
         _id = readD(); // id
@@ -40,7 +42,6 @@ public class RequestTutorialQuestionMark extends L2GameClientPacket
     protected void runImpl()
     {
         // TODO Auto-generated method stub
-
     }
 
     /**
@@ -51,5 +52,4 @@ public class RequestTutorialQuestionMark extends L2GameClientPacket
     {
         return _C__7D_REQUESTTUTORIALQUESTIONMARK;
     }
-
 }

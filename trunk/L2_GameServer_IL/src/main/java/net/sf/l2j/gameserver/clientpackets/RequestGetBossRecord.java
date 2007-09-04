@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExGetBossRecord;
@@ -42,6 +41,7 @@ public class RequestGetBossRecord extends L2GameClientPacket
      * @param buf
      * @param client
      */
+    @Override
     protected void readImpl()
     {
         _bossId = readD(); // always 0?
@@ -87,5 +87,4 @@ public class RequestGetBossRecord extends L2GameClientPacket
     {
         return _C__D0_18_REQUESTGETBOSSRECORD;
     }
-    
 }

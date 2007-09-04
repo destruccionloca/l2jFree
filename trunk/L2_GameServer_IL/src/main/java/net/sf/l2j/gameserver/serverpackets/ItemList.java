@@ -65,7 +65,7 @@ public class ItemList extends L2GameServerPacket
 		_showWindow = showWindow;
 		if (_log.isDebugEnabled())
 		{
-			this.showDebug();
+			showDebug();
 		}
 	}	
 
@@ -75,7 +75,7 @@ public class ItemList extends L2GameServerPacket
 		_showWindow = showWindow;
 		if (_log.isDebugEnabled())
 		{
-			this.showDebug();
+			showDebug();
 		}
 	}	
 	
@@ -88,6 +88,7 @@ public class ItemList extends L2GameServerPacket
 		}
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x1b);
@@ -127,6 +128,7 @@ public class ItemList extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__27_ITEMLIST;

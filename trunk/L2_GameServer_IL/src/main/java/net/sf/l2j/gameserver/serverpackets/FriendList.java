@@ -50,6 +50,7 @@ public class FriendList extends L2GameServerPacket
         _activeChar = cha;
     }
 	
+    @Override
     protected final void writeImpl()
 	{
 		if (_activeChar == null)  
@@ -78,6 +79,7 @@ public class FriendList extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__FA_FRIENDLIST;

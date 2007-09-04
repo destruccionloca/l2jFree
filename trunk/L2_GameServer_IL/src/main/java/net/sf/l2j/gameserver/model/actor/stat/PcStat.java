@@ -55,6 +55,7 @@ public class PcStat extends PlayableStat
 
     // =========================================================
     // Method - Public
+    @Override
     public boolean addExp(long value)
     {
         L2PcInstance activeChar = getActiveChar();
@@ -95,6 +96,7 @@ public class PcStat extends PlayableStat
      * @param addToExp The Experience value to add
      * @param addToSp The SP value to add
      */
+    @Override
     public boolean addExpAndSp(long addToExp, int addToSp)
     {
         float ratioTakenByPet = 0;
@@ -132,6 +134,7 @@ public class PcStat extends PlayableStat
         return true;
     }
     
+    @Override
     public boolean removeExpAndSp(long addToExp, int addToSp)
     {
         if (!super.removeExpAndSp(addToExp, addToSp)) return false;
@@ -146,6 +149,7 @@ public class PcStat extends PlayableStat
         return true;
     }
 
+    @Override
     public final boolean addLevel(byte value)
     {
         if (getLevel() + value > Experience.MAX_LEVEL - 1) return false;
@@ -234,6 +238,7 @@ public class PcStat extends PlayableStat
         return levelIncreased;
     }
 
+    @Override
     public boolean addSp(int value)
     {
         if (!super.addSp(value)) return false;
@@ -246,6 +251,7 @@ public class PcStat extends PlayableStat
         return true;
     }
 
+    @Override
     public final long getExpForLevel(int level) { return Experience.LEVEL[level]; }
 
     // =========================================================
@@ -253,8 +259,10 @@ public class PcStat extends PlayableStat
 
     // =========================================================
     // Property - Public
+    @Override
     public final L2PcInstance getActiveChar() { return (L2PcInstance)super.getActiveChar(); }
 
+    @Override
     public final long getExp()
     {
         if (getActiveChar().isSubClassActive()) 
@@ -263,6 +271,7 @@ public class PcStat extends PlayableStat
         return super.getExp();
     }
     
+    @Override
     public final void setExp(long value)
     {
         if (getActiveChar().isSubClassActive())
@@ -271,6 +280,7 @@ public class PcStat extends PlayableStat
             super.setExp(value);
     }
 
+    @Override
     public final byte getLevel()
     {
         if (getActiveChar().isSubClassActive()) 
@@ -278,6 +288,7 @@ public class PcStat extends PlayableStat
             
         return super.getLevel();
     }
+    @Override
     public final void setLevel(byte value)
     {
         if (value > Experience.MAX_LEVEL - 1) 
@@ -289,6 +300,7 @@ public class PcStat extends PlayableStat
             super.setLevel(value);
     }
 
+    @Override
     public final int getMaxHp()
     {
         // Get the Max HP (base+modifier) of the L2PcInstance
@@ -304,6 +316,7 @@ public class PcStat extends PlayableStat
         return val;
     }
 
+    @Override
     public final int getMaxMp()
     {
         // Get the Max MP (base+modifier) of the L2PcInstance
@@ -321,6 +334,7 @@ public class PcStat extends PlayableStat
         return val;
     }
 
+    @Override
     public final int getSp()
     {
         if (getActiveChar().isSubClassActive()) 
@@ -328,6 +342,7 @@ public class PcStat extends PlayableStat
             
         return super.getSp();
     }
+    @Override
     public final void setSp(int value)
     {
         if (getActiveChar().isSubClassActive())

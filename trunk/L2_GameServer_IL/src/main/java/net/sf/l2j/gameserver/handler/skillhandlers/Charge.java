@@ -25,9 +25,6 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  * 
@@ -36,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class Charge implements ISkillHandler
 {
-	private static Log _log = LogFactory.getLog(Charge.class.getName());
+	//private static Log _log = LogFactory.getLog(Charge.class.getName());
 	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)

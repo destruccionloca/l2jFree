@@ -34,11 +34,13 @@ public class RequestLinkHtml extends L2GameClientPacket
 	private static final String REQUESTLINKHTML__C__20 = "[C] 20 RequestLinkHtml";
 	private String _link;
 
+    @Override
     protected void readImpl()
     {
         _link = readS();
     }
 	
+	@Override
 	public void runImpl()
 	{
 		L2PcInstance actor = getClient().getActiveChar();
@@ -59,6 +61,7 @@ public class RequestLinkHtml extends L2GameClientPacket
 		sendPacket(msg);
 	}
 	
+	@Override
 	public String getType()
 	{
 		return REQUESTLINKHTML__C__20;

@@ -91,6 +91,7 @@ public class RequestWearItem extends L2GameClientPacket
      * Decrypt the RequestWearItem Client->Server Packet and Create _items table containing all ItemID to Wear.<BR><BR>
      * 
      */
+    @Override
     protected void readImpl()
     {
         // Read and Decrypt the RequestWearItem Client->Server Packet
@@ -118,6 +119,7 @@ public class RequestWearItem extends L2GameClientPacket
      * Launch Wear action.<BR><BR>
      * 
      */
+    @Override
     protected void runImpl()
     {
 		// Get the current player and return if null
@@ -268,12 +270,12 @@ public class RequestWearItem extends L2GameClientPacket
 		// All weared items should be removed in ALLOW_WEAR_DELAY sec.
 		if (_removeWearItemsTask == null)
             _removeWearItemsTask = ThreadPoolManager.getInstance().scheduleGeneral(new RemoveWearItemsTask(), Config.WEAR_DELAY*1000);
-        
     }
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__C6_REQUESTWEARITEM;

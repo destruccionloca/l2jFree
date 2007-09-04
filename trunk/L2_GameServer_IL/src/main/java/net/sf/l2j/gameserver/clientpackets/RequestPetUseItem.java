@@ -42,11 +42,13 @@ public class RequestPetUseItem extends L2GameClientPacket
      * format:      cd
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -81,7 +83,7 @@ public class RequestPetUseItem extends L2GameClientPacket
         // check if the food matches the pet
         if (PetDataTable.getFoodItemId(pet.getNpcId()) == item.getItemId())
     	{
-        	feed(activeChar, pet, item);
+        	feed(pet, item);
         	return;
     	}
     	//check if the item matches the pet
@@ -141,7 +143,7 @@ public class RequestPetUseItem extends L2GameClientPacket
      * 
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : 1 food = 100 points of currentFed</B></FONT><BR><BR>
      */
-    private void feed(L2PcInstance player, L2PetInstance pet, L2ItemInstance item)
+    private void feed(L2PetInstance pet, L2ItemInstance item)
     {
 		// if pet has food in inventory
 		if (pet.destroyItem("Feed", item.getObjectId(), 1, pet, false))
@@ -152,6 +154,7 @@ public class RequestPetUseItem extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__8A_REQUESTPETUSEITEM;

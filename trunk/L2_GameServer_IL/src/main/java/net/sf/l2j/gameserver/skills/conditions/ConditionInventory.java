@@ -38,5 +38,6 @@ public abstract class ConditionInventory extends Condition implements ConditionL
 		_slot = slot;
 	}
 	
+	@Override
 	public abstract boolean testImpl(Env env);
 }

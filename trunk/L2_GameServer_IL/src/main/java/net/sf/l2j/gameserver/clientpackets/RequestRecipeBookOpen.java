@@ -37,12 +37,14 @@ public class RequestRecipeBookOpen extends L2GameClientPacket
 	 * packet format rev656  cd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
 	{
         isDwarvenCraft = (readD() == 0);
         if (_log.isDebugEnabled()) _log.info("RequestRecipeBookOpen : " + (isDwarvenCraft ? "dwarvenCraft" : "commonCraft"));
 	}
 
+    @Override
     protected void runImpl()
 	{
 	    if (getClient().getActiveChar() == null)
@@ -60,6 +62,7 @@ public class RequestRecipeBookOpen extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType() 
     {
         return _C__AC_REQUESTRECIPEBOOKOPEN;

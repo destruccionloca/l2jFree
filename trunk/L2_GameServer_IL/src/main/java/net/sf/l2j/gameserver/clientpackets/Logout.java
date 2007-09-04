@@ -58,11 +58,13 @@ public class Logout extends L2GameClientPacket
     /**
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
 
     }
 
+    @Override
     protected void runImpl()
     {
         // Dont allow leaving if player is fighting
@@ -107,9 +109,8 @@ public class Logout extends L2GameClientPacket
                 pet.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
                 player.sendPacket(new ActionFailed());
                 return;
-            } 
-            else
-             pet.unSummon(player);
+            }
+            pet.unSummon(player);
         }
         
         if(player.atEvent)
@@ -205,7 +206,8 @@ public class Logout extends L2GameClientPacket
 		catch (Exception e) {
 			_log.warn("could not restore friend data:"+e);
 		} 
-		finally {
+		finally
+		{
 			try {con.close();} catch (Exception e){}
 		}
 	}
@@ -213,6 +215,7 @@ public class Logout extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__09_LOGOUT;

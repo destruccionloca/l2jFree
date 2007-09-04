@@ -545,7 +545,7 @@ public class L2Party
         }
         
         // Avoid null exceptions, if any
-        if (ToReward == null || ToReward.isEmpty()) return;
+        if (ToReward.isEmpty()) return;
         
         // Now we can actually distribute the adena reward
         // (Total adena splitted by the number of party members that are in range and must be rewarded)
@@ -743,6 +743,5 @@ public class L2Party
 	
 	public int getLevel() { return _partyLvl; }
     
-    public int getLootDistribution() { return _itemDistribution; }
-    
+    public int getLootDistribution() { return _itemDistribution; }   
 }

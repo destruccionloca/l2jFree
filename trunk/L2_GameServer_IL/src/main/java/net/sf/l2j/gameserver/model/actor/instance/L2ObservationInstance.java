@@ -46,6 +46,7 @@ public final class L2ObservationInstance extends L2FolkInstance
         super(objectId, template);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         // first do the common stuff
@@ -68,6 +69,7 @@ public final class L2ObservationInstance extends L2FolkInstance
         }
     }
 
+    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";
@@ -83,6 +85,7 @@ public final class L2ObservationInstance extends L2FolkInstance
         return "data/html/observation/" + pom + ".htm";
     }
 
+    @Override
     public void onAction(L2PcInstance player)
     {
         if (_log.isDebugEnabled()) _log.debug("Teleporter activated");

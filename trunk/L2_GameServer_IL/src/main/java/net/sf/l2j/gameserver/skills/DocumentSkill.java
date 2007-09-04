@@ -64,6 +64,7 @@ final class DocumentSkill extends DocumentBase {
         _currentSkill = skill;
     }
 
+    @Override
     protected StatsSet getStatsSet()
 	{
 		return _currentSkill.sets[_currentSkill.currentLevel];
@@ -74,6 +75,7 @@ final class DocumentSkill extends DocumentBase {
         return _skillsInFile;
 	}
     
+	@Override
 	protected String getTableValue(String name)
 	{
 		try
@@ -87,6 +89,7 @@ final class DocumentSkill extends DocumentBase {
         }
 	}
     
+	@Override
 	protected String getTableValue(String name, int idx)	
 	{
 		try
@@ -100,6 +103,7 @@ final class DocumentSkill extends DocumentBase {
         }
 	}
 	
+	@Override
 	protected void parseDocument(Document doc)
 	{
         for (Node n=doc.getFirstChild(); n != null; n = n.getNextSibling())

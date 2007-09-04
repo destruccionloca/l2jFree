@@ -63,117 +63,118 @@ public class Topic implements java.io.Serializable
     public Topic(int _topicId, int _topicForumId, String _topicName, BigDecimal _topicDate,
                  String _topicOwnername, int _topicOwnerid, int _topicType, int _topicReply)
     {
-        this.topicId = _topicId;
-        this.topicForumId = _topicForumId;
-        this.topicName = _topicName;
-        this.topicDate = _topicDate;
-        this.topicOwnername = _topicOwnername;
-        this.topicOwnerid = _topicOwnerid;
-        this.topicType = _topicType;
-        this.topicReply = _topicReply;
+        topicId = _topicId;
+        topicForumId = _topicForumId;
+        topicName = _topicName;
+        topicDate = _topicDate;
+        topicOwnername = _topicOwnername;
+        topicOwnerid = _topicOwnerid;
+        topicType = _topicType;
+        topicReply = _topicReply;
     }
 
     // Property accessors
     public int getTopicId()
     {
-        return this.topicId;
+        return topicId;
     }
 
     public void setTopicId(int _topicId)
     {
-        this.topicId = _topicId;
+        topicId = _topicId;
     }
 
     public int getTopicForumId()
     {
-        return this.topicForumId;
+        return topicForumId;
     }
 
     public void setTopicForumId(int _topicForumId)
     {
-        this.topicForumId = _topicForumId;
+        topicForumId = _topicForumId;
     }
 
     public String getTopicName()
     {
-        return this.topicName;
+        return topicName;
     }
 
     public void setTopicName(String _topicName)
     {
-        this.topicName = _topicName;
+        topicName = _topicName;
     }
 
     public BigDecimal getTopicDate()
     {
-        return this.topicDate;
+        return topicDate;
     }
 
     public void setTopicDate(BigDecimal _topicDate)
     {
-        this.topicDate = _topicDate;
+        topicDate = _topicDate;
     }
 
     public String getTopicOwnername()
     {
-        return this.topicOwnername;
+        return topicOwnername;
     }
 
     public void setTopicOwnername(String _topicOwnername)
     {
-        this.topicOwnername = _topicOwnername;
+        topicOwnername = _topicOwnername;
     }
 
     public int getTopicOwnerid()
     {
-        return this.topicOwnerid;
+        return topicOwnerid;
     }
 
     public void setTopicOwnerid(int _topicOwnerid)
     {
-        this.topicOwnerid = _topicOwnerid;
+        topicOwnerid = _topicOwnerid;
     }
 
     public int getTopicType()
     {
-        return this.topicType;
+        return topicType;
     }
 
     public void setTopicType(int _topicType)
     {
-        this.topicType = _topicType;
+        topicType = _topicType;
     }
 
     public int getTopicReply()
     {
-        return this.topicReply;
+        return topicReply;
     }
 
     public void setTopicReply(int _topicReply)
     {
-        this.topicReply = _topicReply;
+        topicReply = _topicReply;
     }
 
     public Set<Posts> getPostses()
     {
-        return this.postses;
+        return postses;
     }
 
     public void setPostses(Set<Posts> _postses)
     {
-        this.postses = _postses;
+        postses = _postses;
     }    
     /**
      * @return the hashcode of the object
      */
+    @Override
     public int hashCode() 
     {
         return new HashCodeBuilder(17,37)
-                        .append(this.topicOwnerid)
-                        .append(this.topicName)
-                        .append(this.topicDate)
-                        .append(this.topicForumId)
-                        .append(this.topicType)
+                        .append(topicOwnerid)
+                        .append(topicName)
+                        .append(topicDate)
+                        .append(topicForumId)
+                        .append(topicType)
                         .toHashCode();
     }
     
@@ -181,6 +182,7 @@ public class Topic implements java.io.Serializable
      * @return true or false if the two objects are equals (not based on post id)
      * @param obj
      */
+    @Override
     public boolean equals(Object _obj) 
     {
         if (_obj == null) 
@@ -202,8 +204,9 @@ public class Topic implements java.io.Serializable
                         .isEquals();        
     }
     
-    public String toString() {
+    @Override
+    public String toString()
+    {
         return ToStringBuilder.reflectionToString(this);
-    }       
-
+    }
 }

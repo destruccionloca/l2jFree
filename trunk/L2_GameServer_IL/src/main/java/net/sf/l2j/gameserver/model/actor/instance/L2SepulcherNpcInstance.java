@@ -101,6 +101,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
         _spawnMonsterTask = null; 
     }
 
+    @Override
     public void deleteMe()
     {
         if (_closeTask != null)
@@ -121,6 +122,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
         super.deleteMe();
     }
 
+    @Override
     public void onAction(L2PcInstance player)
     {
         // Check if the L2PcInstance already target the L2NpcInstance
@@ -262,6 +264,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
         player.sendPacket(new ActionFailed());
     }
     
+    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";
@@ -277,6 +280,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
         return _HTML_FILE_PATH + pom + ".htm";
     }
 
+    @Override
     public void showChatWindow(L2PcInstance player, int val)
     {
         String filename = getHtmlPath(getNpcId(),val);
@@ -287,6 +291,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
         player.sendPacket( new ActionFailed() );
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (player == null) return;

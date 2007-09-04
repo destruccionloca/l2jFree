@@ -34,6 +34,7 @@ public class FaenorQuestParser extends FaenorParser
 {
     private final static Log _log = LogFactory.getLog(FaenorQuestParser.class.getName());
     
+    @Override
     public void parseScript(Node questNode)
     {
         if (_log.isDebugEnabled()) _log.debug("Parsing Quest.");
@@ -103,6 +104,7 @@ public class FaenorQuestParser extends FaenorParser
     
     static class FaenorQuestParserFactory extends ParserFactory
     {
+        @Override
         public Parser create()
         {
             return(new FaenorQuestParser());

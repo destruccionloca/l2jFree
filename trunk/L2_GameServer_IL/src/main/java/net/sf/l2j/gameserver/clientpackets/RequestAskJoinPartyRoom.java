@@ -29,6 +29,7 @@ public class RequestAskJoinPartyRoom extends L2GameClientPacket
     private static final String _C__D0_14_REQUESTASKJOINPARTYROOM = "[C] D0:14 RequestAskJoinPartyRoom";
     private String _player; // not tested, just guessed
 
+    @Override
     protected void readImpl()
     {
         _player = readS();
@@ -52,5 +53,4 @@ public class RequestAskJoinPartyRoom extends L2GameClientPacket
     {
         return _C__D0_14_REQUESTASKJOINPARTYROOM;
     }
-    
 }

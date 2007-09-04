@@ -60,7 +60,7 @@ public class L2SkillCharge extends L2Skill
             }
             return;
 		}
-		this.getEffects(caster, caster);
+		getEffects(caster, caster);
         // effect self :]
         L2Effect seffect = caster.getEffect(getId());
         if (seffect != null && seffect.isSelfEffect())

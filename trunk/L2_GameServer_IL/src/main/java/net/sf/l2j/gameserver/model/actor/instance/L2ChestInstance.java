@@ -20,14 +20,13 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.lib.Rnd;
 
 /**
  * This class manages all chest.
@@ -44,6 +43,7 @@ public final class L2ChestInstance extends L2MonsterInstance
 		_specialDrop = false;
 	}
 
+	@Override
 	public void onSpawn()
 	{
 		super.onSpawn();
@@ -71,6 +71,7 @@ public final class L2ChestInstance extends L2MonsterInstance
 		_specialDrop = true;
 	}
 
+	@Override
 	public void doItemDrop(L2NpcTemplate npcTemplate, L2Character lastAttacker)
 	{
 		int id = getTemplate().getNpcId();
@@ -155,13 +156,13 @@ public final class L2ChestInstance extends L2MonsterInstance
 		return false;
 	}
 	
+	@Override
 	public boolean isMovementDisabled()
 	{
-		if (super.isMovementDisabled()) return true;
-		if (isInteracted()) return false;
-		return true;
+		return (super.isMovementDisabled() && !isInteracted());
 	}
 
+	@Override
 	public boolean hasRandomAnimation()
 	{
 		return false;

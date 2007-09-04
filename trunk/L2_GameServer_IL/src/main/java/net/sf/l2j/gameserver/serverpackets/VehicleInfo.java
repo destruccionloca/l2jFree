@@ -59,5 +59,4 @@ public class VehicleInfo  extends L2GameServerPacket
 	{
 		return "[S] 59 VehicleInfo";
 	}
-
 }

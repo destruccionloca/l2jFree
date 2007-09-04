@@ -134,41 +134,58 @@ public class Shutdown extends Thread implements ShutdownMBean
      * will restart the server.
      * 
      */
-    public void run() {
+    @Override
+    public void run()
+    {
         // disallow new logins
-        try {
+        try
+        {
             //Doesnt actually do anything
             //Server.gameServer.getLoginController().setMaxAllowedOnlinePlayers(0);
-        } catch (Throwable t) {}
-        if (this == _instance) {
+        }
+        catch (Throwable t) {}
+        if (this == _instance)
+        {
             // ensure all services are stopped
-            try {
+            try
+            {
                 GameTimeController.getInstance().stopTimer();
-            } catch (Throwable t) {}
+            }
+            catch (Throwable t) {}
             // stop all threadpolls
-            try {
+            try
+            {
                 ThreadPoolManager.getInstance().shutdown();
-            } catch (Throwable t) {}
+            }
+            catch (Throwable t) {}
             // last byebye, save all data and quit this server
             // logging doesnt work here :(
             saveData();
-            try {
+            try
+            {
                 LoginServerThread.getInstance().interrupt();
-            } catch (Throwable t) {}
+            }
+            catch (Throwable t) {}
             // saveData sends messages to exit players, so sgutdown selector after it
-            try {
+            try
+            {
                 GameServer.gameServer.getSelectorThread().interrupt();
-            } catch (Throwable t) {}
+            }
+            catch (Throwable t) {}
             // commit data, last chance
-            try {
+            try
+            {
                 //L2DatabaseFactory.getInstance().shutdown();
-            } catch (Throwable t) {}
+            }
+            catch (Throwable t) {}
             // server will quit, when this function ends.
             if (_instance._shutdownMode == shutdownModeType.RESTART)
                 Runtime.getRuntime().halt(2);
             else
                 Runtime.getRuntime().halt(0);
-        } else {
+        }
+        else
+        {
             // gm shutdown: send warnings and then call exit to start shutdown sequence
             countdown();
             // last point where logging is operational :(
@@ -193,7 +210,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * @param seconds       seconds until shutdown
      * @param restart       true if the server will restart after shutdown
      */
-    public void startShutdown(L2PcInstance activeChar, int seconds, shutdownModeType mode) {
+    public void startShutdown(L2PcInstance activeChar, int seconds, shutdownModeType mode)
+    {
     	startShutdown(activeChar.getName()+"("+activeChar.getObjectId()+")", seconds, mode); 	
     }
     /**
@@ -230,7 +248,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * 
      * @param activeChar    GM who issued the abort command
      */
-    public void abort(L2PcInstance activeChar) {
+    public void abort(L2PcInstance activeChar)
+    {
     	abort(activeChar.getName()+"("+activeChar.getObjectId()+")");
     }
     /**
@@ -238,8 +257,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * 
      * @param activeChar    GM who issued the abort command
      */
-    public void abort(String _initiator) {
-
+    public void abort(String _initiator)
+    {
         _log.warn(_initiator + " issued shutdown ABORT. " + _shutdownMode.getText() + " has been stopped!");
         Announcements.getInstance().announceToAll("Server aborts " + _shutdownMode.getText().toLowerCase() + " and continues normal operation!");
 
@@ -257,7 +276,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * get the current count down
      * @param mode  what mode shall be set
      */
-    public int getCountdown() {
+    public int getCountdown()
+    {
         return _secondsShut;
     }
     
@@ -265,7 +285,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * set the shutdown mode
      * @param mode  what mode shall be set
      */
-    private void setMode(shutdownModeType mode) {
+    private void setMode(shutdownModeType mode)
+    {
         _shutdownMode = mode;
     }
 
@@ -273,7 +294,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * set shutdown mode to ABORT
      *
      */
-    private void _abort() {
+    private void _abort()
+    {
         _shutdownMode = shutdownModeType.ABORT;
     }
 
@@ -281,7 +303,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * this counts the countdown and reports it to all players
      * countdown is aborted if mode changes to ABORT
      */
-    private void countdown() {
+    private void countdown()
+    {
         
         try {
             while (_secondsShut > 0) {
@@ -321,7 +344,9 @@ public class Shutdown extends Thread implements ShutdownMBean
                 
                 if(_shutdownMode == shutdownModeType.ABORT) break;
             }               
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e)
+        {
             //this will never happen
         }
     }
@@ -330,8 +355,8 @@ public class Shutdown extends Thread implements ShutdownMBean
      * this sends a last byebye, disconnects all players and saves data 
      *
      */
-    private void saveData() {
-
+    private void saveData()
+    {
     	_log.info(_shutdownMode.toString()+" received. "+_shutdownMode.getText()+" NOW!");
                
         try
@@ -379,11 +404,13 @@ public class Shutdown extends Thread implements ShutdownMBean
         }
         _log.info("Data saved. All players disconnected, "+_shutdownMode.getText().toLowerCase()+".");
         
-        try {
+        try
+        {
             int delay = 5000;
             Thread.sleep(delay);
         } 
-        catch (InterruptedException e) {
+        catch (InterruptedException e)
+        {
             //never happens :p
         	//yes but it happends some times :(
         }
@@ -415,9 +442,12 @@ public class Shutdown extends Thread implements ShutdownMBean
         
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
-            try {
+            try
+            {
                 player.closeNetConnection();
-            } catch (Throwable t)   {
+            }
+            catch (Throwable t)
+            {
                 // just to make sure we try to kill the connection 
             }               
         }
@@ -438,5 +468,4 @@ public class Shutdown extends Thread implements ShutdownMBean
     {
         startShutdown("Mbean ask shutdown", seconds, shutdownModeType.SHUTDOWN);
     }
-
 }

@@ -59,6 +59,8 @@ public class GeoEditorThread extends Thread
 		
 		_geCon = ge;
 	}
+
+	@Override
 	public void run()
 	{
 		try

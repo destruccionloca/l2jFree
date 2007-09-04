@@ -62,6 +62,7 @@ public class ItemsAutoDestroy
     
     protected class CheckItemsForDestroy extends Thread
     {
+        @Override
         public void run()
         {
             if (_log.isDebugEnabled())

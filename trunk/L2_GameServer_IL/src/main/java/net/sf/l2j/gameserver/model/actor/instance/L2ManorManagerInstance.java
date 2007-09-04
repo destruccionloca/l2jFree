@@ -57,6 +57,7 @@ public class L2ManorManagerInstance extends L2NpcInstance
         super(objectId, template);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (Config.ALLOW_MANOR)
@@ -125,11 +126,12 @@ public class L2ManorManagerInstance extends L2NpcInstance
             TextBuilder msg = new TextBuilder("<html><body>");
             msg.append("Enable the manor system for use this function");
             msg.append("</body></html>");
-            this.sendHtmlMessage(player, msg.toString());
+            sendHtmlMessage(player, msg.toString());
         }
         super.onBypassFeedback(player, command);
     }
 
+    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";
