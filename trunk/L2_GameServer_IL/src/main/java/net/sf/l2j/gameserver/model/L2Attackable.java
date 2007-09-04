@@ -790,7 +790,7 @@ public class L2Attackable extends L2NpcInstance
         if ( attacker instanceof L2PlayableInstance )
         {
             // attacker L2PcInstance could be the the attacker or the owner of the attacker 
-            L2PcInstance _attacker = attacker instanceof L2PcInstance?(L2PcInstance)attacker:((L2Summon)attacker).getOwner();
+            L2PcInstance _attacker = attacker instanceof L2PcInstance ? (L2PcInstance)attacker : ((L2Summon)attacker).getOwner();
             AggroInfo damageContrib = getDamageContributors().get(_attacker);
             if (damageContrib != null) 
             {
@@ -828,7 +828,10 @@ public class L2Attackable extends L2NpcInstance
         }
     }
 
-    public void stopHating(L2Attackable target)
+    /**
+     * Clears _aggroList hate of the L2Character without removing from the list.<BR><BR>
+     */
+    public void stopHating(L2Character target)
     {
         if (target == null) return;
         AggroInfo ai = getAggroListRP().get(target);
@@ -1559,18 +1562,7 @@ public class L2Attackable extends L2NpcInstance
     {
         getDamageContributors().clear();
     }
-    
-    /**
-     * Clears _aggroList hate of the L2Character without removing from the list.<BR><BR>
-     */
-    public void clearHating(L2Character target) 
-    {
-        if (getAggroListRP().isEmpty()) return;
-        AggroInfo ai = getAggroListRP().get(target);
-        if (ai == null) return;
-        ai._hate = 0;
-    }
-    
+
     /**
      * Return True if a Dwarf use Sweep on the L2Attackable and if item can be spoiled.<BR><BR>
      */
