@@ -252,7 +252,7 @@ public final class Config {
 	        ALT_MAX_NUM_OF_CLANS_IN_ALLY                        = Integer.parseInt(clansSettings.getProperty("AltMaxNumOfClansInAlly", "3"));
 	        CLAN_LEADER_COLOR_ENABLED     			       		= Boolean.parseBoolean(clansSettings.getProperty("ClanLeaderNameColorEnabled", "True"));
 	        CLAN_LEADER_COLORED                  				= ClanLeaderColored.valueOf(clansSettings.getProperty("ClanLeaderColored", "name"));
-	        CLAN_LEADER_COLOR                                   = Integer.parseInt("0x" + clansSettings.getProperty("ClanLeaderColor", "00FFFF"));
+	        CLAN_LEADER_COLOR                                   = Integer.decode("0x" + clansSettings.getProperty("ClanLeaderColor", "00FFFF"));
 	        CLAN_LEADER_COLOR_CLAN_LEVEL                        = Integer.parseInt(clansSettings.getProperty("ClanLeaderColorAtClanLevel", "1"));
 	        MEMBER_FOR_LEVEL_SIX                                = Integer.parseInt(clansSettings.getProperty("MemberForLevel6", "30"));
 	        MEMBER_FOR_LEVEL_SEVEN                              = Integer.parseInt(clansSettings.getProperty("MemberForLevel7", "80"));
@@ -1166,7 +1166,7 @@ public final class Config {
 
             CHAR_VIP_SKIP_SKILLS_CHECK		= Boolean.parseBoolean(optionsSettings.getProperty("CharViPSkipSkillsCheck", "false"));
             CHAR_VIP_COLOR_ENABLED			= Boolean.parseBoolean(optionsSettings.getProperty("CharViPAllowColor", "false"));
-            CHAR_VIP_COLOR                 = Integer.parseInt("0x" + optionsSettings.getProperty("CharViPNameColor", "00CCFF"));
+            CHAR_VIP_COLOR                  = Integer.decode("0x" + optionsSettings.getProperty("CharViPNameColor", "00CCFF"));
 
             ONLINE_PLAYERS_AT_STARTUP = Boolean.parseBoolean(optionsSettings.getProperty("ShowOnlinePlayersAtStartup","True"));
             ONLINE_PLAYERS_ANNOUNCE_INTERVAL = Integer.parseInt(optionsSettings.getProperty("OnlinePlayersAnnounceInterval","900000"));
@@ -1574,10 +1574,10 @@ public final class Config {
             
             GM_NAME_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMNameColorEnabled", "True"));
             GM_TITLE_COLOR_ENABLED  = Boolean.parseBoolean(gmSettings.getProperty("GMTitleColorEnabled", "True"));
-            GM_NAME_COLOR          = Integer.parseInt("0x" + gmSettings.getProperty("GMNameColor", "00FF00"));
-            GM_TITLE_COLOR         = Integer.parseInt("0x" + gmSettings.getProperty("GMTitleColor", "00FF00"));
-            ADMIN_NAME_COLOR       = Integer.parseInt("0x" + gmSettings.getProperty("AdminNameColor", "00FF00"));
-            ADMIN_TITLE_COLOR      = Integer.parseInt("0x" + gmSettings.getProperty("AdminTitleColor", "00FF00"));
+            GM_NAME_COLOR          = Integer.decode("0x" + gmSettings.getProperty("GMNameColor", "00FF00"));
+            GM_TITLE_COLOR         = Integer.decode("0x" + gmSettings.getProperty("GMTitleColor", "00FF00"));
+            ADMIN_NAME_COLOR       = Integer.decode("0x" + gmSettings.getProperty("AdminNameColor", "00FF00"));
+            ADMIN_TITLE_COLOR      = Integer.decode("0x" + gmSettings.getProperty("AdminTitleColor", "00FF00"));
             SHOW_GM_LOGIN 	       = Boolean.parseBoolean(gmSettings.getProperty("ShowGMLogin", "false"));
             HIDE_GM_STATUS	       = Boolean.parseBoolean(gmSettings.getProperty("HideGMStatus", "false")); 
             GM_STARTUP_INVISIBLE   = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvisible", "True"));

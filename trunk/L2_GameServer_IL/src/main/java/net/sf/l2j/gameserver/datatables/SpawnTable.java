@@ -154,6 +154,7 @@ public class SpawnTable implements SpawnTableMBean
             try
             {
                 con.close();
+                con=null;
             }
             catch (Exception e)
             {
