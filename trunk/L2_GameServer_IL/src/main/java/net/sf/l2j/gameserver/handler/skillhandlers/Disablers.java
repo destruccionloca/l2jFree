@@ -152,7 +152,7 @@ public class Disablers implements ISkillHandler
             if (target == null || target.isDead()) //bypass if target is null or dead
                 continue;
             //check if skill is allowed on other.properties for raidbosses
-			if(target.checkSkillCanAffectMyself(skill))
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;
             
             switch (type)

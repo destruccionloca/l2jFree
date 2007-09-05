@@ -26,7 +26,10 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -56,7 +59,7 @@ public class Blow implements ISkillHandler
         {
 			L2Character target = (L2Character)targets[index];
 			//check if skill is allowed on other.properties for raidbosses
-			if(target.checkSkillCanAffectMyself(skill))
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;
 			if(target.isAlikeDead())
 				continue;
@@ -137,9 +140,13 @@ public class Blow implements ISkillHandler
 			//Possibility of a lethal strike
 			if(!target.isRaid() 
 					&& !(target instanceof L2DoorInstance)
+					&& !(target instanceof L2BossInstance)
+					&& !(target instanceof L2RaidBossInstance)
+					&& !(target instanceof L2MinionInstance)
 					&& !(target instanceof L2NpcInstance && ((L2NpcInstance)target).getNpcId() == 35062))
 			{
 				int chance = Rnd.get(100);
+				activeChar.sendMessage("test");
 				//2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
 				if(skill.getLethalChance2() > 0 && chance < Formulas.getInstance().calcLethal(activeChar, target, skill.getLethalChance2())) 
 	            {

@@ -86,7 +86,7 @@ public class SummonFriend implements ISkillHandler
 				
 				if (activeChar == target) continue;
 				//check if skill is allowed on other.properties for raidbosses
-				if(target.checkSkillCanAffectMyself(skill))
+				if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 					continue;
 
                 if (target instanceof L2PcInstance)

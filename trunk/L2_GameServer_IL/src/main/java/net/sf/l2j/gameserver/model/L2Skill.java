@@ -1360,7 +1360,7 @@ public abstract class L2Skill
         {
             // automaticly selects caster if no target is selected (only positive skills)  
             if (isPositive() && target == null)  
-                    target = activeChar;  
+                    target = activeChar;
             // Check for null target or any other invalid target
             if(target == null || target.isDead() || 
             (target == activeChar && !(

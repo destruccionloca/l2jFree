@@ -52,7 +52,7 @@ public class ManaHeal implements ISkillHandler
         {
             target = (L2Character)targets[index];
             //check if skill is allowed on other.properties for raidbosses
-			if(target.checkSkillCanAffectMyself(skill))
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;
             
             double mp = skill.getPower();

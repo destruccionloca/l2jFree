@@ -73,7 +73,7 @@ public class Pdam implements ISkillHandler
         {
             L2Character target = (L2Character) targets[index];
             //check if skill is allowed on other.properties for raidbosses
-			if(target.checkSkillCanAffectMyself(skill))
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;
             Formulas f = Formulas.getInstance();
             if(target.reflectSkill(skill))

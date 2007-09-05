@@ -240,6 +240,7 @@ public final class L2BossInstance extends L2MonsterInstance
         super.reduceCurrentHp(damage, attacker, awake);
     }
     
+    @Override
     public boolean isRaid()
     {
         return true;

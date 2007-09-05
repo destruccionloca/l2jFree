@@ -69,7 +69,7 @@ public class Crits implements ISkillHandler
         {
             L2Character target = (L2Character)targets[index];
             //check if skill is allowed on other.properties for raidbosses
-			if(target.checkSkillCanAffectMyself(skill))
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;
             L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
             if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isAlikeDead() && target.isFakeDeath())

@@ -79,7 +79,7 @@ public class Heal implements ISkillHandler
             	continue;
             
             //check if skill is allowed on other.properties for raidbosses
-			if(target.checkSkillCanAffectMyself(skill))
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;
 
             // Player holding a cursed weapon can't be healed and can't heal
