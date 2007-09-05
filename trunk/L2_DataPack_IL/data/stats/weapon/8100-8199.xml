@@ -118,7 +118,7 @@
     <add val='61' order='0x40' stat='rCrit'/>
   </for>
 </item>
-<item id='8111' name="mysterious_sword_acumen">
+<item id='8111' name="Mysterious Sword - Acumen">
   <for>
     <set val='85' order='0x08' stat='pAtk'/>
     <set val='81' order='0x08' stat='mAtk'/>
@@ -127,8 +127,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Acumen -->
-    <mul val='1.15' order='0x30' stat='mAtkSpd'/>
   </for>
 </item>
 <item id='8112' name="mysterious_sword_magic_power">
@@ -196,7 +194,7 @@
     <skill onCast='1' id='1064' lvl='1' chance='10'/>
   </for>
 </item>
-<item id='8117' name="wizards_tear_acumen">
+<item id='8117' name="Wizard\'s Tear - Acumen">
   <for>
     <set val='155' order='0x08' stat='pAtk'/>
     <set val='132' order='0x08' stat='mAtk'/>
@@ -205,8 +203,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Acumen -->
-    <mul val='1.15' order='0x30' stat='mAtkSpd'/>
   </for>
 </item>
 <item id='8118' name="wizards_tear_magic_power">
@@ -223,7 +219,7 @@
     <mul val='1.15' order='0x30' stat='MpConsume'/> 
   </for>
 </item>
-<item id='8119' name="wizards_tear_conversion">
+<item id='8119' name="Wizard\'s Tear - Conversion">
   <for>
     <set val='155' order='0x08' stat='pAtk'/>
     <set val='132' order='0x08' stat='mAtk'/>
@@ -232,9 +228,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Conversion -->
-    <mul val='0.6' order='0x30' stat='maxHp'/>
-    <mul val='1.6' order='0x30' stat='maxMp'/>
   </for>
 </item>
 <item id='8120' name="dwarven_hammer_health">
@@ -482,7 +475,7 @@
     </mul>
   </for>
 </item>
-<item id='8138' name="ecliptic_axe_conversion">
+<item id='8138' name="Ecliptic Axe - Conversion">
   <for>
     <set val='125' order='0x08' stat='pAtk'/>
     <set val='111' order='0x08' stat='mAtk'/>
@@ -491,9 +484,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Conversion -->
-    <mul val='0.6' order='0x30' stat='maxHp'/>
-    <mul val='1.6' order='0x30' stat='maxMp'/>
   </for>
 </item>
 <item id='8139' name="ecliptic_axe_magic_power">
@@ -523,7 +513,7 @@
     <skill onCast='1' id='1201' lvl='1' chance='10'/>
   </for>
 </item>
-<item id='8141' name="spell_breaker_acumen">
+<item id='8141' name="Spell Breaker - Acumen">
   <for>
     <set val='140' order='0x08' stat='pAtk'/>
     <set val='122' order='0x08' stat='mAtk'/>
@@ -532,8 +522,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Acumen -->
-    <mul val='1.15' order='0x30' stat='mAtkSpd'/>
   </for>
 </item>
 <item id='8142' name="spell_breaker_mental_shield">
@@ -586,7 +574,7 @@
     <skill onCast='1' id='1064' lvl='1' chance='10'/>
   </for>
 </item>
-<item id='8146' name="kaim_vanuls_bone_conversion">
+<item id='8146' name="Kaim Vanul\'s Bones - Conversion">
   <for>
     <set val='155' order='0x08' stat='pAtk'/>
     <set val='132' order='0x08' stat='mAtk'/>
@@ -595,9 +583,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Conversion -->
-    <mul val='0.6' order='0x30' stat='maxHp'/>
-    <mul val='1.6' order='0x30' stat='maxMp'/>
   </for>
 </item>
 <item id='8147' name="spiritual_eye_mana_up">
@@ -622,7 +607,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='8149' name="spiritual_eye_acumen">
+<item id='8149' name="Spiritual Eye - Acumen">
   <for>
     <set val='170' order='0x08' stat='pAtk'/>
     <set val='143' order='0x08' stat='mAtk'/>
@@ -631,11 +616,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Acumen -->
-    <mul val='1.15' order='0x30' stat='mAtkSpd'/>
   </for>
 </item>
-<item id='8150' name="flaming_dragon_skull_acumen">
+<item id='8150' name="Flaming Dragon Skull - Acumen">
   <for>
     <set val='186' order='0x08' stat='pAtk'/>
     <set val='152' order='0x08' stat='mAtk'/>
@@ -644,8 +627,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Acumen -->
-    <mul val='1.15' order='0x30' stat='mAtkSpd'/>
   </for>
 </item>
 <item id='8151' name="flaming_dragon_skull_magic_power">

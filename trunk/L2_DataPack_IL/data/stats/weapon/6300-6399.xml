@@ -67,7 +67,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='6313' name="homunkuluss_sword_acumen">
+<item id='6313' name="Homunkulus\'s Sword - Acumen">
   <for>
     <set val='111' order='0x08' stat='pAtk'/>
     <set val='101' order='0x08' stat='mAtk'/>
@@ -78,7 +78,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='6314' name="homunkuluss_sword_conversion">
+<item id='6314' name="Homunkulus\'s Sword - Conversion">
   <for>
     <set val='111' order='0x08' stat='pAtk'/>
     <set val='101' order='0x08' stat='mAtk'/>

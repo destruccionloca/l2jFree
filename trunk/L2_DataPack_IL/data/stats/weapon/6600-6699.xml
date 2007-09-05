@@ -115,7 +115,7 @@
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
-<item id='6608' name="arcana_mace_acumen">
+<item id='6608' name="Arcana Mace - Acumen">
   <for>
     <set val='225' order='0x08' stat='pAtk'/>
     <set val='175' order='0x08' stat='mAtk'/>

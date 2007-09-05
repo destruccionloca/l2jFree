@@ -71,7 +71,7 @@
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
-<item id='5605' name="branch_of_the_mother_tree_conversion">
+<item id='5605' name="Branch of The Mother Tree - Conversion">
   <for>
     <set val='226' order='0x08' stat='pAtk'/>
     <set val='152' order='0x08' stat='mAtk'/>
@@ -80,9 +80,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-     <!-- Enhances damage to target during PvP -->
-    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
-    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='5606' name="branch_of_the_mother_tree_magic_damage">
@@ -99,7 +96,7 @@
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
-<item id='5607' name="branch_of_the_mother_tree_acumen">
+<item id='5607' name="Branch of The Mother Tree - Acumen">
   <for>
     <set val='226' order='0x08' stat='pAtk'/>
     <set val='152' order='0x08' stat='mAtk'/>
@@ -199,7 +196,7 @@
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
-<item id='5614' name="bloody_orchid_focus">
+<item id='5614' name="Bloody Orchid - Focus">
   <for>
     <set val='186' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -208,9 +205,6 @@
     <set val='433' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-     <!-- Enhances damage to target during PvP -->
-    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
-    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='5615' name="bloody_orchid_back_blow">
@@ -605,7 +599,7 @@
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
-<item id='5643' name="sword_of_miracles__acumen">
+<item id='5643' name="Sword of Miracles - Acumen">
   <for>
     <set val='186' order='0x08' stat='pAtk'/>
     <set val='152' order='0x08' stat='mAtk'/>
