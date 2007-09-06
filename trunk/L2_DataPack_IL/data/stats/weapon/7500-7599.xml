@@ -43,7 +43,7 @@
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
-<item id='7577' name="draconic_bow_focus">
+<item id='7577' name="Draconic Bow - Focus">
   <for>
     <set val='581' order='0x08' stat='pAtk'/>
     <set val='132' order='0x08' stat='mAtk'/>
@@ -52,9 +52,6 @@
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- Enhances damage to target during PvP -->
-    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
-    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='7578' name="draconic_bow_critical_slow">

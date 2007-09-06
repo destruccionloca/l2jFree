@@ -10,9 +10,6 @@
     <set val='433' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- Enhances damage to target during PvP -->
-    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
-    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='8801' name="Naga Storm - Critical Damage">
@@ -121,9 +118,6 @@
     <set val='227' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- Enhances damage to target during PvP -->
-    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
-    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='8808' name="Shyeed\'s Bow - Quick Recovery">

@@ -23,7 +23,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4682' name="stormbringer_focus">
+<item id='4682' name="Stormbringer - Focus">
   <for>
     <set val='107' order='0x08' stat='pAtk'/>
     <set val='61' order='0x08' stat='mAtk'/>
@@ -78,7 +78,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4687' name="katana_focus">
+<item id='4687' name="Katana - Focus">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
     <set val='68' order='0x08' stat='mAtk'/>
@@ -144,7 +144,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4693' name="raid_sword_focus">
+<item id='4693' name="Raid Sword - Focus">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
     <set val='68' order='0x08' stat='mAtk'/>
@@ -188,7 +188,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4697' name="caliburs_focus">
+<item id='4697' name="Caliburs - Focus">
   <for>
     <set val='139' order='0x08' stat='pAtk'/>
     <set val='76' order='0x08' stat='mAtk'/>
@@ -210,7 +210,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4699' name="sword_of_delusion_focus">
+<item id='4699' name="Sword of Delusion - Focus">
   <for>
     <set val='139' order='0x08' stat='pAtk'/>
     <set val='76' order='0x08' stat='mAtk'/>

@@ -1202,7 +1202,9 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add val='80' order='0x40' stat='rCrit'/>
+    <add val="80" order="0x40" stat='rCrit'/>
+    <mul val="1.05" order="0x30" stat='pvpPhysDmg'/><!-- Enhances damage to target during PvP -->
+    <mul val="1.05" order="0x30" stat='pvpMagicalDmg'/>
   </for>
 </skill>
 <skill id="3566" levels="1" name="Special Ability: Focus">
@@ -1217,14 +1219,19 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add val='84' order='0x40' stat='rCrit'/>
+    <add val="84" order="0x40" stat="rCrit"/>
+    <mul val="1.05" order="0x30" stat="pvpPhysDmg"/><!-- Enhances damage to target during PvP -->
+    <mul val="1.05" order="0x30" stat="pvpMagicalDmg"/>
   </for>
 </skill>
 <skill id="3567" levels="2" name="Special Ability: Focus">
 <!--
   Description(s):
-      Increases critical attack success rate and damage inflicted during PvP.
+  1:Increases critical attack success rate and damage inflicted during PvP.	none	
+  2:Increases critical attack success rate. Increases damage inflicted during PvP.
+
 -->
+  <table name="#pvpBonus"> 1.05 1.05 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1232,7 +1239,9 @@ Description(s):
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add val='88' order='0x40' stat='rCrit'/>
+    <add val="88" order="0x40" stat="rCrit"/>
+    <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg"/><!-- Enhances damage to target during PvP -->
+    <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg"/>
   </for>
 </skill>
 <skill id="3568" levels="1" name="Special Ability: HP Drain">

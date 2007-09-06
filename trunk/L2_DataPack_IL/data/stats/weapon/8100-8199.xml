@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE list SYSTEM "weapons.dtd">
 <list>
-<item id='8102' name="sword_of_paagrio_focus">
+<item id='8102' name="Pa\'agrian Sword - Focus">
   <for>
     <set val='169' order='0x08' stat='pAtk'/>
     <set val='76' order='0x08' stat='mAtk'/>
@@ -10,8 +10,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='77' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='8103' name="sword_of_paagrio_health">
@@ -105,7 +103,7 @@
     <add val='297' order='0x08' stat='cAtk'/>
   </for>
 </item>
-<item id='8110' name="infernal_master_focus">
+<item id='8110' name="Infernal Master - Focus">
   <for>
     <set val='259' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -114,8 +112,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='61' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='8111' name="Mysterious Sword - Acumen">
@@ -270,7 +266,7 @@
     <skill onCrit='1' id='96' lvl='5' chance='42'/>
   </for>
 </item>
-<item id='8123' name="karik_horn_focus">
+<item id='8123' name="Karik Horn - Focus">
   <for>
     <set val='169' order='0x08' stat='pAtk'/>
     <set val='76' order='0x08' stat='mAtk'/>
@@ -279,8 +275,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='77' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='8124' name="karik_horn_haste">
@@ -348,7 +342,7 @@
     <skill onCrit='1' id='3022' lvl='4'/>
   </for>
 </item>
-<item id='8129' name="ice_storm_hammer_focus">
+<item id='8129' name="Ice Storm Hammer - Focus">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -357,8 +351,6 @@
     <set val='325' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Focus -->
-    <add val='68' order='0x40' stat='rCrit'/>
   </for>
 </item>
 <item id='8130' name="ice_storm_hammer_anger">

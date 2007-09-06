@@ -23,7 +23,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4702' name="tsurugi_focus">
+<item id='4702' name="Tsurugi - Focus">
   <for>
     <set val='139' order='0x08' stat='pAtk'/>
     <set val='76' order='0x08' stat='mAtk'/>
@@ -67,7 +67,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4706' name="sword_of_nightmare_focus">
+<item id='4706' name="Sword of Nightmare - Focus">
   <for>
     <set val='139' order='0x08' stat='pAtk'/>
     <set val='76' order='0x08' stat='mAtk'/>
@@ -89,7 +89,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4708' name="samurai_longsword_focus">
+<item id='4708' name="Samurai Longsword - Focus">
   <for>
     <set val='156' order='0x08' stat='pAtk'/>
     <set val='83' order='0x08' stat='mAtk'/>
@@ -133,7 +133,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4712' name="flamberge_focus">
+<item id='4712' name="Flamberge - Focus">
   <for>
     <set val='130' order='0x08' stat='pAtk'/>
     <set val='61' order='0x08' stat='mAtk'/>
@@ -166,7 +166,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4715' name="keshanberk_focus">
+<item id='4715' name="Keshanberk - Focus">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -188,7 +188,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4717' name="sword_of_damascus_focus">
+<item id='4717' name="Sword of Damascus - Focus">
   <for>
     <set val='194' order='0x08' stat='pAtk'/>
     <set val='99' order='0x08' stat='mAtk'/>
@@ -276,7 +276,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4725' name="great_sword_focus">
+<item id='4725' name="Great Sword - Focus">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -628,7 +628,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4757' name="meteor_shower_-_focus_focus">
+<item id='4757' name="Meteor Shower - Focus">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -639,7 +639,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4758' name="meteor_shower_-_m._focus_p.focus">
+<item id='4758' name="Meteor Shower - P.Focus">
   <for>
     <set val='213' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -683,7 +683,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4762' name="dark_elven_dagger_focus">
+<item id='4762' name="Dark Elven Dagger - Focus">
   <for>
     <set val='94' order='0x08' stat='pAtk'/>
     <set val='61' order='0x08' stat='mAtk'/>
@@ -760,7 +760,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4769' name="grace_dagger_focus">
+<item id='4769' name="Grace Dagger - Focus">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
     <set val='76' order='0x08' stat='mAtk'/>
@@ -793,7 +793,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4772' name="dark_screamer_focus">
+<item id='4772' name="Dark Screamer - Focus">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
     <set val='76' order='0x08' stat='mAtk'/>
@@ -859,7 +859,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4778' name="kris_focus">
+<item id='4778' name="Kris - Focus">
   <for>
     <set val='153' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -925,7 +925,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4784' name="bloody_orchid_-_focus_focus">
+<item id='4784' name="Bloody Orchid - Focus">
   <for>
     <set val='186' order='0x08' stat='pAtk'/>
     <set val='107' order='0x08' stat='mAtk'/>
@@ -947,7 +947,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4786' name="hell_knife_focus">
+<item id='4786' name="Hell Knife - Focus">
   <for>
     <set val='122' order='0x08' stat='pAtk'/>
     <set val='122' order='0x08' stat='mAtk'/>

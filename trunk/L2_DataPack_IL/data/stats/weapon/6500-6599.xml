@@ -135,7 +135,7 @@
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
-<item id='6583' name="forgotten_blade_focus">
+<item id='6583' name="Forgotten Blade - Focus">
   <for>
     <set val='281' order='0x08' stat='pAtk'/>
     <set val='132' order='0x08' stat='mAtk'/>
@@ -144,9 +144,6 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-     <!-- Enhances damage to target during PvP -->
-    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
-    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 <item id='6584' name="basalt_battlehammer_hp_drain">
@@ -291,7 +288,8 @@
     </set>
   </for>
 </item>
-<item id='6594' name="shining_bow_focus">
+<item id='6594' name="Shining Bow - Focus">
+<!-- use passiv skill 3567 lvl 1 its custom^^ -->
   <for>
     <set val='581' order='0x08' stat='pAtk'/>
     <set val='132' order='0x08' stat='mAtk'/>

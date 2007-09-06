@@ -119,7 +119,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='rCrit'/>
+    <add val='#val' order='0x40' stat='rCrit'/>
   </for>
 </skill>
 <skill id="3011" levels="6" name="Special Ability: Focus">
@@ -135,7 +135,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='rCrit'/>
+    <add val='#val' order='0x40' stat='rCrit'/>
   </for>
 </skill>
 <skill id="3012" levels="6" name="Special Ability: Anger">
@@ -739,7 +739,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val='1.15' order='0x30' stat='mAtkSpd'/> <!-- Casting Spd. +15% -->
+    <mul val="1.15" order="0x30" stat='mAtkSpd'/><!-- Casting Spd. +15% -->
     <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg"/><!-- Enhances damage to target during PvP -->
     <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg"/>
   </for>
@@ -783,9 +783,10 @@
 <skill id="3050" levels="2" name="Special Ability: Focus">
 <!--
   Descriptions:
-   Enhances critical attack. Increases damage inflicted during PvP.
+  1: Increases critical attack success rate and damage inflicted during PvP.
+  2: Increases critical attack success rate. Increases damage inflicted during PvP.
 -->
-  <table name="#pvpBonus"> 1.0 1.05 </table>
+  <table name="#pvpBonus"> 1.05 1.05 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -793,7 +794,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add val='61' order='0x40' stat='rCrit'/>
+    <add val="61" order="0x40" stat="rCrit"/>
     <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg"/><!-- Enhances damage to target during PvP -->
     <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg"/>
   </for>
@@ -801,9 +802,10 @@
 <skill id="3051" levels="2" name="Special Ability: Focus">
 <!--
   Descriptions:
-  1: Enhances critical attack. Increases damage inflicted during PvP.
+  1: Increases critical attack success rate and damage inflicted during PvP.
+  2: Increases critical attack success rate. Increases damage inflicted during PvP
 -->
-  <table name="#pvpBonus"> 1.0 1.05 </table>
+  <table name="#pvpBonus"> 1.05 1.05 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
