@@ -2284,6 +2284,7 @@ public final class Config
 			loadChampionsConfig();
 			loadLotteryConfig();
 			loadWeddingConfig();
+			loadSiegeConfig();
 			loadSepulchursConfig();
 			loadClanHallConfig();
 			loadIdFactoryConfig();
@@ -2594,12 +2595,22 @@ public final class Config
         else if (pName.equalsIgnoreCase("IntervalOfNextMonster")) FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ActivityTimeOfMobs")) FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(pValue);
 
+        // Siege settings
+        else if (pName.equalsIgnoreCase("AttackerMaxClans")) SIEGE_MAX_ATTACKER = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("DefenderMaxClans")) SIEGE_MAX_DEFENDER = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("AttackerRespawn")) SIEGE_RESPAWN_DELAY_ATTACKER = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("DefenderRespawn")) SIEGE_RESPAWN_DELAY_DEFENDER = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("CTLossPenalty")) SIEGE_CT_LOSS_PENALTY = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("MaxFlags")) SIEGE_FLAG_MAX_COUNT = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("SiegeClanMinLevel")) SIEGE_CLAN_MIN_LEVEL = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("SiegeLength")) SIEGE_LENGTH_MINUTES = Integer.parseInt(pValue);
+
         else return false;
         return true;
     }
     
-	// it has no instancies
-	private Config() {}
+    // it has no instancies
+    private Config() {}
 
     /**
      * Save hexadecimal ID of the server in the properties file.
@@ -2612,7 +2623,7 @@ public final class Config
     {
         Config.saveHexid(serverId, string, HEXID_FILE);
     }
-	
+
     /**
      * Save hexadecimal ID of the server in the properties file.
      * @param hexId (String) : hexadecimal ID of the server to store
@@ -2650,5 +2661,4 @@ public final class Config
         System.setProperty("net.sf.l2j.db.password", DATABASE_PASSWORD );       
         System.setProperty("net.sf.l2j.db.maximum.db.connection", Integer.toString(DATABASE_MAX_CONNECTIONS) );
     }    
-	
 }
