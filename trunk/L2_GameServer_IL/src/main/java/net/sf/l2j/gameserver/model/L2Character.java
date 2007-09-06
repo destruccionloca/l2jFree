@@ -2840,12 +2840,12 @@ public abstract class L2Character extends L2Object
         // Send the packets if needed
         if (mi != null)
             sendPacket(mi);
-        // summon info only needs to go to the owner, not to the whole party
-        // player info: if in party, send to all party members except one's self.
-        // if not in party, send to self.
-        if (player.isInParty() && summon == null)
+        if (ps != null && player != null)
         {
-            if (player.isInParty())
+            // summon info only needs to go to the owner, not to the whole party
+            // player info: if in party, send to all party members except one's self.
+            // if not in party, send to self.
+            if (player.isInParty() && summon == null)
                 player.getParty().broadcastToPartyMembers(player, ps);
             else
                 player.sendPacket(ps);
