@@ -54,6 +54,7 @@ import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -784,14 +785,24 @@ public class GameStatusThread extends Thread
                             Config.loadPrivilegesConfig();
                             _print.println("Access config reloaded");
                         }
+                        else if(type.equals("siege"))
+                        {
+                            SiegeManager.getInstance().reload();
+                            _print.println("Siege config reloaded");
+                        }
+                        else if(type.equals("wedding"))
+                        {
+                            Config.loadWeddingConfig();
+                            _print.println("Wedding config reloaded");
+                        }
                         else
                         {
-                            _print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+                            _print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
                         }
                     }
                     catch(Exception e)
                     {
-                        _print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+                        _print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
                     }
                 }
                 else if (_usrCommand.startsWith("reload"))

@@ -18,11 +18,11 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers; 
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -98,15 +98,15 @@ public class SiegeFlag implements ISkillHandler
         L2PcInstance player = (L2PcInstance)activeChar;
 
         if (castle == null || castle.getCastleId() <= 0)
-            sm.addString("You must be on castle ground to place a flag");
+            sm.addString("You must be on castle ground to place a flag.");
         else if (!castle.getSiege().getIsInProgress())
             sm.addString("You can only place a flag during a siege.");
         else if (castle.getSiege().getAttackerClan(player.getClan()) == null)
-            sm.addString("You must be an attacker to place a flag");
+            sm.addString("You must be an attacker to place a flag.");
         else if (player.getClan() == null || !player.isClanLeader())
-            sm.addString("You must be a clan leader to place a flag");
-        else if (castle.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= SiegeManager.getInstance().getFlagMaxCount())
-        	sm.addString("You have already placed the maximum number of flags possible");
+            sm.addString("You must be a clan leader to place a flag.");
+        else if (castle.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= Config.SIEGE_FLAG_MAX_COUNT)
+            sm.addString("You have already placed the maximum number of flags possible.");
         else
             return true;
         

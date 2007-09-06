@@ -53,9 +53,9 @@ public class SiegeManager
     {
         if (_instance == null)
         {
-    		_log.info("Initializing SiegeManager");
-        	_instance = new SiegeManager();
-        	_instance.load();
+            _log.info("Initializing SiegeManager");
+            _instance = new SiegeManager();
+            _instance.loadTowerArtefacts();
         }
         return _instance;
     }
@@ -65,19 +65,9 @@ public class SiegeManager
     
     // =========================================================
     // Data Field
-    private int _attackerMaxClans                              = 500; // Max number of clans
-    private int _attackerRespawnDelay                          = 20000; // Time in ms. Changeable in siege.config
-    private int _defenderMaxClans                              = 500; // Max number of clans
-    private int _defenderRespawnDelay                          = 10000; // Time in ms. Changeable in siege.config
-
-    // Siege settings
     private FastMap<Integer,FastList<SiegeSpawn>>  _artefactSpawnList;
     private FastMap<Integer,FastList<SiegeSpawn>>  _controlTowerSpawnList;
     
-    private int _controlTowerLosePenalty                         = 20000; // Time in ms. Changeable in siege.config
-    private int _flagMaxCount                                   = 1; // Changeable in siege.config
-    private int _siegeClanMinLevel                             = 4; // Changeable in siege.config
-    private int _siegeLength                                    = 120; // Time in minute. Changeable in siege.config
     private FastList<Siege> _sieges;
     
     // =========================================================
@@ -173,7 +163,7 @@ public class SiegeManager
 
     // =========================================================
     // Method - Private
-    private final void load()
+    private final void loadTowerArtefacts()
     {
         try {
             InputStream is              = new FileInputStream(new File(Config.SIEGE_CONFIGURATION_FILE));  
@@ -181,118 +171,101 @@ public class SiegeManager
             siegeSettings.load(is);
             is.close();
 
-            // Siege setting
-            _attackerMaxClans = Integer.decode(siegeSettings.getProperty("AttackerMaxClans", "500"));
-            _attackerRespawnDelay = Integer.decode(siegeSettings.getProperty("AttackerRespawn", "30000"));
-            _controlTowerLosePenalty = Integer.decode(siegeSettings.getProperty("CTLossPenalty", "20000"));
-            _defenderMaxClans = Integer.decode(siegeSettings.getProperty("DefenderMaxClans", "500"));
-            _defenderRespawnDelay = Integer.decode(siegeSettings.getProperty("DefenderRespawn", "20000"));
-            _flagMaxCount = Integer.decode(siegeSettings.getProperty("MaxFlags", "1"));
-            _siegeClanMinLevel = Integer.decode(siegeSettings.getProperty("SiegeClanMinLevel", "4"));
-            _siegeLength = Integer.decode(siegeSettings.getProperty("SiegeLength", "120"));
-            
             // Siege spawns settings
             _controlTowerSpawnList = new FastMap<Integer,FastList<SiegeSpawn>>();
             _artefactSpawnList = new FastMap<Integer,FastList<SiegeSpawn>>();
 
             for (Castle castle: CastleManager.getInstance().getCastles())
             {
-            	FastList<SiegeSpawn> _controlTowersSpawns = new FastList<SiegeSpawn>();
-            	
-            	for (int i=1; i<0xFF; i++)
-            	{
-            		String _spawnParams = siegeSettings.getProperty(castle.getName() + "ControlTower" + Integer.toString(i), "");
-            		
-            		if (_spawnParams.length() == 0) break;
-            		
-            		StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
-            		
-            		try
-            		{
-            			int x = Integer.parseInt(st.nextToken());
-            			int y = Integer.parseInt(st.nextToken());
-            			int z = Integer.parseInt(st.nextToken());
-            			int npc_id = Integer.parseInt(st.nextToken());
-            			int hp = Integer.parseInt(st.nextToken());
-            			
-            			_controlTowersSpawns.add(new SiegeSpawn(castle.getCastleId(),x,y,z,0,npc_id,hp));
-            		}
-            		catch (Exception e)
-            		{
-            			_log.error("Error while loading control tower(s) for "+castle.getName()+" castle.",e);
-            		}
-            	}
-            	
-            	FastList<SiegeSpawn> _artefactSpawns = new FastList<SiegeSpawn>();
-            	
-            	for (int i=1; i<0xFF; i++)
-            	{
-            		String _spawnParams = siegeSettings.getProperty(castle.getName() + "Artefact" + Integer.toString(i), "");
-            		
-            		if (_spawnParams.length() == 0) break;
-            		
-            		StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
-            		
-            		try
-            		{
-            			int x = Integer.parseInt(st.nextToken());
-            			int y = Integer.parseInt(st.nextToken());
-            			int z = Integer.parseInt(st.nextToken());
-            			int heading = Integer.parseInt(st.nextToken()); 
-            			int npc_id = Integer.parseInt(st.nextToken());
-            			
-            			_artefactSpawns.add(new SiegeSpawn(castle.getCastleId(),x,y,z,heading,npc_id));
-            		}
-            		catch (Exception e)
-            		{
-            			_log.error("Error while loading artefact(s) for "+castle.getName()+" castle.",e);
-            		}
-            	}
-            	
-            	_controlTowerSpawnList.put(castle.getCastleId(), _controlTowersSpawns);
-            	_artefactSpawnList.put(castle.getCastleId(), _artefactSpawns);
-            	
-            	if (_log.isDebugEnabled())
-            		_log.info("SiegeManager: Loaded " + Integer.toString(_controlTowersSpawns.size()) + " control tower(s) and "
-            			       + Integer.toString(_artefactSpawns.size()) + " artefact(s) for "+castle.getName()+" castle");
+                FastList<SiegeSpawn> _controlTowersSpawns = new FastList<SiegeSpawn>();
+                
+                for (int i=1; i<0xFF; i++)
+                {
+                    String _spawnParams = siegeSettings.getProperty(castle.getName() + "ControlTower" + Integer.toString(i), "");
+
+                    if (_spawnParams.length() == 0) break;
+
+                    StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
+                    try
+                    {
+                        int x = Integer.parseInt(st.nextToken());
+                        int y = Integer.parseInt(st.nextToken());
+                        int z = Integer.parseInt(st.nextToken());
+                        int npc_id = Integer.parseInt(st.nextToken());
+                        int hp = Integer.parseInt(st.nextToken());
+
+                        _controlTowersSpawns.add(new SiegeSpawn(castle.getCastleId(),x,y,z,0,npc_id,hp));
+                    }
+                    catch (Exception e)
+                    {
+                        _log.error("Error while loading control tower(s) for "+castle.getName()+" castle.",e);
+                    }
+                }
+
+                FastList<SiegeSpawn> _artefactSpawns = new FastList<SiegeSpawn>();
+
+                for (int i=1; i<0xFF; i++)
+                {
+                    String _spawnParams = siegeSettings.getProperty(castle.getName() + "Artefact" + Integer.toString(i), "");
+                    
+                    if (_spawnParams.length() == 0) break;
+
+                    StringTokenizer st = new StringTokenizer(_spawnParams.trim(), ",");
+                    try
+                    {
+                        int x = Integer.parseInt(st.nextToken());
+                        int y = Integer.parseInt(st.nextToken());
+                        int z = Integer.parseInt(st.nextToken());
+                        int heading = Integer.parseInt(st.nextToken()); 
+                        int npc_id = Integer.parseInt(st.nextToken());
+
+                        _artefactSpawns.add(new SiegeSpawn(castle.getCastleId(),x,y,z,heading,npc_id));
+                    }
+                    catch (Exception e)
+                    {
+                        _log.error("Error while loading artefact(s) for "+castle.getName()+" castle.",e);
+                    }
+                }
+
+                _controlTowerSpawnList.put(castle.getCastleId(), _controlTowersSpawns);
+                _artefactSpawnList.put(castle.getCastleId(), _artefactSpawns);
+
+                if (_log.isDebugEnabled())
+                    _log.info("SiegeManager: Loaded " + Integer.toString(_controlTowersSpawns.size()) + " control tower(s) and "
+                        + Integer.toString(_artefactSpawns.size()) + " artefact(s) for "+castle.getName()+" castle");
             }
-           
-            
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             //_initialized = false;
             _log.error("Error while loading siege data.",e);
         }
-        
+    }
+
+    public final void reload()
+    {
+        _artefactSpawnList.clear();
+        _controlTowerSpawnList.clear();
+        Config.loadSiegeConfig();
+        loadTowerArtefacts();
     }
 
     // =========================================================
     // Property - Public
     public final FastList<SiegeSpawn> getArtefactSpawnList(int _castleId) 
     { 
-    	if (_artefactSpawnList.containsKey(_castleId))
-			return _artefactSpawnList.get(_castleId);
-		return null;
+        if (_artefactSpawnList.containsKey(_castleId))
+            return _artefactSpawnList.get(_castleId);
+        return null;
     }
     
     public final FastList<SiegeSpawn> getControlTowerSpawnList(int _castleId) 
     { 
-    	if (_controlTowerSpawnList.containsKey(_castleId))
-			return _controlTowerSpawnList.get(_castleId);
-		return null;
+        if (_controlTowerSpawnList.containsKey(_castleId))
+            return _controlTowerSpawnList.get(_castleId);
+        return null;
     }
     
-    public final int getAttackerMaxClans() { return _attackerMaxClans; }
-
-    public final int getAttackerRespawnDelay() { return _attackerRespawnDelay; }
-
-    public final int getControlTowerLosePenalty() { return _controlTowerLosePenalty; }
-
-    public final int getDefenderMaxClans() { return _defenderMaxClans; }
-
-    public final int getDefenderRespawnDelay() { return (_defenderRespawnDelay); }
-
-    public final int getFlagMaxCount() { return _flagMaxCount; }
-
     public final Siege getSiege(L2Object activeObject) { return getSiege(activeObject.getPosition().getX(), activeObject.getPosition().getY()); }
 
     public final Siege getSiege(int x, int y)
@@ -301,10 +274,6 @@ public class SiegeManager
             if (castle.getSiege().checkIfInZone(x, y)) return castle.getSiege();
         return null;
     }
-    
-    public final int getSiegeClanMinLevel() { return _siegeClanMinLevel; }
-    
-    public final int getSiegeLength() { return _siegeLength; }
 
     public final FastList<Siege> getSieges()
     {
@@ -314,52 +283,52 @@ public class SiegeManager
     
     public class  SiegeSpawn
     {
-    	Location _location; 
-    	private int _npcId;
-    	private int _heading;
-    	private int _castleId;
-    	private int _hp;
-    	
-    	public SiegeSpawn(int castle_id, int x, int y, int z, int heading, int npc_id)
-    	{
-    		_castleId = castle_id;
-    		_location = new Location(x,y,z,heading);
-    		_heading = heading;
-    		_npcId = npc_id;
-    	}
-    	
-    	public SiegeSpawn(int castle_id, int x, int y, int z, int heading, int npc_id, int hp)
-    	{
-    		_castleId = castle_id;
-    		_location = new Location(x,y,z,heading);
-    		_heading = heading;
-    		_npcId = npc_id;
-    		_hp = hp;
-    	}
-    	
-    	public int getCastleId()
-    	{
-    		return _castleId;
-    	}
+        Location _location; 
+        private int _npcId;
+        private int _heading;
+        private int _castleId;
+        private int _hp;
+        
+        public SiegeSpawn(int castle_id, int x, int y, int z, int heading, int npc_id)
+        {
+            _castleId = castle_id;
+            _location = new Location(x,y,z,heading);
+            _heading = heading;
+            _npcId = npc_id;
+        }
+        
+        public SiegeSpawn(int castle_id, int x, int y, int z, int heading, int npc_id, int hp)
+        {
+            _castleId = castle_id;
+            _location = new Location(x,y,z,heading);
+            _heading = heading;
+            _npcId = npc_id;
+            _hp = hp;
+        }
+        
+        public int getCastleId()
+        {
+            return _castleId;
+        }
 
-    	public int getNpcId()
-    	{
-    		return _npcId;
-    	}
+        public int getNpcId()
+        {
+            return _npcId;
+        }
 
-    	public int getHeading()
-    	{
-    		return _heading;
-    	}
-    	
-    	public int getHp()
-    	{
-    		return _hp;
-    	}
-    	
-    	public Location getLocation()
-    	{
-    		return _location;
-    	}
+        public int getHeading()
+        {
+            return _heading;
+        }
+        
+        public int getHp()
+        {
+            return _hp;
+        }
+        
+        public Location getLocation()
+        {
+            return _location;
+        }
     }
 }

@@ -49,10 +49,10 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author mkizub
  */
-public final class Config {
-
-	private final static Log _log = LogFactory.getLog(Config.class.getName());
-	
+public final class Config
+{
+    private final static Log _log = LogFactory.getLog(Config.class.getName());
+    
     //*******************************************************************************************	
     public static final String  CONFIGURATION_FILE          = "./config/server.properties";
     //*******************************************************************************************
@@ -111,7 +111,7 @@ public final class Config {
     //*******************************************************************************************    
     public static void loadConfiguration()
     {
-    	_log.info("loading " + CONFIGURATION_FILE);
+        _log.info("loading " + CONFIGURATION_FILE);
 	    try {
 	        Properties serverSettings    = new Properties();
 			InputStream is               = new FileInputStream(new File(CONFIGURATION_FILE));
@@ -125,7 +125,7 @@ public final class Config {
             PORT_GAME               = Integer.parseInt(serverSettings.getProperty("GameserverPort", "7777"));
             try
             {
-            	CNAME_PATTERN 		    = Pattern.compile(serverSettings.getProperty("CnameTemplate", "[A-Za-z0-9\\-]{3,16}"));
+                CNAME_PATTERN       = Pattern.compile(serverSettings.getProperty("CnameTemplate", "[A-Za-z0-9\\-]{3,16}"));
             }
             catch (PatternSyntaxException e)
             {
@@ -135,7 +135,7 @@ public final class Config {
             
             try
             {
-            	PET_NAME_PATTERN        = Pattern.compile(serverSettings.getProperty("PetNameTemplate", "[A-Za-z0-9\\-]{3,16}"));
+                PET_NAME_PATTERN    = Pattern.compile(serverSettings.getProperty("PetNameTemplate", "[A-Za-z0-9\\-]{3,16}"));
             }
             catch (PatternSyntaxException e)
             {
@@ -145,7 +145,7 @@ public final class Config {
             
             try
             {
-            	CLAN_ALLY_NAME_PATTERN  = Pattern.compile(serverSettings.getProperty("ClanAllyNameTemplate", "[A-Za-z0-9 \\-]{3,16}"));
+                CLAN_ALLY_NAME_PATTERN  = Pattern.compile(serverSettings.getProperty("ClanAllyNameTemplate", "[A-Za-z0-9 \\-]{3,16}"));
             }
             catch (PatternSyntaxException e)
             {
@@ -155,7 +155,7 @@ public final class Config {
             
             try
             {
-            	TITLE_PATTERN           = Pattern.compile(serverSettings.getProperty("TitleTemplate", "[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}"));
+                TITLE_PATTERN           = Pattern.compile(serverSettings.getProperty("TitleTemplate", "[A-Za-z0-9 \\\\[\\\\]\\(\\)\\<\\>\\|\\!]{3,16}"));
             }
             catch (PatternSyntaxException e)
             {
@@ -194,7 +194,7 @@ public final class Config {
             NETWORK_TRAFFIC_OPTIMIZATION     = Boolean.parseBoolean(serverSettings.getProperty("NetworkTrafficOptimization", "False"));
             NETWORK_TRAFFIC_OPTIMIZATION_MS  = Integer.parseInt(serverSettings.getProperty("NetworkTrafficOptimizationMs", "1100"));
             FLOOD_PROTECTION     = Boolean.parseBoolean(serverSettings.getProperty("FloodProtection", "False"));
-            PACKET_LIMIT    	 = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
+            PACKET_LIMIT         = Integer.parseInt(serverSettings.getProperty("PacketLimit", "500"));
             PACKET_TIME_LIMIT    = Integer.parseInt(serverSettings.getProperty("PacketTimeLimit", "1100"));
             
             JMX_TCP_PORT = Integer.parseInt(serverSettings.getProperty("admin_portJMX","-1"));
@@ -233,14 +233,14 @@ public final class Config {
     //*******************************************************************************************    
     public static void loadClansConfig()
     {
-    	_log.info("loading " + CLANS_FILE);
+        _log.info("loading " + CLANS_FILE);
 	    try
 	    {
 	        Properties clansSettings	= new Properties();
 	        InputStream is              = new FileInputStream(new File(CLANS_FILE));
 	        clansSettings.load(is);
 	        is.close();
-	    	
+
 	        ALT_CLAN_MEMBERS_FOR_WAR                            = Integer.parseInt(clansSettings.getProperty("AltClanMembersForWar", "15"));
 	        ALT_CLAN_JOIN_DAYS                                  = Integer.parseInt(clansSettings.getProperty("DaysBeforeJoinAClan", "5"));
 	        ALT_CLAN_CREATE_DAYS                                = Integer.parseInt(clansSettings.getProperty("DaysBeforeCreateAClan", "10"));                
@@ -333,7 +333,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadLotteryConfig()
     {
-    	_log.info("loading " + LOTTERY_FILE);
+        _log.info("loading " + LOTTERY_FILE);
         try
         {
             Properties lotterySettings = new Properties();
@@ -371,7 +371,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadWeddingConfig()
     {
-    	_log.info("loading " + WEDDING_FILE);
+        _log.info("loading " + WEDDING_FILE);
         try
         {
             Properties weddingSettings = new Properties();
@@ -408,7 +408,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadSepulchursConfig()
     {
-    	_log.info("loading " + SEPULCHURS_FILE);
+        _log.info("loading " + SEPULCHURS_FILE);
         try
         {
             Properties sepulchursSettings = new Properties();
@@ -567,7 +567,7 @@ public final class Config {
     //  *******************************************************************************************    
     public static void loadEnchantConfig()
     {
-    	_log.info("loading " + ENCHANT_CONFIG_FILE);
+        _log.info("loading " + ENCHANT_CONFIG_FILE);
         try
         {
             Properties enchantSettings  = new Properties();
@@ -649,7 +649,7 @@ public final class Config {
     //  *******************************************************************************************    
     public static void loadPvpConfig()
     {
-    	_log.info("loading " + PVP_CONFIG_FILE);
+        _log.info("loading " + PVP_CONFIG_FILE);
         try
         {
             Properties pvpSettings      = new Properties();
@@ -707,7 +707,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadIdFactoryConfig()
     {
-    	_log.info("loading " + ID_CONFIG_FILE);
+        _log.info("loading " + ID_CONFIG_FILE);
         try
         {
             Properties idSettings   = new Properties();
@@ -798,7 +798,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadOtherConfig()
     {
-    	_log.info("loading " + OTHER_CONFIG_FILE);
+        _log.info("loading " + OTHER_CONFIG_FILE);
         try
         {
             Properties otherSettings    = new Properties();
@@ -1299,7 +1299,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadAltConfig()
     {
-    	_log.info("loading " + ALT_SETTINGS_FILE);
+        _log.info("loading " + ALT_SETTINGS_FILE);
         try
         {
             Properties altSettings  = new Properties();
@@ -1499,7 +1499,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadGmAccess()
     {
-    	_log.info("loading " + GM_ACCESS_FILE);
+        _log.info("loading " + GM_ACCESS_FILE);
         try
         {
             Properties gmSettings   = new Properties();
@@ -1600,7 +1600,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadTelnetConfig()
     {
-    	_log.info("loading " + TELNET_FILE);
+        _log.info("loading " + TELNET_FILE);
         try
         {
             Properties telnetSettings   = new Properties();
@@ -1621,18 +1621,53 @@ public final class Config {
     public static final String  SIEGE_CONFIGURATION_FILE	= "./config/siege.properties";
     //  *******************************************************************************************
     
+    public static int SIEGE_MAX_ATTACKER;
+    public static int SIEGE_MAX_DEFENDER;
+    public static int SIEGE_RESPAWN_DELAY_ATTACKER;
+    public static int SIEGE_RESPAWN_DELAY_DEFENDER;
+
+    public static int SIEGE_CT_LOSS_PENALTY;
+    public static int SIEGE_FLAG_MAX_COUNT;
+    public static int SIEGE_CLAN_MIN_LEVEL;
+    public static int SIEGE_LENGTH_MINUTES;
     
+    public static void loadSiegeConfig()
+    {
+        _log.info("loading " + SIEGE_CONFIGURATION_FILE);
+        try
+        {
+            Properties siegeSettings = new Properties();
+            InputStream is           = new FileInputStream(SIEGE_CONFIGURATION_FILE);
+            siegeSettings.load(is);
+            is.close();
+
+            SIEGE_MAX_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerMaxClans", "500"));
+            SIEGE_MAX_DEFENDER = Integer.parseInt(siegeSettings.getProperty("DefenderMaxClans", "500"));
+            SIEGE_RESPAWN_DELAY_ATTACKER = Integer.parseInt(siegeSettings.getProperty("AttackerRespawn", "30000"));
+            SIEGE_RESPAWN_DELAY_DEFENDER = Integer.parseInt(siegeSettings.getProperty("DefenderRespawn", "30000"));
+
+            SIEGE_CT_LOSS_PENALTY = Integer.parseInt(siegeSettings.getProperty("CTLossPenalty", "20000"));
+            SIEGE_FLAG_MAX_COUNT  = Integer.parseInt(siegeSettings.getProperty("MaxFlags", "1"));
+            SIEGE_CLAN_MIN_LEVEL  = Integer.parseInt(siegeSettings.getProperty("SiegeClanMinLevel", "4"));
+            SIEGE_LENGTH_MINUTES  = Integer.parseInt(siegeSettings.getProperty("SiegeLength", "120"));
+        }
+        catch (Exception e)
+        {
+            _log.error(e);
+            throw new Error("Failed to Load "+SIEGE_CONFIGURATION_FILE+" File.");
+        }
+    }
     
     //  *******************************************************************************************
     public static final String  HEXID_FILE					= "./config/hexid.txt";
     //  *******************************************************************************************
-	public static byte[] HEX_ID;	// Hexadecimal ID of the game server
+    public static byte[] HEX_ID;	// Hexadecimal ID of the game server
     /** Server ID used with the HexID */
     public static int SERVER_ID;
     //  *******************************************************************************************
     public static void loadHexId()
     {
-    	_log.info("loading " + HEXID_FILE);
+        _log.info("loading " + HEXID_FILE);
         try
         {
             Properties Settings   = new Properties();
@@ -1644,7 +1679,7 @@ public final class Config {
         }
         catch (Exception e)
         {
-        	_log.warn("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
+            _log.warn("Could not load HexID file ("+HEXID_FILE+"). Hopefully login will give us one.");
         }
     }
     
@@ -1657,7 +1692,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadPrivilegesConfig()
     {
-    	_log.info("loading " + COMMAND_PRIVILEGES_FILE);
+        _log.info("loading " + COMMAND_PRIVILEGES_FILE);
         try
         {
             Properties CommandPrivileges  = new Properties();
@@ -1709,7 +1744,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadSevenSignsConfig()
     {
-    	_log.info("loading " + SEVENSIGNS_FILE);
+        _log.info("loading " + SEVENSIGNS_FILE);
         try
         {
             Properties SevenSettings  = new Properties();
@@ -1796,7 +1831,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadClanHallConfig()
     {
-    	_log.info("loading " + CLANHALL_CONFIG_FILE);
+        _log.info("loading " + CLANHALL_CONFIG_FILE);
         try
         {
             Properties clanhallSettings  = new Properties();
@@ -1891,7 +1926,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadFunEnginesConfig()
     {
-    	_log.info("loading " + FUN_ENGINES_FILE);
+        _log.info("loading " + FUN_ENGINES_FILE);
         try
         {
            Properties funEnginesSettings = new Properties();
@@ -1934,7 +1969,7 @@ public final class Config {
     public static boolean 	IRC_SSL;
     public static String	IRC_SERVER;
     public static int 		IRC_PORT;
-    public static String	IRC_PASS;    
+    public static String	IRC_PASS;
     public static String	IRC_NICK;
     public static String	IRC_USER;
     public static String	IRC_NAME;
@@ -1947,11 +1982,11 @@ public final class Config {
     public static String	IRC_TO_GAME_TYPE;
     public static String	IRC_TO_GAME_SPECIAL_CHAR;
     public static String	IRC_TO_GAME_DISPLAY;
-    public static boolean	IRC_ANNOUNCE;    
+    public static boolean	IRC_ANNOUNCE;
     //  *******************************************************************************************
     public static void loadIrcConfig()
     {
-    	_log.info("loading " + IRC_FILE);
+        _log.info("loading " + IRC_FILE);
         try
         {
             Properties ircSettings = new Properties();
@@ -2017,7 +2052,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadBossConfig()
     {
-    	_log.info("loading " + BOSS_FILE);
+        _log.info("loading " + BOSS_FILE);
         try
         {
             Properties bossSettings = new Properties();
@@ -2097,7 +2132,7 @@ public final class Config {
     //  *******************************************************************************************
     public static void loadSayFilter()
     {
-    	_log.info("loading " + SAY_FILTER_FILE);
+        _log.info("loading " + SAY_FILTER_FILE);
         if(USE_SAY_FILTER){
             try{
             LineNumberReader lnr = null;

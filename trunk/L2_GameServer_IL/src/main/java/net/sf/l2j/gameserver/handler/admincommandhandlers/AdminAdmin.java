@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.Manager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2World;
@@ -222,14 +223,24 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadPrivilegesConfig();
 					activeChar.sendMessage("Access config reloaded");
 				}
+				else if(type.equals("siege"))
+				{
+					SiegeManager.getInstance().reload();
+					activeChar.sendMessage("Siege config reloaded");
+				}
+				else if(type.equals("wedding"))
+				{
+					Config.loadWeddingConfig();
+					activeChar.sendMessage("Wedding config reloaded");
+				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
 			}
 		}
 
