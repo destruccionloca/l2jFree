@@ -174,7 +174,11 @@ public enum Stats
     MP_CONSUME_RATE        ("MpConsumeRate"),
     HP_CONSUME_RATE        ("HpConsumeRate"),
     MP_CONSUME             ("MpConsume"),
-    SOULSHOT_COUNT         ("soulShotCount")
+    SOULSHOT_COUNT         ("soulShotCount"),
+    
+    BLOCK_RECEIVE_DAMAGE   ("block_receive;damage"),
+    BLOCK_RECEIVE_BUFF	   ("block_receive;buff"),
+    BLOCK_RECEIVE_DEBUFF   ("block_receive;debuff"),
     ;
 	
 	public static final int NUM_STATS = values().length; 

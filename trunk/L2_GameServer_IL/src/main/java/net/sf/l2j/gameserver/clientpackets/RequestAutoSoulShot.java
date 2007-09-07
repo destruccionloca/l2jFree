@@ -103,6 +103,7 @@ public class RequestAutoSoulShot extends L2GameClientPacket
                                     sm.addString(item.getItemName());
                                     activeChar.sendPacket(sm);
                                     sm = null;
+                                    activeChar.sendMessage("During Olympiad you cant automate the Soulshots");
                                 }
                                 else
                                 {

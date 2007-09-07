@@ -1854,5 +1854,25 @@ public final class Formulas
     public double getSTRBonus(L2Character activeChar)
     {
     	return STRbonus[activeChar.getStat().getSTR()];
+    }
+    
+    public boolean receiveBlock(L2Character cha, String type)
+    {
+        if(type.equalsIgnoreCase("buff"))
+        {
+            return cha.calcStat(Stats.BLOCK_RECEIVE_BUFF, 0, null, null) > 0;
+        }
+        
+        if(type.equalsIgnoreCase("debuff"))
+        {
+            return cha.calcStat(Stats.BLOCK_RECEIVE_DEBUFF, 0, null, null) > 0;
+        }
+        
+        if(type.equalsIgnoreCase("damage"))
+        {
+            return cha.calcStat(Stats.BLOCK_RECEIVE_DAMAGE, 0, null, null) > 0;
+        }
+        
+        return false;
     }    
 }
