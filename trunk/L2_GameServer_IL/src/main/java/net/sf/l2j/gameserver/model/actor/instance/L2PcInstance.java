@@ -152,6 +152,7 @@ import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.CameraMode;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.serverpackets.ClanHallDecoration;
@@ -190,6 +191,7 @@ import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.serverpackets.Snoop;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
+import net.sf.l2j.gameserver.serverpackets.SpecialCamera;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -8016,7 +8018,39 @@ public final class L2PcInstance extends L2PlayableInstance
         _observerMode = true;
         broadcastUserInfo();
     }
+    
+	// [L2J_JP ADD SANDMAN]
+	public void enterMovieMode()
+	{
+		setTarget(null);
+		stopMove(null);
+		setIsParalyzed(true);
+        setIsInvul(true);
+        setIsImobilised(true);
+        sendPacket(new CameraMode(1));
+	}
+	
+	public void leaveMovieMode()
+	{
+        setTarget(null);
+		stopMove(null);
+		setIsParalyzed(false);
+        setIsInvul(false);
+        setIsImobilised(false);
+        sendPacket(new CameraMode(0));
+	}
 
+    /**
+     * yaw:North=90, south=270, east=0, west=180<BR>
+     * pitch > 0:looks up,pitch < 0:looks down<BR>
+     * time:faster that small value is.<BR>
+     */
+	public void specialCamera(L2Object target,int dist, int yaw, int pitch, int time, int duration)
+	{
+		sendPacket(new SpecialCamera(target.getObjectId(),dist,yaw,pitch,time,duration));	
+	}
+	// L2JJP END
+	
     public void leaveObserverMode()
     {
         setTarget(null);

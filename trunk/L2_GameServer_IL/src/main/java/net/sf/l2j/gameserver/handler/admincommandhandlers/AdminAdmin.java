@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Multisell;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
@@ -67,6 +68,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				"admin_gmliston", "admin_gmlistoff", "admin_silence", "admin_diet", "admin_tradeoff", "admin_reload", "admin_set", "admin_set_menu", "admin_set_mod",
 				"admin_saveolymp", "admin_manualhero",
 				// L2J-FREE
+				"admin_camera",	// test for moviemode.
 				"admin_reload_config", "admin_config_server",
 				"admin_summon", "admin_unsummon"};
 
@@ -245,6 +247,39 @@ public class AdminAdmin implements IAdminCommandHandler
 		}
 
 		//[L2J_JP_ADD
+        else if(command.startsWith("admin_camera"))
+        {
+            if(activeChar.getTarget() == null)
+            {
+                activeChar.sendMessage("Target incorrect.");
+                activeChar.sendMessage("Usage:  //camera dist yaw pitch time duration");
+            }
+            else
+            {
+                StringTokenizer st = new StringTokenizer(command);
+                st.nextToken();
+
+                try
+                {
+                	L2Object target = activeChar.getTarget();
+                	int scDist = Integer.parseInt(st.nextToken());
+                	int scYaw = Integer.parseInt(st.nextToken());
+                	int scPitch = Integer.parseInt(st.nextToken());
+                	int scTime = Integer.parseInt(st.nextToken());
+                	int scDuration = Integer.parseInt(st.nextToken());
+                	activeChar.enterMovieMode();
+                	activeChar.specialCamera(target, scDist, scYaw, scPitch, scTime, scDuration);
+                }
+                catch(Exception e)
+                {
+                    activeChar.sendMessage("Usage:  //camera dist yaw pitch time duration");
+                }
+                finally
+                {
+                	activeChar.leaveMovieMode();
+                }
+            }
+        }		
 		else if(command.startsWith("admin_summon"))
 		{
 			StringTokenizer st = new StringTokenizer(command);

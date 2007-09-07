@@ -23,26 +23,25 @@
 
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.concurrent.Future;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
-import net.sf.l2j.gameserver.lib.Rnd;
-import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.model.L2CharPosition;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -168,10 +167,11 @@ public class ValakasManager
             // Valakas.
             template1 = NpcTable.getInstance().getTemplate(29028);
             tempSpawn = new L2Spawn(template1);
-            tempSpawn.setLocx(213168);
-            tempSpawn.setLocy(-114578);
-            tempSpawn.setLocz(-1635);
-            tempSpawn.setHeading(22106);
+            tempSpawn.setLocx(212852);
+            tempSpawn.setLocy(-114842);
+            tempSpawn.setLocz(-1632);
+            //tempSpawn.setHeading(22106);
+            tempSpawn.setHeading(833);
             tempSpawn.setAmount(1);
             tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
             SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
@@ -309,47 +309,313 @@ public class ValakasManager
 
     	if (_monsterSpawnTask == null)
         {
-        	_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(),_appTimeOfBoss);
+    		_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(	new ValakasSpawn(1,null),_appTimeOfBoss);
         }
     }
     
     // do spawn Valakas.
     private class ValakasSpawn implements Runnable
     {
-    	ValakasSpawn()
+    	int _distance = 6502500;
+    	int _taskId;
+    	L2BossInstance _valakas = null;
+    	
+    	ValakasSpawn(int taskId,L2BossInstance valakas)
     	{
-    	}
+    		_taskId = taskId;
+    		_valakas = valakas;
+		}
     	
     	public void run()
     	{
-        	// do spawn.
-        	L2Spawn valakasSpawn = _monsterSpawn.get(29028);
-        	L2BossInstance valakas = (L2BossInstance)valakasSpawn.doSpawn();
-        	_monsters.add(valakas);
-        	
-        	updateKnownList(valakas);
-        	
-        	// do social.
-        	valakas.setIsInSocialAction(true);
-            SocialAction sa = new SocialAction(valakas.getObjectId(), 3);
-            valakas.broadcastPacket(sa);
+    		SocialAction sa = null;
+    		
+    		switch(_taskId)
+    		{
+	    		case 1:
+	            	// do spawn.
+	            	L2Spawn valakasSpawn = _monsterSpawn.get(29028);
+	            	_valakas = (L2BossInstance)valakasSpawn.doSpawn();
+	            	_monsters.add(_valakas);
+	            	updateKnownList(_valakas);
+	            	_valakas.setIsImobilised(true);
+	            	_valakas.setIsInSocialAction(true);
+	    		
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(2,_valakas), 16);
+	
+					break;
+	
+	    		case 2:
+	            	// do social.
+	                sa = new SocialAction(_valakas.getObjectId(), 1);
+	                _valakas.broadcastPacket(sa);
+					
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 1800,180,-1,1500,15000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(3,_valakas), 1500);
+	
+					break;
+	
+	    		case 3:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 1300,180,-5,3000,15000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(4,_valakas), 3300);
+	
+					break;
+	
+	    		case 4:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 500,180,-8,600,15000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(5,_valakas), 1300);
+	
+					break;
+	
+	    		case 5:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 1200,180,-5,300,15000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(6,_valakas), 1600);
+	
+					break;
+	
+	    		case 6:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 2800,250,70,0,15000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(7,_valakas), 200);
+	
+					break;
+	
+	    		case 7:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 2600,30,60,3400,15000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(8,_valakas), 5700);
+	
+					break;
+	
+	    		case 8:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 700,150,-65,0,15000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(9,_valakas), 1400);
+	
+					break;
+	
+	    		case 9:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 1200,150,-55,2900,15000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(10,_valakas), 6700);
+	
+					break;
+	
+	    		case 10:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 750,170,-10,1700,5700);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(11,_valakas), 3700);
+	
+					break;
+	
+	    		case 11:
+					// set camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						if (pc.getPlanDistanceSq(_valakas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_valakas, 840,170,-5,1200,2000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(12,_valakas), 2000);
+	
+					break;
+	
+	    		case 12:
+					// reset camera.
+					for (L2PcInstance pc : _playersInLair)
+					{
+						pc.leaveMovieMode();
+					}
 
-            _socialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(valakas,2), 26000);
-
-            _mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(valakas),41000);
-
-            // move at random.
-            if(_moveAtRandom)
-            {
-            	L2CharPosition pos = new L2CharPosition(Rnd.get(211080, 214909),Rnd.get(-115841, -112822),-1662,0);
-            	_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(
-                		new MoveAtRandom(valakas,pos),42000);
-            }
-            
-            // set delete task.
-            _activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_activityTimeOfBoss);
-            
-            valakas = null;
+					_mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(_valakas),16);
+	
+	                // move at random.
+	                if(_moveAtRandom)
+	                {
+	                	L2CharPosition pos = new L2CharPosition(Rnd.get(211080, 214909),Rnd.get(-115841, -112822),-1662,0);
+	                	_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(new MoveAtRandom(_valakas,pos),32);
+	                }
+	                
+	                // set delete task.
+	                _activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_activityTimeOfBoss);
+	
+					break;
+    		}
     	}
     }
 
@@ -497,33 +763,6 @@ public class ValakasManager
         }
     }
     
-    // do social.
-    private class Social implements Runnable
-    {
-        private int _action;
-        private L2NpcInstance _npc;
-
-        public Social(L2NpcInstance npc,int actionId)
-        {
-        	_npc = npc;
-            _action = actionId;
-        }
-
-        public void run()
-        {
-        	updateKnownList(_npc);
-
-    		SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
-            _npc.broadcastPacket(sa);
-
-            if(_socialTask != null)
-    		{
-    			_socialTask.cancel(true);
-    			_socialTask = null;
-    		}
-        }
-    }
-
     // action is enabled the boss.
     private class SetMobilised implements Runnable
     {

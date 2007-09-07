@@ -23,28 +23,27 @@
 
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.concurrent.Future;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
-import net.sf.l2j.gameserver.lib.Rnd;
-import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.model.L2CharPosition;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -134,6 +133,7 @@ public class AntharasManager
     protected Future _bomberSpawnTask = null;
     protected Future _selfDestructionTask = null;
     protected Future _moveAtRandomTask = null;
+    protected Future _MovieTsak = null;
     
     // status in lair.
     protected boolean _isBossSpawned = false;
@@ -387,92 +387,251 @@ public class AntharasManager
 
     	if (_monsterSpawnTask == null)
         {
-        	_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-            		new AntharasSpawn(),_appTimeOfBoss);
+    		_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(	new AntharasSpawn(1,null),_appTimeOfBoss);
         }
     }
     
     // do spawn Antharas.
     private class AntharasSpawn implements Runnable
     {
-    	AntharasSpawn()
-    	{
-    	}
-    	
-    	public void run()
-    	{
-        	int npcId;
-        	
-        	// Strength of Antharas is decided by the number of players that invaded the lair.
-        	if(_oldAntharas) npcId = 29019;	// old
-        	else if(_PlayersInLair.size() <= _limitOfWeak) npcId = 29066;	// weak
-        	else if(_PlayersInLair.size() >= _limitOfNormal) npcId = 29068;	// strong
-        	else npcId = 29067;	//normal
+    	int _distance = 6502500;
+    	int _taskId = 0;
+		L2BossInstance _antharas = null;
 
-        	// do spawn.
-        	L2Spawn antharasSpawn = _monsterspawn.get(npcId);
-        	L2BossInstance antharas = (L2BossInstance)antharasSpawn.doSpawn();
-        	_monsters.add(antharas);
+		AntharasSpawn(int taskId,L2BossInstance antharas)
+		{
+			_taskId = taskId;
+			_antharas = antharas;
+		}
 
-        	updateKnownList(antharas);
-        	
-        	// do social.
-        	antharas.setIsImobilised(true);
-        	antharas.setIsInSocialAction(true);
-            SocialAction sa = new SocialAction(antharas.getObjectId(), 3);
-            antharas.broadcastPacket(sa);
+		public void run()
+		{
+			int npcId;
+			L2Spawn antharasSpawn = null;
+			SocialAction sa = null;
 
-            _socialTask = 
-            	ThreadPoolManager.getInstance().scheduleEffect(new Social(antharas,2), 15000);
+			switch (_taskId)
+			{
+				case 1: // spawn.
+					// Strength of Antharas is decided by the number of players that
+					// invaded the lair.
+					if (_oldAntharas)
+						npcId = 29019; // old
+					else if (_PlayersInLair.size() <= _limitOfWeak)
+						npcId = 29066; // weak
+					else if (_PlayersInLair.size() >= _limitOfNormal)
+						npcId = 29068; // strong
+					else
+						npcId = 29067; // normal
+	
+					// do spawn.
+					antharasSpawn = _monsterspawn.get(npcId);
+					_antharas = (L2BossInstance) antharasSpawn.doSpawn();
+					_monsters.add(_antharas);
+					_antharas.setIsImobilised(true);
+					_antharas.setIsInSocialAction(true);
+	
+					// set KnownList
+					updateKnownList(_antharas);
+	
+					// setting 1st time of minions spawn task.
+					if (!_oldAntharas)
+					{
+						int intervalOfBehemoth;
+						int intervalOfBomber;
+	
+						// Interval of minions is decided by the number of players
+						// that invaded the lair.
+						if (_PlayersInLair.size() <= _limitOfWeak) // weak
+						{
+							intervalOfBehemoth = _intervalOfBehemothOnWeak;
+							intervalOfBomber = _intervalOfBomberOnWeak;
+						} else if (_PlayersInLair.size() >= _limitOfNormal) // strong
+						{
+							intervalOfBehemoth = _intervalOfBehemothOnStrong;
+							intervalOfBomber = _intervalOfBomberOnStrong;
+						} else
+						// normal
+						{
+							intervalOfBehemoth = _intervalOfBehemothOnNormal;
+							intervalOfBomber = _intervalOfBomberOnNormal;
+						}
+	
+						// spawn Behemoth.
+						_behemothSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new BehemothSpawn(intervalOfBehemoth),30000);
+	
+						// spawn Bomber.
+						_bomberSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new BomberSpawn(intervalOfBomber),30000);
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new AntharasSpawn(2,_antharas), 16);
+	
+					break;
+	
+				case 2:
+					// set camera.
+					for (L2PcInstance pc : _PlayersInLair)
+					{
+						if (pc.getPlanDistanceSq(_antharas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_antharas, 700, 13, -19, 0, 10000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new AntharasSpawn(3,_antharas), 3000);
+	
+					break;
+	
+				case 3:
+					// do social.
+					sa = new SocialAction(_antharas.getObjectId(), 1);
+					_antharas.broadcastPacket(sa);
+	
+					// set camera.
+					for (L2PcInstance pc : _PlayersInLair)
+					{
+						if (pc.getPlanDistanceSq(_antharas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_antharas, 700, 13, 0, 6000, 10000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new AntharasSpawn(4,_antharas), 10000);
+	
+					break;
+	
+				case 4:
+					// set camera.
+					for (L2PcInstance pc : _PlayersInLair)
+					{
+						if (pc.getPlanDistanceSq(_antharas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_antharas, 3800, 0, -3, 0, 10000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new AntharasSpawn(5,_antharas), 200);
+	
+					break;
+	
+				case 5:
+					// do social.
+					sa = new SocialAction(_antharas.getObjectId(), 2);
+					_antharas.broadcastPacket(sa);
+	
+					// set camera.
+					for (L2PcInstance pc : _PlayersInLair)
+					{
+						if (pc.getPlanDistanceSq(_antharas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_antharas, 1200, 0, -3, 22000, 11000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new AntharasSpawn(6,_antharas), 10800);
+	
+					break;
+	
+				case 6:
+					// set camera.
+					for (L2PcInstance pc : _PlayersInLair)
+					{
+						if (pc.getPlanDistanceSq(_antharas) <= _distance)
+						{
+							pc.enterMovieMode();
+							pc.specialCamera(_antharas, 1200, 0, -3, 300, 2000);
+						} else
+						{
+							pc.leaveMovieMode();
+						}
+					}
+	
+					// set next task.
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new AntharasSpawn(7,_antharas), 1900);
+	
+					break;
+	
+				case 7:
+					_antharas.abortCast();		
+					// reset camera.
+					for (L2PcInstance pc : _PlayersInLair)
+					{
+						pc.leaveMovieMode();
+					}
 
-            _mobiliseTask = 
-            	ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(antharas),30000);
-
-            // setting 1st time of minions spawn task.
-            if(!_oldAntharas)
-            {
-            	int intervalOfBehemoth;
-            	int intervalOfBomber;
-            	
-            	// Interval of minions is decided by the number of players that invaded the lair.
-            	if(_PlayersInLair.size() <= _limitOfWeak)	// weak
-            	{
-            		intervalOfBehemoth = _intervalOfBehemothOnWeak;
-            		intervalOfBomber = _intervalOfBomberOnWeak;
-            	}
-            	else if(_PlayersInLair.size() >= _limitOfNormal)	// strong
-            	{
-            		intervalOfBehemoth = _intervalOfBehemothOnStrong;
-            		intervalOfBomber = _intervalOfBomberOnStrong;
-            	}
-            	else	//normal
-            	{
-            		intervalOfBehemoth = _intervalOfBehemothOnNormal;
-            		intervalOfBomber = _intervalOfBomberOnNormal;
-            	}
-            	
-            	// spawn Behemoth.
-            	_behemothSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-                    		new BehemothSpawn(intervalOfBehemoth),30000);
-
-            	// spawn Bomber.
-            	_bomberSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-                		new BomberSpawn(intervalOfBomber),30000);
-            }
-            
-            // move at random.
-            if(_moveAtRandom)
-            {
-            	L2CharPosition pos = new L2CharPosition(Rnd.get(175000, 178500),Rnd.get(112400, 116000),-7707,0);
-            	_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(
-                		new MoveAtRandom(antharas,pos),31000);
-            }
-            
-            // set delete task.
-            _activityTimeEndTask = 
-            	ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_activityTimeOfBoss);
-    	}
-    }
+					_mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(_antharas), 16);
+	
+					// move at random.
+					if (_moveAtRandom)
+					{
+						L2CharPosition pos = new L2CharPosition(Rnd.get(175000,	178500), Rnd.get(112400, 116000), -7707, 0);
+						_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(new MoveAtRandom(_antharas, pos),
+										32);
+					}
+	
+					// set delete task.
+					_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_activityTimeOfBoss);
+	
+		            if(_socialTask != null)
+		            {
+		            	_socialTask.cancel(true);
+		            	_socialTask = null;
+		            }
+					break;
+			}
+		}
+	}
 
     // do spawn Behemoth.
     private class BehemothSpawn implements Runnable
@@ -784,33 +943,6 @@ public class AntharasManager
         }
     }
     
-    // do social.
-    private class Social implements Runnable
-    {
-        private int _action;
-        private L2NpcInstance _npc;
-
-        public Social(L2NpcInstance npc,int actionId)
-        {
-        	_npc = npc;
-            _action = actionId;
-        }
-
-        public void run()
-        {
-        	updateKnownList(_npc);
-        	
-    		SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
-            _npc.broadcastPacket(sa);
-
-            if(_socialTask != null)
-    		{
-    			_socialTask.cancel(true);
-    			_socialTask = null;
-    		}
-        }
-    }
-
     // action is enabled the boss.
     private class SetMobilised implements Runnable
     {
