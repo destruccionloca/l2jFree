@@ -707,7 +707,17 @@ public class TvT
             Announcements.getInstance().announceToAll(_eventName + "(TvT): " + _topTeam + "'s win the match! " + _topKills + " kills.");
             rewardTeam(_topTeam);
         }
-        
+
+        if(Config.TVT_ANNOUNCE_TEAM_STATS)
+        {
+        	Announcements.getInstance().announceToAll(_eventName + " Team Statistics:");
+	        for (String team : _teams)
+	        {
+	        	int _kills = teamKillsCount(team);
+	        	Announcements.getInstance().announceToAll("Team: " + team + " - Kills: " + _kills);
+	        }
+        }
+
         teleportFinish();
     }
     

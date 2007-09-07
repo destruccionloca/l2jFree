@@ -1918,6 +1918,7 @@ public final class Config
     public static boolean TVT_ON_START_REMOVE_ALL_EFFECTS;
     public static boolean TVT_ON_START_UNSUMMON_PET;
     public static boolean TVT_REVIVE_RECOVERY;
+    public static boolean TVT_ANNOUNCE_TEAM_STATS;
     public static boolean DM_ALLOW_INTERFERENCE;
     public static boolean DM_ALLOW_POTIONS;
     public static boolean DM_ALLOW_SUMMON;
@@ -1948,7 +1949,8 @@ public final class Config
            TVT_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowSummon", "false"));
            TVT_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartRemoveAllEffects", "true"));
            TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartUnsummonPet", "true"));
-           TVT_REVIVE_RECOVERY = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTReviveRecovery", "true"));
+           TVT_REVIVE_RECOVERY = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTReviveRecovery", "false"));
+           TVT_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvtAnnounceTeamStats", "false"));
         
            DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowInterference", "false"));
            DM_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowPotions", "false"));
