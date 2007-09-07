@@ -156,8 +156,8 @@ public enum Stats
     PATK_UNDEAD     ("pAtk-undead"),
     PDEF_UNDEAD     ("pDef-undead"),
     
-	PATK_VALAKAS    ("pDef-valakas"),
-    PDEF_VALAKAS    ("pAtk-valakas"),
+	PATK_VALAKAS    ("pAtk-valakas"),
+    PDEF_VALAKAS    ("pDef-valakas"),
 
     ATK_REUSE       ("atkReuse"),
 
