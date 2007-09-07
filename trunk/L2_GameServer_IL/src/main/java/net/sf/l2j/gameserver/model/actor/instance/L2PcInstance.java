@@ -6982,12 +6982,14 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if the attacker is not in the same party
         if (getParty() != null && getParty().getPartyMembers().contains(attacker)) return false;
 
-        // Check if the attacker is in olympia and olympia start
-        if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInOlympiadMode() )
-        {
-            return (isInOlympiadMode() && isOlympiadStart() && ((L2PcInstance)attacker).getOlympiadGameId() == getOlympiadGameId());
-        }
-
+		// Check if the attacker is in olympia and olympia start
+		if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInOlympiadMode() ){
+			if (isInOlympiadMode() && isOlympiadStart() && ((L2PcInstance)attacker).getOlympiadGameId()==getOlympiadGameId())
+				return true;
+			else
+				return false;
+		}
+		
         // Check if the attacker is not in the same clan
         if (getClan() != null && attacker != null && getClan().isMember(attacker.getName()))
             return false;
@@ -8012,6 +8014,7 @@ public final class L2PcInstance extends L2PlayableInstance
         teleToLocation(x, y, z);
         sendPacket(new ExOlympiadMode(3));
         _observerMode = true;
+        broadcastUserInfo();
     }
 
     public void leaveObserverMode()
