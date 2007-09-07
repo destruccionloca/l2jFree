@@ -9153,6 +9153,12 @@ public final class L2PcInstance extends L2PlayableInstance
         updateEffectIcons();
         _reviveRequested = 0;
         _revivePower = 0;
+        if(_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY)
+        {
+            getStatus().setCurrentHp(getMaxHp());
+            getStatus().setCurrentMp(getMaxMp());
+            getStatus().setCurrentCp(getMaxCp());
+        }
     }
     
     public void doRevive(double revivePower)
