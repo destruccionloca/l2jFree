@@ -298,7 +298,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4727' name="big_hammer_rsk.focus">
+<item id='4727' name="Big Hammer - Rsk.Focus">
   <for>
     <set val='107' order='0x08' stat='pAtk'/>
     <set val='61' order='0x08' stat='mAtk'/>
@@ -331,7 +331,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4730' name="battle_axe_rsk.focus">
+<item id='4730' name="Battle Axe - Rsk.Focus">
   <for>
     <set val='107' order='0x08' stat='pAtk'/>
     <set val='61' order='0x08' stat='mAtk'/>
@@ -364,7 +364,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4733' name="silver_axe_rsk.focus">
+<item id='4733' name="Silver Axe - Rsk.Focus">
   <for>
     <set val='107' order='0x08' stat='pAtk'/>
     <set val='61' order='0x08' stat='mAtk'/>
@@ -408,7 +408,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4737' name="skull_graver_rsk.focus">
+<item id='4737' name="Skull Graver - Rsk.Focus">
   <for>
     <set val='107' order='0x08' stat='pAtk'/>
     <set val='61' order='0x08' stat='mAtk'/>
@@ -507,7 +507,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4746' name="yaksa_mace_rsk._focus">
+<item id='4746' name="Yaksa Mace - Rsk. Focus">
   <for>
     <set val='156' order='0x08' stat='pAtk'/>
     <set val='83' order='0x08' stat='mAtk'/>
@@ -540,7 +540,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4749' name="heavy_war_axe_rsk._focus">
+<item id='4749' name="Heavy War Axe - Rsk. Focus">
   <for>
     <set val='175' order='0x08' stat='pAtk'/>
     <set val='91' order='0x08' stat='mAtk'/>
@@ -595,7 +595,7 @@
     <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
-<item id='4754' name="art_of_battle_axe_rsk._focus">
+<item id='4754' name="Art of Battle Axe - Rsk. Focus">
   <for>
     <set val='194' order='0x08' stat='pAtk'/>
     <set val='99' order='0x08' stat='mAtk'/>

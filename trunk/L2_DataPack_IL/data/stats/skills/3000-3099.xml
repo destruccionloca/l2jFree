@@ -375,11 +375,11 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add order='0x40' stat='rCrit' val='#val'>
-		<and>
-         <player hp='60'/>
-		</and>
-	</add>
+    <add order="0x40" stat="rCrit" val="#val">
+        <and>
+         <player hp="60"/>
+        </and>
+    </add>
   </for>
 </skill>
 <skill id="3028" levels="6" name="Special Ability: Rsk. Evasion">
@@ -739,7 +739,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul val="1.15" order="0x30" stat='mAtkSpd'/><!-- Casting Spd. +15% -->
+    <mul val="1.15" order="0x30" stat="mAtkSpd"/><!-- Casting Spd. +15% -->
     <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg"/><!-- Enhances damage to target during PvP -->
     <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg"/>
   </for>
@@ -1163,6 +1163,7 @@
   1: Critical attack rate increases when HP falls.
   2: Critical attack rate increases when HP falls. Increases damage inflicted during PvP.
 -->
+  <table name="#pvpBonus"> 1.0 1.05 </table>
   <table name="#val"> 120 130 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1171,9 +1172,11 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add order='0x40' stat='rCrit' val='#val'>
+    <mul val="#pvpBonus" order="0x30" stat="pvpPhysDmg"/><!-- Enhances damage to target during PvP -->
+    <mul val="#pvpBonus" order="0x30" stat="pvpMagicalDmg"/>
+    <add order="0x40" stat="rCrit" val="#val">
         <and>
-            <player hp='60'/>
+            <player hp="60"/>
         </and>
     </add>
   </for>
