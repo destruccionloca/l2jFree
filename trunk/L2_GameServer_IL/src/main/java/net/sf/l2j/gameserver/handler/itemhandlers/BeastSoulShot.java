@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
-import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.util.Broadcast;
@@ -139,10 +138,6 @@ public class BeastSoulShot implements IItemHandler
             activeOwner.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_SOULSHOTS));
             return;     
         }
-
-        // Update used soulshot count and send a Server->Client update.
-        activePet.increaseUsedSoulShots(1);
-        activeOwner.sendPacket(new PetInfo(activePet));
         
         // Pet uses the power of spirit.
         activeOwner.sendPacket(new SystemMessage(SystemMessageId.PET_USE_THE_POWER_OF_SPIRIT));
