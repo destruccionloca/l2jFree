@@ -1,4 +1,5 @@
 /* This program is free software; you can redistribute it and/or modify
+
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -448,7 +449,7 @@ public class AdminMobGroup implements IAdminCommandHandler
 		} 
 		catch (Exception e)
 		{
-			activeChar.sendMessage("Usage: //mobgroup_attack_grp <groupId> <TargetGroupId>");
+			activeChar.sendMessage("Usage: //mobgroup_attackgrp <groupId> <TargetGroupId>");
 			return;
 		}
 		MobGroup group = MobGroupTable.getInstance().getGroup(groupId);
