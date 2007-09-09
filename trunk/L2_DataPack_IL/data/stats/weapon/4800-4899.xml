@@ -228,6 +228,7 @@
     <set val='2' order='0x08' stat='MpConsume'> 
        <and>
           <game chance="46"/> 
+	  <player skill="false"/>
        </and> 
     </set>
   </for>
@@ -312,6 +313,7 @@
     <set val='1' order='0x08' stat='MpConsume'> 
        <and>
           <game chance="34"/> 
+	  <player skill="false"/>
        </and> 
     </set>
   </for>
@@ -391,7 +393,8 @@
     <!-- SA: Cheap Shot -->
     <set val='2' order='0x08' stat='MpConsume'> 
        <and>
-          <game chance="42"/> 
+          <game chance="42"/>
+	  <player skill="false"/> 
        </and> 
     </set>
   </for>

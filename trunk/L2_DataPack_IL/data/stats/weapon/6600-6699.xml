@@ -282,6 +282,12 @@
     <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
     <mul val='1.05' order='0x30' stat='pvpPhysSkillsDmg'/>
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
+    <set val='1' order='0x08' stat='MpConsume'> 
+       <and>
+          <game chance="26"/> 
+   	  <player skill="false"/> 
+       </and> 
+    </set>
   </for>
 </item>
 <item id='6620' name="infinity_wing">
