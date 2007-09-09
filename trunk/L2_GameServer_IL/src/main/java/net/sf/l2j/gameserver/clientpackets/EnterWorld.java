@@ -98,9 +98,6 @@ public class EnterWorld extends L2GameClientPacket
 	private final static Log _log = LogFactory.getLog(EnterWorld.class.getName());
 
 	public TaskPriority getPriority() { return TaskPriority.PR_URGENT; }
-
-	private static String Welcome_Path = "welcome";
-	private static String Newbie_Path = "newbie";
 	
 	/**
 	 * @param decrypt
@@ -284,19 +281,21 @@ public class EnterWorld extends L2GameClientPacket
 	        }
         }
         
-        if (Config.SHOW_HTML_WELCOME) {
-            Welcome_Path = "data/html/welcome.htm";
-            File mainText = new File(Config.DATAPACK_ROOT, Welcome_Path);        // Return the pathfile of the HTML file
+        if (Config.SHOW_HTML_WELCOME)
+        {
+            String Welcome_Path = "data/html/welcome.htm";
+            File mainText = new File(Config.DATAPACK_ROOT, Welcome_Path);	// Return the pathfile of the HTML file
             if (mainText.exists())
             {   
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile(Welcome_Path);
                 sendPacket(html);
-            } }
+            }
+        }
         
         if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
         {
-        	Newbie_Path = "data/html/newbie.htm";
+        	String Newbie_Path = "data/html/newbie.htm";
         	File mainText = new File(Config.DATAPACK_ROOT, Newbie_Path);
         	if (mainText.exists())
         	{
@@ -306,7 +305,7 @@ public class EnterWorld extends L2GameClientPacket
         	}
         }
         
-        //set hero status to character if character is Hero
+        // set hero status to character if character is Hero
         if (Hero.getInstance().getHeroes() != null &&
                 Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
             activeChar.setHero(true);
@@ -336,15 +335,6 @@ public class EnterWorld extends L2GameClientPacket
         }        
 
 		Quest.playerEnter(activeChar);
-
-		String serverNews = HtmCache.getInstance().getHtm("data/html/servnews.htm");
-		
-		if (serverNews != null)
-		{
-			NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-			htmlMsg.setHtml(serverNews);
-			sendPacket(htmlMsg);
-		}
 		
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
 		
