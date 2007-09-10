@@ -1401,6 +1401,8 @@ public class Olympiad
     {
         protected COMP_TYPE _type;
         private boolean _aborted;
+        private boolean _playerOneCrash;
+        private boolean _playerTwoCrash;
         private String _playerOneName;
         private String _playerTwoName;
         private int _playerOneID = 0;
@@ -1419,6 +1421,8 @@ public class Olympiad
         protected L2OlympiadGame(int id, COMP_TYPE type, List<L2PcInstance> list, int[] stadiumPort)
         {
             _aborted = false;
+            _playerOneCrash = true;
+            _playerTwoCrash = true;
             _type = type;
             _stadiumPort = stadiumPort;
             _spectators = new FastList<L2PcInstance>();
@@ -1575,59 +1579,63 @@ public class Olympiad
             _playerOneID = 0;
             _playerTwoID = 0;
         }
+        
+        //checks if some of 2 players crashed. if yes calculates the points and returns true else returns false
+        protected boolean checkPlayersCrash()
+        {
+        	if(_playerOne== null || _playerTwo==null)
+        	{
+        		try
+                {
+                    if (_playerOne != null && _playerOne.getOlympiadGameId() != -1)
+                    {
+                        _playerOneCrash = false;
+                    }
+                }
+                catch (Exception e) {}
+
+                try
+                {
+                    if (_playerTwo != null && _playerTwo.getOlympiadGameId() != -1)
+                    {
+                        _playerTwoCrash = false;
+                    }
+                }
+                catch (Exception e){ }
+                
+
+                if (_playerOneCrash)
+                {
+                    StatsSet playerOneStat;
+                    playerOneStat = _nobles.get(_playerOneID);
+                    int playerOnePoints = playerOneStat.getInteger(POINTS);
+                    playerOneStat.set(POINTS, playerOnePoints - (playerOnePoints / 5));
+                    _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerOneName+" lost "+(playerOnePoints - (playerOnePoints / 5))+" points for crash before fight");
+                }
+
+                if (_playerTwoCrash)
+                {
+                    StatsSet playerTwoStat;
+                    playerTwoStat = _nobles.get(_playerTwoID);
+                    int playerTwoPoints = playerTwoStat.getInteger(POINTS);
+                    playerTwoStat.set(POINTS, playerTwoPoints - (playerTwoPoints / 5));
+                    _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerTwoName+" lost "+(playerTwoPoints - (playerTwoPoints / 5))+" points for crash before fight");
+                }
+                _playerOne=null;  
+                _playerTwo=null; 
+                _aborted = true;
+                return true;
+        	}
+        	return false;
+        }
 
         protected boolean portPlayersToArena()
         {
             _playerOneLocation = new int[3];
             _playerTwoLocation = new int[3];
             
-            boolean _playerOneCrash = true;
-            boolean _playerTwoCrash = true;
-            
-            try
-            {
-                if (_playerOne != null && _playerOne.getOlympiadGameId() != -1)
-                {
-                    _playerOneCrash = false;
-                }
-            }
-            catch (Exception e) {}
-
-            try
-            {
-                if (_playerTwo != null && _playerTwo.getOlympiadGameId() != -1)
-                {
-                    _playerTwoCrash = false;
-                }
-            }
-            catch (Exception e){ }
-            
-
-            if (_playerOneCrash)
-            {
-                StatsSet playerOneStat;
-                playerOneStat = _nobles.get(_playerOneID);
-                int playerOnePoints = playerOneStat.getInteger(POINTS);
-                playerOneStat.set(POINTS, playerOnePoints - (playerOnePoints / 5));
-                _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerOneName+" lost "+(playerOnePoints - (playerOnePoints / 5))+" points for crash before teleport to arena");
-            }
-
-            if (_playerTwoCrash)
-            {
-                StatsSet playerTwoStat;
-                playerTwoStat = _nobles.get(_playerTwoID);
-                int playerTwoPoints = playerTwoStat.getInteger(POINTS);
-                playerTwoStat.set(POINTS, playerTwoPoints - (playerTwoPoints / 5));
-                _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerTwoName+" lost "+(playerTwoPoints - (playerTwoPoints / 5))+" points for crash before teleport to arena");
-            }
-
-            if (_playerOneCrash || _playerTwoCrash)
-            {
-                _playerOne=null;  
-                _playerTwo=null; 
-                _aborted = true;
+            if(checkPlayersCrash())
                 return false;
-            }
             
             try
             {
@@ -1738,8 +1746,7 @@ public class Olympiad
         
         protected void validateWinner()
         {
-        	//to be sure that both of players offline due players abusing DC to get tie
-            if (_playerOne == null && _playerTwo == null 
+        	if (_aborted || (_playerOne == null && _playerTwo == null)
             		|| (L2World.getInstance().getPlayer(_playerOne.getName()).isOnline()==0 && L2World.getInstance().getPlayer(_playerTwo.getName()).isOnline()==0) 
             		|| (L2World.getInstance().getPlayer(_playerOne.getName())==null && L2World.getInstance().getPlayer(_playerTwo.getName())==null)) 
             {
@@ -1954,12 +1961,9 @@ public class Olympiad
 
         protected boolean makeCompetitionStart()
         {
-            if (_playerOne == null || _playerTwo == null)
-            {
-                _aborted = true; 
+            if(checkPlayersCrash()) 
                 return false;
-            }
-
+            
             _sm = new SystemMessage(SystemMessageId.STARTS_THE_GAME);
             
             try
