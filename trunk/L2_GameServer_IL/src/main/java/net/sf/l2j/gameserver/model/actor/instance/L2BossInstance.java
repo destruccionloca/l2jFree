@@ -89,13 +89,16 @@ public final class L2BossInstance extends L2MonsterInstance
     /**
      * Constructor for L2BossInstance. This represent all grandbosses:
      * <ul>
-     * <li>12001    Queen Ant</li>
-     * <li>12169    Orfen</li>
-     * <li>12211    Antharas</li>
-     * <li>12372    Baium</li>
-     * <li>12374    Zaken</li>
-     * <li>12899    Valakas</li>
-     * <li>12052    Core</li>
+     * <li>29001    Queen Ant</li>
+     * <li>29014    Orfen</li>
+     * <li>29019    Antharas</li>
+     * <li>29067    Antharas</li>
+     * <li>29068    Antharas</li>
+     * <li>29020    Baium</li>
+     * <li>29022    Zaken</li>
+     * <li>29028    Valakas</li>
+     * <li>29006    Core</li>
+     * <li>29045    Frintezza</li>
      * </ul>
      * <br>
      * <b>For now it's nothing more than a L2Monster but there'll be a scripting<br>

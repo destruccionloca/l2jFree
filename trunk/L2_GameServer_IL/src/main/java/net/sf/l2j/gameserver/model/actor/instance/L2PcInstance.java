@@ -8071,8 +8071,11 @@ public final class L2PcInstance extends L2PlayableInstance
         setTarget(null);
         sendPacket(new ExOlympiadMode(0));
         teleToLocation(_obsX, _obsY, _obsZ);
-        getAppearance().setVisible();
-        setIsInvul(false);
+        if(!isGM())
+        {
+        	getAppearance().setVisible();
+        	setIsInvul(false);
+        }
         if (getAI() != null)
         {
             getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
