@@ -52,7 +52,7 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 		L2PcInstance player = getClient().getActiveChar();
         if(player != null)
         {
-        	if((player.isGM() && !player.isVisible()))
+        	if(player.isGM() && !player.getAppearance().getInvisible())
         		return;
     		L2PcInstance requestor = player.getActiveRequester();
     		if (requestor == null)

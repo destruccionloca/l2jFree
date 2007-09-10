@@ -1738,7 +1738,10 @@ public class Olympiad
         
         protected void validateWinner()
         {
-            if (_aborted || (_playerOne == null && _playerTwo == null))
+        	//to be sure that both of players offline due players abusing DC to get tie
+            if (_playerOne == null && _playerTwo == null 
+            		|| (L2World.getInstance().getPlayer(_playerOne.getName()).isOnline()==0 && L2World.getInstance().getPlayer(_playerTwo.getName()).isOnline()==0) 
+            		|| (L2World.getInstance().getPlayer(_playerOne.getName())==null && L2World.getInstance().getPlayer(_playerTwo.getName())==null)) 
             {
                 _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... aborted/tie due to crashes!");
                 return;
