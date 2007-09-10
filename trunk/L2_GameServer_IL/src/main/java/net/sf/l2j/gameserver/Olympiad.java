@@ -1611,6 +1611,7 @@ public class Olympiad
                     int playerOnePoints = playerOneStat.getInteger(POINTS);
                     playerOneStat.set(POINTS, playerOnePoints - (playerOnePoints / 5));
                     _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerOneName+" lost "+(playerOnePoints - (playerOnePoints / 5))+" points for crash before fight");
+                    _playerOne=null;
                 }
 
                 if (_playerTwoCrash)
@@ -1620,9 +1621,9 @@ public class Olympiad
                     int playerTwoPoints = playerTwoStat.getInteger(POINTS);
                     playerTwoStat.set(POINTS, playerTwoPoints - (playerTwoPoints / 5));
                     _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerTwoName+" lost "+(playerTwoPoints - (playerTwoPoints / 5))+" points for crash before fight");
+                    _playerTwo=null;
                 }
-                _playerOne=null;  
-                _playerTwo=null; 
+                  
                 _aborted = true;
                 return true;
         	}
