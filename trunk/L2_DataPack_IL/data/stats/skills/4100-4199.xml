@@ -1121,7 +1121,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Paralyze" time="120" val="0"/>
+    <effect count="1" name="Paralyze" time="120" val="0"/>
   </for>
 </skill>
 <skill id="4165" levels="9" name="Icy Air">
@@ -1140,6 +1140,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+    <!-- retail value: 77 77 77 94 94 108 108 118 118/sec; stat update every time unit (2/3 sec) -->
     <effect count="15" name="DamOverTime" time="1" val="#power"/>
   </for>
 </skill>
