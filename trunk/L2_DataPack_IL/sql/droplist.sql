@@ -21461,7 +21461,7 @@ INSERT INTO `droplist` VALUES
 (22052,355,1,1,2,28), -- Dwarven Chain mail Shirt 
 (22052,1912,1,1,-1,8521), -- Ring of Protection Gemstone 
 (22052,2166,1,1,-1,13584), -- Recipe: Earrings of Binding (100%) 
-(2052,2167,1,1,-1,15241), -- Recipe: Ring of Ages
+(22052,2167,1,1,-1,15241), -- Recipe: Ring of Ages
 (22079,57,466,1581,0,700000), -- Adena
 (22079,1871,1,1,2,111111), -- Charcoal
 (22079,1866,1,1,2,76923), -- Suede
