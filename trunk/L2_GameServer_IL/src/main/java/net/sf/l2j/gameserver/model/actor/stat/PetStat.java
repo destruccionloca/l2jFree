@@ -48,12 +48,8 @@ public class PetStat extends SummonStat
     {
         if (!super.addExp(value)) return false;
 
-		/* Micht : Use of PetInfo for C5
-        StatusUpdate su = new StatusUpdate(getActiveChar().getObjectId());
-        su.addAttribute(StatusUpdate.EXP, getExp());
-        getActiveChar().broadcastPacket(su);
-        */
-        getActiveChar().broadcastPacket(new PetInfo(getActiveChar()));
+        // PetInfo packet is only for the pet owner
+        getActiveChar().getOwner().sendPacket(new PetInfo(getActiveChar()));
         // The PetInfo packet wipes the PartySpelled (list of active  spells' icons).  Re-add them
         getActiveChar().updateEffectIcons(true);
 

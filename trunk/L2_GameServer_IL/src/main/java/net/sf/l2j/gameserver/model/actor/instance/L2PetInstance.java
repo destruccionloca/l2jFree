@@ -145,27 +145,27 @@ public class L2PetInstance extends L2Summon
                 }
                 
                 if(getCurrentFed() < (0.55 * getMaxFed()))
-            	{
+                {
                     if ((food != null) &&
-    				    ((_ownerInventory && getOwner().destroyItem("Feed", food.getObjectId(), 1, null, false))
-    							|| destroyItem("Feed", food.getObjectId(), 1, null, false)))
+                        ((_ownerInventory && getOwner().destroyItem("Feed", food.getObjectId(), 1, null, false))
+                            || destroyItem("Feed", food.getObjectId(), 1, null, false)))
                     {
-    		           setCurrentFed(getCurrentFed() + (100));
-    		           
-    		           if (_ownerInventory)
-           				{
-    		        	   SystemMessage sm = new SystemMessage(SystemMessageId.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY);
-    		        	   sm.addItemName(foodId);
-    		        	   getOwner().sendPacket(sm);
-           				}
-    		           
-                       if(getCurrentFed() < (0.55 * getMaxFed()))
-                       {
-                     	   SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);
-                       	   getOwner().sendPacket(sm);
+                        setCurrentFed(getCurrentFed() + (100));
+
+                        if (_ownerInventory)
+                        {
+                            SystemMessage sm = new SystemMessage(SystemMessageId.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY);
+                            sm.addItemName(foodId);
+                            getOwner().sendPacket(sm);
+                        }
+
+                        if(getCurrentFed() < (0.55 * getMaxFed()))
+                        {
+                            SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY);
+                            getOwner().sendPacket(sm);
                        }
                     }
-            	}
+                }
 
                 if (getCurrentFed() > FOOD_ITEM_CONSUME_COUNT)
                 {
@@ -205,7 +205,7 @@ public class L2PetInstance extends L2Summon
                 	getOwner().sendPacket(sm);
                 	unSummon(getOwner()); // unsummon or die?
                 }
-            	}
+            }
             catch (Throwable e) 
         	{
             if (_log.isDebugEnabled()) 
