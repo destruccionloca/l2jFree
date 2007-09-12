@@ -1522,7 +1522,7 @@ public class Olympiad
                     if (wpn == null) wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
                     if (wpn != null &&
                             (
-                                (wpn.getItemId() >= 6611 && wpn.getItemId() <= 6621) ||
+                                (wpn.getItemId() >= 6611 && wpn.getItemId() <= 6621) || (wpn.getItemId() >= 9300 && wpn.getItemId() <= 9310) || wpn.getEnchantLevel() > 0 ||
                                 wpn.getItemId() == 6842
                             )
                         )
@@ -1611,6 +1611,8 @@ public class Olympiad
                     int playerOnePoints = playerOneStat.getInteger(POINTS);
                     playerOneStat.set(POINTS, playerOnePoints - (playerOnePoints / 5));
                     _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerOneName+" lost "+(playerOnePoints - (playerOnePoints / 5))+" points for crash before fight");
+                    _nobles.remove(_playerOneID);
+                    _nobles.put(_playerOneID, playerOneStat);
                     _playerOne=null;
                 }
 
@@ -1621,13 +1623,31 @@ public class Olympiad
                     int playerTwoPoints = playerTwoStat.getInteger(POINTS);
                     playerTwoStat.set(POINTS, playerTwoPoints - (playerTwoPoints / 5));
                     _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerTwoName+" lost "+(playerTwoPoints - (playerTwoPoints / 5))+" points for crash before fight");
+                    _nobles.remove(_playerTwoID);                
+                    _nobles.put(_playerTwoID, playerTwoStat);  
                     _playerTwo=null;
                 }
-                  
+                
                 _aborted = true;
                 return true;
         	}
         	return false;
+        }
+        
+        //checks if player did DC before port to olympiad stadia
+        protected boolean checkIfPlayerInOlympiadStadia()
+        {
+        	if(_playerOne != null && !L2World.getInstance().getPlayer(_playerOneName).isInOlympiadMode())
+        	{
+        		_playerOne=null;
+        		return false;
+        	}
+        	if(_playerTwo != null && !L2World.getInstance().getPlayer(_playerTwoName).isInOlympiadMode())
+        	{
+        		_playerTwo=null;
+        		return false;
+        	}
+        	return true;
         }
 
         protected boolean portPlayersToArena()
@@ -1747,14 +1767,20 @@ public class Olympiad
         
         protected void validateWinner()
         {
-        	if (_aborted || (_playerOne == null && _playerTwo == null)
-            		|| (L2World.getInstance().getPlayer(_playerOne.getName()).isOnline()==0 && L2World.getInstance().getPlayer(_playerTwo.getName()).isOnline()==0) 
-            		|| (L2World.getInstance().getPlayer(_playerOne.getName())==null && L2World.getInstance().getPlayer(_playerTwo.getName())==null)) 
+        	if (_aborted || (_playerOne == null && _playerTwo == null)) 
             {
                 _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... aborted/tie due to crashes!");
                 return;
             }
-
+        	if(!checkIfPlayerInOlympiadStadia())
+        	{
+        		if(checkPlayersCrash())
+        		{
+        			 _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... aborted due to crashes!");
+        			 return; 
+        		}
+        	}
+        	
             StatsSet playerOneStat;
             StatsSet playerTwoStat;
             
