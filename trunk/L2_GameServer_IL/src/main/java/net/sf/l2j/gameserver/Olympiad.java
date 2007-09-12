@@ -1637,12 +1637,12 @@ public class Olympiad
         //checks if player did DC before port to olympiad stadia
         protected boolean checkIfPlayerInOlympiadStadia()
         {
-        	if(_playerOne != null && !L2World.getInstance().getPlayer(_playerOneName).isInOlympiadMode())
+        	if(_playerOne != null && !OlympiadStadiaManager.getInstance().checkIfInZone(_playerOne))
         	{
         		_playerOne=null;
         		return false;
         	}
-        	if(_playerTwo != null && !L2World.getInstance().getPlayer(_playerTwoName).isInOlympiadMode())
+        	if(_playerTwo != null && !OlympiadStadiaManager.getInstance().checkIfInZone(_playerTwo))
         	{
         		_playerTwo=null;
         		return false;
