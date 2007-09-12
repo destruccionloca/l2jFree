@@ -212,7 +212,7 @@ public class Shutdown extends Thread implements ShutdownMBean
      */
     public void startShutdown(L2PcInstance activeChar, int seconds, shutdownModeType mode)
     {
-    	startShutdown(activeChar.getName()+"("+activeChar.getObjectId()+")", seconds, mode); 	
+        startShutdown(activeChar.getName()+"("+activeChar.getObjectId()+")", seconds, mode); 	
     }
     /**
      * This functions starts a shutdown countdown
@@ -231,14 +231,14 @@ public class Shutdown extends Thread implements ShutdownMBean
        Announcements.getInstance().announceToAll("Attention players!");
        Announcements.getInstance().announceToAll("Server is " + _shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
        if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
-	        IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
+            IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " in "+seconds+ " seconds!");
        
 
         if (_counterInstance != null) {
             _counterInstance._abort();
         }
         
-//       the main instance should only run for shutdown hook, so we start a new instance
+        // the main instance should only run for shutdown hook, so we start a new instance
         _counterInstance = new Shutdown(seconds, mode);
         _counterInstance.start();
     }
@@ -357,8 +357,6 @@ public class Shutdown extends Thread implements ShutdownMBean
      */
     private void saveData()
     {
-    	_log.info(_shutdownMode.toString()+" received. "+_shutdownMode.getText()+" NOW!");
-               
         try
         {
         	Announcements.getInstance().announceToAll("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
@@ -378,31 +376,32 @@ public class Shutdown extends Thread implements ShutdownMBean
 
         // Save Seven Signs data before closing. :)
         SevenSigns.getInstance().saveSevenSignsData(null, true);
-        _log.info("SevenSigns: Data saved.");
+        System.err.println("SevenSigns: Data saved.");
         // Save all raidboss status ^_^        
         RaidPointsManager.getInstance().cleanUp();
-        _log.info("RaidPointsManager: All character raid points saved.\n");
+        System.err.println("RaidPointsManager: All character raid points saved.\n");
         RaidBossSpawnManager.getInstance().cleanUp();
-        _log.info("RaidBossSpawnManager: All raidboss info saved.");
+        System.err.println("RaidBossSpawnManager: All raidboss info saved.");
         TradeListTable.getInstance().dataCountStore();
-        _log.info("TradeController: All count Item Saved");
+        System.err.println("TradeController: All count Item Saved");
         try
         {
             Olympiad.getInstance().save();
-            _log.info("Olympiad: Data saved.");
+            System.err.println("Olympiad: Data saved.");
         }
         catch(Exception e){_log.error(e.getMessage(),e);}
 
         // Save Cursed Weapons data before closing.
         CursedWeaponsManager.getInstance().saveData();
-        _log.info("CursedWeaponsManager: Data saved.");
+        System.err.println("CursedWeaponsManager: Data saved.");
         // Save items on ground before closing
-        if(Config.SAVE_DROPPED_ITEM){
+        if(Config.SAVE_DROPPED_ITEM)
+        {
             ItemsOnGroundManager.getInstance().saveInDb();        
             ItemsOnGroundManager.getInstance().cleanUp();
-            _log.info("ItemsOnGroundManager: All items on ground saved.");
+            System.err.println("ItemsOnGroundManager: All items on ground saved.");
         }
-        _log.info("Data saved. All players disconnected, "+_shutdownMode.getText().toLowerCase()+".");
+        System.err.println("Data saved. All players disconnected, "+_shutdownMode.getText().toLowerCase()+".");
         
         try
         {
@@ -425,21 +424,21 @@ public class Shutdown extends Thread implements ShutdownMBean
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
             //Logout Character
-            try {
+            try
+            {
                 // save player's stats and effects
                 L2GameClient.saveCharToDisk(player);
-                
+
                 // close server
-				ServerClose ql = new ServerClose();
-				player.sendPacket(ql);
+                ServerClose ql = new ServerClose();
+                player.sendPacket(ql);
 
                 // make shure to save ALL data
                 player.deleteMe();
-            } catch (Throwable t)   {}
+            } catch (Throwable t) {}
         }
         try { Thread.sleep(1000); } catch (Throwable t) {_log.info( "", t);}
-        
-        
+
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
             try
