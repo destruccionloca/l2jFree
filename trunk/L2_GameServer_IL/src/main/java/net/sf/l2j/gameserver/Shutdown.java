@@ -166,18 +166,22 @@ public class Shutdown extends Thread implements ShutdownMBean
                 LoginServerThread.getInstance().interrupt();
             }
             catch (Throwable t) {}
-            // saveData sends messages to exit players, so sgutdown selector after it
+
+            // saveData sends messages to exit players, so shutdown selector after it
             try
             {
-                GameServer.gameServer.getSelectorThread().interrupt();
+                GameServer.gameServer.getSelectorThread().shutdown();
+                GameServer.gameServer.getSelectorThread().setDaemon(true);
             }
             catch (Throwable t) {}
+
             // commit data, last chance
-            try
-            {
-                //L2DatabaseFactory.getInstance().shutdown();
-            }
-            catch (Throwable t) {}
+            //try
+            //{
+            //    L2DatabaseFactory.getInstance().shutdown();
+            //}
+            //catch (Throwable t) {}
+
             // server will quit, when this function ends.
             if (_instance._shutdownMode == shutdownModeType.RESTART)
                 Runtime.getRuntime().halt(2);
@@ -263,7 +267,7 @@ public class Shutdown extends Thread implements ShutdownMBean
         Announcements.getInstance().announceToAll("Server aborts " + _shutdownMode.getText().toLowerCase() + " and continues normal operation!");
 
         if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
-	        IrcManager.getInstance().getConnection().sendChan("Server aborts " + _shutdownMode.getText().toLowerCase() + " and continues normal operation!");
+            IrcManager.getInstance().getConnection().sendChan("Server aborts " + _shutdownMode.getText().toLowerCase() + " and continues normal operation!");
         
 
         if (_counterInstance != null) {
@@ -316,20 +320,20 @@ public class Shutdown extends Thread implements ShutdownMBean
                 _seconds = _secondsShut;
                 _minutes = Math.round(_seconds / 60);
                 _hours = Math.round(_seconds / 3600);
-                		
+
                 // announce only every minute after 10 minutes left and every second after 10 seconds
                 if ((_seconds <= 10 || _seconds == _minutes * 60) && (_seconds <= 600) && _hours <=1)
-                	{
-                		SystemMessage sm = new SystemMessage(SystemMessageId.THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS);
-                		sm.addString(Integer.toString(_seconds));
-                		Announcements.getInstance().announceToAll(sm);
-                	}
-                
+                {
+                    SystemMessage sm = new SystemMessage(SystemMessageId.THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS);
+                    sm.addString(Integer.toString(_seconds));
+                    Announcements.getInstance().announceToAll(sm);
+                }
+
                 try
                 {
                     if (_seconds <= 60 )
                     {
-                    	LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN);
+                        LoginServerThread.getInstance().setServerStatus(ServerStatus.STATUS_DOWN);
                     }
                 }
                 catch (Exception e)
@@ -343,7 +347,7 @@ public class Shutdown extends Thread implements ShutdownMBean
                 Thread.sleep(delay);
                 
                 if(_shutdownMode == shutdownModeType.ABORT) break;
-            }               
+            }
         }
         catch (InterruptedException e)
         {
@@ -359,15 +363,13 @@ public class Shutdown extends Thread implements ShutdownMBean
     {
         try
         {
-        	Announcements.getInstance().announceToAll("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
-        } catch (Throwable t) {
-            _log.info( "", t);
-        }
+            Announcements.getInstance().announceToAll("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
+        } catch (Throwable t) {_log.info( "", t);}
 
         if(Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
-	        IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
+            IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
         
-        // we cannt abort shutdown anymore, so i removed the "if" 
+        // we can't abort shutdown anymore, so i removed the "if" 
         disconnectAllCharacters();
         
         // Seven Signs data is now saved along with Festival data.
@@ -377,9 +379,9 @@ public class Shutdown extends Thread implements ShutdownMBean
         // Save Seven Signs data before closing. :)
         SevenSigns.getInstance().saveSevenSignsData(null, true);
         System.err.println("SevenSigns: Data saved.");
-        // Save all raidboss status ^_^        
+        // Save all raidboss status ^_^
         RaidPointsManager.getInstance().cleanUp();
-        System.err.println("RaidPointsManager: All character raid points saved.\n");
+        System.err.println("RaidPointsManager: All character raid points saved.");
         RaidBossSpawnManager.getInstance().cleanUp();
         System.err.println("RaidBossSpawnManager: All raidboss info saved.");
         TradeListTable.getInstance().dataCountStore();
@@ -411,7 +413,6 @@ public class Shutdown extends Thread implements ShutdownMBean
         catch (InterruptedException e)
         {
             //never happens :p
-        	//yes but it happends some times :(
         }
     }
 
