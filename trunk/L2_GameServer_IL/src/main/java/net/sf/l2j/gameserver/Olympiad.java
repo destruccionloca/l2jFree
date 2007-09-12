@@ -1522,7 +1522,7 @@ public class Olympiad
                     if (wpn == null) wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
                     if (wpn != null &&
                             (
-                                (wpn.getItemId() >= 6611 && wpn.getItemId() <= 6621) || (wpn.getItemId() >= 9300 && wpn.getItemId() <= 9310) || wpn.getEnchantLevel() > 0 ||
+                                (wpn.getItemId() >= 6611 && wpn.getItemId() <= 6621) ||
                                 wpn.getItemId() == 6842
                             )
                         )
