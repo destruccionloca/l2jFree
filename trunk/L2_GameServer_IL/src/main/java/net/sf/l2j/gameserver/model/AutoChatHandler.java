@@ -49,7 +49,7 @@ public class AutoChatHandler implements SpawnListener
     protected static Log _log = LogFactory.getLog(AutoChatHandler.class.getName());
     private static AutoChatHandler _instance;
 
-    private static final long DEFAULT_CHAT_DELAY = 180000; // 3 mins by default
+    private static final long DEFAULT_CHAT_DELAY = 30000; // 30 secs by default
     private static final int  DEFAULT_CHAT_RANGE = 1500; 
     
     protected FastMap<Integer, AutoChatInstance> _registeredChats;
