@@ -198,6 +198,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TargetSelected;
 import net.sf.l2j.gameserver.serverpackets.TradeStart;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
@@ -3268,8 +3269,7 @@ public final class L2PcInstance extends L2PlayableInstance
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
             sendMessage("Player iteraction disabled during restart/shutdown!");
-            ActionFailed af = new ActionFailed();
-            player.sendPacket(af);
+            player.sendPacket(new ActionFailed());
             return;
         }
         
@@ -3277,20 +3277,17 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
             {
-                ActionFailed af = new ActionFailed();
-                player.sendPacket(af);
+                player.sendPacket(new ActionFailed());
                 return;
             }
             else if ((_inEventCTF && !player._inEventCTF) || (!_inEventCTF && player._inEventCTF))
             {
-                ActionFailed af = new ActionFailed();
-                player.sendPacket(af);
+                player.sendPacket(new ActionFailed());
                 return;
             }
             else if ((_inEventDM && !player._inEventDM) || (!_inEventDM && player._inEventDM))
             {
-                ActionFailed af = new ActionFailed();
-                player.sendPacket(af);
+                player.sendPacket(new ActionFailed());
                 return;
             }
         }
@@ -3311,12 +3308,13 @@ public final class L2PcInstance extends L2PlayableInstance
 
             // Send a Server->Client packet MyTargetSelected to the player
             // The color to display in the select window is White
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
-            player.sendPacket(my);
+            player.sendPacket(new MyTargetSelected(getObjectId(), 0));
+            if (player != this) player.sendPacket(new ValidateLocation(this));
 
         }
         else
         {
+            if (player != this) player.sendPacket(new ValidateLocation(this));
             // Check if this L2PcInstance has a Private Store
             if (getPrivateStoreType() != 0)
             {
