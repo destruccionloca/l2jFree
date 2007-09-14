@@ -1391,7 +1391,7 @@ public abstract class L2Skill
         }
         case TARGET_SELF:
         {     
-                    return new L2Character[]{activeChar};
+            return new L2Character[]{activeChar};
         }
         /*case TARGET_BOSS:
         {
@@ -1750,12 +1750,13 @@ public abstract class L2Skill
                 // Get all visible objects in a spheric area near the L2Character
                 // Get a list of Party Members
                 List<L2PcInstance> partyList = activeChar.getParty().getPartyMembers();
-                    
+
                 for(L2PcInstance partyMember : partyList)
                 {
-                    if (partyMember == null) continue;
-                    if (partyMember == player) continue;
-                    
+                    if (partyMember == null || partyMember == player) continue;
+                    if (player != null && player.isInDuel() && player.getDuelId() != partyMember.getDuelId())
+                        continue;
+
                     if (!partyMember.isDead()
                             && Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
                     {
@@ -1828,6 +1829,10 @@ public abstract class L2Skill
                         if (newTarget == null || !(newTarget instanceof L2PcInstance)) continue;
                         if ((((L2PcInstance) newTarget).getAllyId() == 0 || ((L2PcInstance) newTarget).getAllyId() != player.getAllyId())
                             && (((L2PcInstance) newTarget).getClan() == null || ((L2PcInstance) newTarget).getClanId() != player.getClanId()))
+                            continue;
+                        if (player.isInDuel() &&
+                            (player.getDuelId() != ((L2PcInstance)newTarget).getDuelId() ||
+                            (player.getParty() != null && !player.getParty().getPartyMembers().contains(newTarget))))
                             continue;
                         if (targetType == SkillTargetType.TARGET_CORPSE_ALLY
                             && !((L2PcInstance) newTarget).isDead()) continue;
@@ -1916,6 +1921,10 @@ public abstract class L2Skill
                         if (newTarget == null) continue;
 
                         if (targetType == SkillTargetType.TARGET_CORPSE_CLAN && !newTarget.isDead())
+                            continue;
+
+                        if (player.isInDuel() && (player.getDuelId() != newTarget.getDuelId() ||
+                            (player.getParty() != null && !player.getParty().getPartyMembers().contains(newTarget))))
                             continue;
 
                         if (!Util.checkIfInRange(radius, activeChar, newTarget, true)) continue;
@@ -2468,11 +2477,9 @@ public abstract class L2Skill
 	            }
 	        }
 	    }
-	    else if ((ZoneManager.getInstance().checkIfInZone(
-	                                                      ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.OlympiadStadia),
+	    else if ((ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.OlympiadStadia),
 	                                                      activeChar.getX(), activeChar.getY()))
-	        || (ZoneManager.getInstance().checkIfInZone(
-	                                                    ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Arena),
+	        || (ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Arena),
 	                                                    activeChar.getX(), activeChar.getY()))
 	        || ((ZoneManager.getInstance().checkIfInZone("FourSepulcher", activeChar) &&
 	        		(activeChar.getZ() >= -7250 && activeChar.getZ() <= -6841)))

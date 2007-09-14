@@ -103,7 +103,7 @@ public class CharStatus
     {
         if (object == getActiveChar()) return;
 
-        synchronized (getActiveChar())
+        synchronized (getStatusListener())
         {
             if (_StatusListener == null) _StatusListener = new CopyOnWriteArraySet<L2Character>();
             getStatusListener().add(object);
@@ -307,11 +307,9 @@ public class CharStatus
      */
     public final void removeStatusListener(L2Character object)
     {
-        synchronized (getActiveChar())
+        synchronized (getStatusListener())
         {
-            if (getStatusListener() == null) return;
             getStatusListener().remove(object);
-            if (getStatusListener() != null && getStatusListener().isEmpty()) setStatusListener(null);
         }
     }
 
@@ -551,7 +549,7 @@ public class CharStatus
 
         // Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
         if (broadcastPacket)
-        	getActiveChar().broadcastStatusUpdate();
+            getActiveChar().broadcastStatusUpdate();
     }
 
     /**
@@ -567,18 +565,10 @@ public class CharStatus
      */
     public final Set<L2Character> getStatusListener() 
     { 
+        if (_StatusListener == null) _StatusListener = new CopyOnWriteArraySet<L2Character>();
         return _StatusListener; 
     }
-    
-    /**
-     * @see getStatusListener
-     * @param value a set of L2Character that needs to be informed of HP/MP updates of this L2Character
-     */    
-    private final void setStatusListener(Set<L2Character> value) 
-    { 
-        _StatusListener = value; 
-    }
-    
+
     /** 
      * Task of HP/MP/CP regeneration 
     */
