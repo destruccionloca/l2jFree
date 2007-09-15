@@ -329,7 +329,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
         if (command.startsWith("WithdrawP"))
         {
-            if (Config.ENABLE_WAREHOUSETORTING_PRIVATE)
+            if (Config.ENABLE_WAREHOUSESORTING_PRIVATE)
             {
                 String htmFile = "data/html/custom/WhSortedP.htm";
                 String htmContent = HtmCache.getInstance().getHtm(htmFile);
@@ -363,7 +363,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         }
         else if (command.startsWith("WithdrawC"))
         {
-            if (Config.ENABLE_WAREHOUSETORTING_PRIVATE)
+            if (Config.ENABLE_WAREHOUSESORTING_CLAN)
             {
                 String htmFile = "data/html/custom/WhSortedC.htm";
                 String htmContent = HtmCache.getInstance().getHtm(htmFile);
@@ -399,7 +399,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         {
             if (Config.ALLOW_FREIGHT)
             {
-                if (Config.ENABLE_WAREHOUSETORTING_PRIVATE)
+                if (Config.ENABLE_WAREHOUSESORTING_FREIGHT)
                 {
                     String htmFile = "data/html/custom/WhSortedF.htm";
                     String htmContent = HtmCache.getInstance().getHtm(htmFile);
