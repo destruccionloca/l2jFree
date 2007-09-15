@@ -149,7 +149,7 @@ public class L2Party
 			{ 
 				member = getPartyMembers().get(_itemLastLoot); 
 				if (member.getInventory().validateCapacityByItemId(ItemId) &&
-					Util.checkIfInRange(1400, target, member, true)) return member;
+					Util.checkIfInRange(Config.PARTY_RANGE, target, member, true)) return member;
 			} 
 			catch (Exception e)
 			{

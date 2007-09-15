@@ -725,18 +725,18 @@ public abstract class L2Skill
             return _power * 1.24;
         else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.09)
             return _power * 1.35;
-        else if (activeChar.getStatus().getCurrentHp() <= 300)
+        else if (activeChar.getStatus().getCurrentHp() >= 200)
             return _power * 1.8;
-        else if (activeChar.getStatus().getCurrentHp() <= 200)
+        else if (activeChar.getStatus().getCurrentHp() >= 170)
             return _power * 2.1;
-        else if (activeChar.getStatus().getCurrentHp() <= 170)
+        else if (activeChar.getStatus().getCurrentHp() >= 150)
             return _power * 2.2;
-        else if (activeChar.getStatus().getCurrentHp() <= 150)
+        else if (activeChar.getStatus().getCurrentHp() >= 130)
             return _power * 2.3;
-        else if (activeChar.getStatus().getCurrentHp() <= 130)
+        else if (activeChar.getStatus().getCurrentHp() >= 100)
             return _power * 2.5;
-        else if (activeChar.getStatus().getCurrentHp() <= 100)
-            return _power * 2.8;
+		else
+			return _power * 2.8;
         }
         return _power;
     }
