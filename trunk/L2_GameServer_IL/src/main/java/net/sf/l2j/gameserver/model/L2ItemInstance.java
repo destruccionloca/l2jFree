@@ -21,6 +21,10 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.CollationKey; 
+import java.text.Collator; 
+import java.util.Comparator; 
+import java.util.Locale;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;
@@ -43,6 +47,7 @@ import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2Item;
+import net.sf.l2j.gameserver.templates.L2Weapon;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -158,6 +163,7 @@ public final class L2ItemInstance extends L2Object
 		_item = ItemTable.getInstance().getTemplate(itemId);
 		if (_itemId == 0 || _item == null)
 			throw new IllegalArgumentException();
+		super.setName(_item.getName());
 		_count = 1;
 		_loc = ItemLocation.VOID;
 		_type1 = 0;
@@ -179,6 +185,7 @@ public final class L2ItemInstance extends L2Object
 		_item = item;
 		if (_itemId == 0 || _item == null)
 			throw new IllegalArgumentException();
+		super.setName(_item.getName());
 		_count = 1;
 		_loc = ItemLocation.VOID;
 		_mana = _item.getDuration();
@@ -347,6 +354,7 @@ public final class L2ItemInstance extends L2Object
 	 * Returns the characteristics of the item
 	 * @return L2Item
 	 */
+	
 	public L2Item getItem()
 	{
 		return _item;
@@ -402,6 +410,72 @@ public final class L2ItemInstance extends L2Object
 	public int getItemId()
 	{
 		return _itemId;
+	}
+	
+	/** 
+	 * Returns true if item is an EtcItem 
+	 * @return boolean 
+	 */ 
+	public boolean isEtcItem() 
+	{ 
+		return (_item instanceof L2EtcItem); 
+	} 
+
+	/** 
+	* Returns true if item is a Weapon/Shield 
+	* @return boolean 
+	*/ 
+	public boolean isWeapon() 
+	{ 
+		return (_item instanceof L2Weapon); 
+	} 
+
+	/** 
+	* Returns true if item is an Armor 
+	* @return boolean 
+	*/ 
+	public boolean isArmor() 
+	{ 
+		return (_item instanceof L2Armor); 
+	}
+	
+	/** 
+	* Returns the characteristics of the L2EtcItem 
+	* @return L2EtcItem 
+	*/ 
+	public L2EtcItem getEtcItem() 
+	{ 
+		if(_item instanceof L2EtcItem) 
+		{ 
+			return (L2EtcItem)_item; 
+		} 
+		return null; 
+	} 
+
+	/** 
+	* Returns the characteristics of the L2Weapon 
+	* @return L2Weapon 
+	*/ 
+	public L2Weapon getWeaponItem() 
+	{ 
+		if(_item instanceof L2Weapon) 
+		{ 
+			return (L2Weapon)_item; 
+		} 
+		return null; 
+	} 
+
+	/** 
+	* Returns the characteristics of the L2Armor 
+	* @return L2Armor 
+	*/ 
+	public L2Armor getArmorItem() 
+	{ 
+		if(_item instanceof L2Armor) 
+		{ 
+			return (L2Armor)_item; 
+		} 
+		return null; 
 	}
 
     /**

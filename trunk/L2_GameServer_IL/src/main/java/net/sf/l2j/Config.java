@@ -977,6 +977,9 @@ public final class Config
     public static boolean       		ALLOW_DISCARDITEM;
     public static boolean       		ALLOW_FREIGHT;
     public static boolean       		ALLOW_WAREHOUSE;
+    public static boolean				ENABLE_WAREHOUSETORTING_CLAN; //Warehouse Sorting Clan
+    public static boolean				ENABLE_WAREHOUSETORTING_PRIVATE; //Warehouse Sorting Privat
+    public static boolean				ENABLE_WAREHOUSETORTING_FREIGHT; //Warehouse Sorting freight
     public static boolean         		WAREHOUSE_CACHE;				// Allow warehouse cache?
     public static int             		WAREHOUSE_CACHE_TIME;			// How long store WH datas
     public static boolean 	    		ALLOW_WEAR;
@@ -1072,6 +1075,9 @@ public final class Config
             COORD_SYNCHRONIZE               = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
 
             ALLOW_WAREHOUSE                 = Boolean.parseBoolean(optionsSettings.getProperty("AllowWarehouse", "True"));
+            ENABLE_WAREHOUSETORTING_CLAN    = Boolean.valueOf(optionsSettings.getProperty("EnableWarehouseSortingClan", "False"));
+            ENABLE_WAREHOUSETORTING_PRIVATE = Boolean.valueOf(optionsSettings.getProperty("EnableWarehouseSortingPrivate", "False"));
+            ENABLE_WAREHOUSETORTING_FREIGHT = Boolean.valueOf(optionsSettings.getProperty("EnableWarehouseSortingFreight", "False"));
             WAREHOUSE_CACHE                 = Boolean.parseBoolean(optionsSettings.getProperty("WarehouseCache", "False"));
             WAREHOUSE_CACHE_TIME            = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
             ALLOW_FREIGHT                   = Boolean.parseBoolean(optionsSettings.getProperty("AllowFreight", "True"));
