@@ -892,6 +892,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			adminReply.replace("%factionRange%", String.valueOf(npc.getFactionRange()));
 			adminReply.replace("%isUndead%", npc.isUndead() ? "1" : "0");
 			adminReply.replace("%absorbLevel%", String.valueOf(npc.getAbsorbLevel()));
+			adminReply.replace("%absorbType%", String.valueOf(npc.getAbsorbType()));
 		}
 		else
 			adminReply.setHtml("<html><body>File not found: data/html/admin/editnpc.htm</body></html>");
@@ -1005,6 +1006,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 			{
 				int intVal = Integer.valueOf(value);
 				newNpcData.set("absorb_level", intVal < 0 ? 0 : intVal > 12 ? 0 : intVal);
+			}
+			else if (statToSet.equals("absorbType"))
+			{
+				int intValue = Integer.valueOf(value);
+				newNpcData.set("absorb_type", intValue == 0 ? "LAST_HIT" : intValue == 1 ? "FULL_PARTY" : "PARTY_ONE_RANDOM");
 			}
 		}
 		catch (Exception e)
