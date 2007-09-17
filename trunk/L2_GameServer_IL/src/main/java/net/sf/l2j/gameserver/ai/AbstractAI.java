@@ -28,10 +28,8 @@ import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2Effect.EffectType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStart;
@@ -43,8 +41,6 @@ import net.sf.l2j.gameserver.serverpackets.MoveToLocationInVehicle;
 import net.sf.l2j.gameserver.serverpackets.MoveToPawn;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
 import net.sf.l2j.gameserver.serverpackets.StopRotation;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 
 import org.apache.commons.logging.Log;
@@ -259,26 +255,6 @@ abstract class AbstractAI implements Ctrl
          _log.warning("AbstractAI: setIntention -> " + intention + " " + arg0 + " " + arg1);
          */
         
-        //Silent move stop if player attack or cast
-        if (intention == CtrlIntention.AI_INTENTION_ATTACK 
-            || (intention == CtrlIntention.AI_INTENTION_CAST 
-                && arg0 instanceof L2Skill 
-                && ((L2Skill)arg0).getId() != 221
-               )
-           )
-        {
-            L2Effect silentMove = _actor.getEffect(EffectType.SILENT_MOVE);
-            if (silentMove != null && silentMove.getSkill() != null)
-            {
-                SystemMessage sm = new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED);
-                sm.addSkillName(silentMove.getSkill().getId());
-                silentMove.exit();
-                _actor.sendPacket(sm);
-                sm = null;
-            }
-            silentMove = null;
-        }
-
         // Stop the follow mode if necessary
         if (intention != AI_INTENTION_FOLLOW && intention != AI_INTENTION_ATTACK) stopFollow();
 
