@@ -98,7 +98,7 @@ public class RequestAutoSoulShot extends L2GameClientPacket
                             if (activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem()
                                     && item.getItem().getCrystalType() == activeChar.getActiveWeaponItem().getCrystalType())
                             {
-                                if((_itemId >= 3947 && _itemId <= 3952) || (_itemId >= 2509 && _itemId <= 2514) || (_itemId >= 1463 && _itemId <= 1467) && activeChar.isInOlympiadMode())
+                                if(((_itemId >= 3947 && _itemId <= 3952) || (_itemId >= 2509 && _itemId <= 2514) || (_itemId >= 1463 && _itemId <= 1467)) && activeChar.isInOlympiadMode())
                                 {
                                     SystemMessage sm = new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
                                     sm.addString(item.getItemName());
