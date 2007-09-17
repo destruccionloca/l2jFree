@@ -332,7 +332,10 @@ public final class L2PcInstance extends L2PlayableInstance
     private PcAppearance _appearance;
 
     public final ReentrantLock soulShotLock = new ReentrantLock();
-    
+
+    /** Sitting down and Standing up fix */
+    protected boolean _protectedSitStand = false;
+
     /** The Identifier of the L2PcInstance */
     private int _charId = 0x00030b7a;
 
@@ -720,6 +723,18 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             return (getSkill() != null) ? getSkill().getId() : -1;
         }
+    }
+
+    @Override
+    public final boolean isAllSkillsDisabled()
+    {
+        return super.isAllSkillsDisabled() || _protectedSitStand; 
+    }
+
+    @Override
+    public final boolean isAttackingDisabled()
+    {
+        return super.isAttackingDisabled() || _protectedSitStand;
     }
 
     /**
@@ -2381,28 +2396,48 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
+     * While animation is shown, you may NOT move/use skills/sit/stand again in retail.<BR><BR>
+     * @author SaveGame
+     */
+    private class ProtectSitDownStandUp implements Runnable
+    {
+        public void run()
+        {
+            _protectedSitStand = false;
+            return;
+        }
+    }
+
+    public void sitDown() { sitDown(true); }
+
+    /**
      * Sit down the L2PcInstance, set the AI Intention to AI_INTENTION_REST and send a Server->Client ChangeWaitType packet (broadcast)<BR><BR>
      */
-    public void sitDown()
+    public void sitDown(boolean force)
     {
         if (isCastingNow())
         {
             sendMessage("Cannot sit while casting");
             return;
         }
-        if (!_waitTypeSitting && !isAttackingDisabled() && !isOutOfControl() && !isImobilised())
+        if ( !(_waitTypeSitting || super.isAttackingDisabled() || isOutOfControl() || isImobilised() || (!force && _protectedSitStand)))
         {
             breakAttack();
             _waitTypeSitting = true;
             getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
             broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_SITTING));
+            //fix by SaveGame
+            _protectedSitStand = true;
+            ThreadPoolManager.getInstance().scheduleGeneral(new ProtectSitDownStandUp(), 2333);
         }
     }
+
+    public void standUp() { standUp(true); }
 
     /**
      * Stand up the L2PcInstance, set the AI Intention to AI_INTENTION_IDLE and send a Server->Client ChangeWaitType packet (broadcast)<BR><BR>
      */
-    public void standUp()
+    public void standUp(boolean force)
     {
         if (L2Event.active && eventSitForced)
         {
@@ -2410,8 +2445,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP)
            sendMessage("The Admin/GM handle if you sit or stand in this match!");
-
-        else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead())
+        else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!_protectedSitStand || force))
         {
             if (_relax)
             {
@@ -2421,6 +2455,9 @@ public final class L2PcInstance extends L2PlayableInstance
             _waitTypeSitting = false;
             getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
             broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_STANDING));
+            //fix by SaveGame
+            _protectedSitStand = true;
+            ThreadPoolManager.getInstance().scheduleGeneral(new ProtectSitDownStandUp(), 2333);
         }
     }
 

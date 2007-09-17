@@ -53,9 +53,9 @@ public class ChangeWaitType2 extends L2GameClientPacket
 	    if(getClient() != null && getClient().getActiveChar() != null)
 	    {
 	        if (_typeStand)
-	            getClient().getActiveChar().standUp();
+	            getClient().getActiveChar().standUp(false); // false - No forced standup but user requested - Checks if animation already running.
 	        else
-	            getClient().getActiveChar().sitDown();
+	            getClient().getActiveChar().sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
 	    }
 	}
 

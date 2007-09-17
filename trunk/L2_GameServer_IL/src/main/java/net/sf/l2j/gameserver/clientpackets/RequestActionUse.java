@@ -125,9 +125,9 @@ public class RequestActionUse extends L2GameClientPacket
                 }
                 
                 if (activeChar.isSitting())
-                    activeChar.standUp();
+                    activeChar.standUp(false); // false - No forced standup but user requested - Checks if animation already running.
                 else
-                    activeChar.sitDown();
+                    activeChar.sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
                 
                 if (_log.isDebugEnabled()) 
                     _log.debug("new wait type: "+(activeChar.isSitting() ? "STANDING" : "SITTING"));

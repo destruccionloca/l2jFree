@@ -1583,7 +1583,7 @@ public abstract class L2Character extends L2Object
     public final boolean isAlikeDead() { return isFakeDeath() || !(getStatus().getCurrentHp() > 0.5); }
 
     /** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
-    public final boolean isAllSkillsDisabled() { return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed(); }
+    public boolean isAllSkillsDisabled() { return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed(); }
 
     /** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
     public boolean isAttackingDisabled() { return isStunned() || isSleeping() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed()  || isFallsdown(); }
