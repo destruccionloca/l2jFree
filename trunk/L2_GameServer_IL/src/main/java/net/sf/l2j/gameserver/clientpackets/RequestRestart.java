@@ -76,7 +76,7 @@ public class RequestRestart extends L2GameClientPacket
         }
         
         // prevent from player disconnect when in Olympiad mode
-        if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player))
+        if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player) || player.getOlympiadGameId()!=-1)
         {
             if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
             player.sendMessage("You can't restart when in Olympiad.");

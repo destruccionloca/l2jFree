@@ -94,10 +94,11 @@ public class RequestAutoSoulShot extends L2GameClientPacket
                         }
                         else
                         {
+                        	// is the on Blessed Spiritshots not allowed ?? added to check SoulShots and SpiritShots all grades. remove it if i'm not correct
                             if (activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem()
                                     && item.getItem().getCrystalType() == activeChar.getActiveWeaponItem().getCrystalType())
                             {
-                                if(_itemId >= 3947 && _itemId <= 3952 && activeChar.isInOlympiadMode())
+                                if((_itemId >= 3947 && _itemId <= 3952) || (_itemId >= 2509 && _itemId <= 2514) || (_itemId >= 1463 && _itemId <= 1467) && activeChar.isInOlympiadMode())
                                 {
                                     SystemMessage sm = new SystemMessage(SystemMessageId.THIS_ITEM_IS_NOT_AVAILABLE_FOR_THE_OLYMPIAD_EVENT);
                                     sm.addString(item.getItemName());

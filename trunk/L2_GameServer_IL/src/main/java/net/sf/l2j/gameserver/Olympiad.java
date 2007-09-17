@@ -1583,6 +1583,23 @@ public class Olympiad
         //checks if some of 2 players crashed. if yes calculates the points and returns true else returns false
         protected boolean checkPlayersCrash()
         {
+        	if(_playerOne != null && (!OlympiadStadiaManager.getInstance().checkIfInZone(_playerOne) || _playerOne.inObserverMode() || _playerOne.isOnline()==0))
+        	{
+        		_playerOne.setIsInOlympiadMode(false);
+        		_playerOne.setIsOlympiadStart(false);
+        		_playerOne.setOlympiadSide(-1);
+        		_playerOne.setOlympiadGameId(-1);
+                _playerOne=null;
+        	}
+        	if(_playerTwo != null && (!OlympiadStadiaManager.getInstance().checkIfInZone(_playerTwo) || _playerTwo.inObserverMode() || _playerTwo.isOnline()==0))
+        	{
+        		_playerTwo.setIsInOlympiadMode(false);
+        		_playerTwo.setIsOlympiadStart(false);
+        		_playerTwo.setOlympiadSide(-1);
+        		_playerTwo.setOlympiadGameId(-1);
+        		_playerTwo=null;
+        	}
+        	
         	if(_playerOne== null || _playerTwo==null)
         	{
         		try
@@ -1603,17 +1620,18 @@ public class Olympiad
                 }
                 catch (Exception e){ }
                 
-
                 if (_playerOneCrash)
                 {
                     StatsSet playerOneStat;
                     playerOneStat = _nobles.get(_playerOneID);
                     int playerOnePoints = playerOneStat.getInteger(POINTS);
                     playerOneStat.set(POINTS, playerOnePoints - (playerOnePoints / 5));
-                    _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerOneName+" lost "+(playerOnePoints - (playerOnePoints / 5))+" points for crash before fight");
+                    _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerOneName+" lost "+(playerOnePoints / 5)+" points for crash before fight");
                     _nobles.remove(_playerOneID);
                     _nobles.put(_playerOneID, playerOneStat);
                     _playerOne=null;
+                    if(!_playerTwoCrash)
+                    	_playerTwo.sendMessage("Your oponent disconnected, match not calculated.");
                 }
 
                 if (_playerTwoCrash)
@@ -1622,51 +1640,59 @@ public class Olympiad
                     playerTwoStat = _nobles.get(_playerTwoID);
                     int playerTwoPoints = playerTwoStat.getInteger(POINTS);
                     playerTwoStat.set(POINTS, playerTwoPoints - (playerTwoPoints / 5));
-                    _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerTwoName+" lost "+(playerTwoPoints - (playerTwoPoints / 5))+" points for crash before fight");
+                    _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerTwoName+" lost "+(playerTwoPoints / 5)+" points for crash before fight");
                     _nobles.remove(_playerTwoID);                
                     _nobles.put(_playerTwoID, playerTwoStat);  
                     _playerTwo=null;
+                    if(!_playerOneCrash)
+                    	_playerOne.sendMessage("Your oponent disconnected, match not calculated.");
                 }
                 
+                _sm = new SystemMessage(SystemMessageId.YOU_WILL_GO_BACK_TO_THE_VILLAGE_IN_S1_SECOND_S);
+                _sm.addNumber(20);
+                broadcastMessage(_sm, true);
                 _aborted = true;
                 return true;
         	}
         	return false;
         }
         
-        //checks if player did DC before port to olympiad stadia
-        protected boolean checkIfPlayerInOlympiadStadia()
-        {
-        	if(_playerOne != null && !OlympiadStadiaManager.getInstance().checkIfInZone(_playerOne))
-        	{
-        		_playerOne=null;
-        		return false;
-        	}
-        	if(_playerTwo != null && !OlympiadStadiaManager.getInstance().checkIfInZone(_playerTwo))
-        	{
-        		_playerTwo=null;
-        		return false;
-        	}
-        	return true;
-        }
-
         protected boolean portPlayersToArena()
         {
             _playerOneLocation = new int[3];
             _playerTwoLocation = new int[3];
             
-            if(checkPlayersCrash())
-                return false;
-            
             try
             {
-                _playerOneLocation[0] = _playerOne.getX();
-                _playerOneLocation[1] = _playerOne.getY();
-                _playerOneLocation[2] = _playerOne.getZ();
+            	if(_playerOne!=null)
+            	{
+            		_playerOneLocation[0] = _playerOne.getX();
+            		_playerOneLocation[1] = _playerOne.getY();
+            		_playerOneLocation[2] = _playerOne.getZ();
+            		
+            		if (_playerOne.isSitting())
+                        _playerOne.standUp();
 
-                _playerTwoLocation[0] = _playerTwo.getX();
-                _playerTwoLocation[1] = _playerTwo.getY();
-                _playerTwoLocation[2] = _playerTwo.getZ();
+            		_playerOne.setTarget(null);
+            		_playerOne.teleToLocation(_stadiumPort[0], _stadiumPort[1], _stadiumPort[2], true);
+            		_playerOne.setIsInOlympiadMode(true);
+            		_playerOne.setIsOlympiadStart(false);
+            	}
+
+            	if(_playerTwo!=null)
+            	{
+            		_playerTwoLocation[0] = _playerTwo.getX();
+            		_playerTwoLocation[1] = _playerTwo.getY();
+            		_playerTwoLocation[2] = _playerTwo.getZ();
+                
+            		if (_playerTwo.isSitting())
+            			_playerTwo.standUp();
+
+            		_playerTwo.setTarget(null);
+            		_playerTwo.teleToLocation(_stadiumPort[0], _stadiumPort[1], _stadiumPort[2], true);                
+            		_playerTwo.setIsInOlympiadMode(true);
+            		_playerTwo.setIsOlympiadStart(false);
+            	}
 
                 //_playerOne.getAppearance().setInvisible();
                 //_playerOne.broadcastUserInfo();
@@ -1676,24 +1702,7 @@ public class Olympiad
                 //_playerTwo.broadcastUserInfo();
                 //_playerTwo.decayMe();
                 //_playerTwo.spawnMe();
-
-                if (_playerOne.isSitting())
-                    _playerOne.standUp();
-
-                if (_playerTwo.isSitting())
-                    _playerTwo.standUp();
-
-                _playerOne.setTarget(null);
-                _playerTwo.setTarget(null);
-
-                _playerOne.teleToLocation(_stadiumPort[0], _stadiumPort[1], _stadiumPort[2], true);
-                _playerTwo.teleToLocation(_stadiumPort[0], _stadiumPort[1], _stadiumPort[2], true);
-
-                _playerOne.setIsInOlympiadMode(true);
-                _playerOne.setIsOlympiadStart(false);
-
-                _playerTwo.setIsInOlympiadMode(true);
-                _playerTwo.setIsOlympiadStart(false);
+                
             }
             catch (Exception e)
             {
@@ -1772,13 +1781,10 @@ public class Olympiad
                 _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... aborted/tie due to crashes!");
                 return;
             }
-        	if(!checkIfPlayerInOlympiadStadia())
+        	if(checkPlayersCrash())
         	{
-        		if(checkPlayersCrash())
-        		{
-        			 _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... aborted due to crashes!");
-        			 return; 
-        		}
+        		_log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... aborted due to crashes!");
+        		return; 
         	}
         	
             StatsSet playerOneStat;
@@ -1988,9 +1994,6 @@ public class Olympiad
 
         protected boolean makeCompetitionStart()
         {
-            if(checkPlayersCrash()) 
-                return false;
-            
             _sm = new SystemMessage(SystemMessageId.STARTS_THE_GAME);
             
             try
