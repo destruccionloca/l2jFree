@@ -1807,6 +1807,8 @@ public class Olympiad
                 {
                     playerOneHp = _playerOne.getStatus().getCurrentHp()+_playerOne.getStatus().getCurrentCp();
                     hpDiffOne = (_playerOne.getMaxHp()+_playerOne.getMaxCp()) - playerOneHp;
+                    if(_playerOne.getStatus().getCurrentHp()==0)
+                    	hpDiffOne = 9999999;
                 }
             }
             catch (Exception e)
@@ -1823,6 +1825,8 @@ public class Olympiad
                 {
                     playerTwoHp = _playerTwo.getStatus().getCurrentHp()+_playerTwo.getStatus().getCurrentCp();
                     hpDiffTwo = (_playerTwo.getMaxHp()+_playerTwo.getMaxCp()) - playerTwoHp;
+                    if(_playerTwo.getStatus().getCurrentHp() == 0)
+                    	hpDiffTwo = 9999999;
                 }
             }
             catch (Exception e)

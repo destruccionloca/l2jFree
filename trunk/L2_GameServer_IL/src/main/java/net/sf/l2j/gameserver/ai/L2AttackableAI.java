@@ -156,7 +156,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 return false;
             
             // Check if the AI isn't a Raid Boss and the target isn't in silent move mode
-            if (!(me instanceof L2RaidBossInstance) && ((L2PcInstance)target).isSilentMoving())
+            if (!(me instanceof L2RaidBossInstance) && ((L2PcInstance)target).isSilentMoving() && !((L2PcInstance)target).isCastingNow() && !((L2PcInstance)target).isAttackingNow())
                 return false;
             
             // Check for npc ally
