@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
+import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -212,7 +213,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         else if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
-                activeChar.isInOlympiadMode() || activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)  
+                activeChar.isInOlympiadMode() || activeChar.inObserverMode() || activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)  
         	return false;
         // Check to see if the player is in a festival.
         else if (activeChar.isFestivalParticipant()) 
@@ -265,7 +266,7 @@ public class Wedding implements IVoicedCommandHandler
         	activeChar.sendMessage("Your partner is in event now.");
         	return false;
         }
-        else if(partner.isInOlympiadMode())
+        else if(partner.isInOlympiadMode() || partner.inObserverMode())
         {
         	activeChar.sendMessage("Your partner is in Olympiad now.");
         	return false;
