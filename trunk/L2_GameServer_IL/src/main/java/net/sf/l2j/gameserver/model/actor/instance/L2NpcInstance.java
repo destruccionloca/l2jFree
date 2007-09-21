@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -67,6 +68,7 @@ import net.sf.l2j.gameserver.model.actor.knownlist.NpcKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
 import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
@@ -845,17 +847,20 @@ public class L2NpcInstance extends L2Character
         // Get castle this NPC belongs to (excluding L2Attackable)
         if (_castleIndex < 0)
         {
-            _castleIndex = CastleManager.getInstance().getCastleIndexByTown(this);
-            if (_castleIndex < 0)
+            Town town = TownManager.getInstance().getTown(this);
+            // Npc was spawned in town
+            _isInTown = (town != null);
+            
+            if (! _isInTown )
             {
-                _castleIndex = CastleManager.getInstance().findNearestCastleIndex(this);
+            	_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
             }
-            else _isInTown = true; // Npc was spawned in town
+            else
+            	if (town.getCastle() != null)
+            		_castleIndex = town.getCastle().getCastleId();
         }
 
-        if (_castleIndex < 0) return null;
-
-        return CastleManager.getInstance().getCastles().get(_castleIndex);
+        return CastleManager.getInstance().getCastle(_castleIndex);
     }
     
     public final boolean getIsInTown()

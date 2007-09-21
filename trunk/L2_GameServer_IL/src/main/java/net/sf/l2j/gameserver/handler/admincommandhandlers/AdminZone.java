@@ -30,21 +30,25 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
 
+import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 
 public class AdminZone implements IAdminCommandHandler
 {
     private static final int REQUIRED_LEVEL = Config.GM_TEST;
     private static final String[] ADMIN_COMMANDS =
     {
-        "admin_zone_check", "admin_zone_reload"
+        "admin_zone_check", "admin_zone_reload" 
     };
 
     /* (non-Javadoc)
@@ -65,25 +69,17 @@ public class AdminZone implements IAdminCommandHandler
  
         if (actualCommand.equalsIgnoreCase("admin_zone_check"))
         {
-            for (ZoneType.ZoneTypeEnum zt: ZoneType.ZoneTypeEnum.values())
-            {
-                if (ZoneManager.getInstance().checkIfInZone(zt.getName(), activeChar))
-                    activeChar.sendMessage("You are in zone: " + zt.getName());
-            }
-
-            if (ZoneManager.getInstance().checkIfInZonePvP(activeChar))
-            	activeChar.sendMessage("This is a PvP zone.");
-            else
-            	activeChar.sendMessage("This is NOT a PvP zone.");
-
-            if (ZoneManager.getInstance().checkIfInZoneNoLanding(activeChar))
-            	activeChar.sendMessage("This is a no landing zone.");
-            else
-            	activeChar.sendMessage("This is NOT a no landing zone.");
-            
-            activeChar.sendMessage("MapRegion: x:" + MapRegionTable.getInstance().getMapRegionX(activeChar.getX()) + " y:" + MapRegionTable.getInstance().getMapRegionY(activeChar.getY()));
-
-            activeChar.sendMessage("Closest Town: " + MapRegionTable.getInstance().getClosestTownName(activeChar));
+           	FastList <IZone> zones;
+        	for (ZoneType zt: ZoneType.values())
+        	{
+        		zones = ZoneManager.getInstance().getZones(zt, activeChar.getX(), activeChar.getY());
+        		if (zones != null && zones.size() > 0)
+        			for (IZone zone: zones)
+        				if (zone.checkIfInZone(activeChar.getX(), activeChar.getY()))
+        					activeChar.sendMessage("Zone (XY"+(zone.checkIfInZone(activeChar)?("Z["+zone.getMin().getZ()+":"+zone.getMax().getZ()+"])"):(")"))+"("+zone.getZoneType().toString()+"): ID "+zone.getId()+" " +zone.getZoneName());
+        	}
+            activeChar.sendMessage("Closest Castle: " + CastleManager.getInstance().getClosestCastle(activeChar).getName());
+            activeChar.sendMessage("Closest Town: " + TownManager.getInstance().getClosestTown(activeChar).getName());
 
             Location loc;
 

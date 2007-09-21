@@ -23,25 +23,27 @@
 
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.concurrent.Future;
 import java.util.List;
-import javolution.util.FastList;
+import java.util.concurrent.Future;
 
+import javolution.util.FastList;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2CharPosition;
+import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.lib.Rnd;
-import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -101,6 +103,10 @@ public class SailrenManager
     protected boolean _isSailrenSpawned = false;
     protected boolean _isAlreadyEnteredOtherParty = false;
     protected boolean _isIntervalForSailrenSpawn = false;
+
+    protected IZone  _zone;
+    protected String _zoneName;
+    protected String _questName;
     
     public SailrenManager()
     {
@@ -120,6 +126,8 @@ public class SailrenManager
     	_isSailrenSpawned = false;
     	_isAlreadyEnteredOtherParty = false;
     	_isIntervalForSailrenSpawn = false;
+        _zoneName = "Lair of Sailren";
+    	_questName = "sailren";
     	
         // setting spawn data of monsters.
         try
@@ -209,6 +217,13 @@ public class SailrenManager
 	{
 		return _playersInSailrenLair;
 	}
+
+    public boolean checkIfInZone(L2PcInstance pc)
+    {
+    	if ( _zone == null )
+    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDangeon, _zoneName );
+    	return _zone.checkIfInZone(pc);
+    }
     
     // whether it is permitted to enter the sailren's lair is confirmed. 
     public int canIntoSailrenLair(L2PcInstance pc)
@@ -299,7 +314,7 @@ public class SailrenManager
 		{
 			for(L2PcInstance mem:pc.getParty().getPartyMembers())
 			{
-				if(!mem.isDead() && ZoneManager.getInstance().checkIfInZone("LairofSailren", pc))
+				if(!mem.isDead() && checkIfInZone(pc))
 				{
 					return false;
 				}
@@ -314,8 +329,8 @@ public class SailrenManager
     {
     	for(L2PcInstance pc : _playersInSailrenLair)
     	{
-    		if(pc.getQuestState("sailren") != null) pc.getQuestState("sailren").exitQuest(true);
-    		if(ZoneManager.getInstance().checkIfInZone("LairofSailren", pc))
+    		if(pc.getQuestState(_questName) != null) pc.getQuestState(_questName).exitQuest(true);
+    		if(checkIfInZone(pc))
     		{
         		int driftX = Rnd.get(-80,80);
         		int driftY = Rnd.get(-80,80);

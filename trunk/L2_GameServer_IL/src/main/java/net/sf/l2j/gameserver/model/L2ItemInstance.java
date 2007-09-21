@@ -21,10 +21,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.CollationKey; 
-import java.text.Collator; 
-import java.util.Comparator; 
-import java.util.Locale;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledFuture;

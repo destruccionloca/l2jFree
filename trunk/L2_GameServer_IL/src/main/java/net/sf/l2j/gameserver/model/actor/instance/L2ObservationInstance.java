@@ -60,6 +60,7 @@ public final class L2ObservationInstance extends L2FolkInstance
             st.nextToken(); // Bypass cost
 
             if (SiegeManager.getInstance().checkIfInZone(Integer.parseInt(st.nextToken()),
+                                                         Integer.parseInt(st.nextToken()),
                                                          Integer.parseInt(st.nextToken()))) doObserve(player,val);
             else player.sendPacket(new SystemMessage(SystemMessageId.ONLY_VIEW_SIEGE));
         }

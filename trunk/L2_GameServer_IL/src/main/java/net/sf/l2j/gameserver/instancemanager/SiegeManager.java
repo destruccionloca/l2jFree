@@ -88,7 +88,7 @@ public class SiegeManager
     public final boolean checkIfInZone(L2Object obj) { return (getSiege(obj) != null); }
 
     /** Return true if object is inside zone */
-    public final boolean checkIfInZone(int x, int y) { return (getSiege(x, y) != null); }
+    public final boolean checkIfInZone(int x, int y, int z) { return (getSiege(x, y, z) != null); }
 
     /**
      * Return true if character summon<BR><BR>
@@ -175,7 +175,7 @@ public class SiegeManager
             _controlTowerSpawnList = new FastMap<Integer,FastList<SiegeSpawn>>();
             _artefactSpawnList = new FastMap<Integer,FastList<SiegeSpawn>>();
 
-            for (Castle castle: CastleManager.getInstance().getCastles())
+            for (Castle castle: CastleManager.getInstance().getCastles().values())
             {
                 FastList<SiegeSpawn> _controlTowersSpawns = new FastList<SiegeSpawn>();
                 
@@ -266,12 +266,12 @@ public class SiegeManager
         return null;
     }
     
-    public final Siege getSiege(L2Object activeObject) { return getSiege(activeObject.getPosition().getX(), activeObject.getPosition().getY()); }
+    public final Siege getSiege(L2Object activeObject) { return getSiege(activeObject.getX(), activeObject.getY(),  activeObject.getZ()); }
 
-    public final Siege getSiege(int x, int y)
+    public final Siege getSiege(int x, int y, int z)
     {
-        for (Castle castle: CastleManager.getInstance().getCastles())
-            if (castle.getSiege().checkIfInZone(x, y)) return castle.getSiege();
+        for (Castle castle: CastleManager.getInstance().getCastles().values())
+            if (castle.getSiege().checkIfInZone(x, y, z)) return castle.getSiege();
         return null;
     }
 

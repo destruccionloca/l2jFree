@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -28,12 +29,14 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
+import net.sf.l2j.gameserver.util.Util;
 
 public class Fishing implements ISkillHandler 
 { 
@@ -47,6 +50,11 @@ public class Fishing implements ISkillHandler
 
         L2PcInstance player = (L2PcInstance)activeChar;
         
+        if (!Config.ALLOW_FISHING)
+        {
+            player.sendMessage("Fishing is disabled.");
+            return;
+        } 
         if (player.isFishing())
         {
             if (player.getFishCombat() != null) player.getFishCombat().doDie(false);
@@ -59,27 +67,43 @@ public class Fishing implements ISkillHandler
         {           
             //You can't fish while you are on boat
             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_ON_BOAT));
-            if (!player.isGM())
-                return;
+            return;
         }
-        if (!ZoneManager.getInstance().checkIfInZoneFishing(player))
+        if (!ZoneManager.getInstance().checkIfInZone(ZoneType.Fishing, player))
         {
             //You can't fish here
             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));
-            if (!player.isGM())
-                return;
+            return;
         }
-        if (player.getZ() <= -3800)
+        if (ZoneManager.getInstance().checkIfInZone(ZoneType.Water, player))
         {
             //You can't fish in water
             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_UNDER_WATER));
-            if (!player.isGM())
-                return;
+            return;
+        }
+        
+        // calculate point of a float
+        int d = Rnd.get(50) + 150;
+        double angle = Math.toRadians(Util.convertHeadingToDegree(activeChar.getHeading())) - 90;
+        
+        int dx = (int)( d * Math.sin(angle));
+        int dy = (int)( d * Math.cos(angle));
+        
+        int x = activeChar.getX() - dx;
+        int y = activeChar.getY() + dy;
+        
+        int z = ZoneManager.getInstance().getIfInZone(ZoneType.Water, x, y).getMax().getZ();
+        
+        // TODO: check, if player can see a float
+        if ( Util.calculateDistance(activeChar.getX(), activeChar.getY(),activeChar.getZ(),
+        							x, y, z, true) > d * 1.73 )
+        {
+            player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));
+            return;
         }
         if (player.isInCraftMode() || player.isInStoreMode()) {
             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_WHILE_USING_RECIPE_BOOK));
-            if (!player.isGM())
-                return;
+            return;
         }
         L2Weapon weaponItem = player.getActiveWeaponItem();
         if ((weaponItem==null || weaponItem.getItemType() != L2WeaponType.ROD))
@@ -95,11 +119,6 @@ public class Fishing implements ISkillHandler
             player.sendPacket(new SystemMessage(SystemMessageId.BAIT_ON_HOOK_BEFORE_FISHING));
             return;
         }
-        if (!Config.ALLOWFISHING && !player.isGM())
-        {
-            player.sendMessage("Not Working Yet");
-            return;
-        }       
         player.setLure(lure);
         L2ItemInstance lure2 = player.getInventory().destroyItem("Consume", player.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LHAND), 1, player, null);
 
@@ -114,7 +133,9 @@ public class Fishing implements ISkillHandler
             iu.addModifiedItem(lure2);
             player.sendPacket(iu);
         }
-        player.startFishing();      
+        
+        // client itself find z coord of a float
+        player.startFishing(x,y, z + 100);      
     } 
     
     public SkillType[] getSkillIds() 

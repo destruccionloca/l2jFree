@@ -27,8 +27,7 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
-import net.sf.l2j.gameserver.model.entity.Zone;
-import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.gameserver.model.zone.IZone;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -210,19 +209,13 @@ public class ClanHallManager
         int id = -1;
         for (Map.Entry<Integer, ClanHall> ch : clanHall.entrySet())
         {
-            int[] coord;
-            Zone zone = ch.getValue().getZone();
+            IZone zone = ch.getValue().getZone();
             if (zone != null)
             {
-            	coord = zone.getCoords().get(0);
-            	int x1 = coord[0] + (coord[2] - coord[0])/2;
-            	int y1 = coord[1] + (coord[3] - coord[1])/2;
-            	if (_log.isDebugEnabled())
-            		_log.warn("ch"+ch.getKey()+":("+x+","+y+") distance "+Util.calculateDistance(x,y,0,coord[0],coord[1]));
-            	if (clanHall != null && Util.calculateDistance(x,y,0,x1,y1) < offset)
+             	if (clanHall != null && zone.getZoneDistance(x, y) < offset)
             	{ 
             		id = ch.getKey();
-            		offset = (int)Util.calculateDistance(x,y,0,x1,y1);
+            		offset = (int)zone.getZoneDistance(x, y);
             	}
             }
         }
@@ -236,23 +229,4 @@ public class ClanHallManager
             	return ch.getKey();
         return -1;
     }
-    /** NOT USED MUST BE REMOVED ? */
-    /** ClanHall Id by Owner : NOT USED */
-    /*private final int getClanHallIndexByOwner(L2Clan clan)
-    {
-        if (clan == null) return -1;
-        ClanHall clanHall;
-        for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
-        {
-            clanHall = ch.getValue();
-            if (clanHall != null && clanHall.getOwnerId() == clan.getClanId()) 
-            	return ch.getKey();
-        }
-        return -1;
-    }*/
-    /** Get Index Id by object : NOT USED */
-    /*private final int getClanHallIndex(L2Object activeObject, Map<Integer,ClanHall> clanHall) 
-    { 
-    	return getClanHallIndex(activeObject.getPosition().getX(), activeObject.getPosition().getY(), clanHall);
-    }*/
 }

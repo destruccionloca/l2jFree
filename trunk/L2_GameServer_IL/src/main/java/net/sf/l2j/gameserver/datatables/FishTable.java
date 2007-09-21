@@ -133,7 +133,7 @@ public class FishTable
 
             result.add(f);
         }
-        if (result.size() == 0) _log.warn("Cant Find Any Fish!? - Lvl: "+lvl+" Type: " +type);
+        if (result.size() == 0) _log.warn("FishTable: Fishes are not definied for Lvl "+lvl+" type "+type+" group "+group);
         return result;
     }
 }

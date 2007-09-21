@@ -29,15 +29,14 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
-import net.sf.l2j.gameserver.model.entity.Zone;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-
 /**
  * This class handles all siege commands:
  * Todo: change the class name, and neaten it up
@@ -178,14 +177,10 @@ public class AdminSiege implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_clanhallteleportself"))
 			{
-				Zone zone = clanhall.getZone();
-				int[] coord;
+				IZone zone = clanhall.getZone();
 				if (zone != null)
 				{
-					coord = zone.getCoords().get(0);
-					int x = coord[0] + (coord[2] - coord[0])/2;
-					int y = coord[1] + (coord[3] - coord[1])/2;
-					activeChar.teleToLocation(new Location(x, y, coord[4]), true); 
+					activeChar.teleToLocation(zone.getRestartPoint(RestartType.RestartRandom), true); 
 				}
 			}
 			else if (command.equalsIgnoreCase("admin_spawn_doors"))
@@ -210,7 +205,7 @@ public class AdminSiege implements IAdminCommandHandler
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/castles.htm");
 		TextBuilder cList = new TextBuilder();
-		for (Castle castle: CastleManager.getInstance().getCastles())
+		for (Castle castle: CastleManager.getInstance().getCastles().values())
 		{
 			if (castle != null)
 			{

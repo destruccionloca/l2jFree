@@ -190,7 +190,7 @@ public class MercTicketManager
             	x = rs.getInt("x");
             	y = rs.getInt("y");
             	z = rs.getInt("z");
-            	Castle castle = CastleManager.getInstance().getCastle(x,y);
+            	Castle castle = CastleManager.getInstance().getCastle(x,y,z);
             	if(castle != null)
             		startindex = 10*(castle.getCastleId()-1);
 	        	

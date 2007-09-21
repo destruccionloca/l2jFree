@@ -192,7 +192,7 @@ public class ValidatePosition extends L2GameClientPacket
 		{
 		    if (SiegeManager.getInstance().checkIfInZone(activeChar)
 		            && !(activeChar.getClan() != null
-		            && CastleManager.getInstance().getCastle(activeChar) == CastleManager.getInstance().getCastleByOwner(activeChar.getClan())
+		            && CastleManager.getInstance().getCastle(activeChar) == CastleManager.getInstance().getCastle(activeChar.getClan())
 		            && activeChar == activeChar.getClan().getLeader().getPlayerInstance()))
 		    {
 		        SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);

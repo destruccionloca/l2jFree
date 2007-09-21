@@ -28,6 +28,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.entity.Auction;
 import net.sf.l2j.gameserver.model.entity.Auction.Bidder;
@@ -522,7 +523,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             {
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile("data/html/auction/location.htm");
-                html.replace("%location%", MapRegionTable.getInstance().getClosestTownName(player));
+                html.replace("%location%", TownManager.getInstance().getClosestTown(player).getName());
                 html.replace("%LOCATION%", getPictureName(player));
                 html.replace("%AGIT_LINK_BACK%", "bypass -h npc_"+getObjectId()+"_start");
                 player.sendPacket(html);

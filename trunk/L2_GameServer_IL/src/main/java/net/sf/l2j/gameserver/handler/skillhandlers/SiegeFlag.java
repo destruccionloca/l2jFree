@@ -97,7 +97,7 @@ public class SiegeFlag implements ISkillHandler
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         L2PcInstance player = (L2PcInstance)activeChar;
 
-        if (castle == null || castle.getCastleId() <= 0)
+        if (castle == null || castle.getCastleId() <= 0 || !castle.checkIfInZoneHeadQuaters(activeChar))
             sm.addString("You must be on castle ground to place a flag.");
         else if (!castle.getSiege().getIsInProgress())
             sm.addString("You can only place a flag during a siege.");

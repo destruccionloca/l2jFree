@@ -500,7 +500,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISSOLVE_WHILE_OWNING_CLAN_HALL_OR_CASTLE));
             return;
         }
-        for (Castle castle : CastleManager.getInstance().getCastles())
+        for (Castle castle : CastleManager.getInstance().getCastles().values())
         {
             if (SiegeManager.getInstance().checkIsRegistered(clan, castle.getCastleId()))
             {

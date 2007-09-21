@@ -41,12 +41,14 @@ import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SepulcherMonsterInstance;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -82,9 +84,7 @@ public class FourSepulchersManager
     protected Future _changeWarmUpTimeTask = null;
     protected Future _changeAttackTimeTask = null;
     protected Future _onPartyAnnihilatedTask = null;
-    
-    
-    
+     
     protected static Map<Integer,Integer> _hallGateKeepers = new FastMap<Integer,Integer>();
     
     private int[][] _startHallSpawn =
@@ -154,6 +154,7 @@ public class FourSepulchersManager
     protected Map<Integer,L2Spawn> _executionerSpawns = new FastMap<Integer,L2Spawn>();
     
     protected List<L2NpcInstance> _allMobs = new FastList<L2NpcInstance>();
+    protected String _zoneName = "Four Sepulcher";
     
     public FourSepulchersManager()
     {
@@ -1310,9 +1311,10 @@ public class FourSepulchersManager
             _inAttackTime = false;
             _inCoolDownTime = true;
             
+            
             for(L2PcInstance player :L2World.getInstance().getAllPlayers())
             {
-            	if (ZoneManager.getInstance().checkIfInZone("FourSepulcher", player) &&
+            	if ( checkIfInDangeon(player) &&
             		(player.getZ() >= -7250 && player.getZ() <= -6841) &&
             		!player.isGM())
             	{
@@ -1371,5 +1373,10 @@ public class FourSepulchersManager
             }
 			
 		}
+	}
+	
+	public boolean checkIfInDangeon(L2Object obj)
+	{
+		return ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, _zoneName, obj);
 	}
 }

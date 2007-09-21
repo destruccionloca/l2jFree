@@ -180,7 +180,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		if (list != null)
 		{
             //you cannot teleport to village that is in siege
-            if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY()))
+            if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
             {
                 player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
                 return;
@@ -226,7 +226,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 
     private int validateCondition(L2PcInstance player)
     {
-        if (CastleManager.getInstance().getCastleIndex(this) < 0)                       // Teleporter isn't on castle ground
+        if (CastleManager.getInstance().getCastle(this) == null)                        // Teleporter isn't on castle ground
             return COND_REGULAR;                                                        // Regular access
         else if (getCastle().getSiege().getIsInProgress())                              // Teleporter is on castle ground and siege is in progress
             return COND_BUSY_BECAUSE_OF_SIEGE;                                          // Busy because of siege

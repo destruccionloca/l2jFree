@@ -77,7 +77,7 @@ public class AdminDoorControl implements IAdminCommandHandler
                     _doorTable.getDoor(doorId).openMe();
                 else
                 {
-                    for (Castle castle: CastleManager.getInstance().getCastles())
+                    for (Castle castle: CastleManager.getInstance().getCastles().values())
                     {
                         if (castle.getDoor(doorId) != null)
                         {
@@ -93,7 +93,7 @@ public class AdminDoorControl implements IAdminCommandHandler
                     _doorTable.getDoor(doorId).closeMe();
                 else
                 {
-                    for (Castle castle: CastleManager.getInstance().getCastles())
+                    for (Castle castle: CastleManager.getInstance().getCastles().values())
                     {
                         if (castle.getDoor(doorId) != null)
                         {
@@ -106,7 +106,7 @@ public class AdminDoorControl implements IAdminCommandHandler
             {
                 for(L2DoorInstance door : _doorTable.getDoors())
                     door.closeMe();
-                for (Castle castle: CastleManager.getInstance().getCastles())
+                for (Castle castle: CastleManager.getInstance().getCastles().values())
                     for (L2DoorInstance door: castle.getDoors())
                         door.closeMe();
             }
@@ -114,7 +114,7 @@ public class AdminDoorControl implements IAdminCommandHandler
             {
                 for(L2DoorInstance door : _doorTable.getDoors())
                     door.openMe();
-                for (Castle castle: CastleManager.getInstance().getCastles())
+                for (Castle castle: CastleManager.getInstance().getCastles().values())
                     for (L2DoorInstance door: castle.getDoors())
                         door.openMe();
             }

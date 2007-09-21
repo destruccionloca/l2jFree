@@ -40,6 +40,8 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 
 import org.apache.commons.logging.Log;
@@ -57,7 +59,7 @@ public class ClanHall
     private String _desc;
     private String _location;
     protected long _paidUntil;
-    private Zone _zone;
+    private IZone _zone;
     private int _grade;
     protected final int _chRate = 604800000;
     protected boolean _isFree = true;
@@ -208,10 +210,10 @@ public class ClanHall
 		return _ownerId; 
 	}
 	/** Return zone */
-    public final Zone getZone()
+    public final IZone getZone()
     {
         if (_zone == null) 
-        	_zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall), _clanHallId);
+        	_zone = ZoneManager.getInstance().getZone(ZoneType.ClanHall, _clanHallId);
         return _zone;
     }
     /** Return lease*/
@@ -272,7 +274,7 @@ public class ClanHall
     /** Return true if object is inside the zone */
     public boolean checkIfInZone(int x, int y) 
     {
-    	Zone zone = getZone();
+    	IZone zone = getZone();
     	if (zone == null)
     		return false;
     	else 
@@ -281,11 +283,14 @@ public class ClanHall
     /** Calculate distance to zone */
     public double findDistanceToZone(int x, int y, int z, boolean checkZ) 
     { 
-    	Zone zone = getZone();
+    	IZone zone = getZone();
     	if (zone == null)
-    		return 99999999;
+    		return Double.MAX_VALUE;
     	else
-    		return zone.findDistanceToZone(x, y, z, checkZ); 
+    		if (checkZ)
+    			return zone.getZoneDistance(x, y, z);
+    		else
+    			return zone.getZoneDistance(x, y);
     }
 	/** Free this clan hall */
 	public void free(){

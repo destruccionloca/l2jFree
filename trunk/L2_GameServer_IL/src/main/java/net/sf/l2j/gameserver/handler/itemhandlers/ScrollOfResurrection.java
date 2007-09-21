@@ -89,9 +89,9 @@ public class ScrollOfResurrection implements IItemHandler
                     Castle castle = null;
     
                     if (targetPlayer != null)
-                        castle = CastleManager.getInstance().getCastle(targetPlayer.getX(),targetPlayer.getY());
+                        castle = CastleManager.getInstance().getCastle(targetPlayer.getX(),targetPlayer.getY(), targetPlayer.getZ());
                     else
-                        castle = CastleManager.getInstance().getCastle(targetPet.getX(),targetPet.getY());
+                        castle = CastleManager.getInstance().getCastle(targetPet.getX(),targetPet.getY(), targetPlayer.getZ());
                     
                     if (castle != null
                             && castle.getSiege().getIsInProgress())

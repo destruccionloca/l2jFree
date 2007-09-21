@@ -24,6 +24,8 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.PcFreight;
+import net.sf.l2j.gameserver.model.entity.Town;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -46,9 +48,9 @@ import org.apache.commons.logging.LogFactory;
 public final class L2WarehouseInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2WarehouseInstance.class.getName());
-    /**
-     * @param template
-     */
+    
+    private int _closestTownId = -1;
+    
     public L2WarehouseInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
@@ -193,7 +195,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
         PcFreight freight = player.getFreight();
 
-        if (freight != null && getZone() != null)
+        if (freight != null)
         {
             if (freight.getSize() > 0)
             {
@@ -203,7 +205,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
                 }
                 else
                 {
-                    freight.setActiveLocation(getZone().getId());
+                    freight.setActiveLocation(getClosestTown());
                 }
                 player.setActiveWarehouse(freight);
                 player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT, itemtype, sortorder));
@@ -227,7 +229,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
         PcFreight freight = player.getFreight();
 
-        if (freight != null && getZone() != null)
+        if (freight != null)
         {
         	if (freight.getSize() > 0)
         	{
@@ -236,7 +238,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         			freight.setActiveLocation(0);
         		}else
         		{
-        			freight.setActiveLocation(getZone().getId());
+        			freight.setActiveLocation(getClosestTown());
         		}
         		player.setActiveWarehouse(freight);
         		player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT));
@@ -290,21 +292,13 @@ public final class L2WarehouseInstance extends L2FolkInstance
                     + " - using freight.");
             return;
         }
-        if (getZone() == null)
-        {
-            // Something went wrong too!
-            if (_log.isDebugEnabled())
-                _log.warn("Error retrieving the zone for char " + player.getName()
-                    + " - using freight.");
-            return;
-        }
         PcFreight freight = destChar.getFreight();
     	if (Config.ALT_GAME_FREIGHTS)
     	{
             freight.setActiveLocation(0);
     	} else
     	{
-    		freight.setActiveLocation(getZone().getId());
+    		freight.setActiveLocation(getClosestTown());
     	}
         player.setActiveWarehouse(freight);
         player.tempInvetoryDisable();
@@ -449,5 +443,21 @@ public final class L2WarehouseInstance extends L2FolkInstance
             // the command to the parent class
             super.onBypassFeedback(player, command);
         }
+    }
+    
+    private int getClosestTown()
+    {
+    	if ( _closestTownId < 0)
+    	{
+    		Town town = TownManager.getInstance().getClosestTown(this);
+    		if (town != null)
+    		{
+    			_closestTownId = town.getTownId();
+    		}
+    		else
+    			_closestTownId = 0;
+    	}
+    	
+    	return _closestTownId;
     }
 }

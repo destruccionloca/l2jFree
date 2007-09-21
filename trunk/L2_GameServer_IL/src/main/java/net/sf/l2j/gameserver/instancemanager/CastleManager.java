@@ -17,227 +17,162 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import javolution.util.FastList;
-import net.sf.l2j.L2DatabaseFactory;
+import javolution.util.FastMap;
+import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Castle;
-import net.sf.l2j.gameserver.SevenSigns;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 public class CastleManager
 {
-    protected static Log _log = LogFactory.getLog(CastleManager.class.getName());
+	protected static Log _log = LogFactory.getLog(CastleManager.class.getName());
 
-    // =========================================================
-    private static CastleManager _instance;
-    public static final CastleManager getInstance()
-    {
-        if (_instance == null)
-        {
-            _log.info("Initializing CastleManager");
-            _instance = new CastleManager();
-            _instance.load();
-        }
-        return _instance;
-    }
-    // =========================================================
+	private static CastleManager _instance;
+	private FastMap<Integer, Castle> _castles;
+	
+	public static final CastleManager getInstance()
+	{
+		if (_instance == null)
+		{
+			_log.info("Initializing CastleManager");
+			_instance = new CastleManager();
+			_instance.load();
+		}
+		return _instance;
+	}
 
-    
-    // =========================================================
-    // Data Field
-    private FastList<Castle> _castles;
-    
-    // =========================================================
-    // Constructor
-    public CastleManager()
-    {
-    }
+	public CastleManager()
+	{
+	}
 
-    public final int findNearestCastleIndex(L2Object activeObject)
-    {
-        int index = getCastleIndex(activeObject);
-        if (index < 0)
-        {
-            double closestDistance = 99999999;
-            double distance;
-            Castle castle;
-            for (int i = 0; i < getCastles().size(); i++)
-            {
-                castle = getCastles().get(i);
-                if (castle == null) continue;
-                distance = castle.getZone().findDistanceToZone(activeObject, false);
-                if (closestDistance > distance)
-                {
-                    closestDistance = distance;
-                    index = i;
-                }
-            }
-        }
-        return index;
-    }
+	public final Castle getClosestCastle(L2Object activeObject)
+	{
+		Castle castle = getCastle(activeObject);
+		if (castle == null)
+		{
+			double closestDistance = Double.MAX_VALUE;
+			double distance;
+			
+			for (Castle castle_check : getCastles().values())
+			{
+				if (castle_check  == null)
+					continue;
+				distance = castle_check.getZone().getZoneDistance(activeObject.getX(), activeObject.getY());
+				if (closestDistance > distance)
+				{
+					closestDistance = distance;
+					castle = castle_check;
+				}
+			}
+		}
+		return castle;
+	}
 
-    public void reload()
-    {
-    	getCastles().clear();
-    	load();
-    }
+	public void reload()
+	{
+		getCastles().clear();
+		load();
+	}
 
-    // =========================================================
-    // Method - Private
-    private final void load()
-    {
-        java.sql.Connection con = null;
-        try
-        {
-            PreparedStatement statement;
-            ResultSet rs;
+	private final void load()
+	{
+		for (IZone zone : ZoneManager.getInstance().getZones(ZoneType.CastleArea))
+			if (zone != null)
+				getCastles().put(zone.getId(), new Castle(zone.getId()));
+		_log.info("Loaded: " + getCastles().size() + " castles.");
+	}
 
-            con = L2DatabaseFactory.getInstance().getConnection(con);
+	public final Castle getCastle(int castleId)
+	{
+		return getCastles().get(castleId);
+	}
 
-            statement = con.prepareStatement("Select id from castle order by id");
-            rs = statement.executeQuery();
+	public final Castle getCastle(L2Object activeObject)
+	{
+		return getCastle(activeObject.getX(), activeObject.getY(), activeObject.getZ());
+	}
 
-            while (rs.next())
-            {
-                getCastles().add(new Castle(rs.getInt("id")));
-            }
+	public final Castle getCastle(int x, int y, int z)
+	{
+		Castle castle;
+		for (int i = 0; i < getCastles().size(); i++)
+		{
+			castle = getCastles().get(i);
+			if (castle != null && castle.checkIfInZone(x, y, z))
+				return castle;
+		}
+		return null;
+	}
 
-            statement.close();
+	public final Castle getCastle(String name)
+	{
+		Castle castle;
+		for (int i = 0; i < getCastles().size(); i++)
+		{
+			castle = getCastles().get(i);
+			if (castle != null && castle.getName().equalsIgnoreCase(name.trim()))
+				return castle;
+		}
+		return null;
+	}
 
-            _log.info("Loaded: " + getCastles().size() + " castles");
-        }
-        catch (Exception e)
-        {
-            _log.error("Exception: loadCastleData(): " + e.getMessage(),e);
-        }
-        
-        finally {try { con.close(); } catch (Exception e) {}}
-    }
+	public final Castle getCastle(L2Clan clan)
+	{
+		if (clan == null)
+			return null;
 
-    // =========================================================
-    // Property - Public
-    public final Castle getCastle(int castleId)
-    {
-        int index = getCastleIndex(castleId);
-        if (index >= 0) return getCastles().get(index);
-        return null;
-    }
+		Castle castle;
+		for (int i = 0; i < getCastles().size(); i++)
+		{
+			castle = getCastles().get(i);
+			if (castle != null && castle.getOwnerId() == clan.getClanId())
+				return castle;
+		}
+		return null;
+	}
+	/*
+	public final Castle getCastleByTown(int x, int y, int z)
+	{
+		Castle castle;
+		for (int i = 0; i < getCastles().size(); i++)
+		{
+			castle = getCastles().get(i);
+			if (castle != null && castle.checkIfInZoneTowns(x, y, z))
+				return castle;
+		}
+		return null;
+	}
+	*/
+	public final FastMap<Integer, Castle> getCastles()
+	{
+		if (_castles == null)
+			_castles = new FastMap<Integer, Castle>();
+		return _castles;
+	}
 
-    public final Castle getCastle(L2Object activeObject) { return getCastle(activeObject.getX(), activeObject.getY()); }
+	public final void validateTaxes(int sealStrifeOwner)
+	{
+		int maxTax;
+		switch (sealStrifeOwner)
+		{
+		case SevenSigns.CABAL_DUSK:
+			maxTax = 5;
+			break;
+		case SevenSigns.CABAL_DAWN:
+			maxTax = 25;
+			break;
+		default: // no owner
+			maxTax = 15;
+			break;
+		}
 
-    public final Castle getCastle(int x, int y)
-    {
-        int index = getCastleIndex(x, y);
-        if (index >= 0) return getCastles().get(index);
-        return null;
-    }
-
-    public final Castle getCastle(String name)
-    {
-        int index = getCastleIndex(name);
-        if (index >= 0) return getCastles().get(index);
-        return null;
-    }
-
-    public final Castle getCastleByOwner(L2Clan clan)
-    {
-        int index = getCastleIndexByOwner(clan);
-        if (index >= 0) return getCastles().get(index);
-        return null;
-    }
-
-    public final int getCastleIndex(int castleId)
-    {
-        Castle castle;
-        for (int i = 0; i < getCastles().size(); i++)
-        {
-            castle = getCastles().get(i);
-            if (castle != null && castle.getCastleId() == castleId) return i;
-        }
-        return -1;
-    }
-
-    public final int getCastleIndex(L2Object activeObject) { return getCastleIndex(activeObject.getPosition().getX(), activeObject.getPosition().getY()); }
-
-    public final int getCastleIndex(int x, int y)
-    {
-        Castle castle;
-        for (int i = 0; i < getCastles().size(); i++)
-        {
-            castle = getCastles().get(i);
-            if (castle != null && castle.checkIfInZone(x, y)) return i;
-        }
-        return -1;
-    }
-
-    public final int getCastleIndex(String name)
-    {
-        Castle castle;
-        for (int i = 0; i < getCastles().size(); i++)
-        {
-            castle = getCastles().get(i);
-            if (castle != null && castle.getName().equalsIgnoreCase(name.trim())) return i;
-        }
-        return -1;
-    }
-
-    public final int getCastleIndexByOwner(L2Clan clan)
-    {
-        if (clan == null) return -1;
-        
-        Castle castle;
-        for (int i = 0; i < getCastles().size(); i++)
-        {
-            castle = getCastles().get(i);
-            if (castle != null && castle.getOwnerId() == clan.getClanId()) return i;
-        }
-        return -1;
-    }
-
-    public final int getCastleIndexByTown(L2Object activeObject) { return getCastleIndexByTown(activeObject.getX(), activeObject.getY()); }
-
-    public final int getCastleIndexByTown(int x, int y)
-    {
-        Castle castle;
-        for (int i = 0; i < getCastles().size(); i++)
-        {
-            castle = getCastles().get(i);
-            if (castle != null && castle.checkIfInZoneTowns(x, y)) return i;
-        }
-        return -1;
-    }
-
-    public final FastList<Castle> getCastles()
-    {
-        if (_castles == null) _castles = new FastList<Castle>();
-        return _castles;
-    }
-
-    public final void validateTaxes(int sealStrifeOwner)
-    {
-        int maxTax;
-        switch(sealStrifeOwner)
-        {
-            case SevenSigns.CABAL_DUSK:
-                maxTax = 5;
-                break;
-            case SevenSigns.CABAL_DAWN:
-                maxTax = 25;
-                break;
-            default: // no owner
-                maxTax = 15;
-                break;
-        }
-
-        for(Castle castle : _castles)
-            if(castle.getTaxPercent() > maxTax)
-                castle.setTaxPercent(maxTax);
-    }
+		for (Castle castle : _castles.values())
+			if (castle.getTaxPercent() > maxTax)
+				castle.setTaxPercent(maxTax);
+	}
 }

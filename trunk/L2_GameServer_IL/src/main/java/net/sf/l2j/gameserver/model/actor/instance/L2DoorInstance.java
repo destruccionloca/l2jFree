@@ -278,14 +278,25 @@ public class L2DoorInstance extends L2Character
 
     public final Castle getCastle()
     {
-        if (_castleIndex < 0) _castleIndex = CastleManager.getInstance().getCastleIndex(this);
-        if (_castleIndex < 0) return null;
-        return CastleManager.getInstance().getCastles().get(_castleIndex);
+    	Castle castle = null;
+
+    	if (_castleIndex < 0) 
+    		{
+            	castle = CastleManager.getInstance().getCastle(this);
+            	if (castle != null)
+            	_castleIndex = castle.getCastleId();
+    		}
+    	if (_castleIndex > 0) 
+    		castle = CastleManager.getInstance().getCastle(_castleIndex);
+    	
+    	return castle;
     }
+    
     public void setClanHall(ClanHall clanHall)
     {
         _clanHall = clanHall;
     }
+    
     public ClanHall getClanHall()
     {
         return _clanHall;
@@ -413,9 +424,6 @@ public class L2DoorInstance extends L2Character
                     player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
         		} else
                 {
-        		    //need find serverpacket which ask open/close gate. now auto
-                    	    //if (getOpen() == 1) player.sendPacket(new SystemMessage(1140));                  
-                    	    //else player.sendPacket(new SystemMessage(1141));                  
         		    if (getOpen() == 1) openMe();
         		    else closeMe();
         		    player.sendPacket(new ActionFailed());

@@ -26,12 +26,13 @@ import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.CastleUpdater;
+import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.CropProcure;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -42,8 +43,9 @@ import net.sf.l2j.gameserver.model.SeedProduction;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
-import net.sf.l2j.gameserver.SevenSigns;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -52,17 +54,12 @@ public class Castle
 {
     protected static Log _log = LogFactory.getLog(Castle.class.getName());
     
-    // =========================================================
-    // Data Field
     private FastList<CropProcure> _procure = new FastList<CropProcure>();
     private FastList<SeedProduction> _production = new FastList<SeedProduction>();
 
-    // =========================================================
-    // Data Field
-    private int _castleId                      = 0;
     private FastList<L2DoorInstance> _doors        = new FastList<L2DoorInstance>();
     private FastList<String> _doorDefault          = new FastList<String>();
-    private String _name                       = "";
+    private int _castleId                      = 0;
     private int _ownerId                       = 0;
     private Siege _siege                       = null;
     private Calendar _siegeDate;
@@ -71,12 +68,12 @@ public class Castle
     private int _taxPercent                    = 0;
     private double _taxRate                    = 0;
     private int _treasury                      = 0;
-    private Zone _zone;
-    private FastList<Zone> _zoneTown;
+    private IZone _zone;
+    private IZone _zoneHQ;
+    private IZone _zoneBF;
     private L2Clan _formerOwner;
+    private String _name;
 
-    // =========================================================
-    // Constructor
     public Castle(int castleId)
     {
         _castleId = castleId;
@@ -84,9 +81,6 @@ public class Castle
         loadDoor();
     }
 
-    // =========================================================
-    // Method - Public
-    // This method add to the treasury
     /** Add amount to castle instance's treasury (warehouse). */
     public void addToTreasury(int amount)
     {
@@ -102,9 +96,9 @@ public class Castle
         		amount -= runeTax;
         	}
         }
-        if (!_name.equalsIgnoreCase("aden") && !_name.equalsIgnoreCase("Rune") && !_name.equalsIgnoreCase("Schuttgart") && !_name.equalsIgnoreCase("Goddard"))    // If current castle instance is not Aden, Rune, Goddard or Schuttgart.
+        if (!_name.equalsIgnoreCase("Aden") && !_name.equalsIgnoreCase("Rune") && !_name.equalsIgnoreCase("Schuttgart") && !_name.equalsIgnoreCase("Goddard"))    // If current castle instance is not Aden, Rune, Goddard or Schuttgart.
         {
-            Castle aden = CastleManager.getInstance().getCastle("aden");
+            Castle aden = CastleManager.getInstance().getCastle("Aden");
             if (aden != null)
             {
                 int adenTax = (int)(amount * aden.getTaxRate());        // Find out what Aden gets from the current castle instance's income
@@ -147,41 +141,55 @@ public class Castle
             if (checkIfInZone(player)) player.teleToLocation(MapRegionTable.TeleportWhereType.Town); 
         }
     }
+ 
+    /**
+     * Return true if object is inside the zone
+     */
+    public boolean checkIfInZoneBattlefield(L2Object obj)
+    {
+        return checkIfInZoneBattlefield(obj.getX(), obj.getY(), obj.getZ());
+    }
+
+    /**
+     * Return true if object is inside the zone
+     */
+    public boolean checkIfInZoneBattlefield(int x, int y, int z)
+    {
+        return getBattlefield().checkIfInZone(x, y, z);
+    }
+    
+    /**
+     * Return true if object is inside the zone
+     */
+    public boolean checkIfInZoneHeadQuaters(L2Object obj)
+    {
+        return checkIfInZoneHeadQuaters(obj.getX(), obj.getY(), obj.getZ());
+    }
+
+    /**
+     * Return true if object is inside the zone
+     */
+    public boolean checkIfInZoneHeadQuaters(int x, int y, int z)
+    {
+        return getHeadQuaters().checkIfInZone(x, y, z);
+    }
     
     /**
      * Return true if object is inside the zone
      */
     public boolean checkIfInZone(L2Object obj)
     {
-        return checkIfInZone(obj.getX(), obj.getY());
+        return checkIfInZone(obj.getX(), obj.getY(), obj.getZ());
     }
 
     /**
      * Return true if object is inside the zone
      */
-    public boolean checkIfInZone(int x, int y)
+    public boolean checkIfInZone(int x, int y, int z)
     {
-        return getZone().checkIfInZone(x, y);
+        return getZone().checkIfInZone(x, y, z);
     }
-
-    /**
-     * Return true if object is inside the zone
-     */
-    public boolean checkIfInZoneTowns(L2Object obj)
-    {
-        return checkIfInZoneTowns(obj.getX(), obj.getY());
-    }
-
-    /**
-     * Return true if object is inside the zone
-     */
-    public boolean checkIfInZoneTowns(int x, int y)
-    {
-        for (Zone zone: getZoneTowns())
-            if (zone.checkIfInZone(x, y)) return true;
-        return false;
-    }
-    
+  
     public void closeDoor(L2PcInstance activeChar, int doorId)
     {
         openCloseDoor(activeChar, doorId, false);
@@ -219,7 +227,7 @@ public class Castle
 		{	
 			_formerOwner = clan;
 			clan.setHasCastle(0);
-			new Announcements().announceToAll(clan.getName() + " has lost " +getName() + " castle");
+			new Announcements().announceToAll(clan.getName() + " has lost " +getName() + " castle.");
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 		}
 		
@@ -350,8 +358,6 @@ public class Castle
         }
     }
     
-    // =========================================================
-    // Method - Private
     // This method loads castle
     private void load()
     {
@@ -366,7 +372,7 @@ public class Castle
             statement = con.prepareStatement("Select * from castle where id = ?");
             statement.setInt(1, getCastleId());
             rs = statement.executeQuery();
-    restoreManorData();
+            restoreManorData();
             while (rs.next())
             {
                 _name = rs.getString("name");
@@ -577,8 +583,6 @@ public class Castle
         }
     }
     
-    // =========================================================
-    // Proeprty
     public final int getCastleId()
     {
         return _castleId;
@@ -615,7 +619,7 @@ public class Castle
 
     public final Siege getSiege()
     {
-        if (_siege == null) _siege = new Siege(new Castle[] {this});
+        if (_siege == null) _siege = new Siege(this);
         return _siege;
     }
 
@@ -640,38 +644,26 @@ public class Castle
         return _treasury;
     }
 
-    public final Zone getZone()
+    public final IZone getZone()
     {
-        if (_zone == null) _zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.CastleArea), getName());
-        return _zone;
+        if (_zone == null)
+        	_zone = ZoneManager.getInstance().getZone(ZoneType.CastleArea, getCastleId());
+    	return _zone;
     }
 
-    public final Zone getZoneTown(int id)
+    public final IZone getHeadQuaters()
     {
-        for (Zone zone: getZoneTowns())
-            if (zone.getId() == id) return zone;
-        return null;
+        if (_zoneHQ == null)
+        	_zoneHQ = ZoneManager.getInstance().getZone(ZoneType.CastleHQ, getCastleId());
+    	return _zoneBF;
     }
-
-    public final Zone getZoneTown(String name)
+    
+    public final IZone getBattlefield()
     {
-        for (Zone zone: getZoneTowns())
-            if (zone.getName() == name) return zone;
-        return null;
+        if (_zoneBF == null)
+        	_zoneBF = ZoneManager.getInstance().getZone(ZoneType.SiegeBattleField, getCastleId());
+    	return _zoneBF;
     }
-
-    public final FastList<Zone> getZoneTowns()
-    {
-        if (_zoneTown == null)
-        {
-            _zoneTown = new FastList<Zone>();
-            // Add towns that belong to castle
-            for (Zone zone: ZoneManager.getInstance().getZones(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Town)))
-                if (zone != null && zone.getTaxById() == getCastleId()) _zoneTown.add(zone);
-        }
-        return _zoneTown;
-    }
-
 
     /**
      * Manor code for manage the manor data

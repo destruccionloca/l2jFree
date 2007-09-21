@@ -39,7 +39,7 @@ public class CastleDoors implements IVoicedCommandHandler
             L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
             Castle castle = CastleManager.getInstance().getCastle(activeChar.getClan().getHasCastle());
             if (door == null || castle == null) return false;
-            if (castle.checkIfInZone(door.getX(), door.getY()))
+            if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
             {
                 door.openMe();
             }}else return false;
@@ -49,7 +49,7 @@ public class CastleDoors implements IVoicedCommandHandler
             L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
             Castle castle = CastleManager.getInstance().getCastle(activeChar.getClan().getHasCastle());
             if (door == null || castle == null) return false;
-            if (castle.checkIfInZone(door.getX(), door.getY()))
+            if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
             {
                 door.closeMe();
             }} else return false;

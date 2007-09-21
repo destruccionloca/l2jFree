@@ -969,7 +969,7 @@ public final class Config
     public static int     				DELETE_DAYS;
     public static int					FLOODPROTECTOR_INITIALSIZE;		// FloodProtector initial capacity
     public static int 					MAX_DRIFT_RANGE;				// Maximum range mobs can randomly go from spawn point
-    public static boolean 				ALLOWFISHING;
+    public static boolean 				ALLOW_FISHING;
     public static boolean 				ALLOW_MANOR;					// Allow Manor system
     public static boolean 				ALLOW_GUARDS;					// Allow guards against aggressive monsters
     public static int GEODATA;											// GeoData 0/1/2
@@ -986,7 +986,7 @@ public final class Config
     public static int           		WEAR_DELAY;
     public static int           		WEAR_PRICE;    
     public static boolean 	    		ALLOW_LOTTERY;
-    public static boolean 	    		ALLOW_RACE;
+    //public static boolean 	    		ALLOW_RACE;
     public static boolean 	    		ALLOW_WATER;
     public static boolean       		ALLOW_RENTPET;
     public static boolean 	    		ALLOW_BOAT;
@@ -1085,11 +1085,11 @@ public final class Config
             WEAR_DELAY                      = Integer.parseInt(optionsSettings.getProperty("WearDelay", "5"));
             WEAR_PRICE                      = Integer.parseInt(optionsSettings.getProperty("WearPrice", "10"));
             ALLOW_LOTTERY                   = Boolean.parseBoolean(optionsSettings.getProperty("AllowLottery", "False"));
-            ALLOW_RACE                      = Boolean.parseBoolean(optionsSettings.getProperty("AllowRace", "False"));
-            ALLOW_WATER                     = Boolean.parseBoolean(optionsSettings.getProperty("AllowWater", "False"));
+            //ALLOW_RACE                    = Boolean.parseBoolean(optionsSettings.getProperty("AllowRace", "False"));
+            ALLOW_WATER                     = Boolean.parseBoolean(optionsSettings.getProperty("AllowWater", "True"));
             ALLOW_RENTPET                   = Boolean.parseBoolean(optionsSettings.getProperty("AllowRentPet", "False"));
             ALLOW_DISCARDITEM               = Boolean.parseBoolean(optionsSettings.getProperty("AllowDiscardItem", "True"));
-            ALLOWFISHING                    = Boolean.parseBoolean(optionsSettings.getProperty("AllowFishing", "False"));
+            ALLOW_FISHING                   = Boolean.parseBoolean(optionsSettings.getProperty("AllowFishing", "True"));
             ALLOW_MANOR                     = Boolean.parseBoolean(optionsSettings.getProperty("AllowManor", "False"));
             ALLOW_BOAT                      = Boolean.parseBoolean(optionsSettings.getProperty("AllowBoat", "False"));
             ALLOW_CURSED_WEAPONS            = Boolean.parseBoolean(optionsSettings.getProperty("AllowCursedWeapons", "False"));

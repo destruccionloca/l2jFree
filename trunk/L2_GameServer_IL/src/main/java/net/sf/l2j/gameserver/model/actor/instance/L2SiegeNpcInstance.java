@@ -66,7 +66,7 @@ public class L2SiegeNpcInstance extends L2FolkInstance
      */
 	public void showSiegeInfoWindow(L2PcInstance player)
 	{
-	    if (validateCondition(player))
+		if (validateCondition(player))
             getCastle().getSiege().listRegisterClan(player);
         else
         {

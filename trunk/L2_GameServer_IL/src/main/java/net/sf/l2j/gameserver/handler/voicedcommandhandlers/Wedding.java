@@ -229,8 +229,8 @@ public class Wedding implements IVoicedCommandHandler
         // Check if player is in Siege
         // Character has clan? & Clan has castle? & Siege is in progress?
         else if(activeChar.getClan() != null 
-        		&& CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) != null 
-        		&& CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getSiege().getIsInProgress())
+        		&& CastleManager.getInstance().getCastle(activeChar.getClan()) != null 
+        		&& CastleManager.getInstance().getCastle(activeChar.getClan()).getSiege().getIsInProgress())
         {
         	activeChar.sendMessage("You are in siege, you can't go to your partner.");
         	return false;
@@ -286,8 +286,8 @@ public class Wedding implements IVoicedCommandHandler
         	return false;
         }
         else if(partner.getClan() != null 
-        		&& CastleManager.getInstance().getCastleByOwner(partner.getClan()) != null 
-        		&& CastleManager.getInstance().getCastleByOwner(partner.getClan()).getSiege().getIsInProgress())
+        		&& CastleManager.getInstance().getCastle(partner.getClan()) != null 
+        		&& CastleManager.getInstance().getCastle(partner.getClan()).getSiege().getIsInProgress())
         {
         	if (partner.getAppearance().getSex())
         		activeChar.sendMessage("Your partner is in siege, you can't go to her.");

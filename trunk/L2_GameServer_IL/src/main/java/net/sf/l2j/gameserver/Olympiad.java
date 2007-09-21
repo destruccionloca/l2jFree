@@ -52,7 +52,6 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate; 
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfoSpectator;
-import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -60,9 +59,11 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.Hero;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class Olympiad
@@ -843,7 +844,7 @@ public class Olympiad
     
     public boolean playerInStadia(L2PcInstance player)
     {
-        return OlympiadStadiaManager.getInstance().checkIfInZone(player);
+        return ZoneManager.getInstance().checkIfInZone(ZoneType.OlympiadStadia , player);
     }
     
     public int[] getWaitingList()
@@ -1583,7 +1584,7 @@ public class Olympiad
         //checks if some of 2 players crashed. if yes calculates the points and returns true else returns false
         protected boolean checkPlayersCrash()
         {
-        	if(_playerOne != null && (!OlympiadStadiaManager.getInstance().checkIfInZone(_playerOne) || _playerOne.inObserverMode() || _playerOne.isOnline()==0))
+        	if(_playerOne != null && (!playerInStadia(_playerOne) || _playerOne.inObserverMode() || _playerOne.isOnline()==0))
         	{
         		_playerOne.setIsInOlympiadMode(false);
         		_playerOne.setIsOlympiadStart(false);
@@ -1591,7 +1592,7 @@ public class Olympiad
         		_playerOne.setOlympiadGameId(-1);
                 _playerOne=null;
         	}
-        	if(_playerTwo != null && (!OlympiadStadiaManager.getInstance().checkIfInZone(_playerTwo) || _playerTwo.inObserverMode() || _playerTwo.isOnline()==0))
+        	if(_playerTwo != null && (!playerInStadia(_playerTwo) || _playerTwo.inObserverMode() || _playerTwo.isOnline()==0))
         	{
         		_playerTwo.setIsInOlympiadMode(false);
         		_playerTwo.setIsOlympiadStart(false);

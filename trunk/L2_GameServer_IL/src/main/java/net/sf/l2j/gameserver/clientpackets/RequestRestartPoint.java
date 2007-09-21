@@ -20,15 +20,15 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.instancemanager.JailManager;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
-import net.sf.l2j.gameserver.model.entity.Jail;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.Revive;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -142,13 +142,9 @@ public class RequestRestartPoint extends L2GameClientPacket
                 }
                 else
                 {
-                    Jail jail = JailManager.getInstance().getJail(activeChar);
-                    if (jail != null)
-                    { // if player is in jail
-                    	int[] coord = jail.getSpawn().get(0);
-                        if (coord != null)
-                        	loc = new Location(coord[0], coord[1], coord[4]); 
-                        
+                    if (ZoneManager.getInstance().checkIfInZone(ZoneType.Jail , activeChar) ||
+                    		ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape , activeChar) )
+                    {
                         if (loc == null)
                     		loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
                     } else
@@ -187,7 +183,7 @@ public class RequestRestartPoint extends L2GameClientPacket
         	return;
         }
 
-        Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(),activeChar.getY());
+        Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(),activeChar.getY(), activeChar.getZ());
         if (castle != null && castle.getSiege().getIsInProgress())
         {
             //DeathFinalizer df = new DeathFinalizer(10000);
@@ -197,14 +193,14 @@ public class RequestRestartPoint extends L2GameClientPacket
             {
                 // Schedule respawn delay for attacker
             	ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getAttackerRespawnDelay());
-                sm.addString("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay()/1000 + " seconds");
+                sm.addString("You will be re-spawned in " + castle.getSiege().getAttackerRespawnDelay()/1000 + " seconds.");
                 activeChar.sendPacket(sm);
             }
             else
             {
                 // Schedule respawn delay for defender with penalty for CT lose
             	ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), castle.getSiege().getDefenderRespawnDelay());
-                sm.addString("You will be re-spawned in " + castle.getSiege().getDefenderRespawnDelay()/1000 + " seconds");
+                sm.addString("You will be re-spawned in " + castle.getSiege().getDefenderRespawnDelay()/1000 + " seconds.");
                 activeChar.sendPacket(sm);
             }
             return;

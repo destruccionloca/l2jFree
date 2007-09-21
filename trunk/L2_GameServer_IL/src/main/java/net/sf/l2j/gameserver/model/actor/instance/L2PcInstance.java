@@ -72,7 +72,6 @@ import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
-import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.AntharasManager;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -81,7 +80,6 @@ import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
-import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -137,7 +135,6 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
-import net.sf.l2j.gameserver.model.entity.ZoneType;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
@@ -145,8 +142,9 @@ import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
-import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
@@ -212,7 +210,6 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Broadcast;
 import net.sf.l2j.gameserver.util.FloodProtector;
-import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.tools.L2Registry;
 import net.sf.l2j.tools.geometry.Point3D;
 
@@ -1036,7 +1033,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean logout()
     {
         // [L2J_JP ADD START]
-        if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),this))
+        if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,this))
         {
             sendMessage("You can not log out in here.");
             sendPacket(new ActionFailed());
@@ -1668,10 +1665,10 @@ public final class L2PcInstance extends L2PlayableInstance
     		else return;
     	}
     	
-    	setInSiegeZone(SiegeManager.getInstance().checkIfInZone(getX(), getY()));
+    	setInSiegeZone(SiegeManager.getInstance().checkIfInZone(getX(), getY(), getZ()));
     	setInPvpZone(getInSiegeZone() || ZoneManager.getInstance().checkIfInZonePvP(this));
    		setInPeaceZone(ZoneManager.getInstance().checkIfInZonePeace(this));
-   		setInMotherTreeZone(ZoneManager.getInstance().checkIfInZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.MotherTree), this));
+   		setInMotherTreeZone(ZoneManager.getInstance().checkIfInZone(ZoneType.MotherTree, this));
         revalidateInClanHall();
         
         if (getInSiegeZone())
@@ -2306,7 +2303,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if ((clan != null) && (clan.getLeader().getPlayerInstance() == this))
         {
             // if the clan has a castle and it is actually the queried castle, return true
-            Castle castle = CastleManager.getInstance().getCastleByOwner(clan);
+            Castle castle = CastleManager.getInstance().getCastle(clan);
             if ((castle != null) && (castle == CastleManager.getInstance().getCastle(castleId)))
                 return true;
         }
@@ -4157,16 +4154,16 @@ public final class L2PcInstance extends L2PlayableInstance
                 pk.kills.add(getName());
             }
 
-            boolean isArena = ArenaManager.getInstance().checkIfInZone(this);
+            boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(this);
 
-            if (!isArena && !JailManager.getInstance().checkIfInZone(this))
+            if (!srcInPvP)
             {
                 if (pk == null || !pk.isCursedWeaponEquiped())
                 {
                     //if (getKarma() > 0)
                     onDieDropItem(killer);  // Check if any item should be dropped
                 
-                    if (!isArena)
+                    if (!srcInPvP)
                     {
                         if (Config.ALT_GAME_DELEVEL)
                         {
@@ -4233,25 +4230,25 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 		// [L2J_JP ADD SANDMAN]
 		// When the player has been annihilated, the player is banished from the Four Sepulcher. 
-		if (ZoneManager.getInstance().checkIfInZone("FourSepulcher", this) &&
+		if (FourSepulchersManager.getInstance().checkIfInDangeon(this) &&
 				(getZ() >= -7250 && getZ() <= -6841))
 		{
 			FourSepulchersManager.getInstance().checkAnnihilated(this);
 		}
 		// When the player has been annihilated, the player is banished from the lair. 
-		if (ZoneManager.getInstance().checkIfInZone("LairofSailren", this))
+		if (SailrenManager.getInstance().checkIfInZone(this))
 		{
 			SailrenManager.getInstance().checkAnnihilated(this);
 		}
-		if (ZoneManager.getInstance().checkIfInZone("LairofAntharas", this))
+		if (AntharasManager.getInstance().checkIfInZone(this))
 		{
 			AntharasManager.getInstance().checkAnnihilated();
 		}
-		if (ZoneManager.getInstance().checkIfInZone("LairofValakas", this))
+		if (ValakasManager.getInstance().checkIfInZone(this))
 		{
 			ValakasManager.getInstance().checkAnnihilated();
 		}
-		if (ZoneManager.getInstance().checkIfInZone("LairofBaium", this))
+		if (BaiumManager.getInstance().checkIfInZone(this))
 		{
 			BaiumManager.getInstance().checkAnnihilated();
 		}
@@ -4410,11 +4407,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (isInDuel() && targetPlayer.isInDuel()) return;
 
         // If in Arena, do nothing
-        if (ArenaManager.getInstance().getArenaIndex(getX(), getY()) != -1
-            || ArenaManager.getInstance().getArenaIndex(target.getX(), target.getY()) != -1)
-        {
+		if (ZoneManager.getInstance().checkIfInZonePvP(this))
             return;
-        }
 
         // Check if it's pvp
 		if (
@@ -7052,7 +7046,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             if (getClan() != null)
             {
-                Siege siege = SiegeManager.getInstance().getSiege(getX(), getY());
+                Siege siege = SiegeManager.getInstance().getSiege(getX(), getY(), getZ());
                 if (siege != null)
                 {
                     // Check if a siege is in progress and if attacker and the L2PcInstance aren't in the Defender clan
@@ -7639,15 +7633,15 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean checkLandingState()
     {
         // Check if char is in a no landing zone 
-        if (ZoneManager.getInstance().checkIfInZoneNoLanding(this)) return true;
+        if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoLanding, this)) return true;
         else
         // if this is a castle that is currently being sieged, and the rider is NOT a castle owner
         // he cannot land.
         // castle owner is the leader of the clan that owns the castle where the pc is
         if (SiegeManager.getInstance().checkIfInZone(this)
             && !(getClan() != null
-                && CastleManager.getInstance().getCastle(this) == CastleManager.getInstance().getCastleByOwner(
-                                                                                                               getClan()) && this == getClan().getLeader().getPlayerInstance()))
+                && CastleManager.getInstance().getCastle(this) == CastleManager.getInstance().getCastle(getClan()) 
+                && this == getClan().getLeader().getPlayerInstance()))
             return true;
 
         return false;
@@ -9099,7 +9093,7 @@ public final class L2PcInstance extends L2PlayableInstance
         revalidateZone(true);
 
 		// [L2J_JP ADD SANDMAN]
-		if (!isGM() && ZoneManager.getInstance().checkIfInZone("FourSepulcher", this) &&
+		if (!isGM() && FourSepulchersManager.getInstance().checkIfInDangeon(this) &&
 				(getZ() >= -7250 && getZ() <= -6841) && 
 				(System.currentTimeMillis() - getLastAccess() >= 300000))
 		{
@@ -9108,37 +9102,37 @@ public final class L2PcInstance extends L2PlayableInstance
 			teleToLocation(178293 + driftX,-84607 + driftY,-7216);
 		}
 		// [L2J_JP ADD SANDMAN]
-		if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofAntharas", this)
+		if (!isGM() && AntharasManager.getInstance().checkIfInZone(this)
 				&& (getZ() >= -8220 && getZ() <= -4870)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofBaium", this)
+		} else if (!isGM() && BaiumManager.getInstance().checkIfInZone(this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofLilith", this)
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Lilith", this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofAnakim", this)
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Anakim", this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofZaken", this)
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Zaken", this)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofValakas", this))
+		} else if (!isGM() && ValakasManager.getInstance().checkIfInZone(this))
 		{
     		if (getQuestState("valakas") != null) getQuestState("valakas").exitQuest(true);
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone("LairofSailren", this))
+		} else if (!isGM() && SailrenManager.getInstance().checkIfInZone(this))
 		{
     		if (getQuestState("sailren") != null) getQuestState("sailren").exitQuest(true);
 			teleToLocation(MapRegionTable.TeleportWhereType.Town);
@@ -9147,7 +9141,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void checkWaterState()
     {
-        if (ZoneManager.getInstance().checkIfInZoneIncludeZ("Water",getX(),getY(),getZ()))
+        if (ZoneManager.getInstance().checkIfInZone(ZoneType.Water,getX(),getY(),getZ()))
         {
             startWaterTask();
         }      
@@ -9866,24 +9860,13 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private FishData _fish;
     
-    public void startFishing()
+    public void startFishing(int x, int y, int z)
     {
-        stopMove(null);
-        int rnd = Rnd.get(50) + 150;
-        double angle = Util.convertHeadingToDegree(getHeading());
-        //this.sendMessage("Angel: "+angle+" Heading: "+getHeading());
-        double radian = Math.toRadians(angle - 90);
-        double sin = Math.sin(radian);
-        double cos = Math.cos(radian);
-        int x1 = -(int) (sin * rnd); //Somthing wrong with L2j Heding calculation o_0?
-        int y1 = (int) (cos * rnd); //Somthing wrong with L2j Heding calculation o_0?
-        int x = getX() + x1;
-        int y = getY() + y1;
-        int z = getZ() - 30;
         _fishx = x;
         _fishy = y;
         _fishz = z;
-
+    	
+    	stopMove(null);
         setIsImobilised(true);
         _fishing = true;
         broadcastUserInfo();
@@ -9894,7 +9877,6 @@ public final class L2PcInstance extends L2PlayableInstance
         List<FishData> fishs = FishTable.getInstance().getFish(lvl, type, group);
         if (fishs == null || fishs.size() == 0)
         {
-            sendMessage("Error - Fishes are not definied");
             endFishing(false);
             return;
         }
@@ -10520,8 +10502,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
 
             // If player escaped, put him back in jail
-            if (!ZoneManager.getInstance().checkIfInZone(
-                                                         ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Jail),
+            if (!ZoneManager.getInstance().checkIfInZone(ZoneType.Jail,
                                                          this)) teleToLocation(-114356, -249645, -2984);
         }
     }

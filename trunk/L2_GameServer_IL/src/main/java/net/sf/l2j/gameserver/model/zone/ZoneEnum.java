@@ -15,17 +15,48 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.instancemanager;
+package net.sf.l2j.gameserver.model.zone;
 
-public class Manager
+/**
+ * @author G1ta0
+ * 
+ */
+
+public final class ZoneEnum
 {
-	public static void reloadAll()
+	public enum ZoneType
 	{
-		AuctionManager.getInstance().reload();
-		CastleManager.getInstance().reload();
-		ClanHallManager.getInstance().reload();
-//		QuestManager.getInstance().reload();
-		TownManager.getInstance().reload();
-		ZoneManager.getInstance().reload();
+		Arena,
+		MonsterDerbyTrack,
+		OlympiadStadia,
+		CastleArea,
+		CastleHQ,
+		SiegeBattleField,
+		ClanHall,
+		Newbie,
+		Fishing,
+		Peace,
+		Dangeon,
+		Water, 
+		NoLanding,
+		NoEscape,
+		Jail,
+		MotherTree,
+		BossDangeon;
+
+
+		public final static ZoneType getZoneTypeEnum(String typeName)
+		{
+			for (ZoneType zt : ZoneType.values())
+				if (zt.toString().equalsIgnoreCase(typeName))
+					return zt;
+
+			return null;
+		}
 	}
+	public static enum RestartType
+	{
+		RestartNormal, RestartChaotic, RestartOwner, RestartRandom
+	}
+
 }

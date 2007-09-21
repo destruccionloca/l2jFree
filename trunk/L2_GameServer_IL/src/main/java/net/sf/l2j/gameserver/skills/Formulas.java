@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState;
@@ -874,7 +875,7 @@ public final class Formulas
 		if (cha instanceof L2BossInstance)
 		{
 			L2BossInstance boss = (L2BossInstance) cha;
-			if ((boss.getNpcId() == 29022) && (ZoneManager.getInstance().checkIfInZone("SunlightRoom", boss)) && (boss.getZ() >= -2952))
+			if ((boss.getNpcId() == 29022) && (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Sunlight Room" , boss)) && (boss.getZ() >= -2952))
 				hpRegenMultiplier *= 0.75;
 		}
         
@@ -1061,8 +1062,7 @@ public final class Formulas
     {
         if (activeChar == null || activeChar.getClan() == null) return 0;
 
-        Siege siege = SiegeManager.getInstance().getSiege(activeChar.getPosition().getX(),
-                                                           activeChar.getPosition().getY());
+        Siege siege = SiegeManager.getInstance().getSiege(activeChar);
         if (siege == null || !siege.getIsInProgress()) return 0;
         
         L2SiegeClan siegeClan = siege.getAttackerClan(activeChar.getClan().getClanId());

@@ -23,27 +23,29 @@
 
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.util.concurrent.Future;
 import java.util.List;
-import javolution.util.FastList;
 import java.util.Map;
-import javolution.util.FastMap;
+import java.util.concurrent.Future;
 
+import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
-import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -124,7 +126,8 @@ public class BaiumManager
     // status in lair.
     protected boolean _isBossSpawned = false;
     protected boolean _isIntervalForNextSpawn = false;
-    protected String _zoneType;
+    protected IZone  _zone;
+    protected String _zoneName;
     protected String _questName;
 
     // location of banishment
@@ -158,7 +161,7 @@ public class BaiumManager
     	_isBossSpawned = false;
     	_isIntervalForNextSpawn = false;
     	_PlayersInLair.clear();
-        _zoneType = "LairofBaium";
+        _zoneName = "Lair of Baium";
         _questName = "baium";
 
         // setting spawn data of monsters.
@@ -257,6 +260,13 @@ public class BaiumManager
 	{
 		return _PlayersInLair;
 	}
+    
+    public boolean checkIfInZone(L2PcInstance pc)
+    {
+    	if ( _zone == null )
+    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDangeon, _zoneName );
+    	return _zone.checkIfInZone(pc);
+    }
     
     // Arcangel advent.
     protected synchronized void adventArcAngel()
@@ -376,7 +386,7 @@ public class BaiumManager
 		{
 			// player is must be alive and stay inside of lair.
 			if (!pc.isDead()
-					&& ZoneManager.getInstance().checkIfInZone(_zoneType, pc))
+					&& checkIfInZone(pc))
 			{
 				return false;
 			}
@@ -390,7 +400,7 @@ public class BaiumManager
     	for(L2PcInstance pc : _PlayersInLair)
     	{
     		if(pc.getQuestState(_questName) != null) pc.getQuestState(_questName).exitQuest(true);
-    		if(ZoneManager.getInstance().checkIfInZone(_zoneType, pc))
+    		if(checkIfInZone(pc))
     		{
         		int driftX = Rnd.get(-80,80);
         		int driftY = Rnd.get(-80,80);

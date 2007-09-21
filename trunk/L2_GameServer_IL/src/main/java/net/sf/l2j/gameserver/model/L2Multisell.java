@@ -18,18 +18,18 @@
 package net.sf.l2j.gameserver.model;
 
 import java.io.File;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import java.util.List;
 import javolution.util.FastList;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.MultiSellList;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
+import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -472,29 +472,12 @@ public class L2Multisell
         }
     }
 
-    private void hashFiles(String dirname, List<File> hash)
-    {
-        File dir = new File(Config.DATAPACK_ROOT, "data/" + dirname);
-        if (!dir.exists())
-        {
-            _log.warn("Dir " + dir.getAbsolutePath() + " not exists");
-            return;
-        }
-        File[] files = dir.listFiles();
-        for (File f : files)
-        {
-            if (f.getName().endsWith(".xml")) hash.add(f);
-        }
-    }
-
     private void parse()
     {
         Document doc = null;
         int id = 0;
-        List<File> files = new FastList<File>();
-        hashFiles("multisell", files);
 
-        for (File f : files)
+        for (File f : Util.getDatapackFiles("multisell",".xml"))
         {
             id = Integer.parseInt(f.getName().replaceAll(".xml", ""));
             try
@@ -507,7 +490,7 @@ public class L2Multisell
             }
             catch (Exception e)
             {
-                _log.fatal("Error loading file " + f, e);
+                _log.fatal("Error loading file " + f.getAbsolutePath(), e);
             }
             try
             {
@@ -517,7 +500,7 @@ public class L2Multisell
             }
             catch (Exception e)
             {
-                _log.fatal("Error in file " + f, e);
+                _log.fatal("Error in file " + f.getAbsolutePath(), e);
             }
         }
     }
