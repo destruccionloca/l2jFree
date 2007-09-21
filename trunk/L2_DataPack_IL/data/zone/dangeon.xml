@@ -1,0 +1,67 @@
+<list>
+  <item id="1" name="Ascetics Necropolis">
+    <type>Dangeon</type>
+    <point x="0" y="0" z="-4844" />
+    <point x="0" y="0" />
+  </item>
+  <item id="2" name="Elven Ruins">
+    <type>Dangeon</type>
+    <point x="43100" y="246500" z="-6614" />
+    <point x="49400" y="249200" />
+  </item>
+  <item id="3" name="School of Dark Arts">
+    <type>Dangeon</type>
+    <point x="-49800" y="56879" z="-6000" />
+    <point x="-35311" y="43790" />
+  </item>
+  <item id="4" name="School of Dark Arts">
+    <type>Dangeon</type>
+    <point x="-47150" y="41782" z="-6000" />
+    <point x="-54659" y="53065" />
+  </item>
+  <item id="5" name="School of Dark Arts">
+    <type>Dangeon</type>
+    <point x="-38741" y="55152" z="-6000" />
+    <point x="-55186" y="62474" />
+  </item>
+  <item id="6" name="Ants Nest">
+    <type>Dangeon</type>
+    <point x="917" y="165166" z="-6000" />
+    <point x="-45452" y="201937" />
+  </item>
+  <item id="7" name="Elven Fortress">
+    <type>Dangeon</type>
+    <point x="6068" y="88790" z="-6000" />
+    <point x="36734" y="69188" />
+  </item>
+  <item id="8" name="Ivory Tower">
+    <type>Dangeon</type>
+    <point x="76563" y="27040" z="-6000" />
+    <point x="98577" y="7238" />
+  </item>
+  <item id="9" name="Hunter Village">
+    <type>Dangeon</type>
+    <point x="123457" y="68112" z="-6000" />
+    <point x="98542" y="92245" />
+  </item>
+  <item id="10" name="DE Village">
+    <type>Dangeon</type>
+    <point x="34061" y="8905" z="-6000" />
+    <point x="-7877" y="26384" />
+  </item>
+  <item id="11" name="Ruins of Despair">
+    <type>Dangeon</type>
+    <point x="-1231" y="131977" z="-5000" />
+    <point x="-31364" y="160147" />
+  </item>
+  <item id="12" name="Gludin North Road">
+    <type>Dangeon</type>
+    <point x="-77276" y="134858" z="-5000" />
+    <point x="-69590" y="120547" />
+  </item>
+  <item id="13" name="">
+    <type>Dangeon</type>
+    <point x="38116" y="147264" z="-5000" />
+    <point x="-69590" y="120547" />
+  </item>
+</list>

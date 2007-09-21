@@ -327,7 +327,6 @@ $MYG < ../sql/spawnlist.sql &> /dev/null
 $MYG < ../sql/teleport.sql &> /dev/null
 $MYG < ../sql/topic.sql &> /dev/null
 $MYG < ../sql/weapon.sql &> /dev/null
-$MYG < ../sql/zone.sql &> /dev/null
 echo "Installing L2JFree content"
 $MYG < ../sql/buff_templates.sql &> /dev/null
 $MYG < ../sql/character_raidpoints.sql &> /dev/null

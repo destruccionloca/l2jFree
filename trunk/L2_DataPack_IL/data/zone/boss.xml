@@ -1,0 +1,62 @@
+<list>
+  <item id="1" name="Four Sepulcher">
+    <type>BossDangeon</type>
+    <point x="181241" y="-86443" z="-7225" />
+    <point x="192134" y="-84575" />
+  </item>
+  <item id="2" name="Four Sepulcher">
+    <type>BossDangeon</type>
+    <point x="179551" y="-89844" z="-7250" />
+    <point x="190342" y="-88042" />
+  </item>
+  <item id="3" name="Four Sepulcher">
+    <type>BossDangeon</type>
+    <point x="172354" y="-86630" z="-7250" />
+    <point x="174073" y="-75565" />
+  </item>
+  <item id="4" name="Four Sepulcher">
+    <type>BossDangeon</type>
+    <point x="174697" y="-82707" z="-7250" />
+    <point x="176500" y="-71885" />
+  </item>
+  <item id="5" name="Lair of Zaken">
+    <type>BossDangeon</type>
+    <point x="53182" y="216945" z="-3775" />
+    <point x="57311" y="221151" z="-2690" />
+  </item>
+  <item id="6" name="Lair of Anakim">
+    <type>BossDangeon</type>
+    <point x="184008" y="-10681" z="-5500" />
+    <point x="186107" y="-8589" z="-3895" />
+  </item>
+  <item id="7" name="Lair of Lilith">
+    <type>BossDangeon</type>
+    <point x="183986" y="-13716" z="-5500" />
+    <point x="186097" y="-11532" z="-3895" />
+  </item>
+  <item id="8" name="Lair of Antharas">
+    <type>BossDangeon</type>
+    <point x="173439" y="110176" z="-8220" />
+    <point x="187346" y="119469" z="-4870" />
+  </item>
+  <item id="9" name="Lair of Baium">
+    <type>BossDangeon</type>
+    <point x="109448" y="10233" z="10070" />
+    <point x="118547" y="21446" z="12480" />
+  </item>
+  <item id="10" name="Lair of Sailren">
+    <type>BossDangeon</type>
+    <point x="26095" y="-8084" z="-1975" />
+    <point x="28987" y="-5295" z="-1944" />
+  </item>
+  <item id="11" name="Sunlight Room">
+    <type>BossDangeon</type>
+    <point x="55794" y="219633" z="-2952" />
+    <point x="56789" y="220629" z="-2690" />
+  </item>
+  <item id="12" name="Lair of Valakas">
+    <type>BossDangeon</type>
+    <point x="199755" y="-124724" z="-1640" />
+    <point x="224677" y="-103211" z="9880" />
+  </item>
+</list>

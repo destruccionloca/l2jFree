@@ -1,0 +1,114 @@
+<!-- TODO: 
+            - Add polygon zones and restarts  -->
+<list>
+  <item id="1" name="Stadia 1">
+    <type>OlympiadStadia</type>
+    <point x="-19627" y="-19712" z="-3026" />
+    <point x="-22024" y="-22322" />
+  </item>
+  <item id="2" name="Stadia 2">
+    <type>OlympiadStadia</type>
+    <point x="-119100" y="-223705" z="-3331" />
+    <point x="-121484" y="-226316" />
+  </item>
+  <item id="3" name="Stadia 3">
+    <type>OlympiadStadia</type>
+    <point x="-103889" y="-210201" z="-3331" />
+    <point x="-101325" y="-207724" />
+  </item>
+  <item id="4" name="Stadia 4">
+    <type>OlympiadStadia</type>
+    <point x="-119079" y="-206078" z="-3331" />
+    <point x="-121438" y="-208668" />
+  </item>
+  <item id="5" name="Stadia 5">
+    <type>OlympiadStadia</type>
+    <point x="-88700" y="-226280" z="-3331" />
+    <point x="-86351" y="-223722" />
+  </item>
+  <item id="6" name="Stadia 6">
+    <type>OlympiadStadia</type>
+    <point x="-80586" y="-211911" z="-3331" />
+    <point x="-82939" y="-214487" />
+  </item>
+  <item id="7" name="Stadia 7">
+    <type>OlympiadStadia</type>
+    <point x="-88659" y="-208652" z="-3331" />
+    <point x="-86297" y="-206075" />
+  </item>
+  <item id="8" name="Stadia 8">
+    <type>OlympiadStadia</type>
+    <point x="-95000" y="-219531" z="-3331" />
+    <point x="-92632" y="-216950" />
+  </item>
+  <item id="9" name="Stadia 9">
+    <type>OlympiadStadia</type>
+    <point x="-75936" y="-217408" z="-3331" />
+    <point x="-78306" y="-220017" />
+  </item>
+  <item id="10" name="Stadia 10">
+    <type>OlympiadStadia</type>
+    <point x="-68560" y="-207718" z="-3331" />
+    <point x="-70933" y="-210312" />
+  </item>
+  <item id="11" name="Stadia 11">
+    <type>OlympiadStadia</type>
+    <point x="-78008" y="-202528" z="-3331" />
+    <point x="-75663" y="-199943" />
+  </item>
+  <item id="12" name="Stadia 12">
+    <type>OlympiadStadia</type>
+    <point x="-108690" y="-217403" z="-3331" />
+    <point x="-111072" y="-220023" />
+  </item>
+  <item id="13" name="Stadia 13">
+    <type>OlympiadStadia</type>
+    <point x="-127766" y="-219555" z="-3331" />
+    <point x="-125394" y="-216946" />
+  </item>
+  <item id="14" name="Stadia 14">
+    <type>OlympiadStadia</type>
+    <point x="-108428" y="-199935" z="-3331" />
+    <point x="-110796" y="-202541" />
+  </item>
+  <item id="15" name="Stadia 15">
+    <type>OlympiadStadia</type>
+    <point x="-88677" y="-241444" z="-3331" />
+    <point x="-86294" y="-238836" />
+  </item>
+  <item id="16" name="Stadia 16">
+    <type>OlympiadStadia</type>
+    <point x="-82938" y="-247261" z="-3331" />
+    <point x="-80580" y="-244668" />
+  </item>
+  <item id="17" name="Stadia 17">
+    <type>OlympiadStadia</type>
+    <point x="-75930" y="-250175" z="-3331" />
+    <point x="-78298" y="-252779" />
+  </item>
+  <item id="18" name="Stadia 18">
+    <type>OlympiadStadia</type>
+    <point x="-70920" y="-243079" z="-3331" />
+    <point x="-68547" y="-240473" />
+  </item>
+  <item id="19" name="Stadia 19">
+    <type>OlympiadStadia</type>
+    <point x="-75670" y="-232712" z="-3331" />
+    <point x="-78027" y="-235326" />
+  </item>
+  <item id="20" name="Stadia 20">
+    <type>OlympiadStadia</type>
+    <point x="-92632" y="-249706" z="-3331" />
+    <point x="-94999" y="-252316" />
+  </item>
+  <item id="21" name="Stadia 21">
+    <type>OlympiadStadia</type>
+    <point x="-88896" y="-258868" z="-3331" />
+    <point x="-86332" y="-256466" />
+  </item>
+  <item id="22" name="Stadia 22">
+    <type>OlympiadStadia</type>
+    <point x="-113332" y="-211881" z="-3331" />
+    <point x="-115713" y="-214513" />
+  </item>
+</list>
