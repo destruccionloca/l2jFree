@@ -206,7 +206,12 @@ public class TownManager
 	
 	public final Town getClosestTown(L2Object activeObject)
 	{
-		switch (MapRegionTable.getInstance().getMapRegion(activeObject.getPosition().getX(), activeObject.getPosition().getY()))
+		return getClosestTown(activeObject.getPosition().getX(), activeObject.getPosition().getY());
+	}
+	
+	public final Town getClosestTown(int x, int y)
+	{
+		switch (MapRegionTable.getInstance().getMapRegion(x, y))
 		{
 		case 0:
 			return getTown(2); // TI
@@ -266,7 +271,7 @@ public class TownManager
 
 	public final boolean townHasCastleInSeige(int x, int y)
 	{
-		return townHasCastleInSeige(getTown(MapRegionTable.getInstance().getMapRegion(x, y)).getTownId());		
+		return townHasCastleInSeige(getClosestTown(x, y).getTownId());		
 	}
 
 	public final Town getTown(int townId)
