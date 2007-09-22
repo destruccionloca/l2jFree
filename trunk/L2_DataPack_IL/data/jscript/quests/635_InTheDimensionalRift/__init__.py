@@ -52,7 +52,8 @@ class Quest (JQuest) :
       st.exitQuest(1)
     return htmltext
 
- def onTalk (self,npc,player):
+ def onTalk (self,npc,player) :
+   htmltext = ""
    st = player.getQuestState(qn)
    if st :
      npcId = npc.getNpcId()
