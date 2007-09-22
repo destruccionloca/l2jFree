@@ -485,14 +485,22 @@ public abstract class Inventory extends ItemContainer
             
             GMAudit.auditGMAction(actor, "dropitem", command, params);
         }
-        
-        removeItem(item);
-        item.setOwnerId(process, 0, actor, reference);
-        item.setLocation(ItemLocation.VOID);
-        item.setLastChange(L2ItemInstance.REMOVED);
 
-        item.updateDatabase();
-        refreshWeight();
+        synchronized (item)
+        {
+            if (!_items.contains(item))
+            {
+                return null;
+            }
+
+            removeItem(item);
+            item.setOwnerId(process, 0, actor, reference);
+            item.setLocation(ItemLocation.VOID);
+            item.setLastChange(L2ItemInstance.REMOVED);
+
+            item.updateDatabase();
+            refreshWeight();
+        }
         return item;
     }
 

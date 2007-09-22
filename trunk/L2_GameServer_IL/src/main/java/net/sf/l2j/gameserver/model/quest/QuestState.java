@@ -346,10 +346,10 @@ public final class QuestState
 		// Finally, more than 31 steps CANNOT be supported in any way with skipping.
 		if (cond < 3 || cond > 31)
 		{
-			unset("__completedStateFlags");
+			unset("__compltdStateFlags");
 		}
 		else
-			completedStateFlags = getInt("__completedStateFlags");
+			completedStateFlags = getInt("__compltdStateFlags");
 
 		// case 1: No steps have been skipped so far...
 		if(completedStateFlags == 0)
@@ -370,7 +370,7 @@ public final class QuestState
 
 				// now, just set the bit corresponding to the passed cond to 1 (current step)
 				completedStateFlags |= (1<<(cond-1));
-				set("__completedStateFlags", String.valueOf(completedStateFlags));
+				set("__compltdStateFlags", String.valueOf(completedStateFlags));
 			}
 		}
 		// case 2: There were exist previously skipped steps
@@ -383,12 +383,12 @@ public final class QuestState
 
 				//now, check if this resulted in no steps being skipped any more
 				if ( completedStateFlags == ((1<<cond)-1) )
-					unset("__completedStateFlags");
+					unset("__compltdStateFlags");
 				else
 				{
 					// set the most significant bit back to 1 again, to correctly indicate that this skips states.
 					completedStateFlags |= 0x80000000;
-					set("__completedStateFlags", String.valueOf(completedStateFlags));
+					set("__compltdStateFlags", String.valueOf(completedStateFlags));
 				}
 			}
 			// if this moves forward, it changes nothing on previously skipped steps...so just mark this 
@@ -396,7 +396,7 @@ public final class QuestState
 			else
 			{
 				completedStateFlags |= (1<<(cond-1));
-				set("__completedStateFlags", String.valueOf(completedStateFlags));
+				set("__compltdStateFlags", String.valueOf(completedStateFlags));
 			}
 		}
 
@@ -803,7 +803,12 @@ public final class QuestState
      */
     public void startQuestTimer(String name, long time)
     {
-    	getQuest().startQuestTimer(name, time, null, getPlayer());
+        getQuest().startQuestTimer(name, time, null, getPlayer());
+    }
+
+    public void startQuestTimer(String name, long time, L2NpcInstance npc)
+    {
+        getQuest().startQuestTimer(name, time, npc, getPlayer());
     }
     
     /**
@@ -812,20 +817,77 @@ public final class QuestState
      */
     public final QuestTimer getQuestTimer(String name)
     {
-    	return getQuest().getQuestTimer(name, null, getPlayer());
+        return getQuest().getQuestTimer(name, null, getPlayer());
     }
     
     /**
-     * NOTE: This is to be deprecated; replaced by Quest.getPcSpawn(L2PcInstance)
-     * For now, I shall leave it as is
-     * Return a QuestPcSpawn for curren player instance
+     * Add spawn for player instance
+     * Return object id of newly spawned npc
      */
-    public final QuestPcSpawn getPcSpawn()
+    public L2NpcInstance addSpawn(int npcId)
     {
-        return QuestPcSpawnManager.getInstance().getPcSpawn(getPlayer());
+        return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, 0);
     }
 
-	public String showHtmlFile(String fileName) 
+    public L2NpcInstance addSpawn(int npcId, int despawnDelay)
+    {
+        return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, despawnDelay);
+    }
+
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z)
+    {
+        return addSpawn(npcId, x, y, z, 0, false, 0);
+    }
+
+    /**
+     * Add spawn for player instance
+     * Will despawn after the spawn length expires
+     * Uses player's coords and heading.
+     * Adds a little randomization in the x y coords
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, L2Character cha, int despawnDelay)
+    {
+        return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), true, despawnDelay);
+    }
+
+    public L2NpcInstance addSpawn(int npcId, L2Character cha)
+    {
+        return addSpawn(npcId, cha, true);
+    }
+
+    /**
+     * Add spawn for player instance
+     * Inherits coords and heading from specified L2Character instance.
+     * It could be either the player, or any killed/attacked mob
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, L2Character cha, boolean randomOffset)
+    {
+        return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), randomOffset, 0);
+    }
+
+    /**
+     * Add spawn for player instance
+     * Will despawn after the spawn length expires
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int despawnDelay)
+    {
+        return addSpawn(npcId, x, y, z, 0, false, despawnDelay);
+    }
+
+    
+    /**
+     * Add spawn for player instance
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay)
+    {
+        return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay);
+    }
+
+    public String showHtmlFile(String fileName) 
     {
     	return getQuest().showHtmlFile(getPlayer(), fileName);
 	}

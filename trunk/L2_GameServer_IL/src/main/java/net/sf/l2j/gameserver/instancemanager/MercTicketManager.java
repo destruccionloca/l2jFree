@@ -22,12 +22,16 @@ import java.sql.ResultSet;
 
 import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
-import net.sf.l2j.gameserver.model.quest.QuestPcSpawn;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -308,17 +312,14 @@ public class MercTicketManager
         {
             if (ITEM_IDS[i] == itemId) // Find the index of the item used
             {
-               // Temporary tap into QuestPcSpawn to spawn, auto chat, and despawn merc
-            	QuestPcSpawn qps = new QuestPcSpawn(activeChar);
-                int spawnObjectId = qps.addSpawn(NPC_IDS[i], x, y, z, 3000, messages, 0); // Spawn, auto chat, and despawn merc.
-                /*L2Spawn spawn = */qps.getSpawn(spawnObjectId);
+                spawnMercenary(NPC_IDS[i], x, y, z, 3000, messages, 0);
 
                 // Hire merc for this caslte.  NpcId is at the same index as the item used.
                 castle.getSiege().getSiegeGuardManager().hireMerc(x, y, z, heading, NPC_IDS[i]);
-                
+
                 // create the ticket in the gameworld
-        		L2ItemInstance dropticket = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
-        		dropticket.setLocation(L2ItemInstance.ItemLocation.INVENTORY);
+                L2ItemInstance dropticket = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
+                dropticket.setLocation(L2ItemInstance.ItemLocation.INVENTORY);
                 dropticket.dropMe(null, x, y, z);
                 dropticket.setDropTime(0); //avoids it from beeing removed by the auto item destroyer
                 L2World.getInstance().storeObject(dropticket);	//add to the world
@@ -330,7 +331,32 @@ public class MercTicketManager
         }
         return -1;
     }
-    
+
+    private void spawnMercenary(int npcId, int x, int y, int z, int despawnDelay, String[] messages, int chatDelay)
+    {
+        L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
+        if (template != null)
+        {
+            final L2SiegeGuardInstance npc = new L2SiegeGuardInstance(IdFactory.getInstance().getNextId(), template);
+            npc.getStatus().setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp());
+            npc.setDecayed(false);
+            npc.spawnMe(x, y, (z+20));
+
+            if (messages != null && messages.length >0 )
+                AutoChatHandler.getInstance().registerChat(npc, messages, chatDelay);
+
+            if (despawnDelay > 0)
+            {
+                ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
+                    public void run()
+                    {
+                        npc.deleteMe();
+                    }
+                }, despawnDelay);
+            }
+        }
+    }
+
     /**
      * Delete all tickets from a castle; 
      * remove the items from the world and remove references to them from this class  

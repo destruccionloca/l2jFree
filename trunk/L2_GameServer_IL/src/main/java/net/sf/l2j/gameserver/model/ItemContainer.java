@@ -279,19 +279,22 @@ public abstract class ItemContainer
 	
     /**
      * Transfers item to another inventory
-	 * @param process : String Identifier of process triggering this action
+     * @param process : String Identifier of process triggering this action
      * @param itemId : int Item Identifier of the item to be transfered
      * @param count : int Quantity of items to be transfered
-	 * @param actor : L2PcInstance Player requesting the item transfer
-	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
+     * @param actor : L2PcInstance Player requesting the item transfer
+     * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the new item or the updated item in inventory
      */
     public L2ItemInstance transferItem(String process, int objectId, int count, ItemContainer target, L2PcInstance actor, L2Object reference)
     {
-        if (target == null) return null;
+        if (target == null)
+        {
+            return null;
+        }
         
-    	L2ItemInstance sourceitem = getItemByObjectId(objectId);
-    	if (sourceitem == null) return null;
+        L2ItemInstance sourceitem = getItemByObjectId(objectId);
+        if (sourceitem == null) return null;
         L2ItemInstance targetitem = sourceitem.isStackable() ? target.getItemByItemId(sourceitem.getItemId()) : null;
 
         // Do only log if item leaves it's owner
@@ -303,7 +306,7 @@ public abstract class ItemContainer
                 String command = target.getClass().getSimpleName();
                 String targetName = "";
                 if(target.getOwner()!=null)
-                	targetName = target.getOwner().getName();
+                    targetName = target.getOwner().getName();
                 String params  = targetName + " - " + String.valueOf(count) + " - " + String.valueOf(sourceitem.getEnchantLevel()) + " - " + String.valueOf(sourceitem.getItemId()) + " - " + sourceitem.getItemName();
     
                 GMAudit.auditGMAction(actor, "transferitem", command, params);
@@ -316,6 +319,12 @@ public abstract class ItemContainer
         
         synchronized(sourceitem)
         {
+        	// check if this item still present in this container
+        	if (getItemByObjectId(objectId) != sourceitem)
+        	{
+        		return null;
+        	}
+        	
         	// Check if requested quantity is available
         	if (count > sourceitem.getCount()) count = sourceitem.getCount();
     
@@ -359,29 +368,33 @@ public abstract class ItemContainer
         }
 		return targetitem;
 	}
-	
-	/**
-	 * Destroy item from inventory and updates database
-	 * @param process : String Identifier of process triggering this action
-     * @param item : L2ItemInstance to be destroyed
-	 * @param actor : L2PcInstance Player requesting the item destroy
-	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
-     * @return L2ItemInstance corresponding to the destroyed item or the updated item in inventory
-	 */
-	public L2ItemInstance destroyItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
-	{
-		if (!_items.contains(item)) return null;
 
+    /**
+     * Destroy item from inventory and updates database
+     * @param process : String Identifier of process triggering this action
+     * @param item : L2ItemInstance to be destroyed
+     * @param actor : L2PcInstance Player requesting the item destroy
+     * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
+     * @return L2ItemInstance corresponding to the destroyed item or the updated item in inventory
+     */
+    public L2ItemInstance destroyItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
+    {
         synchronized(item)
         {
-    		removeItem(item);
+            // check if item is present in this container
+            if (!_items.contains(item))
+            {
+                return null;
+            }
+
+            removeItem(item);
             ItemTable.getInstance().destroyItem(process, item, actor, reference);
-    
-    		item.updateDatabase();
-    		refreshWeight();
+
+            item.updateDatabase();
+            refreshWeight();
         }
-		return item;
-	}
+        return item;
+    }
 
 	/**
 	 * Destroy item from inventory by using its <B>objectID</B> and updates database
