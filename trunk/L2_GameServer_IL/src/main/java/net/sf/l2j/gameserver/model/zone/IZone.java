@@ -32,46 +32,66 @@ import net.sf.l2j.tools.geometry.Point3D;
 
 public interface IZone
 {
-	
+	/** Set Zone internal Id **/
 	public void setId(int id);
 	
+	/** Set Castle Id, that zone belongs to **/
 	public void setCastleId(int castleId);
 	
+	/** Set Town Id, that zone belongs to **/
 	public void setTownId(int townId);
 	
+	/** Set zone type **/
 	public void setZoneType(ZoneType zoneType);
 	
+	/** Set zone name **/
 	public void setZoneName(String zoneName);
 	
+	/** Add zone point for calculation **/
 	public void addPoint(Point3D point);
 	
+	/** Add restart point for player spawn **/
 	public void addRestartPoint(RestartType restartType,Point3D point);
 	
+	/** Check if L2Object is in zone **/
 	public boolean checkIfInZone(L2Object obj);
 	
+	/** Check if x,y is in planar zone **/
 	public boolean checkIfInZone(int x, int y);
 	
+	/** Check if point is in zone **/
 	public boolean checkIfInZone(int x, int y, int z);
 	
+	/** Calculate distance from x,y point to center of planar zone rectangle **/
 	public double getZoneDistance(int x, int y);
 	
+	/** Calculate distance from x,y,z point to center of zone rectangle **/
 	public double getZoneDistance(int x, int y, int z);
 	
+	/** Get Zone internal Id **/
 	public int getId();
 	
+	/** Get Castle Id, that zone belongs to **/
 	public int getCastleId();
 	
+	/** Get Town Id, that zone belongs to **/
 	public int getTownId();
 	
+	/** Get zone name **/
 	public String getZoneName();
 	
+	/** Get zone type **/
 	public ZoneType getZoneType();
 	
+	/** Get restart point for player spawn **/
 	public Location getRestartPoint(RestartType restartType);
 	
+	/** Get zone points **/
 	public FastList<Point3D> getPoints();
 	
+	/** Get left bottom point of zone rectangle **/
 	public Point3D getMin();
 	
+	/** Get right top point of zone rectangle **/
 	public Point3D getMax();
 }

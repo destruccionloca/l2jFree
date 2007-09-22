@@ -58,7 +58,7 @@ public class StrSiegeAssault implements ISkillHandler
         
         if (!(player.getTarget() instanceof L2DoorInstance)) return;
 
-        Castle castle = CastleManager.getInstance().getCastle(player);
+        Castle castle = CastleManager.getInstance().getClosestCastle(player);
 
         if (castle == null || !checkIfOkToUseStriderSiegeAssault(player, castle, true)) return;
         
@@ -139,7 +139,7 @@ public class StrSiegeAssault implements ISkillHandler
      */
     public static boolean checkIfOkToUseStriderSiegeAssault(L2Character activeChar, boolean isCheckOnly)
     {
-        return checkIfOkToUseStriderSiegeAssault(activeChar, CastleManager.getInstance().getCastle(activeChar), isCheckOnly);
+        return checkIfOkToUseStriderSiegeAssault(activeChar, CastleManager.getInstance().getClosestCastle(activeChar), isCheckOnly);
     }
 
     public static boolean checkIfOkToUseStriderSiegeAssault(L2Character activeChar, Castle castle, boolean isCheckOnly)
@@ -150,7 +150,7 @@ public class StrSiegeAssault implements ISkillHandler
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         L2PcInstance player = (L2PcInstance)activeChar;
 
-        if (castle == null || castle.getCastleId() <= 0)
+        if (castle == null || castle.getCastleId() <= 0 || !castle.checkIfInZoneBattlefield(player))
             sm.addString("You must be on castle ground to use strider siege assault");
         else if (!castle.getSiege().getIsInProgress())
             sm.addString("You can only use strider siege assault during a siege.");

@@ -203,16 +203,21 @@ public class MapRegionTable
 						}
 					}
 
-					if (teleportWhere == TeleportWhereType.SiegeFlag && castle.getSiege().getIsInProgress())
+					if (teleportWhere == TeleportWhereType.SiegeFlag)
 					{
-						// Check if player's clan is attacker
-						FastList<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
-						if (flags != null && !flags.isEmpty())
+						castle = CastleManager.getInstance().getClosestCastle(player);
+						if (castle != null)
 						{
-							// Spawn to flag - Need more work to get player to
-							// the nearest flag
-							L2NpcInstance flag = flags.get(0);
-							return new Location(flag.getX(), flag.getY(), flag.getZ());
+							castle.getSiege().getIsInProgress();
+							// Check if player's clan is attacker
+							FastList<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
+							if (flags != null && !flags.isEmpty())
+							{
+								// Spawn to flag - Need more work to get player to
+								// the nearest flag
+								L2NpcInstance flag = flags.get(0);
+								return new Location(flag.getX(), flag.getY(), flag.getZ());
+							}
 						}
 					}
 				}

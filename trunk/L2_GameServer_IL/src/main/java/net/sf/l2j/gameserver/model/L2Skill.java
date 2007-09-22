@@ -28,11 +28,11 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
@@ -43,7 +43,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
-import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -1965,13 +1964,13 @@ public abstract class L2Skill
                     if (getId() == 1016) // Greater Resurrection
                     {
                         // check target is not in a active siege zone
-                        Castle castle = null;
+                        Siege siege = null;
 
-                        if (targetPlayer != null) castle = CastleManager.getInstance().getCastle(targetPlayer);
+                        if (targetPlayer != null) siege = SiegeManager.getInstance().getSiege(targetPlayer);
                         else if (targetPet != null)
-                            castle = CastleManager.getInstance().getCastle(targetPet);
+                        	siege = SiegeManager.getInstance().getSiege(targetPet);
 
-                        if (castle != null) if (castle.getSiege().getIsInProgress())
+                        if (siege != null && siege.getIsInProgress())
                         {
                             condGood = false;
                             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));

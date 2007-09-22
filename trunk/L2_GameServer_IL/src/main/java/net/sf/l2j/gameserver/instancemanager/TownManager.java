@@ -129,7 +129,7 @@ public class TownManager
 			nearestTown = "Hunters Village";
 			break;
 		/*case 20:
-			nearestTown = "Giran Harbor";
+			nearestTown = "Gludin Harbor";
 			break;*/
 		case 15:
 			nearestTown = "Heine";

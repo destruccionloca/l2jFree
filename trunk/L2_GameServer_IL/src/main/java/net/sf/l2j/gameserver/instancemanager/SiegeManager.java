@@ -100,10 +100,10 @@ public class SiegeManager
         
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         L2PcInstance player = (L2PcInstance)activeChar;
-        Castle castle = CastleManager.getInstance().getCastle(player);
+        Castle castle = CastleManager.getInstance().getClosestCastle(player);
 
-        if (castle == null || castle.getCastleId() <= 0)
-            sm.addString("You must be on castle ground to summon this");
+        if (castle == null || castle.getCastleId() <= 0 || !castle.checkIfInZoneBattlefield(player))
+            sm.addString("You must be on castle ground to summon this.");
         else if (!castle.getSiege().getIsInProgress())
             sm.addString("You can only summon this during a siege.");
         else if (player.getClanId() != 0 && castle.getSiege().getAttackerClan(player.getClanId()) == null)

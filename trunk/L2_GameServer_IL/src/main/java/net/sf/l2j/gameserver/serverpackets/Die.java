@@ -19,8 +19,10 @@
 package net.sf.l2j.gameserver.serverpackets;
 
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
@@ -88,8 +90,9 @@ public class Die extends L2GameServerPacket
         {
             L2SiegeClan siegeClan = null;
             Boolean isInDefense = false;
-            Castle castle = CastleManager.getInstance().getCastle(_activeChar);
-            if (castle != null && castle.getSiege().getIsInProgress())
+            Siege siege = SiegeManager.getInstance().getSiege(_activeChar);
+            
+            if (siege.getIsInProgress());
             {
             	//siege in progress            	
                 siegeClan = castle.getSiege().getAttackerClan(_clan);

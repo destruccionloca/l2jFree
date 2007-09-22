@@ -27,7 +27,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZonePoly;
@@ -316,7 +315,7 @@ public class ZoneManager
 		{
 			for (int y = zone.getMin().getY(); y <= zone.getMax().getY(); y += Byte.MAX_VALUE * 8)
 			{
-				region_new = getMapRegion(x, y);
+				region_new = RegionManager.getMapRegion(x, y);
 				if (region != region_new)
 				{
 					region = region_new;
@@ -369,7 +368,7 @@ public class ZoneManager
 	
 	public final FastList<IZone> getZones(ZoneType zoneType, int x, int y)
 	{
-		return getZones(zoneType, getMapRegion(x, y));
+		return getZones(zoneType, RegionManager.getMapRegion(x, y));
 	}
 
 	public final FastList<IZone> getZones(ZoneType zoneType, short region)
@@ -393,12 +392,5 @@ public class ZoneManager
 		if (_zoneMap == null)
 			_zoneMap = new FastMap<Short, FastMap<ZoneType, FastList<IZone>>>();
 		return _zoneMap;
-	}
-
-	public final short getMapRegion(int x, int y)
-	{
-		int rx = (x - L2World.MAP_MIN_X) >> 15;
-		int ry = (y - L2World.MAP_MIN_Y) >> 15;
-		return (short) (((rx + 16) << 5) + (ry + 10));
 	}
 }
