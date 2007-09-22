@@ -8272,7 +8272,6 @@ INSERT INTO `droplist` VALUES
 (20823,5550,1,1,2,4175), -- Durable Metal Plate
 (20824,4078,1,1,-1,102642), -- Blue Wolf Breastplate Part
 (20824,4081,1,1,-1,69258), -- Doom Plate Armor Temper
-(20824,5230,1,1,-1,9369), -- Recipe: Mithril Arrow (100%)
 (20824,57,2826,5774,0,700000), -- Adena
 (20824,864,1,1,1,75), -- Earring of Black Ore
 (20824,895,1,1,1,113), -- Ring of Black Ore
@@ -16153,7 +16152,6 @@ INSERT INTO `droplist` VALUES
 (21467,1884,1,1,2,129024), -- Cord
 (21467,4039,1,1,2,6989), -- Mold Glue
 (21467,5440,1,1,2,78), -- Recipe: Elysian(60%)
-(21468,1885,1,1,-1,725796), -- High Grade Suede
 (21468,4052,1,1,-1,308357), -- Earring of Black Ore Piece
 (21468,5220,1,1,-1,348382), -- Metal Hardener
 (21468,57,3673,7352,0,700000), -- Adena
@@ -16279,7 +16277,6 @@ INSERT INTO `droplist` VALUES
 (21482,57,2238,4479,0,700000), -- Adena
 (21483,1877,1,1,-1,220665), -- Adamantite Nugget
 (21483,4040,1,1,-1,110332), -- Mold Lubricant
-(21483,4084,1,1,-1,95874), -- Blue Wolf Tunic Fabric
 (21483,287,1,1,1,13), -- Bow of Peril
 (21483,4121,1,1,1,3549), -- Bow of Peril Shaft
 (21483,1343,20,60,2,166279), -- Silver Arrow
@@ -16306,7 +16303,6 @@ INSERT INTO `droplist` VALUES
 (21484,1881,1,1,2,37641), -- Coarse Bone Powder
 (21484,4041,1,1,2,2455), -- Mold Hardener
 (21484,6337,1,1,2,1448), -- Recipe: Sealed Majestic Earring(70%)
-(21485,1875,1,1,-1,367774), -- Stone of Purity
 (21485,4040,1,1,-1,110332), -- Mold Lubricant
 (21485,4086,1,1,-1,129452), -- Blue Wolf Stockings Pattern
 (21485,864,1,1,1,59), -- Earring of Black Ore
@@ -16339,11 +16335,9 @@ INSERT INTO `droplist` VALUES
 (21486,5220,1,1,2,10448), -- Metal Hardener
 (21487,1894,1,1,-1,326320), -- Crafted Leather
 (21487,4089,1,1,-1,351478), -- Doom Helmet Pattern
-(21487,6329,1,1,-1,53449), -- Recipe: Sealed Phoenix Necklace(70%)
 (21487,57,3923,7851,0,700000), -- Adena
 (21488,4044,1,1,-1,295712), -- Thons
 (21488,4090,1,1,-1,398265), -- Blue Wolf Boots Design
-(21488,6331,1,1,-1,67720), -- Recipe: Sealed Phoenix Earring(70%)
 (21488,57,3742,7489,0,700000), -- Adena
 (21489,1877,1,1,-1,42470), -- Adamantite Nugget
 (21489,4040,1,1,-1,21235), -- Mold Lubricant
@@ -16441,7 +16435,6 @@ INSERT INTO `droplist` VALUES
 (21501,57,2386,4775,0,700000), -- Adena
 (21502,730,1,1,-1,4903), -- Scroll: Enchant Armor (Grade A)
 (21502,1885,1,1,-1,490275), -- High Grade Suede
-(21502,4041,1,1,-1,51159), -- Mold Hardener
 (21502,1343,560,1680,2,79166), -- Silver Arrow
 (21502,1866,20,60,2,51722), -- Suede
 (21502,1871,9,27,2,172405), -- Charcoal
@@ -16474,7 +16467,6 @@ INSERT INTO `droplist` VALUES
 (21504,5549,1,1,2,24827), -- Metallic Thread
 (21505,4043,1,1,-1,188604), -- Asofe
 (21505,5532,1,1,-1,19080), -- Meteor Shower Head
-(21505,5550,1,1,-1,75442), -- Durable Metal Plate
 (21505,235,1,1,1,10), -- Bloody Orchid
 (21505,5536,1,1,1,2843), -- Bloody Orchid Head
 (21505,1864,1,3,2,278555), -- Stem
@@ -16487,7 +16479,6 @@ INSERT INTO `droplist` VALUES
 (21506,5456,1,1,-1,3673), -- Recipe: Tallum Glaive(60%)
 (21506,5535,1,1,-1,33842), -- Carnage Bow Stave
 (21506,57,4183,8371,0,700000), -- Adena
-(21507,730,1,1,-1,7884), -- Scroll: Enchant Armor (Grade A)
 (21507,4041,1,1,-1,82270), -- Mold Hardener
 (21507,5536,1,1,-1,32189), -- Bloody Orchid Head
 (21507,57,3990,7985,0,700000), -- Adena
@@ -16893,7 +16884,6 @@ INSERT INTO `droplist` VALUES
 (21533,4041,1,1,2,961), -- Mold Hardener
 (21533,5456,1,1,2,41), -- Recipe: Tallum Glaive(60%)
 (21534,4077,1,1,-1,155732), -- Doom Shield Fragment
-(21534,4078,1,1,-1,50569), -- Blue Wolf Breastplate Part
 (21534,5470,1,1,-1,1892), -- Recipe: Tallum Blade(60%)
 (21534,57,1399,2837,0,700000), -- Adena
 (21534,864,1,1,1,37), -- Earring of Black Ore
@@ -17187,7 +17177,6 @@ INSERT INTO `droplist` VALUES
 (21552,5220,1,1,2,4823), -- Metal Hardener
 (21553,1895,1,1,-1,603815), -- Metallic Fiber
 (21553,4080,1,1,-1,43471), -- Blue Wolf Gaiters Material
-(21553,6329,1,1,-1,12146), -- Recipe: Sealed Phoenix Necklace(70%)
 (21553,57,854,1732,0,700000), -- Adena
 (21553,601,1,1,1,20), -- Boots of Doom
 (21553,2439,1,1,1,20), -- Blue Wolf Boots
@@ -17223,7 +17212,6 @@ INSERT INTO `droplist` VALUES
 (21554,5462,1,1,2,39), -- Recipe: Branch of The Mother Tree(60%)
 (21555,4082,1,1,-1,29030), -- Blue Wolf Leather Armor Texture
 (21555,4083,1,1,-1,29030), -- Leather Armor of Doom Design
-(21555,6333,1,1,-1,29497), -- Recipe: Sealed Phoenix Ring(70%)
 (21555,57,1038,2106,0,700000), -- Adena
 (21555,268,1,1,1,6), -- Bellion Cestus
 (21555,4120,1,1,1,1659), -- Bellion Cestus Edge
@@ -17235,7 +17223,6 @@ INSERT INTO `droplist` VALUES
 (21555,5466,1,1,2,47), -- Recipe: Sword of Miracles(60%)
 (21556,4082,1,1,-1,28328), -- Blue Wolf Leather Armor Texture
 (21556,4083,1,1,-1,28328), -- Leather Armor of Doom Design
-(21556,6333,1,1,-1,28783), -- Recipe: Sealed Phoenix Ring(70%)
 (21556,57,1013,2055,0,700000), -- Adena
 (21556,268,1,1,1,6), -- Bellion Cestus
 (21556,4120,1,1,1,1618), -- Bellion Cestus Edge
@@ -25710,6 +25697,479 @@ INSERT INTO `droplist` VALUES
 (29040,6652,2,6,2,197626), -- Amulet: Protection of Valakas
 (29040,6654,18,54,2,68620), -- Amulet: Flames of Valakas
 (29040,6655,14,42,2,44113); -- Amulet: Slay Valakas
+
+-- 
+-- work in progress drops.. once chance becomes more accurate, can move into known good drops
+-- 
+INSERT INTO `droplist` VALUES 
+(21465,5370,1,1,2,3534), -- Recipe: Sealed Tallum Boots(60%)
+(21466,5368,1,1,2,1244), -- Recipe: Sealed Dark Crystal Boots(60%)
+(21467,5368,1,1,2,3049), -- Recipe: Sealed Dark Crystal Boots(60%)
+(21468,5370,1,1,-1,40000),-- Recipe: Sealed Tallum Boots(60%)
+(21470,5364,1,1,2,143), -- Recipe: Sealed Dark Crystal Shield(60%)
+(21483,5364,1,1,-1,36232), -- Recipe: Sealed Dark Crystal Shield(60%)
+(21485,5368,1,1,-1,43478), -- Recipe: Sealed Dark Crystal Boots(60%)
+(21487,5428,1,1,-1,5464), -- Recipe: Sealed Tallum Helmet(60%)
+(21488,5426,1,1,-1,6645), -- Recipe: Sealed Dark Crystal Helmet(60%)
+(21497,5366,1,1,2,342), -- Recipe: Sealed Shield of Nightmare(60%)
+(21502,5432,1,1,-1,28373), -- Recipe: Sealed Majestic Circlet(60%)
+(21504,5432,1,1,2,541), -- Recipe: Sealed Majestic Circlet(60%)
+(21505,5430,1,1,2,68), -- Recipe: Sealed Helm of Nightmare(60%)
+(21505,5366,1,1,-1,40323), -- Recipe: Sealed Shield of Nightmare(60%)
+(21507,5430,1,1,-1,15152), -- Recipe: Sealed Helm of Nightmare(60%)
+(20984,5420,1,1,2,187), -- Recipe: Sealed Armor of Nightmare(60%)
+(21554,5348,1,1,2,66), -- Recipe: Sealed Dark Crystal Robe(60%)
+(21533,5348,1,1,-1,3099), -- Recipe: Sealed Dark Crystal Robe(60%)
+(21534,5348,1,1,-1,3099), -- Recipe: Sealed Dark Crystal Robe(60%)
+(21075,5418,1,1,2,492), -- Recipe: Sealed Tallum Plate Armor(60%)
+(21555,5354,1,1,-1,28571), -- Recipe: Sealed Tallum Stockings(60%)
+(21556,5354,1,1,-1,28571), -- Recipe: Sealed Tallum Stockings(60%)
+(21553,5346,1,1,-1,14286), -- Recipe: Sealed Tallum Tunic(60%)
+(21554,5346,1,1,-1,14286), -- Recipe: Sealed Tallum Tunic(60%)
+(20623,5332,1,1,2,571), -- Recipe: Sealed Dark Crystal Leather Armor(60%)
+(20624,5340,1,1,2,552), -- Recipe: Sealed Dark Crystalline Leggings(60%)
+(20626,5334,1,1,2,441), -- Recipe: Sealed Tallum Leather Armor(60%)
+(20761,5338,1,1,2,274), -- Recipe: Sealed Majestic Leather Armor(60%)
+(20762,5336,1,1,2,351), -- Recipe: Sealed Leather Armor of Nightmare(60%)
+(20818,5416,1,1,2,210), -- Recipe: Sealed Dark Crystal Breastplate(60%)
+(20820,5424,1,1,2,357), -- Recipe: Sealed Dark Crystal Gaiters(60%)
+(20827,5420,1,1,2,509), -- Recipe: Sealed Armor of Nightmare(60%)
+(21061,5422,1,1,2,215), -- Recipe: Sealed Majestic Plate Armor(60%)
+(21069,5422,1,1,2,330), -- Recipe: Sealed Majestic Plate Armor(60%)
+(21298,5380,1,1,2,537), -- Recipe: Sealed Boots of Nightmare(60%)
+(21299,5382,1,1,2,765), -- Recipe: Sealed Majestic Boots(60%) 
+(21299,8331,1,1,1,1114), -- Infernal Master Blade
+(21301,5404,1,1,2,693), -- Recipe: Sealed Gloves of Nightmare(60%)
+(21302,5382,1,1,2,694), -- Recipe: Sealed Majestic Boots(60%)
+(21302,8331,1,1,1,1206), -- Infernal Master Blade
+(21303,5406,1,1,2,1639), -- Recipe: Sealed Majestic Gloves(60%)
+(21303,7899,1,1,1,6), -- Destroyer Hammer
+(21303,8341,1,1,1,901), -- Spiritual Eye Piece
+(21303,8346,1,1,1,1102), -- Hammer Piece of Destroyer 
+(21313,5380,1,1,2,1972), -- Recipe: Sealed Boots of Nightmare(60%)
+(21531,5392,1,1,2,600), -- Recipe: Sealed Dark Crystal Gloves(60%)
+(21539,5394,1,1,2,786), -- Recipe: Sealed Tallum Gloves(60%)
+(21541,5392,1,1,2,520), -- Recipe: Sealed Dark Crystal Gloves(60%)
+(21544,5392,1,1,2,762), -- Recipe: Sealed Dark Crystal Gloves(60%)
+(21546,5394,1,1,2,757), -- Recipe: Sealed Tallum Gloves(60%)
+(21547,5346,1,1,2,146), -- Recipe: Sealed Tallum Tunic(60%)
+(21548,5346,1,1,2,210), -- Recipe: Sealed Tallum Tunic(60%)
+(21549,5354,1,1,2,173), -- Recipe: Sealed Tallum Stockings(60%)
+(21550,5354,1,1,2,150), -- Recipe: Sealed Tallum Stockings(60%)
+(21553,5348,1,1,2,84), -- Recipe: Sealed Dark Crystal Robe(60%)
+(21572,5352,1,1,2,223), -- Recipe: Sealed Majestic Robe(60%)
+(21596,5350,1,1,2,247); -- Recipe: Sealed Robe of Nightmare(60%) 
+
+INSERT INTO `droplist` VALUES 
+-- Ant Guard
+(20086,8307,1,1,2,186), -- Recipe: Priest Mace (100%)
+
+-- Tyrant
+(20192,8307,1,1,2,342), -- Recipe: Priest Mace (100%)
+
+-- Malruk Succubus
+(20244,8322,1,1,2,114), -- Recipe: Ice Storm Hammer (60%)
+
+-- Malruk Succubus Turen
+(20245,8322,1,1,2,54), -- Recipe: Ice Storm Hammer (60%)
+
+-- Cave Howler
+(20624,8336,1,1,1,1470), -- Blade of the Wizard\'s Tear
+(20624,7889,1,1,1,16), -- Wizard\'s Tear
+(20624,8330,1,1,1,1430), -- Guardian Sword Blade
+(20624,7883,1,1,1,16), -- Guardian Sword
+
+-- Malruk Knight
+(20625,8336,1,1,1,52), -- Blade of the Wizard\'s Tear
+(20625,7889,1,1,1,13), -- Wizard\'s Tear
+(20625,8330,1,1,1,104), -- Guardian Sword Blade
+(20625,7883,1,1,1,13), -- Guardian Sword
+
+-- Hamrut
+(20649,8311,1,1,2,14), -- Recipe: Kaim Vanul\'s Bones (100%)
+
+-- Grave Guard
+(20668,8309,1,1,2,35), -- Recipe: Spell Breaker (100%)
+
+-- Falibati
+(20673,8336,1,1,1,362), -- Blade of the Wizard\'s Tear
+(20673,7889,1,1,1,5), -- Wizard''s Tear
+(20673,8330,1,1,1,458), -- Guardian Sword Blade
+(20673,7883,1,1,1,5), -- Guardian Sword
+
+-- Doom Knight
+(20674,8316,1,1,2,32), -- Recipe: Flaming Dragon Skull (60%)
+
+-- Tulben
+(20677,8316,1,1,2,90), -- Recipe: Flaming Dragon Skull (60%)
+
+-- Marsh Drake
+(20680,8311,1,1,2,103), -- Recipe: Kaim Vanul\'s Bones (100%)
+
+-- Platinum Tribe Soldier
+(20823,8316,1,1,2,135), -- Recipe: Flaming Dragon Skull (60%)
+(20823,5416,1,1,-1,30303), -- recipe: sealed Dark Crystal Breastplate(60%)
+
+-- Hallate's Commander
+(20824,5424,1,1,-1,19448), -- recipe: sealed Dark Crystal Gaiters(60%)
+
+-- Hatu Brown Bear
+(20930,8317,1,1,2,150), -- Recipe: Titan Hammer (100%)
+
+-- Pobby
+(20953,8311,1,1,2,49), -- Recipe: Kaim Vanul\'s Bones (100%)
+
+-- Elmo-Aden's Archer Escort
+(20978,8336,1,1,1,1515), -- Blade of the Wizard's Tear
+(20978,7889,1,1,1,15), -- Wizard's Tear
+
+-- Mul's Wizard
+(20981,8326,1,1,2,125), -- Recipe: Doom Crusher (60%)
+
+-- Doom Scout
+(21002,8311,1,1,2,77), -- Recipe: Kaim Vanul\'s Bones (100%)
+
+-- Ancient Gargoyle
+(21018,8309,1,1,2,77), -- Recipe: Spell Breaker (100%)
+
+-- Messenger Angel
+(21063,8314,1,1,2,514), -- Recipe: Spiritual Eye (60%)
+
+-- Cursed Seer
+(21106,8317,1,1,2,67), -- Recipe: Titan Hammer (100%)
+
+-- Glow Wisp
+(21108,8487,1,1,2,31), -- Recipe: Destroyer Hammer (60%)
+
+-- Marsh Predator
+(21110,8487,1,1,2,94), -- Recipe: Destroyer Hammer (60%)
+
+-- Lava Wyrm
+(21111,8487,1,1,2,69), -- Recipe: Destroyer Hammer (60%)
+
+-- Catacomb Shadow
+(21144,8317,1,1,2,641), -- Recipe: Titan Hammer (100%)
+
+-- Purgatory Tarantula
+(21157,8487,1,1,2,163), -- Recipe: Destroyer Hammer (60%)
+
+-- Hell Keeper Crimson Doll
+(21158,8487,1,1,2,130), -- Recipe: Destroyer Hammer (60%)
+
+-- Purgatory Gargoyle
+(21159,8326,1,1,2,35), -- Recipe: Doom Crusher (60%)
+
+-- Gigant Officer
+(21192,8317,1,1,2,1915), -- Recipe: Titan Hammer (100%)
+
+-- Nephilim Guard
+(21199,8311,1,1,2,101), -- Recipe: Kaim Vanul\'s Bones (100%)
+
+-- Sepulcher Sage
+(21227,8314,1,1,2,163), -- Recipe: Spiritual Eye (60%)
+
+-- Crypt Inquisitor
+(21245,8309,1,1,2,290), -- Recipe: Spell Breaker (100%)
+
+-- Sepulcher Guardian
+(21226,8336,1,1,1,1321), -- Blade of the Wizard\'s Tear
+(21226,7889,1,1,1,15), -- Wizard\'s Tear
+(21226,8330,1,1,1,1288), -- Guardian Sword Blade
+(21226,7883,1,1,1,15), -- Guardian Sword
+(21226,8314,1,1,2,116), -- Recipe: Spiritual Eye (60%)
+
+-- Antelope
+(21278,8332,1,1,1,373), -- Infernal Master Blade
+(21278,7884,1,1,1,2), -- Infernal Master
+
+-- Antelope
+(21279,8332,1,1,1,373), -- Infernal Master Blade
+(21279,7884,1,1,1,2), -- Infernal Master
+
+-- Antelope
+(21280,8332,1,1,1,373), -- Infernal Master Blade
+(21280,7884,1,1,1,2), -- Infernal Master
+
+-- Antelope
+(21281,8332,1,1,1,109), -- Infernal Master Blade
+(21281,7884,1,1,1,1), -- Infernal Master
+
+-- Bandersnatch
+(21282,8332,1,1,1,206), -- Infernal Master Blade
+(21282,7884,1,1,1,2), -- Infernal Master
+(21283,8332,1,1,1,206), -- Infernal Master Blade
+(21283,7884,1,1,1,2), -- Infernal Master
+(21284,8332,1,1,1,206), -- Infernal Master Blade
+(21284,7884,1,1,1,2), -- Infernal Master
+(21285,8332,1,1,1,78), -- Infernal Master Blade
+(21285,7884,1,1,1,1), -- Infernal Master
+
+-- Grendel
+(21290,8332,1,1,1,274), -- Infernal Master Blade
+(21290,7884,1,1,1,2), -- Infernal Master
+
+-- Grendel
+(21291,8332,1,1,1,274), -- Infernal Master Blade
+(21291,7884,1,1,1,2), -- Infernal Master
+
+-- Grendel
+(21292,8332,1,1,1,274), -- Infernal Master Blade
+(21292,7884,1,1,1,2), -- Infernal Master
+
+-- Grendel
+(21293,8332,1,1,1,143), -- Infernal Master Blade
+(21293,7884,1,1,1,1), -- Infernal Master
+
+-- Canyon Antelop
+(21294,8332,1,1,1,800), -- Infernal Master Blade
+(21294,7884,1,1,1,4), -- Infernal Master
+
+-- Canyon Antelop Slave
+(21295,8332,1,1,1,855), -- Infernal Master Blade
+(21295,7884,1,1,1,5), -- Infernal Master
+
+-- Eye of Guide
+(21300,8346,1,1,1,1243), -- Hammer Piece of Destroyer
+(21300,7899,1,1,1,7), -- Destroyer Hammer
+(21300,8341,1,1,1,746), -- Spiritual Eye Piece
+(21300,7894,1,1,1,7), -- Spiritual Eye
+
+-- Grendel Slave
+(21304,8346,1,1,1,1663), -- Hammer Piece of Destroyer
+(21304,7899,1,1,1,9), -- Destroyer Hammer
+(21304,8341,1,1,1,1261), -- Spiritual Eye Piece
+(21304,7894,1,1,1,9), -- Spiritual Eye
+
+-- Eye of Pilgrim
+(21305,8346,1,1,1,829), -- Hammer Piece of Destroyer
+(21305,7899,1,1,1,7), -- Destroyer Hammer
+(21305,8341,1,1,1,737), -- Spiritual Eye Piece
+(21305,7894,1,1,1,7), -- Spiritual Eye
+
+-- Elder Homunculus
+(21307,8332,1,1,1,1628), -- Infernal Master Blade
+(21307,7884,1,1,1,9), -- Infernal Master
+
+-- Disciples of Punishment
+(21308,8346,1,1,1,1760), -- Hammer Piece of Destroyer
+(21308,7899,1,1,1,11), -- Destroyer Hammer
+(21308,8341,1,1,1,2183), -- Spiritual Eye Piece
+(21308,7894,1,1,1,11), -- Spiritual Eye
+
+-- Disciples of Punishment
+(21309,8346,1,1,1,2197), -- Hammer Piece of Destroyer
+(21309,7899,1,1,1,12), -- Destroyer Hammer
+(21309,8341,1,1,1,1757), -- Spiritual Eye Piece
+(21309,7894,1,1,1,12), -- Spiritual Eye
+
+-- Disciples of Authority
+(21310,8332,1,1,1,3134), -- Infernal Master Blade
+(21310,7884,1,1,1,12), -- Infernal Master
+
+-- Ketra Orc Footman
+(21324,8332,1,1,1,794), -- Infernal Master Blade
+(21324,7884,1,1,1,6), -- Infernal Master
+
+-- Ketra\'s War Hound
+(21325,8346,1,1,1,831), -- Hammer Piece of Destroyer
+(21325,7899,1,1,1,6), -- Destroyer Hammer
+(21325,8341,1,1,1,787), -- Spiritual Eye Piece
+(21325,7894,1,1,1,6), -- Spiritual Eye
+
+-- Ketra Orc Raider
+(21327,8332,1,1,1,1666), -- Infernal Master Blade
+(21327,7884,1,1,1,6), -- Infernal Master
+
+-- Ketra Orc Scout
+(21328,8346,1,1,1,678), -- Hammer Piece of Destroyer
+(21328,7899,1,1,1,6), -- Destroyer Hammer
+(21328,8341,1,1,1,814), -- Spiritual Eye Piece
+(21328,7894,1,1,1,6), -- Spiritual Eye
+
+-- Grazing Kookaburra
+(21330,8342,1,1,1,782), -- Flaming Dragon Skull Piece
+(21330,7895,1,1,1,4), -- Flaming Dragon Skull
+(21330,8349,1,1,1,684), -- Doom Crusher Head
+(21330,7902,1,1,1,4), -- Doom Crusher
+
+-- Ketra Orc Lieutenant
+(21332,8342,1,1,1,594), -- Flaming Dragon Skull Piece
+(21332,7895,1,1,1,4), -- Flaming Dragon Skull
+(21332,8349,1,1,1,594), -- Doom Crusher Head
+(21332,7902,1,1,1,4), -- Doom Crusher
+
+-- Grazing Windsus
+(21333,8342,1,1,1,466), -- Flaming Dragon Skull Piece
+(21333,7895,1,1,1,4), -- Flaming Dragon Skull
+(21333,8349,1,1,1,622), -- Doom Crusher Head
+(21333,7902,1,1,1,4), -- Doom Crusher
+
+-- Ketra Orc Grand Seer
+(21342,8342,1,1,1,825), -- Flaming Dragon Skull Piece
+(21342,7895,1,1,1,6), -- Flaming Dragon Skull
+(21342,8349,1,1,1,891), -- Doom Crusher Head
+(21342,7902,1,1,1,6), -- Doom Crusher
+
+-- Tepra Scarab
+(21380,8342,1,1,1,1828), -- Flaming Dragon Skull Piece
+(21380,7895,1,1,1,7), -- Flaming Dragon Skull
+(21380,8349,1,1,1,914), -- Doom Crusher Head
+(21380,7902,1,1,1,7), -- Doom Crusher
+
+-- Lavasillisk
+(21391,8342,1,1,1,2024), -- Flaming Dragon Skull Piece
+(21391,7895,1,1,1,10), -- Flaming Dragon Skull
+(21391,8349,1,1,1,505), -- Doom Crusher Head
+(21391,7902,1,1,1,10), -- Doom Crusher
+
+-- Carrion Scarab
+(21397,8341,1,1,1,938), -- Spiritual Eye Piece
+(21397,7894,1,1,1,6), -- Spiritual Eye
+
+-- Assassin of Empire
+(21415,8342,1,1,1,1818), -- Flaming Dragon Skull Piece
+(21415,7895,1,1,1,8), -- Flaming Dragon Skull
+(21415,8349,1,1,1,605), -- Doom Crusher Head
+(21415,7902,1,1,1,8), -- Doom Crusher
+
+-- Ashuras
+(21420,8342,1,1,1,1639), -- Flaming Dragon Skull Piece
+(21420,7895,1,1,1,8), -- Flaming Dragon Skull
+(21420,8349,1,1,1,1474), -- Doom Crusher Head
+(21420,7902,1,1,1,8), -- Doom Crusher
+
+-- Ashuras
+(21421,8342,1,1,1,1375), -- Flaming Dragon Skull Piece
+(21421,7895,1,1,1,7), -- Flaming Dragon Skull
+(21421,8349,1,1,1,1547), -- Doom Crusher Head
+(21421,7902,1,1,1,7), -- Doom Crusher
+
+-- Alpen Bandersnatch
+(21445,8336,1,1,1,417), -- Blade of the Wizard\'s Tear
+(21445,7889,1,1,1,5), -- Wizard\'s Tear
+(21445,8330,1,1,1,479), -- Guardian Sword Blade
+(21445,7883,1,1,1,5), -- Guardian Sword
+
+-- Splinter Stakato Drone
+(21511,8346,1,1,1,671), -- Hammer Piece of Destroyer
+(21511,7899,1,1,1,3), -- Destroyer Hammer
+(21511,8341,1,1,1,335), -- Spiritual Eye Piece
+(21511,7894,1,1,1,3), -- Spiritual Eye
+
+-- Needle Stakato Walker
+(21514,8341,1,1,1,1512), -- Spiritual Eye Piece
+(21514,7894,1,1,1,3), -- Spiritual Eye
+
+-- Wisdom of Splendor
+(21526,8336,1,1,1,569), -- Blade of the Wizard\'s Tear
+(21526,7889,1,1,1,7), -- Wizard\'s Tear
+(21526,8330,1,1,1,642), -- Guardian Sword Blade
+(21526,7883,1,1,1,7), -- Guardian Sword
+
+-- Signet of Splendor
+(21535,8336,1,1,1,672), -- Blade of the Wizard\'s Tear
+(21535,7889,1,1,1,7), -- Wizard''s Tear
+(21535,8330,1,1,1,636), -- Guardian Sword Blade
+(21535,7883,1,1,1,7), -- Guardian Sword
+
+-- Pilgrim of Splendor
+(21541,8336,1,1,1,553), -- Blade of the Wizard\'s Tear
+(21541,7889,1,1,1,8), -- Wizard\'s Tear
+(21541,8330,1,1,1,738), -- Guardian Sword Blade
+(21541,7883,1,1,1,8), -- Guardian Sword
+
+-- Bone Scavenger
+(21583,8346,1,1,1,725), -- Hammer Piece of Destroyer
+(21583,7899,1,1,1,4), -- Destroyer Hammer
+(21583,8341,1,1,1,571), -- Spiritual Eye Piece
+(21583,7894,1,1,1,4), -- Spiritual Eye
+
+-- Bone Scavenger
+(21584,8346,1,1,1,682), -- Hammer Piece of Destroyer
+(21584,7899,1,1,1,3), -- Destroyer Hammer
+(21584,8341,1,1,1,682), -- Spiritual Eye Piece
+(21584,7894,1,1,1,3), -- Spiritual Eye
+
+-- Vampire Wizard
+(21588,8332,1,1,1,593), -- Infernal Master Blade
+(21588,7884,1,1,1,3), -- Infernal Master
+
+-- Vampire Wizard
+(21589,8332,1,1,1,435), -- Infernal Master Blade
+(21589,7884,1,1,1,3), -- Infernal Master
+
+-- Requiem Behemoth
+(21600,8332,1,1,1,454), -- Infernal Master Blade
+(21600,7884,1,1,1,3), -- Infernal Master
+
+-- Requiem Behemoth
+(21601,8346,1,1,1,724), -- Hammer Piece of Destroyer
+(21601,7899,1,1,1,3), -- Destroyer Hammer
+(21601,8341,1,1,1,305), -- Spiritual Eye Piece
+(21601,7894,1,1,1,3), -- Spiritual Eye
+
+-- Shrine Guard
+(21651,8346,1,1,1,677), -- Hammer Piece of Destroyer
+(21651,7899,1,1,1,3), -- Destroyer Hammer
+(21651,8341,1,1,1,351), -- Spiritual Eye Piece
+(21651,7894,1,1,1,3), -- Spiritual Eye
+
+-- Punishment of Splendor
+(21658,8336,1,1,1,634), -- Blade of the Wizard\'s Tear
+(21658,7889,1,1,1,7), -- Wizard\'s Tear
+(21658,8330,1,1,1,714), -- Guardian Sword Blade
+(21658,7883,1,1,1,7), -- Guardian Sword
+
+-- Purgatory Invader Elite Soldier
+(21718,8311,1,1,2,723), -- Recipe: Kaim Vanul\'s Bones (100%)
+
+-- Forbidden Path Invader Disciple
+(21738,8336,1,1,1,1119), -- Blade of the Wizard\'s Tear
+(21738,7889,1,1,1,11), -- Wizard\'s Tear
+(21738,8330,1,1,1,959), -- Guardian Sword Blade
+(21738,7883,1,1,1,11), -- Guardian Sword
+
+-- Forbidden Path Invader Elite Soldier
+(21741,8336,1,1,1,2272), -- Blade of the Wizard\'s Tear
+(21741,7889,1,1,1,26), -- Wizard\'s Tear
+(21741,8330,1,1,1,2057), -- Guardian Sword Blade
+(21741,7883,1,1,1,26), -- Guardian Sword
+
+-- Dark Omen Invader Food
+(21763,8346,1,1,1,316), -- Hammer Piece of Destroyer
+(21763,7899,1,1,1,2), -- Destroyer Hammer
+(21763,8341,1,1,1,694), -- Spiritual Eye Piece
+(21763,7894,1,1,1,2), -- Spiritual Eye
+
+-- Messenger Invader Warrior
+(21791,8342,1,1,1,2008), -- Flaming Dragon Skull Piece
+(21791,7895,1,1,1,11), -- Flaming Dragon Skull
+(21791,8349,1,1,1,2141), -- Doom Crusher Head
+(21791,7902,1,1,1,11), -- Doom Crusher
+
+-- Dark Omen Invader Elite Soldier
+(21772,8346,1,1,1,1262), -- Hammer Piece of Destroyer
+(21772,7899,1,1,1,13), -- Destroyer Hammer
+(21772,8341,1,1,1,1727), -- Spiritual Eye Piece
+(21772,7894,1,1,1,13), -- Spiritual Eye
+
+-- Messenger Invader Elite Soldier
+(21789,8342,1,1,1,50), -- Flaming Dragon Skull Piece
+(21789,7895,1,1,1,1), -- Flaming Dragon Skull
+(21789,8349,1,1,1,50), -- Doom Crusher Head
+(21789,7902,1,1,1,1), -- Doom Crusher
+
+-- Ghost of a Gatekeeper
+(21799,8346,1,1,1,723), -- Hammer Piece of Destroyer
+(21799,7899,1,1,1,8), -- Destroyer Hammer
+(21799,8341,1,1,1,1001), -- Spiritual Eye Piece
+(21799,7894,1,1,1,8), -- Spiritual Eye
+
+-- Vassal Ghost
+(21800,8346,1,1,1,374), -- Hammer Piece of Destroyer
+(21800,7899,1,1,1,4), -- Destroyer Hammer
+(21800,8341,1,1,1,436), -- Spiritual Eye Piece
+(21800,7894,1,1,1,4); -- Spiritual Eye
 
 -- RB drops for clan skill items (25% chance drop until chances are confirmed)  
 -- admins who have drop multipliers might want to edit chances  

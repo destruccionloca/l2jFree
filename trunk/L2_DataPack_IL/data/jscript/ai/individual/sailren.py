@@ -25,7 +25,7 @@ class sailren (JQuest):
 
   def onTalk (self,npc,player):
     st = player.getQuestState("sailren")
-    if not st : return "<html><body>I have no tasks for you</body></html>"
+    if not st : return "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
     npcId = npc.getNpcId()
     if npcId == STATUE :
       if st.getQuestItemsCount(GAZKH) :

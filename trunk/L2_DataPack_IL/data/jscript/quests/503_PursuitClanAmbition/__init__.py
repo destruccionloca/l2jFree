@@ -2,14 +2,13 @@
 # questdevs Team
 
 import sys
-from java.util                  import Iterator
-from net.sf.l2j.gameserver.lib          import Rnd
-from net.sf.l2j.gameserver.serverpackets    import CreatureSay 
-from net.sf.l2j.gameserver.model.quest      import State
-from net.sf.l2j.gameserver.model.quest      import QuestState
+from java.util                                 import Iterator
+from net.sf.l2j.util                           import Rnd
+from net.sf.l2j.gameserver.serverpackets       import CreatureSay
+from net.sf.l2j.gameserver.model.quest         import State
+from net.sf.l2j.gameserver.model.quest         import QuestState
 from net.sf.l2j.gameserver.model.quest.jython  import QuestJython as JQuest
-
-from net.sf.l2j                import L2DatabaseFactory
+from net.sf.l2j                                import L2DatabaseFactory
 
 qn = "503_PursuitClanAmbition"
 qd = "Pursuit Clan Ambition"
@@ -63,7 +62,7 @@ DROPLIST = {
 
 def suscribe_members(st) :
   clan=st.getPlayer().getClan().getClanId()
-  con=L2DatabaseFactory.getInstance().getConnection(None)
+  con=L2DatabaseFactory.getInstance().getConnection()
   offline=con.prepareStatement("SELECT obj_Id FROM characters WHERE clanid=? AND online=0")
   offline.setInt(1, clan)
   rs=offline.executeQuery()
@@ -87,7 +86,7 @@ def suscribe_members(st) :
 
 def offlineMemberExit(st) :
   clan=st.getPlayer().getClan().getClanId()
-  con=L2DatabaseFactory.getInstance().getConnection(None)
+  con=L2DatabaseFactory.getInstance().getConnection()
   offline=con.prepareStatement("DELETE FROM character_quests WHERE name = ? and char_id IN (SELECT obj_id FROM characters WHERE clanId =? AND online=0")
   offline.setString(1, qn)
   offline.setInt(2, clan)
@@ -111,7 +110,7 @@ def getLeaderVar(st, var) :
   except :
     pass
   leaderId=st.getPlayer().getClan().getLeaderId()
-  con=L2DatabaseFactory.getInstance().getConnection(None)
+  con=L2DatabaseFactory.getInstance().getConnection()
   offline=con.prepareStatement("SELECT value FROM character_quests WHERE char_id=? AND var=? AND name=?")
   offline.setInt(1, leaderId)
   offline.setString(2, var)
@@ -141,7 +140,7 @@ def setLeaderVar(st, var, value) :
     leader.getQuestState(qn).set(var,value)
   else :
     leaderId=st.getPlayer().getClan().getLeaderId()
-    con=L2DatabaseFactory.getInstance().getConnection(None)
+    con=L2DatabaseFactory.getInstance().getConnection()
     offline=con.prepareStatement("UPDATE character_quests SET value=? WHERE char_id=? AND var=? AND name=?")
     offline.setString(1, value)
     offline.setInt(2, leaderId)
@@ -186,7 +185,6 @@ def exit503(completed,st):
     else:
       st.exitQuest(1)
     st.takeItems(Scepter_Judgement,-1)
-    st.getPcSpawn().removeAllSpawn()
     try:
       members = st.getPlayer().getClan().getOnlineMembers("")[0]
       for i in members:
@@ -249,8 +247,8 @@ class Quest (JQuest) :
         st.giveItems(Mi_Drake_Eggs,4)
         st.giveItems(Bl_Wyrm_Eggs,3)
         st.set("Lutz","2")
-      st.getPcSpawn().addSpawn(27178,112268,112761,-2770,120000)
-      st.getPcSpawn().addSpawn(27178,112234,112705,-2770,120000)
+      st.addSpawn(27178,112268,112761,-2770,120000)
+      st.addSpawn(27178,112234,112705,-2770,120000)
 # Events Fritz
     elif event == "30761-03.htm":
       fritz = st.getInt("Fritz")
@@ -258,8 +256,8 @@ class Quest (JQuest) :
         htmltext = "30761-02.htm"
         st.giveItems(Bl_Wyrm_Eggs,3)
         st.set("Fritz","2")
-      st.getPcSpawn().addSpawn(27178,103841,116809,-3025,120000)
-      st.getPcSpawn().addSpawn(27178,103848,116910,-3020,120000)
+      st.addSpawn(27178,103841,116809,-3025,120000)
+      st.addSpawn(27178,103848,116910,-3020,120000)
 # Events Kusto
     elif event == "30512-03.htm":
       st.takeItems(Brooch,-1)
@@ -288,15 +286,12 @@ class Quest (JQuest) :
 # Events Cleo
     elif event == "30766-04.htm":
       st.set("cond","9")
-      objId=st.getPcSpawn().addSpawn(30766,160622,21230,-3710,90000)
-      npc=st.getPcSpawn().getSpawn(objId).getLastSpawn()
-      npc.broadcastPacket(CreatureSay(objId,0,npc.getName(),"Blood and Honour."))
-      objId=st.getPcSpawn().addSpawn(30759,160665,21209,-3710,90000)
-      npc=st.getPcSpawn().getSpawn(objId).getLastSpawn()
-      npc.broadcastPacket(CreatureSay(objId,0,npc.getName(),"Ambition and Power"))
-      objId=st.getPcSpawn().addSpawn(30758,160665,21291,-3710,90000)
-      npc=st.getPcSpawn().getSpawn(objId).getLastSpawn()
-      npc.broadcastPacket(CreatureSay(objId,0,npc.getName(),"War and Death"))
+      spawnedNpc=st.addSpawn(30766,160622,21230,-3710,90000)
+      npc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Blood and Honour."))
+      spawnedNpc=st.addSpawn(30759,160665,21209,-3710,90000)
+      npc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Ambition and Power"))
+      spawnedNpc=st.addSpawn(30758,160665,21291,-3710,90000)
+      npc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"War and Death"))
     elif event == "30766-08.htm":
       st.takeItems(Scepter_Judgement,-1)
       exit503(0,st)
@@ -446,7 +441,6 @@ class Quest (JQuest) :
               st.set("cond","11")
               st.takeItems(Imp_Keys,6)
               st.giveItems(Scepter_Judgement,1)
-              st.getPcSpawn().removeAllSpawn()
             else:
               htmltext = "<html><body>(You and your Clan didn't kill the Imperial Gravekeeper by your own, go and try again.)</body></html>"
           else:
@@ -487,18 +481,18 @@ class Quest (JQuest) :
 
   def onAttack(self, npc, player):
     npdId = npc.getNpcId()
-    if (npc.getMaxHp()/2) > npc.getStatus().getCurrentHp():
+    if (npc.getMaxHp()/2) > npc.getCurrentHp():
       if Rnd.get(100) < 4:
         if self.ImpGraveKepperStat == 1:
           for j in range(2):
             for k in range(2): 
-              self.getPcSpawn(player).addSpawn(27180,npc.getX()+70*pow(-1,j%2),npc.getY()+70*pow(-1,k%2),npc.getZ())
+              self.addSpawn(27180,npc.getX()+70*pow(-1,j%2),npc.getY()+70*pow(-1,k%2),npc.getZ(),0,False,0)
           self.ImpGraveKepperStat = 2
         else:
           players = npc.getKnownList().getKnownPlayers().values().toArray()
           if len(players) :
             playerToTP = players[Rnd.get(int(len(players)))]
-            playerToTP.getPosition().setXYZ(185462,20342,-3250)
+            playerToTP.setXYZ(185462,20342,-3250)
     return
 
   def onKill (self,npc,player):
@@ -536,13 +530,12 @@ class Quest (JQuest) :
           giveItem(itemList[0],maxcount,leader_st)
         else:
           if npcId == 27181:                # Imperial Gravekeeper
-            objId=leader_st.getPcSpawn().addSpawn(30765,120000)
-            npc=leader_st.getPcSpawn().getSpawn(objId).getLastSpawn()
-            npc.broadcastPacket(CreatureSay(objId,0,npc.getName(),"Curse of the gods on the one that defiles the property of the empire!"))
+            spawnedNpc=leader_st.addSpawn(30765,120000)
+            npc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Curse of the gods on the one that defiles the property of the empire!"))
             leader_st.set("ImpGraveKeeper","3")
             self.ImpGraveKepperStat = 1
-          elif npcId == 20668:
-            leader_st.getPcSpawn().addSpawn(27179)
+          else:
+            leader_st.addSpawn(27179)
     return
 
 QUEST     = Quest(503,qn,"Pursuit of Clan Ambition")
