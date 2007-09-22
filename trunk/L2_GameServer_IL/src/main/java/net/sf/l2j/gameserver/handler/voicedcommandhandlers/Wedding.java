@@ -213,71 +213,82 @@ public class Wedding implements IVoicedCommandHandler
         }
         else if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
                 activeChar.isInOlympiadMode() || activeChar.inObserverMode() || activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)  
-        	return false;
+            return false;
         // Check to see if the player is in a festival.
         else if (activeChar.isFestivalParticipant()) 
         {
-        	activeChar.sendMessage("You can't escape from a festival.");
-        	return false;
+            activeChar.sendMessage("You can't escape from a festival.");
+            return false;
+        }
+         // Check to see if the player is in dimensional rift.
+        else if (activeChar.isInParty() && activeChar.getParty().isInDimensionalRift()) 
+        {
+            activeChar.sendMessage("You are in the dimensional rift.");
+            return false;
         }
         // Check to see if player is in jail
         else if (activeChar.isInJail())
         {
-        	activeChar.sendMessage("You can't escape from jail.");
-        	return false;
+            activeChar.sendMessage("You can't escape from jail.");
+            return false;
         }
         // Check if player is in Siege
         // Character has clan? & Clan has castle? & Siege is in progress?
         else if(activeChar.getClan() != null 
-        		&& CastleManager.getInstance().getCastle(activeChar.getClan()) != null 
-        		&& CastleManager.getInstance().getCastle(activeChar.getClan()).getSiege().getIsInProgress())
+                && CastleManager.getInstance().getCastle(activeChar.getClan()) != null 
+                && CastleManager.getInstance().getCastle(activeChar.getClan()).getSiege().getIsInProgress())
         {
-        	activeChar.sendMessage("You are in siege, you can't go to your partner.");
-        	return false;
+            activeChar.sendMessage("You are in siege, you can't go to your partner.");
+            return false;
         }
         // Check if player is in Duel
         else if (activeChar.isInDuel())
         {
-        	activeChar.sendMessage("You are in a duel.");
-        	return false;
+            activeChar.sendMessage("You are in a duel.");
+            return false;
         }
         // Check if player is a Cursed Weapon owner
         else if (activeChar.isCursedWeaponEquiped())
         {
-        	activeChar.sendMessage("You are currently holding a cursed weapon..");
-        	return false;
+            activeChar.sendMessage("You are currently holding a cursed weapon..");
+            return false;
         }
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
         if(partner == null)
         {
-        	activeChar.sendMessage("Your partner is not online.");
-        	return false;
+            activeChar.sendMessage("Your partner is not online.");
+            return false;
         }
         else if(partner.isInJail())
         {
-        	activeChar.sendMessage("Your partner is in jail.");
-        	return false;
+            activeChar.sendMessage("Your partner is in jail.");
+            return false;
         }
         else if(partner._inEventCTF || partner._inEventTvT || partner._inEventDM)
         {
-        	activeChar.sendMessage("Your partner is in event now.");
-        	return false;
+            activeChar.sendMessage("Your partner is in event now.");
+            return false;
         }
         else if(partner.isInOlympiadMode() || partner.inObserverMode())
         {
-        	activeChar.sendMessage("Your partner is in Olympiad now.");
-        	return false;
+            activeChar.sendMessage("Your partner is in Olympiad now.");
+            return false;
         }
         else if(partner.isInDuel())
         {
-        	activeChar.sendMessage("Your partner is in a duel.");
-        	return false;
+            activeChar.sendMessage("Your partner is in a duel.");
+            return false;
         }
         else if(partner.atEvent)
         {
             activeChar.sendMessage("Your partner is in an event.");
+            return false;
+        }
+        else if (partner.isInParty() && partner.getParty().isInDimensionalRift()) 
+        {
+            activeChar.sendMessage("Your partner is in dimensional rift.");
             return false;
         }
         else if (partner.isFestivalParticipant())
@@ -325,7 +336,7 @@ public class Wedding implements IVoicedCommandHandler
         return true;
     }
 
-    static class EscapeFinalizer implements Runnable
+    private static class EscapeFinalizer implements Runnable
     {
         private L2PcInstance _activeChar;
         private int _partnerx;
@@ -336,9 +347,9 @@ public class Wedding implements IVoicedCommandHandler
         EscapeFinalizer(L2PcInstance activeChar, int x, int y, int z, boolean to7sDungeon)
         {
             _activeChar = activeChar;
-            _partnerx=x;
-            _partnery=y;
-            _partnerz=z;
+            _partnerx = x;
+            _partnery = y;
+            _partnerz = z;
             _to7sDungeon = to7sDungeon;
         }
         
@@ -346,11 +357,9 @@ public class Wedding implements IVoicedCommandHandler
         {
             if (_activeChar.isDead()) 
                 return; 
-            
             _activeChar.setIsIn7sDungeon(_to7sDungeon);
-            
             _activeChar.enableAllSkills();
-            
+
             try 
             {
                 _activeChar.teleToLocation(_partnerx, _partnery, _partnerz);

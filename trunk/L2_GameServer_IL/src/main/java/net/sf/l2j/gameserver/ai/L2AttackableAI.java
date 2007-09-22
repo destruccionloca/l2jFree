@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -50,6 +51,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PenaltyMonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -164,9 +166,9 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 return false;
             else if (me.getSpecialFaction() == L2NpcTemplate.FACTION_KETRA && ((L2PcInstance)target).isAlliedWithKetra())
                 return false;
-        	// check if the target is within the grace period for JUST getting up from fake death
-        	if (((L2PcInstance)target).isRecentFakeDeath())
-        		return false;
+            // check if the target is within the grace period for JUST getting up from fake death
+            if (((L2PcInstance)target).isRecentFakeDeath())
+                return false;
         }
         
         // Check if the actor is a L2GuardInstance
@@ -175,14 +177,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             // Check if the L2PcInstance target has karma (=PK)
             if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
                 // Los Check
-            	return GeoData.getInstance().canSeeTarget(me, target); 
+                return GeoData.getInstance().canSeeTarget(me, target); 
 
             //if (target instanceof L2Summon)
             //  return ((L2Summon)target).getKarma() > 0;
 
             // Check if the L2MonsterInstance target is aggressive
             if (target instanceof L2MonsterInstance) 
-            	return (((L2MonsterInstance) target).isAggressive() && GeoData.getInstance().canSeeTarget(me, target));            	
+                return (((L2MonsterInstance) target).isAggressive() && GeoData.getInstance().canSeeTarget(me, target));                
 
             return false;
         }
@@ -197,7 +199,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             // Check if the L2PcInstance target has karma (=PK)
             if (target instanceof L2PcInstance && ((L2PcInstance) target).getKarma() > 0)
                 // Los Check
-            	return GeoData.getInstance().canSeeTarget(me, target); 
+                return GeoData.getInstance().canSeeTarget(me, target); 
                 return false;
         }
         else
@@ -208,8 +210,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             
             // depending on config, do not allow mobs to attack _new_ players in peacezones, 
             // unless they are already following those players from outside the peacezone. 
-           	if (!Config.ALT_MOB_AGRO_IN_PEACEZONE && ZoneManager.getInstance().checkIfInZonePeace(target)) 
-            	return false;
+               if (!Config.ALT_MOB_AGRO_IN_PEACEZONE && ZoneManager.getInstance().checkIfInZonePeace(target)) 
+                return false;
 
             // Check if the actor is Aggressive
             return (me.isAggressive() && GeoData.getInstance().canSeeTarget(me, target));
@@ -437,11 +439,15 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         {
             int offset;
 
-            if (_actor.isRaid())    offset = 500; // for Raids - need correction
-            else        offset = 200; // for normal minions - need correction :)
+            if (_actor.isRaid())
+                offset = 500; // for Raids - need correction
+            else
+                offset = 200; // for normal minions - need correction :)
 
-            if(((L2MinionInstance)_actor).getLeader().isRunning())  _actor.setRunning();
-            else    _actor.setWalking();
+            if(((L2MinionInstance)_actor).getLeader().isRunning())
+                _actor.setRunning();
+            else
+               _actor.setWalking();
 
             if (_actor.getPlanDistanceSq(((L2MinionInstance)_actor).getLeader()) > offset*offset)
             {
@@ -457,13 +463,13 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         // Order to the L2MonsterInstance to random walk (1/100)
         else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0)
         {
-	    	// [L2J_JP ADD SANDMAN]
-	    	// Instant move of zaken
-	    	if ((npc.getNpcId() == 29022) && Rnd.get(5) > 1)
-	    	{
-	    		npc.doCast(SkillTable.getInstance().getInfo(4222, 1));
-	    		return;
-	    	}
+            // [L2J_JP ADD SANDMAN]
+            // Instant move of zaken
+            if ((npc.getNpcId() == 29022) && Rnd.get(5) > 1)
+            {
+                npc.doCast(SkillTable.getInstance().getInfo(4222, 1));
+                return;
+            }
 
             int x1, y1, z1;
 
@@ -585,13 +591,26 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                             continue;
 
                         // Check if the L2Object is inside the Faction Range of the actor
-                        if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false) 
+                        if (_actor.isInsideRadius(npc, npc.getFactionRange(), true, false)
                             && Math.abs(getAttackTarget().getZ() - npc.getZ()) < 600
                             && npc.getAI() != null
                             && _actor.getAttackByList().contains(getAttackTarget())
+                            && GeoData.getInstance().canSeeTarget(_actor, npc)
                             && (npc.getAI()._intention == CtrlIntention.AI_INTENTION_IDLE 
                             || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE))
                         {
+                            if (getAttackTarget() instanceof L2PcInstance
+                                && getAttackTarget().isInParty()
+                                && getAttackTarget().getParty().isInDimensionalRift())
+                            {
+                                byte riftType = getAttackTarget().getParty().getDimensionalRift().getType();
+                                byte riftRoom = getAttackTarget().getParty().getDimensionalRift().getCurrentRoom();
+
+                                if (_actor instanceof L2RiftInvaderInstance
+                                    && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
+                                    continue;
+                            }
+
                             // Notify the L2Object AI with EVT_AGGRESSION
                             npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, getAttackTarget(), 1);
                         }
@@ -821,12 +840,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
     @Override
     protected void onEvtAttacked(L2Character attacker)
     {
-    	/*if (_actor instanceof L2ChestInstance && !((L2ChestInstance)_actor).isOpenFailed())
-    	{
-    		((L2ChestInstance)_actor).deleteMe();
-    		((L2ChestInstance)_actor).getSpawn().startRespawn();
-    	}*/
-    	
+        /*if (_actor instanceof L2ChestInstance && !((L2ChestInstance)_actor).isOpenFailed())
+        {
+            ((L2ChestInstance)_actor).deleteMe();
+            ((L2ChestInstance)_actor).getSpawn().startRespawn();
+        }*/
+        
         // Calculate the attack timeout
         _attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
 
@@ -866,10 +885,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
     @Override
     protected void onEvtAggression(L2Character target, int aggro)
     {
-    	L2Attackable me = (L2Attackable) _actor;
+        L2Attackable me = (L2Attackable) _actor;
 
-    	if (target != null)
-    	{
+        if (target != null)
+        {
             // Add the target to the actor _aggroList or update hate if already present
             me.addDamageHate(target, 0, aggro);
 
@@ -878,14 +897,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
             if (aggro <= 0) 
             {
-            	if (me.getMostHated() == null)
-            	{
-            		_globalAggro = -25;
-            		me.clearAggroList();
-            		setIntention(AI_INTENTION_ACTIVE);
-            		_actor.setWalking();
-            	}
-            	return;
+                if (me.getMostHated() == null)
+                {
+                    _globalAggro = -25;
+                    me.clearAggroList();
+                    setIntention(AI_INTENTION_ACTIVE);
+                    _actor.setWalking();
+                }
+                return;
             }
 
             // Set the actor AI Intention to AI_INTENTION_ATTACK
@@ -899,26 +918,26 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         }
         else
         {
-        	//currently only for setting lower general aggro
-        	if(aggro >= 0) return;
-        	
-        	L2Character mostHated = me.getMostHated();
-        	if (mostHated == null)
-        	{
-        		_globalAggro = -25;
-        		return;
-        	}
+            //currently only for setting lower general aggro
+            if(aggro >= 0) return;
+            
+            L2Character mostHated = me.getMostHated();
+            if (mostHated == null)
+            {
+                _globalAggro = -25;
+                return;
+            }
             for(L2Character aggroed : me.getAggroListRP().keySet())
                 me.addDamageHate(aggroed, 0, aggro);
-        	
-        	aggro = me.getHating(mostHated);
-        	if (aggro <= 0) 
-        	{
-        		_globalAggro = -25;
-        		me.clearAggroList();
-        		setIntention(AI_INTENTION_ACTIVE);
-        		_actor.setWalking();
-        	}
+            
+            aggro = me.getHating(mostHated);
+            if (aggro <= 0) 
+            {
+                _globalAggro = -25;
+                me.clearAggroList();
+                setIntention(AI_INTENTION_ACTIVE);
+                _actor.setWalking();
+            }
         }
     }
 }

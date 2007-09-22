@@ -43,25 +43,26 @@ public class Escape implements IUserCommandHandler
 {
     static Log _log = LogFactory.getLog(Escape.class);
     private static final int[] COMMAND_IDS = { 52 }; 
-    private static final int REQUIRED_LEVEL = Config.GM_ESCAPE;
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
      */
     public boolean useUserCommand(@SuppressWarnings("unused") int id, L2PcInstance activeChar)
     {   
-        if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
-                activeChar.isInOlympiadMode()) 
+        if (activeChar.isCastingNow() || activeChar.isMovementDisabled()
+            || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isInOlympiadMode())
             return false;
 
         // [L2J_JP ADD]
-        if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,activeChar)){
+        if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,activeChar))
+        {
             activeChar.sendMessage("You can not escape from here.");
             activeChar.sendPacket(new ActionFailed());
             return false;                   
         }
  
-        int unstuckTimer = (activeChar.getAccessLevel() >=REQUIRED_LEVEL? 5000 : Config.UNSTUCK_INTERVAL*1000 );
+        int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 5000 : 
+                                                    Config.UNSTUCK_INTERVAL * 1000 );
         
         // Check to see if the player is in a festival.
         if (activeChar.isFestivalParticipant()) 

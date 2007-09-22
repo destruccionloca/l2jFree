@@ -36,6 +36,8 @@ import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -279,17 +281,19 @@ public class CursedWeaponsManager
     {
         if(Config.ALLOW_CURSED_WEAPONS)
         {
-        if (player.isCursedWeaponEquiped())
-            return;
-		if (attackable instanceof L2SiegeGuardInstance)
-			return;
-		
-        for (CursedWeapon cw : _cursedWeapons.values())
-        {
-            if (cw.isActive()) continue;
-            
-            if (cw.checkDrop(attackable, player)) break;
-        }
+        if (attackable instanceof L2SiegeGuardInstance
+            || attackable instanceof L2RiftInvaderInstance
+            || attackable instanceof L2FestivalMonsterInstance
+            )return;
+
+            if (player.isCursedWeaponEquiped())
+                return;
+            for (CursedWeapon cw : _cursedWeapons.values())
+            {
+                if (cw.isActive()) continue;
+
+                if (cw.checkDrop(attackable, player)) break;
+            }
         }
     }
     

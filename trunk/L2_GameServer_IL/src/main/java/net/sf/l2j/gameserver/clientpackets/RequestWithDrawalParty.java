@@ -44,11 +44,17 @@ public class RequestWithDrawalParty extends L2GameClientPacket
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
-		    return;
+			return;
+
 		if (player.isInParty())
-		    player.getParty().oustPartyMember(player);		
+		{
+			if (player.getParty().isInDimensionalRift() && !player.getParty().getDimensionalRift().getRevivedAtWaitingRoom().contains(player))
+				player.sendMessage("You can't exit party when you are in Dimensional Rift.");
+			else
+				player.getParty().oustPartyMember(player);
+		}
 	}
-	
+
 	@Override
 	public String getType()
 	{

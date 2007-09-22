@@ -72,6 +72,7 @@ import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
@@ -349,6 +350,8 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("RaidPointsManager initialized");
         DayNightSpawnManager.getInstance().notifyChangeMode();
         if ( _log.isDebugEnabled())_log.debug("Day/Night SpawnMode initialized");
+        DimensionalRiftManager.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("DimensionalRiftManager initialized");
         Announcements.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Announcments initialized");
         MapRegionTable.getInstance();

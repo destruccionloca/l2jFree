@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
@@ -913,7 +914,7 @@ public class L2NpcInstance extends L2Character
                     
                     L2Summon summon = player.getPet();
                     L2NpcTemplate myPet = summon.getTemplate();
-                               
+
                     if ((myPet.equals(wind) || myPet.equals(star) || myPet.equals(twilight)) 
                             && player.getAdena()>=20000000 
                             && (player.getInventory().getItemByObjectId(summon.getControlItemId())!=null)
@@ -945,13 +946,12 @@ public class L2NpcInstance extends L2Character
                             spawn.getLastSpawn().isAggressive();
                             spawn.getLastSpawn().decayMe();
                             spawn.getLastSpawn().spawnMe(spawn.getLastSpawn().getX(),spawn.getLastSpawn().getY(),spawn.getLastSpawn().getZ());
-                            
-                             
+
                             int level = summon.getLevel();
                             int chance = (level-54)*10;
                             spawn.getLastSpawn().broadcastPacket(new MagicSkillUser(spawn.getLastSpawn(), spawn.getLastSpawn(), 1034, 1, 1, 1));
                             spawn.getLastSpawn().broadcastPacket(new MagicSkillUser(spawn.getLastSpawn(), summon, 1034, 1, 1, 1));
-                           
+
                             if(Rnd.nextInt(100)<chance) 
                             {
                                 ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
@@ -963,7 +963,8 @@ public class L2NpcInstance extends L2Character
                                 replyMSG.append("</body></html>");
                                 adminReply.setHtml(replyMSG.toString());
                                 player.sendPacket(adminReply);
-                            } else 
+                            }
+                            else
                             {
                                 summon.reduceCurrentHp(summon.getStatus().getCurrentHp(), player);
                             }
@@ -1053,7 +1054,8 @@ public class L2NpcInstance extends L2Character
                                
                                 adminReply.setHtml(replyMSG.toString());
                                 player.sendPacket(adminReply);
-                            } else 
+                            }
+                            else
                             {
                                 summon.reduceCurrentHp(summon.getStatus().getCurrentHp(), player);
                             }
@@ -1065,12 +1067,13 @@ public class L2NpcInstance extends L2Character
                         {
                             e.printStackTrace();
                         }
-                    }else
+                    }
+                    else
                     {
                         NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());      
                         TextBuilder replyMSG = new TextBuilder("<html><body>");
                        
-                         replyMSG.append("You will need 6.000.000 and have the pet summoned for the ceremony ...");
+                        replyMSG.append("You will need 6.000.000 and have the pet summoned for the ceremony ...");
                         replyMSG.append("</body></html>");
                         
                         adminReply.setHtml(replyMSG.toString());
@@ -1092,7 +1095,7 @@ public class L2NpcInstance extends L2Character
                     
                     if (getCastle().getOwnerId() > 0)
                     {
-                    	L2Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
+                        L2Clan clan = ClanTable.getInstance().getClan(getCastle().getOwnerId());
                         html.replace("%clanname%", clan.getName());
                         html.replace("%clanleadername%", clan.getLeaderName());
                     }
@@ -1118,7 +1121,7 @@ public class L2NpcInstance extends L2Character
                 String quest = "";
                 try 
                 {
-                   quest = command.substring(5).trim();
+                    quest = command.substring(5).trim();
                 } catch (IndexOutOfBoundsException ioobe) {}
 
                 if (quest.length() == 0)
@@ -1131,7 +1134,7 @@ public class L2NpcInstance extends L2Character
                 int val = 0;
                 try 
                 {
-                   val = Integer.parseInt(command.substring(5));
+                    val = Integer.parseInt(command.substring(5));
                 } catch (IndexOutOfBoundsException ioobe) {
                 } catch (NumberFormatException nfe) {}
                 showChatWindow(player, val);
@@ -1212,33 +1215,65 @@ public class L2NpcInstance extends L2Character
                         player.sendPacket(new ExShowVariationCancelWindow());
                         break;
                 }
-            }           
+            }
             else if (command.startsWith("npcfind_byid"))
             {
                 try
-                {               
-                     L2Spawn spawn = SpawnTable.getInstance().getTemplate(Integer.parseInt(command.substring(12).trim()));
-                     if (spawn != null)
-                     {
-                     player.sendPacket(new RadarControl(0,1,spawn.getLocx(),spawn.getLocy(),spawn.getLocz()));
-                     }
-                     else
-                     {
-                     player.sendMessage("Boss isnt in Game - Blame Datapack Developer, Boss ID: "+Integer.parseInt(command.substring(12).trim()));
-                     }  
-                } catch (NumberFormatException nfe)
+                {
+                    L2Spawn spawn = SpawnTable.getInstance().getTemplate(Integer.parseInt(command.substring(12).trim()));
+                    if (spawn != null)
+                    {
+                        player.sendPacket(new RadarControl(0,1,spawn.getLocx(),spawn.getLocy(),spawn.getLocz()));
+                    }
+                    else
+                    {
+                        player.sendMessage("Boss isnt in Game - Blame Datapack Developer, Boss ID: "+Integer.parseInt(command.substring(12).trim()));
+                    }
+                }
+                catch (NumberFormatException nfe)
                 { 
                     player.sendMessage("Wrong command parameters");
-                }            
+                }
+            }
+            else if (command.startsWith("EnterRift"))
+            {
+                try
+                {
+                    Byte b1 = Byte.parseByte(command.substring(10)); // Selected Area: Recruit, Soldier etc
+                    DimensionalRiftManager.getInstance().start(player, b1, this);
+                }
+                catch(Exception e){}
+            }
+            else if (command.startsWith("ChangeRiftRoom"))
+            {
+                if(player.isInParty() && player.getParty().isInDimensionalRift())
+                {
+                    player.getParty().getDimensionalRift().manualTeleport(player, this);
+                }
+                else
+                {
+                    DimensionalRiftManager.getInstance().handleCheat(player, this);
+                }
+            }
+            else if (command.startsWith("ExitRift"))
+            {
+                if(player.isInParty() && player.getParty().isInDimensionalRift())
+                {
+                    player.getParty().getDimensionalRift().manualExitRift(player, this);
+                }
+                else
+                {
+                    DimensionalRiftManager.getInstance().handleCheat(player, this);
+                }
              }
-             else if (command.equals("questlist"))
-             {    
-                 player.sendPacket(new ExQuestInfo());
-             }
-             else if (command.startsWith("MakeBuffs"))
-             {
-                 makeBuffs(player,command.substring(9).trim());
-             }
+            else if (command.equals("questlist"))
+            {
+                player.sendPacket(new ExQuestInfo());
+            }
+            else if (command.startsWith("MakeBuffs"))
+            {
+                makeBuffs(player,command.substring(9).trim());
+            }
             else if (command.equalsIgnoreCase("exchange"))
             {
                 NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -1268,7 +1303,6 @@ public class L2NpcInstance extends L2Character
                     }
                 }
                 return;
-
             }
             else if (command.equalsIgnoreCase("wake_baium"))
             {
@@ -2344,6 +2378,11 @@ public class L2NpcInstance extends L2Character
                     filename = (getHtmlPath(npcId, val));
                 break;
             default:
+                if (npcId >= 31865 && npcId <= 31918)
+                {
+                    filename += "rift/GuardianOfBorder.htm";
+                    break;
+                }
                 if ((npcId >= 31093 && npcId <= 31094) ||
                         (npcId >= 31172 && npcId <= 31201) ||
                         (npcId >= 31239 && npcId <= 31254))

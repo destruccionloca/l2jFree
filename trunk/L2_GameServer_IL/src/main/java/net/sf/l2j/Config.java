@@ -1304,16 +1304,30 @@ public final class Config
     public static boolean       	IS_CRAFTING_ENABLED;				// Crafting Enabled?
     public static boolean   		FAIL_FAKEDEATH;						// Config for Fake Death Fail Feature
     public static boolean 			ALT_FLYING_WYVERN_IN_SIEGE;			// Config for Wyvern enable flying in siege **/
-    public static int 				ALT_OLY_START_TIME;	// Olympiad Compitition Starting time
-    public static int 				ALT_OLY_MIN;			// Olympiad Compition Min
-    public static int 				ALT_OLY_CPERIOD;		// Olympaid Comptetition Period
-    public static int 				ALT_OLY_BATTLE;		// Olympiad Battle Period
-    public static int 				ALT_OLY_BWAIT;		// Olympiad Battle Wait
-    public static int 				ALT_OLY_IWAIT;		// Olympiad Inital Wait
-    public static int 				ALT_OLY_WPERIOD;		// Olympaid Weekly Period
-    public static int 				ALT_OLY_VPERIOD;		// Olympaid Validation Period
-    /** Alternative game summon penalty  */
-    public static float ALT_GAME_SUMMON_PENALTY_RATE;    
+    public static int 				ALT_OLY_START_TIME;			// Olympiad Compitition Starting time
+    public static int 				ALT_OLY_MIN;				// Olympiad Compition Min
+    public static int 				ALT_OLY_CPERIOD;			// Olympaid Comptetition Period
+    public static int 				ALT_OLY_BATTLE;				// Olympiad Battle Period
+    public static int 				ALT_OLY_BWAIT;				// Olympiad Battle Wait
+    public static int 				ALT_OLY_IWAIT;				// Olympiad Inital Wait
+    public static int 				ALT_OLY_WPERIOD;			// Olympaid Weekly Period
+    public static int 				ALT_OLY_VPERIOD;			// Olympaid Validation Period
+    public static float ALT_GAME_SUMMON_PENALTY_RATE;			// Alternative game summon penalty    
+
+    // Dimensional Rift
+    public static int 				RIFT_MIN_PARTY_SIZE;		// Minimum siz e of a party that may enter dimensional rift
+    public static int 				RIFT_SPAWN_DELAY;			// Time in ms the party has to wait until the mobs spawn when entering a room
+    public static int 				RIFT_MAX_JUMPS;				// Amount of random rift jumps before party is ported back
+    public static int 				RIFT_AUTO_JUMPS_TIME_MIN;	// Random time between two jumps in dimensional rift - in seconds
+    public static int 				RIFT_AUTO_JUMPS_TIME_MAX;
+    public static int 				RIFT_ENTER_COST_RECRUIT;	// Dimensional Fragment cost for entering rift
+    public static int 				RIFT_ENTER_COST_SOLDIER;
+    public static int 				RIFT_ENTER_COST_OFFICER;
+    public static int 				RIFT_ENTER_COST_CAPTAIN;
+    public static int 				RIFT_ENTER_COST_COMMANDER;
+    public static int 				RIFT_ENTER_COST_HERO;
+    public static float 			RIFT_BOSS_ROOM_TIME_MUTIPLY;// Time multiplier for boss room
+
     //  *******************************************************************************************    
     //  *******************************************************************************************    
     //  *******************************************************************************************
@@ -1440,6 +1454,20 @@ public final class Config
             NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
             
             ALT_GAME_SUMMON_PENALTY_RATE = Float.parseFloat(altSettings.getProperty("AltSummonPenaltyRate", "1"));
+
+            // Dimensional Rift Config
+            RIFT_MIN_PARTY_SIZE              = Integer.parseInt(altSettings.getProperty("RiftMinPartySize", "5")); 
+            RIFT_MAX_JUMPS                   = Integer.parseInt(altSettings.getProperty("MaxRiftJumps", "4")); 
+            RIFT_SPAWN_DELAY                 = Integer.parseInt(altSettings.getProperty("RiftSpawnDelay", "10000"));
+            RIFT_AUTO_JUMPS_TIME_MIN         = Integer.parseInt(altSettings.getProperty("AutoJumpsDelayMin", "480")); 
+            RIFT_AUTO_JUMPS_TIME_MAX         = Integer.parseInt(altSettings.getProperty("AutoJumpsDelayMax", "600")); 
+            RIFT_ENTER_COST_RECRUIT          = Integer.parseInt(altSettings.getProperty("RecruitCost", "18")); 
+            RIFT_ENTER_COST_SOLDIER          = Integer.parseInt(altSettings.getProperty("SoldierCost", "21")); 
+            RIFT_ENTER_COST_OFFICER          = Integer.parseInt(altSettings.getProperty("OfficerCost", "24")); 
+            RIFT_ENTER_COST_CAPTAIN          = Integer.parseInt(altSettings.getProperty("CaptainCost", "27")); 
+            RIFT_ENTER_COST_COMMANDER        = Integer.parseInt(altSettings.getProperty("CommanderCost", "30")); 
+            RIFT_ENTER_COST_HERO             = Integer.parseInt(altSettings.getProperty("HeroCost", "33")); 
+            RIFT_BOSS_ROOM_TIME_MUTIPLY      = Float.parseFloat(altSettings.getProperty("BossRoomTimeMultiply", "1.5"));
         }
         catch (Exception e)
         {

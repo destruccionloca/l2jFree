@@ -78,6 +78,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -3826,10 +3827,23 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if the new target is visible
         if (newTarget != null && !newTarget.isVisible()) newTarget = null;
 
-        // Can't target and attack festival monsters if not participant
-        if (newTarget instanceof L2FestivalMonsterInstance && !isFestivalParticipant())
-            newTarget = null;
-        
+		if(!isGM())
+		{
+			// Can't target and attack festival monsters if not participant
+			if((newTarget instanceof L2FestivalMonsterInstance) && !isFestivalParticipant())
+				newTarget = null;
+			
+			// Can't target and attack rift invaders if not in the same room
+			else if(isInParty() && getParty().isInDimensionalRift())
+			{
+				byte riftType = getParty().getDimensionalRift().getType();
+				byte riftRoom = getParty().getDimensionalRift().getCurrentRoom();
+				
+				if (newTarget != null && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(newTarget.getX(), newTarget.getY(), newTarget.getZ()))
+					newTarget = null;
+			}
+		}
+ 
         // Prevents /target exploiting
         //if (newTarget != null && !GeoData.getInstance().canSeeTarget(this, newTarget))
         if (newTarget != null && Math.abs(newTarget.getZ() - getZ()) > 1000)
@@ -4229,6 +4243,10 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             _cubics.clear();
         }
+
+		if (isInParty() && getParty().isInDimensionalRift())
+			getParty().getDimensionalRift().getDeadMemberList().add(this);
+
 		// [L2J_JP ADD SANDMAN]
 		// When the player has been annihilated, the player is banished from the Four Sepulcher. 
 		if (FourSepulchersManager.getInstance().checkIfInDangeon(this) &&
@@ -9220,6 +9238,13 @@ public final class L2PcInstance extends L2PlayableInstance
         updateEffectIcons();
         _reviveRequested = 0;
         _revivePower = 0;
+
+        if (isInParty() && getParty().isInDimensionalRift())
+        {
+            if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
+                getParty().getDimensionalRift().memberRessurected(this);
+        }
+
         if(_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY)
         {
             getStatus().setCurrentHp(getMaxHp());
