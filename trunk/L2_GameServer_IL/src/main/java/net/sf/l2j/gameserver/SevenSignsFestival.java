@@ -1880,8 +1880,6 @@ public class SevenSignsFestival implements SpawnListener
                     festivalInst.festivalStart();
                     festivalInst.sendMessageToParticipants("The festival is about to begin!");
                 }
-                else
-                    _log.warn("festivalInst = null!");
             }
             
             if (_log.isDebugEnabled())

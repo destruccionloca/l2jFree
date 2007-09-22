@@ -965,15 +965,23 @@ public final class Config
      * <li>3 - full synchronization Client <--> Server</li>
      * <li>-1 - Old system: will synchronize Z only</li>
      */
-    public static int     				COORD_SYNCHRONIZE;
-    public static int     				DELETE_DAYS;
+    public static int					COORD_SYNCHRONIZE;
+    public static int					DELETE_DAYS;
     public static int					FLOODPROTECTOR_INITIALSIZE;		// FloodProtector initial capacity
-    public static int 					MAX_DRIFT_RANGE;				// Maximum range mobs can randomly go from spawn point
-    public static boolean 				ALLOW_FISHING;
-    public static boolean 				ALLOW_MANOR;					// Allow Manor system
-    public static boolean 				ALLOW_GUARDS;					// Allow guards against aggressive monsters
-    public static int GEODATA;											// GeoData 0/1/2
-    public static boolean 				FORCE_GEODATA;					// Force loading GeoData to psychical memory
+    public static int					MAX_DRIFT_RANGE;				// Maximum range mobs can randomly go from spawn point
+    public static boolean				ALLOW_FISHING;
+    public static boolean				ALLOW_MANOR;					// Allow Manor system
+    public static boolean				ALLOW_GUARDS;					// Allow guards against aggressive monsters
+
+    public static boolean				GEODATA;						// Load geodata files
+    public static boolean				GEO_CHECK_LOS;					// Enable Line Of Sight check for skills and aggro
+    public static boolean				GEO_MOVE_PC;					// Movement check for playable instances
+    public static boolean				GEO_MOVE_NPC;					// Movement check for NPCs
+    public static boolean				GEO_PATH_FINDING;				// Enable Path Finding [ EXPERIMENTAL]
+    public static enum   CorrectSpawnsZ { TOWN, MONSTER, ALL, NONE }
+    public static        CorrectSpawnsZ GEO_CORRECT_Z;					// Enable spawns' z-correction
+    public static boolean				FORCE_GEODATA;					// Force loading GeoData to psychical memory
+
     public static boolean       		ALLOW_DISCARDITEM;
     public static boolean       		ALLOW_FREIGHT;
     public static boolean       		ALLOW_WAREHOUSE;
@@ -1161,8 +1169,14 @@ public final class Config
             GRID_NEIGHBOR_TURNON_TIME       = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOnTime", "30"));
             GRID_NEIGHBOR_TURNOFF_TIME      = Integer.parseInt(optionsSettings.getProperty("GridNeighborTurnOffTime", "300"));    
 
-            GEODATA                         = Integer.parseInt(optionsSettings.getProperty("GeoData", "0"));
-            FORCE_GEODATA                   = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True"));
+            GEODATA                         = Boolean.parseBoolean(optionsSettings.getProperty("GeoData", "False"));
+            GEO_CHECK_LOS                   = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckLoS", "False")) && GEODATA;
+            GEO_MOVE_PC                     = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckMovePlayable", "False")) && GEODATA;
+            GEO_MOVE_NPC                    = Boolean.parseBoolean(optionsSettings.getProperty("GeoCheckMoveNpc", "False")) && GEODATA;
+            GEO_PATH_FINDING                = Boolean.parseBoolean(optionsSettings.getProperty("GeoPathFinding", "False")) && GEODATA;
+            FORCE_GEODATA                   = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True")) && GEODATA;
+            String correctZ                 = GEODATA ? optionsSettings.getProperty("GeoCorrectZ", "ALL") : "NONE";
+            GEO_CORRECT_Z                   = CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
 
             SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
             SHOW_HTML_WELCOME               = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));

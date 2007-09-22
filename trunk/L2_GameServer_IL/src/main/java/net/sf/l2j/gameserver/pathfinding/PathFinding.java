@@ -37,15 +37,15 @@ public abstract class PathFinding
     {
         if (_instance == null)
         {
-            if (true /*Config.GEODATA_PATHFINDING*/)                
+            if (true /*Config.GEODATA_PATHFINDING*/)
             {
-				//Smaler Memory Usage, Higher Cpu Usage (CalculatedOnTheFly)
-				return GeoPathFinding.getInstance();
+                //Smaler Memory Usage, Higher Cpu Usage (CalculatedOnTheFly)
+                return GeoPathFinding.getInstance();
             }
-            else // WORLD_PATHFINDING               
+            else // WORLD_PATHFINDING
             {
-                //Higher Memoru Usage, Lower Cpu Usage (PreCalculated)              
-            }           
+                //Higher Memoru Usage, Lower Cpu Usage (PreCalculated)
+            }
         }
         return _instance;
     }
@@ -56,7 +56,7 @@ public abstract class PathFinding
     public List<AbstractNodeLoc> search(Node start, Node end)
     {
         //List of Visited Nodes
-        LinkedList<Node> visited = new LinkedList<Node>();      
+        LinkedList<Node> visited = new LinkedList<Node>();
 
         // List of Nodes to Visit
         LinkedList<Node> to_visit = new LinkedList<Node>();
@@ -167,7 +167,7 @@ public abstract class PathFinding
     
     public byte getRegionY(int node_pos)
     {
-        return (byte)((node_pos >> 8) + 10);        
+        return (byte)((node_pos >> 8) + 10);
     }
     
     public short getRegionOffset(byte rx, byte ry)
@@ -182,7 +182,7 @@ public abstract class PathFinding
      */
     public int calculateWorldX(short node_x)
     {
-        return   L2World.MAP_MIN_X  + node_x * 128 + 48 ;
+        return L2World.MAP_MIN_X  + node_x * 128 + 48 ;
     }
     
     /**
@@ -192,6 +192,6 @@ public abstract class PathFinding
      */
     public int calculateWorldY(short node_y)
     {
-        return  L2World.MAP_MIN_Y + node_y * 128 + 48 ;
+        return L2World.MAP_MIN_Y + node_y * 128 + 48 ;
     }
 }

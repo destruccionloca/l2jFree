@@ -36,14 +36,14 @@ public class GeoData
     public static GeoData getInstance()
     {
         if(_instance == null)
-        {           
-        	if (Config.GEODATA > 0)
+        {
+            if (Config.GEODATA)
                 _instance = GeoEngine.getInstance();
             else
             {
                 _instance = new GeoData();
                 _log.info("Geodata Engine: Disabled.");
-            }               
+            }
         }
         return _instance;
     }

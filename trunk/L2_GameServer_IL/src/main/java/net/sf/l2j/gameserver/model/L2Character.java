@@ -3904,14 +3904,15 @@ public abstract class L2Character extends L2Object
 		// GEODATA MOVEMENT CHECKS 
 		// TODO: Better integration to code.
 		m.onGeodataPathIndex = -1; // Set not on geodata path
-		if (Config.GEODATA > 0)
+		if (Config.GEODATA)
 		{
 			double originalDistance = distance;
 			int originalX = x;
 			int originalY = y;
 			int originalZ = z;
 
-			if (Config.GEODATA == 2 || this instanceof L2PlayableInstance) 
+			if ((Config.GEO_MOVE_PC && this instanceof L2PlayableInstance)
+			  || (Config.GEO_MOVE_NPC && this instanceof L2NpcInstance))
 			{			
 				Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z);
 				// location probably always different due to rounding
@@ -3937,7 +3938,7 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 			}
-			if(Config.GEODATA == 2 && originalDistance-distance > 100) 
+			if(Config.GEO_PATH_FINDING && originalDistance-distance > 100)
 			{
 				// Path calculation
 				// Note: Overrides previous movement check and currently with

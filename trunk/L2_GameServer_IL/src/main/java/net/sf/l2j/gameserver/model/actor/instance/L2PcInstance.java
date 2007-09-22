@@ -3365,9 +3365,10 @@ public final class L2PcInstance extends L2PlayableInstance
                             || (player.isCursedWeaponEquiped() && getLevel() < 21))
                     {
                         player.sendPacket(new ActionFailed());
-                    } else
+                    } 
+                    else
                     {
-						if (Config.GEODATA > 0)
+						if (Config.GEO_CHECK_LOS)
 						{
 							if (GeoData.getInstance().canSeeTarget(player, this))
 								player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
@@ -3378,7 +3379,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 } 
                 else
                 {
-					if (Config.GEODATA > 0)
+					if (Config.GEO_CHECK_LOS)
 					{
 						if(GeoData.getInstance().canSeeTarget(player, this))
 							player.getAI().setIntention(CtrlIntention.AI_INTENTION_FOLLOW, this);

@@ -106,7 +106,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
             return;
         }
         
-        if (_moveMovement == 0 && Config.GEODATA < 1) // cursor movement without geodata is disabled 
+        if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
         {
             activeChar.sendPacket(new ActionFailed());
         }

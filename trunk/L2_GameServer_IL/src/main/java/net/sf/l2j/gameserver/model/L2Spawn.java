@@ -22,11 +22,14 @@ import java.lang.reflect.Constructor;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
+import net.sf.l2j.Config.CorrectSpawnsZ;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.L2Attackable;
+import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -516,6 +519,23 @@ public class L2Spawn
     {
         int newlocx, newlocy, newlocz;
 
+        boolean doCorrect = false;
+        if(Config.GEODATA)
+        {
+            switch(Config.GEO_CORRECT_Z)
+            {
+                case ALL:
+                    doCorrect = true;
+                    break;
+                case TOWN:
+                    if(mob instanceof L2FolkInstance) doCorrect = true;
+                    break;
+                case MONSTER:
+                    if(mob instanceof L2Attackable) doCorrect = true;
+                    break;
+            }
+        }
+
         // If Locx=0 and Locy=0, the L2NpcInstance must be spawned in an area defined by location
         if  (getLocx()==0 && getLocy()==0)
         {
@@ -528,16 +548,16 @@ public class L2Spawn
             // Set the calculated position of the L2NpcInstance
             newlocx = p[0];
             newlocy = p[1];
-            newlocz = GeoData.getInstance().getSpawnHeight(newlocx, newlocy, p[2], p[3],_id);
-        } 
-        else 
+            newlocz = doCorrect ? GeoData.getInstance().getSpawnHeight(newlocx, newlocy, p[2], p[3],_id)
+                                : p[2];
+        }
+        else
         {
             // The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
             newlocx = getLocx();
             newlocy = getLocy();
-            if (Config.GEODATA > 0)            
-             	newlocz = GeoData.getInstance().getSpawnHeight(newlocx,newlocy,getLocz(),getLocz(),_id);
-            else newlocz = getLocz();
+            newlocz = doCorrect ? GeoData.getInstance().getSpawnHeight(newlocx,newlocy,getLocz(),getLocz(),_id)
+                                : getLocz();
         }
         
         for(L2Effect f : mob.getAllEffects())

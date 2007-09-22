@@ -234,6 +234,12 @@ public class GameServer
         
         // o Load skills
         SkillsEngine.getInstance();
+        _skillTable = SkillTable.getInstance();
+        if (!_skillTable.isInitialized())
+        {
+            _log.fatal("Skills not initialized.");
+            throw new Exception("Could not initialize the skill table");
+        }
         
         // o Load datapack items
         // ---------------------
@@ -251,12 +257,6 @@ public class GameServer
         // o Load buylist 
         // --------------
         TradeListTable.getInstance();
-        _skillTable = SkillTable.getInstance();
-        if (!_skillTable.isInitialized())
-        {
-            _log.fatal("Skills not initialized.");
-            throw new Exception("Could not initialize the skill table");
-        }
         
         // o Initialize skill tree from dp
         // --------------------------------
@@ -326,10 +326,11 @@ public class GameServer
         GeoData.getInstance();
         if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
         
-        if (Config.GEODATA == 2)
-        	GeoPathFinding.getInstance();
-        	if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
-        
+        if (Config.GEO_PATH_FINDING)
+        {
+            GeoPathFinding.getInstance();
+            if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
+        }
         TeleportLocationTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("TeleportLocationTable initialized");
         LevelUpData.getInstance();

@@ -911,18 +911,19 @@ public class L2CharacterAI extends AbstractAI
 
         if (!_actor.isInsideRadius(target, offset, false, false))
         {
-        	// Caller should be L2Playable and thinkAttack/thinkCast/thinkInteract/thinkPickUp
-        	if (Config.GEODATA > 0 && !GeoData.getInstance().canSeeTarget(_actor, target))
-        	{
-        		if (getFollowTarget() != null) {
-        			// cannot see and follow active
-        			stopFollow();
-        		}
-        		setIntention(AI_INTENTION_IDLE);
-        		return true;
-        	}
+            // Caller should be L2Playable and thinkAttack/thinkCast/thinkInteract/thinkPickUp
+            if (Config.GEO_CHECK_LOS && !GeoData.getInstance().canSeeTarget(_actor, target))
+            {
+                if (getFollowTarget() != null)
+                {   // cannot see and follow active
+                    stopFollow();
+                }
+                setIntention(AI_INTENTION_IDLE);
+                return true;
+            }
 
-            if (getFollowTarget() != null) { 
+            if (getFollowTarget() != null)
+            { 
                 // prevent attack-follow into peace zones
                 if(getAttackTarget() != null && _actor instanceof L2PlayableInstance && target instanceof L2PlayableInstance)
                 {

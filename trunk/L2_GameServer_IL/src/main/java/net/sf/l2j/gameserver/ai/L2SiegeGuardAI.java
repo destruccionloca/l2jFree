@@ -585,16 +585,16 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                 && _attackTarget.isInsideRadius(npc, npc.getFactionRange(), false, true) 
                 )
             {
-                if (Config.GEODATA > 0) 
+                if (Config.GEO_CHECK_LOS)
                 {
-                	if (GeoData.getInstance().canSeeTarget(npc, _attackTarget))
-                		// Notify the L2Object AI with EVT_AGGRESSION
+                    if (GeoData.getInstance().canSeeTarget(npc, _attackTarget))
+                        // Notify the L2Object AI with EVT_AGGRESSION
                         npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attackTarget, 1);                		
                 }
                 else 
                 {
-                	if (Math.abs(_attackTarget.getZ() - npc.getZ()) < 600)
-                		// Notify the L2Object AI with EVT_AGGRESSION
+                    if (Math.abs(_attackTarget.getZ() - npc.getZ()) < 600)
+                        // Notify the L2Object AI with EVT_AGGRESSION
                         npc.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, _attackTarget, 1);
                 }
             }
