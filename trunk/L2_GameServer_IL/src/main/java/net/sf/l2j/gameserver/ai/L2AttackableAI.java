@@ -562,9 +562,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 L2Attackable npc = (L2Attackable) _actor;
                 npc.stopHating(getAttackTarget());
             }
-
-            // Cancel target and timeout
-            _attackTimeout = Integer.MAX_VALUE;
            
             // Set the AI Intention to AI_INTENTION_ACTIVE
             setIntention(AI_INTENTION_ACTIVE);
@@ -892,21 +889,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             // Add the target to the actor _aggroList or update hate if already present
             me.addDamageHate(target, 0, aggro);
 
-            // Get the hate of the actor against the target
-            aggro = me.getHating(target);
-
-            if (aggro <= 0) 
-            {
-                if (me.getMostHated() == null)
-                {
-                    _globalAggro = -25;
-                    me.clearAggroList();
-                    setIntention(AI_INTENTION_ACTIVE);
-                    _actor.setWalking();
-                }
-                return;
-            }
-
             // Set the actor AI Intention to AI_INTENTION_ATTACK
             if (getIntention() != CtrlIntention.AI_INTENTION_ATTACK)
             {
@@ -916,28 +898,18 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
             }
         }
-        else
-        {
-            //currently only for setting lower general aggro
-            if(aggro >= 0) return;
-            
-            L2Character mostHated = me.getMostHated();
-            if (mostHated == null)
-            {
-                _globalAggro = -25;
-                return;
-            }
-            for(L2Character aggroed : me.getAggroListRP().keySet())
-                me.addDamageHate(aggroed, 0, aggro);
-            
-            aggro = me.getHating(mostHated);
-            if (aggro <= 0) 
-            {
-                _globalAggro = -25;
-                me.clearAggroList();
-                setIntention(AI_INTENTION_ACTIVE);
-                _actor.setWalking();
-            }
-        }
+    }
+    
+    @Override
+    protected void onIntentionActive()
+    {
+        // Cancel attack timeout
+        _attackTimeout = Integer.MAX_VALUE;
+        super.onIntentionActive();
+    }
+    
+    public void setGlobalAggro(int value)
+    {
+        _globalAggro = value;
     }
 }
