@@ -76,7 +76,7 @@ public class AdminGm implements IAdminCommandHandler
 		} 
         else
         {
-            GmListTable.getInstance().addGm(activeChar);
+            GmListTable.getInstance().addGm(activeChar, false);
 			activeChar.setIsGM(true);
             
 			activeChar.sendMessage("You now have GM status.");

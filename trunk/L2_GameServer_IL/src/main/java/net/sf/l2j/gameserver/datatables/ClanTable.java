@@ -73,37 +73,46 @@ public class ClanTable
         _clans = new FastMap<Integer, L2Clan>();
         L2Clan clan;
         java.sql.Connection con = null;
-         try
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM clan_data");
+            ResultSet result = statement.executeQuery();
+
+            // Count the clans
+            int clanCount = 0;
+
+            while(result.next())
             {
-                con = L2DatabaseFactory.getInstance().getConnection(con);
-                PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM clan_data");               
-                ResultSet result = statement.executeQuery();
-                
-                while(result.next())
+                _clans.put(Integer.parseInt(result.getString("clan_id")),new L2Clan(Integer.parseInt(result.getString("clan_id"))));
+                clan = getClan(Integer.parseInt(result.getString("clan_id")));
+                if (clan.getDissolvingExpiryTime() != 0)
                 {
-                    _clans.put(Integer.parseInt(result.getString("clan_id")),new L2Clan(Integer.parseInt(result.getString("clan_id"))));
-	            	clan = getClan(Integer.parseInt(result.getString("clan_id")));
-	            	if (clan.getDissolvingExpiryTime() != 0)
-	            	{
-		            	if (clan.getDissolvingExpiryTime() < System.currentTimeMillis())
-		            	{
-		            		destroyClan(clan.getClanId());
-		            	}
-		            	else
-		            	{
-		            		scheduleRemoveClan(clan.getClanId());
-		            	}
-	            	}
-	            }
-                result.close();
-                statement.close();
+                    if (clan.getDissolvingExpiryTime() < System.currentTimeMillis())
+                    {
+                        destroyClan(clan.getClanId());
+                    }
+                    else
+                    {
+                        scheduleRemoveClan(clan.getClanId());
+                    }
+                }
+                clanCount++;
             }
-            catch (Exception e) {
-                _log.warn("data error on ClanTable: " + e,e);
-            } finally {
-                try { con.close(); } catch (Exception e) {}
-            }
-            restorewars();
+            result.close();
+            statement.close();
+
+            _log.info("Restored "+clanCount+" clans from the database.");
+        }
+        catch (Exception e)
+        {
+            _log.warn("data error on ClanTable: " + e,e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+        restorewars();
     }
     
     /**

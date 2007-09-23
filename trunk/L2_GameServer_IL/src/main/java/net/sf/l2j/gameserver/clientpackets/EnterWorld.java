@@ -167,7 +167,9 @@ public class EnterWorld extends L2GameClientPacket
             }
             
             if (Config.GM_STARTUP_AUTO_LIST)
-                GmListTable.getInstance().addGm(activeChar);
+                GmListTable.getInstance().addGm(activeChar, false);
+            else
+                GmListTable.getInstance().addGm(activeChar, true);
         }
         if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
         {
@@ -220,7 +222,7 @@ public class EnterWorld extends L2GameClientPacket
         }
         // apply augmentation boni for equipped items
         for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
-        	if (temp != null && temp.isEquipped()) temp.getAugmentation().applyBoni(activeChar);
+            if (temp != null && temp.isEquipped()) temp.getAugmentation().applyBoni(activeChar);
         
         //Expand Skill
         ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);  

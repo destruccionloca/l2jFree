@@ -794,8 +794,7 @@ public class L2Clan
             clanData.close();
             statement.close();
             
-            if (getName() != null)
-                if(_log.isDebugEnabled())
+            if (getName() != null && _log.isDebugEnabled())
                 _log.info("Restored clan data for \"" + getName() + "\" from database.");
             restoreSubPledges();
             restoreRankPrivs();
