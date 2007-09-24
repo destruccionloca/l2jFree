@@ -125,7 +125,7 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    st = player.getQuestState(qn)
-   htmltext = "<html><head><body>I have nothing to say with you</body></html>"
+   htmltext = "<html><body>I have nothing to say with you</body></html>"
    id = st.getState()
    st.setState(STARTED)
    if InitialHtml == "onEvent" :

@@ -87,4 +87,4 @@ for i in MONUMENTS:
     QUEST.addStartNpc(i)
     QUEST.addTalkId(i)
 
-print "importing custom data: 7000: Hero Items"
+print "importing custom: 7000: Hero Items"

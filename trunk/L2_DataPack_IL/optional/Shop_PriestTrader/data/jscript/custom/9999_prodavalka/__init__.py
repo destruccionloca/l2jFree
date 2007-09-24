@@ -1,4 +1,4 @@
-print "importing custom data: 9999_prodavalka"
+print "importing custom: 9999_prodavalka"
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState

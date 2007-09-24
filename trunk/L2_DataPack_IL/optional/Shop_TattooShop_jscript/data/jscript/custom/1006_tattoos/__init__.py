@@ -1,4 +1,4 @@
-print "importing custom data: 1006_tattoos"
+print "importing custom: 1006_tattoos"
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
