@@ -5,7 +5,7 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 
-qn = "101_SwordOfSolidarityQuest"
+qn = "101_SwordOfSolidarity"
 
 ROIENS_LETTER_ID = 796
 HOWTOGO_RUINS_ID = 937
@@ -59,7 +59,7 @@ class Quest (JQuest) :
         htmltext = "30008-08.htm"
         st.exitQuest(1)
    elif npcId == 30008 and st.getInt("cond")==0 and st.getInt("onlyone")==1 :
-        htmltext = "<html><body>This quest have already been completed.</body></html>"
+        htmltext = "<html><body>This quest has already been completed.</body></html>"
    if id == STARTED: 
        if npcId == 30008 and st.getInt("cond")==1 and (st.getQuestItemsCount(ROIENS_LETTER_ID)==1) :
             htmltext = "30008-05.htm"

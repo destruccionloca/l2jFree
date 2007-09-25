@@ -98,7 +98,7 @@ class Quest (JQuest) :
        if player.getLevel() >= 45 :
          htmltext = "30120-0.htm"
        elif id == COMPLETED :
-         htmltext = "<html><body>This quest have already been completed.</body></html>"
+         htmltext = "<html><body>This quest has already been completed.</body></html>"
        else:
          htmltext = "30120-0a.htm"
          st.exitQuest(1)
@@ -137,7 +137,7 @@ class Quest (JQuest) :
 
  def onKill (self,npc,player):
    st = player.getQuestState(qn)
-   htmltext = "<html><head><body>I have nothing to say you</body></html>"
+   htmltext = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
    if not st : return htmltext
    if st.getState()!=STARTED : return
    
