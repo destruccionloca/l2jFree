@@ -376,7 +376,7 @@ public class TvT
                                                            {
                                                                TvT.sit();
                                                                
-                                                               for (L2PcInstance player : TvT._players)
+                                                               for (L2PcInstance player : _players)
                                                                {
                                                                    if (player !=  null)
                                                                    {
@@ -441,7 +441,7 @@ public class TvT
                                                            {
                                                                TvT.sit();
                                                                
-                                                               for (L2PcInstance player : TvT._players)
+                                                               for (L2PcInstance player : _players)
                                                                {
                                                                    if (player !=  null)
                                                                    {
@@ -1249,7 +1249,7 @@ public class TvT
 
     public static synchronized void addDisconnectedPlayer(L2PcInstance player)
     {
-        if ((Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")))
+        if ((Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")  && (_teleport || _started)))
         {
         	if (Config.TVT_ON_START_REMOVE_ALL_EFFECTS)
             {
@@ -1261,53 +1261,58 @@ public class TvT
             }
         	
             player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
-            _players.add(player);
+            if(!_players.contains(player.getName()))
+            	_players.add(player);
             player._originalNameColorTvT = player.getAppearance().getNameColor();
             player._originalKarmaTvT = player.getKarma();
             player._inEventTvT = true;
             player._countTvTkills = 0;
 
-            if (_teleport || _started)
-            {
-                player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
-                player.setKarma(0);
-                player.broadcastUserInfo();
-                player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
-            }
+            player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
+            player.setKarma(0);
+            player.broadcastUserInfo();
+            player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
         }
     }
     
     public static void removePlayer(L2PcInstance player)
     {
-        if (player != null)
+    	try
         {
-            if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
-            {
-                _players.remove(player);
-                setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);                
-            }
-            else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
-                _playersShuffle.remove(player);
+    		if (player != null)
+    		{
+    			if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
+    				setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);                
+    			else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
+    				_playersShuffle.remove(player);
             
-            if (TvT._savePlayers.contains(player.getName()))
-            	_savePlayers.remove(player.getName());
-            player.getAppearance().setNameColor(player._originalNameColorTvT);
-            player.setKarma(player._originalKarmaTvT);
-            player.broadcastUserInfo();
-            player._teamNameTvT = new String();
-            player._inEventTvT = false;
-            player._countTvTkills = 0;
+    			/*if (_savePlayers.contains(player.getName()))
+    				_savePlayers.remove(player.getName());
+    			if(_players.contains(player))
+    				_players.remove(player);*/
+    			player.getAppearance().setNameColor(player._originalNameColorTvT);
+    			player.setKarma(player._originalKarmaTvT);
+    			player.broadcastUserInfo();
+    			player._teamNameTvT = new String();
+    			player._inEventTvT = false;
+    			player._countTvTkills = 0;
+    		}
         }
+    	catch(Exception e)
+    	{
+    		e.printStackTrace();
+    	}
     }
     
     public static void cleanTvT()
     {
-    	for (L2PcInstance player : TvT._players)
+    	System.out.println("TvT : Cleaning players.");
+    	for (L2PcInstance player : _players)
         {
-            removePlayer(player);            
+    		removePlayer(player);            
         }
-    	
-    	for (String team : TvT._teams)
+    	System.out.println("TvT : Cleaning teams.");
+    	for (String team : _teams)
         {
             int index = _teams.indexOf(team);
 
@@ -1321,6 +1326,7 @@ public class TvT
         _playersShuffle = new Vector<L2PcInstance>();
         _savePlayers = new Vector<String>();
         _savePlayerTeams = new Vector<String>();
+        System.out.println("Cleaning TvT done.");
 
     }
     
@@ -1342,11 +1348,11 @@ public class TvT
                                                        {
                                                             public void run()
                                                             {                                                                
-                                                                for (L2PcInstance player : TvT._players)
+                                                                for (L2PcInstance player : _players)
                                                                 {
                                                                     if (player !=  null)
                                                                         player.teleToLocation(_npcX, _npcY, _npcZ);
-                                                                } 
+                                                                }
                                                                 cleanTvT();
                                                              }
                                                        }, 20000);
