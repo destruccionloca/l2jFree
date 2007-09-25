@@ -55,7 +55,7 @@ public class CharTemplateTable
                                                 "Archmage", "Soultaker", "Arcana Lord", "Cardinal", "Hierophant", 
                                                 "Eva Templar", "Sword Muse", "Wind Rider", "Moonlight Sentinel", "Mystic Muse", "Elemental Master", "Eva's Saint", 
                                                 "Shillien Templar", "Spectral Dancer", "Ghost Hunter", "Ghost Sentinel", "Storm Screamer", "Spectral Master", "Shillien Saint", 
-                                                "Titan", "Grand Khauatari", "Dominator", "Doomcryer", 
+                                                "Titan", "Grand Khavatari", "Dominator", "Doomcryer", 
                                                 "Fortune Seeker", "Maestro"
     };
     

@@ -223,7 +223,8 @@ public class AdminSkill implements IAdminCommandHandler {
 			skills = SkillTreeTable.getInstance().getAvailableSkills(player, player.getClassId());
 		}
 		//Notify player and admin
-		player.sendMessage("A GM gave you " + skillCounter + " skills.");
+		if(player != activeChar)
+			player.sendMessage("A GM gave you " + skillCounter + " skills.");
 		activeChar.sendMessage("You gave " + skillCounter + " skills to " + player.getName());
 	}
 
@@ -387,7 +388,6 @@ public class AdminSkill implements IAdminCommandHandler {
 			player = (L2PcInstance)target;
 		else
 		{
-			showMainPage(activeChar);
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}
@@ -459,7 +459,6 @@ public class AdminSkill implements IAdminCommandHandler {
 			player = (L2PcInstance)target;
 		else
 		{
-			showMainPage(activeChar);
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			return;
 		}

@@ -89,12 +89,11 @@ public class ScrollOfResurrection implements IItemHandler
                     Castle castle = null;
     
                     if (targetPlayer != null)
-                        castle = CastleManager.getInstance().getCastle(targetPlayer.getX(),targetPlayer.getY(), targetPlayer.getZ());
+                        castle = CastleManager.getInstance().getCastle(targetPlayer.getX(), targetPlayer.getY(), targetPlayer.getZ());
                     else
-                        castle = CastleManager.getInstance().getCastle(targetPet.getX(),targetPet.getY(), targetPlayer.getZ());
+                        castle = CastleManager.getInstance().getCastle(targetPet.getX(), targetPet.getY(), targetPet.getZ());
                     
-                    if (castle != null
-                            && castle.getSiege().getIsInProgress())
+                    if (castle != null && castle.getSiege().getIsInProgress())
                     {
                         condGood = false;
                         activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
@@ -107,10 +106,10 @@ public class ScrollOfResurrection implements IItemHandler
                            if (targetPet.getOwner().isReviveRequested())
                            {
                                if (targetPet.getOwner().isRevivingPet())
-                				activeChar.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
+                                   activeChar.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
                                else
-                				activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_RES)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
-                                condGood = false;
+                                   activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_RES)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+                               condGood = false;
                            }
                         }
                         else if (!petScroll)
@@ -137,7 +136,7 @@ public class ScrollOfResurrection implements IItemHandler
                         else if (!humanScroll)
                         {
                             condGood = false;
-                            activeChar.sendMessage("You do not have the correct scroll");
+                            activeChar.sendMessage("You do not have the correct scroll.");
                         }
                     }
                     

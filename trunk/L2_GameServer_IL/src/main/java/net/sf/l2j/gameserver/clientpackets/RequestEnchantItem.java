@@ -272,9 +272,9 @@ public class RequestEnchantItem extends L2GameClientPacket
                 }
         }
         
-        if (item.getEnchantLevel() >= maxEnchantLevel)
+        if (item.getEnchantLevel() >= maxEnchantLevel && maxEnchantLevel != 0)
         {
-            activeChar.sendMessage("Enchant failed as max enchant level is set to " + maxEnchantLevel);
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
             return;
         }
         
@@ -307,22 +307,30 @@ public class RequestEnchantItem extends L2GameClientPacket
         
         if (Rnd.get(100) < chance)
         {
-            if (item.getEnchantLevel() == 0)
+            synchronized(item)
             {
-                sm = new SystemMessage(SystemMessageId.S1_SUCCESSFULLY_ENCHANTED);
-                sm.addItemName(itemId);
-                activeChar.sendPacket(sm);
+                if (item.getOwnerId() != activeChar.getObjectId()) // has just lost the item
+                {
+                    activeChar.sendPacket(new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION));
+                    return;
+                }
+                if (item.getEnchantLevel() == 0)
+                {
+                    sm = new SystemMessage(SystemMessageId.S1_SUCCESSFULLY_ENCHANTED);
+                    sm.addItemName(itemId);
+                    activeChar.sendPacket(sm);
+                }
+                else
+                {
+                    sm = new SystemMessage(SystemMessageId.S1_S2_SUCCESSFULLY_ENCHANTED);
+                    sm.addNumber(item.getEnchantLevel());
+                    sm.addItemName(itemId);
+                    activeChar.sendPacket(sm);
+                }
+                item.setEnchantLevel(item.getEnchantLevel()+1);
+                item.setLastChange(L2ItemInstance.MODIFIED);
+                item.updateDatabase();
             }
-            else
-            {
-                sm = new SystemMessage(SystemMessageId.S1_S2_SUCCESSFULLY_ENCHANTED);
-                sm.addNumber(item.getEnchantLevel());
-                sm.addItemName(itemId);
-                activeChar.sendPacket(sm);
-            }
-            item.setEnchantLevel(item.getEnchantLevel()+1);
-            item.setLastChange(L2ItemInstance.MODIFIED);
-            item.updateDatabase();
         }
         else
         {
