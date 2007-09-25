@@ -25,7 +25,7 @@ MIMIRS_ELIXIR = 6319
 SCROLL_ENCHANT_WEAPON_A = 729
 
 #Messages
-default   = "<html><body>I have nothing to say to you.</body></html>"
+default   = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
 #NPCs
 LADD,JOAN=30721,30718
 #Mobs, cond, Drop

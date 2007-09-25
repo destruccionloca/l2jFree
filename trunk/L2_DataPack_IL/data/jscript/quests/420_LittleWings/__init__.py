@@ -461,7 +461,7 @@ class Quest (JQuest):
               return check_eggs(st,"shamhai",progress)
           elif progress in [ 19,20 ] and st.getQuestItemsCount(SH_EGG) == 1 :
               return "420_shamhai_5.htm"
-    return "<html><body>I have nothing to say to you</body></html>"
+    return "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
 
   def onKill (self,npc,player):
     st = player.getQuestState(qn)

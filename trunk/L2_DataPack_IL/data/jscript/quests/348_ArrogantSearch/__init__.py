@@ -13,7 +13,7 @@ QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 348,"ArrogantSearch","An Arrogant Se
 qn = "348_ArrogantSearch"
 
 #Messages
-default   = "<html><body>I have nothing to say to you.</body></html>"
+default   = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
 #MOBS TO KILL
 ARK_GUARDIAN_ELBEROTH = 27182
 ARK_GUARDIAN_SHADOWFANG = 27183
