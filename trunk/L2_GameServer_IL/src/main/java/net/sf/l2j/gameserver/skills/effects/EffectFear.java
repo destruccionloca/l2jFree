@@ -62,13 +62,11 @@ final class EffectFear extends L2Effect {
 		
 		getEffected().stopFear(this);
 	}
-		
-	
-	
+
     public boolean onActionTime()
     {
-        // Fear skills cannot be used l2pcinstance to l2pcinstance. Heroic Dread, curse gloom and horror is the exception.
-        if(getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance && getSkill().getId() != 1376 && getSkill().getId() != 1169 && getSkill().getId() != 65) return false;
+        // Fear skills cannot be used l2pcinstance to l2pcinstance. Heroic Dread, Curse: Fear, Fear and Horror are the exceptions.
+        if(getEffected() instanceof L2PcInstance && getEffector() instanceof L2PcInstance && getSkill().getId() != 1376 && getSkill().getId() != 1169 && getSkill().getId() != 65 && getSkill().getId() != 1092) return false;
         if(getEffected() instanceof L2FolkInstance) return false;
         if(getEffected() instanceof L2SiegeGuardInstance) return false;
 
@@ -78,27 +76,27 @@ final class EffectFear extends L2Effect {
         if(getEffected() instanceof L2Summon)
         {
             // doesn't affect siege golem or wild hog cannon
-        	if (((L2Summon)getEffected()).getNpcId() == L2Summon.SIEGE_GOLEM_ID) return false; 
-        	if (((L2Summon)getEffected()).getNpcId() == L2Summon.HOG_CANNON_ID) return false;
-        	if (((L2Summon)getEffected()).getNpcId() == L2Summon.SWOOP_CANNON_ID) return false;
-        } 
+            if (((L2Summon)getEffected()).getNpcId() == L2Summon.SIEGE_GOLEM_ID) return false; 
+            if (((L2Summon)getEffected()).getNpcId() == L2Summon.HOG_CANNON_ID) return false;
+            if (((L2Summon)getEffected()).getNpcId() == L2Summon.SWOOP_CANNON_ID) return false;
+        }
 
         int posX = getEffected().getX();
-		int posY = getEffected().getY();
-		int posZ = getEffected().getZ();
-		
-//		Random r = L2Character.getRnd();
+        int posY = getEffected().getY();
+        int posZ = getEffected().getZ();
+
+        // Random r = L2Character.getRnd();
         int signx=-1;
-		int signy=-1;
-		if (getEffected().getX()>getEffector().getX())
-			signx=1;
-		if (getEffected().getY()>getEffector().getY())
-			signy=1;
+        int signy=-1;
+        if (getEffected().getX()>getEffector().getX())
+            signx=1;
+        if (getEffected().getY()>getEffector().getY())
+            signy=1;
 
         posX += signx*FEAR_RANGE;
-		posY += signy*FEAR_RANGE;
+        posY += signy*FEAR_RANGE;
 
-		Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
+        Location destiny = GeoData.getInstance().moveCheck(getEffected().getX(), getEffected().getY(), getEffected().getZ(), posX, posY, posZ);
         getEffected().setRunning();
         
         getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,
@@ -108,4 +106,3 @@ final class EffectFear extends L2Effect {
         return true;
     }
 }
-
