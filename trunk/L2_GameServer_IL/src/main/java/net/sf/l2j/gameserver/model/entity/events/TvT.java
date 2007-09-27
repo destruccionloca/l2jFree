@@ -835,82 +835,82 @@ public class TvT
     
     public static void dumpData()
     {
-        System.out.println("");
-        System.out.println("");
+        _log.info("");
+        _log.info("");
         
         if (!_joining && !_teleport && !_started)
         {
-            System.out.println("<<---------------------------------->>");
-            System.out.println(">> TvT Engine infos dump (INACTIVE) <<");
-            System.out.println("<<--^----^^-----^----^^------^^----->>");
+            _log.info("<<---------------------------------->>");
+            _log.info(">> TvT Engine infos dump (INACTIVE) <<");
+            _log.info("<<--^----^^-----^----^^------^^----->>");
         }
         else if (_joining && !_teleport && !_started)
         {
-            System.out.println("<<--------------------------------->>");
-            System.out.println(">> TvT Engine infos dump (JOINING) <<");
-            System.out.println("<<--^----^^-----^----^^------^----->>");
+            _log.info("<<--------------------------------->>");
+            _log.info(">> TvT Engine infos dump (JOINING) <<");
+            _log.info("<<--^----^^-----^----^^------^----->>");
         }
         else if (!_joining && _teleport && !_started)
         {
-            System.out.println("<<---------------------------------->>");
-            System.out.println(">> TvT Engine infos dump (TELEPORT) <<");
-            System.out.println("<<--^----^^-----^----^^------^^----->>");
+            _log.info("<<---------------------------------->>");
+            _log.info(">> TvT Engine infos dump (TELEPORT) <<");
+            _log.info("<<--^----^^-----^----^^------^^----->>");
         }
         else if (!_joining && !_teleport && _started)
         {
-            System.out.println("<<--------------------------------->>");
-            System.out.println(">> TvT Engine infos dump (STARTED) <<");
-            System.out.println("<<--^----^^-----^----^^------^----->>");
+            _log.info("<<--------------------------------->>");
+            _log.info(">> TvT Engine infos dump (STARTED) <<");
+            _log.info("<<--^----^^-----^----^^------^----->>");
         }
 
-        System.out.println("Name: " + _eventName);
-        System.out.println("Desc: " + _eventDesc);
-        System.out.println("Join location: " + _joiningLocationName);
-        System.out.println("Min lvl: " + _minlvl);
-        System.out.println("Max lvl: " + _maxlvl);
-        System.out.println("");
-        System.out.println("##########################");
-        System.out.println("# _teams(Vector<String>) #");
-        System.out.println("##########################");
+        _log.info("Name: " + _eventName);
+        _log.info("Desc: " + _eventDesc);
+        _log.info("Join location: " + _joiningLocationName);
+        _log.info("Min lvl: " + _minlvl);
+        _log.info("Max lvl: " + _maxlvl);
+        _log.info("");
+        _log.info("##########################");
+        _log.info("# _teams(Vector<String>) #");
+        _log.info("##########################");
         
         for (String team : _teams)
-           System.out.println(team + " Kills Done :" + _teamKillsCount.get(_teams.indexOf(team)));
+           _log.info(team + " Kills Done :" + _teamKillsCount.get(_teams.indexOf(team)));
 
         if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
         {
-            System.out.println("");
-            System.out.println("#########################################");
-            System.out.println("# _playersShuffle(Vector<L2PcInstance>) #");
-            System.out.println("#########################################");
+            _log.info("");
+            _log.info("#########################################");
+            _log.info("# _playersShuffle(Vector<L2PcInstance>) #");
+            _log.info("#########################################");
         
             for (L2PcInstance player : _playersShuffle)
             {
                 if (player != null)
-                    System.out.println("Name: " + player.getName());
+                    _log.info("Name: " + player.getName());
             }
         }
         
-        System.out.println("");
-        System.out.println("##################################");
-        System.out.println("# _players(Vector<L2PcInstance>) #");
-        System.out.println("##################################");
+        _log.info("");
+        _log.info("##################################");
+        _log.info("# _players(Vector<L2PcInstance>) #");
+        _log.info("##################################");
         
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName() + "   Team: " + player._teamNameTvT + "  Kills Done:" + player._countTvTkills);
+                _log.info("Name: " + player.getName() + "   Team: " + player._teamNameTvT + "  Kills Done:" + player._countTvTkills);
         }
         
-        System.out.println("");
-        System.out.println("#####################################################################");
-        System.out.println("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
-        System.out.println("#####################################################################");
+        _log.info("");
+        _log.info("#####################################################################");
+        _log.info("# _savePlayers(Vector<String>) and _savePlayerTeams(Vector<String>) #");
+        _log.info("#####################################################################");
         
         for (String player : _savePlayers)
-            System.out.println("Name: " + player + "    Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
+            _log.info("Name: " + player + "    Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
         
-        System.out.println("");
-        System.out.println("");
+        _log.info("");
+        _log.info("");
     }
     
     public static void loadData()
@@ -1298,7 +1298,7 @@ public class TvT
     
     public static void cleanTvT()
     {
-    	System.out.println("TvT : Cleaning players.");
+    	_log.info("TvT : Cleaning players.");
     	for (L2PcInstance player : _players)
         {
     		if(player != null)
@@ -1308,7 +1308,7 @@ public class TvT
     				_savePlayers.remove(player.getName());
     		}
         }
-    	System.out.println("TvT : Cleaning teams.");
+    	_log.info("TvT : Cleaning teams.");
     	for (String team : _teams)
         {
             int index = _teams.indexOf(team);
@@ -1323,7 +1323,7 @@ public class TvT
         _playersShuffle = new Vector<L2PcInstance>();
         _savePlayers = new Vector<String>();
         _savePlayerTeams = new Vector<String>();
-        System.out.println("Cleaning TvT done.");
+        _log.info("Cleaning TvT done.");
 
     }
     
