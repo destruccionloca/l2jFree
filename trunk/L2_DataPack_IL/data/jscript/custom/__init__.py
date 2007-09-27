@@ -3,7 +3,8 @@ __all__ = [
 '5011_l2day',
 '6050_KetraOrcSupport',
 '6051_VarkaSilenosSupport',
-'7000_HeroItems'
+'7000_HeroItems',
+'8000_RaidbossInfo'
 ]
 print ""
 print "importing custom data ..."
