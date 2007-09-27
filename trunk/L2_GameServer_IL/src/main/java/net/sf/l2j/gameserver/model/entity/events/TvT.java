@@ -1277,30 +1277,22 @@ public class TvT
     
     public static void removePlayer(L2PcInstance player)
     {
-    	try
-        {
-    		if (player != null)
-    		{
-    			if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
-    				setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);                
-    			else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
-    				_playersShuffle.remove(player);
-            
-    			/*if (_savePlayers.contains(player.getName()))
-    				_savePlayers.remove(player.getName());
-    			if(_players.contains(player))
-    				_players.remove(player);*/
-    			player.getAppearance().setNameColor(player._originalNameColorTvT);
-    			player.setKarma(player._originalKarmaTvT);
-    			player.broadcastUserInfo();
-    			player._teamNameTvT = new String();
-    			player._inEventTvT = false;
-    			player._countTvTkills = 0;
-    		}
-        }
-    	catch(Exception e)
+    	if(player._inEventTvT)
     	{
-    		e.printStackTrace();
+    		player.getAppearance().setNameColor(player._originalNameColorTvT);
+    		player.setKarma(player._originalKarmaTvT);
+    		player.broadcastUserInfo();
+    		player._teamNameTvT = new String();
+    		player._countTvTkills = 0;
+    		player._inEventTvT = false;
+    		
+    		if ((Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE")) && _players.contains(player))
+    		{
+    			setTeamPlayersCount(player._teamNameTvT, teamPlayersCount(player._teamNameTvT)-1);
+    			_players.remove(player);
+    		}
+    		else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && (!_playersShuffle.isEmpty() && _playersShuffle.contains(player)))
+    			_playersShuffle.remove(player);    		
     	}
     }
     
@@ -1309,7 +1301,12 @@ public class TvT
     	System.out.println("TvT : Cleaning players.");
     	for (L2PcInstance player : _players)
         {
-    		removePlayer(player);            
+    		if(player != null)
+    		{
+    			removePlayer(player);
+    			if(_savePlayers.contains(player.getName()))
+    				_savePlayers.remove(player.getName());
+    		}
         }
     	System.out.println("TvT : Cleaning teams.");
     	for (String team : _teams)
