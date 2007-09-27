@@ -1,4 +1,5 @@
 __all__ = [
+'4000_ShadowWeapons',
 '5011_l2day',
 '6050_KetraOrcSupport',
 '6051_VarkaSilenosSupport',
