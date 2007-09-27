@@ -20,13 +20,11 @@ package net.sf.l2j.gameserver.model;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.util.Util;
 
 public class L2SiegeClan
 {
-	// ==========================================================================================
-	// Instance
-	// ===============================================================
-	// Data Field
+
 	private int _clanId                = 0;
 	private FastList<L2NpcInstance> _flag  = new FastList<L2NpcInstance>();
 	private int _numFlagsAdded = 0;
@@ -40,17 +38,12 @@ public class L2SiegeClan
 		DEFENDER_PENDING
 	}
 
-	// =========================================================
-	// Constructor
-
 	public L2SiegeClan(int clanId, SiegeClanType type)
 	{
 		_clanId = clanId;
 		_type = type;
 	}
 
-	// =========================================================
-	// Method - Public
 	public int getNumFlags()
 	{
 		return _numFlagsAdded;
@@ -100,8 +93,6 @@ public class L2SiegeClan
 			removeFlag(flag);
 	}
 
-	// =========================================================
-	// Proeprty
 	public final int getClanId() { return _clanId; }
 
 	public final FastList<L2NpcInstance> getFlag()
@@ -110,6 +101,27 @@ public class L2SiegeClan
 		return _flag;
 	}
 
+	/*** get nearest Flag to Object ***/
+	public final L2NpcInstance getClosestFlag(L2Object obj)
+	{
+		double closestDistance = Double.MAX_VALUE;
+		double distance;
+		L2NpcInstance _flag = null;
+
+		for (L2NpcInstance flag: getFlag())
+		{
+			if (flag  == null)
+				continue;
+			distance = Util.calculateDistance(obj.getX(), obj.getY(), obj.getZ(), flag.getX(), flag.getX(), flag.getZ(), true);
+			if (closestDistance > distance)
+			{
+				closestDistance = distance;
+				_flag = flag;
+			}
+		}
+		return _flag;
+	}
+	
 	public SiegeClanType getType() { return _type; }
     
     public void setType(SiegeClanType setType) { _type = setType; } 

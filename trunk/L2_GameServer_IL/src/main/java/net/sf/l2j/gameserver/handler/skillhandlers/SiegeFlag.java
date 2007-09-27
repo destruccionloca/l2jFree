@@ -18,11 +18,9 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers; 
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -30,20 +28,14 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Siege;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /** 
  * @author _drunk_ 
  * 
- * TODO To change the template for this generated type comment go to 
- * Window - Preferences - Java - Code Style - Code Templates 
  */ 
 public class SiegeFlag implements ISkillHandler 
 { 
-    //private final static Log _log = LogFactory.getLog(SiegeFlag.class.getName()); 
     private static final SkillType[] SKILL_IDS = {SkillType.SIEGEFLAG}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
@@ -52,28 +44,23 @@ public class SiegeFlag implements ISkillHandler
 
         L2PcInstance player = (L2PcInstance)activeChar;
 
-        if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId()) return;
-
-        Siege siege = SiegeManager.getInstance().getSiege(player);
-        Castle castle = null;
-        if (siege != null)
-        	castle = siege.getCastle();
-
-        if (castle == null || !checkIfOkToPlaceFlag(player, castle, true)) return;
-        
-        try
+        if (SiegeManager.checkIfOkToPlaceFlag(activeChar, false))
         {
-            // Spawn a new flag
-            L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062));
-            flag.setTitle(player.getClan().getName());
-            flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
-            flag.setHeading(player.getHeading());
-            flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-            castle.getSiege().getFlag(player.getClan()).add(flag);
-        }
-        catch (Exception e)
-        {
-            player.sendMessage("Error placing flag:" + e);
+            Siege siege = SiegeManager.getInstance().getSiege(player);
+
+            try
+            {
+                // spawn a new flag
+                L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062));
+                flag.setTitle(player.getClan().getName());
+                flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
+                flag.setHeading(player.getHeading());
+                flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
+                siege.getFlag(player.getClan()).add(flag);
+            }
+            catch (Exception e)
+            {
+            }
         }
     } 
     
@@ -82,40 +69,5 @@ public class SiegeFlag implements ISkillHandler
         return SKILL_IDS; 
     }
 
-    /**
-     * Return true if character clan place a flag<BR><BR>
-     * 
-     * @param activeChar The L2Character of the character placing the flag
-     * @param isCheckOnly if false, it will send a notification to the player telling him
-     * why it failed
-     */
-    public static boolean checkIfOkToPlaceFlag(L2Character activeChar, boolean isCheckOnly)
-    {
-        return checkIfOkToPlaceFlag(activeChar, CastleManager.getInstance().getClosestCastle(activeChar), isCheckOnly);
-    }
 
-    public static boolean checkIfOkToPlaceFlag(L2Character activeChar, Castle castle, boolean isCheckOnly)
-    {
-        if (activeChar == null || !(activeChar instanceof L2PcInstance))
-            return false;
-        
-        SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-        L2PcInstance player = (L2PcInstance)activeChar;
-        
-        if (!castle.checkIfInZoneHeadQuaters(activeChar))
-            sm.addString("You must be on castle ground to place a flag.");
-        else if (!castle.getSiege().getIsInProgress())
-            sm.addString("You can only place a flag during a siege.");
-        else if (castle.getSiege().getAttackerClan(player.getClan()) == null)
-            sm.addString("You must be an attacker to place a flag.");
-        else if (player.getClan() == null || !player.isClanLeader())
-            sm.addString("You must be a clan leader to place a flag.");
-        else if (castle.getSiege().getAttackerClan(player.getClan()).getNumFlags() >= Config.SIEGE_FLAG_MAX_COUNT)
-            sm.addString("You have already placed the maximum number of flags possible.");
-        else
-            return true;
-        
-        if (!isCheckOnly) {player.sendPacket(sm);}
-        return false;
-    }
 }

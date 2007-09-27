@@ -69,8 +69,6 @@ import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
-import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
-import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.instancemanager.AntharasManager;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
@@ -7550,14 +7548,14 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         if (sklType == SkillType.SIEGEFLAG && 
-               !SiegeFlag.checkIfOkToPlaceFlag(this, false))
+               !SiegeManager.checkIfOkToPlaceFlag(this, false))
         {
             sendPacket(new ActionFailed());
             abortCast();
             return;
         }
         else if (sklType == SkillType.STRSIEGEASSAULT && 
-               !StrSiegeAssault.checkIfOkToUseStriderSiegeAssault(this, false))
+               !SiegeManager.checkIfOkToUseStriderSiegeAssault(this, false))
         {
             sendPacket(new ActionFailed());
             abortCast();

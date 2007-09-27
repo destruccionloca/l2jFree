@@ -76,7 +76,7 @@ public class AdminZone implements IAdminCommandHandler
         		if (zones != null && zones.size() > 0)
         			for (IZone zone: zones)
         				if (zone.checkIfInZone(activeChar.getX(), activeChar.getY()))
-        					activeChar.sendMessage("Zone (XY"+(zone.checkIfInZone(activeChar)?("Z["+zone.getMin().getZ()+":"+zone.getMax().getZ()+"])"):(")"))+"("+zone.getZoneType().toString()+"): ID "+zone.getId()+" " +zone.getZoneName());
+        					activeChar.sendMessage("Zone (XY"+(zone.checkIfInZone(activeChar)?("Z)"):(")"))+"("+zone.getZoneType().toString()+"): ID "+zone.getId()+" " +zone.getZoneName()+"Z["+zone.getMin().getZ()+":"+zone.getMax().getZ()+"]");
         	}
             activeChar.sendMessage("Closest Castle: " + CastleManager.getInstance().getClosestCastle(activeChar).getName());
             activeChar.sendMessage("Closest Town: " + TownManager.getInstance().getClosestTown(activeChar).getName());

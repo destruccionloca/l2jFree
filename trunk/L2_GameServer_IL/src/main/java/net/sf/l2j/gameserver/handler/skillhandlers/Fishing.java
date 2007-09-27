@@ -22,11 +22,13 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
@@ -92,11 +94,21 @@ public class Fishing implements ISkillHandler
         int x = activeChar.getX() - dx;
         int y = activeChar.getY() + dy;
         
-        int z = ZoneManager.getInstance().getIfInZone(ZoneType.Water, x, y).getMax().getZ();
+        IZone water = ZoneManager.getInstance().getIfInZone(ZoneType.Water, x, y);
         
-        // TODO: check, if player can see a float
-        if ( Util.calculateDistance(activeChar.getX(), activeChar.getY(),activeChar.getZ(),
-        							x, y, z, true) > d * 1.73 )
+        // float must be in water
+        if (water == null)
+        {
+            player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));
+            return;
+        }
+        
+        int z = water.getMax().getZ();
+        
+        if (Config.GEODATA && !GeoData.getInstance().canSeeTarget(activeChar.getX(), activeChar.getY(),activeChar.getZ(),
+                x, y, z) ||
+           (!Config.GEODATA && (Util.calculateDistance(activeChar.getX(), activeChar.getY(),activeChar.getZ(),
+                x, y, z, true) > d * 1.73)))
         {
             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));
             return;

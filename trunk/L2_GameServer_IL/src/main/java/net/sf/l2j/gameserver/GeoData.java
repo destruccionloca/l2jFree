@@ -100,7 +100,20 @@ public class GeoData
         //If geo is off do simple check :]
         //Don't allow casting on players on different dungeon lvls etc
         return (Math.abs(target.getZ() - cha.getZ()) < 1000);
-    }    
+    }  
+    
+    /**
+    * @param x, y, z
+    * @param tx, ty, tz
+    * @return True if cha can see target (LOS)
+    */
+    public boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
+    {
+        //If geo is off do simple check :]
+        //Don't allow casting on players on different dungeon lvls etc
+        return (Math.abs(z - tz) < 1000);
+    }
+    
     /**
      * @param cha
      * @param target

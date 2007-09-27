@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
@@ -29,6 +30,7 @@ import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.Revive;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -38,11 +40,7 @@ import net.sf.l2j.gameserver.util.Util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.7.2.3.2.6 $ $Date: 2005/03/27 15:29:30 $
- */
+
 public class RequestRestartPoint extends L2GameClientPacket
 {
     private static final String _C__6d_REQUESTRESTARTPOINT = "[C] 6d RequestRestartPoint";
@@ -84,7 +82,7 @@ public class RequestRestartPoint extends L2GameClientPacket
                         //cheater
                         activeChar.sendMessage("Ohh Cheat dont work? You have a problem now!");
                         Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName()
-                                                       + " used resapwn cheat!!!", IllegalPlayerAction.PUNISH_KICK);
+                                                       + " used respawn cheat!!!", IllegalPlayerAction.PUNISH_KICK);
                         return;
                     }                    
                     loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.ClanHall);
@@ -94,34 +92,33 @@ public class RequestRestartPoint extends L2GameClientPacket
                 else if (_requestedPointType == 2) // to castle
                 {
                     Boolean isInDefense = false;
-                    Castle castle = CastleManager.getInstance().getClosestCastle(activeChar);                	
-                	if (castle != null && castle.getSiege().getIsInProgress())
-                	{
-                    	//siege in progress            	
-                        isInDefense = (castle.getSiege().checkIsDefender(activeChar.getClan()));
-                    }
-                    if (activeChar.getClan().getHasCastle() == 0 && !isInDefense)
+                    Siege siege = SiegeManager.getInstance().getSiege(activeChar.getClan());
+              	
+                	if (siege != null && siege.checkIsDefender(activeChar.getClan()))
+                        isInDefense = siege.checkIsDefender(activeChar.getClan());
+                	
+                    if ((activeChar.getClan() == null) || (activeChar.getClan().getHasCastle() == 0 && !isInDefense))
                     {
                         //cheater
                         activeChar.sendMessage("Ohh Cheat dont work? You have a problem now!");
                         Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName()
-                                                       + " used resapwn cheat!!!", IllegalPlayerAction.PUNISH_KICK);
+                                                       + " used respawn cheat!!!", IllegalPlayerAction.PUNISH_KICK);
                         return;
                     }                    
                     loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Castle);
                 }
                 else if (_requestedPointType == 3) // to siege HQ
                 {
-                    L2SiegeClan siegeClan = null;
-                    Castle castle = CastleManager.getInstance().getClosestCastle(activeChar);
-                    if (castle != null && castle.getSiege().getIsInProgress())
-                        siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
+                	Siege siege = SiegeManager.getInstance().getSiege(activeChar.getClan());
+                	L2SiegeClan siegeClan = null;
+                    if (siege != null)
+                        siegeClan = siege.getAttackerClan(activeChar.getClan());
                     if (siegeClan == null || siegeClan.getFlag().size() == 0)
                     {
                         //cheater
                         activeChar.sendMessage("Ohh Cheat dont work? You have a problem now!");
                         Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName()
-                                                       + " used resapwn cheat!!!", IllegalPlayerAction.PUNISH_KICK);
+                                                       + " used respawn cheat!!!", IllegalPlayerAction.PUNISH_KICK);
                         return;
                     }                    
                     loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.SiegeFlag);
@@ -134,7 +131,7 @@ public class RequestRestartPoint extends L2GameClientPacket
                         //cheater
                         activeChar.sendMessage("Ohh Cheat dont work? You have a problem now!");
                         Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName()
-                                                       + " used resapwn cheat!!!", IllegalPlayerAction.PUNISH_KICK);
+                                                       + " used respawn cheat!!!", IllegalPlayerAction.PUNISH_KICK);
                         return;
                     }                    
                     loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
@@ -155,7 +152,6 @@ public class RequestRestartPoint extends L2GameClientPacket
                 activeChar.setIsPendingRevive(true);
                 activeChar.teleToLocation(loc, true);
             } catch (Throwable e) {
-                //_log.fatal( "", e);
             }
         }
     }
@@ -167,9 +163,6 @@ public class RequestRestartPoint extends L2GameClientPacket
         
         if (activeChar == null)
             return;
-            //SystemMessage sm2 = new SystemMessage(SystemMessageId.S1_S2);
-	    //sm2.addString("type:"+requestedPointType);
-	    //activeChar.sendPacket(sm2);
         
         if (activeChar.isFakeDeath())
         {

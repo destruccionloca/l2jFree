@@ -21,10 +21,10 @@ package net.sf.l2j.gameserver.datatables;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javolution.util.FastList;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -33,9 +33,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -134,16 +135,16 @@ public class MapRegionTable
 			Castle castle = null;
 			ClanHall clanhall = null;
 			int townId = getClosestTownNumber(player);
-			
+
 			// Checking if in arena
 			for (IZone arena : ZoneManager.getInstance().getZones(ZoneType.Arena, player.getX(), player.getY()))
-			if (arena != null && arena.checkIfInZone(player))
-			{
-				Location loc = arena.getRestartPoint(RestartType.RestartNormal);
-				if (loc == null)
-					loc = arena.getRestartPoint(RestartType.RestartRandom);
+				if (arena != null && arena.checkIfInZone(player))
+				{
+					Location loc = arena.getRestartPoint(RestartType.RestartNormal);
+					if (loc == null)
+						loc = arena.getRestartPoint(RestartType.RestartRandom);
 					return loc;				
-			}
+				}
 
 			if (teleportWhere == TeleportWhereType.Town)
 			{
@@ -155,7 +156,7 @@ public class MapRegionTable
 					else // Floran Village
 						return new Location(17817, 170079, -3530);
 				}
-				
+
 				return TownManager.getInstance().getClosestTown(activeChar).getSpawn();
 			}
 
@@ -168,7 +169,7 @@ public class MapRegionTable
 					if (clanhall != null)
 					{
 						IZone zone = clanhall.getZone();
-						
+
 						if (zone != null)
 						{
 							Location loc = zone.getRestartPoint(RestartType.RestartOwner);
@@ -176,7 +177,7 @@ public class MapRegionTable
 								loc = zone.getRestartPoint(RestartType.RestartRandom);
 							return loc;
 						}
-							
+
 					}
 				}
 
@@ -205,19 +206,18 @@ public class MapRegionTable
 
 					if (teleportWhere == TeleportWhereType.SiegeFlag)
 					{
-						castle = CastleManager.getInstance().getClosestCastle(player);
-						if (castle != null)
+						Siege siege = SiegeManager.getInstance().getSiege(player.getClan());
+
+						if (siege != null && 
+								siege.checkIsAttacker(player.getClan())) // Check if player's clan is attacker
 						{
-							castle.getSiege().getIsInProgress();
-							// Check if player's clan is attacker
-							FastList<L2NpcInstance> flags = castle.getSiege().getFlag(player.getClan());
-							if (flags != null && !flags.isEmpty())
-							{
-								// Spawn to flag - Need more work to get player to
-								// the nearest flag
-								L2NpcInstance flag = flags.get(0);
+
+							// get nearest flag
+							L2NpcInstance flag = siege.getClosestFlag(player);
+							// spawn to flag
+							if (flag != null )
+
 								return new Location(flag.getX(), flag.getY(), flag.getZ());
-							}
 						}
 					}
 				}
