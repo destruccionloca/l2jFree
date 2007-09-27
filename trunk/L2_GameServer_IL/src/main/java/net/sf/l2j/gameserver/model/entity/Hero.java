@@ -239,9 +239,10 @@ public class Hero
                 
                 L2PcInstance player = L2World.getInstance().getPlayer(name);
                 
-                if (player != null)
-                {
-                    player.setHero(false);
+                if (player == null) continue;
+                try 
+                {  
+                	player.setHero(false);
                     
                     items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_LR_HAND);
                     iu = new InventoryUpdate();
@@ -296,47 +297,7 @@ public class Hero
                     
                     player.sendPacket(new UserInfo(player));
                     player.broadcastUserInfo();
-                }
-                else
-                {
-                   java.sql.Connection con = null;
-
-                    try
-                    {
-                        con = L2DatabaseFactory.getInstance().getConnection(con);
-                        PreparedStatement statement = con.prepareStatement(GET_CLAN_NAME);
-                        statement.setString(1, name);
-                        ResultSet rset = statement.executeQuery();
-                        if (rset.next())
-                        {
-                            String clanName = rset.getString("clan_name");
-                            if (clanName != null)
-                            {
-                                L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
-                                if (clan != null)
-                                {
-                                    clan.setReputationScore(clan.getReputationScore()+1000, true);
-                                    clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
-                                    SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
-                                    sm.addString(name);
-                                    sm.addNumber(1000);
-                                    clan.broadcastToOnlineMembers(sm);
-                                }
-                            }
-                        }
-
-                        rset.close();
-                        statement.close();
-                    }
-                    catch (Exception e)
-                    {
-                        _log.warn("could not get clan name of " + name + ": "+e);
-                    }
-                    finally
-                    {
-                        try { con.close(); } catch (Exception e) {}
-                    }
-                }
+                } catch (NullPointerException e) {}
             }
         }
         
@@ -410,6 +371,47 @@ public class Hero
                     player.addSkill(skill);
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
+            }
+            else
+            {
+            	java.sql.Connection con = null;
+            	
+            	try
+            	{
+            		con = L2DatabaseFactory.getInstance().getConnection(con);
+            		PreparedStatement statement = con.prepareStatement(GET_CLAN_NAME);
+            		statement.setString(1, name);
+            		ResultSet rset = statement.executeQuery();
+            		if (rset.next())
+            		{
+            			String clanName = rset.getString("clan_name");
+            			if (clanName != null)
+            			{
+            				L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
+            				if (clan != null)
+            				{
+            					clan.setReputationScore(clan.getReputationScore()+1000, true);
+                                clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+                				SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
+                                sm.addString(name);
+                                sm.addNumber(1000);
+                				clan.broadcastToOnlineMembers(sm);
+            				}
+            			}
+            		}
+            		
+            		rset.close();
+            		statement.close();
+            	}
+            	catch (Exception e)
+            	{
+                    _log.warn("Hero System: Couldnt get Clanname of " + name);
+                    if (_log.isDebugEnabled())  _log.debug("",e);
+            	}
+            	finally
+            	{
+            		try { con.close(); } catch (Exception e) {}
+            	}
             }
         }
     }
