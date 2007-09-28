@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -131,20 +132,22 @@ public class MapRegionTable
 		if (activeChar instanceof L2PcInstance)
 		{
 			L2PcInstance player = ((L2PcInstance) activeChar);
-
+			L2Clan clan = player.getClan();
 			Castle castle = null;
 			ClanHall clanhall = null;
 			int townId = getClosestTownNumber(player);
 
 			// Checking if in arena
 			for (IZone arena : ZoneManager.getInstance().getZones(ZoneType.Arena, player.getX(), player.getY()))
+			{
 				if (arena != null && arena.checkIfInZone(player))
 				{
 					Location loc = arena.getRestartPoint(RestartType.RestartNormal);
 					if (loc == null)
 						loc = arena.getRestartPoint(RestartType.RestartRandom);
-					return loc;				
+					return loc;
 				}
+			}
 
 			if (teleportWhere == TeleportWhereType.Town)
 			{
@@ -160,12 +163,12 @@ public class MapRegionTable
 				return TownManager.getInstance().getClosestTown(activeChar).getSpawn();
 			}
 
-			if (player.getClan() != null)
+			if (clan != null)
 			{
 				// If teleport to clan hall
 				if (teleportWhere == TeleportWhereType.ClanHall)
 				{
-					clanhall = ClanHallManager.getInstance().getClanHallByOwner(player.getClan());
+					clanhall = ClanHallManager.getInstance().getClanHallByOwner(clan);
 					if (clanhall != null)
 					{
 						IZone zone = clanhall.getZone();
@@ -183,42 +186,30 @@ public class MapRegionTable
 
 				// If teleport to castle
 				if (teleportWhere == TeleportWhereType.Castle)
-					castle = CastleManager.getInstance().getCastle(player.getClan());
+					castle = CastleManager.getInstance().getCastle(clan);
 
-				// Check if player is on castle ground
-				if (castle == null)
-					castle = CastleManager.getInstance().getCastle(player);
-
-				if (castle != null && castle.getCastleId() > 0)
+				// If Teleporting to castle or
+				// If is on castle with siege and player's clan is defender
+				if (castle != null && teleportWhere == TeleportWhereType.Castle)
 				{
-					// If Teleporting to castle or
-					// If is on caslte with siege and player's clan is defender
-					if (teleportWhere == TeleportWhereType.Castle
-							|| (teleportWhere == TeleportWhereType.Castle && castle.getSiege().getIsInProgress() && castle
-									.getSiege().getDefenderClan(player.getClan()) != null))
+					IZone zone = castle.getZone();
+					if (zone != null)
 					{
-						IZone zone = castle.getZone();
-						if (zone != null)
-						{
-							return zone.getRestartPoint(RestartType.RestartOwner);
-						}
+						return zone.getRestartPoint(RestartType.RestartOwner);
 					}
+				}
+				else if (teleportWhere == TeleportWhereType.SiegeFlag)
+				{
+					Siege siege = SiegeManager.getInstance().getSiege(clan);
 
-					if (teleportWhere == TeleportWhereType.SiegeFlag)
+					 // Check if player's clan is attacker
+					if (siege != null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
 					{
-						Siege siege = SiegeManager.getInstance().getSiege(player.getClan());
-
-						if (siege != null && 
-								siege.checkIsAttacker(player.getClan())) // Check if player's clan is attacker
-						{
-
-							// get nearest flag
-							L2NpcInstance flag = siege.getClosestFlag(player);
-							// spawn to flag
-							if (flag != null )
-
-								return new Location(flag.getX(), flag.getY(), flag.getZ());
-						}
+						// get nearest flag
+						L2NpcInstance flag = siege.getClosestFlag(player);
+						// spawn to flag
+						if (flag != null)
+							return new Location(flag.getX(), flag.getY(), flag.getZ());
 					}
 				}
 			}

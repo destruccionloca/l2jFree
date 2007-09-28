@@ -1629,8 +1629,7 @@ public final class L2PcInstance extends L2PlayableInstance
             _inMotherTreeZone = inMotherTreeZone;
 
             if (warnPlayer)
-                if (_inMotherTreeZone) sendPacket(new SystemMessage(
-                                                                    SystemMessageId.ENTER_SHADOW_MOTHER_TREE));
+                if (_inMotherTreeZone) sendPacket(new SystemMessage(SystemMessageId.ENTER_SHADOW_MOTHER_TREE));
                 else sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));
         }
     }
@@ -3988,7 +3987,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty </li>
      * <li>If necessary, unsummon the Pet of the killed L2PcInstance </li>
-     * <li>Manage Karma gain for attacker and Karam loss for the killed L2PcInstance </li>
+     * <li>Manage Karma gain for attacker and Karma loss for the killed L2PcInstance </li>
      * <li>If the killed L2PcInstance has Karma, manage Drop Item</li>
      * <li>Kill the L2PcInstance </li><BR><BR>
      *
@@ -9173,31 +9172,6 @@ public final class L2PcInstance extends L2PlayableInstance
             stopWaterTask();
             return;
         }
-/*
-        // Check if char is in water or is underground and in water
-        int[] coord;
-        Zone zone = ZoneManager.getInstance().getZone(
-                                                      ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Water),
-                                                      getX(), getY()); //checking if char is in water zone
-
-        if (zone == null)
-            zone = ZoneManager.getInstance().getZoneType(
-                                                         ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Underground)).getZone(
-                                                                                                                              getX(),
-                                                                                                                              getY()); //checking if char is in underground and in water
-
-        if (zone != null)
-        {
-            coord = zone.getCoord(getX(), getY());
-
-            if (coord != null && getZ() > coord[4])
-            {
-                stopWaterTask();
-                return;
-            }
-        }
-
-        startWaterTask(); */
     }
 
     public long getLastAccess()

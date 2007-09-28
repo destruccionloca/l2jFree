@@ -161,17 +161,17 @@ public class Castle
     /**
      * Return true if object is inside the zone
      */
-    public boolean checkIfInZoneHeadQuaters(L2Object obj)
+    public boolean checkIfInZoneHeadQuarters(L2Object obj)
     {
-        return checkIfInZoneHeadQuaters(obj.getX(), obj.getY(), obj.getZ());
+        return checkIfInZoneHeadQuarters(obj.getX(), obj.getY(), obj.getZ());
     }
 
     /**
      * Return true if object is inside the zone
      */
-    public boolean checkIfInZoneHeadQuaters(int x, int y, int z)
+    public boolean checkIfInZoneHeadQuarters(int x, int y, int z)
     {
-        return getHeadQuaters().checkIfInZone(x, y, z);
+        return getHeadQuarters().checkIfInZone(x, y, z);
     }
     
     /**
@@ -651,7 +651,7 @@ public class Castle
     	return _zone;
     }
 
-    public final IZone getHeadQuaters()
+    public final IZone getHeadQuarters()
     {
         if (_zoneHQ == null)
         	_zoneHQ = ZoneManager.getInstance().getZone(ZoneType.CastleHQ, getCastleId());
