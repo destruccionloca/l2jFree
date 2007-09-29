@@ -131,7 +131,6 @@ public class Hero
                 hero.set(Olympiad.CLASS_ID, rset.getInt(Olympiad.CLASS_ID));
                 hero.set(COUNT, rset.getInt(COUNT));
                 hero.set(PLAYED, rset.getInt(PLAYED));
-                hero.set(DONATOR, (rset.getInt(DONATOR) == 1));
                 
                 statement2 = con2.prepareStatement(GET_CLAN_ALLY);
                 statement2.setInt(1, charId);
@@ -159,7 +158,6 @@ public class Hero
                 hero.set(Olympiad.CLASS_ID, rset.getInt(Olympiad.CLASS_ID));
                 hero.set(COUNT, rset.getInt(COUNT));
                 hero.set(PLAYED, rset.getInt(PLAYED));
-                hero.set(DONATOR, (rset.getInt(DONATOR) == 1));
                 
                 statement2 = con2.prepareStatement(GET_CLAN_ALLY);
                 statement2.setInt(1, charId);
