@@ -27,9 +27,11 @@ import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Broadcast;
 
 import org.apache.commons.logging.Log;
@@ -78,7 +80,10 @@ public class Escape implements IUserCommandHandler
             return false;
         }
         
-		activeChar.sendMessage("After " + unstuckTimer/60000 + " min. you be returned to near village.");
+        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
+        sm.addNumber(unstuckTimer/60000);
+        activeChar.sendPacket(sm);
+        sm = null;
         
         activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         //SoE Animation section

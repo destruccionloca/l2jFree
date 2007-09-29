@@ -2612,7 +2612,13 @@ public enum SystemMessageId
      * Message: You cannot teleport to a village that is in a siege.
      */
     NO_PORT_THAT_IS_IN_SIGE(707),
-        
+    
+    /**
+     * ID: 1499<br>
+     * Message: You will be moved back to town in $s1 second(s).
+     */
+    YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS(1499),
+
     /**
      * ID: 1755<br>
      * Message: $s2 has been designated as the apprentice of clan member $s1.
@@ -4808,7 +4814,11 @@ public enum SystemMessageId
      */
     EARNED_S1_RAID_POINTS(1725),
 	
-	
+    /**
+     * ID: 1687<br>
+     * Message: This area cannot be entered while mounted atop of a Wyvern.  You will be dismounted from your Wyvern if you do not leave!
+     */
+    AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN(1687),	
 	
 	// Unused ones
 	

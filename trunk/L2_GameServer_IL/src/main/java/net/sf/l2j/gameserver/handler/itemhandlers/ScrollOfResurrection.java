@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.handler.itemhandlers;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -29,6 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -86,18 +88,20 @@ public class ScrollOfResurrection implements IItemHandler
                     boolean condGood = true;
                     
                     //check target is not in a active siege zone
-                    Castle castle = null;
-    
+                    Siege siege = null;
+                   
                     if (targetPlayer != null)
-                        castle = CastleManager.getInstance().getCastle(targetPlayer.getX(), targetPlayer.getY(), targetPlayer.getZ());
+                        siege =  SiegeManager.getInstance().getSiege(targetPlayer);
                     else
-                        castle = CastleManager.getInstance().getCastle(targetPet.getX(), targetPet.getY(), targetPet.getZ());
+                        siege =  SiegeManager.getInstance().getSiege(targetPet);
                     
-                    if (castle != null && castle.getSiege().getIsInProgress())
+                    if (siege != null && siege.getIsInProgress())
                     {
                         condGood = false;
                         activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
                     }
+                    
+                    siege = null;
                     
                     if (targetPet != null)
                     {
@@ -115,7 +119,7 @@ public class ScrollOfResurrection implements IItemHandler
                         else if (!petScroll)
                         {
                             condGood = false;
-                            activeChar.sendMessage("You do not have the correct scroll");
+                            activeChar.sendMessage("You do not have the correct scroll.");
                         }
                     }
                     else

@@ -312,9 +312,9 @@ public class ZoneManager
 		short region = 0;
 		short region_new = 0;
 
-		for (int x = zone.getMin().getX(); x <= zone.getMax().getX(); x += Byte.MAX_VALUE * 8)
+		for (int x = (zone.getMin().getX() >> 15) << 15; x <= (zone.getMax().getX() >> 15) << 15 ; x += (1 << 15)-1)
 		{
-			for (int y = zone.getMin().getY(); y <= zone.getMax().getY(); y += Byte.MAX_VALUE * 8)
+			for (int y = (zone.getMin().getY() >> 15) << 15; y <= (zone.getMax().getY() >> 15) << 15 ; y += (1 << 15)-1)
 			{
 				region_new = getMapRegion(x, y);
 				if (region != region_new)
@@ -394,11 +394,12 @@ public class ZoneManager
 			_zoneMap = new FastMap<Short, FastMap<ZoneType, FastList<IZone>>>();
 		return _zoneMap;
 	}
+    
+    public static short getMapRegion(int x, int y)
+    {
+        int rx = ((x - L2World.MAP_MIN_X) >> 15) + 16;
+        int ry = ((y - L2World.MAP_MIN_Y) >> 15) + 10;
+        return (short) ((rx << 8) + ry);
+    }
 
-	public final short getMapRegion(int x, int y)
-	{
-		int rx = (x - L2World.MAP_MIN_X) >> 15;
-		int ry = (y - L2World.MAP_MIN_Y) >> 15;
-		return (short) (((rx + 16) << 5) + (ry + 10));
-	}
 }

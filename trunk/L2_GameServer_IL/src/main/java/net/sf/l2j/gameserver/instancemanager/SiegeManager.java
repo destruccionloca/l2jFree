@@ -141,13 +141,13 @@ public class SiegeManager
 
         // get siege battleground
         Siege siege = SiegeManager.getInstance().getSiege(player);
-        Castle castle = (siege == null) ? null : siege.getCastle();
 
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-        if (siege == null || !siege.getIsInProgress())
-            sm.addString("You can only summon this during a siege.");
-        else if (castle == null || !castle.checkIfInZoneBattlefield(player))
+        
+        if (siege == null)
             sm.addString("You must be on castle ground to summon this.");
+        else if (!siege.getIsInProgress())
+            sm.addString("You can only summon this during a siege.");
         else if (player.getClanId() != 0 && siege.getAttackerClan(player.getClanId()) == null)
             sm.addString("You can only summon this as a registered attacker.");
         else
@@ -176,14 +176,13 @@ public class SiegeManager
 
         // get siege battleground
         Siege siege = SiegeManager.getInstance().getSiege(player);
-        Castle castle = (siege == null) ? null : siege.getCastle();
 
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 
-        if (siege == null || !siege.getIsInProgress())
-            sm.addString("You can only use strider siege assault during a siege.");
-        else if (castle == null || !castle.checkIfInZoneBattlefield(player))
+        if (siege == null)
             sm.addString("You must be on castle ground to use strider siege assault.");
+        else if (!siege.getIsInProgress())
+            sm.addString("You can only use strider siege assault during a siege.");
         else if (!(player.getTarget() instanceof L2DoorInstance))
             sm.addString("You can only use strider siege assault on doors and walls.");
         else if (!activeChar.isRiding())
