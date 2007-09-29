@@ -1,72 +1,76 @@
-# Made by DrLecter, based on a Polo script and a DoomIta contribution
+# Made by Kerb
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j.gameserver.model.actor.instance import L2NpcInstance
+from net.sf.l2j.gameserver.datatables import SpawnTable
 from net.sf.l2j.gameserver.serverpackets import MagicSkillUser
 
-qn = "653_WildMaiden"
+qn = "652_AnAgedExAdventurer"
 #Npc
-SUKI = 32013
-GALIBREDO = 30181
+TANTAN = 32012
+SARA = 30180
 
 #Items
-SOE = 736
+CSS = 1464
 
 class Quest (JQuest) :
 
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onAdvEvent (self,event,npc,player) :
-    htmltext = event
     st = player.getQuestState(qn)
-    if not st : return
-    if event == "32013-04.htm" :
-      if st.getQuestItemsCount(SOE):
+    if not st: return
+    htmltext = event
+    if event == "32012-02.htm" :
+      if st.getQuestItemsCount(CSS) > 99 :
         st.set("cond","1")
         st.setState(STARTED)
         st.playSound("ItemSound.quest_accept")
-        st.takeItems(SOE,1)
-        htmltext = "32013-03.htm"
+        st.takeItems(CSS,100)
+        htmltext = "32012-03.htm"
         npc.broadcastPacket(MagicSkillUser(npc,npc,2013,1,20000,0))
-        st.startQuestTimer("suki_timer",20000,npc)
-    elif event == "32013-04a.htm" :
+        st.startQuestTimer("tantan_timer",20000,npc)
+    elif event == "32012-02a.htm" :
         st.exitQuest(1)
         st.playSound("ItemSound.quest_giveup")
-    elif event == "suki_timer":
+    elif event == "tantan_timer":
         npc.deleteMe()
         htmltext=None
     return htmltext
 
- def onTalk (self,npc,player):
+ def onTalk (Self,npc,player):
    st = player.getQuestState(qn)
    htmltext = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
    if not st : return htmltext
    npcId = npc.getNpcId()
    id = st.getState()
    cond=st.getInt("cond")
-   if npcId == SUKI and id == CREATED:
-       if player.getLevel() >= 36 :
-           htmltext = "32013-02.htm"
+   if npcId == TANTAN and id == CREATED:
+       if st.getPlayer().getLevel() >= 46 :
+           htmltext = "32012-01.htm"
        else:
-           htmltext = "32013-01.htm"
+           htmltext = "32012-00.htm"
            st.exitQuest(1)
-   elif npcId == GALIBREDO and st.getInt("cond")==1 :
-       htmltext = "30181-01.htm"
-       st.giveItems(57,2883)
+   elif npcId == SARA and st.getInt("cond")==1 :
+       htmltext = "30180-01.htm"
+       EAD_CHANCE = st.getRandom(100)
+       st.giveItems(57,5026)
+       if EAD_CHANCE <= 50:
+          st.giveItems(956,1)
        st.playSound("ItemSound.quest_finish")
        st.exitQuest(1)
    return htmltext
 
-
-QUEST       = Quest(653,qn,"Wild Maiden")
+QUEST       = Quest(652,qn,"AnAgedExAdventurer")
 CREATED     = State('Start', QUEST)
 STARTED     = State('Started', QUEST)
 
 QUEST.setInitialState(CREATED)
-QUEST.addStartNpc(SUKI)
+QUEST.addStartNpc(TANTAN)
 
-QUEST.addTalkId(SUKI)
-QUEST.addTalkId(GALIBREDO)
+QUEST.addTalkId(TANTAN)
+QUEST.addTalkId(SARA)
 
-print "importing quests: 653: Wild Maiden"
+print "importing quests: 652: An Aged Ex-Adventurer"
