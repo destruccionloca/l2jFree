@@ -200,7 +200,10 @@ public class Wedding implements IVoicedCommandHandler
     }
     
     public boolean GoToLove(L2PcInstance activeChar)
-    {   
+    {
+        if (activeChar.isCastingNow() || activeChar.isMovementDisabled() 
+                || activeChar.isMuted() || activeChar.isAlikeDead())
+            return false;
         if(!activeChar.isMaried())
         {
             activeChar.sendMessage("You're not married."); 
@@ -212,9 +215,24 @@ public class Wedding implements IVoicedCommandHandler
             _log.error("Married but couldn't find partner for "+activeChar.getName());
             return false;
         }
-        else if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
-                activeChar.isInOlympiadMode() || activeChar.inObserverMode() || activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)  
+        // Check to see if the player is in olympiad.
+        else if (activeChar.isInOlympiadMode())
+        {
+            activeChar.sendMessage("You are in Olympiad!");
             return false;
+        }
+        // Check to see if the player is in observer mode
+        else if (activeChar.inObserverMode())
+        {
+            activeChar.sendMessage("You are in observer mode.");
+            return false;
+        }
+        // Check to see if the player is in an event
+        else if (activeChar.isInFunEvent())
+        {
+            activeChar.sendMessage("You are in event now.");
+            return false;
+        }
         // Check to see if the player is in a festival.
         else if (activeChar.isFestivalParticipant()) 
         {
@@ -235,10 +253,8 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check if player is in Siege
-        // Character has clan? & Clan has castle? & Siege is in progress?
-        else if(activeChar.getClan() != null 
-                && CastleManager.getInstance().getCastle(activeChar.getClan()) != null 
-                && CastleManager.getInstance().getCastle(activeChar.getClan()).getSiege().getIsInProgress())
+        else if(CastleManager.getInstance().getCastle(activeChar) != null 
+                && CastleManager.getInstance().getCastle(activeChar).getSiege().getIsInProgress())
         {
             activeChar.sendMessage("You are in siege, you can't go to your partner.");
             return false;
@@ -246,13 +262,13 @@ public class Wedding implements IVoicedCommandHandler
         // Check if player is in Duel
         else if (activeChar.isInDuel())
         {
-            activeChar.sendMessage("You are in a duel.");
+            activeChar.sendMessage("You are in a duel!");
             return false;
         }
         // Check if player is a Cursed Weapon owner
         else if (activeChar.isCursedWeaponEquiped())
         {
-            activeChar.sendMessage("You are currently holding a cursed weapon..");
+            activeChar.sendMessage("You are currently holding a cursed weapon.");
             return false;
         }
 
@@ -268,14 +284,14 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Your partner is in jail.");
             return false;
         }
-        else if(partner._inEventCTF || partner._inEventTvT || partner._inEventDM)
-        {
-            activeChar.sendMessage("Your partner is in event now.");
-            return false;
-        }
-        else if(partner.isInOlympiadMode() || partner.inObserverMode())
+        else if(partner.isInOlympiadMode())
         {
             activeChar.sendMessage("Your partner is in Olympiad now.");
+            return false;
+        }
+        else if(partner.inObserverMode())
+        {
+            activeChar.sendMessage("Your partner is in observer mode.");
             return false;
         }
         else if(partner.isInDuel())
@@ -283,7 +299,7 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Your partner is in a duel.");
             return false;
         }
-        else if(partner.atEvent)
+        else if(partner.isInFunEvent())
         {
             activeChar.sendMessage("Your partner is in an event.");
             return false;
@@ -299,9 +315,8 @@ public class Wedding implements IVoicedCommandHandler
         	activeChar.sendMessage("Your partner is in a festival.");
         	return false;
         }
-        else if(partner.getClan() != null 
-        		&& CastleManager.getInstance().getCastle(partner.getClan()) != null 
-        		&& CastleManager.getInstance().getCastle(partner.getClan()).getSiege().getIsInProgress())
+        else if(CastleManager.getInstance().getCastle(partner) != null 
+        		&& CastleManager.getInstance().getCastle(partner).getSiege().getIsInProgress())
         {
         	if (partner.getAppearance().getSex())
         		activeChar.sendMessage("Your partner is in siege, you can't go to her.");
