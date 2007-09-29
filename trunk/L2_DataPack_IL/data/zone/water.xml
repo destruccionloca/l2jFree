@@ -448,8 +448,8 @@
   </item>
   <item id="90" name="22_19_water1">
     <type>Water</type>
-    <point x="84727" y="32768" z="-4780" />
-    <point x="91727" y="53768" z="-3780" />
+    <point x="0" y="-32767" z="-4780" />
+    <point x="32767" y="0" z="-3780" />
   </item>
   <item id="91" name="22_20_water1">
     <type>Water</type>

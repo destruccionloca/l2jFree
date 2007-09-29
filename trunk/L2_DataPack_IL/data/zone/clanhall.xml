@@ -446,8 +446,14 @@
     <castle>9</castle>
     <restart_owner x="86594" y="-141868" z="-1332" /><!-- custom spawn point -->
     <restart x="86859" y="-142372" z="-1346" /><!-- custom spawn point -->
-    <point x="86162" y="-142094" z="-1328" />
-    <point x="87003" y="-141727" />
+    <point x="86887" y="-142126" z="-1360" />
+    <point x="86909" y="-142013" z="-1360" />
+    <point x="86596" y="-141413" z="-1360" />
+    <point x="86558" y="-141393" z="-1360" />
+    <point x="86213" y="-141578" z="-1360" />
+    <point x="86207" y="-141630" z="-1360" />
+    <point x="86526" y="-142225" z="-1360" />
+    <point x="86637" y="-142258" z="-1250" />
   </item>
   <item id="60" name="Schuttgart 3">
     <type>ClanHall</type>
