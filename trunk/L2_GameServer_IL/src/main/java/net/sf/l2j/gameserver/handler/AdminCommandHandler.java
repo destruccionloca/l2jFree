@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCreateItem;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCursedWeapons;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDMEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDelete;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDonator;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminDoorControl;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditChar;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminEditNpc;
@@ -118,6 +119,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminCreateItem());
         registerAdminCommandHandler(new AdminDelete());
         registerAdminCommandHandler(new AdminDMEngine());
+        registerAdminCommandHandler(new AdminDonator());
         registerAdminCommandHandler(new AdminDoorControl());
         registerAdminCommandHandler(new AdminEditChar());
         registerAdminCommandHandler(new AdminEditNpc());

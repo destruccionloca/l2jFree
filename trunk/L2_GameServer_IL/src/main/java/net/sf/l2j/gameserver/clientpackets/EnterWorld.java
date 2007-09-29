@@ -313,6 +313,9 @@ public class EnterWorld extends L2GameClientPacket
                 Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
             activeChar.setHero(true);
         
+        if (Hero.getInstance().isDonatorHero(activeChar))
+        	activeChar.setHero(true);
+        
         // check player skills
         if(Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
         	activeChar.checkAllowedSkills();
