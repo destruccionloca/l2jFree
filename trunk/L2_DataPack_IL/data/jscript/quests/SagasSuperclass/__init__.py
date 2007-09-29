@@ -11,7 +11,7 @@ from net.sf.l2j.gameserver.ai import CtrlEvent
 from net.sf.l2j.gameserver.serverpackets import MagicSkillUser
 from net.sf.l2j.gameserver.model import L2World
 from java.util import Iterator
-from net.sf.l2j.util import Rnd
+from net.sf.l2j.gameserver.lib import Rnd
 
 qn = "SagasSuperclass"
 Archon_Minions = range(21646,21652)
