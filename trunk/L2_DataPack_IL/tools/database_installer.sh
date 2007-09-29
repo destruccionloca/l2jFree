@@ -386,6 +386,11 @@ $MYG < ../sql/updates/070607-[1523].sql
 $MYG < ../sql/updates/070610-[1535].sql
 $MYG < ../sql/updates/070612-[1552].sql
 $MYG < ../sql/updates/070717-[1744].sql
+$MYG < ../sql/updates/070831-[1923].sql
+$MYG < ../sql/updates/070922-[2018].sql
+$MYG < ../sql/updates/070922-[2023].sql
+$MYG < ../sql/updates/070929-[2068].sql
+$MYG < ../sql/updates/070929-[2074].sql
 }
 
 finish(){
