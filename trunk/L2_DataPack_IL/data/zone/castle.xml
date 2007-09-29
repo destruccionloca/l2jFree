@@ -33,10 +33,15 @@
     <restart_chaotic x="-80448" y="161488" z="-3420" />
     <restart_chaotic x="-75440" y="162672" z="-3350" />
     <restart_chaotic x="-81760" y="161248" z="-3200" />
+
+    <restart_owner x="-18112" y="109413" z="-2496" />
+
+<!--    
     <restart_owner x="-16554" y="109382" z="-1799" />
     <restart_owner x="-16869" y="109375" z="-1799" />
     <restart_owner x="-16659" y="109261" z="-1799" />
     <restart_owner x="-16618" y="109485" z="-1799" />
+-->
     <point x="-20060" y="106912" z="-4452" />
     <point x="-15820" y="106912" z="-4452" />
     <point x="-15816" y="113449" z="-4452" />
@@ -74,10 +79,15 @@
     <restart_chaotic x="-80448" y="161488" z="-3420" />
     <restart_chaotic x="-75440" y="162672" z="-3350" />
     <restart_chaotic x="-81760" y="161248" z="-3200" />
+
+    <restart_owner x="22074" y="160352" z="-2690" />
+    
+<!--
     <restart_owner x="20514" y="160368" z="-1993" />
     <restart_owner x="20829" y="160375" z="-1993" />
     <restart_owner x="20619" y="160489" z="-1993" />
     <restart_owner x="20578" y="160265" z="-1993" />
+-->
     <point x="24020" y="162838" z="-4646" />
     <point x="19780" y="162838" z="-4646" />
     <point x="19776" y="156301" z="-4646" />
@@ -111,10 +121,15 @@
     <restart_chaotic x="105702" y="82773" z="-2803" />
     <restart_chaotic x="104257" y="82194" z="-2581" />
     <restart_chaotic x="104474" y="81109" z="-2651" />
+
+    <restart_owner x="116507" y="145095" z="-2563" />
+    
+<!--
     <restart_owner x="116540" y="146655" z="-1866" />
     <restart_owner x="116547" y="146340" z="-1866" />
     <restart_owner x="116661" y="146550" z="-1866" />
     <restart_owner x="116437" y="146591" z="-1866" />
+-->    
     <point x="119010" y="143149" z="-4519" />
     <point x="119010" y="147389" z="-4519" />
     <point x="112473" y="147393" z="-4519" />
@@ -148,10 +163,15 @@
     <restart_chaotic x="105702" y="82773" z="-2803" />
     <restart_chaotic x="104257" y="82194" z="-2581" />
     <restart_chaotic x="104474" y="81109" z="-2651" />
+
+    <restart_owner x="82576" y="37189" z="-2290" />
+    
+<!--
     <restart_owner x="82616" y="38750" z="-1593" />
     <restart_owner x="82623" y="38435" z="-1593" />
     <restart_owner x="82737" y="38645" z="-1593" />
     <restart_owner x="82513" y="38686" z="-1593" />
+-->    
     <point x="85086" y="35244" z="-4246" />
     <point x="85086" y="39484" z="-4246" />
     <point x="78549" y="39488" z="-4246" />
@@ -184,11 +204,16 @@
     <restart_chaotic x="105702" y="82773" z="-2803" />
     <restart_chaotic x="104257" y="82194" z="-2581" />
     <restart_chaotic x="104474" y="81109" z="-2651" />
+    
+    <restart_owner x="147446" y="4652" z="-340" />
+        
+<!--
     <restart_owner x="147700" y="4608" z="-2784" />
     <restart_owner x="147705" y="4865" z="-2784" />
     <restart_owner x="147200" y="4865" z="-2784" />
     <restart_owner x="147200" y="4350" z="-2784" />
     <restart_owner x="147705" y="4350" z="-2784" />
+-->    
     <point x="144599" y="577" z="-3328" />
     <point x="150295" y="577" z="-3328" />
     <point x="150295" y="8521" z="-3328" />
@@ -222,10 +247,15 @@
     <restart_chaotic x="105702" y="82773" z="-2803" />
     <restart_chaotic x="104257" y="82194" z="-2581" />
     <restart_chaotic x="104474" y="81109" z="-2651" />
+
+   <restart_owner x="116025" y="249097" z="-787" />
+    
+<!--
     <restart_owner x="114465" y="249147" z="-89" />
     <restart_owner x="114780" y="249154" z="-89" />
     <restart_owner x="114570" y="249268" z="-89" />
     <restart_owner x="114529" y="249044" z="-89" />
+-->    
     <point x="117971" y="251617" z="-2742" />
     <point x="113731" y="251617" z="-2742" />
     <point x="113727" y="245080" z="-2742" />
@@ -262,10 +292,15 @@
     <restart_chaotic x="41920" y="-57760" z="-2392" />
     <restart_chaotic x="41409" y="-58699" z="-2848" />
     <restart_chaotic x="40784" y="-59888" z="-2600" />
+    
+    <restart_owner x="147460" y="-48247" z="-2276" />
+    
+<!--
     <restart_owner x="147408" y="-46448" z="-963" />
     <restart_owner x="147520" y="-46432" z="-963" />
     <restart_owner x="147408" y="-46896" z="-963" />
     <restart_owner x="147536" y="-46896" z="-963" />
+-->    
     <point x="144023" y="-51298" z="-3670" />
     <point x="150893" y="-51298" z="-3670" />
     <point x="150743" y="-48031" z="-3670" />
@@ -293,9 +328,14 @@
     <restart_chaotic x="142832" y="-55680" z="-3462" />
     <restart_chaotic x="143152" y="-56368" z="-3456" />
     <restart_chaotic x="145344" y="-59472" z="-3344" />
+
+    <restart_owner x="10257" y="-49134" z="-280" />
+    
+<!--
     <restart_owner x="11224" y="-49176" z="3864" />
     <restart_owner x="11048" y="-49256" z="3864" />
     <restart_owner x="11048" y="-49080" z="3864" />
+-->    
     <point x="7432" y="-52472" z="-2200" />
     <point x="15096" y="-52712" z="-2200" />
     <point x="16856" y="-52248" z="-220" />
@@ -312,7 +352,12 @@
     <type>CastleArea</type>
     <castle>8</castle>
     <restart x="149872" y="-57424" z="-2979" />
+
+    <restart_owner x="77536" y="-153295" z="-389" />
+    
+<!--
     <restart_owner x="77524" y="-152709" z="-545" />
+-->    
     <restart_chaotic x="142656" y="-55008" z="-3024" />
     <point x="75500" y="-145250" />
     <point x="76000" y="-144750" />
