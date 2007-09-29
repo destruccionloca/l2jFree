@@ -69,14 +69,12 @@
     <castle>1</castle>
     <restart_owner x="-84171" y="153385" z="-3159" />
     <restart x="-83860" y="153744" z="-3176" />
-    <point x="-84367" y="153086" z="-4012" />
-    <point x="-83983" y="153086" z="-4012" />
-    <point x="-83977" y="154046" z="-4012" />
-    <point x="-84367" y="154054" z="-4012" />
-    <point x="-84160" y="153086" z="-4012" />
-    <point x="-83586" y="153085" z="-4012" />
-    <point x="-83585" y="153564" z="-4012" />
-    <point x="-84160" y="153561" z="-2512" />
+    <point x="-84000" y="154024" z="-4012" />
+    <point x="-84333" y="154024" z="-4012" />
+    <point x="-84333" y="153113" z="-4012" />
+    <point x="-83618" y="153100" z="-4012" />
+    <point x="-83618" y="153547" z="-4012" />
+    <point x="-84000" y="153559" z="-2512" />
   </item>
   <item id="28" name="Gludin 3">
     <type>ClanHall</type>
@@ -382,64 +380,94 @@
     <castle>8</castle>
     <restart_owner x="37733" y="-50736" z="894" /><!-- custom spawn point -->
     <restart x="37741" y="-50280" z="891" /><!-- custom spawn point -->
-    <point x="37461" y="-50973" z="896" />
-    <point x="38006" y="-50589" />
+    <point x="37461" y="-50973" z="880" />
+    <point x="38006" y="-50589" z="990" />
   </item>
   <item id="52" name="Rune 2">
     <type>ClanHall</type>
     <castle>8</castle>
     <restart_owner x="38722" y="-50428" z="894" /><!-- custom spawn point -->
     <restart x="38506" y="-50008" z="891" /><!-- custom spawn point -->
-    <point x="38401" y="-50516" z="896" />
-    <point x="39054" y="-50404" />
+    <point x="38532" y="-50156" z="880"/>
+    <point x="38588" y="-50282" z="880"/>
+    <point x="38453" y="-50348" z="880"/>
+    <point x="38411" y="-50466" z="880"/>
+    <point x="38553" y="-50746" z="880"/>
+    <point x="38607" y="-50759" z="880"/>
+    <point x="39051" y="-50532" z="880"/>
+    <point x="39079" y="-50472" z="880"/>
+    <point x="38943" y="-50198" z="880"/>
+    <point x="38833" y="-50161" z="880"/>
+    <point x="38682" y="-50234" z="880"/>
+    <point x="38607" y="-50118" z="990"/>
   </item>
   <item id="53" name="Rune 3">
     <type>ClanHall</type>
     <castle>8</castle>
     <restart_owner x="39431" y="-49668" z="873" /><!-- custom spawn point -->
     <restart x="38989" y="-49410" z="891" /><!-- custom spawn point -->
-    <point x="39173" y="-50020" z="896" />
-    <point x="39774" y="-49340" />
+    <point x="39173" y="-50020" z="880" />
+    <point x="39774" y="-49340" z="990" />
   </item>
   <item id="54" name="Rune 4">
     <type>ClanHall</type>
     <castle>8</castle>
     <restart_owner x="39573" y="-48251" z="892" /><!-- custom spawn point -->
     <restart x="39201" y="-48246" z="891" /><!-- custom spawn point -->
-    <point x="39426" y="-48619" z="896" />
-    <point x="39820" y="-47871" />
+    <point x="39426" y="-48619" z="880" />
+    <point x="39820" y="-47871" z="990" />
   </item>
   <item id="55" name="Rune 5">
     <type>ClanHall</type>
     <castle>8</castle>
     <restart_owner x="39456" y="-46815" z="894" /><!-- custom spawn point -->
     <restart x="38999" y="-47069" z="891" /><!-- custom spawn point -->
-    <point x="39437" y="-47141" z="896" />
-    <point x="39760" y="-46668" />
+    <point x="39179" y="-47017" z="880" />
+    <point x="39301" y="-46961" z="880" />
+    <point x="39376" y="-47098" z="880" />
+    <point x="39490" y="-47128" z="880" />
+    <point x="39775" y="-46970" z="880" />
+    <point x="39777" y="-46933" z="880" />
+    <point x="39520" y="-46439" z="880" />
+    <point x="39478" y="-46466" z="880" />
+    <point x="39198" y="-46610" z="880" />
+    <point x="39178" y="-46719" z="880" />
+    <point x="39253" y="-46876" z="880" />
+    <point x="39137" y="-46944" z="990" />
   </item>
   <item id="56" name="Rune 6">
     <type>ClanHall</type>
     <castle>8</castle>
     <restart_owner x="38730" y="-46056" z="894" /><!-- custom spawn point -->
     <restart x="38520" y="-46470" z="891" /><!-- custom spawn point -->
-    <point x="38433" y="-46322" z="896" /><!-- points wrong (everywhere peacezone) -->
-    <point x="39062" y="-45731" />
+    <point x="38433" y="-46322" z="880" /><!-- points wrong (everywhere peacezone) -->
+    <point x="39062" y="-45731" z="990" />
   </item>
   <item id="57" name="Rune 7">
     <type>ClanHall</type>
     <castle>8</castle>
     <restart_owner x="37738" y="-45691" z="894" /><!-- custom spawn point -->
     <restart x="37740" y="-46158" z="891" /><!-- custom spawn point -->
-    <point x="37437" y="-45872" z="896" />
-    <point x="38024" y="-45460" />
+    <point x="37784" y="-46040" z="880" />
+    <point x="37791" y="-45905" z="880" />
+    <point x="37947" y="-45905" z="880" />
+    <point x="38025" y="-45816" z="880" />
+    <point x="38025" y="-45509" z="880" />
+    <point x="37994" y="-45460" z="880" />
+    <point x="37457" y="-45460" z="880" />
+    <point x="37436" y="-45506" z="880" />
+    <point x="37436" y="-45823" z="880" />
+    <point x="37518" y="-45905" z="880" />
+    <point x="37688" y="-45905" z="880" />
+    <point x="37701" y="-46040" z="990" />
   </item>
   <item id="58" name="Schuttgart 1">
     <type>ClanHall</type>
     <castle>9</castle>
     <restart_owner x="85765" y="-143152" z="-1332" /><!-- custom spawn point -->
     <restart x="86281" y="-143210" z="-1346" /><!-- custom spawn point -->
-    <point x="85426" y="-143448" z="-1328" />
-    <point x="86069" y="-142769" />
+    <point x="85426" y="-143448" z="-1360" />
+    <point x="86069" y="-142769" z="-1250" />
   </item>
   <item id="59" name="Schuttgart 2">
     <type>ClanHall</type>
@@ -460,16 +488,22 @@
     <castle>9</castle>
     <restart_owner x="88127" y="-141888" z="-1332" /><!-- custom spawn point -->
     <restart x="87871" y="-142377" z="-1346" /><!-- custom spawn point -->
-    <point x="88600" y="-142111" z="-1328" />
-    <point x="87724" y="-141750" />
+    <point x="88092" y="-142261" z="-1360" />
+    <point x="88203" y="-142226" z="-1360" />
+    <point x="88520" y="-141624" z="-1360" />
+    <point x="88506" y="-141578" z="-1360" />
+    <point x="88172" y="-141404" z="-1360" />
+    <point x="88121" y="-141414" z="-1360" />
+    <point x="87808" y="-142017" z="-1360" />
+    <point x="87841" y="-142132" z="-1250" />
   </item>
   <item id="61" name="Schuttgart 4">
     <type>ClanHall</type>
     <castle>9</castle>
     <restart_owner x="88998" y="-143156" z="-1332" /><!-- custom spawn point -->
     <restart x="88441" y="-143221" z="-1346" /><!-- custom spawn point -->
-    <point x="88500" y="-143500" z="-1328" />
-    <point x="89500" y="-142880" />
+    <point x="88500" y="-143500" z="-1360" />
+    <point x="89500" y="-142880" z="-1250" />
   </item>
   <item id="62" name="Hot Springs Guild House"><!-- Not Done -->
     <type>ClanHall</type>
