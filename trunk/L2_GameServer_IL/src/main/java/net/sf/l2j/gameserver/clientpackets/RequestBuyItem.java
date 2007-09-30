@@ -304,25 +304,26 @@ public class RequestBuyItem extends L2GameClientPacket
             return;
         }
         	
+        if (!player.isGM() || (player.isGM() && (player.getAccessLevel() < Config.GM_FREE_SHOP)))
+        if ((subTotal < 0) || !player.reduceAdena("Buy", (int)(subTotal + tax), merchant, false))
+        {
+            sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+            return;
+        }
+        
         if (!player.isGM())
         {
-            if ((subTotal < 0) || !player.reduceAdena("Buy", (int)(subTotal + tax), merchant, false))
-            {
-                sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
-                return;
-            }
-            
             //  Charge buyer and add tax to castle treasury if not owned by npc clan
             if (merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
                 merchant.getCastle().addToTreasury(tax);
-        }else
-            //  Check if player is Gm and buying from Gm shop or have proper access level
-        	if (list.isGm() && player.getAccessLevel() < Config.GM_CREATE_ITEM)
-        	{
-    			player.sendMessage("Shoping from GM Shop isn't allowed with your access level.");
-    			sendPacket(new ActionFailed());
-    			return;
-        	}
+        }
+        //  Check if player is Gm and buying from Gm shop or have proper access level
+        if (list.isGm() && player.getAccessLevel() < Config.GM_CREATE_ITEM)
+        {
+    		player.sendMessage("Shoping from GM Shop isn't allowed with your access level.");
+    		sendPacket(new ActionFailed());
+    		return;
+        }
   
         // Proceed the purchase
         for (int i=0; i < _count; i++)

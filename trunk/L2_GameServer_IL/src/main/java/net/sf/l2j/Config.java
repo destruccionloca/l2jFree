@@ -1490,6 +1490,7 @@ public final class Config
     public static int     	GM_BAN;					// General GM AccessLevel can /ban /unban
     public static int     	GM_BAN_CHAT;			// General GM AccessLevel can /ban /unban for chat
     public static int     	GM_CREATE_ITEM;			// General GM AccessLevel can /create_item and /gmshop
+    public static int       GM_FREE_SHOP;           // General GM AccessLevel can shop for free
     public static int     	GM_ENCHANT;				// General GM AccessLevel can enchant armor
     public static int     	GM_DELETE;				// General GM AccessLevel can /delete
     public static int     	GM_KICK;				// General GM AccessLevel can /kick /disconnect
@@ -1564,6 +1565,7 @@ public final class Config
             GM_BAN          = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
             GM_BAN_CHAT     = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
             GM_CREATE_ITEM  = Integer.parseInt(gmSettings.getProperty("GMCanShop", "100"));
+            GM_CREATE_ITEM  = Integer.parseInt(gmSettings.getProperty("GMCanBuyFree", "100"));
             GM_DELETE       = Integer.parseInt(gmSettings.getProperty("GMCanDelete", "100"));
             GM_KICK         = Integer.parseInt(gmSettings.getProperty("GMCanKick", "100"));
             GM_MENU         = Integer.parseInt(gmSettings.getProperty("GMMenu", "100"));
