@@ -665,6 +665,13 @@ public class Castle
     	return _zoneBF;
     }
 
+    public final IZone getDefenderSpawn()
+    {
+        if (_zoneBF == null)
+            _zoneBF = ZoneManager.getInstance().getZone(ZoneType.DefenderSpawn, getCastleId());
+        return _zoneBF;
+    }
+    
     /**
      * Manor code for manage the manor data
      * @author Scar69

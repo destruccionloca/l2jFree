@@ -31,6 +31,7 @@ public final class ZoneEnum
 		OlympiadStadia,
 		CastleArea,
 		CastleHQ,
+        DefenderSpawn,
 		SiegeBattleField,
 		ClanHall,
 		Newbie,

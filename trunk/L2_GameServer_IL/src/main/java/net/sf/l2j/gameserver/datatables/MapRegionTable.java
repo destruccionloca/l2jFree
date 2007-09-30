@@ -44,180 +44,212 @@ import org.apache.commons.logging.LogFactory;
 
 public class MapRegionTable
 {
-	private final static Log _log = LogFactory.getLog(MapRegionTable.class.getName());
+    private final static Log _log = LogFactory.getLog(MapRegionTable.class.getName());
 
-	private static MapRegionTable _instance;
+    private static MapRegionTable _instance;
 
-	private final int[][] _regions = new int[20][21];
+    private final int[][] _regions = new int[20][21];
 
-	public static enum TeleportWhereType
-	{
-		Castle, ClanHall, SiegeFlag, Town
-	}
+    public static enum TeleportWhereType
+    {
+        Castle, ClanHall, SiegeFlag, Town
+    }
 
-	public static MapRegionTable getInstance()
-	{
-		if (_instance == null)
-		{
-			_instance = new MapRegionTable();
-		}
-		return _instance;
-	}
+    public static MapRegionTable getInstance()
+    {
+        if (_instance == null)
+        {
+            _instance = new MapRegionTable();
+        }
+        return _instance;
+    }
 
-	private MapRegionTable()
-	{
-		int count2 = 0;
+    private MapRegionTable()
+    {
+        int count2 = 0;
 
-		// LineNumberReader lnr = null;
-		java.sql.Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con
-					.prepareStatement("SELECT region, sec0, sec1, sec2, sec3, sec4, sec5, sec6, sec7, sec8, sec9 FROM mapregion");
-			ResultSet rset = statement.executeQuery();
-			int region;
-			while (rset.next())
-			{
-				region = rset.getInt(1);
+        // LineNumberReader lnr = null;
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement = con
+            .prepareStatement("SELECT region, sec0, sec1, sec2, sec3, sec4, sec5, sec6, sec7, sec8, sec9 FROM mapregion");
+            ResultSet rset = statement.executeQuery();
+            int region;
+            while (rset.next())
+            {
+                region = rset.getInt(1);
 
-				for (int j = 0; j < 10; j++)
-				{
-					_regions[j][region] = rset.getInt(j + 2);
-					count2++;
-					// _log.debug(j+","+region+" -> "+rset.getInt(j+2));
-				}
-			}
+                for (int j = 0; j < 10; j++)
+                {
+                    _regions[j][region] = rset.getInt(j + 2);
+                    count2++;
+                    // _log.debug(j+","+region+" -> "+rset.getInt(j+2));
+                }
+            }
 
-			rset.close();
-			statement.close();
-			if (_log.isDebugEnabled())
-				_log.debug(count2 + " mapregion loaded");
-		} catch (Exception e)
-		{
-			_log.warn("error while creating map region data: " + e);
-		} finally
-		{
-			try
-			{
-				con.close();
-			} catch (Exception e)
-			{
-			}
-		}
-	}
+            rset.close();
+            statement.close();
+            if (_log.isDebugEnabled())
+                _log.debug(count2 + " mapregion loaded");
+        } catch (Exception e)
+        {
+            _log.warn("error while creating map region data: " + e);
+        } finally
+        {
+            try
+            {
+                con.close();
+            } catch (Exception e)
+            {
+            }
+        }
+    }
 
-	public final int getMapRegion(int posX, int posY)
-	{
-		return _regions[getMapRegionX(posX)][getMapRegionY(posY)];
-	}
+    public final int getMapRegion(int posX, int posY)
+    {
+        return _regions[getMapRegionX(posX)][getMapRegionY(posY)];
+    }
 
-	public final int getMapRegionX(int posX)
-	{
-		return (posX >> 15) + 4;// + centerTileX;
-	}
+    public final int getMapRegionX(int posX)
+    {
+        return (posX >> 15) + 4;// + centerTileX;
+    }
 
-	public final int getMapRegionY(int posY)
-	{
-		return (posY >> 15) + 10;// + centerTileX;
-	}
+    public final int getMapRegionY(int posY)
+    {
+        return (posY >> 15) + 10;// + centerTileX;
+    }
 
-	public int getClosestTownNumber(L2Character activeChar)
-	{
-		return getMapRegion(activeChar.getX(), activeChar.getY());
-	}
+    public int getClosestTownNumber(L2Character activeChar)
+    {
+        return getMapRegion(activeChar.getX(), activeChar.getY());
+    }
 
-	public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)
-	{
-		if (activeChar instanceof L2PcInstance)
-		{
-			L2PcInstance player = ((L2PcInstance) activeChar);
-			L2Clan clan = player.getClan();
-			Castle castle = null;
-			ClanHall clanhall = null;
-			int townId = getClosestTownNumber(player);
+    public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)
+    {
+        if (activeChar instanceof L2PcInstance)
+        {
+            L2PcInstance player = ((L2PcInstance) activeChar);
+            L2Clan clan = player.getClan();
+            Castle castle = null;
+            ClanHall clanhall = null;
+            int townId = getClosestTownNumber(player);
 
-			// Checking if in arena
-			for (IZone arena : ZoneManager.getInstance().getZones(ZoneType.Arena, player.getX(), player.getY()))
-			{
-				if (arena != null && arena.checkIfInZone(player))
-				{
-					Location loc = arena.getRestartPoint(RestartType.RestartNormal);
-					if (loc == null)
-						loc = arena.getRestartPoint(RestartType.RestartRandom);
-					return loc;
-				}
-			}
+            // Checking if in arena
+            for (IZone arena : ZoneManager.getInstance().getZones(ZoneType.Arena, player.getX(), player.getY()))
+            {
+                if (arena != null && arena.checkIfInZone(player))
+                {
+                    Location loc = arena.getRestartPoint(RestartType.RestartNormal);
+                    if (loc == null)
+                        loc = arena.getRestartPoint(RestartType.RestartRandom);
+                    return loc;
+                }
+            }
 
-			if (teleportWhere == TeleportWhereType.Town)
-			{
-				// Karma player land out of city
-				if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
-				{
-					if (townId >= 0)
-						return TownManager.getInstance().getClosestTown(activeChar).getKarmaSpawn();
-					else // Floran Village
-						return new Location(17817, 170079, -3530);
-				}
+            if (teleportWhere == TeleportWhereType.Town)
+            {
+                // Karma player land out of city
+                if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
+                {
+                    if (townId >= 0)
+                        return TownManager.getInstance().getClosestTown(activeChar).getKarmaSpawn();
+                    else // Floran Village
+                        return TownManager.getInstance().getTown(16).getSpawn();
+                }
 
-				return TownManager.getInstance().getClosestTown(activeChar).getSpawn();
-			}
+                return TownManager.getInstance().getClosestTown(activeChar).getSpawn();
+            }
 
-			if (clan != null)
-			{
-				// If teleport to clan hall
-				if (teleportWhere == TeleportWhereType.ClanHall)
-				{
-					clanhall = ClanHallManager.getInstance().getClanHallByOwner(clan);
-					if (clanhall != null)
-					{
-						IZone zone = clanhall.getZone();
+            if (clan != null)
+            {
+                // If teleport to clan hall
+                if (teleportWhere == TeleportWhereType.ClanHall)
+                {
+                    clanhall = ClanHallManager.getInstance().getClanHallByOwner(clan);
+                    if (clanhall != null)
+                    {
+                        IZone zone = clanhall.getZone();
 
-						if (zone != null)
-						{
-							Location loc = zone.getRestartPoint(RestartType.RestartOwner);
-							if (loc == null)
-								loc = zone.getRestartPoint(RestartType.RestartRandom);
-							return loc;
-						}
+                        if (zone != null)
+                        {
+                            Location loc = zone.getRestartPoint(RestartType.RestartOwner);
+                            if (loc == null)
+                                loc = zone.getRestartPoint(RestartType.RestartRandom);
+                            return loc;
+                        }
+                    }
+                }
 
-					}
-				}
+                // If teleport to castle
+                if (teleportWhere == TeleportWhereType.Castle)
+                    castle = CastleManager.getInstance().getCastle(clan);
 
-				// If teleport to castle
-				if (teleportWhere == TeleportWhereType.Castle)
-					castle = CastleManager.getInstance().getCastle(clan);
+                // If Teleporting to castle or
+                if (castle != null && teleportWhere == TeleportWhereType.Castle)
+                {
 
-				// If Teleporting to castle or
-				// If is on castle with siege and player's clan is defender
-				if (castle != null && teleportWhere == TeleportWhereType.Castle)
-				{
-					IZone zone = castle.getZone();
-					if (zone != null)
-					{
-						return zone.getRestartPoint(RestartType.RestartOwner);
-					}
-				}
-				else if (teleportWhere == TeleportWhereType.SiegeFlag)
-				{
-					Siege siege = SiegeManager.getInstance().getSiege(clan);
+                    IZone zone = castle.getZone();
 
-					 // Check if player's clan is attacker
-					if (siege != null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
-					{
-						// get nearest flag
-						L2NpcInstance flag = siege.getClosestFlag(player);
-						// spawn to flag
-						if (flag != null)
-							return new Location(flag.getX(), flag.getY(), flag.getZ());
-					}
-				}
-			}
-		}
+                    // If is on castle with siege and player's clan is defender
+                    if (castle.getSiege() != null && castle.getSiege().getIsInProgress())
+                    {
+                        // Karma player respawns out of siege zone
+                        if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
+                        {
+                            zone = castle.getZone();
+                            if (zone != null)
+                            {
+                                return zone.getRestartPoint(RestartType.RestartChaotic);
+                            }
+                        } else
+                        {
 
-		// Get the nearest town
-		// TODO: Micht: Maybe we should add some checks to prevent exception
-		// here.
-		return TownManager.getInstance().getClosestTown(activeChar).getSpawn();
-	}
+                            zone = castle.getDefenderSpawn();
+                            if (zone != null)
+                            {
+                                return zone.getRestartPoint(RestartType.RestartRandom);
+                            }
+                        }
+                    }
+
+                    zone = castle.getZone();
+                    if (zone != null)
+                    {
+                        return zone.getRestartPoint(RestartType.RestartOwner);
+                    }
+                }
+                else if (teleportWhere == TeleportWhereType.SiegeFlag)
+                {
+                    Siege siege = SiegeManager.getInstance().getSiege(clan);
+
+                    // Check if player's clan is attacker
+                    if (siege != null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
+                    {
+                        // Karma player respawns out of siege zone
+                        if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
+                        {
+                            IZone zone = siege.getCastle().getZone();
+                            if (zone != null)
+                            {
+                                return zone.getRestartPoint(RestartType.RestartChaotic);
+                            }
+                        }
+                        // get nearest flag
+                        L2NpcInstance flag = siege.getClosestFlag(player);
+                        // spawn to flag
+                        if (flag != null)
+                            return new Location(flag.getX(), flag.getY(), flag.getZ());
+                    }
+                }
+            }
+        }
+
+        // Get the nearest town
+        // TODO: Micht: Maybe we should add some checks to prevent exception
+        // here.
+        return TownManager.getInstance().getClosestTown(activeChar).getSpawn();
+    }
 }
