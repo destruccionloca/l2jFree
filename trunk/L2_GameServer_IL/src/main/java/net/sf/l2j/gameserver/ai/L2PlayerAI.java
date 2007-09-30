@@ -215,7 +215,7 @@ public class L2PlayerAI extends L2CharacterAI
 
         // if (_log.isDebugEnabled()) _log.warn("L2PlayerAI: thinkCast -> valid target: " + _cast_target);
 
-        if (target != null && _skill.isOffensive()) 
+        if (target != null)
             if (maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill))) return;
         
         if (_skill.getSkillTime() > 50) clientStopMoving(null);
