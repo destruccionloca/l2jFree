@@ -390,7 +390,6 @@ $MYG < ../sql/updates/070831-[1923].sql
 $MYG < ../sql/updates/070922-[2018].sql
 $MYG < ../sql/updates/070922-[2023].sql
 $MYG < ../sql/updates/070929-[2068].sql
-$MYG < ../sql/updates/070929-[2074].sql
 }
 
 finish(){
