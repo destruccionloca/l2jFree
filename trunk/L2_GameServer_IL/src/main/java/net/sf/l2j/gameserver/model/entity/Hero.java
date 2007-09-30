@@ -62,20 +62,17 @@ public class Hero
     private static final String GET_HEROES = "SELECT * FROM heroes WHERE played = 1";
     private static final String GET_ALL_HEROES = "SELECT * FROM heroes";
     private static final String UPDATE_ALL = "UPDATE heroes SET played = 0";
-    private static final String INSERT_HERO = "INSERT INTO heroes VALUES (?,?,?,?,?,?)";
+    private static final String INSERT_HERO = "INSERT INTO heroes VALUES (?,?,?,?,?)";
     private static final String UPDATE_HERO = "UPDATE heroes SET count = ?, played = ?" +
-            ", donator = ? WHERE char_id = ?";
+            " WHERE char_id = ?";
     private static final String GET_CLAN_ALLY = "SELECT characters.clanid AS clanid, coalesce(clan_data.ally_Id, 0) AS allyId FROM characters LEFT JOIN clan_data ON clan_data.clan_id = characters.clanid " +
             " WHERE characters.obj_Id = ?";
     private static final String GET_CLAN_NAME = "SELECT clan_name FROM clan_data WHERE clan_id = (SELECT clanid FROM characters WHERE char_name = ?)";
     private static final String DELETE_ITEMS = "DELETE FROM items WHERE item_id IN " +
             "(6842, 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621) " +
-            "AND owner_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)" +
-            "AND owner_id NOT IN (SELECT char_id FROM heroes WHERE donator = 1)";
+            "AND owner_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
     private static final String DELETE_SKILLS = "DELETE FROM character_skills WHERE skill_id IN " + 
-            "(395, 396, 1374, 1375, 1376) " +
-            "AND char_obj_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)" +
-            "AND char_obj_id NOT IN (SELECT char_id FROM heroes WHERE donator = 1)";
+            "(395, 396, 1374, 1375, 1376) " + "AND char_obj_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
     
     private static final int[] _heroItems = {6842, 6611, 6612, 6613, 6614, 6615, 6616,
                                              6617, 6618, 6619, 6620, 6621
@@ -89,7 +86,6 @@ public class Hero
     public static final String CLAN_CREST = "clan_crest";
     public static final String ALLY_NAME = "ally_name";
     public static final String ALLY_CREST = "ally_crest";
-    public static final String DONATOR = "donator";
     
     public static Hero getInstance()
     {
@@ -131,7 +127,6 @@ public class Hero
                 hero.set(Olympiad.CLASS_ID, rset.getInt(Olympiad.CLASS_ID));
                 hero.set(COUNT, rset.getInt(COUNT));
                 hero.set(PLAYED, rset.getInt(PLAYED));
-                hero.set(DONATOR, (rset.getInt(DONATOR) == 1));
                 
                 statement2 = con2.prepareStatement(GET_CLAN_ALLY);
                 statement2.setInt(1, charId);
@@ -159,7 +154,6 @@ public class Hero
                 hero.set(Olympiad.CLASS_ID, rset.getInt(Olympiad.CLASS_ID));
                 hero.set(COUNT, rset.getInt(COUNT));
                 hero.set(PLAYED, rset.getInt(PLAYED));
-                hero.set(DONATOR, (rset.getInt(DONATOR) == 1));
                 
                 statement2 = con2.prepareStatement(GET_CLAN_ALLY);
                 statement2.setInt(1, charId);
@@ -241,8 +235,6 @@ public class Hero
         {
             for (StatsSet hero : _heroes.values())
             {
-            	if (hero.getBool(DONATOR)) continue;
-            	
                 String name = hero.getString(Olympiad.CHAR_NAME);
                 
                 L2PcInstance player = L2World.getInstance().getPlayer(name);
@@ -337,7 +329,6 @@ public class Hero
                 newHero.set(Olympiad.CLASS_ID, hero.getInteger(Olympiad.CLASS_ID));
                 newHero.set(COUNT, 1);
                 newHero.set(PLAYED, 1);
-                newHero.set(DONATOR, false);
                 
                 heroes.put(charId, newHero);
             }
@@ -453,7 +444,6 @@ public class Hero
                         statement.setInt(3, hero.getInteger(Olympiad.CLASS_ID));
                         statement.setInt(4, hero.getInteger(COUNT));
                         statement.setInt(5, hero.getInteger(PLAYED));
-                        statement.setInt(6, hero.getBool(DONATOR) ? 1 : 0);
                         statement.execute();
                         
                         Connection con2 = null;
@@ -478,8 +468,7 @@ public class Hero
                         statement = con.prepareStatement(UPDATE_HERO);
                         statement.setInt(1, hero.getInteger(COUNT));
                         statement.setInt(2, hero.getInteger(PLAYED));
-                        statement.setInt(3, hero.getBool(DONATOR) ? 1 : 0);
-                        statement.setInt(4, heroId);
+                        statement.setInt(3, heroId);
                         statement.execute();
                     }
                     
@@ -534,85 +523,4 @@ public class Hero
              try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
          }
      }
-     
-    public boolean isDonatorHero(L2PcInstance activechar)
-    {
-    	int objectId = activechar.getObjectId();
-    	
-     	return (_completeHeroes != null && _completeHeroes.containsKey(objectId) && _completeHeroes.get(objectId).getBool(DONATOR));
-    }
-
-    public void setDonatorHero(L2PcInstance activechar, boolean state)
-    {
-    	if (activechar == null) return;
-
-    	int objectId = activechar.getObjectId();
-    	StatsSet hero;
-
-    	Connection con = null;
-    	PreparedStatement statement = null;
-
-    	try
-    	{
-    		con = L2DatabaseFactory.getInstance().getConnection(con);
-
-    		if (_completeHeroes != null && _completeHeroes.containsKey(objectId))
-    		{
-    			hero = _completeHeroes.get(objectId);
-
-    			hero.set(DONATOR, state);
-
-    			statement = con.prepareStatement(UPDATE_HERO);
-    			statement.setInt(1, hero.getInteger(COUNT));
-    			statement.setInt(2, hero.getInteger(PLAYED));
-    			statement.setInt(3, hero.getBool(DONATOR) ? 1 : 0);
-    			statement.setInt(4, objectId);
-    			statement.execute();
-
-    			_completeHeroes.remove(hero);
-    			_completeHeroes.put(objectId, hero);
-    		}
-    		else if (state)
-    		{
-    			hero = new StatsSet();
-    			hero.set(Olympiad.CHAR_NAME, activechar.getName());
-    			hero.set(Olympiad.CLASS_ID, activechar.getClassId());
-    			hero.set(COUNT, 0);
-    			hero.set(PLAYED, 0);
-    			hero.set(DONATOR, true);
-
-    			statement = con.prepareStatement(INSERT_HERO);
-    			statement.setInt(1, objectId);
-    			statement.setString(2, hero.getString(Olympiad.CHAR_NAME));
-    			statement.setInt(3, hero.getInteger(Olympiad.CLASS_ID));
-    			statement.setInt(4, hero.getInteger(COUNT));
-    			statement.setInt(5, hero.getInteger(PLAYED));
-    			statement.setInt(6, hero.getBool(DONATOR) ? 1 : 0);
-    			statement.execute();
-
-    			Connection con2 = null;
-    			con2 = L2DatabaseFactory.getInstance().getConnection(con2);
-    			PreparedStatement statement2 = con2.prepareStatement(GET_CLAN_ALLY);
-    			statement2.setInt(1, objectId);
-    			ResultSet rset2 = statement2.executeQuery();
-
-    			initRelationBetweenHeroAndClan(rset2, hero);
-
-    			rset2.close();
-    			statement2.close();
-    			con2.close();
-
-    			_completeHeroes.put(objectId, hero);
-    		}
-
-    		statement.close();
-    	} catch(SQLException e)
-    	{
-    		_log.warn("Hero System: Couldnt update hero: " + activechar.getName());
-    		if (_log.isDebugEnabled())  _log.debug("",e);
-    	} finally
-    	{
-    		try{con.close();}catch(Exception e){ _log.error("",e);}
-    	}
-    }
 }
