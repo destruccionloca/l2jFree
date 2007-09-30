@@ -946,4 +946,95 @@
     <point x="76800" y="-32768" z="-4780" />
     <point x="98304" y="-18432" z="-3780" />
   </item>
+  <item id="190" name="23_15_water1">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="131072" y="-98304" z="-4780" />
+    <point x="112446" y="-92070" z="-3780" />
+  </item>
+  <item id="191" name="23_14_water1">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="131071" y="-98303" z="-4780" />
+    <point x="99183" y="-103266" z="-3780" />
+  </item>
+  <item id="192" name="23_14_water2">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="103998" y="-103267" z="-4780" />
+    <point x="98304" y="-131072" z="-3780" />
+  </item>
+  <item id="193" name="23_14_water3">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="98303" y="-131070" z="-4780" />
+    <point x="96827" y="-123659" z="-3780" />
+  </item>
+  <item id="194" name="22_13_water1">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="98305" y="-131072" z="-4780" />
+    <point x="65536" y="-139500" z="-3780" />
+  </item>
+  <item id="195" name="22_13_water2">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="98305" y="-152164" z="-4780" />
+    <point x="87913" y="-139500" z="-3780" />
+  </item>
+  <item id="196" name="22_13_water3">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="98305" y="-163839" z="-4780" />
+    <point x="65536" y="-152164" z="-3780" />
+  </item>
+  <item id="197" name="22_13_water4">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="74201" y="-152164" z="-4780" />
+    <point x="65536" y="-139500" z="-3780" />
+  </item>
+  <item id="198" name="23_14_water1">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="98305" y="-139500" z="-4780" />
+    <point x="129538" y="-131071" z="-3780" />
+  </item>
+  <item id="199" name="23_14_water2">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="103998" y="-103267" z="-4780" />
+    <point x="129538" y="-131071" z="-3780" />
+  </item>
+  <item id="200" name="22_14_water1">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="65536" y="-131070" z="-4780" />
+    <point x="73159" y="-122676" z="-3780" />
+  </item>
+  <item id="201" name="21_14_water1">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="65534" y="-131070" z="-4780" />
+    <point x="40105" y="-125676" z="-3780" />
+  </item>
+  <item id="202" name="21_14_water2">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="65534" y="-131070" z="-4780" />
+    <point x="57189" y="-115846" z="-3780" />
+  </item>
+  <item id="203" name="23_13_water1">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="98305" y="-131072" z="-4780" />
+    <point x="128510" y="-151367" z="-3780" />
+  </item>
+  <item id="204" name="21_13_water1">
+  <!-- Done by G1ta0 -->
+    <type>Water</type>
+    <point x="65535" y="-131072" z="-4780" />
+    <point x="32768" y="-163840" z="-3780" />
+  </item>
+
 </list>

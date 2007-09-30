@@ -302,4 +302,42 @@
     <point x="-65711" y="190964" z="-4892" />
     <point x="-99937" y="150239" z="-1892" />
   </item>
+  <item id="36" name="Fishing_36">
+  <!-- Done by FireBlade -->
+    <type>Fishing</type>
+    <point x="9005" y="-14650" z="-3840" />
+    <point x="8503" y="-14300" z="-3840" />
+    <point x="7676" y="-13393" z="-3840" />
+    <point x="7417" y="-12987" z="-3840" />
+    <point x="6952" y="-12245" z="-3840" />
+    <point x="6980" y="-11149" z="-3840" />
+    <point x="8179" y="-10197" z="-3683" />
+  </item>
+  <item id="37" name="Fishing_37">
+  <!-- Done by FireBlade -->
+    <type>Fishing</type>
+    <point x="9195" y="-14456" z="-3902" />
+    <point x="8941" y="-13355" z="-3648" />
+  </item>
+  <item id="38" name="Fishing_38">
+  <!-- Done by FireBlade -->
+    <type>Fishing</type>
+    <point x="12280" y="-24884" z="-4376" />
+    <point x="11225" y="-25309" z="-4376" />
+    <point x="10033" y="-24997" z="-4376" />
+    <point x="9828" y="-24401" z="-4376" />
+    <point x="9359" y="-24025" z="-4376" />
+    <point x="8221" y="-23856" z="-4376" />
+    <point x="6202" y="-24225" z="-4376" />
+    <point x="4462" y="-23358" z="-4376" />
+    <point x="4144" y="-23088" z="-4376" />
+    <point x="3600" y="-24947" z="-4376" />
+    <point x="12744" y="-25790" z="-3707" />
+  </item>
+  <item id="39" name="Fishing_39">
+  <!-- Done by FireBlade -->
+    <type>Fishing</type>
+    <point x="10561" y="-25297" z="-4248" />
+    <point x="10305" y="-27068" z="-3630" />
+  </item>
 </list>
