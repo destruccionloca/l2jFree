@@ -917,7 +917,7 @@ public class FourSepulchersManager
             		    	if(Rnd.get(48) == 0)
             		    	{
             		    		spawnKeyBoxMob = true;
-            		    		_log.info("FourSepulchersManager.SpawnMonster: Set to spawn Church of Viscount Key Mob.");
+            		    		//_log.info("FourSepulchersManager.SpawnMonster: Set to spawn Church of Viscount Key Mob.");
             		    	}
             		    	break;
         		    	default:
@@ -1113,7 +1113,7 @@ public class FourSepulchersManager
     protected void locationShadowSpawns()
     {
     	int locNo = Rnd.get(4);
-    	_log.info("FourSepulchersManager.LocationShadowSpawns: Location index is " + locNo + ".");
+    	//_log.info("FourSepulchersManager.LocationShadowSpawns: Location index is " + locNo + ".");
     	final int[] gateKeeper = {31929,31934,31939,31944};
     	
     	L2Spawn spawnDat;
@@ -1195,7 +1195,7 @@ public class FourSepulchersManager
     
     public void deleteAllMobs()
     {
-    	_log.info("FourSepulchersManager.DeleteAllMobs: Try to delete " + _allMobs.size() + " monsters.");
+    	//_log.info("FourSepulchersManager.DeleteAllMobs: Try to delete " + _allMobs.size() + " monsters.");
 
     	int delCnt = 0;
         for(L2NpcInstance mob : _allMobs)
@@ -1212,7 +1212,7 @@ public class FourSepulchersManager
             }
         }
         _allMobs.clear();
-    	_log.info("FourSepulchersManager.DeleteAllMobs: Deleted " + delCnt + " monsters.");
+    	//_log.info("FourSepulchersManager.DeleteAllMobs: Deleted " + delCnt + " monsters.");
     }
     
     protected void closeAllDoors()
@@ -1234,7 +1234,7 @@ public class FourSepulchersManager
     {
         public void run()
         {
-            _log.info("FourSepulchersManager:In Entry Time");
+            //_log.info("FourSepulchersManager:In Entry Time");
             _inEntryTime = true;
             _inWarmUpTime = false;
             _inAttackTime = false;
@@ -1255,7 +1255,7 @@ public class FourSepulchersManager
     {
         public void run()
         {
-            _log.info("FourSepulchersManager:In Warm-Up Time");
+            //_log.info("FourSepulchersManager:In Warm-Up Time");
             _inEntryTime = true;
             _inWarmUpTime = false;
             _inAttackTime = false;
@@ -1276,7 +1276,7 @@ public class FourSepulchersManager
     {
         public void run()
         {
-            _log.info("FourSepulchersManager:In Attack Time");
+            //_log.info("FourSepulchersManager:In Attack Time");
             _inEntryTime = false;
             _inWarmUpTime = false;
             _inAttackTime = true;
@@ -1305,7 +1305,7 @@ public class FourSepulchersManager
         
         public void run()
         {
-            _log.info("FourSepulchersManager:In Cool-Down Time");
+            //_log.info("FourSepulchersManager:In Cool-Down Time");
             _inEntryTime = false;
             _inWarmUpTime = false;
             _inAttackTime = false;

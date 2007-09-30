@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
@@ -1240,7 +1241,7 @@ public class L2NpcInstance extends L2Character
                 try
                 {
                     Byte b1 = Byte.parseByte(command.substring(10)); // Selected Area: Recruit, Soldier etc
-                    DimensionalRiftManager.getInstance().start(player, b1, this);
+                    DimensionalRiftManager.getInstance().start(player, RoomType.getRoomTypeEnum(b1), this);
                 }
                 catch(Exception e){}
             }

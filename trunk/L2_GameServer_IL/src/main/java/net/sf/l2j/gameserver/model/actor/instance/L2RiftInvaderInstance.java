@@ -18,35 +18,36 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2RiftInvaderInstance extends L2MonsterInstance
 {
-	private byte _type;
-	private byte _room;
+    private RoomType _roomType;
+    private byte _roomId;
 
 	public L2RiftInvaderInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
 	}
 
-	public byte getType()
+	public RoomType  getType()
 	{
-		return _type;
+		return _roomType;
 	}
 	
 	public byte getRoom()
 	{
-		return _room;
+		return _roomId;
 	}
 	
-	public void setType(byte type)
+	public void setType(RoomType roomType)
 	{
-		_type = type;
+        roomType = _roomType;
 	}
 	
-	public void setRoom(byte room)
+	public void setRoom(byte roomId)
 	{
-		_room = room;
+        _roomId = roomId;
 	}
 }

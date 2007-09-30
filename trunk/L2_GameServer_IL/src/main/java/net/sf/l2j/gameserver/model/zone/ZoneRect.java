@@ -30,6 +30,10 @@ import net.sf.l2j.gameserver.util.Util;
 public class ZoneRect extends ZoneBase
 {
 
+    public ZoneRect()
+    {
+    }
+    
 	public ZoneRect(int id, String zoneName, ZoneType zoneType)
 	{
 		setId(id);

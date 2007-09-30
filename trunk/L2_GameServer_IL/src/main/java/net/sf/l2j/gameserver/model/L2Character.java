@@ -504,11 +504,8 @@ public abstract class L2Character extends L2Object
 			{
 				player.getParty().getDimensionalRift().usedTeleport(player);
 			}
-			int[] newCoords = DimensionalRiftManager.getInstance().getRoom((byte) 0, (byte) 0).getTeleportCoords();
-			x = newCoords[0];
-			y = newCoords[1];
-			z = newCoords[2];
-		}
+			DimensionalRiftManager.getInstance().teleportToWaitingRoom((L2PcInstance)this);
+		} else
 		teleToLocation(x, y, z, allowRandomOffset);
 	}
    

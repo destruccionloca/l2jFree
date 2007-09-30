@@ -24,7 +24,9 @@ import java.util.TimerTask;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.L2Party;
@@ -37,7 +39,7 @@ import org.apache.commons.logging.LogFactory;
 */ 
 public class DimensionalRift
 {
-	private byte _type;
+	private RoomType _roomType;
 	private L2Party _party;
 	private FastList<Byte> _completedRooms = new FastList<Byte>();
 	private static final long seconds_5 = 5000L;
@@ -57,22 +59,21 @@ public class DimensionalRift
 
 	private final static Log _log = LogFactory.getLog(DimensionalRift.class.getName());
 	
-	public DimensionalRift(L2Party party, byte type, byte room)
+	public DimensionalRift(L2Party party, RoomType roomType, byte roomId)
 	{
-		_type = type;
+		_roomType = roomType;
 		_party = party;
-		_choosenRoom = room;
-		int[] coords = getRoomCoord(room);
+		_choosenRoom = roomId;
 		party.setDimensionalRift(this);
 		for(L2PcInstance p : party.getPartyMembers())
-			p.teleToLocation(coords[0], coords[1], coords[2]);
+			p.teleToLocation(getRoomCoord(roomId), false);
 		createSpawnTimer(_choosenRoom);
 		createTeleporterTimer(true);
 	}
 	
-	public byte getType()
+	public RoomType getType()
 	{
-		return _type;
+		return _roomType;
 	}
 
 	public byte getCurrentRoom()
@@ -101,7 +102,7 @@ public class DimensionalRift
 			public void run()
 			{
 				if(_choosenRoom > -1)
-					DimensionalRiftManager.getInstance().getRoom(_type, _choosenRoom).unspawn();
+					DimensionalRiftManager.getInstance().getRoom(_roomType, _choosenRoom).unspawn();
 
 				if(reasonTP && jumps_current < getMaxJumps() && _party.getMemberCount() > deadPlayers.size())
 				{
@@ -153,7 +154,7 @@ public class DimensionalRift
 			@Override
 			public void run()
 			{
-				DimensionalRiftManager.getInstance().getRoom(_type, room).spawn();
+				DimensionalRiftManager.getInstance().getRoom(_roomType, room).spawn();
 			}
 		};
 
@@ -200,7 +201,7 @@ public class DimensionalRift
 		else
 			_hasJumped = true;
 
-		DimensionalRiftManager.getInstance().getRoom(_type, _choosenRoom).unspawn();
+		DimensionalRiftManager.getInstance().getRoom(_roomType, _choosenRoom).unspawn();
 		_completedRooms.add(_choosenRoom);
 		_choosenRoom = -1;
 
@@ -236,8 +237,7 @@ public class DimensionalRift
 		}
 
 		checkBossRoom(_choosenRoom);
-		int[] coords = getRoomCoord(_choosenRoom);
-		player.teleToLocation(coords[0], coords[1], coords[2]);
+		player.teleToLocation(getRoomCoord(_choosenRoom), false);
 	}
 
 	private void teleportToWaitingRoom(L2PcInstance player)
@@ -255,7 +255,7 @@ public class DimensionalRift
 		_party = null;
 		revivedInWaitingRoom = null;
 		deadPlayers = null;
-		DimensionalRiftManager.getInstance().getRoom(_type, _choosenRoom).unspawn();
+		DimensionalRiftManager.getInstance().getRoom(_roomType, _choosenRoom).unspawn();
 		DimensionalRiftManager.getInstance().killRift(this);
 	}
 
@@ -352,14 +352,14 @@ public class DimensionalRift
 		return revivedInWaitingRoom;
 	}
 
-	public void checkBossRoom(byte room)
+	public void checkBossRoom(byte roomId)
 	{
-		isBossRoom = DimensionalRiftManager.getInstance().getRoom(_type, room).isBossRoom();
+		isBossRoom = DimensionalRiftManager.getInstance().getRoom(_roomType, roomId).isBoss();
 	}
 
-	public int[] getRoomCoord(byte room)
+	public Location getRoomCoord(byte roomId)
 	{
-		return DimensionalRiftManager.getInstance().getRoom(_type, room).getTeleportCoords();
+		return DimensionalRiftManager.getInstance().getRoom(_roomType, roomId).getTeleport();
 	}
 
 	public byte getMaxJumps()

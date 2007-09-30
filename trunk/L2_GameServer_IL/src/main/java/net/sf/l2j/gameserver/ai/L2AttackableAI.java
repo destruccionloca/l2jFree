@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -600,7 +601,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                                 && getAttackTarget().isInParty()
                                 && getAttackTarget().getParty().isInDimensionalRift())
                             {
-                                byte riftType = getAttackTarget().getParty().getDimensionalRift().getType();
+                                RoomType riftType = getAttackTarget().getParty().getDimensionalRift().getType();
                                 byte riftRoom = getAttackTarget().getParty().getDimensionalRift().getCurrentRoom();
 
                                 if (_actor instanceof L2RiftInvaderInstance

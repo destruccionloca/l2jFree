@@ -30,6 +30,10 @@ import net.sf.l2j.gameserver.util.Util;
 public class ZonePoly extends ZoneBase
 {
 
+    public ZonePoly()
+    {
+    }
+    
 	public ZonePoly(int id, String zoneName, ZoneType zoneType)
 	{
 		setId(id);
