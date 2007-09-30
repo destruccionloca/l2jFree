@@ -1565,7 +1565,7 @@ public final class Config
             GM_BAN          = Integer.parseInt(gmSettings.getProperty("GMCanBan", "100"));
             GM_BAN_CHAT     = Integer.parseInt(gmSettings.getProperty("GMCanBanChat", "100"));
             GM_CREATE_ITEM  = Integer.parseInt(gmSettings.getProperty("GMCanShop", "100"));
-            GM_CREATE_ITEM  = Integer.parseInt(gmSettings.getProperty("GMCanBuyFree", "100"));
+            GM_FREE_SHOP    = Integer.parseInt(gmSettings.getProperty("GMCanBuyFree", "100"));
             GM_DELETE       = Integer.parseInt(gmSettings.getProperty("GMCanDelete", "100"));
             GM_KICK         = Integer.parseInt(gmSettings.getProperty("GMCanKick", "100"));
             GM_MENU         = Integer.parseInt(gmSettings.getProperty("GMMenu", "100"));
