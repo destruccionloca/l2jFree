@@ -46,21 +46,21 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.serverpackets.InventoryUpdate; 
-import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfoSpectator;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ExOlympiadUserInfoSpectator;
+import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
@@ -1248,6 +1248,7 @@ public class Olympiad
             for (L2OlympiadGame instance : _olympiadInstances.values())
             {
                 instance.makeCompetitionStart();
+                instance.makePlayersVisible();
             }
                 
             //Wait 3 mins (Battle)
@@ -1695,12 +1696,12 @@ public class Olympiad
             		_playerTwo.setIsOlympiadStart(false);
             	}
 
-                //_playerOne.getAppearance().setInvisible();
-                //_playerOne.broadcastUserInfo();
+                _playerOne.getAppearance().setInvisible();
+                _playerOne.broadcastUserInfo();
                 //_playerOne.decayMe();
                 //_playerOne.spawnMe();
-                //_playerTwo.getAppearance().setInvisible();
-                //_playerTwo.broadcastUserInfo();
+                _playerTwo.getAppearance().setInvisible();
+                _playerTwo.broadcastUserInfo();
                 //_playerTwo.decayMe();
                 //_playerTwo.spawnMe();
                 
