@@ -941,7 +941,11 @@ public class L2Clan
     {
         if (cm == null)
             return;
-        
+         
+        // Add clan leader skills
+        if(cm.isClanLeader())
+            SiegeManager.getInstance().addSiegeSkills(cm);
+
         for(L2Skill skill : _skills.values())
         {
             //TODO add skills according to members class( in ex. don't add Clan Agillity skill's effect to lower class then Baron)

@@ -275,20 +275,20 @@ public class DimensionalRiftManager
     public boolean checkIfInRiftZone(int x, int y, int z, boolean ignorePeaceZone)
     {
         if (ignorePeaceZone)
-            return getRooms().get(RoomType.DimensionalRift).get(1).checkIfInZone(x, y, z);
+            return getRooms().get(RoomType.DimensionalRift).get((byte)1).checkIfInZone(x, y, z);
         else
-            return getRooms().get(RoomType.DimensionalRift).get(1).checkIfInZone(x, y, z)
-                    && !getRooms().get(RoomType.Start).get(1).checkIfInZone(x, y, z);
+            return getRooms().get(RoomType.DimensionalRift).get((byte)1).checkIfInZone(x, y, z)
+                    && !getRooms().get(RoomType.Start).get((byte)1).checkIfInZone(x, y, z);
     }
 
     public boolean checkIfInPeaceZone(int x, int y, int z)
     {
-        return getRooms(RoomType.Start).get(1).checkIfInZone(x, y, z);
+        return getRooms(RoomType.Start).get((byte)1).checkIfInZone(x, y, z);
     }
 
     public void teleportToWaitingRoom(L2PcInstance player)
     {
-        Location loc = getRooms(RoomType.Start).get(1).getTeleport();
+        Location loc = getRooms(RoomType.Start).get((byte)1).getTeleport();
         player.teleToLocation(loc, false);
     }
 

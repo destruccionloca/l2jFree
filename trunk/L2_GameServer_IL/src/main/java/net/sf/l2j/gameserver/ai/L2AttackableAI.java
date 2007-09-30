@@ -598,14 +598,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                             || npc.getAI()._intention == CtrlIntention.AI_INTENTION_ACTIVE))
                         {
                             if (getAttackTarget() instanceof L2PcInstance
+                                && _actor instanceof L2RiftInvaderInstance
                                 && getAttackTarget().isInParty()
                                 && getAttackTarget().getParty().isInDimensionalRift())
                             {
                                 RoomType riftType = getAttackTarget().getParty().getDimensionalRift().getType();
                                 byte riftRoom = getAttackTarget().getParty().getDimensionalRift().getCurrentRoom();
 
-                                if (_actor instanceof L2RiftInvaderInstance
-                                    && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
+                                if (!DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
                                     continue;
                             }
 
