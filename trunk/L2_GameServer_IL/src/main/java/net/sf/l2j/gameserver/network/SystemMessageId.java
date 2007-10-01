@@ -4679,91 +4679,103 @@ public enum SystemMessageId
      * Message: A manor cannot be set up between 6 a.m. and 8 p.m.
      */
     A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM(1675),
-       
+
     /**
      * ID: 2013<br>
      * Message: Your seed or remaining purchase amount is inadequate.
      */
     YOUR_SEED_OR_REMAINING_PURCHASE_AMOUNT_IS_INADEQUATE(2013),
 
-	// ======================= //
-	// L2J-Free System Messages //
-	// ======================= //
-	
-	// Used ones
-	
+    /**
+     * ID: 1916<br>
+     * Message: Your Death Penalty is now level $s1.
+     */
+    DEATH_PENALTY_LEVEL_S1_ADDED(1916),
+
+    /**
+     * ID: 1917<br>
+     * Message: Your Death Penalty has been lifted.
+     */
+    DEATH_PENALTY_LIFTED(1917),
+
+    // ======================= //
+    // L2J-Free System Messages //
+    // ======================= //
+
+    // Used ones
+
     /**
      * ID: 1760<br>
      * Message: Clan member $1's name title has been changed to $2.
      */
     CLAN_MEMBER_S1_TITLE_CHANGED_TO_S2(1760),
-	
+
     /**
      * ID: 340<br>
      * Message: Your private store is now open for business.
      */
     PRIVATE_STORE_UNDER_WAY(340),
-	
+
     /**
      * ID: 613<br>
      * Message: ======<Ignore List>======
      */
     BLOCK_LIST_HEADER(613),
-	
+
     /**
      * ID: 545<br>
      * Message: Your pet cannot carry any more items. Remove some, then try again.
      */
     YOUR_PET_CANNOT_CARRY_ANY_MORE_ITEMS(545),
-	
+
     /**
      * ID: 150<br>
      * Message: You cannot discard or destroy an item while trading at a private store.
      */
     CANNOT_DISCARD_OR_DESTROY_ITEM_WHILE_TRADING(150),
-	
+
     /**
      * ID: 958<br>
      * Message: Items cannot be discarded or destroyed while operating a private store or workshop.
      */
     ITEMS_CANNOT_BE_DISCARDED_OR_DESTROYED_WHILE_OPERATING_PRIVATE_STORE_OR_WORKSHOP(958),
-	
+
     /**
      * ID: 1135<br>
      * Message: While you are engaged in combat, you cannot operate a private store or private workshop.
      */
     CANT_CRAFT_DURING_COMBAT(1135),
-	
+
     /**
      * ID: 580<br>
      * Message: You may not use multiple pets or servitors at the same time.
      */
     SUMMON_ONLY_ONE(580),
-	
+
     /**
      * ID: 1521<br>
      * Message: Your servitor has vanished! You'll need to summon a new one.
      */
     YOUR_SERVITOR_HAS_VANISHED(1521),
-	
+
     /**
      * ID: 1<br>
      * Message: The server will be coming down in $1 seconds. Please find a safe place to log out.
      */
     THE_SERVER_WILL_BE_COMING_DOWN_IN_S1_SECONDS(1),
-	
+
     /**
      * ID: 750<br>
      * Message: There are no other skills to learn.
      */
     NO_MORE_SKILLS_TO_LEARN(750),
-	
+
     /**
      * ID: 596<br>
      * Message: Your pet ate a little, but is still hungry.
      */
     YOUR_PET_ATE_A_LITTLE_BUT_IS_STILL_HUNGRY(596),
-	
+
     /**
      * ID: 595<br>
      * Message: Your pet is very hungry.
@@ -4775,83 +4787,83 @@ public enum SystemMessageId
      * Message: Your pet is very hungry. Please be careful.
      */
     YOUR_PET_IS_VERY_HUNGRY_PLEASE_BE_CAREFULL(597),
-	
+
     /**
      * ID: 593<br>
      * Message: Starving, grumpy and fed up, your pet has left.
      */
     STARVING_GRUMPY_AND_FED_UP_YOUR_PET_HAS_LEFT(593),
-	
+
     /**
      * ID: 1522<br>
      * Message: Your pet's corpse has decayed!
      */
     YOUR_PETS_CORPSE_HAS_DECAYED(1522),
-	
+
     /**
      * ID: 1519<br>
      * Message: Your pet has been killed! Make sure you resurrect your pet within 20 minutes
      * or your pet and all of it's items will disappear forever!
      */
     MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES(1519),
-	
+
     /**
      * ID: 966<br>
      * Message: Chatting is currently prohibited. If you try to chat before the prohibition is
      * removed, the prohibition time will become even longer.
      */
     CHATTING_IS_CURRENTLY_PROHIBITED(966),
-	
+
     /**
      * ID: 1249<br>
      * Message: You may only ride a wyvern while you're riding a strider.
      */
     YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER(1249),
-	
+
     /**
      * ID: 1725<br>
      * Message: You have earned $s1 raid point(s).
      */
     EARNED_S1_RAID_POINTS(1725),
-	
+
     /**
      * ID: 1687<br>
      * Message: This area cannot be entered while mounted atop of a Wyvern.  You will be dismounted from your Wyvern if you do not leave!
      */
     AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN(1687),	
-	
-	// Unused ones
-	
+
+    // Unused ones
+
     /**
      * ID: 542<br>
      * Message: The NPC server is currently down. Pets and servitors cannot be summoned at this time.
      */
     THE_NPC_SERVER_IS_CURRENTLY_DOWN(542),
-	
+
     /**
      * ID: 542<br>
      * Message: Not working. Please try again later.
      */
     NOT_WORKING_PLEASE_TRY_AGAIN_LATER(213),
-	
+
     /**
      * ID: 483<br>
      * Message: This function is inaccessible right now. Please try again later.
      */
     THIS_FUNCTION_IS_INACCESSIBLE_RIGHT_NOW(483),
-	
+
     /**
      * ID: 941<br>
      * Message: Restart at Talking Island Village.
      */
     RESTART_AT_TALKING_ISLAND_VILLAGE(941),
-	
+
     /**
      * ID: 942<br>
      * Message: Restart at Gludin Village.
      */
     RESTART_AT_GLUDIN_VILLAGE(942),
-	
+
     /**
      * ID: 943<br>
      * Message: Restart at the Town of Gludin.
@@ -4863,144 +4875,140 @@ public enum SystemMessageId
      * Message: Restart at the Neutral Zone.
      */
     RESTART_AT_THE_NEUTRAL_ZONE(944),
-	
+
     /**
      * ID: 945<br>
      * Message: Restart at the Elven Village.
      */
     RESTART_AT_THE_ELVEN_VILLAGE(945),
-	
+
     /**
      * ID: 946<br>
      * Message: Restart at the Dark Elf Village.
      */
     RESTART_AT_THE_DARK_ELF_VILLAGE(946),
-	
+
     /**
      * ID: 947<br>
      * Message: Restart at the Town of Dion.
      */
     RESTART_AT_THE_TOWN_OF_DION(947),
-	
+
     /**
      * ID: 948<br>
      * Message: Restart at Floran Village.
      */
     RESTART_AT_FLORAN_VILLAGE(948),
-	
+
     /**
      * ID: 949<br>
      * Message: Restart at the Town of Giran.
      */
     RESTART_AT_THE_TOWN_OF_GIRAN(949),
-	
+
     /**
      * ID: 950<br>
      * Message: Restart at Giran Harbor.
      */
     RESTART_AT_GIRAN_HARBOR(950),
-	
+
     /**
      * ID: 951<br>
      * Message: Restart at the Orc Village.
      */
     RESTART_AT_THE_ORC_VILLAGE(951),
-	
+
     /**
      * ID: 952<br>
      * Message: Restart at the Dwarven Village.
      */
     RESTART_AT_THE_DWARVEN_VILLAGE(952),
-	
+
     /**
      * ID: 953<br>
      * Message: Restart at the Town of Oren.
      */
     RESTART_AT_THE_TOWN_OF_OREN(953),
-	
+
     /**
      * ID: 954<br>
      * Message: Restart at Hunters Village.
      */
     RESTART_AT_HUNTERS_VILLAGE(954),
-	
+
     /**
      * ID: 955<br>
      * Message: Restart at the Town of Aden.
      */
     RESTART_AT_THE_TOWN_OF_ADEN(955),
-	
+
     /**
      * ID: 956<br>
      * Message: Restart at the Coliseum.
      */
     RESTART_AT_THE_COLISEUM(956),
-	
+
     /**
      * ID: 957<br>
      * Message: Restart at Heine.
      */
     RESTART_AT_HEINE(957),
-	
+
     /**
      * ID: 148<br>
      * Message: You cannot use quest items.
      */
     YOU_CANNOT_USE_QUEST_ITEMS(148),
-	
+
     /**
      * ID: 546<br>
      * Message: Unable to place item, your pet is too encumbered.
      */
     UNABLE_TO_PLACE_ITEM_YOUR_PET_IS_TOO_ENCUMBERED(546),
-	
+
     /**
      * ID: 1577<br>
      * Message: Servitor uses the power of spirit.
      */
     SERVITOR_USES_POWER_OF_SPIRIT(1577),
-	
+
     /**
      * ID: 480<br>
      * Message: Please check your friend list.
      */
     PLEASE_CHECK_YOUR_FRIENDS_LIST(480),
-	
+
     /**
      * ID: 169<br>
      * Message: Accept friendship 0/1 (1 to accept, 0 to deny)
      */
-	ACCEPT_FRIENDSHIP_0_1(169),
-	
+    ACCEPT_FRIENDSHIP_0_1(169),
+
     /**
      * ID: 1595<br>
      * Message: $1 has succeeded.
      */
-	S1_SUCCEEDED(1595),
-	
+    S1_SUCCEEDED(1595),
+
     /**
      * ID: 1597<br>
      * Message: $1 has failed.
      */
-	S1_FAILED(1597);
-	
-	
-	// =========================== //
-	// End L2J-Free System Messages //
-	// =========================== //
-	
-	
-	
-	
+    S1_FAILED(1597);
+
+    // =========================== //
+    // End L2J-Free System Messages //
+    // =========================== //
+
     private int _id;
     
     private SystemMessageId(int id)
     {
-    	_id = id;
+        _id = id;
     }
     
     public int getId()
     {
-    	return _id;
+        return _id;
     }
 }

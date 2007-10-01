@@ -342,13 +342,12 @@ public class UseItem extends L2GameClientPacket
 
                 activeChar.refreshExpertisePenalty();
                 
-				if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-					activeChar.checkIfWeaponIsAllowed();
+                if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
+                    activeChar.checkIfWeaponIsAllowed();
 
                 InventoryUpdate iu = new InventoryUpdate();
                 iu.addItems(Arrays.asList(items));
                 activeChar.sendPacket(iu);
-                activeChar.sendPacket(new EtcStatusUpdate(activeChar));
                 activeChar.abortAttack();
                 activeChar.broadcastUserInfo();
             }

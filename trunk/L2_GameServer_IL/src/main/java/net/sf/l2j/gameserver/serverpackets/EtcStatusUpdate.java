@@ -17,7 +17,11 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.skills.effects.EffectCharge;
+
+/* Packet format: F3 XX000000 YY000000 ZZ000000 */
 
 /**
  *
@@ -25,7 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class EtcStatusUpdate extends L2GameServerPacket
 {
-	private static final String _S__F3_ETCSTATUSUPDATE = "[S] f3 EtcStatusUpdate";
+	private static final String _S__F3_ETCSTATUSUPDATE = "[S] F3 EtcStatusUpdate";
 
 	/**
 	 *
@@ -55,23 +59,13 @@ public class EtcStatusUpdate extends L2GameServerPacket
 	 * to remove the statusbar or just empty 
 	 */
 
-	int _IcreasedForce = 0;		//4271, 7 lvl
-	int _weightPenalty = 0;		//4270, 4 lvl
-	int _messageRefusal = 0;	//4269, 1 lvl
-	int _isInDangerArea = 0;	//4268, 1 lvl
-	int _expertisePenalty = 0;	//4267, 1 lvl at off c4 server scripts
-	int _charmOfCourage = 0;	//Charm of Courage, "Prevents experience value decreasing if killed during a siege war".
-	int _deathPenalty = 0;		////Death Penalty max lvl 15, "Combat ability is decreased due to death."
+	private L2PcInstance _activeChar;
+	private EffectCharge _effect;
 
-	public EtcStatusUpdate(L2PcInstance _activeChar)
+	public EtcStatusUpdate(L2PcInstance activeChar)
 	{
-		_IcreasedForce = 0;
-		_weightPenalty = _activeChar.getWeightPenalty();
-		_messageRefusal = _activeChar.getMessageRefusal() ? 1 : 0;
-		_isInDangerArea = 0;
-		_expertisePenalty = _activeChar.getexpertisePenalty() > 0 ? 1 : 0;
-		_charmOfCourage = 0;
-		_deathPenalty = 0;
+		 _activeChar = activeChar;
+		 _effect = (EffectCharge)_activeChar.getEffect(L2Effect.EffectType.CHARGE);
 	}
 
 	/**
@@ -81,19 +75,21 @@ public class EtcStatusUpdate extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xF3);				//several icons to a separate line (0 = disabled)
-		writeD(_IcreasedForce);		//1-7 increase force, lvl
-		writeD(_weightPenalty);		//1-4 weight penalty, lvl (1=50%, 2=66.6%, 3=80%, 4=100%)
-		writeD(_messageRefusal);	//1 = block all chat
-		writeD(_isInDangerArea);	//1 = danger area
-		writeD(_expertisePenalty);	//1 = grade penalty
-		writeD(_charmOfCourage);	//1 = charm of courage (no xp loss in siege..)
-		writeD(_deathPenalty);		//1-15 death penalty, lvl (combat ability decreased due to death)
+		if (_effect != null)
+			writeD(_effect.getLevel()); // 1-7 increase force, lvl
+		else
+			writeD(0x00); // 1-7 increase force, lvl
+		writeD(_activeChar.getWeightPenalty()); // 1-4 weight penalty, lvl (1=50%, 2=66.6%, 3=80%, 4=100%)
+		writeD((_activeChar.getMessageRefusal() || _activeChar.isChatBanned()) ? 1 : 0); // 1 = block all chat 
+		writeD(0x00); // 1 = danger area
+		writeD(_activeChar.getExpertisePenalty()); // 1 = grade penalty 
+		writeD(_activeChar.getCharmOfCourage() ? 1 : 0); // 1 = charm of courage (no xp loss in siege..)
+		writeD(_activeChar.getDeathPenaltyBuffLevel()); // 1-15 death penalty, lvl (combat ability decreased due to death) 
 	}
-	
+
 	/**
 	 * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
 	 */
-	@Override
 	public String getType()
 	{
 		return _S__F3_ETCSTATUSUPDATE;

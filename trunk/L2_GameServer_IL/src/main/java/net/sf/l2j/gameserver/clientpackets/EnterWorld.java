@@ -189,7 +189,6 @@ public class EnterWorld extends L2GameClientPacket
             activeChar.setProtection(true);
         
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-		activeChar.sendPacket(new EtcStatusUpdate(activeChar));
 		
 		ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(activeChar));
 		
@@ -201,9 +200,12 @@ public class EnterWorld extends L2GameClientPacket
 		
 		if (SevenSigns.getInstance().isSealValidationPeriod())
             sendPacket(new SignsSky());
-        
+
+        // Buff and status icons
         if (Config.STORE_SKILL_COOLTIME)
             activeChar.restoreEffects();
+
+        activeChar.sendPacket(new EtcStatusUpdate(activeChar));
         
         if (activeChar.getAllEffects() != null)
         {

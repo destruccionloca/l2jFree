@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -2694,11 +2695,11 @@ public abstract class L2Skill
             env.target = effector;
             env.skill = this;
             L2Effect e = et.getEffect(env);
-            if (e != null)                
+            if (e != null)
             {
                 //Implements effect charge
                 if (e.getEffectType()== L2Effect.EffectType.CHARGE)
-                {               
+                {
                     env.skill = SkillTable.getInstance().getInfo(8, effector.getSkillLevel(8));
                     EffectCharge effect = (EffectCharge) env.target.getEffect(L2Effect.EffectType.CHARGE);
                     if (effect != null) 
@@ -2706,15 +2707,18 @@ public abstract class L2Skill
                         if (effect.numCharges < _numCharges)
                         {
                             effect.numCharges++;
-                            env.target.updateEffectIcons();
-                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                            sm.addString("Charged to " + effect.numCharges);
-                            env.target.sendPacket(sm);
-                        }                
+                            if (env.target instanceof L2PcInstance)
+                            {
+                                env.target.sendPacket(new EtcStatusUpdate((L2PcInstance)env.target));
+                                SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
+                                sm.addNumber(effect.numCharges);
+                                env.target.sendPacket(sm);
+                            }
+                        }
                     }
                     else effects.add(e);
                 }
-                else effects.add(e);                
+                else effects.add(e);
             }
         }
         if (effects.size() == 0) return _emptyEffectSet;

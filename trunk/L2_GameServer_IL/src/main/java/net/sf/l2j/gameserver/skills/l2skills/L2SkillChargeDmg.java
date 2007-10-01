@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
@@ -77,22 +78,21 @@ public class L2SkillChargeDmg extends L2Skill
 			caster.sendPacket(sm);
 			return;
 		}
-        double modifier = 0;
-        modifier = (effect.numCharges-numCharges)*0.33;		
+		double modifier = 0;
+		modifier = (effect.numCharges-numCharges)*0.33;
 		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE)
 			effect.numCharges -= numCharges;
-        //effect.num_charges = 0;
-		caster.updateEffectIcons();
-        if (effect.numCharges == 0)
-        	effect.exit();
-        for(int index = 0;index < targets.length;index++)
-        {
-        	L2ItemInstance weapon = caster.getActiveWeaponInstance();
-					L2Character target = (L2Character)targets[index];
+		if (caster instanceof L2PcInstance)
+			caster.sendPacket(new EtcStatusUpdate((L2PcInstance)caster));
+		if (effect.numCharges == 0)
+			effect.exit();
+		for (int index = 0;index < targets.length;index++)
+		{
+			L2ItemInstance weapon = caster.getActiveWeaponInstance();
+			L2Character target = (L2Character)targets[index];
 			if (target.isAlikeDead())
-            {
 				continue;
-            }
+
 			// TODO: should we use dual or not?
 			// because if so, damage are lowered but we dont do anything special with dual then
 			// like in doAttackHitByDual which in fact does the calcPhysDam call twice
@@ -100,14 +100,15 @@ public class L2SkillChargeDmg extends L2Skill
 			//boolean dual  = caster.isUsingDualWeapon();
 			boolean shld = Formulas.getInstance().calcShldUse(caster, target);
 			boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
-			boolean soul = (weapon!= null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() != L2WeaponType.DAGGER );
-			
+			boolean soul = (weapon != null 
+							&& weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT 
+							&& weapon.getItemType() != L2WeaponType.DAGGER );			
 			int damage = (int)Formulas.getInstance().calcPhysDam(caster, target, this, shld, false, false, soul);
 			
 			if (damage > 0)
-            {
-                double finalDamage = damage;
-                finalDamage = finalDamage+(modifier*finalDamage);
+			{
+				double finalDamage = damage;
+				finalDamage = finalDamage+(modifier*finalDamage);
 				target.reduceCurrentHp(finalDamage, caster);
 				
 				caster.sendDamageMessage(target, (int)finalDamage, false, crit, false);
@@ -115,18 +116,18 @@ public class L2SkillChargeDmg extends L2Skill
 				if (soul && weapon!= null)
 					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 			}
-            else
-            {
+			else
+			{
 				caster.sendDamageMessage(target, 0, false, false, true);
 			}
 		}        // effect self :]
-        L2Effect seffect = caster.getEffect(getId());
-        if (seffect != null && seffect.isSelfEffect())
-        {             
-            //Replace old effect with new one.
-            seffect.exit();
-        }
-        // cast self effect if any
-        getEffectsSelf(caster);
+		L2Effect seffect = caster.getEffect(getId());
+		if (seffect != null && seffect.isSelfEffect())
+		{
+			//Replace old effect with new one.
+			seffect.exit();
+		}
+		// cast self effect if any
+		getEffectsSelf(caster);
 	}
 }

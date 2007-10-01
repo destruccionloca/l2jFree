@@ -794,6 +794,7 @@ public final class Config
     public static int           	INVENTORY_MAXIMUM_GM;				// Inventory slots limits
     public static String			FORBIDDEN_RAID_SKILLS;
     public static FastList<Integer> FORBIDDEN_RAID_SKILLS_LIST  = new FastList<Integer>();
+    public static int           	DEATH_PENALTY_CHANCE;				// Death Penalty chance
     //  *******************************************************************************************    
     //  *******************************************************************************************
     public static void loadOtherConfig()
@@ -865,8 +866,8 @@ public final class Config
             RESPAWN_RESTORE_HP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreHP", "70")) / 100;
             RESPAWN_RESTORE_MP = Double.parseDouble(otherSettings.getProperty("RespawnRestoreMP", "70")) / 100;
             
-         	RESPAWN_RANDOM_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("RespawnRandomInTown", "False")); 
-         	RESPAWN_RANDOM_MAX_OFFSET = Integer.parseInt(otherSettings.getProperty("RespawnRandomMaxOffset", "50")); 
+            RESPAWN_RANDOM_ENABLED = Boolean.parseBoolean(otherSettings.getProperty("RespawnRandomInTown", "False")); 
+            RESPAWN_RANDOM_MAX_OFFSET = Integer.parseInt(otherSettings.getProperty("RespawnRandomMaxOffset", "50")); 
             
             /* Maximum number of available slots for pvt stores */
             MAX_PVTSTORE_SLOTS_DWARF = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsDwarf", "5"));
@@ -876,14 +877,16 @@ public final class Config
             
             PET_RENT_NPC =  otherSettings.getProperty("ListPetRentNpc", "30827"); 
             LIST_PET_RENT_NPC = new FastList<Integer>(); 
-            for (String id : PET_RENT_NPC.split(",")) { 
-            	LIST_PET_RENT_NPC.add(Integer.parseInt(id)); 
+            for (String id : PET_RENT_NPC.split(","))
+            { 
+                LIST_PET_RENT_NPC.add(Integer.parseInt(id)); 
             }
 
             NONDROPPABLE_ITEMS        = otherSettings.getProperty("ListOfNonDroppableItems", "1147,425,1146,461,10,2368,7,6,2370,2369,5598");
             
             LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
-            for (String id : NONDROPPABLE_ITEMS.trim().split(",")) {
+            for (String id : NONDROPPABLE_ITEMS.trim().split(","))
+            {
                 LIST_NONDROPPABLE_ITEMS.add(Integer.parseInt(id.trim()));
             }
             
@@ -898,16 +901,19 @@ public final class Config
             
             ALLOWED_NPC_TYPES  = otherSettings.getProperty("AllowedNPCTypes");
             LIST_ALLOWED_NPC_TYPES = new FastList<String>();
-            for (String npc_type : ALLOWED_NPC_TYPES.trim().split(",")) 
+            for (String npc_type : ALLOWED_NPC_TYPES.trim().split(","))
             {
                 LIST_ALLOWED_NPC_TYPES.add(npc_type.trim());
             }
             
             FORBIDDEN_RAID_SKILLS = otherSettings.getProperty("ForbiddenRaidSkills", "1064,100");
             FORBIDDEN_RAID_SKILLS_LIST = new FastList<Integer>();
-            for (String id : FORBIDDEN_RAID_SKILLS.trim().split(",")) {
-            	FORBIDDEN_RAID_SKILLS_LIST.add(Integer.parseInt(id.trim()));
+            for (String id : FORBIDDEN_RAID_SKILLS.trim().split(","))
+            {
+                FORBIDDEN_RAID_SKILLS_LIST.add(Integer.parseInt(id.trim()));
             }
+
+            DEATH_PENALTY_CHANCE = Integer.parseInt(otherSettings.getProperty("DeathPenaltyChance", "20"));
         }
         catch (Exception e)
         {

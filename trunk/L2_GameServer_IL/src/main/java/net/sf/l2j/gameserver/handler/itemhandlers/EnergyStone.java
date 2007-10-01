@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
@@ -60,11 +61,11 @@ public class EnergyStone implements IItemHandler
         if (classid == 2 || classid == 48 || classid == 88 || classid == 114)
         {
       
-        	if (activeChar.isAllSkillsDisabled())
-        	{
-        		ActionFailed af = new ActionFailed();
-        		activeChar.sendPacket(af);
-        		return;
+            if (activeChar.isAllSkillsDisabled())
+            {
+                ActionFailed af = new ActionFailed();
+                activeChar.sendPacket(af);
+                return;
             }
 
             if (activeChar.isSitting())
@@ -89,9 +90,9 @@ public class EnergyStone implements IItemHandler
                 L2Skill dummy = SkillTable.getInstance().getInfo(_skill.getId(),_skill.getLevel());
                 if (dummy != null) 
                 {
-                	dummy.getEffects(null, activeChar);
-                	activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false);
-                	return;
+                    dummy.getEffects(null, activeChar);
+                    activeChar.destroyItemWithoutTrace("Consume", item.getObjectId(), 1, null, false);
+                    return;
                 }
                 return;
             }
@@ -102,7 +103,7 @@ public class EnergyStone implements IItemHandler
                 activeChar.sendPacket(MSU);
                 activeChar.broadcastPacket(MSU);
                 _effect.addNumCharges(1);
-                activeChar.updateEffectIcons();
+                activeChar.sendPacket(new EtcStatusUpdate(activeChar));
                 activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
             }
             else if (_effect.getLevel() == 2)
@@ -130,7 +131,7 @@ public class EnergyStone implements IItemHandler
         {
             if (e.getSkill().getSkillType() == L2Skill.SkillType.CHARGE)
             {
-                return (EffectCharge)e;    
+                return (EffectCharge)e;
             }
         }
         return null;
