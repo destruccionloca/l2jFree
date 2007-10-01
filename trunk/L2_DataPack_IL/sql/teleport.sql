@@ -723,7 +723,7 @@ INSERT INTO `teleport` VALUES
 ('Rune(artifact -> hall)',15027,11729,-49154,-537,0,0),
 -- ('Rune(hall -> artifact)',15028,19049,-49141,-1258,0,0), -- Need coord
 ('Rune(hall -> out)',15029,16981,-49170,-1098,0,0),
-('Rune(hall -> outofcastle)',150230,19049,-49141,-1258,0,0),
+('Rune(hall -> outofcastle)',15030,19049,-49141,-1258,0,0),
 -- ('Rune(out -> artifact)',15031,19049,-49141,-1258,0,0), -- Need coord
 ('Rune(out -> hall)',15032,11732,-49154,-537,0,0),
 ('Rune(out -> outofcastle)',15033,19049,-49141,-1258,0,0),
