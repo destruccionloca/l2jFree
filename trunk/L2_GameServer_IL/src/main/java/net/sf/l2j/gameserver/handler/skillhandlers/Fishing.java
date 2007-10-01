@@ -147,7 +147,7 @@ public class Fishing implements ISkillHandler
         }
         
         // client itself find z coord of a float
-        player.startFishing(x,y, z + 100);      
+        player.startFishing(x,y, z + 10);      
     } 
     
     public SkillType[] getSkillIds() 

@@ -44,357 +44,367 @@ import org.w3c.dom.Node;
 
 public class ZoneManager
 {
-	protected static Log _log = LogFactory.getLog(ZoneManager.class.getName());
+    protected static Log _log = LogFactory.getLog(ZoneManager.class.getName());
 
-	private static ZoneManager _instance;
+    private static ZoneManager _instance;
 
-	public static final ZoneManager getInstance()
-	{
-		if (_instance == null)
-		{
-			_log.info("Initializing ZoneManager");
-			_instance = new ZoneManager();
-			_instance.load();
-		}
-		return _instance;
-	}
+    public static final ZoneManager getInstance()
+    {
+        if (_instance == null)
+        {
+            _log.info("Initializing ZoneManager");
+            _instance = new ZoneManager();
+            _instance.load();
+        }
+        return _instance;
+    }
 
-	private FastMap<Short, FastMap<ZoneType, FastList<IZone>>> _zoneMap;
-	
-	public ZoneManager()
-	{
-	}
+    private FastMap<Short, FastMap<ZoneType, FastList<IZone>>> _zoneMap;
 
-	public boolean checkIfInZoneXY(ZoneType zoneType, L2Object obj)
-	{
-		return checkIfInZone(zoneType, obj.getX(), obj.getY());
-	}
-	
-	public boolean checkIfInZone(ZoneType zoneType, L2Object obj)
-	{
-		return checkIfInZone(zoneType, obj.getX(), obj.getY(), obj.getZ());
-	}
+    public ZoneManager()
+    {
+    }
 
-	public boolean checkIfInZone(ZoneType zoneType, String zoneName, L2Object obj)
-	{
-		return checkIfInZone(zoneType, obj.getX(), obj.getY(), obj.getZ());
-	}
-	
-	public boolean checkIfInZone(ZoneType zoneType, int x, int y)
-	{
-		for (IZone zone : ZoneManager.getInstance().getZones(zoneType, x, y))
-			if (zone.checkIfInZone(x, y))
-				return true;
-		return false;
-	}
+    public boolean checkIfInZoneXY(ZoneType zoneType, L2Object obj)
+    {
+        return checkIfInZone(zoneType, obj.getX(), obj.getY());
+    }
 
-	public boolean checkIfInZone(ZoneType zoneType, String zoneName, int x, int y)
-	{
-		for (IZone zone : ZoneManager.getInstance().getZones(zoneType, x, y))
-			if (zone.getZoneName().equalsIgnoreCase(zoneName) && zone.checkIfInZone(x, y))
-				return true;
-		return false;
-	}
-	
-	public boolean checkIfInZone(ZoneType zoneType, int x, int y, int z)
-	{
-		for (IZone zone : ZoneManager.getInstance().getZones(zoneType, x, y))
-			if (zone.checkIfInZone(x, y, z))
-				return true;
-		return false;
-	}
-	
-	public boolean checkIfInZone(ZoneType zoneType, String zoneName, int x, int y, int z)
-	{
-		for (IZone zone : ZoneManager.getInstance().getZones(zoneType, x, y))
-			if (zone.getZoneName().equalsIgnoreCase(zoneName) && zone.checkIfInZone(x, y, z))
-				return true;
-		return false;
-	}
-	
-	public boolean checkIfInZonePeace(L2Object obj)
-	{
-		return checkIfInZonePeace(obj.getX(), obj.getY(), obj.getZ());
-	}
+    public boolean checkIfInZone(ZoneType zoneType, L2Object obj)
+    {
+        return checkIfInZone(zoneType, obj.getX(), obj.getY(), obj.getZ());
+    }
 
-	public boolean checkIfInZonePeace(int x, int y, int z)
-	{
-		Town town = TownManager.getInstance().getTown(x, y, z);
-		
-		if (town != null)
-			return town.isInPeace();
-		else
-			return (checkIfInZone(ZoneType.Peace, x, y, z) || 
-				    checkIfInZone(ZoneType.Newbie, x, y, z) ||
-			       (!Config.JAIL_IS_PVP && checkIfInZone(ZoneType.Jail, x, y, z)));
-	}
+    public boolean checkIfInZone(ZoneType zoneType, String zoneName, L2Object obj)
+    {
+        return checkIfInZone(zoneType, obj.getX(), obj.getY(), obj.getZ());
+    }
 
-	public boolean checkIfInZonePvP(L2Object obj)
-	{
-		return checkIfInZonePvP(obj.getX(), obj.getY(), obj.getZ());
-	}
+    public boolean checkIfInZone(ZoneType zoneType, int x, int y)
+    {
+        for (IZone zone : ZoneManager.getInstance().getZones(zoneType, x, y))
+            if (zone.checkIfInZone(x, y))
+                return true;
+        return false;
+    }
 
-	public boolean checkIfInZonePvP(int x, int y, int z)
-	{
-		Town town = TownManager.getInstance().getTown(x, y, z);
-		
-		if (town != null)
-			return !town.isInPeace();
-		else
-			return (checkIfInZone(ZoneType.Arena, x, y, z) ||
-					checkIfInZone(ZoneType.OlympiadStadia, x, y, z) ||
-			       (Config.JAIL_IS_PVP && checkIfInZone(ZoneType.Jail, x, y, z)));
-	}
+    public boolean checkIfInZone(ZoneType zoneType, String zoneName, int x, int y)
+    {
+        for (IZone zone : ZoneManager.getInstance().getZones(zoneType, x, y))
+            if (zone.getZoneName().equalsIgnoreCase(zoneName) && zone.checkIfInZone(x, y))
+                return true;
+        return false;
+    }
 
-	public final IZone getIfInZone(ZoneType zoneType, int x, int y, int z)
-	{
-		for (IZone zone : getZones(zoneType, x ,y))
-			if ((zone.getZoneType() == zoneType) && (zone.checkIfInZone(x, y, z)))
-				return zone;
-		return null;
-	}
+    public boolean checkIfInZone(ZoneType zoneType, int x, int y, int z)
+    {
+        for (IZone zone : ZoneManager.getInstance().getZones(zoneType, x, y))
+            if (zone.checkIfInZone(x, y, z))
+                return true;
+        return false;
+    }
 
-	public final IZone getIfInZone(ZoneType zoneType, int x, int y)
-	{
-		for (IZone zone : getZones(zoneType, x ,y))
-			if ((zone.getZoneType() == zoneType) && (zone.checkIfInZone(x, y)))
-				return zone;
-		return null;
-	}
-	
-	public void reload()
-	{
-		getZoneMap().clear();
-		load();
-	}
+    public boolean checkIfInZone(ZoneType zoneType, String zoneName, int x, int y, int z)
+    {
+        for (IZone zone : ZoneManager.getInstance().getZones(zoneType, x, y))
+            if (zone.getZoneName().equalsIgnoreCase(zoneName) && zone.checkIfInZone(x, y, z))
+                return true;
+        return false;
+    }
 
-	private void load()
-	{
-		Document doc = null;
+    public boolean checkIfInZonePeace(L2Object obj)
+    {
+        return checkIfInZonePeace(obj.getX(), obj.getY(), obj.getZ());
+    }
 
-		for (File f : Util.getDatapackFiles("zone", ".xml"))
-		{
-			try
-			{
-				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-				factory.setValidating(false);
-				factory.setIgnoringComments(true);
-				doc = factory.newDocumentBuilder().parse(f);
-			} catch (Exception e)
-			{
-				_log.fatal("ZoneManager: Error loading file " + f.getAbsolutePath(), e);
-			}
-			try
-			{
-				parseDocument(doc);
-			} catch (Exception e)
-			{
-				_log.fatal("ZoneManager: Error in file " + f.getAbsolutePath(), e);
-			}
-		}
+    public boolean checkIfInZonePeace(int x, int y, int z)
+    {
+        Town town = TownManager.getInstance().getTown(x, y, z);
 
-		for (ZoneType zt : ZoneType.values())
-		{
-			_log.info("ZoneManager: Loaded '" + zt.toString() + "': " + getZones(zt).size() + " region(s).");
-		}
-	}
+        if (town != null)
+            return town.isInPeace();
+        else
+            return (checkIfInZone(ZoneType.Peace, x, y, z) || checkIfInZone(ZoneType.Newbie, x, y, z) || (!Config.JAIL_IS_PVP && checkIfInZone(
+                    ZoneType.Jail, x, y, z)));
+    }
 
-	protected void parseDocument(Document doc)
-	{
-		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
-		{
-			if ("list".equalsIgnoreCase(n.getNodeName()))
-			{
-				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
-				{
-					if ("item".equalsIgnoreCase(d.getNodeName()))
-					{
-						IZone zone = parseEntry(d);
-						if (zone != null)
-						addZone(zone);
-					}
-				}
-			} else if ("item".equalsIgnoreCase(n.getNodeName()))
-			{
-				IZone zone = parseEntry(n);
-				if (zone != null)
-				addZone(zone);
-			}
-		}
-	}
+    public boolean checkIfInZonePvP(L2Object obj)
+    {
+        return checkIfInZonePvP(obj.getX(), obj.getY(), obj.getZ());
+    }
 
-	protected IZone parseEntry(Node n)
-	{
-		int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
-		String name = n.getAttributes().getNamedItem("name").getNodeValue();
-		int castleId = 0;
-		int townId = 0;
-		String typeName = "";
+    public boolean checkIfInZonePvP(int x, int y, int z)
+    {
+        Town town = TownManager.getInstance().getTown(x, y, z);
 
-		List<Point3D> points = new FastList<Point3D>();
-		Map<RestartType, Point3D> restarts = new FastMap<RestartType, Point3D>();
+        if (town != null)
+            return !town.isInPeace();
+        else
+            return (checkIfInZone(ZoneType.Arena, x, y, z) || checkIfInZone(ZoneType.OlympiadStadia, x, y, z) || (Config.JAIL_IS_PVP && checkIfInZone(
+                    ZoneType.Jail, x, y, z)));
+    }
 
-		Node first = n.getFirstChild();
-		for (n = first; n != null; n = n.getNextSibling())
-		{
-			if ("restart".equalsIgnoreCase(n.getNodeName()))
-			{
-				restarts.put(RestartType.RestartNormal, parsePoint(n));
+    public final IZone getIfInZone(ZoneType zoneType, int x, int y, int z)
+    {
+        for (IZone zone : getZones(zoneType, x, y))
+            if ((zone.getZoneType() == zoneType) && (zone.checkIfInZone(x, y, z)))
+                return zone;
+        return null;
+    }
 
-			} else if ("point".equalsIgnoreCase(n.getNodeName()))
-			{
-				points.add(parsePoint(n));
-			} else if ("restart_chaotic".equalsIgnoreCase(n.getNodeName()))
-			{
-				restarts.put(RestartType.RestartChaotic, parsePoint(n));
-			} else if ("restart_owner".equalsIgnoreCase(n.getNodeName()))
-			{
-				restarts.put(RestartType.RestartOwner, parsePoint(n));
-			} else if ("castle".equalsIgnoreCase(n.getNodeName()))
-			{
-				castleId = Integer.parseInt(n.getTextContent());
+    public final IZone getIfInZone(ZoneType zoneType, int x, int y)
+    {
+        for (IZone zone : getZones(zoneType, x, y))
+            if ((zone.getZoneType() == zoneType) && (zone.checkIfInZone(x, y)))
+                return zone;
+        return null;
+    }
 
-			} else if ("town".equalsIgnoreCase(n.getNodeName()))
-			{
-				townId = Integer.parseInt(n.getTextContent());
+    public void reload()
+    {
+        getZoneMap().clear();
+        load();
+    }
 
-			} else if ("type".equalsIgnoreCase(n.getNodeName()))
-			{
-				typeName = n.getTextContent();
-			}
-		}
+    private void load()
+    {
+        Document doc = null;
 
-		IZone zone;
-		ZoneType zoneType = ZoneType.getZoneTypeEnum(typeName);
+        for (File f : Util.getDatapackFiles("zone", ".xml"))
+        {
+            try
+            {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                factory.setValidating(false);
+                factory.setIgnoringComments(true);
+                doc = factory.newDocumentBuilder().parse(f);
+            } catch (Exception e)
+            {
+                _log.fatal("ZoneManager: Error loading file " + f.getAbsolutePath(), e);
+            }
+            try
+            {
+                parseDocument(doc);
+            } catch (Exception e)
+            {
+                _log.fatal("ZoneManager: Error in file " + f.getAbsolutePath(), e);
+            }
+        }
 
-		if (zoneType == null)
-		{
-			_log.error("ZoneManager: Unknown zone type '" + typeName + "' !");
-			return null;
-		}
-		
-		if ( (zoneType == ZoneType.Water && ! Config.ALLOW_WATER) ||
-				(zoneType == ZoneType.Fishing && ! Config.ALLOW_FISHING)) return null;
+        for (ZoneType zt : ZoneType.values())
+        {
+            _log.info("ZoneManager: Loaded '" + zt.toString() + "': " + getZones(zt).size() + " region(s).");
+        }
+    }
 
-		if (points.size() > 2)
-		{
-			zone = new ZonePoly(id, castleId, townId, name, zoneType);
-			points.add(points.get(0));
+    protected void parseDocument(Document doc)
+    {
+        for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
+        {
+            if ("list".equalsIgnoreCase(n.getNodeName()))
+            {
+                for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
+                {
+                    if ("item".equalsIgnoreCase(d.getNodeName()))
+                    {
+                        IZone zone = parseEntry(d);
+                        if (zone != null)
+                            addZone(zone);
+                    }
+                }
+            } else if ("item".equalsIgnoreCase(n.getNodeName()))
+            {
+                IZone zone = parseEntry(n);
+                if (zone != null)
+                    addZone(zone);
+            }
+        }
+    }
 
-		} else
-		if (points.size() == 2)
-		{
-			zone = new ZoneRect(id, castleId, townId, name, zoneType);
-		} else
-			return null;
-		
-		for (Point3D point : points)
-			zone.addPoint(point);
-		for (Map.Entry<RestartType, Point3D> restart : restarts.entrySet())
-			zone.addRestartPoint(restart.getKey(), restart.getValue());
-		
-		return zone;
-	}
+    protected IZone parseEntry(Node n)
+    {
+        int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
+        String name = n.getAttributes().getNamedItem("name").getNodeValue();
+        int castleId = 0;
+        int townId = 0;
+        String typeName = "";
 
-	protected Point3D parsePoint(Node n)
-	{
-		int x = Integer.parseInt(n.getAttributes().getNamedItem("x").getNodeValue());
-		int y = Integer.parseInt(n.getAttributes().getNamedItem("y").getNodeValue());
-		int z = 0;
-		if (n.getAttributes().getNamedItem("z") != null)
-			z = Integer.parseInt(n.getAttributes().getNamedItem("z").getNodeValue());
+        List<Point3D> points = new FastList<Point3D>();
+        Map<RestartType, Point3D> restarts = new FastMap<RestartType, Point3D>();
 
-		return new Point3D(x, y, z);
-	}
+        Node first = n.getFirstChild();
+        for (n = first; n != null; n = n.getNextSibling())
+        {
+            if ("restart".equalsIgnoreCase(n.getNodeName()))
+            {
+                restarts.put(RestartType.RestartNormal, parsePoint(n));
 
-	public final void addZone(IZone zone)
-	{
-		short region = 0;
-		short region_new = 0;
+            } else if ("point".equalsIgnoreCase(n.getNodeName()))
+            {
+                points.add(parsePoint(n));
+            } else if ("restart_chaotic".equalsIgnoreCase(n.getNodeName()))
+            {
+                restarts.put(RestartType.RestartChaotic, parsePoint(n));
+            } else if ("restart_owner".equalsIgnoreCase(n.getNodeName()))
+            {
+                restarts.put(RestartType.RestartOwner, parsePoint(n));
+            } else if ("castle".equalsIgnoreCase(n.getNodeName()))
+            {
+                castleId = Integer.parseInt(n.getTextContent());
 
-		for (int x = (zone.getMin().getX() >> 15) << 15; x <= (zone.getMax().getX() >> 15) << 15 ; x += (1 << 15))
-		{
-			for (int y = (zone.getMin().getY() >> 15) << 15; y <= (zone.getMax().getY() >> 15) << 15 ; y += (1 << 15))
-			{
-				region_new = getMapRegion(x, y);
-				if (region != region_new)
-				{
-					region = region_new;
-					FastList<IZone> zones = getZones(zone.getZoneType(), region);
-					if (!zones.contains(zone))
-						zones.add(zone);
-				}
-			}
-		}
-	}
-	
-	public final IZone getZone(ZoneType zoneType, int id)
-	{
-		for (IZone zone : getZones(zoneType))
-			if (zone.getId() == id)
-				return zone;
-		return null;
-	}
+            } else if ("town".equalsIgnoreCase(n.getNodeName()))
+            {
+                townId = Integer.parseInt(n.getTextContent());
 
-	public final IZone getZone(ZoneType zoneType, String zoneName)
-	{
-		for (IZone zone : getZones(zoneType))
-			if (zone.getZoneName().equalsIgnoreCase(zoneName))
-				return zone;
-		return null;
-	}
+            } else if ("type".equalsIgnoreCase(n.getNodeName()))
+            {
+                typeName = n.getTextContent();
+            }
+        }
 
-	public final FastList<IZone> getZones(ZoneType zoneType, String zoneName)
-	{
-		FastList<IZone> zones = new FastList<IZone>();
-		
-		for (IZone zone : getZones(zoneType))
-			if (zone.getZoneName().equalsIgnoreCase(zoneName))
-				zones.add(zone);
-		
-		return zones;
-	}
-	
-	public final FastList<IZone> getZones(ZoneType zoneType)
-	{
-		FastList<IZone> zones = new FastList<IZone>();
+        IZone zone;
+        ZoneType zoneType = ZoneType.getZoneTypeEnum(typeName);
 
-		for (short region : getZoneMap().keySet())
-			for (Map.Entry<ZoneType, FastList<IZone>> zt : getZoneMap().get(region).entrySet())
-				if (zt.getKey() == zoneType)
-					zones.addAll(zt.getValue());
+        if (zoneType == null)
+        {
+            _log.error("ZoneManager: Unknown zone type '" + typeName + "' !");
+            return null;
+        }
 
-		return zones;
-	}
-	
-	public final FastList<IZone> getZones(ZoneType zoneType, int x, int y)
-	{
-		return getZones(zoneType, getMapRegion(x, y));
-	}
+        if ((zoneType == ZoneType.Water && !Config.ALLOW_WATER) || (zoneType == ZoneType.Fishing && !Config.ALLOW_FISHING))
+            return null;
 
-	public final FastList<IZone> getZones(ZoneType zoneType, short region)
-	{
-		FastList<IZone> zones;
+        if (points.size() > 2)
+        {
+            zone = new ZonePoly(id, castleId, townId, name, zoneType);
+            points.add(points.get(0));
 
-		if (getZoneMap().get(region) == null)
-			getZoneMap().put(region, new FastMap<ZoneType, FastList<IZone>>());
+        } else if (points.size() == 2)
+        {
+            zone = new ZoneRect(id, castleId, townId, name, zoneType);
+        } else
+            return null;
 
-		if (getZoneMap().get(region).get(zoneType) == null)
-		{
-			zones = new FastList<IZone>();
-			getZoneMap().get(region).put(zoneType, zones);
-		}
+        for (Point3D point : points)
+            zone.addPoint(point);
+        for (Map.Entry<RestartType, Point3D> restart : restarts.entrySet())
+            zone.addRestartPoint(restart.getKey(), restart.getValue());
 
-		return getZoneMap().get(region).get(zoneType);
-	}
+        return zone;
+    }
 
-	public final FastMap<Short, FastMap<ZoneType, FastList<IZone>>> getZoneMap()
-	{
-		if (_zoneMap == null)
-			_zoneMap = new FastMap<Short, FastMap<ZoneType, FastList<IZone>>>();
-		return _zoneMap;
-	}
-    
+    protected Point3D parsePoint(Node n)
+    {
+        int x = Integer.parseInt(n.getAttributes().getNamedItem("x").getNodeValue());
+        int y = Integer.parseInt(n.getAttributes().getNamedItem("y").getNodeValue());
+        int z = 0;
+        if (n.getAttributes().getNamedItem("z") != null)
+            z = Integer.parseInt(n.getAttributes().getNamedItem("z").getNodeValue());
+
+        return new Point3D(x, y, z);
+    }
+
+    public final void addZone(IZone zone)
+    {
+        short region = 0;
+        short region_new = 0;
+        int multiRegion = 0;
+
+        for (int x = zone.getMin().getX(); x <= zone.getMax().getX(); x += (1 << 14))
+        {
+            for (int y = zone.getMin().getY(); y <= zone.getMax().getY(); y += (1 << 14))
+            {
+                region_new = getMapRegion(x, y);
+                if (region != region_new)
+                {
+                    region = region_new;
+                    FastList<IZone> zones = getZones(zone.getZoneType(), region);
+                    if (!zones.contains(zone))
+                    {
+                        zones.add(zone);
+                        multiRegion++;
+                        if (_log.isDebugEnabled())
+                            if (multiRegion > 1)
+                                _log.info("ZoneManager: multi-region zone (" + (region >> 8) + "_" + (region << 24 >> 24)
+                                        + "): " + zone.getId() + " " + zone.getZoneName());
+                            else
+                                _log.info("ZoneManager: adding zone       (" + (region >> 8) + "_" + (region << 24 >> 24)
+                                        + "): " + zone.getId() + " " + zone.getZoneName());
+
+                    }
+                }
+            }
+        }
+
+    }
+
+    public final IZone getZone(ZoneType zoneType, int id)
+    {
+        for (IZone zone : getZones(zoneType))
+            if (zone.getId() == id)
+                return zone;
+        return null;
+    }
+
+    public final IZone getZone(ZoneType zoneType, String zoneName)
+    {
+        for (IZone zone : getZones(zoneType))
+            if (zone.getZoneName().equalsIgnoreCase(zoneName))
+                return zone;
+        return null;
+    }
+
+    public final FastList<IZone> getZones(ZoneType zoneType, String zoneName)
+    {
+        FastList<IZone> zones = new FastList<IZone>();
+
+        for (IZone zone : getZones(zoneType))
+            if (zone.getZoneName().equalsIgnoreCase(zoneName))
+                zones.add(zone);
+
+        return zones;
+    }
+
+    public final FastList<IZone> getZones(ZoneType zoneType)
+    {
+        FastList<IZone> zones = new FastList<IZone>();
+
+        for (short region : getZoneMap().keySet())
+            for (Map.Entry<ZoneType, FastList<IZone>> zt : getZoneMap().get(region).entrySet())
+                if (zt.getKey() == zoneType)
+                    zones.addAll(zt.getValue());
+
+        return zones;
+    }
+
+    public final FastList<IZone> getZones(ZoneType zoneType, int x, int y)
+    {
+        return getZones(zoneType, getMapRegion(x, y));
+    }
+
+    public final FastList<IZone> getZones(ZoneType zoneType, short region)
+    {
+        FastList<IZone> zones;
+
+        if (getZoneMap().get(region) == null)
+            getZoneMap().put(region, new FastMap<ZoneType, FastList<IZone>>());
+
+        if (getZoneMap().get(region).get(zoneType) == null)
+        {
+            zones = new FastList<IZone>();
+            getZoneMap().get(region).put(zoneType, zones);
+        }
+
+        return getZoneMap().get(region).get(zoneType);
+    }
+
+    public final FastMap<Short, FastMap<ZoneType, FastList<IZone>>> getZoneMap()
+    {
+        if (_zoneMap == null)
+            _zoneMap = new FastMap<Short, FastMap<ZoneType, FastList<IZone>>>();
+        return _zoneMap;
+    }
+
     public static short getMapRegion(int x, int y)
     {
         int rx = ((x - L2World.MAP_MIN_X) >> 15) + 16;
