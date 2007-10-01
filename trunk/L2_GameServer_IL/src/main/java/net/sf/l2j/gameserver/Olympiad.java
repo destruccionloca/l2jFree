@@ -1478,7 +1478,13 @@ public class Olympiad
                             player.removeSkill(skill,false);
                         }
                     }
-
+                    //Abort casting if player casting
+                    if (player.isCastingNow())
+                    	player.abortCast();
+                    
+                    //Remove Buffs
+                    player.stopAllEffects();
+                    
                     //Remove Hero Skills
                     if (player.isHero())
                     {
@@ -1488,9 +1494,6 @@ public class Olympiad
                         }
                     }
 
-                    //Remove Buffs
-                    player.stopAllEffects();
-                    
                     //Remove Summon's Buffs
                     if (player.getPet() != null)
                     {
