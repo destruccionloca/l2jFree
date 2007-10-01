@@ -286,10 +286,9 @@ public class DimensionalRiftManager
         return getRooms(RoomType.Start).get((byte)1).checkIfInZone(x, y, z);
     }
 
-    public void teleportToWaitingRoom(L2PcInstance player)
+    public Location getWaitingRoomTeleport()
     {
-        Location loc = getRooms(RoomType.Start).get((byte)1).getTeleport();
-        player.teleToLocation(loc, false);
+        return getRooms(RoomType.Start).get((byte)1).getTeleport();
     }
 
     public void start(L2PcInstance player, RoomType roomType, L2NpcInstance npc)

@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
@@ -137,6 +138,17 @@ public class MapRegionTable
             ClanHall clanhall = null;
             int townId = getClosestTownNumber(player);
 
+            // Checking if in Dimensinal Gap
+            if (DimensionalRiftManager.getInstance().checkIfInRiftZone(player.getX(), player.getY(), player.getZ(), true)) // true -> ignore waiting room :)
+            {
+                if(player.isInParty() && player.getParty().isInDimensionalRift())
+                {
+                    player.getParty().getDimensionalRift().usedTeleport(player);
+                }
+                
+                return DimensionalRiftManager.getInstance().getWaitingRoomTeleport();
+            }
+            
             // Checking if in arena
             for (IZone arena : ZoneManager.getInstance().getZones(ZoneType.Arena, player.getX(), player.getY()))
             {

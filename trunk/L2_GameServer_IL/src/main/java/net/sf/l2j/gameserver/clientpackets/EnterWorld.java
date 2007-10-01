@@ -405,7 +405,7 @@ public class EnterWorld extends L2GameClientPacket
 
         if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
         {
-            DimensionalRiftManager.getInstance().teleportToWaitingRoom(activeChar);
+            activeChar.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
         }
 
 		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
