@@ -6536,14 +6536,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	//exclude VIP character
                 if(isCharViP() && Config.CHAR_VIP_SKIP_SKILLS_CHECK)
                     foundskill = true;
-        		// remove skill and do a lil log message
-	        	if(!foundskill)
-	        	{
-	        		removeSkill(skill);
-	        		sendMessage("Skill " + skill.getName() +" removed and gm informed!");
-	        		_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " VIP status :" +isCharViP()+ " got skill " + skill.getName() +" removed!");
-	        	}
-	        }
+                // remove skill and do a lil log message
+                if(!foundskill)
+                {
+                	removeSkill(skill);
+                	sendMessage("Skill " + skill.getName() +" removed and gm informed!");
+                	_log.fatal("Cheater! - Character " + getName() +" of Account " + getAccountName() + " VIP status :" +isCharViP()+ " got skill " + skill.getName() +" removed!");
+                }
+            }
         }
     }
     /**

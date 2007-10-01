@@ -369,6 +369,20 @@ public class EnterWorld extends L2GameClientPacket
         {
             engage(activeChar);
             notifyPartner(activeChar);
+            
+            // Check if player is maried and remove if necessary Cupid's Bow
+            if (!activeChar.isMaried())
+            {
+            	L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140);
+            	// Remove Cupid's Bow
+            	if (item != null)
+            	{
+            		activeChar.destroyItem("Removing Cupid's Bow", item, activeChar, true);
+            		activeChar.getInventory().updateDatabase();
+            		// Log it
+            		_log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
+            	}
+            }
         }
 
         // notify Friends
