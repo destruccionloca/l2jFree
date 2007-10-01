@@ -767,7 +767,10 @@ public class Siege
         if(!force)
         {
             if (getCastle().getOwnerId() <= 0)
+            {
                 player.sendMessage("You cannot register as a defender because "+getCastle().getName()+" is owned by NPC.");
+                return;
+            }
         }
 
         if ((force && player.getClan() != null) || checkIfCanRegister(player, 2))
