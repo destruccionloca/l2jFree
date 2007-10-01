@@ -312,9 +312,9 @@ public class ZoneManager
 		short region = 0;
 		short region_new = 0;
 
-		for (int x = (zone.getMin().getX() >> 15) << 15; x <= (zone.getMax().getX() >> 15) << 15 ; x += (1 << 15)-1)
+		for (int x = (zone.getMin().getX() >> 15) << 15; x <= (zone.getMax().getX() >> 15) << 15 ; x += (1 << 15))
 		{
-			for (int y = (zone.getMin().getY() >> 15) << 15; y <= (zone.getMax().getY() >> 15) << 15 ; y += (1 << 15)-1)
+			for (int y = (zone.getMin().getY() >> 15) << 15; y <= (zone.getMax().getY() >> 15) << 15 ; y += (1 << 15))
 			{
 				region_new = getMapRegion(x, y);
 				if (region != region_new)
