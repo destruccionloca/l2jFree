@@ -2,13 +2,13 @@
   <room id="1" name="Dimensional Rift">
     <type>Start</type>
     <teleport x="-114790" y="-180576" z="-6752" />
-    <point x="-115440" y="-114160" z="-6816" />
-    <point x="-182160" y="-178048" z="-6240" />
+    <point x="-115440" y="-182160" z="-6816" />
+    <point x="-114160" y="-178048" z="-6240" />
   </room>
   <room id="1" name="Dimensional Rift">
     <type>DimensionalRift</type>
-    <point x="-120576" y="-109024" z="-6816" />
-    <point x="-187328" y="-172880" z="-6240" />
+    <point x="-120576" y="-187328" z="-6816" />
+    <point x="-109024" y="-172880" z="-6240" />
   </room>
   <room id="1" name="Dimensional Rift (Recruit Room 1)">
     <type>Recruit</type>
@@ -19,8 +19,8 @@
     <spawn mobId="21661" count="4" delay="80" />
     <!-- Otherwordly Invader Soldier -->
     <spawn mobId="21660" count="2" delay="90" />
-    <point x="-112368" y="-111584" z="-6816" />
-    <point x="-182832" y="-182064" z="-6240" />
+    <point x="-112368" y="-182832" z="-6816" />
+    <point x="-111584" y="-182064" z="-6240" />
   </room>
   <room id="2" name="Dimensional Rift (Recruit Room 2)">
     <type>Recruit</type>
@@ -31,8 +31,8 @@
     <spawn mobId="21663" count="2" delay="90" />
     <!-- Otherwordly Invader Elite Soldier -->
     <spawn mobId="21662" count="3" delay="90" />
-    <point x="-111472" y="-110704" z="-6816" />
-    <point x="-182832" y="-182064" z="-6240" />
+    <point x="-111472" y="-182832" z="-6816" />
+    <point x="-110704" y="-182064" z="-6240" />
   </room>
   <room id="3" name="Dimensional Rift (Recruit Room 3)">
     <type>Recruit</type>
@@ -43,8 +43,8 @@
     <spawn mobId="21667" count="2" delay="86" />
     <!-- Otherwordly Invader Magus -->
     <spawn mobId="21665" count="2" delay="86" />
-    <point x="-110688" y="-109904" z="-6816" />
-    <point x="-180944" y="-180176" z="-6240" />
+    <point x="-110688" y="-180944" z="-6816" />
+    <point x="-109904" y="-180176" z="-6240" />
   </room>
   <room id="4" name="Dimensional Rift (Recruit Room 4)">
     <type>Recruit</type>
@@ -55,8 +55,8 @@
     <spawn mobId="21669" count="2" delay="101" />
     <!-- Otherwordly Invader Berserker -->
     <spawn mobId="21670" count="2" delay="101" />
-    <point x="-109808" y="-109024" z="-6816" />
-    <point x="-180944" y="-180176" z="-6240" />
+    <point x="-109808" y="-180944" z="-6816" />
+    <point x="-109024" y="-180176" z="-6240" />
   </room>
   <room id="5" name="Dimensional Rift (Recruit Room 5)">
     <type>Recruit</type>
@@ -67,8 +67,8 @@
     <spawn mobId="21672" count="3" delay="82" />
     <!-- Otherwordly Invader Elite Soldier -->
     <spawn mobId="21673" count="3" delay="82" />
-    <point x="-114032" y="-112496" z="-6816" />
-    <point x="-181968" y="-181072" z="-6240" />
+    <point x="-114032" y="-181968" z="-6816" />
+    <point x="-112496" y="-181072" z="-6240" />
   </room>
   <room id="6" name="Dimensional Rift (Recruit Room 6)">
     <type>Recruit</type>
@@ -79,8 +79,8 @@
     <spawn mobId="21676" count="4" delay="52" />
     <!-- Otherwordly Invader Elite Soldier -->
     <spawn mobId="21674" count="4" delay="52" />
-    <point x="-112368" y="-110816" z="-6816" />
-    <point x="-181008" y="-180112" z="-6240" />
+    <point x="-112368" y="-181008" z="-6816" />
+    <point x="-110816" y="-180112" z="-6240" />
   </room>
   <room id="7" name="Dimensional Rift (Recruit Room 7)">
     <type>Recruit</type>
@@ -91,8 +91,8 @@
     <spawn mobId="21678" count="4" delay="100" />
     <!-- Otherwordly Invader Food -->
     <spawn mobId="18288" count="4" delay="100" />
-    <point x="-110576" y="-109024" z="-6816" />
-    <point x="-182896" y="-182000" z="-6240" />
+    <point x="-110576" y="-182896" z="-6816" />
+    <point x="-109024" y="-182000" z="-6240" />
   </room>
   <room id="8" name="Dimensional Rift (Recruit Room 8)">
     <type>Recruit</type>
@@ -103,8 +103,8 @@
     <spawn mobId="21681" count="4" delay="137" />
     <!-- Otherwordly Invader Elite Soldier -->
     <spawn mobId="21680" count="4" delay="137" />
-    <point x="-112368" y="-110816" z="-6816" />
-    <point x="-181968" y="-181072" z="-6240" />
+    <point x="-112368" y="-181968" z="-6816" />
+    <point x="-110816" y="-181072" z="-6240" />
   </room>
   <room id="9" name="Dimensional Rift (Recruit Room 9)">
     <type>Recruit</type>
@@ -112,10 +112,9 @@
     <teleport x="-109912" y="-181520" z="-6752" />
     <!-- Anakazel -->
     <spawn mobId="25333" count="1" delay="300" />
-    <point x="-110688" y="-109136" z="-6816" />
-    <point x="-181968" y="-181072" z="-6240" />
+    <point x="-110688" y="-181968" z="-6816" />
+    <point x="-109136" y="-181072" z="-6240" />
   </room>
-
   <room id="1" name="Dimensional Rift (Soldier Room 1)">
     <type>Soldier</type>
     <teleport x="-111976" y="-179624" z="-6752" />
@@ -125,8 +124,8 @@
     <spawn mobId="21684" count="4" delay="80" />
     <!-- Dimension Invader Soldier -->
     <spawn mobId="21683" count="2" delay="90" />
-    <point x="-112368" y="-111584" z="-6816" />
-    <point x="-180016" y="-179232" z="-6240" />
+    <point x="-112368" y="-180016" z="-6816" />
+    <point x="-111584" y="-179232" z="-6240" />
   </room>
   <room id="2" name="Dimensional Rift (Soldier Room 2)">
     <type>Soldier</type>
@@ -137,8 +136,8 @@
     <spawn mobId="21686" count="2" delay="90" />
     <!-- Dimension Invader Elite Soldier -->
     <spawn mobId="21685" count="3" delay="90" />
-    <point x="-111472" y="-110704" z="-6816" />
-    <point x="-180016" y="-179232" z="-6240" />
+    <point x="-111472" y="-180016" z="-6816" />
+    <point x="-110704" y="-179232" z="-6240" />
   </room>
   <room id="3" name="Dimensional Rift (Soldier Room 3)">
     <type>Soldier</type>
@@ -149,8 +148,8 @@
     <spawn mobId="21690" count="2" delay="86" />
     <!-- Dimension Invader Magus -->
     <spawn mobId="21688" count="2" delay="86" />
-    <point x="-110688" y="-109904" z="-6816" />
-    <point x="-178128" y="-177360" z="-6240" />
+    <point x="-110688" y="-178128" z="-6816" />
+    <point x="-109904" y="-177360" z="-6240" />
   </room>
   <room id="4" name="Dimensional Rift (Soldier Room 4)">
     <type>Soldier</type>
@@ -161,8 +160,8 @@
     <spawn mobId="21692" count="2" delay="101" />
     <!-- Dimension Invader Berserker -->
     <spawn mobId="21693" count="2" delay="101" />
-    <point x="-109808" y="-109024" z="-6816" />
-    <point x="-178128" y="-177360" z="-6240" />
+    <point x="-109808" y="-178128" z="-6816" />
+    <point x="-109024" y="-177360" z="-6240" />
   </room>
   <room id="5" name="Dimensional Rift (Soldier Room 5)">
     <type>Soldier</type>
@@ -173,8 +172,8 @@
     <spawn mobId="21695" count="3" delay="82" />
     <!-- Dimension Invader Elite Soldier -->
     <spawn mobId="21696" count="3" delay="82" />
-    <point x="-114032" y="-112496" z="-6816" />
-    <point x="-179136" y="-178240" z="-6240" />
+    <point x="-114032" y="-179136" z="-6816" />
+    <point x="-112496" y="-178240" z="-6240" />
   </room>
   <room id="6" name="Dimensional Rift (Soldier Room 6)">
     <type>Soldier</type>
@@ -185,8 +184,8 @@
     <spawn mobId="21699" count="4" delay="52" />
     <!-- Dimension Invader Elite Soldier -->
     <spawn mobId="21697" count="4" delay="52" />
-    <point x="-112368" y="-110816" z="-6816" />
-    <point x="-178192" y="-177296" z="-6240" />
+    <point x="-112368" y="-178192" z="-6816" />
+    <point x="-110816" y="-177296" z="-6240" />
   </room>
   <room id="7" name="Dimensional Rift (Soldier Room 7)">
     <type>Soldier</type>
@@ -197,8 +196,8 @@
     <spawn mobId="21701" count="4" delay="100" />
     <!-- Dimension Invader Food -->
     <spawn mobId="18290" count="4" delay="100" />
-    <point x="-110576" y="-109024" z="-6816" />
-    <point x="-180064" y="-179168" z="-6240" />
+    <point x="-110576" y="-180064" z="-6816" />
+    <point x="-109024" y="-179168" z="-6240" />
   </room>
   <room id="8" name="Dimensional Rift (Soldier Room 8)">
     <type>Soldier</type>
@@ -209,8 +208,8 @@
     <spawn mobId="21704" count="4" delay="137" />
     <!-- Dimension Invader Elite Soldier -->
     <spawn mobId="21703" count="4" delay="137" />
-    <point x="-112368" y="-110816" z="-6816" />
-    <point x="-179136" y="-178240" z="-6240" />
+    <point x="-112368" y="-179136" z="-6816" />
+    <point x="-110816" y="-178240" z="-6240" />
   </room>
   <room id="9" name="Dimensional Rift (Soldier Room 9)">
     <type>Soldier</type>
@@ -218,10 +217,9 @@
     <!-- Anakazel -->
     <spawn mobId="25334" count="1" delay="300" />
     <teleport x="-109912" y="-178688" z="-6752" />
-    <point x="-110688" y="-109136" z="-6816" />
-    <point x="-179136" y="-178240" z="-6240" />
+    <point x="-110688" y="-179136" z="-6816" />
+    <point x="-109136" y="-178240" z="-6240" />
   </room>
-
   <room id="1" name="Dimensional Rift (Officer Room 1)">
     <type>Officer</type>
     <teleport x="-113872" y="-175824" z="-6752" />
@@ -231,8 +229,8 @@
     <spawn mobId="21707" count="4" delay="80" />
     <!-- Purgatory Invader Soldier -->
     <spawn mobId="21706" count="2" delay="90" />
-    <point x="-114256" y="-113488" z="-6816" />
-    <point x="-176208" y="-175440" z="-6240" />
+    <point x="-114256" y="-176208" z="-6816" />
+    <point x="-113488" y="-175440" z="-6240" />
   </room>
   <room id="2" name="Dimensional Rift (Officer Room 2)">
     <type>Officer</type>
@@ -243,8 +241,8 @@
     <spawn mobId="21709" count="2" delay="90" />
     <!-- Purgatory Invader Elite Soldier -->
     <spawn mobId="21708" count="3" delay="90" />
-    <point x="-114256" y="-113488" z="-6816" />
-    <point x="-175328" y="-174560" z="-6240" />
+    <point x="-114256" y="-175328" z="-6816" />
+    <point x="-113488" y="-174560" z="-6240" />
   </room>
   <room id="3" name="Dimensional Rift (Officer Room 3)">
     <type>Officer</type>
@@ -255,8 +253,8 @@
     <spawn mobId="21713" count="2" delay="86" />
     <!-- Purgatory Invader Magus -->
     <spawn mobId="21711" count="2" delay="86" />
-    <point x="-116144" y="-115360" z="-6816" />
-    <point x="-174544" y="-173760" z="-6240" />
+    <point x="-116144" y="-174544" z="-6816" />
+    <point x="-115360" y="-173760" z="-6240" />
   </room>
   <room id="4" name="Dimensional Rift (Officer Room 4)">
     <type>Officer</type>
@@ -267,8 +265,8 @@
     <spawn mobId="21715" count="2" delay="101" />
     <!-- Purgatory Invader Berserker -->
     <spawn mobId="21716" count="2" delay="101" />
-    <point x="-116144" y="-115360" z="-6816" />
-    <point x="-173648" y="-172880" z="-6240" />
+    <point x="-116144" y="-173648" z="-6816" />
+    <point x="-115360" y="-172880" z="-6240" />
   </room>
   <room id="5" name="Dimensional Rift (Officer Room 5)">
     <type>Officer</type>
@@ -279,8 +277,8 @@
     <spawn mobId="21719" count="3" delay="82" />
     <!-- Purgatory Invader Elite Soldier -->
     <spawn mobId="21718" count="3" delay="82" />
-    <point x="-115248" y="-114352" z="-6816" />
-    <point x="-177888" y="-176352" z="-6240" />
+    <point x="-115248" y="-177888" z="-6816" />
+    <point x="-114352" y="-176352" z="-6240" />
   </room>
   <room id="6" name="Dimensional Rift (Officer Room 6)">
     <type>Officer</type>
@@ -291,8 +289,8 @@
     <spawn mobId="21722" count="4" delay="52" />
     <!-- Purgatory Invader Elite Soldier -->
     <spawn mobId="21720" count="4" delay="52" />
-    <point x="-116208" y="-115312" z="-6816" />
-    <point x="-176208" y="-174672" z="-6240" />
+    <point x="-116208" y="-176208" z="-6816" />
+    <point x="-115312" y="-174672" z="-6240" />
   </room>
   <room id="7" name="Dimensional Rift (Officer Room 7)">
     <type>Officer</type>
@@ -303,8 +301,8 @@
     <spawn mobId="21724" count="4" delay="100" />
     <!-- Purgatory Invader Food -->
     <spawn mobId="18292" count="4" delay="100" />
-    <point x="-114320" y="-113424" z="-6816" />
-    <point x="-174416" y="-172880" z="-6240" />
+    <point x="-114320" y="-174416" z="-6816" />
+    <point x="-113424" y="-172880" z="-6240" />
   </room>
   <room id="8" name="Dimensional Rift (Officer Room 8)">
     <type>Officer</type>
@@ -315,8 +313,8 @@
     <spawn mobId="21727" count="4" delay="137" />
     <!-- Purgatory Invader Elite Soldier -->
     <spawn mobId="21726" count="4" delay="137" />
-    <point x="-115248" y="-114352" z="-6816" />
-    <point x="-176208" y="-174672" z="-6240" />
+    <point x="-115248" y="-176208" z="-6816" />
+    <point x="-114352" y="-174672" z="-6240" />
   </room>
   <room id="9" name="Dimensional Rift (Officer Room 9)">
     <type>Officer</type>
@@ -324,10 +322,9 @@
     <!-- Anakazel -->
     <spawn mobId="25335" count="1" delay="300" />
     <teleport x="-114800" y="-173832" z="-6752" />
-    <point x="-115248" y="-114352" z="-6816" />
-    <point x="-174528" y="-172992" z="-6240" />
+    <point x="-115248" y="-174528" z="-6816" />
+    <point x="-114352" y="-172992" z="-6240" />
   </room>
-
   <room id="1" name="Dimensional Rift (Captain Room 1)">
     <type>Captain</type>
     <teleport x="-117632" y="-177760" z="-6752" />
@@ -337,8 +334,8 @@
     <spawn mobId="21730" count="4" delay="80" />
     <!-- Forbidden Path Invader Elite Soldier -->
     <spawn mobId="21729" count="2" delay="90" />
-    <point x="-118016" y="-117248" z="-6816" />
-    <point x="-178144" y="-177376" z="-6240" />
+    <point x="-118016" y="-178144" z="-6816" />
+    <point x="-117248" y="-177376" z="-6240" />
   </room>
   <room id="2" name="Dimensional Rift (Captain Room 2)">
     <type>Captain</type>
@@ -349,8 +346,8 @@
     <spawn mobId="21732" count="2" delay="90" />
     <!-- Forbidden Path Invader Elite Soldier -->
     <spawn mobId="21731" count="3" delay="90" />
-    <point x="-118896" y="-118128" z="-6816" />
-    <point x="-178144" y="-177376" z="-6240" />
+    <point x="-118896" y="-178144" z="-6816" />
+    <point x="-118128" y="-177376" z="-6240" />
   </room>
   <room id="3" name="Dimensional Rift (Captain Room 3)">
     <type>Captain</type>
@@ -361,8 +358,8 @@
     <spawn mobId="21736" count="2" delay="86" />
     <!-- Forbidden Path Invader Magus -->
     <spawn mobId="21734" count="2" delay="86" />
-    <point x="-119696" y="-118912" z="-6816" />
-    <point x="-180032" y="-179248" z="-6240" />
+    <point x="-119696" y="-180032" z="-6816" />
+    <point x="-118912" y="-179248" z="-6240" />
   </room>
   <room id="4" name="Dimensional Rift (Captain Room 4)">
     <type>Captain</type>
@@ -373,8 +370,8 @@
     <spawn mobId="21738" count="2" delay="101" />
     <!-- Forbidden Path Invader Berserker -->
     <spawn mobId="21739" count="2" delay="101" />
-    <point x="-120576" y="-119808" z="-6816" />
-    <point x="-180032" y="-179248" z="-6240" />
+    <point x="-120576" y="-180032" z="-6816" />
+    <point x="-119808" y="-179248" z="-6240" />
   </room>
   <room id="5" name="Dimensional Rift (Captain Room 5)">
     <type>Captain</type>
@@ -385,8 +382,8 @@
     <spawn mobId="21741" count="3" delay="82" />
     <!-- Forbidden Path Invader Elite Soldier -->
     <spawn mobId="21742" count="3" delay="82" />
-    <point x="-117104" y="-115568" z="-6816" />
-    <point x="-179136" y="-178240" z="-6240" />
+    <point x="-117104" y="-179136" z="-6816" />
+    <point x="-115568" y="-178240" z="-6240" />
   </room>
   <room id="6" name="Dimensional Rift (Captain Room 6)">
     <type>Captain</type>
@@ -397,8 +394,8 @@
     <spawn mobId="21745" count="4" delay="52" />
     <!-- Forbidden Path Invader Elite Soldier -->
     <spawn mobId="21743" count="4" delay="52" />
-    <point x="-118784" y="-117248" z="-6816" />
-    <point x="-180096" y="-179200" z="-6240" />
+    <point x="-118784" y="-180096" z="-6816" />
+    <point x="-117248" y="-179200" z="-6240" />
   </room>
   <room id="7" name="Dimensional Rift (Captain Room 7)">
     <type>Captain</type>
@@ -409,8 +406,8 @@
     <spawn mobId="21747" count="4" delay="100" />
     <!-- Forbidden Path Invader Food -->
     <spawn mobId="18294" count="4" delay="100" />
-    <point x="-120576" y="-119040" z="-6816" />
-    <point x="-178208" y="-177312" z="-6240" />
+    <point x="-120576" y="-178208" z="-6816" />
+    <point x="-119040" y="-177312" z="-6240" />
   </room>
   <room id="8" name="Dimensional Rift (Captain Room 8)">
     <type>Captain</type>
@@ -421,8 +418,8 @@
     <spawn mobId="21750" count="4" delay="137" />
     <!-- Forbidden Path Invader Elite Soldier -->
     <spawn mobId="21749" count="4" delay="137" />
-    <point x="-118784" y="-117248" z="-6816" />
-    <point x="-179136" y="-178240" z="-6240" />
+    <point x="-118784" y="-179136" z="-6816" />
+    <point x="-117248" y="-178240" z="-6240" />
   </room>
   <room id="9" name="Dimensional Rift (Captain Room 9)">
     <type>Captain</type>
@@ -430,10 +427,9 @@
     <!-- Anakazel -->
     <spawn mobId="25336" count="1" delay="300" />
     <teleport x="-119696" y="-178688" z="-6752" />
-    <point x="-120464" y="-118928" z="-6816" />
-    <point x="-179136" y="-178240" z="-6240" />
+    <point x="-120464" y="-179136" z="-6816" />
+    <point x="-118928" y="-178240" z="-6240" />
   </room>
-
   <room id="1" name="Dimensional Rift (Commander Room 1)">
     <type>Commander</type>
     <teleport x="-117632" y="-180584" z="-6752" />
@@ -443,8 +439,8 @@
     <spawn mobId="21753" count="4" delay="80" />
     <!-- Dark Omen Invader Soldier -->
     <spawn mobId="21752" count="2" delay="90" />
-    <point x="-118016" y="-117248" z="-6816" />
-    <point x="-180976" y="-180192" z="-6240" />
+    <point x="-118016" y="-180976" z="-6816" />
+    <point x="-117248" y="-180192" z="-6240" />
   </room>
   <room id="2" name="Dimensional Rift (Commander Room 2)">
     <type>Commander</type>
@@ -455,8 +451,8 @@
     <spawn mobId="21755" count="2" delay="90" />
     <!-- Dark Omen Invader Elite Soldier -->
     <spawn mobId="21754" count="3" delay="90" />
-    <point x="-118896" y="-118128" z="-6816" />
-    <point x="-180976" y="-180192" z="-6240" />
+    <point x="-118896" y="-180976" z="-6816" />
+    <point x="-118128" y="-180192" z="-6240" />
   </room>
   <room id="3" name="Dimensional Rift (Commander Room 3)">
     <type>Commander</type>
@@ -467,8 +463,8 @@
     <spawn mobId="21759" count="2" delay="86" />
     <!-- Dark Omen Invader Magus -->
     <spawn mobId="21757" count="2" delay="86" />
-    <point x="-119696" y="-118912" z="-6816" />
-    <point x="-182848" y="-182080" z="-6240" />
+    <point x="-119696" y="-182848" z="-6816" />
+    <point x="-118912" y="-182080" z="-6240" />
   </room>
   <room id="4" name="Dimensional Rift (Commander Room 4)">
     <type>Commander</type>
@@ -479,8 +475,8 @@
     <spawn mobId="21761" count="2" delay="101" />
     <!-- Dark Omen Invader Berserker -->
     <spawn mobId="21762" count="2" delay="101" />
-    <point x="-120576" y="-119808" z="-6816" />
-    <point x="-182848" y="-182080" z="-6240" />
+    <point x="-120576" y="-182848" z="-6816" />
+    <point x="-119808" y="-182080" z="-6240" />
   </room>
   <room id="5" name="Dimensional Rift (Commander Room 5)">
     <type>Commander</type>
@@ -491,8 +487,8 @@
     <spawn mobId="21764" count="3" delay="82" />
     <!-- Dark Omen Invader Elite Soldier -->
     <spawn mobId="21765" count="3" delay="82" />
-    <point x="-117104" y="-115568" z="-6816" />
-    <point x="-181968" y="-181072" z="-6240" />
+    <point x="-117104" y="-181968" z="-6816" />
+    <point x="-115568" y="-181072" z="-6240" />
   </room>
   <room id="6" name="Dimensional Rift (Commander Room 6)">
     <type>Commander</type>
@@ -503,8 +499,8 @@
     <spawn mobId="21768" count="4" delay="52" />
     <!-- Dark Omen Invader Elite Soldier -->
     <spawn mobId="21766" count="4" delay="52" />
-    <point x="-118784" y="-117248" z="-6816" />
-    <point x="-182912" y="-182016" z="-6240" />
+    <point x="-118784" y="-182912" z="-6816" />
+    <point x="-117248" y="-182016" z="-6240" />
   </room>
   <room id="7" name="Dimensional Rift (Commander Room 7)">
     <type>Commander</type>
@@ -515,8 +511,8 @@
     <spawn mobId="21770" count="4" delay="100" />
     <!-- Dark Omen Invader Food -->
     <spawn mobId="18296" count="4" delay="100" />
-    <point x="-120576" y="-119040" z="-6816" />
-    <point x="-181040" y="-180144" z="-6240" />
+    <point x="-120576" y="-181040" z="-6816" />
+    <point x="-119040" y="-180144" z="-6240" />
   </room>
   <room id="8" name="Dimensional Rift (Commander Room 8)">
     <type>Commander</type>
@@ -527,8 +523,8 @@
     <spawn mobId="21773" count="4" delay="137" />
     <!-- Dark Omen Invader Elite Soldier -->
     <spawn mobId="21772" count="4" delay="137" />
-    <point x="-118784" y="-117248" z="-6816" />
-    <point x="-181968" y="-181072" z="-6240" />
+    <point x="-118784" y="-181968" z="-6816" />
+    <point x="-117248" y="-181072" z="-6240" />
   </room>
   <room id="9" name="Dimensional Rift (Commander Room 9)">
     <type>Commander</type>
@@ -536,10 +532,9 @@
     <!-- Anakazel -->
     <spawn mobId="25337" count="1" delay="300" />
     <teleport x="-119696" y="-181520" z="-6752" />
-    <point x="-120464" y="-118928" z="-6816" />
-    <point x="-181968" y="-181072" z="-6240" />
+    <point x="-120464" y="-181968" z="-6816" />
+    <point x="-118928" y="-181072" z="-6240" />
   </room>
-
   <room id="1" name="Dimensional Rift (Hero Room 1)">
     <type>Hero</type>
     <teleport x="-115728" y="-184384" z="-6752" />
@@ -549,8 +544,8 @@
     <spawn mobId="21776" count="4" delay="80" />
     <!-- Messenger Invader Soldier -->
     <spawn mobId="21775" count="2" delay="90" />
-    <point x="-116112" y="-115344" z="-6816" />
-    <point x="-184768" y="-184000" z="-6240" />
+    <point x="-116112" y="-184768" z="-6816" />
+    <point x="-115344" y="-184000" z="-6240" />
   </room>
   <room id="2" name="Dimensional Rift (Hero Room 2)">
     <type>Hero</type>
@@ -561,8 +556,8 @@
     <spawn mobId="21778" count="2" delay="90" />
     <!-- Messenger Invader Elite Soldier -->
     <spawn mobId="21777" count="3" delay="90" />
-    <point x="-116112" y="-115344" z="-6816" />
-    <point x="-185648" y="-184880" z="-6240" />
+    <point x="-116112" y="-185648" z="-6816" />
+    <point x="-115344" y="-184880" z="-6240" />
   </room>
   <room id="3" name="Dimensional Rift (Hero Room 3)">
     <type>Hero</type>
@@ -573,8 +568,8 @@
     <spawn mobId="21782" count="2" delay="86" />
     <!-- Messenger Invader Magus -->
     <spawn mobId="21780" count="2" delay="86" />
-    <point x="-114240" y="-113472" z="-6816" />
-    <point x="-186448" y="-185680" z="-6240" />
+    <point x="-114240" y="-186448" z="-6816" />
+    <point x="-113472" y="-185680" z="-6240" />
   </room>
   <room id="4" name="Dimensional Rift (Hero Room 4)">
     <type>Hero</type>
@@ -585,8 +580,8 @@
     <spawn mobId="21784" count="2" delay="101" />
     <!-- Messenger Invader Berserker -->
     <spawn mobId="21785" count="2" delay="101" />
-    <point x="-114240" y="-113472" z="-6816" />
-    <point x="-187328" y="-186560" z="-6240" />
+    <point x="-114240" y="-187328" z="-6816" />
+    <point x="-113472" y="-186560" z="-6240" />
   </room>
   <room id="5" name="Dimensional Rift (Hero Room 5)">
     <type>Hero</type>
@@ -597,8 +592,8 @@
     <spawn mobId="21787" count="3" delay="82" />
     <!-- Messenger Invader Elite Soldier -->
     <spawn mobId="21788" count="3" delay="82" />
-    <point x="-115248" y="-114352" z="-6816" />
-    <point x="-183856" y="-182320" z="-6240" />
+    <point x="-115248" y="-183856" z="-6816" />
+    <point x="-114352" y="-182320" z="-6240" />
   </room>
   <room id="6" name="Dimensional Rift (Hero Room 6)">
     <type>Hero</type>
@@ -609,8 +604,8 @@
     <spawn mobId="21791" count="4" delay="52" />
     <!-- Messenger Invader Elite Soldier -->
     <spawn mobId="21789" count="4" delay="52" />
-    <point x="-114304" y="-113408" z="-6816" />
-    <point x="-185536" y="-184000" z="-6240" />
+    <point x="-114304" y="-185536" z="-6816" />
+    <point x="-113408" y="-184000" z="-6240" />
   </room>
   <room id="7" name="Dimensional Rift (Hero Room 7)">
     <type>Hero</type>
@@ -621,8 +616,8 @@
     <spawn mobId="21793" count="4" delay="100" />
     <!-- Messenger Invader Food -->
     <spawn mobId="18298" count="4" delay="100" />
-    <point x="-116176" y="-115280" z="-6816" />
-    <point x="-187328" y="-185792" z="-6240" />
+    <point x="-116176" y="-187328" z="-6816" />
+    <point x="-115280" y="-185792" z="-6240" />
   </room>
   <room id="8" name="Dimensional Rift (Hero Room 8)">
     <type>Hero</type>
@@ -633,8 +628,8 @@
     <spawn mobId="21796" count="4" delay="137" />
     <!-- Messenger Invader Elite Soldier -->
     <spawn mobId="21795" count="4" delay="137" />
-    <point x="-115248" y="-114352" z="-6816" />
-    <point x="-185536" y="-184000" z="-6240" />
+    <point x="-115248" y="-185536" z="-6816" />
+    <point x="-114352" y="-184000" z="-6240" />
   </room>
   <room id="9" name="Dimensional Rift (Hero Room 9)">
     <type>Hero</type>
@@ -642,7 +637,7 @@
     <!-- Anakazel -->
     <spawn mobId="25338" count="1" delay="300" />
     <teleport x="-114800" y="-186448" z="-6752" />
-    <point x="-115248" y="-114352" z="-6816" />
-    <point x="-187216" y="-185680" z="-6240" />
+    <point x="-115248" y="-187216" z="-6816" />
+    <point x="-114352" y="-185680" z="-6240" />
   </room>
 </list>
