@@ -228,7 +228,14 @@ public class RegionBBSManager extends BaseBBSManager
                     
                 if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
                 {
-                    activeChar.sendMessage("You can not chat while in jail.");
+                    activeChar.sendMessage("You can not chat with the outside of the jail.");
+                    parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
+                    return;
+                }
+                if (activeChar.isChatBanned())
+                {
+                    activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
+                    parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
                     return;
                 }
                 
@@ -241,21 +248,32 @@ public class RegionBBSManager extends BaseBBSManager
                 } 
                 CreatureSay cs = new CreatureSay(activeChar.getObjectId(), Say2.TELL, activeChar.getName(), ar3);
                 if (!BlockList.isBlocked(receiver, activeChar))
-                {   
-                    if (!receiver.getMessageRefusal())
+                {
+                    if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
                     {
-                        receiver.sendPacket(cs);
-                        activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), Say2.TELL, "->" + receiver.getName(), ar3));
-                        htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;"+receiver.getName()+smallButton);
-                        htmlCode.append("</td></tr></table></body></html>");
-                        separateAndSend(htmlCode.toString(),activeChar)  ;
+                        activeChar.sendMessage("Player is in jail.");
+                        parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
+                        return;
                     }
-                    else
+                    if (receiver.isChatBanned())
+                    {
+                        activeChar.sendMessage("Player is chat banned.");
+                        parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
+                        return;
+                    }
+                    if (receiver.getMessageRefusal())
                     {
                         SystemMessage sm = new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);        
                         activeChar.sendPacket(sm);
                         parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
+                        return;
                     }
+
+                    receiver.sendPacket(cs);
+                    activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), Say2.TELL, "->" + receiver.getName(), ar3));
+                    htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;"+receiver.getName()+smallButton);
+                    htmlCode.append("</td></tr></table></body></html>");
+                    separateAndSend(htmlCode.toString(),activeChar)  ;
                 }
                 else
                 {

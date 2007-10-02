@@ -121,10 +121,10 @@ public class Say2 extends L2GameClientPacket
 
         if (activeChar.isChatBanned())
         {
-        	if (_type == ALL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
-        	{
-				// [L2J_JP EDIT]
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
+            if (_type == ALL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
+            {
+                // [L2J_JP EDIT]
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
                 return;
             }
         }
@@ -166,9 +166,18 @@ public class Say2 extends L2GameClientPacket
             case TELL:
                 L2PcInstance receiver = L2World.getInstance().getPlayer(_target);
                 
-                if (receiver != null && 
-                        !BlockList.isBlocked(receiver, activeChar))
-                {   
+                if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
+                {
+                    if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
+                    {
+                        activeChar.sendMessage("Player is in jail.");
+                        return;
+                    }
+                    if (receiver.isChatBanned())
+                    {
+                        activeChar.sendMessage("Player is chat banned.");
+                        return;
+                    }
                     if (!receiver.getMessageRefusal())
                     {
                         receiver.sendPacket(cs);
@@ -178,7 +187,7 @@ public class Say2 extends L2GameClientPacket
                     {
                         activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
                     }
-        }
+                }
                 else
                 {
                     SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_NOT_ONLINE);

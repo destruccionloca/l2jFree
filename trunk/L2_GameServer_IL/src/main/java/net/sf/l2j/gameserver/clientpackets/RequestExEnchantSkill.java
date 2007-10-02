@@ -126,7 +126,7 @@ public class RequestExEnchantSkill extends L2GameClientPacket
         {
             if (player.getStat().getExp() - player.getStat().getExpForLevel(player.getStat().getLevel()) >= _requiredExp)
             {
-                if (_skillLvl == 101 || _skillLvl == 141) // only first lvl requires book 
+                if (Config.ES_SP_BOOK_NEEDED && (_skillLvl == 101 || _skillLvl == 141)) // only first lvl requires book 
                 {
                     int spbId = 6622;
                       
@@ -161,8 +161,7 @@ public class RequestExEnchantSkill extends L2GameClientPacket
             if (_log.isDebugEnabled()) 
                 _log.info("Learned skill " + _skillId + " for " + _requiredSp + " SP.");
             
-            player.getStat().setSp(player.getStat().getSp() - _requiredSp);
-            player.getStat().setExp(player.getStat().getExp() - _requiredExp);
+            player.getStat().removeExpAndSp(_requiredExp, _requiredSp);
             player.updateStats();
             
             SystemMessage ep = new SystemMessage(SystemMessageId.EXP_DECREASED_BY_S1);

@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
@@ -105,7 +106,7 @@ public class RequestExEnchantSkillInfo extends L2GameClientPacket
         byte rate = SkillTreeTable.getInstance().getSkillRate(activeChar, skill);
         ExEnchantSkillInfo asi = new ExEnchantSkillInfo(skill.getId(), skill.getLevel(), requiredSp, requiredExp, rate);
             
-        if (skill.getLevel() == 101 || skill.getLevel() == 141) // only first lvl requires book
+        if (Config.ES_SP_BOOK_NEEDED && (skill.getLevel() == 101 || skill.getLevel() == 141)) // only first lvl requires book
         {
             int spbId = 6622;
             asi.addRequirement(4, spbId, 1, 0);

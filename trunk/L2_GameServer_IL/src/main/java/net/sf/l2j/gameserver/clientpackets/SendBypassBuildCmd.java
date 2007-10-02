@@ -38,14 +38,16 @@ public class SendBypassBuildCmd extends L2GameClientPacket
 
 	private String _command;
 	
-    @Override
-    protected void readImpl()
-    {
-        _command = readS();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_command = readS();
+		if (_command != null)
+			_command = _command.trim();
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
         if(activeChar == null)
@@ -59,9 +61,9 @@ public class SendBypassBuildCmd extends L2GameClientPacket
         	Util.handleIllegalPlayerAction(activeChar,"Warning!! Non-gm character "+activeChar.getName()+" requests gm bypass handler, hack?", Config.DEFAULT_PUNISH);
         	return;
         }
-        
+
 		IAdminCommandHandler ach = AdminCommandHandler.getInstance().getAdminCommandHandler("admin_"+_command);
-        
+
 		if (ach != null) 
 		{
             // DaDummy: this way we log _every_ admincommand with all related info
@@ -86,7 +88,7 @@ public class SendBypassBuildCmd extends L2GameClientPacket
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
 	@Override
-    public String getType()
+	public String getType()
 	{
 		return _C__5B_SENDBYPASSBUILDCMD;
 	}

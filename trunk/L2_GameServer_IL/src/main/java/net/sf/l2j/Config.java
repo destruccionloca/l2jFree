@@ -1262,6 +1262,7 @@ public final class Config
     public static boolean 			ALT_STRICT_SEVENSIGNS;				// Strict Seven Signs
     public static boolean 			SP_BOOK_NEEDED;						// Spell Book needed to learn skill
     public static boolean 			CLAN_ITEM_NEEDED;					// Clan Item needed to learn clan skills
+    public static boolean 			ES_SP_BOOK_NEEDED;					// Spell Book needet to enchant skill
     public static int 				ALT_BUFF_TIME;
     public static int 				ALT_DANCE_TIME;
     public static int 				ALT_SEED_TIME;
@@ -1389,13 +1390,14 @@ public final class Config
             ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
             CHANCE_BREAK            = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
             CHANCE_LEVEL            = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
-            IS_CRAFTING_ENABLED     							= Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
-            FAIL_FAKEDEATH 										= Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
-            ALT_FLYING_WYVERN_IN_SIEGE 							= Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
-            SP_BOOK_NEEDED          							= Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
-            CLAN_ITEM_NEEDED									= Boolean.parseBoolean(altSettings.getProperty("ClanItemNeeded", "True"));
-            AUTO_LOOT               							= altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
-            AUTO_LOOT_HERBS         							= altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
+            IS_CRAFTING_ENABLED                                 = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
+            FAIL_FAKEDEATH                                      = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
+            ALT_FLYING_WYVERN_IN_SIEGE                          = Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
+            SP_BOOK_NEEDED                                      = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
+            CLAN_ITEM_NEEDED                                    = Boolean.parseBoolean(altSettings.getProperty("ClanItemNeeded", "True"));
+            ES_SP_BOOK_NEEDED                                   = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded","true"));
+            AUTO_LOOT                                           = altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
+            AUTO_LOOT_HERBS                                     = altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
             ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
             ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
             ALT_GAME_KARMA_PLAYER_CAN_USE_GK                    = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));
@@ -1407,7 +1409,7 @@ public final class Config
             ALT_RECOMMEND                                       = Boolean.parseBoolean(altSettings.getProperty("AltRecommend", "False"));
             ALT_GAME_SUBCLASS_WITHOUT_QUESTS                    = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
             MAX_SUBCLASS                                        = Integer.parseInt(altSettings.getProperty("MaxSubclass","3"));
-            ALT_GAME_VIEWNPC                    				= Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
+            ALT_GAME_VIEWNPC                                    = Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
             ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE                  = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
             DWARF_RECIPE_LIMIT                                  = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit","50"));
             COMMON_RECIPE_LIMIT                                 = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit","50"));
@@ -1418,9 +1420,9 @@ public final class Config
             ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
             ALT_DANCE_TIME                                      = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
             ALT_SEED_TIME                                       = Integer.parseInt(altSettings.getProperty("AltSeedTime", "1"));
-            SPAWN_SIEGE_GUARD 									= Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
-            AUTO_LEARN_SKILLS 									= Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
-            MAX_PATK_SPEED 										= Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "0"));
+            SPAWN_SIEGE_GUARD                                   = Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
+            AUTO_LEARN_SKILLS                                   = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
+            MAX_PATK_SPEED                                      = Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "0"));
             MAX_MATK_SPEED                                      = Integer.parseInt(altSettings.getProperty("MaxMAtkSpeed", "0"));
             ALT_MAGES_PHYSICAL_DAMAGE_MULTI                     = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00"));
             ALT_MAGES_MAGICAL_DAMAGE_MULTI                      = Float.parseFloat(altSettings.getProperty("AltMDamageMages", "1.00"));

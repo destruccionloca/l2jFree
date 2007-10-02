@@ -730,7 +730,8 @@ public class L2NpcInstance extends L2Character
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder html1 = new TextBuilder("<html><body><center><font color=\"LEVEL\">NPC Information</font></center>");
             String className = getClass().getName().substring(43);
-            
+            html1.append("<br>");
+
             html1.append("Instance Type: " + className + "<br1>Faction: " + getFactionId() + "<br1>Location ID: " + (getSpawn() != null ? getSpawn().getLocation() : 0) + "<br1>");
             
             if (this instanceof L2ControllableMobInstance)
