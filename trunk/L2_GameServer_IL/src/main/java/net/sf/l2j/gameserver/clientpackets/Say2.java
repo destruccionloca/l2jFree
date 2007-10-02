@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import java.nio.BufferUnderflowException;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
@@ -95,7 +96,14 @@ public class Say2 extends L2GameClientPacket
     protected void readImpl()
     {
         _text = readS();
-        _type = readD();
+        try
+        {
+            _type = readD();
+        }
+        catch (BufferUnderflowException e) 
+        {
+            _type = CHAT_NAMES.length;
+        }
         _target = (_type == TELL) ? readS() : null;
     }
 

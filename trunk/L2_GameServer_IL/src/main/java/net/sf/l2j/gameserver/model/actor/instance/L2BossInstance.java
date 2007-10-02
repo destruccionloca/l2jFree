@@ -165,7 +165,7 @@ public final class L2BossInstance extends L2MonsterInstance
     {
         // [L2J_JP ADD START SANDMAN]
         // get players in lair and update known list.
-    	getKnownList().getKnownPlayers().clear();
+    	//getKnownList().getKnownPlayers().clear();
     	switch (getNpcId())
 		{
 			case 29022:	// Zaken (Note:teleport-out of instant-move execute onSpawn.)
@@ -212,8 +212,7 @@ public final class L2BossInstance extends L2MonsterInstance
                     {
                         try
                         {
-                            _minionMaintainTask = 
-                            	ThreadPoolManager.getInstance().scheduleGeneral(
+                            _minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneral(
                             			new RespawnNurseAnts(),NurseAntRespawnDelay);
                         }
                         catch (NullPointerException e)

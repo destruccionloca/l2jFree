@@ -1521,6 +1521,7 @@ public class L2Clan
         int id = 0;
         for (SubPledge sp : _subPledges.values())
         {
+            if (sp.getLeaderName() == null) continue;
             if (sp.getLeaderName().equals(name))
             {
                 id = sp.getId();
