@@ -1585,8 +1585,8 @@ public class Olympiad
             _playerTwoID = 0;
         }
         
-        //checks if some of 2 players crashed. if yes calculates the points and returns true else returns false
-        protected boolean checkPlayersCrash()
+        //checks if some of 2 players crashed.
+        protected void checkPlayersCrash()
         {
         	if(_playerOne != null && (!playerInStadia(_playerOne) || _playerOne.inObserverMode() || _playerOne.isOnline()==0))
         	{
@@ -1623,43 +1623,11 @@ public class Olympiad
                         _playerTwoCrash = false;
                     }
                 }
-                catch (Exception e){ }
-                
-                if (_playerOneCrash)
-                {
-                    StatsSet playerOneStat;
-                    playerOneStat = _nobles.get(_playerOneID);
-                    int playerOnePoints = playerOneStat.getInteger(POINTS);
-                    playerOneStat.set(POINTS, playerOnePoints - (playerOnePoints / 5));
-                    _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerOneName+" lost "+(playerOnePoints / 5)+" points for crash before fight");
-                    _nobles.remove(_playerOneID);
-                    _nobles.put(_playerOneID, playerOneStat);
-                    _playerOne=null;
-                    if(!_playerTwoCrash)
-                    	_playerTwo.sendMessage("Your oponent disconnected, match not calculated.");
-                }
-
-                if (_playerTwoCrash)
-                {
-                    StatsSet playerTwoStat;
-                    playerTwoStat = _nobles.get(_playerTwoID);
-                    int playerTwoPoints = playerTwoStat.getInteger(POINTS);
-                    playerTwoStat.set(POINTS, playerTwoPoints - (playerTwoPoints / 5));
-                    _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... "+_playerTwoName+" lost "+(playerTwoPoints / 5)+" points for crash before fight");
-                    _nobles.remove(_playerTwoID);                
-                    _nobles.put(_playerTwoID, playerTwoStat);  
-                    _playerTwo=null;
-                    if(!_playerOneCrash)
-                    	_playerOne.sendMessage("Your oponent disconnected, match not calculated.");
-                }
-                
-                _sm = new SystemMessage(SystemMessageId.YOU_WILL_GO_BACK_TO_THE_VILLAGE_IN_S1_SECOND_S);
-                _sm.addNumber(20);
-                broadcastMessage(_sm, true);
-                _aborted = true;
-                return true;
+                catch (Exception e){ } 
         	}
-        	return false;
+        	
+        	if(_playerOne== null && _playerTwo==null)
+        		_aborted = true;
         }
         
         protected boolean portPlayersToArena()
@@ -1781,17 +1749,14 @@ public class Olympiad
         
         protected void validateWinner()
         {
+        	checkPlayersCrash();
+        	
         	if (_aborted || (_playerOne == null && _playerTwo == null)) 
             {
                 _log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... aborted/tie due to crashes!");
                 return;
             }
-        	if(checkPlayersCrash())
-        	{
-        		_log.info("Olympia Result: "+_playerOneName+" vs "+_playerTwoName+" ... aborted due to crashes!");
-        		return; 
-        	}
-        	
+        	        	
             StatsSet playerOneStat;
             StatsSet playerTwoStat;
             
@@ -1815,6 +1780,9 @@ public class Olympiad
                     if(_playerOne.getStatus().getCurrentHp()==0)
                     	hpDiffOne = 9999999;
                 }
+                else if( _playerOneCrash)
+                	hpDiffOne = 9999999;
+                	
             }
             catch (Exception e)
             {
@@ -1833,6 +1801,8 @@ public class Olympiad
                     if(_playerTwo.getStatus().getCurrentHp() == 0)
                     	hpDiffTwo = 9999999;
                 }
+                else if( _playerTwoCrash)
+                	hpDiffTwo = 9999999;
             }
             catch (Exception e)
             {
