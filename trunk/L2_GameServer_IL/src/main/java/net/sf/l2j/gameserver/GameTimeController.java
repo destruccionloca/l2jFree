@@ -58,8 +58,6 @@ public class GameTimeController
     protected static TimerThread _timer;
     private ScheduledFuture _timerWatcher;
 
-    // [L2J_JP ADD]
-
     /**
      * one ingame day is 240 real minutes
      */
@@ -77,9 +75,9 @@ public class GameTimeController
         _timer.start();
 
         _timerWatcher = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new TimerWatcher(), 0, 1000);
-        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
         // [L2J_JP ADD SANDMAN]
-        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiretesRoom(), 2000, 600000);
+        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiratesRoom(), 2000, 600000);
+        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
     }
 
     public boolean isNowNight()
@@ -221,7 +219,7 @@ public class GameTimeController
                 String time = (new SimpleDateFormat("HH:mm:ss")).format(new Date());
                 _log.warn(time + " TimerThread stop with following error. restart it.");
                 if (_timer._error != null) _log.error(_timer._error.getMessage(),_timer._error);
-
+                _timer = null;
                 _timer = new TimerThread();
                 _timer.start();
             }
@@ -288,7 +286,7 @@ public class GameTimeController
     }
     // [L2J_JP ADD]
     // Open door of pirate's room at AM0:00 every day in game.
-    class OpenPiretesRoom implements Runnable
+    class OpenPiratesRoom implements Runnable
     {
 
         public void run()
@@ -304,7 +302,7 @@ public class GameTimeController
                 {
                     _doorTable.getDoor(21240006).openMe();
                     // The door will be closed in '_CloseTime' minutes.
-                    ThreadPoolManager.getInstance().scheduleEffect(new ClosePiretesRoom(),(_CloseTime*60*1000));
+                    ThreadPoolManager.getInstance().scheduleEffect(new ClosePiratesRoom(),(_CloseTime*60*1000));
                 }
                 catch (Exception e)
                 {
@@ -317,7 +315,7 @@ public class GameTimeController
      
     // [L2J_JP ADD]
     // Close door of pirate's room.
-    class ClosePiretesRoom implements Runnable
+    class ClosePiratesRoom implements Runnable
     {
         final DoorTable _doorTable = DoorTable.getInstance();
 
