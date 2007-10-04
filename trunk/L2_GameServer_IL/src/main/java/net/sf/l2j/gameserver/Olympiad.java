@@ -1855,12 +1855,12 @@ public class Olympiad
                 playerTwoStat.set(POINTS, playerTwoPoints + pointDiff);
                 playerOneStat.set(POINTS, playerOnePoints - pointDiff);
                 
-                _sm.addString(_playerTwo.getName());
+                _sm.addString(_playerTwoName);
                 broadcastMessage(_sm, true);
-                _sm2.addString(_playerTwo.getName());
+                _sm2.addString(_playerTwoName);
                 _sm2.addNumber(pointDiff);
                 broadcastMessage(_sm2, true);
-                _sm3.addString(_playerOne.getName());
+                _sm3.addString(_playerOneName);
                 _sm3.addNumber(pointDiff);
                 broadcastMessage(_sm3, true);
 
