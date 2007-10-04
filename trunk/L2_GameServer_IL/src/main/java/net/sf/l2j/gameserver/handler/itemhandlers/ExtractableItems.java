@@ -36,6 +36,9 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.tools.L2Registry;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * 
  * @author FBIagent 11/12/2006
@@ -44,6 +47,8 @@ import net.sf.l2j.tools.L2Registry;
 
 public class ExtractableItems implements IItemHandler
 {
+	protected static Log _log = LogFactory.getLog(ExtractableItems.class);
+	
     private ExtractableItemsService extractableItemsService = (ExtractableItemsService)L2Registry.getBean(IServiceRegistry.EXTRACTABLE_ITEM);
     
     
@@ -82,7 +87,7 @@ public class ExtractableItems implements IItemHandler
 
         if (createItemID == 0)
         {
-            activeChar.sendMessage("Nothing happend.");
+            activeChar.sendMessage("Nothing happened.");
             return;
         }
 
@@ -90,6 +95,12 @@ public class ExtractableItems implements IItemHandler
 
         if (createItemID > 0)
         {
+        	if (ItemTable.getInstance().createDummyItem(createItemID) == null)
+        	{
+        		_log.warn("createItemID "+createItemID+" doesn't have template!");
+        		activeChar.sendMessage("Nothing happened.");
+        		return;
+        	}
             if (ItemTable.getInstance().createDummyItem(createItemID)
                     .isStackable())
                 inv.addItem("Extract", createItemID, createAmount, activeChar,

@@ -199,18 +199,17 @@ public class ClanHallManager
     private final int getClanHallIndex(int x, int y, Map<Integer,ClanHall> clanHall)
     {
         for (Map.Entry<Integer, ClanHall> ch : clanHall.entrySet())
+        {
         	try
         	{
-        		if (clanHall != null && ch.getValue().checkIfInZone(x, y)) 
+        		if (clanHall != null && ch.getValue().checkIfInZone(x, y))
         			return ch.getKey();
         	}
-        	catch (Throwable t)
-        	{
-        		 _log.warn("", t);
-        		 return -1;
-        	}
+        	catch (NullPointerException e) {}
+        }
         return -1;
     }
+    
     /** ClanHallId by region x,y,offset */
     private final int getClanHallIndex(int x, int y, int offset, Map<Integer,ClanHall> clanHall)
     {

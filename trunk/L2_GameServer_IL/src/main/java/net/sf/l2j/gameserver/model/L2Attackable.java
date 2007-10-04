@@ -444,7 +444,7 @@ public class L2Attackable extends L2NpcInstance
         		
             	if (getTemplate().getEventQuests(Quest.QuestEventType.MOBKILLED) != null)
             		for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.MOBKILLED))
-            			quest.notifyKill(this, player);
+            			quest.notifyKill(this, player, killer instanceof L2Summon);
             }        	
         } 
         catch (Exception e) { _log.fatal("", e); }
@@ -832,7 +832,7 @@ public class L2Attackable extends L2NpcInstance
                     
                     if (getTemplate().getEventQuests(Quest.QuestEventType.MOBGOTATTACKED) !=null)
                         for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.MOBGOTATTACKED))
-                            quest.notifyAttack(this, player);
+                        	quest.notifyAttack(this, player, damage, attacker instanceof L2Summon);
                 }
             } 
             catch (Exception e) { _log.fatal("", e); }

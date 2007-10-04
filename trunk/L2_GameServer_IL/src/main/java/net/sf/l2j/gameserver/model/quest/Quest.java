@@ -247,10 +247,10 @@ public abstract class Quest
 	
     
 	// these are methods to call from java
-    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker) 
+    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) 
     {
         String res = null;
-        try { res = onAttack(npc, attacker); } catch (Exception e) { return showError(attacker, e); }
+        try { res = onAttack(npc, attacker, damage, isPet); } catch (Exception e) { return showError(attacker, e); }
         return showResult(attacker, res);
     }
     
@@ -268,10 +268,10 @@ public abstract class Quest
         return showResult(player, res);
     } 
     
-	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer) 
+	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
 	{
 		String res = null;
-		try { res = onKill(npc, killer); } catch (Exception e) { return showError(killer, e); }
+		try { res = onKill(npc, killer, isPet); } catch (Exception e) { return showError(killer, e); }
 		return showResult(killer, res);
 	}
 	
@@ -303,7 +303,7 @@ public abstract class Quest
 
 
 	// these are methods that java calls to invoke scripts
-    @SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker) { return null; } 
+    @SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) { return null; } 
     @SuppressWarnings("unused") public String onDeath (L2Character killer, L2Character victim, QuestState qs) 
     { 	
     	if (killer instanceof L2NpcInstance)
@@ -324,7 +324,7 @@ public abstract class Quest
     } 
     
     @SuppressWarnings("unused") public String onEvent(String event, QuestState qs) { return null; } 
-    @SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer) { return null; }
+    @SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) { return null; }
     @SuppressWarnings("unused") public String onTalk (L2NpcInstance npc, L2PcInstance talker) { return null; }
     @SuppressWarnings("unused") public String onFirstTalk(L2NpcInstance npc, L2PcInstance player) { return null; } 
     @SuppressWarnings("unused") public String onSkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) { return null; }
@@ -423,10 +423,6 @@ public abstract class Quest
 				
 				// Identify the state of the quest for the player
 				boolean completed = false;
-				if (stateId.length() > 0 && stateId.charAt(0) == '*') { // probably obsolete check 
-					completed = true;
-					stateId = stateId.substring(1);
-				}
 				if(stateId.equals("Completed")) completed = true;
 				
 				// Create an object State containing the state of the quest
