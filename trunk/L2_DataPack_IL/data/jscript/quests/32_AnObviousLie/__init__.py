@@ -135,7 +135,7 @@ class Quest (JQuest) :
            htmltext = "31706-5.htm"
    return htmltext
 
- def onKill (self,npc,player):
+ def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    htmltext = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
    if not st : return htmltext

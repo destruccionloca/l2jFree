@@ -36,7 +36,7 @@ class baium (JQuest):
         return '<html><body>Angelic Vortex:<br>You do not have enough items</body></html>'
     return
 
-  def onKill (self,npc,player):
+  def onKill(self,npc,player,isPet):
     st = player.getQuestState("baium")
     if not st: return
     BaiumManager.getInstance().setCubeSpawn()

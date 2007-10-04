@@ -36,7 +36,7 @@ class antharas(JQuest):
         st.exitQuest(1)
         return '<html><body>Heart of Muscai:<br><br>Antharas has already awoke!<br>You are not allowed to enter into Lair of Antharas.<br></body></html>'
 
-  def onKill (self,npc,player):
+  def onKill(self,npc,player,isPet):
     st = player.getQuestState("antharas")
     if not st: return
     AntharasManager.getInstance().setCubeSpawn()

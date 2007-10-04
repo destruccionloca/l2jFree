@@ -463,7 +463,7 @@ class Quest (JQuest):
               return "420_shamhai_5.htm"
     return "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
 
-  def onKill (self,npc,player):
+  def onKill(self,npc,player,isPet):
     st = player.getQuestState(qn)
     if not st : return 
    
