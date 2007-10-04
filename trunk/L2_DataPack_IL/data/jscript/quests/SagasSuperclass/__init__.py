@@ -93,7 +93,7 @@ class Quest (JQuest) :
 
  def FindTemplate (self, npcId) :
     for spawn in SpawnTable.getInstance().getSpawnTable().values():
-        if spawn.getNpcid() == npcId:
+        if spawn.getNpcId() == npcId:
             npcinstance = spawn.getLastSpawn()
             break
     return npcinstance
