@@ -311,7 +311,7 @@ public class UserInfo extends L2GameServerPacket
         writeH(_cha.getCharRecommendationStatus().getRecomLeft()); //c2  recommendations remaining
         writeH(_cha.getCharRecommendationStatus().getRecomHave()); //c2  recommendations received
         writeD(0x00);
-        writeH(_cha.GetInventoryLimit());
+        writeH(_cha.getInventoryLimit());
 
         writeD(_cha.getClassId().getId());
         writeD(0x00); // special effects? circles around player...
@@ -331,9 +331,9 @@ public class UserInfo extends L2GameServerPacket
         writeC((_cha.isHero() || (_cha.isGM() && Config.GM_HERO_AURA)) ? 1 : 0); //0x01: Hero Aura
 
         writeC(_cha.isFishing() ? 1 : 0); //Fishing Mode
-        writeD(_cha.GetFishx()); //fishing x  
-        writeD(_cha.GetFishy()); //fishing y
-        writeD(_cha.GetFishz()); //fishing z
+        writeD(_cha.getFishx()); //fishing x  
+        writeD(_cha.getFishy()); //fishing y
+        writeD(_cha.getFishz()); //fishing z
         writeD(_cha.getAppearance().getNameColor());
         
 		//new c5 
