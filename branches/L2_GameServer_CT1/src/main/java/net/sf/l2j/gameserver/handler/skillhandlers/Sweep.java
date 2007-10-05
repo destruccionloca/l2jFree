@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -39,8 +40,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */ 
 public class Sweep implements ISkillHandler 
 { 
-    //private final static Log _log = LogFactory.getLog(Sweep.class.getName()); 
-    protected SkillType[] _skillIds = {SkillType.SWEEP}; 
+    private static final SkillType[] SKILL_IDS = {SkillType.SWEEP}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, L2Object[] targets) 
     { 
@@ -57,6 +57,9 @@ public class Sweep implements ISkillHandler
         { 
             if (!(targets[index] instanceof L2Attackable)) continue;
 	        L2Attackable target = (L2Attackable)targets[index];
+	        //check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
             
             L2Attackable.RewardItem[] items = null;
             boolean isSweeping = false;
@@ -80,7 +83,7 @@ public class Sweep implements ISkillHandler
 						if (iu != null) iu.addItem(item);
 						send = true;
 
-						SystemMessage smsg = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1_S2); // you picked up $s1$s2
+						SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2); // you picked up $s1$s2
 						smsg.addNumber(ritem.getCount());
 						smsg.addItemName(item.getItemId());
 						player.sendPacket(smsg);
@@ -100,6 +103,6 @@ public class Sweep implements ISkillHandler
     
     public SkillType[] getSkillIds() 
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     } 
 }

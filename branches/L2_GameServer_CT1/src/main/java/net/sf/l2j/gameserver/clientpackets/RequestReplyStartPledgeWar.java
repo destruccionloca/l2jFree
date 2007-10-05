@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -34,12 +35,14 @@ public class RequestReplyStartPledgeWar extends L2GameClientPacket
     
     private int _answer;
             
+    @Override
     protected void readImpl()
     {
         @SuppressWarnings("unused") String _reqName = readS();
         _answer  = readD();
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -55,7 +58,7 @@ public class RequestReplyStartPledgeWar extends L2GameClientPacket
         } 
         else
         {
-            requestor.sendPacket(new SystemMessage(SystemMessage.WAR_PROCLAMATION_HAS_BEEN_REFUSED));
+            requestor.sendPacket(new SystemMessage(SystemMessageId.WAR_PROCLAMATION_HAS_BEEN_REFUSED));
         }
         activeChar.setActiveRequester(null);
         requestor.onTransactionResponse();
@@ -64,6 +67,7 @@ public class RequestReplyStartPledgeWar extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__4e_REQUESTREPLYSTARTPLEDGEWAR;

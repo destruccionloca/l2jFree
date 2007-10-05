@@ -32,26 +32,28 @@ import org.apache.commons.logging.LogFactory;
  * @author galun
  * @version $Id: DynamicExtension.java,v 1.3 2006/05/14 17:19:39 galun Exp $
  */
-public class DynamicExtension {
+public class DynamicExtension
+ {
 	private static Log _log = LogFactory.getLog(DynamicExtension.class.getCanonicalName());
 	private JarClassLoader classLoader;
 	private static final String CONFIG = "config/extensions.properties";
-	private Properties prop;
-	private ConcurrentHashMap<String, Object> loadedExtensions;
-	private static DynamicExtension instance;
-    private ConcurrentHashMap<String, ExtensionFunction> getters;
-    private ConcurrentHashMap<String, ExtensionFunction> setters;
+	private Properties _prop;
+	private ConcurrentHashMap<String, Object> _loadedExtensions;
+	private static DynamicExtension _instance;
+    private ConcurrentHashMap<String, ExtensionFunction> _getters;
+    private ConcurrentHashMap<String, ExtensionFunction> _setters;
 
 	/**
 	 * create an instance of DynamicExtension
 	 * this will be done by GameServer according to the altsettings.properties
 	 *
 	 */
-	private DynamicExtension() {
-		if (instance == null)
-			instance = this;
-        getters = new ConcurrentHashMap<String, ExtensionFunction>();
-        setters = new ConcurrentHashMap<String, ExtensionFunction>();
+	private DynamicExtension()
+	{
+		if (_instance == null)
+			_instance = this;
+        _getters = new ConcurrentHashMap<String, ExtensionFunction>();
+        _setters = new ConcurrentHashMap<String, ExtensionFunction>();
         initExtensions();
 	}
 
@@ -59,10 +61,11 @@ public class DynamicExtension {
      * get the singleton of DynamicInstance
      * @return the singleton instance
      */
-    public static DynamicExtension getInstance() {
-        if (instance == null)
-            instance = new DynamicExtension();
-        return instance;
+    public static DynamicExtension getInstance()
+	{
+        if (_instance == null)
+            _instance = new DynamicExtension();
+        return _instance;
     }
 
     /**
@@ -70,29 +73,38 @@ public class DynamicExtension {
      * @param className he class name as defined in the extension properties
      * @return the object or null if not found
      */
-    public Object getExtension(String className) {
-        return loadedExtensions.get(className);
+    public Object getExtension(String className)
+	{
+        return _loadedExtensions.get(className);
     }
 
 	/**
 	 * initialize all configured extensions
 	 *
 	 */
-	public void initExtensions() {
-		prop = new Properties();
-		loadedExtensions = new ConcurrentHashMap<String, Object>();
-		try {
-			prop.load(new FileInputStream(CONFIG));
-        } catch (FileNotFoundException ex) {
+	public void initExtensions()
+	{
+		_prop = new Properties();
+		_loadedExtensions = new ConcurrentHashMap<String, Object>();
+		try
+		{
+			_prop.load(new FileInputStream(CONFIG));
+        }
+		catch (FileNotFoundException ex)
+		{
             _log.info(ex.getMessage() + ": no extensions to load");
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			_log.warn( "could not load properties", ex);
 		}
 		classLoader = new JarClassLoader();
-		for (Object o : prop.keySet()) {
+		for (Object o : _prop.keySet())
+		{
 			String k = (String)o;
-			if (k.endsWith("Class")) {
-				initExtension(prop.getProperty(k));
+			if (k.endsWith("Class"))
+			{
+				initExtension(_prop.getProperty(k));
 			}
 		}
 	}
@@ -102,22 +114,27 @@ public class DynamicExtension {
      * @param name the class name and optionally a jar file name delimited with a '@' if the jar file is not
      * in the class path
      */
-    public void initExtension(String name) {
+    public void initExtension(String name)
+	{
         String className = name;
         String[] p = name.split("@");
-        if (p.length > 1) {
+        if (p.length > 1)
+		{
             classLoader.addJarFile(p[1]);
             className = p[0];
         }
-        if (loadedExtensions.containsKey(className))
+        if (_loadedExtensions.containsKey(className))
             return;
-        try {
+        try
+		{
             Class extension = Class.forName(className, true, classLoader);
             Object obj = extension.newInstance();
             extension.getMethod("init", new Class[0]).invoke(obj, new Object[0]);
             _log.info("Extension " + className + " loaded.");
-            loadedExtensions.put(className, obj);
-        } catch (Exception ex) {
+            _loadedExtensions.put(className, obj);
+        }
+		catch (Exception ex)
+		{
             _log.warn( name, ex);
         }
     }
@@ -126,7 +143,8 @@ public class DynamicExtension {
 	 * create a new class loader which resets the cache (jar files and loaded classes)
 	 * on next class loading request it will read the jar again
 	 */
-	protected void clearCache() {
+	protected void clearCache()
+	{
 		classLoader = new JarClassLoader();
 	}
 
@@ -134,8 +152,9 @@ public class DynamicExtension {
 	 * call unloadExtension() for all known extensions
 	 *
 	 */
-	public void unloadExtensions() {
-		for (String e : loadedExtensions.keySet())
+	public void unloadExtensions()
+	{
+		for (String e : _loadedExtensions.keySet())
 			unloadExtension(e);
 	}
 
@@ -143,20 +162,24 @@ public class DynamicExtension {
      * unload a named extension
      * @param name the class name and optionally a jar file name delimited with a '@'
      */
-    public void unloadExtension(String name) {
+    public void unloadExtension(String name)
+	{
         String className = name;
         String[] p = name.split("@");
         if (p.length > 1) {
             classLoader.addJarFile(p[1]);
             className = p[0];
         }
-        try {
-            Object obj = loadedExtensions.get(className);
+        try
+		{
+            Object obj = _loadedExtensions.get(className);
             Class extension = obj.getClass();
-            loadedExtensions.remove(className);
+            _loadedExtensions.remove(className);
             extension.getMethod("unload", new Class[0]).invoke(obj, new Object[0]);
             _log.info("Extension " + className + " unloaded.");
-        } catch (Exception ex) {
+        }
+		catch (Exception ex)
+		{
             _log.warn( "could not unload " + className, ex);
         }
     }
@@ -165,7 +188,8 @@ public class DynamicExtension {
 	 * unloads all extensions, resets the cache and initializes all configured extensions
 	 *
 	 */
-	public void reload() {
+	public void reload()
+	{
 		unloadExtensions();
 		clearCache();
 		initExtensions();
@@ -176,7 +200,8 @@ public class DynamicExtension {
 	 * @param name the class name and optionally a jar file name delimited with a '@' if the jar file is not
 	 * in the class path
 	 */
-	public void reload(String name) {
+	public void reload(String name)
+	{
 		unloadExtension(name);
 		clearCache();
 		initExtension(name);
@@ -187,16 +212,18 @@ public class DynamicExtension {
      * @param name the name of the function
      * @param function the ExtensionFunction implementation
      */
-	public void addGetter(String name, ExtensionFunction function) {
-	    getters.put(name, function);   
+	public void addGetter(String name, ExtensionFunction function)
+	{
+	    _getters.put(name, function);   
 	}
 
     /**
      * deregister a getter function
      * @param name the name used for registering
      */
-    public void removeGetter(String name) {
-        getters.remove(name);
+    public void removeGetter(String name)
+	{
+        _getters.remove(name);
     }
 
     /**
@@ -205,8 +232,9 @@ public class DynamicExtension {
      * @param arg a function argument
      * @return an object from the extension
      */
-    public Object get(String name, String arg) {
-        ExtensionFunction func = getters.get(name);
+    public Object get(String name, String arg)
+	{
+        ExtensionFunction func = _getters.get(name);
         if (func != null)
             return func.get(arg);
         return "<none>";
@@ -217,16 +245,18 @@ public class DynamicExtension {
      * @param name the name of the function
      * @param function the ExtensionFunction implementation
      */
-    public void addSetter(String name, ExtensionFunction function) {
-        setters.put(name, function);
+    public void addSetter(String name, ExtensionFunction function)
+	{
+        _setters.put(name, function);
     }
 
     /**
      * deregister a setter function
      * @param name the name used for registering
      */
-    public void removeSetter(String name) {
-        setters.remove(name);
+    public void removeSetter(String name)
+	{
+        _setters.remove(name);
     }
 
     /**
@@ -235,8 +265,9 @@ public class DynamicExtension {
      * @param arg a function argument
      * @param obj an object to set
      */
-    public void set(String name, String arg, Object obj) {
-        ExtensionFunction func = setters.get(name);
+    public void set(String name, String arg, Object obj)
+	{
+        ExtensionFunction func = _setters.get(name);
         if (func != null)
             func.set(arg, obj);
     }

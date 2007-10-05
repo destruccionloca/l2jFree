@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.datatables.PetDataTable;
@@ -6,6 +23,7 @@ import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.PetItemList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -24,11 +42,13 @@ public class RequestPetUseItem extends L2GameClientPacket
      * format:      cd
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -51,7 +71,7 @@ public class RequestPetUseItem extends L2GameClientPacket
 
         if (activeChar.isAlikeDead() || pet.isDead()) 
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_CANNOT_BE_USED);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
             sm.addItemName(item.getItemId());
             activeChar.sendPacket(sm);
             return;
@@ -63,7 +83,7 @@ public class RequestPetUseItem extends L2GameClientPacket
         // check if the food matches the pet
         if (PetDataTable.getFoodItemId(pet.getNpcId()) == item.getItemId())
     	{
-        	feed(activeChar, pet, item);
+        	feed(pet, item);
         	return;
     	}
     	//check if the item matches the pet
@@ -84,7 +104,7 @@ public class RequestPetUseItem extends L2GameClientPacket
         }
         else
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.ITEM_NOT_FOR_PETS);
+            SystemMessage sm = new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS);
             activeChar.sendPacket(sm);
         }
         
@@ -105,6 +125,8 @@ public class RequestPetUseItem extends L2GameClientPacket
             
             PetInfo pi = new PetInfo(pet);
             activeChar.sendPacket(pi);
+            // The PetInfo packet wipes the PartySpelled (list of active spells' icons).  Re-add them
+            pet.updateEffectIcons(true);
         }
         else
         {
@@ -123,7 +145,7 @@ public class RequestPetUseItem extends L2GameClientPacket
      * 
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : 1 food = 100 points of currentFed</B></FONT><BR><BR>
      */
-    private void feed(L2PcInstance player, L2PetInstance pet, L2ItemInstance item)
+    private void feed(L2PetInstance pet, L2ItemInstance item)
     {
 		// if pet has food in inventory
 		if (pet.destroyItem("Feed", item.getObjectId(), 1, pet, false))
@@ -134,6 +156,7 @@ public class RequestPetUseItem extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__8A_REQUESTPETUSEITEM;

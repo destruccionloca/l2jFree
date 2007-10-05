@@ -36,6 +36,7 @@ public class RequestManorList extends L2GameClientPacket
      * @param buf
      * @param client
      */
+    @Override
     protected void readImpl()
     {
         // just a trigger
@@ -81,5 +82,4 @@ public class RequestManorList extends L2GameClientPacket
     {
         return _C__FE_08_REQUESTMANORLIST;
     }
-    
 }

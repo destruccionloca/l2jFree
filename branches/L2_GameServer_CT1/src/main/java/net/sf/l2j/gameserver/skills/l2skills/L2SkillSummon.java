@@ -27,23 +27,25 @@ import net.sf.l2j.gameserver.model.actor.instance.L2CubicInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-public class L2SkillSummon extends L2Skill {
-
-	private int     npcId;
-	private float   expPenalty;
-	private boolean isCubic;
+public class L2SkillSummon extends L2Skill
+{
+	private int     _npcId;
+	private float   _expPenalty;
+	private boolean _isCubic;
 	
-	public L2SkillSummon(StatsSet set) {
+	public L2SkillSummon(StatsSet set)
+	{
 		super(set);
 		
-		npcId      = set.getInteger("npcId", 0); // default for undescribed skills
-		expPenalty = set.getFloat ("expPenalty", 0.f);
-		isCubic    = set.getBool  ("isCubic", false);
+		_npcId      = set.getInteger("npcId", 0); // default for undescribed skills
+		_expPenalty = set.getFloat ("expPenalty", 0.f);
+		_isCubic    = set.getBool  ("isCubic", false);
 	}
 
 	public boolean checkCondition(L2Character activeChar, boolean itemOrWeapons)
@@ -51,7 +53,8 @@ public class L2SkillSummon extends L2Skill {
 		if (activeChar instanceof L2PcInstance)
 		{
 			L2PcInstance player = (L2PcInstance)activeChar;
-			if (isCubic) {
+			if (_isCubic)
+			{
 				if (getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
 				{
 					return true; //Player is always able to cast mass cubic skill
@@ -60,16 +63,19 @@ public class L2SkillSummon extends L2Skill {
 				if (mastery < 0)
 					mastery = 0;
 				int count = player.getCubics().size(); 
-				if (count > mastery) {
-					SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
+				if (count > mastery)
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
 					activeChar.sendPacket(sm);
 					sm = null;
 					return false;
 				}
-			} else {
+			}
+			else
+			{
 				if(player.getPet() != null)
 				{
-					SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_ONLY_ONE);
+					SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_ONLY_ONE);
 					activeChar.sendPacket(sm);
 					sm = null;
 					return false;
@@ -79,21 +85,24 @@ public class L2SkillSummon extends L2Skill {
 		return super.checkCondition(activeChar, itemOrWeapons);
 	}
 	
-	public void useSkill(L2Character caster, L2Object[] targets) {
+	public void useSkill(L2Character caster, L2Object[] targets)
+	{
 		if (caster.isAlikeDead() || !(caster instanceof L2PcInstance))
 			return;
 
 		L2PcInstance activeChar = (L2PcInstance) caster;
 
-		if (npcId == 0) {
-			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+		if (_npcId == 0)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             sm.addString("Summon skill "+getId()+" not described yet");
 			activeChar.sendPacket(sm);
 			sm = null;
 			return;
 		}
 		
-		if (isCubic) {
+		if (_isCubic)
+		{
 			if (targets.length > 1) //Mass cubic skill
 			{
 				for (L2Object obj: targets)
@@ -114,16 +123,15 @@ public class L2SkillSummon extends L2Skill {
 						player.getCubics().clear();
 					}				
 					if (player.getCubics().size() > mastery) continue;		
-                    if (player.getCubics().containsKey(npcId))
+                    if (player.getCubics().containsKey(_npcId))
                     {
-                    	SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
+                    	SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
             			activeChar.sendPacket(sm);
             			sm = null;
                     }
                     else
                     {
-
-						player.addCubic(npcId, getLevel());
+						player.addCubic(_npcId, getLevel());
 						player.broadcastUserInfo();		
                     }
 				}
@@ -137,17 +145,17 @@ public class L2SkillSummon extends L2Skill {
 				if (activeChar.getCubics().size() > mastery) {
 					if (_log.isDebugEnabled())
 						_log.debug("player can't summon any more cubics. ignore summon skill");
-					activeChar.sendPacket(new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED));
 					return;
 				}
-                if (activeChar.getCubics().containsKey(npcId))
+                if (activeChar.getCubics().containsKey(_npcId))
                 {
-                	SystemMessage sm = new SystemMessage(SystemMessage.CUBIC_SUMMONING_FAILED);
+                	SystemMessage sm = new SystemMessage(SystemMessageId.CUBIC_SUMMONING_FAILED);
         			activeChar.sendPacket(sm);
         			sm = null;
                     return;
                 }
-				activeChar.addCubic(npcId, getLevel());
+				activeChar.addCubic(_npcId, getLevel());
 				activeChar.broadcastUserInfo();
 				return;
 			}			
@@ -160,12 +168,12 @@ public class L2SkillSummon extends L2Skill {
 			return;
 		}
 		
-		L2NpcTemplate summonTemplate = NpcTable.getInstance().getTemplate(npcId);
+		L2NpcTemplate summonTemplate = NpcTable.getInstance().getTemplate(_npcId);
         L2SummonInstance summon = new L2SummonInstance(IdFactory.getInstance().getNextId(), summonTemplate, activeChar, this);
 		
         summon.setName(summonTemplate.getName());
         summon.setTitle(activeChar.getName());
-        summon.setExpPenalty(expPenalty);
+        summon.setExpPenalty(_expPenalty);
         if (summon.getLevel() >= Experience.LEVEL.length)
         {
             summon.getStat().setExp(Experience.LEVEL[Experience.LEVEL.length - 1]);
@@ -188,7 +196,5 @@ public class L2SkillSummon extends L2Skill {
         summon.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
                                               // if someone comes into range now, the animation shouldnt show any more
         activeChar.sendPacket(new PetInfo(summon));
-
 	}
-
 }

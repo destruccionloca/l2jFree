@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -31,11 +32,13 @@ public class RequestDismissAlly extends L2GameClientPacket
 	private static final String _C__86_REQUESTDISMISSALLY = "[C] 86 RequestDismissAlly";
 	//static Logger _log = Logger.getLogger(RequestDismissAlly.class.getName());
 
+    @Override
     protected void readImpl()
     {
         // trigger packet
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -45,7 +48,7 @@ public class RequestDismissAlly extends L2GameClientPacket
 		}
 		if (!activeChar.isClanLeader())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessage.FEATURE_ONLY_FOR_ALLIANCE_LEADER));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER));
 			return;
 		}
 		activeChar.getClan().dissolveAlly(activeChar);
@@ -54,6 +57,7 @@ public class RequestDismissAlly extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__86_REQUESTDISMISSALLY;

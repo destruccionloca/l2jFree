@@ -32,6 +32,7 @@ public class ConditionTargetUndead extends Condition
         _isUndead = isUndead;
     }
 
+    @Override
     public boolean testImpl(Env env)
     {
         L2Character target = (L2Character)env.player.getTarget();

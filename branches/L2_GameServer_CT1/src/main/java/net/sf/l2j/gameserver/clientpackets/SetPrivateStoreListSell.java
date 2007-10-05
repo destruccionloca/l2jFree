@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreManageListSell;
 import net.sf.l2j.gameserver.serverpackets.PrivateStoreMsgSell;
@@ -40,6 +41,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
     private int _count;
     private boolean _packageSale;
     private int[] _items; // count * 3
+    @Override
     protected void readImpl()
     {
         _packageSale = (readD() == 1);
@@ -68,14 +70,14 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         }
     }
 
-
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
         
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
 			sendPacket(new ActionFailed());
@@ -90,7 +92,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         }
         
         TradeList tradeList = player.getSellList();
-        tradeList.Clear();
+        tradeList.clear();
         tradeList.setPackaged(_packageSale);
 
         for (int i = 0; i < _count; i++)
@@ -110,10 +112,10 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         }
 
         // Check maximum number of allowed slots for pvt shops
-        if (_count > player.GetPrivateSellStoreLimit())
+        if (_count > player.getPrivateSellStoreLimit())
         {
             player.sendPacket(new PrivateStoreManageListSell(player));
-            player.sendPacket(new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+            player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
             return;
         }
         
@@ -126,6 +128,7 @@ public class SetPrivateStoreListSell extends L2GameClientPacket
         player.broadcastPacket(new PrivateStoreMsgSell(player));
     }
     
+    @Override
     public String getType()
     {
         return _C__74_SETPRIVATESTORELISTSELL;

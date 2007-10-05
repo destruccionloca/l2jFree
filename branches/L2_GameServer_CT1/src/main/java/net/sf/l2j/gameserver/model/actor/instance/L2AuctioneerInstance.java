@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.text.SimpleDateFormat;
@@ -7,10 +25,10 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.entity.Auction;
 import net.sf.l2j.gameserver.model.entity.Auction.Bidder;
@@ -24,9 +42,9 @@ import org.apache.commons.logging.LogFactory;
 public final class L2AuctioneerInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2AuctioneerInstance.class.getName());
-    private static int Cond_All_False = 0;
-    private static int Cond_Busy_Because_Of_Siege = 1;
-    private static int Cond_Regular = 3;
+    private static final int COND_ALL_FALSE = 0;
+    private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
+    private static final int COND_REGULAR = 3;
     
     private Map<Integer, Auction> _pendingAuctions = new FastMap<Integer, Auction>();
 
@@ -35,6 +53,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
         super(objectId, template);
     }
 
+    @Override
     public void onAction(L2PcInstance player)
     {
     	if (_log.isDebugEnabled()) _log.warn("Auctioneer activated");
@@ -46,25 +65,26 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             showMessageWindow(player);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) return;
         player.sendPacket(new ActionFailed());
 
         int condition = validateCondition(player);
-        if (condition == Cond_All_False)
+        if (condition == COND_ALL_FALSE)
         {
         	//TODO: html
         	player.sendMessage("Wrong conditions.");
         	return;
         }
-        if (condition == Cond_Busy_Because_Of_Siege)
+        if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
         {
         	//TODO: html
         	player.sendMessage("Busy because of siege.");
         	return;
         }
-        else if (condition == Cond_Regular)
+        else if (condition == COND_REGULAR)
         {
             StringTokenizer st = new StringTokenizer(command, " ");
             String actualCommand = st.nextToken(); // Get actual command
@@ -503,7 +523,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             {
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile("data/html/auction/location.htm");
-                html.replace("%location%", MapRegionTable.getInstance().getClosestTownName(player));
+                html.replace("%location%", TownManager.getInstance().getClosestTown(player).getName());
                 html.replace("%LOCATION%", getPictureName(player));
                 html.replace("%AGIT_LINK_BACK%", "bypass -h npc_"+getObjectId()+"_start");
                 player.sendPacket(html);
@@ -523,7 +543,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
         String filename = "data/html/auction/auction-no.htm";
 
         int condition = validateCondition(player);
-        if (condition == Cond_Busy_Because_Of_Siege) filename = "data/html/auction/auction-busy.htm"; // Busy because of siege
+        if (condition == COND_BUSY_BECAUSE_OF_SIEGE) filename = "data/html/auction/auction-busy.htm"; // Busy because of siege
         else filename = "data/html/auction/auction.htm";
 
         NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -538,11 +558,11 @@ public final class L2AuctioneerInstance extends L2FolkInstance
     {
         if (getCastle() != null && getCastle().getCastleId() > 0)
         {
-            if (getCastle().getSiege().getIsInProgress()) return Cond_Busy_Because_Of_Siege; // Busy because of siege
-            else return Cond_Regular;
+            if (getCastle().getSiege().getIsInProgress()) return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
+            else return COND_REGULAR;
         }
 
-        return Cond_All_False;
+        return COND_ALL_FALSE;
     }
     private String getPictureName(L2PcInstance plyr)
     {

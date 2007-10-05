@@ -1,4 +1,21 @@
-/* This program is free software; you can redistribute it and/or modify */
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 
 import net.sf.l2j.Config;
@@ -9,13 +26,13 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
-import net.sf.l2j.gameserver.instancemanager.JailManager;
-import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
@@ -32,7 +49,7 @@ import org.apache.commons.logging.LogFactory;
 public class Wedding implements IVoicedCommandHandler
 {
     protected static Log _log = LogFactory.getLog(Wedding.class);
-    private static String[] _voicedCommands = { "divorce", "engage", "gotolove" };
+    private static final String[] VOICED_COMMANDS = { "divorce", "engage", "gotolove" };
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
@@ -111,7 +128,7 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You are already engaged.");
             if(Config.WEDDING_PUNISH_INFIDELITY)
             {
-                activeChar.startAbnormalEffect((short)0x2000); // give player a Big Head
+                activeChar.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD); // give player a Big Head
                 // lets recycle the sevensigns debuffs
                 int skillId;
     
@@ -130,7 +147,7 @@ public class Wedding implements IVoicedCommandHandler
                 if (activeChar.getEffect(skill) == null)
                 {
                     skill.getEffects(activeChar, activeChar);
-                    SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                     sm.addSkillName(skillId);
                     activeChar.sendPacket(sm);
                 }
@@ -183,7 +200,10 @@ public class Wedding implements IVoicedCommandHandler
     }
     
     public boolean GoToLove(L2PcInstance activeChar)
-    {   
+    {
+        if (activeChar.isCastingNow() || activeChar.isMovementDisabled() 
+                || activeChar.isMuted() || activeChar.isAlikeDead())
+            return false;
         if(!activeChar.isMaried())
         {
             activeChar.sendMessage("You're not married."); 
@@ -195,78 +215,108 @@ public class Wedding implements IVoicedCommandHandler
             _log.error("Married but couldn't find partner for "+activeChar.getName());
             return false;
         }
-        else if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
-                activeChar.isInOlympiadMode() || activeChar._inEventCTF || activeChar._inEventTvT || activeChar._inEventDM)  
-        	return false;
+        // Check to see if the player is in olympiad.
+        else if (activeChar.isInOlympiadMode())
+        {
+            activeChar.sendMessage("You are in Olympiad!");
+            return false;
+        }
+        // Check to see if the player is in observer mode
+        else if (activeChar.inObserverMode())
+        {
+            activeChar.sendMessage("You are in observer mode.");
+            return false;
+        }
+        // Check to see if the player is in an event
+        else if (activeChar.isInFunEvent())
+        {
+            activeChar.sendMessage("You are in event now.");
+            return false;
+        }
         // Check to see if the player is in a festival.
         else if (activeChar.isFestivalParticipant()) 
         {
-        	activeChar.sendMessage("You can't escape from a festival.");
-        	return false;
+            activeChar.sendMessage("You can't escape from a festival.");
+            return false;
+        }
+         // Check to see if the player is in dimensional rift.
+        else if (DimensionalRiftManager.getInstance().checkIfInRiftZone
+                (activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
+        {
+            activeChar.sendMessage("You are in the dimensional rift.");
+            return false;
         }
         // Check to see if player is in jail
         else if (activeChar.isInJail())
         {
-        	activeChar.sendMessage("You can't escape from jail.");
-        	return false;
+            activeChar.sendMessage("You can't escape from jail.");
+            return false;
         }
         // Check if player is in Siege
-        // Character has clan? & Clan has castle? & Siege is in progress?
-        else if(activeChar.getClan() != null 
-        		&& CastleManager.getInstance().getCastleByOwner(activeChar.getClan()) != null 
-        		&& CastleManager.getInstance().getCastleByOwner(activeChar.getClan()).getSiege().getIsInProgress())
+        else if(CastleManager.getInstance().getCastle(activeChar) != null 
+                && CastleManager.getInstance().getCastle(activeChar).getSiege().getIsInProgress())
         {
-        	activeChar.sendMessage("You are in siege, you can't go to your partner.");
-        	return false;
+            activeChar.sendMessage("You are in siege, you can't go to your partner.");
+            return false;
         }
         // Check if player is in Duel
         else if (activeChar.isInDuel())
         {
-        	activeChar.sendMessage("You are in a duel.");
-        	return false;
+            activeChar.sendMessage("You are in a duel!");
+            return false;
         }
         // Check if player is a Cursed Weapon owner
         else if (activeChar.isCursedWeaponEquiped())
         {
-        	activeChar.sendMessage("You are currently holding a cursed weapon..");
-        	return false;
+            activeChar.sendMessage("You are currently holding a cursed weapon.");
+            return false;
         }
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
         if(partner == null)
         {
-        	activeChar.sendMessage("Your partner is not online.");
-        	return false;
+            activeChar.sendMessage("Your partner is not online.");
+            return false;
         }
         else if(partner.isInJail())
         {
-        	activeChar.sendMessage("Your partner is in jail.");
-        	return false;
-        }
-        else if(partner._inEventCTF || partner._inEventTvT || partner._inEventDM)
-        {
-        	activeChar.sendMessage("Your partner is in event now.");
-        	return false;
+            activeChar.sendMessage("Your partner is in jail.");
+            return false;
         }
         else if(partner.isInOlympiadMode())
         {
-        	activeChar.sendMessage("Your partner is in Olympiad now.");
-        	return false;
+            activeChar.sendMessage("Your partner is in Olympiad now.");
+            return false;
+        }
+        else if(partner.inObserverMode())
+        {
+            activeChar.sendMessage("Your partner is in observer mode.");
+            return false;
         }
         else if(partner.isInDuel())
         {
-        	activeChar.sendMessage("Your partner is in a duel.");
-        	return false;
+            activeChar.sendMessage("Your partner is in a duel.");
+            return false;
+        }
+        else if(partner.isInFunEvent())
+        {
+            activeChar.sendMessage("Your partner is in an event.");
+            return false;
+        }
+        else if (DimensionalRiftManager.getInstance().checkIfInRiftZone
+                (partner.getX(), partner.getY(), partner.getZ(), false))
+        {
+            activeChar.sendMessage("Your partner is in dimensional rift.");
+            return false;
         }
         else if (partner.isFestivalParticipant())
         {
         	activeChar.sendMessage("Your partner is in a festival.");
         	return false;
         }
-        else if(partner.getClan() != null 
-        		&& CastleManager.getInstance().getCastleByOwner(partner.getClan()) != null 
-        		&& CastleManager.getInstance().getCastleByOwner(partner.getClan()).getSiege().getIsInProgress())
+        else if(CastleManager.getInstance().getCastle(partner) != null 
+        		&& CastleManager.getInstance().getCastle(partner).getSiege().getIsInProgress())
         {
         	if (partner.getAppearance().getSex())
         		activeChar.sendMessage("Your partner is in siege, you can't go to her.");
@@ -304,7 +354,7 @@ public class Wedding implements IVoicedCommandHandler
         return true;
     }
 
-    static class EscapeFinalizer implements Runnable
+    private static class EscapeFinalizer implements Runnable
     {
         private L2PcInstance _activeChar;
         private int _partnerx;
@@ -315,9 +365,9 @@ public class Wedding implements IVoicedCommandHandler
         EscapeFinalizer(L2PcInstance activeChar, int x, int y, int z, boolean to7sDungeon)
         {
             _activeChar = activeChar;
-            _partnerx=x;
-            _partnery=y;
-            _partnerz=z;
+            _partnerx = x;
+            _partnery = y;
+            _partnerz = z;
             _to7sDungeon = to7sDungeon;
         }
         
@@ -325,11 +375,9 @@ public class Wedding implements IVoicedCommandHandler
         {
             if (_activeChar.isDead()) 
                 return; 
-            
             _activeChar.setIsIn7sDungeon(_to7sDungeon);
-            
             _activeChar.enableAllSkills();
-            
+
             try 
             {
                 _activeChar.teleToLocation(_partnerx, _partnery, _partnerz);
@@ -342,6 +390,6 @@ public class Wedding implements IVoicedCommandHandler
      */
     public String[] getVoicedCommandList()
     {
-        return _voicedCommands;
+        return VOICED_COMMANDS;
     }
 }

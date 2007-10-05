@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.JoinParty;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -39,55 +40,59 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 	
 	private int _response;
 	
-    protected void readImpl()
-    {
-        _response = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_response = readD();
+	}
 
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
-        if(player != null)
-        {
-    		L2PcInstance requestor = player.getActiveRequester();
-		if (requestor == null)
-		    return;
-    		
-    		JoinParty join = new JoinParty(_response);
-    		requestor.sendPacket(join);	
-    			
-    		if (_response == 1) 
-            {
-    			if(requestor.getParty()!=null)
-    			{
-	    			if(requestor.getParty().getMemberCount() >= 9) 
-	             	{ 
-	    				player.sendPacket(new SystemMessage(SystemMessage.PARTY_FULL)); 
-	    				requestor.sendPacket(new SystemMessage(SystemMessage.PARTY_FULL)); 
-	    				return; 
-	             	}
-    			}
-    			player.joinParty(requestor.getParty());
-    		} else
-            {
-    			SystemMessage msg = new SystemMessage(SystemMessage.PLAYER_DECLINED);
-    			requestor.sendPacket(msg);
-                msg = null;
-                
-    			//activate garbage collection if there are no other members in party (happens when we were creating new one) 
-    			if (requestor.getParty() != null && requestor.getParty().getMemberCount() == 1) requestor.setParty(null);
-    		}
-    		if (requestor.getParty() != null)
-    			requestor.getParty().decreasePendingInvitationNumber(); // if party is null, there is no need of decreasing
-            
-    		player.setActiveRequester(null);
-    		requestor.onTransactionResponse();
-        }
+		if(player != null)
+		{
+			L2PcInstance requestor = player.getActiveRequester();
+			if (requestor == null)
+				return;
+
+			JoinParty join = new JoinParty(_response);
+			requestor.sendPacket(join);	
+
+			if (_response == 1) 
+			{
+				if(requestor.getParty()!=null)
+				{
+					if(requestor.getParty().getMemberCount() >= 9) 
+					{ 
+						player.sendPacket(new SystemMessage(SystemMessageId.PARTY_FULL)); 
+						requestor.sendPacket(new SystemMessage(SystemMessageId.PARTY_FULL)); 
+						return; 
+					}
+				}
+				player.joinParty(requestor.getParty());
+			}
+			else
+			{
+				SystemMessage msg = new SystemMessage(SystemMessageId.PLAYER_DECLINED);
+				requestor.sendPacket(msg);
+				msg = null;
+
+				//activate garbage collection if there are no other members in party (happens when we were creating new one) 
+				if (requestor.getParty() != null && requestor.getParty().getMemberCount() == 1) requestor.setParty(null);
+			}
+			if (requestor.getParty() != null)
+				requestor.getParty().decreasePendingInvitationNumber(); // if party is null, there is no need of decreasing
+
+			player.setActiveRequester(null);
+			requestor.onTransactionResponse();
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__2A_REQUESTANSWERPARTY;

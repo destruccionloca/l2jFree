@@ -40,7 +40,7 @@ public class Resurrect implements ISkillHandler
 {
 	//private final static Log _log = LogFactory.getLog(Resurrect.class.getName());
 	
-	private static SkillType[] _skillIds = {SkillType.RESURRECT};
+	private static final SkillType[] SKILL_IDS = {SkillType.RESURRECT};
 	
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
@@ -54,6 +54,9 @@ public class Resurrect implements ISkillHandler
         for (int index = 0; index < targets.length; index++)
         {
             target = (L2Character) targets[index];
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
             
             if (target instanceof L2PcInstance)
             {               
@@ -78,13 +81,13 @@ public class Resurrect implements ISkillHandler
             if (activeChar instanceof L2PcInstance)
             {
                if (cha instanceof L2PcInstance)
-                   ((L2PcInstance)cha).ReviveRequest((L2PcInstance)activeChar,skill,false);
+                   ((L2PcInstance)cha).reviveRequest((L2PcInstance)activeChar,skill,false);
                else if (cha instanceof L2PetInstance)
                {
                    if (((L2PetInstance)cha).getOwner() == activeChar)
                        cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
                    else
-                       ((L2PetInstance)cha).getOwner().ReviveRequest((L2PcInstance)activeChar,skill,true);
+                       ((L2PetInstance)cha).getOwner().reviveRequest((L2PcInstance)activeChar,skill,true);
                }
                else cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
             }
@@ -94,6 +97,6 @@ public class Resurrect implements ISkillHandler
 	
 	public SkillType[] getSkillIds()
 	{
-		return _skillIds;
+		return SKILL_IDS;
 	}
 }

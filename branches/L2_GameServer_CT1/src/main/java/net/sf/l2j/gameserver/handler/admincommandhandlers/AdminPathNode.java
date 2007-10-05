@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 
 public class AdminPathNode implements IAdminCommandHandler
 {
-    private static String[] _adminCommands = {
+    private static final String[] ADMIN_COMMANDS = {
         "admin_pn_info",
         "admin_show_path",
         "admin_path_debug",
@@ -61,34 +61,36 @@ public class AdminPathNode implements IAdminCommandHandler
         }
         else if(command.equals("admin_find_path"))
         {
-    		if (Config.GEODATA < 2) 
-    		{
-    			activeChar.sendMessage("PathFinding has not been enabled.");
-    			return true;
-    		}
-    		if (activeChar.getTarget() != null)
+            if (!Config.GEO_PATH_FINDING)
             {
-    			int gx = (activeChar.getX() - L2World.MAP_MIN_X) >> 4;
-    			int gy = (activeChar.getY() - L2World.MAP_MIN_Y) >> 4;
-    			int gtx = (activeChar.getTarget().getX() - L2World.MAP_MIN_X) >> 4;
-    			int gty = (activeChar.getTarget().getY() - L2World.MAP_MIN_Y) >> 4;
-    			List<AbstractNodeLoc> path = GeoPathFinding.getInstance().FindPath(gx, gy, (short)activeChar.getZ(), gtx, gty, (short)activeChar.getTarget().getZ());
+                activeChar.sendMessage("PathFinding has not been enabled.");
+                return true;
+            }
+            if (activeChar.getTarget() != null)
+            {
+                int gx = (activeChar.getX() - L2World.MAP_MIN_X) >> 4;
+                int gy = (activeChar.getY() - L2World.MAP_MIN_Y) >> 4;
+                int gtx = (activeChar.getTarget().getX() - L2World.MAP_MIN_X) >> 4;
+                int gty = (activeChar.getTarget().getY() - L2World.MAP_MIN_Y) >> 4;
+                List<AbstractNodeLoc> path = GeoPathFinding.getInstance().findPath(gx, gy, (short)activeChar.getZ(), gtx, gty, (short)activeChar.getTarget().getZ());
                 for(AbstractNodeLoc a : path)
                 {
-                	activeChar.sendMessage("x:"+a.getX()+" y:"+a.getY()+" z:"+a.getZ());
+                    activeChar.sendMessage("x:"+a.getX()+" y:"+a.getY()+" z:"+a.getZ());
                 }
             }
-            else            
-                activeChar.sendMessage("No Target!");   
+            else
+                activeChar.sendMessage("No target!");
         }
         return true;
     }
     
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
     
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }    
 }

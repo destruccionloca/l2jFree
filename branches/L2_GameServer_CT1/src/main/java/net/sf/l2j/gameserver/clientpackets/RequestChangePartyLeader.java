@@ -33,11 +33,13 @@ public class RequestChangePartyLeader extends L2GameClientPacket{
 	private String _name;
 	
     
+    @Override
     protected void readImpl()
     {
         _name = readS();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -49,6 +51,7 @@ public class RequestChangePartyLeader extends L2GameClientPacket{
 	}
 	
 	
+	@Override
 	public String getType()
 	{
 		return _C__EE_REQUESTCHANGEPARTYLEADER;

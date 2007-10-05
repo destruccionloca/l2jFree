@@ -29,9 +29,9 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConditionSlotItemType extends ConditionInventory {
-
-	final int _mask;
+public class ConditionSlotItemType extends ConditionInventory
+{
+	private final int _mask;
 	
     public ConditionSlotItemType(int slot, int mask)
 	{
@@ -39,6 +39,7 @@ public class ConditionSlotItemType extends ConditionInventory {
 		_mask = mask;
 	}
 	
+	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.player instanceof L2PcInstance))

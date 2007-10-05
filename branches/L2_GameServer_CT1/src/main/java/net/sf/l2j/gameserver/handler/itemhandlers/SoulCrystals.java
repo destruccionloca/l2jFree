@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -46,7 +47,7 @@ public class SoulCrystals implements IItemHandler
     
 	// First line is for Red Soul Crystals, second is Green and third is Blue Soul Crystals,
     // ordered by ascending level, from 0 to 13... 
-    private static int[] _itemIds = { 4629, 4630, 4631, 4632, 4633, 4634, 4635, 4636, 4637, 4638, 4639, 5577, 5580, 5908,
+    private static final int[] ITEM_IDS = { 4629, 4630, 4631, 4632, 4633, 4634, 4635, 4636, 4637, 4638, 4639, 5577, 5580, 5908,
                                       4640, 4641, 4642, 4643, 4644, 4645, 4646, 4647, 4648, 4649, 4650, 5578, 5581, 5911,
                                       4651, 4652, 4653, 4654, 4655, 4656, 4657, 4658, 4659, 4660, 4661, 5579, 5582, 5914};
 
@@ -62,7 +63,7 @@ public class SoulCrystals implements IItemHandler
 		if (!(target instanceof L2MonsterInstance))
 		{
 			// Send a System Message to the caster
-            SystemMessage sm = new SystemMessage(SystemMessage.INCORRECT_TARGET);
+            SystemMessage sm = new SystemMessage(SystemMessageId.INCORRECT_TARGET);
 			activeChar.sendPacket(sm);
 			
 			// Send a Server->Client packet ActionFailed to the L2PcInstance 
@@ -72,7 +73,7 @@ public class SoulCrystals implements IItemHandler
             return;
 		}
         
-        // u can use soul crystal only when target hp goest to <50%
+        // u can use soul crystal only when target hp goes below <50%
         if(((L2MonsterInstance)target).getStatus().getCurrentHp() > ((L2MonsterInstance)target).getMaxHp()/2.0)
         {
             ActionFailed af = new ActionFailed();
@@ -122,6 +123,6 @@ public class SoulCrystals implements IItemHandler
 
 	public int[] getItemIds()
 	{
-		return _itemIds;
+		return ITEM_IDS;
 	}
 }

@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,6 +36,7 @@ public class DlgAnswer extends L2GameClientPacket
     private int _messageId;
     private int _answer, _unk;
     
+    @Override
     protected void readImpl()
     {
         _messageId = readD();
@@ -43,16 +44,18 @@ public class DlgAnswer extends L2GameClientPacket
         _unk = readD();
     }
 
+    @Override
     public void runImpl()
     {
         if(_log.isDebugEnabled())
-            _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", asnwer "+_answer+", unknown field "+_unk);
-        if (_messageId == SystemMessage.RESSURECTION_REQUEST)
-            getClient().getActiveChar().ReviveAnswer(_answer);
-        else if (Config.ALLOW_WEDDING && getClient().getActiveChar().isEngageRequest() &&_messageId==614)
-            getClient().getActiveChar().EngageAnswer(_answer);
+            _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", unknown field "+_unk);
+        if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
+            getClient().getActiveChar().reviveAnswer(_answer);
+        else if (Config.ALLOW_WEDDING && getClient().getActiveChar().isEngageRequest() &&_messageId == SystemMessageId.S1_S2.getId())
+            getClient().getActiveChar().engageAnswer(_answer);
     }
 
+    @Override
     public String getType()
     {
         return _C__C5_DLGANSWER;

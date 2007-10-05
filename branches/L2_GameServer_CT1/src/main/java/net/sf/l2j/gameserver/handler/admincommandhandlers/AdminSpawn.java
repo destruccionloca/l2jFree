@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
-import java.util.Random;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
@@ -29,11 +28,13 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -44,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdminSpawn implements IAdminCommandHandler
 {
   
-    private static String[][] _adminCommands = {
+    private static final String[][] ADMIN_COMMANDS = {
     	{"admin_spawn_menu",                                       // show spawn menu
     		
     		"Admin Menu - Spawn NPC.",
@@ -344,7 +345,7 @@ public class AdminSpawn implements IAdminCommandHandler
         {
             for (L2PcInstance player : L2World.getInstance().getAllPlayers())
             {
-                player.sendPacket(new SystemMessage(SystemMessage.NPC_SERVER_NOT_OPERATING));
+                player.sendPacket(new SystemMessage(SystemMessageId.NPC_SERVER_NOT_OPERATING));
             }
 
             RaidBossSpawnManager.getInstance().cleanUp();
@@ -383,10 +384,10 @@ public class AdminSpawn implements IAdminCommandHandler
      */
     public String[] getAdminCommandList()
     {
-    	String[] _adminCommandsOnly = new String[_adminCommands.length];
-    	for (int i=0; i < _adminCommands.length; i++)
+    	String[] _adminCommandsOnly = new String[ADMIN_COMMANDS.length];
+    	for (int i=0; i < ADMIN_COMMANDS.length; i++)
     	{
-    		_adminCommandsOnly[i]=_adminCommands[i][0];
+    		_adminCommandsOnly[i] = ADMIN_COMMANDS[i][0];
     	}
     	
         return _adminCommandsOnly;
@@ -436,13 +437,11 @@ public class AdminSpawn implements IAdminCommandHandler
         		
         		if (radius  >0 && count >1)
         		{
-        		    Random _rnd = new Random(); 
-
-                    int signX = (_rnd.nextInt(2) == 0) ? -1 : 1;
-                    int signY = (_rnd.nextInt(2) == 0) ? -1 : 1;
-                    int randX = _rnd.nextInt(radius);
-                    int randY = _rnd.nextInt(radius);
-                    int randH = _rnd.nextInt(0xFFFF);
+                    int signX = (Rnd.nextInt(2) == 0) ? -1 : 1;
+                    int signY = (Rnd.nextInt(2) == 0) ? -1 : 1;
+                    int randX = Rnd.nextInt(radius);
+                    int randY = Rnd.nextInt(radius);
+                    int randH = Rnd.nextInt(0xFFFF);
                     
                     x = x + signX * randX;
                     y = y + signY * randY;
@@ -460,15 +459,15 @@ public class AdminSpawn implements IAdminCommandHandler
         		spawn.setHeading(heading);
                 spawn.setRespawnDelay(Config.STANDARD_RESPAWN_DELAY);
 
-                if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcid()) && 
-                		respawn==true && 
-                		Config.ALT_DEV_NO_SPAWNS==false)
+                if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && 
+                		respawn && 
+                		!Config.ALT_DEV_NO_SPAWNS)
             	    activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
                 else
                 {
                 	if(respawn==true && Config.ALT_DEV_NO_SPAWNS==false)
                 	{
-                		if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcid()) != null)
+                		if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcId()) != null)
                 			RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getBaseHpMax(), template.getBaseMpMax(), true);
                     else
                         SpawnTable.getInstance().addNewSpawn(spawn, respawn);
@@ -586,7 +585,7 @@ public class AdminSpawn implements IAdminCommandHandler
         
     	replyMSG.append("</body></html>");        
         activeChar.sendPacket(new NpcHtmlMessage(5, replyMSG.toString()));
-        }
+    }
 
     /**
      * List all spawns of NPC. 
@@ -643,7 +642,7 @@ public class AdminSpawn implements IAdminCommandHandler
     	FastList<L2Spawn> list = new FastList<L2Spawn>();
 
     	for (L2Spawn spawn : SpawnTable.getInstance().getAllTemplates().values())
-            if (npcId == spawn.getNpcid()) list.add(spawn);
+            if (npcId == spawn.getNpcId()) list.add(spawn);
         
     	L2Spawn[] result = list.toArray(new L2Spawn[list.size()]);
         
@@ -714,12 +713,12 @@ public class AdminSpawn implements IAdminCommandHandler
      */    
     private void showAdminCommandHelp(L2PcInstance activeChar, String command)
     {
-    	for (int i=0; i < _adminCommands.length; i++)
+    	for (int i=0; i < ADMIN_COMMANDS.length; i++)
     	{
-    		if (command.equals(_adminCommands[i][0]))
+    		if (command.equals(ADMIN_COMMANDS[i][0]))
     		{
-    			for (int k=1; k < _adminCommands[i].length; k++)
-    				activeChar.sendMessage(_adminCommands[i][k]);
+    			for (int k=1; k < ADMIN_COMMANDS[i].length; k++)
+    				activeChar.sendMessage(ADMIN_COMMANDS[i][k]);
     		}
     	}
     }
@@ -741,7 +740,6 @@ public class AdminSpawn implements IAdminCommandHandler
             	break;
             }
         }
-        
         return npcId;
     }
 }

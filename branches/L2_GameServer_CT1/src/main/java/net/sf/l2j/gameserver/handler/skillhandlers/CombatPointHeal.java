@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 /**
@@ -33,30 +34,29 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class CombatPointHeal implements ISkillHandler
 {
-    //private final static Log _log = LogFactory.getLog(CombatPointHeal.class.getName());
-    
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
-    private static SkillType[] _skillIds = {SkillType.COMBATPOINTHEAL};
+    private static final SkillType[] SKILL_IDS = {SkillType.COMBATPOINTHEAL};
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
     public void useSkill(@SuppressWarnings("unused") L2Character actChar, L2Skill skill, L2Object[] targets)
     {
-//      L2Character activeChar = actChar;
-
         L2Character target = null;
         
         for(int index = 0;index < targets.length;index++)
         {
             target = (L2Character)targets[index];
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
             
             double cp = skill.getPower(); 
             //int cLev = activeChar.getLevel();
             //hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_CP_WILL_BE_RESTORED); 
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED); 
             sm.addNumber((int)cp); 
             target.sendPacket(sm);            
             target.getStatus().setCurrentCp(cp+target.getStatus().getCurrentCp()); 
@@ -69,6 +69,6 @@ public class CombatPointHeal implements ISkillHandler
     
     public SkillType[] getSkillIds()
     {
-        return _skillIds;
+        return SKILL_IDS;
     }
 }

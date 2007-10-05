@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.clientpackets;
 
 import javolution.util.FastList;
@@ -12,6 +29,7 @@ import net.sf.l2j.gameserver.model.L2Multisell.MultiSellIngredient;
 import net.sf.l2j.gameserver.model.L2Multisell.MultiSellListContainer;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -32,6 +50,7 @@ public class MultiSellChoose extends L2GameClientPacket
     private int _enchantment;
     private int _transactionTax;	// local handling of taxation
 
+    @Override
     protected void readImpl()
     {
         _listId = readD();
@@ -43,6 +62,7 @@ public class MultiSellChoose extends L2GameClientPacket
         _transactionTax = 0;	// initialize tax amount to 0...
     }
 
+    @Override
     public void runImpl()
     {
     	if(_amount < 1 || _amount > 5000 || _amount > Integer.MAX_VALUE )
@@ -107,7 +127,7 @@ public class MultiSellChoose extends L2GameClientPacket
     	{
             if((double)e.getItemCount() * (double)_amount > Integer.MAX_VALUE )
             {
-            	player.sendPacket(new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+            	player.sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
                 _ingredientsList.clear();
                 _ingredientsList = null;
                 return;
@@ -116,7 +136,7 @@ public class MultiSellChoose extends L2GameClientPacket
             // otherwise, check only the count of items with exactly the needed enchantment level
     		if( inv.getInventoryItemCount(e.getItemId(), maintainEnchantment? e.getEnchantmentLevel() : -1) < ((Config.ALT_BLACKSMITH_USE_RECIPES || !e.getMantainIngredient()) ? (e.getItemCount() * _amount) : e.getItemCount()) )
     		{
-    			player.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ITEMS));
+    			player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
     			_ingredientsList.clear();
     			_ingredientsList = null;
     			return;
@@ -234,7 +254,8 @@ public class MultiSellChoose extends L2GameClientPacket
 	    	if (ItemTable.getInstance().createDummyItem(e.getItemId()).isStackable())
 	    	{
 		    	inv.addItem("Multisell", e.getItemId(), (e.getItemCount() * _amount), player, player.getTarget());
-	    	} else
+	    	}
+	    	else
 	    	{
 	    		L2ItemInstance product = null;
 	            for (int i = 0; i < (e.getItemCount() * _amount); i++)
@@ -255,7 +276,7 @@ public class MultiSellChoose extends L2GameClientPacket
 
 	        if (e.getItemCount() * _amount > 1)
 	        {
-	        	sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+	        	sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 	            sm.addItemName(e.getItemId());
 	            sm.addNumber(e.getItemCount() * _amount);
 	            player.sendPacket(sm);
@@ -265,13 +286,13 @@ public class MultiSellChoose extends L2GameClientPacket
 	        {
 	            if(maintainEnchantment && _enchantment > 0)
 	            {
-	                sm = new SystemMessage(SystemMessage.ACQUIRED);
+	                sm = new SystemMessage(SystemMessageId.ACQUIRED);
 	                sm.addNumber(_enchantment);
 	                sm.addItemName(e.getItemId());
 	            }
 	            else
 	            {
-	                sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+	                sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
 	                sm.addItemName(e.getItemId());
 	            }
 	            player.sendPacket(sm);
@@ -286,7 +307,7 @@ public class MultiSellChoose extends L2GameClientPacket
         su = null;
 
         // finally, give the tax to the castle...
-		if (merchant != null && merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
+		if (merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
 		    merchant.getCastle().addToTreasury(_transactionTax * _amount);
     }
 
@@ -369,6 +390,7 @@ public class MultiSellChoose extends L2GameClientPacket
         return newEntry;
     }
 
+    @Override
     public String getType()
     {
         return _C__A7_MULTISELLCHOOSE;

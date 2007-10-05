@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
@@ -18,15 +35,16 @@ public final class L2MercManagerInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2MercManagerInstance.class.getName());
 
-    private static int Cond_All_False = 0;
-    private static int Cond_Busy_Because_Of_Siege = 1;
-    private static int Cond_Owner = 2;
+    private static final int COND_ALL_FALSE = 0;
+    private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
+    private static final int COND_OWNER = 2;
 
     public L2MercManagerInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
     }
 
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -37,6 +55,7 @@ public final class L2MercManagerInstance extends L2FolkInstance
             showMessageWindow(player);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) return;
@@ -44,10 +63,10 @@ public final class L2MercManagerInstance extends L2FolkInstance
         player.sendPacket(new ActionFailed());
 
         int condition = validateCondition(player);
-        if (condition <= Cond_All_False) return;
+        if (condition <= COND_ALL_FALSE) return;
 
-        if (condition == Cond_Busy_Because_Of_Siege) return;
-        else if (condition == Cond_Owner)
+        if (condition == COND_BUSY_BECAUSE_OF_SIEGE) return;
+        else if (condition == COND_OWNER)
         {
             StringTokenizer st = new StringTokenizer(command, " ");
             String actualCommand = st.nextToken(); // Get actual command
@@ -93,8 +112,8 @@ public final class L2MercManagerInstance extends L2FolkInstance
         String filename = "data/html/mercmanager/mercmanager-no.htm";
 
         int condition = validateCondition(player);
-        if (condition == Cond_Busy_Because_Of_Siege) filename = "data/html/mercmanager/mercmanager-busy.htm"; // Busy because of siege
-        else if (condition == Cond_Owner) // Clan owns castle
+        if (condition == COND_BUSY_BECAUSE_OF_SIEGE) filename = "data/html/mercmanager/mercmanager-busy.htm"; // Busy because of siege
+        else if (condition == COND_OWNER) // Clan owns castle
             filename = "data/html/mercmanager/mercmanager.htm"; // Owner message window
 
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -111,14 +130,14 @@ public final class L2MercManagerInstance extends L2FolkInstance
         {
             if (player.getClan() != null)
             {
-                if (getCastle().getSiege().getIsInProgress()) return Cond_Busy_Because_Of_Siege; // Busy because of siege
+                if (getCastle().getSiege().getIsInProgress()) return COND_BUSY_BECAUSE_OF_SIEGE; // Busy because of siege
                 else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle  
                 {  
-                	if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES) return Cond_Owner;  
+                	if ((player.getClanPrivileges() & L2Clan.CP_CS_MERCENARIES) == L2Clan.CP_CS_MERCENARIES) return COND_OWNER;  
                 } 
             }
         }
 
-        return Cond_All_False;
+        return COND_ALL_FALSE;
     }
 }

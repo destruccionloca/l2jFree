@@ -64,7 +64,6 @@ import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.AntharasManager;
-import net.sf.l2j.gameserver.instancemanager.ArenaManager;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -73,13 +72,13 @@ import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
-import net.sf.l2j.gameserver.instancemanager.OlympiadStadiaManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
@@ -98,6 +97,7 @@ import net.sf.l2j.gameserver.network.L2GamePacketHandler;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.script.faenor.FaenorScriptEngine;
+import net.sf.l2j.gameserver.skills.SkillsEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.gameserver.util.FloodProtector;
@@ -129,7 +129,7 @@ public class GameServer
     private final IdFactory _idFactory;
     public static GameServer gameServer;
     
-    private static ClanHallManager CHManager;
+    private static ClanHallManager _cHManager;
     private final ItemHandler _itemHandler;
     private final SkillHandler _skillHandler;
     private final AdminCommandHandler _adminCommandHandler;
@@ -141,19 +141,19 @@ public class GameServer
     private final AutoSpawnHandler _autoSpawnHandler;
     private LoginServerThread _loginThread;
     
-    private static Status statusServer;
+    private static Status _statusServer;
     @SuppressWarnings("unused")
     private final ThreadPoolManager _threadpools;   
 
-    public static final Calendar DateTimeServerStarted = Calendar.getInstance();
+    public static final Calendar dateTimeServerStarted = Calendar.getInstance();
     
     public long getUsedMemoryMB()
     {
         return (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory())/1048576; // 1024 * 1024 = 1048576;
     }
 
-	public ClanHallManager GetCHManager(){
-		return CHManager;
+	public ClanHallManager getCHManager(){
+		return _cHManager;
 	}
     
     public SelectorThread<L2GameClient> getSelectorThread()
@@ -221,7 +221,6 @@ public class GameServer
         // -------------------
         new File(Config.DATAPACK_ROOT, "data/clans").mkdirs();
         new File(Config.DATAPACK_ROOT, "data/crests").mkdirs();
-        new File("pathnode").mkdirs();
 
         // o start game time control early
         // ------------------------------
@@ -233,6 +232,15 @@ public class GameServer
         // have a singleton and its methods are misplaced
         // ----------------------------------------------
         CharNameTable.getInstance();
+        
+        // o Load skills
+        SkillsEngine.getInstance();
+        _skillTable = SkillTable.getInstance();
+        if (!_skillTable.isInitialized())
+        {
+            _log.fatal("Skills not initialized.");
+            throw new Exception("Could not initialize the skill table");
+        }
         
         // o Load datapack items
         // ---------------------
@@ -250,12 +258,6 @@ public class GameServer
         // o Load buylist 
         // --------------
         TradeListTable.getInstance();
-        _skillTable = SkillTable.getInstance();
-        if (!_skillTable.isInitialized())
-        {
-            _log.fatal("Skills not initialized.");
-            throw new Exception("Could not initialize the skill table");
-        }
         
         // o Initialize skill tree from dp
         // --------------------------------
@@ -325,10 +327,11 @@ public class GameServer
         GeoData.getInstance();
         if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
         
-        if (Config.GEODATA == 2)
-        	GeoPathFinding.getInstance();
-        	if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
-        
+        if (Config.GEO_PATH_FINDING)
+        {
+            GeoPathFinding.getInstance();
+            if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
+        }
         TeleportLocationTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("TeleportLocationTable initialized");
         LevelUpData.getInstance();
@@ -347,6 +350,8 @@ public class GameServer
         if ( _log.isDebugEnabled())_log.debug("RaidPointsManager initialized");
         DayNightSpawnManager.getInstance().notifyChangeMode();
         if ( _log.isDebugEnabled())_log.debug("Day/Night SpawnMode initialized");
+        DimensionalRiftManager.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("DimensionalRiftManager initialized");
         Announcements.getInstance();
         if ( _log.isDebugEnabled())_log.debug("Announcments initialized");
         MapRegionTable.getInstance();
@@ -464,9 +469,9 @@ public class GameServer
         
         // Initialize managers
         // -------------------
-		ArenaManager.getInstance();
-		AuctionManager.getInstance();
-		CHManager = ClanHallManager.getInstance();
+        ZoneManager.getInstance();
+        AuctionManager.getInstance();
+		_cHManager = ClanHallManager.getInstance();
 		CastleManager.getInstance();
 		MercTicketManager.getInstance();
 		//PartyCommandManager.getInstance();
@@ -474,8 +479,6 @@ public class GameServer
 		QuestManager.getInstance();
 		SiegeManager.getInstance();
 		TownManager.getInstance();
-		ZoneManager.getInstance();
-        OlympiadStadiaManager.getInstance();
         FourSepulchersManager.getInstance().init();
         SailrenManager.getInstance().init();
         AntharasManager.getInstance().init();
@@ -543,8 +546,8 @@ public class GameServer
         // o Enable telnet server
         // -----------------------
         if ( Config.IS_TELNET_ENABLED ) {
-            statusServer = new Status();
-            statusServer.start();
+            _statusServer = new Status();
+            _statusServer.start();
         }
         else {
             _log.info("Telnet server is currently disabled.");
@@ -576,10 +579,7 @@ public class GameServer
         {
             return version.getRevisionNumber();
         }
-        else
-        {
-            return "-1";
-        }
+        return "-1";
     }
     
     /**
@@ -593,10 +593,7 @@ public class GameServer
         {
             return version.getBuildJdk();
         }
-        else
-        {
-            return "-1";
-        }
+        return "-1";
     }    
     /**
      * Instantiate the gameserver

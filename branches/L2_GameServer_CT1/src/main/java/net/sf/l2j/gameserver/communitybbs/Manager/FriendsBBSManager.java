@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.AskJoinFriend;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
@@ -259,7 +260,7 @@ public class FriendsBBSManager extends BaseBBSManager
                     }
                     else
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessage.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);        
+                        SystemMessage sm = new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);        
                         activeChar.sendPacket(sm);
                         parsecmd("_bbsgetfav;playerinfo;"+reciever.getName(), activeChar);
                     }
@@ -268,7 +269,6 @@ public class FriendsBBSManager extends BaseBBSManager
                 {
                     // ignore
                 }
-                    
         }
         else
         {
@@ -277,19 +277,17 @@ public class FriendsBBSManager extends BaseBBSManager
             activeChar.sendPacket(new ShowBoard(null,"102"));
             activeChar.sendPacket(new ShowBoard(null,"103"));  
         }
-        
     }
-    private static FriendsBBSManager _Instance = null;
+    private static FriendsBBSManager _instance = null;
     /**
      * @return
      */
     public static FriendsBBSManager getInstance()
     {
-        if(_Instance == null)
+        if(_instance == null)
         {
-            _Instance = new FriendsBBSManager();
+            _instance = new FriendsBBSManager();
         }
-        return _Instance;
+        return _instance;
     }
-
 }

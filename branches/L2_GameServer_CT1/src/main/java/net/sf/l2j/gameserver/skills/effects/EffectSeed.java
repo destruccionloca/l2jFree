@@ -21,9 +21,9 @@ package net.sf.l2j.gameserver.skills.effects;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
-public class EffectSeed extends L2Effect {
-
-	int _power = 1;
+public class EffectSeed extends L2Effect
+{
+	private int _power = 1;
     
     public EffectSeed(Env env, EffectTemplate template)
 	{
@@ -51,4 +51,3 @@ public class EffectSeed extends L2Effect {
         _power++;
     }
 }
-

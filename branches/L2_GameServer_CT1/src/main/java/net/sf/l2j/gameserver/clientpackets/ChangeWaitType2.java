@@ -41,25 +41,28 @@ public class ChangeWaitType2 extends L2GameClientPacket
 	 * format:		cd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _typeStand = (readD() == 1);
     }
 
+    @Override
     protected void runImpl()
 	{
 	    if(getClient() != null && getClient().getActiveChar() != null)
 	    {
 	        if (_typeStand)
-	            getClient().getActiveChar().standUp();
+	            getClient().getActiveChar().standUp(false); // false - No forced standup but user requested - Checks if animation already running.
 	        else
-	            getClient().getActiveChar().sitDown();
+	            getClient().getActiveChar().sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
 	    }
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__1D_CHANGEWAITTYPE2;

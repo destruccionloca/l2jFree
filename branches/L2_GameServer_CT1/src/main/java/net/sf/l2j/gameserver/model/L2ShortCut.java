@@ -37,8 +37,8 @@ public class L2ShortCut
 	private final int _id;
 	private final int _level;
 	
-	public L2ShortCut(int slotId, int pageId, int shortcutType,
-                      int shortcutId, int shortcutLevel, int unknown) 
+	public L2ShortCut(int slotId, int pageId, int shortcutType, int shortcutId,
+	        int shortcutLevel, @SuppressWarnings("unused") int unknown) 
 	{
 		_slot = slotId;
 		_page = pageId;

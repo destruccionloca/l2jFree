@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -51,6 +52,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 	private int _count;
 	private int[] _items;
 	
+    @Override
     protected void readImpl()
     {
         _count = readD();
@@ -77,6 +79,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
         }
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -86,7 +89,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		L2FolkInstance manager = player.getLastFolkNPC();
         
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
 			sendPacket(new ActionFailed());
@@ -142,14 +145,14 @@ public class SendWareHouseDepositList extends L2GameClientPacket
         // Item Max Limit Check 
         if (!warehouse.validateCapacity(slots))
         {
-            sendPacket(new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+            sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
             return;
         }
 
         // Check if enough adena and charge the fee
         if (currentAdena < fee || !player.reduceAdena("Warehouse", fee, player.getLastFolkNPC(), false))
         {
-            sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+            sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
             return;
         }
 
@@ -204,6 +207,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__31_SENDWAREHOUSEDEPOSITLIST;

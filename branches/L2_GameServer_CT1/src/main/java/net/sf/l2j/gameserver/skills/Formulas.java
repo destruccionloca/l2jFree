@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -31,12 +32,15 @@ import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState;
 import net.sf.l2j.gameserver.skills.conditions.ConditionUsingItemType;
@@ -106,9 +110,9 @@ public final class Formulas
             return _instancies[pos];
         }
         
-        private FuncAddLevel3(Stats stat)
+        private FuncAddLevel3(Stats pStat)
         {
-            super(stat, 0x10, null);
+            super(pStat, 0x10, null);
         }
         
         public void calc(Env env)
@@ -129,9 +133,9 @@ public final class Formulas
             return _instancies[pos];
         }
         
-        private FuncMultLevelMod(Stats stat)
+        private FuncMultLevelMod(Stats pStat)
         {
-            super(stat, 0x20, null);
+            super(pStat, 0x20, null);
         }
         
         public void calc(Env env)
@@ -159,9 +163,9 @@ public final class Formulas
         /**
          * Constructor of the FuncMultRegenResting.<BR><BR>
          */
-        private FuncMultRegenResting(Stats stat)
+        private FuncMultRegenResting(Stats pStat)
         {
-            super(stat, 0x20, null);
+            super(pStat, 0x20, null);
             setCondition(new ConditionPlayerState(CheckPlayerState.RESTING, true));
         }
         
@@ -170,7 +174,7 @@ public final class Formulas
          */
         public void calc(Env env)
         {
-            if (!_cond.test(env)) return;
+            if (!cond.test(env)) return;
             
             env.value *= 1.45;
         }
@@ -278,11 +282,11 @@ public final class Formulas
     
     static class FuncBowAtkRange extends Func
     {
-        private static final FuncBowAtkRange _fbar_instance = new FuncBowAtkRange();
+        private static final FuncBowAtkRange _fbarInstance = new FuncBowAtkRange();
         
         static Func getInstance() 
         {
-            return _fbar_instance;
+            return _fbarInstance;
         }
         
         private FuncBowAtkRange()
@@ -293,18 +297,18 @@ public final class Formulas
         
         public void calc(Env env)
         {
-            if (!_cond.test(env)) return;
+            if (!cond.test(env)) return;
             env.value += 450;
         }
     }
     
     static class FuncAtkAccuracy extends Func
     {
-        static final FuncAtkAccuracy _faa_instance = new FuncAtkAccuracy();
+        static final FuncAtkAccuracy _faaInstance = new FuncAtkAccuracy();
         
         static Func getInstance() 
         {
-            return _faa_instance;
+            return _faaInstance;
         }
         
         private FuncAtkAccuracy()
@@ -324,11 +328,11 @@ public final class Formulas
     
     static class FuncAtkEvasion extends Func
     {
-        static final FuncAtkEvasion _fae_instance = new FuncAtkEvasion();
+        static final FuncAtkEvasion _faeInstance = new FuncAtkEvasion();
         
         static Func getInstance() 
         {
-            return _fae_instance;
+            return _faeInstance;
         }
         
         private FuncAtkEvasion()
@@ -347,11 +351,11 @@ public final class Formulas
     
     static class FuncAtkCritical extends Func
     {
-        static final FuncAtkCritical _fac_instance = new FuncAtkCritical();
+        static final FuncAtkCritical _facInstance = new FuncAtkCritical();
         
         static Func getInstance() 
         {
-            return _fac_instance;
+            return _facInstance;
         }
         
         private FuncAtkCritical()
@@ -376,11 +380,11 @@ public final class Formulas
     
     static class FuncMoveSpeed extends Func
     {
-        static final FuncMoveSpeed _fms_instance = new FuncMoveSpeed();
+        static final FuncMoveSpeed _fmsInstance = new FuncMoveSpeed();
         
         static Func getInstance() 
         {
-            return _fms_instance;
+            return _fmsInstance;
         }
         
         private FuncMoveSpeed()
@@ -397,11 +401,11 @@ public final class Formulas
     
     static class FuncPAtkSpeed extends Func
     {
-        static final FuncPAtkSpeed _fas_instance = new FuncPAtkSpeed();
+        static final FuncPAtkSpeed _fasInstance = new FuncPAtkSpeed();
         
         static Func getInstance() 
         {
-            return _fas_instance;
+            return _fasInstance;
         }
         
         private FuncPAtkSpeed()
@@ -418,11 +422,11 @@ public final class Formulas
     
     static class FuncMAtkSpeed extends Func
     {
-        static final FuncMAtkSpeed _fas_instance = new FuncMAtkSpeed();
+        static final FuncMAtkSpeed _fasInstance = new FuncMAtkSpeed();
         
         static Func getInstance() 
         {
-            return _fas_instance;
+            return _fasInstance;
         }
         
         private FuncMAtkSpeed()
@@ -439,11 +443,11 @@ public final class Formulas
     
     static class FuncMaxLoad extends Func
     {
-        static final FuncMaxLoad _fms_instance = new FuncMaxLoad();
+        static final FuncMaxLoad _fmsInstance = new FuncMaxLoad();
         
         static Func getInstance() 
         {
-            return _fms_instance;
+            return _fmsInstance;
         }
         
         private FuncMaxLoad()
@@ -461,11 +465,11 @@ public final class Formulas
     
     static class FuncHennaSTR extends Func
     {
-        static final FuncHennaSTR _fh_instance = new FuncHennaSTR();
+        static final FuncHennaSTR _fhInstance = new FuncHennaSTR();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaSTR()
@@ -483,11 +487,11 @@ public final class Formulas
     
     static class FuncHennaDEX extends Func
     {
-        static final FuncHennaDEX _fh_instance = new FuncHennaDEX();
+        static final FuncHennaDEX _fhInstance = new FuncHennaDEX();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaDEX()
@@ -505,11 +509,11 @@ public final class Formulas
     
     static class FuncHennaINT extends Func
     {
-        static final FuncHennaINT _fh_instance = new FuncHennaINT();
+        static final FuncHennaINT _fhInstance = new FuncHennaINT();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaINT()
@@ -527,11 +531,11 @@ public final class Formulas
     
     static class FuncHennaMEN extends Func
     {
-        static final FuncHennaMEN _fh_instance = new FuncHennaMEN();
+        static final FuncHennaMEN _fhInstance = new FuncHennaMEN();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaMEN()
@@ -549,11 +553,11 @@ public final class Formulas
     
     static class FuncHennaCON extends Func
     {
-        static final FuncHennaCON _fh_instance = new FuncHennaCON();
+        static final FuncHennaCON _fhInstance = new FuncHennaCON();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaCON()
@@ -571,11 +575,11 @@ public final class Formulas
     
     static class FuncHennaWIT extends Func
     {
-        static final FuncHennaWIT _fh_instance = new FuncHennaWIT();
+        static final FuncHennaWIT _fhInstance = new FuncHennaWIT();
         
         static Func getInstance() 
         {
-            return _fh_instance;
+            return _fhInstance;
         }
         
         private FuncHennaWIT()
@@ -593,11 +597,11 @@ public final class Formulas
     
     static class FuncMaxHpAdd extends Func
     {
-        static final FuncMaxHpAdd _fmha_instance = new FuncMaxHpAdd();
+        static final FuncMaxHpAdd _fmhaInstance = new FuncMaxHpAdd();
         
         static Func getInstance() 
         {
-            return _fmha_instance;
+            return _fmhaInstance;
         }
         
         private FuncMaxHpAdd()
@@ -618,11 +622,11 @@ public final class Formulas
     
     static class FuncMaxHpMul extends Func
     {
-        static final FuncMaxHpMul _fmhm_instance = new FuncMaxHpMul();
+        static final FuncMaxHpMul _fmhmInstance = new FuncMaxHpMul();
         
         static Func getInstance() 
         {
-            return _fmhm_instance;
+            return _fmhmInstance;
         }
         
         private FuncMaxHpMul()
@@ -639,11 +643,11 @@ public final class Formulas
     
     static class FuncMaxCpAdd extends Func
     {
-        static final FuncMaxCpAdd _fmca_instance = new FuncMaxCpAdd();
+        static final FuncMaxCpAdd _fmcaInstance = new FuncMaxCpAdd();
         
         static Func getInstance() 
         {
-            return _fmca_instance;
+            return _fmcaInstance;
         }
         
         private FuncMaxCpAdd()
@@ -664,11 +668,11 @@ public final class Formulas
     
     static class FuncMaxCpMul extends Func
     {
-        static final FuncMaxCpMul _fmcm_instance = new FuncMaxCpMul();
+        static final FuncMaxCpMul _fmcmInstance = new FuncMaxCpMul();
         
         static Func getInstance() 
         {
-            return _fmcm_instance;
+            return _fmcmInstance;
         }
         
         private FuncMaxCpMul()
@@ -685,11 +689,11 @@ public final class Formulas
     
     static class FuncMaxMpAdd extends Func
     {
-        static final FuncMaxMpAdd _fmma_instance = new FuncMaxMpAdd();
+        static final FuncMaxMpAdd _fmmaInstance = new FuncMaxMpAdd();
         
         static Func getInstance() 
         {
-            return _fmma_instance;
+            return _fmmaInstance;
         }
         
         private FuncMaxMpAdd()
@@ -710,11 +714,11 @@ public final class Formulas
     
     static class FuncMaxMpMul extends Func
     {
-        static final FuncMaxMpMul _fmmm_instance = new FuncMaxMpMul();
+        static final FuncMaxMpMul _fmmmInstance = new FuncMaxMpMul();
         
         static Func getInstance() 
         {
-            return _fmmm_instance;
+            return _fmmmInstance;
         }
         
         private FuncMaxMpMul()
@@ -855,7 +859,7 @@ public final class Formulas
         double init = cha.getTemplate().getBaseHpReg();
         double hpRegenMultiplier;
         double hpRegenBonus = 0;
-        
+
         if(cha.isRaid())
            hpRegenMultiplier=Config.RAID_HP_REGEN_MULTIPLIER;
         else if(cha instanceof L2PcInstance)
@@ -865,6 +869,15 @@ public final class Formulas
         
         if (cha.isChampion())
             hpRegenMultiplier *= Config.CHAMPION_HP_REGEN;
+
+		// [L2J_JP ADD SANDMAN]
+		// The recovery power of Zaken decreases under sunlight.
+		if (cha instanceof L2BossInstance)
+		{
+			L2BossInstance boss = (L2BossInstance) cha;
+			if ((boss.getNpcId() == 29022) && (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Sunlight Room" , boss)) && (boss.getZ() >= -2952))
+				hpRegenMultiplier *= 0.75;
+		}
         
         if (cha instanceof L2PcInstance)
         {
@@ -885,7 +898,7 @@ public final class Formulas
                 init *= calcFestivalRegenModifier(player);
             else
             {
-                double siegeModifier = this.calcSiegeRegenModifer(player);
+                double siegeModifier = calcSiegeRegenModifer(player);
                 if (siegeModifier > 0) init *= siegeModifier;
             }
             
@@ -960,7 +973,7 @@ public final class Formulas
             // Mother Tree effect is calculated at last
             if (player.getInMotherTreeZone()) mpRegenBonus += 1;
             
-            if (player.getIsInClanHall() == 2)
+            if (player.getIsInClanHall() == 2 && player.getClan() != null)
             {
             	int clanHallIndex = player.getClan().getHasHideout();
             	if (clanHallIndex > 0)
@@ -1033,8 +1046,8 @@ public final class Formulas
         if (festivalId < 0) return 0;
         
         // Retrieve the X and Y coords for the center of the festival arena the player is in.
-        if (oracle == SevenSigns.CABAL_DAWN) festivalCenter = SevenSignsFestival.festivalDawnPlayerSpawns[festivalId];
-        else festivalCenter = SevenSignsFestival.festivalDuskPlayerSpawns[festivalId];
+        if (oracle == SevenSigns.CABAL_DAWN) festivalCenter = SevenSignsFestival.FESTIVAL_DAWN_PLAYER_SPAWNS[festivalId];
+        else festivalCenter = SevenSignsFestival.FESTIVAL_DUSK_PLAYER_SPAWNS[festivalId];
 
         // Check the distance between the player and the player spawn point, in the center of the arena.
         double distToCenter = activeChar.getDistance(festivalCenter[0], festivalCenter[1]);
@@ -1049,8 +1062,7 @@ public final class Formulas
     {
         if (activeChar == null || activeChar.getClan() == null) return 0;
 
-        Siege siege = SiegeManager.getInstance().getSiege(activeChar.getPosition().getX(),
-                                                           activeChar.getPosition().getY());
+        Siege siege = SiegeManager.getInstance().getSiege(activeChar);
         if (siege == null || !siege.getIsInProgress()) return 0;
         
         L2SiegeClan siegeClan = siege.getAttackerClan(activeChar.getClan().getClanId());
@@ -1075,7 +1087,7 @@ public final class Formulas
 		
 		//Multiplier should be removed, it's false ??
 		damage += 1.5*attacker.calcStat(Stats.CRITICAL_DAMAGE, damage+power, target, skill);
-		damage *= (double)attacker.getLevel()/target.getLevel();
+		//damage *= (double)attacker.getLevel()/target.getLevel();
 		//True with skill ?
 		defence = target.calcStat(Stats.DAGGER_WPN_RES, defence, target, null);
 		if (target instanceof L2NpcInstance)
@@ -1267,7 +1279,7 @@ public final class Formulas
             if (100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100)) 
             {
                 damage = 1;
-                target.sendPacket(new SystemMessage(SystemMessage.YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS));
+                target.sendPacket(new SystemMessage(SystemMessageId.YOUR_EXCELLENT_SHIELD_DEFENSE_WAS_A_SUCCESS));
             }
         }
         if  (damage > 0 && damage < 1)
@@ -1333,14 +1345,14 @@ public final class Formulas
                 {
                     if (skill.getSkillType() == SkillType.DRAIN) attacker.sendPacket(new SystemMessage(
 
-                                                                                                        SystemMessage.DRAIN_HALF_SUCCESFUL));
-                    else attacker.sendPacket(new SystemMessage(SystemMessage.ATTACK_FAILED));
+                                                                                                        SystemMessageId.DRAIN_HALF_SUCCESFUL));
+                    else attacker.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
 
                     damage /= 2;
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_WAS_UNAFFECTED_BY_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
                     sm.addString(target.getName());
                     sm.addSkillName(skill.getId());
                     attacker.sendPacket(sm);
@@ -1353,13 +1365,13 @@ public final class Formulas
             {
                 if (skill.getSkillType() == SkillType.DRAIN)
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.RESISTED_S1_DRAIN);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_S1_DRAIN);
                     sm.addString(attacker.getName());
                     target.sendPacket(sm);
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.RESISTED_S1_MAGIC);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.RESISTED_S1_MAGIC);
                     sm.addString(attacker.getName());
                     target.sendPacket(sm);
                 }
@@ -1526,23 +1538,17 @@ public final class Formulas
     /** Returns true if shield defence successfull */
     public boolean calcShldUse(L2Character attacker, L2Character target) 
     {
-        int shldRate = (int)(target.calcStat(Stats.SHIELD_RATE, 0, attacker, null) * DEXbonus[target.getStat().getDEX()]);
-        int shldAngle = (int)target.calcStat(Stats.SHIELD_ANGLE, 60, null, null);
-    
-        if(shldRate == 0) return false;
-        
-        if (attacker != null && attacker.getActiveWeaponItem() != null)
-        {
-          if (attacker.getActiveWeaponItem().getItemType() == L2WeaponType.BOW)
-            shldRate += 30;
-        }
-    
-        if (shldAngle == 60 && target.isInFront(attacker, shldAngle))
-        {
-          shldRate = 0;
-        }
-    
-        return Rnd.get(100) <= shldRate; 
+        L2Weapon at_weapon = attacker.getActiveWeaponItem();
+        double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null)
+            * DEXbonus[target.getStat().getDEX()];
+        if (shldRate == 0.0) return false;
+        // Check for passive skill Aegis (316) or Aegis Stance (318)
+        if (target.getKnownSkill(316) == null && target.getEffect(318) == null)
+            if (!target.isFront(attacker)) return false;
+        // if attacker use bow and target wear shield, shield block rate is multiplied by 1.3 (30%)
+        if (at_weapon != null && at_weapon.getItemType() == L2WeaponType.BOW)
+            shldRate *= 1.3;
+        return shldRate > Rnd.get(100);
     }
 
     public boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
@@ -1842,5 +1848,25 @@ public final class Formulas
     public double getSTRBonus(L2Character activeChar)
     {
     	return STRbonus[activeChar.getStat().getSTR()];
+    }
+    
+    public boolean receiveBlock(L2Character cha, String type)
+    {
+        if(type.equalsIgnoreCase("buff"))
+        {
+            return cha.calcStat(Stats.BLOCK_RECEIVE_BUFF, 0, null, null) > 0;
+        }
+        
+        if(type.equalsIgnoreCase("debuff"))
+        {
+            return cha.calcStat(Stats.BLOCK_RECEIVE_DEBUFF, 0, null, null) > 0;
+        }
+        
+        if(type.equalsIgnoreCase("damage"))
+        {
+            return cha.calcStat(Stats.BLOCK_RECEIVE_DAMAGE, 0, null, null) > 0;
+        }
+        
+        return false;
     }    
 }

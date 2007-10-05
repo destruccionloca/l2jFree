@@ -55,14 +55,13 @@ public class HennaTable
 	private HennaTable()
 	{
 		_henna = new FastMap<Integer, L2Henna>();
-		RestoreHennaData();
-
+		restoreHennaData();
 	}
 
 	/**
 	 * 
 	 */
-	private void RestoreHennaData()
+	private void restoreHennaData()
 	{
 		java.sql.Connection con = null;
 		try
@@ -84,8 +83,7 @@ public class HennaTable
 		}
 	}
 
-	private void fillHennaTable(ResultSet HennaData)
-			throws Exception
+	private void fillHennaTable(ResultSet HennaData) throws Exception
 	{
 		while (HennaData.next())
 		{
@@ -112,16 +110,13 @@ public class HennaTable
 		_log.info("HennaTable: Loaded " + _henna.size() + " Templates.");
 	}
     
-
 	public boolean isInitialized()
 	{
 		return _initialized;
 	}
-    
 
 	public L2Henna getTemplate(int id)
 	{
 		return _henna.get(id);
 	}
-	
-	}
+}

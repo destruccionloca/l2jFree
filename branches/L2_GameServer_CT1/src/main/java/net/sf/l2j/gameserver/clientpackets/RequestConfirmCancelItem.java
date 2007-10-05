@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExConfirmCancelItem;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -37,6 +38,7 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+	@Override
 	protected void readImpl()
 	{
 		_itemId = readD();
@@ -46,8 +48,7 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	protected
-	void runImpl()
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		L2ItemInstance item = (L2ItemInstance)L2World.getInstance().findObject(_itemId);
@@ -55,7 +56,7 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 		if (activeChar == null || item == null) return;
 		if (!item.isAugmented())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessage.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM));
 		return;
 		}
 		
@@ -103,5 +104,4 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 	{
 		return _C__D0_2D_REQUESTCONFIRMCANCELITEM;
 	}
-
 }

@@ -29,25 +29,27 @@ public class AutoAttackStop extends L2GameServerPacket
 	// dh
 	
 	private static final String _S__3C_AUTOATTACKSTOP = "[S] 3C AutoAttackStop";
-	private int _targetId;
+	private int _targetObjId;
 
 	/**
 	 * @param _characters
 	 */
-	public AutoAttackStop(int targetId)
+	public AutoAttackStop(int targetObjId)
 	{
-		_targetId = targetId;
+		_targetObjId = targetObjId;
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x2c);
-		writeD(_targetId);
+		writeD(_targetObjId);
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__3C_AUTOATTACKSTOP;

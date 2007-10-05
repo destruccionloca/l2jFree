@@ -1,8 +1,24 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -11,10 +27,11 @@ import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -63,7 +80,7 @@ public class AutoSpawnHandler
     protected FastMap<Integer, ScheduledFuture> _runningSpawns;
     protected boolean _activeState = true;
     
-	public AutoSpawnHandler()
+	private AutoSpawnHandler()
 	{
         _registeredSpawns = new FastMap<Integer, AutoSpawnInstance>();
         _runningSpawns = new FastMap<Integer, ScheduledFuture>();
@@ -405,9 +422,8 @@ public class AutoSpawnHandler
                     return;
                 }
                 
-                Random rnd = new Random();
                 int locationCount = locationList.length;
-				int locationIndex = rnd.nextInt(locationCount);
+				int locationIndex = Rnd.nextInt(locationCount);
                 
                 /*
                  * If random spawning is disabled, the spawn at the next set of
@@ -467,14 +483,14 @@ public class AutoSpawnHandler
 	
 	                    // To prevent spawning of more than one NPC in the exact same spot, 
 	                    // move it slightly by a small random offset.
-	                    npcInst.getPosition().setXYZ(npcInst.getX() + rnd.nextInt(50), npcInst.getY() + rnd.nextInt(50), npcInst.getZ());
+	                    npcInst.getPosition().setXYZ(npcInst.getX() + Rnd.nextInt(50), npcInst.getY() + Rnd.nextInt(50), npcInst.getZ());
 	                    
 	                    // Add the NPC instance to the list of managed instances.
 	                    spawnInst.addNpcInstance(npcInst);
 	                }
 				}
 
-                String nearestTown = MapRegionTable.getInstance().getClosestTownName(npcInst);
+                String nearestTown = TownManager.getInstance().getClosestTown(npcInst).getName();
                 
                 // Announce to all players that the spawn has taken place, with the nearest town location.
                 if (spawnInst.isBroadcasting())

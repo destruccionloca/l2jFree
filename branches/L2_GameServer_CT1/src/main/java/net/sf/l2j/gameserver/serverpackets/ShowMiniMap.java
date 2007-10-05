@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.SevenSigns;
  */
 public class ShowMiniMap extends L2GameServerPacket
 {
-	private static final String _S__b6_SHOWMINIMAP = "[S] 9d ShowMiniMap";
+	private static final String _S__B6_SHOWMINIMAP = "[S] 9d ShowMiniMap";
 	private int _mapId;
 
 	/**
@@ -40,6 +40,7 @@ public class ShowMiniMap extends L2GameServerPacket
 		_mapId = mapId;
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x9d);
@@ -50,8 +51,9 @@ public class ShowMiniMap extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
-		return _S__b6_SHOWMINIMAP;
+		return _S__B6_SHOWMINIMAP;
 	}
 }

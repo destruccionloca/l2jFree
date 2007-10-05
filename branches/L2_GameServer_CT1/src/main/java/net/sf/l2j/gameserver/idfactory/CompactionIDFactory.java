@@ -71,7 +71,7 @@ public class CompactionIDFactory extends IdFactory
             }
             _curOID++;
             _log.info("IdFactory: Next usable Object ID is: " + _curOID);
-            initialized = true;
+            _initialized = true;
         }
         catch (Exception e1)
         {
@@ -95,21 +95,21 @@ public class CompactionIDFactory extends IdFactory
         // check these IDs not present in DB
         if (Config.BAD_ID_CHECKING)
         {
-        for (String check : id_checks)
-        {
-            PreparedStatement ps = con.prepareStatement(check);
-            ps.setInt(1, _curOID);
-            ps.setInt(2, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next())
+            for (String check : ID_CHECKS)
             {
-                int badId = rs.getInt(1);
-                _log.fatal("Bad ID " + badId + " in DB found by: " + check);
-                throw new RuntimeException();
+                PreparedStatement ps = con.prepareStatement(check);
+                ps.setInt(1, _curOID);
+                ps.setInt(2, id);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next())
+                {
+                    int badId = rs.getInt(1);
+                    _log.fatal("Bad ID " + badId + " in DB found by: " + check);
+                    throw new RuntimeException();
+                }
+                rs.close();
+                ps.close();
             }
-            rs.close();
-            ps.close();
-        }
         }
         
         int hole = id - _curOID;
@@ -118,7 +118,7 @@ public class CompactionIDFactory extends IdFactory
         {
             id = tmp_obj_ids[N - i];
             _log.debug("Compacting DB object ID=" + id + " into " + (_curOID));
-            for (String update : id_updates)
+            for (String update : ID_UPDATES)
             {
                 PreparedStatement ps = con.prepareStatement(update);
                 ps.setInt(1, _curOID);

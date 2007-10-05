@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import java.nio.BufferUnderflowException;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
@@ -29,6 +30,7 @@ import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.FloodProtector;
@@ -61,7 +63,7 @@ public class Say2 extends L2GameClientPacket
     public final static int PARTYROOM_COMMANDER = 16; //(blue)
     public final static int HERO_VOICE = 17;
     
-    private final static String[] chatNames = {
+    private final static String[] CHAT_NAMES = {
         "ALL  ",
         "SHOUT",
         "TELL ",
@@ -90,19 +92,28 @@ public class Say2 extends L2GameClientPacket
      * format:      cSd (S)
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _text = readS();
-        _type = readD();
+        try
+        {
+            _type = readD();
+        }
+        catch (BufferUnderflowException e) 
+        {
+            _type = CHAT_NAMES.length;
+        }
         _target = (_type == TELL) ? readS() : null;
     }
 
+    @Override
     protected void runImpl()
     {
         if (_log.isDebugEnabled()) 
             _log.info("Say2: Msg Type = '" + _type + "' Text = '" + _text + "'.");
         
-        if(_type >= chatNames.length)
+        if(_type >= CHAT_NAMES.length)
         {
             _log.warn("Say2: Invalid type: "+_type);
             return;
@@ -118,16 +129,17 @@ public class Say2 extends L2GameClientPacket
 
         if (activeChar.isChatBanned())
         {
+            if (_type == ALL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
             {
-				// [L2J_JP EDIT]
-				activeChar.sendPacket(new SystemMessage(SystemMessage.CHATTING_IS_CURRENTLY_PROHIBITED));
+                // [L2J_JP EDIT]
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
                 return;
             }
         }
         
         if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
         {
-            if (_type == TELL || _type == SHOUT || _type == TRADE)
+            if (_type == TELL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
             {
                 activeChar.sendMessage("You can not chat with the outside of the jail.");
                 return;
@@ -141,9 +153,9 @@ public class Say2 extends L2GameClientPacket
         if (Config.LOG_CHAT) 
         {
             if (_type == TELL)
-                _logChat.info( chatNames[_type] + "[" + activeChar.getName() + " to "+_target+"] " + _text);
+                _logChat.info( CHAT_NAMES[_type] + "[" + activeChar.getName() + " to "+_target+"] " + _text);
             else
-                _logChat.info( chatNames[_type] + "[" + activeChar.getName() + "] " + _text);
+                _logChat.info( CHAT_NAMES[_type] + "[" + activeChar.getName() + "] " + _text);
         }
 
         if(Config.USE_SAY_FILTER) 
@@ -162,9 +174,18 @@ public class Say2 extends L2GameClientPacket
             case TELL:
                 L2PcInstance receiver = L2World.getInstance().getPlayer(_target);
                 
-                if (receiver != null && 
-                        !BlockList.isBlocked(receiver, activeChar))
-                {   
+                if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
+                {
+                    if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
+                    {
+                        activeChar.sendMessage("Player is in jail.");
+                        return;
+                    }
+                    if (receiver.isChatBanned())
+                    {
+                        activeChar.sendMessage("Player is chat banned.");
+                        return;
+                    }
                     if (!receiver.getMessageRefusal())
                     {
                         receiver.sendPacket(cs);
@@ -172,12 +193,12 @@ public class Say2 extends L2GameClientPacket
                     }
                     else
                     {
-                        activeChar.sendPacket(new SystemMessage(SystemMessage.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
+                        activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
                     }
-        }
+                }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_NOT_ONLINE);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_NOT_ONLINE);
                     sm.addString(_target);        
                     activeChar.sendPacket(sm);
                     sm = null;
@@ -192,7 +213,7 @@ public class Say2 extends L2GameClientPacket
 
         		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout"))
 	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("!"+ activeChar.getName() +": " + _text);
+	        		IrcManager.getInstance().getConnection().sendChan("07!"+ activeChar.getName() +": " + _text);
 	        	}
                 if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("on") ||
                         (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
@@ -221,7 +242,7 @@ public class Say2 extends L2GameClientPacket
         	
 	        	if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("trade"))
 	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("+"+ activeChar.getName() +": " + _text);
+	        		IrcManager.getInstance().getConnection().sendChan("13+"+ activeChar.getName() +": " + _text);
 	        	}
                 if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on") ||
                         (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
@@ -287,7 +308,7 @@ public class Say2 extends L2GameClientPacket
         case PETITION_GM:
             if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar))
             {
-					activeChar.sendPacket(new SystemMessage(SystemMessage.YOU_ARE_NOT_IN_PETITION_CHAT));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
                 break;
             }
             
@@ -306,7 +327,7 @@ public class Say2 extends L2GameClientPacket
                 
         		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero"))
 	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("%"+ activeChar.getName() +": " + _text);
+	        		IrcManager.getInstance().getConnection().sendChan("12%"+ activeChar.getName() +": " + _text);
 	        	}
             }
             break;
@@ -316,6 +337,7 @@ public class Say2 extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__38_SAY2;

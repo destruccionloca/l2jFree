@@ -68,43 +68,41 @@ public final class TaskManager
 
     public class ExecutedTask implements Runnable
     {
-        int _id;
-        long _lastActivation;
-        Task _task;
-        TaskTypes _type;
-        String[] _params;
-        ScheduledFuture _scheduled;
+        int id;
+        long lastActivation;
+        Task task;
+        TaskTypes type;
+        String[] params;
+        ScheduledFuture scheduled;
 
-        public ExecutedTask(Task task, TaskTypes type, ResultSet rset) throws SQLException
+        public ExecutedTask(Task pTask, TaskTypes pType, ResultSet rset) throws SQLException
         {
-            _task = task;
-            _type = type;
-            _id = rset.getInt("id");
-            _lastActivation = rset.getLong("last_activation");
-            _params = new String[] {rset.getString("param1"), rset.getString("param2"),
+            task = pTask;
+            type = pType;
+            id = rset.getInt("id");
+            lastActivation = rset.getLong("last_activation");
+            params = new String[] {rset.getString("param1"), rset.getString("param2"),
                                     rset.getString("param3")};
         }
 
         public void run()
         {
-            _task.onTimeElapsed(this);
-
-            _lastActivation = System.currentTimeMillis();
+            task.onTimeElapsed(this);
+            lastActivation = System.currentTimeMillis();
 
             java.sql.Connection con = null;
-
             try
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement = con.prepareStatement(SQL_STATEMENTS[1]);
-                statement.setLong(1, _lastActivation);
-                statement.setInt(2, _id);
+                statement.setLong(1, lastActivation);
+                statement.setInt(2, id);
                 statement.executeUpdate();
                 statement.close();
             }
             catch (SQLException e)
             {
-                _log.warn("cannot updated the Global Task " + _id + ": " + e.getMessage());
+                _log.warn("cannot updated the Global Task " + id + ": " + e.getMessage());
             }
             finally
             {
@@ -116,8 +114,7 @@ public final class TaskManager
                 {
                 }
             }
-
-            if (_type == TYPE_SHEDULED || _type == TYPE_TIME)
+            if (type == TYPE_SHEDULED || type == TYPE_TIME)
             {
                 stopTask();
             }
@@ -125,39 +122,39 @@ public final class TaskManager
 
         public boolean equals(Object object)
         {
-            return _id == ((ExecutedTask) object)._id;
+            return id == ((ExecutedTask) object).id;
         }
 
         public Task getTask()
         {
-            return _task;
+            return task;
         }
 
         public TaskTypes getType()
         {
-            return _type;
+            return type;
         }
 
         public int getId()
         {
-            return _id;
+            return id;
         }
 
         public String[] getParams()
         {
-            return _params;
+            return params;
         }
 
         public long getLastActivation()
         {
-            return _lastActivation;
+            return lastActivation;
         }
 
         public void stopTask()
         {
-            _task.onDestroy();
+            task.onDestroy();
 
-            if (_scheduled != null) _scheduled.cancel(true);
+            if (scheduled != null) scheduled.cancel(true);
 
             _currentTasks.remove(this);
         }
@@ -216,26 +213,20 @@ public final class TaskManager
                     Task task = _tasks.get(rset.getString("task").trim().toLowerCase().hashCode());
 
                     if (task == null) continue;
-
                     TaskTypes type = TaskTypes.valueOf(rset.getString("type"));
-
                     if (type != TYPE_NONE)
                     {
                         ExecutedTask current = new ExecutedTask(task, type, rset);
                         if (launchTask(current)) _currentTasks.add(current);
                     }
-
                 }
-
                 rset.close();
                 statement.close();
-
             }
             catch (Exception e)
             {
                 _log.fatal("error while loading Global Task table " + e,e);
             }
-
         }
         finally
         {
@@ -243,9 +234,7 @@ public final class TaskManager
             {
                 con.close();
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e){}
         }
     }
 
@@ -262,7 +251,7 @@ public final class TaskManager
         else if (type == TYPE_SHEDULED)
         {
             long delay = Long.valueOf(task.getParams()[0]);
-            task._scheduled = scheduler.scheduleGeneral(task, delay);
+            task.scheduled = scheduler.scheduleGeneral(task, delay);
             return true;
         }
         else if (type == TYPE_FIXED_SHEDULED)
@@ -270,7 +259,7 @@ public final class TaskManager
             long delay = Long.valueOf(task.getParams()[0]);
             long interval = Long.valueOf(task.getParams()[1]);
 
-            task._scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay, interval);
+            task.scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay, interval);
             return true;
         }
         else if (type == TYPE_TIME)
@@ -281,7 +270,7 @@ public final class TaskManager
                 long diff = desired.getTime() - System.currentTimeMillis();
                 if (diff >= 0)
                 {
-                    task._scheduled = scheduler.scheduleGeneral(task, diff);
+                    task.scheduled = scheduler.scheduleGeneral(task, diff);
                     return true;
                 }
                 _log.info("Task " + task.getId() + " is obsoleted.");
@@ -295,7 +284,7 @@ public final class TaskManager
             ScheduledFuture result = task.getTask().launchSpecial(task);
             if (result != null)
             {
-                task._scheduled = result;
+                task.scheduled = result;
                 return true;
             }
         }
@@ -333,11 +322,9 @@ public final class TaskManager
                 delay += interval;
             }
 
-            task._scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay, interval);
-
+            task.scheduled = scheduler.scheduleGeneralAtFixedRate(task, delay, interval);
             return true;
         }
-
         return false;
     }
 
@@ -351,7 +338,6 @@ public final class TaskManager
                                         String param3, long lastActivation)
     {
         java.sql.Connection con = null;
-
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -373,7 +359,6 @@ public final class TaskManager
 
             rset.close();
             statement.close();
-
             return true;
         }
         catch (SQLException e)
@@ -386,11 +371,8 @@ public final class TaskManager
             {
                 con.close();
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e){}
         }
-
         return false;
     }
 
@@ -404,7 +386,6 @@ public final class TaskManager
                                   String param3, long lastActivation)
     {
         java.sql.Connection con = null;
-
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -430,12 +411,8 @@ public final class TaskManager
             {
                 con.close();
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e){}
         }
-
         return false;
     }
-
 }

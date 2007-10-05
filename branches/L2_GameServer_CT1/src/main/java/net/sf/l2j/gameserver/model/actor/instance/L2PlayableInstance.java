@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.model.L2Character;
@@ -21,7 +38,7 @@ import net.sf.l2j.gameserver.templates.L2CharTemplate;
 public abstract class L2PlayableInstance extends L2Character 
 {
 
-	private boolean _IsNoblesseBlessed = false; // for Noblesse Blessing skill, restores buffs after death
+	private boolean _isNoblesseBlessed = false; // for Noblesse Blessing skill, restores buffs after death
 
 	/**
 	 * Constructor of L2PlayableInstance (use L2Character constructor).<BR><BR>
@@ -36,32 +53,36 @@ public abstract class L2PlayableInstance extends L2Character
 	public L2PlayableInstance(int objectId, L2CharTemplate template)
 	{
 		super(objectId, template);
-		this.getKnownList();	// init knownlist
-        this.getStat();			// init stats
-        this.getStatus();		// init status
+		getKnownList();	// init knownlist
+        getStat();			// init stats
+        getStatus();		// init status
 	}
     
+    @Override
     public PlayableKnownList getKnownList()
     {
     	if(super.getKnownList() == null || !(super.getKnownList() instanceof PlayableKnownList))
-    		this.setKnownList(new PlayableKnownList(this));
+    		setKnownList(new PlayableKnownList(this));
     	return (PlayableKnownList)super.getKnownList();
     }
     
+    @Override
     public PlayableStat getStat()
     {
     	if(super.getStat() == null || !(super.getStat() instanceof PlayableStat))
-    		this.setStat(new PlayableStat(this));
+    		setStat(new PlayableStat(this));
     	return (PlayableStat)super.getStat();
     }
     
+    @Override
     public PlayableStatus getStatus()
     {
     	if(super.getStatus() == null || !(super.getStatus() instanceof PlayableStatus))
-    		this.setStatus(new PlayableStatus(this));
+    		setStatus(new PlayableStatus(this));
     	return (PlayableStatus)super.getStatus();
     }
 
+    @Override
     public void doDie(L2Character killer)
     {
         if (killer != null)
@@ -125,6 +146,7 @@ public abstract class L2PlayableInstance extends L2Character
     /**
 	 * Return True.<BR><BR>
 	 */
+    @Override
     public boolean isAttackable()
     {
         return true;
@@ -132,8 +154,8 @@ public abstract class L2PlayableInstance extends L2Character
 
     // Support for Noblesse Blessing skill, where buffs are retained
     // after resurrect
-    public final boolean isNoblesseBlessed() { return _IsNoblesseBlessed; }
-    public final void setIsNoblesseBlessed(boolean value) { _IsNoblesseBlessed = value; }
+    public final boolean isNoblesseBlessed() { return _isNoblesseBlessed; }
+    public final void setIsNoblesseBlessed(boolean value) { _isNoblesseBlessed = value; }
      
     public final void startNoblesseBlessing()
     {

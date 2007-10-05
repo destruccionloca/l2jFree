@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SetSummonRemainTime;
 import net.sf.l2j.gameserver.serverpackets.PetLiveTime;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -107,10 +108,13 @@ public class L2SummonInstance extends L2Summon
         _summonLifeTask = ThreadPoolManager.getInstance().scheduleGeneral(new SummonLifetime(getOwner(), this), SUMMON_LIFETIME_REFRESH_INTERVAL);
     }
     
-	public final int getLevel() {
+	@Override
+	public final int getLevel()
+	{
 		return (getTemplate() != null ? getTemplate().getLevel() : 0);
 	}
 	
+    @Override
     public int getSummonType()
 	{
 		return 1;
@@ -191,7 +195,7 @@ public class L2SummonInstance extends L2Summon
         if (isPetrified())
         {damage=0;}
         super.reduceCurrentHp(damage, attacker);
-        SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);
+        SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_RECEIVED_DAMAGE_S2_BY_S1);
         if (attacker instanceof L2NpcInstance)
         {
             sm.addNpcName(((L2NpcInstance)attacker).getTemplate().getNpcId());
@@ -204,7 +208,8 @@ public class L2SummonInstance extends L2Summon
         getOwner().sendPacket(sm);
     }
     
-   public synchronized void doDie(L2Character killer)
+    @Override
+    public synchronized void doDie(L2Character killer)
    {
            if (_log.isDebugEnabled())
                _log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") has been killed.");
@@ -226,16 +231,16 @@ public class L2SummonInstance extends L2Summon
     {
         if (crit)
         {
-            getOwner().sendPacket(new SystemMessage(SystemMessage.SUMMON_CRITICAL_HIT));
+            getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB));
         }
         
         if (miss)
         {
-            getOwner().sendPacket(new SystemMessage(SystemMessage.MISSED_TARGET));
+            getOwner().sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
         }
         else
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_GAVE_DAMAGE_OF_S1);
+            SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
             sm.addNumber(damage);
             getOwner().sendPacket(sm);
         }
@@ -338,10 +343,13 @@ public class L2SummonInstance extends L2Summon
         }
     }
 
+    @Override
     public int getCurrentFed() { return _lifeTime; }
     
+	@Override
 	public int getMaxFed() { return SUMMON_LIFETIME_INTERVAL; }
         	
+	@Override
 	public void unSummon(L2PcInstance owner)
 	{
        	if (_log.isDebugEnabled())
@@ -360,10 +368,13 @@ public class L2SummonInstance extends L2Summon
         super.unSummon(owner);
 	}
 
+	@Override
 	public boolean destroyItem(String process, int objectId, int count, L2Object reference, boolean sendMessage)
 	{
 		return getOwner().destroyItem(process, objectId, count, reference, sendMessage);
 	}
+
+	@Override
 	public boolean destroyItemByItemId(String process, int itemId, int count, L2Object reference, boolean sendMessage)
 	{
        	if (_log.isDebugEnabled())
@@ -372,6 +383,7 @@ public class L2SummonInstance extends L2Summon
 		return getOwner().destroyItemByItemId(process, itemId, count, reference, sendMessage);
 	}
     
+    @Override
     public final void sendDamageMessage(L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
     {
     	if (miss) return;
@@ -380,9 +392,9 @@ public class L2SummonInstance extends L2Summon
     	if (target.getObjectId() != getOwner().getObjectId())
     	{
     		if (pcrit || mcrit)
-    			getOwner().sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT_BY_SUMMONED_MOB));
+    			getOwner().sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT_BY_SUMMONED_MOB));
 
-    		SystemMessage sm = new SystemMessage(SystemMessage.SUMMON_GAVE_DAMAGE_S1);
+    		SystemMessage sm = new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1);
     		sm.addNumber(damage);
     		getOwner().sendPacket(sm);
         }

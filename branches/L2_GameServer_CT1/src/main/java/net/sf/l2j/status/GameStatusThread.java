@@ -54,6 +54,7 @@ import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -67,6 +68,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -83,7 +85,7 @@ public class GameStatusThread extends Thread
 {
     private static final Log _log = LogFactory.getLog(GameStatusThread.class.getName());
     
-    private Socket                  _csocket;
+    private Socket                  _cSocket;
     
     private PrintWriter             _print;
     private BufferedReader          _read;
@@ -150,11 +152,11 @@ public class GameStatusThread extends Thread
     
     public GameStatusThread(Socket client, int uptime, String StatusPW) throws IOException
     {
-        _csocket = client;
-        this._uptime = uptime;
+        _cSocket = client;
+        _uptime = uptime;
         
-        _print = new PrintWriter(_csocket.getOutputStream());
-        _read  = new BufferedReader(new InputStreamReader(_csocket.getInputStream()));
+        _print = new PrintWriter(_cSocket.getOutputStream());
+        _read  = new BufferedReader(new InputStreamReader(_cSocket.getInputStream()));
         
         if ( isValidIP(client) ) {    
             telnetOutput(1, client.getInetAddress().getHostAddress()+" accepted.");
@@ -167,7 +169,7 @@ public class GameStatusThread extends Thread
                 _print.println("Error.");
                 _print.println("Disconnected...");
                 _print.flush();
-                _csocket.close();
+                _cSocket.close();
             }
             else {
                 if (tmpLine.compareTo(StatusPW) != 0)
@@ -175,7 +177,7 @@ public class GameStatusThread extends Thread
                     _print.println("Incorrect Password!");
                     _print.println("Disconnected...");
                     _print.flush();
-                    _csocket.close();
+                    _cSocket.close();
                 }
                 else
                 {
@@ -189,7 +191,7 @@ public class GameStatusThread extends Thread
         }
         else {
             telnetOutput(5, "Connection attempt from "+ client.getInetAddress().getHostAddress() +" rejected.");
-            _csocket.close();
+            _cSocket.close();
         }
     }
     
@@ -204,7 +206,7 @@ public class GameStatusThread extends Thread
                 _usrCommand = _read.readLine();
                 if(_usrCommand == null)
                 {
-                	_csocket.close();
+                	_cSocket.close();
                 	break;
                 }
                 if (_usrCommand.equals("help")) {
@@ -309,9 +311,9 @@ public class GameStatusThread extends Thread
                     _print.println("  +........ L2Summon: " + summonCount);
                     _print.println("  +.......... L2Door: " + doorCount);
                     _print.println("  +.......... L2Char: " + charCount);
-                    _print.println("  --->   Ingame Time: " + GameTime());
-                    _print.println("  ---> Server Uptime: " + GetUptime(_uptime));
-                    _print.println("  --->      GM Count: " + GetOnlineGMS());
+                    _print.println("  --->   Ingame Time: " + gameTime());
+                    _print.println("  ---> Server Uptime: " + getUptime(_uptime));
+                    _print.println("  --->      GM Count: " + getOnlineGMS());
                     _print.println("  --->       Threads: " + Thread.activeCount());
                     _print.println("  RAM Used: "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/1048576)); // 1024 * 1024 = 1048576
                     _print.flush();
@@ -379,9 +381,9 @@ public class GameStatusThread extends Thread
                     try
                     {
                         _usrCommand = _usrCommand.substring(7);
-                        CreatureSay cs = new CreatureSay(0, 9, "Telnet GM Broadcast from " + _csocket.getInetAddress().getHostAddress(), _usrCommand);
+                        CreatureSay cs = new CreatureSay(0, 9, "Telnet GM Broadcast from " + _cSocket.getInetAddress().getHostAddress(), _usrCommand);
                         GmListTable.broadcastToGMs(cs);
-                        _print.println("Your Message Has Been Sent To " + GetOnlineGMS() + " GM(s).");
+                        _print.println("Your Message Has Been Sent To " + getOnlineGMS() + " GM(s).");
                     }
                     catch (StringIndexOutOfBoundsException e)
                     {
@@ -393,9 +395,9 @@ public class GameStatusThread extends Thread
                     int igm = 0;
                     String gmList = "";
                     
-                    for (L2PcInstance player : GmListTable.getInstance().getAllGms())
+                    for (String player : GmListTable.getInstance().getAllGmNames(true))
                     {
-                            gmList = gmList + ", " + player.getName();
+                            gmList = gmList + ", " + player;
                             igm++;
                     }
                     _print.println("There are currently " + igm +" GM(s) online...");
@@ -408,7 +410,7 @@ public class GameStatusThread extends Thread
                         _usrCommand = _usrCommand.substring(8);
                         if (LoginServer.getInstance().unblockIp(_usrCommand))
                         {
-                            _log.warn("IP removed via TELNET by host: " + _csocket.getInetAddress().getHostAddress());
+                            _log.warn("IP removed via TELNET by host: " + _cSocket.getInetAddress().getHostAddress());
                             _print.println("The IP " + _usrCommand + " has been removed from the hack protection list!");
                         }
                         else
@@ -450,7 +452,7 @@ public class GameStatusThread extends Thread
                     try
                     {
                         int val = Integer.parseInt(_usrCommand.substring(9)); 
-                        Shutdown.getInstance().startShutdown(_csocket.getInetAddress().getHostAddress(), val,Shutdown.shutdownModeType.SHUTDOWN);
+                        Shutdown.getInstance().startShutdown(_cSocket.getInetAddress().getHostAddress(), val,Shutdown.shutdownModeType.SHUTDOWN);
                         _print.println("Server Will Shutdown In " + val + " Seconds!");
                         _print.println("Type \"abort\" To Abort Shutdown!");
                     }
@@ -467,7 +469,7 @@ public class GameStatusThread extends Thread
                     try
                     {
                         int val = Integer.parseInt(_usrCommand.substring(8)); 
-                        Shutdown.getInstance().startShutdown(_csocket.getInetAddress().getHostAddress(), val,Shutdown.shutdownModeType.RESTART);
+                        Shutdown.getInstance().startShutdown(_cSocket.getInetAddress().getHostAddress(), val,Shutdown.shutdownModeType.RESTART);
                         _print.println("Server Will Restart In " + val + " Seconds!");
                         _print.println("Type \"abort\" To Abort Restart!");
                     }
@@ -481,7 +483,7 @@ public class GameStatusThread extends Thread
                 }
                 else if (_usrCommand.startsWith("abort"))
                 {
-                    Shutdown.getInstance().abort(_csocket.getInetAddress().getHostAddress());
+                    Shutdown.getInstance().abort(_cSocket.getInetAddress().getHostAddress());
                     _print.println("OK! - Shutdown/Restart Aborted.");
                 }
                 else if (_usrCommand.equals("quit")) { /* Do Nothing :p - Just here to save us from the "Command Not Understood" Text */ }
@@ -500,7 +502,7 @@ public class GameStatusThread extends Thread
                             L2ItemInstance item = player.getInventory().addItem("Status-Give", itemId, amount, null, null);
                             InventoryUpdate iu = new InventoryUpdate();
                             iu.addItem(item);
-                            SystemMessage sm = new SystemMessage(SystemMessage.YOU_PICKED_UP_S1_S2);
+                            SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
                             sm.addItemName(itemId);
                             sm.addNumber(amount);
                             player.sendPacket(iu);
@@ -688,105 +690,119 @@ public class GameStatusThread extends Thread
                     try
                     {
                         String type = st.nextToken();
-		
-                        if(type.equals("rates"))
+                        if (type.equals("all"))
+                        {
+                            Config.load();
+                            _print.println("All configs reloaded");
+                        }
+                        else if(type.equals("rates"))
                         {
                             Config.loadRatesConfig();
-                            _print.println("rates config reloaded");
+                            _print.println("Rates config reloaded");
                         }
                         else if(type.equals("enchant"))
                         {
                             Config.loadEnchantConfig();
-                            _print.println("enchant config reloaded");
+                            _print.println("Enchant config reloaded");
                         }
                         else if(type.equals("pvp"))
                         {
                             Config.loadPvpConfig();
-                            _print.println("pvp config reloaded");
+                            _print.println("Pvp config reloaded");
                         }
                         else if(type.equals("options"))
                         {
                             Config.loadOptionsConfig();
-                            _print.println("options config reloaded");
+                            _print.println("Options config reloaded");
                         }
                         else if(type.equals("other"))
                         {
                             Config.loadOtherConfig();
-                            _print.println("other config reloaded");
+                            _print.println("Other config reloaded");
                         }
                         else if(type.equals("alt"))
                         {
                             Config.loadAltConfig();
-                            _print.println("alt config reloaded");
+                            _print.println("Alt config reloaded");
                         }
                         else if(type.equals("clans"))
                         {
                             Config.loadClansConfig();
-                            _print.println("clans config reloaded");
+                            _print.println("Clans config reloaded");
                         }
                         else if(type.equals("champions"))
                         {
                             Config.loadChampionsConfig();
-                            _print.println("champions config reloaded");
+                            _print.println("Champions config reloaded");
                         }
                         else if(type.equals("lottery"))
                         {
                             Config.loadLotteryConfig();
-                            _print.println("lottery config reloaded");
+                            _print.println("Lottery config reloaded");
                         }
                         else if(type.equals("sepulchurs"))
                         {
                             Config.loadSepulchursConfig();
-                            _print.println("sepulchurs config reloaded");
+                            _print.println("Sepulchurs config reloaded");
                         }
                         else if(type.equals("clanhall"))
                         {
                             Config.loadClanHallConfig();
-                            _print.println("clanhall config reloaded");
+                            _print.println("Clanhall config reloaded");
                         }
                         else if(type.equals("funengines"))
                         {
                             Config.loadFunEnginesConfig();
-                            _print.println("funegines config reloaded");
+                            _print.println("Fun egines config reloaded");
                         }
                         else if(type.equals("sevensigns"))
                         {
                             Config.loadSevenSignsConfig();
-                            _print.println("sevensigns config reloaded");
+                            _print.println("Seven Signs config reloaded");
                         }
                         else if(type.equals("gmconf"))
                         {
                             Config.loadGmAccess();
-                            _print.println("gm config reloaded");
+                            _print.println("Gm config reloaded");
                         }
                         else if(type.equals("irc"))
                         {
                             Config.loadIrcConfig();
-                            _print.println("irc config reloaded");
+                            _print.println("Irc config reloaded");
                         }
                         else if(type.equals("boss"))
                         {
                             Config.loadBossConfig();
-                            _print.println("boss config reloaded");
+                            _print.println("Boss config reloaded");
                         }
                         else if(type.equals("sayfilter"))
                         {
                             Config.loadSayFilter();
-                            _print.println("sayfilter reloaded");
+                            _print.println("Sayfilter reloaded");
                         }
                         else if(type.equals("access"))
                         {
                             Config.loadPrivilegesConfig();
-                            _print.println("access config reloaded");
+                            _print.println("Access config reloaded");
+                        }
+                        else if(type.equals("siege"))
+                        {
+                            SiegeManager.getInstance().reload();
+                            _print.println("Siege config reloaded");
+                        }
+                        else if(type.equals("wedding"))
+                        {
+                            Config.loadWeddingConfig();
+                            _print.println("Wedding config reloaded");
                         }
                         else
                         {
-                            _print.println("Usage:  reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+                            _print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
                         }
                     }
                     catch(Exception e)
                     {
-                        _print.println("Usage:  reload_config <rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter>");
+                        _print.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
                     }
                 }
                 else if (_usrCommand.startsWith("reload"))
@@ -966,13 +982,13 @@ public class GameStatusThread extends Thread
                 _print.print("");
                 _print.flush();
             }
-            if(!_csocket.isClosed())
+            if(!_cSocket.isClosed())
             {
 	            _print.println("Bye Bye!");
 	            _print.flush();
-	            _csocket.close();
+	            _cSocket.close();
             }
-            telnetOutput(1, "Connection from "+_csocket.getInetAddress().getHostAddress()+" was closed by client.");
+            telnetOutput(1, "Connection from "+_cSocket.getInetAddress().getHostAddress()+" was closed by client.");
         }
         catch (IOException e)
         {
@@ -1046,12 +1062,12 @@ public class GameStatusThread extends Thread
        	}
     }
     
-    private int GetOnlineGMS()
+    private int getOnlineGMS()
     {
-        return GmListTable.getInstance().getAllGms().length;
+        return GmListTable.getInstance().getAllGms(true).length;
     }
     
-    private String GetUptime(int time)
+    private String getUptime(int time)
     {
         int uptime = (int)System.currentTimeMillis() - time;
         uptime = uptime / 1000;
@@ -1061,7 +1077,7 @@ public class GameStatusThread extends Thread
         return h + "hrs " + m + "mins " + s + "secs";
     }
     
-    private String GameTime()
+    private String gameTime()
     {
         int t = GameTimeController.getInstance().getGameTime();
         int h = t/60;

@@ -1,16 +1,34 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.status;
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class PetStatus extends SummonStatus
 {
     // =========================================================
     // Data Field
-    private int _CurrentFed               = 0; //Current Fed of the L2PetInstance
+    private int _currentFed               = 0; //Current Fed of the L2PetInstance
     
     // =========================================================
     // Constructor
@@ -21,7 +39,9 @@ public class PetStatus extends SummonStatus
 
     // =========================================================
     // Method - Public
+    @Override
     public final void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
+    @Override
     public final void reduceHp(double value, L2Character attacker, boolean awake)
     {
         if (getActiveChar().isDead()) return;
@@ -30,7 +50,7 @@ public class PetStatus extends SummonStatus
 
         if (attacker != null)
         {
-        	SystemMessage sm = new SystemMessage(SystemMessage.PET_RECEIVED_S2_DAMAGE_BY_S1);
+        	SystemMessage sm = new SystemMessage(SystemMessageId.PET_RECEIVED_S2_DAMAGE_BY_S1);
             if (attacker instanceof L2NpcInstance)
                 sm.addNpcName(((L2NpcInstance)attacker).getTemplate().getIdTemplate());
             else
@@ -47,8 +67,9 @@ public class PetStatus extends SummonStatus
 
     // =========================================================
     // Property - Public
+    @Override
     public L2PetInstance getActiveChar() { return (L2PetInstance)super.getActiveChar(); }
 
-    public int getCurrentFed() { return _CurrentFed; }
-    public void setCurrentFed(int value) { _CurrentFed = value; }
+    public int getCurrentFed() { return _currentFed; }
+    public void setCurrentFed(int value) { _currentFed = value; }
 }

@@ -19,10 +19,10 @@
 package net.sf.l2j.gameserver.skills.effects;
 
 import java.util.List;
-import java.util.Random;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -79,7 +79,7 @@ final class EffectConfuseMob extends L2Effect {
 		}
 			
 		// Choosing randomly a new target
-		int nextTargetIdx = new Random().nextInt(targetList.size());
+		int nextTargetIdx = Rnd.nextInt(targetList.size());
 		L2Object target = targetList.get(nextTargetIdx);
 		
 		// Attacking the target

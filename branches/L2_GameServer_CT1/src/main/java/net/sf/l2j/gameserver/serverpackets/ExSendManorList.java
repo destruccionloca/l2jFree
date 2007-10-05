@@ -34,12 +34,12 @@ import javolution.util.FastList;
 public class ExSendManorList extends L2GameServerPacket
 {
     private static final String _S__FE_1B_EXSENDMANORLIST = "[S] FE:1B ExSendManorList";
-    FastList<String> _manors;
-    FastList<Integer> _manorsID;
-    public ExSendManorList(FastList<String> manors, FastList<Integer> manorsID)
+    private FastList<String> _manors;
+    private FastList<Integer> _manorsId;
+    public ExSendManorList(FastList<String> manors, FastList<Integer> manorsId)
     {
         _manors = manors;
-        _manorsID = manorsID;
+        _manorsId = manorsId;
     }
     
     
@@ -54,7 +54,7 @@ public class ExSendManorList extends L2GameServerPacket
         writeD(_manors.size());
         for(int i=0;i<_manors.size();i++)
         {
-            writeD(_manorsID.get(i));
+            writeD(_manorsId.get(i));
             writeS(_manors.get(i));
         }
         

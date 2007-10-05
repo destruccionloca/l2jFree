@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.communitybbs.model.forum;
 
 // Generated 19 févr. 2007 22:07:55 by Hibernate Tools 3.2.0.beta8
@@ -44,13 +62,13 @@ public class Forums implements java.io.Serializable
     public Forums(int _forumId, String _forumName, int _forumParent, int _forumPost, int _forumType,
                     int _forumPerm, int _forumOwnerId)
     {
-        this.forumId = _forumId;
-        this.forumName = _forumName;
-        this.forumParent = _forumParent;
-        this.forumPost = _forumPost;
-        this.forumType = _forumType;
-        this.forumPerm = _forumPerm;
-        this.forumOwnerId = _forumOwnerId;
+        forumId = _forumId;
+        forumName = _forumName;
+        forumParent = _forumParent;
+        forumPost = _forumPost;
+        forumType = _forumType;
+        forumPerm = _forumPerm;
+        forumOwnerId = _forumOwnerId;
     }
 
     /** 
@@ -60,101 +78,102 @@ public class Forums implements java.io.Serializable
     public Forums(int _forumId, String _forumName, int _forumParent, int _forumPost, int _forumType,
                   int _forumPerm, int _forumOwnerId, Set<Posts> _postses, Set<Topic> _topics)
     {
-        this.forumId = _forumId;
-        this.forumName = _forumName;
-        this.forumParent = _forumParent;
-        this.forumPost = _forumPost;
-        this.forumType = _forumType;
-        this.forumPerm = _forumPerm;
-        this.forumOwnerId = _forumOwnerId;
-        this.topics = _topics;
+        forumId = _forumId;
+        forumName = _forumName;
+        forumParent = _forumParent;
+        forumPost = _forumPost;
+        forumType = _forumType;
+        forumPerm = _forumPerm;
+        forumOwnerId = _forumOwnerId;
+        topics = _topics;
     }
 
 
     public Set<Topic> getTopics()
     {
-        return this.topics;
+        return topics;
     }
 
     public void setTopics(Set<Topic> _topics)
     {
-        this.topics = _topics;
+        topics = _topics;
     }
 
     // Property accessors
     public int getForumId()
     {
-        return this.forumId;
+        return forumId;
     }
 
     public void setForumId(int _forumId)
     {
-        this.forumId = _forumId;
+        forumId = _forumId;
     }
 
     public String getForumName()
     {
-        return this.forumName;
+        return forumName;
     }
 
     public void setForumName(String _forumName)
     {
-        this.forumName = _forumName;
+        forumName = _forumName;
     }
 
     public int getForumParent()
     {
-        return this.forumParent;
+        return forumParent;
     }
 
     public void setForumParent(int _forumParent)
     {
-        this.forumParent = _forumParent;
+        forumParent = _forumParent;
     }
 
     public int getForumPost()
     {
-        return this.forumPost;
+        return forumPost;
     }
 
     public void setForumPost(int _forumPost)
     {
-        this.forumPost = _forumPost;
+        forumPost = _forumPost;
     }
 
     public int getForumType()
     {
-        return this.forumType;
+        return forumType;
     }
 
     public void setForumType(int _forumType)
     {
-        this.forumType = _forumType;
+        forumType = _forumType;
     }
 
     public int getForumPerm()
     {
-        return this.forumPerm;
+        return forumPerm;
     }
 
     public void setForumPerm(int _forumPerm)
     {
-        this.forumPerm = _forumPerm;
+        forumPerm = _forumPerm;
     }
 
     public int getForumOwnerId()
     {
-        return this.forumOwnerId;
+        return forumOwnerId;
     }
 
     public void setForumOwnerId(int _forumOwnerId)
     {
-        this.forumOwnerId = _forumOwnerId;
+        forumOwnerId = _forumOwnerId;
     }
     /**
      * @return true or false if the two objects are equals (not based on post id)
      * @param obj
      */
+    @Override
     public boolean equals(Object _obj) 
     {
         if (_obj == null) 
@@ -179,17 +198,21 @@ public class Forums implements java.io.Serializable
     /**
      * @return the hashcode of the object
      */
+    @Override
     public int hashCode() 
     {
         return new HashCodeBuilder(17,37)
-                        .append(this.forumName)
-                        .append(this.forumOwnerId)
-                        .append(this.forumType)
-                        .append(this.forumPerm)
-                        .append(this.forumParent)
+                        .append(forumName)
+                        .append(forumOwnerId)
+                        .append(forumType)
+                        .append(forumPerm)
+                        .append(forumParent)
                         .toHashCode();
-    }    
-    public String toString() {
+    }
+
+    @Override
+    public String toString()
+    {
         return ToStringBuilder.reflectionToString(this);
     }    
 }

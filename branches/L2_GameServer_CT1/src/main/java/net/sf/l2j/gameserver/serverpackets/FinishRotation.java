@@ -30,24 +30,26 @@ public class FinishRotation extends L2GameServerPacket
 {
 	private static final String _S__78_FINISHROTATION = "[S] 63 FinishRotation";
 	private int _heading;
-	private int _objectId;
+	private int _charObjId;
 
 	public FinishRotation(L2Character cha)
 	{
-		_objectId = cha.getObjectId();
+		_charObjId = cha.getObjectId();
 		_heading = cha.getHeading();
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x63);
-		writeD(_objectId);
+		writeD(_charObjId);
 		writeD(_heading);
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__78_FINISHROTATION;

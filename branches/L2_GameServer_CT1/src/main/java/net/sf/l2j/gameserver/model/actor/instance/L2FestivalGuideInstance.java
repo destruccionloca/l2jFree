@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Party;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -140,6 +141,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
         }
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("FestivalDesc")) 	
@@ -289,7 +291,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                     player.destroyItem("SevenSigns", bloodOfferings, this, false);
                     
                     // Send message that the contribution score has increased.
-                    SystemMessage sm = new SystemMessage(SystemMessage.CONTRIB_SCORE_INCREASED);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.CONTRIB_SCORE_INCREASED);
                     sm.addNumber(offeringScore);
                     player.sendPacket(sm);  
                     
@@ -369,14 +371,17 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                      * otherwise just remove this player from the "arena", and also remove them from the party.
                      */
                     boolean isLeader = playerParty.isLeader(player);
-                    
                     if (isLeader) {
                         SevenSignsFestival.getInstance().updateParticipants(player, null);
                     }
-                    else {
-                        SevenSignsFestival.getInstance().updateParticipants(player, playerParty);                        
-                        playerParty.removePartyMember(player);
-                    }
+                    
+                    if (playerParty.getMemberCount() > Config.ALT_FESTIVAL_MIN_PLAYER)  {
+                    	SevenSignsFestival.getInstance().updateParticipants(player, playerParty);                        
+                      playerParty.removePartyMember(player);
+                      }
+                    else
+                    player.sendMessage("Only partyleader can leave festival, if minmum party member is reached.");
+
                     break;
                 case 0: // Distribute Accumulated Bonus
                     if (!SevenSigns.getInstance().isSealValidationPeriod()) 
@@ -484,4 +489,4 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
 
         return calCalc.get(Calendar.YEAR) + "/" + calCalc.get(Calendar.MONTH) + "/" + calCalc.get(Calendar.DAY_OF_MONTH);
     }
-}    
+}

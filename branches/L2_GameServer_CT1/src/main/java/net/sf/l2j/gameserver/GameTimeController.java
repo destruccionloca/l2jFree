@@ -29,6 +29,8 @@ import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,12 +53,10 @@ public class GameTimeController
     protected static long _gameStartTime;
     protected static boolean _isNight = false;
 
-    private static List<L2Character> movingObjects = new FastList<L2Character>();
+    private static List<L2Character> _movingObjects = new FastList<L2Character>();
 
     protected static TimerThread _timer;
     private ScheduledFuture _timerWatcher;
-
-    // [L2J_JP ADD]
 
     /**
      * one ingame day is 240 real minutes
@@ -75,9 +75,9 @@ public class GameTimeController
         _timer.start();
 
         _timerWatcher = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new TimerWatcher(), 0, 1000);
-        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
         // [L2J_JP ADD SANDMAN]
-        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiretesRoom(), 2000, 600000);
+        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiratesRoom(), 2000, 600000);
+        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
     }
 
     public boolean isNowNight()
@@ -96,36 +96,36 @@ public class GameTimeController
     }
 
     /**
-     * Add a L2Character to movingObjects of GameTimeController.<BR><BR>
+     * Add a L2Character to _movingObjects of GameTimeController.<BR><BR>
      * 
      * <B><U> Concept</U> :</B><BR><BR>
-     * All L2Character in movement are identified in <B>movingObjects</B> of GameTimeController.<BR><BR>
+     * All L2Character in movement are identified in <B>_movingObjects</B> of GameTimeController.<BR><BR>
      * 
-     * @param cha The L2Character to add to movingObjects of GameTimeController
+     * @param cha The L2Character to add to _movingObjects of GameTimeController
      * 
      */
     public synchronized void registerMovingObject(L2Character cha)
     {
         if(cha == null) return;
-        if (!movingObjects.contains(cha)) movingObjects.add(cha);
+        if (!_movingObjects.contains(cha)) _movingObjects.add(cha);
     }
 
     /**
-     * Move all L2Characters contained in movingObjects of GameTimeController.<BR><BR>
+     * Move all L2Characters contained in _movingObjects of GameTimeController.<BR><BR>
      * 
      * <B><U> Concept</U> :</B><BR><BR>
-     * All L2Character in movement are identified in <B>movingObjects</B> of GameTimeController.<BR><BR>
+     * All L2Character in movement are identified in <B>_movingObjects</B> of GameTimeController.<BR><BR>
      * 
      * <B><U> Actions</U> :</B><BR><BR>
      * <li>Update the position of each L2Character </li>
-     * <li>If movement is finished, the L2Character is removed from movingObjects </li>
+     * <li>If movement is finished, the L2Character is removed from _movingObjects </li>
      * <li>Create a task to update the _knownObject and _knowPlayers of each L2Character that finished its movement and of their already known L2Object then notify AI with EVT_ARRIVED </li><BR><BR>
      * 
      */
     protected synchronized void moveObjects()
     {
-        // Get all L2Character from the ArrayList movingObjects and put them into a table
-        L2Character[] chars = movingObjects.toArray(new L2Character[movingObjects.size()]);
+        // Get all L2Character from the ArrayList _movingObjects and put them into a table
+        L2Character[] chars = _movingObjects.toArray(new L2Character[_movingObjects.size()]);
 
         // Create an ArrayList to contain all L2Character that are arrived to destination
         List<L2Character> ended = null;
@@ -139,10 +139,10 @@ public class GameTimeController
             // Update the position of the L2Character and return True if the movement is finished
             boolean end = cha.updatePosition(_gameTicks);
 
-            // If movement is finished, the L2Character is removed from movingObjects and added to the ArrayList ended
+            // If movement is finished, the L2Character is removed from _movingObjects and added to the ArrayList ended
             if (end)
             {
-                movingObjects.remove(cha);
+                _movingObjects.remove(cha);
                 if (ended == null) ended = new FastList<L2Character>();
 
                 ended.add(cha);
@@ -175,6 +175,7 @@ public class GameTimeController
             _error = null;
         }
 
+        @Override
         public void run()
         {
             try
@@ -218,7 +219,7 @@ public class GameTimeController
                 String time = (new SimpleDateFormat("HH:mm:ss")).format(new Date());
                 _log.warn(time + " TimerThread stop with following error. restart it.");
                 if (_timer._error != null) _log.error(_timer._error.getMessage(),_timer._error);
-
+                _timer = null;
                 _timer = new TimerThread();
                 _timer.start();
             }
@@ -257,16 +258,35 @@ public class GameTimeController
             int h = (getGameTime() / 60) % 24; // Time in hour
             boolean tempIsNight = (h < 6);
             
-            if (tempIsNight != _isNight) { // If diff day/night state
-                _isNight = tempIsNight; // Set current day/night varible to value of temp varible
-                
+            if (tempIsNight != _isNight) 
+            { // If diff day/night state
+               _isNight = tempIsNight; // Set current day/night varible to value of temp varible
+
+                // Zaken cannot be damaged during the night. 
+                if(_isNight)
+                {
+                    for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable().values())
+                    {
+                    	if(spawn.getTemplate().getNpcId() == 29022)
+                    		spawn.getLastSpawn().setIsInvul(true);
+                    }
+                }
+                else
+                {
+                    for (L2Spawn spawn : SpawnTable.getInstance().getSpawnTable().values())
+                    {
+                    	if(spawn.getTemplate().getNpcId() == 29022)
+                    		spawn.getLastSpawn().setIsInvul(false);
+                    }
+                }
+
                 DayNightSpawnManager.getInstance().notifyChangeMode();
             }
         }
     }
     // [L2J_JP ADD]
     // Open door of pirate's room at AM0:00 every day in game.
-    class OpenPiretesRoom implements Runnable
+    class OpenPiratesRoom implements Runnable
     {
 
         public void run()
@@ -282,7 +302,7 @@ public class GameTimeController
                 {
                     _doorTable.getDoor(21240006).openMe();
                     // The door will be closed in '_CloseTime' minutes.
-                    ThreadPoolManager.getInstance().scheduleEffect(new ClosePiretesRoom(),(_CloseTime*60*1000));
+                    ThreadPoolManager.getInstance().scheduleEffect(new ClosePiratesRoom(),(_CloseTime*60*1000));
                 }
                 catch (Exception e)
                 {
@@ -295,7 +315,7 @@ public class GameTimeController
      
     // [L2J_JP ADD]
     // Close door of pirate's room.
-    class ClosePiretesRoom implements Runnable
+    class ClosePiratesRoom implements Runnable
     {
         final DoorTable _doorTable = DoorTable.getInstance();
 

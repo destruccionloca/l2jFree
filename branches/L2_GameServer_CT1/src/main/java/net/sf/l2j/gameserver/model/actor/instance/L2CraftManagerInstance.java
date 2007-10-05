@@ -1,5 +1,20 @@
-/**
- * 
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.ArrayList;
@@ -12,12 +27,12 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Multisell;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.model.L2RecipeComponent;
 import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.serverpackets.MultiSellList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
@@ -47,12 +62,14 @@ public class L2CraftManagerInstance extends L2FolkInstance
         __l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
     }
     
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.setLastFolkNPC(this);
         super.onAction(player);
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("multisell"))
@@ -321,7 +338,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                 {
                     int _crystalId = 1457 + i;
                 
-                    SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                     sm.addItemName(_crystalId);
                     sm.addNumber(_crystals.get(i));
                     player.sendPacket(sm);
@@ -617,7 +634,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     
                 if (_quantitySuccess>0)
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                     sm.addItemName(_recipeList.getItemId());
                     sm.addNumber(_quantitySuccess * _recipeList.getCount());
                     player.sendPacket(sm);
@@ -693,6 +710,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
         player.sendPacket(npcReply);
     }  
     
+    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";

@@ -26,15 +26,16 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConditionUsingSkill extends Condition {
-
-	final int _skillId;
+public class ConditionUsingSkill extends Condition
+{
+	private final int _skillId;
 	
     public ConditionUsingSkill(int skillId)
 	{
 		_skillId = skillId;
 	}
 	
+	@Override
 	public boolean testImpl(Env env)
 	{
 		if (env.skill == null)

@@ -41,8 +41,11 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -236,9 +239,10 @@ public class Hero
                 
                 L2PcInstance player = L2World.getInstance().getPlayer(name);
                 
-                if (player != null)
-                {
-                    player.setHero(false);
+                if (player == null) continue;
+                try 
+                {  
+                	player.setHero(false);
                     
                     items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_LR_HAND);
                     iu = new InventoryUpdate();
@@ -293,40 +297,7 @@ public class Hero
                     
                     player.sendPacket(new UserInfo(player));
                     player.broadcastUserInfo();
-            }
-            else
-            {
-            	java.sql.Connection con = null;
-            	
-            	try
-            	{
-            		con = L2DatabaseFactory.getInstance().getConnection(con);
-            		PreparedStatement statement = con.prepareStatement(GET_CLAN_NAME);
-            		statement.setString(1, name);
-            		ResultSet rset = statement.executeQuery();
-            		if (rset.next())
-            		{
-            			String clanName = rset.getString("clan_name");
-            			if (clanName != null)
-            			{
-            				L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
-            				if (clan != null)
-            					clan.setReputationScore(clan.getReputationScore()+1000, true);
-            			}
-            		}
-            		
-            		rset.close();
-            		statement.close();
-            	}
-            	catch (Exception e)
-            	{
-            		_log.warn("could not get clan name of " + name + ": "+e);
-            	}
-            	finally
-            	{
-            		try { con.close(); } catch (Exception e) {}
-            	}
-                }
+                } catch (NullPointerException e) {}
             }
         }
         
@@ -380,16 +351,67 @@ public class Hero
             
             if (player != null)
             {
-                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));                 
+                player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
                 player.setHero(true);
                 L2Clan clan = player.getClan();
                 if (clan != null)
+                {
                     clan.setReputationScore(clan.getReputationScore()+1000, true);
-                 player.setHero(true); 
-                 for(L2Skill skill : HeroSkillTable.getInstance().GetHeroSkills())
-                	 player.addSkill(skill);
+                    clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+                    SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
+                    sm.addString(name);
+                    sm.addNumber(1000);
+                    clan.broadcastToOnlineMembers(sm);
+                }
                 player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
+
+                player.setHero(true); 
+                for(L2Skill skill : HeroSkillTable.getHeroSkills())
+                    player.addSkill(skill);
+                player.sendPacket(new UserInfo(player));
+                player.broadcastUserInfo();
+            }
+            else
+            {
+            	java.sql.Connection con = null;
+            	
+            	try
+            	{
+            		con = L2DatabaseFactory.getInstance().getConnection(con);
+            		PreparedStatement statement = con.prepareStatement(GET_CLAN_NAME);
+            		statement.setString(1, name);
+            		ResultSet rset = statement.executeQuery();
+            		if (rset.next())
+            		{
+            			String clanName = rset.getString("clan_name");
+            			if (clanName != null)
+            			{
+            				L2Clan clan = ClanTable.getInstance().getClanByName(clanName);
+            				if (clan != null)
+            				{
+            					clan.setReputationScore(clan.getReputationScore()+1000, true);
+                                clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+                				SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_BECAME_HERO_AND_GAINED_S2_REPUTATION_POINTS);
+                                sm.addString(name);
+                                sm.addNumber(1000);
+                				clan.broadcastToOnlineMembers(sm);
+            				}
+            			}
+            		}
+            		
+            		rset.close();
+            		statement.close();
+            	}
+            	catch (Exception e)
+            	{
+                    _log.warn("Hero System: Couldnt get Clanname of " + name);
+                    if (_log.isDebugEnabled())  _log.debug("",e);
+            	}
+            	finally
+            	{
+            		try { con.close(); } catch (Exception e) {}
+            	}
             }
         }
     }
@@ -501,5 +523,4 @@ public class Hero
              try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
          }
      }
-
 }

@@ -36,8 +36,11 @@ import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -55,16 +58,16 @@ public class CursedWeaponsManager
     private static final Log _log = LogFactory.getLog(CursedWeaponsManager.class.getName());
 
     // =========================================================
-    private static CursedWeaponsManager _Instance;
+    private static CursedWeaponsManager _instance;
 
     public static final CursedWeaponsManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
-            _Instance = new CursedWeaponsManager();
-            _Instance.load();
+            _instance = new CursedWeaponsManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
 
     // =========================================================
@@ -278,17 +281,19 @@ public class CursedWeaponsManager
     {
         if(Config.ALLOW_CURSED_WEAPONS)
         {
-        if (player.isCursedWeaponEquiped())
-            return;
-		if (attackable instanceof L2SiegeGuardInstance)
-			return;
-		
-        for (CursedWeapon cw : _cursedWeapons.values())
-        {
-            if (cw.isActive()) continue;
-            
-            if (cw.checkDrop(attackable, player)) break;
-        }
+        if (attackable instanceof L2SiegeGuardInstance
+            || attackable instanceof L2RiftInvaderInstance
+            || attackable instanceof L2FestivalMonsterInstance
+            )return;
+
+            if (player.isCursedWeaponEquiped())
+                return;
+            for (CursedWeapon cw : _cursedWeapons.values())
+            {
+                if (cw.isActive()) continue;
+
+                if (cw.checkDrop(attackable, player)) break;
+            }
         }
     }
     
@@ -368,7 +373,7 @@ public class CursedWeaponsManager
                 cw.giveSkill();
                 player.setCursedWeaponEquipedId(cw.getItemId());
                 
-                SystemMessage sm = new SystemMessage(SystemMessage.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
                 sm.addString(cw.getName());
                 //sm.addItemName(cw.getItemId());
                 sm.addNumber((int)((cw.getEndTime() - System.currentTimeMillis()) / 60000));

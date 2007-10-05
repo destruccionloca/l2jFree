@@ -36,19 +36,20 @@ public class ChangeMoveType extends L2GameServerPacket
 	public static final int WALK = 0;
 	public static final int RUN = 1;
 	
-	private int _chaId;
+	private int _chaObjId;
 	private boolean _running;
 	
-	public ChangeMoveType(L2Character cha)
+	public ChangeMoveType(L2Character character)
 	{
-		_chaId = cha.getObjectId();
-		_running = cha.isRunning();
+		_chaObjId = character.getObjectId();
+		_running = character.isRunning();
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x2e);
-		writeD(_chaId);
+		writeD(_chaObjId);
 		writeD(_running ? RUN : WALK);
 		writeD(0); //c2
 	}
@@ -56,6 +57,7 @@ public class ChangeMoveType extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__3E_CHANGEMOVETYPE;

@@ -28,29 +28,34 @@ import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2FriendList;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
+import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
 import net.sf.l2j.gameserver.serverpackets.Die;
@@ -95,25 +100,24 @@ public class EnterWorld extends L2GameClientPacket
 	private final static Log _log = LogFactory.getLog(EnterWorld.class.getName());
 
 	public TaskPriority getPriority() { return TaskPriority.PR_URGENT; }
-
-	private static String Welcome_Path = "welcome" ;
-	private static String Newbie_Path = "newbie" ;
 	
 	/**
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         // this is just a trigger packet. it has no content
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
         { 
-            _log.warn("EnterWorld failed! activeChar is null..."); 			
-            this.getClient().closeNow();
+            _log.warn("EnterWorld failed! activeChar is null...");
+            getClient().closeNow();
 		    return;
         }
 		
@@ -165,7 +169,9 @@ public class EnterWorld extends L2GameClientPacket
             }
             
             if (Config.GM_STARTUP_AUTO_LIST)
-                GmListTable.getInstance().addGm(activeChar);
+                GmListTable.getInstance().addGm(activeChar, false);
+            else
+                GmListTable.getInstance().addGm(activeChar, true);
         }
         if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
         {
@@ -184,7 +190,6 @@ public class EnterWorld extends L2GameClientPacket
             activeChar.setProtection(true);
         
 		activeChar.spawnMe(activeChar.getX(), activeChar.getY(), activeChar.getZ());
-		activeChar.sendPacket(new EtcStatusUpdate(activeChar));
 		
 		ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(activeChar));
 		
@@ -196,9 +201,12 @@ public class EnterWorld extends L2GameClientPacket
 		
 		if (SevenSigns.getInstance().isSealValidationPeriod())
             sendPacket(new SignsSky());
-        
+
+        // Buff and status icons
         if (Config.STORE_SKILL_COOLTIME)
             activeChar.restoreEffects();
+
+        activeChar.sendPacket(new EtcStatusUpdate(activeChar));
         
         if (activeChar.getAllEffects() != null)
         {
@@ -216,45 +224,54 @@ public class EnterWorld extends L2GameClientPacket
                 }
             }
         }
-
-        //Expand Skill		
+        // apply augmentation boni for equipped items
+        for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
+            if (temp != null && temp.isEquipped()) temp.getAugmentation().applyBoni(activeChar);
+        
+        //Expand Skill
         ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);  
         activeChar.sendPacket(esmc);
        
         activeChar.getMacroses().sendUpdate();
 
-        sendPacket(new UserInfo(activeChar));
+        UserInfo ui = new UserInfo(activeChar);
+        sendPacket(ui);
 
-        sendPacket(new HennaInfo(activeChar));
+        HennaInfo hi = new HennaInfo(activeChar);
+        sendPacket(hi);
         
-        sendPacket(new FriendList(activeChar));
+        FriendList fl = new FriendList(activeChar);
+        sendPacket(fl);
         
-        sendPacket(new ItemList(activeChar, false));
+        ItemList il = new ItemList(activeChar, false);
+        sendPacket(il);
 
-        sendPacket(new ShortCutInit(activeChar));
+        ShortCutInit sci = new ShortCutInit(activeChar);
+        sendPacket(sci);
         
-        sendPacket(new ClientSetTime());
+        ClientSetTime cst = new ClientSetTime();
+        sendPacket(cst);
         
 		sendPacket(new ExBasicActionList());
                 
-        SystemMessage sm = new SystemMessage(SystemMessage.WELCOME_TO_LINEAGE);
+        SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
         sendPacket(sm);
 
         if (Config.SHOW_L2J_LICENSE)
         {
-        	sm = new SystemMessage(SystemMessage.S1_S2);
+        	sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString(getText("VGhpcyBTZXJ2ZXIgaXMgcnVubmluZyBMMko="));
             sm.addString(getText("IHZlcnNpb24gNiBkZXYvdW5zdGFibGU="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessage.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString(getText("Y3JlYXRlZCBieSBMMkNoZWYgYW5kIHRoZQ=="));
 	        sm.addString(getText("IEwySiB0ZWFtLg=="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessage.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 	        sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessage.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S1_S2);
 	        sm.addString(getText("V2VsY29tZSB0byA="));
 	        sm.addString(LoginServerThread.getInstance().getServerName());
 	        sendPacket(sm);
@@ -263,28 +280,30 @@ public class EnterWorld extends L2GameClientPacket
             Version version = versionningService.getVersion();
             if (version!= null)
 	        {
-	        	sm = new SystemMessage(SystemMessage.S1_S2);
+	        	sm = new SystemMessage(SystemMessageId.S1_S2);
 	            sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==")+"   "+version.getRevisionNumber());
 	            sendPacket(sm);
-	            sm = new SystemMessage(SystemMessage.S1_S2);
+	            sm = new SystemMessage(SystemMessageId.S1_S2);
 	            sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==")+" "+version.getBuildDate());
 	            sendPacket(sm);
 	        }
         }
         
-        if (Config.SHOW_HTML_WELCOME) {
-            Welcome_Path = "data/html/welcome.htm";
-            File mainText = new File(Config.DATAPACK_ROOT, Welcome_Path);        // Return the pathfile of the HTML file
+        if (Config.SHOW_HTML_WELCOME)
+        {
+            String Welcome_Path = "data/html/welcome.htm";
+            File mainText = new File(Config.DATAPACK_ROOT, Welcome_Path);	// Return the pathfile of the HTML file
             if (mainText.exists())
             {   
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile(Welcome_Path);
                 sendPacket(html);
-            } }
+            }
+        }
         
         if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
         {
-        	Newbie_Path = "data/html/newbie.htm";
+        	String Newbie_Path = "data/html/newbie.htm";
         	File mainText = new File(Config.DATAPACK_ROOT, Newbie_Path);
         	if (mainText.exists())
         	{
@@ -294,7 +313,7 @@ public class EnterWorld extends L2GameClientPacket
         	}
         }
         
-        //set hero status to character if character is Hero
+        // set hero status to character if character is Hero
         if (Hero.getInstance().getHeroes() != null &&
                 Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
             activeChar.setHero(true);
@@ -314,7 +333,7 @@ public class EnterWorld extends L2GameClientPacket
 
         if(Config.ONLINE_PLAYERS_AT_STARTUP)
         {
-             sm = new SystemMessage(SystemMessage.S1_S2);
+             sm = new SystemMessage(SystemMessageId.S1_S2);
              if (L2World.getInstance().getAllPlayers().size() == 1)
             	 sm.addString("Player online: ");
              else
@@ -324,28 +343,22 @@ public class EnterWorld extends L2GameClientPacket
         }        
 
 		Quest.playerEnter(activeChar);
-
-		String serverNews = HtmCache.getInstance().getHtm("data/html/servnews.htm");
-		
-		if (serverNews != null)
-		{
-			NpcHtmlMessage htmlMsg = new NpcHtmlMessage(0);
-			htmlMsg.setHtml(serverNews);
-			sendPacket(htmlMsg);
-		}
 		
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
-				
+		
         if (activeChar.getClanId() != 0 && activeChar.getClan() != null)
         {
-            sendPacket(new PledgeShowMemberListAll(activeChar.getClan(), activeChar));
-            sendPacket(new PledgeStatusChanged(activeChar.getClan()));
+        	PledgeShowMemberListAll psmla = new PledgeShowMemberListAll(activeChar.getClan(), activeChar);
+            sendPacket(psmla);
+            PledgeStatusChanged psc = new PledgeStatusChanged(activeChar.getClan());
+            sendPacket(psc);
         }
 	
 		if (activeChar.isAlikeDead())
 		{
 			// no broadcast needed since the player will already spawn dead to others
-			sendPacket(new Die(activeChar));
+			Die d = new Die(activeChar);
+			sendPacket(d);
 		}
 
 		if (Config.ALLOW_WATER)
@@ -360,14 +373,28 @@ public class EnterWorld extends L2GameClientPacket
         if(Config.ALLOW_WEDDING)
         {
             engage(activeChar);
-            notifyPartner(activeChar,activeChar.getPartnerId());
+            notifyPartner(activeChar);
+            
+            // Check if player is maried and remove if necessary Cupid's Bow
+            if (!activeChar.isMaried())
+            {
+            	L2ItemInstance item = activeChar.getInventory().getItemByItemId(9140);
+            	// Remove Cupid's Bow
+            	if (item != null)
+            	{
+            		activeChar.destroyItem("Removing Cupid's Bow", item, activeChar, true);
+            		activeChar.getInventory().updateDatabase();
+            		// Log it
+            		_log.info("Character " + activeChar.getName() + " of account " + activeChar.getAccountName() + " got Cupid's Bow removed.");
+            	}
+            }
         }
 
         // notify Friends
         notifyFriends(activeChar);
 
         //notify Clanmembers
-		notifyClanMembers(activeChar);
+        notifyClanMembers(activeChar);
         //notify sponsor or apprentice
         notifySponsorOrApprentice(activeChar);
         
@@ -380,19 +407,41 @@ public class EnterWorld extends L2GameClientPacket
             activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
             activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadia");
         }
-        
+
+        if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
+        {
+            activeChar.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
+        }
+
 		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessage.CLAN_MEMBERSHIP_TERMINATED));
+			sm = new SystemMessage(SystemMessageId.CLAN_MEMBERSHIP_TERMINATED);
+			activeChar.sendPacket(sm);
 		}
 		
-		if (activeChar.getClan() != null)  
-			activeChar.sendPacket(new PledgeSkillList(activeChar.getClan()));
+		if (activeChar.getClan() != null)
+		{
+			PledgeSkillList psl = new PledgeSkillList(activeChar.getClan());
+			activeChar.sendPacket(psl);
+			
+			for (Castle castle : CastleManager.getInstance().getCastles().values())
+			{
+				Siege siege = castle.getSiege();
+				if (!siege.getIsInProgress()) continue;
+				if (siege.checkIsAttacker(activeChar.getClan()))
+					activeChar.setSiegeState((byte)1);
+				else if (siege.checkIsDefender(activeChar.getClan()))
+					activeChar.setSiegeState((byte)2);
+			}
+		}
 
         RegionBBSManager.getInstance().changeCommunityBoard();
 
         if(Config.GAMEGUARD_ENFORCE)
-            activeChar.sendPacket(new GameGuardQuery());
+        {
+            GameGuardQuery ggq = new GameGuardQuery();
+        	activeChar.sendPacket(ggq);
+        }
         
         if (TvT._savePlayers.contains(activeChar.getName()))
            TvT.addDisconnectedPlayer(activeChar);
@@ -439,7 +488,7 @@ public class EnterWorld extends L2GameClientPacket
     /**
      * @param activeChar partnerid
      */
-    private void notifyPartner(L2PcInstance cha,int partnerId)
+    private void notifyPartner(L2PcInstance cha)
     {
         if(cha.getPartnerId()!=0)
         {
@@ -460,7 +509,7 @@ public class EnterWorld extends L2GameClientPacket
 	 */
     private void notifyFriends(L2PcInstance cha)
 	{
-    	SystemMessage sm = new SystemMessage(SystemMessage.S1_FRIEND_HAS_LOGGED_IN);
+    	SystemMessage sm = new SystemMessage(SystemMessageId.FRIEND_S1_HAS_LOGGED_IN);
         sm.addString(cha.getName());
         
         for(String friendName : L2FriendList.getFriendListNames(cha))
@@ -488,7 +537,7 @@ public class EnterWorld extends L2GameClientPacket
 			if(clanmember!=null)
 			{
 				clanmember.setPlayerInstance(activeChar);
-				SystemMessage msg = new SystemMessage(SystemMessage.CLAN_MEMBER_S1_LOGGED_IN);
+				SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_MEMBER_S1_LOGGED_IN);
 				msg.addString(activeChar.getName());
 				clan.broadcastToOtherOnlineMembers(msg, activeChar);
 				msg = null;
@@ -508,7 +557,7 @@ public class EnterWorld extends L2GameClientPacket
            
            if (sponsor != null)
            {
-               SystemMessage msg = new SystemMessage(SystemMessage.YOUR_APPRENTICE_S1_HAS_LOGGED_IN);
+               SystemMessage msg = new SystemMessage(SystemMessageId.YOUR_APPRENTICE_S1_HAS_LOGGED_IN);
                msg.addString(activeChar.getName());
                sponsor.sendPacket(msg);
            }
@@ -519,7 +568,7 @@ public class EnterWorld extends L2GameClientPacket
            
            if (apprentice != null)
            {
-               SystemMessage msg = new SystemMessage(SystemMessage.YOUR_SPONSOR_S1_HAS_LOGGED_IN);
+               SystemMessage msg = new SystemMessage(SystemMessageId.YOUR_SPONSOR_S1_HAS_LOGGED_IN);
                msg.addString(activeChar.getName());
                apprentice.sendPacket(msg);
            }
@@ -532,7 +581,7 @@ public class EnterWorld extends L2GameClientPacket
     private void showPledgeSkillList(L2PcInstance activeChar)
     {
         L2Clan clan = activeChar.getClan();
-        if (clan != null)
+        if (clan != null && clan.getReputationScore() >= 0)
         {
             PledgeSkillList response = new PledgeSkillList(clan);
             L2Skill[] skills = clan.getAllSkills();
@@ -571,6 +620,7 @@ public class EnterWorld extends L2GameClientPacket
     /* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__03_ENTERWORLD;

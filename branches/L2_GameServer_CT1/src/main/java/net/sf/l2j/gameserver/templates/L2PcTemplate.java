@@ -111,9 +111,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param classBaseLevel the classBaseLevel to set
      */
-    public void setClassBaseLevel(int classBaseLevel)
+    public void setClassBaseLevel(int _classBaseLevel)
     {
-        this.classBaseLevel = classBaseLevel;
+        classBaseLevel = _classBaseLevel;
     }
 
     /**
@@ -127,9 +127,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param classId the classId to set
      */
-    public void setClassId(ClassId classId)
+    public void setClassId(ClassId _classId)
     {
-        this.classId = classId;
+        classId = _classId;
     }
 
     /**
@@ -143,9 +143,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param className the className to set
      */
-    public void setClassName(String className)
+    public void setClassName(String _className)
     {
-        this.className = className;
+        className = _className;
     }
 
     /**
@@ -159,9 +159,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param lvlCpAdd the lvlCpAdd to set
      */
-    public void setLvlCpAdd(float lvlCpAdd)
+    public void setLvlCpAdd(float _lvlCpAdd)
     {
-        this.lvlCpAdd = lvlCpAdd;
+        lvlCpAdd = _lvlCpAdd;
     }
 
     /**
@@ -175,9 +175,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param lvlCpMod the lvlCpMod to set
      */
-    public void setLvlCpMod(float lvlCpMod)
+    public void setLvlCpMod(float _lvlCpMod)
     {
-        this.lvlCpMod = lvlCpMod;
+        lvlCpMod = _lvlCpMod;
     }
 
     /**
@@ -191,9 +191,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param lvlHpAdd the lvlHpAdd to set
      */
-    public void setLvlHpAdd(float lvlHpAdd)
+    public void setLvlHpAdd(float _lvlHpAdd)
     {
-        this.lvlHpAdd = lvlHpAdd;
+        lvlHpAdd = _lvlHpAdd;
     }
 
     /**
@@ -207,9 +207,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param lvlHpMod the lvlHpMod to set
      */
-    public void setLvlHpMod(float lvlHpMod)
+    public void setLvlHpMod(float _lvlHpMod)
     {
-        this.lvlHpMod = lvlHpMod;
+        lvlHpMod = _lvlHpMod;
     }
 
     /**
@@ -223,9 +223,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param lvlMpAdd the lvlMpAdd to set
      */
-    public void setLvlMpAdd(float lvlMpAdd)
+    public void setLvlMpAdd(float _lvlMpAdd)
     {
-        this.lvlMpAdd = lvlMpAdd;
+        lvlMpAdd = _lvlMpAdd;
     }
 
     /**
@@ -239,9 +239,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param lvlMpMod the lvlMpMod to set
      */
-    public void setLvlMpMod(float lvlMpMod)
+    public void setLvlMpMod(float _lvlMpMod)
     {
-        this.lvlMpMod = lvlMpMod;
+        lvlMpMod = _lvlMpMod;
     }
 
     /**
@@ -255,9 +255,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param race the race to set
      */
-    public void setRace(Race race)
+    public void setRace(Race _race)
     {
-        this.race = race;
+        race = _race;
     }
 
     /**
@@ -271,9 +271,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param spawnX the spawnX to set
      */
-    public void setSpawnX(int spawnX)
+    public void setSpawnX(int _spawnX)
     {
-        this.spawnX = spawnX;
+        spawnX = _spawnX;
     }
 
     /**
@@ -287,9 +287,9 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param spawnY the spawnY to set
      */
-    public void setSpawnY(int spawnY)
+    public void setSpawnY(int _spawnY)
     {
-        this.spawnY = spawnY;
+        spawnY = _spawnY;
     }
 
     /**
@@ -303,9 +303,8 @@ public class L2PcTemplate extends L2CharTemplate {
     /**
      * @param spawnZ the spawnZ to set
      */
-    public void setSpawnZ(int spawnZ)
+    public void setSpawnZ(int _spawnZ)
     {
-        this.spawnZ = spawnZ;
+        spawnZ = _spawnZ;
     }
-
 }

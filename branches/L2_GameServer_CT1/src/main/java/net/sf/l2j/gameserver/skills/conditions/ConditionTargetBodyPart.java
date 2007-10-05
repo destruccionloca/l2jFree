@@ -32,19 +32,20 @@ import net.sf.l2j.gameserver.templates.L2Item;
 public class ConditionTargetBodyPart extends Condition
 {
 
-    L2Armor armor;
+    L2Armor _armor;
 
     public ConditionTargetBodyPart(L2Armor pArmor)
     {
-        this.armor = pArmor;
+       _armor = pArmor;
     }
 
+    @Override
     public boolean testImpl(Env env)
     {
         // target is attacker
         if (env.target == null) return true;
         int bodypart = env.target.getAttackingBodyPart();
-        int armor_part = armor.getBodyPart();
+        int armor_part = _armor.getBodyPart();
         switch (bodypart)
         {
             case Inventory.PAPERDOLL_CHEST:

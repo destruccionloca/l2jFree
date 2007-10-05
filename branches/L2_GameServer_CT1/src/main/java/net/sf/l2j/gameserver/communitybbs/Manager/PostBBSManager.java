@@ -67,7 +67,7 @@ public class PostBBSManager extends BaseBBSManager
 			String index = null;
 			if(st.hasMoreTokens())
 			{
-			 index = st.nextToken();
+				index = st.nextToken();
 			}
 			int ind = 0;
 			if(index == null)
@@ -117,12 +117,12 @@ public class PostBBSManager extends BaseBBSManager
 		}	
 		else
 		{
-			ShowHtmlEditPost(topic,activeChar,forum,p);
+			showHtmlEditPost(topic,activeChar,forum,p);
 		}
 	}
 
 	/**
-	 * @param posttByTopic
+	 * @param postByTopic
 	 * @param forumByID
 	 * @param activeChar
 	 * @param ind
@@ -139,7 +139,7 @@ public class PostBBSManager extends BaseBBSManager
 		}
 		else if(forum.getForumType() == ForumService.MEMO)
 		{
-			ShowMemoPost(topic,activeChar,forum);
+			showMemoPost(topic,activeChar,forum);
 		}
 		else
 		{
@@ -155,7 +155,7 @@ public class PostBBSManager extends BaseBBSManager
 	 * @param forum
 	 * @param p
 	 */
-	private void ShowHtmlEditPost(Topic topic, L2PcInstance activeChar, Forums forum, Posts p)
+	private void showHtmlEditPost(Topic topic, L2PcInstance activeChar, Forums forum, Posts p)
 	{		
         TextBuilder html = new TextBuilder("<html>");
 		html.append("<body><br><br>");
@@ -208,7 +208,7 @@ public class PostBBSManager extends BaseBBSManager
 	 * @param activeChar
 	 * @param forum 
 	 */
-	private void ShowMemoPost(Topic topic, L2PcInstance activeChar, Forums forum)
+	private void showMemoPost(Topic topic, L2PcInstance activeChar, Forums forum)
 	{
         Posts firstPost = __forumService.getPostByIndexForTopic(topic,0);
 		Locale locale = Locale.getDefault();
@@ -287,50 +287,46 @@ public class PostBBSManager extends BaseBBSManager
 		int idt = Integer.parseInt(st.nextToken());
 		int idp = Integer.parseInt(st.nextToken());
 		
-			Forums f = __forumService.getForumById(idf);
-			if(f == null)
+		Forums f = __forumService.getForumById(idf);
+		if(f == null)
+		{
+			ShowBoard sb = new ShowBoard("<html><body><br><br><center>the forum: "+idf+" does not exist !</center><br><br></body></html>","101");
+			activeChar.sendPacket(sb);
+			activeChar.sendPacket(new ShowBoard(null,"102"));
+			activeChar.sendPacket(new ShowBoard(null,"103"));				
+		}
+		else
+		{
+			
+			Topic t = __forumService.getTopicById(idt); 
+			if(t == null)
 			{
-				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the forum: "+idf+" does not exist !</center><br><br></body></html>","101");
+				ShowBoard sb = new ShowBoard("<html><body><br><br><center>the topic: "+idt+" does not exist !</center><br><br></body></html>","101");
 				activeChar.sendPacket(sb);
 				activeChar.sendPacket(new ShowBoard(null,"102"));
 				activeChar.sendPacket(new ShowBoard(null,"103"));				
 			}
 			else
 			{
+				Posts cp = __forumService.getPostById(idp);
 				
-				Topic t = __forumService.getTopicById(idt); 
-				if(t == null)
+				if(cp == null)
 				{
-					ShowBoard sb = new ShowBoard("<html><body><br><br><center>the topic: "+idt+" does not exist !</center><br><br></body></html>","101");
+					
+					ShowBoard sb = new ShowBoard("<html><body><br><br><center>the post: "+idp+" does not exist !</center><br><br></body></html>","101");
 					activeChar.sendPacket(sb);
 					activeChar.sendPacket(new ShowBoard(null,"102"));
-					activeChar.sendPacket(new ShowBoard(null,"103"));				
+					activeChar.sendPacket(new ShowBoard(null,"103"));
 				}
 				else
 				{
-					Posts cp = __forumService.getPostById(idp);
 					
-					if(cp == null)
-					{
-						
-						ShowBoard sb = new ShowBoard("<html><body><br><br><center>the post: "+idp+" does not exist !</center><br><br></body></html>","101");
-						activeChar.sendPacket(sb);
-						activeChar.sendPacket(new ShowBoard(null,"102"));
-						activeChar.sendPacket(new ShowBoard(null,"103"));
-					}
-					else
-					{
-						
-						cp.setPostTxt(ar4);
-						__forumService.modifyPost(cp);						
-						parsecmd("_bbsposts;read;"+ f.getForumId() +";"+ t.getTopicId(),activeChar);
-					}
+					cp.setPostTxt(ar4);
+					__forumService.modifyPost(cp);						
+					parsecmd("_bbsposts;read;"+ f.getForumId() +";"+ t.getTopicId(),activeChar);
 				}
 			}
-				
-		
-		
+		}
 	}
-	
 }
 	

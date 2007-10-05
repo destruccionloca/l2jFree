@@ -1,4 +1,4 @@
- /*
+/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -28,7 +28,7 @@ public class ManagePledgePower extends L2GameServerPacket
     private int _action;
     private L2Clan _clan;
     private int _rank;
-    private int privs;
+    private int _privs;
     
     public ManagePledgePower(L2Clan clan, int action, int rank)
     {
@@ -37,11 +37,12 @@ public class ManagePledgePower extends L2GameServerPacket
         _rank = rank;
     }
     
+    @Override
     protected final void writeImpl()
     {
         if(_action == 1)
         {
-        	privs = _clan.getRankPrivs(_rank);
+        	_privs = _clan.getRankPrivs(_rank);
         }
         else
         {
@@ -56,15 +57,15 @@ public class ManagePledgePower extends L2GameServerPacket
         writeC(0x30);
         writeD(0);
         writeD(0);
-        writeD(privs);
+        writeD(_privs);
    }
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__30_MANAGEPLEDGEPOWER;
     }
-
 }

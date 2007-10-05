@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.recipes.manager;
 
 import java.util.List;
@@ -15,6 +33,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2ManufactureItem;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.recipes.model.L2Recipe;
 import net.sf.l2j.gameserver.recipes.model.L2RecipeComponent;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -51,9 +70,9 @@ public class RecipeItemMaker implements Runnable
     
     public RecipeItemMaker(L2PcInstance pPlayer, L2Recipe pRecipe, L2PcInstance pTarget)
     {
-        this.player = pPlayer;
-        this.target = pTarget;
-        this.recipe = pRecipe;
+        player = pPlayer;
+        target = pTarget;
+        recipe = pRecipe;
         
         isValid = false;
         skillId = recipe.isDwarvenRecipe()  ? L2Skill.SKILL_CREATE_DWARVEN
@@ -127,7 +146,7 @@ public class RecipeItemMaker implements Runnable
                     price = temp.getCost();
                     if (target.getAdena() < price) // check price
                     {
-                        target.sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+                        target.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
                         abort();
                         return;
                     }
@@ -151,7 +170,7 @@ public class RecipeItemMaker implements Runnable
         // initial mana check requires MP as written on recipe
         if (player.getStatus().getCurrentMp() < manaRequired)
         {
-            target.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_MP));
+            target.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
             abort();
             return;
         }
@@ -265,7 +284,7 @@ public class RecipeItemMaker implements Runnable
             
             if(adenatransfer==null)
             {
-                target.sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+                target.sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
                 abort();
                 return; 
             }
@@ -335,7 +354,7 @@ public class RecipeItemMaker implements Runnable
             
             if (target == player)
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2_EQUIPPED); // you equipped ...
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED); // you equipped ...
                 sm.addNumber(count);
                 sm.addItemName(item.getItemId());
                 player.sendPacket(sm);
@@ -358,7 +377,7 @@ public class RecipeItemMaker implements Runnable
             else
                 // no rest - report no mana
             {
-                target.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_MP));
+                target.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
                 abort(); 
             }
             return false;
@@ -439,13 +458,13 @@ public class RecipeItemMaker implements Runnable
         SystemMessage sm = null;
         if (itemCount > 1)
         {
-            sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+            sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
             sm.addItemName(itemId);
             sm.addNumber(itemCount);
             target.sendPacket(sm);
         } else
         {
-            sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+            sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
             sm.addItemName(itemId);
             target.sendPacket(sm);
         }
@@ -453,7 +472,7 @@ public class RecipeItemMaker implements Runnable
         if (target != player)
         {
             // inform manufacturer of earned profit
-            sm = new SystemMessage(SystemMessage.EARNED_ADENA);
+            sm = new SystemMessage(SystemMessageId.EARNED_ADENA);
             sm.addNumber(price);
             player.sendPacket(sm);
         }

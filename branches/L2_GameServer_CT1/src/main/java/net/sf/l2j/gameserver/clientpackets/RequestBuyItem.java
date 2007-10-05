@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MercManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -73,6 +74,7 @@ public class RequestBuyItem extends L2GameClientPacket
      * format:      cdd (dd) 
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _listId = readD();
@@ -93,6 +95,7 @@ public class RequestBuyItem extends L2GameClientPacket
         }
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -177,12 +180,9 @@ public class RequestBuyItem extends L2GameClientPacket
         		Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
         		return;
         	}
-        	else
-        	{
-        		player.sendMessage("Buylist "+_listId+" empty or not exists.");
-        		sendPacket(new ActionFailed());
-        		return;
-        	}
+       	player.sendMessage("Buylist "+_listId+" empty or not exists.");
+       		sendPacket(new ActionFailed());
+       		return;
         }
         
         if (list.isGm() && !player.isGM())
@@ -235,7 +235,7 @@ public class RequestBuyItem extends L2GameClientPacket
             if (count > Integer.MAX_VALUE || (!template.isStackable() && count > 1))
             {
                 Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase invalid quantity of items at the same time.",Config.DEFAULT_PUNISH);
-                SystemMessage sm = new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
+                SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
                 sendPacket(sm);
                 sm = null;
                 
@@ -294,35 +294,36 @@ public class RequestBuyItem extends L2GameClientPacket
 
         if (weight > Integer.MAX_VALUE || weight < 0 || !player.getInventory().validateWeight((int)weight))
         {
-            sendPacket(new SystemMessage(SystemMessage.WEIGHT_LIMIT_EXCEEDED));
+            sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
             return;
         }
 
         if (slots > Integer.MAX_VALUE || slots < 0 || !player.getInventory().validateCapacity((int)slots))
         {
-            sendPacket(new SystemMessage(SystemMessage.SLOTS_FULL));
+            sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
             return;
         }
         	
+        if (!player.isGM() || (player.isGM() && (player.getAccessLevel() < Config.GM_FREE_SHOP)))
+        if ((subTotal < 0) || !player.reduceAdena("Buy", (int)(subTotal + tax), merchant, false))
+        {
+            sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+            return;
+        }
+        
         if (!player.isGM())
         {
-            if ((subTotal < 0) || !player.reduceAdena("Buy", (int)(subTotal + tax), merchant, false))
-            {
-                sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
-                return;
-            }
-            
             //  Charge buyer and add tax to castle treasury if not owned by npc clan
             if (merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
                 merchant.getCastle().addToTreasury(tax);
-        }else
-            //  Check if player is Gm and buying from Gm shop or have proper access level
-        	if (list.isGm() && player.getAccessLevel() < Config.GM_CREATE_ITEM)
-        	{
-    			player.sendMessage("Shoping from GM Shop isn't allowed with your access level.");
-    			sendPacket(new ActionFailed());
-    			return;
-        	}
+        }
+        //  Check if player is Gm and buying from Gm shop or have proper access level
+        if (list.isGm() && player.getAccessLevel() < Config.GM_CREATE_ITEM)
+        {
+    		player.sendMessage("Shoping from GM Shop isn't allowed with your access level.");
+    		sendPacket(new ActionFailed());
+    		return;
+        }
   
         // Proceed the purchase
         for (int i=0; i < _count; i++)
@@ -387,6 +388,7 @@ public class RequestBuyItem extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__1F_REQUESTBUYITEM;

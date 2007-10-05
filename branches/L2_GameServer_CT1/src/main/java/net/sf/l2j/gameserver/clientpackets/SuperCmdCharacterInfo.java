@@ -33,6 +33,7 @@ public final class SuperCmdCharacterInfo extends L2GameClientPacket
 	@SuppressWarnings("unused")
 	private String _characterName;
 
+    @Override
     protected void readImpl()
     {
         _characterName = readS();
@@ -45,7 +46,6 @@ public final class SuperCmdCharacterInfo extends L2GameClientPacket
     protected void runImpl()
 	{
 		// TODO Auto-generated method stub
-		
 	}
 
 	/* (non-Javadoc)
@@ -56,5 +56,4 @@ public final class SuperCmdCharacterInfo extends L2GameClientPacket
 	{
 		return _C__39_00_SUPERCMDCHARACTERINFO;
 	}
-	
 }

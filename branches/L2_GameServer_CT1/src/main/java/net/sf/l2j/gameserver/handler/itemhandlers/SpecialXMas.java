@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.serverpackets.ShowXMasSeal;
  */
 public class SpecialXMas implements IItemHandler
 {
-	private static int[] _itemIds = { 5555 };
+	private static final int[] ITEM_IDS = { 5555 };
 
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
 	{
@@ -41,7 +41,7 @@ public class SpecialXMas implements IItemHandler
 	    if (itemId == 5555) // Token of Love
 	    {
 	    	ShowXMasSeal SXS = new ShowXMasSeal(5555);
-			activeChar.broadcastPacket(SXS);
+			activeChar.sendPacket(SXS);
 		}
 	}
 	
@@ -50,6 +50,6 @@ public class SpecialXMas implements IItemHandler
 	 */
 	public int[] getItemIds()
 	{
-		return _itemIds;
+		return ITEM_IDS;
 	}
 }

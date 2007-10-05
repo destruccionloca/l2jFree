@@ -75,6 +75,7 @@ public class L2ControllableMobAI extends L2AttackableAI
         }
     }
 
+    @Override
     protected void onEvtThink() 
     {
         if (isThinking() || _actor.isAllSkillsDisabled())
@@ -285,18 +286,9 @@ public class L2ControllableMobAI extends L2AttackableAI
             {
                 // stop hating
                 L2Attackable npc = (L2Attackable) _actor;
-                int hate = npc.getHating(getAttackTarget());
-                
-                if (hate > 0)
-                {
-                    npc.addDamageHate(getAttackTarget(), 0, -hate);
-                    npc.addBufferHate();
-                }
+                npc.stopHating(getAttackTarget());
             }
             
-            setAttackTarget(null);
-            clientStopAutoAttack();
-            clientStopMoving(null);
             setIntention(AI_INTENTION_ACTIVE);
         } 
         else 

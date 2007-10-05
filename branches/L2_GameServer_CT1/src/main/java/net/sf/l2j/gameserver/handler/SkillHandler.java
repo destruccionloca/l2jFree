@@ -45,8 +45,6 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Resurrect;
 import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
 import net.sf.l2j.gameserver.handler.skillhandlers.Spoil;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
-import net.sf.l2j.gameserver.handler.skillhandlers.SummonCp;
-import net.sf.l2j.gameserver.handler.skillhandlers.SummonCursedBones;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
@@ -108,8 +106,6 @@ public class SkillHandler
         registerSkillHandler(new DeluxeKey());
         registerSkillHandler(new Fishing()); 
         registerSkillHandler(new FishingSkill());
-        registerSkillHandler(new SummonCp());
-        registerSkillHandler(new SummonCursedBones());
         registerSkillHandler(new SummonTreasureKey());
         registerSkillHandler(new StrSiegeAssault());
         registerSkillHandler(new SummonFriend());        

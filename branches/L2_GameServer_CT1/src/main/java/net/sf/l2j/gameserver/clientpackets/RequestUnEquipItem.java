@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 
@@ -44,11 +45,13 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	 * format:		cd 
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _slot = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) 
@@ -69,7 +72,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
         if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquiped())
         {
             // Message ?
-            activeChar.sendMessage("You cant unequip a cursed Weapon.");
+            activeChar.sendMessage("You can't unequip a cursed Weapon.");
             return;
         }
         
@@ -102,13 +105,13 @@ public class RequestUnEquipItem extends L2GameClientPacket
             SystemMessage sm = null;
             if (unequiped[0].getEnchantLevel() > 0)
             {
-            	sm = new SystemMessage(SystemMessage.EQUIPMENT_S1_S2_REMOVED);
+            	sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
             	sm.addNumber(unequiped[0].getEnchantLevel());
             	sm.addItemName(unequiped[0].getItemId());
             }
             else
             {
-	            sm = new SystemMessage(SystemMessage.S1_DISARMED);
+	            sm = new SystemMessage(SystemMessageId.S1_DISARMED);
 	            sm.addItemName(unequiped[0].getItemId());
             }
             activeChar.sendPacket(sm);
@@ -119,6 +122,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__11_REQUESTUNEQUIPITEM;

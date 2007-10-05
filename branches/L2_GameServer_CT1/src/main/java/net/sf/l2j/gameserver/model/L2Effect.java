@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadSpelledInfo;
 import net.sf.l2j.gameserver.serverpackets.MagicEffectIcons;
 import net.sf.l2j.gameserver.serverpackets.PartySpelled;
@@ -136,12 +137,12 @@ public abstract class L2Effect
 
 	public final class EffectTask implements Runnable
 	{	
-		protected final int delay;
-		protected final int rate;
-		EffectTask(int _delay, int _rate)
+		protected final int _delay;
+		protected final int _rate;
+		EffectTask(int delay, int rate)
 		{
-			this.delay = _delay;
-			this.rate = _rate;
+			_delay = delay;
+			_rate = rate;
 		}
 		public void run()
 		{
@@ -401,7 +402,7 @@ public abstract class L2Effect
             
 			if (_skill.isPvpSkill())
             {
-                SystemMessage smsg = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                 smsg.addString(_skill.getName());
                 getEffected().sendPacket(smsg);
             }
@@ -442,7 +443,7 @@ public abstract class L2Effect
             //If the time left is equal to zero, send the message
             if (_count==0)
             {
-                SystemMessage smsg3 = new SystemMessage(SystemMessage.S1_HAS_WORN_OFF);
+                SystemMessage smsg3 = new SystemMessage(SystemMessageId.S1_HAS_WORN_OFF);
                 smsg3.addString(_skill.getName());
                 getEffected().sendPacket(smsg3);
             }
@@ -485,7 +486,7 @@ public abstract class L2Effect
 		if (_state == EffectState.FINISHING || _state == EffectState.CREATED) 
 			return;
 		L2Skill sk = getSkill();
-		if (task.rate > 0)
+		if (task._rate > 0)
         {
         	if (sk.isPotion()) mi.addEffect(sk.getId(), getLevel(), sk.getBuffDuration()-(getTaskTime()*1000));
         	else mi.addEffect(sk.getId(), getLevel(), -1);

@@ -32,7 +32,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
 public class AdminTest implements IAdminCommandHandler
@@ -45,7 +44,7 @@ public class AdminTest implements IAdminCommandHandler
         "admin_st", "admin_mp", "admin_known"
     };
 */
-    private static String[][] _adminCommands = {
+    private static final String[][] ADMIN_COMMANDS = {
     	{"admin_stats",                                       
     		
     		"Shows server performance statistics.",
@@ -66,13 +65,6 @@ public class AdminTest implements IAdminCommandHandler
     		"Options:",
     		"skillID - Id of skill, target list you want to see",
     		"<level> - skill level, Default is 1",
-     	},
-    	{"admin_msg",                                 
-    		
-    		"Test system message.",
-    		"Usage: msg msgID",
-    		"Options:",
-    		"msgID - Id of client system message you want to see",
      	},
     	{"admin_mp",                                 
     		
@@ -141,22 +133,6 @@ public class AdminTest implements IAdminCommandHandler
                 else
                 	activeChar.sendMessage("Skill id "+skillId+" not found.");
         	}
-            else
-            	showAdminCommandHelp(activeChar,cmd);
-        }
-        else if (cmd.equals("admin_msg"))
-        {
-            int msgId = -1;
-
-            try
-            {
-                msgId = Integer.parseInt(st.nextToken());
-            }
-            catch (Exception e)
-            {
-            }
-            if (msgId >= 0)
-            	activeChar.sendPacket(new SystemMessage(msgId));
             else
             	showAdminCommandHelp(activeChar,cmd);
         }
@@ -298,12 +274,12 @@ public class AdminTest implements IAdminCommandHandler
      */    
     private void showAdminCommandHelp(L2PcInstance activeChar, String command)
     {
-    	for (int i=0; i < _adminCommands.length; i++)
+    	for (int i=0; i < ADMIN_COMMANDS.length; i++)
     	{
-    		if (command.equals(_adminCommands[i][0]))
+    		if (command.equals(ADMIN_COMMANDS[i][0]))
     		{
-    			for (int k=1; k < _adminCommands[i].length; k++)
-    				activeChar.sendMessage(_adminCommands[i][k]);
+    			for (int k=1; k < ADMIN_COMMANDS[i].length; k++)
+    				activeChar.sendMessage(ADMIN_COMMANDS[i][k]);
     		}
     	}
     }
@@ -313,13 +289,12 @@ public class AdminTest implements IAdminCommandHandler
      */
     public String[] getAdminCommandList()
     {
-    	String[] _adminCommandsOnly = new String[_adminCommands.length];
-    	for (int i=0; i < _adminCommands.length; i++)
+    	String[] _adminCommandsOnly = new String[ADMIN_COMMANDS.length];
+    	for (int i=0; i < ADMIN_COMMANDS.length; i++)
     	{
-    		_adminCommandsOnly[i]=_adminCommands[i][0];
+    		_adminCommandsOnly[i] = ADMIN_COMMANDS[i][0];
     	}
     	
         return _adminCommandsOnly;
     }
-
 }

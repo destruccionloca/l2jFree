@@ -29,7 +29,7 @@ public class AdminLevel implements IAdminCommandHandler
 {
     private static final int REQUIRED_LEVEL = Config.GM_CHAR_EDIT;
 
-    private static String[][] _adminCommands = {
+    private static final String[][] ADMIN_COMMANDS = {
     	{"admin_remlevel",                                 // remove level amount from your target
     		
     		"Remove amount of levels from your target (player or pet).",
@@ -111,36 +111,33 @@ public class AdminLevel implements IAdminCommandHandler
 			{
 				showAdminCommandHelp(activeChar,cmd);
 			}
-		
         }
         return true;
     }
 
-	    /**
-	     * Show tips about command usage and syntax. 
-	     * @param command admin command name
-	     */    
-	    private void showAdminCommandHelp(L2PcInstance activeChar, String command)
-	    {
-	    	for (int i=0; i < _adminCommands.length; i++)
-	    	{
-	    		if (command.equals(_adminCommands[i][0]))
-	    		{
-	    			for (int k=1; k < _adminCommands[i].length; k++)
-	    				activeChar.sendMessage(_adminCommands[i][k]);
-	    		}
-	    	}
-	    }
-	    
-	    public String[] getAdminCommandList()
+	/**
+	 * Show tips about command usage and syntax. 
+	 * @param command admin command name
+	 */    
+	private void showAdminCommandHelp(L2PcInstance activeChar, String command)
+	{
+		for (int i=0; i < ADMIN_COMMANDS.length; i++)
 		{
-		   	String[] _adminCommandsOnly = new String[_adminCommands.length];
-		   	for (int i=0; i < _adminCommands.length; i++)
-		   	{
-		  		_adminCommandsOnly[i]=_adminCommands[i][0];
-		 	}
-		 	
-		     return _adminCommandsOnly;
-		}	    
-
+			if (command.equals(ADMIN_COMMANDS[i][0]))
+			{
+				for (int k=1; k < ADMIN_COMMANDS[i].length; k++)
+					activeChar.sendMessage(ADMIN_COMMANDS[i][k]);
+			}
+		}
+	}
+	
+	public String[] getAdminCommandList()
+	{
+		String[] _adminCommandsOnly = new String[ADMIN_COMMANDS.length];
+		for (int i=0; i < ADMIN_COMMANDS.length; i++)
+		{
+			_adminCommandsOnly[i] = ADMIN_COMMANDS[i][0];
+		}
+		return _adminCommandsOnly;
+	}
 }

@@ -53,12 +53,14 @@ public class RequestBypassToServer extends L2GameClientPacket
     private String _command;
 
 
+    @Override
     protected void readImpl()
     {
         _command = readS();
     }
 
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -141,7 +143,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not join now!");
                     }
                    
-                    if (_command.substring(endOfId+1).startsWith("tvt_player_leave "))
+                    if (_command.substring(endOfId+1).startsWith("tvt_player_leave"))
                     {
                         if (TvT._joining)
                             TvT.removePlayer(activeChar);
@@ -270,6 +272,7 @@ public class RequestBypassToServer extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__21_REQUESTBYPASSTOSERVER;

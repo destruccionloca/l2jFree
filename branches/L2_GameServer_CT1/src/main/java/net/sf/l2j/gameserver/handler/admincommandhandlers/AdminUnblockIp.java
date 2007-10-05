@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -40,7 +41,7 @@ public class AdminUnblockIp implements IAdminCommandHandler
     private static final Log _log = LogFactory.getLog(AdminTeleport.class.getName());
 
     private static final int REQUIRED_LEVEL = Config.GM_UNBLOCK;
-    private static String[] _adminCommands = {
+    private static final String[] ADMIN_COMMANDS = {
         "admin_unblockip"
     };
 
@@ -59,7 +60,7 @@ public class AdminUnblockIp implements IAdminCommandHandler
                 String ipAddress = command.substring(16);
                 if (unblockIp(ipAddress, activeChar))
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                     sm.addString("Removed IP " + ipAddress + " from blocklist!");
                     activeChar.sendPacket(sm);
                 }
@@ -67,7 +68,7 @@ public class AdminUnblockIp implements IAdminCommandHandler
             catch (StringIndexOutOfBoundsException e)
             {
                 // Send syntax to the user
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Usage mode: //unblockip <ip>");
                 activeChar.sendPacket(sm);
             }
@@ -78,7 +79,7 @@ public class AdminUnblockIp implements IAdminCommandHandler
 
     public String[] getAdminCommandList()
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 
     private boolean checkLevel(int level)
@@ -86,7 +87,8 @@ public class AdminUnblockIp implements IAdminCommandHandler
         return (level >= REQUIRED_LEVEL);
     }
 
-    private boolean unblockIp(String ipAddress, L2PcInstance activeChar)
+    private boolean unblockIp(@SuppressWarnings("unused")
+    String ipAddress, L2PcInstance activeChar)
     {
     	//LoginServerThread.getInstance().unBlockip(ipAddress);
         _log.warn("IP removed by GM " + activeChar.getName());

@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -46,11 +47,13 @@ public class RequestSocialAction extends L2GameClientPacket
 	 * format:		cd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _actionId  = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -60,7 +63,7 @@ public class RequestSocialAction extends L2GameClientPacket
         // You cannot do anything else while fishing
         if (activeChar.isFishing())
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_DO_WHILE_FISHING_3);
+            SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
             activeChar.sendPacket(sm);
             sm = null;
             return;
@@ -91,6 +94,7 @@ public class RequestSocialAction extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__1B_REQUESTSOCIALACTION;

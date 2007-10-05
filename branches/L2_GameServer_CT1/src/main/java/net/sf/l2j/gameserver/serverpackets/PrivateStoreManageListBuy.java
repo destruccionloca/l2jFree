@@ -30,25 +30,26 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class PrivateStoreManageListBuy extends L2GameServerPacket
 {
 	private static final String _S__D0_PRIVATESELLLISTBUY = "[S] b7 PrivateSellListBuy";
-	private L2PcInstance _player;
-	private int _playerAdena;
+	private L2PcInstance _activeChar;
+	private int _activeCharAdena;
 	private L2ItemInstance[] _itemList;
 	private TradeList.TradeItem[] _buyList;
 	
 	public PrivateStoreManageListBuy(L2PcInstance player)
 	{
-		_player = player;
-		_playerAdena = _player.getAdena();
-		_itemList = _player.getInventory().getUniqueItems(false,true);
-		_buyList = _player.getBuyList().getItems(); 
+		_activeChar = player;
+		_activeCharAdena = _activeChar.getAdena();
+		_itemList = _activeChar.getInventory().getUniqueItems(false,true);
+		_buyList = _activeChar.getBuyList().getItems(); 
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xb7);
 		//section 1 
-		writeD(_player.getObjectId());
-		writeD(_playerAdena);
+		writeD(_activeChar.getObjectId());
+		writeD(_activeCharAdena);
 				
 		//section2 
 		writeD(_itemList.length); // inventory items for potential buy
@@ -82,7 +83,8 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
-	public String getType()
+	@Override
+    public String getType()
 	{
 		return _S__D0_PRIVATESELLLISTBUY;
 	}

@@ -24,7 +24,6 @@ package net.sf.l2j.gameserver.model.entity.events;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Random;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
@@ -34,10 +33,12 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Race;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -105,10 +106,9 @@ public class VIP {
         setLoc();
     }
     
-    public static void setRandomTeam(L2PcInstance activeChar){
-        Random generator = new Random();
-        
-        int random = generator.nextInt(5) + 1; // (0 - 4) + 1
+    public static void setRandomTeam(L2PcInstance activeChar)
+    {
+        int random = Rnd.nextInt(5) + 1; // (0 - 4) + 1
         
         if (_log.isDebugEnabled())_log.debug("Random number generated in setRandomTeam(): " + random);
         
@@ -428,14 +428,14 @@ public class VIP {
                 
                 if (_notVipRewardAmount > 1)
                 {
-                    sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                    sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                     sm.addItemName(_notVipReward);
                     sm.addNumber(_notVipRewardAmount);
                     player.sendPacket(sm);
                 }
                 else
                 {
-                    sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+                    sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
                     sm.addItemName(_notVipReward);
                     player.sendPacket(sm);
                 }
@@ -472,14 +472,14 @@ public class VIP {
                 
                 if (_vipRewardAmount > 1)
                 {
-                    sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                    sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                     sm.addItemName(_vipReward);
                     sm.addNumber(_vipRewardAmount);
                     player.sendPacket(sm);
                 }
                 else
                 {
-                    sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+                    sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
                     sm.addItemName(_vipReward);
                     player.sendPacket(sm);
                 }
@@ -511,14 +511,14 @@ public class VIP {
                     
                     if (_theVipRewardAmount > 1)
                     {
-                        sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                        sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                         sm.addItemName(_theVipReward);
                         sm.addNumber(_theVipRewardAmount);
                         player.sendPacket(sm);
                     }
                     else
                     {
-                        sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+                        sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
                         sm.addItemName(_theVipReward);
                         player.sendPacket(sm);
                     }
@@ -600,8 +600,7 @@ public class VIP {
         
         if (_log.isDebugEnabled())_log.debug("Size of players on VIP: " + size);
         
-        Random generator = new Random();
-        int random = generator.nextInt(size);
+        int random = Rnd.nextInt(size);
         
         if (_log.isDebugEnabled())_log.debug("Random number chosen in VIP: " + random);
         

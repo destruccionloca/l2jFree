@@ -17,14 +17,17 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.AugmentationData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExVariationResult;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
+import net.sf.l2j.gameserver.util.Util;
 
 /**
  * Format:(ch) dddd
@@ -38,6 +41,7 @@ public final class RequestRefine extends L2GameClientPacket
 	private int _gemstoneItemObjId;
 	private int _gemstoneCount;
 	
+	@Override
 	protected void readImpl()
 	{
 		_targetItemObjId = readD();
@@ -66,7 +70,7 @@ public final class RequestRefine extends L2GameClientPacket
 				activeChar.getLevel() < 46) // must be lvl 46
 		{
 			activeChar.sendPacket(new ExVariationResult(0,0,0));
-			activeChar.sendPacket(new SystemMessage(SystemMessage.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
 			return;
 		}
 		
@@ -78,18 +82,35 @@ public final class RequestRefine extends L2GameClientPacket
 			int stat12 = 0x0000FFFF&targetItem.getAugmentation().getAugmentationId();
 			int stat34 = targetItem.getAugmentation().getAugmentationId()>>16;
 			activeChar.sendPacket(new ExVariationResult(stat12,stat34,1));
-			activeChar.sendPacket(new SystemMessage(SystemMessage.THE_ITEM_WAS_SUCCESSFULLY_AUGMENTED));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_ITEM_WAS_SUCCESSFULLY_AUGMENTED));
 		}
 		else
 		{
 			activeChar.sendPacket(new ExVariationResult(0,0,0));
-			activeChar.sendPacket(new SystemMessage(SystemMessage.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_FAILED_DUE_TO_INAPPROPRIATE_CONDITIONS));
 		}
 	}
 	
 	boolean TryAugmentItem(L2PcInstance player, L2ItemInstance targetItem,L2ItemInstance refinerItem, L2ItemInstance gemstoneItem)
 	{
 		if (targetItem.isAugmented() || targetItem.isWear()) return false;
+
+		// check for the items to be in the inventory of the owner
+		if (player.getInventory().getItemByObjectId(refinerItem.getObjectId()) == null)
+		{
+			Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to refine an item with wrong LifeStone-id.",Config.DEFAULT_PUNISH);
+			return false;
+		}
+		if (player.getInventory().getItemByObjectId(targetItem.getObjectId()) == null)
+		{
+			Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to refine an item with wrong Weapon-id.",Config.DEFAULT_PUNISH);
+			return false;
+		}
+		if (player.getInventory().getItemByObjectId(gemstoneItem.getObjectId()) == null)
+		{
+			Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to refine an item with wrong Gemstone-id.",Config.DEFAULT_PUNISH);
+			return false;
+		}
 
 		int itemGrade = targetItem.getItem().getItemGrade();
 		int itemType = targetItem.getItem().getType2();
@@ -166,6 +187,10 @@ public final class RequestRefine extends L2GameClientPacket
 		}
 				
 		if (gemstoneItem.getCount()-modifyGemstoneCount < 0) return false;
+
+		// consume the life stone
+		if (!player.destroyItem("RequestRefine", refinerItem, null, false))
+			return false;
 		
 		// Prepare inventory update
 		InventoryUpdate iu = new InventoryUpdate();
@@ -180,9 +205,6 @@ public final class RequestRefine extends L2GameClientPacket
 			player.destroyItem("RequestRefine", _gemstoneItemObjId, modifyGemstoneCount, null, false);
 			iu.addModifiedItem(gemstoneItem);
 		}
-		
-		// consume the life stone
-		player.destroyItem("RequestRefine", refinerItem, null, false);
 
 		// generate augmentation
 		targetItem.setAugmentation(AugmentationData.getInstance().generateRandomAugmentation(targetItem, lifeStoneLevel, lifeStoneGrade));

@@ -29,10 +29,10 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-class ConditionPlayerBaseStats extends Condition {
-
-	final BaseStat _stat;
-	final int _value;
+class ConditionPlayerBaseStats extends Condition
+{
+	private final BaseStat _stat;
+	private final int _value;
 	
     public ConditionPlayerBaseStats(@SuppressWarnings("unused") L2Character player, BaseStat stat, int value)
 	{
@@ -41,7 +41,9 @@ class ConditionPlayerBaseStats extends Condition {
 		_value = value;
 	}
 	
-	public boolean testImpl(Env env) {
+	@Override
+	public boolean testImpl(Env env)
+	{
 		if (!(env.player instanceof L2PcInstance))
 			return false;
 		L2PcInstance player = (L2PcInstance)env.player;
@@ -58,7 +60,8 @@ class ConditionPlayerBaseStats extends Condition {
 	}
 }
 
-enum BaseStat {
+enum BaseStat
+{
 	Int,
 	Str,
 	Con,
@@ -66,4 +69,3 @@ enum BaseStat {
 	Men,
 	Wit
 }
-

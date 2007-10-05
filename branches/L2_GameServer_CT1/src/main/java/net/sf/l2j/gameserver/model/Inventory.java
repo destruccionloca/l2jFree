@@ -29,7 +29,6 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2EtcItem;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
@@ -486,14 +485,22 @@ public abstract class Inventory extends ItemContainer
             
             GMAudit.auditGMAction(actor, "dropitem", command, params);
         }
-        
-        removeItem(item);
-        item.setOwnerId(process, 0, actor, reference);
-        item.setLocation(ItemLocation.VOID);
-        item.setLastChange(L2ItemInstance.REMOVED);
 
-        item.updateDatabase();
-        refreshWeight();
+        synchronized (item)
+        {
+            if (!_items.contains(item))
+            {
+                return null;
+            }
+
+            removeItem(item);
+            item.setOwnerId(process, 0, actor, reference);
+            item.setLocation(ItemLocation.VOID);
+            item.setLastChange(L2ItemInstance.REMOVED);
+
+            item.updateDatabase();
+            refreshWeight();
+        }
         return item;
     }
 
@@ -543,6 +550,7 @@ public abstract class Inventory extends ItemContainer
      * 
      * @param item : L2ItemInstance to be added from inventory
      */
+    @Override
     protected void addItem(L2ItemInstance item)
     {
         super.addItem(item);
@@ -554,6 +562,7 @@ public abstract class Inventory extends ItemContainer
      * Removes item from inventory for further adjustments.
      * @param item : L2ItemInstance to be removed from inventory
      */
+    @Override
     protected void removeItem(L2ItemInstance item)
     {
         // Unequip item if equiped
@@ -1052,6 +1061,7 @@ public abstract class Inventory extends ItemContainer
     /**
      * Refresh the weight of equipment loaded
      */
+    @Override
     protected void refreshWeight()
     {
         int weight = 0;
@@ -1156,41 +1166,33 @@ public abstract class Inventory extends ItemContainer
     /**
      * Get back items in inventory from database
      */
-   public void restore()
-   {
-       java.sql.Connection con = null;
-       try
-       {
-           con = L2DatabaseFactory.getInstance().getConnection(con);
-           PreparedStatement statement = con.prepareStatement(
-                                                              "SELECT object_id FROM items WHERE owner_id=? AND (loc=? OR loc=?) " +
-           "ORDER BY object_id DESC");
-           statement.setInt(1, getOwner().getObjectId());
-           statement.setString(2, getBaseLocation().name());
-           statement.setString(3, getEquipLocation().name());
-           ResultSet inv = statement.executeQuery();
-           
-           L2ItemInstance item;
-           while (inv.next())
-           {
-               int objectId = inv.getInt(1);
-               item = L2ItemInstance.restoreFromDb(objectId);
-               if (item == null) continue;
-               
-               if(getOwner() instanceof L2PcInstance)
-               {
-                   L2PcInstance player = (L2PcInstance)getOwner();
-                   
-                   if(!player.isGM())
-                       if(Config.ALT_STRICT_HERO_SYSTEM)
-                       {
-                           if (!player.isHero())
-                           {
-                               
-                               if (item.isHeroitem())
-                                   item.setLocation(ItemLocation.INVENTORY);
-                           }
-                       }
+    @Override
+    public void restore()
+    {
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement = con.prepareStatement("SELECT object_id FROM items WHERE owner_id=? AND (loc=? OR loc=?) " +
+            "ORDER BY object_id DESC");
+            statement.setInt(1, getOwner().getObjectId());
+            statement.setString(2, getBaseLocation().name());
+            statement.setString(3, getEquipLocation().name());
+            ResultSet inv = statement.executeQuery();
+
+            L2ItemInstance item;
+            while (inv.next())
+            {
+                int objectId = inv.getInt(1);
+                item = L2ItemInstance.restoreFromDb(objectId);
+                if (item == null) continue;
+
+                if(getOwner() instanceof L2PcInstance)
+                {
+                    L2PcInstance player = (L2PcInstance)getOwner();
+
+                    if(!player.isGM() && Config.ALT_STRICT_HERO_SYSTEM && !player.isHero() && item.isHeroitem())
+                        item.setLocation(ItemLocation.INVENTORY);
                }
                
                L2World.getInstance().storeObject(item);

@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -47,6 +48,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
     private int _price;
     private ItemRequest[] _items;
     
+    @Override
     protected void readImpl()
     {
         _storePlayerId = readD();
@@ -89,13 +91,14 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         _price = (int)priceTotal;
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 		
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
 			sendPacket(new ActionFailed());
@@ -119,7 +122,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         if (storePlayer.getAdena() < _price)
         {
 			// [L2J_JP EDIT]
-			sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
 			sendPacket(new ActionFailed());
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
@@ -140,6 +143,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         }
     }
     
+    @Override
     public String getType()
     {
         return _C__96_REQUESTPRIVATESTORESELL;

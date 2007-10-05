@@ -24,10 +24,10 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Properties;
-import java.util.Random;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.lib.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,8 +40,8 @@ public class Status extends Thread
     private ServerSocket    statusServerSocket;
     
     private int                     _uptime;
-    private int                     _StatusPort;
-    private String                  _StatusPW;
+    private int                     _statusPort;
+    private String                  _statusPw;
     
     public void run()
     {
@@ -51,8 +51,8 @@ public class Status extends Thread
             {
                 Socket connection = statusServerSocket.accept();
                 
-                    new GameStatusThread(connection, _uptime, _StatusPW);
-                if (this.isInterrupted())
+                    new GameStatusThread(connection, _uptime, _statusPw);
+                if (isInterrupted())
                 {
                     try
                     {
@@ -64,7 +64,7 @@ public class Status extends Thread
             }
             catch (IOException e)
             {
-                if (this.isInterrupted())
+                if (isInterrupted())
                 {
                     try
                     {
@@ -85,18 +85,18 @@ public class Status extends Thread
         telnetSettings.load(is);
         is.close();
         
-        _StatusPort       = Integer.parseInt(telnetSettings.getProperty("StatusPort", "12345"));
-        _StatusPW         = telnetSettings.getProperty("StatusPW");
-            if (_StatusPW == null)
+        _statusPort       = Integer.parseInt(telnetSettings.getProperty("StatusPort", "12345"));
+        _statusPw         = telnetSettings.getProperty("StatusPW");
+            if (_statusPw == null)
             {
                 _log.warn("Server's Telnet Function Has No Password Defined!");
                 _log.warn("A Password Has Been Automaticly Created!");
-                _StatusPW = RndPW(10);
-                _log.warn("Password Has Been Set To: " + _StatusPW);
+                _statusPw = RndPW(10);
+                _log.warn("Password Has Been Set To: " + _statusPw);
             }
-            _log.info("StatusServer Started! - Listening on Port: " + _StatusPort);
-            _log.info("Password Has Been Set To: " + _StatusPW);
-        statusServerSocket = new ServerSocket(_StatusPort);
+            _log.info("StatusServer Started! - Listening on Port: " + _statusPort);
+            _log.info("Password Has Been Set To: " + _statusPw);
+        statusServerSocket = new ServerSocket(_statusPort);
         _uptime = (int) System.currentTimeMillis();
     }
     
@@ -108,20 +108,19 @@ public class Status extends Thread
         String lowerChar= "qwertyuiopasdfghjklzxcvbnm";
         String upperChar = "QWERTYUIOPASDFGHJKLZXCVBNM";
         String digits = "1234567890";
-        Random randInt = new Random();
         for (int i = 0; i < length; i++)
         {
-            int charSet = randInt.nextInt(3);
+            int charSet = Rnd.nextInt(3);
             switch (charSet)
             {
                 case 0:
-                    password.append(lowerChar.charAt(randInt.nextInt(lowerChar.length()-1)));
+                    password.append(lowerChar.charAt(Rnd.nextInt(lowerChar.length()-1)));
                     break;
                 case 1:
-                    password.append(upperChar.charAt(randInt.nextInt(upperChar.length()-1)));
+                    password.append(upperChar.charAt(Rnd.nextInt(upperChar.length()-1)));
                     break;
                 case 2:
-                    password.append(digits.charAt(randInt.nextInt(digits.length()-1)));
+                    password.append(digits.charAt(Rnd.nextInt(digits.length()-1)));
                     break;
             }
         }

@@ -45,6 +45,7 @@ public class ConsoleLogFormatter extends Formatter
      * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
      */
     private static final String CRLF = "\r\n";
+    @Override
     public String format(LogRecord record)
     {
         TextBuilder output = new TextBuilder();

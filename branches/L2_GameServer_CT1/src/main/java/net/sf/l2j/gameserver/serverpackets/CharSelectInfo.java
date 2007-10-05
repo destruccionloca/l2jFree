@@ -77,6 +77,7 @@ public class CharSelectInfo extends L2GameServerPacket
 		return _characterPackages;
 	}
 
+	@Override
 	protected final void writeImpl()
 	{
 		int size = (_characterPackages.length);
@@ -183,7 +184,7 @@ public class CharSelectInfo extends L2GameServerPacket
 			else
 				writeD(0x00); //c3 auto-select char
 
-			writeC(charInfoPackage.getEnchantEffect());
+				writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
 
 			writeH(0x00); // ??
 			writeH(0x00); // ??			
@@ -311,7 +312,7 @@ public class CharSelectInfo extends L2GameServerPacket
 
 		// if is in subclass, load subclass exp, sp, lvl info
 		if(baseClassId != activeClassId)        
-			loadCharacterSubclassInfo(charInfopackage, objectId, activeClassId);        
+			loadCharacterSubclassInfo(charInfopackage, objectId, activeClassId);
 
 		charInfopackage.setClassId(activeClassId);
 		
@@ -362,6 +363,7 @@ public class CharSelectInfo extends L2GameServerPacket
 		return charInfopackage;
 	}
 
+	@Override
 	public String getType()
 	{
 		return _S__1F_CHARSELECTINFO;

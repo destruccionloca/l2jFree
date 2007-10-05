@@ -33,44 +33,43 @@ import net.sf.l2j.tools.L2Registry;
  */
 public class RequestGetOffVehicle extends L2GameClientPacket
 {
-	 private int _id, _x, _y, _z;
-     
-     private static BoatService boatService = (BoatService)L2Registry.getBean(IServiceRegistry.BOAT);
-     
-	/**
-	 * @param buf
-	 * @param client
-	 */
-        protected void readImpl()
-        {
-            _id  = readD();
-            _x  = readD();
-            _y  = readD();
-            _z  = readD();
-        }
+    private int _id, _x, _y, _z;
+    
+    private static BoatService boatService = (BoatService)L2Registry.getBean(IServiceRegistry.BOAT);
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
-	@Override
+    /**
+     * @param buf
+     * @param client
+    */
+    @Override
+    protected void readImpl()
+    {
+        _id  = readD();
+        _x  = readD();
+        _y  = readD();
+        _z  = readD();
+    }
+
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+     */
+    @Override
     protected void runImpl()
-	{	
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if(activeChar == null)
-			return;
+    {
+        L2PcInstance activeChar = getClient().getActiveChar();
+        if(activeChar == null)
+            return;
         L2BoatInstance boat = boatService.getBoat(_id);
         GetOffVehicle Gon = new GetOffVehicle(activeChar,boat,_x,_y,_z);
         activeChar.broadcastPacket(Gon);
-	}
+    }
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
-	@Override
-	public String getType()
-	{
-		// TODO Auto-generated method stub
-		return "[S] 5d GetOffVehicle";
-	}
-
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.BasePacket#getType()
+     */
+    @Override
+    public String getType()
+    {
+        return "[S] 5d GetOffVehicle";
+    }
 }

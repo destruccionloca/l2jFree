@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -47,7 +48,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 public class RegionBBSManager extends BaseBBSManager
 {
     private static Logger _logChat = Logger.getLogger("chat");
-    private static RegionBBSManager _Instance = null;
+    private static RegionBBSManager _instance = null;
     private int _onlineCount = 0;
     private int _onlineCountGm = 0; 
     private static FastMap<Integer, FastList<L2PcInstance>> _onlinePlayers = new FastMap<Integer, FastList<L2PcInstance>>().setShared(true);
@@ -66,11 +67,11 @@ public class RegionBBSManager extends BaseBBSManager
      */
     public static RegionBBSManager getInstance()
     {
-        if(_Instance == null)
+        if(_instance == null)
         {
-            _Instance = new RegionBBSManager();
+            _instance = new RegionBBSManager();
         }
-        return _Instance;
+        return _instance;
     }   
     
     /* (non-Javadoc)
@@ -227,7 +228,14 @@ public class RegionBBSManager extends BaseBBSManager
                     
                 if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
                 {
-                    activeChar.sendMessage("You can not chat while in jail.");
+                    activeChar.sendMessage("You can not chat with the outside of the jail.");
+                    parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
+                    return;
+                }
+                if (activeChar.isChatBanned())
+                {
+                    activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
+                    parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
                     return;
                 }
                 
@@ -239,27 +247,37 @@ public class RegionBBSManager extends BaseBBSManager
                     _logChat.log(record); 
                 } 
                 CreatureSay cs = new CreatureSay(activeChar.getObjectId(), Say2.TELL, activeChar.getName(), ar3);
-                if (receiver != null && 
-                        !BlockList.isBlocked(receiver, activeChar))
-                {   
-                    if (!receiver.getMessageRefusal())
+                if (!BlockList.isBlocked(receiver, activeChar))
+                {
+                    if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
                     {
-                        receiver.sendPacket(cs);
-                        activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), Say2.TELL, "->" + receiver.getName(), ar3));
-                        htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;"+receiver.getName()+smallButton);
-                        htmlCode.append("</td></tr></table></body></html>");
-                        separateAndSend(htmlCode.toString(),activeChar)  ;
+                        activeChar.sendMessage("Player is in jail.");
+                        parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
+                        return;
                     }
-                    else
+                    if (receiver.isChatBanned())
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessage.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);        
+                        activeChar.sendMessage("Player is chat banned.");
+                        parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
+                        return;
+                    }
+                    if (receiver.getMessageRefusal())
+                    {
+                        SystemMessage sm = new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);        
                         activeChar.sendPacket(sm);
                         parsecmd("_bbsloc;playerinfo;"+receiver.getName(), activeChar);
+                        return;
                     }
+
+                    receiver.sendPacket(cs);
+                    activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), Say2.TELL, "->" + receiver.getName(), ar3));
+                    htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;"+receiver.getName()+smallButton);
+                    htmlCode.append("</td></tr></table></body></html>");
+                    separateAndSend(htmlCode.toString(),activeChar)  ;
                 }
                 else
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_NOT_ONLINE);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_NOT_ONLINE);
                     sm.addString(receiver.getName());
                     activeChar.sendPacket(sm);
                     sm = null;
@@ -492,7 +510,7 @@ public class RegionBBSManager extends BaseBBSManager
         cal.set(Calendar.HOUR_OF_DAY, t / 60);
         cal.set(Calendar.MINUTE, t % 60);
         htmlCode.append(tdOpen + "Game Time: " + format.format(cal.getTime()) + tdClose + colSpacer);
-        htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.DateTimeServerStarted.getTime() + tdClose + trClose);
+        htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.dateTimeServerStarted.getTime() + tdClose + trClose);
         htmlCode.append("</table>");
    
         htmlCode.append("<table>");
@@ -519,8 +537,7 @@ public class RegionBBSManager extends BaseBBSManager
     {
         if (type.equalsIgnoreCase("gm"))
             return _onlineCountGm;
-        else
-            return _onlineCount;
+        return _onlineCount;
     }
     
     private FastList<L2PcInstance> getOnlinePlayers(int page)
@@ -530,6 +547,6 @@ public class RegionBBSManager extends BaseBBSManager
     
     public String getCommunityPage(int page, String type)
     {
-        return _communityPages.get(page).get(type);
+        return _communityPages.get(page) != null ? _communityPages.get(page).get(type) : null;
     }
 }

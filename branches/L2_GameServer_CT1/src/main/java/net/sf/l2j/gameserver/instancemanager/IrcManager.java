@@ -32,18 +32,18 @@ public class IrcManager
     private static final Log _log = LogFactory.getLog(IrcManager.class.getName());
 
     // =========================================================
-    private static IrcManager _Instance;
-    private static L2IrcClient _IrcConnection;
+    private static IrcManager _instance;
+    private static L2IrcClient _ircConnection;
     
     public static final IrcManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
             _log.info("Initializing IrcManager");
-            _Instance = new IrcManager();
-            _Instance.load();
+            _instance = new IrcManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
     // =========================================================
     
@@ -51,10 +51,10 @@ public class IrcManager
     // Method - Public
     public void reload()
     {
-    	_IrcConnection.disconnect();
+    	_ircConnection.disconnect();
     	try
     	{
-    		_IrcConnection.connect();
+    		_ircConnection.connect();
 		} 
     	catch (Exception e) 
     	{ 
@@ -64,17 +64,17 @@ public class IrcManager
 
     public L2IrcClient getConnection()
     {
-    	return _IrcConnection;
+    	return _ircConnection;
     }
 
     // =========================================================
     // Method - Private
     private final void load()
     {
-		_IrcConnection = new L2IrcClient(Config.IRC_SERVER, Config.IRC_PORT, Config.IRC_PASS, Config.IRC_NICK, Config.IRC_USER, Config.IRC_NAME, Config.IRC_SSL, Config.IRC_CHANNEL);    	
+		_ircConnection = new L2IrcClient(Config.IRC_SERVER, Config.IRC_PORT, Config.IRC_PASS, Config.IRC_NICK, Config.IRC_USER, Config.IRC_NAME, Config.IRC_SSL, Config.IRC_CHANNEL);    	
     	try
     	{
-    		_IrcConnection.connect();
+    		_ircConnection.connect();
 		} 
     	catch (Exception e) 
     	{ 

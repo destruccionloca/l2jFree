@@ -23,22 +23,21 @@ import net.sf.l2j.gameserver.MonsterRace;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.serverpackets.MonRaceInfo;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
- * This class handles following admin commands: - invul = turns invulnerability
+ * This class handles following admin commands: - mons = handles monster race
  * on/off
  * 
- * @version $Revision: 1.1.6.4 $ $Date: 2005/04/11 10:06:00 $
+ * @version $Revision: 1.1.6.4 $ $Date: 2007/07/31 10:06:00 $
  */
 public class AdminMonsterRace implements IAdminCommandHandler
 {
-    //private final static Log _log = LogFactory.getLog(AdminMonsterRace.class.getName());
-
-    private static String[] _adminCommands = {"admin_mons"};
+    private static final String[] ADMIN_COMMANDS = {"admin_mons"};
 
     private static final int REQUIRED_LEVEL = Config.GM_MONSTERRACE;
     protected static int state = -1;
@@ -62,7 +61,7 @@ public class AdminMonsterRace implements IAdminCommandHandler
 
     public String[] getAdminCommandList()
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 
     private boolean checkLevel(int level)
@@ -73,7 +72,7 @@ public class AdminMonsterRace implements IAdminCommandHandler
     private void handleSendPacket(L2PcInstance activeChar)
     {
         /*
-         * -1 0 to initial the race
+         * -1 0 to initialize the race
          * 0 15322 to start race
          * 13765 -1 in middle of race
          * -1 0 to end the race
@@ -89,26 +88,23 @@ public class AdminMonsterRace implements IAdminCommandHandler
             state++;
             race.newRace();
             race.newSpeeds();
-            MonRaceInfo spk = new MonRaceInfo(codes[state][0], codes[state][1], race.getMonsters(),
-                                              race.getSpeeds());
+            MonRaceInfo spk = new MonRaceInfo(codes[state][0], codes[state][1], race.getMonsters(), race.getSpeeds());
             activeChar.sendPacket(spk);
             activeChar.broadcastPacket(spk);
         }
         else if (state == 0)
         {
             state++;
-            SystemMessage sm = new SystemMessage(SystemMessage.MONSRACE_RACE_START);
+            SystemMessage sm = new SystemMessage(SystemMessageId.MONSRACE_RACE_START);
             sm.addNumber(0);
             activeChar.sendPacket(sm);
             PlaySound SRace = new PlaySound(1, "S_Race", 0, 0, 0, 0, 0);
             activeChar.sendPacket(SRace);
             activeChar.broadcastPacket(SRace);
-            PlaySound SRace2 = new PlaySound(0, "ItemSound2.race_start", 1, 121209259, 12125, 182487,
-                                             -3559);
+            PlaySound SRace2 = new PlaySound(0, "ItemSound2.race_start", 1, 121209259, 12125, 182487, -3559);
             activeChar.sendPacket(SRace2);
             activeChar.broadcastPacket(SRace2);
-            MonRaceInfo spk = new MonRaceInfo(codes[state][0], codes[state][1], race.getMonsters(),
-                                              race.getSpeeds());
+            MonRaceInfo spk = new MonRaceInfo(codes[state][0], codes[state][1], race.getMonsters(), race.getSpeeds());
             activeChar.sendPacket(spk);
             activeChar.broadcastPacket(spk);
 
@@ -125,8 +121,8 @@ public class AdminMonsterRace implements IAdminCommandHandler
 
         public RunRace(int[][] pCodes, L2PcInstance pActiveChar)
         {
-            this.codes = pCodes;
-            this.activeChar = pActiveChar;
+            codes = pCodes;
+            activeChar = pActiveChar;
         }
 
         public void run()

@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.knownlist;
 
 
@@ -70,7 +87,9 @@ public class PcKnownList extends PlayableKnownList
      * @param object The L2Object to add to _knownObjects and _knownPlayer
      * @param dropper The L2Character who dropped the L2Object
      */
+    @Override
     public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
+    @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
         if (!super.addKnownObject(object, dropper)) return false;
@@ -123,6 +142,8 @@ public class PcKnownList extends PlayableKnownList
                 if (getActiveChar().equals(summon.getOwner()))
                 {
                     getActiveChar().sendPacket(new PetInfo(summon));
+                    // The PetInfo packet wipes the PartySpelled (list of active  spells' icons).  Re-add them
+                    summon.updateEffectIcons(true);
                     if (summon instanceof L2PetInstance)
                     {
                         getActiveChar().sendPacket(new PetItemList((L2PetInstance) summon));
@@ -210,6 +231,7 @@ public class PcKnownList extends PlayableKnownList
      * @param object The L2Object to remove from _knownObjects and _knownPlayer
      *
      */
+    @Override
     public boolean removeKnownObject(L2Object object)
     {
             if (!super.removeKnownObject(object)) return false;
@@ -224,8 +246,10 @@ public class PcKnownList extends PlayableKnownList
 
     // =========================================================
     // Property - Public
+    @Override
     public final L2PcInstance getActiveChar() { return (L2PcInstance)super.getActiveChar(); }
 
+    @Override
     public int getDistanceToForgetObject(L2Object object) 
     { 
         // when knownlist grows, the distance to forget should be at least  
@@ -238,6 +262,7 @@ public class PcKnownList extends PlayableKnownList
         else return 2310;
     }
  
+    @Override
     public int getDistanceToWatchObject(L2Object object) 
     { 
         int knownlistSize = getKnownObjects().size(); 

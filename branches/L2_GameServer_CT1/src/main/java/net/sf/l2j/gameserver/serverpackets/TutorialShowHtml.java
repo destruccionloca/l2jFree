@@ -46,5 +46,4 @@ public class TutorialShowHtml extends L2GameServerPacket
 	{
 		return _S__A0_TUTORIALSHOWHTML;
 	}
-	
 }

@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 public class AdminCTFEngine implements IAdminCommandHandler {
 
- private static String[] _adminCommands = {"admin_ctf",
+ private static final String[] ADMIN_COMMANDS = {"admin_ctf",
                                            "admin_ctf_name", "admin_ctf_desc", "admin_ctf_join_loc",
                                            "admin_ctf_npc", "admin_ctf_npc_pos",
                                            "admin_ctf_reward", "admin_ctf_reward_amount",
@@ -201,7 +201,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
 
     public String[] getAdminCommandList()
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 
     private boolean checkLevel(int level) 

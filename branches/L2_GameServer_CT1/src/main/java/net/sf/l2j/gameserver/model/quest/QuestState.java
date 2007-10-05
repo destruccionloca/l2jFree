@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExShowQuestMark;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
@@ -292,12 +293,116 @@ public final class QuestState
 		else
 			Quest.createQuestVarInDb(this, var, val);
 		
-		if (var == "cond") {
-			QuestList ql = new QuestList();
-	        getPlayer().sendPacket(ql);
+		if (var == "cond")
+		{
+			try
+			{
+				int previousVal = 0;
+				try
+				{
+					previousVal = Integer.parseInt(old);
+				}
+				catch(Exception ex)
+				{
+					previousVal = 0;
+				}
+				setCond(Integer.parseInt(val), previousVal);
+			}
+			catch (Exception e)
+			{
+				_log.info(getPlayer().getName()+", "+getQuest().getName()+" cond ["+val+"] is not an integer.  Value stored, but no packet was sent: " + e);
+			}
 		}
-        
 		return val;
+	}
+
+	/**
+	 * Internally handles the progression of the quest so that it is ready for sending 
+	 * appropriate packets to the client<BR><BR>
+	 * <U><I>Actions :</I></U><BR>
+	 * <LI>Check if the new progress number resets the quest to a previous (smaller) step</LI>
+	 * <LI>If not, check if quest progress steps have been skipped</LI>
+	 * <LI>If skipped, prepare the variable completedStateFlags appropriately to be ready for sending to clients</LI>
+	 * <LI>If no steps were skipped, flags do not need to be prepared...</LI>
+	 * <LI>If the passed step resets the quest to a previous step, reset such that steps after the parameter are not
+	 * considered, while skipped steps before the parameter, if any, maintain their info</LI>
+	 * @param cond : int indicating the step number for the current quest progress (as will be shown to the client)
+	 * @param old : int indicating the previously noted step 
+	 * 
+	 * For more info on the variable communicating the progress steps to the client, please see
+	 * @link net.sf.l2j.loginserver.serverpacket.QuestList
+	 */	
+	private void setCond(int cond, int old)
+	{
+		int completedStateFlags = 0;	// initializing...
+
+		// if there is no change since last setting, there is nothing to do here
+		if (cond == old)
+			return;
+		
+		// cond 0 and 1 do not need completedStateFlags.  Also, if cond > 1, the 1st step must
+		// always exist (i.e. it can never be skipped).  So if cond is 2, we can still safely 
+		// assume no steps have been skipped.
+		// Finally, more than 31 steps CANNOT be supported in any way with skipping.
+		if (cond < 3 || cond > 31)
+		{
+			unset("__compltdStateFlags");
+		}
+		else
+			completedStateFlags = getInt("__compltdStateFlags");
+
+		// case 1: No steps have been skipped so far...
+		if(completedStateFlags == 0)
+		{
+			// check if this step also doesn't skip anything.  If so, no further work is needed
+			// also, in this case, no work is needed if the state is being reset to a smaller value
+			// in those cases, skip forward to informing the client about the change...
+
+			// ELSE, if we just now skipped for the first time...prepare the flags!!!
+			if (cond > (old+1))
+			{
+				// set the most significant bit to 1 (indicates that there exist skipped states)
+				completedStateFlags = 0x80000000;
+
+				// since no flag had been skipped until now, the least significant bits must all 
+				// be set to 1, up until "old" number of bits.
+				completedStateFlags |= ((1<<old)-1);
+
+				// now, just set the bit corresponding to the passed cond to 1 (current step)
+				completedStateFlags |= (1<<(cond-1));
+				set("__compltdStateFlags", String.valueOf(completedStateFlags));
+			}
+		}
+		// case 2: There were exist previously skipped steps
+		else
+		{
+			// if this is a push back to a previous step, clear all completion flags ahead
+			if (cond < old)
+			{
+				completedStateFlags &= ((1<<cond)-1);  // note, this also unsets the flag indicating that there exist skips
+
+				//now, check if this resulted in no steps being skipped any more
+				if ( completedStateFlags == ((1<<cond)-1) )
+					unset("__compltdStateFlags");
+				else
+				{
+					// set the most significant bit back to 1 again, to correctly indicate that this skips states.
+					completedStateFlags |= 0x80000000;
+					set("__compltdStateFlags", String.valueOf(completedStateFlags));
+				}
+			}
+			// if this moves forward, it changes nothing on previously skipped steps...so just mark this 
+			// state and we are done
+			else
+			{
+				completedStateFlags |= (1<<(cond-1));
+				set("__compltdStateFlags", String.valueOf(completedStateFlags));
+			}
+		}
+
+		// send a packet to the client to inform it of the quest progress (step change)
+		QuestList ql = new QuestList();
+		getPlayer().sendPacket(ql);
 	}
 
 	/**
@@ -308,15 +413,15 @@ public final class QuestState
 	 * @return String pointing out the previous value associated with the variable "var"
 	 */
 	public String unset(String var) 
-    {
+	{
 		if (_vars == null)
 			return null;
-        
+
 		String old = _vars.remove(var);
-        
+
 		if (old != null)
 			Quest.deleteQuestVarInDb(this, var);
-        
+
 		return old;
 	}
 
@@ -495,7 +600,7 @@ public final class QuestState
 		// If item for reward is gold, send message of gold reward to client
 		if (itemId == 57) 
         {
-			SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_ADENA);
+			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ADENA);
 			smsg.addNumber(count);
 			getPlayer().sendPacket(smsg);
 		} 
@@ -504,13 +609,13 @@ public final class QuestState
         {
             if (count > 1)
             {
-    			SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+    			SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
     			smsg.addItemName(item.getItemId());
                 smsg.addNumber(count);
     			getPlayer().sendPacket(smsg);
             } else
             {
-                SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_ITEM);
+                SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
                 smsg.addItemName(item.getItemId());
                 getPlayer().sendPacket(smsg);
             }
@@ -698,7 +803,12 @@ public final class QuestState
      */
     public void startQuestTimer(String name, long time)
     {
-    	getQuest().startQuestTimer(name, time, null, getPlayer());
+        getQuest().startQuestTimer(name, time, null, getPlayer());
+    }
+
+    public void startQuestTimer(String name, long time, L2NpcInstance npc)
+    {
+        getQuest().startQuestTimer(name, time, npc, getPlayer());
     }
     
     /**
@@ -707,20 +817,76 @@ public final class QuestState
      */
     public final QuestTimer getQuestTimer(String name)
     {
-    	return getQuest().getQuestTimer(name, null, getPlayer());
+        return getQuest().getQuestTimer(name, null, getPlayer());
     }
     
     /**
-     * NOTE: This is to be deprecated; replaced by Quest.getPcSpawn(L2PcInstance)
-     * For now, I shall leave it as is
-     * Return a QuestPcSpawn for curren player instance
+     * Add spawn for player instance
+     * Return object id of newly spawned npc
      */
-    public final QuestPcSpawn getPcSpawn()
+    public L2NpcInstance addSpawn(int npcId)
     {
-        return QuestPcSpawnManager.getInstance().getPcSpawn(this.getPlayer());
+        return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, 0);
     }
 
-	public String showHtmlFile(String fileName) 
+    public L2NpcInstance addSpawn(int npcId, int despawnDelay)
+    {
+        return addSpawn(npcId, getPlayer().getX(), getPlayer().getY(), getPlayer().getZ(), 0, false, despawnDelay);
+    }
+
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z)
+    {
+        return addSpawn(npcId, x, y, z, 0, false, 0);
+    }
+
+    /**
+     * Add spawn for player instance
+     * Will despawn after the spawn length expires
+     * Uses player's coords and heading.
+     * Adds a little randomization in the x y coords
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, L2Character cha)
+    {
+        return addSpawn(npcId, cha, true,0);
+    }
+
+    public L2NpcInstance addSpawn(int npcId, L2Character cha, int despawnDelay)
+    {
+        return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), true, despawnDelay);
+    }
+
+    /**
+     * Add spawn for player instance
+     * Will despawn after the spawn length expires
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z, int despawnDelay)
+    {
+        return addSpawn(npcId, x, y, z, 0, false, despawnDelay);
+    }
+
+    /**
+     * Add spawn for player instance
+     * Inherits coords and heading from specified L2Character instance.
+     * It could be either the player, or any killed/attacked mob
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, L2Character cha, boolean randomOffset, int despawnDelay)
+    {
+        return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), randomOffset, despawnDelay);
+    }
+
+    /**
+     * Add spawn for player instance
+     * Return object id of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay)
+    {
+        return getQuest().addSpawn(npcId, x, y, z, heading, randomOffset, despawnDelay);
+    }
+
+    public String showHtmlFile(String fileName) 
     {
     	return getQuest().showHtmlFile(getPlayer(), fileName);
 	}

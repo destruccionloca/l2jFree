@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.model.L2HennaInstance;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Henna;
 
@@ -35,7 +35,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 {
 	private static final String _C__BC_RequestHennaEquip = "[C] bc RequestHennaEquip";
 	//private final static Log _log = LogFactory.getLog(RequestHennaEquip.class.getName());
-	private int SymbolId;
+	private int _symbolId;
 	// format  cd
 	
 	/**
@@ -43,11 +43,13 @@ public class RequestHennaEquip extends L2GameClientPacket
 	 * format:		cd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
-        SymbolId  = readD();
+        _symbolId  = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -55,7 +57,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 		if (activeChar == null)
 		    return;
         
-		L2Henna template = HennaTable.getInstance().getTemplate(SymbolId);
+		L2Henna template = HennaTable.getInstance().getTemplate(_symbolId);
         
         if (template == null)
             return;
@@ -70,7 +72,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 		
 		if ((_count >= temp.getAmountDyeRequire())&& (activeChar.getAdena()>= temp.getPrice()) && activeChar.addHenna(temp))
 		{
-			SystemMessage sm = new SystemMessage(SystemMessage.S1_DISAPPEARED);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
 			sm.addItemName(temp.getItemIdDye());
 			activeChar.sendPacket(sm);
 			sm = null;			
@@ -78,17 +80,18 @@ public class RequestHennaEquip extends L2GameClientPacket
 			L2ItemInstance dye = activeChar.getInventory().destroyItemByItemId("Henna", temp.getItemIdDye(),temp.getAmountDyeRequire(), activeChar, activeChar.getLastFolkNPC());			
 			// Send inventory update packet
             activeChar.getInventory().updateInventory(dye);
-            activeChar.sendPacket(new SystemMessage(SystemMessage.SYMBOL_ADDED));
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.SYMBOL_ADDED));
 		}
 		else
         {
-			activeChar.sendPacket(new SystemMessage(SystemMessage.CANT_DRAW_SYMBOL));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_DRAW_SYMBOL));
 		}
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__BC_RequestHennaEquip;

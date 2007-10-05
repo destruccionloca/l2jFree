@@ -18,9 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import java.util.Collection;
+//import java.util.Collection;
 
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.PartyMatchList;
 
@@ -39,15 +38,15 @@ public class RequestPartyMatchList extends L2GameClientPacket
 	private final static Log _log = LogFactory.getLog(RequestPartyMatchList.class.getName());
 
 	private int _status;
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int _unk1;
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int _unk2;
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int _unk3;
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int _unk4;
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private String _unk5;
 	/**
 	 * packet type id 0x70
@@ -60,22 +59,26 @@ public class RequestPartyMatchList extends L2GameClientPacket
 	 * format:		cd 
 	 * @param decrypt
 	 */
-    protected void readImpl()
+	@Override
+	protected void readImpl()
 	{
 		_status = readD();
 	}
 
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		if (_status == 1)
 		{
 			// window is open fill the list  
 			// actually the client should get automatic updates for the list
 			// for now we only fill it once
-			Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers(); 
-			L2PcInstance[] allPlayers = players.toArray(new L2PcInstance[players.size()]);
-			PartyMatchList matchList = new PartyMatchList(allPlayers);
-			sendPacket(matchList);
+
+			//Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers(); 
+			//L2PcInstance[] allPlayers = players.toArray(new L2PcInstance[players.size()]);
+			L2PcInstance[] empty = new L2PcInstance[] { };
+			PartyMatchList matchList = new PartyMatchList(empty);
+			//sendPacket(matchList);
 		}
 		else if (_status == 3)
 		{
@@ -91,6 +94,7 @@ public class RequestPartyMatchList extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__70_REQUESTPARTYMATCHLIST;

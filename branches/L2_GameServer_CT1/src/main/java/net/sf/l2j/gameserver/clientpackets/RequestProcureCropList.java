@@ -39,6 +39,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+    @Override
     protected void readImpl()
     {
         int size = readD();
@@ -71,5 +72,4 @@ public class RequestProcureCropList extends L2GameClientPacket
 	{
 		return _C__D0_09_REQUESTPROCURECROPLIST;
 	}
-
 }

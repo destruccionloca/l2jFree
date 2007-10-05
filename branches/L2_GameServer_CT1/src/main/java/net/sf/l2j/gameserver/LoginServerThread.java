@@ -32,7 +32,6 @@ import java.security.spec.RSAKeyGenParameterSpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -45,6 +44,7 @@ import net.sf.l2j.gameserver.gameserverpackets.PlayerAuthRequest;
 import net.sf.l2j.gameserver.gameserverpackets.PlayerInGame;
 import net.sf.l2j.gameserver.gameserverpackets.PlayerLogout;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.loginserverpackets.AuthResponse;
 import net.sf.l2j.gameserver.loginserverpackets.InitLS;
 import net.sf.l2j.gameserver.loginserverpackets.KickPlayer;
@@ -157,6 +157,7 @@ public class LoginServerThread extends Thread
 		return _instance;
 	}
 
+	@Override
 	public void run()
 	{
 		while(true)
@@ -423,7 +424,7 @@ public class LoginServerThread extends Thread
 	public void sendLogout(String account)
 	{
 		PlayerLogout pl = new PlayerLogout(account);
-         if ( pl == null ) return;
+		if ( pl == null ) return;
 		try
 		{
 			sendPacket(pl);
@@ -470,8 +471,7 @@ public class LoginServerThread extends Thread
 	public static byte[] generateHex(int size)
 	{
 		byte [] array = new byte[size]; 
-		Random rnd = new Random();
-		rnd.nextBytes(array);
+		Rnd.nextBytes(array);
 		if (_log.isDebugEnabled())_log.debug("Generated random String:  \""+array+"\"");
 		return array;
 	}
@@ -536,7 +536,7 @@ public class LoginServerThread extends Thread
 	 */
 	public String getStatusString()
 	{
-		return ServerStatus.statusString[_status];
+		return ServerStatus.STATUS_STRING[_status];
 	}
 
 	/**
@@ -611,6 +611,7 @@ public class LoginServerThread extends Thread
 			loginOkID2 = loginOK2;
 		}
 
+		@Override
 		public String toString()
 		{
 			return "PlayOk: "+playOkID1+" "+playOkID2+" LoginOk:"+loginOkID1+" "+loginOkID2;

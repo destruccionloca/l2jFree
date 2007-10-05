@@ -24,25 +24,24 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * This class handles following admin commands:
- * - res = resurrects target L2Character
+ * - heal = restores HP/MP/CP on target, name or radius
  * 
  * @version $Revision: 1.2.4.5 $ $Date: 2005/04/11 10:06:06 $
  */
-public class AdminHeal implements IAdminCommandHandler {
-    private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
-    private static String[] _adminCommands = {"admin_heal"};
+public class AdminHeal implements IAdminCommandHandler
+{
+    //private final static Log _log = LogFactory.getLog(AdminRes.class.getName());
+    private static final String[] ADMIN_COMMANDS = { "admin_heal" };
     private static final int REQUIRED_LEVEL = Config.GM_HEAL;
 
-    public boolean useAdminCommand(String command, L2PcInstance activeChar) {
+    public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
         if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
 
         if (command.equals("admin_heal"))
         {
@@ -51,7 +50,8 @@ public class AdminHeal implements IAdminCommandHandler {
                 handleHeal((L2Character)activeChar.getTarget());
             }
         }
-        else if (command.startsWith("admin_heal")) {            
+        else if (command.startsWith("admin_heal"))
+        {
             try
             {
                 String val = command.substring(11);
@@ -73,20 +73,19 @@ public class AdminHeal implements IAdminCommandHandler {
             }
             catch (StringIndexOutOfBoundsException e)
             {
-                if ( _log.isDebugEnabled() ) _log.debug("Heal error: "+e);
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-                sm.addString("Incorrect target/radius specified.");
-                activeChar.sendPacket(sm);
+                activeChar.sendMessage("Incorrect target/radius specified.");
             }
         }
         return true;
     }
 
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
 
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }
 

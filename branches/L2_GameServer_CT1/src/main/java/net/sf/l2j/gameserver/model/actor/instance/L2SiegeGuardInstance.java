@@ -18,11 +18,10 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.Random;
-
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -48,7 +47,6 @@ public final class L2SiegeGuardInstance extends L2Attackable
 {
     @SuppressWarnings("hiding")
     private final static Log _log = LogFactory.getLog(L2GuardInstance.class.getName());
-	private final Random _rnd = new Random();
 
     private int _homeX;
     private int _homeY;
@@ -57,16 +55,18 @@ public final class L2SiegeGuardInstance extends L2Attackable
     public L2SiegeGuardInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        this.getKnownList(); //inits the knownlist
+        getKnownList(); //inits the knownlist
     }
 
+    @Override
     public final SiegeGuardKnownList getKnownList()
     {
     	if(super.getKnownList() == null || !(super.getKnownList() instanceof SiegeGuardKnownList))
-    		this.setKnownList(new SiegeGuardKnownList(this));
+    		setKnownList(new SiegeGuardKnownList(this));
     	return (SiegeGuardKnownList)super.getKnownList();
     }
 
+	@Override
 	public L2CharacterAI getAI() 
 	{
 		synchronized(this)
@@ -83,6 +83,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	 * @param attacker The L2Character that the L2SiegeGuardInstance try to attack
 	 * 
 	 */
+    @Override
     public boolean isAutoAttackable(L2Character attacker) 
 	{
  // Attackable during siege by all except defenders
@@ -142,6 +143,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
      * extra check to see if a player should interract ot ATTACK them when clicked.
      * 
      */
+    @Override
     public void onAction(L2PcInstance player)
     {
       //  if (player == null)
@@ -197,7 +199,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 //					player.moveTo(this.getX(), this.getY(), this.getZ(), INTERACTION_DISTANCE);
 				} else 
                 {
-					SocialAction sa = new SocialAction(getObjectId(), _rnd.nextInt(8));
+					SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
 					broadcastPacket(sa);
 					sendPacket(sa);
 					showChatWindow(player, 0);
@@ -209,6 +211,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 		//super.onAction(player);
     }
     
+    @Override
     public void addDamageHate(L2Character attacker, int damage, int aggro)
     {
         if (attacker == null)

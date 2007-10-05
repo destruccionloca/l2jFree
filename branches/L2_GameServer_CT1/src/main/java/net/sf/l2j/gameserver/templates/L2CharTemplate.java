@@ -189,9 +189,9 @@ public class L2CharTemplate
     /**
      * @param baseAggression the baseAggression to set
      */
-    public void setBaseAggression(int baseAggression)
+    public void setBaseAggression(int _baseAggression)
     {
-        this.baseAggression = baseAggression;
+        baseAggression = _baseAggression;
     }
 
     /**
@@ -205,9 +205,9 @@ public class L2CharTemplate
     /**
      * @param baseAggressionRes the baseAggressionRes to set
      */
-    public void setBaseAggressionRes(int baseAggressionRes)
+    public void setBaseAggressionRes(int _baseAggressionRes)
     {
-        this.baseAggressionRes = baseAggressionRes;
+        baseAggressionRes = _baseAggressionRes;
     }
 
     /**
@@ -221,9 +221,9 @@ public class L2CharTemplate
     /**
      * @param baseAtkRange the baseAtkRange to set
      */
-    public void setBaseAtkRange(int baseAtkRange)
+    public void setBaseAtkRange(int _baseAtkRange)
     {
-        this.baseAtkRange = baseAtkRange;
+        baseAtkRange = _baseAtkRange;
     }
 
     /**
@@ -237,9 +237,9 @@ public class L2CharTemplate
     /**
      * @param baseBleed the baseBleed to set
      */
-    public void setBaseBleed(int baseBleed)
+    public void setBaseBleed(int _baseBleed)
     {
-        this.baseBleed = baseBleed;
+        baseBleed = _baseBleed;
     }
 
     /**
@@ -253,9 +253,9 @@ public class L2CharTemplate
     /**
      * @param baseBleedRes the baseBleedRes to set
      */
-    public void setBaseBleedRes(int baseBleedRes)
+    public void setBaseBleedRes(int _baseBleedRes)
     {
-        this.baseBleedRes = baseBleedRes;
+        baseBleedRes = _baseBleedRes;
     }
 
     /**
@@ -269,9 +269,9 @@ public class L2CharTemplate
     /**
      * @param baseBreath the baseBreath to set
      */
-    public void setBaseBreath(int baseBreath)
+    public void setBaseBreath(int _baseBreath)
     {
-        this.baseBreath = baseBreath;
+        baseBreath = _baseBreath;
     }
 
     /**
@@ -285,9 +285,9 @@ public class L2CharTemplate
     /**
      * @param baseCON the baseCON to set
      */
-    public void setBaseCON(int baseCON)
+    public void setBaseCON(int _baseCON)
     {
-        this.baseCON = baseCON;
+        baseCON = _baseCON;
     }
 
     /**
@@ -301,9 +301,9 @@ public class L2CharTemplate
     /**
      * @param baseConfusion the baseConfusion to set
      */
-    public void setBaseConfusion(int baseConfusion)
+    public void setBaseConfusion(int _baseConfusion)
     {
-        this.baseConfusion = baseConfusion;
+        baseConfusion = _baseConfusion;
     }
 
     /**
@@ -317,9 +317,9 @@ public class L2CharTemplate
     /**
      * @param baseConfusionRes the baseConfusionRes to set
      */
-    public void setBaseConfusionRes(int baseConfusionRes)
+    public void setBaseConfusionRes(int _baseConfusionRes)
     {
-        this.baseConfusionRes = baseConfusionRes;
+        baseConfusionRes = _baseConfusionRes;
     }
 
     /**
@@ -333,9 +333,9 @@ public class L2CharTemplate
     /**
      * @param baseCpMax the baseCpMax to set
      */
-    public void setBaseCpMax(float baseCpMax)
+    public void setBaseCpMax(float _baseCpMax)
     {
-        this.baseCpMax = baseCpMax;
+        baseCpMax = _baseCpMax;
     }
 
     /**
@@ -349,9 +349,9 @@ public class L2CharTemplate
     /**
      * @param baseCritRate the baseCritRate to set
      */
-    public void setBaseCritRate(int baseCritRate)
+    public void setBaseCritRate(int _baseCritRate)
     {
-        this.baseCritRate = baseCritRate;
+        baseCritRate = _baseCritRate;
     }
 
     /**
@@ -365,9 +365,9 @@ public class L2CharTemplate
     /**
      * @param baseDark the baseDark to set
      */
-    public void setBaseDark(int baseDark)
+    public void setBaseDark(int _baseDark)
     {
-        this.baseDark = baseDark;
+        baseDark = _baseDark;
     }
 
     /**
@@ -381,9 +381,9 @@ public class L2CharTemplate
     /**
      * @param baseDarkRes the baseDarkRes to set
      */
-    public void setBaseDarkRes(int baseDarkRes)
+    public void setBaseDarkRes(int _baseDarkRes)
     {
-        this.baseDarkRes = baseDarkRes;
+        baseDarkRes = _baseDarkRes;
     }
 
     /**
@@ -397,9 +397,9 @@ public class L2CharTemplate
     /**
      * @param baseDEX the baseDEX to set
      */
-    public void setBaseDEX(int baseDEX)
+    public void setBaseDEX(int _baseDEX)
     {
-        this.baseDEX = baseDEX;
+        baseDEX = _baseDEX;
     }
 
     /**
@@ -413,9 +413,9 @@ public class L2CharTemplate
     /**
      * @param baseEarth the baseEarth to set
      */
-    public void setBaseEarth(int baseEarth)
+    public void setBaseEarth(int _baseEarth)
     {
-        this.baseEarth = baseEarth;
+        baseEarth = _baseEarth;
     }
 
     /**
@@ -429,9 +429,9 @@ public class L2CharTemplate
     /**
      * @param baseEarthRes the baseEarthRes to set
      */
-    public void setBaseEarthRes(int baseEarthRes)
+    public void setBaseEarthRes(int _baseEarthRes)
     {
-        this.baseEarthRes = baseEarthRes;
+        baseEarthRes = _baseEarthRes;
     }
 
     /**
@@ -445,9 +445,9 @@ public class L2CharTemplate
     /**
      * @param baseFire the baseFire to set
      */
-    public void setBaseFire(int baseFire)
+    public void setBaseFire(int _baseFire)
     {
-        this.baseFire = baseFire;
+        baseFire = _baseFire;
     }
 
     /**
@@ -461,9 +461,9 @@ public class L2CharTemplate
     /**
      * @param baseFireRes the baseFireRes to set
      */
-    public void setBaseFireRes(int baseFireRes)
+    public void setBaseFireRes(int _baseFireRes)
     {
-        this.baseFireRes = baseFireRes;
+        baseFireRes = _baseFireRes;
     }
 
     /**
@@ -477,9 +477,9 @@ public class L2CharTemplate
     /**
      * @param baseHoly the baseHoly to set
      */
-    public void setBaseHoly(int baseHoly)
+    public void setBaseHoly(int _baseHoly)
     {
-        this.baseHoly = baseHoly;
+        baseHoly = _baseHoly;
     }
 
     /**
@@ -493,9 +493,9 @@ public class L2CharTemplate
     /**
      * @param baseHolyRes the baseHolyRes to set
      */
-    public void setBaseHolyRes(int baseHolyRes)
+    public void setBaseHolyRes(int _baseHolyRes)
     {
-        this.baseHolyRes = baseHolyRes;
+        baseHolyRes = _baseHolyRes;
     }
 
     /**
@@ -509,9 +509,9 @@ public class L2CharTemplate
     /**
      * @param baseHpConsumeRate the baseHpConsumeRate to set
      */
-    public void setBaseHpConsumeRate(int baseHpConsumeRate)
+    public void setBaseHpConsumeRate(int _baseHpConsumeRate)
     {
-        this.baseHpConsumeRate = baseHpConsumeRate;
+        baseHpConsumeRate = _baseHpConsumeRate;
     }
 
     /**
@@ -525,9 +525,9 @@ public class L2CharTemplate
     /**
      * @param baseHpMax the baseHpMax to set
      */
-    public void setBaseHpMax(float baseHpMax)
+    public void setBaseHpMax(float _baseHpMax)
     {
-        this.baseHpMax = baseHpMax;
+        baseHpMax = _baseHpMax;
     }
 
     /**
@@ -541,9 +541,9 @@ public class L2CharTemplate
     /**
      * @param baseHpReg the baseHpReg to set
      */
-    public void setBaseHpReg(float baseHpReg)
+    public void setBaseHpReg(float _baseHpReg)
     {
-        this.baseHpReg = baseHpReg;
+        baseHpReg = _baseHpReg;
     }
 
     /**
@@ -557,9 +557,9 @@ public class L2CharTemplate
     /**
      * @param baseINT the baseINT to set
      */
-    public void setBaseINT(int baseINT)
+    public void setBaseINT(int _baseINT)
     {
-        this.baseINT = baseINT;
+        baseINT = _baseINT;
     }
 
     /**
@@ -573,9 +573,9 @@ public class L2CharTemplate
     /**
      * @param baseMAtk the baseMAtk to set
      */
-    public void setBaseMAtk(int baseMAtk)
+    public void setBaseMAtk(int _baseMAtk)
     {
-        this.baseMAtk = baseMAtk;
+        baseMAtk = _baseMAtk;
     }
 
     /**
@@ -589,9 +589,9 @@ public class L2CharTemplate
     /**
      * @param baseMAtkSpd the baseMAtkSpd to set
      */
-    public void setBaseMAtkSpd(int baseMAtkSpd)
+    public void setBaseMAtkSpd(int _baseMAtkSpd)
     {
-        this.baseMAtkSpd = baseMAtkSpd;
+        baseMAtkSpd = _baseMAtkSpd;
     }
 
     /**
@@ -605,9 +605,9 @@ public class L2CharTemplate
     /**
      * @param baseMDef the baseMDef to set
      */
-    public void setBaseMDef(int baseMDef)
+    public void setBaseMDef(int _baseMDef)
     {
-        this.baseMDef = baseMDef;
+        baseMDef = _baseMDef;
     }
 
     /**
@@ -621,9 +621,9 @@ public class L2CharTemplate
     /**
      * @param baseMEN the baseMEN to set
      */
-    public void setBaseMEN(int baseMEN)
+    public void setBaseMEN(int _baseMEN)
     {
-        this.baseMEN = baseMEN;
+        baseMEN = _baseMEN;
     }
 
     /**
@@ -637,9 +637,9 @@ public class L2CharTemplate
     /**
      * @param baseMovement the baseMovement to set
      */
-    public void setBaseMovement(int baseMovement)
+    public void setBaseMovement(int _baseMovement)
     {
-        this.baseMovement = baseMovement;
+        baseMovement = _baseMovement;
     }
 
     /**
@@ -653,9 +653,9 @@ public class L2CharTemplate
     /**
      * @param baseMovementRes the baseMovementRes to set
      */
-    public void setBaseMovementRes(int baseMovementRes)
+    public void setBaseMovementRes(int _baseMovementRes)
     {
-        this.baseMovementRes = baseMovementRes;
+        baseMovementRes = _baseMovementRes;
     }
 
     /**
@@ -669,9 +669,9 @@ public class L2CharTemplate
     /**
      * @param baseMpConsumeRate the baseMpConsumeRate to set
      */
-    public void setBaseMpConsumeRate(int baseMpConsumeRate)
+    public void setBaseMpConsumeRate(int _baseMpConsumeRate)
     {
-        this.baseMpConsumeRate = baseMpConsumeRate;
+        baseMpConsumeRate = _baseMpConsumeRate;
     }
 
     /**
@@ -685,9 +685,9 @@ public class L2CharTemplate
     /**
      * @param baseMpMax the baseMpMax to set
      */
-    public void setBaseMpMax(float baseMpMax)
+    public void setBaseMpMax(float _baseMpMax)
     {
-        this.baseMpMax = baseMpMax;
+        baseMpMax = _baseMpMax;
     }
 
     /**
@@ -701,9 +701,9 @@ public class L2CharTemplate
     /**
      * @param baseMpReg the baseMpReg to set
      */
-    public void setBaseMpReg(float baseMpReg)
+    public void setBaseMpReg(float _baseMpReg)
     {
-        this.baseMpReg = baseMpReg;
+        baseMpReg = _baseMpReg;
     }
 
     /**
@@ -717,9 +717,9 @@ public class L2CharTemplate
     /**
      * @param baseMReuseRate the baseMReuseRate to set
      */
-    public void setBaseMReuseRate(float baseMReuseRate)
+    public void setBaseMReuseRate(float _baseMReuseRate)
     {
-        this.baseMReuseRate = baseMReuseRate;
+        baseMReuseRate = _baseMReuseRate;
     }
 
     /**
@@ -733,9 +733,9 @@ public class L2CharTemplate
     /**
      * @param basePAtk the basePAtk to set
      */
-    public void setBasePAtk(int basePAtk)
+    public void setBasePAtk(int _basePAtk)
     {
-        this.basePAtk = basePAtk;
+        basePAtk = _basePAtk;
     }
 
     /**
@@ -749,9 +749,9 @@ public class L2CharTemplate
     /**
      * @param basePAtkSpd the basePAtkSpd to set
      */
-    public void setBasePAtkSpd(int basePAtkSpd)
+    public void setBasePAtkSpd(int _basePAtkSpd)
     {
-        this.basePAtkSpd = basePAtkSpd;
+        basePAtkSpd = _basePAtkSpd;
     }
 
     /**
@@ -765,9 +765,9 @@ public class L2CharTemplate
     /**
      * @param basePDef the basePDef to set
      */
-    public void setBasePDef(int basePDef)
+    public void setBasePDef(int _basePDef)
     {
-        this.basePDef = basePDef;
+        basePDef = _basePDef;
     }
 
     /**
@@ -781,9 +781,9 @@ public class L2CharTemplate
     /**
      * @param basePoison the basePoison to set
      */
-    public void setBasePoison(int basePoison)
+    public void setBasePoison(int _basePoison)
     {
-        this.basePoison = basePoison;
+        basePoison = _basePoison;
     }
 
     /**
@@ -797,9 +797,9 @@ public class L2CharTemplate
     /**
      * @param basePoisonRes the basePoisonRes to set
      */
-    public void setBasePoisonRes(int basePoisonRes)
+    public void setBasePoisonRes(int _basePoisonRes)
     {
-        this.basePoisonRes = basePoisonRes;
+        basePoisonRes = _basePoisonRes;
     }
 
     /**
@@ -813,9 +813,9 @@ public class L2CharTemplate
     /**
      * @param baseRoot the baseRoot to set
      */
-    public void setBaseRoot(int baseRoot)
+    public void setBaseRoot(int _baseRoot)
     {
-        this.baseRoot = baseRoot;
+        baseRoot = _baseRoot;
     }
 
     /**
@@ -829,9 +829,9 @@ public class L2CharTemplate
     /**
      * @param baseRootRes the baseRootRes to set
      */
-    public void setBaseRootRes(int baseRootRes)
+    public void setBaseRootRes(int _baseRootRes)
     {
-        this.baseRootRes = baseRootRes;
+        baseRootRes = _baseRootRes;
     }
 
     /**
@@ -845,9 +845,9 @@ public class L2CharTemplate
     /**
      * @param baseRunSpd the baseRunSpd to set
      */
-    public void setBaseRunSpd(int baseRunSpd)
+    public void setBaseRunSpd(int _baseRunSpd)
     {
-        this.baseRunSpd = baseRunSpd;
+        baseRunSpd = _baseRunSpd;
     }
 
     /**
@@ -861,9 +861,9 @@ public class L2CharTemplate
     /**
      * @param baseShldDef the baseShldDef to set
      */
-    public void setBaseShldDef(int baseShldDef)
+    public void setBaseShldDef(int _baseShldDef)
     {
-        this.baseShldDef = baseShldDef;
+        baseShldDef = _baseShldDef;
     }
 
     /**
@@ -877,9 +877,9 @@ public class L2CharTemplate
     /**
      * @param baseShldRate the baseShldRate to set
      */
-    public void setBaseShldRate(int baseShldRate)
+    public void setBaseShldRate(int _baseShldRate)
     {
-        this.baseShldRate = baseShldRate;
+        baseShldRate = _baseShldRate;
     }
 
     /**
@@ -893,9 +893,9 @@ public class L2CharTemplate
     /**
      * @param baseSleep the baseSleep to set
      */
-    public void setBaseSleep(int baseSleep)
+    public void setBaseSleep(int _baseSleep)
     {
-        this.baseSleep = baseSleep;
+        baseSleep = _baseSleep;
     }
 
     /**
@@ -909,9 +909,9 @@ public class L2CharTemplate
     /**
      * @param baseSleepRes the baseSleepRes to set
      */
-    public void setBaseSleepRes(int baseSleepRes)
+    public void setBaseSleepRes(int _baseSleepRes)
     {
-        this.baseSleepRes = baseSleepRes;
+        baseSleepRes = _baseSleepRes;
     }
 
     /**
@@ -925,9 +925,9 @@ public class L2CharTemplate
     /**
      * @param baseSTR the baseSTR to set
      */
-    public void setBaseSTR(int baseSTR)
+    public void setBaseSTR(int _baseSTR)
     {
-        this.baseSTR = baseSTR;
+        baseSTR = _baseSTR;
     }
 
     /**
@@ -941,9 +941,9 @@ public class L2CharTemplate
     /**
      * @param baseStun the baseStun to set
      */
-    public void setBaseStun(int baseStun)
+    public void setBaseStun(int _baseStun)
     {
-        this.baseStun = baseStun;
+        baseStun = _baseStun;
     }
 
     /**
@@ -957,9 +957,9 @@ public class L2CharTemplate
     /**
      * @param baseStunRes the baseStunRes to set
      */
-    public void setBaseStunRes(int baseStunRes)
+    public void setBaseStunRes(int _baseStunRes)
     {
-        this.baseStunRes = baseStunRes;
+        baseStunRes = _baseStunRes;
     }
 
     /**
@@ -973,9 +973,9 @@ public class L2CharTemplate
     /**
      * @param baseWater the baseWater to set
      */
-    public void setBaseWater(int baseWater)
+    public void setBaseWater(int _baseWater)
     {
-        this.baseWater = baseWater;
+        baseWater = _baseWater;
     }
 
     /**
@@ -989,9 +989,9 @@ public class L2CharTemplate
     /**
      * @param baseWaterRes the baseWaterRes to set
      */
-    public void setBaseWaterRes(int baseWaterRes)
+    public void setBaseWaterRes(int _baseWaterRes)
     {
-        this.baseWaterRes = baseWaterRes;
+        baseWaterRes = _baseWaterRes;
     }
 
     /**
@@ -1005,9 +1005,9 @@ public class L2CharTemplate
     /**
      * @param baseWind the baseWind to set
      */
-    public void setBaseWind(int baseWind)
+    public void setBaseWind(int _baseWind)
     {
-        this.baseWind = baseWind;
+        baseWind = _baseWind;
     }
 
     /**
@@ -1021,9 +1021,9 @@ public class L2CharTemplate
     /**
      * @param baseWindRes the baseWindRes to set
      */
-    public void setBaseWindRes(int baseWindRes)
+    public void setBaseWindRes(int _baseWindRes)
     {
-        this.baseWindRes = baseWindRes;
+        baseWindRes = _baseWindRes;
     }
 
     /**
@@ -1037,9 +1037,9 @@ public class L2CharTemplate
     /**
      * @param baseWIT the baseWIT to set
      */
-    public void setBaseWIT(int baseWIT)
+    public void setBaseWIT(int _baseWIT)
     {
-        this.baseWIT = baseWIT;
+        baseWIT = _baseWIT;
     }
 
     /**
@@ -1053,9 +1053,9 @@ public class L2CharTemplate
     /**
      * @param collisionHeight the collisionHeight to set
      */
-    public void setCollisionHeight(int collisionHeight)
+    public void setCollisionHeight(int _collisionHeight)
     {
-        this.collisionHeight = collisionHeight;
+        collisionHeight = _collisionHeight;
     }
 
     /**
@@ -1069,9 +1069,9 @@ public class L2CharTemplate
     /**
      * @param collisionRadius the collisionRadius to set
      */
-    public void setCollisionRadius(int collisionRadius)
+    public void setCollisionRadius(int _collisionRadius)
     {
-        this.collisionRadius = collisionRadius;
+        collisionRadius = _collisionRadius;
     }
 
     /**
@@ -1085,8 +1085,8 @@ public class L2CharTemplate
     /**
      * @param isUndead the isUndead to set
      */
-    public void setUndead(boolean isUndead)
+    public void setUndead(boolean _isUndead)
     {
-        this.isUndead = isUndead;
+        isUndead = _isUndead;
     }
 }

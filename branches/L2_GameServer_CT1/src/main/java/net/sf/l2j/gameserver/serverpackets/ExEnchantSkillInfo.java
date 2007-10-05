@@ -39,10 +39,10 @@ public class ExEnchantSkillInfo extends L2GameServerPacket
 
         Req(int pType, int pId, int pCount, int pUnk)
         {
-            this.id = pId;
-            this.type = pType;
-            this.count = pCount;
-            this.unk = pUnk;
+            id = pId;
+            type = pType;
+            count = pCount;
+            unk = pUnk;
         }
     }
 
@@ -96,5 +96,4 @@ public class ExEnchantSkillInfo extends L2GameServerPacket
     {
         return _S__FE_18_EXENCHANTSKILLINFO;
     }
-
 }

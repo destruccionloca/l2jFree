@@ -51,6 +51,7 @@ public class RequestGetOnVehicle extends L2GameClientPacket
      * format:      cdd
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _id = readD();
@@ -59,6 +60,7 @@ public class RequestGetOnVehicle extends L2GameClientPacket
         _z = readD();
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -77,6 +79,7 @@ public class RequestGetOnVehicle extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__5C_GETONVEHICLE;

@@ -37,12 +37,14 @@ public class CharacterRestore extends L2GameClientPacket
 	/**
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _charSlot = readD();
     }
 
 
+    @Override
     protected void runImpl()
 	{
 	    try 
@@ -57,6 +59,7 @@ public class CharacterRestore extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__62_CHARACTERRESTORE;

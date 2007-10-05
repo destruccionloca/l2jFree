@@ -61,8 +61,8 @@ public class CharRecommendation
     {
         final int PRIME = 31;
         int result = 1;
-        result = PRIME * result + (int) (charId ^ (charId >>> 32));
-        result = PRIME * result + (int) (targetId ^ (targetId >>> 32));
+        result = PRIME * result + (charId ^ (charId >>> 32));
+        result = PRIME * result + (targetId ^ (targetId >>> 32));
         return result;
     }
     /* (non-Javadoc)

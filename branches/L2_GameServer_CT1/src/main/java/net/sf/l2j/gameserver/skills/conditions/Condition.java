@@ -20,9 +20,6 @@ package net.sf.l2j.gameserver.skills.conditions;
 
 import net.sf.l2j.gameserver.skills.Env;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * @author mkizub
  *
@@ -31,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class Condition implements ConditionListener {
 
-	static final Log _log = LogFactory.getLog(Condition.class.getName());
+	//static final Log _log = LogFactory.getLog(Condition.class.getName());
 	
 	private ConditionListener _listener;
 	private String _msg;

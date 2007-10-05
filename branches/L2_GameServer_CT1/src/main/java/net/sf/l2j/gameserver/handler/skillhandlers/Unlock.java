@@ -1,6 +1,23 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import net.sf.l2j.gameserver.ai.CtrlEvent;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -8,14 +25,15 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.lib.Rnd;
 
 public class Unlock implements ISkillHandler
 {
-	//private static Logger _log = Logger.getLogger(Unlock.class.getName());
 	private static final SkillType[] SKILL_IDS = {SkillType.UNLOCK};
 
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
@@ -35,7 +53,7 @@ public class Unlock implements ISkillHandler
 				L2DoorInstance door = (L2DoorInstance) target;
 				if (!door.isUnlockable())
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessage.UNABLE_TO_UNLOCK_DOOR));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_UNLOCK_DOOR));
 					activeChar.sendPacket(new ActionFailed());
 					return;
 				}
@@ -44,14 +62,14 @@ public class Unlock implements ISkillHandler
 				{
 					door.openMe();
 					door.onOpen();
-					SystemMessage systemmessage = new SystemMessage(SystemMessage.S1_S2);
+					SystemMessage systemmessage = new SystemMessage(SystemMessageId.S1_S2);
 
 					systemmessage.addString("Unlock the door!");
 					activeChar.sendPacket(systemmessage);
 				}
 				else
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessage.FAILED_TO_UNLOCK_DOOR));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_UNLOCK_DOOR));
 				}
 			}
 			else if (target instanceof L2ChestInstance)
@@ -123,35 +141,21 @@ public class Unlock implements ISkillHandler
 						}
 							break;
 					}
-					if (chestChance == 0)
+					if (Rnd.get(100) <= chestChance)
 					{
-						activeChar.sendPacket(SystemMessage.sendString("Too hard to open for you.."));
-						activeChar.sendPacket(new ActionFailed());
-						//if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar);
-						chest.setInteracted();
-						chest.setMustRewardExpSp(false);
-						chest.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
-						return;
-					}
-
-					if (Rnd.get(120) < chestChance)
-					{
-						activeChar.sendPacket(SystemMessage.sendString("You open the chest!"));
-
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(),3));
 						chest.setSpecialDrop();
-						chest.setHaveToDrop(true);
 						chest.setMustRewardExpSp(false);
-						chest.doItemDrop(activeChar);
-						chest.onDecay();
+						chest.setInteracted();
+						chest.reduceCurrentHp(99999999, activeChar);
 					}
 					else
 					{
-						activeChar.sendPacket(SystemMessage.sendString("Unlock failed!"));
-
-						if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar);
-						chest.setMustRewardExpSp(false);
-						chest.setInteracted();
-						chest.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
+						activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(),13)); 
+						if (Rnd.get(100) < chestTrapLimit) chest.chestTrap(activeChar); 
+						chest.setInteracted(); 
+						chest.addDamageHate(activeChar, 0, 1); 
+						chest.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, activeChar);
 					}
 				}
 			}

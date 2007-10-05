@@ -24,10 +24,10 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
-import net.sf.l2j.gameserver.instancemanager.JailManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
@@ -45,49 +45,45 @@ public class Escape implements IUserCommandHandler
 {
     static Log _log = LogFactory.getLog(Escape.class);
     private static final int[] COMMAND_IDS = { 52 }; 
-    private static final int REQUIRED_LEVEL = Config.GM_ESCAPE;
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
      */
     public boolean useUserCommand(@SuppressWarnings("unused") int id, L2PcInstance activeChar)
     {   
-        if (activeChar.isCastingNow() || activeChar.isMovementDisabled() || activeChar.isMuted() || activeChar.isAlikeDead() ||
-                activeChar.isInOlympiadMode()) 
+        if (activeChar.isCastingNow() || activeChar.isMovementDisabled()
+            || activeChar.isMuted() || activeChar.isAlikeDead() || activeChar.isInOlympiadMode())
             return false;
 
-        // Check if player is inside jail.
-        if (JailManager.getInstance().checkIfInZone(activeChar))
-        {
-        	activeChar.sendMessage("You're in JAIL, you can't escape.");
-        	return false;
-        }
-        
         // [L2J_JP ADD]
-        if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),activeChar)){
-            activeChar.sendPacket(SystemMessage.sendString("You can not escape from here."));
+        if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,activeChar))
+        {
+            activeChar.sendMessage("You can not escape from here.");
             activeChar.sendPacket(new ActionFailed());
             return false;                   
         }
  
-        int unstuckTimer = (activeChar.getAccessLevel() >=REQUIRED_LEVEL? 5000 : Config.UNSTUCK_INTERVAL*1000 );
+        int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 5000 : 
+                                                    Config.UNSTUCK_INTERVAL * 1000 );
         
         // Check to see if the player is in a festival.
         if (activeChar.isFestivalParticipant()) 
         {
-            activeChar.sendPacket(SystemMessage.sendString("You may not use an escape command in a festival."));
+            activeChar.sendMessage("You may not use an escape command in a festival.");
             return false;
         }
         
         // Check to see if player is in jail
         if (activeChar.isInJail())
         {
-            activeChar.sendPacket(SystemMessage.sendString("You can not escape from jail."));
+            activeChar.sendMessage("You can not escape from jail.");
             return false;
         }
         
-        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-        sm.addString("After " + unstuckTimer/60000 + " min. you be returned to near village.");
+        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
+        sm.addNumber(unstuckTimer/1000);
+        activeChar.sendPacket(sm);
+        sm = null;
         
         activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         //SoE Animation section

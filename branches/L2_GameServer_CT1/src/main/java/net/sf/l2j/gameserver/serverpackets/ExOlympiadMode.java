@@ -41,8 +41,8 @@ public class ExOlympiadMode extends L2GameServerPacket
 	{
 		_mode = mode;
 	}
-	
 
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xfe);
@@ -53,9 +53,9 @@ public class ExOlympiadMode extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__FE_2B_OLYMPIADMODE;
 	}
-}
-	
+}	

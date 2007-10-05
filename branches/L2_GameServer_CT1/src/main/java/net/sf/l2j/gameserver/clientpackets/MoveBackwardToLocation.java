@@ -50,9 +50,10 @@ public class MoveBackwardToLocation extends L2GameClientPacket
     private       int _moveMovement;
     
     //For geodata
-    private       int _CurX;
-    private       int _CurY;
-    private       int _CurZ;
+    private       int _curX;
+    private       int _curY;
+    @SuppressWarnings("unused")
+    private       int _curZ;
     
     public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
 
@@ -61,6 +62,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
      * packet type id 0x01
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _targetX  = readD();
@@ -80,15 +82,16 @@ public class MoveBackwardToLocation extends L2GameClientPacket
     }
 
     
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null)
             return;
         
-        _CurX = activeChar.getX();
-        _CurY = activeChar.getY();
-        _CurZ = activeChar.getZ();
+        _curX = activeChar.getX();
+        _curY = activeChar.getY();
+        _curZ = activeChar.getZ();
         
         if(activeChar.isInBoat())
         {
@@ -103,7 +106,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
             return;
         }
         
-        if (_moveMovement == 0 && Config.GEODATA < 1) // cursor movement without geodata is disabled 
+        if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
         {
             activeChar.sendPacket(new ActionFailed());
         }
@@ -113,8 +116,8 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         }
         else 
         {
-            double dx = _targetX-_CurX;
-            double dy = _targetY-_CurY;
+            double dx = _targetX-_curX;
+            double dy = _targetY-_curY;
             // Can't move if character is confused, or trying to move a huge distance
             if (activeChar.isOutOfControl()||((dx*dx+dy*dy) > 98010000)) { // 9900*9900
                 activeChar.sendPacket(new ActionFailed());
@@ -131,6 +134,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__01_MOVEBACKWARDTOLOC;

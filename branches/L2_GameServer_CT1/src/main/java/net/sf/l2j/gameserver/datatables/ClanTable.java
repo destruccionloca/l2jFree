@@ -27,11 +27,12 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowMemberListUpdate;
@@ -72,36 +73,46 @@ public class ClanTable
         _clans = new FastMap<Integer, L2Clan>();
         L2Clan clan;
         java.sql.Connection con = null;
-         try
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM clan_data");
+            ResultSet result = statement.executeQuery();
+
+            // Count the clans
+            int clanCount = 0;
+
+            while(result.next())
             {
-                con = L2DatabaseFactory.getInstance().getConnection(con);
-                PreparedStatement statement = con.prepareStatement("SELECT clan_id FROM clan_data");               
-                ResultSet result = statement.executeQuery();
-                
-                while(result.next())
+                _clans.put(Integer.parseInt(result.getString("clan_id")),new L2Clan(Integer.parseInt(result.getString("clan_id"))));
+                clan = getClan(Integer.parseInt(result.getString("clan_id")));
+                if (clan.getDissolvingExpiryTime() != 0)
                 {
-                    _clans.put(Integer.parseInt(result.getString("clan_id")),new L2Clan(Integer.parseInt(result.getString("clan_id"))));
-	            	clan = getClan(Integer.parseInt(result.getString("clan_id")));
-	            	if (clan.getDissolvingExpiryTime() != 0)
-	            	{
-		            	if (clan.getDissolvingExpiryTime() < System.currentTimeMillis())
-		            	{
-		            		destroyClan(clan.getClanId());
-		            	}
-		            	else
-		            	{
-		            		scheduleRemoveClan(clan.getClanId());
-		            	}
-	            	}
-	            }
-                result.close();
-                statement.close();
+                    if (clan.getDissolvingExpiryTime() < System.currentTimeMillis())
+                    {
+                        destroyClan(clan.getClanId());
+                    }
+                    else
+                    {
+                        scheduleRemoveClan(clan.getClanId());
+                    }
+                }
+                clanCount++;
             }
-            catch (Exception e) {
-                _log.warn("data error on ClanTable: " + e,e);
-            } finally {
-                try { con.close(); } catch (Exception e) {}
-            }
+            result.close();
+            statement.close();
+
+            _log.info("Restored "+clanCount+" clans from the database.");
+        }
+        catch (Exception e)
+        {
+            _log.warn("data error on ClanTable: " + e,e);
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+        restorewars();
     }
     
     /**
@@ -144,33 +155,33 @@ public class ClanTable
 
         if (10 > player.getLevel())
         {
-            player.sendPacket(new SystemMessage(SystemMessage.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN));
+            player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN));
             return null;
         }
         if (0 != player.getClanId())
         {
-            player.sendPacket(new SystemMessage(SystemMessage.FAILED_TO_CREATE_CLAN));
+            player.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_CREATE_CLAN));
             return null;
         }
 		if (System.currentTimeMillis() < player.getClanCreateExpiryTime())
 		{
-        	player.sendPacket(new SystemMessage(SystemMessage.YOU_MUST_WAIT_XX_DAYS_BEFORE_CREATING_A_NEW_CLAN));
+        	player.sendPacket(new SystemMessage(SystemMessageId.YOU_MUST_WAIT_XX_DAYS_BEFORE_CREATING_A_NEW_CLAN));
 			return null;
 		}
 		if (clanName.length() < 3 || clanName.length() > 16)
 		{
-			player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_LENGHT_INCORRECT));
+			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_TOO_LONG));
 			return null;
 		}		
 		if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(clanName).matches())
 		{
-			player.sendPacket(new SystemMessage(SystemMessage.CLAN_NAME_INCORRECT));
+			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_INCORRECT));
 			return null;
 		}
 		if (null != getClanByName(clanName))
 		{
             // clan name is already taken
-        	SystemMessage sm = new SystemMessage(SystemMessage.S1_ALREADY_EXISTS);
+        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_ALREADY_EXISTS);
         	sm.addString(clanName);
         	player.sendPacket(sm);
         	sm = null;
@@ -196,7 +207,7 @@ public class ClanTable
         player.sendPacket(new PledgeShowMemberListAll(clan, player));
         player.sendPacket(new UserInfo(player));
         player.sendPacket(new PledgeShowMemberListUpdate(player));
-        player.sendPacket(new SystemMessage(SystemMessage.CLAN_CREATED));
+        player.sendPacket(new SystemMessage(SystemMessageId.CLAN_CREATED));
         return clan;
     }
 
@@ -208,16 +219,16 @@ public class ClanTable
 			return;
 		}
 
-		clan.broadcastToOnlineMembers(new SystemMessage(SystemMessage.CLAN_HAS_DISPERSED));
+		clan.broadcastToOnlineMembers(new SystemMessage(SystemMessageId.CLAN_HAS_DISPERSED));
 
-	    int castleId = clan.getHasCastle();
-	    if (castleId == 0)
-	    {
-		    for (Siege siege : SiegeManager.getInstance().getSieges())
-		    {
-		    	siege.removeSiegeClan(clanId);
-		    }
-	    }
+		int castleId = clan.getHasCastle();
+		if (castleId == 0)
+		{
+			for (Castle castle : CastleManager.getInstance().getCastles().values())
+			{
+				castle.getSiege().removeSiegeClan(clanId);
+			}
+		}
 
 	    L2ClanMember leaderMember = clan.getLeader();
 	    if(leaderMember == null)
@@ -319,9 +330,9 @@ public class ClanTable
         L2Clan clan1 = ClanTable.getInstance().getClan(clanId1);
         L2Clan clan2 = ClanTable.getInstance().getClan(clanId2);
         clan1.setEnemyClan(clan2);
-        //clan2.setEnemyClan(clan1);
+        clan2.setAttackerClan(clan1);
         clan1.broadcastClanStatus();
-        //clan2.broadcastClanStatus();
+        clan2.broadcastClanStatus();
      	java.sql.Connection con = null;
         try
         {
@@ -343,16 +354,16 @@ public class ClanTable
         {
             try { con.close(); } catch (Exception e) {}
         }
-        //SystemMessage msg = new SystemMessage(SystemMessage.WAR_WITH_THE_S1_CLAN_HAS_BEGUN);
+        //SystemMessage msg = new SystemMessage(SystemMessageId.WAR_WITH_THE_S1_CLAN_HAS_BEGUN);
 	//
-        SystemMessage msg = new SystemMessage(SystemMessage.CLAN_WAR_DECLARED_AGAINST_S1_IF_KILLED_LOSE_LOW_EXP);
+        SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_WAR_DECLARED_AGAINST_S1_IF_KILLED_LOSE_LOW_EXP);
         msg.addString(clan2.getName());
         clan1.broadcastToOnlineMembers(msg);
-        //msg = new SystemMessage(SystemMessage.WAR_WITH_THE_S1_CLAN_HAS_BEGUN);
+        //msg = new SystemMessage(SystemMessageId.WAR_WITH_THE_S1_CLAN_HAS_BEGUN);
         //msg.addString(clan1.getName());
         //clan2.broadcastToOnlineMembers(msg);
 	// clan1 declared clan war.
-        msg = new SystemMessage(SystemMessage.CLAN_S1_DECLARED_WAR);
+        msg = new SystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR);
         msg.addString(clan1.getName());
         clan2.broadcastToOnlineMembers(msg);
     }
@@ -362,9 +373,9 @@ public class ClanTable
         L2Clan clan1 = ClanTable.getInstance().getClan(clanId1);
         L2Clan clan2 = ClanTable.getInstance().getClan(clanId2);
         clan1.deleteEnemyClan(clan2);
-        //clan2.deleteEnemyClan(clan1);
+        clan2.deleteEnemyClan(clan1);
         clan1.broadcastClanStatus();
-        //clan2.broadcastClanStatus();
+        clan2.broadcastClanStatus();
         //for(L2ClanMember player: clan1.getMembers())
         //{
         //    if(player.getPlayerInstance()!=null)
@@ -399,19 +410,19 @@ public class ClanTable
         {
             try { con.close(); } catch (Exception e) {}
         }
-        //SystemMessage msg = new SystemMessage(SystemMessage.WAR_WITH_THE_S1_CLAN_HAS_ENDED);
-        SystemMessage msg = new SystemMessage(SystemMessage.WAR_AGAINST_S1_HAS_STOPPED);
+        //SystemMessage msg = new SystemMessage(SystemMessageId.WAR_WITH_THE_S1_CLAN_HAS_ENDED);
+        SystemMessage msg = new SystemMessage(SystemMessageId.WAR_AGAINST_S1_HAS_STOPPED);
         msg.addString(clan2.getName());
         clan1.broadcastToOnlineMembers(msg);
-        msg = new SystemMessage(SystemMessage.CLAN_S1_HAS_DECIDED_TO_STOP);
+        msg = new SystemMessage(SystemMessageId.CLAN_S1_HAS_DECIDED_TO_STOP);
         msg.addString(clan1.getName());
         clan2.broadcastToOnlineMembers(msg);
-        //msg = new SystemMessage(SystemMessage.WAR_WITH_THE_S1_CLAN_HAS_ENDED);
+        //msg = new SystemMessage(SystemMessageId.WAR_WITH_THE_S1_CLAN_HAS_ENDED);
         //msg.addString(clan1.getName());
         //clan2.broadcastToOnlineMembers(msg);
     }
     
-    public void CheckSurrender(L2Clan clan1, L2Clan clan2)
+    public void checkSurrender(L2Clan clan1, L2Clan clan2)
     {
         int count = 0;
         for(L2ClanMember player: clan1.getMembers())
@@ -426,4 +437,29 @@ public class ClanTable
             deleteclanswars(clan1.getClanId(),clan2.getClanId());
         }
     }
+    private void restorewars()
+    {
+     	java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement;
+            statement = con.prepareStatement("SELECT clan1, clan2, wantspeace1, wantspeace2 FROM clan_wars");
+            ResultSet rset = statement.executeQuery();
+            while(rset.next())
+            {
+            	getClan(rset.getInt("clan1")).setEnemyClan(rset.getInt("clan2"));
+            	getClan(rset.getInt("clan2")).setAttackerClan(rset.getInt("clan1"));
+            }
+            statement.close();
+        }
+        catch (Exception e)
+        {
+            _log.warn("could not restore clan wars data:"+e);
+        } 
+        finally 
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+    }    
 }

@@ -20,14 +20,13 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.datatables.NpcTable;
-import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -61,6 +60,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 		super(objectId, template);
 	}
     
+    @Override
     public boolean isRaid()
     {
         return true; 
@@ -83,63 +83,32 @@ public final class L2RaidBossInstance extends L2MonsterInstance
                 || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()));
     }    
 
+    @Override
     protected int getMaintenanceInterval() { return RAIDBOSS_MAINTENANCE_INTERVAL; }
 	
+    @Override
     public void doDie(L2Character killer)
     {
         if(killer instanceof L2PlayableInstance)
         {
-        	SystemMessage msg = new SystemMessage(SystemMessage.RAID_WAS_SUCCESSFUL);
+        	SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
         	broadcastPacket(msg);
         }
         
         RaidBossSpawnManager.getInstance().updateStatus(this, true);
-        
-        if (getNpcId() == 25035 || getNpcId() == 25054 || getNpcId() == 25126
-                || getNpcId() == 25220)
-        {
-            int boxId = 0;
-            switch(getNpcId())
-            {
-                case 25035: // Shilen?s Messenger Cabrio
-                    boxId = 31027;
-                    break;
-                case 25054: // Demon Kernon
-                    boxId = 31028;
-                    break;
-                case 25126: // Golkonda, the Longhorn General
-                    boxId = 31029;
-                    break;
-                case 25220: // Death Lord Hallate
-                    boxId = 31030;
-                    break;
-            }
-            
-            L2NpcTemplate boxTemplate = NpcTable.getInstance().getTemplate(boxId);
-            final L2NpcInstance box = new L2NpcInstance(IdFactory.getInstance().getNextId(), boxTemplate);
-            box.spawnMe(this.getX(), this.getY(), this.getZ());
-            
-            ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
-                public void run()
-                {
-                    box.deleteMe();
-                }
-            }, 60000);
-        }
-        
         super.doDie(killer);
-        
     }
     
+	/* Unused - commented to avoid inf loop
     public void onSpawn()
     {
         RaidBossSpawnManager.getInstance().updateStatus(this, false); 
-    	super.OnSpawn();
+    	super.onSpawn();
         if (getNpcId() == 25286 || getNpcId() == 25283)
             return;
         else
             getSpawn().stopRespawn();
-    }
+    }*/
     
     /**
      * Spawn all minions at a regular interval
@@ -149,8 +118,8 @@ public final class L2RaidBossInstance extends L2MonsterInstance
     @Override
     protected void manageMinions()
     {
-        minionList.spawnMinions();
-        minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable() {
+        _minionList.spawnMinions();
+        _minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable() {
             public void run()
             {
                 // teleport raid boss home if it's too far from home location
@@ -160,7 +129,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
                     teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), true);
                     healFull(); // prevents minor exploiting with it
                 }                    
-                minionList.maintainMinions();
+                _minionList.maintainMinions();
             }
         }, 60000, getMaintenanceInterval()+Rnd.get(5000));
     }
@@ -179,13 +148,14 @@ public final class L2RaidBossInstance extends L2MonsterInstance
      * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR> 
      * 
      */
-    public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
-    {
-        if (isPetrified())
-        {damage=0;}
-        super.reduceCurrentHp(damage, attacker, awake);
-        
-    }
+    // Duplicate code?
+    //public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
+    //{
+    //    if (isPetrified())
+    //    {damage=0;}
+    //    super.reduceCurrentHp(damage, attacker, awake);
+    //    
+    //}
 
     /**
      * Restore full Amount of HP and MP 

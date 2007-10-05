@@ -63,5 +63,4 @@ public class AuthRequest extends GameServerBasePacket
 	{
 		return getBytes();
 	}
-	
 }

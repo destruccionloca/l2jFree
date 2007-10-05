@@ -1,10 +1,27 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.Random;
 import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -17,11 +34,11 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2XmassTreeInstance extends L2NpcInstance
 {
-    ScheduledFuture aiTask;
+    private ScheduledFuture _aiTask;
 
     class XmassAI implements Runnable
     {
-        L2XmassTreeInstance _caster;
+        private L2XmassTreeInstance _caster;
 
         protected XmassAI(L2XmassTreeInstance caster)
         {
@@ -30,10 +47,9 @@ public class L2XmassTreeInstance extends L2NpcInstance
 
         public void run()
         {
-            Random r = new Random();
             for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             {
-                int i = r.nextInt(3);
+                int i = Rnd.nextInt(3);
                 handleCast(player, (4262 + i));
             }
         }
@@ -50,28 +66,26 @@ public class L2XmassTreeInstance extends L2NpcInstance
                 MagicSkillUser msu = new MagicSkillUser(_caster, player, skill.getId(), 1,
                                                         skill.getSkillTime(), 0);
                 broadcastPacket(msu);
-
                 return true;
             }
-
             return false;
         }
-
     }
 
     public L2XmassTreeInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-        aiTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new XmassAI(this), 3000, 3000);
+        _aiTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new XmassAI(this), 3000, 3000);
     }
 
+    @Override
     public void deleteMe()
     {
-        if (aiTask != null) aiTask.cancel(true);
-
+        if (_aiTask != null) _aiTask.cancel(true);
         super.deleteMe();
     }
 
+    @Override
     public int getDistanceToWatchObject(L2Object object)
     {
         return 900;
@@ -80,10 +94,9 @@ public class L2XmassTreeInstance extends L2NpcInstance
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.model.L2Object#isAttackable()
      */
-    public boolean isAutoAttackable(@SuppressWarnings("unused")
-    L2Character attacker)
+    @Override
+    public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker)
     {
         return false;
     }
-
 }

@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExGetBossRecord;
@@ -36,15 +35,16 @@ import net.sf.l2j.gameserver.serverpackets.ExGetBossRecord.BossRecordInfo;
 public class RequestGetBossRecord extends L2GameClientPacket
 {
     private static final String _C__D0_18_REQUESTGETBOSSRECORD = "[C] D0:18 RequestGetBossRecord";
-    private int _bossID;
+    private int _bossId;
 
     /**
      * @param buf
      * @param client
      */
+    @Override
     protected void readImpl()
     {
-        _bossID = readD(); // always 0?
+        _bossId = readD(); // always 0?
     }
 
     /**
@@ -56,7 +56,7 @@ public class RequestGetBossRecord extends L2GameClientPacket
     	L2PcInstance activeChar = getClient().getActiveChar();
 		int totalPoints = 0;
 		int ranking = 0;
-		if(_bossID != 0) System.out.print("[C] D0:18 RequestGetBossRecord _bossID=" + _bossID);
+		if(_bossId != 0) System.out.print("[C] D0:18 RequestGetBossRecord _bossId=" + _bossId);
 		if(activeChar == null)
 			return;
 
@@ -87,5 +87,4 @@ public class RequestGetBossRecord extends L2GameClientPacket
     {
         return _C__D0_18_REQUESTGETBOSSRECORD;
     }
-    
 }

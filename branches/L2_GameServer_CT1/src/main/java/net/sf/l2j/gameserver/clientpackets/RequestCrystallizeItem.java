@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -53,12 +54,14 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 
 	private int _count;
 
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
         _count = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -70,10 +73,10 @@ public class RequestCrystallizeItem extends L2GameClientPacket
         }
         
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_CREATEITEM && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			activeChar.sendMessage("Item creation isn't allowed during restart/shutdown!");
-			activeChar.sendPacket(new SystemMessage(SystemMessage.NOTHING_HAPPENED));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }
 		
@@ -90,16 +93,14 @@ public class RequestCrystallizeItem extends L2GameClientPacket
                 || activeChar.isInCrystallize())
         {
             activeChar
-            .sendPacket(new SystemMessage(
-                                          SystemMessage.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
+            .sendPacket(new SystemMessage(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
             return;
         }
         
         int skillLevel = activeChar.getSkillLevel(L2Skill.SKILL_CRYSTALLIZE);
         if (skillLevel <= 0)
         {
-            SystemMessage sm = new SystemMessage(
-                                                 SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
+            SystemMessage sm = new SystemMessage(SystemMessageId.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
             sm = null;
             ActionFailed af = new ActionFailed();
@@ -148,8 +149,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
         if (itemToRemove.getItem().getCrystalType() == L2Item.CRYSTAL_C
                 && skillLevel <= 1)
         {
-            SystemMessage sm = new SystemMessage(
-                                                 SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
+            SystemMessage sm = new SystemMessage(SystemMessageId.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
             sm = null;
             ActionFailed af = new ActionFailed();
@@ -161,8 +161,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
         if (itemToRemove.getItem().getCrystalType() == L2Item.CRYSTAL_B
                 && skillLevel <= 2)
         {
-              SystemMessage sm = new SystemMessage(
-                                                   SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
+              SystemMessage sm = new SystemMessage(SystemMessageId.CRYSTALLIZE_LEVEL_TOO_LOW);
               activeChar.sendPacket(sm);
               sm = null;
               ActionFailed af = new ActionFailed();
@@ -173,8 +172,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
         if (itemToRemove.getItem().getCrystalType() == L2Item.CRYSTAL_A
                 && skillLevel <= 3)
         {
-            SystemMessage sm = new SystemMessage(
-                                                 SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
+            SystemMessage sm = new SystemMessage(SystemMessageId.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
             sm = null;
             ActionFailed af = new ActionFailed();
@@ -186,8 +184,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
         if (itemToRemove.getItem().getCrystalType() == L2Item.CRYSTAL_S
                 && skillLevel <= 4)
         {
-            SystemMessage sm = new SystemMessage(
-                                                 SystemMessage.CRYSTALLIZE_LEVEL_TOO_LOW);
+            SystemMessage sm = new SystemMessage(SystemMessageId.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
             sm = null;
             ActionFailed af = new ActionFailed();
@@ -227,7 +224,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 				"Crystalize", crystalId, crystalAmount, activeChar,
 				itemToRemove);
 
-		SystemMessage sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+		SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
 		sm.addItemName(crystalId);
 		sm.addNumber(crystalAmount);
 		activeChar.sendPacket(sm);
@@ -269,6 +266,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 	 * 
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__72_REQUESTDCRYSTALLIZEITEM;

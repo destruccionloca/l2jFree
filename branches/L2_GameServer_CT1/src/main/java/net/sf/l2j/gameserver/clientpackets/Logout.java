@@ -30,13 +30,15 @@ import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+import net.sf.l2j.gameserver.Olympiad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,11 +58,13 @@ public class Logout extends L2GameClientPacket
     /**
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
 
     }
 
+    @Override
     protected void runImpl()
     {
         // Dont allow leaving if player is fighting
@@ -72,16 +76,16 @@ public class Logout extends L2GameClientPacket
         // [L2J_JP ADD START]
         if (!(player.isGM()))
         {
-            if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),player)){
-                player.sendPacket(SystemMessage.sendString("You can not log out in here."));
+            if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, player)){
+                player.sendMessage("You can not log out in here.");
                 player.sendPacket(new ActionFailed());
                 return;                   
             }
         }
-	
+
         if(player.isFlying())
         {
-            player.sendPacket(SystemMessage.sendString("You can not log out while flying."));
+            player.sendMessage("You can not log out while flying.");
             player.sendPacket(new ActionFailed());
             return;                   
         }
@@ -91,42 +95,41 @@ public class Logout extends L2GameClientPacket
         {
             if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while fighting");
             
-            player.sendPacket(new SystemMessage(SystemMessage.CANT_LOGOUT_WHILE_FIGHTING));
+            player.sendPacket(new SystemMessage(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING));
             player.sendPacket(new ActionFailed());
             return;
         }
         
         if (player.getPet() != null && !player.isBetrayed() && (player.getPet() instanceof L2PetInstance))
         {
-        	L2PetInstance pet = (L2PetInstance)player.getPet();
+            L2PetInstance pet = (L2PetInstance)player.getPet();
 
             if (pet.isAttackingNow())
             {
-            	pet.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+                pet.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
                 player.sendPacket(new ActionFailed());
                 return;
-            } 
-            else
-             pet.unSummon(player);
+            }
+            pet.unSummon(player);
         }
         
-        if(player.atEvent) {
-            player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event."));
+        if(player.atEvent)
+        {
+            player.sendMessage("A superior power doesn't allow you to leave the event.");
             return;
         }
         
-        // prevent from player disconnect when in Olympiad mode
-        if(player.isInOlympiadMode()) {
-        	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
-            player.sendPacket(SystemMessage.sendString("You can't disconnect when in Olympiad."));
-            player.sendPacket(new ActionFailed());
+        if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player))
+        {
+            player.sendMessage("You can't logout in olympiad mode.");
             return;
         }
         
         // Prevent player from logging out if they are a festival participant
         // and it is in progress, otherwise notify party members that the player
         // is not longer a participant.
-        if (player.isFestivalParticipant()) {
+        if (player.isFestivalParticipant())
+        {
             if (SevenSignsFestival.getInstance().isFestivalInitialized()) 
             {
                 player.sendMessage("You cannot log out while you are a participant in a festival.");
@@ -137,34 +140,35 @@ public class Logout extends L2GameClientPacket
             if (playerParty != null)
                 player.getParty().broadcastToPartyMembers(SystemMessage.sendString(player.getName() + " has been removed from the upcoming festival."));
         }
+
         if (player.isFlying()) 
         { 
            player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
         }
-    	
+
         if (player.getPrivateStoreType() != 0)
         {
             player.sendMessage("Cannot log out while trading.");
             return;
         }
-        
+
         if (player.getActiveRequester() != null)
         {
             player.getActiveRequester().onTradeCancel(player);
             player.onTradeCancel(player.getActiveRequester());
         }
-        
+
         RegionBBSManager.getInstance().changeCommunityBoard();
-        
+
         player.getInventory().updateDatabase();
         player.deleteMe();
 
         // notify friends
-		notifyFriends(player);
-        
+        notifyFriends(player);
+
         //save character
         L2GameClient.saveCharToDisk(player);
-        
+
         // normally the server would send serveral "delete object" before "leaveWorld"
         // we skip that for now
         sendPacket(new LeaveWorld());
@@ -202,7 +206,8 @@ public class Logout extends L2GameClientPacket
 		catch (Exception e) {
 			_log.warn("could not restore friend data:"+e);
 		} 
-		finally {
+		finally
+		{
 			try {con.close();} catch (Exception e){}
 		}
 	}
@@ -210,6 +215,7 @@ public class Logout extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__09_LOGOUT;

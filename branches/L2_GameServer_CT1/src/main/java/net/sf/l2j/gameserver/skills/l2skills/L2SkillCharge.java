@@ -21,51 +21,60 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-public class L2SkillCharge extends L2Skill {
-
-	final int num_charges;
+public class L2SkillCharge extends L2Skill
+{
+	final int numCharges;
 	
-	public L2SkillCharge(StatsSet set) {
+	public L2SkillCharge(StatsSet set)
+	{
 		super(set);
-		num_charges = set.getInteger("num_charges", getLevel());
+		numCharges = set.getInteger("num_charges", getLevel());
 	}
 
-	public void useSkill(L2Character caster, @SuppressWarnings("unused") L2Object[] targets) {
+	public void useSkill(L2Character caster, @SuppressWarnings("unused") L2Object[] targets)
+	{
 		if (caster.isAlikeDead())
 			return;
 		
 		// get the effect
 		EffectCharge effect = (EffectCharge) caster.getEffect(this);
-		if (effect != null) {
-			if (effect.num_charges < num_charges)
+		if (effect != null)
+		{
+			if (effect.numCharges < numCharges)
 			{
-				effect.num_charges++;
-				caster.updateEffectIcons();
-                SystemMessage sm = new SystemMessage(SystemMessage.FORCE_INCREASED_TO_S1);
-                sm.addNumber(effect.num_charges);
-                caster.sendPacket(sm);
+				effect.numCharges++;
+				if (caster instanceof L2PcInstance)
+				{
+					caster.sendPacket(new EtcStatusUpdate((L2PcInstance)caster));
+					SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
+					sm.addNumber(effect.numCharges);
+					caster.sendPacket(sm);
+				}
 			}
 			else
-            {
-                SystemMessage sm = new SystemMessage(SystemMessage.FORCE_MAXIMUM);
-                caster.sendPacket(sm);
-            }
-            return;
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_MAXIMUM);
+				caster.sendPacket(sm);
+			}
+			return;
 		}
-		this.getEffects(caster, caster);
+		getEffects(caster, caster);
+
         // effect self :]
-        L2Effect seffect = caster.getEffect(getId());
-        if (seffect != null && seffect.isSelfEffect())
-        {             
+        //L2Effect seffect = caster.getEffect(getId());
+        //if (seffect != null && seffect.isSelfEffect())
+        //{
             //Replace old effect with new one.
-            seffect.exit();
-        }
+            //seffect.exit();
+        //}
         // cast self effect if any
-        getEffectsSelf(caster);        
-	}
-	
+        getEffectsSelf(caster);
+    }
 }

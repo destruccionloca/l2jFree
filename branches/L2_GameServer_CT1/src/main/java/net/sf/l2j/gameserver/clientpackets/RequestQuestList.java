@@ -35,11 +35,13 @@ public class RequestQuestList extends L2GameClientPacket
      * format:      c<p>
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 
+    @Override
     protected void runImpl()
     {
         QuestList ql = new QuestList();
@@ -49,6 +51,7 @@ public class RequestQuestList extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__63_REQUESTQUESTLIST;

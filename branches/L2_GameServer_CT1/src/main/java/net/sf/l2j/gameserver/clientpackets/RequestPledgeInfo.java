@@ -43,11 +43,13 @@ public class RequestPledgeInfo extends L2GameClientPacket
 	 * format:		cd
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
     {
         _clanId = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("infos for clan " + _clanId + " requested");
@@ -77,6 +79,7 @@ public class RequestPledgeInfo extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__66_REQUESTPLEDGEINFO;

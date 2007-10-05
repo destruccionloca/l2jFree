@@ -24,9 +24,10 @@ import java.sql.SQLException;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.cache.CrestCache;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
+import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -46,6 +47,7 @@ public class RequestSetAllyCrest extends L2GameClientPacket
     
     private byte[] _data;
     
+    @Override
     protected void readImpl()
     {
         _length  = readD();
@@ -53,6 +55,7 @@ public class RequestSetAllyCrest extends L2GameClientPacket
         readB(_data);
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
@@ -72,14 +75,14 @@ public class RequestSetAllyCrest extends L2GameClientPacket
             if (activeChar.getClanId() != leaderclan.getClanId() || !activeChar.isClanLeader())
             {   
 	 			// [L2J_JP ADD]
-				SystemMessage sm = new SystemMessage(SystemMessage.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
+				SystemMessage sm = new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER);
 				activeChar.sendPacket(sm);
                 return;
             }
             
             CrestCache crestCache = CrestCache.getInstance();
             
-            int newId = BitSetIDFactory.getInstance().getNextId();
+            int newId = IdFactory.getInstance().getNextId();
             
             if (!crestCache.saveAllyCrest(newId,_data))
             {
@@ -128,6 +131,7 @@ public class RequestSetAllyCrest extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__87_REQUESTSETALLYCREST;

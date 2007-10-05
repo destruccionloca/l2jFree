@@ -72,6 +72,7 @@ public class CharacterCreate extends L2GameClientPacket
 	/**
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
 		
@@ -90,6 +91,7 @@ public class CharacterCreate extends L2GameClientPacket
 		_face      = (byte)readD();
 	}
 
+    @Override
     protected void runImpl()
 	{
         if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
@@ -184,7 +186,7 @@ public class CharacterCreate extends L2GameClientPacket
 		L2SkillLearn[] startSkills = SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId());
 		for (int i = 0; i < startSkills.length; i++)
 		{
-			newChar.addSkill(SkillTable.getInstance().getInfo(startSkills[i].getId(), startSkills[i].getLevel()));
+			newChar.addSkill(SkillTable.getInstance().getInfo(startSkills[i].getId(), startSkills[i].getLevel()), true);
 			if (startSkills[i].getId()==1001 || startSkills[i].getId()==1177){
 			    shortcut = new L2ShortCut(1,0,2,startSkills[i].getId(),1,1);
 			    newChar.registerShortCut(shortcut);
@@ -211,6 +213,7 @@ public class CharacterCreate extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__0B_CHARACTERCREATE;

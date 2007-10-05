@@ -153,10 +153,10 @@ public class ForumService
      */
     public Forums getMemoForAccountAndCreateIfNotAvailable(String name,int objecId)
     {
-    	Forums f = this.getChildForumByName(ForumService.MEMO,name);
+    	Forums f = getChildForumByName(ForumService.MEMO,name);
         if (f == null)
         {
-        	f = this.createForum(name, ForumService.MEMO, ForumService.MEMO, ForumService.OWNERONLY, objecId);
+        	f = createForum(name, ForumService.MEMO, ForumService.MEMO, ForumService.OWNERONLY, objecId);
         }
         return f;
     }
@@ -169,10 +169,10 @@ public class ForumService
      */
     public Forums getForumForClanAndCreateIfNotAvailable(String name,int clanId)
     {
-    	Forums f = this.getChildForumByName(ForumService.CLAN,name);
+    	Forums f = getChildForumByName(ForumService.CLAN,name);
         if (f == null)
         {
-        	f = this.createForum(name, ForumService.CLAN, ForumService.CLAN, ForumService.CLANMEMBERONLY, clanId);
+        	f = createForum(name, ForumService.CLAN, ForumService.CLAN, ForumService.CLANMEMBERONLY, clanId);
         }
         return f;
     }
@@ -185,10 +185,10 @@ public class ForumService
      */
     public Forums getMailForAccountAndCreateIfNotAvailable(String name,int objecId)
     {
-    	Forums f = this.getChildForumByName(ForumService.MAIL,name);
+    	Forums f = getChildForumByName(ForumService.MAIL,name);
         if (f == null)
         {
-        	f = this.createForum(name, ForumService.MAIL, ForumService.MAIL, ForumService.OWNERONLY, objecId);
+        	f = createForum(name, ForumService.MAIL, ForumService.MAIL, ForumService.OWNERONLY, objecId);
         }
         return f;
     }    

@@ -37,18 +37,19 @@ import org.w3c.dom.Node;
 public class FaenorEventParser extends FaenorParser
 {
     static Log _log = LogFactory.getLog(FaenorEventParser.class.getName());
-    private DateRange eventDates = null;
+    private DateRange _eventDates = null;
     
+    @Override
     public void parseScript(Node eventNode)
     {
         String ID = attribute(eventNode, "ID");
         
         if (_log.isDebugEnabled()) _log.debug("Parsing Event \""+ID+"\"");
         
-        eventDates = DateRange.parse(attribute(eventNode, "Active"), DATE_FORMAT);
+        _eventDates = DateRange.parse(attribute(eventNode, "Active"), DATE_FORMAT);
         
         Date currentDate = new Date();
-        if (eventDates.getEndDate().before(currentDate))
+        if (_eventDates.getEndDate().before(currentDate))
         {
             _log.warn("Event ID: (" + ID + ") has passed... Ignored.");
             return;
@@ -78,7 +79,7 @@ public class FaenorEventParser extends FaenorParser
             
             if (type.equalsIgnoreCase("OnJoin"))
             {
-                bridge.onPlayerLogin(message, eventDates);
+                _bridge.onPlayerLogin(message, _eventDates);
             }
         } 
         catch (Exception e)
@@ -109,7 +110,7 @@ public class FaenorEventParser extends FaenorParser
             int[] count         = IntList.parse(attribute(drop, "Count"));
             double chance       = getPercent(attribute(drop, "Chance"));
             
-            bridge.addEventDrop(items, count, chance, eventDates);
+            _bridge.addEventDrop(items, count, chance, _eventDates);
         }
         catch (Exception e)
         {
@@ -119,6 +120,7 @@ public class FaenorEventParser extends FaenorParser
     
     static class FaenorEventParserFactory extends ParserFactory
     {
+        @Override
         public Parser create()
         {
             return(new FaenorEventParser());

@@ -30,17 +30,16 @@ import net.sf.l2j.gameserver.templates.L2Weapon;
  */
 public class ConditionTargetUsesWeaponKind extends Condition 
 {
-
-	final int _weaponMask;
+	private final int _weaponMask;
 	
     public ConditionTargetUsesWeaponKind(int weaponMask)
 	{
 		_weaponMask = weaponMask;
 	}
 	
+	@Override
 	public boolean testImpl(Env env) 
 	{
-		
 		if (env.target == null)
 			return false;
 		

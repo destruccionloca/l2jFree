@@ -47,6 +47,7 @@ public class RequestPartyMatchDetail extends L2GameClientPacket
 	 * packet format rev650  	cdd
 	 * @param decrypt
 	 */
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
@@ -54,6 +55,7 @@ public class RequestPartyMatchDetail extends L2GameClientPacket
         _unk1 = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_objectId);
@@ -66,6 +68,7 @@ public class RequestPartyMatchDetail extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__71_REQUESTPARTYMATCHDETAIL;

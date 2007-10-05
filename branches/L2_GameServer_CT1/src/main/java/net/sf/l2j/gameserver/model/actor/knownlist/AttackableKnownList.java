@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.knownlist;
 
 import java.util.Collection;
@@ -25,6 +42,7 @@ public class AttackableKnownList extends NpcKnownList
 
     // =========================================================
     // Method - Public
+    @Override
     public boolean removeKnownObject(L2Object object)
     {
         if (!super.removeKnownObject(object)) return false;
@@ -50,8 +68,10 @@ public class AttackableKnownList extends NpcKnownList
 
     // =========================================================
     // Property - Public
+    @Override
     public L2Attackable getActiveChar() { return (L2Attackable)super.getActiveChar(); }
 
+    @Override
     public int getDistanceToForgetObject(L2Object object)
     {
         if (getActiveChar().getAggroListRP() != null)        
@@ -59,6 +79,7 @@ public class AttackableKnownList extends NpcKnownList
         return Math.min(2200, 2 * getDistanceToWatchObject(object));
     }
 
+    @Override
     public int getDistanceToWatchObject(L2Object object)
     {
         if (object instanceof L2FolkInstance || !(object instanceof L2Character))

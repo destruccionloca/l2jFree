@@ -23,9 +23,9 @@ public class RadarControl extends L2GameServerPacket
     private static final String _S__EB_RadarControl = "[S] EB RadarControl";
     private int _showRadar;
     private int _type;
-    private int _X;
-    private int _Y;
-    private int _Z;
+    private int _x;
+    private int _y;
+    private int _z;
     /**
      * 0xEB RadarControl         ddddd 
      * @param _
@@ -35,24 +35,26 @@ public class RadarControl extends L2GameServerPacket
     {
         _showRadar = showRadar;         // showRader?? 0 = showradar; 1 = delete radar;
         _type = type;                   // radar type??
-        _X = x;
-        _Y = y;
-        _Z = z;
+        _x = x;
+        _y = y;
+        _z = z;
     }
 	
-	protected final void writeImpl()
+    @Override
+    protected final void writeImpl()
     {
         writeC(0xEB);
         writeD(_showRadar);
         writeD(_type);     //maybe type
-        writeD(_X);    //x
-        writeD(_Y);    //y
-        writeD(_Z);    //z
+        writeD(_x);    //x
+        writeD(_y);    //y
+        writeD(_z);    //z
     }
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _S__EB_RadarControl;

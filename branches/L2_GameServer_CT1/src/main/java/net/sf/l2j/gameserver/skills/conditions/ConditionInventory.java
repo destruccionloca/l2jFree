@@ -28,14 +28,16 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public abstract class ConditionInventory extends Condition implements ConditionListener {
+public abstract class ConditionInventory extends Condition implements ConditionListener
+{
 
-	final int _slot;
+	protected final int _slot;
 	
 	public ConditionInventory(int slot)
 	{
 		_slot = slot;
 	}
 	
+	@Override
 	public abstract boolean testImpl(Env env);
 }

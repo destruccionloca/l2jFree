@@ -31,10 +31,12 @@ import java.util.StringTokenizer;
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.script.DateRange;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -54,7 +56,7 @@ public class Announcements implements AnnouncementsMBean
 	
 	private static Announcements _instance;
 	private List<String> _announcements = new FastList<String>();
-	private List<List<Object>> eventAnnouncements = new FastList<List<Object>>();
+	private List<List<Object>> _eventAnnouncements = new FastList<List<Object>>();
     private String leaderboardAnnouncement = null;
 
 	public Announcements()
@@ -100,9 +102,9 @@ public class Announcements implements AnnouncementsMBean
 		    activeChar.sendPacket(cs);
         }        
 		
-		for (int i = 0; i < eventAnnouncements.size(); i++)
+		for (int i = 0; i < _eventAnnouncements.size(); i++)
 		{
-		    List<Object> entry   = eventAnnouncements.get(i);
+		    List<Object> entry   = _eventAnnouncements.get(i);
             
             DateRange validDateRange  = (DateRange)entry.get(0);
             String[] msg              = (String[])entry.get(1);
@@ -110,7 +112,7 @@ public class Announcements implements AnnouncementsMBean
 		    
 		    if (validDateRange.isValid() && validDateRange.isWithinRange(currentDate))
 		    {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 for (int j=0; j<msg.length; j++)
                 {
                     sm.addString(msg[j]);
@@ -126,36 +128,21 @@ public class Announcements implements AnnouncementsMBean
 	    FastList<Object> entry = new FastList<Object>();
 	    entry.add(validDateRange);
 	    entry.add(msg);
-	    eventAnnouncements.add(entry);
+	    _eventAnnouncements.add(entry);
 	}
 	
 	public void listAnnouncements(L2PcInstance activeChar)
 	{		
-		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		
-        TextBuilder replyMSG = new TextBuilder("<html><body>");
-		replyMSG.append("<table width=260><tr>");
-		replyMSG.append("<td width=40><button value=\"Main\" action=\"bypass -h admin_admin\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-		replyMSG.append("<td width=180><center>Announcement Menu</center></td>");
-		replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_admin\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-		replyMSG.append("</tr></table>");
-		replyMSG.append("<br><br>");
-		replyMSG.append("<center>Add or announce a new announcement:</center>");
-		replyMSG.append("<center><multiedit var=\"new_announcement\" width=240 height=30></center><br>");
-		replyMSG.append("<center><table><tr><td>");
-		replyMSG.append("<button value=\"Add\" action=\"bypass -h admin_add_announcement $new_announcement\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td>");
-		replyMSG.append("<button value=\"Announce\" action=\"bypass -h admin_announce_menu $new_announcement\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td>");
-		replyMSG.append("<button value=\"Reload\" action=\"bypass -h admin_announce_announcements\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
-		replyMSG.append("</td></tr></table></center>");
-		replyMSG.append("<br>");
+        String content = HtmCache.getInstance().getHtmForce("data/html/admin/announce.htm");
+        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+        adminReply.setHtml(content);
+        TextBuilder replyMSG = new TextBuilder("<br>");
 		for (int i = 0; i < _announcements.size(); i++)
 		{
 			replyMSG.append("<table width=260><tr><td width=220>" + _announcements.get(i) + "</td><td width=40>");
 			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_announcement " + i + "\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
 		}
-		replyMSG.append("</body></html>");
-		
-		adminReply.setHtml(replyMSG.toString());
+		adminReply.replace("%announces%", replyMSG.toString());
 		activeChar.sendPacket(adminReply);
 	}
 	
@@ -241,7 +228,7 @@ public class Announcements implements AnnouncementsMBean
 		CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, "", text);
 
 		if(Config.IRC_ENABLED && Config.IRC_ANNOUNCE)
-			IrcManager.getInstance().getConnection().sendChan("Announce: " + text);
+			IrcManager.getInstance().getConnection().sendChan("10Announce: " + text);
 		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{

@@ -28,19 +28,17 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 
-public class AdminKick implements IAdminCommandHandler {
-    //private final static Log _log = LogFactory.getLog(AdminKick.class.getName());
-    private static String[] _adminCommands = {"admin_kick" ,"admin_kick_non_gm"};
+public class AdminKick implements IAdminCommandHandler
+{
+    private static final String[] ADMIN_COMMANDS = {"admin_kick" ,"admin_kick_non_gm"};
     private static final int REQUIRED_LEVEL = Config.GM_KICK;
     
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
 
         if (!Config.ALT_PRIVILEGES_ADMIN)
-        {
             if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
                 return false;
-        }
         
         if (command.startsWith("admin_kick"))
         {
@@ -54,7 +52,7 @@ public class AdminKick implements IAdminCommandHandler {
                 {
                     kickPlayer (player);
                     RegionBBSManager.getInstance().changeCommunityBoard();
-
+					activeChar.sendMessage("You kicked " + player.getName() + " from the game.");
                 }
             }
         }
@@ -76,22 +74,30 @@ public class AdminKick implements IAdminCommandHandler {
         
     private void kickPlayer (L2PcInstance player)
     {
-        try {
+        try
+		{
             L2GameClient.saveCharToDisk(player);
             player.sendPacket(new LeaveWorld());
             player.deleteMe();
             player.logout();
-            } catch (Throwable t)   {}
+        }
+		catch (Throwable t)
+		{}
  
-        try {
+        try
+		{
             player.closeNetConnection();
-            } catch (Throwable t)   {} 
+        }
+		catch (Throwable t)
+		{} 
     }
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
     
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }
 }

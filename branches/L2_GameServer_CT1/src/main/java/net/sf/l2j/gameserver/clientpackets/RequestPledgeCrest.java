@@ -41,6 +41,7 @@ public class RequestPledgeCrest extends L2GameClientPacket
 	 * 
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
 	{
 		_crestId = 0;
@@ -49,6 +50,7 @@ public class RequestPledgeCrest extends L2GameClientPacket
 		} catch (Exception e) {};
 	}
 
+    @Override
     protected void runImpl()
 	{
 		if (_crestId == 0)
@@ -71,6 +73,7 @@ public class RequestPledgeCrest extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__68_REQUESTPLEDGECREST;

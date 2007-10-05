@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -44,7 +45,7 @@ public class Heal implements ISkillHandler
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
-    private static SkillType[] _skillIds = {SkillType.HEAL, SkillType.HEAL_PERCENT ,SkillType.BALANCE_HEAL, SkillType.HEAL_STATIC};
+    private static final SkillType[] SKILL_IDS = {SkillType.HEAL, SkillType.HEAL_PERCENT ,SkillType.BALANCE_HEAL, SkillType.HEAL_STATIC};
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -76,6 +77,10 @@ public class Heal implements ISkillHandler
             // We should not heal walls and door
             if(target instanceof L2DoorInstance)
             	continue;
+            
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
 
             // Player holding a cursed weapon can't be healed and can't heal
             if (target != activeChar)
@@ -151,21 +156,21 @@ public class Heal implements ISkillHandler
             {
                 if (skill.getId() == 4051)
                 {
-                    SystemMessage sm = new SystemMessage(SystemMessage.REJUVENATING_HP);
+                    SystemMessage sm = new SystemMessage(SystemMessageId.REJUVENATING_HP);
                     target.sendPacket(sm);
                 }
                 else
                 {
                     if (activeChar instanceof L2PcInstance && activeChar != target)
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessage.S2_HP_RESTORED_BY_S1);
+                        SystemMessage sm = new SystemMessage(SystemMessageId.S2_HP_RESTORED_BY_S1);
                         sm.addString(activeChar.getName());
                         sm.addNumber((int)hp);
                         target.sendPacket(sm);
                     }
                     else
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessage.S1_HP_RESTORED);
+                        SystemMessage sm = new SystemMessage(SystemMessageId.S1_HP_RESTORED);
                         sm.addNumber((int)hp);
                         target.sendPacket(sm);
                     }
@@ -178,6 +183,6 @@ public class Heal implements ISkillHandler
     
     public SkillType[] getSkillIds()
     {
-        return _skillIds;
+        return SKILL_IDS;
     }
 }

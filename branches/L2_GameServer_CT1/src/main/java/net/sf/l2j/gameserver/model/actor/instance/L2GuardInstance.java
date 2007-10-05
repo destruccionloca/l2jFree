@@ -18,11 +18,10 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.Random;
-
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -78,22 +77,23 @@ public final class L2GuardInstance extends L2Attackable
     public L2GuardInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-		this.getKnownList();	// init knownlist
+		getKnownList();	// init knownlist
         
-        Random rnd = new Random();
-        ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new ReturnTask(),RETURN_INTERVAL,RETURN_INTERVAL+rnd.nextInt(60000));
+        ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new ReturnTask(),RETURN_INTERVAL,RETURN_INTERVAL+Rnd.nextInt(60000));
     }
 
+    @Override
     public final GuardKnownList getKnownList()
     {
     	if(super.getKnownList() == null || !(super.getKnownList() instanceof GuardKnownList))
-    		this.setKnownList(new GuardKnownList(this));
+    		setKnownList(new GuardKnownList(this));
     	return (GuardKnownList)super.getKnownList();
     }
 
     /**
      * Return True if hte attacker is a L2MonsterInstance.<BR><BR>
      */
+    @Override
     public boolean isAutoAttackable(L2Character attacker)
     {
         return attacker instanceof L2MonsterInstance;
@@ -135,7 +135,8 @@ public final class L2GuardInstance extends L2Attackable
     /**
      * Set the home location of its L2GuardInstance.<BR><BR>
      */
-    public void OnSpawn()
+    @Override
+    public void onSpawn()
     {
         _homeX = getX();
         _homeY = getY();
@@ -162,6 +163,7 @@ public final class L2GuardInstance extends L2Attackable
      * @param val The number of the page to display
      * 
      */
+    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";
@@ -196,6 +198,7 @@ public final class L2GuardInstance extends L2Attackable
      * @param player The L2PcInstance that start an action on the L2GuardInstance
      * 
      */
+    @Override
     public void onAction(L2PcInstance player)
     {
         // Check if the L2PcInstance already target the L2GuardInstance
@@ -239,8 +242,7 @@ public final class L2GuardInstance extends L2Attackable
                 {   
                     // Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2NpcInstance
                     // to display a social action of the L2GuardInstance on their client
-                    Random rnd = new Random();
-                    SocialAction sa = new SocialAction(getObjectId(), rnd.nextInt(8));
+                    SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
                     broadcastPacket(sa);
                     
                     

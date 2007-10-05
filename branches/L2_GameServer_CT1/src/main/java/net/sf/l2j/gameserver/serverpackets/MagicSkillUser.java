@@ -39,11 +39,11 @@ public class MagicSkillUser extends L2GameServerPacket
 	private int _skillLevel;
 	private int _hitTime;
 	private int _reuseDelay;
-	private int _chaId, _x, _y, _z;
+	private int _charObjId, _x, _y, _z;
 	
 	public MagicSkillUser(L2Character cha, L2Character target, int skillId, int skillLevel, int hitTime, int reuseDelay)
 	{
-		_chaId = cha.getObjectId();
+		_charObjId = cha.getObjectId();
 		_targetId = target.getObjectId();
 		_skillId = skillId;
 		_skillLevel = skillLevel;
@@ -56,7 +56,7 @@ public class MagicSkillUser extends L2GameServerPacket
 	
 	public MagicSkillUser(L2Character cha, int skillId, int skillLevel, int hitTime, int reuseDelay)
 	{
-		_chaId = cha.getObjectId();
+		_charObjId = cha.getObjectId();
 		_targetId = cha.getTargetId();
 		_skillId = skillId;
 		_skillLevel = skillLevel;
@@ -67,10 +67,11 @@ public class MagicSkillUser extends L2GameServerPacket
 		_z = cha.getZ();
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x48);
-		writeD(_chaId);
+		writeD(_charObjId);
 		writeD(_targetId);
 		writeD(_skillId);
 		writeD(_skillLevel);
@@ -79,22 +80,21 @@ public class MagicSkillUser extends L2GameServerPacket
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
-		writeH(0x00); // size of the mighty loop :)
+		writeH(0x00); // unknown loop but not AoE
 		//for()
 		//{
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
 		//}
 	}
 	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__5A_MAGICSKILLUSER;
 	}
-
 }
-

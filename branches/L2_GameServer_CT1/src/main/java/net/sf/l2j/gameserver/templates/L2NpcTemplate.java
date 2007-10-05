@@ -64,52 +64,64 @@ public final class L2NpcTemplate extends L2CharTemplate
     /**
      * Logger
      */
-	private final static Log _log = LogFactory.getLog(L2NpcTemplate.class.getName());
+    private final static Log _log = LogFactory.getLog(L2NpcTemplate.class.getName());
 
-    private int     npcId;
-    private int     idTemplate;
-    private String  type;
-    private String  name;
-    private boolean serverSideName;
-    private String  title;
-    private boolean serverSideTitle;
-    private String  sex;
-    private byte    level;
-    private int     rewardExp;
-    private int     rewardSp;
-    private int     aggroRange;
-    private int     rhand;
-    private int     lhand;
-    private int     armor;
-    private String  factionId;
-    private int     factionRange;
-    private int     absorbLevel;
-    private int     npcFaction;
-    private String  npcFactionName;
-    private String  jClass;
+    private int     _npcId;
+    private int     _idTemplate;
+    private String  _type;
+    private String  _name;
+    private boolean _serverSideName;
+    private String  _title;
+    private boolean _serverSideTitle;
+    private String  _sex;
+    private byte    _level;
+    private int     _rewardExp;
+    private int     _rewardSp;
+    private int     _aggroRange;
+    private int     _rhand;
+    private int     _lhand;
+    private int     _armor;
+    private String  _factionId;
+    private int     _factionRange;
+    private int     _absorbLevel;
+    private AbsorbCrystalType _absorbType;
+    private int     _npcFaction;
+    private String  _npcFactionName;
+    private String  _jClass;
     
     /** fixed skills*/
-    private int     race;
+    private int     _race;
     
     /** The table containing all Item that can be dropped by L2NpcInstance using this L2NpcTemplate*/
     private final List<L2DropCategory> _categories = new FastList<L2DropCategory>();   
     
     /** The table containing all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate*/
-    private final List<L2MinionData>  _minions     = new FastList<L2MinionData>(0);
+    private final List<L2MinionData> _minions     = new FastList<L2MinionData>(0);
     
     /** The list of class that this NpcTemplate can Teach */
-    private List<ClassId>             _teachInfo;
+    private List<ClassId> _teachInfo;
     
     /** List of skills of this npc */
     private Map<Integer, L2Skill> _skills;
     
     /** List of resist stats for this npc*/
     private Map<Stats, Integer> _resists;
-	
+    
     /** contains a list of quests for each event type (questStart, questAttack, questKill, etc)*/
-	private Map<Quest.QuestEventType, Quest[]> _questEvents;
-	
+    private Map<Quest.QuestEventType, Quest[]> _questEvents;
 
+    private byte _specialFaction = 0;
+
+    /** Some factions needed for special mob ai */
+    public static final byte FACTION_KETRA = 1;
+    public static final byte FACTION_VARKA = 2;
+
+    public static enum AbsorbCrystalType
+    {
+        LAST_HIT,
+        FULL_PARTY,
+        PARTY_ONE_RANDOM
+    }
 
     /**
      * Constructor of L2Character.<BR><BR>
@@ -120,28 +132,29 @@ public final class L2NpcTemplate extends L2CharTemplate
     public L2NpcTemplate(StatsSet set)
     {
         super(set);
-        npcId     = set.getInteger("npcId");
-        idTemplate = set.getInteger("idTemplate");
-        type      = set.getString("type");
-        name      = set.getString("name");
-        serverSideName = set.getBool("serverSideName");
-        title     = set.getString("title");
-        serverSideTitle = set.getBool("serverSideTitle");
-        sex       = set.getString("sex");
-        level     = set.getByte("level");
-        rewardExp = set.getInteger("rewardExp");
-        rewardSp  = set.getInteger("rewardSp");
-        aggroRange= set.getInteger("aggroRange");
-        rhand     = set.getInteger("rhand");
-        lhand     = set.getInteger("lhand");
-        armor     = set.getInteger("armor");
+        _npcId     = set.getInteger("npcId");
+        _idTemplate = set.getInteger("idTemplate");
+        _type      = set.getString("type");
+        _name      = set.getString("name");
+        _serverSideName = set.getBool("serverSideName");
+        _title     = set.getString("title");
+        _serverSideTitle = set.getBool("serverSideTitle");
+        _sex       = set.getString("sex");
+        _level     = set.getByte("level");
+        _rewardExp = set.getInteger("rewardExp");
+        _rewardSp  = set.getInteger("rewardSp");
+        _aggroRange= set.getInteger("aggroRange");
+        _rhand     = set.getInteger("rhand");
+        _lhand     = set.getInteger("lhand");
+        _armor     = set.getInteger("armor");
         setFactionId(set.getString("factionId", null));
-        factionRange  = set.getInteger("factionRange");
-        absorbLevel  = set.getInteger("absorb_level", 0);
-        npcFaction = set.getInteger("NPCFaction", 0);
-        npcFactionName = set.getString("NPCFactionName", "Devine Clan");
-        jClass= set.getString("jClass");
-        race = 0;
+        _factionRange  = set.getInteger("factionRange");
+        _absorbLevel  = set.getInteger("absorb_level", 0);
+        _absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
+        _npcFaction = set.getInteger("NPCFaction", 0);
+        _npcFactionName = set.getString("NPCFactionName", "Devine Clan");
+        _jClass= set.getString("jClass");
+        _race = 0;
         _teachInfo = null;
     }
     
@@ -191,11 +204,14 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void addDropData(L2DropData drop, int categoryType)
     {
-        if (drop.isQuestDrop()) {
+        if (drop.isQuestDrop())
+		{
 //          if (_questDrops == null)
 //              _questDrops = new FastList<L2DropData>(0);
 //          _questDrops.add(drop);
-        } else {
+        }
+		else
+		{
             // if the category doesn't already exist, create it first
             synchronized (_categories)
             {
@@ -327,12 +343,13 @@ public final class L2NpcTemplate extends L2CharTemplate
 			}
 			else
 			{
-				_log.warn("Quest event not allowed in multiple quests.  Skipped addition of Event Type \""+EventType+"\" for NPC \""+this.name +"\" and quest \""+q.getName()+"\".");
+				_log.warn("Quest event not allowed in multiple quests.  Skipped addition of Event Type \""+EventType+"\" for NPC \""+_name +"\" and quest \""+q.getName()+"\".");
 			}
 		}
     }
     
-	public Quest[] getEventQuests(Quest.QuestEventType EventType) {
+	public Quest[] getEventQuests(Quest.QuestEventType EventType)
+	{
 		if (_questEvents == null)
 			return null;
 		return _questEvents.get(EventType);
@@ -340,22 +357,22 @@ public final class L2NpcTemplate extends L2CharTemplate
     
     public void setRace(int newrace)
     {
-        race = newrace;
+        _race = newrace;
     }
     
     public int getNpcFaction()
     {
-        return npcFaction;
+        return _npcFaction;
     }
     
     public void setNpcFaction(int npcFaction)
     {
-        this.npcFaction=npcFaction;
+        _npcFaction = npcFaction;
     }    
     
     public String getNpcFactionName()
     {
-        return npcFactionName;
+        return _npcFactionName;
     }
 
     /**
@@ -363,7 +380,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getAbsorbLevel()
     {
-        return absorbLevel;
+        return _absorbLevel;
     }
 
     /**
@@ -371,7 +388,23 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setAbsorbLevel(int absorb_level)
     {
-        this.absorbLevel = absorb_level;
+        _absorbLevel = absorb_level;
+    }
+
+    /**
+     * @return the absorb_type
+     */
+    public AbsorbCrystalType getAbsorbType()
+    {
+        return _absorbType;
+    }
+
+    /**
+     * @param absorb_type the absorb type to set
+     */
+    public void setAbsorbType(AbsorbCrystalType absorb_type)
+    {
+        _absorbType = absorb_type;
     }
 
     /**
@@ -379,7 +412,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getAggroRange()
     {
-        return aggroRange;
+        return _aggroRange;
     }
 
     /**
@@ -387,7 +420,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setAggroRange(int aggroRange)
     {
-        this.aggroRange = aggroRange;
+        _aggroRange = aggroRange;
     }
 
     /**
@@ -395,7 +428,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getArmor()
     {
-        return armor;
+        return _armor;
     }
 
     /**
@@ -403,7 +436,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setArmor(int armor)
     {
-        this.armor = armor;
+        _armor = armor;
     }
 
     /**
@@ -411,7 +444,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public String getFactionId()
     {
-        return factionId;
+        return _factionId;
     }
 
     /**
@@ -419,7 +452,16 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setFactionId(String factionId)
     {
-        this.factionId = ( factionId == null ? null : factionId.intern() );
+        if( factionId == null)
+        {
+            _factionId = null;
+            return;
+        }
+        if(factionId.equals("ketra"))
+            _specialFaction = FACTION_KETRA;
+        else if(factionId.equals("varka"))
+            _specialFaction = FACTION_VARKA;
+        _factionId = factionId.intern();
     }
 
     /**
@@ -427,7 +469,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getFactionRange()
     {
-        return factionRange;
+        return _factionRange;
     }
 
     /**
@@ -435,7 +477,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setFactionRange(int factionRange)
     {
-        this.factionRange = factionRange;
+        _factionRange = factionRange;
     }
 
     /**
@@ -443,7 +485,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getIdTemplate()
     {
-        return idTemplate;
+        return _idTemplate;
     }
 
     /**
@@ -451,7 +493,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setIdTemplate(int idTemplate)
     {
-        this.idTemplate = idTemplate;
+        _idTemplate = idTemplate;
     }
 
     /**
@@ -459,7 +501,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public byte getLevel()
     {
-        return level;
+        return _level;
     }
 
     /**
@@ -467,7 +509,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setLevel(byte level)
     {
-        this.level = level;
+        _level = level;
     }
 
     /**
@@ -475,7 +517,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getLhand()
     {
-        return lhand;
+        return _lhand;
     }
 
     /**
@@ -483,7 +525,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setLhand(int lhand)
     {
-        this.lhand = lhand;
+        _lhand = lhand;
     }
 
     /**
@@ -491,7 +533,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public String getName()
     {
-        return name;
+        return _name;
     }
 
     /**
@@ -499,7 +541,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setName(String name)
     {
-        this.name = name;
+        _name = name;
     }
 
     /**
@@ -507,7 +549,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getNpcId()
     {
-        return npcId;
+        return _npcId;
     }
 
     /**
@@ -515,7 +557,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setNpcId(int npcId)
     {
-        this.npcId = npcId;
+        _npcId = npcId;
     }
 
     /**
@@ -523,7 +565,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getRewardExp()
     {
-        return rewardExp;
+        return _rewardExp;
     }
 
     /**
@@ -531,7 +573,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setRewardExp(int rewardExp)
     {
-        this.rewardExp = rewardExp;
+        _rewardExp = rewardExp;
     }
 
     /**
@@ -539,7 +581,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getRewardSp()
     {
-        return rewardSp;
+        return _rewardSp;
     }
 
     /**
@@ -547,7 +589,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setRewardSp(int rewardSp)
     {
-        this.rewardSp = rewardSp;
+        _rewardSp = rewardSp;
     }
 
     /**
@@ -555,7 +597,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getRhand()
     {
-        return rhand;
+        return _rhand;
     }
 
     /**
@@ -563,7 +605,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setRhand(int rhand)
     {
-        this.rhand = rhand;
+        _rhand = rhand;
     }
 
     /**
@@ -571,7 +613,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public boolean isServerSideName()
     {
-        return serverSideName;
+        return _serverSideName;
     }
 
     /**
@@ -579,7 +621,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setServerSideName(boolean serverSideName)
     {
-        this.serverSideName = serverSideName;
+        _serverSideName = serverSideName;
     }
 
     /**
@@ -587,7 +629,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public boolean isServerSideTitle()
     {
-        return serverSideTitle;
+        return _serverSideTitle;
     }
 
     /**
@@ -595,7 +637,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setServerSideTitle(boolean serverSideTitle)
     {
-        this.serverSideTitle = serverSideTitle;
+        _serverSideTitle = serverSideTitle;
     }
 
     /**
@@ -603,7 +645,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public String getSex()
     {
-        return sex;
+        return _sex;
     }
 
     /**
@@ -611,7 +653,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setSex(String sex)
     {
-        this.sex = sex;
+        _sex = sex;
     }
 
     /**
@@ -619,7 +661,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public String getTitle()
     {
-        return title;
+        return _title;
     }
 
     /**
@@ -627,7 +669,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setTitle(String title)
     {
-        this.title = title;
+        _title = title;
     }
 
     /**
@@ -635,7 +677,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public String getType()
     {
-        return type;
+        return _type;
     }
 
     /**
@@ -643,7 +685,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setType(String type)
     {
-        this.type = type;
+        _type = type;
     }
 
     /**
@@ -651,7 +693,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public int getRace()
     {
-        return race;
+        return _race;
     }
 
     /**
@@ -659,7 +701,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setNPCFactionName(String factionName)
     {
-        npcFactionName = ( factionName == null ? "Devine Clan" : factionName);
+        _npcFactionName = ( factionName == null ? "Devine Clan" : factionName);
     }
 
     /**
@@ -667,7 +709,7 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public String getJClass()
     {
-        return jClass;
+        return _jClass;
     }
 
     /**
@@ -675,6 +717,11 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public void setJClass(String class1)
     {
-        jClass = class1;
+        _jClass = class1;
+    }
+
+    public byte getSpecialFaction()
+    {
+        return _specialFaction;
     }
 }

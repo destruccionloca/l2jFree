@@ -31,23 +31,25 @@ public class RequestPledgeMemberInfo extends L2GameClientPacket
 {
 	private static final String _C__24_REQUESTJOINPLEDGE = "[C] 24 RequestPledgeMemberInfo";
 
+    @SuppressWarnings("unused")
     private int _pledgeType;
     private String _target;
 	
+    @Override
     protected void readImpl()
     {
         _pledgeType  = readD();
         _target = readS();
 	}
 
+	@Override
 	protected void runImpl()
 	{
 		L2Clan clan = getClient().getActiveChar().getClan();
         if (clan != null)
         {
             L2ClanMember cm = clan.getClanMember(_target);
-            //if (cm != null && cm.isOnline())
-                getClient().getActiveChar().sendPacket(new PledgeReceiveMemberInfo(cm));
+            getClient().getActiveChar().sendPacket(new PledgeReceiveMemberInfo(cm));
             
         }
 	}
@@ -55,6 +57,7 @@ public class RequestPledgeMemberInfo extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__24_REQUESTJOINPLEDGE;

@@ -28,72 +28,72 @@ import javolution.util.FastList;
  */
 public class CrownTable
 {
-    private static FastList<Integer> _CrownList = new FastList<Integer>();
+    private static FastList<Integer> _crownList = new FastList<Integer>();
     
     public static FastList<Integer> getCrownList()
     {
-        if(_CrownList.isEmpty())
+        if(_crownList.isEmpty())
         {
-            _CrownList.add(6841); // Crown of the lord
-            _CrownList.add(6834); // Innadril
-            _CrownList.add(6835); // Dion
-            _CrownList.add(6836); // Goddard
-            _CrownList.add(6837); // Oren
-            _CrownList.add(6838); // Gludio
-            _CrownList.add(6839); // Giran
-            _CrownList.add(6840); // Aden
-            _CrownList.add(8182); // Rune
-            _CrownList.add(8183); // Schuttgart
+            _crownList.add(6841); // Crown of the lord
+            _crownList.add(6834); // Innadril
+            _crownList.add(6835); // Dion
+            _crownList.add(6836); // Goddard
+            _crownList.add(6837); // Oren
+            _crownList.add(6838); // Gludio
+            _crownList.add(6839); // Giran
+            _crownList.add(6840); // Aden
+            _crownList.add(8182); // Rune
+            _crownList.add(8183); // Schuttgart
         }
-        return _CrownList;
+        return _crownList;
      
     }
     
-    public static int getCrownId(int CastleId)
+    public static int getCrownId(int castleId)
     {
-        int CrownId=0;
-        switch(CastleId)
+        int crownId=0;
+        switch(castleId)
         {
             // Gludio
             case 1:
-                CrownId = 6838;
+                crownId = 6838;
                 break;
             // Dion
             case 2:
-                CrownId = 6835;
+                crownId = 6835;
                 break;
             // Giran
             case 3:
-                CrownId = 6839;
+                crownId = 6839;
                 break;
             // Oren
             case 4:
-                CrownId = 6837;
+                crownId = 6837;
                 break;
             // Aden
             case 5:
-                CrownId = 6840;
+                crownId = 6840;
                 break;
             // Innadril
             case 6:
-                CrownId = 6834;
+                crownId = 6834;
                 break;
             // Goddard 
             case 7:
-            	CrownId = 6836;
+            	crownId = 6836;
                 break;
             // Rune 
             case 8:
-            	CrownId = 8182;
+            	crownId = 8182;
                 break;
             // Schuttgart
             case 9:
-                CrownId = 8183;
+                crownId = 8183;
                 break;
             default:
-                CrownId=0;
+                crownId = 0;
                 break;
         }
-        return CrownId;
+        return crownId;
     }
 }

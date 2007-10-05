@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.model.L2EnchantSkillLearn;
@@ -41,13 +42,14 @@ public class RequestExEnchantSkillInfo extends L2GameClientPacket
     //private static Logger _log = Logger.getLogger(RequestAquireSkill.class.getName());
     private static final String _C__D0_06_REQUESTEXENCHANTSKILLINFO = "[C] D0:06 RequestExEnchantSkillInfo";
     @SuppressWarnings("unused")
-    private int _skillID;
+    private int _skillId;
     @SuppressWarnings("unused")
     private int _skillLvl;
 
+    @Override
     protected void readImpl()
     {
-        _skillID = readD();
+        _skillId = readD();
         _skillLvl = readD();
     }
 
@@ -70,11 +72,11 @@ public class RequestExEnchantSkillInfo extends L2GameClientPacket
         if ((trainer == null || !activeChar.isInsideRadius(trainer, L2NpcInstance.INTERACTION_DISTANCE, false, false)) && !activeChar.isGM()) 
             return;
 
-        L2Skill skill = SkillTable.getInstance().getInfo(_skillID, _skillLvl);
+        L2Skill skill = SkillTable.getInstance().getInfo(_skillId, _skillLvl);
         
         boolean canteach = false;
         
-        if (skill == null || skill.getId() != _skillID)
+        if (skill == null || skill.getId() != _skillId)
         {
             //_log.warning("enchant skill id " + _skillID + " level " + _skillLvl
             //    + " is undefined. aquireEnchantSkillInfo failed.");
@@ -89,7 +91,7 @@ public class RequestExEnchantSkillInfo extends L2GameClientPacket
 
         for (L2EnchantSkillLearn s : skills)
         {
-            if (s.getId() == _skillID && s.getLevel() == _skillLvl)
+            if (s.getId() == _skillId && s.getLevel() == _skillLvl)
             {
                 canteach = true;
                 break;
@@ -104,7 +106,7 @@ public class RequestExEnchantSkillInfo extends L2GameClientPacket
         byte rate = SkillTreeTable.getInstance().getSkillRate(activeChar, skill);
         ExEnchantSkillInfo asi = new ExEnchantSkillInfo(skill.getId(), skill.getLevel(), requiredSp, requiredExp, rate);
             
-        if (skill.getLevel() == 101 || skill.getLevel() == 141) // only first lvl requires book
+        if (Config.ES_SP_BOOK_NEEDED && (skill.getLevel() == 101 || skill.getLevel() == 141)) // only first lvl requires book
         {
             int spbId = 6622;
             asi.addRequirement(4, spbId, 1, 0);

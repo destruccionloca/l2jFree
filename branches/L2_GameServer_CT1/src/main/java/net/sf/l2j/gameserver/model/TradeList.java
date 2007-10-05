@@ -22,6 +22,7 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -40,11 +41,11 @@ public class TradeList
 {
     public class TradeItem
     {
-        int _objectId;
-        L2Item _item;
-        int _enchant;
-        int _count;
-        int _price;
+        private int _objectId;
+        private L2Item _item;
+        private int _enchant;
+        private int _count;
+        private int _price;
 
         public TradeItem(L2ItemInstance item, int count, int price)
         {
@@ -315,7 +316,7 @@ public class TradeList
         _items.add(titem);
 
         // If Player has already confirmed this trade, invalidate the confirmation
-        InvalidateConfirmation();
+        invalidateConfirmation();
         return titem;
     }
 
@@ -359,7 +360,7 @@ public class TradeList
         _items.add(titem);
 
         // If Player has already confirmed this trade, invalidate the confirmation
-        InvalidateConfirmation();
+        invalidateConfirmation();
         return titem;
     }
 
@@ -389,7 +390,7 @@ public class TradeList
                         _log.warn(_partner.getName() + ": Trading partner (" + _partner.getName() + ") is invalid in this trade!");
                         return null;
                     }
-                    partnerList.InvalidateConfirmation();
+                    partnerList.invalidateConfirmation();
                 }
 
                 // Reduce item count or complete item
@@ -417,7 +418,7 @@ public class TradeList
     /**
      * Lockes TradeList, no further changes are allowed
      */
-    public void Lock()
+    public void lock()
     {
         _locked = true;
     }
@@ -425,7 +426,7 @@ public class TradeList
     /**
      * Clears item list
      */
-    public void Clear()
+    public void clear()
     {
         _items.clear();
         _locked = false;
@@ -435,7 +436,7 @@ public class TradeList
      * Confirms TradeList
      * @return : boolean
      */
-    public boolean Confirm()
+    public boolean confirm()
     {
         if (_confirmed) return true; // Already confirmed
 
@@ -462,10 +463,10 @@ public class TradeList
                     _confirmed = true;
                     if (partnerList.isConfirmed())
                     {
-                        partnerList.Lock();
-                        this.Lock();
-                        if (!partnerList.Validate()) return false;
-                        if (!this.Validate()) return false;
+                        partnerList.lock();
+                        lock();
+                        if (!partnerList.validate()) return false;
+                        if (!validate()) return false;
 
                         doExchange(partnerList);
                     }
@@ -481,7 +482,7 @@ public class TradeList
     /**
      * Cancels TradeList confirmation
      */
-    public void InvalidateConfirmation()
+    public void invalidateConfirmation()
     {
         _confirmed = false;
     }
@@ -489,7 +490,7 @@ public class TradeList
     /**
      * Validates TradeList with owner inventory
      */
-    private boolean Validate()
+    private boolean validate()
     {
         // Check for Owner validity
         if (_owner == null || L2World.getInstance().findObject(_owner.getObjectId()) == null)
@@ -588,17 +589,17 @@ public class TradeList
     {
         boolean success = false;
         // check weight and slots
-        if ((!this.getOwner().getInventory().validateWeight(partnerList.calcItemsWeight()))
-            || !(partnerList.getOwner().getInventory().validateWeight(this.calcItemsWeight())))
+        if ((!getOwner().getInventory().validateWeight(partnerList.calcItemsWeight()))
+            || !(partnerList.getOwner().getInventory().validateWeight(calcItemsWeight())))
         {
-            partnerList.getOwner().sendPacket(new SystemMessage(SystemMessage.WEIGHT_LIMIT_EXCEEDED));
-            this.getOwner().sendPacket(new SystemMessage(SystemMessage.WEIGHT_LIMIT_EXCEEDED));
+            partnerList.getOwner().sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
+            getOwner().sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
         }
-        else if ((!this.getOwner().getInventory().validateCapacity(partnerList.countItemsSlots(this.getOwner())))
-            || (!partnerList.getOwner().getInventory().validateCapacity(this.countItemsSlots(partnerList.getOwner()))))
+        else if ((!getOwner().getInventory().validateCapacity(partnerList.countItemsSlots(getOwner())))
+            || (!partnerList.getOwner().getInventory().validateCapacity(countItemsSlots(partnerList.getOwner()))))
         {
-            partnerList.getOwner().sendPacket(new SystemMessage(SystemMessage.SLOTS_FULL));
-            this.getOwner().sendPacket(new SystemMessage(SystemMessage.SLOTS_FULL));
+            partnerList.getOwner().sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
+            getOwner().sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
         }
         else
         {
@@ -607,8 +608,8 @@ public class TradeList
             InventoryUpdate partnerIU = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 
             // Transfer items
-            partnerList.TransferItems(this.getOwner(), partnerIU, ownerIU);
-            this.TransferItems(partnerList.getOwner(), ownerIU, partnerIU);
+            partnerList.TransferItems(getOwner(), partnerIU, ownerIU);
+            TransferItems(partnerList.getOwner(), ownerIU, partnerIU);
 
             // Send inventory update packet
             if (ownerIU != null) _owner.sendPacket(ownerIU);
@@ -629,7 +630,7 @@ public class TradeList
         }
         // Finish the trade
         partnerList.getOwner().onTradeFinish(success);
-        this.getOwner().onTradeFinish(success);
+        getOwner().onTradeFinish(success);
     }
 
     /**
@@ -639,9 +640,9 @@ public class TradeList
     public synchronized boolean PrivateStoreBuy(L2PcInstance player, ItemRequest[] items, int price)
     {
         if (_locked) return false;
-        if (!Validate())
+        if (!validate())
         {
-            Lock();
+            lock();
             return false;
         }
 
@@ -660,13 +661,13 @@ public class TradeList
 
         if (!player.getInventory().validateWeight(weight))
         {
-            player.sendPacket(new SystemMessage(SystemMessage.WEIGHT_LIMIT_EXCEEDED));
+            player.sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
             return false;
         }
 
         if (!player.getInventory().validateCapacity(slots))
         {
-            player.sendPacket(new SystemMessage(SystemMessage.SLOTS_FULL));
+            player.sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
             return false;
         }
 
@@ -680,7 +681,7 @@ public class TradeList
         // Transfer adena
         if (price > playerInventory.getAdena())
         {
-            Lock();
+            lock();
             return false;
         }
         ;
@@ -701,7 +702,7 @@ public class TradeList
             L2ItemInstance oldItem = _owner.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
             if (oldItem == null)
             {
-                Lock();
+                lock();
                 return false;
             }
 
@@ -719,13 +720,13 @@ public class TradeList
             // Send messages about the transaction to both players 
             if (newItem.isStackable())
             {
-                SystemMessage msg = new SystemMessage(SystemMessage.S1_PURCHASED_S3_S2_s);
+                SystemMessage msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
                 msg.addString(player.getName());
                 msg.addItemName(newItem.getItemId());
                 msg.addNumber(item.getCount());
                 _owner.sendPacket(msg);
 
-                msg = new SystemMessage(SystemMessage.PURCHASED_S3_S2_s_FROM_S1);
+                msg = new SystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_S1);
                 msg.addString(_owner.getName());
                 msg.addItemName(newItem.getItemId());
                 msg.addNumber(item.getCount());
@@ -733,12 +734,12 @@ public class TradeList
             }
             else
             {
-                SystemMessage msg = new SystemMessage(SystemMessage.S1_PURCHASED_S2);
+                SystemMessage msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S2);
                 msg.addString(player.getName());
                 msg.addItemName(newItem.getItemId());
                 _owner.sendPacket(msg);
 
-                msg = new SystemMessage(SystemMessage.PURCHASED_S2_FROM_S1);
+                msg = new SystemMessage(SystemMessageId.PURCHASED_S2_FROM_S1);
                 msg.addString(_owner.getName());
                 msg.addItemName(newItem.getItemId());
                 player.sendPacket(msg);
@@ -763,12 +764,20 @@ public class TradeList
         PcInventory playerInventory = player.getInventory();
         
         //we must check item are available before begining transaction, TODO: should we remove that check when transfering items as it's done here? (there might be synchro problems if player clicks fast if we remove it)
+        // also check if augmented items are traded. If so, cancel it...
         for (ItemRequest item : items)
         {
             // Check if requested item is available for manipulation 
             L2ItemInstance oldItem = player.checkItemManipulation(item.getObjectId(), item.getCount(), "sell");
             if (oldItem == null)
                 return false;
+            if ( oldItem.getAugmentation() != null )
+            {
+                String msg = "Transaction failed. Augmented items may not be exchanged.";
+                _owner.sendMessage(msg);
+                player.sendMessage(msg);
+                return false;
+            }
         }
 
         // Prepare inventory update packet
@@ -800,13 +809,13 @@ public class TradeList
             // Send messages about the transaction to both players 
             if (newItem.isStackable())
             {
-                SystemMessage msg = new SystemMessage(SystemMessage.PURCHASED_S3_S2_s_FROM_S1);
+                SystemMessage msg = new SystemMessage(SystemMessageId.PURCHASED_S3_S2_S_FROM_S1);
                 msg.addString(player.getName());
                 msg.addItemName(newItem.getItemId());
                 msg.addNumber(item.getCount());
                 _owner.sendPacket(msg);
 
-                msg = new SystemMessage(SystemMessage.S1_PURCHASED_S3_S2_s);
+                msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
                 msg.addString(_owner.getName());
                 msg.addItemName(newItem.getItemId());
                 msg.addNumber(item.getCount());
@@ -814,12 +823,12 @@ public class TradeList
             }
             else
             {
-                SystemMessage msg = new SystemMessage(SystemMessage.PURCHASED_S2_FROM_S1);
+                SystemMessage msg = new SystemMessage(SystemMessageId.PURCHASED_S2_FROM_S1);
                 msg.addString(player.getName());
                 msg.addItemName(newItem.getItemId());
                 _owner.sendPacket(msg);
 
-                msg = new SystemMessage(SystemMessage.S1_PURCHASED_S2);
+                msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S2);
                 msg.addString(_owner.getName());
                 msg.addItemName(newItem.getItemId());
                 player.sendPacket(msg);

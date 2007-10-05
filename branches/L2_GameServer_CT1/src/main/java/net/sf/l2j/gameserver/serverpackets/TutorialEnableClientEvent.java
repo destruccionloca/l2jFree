@@ -56,5 +56,4 @@ public class TutorialEnableClientEvent extends L2GameServerPacket
     {
         return _S__A2_TUTORIALENABLECLIENTEVENT;
     }
-
 }

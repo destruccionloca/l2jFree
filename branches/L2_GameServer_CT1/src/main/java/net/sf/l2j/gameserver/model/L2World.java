@@ -430,7 +430,7 @@ public final class L2World implements L2WorldMBean
                     if (obj != null && obj.getKnownList() != null)
                         obj.getKnownList().removeKnownObject(object);
                     
-                    // Remove surrounding L2WorldRegion L2Characters from the L2ObjectHashSet(L2Object) _KnownObjects of object
+                    // Remove surrounding L2WorldRegion L2Characters from the L2ObjectHashSet(L2Object) _knownObjects of object
                     // If surrounding L2WorldRegion L2Characters is a L2PcInstance, remove it from the L2ObjectHashSet(L2PcInstance) _knownPlayer of object
                     // TODO Delete this line if all the stuff is done by the next line object.removeAllKnownObjects()
                     if (object.getKnownList() != null)

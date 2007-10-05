@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Calendar;
@@ -31,26 +48,27 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
 
-	protected static final int Cond_All_False = 0;
-	protected static final int Cond_Busy_Because_Of_Siege = 1;
-	protected static final int Cond_Owner = 2;
+	protected static final int COND_ALL_FALSE = 0;
+	protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
+	protected static final int COND_OWNER = 2;
 
     public L2CastleChamberlainInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         player.sendPacket( new ActionFailed() );
 
         int condition = validateCondition(player);
-        if (condition <= Cond_All_False)
+        if (condition <= COND_ALL_FALSE)
             return;
 
-        if (condition == Cond_Busy_Because_Of_Siege)
+        if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
             return;
-        else if (condition == Cond_Owner)
+        else if (condition == COND_OWNER)
         {
             StringTokenizer st = new StringTokenizer(command, " ");
             String actualCommand = st.nextToken(); // Get actual command
@@ -90,7 +108,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
                     msg.append("</table>");
                     msg.append("</body></html>");
 
-                    this.sendHtmlMessage(player, msg.toString());
+                    sendHtmlMessage(player, msg.toString());
                     }
                         return;
              }
@@ -194,7 +212,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
                 msg.append("</center>");
                 msg.append("</body></html>");
 
-                this.sendHtmlMessage(player, msg.toString());
+                sendHtmlMessage(player, msg.toString());
                 return;
             }
         }
@@ -202,6 +220,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
         super.onBypassFeedback(player, command);
     }
 
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -329,11 +348,11 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
         String filename = "data/html/chamberlain/chamberlain-no.htm";
         
         int condition = validateCondition(player);
-        if (condition > Cond_All_False)
+        if (condition > COND_ALL_FALSE)
         {
-            if (condition == Cond_Busy_Because_Of_Siege)
+            if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
                 filename = "data/html/chamberlain/chamberlain-busy.htm";                    // Busy because of siege
-            else if (condition == Cond_Owner)                                               // Clan owns castle
+            else if (condition == COND_OWNER)                                               // Clan owns castle
                 filename = "data/html/chamberlain/chamberlain.htm";                         // Owner message window
         }
         
@@ -348,7 +367,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
     {
         player.sendPacket(new ActionFailed());
         player.setActiveWarehouse(player.getClan().getWarehouse());
-        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.Clan)); //Or Castle ??
+        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); //Or Castle ??
     }
 
     private void showVaultWindowWithdraw(L2PcInstance player)
@@ -357,25 +376,25 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
         {
             player.sendPacket(new ActionFailed());
             player.setActiveWarehouse(player.getClan().getWarehouse());
-            player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.Clan)); //Or Castle ??
+            player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN)); //Or Castle ??
         }
     }
     
     protected int validateCondition(L2PcInstance player)
     {   
-        if (player.isGM()) return Cond_Owner;   //Gm moget usat' manorr
+        if (player.isGM()) return COND_OWNER;
         if (getCastle() != null && getCastle().getCastleId() > 0)
         {
             if (player.getClan() != null)
             {
                 if (getCastle().getSiege().getIsInProgress())
-                    return Cond_Busy_Because_Of_Siege;                                      // Busy because of siege
+                    return COND_BUSY_BECAUSE_OF_SIEGE;                                      // Busy because of siege
                 else if (getCastle().getOwnerId() == player.getClanId()                     // Clan owns castle
                         && player.isClanLeader())                                           // Leader of clan
-                    return Cond_Owner;  // Owner
+                    return COND_OWNER;  // Owner
             }
         }
         
-        return Cond_All_False;
+        return COND_ALL_FALSE;
     }
 }

@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -37,11 +38,9 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class BalanceLife implements ISkillHandler
 {
-	private static SkillType[] _skillIds =
-		{ SkillType.BALANCE_LIFE };
+	private static final SkillType[] SKILL_IDS = { SkillType.BALANCE_LIFE };
 
-	public void useSkill(L2Character activeChar, L2Skill skill,
-			L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill,	L2Object[] targets)
     {
 		// L2Character activeChar = activeChar;
 		// check for other effects
@@ -68,6 +67,9 @@ public class BalanceLife implements ISkillHandler
 		for (int index = 0; index < targets.length; index++)
 		{
 			target = (L2Character) targets[index];
+			// check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
 
 			// We should not heal if char is dead
 			if (target == null || target.isDead())
@@ -105,7 +107,7 @@ public class BalanceLife implements ISkillHandler
 			su.addAttribute(StatusUpdate.CUR_HP, (int) target.getStatus().getCurrentHp());
 			target.sendPacket(su);
 
-			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString("HP of the party has been balanced.");
 			target.sendPacket(sm);
 
@@ -114,6 +116,6 @@ public class BalanceLife implements ISkillHandler
 
     public SkillType[] getSkillIds()
     {
-        return _skillIds;
+        return SKILL_IDS;
     }
 }

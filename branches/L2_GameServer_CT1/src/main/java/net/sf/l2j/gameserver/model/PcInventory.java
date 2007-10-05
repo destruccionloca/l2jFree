@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
@@ -25,14 +42,18 @@ public class PcInventory extends Inventory
 
     public PcInventory(L2PcInstance owner)
     {
-        this._owner = owner;
+        _owner = owner;
     }
     
+    @Override
     public L2PcInstance getOwner() { return _owner; }
+    @Override
     protected ItemLocation getBaseLocation() { return ItemLocation.INVENTORY; } 
+    @Override
     protected ItemLocation getEquipLocation() { return ItemLocation.PAPERDOLL; }
 
     public L2ItemInstance getAdenaInstance() {return _adena;}
+    @Override
     public int getAdena() {return _adena != null ? _adena.getCount() : 0;}
     
     public L2ItemInstance getAncientAdenaInstance() 
@@ -155,7 +176,20 @@ public class PcInventory extends Inventory
 
 		return list.toArray(new L2ItemInstance[list.size()]);
 	}
+
+	/**
+	 * Get all augmented items
+	 * @return
+	 */
+	public L2ItemInstance[] getAugmentedItems()
+	{
+		FastList<L2ItemInstance> list = new FastList<L2ItemInstance>();
+		for (L2ItemInstance item : _items)
+			if (item != null && item.isAugmented()) list.add(item);
 	
+		return list.toArray(new L2ItemInstance[list.size()]);
+	}
+
     /**
      * Returns the list of items in inventory available for transaction adjusetd by tradeList
      * @return L2ItemInstance : items in inventory
@@ -257,6 +291,7 @@ public class PcInventory extends Inventory
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the new item or the updated item in inventory
      */
+    @Override
     public L2ItemInstance addItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
     {
         item = super.addItem(process, item, actor, reference);
@@ -279,6 +314,7 @@ public class PcInventory extends Inventory
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the new item or the updated item in inventory
      */
+    @Override
     public L2ItemInstance addItem(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
     {
         L2ItemInstance item = super.addItem(process, itemId, count, actor, reference);
@@ -301,6 +337,7 @@ public class PcInventory extends Inventory
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the new item or the updated item in inventory
      */
+    @Override
     public L2ItemInstance transferItem(String process, int objectId, int count, ItemContainer target, L2PcInstance actor, L2Object reference)
     {
         L2ItemInstance item = super.transferItem(process, objectId, count, target, actor, reference);
@@ -322,6 +359,7 @@ public class PcInventory extends Inventory
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the destroyed item or the updated item in inventory
      */
+    @Override
     public L2ItemInstance destroyItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
     {
         item = super.destroyItem(process, item, actor, reference);
@@ -344,6 +382,7 @@ public class PcInventory extends Inventory
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the destroyed item or the updated item in inventory
      */
+    @Override
     public L2ItemInstance destroyItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
     {
         L2ItemInstance item = super.destroyItem(process, objectId, count, actor, reference);
@@ -366,6 +405,7 @@ public class PcInventory extends Inventory
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the destroyed item or the updated item in inventory
      */
+    @Override
     public L2ItemInstance destroyItemByItemId(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
     {
         L2ItemInstance item = super.destroyItemByItemId(process, itemId, count, actor, reference);
@@ -388,6 +428,7 @@ public class PcInventory extends Inventory
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the destroyed item or the updated item in inventory
      */
+    @Override
     public L2ItemInstance dropItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
     {
         item = super.dropItem(process, item, actor, reference);
@@ -410,6 +451,7 @@ public class PcInventory extends Inventory
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @return L2ItemInstance corresponding to the destroyed item or the updated item in inventory
      */
+    @Override
     public L2ItemInstance dropItem(String process, int objectId, int count, L2PcInstance actor, L2Object reference)
     {
         L2ItemInstance item = super.dropItem(process, objectId, count, actor, reference);
@@ -427,6 +469,7 @@ public class PcInventory extends Inventory
      * <b>Overloaded</b>, when removes item from inventory, remove also owner shortcuts.
      * @param item : L2ItemInstance to be removed from inventory
      */
+    @Override
     protected void removeItem(L2ItemInstance item)
     {
         // Removes any reference to the item from Shortcut bar
@@ -447,6 +490,7 @@ public class PcInventory extends Inventory
     /**
      * Refresh the weight of equipment loaded
      */
+    @Override
     public void refreshWeight()
     {
         super.refreshWeight();
@@ -456,6 +500,7 @@ public class PcInventory extends Inventory
     /**
      * Get back items in inventory from database
      */
+    @Override
     public void restore()
     {
         super.restore();
@@ -529,11 +574,13 @@ public class PcInventory extends Inventory
        return validateCapacity(slots); 
     } 
     
+    @Override
     public boolean validateCapacity(int slots)
     {
-        return (_items.size() + slots <= _owner.GetInventoryLimit());
+        return (_items.size() + slots <= _owner.getInventoryLimit());
     }
 
+    @Override
     public boolean validateWeight(int weight)
     {
         return (_totalWeight + weight <= _owner.getMaxLoad());
@@ -546,7 +593,7 @@ public class PcInventory extends Inventory
     public void updateInventory(L2ItemInstance newItem)
     {
     	if(newItem == null) return;
-        L2PcInstance targetPlayer = this.getOwner();
+        L2PcInstance targetPlayer = getOwner();
         if (!Config.FORCE_INVENTORY_UPDATE)
         {
             InventoryUpdate playerIU = new InventoryUpdate();

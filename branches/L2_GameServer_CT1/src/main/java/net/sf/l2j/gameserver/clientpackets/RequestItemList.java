@@ -33,11 +33,13 @@ public class RequestItemList extends L2GameClientPacket
 	 * format:		c
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 
+    @Override
     protected void runImpl()
 	{
         if (getClient() != null && getClient().getActiveChar() != null && !getClient().getActiveChar().isInvetoryDisabled())
@@ -50,6 +52,7 @@ public class RequestItemList extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__0F_REQUESTITEMLIST;

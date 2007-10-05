@@ -80,7 +80,7 @@ public class NpcTable implements NpcTableMBean
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement;
-                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc");
+                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level", "absorb_type"}) + " FROM npc");
                 ResultSet npcdata = statement.executeQuery();
                 
                 fillNpcTable(npcdata);
@@ -88,15 +88,17 @@ public class NpcTable implements NpcTableMBean
                 statement.close();
                 _log.info("NpcTable: Loaded " + _npcs.size() + " Npc Templates.");
             } 
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 _log.fatal("NPCTable: Error creating NPC table: " + e);
+                e.printStackTrace();
             }
 
             try 
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
                 PreparedStatement statement;
-                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM custom_npc");
+                statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level", "absorb_type"}) + " FROM custom_npc");
                 ResultSet npcdata = statement.executeQuery();
                 int npc_count = _npcs.size(); 
                 fillNpcTable(npcdata);
@@ -347,8 +349,8 @@ public class NpcTable implements NpcTableMBean
             npcDat.set("baseHpMax", NpcData.getInt("hp"));
             npcDat.set("baseCpMax", 0);
             npcDat.set("baseMpMax", NpcData.getInt("mp"));
-			npcDat.set("baseHpReg", NpcData.getFloat("hpreg")>0?NpcData.getFloat("hpreg"):1.5 + ((level-1)/10.0));
-			npcDat.set("baseMpReg", NpcData.getFloat("mpreg")>0?NpcData.getFloat("mpreg"):0.9 + 0.3*((level-1)/10.0));
+            npcDat.set("baseHpReg", NpcData.getFloat("hpreg")>0?NpcData.getFloat("hpreg"):1.5 + ((level-1)/10.0));
+            npcDat.set("baseMpReg", NpcData.getFloat("mpreg")>0?NpcData.getFloat("mpreg"):0.9 + 0.3*((level-1)/10.0));
             npcDat.set("basePAtk", NpcData.getInt("patk"));
             npcDat.set("basePDef", NpcData.getInt("pdef"));
             npcDat.set("baseMAtk", NpcData.getInt("matk"));
@@ -360,6 +362,7 @@ public class NpcTable implements NpcTableMBean
             npcDat.set("isUndead", NpcData.getString("isUndead"));
             
             npcDat.set("absorb_level", NpcData.getString("absorb_level"));
+            npcDat.set("absorb_type", NpcData.getString("absorb_type"));
 
             if(Config.FACTION_ENABLED)
             {
@@ -415,7 +418,7 @@ public class NpcTable implements NpcTableMBean
 
             // reload the NPC base data
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement st = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level"}) + " FROM npc WHERE id=?");
+            PreparedStatement st = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level", "absorb_type"}) + " FROM npc WHERE id=?");
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             fillNpcTable(rs);
@@ -428,9 +431,8 @@ public class NpcTable implements NpcTableMBean
             for (L2Skill skill : skills.values())
                 created.addSkill(skill);
             
-            if (classIds != null)
-                for (ClassId classId : classIds)
-                    created.addTeachInfo(classId);
+            for (ClassId classId : classIds)
+                created.addTeachInfo(classId);
             
             for (L2MinionData minion : minions)
                 created.addRaidData(minion);
@@ -503,6 +505,11 @@ public class NpcTable implements NpcTableMBean
         return _initialized;
     }
 
+	public void replaceTemplate(L2NpcTemplate npc)
+	{
+		_npcs.put(npc.getNpcId(), npc);
+	}
+
     public L2NpcTemplate getTemplate(int id)
     {
         return _npcs.get(id);
@@ -512,6 +519,41 @@ public class NpcTable implements NpcTableMBean
     {
         return _npcs;
     }
+
+	public L2NpcTemplate getTemplateByName(String name)
+	{
+		for (L2NpcTemplate npcTemplate : _npcs.values())
+			if (npcTemplate.getName().equalsIgnoreCase(name))
+				return npcTemplate;
+		return null;
+	}
+
+	public L2NpcTemplate[] getAllOfLevel(int lvl)
+	{
+		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+		for (L2NpcTemplate t : _npcs.values())
+			if (t.getLevel()  == lvl)
+				list.add(t);
+		return list.toArray(new L2NpcTemplate[list.size()]);
+	}
+
+	public L2NpcTemplate[] getAllMonstersOfLevel(int lvl)
+	{
+		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+		for (L2NpcTemplate t : _npcs.values())
+			if (t.getLevel()  == lvl && "L2Monster".equals(t.getType()))
+				list.add(t);
+		return list.toArray(new L2NpcTemplate[list.size()]);
+	}
+
+	public L2NpcTemplate[] getAllNpcStartingWith(String letter)
+	{
+		FastList<L2NpcTemplate> list = new FastList<L2NpcTemplate>();
+		for (L2NpcTemplate t : _npcs.values())
+			if (t.getName().startsWith(letter) && "L2Npc".equals(t.getType()))
+				list.add(t);
+		return list.toArray(new L2NpcTemplate[list.size()]);
+	}
 
     /**
      * @param classType

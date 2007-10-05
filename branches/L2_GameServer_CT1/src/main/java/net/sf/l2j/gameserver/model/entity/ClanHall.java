@@ -22,12 +22,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -35,14 +32,16 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 
 import org.apache.commons.logging.Log;
@@ -51,18 +50,18 @@ import org.apache.commons.logging.LogFactory;
 public class ClanHall
 {
     protected static Log _log = LogFactory.getLog(ClanHall.class.getName());
-	private int _ClanHallId;
-	private List<L2DoorInstance> _Doors;
-	private List<String> _DoorDefault;
-    private String _Name;
-	private int _OwnerId;
+    private int _clanHallId;
+    private List<L2DoorInstance> _doors;
+    private List<String> _doorDefault;
+    private String _name;
+    private int _ownerId;
     private int _lease;
     private String _desc;
     private String _location;
     protected long _paidUntil;
-    private Zone _Zone;
+    private IZone _zone;
     private int _grade;
-    protected final int _chrate = 604800000;
+    protected final int _chRate = 604800000;
     protected boolean _isFree = true;
     private Map<Integer,ClanHallFunction> _functions;
     /** Clan Hall Functions */
@@ -180,17 +179,17 @@ public class ClanHall
     }
 	public ClanHall(int clanHallId, String name, int ownerId, int lease, String desc, String location,long paidUntil,int Grade)
 	{
-		_ClanHallId = clanHallId;
-	    _Name = name;
-	    _OwnerId = ownerId;
+		_clanHallId = clanHallId;
+	    _name = name;
+	    _ownerId = ownerId;
         if (_log.isDebugEnabled())
-        	_log.warn("Init Owner : "+_OwnerId);
+        	_log.warn("Init Owner : "+_ownerId);
         _lease = lease;
         _desc = desc;
         _location = location;
         _paidUntil = paidUntil;
         _grade = Grade;
-        _DoorDefault = new FastList<String>();
+        _doorDefault = new FastList<String>();
         _functions = new FastMap<Integer,ClanHallFunction>();
         if(ownerId != 0){
         	_isFree = false;
@@ -200,22 +199,22 @@ public class ClanHall
 	}
 	/** Return Id Of Clan hall */
 	public final int getId() { 
-		return _ClanHallId; 
+		return _clanHallId; 
 	}
 	/** Return name */
     public final String getName() { 
-    	return _Name; 
+    	return _name; 
     }
     /** Return OwnerId */
 	public final int getOwnerId() { 
-		return _OwnerId; 
+		return _ownerId; 
 	}
 	/** Return zone */
-    public final Zone getZone()
+    public final IZone getZone()
     {
-        if (_Zone == null) 
-        	_Zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.ClanHall), _ClanHallId);
-        return _Zone;
+        if (_zone == null) 
+        	_zone = ZoneManager.getInstance().getZone(ZoneType.ClanHall, _clanHallId);
+        return _zone;
     }
     /** Return lease*/
     public final int getLease()
@@ -245,8 +244,8 @@ public class ClanHall
     /** Return all DoorInstance */
 	public final List<L2DoorInstance> getDoors()
 	{
-        if (_Doors == null) _Doors = new FastList<L2DoorInstance>();
-		return _Doors;
+        if (_doors == null) _doors = new FastList<L2DoorInstance>();
+		return _doors;
 	}
 	/** Return Door */
 	public final L2DoorInstance getDoor(int doorId)
@@ -275,7 +274,7 @@ public class ClanHall
     /** Return true if object is inside the zone */
     public boolean checkIfInZone(int x, int y) 
     {
-    	Zone zone = getZone();
+    	IZone zone = getZone();
     	if (zone == null)
     		return false;
     	else 
@@ -284,15 +283,18 @@ public class ClanHall
     /** Calculate distance to zone */
     public double findDistanceToZone(int x, int y, int z, boolean checkZ) 
     { 
-    	Zone zone = getZone();
+    	IZone zone = getZone();
     	if (zone == null)
-    		return 99999999;
+    		return Double.MAX_VALUE;
     	else
-    		return zone.findDistanceToZone(x, y, z, checkZ); 
+    		if (checkZ)
+    			return zone.getZoneDistance(x, y, z);
+    		else
+    			return zone.getZoneDistance(x, y);
     }
 	/** Free this clan hall */
 	public void free(){
-		_OwnerId = 0;
+		_ownerId = 0;
         _isFree = true;
         for (Map.Entry<Integer, ClanHallFunction> fc : _functions.entrySet())
         	removeFunction(fc.getKey());
@@ -304,9 +306,9 @@ public class ClanHall
 	public void setOwner(L2Clan clan)
 	{
 		// Verify that this ClanHall is Free and Clan isn't null
-	    if (_OwnerId > 0 || clan == null)
+	    if (_ownerId > 0 || clan == null)
 	    	return;
-	    _OwnerId = clan.getClanId();
+	    _ownerId = clan.getClanId();
 	    _isFree = false;
 	    initialyzeTask();
 	    // Annonce to Online member new ClanHall
@@ -325,7 +327,7 @@ public class ClanHall
             if (door.getStatus().getCurrentHp() <= 0)
             {
                 door.decayMe();	// Kill current if not killed already
-                door = DoorTable.parseList(_DoorDefault.get(i));
+                door = DoorTable.parseList(_doorDefault.get(i));
                 if (isDoorWeak) door.getStatus().setCurrentHp(door.getMaxHp() / 2);
     			door.spawnMe(door.getX(), door.getY(),door.getZ());
     			getDoors().set(i, door);
@@ -443,7 +445,7 @@ public class ClanHall
 	            if (_log.isDebugEnabled())
 	            	_log.warn("Called ClanHall.updateFunctions diffLease : "+diffLease);
 	        	if(diffLease>0){
-		            if (ClanTable.getInstance().getClan(_OwnerId).getWarehouse().getAdena() < diffLease)
+		            if (ClanTable.getInstance().getClan(_ownerId).getWarehouse().getAdena() < diffLease)
 		            	return false;
 		            _functions.remove(type);
 		            _functions.put(type,new ClanHallFunction(type, lvl, lease,diffLease, rate, -1));
@@ -466,9 +468,9 @@ public class ClanHall
             PreparedStatement statement;
 
             statement = con.prepareStatement("UPDATE clanhall SET ownerId=?, paidUntil=? WHERE id=?");
-            statement.setInt(1, _OwnerId);
+            statement.setInt(1, _ownerId);
             statement.setLong(2, _paidUntil);
-            statement.setInt(3, _ClanHallId);
+            statement.setInt(3, _clanHallId);
             statement.execute();
             statement.close();   
         }
@@ -504,16 +506,16 @@ public class ClanHall
             		return;
                 if (ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= getLease())
                 {
-            		_paidUntil = System.currentTimeMillis()+_chrate;
+            		_paidUntil = System.currentTimeMillis()+_chRate;
                     ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
                     if (_log.isDebugEnabled())
                     	_log.warn("deducted "+getLease()+" adena from "+getName()+" owner's cwh for ClanHall _paidUntil"+_paidUntil);
-                    ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), _chrate);
+                    ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), _chRate);
                     updateDb();
                 }
                 else
                 {
-                	if(GameServer.gameServer.GetCHManager() != null && GameServer.gameServer.GetCHManager().loaded()){
+                	if(GameServer.gameServer.getCHManager() != null && GameServer.gameServer.getCHManager().loaded()){
 		            	AuctionManager.getInstance().initNPC(getId());
 		                ClanHallManager.getInstance().setFree(getId());
                 	}else

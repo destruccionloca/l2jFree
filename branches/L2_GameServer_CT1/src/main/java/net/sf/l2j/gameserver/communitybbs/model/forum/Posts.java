@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.communitybbs.model.forum;
 
 import java.math.BigDecimal;
@@ -40,84 +58,85 @@ public class Posts implements java.io.Serializable
     public Posts(int _postId, String _postOwnerName, int _postOwnerid, BigDecimal _postDate,
                  int _postTopicId, String _postTxt)
     {
-        this.postId = _postId;
-        this.postOwnerName = _postOwnerName;
-        this.postOwnerid = _postOwnerid;
-        this.postDate = _postDate;
-        this.postTopicId = _postTopicId;
-        this.postTxt = _postTxt;
+        postId = _postId;
+        postOwnerName = _postOwnerName;
+        postOwnerid = _postOwnerid;
+        postDate = _postDate;
+        postTopicId = _postTopicId;
+        postTxt = _postTxt;
     }
     
     // Property accessors
     public int getPostId()
     {
-        return this.postId;
+        return postId;
     }
 
     public void setPostId(int _postId)
     {
-        this.postId = _postId;
+        postId = _postId;
     }
 
     public String getPostOwnerName()
     {
-        return this.postOwnerName;
+        return postOwnerName;
     }
 
     public void setPostOwnerName(String _postOwnerName)
     {
-        this.postOwnerName = _postOwnerName;
+        postOwnerName = _postOwnerName;
     }
 
     public int getPostOwnerid()
     {
-        return this.postOwnerid;
+        return postOwnerid;
     }
 
     public void setPostOwnerid(int _postOwnerid)
     {
-        this.postOwnerid = _postOwnerid;
+        postOwnerid = _postOwnerid;
     }
 
     public BigDecimal getPostDate()
     {
-        return this.postDate;
+        return postDate;
     }
 
     public void setPostDate(BigDecimal _postDate)
     {
-        this.postDate = _postDate;
+        postDate = _postDate;
     }
 
     public int getPostTopicId()
     {
-        return this.postTopicId;
+        return postTopicId;
     }
 
     public void setPostTopicId(int _postTopicId)
     {
-        this.postTopicId = _postTopicId;
+        postTopicId = _postTopicId;
     }
 
     public String getPostTxt()
     {
-        return this.postTxt;
+        return postTxt;
     }
 
     public void setPostTxt(String _postTxt)
     {
-        this.postTxt = _postTxt;
+        postTxt = _postTxt;
     }
     
     /**
      * @return the hashcode of the object
      */
+    @Override
     public int hashCode() 
     {
         return new HashCodeBuilder(17,37)
-                        .append(this.postOwnerid)
-                        .append(this.postTopicId)
-                        .append(this.postDate)
+                        .append(postOwnerid)
+                        .append(postTopicId)
+                        .append(postDate)
                         .toHashCode();
     }
     
@@ -125,6 +144,7 @@ public class Posts implements java.io.Serializable
      * @return true or false if the two objects are equals (not based on post id)
      * @param obj
      */
+    @Override
     public boolean equals(Object _obj) 
     {
         if (_obj == null) 
@@ -144,8 +164,9 @@ public class Posts implements java.io.Serializable
                         .isEquals();        
     }
     
-    public String toString() {
+    @Override
+    public String toString()
+    {
         return ToStringBuilder.reflectionToString(this);
-    }     
-
+    }
 }

@@ -1,5 +1,3 @@
-package net.sf.l2j.gameserver.model.actor.instance;
-
 /*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +16,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
@@ -25,6 +24,7 @@ import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -49,6 +49,7 @@ public final class L2UrnInstance extends L2FolkInstance
     protected static int mixChance;
     protected static int tempChance;
     
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -59,6 +60,7 @@ public final class L2UrnInstance extends L2FolkInstance
             showMessageWindow(player);
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) return;
@@ -262,7 +264,7 @@ public final class L2UrnInstance extends L2FolkInstance
         // If item for reward is gold, send message of gold reward to client
         if (itemId == 57) 
         {
-            SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_ADENA);
+            SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ADENA);
             smsg.addNumber(count);
             player.sendPacket(smsg);
         } 
@@ -271,13 +273,13 @@ public final class L2UrnInstance extends L2FolkInstance
         {
             if (count > 1)
             {
-                SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                 smsg.addItemName(item.getItemId());
                 smsg.addNumber(count);
                 player.sendPacket(smsg);
             } else
             {
-                SystemMessage smsg = new SystemMessage(SystemMessage.EARNED_ITEM);
+                SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
                 smsg.addItemName(item.getItemId());
                 player.sendPacket(smsg);
             }
@@ -311,10 +313,8 @@ public final class L2UrnInstance extends L2FolkInstance
             mixFail = 40;
         mixChance = (Rnd.get(100));
         tempChance = (100 - (mixTemperature * mixFail));
-        if (mixChance < tempChance)
-            return true;
-        else
-            return false;
+        
+        return (mixChance < tempChance);
     }
     
     public void showSuccessWindow(L2PcInstance player, boolean urnLvl, String prodName3, int prodNum3)
@@ -357,7 +357,7 @@ public final class L2UrnInstance extends L2FolkInstance
         msg.append("</table>");
         msg.append("</body></html>");
 
-        this.sendHtmlMessage(player, msg.toString());
+        sendHtmlMessage(player, msg.toString());
     }
     
     public void showFailureWindow(L2PcInstance player)
@@ -373,7 +373,7 @@ public final class L2UrnInstance extends L2FolkInstance
         msg.append("</table>");
         msg.append("</body></html>");
 
-        this.sendHtmlMessage(player, msg.toString());
+        sendHtmlMessage(player, msg.toString());
     }
 
     public void showMessageWindow(L2PcInstance player)
@@ -386,7 +386,7 @@ public final class L2UrnInstance extends L2FolkInstance
         msg.append("</table>");
         msg.append("</body></html>");
 
-        this.sendHtmlMessage(player, msg.toString());
+        sendHtmlMessage(player, msg.toString());
     }
     
     private void sendHtmlMessage(L2PcInstance player, String htmlMessage)

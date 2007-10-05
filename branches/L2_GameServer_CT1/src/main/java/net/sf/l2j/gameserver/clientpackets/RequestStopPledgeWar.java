@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.datatables.ClanTable;
@@ -5,21 +22,20 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class RequestStopPledgeWar extends L2GameClientPacket
 {
 	private static final String _C__4F_REQUESTSTOPPLEDGEWAR = "[C] 4F RequestStopPledgeWar";
-	private final static Log _log = LogFactory.getLog(RequestStopPledgeWar.class.getName());
+	//private final static Log _log = LogFactory.getLog(RequestStopPledgeWar.class.getName());
 
 	String _pledgeName;
 
+    @Override
     protected void readImpl()
     {
         _pledgeName = readS();
     }
     
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -43,8 +59,8 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 			return;
 		}
 
-		_log.info("RequestStopPledgeWar: By leader: " + playerClan.getLeaderName() + " of clan: "
-			+ playerClan.getName() + " to clan: " + _pledgeName);
+		//_log.info("RequestStopPledgeWar: By leader: " + playerClan.getLeaderName() + " of clan: "
+		//	+ playerClan.getName() + " to clan: " + _pledgeName);
 
 		//        L2PcInstance leader = L2World.getInstance().getPlayer(clan.getLeaderName());
 		//        if(leader != null && leader.isOnline() == 0)
@@ -56,7 +72,7 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 
 		//        if (leader.isProcessingRequest())
 		//        {
-		//            SystemMessage sm = new SystemMessage(SystemMessage.S1_IS_BUSY_TRY_LATER);
+		//            SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
 		//            sm.addString(leader.getName());
 		//            player.sendPacket(sm);
 		//            return;
@@ -67,6 +83,7 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 		//        leader.sendPacket(new StopPledgeWar(_clan.getName(),player.getName()));
 	}
 
+	@Override
 	public String getType()
 	{
 		return _C__4F_REQUESTSTOPPLEDGEWAR;

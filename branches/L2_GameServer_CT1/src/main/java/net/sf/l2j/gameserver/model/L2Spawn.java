@@ -22,11 +22,14 @@ import java.lang.reflect.Constructor;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
+import net.sf.l2j.Config.CorrectSpawnsZ;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.L2Attackable;
+import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -74,13 +77,13 @@ public class L2Spawn
     protected int _scheduledCount;
 	
 	/** The X position of the spwan point */
-	private int _locx;
+	private int _locX;
 	
 	/** The Y position of the spwan point */
-	private int _locy;
+	private int _locY;
 	
 	/** The Z position of the spwan point */
-	private int _locz;
+	private int _locZ;
 	
 	/** The heading of L2NpcInstance when they are spawned */
 	private int _heading;
@@ -117,12 +120,12 @@ public class L2Spawn
 	{
 		//L2NpcInstance _instance;
 		//int _objId;
-        L2NpcInstance oldNpc;
+        private L2NpcInstance _oldNpc;
 		
 		public SpawnTask(/*int objid*/L2NpcInstance pOldNpc)
 		{
 			//_objId= objid;
-            this.oldNpc = pOldNpc;
+            _oldNpc = pOldNpc;
 		}
 		
 		public void run()
@@ -131,7 +134,7 @@ public class L2Spawn
 			{
                 //doSpawn();
                 // [L2J_JP DELETE SANDMAN]respawnNpc(oldNpc);
-                if(_doRespawn) respawnNpc(oldNpc);
+                if(_doRespawn) respawnNpc(_oldNpc);
 			}
 			catch (Exception e)
 			{
@@ -230,7 +233,7 @@ public class L2Spawn
 	 */
 	public int getLocx()
 	{
-		return _locx;
+		return _locX;
 	}
 	
 	/**
@@ -238,7 +241,7 @@ public class L2Spawn
 	 */
 	public int getLocy()
 	{
-		return _locy;
+		return _locY;
 	}
 	
 	/**
@@ -246,13 +249,13 @@ public class L2Spawn
 	 */
 	public int getLocz()
 	{
-		return _locz;
+		return _locZ;
 	}
 	
 	/**
 	 * Return the Itdentifier of the L2NpcInstance manage by this L2Spwan contained in the L2NpcTemplate.<BR><BR>
 	 */
-	public int getNpcid()
+	public int getNpcId()
 	{
 		return _template.getNpcId();
 	}
@@ -351,7 +354,7 @@ public class L2Spawn
 	 */
 	public void setLocx(int locx)
 	{
-		_locx = locx;
+		_locX = locx;
 	}
 	
 	/**
@@ -359,7 +362,7 @@ public class L2Spawn
 	 */
 	public void setLocy(int locy)
 	{
-		_locy = locy;
+		_locY = locy;
 	}
 	
 	/**
@@ -367,7 +370,7 @@ public class L2Spawn
 	 */
 	public void setLocz(int locz)
 	{
-		_locz = locz;
+		_locZ = locz;
 	}
 	
 	/**
@@ -456,7 +459,7 @@ public class L2Spawn
     }
     
 	/**
-	 * Create the L2NpcInstance, add it to the world and lauch its OnSpawn action.<BR><BR>
+	 * Create the L2NpcInstance, add it to the world and lauch its onSpawn action.<BR><BR>
 	 * 
 	 * <B><U> Concept</U> :</B><BR><BR>
 	 * L2NpcInstance can be spawned either in a random position into a location area (if Lox=0 and Locy=0), either at an exact position.
@@ -471,7 +474,7 @@ public class L2Spawn
 	 * <li>Set the heading of the L2NpcInstance (random heading if not defined : value=-1) </li>
 	 * <li>Link the L2NpcInstance to this L2Spawn </li>
 	 * <li>Init other values of the L2NpcInstance (ex : from its L2CharTemplate for INT, STR, DEX...) and add it in the world </li>
-	 * <li>Lauch the action OnSpawn fo the L2NpcInstance </li><BR><BR>
+	 * <li>Lauch the action onSpawn fo the L2NpcInstance </li><BR><BR>
 	 * <li>Increase the current number of L2NpcInstance managed by this L2Spawn  </li><BR><BR>
 	 * 
 	 */
@@ -516,6 +519,23 @@ public class L2Spawn
     {
         int newlocx, newlocy, newlocz;
 
+        boolean doCorrect = false;
+        if(Config.GEODATA)
+        {
+            switch(Config.GEO_CORRECT_Z)
+            {
+                case ALL:
+                    doCorrect = true;
+                    break;
+                case TOWN:
+                    if(mob instanceof L2FolkInstance) doCorrect = true;
+                    break;
+                case MONSTER:
+                    if(mob instanceof L2Attackable) doCorrect = true;
+                    break;
+            }
+        }
+
         // If Locx=0 and Locy=0, the L2NpcInstance must be spawned in an area defined by location
         if  (getLocx()==0 && getLocy()==0)
         {
@@ -528,16 +548,16 @@ public class L2Spawn
             // Set the calculated position of the L2NpcInstance
             newlocx = p[0];
             newlocy = p[1];
-            newlocz = GeoData.getInstance().getSpawnHeight(newlocx, newlocy, p[2], p[3],_id);
-        } 
-        else 
+            newlocz = doCorrect ? GeoData.getInstance().getSpawnHeight(newlocx, newlocy, p[2], p[3],_id)
+                                : p[2];
+        }
+        else
         {
             // The L2NpcInstance is spawned at the exact position (Lox, Locy, Locz)
             newlocx = getLocx();
             newlocy = getLocy();
-            if (Config.GEODATA > 0)            
-             	newlocz = GeoData.getInstance().getSpawnHeight(newlocx,newlocy,getLocz(),getLocz(),_id);
-            else newlocz = getLocz();
+            newlocz = doCorrect ? GeoData.getInstance().getSpawnHeight(newlocx,newlocy,getLocz(),getLocz(),_id)
+                                : getLocz();
         }
         
         for(L2Effect f : mob.getAllEffects())

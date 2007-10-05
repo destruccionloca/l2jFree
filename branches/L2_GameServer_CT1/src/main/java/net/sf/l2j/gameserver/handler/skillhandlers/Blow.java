@@ -17,22 +17,24 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.skills.Formulas;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.handler.ISkillHandler;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
+import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
-import net.sf.l2j.gameserver.model.L2Skill;
 
 /**
  *
@@ -53,6 +55,9 @@ public class Blow implements ISkillHandler
         for(int index = 0;index < targets.length;index++)
         {
 			L2Character target = (L2Character)targets[index];
+			//check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
 			if(target.isAlikeDead())
 				continue;
 			if(activeChar.isBehindTarget())
@@ -116,7 +121,7 @@ public class Blow implements ISkillHandler
 	        	       else 
 	        		      player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
 					}
-	        		SystemMessage smsg = new SystemMessage(SystemMessage.S1_GAVE_YOU_S2_DMG);
+	        		SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
 	        		smsg.addString(activeChar.getName());
 	        		smsg.addNumber((int)damage);
 	        		player.sendPacket(smsg);
@@ -124,13 +129,15 @@ public class Blow implements ISkillHandler
 	        	else
 	        		target.reduceCurrentHp(damage, activeChar);
 				if(activeChar instanceof L2PcInstance)
-					activeChar.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
-				SystemMessage sm = new SystemMessage(SystemMessage.YOU_DID_S1_DMG);
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
+				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
 	            sm.addNumber((int)damage);
 	            activeChar.sendPacket(sm);
 			}
 			//Possibility of a lethal strike
-			if(!target.isRaid())
+			if(!target.isRaid() 
+					&& !(target instanceof L2DoorInstance)
+					&& !(target instanceof L2NpcInstance && ((L2NpcInstance)target).getNpcId() == 35062))
 			{
 				int chance = Rnd.get(100);
 				//2nd lethal effect activate (cp,hp to 1 or if target is npc then hp to 1)
@@ -146,7 +153,7 @@ public class Blow implements ISkillHandler
     						player.getStatus().setCurrentCp(1);
         				}
         			}
-	            	activeChar.sendPacket(new SystemMessage(SystemMessage.LETHAL_STRIKE));   
+	            	activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));   
 	            }
 	            else if(skill.getLethalChance1() > 0 && chance < Formulas.getInstance().calcLethal(activeChar, target, skill.getLethalChance1())){
             		if (target instanceof L2PcInstance) 
@@ -157,7 +164,7 @@ public class Blow implements ISkillHandler
          		   	}
             		else if (target instanceof L2NpcInstance) // If is a monster remove first damage and after 50% of current hp
             			target.reduceCurrentHp(target.getStatus().getCurrentHp()/2, activeChar);
-	            	activeChar.sendPacket(new SystemMessage(SystemMessage.LETHAL_STRIKE));   
+	            	activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));   
 				}
 			}
             L2Effect effect = activeChar.getEffect(skill.getId());    

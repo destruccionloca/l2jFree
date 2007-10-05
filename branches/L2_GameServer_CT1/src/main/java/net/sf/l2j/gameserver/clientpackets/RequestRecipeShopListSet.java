@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2ManufactureItem;
 import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.RecipeShopMsg;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -31,12 +32,14 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  * cd(dd)
  * @version $Revision: 1.1.2.3.2.3 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestRecipeShopListSet extends L2GameClientPacket{
+public class RequestRecipeShopListSet extends L2GameClientPacket
+{
 	private static final String _C__B2_RequestRecipeShopListSet = "[C] b2 RequestRecipeShopListSet";
 	//private final static Log _log = LogFactory.getLog(RequestRecipeShopListSet.class.getName());
 	
 	private int _count;
 	private int[] _items; // count*2
+    @Override
     protected void readImpl()
     {
         _count = readD();
@@ -50,6 +53,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket{
         }
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
@@ -58,7 +62,7 @@ public class RequestRecipeShopListSet extends L2GameClientPacket{
 
 		if (player.isInDuel())
 		{
-			player.sendPacket(new SystemMessage(SystemMessage.CANT_CRAFT_DURING_COMBAT));
+			player.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
 			return;
 		}
 
@@ -89,11 +93,9 @@ public class RequestRecipeShopListSet extends L2GameClientPacket{
 		}
 	}
 	
-	
+	@Override
 	public String getType()
 	{
 		return _C__B2_RequestRecipeShopListSet;
 	}
-	
-	
 }

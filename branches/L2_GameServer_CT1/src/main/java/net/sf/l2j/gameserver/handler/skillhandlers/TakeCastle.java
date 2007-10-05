@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -39,7 +40,7 @@ import net.sf.l2j.gameserver.util.Util;
 public class TakeCastle implements ISkillHandler 
 { 
     //private final static Log _log = LogFactory.getLog(TakeCastle.class.getName()); 
-    protected SkillType[] _skillIds = {SkillType.TAKECASTLE}; 
+    private static final SkillType[] SKILL_IDS = {SkillType.TAKECASTLE}; 
     
     public void useSkill(L2Character activeChar, @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
     {
@@ -60,7 +61,7 @@ public class TakeCastle implements ISkillHandler
     
     public SkillType[] getSkillIds() 
     { 
-        return _skillIds; 
+        return SKILL_IDS; 
     } 
 
     /**
@@ -79,13 +80,13 @@ public class TakeCastle implements ISkillHandler
         if (activeChar == null || !(activeChar instanceof L2PcInstance))
             return false;
 
-        SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+        SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         L2PcInstance player = (L2PcInstance)activeChar;
 
         if (castle == null || castle.getCastleId() <= 0)
-            sm.addString("You must be on castle ground to use this skill");
+            sm.addString("You must be on castle ground to use this skill.");
         else if (player.getTarget() == null && !(player.getTarget() instanceof L2ArtefactInstance))
-            sm.addString("You can only use this skill on an artifact");
+            sm.addString("You can only use this skill on an artifact.");
         else if (!castle.getSiege().getIsInProgress())
             sm.addString("You can only use this skill during a siege.");
         else if (!Util.checkIfInRange(200, player, player.getTarget(), true))

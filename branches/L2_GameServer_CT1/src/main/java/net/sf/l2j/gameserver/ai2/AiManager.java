@@ -19,12 +19,10 @@
 package net.sf.l2j.gameserver.ai2;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.jar.JarFile;
 import java.util.logging.Logger;
 
 import javolution.util.FastList;
@@ -68,10 +66,10 @@ public class AiManager
 	
 	public void load()
 	{
-		try
-		{
+		//try
+		//{
 			//TODO redo all the SpecificAiManger loading it's completely messed up:
-			JarFile jar = new JarFile("./l2jserver.jar");
+			//JarFile jar = new JarFile("./l2jserver.jar");
 			URL url = Class.class.getResource("/net/sf/l2j/gameserver/ai/managers");
 			//jar.getJarEntry("/net/sf/l2j/gameserver/ai/managers").get;
 			if(url == null)
@@ -169,12 +167,13 @@ public class AiManager
 					}
 				}
 			}
-		}
-		catch (IOException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		//}
+		//catch (IOException e1)
+		//{
+		//	// TODO Auto-generated catch block
+		//	e1.printStackTrace();
+		//}
+
 		// build a mighty map
 		for(AiInstance ai : _aiList)
 		{

@@ -43,26 +43,26 @@ public class FriendList extends L2GameServerPacket
 {
 	private static final String _S__FA_FRIENDLIST = "[S] FA FriendList";
 	
-    private L2PcInstance _cha;
+    private L2PcInstance _activeChar;
     
     public FriendList(L2PcInstance cha)
     {
-        _cha = cha;
+        _activeChar = cha;
     }
 	
+    @Override
     protected final void writeImpl()
 	{
-		if (_cha == null)  
+		if (_activeChar == null)  
 			return;  
 		
-		if (L2FriendList.getFriendList(_cha).size() > 0)
+		if (L2FriendList.getFriendList(_activeChar).size() > 0)
 		{
 			writeC(0xfa);
-			writeH(L2FriendList.getFriendListNames(_cha).length);
+			writeH(L2FriendList.getFriendListNames(_activeChar).length);
             
-			for(Map.Entry<Integer, String> _friend : L2FriendList.getFriendList(_cha).entrySet())
+			for(Map.Entry<Integer, String> _friend : L2FriendList.getFriendList(_activeChar).entrySet())
 	        {
-
 				L2PcInstance friend = L2World.getInstance().getPlayer(_friend.getValue());
 	        	writeH(0); // ??
 				writeD(_friend.getKey());
@@ -79,6 +79,7 @@ public class FriendList extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__FA_FRIENDLIST;

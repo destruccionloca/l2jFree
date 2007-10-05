@@ -23,9 +23,10 @@ import java.sql.SQLException;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.cache.CrestCache;
-import net.sf.l2j.gameserver.idfactory.BitSetIDFactory;
+import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -45,6 +46,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 	private byte[] _data;
 	
     
+    @Override
     protected void readImpl()
     {
         _length  = readD();
@@ -52,6 +54,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
         readB(_data);
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -65,7 +68,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 
 		if (clan.getDissolvingExpiryTime() > System.currentTimeMillis())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_SET_CREST_WHILE_DISSOLUTION_IN_PROGRESS));
         	return;
 		}
 
@@ -74,7 +77,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 			CrestCache.getInstance().removePledgeCrest(clan.getCrestId());
 			
             clan.setHasCrest(false);
-            activeChar.sendPacket(new SystemMessage(SystemMessage.CLAN_CREST_HAS_BEEN_DELETED));
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_CREST_HAS_BEEN_DELETED));
             
             for (L2PcInstance member : clan.getOnlineMembers(""))
                 member.broadcastUserInfo();
@@ -91,13 +94,13 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 		{	
 			if (clan.getLevel() < 3)
 			{	
-				activeChar.sendPacket(new SystemMessage(SystemMessage.CLAN_LVL_3_NEEDED_TO_SET_CREST));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_LVL_3_NEEDED_TO_SET_CREST));
 				return;
 			}
 			
             CrestCache crestCache = CrestCache.getInstance();
             
-            int newId = BitSetIDFactory.getInstance().getNextId();
+            int newId = IdFactory.getInstance().getNextId();
             
             if(clan.hasCrest())
             {
@@ -142,6 +145,7 @@ public class RequestSetPledgeCrest extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__53_REQUESTSETPLEDGECREST;

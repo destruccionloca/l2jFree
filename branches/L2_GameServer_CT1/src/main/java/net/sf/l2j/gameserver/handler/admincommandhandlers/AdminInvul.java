@@ -22,7 +22,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,11 +30,11 @@ import org.apache.commons.logging.LogFactory;
  * This class handles following admin commands:
  * - invul = turns invulnerability on/off
  * 
- * @version $Revision: 1.2.4.4 $ $Date: 2005/04/11 10:06:02 $
+ * @version $Revision: 1.2.4.4 $ $Date: 2007/07/31 10:06:02 $
  */
 public class AdminInvul implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminInvul.class.getName());
-	private static String[] _adminCommands = {"admin_invul", "admin_setinvul"};
+	private static final String[] ADMIN_COMMANDS = {"admin_invul", "admin_setinvul"};
 	private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -52,33 +51,33 @@ public class AdminInvul implements IAdminCommandHandler {
 		return true;
 	}
 	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
 	
-	private boolean checkLevel(int level) {
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
 	
-	private void handleInvul(L2PcInstance activeChar) {
+	private void handleInvul(L2PcInstance activeChar)
+	{
+		String text;
 		if (activeChar.isInvul())
 		{
         	activeChar.setIsInvul(false);
-        	String text = activeChar.getName() + " is now mortal";
-        	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-        	sm.addString(text);
-        	activeChar.sendPacket(sm);
+        	text = activeChar.getName() + " is now mortal";
         	if (_log.isDebugEnabled())
         		_log.debug("GM: Gm removed invul mode from character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
-		} else
+		}
+		else
 		{
 			activeChar.setIsInvul(true);
-			String text = activeChar.getName() + " is now invulnerable";
-			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-			sm.addString(text);
-			activeChar.sendPacket(sm);
+			text = activeChar.getName() + " is now invulnerable";
 			if (_log.isDebugEnabled()) 
 				_log.debug("GM: Gm activated invul mode for character "+activeChar.getName()+"("+activeChar.getObjectId()+")");
 		}
+		activeChar.sendMessage(text);
 	}
 }

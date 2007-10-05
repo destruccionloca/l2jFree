@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SendTradeDone;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -37,18 +38,20 @@ public class AnswerTradeRequest extends L2GameClientPacket{
 	
     private int _response;
     
+    @Override
     protected void readImpl()
     {
         _response = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
 			sendPacket(new ActionFailed());
@@ -68,7 +71,7 @@ public class AnswerTradeRequest extends L2GameClientPacket{
         {
             // Trade partner not found, cancel trade
 			player.sendPacket(new SendTradeDone(0));
-            SystemMessage msg = new SystemMessage(SystemMessage.PLAYER_NOT_ONLINE);
+            SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
             player.sendPacket(msg);
 			player.setActiveRequester(null);
 			msg = null;
@@ -78,7 +81,7 @@ public class AnswerTradeRequest extends L2GameClientPacket{
 		if (_response == 1) player.startTrade(partner);
 		else
 		{
-			SystemMessage msg = new SystemMessage(SystemMessage.S1_DENIED_TRADE_REQUEST);
+			SystemMessage msg = new SystemMessage(SystemMessageId.S1_DENIED_TRADE_REQUEST);
 			msg.addString(player.getName());
 			partner.sendPacket(msg);
 			msg = null;
@@ -92,6 +95,7 @@ public class AnswerTradeRequest extends L2GameClientPacket{
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__40_ANSWERTRADEREQUEST;

@@ -33,14 +33,14 @@ public class QuestManager
     protected static Log _log = LogFactory.getLog(QuestManager.class.getName());
 
     // =========================================================
-    private static QuestManager _Instance;
+    private static QuestManager _instance;
     public static final QuestManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
         	File jscript;
     		System.out.println("Initializing QuestManager");
-            _Instance = new QuestManager();
+            _instance = new QuestManager();
             
             jscript = new File(Config.DATAPACK_ROOT, "data/jscript");
             for (File file : jscript.listFiles())
@@ -49,16 +49,16 @@ public class QuestManager
             		file.delete();
             }
             if (!Config.ALT_DEV_NO_QUESTS)
-            	_Instance.load();
+            	_instance.load();
         }
-        return _Instance;
+        return _instance;
     }
     // =========================================================
 
     
     // =========================================================
     // Data Field
-    private List<Quest> _Quests = new FastList<Quest>();
+    private List<Quest> _quests = new FastList<Quest>();
     
     // =========================================================
     // Constructor
@@ -81,7 +81,7 @@ public class QuestManager
      */
     public final boolean reload(int questId)
     {
-    	Quest q = this.getQuest(questId);
+    	Quest q = getQuest(questId);
     	if (q == null)
     	{
     		return false;
@@ -137,23 +137,23 @@ public class QuestManager
     
     public final void addQuest(Quest newQuest)
     {
-    	for (Quest quest : this.getQuests())
+    	for (Quest quest : getQuests())
         {
     		if (quest.getName().equalsIgnoreCase(newQuest.getName()))
     		{
     			_log.info("Replaced: "+quest.getName()+" with "+newQuest.getName());
-    			this.getQuests().remove(quest);
-    			this.getQuests().add(newQuest);
+    			getQuests().remove(quest);
+    			getQuests().add(newQuest);
     			return;
     		}
         }
     	
-    	this.getQuests().add(newQuest);
+    	getQuests().add(newQuest);
     }
     
     public final List<Quest> getQuests()
     {
-        if (_Quests == null) _Quests = new FastList<Quest>();
-        return _Quests;
+        if (_quests == null) _quests = new FastList<Quest>();
+        return _quests;
     }
 }

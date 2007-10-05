@@ -32,10 +32,12 @@ public class ObserverReturn extends L2GameClientPacket
 	
 	// cddddc
 
+    @Override
     protected void readImpl()
     {
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -48,6 +50,7 @@ public class ObserverReturn extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return OBSRETURN__C__04;

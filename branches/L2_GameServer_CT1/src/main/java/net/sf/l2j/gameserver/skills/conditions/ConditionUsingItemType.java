@@ -28,15 +28,17 @@ import net.sf.l2j.gameserver.skills.Env;
  * TODO To change the template for this generated type comment go to
  * Window - Preferences - Java - Code Style - Code Templates
  */
-public class ConditionUsingItemType extends Condition {
+public class ConditionUsingItemType extends Condition
+{
 
-	final int _mask;
+	private final int _mask;
 	
     public ConditionUsingItemType(int mask)
 	{
 		_mask = mask;
 	}
 	
+	@Override
 	public boolean testImpl(Env env)
 	{
 		if (!(env.player instanceof L2PcInstance))

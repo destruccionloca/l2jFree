@@ -45,7 +45,7 @@ public class ItemsOnGroundManager
 {
     protected static Log _log = LogFactory.getLog(ItemsOnGroundManager.class.getName());
     
-    private static ItemsOnGroundManager _Instance;
+    private static ItemsOnGroundManager _instance;
     protected FastList<L2ItemInstance> _items = null;
 
     private ItemsOnGroundManager()
@@ -58,12 +58,12 @@ public class ItemsOnGroundManager
 
     public static final ItemsOnGroundManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
-            _Instance = new ItemsOnGroundManager();
-            _Instance.load();
+            _instance = new ItemsOnGroundManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
 
     private void load()
@@ -159,7 +159,7 @@ public class ItemsOnGroundManager
             emptyTable();
     }
 
-    public void Save(L2ItemInstance item)
+    public void save(L2ItemInstance item)
     {
         if(!Config.SAVE_DROPPED_ITEM) return;
         _items.add(item);
@@ -200,53 +200,58 @@ public class ItemsOnGroundManager
 
     protected class storeInDb extends Thread
     {
+        @Override
         public void run()
         {
-        if(!Config.SAVE_DROPPED_ITEM) return;
-        
-        emptyTable();
-        
-        if (_items.isEmpty()){
-            if (_log.isDebugEnabled())
+            if(!Config.SAVE_DROPPED_ITEM) return;
+
+            emptyTable();
+
+            if (_items.isEmpty() && _log.isDebugEnabled())
+            {
                 _log.warn("ItemsOnGroundManager: nothing to save...");
-            return;
+                return;
             }
         
-        for (L2ItemInstance item: _items){
-            
-            if (CursedWeaponsManager.getInstance().isCursed(item.getItemId())) continue; // Cursed Items not saved to ground, prevent double save
+            for (L2ItemInstance item: _items)
+            {
+                if (CursedWeaponsManager.getInstance().isCursed(item.getItemId())) continue; // Cursed Items not saved to ground, prevent double save
 
-            java.sql.Connection con = null;
-            try {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("insert into itemsonground(object_id,item_id,count,enchant_level,x,y,z,drop_time,equipable) values(?,?,?,?,?,?,?,?,?)");
-            statement.setInt(1, item.getObjectId());
-            statement.setInt(2, item.getItemId());
-            statement.setInt(3, item.getCount());
-            statement.setInt(4, item.getEnchantLevel());
-            statement.setInt(5, item.getX());
-            statement.setInt(6, item.getY());
-            statement.setInt(7, item.getZ());
+                java.sql.Connection con = null;
+                try
+                {
+                    con = L2DatabaseFactory.getInstance().getConnection(con);
+                    PreparedStatement statement = con.prepareStatement("insert into itemsonground(object_id,item_id,count,enchant_level,x,y,z,drop_time,equipable) values(?,?,?,?,?,?,?,?,?)");
+                    statement.setInt(1, item.getObjectId());
+                    statement.setInt(2, item.getItemId());
+                    statement.setInt(3, item.getCount());
+                    statement.setInt(4, item.getEnchantLevel());
+                    statement.setInt(5, item.getX());
+                    statement.setInt(6, item.getY());
+                    statement.setInt(7, item.getZ());
 
-            if (item.isProtected())
-                statement.setLong(8,-1); //item will be protected
-            else
-                statement.setLong(8,item.getDropTime()); //item will be added to ItemsAutoDestroy          
-            if (item.isEquipable())
-                statement.setLong(9,1); //set equipable
-            else
-                statement.setLong(9,0);         
-            statement.execute();
-            statement.close();
-            } catch (Exception e) {
-                _log.fatal("error while inserting into table ItemsOnGround " + e,e);
-            }             
-         finally {
-            try { con.close(); } catch (Exception e) {}            
-         }        
-       }
-        if (_log.isDebugEnabled())
-            _log.warn("ItemsOnGroundManager: "+ _items.size() + " items on ground saved");
-      }
+                    if (item.isProtected())
+                        statement.setLong(8,-1); //item will be protected
+                    else
+                        statement.setLong(8,item.getDropTime()); //item will be added to ItemsAutoDestroy          
+                    if (item.isEquipable())
+                        statement.setLong(9,1); //set equipable
+                    else
+                        statement.setLong(9,0);         
+                    statement.execute();
+                    statement.close();
+                }
+                catch (Exception e)
+                {
+                    _log.fatal("error while inserting into table ItemsOnGround " + e,e);
+                }             
+                finally
+                {
+                    try { con.close(); } catch (Exception e) {}            
+                }        
+            }
+            if (_log.isDebugEnabled())
+                _log.warn("ItemsOnGroundManager: "+ _items.size() + " items on ground saved");
+        }
     }
- }
+}

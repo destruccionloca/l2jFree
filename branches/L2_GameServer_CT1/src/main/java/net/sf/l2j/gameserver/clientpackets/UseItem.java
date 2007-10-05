@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
@@ -57,11 +58,13 @@ public class UseItem extends L2GameClientPacket
      * format:      cd
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
     }
 
+    @Override
     protected void runImpl()
     {
 
@@ -76,7 +79,7 @@ public class UseItem extends L2GameClientPacket
 
         if (activeChar.getPrivateStoreType() != 0)
         {
-            activeChar.sendPacket(new SystemMessage(SystemMessage.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE));
             activeChar.sendPacket(new ActionFailed());
             return;
         }
@@ -149,7 +152,7 @@ public class UseItem extends L2GameClientPacket
             if (activeChar.isFishing() && (itemId < 6535 || itemId > 6540))
             {
                 // You cannot do anything else while fishing                
-                SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_DO_WHILE_FISHING_3);                
+                SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);                
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
                 return;                
@@ -158,7 +161,7 @@ public class UseItem extends L2GameClientPacket
             // Char cannot use item when dead
             if (activeChar.isDead())
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_CANNOT_BE_USED);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 				sm.addItemName(itemId);
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
@@ -168,7 +171,7 @@ public class UseItem extends L2GameClientPacket
             // Char cannot use pet items
             if (item.getItem().isForWolf() || item.getItem().isForHatchling() || item.getItem().isForStrider() || item.getItem().isForBabyPet())
             {
-            	SystemMessage sm = new SystemMessage(SystemMessage.CANNOT_EQUIP_PET_ITEM); // You cannot equip a pet item.
+            	SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_EQUIP_PET_ITEM); // You cannot equip a pet item.
 				sm.addItemName(itemId);
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
@@ -213,20 +216,20 @@ public class UseItem extends L2GameClientPacket
                 if (activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST)
                     activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 
-                // Don't allow weapon/shield hero equipment during Olimpia 
-                if (activeChar.isInOlympiadMode()  
-                		&& (	
-                				bodyPart == L2Item.SLOT_LR_HAND  
-                				|| bodyPart == L2Item.SLOT_L_HAND  
-                				|| bodyPart == L2Item.SLOT_R_HAND
-                			) 
-                		&& ( 
-                				(item.getItemId() >= 6611 && item.getItemId() <= 6621) ||  
-                				item.getItemId() == 6842 
-                			)
-                	) 
-                { 
-                	return; 
+                // Don't allow weapon/shield hero equipment during Olympiads
+                if (activeChar.isInOlympiadMode()
+                        && (
+                                bodyPart == L2Item.SLOT_LR_HAND
+                                || bodyPart == L2Item.SLOT_L_HAND
+                                || bodyPart == L2Item.SLOT_R_HAND
+                            )
+                        && (
+                                (item.getItemId() >= 6611 && item.getItemId() <= 6621) ||
+                                item.getItemId() == 6842 
+                            )
+                    )
+                {
+                    return;
                 }
 
                 // Equip or unEquip
@@ -243,23 +246,50 @@ public class UseItem extends L2GameClientPacket
                 {
                    if (item.getEnchantLevel() > 0)
                    {
-                       sm = new SystemMessage(SystemMessage.EQUIPMENT_S1_S2_REMOVED);
+                       sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
                        sm.addNumber(item.getEnchantLevel());
                        sm.addItemName(itemId);
                    }
                    else
                    {
-                       sm = new SystemMessage(SystemMessage.S1_DISARMED);
+                       sm = new SystemMessage(SystemMessageId.S1_DISARMED);
                        sm.addItemName(itemId);
                    }
                    activeChar.sendPacket(sm);
 
-                	items = activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
+                   // Remove augementation boni on unequip
+		            if (item.isAugmented())
+		            	item.getAugmentation().removeBoni(activeChar);
+                   
+               		switch(item.getEquipSlot())
+               		{
+	               		case 1:
+	               			bodyPart = L2Item.SLOT_L_EAR;
+	               			break;
+	               		case 2:
+	               			bodyPart = L2Item.SLOT_R_EAR;
+	               			break;
+	               		case 4:
+	               			bodyPart = L2Item.SLOT_L_FINGER;
+	               			break;
+	               		case 5:
+	               			bodyPart = L2Item.SLOT_R_FINGER;
+	               			break;
+	               		default:
+	               			break;
+               		}
+
+                   items = activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
                 }
 	            else
                 {
                 	int tempBodyPart = item.getItem().getBodyPart();
                 	L2ItemInstance tempItem = activeChar.getInventory().getPaperdollItemByL2ItemId(tempBodyPart);
+                	
+                	// remove augmentation stats for replaced items
+                	// currently weapons only..
+                	if (tempItem != null && tempItem.isAugmented())
+                		tempItem.getAugmentation().removeBoni(activeChar);
                 	
                 	//check if the item replaces a wear-item
                 	if (tempItem != null && tempItem.isWear())
@@ -286,21 +316,25 @@ public class UseItem extends L2GameClientPacket
                 		if (tempItem != null && tempItem.isWear()) return;
                 	}
 
-                   if (item.getEnchantLevel() > 0)
-                   {
-                       sm = new SystemMessage(SystemMessage.S1_S2_EQUIPPED);
-                       sm.addNumber(item.getEnchantLevel());
-                       sm.addItemName(itemId);
-                   }
-                   else
-                   {
-                       sm = new SystemMessage(SystemMessage.S1_EQUIPPED);
-                       sm.addItemName(itemId);
-                   }
-                   activeChar.sendPacket(sm);
-
-		            items = activeChar.getInventory().equipItemAndRecord(item);
+					if (item.getEnchantLevel() > 0)
+					{
+						sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
+						sm.addNumber(item.getEnchantLevel());
+						sm.addItemName(itemId);
+					}
+					else
+					{
+						sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
+						sm.addItemName(itemId);
+					}
+					activeChar.sendPacket(sm);
+					
+		            // Apply augementation boni on equip
+		            if (item.isAugmented())
+		            	item.getAugmentation().applyBoni(activeChar);
 		            
+					items = activeChar.getInventory().equipItemAndRecord(item);
+					
 		            // Consume mana - will start a task if required; returns if item is not a shadow item
 		            item.decreaseMana(false);
                 }
@@ -308,13 +342,12 @@ public class UseItem extends L2GameClientPacket
 
                 activeChar.refreshExpertisePenalty();
                 
-				if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
-					activeChar.CheckIfWeaponIsAllowed();
+                if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
+                    activeChar.checkIfWeaponIsAllowed();
 
                 InventoryUpdate iu = new InventoryUpdate();
                 iu.addItems(Arrays.asList(items));
                 activeChar.sendPacket(iu);
-                activeChar.sendPacket(new EtcStatusUpdate(activeChar));
                 activeChar.abortAttack();
                 activeChar.broadcastUserInfo();
             }
@@ -350,9 +383,9 @@ public class UseItem extends L2GameClientPacket
 //      }
     }
 
+    @Override
     public String getType()
     {
         return _C__14_USEITEM;
     }
-
 }

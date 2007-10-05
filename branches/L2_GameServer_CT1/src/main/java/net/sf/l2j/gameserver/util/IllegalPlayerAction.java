@@ -44,9 +44,9 @@ public final class IllegalPlayerAction implements Runnable
 {
 	private static Log _logAudit = LogFactory.getLog("audit");
 
-    String _message;
-    int _punishment;
-    L2PcInstance _actor;
+    protected String _message;
+    protected int _punishment;
+    protected L2PcInstance _actor;
     
     public static final int PUNISH_BROADCAST = 1;
     public static final int PUNISH_KICK = 2;
@@ -55,21 +55,21 @@ public final class IllegalPlayerAction implements Runnable
     
     public IllegalPlayerAction(L2PcInstance actor, String message, int punishment)
     {
-        this._message        = message;
-        this._punishment     = punishment;
-        this._actor          = actor;
+        _message        = message;
+        _punishment     = punishment;
+        _actor          = actor;
         
         switch(punishment)
         {
             case PUNISH_KICK:
-                _actor.sendMessage("You are will be kicked for illegal action, GM informed");
+            	_actor.sendMessage("You will be kicked for illegal action, GM informed.");
                 break;
             case PUNISH_KICKBAN:
-                _actor.sendMessage("You are banned for illegal action, GM informed");
+                _actor.sendMessage("You are banned for illegal action, GM informed.");
                 break;
             case PUNISH_JAIL:
             	_actor.sendMessage("Illegal action performed!");
-            	_actor.sendMessage("You will be teleported to GM Consultation Service area and jailed");
+            	_actor.sendMessage("You will be teleported to GM Consultation Service area and jailed.");
             	break;
         }
     }

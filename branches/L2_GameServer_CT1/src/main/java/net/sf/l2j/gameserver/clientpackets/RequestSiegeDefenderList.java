@@ -27,27 +27,30 @@ import net.sf.l2j.gameserver.serverpackets.SiegeDefenderList;
  * 
  * @version $Revision: 1.3.4.2 $ $Date: 2005/03/27 15:29:30 $
  */
-public class RequestSiegeDefenderList extends L2GameClientPacket{
-    
+public class RequestSiegeDefenderList extends L2GameClientPacket
+{    
     private static final String _C__a3_RequestSiegeDefenderList = "[C] a3 RequestSiegeDefenderList";
     //private final static Log _log = LogFactory.getLog(RequestJoinParty.class.getName());
 
-    private int _CastleId;
+    private int _castleId;
     
+    @Override
     protected void readImpl()
     {
-        _CastleId = readD();
+        _castleId = readD();
     }
 
+    @Override
     protected void runImpl()
     {
-        Castle castle = CastleManager.getInstance().getCastle(_CastleId);
+        Castle castle = CastleManager.getInstance().getCastle(_castleId);
         if (castle == null) return;
         SiegeDefenderList sdl = new SiegeDefenderList(castle);
         sendPacket(sdl);
     }
     
     
+    @Override
     public String getType()
     {
         return _C__a3_RequestSiegeDefenderList;

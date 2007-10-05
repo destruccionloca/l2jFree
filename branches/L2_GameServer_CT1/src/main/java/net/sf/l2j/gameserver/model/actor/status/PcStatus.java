@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.status;
 
 import net.sf.l2j.gameserver.model.L2Character;
@@ -7,6 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.entity.Duel;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.util.Util;
@@ -25,7 +43,9 @@ public class PcStatus extends PlayableStatus
 
     // =========================================================
     // Method - Public
+    @Override
     public final void reduceHp(double value, L2Character attacker) { reduceHp(value, attacker, true); }
+    @Override
     public final void reduceHp(double value, L2Character attacker, boolean awake)
     {
         double realValue = value;
@@ -99,7 +119,7 @@ public class PcStatus extends PlayableStatus
         if (attacker != null && attacker != getActiveChar() && realValue > 0)
         {
             // Send a System Message to the L2PcInstance
-            SystemMessage smsg = new SystemMessage(SystemMessage.S1_GAVE_YOU_S2_DMG);
+            SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
 
             if (_log.isDebugEnabled())
                     _log.debug("Attacker:" + attacker.getName());
@@ -135,5 +155,6 @@ public class PcStatus extends PlayableStatus
 
     // =========================================================
     // Property - Public
+    @Override
     public L2PcInstance getActiveChar() { return (L2PcInstance)super.getActiveChar(); }
 }

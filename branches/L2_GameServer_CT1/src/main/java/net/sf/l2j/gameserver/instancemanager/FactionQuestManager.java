@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.sql.PreparedStatement;
@@ -19,23 +37,23 @@ public class FactionQuestManager
     protected static Log _log = LogFactory.getLog(FactionQuestManager.class.getName());
 
     // =========================================================
-    private static FactionQuestManager _Instance;
+    private static FactionQuestManager _instance;
     public static final FactionQuestManager getInstance()
     {
-        if (_Instance == null)
+        if (_instance == null)
         {
             if ( _log.isDebugEnabled())_log.debug("Initializing FactionQuestManager");
-            _Instance = new FactionQuestManager();
-            _Instance.load();
+            _instance = new FactionQuestManager();
+            _instance.load();
         }
-        return _Instance;
+        return _instance;
     }
     // =========================================================
 
     
     // =========================================================
     // Data Field
-    private FastList<FactionQuest> _Quests;
+    private FastList<FactionQuest> _quests;
     
     // =========================================================
     // Constructor
@@ -47,8 +65,8 @@ public class FactionQuestManager
     // Method - Public
     public final void reload()
     {
-        this.getFactionQuests().clear();
-        this.load();
+        getFactionQuests().clear();
+        load();
     }
 
     // =========================================================
@@ -113,7 +131,7 @@ public class FactionQuestManager
     
     public final FastList<FactionQuest> getFactionQuests()
     {
-        if (_Quests == null) _Quests = new FastList<FactionQuest>();
-        return _Quests;
+        if (_quests == null) _quests = new FastList<FactionQuest>();
+        return _quests;
     }
 }

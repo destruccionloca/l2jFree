@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.BuyList;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,46 +38,49 @@ import org.apache.commons.logging.LogFactory;
 public class AdminShop implements IAdminCommandHandler {
 	private final static Log _log = LogFactory.getLog(AdminShop.class.getName());
 	
-	private static String[] _adminCommands = {
-			"admin_buy",
-			"admin_gmshop"
-			};
+	private static final String[] ADMIN_COMMANDS = {
+		"admin_buy",
+		"admin_gmshop"
+	};
 	private static final int REQUIRED_LEVEL = Config.GM_CREATE_ITEM;
 
-	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
         if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+                return false;
 		
 		if (command.startsWith("admin_buy"))
 		{
-			try {
+			try
+			{
 				handleBuyRequest(activeChar, command.substring(10));
-			} catch (IndexOutOfBoundsException e) {
-				SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-				sm.addString("Please specify buylist.");
-				activeChar.sendPacket(sm);
+			}
+			catch (IndexOutOfBoundsException e)
+			{
+				activeChar.sendMessage("Please specify buylist.");
 			}
 		}
 		else if (command.equals("admin_gmshop"))
 		{
 			AdminHelpPage.showHelpPage(activeChar, "gmshops.htm");
 		}
-
 		return true;
 	}
-	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
-	
-	private boolean checkLevel(int level) {
+
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
-	
+
 	private void handleBuyRequest(L2PcInstance activeChar, String command)
 	{	
 		int val = -1;
-		
 		try
 		{
 			val = Integer.parseInt(command);
@@ -87,20 +89,19 @@ public class AdminShop implements IAdminCommandHandler {
 		{
 			_log.warn("admin buylist failed:"+command);
 		}
-		
+
 		L2TradeList list = TradeListTable.getInstance().getBuyList(val);
-		
+
 		if (list != null)
 		{	
-			BuyList bl  = new BuyList(list, activeChar.getAdena());
-			activeChar.sendPacket(bl);
-			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") opened GM shop id "+val);
+			activeChar.sendPacket(new BuyList(list, activeChar.getAdena()));
+			if (_log.isDebugEnabled())
+			       _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") opened GM shop id"+val);
 		}
 		else
 		{
 			_log.warn("no buylist with id:" +val);
 		}
-		
 		activeChar.sendPacket( new ActionFailed() );
 	}
 }

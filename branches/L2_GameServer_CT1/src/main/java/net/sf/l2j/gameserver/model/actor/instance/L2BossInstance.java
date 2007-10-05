@@ -22,16 +22,15 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.instancemanager.AntharasManager;
-import net.sf.l2j.gameserver.instancemanager.BaiumManager;
-import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -90,13 +89,16 @@ public final class L2BossInstance extends L2MonsterInstance
     /**
      * Constructor for L2BossInstance. This represent all grandbosses:
      * <ul>
-     * <li>12001    Queen Ant</li>
-     * <li>12169    Orfen</li>
-     * <li>12211    Antharas</li>
-     * <li>12372    Baium</li>
-     * <li>12374    Zaken</li>
-     * <li>12899    Valakas</li>
-     * <li>12052    Core</li>
+     * <li>29001    Queen Ant</li>
+     * <li>29014    Orfen</li>
+     * <li>29019    Antharas</li>
+     * <li>29067    Antharas</li>
+     * <li>29068    Antharas</li>
+     * <li>29020    Baium</li>
+     * <li>29022    Zaken</li>
+     * <li>29028    Valakas</li>
+     * <li>29006    Core</li>
+     * <li>29045    Frintezza</li>
      * </ul>
      * <br>
      * <b>For now it's nothing more than a L2Monster but there'll be a scripting<br>
@@ -110,6 +112,7 @@ public final class L2BossInstance extends L2MonsterInstance
         super(objectId, template);
     }
 
+    @Override
     protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
 
     @Override
@@ -118,7 +121,7 @@ public final class L2BossInstance extends L2MonsterInstance
         // [L2J_JP ADD START SANDMAN]
         if (killer instanceof L2PlayableInstance)
         {
-            SystemMessage msg = new SystemMessage(1209);
+            SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
             broadcastPacket(msg);
         }
 
@@ -158,38 +161,23 @@ public final class L2BossInstance extends L2MonsterInstance
     }
 
     @Override
-    public void OnSpawn()
+    public void onSpawn()
     {
         // [L2J_JP ADD START SANDMAN]
         // get players in lair and update known list.
-    	getKnownList().getKnownPlayers().clear();
+    	//getKnownList().getKnownPlayers().clear();
     	switch (getNpcId())
 		{
-			case 29019: // Antharas
-			case 29066: // Antharas
-			case 29067: // Antharas
-			case 29068: // Antharas
-				for (L2Object object : AntharasManager.getInstance().getPlayersInLair())
-				{
-					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
-				}
-				break;
-			case 29020: // Baium
-				for (L2Object object : BaiumManager.getInstance().getPlayersInLair())
-				{
-					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
-				}
-				break;
-			case 29028: // Valakas
-				for (L2Object object : ValakasManager.getInstance().getPlayersInLair())
-				{
-					getKnownList().getKnownPlayers().put(object.getObjectId(),(L2PcInstance) object);
-				}
+			case 29022:	// Zaken (Note:teleport-out of instant-move execute onSpawn.)
+				if(GameTimeController.getInstance().isNowNight())
+					setIsInvul(true);
+				else
+					setIsInvul(false);
+				break;				
+			default:
 				break;
 		}
-        
-        super.OnSpawn();
-
+        super.onSpawn();
     }
 
     /**
@@ -201,7 +189,7 @@ public final class L2BossInstance extends L2MonsterInstance
     {
 
         // [L2J_JP ADD SANDMAN]
-        if (this.IsInSocialAction()) return;
+    	if (IsInSocialAction() || isInvul()) return;
 
         switch (getTemplate().getNpcId())
         {
@@ -216,16 +204,15 @@ public final class L2BossInstance extends L2MonsterInstance
                 break;
             // [L2J_JP ADD SANDMAN]
             case 29001: // Queen ant
-                List<L2MinionInstance> _minions = this.minionList.getSpawnedMinions();
+                List<L2MinionInstance> _minions = _minionList.getSpawnedMinions();
 
                 if (_minions.isEmpty())
                 {
-                    if (minionMaintainTask == null)
+                    if (_minionMaintainTask == null)
                     {
                         try
                         {
-                            minionMaintainTask = 
-                            	ThreadPoolManager.getInstance().scheduleGeneral(
+                            _minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneral(
                             			new RespawnNurseAnts(),NurseAntRespawnDelay);
                         }
                         catch (NullPointerException e)
@@ -240,7 +227,7 @@ public final class L2BossInstance extends L2MonsterInstance
 
                     for (L2MinionInstance m : _minions)
                     {
-                        this.callMinions();
+                        callMinions();
                         m.setTarget(this);
                         m.doCast(_heal1);
                         m.setTarget(this);
@@ -255,6 +242,7 @@ public final class L2BossInstance extends L2MonsterInstance
         super.reduceCurrentHp(damage, attacker, awake);
     }
     
+    @Override
     public boolean isRaid()
     {
         return true;
@@ -273,7 +261,7 @@ public final class L2BossInstance extends L2MonsterInstance
         {
             try
             {
-                minionList.maintainMinions();
+                _minionList.maintainMinions();
             }
             catch (Throwable e)
             {
@@ -281,7 +269,7 @@ public final class L2BossInstance extends L2MonsterInstance
             }
             finally
             {
-            	minionMaintainTask = null;
+            	_minionMaintainTask = null;
             }
         }
     }

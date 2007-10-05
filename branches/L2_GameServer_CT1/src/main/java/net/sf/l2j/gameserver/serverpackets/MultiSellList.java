@@ -54,6 +54,7 @@ public class MultiSellList extends L2GameServerPacket
     	_finished = finished;
     }
     
+    @Override
     protected void writeImpl()
     {
     	// [ddddd] [dchh] [hdhdh] [hhdh]
@@ -106,5 +107,4 @@ public class MultiSellList extends L2GameServerPacket
     {
         return _S__D0_MULTISELLLIST;
     }
-
 }

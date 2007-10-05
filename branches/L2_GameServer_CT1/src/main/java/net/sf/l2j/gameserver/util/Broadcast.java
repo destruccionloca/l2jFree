@@ -49,7 +49,7 @@ public final class Broadcast
     private final static Log _log = LogFactory.getLog(Broadcast.class.getName());
     
     /**
-     * Send a packet to all L2PcInstance in the _KnownPlayers of the L2Character that have the Character targetted.<BR><BR>
+     * Send a packet to all L2PcInstance in the _knownPlayers of the L2Character that have the Character targetted.<BR><BR>
      *
      * <B><U> Concept</U> :</B><BR>
      * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.<BR>
@@ -72,7 +72,7 @@ public final class Broadcast
     }
 
     /**
-     * Send a packet to all L2PcInstance in the _KnownPlayers of the L2Character.<BR><BR>
+     * Send a packet to all L2PcInstance in the _knownPlayers of the L2Character.<BR><BR>
      *
      * <B><U> Concept</U> :</B><BR>
      * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.<BR>
@@ -100,7 +100,7 @@ public final class Broadcast
     }
     
     /**
-     * Send a packet to all L2PcInstance in the _KnownPlayers (in the specified radius) of the L2Character.<BR><BR>
+     * Send a packet to all L2PcInstance in the _knownPlayers (in the specified radius) of the L2Character.<BR><BR>
      *
      * <B><U> Concept</U> :</B><BR>
      * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.<BR>
@@ -126,7 +126,7 @@ public final class Broadcast
     }
     
     /**
-     * Send a packet to all L2PcInstance in the _KnownPlayers of the L2Character and to the specified character.<BR><BR>
+     * Send a packet to all L2PcInstance in the _knownPlayers of the L2Character and to the specified character.<BR><BR>
      *
      * <B><U> Concept</U> :</B><BR>
      * L2PcInstance in the detection area of the L2Character are identified in <B>_knownPlayers</B>.<BR>

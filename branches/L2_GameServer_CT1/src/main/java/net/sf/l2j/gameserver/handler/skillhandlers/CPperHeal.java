@@ -36,7 +36,7 @@ public class CPperHeal implements ISkillHandler
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
-    private static SkillType[] _skillIds = {SkillType.COMBATPOINTPERHEAL};
+    private static final SkillType[] SKILL_IDS = {SkillType.COMBATPOINTPERHEAL};
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -48,6 +48,9 @@ public class CPperHeal implements ISkillHandler
         for(int index = 0;index < targets.length;index++)
         {
             target = (L2Character)targets[index];
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
             
             double percp = target.getMaxCp()*skill.getPower();
             target.getStatus().setCurrentCp(target.getStatus().getCurrentCp()-percp);             
@@ -61,6 +64,6 @@ public class CPperHeal implements ISkillHandler
     
     public SkillType[] getSkillIds()
     {
-        return _skillIds;
+        return SKILL_IDS;
     }
 }

@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -38,11 +39,13 @@ public class RequestFriendList extends L2GameClientPacket
 	 * @param rawPacket
 	 */
 	
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 	
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -52,7 +55,7 @@ public class RequestFriendList extends L2GameClientPacket
 		
 		SystemMessage sm;
 		
-		sm = new SystemMessage(SystemMessage.FRIENDS_LIST_HEADER);
+		sm = new SystemMessage(SystemMessageId.FRIEND_LIST_HEAD);
 		activeChar.sendPacket(sm);
 		
 		for (String friendName : L2FriendList.getFriendListNames(activeChar))
@@ -61,25 +64,24 @@ public class RequestFriendList extends L2GameClientPacket
 			
 			if (friend == null)
 			{
-				sm = new SystemMessage(SystemMessage.S1_CURRENTLY_OFFLINE);
+				sm = new SystemMessage(SystemMessageId.S1_OFFLINE);
 				sm.addString(friendName);
 			}else
 			{
-				sm = new SystemMessage(SystemMessage.S1_CURRENTLY_ONLINE);
+				sm = new SystemMessage(SystemMessageId.S1_ONLINE);
 				sm.addString(friendName);
 			}
 			
 			activeChar.sendPacket(sm);
 		}
 		
-		sm = new SystemMessage(SystemMessage.FRIENDS_LIST_FOOTER);
+		sm = new SystemMessage(SystemMessageId.FRIEND_LIST_FOOT);
 		activeChar.sendPacket(sm);
-		
 		sm = null;
-		
 	}
 	
-	public String getType()
+	@Override
+    public String getType()
 	{
 		return _C__60_REQUESTFRIENDLIST;
 	}

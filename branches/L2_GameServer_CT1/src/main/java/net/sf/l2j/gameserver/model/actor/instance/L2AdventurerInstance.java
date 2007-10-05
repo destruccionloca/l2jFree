@@ -42,6 +42,7 @@ public class L2AdventurerInstance extends L2FolkInstance
         super(objectId, template);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("npcfind_byid"))
@@ -87,6 +88,7 @@ public class L2AdventurerInstance extends L2FolkInstance
         }
     }
 
+    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";

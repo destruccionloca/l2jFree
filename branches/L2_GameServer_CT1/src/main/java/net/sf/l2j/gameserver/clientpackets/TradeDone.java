@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -41,18 +42,20 @@ public class TradeDone extends L2GameClientPacket
 
 	private int _response;
 	
+    @Override
     protected void readImpl()
     {
         _response = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 		
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
 			player.cancelActiveTrade();
@@ -62,10 +65,10 @@ public class TradeDone extends L2GameClientPacket
 		
         TradeList trade = player.getActiveTradeList();
         if (trade == null)
-        	{
+        {
             _log.warn("player.getTradeList == null in "+getType()+" for player "+player.getName());
-        	return;
-        	}
+			return;
+        }
         if (trade.isLocked()) return;
 
 		if (_response == 1)
@@ -74,7 +77,7 @@ public class TradeDone extends L2GameClientPacket
 	        {
 	            // Trade partner not found, cancel trade
 	            player.cancelActiveTrade();
-	            SystemMessage msg = new SystemMessage(SystemMessage.PLAYER_NOT_ONLINE);
+	            SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
 	            player.sendPacket(msg);
 	            msg = null;
 	            return;
@@ -88,7 +91,7 @@ public class TradeDone extends L2GameClientPacket
 	            sendPacket(new ActionFailed());
 	            return;
 	        }
-	        trade.Confirm();
+	        trade.confirm();
 		}
 		else player.cancelActiveTrade();
 	}
@@ -96,6 +99,7 @@ public class TradeDone extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__17_TRADEDONE;

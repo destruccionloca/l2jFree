@@ -29,7 +29,7 @@ public class ServerStatus extends GameServerBasePacket
 {
     private Vector<Attribute> _attributes;
 
-    public static final String[] statusString = {"Auto", "Good", "Normal", "Full", "Down", "Gm Only"};
+    public static final String[] STATUS_STRING = {"Auto", "Good", "Normal", "Full", "Down", "Gm Only"};
 
     public static final int SERVER_LIST_STATUS = 0x01;
     public static final int SERVER_LIST_CLOCK = 0x02;
@@ -54,8 +54,8 @@ public class ServerStatus extends GameServerBasePacket
 
         Attribute(int pId, int pValue)
         {
-            this.id = pId;
-            this.value = pValue;
+            id = pId;
+            value = pValue;
         }
     }
 
@@ -80,12 +80,9 @@ public class ServerStatus extends GameServerBasePacket
         for (int i = 0; i < _attributes.size(); i++)
         {
             Attribute temp = _attributes.get(i);
-
             writeD(temp.id);
             writeD(temp.value);
         }
-
         return getBytes();
     }
-
 }

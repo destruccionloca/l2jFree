@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  */
 public class CastleDoors implements IVoicedCommandHandler
 {
-    private static String[] _voicedCommands = { "open", "close"}; 
+    private static final String[] VOICED_COMMANDS = { "open", "close"}; 
 
     public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
     {
@@ -39,7 +39,7 @@ public class CastleDoors implements IVoicedCommandHandler
             L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
             Castle castle = CastleManager.getInstance().getCastle(activeChar.getClan().getHasCastle());
             if (door == null || castle == null) return false;
-            if (castle.checkIfInZone(door.getX(), door.getY()))
+            if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
             {
                 door.openMe();
             }}else return false;
@@ -49,7 +49,7 @@ public class CastleDoors implements IVoicedCommandHandler
             L2DoorInstance door = (L2DoorInstance) activeChar.getTarget();
             Castle castle = CastleManager.getInstance().getCastle(activeChar.getClan().getHasCastle());
             if (door == null || castle == null) return false;
-            if (castle.checkIfInZone(door.getX(), door.getY()))
+            if (castle.checkIfInZone(door.getX(), door.getY(), door.getZ()))
             {
                 door.closeMe();
             }} else return false;
@@ -60,6 +60,6 @@ public class CastleDoors implements IVoicedCommandHandler
  
     public String[] getVoicedCommandList()
     {
-        return _voicedCommands;
+        return VOICED_COMMANDS;
     }
 }

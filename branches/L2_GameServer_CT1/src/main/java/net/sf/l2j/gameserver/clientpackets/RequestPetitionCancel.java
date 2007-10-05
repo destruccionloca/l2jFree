@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -39,11 +40,13 @@ public class RequestPetitionCancel extends L2GameClientPacket
 	
 	//private int _unknown;
 	
+    @Override
     protected void readImpl()
     {
         //_unknown = readD(); This is pretty much a trigger packet.
     }
 	
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -55,7 +58,7 @@ public class RequestPetitionCancel extends L2GameClientPacket
 			if (activeChar.isGM())
 				PetitionManager.getInstance().endActivePetition(activeChar);
 			else 
-				activeChar.sendPacket(new SystemMessage(SystemMessage.PETITION_UNDER_PROCESS));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
 		}
 		else
 		{
@@ -65,7 +68,7 @@ public class RequestPetitionCancel extends L2GameClientPacket
 				{
 					int numRemaining = Config.MAX_PETITIONS_PER_PLAYER - PetitionManager.getInstance().getPlayerTotalPetitionCount(activeChar);
 					
-					SystemMessage sm = new SystemMessage(SystemMessage.PETITION_CANCELED_SUBMIT_S1_MORE_TODAY);
+					SystemMessage sm = new SystemMessage(SystemMessageId.PETITION_CANCELED_SUBMIT_S1_MORE_TODAY);
 					sm.addString(String.valueOf(numRemaining));
 					activeChar.sendPacket(sm);
 					sm = null;
@@ -76,12 +79,12 @@ public class RequestPetitionCancel extends L2GameClientPacket
 				}
 				else 
 				{
-					activeChar.sendPacket(new SystemMessage(SystemMessage.FAILED_CANCEL_PETITION_TRY_LATER));
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_CANCEL_PETITION_TRY_LATER));
 				}
 			}
 			else
 			{
-				activeChar.sendPacket(new SystemMessage(SystemMessage.PETITION_NOT_SUBMITTED));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.PETITION_NOT_SUBMITTED));
 			}
 		}
 	}
@@ -89,9 +92,9 @@ public class RequestPetitionCancel extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__80_REQUEST_PETITIONCANCEL;
 	}
-	
 }

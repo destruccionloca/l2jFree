@@ -39,7 +39,6 @@ public class TopicBBSManager extends BaseBBSManager
 {
 	private ForumService __forumService;
 
-
 	private TopicBBSManager()
 	{
 	}
@@ -439,5 +438,4 @@ public class TopicBBSManager extends BaseBBSManager
 		html.append("</html>");
 		separateAndSend(html.toString(), activeChar);
 	}
-
 }

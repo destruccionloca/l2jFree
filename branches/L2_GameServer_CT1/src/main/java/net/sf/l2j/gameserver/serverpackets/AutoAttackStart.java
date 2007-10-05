@@ -29,28 +29,29 @@ public class AutoAttackStart extends L2GameServerPacket
 	// dh
 	
 	private static final String _S__3B_AUTOATTACKSTART = "[S] 2B AutoAttackStart";
-	private int _targetId;
+	private int _targetObjId;
 
 	/**
 	 * @param _characters
 	 */
-	public AutoAttackStart(int targetId)
+	public AutoAttackStart(int targetObjId)
 	{
-		_targetId = targetId;
+		_targetObjId = targetObjId;
 	}
 	
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x2b);
-		writeD(_targetId);
+		writeD(_targetObjId);
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__3B_AUTOATTACKSTART;
 	}
-	
 }

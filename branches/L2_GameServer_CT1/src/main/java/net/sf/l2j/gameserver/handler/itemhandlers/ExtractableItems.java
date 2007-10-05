@@ -29,11 +29,15 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.tools.L2Registry;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -43,6 +47,8 @@ import net.sf.l2j.tools.L2Registry;
 
 public class ExtractableItems implements IItemHandler
 {
+	protected static Log _log = LogFactory.getLog(ExtractableItems.class);
+	
     private ExtractableItemsService extractableItemsService = (ExtractableItemsService)L2Registry.getBean(IServiceRegistry.EXTRACTABLE_ITEM);
     
     
@@ -81,7 +87,7 @@ public class ExtractableItems implements IItemHandler
 
         if (createItemID == 0)
         {
-            activeChar.sendMessage("Nothing happend.");
+            activeChar.sendMessage("Nothing happened.");
             return;
         }
 
@@ -89,6 +95,12 @@ public class ExtractableItems implements IItemHandler
 
         if (createItemID > 0)
         {
+        	if (ItemTable.getInstance().createDummyItem(createItemID) == null)
+        	{
+        		_log.warn("createItemID "+createItemID+" doesn't have template!");
+        		activeChar.sendMessage("Nothing happened.");
+        		return;
+        	}
             if (ItemTable.getInstance().createDummyItem(createItemID)
                     .isStackable())
                 inv.addItem("Extract", createItemID, createAmount, activeChar,
@@ -102,12 +114,12 @@ public class ExtractableItems implements IItemHandler
 
             if (createAmount > 1)
             {
-                sm = new SystemMessage(SystemMessage.EARNED_S2_S1_s);
+                sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
                 sm.addItemName(createItemID);
                 sm.addNumber(createAmount);
             } else
             {
-                sm = new SystemMessage(SystemMessage.EARNED_ITEM);
+                sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
                 sm.addItemName(createItemID);
             }
             activeChar.sendPacket(sm);

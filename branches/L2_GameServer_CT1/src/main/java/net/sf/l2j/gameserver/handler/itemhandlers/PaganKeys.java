@@ -17,13 +17,13 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.lib.Rnd;
  */
 public class PaganKeys implements IItemHandler
 {
-	private static int[] _itemIds = {8273, 8274, 8275};
+	private static final int[] ITEM_IDS = {8273, 8274, 8275};
 	public static final int INTERACTION_DISTANCE = 100;
 	
 	public void useItem(L2PlayableInstance playable, L2ItemInstance item)
@@ -48,7 +48,7 @@ public class PaganKeys implements IItemHandler
 		
 		if (!(target instanceof L2DoorInstance))
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessage.INCORRECT_TARGET));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			activeChar.sendPacket(new ActionFailed());
 			return;
 		}
@@ -81,7 +81,7 @@ public class PaganKeys implements IItemHandler
                 		activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 3));
                 	}
                 	else {
-                		//test with: activeChar.sendPacket(new SystemMessage(SystemMessage.FAILED_TO_UNLOCK_DOOR)); 
+                		//test with: activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_TO_UNLOCK_DOOR)); 
                 		activeChar.sendMessage("You failed to open Anterooms Door.");
                 		activeChar.broadcastPacket(new SocialAction(activeChar.getObjectId(), 13));
         				PlaySound playSound = new PlaySound("interfacesound.system_close_01");
@@ -135,6 +135,6 @@ public class PaganKeys implements IItemHandler
 	
 	public int[] getItemIds()
 	{
-		return _itemIds;
+		return ITEM_IDS;
 	}
 }

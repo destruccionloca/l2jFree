@@ -1,4 +1,4 @@
- /*
+/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -32,6 +32,7 @@ public class RequestPledgePower extends L2GameClientPacket
     private int _action;
     private int _privs;
     
+    @Override
     protected void readImpl()
     {
         _rank = readD();
@@ -43,6 +44,7 @@ public class RequestPledgePower extends L2GameClientPacket
         else _privs = 0;
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -64,6 +66,7 @@ public class RequestPledgePower extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__C0_REQUESTPLEDGEPOWER;

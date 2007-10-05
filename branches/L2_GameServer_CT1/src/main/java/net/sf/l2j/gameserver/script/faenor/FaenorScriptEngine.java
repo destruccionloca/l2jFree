@@ -47,32 +47,30 @@ public class FaenorScriptEngine extends ScriptEngine
     private static Log _log = LogFactory.getLog(GameServer.class.getName());
     public static String PACKAGE_DIRECTORY = "data/script/";
 
-    private static FaenorScriptEngine instance;
+    private static FaenorScriptEngine _instance;
 
-    private LinkedList<ScriptDocument> scripts;
+    private LinkedList<ScriptDocument> _scripts;
 
     public static FaenorScriptEngine getInstance()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = new FaenorScriptEngine();
+            _instance = new FaenorScriptEngine();
         }
-
-        return instance;
+        return _instance;
     }
 
     private FaenorScriptEngine()
     {
-        scripts = new LinkedList<ScriptDocument>();
+        _scripts = new LinkedList<ScriptDocument>();
         loadPackages();
         parsePackages();
-
     }
 
     public void reloadPackages()
     {
-        scripts.clear();
-        scripts = new LinkedList<ScriptDocument>();
+        _scripts.clear();
+        _scripts = new LinkedList<ScriptDocument>();
         parsePackages();
     }
 
@@ -110,10 +108,10 @@ public class FaenorScriptEngine extends ScriptEngine
 
             ScriptPackage module = new ScriptPackage(zipPack);
 
-            List<ScriptDocument> scrpts = module.getScriptFiles();
-            for (ScriptDocument script : scrpts)
+            List<ScriptDocument> scripts = module.getScriptFiles();
+            for (ScriptDocument script : scripts)
             {
-                this.scripts.add(script);
+                _scripts.add(script);
             }
 
         }
@@ -121,7 +119,7 @@ public class FaenorScriptEngine extends ScriptEngine
 
     public void parsePackages()
     {
-        for (ScriptDocument script : scripts)
+        for (ScriptDocument script : _scripts)
         {
             parseScript(script);
         }
@@ -161,13 +159,14 @@ public class FaenorScriptEngine extends ScriptEngine
         }
     }
 
+    @Override
     public String toString()
     {
-        if (scripts.isEmpty()) return "No Packages Loaded.";
+        if (_scripts.isEmpty()) return "No Packages Loaded.";
 
         String out = "Script Packages currently loaded:\n";
 
-        for (ScriptDocument script : scripts)
+        for (ScriptDocument script : _scripts)
         {
             out += script;
         }

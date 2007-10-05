@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
  */
 public class AdminHelpPage implements IAdminCommandHandler {
 
-	private static String[] _adminCommands = {"admin_help"};
+	private static final String[] ADMIN_COMMANDS = { "admin_help" };
 	private static final int REQUIRED_LEVEL = Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -54,15 +54,17 @@ public class AdminHelpPage implements IAdminCommandHandler {
 		
 		return true;
 	}
-	
-	public String[] getAdminCommandList() {
-		return _adminCommands;
+
+	public String[] getAdminCommandList()
+	{
+		return ADMIN_COMMANDS;
 	}
-	
-	private boolean checkLevel(int level) {
+
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
-	
+
 	//FIXME: implement method to send html to player in L2PcInstance directly
 	//PUBLIC & STATIC so other classes from package can include it directly
 	public static void showHelpPage(L2PcInstance targetChar, String filename)

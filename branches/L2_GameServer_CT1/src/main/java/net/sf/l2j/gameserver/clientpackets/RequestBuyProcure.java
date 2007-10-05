@@ -1,3 +1,21 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.clientpackets;
 
 import javolution.util.FastList;
@@ -9,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2ManorManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -29,6 +48,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
     private int _listId;
     private int _count;
     private int[] _items;
+    @SuppressWarnings("unused")
     private FastList<CropProcure> _procureList = new FastList<CropProcure>();
     /**
      * packet type id 0xc3
@@ -60,6 +80,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
      * format:      cdd (dd) 
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         _listId = readD();
@@ -69,6 +90,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
         _items = new int[_count * 2];
         for (int i = 0; i < _count; i++)
         {
+            @SuppressWarnings("unused")
             long servise = readD();
             int itemId   = readD(); _items[i * 2 + 0] = itemId;
             long cnt      = readD(); 
@@ -81,6 +103,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
         }
     }
     
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
@@ -123,7 +146,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
             if (count > Integer.MAX_VALUE)
             {
                 Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" tried to purchase over "+Integer.MAX_VALUE+" items at the same time.",  Config.DEFAULT_PUNISH);
-                SystemMessage sm = new SystemMessage(SystemMessage.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
+                SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED);
                 sendPacket(sm);
                 return;
             }
@@ -138,14 +161,14 @@ public class RequestBuyProcure extends L2GameClientPacket {
 
         if (!player.getInventory().validateWeight(weight))
         {
-            sendPacket(new SystemMessage(SystemMessage.WEIGHT_LIMIT_EXCEEDED));
+            sendPacket(new SystemMessage(SystemMessageId.WEIGHT_LIMIT_EXCEEDED));
             return;
         }
 
     
         if (!player.getInventory().validateCapacity(slots))
         {
-            sendPacket(new SystemMessage(SystemMessage.SLOTS_FULL));
+            sendPacket(new SystemMessage(SystemMessageId.SLOTS_FULL));
             return;
         }
         
@@ -183,6 +206,7 @@ public class RequestBuyProcure extends L2GameClientPacket {
         su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
         player.sendPacket(su);
     }
+    @Override
     public String getType()
     {
         return _C__C3_REQUESTBUYPROCURE;

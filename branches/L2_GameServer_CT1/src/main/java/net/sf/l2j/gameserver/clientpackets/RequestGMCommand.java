@@ -40,7 +40,7 @@ public class RequestGMCommand extends L2GameClientPacket
 {
 	private static final String _C__6E_REQUESTGMCOMMAND = "[C] 6e RequestGMCommand";
 	static Log _log = LogFactory.getLog(RequestGMCommand.class.getName());
-			
+	
 	private String _targetName;
 	private int _command;
     //private final int _unknown;
@@ -50,6 +50,7 @@ public class RequestGMCommand extends L2GameClientPacket
 	 *  
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
     {
         _targetName = readS();
@@ -57,13 +58,13 @@ public class RequestGMCommand extends L2GameClientPacket
         //_unknown  = readD();
     }
 
-
+    @Override
     protected void runImpl()
 	{
 		L2PcInstance player = L2World.getInstance().getPlayer(_targetName);
 		L2PcInstance activeChar = getClient().getActiveChar();
 
-        if (player == null)
+		if (player == null || activeChar.getAccessLevel() < Config.GM_ALTG_MIN_LEVEL)
 			return;
 		
 		switch(_command)
@@ -107,13 +108,13 @@ public class RequestGMCommand extends L2GameClientPacket
 				sendPacket(new GMViewWarehouseWithdrawList(player));
 			    break;
 			}
-				
 		}
 	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__6E_REQUESTGMCOMMAND;

@@ -70,7 +70,7 @@ public class StackIDFactory extends IdFactory
 
             _curOID++;
             _log.info("IdFactory: Next usable Object ID is: " + _curOID);
-            initialized = true;
+            _initialized = true;
         }
         catch (Exception e1)
         {
@@ -82,8 +82,7 @@ public class StackIDFactory extends IdFactory
         }
 	}
     
-	private int insertUntil(int[] tmp_obj_ids, int idx, int N,
-            java.sql.Connection con) throws SQLException
+	private int insertUntil(int[] tmp_obj_ids, int idx, int N, java.sql.Connection con) throws SQLException
     {
         int id = tmp_obj_ids[idx];
         if (id == _tempOID)
@@ -94,7 +93,7 @@ public class StackIDFactory extends IdFactory
         // check these IDs not present in DB
         if (Config.BAD_ID_CHECKING)
         {
-        for (String check : id_checks)
+        for (String check : ID_CHECKS)
         {
             PreparedStatement ps = con.prepareStatement(check);
             ps.setInt(1, _tempOID);
@@ -132,7 +131,8 @@ public class StackIDFactory extends IdFactory
 	}
 
 
-	public synchronized int getNextId()
+    @Override
+    public synchronized int getNextId()
     {
         	int id;
         	if (!_freeOIDStack.empty())
@@ -149,11 +149,13 @@ public class StackIDFactory extends IdFactory
 	 * return a used Object ID back to the pool
 	 * @param object ID
 	 */
-	public synchronized void releaseId(int id)
+    @Override
+    public synchronized void releaseId(int id)
     {
 		_freeOIDStack.push(id);
     }
     
+    @Override
     public int size()
     {
         return FREE_OBJECT_ID_SIZE - _curOID + FIRST_OID + _freeOIDStack.size();

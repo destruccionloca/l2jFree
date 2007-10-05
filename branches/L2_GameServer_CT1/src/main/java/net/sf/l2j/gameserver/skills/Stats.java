@@ -156,8 +156,8 @@ public enum Stats
     PATK_UNDEAD     ("pAtk-undead"),
     PDEF_UNDEAD     ("pDef-undead"),
     
-	PATK_VALAKAS    ("pDef-valakas"),
-    PDEF_VALAKAS    ("pAtk-valakas"),
+	PATK_VALAKAS    ("pAtk-valakas"),
+    PDEF_VALAKAS    ("pDef-valakas"),
 
     ATK_REUSE       ("atkReuse"),
 
@@ -174,7 +174,11 @@ public enum Stats
     MP_CONSUME_RATE        ("MpConsumeRate"),
     HP_CONSUME_RATE        ("HpConsumeRate"),
     MP_CONSUME             ("MpConsume"),
-    SOULSHOT_COUNT         ("soulShotCount")
+    SOULSHOT_COUNT         ("soulShotCount"),
+    
+    BLOCK_RECEIVE_DAMAGE   ("block_receive;damage"),
+    BLOCK_RECEIVE_BUFF	   ("block_receive;buff"),
+    BLOCK_RECEIVE_DEBUFF   ("block_receive;debuff"),
     ;
 	
 	public static final int NUM_STATS = values().length; 

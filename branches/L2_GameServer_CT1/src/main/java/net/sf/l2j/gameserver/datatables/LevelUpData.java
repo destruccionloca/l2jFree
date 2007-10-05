@@ -54,7 +54,7 @@ public class LevelUpData
 	
 	private static LevelUpData _instance;
 	
-	private FastMap<Integer, L2LvlupData> _lvltable;
+	private FastMap<Integer, L2LvlupData> _lvlTable;
 	
 	public static LevelUpData getInstance()
 	{
@@ -67,7 +67,7 @@ public class LevelUpData
 	
 	private LevelUpData()
 	{
-		_lvltable = new FastMap<Integer, L2LvlupData>();
+		_lvlTable = new FastMap<Integer, L2LvlupData>();
 		java.sql.Connection con = null;
 		try
 		{
@@ -79,25 +79,25 @@ public class LevelUpData
 			while (rset.next())
 			{
 				lvlDat = new L2LvlupData();
-				lvlDat.set_classid(rset.getInt(CLASS_ID));
-				lvlDat.set_classLvl(rset.getInt(CLASS_LVL));
-				lvlDat.set_classHpBase(rset.getFloat(HP_BASE));
-				lvlDat.set_classHpAdd(rset.getFloat(HP_ADD));
-				lvlDat.set_classHpModifier(rset.getFloat(HP_MOD));
-                lvlDat.set_classCpBase(rset.getFloat(CP_BASE));
-                lvlDat.set_classCpAdd(rset.getFloat(CP_ADD));
-                lvlDat.set_classCpModifier(rset.getFloat(CP_MOD));
-				lvlDat.set_classMpBase(rset.getFloat(MP_BASE));
-				lvlDat.set_classMpAdd(rset.getFloat(MP_ADD));
-				lvlDat.set_classMpModifier(rset.getFloat(MP_MOD));
+				lvlDat.setClassid(rset.getInt(CLASS_ID));
+				lvlDat.setClassLvl(rset.getInt(CLASS_LVL));
+				lvlDat.setClassHpBase(rset.getFloat(HP_BASE));
+				lvlDat.setClassHpAdd(rset.getFloat(HP_ADD));
+				lvlDat.setClassHpModifier(rset.getFloat(HP_MOD));
+                lvlDat.setClassCpBase(rset.getFloat(CP_BASE));
+                lvlDat.setClassCpAdd(rset.getFloat(CP_ADD));
+                lvlDat.setClassCpModifier(rset.getFloat(CP_MOD));
+				lvlDat.setClassMpBase(rset.getFloat(MP_BASE));
+				lvlDat.setClassMpAdd(rset.getFloat(MP_ADD));
+				lvlDat.setClassMpModifier(rset.getFloat(MP_MOD));
 				
-				_lvltable.put(new Integer(lvlDat.get_classid()), lvlDat);
+				_lvlTable.put(new Integer(lvlDat.getClassid()), lvlDat);
 			}
 			
 			rset.close();
 			statement.close();
 
-			_log.info("LevelUpData: Loaded " + _lvltable.size() + " Character Level Up Templates.");
+			_log.info("LevelUpData: Loaded " + _lvlTable.size() + " Character Level Up Templates.");
 		}
 		catch (Exception e)
 		{
@@ -115,10 +115,10 @@ public class LevelUpData
 	 */
 	public L2LvlupData getTemplate(int classId)
 	{
-		return _lvltable.get(classId);
+		return _lvlTable.get(classId);
 	}
 	public L2LvlupData getTemplate(ClassId classId)
 	{
-		return _lvltable.get(classId.getId());
+		return _lvlTable.get(classId.getId());
 	}
 }

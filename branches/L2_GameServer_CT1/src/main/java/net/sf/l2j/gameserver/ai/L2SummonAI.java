@@ -30,18 +30,20 @@ import net.sf.l2j.gameserver.model.L2Character.AIAccessor;
 public class L2SummonAI extends L2CharacterAI
 {
 
-    private boolean thinking; // to prevent recursive thinking
+    private boolean _thinking; // to prevent recursive thinking
 
     public L2SummonAI(AIAccessor accessor)
     {
         super(accessor);
     }
 
+    @Override
     protected void onIntentionIdle()
     {
         onIntentionActive();
     }
 
+    @Override
     protected void onIntentionActive()
     {
         L2Summon summon = (L2Summon) _actor;
@@ -97,10 +99,11 @@ public class L2SummonAI extends L2CharacterAI
         return;
     }
 
+    @Override
     protected void onEvtThink()
     {
-        if (thinking || _actor.isAllSkillsDisabled()) return;
-        thinking = true;
+        if (_thinking || _actor.isAllSkillsDisabled()) return;
+        _thinking = true;
         try
         {
             if (getIntention() == AI_INTENTION_ATTACK) thinkAttack();
@@ -110,7 +113,7 @@ public class L2SummonAI extends L2CharacterAI
         }
         finally
         {
-            thinking = false;
+            _thinking = false;
         }
     }
 

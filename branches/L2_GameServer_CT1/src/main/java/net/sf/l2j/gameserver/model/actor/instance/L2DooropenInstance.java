@@ -41,6 +41,7 @@ public class L2DooropenInstance extends L2FolkInstance
         super(objectID, template);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("Chat"))
@@ -68,6 +69,7 @@ public class L2DooropenInstance extends L2FolkInstance
      * this is called when a player interacts with this NPC
      * @param player
      */
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());

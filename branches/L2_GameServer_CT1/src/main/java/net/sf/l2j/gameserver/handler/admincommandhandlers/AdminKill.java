@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControllableMobInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -40,14 +41,14 @@ import org.apache.commons.logging.LogFactory;
  * - kill <radius> = If radius is specified, then ALL players only in that radius will be killed.
  * - kill_monster <radius> = If radius is specified, then ALL non-players only in that radius will be killed.
  * 
- * @version $Revision: 1.2.4.5 $ $Date: 2005/04/11 10:06:06 $
+ * @version $Revision: 1.2.4.5 $ $Date: 2007/07/31 10:06:06 $
  */
 public class AdminKill implements IAdminCommandHandler 
 {
     private final static Log _log = LogFactory.getLog(AdminKill.class);
-    private static String[] _adminCommands = {"admin_kill", "admin_kill_monster"};
+    private static final String[] ADMIN_COMMANDS = {"admin_kill", "admin_kill_monster"};
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
-    
+   
     private boolean checkLevel(int level) 
     {
         return (level >= REQUIRED_LEVEL);
@@ -75,11 +76,10 @@ public class AdminKill implements IAdminCommandHandler
                         try 
                         {
                             int radius  = Integer.parseInt(st.nextToken());
-    
                             for (L2Character knownChar : plyr.getKnownList().getKnownCharactersInRadius(radius))
                             {
                                 if (knownChar == null || knownChar instanceof L2ControllableMobInstance || knownChar.equals(activeChar)) continue;
-                                
+
                                 kill(activeChar, knownChar);
                             }
 
@@ -90,7 +90,8 @@ public class AdminKill implements IAdminCommandHandler
                             activeChar.sendMessage("Invalid radius.");
                             return false;
                         }
-                    } else
+                    }
+                    else
                     {
                         kill(activeChar, plyr);
                     }
@@ -122,7 +123,7 @@ public class AdminKill implements IAdminCommandHandler
 
                 if (obj == null || obj instanceof L2ControllableMobInstance || !(obj instanceof L2Character))
                 {
-                    activeChar.sendPacket(new SystemMessage(SystemMessage.INCORRECT_TARGET));
+                    activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
                 } else
                 {
                     kill(activeChar, (L2Character)obj);
@@ -149,6 +150,6 @@ public class AdminKill implements IAdminCommandHandler
     
     public String[] getAdminCommandList() 
     {
-        return _adminCommands;
+        return ADMIN_COMMANDS;
     }
 }

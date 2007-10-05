@@ -1,8 +1,26 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -18,6 +36,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
         super(objectId, template);
     }
 
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("RideWyvern"))
@@ -41,7 +60,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
         		 !player.isMounted() || 
         		 !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
-                SystemMessage sm = new SystemMessage(SystemMessage.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
+                SystemMessage sm = new SystemMessage(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
                 player.sendPacket(sm);
                 sm = null;
                 return;
@@ -51,9 +70,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                		  petItem != null && 
                		  petItem.getEnchantLevel() < 55 )
             	{
-            		SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-                    sm.addString("Your Strider don't reach the required level.");
-                    player.sendPacket(sm);
+					player.sendMessage("Your Strider don't reach the required level.");
                     return; 
             	}
         	
@@ -80,13 +97,12 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             }
             else
             {
-            	SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
-                sm.addString("You need 10 Crystals: B Grade.");
-                player.sendPacket(sm);
+                player.sendMessage("You need 10 Crystals: B Grade.");
                 return;
             }
         }
     }
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -101,9 +117,9 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
         String filename = "data/html/wyvernmanager/wyvernmanager-no.htm";
         
         int condition = validateCondition(player);
-        if (condition > Cond_All_False)
+        if (condition > COND_ALL_FALSE)
         {
-            if (condition == Cond_Owner)                                     // Clan owns castle
+            if (condition == COND_OWNER)                                     // Clan owns castle
                 filename = "data/html/wyvernmanager/wyvernmanager.htm";      // Owner message window
         }
         NpcHtmlMessage html = new NpcHtmlMessage(1);

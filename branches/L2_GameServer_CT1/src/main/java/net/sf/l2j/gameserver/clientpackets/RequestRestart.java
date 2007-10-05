@@ -24,14 +24,16 @@ import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.entity.ZoneType;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.serverpackets.RestartResponse;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+import net.sf.l2j.gameserver.Olympiad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -51,11 +53,13 @@ public class RequestRestart extends L2GameClientPacket
      * format:      c
      * @param decrypt
      */
+    @Override
     protected void readImpl()
     {
         // trigger
     }
 
+    @Override
     protected void runImpl()
     {
 
@@ -67,14 +71,15 @@ public class RequestRestart extends L2GameClientPacket
         }
 
         if(player.atEvent) {
-            player.sendPacket(SystemMessage.sendString("A superior power doesn't allow you to leave the event."));
+            player.sendMessage("A superior power doesn't allow you to leave the event.");
             return;
         }
         
         // prevent from player disconnect when in Olympiad mode
-        if(player.isInOlympiadMode()) {
-        	if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
-            player.sendPacket(SystemMessage.sendString("You can't restart when in Olympiad."));
+        if (player.isInOlympiadMode() || Olympiad.getInstance().isRegistered(player) || player.getOlympiadGameId()!=-1)
+        {
+            if (_log.isDebugEnabled()) _log.debug("Player " + player.getName() + " tried to logout while in Olympiad");
+            player.sendMessage("You can't restart when in Olympiad.");
             player.sendPacket(new ActionFailed());
             return;
         }
@@ -84,23 +89,22 @@ public class RequestRestart extends L2GameClientPacket
             if (_log.isDebugEnabled())
                 _log.debug("Player " + player.getName() + " tried to logout while fighting.");
 
-            player.sendPacket(new SystemMessage(SystemMessage.CANT_LOGOUT_WHILE_FIGHTING));
+            player.sendPacket(new SystemMessage(SystemMessageId.CANT_LOGOUT_WHILE_FIGHTING));
             player.sendPacket(new ActionFailed());
             return;
         }
 
         if (player.getPet() != null && !player.isBetrayed() && (player.getPet() instanceof L2PetInstance))
         {
-        	L2PetInstance pet = (L2PetInstance)player.getPet();
+            L2PetInstance pet = (L2PetInstance)player.getPet();
 
             if (pet.isAttackingNow())
             {
-            	pet.sendPacket(new SystemMessage(SystemMessage.PET_CANNOT_SENT_BACK_DURING_BATTLE));
+                pet.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_SENT_BACK_DURING_BATTLE));
                 player.sendPacket(new ActionFailed());
                 return;
             } 
-            else
-             pet.unSummon(player);
+            pet.unSummon(player);
         }
         // Prevent player from restarting if they are a festival participant
         // and it is in progress, otherwise notify party members that the player
@@ -109,23 +113,22 @@ public class RequestRestart extends L2GameClientPacket
         {
             if (SevenSignsFestival.getInstance().isFestivalInitialized())
             {
-                player.sendPacket(SystemMessage.sendString("You cannot restart while you are a participant in a festival."));
+                player.sendMessage("You cannot restart while you are a participant in a festival.");
                 player.sendPacket(new ActionFailed());
                 return;
             }
             L2Party playerParty = player.getParty();
 
             if (playerParty != null)
-                player.getParty().broadcastToPartyMembers(
-                                                          SystemMessage.sendString(player.getName()
+                player.getParty().broadcastToPartyMembers(SystemMessage.sendString(player.getName()
                                                               + " has been removed from the upcoming festival."));
         }
 
         // [L2J_JP ADD START]
         if (!(player.isGM()))
         {
-            if(ZoneManager.getInstance().checkIfInZone(ZoneType.ZoneTypeEnum.NoEscape.toString(),player)){
-                player.sendPacket(SystemMessage.sendString("You can not restart in here."));
+            if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,player)){
+                player.sendMessage("You can not restart in here.");
                 player.sendPacket(new ActionFailed());
                 return;                   
             }
@@ -133,7 +136,7 @@ public class RequestRestart extends L2GameClientPacket
         
         if(player.isFlying())
         {
-            player.sendPacket(SystemMessage.sendString("You can not restart while flying."));
+            player.sendMessage("You can not restart while flying.");
             player.sendPacket(new ActionFailed());
             return;                   
         }
@@ -152,7 +155,7 @@ public class RequestRestart extends L2GameClientPacket
         }
         player.getInventory().updateDatabase();
 
-        L2GameClient client = this.getClient();
+        L2GameClient client = getClient();
 
         // detach the client from the char so that the connection isnt closed in the deleteMe
         player.setClient(null);
@@ -172,8 +175,7 @@ public class RequestRestart extends L2GameClientPacket
         sendPacket(response);    
         
         // send char list
-        CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(),
-                                               getClient().getSessionId().playOkID1);
+        CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
         sendPacket(cl);
         getClient().setCharSelection(cl.getCharInfo());
     }
@@ -181,6 +183,7 @@ public class RequestRestart extends L2GameClientPacket
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__46_REQUESTRESTART;

@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.FloodProtector;
@@ -37,7 +38,7 @@ import net.sf.l2j.gameserver.util.FloodProtector;
 public class Firework implements IItemHandler 
 {
     //Modified by Baghak (Prograsso): Added Firework support
-    private static int[] _itemIds = { 6403, 6406, 6407 };
+    private static final int[] ITEM_IDS = { 6403, 6406, 6407 };
     
     public void useItem(L2PlayableInstance playable, L2ItemInstance item)
     {
@@ -47,7 +48,7 @@ public class Firework implements IItemHandler
 
         if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_FIREWORK))
         {
-        	SystemMessage sm = new SystemMessage(SystemMessage.S1_CANNOT_BE_USED);
+        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
         	sm.addItemName(itemId);
         	activeChar.sendPacket(sm);
         	return;
@@ -97,6 +98,6 @@ public class Firework implements IItemHandler
     }
     public int[] getItemIds()
     {
-        return _itemIds;
+        return ITEM_IDS;
     }
 }

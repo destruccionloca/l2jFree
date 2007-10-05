@@ -37,58 +37,70 @@ import org.apache.commons.logging.LogFactory;
 public final class FuncTemplate {
 
     private final static Log _log = LogFactory.getLog(FuncTemplate.class);
-	public Condition _attachCond;
-	public Condition _applayCond;
-	public final Class _func;
-	public final Constructor _constructor;
-	public final Stats _stat;
-	public final int _order;
-	public final Lambda _lambda;
+	public Condition attachCond;
+	public Condition applayCond;
+	public final Class func;
+	public final Constructor constructor;
+	public final Stats stat;
+	public final int order;
+	public final Lambda lambda;
 	
-	public FuncTemplate(Condition attachCond, Condition applayCond, String func, Stats stat, int order, Lambda lambda)
+	public FuncTemplate(Condition pAttachCond, Condition pApplayCond, String pFunc, Stats pStat, int pOrder, Lambda pLambda)
 	{
-		_attachCond = attachCond;
-		_applayCond = applayCond;
-		_stat = stat;
-		_order = order;
-		_lambda = lambda;
-		try {
-            _func = Class.forName("net.sf.l2j.gameserver.skills.funcs.Func"+func);
-		} catch (ClassNotFoundException e) {
+		attachCond = pAttachCond;
+		applayCond = pApplayCond;
+		stat = pStat;
+		order = pOrder;
+		lambda = pLambda;
+		try
+		{
+            func = Class.forName("net.sf.l2j.gameserver.skills.funcs.Func"+pFunc);
+		}
+		catch (ClassNotFoundException e)
+		{
 			throw new RuntimeException(e);
 		}
-		try {
-			_constructor = _func.getConstructor(
+		try
+		{
+			constructor = func.getConstructor(
 				new Class[]{
 						Stats.class, // stats to update
 						Integer.TYPE, // order of execution
 						Object.class, // owner
 						Lambda.class // value for function
 				});
-		} catch (NoSuchMethodException e) {
+		}
+		catch (NoSuchMethodException e)
+		{
 			throw new RuntimeException(e);
 		}
 	}
 	
 	public Func getFunc(Env env, Object owner)
 	{
-		if (_attachCond != null && !_attachCond.test(env))
+		if (attachCond != null && !attachCond.test(env))
 			return null;
-		try {
-			Func f = (Func)_constructor.newInstance(_stat, _order, owner, _lambda);
-			if (_applayCond != null)
-				f.setCondition(_applayCond);
+		try
+		{
+			Func f = (Func)constructor.newInstance(stat, order, owner, lambda);
+			if (applayCond != null)
+				f.setCondition(applayCond);
 			return f;
-		} catch (IllegalAccessException e) {
-            _log.error(e.getMessage(),e);
-			return null;
-		} catch (InstantiationException e) {
-            _log.error(e.getMessage(),e);
-			return null;
-		} catch (InvocationTargetException e) {
+		}
+		catch (IllegalAccessException e)
+		{
             _log.error(e.getMessage(),e);
 			return null;
 		}
-	
+		catch (InstantiationException e)
+		{
+            _log.error(e.getMessage(),e);
+			return null;
+		}
+		catch (InvocationTargetException e)
+		{
+            _log.error(e.getMessage(),e);
+			return null;
+		}
 	}
 }

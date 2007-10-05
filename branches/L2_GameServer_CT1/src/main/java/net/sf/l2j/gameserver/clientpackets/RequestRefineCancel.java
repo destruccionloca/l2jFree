@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExVariationCancelResult;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -34,6 +35,7 @@ public final class RequestRefineCancel extends L2GameClientPacket
 	private static final String _C__D0_2E_REQUESTREFINECANCEL = "[C] D0:2E RequestRefineCancel";
 	private int _targetItemObjId;
 	
+	@Override
 	protected void readImpl()
 	{
 		_targetItemObjId = readD();
@@ -58,7 +60,7 @@ public final class RequestRefineCancel extends L2GameClientPacket
 		// cannot remove augmentation from a not augmented item
 		if (!targetItem.isAugmented())
 		{
-			activeChar.sendPacket(new SystemMessage(SystemMessage.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.AUGMENTATION_REMOVAL_CAN_ONLY_BE_DONE_ON_AN_AUGMENTED_ITEM));
 			activeChar.sendPacket(new ExVariationCancelResult(0));
 			return;
 		}
@@ -104,9 +106,6 @@ public final class RequestRefineCancel extends L2GameClientPacket
 		// unequip item
 		if (targetItem.isEquipped()) activeChar.disarmWeapons();
 		
-		// cancel boni
-		targetItem.getAugmentation().removeBoni(activeChar);
-		
 		// remove the augmentation
 		targetItem.removeAugmentation();
 		
@@ -119,7 +118,7 @@ public final class RequestRefineCancel extends L2GameClientPacket
 		activeChar.sendPacket(iu);
 		
 		// send system message
-		SystemMessage sm = new SystemMessage(SystemMessage.AUGMENTATION_HAS_BEEN_SUCCESSFULLY_REMOVED_FROM_YOUR_S1);
+		SystemMessage sm = new SystemMessage(SystemMessageId.AUGMENTATION_HAS_BEEN_SUCCESSFULLY_REMOVED_FROM_YOUR_S1);
 		sm.addString(targetItem.getItemName());
 		activeChar.sendPacket(sm);
 	}
@@ -132,5 +131,4 @@ public final class RequestRefineCancel extends L2GameClientPacket
 	{
 		return _C__D0_2E_REQUESTREFINECANCEL;
 	}
-
 }

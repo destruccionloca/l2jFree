@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -50,6 +51,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         super(objectId, template);
     }
     
+    @Override
     public void onAction(L2PcInstance player)
     {
         if (getObjectId() != player.getTargetId())
@@ -155,6 +157,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         }
     }
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("change_class"))
@@ -190,7 +193,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     			int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
     			if (player.getInventory().getInventoryItemCount(_itemId, -1) < _count)
     			{
-    				player.sendPacket(new SystemMessage(SystemMessage.NOT_ENOUGH_ITEMS));
+    				player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_ITEMS));
     				return;
     			}
     		}
@@ -215,10 +218,10 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             
             if(newJobLevel == 3)
            	 	// system sound 3rd occupation
-            	player.sendPacket(new SystemMessage(SystemMessage.SOUND_3RD_OCCUPATION));
+            	player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER));
             else
             	// system sound for 1st and 2nd occupation
-            	player.sendPacket(new SystemMessage(SystemMessage.SOUND_2ND_OCCUPATION));    
+            	player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER));    
 
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();

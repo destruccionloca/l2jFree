@@ -39,6 +39,7 @@ public class RequestBBSwrite extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+    @Override
     protected void readImpl()
     {
 		_url = readS();

@@ -29,6 +29,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -36,9 +37,11 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -55,22 +58,22 @@ public abstract class Quest
 	protected static Log _log = LogFactory.getLog(Quest.class.getName());
 
 	/** HashMap containing events from String value of the event */
-	private static Map<String, Quest> allEventsS = new FastMap<String, Quest>();
+	private static Map<String, Quest> _allEventsS = new FastMap<String, Quest>();
 	/** HashMap containing lists of timers from the name of the timer */
-	private static Map<String, FastList<QuestTimer>> allEventTimers = new FastMap<String, FastList<QuestTimer>>();
+	private static Map<String, FastList<QuestTimer>> _allEventTimers = new FastMap<String, FastList<QuestTimer>>();
 
 	private final int _questId;
 	private final String _name;
 	private final String _descr;
-    private State initialState;
-    private Map<String, State> states;
+    private State _initialState;
+    private Map<String, State> _states;
 	
 	/**
 	 * Return collection view of the values contains in the allEventS
 	 * @return Collection<Quest>
 	 */
 	public static Collection<Quest> findAllEvents() {
-		return allEventsS.values();
+		return _allEventsS.values();
 	}
 	
     /**
@@ -84,14 +87,14 @@ public abstract class Quest
 		_questId = questId;
 		_name = name;
 		_descr = descr;
-        states = new FastMap<String, State>();
+        _states = new FastMap<String, State>();
 		if (questId != 0)
 		{
 			QuestManager.getInstance().addQuest(Quest.this);
 		}
 		else
 		{
-			allEventsS.put(name, this);
+			_allEventsS.put(name, this);
 		}
 	}
 	
@@ -132,7 +135,7 @@ public abstract class Quest
 	 * @param state
 	 */
 	public void setInitialState(State state) {
-		this.initialState = state;
+		_initialState = state;
 	}
 	
 	/**
@@ -151,7 +154,7 @@ public abstract class Quest
 	 * @return State
 	 */
 	public State getInitialState() {
-		return initialState;
+		return _initialState;
 	}
     
 	/**
@@ -177,7 +180,7 @@ public abstract class Quest
 	 */
     public State addState(State state)
     {
-        states.put(state.getName(), state);
+        _states.put(state.getName(), state);
 		return state;
     }
     
@@ -197,7 +200,7 @@ public abstract class Quest
         {
         	timers = new FastList<QuestTimer>();
             timers.add(new QuestTimer(this, name, time, npc, player));
-        	allEventTimers.put(name, timers);
+        	_allEventTimers.put(name, timers);
         }
         // a timer with this name exists, but may not be for the same set of npc and player
         else
@@ -212,9 +215,9 @@ public abstract class Quest
     
     public QuestTimer getQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
     {
-    	if (allEventTimers.get(name)==null)
+    	if (_allEventTimers.get(name)==null)
     		return null;
-    	for(QuestTimer timer: allEventTimers.get(name))
+    	for(QuestTimer timer: _allEventTimers.get(name))
     		if (timer.isMatch(this, name, npc, player))
     			return timer;
     	return null;
@@ -222,7 +225,7 @@ public abstract class Quest
 
     public FastList<QuestTimer> getQuestTimers(String name)
     {
-    	return allEventTimers.get(name);
+    	return _allEventTimers.get(name);
     }
     
     public void cancelQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
@@ -244,10 +247,10 @@ public abstract class Quest
 	
     
 	// these are methods to call from java
-    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker) 
+    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) 
     {
         String res = null;
-        try { res = onAttack(npc, attacker); } catch (Exception e) { return showError(attacker, e); }
+        try { res = onAttack(npc, attacker, damage, isPet); } catch (Exception e) { return showError(attacker, e); }
         return showResult(attacker, res);
     }
     
@@ -265,10 +268,10 @@ public abstract class Quest
         return showResult(player, res);
     } 
     
-	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer) 
+	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
 	{
 		String res = null;
-		try { res = onKill(npc, killer); } catch (Exception e) { return showError(killer, e); }
+		try { res = onKill(npc, killer, isPet); } catch (Exception e) { return showError(killer, e); }
 		return showResult(killer, res);
 	}
 	
@@ -300,7 +303,7 @@ public abstract class Quest
 
 
 	// these are methods that java calls to invoke scripts
-    @SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker) { return null; } 
+    @SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) { return null; } 
     @SuppressWarnings("unused") public String onDeath (L2Character killer, L2Character victim, QuestState qs) 
     { 	
     	if (killer instanceof L2NpcInstance)
@@ -321,7 +324,7 @@ public abstract class Quest
     } 
     
     @SuppressWarnings("unused") public String onEvent(String event, QuestState qs) { return null; } 
-    @SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer) { return null; }
+    @SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) { return null; }
     @SuppressWarnings("unused") public String onTalk (L2NpcInstance npc, L2PcInstance talker) { return null; }
     @SuppressWarnings("unused") public String onFirstTalk(L2NpcInstance npc, L2PcInstance player) { return null; } 
     @SuppressWarnings("unused") public String onSkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) { return null; }
@@ -370,7 +373,7 @@ public abstract class Quest
 			player.sendPacket(npcReply);
 		}
 		else {
-			SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 			sm.addString(res);
 			player.sendPacket(sm);
 		}
@@ -420,14 +423,10 @@ public abstract class Quest
 				
 				// Identify the state of the quest for the player
 				boolean completed = false;
-				if (stateId.length() > 0 && stateId.charAt(0) == '*') { // probably obsolete check 
-					completed = true;
-					stateId = stateId.substring(1);
-				}
 				if(stateId.equals("Completed")) completed = true;
 				
 				// Create an object State containing the state of the quest
-				State state = q.states.get(stateId);
+				State state = q._states.get(stateId);
 				if (state == null) {
 					if(_log.isDebugEnabled())
 						_log.info("Unknown state in quest "+questId+" for player "+player.getName());
@@ -479,7 +478,7 @@ public abstract class Quest
         }
 		
 		// events
-		for (String name : allEventsS.keySet()) {
+		for (String name : _allEventsS.keySet()) {
 			player.processQuestEvent(name, "enter");
 		}
 	}
@@ -713,15 +712,7 @@ public abstract class Quest
     {
     	return addEventId(npcId, Quest.QuestEventType.MOB_TARGETED_BY_SKILL);
     }
-    
-    /**
-     * Return a QuestPcSpawn for the given player instance
-     */
-    public final QuestPcSpawn getPcSpawn(L2PcInstance player)
-    {
-        return QuestPcSpawnManager.getInstance().getPcSpawn(player);
-    }
-    
+
     // returns a random party member's L2PcInstance for the passed player's party
     // returns the passed player if he has no party.
     public L2PcInstance getRandomPartyMember(L2PcInstance player)
@@ -892,4 +883,85 @@ public abstract class Quest
          
          return content;
 	}
+
+    // =========================================================
+    //  QUEST SPAWNS
+    // =========================================================
+
+    public class DeSpawnScheduleTimerTask implements Runnable
+    {
+        L2NpcInstance _npc = null;
+        public DeSpawnScheduleTimerTask(L2NpcInstance npc)
+        {
+            _npc = npc;
+        }
+        
+        public void run()
+        {
+           _npc.onDecay();
+        }
+    }
+
+    // Method - Public
+    /**
+     * Add a temporary (quest) spawn
+    * Return instance of newly spawned npc
+     */
+    public L2NpcInstance addSpawn(int npcId, L2Character cha)
+    {
+        return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0);
+    }
+
+    public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay)
+    {
+        L2NpcInstance result = null;
+        try 
+        {
+            L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
+            if (template != null)
+            {
+                // Sometimes, even if the quest script specifies some xyz (for example npc.getX() etc) by the time the code
+                // reaches here, xyz have become 0!  Also, a questdev might have purposely set xy to 0,0...however,
+                // the spawn code is coded such that if x=y=0, it looks into location for the spawn loc!  This will NOT work
+                // with quest spawns!  For both of the above cases, we need a fail-safe spawn.  For this, we use the 
+                // default spawn location, which is at the player's loc.
+                if ((x == 0) && (y == 0))
+                {
+                    _log.fatal("Failed to adjust bad locks for quest spawn!  Spawn aborted!");
+                    return null;
+                }
+                if (randomOffset)
+                {
+                    int offset;
+
+                    offset = Rnd.get(2); // Get the direction of the offset
+                    if (offset == 0) {offset = -1;} // make offset negative
+                    offset *= Rnd.get(50, 100);
+                    x += offset;
+
+                    offset = Rnd.get(2); // Get the direction of the offset
+                    if (offset == 0) {offset = -1;} // make offset negative
+                    offset *= Rnd.get(50, 100); 
+                    y += offset;
+                }
+                L2Spawn spawn = new L2Spawn(template);
+                spawn.setHeading(heading);
+                spawn.setLocx(x);
+                spawn.setLocy(y);
+                spawn.setLocz(z+20);
+                spawn.stopRespawn();
+                result = spawn.spawnOne();
+
+                if (despawnDelay > 0)
+                    ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);
+
+                return result;
+            }
+        }
+        catch (Exception e1)
+        {
+            _log.warn("Could not spawn Npc " + npcId);
+        }
+        return null;
+    }
 }

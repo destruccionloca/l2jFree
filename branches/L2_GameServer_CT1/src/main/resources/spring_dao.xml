@@ -37,7 +37,7 @@
 	<!-- 
 		DAO for recipes
 	 -->
-    <bean id="L2RecipeDAO" class="net.sf.l2j.gameserver.recipes.dao.impl.L2RecipeDAOCsv">
+    <bean id="L2RecipeDAO" class="net.sf.l2j.gameserver.recipes.dao.impl.L2RecipeDAOXml">
 	</bean> 	
 	
 

@@ -18,97 +18,114 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
-import java.util.List;
-
+import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.Location;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
 
 public class Town
 {
-    // =========================================================
-    // Data Field
-    private int _CastleIndex                    = 0;    // This is the index of the castle controling over this town
-    private String _Name                        = "";
-    private int _RedirectToTownId               = 0;    // This is the id of the town to redirect players to
-    //private double _TaxRate                     = 0;    // This is the town's local tax rate used by merchant
-    private int _TownId                         = 0;
-    private List<int[]> _Spawn;
-    private Zone _Zone;
+	private FastList<IZone> _territory;
+	private int _townId;
+	private int _castleId;
+	
+	public Town(int townId)
+	{
+		_townId = townId;
+		_castleId = 0;
+		_territory = new FastList<IZone>();
+	}
 
-    // =========================================================
-    // Constructor
-    public Town(int townId)
-    {
-        _TownId = townId;
-        loadData();
-    }
+	/** Return true if object is inside the zone */
+	public boolean checkIfInZone(L2Object obj)
+	{
+		return checkIfInZone(obj.getX(), obj.getY(), obj.getZ());
+	}
 
-    // =========================================================
-    // Method - Public
-    /** Return true if object is inside the zone */
-    public boolean checkIfInZone(L2Object obj) { return checkIfInZone(obj.getX(), obj.getY()); }
+	/** Return true if object is inside the zone */
+	public boolean checkIfInZone(int x, int y, int z)
+	{
+		for(IZone zone: getTerritory())
+			if (zone.checkIfInZone(x, y, z)) return true;
+		return false;
+	}
 
-    /** Return true if object is inside the zone */
-    public boolean checkIfInZone(int x, int y) { return getZone().checkIfInZone(x, y); }
-    
-    // =========================================================
-    // Method - Private
-    private void loadData()
-    {
-        // TEMP UNTIL TOWN'S TABLE IS ADDED
-        Zone zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Town), getTownId());
-        if (zone != null)
-        {
-            _CastleIndex    = CastleManager.getInstance().getCastleIndex(zone.getTaxById());
-            _Name           = zone.getName();
-        }
-        
-        switch (getTownId())
-        {
-            case 7: _RedirectToTownId = 5;break;      	// Gludio => Gludin
-            case 8: _RedirectToTownId = 7;break;      	// Dion => Gludio
-            case 9: _RedirectToTownId = 11;break;      	// Giran => HV (should be Giran Harbor, but its not a zone town "yet")
-            case 10: _RedirectToTownId = 11;break;    	// Oren => HV
-            case 12: _RedirectToTownId = 10;break;    	// Aden => Oren
-            case 13: _RedirectToTownId = 14;break;    	// Goddard => Rune
-            case 14: _RedirectToTownId = 13;break;    	// Rune => Goddard
-            case 15: _RedirectToTownId = 16;break;      // Heine => Floran (should be Giran Harbor, but its not a zone town "yet")
-            case 17: _RedirectToTownId = 14;break;    	// Scuttgart => Rune
-            default: _RedirectToTownId = 9;break; 		// Have to use another town here, else we cause a stack overflow :D 
-       }
-    }
-    
-    // =========================================================
-    // Proeprty
-    public final Castle getCastle()
-    {
-        if (_CastleIndex >= 0) return CastleManager.getInstance().getCastles().get(_CastleIndex);
-        return null;
-    }
+	public final Castle getCastle()
+	{
+		return CastleManager.getInstance().getCastles().get(getCastleId());
+	}
+	
+	public final String getName()
+	{
+		return TownManager.getInstance().getTownName(getTownId());
+	}
+	
+	public final Location getSpawn()
+	{
+		Town town = this;
+		
+        // If a redirect to town id is avail, town belongs to a castle,
+		// and castle is under siege then redirect		
+		if (TownManager.getInstance().townHasCastleInSeige(getTownId()))
+			town = TownManager.getInstance().getTown(TownManager.getInstance().getRedirectTownNumber(getTownId()));
+		
+		Location loc = null;
+		for(IZone zone: town.getTerritory())
+		{
+			loc = zone.getRestartPoint(RestartType.RestartNormal);
+			if (loc != null) break;
+		}
+		return loc;
+	}
 
-    public final String getName() { return _Name; }
+	public final Location getKarmaSpawn()
+	{
+		Town town = this;
+		
+        // If a redirect to town id is avail, town belongs to a castle,
+		// and castle is under siege then redirect
+		if (TownManager.getInstance().townHasCastleInSeige(getTownId()))
+			town = TownManager.getInstance().getTown(TownManager.getInstance().getRedirectTownNumber(getTownId()));
+		
+		Location loc = null;
+		for(IZone zone: town.getTerritory())
+		{
+			loc = zone.getRestartPoint(RestartType.RestartChaotic);
+			if (loc != null) break;
+		}
+		return loc;
+	}
+	
+	public final int getTownId()
+	{
+		return _townId;
+	}
 
-    public final List<int[]> getSpawn()
-    {
-        // If a redirect to town id is avail, town belongs to a castle, and castle is under siege then redirect
-        //if (_RedirectToTownId != getTownId() && getCastle() != null && getCastle().getSiege().getIsInProgress()) return TownManager.getInstance().getTown(_RedirectToTownId).getSpawn();
-       // if (_RedirectToTownId != getTownId() && getCastle() != null && getCastle().getSiege().getIsInProgress())
-        if(TownManager.getInstance().townHasCastleInSeige(getTownId()))
-            return TownManager.getInstance().getTown(_RedirectToTownId).getSpawn();
+	public final int getCastleId()
+	{
+		return _castleId;
+	}
 
-        if (_Spawn == null) _Spawn = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.TownSpawn), getName()).getCoords();
-        return _Spawn;
-    }
-
-    public final int getRedirectToTownId() { return _RedirectToTownId; }
-
-    public final int getTownId() { return _TownId; }
-
-    public final Zone getZone()
-    {
-        if (_Zone == null) _Zone = ZoneManager.getInstance().getZone(ZoneType.getZoneTypeName(ZoneType.ZoneTypeEnum.Town), getName());
-        return _Zone;
-    }
+	public final boolean isInPeace()
+	{
+		if (Config.ZONE_TOWN == 2) return false;
+		if (Config.ZONE_TOWN == 1 && 
+			TownManager.getInstance().townHasCastleInSeige(getTownId())) return false;
+		return true;
+	}
+	
+	public final void addTerritory(IZone zone)
+	{
+		_castleId = zone.getCastleId();
+		getTerritory().add(zone);
+	}
+	
+	public final FastList<IZone> getTerritory()
+	{
+		return _territory;
+	}
 }

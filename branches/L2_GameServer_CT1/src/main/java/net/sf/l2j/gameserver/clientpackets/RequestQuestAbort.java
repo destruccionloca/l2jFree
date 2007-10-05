@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.QuestList;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -39,29 +40,31 @@ public class RequestQuestAbort extends L2GameClientPacket
     private final static Log _log = LogFactory.getLog(RequestQuestAbort.class.getName());
 
     
-    private int _QuestID;
+    private int _questId;
     /**
      * packet type id 0x64<p>
      */
+    @Override
     protected void readImpl()
     {
-        _QuestID = readD();
+        _questId = readD();
     }
     
+    @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null)
             return;
         
-        Quest qe = QuestManager.getInstance().getQuest(_QuestID);
+        Quest qe = QuestManager.getInstance().getQuest(_questId);
         if (qe != null)
         {
             QuestState qs = activeChar.getQuestState(qe.getName());
             if(qs != null)
             {
                 qs.exitQuest(true);
-                SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                 sm.addString("Quest aborted.");
                 activeChar.sendPacket(sm);
                 sm = null;
@@ -73,13 +76,14 @@ public class RequestQuestAbort extends L2GameClientPacket
             }
         } else
         {
-            if (_log.isDebugEnabled()) _log.warn("Quest (id='"+_QuestID+"') not found.");
+            if (_log.isDebugEnabled()) _log.warn("Quest (id='"+_questId+"') not found.");
         }
     }
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
+    @Override
     public String getType()
     {
         return _C__64_REQUESTQUESTABORT;

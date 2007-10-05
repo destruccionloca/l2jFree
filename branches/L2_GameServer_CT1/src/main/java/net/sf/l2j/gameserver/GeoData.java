@@ -36,14 +36,14 @@ public class GeoData
     public static GeoData getInstance()
     {
         if(_instance == null)
-        {           
-        	if (Config.GEODATA > 0)
+        {
+            if (Config.GEODATA)
                 _instance = GeoEngine.getInstance();
             else
             {
                 _instance = new GeoData();
                 _log.info("Geodata Engine: Disabled.");
-            }               
+            }
         }
         return _instance;
     }
@@ -100,13 +100,26 @@ public class GeoData
         //If geo is off do simple check :]
         //Don't allow casting on players on different dungeon lvls etc
         return (Math.abs(target.getZ() - cha.getZ()) < 1000);
-    }    
+    }  
+    
+    /**
+    * @param x, y, z
+    * @param tx, ty, tz
+    * @return True if cha can see target (LOS)
+    */
+    public boolean canSeeTarget(int x, int y, int z, int tx, int ty, int tz)
+    {
+        //If geo is off do simple check :]
+        //Don't allow casting on players on different dungeon lvls etc
+        return (Math.abs(z - tz) < 1000);
+    }
+    
     /**
      * @param cha
      * @param target
      * @return True if cha can see target (LOS) and send usful info to PC
      */
-    public boolean canSeeTargetDebug(L2PcInstance gm, L2Object target)
+    public boolean canSeeTargetDebug(@SuppressWarnings("unused") L2PcInstance gm, L2Object target)
     {
         return true;
     }
@@ -141,11 +154,12 @@ public class GeoData
     {
         //Do Nothing
     }
-    public static void unloadGeodata(byte rx, byte ry)
+    public static void unloadGeodata(@SuppressWarnings("unused") byte rx, @SuppressWarnings("unused") byte ry)
     {
-        
     }
-    public static boolean LoadGeodataFile(byte rx, byte ry)
+    
+    @Deprecated //TODO: cleanup?
+    public static boolean loadGeodataFile(@SuppressWarnings("unused") byte rx, @SuppressWarnings("unused") byte ry)
     {
         return false;
     }

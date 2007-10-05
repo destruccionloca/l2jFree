@@ -38,11 +38,13 @@ public class RequestPetGetItem extends L2GameClientPacket
 	
 	private int _objectId;
 	
+    @Override
     protected void readImpl()
     {
         _objectId = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
 		L2World world = L2World.getInstance();
@@ -63,9 +65,9 @@ public class RequestPetGetItem extends L2GameClientPacket
 		pet.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, item);
 	}
 
+	@Override
 	public String getType()
 	{
 		return _C__8f_REQUESTPETGETITEM;
 	}
-
 }

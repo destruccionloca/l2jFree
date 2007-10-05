@@ -32,6 +32,7 @@ public class RequestExFishRanking extends L2GameClientPacket
     private static final String _C__D0_1F_REQUESTEXFISHRANKING = "[C] D0:1F RequestExFishRanking";
     private final static Log _log = LogFactory.getLog(RequestExFishRanking.class.getName());
     
+    @Override
     protected void readImpl()
     {
         // trigger
@@ -54,5 +55,4 @@ public class RequestExFishRanking extends L2GameClientPacket
     {
         return _C__D0_1F_REQUESTEXFISHRANKING;
     }
-    
 }

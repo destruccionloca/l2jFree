@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 
@@ -49,7 +50,7 @@ public class Mdam implements ISkillHandler
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
-    private static SkillType[] _skillIds = {SkillType.MDAM, SkillType.DEATHLINK};
+    private static final SkillType[] SKILL_IDS = {SkillType.MDAM, SkillType.DEATHLINK};
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -67,7 +68,7 @@ public class Mdam implements ISkillHandler
         {
             if (weaponInst == null)
             {
-                SystemMessage sm2 = new SystemMessage(SystemMessage.S1_S2);
+                SystemMessage sm2 = new SystemMessage(SystemMessageId.S1_S2);
                 sm2.addString("You must equip a weapon before casting a spell.");
                 activeChar.sendPacket(sm2);
                 return;
@@ -107,6 +108,9 @@ public class Mdam implements ISkillHandler
         for (int index = 0; index < targets.length; index++)
         {
             L2Character target = (L2Character) targets[index];
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
 
             if(target.reflectSkill(skill))
                target = activeChar;
@@ -127,7 +131,7 @@ public class Mdam implements ISkillHandler
             if (skill.isCritical() && !mcrit)
                 damage = 0;
             else if(mcrit)
-                activeChar.sendPacket(new SystemMessage(SystemMessage.CRITICAL_HIT));
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
             
             if (damage < 1) damage = 1;
 
@@ -171,11 +175,9 @@ public class Mdam implements ISkillHandler
                     }
                 }
                 if (activeChar instanceof L2SummonInstance)
-                    ((L2SummonInstance) activeChar).getOwner().sendPacket(
-                                                                          new SystemMessage(
-                                                                                            SystemMessage.SUMMON_GAVE_DAMAGE_OF_S1).addNumber(damage));
+                    ((L2SummonInstance) activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1).addNumber(damage));
                 //if (activeChar instanceof L2PetInstance)
-                //    ((L2PetInstance)activeChar).getOwner().sendPacket(new SystemMessage(SystemMessage.PET_GAVE_DAMAGE_OF_S1).addNumber(damage));
+                //    ((L2PetInstance)activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.PET_GAVE_DAMAGE_OF_S1).addNumber(damage));
 
                 // activate attacked effects, if any
                 if (skill.getId() == 4139 && activeChar instanceof L2Summon) //big boom unsummon-destroy
@@ -198,7 +200,7 @@ public class Mdam implements ISkillHandler
                                                                                        target);
                     else
                     {
-                    	SystemMessage sm = new SystemMessage(SystemMessage.S1_WAS_UNAFFECTED_BY_S2);
+                    	SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
                         sm.addString(target.getName());
                         sm.addSkillName(skill.getDisplayId());
                         activeChar.sendPacket(sm);
@@ -227,6 +229,6 @@ public class Mdam implements ISkillHandler
 
     public SkillType[] getSkillIds()
     {
-        return _skillIds;
+        return SKILL_IDS;
     }
 }

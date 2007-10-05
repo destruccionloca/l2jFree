@@ -79,6 +79,7 @@ public class ShowBoard extends L2GameServerPacket
 		return data;
 	}
 
+	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x6e);
@@ -109,11 +110,8 @@ public class ShowBoard extends L2GameServerPacket
 			i++;
 			data[i] = 0;
 			i++;
-			if (_htmlCode == null)
-			{
 
-			}
-			else
+			if (_htmlCode != null)
 			{
 				for (int j = 0; j < htmlBytes.length; i += 2, j++)
 				{
@@ -136,6 +134,7 @@ public class ShowBoard extends L2GameServerPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _S__6E_SHOWBOARD;

@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.model.L2TeleportLocation;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.BuyList;
 import net.sf.l2j.gameserver.serverpackets.ClanHallDecoration;
@@ -49,10 +50,10 @@ import org.apache.commons.logging.LogFactory;
 public class L2ClanHallManagerInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2ClanHallManagerInstance.class.getName());
-	protected static final int Cond_Owner_False = 0;
-    protected static final int Cond_All_False = 1;
-    protected static final int Cond_Busy_Because_Of_Siege = 2;
-    protected static final int Cond_Owner = 3;
+	protected static final int COND_OWNER_FALSE = 0;
+    protected static final int COND_ALL_FALSE = 1;
+    protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 2;
+    protected static final int COND_OWNER = 3;
     private int _clanHallId = -1;
 
 	/**
@@ -64,14 +65,15 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 		super(objectId, template);
 	}
     
+    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         player.sendPacket( new ActionFailed() );
         int condition = validateCondition(player);
-        if (condition <= Cond_All_False)
+        if (condition <= COND_ALL_FALSE)
             return;
-        else if (condition == Cond_Owner)
+        else if (condition == COND_OWNER)
         {
             StringTokenizer st = new StringTokenizer(command, " ");
             String actualCommand = st.nextToken(); // Get actual command
@@ -95,7 +97,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                     {
                         NpcHtmlMessage html = new NpcHtmlMessage(1);
                         html.setFile("data/html/clanHallManager/vault.htm");
-                        this.sendHtmlMessage(player, html);
+                        sendHtmlMessage(player, html);
                     }
                 }
                 else
@@ -595,7 +597,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             }
             else if (actualCommand.equalsIgnoreCase("support"))
             {
-                this.setTarget(player);
+                setTarget(player);
                 L2Skill skill;
                 if (val == "") return;
 
@@ -610,7 +612,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
                         if (skill.getSkillType() == SkillType.SUMMON)
                             player.doCast(skill);
                         else
-                            this.doCast(skill);
+                            doCast(skill);
                         if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT)== null)
                             return;
                         NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -645,6 +647,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 	 * this is called when a player interacts with this NPC
 	 * @param player
 	 */
+    @Override
     public void onAction(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
@@ -671,9 +674,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
         String filename = "data/html/clanHallManager/chamberlain-no.htm";
         
         int condition = validateCondition(player);
-        if (condition == Cond_Owner)
+        if (condition == COND_OWNER)
             filename = "data/html/clanHallManager/chamberlain.htm";// Owner message window 
-        if (condition == Cond_Owner_False)
+        if (condition == COND_OWNER_FALSE)
             filename = "data/html/clanHallManager/chamberlain-of.htm";   
         NpcHtmlMessage html = new NpcHtmlMessage(1);
         html.setFile(filename);
@@ -685,16 +688,16 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
     protected int validateCondition(L2PcInstance player)
     {   
-        if (getClanHall() == null) return Cond_All_False;
-    	if (player.isGM()) return Cond_Owner;
+        if (getClanHall() == null) return COND_ALL_FALSE;
+    	if (player.isGM()) return COND_OWNER;
         if (player.getClan() != null)
         {                                     
             if (getClanHall().getOwnerId() == player.getClanId())                                          
-                return Cond_Owner;
+                return COND_OWNER;
             else
-            	return Cond_Owner_False;
+            	return COND_OWNER_FALSE;
         }
-        return Cond_All_False;
+        return COND_ALL_FALSE;
     }
     
     /** Return the L2ClanHall this L2NpcInstance belongs to. */
@@ -702,7 +705,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     {
         if (_clanHallId < 0)
         {
-        	_clanHallId = ClanHallManager.getInstance().getClanHall(getX(), getY(), 500).getId();
+        	_clanHallId = ClanHallManager.getInstance().getClanHall(getX(), getY()).getId();
             if (_clanHallId < 0) return null;
         }
         return ClanHallManager.getInstance().getClanHall(_clanHallId);
@@ -712,14 +715,14 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     {
         player.sendPacket(new ActionFailed());
         player.setActiveWarehouse(player.getClan().getWarehouse());
-        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.Clan)); //Or Clan Hall??
+        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); //Or Clan Hall??
     }
 
     private void showVaultWindowWithdraw(L2PcInstance player)
     {
         player.sendPacket(new ActionFailed());
         player.setActiveWarehouse(player.getClan().getWarehouse());
-        player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.Clan)); //Or Clan Hall ??
+        player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN)); //Or Clan Hall ??
     }
     
     private void doTeleport(L2PcInstance player, int val)
@@ -730,9 +733,9 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
         if (list != null)
         {
             //you cannot teleport to village that is in siege Not sure about this one though
-            if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY()))
+            if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
             {
-                player.sendPacket(new SystemMessage(SystemMessage.NO_PORT_THAT_IS_IN_SIGE));
+                player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
                 return;
             }
             else if(player.reduceAdena("Teleport", list.getPrice(), this, true))

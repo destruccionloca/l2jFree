@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.instancemanager.IrcManager;
  * admin_ircc admin_ircm
  */
 public class AdminIRC implements IAdminCommandHandler {
-    private static String[] _adminCommands = {"admin_ircc","admin_ircm"};
+    private static final String[] ADMIN_COMMANDS = {"admin_ircc","admin_ircm"};
     private static final int REQUIRED_LEVEL = Config.GM_IRC;
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar) {
@@ -53,11 +53,13 @@ public class AdminIRC implements IAdminCommandHandler {
         return true;
     }
 
-    public String[] getAdminCommandList() {
-        return _adminCommands;
+    public String[] getAdminCommandList()
+    {
+        return ADMIN_COMMANDS;
     }
 
-    private boolean checkLevel(int level) {
+    private boolean checkLevel(int level)
+    {
         return (level >= REQUIRED_LEVEL);
     }
 }

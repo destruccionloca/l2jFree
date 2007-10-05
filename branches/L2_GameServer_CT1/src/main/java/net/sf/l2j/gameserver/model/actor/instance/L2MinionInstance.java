@@ -57,9 +57,10 @@ public final class L2MinionInstance extends L2MonsterInstance
 	}
 	
     /** Return True if the L2Character is minion of RaidBoss. */
+    @Override
     public boolean isRaid()
     {
-        return (_master instanceof L2RaidBossInstance); 
+        return getLeader().isRaid(); 
     }
     
     /**
@@ -91,7 +92,7 @@ public final class L2MinionInstance extends L2MonsterInstance
 	}
     
     @Override
-    public void OnSpawn()
+    public void onSpawn()
     {
         // Notify Leader that Minion has Spawned
         _master.notifyMinionSpawned(this);
@@ -119,11 +120,10 @@ public final class L2MinionInstance extends L2MonsterInstance
      * 
      * @param killer The L2Character that killed this L2MinionInstance.<BR><BR>
      */
+    @Override
     public void doDie(L2Character killer)
     {
         _master.notifyMinionDied(this);
-        
         super.doDie(killer);
     }
-	
 }

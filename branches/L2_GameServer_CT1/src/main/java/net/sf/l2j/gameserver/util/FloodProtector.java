@@ -34,15 +34,15 @@ import org.apache.commons.logging.LogFactory;
 public class FloodProtector
 {
 	private static final Log _log = LogFactory.getLog(FloodProtector.class.getName());
-	private static FloodProtector _Instance;
+	private static FloodProtector _instance;
 
 	public static final FloodProtector getInstance()
 	{
-		if (_Instance == null)
+		if (_instance == null)
 		{
-			_Instance = new FloodProtector();
+			_instance = new FloodProtector();
 		}
-		return _Instance;
+		return _instance;
 	}
 
 	// =========================================================

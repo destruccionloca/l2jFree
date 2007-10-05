@@ -31,6 +31,7 @@ package net.sf.l2j.gameserver.util;
 import java.io.File;
 import java.util.Collection;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -251,5 +252,15 @@ public final class Util
         float exponent = (float) Math.pow(10, numPlaces);
         
         return (Math.round(val * exponent) / exponent);
+    }
+     
+    public static File[] getDatapackFiles(String dirname, String extention)
+    {
+        File dir = new File(Config.DATAPACK_ROOT, "data/" + dirname);
+        if (!dir.exists()) return null;
+        
+        CustomFileNameFilter filter = new CustomFileNameFilter(extention);
+        
+        return dir.listFiles(filter);
     }
 }

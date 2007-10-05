@@ -27,10 +27,13 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
@@ -53,9 +56,7 @@ public class Pdam implements ISkillHandler
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
-    private static SkillType[] _skillIds = {SkillType.PDAM, SkillType.FATALCOUNTER
-    /* SkillType.CHARGEDAM */
-    };
+    private static final SkillType[] SKILL_IDS = {SkillType.PDAM, SkillType.FATALCOUNTER};
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -72,6 +73,9 @@ public class Pdam implements ISkillHandler
         for (int index = 0; index < targets.length; index++)
         {
             L2Character target = (L2Character) targets[index];
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
             Formulas f = Formulas.getInstance();
             if(target.reflectSkill(skill))
                target = activeChar;            
@@ -131,13 +135,13 @@ public class Pdam implements ISkillHandler
                     {
                         skill.getEffects(activeChar, target);
                         
-                        SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+                        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                         sm.addSkillName(skill.getId());
                         target.sendPacket(sm);
                     }
                     else
                     {
-                    	SystemMessage sm = new SystemMessage(SystemMessage.S1_WAS_UNAFFECTED_BY_S2);
+                    	SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
                         sm.addString(target.getName());
                         sm.addSkillName(skill.getDisplayId());
                         activeChar.sendPacket(sm);
@@ -145,10 +149,12 @@ public class Pdam implements ISkillHandler
                 }
                 
                  // Success of lethal effect
-                int chance;
-                if(!target.isRaid() && ( chance = Rnd.get(100)) < skill.getLethalChance1())
-                {
-                    // 1st lethal effect activate (cp to 1 or if target is npc then hp to 50%)
+                int chance = Rnd.get(100);
+                if(!target.isRaid() 
+                		&& chance < skill.getLethalChance1()
+                		&& !(target instanceof L2DoorInstance)
+    					&& !(target instanceof L2NpcInstance && ((L2NpcInstance)target).getNpcId() == 35062))
+    			{                    // 1st lethal effect activate (cp to 1 or if target is npc then hp to 50%)
                 	if(skill.getLethalChance2() > 0 && chance >= skill.getLethalChance2())
                     {
                        if (target instanceof L2PcInstance) 
@@ -182,7 +188,7 @@ public class Pdam implements ISkillHandler
                         }
                     }
                     // Lethal Strike was succefful!
-                    activeChar.sendPacket(new SystemMessage(SystemMessage.LETHAL_STRIKE_SUCCESSFUL));
+                    activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE_SUCCESSFUL));
                 }
                 else
                 {
@@ -203,7 +209,7 @@ public class Pdam implements ISkillHandler
                                   player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
                             }
 	                		
-	                		SystemMessage smsg = new SystemMessage(SystemMessage.S1_GAVE_YOU_S2_DMG);
+	                		SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
 	                		smsg.addString(activeChar.getName());
 	                		smsg.addNumber(damage);
 	                		player.sendPacket(smsg);
@@ -220,7 +226,7 @@ public class Pdam implements ISkillHandler
             }
             else // No - damage
             {
-                activeChar.sendPacket(new SystemMessage(SystemMessage.ATTACK_FAILED));
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
             }
             if (skill.getId() == 345 || skill.getId() == 346) // Sonic Rage or Raging Force
             {
@@ -232,14 +238,17 @@ public class Pdam implements ISkillHandler
                     {
                         effectcharge++;
                         effect.addNumCharges(1);
-                        activeChar.updateEffectIcons();
-                        SystemMessage sm = new SystemMessage(SystemMessage.FORCE_INCREASED_TO_S1);
-                        sm.addNumber(effectcharge);
-                        activeChar.sendPacket(sm);
+                        if (activeChar instanceof L2PcInstance)
+                        {
+                            activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance)activeChar));
+                            SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_INCREASED_TO_S1);
+                            sm.addNumber(effectcharge);
+                            activeChar.sendPacket(sm);
+                        }
                     }
                     else
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessage.FORCE_MAXLEVEL_REACHED);
+                        SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_MAXLEVEL_REACHED);
                         activeChar.sendPacket(sm);
                     }
                 }
@@ -276,6 +285,6 @@ public class Pdam implements ISkillHandler
 
     public SkillType[] getSkillIds()
     {
-        return _skillIds;
+        return SKILL_IDS;
     }
 }

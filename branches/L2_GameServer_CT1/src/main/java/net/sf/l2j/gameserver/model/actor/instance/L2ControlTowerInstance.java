@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.List;
@@ -15,13 +32,14 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2ControlTowerInstance extends L2NpcInstance {
 
-    private List<L2Spawn> _Guards; 
+    private List<L2Spawn> _guards; 
 	
 	public L2ControlTowerInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
 	}
 
+    @Override
     public boolean isAttackable()
     {
         // Attackable during siege by attacker only
@@ -30,6 +48,7 @@ public class L2ControlTowerInstance extends L2NpcInstance {
                 && getCastle().getSiege().getIsInProgress());
     }
 
+    @Override
     public boolean isAutoAttackable(L2Character attacker) 
 	{
 		// Attackable during siege by attacker only
@@ -41,11 +60,13 @@ public class L2ControlTowerInstance extends L2NpcInstance {
 		        && getCastle().getSiege().checkIsAttacker(((L2PcInstance)attacker).getClan()));
 	}
 	
+	@Override
 	public void onForcedAttack(L2PcInstance player)
 	{
 		onAction(player);
 	}
 	
+	@Override
 	public void onAction(L2PcInstance player)
 	{
 		if (this != player.getTarget())
@@ -115,7 +136,7 @@ public class L2ControlTowerInstance extends L2NpcInstance {
     
     public final List<L2Spawn> getGuards()
     {
-        if (_Guards == null) _Guards = new FastList<L2Spawn>();
-        return _Guards;
+        if (_guards == null) _guards = new FastList<L2Spawn>();
+        return _guards;
     }
 }

@@ -34,6 +34,7 @@ public class RequestOlympiadObserverEnd extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
+    @Override
     protected void readImpl()
     {
         // trigger
@@ -62,5 +63,4 @@ public class RequestOlympiadObserverEnd extends L2GameClientPacket
 	{
 		return _C__D0_12_REQUESTOLYMPIADOBSERVEREND;
 	}
-	
 }

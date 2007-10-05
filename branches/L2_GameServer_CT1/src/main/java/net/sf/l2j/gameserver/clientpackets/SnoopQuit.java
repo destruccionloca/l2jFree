@@ -31,6 +31,7 @@ public class SnoopQuit extends L2GameClientPacket
 
 	private int _snoopID;
 
+    @Override
     protected void readImpl()
     {
         _snoopID = readD();
@@ -44,8 +45,7 @@ public class SnoopQuit extends L2GameClientPacket
 	@Override
     protected void runImpl()
 	{
-		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(
-				_snoopID);
+		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_snoopID);
 		if (player == null)
 			return;
 		L2PcInstance activeChar = getClient().getActiveChar();
@@ -67,5 +67,4 @@ public class SnoopQuit extends L2GameClientPacket
 	{
 		return _C__AB_SNOOPQUIT;
 	}
-
 }

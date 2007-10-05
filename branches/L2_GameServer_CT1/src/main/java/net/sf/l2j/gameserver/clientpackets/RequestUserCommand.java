@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -44,22 +45,24 @@ public class RequestUserCommand extends L2GameClientPacket
 	 *  
 	 * @param rawPacket
 	 */
+    @Override
     protected void readImpl()
     {
         _command = readD();
     }
 
+    @Override
     protected void runImpl()
 	{
         L2PcInstance player = getClient().getActiveChar();
-	if (player == null)
-	    return;
+	    if (player == null)
+	        return;
 		
         IUserCommandHandler handler = UserCommandHandler.getInstance().getUserCommandHandler(_command);
         
         if (handler == null)
         {
-            SystemMessage sm = new SystemMessage(SystemMessage.S1_S2);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             sm.addString("user commandID "+_command+" not implemented yet");
             player.sendPacket(sm);
             sm = null;
@@ -73,6 +76,7 @@ public class RequestUserCommand extends L2GameClientPacket
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
+	@Override
 	public String getType()
 	{
 		return _C__AA_REQUESTUSERCOMMAND;

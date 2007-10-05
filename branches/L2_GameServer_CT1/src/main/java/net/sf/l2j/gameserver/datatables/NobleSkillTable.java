@@ -27,14 +27,14 @@ import net.sf.l2j.gameserver.model.L2Skill;
 public class NobleSkillTable
 {
     private static NobleSkillTable _instance;
-    private static FastList<L2Skill> _NobleSkills;
-    private static final int[] _NobleSkillsIds = {325,326,327,1323,1324,1325,1326,1327};
+    private static FastList<L2Skill> _nobleSkills;
+    private static final int[] _nobleSkillsIds = {325,326,327,1323,1324,1325,1326,1327};
     
     private NobleSkillTable()
     {
-        _NobleSkills = new FastList<L2Skill>();
-        for(int _skillId : _NobleSkillsIds)
-        	_NobleSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
+        _nobleSkills = new FastList<L2Skill>();
+        for(int _skillId : _nobleSkillsIds)
+        	_nobleSkills.add(SkillTable.getInstance().getInfo(_skillId, 1));
     }
     
     public static NobleSkillTable getInstance()
@@ -44,8 +44,8 @@ public class NobleSkillTable
         return _instance;
     }
     
-    public FastList<L2Skill> GetNobleSkills()
+    public FastList<L2Skill> getNobleSkills()
     {
-        return _NobleSkills;
+        return _nobleSkills;
     }
 }

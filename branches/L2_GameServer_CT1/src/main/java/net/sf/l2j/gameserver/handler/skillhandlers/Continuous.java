@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 
@@ -80,6 +81,9 @@ public class Continuous implements ISkillHandler
         for(int index = 0;index < targets.length;index++)
         {
             target = (L2Character)targets[index];
+            //check if skill is allowed on other.properties for raidbosses
+			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+				continue;
 
             if(skill.getSkillType() != L2Skill.SkillType.BUFF && skill.getSkillType() != L2Skill.SkillType.HOT 
             		&& skill.getSkillType() != L2Skill.SkillType.CPHOT && skill.getSkillType() != L2Skill.SkillType.MPHOT
@@ -160,8 +164,9 @@ public class Continuous implements ISkillHandler
 		        }
 		        
 				boolean acted = Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss);
-				if (!acted) {
-					activeChar.sendPacket(new SystemMessage(SystemMessage.ATTACK_FAILED));
+				if (!acted)
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
 					continue;
 				}
 				
@@ -170,9 +175,10 @@ public class Continuous implements ISkillHandler
 			L2Effect[] effects = target.getAllEffects();
 			if (effects != null)
 			{
-				for (L2Effect e : effects) {
-                    if (e != null && skill != null)
-                        if (e.getSkill().getId() == skill.getId()) {
+				for (L2Effect e : effects)
+				{
+                    if (e != null && e.getSkill().getId() == skill.getId())
+                    {
 						e.exit();
 						stopped = true;
 					}
@@ -184,13 +190,14 @@ public class Continuous implements ISkillHandler
 			// if this is a debuff let the duel manager know about it
 			// so the debuff can be removed after the duel
 			// (player & target must be in the same duel)
-			if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel() &&
-					skill.getSkillType() == L2Skill.SkillType.DEBUFF &&
-					player.getDuelId() == ((L2PcInstance)target).getDuelId())
+			if (target instanceof L2PcInstance && ((L2PcInstance)target).isInDuel() 
+					&& (skill.getSkillType() == L2Skill.SkillType.DEBUFF || 
+					skill.getSkillType() == L2Skill.SkillType.BUFF)
+					&& player.getDuelId() == ((L2PcInstance)target).getDuelId())
 			{
 				DuelManager dm = DuelManager.getInstance();
-				for (L2Effect debuff : skill.getEffects(activeChar, target))
-					if (debuff != null) dm.onDebuff(((L2PcInstance)target), debuff);
+				for (L2Effect buff : skill.getEffects(activeChar, target))
+					if (buff != null) dm.onBuff(((L2PcInstance)target), buff);
 			}
 			else
 				skill.getEffects(activeChar, target);

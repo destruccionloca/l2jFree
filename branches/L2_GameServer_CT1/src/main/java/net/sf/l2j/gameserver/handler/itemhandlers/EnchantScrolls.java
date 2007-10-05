@@ -24,12 +24,13 @@ import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ChooseInventoryItem;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class EnchantScrolls implements IItemHandler
 {
-	private static int[] _itemIds = {
+	private static final int[] ITEM_IDS = {
 		729, 730, 731, 732, 6569, 6570, // a grade
 		947, 948, 949, 950, 6571, 6572, // b grade
 		951, 952, 953, 954, 6573, 6574, // c grade
@@ -45,20 +46,20 @@ public class EnchantScrolls implements IItemHandler
 
         // Restrict enchant during restart/shutdown (because of an existing exploit)
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
             activeChar.sendMessage("Enchant isn't allowed during restart/shutdown!");
             return;
         }
 		
 		activeChar.setActiveEnchantItem(item);
-		activeChar.sendPacket(new SystemMessage(SystemMessage.SELECT_ITEM_TO_ENCHANT));
+		activeChar.sendPacket(new SystemMessage(SystemMessageId.SELECT_ITEM_TO_ENCHANT));
         activeChar.sendPacket(new ChooseInventoryItem(item.getItemId()));
 		return;
 	}
 	
 	public int[] getItemIds()
 	{
-		return _itemIds;
+		return ITEM_IDS;
 	}
 }

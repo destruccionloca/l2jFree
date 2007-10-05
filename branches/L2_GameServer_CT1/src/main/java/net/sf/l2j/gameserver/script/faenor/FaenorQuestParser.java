@@ -34,6 +34,7 @@ public class FaenorQuestParser extends FaenorParser
 {
     private final static Log _log = LogFactory.getLog(FaenorQuestParser.class.getName());
     
+    @Override
     public void parseScript(Node questNode)
     {
         if (_log.isDebugEnabled()) _log.debug("Parsing Quest.");
@@ -98,11 +99,12 @@ public class FaenorQuestParser extends FaenorParser
         
         if (_log.isDebugEnabled()) _log.debug("Adding Drop to NpcID: "+npcID);
         
-        bridge.addQuestDrop(npcID, itemID, min, max, chance, questID, states);
+        _bridge.addQuestDrop(npcID, itemID, min, max, chance, questID, states);
     }
     
     static class FaenorQuestParserFactory extends ParserFactory
     {
+        @Override
         public Parser create()
         {
             return(new FaenorQuestParser());

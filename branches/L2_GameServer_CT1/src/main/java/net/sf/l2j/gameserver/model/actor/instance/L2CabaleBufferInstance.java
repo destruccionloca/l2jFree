@@ -1,3 +1,20 @@
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
+ */
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.concurrent.ScheduledFuture;
@@ -8,6 +25,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -18,11 +36,11 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2CabaleBufferInstance extends L2NpcInstance
 {
-    ScheduledFuture aiTask;
+    private ScheduledFuture _aiTask;
     
     private class CabalaAI implements Runnable
     {
-        L2CabaleBufferInstance _caster;
+        private L2CabaleBufferInstance _caster;
         
         protected CabalaAI(L2CabaleBufferInstance caster) 
         {
@@ -121,7 +139,7 @@ public class L2CabaleBufferInstance extends L2NpcInstance
                 
            		broadcastPacket(new MagicSkillUser(_caster, player, skill.getId(), skillLevel, skill.getSkillTime(), 0));
                 
-           		SystemMessage sm = new SystemMessage(SystemMessage.YOU_FEEL_S1_EFFECT);
+           		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
            		sm.addSkillName(skillId);
            		player.sendPacket(sm);
                     
@@ -137,28 +155,31 @@ public class L2CabaleBufferInstance extends L2NpcInstance
     {
         super(objectId, template);
         
-        if (aiTask != null) 
-            aiTask.cancel(true);
+        if (_aiTask != null) 
+            _aiTask.cancel(true);
         
-        aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new CabalaAI(this), 3000, 3000);
+        _aiTask = ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new CabalaAI(this), 3000, 3000);
     }
     
+    @Override
     public void deleteMe()
     {
-        if (aiTask != null)
+        if (_aiTask != null)
         {
-            aiTask.cancel(true);
-            aiTask = null;
+            _aiTask.cancel(true);
+            _aiTask = null;
         }
         
         super.deleteMe();
     }
     
+    @Override
     public int getDistanceToWatchObject(L2Object object)
     {
         return 900;
     }
     
+    @Override
     public boolean isAutoAttackable(L2Character attacker)
     {
         return false;

@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.TradeList.TradeItem;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -37,14 +38,13 @@ import net.sf.l2j.gameserver.util.Util;
  */
 public class RequestPrivateStoreBuy extends L2GameClientPacket
 {
-//  private static final String _C__79_SENDPRIVATESTOREBUYLIST = "[C] 79 SendPrivateStoreBuyList";
     private static final String _C__79_REQUESTPRIVATESTOREBUY = "[C] 79 RequestPrivateStoreBuy";
-//    private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuy.class.getName());
 
     private int _storePlayerId;
     private int _count;
     private ItemRequest[] _items;
 
+    @Override
     protected void readImpl()
     {
         _storePlayerId = readD();
@@ -64,13 +64,14 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         }
     }
 
+    @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
 		
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdow() <= Config.SAFE_REBOOT_TIME)
+        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
 			sendPacket(new ActionFailed());
@@ -129,7 +130,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         
         if (player.getAdena() < priceTotal)
         {
-            sendPacket(new SystemMessage(SystemMessage.YOU_NOT_ENOUGH_ADENA));
+            sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
             sendPacket(new ActionFailed());
             return;
         }
@@ -190,6 +191,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         }*/
     }
 
+    @Override
     public String getType()
     {
         return _C__79_REQUESTPRIVATESTOREBUY;
