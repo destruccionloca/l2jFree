@@ -81,7 +81,7 @@ public class Escape implements IUserCommandHandler
         }
         
         SystemMessage sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
-        sm.addNumber(unstuckTimer/60000);
+        sm.addNumber(unstuckTimer/1000);
         activeChar.sendPacket(sm);
         sm = null;
         
