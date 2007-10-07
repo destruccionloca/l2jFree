@@ -927,12 +927,20 @@
   </for>
 </skill>
 <skill id="326" levels="1" name="Build Advanced Headquarters">
-  <!-- <set name="mpConsume" val="30"/> -->
-  <set name="target" val="TARGET_NONE"/>
+  <set name="mpInitialConsume" val="30"/>
+  <set name="mpConsume" val="0"/>
+  <set name="itemConsumeId" val="2131"/>
+  <set name="itemConsumeCount" val="300"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="1800000"/>
   <set name="skillTime" val="4000"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="skillType" val="SIEGEFLAG"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="isAdvanced" val="true"/>
   <for>
   </for>
 </skill>
