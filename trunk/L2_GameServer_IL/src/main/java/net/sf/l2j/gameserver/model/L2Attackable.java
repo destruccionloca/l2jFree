@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.model;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import java.util.Map;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemsAutoDestroy;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
@@ -2178,10 +2179,8 @@ public class L2Attackable extends L2NpcInstance
         _seeded = true;
         _seedType = id;
         int count = 1;
-
-        int diff = (getLevel() - seederLvl);
         
-        FastMap<Integer, L2Skill> skills = getTemplate().getSkills();
+        Map<Integer, L2Skill> skills = getTemplate().getSkills();
         
         if (skills != null)
         {
