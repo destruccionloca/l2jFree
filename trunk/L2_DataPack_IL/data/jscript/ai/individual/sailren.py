@@ -48,7 +48,7 @@ class sailren (JQuest):
         st.exitQuest(1)
         return "<html><body>Shilen's Stone Statue:<br><font color=""LEVEL"">Gazkh</font> is necessary for seal the sailren.</body></html>"
 
-  def onKill (self,npc,player):
+  def onKill (self,npc,player,isPet):
     st = player.getQuestState("sailren")
     if not st: return
     if ZoneManager.getInstance().checkIfInZone("LairofSailren", player) :

@@ -37,7 +37,7 @@ class valakas(JQuest):
         return "<html><body>Klein:<br>You do not have the Floating Stone. Go get one and then come back to me.</body></html>"
     return
 
-  def onKill (self,npc,player):
+  def onKill (self,npc,player,isPet):
     st = player.getQuestState("valakas")
     if not st: return
     ValakasManager.getInstance().setCubeSpawn()
