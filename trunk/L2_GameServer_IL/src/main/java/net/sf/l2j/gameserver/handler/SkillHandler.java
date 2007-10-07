@@ -96,6 +96,7 @@ public class SkillHandler
         registerSkillHandler(new DrainSoul());
         registerSkillHandler(new Fishing()); 
         registerSkillHandler(new FishingSkill());
+        registerSkillHandler(new Harvest());
         registerSkillHandler(new Heal());
         registerSkillHandler(new Manadam());
         registerSkillHandler(new ManaHeal());
@@ -104,8 +105,9 @@ public class SkillHandler
         registerSkillHandler(new Recall());
         registerSkillHandler(new Resurrect());
         registerSkillHandler(new SiegeFlag());
-        registerSkillHandler(new StrSiegeAssault());
+        registerSkillHandler(new Sow());
         registerSkillHandler(new Spoil());
+        registerSkillHandler(new StrSiegeAssault());
         registerSkillHandler(new SummonFriend());
         registerSkillHandler(new SummonTreasureKey());
         registerSkillHandler(new Sweep());

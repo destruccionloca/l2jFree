@@ -94,38 +94,38 @@ public class ItemHandler
     private ItemHandler()
     {
         _datatable = new TreeMap<Integer, IItemHandler>();
-        registerItemHandler(new ScrollOfEscape());
-        registerItemHandler(new ScrollOfResurrection());
-        registerItemHandler(new SoulShots());
-        registerItemHandler(new SpiritShot());
         registerItemHandler(new BeastSoulShot());
+        registerItemHandler(new BeastSpice());
         registerItemHandler(new BeastSpiritShot());
         registerItemHandler(new BlessedSpiritShot());
-        registerItemHandler(new ChestKey());
-        registerItemHandler(new PaganKeys()); 
-        registerItemHandler(new WorldMap());
-        registerItemHandler(new Potions());
-        registerItemHandler(new Recipes());
-        registerItemHandler(new RollingDice());
-        registerItemHandler(new MysteryPotion());
-        registerItemHandler(new EnchantScrolls());
-        registerItemHandler(new Remedy());
         registerItemHandler(new Book());
-        registerItemHandler(new Scrolls());
-        registerItemHandler(new CrystalCarol());
-        registerItemHandler(new SoulCrystals());
-        registerItemHandler(new SevenSignsRecord());
         registerItemHandler(new CharChangePotions());
+        registerItemHandler(new ChestKey());
+        registerItemHandler(new CrystalCarol());
+        registerItemHandler(new EnchantScrolls());
+        registerItemHandler(new EnergyStone());        
+        registerItemHandler(new ExtractableItems());
         registerItemHandler(new Firework());
-        registerItemHandler(new Seed());
+        registerItemHandler(new FishShots());
         registerItemHandler(new Harvester());
         registerItemHandler(new MercTicket());
-        registerItemHandler(new FishShots());
-        registerItemHandler(new ExtractableItems());
+        registerItemHandler(new MysteryPotion());
+        registerItemHandler(new PaganKeys()); 
+        registerItemHandler(new Recipes());
+        registerItemHandler(new Remedy());
+        registerItemHandler(new RollingDice());
+        registerItemHandler(new Potions());
+        registerItemHandler(new ScrollOfEscape());
+        registerItemHandler(new ScrollOfResurrection());
+        registerItemHandler(new Scrolls());
         registerItemHandler(new SpecialXMas());
+        registerItemHandler(new Seed());
+        registerItemHandler(new SevenSignsRecord());
+        registerItemHandler(new SoulCrystals());
+        registerItemHandler(new SoulShots());
+        registerItemHandler(new SpiritShot());
         registerItemHandler(new SummonItems());
-        registerItemHandler(new BeastSpice());
-        registerItemHandler(new EnergyStone());        
+        registerItemHandler(new WorldMap());
     }
     
     /**

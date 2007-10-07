@@ -467,6 +467,8 @@ public abstract class L2Skill
     
     private final int _timeMulti;
 
+    private final boolean _isAdvanced; // Used by siege flag summon skills
+
     private final float _successRate; 
     private final int _minPledgeClass;
     
@@ -509,16 +511,16 @@ public abstract class L2Skill
         _skillInterruptTime = set.getInteger("skillTime", _skillTime/2);
         _hitTime      = set.getInteger("hitTime", 0);
         _reuseDelay   = set.getInteger("reuseDelay", 0);
-        _skillType    = set.getEnum("skillType", SkillType.class);        
-        _isDance      = set.getBool("isDance",false);        
+        _skillType    = set.getEnum("skillType", SkillType.class);
+        _isDance      = set.getBool("isDance",false);
         if(_isDance)
             _timeMulti = Config.ALT_DANCE_TIME;
         else if(_skillType==SkillType.SEED)
-        	_timeMulti = Config.ALT_SEED_TIME;
+            _timeMulti = Config.ALT_SEED_TIME;
         else
-        	_timeMulti = Config.ALT_BUFF_TIME;
+            _timeMulti = Config.ALT_BUFF_TIME;
 
-        _buffDuration = set.getInteger("buffDuration", 1);        
+        _buffDuration = set.getInteger("buffDuration", 1);
         _skillRadius  = set.getInteger("skillRadius", 80);
         
         _targetType   = set.getEnum("target", SkillTargetType.class);
@@ -528,8 +530,9 @@ public abstract class L2Skill
         _negatePower = set.getFloat("negatePower", 0.f);
         _negateId = set.getInteger("negateId", 0);
         _levelDepend  = set.getInteger("lvlDepend", 0);
-        _stat         = set.getEnum  ("stat", Stats.class, null);
-        
+        _stat         = set.getEnum("stat", Stats.class, null);
+
+        _isAdvanced   = set.getBool("isAdvanced",false); // Used by siege flag summon skills
 
         _effectType   = set.getEnum("effectType", SkillType.class, null);
         _effectPower  = set.getInteger("effectPower", 0);
@@ -1048,15 +1051,20 @@ public abstract class L2Skill
     {
        return _nextDanceCost;
     }
-    
+
+    public final boolean isAdvanced()
+    {
+        return _isAdvanced;
+    }
+
     public final float getSSBoost()
     {
-    	return _sSBoost;
+        return _sSBoost;
     }
 
     public final int getAggroPoints()
     {
-    	return _aggroPoints;
+        return _aggroPoints;
     }
 
     public final boolean useSoulShot()

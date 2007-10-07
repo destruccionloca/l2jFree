@@ -51,7 +51,7 @@ public class SiegeFlag implements ISkillHandler
             try
             {
                 // spawn a new flag
-                L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062));
+                L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062), skill.isAdvanced());
                 flag.setTitle(player.getClan().getName());
                 flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
                 flag.setHeading(player.getHeading());

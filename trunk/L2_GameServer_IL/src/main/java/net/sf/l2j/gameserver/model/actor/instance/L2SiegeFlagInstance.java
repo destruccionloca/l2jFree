@@ -32,13 +32,15 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 {
     private L2PcInstance _player;
     private Siege _siege;
-    
-	public L2SiegeFlagInstance(L2PcInstance player, int objectId, L2NpcTemplate template)
-	{
-		super(objectId, template);
+    private boolean _advanced;
+
+    public L2SiegeFlagInstance(L2PcInstance player, int objectId, L2NpcTemplate template, boolean advanced)
+    {
+        super(objectId, template);
 
         _player = player;
         _siege = SiegeManager.getInstance().getSiege(_player);
+        _advanced = advanced;
         if (_player.getClan() == null || _siege == null)
         {
             deleteMe();
@@ -51,7 +53,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
             else
                 sc.addFlag(this);
         }
-	}
+    }
 
     @Override
     public boolean isAttackable()
@@ -62,65 +64,74 @@ public class L2SiegeFlagInstance extends L2NpcInstance
                 && getCastle().getSiege().getIsInProgress());
     }
 
-	@Override
-	public boolean isAutoAttackable(L2Character attacker) 
-	{
-		// Attackable during siege by attacker only
-		return (attacker != null 
-		        && attacker instanceof L2PcInstance 
-		        && getCastle() != null
-		        && getCastle().getCastleId() > 0
-		        && getCastle().getSiege().getIsInProgress());
-	}
-	
+    @Override
+    public boolean isAutoAttackable(L2Character attacker) 
+    {
+        // Attackable during siege by attacker only
+        return (attacker != null 
+            && attacker instanceof L2PcInstance 
+            && getCastle() != null
+            && getCastle().getCastleId() > 0
+            && getCastle().getSiege().getIsInProgress());
+    }
+
     @Override
     public void doDie(L2Character killer)
     {
         L2SiegeClan sc = _siege.getAttackerClan(_player.getClan());
         if (sc != null)
-        	sc.removeFlag(this);
+            sc.removeFlag(this);
         
         super.doDie(killer);
     }
 
     @Override
     public void onForcedAttack(L2PcInstance player)
-	{
-		onAction(player);
-	}
-	
-	@Override
-	public void onAction(L2PcInstance player)
-	{
+    {
+        onAction(player);
+    }
+
+    @Override
+    public void onAction(L2PcInstance player)
+    {
         if (player == null)
             return;
         
-		if (this != player.getTarget())
-		{
-			player.setTarget(this);
-			
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-			player.sendPacket(my);
-			
+        if (this != player.getTarget())
+        {
+            player.setTarget(this);
+
+            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
+            player.sendPacket(my);
+
             StatusUpdate su = new StatusUpdate(getObjectId());
             su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
             su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
             player.sendPacket(su);
-			
-			player.sendPacket(new ValidateLocation(this));
-		}
-		else
-		{
-			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-			player.sendPacket(my);
-			
-			if (
+
+            player.sendPacket(new ValidateLocation(this));
+        }
+        else
+        {
+            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
+            player.sendPacket(my);
+
+            if (
                     isAutoAttackable(player) &&                 // Object is attackable
                     Math.abs(player.getZ() - getZ()) < 100      // Less then max height difference
-			    )
+            )
                 player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
             else 
                 player.sendPacket(new ActionFailed());
-		}
-	}
+        }
+    }
+
+    @Override
+    public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
+    {
+        // Advanced Headquarters have double HP.
+        if(_advanced) damage /= 2;
+
+        super.reduceCurrentHp(damage, attacker, awake);
+    }
 }
