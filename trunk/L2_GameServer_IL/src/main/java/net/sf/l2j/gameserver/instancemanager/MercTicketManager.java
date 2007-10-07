@@ -398,7 +398,7 @@ public class MercTicketManager
             	break;
             }
     	// find the castle where this item is
-    	Castle castle = CastleManager.getInstance().getCastle(getTicketCastleId(itemId));
+    	Castle castle = CastleManager.getInstance().getCastleById(getTicketCastleId(itemId));
     	
     	if (npcId > 0 && castle != null)
     	{

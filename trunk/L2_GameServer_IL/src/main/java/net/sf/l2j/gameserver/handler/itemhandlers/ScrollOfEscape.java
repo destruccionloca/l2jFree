@@ -184,7 +184,7 @@ public class ScrollOfEscape implements IItemHandler
 			{
 				// escape to castle own's one
 				if ((_itemId == 1830 || _itemId == 5859)
-						&& CastleManager.getInstance().getCastle(_activeChar.getClan()) != null)
+						&& CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)
 				{
 					_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Castle);
 				}

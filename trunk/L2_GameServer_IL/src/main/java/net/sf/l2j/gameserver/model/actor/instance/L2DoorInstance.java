@@ -287,7 +287,7 @@ public class L2DoorInstance extends L2Character
             	_castleIndex = castle.getCastleId();
     		}
     	if (_castleIndex > 0) 
-    		castle = CastleManager.getInstance().getCastle(_castleIndex);
+    		castle = CastleManager.getInstance().getCastleById(_castleIndex);
     	
     	return castle;
     }

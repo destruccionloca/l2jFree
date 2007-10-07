@@ -53,7 +53,7 @@ public class RequestJoinSiege extends L2GameClientPacket{
         if(activeChar == null) return;
         if (!activeChar.isClanLeader()) return;
         
-        Castle castle = CastleManager.getInstance().getCastle(_castleId);
+        Castle castle = CastleManager.getInstance().getCastleById(_castleId);
         if (castle == null) return;
 
         if (_isJoining == 1)

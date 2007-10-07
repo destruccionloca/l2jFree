@@ -55,7 +55,7 @@ public class CastleUpdater implements Runnable {
 		        {
                     if (_runCount % 2 == 0)
                     {
-                        Castle castle = CastleManager.getInstance().getCastle(_clan.getHasCastle());
+                        Castle castle = CastleManager.getInstance().getCastleById(_clan.getHasCastle());
 
                         int amount = castle.getTreasury();
                         if (amount > 0)

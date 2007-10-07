@@ -2306,8 +2306,8 @@ public final class L2PcInstance extends L2PlayableInstance
         if ((clan != null) && (clan.getLeader().getPlayerInstance() == this))
         {
             // if the clan has a castle and it is actually the queried castle, return true
-            Castle castle = CastleManager.getInstance().getCastle(clan);
-            if ((castle != null) && (castle == CastleManager.getInstance().getCastle(castleId)))
+            Castle castle = CastleManager.getInstance().getCastleByOwner(clan);
+            if ((castle != null) && (castle == CastleManager.getInstance().getCastleById(castleId)))
                 return true;
         }
         return false;
@@ -7680,7 +7680,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // castle owner is the leader of the clan that owns the castle where the pc is
         if (SiegeManager.getInstance().checkIfInZone(this)
             && !(getClan() != null
-                && CastleManager.getInstance().getCastle(this) == CastleManager.getInstance().getCastle(getClan()) 
+                && CastleManager.getInstance().getCastle(this) == CastleManager.getInstance().getCastleByOwner(getClan()) 
                 && this == getClan().getLeader().getPlayerInstance()))
             return true;
 

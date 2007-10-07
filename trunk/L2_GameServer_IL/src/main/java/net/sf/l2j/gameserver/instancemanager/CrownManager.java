@@ -90,7 +90,7 @@ public class CrownManager
     
     public void giveCrowns(L2Clan clan,Integer CastleId)
     {
-    	if(CastleManager.getInstance().getCastle(clan)!=null)
+    	if(CastleManager.getInstance().getCastleByOwner(clan)!=null)
     	{
 	        for (L2ClanMember member : clan.getMembers())
 	        {
@@ -119,10 +119,10 @@ public class CrownManager
         L2Clan activeCharClan  = cha.getClan();
         if(activeCharClan!=null) // character has clan ?
         {
-            Castle activeCharCastle= CastleManager.getInstance().getCastle(cha.getClan());
+            Castle activeCharCastle= CastleManager.getInstance().getCastleByOwner(cha.getClan());
             if(activeCharCastle!=null) // clan has castle ?
             {
-            	int CrownId = CrownTable.getCrownId(CastleManager.getInstance().getCastle(cha.getClan()).getCastleId()); // get crown id
+            	int CrownId = CrownTable.getCrownId(CastleManager.getInstance().getCastleByOwner(cha.getClan()).getCastleId()); // get crown id
             	
 				if(activeCharClan.getLeader().getObjectId()==cha.getObjectId()) // if leader give lord crown and normal crown
 				{
