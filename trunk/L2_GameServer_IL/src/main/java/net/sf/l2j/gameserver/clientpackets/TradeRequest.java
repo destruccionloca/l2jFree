@@ -60,14 +60,14 @@ public class TradeRequest extends L2GameClientPacket
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			player.sendMessage("Transactions aren't allowed during restart/shutdown!");
 			sendPacket(new ActionFailed());
 			return;
         }
 		
         if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
-        	player.sendMessage("Transactions are disable for your Access Level");
+        	player.sendMessage("Transactions are disabled for your Access Level");
             sendPacket(new ActionFailed());
             return;
         }
@@ -85,7 +85,7 @@ public class TradeRequest extends L2GameClientPacket
 
         if (partner.isInOlympiadMode() || player.isInOlympiadMode())
         {
-            player.sendMessage("You or your target cant request trade in Olympiad mode");
+            player.sendMessage("You or your target can't request trade in Olympiad mode");
             return;
         }
 
@@ -111,7 +111,7 @@ public class TradeRequest extends L2GameClientPacket
 
 		if (partner.isProcessingRequest() || partner.isProcessingTransaction()) 
 		{
-			_log.debug("transaction already in progress.");
+			if (_log.isDebugEnabled()) _log.debug("transaction already in progress.");
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_BUSY_TRY_LATER);
 			sm.addString(partner.getName());
 			player.sendPacket(sm);
@@ -120,7 +120,7 @@ public class TradeRequest extends L2GameClientPacket
 
         if (partner.getTradeRefusal())
         {
-            player.sendMessage("Target is in trade refusal mode");
+            player.sendMessage("Target is in trade refusal mode.");
             return;
         }
         

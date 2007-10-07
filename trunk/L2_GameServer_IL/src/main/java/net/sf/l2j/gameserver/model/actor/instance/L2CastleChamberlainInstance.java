@@ -18,20 +18,27 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.Calendar;
+import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
-import net.sf.l2j.gameserver.datatables.ItemTable;
-import net.sf.l2j.gameserver.model.CropProcure;
-import net.sf.l2j.gameserver.model.L2Manor;
-import net.sf.l2j.gameserver.model.SeedProduction;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.ExShowCropInfo;
+import net.sf.l2j.gameserver.serverpackets.ExShowCropSetting;
+import net.sf.l2j.gameserver.serverpackets.ExShowManorDefaultInfo;
+import net.sf.l2j.gameserver.serverpackets.ExShowSeedInfo;
+import net.sf.l2j.gameserver.serverpackets.ExShowSeedSetting;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.serverpackets.WareHouseDepositList;
-import net.sf.l2j.gameserver.serverpackets.WareHouseWithdrawalList;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,355 +53,344 @@ import org.apache.commons.logging.LogFactory;
  */
 public class L2CastleChamberlainInstance extends L2FolkInstance
 {
-    private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
+	//private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
 
 	protected static final int COND_ALL_FALSE = 0;
 	protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
 	protected static final int COND_OWNER = 2;
 
-    public L2CastleChamberlainInstance(int objectId, L2NpcTemplate template)
-    {
-        super(objectId, template);
-    }
-    
-    @Override
-    public void onBypassFeedback(L2PcInstance player, String command)
-    {
-        player.sendPacket( new ActionFailed() );
+	public L2CastleChamberlainInstance(int objectId, L2NpcTemplate template)
+	{
+		super(objectId, template);
+	}
 
-        int condition = validateCondition(player);
-        if (condition <= COND_ALL_FALSE)
-            return;
+	public void onAction(L2PcInstance player)
+	{
+		player.setLastFolkNPC(this);
 
-        if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
-            return;
-        else if (condition == COND_OWNER)
-        {
-            StringTokenizer st = new StringTokenizer(command, " ");
-            String actualCommand = st.nextToken(); // Get actual command
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (this != player.getTarget())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
 
-            String val = "";
-            if (st.countTokens() >= 1) {val = st.nextToken();}
-     
-            if (actualCommand.equalsIgnoreCase("banish_foreigner"))
-                {
-                    getCastle().banishForeigner(player);                                                // Move non-clan members off castle area
-                    return;
-                }
-            else if (actualCommand.equalsIgnoreCase("list_siege_clans"))
-                {
-                    getCastle().getSiege().listRegisterClan(player);                                    // List current register clan
-                    return;
-                }
-             else if (actualCommand.equalsIgnoreCase("manage_siege_defender"))
-            {
-                    getCastle().getSiege().listRegisterClan(player);
-                    return;
-            }
-              else if(actualCommand.equalsIgnoreCase("manage_vault"))
-            {
-                      if (val.equalsIgnoreCase("deposit"))
-                        showVaultWindowDeposit(player);
-                    else if (val.equalsIgnoreCase("withdraw"))
-                        showVaultWindowWithdraw(player);
-                    else
-                    {
-                            TextBuilder msg = new TextBuilder("<html><body>");
-                  msg.append("%npcname%:<br>");
-                    msg.append("Manage Vault<br>");
-                    msg.append("<table width=200>");
-                    msg.append("<tr><td><a action=\"bypass -h npc_%objectId%_manage_vault deposit\">Deposit Item</a></td></tr>");
-                    msg.append("<tr><td><a action=\"bypass -h npc_%objectId%_manage_vault withdraw\">Withdraw Item</a></td></tr>");
-                    msg.append("</table>");
-                    msg.append("</body></html>");
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			// The player.getLevel() - getLevel() permit to display the correct color in the select window
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
+			player.sendPacket(my);
 
-                    sendHtmlMessage(player, msg.toString());
-                    }
-                        return;
-             }
-            else if(actualCommand.equalsIgnoreCase("manor")) // manor control
-            {
-                int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-                int cmd = Integer.parseInt(val);
-                switch(cmd)
-                {
-                    //TODO uncomment this with manor system commit
-                    case 1: // view/edit manor stats
-                       // showChatWindow(player,L2Manor.getInstance().getCropReward());
-                        showManorProcure(player);
-                        break;
-                    case 2: // set reward type
-               
-                if( !player.isGM() && ( hour < 20 || hour > 22) ) break;
-                        int cropId = Integer.parseInt(st.nextToken());
-                        int reward = Integer.parseInt(st.nextToken());
-                        getCastle().setCropReward(cropId,reward);
-                showManorProcure(player);
-                        break;
-                    case 3: // edit reward
-                        int crop = Integer.parseInt(st.nextToken());
-                        int currentReward = Integer.parseInt(st.nextToken());
-                        NpcHtmlMessage msg = new NpcHtmlMessage(1);
-                        msg.setHtml(pageEditManor(crop,currentReward));
-                        player.sendPacket(msg);
-                        player.sendPacket(new ActionFailed());
-                        break;
-            case 4: // show sedds stats
-            showManorProduction(player);
-            break;
-                    case 5: // set count and prise seed
-                        if( !player.isGM() && ( hour < 20 || hour > 22) ) break;
-                        int seedeId = Integer.parseInt(st.nextToken());
-                        int amounte = Integer.parseInt(st.nextToken());
-                int pricee = Integer.parseInt(st.nextToken());
-                if (amounte >1000) amounte = 1000;
-                if (pricee > 3000 ) pricee= 3000;
-                        getCastle().setSeedAmount(seedeId,amounte);
-                getCastle().setSeedPrice(seedeId,pricee);
-                showManorProduction(player);
-                        break;
-             case 6: // edit reward
-                        int seedId = Integer.parseInt(st.nextToken());
-                        int amount = Integer.parseInt(st.nextToken());
-                        int price = Integer.parseInt(st.nextToken());
-                        NpcHtmlMessage msg1 = new NpcHtmlMessage(1);
-                        msg1.setHtml(pageEditManorSeed(seedId,amount,price));
-                        player.sendPacket(msg1);
-                        player.sendPacket(new ActionFailed());
-                        break;
-             case 7: // edit reward
-                                if( !player.isGM() && ( hour < 20 || hour > 22) ) break;
-                        int cropIdi = Integer.parseInt(st.nextToken());
-                        int amounti = Integer.parseInt(st.nextToken());
-                if (amounti > 10000) amounti=10000;
-                        getCastle().setCropAmount(cropIdi,amounti);
-                showManorProcure(player);
-                        break;
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			// The player.getLevel() - getLevel() permit to display the correct color
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
+			player.sendPacket(my);
 
-                    default:
-                        _log.info("Invalid bypass for manor control: "+command+" by "+player.getName()+", hack?");
-                }
-                return;
-            }
-            else if(actualCommand.equalsIgnoreCase("operate_door")) // door control
-            {
-                if (val != "")
-                {
-                    boolean open = (Integer.parseInt(val) == 1);
-                    while (st.hasMoreTokens())
-                    {
-                        getCastle().openCloseDoor(player, Integer.parseInt(st.nextToken()), open);
-                    }
-                }
+			// Calculate the distance between the L2PcInstance and the L2NpcInstance
+			if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+			{
+				// player.setCurrentState(L2Character.STATE_INTERACT);
+				// player.setInteractTarget(this);
+				// player.moveTo(this.getX(), this.getY(), this.getZ(), INTERACTION_DISTANCE);
 
-                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-                html.setFile("data/html/chamberlain/" + getTemplate().getNpcId() + "-d.htm");
-                html.replace("%objectId%", String.valueOf(getObjectId()));
-                html.replace("%npcname%", getName());
-                player.sendPacket(html);
-                return;
-            }
-            else if(actualCommand.equalsIgnoreCase("tax_set")) // tax rates control
-            {
-                if (val != "")
-                    getCastle().setTaxPercent(player, Integer.parseInt(val));
+				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 
-                TextBuilder msg = new TextBuilder("<html><body>");
-                msg.append(getName() + ":<br>");
-                msg.append("Current tax rate: " + getCastle().getTaxPercent() + "%<br>");
-                msg.append("<table>");
-                msg.append("<tr>");
-                msg.append("<td>Change tax rate to:</td>");
-                msg.append("<td><edit var=\"value\" width=40><br>");
-                msg.append("<button value=\"Adjust\" action=\"bypass -h npc_%objectId%_tax_set $value\" width=80 height=15></td>");
-                msg.append("</tr>");
-                msg.append("</table>");
-                msg.append("</center>");
-                msg.append("</body></html>");
+				// Send a Server->Client packet ActionFailed (target is out of interaction range) to the L2PcInstance player
+				player.sendPacket(new ActionFailed());
+			} 
+			else 
+			{
+				showMessageWindow(player);
+				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+				player.sendPacket(new ActionFailed());
+				// player.setCurrentState(L2Character.STATE_IDLE);
+			}
+		}
+	}
+	
+	@Override
+	public void onBypassFeedback(L2PcInstance player, String command)
+	{
+		player.sendPacket( new ActionFailed() );
 
-                sendHtmlMessage(player, msg.toString());
-                return;
-            }
-        }
+		int condition = validateCondition(player);
+		if (condition <= COND_ALL_FALSE)
+			return;
 
-        super.onBypassFeedback(player, command);
-    }
+		if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
+			return;
+		else if (condition == COND_OWNER)
+		{
+			StringTokenizer st = new StringTokenizer(command, " ");
+			String actualCommand = st.nextToken(); // Get actual command
 
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        player.sendPacket(new ActionFailed());
-        player.setTarget(this);
-        player.sendPacket(new MyTargetSelected(getObjectId(), -15));
+			String val = "";
+			if (st.countTokens() >= 1) {val = st.nextToken();}
+	 
+			if (actualCommand.equalsIgnoreCase("banish_foreigner"))
+				{
+					getCastle().banishForeigner(player);					// Move non-clan members off castle area
+					return;
+				}
+			else if (actualCommand.equalsIgnoreCase("list_siege_clans"))
+				{
+					getCastle().getSiege().listRegisterClan(player);		// List current register clan
+					return;
+				}
+			 else if (actualCommand.equalsIgnoreCase("manage_siege_defender"))
+			{
+					getCastle().getSiege().listRegisterClan(player);
+					return;
+			}
+			else if (actualCommand.equalsIgnoreCase("manage_vault"))
+			{
+				String filename = "data/html/chamberlain/chamberlain-vault.htm";
+				int amount = 0;
+				if (val.equalsIgnoreCase("deposit"))
+				{
+					try
+					{
+						amount = Integer.parseInt(st.nextToken());
+					}
+					catch(NoSuchElementException e) {}
+					if (amount > 0 && getCastle().getTreasury() + amount < Integer.MAX_VALUE)
+					{
+						if (player.reduceAdena("Castle", amount, this, true))
+							getCastle().addToTreasuryNoTax(amount);
+						else
+							sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
+					}
+				}
+				else if (val.equalsIgnoreCase("withdraw"))
+				{
+					try
+					{
+						amount = Integer.parseInt(st.nextToken());
+					}
+					catch(NoSuchElementException e) {}
+					if (amount > 0)
+					{
+						if (getCastle().getTreasury() < amount)
+						{
+							filename = "data/html/chamberlain/chamberlain-vault-no.htm";
+						}
+						else
+						{
+							player.addAdena("Castle", amount, this, true);
+							getCastle().addToTreasuryNoTax((-1)*amount);
+						}
+					}
+				}
 
-        if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-            showMessageWindow(player);
-    }
-    
-    @SuppressWarnings("unused")
-    private String pageEditManorSeed(int seed, int amount, int price)
-    {
-/*TextBuilder msg = new TextBuilder("<html><body>");
-                msg.append(getName() + ":<br>");
-                msg.append("Current tax rate: " + getCastle().getTaxPercent() + "%<br>");
-                msg.append("<table>");
-                msg.append("<tr>");
-                msg.append("<td>Change tax rate to:</td>");
-                msg.append("<td><edit var=\"value\" width=40><br>");
-                msg.append("<button value=\"Adjust\" action=\"bypass -h npc_%objectId%_tax_set $value\" width=80 height=15></td>");
-                msg.append("</tr>");
-                msg.append("</table>");
-                msg.append("</center>");
-                msg.append("</body></html>");
-*/
-        String text = "<html><body><table width=270 bgcolor=\"111111\">";
-        String seedName = ItemTable.getInstance().getTemplate(seed).getName();
-        text += "<tr><td>"+seedName+"</td></tr>";
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile(filename);
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				html.replace("%npcname%", getName());
+				html.replace("%tax_income%", Util.formatAdena(getCastle().getTreasury()));
+				html.replace("%withdraw_amount%", Util.formatAdena(amount));
+				player.sendPacket(html);
 
-        text += "<tr><td>Current amount: "+amount+"</td></tr>";
-        text += "<tr><td>Current price: "+price+"</td></tr>";
-        text += "</table><table width=270>";
-        /* 2be uncommented with manor system commit*/
+				return;
+			}
+			else if(actualCommand.equalsIgnoreCase("manor"))
+			{
+				String filename = "";
+				if (CastleManorManager.getInstance().isDisabled())
+				{
+					filename = "data/html/npcdefault.htm";
+				}
+				else
+				{
+					int cmd = Integer.parseInt(val);
+					switch(cmd)
+					{
+						case 0:
+							filename = "data/html/chamberlain/manor/manor.htm";
+							break;
+						// TODO: correct in html's to 1
+						case 4:
+							filename = "data/html/chamberlain/manor/manor_help00"+st.nextToken()+".htm";
+							break;
+						default:
+							filename = "data/html/chamberlain/chamberlain-no.htm";
+							break;
+					}
+				}
+				
+				if (!filename.isEmpty())
+				{
+					NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+					html.setFile(filename);
+					html.replace("%objectId%", String.valueOf(getObjectId()));
+					html.replace("%npcname%", getName());
+					player.sendPacket(html);
+				}
+				return;
+			}
+			else if (command.startsWith("manor_menu_select"))
+			{ // input string format:  manor_menu_select?ask=X&state=Y&time=X
+				if (CastleManorManager.getInstance().isUnderMaintenance())
+				{
+					player.sendPacket(new ActionFailed());
+					player.sendPacket(new SystemMessage(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE));
+					return;
+				}
 
-        text += "<tr><td>Amount: <edit var=\"value\" width=100></td></tr>";
-        text += "<tr><td>Price: <edit var=\"value1\" width=100></td></tr>";
-        text += "<tr><td><button value=\"Save\" action=\"bypass -h npc_"+getObjectId()+"_manor 5 "+seed+" $value $value1\" width=80 height=15></td></tr>";  
-        text += "</table></body></html>";
-        return text;
-    }
+				String params = command.substring(command.indexOf("?")+1);
+				StringTokenizer str = new StringTokenizer(params, "&");
+				int ask   = Integer.parseInt(str.nextToken().split("=")[1]);
+				int state = Integer.parseInt(str.nextToken().split("=")[1]);
+				int time  = Integer.parseInt(str.nextToken().split("=")[1]);
 
- private String pageEditManor(int crop, int current)
-    { 
-        String cropName = ItemTable.getInstance().getTemplate(crop).getName();
-        String text = "<html><body><table width=270 bgcolor=\"111111\"><tr><td></td><td>"+cropName+"</td><td></td></tr>";
-        text += "<tr><td>Kol-vo na pokupku</td><td>Type I reward</td><td>Type II reward</td></tr>";
-        text += "</table><table width=270>";
-        /* 2be uncommented with manor system commit*/
-       
-        String reward1Name = ItemTable.getInstance().getTemplate(L2Manor.getInstance().getRewardItem(crop,1)).getName();
-        String reward2Name = ItemTable.getInstance().getTemplate(L2Manor.getInstance().getRewardItem(crop,2)).getName();
-        int reward1Amount = L2Manor.getInstance().getRewardAmount(crop,1);
-        int reward2Amount = L2Manor.getInstance().getRewardAmount(crop,2);
-        
-        text += "<tr><td><edit var=\"value2\" width=100></td><td><a action=\"bypass -h npc_"+getObjectId()+"_manor 2 "+crop+" 1\">"+reward1Name+"/"+reward1Amount+"</a></td><td><a action=\"bypass -h npc_"+getObjectId()+"_manor 2 "+crop+" 2\">"+reward2Name+"/"+reward2Amount+"</a></td></tr><tr><td><button value=\"Save kol-vo\" action=\"bypass -h npc_"+getObjectId()+"_manor 7 "+crop+" $value2 \" width=100 height=15></td><td></td><td></td></tr>";
-       
-        text += "</table></body></html>";
-        return text;
-    }
+				int castleId;
+				if (state == -1) // info for current manor
+					castleId = getCastle().getCastleId();
+				else 			 // info for requested manor
+					castleId = state;
 
-  private void showManorProduction(L2PcInstance player)
-    {
-        if (getCastle() == null)
-            return;
+				switch (ask)
+				{ // Main action
+				case 3: // Current seeds (Manor info)
+					if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
+						player.sendPacket(new ExShowSeedInfo(castleId, null));
+					else
+						player.sendPacket(new ExShowSeedInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getSeedProduction(time)));
+					break;
+				case 4: // Current crops (Manor info)
+					if (time == 1 && !CastleManager.getInstance().getCastleById(castleId).isNextPeriodApproved())
+						player.sendPacket(new ExShowCropInfo(castleId, null));
+					else
+						player.sendPacket(new ExShowCropInfo(castleId, CastleManager.getInstance().getCastleById(castleId).getCropProcure(time)));
+					break;
+				case 5: // Basic info (Manor info)
+					player.sendPacket(new ExShowManorDefaultInfo());
+					break;
+				case 7: // Edit seed setup
+					if (getCastle().isNextPeriodApproved())
+						player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
+					else
+						player.sendPacket(new ExShowSeedSetting(getCastle().getCastleId()));
+					break;
+				case 8: // Edit crop setup
+					if (getCastle().isNextPeriodApproved())
+						player.sendPacket(new SystemMessage(SystemMessageId.A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM));
+					else
+						player.sendPacket(new ExShowCropSetting(getCastle().getCastleId()));
+					break;
+				}
+			}
+			else if(actualCommand.equalsIgnoreCase("operate_door")) // door control
+			{
+				if (val != "")
+				{
+					boolean open = (Integer.parseInt(val) == 1);
+					while (st.hasMoreTokens())
+					{
+						getCastle().openCloseDoor(player, Integer.parseInt(st.nextToken()), open);
+					}
+				}
 
-        FastList<SeedProduction> seedes = getCastle().getSeedProduction();
-        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-        String r="";
+				NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+				html.setFile("data/html/chamberlain/" + getTemplate().getNpcId() + "-d.htm");
+				html.replace("%objectId%", String.valueOf(getObjectId()));
+				html.replace("%npcname%", getName());
+				player.sendPacket(html);
+				return;
+			}
+			else if(actualCommand.equalsIgnoreCase("tax_set")) // tax rates control
+			{
+				if (val != "")
+					getCastle().setTaxPercent(player, Integer.parseInt(val));
 
-        for(SeedProduction seede : seedes)
-        {
-    /*if(seede.getCanProduce() > 0 ){*/
-                r += "<tr><td><a action=\"bypass -h npc_"+getObjectId()+"_manor 6 "+seede.getSeedId()+" "+seede.getCanProduce()+" "+seede.getPrice() +" \">"; 
-        r += ItemTable.getInstance().getTemplate(seede.getSeedId()).getName() + "</a></td>";
-                r += "<td>" + seede.getCanProduce() + "</td>";
-                r += "<td>" + seede.getPrice() + "</td></tr>";
-    /*}*/
-        }
-        
-        html.setFile("data/html/chamberlain/chamberlain-manor-production.htm");
-        html.replace("%objectId%", String.valueOf(getObjectId()));
-        html.replace("%npcname%", getName());
-        html.replace("%table%", r);
-        player.sendPacket(html);
-    }    
+				TextBuilder msg = new TextBuilder("<html><body>");
+				msg.append(getName() + ":<br>");
+				msg.append("Current tax rate: " + getCastle().getTaxPercent() + "%<br>");
+				msg.append("<table>");
+				msg.append("<tr>");
+				msg.append("<td>Change tax rate to:</td>");
+				msg.append("<td><edit var=\"value\" width=40><br>");
+				msg.append("<button value=\"Adjust\" action=\"bypass -h npc_%objectId%_tax_set $value\" width=80 height=15></td>");
+				msg.append("</tr>");
+				msg.append("</table>");
+				msg.append("</center>");
+				msg.append("</body></html>");
 
-    private void showManorProcure(L2PcInstance player)
-    {
-        if (getCastle() == null)
-            return;
+				sendHtmlMessage(player, msg.toString());
+				return;
+			}
+		}
 
-        FastList<CropProcure> crops = getCastle().getManorRewards();
-        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-        String r="";
+		super.onBypassFeedback(player, command);
+	}
 
-        for(CropProcure crop : crops)
-        {
+	private void sendHtmlMessage(L2PcInstance player, String htmlMessage)
+	{
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setHtml(htmlMessage);
+		html.replace("%objectId%", String.valueOf(getObjectId()));
+		html.replace("%npcname%", getName());
+		player.sendPacket(html);
+	}
+	
+	private void showMessageWindow(L2PcInstance player)
+	{
+		player.sendPacket( new ActionFailed() );
+		String filename = "data/html/chamberlain/chamberlain-no.htm";
+		
+		int condition = validateCondition(player);
+		if (condition > COND_ALL_FALSE)
+		{
+			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
+				filename = "data/html/chamberlain/chamberlain-busy.htm";	// Busy because of siege
+			else if (condition == COND_OWNER)								// Clan owns castle
+				filename = "data/html/chamberlain/chamberlain.htm";			// Owner message window
+		}
+		
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile(filename);
+		html.replace("%objectId%", String.valueOf(getObjectId()));
+		html.replace("%npcname%", getName());
+		player.sendPacket(html);
+	}
 
+	/*
+	private void showVaultWindowDeposit(L2PcInstance player)
+	{
+		player.sendPacket(new ActionFailed());
+		player.setActiveWarehouse(player.getClan().getWarehouse());
+		player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); //Or Castle ??
+	}
 
-            r += "<tr><td><a action=\"bypass -h npc_"+getObjectId()+"_manor 3 "+crop.getId()+" "+crop.getReward()+"  \">"+ ItemTable.getInstance().getTemplate(crop.getId()).getName() + "</a></td>";
-            r += "<td>" + crop.getAmount() + "</td>";
-            r += "<td>" + crop.getReward() + "</td></tr>";
-        }
-        
-        html.setFile("data/html/chamberlain/chamberlain-manor-procure.htm");
-        html.replace("%objectId%", String.valueOf(getObjectId()));
-        html.replace("%npcname%", getName());
-        html.replace("%table%", r);
-        player.sendPacket(html);
-    }
+	private void showVaultWindowWithdraw(L2PcInstance player)
+	{
+		if ( player.getClan() != null && player.getClan().getWarehouse() != null )
+		{
+			player.sendPacket(new ActionFailed());
+			player.setActiveWarehouse(player.getClan().getWarehouse());
+			player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN)); //Or Castle ??
+		}
+	}
+	*/
 
-    private void sendHtmlMessage(L2PcInstance player, String htmlMessage)
-    {
-        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-        html.setHtml(htmlMessage);
-        html.replace("%objectId%", String.valueOf(getObjectId()));
-        html.replace("%npcname%", getName());
-        player.sendPacket(html);
-    }
-    
-    private void showMessageWindow(L2PcInstance player)
-    {
-        player.sendPacket( new ActionFailed() );
-        String filename = "data/html/chamberlain/chamberlain-no.htm";
-        
-        int condition = validateCondition(player);
-        if (condition > COND_ALL_FALSE)
-        {
-            if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
-                filename = "data/html/chamberlain/chamberlain-busy.htm";                    // Busy because of siege
-            else if (condition == COND_OWNER)                                               // Clan owns castle
-                filename = "data/html/chamberlain/chamberlain.htm";                         // Owner message window
-        }
-        
-        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-        html.setFile(filename);
-        html.replace("%objectId%", String.valueOf(getObjectId()));
-        html.replace("%npcname%", getName());
-        player.sendPacket(html);
-    }
-
-    private void showVaultWindowDeposit(L2PcInstance player)
-    {
-        player.sendPacket(new ActionFailed());
-        player.setActiveWarehouse(player.getClan().getWarehouse());
-        player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); //Or Castle ??
-    }
-
-    private void showVaultWindowWithdraw(L2PcInstance player)
-    {
-        if ( player.getClan() != null && player.getClan().getWarehouse() != null )
-        {
-            player.sendPacket(new ActionFailed());
-            player.setActiveWarehouse(player.getClan().getWarehouse());
-            player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN)); //Or Castle ??
-        }
-    }
-    
-    protected int validateCondition(L2PcInstance player)
-    {   
-        if (player.isGM()) return COND_OWNER;
-        if (getCastle() != null && getCastle().getCastleId() > 0)
-        {
-            if (player.getClan() != null)
-            {
-                if (getCastle().getSiege().getIsInProgress())
-                    return COND_BUSY_BECAUSE_OF_SIEGE;                                      // Busy because of siege
-                else if (getCastle().getOwnerId() == player.getClanId()                     // Clan owns castle
-                        && player.isClanLeader())                                           // Leader of clan
-                    return COND_OWNER;  // Owner
-            }
-        }
-        
-        return COND_ALL_FALSE;
-    }
+	protected int validateCondition(L2PcInstance player)
+	{   
+		if (player.isGM()) return COND_OWNER;
+		if (getCastle() != null && getCastle().getCastleId() > 0)
+		{
+			if (player.getClan() != null)
+			{
+				if (getCastle().getSiege().getIsInProgress())
+					return COND_BUSY_BECAUSE_OF_SIEGE;						// Busy because of siege
+				else if (getCastle().getOwnerId() == player.getClanId()		// Clan owns castle
+						&& player.isClanLeader())							// Leader of clan
+					return COND_OWNER;  // Owner
+			}
+		}
+		
+		return COND_ALL_FALSE;
+	}
 }

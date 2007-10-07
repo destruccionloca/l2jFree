@@ -229,7 +229,7 @@ public abstract class L2Character extends L2Object
         else
         {
             // Initialize the FastMap _skills to null
-            _skills = new FastMap<Integer,L2Skill>();
+            _skills = new FastMap<Integer,L2Skill>().setShared(true);
 
             // If L2Character is a L2PcInstance or a L2Summon, create the basic calculator set
             _calculators = new Calculator[Stats.NUM_STATS];

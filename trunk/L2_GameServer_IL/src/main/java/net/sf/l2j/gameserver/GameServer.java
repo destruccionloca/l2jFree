@@ -49,8 +49,8 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NobleSkillTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
-import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.datatables.StaticObjects;
@@ -67,6 +67,7 @@ import net.sf.l2j.gameserver.instancemanager.AntharasManager;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
@@ -90,6 +91,7 @@ import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
+import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.network.L2GameClient;
@@ -368,6 +370,7 @@ public class GameServer
             ItemsAutoDestroy.getInstance();
             if ( _log.isDebugEnabled())_log.debug("ItemsAutoDestroy initialized");
         }
+
         
         // o Initialize monster race
         // TODO : nothing to initialize...
@@ -470,15 +473,18 @@ public class GameServer
         // Initialize managers
         // -------------------
         ZoneManager.getInstance();
+        CastleManorManager.getInstance();
         AuctionManager.getInstance();
-		_cHManager = ClanHallManager.getInstance();
-		CastleManager.getInstance();
-		MercTicketManager.getInstance();
-		//PartyCommandManager.getInstance();
-		PetitionManager.getInstance();
-		QuestManager.getInstance();
-		SiegeManager.getInstance();
-		TownManager.getInstance();
+        _cHManager = ClanHallManager.getInstance();
+        CastleManager.getInstance();
+        L2Manor.getInstance();
+        CastleManorManager.getInstance();
+        MercTicketManager.getInstance();
+        //PartyCommandManager.getInstance();
+        PetitionManager.getInstance();
+        QuestManager.getInstance();
+        SiegeManager.getInstance();
+        TownManager.getInstance();
         FourSepulchersManager.getInstance().init();
         SailrenManager.getInstance().init();
         AntharasManager.getInstance().init();

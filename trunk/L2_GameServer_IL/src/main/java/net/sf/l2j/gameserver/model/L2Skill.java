@@ -160,8 +160,8 @@ public abstract class L2Skill
         FEAR,
         MHOT,
         DRAIN                 (L2SkillDrain.class),
-        NEGATE,               
-        CANCEL,             
+        NEGATE,
+        CANCEL,
         SLEEP,
         AGGREDUCE,
         AGGREMOVE,
@@ -183,7 +183,7 @@ public abstract class L2Skill
         MUTE,
         RECALL,
         REFLECT,
-        SUMMON_FRIEND,        
+        SUMMON_FRIEND,
         SOULSHOT,
         SPIRITSHOT,
         SPOIL,
@@ -199,13 +199,15 @@ public abstract class L2Skill
         TAKECASTLE,
         UNDEAD_DEFENSE,
         SEED                (L2SkillSeed.class),
-        BEAST_FEED,        
+        BEAST_FEED,
         PARALYZE,
         DRAIN_SOUL,
         COMMON_CRAFT, 
         DWARVEN_CRAFT,
         WEAPON_SA,
         DELUXE_KEY_UNLOCK,
+        SOW,
+        HARVEST,
         
         FISHING,
         PUMPING,
@@ -1079,26 +1081,38 @@ public abstract class L2Skill
     {
         return _weaponsAllowed;
     }
-    
-    public final int getCrossLearnAdd() {
+
+    public final int getCrossLearnAdd()
+    {
         return _addCrossLearn;
     }
-    public final float getCrossLearnMul() {
+
+    public final float getCrossLearnMul()
+    {
         return _mulCrossLearn;
     }
-    public final float getCrossLearnRace() {
+
+    public final float getCrossLearnRace()
+    {
         return _mulCrossLearnRace;
     }
-    public final float getCrossLearnProf() {
+
+    public final float getCrossLearnProf()
+    {
         return _mulCrossLearnProf;
     }
-    public final boolean getCanLearn(ClassId cls) {
+
+    public final boolean getCanLearn(ClassId cls)
+    {
         return _canLearn == null || _canLearn.contains(cls);
     }
+
     public final boolean canTeachBy(int npcId) {
         return _teachers == null || _teachers.contains(npcId);
     }
-    public final boolean isPvpSkill() {
+
+    public final boolean isPvpSkill()
+    {
         switch (_skillType)
         {
         case DOT:
@@ -1118,7 +1132,7 @@ public abstract class L2Skill
         case PARALYZE:
         case CANCEL:
         case MAGE_BANE:
-        case WARRIOR_BANE:            
+        case WARRIOR_BANE:
         case CANCEL_TARGET:
         case BETRAY:
         case DELUXE_KEY_UNLOCK:
@@ -1136,7 +1150,7 @@ public abstract class L2Skill
     
     public final int getBaseCritRate()
     {
-    	return _baseCritRate;
+        return _baseCritRate;
     }
     
     public final int getLethalChance1()
@@ -1193,7 +1207,7 @@ public abstract class L2Skill
             case AGGREDUCE:
             case CANCEL:
             case MAGE_BANE:
-            case WARRIOR_BANE:                
+            case WARRIOR_BANE:
             case AGGREMOVE:
             case AGGREDUCE_CHAR: 
             case CRITS:
@@ -1201,6 +1215,8 @@ public abstract class L2Skill
             case UNSUMMON_ENEMY_PET:
             case CANCEL_TARGET:
             case BETRAY:
+            case SOW:
+            case HARVEST:
                 return true;
             default:
                 return false;

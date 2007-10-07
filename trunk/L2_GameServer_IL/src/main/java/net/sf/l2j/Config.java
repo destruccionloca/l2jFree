@@ -1319,7 +1319,14 @@ public final class Config
     public static int 				ALT_OLY_IWAIT;				// Olympiad Inital Wait
     public static int 				ALT_OLY_WPERIOD;			// Olympaid Weekly Period
     public static int 				ALT_OLY_VPERIOD;			// Olympaid Validation Period
-    public static float ALT_GAME_SUMMON_PENALTY_RATE;			// Alternative game summon penalty    
+    public static float 			ALT_GAME_SUMMON_PENALTY_RATE;	// Alternative game summon penalty
+    public static int 				ALT_MANOR_REFRESH_TIME;			// Manor Refresh Starting time
+    public static int 				ALT_MANOR_REFRESH_MIN;			// Manor Refresh Min
+    public static int 				ALT_MANOR_APPROVE_TIME;			// Manor Next Period Approve Starting time
+    public static int 				ALT_MANOR_APPROVE_MIN;			// Manor Next Period Approve Min
+    public static int 				ALT_MANOR_MAINTENANCE_PERIOD;	// Manor Maintenance Time
+    public static boolean 			ALT_MANOR_SAVE_ALL_ACTIONS;		//  Manor Save All Actions
+    public static int 				ALT_MANOR_SAVE_PERIOD_RATE;		// Manor Save Period Rate
 
     // Dimensional Rift
     public static int 				RIFT_MIN_PARTY_SIZE;		// Minimum siz e of a party that may enter dimensional rift
@@ -1447,7 +1454,15 @@ public final class Config
 	        ALT_OLY_IWAIT                                       = Integer.parseInt(altSettings.getProperty("AltOlyPwait","300000"));
 	        ALT_OLY_WPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyWperiod","604800000"));
 	        ALT_OLY_VPERIOD                                     = Integer.parseInt(altSettings.getProperty("AltOlyVperiod","86400000"));
-	    	
+
+            ALT_MANOR_REFRESH_TIME                              = Integer.parseInt(altSettings.getProperty("AltManorRefreshTime","20"));
+            ALT_MANOR_REFRESH_MIN                               = Integer.parseInt(altSettings.getProperty("AltManorRefreshMin","00"));
+            ALT_MANOR_APPROVE_TIME                              = Integer.parseInt(altSettings.getProperty("AltManorApproveTime","6"));
+            ALT_MANOR_APPROVE_MIN                               = Integer.parseInt(altSettings.getProperty("AltManorApproveMin","00"));
+            ALT_MANOR_MAINTENANCE_PERIOD                        = Integer.parseInt(altSettings.getProperty("AltManorMaintenancePreiod","360000"));
+            ALT_MANOR_SAVE_ALL_ACTIONS                          = Boolean.parseBoolean(altSettings.getProperty("AltManorSaveAllActions","false"));
+            ALT_MANOR_SAVE_PERIOD_RATE                          = Integer.parseInt(altSettings.getProperty("AltManorSavePeriodRate","2"));
+
             ALT_CRAFT_ALLOW_CRAFT                               = Boolean.parseBoolean(altSettings.getProperty("CraftManagerDwarvenCraft", "True"));
             ALT_CRAFT_ALLOW_COMMON                              = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCommonCraft", "False"));
             ALT_CRAFT_ALLOW_CRYSTALLIZE                         = Boolean.parseBoolean(altSettings.getProperty("CraftManagerCrystallize", "True"));

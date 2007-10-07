@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.gameserverpackets.ServerStatus;
+import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -392,6 +393,9 @@ public class Shutdown extends Thread implements ShutdownMBean
             System.err.println("Olympiad: Data saved.");
         }
         catch(Exception e){_log.error(e.getMessage(),e);}
+
+        // Save all manor data
+        CastleManorManager.getInstance().save();
 
         // Save Cursed Weapons data before closing.
         CursedWeaponsManager.getInstance().saveData();

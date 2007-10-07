@@ -50,11 +50,9 @@ public class FloodProtector
 	private FastMap<Integer,Integer[]> _floodClient;
 
 	// =========================================================
-	// Enum
-	private static final int PROTECTEDACTIONSIZE = 5;
 	
 	// reuse delays for protected actions (in game ticks 1 tick = 100ms)
-	private static final int[] REUSEDELAY = new int[]{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME };
+	private static final int[] REUSEDELAY = new int[]{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME, 16 };
 
 	// protected actions
 	public static final int PROTECTED_USEITEM		= 0;
@@ -62,6 +60,7 @@ public class FloodProtector
 	public static final int PROTECTED_FIREWORK		= 2;
 	public static final int PROTECTED_GLOBAL_CHAT	= 3;
 	public static final int PROTECTED_TRADE_CHAT	= 4;
+	public static final int PROTECTED_ITEMPETSUMMON	= 5;
 	
 
 	// =========================================================
@@ -80,7 +79,7 @@ public class FloodProtector
 	public void registerNewPlayer(int playerObjId)
 	{
 		// create a new array
-		Integer[] array = new Integer[PROTECTEDACTIONSIZE];
+		Integer[] array = new Integer[REUSEDELAY.length];
 		for (int i=0; i<array.length; i++)
 			array[i] = 0;
 		

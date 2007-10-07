@@ -1,5 +1,4 @@
-/*
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -17,35 +16,78 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 package net.sf.l2j.gameserver.serverpackets;
+
+import javolution.util.FastList;
+
+import net.sf.l2j.gameserver.instancemanager.CastleManorManager.SeedProduction;
+import net.sf.l2j.gameserver.model.L2Manor;
+
 /**
- * This clas is only for test I try to use the format but dont works
- * Done By L2Emuproject Team
- * User: Scar69
- * Date: Jan 12, 2006
- * Time: 22:13 PM GMT+1
+ * format(packet 0xFE)
+ * ch ddd [dddddcdcd]
+ * c  - id
+ * h  - sub id
+ * 
+ * d  - manor id
+ * d
+ * d  - size
+ * 
+ * [
+ * d  - seed id
+ * d  - left to buy
+ * d  - started amount
+ * d  - sell price
+ * d  - seed level
+ * c 
+ * d  - reward 1 id
+ * c
+ * d  - reward 2 id 
+ * ]
+ * 
+ * @author l3x
  */
+public class ExShowSeedInfo extends L2GameServerPacket
+{
+	private static final String _S__FE_1C_EXSHOWSEEDINFO = "[S] FE:1C ExShowSeedInfo";
+	private FastList<SeedProduction> _seeds;
+	private int _manorId;
 
-public class ExShowSeedInfo extends L2GameServerPacket{
-    private static final String _S__FE_1C_EXSHOWSEEDINFO = "[S] FE:1C ExShowSeedInfo";
+	public ExShowSeedInfo(int manorId, FastList<SeedProduction> seeds)
+	{
+		_manorId = manorId;
+		_seeds = seeds;
+		if (_seeds == null)
+		{
+			_seeds = new FastList<SeedProduction>();
+		}
+	}
 
-    
-     @Override
-        protected void writeImpl()
-        {
-            writeC(0xFE);
-            writeH(0x1C); 
-            writeD(5016);
-            writeD(5016);  
-            writeD(5016);   
-            writeD(5016);
-            writeD(5016);
-            writeC(3);
-        }
-     @Override
-        public String getType()
-        {
-         return _S__FE_1C_EXSHOWSEEDINFO;
-        }
-    
+	@Override
+	protected void writeImpl()
+	{
+		writeC(0xFE); // Id
+		writeH(0x1C); // SubId
+		writeC(0);
+		writeD(_manorId); // Manor ID
+		writeD(0);
+		writeD(_seeds.size());
+		for (SeedProduction seed : _seeds)
+		{
+			writeD(seed.getId());           // Seed id
+			writeD(seed.getCanProduce());   // Left to buy
+			writeD(seed.getStartProduce()); // Started amount
+			writeD(seed.getPrice());        // Sell Price
+			writeD(L2Manor.getInstance().getSeedLevel(seed.getId())); // Seed Level
+			writeC(1); // reward 1 Type
+			writeD(L2Manor.getInstance().getRewardItemBySeed(seed.getId(),1)); // Reward 1 Type Item Id
+			writeC(1); // reward 2 Type
+			writeD(L2Manor.getInstance().getRewardItemBySeed(seed.getId(),2)); // Reward 2 Type Item Id
+		}
+	}
 
+	@Override
+	public String getType()
+	{
+		return _S__FE_1C_EXSHOWSEEDINFO;
+	}
 }

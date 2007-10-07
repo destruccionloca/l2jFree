@@ -24,14 +24,14 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.model.CropProcure;
+import net.sf.l2j.gameserver.instancemanager.CastleManorManager.CropProcure;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+@SuppressWarnings("unused")
 public class SellListProcure extends L2GameServerPacket
 {
     private static final String _S__E9_SELLLISTPROCURE = "[S] E9 SellListProcure";
-    //private static Logger _log = Logger.getLogger(SellListProcure.class.getName());
     
     private final L2PcInstance _activeChar;
     private int _money;
@@ -44,7 +44,7 @@ public class SellListProcure extends L2GameServerPacket
         _money = player.getAdena();
         _activeChar = player;
         _castle = castleId;
-        _procureList =  CastleManager.getInstance().getCastle(_castle).getCropProcure();
+        _procureList =  CastleManager.getInstance().getCastleById(_castle).getCropProcure(0);
         for(CropProcure c : _procureList)
         {
             L2ItemInstance item = _activeChar.getInventory().getItemByItemId(c.getId());

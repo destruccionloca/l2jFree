@@ -22,61 +22,41 @@ import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ExSendManorList;
 
+
 /**
  * Format: ch
  * c (id) 0xD0
  * h (subid) 0x08
- * @author -Wooden-
+ * @author l3x
  *
  */
 public class RequestManorList extends L2GameClientPacket
 {
     private static final String _C__FE_08_REQUESTMANORLIST = "[S] FE:08 RequestManorList";
-    /**
-     * @param buf
-     * @param client
-     */
+
     @Override
     protected void readImpl()
     {
-        // just a trigger
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-     */
     @Override
     protected void runImpl()
     {
         L2PcInstance player = getClient().getActiveChar();
-        FastList<String> ManorsName = new FastList<String>();
-        ManorsName.add("Gludio Manor");
-        ManorsName.add("Dion Manor");
-        ManorsName.add("Grian Manor");
-        ManorsName.add("Oren Manor");
-        ManorsName.add("Aden Manor");
-        ManorsName.add("Innadril Manor");
-        ManorsName.add("Goddard Manor");
-        ManorsName.add("Runne Manor");
-        FastList<Integer> ManorsId = new FastList<Integer>();
-        ManorsId.add(7996);
-        ManorsId.add(7997);
-        ManorsId.add(7998);
-        ManorsId.add(7999);
-        ManorsId.add(8000);
-        ManorsId.add(8058);
-        ManorsId.add(8059);
-        ManorsId.add(8060);
-        ManorsId.add(8402);
-        ManorsId.add(8403);
-        ExSendManorList manorlist = new ExSendManorList(ManorsName,ManorsId);
+        FastList<String> manorsName = new FastList<String>();
+        manorsName.add("gludio");
+        manorsName.add("dion");
+        manorsName.add("giran");
+        manorsName.add("oren");
+        manorsName.add("aden");
+        manorsName.add("innadril");
+        manorsName.add("goddard");
+        manorsName.add("rune");
+        manorsName.add("schuttgart");
+        ExSendManorList manorlist = new ExSendManorList(manorsName);
         player.sendPacket(manorlist);
-        
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
     @Override
     public String getType()
     {

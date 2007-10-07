@@ -4676,6 +4676,7 @@ public enum SystemMessageId
     
     /**
      * ID: 1675<br>
+     * TODO: Correct this message
      * Message: A manor cannot be set up between 6 a.m. and 8 p.m.
      */
     A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM(1675),
@@ -4697,6 +4698,12 @@ public enum SystemMessageId
      * Message: Your Death Penalty has been lifted.
      */
     DEATH_PENALTY_LIFTED(1917),
+
+    /**
+     * ID: 1607<br>
+     * Message: $s1 adena has been withdrawn to pay for purchasing fees.
+     */
+    S1_ADENA_HAS_BEEN_WITHDRAWN_TO_PAY_FOR_PURCHASING_FEES(1607),
 
     // ======================= //
     // L2J-Free System Messages //

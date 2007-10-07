@@ -87,7 +87,7 @@ public class CastleManager
 		_log.info("Loaded: " + getCastles().size() + " castles.");
 	}
 
-	public final Castle getCastle(int castleId)
+	public final Castle getCastleById(int castleId)
 	{
 		return getCastles().get(castleId);
 	}
@@ -109,7 +109,7 @@ public class CastleManager
 		return null;
 	}
 
-	public final Castle getCastle(String name)
+	public final Castle getCastleByName(String name)
 	{
 		Castle castle;
 		for (int i = 0; i < getCastles().size(); i++)
@@ -121,7 +121,7 @@ public class CastleManager
 		return null;
 	}
 
-	public final Castle getCastle(L2Clan clan)
+	public final Castle getCastleByOwner(L2Clan clan)
 	{
 		if (clan == null)
 			return null;

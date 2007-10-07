@@ -55,6 +55,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminKill;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminLevel;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminLogin;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMammon;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminManor;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMenu;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMobGroup;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminMonsterRace;
@@ -113,9 +114,12 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminAnnouncements());
         registerAdminCommandHandler(new AdminBan());
         registerAdminCommandHandler(new AdminBanChat());
+        registerAdminCommandHandler(new AdminBBS());
         registerAdminCommandHandler(new AdminCache());
         registerAdminCommandHandler(new AdminChangeAccessLevel());
         registerAdminCommandHandler(new AdminCreateItem());
+        registerAdminCommandHandler(new AdminCTFEngine());
+        registerAdminCommandHandler(new AdminCursedWeapons());
         registerAdminCommandHandler(new AdminDelete());
         registerAdminCommandHandler(new AdminDMEngine());
         registerAdminCommandHandler(new AdminDoorControl());
@@ -125,6 +129,8 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminEventEngine());
         registerAdminCommandHandler(new AdminExpSp());
         registerAdminCommandHandler(new AdminFightCalculator());
+        registerAdminCommandHandler(new AdminGeodata());
+        registerAdminCommandHandler(new AdminGeoEditor()); 
         registerAdminCommandHandler(new AdminGm());
         registerAdminCommandHandler(new AdminGmChat());
         registerAdminCommandHandler(new AdminHeal());
@@ -135,12 +141,13 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminLevel());
         registerAdminCommandHandler(new AdminLogin());
         registerAdminCommandHandler(new AdminMammon());
+        registerAdminCommandHandler(new AdminManor());
         registerAdminCommandHandler(new AdminMenu());
         registerAdminCommandHandler(new AdminMobGroup());
         registerAdminCommandHandler(new AdminMonsterRace());
         registerAdminCommandHandler(new AdminPetition());
         registerAdminCommandHandler(new AdminPForge());
-        registerAdminCommandHandler(new AdminBBS());
+        registerAdminCommandHandler(new AdminPathNode());
         registerAdminCommandHandler(new AdminPledge());
         registerAdminCommandHandler(new AdminPolymorph());
         registerAdminCommandHandler(new AdminRepairChar());
@@ -154,21 +161,16 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminSpawn());
         registerAdminCommandHandler(new AdminTarget());
         registerAdminCommandHandler(new AdminTeleport());
+        registerAdminCommandHandler(new AdminTvTEngine());
         registerAdminCommandHandler(new AdminTest());
         registerAdminCommandHandler(new AdminEnchant());
         registerAdminCommandHandler(new AdminUnblockIp());
-        registerAdminCommandHandler(new AdminZone());
-        registerAdminCommandHandler(new AdminTvTEngine());
-        registerAdminCommandHandler(new AdminCTFEngine());
         registerAdminCommandHandler(new AdminVIPEngine());
-        registerAdminCommandHandler(new AdminCursedWeapons());
-        registerAdminCommandHandler(new AdminGeodata());
-        registerAdminCommandHandler(new AdminGeoEditor()); 
-        registerAdminCommandHandler(new AdminPathNode());
+        registerAdminCommandHandler(new AdminZone());
         if(Config.IRC_ENABLED)
-        	registerAdminCommandHandler(new AdminIRC());
-	}
-	
+            registerAdminCommandHandler(new AdminIRC());
+    }
+
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)
 	{
 		String[] ids = handler.getAdminCommandList();

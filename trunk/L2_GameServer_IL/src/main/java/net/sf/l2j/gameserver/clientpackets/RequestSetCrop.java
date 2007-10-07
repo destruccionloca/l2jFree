@@ -18,58 +18,90 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javolution.util.FastList;
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManorManager.CropProcure;
 
 /**
  * Format: (ch) dd [dddc]
  * @author -Wooden-
  *
+ * d - manor id
+ * d - size
+ * [
+ * d - crop id
+ * d - sales
+ * d - price
+ * c - reward type
+ * ]
+ * @author l3x
+ * 
  */
+
 public class RequestSetCrop extends L2GameClientPacket
 {
-	private final static Log _log = LogFactory.getLog(RequestSetCrop.class.getName());
 	private static final String _C__D0_0B_REQUESTSETCROP = "[C] D0:0B RequestSetCrop";
-	private int _data1;
-	private int[][] _list;
+
+	private int _size;
+
+	private int _manorId;
+
+	private int[] _items; // _size*4
+
 	
 	/**
 	 * @param buf
 	 * @param client
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _data1 = readD(); //??
-        int size = readD();
-        for(int i = 0; i < size; i++)
-        {
-            _list[i][0] = readD();
-            _list[i][1] = readD();
-            _list[i][2] = readD();
-            _list[i][3] = readC();
-            
-        }
-    }
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
-	 */
 	@Override
-    protected void runImpl()
+	protected void readImpl()
 	{
-		// TODO Auto-generated method stub
-		_log.info("This packet is not well known : RequestSetCrop");
-		_log.info("Data received: d:"+_data1+". Elements in list:");
-		for(int[] element : _list)
+		_manorId = readD();
+		_size = readD();
+		if (_size * 13 > _buf.remaining())
+			_size = 0;
+		_items = new int[_size * 4];
+		for (int i = 0; i < _size; i++)
 		{
-			_log.info("element: d:"+element[0]+" d:"+element[1]+" d:"+element[2]+" d:"+element[3]);
+			int itemId = readD();
+			_items[i * 4 + 0] = itemId;
+			int sales = readD();
+			_items[i * 4 + 1] = sales;
+			int price = readD();
+			_items[i * 4 + 2] = price;
+			int type = readC();
+			_items[i * 4 + 3] = type;
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
+	@Override
+	protected void runImpl()
+	{
+		if (_size < 1)
+			return;
+
+		FastList<CropProcure> crops = new FastList<CropProcure>();
+		for (int i = 0; i < _size; i++)
+		{
+			int id = _items[i * 4 + 0];
+			int sales = _items[i * 4 + 1];
+			int price = _items[i * 4 + 2];
+			int type = _items[i * 4 + 3];
+			if (id > 0)
+			{
+				CropProcure s = CastleManorManager.getInstance().getNewCropProcure(id, sales, type, price, sales);
+				crops.add(s);
+			}
+		}
+
+		CastleManager.getInstance().getCastleById(_manorId).setCropProcure(crops,
+				CastleManorManager.PERIOD_NEXT);
+		if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
+			CastleManager.getInstance().getCastleById(_manorId).saveCropData(CastleManorManager.PERIOD_NEXT);
+	}
+
 	@Override
 	public String getType()
 	{

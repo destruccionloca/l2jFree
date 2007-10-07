@@ -247,7 +247,8 @@ public class L2Attackable extends L2NpcInstance
     /** crops */
     private RewardItem[] _harvestItems;
     private boolean _seeded;
-    private int _seedType;
+    private int _seedType = 0;
+    private L2PcInstance _seeder = null;
     
     /** True if an over-hit enabled skill has successfully landed on the L2Attackable */
     private boolean _overhit;
@@ -2131,6 +2132,10 @@ public class L2Attackable extends L2NpcInstance
         clearAggroList();
         // Clear all damage dealers info from list
         clearDamageContributors();
+        // Clear Harvester Rewrard List
+        _harvestItems = null;
+        // Clear mod Seeded stat
+        setSeeded(false);
 
         _sweepItems = null;
         resetAbsorbList();
@@ -2144,41 +2149,71 @@ public class L2Attackable extends L2NpcInstance
             else
                 ((L2AttackableAI) getAI()).stopAITask();
     }
+
+    /**
+     * Sets state of the mob to seeded. Paramets needed to be set before.
+     */
+    public void setSeeded()
+    {
+        if (_seedType != 0 && _seeder != null)
+            setSeeded(_seedType, _seeder.getLevel());
+    }
     
+    /**
+     * Sets the seed parametrs, but not the seed state
+     * @param id  - id of the seed
+     * @param seeder - player who is sowind the seed
+     */
+    public void setSeeded(int id, L2PcInstance seeder)
+    {
+        if (!_seeded)
+        {
+            _seedType = id;
+            _seeder = seeder;
+        }
+    }
+
     public void setSeeded(int id, int seederLvl)
     {
         _seeded = true;
         _seedType = id;
         int count = 1;
 
-        int diff = (getLevel() - seederLvl - 1);
+        int diff = (getLevel() - seederLvl);
 
         // hi-lvl mobs bonus
-        if (diff > 0 && diff < 5)//Config.MANOR_HARVEST_DIFF_BONUS)
+        if (diff > 0)
         {
             count += Rnd.nextInt(diff);
         }
 
         FastList<RewardItem> harvested = new FastList<RewardItem>();
 
-        for (int i = 0; i < count; i++)
-            harvested.add(new RewardItem(L2Manor.getInstance().getCropType(_seedType), 1));
+        harvested.add(new RewardItem(L2Manor.getInstance().getCropType(_seedType), count));
 
         _harvestItems = harvested.toArray(new RewardItem[harvested.size()]);
     }
-    
+
+    public void setSeeded(boolean seeded)
+    {
+        _seeded = seeded;
+    }
+
+    public L2PcInstance getSeeder() 
+    {
+        return _seeder;
+    }
+
+    public int getSeedType()
+    {
+        return _seedType;
+    }
+
     public boolean isSeeded()
     {
         return _seeded;
     }
 
-    //TODO: should we remove this ?
-    @SuppressWarnings("unused")
-    private boolean isSeededHigh()
-    {
-        return (_seedType < 5650); // low-grade seeds has id's below 5650
-    }
-    
     private int getAbsorbLevel()
     {
         return getTemplate().getAbsorbLevel();

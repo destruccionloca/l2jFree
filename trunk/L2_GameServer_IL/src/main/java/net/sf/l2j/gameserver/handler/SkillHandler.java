@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Disablers;
 import net.sf.l2j.gameserver.handler.skillhandlers.DrainSoul;
 import net.sf.l2j.gameserver.handler.skillhandlers.Fishing;
 import net.sf.l2j.gameserver.handler.skillhandlers.FishingSkill;
+import net.sf.l2j.gameserver.handler.skillhandlers.Harvest;
 import net.sf.l2j.gameserver.handler.skillhandlers.Heal;
 import net.sf.l2j.gameserver.handler.skillhandlers.ManaHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Manadam;
@@ -43,6 +44,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Pdam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Recall;
 import net.sf.l2j.gameserver.handler.skillhandlers.Resurrect;
 import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
+import net.sf.l2j.gameserver.handler.skillhandlers.Sow;
 import net.sf.l2j.gameserver.handler.skillhandlers.Spoil;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
@@ -75,42 +77,42 @@ public class SkillHandler
 		}
 		return _instance;
 	}
-	
-	private SkillHandler()
-	{
-		_datatable = new TreeMap<SkillType, ISkillHandler>();
-		registerSkillHandler(new Blow());
-        registerSkillHandler(new Pdam());
-        registerSkillHandler(new Crits());
-        registerSkillHandler(new Mdam());
-        registerSkillHandler(new Manadam());
-        registerSkillHandler(new Heal());
-        registerSkillHandler(new CombatPointHeal());
-        registerSkillHandler(new ManaHeal());
+
+    private SkillHandler()
+    {
+        _datatable = new TreeMap<SkillType, ISkillHandler>();
         registerSkillHandler(new BalanceLife());
+        registerSkillHandler(new BeastFeed());
+        registerSkillHandler(new Blow());
         registerSkillHandler(new Charge());
         registerSkillHandler(new ChargeSelf());
+        registerSkillHandler(new CombatPointHeal());
         registerSkillHandler(new Continuous());
-        registerSkillHandler(new Resurrect());
-        registerSkillHandler(new Spoil());
-        registerSkillHandler(new Sweep());
-        registerSkillHandler(new Disablers());
-        registerSkillHandler(new Recall());
+        registerSkillHandler(new Craft());
+        registerSkillHandler(new Crits());
         registerSkillHandler(new CPperHeal()); 
-        registerSkillHandler(new SiegeFlag());
-        registerSkillHandler(new TakeCastle());
-        registerSkillHandler(new Unlock());
-        registerSkillHandler(new DrainSoul());
-        registerSkillHandler(new Craft()); 
-        registerSkillHandler(new BeastFeed());
         registerSkillHandler(new DeluxeKey());
+        registerSkillHandler(new Disablers());
+        registerSkillHandler(new DrainSoul());
         registerSkillHandler(new Fishing()); 
         registerSkillHandler(new FishingSkill());
-        registerSkillHandler(new SummonTreasureKey());
+        registerSkillHandler(new Heal());
+        registerSkillHandler(new Manadam());
+        registerSkillHandler(new ManaHeal());
+        registerSkillHandler(new Mdam());
+        registerSkillHandler(new Pdam());
+        registerSkillHandler(new Recall());
+        registerSkillHandler(new Resurrect());
+        registerSkillHandler(new SiegeFlag());
         registerSkillHandler(new StrSiegeAssault());
-        registerSkillHandler(new SummonFriend());        
-	}
-	
+        registerSkillHandler(new Spoil());
+        registerSkillHandler(new SummonFriend());
+        registerSkillHandler(new SummonTreasureKey());
+        registerSkillHandler(new Sweep());
+        registerSkillHandler(new TakeCastle());
+        registerSkillHandler(new Unlock());
+    }
+
 	public void registerSkillHandler(ISkillHandler handler)
 	{
 		SkillType[] types = handler.getSkillIds();
