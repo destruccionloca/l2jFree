@@ -123,6 +123,7 @@ public final class L2WorldRegion
         if (!isOn)
         {
             for(L2Object o: _visibleObjects)
+            {
                 if (o instanceof L2Attackable)
                 {
                     c++;
@@ -150,11 +151,13 @@ public final class L2WorldRegion
                     // it until the grid is made active.
                     //mob.getStatus().stopHpMpRegeneration();
                 }
-            _log.debug(c+ " mobs were turned off");
+            }
+            if(_log.isDebugEnabled()) _log.debug(c+ " mobs were turned off");
         }
         else
         {
             for(L2Object o: _visibleObjects)
+            {
                 if (o instanceof L2Attackable)
                 {
                     c++;
@@ -164,7 +167,14 @@ public final class L2WorldRegion
                     // start the ai
                     //((L2AttackableAI) mob.getAI()).startAITask();
                 }
-            _log.debug(c+ " mobs were turned on");
+                else if (o instanceof L2NpcInstance)
+                {
+                    // Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it 
+                    // L2Monsterinstance/L2Attackable socials are handled by AI (TODO: check the instances)
+                    ((L2NpcInstance)o).startRandomAnimationTimer();
+                }
+            }
+            if(_log.isDebugEnabled()) _log.debug(c+ " mobs were turned on");
         }
         
     }
@@ -335,7 +345,7 @@ public final class L2WorldRegion
      */
     public synchronized void deleteVisibleNpcSpawns()
     {
-        _log.debug("Deleting all visible NPC's in Region: " + getName());
+        if(_log.isDebugEnabled()) _log.debug("Deleting all visible NPC's in Region: " + getName());
         for (L2Object obj : _visibleObjects)
         {
             if (obj instanceof L2NpcInstance)
@@ -348,7 +358,7 @@ public final class L2WorldRegion
                     spawn.stopRespawn();
                     SpawnTable.getInstance().deleteSpawn(spawn, false);
                 }
-                _log.debug("Removed NPC " + target.getObjectId());
+                if(_log.isDebugEnabled()) _log.debug("Removed NPC " + target.getObjectId());
             }
         }
         _log.info("All visible NPC's deleted in Region: " + getName());

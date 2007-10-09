@@ -70,7 +70,11 @@ public class BlockList
     
     private boolean isInBlockList(L2PcInstance character)
     {
-        return _blockSet.contains(character.getName());        
+        if(character != null)
+        {
+            return _blockSet.contains(character.getName());        
+        }
+        return false;
     }
     
     private boolean isBlockAll()

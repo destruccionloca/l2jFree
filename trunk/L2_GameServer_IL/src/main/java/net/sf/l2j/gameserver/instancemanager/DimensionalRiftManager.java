@@ -253,7 +253,7 @@ public class DimensionalRiftManager
             spawn.setLocx(loc.getX());
             spawn.setLocy(loc.getY());
             spawn.setLocz(loc.getZ());
-            spawn.addSpawnListener(new RiftSpawnListener(roomType, (byte) id));
+            L2Spawn.addSpawnListener(new RiftSpawnListener(roomType, (byte) id));
             SpawnTable.getInstance().addNewSpawn(spawn, false);
             riftRoom.getSpawns().add(spawn);
         }

@@ -41,7 +41,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
  */
 public class Seed implements IItemHandler
 {
-    private static int[] ITEM_IDS = { 
+	private static int[] ITEM_IDS = { 
 									5016,5017,5018,5019,5020,5021,5022,5023,5024,5025,
 									5026,5027,5028,5029,5030,5031,5032,5033,5034,5035,
 									5036,5037,5038,5039,5040,5041,5042,5043,5044,5045,

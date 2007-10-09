@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -489,13 +490,16 @@ public class EnterWorld extends L2GameClientPacket
     {
         if(cha.getPartnerId()!=0)
         {
-            L2PcInstance partner;
-            partner = (L2PcInstance)L2World.getInstance().findObject(cha.getPartnerId());
-            
-            if (partner != null)
+            L2Object obj = L2World.getInstance().findObject(cha.getPartnerId());
+            if(obj == null || !(obj instanceof L2PcInstance))
             {
-                partner.sendMessage("Your Partner has logged in");
+                // If other char is deleted, maybe a npc or mob takes the ID
+                // TODO: Break marriage here and clean up database if obj not instance of L2PcInstance
+                return;
             }
+            
+            L2PcInstance partner = (L2PcInstance)obj;
+            partner.sendMessage("Your Partner has logged in");
             
             partner = null;
         }

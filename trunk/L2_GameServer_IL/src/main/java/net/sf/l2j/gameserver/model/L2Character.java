@@ -5088,7 +5088,7 @@ public abstract class L2Character extends L2Object
             double mpConsume = getStat().getMpConsume(skill);
             if (mpConsume > 0)
             {
-                getStatus().reduceMp(calcStat(Stats.MP_CONSUME_RATE,skill.getMpConsume(),null,null));
+                getStatus().reduceMp(calcStat(Stats.MP_CONSUME_RATE, mpConsume, null, null));
                 su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
                 isSendStatus = true;
             }

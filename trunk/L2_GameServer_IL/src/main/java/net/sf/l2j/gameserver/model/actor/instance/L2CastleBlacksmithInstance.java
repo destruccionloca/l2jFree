@@ -1,7 +1,5 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import java.util.logging.Logger;
-
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -15,8 +13,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2CastleBlacksmithInstance extends L2FolkInstance
 {
-	private static Logger _log = Logger.getLogger(L2CastleChamberlainInstance.class.getName());
-
 	protected static final int COND_ALL_FALSE = 0;
 	protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
 	protected static final int COND_OWNER = 2;
