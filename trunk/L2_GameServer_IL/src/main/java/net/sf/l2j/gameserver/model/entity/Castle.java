@@ -138,10 +138,8 @@ public class Castle
 		 amount = -2,000,000,000 (i want to withdraw)
 		 so Integer.MAX_VALUE -(-2,000,000,000) < 2,100,000,000 will allways be false
 		 so you can withdraw money but it will stay in castle WH -> EXPLOIT FTW !!!!!!!!!!!
-		if (Integer.MAX_VALUE - amount < _treasury)
-			return;*/
-		
-		if ((Integer.MAX_VALUE < _treasury + amount) || (amount - _treasury < 0 ))
+		*/		
+		if ((Integer.MAX_VALUE - amount < _treasury) || (amount - _treasury < 0 ))
 			return;
 		
 		_treasury += amount; // Add to the current treasury total.  Use "-" to substract from treasury
@@ -150,7 +148,7 @@ public class Castle
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("Update castle set treasury = ? where id = ?");
+			PreparedStatement statement = con.prepareStatement("UPDATE castle SET treasury = ? WHERE id = ?");
 			statement.setInt(1, getTreasury());
 			statement.setInt(2, getCastleId());
 			statement.execute();
