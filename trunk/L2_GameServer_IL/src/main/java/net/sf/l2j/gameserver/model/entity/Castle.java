@@ -132,10 +132,18 @@ public class Castle
 	public void addToTreasuryNoTax(int amount)
 	{
 		if (getOwnerId() <= 0) return;
-		
-		if (Integer.MAX_VALUE - amount < _treasury)
-			return;
 
+		/* why is that ?? example:
+		 _treasury = 2,100,000,000
+		 amount = -2,000,000,000 (i want to withdraw)
+		 so Integer.MAX_VALUE -(-2,000,000,000) < 2,100,000,000 will allways be false
+		 so you can withdraw money but it will stay in castle WH -> EXPLOIT FTW !!!!!!!!!!!
+		if (Integer.MAX_VALUE - amount < _treasury)
+			return;*/
+		
+		if ((Integer.MAX_VALUE < _treasury + amount) || (amount - _treasury < 0 ))
+			return;
+		
 		_treasury += amount; // Add to the current treasury total.  Use "-" to substract from treasury
 
 		java.sql.Connection con = null;
