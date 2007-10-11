@@ -121,7 +121,7 @@ public class ZoneManager
     {
         Town town = TownManager.getInstance().getTown(x, y, z);
 
-        if (town != null)
+        if (town != null && checkIfInZone(ZoneType.Peace, x, y, z))
             return town.isInPeace();
         else
             return (checkIfInZone(ZoneType.Peace, x, y, z) || checkIfInZone(ZoneType.Newbie, x, y, z) || (!Config.JAIL_IS_PVP && checkIfInZone(
@@ -227,7 +227,7 @@ public class ZoneManager
         String name = n.getAttributes().getNamedItem("name").getNodeValue();
         int castleId = 0;
         int townId = 0;
-        String typeName = "";
+        String typeName = "Default";
 
         List<Point3D> points = new FastList<Point3D>();
         Map<RestartType, Point3D> restarts = new FastMap<RestartType, Point3D>();

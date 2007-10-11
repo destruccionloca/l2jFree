@@ -112,14 +112,16 @@ public class Town
 
 	public final boolean isInPeace()
 	{
-		if (Config.ZONE_TOWN == 2) return false;
+        if (Config.ZONE_TOWN == 2) return false;
 		if (Config.ZONE_TOWN == 1 && 
 			TownManager.getInstance().townHasCastleInSeige(getTownId())) return false;
+           
 		return true;
 	}
 	
 	public final void addTerritory(IZone zone)
 	{
+        if (zone.getCastleId() > 0) 
 		_castleId = zone.getCastleId();
 		getTerritory().add(zone);
 	}

@@ -26,7 +26,8 @@ public final class ZoneEnum
 {
 	public enum ZoneType
 	{
-		Arena,
+		Default,
+        Arena,
 		MonsterDerbyTrack,
 		OlympiadStadia,
 		CastleArea,
