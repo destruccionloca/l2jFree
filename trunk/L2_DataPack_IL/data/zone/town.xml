@@ -992,7 +992,7 @@
   </item>
   <!-- TODO -->
   <item id="90" name="Primeval Isle Wharf">
-    <type>Peace</type>
+<!--<type>Peace</type>-->
     <town>19</town>
     <castle>5</castle>
     <restart x="10825" y="-24156" z="-3645" />
