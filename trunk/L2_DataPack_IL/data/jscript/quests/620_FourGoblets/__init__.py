@@ -232,5 +232,3 @@ for npcTalkId in [31452,31454,31921,31922,31923,31924,31919,31920] :
 
 for npcKillId in range(18120,18256) :
   QUEST.addKillId(npcKillId)
-
-print "importing quests: 620: Four Goblets" 
