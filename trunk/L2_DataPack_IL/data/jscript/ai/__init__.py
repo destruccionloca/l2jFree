@@ -4,7 +4,10 @@ __all__ = [
 ]
 print ""
 print "importing scriptable AI ..."
-from data.jscript.ai.group_template import *
-from data.jscript.ai.individual import *
+for name in __all__ :
+    try :
+        __import__('data.jscript.ai.'+name,globals(), locals(), ['__init__'], -1)
+    except :
+        print "failed to import quest : ",name
 print"... done"
 print ""

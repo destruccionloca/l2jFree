@@ -88,5 +88,3 @@ QUEST.addKillId(20473)
 
 STARTED.addQuestDrop(20468,ORC_AMULET,1)
 STARTED.addQuestDrop(20472,ORC_NECKLACE,1)
-
-print "importing quests: 260: Hunt For Orcs1"

@@ -55,5 +55,3 @@ QUEST.addStartNpc(31385)
 QUEST.addTalkId(31540)
 QUEST.addTalkId(31385)
 QUEST.addKillId(29028)
-
-print "AI: individuals: Valakas...loaded!"

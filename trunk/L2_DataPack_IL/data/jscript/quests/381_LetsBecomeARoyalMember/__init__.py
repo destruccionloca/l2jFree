@@ -130,5 +130,3 @@ QUEST.addKillId(VEGUS)
 STARTED.addQuestDrop(KAILS_COIN, SORINT,1)
 STARTED.addQuestDrop(COIN_ALBUM, SORINT,1)
 STARTED.addQuestDrop(CLOVER_COIN,SORINT,1)
-
-print "importing quests: "+str(QuestNumber)+": "+QuestDescription

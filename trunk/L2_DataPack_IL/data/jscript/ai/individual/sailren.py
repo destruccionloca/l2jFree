@@ -78,5 +78,3 @@ QUEST.addKillId(VELOCIRAPTOR)
 QUEST.addKillId(PTEROSAUR)
 QUEST.addKillId(TYRANNOSAURUS)
 QUEST.addKillId(SAILREN)
-
-print "AI: individuals: Sailren...loaded!"

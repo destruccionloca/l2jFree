@@ -76,5 +76,3 @@ QUEST.addTalkId(30837)
 
 STARTED.addQuestDrop(30957,4316,1)
 STARTED.addQuestDrop(30957,4317,1)
-
-print "importing quests: 362: Bards Mandolin"

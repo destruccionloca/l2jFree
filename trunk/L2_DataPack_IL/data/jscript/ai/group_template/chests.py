@@ -70,7 +70,7 @@ class chests(JQuest) :
                 npc.onDecay()
             else :
                 attacker = player
-                if isPet:
+                if npc.getAttackByList().contains(player.getPet()):
                     attacker = player.getPet()
                 npc.setRunning()
                 npc.addDamageHate(attacker,0,999)
@@ -99,5 +99,3 @@ class chests(JQuest) :
 
 # now call the constructor (starts up the ai)
 QUEST           = chests(-1,"chests","ai")
-
-print "AI: group template: Treasure Chests...loaded!"

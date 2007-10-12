@@ -8,6 +8,10 @@ __all__ = [
 ]
 print ""
 print "importing custom data ..."
-from data.jscript.custom import *
+for name in __all__ :
+    try :
+        __import__(name,globals(), locals(), [], -1)
+    except :
+        print "failed to import quest : ",name
 print "... done"
 print ""

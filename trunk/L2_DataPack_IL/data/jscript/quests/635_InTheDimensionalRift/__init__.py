@@ -55,6 +55,7 @@ class Quest (JQuest) :
  def onTalk (self,npc,player) :
    htmltext = ""
    st = player.getQuestState(qn)
+   htmltext = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
    if st :
      npcId = npc.getNpcId()
      cond=st.getInt("cond")
@@ -98,5 +99,3 @@ for npcId in range(31494,31508):
 
 for npcId in range(31488,31494) :
     QUEST.addTalkId(npcId)
-
-print "importing quests: 635: In The Dimensional Rift"

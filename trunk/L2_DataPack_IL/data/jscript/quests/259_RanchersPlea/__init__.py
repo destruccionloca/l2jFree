@@ -104,5 +104,3 @@ QUEST.addKillId(20106)
 QUEST.addKillId(20108)
 
 STARTED.addQuestDrop(20103,GIANT_SPIDER_SKIN,1)
-
-print "importing quests: 259: Ranchers Plea"

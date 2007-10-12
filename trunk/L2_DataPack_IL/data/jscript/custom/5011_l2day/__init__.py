@@ -23,7 +23,6 @@ Items       = [
 ### DO NOT MODIFY BELOW THIS LINE
 ### ---------------------------------------------------------------------------
 
-print "importing " + QuestDesc + ": " + str(QuestId) + ": " + QuestName + ": " + str(len(Items)) + " item(s)",
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
@@ -88,5 +87,3 @@ QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(31774)
 # Beryl the Cat
 QUEST.addTalkId(31774)
-
-print "done ..."

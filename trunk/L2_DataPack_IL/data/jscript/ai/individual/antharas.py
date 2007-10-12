@@ -55,5 +55,3 @@ QUEST.addKillId(ANTHARAS_OLD)
 QUEST.addKillId(ANTHARAS_WEAK)
 QUEST.addKillId(ANTHARAS_NORMAL)
 QUEST.addKillId(ANTHARAS_STRONG)
-
-print "AI: individuals: Antharas...loaded!"

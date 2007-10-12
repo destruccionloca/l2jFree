@@ -39011,7 +39011,10 @@ INSERT INTO spawnlist VALUES
 (NULL,'rune_warehouse',1,35508,12681,-48578,-1088,0,0,39746,60,0,0),
 
 (NULL,'schuttgart_blacksmith',1,35553,77105,-152827,-907,0,0,11176,60,0,0),
-(NULL,'schuttgart_warehouse',1,35554,77906,-152872,-934,0,0,25468,60,0,0);
+(NULL,'schuttgart_warehouse',1,35554,77906,-152872,-934,0,0,25468,60,0,0),
+
+(NULL,'IvoryTower1stFloor',1,31606,85731,16380,-4299,0,0,46905,60,0,0),
+(NULL,'RuneTemple',1,32009,36006,-48748,891,0,0,10970,60,0,0);
 
 -- Deleting Rune and Schuttgart castle npc's incase that was custom spawned
 DELETE FROM spawnlist WHERE npc_templateid IN ( 35509,35511,35513,35510,35505,35504,35503,35501,35500,35499,35498,35497,35555,35556,35557,35559,35550,35548,35546,35545,35544 );
