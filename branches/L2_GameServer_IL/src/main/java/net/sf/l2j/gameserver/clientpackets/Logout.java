@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -76,7 +77,8 @@ public class Logout extends L2GameClientPacket
         // [L2J_JP ADD START]
         if (!(player.isGM()))
         {
-            if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, player)){
+            if(player.isInsideZone(L2Character.ZONE_NOESCAPE))
+			{
                 player.sendMessage("You can not log out in here.");
                 player.sendPacket(new ActionFailed());
                 return;                   

@@ -303,7 +303,7 @@ public class MercTicketManager
     	int z = activeChar.getZ();
     	int heading = activeChar.getHeading();
     	
-        Castle castle = CastleManager.getInstance().getClosestCastle(activeChar);
+        Castle castle = CastleManager.getInstance().getNearestCastle(activeChar);
         if (castle == null)		//this should never happen at this point
         	return -1;
 

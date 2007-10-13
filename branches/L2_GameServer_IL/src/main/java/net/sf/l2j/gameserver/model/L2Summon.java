@@ -303,7 +303,8 @@ public abstract class L2Summon extends L2PlayableInstance
         getAI().stopFollow();
         //getAI().stopMoveTask();
         owner.sendPacket(new PetDelete(getObjectId(), 2));
-        
+        if (getWorldRegion() != null) getWorldRegion().removeFromZones(this);
+
         //FIXME: I think it should really drop items to ground and only owner can take for a while
         giveAllToOwner(); 
         decayMe();
@@ -319,6 +320,7 @@ public abstract class L2Summon extends L2PlayableInstance
             getAI().stopFollow();
             //getAI().stopMoveTask();
             owner.sendPacket(new PetDelete(getObjectId(), 2));
+            if (getWorldRegion() != null) getWorldRegion().removeFromZones(this);
             store();
             
             giveAllToOwner();

@@ -73,18 +73,6 @@ public class SiegeManager
         character.addSkill(SkillTable.getInstance().getInfo(247, 1), false);
     }
 
-    /** Return true if object is inside zone */
-    public final boolean checkIfInZone(L2Object obj)
-    {
-        return (getSiege(obj) != null);
-    }
-
-    /** Return true if object is inside zone */
-    public final boolean checkIfInZone(int x, int y, int z)
-    {
-        return (getSiege(x, y, z) != null);
-    }
-
     /**
      * Return true if character can place a flag<BR><BR>
      * 
@@ -112,7 +100,7 @@ public class SiegeManager
             sm.addString("You must be a clan leader to place a flag.");
         else if (siege == null || !siege.getIsInProgress())
             sm.addString("You can only place a flag during a siege.");
-        else if (castle == null || !castle.checkIfInZoneHeadQuarters(activeChar))
+        else if (castle == null || !siege.checkIfInZone(activeChar))
             sm.addString("You must be on castle ground to place a flag.");
         else if (siege.getAttackerClan(clan) == null)
             sm.addString("You must be an attacker to place a flag.");

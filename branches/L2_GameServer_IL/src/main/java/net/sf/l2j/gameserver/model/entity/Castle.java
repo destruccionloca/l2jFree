@@ -30,22 +30,17 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager.CropProcure;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.type.L2CastleZone;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 
 import org.apache.commons.logging.Log;
@@ -85,9 +80,7 @@ public class Castle
 	private int _taxPercent					= 0;
 	private double _taxRate					= 0;
 	private int _treasury					  = 0;
-	private IZone _zone;
-	private IZone _zoneHQ;
-	private IZone _zoneBF;
+	private L2CastleZone _zone;
 	private L2Clan _formerOwner;
 	private String _name;
 
@@ -161,59 +154,9 @@ public class Castle
 	/**
 	 * Move non clan members off castle area and to nearest town.<BR><BR>
 	 */
-	public void banishForeigner(L2PcInstance activeChar)
+	public void banishForeigners()
 	{
-		// Get players from this and nearest world regions
-		for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
-		{
-			if(!(player instanceof L2PcInstance)) continue;
-			
-			// Skip if player is in clan
-			if (((L2PcInstance)player).getClanId() == getOwnerId())
-				continue;
-			
-			if (checkIfInZone(player)) player.teleToLocation(MapRegionTable.TeleportWhereType.Town); 
-		}
-	}
- 
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZoneBattlefield(L2Object obj)
-	{
-		return checkIfInZoneBattlefield(obj.getX(), obj.getY(), obj.getZ());
-	}
-
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZoneBattlefield(int x, int y, int z)
-	{
-		return getBattlefield().checkIfInZone(x, y, z);
-	}
-	
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZoneHeadQuarters(L2Object obj)
-	{
-		return checkIfInZoneHeadQuarters(obj.getX(), obj.getY(), obj.getZ());
-	}
-
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZoneHeadQuarters(int x, int y, int z)
-	{
-		return getHeadQuarters().checkIfInZone(x, y, z);
-	}
-	
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZone(L2Object obj)
-	{
-		return checkIfInZone(obj.getX(), obj.getY(), obj.getZ());
+		_zone.banishForeigners(getOwnerId());
 	}
 
 	/**
@@ -221,9 +164,24 @@ public class Castle
 	 */
 	public boolean checkIfInZone(int x, int y, int z)
 	{
-		return getZone().checkIfInZone(x, y, z);
+		return _zone.isInsideZone(x, y, z);
 	}
-  
+
+	public void setZone(L2CastleZone zone)
+	{
+		_zone = zone;
+	}
+	
+	public L2CastleZone getZone()
+	{
+		return _zone;
+	}
+
+	public double getDistance(L2Object obj)
+	{
+		return _zone.getDistanceToZone(obj);
+	}
+
 	public void closeDoor(L2PcInstance activeChar, int doorId)
 	{
 		openCloseDoor(activeChar, doorId, false);
@@ -676,34 +634,6 @@ public class Castle
 	public final int getTreasury()
 	{
 		return _treasury;
-	}
-
-	public final IZone getZone()
-	{
-		if (_zone == null)
-			_zone = ZoneManager.getInstance().getZone(ZoneType.CastleArea, getCastleId());
-		return _zone;
-	}
-
-	public final IZone getHeadQuarters()
-	{
-		if (_zoneHQ == null)
-			_zoneHQ = ZoneManager.getInstance().getZone(ZoneType.CastleHQ, getCastleId());
-		return _zoneBF;
-	}
-	
-	public final IZone getBattlefield()
-	{
-		if (_zoneBF == null)
-			_zoneBF = ZoneManager.getInstance().getZone(ZoneType.SiegeBattleField, getCastleId());
-		return _zoneBF;
-	}
-
-	public final IZone getDefenderSpawn()
-	{
-		if (_zoneBF == null)
-			_zoneBF = ZoneManager.getInstance().getZone(ZoneType.DefenderSpawn, getCastleId());
-		return _zoneBF;
 	}
 
 	public FastList<SeedProduction> getSeedProduction(int period)

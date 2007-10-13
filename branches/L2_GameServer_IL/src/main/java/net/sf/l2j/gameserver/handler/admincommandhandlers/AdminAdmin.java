@@ -430,8 +430,8 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else if(type.equals("zone"))
 				{
-					ZoneManager.getInstance().reload();
-					activeChar.sendMessage("Zones reloaded.");
+					//ZoneManager.getInstance().reload();
+					activeChar.sendMessage("Zones can't be reloaded right now.");
 				}
 				else
 				{

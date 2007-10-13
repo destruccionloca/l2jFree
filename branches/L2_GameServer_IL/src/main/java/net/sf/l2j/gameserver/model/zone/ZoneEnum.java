@@ -17,6 +17,19 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import java.lang.reflect.Constructor;
+
+import net.sf.l2j.gameserver.model.zone.ZoneSettings;
+import net.sf.l2j.gameserver.model.zone.type.L2BigheadZone;
+import net.sf.l2j.gameserver.model.zone.type.L2BossLairZone;
+import net.sf.l2j.gameserver.model.zone.type.L2CastleZone;
+import net.sf.l2j.gameserver.model.zone.type.L2ClanHallZone;
+import net.sf.l2j.gameserver.model.zone.type.L2DefaultZone;
+import net.sf.l2j.gameserver.model.zone.type.L2MotherTreeZone;
+import net.sf.l2j.gameserver.model.zone.type.L2OlympiadStadiumZone;
+import net.sf.l2j.gameserver.model.zone.type.L2TownZone;
+import net.sf.l2j.gameserver.model.zone.type.L2WaterZone;
+
 /**
  * @author G1ta0
  * 
@@ -28,37 +41,85 @@ public final class ZoneEnum
 	{
 		Default,
         Arena,
-		MonsterDerbyTrack,
-		OlympiadStadia,
-		CastleArea,
+		BigHead (L2BigheadZone.class),
+		CastleArea (L2CastleZone.class),
 		CastleHQ,
+		ClanHall (L2ClanHallZone.class),
         DefenderSpawn,
-		SiegeBattleField,
-		ClanHall,
-		Newbie,
+		Dungeon,
 		Fishing,
-		Peace,
-		Dangeon,
-		Water, 
-		NoLanding,
-		NoEscape,
+		FourSepulchers,
 		Jail,
-		MotherTree,
-		BossDangeon;
+		MotherTree (L2MotherTreeZone.class),
+		MonsterDerbyTrack,
+		Newbie,
+		NoEscape,
+		NoLanding,
+		OlympiadStadia (L2OlympiadStadiumZone.class),
+		Peace,
+		SiegeBattleField,
+		Town (L2TownZone.class),
+		Water (L2WaterZone.class),
+		
+		AntharasLair,
+		BaiumsLair,
+		SailrensLair,
+		ValakasLair,
+		SunLightRoom;
 
+		private Class<? extends L2Zone> _zoneClass;
+		private ZoneSettings _settings = null;
+
+		private ZoneType()
+		{
+			_zoneClass = L2DefaultZone.class;
+		}
+
+		private ZoneType(Class<? extends L2Zone> zoneClass) 
+		{
+			_zoneClass = zoneClass;
+		}
+		
+		private ZoneType(Class<? extends L2Zone> zoneClass, ZoneSettings settings) 
+		{
+			_zoneClass = zoneClass;
+			_settings = settings;
+		}
+		
+		public Class<? extends L2Zone> getZoneClass()
+		{
+			return _zoneClass;
+		}
+
+		public ZoneSettings getSettings()
+		{
+			return _settings;
+		}
 
 		public final static ZoneType getZoneTypeEnum(String typeName)
 		{
 			for (ZoneType zt : ZoneType.values())
 				if (zt.toString().equalsIgnoreCase(typeName))
 					return zt;
-
 			return null;
 		}
 	}
+	
+	public L2Zone getNewZone(ZoneType type, ZoneSettings set)
+	{
+		try
+		{
+			Constructor<? extends L2Zone> c = type.getZoneClass().getConstructor(ZoneSettings.class);
+			return c.newInstance(set);
+		}
+		catch (Exception e)
+		{
+			return null;
+		}
+	}
+
 	public static enum RestartType
 	{
 		RestartNormal, RestartChaotic, RestartOwner, RestartRandom
 	}
-
 }

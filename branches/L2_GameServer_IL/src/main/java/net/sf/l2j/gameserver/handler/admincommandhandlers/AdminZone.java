@@ -37,11 +37,8 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 
 public class AdminZone implements IAdminCommandHandler
 {
@@ -69,17 +66,19 @@ public class AdminZone implements IAdminCommandHandler
  
         if (actualCommand.equalsIgnoreCase("admin_zone_check"))
         {
-           	FastList <IZone> zones;
-        	for (ZoneType zt: ZoneType.values())
-        	{
-        		zones = ZoneManager.getInstance().getZones(zt, activeChar.getX(), activeChar.getY());
-        		if (zones != null && zones.size() > 0)
-        			for (IZone zone: zones)
-        				if (zone.checkIfInZone(activeChar.getX(), activeChar.getY()))
-        					activeChar.sendMessage("Zone (XY"+(zone.checkIfInZone(activeChar)?("Z)"):(")"))+"("+zone.getZoneType().toString()+"): ID "+zone.getId()+" " +zone.getZoneName()+"Z["+zone.getMin().getZ()+":"+zone.getMax().getZ()+"]");
-        	}
-            activeChar.sendMessage("Closest Castle: " + CastleManager.getInstance().getClosestCastle(activeChar).getName());
-            activeChar.sendMessage("Closest Town: " + TownManager.getInstance().getClosestTown(activeChar).getName());
+            if (activeChar.isInsideZone(L2PcInstance.ZONE_PVP))
+                activeChar.sendMessage("This is a PvP zone.");
+            else
+                activeChar.sendMessage("This is NOT a PvP zone.");
+
+            if (activeChar.isInsideZone(L2PcInstance.ZONE_NOLANDING))
+                activeChar.sendMessage("This is a no landing zone.");
+            else
+                activeChar.sendMessage("This is NOT a no landing zone.");
+            
+            activeChar.sendMessage("MapRegion: x:" + MapRegionTable.getInstance().getMapRegionX(activeChar.getX()) + " y:" + MapRegionTable.getInstance().getMapRegionX(activeChar.getY()));
+
+            activeChar.sendMessage("Closest Town: " + MapRegionTable.getInstance().getClosestTownName(activeChar));
 
             Location loc;
 
@@ -94,17 +93,15 @@ public class AdminZone implements IAdminCommandHandler
 
             loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Town);
             activeChar.sendMessage("TeleToLocation (Town): x:" + loc.getX() + " y:" + loc.getY() + " z:" + loc.getZ());
-        } else if (actualCommand.equalsIgnoreCase("admin_zone_reload"))
+        }
+        else if (actualCommand.equalsIgnoreCase("admin_zone_reload"))
         {
-        	ZoneManager.getInstance().reload();
-        	GmListTable.broadcastMessageToGMs("Zones reloaded.");
+            //TODO: ZONETODO ZoneManager.getInstance().reload();
+            GmListTable.broadcastMessageToGMs("Zones can not be reloaded in this version.");
         }
         return true;
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IAdminCommandHandler#getAdminCommandList()
-     */
     public String[] getAdminCommandList()
     {
         return ADMIN_COMMANDS;

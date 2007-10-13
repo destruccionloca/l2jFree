@@ -28,11 +28,12 @@ import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.zone.L2ZoneManager;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.util.L2ObjectSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 
 /**
  * This class ...
@@ -53,6 +54,9 @@ public final class L2WorldRegion
     private int _tileX, _tileY;
     private Boolean _active = false;   
     protected ScheduledFuture _neighborsTask = null;
+
+    private L2ZoneManager _zoneManager;
+
     public static final int MAP_MIN_X = -131072;
     public static final int MAP_MAX_X = 228608;
     public static final int MAP_MIN_Y = -262144;
@@ -362,5 +366,34 @@ public final class L2WorldRegion
             }
         }
         _log.info("All visible NPC's deleted in Region: " + getName());
+    }
+
+    public void addZone(L2Zone zone)
+    {
+        if (_zoneManager == null)
+        {
+            _zoneManager = new L2ZoneManager();
+        }
+        _zoneManager.registerNewZone(zone);
+    }
+
+    public void revalidateZones(L2Character character)
+    {
+        if (_zoneManager == null) return;
+
+        if (_zoneManager != null)
+        {
+            _zoneManager.revalidateZones(character);
+        }
+    }
+
+    public void removeFromZones(L2Character character)
+    {
+        if (_zoneManager == null) return;
+
+        if (_zoneManager != null)
+        {
+            _zoneManager.removeCharacter(character);
+        }
     }
 }

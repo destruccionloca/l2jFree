@@ -33,9 +33,9 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeGuardManager;
-import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager.SiegeSpawn;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
@@ -46,7 +46,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.serverpackets.SiegeInfo;
@@ -457,11 +456,16 @@ public class Siege
      */
     public void announceToPlayer(String message, boolean inAreaOnly)
     {
+    	if (inAreaOnly)
+    	{
+    		getCastle().getZone().announceToPlayers(message);
+    		return;
+    	}
+
         // Get all players
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
-            if (!inAreaOnly || (inAreaOnly && checkIfInZone(player.getX(), player.getY(), player.getZ())))
-                player.sendMessage(message);
+            player.sendMessage(message);
         }
     }
 
@@ -518,11 +522,7 @@ public class Siege
     /** Return true if object is inside the zone */
     public boolean checkIfInZone(int x, int y, int z)
     {
-        Town town = TownManager.getInstance().getTown(x, y, z);
-    	return (getIsInProgress() && (getCastle().checkIfInZone(x, y, z) || // Castle Zone
-            getZone().checkIfInZone(x, y) || // Siege Zone
-        (town != null && getCastle().getCastleId() == town.getCastleId()) // Castle Town
-        ));
+        return (getIsInProgress() && (getCastle().checkIfInZone(x, y, z))); // Castle zone during siege
     }
 
     /**
@@ -658,16 +658,7 @@ public class Siege
     /** Return list of L2PcInstance in the zone. */
     public FastList<L2PcInstance> getPlayersInZone()
     {
-        FastList<L2PcInstance> players = new FastList<L2PcInstance>();
-
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-        {
-            // quick check from player states, which don't include siege number however
-        	if (!player.getInSiegeZone()) continue;
-        	if (checkIfInZone(player.getX(), player.getY(), player.getZ())) players.add(player);
-        }
-
-        return players;
+        return getCastle().getZone().getAllPlayers();
     }
 
     /** Return list of L2PcInstance owning the castle in the zone. */
@@ -695,7 +686,7 @@ public class Siege
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
             // quick check from player states, which don't include siege number however
-            if (!player.getInSiegeZone() || player.getSiegeState() != 0) continue;
+            if (!player.isInsideZone(L2PcInstance.ZONE_SIEGE) || player.getSiegeState() != 0) continue;
             if ( checkIfInZone(player.getX(), player.getY(), player.getZ()))
                 players.add(player);
         }
@@ -1440,10 +1431,5 @@ public class Siege
             _siegeGuardManager = new SiegeGuardManager(getCastle());
         }
         return _siegeGuardManager;
-    }
-
-    public final IZone getZone()
-    {
-        return getCastle().getBattlefield();
     }
 }

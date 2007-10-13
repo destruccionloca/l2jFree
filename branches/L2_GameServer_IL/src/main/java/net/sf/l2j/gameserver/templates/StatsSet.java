@@ -28,8 +28,8 @@ import javolution.util.FastMap;
  * This class is used in order to have a set of couples (key,value).<BR>
  * Methods deployed are accessors to the set (add/get value from its key) and addition of a whole set in the current one.
  */
-public final class StatsSet  {
-
+public final class StatsSet
+{
 	private final Map<String, Object> _set = new FastMap<String, Object>();
 	
 	/**

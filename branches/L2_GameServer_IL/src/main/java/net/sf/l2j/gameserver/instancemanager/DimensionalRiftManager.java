@@ -38,7 +38,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.entity.DimensionalRift;
-import net.sf.l2j.gameserver.model.zone.ZoneRect;
+import net.sf.l2j.gameserver.model.zone.L2ZoneForm;
+import net.sf.l2j.gameserver.model.zone.form.ZoneCuboid;
+import net.sf.l2j.gameserver.model.zone.type.DimensionalRiftRoom;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -150,10 +152,11 @@ public class DimensionalRiftManager
                             getRooms(riftRoom.getRoomType()).put((byte) riftRoom.getId(), riftRoom);
                     }
                 }
-            } else if ("item".equalsIgnoreCase(n.getNodeName()))
+            }
+			else if ("item".equalsIgnoreCase(n.getNodeName()))
             {
                 DimensionalRiftRoom riftRoom = parseEntry(n);
-                _log.info(" " + riftRoom.getZoneName());
+                //_log.info(" " + riftRoom.getZoneName());
                 if (riftRoom != null)
                     getRooms(riftRoom.getRoomType()).put((byte) riftRoom.getId(), riftRoom);
             }
@@ -189,6 +192,7 @@ public class DimensionalRiftManager
 
         Node first = n.getFirstChild();
         for (n = first; n != null; n = n.getNextSibling())
+		{
             if ("spawn".equalsIgnoreCase(n.getNodeName()))
             {
                 int mobId = Integer.parseInt(n.getAttributes().getNamedItem("mobId").getNodeValue());
@@ -205,24 +209,30 @@ public class DimensionalRiftManager
                         spawn.setHeading(-1);
                         spawn.setRespawnDelay(delay);
                         spawns.add(spawn);
-                    } else
+                    }
+					else
                     {
                         _log.error("DimensionalRiftManager: Unknown npc template '" + mobId + "' !");
                     }
                 }
-            } else if ("teleport".equalsIgnoreCase(n.getNodeName()))
+            }
+			else if ("teleport".equalsIgnoreCase(n.getNodeName()))
             {
                 teleports.put(RestartType.RestartNormal, parsePoint(n));
-            } else if ("type".equalsIgnoreCase(n.getNodeName()))
+            }
+			else if ("type".equalsIgnoreCase(n.getNodeName()))
             {
                 typeName = n.getTextContent();
-            } else if ("boss".equalsIgnoreCase(n.getNodeName()))
+            }
+			else if ("boss".equalsIgnoreCase(n.getNodeName()))
             {
                 isBoss = n.getTextContent().equals("1");
-            } else if ("point".equalsIgnoreCase(n.getNodeName()))
+            }
+			else if ("point".equalsIgnoreCase(n.getNodeName()))
             {
                 points.add(parsePoint(n));
             }
+		}
 
         roomType = RoomType.getRoomTypeEnum(typeName);
 
@@ -234,22 +244,29 @@ public class DimensionalRiftManager
 
         if (points.size() == 2)
         {
-            riftRoom = new DimensionalRiftRoom();
-        } else
+			Point3D p1 = points.get(0);
+			Point3D p2 = points.get(1);
+			L2ZoneForm form = new ZoneCuboid(p1.getX(), p2.getX(), p1.getY(), p2.getY(),
+												p1.getZ(), p2.getZ());
+            riftRoom = new DimensionalRiftRoom(id);
+			riftRoom.setForm(form);
+        }
+		else
             return null;
 
-        riftRoom.setId(id);
-        riftRoom.setZoneName(name);
+        //riftRoom.setId(id);
+        //riftRoom.setZoneName(name);
         riftRoom.setIsBoss(isBoss);
         riftRoom.setRoomType(roomType);
 
-        for (Point3D point : points)
-            riftRoom.addPoint(point);
+
+		
+		
         for (Map.Entry<RestartType, Point3D> teleport : teleports.entrySet())
             riftRoom.addRestartPoint(teleport.getKey(), teleport.getValue());
         for (L2Spawn spawn : spawns)
         {
-            Location loc = riftRoom.getRandomLocation();
+            Location loc = riftRoom.getForm().getRandomLocation();
             spawn.setLocx(loc.getX());
             spawn.setLocy(loc.getY());
             spawn.setLocz(loc.getZ());
@@ -275,15 +292,15 @@ public class DimensionalRiftManager
     public boolean checkIfInRiftZone(int x, int y, int z, boolean ignorePeaceZone)
     {
         if (ignorePeaceZone)
-            return getRooms().get(RoomType.DimensionalRift).get((byte)1).checkIfInZone(x, y, z);
+            return getRooms().get(RoomType.DimensionalRift).get((byte)1).isInsideZone(x, y, z);
         else
-            return getRooms().get(RoomType.DimensionalRift).get((byte)1).checkIfInZone(x, y, z)
-                    && !getRooms().get(RoomType.Start).get((byte)1).checkIfInZone(x, y, z);
+            return getRooms().get(RoomType.DimensionalRift).get((byte)1).isInsideZone(x, y, z)
+                    && !getRooms().get(RoomType.Start).get((byte)1).isInsideZone(x, y, z);
     }
 
     public boolean checkIfInPeaceZone(int x, int y, int z)
     {
-        return getRooms(RoomType.Start).get((byte)1).checkIfInZone(x, y, z);
+        return getRooms(RoomType.Start).get((byte)1).isInsideZone(x, y, z);
     }
 
     public Location getWaitingRoomTeleport()
@@ -480,67 +497,6 @@ public class DimensionalRiftManager
                     return rt;
 
             return null;
-        }
-    }
-
-    public class DimensionalRiftRoom extends ZoneRect
-    {
-        private boolean _isBoss;
-        private RoomType _roomType;
-        private final FastList<L2Spawn> _roomSpawns;
-
-        public DimensionalRiftRoom()
-        {
-            _roomSpawns = new FastList<L2Spawn>();
-        }
-
-        public void setRoomType(RoomType roomType)
-        {
-            _roomType = roomType;
-        }
-
-        public RoomType getRoomType()
-        {
-            return _roomType;
-        }
-
-        public void setIsBoss(boolean isBoss)
-        {
-            _isBoss = isBoss;
-        }
-
-        public boolean isBoss()
-        {
-            return _isBoss;
-        }
-
-        public Location getTeleport()
-        {
-            return getRestartPoint(RestartType.RestartNormal);
-        }
-
-        public FastList<L2Spawn> getSpawns()
-        {
-            return _roomSpawns;
-        }
-
-        public void spawn()
-        {
-            for (L2Spawn spawn : _roomSpawns)
-            {
-                spawn.doSpawn();
-                spawn.startRespawn();
-            }
-        }
-
-        public void unspawn()
-        {
-            for (L2Spawn spawn : _roomSpawns)
-            {
-                spawn.stopRespawn();
-                if (spawn.getLastSpawn() != null)
-                    spawn.getLastSpawn().deleteMe();
-            }
         }
     }
 }

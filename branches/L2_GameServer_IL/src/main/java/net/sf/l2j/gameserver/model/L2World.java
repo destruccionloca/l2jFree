@@ -49,7 +49,7 @@ public final class L2World implements L2WorldMBean
      * note, shifting by 15 will result in regions corresponding to map tiles
      * shifting by 12 divides one tile to 8x8 regions
      */
-    private static final int SHIFT_BY = 12;
+    public static final int SHIFT_BY = 12;
     
     /** Map dimensions */
     public static final int MAP_MIN_X = -131072;
@@ -58,8 +58,8 @@ public final class L2World implements L2WorldMBean
     public static final int MAP_MAX_Y = 262144;
     
     /** calculated offset used so top left region is 0,0 */
-    private static final int OFFSET_X = Math.abs(MAP_MIN_X >> SHIFT_BY);
-    private static final int OFFSET_Y = Math.abs(MAP_MIN_Y >> SHIFT_BY);
+    public static final int OFFSET_X = Math.abs(MAP_MIN_X >> SHIFT_BY);
+    public static final int OFFSET_Y = Math.abs(MAP_MIN_Y >> SHIFT_BY);
     
     /** number of regions */
     private static final int REGIONS_X = (MAP_MAX_X >> SHIFT_BY) + OFFSET_X;
@@ -713,7 +713,17 @@ public final class L2World implements L2WorldMBean
     {       
         return _worldRegions[(x >> SHIFT_BY) + OFFSET_X][(y >> SHIFT_BY) + OFFSET_Y];
     }
-    
+
+    /**
+     * Returns the whole 2d array containing the world regions
+     * used by ZoneData.java to setup zones inside the world regions
+     * @return
+     */
+    public L2WorldRegion[][] getAllWorldRegions()
+    {
+        return _worldRegions;
+    }
+
     /**
      * Check if the current L2WorldRegions of the object is valid according to its position (x,y).<BR><BR>
      * 

@@ -366,11 +366,11 @@ public class Disablers implements ISkillHandler
                         L2PcInstance PCChar= null;
                         PCChar = ((L2PcInstance)target);
                         if (PCChar != null && 
-                                ((PCChar.getPvpFlag() !=0 
+                                (PCChar.getPvpFlag() !=0 
                                         || PCChar.isInOlympiadMode() 
                                         || PCChar.isInCombat() 
-                                        || ZoneManager.getInstance().checkIfInZonePvP(PCChar))
-                                ))
+                                        || PCChar.isInsideZone(L2Character.ZONE_PVP))
+                                )
                         {
                             PCChar.setTarget(activeChar); //c5 hate PvP
                             PCChar.abortAttack();
@@ -398,7 +398,7 @@ public class Disablers implements ISkillHandler
 	                                            ((PCChar.getPvpFlag() !=0 
 	                                                    || PCChar.isInOlympiadMode() 
 	                                                    || PCChar.isInCombat() 
-	                                                    || ZoneManager.getInstance().checkIfInZonePvP(PCChar))
+	                                                    || PCChar.isInsideZone(L2Character.ZONE_PVP))
 	                                            ))
 	                                    {
 	                                        target.setTarget(activeChar);

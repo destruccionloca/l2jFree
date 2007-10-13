@@ -24,7 +24,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.PcFreight;
-import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -205,7 +204,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
                 }
                 else
                 {
-                    freight.setActiveLocation(getClosestTown());
+                    freight.setActiveLocation(getWorldRegion().hashCode());
                 }
                 player.setActiveWarehouse(freight);
                 player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT, itemtype, sortorder));
@@ -238,7 +237,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
         			freight.setActiveLocation(0);
         		}else
         		{
-        			freight.setActiveLocation(getClosestTown());
+        			freight.setActiveLocation(getWorldRegion().hashCode());
         		}
         		player.setActiveWarehouse(freight);
         		player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.FREIGHT));
@@ -298,7 +297,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
             freight.setActiveLocation(0);
     	} else
     	{
-    		freight.setActiveLocation(getClosestTown());
+    		freight.setActiveLocation(getWorldRegion().hashCode());
     	}
         player.setActiveWarehouse(freight);
         player.tempInvetoryDisable();
@@ -443,21 +442,5 @@ public final class L2WarehouseInstance extends L2FolkInstance
             // the command to the parent class
             super.onBypassFeedback(player, command);
         }
-    }
-    
-    private int getClosestTown()
-    {
-    	if ( _closestTownId < 0)
-    	{
-    		Town town = TownManager.getInstance().getClosestTown(this);
-    		if (town != null)
-    		{
-    			_closestTownId = town.getTownId();
-    		}
-    		else
-    			_closestTownId = 0;
-    	}
-    	
-    	return _closestTownId;
     }
 }

@@ -49,6 +49,7 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionTargetAggro;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetLevel;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetUndead;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
+import net.sf.l2j.gameserver.skills.conditions.ConditionTargetType;
 import net.sf.l2j.gameserver.skills.conditions.ConditionUsingItemType;
 import net.sf.l2j.gameserver.skills.conditions.ConditionUsingSkill;
 import net.sf.l2j.gameserver.skills.conditions.ConditionWithSkill;
@@ -455,6 +456,19 @@ abstract class DocumentBase
             {
             	boolean val = Boolean.valueOf(a.getNodeValue());
             	cond = joinAnd(cond, new ConditionTargetUndead(val));
+            }
+            else if ("type".equalsIgnoreCase(a.getNodeName()))
+            {
+            	boolean npc = false, pc = false, mob = false;
+				StringTokenizer st = new StringTokenizer(a.getNodeValue(),",");
+				while(st.hasMoreTokens())
+				{
+					String t = st.nextToken();
+					if(t.equalsIgnoreCase("pc")) pc = true;
+					else if(t.equalsIgnoreCase("npc")) npc = true;
+					else if(t.equalsIgnoreCase("mob")) mob = true;
+				}
+            	cond = joinAnd(cond, new ConditionTargetType(pc, npc, mob));
             }
             else if ("using".equalsIgnoreCase(a.getNodeName()))
             {

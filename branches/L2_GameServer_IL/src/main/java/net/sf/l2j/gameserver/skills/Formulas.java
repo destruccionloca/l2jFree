@@ -875,7 +875,7 @@ public final class Formulas
 		if (cha instanceof L2BossInstance)
 		{
 			L2BossInstance boss = (L2BossInstance) cha;
-			if ((boss.getNpcId() == 29022) && (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Sunlight Room" , boss)) && (boss.getZ() >= -2952))
+			if ((boss.getNpcId() == 29022) && boss.isInsideZone(L2Character.LAIR_SUNLIGHT) && (boss.getZ() >= -2952))
 				hpRegenMultiplier *= 0.75;
 		}
         
@@ -902,12 +902,12 @@ public final class Formulas
                 if (siegeModifier > 0) init *= siegeModifier;
             }
             
-            if (player.getIsInClanHall() == 2 && player.getClan() != null)
+            if (player.isInsideZone(L2Character.ZONE_CLANHALL) && player.getClan() != null)
             {
             	int clanHallIndex = player.getClan().getHasHideout();
             	if (clanHallIndex > 0) 
             	{
-            		ClanHall clansHall = ClanHallManager.getInstance().getClanHall(clanHallIndex);
+            		ClanHall clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex);
             		if(clansHall != null)
             			if (clansHall.getFunction(ClanHall.FUNC_RESTORE_HP) != null) 
             				hpRegenMultiplier *= 1+ clansHall.getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
@@ -915,7 +915,7 @@ public final class Formulas
             }
 
             // Mother Tree effect is calculated at last
-            if (player.getInMotherTreeZone()) hpRegenBonus += 2;
+            if (player.isInsideZone(L2Character.ZONE_MOTHERTREE)) hpRegenBonus += 2;
 
             // Calculate Movement bonus
             if (player.isSitting() && player.getLevel() < 41) // Sitting below lvl 40
@@ -971,14 +971,14 @@ public final class Formulas
                 init *= calcFestivalRegenModifier(player);
 
             // Mother Tree effect is calculated at last
-            if (player.getInMotherTreeZone()) mpRegenBonus += 1;
+            if (player.isInsideZone(L2Character.ZONE_MOTHERTREE)) mpRegenBonus += 1;
             
-            if (player.getIsInClanHall() == 2 && player.getClan() != null)
+            if (player.isInsideZone(L2Character.ZONE_CLANHALL) && player.getClan() != null)
             {
             	int clanHallIndex = player.getClan().getHasHideout();
             	if (clanHallIndex > 0)
             	{
-            		ClanHall clansHall = ClanHallManager.getInstance().getClanHall(clanHallIndex);
+            		ClanHall clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex);
             		if(clansHall != null)
             			if (clansHall.getFunction(ClanHall.FUNC_RESTORE_MP) != null) 
             				mpRegenMultiplier *= 1+ clansHall.getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;

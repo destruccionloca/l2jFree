@@ -86,7 +86,6 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
@@ -334,12 +333,20 @@ public class GameServer
             GeoPathFinding.getInstance();
             if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
         }
+
+        // Load clan hall data before zone data
+        _cHManager = ClanHallManager.getInstance();
+        CastleManager.getInstance();
+        SiegeManager.getInstance();
+
         TeleportLocationTable.getInstance();
         if ( _log.isDebugEnabled())_log.debug("TeleportLocationTable initialized");
         LevelUpData.getInstance();
         if ( _log.isDebugEnabled())_log.debug("LevelUpData initialized");
         L2World.getInstance();
         if ( _log.isDebugEnabled())_log.debug("World initialized");
+        ZoneManager.getInstance();
+        if ( _log.isDebugEnabled())_log.debug("Zones initialized");
         RandomIntGenerator.getInstance();
         if ( _log.isDebugEnabled())_log.debug("RandomIntGenerator initialized");
         AutoChatHandler.getInstance();
@@ -381,6 +388,7 @@ public class GameServer
         // o Load doors and static objects from dp
         // ---------------------------------------
         _doorTable = DoorTable.getInstance();
+        _doorTable.parseData();
         StaticObjects.getInstance();
 
         // o Load boat datas
@@ -472,19 +480,14 @@ public class GameServer
         
         // Initialize managers
         // -------------------
-        ZoneManager.getInstance();
         CastleManorManager.getInstance();
         AuctionManager.getInstance();
-        _cHManager = ClanHallManager.getInstance();
         CastleManager.getInstance();
         L2Manor.getInstance();
-        CastleManorManager.getInstance();
         MercTicketManager.getInstance();
         //PartyCommandManager.getInstance();
         PetitionManager.getInstance();
         QuestManager.getInstance();
-        SiegeManager.getInstance();
-        TownManager.getInstance();
         FourSepulchersManager.getInstance().init();
         SailrenManager.getInstance().init();
         AntharasManager.getInstance().init();
@@ -494,7 +497,7 @@ public class GameServer
         // o Initialize the FloodProtector
         // -------------------------------
         FloodProtector.getInstance();
-		
+
         // o Register a shutdown hook
         // ---------------------------
         _shutdownHandler = Shutdown.getInstance();

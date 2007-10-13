@@ -87,9 +87,9 @@ public class Recall implements ISkillHandler
 					L2PcInstance targetChar = (L2PcInstance) target;
 
 					// [L2J_JP ADD]
-					if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, targetChar))
+					if (targetChar.isInsideZone(L2Character.ZONE_NOESCAPE))
 					{
-						targetChar.sendMessage("You can not escape from here.");
+						targetChar.sendMessage("You can't escape from here.");
 						targetChar.sendPacket(new ActionFailed());
 						break;
 					}

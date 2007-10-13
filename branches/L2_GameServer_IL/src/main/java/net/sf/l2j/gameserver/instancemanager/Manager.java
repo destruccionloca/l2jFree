@@ -22,10 +22,6 @@ public class Manager
 	public static void reloadAll()
 	{
 		AuctionManager.getInstance().reload();
-		CastleManager.getInstance().reload();
-		ClanHallManager.getInstance().reload();
-//		QuestManager.getInstance().reload();
-		TownManager.getInstance().reload();
-		ZoneManager.getInstance().reload();
+		//QuestManager.getInstance().reload();
 	}
 }

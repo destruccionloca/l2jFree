@@ -22,6 +22,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.StringTokenizer;
 
@@ -56,7 +57,7 @@ public class DoorTable
 	public DoorTable() 
 	{
 		_staticItems = new FastMap<Integer,L2DoorInstance>();
-		parseData();
+		//parseData();
 	}
         
 	public void reloadAll() 
@@ -71,7 +72,7 @@ public class DoorTable
 	    _instance = new DoorTable();
 	}
 
-	private void parseData() 
+	public void parseData() 
 	{
 		LineNumberReader lnr = null;
 		try 
@@ -89,7 +90,7 @@ public class DoorTable
 				L2DoorInstance door = parseList(line);
 				_staticItems.put(door.getDoorId(), door);
 				door.spawnMe(door.getX(), door.getY(),door.getZ());
-				ClanHall clanhall = ClanHallManager.getInstance().getClanHall(door.getX(),door.getY(),500);
+				ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(), door.getY(), 500);
 				if (clanhall != null)
 				{
 				    clanhall.getDoors().add(door);
@@ -106,7 +107,7 @@ public class DoorTable
 			_initialized = false;
 			_log.warn("door.csv is missing in data folder");
 		} 
-		catch (Exception e) 
+		catch (IOException e) 
 		{
 			_initialized = false;
 			_log.warn("error while creating door table " + e);
@@ -131,7 +132,7 @@ public class DoorTable
 		int rangeZMin = Integer.parseInt(st.nextToken());
 		int rangeXMax = Integer.parseInt(st.nextToken());
 		int rangeYMax = Integer.parseInt(st.nextToken());
-		int rangeZMax = Integer.parseInt(st.nextToken());		
+		int rangeZMax = Integer.parseInt(st.nextToken());
 		int hp = Integer.parseInt(st.nextToken());
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());

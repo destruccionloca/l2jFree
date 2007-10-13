@@ -45,7 +45,7 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -177,6 +177,41 @@ public abstract class L2Character extends L2Object
 
     /** FastMap(Integer, L2Skill) containing all skills of the L2Character */
     protected Map<Integer, L2Skill> _skills;
+
+	/** Zone system */
+	public static final int ZONE_PVP = 1;
+	public static final int ZONE_PEACE = 2;
+	public static final int ZONE_SIEGE = 4;
+	public static final int ZONE_MOTHERTREE = 8;
+	public static final int ZONE_CLANHALL = 16;
+	public static final int ZONE_NOESCAPE = 32;
+	public static final int ZONE_NOLANDING = 64;
+	public static final int ZONE_WATER = 128;
+	public static final int ZONE_JAIL = 256;
+	public static final int ZONE_MOSTERTRACK = 512;
+	public static final int ZONE_FOURSEPULCHERS = 1024;
+	
+	public static final int LAIR_ANTHARAS = 2048;
+	public static final int LAIR_BAIUM = 4096;
+	public static final int LAIR_SAILREN = 8192;
+	public static final int LAIR_VALAKAS = 16384;
+	public static final int LAIR_SUNLIGHT = 32768;
+	
+	private int _currentZones = 0;
+	private int _currentBossZones = 0;
+	
+	public boolean isInsideZone(int zone)
+	{
+		return ((_currentZones & zone) != 0);
+	}
+
+	public void setInsideZone(int zone, boolean state)
+	{
+		if (state)
+			_currentZones |= zone;
+		else
+			_currentZones ^= zone;
+	}
 
     // =========================================================
     // Constructor
@@ -459,6 +494,10 @@ public abstract class L2Character extends L2Object
         
         setIsTeleporting(true);
         setTarget(null);
+
+        // Remove from world regions zones
+        getWorldRegion().removeFromZones(this);
+
         getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 
         if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
@@ -1237,7 +1276,7 @@ public abstract class L2Character extends L2Object
                     return;
                 }
             }
-        }            
+        }
 
         // AURA skills should always be using caster as target
         if (skill.getTargetType() == SkillTargetType.TARGET_AURA)
@@ -1439,6 +1478,8 @@ public abstract class L2Character extends L2Object
 
         // Notify L2Character AI
         getAI().notifyEvent(CtrlEvent.EVT_DEAD, null);
+
+		if (!(this instanceof L2PcInstance) && getWorldRegion() != null) getWorldRegion().removeFromZones(this);
         
 		// Notify Quest of character's death
 		for (QuestState qs: getNotifyQuestOfDeath())
@@ -3605,314 +3646,314 @@ public abstract class L2Character extends L2Object
         }
     }
 
-   /**
-    * Update the position of the L2Character during a movement and return True if the movement is finished.<BR><BR>
-    *
-    * <B><U> Concept</U> :</B><BR><BR>
-    * At the beginning of the move action, all properties of the movement are stored in the MoveData object called <B>_move</B> of the L2Character.
-    * The position of the start point and of the destination permit to estimated in function of the movement speed the time to achieve the destination.<BR><BR>
-    *
-    * When the movement is started (ex : by MovetoLocation), this method will be called each 0.1 sec to estimate and update the L2Character position on the server.
-    * Note, that the current server position can differe from the current client position even if each movement is straight foward.
-    * That's why, client send regularly a Client->Server ValidatePosition packet to eventually correct the gap on the server.
-    * But, it's always the server position that is used in range calculation.<BR><BR>
-    *
-    * At the end of the estimated movement time, the L2Character position is automatically set to the destination position even if the movement is not finished.<BR><BR>
-    *
-    * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current Z position is obtained FROM THE CLIENT by the Client->Server ValidatePosition Packet.
-    * But x and y positions must be calculated to avoid that players try to modify their movement speed.</B></FONT><BR><BR>
-    *
-    * @param gameTicks Nb of ticks since the server start
-    * @return True if the movement is finished
-    */
-   public boolean updatePosition(int gameTicks)
-   {
-       // Get movement data
-       MoveData m = _move;
+    /**
+     * Update the position of the L2Character during a movement and return True if the movement is finished.<BR><BR>
+     *
+     * <B><U> Concept</U> :</B><BR><BR>
+     * At the beginning of the move action, all properties of the movement are stored in the MoveData object called <B>_move</B> of the L2Character.
+     * The position of the start point and of the destination permit to estimated in function of the movement speed the time to achieve the destination.<BR><BR>
+     *
+     * When the movement is started (ex : by MovetoLocation), this method will be called each 0.1 sec to estimate and update the L2Character position on the server.
+     * Note, that the current server position can differe from the current client position even if each movement is straight foward.
+     * That's why, client send regularly a Client->Server ValidatePosition packet to eventually correct the gap on the server.
+     * But, it's always the server position that is used in range calculation.<BR><BR>
+     *
+     * At the end of the estimated movement time, the L2Character position is automatically set to the destination position even if the movement is not finished.<BR><BR>
+     *
+     * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current Z position is obtained FROM THE CLIENT by the Client->Server ValidatePosition Packet.
+     * But x and y positions must be calculated to avoid that players try to modify their movement speed.</B></FONT><BR><BR>
+     *
+     * @param gameTicks Nb of ticks since the server start
+     * @return True if the movement is finished
+     */
+    public boolean updatePosition(int gameTicks)
+    {
+        // Get movement data
+        MoveData m = _move;
 
-       if (m == null)
-           return true;
+        if (m == null)
+            return true;
 
-       if (!isVisible())
-       {
-           _move = null;
-           return true;
-       }
+        if (!isVisible())
+        {
+            _move = null;
+            return true;
+        }
 
-       // Check if the position has alreday be calculated
-       if (m._moveTimestamp == gameTicks)
-           return false;
+        // Check if the position has alreday be calculated
+        if (m._moveTimestamp == gameTicks)
+            return false;
 
-       // Calculate the time between the beginning of the deplacement and now
-       int elapsed = gameTicks - m._moveStartTime;
+        // Calculate the time between the beginning of the deplacement and now
+        int elapsed = gameTicks - m._moveStartTime;
 
-       // If estimated time needed to achieve the destination is passed,
-       // the L2Character is positionned to the destination position
-       if (elapsed >= m._ticksToMove)
-       {
-           // Set the timer of last position update to now
-           m._moveTimestamp = gameTicks;
+        // If estimated time needed to achieve the destination is passed,
+        // the L2Character is positionned to the destination position
+        if (elapsed >= m._ticksToMove)
+        {
+            // Set the timer of last position update to now
+            m._moveTimestamp = gameTicks;
 
-           // Set the position of the L2Character to the destination
-           if(this instanceof L2BoatInstance )
-           {               
-               super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
-               ((L2BoatInstance)this).updatePeopleInTheBoat(m._xDestination, m._yDestination, m._zDestination);
-           }
-           else
-           {
-               super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
-           }
+            // Set the position of the L2Character to the destination
+            if(this instanceof L2BoatInstance )
+            {               
+                super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
+                ((L2BoatInstance)this).updatePeopleInTheBoat(m._xDestination, m._yDestination, m._zDestination);
+            }
+            else
+            {
+                super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
+            }
 
-           // Cancel the move action
-           _move = null;
+            // Cancel the move action
+            _move = null;
 
-           return true;
-       }
+            return true;
+        }
 
-       // Estimate the position of the L2Character dureing the movement according to its _xSpeedTicks and _ySpeedTicks
-       // The Z position is obtained from the client
-       if(this instanceof L2BoatInstance )
-       {           
-           super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
-           ((L2BoatInstance)this).updatePeopleInTheBoat(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
-       }
-       else
-       {
-    	   super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
-    	   if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(false);
-       }
+        // Estimate the position of the L2Character dureing the movement according to its _xSpeedTicks and _ySpeedTicks
+        // The Z position is obtained from the client
+        if(this instanceof L2BoatInstance )
+        {
+            super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
+            ((L2BoatInstance)this).updatePeopleInTheBoat(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
+        }
+        else
+        {
+            super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
+            if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(false);
+        }
 
-       // Set the timer of last position update to now
-       m._moveTimestamp = gameTicks;
+        // Set the timer of last position update to now
+        m._moveTimestamp = gameTicks;
 
-       return false;
+        return false;
+    }
 
-   }
+	public void revalidateZone()
+	{
+		if (getWorldRegion() == null) return;
+		getWorldRegion().revalidateZones(this);
+	}
 
+    /**
+     * Stop movement of the L2Character (Called by AI Accessor only).<BR><BR>
+     *
+     * <B><U> Actions</U> :</B><BR><BR>
+     * <li>Delete movement data of the L2Character </li>
+     * <li>Set the current position (x,y,z), its current L2WorldRegion if necessary and its heading </li>
+     * <li>Remove the L2Object object from _gmList** of GmListTable </li>
+     * <li>Remove object from _knownObjects and _knownPlayer* of all surrounding L2WorldRegion L2Characters </li><BR><BR>
+     *
+     * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T send Server->Client packet StopMove/StopRotation </B></FONT><BR><BR>
+     *
+     */
+    public void stopMove(L2CharPosition pos) { stopMove(pos, true); }
+    public void stopMove(L2CharPosition pos, boolean updateKnownObjects)
+    {
+        // Delete movement data of the L2Character
+        _move = null;
 
-   /**
-    * Stop movement of the L2Character (Called by AI Accessor only).<BR><BR>
-    *
-    * <B><U> Actions</U> :</B><BR><BR>
-    * <li>Delete movement data of the L2Character </li>
-    * <li>Set the current position (x,y,z), its current L2WorldRegion if necessary and its heading </li>
-    * <li>Remove the L2Object object from _gmList** of GmListTable </li>
-    * <li>Remove object from _knownObjects and _knownPlayer* of all surrounding L2WorldRegion L2Characters </li><BR><BR>
-    *
-    * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T send Server->Client packet StopMove/StopRotation </B></FONT><BR><BR>
-    *
-    */
-   public void stopMove(L2CharPosition pos) { stopMove(pos, true); }
-   public void stopMove(L2CharPosition pos, boolean updateKnownObjects)
-   {
-       // Delete movement data of the L2Character
-       _move = null;
-       
-       //if (getAI() != null)
-       //  getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+        //if (getAI() != null)
+        //  getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 
-       // Set the current position (x,y,z), its current L2WorldRegion if necessary and its heading
-       // All data are contained in a L2CharPosition object
-       if (pos != null)
-       {
-           getPosition().setXYZ(pos.x, pos.y, pos.z);
-           setHeading(pos.heading);
-           if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(true);
-       }
-       sendPacket(new StopMove(this));
-       if (updateKnownObjects) ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(this));
-   }
-
-
-
-
-
-
-   /**
-    * Target a L2Object (add the target to the L2Character _target, _knownObject and L2Character to _KnownObject of the L2Object).<BR><BR>
-    *
-    * <B><U> Concept</U> :</B><BR><BR>
-    * The L2Object (including L2Character) targeted is identified in <B>_target</B> of the L2Character<BR><BR>
-    *
-    * <B><U> Actions</U> :</B><BR><BR>
-    * <li>Set the _target of L2Character to L2Object </li>
-    * <li>If necessary, add L2Object to _knownObject of the L2Character </li>
-    * <li>If necessary, add L2Character to _KnownObject of the L2Object </li>
-    * <li>If object==null, cancel Attak or Cast </li><BR><BR>
-    *
-    * <B><U> Overriden in </U> :</B><BR><BR>
-    * <li> L2PcInstance : Remove the L2PcInstance from the old target _statusListener and add it to the new target if it was a L2Character</li><BR><BR>
-    *
-    * @param object L2object to target
-    *
-    */
-   public void setTarget(L2Object object)
-   {
-       if (object != null && !object.isVisible())
-           object = null;
-
-       if (object != null && object != _target)
-       {
-           getKnownList().addKnownObject(object);
-           object.getKnownList().addKnownObject(this);
-       }
-
-       // If object==null, Cancel Attak or Cast
-       if (object == null)
-       {
-           if(_target != null)
-           {
-               broadcastPacket(new TargetUnselected(this));
-           }
-           /*if (isAttackingNow() && getAI().getAttackTarget() == _target)
-           {
-               abortAttack();
-
-               getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-
-               if (this instanceof L2PcInstance) {
-                   sendPacket(new ActionFailed());
-                   SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                   sm.addString("Attack is aborted");
-                   sendPacket(sm);
-               }
-           }
-
-           if (isCastingNow() && canAbortCast() && getAI().getCastTarget() == _target)
-           {
-               abortCast();
-               getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-               if (this instanceof L2PcInstance) {
-                   sendPacket(new ActionFailed());
-                   SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                   sm.addString("Casting is aborted");
-                   sendPacket(sm);
-               }
-           }*/
-       }
-       _target = object;
-   }
-
-   /**
-    * Return the identifier of the L2Object targeted or -1.<BR><BR>
-    */
-   public final int getTargetId()
-   {
-       if (_target != null)
-       {
-           return _target.getObjectId();
-       }
-
-       return -1;
-   }
-
-   /**
-    * Return the L2Object targeted or null.<BR><BR>
-    */
-   public final L2Object getTarget()
-   {
-       return _target;
-   }
-
-   // called from AIAccessor only
-   /**
-    * Calculate movement data for a move to location action and add the L2Character to movingObjects of GameTimeController (only called by AI Accessor).<BR><BR>
-    *
-    * <B><U> Concept</U> :</B><BR><BR>
-    * At the beginning of the move action, all properties of the movement are stored in the MoveData object called <B>_move</B> of the L2Character.
-    * The position of the start point and of the destination permit to estimated in function of the movement speed the time to achieve the destination.<BR><BR>
-    * All L2Character in movement are identified in <B>movingObjects</B> of GameTimeController that will call the updatePosition method of those L2Character each 0.1s.<BR><BR>
-    *
-    * <B><U> Actions</U> :</B><BR><BR>
-    * <li>Get current position of the L2Character </li>
-    * <li>Calculate distance (dx,dy) between current position and destination including offset </li>
-    * <li>Create and Init a MoveData object </li>
-    * <li>Set the L2Character _move object to MoveData object </li>
-    * <li>Add the L2Character to movingObjects of the GameTimeController </li>
-    * <li>Create a task to notify the AI that L2Character arrives at a check point of the movement </li><BR><BR>
-    *
-    * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T send Server->Client packet MoveToPawn/CharMoveToLocation </B></FONT><BR><BR>
-    *
-    * <B><U> Example of use </U> :</B><BR><BR>
-    * <li> AI : onIntentionMoveTo(L2CharPosition), onIntentionPickUp(L2Object), onIntentionInteract(L2Object) </li>
-    * <li> FollowTask </li><BR><BR>
-    *
-    * @param x The X position of the destination
-    * @param y The Y position of the destination
-    * @param z The Y position of the destination
-    * @param offset The size of the interaction area of the L2Character targeted
-    *
-    */
-   protected void moveToLocation(int x, int y, int z, int offset)
-   {
-	   // Get the Move Speed of the L2Character
-	   float speed = getStat().getMoveSpeed();
-	   //if (speed <= 0 || isMovementDisabled()) return;
-	   if (speed <= 0) return;
-	   
-       // Get current position of the L2Character
-       final int curX = super.getX();
-       final int curY = super.getY();
-       final int curZ = super.getZ();
-
-       // Calculate distance (dx,dy) between current position and destination
-       double dx = (x - curX);
-       double dy = (y - curY);
-       double distance = Math.sqrt(dx*dx + dy*dy);
-
-       if (_log.isDebugEnabled()) _log.debug("distance to target:" + distance);
-
-       // Define movement angles needed
-       // ^
-       // |     X (x,y)
-       // |   /
-       // |  /distance
-       // | /
-       // |/ angle
-       // X ---------->
-       // (curx,cury)
-
-       double cos;
-       double sin;
+        // Set the current position (x,y,z), its current L2WorldRegion if necessary and its heading
+        // All data are contained in a L2CharPosition object
+        if (pos != null)
+        {
+            getPosition().setXYZ(pos.x, pos.y, pos.z);
+            setHeading(pos.heading);
+            if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(true);
+        }
+        sendPacket(new StopMove(this));
+        if (updateKnownObjects) ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(this));
+    }
 
 
-       // Check if a movement offset is defined or no distance to go through
-       if (offset > 0 || distance < 1)
-       {
-           // If no distance to go through, the movement is canceled
-           if (distance < 1 || distance - offset  <= 0)
-           {
-               sin = 0;
-               cos = 1;
-               distance = 0;
-               x = curX;
-               y = curY;
+    /**
+     * Target a L2Object (add the target to the L2Character _target, _knownObject and L2Character to _KnownObject of the L2Object).<BR><BR>
+     *
+     * <B><U> Concept</U> :</B><BR><BR>
+     * The L2Object (including L2Character) targeted is identified in <B>_target</B> of the L2Character<BR><BR>
+     *
+     * <B><U> Actions</U> :</B><BR><BR>
+     * <li>Set the _target of L2Character to L2Object </li>
+     * <li>If necessary, add L2Object to _knownObject of the L2Character </li>
+     * <li>If necessary, add L2Character to _KnownObject of the L2Object </li>
+     * <li>If object==null, cancel Attak or Cast </li><BR><BR>
+     *
+     * <B><U> Overriden in </U> :</B><BR><BR>
+     * <li> L2PcInstance : Remove the L2PcInstance from the old target _statusListener and add it to the new target if it was a L2Character</li><BR><BR>
+     *
+     * @param object L2object to target
+     *
+     */
+    public void setTarget(L2Object object)
+    {
+        if (object != null && !object.isVisible())
+            object = null;
 
-               if (_log.isDebugEnabled()) _log.debug("already in range, no movement needed.");
+        if (object != null && object != _target)
+        {
+            getKnownList().addKnownObject(object);
+            object.getKnownList().addKnownObject(this);
+        }
 
-               // Notify the AI that the L2Character is arrived at destination
-               getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
+        // If object==null, Cancel Attak or Cast
+        if (object == null)
+        {
+            if(_target != null)
+            {
+                broadcastPacket(new TargetUnselected(this));
+            }
+            /*if (isAttackingNow() && getAI().getAttackTarget() == _target)
+            {
+                abortAttack();
 
-               return;
-           }
-           // Calculate movement angles needed
-           sin = dy/distance;
-           cos = dx/distance;
+                getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 
-           distance -= (offset-5); // due to rounding error, we have to move a bit closer to be in range
+                if (this instanceof L2PcInstance)
+                {
+                    sendPacket(new ActionFailed());
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+                    sm.addString("Attack is aborted");
+                    sendPacket(sm);
+                }
+            }
 
-           // Calculate the new destination with offset included
-           x = curX + (int)(distance * cos);
-           y = curY + (int)(distance * sin);
+            if (isCastingNow() && canAbortCast() && getAI().getCastTarget() == _target)
+            {
+                abortCast();
+                getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+                if (this instanceof L2PcInstance) {
+                    sendPacket(new ActionFailed());
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+                    sm.addString("Casting is aborted");
+                    sendPacket(sm);
+                }
+            }*/
+        }
+        _target = object;
+    }
 
-       }
-       else
-       {
-           // Calculate movement angles needed
-           sin = dy/distance;
-           cos = dx/distance;
-       }
+    /**
+     * Return the identifier of the L2Object targeted or -1.<BR><BR>
+     */
+    public final int getTargetId()
+    {
+        if (_target != null)
+        {
+            return _target.getObjectId();
+        }
+
+        return -1;
+    }
+
+    /**
+     * Return the L2Object targeted or null.<BR><BR>
+     */
+    public final L2Object getTarget()
+    {
+        return _target;
+    }
+
+    // called from AIAccessor only
+    /**
+     * Calculate movement data for a move to location action and add the L2Character to movingObjects of GameTimeController (only called by AI Accessor).<BR><BR>
+     *
+     * <B><U> Concept</U> :</B><BR><BR>
+     * At the beginning of the move action, all properties of the movement are stored in the MoveData object called <B>_move</B> of the L2Character.
+     * The position of the start point and of the destination permit to estimated in function of the movement speed the time to achieve the destination.<BR><BR>
+     * All L2Character in movement are identified in <B>movingObjects</B> of GameTimeController that will call the updatePosition method of those L2Character each 0.1s.<BR><BR>
+     *
+     * <B><U> Actions</U> :</B><BR><BR>
+     * <li>Get current position of the L2Character </li>
+     * <li>Calculate distance (dx,dy) between current position and destination including offset </li>
+     * <li>Create and Init a MoveData object </li>
+     * <li>Set the L2Character _move object to MoveData object </li>
+     * <li>Add the L2Character to movingObjects of the GameTimeController </li>
+     * <li>Create a task to notify the AI that L2Character arrives at a check point of the movement </li><BR><BR>
+     *
+     * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T send Server->Client packet MoveToPawn/CharMoveToLocation </B></FONT><BR><BR>
+     *
+     * <B><U> Example of use </U> :</B><BR><BR>
+     * <li> AI : onIntentionMoveTo(L2CharPosition), onIntentionPickUp(L2Object), onIntentionInteract(L2Object) </li>
+     * <li> FollowTask </li><BR><BR>
+     *
+     * @param x The X position of the destination
+     * @param y The Y position of the destination
+     * @param z The Y position of the destination
+     * @param offset The size of the interaction area of the L2Character targeted
+     *
+     */
+    protected void moveToLocation(int x, int y, int z, int offset)
+    {
+        // Get the Move Speed of the L2Character
+        float speed = getStat().getMoveSpeed();
+        //if (speed <= 0 || isMovementDisabled()) return;
+        if (speed <= 0) return;
+        
+        // Get current position of the L2Character
+        final int curX = super.getX();
+        final int curY = super.getY();
+        final int curZ = super.getZ();
+
+        // Calculate distance (dx,dy) between current position and destination
+        double dx = (x - curX);
+        double dy = (y - curY);
+        double distance = Math.sqrt(dx*dx + dy*dy);
+
+        if (_log.isDebugEnabled()) _log.debug("distance to target:" + distance);
+
+        // Define movement angles needed
+        // ^
+        // |     X (x,y)
+        // |   /
+        // |  /distance
+        // | /
+        // |/ angle
+        // X ---------->
+        // (curx,cury)
+
+        double cos;
+        double sin;
+
+
+        // Check if a movement offset is defined or no distance to go through
+        if (offset > 0 || distance < 1)
+        {
+            // If no distance to go through, the movement is canceled
+            if (distance < 1 || distance - offset  <= 0)
+            {
+                sin = 0;
+                cos = 1;
+                distance = 0;
+                x = curX;
+                y = curY;
+
+                if (_log.isDebugEnabled()) _log.debug("already in range, no movement needed.");
+
+                // Notify the AI that the L2Character is arrived at destination
+                getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
+
+                return;
+            }
+            // Calculate movement angles needed
+            sin = dy/distance;
+            cos = dx/distance;
+
+            distance -= (offset-5); // due to rounding error, we have to move a bit closer to be in range
+
+            // Calculate the new destination with offset included
+            x = curX + (int)(distance * cos);
+            y = curY + (int)(distance * sin);
+        }
+        else
+        {
+            // Calculate movement angles needed
+            sin = dy/distance;
+            cos = dx/distance;
+        }
 		
 		// Create and Init a MoveData object
 		MoveData m = new MoveData();
@@ -4658,29 +4699,19 @@ public abstract class L2Character extends L2Object
                     return false;
             }
         }
-        // Right now only L2PcInstance has up-to-date zone status...
-        if (attacker instanceof L2PcInstance)
-        {
-            if (target instanceof L2PcInstance)
-            {
-                return (((L2PcInstance)target).getInPeaceZone() || ((L2PcInstance)attacker).getInPeaceZone());
-            }
-            else return ( 
-                    ((L2PcInstance)attacker).getInPeaceZone() ||
-                    ZoneManager.getInstance().checkIfInZonePeace(target)
-                    );
-        }
-        if (target instanceof L2PcInstance)
-        {
-            return ( 
-                    ((L2PcInstance)target).getInPeaceZone() ||
-                    ZoneManager.getInstance().checkIfInZonePeace(attacker)
-                    );
-        }
-        return ( 
-                ZoneManager.getInstance().checkIfInZonePeace(attacker) ||   
-                ZoneManager.getInstance().checkIfInZonePeace(target)        
-                );
+		// TODO: ZONETODO: Are there things < L2Characters in peace zones that can be attacked? If not this could be cleaned up
+		
+		if (attacker instanceof L2Character && target instanceof L2Character)
+		{
+			return (((L2Character)target).isInsideZone(ZONE_PEACE) || ((L2Character)attacker).isInsideZone(ZONE_PEACE));
+		}
+		if (attacker instanceof L2Character)
+		{
+			return (TownManager.getInstance().getTown(target.getX(), target.getY(), target.getZ()) != null || ((L2Character)attacker).isInsideZone(ZONE_PEACE));
+		}
+
+		return (TownManager.getInstance().getTown(target.getX(), target.getY(), target.getZ()) != null ||
+				TownManager.getInstance().getTown(attacker.getX(), attacker.getY(), attacker.getZ()) != null);
     }
     
      /**

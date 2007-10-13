@@ -70,7 +70,6 @@ import net.sf.l2j.gameserver.model.actor.knownlist.NpcKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
 import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
-import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
@@ -78,6 +77,7 @@ import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.model.zone.type.L2TownZone;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -849,29 +849,29 @@ public class L2NpcInstance extends L2Character
         player.sendPacket(new ActionFailed());
     }
     
-    /** Return the L2Castle this L2NpcInstance belongs to. */
-    public final Castle getCastle()
-    {
-        // Get castle this NPC belongs to (excluding L2Attackable)
-        if (_castleIndex < 0)
-        {
-            Town town = TownManager.getInstance().getTown(this);
-            // Npc was spawned in town
-            _isInTown = (town != null);
-            
-            if (! _isInTown )
-            {
-            	_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
-            }
-            else
-            	if (town.getCastle() != null)
-            		_castleIndex = town.getCastle().getCastleId();
-            	else
-            		_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
-        }
 
-        return CastleManager.getInstance().getCastleById(_castleIndex);
-    }
+	/** Return the L2Castle this L2NpcInstance belongs to. */
+	public final Castle getCastle()
+	{
+		// Get castle this NPC belongs to (excluding L2Attackable)
+		if (_castleIndex < 0)
+		{
+			L2TownZone town = TownManager.getInstance().getTown(getX(), getY(), getZ());
+
+			if (town != null)
+				_castleIndex = CastleManager.getInstance().getCastleIndex(town.getTaxById());
+
+			if (_castleIndex < 0)
+			{
+				_castleIndex = CastleManager.getInstance().findNearestCastleIndex(this);
+			}
+			else _isInTown = true; // Npc was spawned in town
+		}
+	
+		if (_castleIndex < 0) return null;
+
+		return CastleManager.getInstance().getCastles().get(_castleIndex);
+	}
     
     public final boolean getIsInTown()
     {
@@ -2536,6 +2536,7 @@ public class L2NpcInstance extends L2Character
      */
     public void deleteMe()
     {
+        if (getWorldRegion() != null) getWorldRegion().removeFromZones(this);
         //FIXME this is just a temp hack, we should find a better solution
         
         try { decayMe(); } catch (Throwable t) {_log.fatal("deletedMe(): " + t); }

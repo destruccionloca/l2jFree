@@ -35,13 +35,12 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -126,8 +125,8 @@ public class BaiumManager
     // status in lair.
     protected boolean _isBossSpawned = false;
     protected boolean _isIntervalForNextSpawn = false;
-    protected IZone  _zone;
-    protected String _zoneName;
+    //protected IZone  _zone;
+    //protected String _zoneName;
     protected String _questName;
 
     // location of banishment
@@ -161,7 +160,7 @@ public class BaiumManager
     	_isBossSpawned = false;
     	_isIntervalForNextSpawn = false;
     	_PlayersInLair.clear();
-        _zoneName = "Lair of Baium";
+        //_zoneName = "Lair of Baium";
         _questName = "baium";
 
         // setting spawn data of monsters.
@@ -263,9 +262,7 @@ public class BaiumManager
     
     public boolean checkIfInZone(L2PcInstance pc)
     {
-    	if ( _zone == null )
-    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDangeon, _zoneName );
-    	return _zone.checkIfInZone(pc);
+    	return pc.isInsideZone(L2Character.LAIR_BAIUM);
     }
     
     // Arcangel advent.

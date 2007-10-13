@@ -41,7 +41,7 @@ import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
-import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2World;
@@ -154,7 +154,7 @@ public class FourSepulchersManager
     protected Map<Integer,L2Spawn> _executionerSpawns = new FastMap<Integer,L2Spawn>();
     
     protected List<L2NpcInstance> _allMobs = new FastList<L2NpcInstance>();
-    protected String _zoneName = "Four Sepulcher";
+    //protected String _zoneName = "Four Sepulcher";
     
     public FourSepulchersManager()
     {
@@ -1314,7 +1314,7 @@ public class FourSepulchersManager
             
             for(L2PcInstance player :L2World.getInstance().getAllPlayers())
             {
-            	if ( checkIfInDangeon(player) &&
+            	if ( checkIfInZone(player) &&
             		(player.getZ() >= -7250 && player.getZ() <= -6841) &&
             		!player.isGM())
             	{
@@ -1375,8 +1375,8 @@ public class FourSepulchersManager
 		}
 	}
 	
-	public boolean checkIfInDangeon(L2Object obj)
+	public boolean checkIfInZone(L2Character obj)
 	{
-		return ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, _zoneName, obj);
+		return obj.isInsideZone(L2Character.ZONE_FOURSEPULCHERS);
 	}
 }
