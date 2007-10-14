@@ -3,9 +3,6 @@
 #
 # Updated by ElgarL on 28.09.2005
 #
-
-print "importing village master data: Talking Island Village ...done"
-
 import sys
 
 from net.sf.l2j.gameserver.model.quest        import State
