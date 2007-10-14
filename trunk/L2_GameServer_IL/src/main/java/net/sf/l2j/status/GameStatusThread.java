@@ -395,7 +395,7 @@ public class GameStatusThread extends Thread
                     int igm = 0;
                     String gmList = "";
                     
-                    for (String player : GmListTable.getInstance().getAllGmNames(true))
+                    for (String player : GmListTable.getInstance().getAllGmNames(false))
                     {
                             gmList = gmList + ", " + player;
                             igm++;

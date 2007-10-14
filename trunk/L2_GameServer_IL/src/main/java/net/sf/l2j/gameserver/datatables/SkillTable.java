@@ -53,7 +53,11 @@ public class SkillTable
     
     public void reload()
     {
-        _instance = new SkillTable();
+    	synchronized(_instance)
+        {
+    		_instance = null;
+    		_instance = new SkillTable();
+        }
     }
     
 	public boolean isInitialized()
