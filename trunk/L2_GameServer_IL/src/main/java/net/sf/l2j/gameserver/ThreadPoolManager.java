@@ -304,13 +304,13 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			_generalPacketsThreadPool.awaitTermination(1,TimeUnit.SECONDS);
 			_ioPacketsThreadPool.awaitTermination(1,TimeUnit.SECONDS);
 			_generalThreadPool.awaitTermination(1,TimeUnit.SECONDS);
-			//_aiThreadPool.awaitTermination(1,TimeUnit.SECONDS);
+			_aiThreadPool.awaitTermination(1,TimeUnit.SECONDS);
 			_effectsScheduledThreadPool.shutdown();
 			_generalScheduledThreadPool.shutdown();
 			_generalPacketsThreadPool.shutdown();
 			_ioPacketsThreadPool.shutdown();
 			_generalThreadPool.shutdown();
-			//_aiThreadPool.shutdown();
+			_aiThreadPool.shutdown();
 			_log.info("All ThreadPools are now stoped");
 			
 		}
@@ -336,7 +336,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		_ioPacketsThreadPool.purge();
 		_generalPacketsThreadPool.purge();
 		_generalThreadPool.purge();
-		//_aiThreadPool.purge();
+		_aiThreadPool.purge();
 	}
 
 	/**

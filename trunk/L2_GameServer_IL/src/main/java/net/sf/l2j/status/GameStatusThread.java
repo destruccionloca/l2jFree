@@ -1025,7 +1025,14 @@ public class GameStatusThread extends Thread
             if (_log.isDebugEnabled()) se.printStackTrace();
        	} finally
        	{
-       		try { con.close(); } catch (Exception e) {}
+       		try
+       		{
+        	    if (con != null);
+        	    {
+        	    	con.close();
+        	    	con = null;
+        	    }
+       		} catch (Exception e) {}
        	}
     }
     
@@ -1058,7 +1065,15 @@ public class GameStatusThread extends Thread
             if (_log.isDebugEnabled()) se.printStackTrace();
        	} finally
        	{
-       		try { con.close(); } catch (Exception e) {}
+       		try
+       		{
+        	    if (con != null);
+        	    {
+        	    	con.close();
+        	    	con = null;
+        	    }
+       		}
+       		catch (Exception e) {}
        	}
     }
     

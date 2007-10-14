@@ -60,6 +60,8 @@ public class GeoEngine extends GeoData
 	private static Map<Short, MappedByteBuffer> _geodata = new FastMap<Short, MappedByteBuffer>();
 	private static Map<Short, IntBuffer> _geodataIndex = new FastMap<Short, IntBuffer>();
 	private static BufferedOutputStream _geoBugsOut;
+
+	private static Map<Short, FileChannel> Geodata_files = new FastMap<Short, FileChannel>();
 	
 	public static GeoEngine getInstance()
     {
@@ -69,7 +71,7 @@ public class GeoEngine extends GeoData
     }
     public GeoEngine()
     {
-        nInitGeodata();            
+        nInitGeodata();
     }
 	
     //Public Methods
@@ -573,11 +575,26 @@ public class GeoEngine extends GeoData
 			throw new Error("Failed to Load geo_bugs.txt File.");	
 		}
 	}
-	public static void unloadGeodata(byte rx, byte ry)
+
+	public static boolean unloadGeodata(byte rx, byte ry)
 	{
 		short regionoffset = (short)((rx << 5) + ry);
-		_geodataIndex.remove(regionoffset);
-		_geodata.remove(regionoffset);
+		
+		try
+		{
+			_geodataIndex.remove(regionoffset);
+			_geodata.remove(regionoffset);
+			Geodata_files.get(regionoffset).close();
+			Geodata_files.remove(regionoffset);
+			
+			_log.info("Geo Engine: - File: "+rx+"_"+ry+".l2j successfully unloaded.");
+
+	    } catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+	    }
+	    return true;
 	}
 	public static boolean loadGeodataFile(byte rx, byte ry)
 	{
@@ -627,6 +644,7 @@ public class GeoEngine extends GeoData
 				_geodataIndex.put(regionoffset, indexs);
 			}
 			_geodata.put(regionoffset,geo);
+			Geodata_files.put(regionoffset, roChannel);
 			
 			_log.info("Geo Engine: - Max Layers: "+flor+" Size: "+size+" Loaded: "+index);
 	    } catch (Exception e)

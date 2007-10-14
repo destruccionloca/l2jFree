@@ -55,35 +55,47 @@ public class ArmorSetsTable
     private void loadData()
     {
         Connection con=null;
-        try 
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT chest, legs, head, gloves, feet, skill_id, shield, shield_skill_id, enchant6skill FROM armorsets");
-            ResultSet rset = statement.executeQuery();
+        	try
+        	{
+        		con = L2DatabaseFactory.getInstance().getConnection(con);
+        		PreparedStatement statement = con.prepareStatement("SELECT chest, legs, head, gloves, feet, skill_id, shield, shield_skill_id, enchant6skill FROM armorsets");
+        		ResultSet rset = statement.executeQuery();
             
-            while(rset.next())
+        		while(rset.next())
+        		{
+        			int chest = rset.getInt("chest");
+        			int legs  = rset.getInt("legs");
+        			int head  = rset.getInt("head");
+        			int gloves = rset.getInt("gloves");
+        			int feet  = rset.getInt("feet");
+        			int skill_id = rset.getInt("skill_id");
+        			int shield = rset.getInt("shield");
+        			int shield_skill_id = rset.getInt("shield_skill_id");
+        			int enchant6skill = rset.getInt("enchant6skill");
+        			_armorSets.put(chest, new L2ArmorSet(chest, legs, head, gloves, feet,skill_id, shield, shield_skill_id, enchant6skill));
+        		}
+            
+        		_log.info("ArmorSetsTable: Loaded "+_armorSets.size()+" armor sets.");
+            
+        		rset.close();
+        		statement.close();
+        		con.close();
+        	}
+            catch (Exception e) 
             {
-                int chest = rset.getInt("chest");
-                int legs  = rset.getInt("legs");
-                int head  = rset.getInt("head");
-                int gloves = rset.getInt("gloves");
-                int feet  = rset.getInt("feet");
-                int skill_id = rset.getInt("skill_id");
-                int shield = rset.getInt("shield");
-                int shield_skill_id = rset.getInt("shield_skill_id");
-                int enchant6skill = rset.getInt("enchant6skill");
-                _armorSets.put(chest, new L2ArmorSet(chest, legs, head, gloves, feet,skill_id, shield, shield_skill_id, enchant6skill));
+                _log.warn("Error while loading buff templates "+e.getMessage());
             }
-            
-            _log.info("ArmorSetsTable: Loaded "+_armorSets.size()+" armor sets.");
-            
-            rset.close();
-            statement.close();
-            con.close();
-        }
-        catch (Exception e) 
+        finally
         {
-            _log.error("ArmorSetsTable: Error reading ArmorSets table: " + e);
+            try
+            {
+                if (con != null)
+                {
+                    con.close();
+                    con=null;
+                }
+            }
+            catch (Exception e) {}
         }
     }
     public boolean setExists(int chestId)

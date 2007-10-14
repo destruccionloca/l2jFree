@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GeoEngine;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -32,7 +33,7 @@ public class GeoData
 {
     private static Logger _log = Logger.getLogger(GeoData.class.getName());
     private static GeoData _instance;
-    
+   
     public static GeoData getInstance()
     {
         if(_instance == null)
@@ -154,13 +155,13 @@ public class GeoData
     {
         //Do Nothing
     }
-    public static void unloadGeodata(@SuppressWarnings("unused") byte rx, @SuppressWarnings("unused") byte ry)
+    public static boolean unloadGeodata(@SuppressWarnings("unused") byte rx, @SuppressWarnings("unused") byte ry)
     {
+    	return GeoEngine.unloadGeodata(rx, ry);
     }
     
-    @Deprecated //TODO: cleanup?
     public static boolean loadGeodataFile(@SuppressWarnings("unused") byte rx, @SuppressWarnings("unused") byte ry)
     {
-        return false;
+    	return GeoEngine.loadGeodataFile(rx, ry);
     }
 }
