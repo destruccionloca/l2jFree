@@ -466,7 +466,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         {
             // [L2J_JP ADD SANDMAN]
             // Instant move of zaken
-            if ((npc.getNpcId() == 29022) && Rnd.get(5) > 1)
+            if ((npc.getNpcId() == 29022) && Rnd.get(100) > 60)
             {
                 npc.doCast(SkillTable.getInstance().getInfo(4222, 1));
                 return;
