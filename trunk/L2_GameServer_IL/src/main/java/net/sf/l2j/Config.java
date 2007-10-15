@@ -1266,6 +1266,7 @@ public final class Config
     public static int 				ALT_BUFF_TIME;
     public static int 				ALT_DANCE_TIME;
     public static int 				ALT_SEED_TIME;
+    public static boolean			ALT_DANCE_MP_CONSUME;
     public static int 				MAX_PATK_SPEED;						// Config for limit physical attack speed
     public static int 				MAX_MATK_SPEED;						// Config for limit magical attack speed
     public static float 			ALT_MAGES_PHYSICAL_DAMAGE_MULTI;	// Config for damage multiplies
@@ -1427,6 +1428,7 @@ public final class Config
             ALT_BUFF_TIME                                       = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
             ALT_DANCE_TIME                                      = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
             ALT_SEED_TIME                                       = Integer.parseInt(altSettings.getProperty("AltSeedTime", "1"));
+            ALT_DANCE_MP_CONSUME                                = Boolean.parseBoolean(altSettings.getProperty("AltDanceMpConsume", "false"));
             SPAWN_SIEGE_GUARD                                   = Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
             AUTO_LEARN_SKILLS                                   = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
             MAX_PATK_SPEED                                      = Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "0"));
