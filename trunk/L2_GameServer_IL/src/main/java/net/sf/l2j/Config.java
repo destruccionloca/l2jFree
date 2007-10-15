@@ -1994,6 +1994,7 @@ public final class Config
     public static boolean TVT_ON_START_UNSUMMON_PET;
     public static boolean TVT_REVIVE_RECOVERY;
     public static boolean TVT_ANNOUNCE_TEAM_STATS;
+    public static boolean TVT_PRICE_NO_KILLS;
     public static boolean DM_ALLOW_INTERFERENCE;
     public static boolean DM_ALLOW_POTIONS;
     public static boolean DM_ALLOW_SUMMON;
@@ -2026,6 +2027,7 @@ public final class Config
            TVT_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTOnStartUnsummonPet", "true"));
            TVT_REVIVE_RECOVERY = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTReviveRecovery", "false"));
            TVT_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvtAnnounceTeamStats", "false"));
+           TVT_PRICE_NO_KILLS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvtPriceNoKills", "false"));
         
            DM_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowInterference", "false"));
            DM_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowPotions", "false"));

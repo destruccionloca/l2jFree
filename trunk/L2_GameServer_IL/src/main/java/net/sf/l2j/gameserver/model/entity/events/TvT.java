@@ -747,7 +747,7 @@ public class TvT
         {
             if (player != null)
             {
-                if (player._teamNameTvT.equals(teamName) && player._countTvTkills>0)
+                if (player._teamNameTvT.equals(teamName) && (player._countTvTkills>0 || Config.TVT_PRICE_NO_KILLS))
                 {
                     PcInventory inv = player.getInventory();
                 
