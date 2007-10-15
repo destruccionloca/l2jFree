@@ -5083,12 +5083,9 @@ public abstract class L2Character extends L2Object
 
             StatusUpdate su = new StatusUpdate(getObjectId());
             boolean isSendStatus = false;
-            double mpConsume;
+
             // Consume MP of the L2Character and Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
-            if (Config.ALT_DANCE_MP_CONSUME)
-            	mpConsume = skill.getMpConsume();            	
-            else
-            	mpConsume = getStat().getMpConsume(skill);
+          	double mpConsume = getStat().getMpConsume(skill);
             
             if (mpConsume > 0)
             {
