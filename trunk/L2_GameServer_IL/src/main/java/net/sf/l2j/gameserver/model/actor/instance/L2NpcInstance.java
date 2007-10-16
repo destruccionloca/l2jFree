@@ -1324,9 +1324,9 @@ public class L2NpcInstance extends L2Character
             	
                 if(player.getDeathPenaltyBuffLevel()>0)
                 {
-                	if (player.getAdena()>=3600)
+                	if (player.getAdena()>= (25200 * Config.RATE_DROP_ADENA))
                 	{
-                		if (!player.reduceAdena("DeathPenality", 3600, this, true)) return;
+                		if (!player.reduceAdena("DeathPenality", (int)(25200 * Config.RATE_DROP_ADENA), this, true)) return;
                 		player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel()-1);
                 		player.updateEffectIcons();
                     	if (player.getDeathPenaltyBuffLevel()==0)
