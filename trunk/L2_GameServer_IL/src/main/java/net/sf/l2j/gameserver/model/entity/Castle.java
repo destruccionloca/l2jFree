@@ -139,8 +139,11 @@ public class Castle
 		 so Integer.MAX_VALUE -(-2,000,000,000) < 2,100,000,000 will allways be false
 		 so you can withdraw money but it will stay in castle WH -> EXPLOIT FTW !!!!!!!!!!!
 		*/		
-		if ((Integer.MAX_VALUE - amount < _treasury) || (amount - _treasury < 0 ))
+		if (_treasury + amount < 0)
 			return;
+		
+		if (Integer.MAX_VALUE - _treasury < amount)
+			amount = Integer.MAX_VALUE - _treasury;
 		
 		_treasury += amount; // Add to the current treasury total.  Use "-" to substract from treasury
 
