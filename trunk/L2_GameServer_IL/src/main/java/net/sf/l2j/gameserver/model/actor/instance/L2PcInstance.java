@@ -117,6 +117,7 @@ import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.PcWarehouse;
 import net.sf.l2j.gameserver.model.ShortCuts;
 import net.sf.l2j.gameserver.model.TradeList;
+import net.sf.l2j.gameserver.model.L2Effect.EffectType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
@@ -200,6 +201,7 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.skills.effects.EffectForce;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
@@ -324,6 +326,97 @@ public final class L2PcInstance extends L2PlayableInstance
                     cubic.doAction((L2Character)mainTarget);
         }
     }
+
+	public class ForceBuff
+	{
+		private L2PcInstance _caster;
+		private L2PcInstance _target;
+		private L2Skill _skill;
+		private Future _task;
+
+		public L2PcInstance getForceCaster() { return _caster; }
+		public L2PcInstance getForceTarget() { return _target; }
+		public L2Skill getForceSkill() { return _skill; }
+		private void setTask(Future task) { _task = task; }
+
+		public ForceBuff(L2PcInstance caster, L2PcInstance target, L2Skill skill)
+		{
+			_caster = caster;
+			_target = target;
+			_skill = skill;
+
+			Runnable r = new Runnable()
+			{
+				public void run()
+				{
+					setTask(null);
+					
+					boolean create = true;
+					EffectType type = getForceSkill().isMagic() ? EffectType.SPELL_FORCE : EffectType.BATTLE_FORCE;
+					L2Effect[] effects = getForceTarget().getAllEffects();
+					if (effects != null)
+					{
+						for(L2Effect e : effects)
+						{
+							// Only BATTLE_FORCE or SPELL_FORCE
+							if (e.getEffectType() == type)
+							{
+								((EffectForce)e).increaseForce();
+								create = false;
+								break;
+							}
+						}
+					}
+					if(create)
+						callSkill(getForceSkill(), new L2Character[] {getForceTarget()});
+				}
+			};
+			setTask(ThreadPoolManager.getInstance().scheduleGeneral(r, 3300));
+		}
+
+		public void delete()
+		{
+			if (_task != null)
+			{
+				_task.cancel(false);
+				_task = null;
+			}
+			EffectType toDeleteType = _skill.isMagic() ? EffectType.SPELL_FORCE : EffectType.BATTLE_FORCE;
+
+			L2Effect[] effects = _target.getAllEffects();
+			if (effects != null)
+			{
+				for(L2Effect e : effects)
+				{
+					// Only BATTLE_FORCE or SPELL_FORCE
+					if (e.getEffectType() == toDeleteType)
+					{
+						((EffectForce)e).decreaseForce();
+						break;
+					}
+				}
+			}
+			_forceBuff = null;
+		}
+	}
+
+	/**
+	* Starts battle force / spell force on target.<br><br>
+	* 
+	* @param caster
+	* @param force type
+	*/
+    @Override	
+	public void startForceBuff(L2Character target, L2Skill skill)
+	{
+		if(!(target instanceof L2PcInstance))return;
+
+		if(skill.getSkillType() != SkillType.FORCE_BUFF)
+			return;
+
+		if(_forceBuff == null)
+			_forceBuff = new ForceBuff(this, (L2PcInstance)target, skill);
+	}
 
     private L2GameClient _client;
     
@@ -691,6 +784,9 @@ public final class L2PcInstance extends L2PlayableInstance
     /* Flag to disable equipment/skills while wearing formal wear **/
     private boolean _IsWearingFormalWear = false;
 
+	// Current force buff this caster is casting to a target
+	protected ForceBuff _forceBuff;    
+    
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
     {
@@ -9770,7 +9866,18 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deletedMe()", t);
         }
-
+        
+		if(_forceBuff != null)
+		{
+			_forceBuff.delete();
+		}
+		if(_party != null)
+		{
+			for(L2PcInstance member : _party.getPartyMembers())
+				if(member.getForceBuff() != null && member.getForceBuff().getForceTarget() == this)
+					member.getForceBuff().delete();
+		}
+        	
         // Remove the L2PcInstance from the world
         if (isVisible()) try
         {
@@ -10894,4 +11001,10 @@ public final class L2PcInstance extends L2PlayableInstance
     	setKarma(_originalKarma);
     	_eventKills = 0;
 	}
+
+	@Override
+	public ForceBuff getForceBuff()
+	{
+		return _forceBuff;
+	}	
 }

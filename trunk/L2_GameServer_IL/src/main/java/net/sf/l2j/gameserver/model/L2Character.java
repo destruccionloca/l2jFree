@@ -55,6 +55,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.ForceBuff;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
@@ -1269,9 +1270,13 @@ public abstract class L2Character extends L2Object
 
         // Get the delay under wich the cast can be aborted (base)
         int skillInterruptTime = skill.getSkillInterruptTime();
-
+        
+        boolean forceBuff = skill.getSkillType() == SkillType.FORCE_BUFF;
+        
         // Calculate the casting time of the skill (base + modifier of MAtkSpd)
-        skillTime = Formulas.getInstance().calcMAtkSpd(this, skill, skillTime);
+		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
+		if(!forceBuff)        
+			skillTime = Formulas.getInstance().calcMAtkSpd(this, skill, skillTime);
 
         // Calculate the Interrupt Time of the skill (base + modifier) if the skill is a spell else 0
         if (skill.isMagic())
@@ -1282,7 +1287,8 @@ public abstract class L2Character extends L2Object
         // Calculate altered Cast Speed due to BSpS/SpS
         L2ItemInstance weaponInst = getActiveWeaponInstance();
         
-        if ((weaponInst != null)&&(skill.isMagic())&&((skill.getTargetType())!=(SkillTargetType.TARGET_SELF))) {
+        if (weaponInst != null && skill.isMagic() && !forceBuff && skill.getTargetType() != SkillTargetType.TARGET_SELF)
+        {
             if ((weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
                     || (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT))
             {
@@ -1315,10 +1321,7 @@ public abstract class L2Character extends L2Object
         // Init the reuse time of the skill
         int reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
 
-        if (skill.isMagic())
-            reuseDelay *= 333.0 / getMAtkSpd();
-        else
-            reuseDelay *= 333.0 / getPAtkSpd();
+        reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
 
         // Send a Server->Client packet MagicSkillUser with target, displayId, level, skillTime, reuseDelay
         // to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
@@ -1351,11 +1354,17 @@ public abstract class L2Character extends L2Object
             disableSkill(skill.getId(), reuseDelay);
         }
 
+		// For force buff skills, start the effect as long as the player is casting.
+		if(forceBuff)
+		{
+			startForceBuff(target, skill);
+		}
+
         // launch the magic in skillTime milliseconds
         if (skillTime > 60)
         {
             // Send a Server->Client packet SetupGauge with the color of the gauge and the casting time
-            if (this instanceof L2PcInstance)
+        	if (this instanceof L2PcInstance && !forceBuff)
             {
                 SetupGauge sg = new SetupGauge(SetupGauge.BLUE, skillTime);
                 sendPacket(sg);
@@ -1396,6 +1405,15 @@ public abstract class L2Character extends L2Object
      * <BR><B>Overriden in :</B>  (L2PcInstance)
      */
     public void removeTimeStamp(int s) {/***/}
+
+	/**
+	* Starts a force buff on target.<br><br>
+	* 
+	* @param caster
+	* @param force type
+	* <BR><B>Overriden in :</B>  (L2PcInstance)
+	*/
+	public void startForceBuff(L2Character caster, L2Skill skill) {/***/}
 
     /**
      * Kill the L2Character.<BR><BR>
@@ -3597,6 +3615,10 @@ public abstract class L2Character extends L2Object
                 _skillCast.cancel(true);
                 _skillCast = null;
             }
+            
+			if(getForceBuff() != null)
+				getForceBuff().delete();
+			
             // cancels the skill hit scheduled task
             enableAllSkills();                                      // re-enables the skills
             if (this instanceof L2PcInstance) getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING); // setting back previous intention
@@ -4473,8 +4495,12 @@ public abstract class L2Character extends L2Object
                 target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
                 getAI().clientStartAutoAttack();
 
+                if(target.getForceBuff() != null)
+                {
+                    target.abortCast();
+                }
                 // Manage attack or cast break of the target (calculating rate, sending message...)
-                if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+                else if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
                 {
                     target.breakAttack();
                     target.breakCast();
@@ -5000,6 +5026,11 @@ public abstract class L2Character extends L2Object
             abortCast();    
             return;
         }
+        else if(getForceBuff() != null)
+		{
+			getForceBuff().delete();
+			return;
+		}
         
         int escapeRange = 0;
         if(skill.getEffectRange() > escapeRange) escapeRange = skill.getEffectRange();
@@ -5788,4 +5819,9 @@ public abstract class L2Character extends L2Object
     {
         return true;
     }
+    
+	public ForceBuff getForceBuff()
+	{
+		return null;
+	}    
 }

@@ -64,7 +64,8 @@ public class Continuous implements ISkillHandler
 		L2Skill.SkillType.WEAKNESS,
 		L2Skill.SkillType.REFLECT,
         L2Skill.SkillType.UNDEAD_DEFENSE,
-		L2Skill.SkillType.AGGDEBUFF
+		L2Skill.SkillType.AGGDEBUFF,
+		L2Skill.SkillType.FORCE_BUFF
 		};
 	
 	/* (non-Javadoc)

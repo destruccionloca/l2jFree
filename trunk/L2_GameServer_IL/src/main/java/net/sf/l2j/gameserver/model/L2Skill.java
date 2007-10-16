@@ -200,6 +200,7 @@ public abstract class L2Skill
         UNDEAD_DEFENSE,
         SEED                (L2SkillSeed.class),
         BEAST_FEED,
+        FORCE_BUFF,
         PARALYZE,
         DRAIN_SOUL,
         COMMON_CRAFT, 
@@ -1405,6 +1406,7 @@ public abstract class L2Skill
                     || skillType == SkillType.WARRIOR_BANE
                     || skillType == SkillType.BETRAY
                     || skillType == SkillType.BALANCE_LIFE
+                    || skillType == SkillType.FORCE_BUFF
                     )))
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
