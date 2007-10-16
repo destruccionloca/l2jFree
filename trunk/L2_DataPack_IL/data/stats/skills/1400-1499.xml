@@ -254,33 +254,38 @@
   <for>
   </for>
 </skill>
-<skill id="1410" levels="1" name="Salvation">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Revives target from death and restores them to full health, retaining all buff/debuff effects except for Noblesse Blessing and Lucky Charm.  Consumes 2 Einhasad Holy Water.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<skill id="1410" levels="1" name="Salvation"> 
+<!-- Dony by KID, L2J-b Project -->
+  <set name="mp_consume2" val="87"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="itemConsumeId" val="8874"/> <!-- Einhasad's Holy Water -->
+  <set name="itemConsumeCount" val="2"/>  
+  <set name="skill_hit_time" val="4000"/>
+  <set name="reuse_delay" val="600000"/>  
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="cast_range" val="400"/>
+  <set name="effective_range" val="900"/>
   <for>
+    <effect count="1" name="Buff" time="1200" val="0"/>
   </for>
 </skill>
-<skill id="1411" levels="1" name="Mystic Immunity">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Makes a target temporarily immune to buffs/debuffs.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<skill id="1411" levels="1" name="Mystic Immunity"> 
+<!-- Dony by KID, L2J-b Project -->
+  <set name="mp_consume2" val="73"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuse_delay" val="50000"/>
+  <set name="skill_hit_time" val="4000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="cast_range" val="400"/>
+  <set name="effective_range" val="900"/>
   <for>
-  </for>
+    <effect count="1" name="Buff" time="120" val="0">
+     <set order="0x30" stat="block_receive;buff" val="1"/>
+     <set order="0x30" stat="block_receive;debuff" val="1"/>
+    </effect>
+  </for>  
 </skill>
 <skill id="1412" levels="1" name="Spell Turning">
 <!--
