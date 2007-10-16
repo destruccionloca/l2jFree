@@ -1316,7 +1316,38 @@ public class L2NpcInstance extends L2Character
                 setTarget(player);
                 BaiumManager.getInstance().spawnBaium(this);
             }
-            // [J2J_JP ADD END]
+            // [J2J_JP ADD END]            
+            else if (command.startsWith("remove_death_penalty"))
+            {
+                NpcHtmlMessage Reply = new NpcHtmlMessage(getObjectId());      
+                TextBuilder replyMSG = new TextBuilder("<html><body>Black Judge:<br>");
+            	
+                if(player.getDeathPenaltyBuffLevel()>0)
+                {
+                	if (player.getAdena()>=3600)
+                	{
+                		if (!player.reduceAdena("DeathPenality", 3600, this, true)) return;
+                		player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel()-1);
+                    	replyMSG.append("I healed your wounds ..."); //TODO: whats the off text ?
+                    	if (player.getDeathPenaltyBuffLevel()==0)
+                    	{
+                        	replyMSG.append("You have no more death wounds that require healing.<br>");
+                        	replyMSG.append("Go forth and fight, both for this world and your own glory.");
+                    	}
+                	}
+                	else
+                    	replyMSG.append("You cant pay me ..."); //TODO: whats the off text ?
+                }
+                else
+                {
+                	replyMSG.append("You have no more death wounds that require healing.<br>");
+                	replyMSG.append("Go forth and fight, both for this world and your own glory.");
+                }
+                
+                replyMSG.append("</body></html>");
+                Reply.setHtml(replyMSG.toString());
+            	player.sendPacket(Reply);
+            }
         }
     }
 
