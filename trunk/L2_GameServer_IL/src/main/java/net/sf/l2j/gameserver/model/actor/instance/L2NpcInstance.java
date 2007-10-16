@@ -1328,12 +1328,13 @@ public class L2NpcInstance extends L2Character
                 	{
                 		if (!player.reduceAdena("DeathPenality", 3600, this, true)) return;
                 		player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel()-1);
-                    	replyMSG.append("I healed your wounds ..."); //TODO: whats the off text ?
                     	if (player.getDeathPenaltyBuffLevel()==0)
                     	{
                         	replyMSG.append("You have no more death wounds that require healing.<br>");
                         	replyMSG.append("Go forth and fight, both for this world and your own glory.");
                     	}
+                    	else
+                        	replyMSG.append("I healed some of your wounds ..."); //TODO: whats the off text ?
                 	}
                 	else
                     	replyMSG.append("You cant pay me ..."); //TODO: whats the off text ?
