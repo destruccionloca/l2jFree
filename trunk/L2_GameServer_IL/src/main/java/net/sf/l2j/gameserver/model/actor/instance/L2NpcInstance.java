@@ -1328,6 +1328,7 @@ public class L2NpcInstance extends L2Character
                 	{
                 		if (!player.reduceAdena("DeathPenality", 3600, this, true)) return;
                 		player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel()-1);
+                		player.updateEffectIcons();
                     	if (player.getDeathPenaltyBuffLevel()==0)
                     	{
                         	replyMSG.append("You have no more death wounds that require healing.<br>");
