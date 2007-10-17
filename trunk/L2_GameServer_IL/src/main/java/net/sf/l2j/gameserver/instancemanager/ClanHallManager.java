@@ -202,7 +202,7 @@ public class ClanHallManager
         {
         	try
         	{
-        		if (clanHall != null && ch.getValue().checkIfInZone(x, y))
+        		if (ch.getValue().checkIfInZone(x, y))
         			return ch.getKey();
         	}
         	catch (NullPointerException e) {}
