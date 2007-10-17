@@ -1326,19 +1326,11 @@ public class L2NpcInstance extends L2Character
                 {
                 	if (player.getAdena()>= (25200 * Config.RATE_DROP_ADENA))
                 	{
-                		if (player.getDeathPenaltyBuffLevel() > 0)
-                		{
-                			if (!player.reduceAdena("DeathPenality", (int)(25200 * Config.RATE_DROP_ADENA), this, true)) return;
-                    		player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel()-1);
-                    		player.updateEffectIcons();
-                    		player.sendPacket(new SystemMessage(SystemMessageId.DEATH_PENALTY_LIFTED));
-                    		return;
-                		}                    	
-                		else if (player.getDeathPenaltyBuffLevel()==0)
-                    		{
-                            	replyMSG.append("You have no more death wounds that require healing.<br>");
-                            	replyMSG.append("Go forth and fight, both for this world and your own glory.");
-                    		}
+            			if (!player.reduceAdena("DeathPenality", (int)(25200 * Config.RATE_DROP_ADENA), this, true)) return;
+                		player.setDeathPenaltyBuffLevel(player.getDeathPenaltyBuffLevel()-1);
+                		player.updateEffectIcons();
+                		player.sendPacket(new SystemMessage(SystemMessageId.DEATH_PENALTY_LIFTED));
+                		return;
                 	}
                 	else
                     	replyMSG.append("The wound you have received from death's touch is too deep to be healed for the money you have to give me. Find more money if you wish death's mark to be fully removed from you.");
