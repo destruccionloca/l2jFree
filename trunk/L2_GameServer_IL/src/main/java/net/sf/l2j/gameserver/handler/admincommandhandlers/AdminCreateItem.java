@@ -21,9 +21,11 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
+import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * This class handles following admin commands:
@@ -34,7 +36,8 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
  */
 public class AdminCreateItem implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = {
+	private static final String[] ADMIN_COMMANDS =
+	{
 		"admin_itemcreate",
 		"admin_create_item"
 	};
@@ -84,16 +87,27 @@ public class AdminCreateItem implements IAdminCommandHandler
 		return true;
 	}
 	
-	public String[] getAdminCommandList() {
+	public String[] getAdminCommandList()
+	{
 		return ADMIN_COMMANDS;
 	}
 	
-	private boolean checkLevel(int level) {
+	private boolean checkLevel(int level)
+	{
 		return (level >= REQUIRED_LEVEL);
 	}
 	
 	private void createItem(L2PcInstance activeChar, int id, int num)
 	{
+		if (num > 20)
+		{
+			L2Item template = ItemTable.getInstance().getTemplate(id);
+			if (!template.isStackable())
+			{
+				activeChar.sendMessage("This item does not stack - Creation aborted.");
+				return;
+			}
+		}
 		activeChar.getInventory().addItem("Admin", id, num, activeChar, null);
 		
 		ItemList il = new ItemList(activeChar, true);

@@ -199,11 +199,11 @@ public class CoupleManager
 
     public final int getCoupleIndex(int coupleId)
     {
-        Couple couple;
-        for (int i = 0; i < getCouples().size(); i++)
+        int i=0;
+        for (Couple temp : getCouples())
         {
-            couple = getCouples().get(i);
-            if (couple != null && couple.getId() == coupleId) return i;
+            if (temp != null && temp.getId() == coupleId) return i;
+            i++;
         }
         return -1;
     }

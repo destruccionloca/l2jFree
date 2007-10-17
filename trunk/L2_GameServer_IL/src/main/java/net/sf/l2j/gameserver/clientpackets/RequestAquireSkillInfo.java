@@ -139,14 +139,14 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
             
             AquireSkillInfo asi = new AquireSkillInfo(skill.getId(), skill.getLevel(), requiredRep,2);
             
-            if (Config.SP_BOOK_NEEDED)
+            if (Config.LIFE_CRYSTAL_NEEDED)
             {
                 asi.addRequirement(1, itemId, 1, 0);
             }
 
             sendPacket(asi);
         }
-		else // Common Skills
+        else // Common Skills
         {           
             int costid = 0;
             int costcount = 0;

@@ -450,6 +450,7 @@ public final class Config
     public static float     RATE_CRAFT_COST;
     public static float     RATE_DROP_ITEMS;
     public static float     RATE_DROP_SPOIL;
+    public static int       RATE_DROP_MANOR;
     public static float     RATE_DROP_QUEST;
     public static float     RATE_KARMA_EXP_LOST;
     public static float     RATE_SIEGE_GUARDS_PRICE;
@@ -459,8 +460,8 @@ public final class Config
     public static int       PLAYER_DROP_LIMIT;
     public static int       PLAYER_RATE_DROP;
     public static int       PLAYER_RATE_DROP_ITEM;
-    public static int       PLAYER_RATE_DROP_EQUIP;    
-    public static int       PLAYER_RATE_DROP_EQUIP_WEAPON;    
+    public static int       PLAYER_RATE_DROP_EQUIP;
+    public static int       PLAYER_RATE_DROP_EQUIP_WEAPON;
     public static float     PET_XP_RATE; 
     public static float     PET_FOOD_RATE;
     public static float     SINEATER_XP_RATE;
@@ -495,6 +496,7 @@ public final class Config
             RATE_CRAFT_COST                 = Float.parseFloat(ratesSettings.getProperty("RateCraftCost","1."));
             RATE_DROP_ITEMS                 = Float.parseFloat(ratesSettings.getProperty("RateDropItems", "1."));
             RATE_DROP_SPOIL                 = Float.parseFloat(ratesSettings.getProperty("RateDropSpoil", "1."));
+            RATE_DROP_MANOR                 = Integer.parseInt(ratesSettings.getProperty("RateDropManor", "1"));
             RATE_DROP_QUEST                 = Float.parseFloat(ratesSettings.getProperty("RateDropQuest", "1."));
             RATE_RUN_SPEED                  = Float.parseFloat(ratesSettings.getProperty("RateRunSpeed", "1."));
             RATE_KARMA_EXP_LOST             = Float.parseFloat(ratesSettings.getProperty("RateKarmaExpLost", "1."));    
@@ -1261,7 +1263,7 @@ public final class Config
     public static boolean 			ALT_STRICT_HERO_SYSTEM;				// Strict Hero Mode
     public static boolean 			ALT_STRICT_SEVENSIGNS;				// Strict Seven Signs
     public static boolean 			SP_BOOK_NEEDED;						// Spell Book needed to learn skill
-    public static boolean 			CLAN_ITEM_NEEDED;					// Clan Item needed to learn clan skills
+    public static boolean 			LIFE_CRYSTAL_NEEDED;				// Clan Item needed to learn clan skills
     public static boolean 			ES_SP_BOOK_NEEDED;					// Spell Book needet to enchant skill
     public static int 				ALT_BUFF_TIME;
     public static int 				ALT_DANCE_TIME;
@@ -1402,7 +1404,7 @@ public final class Config
             FAIL_FAKEDEATH                                      = Boolean.parseBoolean(altSettings.getProperty("FailFakeDeath", "true"));
             ALT_FLYING_WYVERN_IN_SIEGE                          = Boolean.parseBoolean(altSettings.getProperty("AltFlyingWyvernInSiege", "false"));
             SP_BOOK_NEEDED                                      = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
-            CLAN_ITEM_NEEDED                                    = Boolean.parseBoolean(altSettings.getProperty("ClanItemNeeded", "True"));
+            LIFE_CRYSTAL_NEEDED                                 = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
             ES_SP_BOOK_NEEDED                                   = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded","true"));
             AUTO_LOOT                                           = altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
             AUTO_LOOT_HERBS                                     = altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
@@ -2401,6 +2403,7 @@ public final class Config
         else if (pName.equalsIgnoreCase("RateConsumableCost")) RATE_CONSUMABLE_COST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateDropItems")) RATE_DROP_ITEMS = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateDropSpoil")) RATE_DROP_SPOIL = Float.parseFloat(pValue);
+        else if (pName.equalsIgnoreCase("RateDropManor")) RATE_DROP_MANOR = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("RateDropQuest")) RATE_DROP_QUEST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateKarmaExpLost")) RATE_KARMA_EXP_LOST = Float.parseFloat(pValue);
         else if (pName.equalsIgnoreCase("RateSiegeGuardsPrice")) RATE_SIEGE_GUARDS_PRICE = Float.parseFloat(pValue);
@@ -2589,7 +2592,7 @@ public final class Config
 
         else if (pName.equalsIgnoreCase("CraftingEnabled")) IS_CRAFTING_ENABLED = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("SpBookNeeded")) SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
-        else if (pName.equalsIgnoreCase("ClanItemNeeded")) CLAN_ITEM_NEEDED = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("LifeCrystalNeeded")) LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AutoLoot")) AUTO_LOOT = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AutoLootHerbs")) AUTO_LOOT_HERBS = Boolean.parseBoolean(pValue);
 

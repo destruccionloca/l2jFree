@@ -109,11 +109,8 @@ public class Mdam implements ISkillHandler
         {
             L2Character target = (L2Character) targets[index];
             //check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
-
-            if(target.reflectSkill(skill))
-               target = activeChar;
+            if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+                continue;
 
             if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
                 && target.isAlikeDead() && target.isFakeDeath())
@@ -191,19 +188,31 @@ public class Mdam implements ISkillHandler
                 }
                 if (skill.hasEffects() && skill.getId() != 1231)
                 {
-                    // activate attacked effects, if any
-                    target.stopEffect(skill.getId());
-                    if (target.getEffect(skill.getId()) != null)
-                        target.removeEffect(target.getEffect(skill.getId()));
-                    if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, ss,
-                                                                bss)) skill.getEffects(activeChar,
-                                                                                       target);
+                    if (target.reflectSkill(skill))
+                    {
+                        activeChar.stopEffect(skill.getId());
+                        if (activeChar.getEffect(skill.getId()) != null)
+                            activeChar.removeEffect(target.getEffect(skill.getId()));
+                        skill.getEffects(null, activeChar);
+                        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+                        sm.addSkillName(skill.getId());
+                        activeChar.sendPacket(sm);
+                    }
                     else
                     {
-                    	SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-                        sm.addString(target.getName());
-                        sm.addSkillName(skill.getDisplayId());
-                        activeChar.sendPacket(sm);
+                        // activate attacked effects, if any
+                        target.stopEffect(skill.getId());
+                        if (target.getEffect(skill.getId()) != null)
+                            target.removeEffect(target.getEffect(skill.getId()));
+                        if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, ss, bss)) 
+                            skill.getEffects(activeChar, target);
+                        else
+                        {
+                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+                            sm.addString(target.getName());
+                            sm.addSkillName(skill.getDisplayId());
+                            activeChar.sendPacket(sm);
+                        }
                     }
                 }
                 if (target.isPetrified())

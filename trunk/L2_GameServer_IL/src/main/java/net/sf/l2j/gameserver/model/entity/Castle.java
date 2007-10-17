@@ -129,9 +129,9 @@ public class Castle
 	}
 
 	/** Add amount to castle instance's treasury (warehouse), no tax paying. */
-	public void addToTreasuryNoTax(int amount)
+	public boolean addToTreasuryNoTax(int amount)
 	{
-		if (getOwnerId() <= 0) return;
+		if (getOwnerId() <= 0) return false;
 
 		/* why is that ?? example:
 		 _treasury = 2,100,000,000
@@ -140,7 +140,7 @@ public class Castle
 		 so you can withdraw money but it will stay in castle WH -> EXPLOIT FTW !!!!!!!!!!!
 		*/		
 		if (_treasury + amount < 0)
-			return;
+			return false;
 		
 		if (Integer.MAX_VALUE - _treasury < amount)
 			amount = Integer.MAX_VALUE - _treasury;
@@ -159,6 +159,7 @@ public class Castle
 		}
 		catch (Exception e) {} 
 		finally {try { con.close(); } catch (Exception e) {}}
+		return true;
 	}
 	
 	/**

@@ -55,15 +55,15 @@ public class Continuous implements ISkillHandler
 		L2Skill.SkillType.POISON,
 		L2Skill.SkillType.BLEED,
 		L2Skill.SkillType.HOT,
-        L2Skill.SkillType.CPHOT,
-        L2Skill.SkillType.MPHOT,
+		L2Skill.SkillType.CPHOT,
+		L2Skill.SkillType.MPHOT,
 		//L2Skill.SkillType.MANAHEAL,
 		//L2Skill.SkillType.MANA_BY_LEVEL,
 		L2Skill.SkillType.FEAR,
 		L2Skill.SkillType.CONT,
 		L2Skill.SkillType.WEAKNESS,
 		L2Skill.SkillType.REFLECT,
-        L2Skill.SkillType.UNDEAD_DEFENSE,
+		L2Skill.SkillType.UNDEAD_DEFENSE,
 		L2Skill.SkillType.AGGDEBUFF,
 		L2Skill.SkillType.FORCE_BUFF
 		};
@@ -79,91 +79,97 @@ public class Continuous implements ISkillHandler
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance)activeChar;
 		
-        for(int index = 0;index < targets.length;index++)
-        {
-            target = (L2Character)targets[index];
-            //check if skill is allowed on other.properties for raidbosses
+		for(int index = 0;index < targets.length;index++)
+		{
+			target = (L2Character)targets[index];
+			//check if skill is allowed on other.properties for raidbosses
 			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;
 
-            if(skill.getSkillType() != L2Skill.SkillType.BUFF && skill.getSkillType() != L2Skill.SkillType.HOT 
-            		&& skill.getSkillType() != L2Skill.SkillType.CPHOT && skill.getSkillType() != L2Skill.SkillType.MPHOT
-            		&& skill.getSkillType() != L2Skill.SkillType.UNDEAD_DEFENSE && skill.getSkillType() != L2Skill.SkillType.AGGDEBUFF 
-            		&& skill.getSkillType() != L2Skill.SkillType.CONT)
-            {
-                if(target.reflectSkill(skill))
-                	target = activeChar;
-            }
-            
-            // Walls and Door should not be buffed
-            if(target instanceof L2DoorInstance && (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.HOT))
-            	continue;
-            
-            
-            // Player holding a cursed weapon can't be buffed and can't buff
-            if (skill.getSkillType() == L2Skill.SkillType.BUFF)
-            {
-	            if (target != activeChar)
-	            {
-	            	if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())
-	            		continue;
-	            	else if (player != null && player.isCursedWeaponEquiped())
-	            		continue;
-	            }
-            }
-            
+			switch(skill.getSkillType())
+			{
+				case BUFF: case HOT: case CPHOT: case MPHOT:
+				case AGGDEBUFF: case CONT: case UNDEAD_DEFENSE:
+					break;
+				default:
+					if(target.reflectSkill(skill))
+						target = activeChar;
+					break;
+			}
+
+			// Walls and Door should not be buffed
+			if(target instanceof L2DoorInstance && (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.HOT))
+				continue;
+
+			// Player holding a cursed weapon can't be buffed and can't buff
+			if (skill.getSkillType() == L2Skill.SkillType.BUFF)
+			{
+				if (target != activeChar)
+				{
+					if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquiped())
+						continue;
+					else if (player != null && player.isCursedWeaponEquiped())
+						continue;
+				}
+			}
+
 			if (skill.isOffensive())
 			{
-
 				boolean ss = false;
-		        boolean sps = false;
-		        boolean bss = false;
-		        if (player != null)
-		        {
-		        	L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-		        	if (weaponInst != null)
-		        	{
-		        		if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-		                {
-		                    bss = true;
-		                    if (skill.getId() != 1020) // vitalize
-		                    	weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-		                }
-		                else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-		                {
-		                    sps = true;
-		                    if (skill.getId() != 1020) // vitalize
-		                    	weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-		                }
-		                else if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
-		                {
-		                    ss = true;
-		                    if (skill.getId() != 1020) // vitalize
-		                    	weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
-		                }		
-		        	}
-		        }
-		        else if (activeChar instanceof L2Summon)
-		        {
-		            L2Summon activeSummon = (L2Summon) activeChar;
+				boolean sps = false;
+				boolean bss = false;
+				if (player != null)
+				{
+					L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+					if (weaponInst != null)
+					{
+						if (skill.isMagic())
+						{
+							if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+							{
+								bss = true;
+								if (skill.getId() != 1020) // vitalize
+									weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+							}
+							else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+							{
+								sps = true;
+								if (skill.getId() != 1020) // vitalize
+									weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+							}
+						}
+						else if (weaponInst.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT)
+						{
+							ss = true;
+							if (skill.getId() != 1020) // vitalize
+								weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+						}
+					}
+				}
+				else if (activeChar instanceof L2Summon)
+				{
+					L2Summon activeSummon = (L2Summon) activeChar;
 
-		            if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-		            {
-		                bss = true;
-		                activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-		            }
-		            else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-		            {
-		                sps = true;
-		                activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-		            }
-		            else if (activeSummon.getChargedSoulShot() == L2ItemInstance.CHARGED_SOULSHOT)
-		            {
-		                ss = true;
-		                activeSummon.setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
-		            }
-		        }
-		        
+					if (skill.isMagic())
+					{
+						if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+						{
+							bss = true;
+							activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+						}
+						else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+						{
+							sps = true;
+							activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+						}
+					}
+					else if (activeSummon.getChargedSoulShot() == L2ItemInstance.CHARGED_SOULSHOT)
+					{
+						ss = true;
+						activeSummon.setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
+					}
+				}
+
 				boolean acted = Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss);
 				if (!acted)
 				{
