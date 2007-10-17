@@ -99,11 +99,15 @@ public class L2SkillChargeDmg extends L2Skill
 			
 			//boolean dual  = caster.isUsingDualWeapon();
 			boolean shld = Formulas.getInstance().calcShldUse(caster, target);
-			boolean crit = Formulas.getInstance().calcCrit(caster.getCriticalHit(target, this));
+			boolean crit = false;
+			if (skill.getBaseCritRate() > 0)
+				crit = Formulas.getInstance().calcCrit(skill.getBaseCritRate() * 10 * Formulas.getInstance().getSTRBonus(caster));
+
 			boolean soul = (weapon != null 
 							&& weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT 
 							&& weapon.getItemType() != L2WeaponType.DAGGER );			
 			int damage = (int)Formulas.getInstance().calcPhysDam(caster, target, this, shld, false, false, soul);
+			if (crit) damage *= 2;
 			
 			if (damage > 0)
 			{
