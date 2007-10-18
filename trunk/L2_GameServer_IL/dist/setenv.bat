@@ -29,7 +29,7 @@ SET CLASSPATH=%CLASSPATH%;commons-beanutils-1.7.0.jar
 SET CLASSPATH=%CLASSPATH%;commons-lang-2.1.jar
 
 REM For connection pool
-SET CLASSPATH=%CLASSPATH%;c3p0-0.9.1.1.jar
+SET CLASSPATH=%CLASSPATH%;c3p0-0.9.1.2.jar
 
 REM for logging usage
 SET CLASSPATH=%CLASSPATH%;commons-logging-1.1.jar

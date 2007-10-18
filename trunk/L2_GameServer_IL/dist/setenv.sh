@@ -31,7 +31,7 @@ CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar
 CLASSPATH=${CLASSPATH}:commons-lang-2.1.jar
 
 # For connection pool
-CLASSPATH=${CLASSPATH}:c3p0-0.9.1.1.jar
+CLASSPATH=${CLASSPATH}:c3p0-0.9.1.2.jar
 
 # for logging usage
 CLASSPATH=${CLASSPATH}:commons-logging-1.1.jar
