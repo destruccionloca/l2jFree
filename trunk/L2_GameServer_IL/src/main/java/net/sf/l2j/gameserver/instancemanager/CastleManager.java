@@ -100,7 +100,7 @@ public class CastleManager
 	public final Castle getCastle(int x, int y, int z)
 	{
 		Castle castle;
-		for (int i = 0; i < getCastles().size(); i++)
+		for (int i = 1; i <= getCastles().size(); i++)
 		{
 			castle = getCastles().get(i);
 			if (castle != null && castle.checkIfInZone(x, y, z))
@@ -112,7 +112,7 @@ public class CastleManager
 	public final Castle getCastleByName(String name)
 	{
 		Castle castle;
-		for (int i = 0; i < getCastles().size(); i++)
+		for (int i = 1; i <= getCastles().size(); i++)
 		{
 			castle = getCastles().get(i);
 			if (castle != null && castle.getName().equalsIgnoreCase(name.trim()))
@@ -127,7 +127,7 @@ public class CastleManager
 			return null;
 
 		Castle castle;
-		for (int i = 0; i < getCastles().size(); i++)
+		for (int i = 1; i <= getCastles().size(); i++)
 		{
 			castle = getCastles().get(i);
 			if (castle != null && castle.getOwnerId() == clan.getClanId())
@@ -135,19 +135,7 @@ public class CastleManager
 		}
 		return null;
 	}
-	/*
-	public final Castle getCastleByTown(int x, int y, int z)
-	{
-		Castle castle;
-		for (int i = 0; i < getCastles().size(); i++)
-		{
-			castle = getCastles().get(i);
-			if (castle != null && castle.checkIfInZoneTowns(x, y, z))
-				return castle;
-		}
-		return null;
-	}
-	*/
+
 	public final FastMap<Integer, Castle> getCastles()
 	{
 		if (_castles == null)

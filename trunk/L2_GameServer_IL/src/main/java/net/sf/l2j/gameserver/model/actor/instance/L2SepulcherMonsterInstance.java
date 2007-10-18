@@ -108,11 +108,14 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 				break;
 		}
-    }
+	}
 
-    @Override
-    public void doDie(L2Character killer) 
-    {
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		if (!super.doDie(killer))
+			return false;
+
 		switch(getNpcId())
 		{
 			case 18120:
@@ -158,11 +161,11 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 			case 18155:
 			case 18156:
 			case 18157:
-		        if (_victimSpawnKeyBoxTask != null)
-		        {
-		        	_victimSpawnKeyBoxTask.cancel(true);
-		        	_victimSpawnKeyBoxTask = null;
-		        }
+				if (_victimSpawnKeyBoxTask != null)
+				{
+					_victimSpawnKeyBoxTask.cancel(true);
+					_victimSpawnKeyBoxTask = null;
+				}
 				if(_onDeadEventTask != null) _onDeadEventTask.cancel(true);
 				_onDeadEventTask = ThreadPoolManager.getInstance().scheduleEffect(new OnDeadEvent(this), 3500);
 				break;
@@ -219,17 +222,17 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 				_onDeadEventTask = ThreadPoolManager.getInstance().scheduleEffect(new OnDeadEvent(this), 8500);
 				break;
 		}
-        super.doDie(killer);
-    }
+		return true;
+	}
 
-    @Override
-    public void deleteMe()
-    {
-        if (_victimSpawnKeyBoxTask != null)
-        {
-        	_victimSpawnKeyBoxTask.cancel(true);
-        	_victimSpawnKeyBoxTask = null;
-        }
+	@Override
+	public void deleteMe()
+	{
+		if (_victimSpawnKeyBoxTask != null)
+		{
+			_victimSpawnKeyBoxTask.cancel(true);
+			_victimSpawnKeyBoxTask = null;
+		}
 		if(_onDeadEventTask != null)
 		{
 			_onDeadEventTask.cancel(true);
@@ -237,7 +240,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		}
 
 		super.deleteMe();
-    }
+	}
 
 	@Override
 	public boolean isRaid()
