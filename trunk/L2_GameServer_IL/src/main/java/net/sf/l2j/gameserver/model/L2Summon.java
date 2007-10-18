@@ -260,22 +260,26 @@ public abstract class L2Summon extends L2PlayableInstance
     {
         setFollowStatus(true);
     }
-    
+
     @Override
-    public synchronized void doDie(L2Character killer)
+    public boolean doDie(L2Character killer)
     {
+        if (!super.doDie(killer))
+            return false;
         DecayTaskManager.getInstance().addDecayTask(this);
-        super.doDie(killer);
+        return true;
     }
 
-    public synchronized void doDie(L2Character killer, boolean decayed)
+    public boolean doDie(L2Character killer, boolean decayed)
     {
-        if(!decayed)
+        if (!super.doDie(killer))
+            return false;
+        if (!decayed)
         {
             DecayTaskManager.getInstance().addDecayTask(this);
         }
 
-        super.doDie(killer);
+        return true;
     }
     
     public void stopDecay()

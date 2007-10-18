@@ -214,7 +214,14 @@ public class Pdam implements ISkillHandler
                                if (damage >= player.getStatus().getCurrentHp()) 
                                {
                                    player.getStatus().setCurrentHp(0);
-                                   player.doDie(activeChar);
+                                   if (player.isInOlympiadMode())
+                                   {
+                                       player.abortAttack();
+                                       player.abortCast();
+                                       player.getStatus().stopHpMpRegeneration();
+                                   }
+                                   else
+                                       player.doDie(activeChar);
                                }
                                else 
                                   player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);

@@ -542,19 +542,19 @@ public class L2PetInstance extends L2Summon
     }
     
     @Override
-    public synchronized void doDie(L2Character killer) {
-    	
-    	SystemMessage sm = new SystemMessage(SystemMessageId.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
+    public boolean doDie(L2Character killer)
+    {
+        if (!super.doDie(killer,true))
+            return false;
+
+        SystemMessage sm = new SystemMessage(SystemMessageId.MAKE_SURE_YOU_RESSURECT_YOUR_PET_WITHIN_20_MINUTES);
         getOwner().sendPacket(sm);
-        sm = null;
-        
+
         stopFeed();
         getStatus().stopHpMpRegeneration();
         DecayTaskManager.getInstance().addDecayTask(this,CORPSE_DECAY_TIME);
-        
-        super.doDie(killer,true);
-        
         if (isRespawned()) deathPenalty();
+        return true;
     }
     
     @Override

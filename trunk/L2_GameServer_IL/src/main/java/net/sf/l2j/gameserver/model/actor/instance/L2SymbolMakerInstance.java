@@ -38,8 +38,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class L2SymbolMakerInstance extends L2FolkInstance
 {
-    private final static Log _log = LogFactory.getLog(L2SymbolMakerInstance.class.getName());
-    
+	private final static Log _log = LogFactory.getLog(L2SymbolMakerInstance.class.getName());
+	
 	private double _collisionRadius;   
 	private double _collisionHeight; // this is  positioning the model relative to the ground
 	
@@ -80,7 +80,7 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 	/**
 	 * @return Returns the unknown1.
 	 */
-    
+
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
@@ -91,7 +91,7 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 			player.sendPacket(hel);
 		}
 		else if (command.equals("RemoveList"))
-        {
+		{
 			showRemoveChat(player);
 		}
 		else if (command.startsWith("Remove "))
@@ -100,40 +100,41 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 			player.removeHenna(slot);
 		}
 		else 
-        {
+		{
 			super.onBypassFeedback(player, command);
 		}
 	}
-	
-	private void showRemoveChat(L2PcInstance player){
-        TextBuilder html1 = new TextBuilder("<html><body>");
-        html1.append("Select symbol you would like to remove:<br><br>");
-        boolean hasHennas = false;
-        
-        for (int i=1;i<=3;i++)
-        {
-        	L2HennaInstance henna = player.getHenna(i);
-            
-        	if (henna != null)
-            {
-        		hasHennas = true;
-        		html1.append("<a action=\"bypass -h npc_%objectId%_Remove "+i+"\">"+henna.getName()+"</a><br>");
-        	}
-        }
-        
-        if (!hasHennas)
-        	html1.append("You don't have any symbol to remove!");
 
-        html1.append("</body></html>");
-        
+	private void showRemoveChat(L2PcInstance player)
+	{
+		TextBuilder html1 = new TextBuilder("<html><body>");
+		html1.append("Select symbol you would like to remove:<br><br>");
+		boolean hasHennas = false;
+		
+		for (int i=1;i<=3;i++)
+		{
+			L2HennaInstance henna = player.getHenna(i);
+			
+			if (henna != null)
+			{
+				hasHennas = true;
+				html1.append("<a action=\"bypass -h npc_%objectId%_Remove "+i+"\">"+henna.getName()+"</a><br>");
+			}
+		}
+		
+		if (!hasHennas)
+			html1.append("You don't have any symbol to remove!");
+
+		html1.append("</body></html>");
+		
 		insertObjectIdAndShowChatWindow(player, html1.toString());
 	}
-	
+
 	public L2SymbolMakerInstance(int objectID, L2NpcTemplate template)
 	{
 		super(objectID, template);
 	}
-	
+
 	/**
 	 * this is called when a player interacts with this NPC
 	 * @param player
@@ -145,27 +146,19 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 		player.setLastFolkNPC(this);
 		super.onAction(player);
 	}
-	
+
 	@Override
 	public String getHtmlPath(int npcId, int val)
 	{
-		String pom = "";
-        
-		if (val == 0)
-			pom = "" + npcId;
-		else 
-			pom = npcId + "-" + val;
-		
-		return "data/html/symbolmaker/" + pom + ".htm";
+		return "data/html/symbolmaker/SymbolMaker.htm";
 	}
-	
-	
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.model.L2Object#isAttackable()
-     */
-    @Override
-    public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker)
-    {
-        return false;
-    }
+
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.model.L2Object#isAttackable()
+	 */
+	@Override
+	public boolean isAutoAttackable(@SuppressWarnings("unused") L2Character attacker)
+	{
+		return false;
+	}
 }

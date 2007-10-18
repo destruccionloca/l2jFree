@@ -1434,8 +1434,14 @@ public abstract class L2Character extends L2Object
      * @param killer The L2Character who killed it
      *
      */
-    public void doDie(L2Character killer)
+    public boolean doDie(L2Character killer)
     {
+        // killing is only possible one time
+        synchronized (this)
+        {
+            if (isKilledAlready()) return false;
+            setIsKilledAlready(true);
+        }
         // Set target to null and cancel Attack or Cast
         setTarget(null);
 
@@ -1445,27 +1451,28 @@ public abstract class L2Character extends L2Object
         // Stop HP/MP/CP Regeneration task
         getStatus().stopHpMpRegeneration();
 
-		// Stop all active skills effects in progress on the L2Character, 
-		// if the Character isn't a Noblesse Blessed L2PlayableInstance 
-		if (this instanceof L2PlayableInstance && ((L2PlayableInstance)this).isNoblesseBlessed())
-			((L2PlayableInstance)this).stopNoblesseBlessing(null);
-		else
-			stopAllEffects();
+        // Stop all active skills effects in progress on the L2Character, 
+        // if the Character isn't a Noblesse Blessed L2PlayableInstance 
+        if (this instanceof L2PlayableInstance && ((L2PlayableInstance)this).isNoblesseBlessed())
+            ((L2PlayableInstance)this).stopNoblesseBlessing(null);
+        else
+            stopAllEffects();
         
         // Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
         broadcastStatusUpdate();
 
         // Notify L2Character AI
         getAI().notifyEvent(CtrlEvent.EVT_DEAD, null);
-        
-		// Notify Quest of character's death
-		for (QuestState qs: getNotifyQuestOfDeath())
-		{
-			qs.getQuest().notifyDeath( (killer==null?this:killer) , this, qs);
-		}
-		getNotifyQuestOfDeath().clear();
-		        
+
+        // Notify Quest of character's death
+        for (QuestState qs: getNotifyQuestOfDeath())
+        {
+            qs.getQuest().notifyDeath( (killer==null?this:killer) , this, qs);
+        }
+        getNotifyQuestOfDeath().clear();
+
         getAttackByList().clear();
+        return true;
     }
         
     /** Sets HP, MP and CP and revives the L2Character. */

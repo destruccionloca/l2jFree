@@ -30,11 +30,11 @@ import org.apache.commons.logging.LogFactory;
 
 public class ItemsAutoDestroy
 {
-	protected static Log _log = LogFactory.getLog("ItemsAutoDestroy");
-	private static ItemsAutoDestroy _instance;
-	protected FastList<L2ItemInstance> _items = null;
-	protected static long _sleep;
-    
+    protected static Log _log = LogFactory.getLog("ItemsAutoDestroy");
+    private static ItemsAutoDestroy _instance;
+    protected FastList<L2ItemInstance> _items = null;
+    protected static long _sleep;
+
     private ItemsAutoDestroy()
     {
         _items = new FastList<L2ItemInstance>();
@@ -53,42 +53,30 @@ public class ItemsAutoDestroy
         }
         return _instance;
     }
-    
-    public void addItem (L2ItemInstance item)
+
+    public synchronized void addItem (L2ItemInstance item)
     {
         item.setDropTime(System.currentTimeMillis());
         _items.add(item);
     }
-    
-    protected class CheckItemsForDestroy extends Thread
+
+    public synchronized void removeItems()
     {
-        @Override
-        public void run()
+        if (_log.isDebugEnabled())
+            _log.info("[ItemsAutoDestroy] : "+_items.size()+" items to check.");
+
+        if (_items.isEmpty()) return;
+
+        long curtime = System.currentTimeMillis();
+        for (L2ItemInstance item : _items)
         {
-            if (_log.isDebugEnabled())
-                _log.info("[ItemsAutoDestroy] : "+_items.size()+" items to check.");
-            
-            if (_items.isEmpty()) return;
-            
-            long curtime = System.currentTimeMillis();
-            for (L2ItemInstance item : _items)
+            if (item == null || item.getDropTime()==0 || item.getLocation() != L2ItemInstance.ItemLocation.VOID)
+                _items.remove(item);
+            else
             {
-                if (item == null || item.getDropTime()==0 || item.getLocation() != L2ItemInstance.ItemLocation.VOID)
-                    _items.remove(item);
-                else
+                if(item.getItemType() == L2EtcItemType.HERB )
                 {
-                    if(item.getItemType() == L2EtcItemType.HERB )
-                    {
-                        if((curtime - item.getDropTime()) > Config.HERB_AUTO_DESTROY_TIME)
-                        {
-                            L2World.getInstance().removeVisibleObject(item,item.getWorldRegion());
-                            L2World.getInstance().removeObject(item);
-                            _items.remove(item);
-                            if (Config.SAVE_DROPPED_ITEM)
-                                ItemsOnGroundManager.getInstance().removeObject(item);
-                        }
-                    }
-                    else if ( (curtime - item.getDropTime()) > _sleep)
+                    if((curtime - item.getDropTime()) > Config.HERB_AUTO_DESTROY_TIME)
                     {
                         L2World.getInstance().removeVisibleObject(item,item.getWorldRegion());
                         L2World.getInstance().removeObject(item);
@@ -97,10 +85,27 @@ public class ItemsAutoDestroy
                             ItemsOnGroundManager.getInstance().removeObject(item);
                     }
                 }
+                else if ( (curtime - item.getDropTime()) > _sleep)
+                {
+                    L2World.getInstance().removeVisibleObject(item,item.getWorldRegion());
+                    L2World.getInstance().removeObject(item);
+                    _items.remove(item);
+                    if (Config.SAVE_DROPPED_ITEM)
+                        ItemsOnGroundManager.getInstance().removeObject(item);
+                }
             }
+        }
 
-            if (_log.isDebugEnabled())
-                _log.info("[ItemsAutoDestroy] : "+_items.size()+" items remaining.");
-        }    
+        if (_log.isDebugEnabled())
+            _log.info("[ItemsAutoDestroy] : "+_items.size()+" items remaining.");
+    }
+    
+    protected class CheckItemsForDestroy extends Thread
+    {
+        @Override
+        public void run()
+        {
+            removeItems();
+        }
     }
 }

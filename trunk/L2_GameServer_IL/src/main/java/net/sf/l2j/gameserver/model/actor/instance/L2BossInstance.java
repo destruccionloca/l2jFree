@@ -116,18 +116,20 @@ public final class L2BossInstance extends L2MonsterInstance
     protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
 
     @Override
-    public void doDie(L2Character killer)
+    public boolean doDie(L2Character killer)
     {
+        if (!super.doDie(killer))
+            return false;
+
         // [L2J_JP ADD START SANDMAN]
         if (killer instanceof L2PlayableInstance)
         {
             SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
             broadcastPacket(msg);
         }
-
         // [L2J_JP ADD END SANDMAN]
 
-        super.doDie(killer);
+        return true;
     }
     /**
      * Used by Orfen to set 'teleported' flag, when hp goes to <50%

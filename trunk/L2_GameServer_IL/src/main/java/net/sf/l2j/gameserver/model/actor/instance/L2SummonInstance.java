@@ -209,22 +209,27 @@ public class L2SummonInstance extends L2Summon
     }
     
     @Override
-    public synchronized void doDie(L2Character killer)
-   {
-           if (_log.isDebugEnabled())
-               _log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") has been killed.");
-       
-        if (_summonLifeTask != null) {
+    public boolean doDie(L2Character killer)
+    {
+        if (!super.doDie(killer))
+            return false;
+
+        if (_log.isDebugEnabled())
+            _log.warn("L2SummonInstance: " + getTemplate().getName() + " (" + getOwner().getName() + ") has been killed.");
+
+        if (_summonLifeTask != null)
+        {
            _summonLifeTask.cancel(true);
            _summonLifeTask = null;
         }
 
-        if (_summonConsumeTask != null) {
+        if (_summonConsumeTask != null)
+        {
             _summonConsumeTask.cancel(true);
             _summonConsumeTask = null;
          }
-        
-        super.doDie(killer);
+
+        return true;
    }
 
     public void displayHitMessage(int damage, boolean crit, boolean miss) 

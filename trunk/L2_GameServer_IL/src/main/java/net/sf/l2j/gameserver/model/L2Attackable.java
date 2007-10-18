@@ -425,10 +425,15 @@ public class L2Attackable extends L2NpcInstance
      * 
      */
     @Override
-    public void doDie(L2Character killer) 
+    public boolean doDie(L2Character killer)
     {
+        // Kill the L2NpcInstance (the corpse disappeared after 7 seconds)
+        if (!super.doDie(killer))
+            return false;
+
         // Enhance soul crystals of the attacker if this L2Attackable had its soul absorbed
-        try {
+        try
+        {
             if (killer instanceof L2PcInstance)
             {
                 levelSoulCrystals(killer);
@@ -459,9 +464,7 @@ public class L2Attackable extends L2NpcInstance
         
         setChampion(false);
 
-        // Kill the L2NpcInstance (the corpse disappeared after 7 seconds)
-        super.doDie(killer);
-        
+        return true;
     }
     
     /**
@@ -2226,11 +2229,11 @@ public class L2Attackable extends L2NpcInstance
 
         // hi-lvl mobs bonus
         if (diff > 0)
-        	count += diff;
+            count += diff;
 
         FastList<RewardItem> harvested = new FastList<RewardItem>();
 
-        harvested.add(new RewardItem(L2Manor.getInstance().getCropType(_seedType), count));
+        harvested.add(new RewardItem(L2Manor.getInstance().getCropType(_seedType), count * Config.RATE_DROP_MANOR));
 
         _harvestItems = harvested.toArray(new RewardItem[harvested.size()]);
     }

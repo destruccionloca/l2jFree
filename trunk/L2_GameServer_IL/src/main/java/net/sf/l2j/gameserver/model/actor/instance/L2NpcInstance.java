@@ -2503,13 +2503,15 @@ public class L2NpcInstance extends L2Character
      * 
      */
     @Override
-    public void doDie(L2Character killer) 
+    public boolean doDie(L2Character killer) 
     {
+        if (!super.doDie(killer))
+            return false;
+
         DecayTaskManager.getInstance().addDecayTask(this);
-        
-        super.doDie(killer);
+        return true;
     }
-    
+
     /**
      * Set the spawn of the L2NpcInstance.<BR><BR>
      * 

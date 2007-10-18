@@ -4097,10 +4097,11 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param attacker The L2Character who attacks
      *
      */
-    public void doDie(L2Character killer)
+    public boolean doDie(L2Character killer)
     {
         // Kill the L2PcInstance
-        super.doDie(killer);
+        if (!super.doDie(killer))
+            return false;
 
         // Clear resurrect xp calculation
         setExpBeforeDeath(0);
@@ -4173,13 +4174,13 @@ public final class L2PcInstance extends L2PlayableInstance
                     }
 
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                    {
-                                                                        public void run()
-                                                                        {
-                                                                            teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
-                                                                            doRevive();
-                                                                        }
-                                                                    }, 20000);
+                    {
+                        public void run()
+                        {
+                            teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
+                            doRevive();
+                        }
+                    }, 20000);
                 }
             }
             
@@ -4190,13 +4191,13 @@ public final class L2PcInstance extends L2PlayableInstance
                     sendMessage("You will be revived and teleported to team flag in 20 seconds!");
 
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                    {
-                                                                        public void run()
-                                                                        {
-                                                                            teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
-                                                                            doRevive();
-                                                                        }
-                                                                    }, 20000);
+                    {
+                        public void run()
+                        {
+                            teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
+                            doRevive();
+                        }
+                    }, 20000);
                 }
             }
             
@@ -4208,13 +4209,13 @@ public final class L2PcInstance extends L2PlayableInstance
                     
                     sendMessage("You will be revived and teleported to spot in 20 seconds!");
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                    {
-                                                                        public void run()
-                                                                        {
-                                                                            teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
-                                                                            doRevive();
-                                                                        }
-                                                                    }, 20000);                      
+                    {
+                        public void run()
+                        {
+                            teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
+                            doRevive();
+                        }
+                    }, 20000);
                 }
             }
             else if (_inEventDM)
@@ -4223,39 +4224,44 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     sendMessage("You will be revived and teleported to spot in 20 seconds!");
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                                    {
-                                                                        public void run()
-                                                                        {
-                                                                            teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
-                                                                            doRevive();
-                                                                        }
-                                                                    }, 20000);                      
+                    {
+                        public void run()
+                        {
+                            teleToLocation(DM._playerX, DM._playerY, DM._playerZ, false);
+                            doRevive();
+                        }
+                    }, 20000);
                 }
             }
             
             else if (killer instanceof L2PcInstance && _inEventVIP) 
             {
-                 if (VIP._started) {
-                     if (_isTheVIP && ((L2PcInstance)killer)._inEventVIP)
-                         VIP.vipDied();
-                     else if (_isTheVIP && !((L2PcInstance)killer)._inEventVIP){
-                         Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
-                         doRevive();
-                         teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
-                     }
-                     else {                          
-                         sendMessage("You will be revived and teleported to team spot in 20 seconds!");
-                         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
-                             public void run() {
-                                 doRevive();
-                                 if (_isVIP)
-                                     teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
-                                 else
-                                     teleToLocation(VIP._endX, VIP._endY, VIP._endZ);
-                             }
-                         }, 20000);
-                     }
-                 }
+                if (VIP._started)
+                {
+                    if (_isTheVIP && ((L2PcInstance)killer)._inEventVIP)
+                        VIP.vipDied();
+                    else if (_isTheVIP && !((L2PcInstance)killer)._inEventVIP)
+                    {
+                        Announcements.getInstance().announceToAll("VIP Killed by non-event character. VIP going back to initial spawn.");
+                        doRevive();
+                        teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+                    }
+                    else
+                    {
+                        sendMessage("You will be revived and teleported to team spot in 20 seconds!");
+                        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                        {
+                            public void run()
+                            {
+                                doRevive();
+                                if (_isVIP)
+                                    teleToLocation(VIP._startX, VIP._startY, VIP._startZ);
+                                else
+                                    teleToLocation(VIP._endX, VIP._endY, VIP._endZ);
+                            }
+                        }, 20000);
+                    }
+                }
             }
             else if (killer instanceof L2PcInstance)
             {
@@ -4348,37 +4354,29 @@ public final class L2PcInstance extends L2PlayableInstance
             _cubics.clear();
         }
 
-		if (isInParty() && getParty().isInDimensionalRift())
-			getParty().getDimensionalRift().getDeadMemberList().add(this);
-		
-		// calculate death penalty buff
-		calculateDeathPenaltyBuffLevel(killer);
+        if (isInParty() && getParty().isInDimensionalRift())
+            getParty().getDimensionalRift().getDeadMemberList().add(this);
 
-		// [L2J_JP ADD SANDMAN]
-		// When the player has been annihilated, the player is banished from the Four Sepulcher. 
-		if (FourSepulchersManager.getInstance().checkIfInDangeon(this) &&
-				(getZ() >= -7250 && getZ() <= -6841))
-		{
-			FourSepulchersManager.getInstance().checkAnnihilated(this);
-		}
-		// When the player has been annihilated, the player is banished from the lair. 
-		if (SailrenManager.getInstance().checkIfInZone(this))
-		{
-			SailrenManager.getInstance().checkAnnihilated(this);
-		}
-		if (AntharasManager.getInstance().checkIfInZone(this))
-		{
-			AntharasManager.getInstance().checkAnnihilated();
-		}
-		if (ValakasManager.getInstance().checkIfInZone(this))
-		{
-			ValakasManager.getInstance().checkAnnihilated();
-		}
-		if (BaiumManager.getInstance().checkIfInZone(this))
-		{
-			BaiumManager.getInstance().checkAnnihilated();
-		}
-	}
+        // calculate death penalty buff
+        calculateDeathPenaltyBuffLevel(killer);
+
+        // [L2J_JP ADD SANDMAN]
+        // When the player has been annihilated, the player is banished from the Four Sepulcher. 
+        if (FourSepulchersManager.getInstance().checkIfInDangeon(this) &&
+                (getZ() >= -7250 && getZ() <= -6841))
+            FourSepulchersManager.getInstance().checkAnnihilated(this);
+        // When the player has been annihilated, the player is banished from the lair. 
+        else if (SailrenManager.getInstance().checkIfInZone(this))
+            SailrenManager.getInstance().checkAnnihilated(this);
+        else if (AntharasManager.getInstance().checkIfInZone(this))
+            AntharasManager.getInstance().checkAnnihilated();
+        else if (ValakasManager.getInstance().checkIfInZone(this))
+            ValakasManager.getInstance().checkAnnihilated();
+        else if (BaiumManager.getInstance().checkIfInZone(this))
+            BaiumManager.getInstance().checkAnnihilated();
+
+        return true;
+    }
 
     /** UnEnquip on skills with disarm effect **/
     public void onDisarm(L2PcInstance target)

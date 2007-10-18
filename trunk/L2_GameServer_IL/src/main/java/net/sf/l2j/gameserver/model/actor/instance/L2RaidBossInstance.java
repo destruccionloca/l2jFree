@@ -85,31 +85,23 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 
     @Override
     protected int getMaintenanceInterval() { return RAIDBOSS_MAINTENANCE_INTERVAL; }
-	
+
     @Override
-    public void doDie(L2Character killer)
+    public boolean doDie(L2Character killer)
     {
+        if (!super.doDie(killer))
+            return false;
+
         if(killer instanceof L2PlayableInstance)
         {
-        	SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
-        	broadcastPacket(msg);
+            SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
+            broadcastPacket(msg);
         }
         
         RaidBossSpawnManager.getInstance().updateStatus(this, true);
-        super.doDie(killer);
+        return true;
     }
-    
-	/* Unused - commented to avoid inf loop
-    public void onSpawn()
-    {
-        RaidBossSpawnManager.getInstance().updateStatus(this, false); 
-    	super.onSpawn();
-        if (getNpcId() == 25286 || getNpcId() == 25283)
-            return;
-        else
-            getSpawn().stopRespawn();
-    }*/
-    
+
     /**
      * Spawn all minions at a regular interval
      * if minions are not near the raid boss, teleport them 

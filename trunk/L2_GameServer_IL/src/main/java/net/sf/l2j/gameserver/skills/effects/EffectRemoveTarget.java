@@ -37,8 +37,11 @@ public class EffectRemoveTarget extends L2Effect
     }
     
     /** Notify started */
-    public void onStart() {
-    	getEffected().setTarget(null);
+    public void onStart()
+    {
+        getEffected().setTarget(null);
+        getEffected().abortAttack();
+        getEffected().abortCast();
     }
     
     /** Notify exited */
