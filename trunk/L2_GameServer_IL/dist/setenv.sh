@@ -54,7 +54,7 @@ CLASSPATH=${CLASSPATH}:l2j-gameserver-1.0.0.jar
 CLASSPATH=${CLASSPATH}:spring-2.0.2.jar
 
 # For SQL use
-CLASSPATH=${CLASSPATH}:mysql-connector-java-3.1.11.jar
+CLASSPATH=${CLASSPATH}:mysql-connector-java-5.1.5.jar
 
 # For irc use
 CLASSPATH=${CLASSPATH}:irclib-1.10.jar
