@@ -19,7 +19,8 @@
 package net.sf.l2j.gameserver.skills;
 
 import net.sf.l2j.gameserver.skills.funcs.Func;
-
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.L2Character;
 
 /**
  * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). 
@@ -102,7 +103,7 @@ public final class Calculator
 	/**
 	 * Add a Func to the Calculator.<BR><BR>
 	 */
-	public synchronized void addFunc(Func f) 
+	public synchronized void addFunc(Func f, L2Character activeChar) 
 	{
 		Func[] funcs = _functions;
 		Func[] tmp = new Func[funcs.length+1];
@@ -119,13 +120,15 @@ public final class Calculator
 			tmp[i+1] = funcs[i];
 		
 		_functions = tmp;
+		if ((f.stat==Stats.RUN_SPEED || f.stat==Stats.ATK_REUSE) && activeChar!=null && activeChar instanceof L2PcInstance)
+			((L2PcInstance)activeChar).broadcastUserInfo();
 	}
 	
 	
 	/**
 	 * Remove a Func from the Calculator.<BR><BR>
 	 */
-	public synchronized void removeFunc(Func f) 
+	public synchronized void removeFunc(Func f, L2Character activeChar) 
 	{
 		Func[] funcs = _functions;
 		Func[] tmp = new Func[funcs.length-1];
@@ -146,20 +149,22 @@ public final class Calculator
 		else
 			_functions = tmp;
 		
+		if ((f.stat==Stats.RUN_SPEED || f.stat==Stats.ATK_REUSE)&& activeChar!=null && activeChar instanceof L2PcInstance)
+			((L2PcInstance)activeChar).broadcastUserInfo();		
 	}
 	
 
 	/**
 	 * Remove each Func with the specified owner of the Calculator.<BR><BR>
 	 */
-	public synchronized void removeOwner(Object owner) 
+	public synchronized void removeOwner(Object owner, L2Character activeChar) 
 	{
 		Func[] funcs = _functions;
 		
 		for (int i=0; i < funcs.length; i++) 
 		{
 			if (funcs[i].funcOwner == owner)
-				removeFunc(funcs[i]);
+				removeFunc(funcs[i], activeChar);
 		}
 	}
 

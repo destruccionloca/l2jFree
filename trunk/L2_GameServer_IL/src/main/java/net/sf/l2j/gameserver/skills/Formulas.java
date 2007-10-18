@@ -774,11 +774,11 @@ public final class Formulas
         
         // Add the FuncAtkAccuracy to the Standard Calculator of ACCURACY_COMBAT
         std[Stats.ACCURACY_COMBAT.ordinal()] = new Calculator();
-        std[Stats.ACCURACY_COMBAT.ordinal()].addFunc(FuncAtkAccuracy.getInstance());
+        std[Stats.ACCURACY_COMBAT.ordinal()].addFunc(FuncAtkAccuracy.getInstance(),null);
         
         // Add the FuncAtkEvasion to the Standard Calculator of EVASION_RATE
         std[Stats.EVASION_RATE.ordinal()] = new Calculator();
-        std[Stats.EVASION_RATE.ordinal()].addFunc(FuncAtkEvasion.getInstance());
+        std[Stats.EVASION_RATE.ordinal()].addFunc(FuncAtkEvasion.getInstance(),null);
         
         return std;
     }

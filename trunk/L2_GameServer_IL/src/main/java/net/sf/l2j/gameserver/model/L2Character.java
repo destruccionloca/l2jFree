@@ -55,10 +55,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.ForceBuff;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.ForceBuff;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
@@ -3292,7 +3292,7 @@ public abstract class L2Character extends L2Object
             _calculators[stat] = new Calculator();
 
         // Add the Func to the calculator corresponding to the state
-        _calculators[stat].addFunc(f);
+        _calculators[stat].addFunc(f,this);
     }
 
    /**
@@ -3351,7 +3351,7 @@ public abstract class L2Character extends L2Object
             return;
 
         // Remove the Func object from the Calculator
-        _calculators[stat].removeFunc(f);
+        _calculators[stat].removeFunc(f,this);
 
         if (_calculators[stat].size() == 0)
             _calculators[stat] = null;
@@ -3429,7 +3429,7 @@ public abstract class L2Character extends L2Object
            if (_calculators[i] != null)
            {
                // Delete all Func objects of the selected owner
-               _calculators[i].removeOwner(owner);
+               _calculators[i].removeOwner(owner,this);
 
                if (_calculators[i].size() == 0)
                    _calculators[i] = null;

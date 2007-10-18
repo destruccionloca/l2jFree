@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.ShowCalculator;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -345,11 +346,32 @@ public class UseItem extends L2GameClientPacket
                 if (item.getItem().getType2() == L2Item.TYPE2_WEAPON)
                     activeChar.checkIfWeaponIsAllowed();
 
-                InventoryUpdate iu = new InventoryUpdate();
-                iu.addItems(Arrays.asList(items));
-                activeChar.sendPacket(iu);
                 activeChar.abortAttack();
-                activeChar.broadcastUserInfo();
+
+				activeChar.sendPacket(new EtcStatusUpdate(activeChar));
+				// if an "invisible" item has changed (Jewels, helmet),
+				// we dont need to send broadcast packet to all other users
+				if (!((item.getItem().getBodyPart()&L2Item.SLOT_HEAD)>0
+						|| (item.getItem().getBodyPart()&L2Item.SLOT_NECK)>0
+						|| (item.getItem().getBodyPart()&L2Item.SLOT_L_EAR)>0
+						|| (item.getItem().getBodyPart()&L2Item.SLOT_R_EAR)>0
+						|| (item.getItem().getBodyPart()&L2Item.SLOT_L_FINGER)>0
+						|| (item.getItem().getBodyPart()&L2Item.SLOT_R_FINGER)>0
+					)) {
+					activeChar.broadcastUserInfo();
+					InventoryUpdate iu = new InventoryUpdate();
+					iu.addItems(Arrays.asList(items));
+					activeChar.sendPacket(iu);
+				} else if ((item.getItem().getBodyPart()&L2Item.SLOT_HEAD)>0) {
+					InventoryUpdate iu = new InventoryUpdate();
+					iu.addItems(Arrays.asList(items));
+					activeChar.sendPacket(iu);
+					activeChar.sendPacket(new UserInfo(activeChar));
+				} else {
+					// because of complicated jewels problem i'm forced to resend the item list :(
+					activeChar.sendPacket(new ItemList(activeChar,true));
+					activeChar.sendPacket(new UserInfo(activeChar));
+				}	
             }
             else
             {
