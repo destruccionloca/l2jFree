@@ -1930,14 +1930,10 @@ public final class L2PcInstance extends L2PlayableInstance
                                                                     null);
             }
         }
-        else if (_karma > 0 && karma == 0)
-        {
-            // Send a Server->Client StatusUpdate packet with Karma and PvP Flag to the L2PcInstance and all L2PcInstance to inform (broadcast)
-            setKarmaFlag(0);
-        }
 
+        int oldkarma=_karma;
         _karma = karma;
-        updateKarma();
+        updateKarma(oldkarma);
     }
 
     /**
@@ -5533,11 +5529,10 @@ public final class L2PcInstance extends L2PlayableInstance
         super.updateStats();
         refreshOverloaded();
         refreshExpertisePenalty();
-        // Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers (broadcast)
-        broadcastUserInfo();
-
-        // Send a Server->Client StatusUpdate packet with Karma to the L2PcInstance and to all L2PcInstance in its _knownPlayers (broadcast)
-        updateKarma();
+		// Send UserInfo ONLY to this player
+		// other chars don't need to know about those updates and speed update
+		// broadcast are handled by calculators
+		sendPacket(new UserInfo(this));
     }
 
     /**
@@ -5546,17 +5541,22 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setKarmaFlag(int flag)
     {
 		sendPacket(new UserInfo(this));
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values()) {
-			player.sendPacket(new RelationChanged(this, getRelation(player), isAutoAttackable(player)));
-		}
     }
 
     /**
      * Send a Server->Client StatusUpdate packet with Karma to the L2PcInstance and all L2PcInstance to inform (broadcast).<BR><BR>
      */
-    public void updateKarma()
+    public void updateKarma(int karma)
     {
-		sendPacket(new UserInfo(this));
+		// some filter to avoid karma update packets
+		// if the difference is not noticeable by the client
+		if (_karma<0 || _karma!=karma)
+			sendPacket(new UserInfo(this));
+		else
+			return;
+		if (karma>=0 && ((karma+29)/30==(_karma+29)/30 || (karma>300 && _karma>300)))
+			return;
+
 		for (L2PcInstance player : getKnownList().getKnownPlayers().values()) {
 			player.sendPacket(new RelationChanged(this, getRelation(player), isAutoAttackable(player)));
 		}
@@ -9105,6 +9105,7 @@ public final class L2PcInstance extends L2PlayableInstance
         getInventory().restoreEquipedItemsPassiveSkill();
         getInventory().restoreArmorSetPassiveSkill();
         updateStats();
+        broadcastUserInfo();
 
         // Clear resurrect xp calculation
         setExpBeforeDeath(0);
