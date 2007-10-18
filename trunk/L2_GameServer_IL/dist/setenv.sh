@@ -23,7 +23,7 @@ CLASSPATH=${CLASSPATH}:bsh-2.0.jar
 CLASSPATH=${CLASSPATH}:ehcache-1.2.3.jar
 
 #jython
-CLASSPATH=${CLASSPATH}:jython-2.1.0.jar
+CLASSPATH=${CLASSPATH}:jython-2.2.1.jar
 
 # for bean use
 CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar
