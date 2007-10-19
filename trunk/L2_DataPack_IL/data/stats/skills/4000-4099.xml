@@ -113,7 +113,7 @@
   </for>
 </skill>
 <skill id="4009" levels="6" name="Resist Fire">
-  <table name="#res"> 15 30 50 70 90 100 </table>
+  <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 0.0 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
@@ -125,11 +125,11 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat="fireRes" val="#res" order="0x40"/>
+    <mul stat="fireVuln" val="#vuln" order="0x30"/>
   </for>
 </skill>
 <skill id="4010" levels="6" name="Resist Water">
-  <table name="#res"> 15 30 50 70 90 100 </table>
+  <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 0.0 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
@@ -141,11 +141,11 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat="waterRes" val="#res" order="0x40"/>
+    <mul stat="waterVuln" val="#vuln" order="0x30"/>
   </for>
 </skill>
 <skill id="4011" levels="6" name="Resist Wind">
-  <table name="#res"> 15 30 50 70 90 100 </table>
+  <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 0.0 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
@@ -157,11 +157,11 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat="windRes" val="#res" order="0x40"/>
+    <mul stat="windVuln" val="#vuln" order="0x30"/>
   </for>
 </skill>
 <skill id="4012" levels="1" name="Resist Earth">
-  <table name="#res"> 15 30 50 70 90 100 </table>
+  <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 0.0 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
@@ -173,7 +173,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat="earthRes" val="#res" order="0x40"/>
+    <mul stat="earthVuln" val="#vuln" order="0x30"/>
   </for>
 </skill>
 <skill id="4013" levels="1" name="Resistance To Fire, Vulnerable To Water">
@@ -184,8 +184,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<mul stat="fireRes" val="1.5" order="0x50"/>
-  	<div stat="waterRes" val="1.15" order="0x50"/>
+  	<mul stat="fireVuln" val="0.5" order="0x30"/>
+  	<div stat="waterVuln" val="0.85" order="0x30"/>
   </for>
 </skill>
 <skill id="4014" levels="1" name="Resistance To Water, Vulnerable To Fire">
@@ -197,8 +197,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<div stat="fireRes" val="1.15" order="0x50"/>
-  	<mul stat="waterRes" val="1.5" order="0x50"/>
+  	<div stat="fireVuln" val="0.85" order="0x30"/>
+  	<mul stat="waterVuln" val="0.5" order="0x30"/>
   </for>
 </skill>
 <skill id="4015" levels="1" name="Resistance To Wind, Vulnerable To Earth">
@@ -209,8 +209,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<mul stat="windRes" val="1.5" order="0x50"/>
-  	<div stat="earthRes" val="1.15" order="0x50"/>
+  	<mul stat="windVuln" val="0.5" order="0x30"/>
+  	<div stat="earthVuln" val="0.85" order="0x30"/>
   </for>
 </skill>
 <skill id="4016" levels="1" name="Resistance To Earth, Vulnerable To Wind">
@@ -221,8 +221,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<div stat="windRes" val="1.15" order="0x50"/>
-  	<mul stat="earthRes" val="1.5" order="0x50"/>
+  	<div stat="windVuln" val="0.85" order="0x50"/>
+  	<mul stat="earthVuln" val="0.5" order="0x50"/>
   </for>
 </skill>
 <skill id="4017" levels="1" name="Brandish Queen Ant">
@@ -297,12 +297,12 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat="rootRes" val="1000" order="0x40"/>
-    <add stat="paralyzeRes" val="1000" order="0x40"/>
-    <add stat="sleepRes" val="1000" order="0x40"/>
-    <add stat="confusionRes" val="1000" order="0x40"/>
-    <mul stat="fireRes" val="0.5" order="0x30"/>
-    <add stat="bowWpnRes" val="80" order="0x40"/>
+    <mul stat="rootVuln" val="0.0" order="0x30"/>
+    <mul stat="paralyzeVuln" val="0.0" order="0x30"/>
+    <mul stat="sleepVuln" val="0.0" order="0x30"/>
+    <mul stat="confusionVuln" val="0.0" order="0x30"/>
+    <mul stat="fireVuln" val="1.5" order="0x30"/>
+    <mul stat="bowWpnVuln" val="0.2" order="0x30"/>
   </for>
 </skill>
 <skill id="4022" levels="1" name="Body Of Nurse Ant">
@@ -745,11 +745,11 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-      <add order="0x40" stat="rootRes" val="90"/>
-      <add order="0x40" stat="sleepRes" val="90"/>
-      <add order="0x40" stat="stunRes" val="90"/>
-      <add order="0x40" stat="confusionRes" val="100"/>
-      <add order="0x40" stat="paralyzeRes" val="90"/>
+      <mul order="0x30" stat="rootVuln" val="0.1"/>
+      <mul order="0x30" stat="sleepVuln" val="0.1"/>
+      <mul order="0x30" stat="stunVuln" val="0.1"/>
+      <mul order="0x30" stat="confusionVuln" val="0.0"/>
+      <mul order="0x30" stat="paralyzeVuln" val="0.1"/>
   </for>  
 </skill>
 <skill id="4046" levels="12" name="Sleep">
@@ -1007,12 +1007,12 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <add stat="rootRes" val="1000" order="0x40"/>
-    <add stat="paralyzeRes" val="1000" order="0x40"/>
-    <add stat="sleepRes" val="1000" order="0x40"/>
-    <add stat="confusionRes" val="1000" order="0x40"/>
-    <sub stat="fireRes" val="100" order="0x40"/>
-    <add stat="bowWpnRes" val="80" order="0x40"/>
+    <mul stat="rootVuln" val="0.0" order="0x30"/>
+    <mul stat="paralyzeVuln" val="0.0" order="0x30"/>
+    <mul stat="sleepVuln" val="0.0" order="0x30"/>
+    <mul stat="confusionVuln" val="0.0" order="0x30"/>
+    <mul stat="fireVuln" val="2.0" order="0x30"/>
+    <mul stat="bowWpnVuln" val="0.2" order="0x30"/>
   </for>
 </skill>
 <skill id="4063" levels="1" name="Paralysis">
@@ -1168,7 +1168,7 @@
   </for>
 </skill>
 <skill id="4071" levels="6" name="Resist Archery">
-  <table name="#res"> 15 30 50 70 90 100 </table>
+  <table name="#vuln"> 0.85 0.7 0.5 0.3 0.1 0.0 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="WEAKNESS"/>
@@ -1176,7 +1176,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<add order="0x40" stat="bowWpnRes" val="#res"/>
+    <mul order="0x30" stat="bowWpnVuln" val="#vuln"/>
   </for>
 </skill>
 <skill id="4072" levels="12" name="Shock">

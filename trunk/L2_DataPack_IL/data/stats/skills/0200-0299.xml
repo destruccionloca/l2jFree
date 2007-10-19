@@ -1504,12 +1504,12 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
     <effect count="1" name="Buff" time="120" val="0">
-      <add order="0x40" stat="darkRes" val="20"/>
+      <mul order="0x30" stat="darkVuln" val="0.8"/>
     </effect>
   </for>
   <enchant1for>
     <effect count="1" name="Buff" time="#ench1time" val="0">
-      <add order="0x40" stat="darkRes" val="20"/>
+      <mul order="0x30" stat="darkVuln" val="0.8"/>
     </effect>
   </enchant1for>
 </skill>
@@ -2108,7 +2108,7 @@
 </skill>
 <skill id="287" levels="3" name="Lionheart">
   <table name="#mpConsume"> 16 22 29 </table>
-  <table name="#res"> 40 60 80 </table>
+  <table name="#vuln"> 0.6 0.4 0.2 </table>
   <table name="#aggro"> 341 467 582 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
@@ -2124,11 +2124,11 @@
   <set name="aggroPoints" val="#aggro"/>
   <for>
     <effect count="1" name="Buff" time="60" val="0">
-      <add order="0x40" stat="cancelRes" val="10"/> <!-- value to be confirmed -->
-      <add stat="stunRes" val="#res" order="0x40"/>
-      <add stat="rootRes" val="#res" order="0x40"/>
-      <add stat="sleepRes" val="#res" order="0x40"/>
-      <add stat="paralyzeRes" val="#res" order="0x40"/>
+      <mul order="0x30" stat="cancelVuln" val="0.9"/> <!-- value to be confirmed -->
+      <mul order="0x30" stat="stunVuln" val="#vuln"/>
+      <mul order="0x30" stat="rootVuln" val="#vuln"/>
+      <mul order="0x30" stat="sleepVuln" val="#vuln"/>
+      <mul order="0x30" stat="paralyzeVuln" val="#vuln"/>
     </effect>
   </for>
 </skill>

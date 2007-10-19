@@ -286,12 +286,12 @@ class Quest (JQuest) :
 # Events Cleo
     elif event == "30766-04.htm":
       st.set("cond","9")
-      npc=st.addSpawn(30766,160622,21230,-3710,90000)
-      npc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Blood and Honour."))
-      npc=st.addSpawn(30759,160665,21209,-3710,90000)
-      npc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Ambition and Power"))
-      npc=st.addSpawn(30758,160665,21291,-3710,90000)
-      npc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"War and Death"))
+      spawnedNpc = st.addSpawn(30766,160622,21230,-3710,90000)
+      spawnedNpc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Blood and Honour."))
+      spawnedNpc = st.addSpawn(30759,160665,21209,-3710,90000)
+      spawnedNpc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"Ambition and Power"))
+      spawnedNpc = st.addSpawn(30758,160665,21291,-3710,90000)
+      spawnedNpc.broadcastPacket(CreatureSay(spawnedNpc.getObjectId(),0,spawnedNpc.getName(),"War and Death"))
     elif event == "30766-08.htm":
       st.takeItems(Scepter_Judgement,-1)
       exit503(0,st)
