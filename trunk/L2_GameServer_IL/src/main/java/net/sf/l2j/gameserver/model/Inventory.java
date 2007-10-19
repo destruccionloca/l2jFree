@@ -773,8 +773,12 @@ public abstract class Inventory extends ItemContainer
         Inventory.ChangeRecorder recorder = newRecorder(); 
         try
         {
-            unEquipItemInBodySlot(slot); 
-        } finally {
+            unEquipItemInBodySlot(slot);
+            if (getOwner() instanceof L2PcInstance)
+                ((L2PcInstance)getOwner()).refreshExpertisePenalty();
+        }
+        finally
+        {
             removePaperdollListener(recorder);
         }
         return recorder.getChangedItems();
@@ -799,8 +803,12 @@ public abstract class Inventory extends ItemContainer
         Inventory.ChangeRecorder recorder = newRecorder(); 
         try
         {
-            unEquipItemInSlot(slot); 
-        } finally {
+            unEquipItemInSlot(slot);
+            if (getOwner() instanceof L2PcInstance)
+                ((L2PcInstance)getOwner()).refreshExpertisePenalty();
+        }
+        finally
+        {
             removePaperdollListener(recorder);
         }
         return recorder.getChangedItems();

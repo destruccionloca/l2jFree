@@ -58,7 +58,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.ForceBuff;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
@@ -552,7 +551,7 @@ public abstract class L2Character extends L2Object
         {
             if (((L2PcInstance)this).inObserverMode())
             {
-                ((L2PcInstance)this).sendMessage("Cant attack in observer mode");
+                sendPacket(new SystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
                 sendPacket(new ActionFailed());
                 return;
             }
@@ -1274,9 +1273,9 @@ public abstract class L2Character extends L2Object
         boolean forceBuff = skill.getSkillType() == SkillType.FORCE_BUFF;
         
         // Calculate the casting time of the skill (base + modifier of MAtkSpd)
-		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
-		if(!forceBuff)        
-			skillTime = Formulas.getInstance().calcMAtkSpd(this, skill, skillTime);
+        // Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
+        if(!forceBuff)
+            skillTime = Formulas.getInstance().calcMAtkSpd(this, skill, skillTime);
 
         // Calculate the Interrupt Time of the skill (base + modifier) if the skill is a spell else 0
         if (skill.isMagic())
@@ -1354,17 +1353,17 @@ public abstract class L2Character extends L2Object
             disableSkill(skill.getId(), reuseDelay);
         }
 
-		// For force buff skills, start the effect as long as the player is casting.
-		if(forceBuff)
-		{
-			startForceBuff(target, skill);
-		}
+        // For force buff skills, start the effect as long as the player is casting.
+        if(forceBuff)
+        {
+            startForceBuff(target, skill);
+        }
 
         // launch the magic in skillTime milliseconds
         if (skillTime > 60)
         {
             // Send a Server->Client packet SetupGauge with the color of the gauge and the casting time
-        	if (this instanceof L2PcInstance && !forceBuff)
+            if (this instanceof L2PcInstance && !forceBuff)
             {
                 SetupGauge sg = new SetupGauge(SetupGauge.BLUE, skillTime);
                 sendPacket(sg);
@@ -3623,9 +3622,9 @@ public abstract class L2Character extends L2Object
                 _skillCast = null;
             }
             
-			if(getForceBuff() != null)
-				getForceBuff().delete();
-			
+            if(getForceBuff() != null)
+                getForceBuff().delete();
+
             // cancels the skill hit scheduled task
             enableAllSkills();                                      // re-enables the skills
             if (this instanceof L2PcInstance) getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING); // setting back previous intention
@@ -5034,10 +5033,10 @@ public abstract class L2Character extends L2Object
             return;
         }
         else if(getForceBuff() != null)
-		{
-			getForceBuff().delete();
-			return;
-		}
+        {
+            getForceBuff().delete();
+            return;
+        }
         
         int escapeRange = 0;
         if(skill.getEffectRange() > escapeRange) escapeRange = skill.getEffectRange();
@@ -5826,7 +5825,7 @@ public abstract class L2Character extends L2Object
     {
         return true;
     }
-    
+
 	public ForceBuff getForceBuff()
 	{
 		return null;

@@ -18,11 +18,12 @@
  */
 package net.sf.l2j.gameserver.skills.effects;
 
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
-final class EffectParalyze extends L2Effect {
-
+final class EffectParalyze extends L2Effect
+{
 	public EffectParalyze(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -33,20 +34,22 @@ final class EffectParalyze extends L2Effect {
 		return EffectType.PARALYZE;
 	}
 	
-	public void onStart() {
-         getEffected().abortAttack();
-         getEffected().abortCast();
-		 // getEffected().startAbnormalEffect((short)0x0800);
-       	 getEffected().setIsParalyzed(true);
-    }
+	public void onStart()
+	{
+		getEffected().abortAttack();
+		getEffected().abortCast();
+		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
+		getEffected().setIsParalyzed(true);
+	}
 	
-	public void onExit() {
-		 // getEffected().stopAbnormalEffect((short)0x0800);
-		 getEffected().setIsParalyzed(false);
-    }
-	
-    public boolean onActionTime()
-    {
-    	return false;
-    }
+	public void onExit()
+	{
+		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
+		getEffected().setIsParalyzed(false);
+	}
+
+	public boolean onActionTime()
+	{
+		return false;
+	}
 }

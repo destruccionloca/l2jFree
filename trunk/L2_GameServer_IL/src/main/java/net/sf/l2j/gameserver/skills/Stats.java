@@ -27,11 +27,11 @@ import java.util.NoSuchElementException;
  */
 public enum Stats 
 {
-	//
-	// Base stats, for each in Calculator a slot is allocated
-	//
-	
-	// HP & MP
+    //
+    // Base stats, for each in Calculator a slot is allocated
+    //
+    
+    // HP & MP
     MAX_HP              ("maxHp"),
     MAX_MP              ("maxMp"),
     MAX_CP              ("maxCp"),
@@ -40,7 +40,7 @@ public enum Stats
     REGENERATE_MP_RATE  ("regMp"),
     RECHARGE_MP_RATE    ("gainMp"),
     HEAL_EFFECTIVNESS   ("gainHp"),
-	// Atk & Def
+    // Atk & Def
     POWER_DEFENCE       ("pDef"),
     MAGIC_DEFENCE       ("mDef"),
     POWER_ATTACK        ("pAtk"),
@@ -52,18 +52,18 @@ public enum Stats
     CRITICAL_DAMAGE     ("cAtk"),
     PVP_PHYSICAL_DMG    ("pvpPhysDmg"),
     PVP_MAGICAL_DMG     ("pvpMagicalDmg"),
-    PVP_PHYS_SKILL_DMG  ("pvpPhysSkillsDmg"),    
-	// Atk & Def rates
+    PVP_PHYS_SKILL_DMG  ("pvpPhysSkillsDmg"),
+    // Atk & Def rates
     EVASION_RATE        ("rEvas"),
     SHIELD_RATE         ("rShld"),
     SHIELD_ANGLE        ("shldAngle"),
     CRITICAL_RATE       ("rCrit" ),
-	BLOW_RATE 			("blowRate" ),
-	LETHAL_RATE 		("lethalRate" ),    
+    BLOW_RATE           ("blowRate" ),
+    LETHAL_RATE         ("lethalRate" ),
     MCRITICAL_RATE      ("mCritRate"),
     EXPSP_RATE          ("rExp"),
     ATTACK_CANCEL       ("cancel"),
-	// Accuracy and range
+    // Accuracy and range
     ACCURACY_COMBAT     ("accCombat"),
     POWER_ATTACK_RANGE  ("pAtkRange"),
     MAGIC_ATTACK_RANGE  ("mAtkRange"),
@@ -72,26 +72,26 @@ public enum Stats
     POLE_ATTACK_ANGLE   ("poleAngle"),
     
     // Run speed,
-	// walk & escape speed are calculated proportionally,
-	// magic speed is a buff
+    // walk & escape speed are calculated proportionally,
+    // magic speed is a buff
     RUN_SPEED           ("runSpd"),
-	
-	//
-	// Player-only stats
-	//
+    
+    //
+    // Player-only stats
+    //
     STAT_STR    ("STR"),
     STAT_CON    ("CON"),
     STAT_DEX    ("DEX"),
     STAT_INT    ("INT"),
     STAT_WIT    ("WIT"),
     STAT_MEN    ("MEN"),
-	//
-	// Special stats, share one slot in Calculator
-	//
-	
-	// stats of various abilities
+    //
+    // Special stats, share one slot in Calculator
+    //
+    
+    // stats of various abilities
     BREATH      ("breath"),
-	//
+    //
     AGGRESSION  ("aggression"), // locks a mob on tank caster
     BLEED       ("bleed"), // by daggers, like poison
     POISON      ("poison"), // by magic, hp dmg over time
@@ -107,47 +107,46 @@ public enum Stats
     HOLY        ("holy"),
     DARK        ("dark"),
     SACRED      ("sacred"),
-	//
-    AGGRESSION_RES  ("aggressionRes"),
-    BLEED_RES       ("bleedRes"),
-    POISON_RES      ("poisonRes"),
-    STUN_RES        ("stunRes"),
-    PARALYZE_RES    ("paralyzeRes"), 
-    ROOT_RES        ("rootRes"),
-    SLEEP_RES       ("sleepRes"),
-    CONFUSION_RES 	("confusionRes"),
-    MOVEMENT_RES    ("movementRes"),
-    FIRE_RES        ("fireRes"),
-    WIND_RES        ("windRes"),
-    WATER_RES       ("waterRes"),
-    EARTH_RES       ("earthRes"),
-    HOLY_RES        ("holyRes"),
-    DARK_RES        ("darkRes"),
-    CANCEL_RES      ("cancelRes"), // Resistance for cancel type skills
-	DERANGEMENT_RES ("derangementRes"),
-	DEBUFF_RES		("debuffRes"),    
-    SACRED_RES      ("sacredRes"),
-
-    NONE_WPN_RES    ("noneWpnRes"), // Shields!!!
-    SWORD_WPN_RES   ("swordWpnRes"),
-    BLUNT_WPN_RES   ("bluntWpnRes"),
-    DAGGER_WPN_RES  ("daggerWpnRes"),
-    BOW_WPN_RES     ("bowWpnRes"),
-    POLE_WPN_RES    ("poleWpnRes"),
-    ETC_WPN_RES     ("etcWpnRes"),
-    FIST_WPN_RES    ("fistWpnRes"),
-    DUAL_WPN_RES    ("dualWpnRes"),
-    DUALFIST_WPN_RES("dualFistWpnRes"),
+    //
+    AGGRESSION_VULN  ("aggressionVuln"),
+    BLEED_VULN       ("bleedVuln"),
+    POISON_VULN      ("poisonVuln"),
+    STUN_VULN        ("stunVuln"),
+    PARALYZE_VULN    ("paralyzeVuln"), 
+    ROOT_VULN        ("rootVuln"),
+    SLEEP_VULN       ("sleepVuln"),
+    CONFUSION_VULN   ("confusionVuln"), 
+    MOVEMENT_VULN    ("movementVuln"),
+    FIRE_VULN        ("fireVuln"),
+    WIND_VULN        ("windVuln"),
+    WATER_VULN       ("waterVuln"),
+    EARTH_VULN       ("earthVuln"),
+    HOLY_VULN        ("holyVuln"),
+    DARK_VULN        ("darkVuln"),
+    CANCEL_VULN      ("cancelVuln"), // Resistance for cancel type skills
+    DERANGEMENT_VULN ("derangementVuln"),
+    DEBUFF_VULN      ("debuffVuln"),
+    
+    NONE_WPN_VULN     ("noneWpnVuln"), // Shields!!!
+    SWORD_WPN_VULN    ("swordWpnVuln"),
+    BLUNT_WPN_VULN    ("bluntWpnVuln"),
+    DAGGER_WPN_VULN   ("daggerWpnVuln"),
+    BOW_WPN_VULN      ("bowWpnVuln"),
+    POLE_WPN_VULN     ("poleWpnVuln"),
+    ETC_WPN_VULN      ("etcWpnVuln"),
+    FIST_WPN_VULN     ("fistWpnVuln"),
+    DUAL_WPN_VULN     ("dualWpnVuln"),
+    DUALFIST_WPN_VULN ("dualFistWpnVuln"),
     
     REFLECT_DAMAGE_PERCENT  ("reflectDam"),
     REFLECT_SKILL_MAGIC     ("reflectSkillMagic"),
-    REFLECT_SKILL_PHYSIC    ("reflectSkillPhysic"),    
+    REFLECT_SKILL_PHYSIC    ("reflectSkillPhysic"),
     ABSORB_DAMAGE_PERCENT   ("absorbDam"),
     TRANSFER_DAMAGE_PERCENT ("transDam"),
     ABSORB_CP_PERCENT       ("absorbCpPercent"),
-	
+    
     MAX_LOAD        ("maxLoad"),
-	
+    
     PATK_PLANTS     ("pAtk-plants"),
     PATK_INSECTS    ("pAtk-insects"),
     PATK_ANIMALS    ("pAtk-animals"),
@@ -156,7 +155,7 @@ public enum Stats
     PATK_UNDEAD     ("pAtk-undead"),
     PDEF_UNDEAD     ("pDef-undead"),
     
-	PATK_VALAKAS    ("pAtk-valakas"),
+    PATK_VALAKAS    ("pAtk-valakas"),
     PDEF_VALAKAS    ("pDef-valakas"),
 
     ATK_REUSE       ("atkReuse"),
@@ -177,31 +176,31 @@ public enum Stats
     SOULSHOT_COUNT         ("soulShotCount"),
     
     BLOCK_RECEIVE_DAMAGE   ("block_receive;damage"),
-    BLOCK_RECEIVE_BUFF	   ("block_receive;buff"),
+    BLOCK_RECEIVE_BUFF     ("block_receive;buff"),
     BLOCK_RECEIVE_DEBUFF   ("block_receive;debuff"),
     ;
-	
-	public static final int NUM_STATS = values().length; 
+    
+    public static final int NUM_STATS = values().length; 
 
-	private String _value;
+    private String _value;
    
-	public String getValue()
-	{
-	    return _value;
-	}
-	private Stats(String s)
-	{
-	    _value = s;
-	}
+    public String getValue()
+    {
+        return _value;
+    }
+    private Stats(String s)
+    {
+        _value = s;
+    }
 
-	public static Stats valueOfXml(String name)
-	{
-		name = name.intern();
-		for(Stats s: values())
-		{
-		    if(s.getValue().equals(name))
-		        return s;
-		}
-		throw new NoSuchElementException("Unknown name '"+name+"' for enum BaseStats");
-	}
+    public static Stats valueOfXml(String name)
+    {
+        name = name.intern();
+        for(Stats s: values())
+        {
+            if(s.getValue().equals(name))
+                return s;
+        }
+        throw new NoSuchElementException("Unknown name '"+name+"' for enum BaseStats");
+    }
 }

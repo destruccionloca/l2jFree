@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -187,49 +188,48 @@ public class DM
 
         setUserData();
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                       {
-                                                           public void run()
-                                                           {
-                                                               DM.sit();
-                                                               
-                                                               for (L2PcInstance player : DM._players)
-                                                               {
-                                                                   if (player !=  null)
-                                                                   {
-                                                                	   if (Config.DM_ON_START_UNSUMMON_PET)
-                                                                       {
-                                                                		   //Remove Summon's buffs
-                                                                           if (player.getPet() != null)
-                                                                           {
-                                                                               L2Summon summon = player.getPet();
-                                                                               for (L2Effect e : summon.getAllEffects())
-                                                                                   e.exit();
-                                                                               
-                                                                               if (summon instanceof L2PetInstance)
-                                                                                   summon.unSummon(player);
-                                                                           }
-                                                                       }
+        {
+            public void run()
+            {
+                DM.sit();
 
-                                                                       if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
-                                                                       {
-                                                                           for (L2Effect e : player.getAllEffects())
-                                                                           {
-                                                                               if (e != null)
-                                                                                   e.exit();
-                                                                           }
-                                                                       }
-                                                                       
-//                                                                     Remove player from his party
-                                                                       if (player.getParty() != null)
-                                                                       {
-                                                                           L2Party party = player.getParty();
-                                                                           party.removePartyMember(player);
-                                                                       }
-                                                                       player.teleToLocation(_playerX, _playerY, _playerZ);
-                                                                   }
-                                                               }
-                                                           }
-                                                       }, 20000);
+                for (L2PcInstance player : DM._players)
+                {
+                    if (player !=  null)
+                    {
+                        if (Config.DM_ON_START_UNSUMMON_PET)
+                        {
+                            //Remove Summon's buffs
+                            if (player.getPet() != null)
+                            {
+                                L2Summon summon = player.getPet();
+                                for (L2Effect e : summon.getAllEffects())
+                                    e.exit();
+
+                                if (summon instanceof L2PetInstance)
+                                    summon.unSummon(player);
+                            }
+                        }
+
+                        if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
+                        {
+                            for (L2Effect e : player.getAllEffects())
+                            {
+                                if (e != null) e.exit();
+                            }
+                        }
+
+                        // Remove player from his party
+                        if (player.getParty() != null)
+                        {
+                            L2Party party = player.getParty();
+                            party.removePartyMember(player);
+                        }
+                        player.teleToLocation(_playerX, _playerY, _playerZ);
+                    }
+                }
+            }
+        }, 20000);
         _teleport = true;
     }
     
@@ -297,7 +297,7 @@ public class DM
             Announcements.getInstance().announceToAll(_eventName + "(DM): No players win the match(nobody killed).");
         else
         {
-            Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topPlayer.getName() + "'s win the match! " + _topKills + " kills.");
+            Announcements.getInstance().announceToAll(_eventName + "(DM): " + _topPlayer.getName() + " wins the match! " + _topKills + " kills.");
             rewardPlayer(activeChar);
         }
         
@@ -361,10 +361,13 @@ public class DM
             NpcHtmlMessage nhm = new NpcHtmlMessage(5);
             TextBuilder replyMSG = new TextBuilder("");
 
-            replyMSG.append("<html><head><body>You win the event. Look in your inventar there should be the reward.</body></html>");
+            replyMSG.append("<html><body>You won the event. Look in your inventory for the reward.</body></html>");
 
             nhm.setHtml(replyMSG.toString());
             _topPlayer.sendPacket(nhm);
+
+            // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+            _topPlayer.sendPacket( new ActionFailed() );
         }
     }
     
@@ -567,7 +570,7 @@ public class DM
             statement.setInt(14, _playerY);
             statement.setInt(15, _playerZ);
             statement.execute();
-            statement.close();            
+            statement.close();
         }
         catch (Exception e)
         {
@@ -582,7 +585,7 @@ public class DM
         {
             NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-            TextBuilder replyMSG = new TextBuilder("<html><head><body>");
+            TextBuilder replyMSG = new TextBuilder("<html><body>");
             replyMSG.append("DM Match<br><br><br>");
             replyMSG.append("Current event...<br1>");
             replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");
@@ -625,6 +628,9 @@ public class DM
             replyMSG.append("</body></html>");
             adminReply.setHtml(replyMSG.toString());
             eventPlayer.sendPacket(adminReply);
+
+            // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+            eventPlayer.sendPacket( new ActionFailed() );
         }
         catch (Exception e)
         {
@@ -649,7 +655,7 @@ public class DM
     {
         if (CTF._savePlayers.contains(eventPlayer.getName()) || TvT._savePlayers.contains(eventPlayer.getName())) 
         {
-            eventPlayer.sendMessage("You already participated in another event!"); 
+            eventPlayer.sendMessage("You already participate in another event!"); 
             return false;
         }
 
@@ -660,7 +666,7 @@ public class DM
     {
         if (!_players.contains(player) && _savePlayers.contains(player.getName()))
         {
-        	if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
+            if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
             {
                 for (L2Effect e : player.getAllEffects())
                 {
@@ -668,7 +674,7 @@ public class DM
                         e.exit();
                 }
             }
-        	
+
             _players.add(player);
             
             player._originalNameColorDM = player.getAppearance().getNameColor();
@@ -680,7 +686,7 @@ public class DM
                 player.getAppearance().setNameColor(_playerColors);
                 player.setKarma(0);
                 player.broadcastUserInfo();
-                player.teleToLocation(_playerX, _playerY , _playerZ);            
+                player.teleToLocation(_playerX, _playerY , _playerZ);
             }
         }
     }
@@ -689,7 +695,7 @@ public class DM
     {
         if (player != null)
         {
-            _players.remove(player);                       
+            _players.remove(player);
         }
     }
     
@@ -697,7 +703,7 @@ public class DM
     {
         for (L2PcInstance player : _players)
         {
-            removePlayer(player);            
+            removePlayer(player);
         }
 
         _savePlayers = new Vector<String>();
@@ -728,17 +734,16 @@ public class DM
 
         removeUserData();
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                       {
-                                                            public void run()
-                                                            {                                                                
-                                                                for (L2PcInstance player : _players)
-                                                                {
-                                                                    if (player !=  null)
-                                                                        player.teleToLocation(_npcX, _npcY, _npcZ);
-                                                                } 
-                                                                cleanDM();
-                                                             }
-                                                       }, 20000);
+        {
+            public void run()
+            {
+                for (L2PcInstance player : _players)
+                {
+                    if (player !=  null)
+                        player.teleToLocation(_npcX, _npcY, _npcZ);
+                } 
+                cleanDM();
+            }
+        }, 20000);
     }
-
 }

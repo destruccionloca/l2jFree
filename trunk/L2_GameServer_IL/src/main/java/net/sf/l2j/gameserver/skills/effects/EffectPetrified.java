@@ -40,16 +40,18 @@ final class EffectPetrified extends L2Effect {
         return EffectType.PETRIFIED;
     }
     
-    public void onStart() {
-         getEffected().abortAttack();
-         getEffected().abortCast();
-         getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-         getEffected().setIsParalyzed(true);
+    public void onStart()
+    {
+        getEffected().abortAttack();
+        getEffected().abortCast();
+        getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
+        getEffected().setIsParalyzed(true);
     }
     
-    public void onExit() {
-         getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-         getEffected().setIsParalyzed(false);
+    public void onExit()
+    {
+        getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
+        getEffected().setIsParalyzed(false);
     }
     
     public boolean onActionTime()

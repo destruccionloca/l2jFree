@@ -140,7 +140,7 @@ public class TestL2NpcTemplate extends TestCase
         set.set("armor",69);
         set.set("factionRange",70);
         set.set("absorb_type","LAST_HIT");
-        set.set("jClass","class");            
+        set.set("jClass","class");
         
         L2NpcTemplate template = new L2NpcTemplate(set);
         assertNotNull(template);
@@ -148,9 +148,6 @@ public class TestL2NpcTemplate extends TestCase
         assertEquals(null,template.getFactionId());
         assertEquals(0,template.getAbsorbLevel());
         assertEquals("Devine Clan",template.getNpcFactionName());
-        assertEquals(0,template.getRace());        
-
-    }    
-  
-    
+        assertEquals(0,template.getRace());
+    }
 }

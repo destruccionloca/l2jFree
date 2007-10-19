@@ -94,8 +94,6 @@ public class RequestUnEquipItem extends L2GameClientPacket
             activeChar.checkSSMatch(null, unequiped[i]);			
             activeChar.getInventory().updateInventory(unequiped[i]);
 		}
-
-		activeChar.refreshExpertisePenalty();
 		activeChar.broadcastUserInfo();
 		
 		// this can be 0 if the user pressed the right mousebutton twice very fast

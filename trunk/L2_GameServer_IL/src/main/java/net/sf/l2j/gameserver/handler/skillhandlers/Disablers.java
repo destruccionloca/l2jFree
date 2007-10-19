@@ -614,10 +614,17 @@ public class Disablers implements ISkillHandler
                 {
                     if(target.reflectSkill(skill))
                        target = activeChar;
-                    
+
                     if(skill.getId() == 1056 && target != activeChar) //can't cancel your self
                     {
-                        if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
+                        int lvlmodifier= 52+skill.getMagicLevel()*2;
+                        if(skill.getMagicLevel()==12) lvlmodifier = (Experience.MAX_LEVEL - 1);
+                        int landrate = 90;
+                        if((target.getLevel() - lvlmodifier)>0) landrate = 90-4*(target.getLevel()-lvlmodifier);
+
+                        landrate = (int) activeChar.calcStat(Stats.CANCEL_VULN, landrate, target, null);
+
+                        if(Rnd.get(100) < landrate)
                         {
                             L2Effect[] effects = target.getAllEffects();
                             int maxfive = 5;
@@ -634,12 +641,12 @@ public class Disablers implements ISkillHandler
                                     default:
                                         if(e.getSkill().getSkillType() == SkillType.BUFF)
                                         {
-                                            int skillrate = 100;
+                                            int rate = 100;
                                             int level = e.getLevel();
-                                            if (level > 0) skillrate = Integer.valueOf(200/(1 + level));
-                                            if (skillrate > 95) skillrate = 95;
-                                            else if (skillrate < 5) skillrate = 5;
-                                            if(Rnd.get(100) < skillrate) {
+                                            if (level > 0) rate = Integer.valueOf(150/(1 + level));
+                                            if (rate > 95) rate = 95;
+                                            else if (rate < 5) rate = 5;
+                                            if(Rnd.get(100) < rate) {
                                                 e.exit();
                                                 maxfive--;
                                             }
@@ -775,7 +782,7 @@ public class Disablers implements ISkillHandler
                                 int landrate = 90;
                                 if((target.getLevel() - lvlmodifier)>0) landrate = 90-4*(target.getLevel()-lvlmodifier);
 
-                                landrate *= (100 - activeChar.calcStat(Stats.CANCEL_RES, 0, target, null))/100;
+                                landrate = (int) activeChar.calcStat(Stats.CANCEL_VULN, landrate, target, null);
 
                                 if(Rnd.get(100) < landrate)
                                     negateEffect(target,SkillType.BUFF,-1);

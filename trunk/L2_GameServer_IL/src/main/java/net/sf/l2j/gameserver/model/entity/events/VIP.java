@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -148,8 +149,9 @@ public class VIP {
             try { con.close(); } catch (Exception e) {}
         }
     }
-    
-    public static void endNPC(int npcId, L2PcInstance activeChar){
+
+    public static void endNPC(int npcId, L2PcInstance activeChar)
+    {
         if (_team == 0){
             activeChar.sendMessage("Please select a team first");
             return;
@@ -171,8 +173,9 @@ public class VIP {
             activeChar.sendMessage("VIP Engine[endNPC(" + activeChar.getName() + ")]: exception: " + e.getMessage());
         }
     }
-    
-    public static void joinNPC(int npcId, L2PcInstance activeChar){
+
+    public static void joinNPC(int npcId, L2PcInstance activeChar)
+    {
         if (_joinX == 0){
             activeChar.sendMessage("Please set a join x,y,z first");
             return;
@@ -194,8 +197,9 @@ public class VIP {
             activeChar.sendMessage("VIP Engine[joinNPC(" + activeChar.getName() + ")]: exception: " + e.getMessage());
         }
     }
-    
-    public static void spawnEndNPC(){
+
+    public static void spawnEndNPC()
+    {
         try {
             SpawnTable.getInstance().addNewSpawn(_endSpawn, false);
             
@@ -213,8 +217,9 @@ public class VIP {
             _log.error("VIP Engine[spawnEndNPC()]: exception: " + e.getMessage());
         }
     }
-    
-    public static void spawnJoinNPC(){
+
+    public static void spawnJoinNPC()
+    {
         try {
             SpawnTable.getInstance().addNewSpawn(_joinSpawn, false);
             
@@ -232,8 +237,9 @@ public class VIP {
             _log.error("VIP Engine[spawnJoinNPC()]: exception: " + e.getMessage());
         }
     }
-    
-    public static String getNPCName(int id, L2PcInstance activeChar){
+
+    public static String getNPCName(int id, L2PcInstance activeChar)
+    {
         if (id == 0)
             return "";
         else {
@@ -241,8 +247,9 @@ public class VIP {
             return npctmp.getName();
         }
     }
-    
-    public static String getItemName(int id, L2PcInstance activeChar){
+
+    public static String getItemName(int id, L2PcInstance activeChar)
+    {
         if (id == 0)
             return "";
         else {
@@ -250,14 +257,16 @@ public class VIP {
             return itemtmp.getName();
         }
     }
-    
-    public static void setJoinLOC(String x, String y, String z) {
+
+    public static void setJoinLOC(String x, String y, String z)
+    {
         _joinX = Integer.valueOf(x);
         _joinY = Integer.valueOf(y);
         _joinZ = Integer.valueOf(z);
     }
-    
-    public static void startJoin(L2PcInstance activeChar){
+
+    public static void startJoin(L2PcInstance activeChar)
+    {
         if (_teamName == "" || _joinArea == "" || _time == 0 || _vipReward == 0 || _vipRewardAmount == 0 || _notVipReward == 0 || 
                 _notVipRewardAmount == 0 || _theVipReward == 0 || _theVipRewardAmount == 0 ||
                 _endNPC == 0 || _joinNPC == 0 || _delay == 0 || _endX == 0 || _endY == 0 || _endZ == 0 ||
@@ -266,12 +275,14 @@ public class VIP {
             return;
         }
         
-        if (_joining == true){
+        if (_joining == true)
+        {
             activeChar.sendMessage("Players are already allowed to join the event");
             return;
         }
         
-        if (_started == true){
+        if (_started == true)
+        {
             activeChar.sendMessage("Event already started. Please wait for it to finish or finish it manually");
             return;
         }
@@ -285,8 +296,10 @@ public class VIP {
         
         spawnJoinNPC();
         
-        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
-            public void run() {
+        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+        {
+            public void run()
+            {
                 _joining = false;
                 _started = true;
                 startEvent();
@@ -307,14 +320,18 @@ public class VIP {
                 Announcements.getInstance().announceToAll("VIP event will start in 20 seconds.");
                 spawnEndNPC();
                 
-                ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
-                    public void run() {
+                ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                {
+                    public void run()
+                    {
                         Announcements.getInstance().announceToAll("VIP event has started. " + _teamName + "'s VIP must get to the starter city and talk with " + getNPCName(_endNPC, null) + ". The opposing team must kill the VIP. All players except the VIP will respawn at their current locations.");
                         Announcements.getInstance().announceToAll("VIP event will end if the " + _teamName + " team makes it to their town or when " + _time/1000/60 + " mins have elapsed.");
                         VIP.sit();
                         
-                        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable() {
-                            public void run() {
+                        ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+                        {
+                            public void run()
+                            {
                                 endEventTime();
                             }
                         }, _time);
@@ -325,7 +342,8 @@ public class VIP {
         }, 20000);
     }
     
-    public static void vipDied(){
+    public static void vipDied()
+    {
         if (!_started) {
             _log.info("Could not finish the event. Event not started or event ended prematurly.");
             return;
@@ -338,7 +356,8 @@ public class VIP {
         teleportFinish();
     }
     
-    public static void endEventTime(){
+    public static void endEventTime()
+    {
         if (!_started) {
             _log.info("Could not finish the event. Event not started or event ended prematurly (VIP died)");
             return;
@@ -351,7 +370,8 @@ public class VIP {
         teleportFinish();
     }
     
-    public static void unspawnEventNpcs() {
+    public static void unspawnEventNpcs()
+    {
         if (_endSpawn != null){
             _endSpawn.getLastSpawn().deleteMe();
             _endSpawn.stopRespawn();
@@ -370,33 +390,40 @@ public class VIP {
         try {
             NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
             
-            TextBuilder replyMSG = new TextBuilder("<html><head><body>");
+            TextBuilder replyMSG = new TextBuilder("<html><body>");
             replyMSG.append("VIP (End NPC)<br><br>");
             replyMSG.append("Current event...<br1>");
             replyMSG.append("    ... Team:&nbsp;<font color=\"FFFFFF\">" + _teamName + "</font><br><br>");
             
             if (!_started)
                 replyMSG.append("<center>Please wait until the admin/gm starts the joining period.</center>");
-            else if (eventPlayer._isTheVIP){
+            else if (eventPlayer._isTheVIP)
+            {
                 replyMSG.append("You have made it to the end. All you have to do is hit the finish button to reward yourself and your team. Congrats!<br>");
                 replyMSG.append("<center>");
                 replyMSG.append("<button value=\"Finish\" action=\"bypass -h npc_" + objectId + "_vip_finishVIP\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
                 replyMSG.append("</center>");
             }
-            else {
+            else
+            {
                 replyMSG.append("I am the character the VIP has to reach in order to win the event.<br>");
             }
             
-            replyMSG.append("</head></body></html>");
+            replyMSG.append("</body></html>");
             adminReply.setHtml(replyMSG.toString());
-            eventPlayer.sendPacket(adminReply); 
+            eventPlayer.sendPacket(adminReply);
+
+            // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+            eventPlayer.sendPacket( new ActionFailed() );
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             if (_log.isDebugEnabled())_log.debug("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
-    
-    public static void vipWin(L2PcInstance activeChar){
+
+    public static void vipWin(L2PcInstance activeChar)
+    {
         if (!_started) {
             _log.info("Could not finish the event. Event not started or event ended prematurly");
             return;
@@ -408,12 +435,13 @@ public class VIP {
         rewardVIP();
         teleportFinish();
     }
-    
 
-    
-    public static void rewardNotVIP(){
-        for (L2PcInstance player : _playersNotVIP){
-            if (player != null) {
+    public static void rewardNotVIP()
+    {
+        for (L2PcInstance player : _playersNotVIP)
+        {
+            if (player != null)
+            {
                 PcInventory inv = player.getInventory();
                 
                 if (ItemTable.getInstance().createDummyItem(_notVipReward).isStackable())
@@ -447,17 +475,23 @@ public class VIP {
                 NpcHtmlMessage nhm = new NpcHtmlMessage(5);
                 TextBuilder replyMSG = new TextBuilder("");
                 
-                replyMSG.append("<html><head><body>Your team has won the event. Your inventory now contains your reward.</body></html>");
+                replyMSG.append("<html><body>Your team won the event. Your inventory now contains your reward.</body></html>");
                 
                 nhm.setHtml(replyMSG.toString());
                 player.sendPacket(nhm);
+
+                // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+                player.sendPacket( new ActionFailed() );
             }
         }
     }
-    
-    public static void rewardVIP(){
-        for (L2PcInstance player : _playersVIP){
-            if (player != null && !player._isTheVIP) {
+
+    public static void rewardVIP()
+    {
+        for (L2PcInstance player : _playersVIP)
+        {
+            if (player != null && !player._isTheVIP)
+            {
                 PcInventory inv = player.getInventory();
                 
                 if (ItemTable.getInstance().createDummyItem(_vipReward).isStackable())
@@ -491,49 +525,53 @@ public class VIP {
                 NpcHtmlMessage nhm = new NpcHtmlMessage(5);
                 TextBuilder replyMSG = new TextBuilder("");
                 
-                replyMSG.append("<html><head><body>Your team has won the event. Your inventory now contains your reward.</body></html>");
+                replyMSG.append("<html><body>Your team has won the event. Your inventory now contains your reward.</body></html>");
                 
                 nhm.setHtml(replyMSG.toString());
                 player.sendPacket(nhm);
             }
-            else if (player._isTheVIP){
-                    PcInventory inv = player.getInventory();
-                    
-                    if (ItemTable.getInstance().createDummyItem(_theVipReward).isStackable())
-                        inv.addItem("VIP Event: ", _theVipReward, _theVipRewardAmount, player, null);
-                    else
-                    {
-                        for (int i=0;i<=_theVipRewardAmount-1;i++)
+            else if (player._isTheVIP)
+            {
+                PcInventory inv = player.getInventory();
+                
+                if (ItemTable.getInstance().createDummyItem(_theVipReward).isStackable())
+                    inv.addItem("VIP Event: ", _theVipReward, _theVipRewardAmount, player, null);
+                else
+                {
+                    for (int i=0;i<=_theVipRewardAmount-1;i++)
                             inv.addItem("VIP Event: ", _theVipReward, 1, player, null);
-                    }
-                    
-                    SystemMessage sm;
-                    
-                    if (_theVipRewardAmount > 1)
-                    {
-                        sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-                        sm.addItemName(_theVipReward);
-                        sm.addNumber(_theVipRewardAmount);
-                        player.sendPacket(sm);
-                    }
-                    else
-                    {
-                        sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-                        sm.addItemName(_theVipReward);
-                        player.sendPacket(sm);
-                    }
-                    
-                    StatusUpdate su = new StatusUpdate(player.getObjectId());
-                    su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-                    player.sendPacket(su);
-                    
-                    NpcHtmlMessage nhm = new NpcHtmlMessage(5);
-                    TextBuilder replyMSG = new TextBuilder("");
-                    
-                    replyMSG.append("<html><head><body>You team have won the event. Your inventory now contains your reward.</body></html>");
-                    
-                    nhm.setHtml(replyMSG.toString());
-                    player.sendPacket(nhm);
+                }
+
+                SystemMessage sm;
+
+                if (_theVipRewardAmount > 1)
+                {
+                    sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+                    sm.addItemName(_theVipReward);
+                    sm.addNumber(_theVipRewardAmount);
+                    player.sendPacket(sm);
+                }
+                else
+                {
+                    sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
+                    sm.addItemName(_theVipReward);
+                    player.sendPacket(sm);
+                }
+
+                StatusUpdate su = new StatusUpdate(player.getObjectId());
+                su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
+                player.sendPacket(su);
+
+                NpcHtmlMessage nhm = new NpcHtmlMessage(5);
+                TextBuilder replyMSG = new TextBuilder("");
+
+                replyMSG.append("<html><body>Your team has won the event. Your inventory now contains your reward.</body></html>");
+
+                nhm.setHtml(replyMSG.toString());
+                player.sendPacket(nhm);
+
+                // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+                player.sendPacket( new ActionFailed() );
             }
         }
     }
@@ -543,27 +581,28 @@ public class VIP {
         Announcements.getInstance().announceToAll("Teleporting VIP players back to the Registration area in 20 seconds.");
 
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                       {
-                                                            public void run()
-                                                            {
-                                                                for (L2PcInstance player : _playersVIP)
-                                                                {
-                                                                    if (player !=  null)
-                                                                        player.teleToLocation(_joinX, _joinY, _joinZ);
-                                                                }
-                                                                
-                                                                for (L2PcInstance player : _playersNotVIP)
-                                                                {
-                                                                    if (player !=  null)
-                                                                        player.teleToLocation(_joinX, _joinY, _joinZ);
-                                                                }
-                                                                
-                                                                VIP.clean();
-                                                            }
-                                                       }, 20000);
+        {
+            public void run()
+            {
+                for (L2PcInstance player : _playersVIP)
+                {
+                    if (player !=  null)
+                        player.teleToLocation(_joinX, _joinY, _joinZ);
+                }
+
+                for (L2PcInstance player : _playersNotVIP)
+                {
+                    if (player !=  null)
+                        player.teleToLocation(_joinX, _joinY, _joinZ);
+                }
+
+                VIP.clean();
+            }
+        }, 20000);
     }
     
-    public static void clean() {
+    public static void clean()
+    {
         _time = _winners = _endNPC = _joinNPC = _delay = _endX = _endY = _endZ = _startX = _startY = _startZ = _joinX = _joinY = _joinZ = _team = 0;
         _vipReward = _vipRewardAmount = _notVipReward = _notVipRewardAmount = _theVipReward = _theVipRewardAmount = 0;
         _started = _joining = _sitForced = false;
@@ -594,8 +633,9 @@ public class VIP {
         _playersVIP = new Vector<L2PcInstance>();
         _playersNotVIP = new Vector<L2PcInstance>();
     }
-    
-    public static void chooseVIP(){
+
+    public static void chooseVIP()
+    {
         int size = _playersVIP.size();
         
         if (_log.isDebugEnabled())_log.debug("Size of players on VIP: " + size);
@@ -607,8 +647,9 @@ public class VIP {
         L2PcInstance VIP = _playersVIP.get(random);
         VIP._isTheVIP = true;
     }
-    
-    public static void teleportPlayers(){
+
+    public static void teleportPlayers()
+    {
         VIP.sit();
         
         for (L2PcInstance player : _playersVIP){
@@ -671,8 +712,10 @@ public class VIP {
         }
     }
     
-    public static void setUserData() {
-        for (L2PcInstance player : _playersVIP) {
+    public static void setUserData()
+    {
+        for (L2PcInstance player : _playersVIP)
+        {
             if (player._isTheVIP)
                 player.getAppearance().setNameColor(255,255,0);
             else
@@ -681,18 +724,20 @@ public class VIP {
             player.setKarma(0);
             player.broadcastUserInfo();
         }
-        for (L2PcInstance player : _playersNotVIP) {
+        for (L2PcInstance player : _playersNotVIP)
+        {
             player.getAppearance().setNameColor(0,255,0);
             player.setKarma(0);
             player.broadcastUserInfo();
         }
     }
     
-    public static void showJoinHTML(L2PcInstance eventPlayer, String objectId){
+    public static void showJoinHTML(L2PcInstance eventPlayer, String objectId)
+    {
         try {
             NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
             
-            TextBuilder replyMSG = new TextBuilder("<html><head><body>");
+            TextBuilder replyMSG = new TextBuilder("<html><body>");
             replyMSG.append("VIP (Join NPC)<br><br>");
             replyMSG.append("Current event...<br1>");
             replyMSG.append("    ... Team:&nbsp;<font color=\"FFFFFF\">" + _teamName + "</font><br><br>");
@@ -754,24 +799,30 @@ public class VIP {
             else if (_started) // Event already Started
                 replyMSG.append("<center>The event is already taking place. Please sign up for the next event.</center>");
             
-            replyMSG.append("</head></body></html>");
+            replyMSG.append("</body></html>");
             adminReply.setHtml(replyMSG.toString());
-            eventPlayer.sendPacket(adminReply);     
+            eventPlayer.sendPacket(adminReply);
+
+            // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+            eventPlayer.sendPacket( new ActionFailed() );
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             if (_log.isDebugEnabled())_log.debug("VIP(showJoinHTML(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
         }
     }
 
-    public static void addPlayerVIP(L2PcInstance activeChar){
+    public static void addPlayerVIP(L2PcInstance activeChar)
+    {
         activeChar._isVIP = true;
         _playersVIP.add(activeChar);
         activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
         activeChar._originalKarmaVIP = activeChar.getKarma();
         activeChar._inEventVIP = true;
     }
-    
-    public static void addPlayerNotVIP(L2PcInstance activeChar){
+
+    public static void addPlayerNotVIP(L2PcInstance activeChar)
+    {
         activeChar._isNotVIP = true;
         _playersNotVIP.add(activeChar);
         activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();

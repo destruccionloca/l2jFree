@@ -4705,6 +4705,12 @@ public enum SystemMessageId
      */
     S1_ADENA_HAS_BEEN_WITHDRAWN_TO_PAY_FOR_PURCHASING_FEES(1607),
 
+    /**
+     * ID: 781<br>
+     * Message: Observers cannot participate.
+     */
+    OBSERVERS_CANNOT_PARTICIPATE(781),
+
     // ======================= //
     // L2J-Free System Messages //
     // ======================= //

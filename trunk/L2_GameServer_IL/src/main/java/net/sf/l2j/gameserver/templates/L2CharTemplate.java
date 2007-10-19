@@ -74,21 +74,22 @@ public class L2CharTemplate
 	private  int baseWater;
 	private  int baseEarth;
 	private  int baseHoly;
-	private  int baseDark;	
-	private  int baseAggressionRes;
-	private  int baseBleedRes;
-	private  int basePoisonRes;
-	private  int baseStunRes;
-	private  int baseRootRes;
-	private  int baseMovementRes;
-	private  int baseConfusionRes;
-	private  int baseSleepRes;
-	private  int baseFireRes;
-	private  int baseWindRes;
-	private  int baseWaterRes;
-	private  int baseEarthRes;
-	private  int baseHolyRes;
-	private  int baseDarkRes;
+	private  int baseDark;
+
+	public double baseAggressionVuln;
+	public double baseBleedVuln;
+	public double basePoisonVuln;
+	public double baseStunVuln;
+	public double baseRootVuln;
+	public double baseMovementVuln;
+	public double baseConfusionVuln;
+	public double baseSleepVuln;
+	public double baseFireVuln;
+	public double baseWindVuln;
+	public double baseWaterVuln;
+	public double baseEarthVuln;
+	public double baseHolyVuln;
+	public double baseDarkVuln;
 
 	private  boolean isUndead;
 	
@@ -152,22 +153,22 @@ public class L2CharTemplate
 		baseEarth          = set.getInteger("baseEarth",          0);
 		baseHoly           = set.getInteger("baseHoly",           0);
 		baseDark           = set.getInteger("baseDark",           0);
-		baseAggressionRes  = set.getInteger("baseAaggressionRes", 1); // setting baseRes stat to 1 for mul type effects in DP
-		baseBleedRes       = set.getInteger("baseBleedRes",       1);
-		basePoisonRes      = set.getInteger("basePoisonRes",      1);
-		baseStunRes        = set.getInteger("baseStunRes",        1);
-		baseRootRes        = set.getInteger("baseRootRes",        1);
-		baseMovementRes    = set.getInteger("baseMovementRes",    1);
-		baseConfusionRes   = set.getInteger("baseConfusionRes",   1);
-		baseSleepRes       = set.getInteger("baseSleepRes",       1);
-		baseFireRes        = set.getInteger("baseFireRes",        1);
-		baseWindRes        = set.getInteger("baseWindRes",        1);
-		baseWaterRes       = set.getInteger("baseWaterRes",       1);
-		baseEarthRes       = set.getInteger("baseEarthRes",       1);
-		baseHolyRes        = set.getInteger("baseHolyRes",        1);
-		baseDarkRes        = set.getInteger("baseDarkRes",        1);
+		baseAggressionVuln  = set.getInteger("baseAggressionVuln",1);
+		baseBleedVuln       = set.getInteger("baseBleedVuln",     1);
+		basePoisonVuln      = set.getInteger("basePoisonVuln",    1);
+		baseStunVuln        = set.getInteger("baseStunVuln",      1);
+		baseRootVuln        = set.getInteger("baseRootVuln",      1);
+		baseMovementVuln    = set.getInteger("baseMovementVuln",  1);
+		baseConfusionVuln   = set.getInteger("baseConfusionVuln", 1);
+		baseSleepVuln       = set.getInteger("baseSleepVuln",     1);
+		baseFireVuln        = set.getInteger("baseFireVuln",      1);
+		baseWindVuln        = set.getInteger("baseWindVuln",      1);
+		baseWaterVuln       = set.getInteger("baseWaterVuln",     1);
+		baseEarthVuln       = set.getInteger("baseEarthVuln",     1);
+		baseHolyVuln        = set.getInteger("baseHolyVuln",      1);
+		baseDarkVuln        = set.getInteger("baseDarkVuln",      1);
 		
-		isUndead			= (set.getInteger("isUndead", 0) == 1);
+		isUndead           = (set.getInteger("isUndead", 0) == 1);
         
         //C4 Stats
         baseMpConsumeRate      = set.getInteger("baseMpConsumeRate",        0);
@@ -197,17 +198,17 @@ public class L2CharTemplate
     /**
      * @return the baseAggressionRes
      */
-    public int getBaseAggressionRes()
+    public double getBaseAggressionVuln()
     {
-        return baseAggressionRes == 0 ? 1 : baseAggressionRes;
+        return baseAggressionVuln;
     }
 
     /**
      * @param baseAggressionRes the baseAggressionRes to set
      */
-    public void setBaseAggressionRes(int _baseAggressionRes)
+    public void setBaseAggressionRes(double _baseAggressionVuln)
     {
-        baseAggressionRes = _baseAggressionRes;
+        baseAggressionVuln = _baseAggressionVuln;
     }
 
     /**
@@ -245,17 +246,17 @@ public class L2CharTemplate
     /**
      * @return the baseBleedRes
      */
-    public int getBaseBleedRes()
+    public double getBaseBleedVuln()
     {
-        return baseBleedRes == 0 ? 1 : baseBleedRes;
+        return baseBleedVuln;
     }
 
     /**
      * @param baseBleedRes the baseBleedRes to set
      */
-    public void setBaseBleedRes(int _baseBleedRes)
+    public void setBaseBleedVuln(double _baseBleedVuln)
     {
-        baseBleedRes = _baseBleedRes;
+        baseBleedVuln = _baseBleedVuln;
     }
 
     /**
@@ -309,17 +310,17 @@ public class L2CharTemplate
     /**
      * @return the baseConfusionRes
      */
-    public int getBaseConfusionRes()
+    public double getBaseConfusionVuln()
     {
-        return baseConfusionRes == 0 ? 1 : baseConfusionRes;
+        return baseConfusionVuln;
     }
 
     /**
      * @param baseConfusionRes the baseConfusionRes to set
      */
-    public void setBaseConfusionRes(int _baseConfusionRes)
+    public void setBaseConfusionVuln(double _baseConfusionVuln)
     {
-        baseConfusionRes = _baseConfusionRes;
+        baseConfusionVuln = _baseConfusionVuln;
     }
 
     /**
@@ -373,17 +374,17 @@ public class L2CharTemplate
     /**
      * @return the baseDarkRes
      */
-    public int getBaseDarkRes()
+    public double getBaseDarkVuln()
     {
-        return baseDarkRes == 0 ? 1 : baseDarkRes;
+        return baseDarkVuln;
     }
 
     /**
      * @param baseDarkRes the baseDarkRes to set
      */
-    public void setBaseDarkRes(int _baseDarkRes)
+    public void setBaseDarkVuln(double _baseDarkVuln)
     {
-        baseDarkRes = _baseDarkRes;
+        baseDarkVuln = _baseDarkVuln;
     }
 
     /**
@@ -421,17 +422,17 @@ public class L2CharTemplate
     /**
      * @return the baseEarthRes
      */
-    public int getBaseEarthRes()
+    public double getBaseEarthVuln()
     {
-        return baseEarthRes == 0 ? 1 : baseEarthRes;
+        return baseEarthVuln;
     }
 
     /**
      * @param baseEarthRes the baseEarthRes to set
      */
-    public void setBaseEarthRes(int _baseEarthRes)
+    public void setBaseEarthVuln(double _baseEarthVuln)
     {
-        baseEarthRes = _baseEarthRes;
+        baseEarthVuln = _baseEarthVuln;
     }
 
     /**
@@ -453,17 +454,17 @@ public class L2CharTemplate
     /**
      * @return the baseFireRes
      */
-    public int getBaseFireRes()
+    public double getBaseFireVuln()
     {
-        return baseFireRes == 0 ? 1 : baseFireRes;
+        return baseFireVuln;
     }
 
     /**
      * @param baseFireRes the baseFireRes to set
      */
-    public void setBaseFireRes(int _baseFireRes)
+    public void setBaseFireVuln(double _baseFireVuln)
     {
-        baseFireRes = _baseFireRes;
+        baseFireVuln = _baseFireVuln;
     }
 
     /**
@@ -485,17 +486,17 @@ public class L2CharTemplate
     /**
      * @return the baseHolyRes
      */
-    public int getBaseHolyRes()
+    public double getBaseHolyVuln()
     {
-        return baseHolyRes == 0 ? 1 : baseHolyRes;
+        return baseHolyVuln;
     }
 
     /**
      * @param baseHolyRes the baseHolyRes to set
      */
-    public void setBaseHolyRes(int _baseHolyRes)
+    public void setBaseHolyVuln(double _baseHolyVuln)
     {
-        baseHolyRes = _baseHolyRes;
+        baseHolyVuln = _baseHolyVuln;
     }
 
     /**
@@ -645,17 +646,17 @@ public class L2CharTemplate
     /**
      * @return the baseMovementRes
      */
-    public int getBaseMovementRes()
+    public double getBaseMovementVuln()
     {
-        return baseMovementRes == 0 ? 1 : baseMovementRes;
+        return baseMovementVuln;
     }
 
     /**
      * @param baseMovementRes the baseMovementRes to set
      */
-    public void setBaseMovementRes(int _baseMovementRes)
+    public void setBaseMovementVuln(double _baseMovementVuln)
     {
-        baseMovementRes = _baseMovementRes;
+        baseMovementVuln = _baseMovementVuln;
     }
 
     /**
@@ -789,17 +790,17 @@ public class L2CharTemplate
     /**
      * @return the basePoisonRes
      */
-    public int getBasePoisonRes()
+    public double getBasePoisonVuln()
     {
-        return basePoisonRes == 0 ? 1 : basePoisonRes;
+        return basePoisonVuln;
     }
 
     /**
      * @param basePoisonRes the basePoisonRes to set
      */
-    public void setBasePoisonRes(int _basePoisonRes)
+    public void setBasePoisonVuln(double _basePoisonVuln)
     {
-        basePoisonRes = _basePoisonRes;
+        basePoisonVuln = _basePoisonVuln;
     }
 
     /**
@@ -821,17 +822,17 @@ public class L2CharTemplate
     /**
      * @return the baseRootRes
      */
-    public int getBaseRootRes()
+    public double getBaseRootVuln()
     {
-        return baseRootRes == 0 ? 1 : baseRootRes;
+        return baseRootVuln;
     }
 
     /**
      * @param baseRootRes the baseRootRes to set
      */
-    public void setBaseRootRes(int _baseRootRes)
+    public void setBaseRootVuln(double _baseRootVuln)
     {
-        baseRootRes = _baseRootRes;
+        baseRootVuln = _baseRootVuln;
     }
 
     /**
@@ -901,17 +902,17 @@ public class L2CharTemplate
     /**
      * @return the baseSleepRes
      */
-    public int getBaseSleepRes()
+    public double getBaseSleepVuln()
     {
-        return baseSleepRes == 0 ? 1 : baseSleepRes;
+        return baseSleepVuln;
     }
 
     /**
      * @param baseSleepRes the baseSleepRes to set
      */
-    public void setBaseSleepRes(int _baseSleepRes)
+    public void setBaseSleepVuln(double _baseSleepVuln)
     {
-        baseSleepRes = _baseSleepRes;
+        baseSleepVuln = _baseSleepVuln;
     }
 
     /**
@@ -949,17 +950,17 @@ public class L2CharTemplate
     /**
      * @return the baseStunRes
      */
-    public int getBaseStunRes()
+    public double getBaseStunVuln()
     {
-        return baseStunRes == 0 ? 1 : baseStunRes;
+        return baseStunVuln;
     }
 
     /**
      * @param baseStunRes the baseStunRes to set
      */
-    public void setBaseStunRes(int _baseStunRes)
+    public void setBaseStunVuln(double _baseStunVuln)
     {
-        baseStunRes = _baseStunRes;
+        baseStunVuln = _baseStunVuln;
     }
 
     /**
@@ -981,17 +982,17 @@ public class L2CharTemplate
     /**
      * @return the baseWaterRes
      */
-    public int getBaseWaterRes()
+    public double getBaseWaterVuln()
     {
-        return baseWaterRes == 0 ? 1 : baseWaterRes;
+        return baseWaterVuln;
     }
 
     /**
      * @param baseWaterRes the baseWaterRes to set
      */
-    public void setBaseWaterRes(int _baseWaterRes)
+    public void setBaseWaterVuln(double _baseWaterVuln)
     {
-        baseWaterRes = _baseWaterRes;
+        baseWaterVuln = _baseWaterVuln;
     }
 
     /**
@@ -1013,17 +1014,17 @@ public class L2CharTemplate
     /**
      * @return the baseWindRes
      */
-    public int getBaseWindRes()
+    public double getBaseWindVuln()
     {
-        return baseWindRes == 0 ? 1 : baseWindRes;
+        return baseWindVuln;
     }
 
     /**
      * @param baseWindRes the baseWindRes to set
      */
-    public void setBaseWindRes(int _baseWindRes)
+    public void setBaseWindVuln(double _baseWindVuln)
     {
-        baseWindRes = _baseWindRes;
+        baseWindVuln = _baseWindVuln;
     }
 
     /**

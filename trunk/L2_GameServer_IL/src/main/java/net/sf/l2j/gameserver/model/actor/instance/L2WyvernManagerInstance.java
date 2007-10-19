@@ -41,7 +41,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
     {
         if (command.startsWith("RideWyvern"))
         {
-        	
+            
             int petItemId=0;
             L2ItemInstance petItem = null;
             
@@ -49,36 +49,34 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             {
                 if(player.isMounted())
                 {
-            		petItem = (L2ItemInstance)L2World.getInstance().findObject(player.getMountObjectID());
-            		
-            		if (petItem!=null) petItemId=petItem.getItemId();
-            	}
-            } else 
-            	petItemId = player.getPet().getControlItemId(); 
+                    petItem = (L2ItemInstance)L2World.getInstance().findObject(player.getMountObjectID());
+                    
+                    if (petItem!=null) petItemId=petItem.getItemId();
+                }
+            }
+            else 
+                petItemId = player.getPet().getControlItemId(); 
 
-        	if  ( petItemId==0 || 
-        		 !player.isMounted() || 
-        		 !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
+            if  ( petItemId==0 || !player.isMounted() || 
+                 !PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)))
             {
                 SystemMessage sm = new SystemMessage(SystemMessageId.YOU_MAY_ONLY_RIDE_WYVERN_WHILE_RIDING_STRIDER);
                 player.sendPacket(sm);
                 sm = null;
                 return;
-            } else
-            	if  ( player.isMounted() && 
-               		  PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
-               		  petItem != null && 
-               		  petItem.getEnchantLevel() < 55 )
-            	{
-					player.sendMessage("Your Strider don't reach the required level.");
-                    return; 
-            	}
-        	
+            }
+            else if ( player.isMounted() &&  PetDataTable.isStrider(PetDataTable.getPetIdByItemId(petItemId)) &&
+                         petItem != null && petItem.getEnchantLevel() < 55 )
+            {
+                player.sendMessage("Your Strider has not reached the required level.");
+                return; 
+            }
+            
             // Wyvern requires 10B crystal for ride...
             if(player.getInventory().getItemByItemId(1460) != null &&
                     player.getInventory().getItemByItemId(1460).getCount() >= 10)
             {
-            	if(!player.disarmWeapons()) return;
+                if(!player.disarmWeapons()) return;
                 player.getInventory().destroyItemByItemId("WyvernManager", 1460, 10, player, this);
                 
                 if (player.isMounted())
@@ -102,6 +100,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             }
         }
     }
+
     @Override
     public void onAction(L2PcInstance player)
     {

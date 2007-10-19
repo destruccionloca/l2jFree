@@ -262,25 +262,27 @@ public class Say2 extends L2GameClientPacket
                 }
              break;
         case ALL:
-            if (_text.startsWith(".")) 
+            if (_text.startsWith(".") && !_text.startsWith(".."))
             {
                 StringTokenizer st = new StringTokenizer(_text);
 
-               if (st.countTokens()>=1)
-               {
-                   String command = st.nextToken().substring(1);
-                   String params = "";
-                   if (st.countTokens()==0){ 
-                       if (activeChar.getTarget()!=null) params=activeChar.getTarget().getName();
-                   } else params=st.nextToken().trim();
-                                   
-                   IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
-                                     
+                if (st.countTokens()>=1)
+                {
+                    String command = st.nextToken().substring(1);
+                    String params = "";
+                    if (st.countTokens()==0)
+                    {
+                        if (activeChar.getTarget()!=null) params=activeChar.getTarget().getName();
+                    }
+                    else params=st.nextToken().trim();
+
+                    IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
+
                     if (vch != null) 
                         vch.useVoicedCommand(command, activeChar, params);
                     else
                         _log.warn("No handler registered for voice command '"+command+"'");
-                }                
+                }
             }
             else
             {
@@ -290,7 +292,7 @@ public class Say2 extends L2GameClientPacket
                         player.sendPacket(cs);
                 }
                 activeChar.sendPacket(cs);
-            }   
+            }
             break;
         case CLAN:
             if (activeChar.getClan() != null)
@@ -308,7 +310,7 @@ public class Say2 extends L2GameClientPacket
         case PETITION_GM:
             if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar))
             {
-					activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
                 break;
             }
             
@@ -321,14 +323,19 @@ public class Say2 extends L2GameClientPacket
         case HERO_VOICE:
             if (activeChar.isHero())
             {
+                if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_HEROVOICE))
+                {
+                    activeChar.sendMessage("Action failed. Heroes are only able to speak in the global channel once every 10 seconds.");
+                    return;
+                }
                 for (L2PcInstance player : L2World.getInstance().getAllPlayers())
                     if (!BlockList.isBlocked(player, activeChar))
                         player.sendPacket(cs);
                 
-        		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero"))
-	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("12%"+ activeChar.getName() +": " + _text);
-	        	}
+                if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero"))
+                {
+                    IrcManager.getInstance().getConnection().sendChan("12%"+ activeChar.getName() +": " + _text);
+                }
             }
             break;
         }           

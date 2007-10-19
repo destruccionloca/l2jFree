@@ -117,7 +117,8 @@ public abstract class L2Skill
         TARGET_UNLOCKABLE,
         TARGET_HOLY,
         TARGET_PARTY_MEMBER,
-        TARGET_ENEMY_SUMMON,        
+        TARGET_PARTY_OTHER,
+        TARGET_ENEMY_SUMMON,
         TARGET_OWNER_PET,
         TARGET_ENEMY_ALLY,
         TARGET_ENEMY_PET,
@@ -457,6 +458,7 @@ public abstract class L2Skill
     private final FastList<Integer> _teachers; // which NPC teaches
     private final boolean _isOffensive;
     private final int _numCharges;
+    private final int _forceId;
 
     private final int _baseCritRate;  // percent of success for skill critical hit (especially for PDAM & BLOW - they're not affected by rCrit values or buffs). Default loads -1 for all other skills but 0 to PDAM & BLOW
     private final int _lethalEffect1;     // percent of success for lethal 1st effect (hit cp to 1 or if mob hp to 50%) (only for PDAM skills)
@@ -545,23 +547,24 @@ public abstract class L2Skill
         _levelModifier= set.getInteger("levelModifier", 1);
         _magicLevel   = set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(_id, _level));
         
-        _ignoreShld       = set.getBool  ("ignoreShld", false);
-        _critical       = set.getBool  ("critcal", false);
+        _ignoreShld      = set.getBool("ignoreShld", false);
+        _critical        = set.getBool("critcal", false);
         _condition       = set.getInteger("condition", 0);
         _conditionValue  = set.getInteger("conditionValue", 0);
-        _overhit         = set.getBool  ("overHit", false);
+        _overhit         = set.getBool("overHit", false);
         _isSuicideAttack = set.getBool("isSuicideAttack", false);
         _weaponsAllowed  = set.getInteger("weaponsAllowed", 0);
         _armorsAllowed   = set.getInteger("armorsAllowed", 0);
 
         _addCrossLearn       = set.getInteger("addCrossLearn", 1000);
-        _mulCrossLearn       = set.getFloat ("mulCrossLearn", 2.f);
-        _mulCrossLearnRace   = set.getFloat ("mulCrossLearnRace", 2.f);
-        _mulCrossLearnProf   = set.getFloat ("mulCrossLearnProf", 3.f);
-        _isOffensive         = set.getBool  ("offensive",isSkillTypeOffensive());
-        _numCharges = set.getInteger("num_charges", getLevel());
+        _mulCrossLearn       = set.getFloat("mulCrossLearn", 2.f);
+        _mulCrossLearnRace   = set.getFloat("mulCrossLearnRace", 2.f);
+        _mulCrossLearnProf   = set.getFloat("mulCrossLearnProf", 3.f);
+        _isOffensive         = set.getBool("offensive",isSkillTypeOffensive());
+        _numCharges          = set.getInteger("num_charges", getLevel());
         _successRate         = set.getFloat("rate", 1);
-        _minPledgeClass     = set.getInteger("minPledgeClass", 0);
+        _minPledgeClass      = set.getInteger("minPledgeClass", 0);
+        _forceId             = set.getInteger("forceId", 0);
 
         _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM  || _skillType == SkillType.BLOW) ? 0 : -1);
         _lethalEffect1 = set.getInteger("lethal1",0);
@@ -741,25 +744,27 @@ public abstract class L2Skill
             return _power * 2.3;
         else if (activeChar.getStatus().getCurrentHp() >= 100)
             return _power * 2.5;
-		else
-			return _power * 2.8;
+        else
+            return _power * 2.8;
         }
         return _power;
     }
-    
+
     public final double getPower()
     {
         return _power;
     }
+
     public final int getEffectPoints()
     {
         return _effectPoints;
-    }    
+    }
+
     public final String[] getNegateStats()
     {
         return _negateStats;
     }
-    
+
     public final float getNegatePower()
     {
         return _negatePower;
@@ -767,12 +772,17 @@ public abstract class L2Skill
 
     public final int getNegateId()
     {
-       return _negateId;
+        return _negateId;
     }
 
     public final int getMagicLvl()
     {
         return _magicLevel;
+    }
+
+    public int getForceId()
+    {
+        return _forceId;
     }
 
     public final int getLevelDepend()
@@ -994,7 +1004,7 @@ public abstract class L2Skill
      */
     public final int getMpInitialConsume()
     {
-    	return _mpInitialConsume;
+        return _mpInitialConsume;
     }
 
     /**
@@ -1050,7 +1060,7 @@ public abstract class L2Skill
     
     public final int getNextDanceMpCost()
     {
-       return _nextDanceCost;
+        return _nextDanceCost;
     }
 
     public final boolean isAdvanced()
@@ -1386,28 +1396,21 @@ public abstract class L2Skill
             // automaticly selects caster if no target is selected (only positive skills)  
             if (isPositive() && target == null)  
                     target = activeChar;
+
+            boolean canTargetSelf = false;
+            switch(skillType)
+            {
+                case BUFF: case HEAL: case HOT: case HEAL_PERCENT:
+                case MANARECHARGE: case MANAHEAL: case NEGATE:
+                case CANCEL: case REFLECT: case UNBLEED: case UNPOISON:
+                case SEED: case COMBATPOINTHEAL: case MAGE_BANE: case WARRIOR_BANE:
+                case BETRAY: case BALANCE_LIFE: case FORCE_BUFF:
+                    canTargetSelf = true;
+                    break;
+            }
+
             // Check for null target or any other invalid target
-            if(target == null || target.isDead() || 
-            (target == activeChar && !(
-                    skillType == SkillType.BUFF
-                    || skillType == SkillType.HEAL
-                    || skillType == SkillType.HEAL_PERCENT
-                    || skillType == SkillType.HOT
-                    || skillType == SkillType.MANAHEAL
-                    || skillType == SkillType.MANARECHARGE
-                    || skillType == SkillType.NEGATE
-                    || skillType == SkillType.CANCEL
-                    || skillType == SkillType.REFLECT
-                    || skillType == SkillType.UNBLEED
-                    || skillType == SkillType.UNPOISON
-                    || skillType == SkillType.SEED
-                    || skillType == SkillType.COMBATPOINTHEAL                    
-                    || skillType == SkillType.MAGE_BANE 
-                    || skillType == SkillType.WARRIOR_BANE
-                    || skillType == SkillType.BETRAY
-                    || skillType == SkillType.BALANCE_LIFE
-                    || skillType == SkillType.FORCE_BUFF
-                    )))
+            if (target == null || target.isDead() || (target == activeChar && !canTargetSelf))
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
                 return null;
@@ -1826,6 +1829,26 @@ public abstract class L2Skill
                     return null;
             }
             else 
+            {
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+                return null;
+            }
+        }
+        case TARGET_PARTY_OTHER:
+        {
+            if (target != null && target != activeChar
+                && activeChar.getParty() != null && target.getParty() != null
+                && activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID())
+            {
+                if (!target.isDead())
+                {
+                    // If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
+                    return new L2Character[]{target};
+                }
+                else
+                    return null;
+            }
+            else
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
                 return null;

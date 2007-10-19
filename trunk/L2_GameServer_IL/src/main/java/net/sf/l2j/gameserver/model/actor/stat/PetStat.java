@@ -171,27 +171,6 @@ public class PetStat extends SummonStat
     public int getMDef(L2Character target, L2Skill skill)
     {
         double defence = getActiveChar().getPetData().getPetMDef();
-        Stats stat = skill == null? null : skill.getStat();
-        if (stat != null)
-        {
-            switch (stat)
-            {
-            case AGGRESSION: defence += getActiveChar().getTemplate().getBaseAggressionRes(); break;
-            case BLEED:      defence += getActiveChar().getTemplate().getBaseBleedRes();      break;
-            case POISON:     defence += getActiveChar().getTemplate().getBasePoisonRes();     break;
-            case STUN:       defence += getActiveChar().getTemplate().getBaseStunRes();       break;
-            case ROOT:       defence += getActiveChar().getTemplate().getBaseRootRes();       break;
-            case MOVEMENT:   defence += getActiveChar().getTemplate().getBaseMovementRes();   break;
-            case CONFUSION:  defence += getActiveChar().getTemplate().getBaseConfusionRes();  break;
-            case SLEEP:      defence += getActiveChar().getTemplate().getBaseSleepRes();      break;
-            case FIRE:       defence += getActiveChar().getTemplate().getBaseFireRes();       break;
-            case WIND:       defence += getActiveChar().getTemplate().getBaseWindRes();       break;
-            case WATER:      defence += getActiveChar().getTemplate().getBaseWaterRes();      break;
-            case EARTH:      defence += getActiveChar().getTemplate().getBaseEarthRes();      break;
-            case HOLY:       defence += getActiveChar().getTemplate().getBaseHolyRes();       break;
-            case DARK:       defence += getActiveChar().getTemplate().getBaseDarkRes();       break;
-            }
-        }
         return (int)calcStat(Stats.MAGIC_DEFENCE, defence, target, skill);
     }
     

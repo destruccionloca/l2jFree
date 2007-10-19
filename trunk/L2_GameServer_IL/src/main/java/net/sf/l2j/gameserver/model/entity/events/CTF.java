@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -92,7 +93,7 @@ public class CTF
                       _rewardAmount = 0,
                       _topScore = 0,
                       _minlvl = 0,
-                      _maxlvl = 0;                      
+                      _maxlvl = 0;
 
     public static void setNpcPos(L2PcInstance activeChar)
     {
@@ -290,62 +291,58 @@ public class CTF
         
         setUserData();
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                       {
-                                                           public void run()
-                                                           {
-                                                               CTF.sit();
-                                                               
-                                                               for (L2PcInstance player : CTF._players)
-                                                               {
-                                                                   if (player != null)
-                                                                   {
-                                                                       if (Config.CTF_ON_START_UNSUMMON_PET)
-                                                                       {
-                                                                    	   //Remove Summon's buffs
-                                                                           if (player.getPet() != null)
-                                                                           {
-                                                                               L2Summon summon = player.getPet();
-                                                                               for (L2Effect e : summon.getAllEffects())
-                                                                                   e.exit();
-                                                                               
-                                                                               if (summon instanceof L2PetInstance)
-                                                                                   summon.unSummon(player);
-                                                                           }
-                                                                       }
+        {
+            public void run()
+            {
+                CTF.sit();
 
-                                                                       if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
-                                                                       {
-                                                                           for (L2Effect e : player.getAllEffects())
-                                                                           {
-                                                                               if (e != null)
-                                                                                   e.exit();
-                                                                           }
-                                                                       }
-                                                                       
-                                                                       //Remove player from his party
-                                                                       if (player.getParty() != null)
-                                                                       {
-                                                                           L2Party party = player.getParty();
-                                                                           party.removePartyMember(player);
-                                                                       }
-                                                                       
-                                                                       player.teleToLocation(_flagsX.get(_teams.indexOf(player._teamNameCTF)), _flagsY.get(_teams.indexOf(player._teamNameCTF)), _flagsZ.get(_teams.indexOf(player._teamNameCTF)),false);
-                                                                   }
-                                                               }
-                                                           }
-                                                       }, 20000);
-        
+                for (L2PcInstance player : CTF._players)
+                {
+                    if (player != null)
+                    {
+                        if (Config.CTF_ON_START_UNSUMMON_PET)
+                        {
+                            //Remove Summon's buffs
+                            if (player.getPet() != null)
+                            {
+                                L2Summon summon = player.getPet();
+                                for (L2Effect e : summon.getAllEffects())
+                                    e.exit();
+
+                                if (summon instanceof L2PetInstance)
+                                    summon.unSummon(player);
+                            }
+                        }
+
+                        if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
+                        {
+                            for (L2Effect e : player.getAllEffects())
+                            {
+                                if (e != null) e.exit();
+                            }
+                        }
+
+                        //Remove player from his party
+                        if (player.getParty() != null)
+                        {
+                            L2Party party = player.getParty();
+                            party.removePartyMember(player);
+                        }
+
+                        player.teleToLocation(_flagsX.get(_teams.indexOf(player._teamNameCTF)), _flagsY.get(_teams.indexOf(player._teamNameCTF)), _flagsZ.get(_teams.indexOf(player._teamNameCTF)),false);
+                    }
+                }
+            }
+        }, 20000);
+
         _teleport = true;
     }
-    
+
     private static boolean startTeleportOk()
     {
-        if (!_joining || _started || _teleport)
-            return false;
-
-        return true;
+        return _joining && !_started && !_teleport;
     }
-    
+
     public static void shuffleTeams()
     {
         int teamCount = 0,
@@ -438,7 +435,7 @@ public class CTF
             }
             
             _playersShuffle = playersShuffleTemp; 
-            playersShuffleTemp.clear();            
+            playersShuffleTemp.clear();
           
           }
         
@@ -457,10 +454,10 @@ public class CTF
         processTopTeam();
 
         if (_topScore == 0)
-            Announcements.getInstance().announceToAll(_eventName + "(CTF): No team win the match(no one scores).");
+            Announcements.getInstance().announceToAll(_eventName + "(CTF): No team wins the match (no team scored).");
         else
         {
-            Announcements.getInstance().announceToAll(_eventName + "(CTF): " + _topTeam + " win the match! " + _topScore + " score.");
+            Announcements.getInstance().announceToAll(_eventName + "(CTF): " + _topTeam + " wins the match! Score: " + _topScore);
             rewardTeam(activeChar, _topTeam);
         }
         
@@ -528,10 +525,13 @@ public class CTF
                     NpcHtmlMessage nhm = new NpcHtmlMessage(5);
                     TextBuilder replyMSG = new TextBuilder("");
 
-                    replyMSG.append("<html><head><body>Your team win the event. Look in your inventar there should be the reward.</body></html>");
+                    replyMSG.append("<html><body>Your team won the event. Look in your inventory for the reward.</body></html>");
 
                     nhm.setHtml(replyMSG.toString());
                     player.sendPacket(nhm);
+
+                    // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+                    player.sendPacket( new ActionFailed() );
                 }
             }
         }
@@ -547,7 +547,7 @@ public class CTF
         
         unspawnEventNpc();
         Announcements.getInstance().announceToAll(_eventName + "(CTF): Match aborted!");
-        teleportFinish();        
+        teleportFinish();
     }
 
     public static void sit()
@@ -581,17 +581,17 @@ public class CTF
     
     public static void clean()
     {
-    	for (L2PcInstance player : _players)
+        for (L2PcInstance player : _players)
         {
             removePlayer(player);
         }
-    	
-    	for (String team : _teams)
+
+        for (String team : _teams)
         {
             int index = _teams.indexOf(team);
 
             _teamPlayersCount.set(index, 0);
-            _teamPointsCount.set(index, 0);            
+            _teamPointsCount.set(index, 0);
         }
         
         _topScore = 0;
@@ -628,21 +628,22 @@ public class CTF
         Announcements.getInstance().announceToAll(_eventName + "(CTF): Teleport back to participation NPC in 20 seconds!");
 
         ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                                                       {
-                                                            public void run()
-                                                            {
-                                                                for (L2PcInstance player : _players)
-                                                                {
-                                                                    if (player !=  null)
-                                                                        player.teleToLocation(_npcX, _npcY, _npcZ, false);
-                                                                }
-                                                                if (_started){
-                                                                    unspawnAllFlags();
-                                                                    _started = false;
-                                                                }
-                                                                CTF.clean();
-                                                            }
-                                                       }, 20000);
+        {
+            public void run()
+            {
+                for (L2PcInstance player : _players)
+                {
+                    if (player !=  null)
+                        player.teleToLocation(_npcX, _npcY, _npcZ, false);
+                }
+                if (_started)
+                {
+                    unspawnAllFlags();
+                    _started = false;
+                }
+                CTF.clean();
+            }
+        }, 20000);
     }
     
     public static void unspawnFlag(String teamName)
@@ -656,11 +657,12 @@ public class CTF
             SpawnTable.getInstance().deleteSpawn(_flagSpawns.get(index), true);
             _flagSpawned.set(index,false);
         }
-        else{
+        else
+        {
             _log.info("CTF Engine[can't unspawnFlag(" + teamName + ")]: flag not spawned");
         }
     }
-    
+
     public static void spawnFlag(String teamName)
     {
         int index = _teams.indexOf(teamName);
@@ -712,9 +714,9 @@ public class CTF
                 if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer))
                 {
                     if (Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE"))
-                        replyMSG.append("You participated already in team <font color=\"LEVEL\">" + eventPlayer._teamNameCTF + "</font><br><br>");
+                        replyMSG.append("You participate already in team <font color=\"LEVEL\">" + eventPlayer._teamNameCTF + "</font><br><br>");
                     else if (Config.CTF_EVEN_TEAMS.equals("SHUFFLE"))
-                        replyMSG.append("You participated already!<br><br>");
+                        replyMSG.append("You participate already!<br><br>");
 
                     replyMSG.append("<table border=\"0\"><tr>");
                     replyMSG.append("<td width=\"200\">Wait till event start or</td>");
@@ -767,6 +769,9 @@ public class CTF
             replyMSG.append("</body></html>");
             adminReply.setHtml(replyMSG.toString());
             eventPlayer.sendPacket(adminReply);
+
+            // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+            eventPlayer.sendPacket( new ActionFailed() );
         }
         catch (Exception e)
         {
@@ -802,8 +807,9 @@ public class CTF
     
     public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
     {
-        if (TvT._savePlayers.contains(eventPlayer.getName())){
-            eventPlayer.sendMessage("You have already participated in another event!");
+        if (TvT._savePlayers.contains(eventPlayer.getName()))
+        {
+            eventPlayer.sendMessage("You already participate in another event!");
             return false;
         }
 
@@ -860,7 +866,7 @@ public class CTF
     {
         if ((Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE")))
         {
-        	if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
+            if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
             {
                 for (L2Effect e : player.getAllEffects())
                 {
@@ -868,7 +874,7 @@ public class CTF
                         e.exit();
                 }
             }
-        	
+
             player._teamNameCTF = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
             _players.add(player);
             player._originalTitleCTF = player.getTitle();
@@ -1061,7 +1067,7 @@ public class CTF
         System.out.println("NPC Y: " + _npcY);
         System.out.println("NPC Z: " + _npcZ);
         System.out.println("Reward Id: " + _rewardId);
-        System.out.println("Reward Amount: " + _rewardAmount);        
+        System.out.println("Reward Amount: " + _rewardAmount);
         System.out.println("Min lvl: " + _minlvl);
         System.out.println("Max lvl: " + _maxlvl);
         System.out.println("Total Teams: " + _teams.size());
@@ -1072,7 +1078,7 @@ public class CTF
         
         for (String team : _teams)
         {
-            int index = _teams.indexOf(team);            
+            int index = _teams.indexOf(team);
             if (index == -1)
                 return;
             System.out.println("");
@@ -1188,8 +1194,8 @@ public class CTF
                 _rewardAmount = rs.getInt("rewardAmount"); 
                 teams = rs.getInt("teamsCount");
             
-            }                    
-            statement.close();            
+            }
+            statement.close();
             
             int index = -1;
             if (teams > 0)
@@ -1216,7 +1222,7 @@ public class CTF
                     _flagsX.set(index, rs.getInt("flagX"));
                     _flagsY.set(index, rs.getInt("flagY"));
                     _flagsZ.set(index, rs.getInt("flagZ"));
-                    _teamColors.set(index, rs.getInt("teamColor"));                    
+                    _teamColors.set(index, rs.getInt("teamColor"));
                 }                
                 index ++;
                 statement.close();            
@@ -1275,7 +1281,7 @@ public class CTF
                 statement.setInt(4, _flagsX.get(index));
                 statement.setInt(5, _flagsY.get(index));
                 statement.setInt(6, _flagsZ.get(index));
-                statement.setInt(7, _teamColors.get(index));                
+                statement.setInt(7, _teamColors.get(index));
                 statement.execute();
                 statement.close();
             }

@@ -138,53 +138,7 @@ public class NpcTable implements NpcTableMBean
                             continue;
                         }
                     }
-                    
-                    switch (skillId)
-                    {
-                        case 4084:
-                            int resistPAtk = npcDat.getResist(Stats.POWER_DEFENCE) - 20;
-                            
-                            if (resistPAtk < 0) 
-                                resistPAtk = 0;
-                            
-                            npcDat.removeResist(Stats.POWER_DEFENCE);
-                            npcDat.addResist(Stats.POWER_DEFENCE, resistPAtk);
-                            break;
-                        case 4272:
-                        case 4276:
-                            int resistBow = npcDat.getResist(Stats.BOW_WPN_RES);
-                                
-                            if (skillId == 4272)
-                                resistBow -= 70;
-                            else if (skillId == 4276)
-                                resistBow += 20;
-                            
-                            if (resistBow < 0) 
-                                resistBow = 0;
-                            
-                            npcDat.removeResist(Stats.BOW_WPN_RES);
-                            npcDat.addResist(Stats.BOW_WPN_RES, resistBow);
-                            break;
-                        case 4273:
-                            int resistDagger = npcDat.getResist(Stats.DAGGER_WPN_RES) - 80;
-                        
-                            if (resistDagger < 0) 
-                                resistDagger = 0;
-                            
-                            npcDat.removeResist(Stats.DAGGER_WPN_RES);
-                            npcDat.addResist(Stats.DAGGER_WPN_RES, resistDagger);
-                            break;
-                        case 4274:
-                            int resistBlunt = npcDat.getResist(Stats.BLUNT_WPN_RES) + 20;
 
-                            if (resistBlunt < 0) 
-                                resistBlunt = 0;
-                            
-                            npcDat.removeResist(Stats.BLUNT_WPN_RES);
-                            npcDat.addResist(Stats.BLUNT_WPN_RES, resistBlunt);
-                            break;
-                    }
-                            
                     npcSkill = SkillTable.getInstance().getInfo(skillId, level);
                     
                     if (npcSkill == null)
@@ -379,11 +333,10 @@ public class NpcTable implements NpcTableMBean
             }
 
             L2NpcTemplate template = new L2NpcTemplate(npcDat);
-            template.addResist(Stats.POWER_DEFENCE,100);
-            template.addResist(Stats.BOW_WPN_RES,100);
-            template.addResist(Stats.BLUNT_WPN_RES,100);
-            template.addResist(Stats.DAGGER_WPN_RES,100);
-            
+            template.addVulnerability(Stats.BOW_WPN_VULN,1);
+            template.addVulnerability(Stats.BLUNT_WPN_VULN,1);
+            template.addVulnerability(Stats.DAGGER_WPN_VULN,1);
+
             _npcs.put(id, template);
         }
     }
@@ -455,7 +408,7 @@ public class NpcTable implements NpcTableMBean
 
     public void cleanUp()
     {
-    	_npcs.clear();
+        _npcs.clear();
     }
     
     public void saveNpc(StatsSet npc)
@@ -476,10 +429,10 @@ public class NpcTable implements NpcTableMBean
                 name = (String)obj;
                 
                 if (name.equalsIgnoreCase("npcId"))
-                	continue;
+                    continue;
 
                 if (values != "")
-                	 values += ", ";
+                    values += ", ";
 
                 values += name + " = '" + set.get(name) + "'";
             }

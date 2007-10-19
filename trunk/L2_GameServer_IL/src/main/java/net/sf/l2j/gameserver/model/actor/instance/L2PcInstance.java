@@ -88,6 +88,7 @@ import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
+import net.sf.l2j.gameserver.model.ForceBuff;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.ItemContainer;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -326,79 +327,6 @@ public final class L2PcInstance extends L2PlayableInstance
                     cubic.doAction((L2Character)mainTarget);
         }
     }
-
-	public class ForceBuff
-	{
-		private L2PcInstance _caster;
-		private L2PcInstance _target;
-		private L2Skill _skill;
-		private Future _task;
-
-		public L2PcInstance getForceCaster() { return _caster; }
-		public L2PcInstance getForceTarget() { return _target; }
-		public L2Skill getForceSkill() { return _skill; }
-		private void setTask(Future task) { _task = task; }
-
-		public ForceBuff(L2PcInstance caster, L2PcInstance target, L2Skill skill)
-		{
-			_caster = caster;
-			_target = target;
-			_skill = skill;
-
-			Runnable r = new Runnable()
-			{
-				public void run()
-				{
-					setTask(null);
-					
-					boolean create = true;
-					EffectType type = getForceSkill().isMagic() ? EffectType.SPELL_FORCE : EffectType.BATTLE_FORCE;
-					L2Effect[] effects = getForceTarget().getAllEffects();
-					if (effects != null)
-					{
-						for(L2Effect e : effects)
-						{
-							// Only BATTLE_FORCE or SPELL_FORCE
-							if (e.getEffectType() == type)
-							{
-								((EffectForce)e).increaseForce();
-								create = false;
-								break;
-							}
-						}
-					}
-					if(create)
-						callSkill(getForceSkill(), new L2Character[] {getForceTarget()});
-				}
-			};
-			setTask(ThreadPoolManager.getInstance().scheduleGeneral(r, 3300));
-		}
-
-		public void delete()
-		{
-			if (_task != null)
-			{
-				_task.cancel(false);
-				_task = null;
-			}
-			EffectType toDeleteType = _skill.isMagic() ? EffectType.SPELL_FORCE : EffectType.BATTLE_FORCE;
-
-			L2Effect[] effects = _target.getAllEffects();
-			if (effects != null)
-			{
-				for(L2Effect e : effects)
-				{
-					// Only BATTLE_FORCE or SPELL_FORCE
-					if (e.getEffectType() == toDeleteType)
-					{
-						((EffectForce)e).decreaseForce();
-						break;
-					}
-				}
-			}
-			_forceBuff = null;
-		}
-	}
 
 	/**
 	* Starts battle force / spell force on target.<br><br>
@@ -7243,7 +7171,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         if (inObserverMode())
         {
-            sendMessage("Can't use skills in observer mode.");
+            sendPacket(new SystemMessage(SystemMessageId.OBSERVERS_CANNOT_PARTICIPATE));
             abortCast();
             sendPacket(new ActionFailed());
             return;
@@ -9865,18 +9793,18 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deletedMe()", t);
         }
-        
-		if(_forceBuff != null)
-		{
-			_forceBuff.delete();
-		}
-		if(_party != null)
-		{
-			for(L2PcInstance member : _party.getPartyMembers())
-				if(member.getForceBuff() != null && member.getForceBuff().getForceTarget() == this)
-					member.getForceBuff().delete();
-		}
-        	
+
+        if(_forceBuff != null)
+        {
+            _forceBuff.delete();
+        }
+        if(_party != null)
+        {
+            for(L2PcInstance member : _party.getPartyMembers())
+                if(member.getForceBuff() != null && member.getForceBuff().getTarget() == this)
+                    member.getForceBuff().delete();
+        }
+
         // Remove the L2PcInstance from the world
         if (isVisible()) try
         {
@@ -10985,25 +10913,30 @@ public final class L2PcInstance extends L2PlayableInstance
 		sm.addNumber(damage);
 		sendPacket(sm);
 		
-    }
+	}
 
 	public void saveEventStats()
 	{
-        _originalNameColor = getAppearance().getNameColor();
-        _originalKarma = getKarma();
-        _eventKills = 0;
+		_originalNameColor = getAppearance().getNameColor();
+		_originalKarma = getKarma();
+		_eventKills = 0;
 	}
 	
 	public void restoreEventStats()
 	{
-    	getAppearance().setNameColor(_originalNameColor);
-    	setKarma(_originalKarma);
-    	_eventKills = 0;
+		getAppearance().setNameColor(_originalNameColor);
+		setKarma(_originalKarma);
+		_eventKills = 0;
 	}
 
 	@Override
 	public ForceBuff getForceBuff()
 	{
 		return _forceBuff;
-	}	
+	}
+
+	public void setForceBuff(ForceBuff fb)
+	{
+		_forceBuff = fb;
+	}
 }

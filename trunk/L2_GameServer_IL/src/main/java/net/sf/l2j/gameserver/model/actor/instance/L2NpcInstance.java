@@ -2295,7 +2295,7 @@ public class L2NpcInstance extends L2Character
                         }
                     }
                 }
-                filename = (getHtmlPath(npcId, val)); // do the default!                    
+                filename = (getHtmlPath(npcId, val)); // do the default!
                 break;
             case 31111: // Gatekeeper Spirit (Disciples)
                 if (playerCabal == sealAvariceOwner && playerCabal == compWinner)
