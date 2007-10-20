@@ -2161,7 +2161,7 @@ public abstract class L2Character extends L2Object
        tempEffect.setInUse(true);
        
        // Add all Func objects corresponding to this stacked effect to the Calculator set of the L2Character
-       addStatFuncs(newEffect.getStatFuncs());
+       addStatFuncs(tempEffect.getStatFuncs());
        }
        // Update active skills in progress (In Use and Not In Use because stacked) icones on client
        updateEffectIcons();
