@@ -120,6 +120,7 @@ public final class Calculator
 			tmp[i+1] = funcs[i];
 		
 		_functions = tmp;
+
 		if ((f.stat==Stats.RUN_SPEED || f.stat==Stats.ATK_REUSE) && activeChar!=null && activeChar instanceof L2PcInstance)
 			((L2PcInstance)activeChar).broadcastUserInfo();
 	}

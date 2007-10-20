@@ -554,6 +554,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
                     { 
                         player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
                     }
+                    // remove all effects
+                    player.removeAllEffects();
                     // notify the world about our disconnect
                     player.deleteMe();
                     
@@ -562,6 +564,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
                         saveCharToDisk(player);
                     }
                     catch (Exception e2) { /* ignore any problems here */ }
+                    player = null;
                 }
                 L2GameClient.this.setActiveChar(null);
             }

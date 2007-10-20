@@ -118,7 +118,6 @@ import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.PcWarehouse;
 import net.sf.l2j.gameserver.model.ShortCuts;
 import net.sf.l2j.gameserver.model.TradeList;
-import net.sf.l2j.gameserver.model.L2Effect.EffectType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
@@ -202,7 +201,6 @@ import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
-import net.sf.l2j.gameserver.skills.effects.EffectForce;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
@@ -10938,5 +10936,14 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void setForceBuff(ForceBuff fb)
 	{
 		_forceBuff = fb;
+	}
+	
+	public void removeAllEffects()
+	{
+		for (L2Effect currenteffect : getAllEffects())
+		{
+			currenteffect.destroy();
+		}
+		stopAllEffects(); 
 	}
 }

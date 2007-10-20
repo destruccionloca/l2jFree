@@ -518,4 +518,18 @@ public abstract class L2Effect
     } 
 
     public int getLevel() { return getSkill().getLevel(); }
+    
+    public void destroy()
+    {
+    	_effected.removeEffect(this, false);
+
+		_state = null;
+		_currentTask = null;
+		
+		if (_currentFuture != null)
+		{
+			_currentFuture.cancel(true);
+			_currentFuture = null;
+		}    	
+    }
 }

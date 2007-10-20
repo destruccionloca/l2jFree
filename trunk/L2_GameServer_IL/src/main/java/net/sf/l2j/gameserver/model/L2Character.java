@@ -223,7 +223,7 @@ public abstract class L2Character extends L2Object
             if (_skills != null)
             {
                 for(Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
-                    addStatFuncs(skill.getValue().getStatFuncs(null, this));
+                	addStatFuncs(skill.getValue().getStatFuncs(null, this));
             }
         }
         else
@@ -2103,6 +2103,7 @@ public abstract class L2Character extends L2Object
             // Add Funcs of this effect to the Calculator set of the L2Character
             addStatFuncs(newEffect.getStatFuncs());
             
+            
             // Update active skills in progress icones on player client
             updateEffectIcons();
             return;
@@ -2160,7 +2161,7 @@ public abstract class L2Character extends L2Object
        tempEffect.setInUse(true);
        
        // Add all Func objects corresponding to this stacked effect to the Calculator set of the L2Character
-       addStatFuncs(tempEffect.getStatFuncs());
+       addStatFuncs(newEffect.getStatFuncs());
        }
        // Update active skills in progress (In Use and Not In Use because stacked) icones on client
        updateEffectIcons();
@@ -2243,7 +2244,7 @@ public abstract class L2Character extends L2Object
     * <li>Update active skills in progress icones on player client</li><BR>
     *
     */
-   public final void removeEffect(L2Effect effect)
+   public final void removeEffect(L2Effect effect,boolean doStatusUpdate)
    {
 		if(effect == null || _effects == null )
 			return;
@@ -2319,8 +2320,13 @@ public abstract class L2Character extends L2Object
 			}
 			
 		}
-       // Update active skills in progress (In Use and Not In Use because stacked) icones on client
-       updateEffectIcons();
+		// Update active skills in progress (In Use and Not In Use because stacked) icones on client
+		if(doStatusUpdate)
+			updateEffectIcons();
+   }
+   public final void removeEffect(L2Effect effect)
+   {
+	   removeEffect(effect,true);
    }
 
    /**
