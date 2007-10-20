@@ -54,7 +54,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
    <for>
-     <mul order="0x50" stat="bowWpnRes" val="1.7"/>
+     <mul order="0x50" stat="bowWpnVuln" val="0.3"/>
    </for>  
 </skill>
 <skill id="4004" levels="1" name="Fragile Skull">
@@ -65,7 +65,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
    <for>
-     <div order="0x50" stat="bluntWpnRes" val="1.1"/>
+     <mul order="0x30" stat="bluntWpnVuln" val="1.1"/>
    </for>    
 </skill>
 <skill id="4005" levels="1" name="Floating Target">

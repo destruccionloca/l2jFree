@@ -576,7 +576,7 @@ Description(s):
 </skill>
 <skill id="3633" levels="2" name="Residential Shock Immunity">
   <!-- Done by DiezelMax -->
-  <table name="#res"> 40 100 </table>
+  <table name="#vuln"> 0.6 0.0 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="0"/>
@@ -589,7 +589,7 @@ Description(s):
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="Buff" time="60" val="0">
-      <add order='0x40' stat='stunRes' val='#res'/>
+      <mul order='0x30' stat='stunVuln' val='#vuln'/>
     </effect>
   </for>
 </skill>
