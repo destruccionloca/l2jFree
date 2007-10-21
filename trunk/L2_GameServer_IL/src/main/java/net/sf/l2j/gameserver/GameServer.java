@@ -610,6 +610,7 @@ public class GameServer
      */
     public static void main(String[] args) throws Throwable
     {
+    	System.setProperty("python.cachedir", "../cachedir");
         gameServer = new GameServer();
     }
 }
