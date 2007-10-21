@@ -20,10 +20,10 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.Location;
@@ -118,10 +118,10 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 					case 3: // to siege HQ
 						L2SiegeClan siegeClan = null;
-						castle = CastleManager.getInstance().getCastle(activeChar);
+						Siege siege = SiegeManager.getInstance().getSiege(activeChar);
 						
-						if (castle != null && castle.getSiege().getIsInProgress())
-							siegeClan = castle.getSiege().getAttackerClan(activeChar.getClan());
+						if (siege != null && siege.getIsInProgress())
+							siegeClan = siege.getAttackerClan(activeChar.getClan());
 						
 						if (siegeClan == null || siegeClan.getFlag().size() == 0)
 						{
