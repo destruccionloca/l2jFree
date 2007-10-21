@@ -693,7 +693,7 @@ public class Castle
 	{
 		if (_zoneHQ == null)
 			_zoneHQ = ZoneManager.getInstance().getZone(ZoneType.CastleHQ, getCastleId());
-		return _zoneBF;
+		return _zoneHQ;
 	}
 	
 	public final IZone getBattlefield()
