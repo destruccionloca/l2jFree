@@ -1886,8 +1886,18 @@ public abstract class L2Skill
                             (player.getDuelId() != ((L2PcInstance)newTarget).getDuelId() ||
                             (player.getParty() != null && !player.getParty().getPartyMembers().contains(newTarget))))
                             continue;
-                        if (targetType == SkillTargetType.TARGET_CORPSE_ALLY
-                            && !((L2PcInstance) newTarget).isDead()) continue;
+                        if (targetType == SkillTargetType.TARGET_CORPSE_ALLY)
+                        {
+                            if (!((L2PcInstance) newTarget).isDead()) 
+                                continue;
+                            if (getSkillType() == SkillType.RESURRECT)
+                            {
+                                // check target is not in a active siege zone
+                                Siege siege = SiegeManager.getInstance().getSiege(newTarget);
+                                if (siege != null && siege.getIsInProgress())
+                                    continue;
+                            }
+                        }
 
                         if (!Util.checkIfInRange(radius, activeChar, newTarget, true)) continue;
 
@@ -1972,8 +1982,18 @@ public abstract class L2Skill
 
                         if (newTarget == null) continue;
 
-                        if (targetType == SkillTargetType.TARGET_CORPSE_CLAN && !newTarget.isDead())
-                            continue;
+                        if (targetType == SkillTargetType.TARGET_CORPSE_CLAN)
+                        {
+                            if (!newTarget.isDead())
+                                continue;
+                            if (getSkillType() == SkillType.RESURRECT)
+                            {
+                                // check target is not in a active siege zone
+                                Siege siege = SiegeManager.getInstance().getSiege(newTarget);
+                                if (siege != null && siege.getIsInProgress())
+                                    continue;
+                            }
+                        }
 
                         if (player.isInDuel() && (player.getDuelId() != newTarget.getDuelId() ||
                             (player.getParty() != null && !player.getParty().getPartyMembers().contains(newTarget))))
@@ -2011,14 +2031,14 @@ public abstract class L2Skill
                 {
                     boolean condGood = true;
 
-                    if (getId() == 1016) // Greater Resurrection
+                    if (getSkillType() == SkillType.RESURRECT)
                     {
                         // check target is not in a active siege zone
                         Siege siege = null;
 
                         if (targetPlayer != null) siege = SiegeManager.getInstance().getSiege(targetPlayer);
                         else if (targetPet != null)
-                        	siege = SiegeManager.getInstance().getSiege(targetPet);
+                            siege = SiegeManager.getInstance().getSiege(targetPet);
 
                         if (siege != null && siege.getIsInProgress())
                         {
@@ -2026,15 +2046,14 @@ public abstract class L2Skill
                             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
                         }
 
-                        // Can only res party memeber or own pet
                         if (targetPlayer != null)
                         {
                             if (targetPlayer.isReviveRequested())
                             {
                                 if (targetPlayer.isRevivingPet())
-                                	player.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
+                                    player.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
                                 else
-                                	player.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
+                                    player.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
                                 condGood = false;
                             }
                         }

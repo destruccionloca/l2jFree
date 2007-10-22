@@ -531,11 +531,12 @@ abstract class AbstractAI implements Ctrl
             // Send a Server->Client packet MoveToPawn/CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
             L2GameServerPacket msg;
 
-            if (pawn instanceof L2Character) {
-            	if(((L2Character)pawn).isOnGeodataPath()) 
-            		msg = new CharMoveToLocation(_actor); // TODO: More testing with animation
-            	else
-            		msg = new MoveToPawn(_actor, (L2Character) pawn, offset);
+            if (pawn instanceof L2Character)
+            {
+                if(_actor.isOnGeodataPath())
+                    msg = new CharMoveToLocation(_actor);
+                else
+                    msg = new MoveToPawn(_actor, (L2Character) pawn, offset);
             }
             else msg = new CharMoveToLocation(_actor);
 

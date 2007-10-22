@@ -1867,11 +1867,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /**
      * Return the max weight that the L2PcInstance can load.<BR><BR>
-    * Added Config.ADD_MAX_LOAD ~AresXP
      */
     public int getMaxLoad()
     {
-        return (int)calcStat(Stats.MAX_LOAD, 69000, this, null) + Config.ADD_MAX_LOAD;
+        return (int)(calcStat(Stats.MAX_LOAD, 69000, this, null) * Config.ALT_WEIGHT_LIMIT);
     }
 
     public int getExpertisePenalty()
@@ -9437,9 +9436,6 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             // Set the position of the L2Character to the destination
             super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
-
-            // Cancel the move action
-            _move = null;
         }
         else
         {
@@ -9453,7 +9449,7 @@ public final class L2PcInstance extends L2PlayableInstance
         
         revalidateZone(false);
         
-        return (_move == null);
+        return (distFraction > 1);
     }
 
     public void setLastClientPosition(int x, int y, int z)

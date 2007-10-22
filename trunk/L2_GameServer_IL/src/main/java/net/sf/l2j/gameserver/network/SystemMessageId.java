@@ -983,7 +983,13 @@ public enum SystemMessageId
 	 * Message: You do not meet the criteria ir order to create a clan.
 	 */
 	YOU_DO_NOT_MEET_CRITERIA_IN_ORDER_TO_CREATE_A_CLAN(229),
-	
+
+	/**
+	 * ID: 236<br>
+	 * Message: ONLY_THE_CLAN_LEADER_IS_ENABLED.
+	 */
+	ONLY_THE_CLAN_LEADER_IS_ENABLED(236),
+
 	/**
 	 * ID: 190<br>
 	 * Message: You have failed to create a clan.
@@ -1019,7 +1025,13 @@ public enum SystemMessageId
 	 * Message: $s1 does not exist
 	 */
 	S1_DOES_NOT_EXIST(6),
-	
+
+	/**
+	 * ID: 1860<br>
+	 * Message: THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW.
+	 */
+	THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW(1860),
+
 	/**
 	 * ID: 189<br>
 	 * Message: Your clan has been created.

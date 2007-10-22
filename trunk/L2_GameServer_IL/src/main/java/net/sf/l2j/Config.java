@@ -756,7 +756,6 @@ public final class Config
     public static String  			PARTY_XP_CUTOFF_METHOD;				// Define Party XP cutoff point method - Possible values: level and percentage
     public static int 				PARTY_XP_CUTOFF_LEVEL;				// Define the cutoff point value for the "level" method
     public static double  			PARTY_XP_CUTOFF_PERCENT;			// Define the cutoff point value for the "percentage" method
-    public static int 				PARTY_RANGE;						// Range of Members to get exp/drops 
     public static int 				MAX_PARTY_LEVEL_DIFFERENCE;			// Maximum level difference between party members in levels  
     public static double   			RAID_HP_REGEN_MULTIPLIER;			// Multiplier for Raid boss HP regeneration
     public static double   			RAID_MP_REGEN_MULTIPLIER;			// Mulitplier for Raid boss MP regeneration
@@ -785,7 +784,6 @@ public final class Config
     public static FastList<Integer> LIST_NONDROPPABLE_ITEMS = new FastList<Integer>();
     public static String  			PET_RENT_NPC;
     public static FastList<Integer> LIST_PET_RENT_NPC = new FastList<Integer>();
-    public static int       		ADD_MAX_LOAD;						// Weight limit
     public static boolean   		LEVEL_ADD_LOAD;
     public static int           	WAREHOUSE_SLOTS_NO_DWARF;			// Warehouse slots limits
     public static int           	WAREHOUSE_SLOTS_DWARF;				// Warehouse slots limits
@@ -797,7 +795,7 @@ public final class Config
     public static String			FORBIDDEN_RAID_SKILLS;
     public static FastList<Integer> FORBIDDEN_RAID_SKILLS_LIST  = new FastList<Integer>();
     public static int           	DEATH_PENALTY_CHANCE;				// Death Penalty chance
-    //  *******************************************************************************************    
+    //  *******************************************************************************************
     //  *******************************************************************************************
     public static void loadOtherConfig()
     {
@@ -821,7 +819,6 @@ public final class Config
             INVENTORY_MAXIMUM_GM    = Integer.parseInt(otherSettings.getProperty("MaximumSlotsForGMPlayer", "250"));
           
             /* Config weight limit */
-            ADD_MAX_LOAD = Integer.parseInt(otherSettings.getProperty("AddWeightLimit", "0"));
             LEVEL_ADD_LOAD = Boolean.parseBoolean(otherSettings.getProperty("IncreaseWeightLimitByLevel", "false"));
             
             /* Inventory slots limits */
@@ -859,7 +856,6 @@ public final class Config
             /* Defines some Party XP related values */
             PARTY_XP_CUTOFF_METHOD  = otherSettings.getProperty("PartyXpCutoffMethod", "percentage");
             PARTY_XP_CUTOFF_PERCENT = Double.parseDouble(otherSettings.getProperty("PartyXpCutoffPercent", "3."));
-            PARTY_RANGE             = Integer.parseInt(otherSettings.getProperty("PartyRange", "1000"));
             PARTY_XP_CUTOFF_LEVEL   = Integer.parseInt(otherSettings.getProperty("PartyXpCutoffLevel", "30"));
             MAX_PARTY_LEVEL_DIFFERENCE = Integer.parseInt(otherSettings.getProperty("PartyMaxLevelDifference", "20"));
             
@@ -1227,6 +1223,7 @@ public final class Config
     public static double 			ALT_GAME_CREATION_XP_RATE;			// Alternative game crafting XP rate multiplier - default 1
     public static double 			ALT_GAME_CREATION_SP_RATE;			// Alternative game crafting SP rate multiplier - default 1
     public static boolean 			ALT_BLACKSMITH_USE_RECIPES;			// Alternative setting to blacksmith use of recipes to craft - default true
+    public static double 			ALT_WEIGHT_LIMIT;					// Alternative game weight limit multiplier - default 1
     public static int 				ALT_GAME_NUMBER_OF_CUMULATED_BUFF;	// Alternative number of cumulated buff
     public static boolean 			ALT_DISABLE_RAIDBOSS_PETRIFICATION;	// Disable Raidboss Petrification
     public static boolean 			ALT_STATPOINT_DISTRIBUTION;			// Own Stat Point Distribution
@@ -1235,6 +1232,8 @@ public final class Config
     public static boolean 			ALT_GAME_CANCEL_BOW;				// Cancel attack bow by hit
     public static boolean 			ALT_GAME_CANCEL_CAST;				// Cancel cast by hit
     public static boolean 			ALT_GAME_TIREDNESS;					// Alternative game - use tiredness, instead of CP
+    public static int 				ALT_PARTY_RANGE;
+    public static int 				ALT_PARTY_RANGE2;
     public static boolean 			ALT_GAME_SHIELD_BLOCKS;				// Alternative shield defence
     public static int 				ALT_PERFECT_SHLD_BLOCK;				// Alternative Perfect shield defence rate
     public static boolean 			ALT_GAME_MOB_ATTACK_AI;				// Alternative game mob ATTACK AI
@@ -1363,6 +1362,7 @@ public final class Config
             ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));
             ALT_GAME_CREATION_XP_RATE=Double.parseDouble(altSettings.getProperty("AltGameCreationRateXp", "1"));
             ALT_GAME_CREATION_SP_RATE=Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
+            ALT_WEIGHT_LIMIT        =Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1."));
             ALT_BLACKSMITH_USE_RECIPES=Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "true"));
             ALT_GAME_NUMBER_OF_CUMULATED_BUFF= Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
             ALT_GAME_SKILL_LEARN    = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
@@ -1391,13 +1391,15 @@ public final class Config
             SPAWN_CLASS_MASTER      = Boolean.parseBoolean(altSettings.getProperty("SpawnClassMaster", "False"));
             CLASS_MASTER_STRIDER_UPDATE = Boolean.parseBoolean(altSettings.getProperty("ClassMasterUpdateStrider", "False")); 
             if (!altSettings.getProperty("ConfigClassMaster").trim().equalsIgnoreCase("False"))
-            	CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
+                CLASS_MASTER_SETTINGS_LINE = altSettings.getProperty("ConfigClassMaster");
             
             CLASS_MASTER_SETTINGS = new ClassMasterSettings(CLASS_MASTER_SETTINGS_LINE);
             
             ALT_GAME_FREIGHTS       = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
             ALT_GAME_FREIGHT_PRICE  = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
             ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
+            ALT_PARTY_RANGE         = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
+            ALT_PARTY_RANGE2        = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
             CHANCE_BREAK            = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
             CHANCE_LEVEL            = Integer.parseInt(altSettings.getProperty("ChanceToLevel", "32"));
             IS_CRAFTING_ENABLED                                 = Boolean.parseBoolean(altSettings.getProperty("CraftingEnabled", "true"));
@@ -2551,6 +2553,7 @@ public final class Config
         else if (pName.equalsIgnoreCase("AltGameCreationSpeed")) ALT_GAME_CREATION_SPEED = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("AltGameCreationXpRate")) ALT_GAME_CREATION_XP_RATE = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("AltGameCreationSpRate")) ALT_GAME_CREATION_SP_RATE = Double.parseDouble(pValue); 
+        else if (pName.equalsIgnoreCase("AltWeightLimit")) ALT_WEIGHT_LIMIT = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("AltBlacksmithUseRecipes")) ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AltGameSkillLearn")) ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AltNbCumulatedBuff")) ALT_GAME_NUMBER_OF_CUMULATED_BUFF = Integer.parseInt(pValue);
@@ -2587,7 +2590,8 @@ public final class Config
 
         else if (pName.equalsIgnoreCase("AltGameFreights")) ALT_GAME_FREIGHTS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AltGameFreightPrice")) ALT_GAME_FREIGHT_PRICE = Integer.parseInt(pValue);
-
+        else if (pName.equalsIgnoreCase("AltPartyRange")) ALT_PARTY_RANGE = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("AltPartyRange2")) ALT_PARTY_RANGE2 = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("AltGameSkillHitRate")) ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(pValue);
 
         else if (pName.equalsIgnoreCase("CraftingEnabled")) IS_CRAFTING_ENABLED = Boolean.parseBoolean(pValue);

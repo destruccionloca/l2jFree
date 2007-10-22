@@ -84,7 +84,6 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
     {
         // Launch actions corresponding to the Event Think
         onEvtThink();
-
     }
 
     /**
@@ -122,9 +121,12 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
     private boolean autoAttackCondition(L2Character target)
     {
         // Check if the target isn't another guard, folk or a door
-        if (target instanceof L2SiegeGuardInstance ||
+        if (target == null ||
+            target instanceof L2SiegeGuardInstance ||
             target instanceof L2FolkInstance || 
-        	target instanceof L2DoorInstance) return false;
+            target instanceof L2DoorInstance ||
+            target.isAlikeDead() ||
+            target.isInvul()) return false;
 
         // Check if the target isn't dead
         if (target.isAlikeDead()) return false;
@@ -132,13 +134,10 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         // Get the owner if the target is a summon
         if (target instanceof L2Summon)
         {
-        	L2PcInstance owner = ((L2Summon)target).getOwner();
-        	if (_actor.isInsideRadius(owner, 1000, true, false))
-        		target = owner;
+            L2PcInstance owner = ((L2Summon)target).getOwner();
+            if (_actor.isInsideRadius(owner, 1000, true, false))
+                target = owner;
         }
-
-        // Check if the target isn't invulnerable
-        if (target.isInvul()) return false;
 
         // Check if the target is a L2PcInstance
         if (target instanceof L2PcInstance)
@@ -149,7 +148,6 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         }
         // Los Check Here
         return (_actor.isAutoAttackable(target) && GeoData.getInstance().canSeeTarget(_actor, target));
-        
     }
 
     /**

@@ -74,6 +74,7 @@ import net.sf.l2j.gameserver.serverpackets.Attack;
 import net.sf.l2j.gameserver.serverpackets.ChangeMoveType;
 import net.sf.l2j.gameserver.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
+import net.sf.l2j.gameserver.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.ExOlympiadSpelledInfo;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
@@ -3162,8 +3163,12 @@ public abstract class L2Character extends L2Object
         public float _xSpeedTicks;
         public float _ySpeedTicks;
         public int onGeodataPathIndex;
-        //public List<AbstractNodeLoc> geoPath;
-   }
+        public List<AbstractNodeLoc> geoPath;
+        public int geoPathAccurateTx;
+        public int geoPathAccurateTy;
+        public int geoPathGtx;
+        public int geoPathGty;
+    }
 
 
     /** Table containing all skillId that are disabled */
@@ -3188,8 +3193,6 @@ public abstract class L2Character extends L2Object
     private int     _castEndTime;
     private int     _castInterruptTime;
 
-    private boolean _inCombat;
-
     // set by the start of attack, in game ticks
     private int     _attackEndTime;
     private int     _attacking;
@@ -3210,11 +3213,6 @@ public abstract class L2Character extends L2Object
     private int _clientY;
     private int _clientZ;
     private int _clientHeading;
-
-
-
-
-
 
     /** List of all QuestState instance that needs to be notified of this character's death */
     private FastList<QuestState> _NotifyQuestOfDeathList = new FastList<QuestState>();
@@ -3250,8 +3248,11 @@ public abstract class L2Character extends L2Object
 	public final boolean isOnGeodataPath()
 	{
 		if (_move == null) return false;
-		return _move.onGeodataPathIndex != -1;
-	}   
+		if (_move.onGeodataPathIndex == -1) return false;
+		if (_move.onGeodataPathIndex == _move.geoPath.size()-1)
+			return false;
+		return true;
+	}
 
    /**
     * Add a Func to the Calculator set of the L2Character.<BR><BR>
@@ -3402,216 +3403,214 @@ public abstract class L2Character extends L2Object
    }
 
 
-   /**
-    * Remove all Func objects with the selected owner from the Calculator set of the L2Character.<BR><BR>
-    *
-    * <B><U> Concept</U> :</B><BR><BR>
-    * A L2Character owns a table of Calculators called <B>_calculators</B>.
-    * Each Calculator (a calculator per state) own a table of Func object.
-    * A Func object is a mathematic function that permit to calculate the modifier of a state (ex : REGENERATE_HP_RATE...).
-    * To reduce cache memory use, L2NPCInstances who don't have skills share the same Calculator set called <B>NPC_STD_CALCULATOR</B>.<BR><BR>
-    *
-    * That's why, if a L2NPCInstance is under a skill/spell effect that modify one of its state, a copy of the NPC_STD_CALCULATOR
-    * must be create in its _calculators before addind new Func object.<BR><BR>
-    *
-    * <B><U> Actions</U> :</B><BR><BR>
-    * <li>Remove all Func objects of the selected owner from _calculators</li><BR><BR>
-    * <li>If L2Character is a L2NPCInstance and _calculators is equal to NPC_STD_CALCULATOR,
-    * free cache memory and just create a link on NPC_STD_CALCULATOR in _calculators</li><BR><BR>
-    *
-    * <B><U> Example of use </U> :</B><BR><BR>
-    * <li> Unequip an item from inventory</li>
-    * <li> Stop an active skill</li><BR><BR>
-    *
-    * @param owner The Object(Skill, Item...) that has created the effect
-    */
-   public final synchronized void removeStatsOwner(Object owner)
-   {
+    /**
+     * Remove all Func objects with the selected owner from the Calculator set of the L2Character.<BR><BR>
+     *
+     * <B><U> Concept</U> :</B><BR><BR>
+     * A L2Character owns a table of Calculators called <B>_calculators</B>.
+     * Each Calculator (a calculator per state) own a table of Func object.
+     * A Func object is a mathematic function that permit to calculate the modifier of a state (ex : REGENERATE_HP_RATE...).
+     * To reduce cache memory use, L2NPCInstances who don't have skills share the same Calculator set called <B>NPC_STD_CALCULATOR</B>.<BR><BR>
+     *
+     * That's why, if a L2NPCInstance is under a skill/spell effect that modify one of its state, a copy of the NPC_STD_CALCULATOR
+     * must be create in its _calculators before addind new Func object.<BR><BR>
+     *
+     * <B><U> Actions</U> :</B><BR><BR>
+     * <li>Remove all Func objects of the selected owner from _calculators</li><BR><BR>
+     * <li>If L2Character is a L2NPCInstance and _calculators is equal to NPC_STD_CALCULATOR,
+     * free cache memory and just create a link on NPC_STD_CALCULATOR in _calculators</li><BR><BR>
+     *
+     * <B><U> Example of use </U> :</B><BR><BR>
+     * <li> Unequip an item from inventory</li>
+     * <li> Stop an active skill</li><BR><BR>
+     *
+     * @param owner The Object(Skill, Item...) that has created the effect
+     */
+    public final synchronized void removeStatsOwner(Object owner)
+    {
+        // Go through the Calculator set
+        for (int i=0; i < _calculators.length; i++)
+        {
+            if (_calculators[i] != null)
+            {
+                // Delete all Func objects of the selected owner
+                _calculators[i].removeOwner(owner,this);
 
-       // Go through the Calculator set
-       for (int i=0; i < _calculators.length; i++)
-       {
-           if (_calculators[i] != null)
-           {
-               // Delete all Func objects of the selected owner
-               _calculators[i].removeOwner(owner);
+                if (_calculators[i].size() == 0)
+                    _calculators[i] = null;
+            }
+        }
 
-               if (_calculators[i].size() == 0)
-                   _calculators[i] = null;
-           }
-       }
+        // If possible, free the memory and just create a link on NPC_STD_CALCULATOR
+        if (this instanceof L2NpcInstance)
+        {
+            int i = 0;
+            for (; i < Stats.NUM_STATS; i++)
+            {
+                if (!Calculator.equalsCals(_calculators[i], NPC_STD_CALCULATOR[i]))
+                    break;
+            }
 
-       // If possible, free the memory and just create a link on NPC_STD_CALCULATOR
-       if (this instanceof L2NpcInstance)
-       {
-           int i = 0;
-           for (; i < Stats.NUM_STATS; i++)
-           {
-               if (!Calculator.equalsCals(_calculators[i], NPC_STD_CALCULATOR[i]))
-                   break;
-           }
+            if (i >= Stats.NUM_STATS)
+                _calculators = NPC_STD_CALCULATOR;
+        }
+    }
 
-           if (i >= Stats.NUM_STATS)
-               _calculators = NPC_STD_CALCULATOR;
-       }
-   }
+    /**
+     * Return the orientation of the L2Character.<BR><BR>
+     */
+    public final int getHeading()
+    {
+        return _heading;
+    }
 
-   
-   /**
-    * Return the orientation of the L2Character.<BR><BR>
-    */
-   public final int getHeading()
-   {
-       return _heading;
-   }
+    /**
+     * Set the orientation of the L2Character.<BR><BR>
+     */
+    public final void setHeading(int heading)
+    {
+        _heading = heading;
+    }
 
-   /**
-    * Set the orientation of the L2Character.<BR><BR>
-    */
-   public final void setHeading(int heading)
-   {
-       _heading = heading;
-   }
+    /**
+     * Return the X destination of the L2Character or the X position if not in movement.<BR><BR>
+     */
+    public final int getClientX()
+    {
+        return _clientX;
+    }
+    public final int getClientY()
+    {
+        return _clientY;
+    }
+    public final int getClientZ()
+    {
+        return _clientZ;
+    }
+    public final int getClientHeading()
+    {
+        return _clientHeading;
+    }
+    public final void setClientX(int val)
+    {
+        _clientX=val;
+    }
+    public final void setClientY(int val)
+    {
+        _clientY=val;
+    }
+    public final void setClientZ(int val)
+    {
+        _clientZ=val;
+    }
+    public final void setClientHeading(int val)
+    {
+        _clientHeading=val;
+    }
+    public final int getXdestination()
+    {
+        MoveData m = _move;
 
-   /**
-    * Return the X destination of the L2Character or the X position if not in movement.<BR><BR>
-    */
-   public final int getClientX()
-   {
-       return _clientX;
-   }
-   public final int getClientY()
-   {
-       return _clientY;
-   }
-   public final int getClientZ()
-   {
-       return _clientZ;
-   }
-   public final int getClientHeading()
-   {
-       return _clientHeading;
-   }
-   public final void setClientX(int val)
-   {
-       _clientX=val;
-   }
-   public final void setClientY(int val)
-   {
-       _clientY=val;
-   }
-   public final void setClientZ(int val)
-   {
-       _clientZ=val;
-   }
-   public final void setClientHeading(int val)
-   {
-       _clientHeading=val;
-   }
-   public final int getXdestination()
-   {
-       MoveData m = _move;
+        if (m != null)
+            return m._xDestination;
 
-       if (m != null)
-           return m._xDestination;
+        return getX();
+    }
 
-       return getX();
-   }
+    /**
+     * Return the Y destination of the L2Character or the Y position if not in movement.<BR><BR>
+     */
+    public final int getYdestination()
+    {
+        MoveData m = _move;
 
-   /**
-    * Return the Y destination of the L2Character or the Y position if not in movement.<BR><BR>
-    */
-   public final int getYdestination()
-   {
-       MoveData m = _move;
+        if (m != null)
+            return m._yDestination;
 
-       if (m != null)
-           return m._yDestination;
+        return getY();
+    }
 
-       return getY();
-   }
+    /**
+     * Return the Z destination of the L2Character or the Z position if not in movement.<BR><BR>
+     */
+    public final int getZdestination()
+    {
+        MoveData m = _move;
 
-   /**
-    * Return the Z destination of the L2Character or the Z position if not in movement.<BR><BR>
-    */
-   public final int getZdestination()
-   {
-       MoveData m = _move;
+        if (m != null)
+            return m._zDestination;
 
-       if (m != null)
-           return m._zDestination;
+        return getZ();
+     }
 
-       return getZ();
-   }
-
-   /**
+    /**
     * Return True if the L2Character is in combat.<BR><BR>
     */
-   public final boolean isInCombat()
-   {
-       return _inCombat;
-   }
+    public final boolean isInCombat()
+    {
+        return (getAI().getAttackTarget() != null);
+    }
 
-   /**
-    * Return True if the L2Character is moving.<BR><BR>
-    */
-   public final boolean isMoving()
-   {
-       return _move != null;
-   }
+    /**
+     * Return True if the L2Character is moving.<BR><BR>
+     */
+    public final boolean isMoving()
+    {
+        return _move != null;
+    }
 
-   /**
-    * Return True if the L2Character is casting.<BR><BR>
-    */
-   public final boolean isCastingNow()
-   {
-       return _castEndTime > GameTimeController.getGameTicks();
-   }
+    /**
+     * Return True if the L2Character is casting.<BR><BR>
+     */
+    public final boolean isCastingNow()
+    {
+        return _castEndTime > GameTimeController.getGameTicks();
+    }
 
-   /**
-    * Return True if the cast of the L2Character can be aborted.<BR><BR>
-    */
-   public final boolean canAbortCast()
-   {
-       return _castInterruptTime > GameTimeController.getGameTicks();
-   }
+    /**
+     * Return True if the cast of the L2Character can be aborted.<BR><BR>
+     */
+    public final boolean canAbortCast()
+    {
+        return _castInterruptTime > GameTimeController.getGameTicks();
+    }
 
-   /**
-    * Return True if the L2Character is attacking.<BR><BR>
-    */
-   public final boolean isAttackingNow()
-   {
-       return _attackEndTime > GameTimeController.getGameTicks();
-   }
+    /**
+     * Return True if the L2Character is attacking.<BR><BR>
+     */
+    public final boolean isAttackingNow()
+    {
+        return _attackEndTime > GameTimeController.getGameTicks();
+    }
 
-   /**
-    * Return True if the L2Character has aborted its attack.<BR><BR>
-    */
-   public final boolean isAttackAborted()
-   {
-       return _attacking <= 0;
-   }
+    /**
+     * Return True if the L2Character has aborted its attack.<BR><BR>
+     */
+    public final boolean isAttackAborted()
+    {
+        return _attacking <= 0;
+    }
 
 
-   /**
-    * Abort the attack of the L2Character and send Server->Client ActionFailed packet.<BR><BR>
-    */
-   public final void abortAttack()
-   {
-       if (isAttackingNow())
-       {
-           _attacking = 0;
-           sendPacket(new ActionFailed());
-       }
-   }
+    /**
+     * Abort the attack of the L2Character and send Server->Client ActionFailed packet.<BR><BR>
+     */
+    public final void abortAttack()
+    {
+        if (isAttackingNow())
+        {
+            _attacking = 0;
+            sendPacket(new ActionFailed());
+        }
+    }
 
-   /**
-    * Returns body part (paperdoll slot) we are targeting right now
-    */
-   public final int getAttackingBodyPart()
-   {
-       return _attacking;
-   }
+    /**
+     * Returns body part (paperdoll slot) we are targeting right now
+     */
+    public final int getAttackingBodyPart()
+    {
+        return _attacking;
+    }
 
     /**
     * Abort the cast of the L2Character and send Server->Client MagicSkillCanceld/ActionFailed packet.<BR><BR>
@@ -3639,90 +3638,86 @@ public abstract class L2Character extends L2Object
         }
     }
 
-   /**
-    * Update the position of the L2Character during a movement and return True if the movement is finished.<BR><BR>
-    *
-    * <B><U> Concept</U> :</B><BR><BR>
-    * At the beginning of the move action, all properties of the movement are stored in the MoveData object called <B>_move</B> of the L2Character.
-    * The position of the start point and of the destination permit to estimated in function of the movement speed the time to achieve the destination.<BR><BR>
-    *
-    * When the movement is started (ex : by MovetoLocation), this method will be called each 0.1 sec to estimate and update the L2Character position on the server.
-    * Note, that the current server position can differe from the current client position even if each movement is straight foward.
-    * That's why, client send regularly a Client->Server ValidatePosition packet to eventually correct the gap on the server.
-    * But, it's always the server position that is used in range calculation.<BR><BR>
-    *
-    * At the end of the estimated movement time, the L2Character position is automatically set to the destination position even if the movement is not finished.<BR><BR>
-    *
-    * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current Z position is obtained FROM THE CLIENT by the Client->Server ValidatePosition Packet.
-    * But x and y positions must be calculated to avoid that players try to modify their movement speed.</B></FONT><BR><BR>
-    *
-    * @param gameTicks Nb of ticks since the server start
-    * @return True if the movement is finished
-    */
-   public boolean updatePosition(int gameTicks)
-   {
-       // Get movement data
-       MoveData m = _move;
+    /**
+     * Update the position of the L2Character during a movement and return True if the movement is finished.<BR><BR>
+     *
+     * <B><U> Concept</U> :</B><BR><BR>
+     * At the beginning of the move action, all properties of the movement are stored in the MoveData object called <B>_move</B> of the L2Character.
+     * The position of the start point and of the destination permit to estimated in function of the movement speed the time to achieve the destination.<BR><BR>
+     *
+     * When the movement is started (ex : by MovetoLocation), this method will be called each 0.1 sec to estimate and update the L2Character position on the server.
+     * Note, that the current server position can differe from the current client position even if each movement is straight foward.
+     * That's why, client send regularly a Client->Server ValidatePosition packet to eventually correct the gap on the server.
+     * But, it's always the server position that is used in range calculation.<BR><BR>
+     *
+     * At the end of the estimated movement time, the L2Character position is automatically set to the destination position even if the movement is not finished.<BR><BR>
+     *
+     * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current Z position is obtained FROM THE CLIENT by the Client->Server ValidatePosition Packet.
+     * But x and y positions must be calculated to avoid that players try to modify their movement speed.</B></FONT><BR><BR>
+     *
+     * @param gameTicks Nb of ticks since the server start
+     * @return True if the movement is finished
+     */
+    public boolean updatePosition(int gameTicks)
+    {
+        // Get movement data
+        MoveData m = _move;
 
-       if (m == null)
-           return true;
+        if (m == null)
+            return true;
 
-       if (!isVisible())
-       {
-           _move = null;
-           return true;
-       }
+        if (!isVisible())
+        {
+            _move = null;
+            return true;
+        }
 
-       // Check if the position has alreday be calculated
-       if (m._moveTimestamp == gameTicks)
-           return false;
+        // Check if the position has alreday be calculated
+        if (m._moveTimestamp == gameTicks)
+            return false;
 
-       // Calculate the time between the beginning of the deplacement and now
-       int elapsed = gameTicks - m._moveStartTime;
+        // Calculate the time between the beginning of the deplacement and now
+        int elapsed = gameTicks - m._moveStartTime;
 
-       // If estimated time needed to achieve the destination is passed,
-       // the L2Character is positionned to the destination position
-       if (elapsed >= m._ticksToMove)
-       {
-           // Set the timer of last position update to now
-           m._moveTimestamp = gameTicks;
+        // If estimated time needed to achieve the destination is passed,
+        // the L2Character is positionned to the destination position
+        if (elapsed >= m._ticksToMove)
+        {
+            // Set the timer of last position update to now
+            m._moveTimestamp = gameTicks;
 
-           // Set the position of the L2Character to the destination
-           if(this instanceof L2BoatInstance )
-           {               
-               super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
-               ((L2BoatInstance)this).updatePeopleInTheBoat(m._xDestination, m._yDestination, m._zDestination);
-           }
-           else
-           {
-               super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
-           }
+            // Set the position of the L2Character to the destination
+            if(this instanceof L2BoatInstance )
+            {
+                super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
+                ((L2BoatInstance)this).updatePeopleInTheBoat(m._xDestination, m._yDestination, m._zDestination);
+            }
+            else
+            {
+                super.getPosition().setXYZ(m._xDestination, m._yDestination, m._zDestination);
+            }
 
-           // Cancel the move action
-           _move = null;
+            return true;
+        }
 
-           return true;
-       }
+        // Estimate the position of the L2Character dureing the movement according to its _xSpeedTicks and _ySpeedTicks
+        // The Z position is obtained from the client
+        if(this instanceof L2BoatInstance )
+        {
+            super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
+            ((L2BoatInstance)this).updatePeopleInTheBoat(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
+        }
+        else
+        {
+            super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
+            if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(false);
+        }
 
-       // Estimate the position of the L2Character dureing the movement according to its _xSpeedTicks and _ySpeedTicks
-       // The Z position is obtained from the client
-       if(this instanceof L2BoatInstance )
-       {           
-           super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
-           ((L2BoatInstance)this).updatePeopleInTheBoat(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
-       }
-       else
-       {
-    	   super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
-    	   if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(false);
-       }
+        // Set the timer of last position update to now
+        m._moveTimestamp = gameTicks;
 
-       // Set the timer of last position update to now
-       m._moveTimestamp = gameTicks;
-
-       return false;
-
-   }
+        return false;
+    }
 
 
    /**
@@ -3950,23 +3945,31 @@ public abstract class L2Character extends L2Object
 		
 		// Create and Init a MoveData object
 		MoveData m = new MoveData();
-		
+		m.onGeodataPathIndex = -1; // Initialize not on geodata path
 		// GEODATA MOVEMENT CHECKS 
-		// TODO: Better integration to code.
-		m.onGeodataPathIndex = -1; // Set not on geodata path
 		if (Config.GEODATA)
 		{
 			double originalDistance = distance;
 			int originalX = x;
 			int originalY = y;
 			int originalZ = z;
+			int gtx = (originalX - L2World.MAP_MIN_X) >> 4;
+			int gty = (originalY - L2World.MAP_MIN_Y) >> 4;
 
 			if ((Config.GEO_MOVE_PC && this instanceof L2PlayableInstance)
 			  || (Config.GEO_MOVE_NPC && this instanceof L2NpcInstance)
 			  || this instanceof L2RiftInvaderInstance) // Rift mobs should never walk through walls
 			{
+				if (isOnGeodataPath())
+				{
+					if (gtx == _move.geoPathGtx && gty == _move.geoPathGty)
+						return;
+					else
+						_move.onGeodataPathIndex = -1; // Set not on geodata path
+				}
+				
 				Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z);
-				// location probably always different due to rounding
+				// location different if destination wasn't reached (or just z coord is different)
 				x = destiny.getX();
 				y = destiny.getY();
 				z = destiny.getZ();
@@ -3989,97 +3992,196 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 			}
-			if(Config.GEO_PATH_FINDING && originalDistance-distance > 100)
+			if(Config.GEO_PATH_FINDING && originalDistance-distance > 100) // questionable distance comparison
 			{
 				// Path calculation
-				// Note: Overrides previous movement check and currently with
-				// bad results.
-				int gx = (curX - L2World.MAP_MIN_X) >> 4;
-				int gy = (curY - L2World.MAP_MIN_Y) >> 4;
-				int gtx = (originalX - L2World.MAP_MIN_X) >> 4;
-				int gty = (originalY - L2World.MAP_MIN_Y) >> 4;
-				List<AbstractNodeLoc> path = GeoPathFinding.getInstance().findPath(gx, gy, (short)curZ, gtx, gty, (short)originalZ);
-				if (path == null) // break intention and follow 
+				// Overrides previous movement check
+				if(this instanceof L2PlayableInstance || this.isInCombat())
 				{
-					getAI().stopFollow();
-					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-					_log.warn("break, no path");
-					return;
+					int gx = (curX - L2World.MAP_MIN_X) >> 4;
+					int gy = (curY - L2World.MAP_MIN_Y) >> 4;
+				
+					m.geoPath = GeoPathFinding.getInstance().findPath(gx, gy, (short)curZ, gtx, gty, (short)originalZ);
+					if (m.geoPath == null) // break intention and follow
+					{
+						getAI().stopFollow();
+						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+						// _log.warning("break, no path");
+						return;
+					}
+					m.geoPath.get(m.geoPath.size()-1).getX();
+					m.onGeodataPathIndex = 0; // on first segment
+					m.geoPathGtx = gtx;
+					m.geoPathGty = gty;
+					m.geoPathAccurateTx = originalX;
+					m.geoPathAccurateTy = originalY;
+
+					x = m.geoPath.get(m.onGeodataPathIndex).getX();
+					y = m.geoPath.get(m.onGeodataPathIndex).getY();
+					z = m.geoPath.get(m.onGeodataPathIndex).getZ();
+					dx = (x - curX);
+					dy = (y - curY);
+					distance = Math.sqrt(dx*dx + dy*dy);
+					sin = dy/distance;
+					cos = dx/distance;
 				}
-				x = path.get(0).getX();
-				y = path.get(0).getY();
-				z = path.get(0).getZ();
-				dx = (x - curX);
-				dy = (y - curY);
-				distance = Math.sqrt(dx*dx + dy*dy);
-				sin = dy/distance;
-				cos = dx/distance;
-				//m.geoPath = path; // not used elsewhere yet
-				m.onGeodataPathIndex = 0; // on first segment
 			}
 		}
 
-       // Caclulate the Nb of ticks between the current position and the destination
-       // One tick added for rounding reasons
-       m._ticksToMove = 1+(int)(GameTimeController.TICKS_PER_SECOND * distance / speed);
+		// Caclulate the Nb of ticks between the current position and the destination
+		// One tick added for rounding reasons
+		m._ticksToMove = 1+(int)(GameTimeController.TICKS_PER_SECOND * distance / speed);
 
 
-       // Calculate the xspeed and yspeed in unit/ticks in function of the movement speed
-       m._xSpeedTicks = (float)(cos * speed / GameTimeController.TICKS_PER_SECOND);
-       m._ySpeedTicks = (float)(sin * speed / GameTimeController.TICKS_PER_SECOND);
+		// Calculate the xspeed and yspeed in unit/ticks in function of the movement speed
+		m._xSpeedTicks = (float)(cos * speed / GameTimeController.TICKS_PER_SECOND);
+		m._ySpeedTicks = (float)(sin * speed / GameTimeController.TICKS_PER_SECOND);
 
-       // Calculate and set the heading of the L2Character
-       int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
-       heading += 32768;
-       setHeading(heading);
+		// Calculate and set the heading of the L2Character
+		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
+		heading += 32768;
+		setHeading(heading);
 
-       if (_log.isDebugEnabled())
-           _log.debug("dist:"+ distance +"speed:" + speed + " ttt:" +m._ticksToMove +
-                   " dx:"+(int)m._xSpeedTicks + " dy:"+(int)m._ySpeedTicks + " heading:" + heading);
+		if (_log.isDebugEnabled())
+			_log.debug("dist:"+ distance +"speed:" + speed + " ttt:" +m._ticksToMove +
+				" dx:"+(int)m._xSpeedTicks + " dy:"+(int)m._ySpeedTicks + " heading:" + heading);
 
-       m._xDestination = x;
-       m._yDestination = y;
-       m._zDestination = z; // this is what was requested from client
-       m._heading = 0;
+		m._xDestination = x;
+		m._yDestination = y;
+		m._zDestination = z; // this is what was requested from client
+		m._heading = 0;
 
-       m._moveStartTime = GameTimeController.getGameTicks();
-       m._xMoveFrom = curX;
-       m._yMoveFrom = curY;
-       m._zMoveFrom = curZ;
+		m._moveStartTime = GameTimeController.getGameTicks();
+		m._xMoveFrom = curX;
+		m._yMoveFrom = curY;
+		m._zMoveFrom = curZ;
 
-       if (_log.isDebugEnabled()) _log.debug("time to target:" + m._ticksToMove);
+		if (_log.isDebugEnabled()) _log.debug("time to target:" + m._ticksToMove);
 
-       // Set the L2Character _move object to MoveData object
-       _move = m;
+		// Set the L2Character _move object to MoveData object
+		_move = m;
 
-       // Add the L2Character to movingObjects of the GameTimeController
-       // The GameTimeController manage objects movement
-       GameTimeController.getInstance().registerMovingObject(this);
+		// Add the L2Character to movingObjects of the GameTimeController
+		// The GameTimeController manage objects movement
+		GameTimeController.getInstance().registerMovingObject(this);
 
-       int tm = m._ticksToMove*GameTimeController.MILLIS_IN_TICK;
+		int tm = m._ticksToMove*GameTimeController.MILLIS_IN_TICK;
 
-       // Create a task to notify the AI that L2Character arrives at a check point of the movement
-       if (tm > 3000)
-           ThreadPoolManager.getInstance().scheduleAi( new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE), 2000);
+		// Create a task to notify the AI that L2Character arrives at a check point of the movement
+		if (tm > 3000)
+			ThreadPoolManager.getInstance().scheduleAi( new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE), 2000);
 
-       // the CtrlEvent.EVT_ARRIVED will be sent when the character will actually arrive
-       // to destination by GameTimeController
-   }
+		// the CtrlEvent.EVT_ARRIVED will be sent when the character will actually arrive
+		// to destination by GameTimeController
+	}
 
-   public boolean validateMovementHeading(int heading)
-   {
-       if (_move == null) return true;
-       
-       boolean result = true;
-       // if (_move._heading < heading - 5 || _move._heading > heading  5)
-       if (_move._heading != heading)
-           {
-           result = (_move._heading == 0);
-           _move._heading = heading;
-           }
-       
-       return result;
-   }
+	public boolean moveToNextRoutePoint()
+	{
+		if(!this.isOnGeodataPath())
+		{
+			// Cancel the move action
+			_move = null;
+			return false;
+		}
+
+		// Get the Move Speed of the L2Charcater
+		float speed = getStat().getMoveSpeed();
+		if (speed <= 0 || isMovementDisabled()) 
+		{
+			// Cancel the move action
+			_move = null;
+			return false;
+		}
+
+		// Create and Init a MoveData object
+		MoveData m = new MoveData();
+
+		// Update MoveData object
+		m.onGeodataPathIndex = _move.onGeodataPathIndex + 1; // next segment
+		m.geoPath = _move.geoPath;
+		m.geoPathGtx = _move.geoPathGtx;
+		m.geoPathGty = _move.geoPathGty;
+		m.geoPathAccurateTx = _move.geoPathAccurateTx;
+		m.geoPathAccurateTy = _move.geoPathAccurateTy;
+
+		// Get current position of the L2Character
+		m._xMoveFrom = super.getX();
+		m._yMoveFrom = super.getY();
+		m._zMoveFrom = super.getZ();
+
+		if (_move.onGeodataPathIndex == _move.geoPath.size()-2)
+		{
+			m._xDestination = _move.geoPathAccurateTx;
+			m._yDestination = _move.geoPathAccurateTy;
+			m._zDestination = _move.geoPath.get(m.onGeodataPathIndex).getZ();
+		}
+		else
+		{
+			m._xDestination = _move.geoPath.get(m.onGeodataPathIndex).getX();
+			m._yDestination = _move.geoPath.get(m.onGeodataPathIndex).getY();
+			m._zDestination = _move.geoPath.get(m.onGeodataPathIndex).getZ();
+		}
+		double dx = (m._xDestination - m._xMoveFrom);
+		double dy = (m._yDestination - m._yMoveFrom);
+		double distance = Math.sqrt(dx*dx + dy*dy);
+		double sin = dy/distance;
+		double cos = dx/distance;
+
+		// Caclulate the Nb of ticks between the current position and the destination
+		// One tick added for rounding reasons
+		m._ticksToMove = 1+(int)(GameTimeController.TICKS_PER_SECOND * distance / speed);
+
+		// Calculate the xspeed and yspeed in unit/ticks in function of the movement speed
+		m._xSpeedTicks = (float)(cos * speed / GameTimeController.TICKS_PER_SECOND);
+		m._ySpeedTicks = (float)(sin * speed / GameTimeController.TICKS_PER_SECOND);
+
+		// Calculate and set the heading of the L2Character
+		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
+		heading += 32768;
+		setHeading(heading);
+		m._heading = 0; // ?
+		
+		m._moveStartTime = GameTimeController.getGameTicks();
+
+		if (_log.isDebugEnabled()) _log.info("time to target:" + m._ticksToMove);
+		
+		// Set the L2Character _move object to MoveData object
+		_move = m;
+		
+		// Add the L2Character to movingObjects of the GameTimeController
+		// The GameTimeController manage objects movement
+		GameTimeController.getInstance().registerMovingObject(this);
+
+		int tm = m._ticksToMove*GameTimeController.MILLIS_IN_TICK;
+
+		// Create a task to notify the AI that L2Character arrives at a check point of the movement
+		if (tm > 3000)
+			ThreadPoolManager.getInstance().scheduleAi( new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE), 2000);
+
+		// the CtrlEvent.EVT_ARRIVED will be sent when the character will actually arrive
+		// to destination by GameTimeController
+		
+		// Send a Server->Client packet CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
+		CharMoveToLocation msg = new CharMoveToLocation(this);
+		broadcastPacket(msg);
+
+		return true;
+	}
+
+	public boolean validateMovementHeading(int heading)
+	{
+		if (_move == null) return true;
+
+		boolean result = true;
+		// if (_move._heading < heading - 5 || _move._heading > heading  5)
+		if (_move._heading != heading)
+		{
+			result = (_move._heading == 0);
+			_move._heading = heading;
+		}
+
+		return result;
+	}
 
    /**
     * Return the distance between the current position of the L2Character and the target (x,y).<BR><BR>

@@ -172,10 +172,11 @@ public class GeoEngine extends GeoData
     @Override
     public Location moveCheck(int x, int y, int z, int tx, int ty, int tz)
     {
-    	if (DoorTable.getInstance().checkIfDoorsBetween(x,y,z,tx,ty,tz)) 
-    		return new Location(x,y,z);    	
-    	Location destiny = new Location(tx,ty,tz);
-        return moveCheck(destiny,(x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z,(tx - L2World.MAP_MIN_X) >> 4,(ty - L2World.MAP_MIN_Y) >> 4,tz);
+        Location startpoint = new Location(x,y,z);
+        if (DoorTable.getInstance().checkIfDoorsBetween(x,y,z,tx,ty,tz)) 
+            return startpoint;
+        Location destiny = new Location(tx,ty,tz);
+        return moveCheck(startpoint, destiny, (x - L2World.MAP_MIN_X) >> 4,(y - L2World.MAP_MIN_Y) >> 4,z,(tx - L2World.MAP_MIN_X) >> 4,(ty - L2World.MAP_MIN_Y) >> 4,tz);
     }    
     /**
      * @see net.sf.l2j.gameserver.GeoData#addGeoDataBug(net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, java.lang.String)
@@ -423,23 +424,24 @@ public class GeoEngine extends GeoData
         }
         return true;
     }
+
     /*
      *  MoveCheck
      */
-    private static Location moveCheck(Location destiny, int x, int y, double z, int tx, int ty, int tz)
+    private static Location moveCheck(Location startpoint,Location destiny, int x, int y, double z, int tx, int ty, int tz)
     {
-    	int dx = (tx - x);
+        int dx = (tx - x);
         int dy = (ty - y);
         //final double dz = (tz - z);
         final int distance2 = dx*dx+dy*dy;
 
-        if (distance2 > 15625) // 150*150*16 = 2000 world coord
+        if (distance2 > 36100) // 190*190*16 = 3040 world coord
         {
             //Avoid too long check
-            return destiny;
+            return startpoint;
         }
         if (distance2 == 0)
-        	return destiny;
+            return startpoint;
      
         // Increment in Z coordinate when moving along X or Y axis 
         // and not straight to the target. This is done because
@@ -523,7 +525,7 @@ public class GeoEngine extends GeoData
             	}
             }
         }
-        return destiny;
+        return destiny; // should actually return correct z here instead of tz
     }
     
     private static byte sign(int x)

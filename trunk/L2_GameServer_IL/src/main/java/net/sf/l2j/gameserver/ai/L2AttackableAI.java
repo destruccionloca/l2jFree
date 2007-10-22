@@ -137,8 +137,12 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      */
     private boolean autoAttackCondition(L2Character target)
     {
+        if (target == null || !(_actor instanceof L2Attackable)) return false;
         L2Attackable me = (L2Attackable) _actor;
 
+        // Check if the target isn't invulnerable
+        if (target.isInvul())
+            return false;
         // Check if the target isn't a Folk or a Door
         if (target instanceof L2FolkInstance || target instanceof L2DoorInstance) return false;
 
@@ -146,10 +150,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         if (target.isAlikeDead() 
             || !me.isInsideRadius(target, me.getAggroRange(), false, false) 
             || Math.abs(_actor.getZ() - target.getZ()) > 300) return false;
-
-        // Check if the target isn't invulnerable
-        if (target.isInvul())
-            return false;
 
         // Check if the target is a L2PcInstance
         if (target instanceof L2PcInstance)
@@ -571,8 +571,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         }
         else
         {
-            if(_actor.isAttackingDisabled()) return;
-            
             // Call all L2Object of its Faction inside the Faction Range
             if (((L2NpcInstance) _actor).getFactionId() != null)
             {
@@ -615,6 +613,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                     }
                 }
             }
+
+            if(_actor.isAttackingDisabled()) return;
 
             // Get all information needed to chose between physical or magical attack
             L2Skill[] skills = null;
