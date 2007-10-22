@@ -139,6 +139,10 @@ public class DoorTable
 		
 		if (st.hasMoreTokens())
 			unlockable = Boolean.parseBoolean(st.nextToken());
+		
+		boolean autoopen = false;
+		if (st.hasMoreTokens())
+			autoopen = Boolean.parseBoolean(st.nextToken());
 
 		if (rangeXMin > rangeXMax) _log.fatal("Error in door data, ID:"+id);
 		if (rangeYMin > rangeYMax) _log.fatal("Error in door data, ID:"+id);
@@ -206,7 +210,7 @@ public class DoorTable
 			_log.fatal("Error in door data, ID:"+id); 
 		}		
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
-		door.setOpen(1);
+		door.setOpen(autoopen?0:1);
 		door.getPosition().setXYZInvisible(x,y,z);
 
 		return door;
@@ -249,36 +253,6 @@ public class DoorTable
             // Tower of Insolence (every 5 minutes)
             else if (doorInst.getDoorName().startsWith("aden_tower"))
                 doorInst.setAutoActionDelay(300000);
-    }
-    
-    /**
-     * Open some doors
-     *
-     */
-    public void openDoors()
-    {
-        try
-        {
-            getDoor(24190001).openMe();
-            getDoor(24190002).openMe();
-            getDoor(24190003).openMe();
-            getDoor(24190004).openMe();
-            getDoor(23180001).openMe();
-            getDoor(23180002).openMe();
-            getDoor(23180003).openMe();
-            getDoor(23180004).openMe();
-            getDoor(23180005).openMe();
-            getDoor(23180006).openMe();
-            getDoor(24210006).openMe(); // Valakas Door
-            
-            checkAutoOpen();
-        } 
-        catch (NullPointerException e)
-        {
-            _log.warn("There are errors in your Door.csv file. Update door.csv");
-            if (_log.isDebugEnabled())
-               _log.debug(e);
-        }
     }
 
     public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)

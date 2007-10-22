@@ -103,7 +103,7 @@ public final class Calculator
 	/**
 	 * Add a Func to the Calculator.<BR><BR>
 	 */
-	public synchronized void addFunc(Func f, L2Character activeChar) 
+	public synchronized void addFunc(Func f) 
 	{
 		Func[] funcs = _functions;
 		Func[] tmp = new Func[funcs.length+1];
@@ -120,16 +120,13 @@ public final class Calculator
 			tmp[i+1] = funcs[i];
 		
 		_functions = tmp;
-
-		if ((f.stat==Stats.RUN_SPEED || f.stat==Stats.ATK_REUSE) && activeChar!=null && activeChar instanceof L2PcInstance)
-			((L2PcInstance)activeChar).broadcastUserInfo();
 	}
 	
 	
 	/**
 	 * Remove a Func from the Calculator.<BR><BR>
 	 */
-	public synchronized void removeFunc(Func f, L2Character activeChar) 
+	public synchronized void removeFunc(Func f) 
 	{
 		Func[] funcs = _functions;
 		Func[] tmp = new Func[funcs.length-1];
@@ -149,23 +146,20 @@ public final class Calculator
 			_functions = _emptyFuncs;
 		else
 			_functions = tmp;
-		
-		if ((f.stat==Stats.RUN_SPEED || f.stat==Stats.ATK_REUSE)&& activeChar!=null && activeChar instanceof L2PcInstance)
-			((L2PcInstance)activeChar).broadcastUserInfo();		
 	}
 	
 
 	/**
 	 * Remove each Func with the specified owner of the Calculator.<BR><BR>
 	 */
-	public synchronized void removeOwner(Object owner, L2Character activeChar) 
+	public synchronized void removeOwner(Object owner) 
 	{
 		Func[] funcs = _functions;
 		
 		for (int i=0; i < funcs.length; i++) 
 		{
 			if (funcs[i].funcOwner == owner)
-				removeFunc(funcs[i], activeChar);
+				removeFunc(funcs[i]);
 		}
 	}
 

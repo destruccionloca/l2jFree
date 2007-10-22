@@ -500,10 +500,6 @@ public class GameServer
         _shutdownHandler = Shutdown.getInstance();
         Runtime.getRuntime().addShutdownHook(_shutdownHandler);
         
-        // o Open doors
-        // ----------
-        _doorTable.openDoors ();
-        
         // Print id factory infos
         // ----------------------
         _log.info("############ GENERAL INFORMATION ###########");

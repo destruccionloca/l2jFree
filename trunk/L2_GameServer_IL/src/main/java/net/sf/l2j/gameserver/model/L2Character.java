@@ -3297,7 +3297,7 @@ public abstract class L2Character extends L2Object
             _calculators[stat] = new Calculator();
 
         // Add the Func to the calculator corresponding to the state
-        _calculators[stat].addFunc(f,this);
+        _calculators[stat].addFunc(f);
     }
 
    /**
@@ -3356,7 +3356,7 @@ public abstract class L2Character extends L2Object
             return;
 
         // Remove the Func object from the Calculator
-        _calculators[stat].removeFunc(f,this);
+        _calculators[stat].removeFunc(f);
 
         if (_calculators[stat].size() == 0)
             _calculators[stat] = null;
@@ -3434,7 +3434,7 @@ public abstract class L2Character extends L2Object
            if (_calculators[i] != null)
            {
                // Delete all Func objects of the selected owner
-               _calculators[i].removeOwner(owner,this);
+               _calculators[i].removeOwner(owner);
 
                if (_calculators[i].size() == 0)
                    _calculators[i] = null;

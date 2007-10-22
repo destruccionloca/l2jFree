@@ -422,9 +422,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
             character.standUp();        // standing is default
             
             character.updateStats();
-            character.broadcastUserInfo();
-            character.updateKarma(-1);
-
+            character.updateKarma();
             character.setOnlineStatus(true);
         }
         else
