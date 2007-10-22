@@ -3434,7 +3434,7 @@ public abstract class L2Character extends L2Object
             if (_calculators[i] != null)
             {
                 // Delete all Func objects of the selected owner
-                _calculators[i].removeOwner(owner,this);
+                _calculators[i].removeOwner(owner);
 
                 if (_calculators[i].size() == 0)
                     _calculators[i] = null;
