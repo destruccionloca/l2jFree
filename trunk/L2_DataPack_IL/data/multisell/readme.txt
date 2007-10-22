@@ -22,6 +22,8 @@ of this directory a little bit.
 1004.xml -> Blacksmith crafting service
 1005.xml -> Blacksmith Special Abilities bestowing service
 
+1235.xml -> Apella shop
+
 3361.xml -> Quest 336: Coins of Magic, Rewards level 1
 3362.xml -> Quest 336: Coins of Magic, Rewards level 2
 3363.xml -> Quest 336: Coins of Magic, Rewards level 3
@@ -66,6 +68,7 @@ of this directory a little bit.
 306893002.xml -> Shadow weaponry system. C-grade coupons exchange
 306893003.xml -> Shadow weaponry system. D/C-grade coupons exchange
 319463001.xml -> Shadow weaponry system. Adena exchange
+
 300974001.xml -> Prestigious Items Hall: Galladucci (weapons)
 300984001.xml -> Prestigious Items Hall: Alexandria (armors)
 300984002.xml -> Prestigious Items Hall: Alexandria (misc)
