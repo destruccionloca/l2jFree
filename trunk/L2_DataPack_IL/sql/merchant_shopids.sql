@@ -272,7 +272,6 @@ INSERT INTO merchant_shopids VALUES (418,'31616');
 INSERT INTO merchant_shopids VALUES (419,'31696'); 
 INSERT INTO merchant_shopids VALUES (420,'31697');
 INSERT INTO merchant_shopids VALUES (421,'31989');
-INSERT INTO merchant_shopids VALUES (421,'31989');
 INSERT INTO merchant_shopids VALUES (423,'32105');
 
 -- GM Shops
