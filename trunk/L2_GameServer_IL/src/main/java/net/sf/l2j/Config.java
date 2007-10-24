@@ -1820,6 +1820,9 @@ public final class Config
     public static long 		ALT_FESTIVAL_SECOND_SPAWN;		// Festival Second Spawn
     public static long 		ALT_FESTIVAL_SECOND_SWARM;		// Festival Second Swarm
     public static long 		ALT_FESTIVAL_CHEST_SPAWN;		// Festival Chest Spawn
+    public static int 		ALT_FESTIVAL_ARCHER_AGGRO;		// Aggro value of Archer in SevenSigns Festival
+    public static int 		ALT_FESTIVAL_CHEST_AGGRO;		// Aggro value of Chest in SevenSigns Festival
+    public static int 		ALT_FESTIVAL_MONSTER_AGGRO;		// Aggro value of Monster in SevenSigns Festival
     //  *******************************************************************************************
     public static void loadSevenSignsConfig()
     {
@@ -1843,6 +1846,9 @@ public final class Config
             ALT_FESTIVAL_SECOND_SPAWN       = Long.parseLong(SevenSettings.getProperty("AltFestivalSecondSpawn", "540000"));
             ALT_FESTIVAL_SECOND_SWARM       = Long.parseLong(SevenSettings.getProperty("AltFestivalSecondSwarm", "720000"));
             ALT_FESTIVAL_CHEST_SPAWN        = Long.parseLong(SevenSettings.getProperty("AltFestivalChestSpawn", "900000"));
+            ALT_FESTIVAL_ARCHER_AGGRO		= Integer.parseInt(SevenSettings.getProperty("AltFestivalArcherAggro", "200"));
+            ALT_FESTIVAL_CHEST_AGGRO		= Integer.parseInt(SevenSettings.getProperty("AltFestivalChestAggro", "0"));
+            ALT_FESTIVAL_MONSTER_AGGRO		= Integer.parseInt(SevenSettings.getProperty("AltFestivalMonsterAggro", "200"));
         }
         catch (Exception e)
         {

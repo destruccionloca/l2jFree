@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -31,10 +32,13 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * 
  * @author Tempy
  */
+
 public class L2FestivalMonsterInstance extends L2MonsterInstance
 {
-    protected int _bonusMultiplier = 1;
-    
+	private boolean _isArcher;
+	private boolean _isChest;
+	protected int _bonusMultiplier = 1;
+	  
     /**
      * Constructor of L2FestivalMonsterInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
      *  
@@ -49,7 +53,9 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
     public L2FestivalMonsterInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-    }	
+        _isArcher = SevenSignsFestival.isFestivalArcher(getTemplate().getNpcId());
+        _isChest = SevenSignsFestival.isFestivalChest(getTemplate().getNpcId());
+    }
     
     public void setOfferingBonus(int bonusMultiplier)
     {
@@ -60,7 +66,7 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
      * Return True if the attacker is not another L2FestivalMonsterInstance.<BR><BR>
      */
     @Override
-    public boolean isAutoAttackable(L2Character attacker) 
+    public boolean isAutoAttackable(L2Character attacker)
     {
         if (attacker instanceof L2FestivalMonsterInstance)
             return false;
@@ -75,6 +81,23 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
     public boolean isAggressive()
     {
         return true;
+    }
+    
+	@Override
+    public int getAggroRange()
+    {
+		if (_isArcher)
+		{
+			return Config.ALT_FESTIVAL_ARCHER_AGGRO;
+		}
+		if (_isChest)
+		{
+			return Config.ALT_FESTIVAL_CHEST_AGGRO;
+		}
+		else
+		{
+			return Config.ALT_FESTIVAL_MONSTER_AGGRO;
+		}
     }
     
     /**
@@ -107,17 +130,17 @@ public class L2FestivalMonsterInstance extends L2MonsterInstance
             return;
         
         L2PcInstance partyLeader = associatedParty.getPartyMembers().get(0);
-        L2ItemInstance addedOfferings = partyLeader.getInventory().addItem("Sign", SevenSignsFestival.FESTIVAL_OFFERING_ID, 1 * _bonusMultiplier, partyLeader, this);
+        L2ItemInstance addedOfferings = partyLeader.getInventory().addItem("Sign", SevenSignsFestival.FESTIVAL_OFFERING_ID, _bonusMultiplier, partyLeader, this);
         
         InventoryUpdate iu = new InventoryUpdate();
         
-        if (addedOfferings.getCount() !=  _bonusMultiplier) 
+        if (addedOfferings.getCount() != _bonusMultiplier)
             iu.addModifiedItem(addedOfferings);
-        else 
-            iu.addNewItem(addedOfferings);   
+        else
+            iu.addNewItem(addedOfferings);
         
         partyLeader.sendPacket(iu);
         
-        super.doItemDrop(lastAttacker);
+        super.doItemDrop(lastAttacker); // Normal drop
     }
 }
