@@ -265,10 +265,10 @@ public final class Util
     }
 
     /**
-+     * Return amount of adena formatted with "," delimiter
-+     * @param amount
-+     * @return String formatted adena amount
-+     */
+     * Return amount of adena formatted with "," delimiter
+     * @param amount
+     * @return String formatted adena amount
+     */
     public static String formatAdena(int amount)
     {
         String s = "";
@@ -286,5 +286,25 @@ public final class Util
             amount = (amount - rem)/1000;
         }
         return s;
+    }
+
+    /**
+     * 
+     * @param s
+     */
+    public static void printSection(String s)
+    {
+    	int maxlength = 79;
+    	s = "-[ " + s + " ]";
+    	int slen = s.length();
+    	if(slen > maxlength)
+    	{
+    		System.out.println(s);
+    		return;
+    	}
+    	int i;
+    	for(i=0;i<(maxlength-slen);i++)
+    		s = "="+s;
+    	System.out.println(s);
     }
 }

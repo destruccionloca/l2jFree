@@ -42,6 +42,7 @@ public class ItemsAutoDestroy
         if(_sleep == 0) // it should not happend as it is not called when AUTODESTROY_ITEM_AFTER = 0 but we never know..
             _sleep = 3600000;
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new CheckItemsForDestroy(),5000,5000);
+        _log.info("ItemsAutoDestroy: initialized");
     }
     
     public static ItemsAutoDestroy getInstance()

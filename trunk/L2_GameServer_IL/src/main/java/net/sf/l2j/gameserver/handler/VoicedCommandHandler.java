@@ -42,9 +42,7 @@ public class VoicedCommandHandler
 	public static VoicedCommandHandler getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new VoicedCommandHandler();
-		}
 		return _instance;
 	}
 	
@@ -56,6 +54,7 @@ public class VoicedCommandHandler
         {
             registerVoicedCommandHandler(new Wedding());
         }
+        _log.info("VoicedCommandHandler: Loaded " + _datatable.size() + " handlers.");        
 	}
 	
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)

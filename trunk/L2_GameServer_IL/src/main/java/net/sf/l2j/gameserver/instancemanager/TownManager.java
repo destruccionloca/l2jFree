@@ -41,7 +41,6 @@ public class TownManager
     {
         if (_instance == null)
         {
-            _log.info("Initializing TownManager");
             _instance = new TownManager();
             _instance.load();
         }
@@ -50,9 +49,7 @@ public class TownManager
 
     private FastMap<Integer, Town> _towns;
 
-    public TownManager()
-    {
-    }
+    public TownManager() {}
 
     /** Return true if object is inside zone */
     public final boolean checkIfInZone(L2Object obj)

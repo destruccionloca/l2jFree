@@ -20,23 +20,22 @@ package net.sf.l2j.gameserver.datatables;
 import java.io.File;
 import java.util.List;
 import java.util.StringTokenizer;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javolution.util.FastList;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Augmentation;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.lib.Rnd;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
+import net.sf.l2j.gameserver.skills.Stats;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
 /**
  * This class manages the augmentation data and can also create new augmentations.
@@ -91,8 +90,6 @@ public class AugmentationData
 	// Constructor
 	public AugmentationData()
 	{
-		_log.info("Initializing AugmentationData.");
-		
 		_augmentationStats = new FastList[4];
 		_augmentationStats[0] = new FastList<augmentationStat>();
 		_augmentationStats[1] = new FastList<augmentationStat>();

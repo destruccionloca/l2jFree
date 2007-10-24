@@ -174,12 +174,12 @@ public class Hero
             con2.close();
         } catch(SQLException e)
         {
-            _log.warn("Hero System: Couldnt load Heroes");
+            _log.warn("HeroSystem: Couldnt load Heroes");
             if (_log.isDebugEnabled())  _log.debug("",e);
         }
         
-        _log.info("Hero System: Loaded " + _heroes.size() + " Heroes.");
-        _log.info("Hero System: Loaded " + _completeHeroes.size() + " all time Heroes.");
+        _log.info("HeroSystem: Loaded " + _heroes.size() + " Heroes.");
+        _log.info("HeroSystem: Loaded " + _completeHeroes.size() + " all time Heroes.");
     }
 
     /**
@@ -405,7 +405,7 @@ public class Hero
             	}
             	catch (Exception e)
             	{
-                    _log.warn("Hero System: Couldnt get Clanname of " + name);
+                    _log.warn("HeroSystem: Couldnt get Clanname of " + name);
                     if (_log.isDebugEnabled())  _log.debug("",e);
             	}
             	finally
@@ -477,7 +477,7 @@ public class Hero
             }
         } catch(SQLException e)
         {
-            _log.warn("Hero System: Couldnt update Heroes");
+            _log.warn("HeroSystem: Couldnt update Heroes");
             if (_log.isDebugEnabled())  _log.debug("",e);
         } finally
         {

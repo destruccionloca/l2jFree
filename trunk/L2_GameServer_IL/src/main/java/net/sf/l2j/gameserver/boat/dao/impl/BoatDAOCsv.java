@@ -98,7 +98,9 @@ public class BoatDAOCsv implements IBoatDAO
         finally 
         {
             try { lnr.close(); } catch (Exception e1) { /* ignore problems */ }
-        }       
+        }
+        _log.info("BoatService: initialized");		
+        
     }
     
     /**

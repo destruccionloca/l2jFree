@@ -82,7 +82,6 @@ public final class PetitionManager
 	{
 		if (_instance == null)
 		{
-			_log.info("Initializing PetitionManager");
 			_instance = new PetitionManager();
 		}
 		
@@ -246,6 +245,7 @@ public final class PetitionManager
 	
 	private PetitionManager()
 	{
+		_log.info("PetitionManager: initalized.");		
 		_pendingPetitions = new FastMap<Integer, Petition>();
 		_completedPetitions = new FastMap<Integer, Petition>();
 	}

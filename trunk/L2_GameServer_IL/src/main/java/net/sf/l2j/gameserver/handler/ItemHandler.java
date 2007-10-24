@@ -21,10 +21,11 @@ package net.sf.l2j.gameserver.handler;
 import java.util.Map;
 import java.util.TreeMap;
 
-import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpice;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSoulShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpice;
 import net.sf.l2j.gameserver.handler.itemhandlers.BeastSpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.BlessedSpiritShot;
+import net.sf.l2j.gameserver.handler.itemhandlers.Book;
 import net.sf.l2j.gameserver.handler.itemhandlers.CharChangePotions;
 import net.sf.l2j.gameserver.handler.itemhandlers.ChestKey;
 import net.sf.l2j.gameserver.handler.itemhandlers.CrystalCarol;
@@ -33,7 +34,6 @@ import net.sf.l2j.gameserver.handler.itemhandlers.EnergyStone;
 import net.sf.l2j.gameserver.handler.itemhandlers.ExtractableItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.Firework;
 import net.sf.l2j.gameserver.handler.itemhandlers.FishShots;
-import net.sf.l2j.gameserver.handler.itemhandlers.Book;
 import net.sf.l2j.gameserver.handler.itemhandlers.Harvester;
 import net.sf.l2j.gameserver.handler.itemhandlers.MercTicket;
 import net.sf.l2j.gameserver.handler.itemhandlers.MysteryPotion;
@@ -54,6 +54,9 @@ import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.WorldMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class manages handlers of items
  *
@@ -61,7 +64,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.WorldMap;
  */
 public class ItemHandler
 {
-	//private final static Log _log = LogFactory.getLog(ItemHandler.class.getName());
+	private final static Log _log = LogFactory.getLog(ItemHandler.class.getName());
     private static ItemHandler _instance;
     
     private Map<Integer, IItemHandler> _datatable;
@@ -73,9 +76,7 @@ public class ItemHandler
     public static ItemHandler getInstance()
     {
         if (_instance == null)
-        {
             _instance = new ItemHandler();
-        }
         return _instance;
     }
     
@@ -126,6 +127,7 @@ public class ItemHandler
         registerItemHandler(new SpiritShot());
         registerItemHandler(new SummonItems());
         registerItemHandler(new WorldMap());
+        _log.info("ItemHandler: Loaded " + _datatable.size() + " handlers.");        
     }
     
     /**

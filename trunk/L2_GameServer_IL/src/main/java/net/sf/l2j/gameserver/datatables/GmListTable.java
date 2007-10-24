@@ -55,9 +55,7 @@ public class GmListTable
 	public static GmListTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new GmListTable();
-		}
 		return _instance;
 	}
 
@@ -91,6 +89,7 @@ public class GmListTable
 
 	private GmListTable()
 	{
+		_log.info("GmListTable: initalized.");		
 		_gmList = new FastList<GmListEntry>();
 	}
 	

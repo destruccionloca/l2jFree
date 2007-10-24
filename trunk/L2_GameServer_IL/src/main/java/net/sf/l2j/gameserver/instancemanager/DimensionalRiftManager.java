@@ -65,16 +65,13 @@ public class DimensionalRiftManager
     {
         if (_instance == null)
         {
-            _log.info("Initializing DimensionalRiftManager");
             _instance = new DimensionalRiftManager();
             _instance.load();
         }
         return _instance;
     }
 
-    public DimensionalRiftManager()
-    {
-    }
+    public DimensionalRiftManager() {}
 
     public FastMap<RoomType, FastMap<Byte, DimensionalRiftRoom>> getRooms()
     {
@@ -130,8 +127,8 @@ public class DimensionalRiftManager
                 spawnCount += room.getValue().getSpawns().size();
             }
         }
-        _log.info("DimensionalRiftManager: Loaded " + getRooms().size() + " room type(s):" + roomCount + " room(s) with "
-                + spawnCount + " spawn(s).");
+        _log.info("DimensionalRiftManager: Loaded " + getRooms().size() + " room types:" + roomCount + " rooms with "
+                + spawnCount + " spawns.");
 
     }
 

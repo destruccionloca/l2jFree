@@ -316,10 +316,10 @@ public class SkillTreeTable
             try { con.close(); } catch (Exception e) {}
         }
         
-        _log.config("FishingSkillTreeTable: Loaded " + count2 + " general skills.");
-        _log.config("FishingSkillTreeTable: Loaded " + count3 + " dwarven skills.");
-        _log.config("EnchantSkillTreeTable: Loaded " + count4 + " enchant skills.");
-        _log.config("PledgeSkillTreeTable: Loaded " + count5 + " pledge skills");
+        _log.info("FishingSkillTreeTable: Loaded " + count2 + " general skills.");
+        _log.info("FishingSkillTreeTable: Loaded " + count3 + " dwarven skills.");
+        _log.info("EnchantSkillTreeTable: Loaded " + count4 + " enchant skills.");
+        _log.info("PledgeSkillTreeTable: Loaded " + count5 + " pledge skills");
     }
 	
     private Map<ClassId, Map<Integer, L2SkillLearn>> getSkillTrees()

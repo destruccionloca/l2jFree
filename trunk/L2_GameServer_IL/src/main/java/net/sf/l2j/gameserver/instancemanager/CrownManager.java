@@ -43,11 +43,15 @@ public class CrownManager
     {
         if (_instance == null)
         {
-            _log.info("Initializing CrownManager");
             _instance = new CrownManager();
         }
         return _instance;
-    }    
+    }
+    
+    public void CrownManager()
+    {
+    	_log.info("CrownManager: initialized");
+    }
     
     public void removeCrowns(L2Clan clan)
     {

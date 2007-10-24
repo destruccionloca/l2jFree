@@ -26,7 +26,6 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.DoorTable;
@@ -515,7 +514,7 @@ public class ClanHall
                 }
                 else
                 {
-                	if(GameServer.gameServer.getCHManager() != null && GameServer.gameServer.getCHManager().loaded()){
+                	if(ClanHallManager.getInstance() != null && ClanHallManager.getInstance().loaded()){
 		            	AuctionManager.getInstance().initNPC(getId());
 		                ClanHallManager.getInstance().setFree(getId());
                 	}else

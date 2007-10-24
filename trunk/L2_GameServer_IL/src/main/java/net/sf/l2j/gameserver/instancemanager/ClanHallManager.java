@@ -45,7 +45,6 @@ public class ClanHallManager
 	{
 		if (_instance == null)
 		{
-			_log.info("Initializing ClanHallManager");
 			_instance = new ClanHallManager();
 		}
 		return _instance;
@@ -95,8 +94,8 @@ public class ClanHallManager
             	}
             }
             statement.close();
-            _log.info("Loaded: "+getClanHalls().size() +" clan halls");
-            _log.info("Loaded: "+getFreeClanHalls().size() +" free clan halls");
+            _log.info("ClanHallManager: loaded "+getClanHalls().size() +" clan halls");
+            _log.info("ClanHallManager: loaded "+getFreeClanHalls().size() +" free clan halls");
             _loaded = true;
         }
         catch (Exception e)

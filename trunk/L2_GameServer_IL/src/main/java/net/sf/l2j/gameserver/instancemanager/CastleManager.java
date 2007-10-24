@@ -39,16 +39,13 @@ public class CastleManager
 	{
 		if (_instance == null)
 		{
-			_log.info("Initializing CastleManager");
 			_instance = new CastleManager();
 			_instance.load();
 		}
 		return _instance;
 	}
 
-	public CastleManager()
-	{
-	}
+	public CastleManager(){}
 
 	public final Castle getClosestCastle(L2Object activeObject)
 	{
@@ -84,7 +81,7 @@ public class CastleManager
 		for (IZone zone : ZoneManager.getInstance().getZones(ZoneType.CastleArea))
 			if (zone != null)
 				getCastles().put(zone.getId(), new Castle(zone.getId()));
-		_log.info("Loaded: " + getCastles().size() + " castles.");
+		_log.info("CastleManager: loaded " + getCastles().size() + " castles.");
 	}
 
 	public final Castle getCastleById(int castleId)

@@ -98,7 +98,7 @@ public class SummonItemsData
             }
             catch (Exception e)
             {
-                _log.error("Summon items data: Error in line " + lineCount + " -> incomplete/invalid data or wrong seperator!");
+                _log.error("SummonItemsData: Error in line " + lineCount + " -> incomplete/invalid data or wrong seperator!");
                 _log.error("        " + line);
                 ok = false;             
             }

@@ -39,7 +39,6 @@ public class QuestManager
         if (_instance == null)
         {
         	File jscript;
-    		System.out.println("Initializing QuestManager");
             _instance = new QuestManager();
             
             jscript = new File(Config.DATAPACK_ROOT, "data/jscript");

@@ -67,9 +67,7 @@ public class Announcements implements AnnouncementsMBean
 	public static Announcements getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new Announcements();
-		}
 		
 		return _instance;
 	}

@@ -73,6 +73,7 @@ public class DoorTable
 
 	private void parseData() 
 	{
+	
 		LineNumberReader lnr = null;
 		try 
 		{

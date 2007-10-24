@@ -156,23 +156,17 @@ public class FourSepulchersManager
     protected List<L2NpcInstance> _allMobs = new FastList<L2NpcInstance>();
     protected String _zoneName = "Four Sepulcher";
     
-    public FourSepulchersManager()
-    {
-    }
+    public FourSepulchersManager() {}
 
     public static final FourSepulchersManager getInstance()
     {
         if (_instance == null)
-        {
             _instance = new FourSepulchersManager();
-        }
         return _instance;
     }
     
     public void init()
     {
-        _log.info("FourSepulchersManager:Init Four-Sepulchers Manager.");
-
         if(_changeCoolDownTimeTask != null) _changeCoolDownTimeTask.cancel(true);
         if(_changeEntryTimeTask != null) _changeEntryTimeTask.cancel(true);
         if(_changeWarmUpTimeTask != null) _changeWarmUpTimeTask.cancel(true);
@@ -326,7 +320,7 @@ public class FourSepulchersManager
 
             rset.close();
             statement.close();
-            _log.info("FourSepulchersManager.LoadMysteriousBox: Loaded " + _mysteriousBoxSpawns.size() + " Mysterious-Box spawn locations.");
+            _log.info("FourSepulchersManager: loaded " + _mysteriousBoxSpawns.size() + " Mysterious-Box spawns.");
         }
         catch (Exception e)
         {
@@ -428,7 +422,7 @@ public class FourSepulchersManager
 
             rset1.close();
             statement1.close();
-            _log.info("FourSepulchersManager.LoadPhysicalMonsters: Loaded " + loaded + " Physical type monsters spawn locations.");
+            _log.info("FourSepulchersManager: loaded " + loaded + " Physical type monsters spawns.");
         }
         catch (Exception e)
         {
@@ -498,7 +492,7 @@ public class FourSepulchersManager
 
             rset1.close();
             statement1.close();
-            _log.info("FourSepulchersManager.LoadMagicalMonsters: Loaded " + loaded + " Magical type monsters spawn locations.");
+            _log.info("FourSepulchersManager: loaded " + loaded + " Magical type monsters spawns.");
         }
         catch (Exception e)
         {
@@ -569,7 +563,7 @@ public class FourSepulchersManager
 
             rset1.close();
             statement1.close();
-            _log.info("FourSepulchersManager.LoadDukeMonsters: Loaded " + loaded + " Church of duke monsters spawn locations.");
+            _log.info("FourSepulchersManager: loaded " + loaded + " Church of duke monsters spawns.");
         }
         catch (Exception e)
         {
@@ -639,7 +633,7 @@ public class FourSepulchersManager
 
             rset1.close();
             statement1.close();
-            _log.info("FourSepulchersManager.LoadEmperorsGraveMonsters: Loaded " + loaded + " Emperor's grave NPC spawn locations.");
+            _log.info("FourSepulchersManager: loaded " + loaded + " Emperor's grave NPC spawns.");
         }
         catch (Exception e)
         {

@@ -101,9 +101,7 @@ public class AdminCommandHandler
 	public static AdminCommandHandler getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new AdminCommandHandler();
-		}
 		return _instance;
 	}
 	
@@ -169,6 +167,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminZone());
         if(Config.IRC_ENABLED)
             registerAdminCommandHandler(new AdminIRC());
+        _log.info("AdminCommandHandler: Loaded " + _datatable.size() + " handlers.");
     }
 
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)

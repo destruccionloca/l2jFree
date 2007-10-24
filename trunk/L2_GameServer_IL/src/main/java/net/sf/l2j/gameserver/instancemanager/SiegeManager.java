@@ -54,7 +54,6 @@ public class SiegeManager
     {
         if (_instance == null)
         {
-            _log.info("Initializing SiegeManager");
             _instance = new SiegeManager();
             _instance.loadTowerArtefacts();
         }
@@ -65,7 +64,7 @@ public class SiegeManager
 
     private FastMap<Integer, FastList<SiegeSpawn>> _controlTowerSpawnList;
 
-    private SiegeManager(){}
+    private SiegeManager() {}
 
     public final void addSiegeSkills(L2PcInstance character)
     {
@@ -323,10 +322,9 @@ public class SiegeManager
                 _controlTowerSpawnList.put(castle.getCastleId(), _controlTowersSpawns);
                 _artefactSpawnList.put(castle.getCastleId(), _artefactSpawns);
 
-                if (_log.isDebugEnabled())
-                    _log.info("SiegeManager: Loaded " + Integer.toString(_controlTowersSpawns.size())
-                            + " control tower(s) and " + Integer.toString(_artefactSpawns.size()) + " artefact(s) for "
-                            + castle.getName() + " castle");
+                _log.info("SiegeManager: loaded controltowers[" + Integer.toString(_controlTowersSpawns.size())
+                        + "] artefacts[" + Integer.toString(_artefactSpawns.size()) + "] castle["
+                        + castle.getName() + "]");
             }
         } catch (Exception e)
         {

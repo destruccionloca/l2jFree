@@ -1,7 +1,7 @@
 @echo off
 title Game Server Console
 :start
-echo Starting L2J Game Server.
+echo Starting l2jfree
 echo.
 
 SET OLDCLASSPATH=%CLASSPATH%

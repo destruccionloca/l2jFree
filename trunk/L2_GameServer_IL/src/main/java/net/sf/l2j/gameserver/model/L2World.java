@@ -94,13 +94,12 @@ public final class L2World implements L2WorldMBean
         initRegions();
     }
     
-    
     /**
      * Return the current instance of L2World.<BR><BR>
      */
     public static L2World getInstance()
     {
-        return _instance;
+		return _instance;
     }
     
     /**
@@ -770,9 +769,7 @@ public final class L2World implements L2WorldMBean
                 }
             }
         }
-        
         _log.info("L2World: ("+REGIONS_X+" by "+REGIONS_Y+") World Region Grid set up.");
-        
     }
 
     /**

@@ -17,11 +17,10 @@
  */
 package net.sf.l2j.gameserver.util;
 
-import net.sf.l2j.gameserver.GameTimeController;
-import net.sf.l2j.Config;
-
 import javolution.util.FastMap;
 import javolution.util.FastMap.Entry;
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.GameTimeController;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,9 +38,7 @@ public class FloodProtector
 	public static final FloodProtector getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new FloodProtector();
-		}
 		return _instance;
 	}
 
@@ -68,7 +65,7 @@ public class FloodProtector
 	// Constructor
 	private FloodProtector()
 	{
-		_log.info("Initializing FloodProtector");
+        _log.info("FloodProtector: initalized.");
 		_floodClient = new FastMap<Integer, Integer[]>(Config.FLOODPROTECTOR_INITIALSIZE);
 	}
 	

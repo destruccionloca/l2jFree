@@ -33,16 +33,15 @@ public class RandomIntGenerator{
     public static final RandomIntGenerator getInstance()
     {
         if (_instance == null)
-        {
-            _log.info("Initializing RandomIntGenerator");
             _instance = new RandomIntGenerator();
-        }
         return _instance;
     }
     
-    private RandomIntGenerator(){
+    private RandomIntGenerator()
+    {
         Restart();
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Sched(),1000, 1000);
+        _log.info("RandomIntGenerator: initialized");
     }
     
     private class Sched implements Runnable

@@ -63,7 +63,6 @@ public class MercTicketManager
         //CastleManager.getInstance();
         if (_instance == null)
         {
-            _log.info("Initializing MercTicketManager");
             _instance = new MercTicketManager();
             _instance.load();
         }
@@ -128,9 +127,7 @@ public class MercTicketManager
     
     // =========================================================
     // Constructor
-    public MercTicketManager()
-    {
-    }
+    public MercTicketManager(){}
     
     // =========================================================
     // Method - Public
@@ -220,7 +217,7 @@ public class MercTicketManager
 	        }
             statement.close();
 
-            _log.info("Loaded: " + getDroppedTickets().size() + " Mercenary Tickets");
+            _log.info("MercTicketManager: loaded " + getDroppedTickets().size() + " Mercenary Tickets");
         }
         catch (Exception e)
         {

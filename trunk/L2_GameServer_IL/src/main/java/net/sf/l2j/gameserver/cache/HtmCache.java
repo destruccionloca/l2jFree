@@ -166,9 +166,9 @@ public class HtmCache implements HtmCacheMBean
             Cache htmCache = new Cache(CACHENAME, Config.CACHE_MAX_ELEM_IN_MEMORY, true, false, Config.CACHE_TIMETOLIVESECONDS,  Config.CACHE_TIMETOIDLESECONDS);
             cacheManager.addCache(htmCache);
             ehCache = cacheManager.getCache(CACHENAME);
-            _log.info("Cache[HTML]: Running ehcache - Max elements in memory : "+ Config.CACHE_MAX_ELEM_IN_MEMORY 
-                       + " - timeToIdleSeconds="+Config.CACHE_TIMETOIDLESECONDS 
-                       + " - timeToLiveSeconds="+Config.CACHE_TIMETOLIVESECONDS);
+            _log.info("HtmCache: Running ehcache - Max elements in memory : "+ Config.CACHE_MAX_ELEM_IN_MEMORY); 
+            _log.info("HtmCache: timeToIdleSeconds="+Config.CACHE_TIMETOIDLESECONDS); 
+            _log.info("HtmCache: timeToLiveSeconds="+Config.CACHE_TIMETOLIVESECONDS);
         }
     }
     

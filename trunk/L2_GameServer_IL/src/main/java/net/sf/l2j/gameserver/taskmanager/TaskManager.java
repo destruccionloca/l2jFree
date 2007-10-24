@@ -164,14 +164,13 @@ public final class TaskManager
     public static TaskManager getInstance()
     {
         if (_instance == null)
-        {
             _instance = new TaskManager();
-        }
         return _instance;
     }
 
     public TaskManager()
     {
+    	_log.info("TaskManager: initalized.");
         initializate();
         startAllTasks();
     }

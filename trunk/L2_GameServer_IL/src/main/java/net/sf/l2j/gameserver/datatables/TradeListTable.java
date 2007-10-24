@@ -23,9 +23,8 @@ import java.sql.ResultSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
-import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 
@@ -66,16 +65,13 @@ public class TradeListTable
 	public static TradeListTable getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new TradeListTable();
-		}
 		return _instance;
 	}
 
 	private TradeListTable()
 	{
 		_lists = new FastMap<Integer, L2TradeList>();
-		
 		load();
 	}
 	

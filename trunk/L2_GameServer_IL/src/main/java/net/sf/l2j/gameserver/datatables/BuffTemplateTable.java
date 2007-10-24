@@ -48,9 +48,7 @@ public class BuffTemplateTable
     public static BuffTemplateTable getInstance()
     {
         if (_instance == null)
-        {
             _instance = new BuffTemplateTable();
-        }
         return _instance;
     }
     

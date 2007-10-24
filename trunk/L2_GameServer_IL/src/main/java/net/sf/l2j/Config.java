@@ -32,11 +32,14 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 import java.util.StringTokenizer;
+import java.util.logging.LogManager;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -2221,6 +2224,31 @@ public final class Config
     }
 
     //  *******************************************************************************************
+    public static final String  LOG_FILE              = "./config/logging.properties";
+    //  *******************************************************************************************
+    final static String LOG_FOLDER = "log"; // Name of folder for log file
+    final static String LOG_FOLDER_GAME="game";    	
+    //  *******************************************************************************************
+    public static void loadLogConfig()
+    {
+    	try
+    	{
+    		InputStream is =  new FileInputStream(new File(LOG_FILE)); 
+    		LogManager.getLogManager().readConfiguration(is);
+    		is.close();
+    	}
+        catch (Exception e)
+        {
+            throw new Error("Failed to Load logging.properties File.");
+        }
+        _log.info("logging initialized");
+        File logFolder = new File(Config.DATAPACK_ROOT, LOG_FOLDER); 
+        logFolder.mkdir();
+        File logFolderGame = new File(logFolder, LOG_FOLDER_GAME); 
+        logFolderGame.mkdir();
+    }    
+
+    //  *******************************************************************************************
     public static final String	SAY_FILTER_FILE				= "./config/sayfilter.txt";
     //  *******************************************************************************************
     public static void loadSayFilter()
@@ -2363,7 +2391,8 @@ public final class Config
 	
 	public static void load()
 	{
-			_log.info("loading gameserver config");
+			loadLogConfig(); // must be loaded b4 first log output
+			Util.printSection("Configuration");
 			loadConfiguration();
 			loadHexId();
 			loadRatesConfig();

@@ -52,7 +52,6 @@ public class ZoneManager
     {
         if (_instance == null)
         {
-            _log.info("Initializing ZoneManager");
             _instance = new ZoneManager();
             _instance.load();
         }

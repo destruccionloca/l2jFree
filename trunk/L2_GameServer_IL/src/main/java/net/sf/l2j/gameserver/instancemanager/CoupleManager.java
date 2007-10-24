@@ -44,7 +44,6 @@ public class CoupleManager
     {
         if (_instance == null)
         {
-            _log.info("Initializing CoupleManager");
             _instance = new CoupleManager();
             _instance.load();
         }
@@ -87,7 +86,7 @@ public class CoupleManager
 
             statement.close();
 
-            _log.info("Loaded: " + getCouples().size() + " couples(s)");
+            _log.info("CoupleManager: loaded " + getCouples().size() + " couples(s)");
         }
         catch (Exception e)
         {

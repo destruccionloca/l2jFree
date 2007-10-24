@@ -27,10 +27,10 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.datatables.DoorTable;
+import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.datatables.SpawnTable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -78,6 +78,8 @@ public class GameTimeController
         // [L2J_JP ADD SANDMAN]
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new OpenPiratesRoom(), 2000, 600000);
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new BroadcastSunState(), 0, 600000);
+        _log.info("GameTimeController: timerthreads scheduled");
+        
     }
 
     public boolean isNowNight()

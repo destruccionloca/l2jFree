@@ -55,6 +55,7 @@ public class FaenorScriptEngine extends ScriptEngine
     {
         if (_instance == null)
         {
+        	_log.info("FaenorScriptEngine: initialized");
             _instance = new FaenorScriptEngine();
         }
         return _instance;

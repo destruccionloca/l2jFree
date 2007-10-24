@@ -81,10 +81,7 @@ public class AuctionManager
     public static final AuctionManager getInstance()
     {
         if (_instance == null)
-        {
-        	_log.info("Initializing AuctionManager");
         	_instance = new AuctionManager();
-        }
         return _instance;
     }
     public AuctionManager()
@@ -110,7 +107,7 @@ public class AuctionManager
             while (rs.next())
             	_auctions.add(new Auction(rs.getInt("id")));
             statement.close();
-            _log.info("Loaded: " + getAuctions().size() + " auction(s)");
+            _log.info("AuctionManager: loaded " + getAuctions().size() + " auction(s)");
         }
         catch (Exception e)
         {

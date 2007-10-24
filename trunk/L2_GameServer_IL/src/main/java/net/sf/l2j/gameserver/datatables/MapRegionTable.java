@@ -106,6 +106,7 @@ public class MapRegionTable
             {
             }
         }
+        _log.info("MapRegionTable: loaded " + _regions.length + " mapregions");
     }
 
     public final int getMapRegion(int posX, int posY)

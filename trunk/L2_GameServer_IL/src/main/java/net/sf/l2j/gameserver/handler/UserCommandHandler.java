@@ -48,9 +48,7 @@ public class UserCommandHandler
 	public static UserCommandHandler getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new UserCommandHandler();
-		}
 		return _instance;
 	}
 	
@@ -67,7 +65,7 @@ public class UserCommandHandler
         registerUserCommandHandler(new Time());
         registerUserCommandHandler(new ClanWarsList());
 		registerUserCommandHandler(new OlympiadStat());
-        
+        _log.info("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");        
 	}
 	
 	public void registerUserCommandHandler(IUserCommandHandler handler)

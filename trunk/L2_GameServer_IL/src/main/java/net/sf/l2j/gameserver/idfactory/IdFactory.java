@@ -182,21 +182,14 @@ public abstract class IdFactory
             cleanCount += stmt.executeUpdate("DELETE FROM character_macroses WHERE character_macroses.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
             cleanCount += stmt.executeUpdate("DELETE FROM character_skills_save WHERE character_skills_save.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
             cleanCount += stmt.executeUpdate("DELETE FROM clan_data WHERE clan_data.leader_id NOT IN (SELECT obj_Id FROM characters);");
-            // added by DaDummy {
             cleanCount += stmt.executeUpdate("DELETE FROM character_hennas WHERE character_hennas.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
             cleanCount += stmt.executeUpdate("DELETE FROM character_subclasses WHERE character_subclasses.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
             cleanCount += stmt.executeUpdate("DELETE FROM character_friends WHERE character_friends.friend_id NOT IN (SELECT obj_Id FROM characters);");
             cleanCount += stmt.executeUpdate("DELETE FROM seven_signs WHERE seven_signs.char_obj_id NOT IN (SELECT obj_Id FROM characters);");
             cleanCount += stmt.executeUpdate("DELETE FROM merchant_lease WHERE merchant_lease.player_id NOT IN (SELECT obj_Id FROM characters);");
-            // }
-            
             cleanCount += stmt.executeUpdate("DELETE FROM pets WHERE pets.item_obj_id NOT IN (SELECT object_id FROM items);");
-            
             cleanCount += stmt.executeUpdate("DELETE FROM siege_clans WHERE siege_clans.clan_id NOT IN (SELECT clan_id FROM clan_data);");
-            // added by DaDummy {
             cleanCount += stmt.executeUpdate("DELETE FROM clan_wars WHERE clan_wars.clan1 NOT IN (SELECT clan_id FROM clan_data) OR clan_wars.clan2 NOT IN (SELECT clan_id FROM clan_data);");
-            // }
-            
             stmt.executeUpdate("UPDATE characters SET clanid=0 WHERE characters.clanid NOT IN (SELECT clan_id FROM clan_data);");
             //Auction
             cleanCount += stmt.executeUpdate("DELETE FROM auction WHERE auction.id IN (SELECT id FROM clanhall WHERE ownerId <> 0);");
@@ -209,7 +202,6 @@ public abstract class IdFactory
             cleanCount += stmt.executeUpdate("DELETE FROM clan_privs WHERE clan_privs.clan_id NOT IN (SELECT clan_id FROM clan_data);");
             cleanCount += stmt.executeUpdate("DELETE FROM clan_skills WHERE clan_skills.clan_id NOT IN (SELECT clan_id FROM clan_data);");
             stmt.executeUpdate("UPDATE items SET loc='INVENTORY' WHERE loc='PAPERDOLL' AND loc_data='0';");
-            // }
             
             stmt.close();
             if (_log.isDebugEnabled()) _log.debug("Cleaned " + cleanCount + " elements from database.");
@@ -256,7 +248,6 @@ public abstract class IdFactory
             s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select obj_id from characters");
             s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select object_id from items");
             s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select clan_id from clan_data");
-            //s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select crest_id from clan_data where crest_id > 0");
             s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select object_id from itemsonground");
             
             ResultSet result = s.executeQuery("select count(object_id) from temporaryObjectTable");
@@ -264,7 +255,8 @@ public abstract class IdFactory
             result.next();
             int size = result.getInt(1);
             int[] tmp_obj_ids = new int[size];
-            // _log.debugr("tmp table size: " + tmp_obj_ids.length);
+            if(_log.isDebugEnabled())
+            	_log.info("tmp table size: " + tmp_obj_ids.length);
             result.close();
             
             result = s.executeQuery("select object_id from temporaryObjectTable ORDER BY object_id");

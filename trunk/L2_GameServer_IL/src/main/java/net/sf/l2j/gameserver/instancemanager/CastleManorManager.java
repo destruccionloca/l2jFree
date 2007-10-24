@@ -80,10 +80,7 @@ public class CastleManorManager
 	public static final CastleManorManager getInstance()
 	{
 		if (_instance == null)
-		{
-			_log.info("Initializing CastleManorManager");
 			_instance = new CastleManorManager();
-		}
 		return _instance;
 	}
 
@@ -256,25 +253,25 @@ public class CastleManorManager
 
 	public void updateManorRefresh()
 	{
-		_log.info("Manor System: Manor refresh updated");
+		_log.info("ManorSystem: Manor refresh updated");
 		_scheduledManorRefresh = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
 			public void run()
 			{
 				if (!isDisabled()) {
 					setUnderMaintenance(true);
-					_log.info("Manor System: Under maintenance mode started");
+					_log.info("ManorSystem: Under maintenance mode started");
 	
 					_scheduledMaintenanceEnd = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 					{
 						public void run()
 						{
-							_log.info("Manor System: Next period started");
+							_log.info("ManorSystem: Next period started");
 							setNextPeriod();
 							try {
 								save();
 							} catch (Exception e) {
-								_log.info("Manor System: Failed to save manor data: " + e);
+								_log.info("ManorSystem: Failed to save manor data: " + e);
 							}
 							setUnderMaintenance(false);
 						}
@@ -287,14 +284,14 @@ public class CastleManorManager
 	
 	public void updatePeriodApprove()
 	{
-		_log.info("Manor System: Manor period approve updated");
+		_log.info("ManorSystem: Manor period approve updated");
 		_scheduledNextPeriodapprove = ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
 			public void run()
 			{
 				if (!isDisabled()) {
 					approveNextPeriod();
-					_log.info("Manor System: Next period approved");
+					_log.info("ManorSystem: Next period approved");
 				}
 				updatePeriodApprove();
 			}
@@ -316,7 +313,7 @@ public class CastleManorManager
 		_manorRefresh.set(Calendar.MINUTE, MANOR_REFRESH_MIN);
 		_manorRefresh.add(Calendar.HOUR_OF_DAY, 24);
 		
-		_log.info("Manor System: New Schedule for manor refresh @ " + _manorRefresh.getTime());
+		_log.info("ManorSystem: Schedule for manor refresh @ " + _manorRefresh.getTime());
 		
 		return (_manorRefresh.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
 	}
@@ -336,7 +333,7 @@ public class CastleManorManager
 		_periodApprove.set(Calendar.MINUTE, NEXT_PERIOD_APPROVE_MIN);
 		_periodApprove.add(Calendar.HOUR_OF_DAY, 24);
 		
-		_log.info("Manor System: New Schedule for period approve @ " + _periodApprove.getTime());
+		_log.info("ManorSystem: Schedule for period approve @ " + _periodApprove.getTime());
 		
 		return (_periodApprove.getTimeInMillis() - Calendar.getInstance().getTimeInMillis());
 	}

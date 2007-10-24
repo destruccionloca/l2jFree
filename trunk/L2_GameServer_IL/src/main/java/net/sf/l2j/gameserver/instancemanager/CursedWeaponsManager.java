@@ -37,8 +37,8 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -78,7 +78,6 @@ public class CursedWeaponsManager
     // Constructor
     public CursedWeaponsManager()
     {
-        _log.info("Initializing CursedWeaponsManager");
         _cursedWeapons = new FastMap<Integer, CursedWeapon>();
     }
 
@@ -272,7 +271,7 @@ public class CursedWeaponsManager
             try { con.close(); } catch (Exception e) {}
         }
 
-        _log.info("Loaded : "+_cursedWeapons.size() + " cursed weapon(s).");
+        _log.info("CursedWeaponsManager: loaded "+_cursedWeapons.size() + " cursed weapon(s).");
     }
     
     // =========================================================

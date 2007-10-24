@@ -145,8 +145,7 @@ public class AutoSpawnHandler
 
             statement.close();
             
-            if (_log.isDebugEnabled())
-                _log.debug("AutoSpawnHandler: Loaded " + numLoaded + " spawn group(s) from the database.");
+            _log.info("AutoSpawnHandler: Loaded " + numLoaded + " spawn group(s) from the database.");
         }
         catch (Exception e) {
             _log.warn("AutoSpawnHandler: Could not restore spawn data: " + e);

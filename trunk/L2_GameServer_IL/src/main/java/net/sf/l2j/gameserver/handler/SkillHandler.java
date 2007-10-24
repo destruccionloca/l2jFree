@@ -22,15 +22,16 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import net.sf.l2j.gameserver.handler.skillhandlers.BalanceLife;
-import net.sf.l2j.gameserver.handler.skillhandlers.CPperHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.BeastFeed;
 import net.sf.l2j.gameserver.handler.skillhandlers.Blow;
+import net.sf.l2j.gameserver.handler.skillhandlers.CPperHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Charge;
 import net.sf.l2j.gameserver.handler.skillhandlers.ChargeSelf;
 import net.sf.l2j.gameserver.handler.skillhandlers.CombatPointHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Continuous;
 import net.sf.l2j.gameserver.handler.skillhandlers.Craft;
 import net.sf.l2j.gameserver.handler.skillhandlers.Crits;
+import net.sf.l2j.gameserver.handler.skillhandlers.DeluxeKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Disablers;
 import net.sf.l2j.gameserver.handler.skillhandlers.DrainSoul;
 import net.sf.l2j.gameserver.handler.skillhandlers.Fishing;
@@ -52,9 +53,11 @@ import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
-import net.sf.l2j.gameserver.handler.skillhandlers.DeluxeKey;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
@@ -63,7 +66,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
  */
 public class SkillHandler
 {
-	//private final static Log _log = LogFactory.getLog(SkillHandler.class.getName());
+	private final static Log _log = LogFactory.getLog(SkillHandler.class.getName());
 	
 	private static SkillHandler _instance;
 	
@@ -72,9 +75,7 @@ public class SkillHandler
 	public static SkillHandler getInstance()
 	{
 		if (_instance == null)
-		{
 			_instance = new SkillHandler();
-		}
 		return _instance;
 	}
 
@@ -113,6 +114,7 @@ public class SkillHandler
         registerSkillHandler(new Sweep());
         registerSkillHandler(new TakeCastle());
         registerSkillHandler(new Unlock());
+        _log.info("SkillHandler: Loaded " + _datatable.size() + " handlers.");        
     }
 
 	public void registerSkillHandler(ISkillHandler handler)

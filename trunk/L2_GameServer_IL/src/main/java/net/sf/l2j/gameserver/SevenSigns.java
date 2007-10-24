@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
+import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -190,6 +191,7 @@ public class SevenSigns
 
 			_log.info("SevenSigns: Next period begins in " + numDays + " days, " + numHours + " hours and " + numMins + " mins.");
 		}
+		spawnSevenSignsNPC();
 	}
 	
     /**

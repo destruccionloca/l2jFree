@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver;
 import java.util.logging.Logger;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.GeoEngine;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -43,7 +42,6 @@ public class GeoData
             else
             {
                 _instance = new GeoData();
-                _log.info("Geodata Engine: Disabled.");
             }
         }
         return _instance;

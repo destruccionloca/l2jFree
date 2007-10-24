@@ -127,6 +127,7 @@ public class PetDataTable
         {
             try { con.close(); } catch (Exception e) {}
         }
+        _log.info("PetDataTable: loaded " + petTable.size() + " pets.");
     }
     
     public void addPetData(L2PetData petData)
