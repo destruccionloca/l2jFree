@@ -298,7 +298,12 @@ public class GameServer
 		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
         printMemUsage();
         
-        Util.printSection("GameServerLog");        
+        Util.printSection("GameServerLog");
+        if(Config.ENABLE_JYTHON_SHELL)
+        {
+        	Util.printSection("JythonShell");
+        	Util.JythonShell();
+        }
     }
     
     public static void printMemUsage()

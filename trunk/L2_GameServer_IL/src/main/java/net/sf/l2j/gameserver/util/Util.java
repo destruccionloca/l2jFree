@@ -37,6 +37,12 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
+import org.python.core.Py;
+import org.python.core.PyModule;
+import org.python.core.PySystemState;
+import org.python.core.imp;
+import org.python.util.InteractiveConsole;
+
 /**
  * General Utility functions related to Gameserver
  * 
@@ -44,6 +50,27 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public final class Util
 {
+    public static void JythonShell() 
+    {
+        InteractiveConsole interp = null;
+        try 
+        {
+            String interpClass = PySystemState.registry.getProperty(
+                                    "python.console",
+                                    "org.python.util.InteractiveConsole");
+            interp = (InteractiveConsole)
+                             Class.forName(interpClass).newInstance();
+        } catch (Exception e) {interp = new InteractiveConsole();}
+        PyModule mod = imp.addModule("__main__");
+        interp.setLocals(mod.__dict__);
+        try 
+        {
+            interp.interact(null);
+        }
+        catch (Throwable t) {Py.printException(t);}
+        interp.cleanup();
+    }
+	
     public static void handleIllegalPlayerAction(L2PcInstance actor, String message, int punishment)
     {
         ThreadPoolManager.getInstance().scheduleGeneral(new IllegalPlayerAction(actor,message, punishment), 5000);

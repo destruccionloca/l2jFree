@@ -1049,6 +1049,7 @@ public final class Config
     public static int       			CHAR_VIP_COLOR;					// VIP Characters configuration
     public static boolean 				ALT_DEV_NO_QUESTS;				// Alt Settings for devs
     public static boolean 				ALT_DEV_NO_SPAWNS;				// Alt Settings for devs
+    public static boolean				ENABLE_JYTHON_SHELL;			// JythonShell
     public static boolean 				ONLY_GM_ITEMS_FREE;				// Only GM buy items for free
     //  *******************************************************************************************
     public static void loadOptionsConfig()
@@ -1208,6 +1209,7 @@ public final class Config
 
             ALT_DEV_NO_QUESTS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoQuests", "False"));
             ALT_DEV_NO_SPAWNS               = Boolean.parseBoolean(optionsSettings.getProperty("AltDevNoSpawns", "False"));
+            ENABLE_JYTHON_SHELL               = Boolean.parseBoolean(optionsSettings.getProperty("EnableJythonShell", "False"));
         }
         catch (Exception e)
         {
