@@ -37,6 +37,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -516,21 +517,10 @@ public class Disablers implements ISkillHandler
                     break;
                 }
 
-                case ERASE:
+                case ERASE: // Doesn't affect siege golem, wild hog cannon or swoop cannon
                 {
-                    L2Summon summon = (L2Summon)target;
-                    boolean affects = false;
-                    switch(summon.getNpcId())
-                    {
-                        case L2Summon.SIEGE_GOLEM_ID:
-                        case L2Summon.HOG_CANNON_ID:
-                        case L2Summon.SWOOP_CANNON_ID:
-                            break;
-                        default:
-                            affects = Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss);
-                            break;
-                    }
-                    if (affects) 
+                    if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss) 
+                        && !(target instanceof L2SiegeSummonInstance))
                     {
                         L2PcInstance summonOwner = null;
                         L2Summon summonPet = null;

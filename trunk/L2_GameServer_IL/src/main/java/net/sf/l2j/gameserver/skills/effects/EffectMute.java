@@ -21,33 +21,32 @@ package net.sf.l2j.gameserver.skills.effects;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
-public class EffectMute extends L2Effect {
-
-	
-	public EffectMute(Env env, EffectTemplate template) {
+public class EffectMute extends L2Effect
+{
+	public EffectMute(Env env, EffectTemplate template)
+	{
 		super(env, template);
 	}
 
-
-	public EffectType getEffectType() {
+	public EffectType getEffectType()
+	{
 		return L2Effect.EffectType.MUTE;
 	}
 
-	public void onStart() {
+	public void onStart()
+	{
 		getEffected().startMuted();
 	}
 	
-	public boolean onActionTime() {
+	public boolean onActionTime()
+	{
 		// Simply stop the effect
 		getEffected().stopMuted(this);
 		return false;
 	}
 
-
-	public void onExit() {
+	public void onExit()
+	{
 		getEffected().stopMuted(this);
 	}
-
-
-
 }

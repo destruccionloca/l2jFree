@@ -2136,6 +2136,7 @@ public class L2Attackable extends L2NpcInstance
     @Override
     public void onSpawn()
     {
+        super.onSpawn();
         // Clear mob spoil,seed
         setSpoil(false);
         // Clear all aggro char from list

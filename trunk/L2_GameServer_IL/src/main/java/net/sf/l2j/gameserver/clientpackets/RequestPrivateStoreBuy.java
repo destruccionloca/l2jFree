@@ -53,11 +53,11 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
             _count = 0;
         _items = new ItemRequest[_count];
 
-		
         for (int i = 0; i < _count ; i++)
         {
             int objectId = readD(); 
             long count   = readD(); 
+            if (count > Integer.MAX_VALUE) count = Integer.MAX_VALUE;
             int price    = readD(); 
             
             _items[i] = new ItemRequest(objectId, (int)count, price);
@@ -69,15 +69,15 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
     {
         L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;
-		
+
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+           && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
-			sendPacket(new ActionFailed());
-			return;
+            player.sendMessage("Transactions aren't allowed during restart/shutdown!");
+            sendPacket(new ActionFailed());
+            return;
         }
-		
+
         L2Object object = L2World.getInstance().findObject(_storePlayerId);
         if (object == null || !(object instanceof L2PcInstance)) return;
         L2PcInstance storePlayer = (L2PcInstance)object;
@@ -121,7 +121,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         }
         
         // FIXME: this check should be (and most probabliy is) done in the TradeList mechanics
-		if(priceTotal < 0 || priceTotal > Integer.MAX_VALUE)
+        if(priceTotal < 0 || priceTotal > Integer.MAX_VALUE)
         {
             String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";
             Util.handleIllegalPlayerAction(getClient().getActiveChar(),msgErr,Config.DEFAULT_PUNISH);

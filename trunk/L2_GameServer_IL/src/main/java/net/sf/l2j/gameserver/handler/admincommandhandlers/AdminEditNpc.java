@@ -1031,7 +1031,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		L2NpcTemplate npcData = NpcTable.getInstance().getTemplate(npcId);
 		if(npcData == null)
 		{
-			activeChar.sendMessage("unknown npc template id" + npcId);
+			activeChar.sendMessage("Unknown NPC template ID: " + npcId);
 			return;
 		}
 		
@@ -1043,14 +1043,18 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("<table>");
 		replyMSG.append("<tr><td>npc_id itemId category</td><td>item[id]</td><td>type</td><td>del</td></tr>");
 		
-		for(L2DropCategory cat:npcData.getDropData())
+		for(L2DropCategory cat : npcData.getDropData())
+		{
+			if(cat == null)	continue;
 			for(L2DropData drop : cat.getAllDrops())
 			{
+				if(drop == null) continue;
 				replyMSG.append("<tr><td><a action=\"bypass -h admin_edit_drop " + npcData.getNpcId() + " " + drop.getItemId()+ " " + cat.getCategoryType() + "\">"
 						+ npcData.getNpcId() + " " + drop.getItemId() + " " + cat.getCategoryType() + "</a></td>" +
 						"<td>" + ItemTable.getInstance().getTemplate(drop.getItemId()).getName() + "[" + drop.getItemId() + "]" + "</td><td>" + (drop.isQuestDrop()?"Q":(cat.isSweep()?"S":"D")) + "</td><td>" +
 						"<a action=\"bypass -h admin_del_drop " + npcData.getNpcId() + " " + drop.getItemId() +" "+ cat.getCategoryType() +"\">del</a></td></tr>");
 			}
+		}
 		
 		replyMSG.append("</table>");
 		replyMSG.append("<center>");

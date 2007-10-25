@@ -32,39 +32,45 @@ public class RequestPrivateStoreManageBuy extends L2GameClientPacket
 	private static final String _C__90_REQUESTPRIVATESTOREMANAGEBUY = "[C] 90 RequestPrivateStoreManageBuy";
 	//private final static Log _log = LogFactory.getLog(RequestPrivateStoreBuyManage.class.getName());
 	
-    @Override
-    protected void readImpl()
-    {
-    }
+	@Override
+	protected void readImpl()
+	{
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance player = getClient().getActiveChar();
 		if (player == null) return;
-        
-        // Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
-        if (player.isAlikeDead())
-        {
-            sendPacket(new ActionFailed());
-            return;
-        }
-        
-        if (player.isInOlympiadMode())
-        {
-            sendPacket(new ActionFailed());
-            return;
-        }
-        
-        if (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY || player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY +1)
-        	player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+		
+		// Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
+		if (player.isAlikeDead())
+		{
+			sendPacket(new ActionFailed());
+			return;
+		}
+		
+		if (player.isInOlympiadMode())
+		{
+			sendPacket(new ActionFailed());
+			return;
+		}
 
-        if (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_NONE)
-        {
+		if (player.getMountType() != 0)
+		{
+			sendPacket(new ActionFailed());
+			return;
+		}
+
+		if (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY || player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY +1)
+			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+
+		if (player.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_NONE)
+		{
 			if (player.isSitting()) player.standUp();
 			player.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_BUY +1);
 			player.sendPacket(new PrivateStoreManageListBuy(player));
-        }
+		}
 	}
 
 	/* (non-Javadoc)

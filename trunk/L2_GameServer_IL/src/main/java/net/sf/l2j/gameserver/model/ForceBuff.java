@@ -37,17 +37,19 @@ public class ForceBuff
 {
 	static final Log _log = LogFactory.getLog(ForceBuff.class.getName());
 	
-	private L2PcInstance _caster;
+	protected L2PcInstance _caster;
 	private L2PcInstance _target;
 	private L2Skill _skill;
 	private L2Skill _force;
 	private Future _task;
+	private boolean _applied;
 
 	public L2PcInstance getCaster() { return _caster; }
 	public L2PcInstance getTarget() { return _target; }
 	public L2Skill getSkill() { return _skill; }
 	public L2Skill getForce() { return _force; }
-	private void setTask(Future task) { _task = task; }
+	protected void setTask(Future task) { _task = task; }
+	protected void setApplied(boolean applied) { _applied = applied; }
 
 	public ForceBuff(L2PcInstance caster, L2PcInstance target, L2Skill skill)
 	{
@@ -55,11 +57,13 @@ public class ForceBuff
 		_target = target;
 		_skill = skill;
 		_force = SkillTable.getInstance().getInfo(skill.getForceId(), 1);
+		_applied = false;
 
 		Runnable r = new Runnable()
 		{
 			public void run()
 			{
+				setApplied(true);
 				setTask(null);
 
 				int forceId = getForce().getId();
@@ -85,7 +89,7 @@ public class ForceBuff
 				}
 			}
 		};
-		setTask(ThreadPoolManager.getInstance().scheduleGeneral(r, 3300));
+		setTask(ThreadPoolManager.getInstance().scheduleGeneral(r, 2000));
 	}
 
 	public void delete()
@@ -96,6 +100,10 @@ public class ForceBuff
 			_task = null;
 		}
 
+		_caster.setForceBuff(null);
+		
+		if(!_applied) return;
+
 		int toDeleteId = getForce().getId();
 
 		L2Effect[] effects = _target.getAllEffects();
@@ -103,13 +111,12 @@ public class ForceBuff
 		{
 			for(L2Effect e : effects)
 			{
-				if (e.getSkill().getId() == toDeleteId)
+				if (e.getSkill().getId() == toDeleteId && (e instanceof EffectForce))
 				{
 					((EffectForce)e).decreaseForce();
 					break;
 				}
 			}
 		}
-		_caster.setForceBuff(null);
 	}
 }

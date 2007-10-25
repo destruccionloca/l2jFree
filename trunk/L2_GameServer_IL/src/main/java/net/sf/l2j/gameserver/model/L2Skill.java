@@ -1502,7 +1502,8 @@ public abstract class L2Skill
         case TARGET_AURA:
         {
             int radius = getSkillRadius();
-            boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(activeChar);
+            boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(activeChar)
+                        && !SiegeManager.getInstance().checkIfInZone(activeChar);
  
             L2PcInstance src = null;
             if (activeChar instanceof L2PcInstance) src = (L2PcInstance)activeChar;
@@ -1513,9 +1514,10 @@ public abstract class L2Skill
             {
                 if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
                 {
-                	boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj);
-                	
-                	// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
+                    boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj)
+                        && !SiegeManager.getInstance().checkIfInZone(obj);
+
+                    // Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
                     if (obj == activeChar || obj == src) continue;
                     if (src != null) 
                     {
@@ -1533,7 +1535,7 @@ public abstract class L2Skill
                                     continue;
                             }
                         }
-                        if(obj instanceof L2Summon)
+                        else if(obj instanceof L2Summon)
                         {
                             L2PcInstance trg = ((L2Summon)obj).getOwner();
                             if(trg == src) continue;
@@ -1594,7 +1596,8 @@ public abstract class L2Skill
             
             int radius = getSkillRadius();
             
-            boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(activeChar);
+            boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(activeChar)
+                             && !SiegeManager.getInstance().checkIfInZone(activeChar);
             
             for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
             {
@@ -1602,7 +1605,8 @@ public abstract class L2Skill
                 if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance)) continue;
                 if (obj == cha) continue;
                 target = (L2Character) obj;
-                boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj);
+                boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj)
+                                 && !SiegeManager.getInstance().checkIfInZone(obj);
                 
                 if (!GeoData.getInstance().canSeeTarget(activeChar, target))
                     continue;
@@ -1616,8 +1620,8 @@ public abstract class L2Skill
                     {
                         if(obj instanceof L2PcInstance)
                         { 
-                         	L2PcInstance trg = (L2PcInstance)obj;
-                            
+                            L2PcInstance trg = (L2PcInstance)obj;
+                            if (trg == src) continue;
                             if((src.getParty() != null && trg.getParty() != null) && 
                                 src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID()) 
                                 continue;
@@ -2120,9 +2124,10 @@ public abstract class L2Skill
             if (activeChar.getKnownList() != null)
                 for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
                 {
-                	boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj);
-                	
-                	if (obj == null) continue;
+                    boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj)
+                              && !SiegeManager.getInstance().checkIfInZone(obj);
+
+                    if (obj == null) continue;
                     if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance) || ((L2Character) obj).isDead()
                         || ((L2Character) obj) == activeChar) continue;
 
@@ -2222,8 +2227,7 @@ public abstract class L2Skill
         { 
             if(target != null && target instanceof L2Summon) 
             {       
-                L2Summon targetSummon = null; 
-                targetSummon = (L2Summon)target; 
+                L2Summon targetSummon = (L2Summon)target;
                 if (activeChar instanceof L2PcInstance && activeChar.getPet() != targetSummon && !targetSummon.isDead()
                         && (targetSummon.getOwner().getPvpFlag() != 0 || targetSummon.getOwner().getKarma() > 0)
                         || (targetSummon.getOwner().getInPvpZone() == true && ((L2PcInstance)activeChar).getInPvpZone()== true))

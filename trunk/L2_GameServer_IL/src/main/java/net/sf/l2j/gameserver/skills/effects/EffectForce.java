@@ -48,11 +48,7 @@ public class EffectForce extends L2Effect
 	@Override
 	public boolean onActionTime()
 	{
-		if(!Util.checkIfInRange(_range, getEffector(), getEffected(), true))
-		{
-			getEffector().abortCast();
-		}
-		return true;
+		return Util.checkIfInRange(_range, getEffector(), getEffected(), true);
 	}
 
 	@Override
@@ -85,5 +81,16 @@ public class EffectForce extends L2Effect
 		exit();
 		L2Skill newSkill = SkillTable.getInstance().getInfo(getSkill().getId(), forces);
 		newSkill.getEffects(getEffector(), getEffected());
+	}
+
+	public void onExit()
+	{
+		//try
+		//{
+		//	getEffector().abortCast();
+		//	if(getEffector().getForceBuff() != null)
+		//		getEffector().getForceBuff().delete();
+		//}
+		//catch(Exception e){}
 	}
 }

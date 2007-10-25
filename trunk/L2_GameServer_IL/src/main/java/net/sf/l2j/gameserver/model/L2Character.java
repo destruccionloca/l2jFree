@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
+import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
@@ -1271,7 +1272,8 @@ public abstract class L2Character extends L2Object
         // Get the delay under wich the cast can be aborted (base)
         int skillInterruptTime = skill.getSkillInterruptTime();
         
-        boolean forceBuff = skill.getSkillType() == SkillType.FORCE_BUFF;
+        boolean forceBuff = skill.getSkillType() == SkillType.FORCE_BUFF
+                                      && (target instanceof L2PcInstance);
         
         // Calculate the casting time of the skill (base + modifier of MAtkSpd)
         // Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
@@ -1333,7 +1335,7 @@ public abstract class L2Character extends L2Object
             SystemMessage sm = new SystemMessage(SystemMessageId.USE_S1);
             sm.addSkillName(magicId,skill.getLevel());
             sendPacket(sm);
-		}
+        }
 
         // Skill reuse check
         if (reuseDelay > 30000) addTimeStamp(skill.getId(),reuseDelay);
@@ -3999,7 +4001,7 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 			}
-			if(Config.GEO_PATH_FINDING && originalDistance-distance > 100) // questionable distance comparison
+			if(Config.GEO_PATH_FINDING && originalDistance-distance > 100 && distance < 2000) // questionable distance comparison
 			{
 				// Path calculation
 				// Overrides previous movement check
@@ -4016,6 +4018,17 @@ public abstract class L2Character extends L2Object
 						// _log.warning("break, no path");
 						return;
 					}
+					// check for doors in the route
+					for (int i = 0; i < m.geoPath.size()-1; i++)
+					{
+						if (DoorTable.getInstance().checkIfDoorsBetween(m.geoPath.get(i),m.geoPath.get(i+1)))
+						{
+							m.geoPath = null;
+							getAI().stopFollow();
+							getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+							return;
+						}
+					}
 					m.geoPath.get(m.geoPath.size()-1).getX();
 					m.onGeodataPathIndex = 0; // on first segment
 					m.geoPathGtx = gtx;
@@ -4026,6 +4039,19 @@ public abstract class L2Character extends L2Object
 					x = m.geoPath.get(m.onGeodataPathIndex).getX();
 					y = m.geoPath.get(m.onGeodataPathIndex).getY();
 					z = m.geoPath.get(m.onGeodataPathIndex).getZ();
+
+					// untested: final check if we can indeed reach first path node (path nodes sometimes aren't accurate enough)
+					/*
+					Location destiny = GeoData.getInstance().moveCheck(curX, curY, curZ, x, y, z);
+					if (destiny.getX() != x || destiny.getY() != y)
+					{
+						m.geoPath = null;
+						getAI().stopFollow();
+						getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+						return;
+					}
+					*/
+
 					dx = (x - curX);
 					dy = (y - curY);
 					distance = Math.sqrt(dx*dx + dy*dy);
@@ -5929,20 +5955,22 @@ public abstract class L2Character extends L2Object
 	public void sendDamageMessage(@SuppressWarnings("unused") L2Character target, int damage, boolean mcrit, boolean pcrit, boolean miss)
 	{
 	}
-	
-    /**
-     * Check if the skill can affect myself.
-     * This method could be overriden to allow immunization
-     * for some skills and some child of L2Character
-     * @param skill the casted skill
-     */
-    public boolean checkSkillCanAffectMyself(L2Skill skill)
-    {
-        return true;
-    }
+
+	/**
+	* Check if the skill can affect myself.
+	* This method could be overriden to allow immunization
+	* for some skills and some child of L2Character
+	* @param skill the casted skill
+	*/
+	public boolean checkSkillCanAffectMyself(L2Skill skill)
+	{
+		return true;
+	}
 
 	public ForceBuff getForceBuff()
 	{
 		return null;
-	}    
+	}
+
+	public void setForceBuff(ForceBuff fb) {}
 }

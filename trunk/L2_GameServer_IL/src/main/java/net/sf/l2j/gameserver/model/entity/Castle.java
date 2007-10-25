@@ -133,19 +133,17 @@ public class Castle
 	{
 		if (getOwnerId() <= 0) return false;
 
-		/* why is that ?? example:
-		 _treasury = 2,100,000,000
-		 amount = -2,000,000,000 (i want to withdraw)
-		 so Integer.MAX_VALUE -(-2,000,000,000) < 2,100,000,000 will allways be false
-		 so you can withdraw money but it will stay in castle WH -> EXPLOIT FTW !!!!!!!!!!!
-		*/		
-		if (_treasury + amount < 0)
-			return false;
-		
-		if (Integer.MAX_VALUE - _treasury < amount)
-			amount = Integer.MAX_VALUE - _treasury;
-		
-		_treasury += amount; // Add to the current treasury total.  Use "-" to substract from treasury
+		if (amount < 0)
+		{
+			amount *= -1;
+			if (_treasury < amount) return false;
+			_treasury -= amount;
+		}
+		else
+		{
+			if ((long)_treasury + amount > Integer.MAX_VALUE) _treasury = Integer.MAX_VALUE;
+			else _treasury += amount; 
+		}
 
 		java.sql.Connection con = null;
 		try

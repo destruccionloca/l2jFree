@@ -4203,7 +4203,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 pk.kills.add(getName());
             }
 
-            boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(this);
+            boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(this)
+                              && !SiegeManager.getInstance().checkIfInZone(this);
 
             if (!srcInPvP)
             {
@@ -4211,7 +4212,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     //if (getKarma() > 0)
                     onDieDropItem(killer);  // Check if any item should be dropped
-                
+
                     if (!srcInPvP)
                     {
                         if (Config.ALT_GAME_DELEVEL)
@@ -4277,6 +4278,13 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             _cubics.clear();
         }
+
+        if(_forceBuff != null)
+            _forceBuff.delete();
+
+        for(L2Character character : getKnownList().getKnownCharacters())
+            if(character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+                character.abortCast();
 
         if (isInParty() && getParty().isInDimensionalRift())
             getParty().getDimensionalRift().getDeadMemberList().add(this);
@@ -9713,25 +9721,27 @@ public final class L2PcInstance extends L2PlayableInstance
         try
         {
             if(isFlying())
-            	removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+                removeSkill(SkillTable.getInstance().getInfo(4289, 1));
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
         
         // If the L2PcInstance has Pet, unsummon it
-		if (getPet() != null){
-			try { 
-				//getPet().decayMe();
-				getPet().unSummon(this); 
-			} catch (Throwable t) {}// returns pet to control item
-		}
-		
-		// Cancel trade
+        if (getPet() != null)
+        {
+            try
+            {
+                //getPet().decayMe();
+                getPet().unSummon(this); 
+            } catch (Throwable t) {}// returns pet to control item
+        }
+
+        // Cancel trade
         if (getActiveRequester() != null)
-        	cancelActiveTrade();
-        
+            cancelActiveTrade();
+
         // Check if the L2PcInstance is in observer mode to set its position to its position before entering in observer mode
         if (inObserverMode()) getPosition().setXYZ(_obsX, _obsY, _obsZ);
 
@@ -9742,7 +9752,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
 
         // Stop the HP/MP/CP Regeneration task (scheduled tasks)
@@ -9752,18 +9762,18 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
         
         // Unregister from Olympiad games
         try
         {
-        	if (isInOlympiadMode())
-        		Olympiad.getInstance().unRegisterNoble(this);
+            if (isInOlympiadMode())
+                Olympiad.getInstance().unRegisterNoble(this);
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
 
         // Stop crafting, if in progress
@@ -9773,7 +9783,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
 
         // Cancel Attak or Cast
@@ -9783,45 +9793,52 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
 
-        if(_forceBuff != null)
+        try
         {
-            _forceBuff.delete();
+            if(_forceBuff != null)
+            {
+                _forceBuff.delete();
+            }
+            for(L2Character character : getKnownList().getKnownCharacters())
+                if(character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+                    character.abortCast();
         }
-        if(_party != null)
-        {
-            for(L2PcInstance member : _party.getPartyMembers())
-                if(member.getForceBuff() != null && member.getForceBuff().getTarget() == this)
-                    member.getForceBuff().delete();
-        }
+        catch(Throwable t) {_log.fatal("deleteMe()", t); }
 
         // Remove the L2PcInstance from the world
-        if (isVisible()) try
+        if (isVisible())
         {
-            decayMe();
-        }
-        catch (Throwable t)
-        {
-            _log.fatal( "deletedMe()", t);
-        }
-		
-        // If a Party is in progress, leave it
-        if (isInParty()) try
-        {
-            leaveParty();
-            // If player is festival participant and it is in progress 
-            // notify party members that the player is not longer a participant.
-            if (isFestivalParticipant() && SevenSignsFestival.getInstance().isFestivalInitialized()) 
+            try
             {
-        		if (getParty() != null)
-        			getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
+                decayMe();
+            }
+            catch (Throwable t)
+            {
+                _log.fatal( "deleteMe()", t);
             }
         }
-        catch (Throwable t)
+
+        // If a Party is in progress, leave it
+        if (isInParty())
         {
-            _log.fatal( "deletedMe()", t);
+            try
+            {
+                leaveParty();
+                // If player is festival participant and it is in progress 
+                // notify party members that the player is not longer a participant.
+                if (isFestivalParticipant() && SevenSignsFestival.getInstance().isFestivalInitialized()) 
+                {
+                    if (getParty() != null)
+                        getParty().broadcastToPartyMembers(SystemMessage.sendString(getName() + " has been removed from the upcoming festival."));
+                }
+            }
+            catch (Throwable t)
+            {
+                _log.fatal( "deleteMe()", t);
+            }
         }
 
         if (getClanId() != 0 && getClan() != null)
@@ -9834,7 +9851,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             catch (Throwable t)
             {
-                _log.fatal( "deletedMe()", t);
+                _log.fatal( "deleteMe()", t);
             }
         }
 
@@ -9853,7 +9870,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             catch (Throwable t)
             {
-                _log.fatal( "deletedMe()", t);
+                _log.fatal( "deleteMe()", t);
             }
         }
 
@@ -9864,11 +9881,11 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
 
         // Update database with items in its warehouse and remove them from the world
-        try { clearWarehouse(); } catch (Throwable t) {_log.fatal("deletedMe()", t); }
+        try { clearWarehouse(); } catch (Throwable t) {_log.fatal("deleteMe()", t); }
         if(Config.WAREHOUSE_CACHE)
             WarehouseCacheManager.getInstance().remCacheTask(this);
         
@@ -9879,7 +9896,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
 
         // Remove all L2Object from _knownObjects and _knownPlayer of the L2Character then cancel Attak or Cast and notify AI
@@ -9889,7 +9906,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
 
         // Close the connection with the client
@@ -9899,7 +9916,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch (Throwable t)
         {
-            _log.fatal( "deletedMe()", t);
+            _log.fatal( "deleteMe()", t);
         }
         
         // remove from flood protector
@@ -9916,9 +9933,9 @@ public final class L2PcInstance extends L2PlayableInstance
         
         for(String friendName : L2FriendList.getFriendListNames(this))
         {
-        	L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
-        	if (friend != null) //friend online.
-                friend.sendPacket(new FriendList(friend));                	
+            L2PcInstance friend = L2World.getInstance().getPlayer(friendName);
+            if (friend != null) //friend online.
+                friend.sendPacket(new FriendList(friend));
         }
         // Remove L2Object object from _allObjects of L2World
         L2World.getInstance().removeObject(this);
@@ -9931,8 +9948,8 @@ public final class L2PcInstance extends L2PlayableInstance
         _fishx = x;
         _fishy = y;
         _fishz = z;
-    	
-    	stopMove(null);
+
+        stopMove(null);
         setIsImobilised(true);
         _fishing = true;
         broadcastUserInfo();
@@ -10927,11 +10944,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _forceBuff;
 	}
 
+	@Override
 	public void setForceBuff(ForceBuff fb)
 	{
 		_forceBuff = fb;
 	}
-	
+
 	public void removeAllEffects()
 	{
 		for (L2Effect currenteffect : getAllEffects())

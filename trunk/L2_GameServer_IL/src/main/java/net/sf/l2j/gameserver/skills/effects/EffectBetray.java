@@ -64,7 +64,7 @@ final class EffectBetray extends L2Effect
             L2PcInstance targetOwner = null;
             targetOwner = ((L2Summon)getEffected()).getOwner();
             targetOwner.setIsBetrayed(false);
-        getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+            getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         }
     }
     
@@ -77,5 +77,3 @@ final class EffectBetray extends L2Effect
         return false;
     }
 }
-
-
