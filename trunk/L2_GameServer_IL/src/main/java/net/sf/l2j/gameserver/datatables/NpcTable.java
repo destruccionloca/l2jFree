@@ -251,9 +251,9 @@ public class NpcTable implements NpcTableMBean
         _initialized = true;
     }
 
-    private void fillNpcTable(ResultSet NpcData)
-            throws Exception
+    private boolean fillNpcTable(ResultSet NpcData) throws Exception
     {
+        boolean loaded = false;
         while (NpcData.next())
         {
             StatsSet npcDat = new StatsSet(); 
@@ -338,13 +338,16 @@ public class NpcTable implements NpcTableMBean
             template.addVulnerability(Stats.DAGGER_WPN_VULN,1);
 
             _npcs.put(id, template);
+
+            loaded = true;
         }
+        return loaded;
     }
 
-    public void reloadNpc(int id)
+    public boolean reloadNpc(int id)
     {
         java.sql.Connection con = null;
-        
+        boolean loaded = false;
         try
         {
             // save a copy of the old data
@@ -374,7 +377,7 @@ public class NpcTable implements NpcTableMBean
             PreparedStatement st = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level", "absorb_type"}) + " FROM npc WHERE id=?");
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            fillNpcTable(rs);
+            loaded = fillNpcTable(rs);
             rs.close();
             st.close();
 
@@ -393,10 +396,12 @@ public class NpcTable implements NpcTableMBean
         catch (Exception e)
         {
             _log.warn("NPCTable: Could not reload data for NPC " + id + ": " + e);
+            return false;
         }
         finally
         {
             try { con.close(); } catch (Exception e) {}
+            return loaded;
         }
     }
 

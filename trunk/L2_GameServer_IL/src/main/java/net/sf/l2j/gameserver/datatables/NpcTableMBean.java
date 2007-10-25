@@ -29,5 +29,5 @@ package net.sf.l2j.gameserver.datatables;
 public interface NpcTableMBean
 {
     public void reloadAll();
-    public void reloadNpc(int id);
+    public boolean reloadNpc(int id);
 }

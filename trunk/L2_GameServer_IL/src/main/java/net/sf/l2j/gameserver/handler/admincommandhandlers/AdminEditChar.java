@@ -274,29 +274,35 @@ public class AdminEditChar implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_settitle"))
 		{
-			try
-			{
-				String val = command.substring(15); 
-				L2Object target = activeChar.getTarget();
-				L2PcInstance player = null;
-				if (activeChar != target && activeChar.getAccessLevel()<REQUIRED_LEVEL2)
-					return false;
-				if (target instanceof L2PcInstance) {
-					player = (L2PcInstance)target;
-				} else {
-					return false;
-				}
-				player.setTitle(val);
-				player.sendMessage("Your title has been changed by a GM");
-				player.broadcastUserInfo();
-			}
-			catch (StringIndexOutOfBoundsException e)
-			{   //Case of empty character title
-				activeChar.sendMessage("You need to specify the new title.");
-			}		   
+			String val = "";
+			StringTokenizer st = new StringTokenizer(command);
+			st.nextToken();
+			L2Object target = activeChar.getTarget();
+			L2PcInstance player = null;
+
+			if (activeChar != target && activeChar.getAccessLevel()<REQUIRED_LEVEL2)
+				return false;
+
+			if (target == null)
+				player = activeChar;
+			else if (target instanceof L2PcInstance)
+				player = (L2PcInstance)target;
+			else
+				return false;
+
+			if(st.hasMoreTokens())
+				val = st.nextToken();
+			while(st.hasMoreTokens())
+				val += " " + st.nextToken();
+
+			player.setTitle(val);
+			if(player != activeChar) player.sendMessage("Your title has been changed by a GM");
+			player.broadcastUserInfo();
 		}
 		else if (command.startsWith("admin_setname"))
 		{
+			activeChar.sendMessage("Deprecated. Use //changename instead.");
+			/*
 			try
 			{
 				String val = command.substring(14); 
@@ -317,8 +323,9 @@ public class AdminEditChar implements IAdminCommandHandler
 			catch (StringIndexOutOfBoundsException e)
 			{   //Case of empty character name
 				activeChar.sendMessage("Usage: //setname new_name_for_target");
-			}		   
-		}	
+			}
+			*/
+		}
 		else if (command.startsWith("admin_setsex"))
 		{
 			L2Object target = activeChar.getTarget();

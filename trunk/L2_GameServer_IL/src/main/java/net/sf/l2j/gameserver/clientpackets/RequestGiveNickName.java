@@ -77,8 +77,7 @@ public class RequestGiveNickName extends L2GameClientPacket
                  //is target from the same clan?
                 if (member != null)
                 {
-                	if (!Config.TITLE_PATTERN.matcher(_title).matches() || 
-                			_title.length() < 3 || _title.length() > 16 )
+                	if (!Config.TITLE_PATTERN.matcher(_title).matches())
                 	{
                         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
                         sm.addString("Incorrect title. Please try again.");
@@ -116,30 +115,27 @@ public class RequestGiveNickName extends L2GameClientPacket
                 activeChar.sendPacket(sm);
                 sm = null;
             }
-		}
-        else if(activeChar.isNoble())
+        }
+        else if(activeChar.isNoble() && activeChar.getTarget() == activeChar)
         {
-            if(activeChar.getTarget() == activeChar)
+            if (!Config.TITLE_PATTERN.matcher(_title).matches())
             {
-            	if (!Config.TITLE_PATTERN.matcher(_title).matches() || 
-            			_title.length() < 3 || _title.length() > 16 )
-            	{
-                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                    sm.addString("Incorrect title. Please try again.");
-                    activeChar.sendPacket(sm);
-                    sm = null;
-            	}
-            	else
-            	{
-            		activeChar.setTitle(_title);
-                    SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
-                    activeChar.sendPacket(sm);
-                    activeChar.broadcastUserInfo();
-                    sm = null;
-            	}
+                activeChar.sendMessage("Incorrect title. Please try again.");
             }
-        }        
-	}
+            else
+            {
+                activeChar.setTitle(_title);
+                SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
+                activeChar.sendPacket(sm);
+                activeChar.broadcastUserInfo();
+                sm = null;
+            }
+        }
+		else
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+		}
+    }
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()

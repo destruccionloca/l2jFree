@@ -83,7 +83,8 @@ public class AdminEditNpc implements IAdminCommandHandler
 		"admin_show_skilllist_npc",
 		"admin_add_skill_npc",
 		"admin_edit_skill_npc",
-		"admin_del_skill_npc"
+		"admin_del_skill_npc",
+		"admin_load_npc"
 	};
 	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 	private static final int REQUIRED_LEVEL2 = Config.GM_NPC_VIEW;
@@ -118,6 +119,27 @@ public class AdminEditNpc implements IAdminCommandHandler
 			catch (Exception e)
 			{
 				activeChar.sendMessage("Wrong usage: //edit_npc <npcId>");
+			}
+		}
+		else if(command.startsWith("admin_load_npc"))
+		{
+			StringTokenizer st = new StringTokenizer(command);
+			st.nextToken();
+			int id = 0;
+			try
+			{
+				id = Integer.parseInt(st.nextToken());
+			}
+			catch(Exception e)
+			{
+				activeChar.sendMessage("Usage: //load_npc <id>");
+			}
+			if(id > 0)
+			{
+				if(NpcTable.getInstance().reloadNpc(id))
+					activeChar.sendMessage("Loaded NPC "+id);
+				else
+					activeChar.sendMessage("Error while loading NPC "+id);
 			}
 		}
 		else if(command.startsWith("admin_show_droplist "))
