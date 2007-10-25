@@ -17,6 +17,7 @@
  */
 package net.sf.l2j.gameserver.skills.l2skills;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -62,33 +63,33 @@ public class L2SkillChargeDmg extends L2Skill
 		return super.checkCondition(activeChar, itemOrWeapon);
 	}
 	
-	public void useSkill(L2Character caster, L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Object[] targets)
     {
-		if (caster.isAlikeDead())
+		if (activeChar.isAlikeDead())
         {
 			return;
         }
 		
 		// get the effect
-		EffectCharge effect = (EffectCharge) caster.getEffect(chargeSkillId);
+		EffectCharge effect = (EffectCharge) activeChar.getEffect(chargeSkillId);
 		if (effect == null || effect.numCharges < numCharges)
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 			sm.addSkillName(getId());
-			caster.sendPacket(sm);
+			activeChar.sendPacket(sm);
 			return;
 		}
 		double modifier = 0;
 		modifier = (effect.numCharges-numCharges)*0.33;
 		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE)
 			effect.numCharges -= numCharges;
-		if (caster instanceof L2PcInstance)
-			caster.sendPacket(new EtcStatusUpdate((L2PcInstance)caster));
+		if (activeChar instanceof L2PcInstance)
+			activeChar.sendPacket(new EtcStatusUpdate((L2PcInstance)activeChar));
 		if (effect.numCharges == 0)
 			effect.exit();
 		for (int index = 0;index < targets.length;index++)
 		{
-			L2ItemInstance weapon = caster.getActiveWeaponInstance();
+			L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
 			L2Character target = (L2Character)targets[index];
 			if (target.isAlikeDead())
 				continue;
@@ -98,40 +99,48 @@ public class L2SkillChargeDmg extends L2Skill
 			// like in doAttackHitByDual which in fact does the calcPhysDam call twice
 			
 			//boolean dual  = caster.isUsingDualWeapon();
-			boolean shld = Formulas.getInstance().calcShldUse(caster, target);
+			boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
 			boolean crit = false;
 			if (getBaseCritRate() > 0)
-				crit = Formulas.getInstance().calcCrit(getBaseCritRate() * 10 * Formulas.getInstance().getSTRBonus(caster));
+				crit = Formulas.getInstance().calcCrit(getBaseCritRate() * 10 * Formulas.getInstance().getSTRBonus(activeChar));
 
 			boolean soul = (weapon != null 
 							&& weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT 
 							&& weapon.getItemType() != L2WeaponType.DAGGER );
-			int damage = (int)Formulas.getInstance().calcPhysDam(caster, target, this, shld, false, false, soul);
+			int damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, this, shld, false, false, soul);
 			if (crit) damage *= 2;
-			
-			if (damage > 0)
+
+    		if (activeChar instanceof L2PcInstance)
+    		{
+    			L2PcInstance activeCaster = (L2PcInstance)activeChar;
+    			
+    			if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+    				damage = 0;
+    		}
+
+    		if (damage > 0)
 			{
 				double finalDamage = damage;
 				finalDamage = finalDamage+(modifier*finalDamage);
-				target.reduceCurrentHp(finalDamage, caster);
+				target.reduceCurrentHp(finalDamage, activeChar);
 				
-				caster.sendDamageMessage(target, (int)finalDamage, false, crit, false);
+				activeChar.sendDamageMessage(target, (int)finalDamage, false, crit, false);
 				
 				if (soul && weapon!= null)
 					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 			}
 			else
 			{
-				caster.sendDamageMessage(target, 0, false, false, true);
+				activeChar.sendDamageMessage(target, 0, false, false, true);
 			}
 		}        // effect self :]
-		L2Effect seffect = caster.getEffect(getId());
+		L2Effect seffect = activeChar.getEffect(getId());
 		if (seffect != null && seffect.isSelfEffect())
 		{
 			//Replace old effect with new one.
 			seffect.exit();
 		}
 		// cast self effect if any
-		getEffectsSelf(caster);
+		getEffectsSelf(activeChar);
 	}
 }

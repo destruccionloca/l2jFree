@@ -17,6 +17,7 @@
  */
 package net.sf.l2j.gameserver.skills.l2skills;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -24,6 +25,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -91,10 +93,11 @@ public class L2SkillDrain extends L2Skill {
             }
 
 			boolean mcrit = Formulas.getInstance().calcMCrit(activeChar.getMCriticalHit(target, this));
-			int damage = (int)Formulas.getInstance().calcMagicDam(
-					activeChar, target, this, ss, bss, mcrit);
-            if (target.isPetrified()){
-            damage= 0;}
+			int damage = (int)Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
+			
+            if (target.isPetrified())
+            	damage= 0;
+            
 			double hpAdd = _absorbAbs + _absorbPart * damage;
 			double hp = ((activeChar.getStatus().getCurrentHp() + hpAdd) > activeChar.getMaxHp() ? activeChar.getMaxHp() : (activeChar.getStatus().getCurrentHp() + hpAdd));
 			
@@ -107,9 +110,17 @@ public class L2SkillDrain extends L2Skill {
             // Check to see if we should damage the target
             if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
             {
-
                 if (target.isPetrified())
-                {damage= 0;}
+                	damage= 0;
+
+        		if (activeChar instanceof L2PcInstance)
+        		{
+        			L2PcInstance activeCaster = (L2PcInstance)activeChar;
+        			
+        			if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+        				damage = 0;
+        		}
+                
                 target.reduceCurrentHp(damage, activeChar);
                 
                 // Manage attack or cast break of the target (calculating rate, sending message...)

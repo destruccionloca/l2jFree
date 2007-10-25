@@ -24,6 +24,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Future;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
@@ -201,6 +202,16 @@ public class CharStatus
         // Add attackers to npc's attacker list
         if (getActiveChar() instanceof L2NpcInstance) getActiveChar().addAttackerToAttackByList(attacker);
 
+        // Additional prevention
+        // Check if player is GM and has sufficient rights to make damage
+		if (attacker instanceof L2PcInstance)
+		{
+			L2PcInstance activeCaster = (L2PcInstance)attacker;
+			
+			if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+				value = 0;
+		}
+        
         if (value > 0) // Reduce Hp if any
         {
             // If we're dealing with an L2Attackable Instance and the attacker hit it with an over-hit enabled skill, set the over-hit values.
