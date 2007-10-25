@@ -27,10 +27,10 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.boat.events.BoatCaptain;
 import net.sf.l2j.gameserver.boat.events.Boatrun;
 import net.sf.l2j.gameserver.boat.model.L2BoatTrajet;
-import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.BoatKnownList;
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.OnVehicleCheckLocation;
@@ -374,11 +374,11 @@ public class L2BoatInstance extends L2Character
 		case DEPARTURE_IN_10_MINUTES:
 			if(_cycle == TRAJET_WAY_1)
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t1.getNpc1(), _t1.getSysmess10_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t1.getNpc1(), _t1.getSysmess10_1());
 			}
 			else
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmess10_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t2.getNpc1(), _t2.getSysmess10_1());
 			}
 			ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
 			if (knownPlayers == null || knownPlayers.isEmpty())
@@ -392,11 +392,11 @@ public class L2BoatInstance extends L2Character
 		case DEPARTURE_IN_5_MINUTES:
 			if(_cycle == TRAJET_WAY_1)
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t1.getNpc1(), _t1.getSysmess5_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t1.getNpc1(), _t1.getSysmess5_1());
 			}
 			else
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmess5_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t2.getNpc1(), _t2.getSysmess5_1());
 			}
 			ps = new PlaySound(0, "itemsound.ship_5min", 1, getObjectId(), getX(), getY(), getZ());
 			if (knownPlayers == null || knownPlayers.isEmpty())
@@ -411,11 +411,11 @@ public class L2BoatInstance extends L2Character
 			
 			if(_cycle == TRAJET_WAY_1)
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t1.getNpc1(), _t1.getSysmess1_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t1.getNpc1(), _t1.getSysmess1_1());
 			}
 			else
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmess1_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t2.getNpc1(), _t2.getSysmess1_1());
 			}
 			ps = new PlaySound(0, "itemsound.ship_1min", 1, getObjectId(), getX(), getY(), getZ());
 			if (knownPlayers == null || knownPlayers.isEmpty())
@@ -430,11 +430,11 @@ public class L2BoatInstance extends L2Character
 			
 			if(_cycle == TRAJET_WAY_1)
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t1.getNpc1(), _t1.getSysmess0_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t1.getNpc1(), _t1.getSysmess0_1());
 			}
 			else
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmess0_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t2.getNpc1(), _t2.getSysmess0_1());
 			}			
 			if (knownPlayers == null || knownPlayers.isEmpty())
 				return;  
@@ -447,11 +447,11 @@ public class L2BoatInstance extends L2Character
 		case -1:
 			if(_cycle == TRAJET_WAY_1)
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t1.getNpc1(), _t1.getSysmessb_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t1.getNpc1(), _t1.getSysmessb_1());
 			}
 			else
 			{
-				sm =new CreatureSay(0, Say2.SHOUT,_t2.getNpc1(), _t2.getSysmessb_1());
+				sm =new CreatureSay(0, SystemChatChannelId.Chat_Shout.getId(),_t2.getNpc1(), _t2.getSysmessb_1());
 			}
 			ps = new PlaySound(0, "itemsound.ship_arrival_departure", 1, getObjectId(), getX(), getY(), getZ());
 			for (L2PcInstance player : knownPlayers)

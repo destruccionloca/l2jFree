@@ -23,11 +23,11 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.AskJoinFriend;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
@@ -249,7 +249,7 @@ public class FriendsBBSManager extends BaseBBSManager
                     { 
                         _logChat.info("TELL" + "[" + activeChar.getName() + " to "+reciever.getName()+"]" + ar3); 
                     } 
-                    CreatureSay cs = new CreatureSay(activeChar.getObjectId(), Say2.TELL, activeChar.getName(), ar3);
+                    CreatureSay cs = new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), activeChar.getName(), ar3);
                     if (!reciever.getMessageRefusal())
                     {
                         reciever.sendPacket(cs);
