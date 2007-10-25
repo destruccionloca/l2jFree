@@ -150,6 +150,8 @@ public class Say2 extends L2GameClientPacket
                 else
                     _log.warn("No handler registered for voice command '"+command+"'");
             }
+            
+            return;
         }
         // Some custom implementation to show how to add channels
         // (for me Chat_System is used for emotes - further informations
