@@ -638,7 +638,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="1400"/>
-  <set name="reuseDelay" val="20000"/> <!-- Guessed -->
+  <set name="reuseDelay" val="30000"/>
   <for>
   </for>
 </skill>
@@ -654,7 +654,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="1400"/>
-  <set name="reuseDelay" val="20000"/> <!-- Guessed -->
+  <set name="reuseDelay" val="30000"/>
   <for>
   </for>
 </skill>

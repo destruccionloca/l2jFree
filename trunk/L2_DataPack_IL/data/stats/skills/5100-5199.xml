@@ -58,26 +58,24 @@
   </for>
 </skill>
 <skill id="5104" levels="3" name="Battle Force">
-  <table name="#pAtk"> 1.10 1.20 1.30 </table> <!-- Guessed -->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
     <effect count="0x7fffffff" name="BattleForce" time="3" val="15" stackOrder="0" stackType="BattleForce">
-       <mul order="0x30" stat="pAtk" val="#pAtk"/>
+       <mul order="0x30" stat="pAtk" val="1.10"/> <!-- Guessed -->
     </effect>
   </for>
 </skill>
 <skill id="5105" levels="3" name="Spell Force">
-  <table name="#mAtk"> 1.10 1.20 1.30 </table> <!-- Guessed -->
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
     <effect count="0x7fffffff" name="SpellForce" time="3" val="15" stackOrder="0" stackType="SpellForce">
-      <mul order="0x30" stat="mAtk" val="#mAtk"/>
+      <mul order="0x30" stat="mAtk" val="1.10"/><!-- Guessed -->
     </effect>
   </for>
 </skill>
