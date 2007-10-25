@@ -56,8 +56,23 @@ public class RequestGiveNickName extends L2GameClientPacket
 		    return;
 		
 		//Can the player change/give a title?
-		if ((activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) == L2Clan.CP_CL_GIVE_TITLE) 
-		{	
+        if(activeChar.isNoble() && activeChar.getTarget() == activeChar)
+        {
+            if (!Config.TITLE_PATTERN.matcher(_title).matches())
+            {
+                activeChar.sendMessage("Incorrect title. Please try again.");
+            }
+            else
+            {
+                activeChar.setTitle(_title);
+                SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
+                activeChar.sendPacket(sm);
+                activeChar.broadcastUserInfo();
+                sm = null;
+            }
+        }
+		else if (activeChar.getClan() != null && (activeChar.getClanPrivileges() & L2Clan.CP_CL_GIVE_TITLE) == L2Clan.CP_CL_GIVE_TITLE) 
+		{
 			if (activeChar.getClan().getLevel() < 3)
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_LVL_3_NEEDED_TO_ENDOWE_TITLE);
@@ -65,12 +80,8 @@ public class RequestGiveNickName extends L2GameClientPacket
                 sm = null;
 				return;
 			}
-            
-            //if (getClient().getRevision() >= 690)
-               // _target = activeChar.getTarget().getName();
-            
+
 			L2ClanMember member1 = activeChar.getClan().getClanMember(_target);
-            //L2ClanMember member1 = ; // C5
             if (member1 != null)
             {
                 L2PcInstance member = member1.getPlayerInstance();
@@ -79,10 +90,7 @@ public class RequestGiveNickName extends L2GameClientPacket
                 {
                 	if (!Config.TITLE_PATTERN.matcher(_title).matches())
                 	{
-                        SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                        sm.addString("Incorrect title. Please try again.");
-                        activeChar.sendPacket(sm);
-                        sm = null;
+						activeChar.sendMessage("Incorrect title. Please try again.");
                 	}
                 	else
                 	{
@@ -113,21 +121,6 @@ public class RequestGiveNickName extends L2GameClientPacket
             {
                 SystemMessage sm = new SystemMessage(SystemMessageId.TARGET_MUST_BE_IN_CLAN);
                 activeChar.sendPacket(sm);
-                sm = null;
-            }
-        }
-        else if(activeChar.isNoble() && activeChar.getTarget() == activeChar)
-        {
-            if (!Config.TITLE_PATTERN.matcher(_title).matches())
-            {
-                activeChar.sendMessage("Incorrect title. Please try again.");
-            }
-            else
-            {
-                activeChar.setTitle(_title);
-                SystemMessage sm = new SystemMessage(SystemMessageId.TITLE_CHANGED);
-                activeChar.sendPacket(sm);
-                activeChar.broadcastUserInfo();
                 sm = null;
             }
         }
