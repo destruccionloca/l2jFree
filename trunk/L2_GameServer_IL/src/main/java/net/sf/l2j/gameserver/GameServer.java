@@ -99,6 +99,7 @@ import net.sf.l2j.gameserver.skills.SkillsEngine;
 import net.sf.l2j.gameserver.taskmanager.TaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.gameserver.util.FloodProtector;
+import net.sf.l2j.gameserver.util.PathCreator;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.tools.L2Registry;
@@ -129,6 +130,8 @@ public class GameServer
     	Config.load();
     	Util.printSection("Database");
     	L2DatabaseFactory.initInstance();
+    	Util.printSection("Preparations");
+    	new PathCreator();
     	Util.printSection("World");
     	RandomIntGenerator.getInstance();    	
         L2World.getInstance();
