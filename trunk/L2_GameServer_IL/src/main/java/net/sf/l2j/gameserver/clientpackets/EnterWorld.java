@@ -37,6 +37,7 @@ import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -431,6 +432,13 @@ public class EnterWorld extends L2GameClientPacket
 				else if (siege.checkIsDefender(activeChar.getClan()))
 					activeChar.setSiegeState((byte)2);
 			}
+		}
+
+		if (!activeChar.isGM() && activeChar.getSiegeState() < 2 && SiegeManager.getInstance().checkIfInZone(activeChar))
+		{
+			// Attacker or spectator logging in to a siege zone. Actually should be checked for inside castle only?
+			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
 		}
 
         RegionBBSManager.getInstance().changeCommunityBoard();
