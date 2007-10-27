@@ -95,66 +95,66 @@ public class TownManager
 
         switch (townId)
         {
-        case 2:
-            nearestTown = "Talking Island Village";
-            break;
-        case 3:
-            nearestTown = "Elven Village";
-            break;
-        case 1:
-            nearestTown = "Dark Elven Village";
-            break;
-        case 4:
-            nearestTown = "Orc Village";
-            break;
-        case 6:
-            nearestTown = "Dwarven Village";
-            break;
-        case 7:
-            nearestTown = "Town of Gludio";
-            break;
-        case 5:
-            nearestTown = "Gludin Village";
-            break;
-        case 8:
-            nearestTown = "Town of Dion";
-            break;
-        case 9:
-            nearestTown = "Town of Giran";
-            break;
-        case 10:
-            nearestTown = "Town of Oren";
-            break;
-        case 12:
-            nearestTown = "Town of Aden";
-            break;
-        case 11:
-            nearestTown = "Hunters Village";
-            break;
-        /*
-         * case 20: nearestTown = "Gludin Harbor"; break;
-         */
-        case 15:
-            nearestTown = "Heine";
-            break;
-        case 14:
-            nearestTown = "Rune Township";
-            break;
-        case 13:
-            nearestTown = "Town of Goddard";
-            break;
-        case 17:
-            nearestTown = "Town of Shuttgart";
-            break; // //TODO@ (Check mapregion table)[Luno]
-        case 18:
-            nearestTown = "Ivory Tower";
-            break;
-        case 19:
-            nearestTown = "Primeval Isle Wharf";
-            break;
-        default:
-            nearestTown = "";
-            break;
+	        case 0:
+	            nearestTown = "Talking Island Village";
+	            break;
+	        case 1:
+	            nearestTown = "Elven Village";
+	            break;
+	        case 2:
+	            nearestTown = "Dark Elven Village";
+	            break;
+	        case 3:
+	            nearestTown = "Orc Village";
+	            break;
+	        case 4:
+	            nearestTown = "Dwarven Village";
+	            break;
+	        case 5:
+	            nearestTown = "Town of Gludio";
+	            break;
+	        case 6:
+	            nearestTown = "Gludin Village";
+	            break;
+	        case 7:
+	            nearestTown = "Town of Dion";
+	            break;
+	        case 8:
+	            nearestTown = "Town of Giran";
+	            break;
+	        case 9:
+	            nearestTown = "Town of Oren";
+	            break;
+	        case 10:
+	            nearestTown = "Town of Aden";
+	            break;
+	        case 11:
+	            nearestTown = "Hunters Village";
+	            break;
+	        case 12: 
+	        	nearestTown = "Giran Harbor"; 
+	        	break;
+	        case 13:
+	            nearestTown = "Heine";
+	            break;
+	        case 14:
+	            nearestTown = "Rune Township";
+	            break;
+	        case 15:
+	            nearestTown = "Town of Goddard";
+	            break;
+	        case 16:
+	            nearestTown = "Town of Shuttgart";
+	            break;
+	        case 17:
+	            nearestTown = "Ivory Tower";
+	            break;
+	        case 18:
+	            nearestTown = "Primeval Isle Wharf";
+	            break;
+	        default:
+	            nearestTown = "";
+	            break;
         }
 
         return nearestTown;
@@ -162,46 +162,43 @@ public class TownManager
 
     public int getRedirectTownNumber(int townId)
     {
-        int redirectTownId = 9;
+        int redirectTownId = 8;
 
         switch (townId)
         {
-
-        case 7:
-            redirectTownId = 5;
-            break; // Gludio => Gludin
-        case 8:
-            redirectTownId = 7;
-            break; // Dion => Gludio
-        case 9:
-            redirectTownId = 11;
-            break; // Giran => HV (should be Giran Harbor, but its not a zone
-        // town "yet")
-        case 10:
-            redirectTownId = 11;
-            break; // Oren => HV
-        case 12:
-            redirectTownId = 10;
-            break; // Aden => Oren
-        case 13:
-            redirectTownId = 14;
-            break; // Goddard => Rune
-        case 14:
-            redirectTownId = 13;
-            break; // Rune => Goddard
-        case 15:
-            redirectTownId = 16;
-            break; // Heine => Floran (should be Giran Harbor, but its not a
-        // zone town "yet")
-        case 17:
-            redirectTownId = 14;
-            break; // Schuttgart => Rune
-        /*
-         * case 18: redirectTownId = 10; break; // Ivory Tower => Oren
-         */
-        case 19:
-            redirectTownId = 14;
-            break; // Primeval Isle Wharf => Rune
+	        case 5:
+	            redirectTownId = 6;
+	            break; // Gludio => Gludin
+	        case 7:
+	            redirectTownId = 5;
+	            break; // Dion => Gludio
+	        case 8:
+	            redirectTownId = 12;
+	            break; // Giran => Giran Harbor
+	        case 9:
+	            redirectTownId = 11;
+	            break; // Oren => HV
+	        case 10:
+	            redirectTownId = 9;
+	            break; // Aden => Oren
+	        case 15:
+	            redirectTownId = 14;
+	            break; // Goddard => Rune
+	        case 14:
+	            redirectTownId = 15;
+	            break; // Rune => Goddard
+	        case 13:
+	            redirectTownId = 12;
+	            break; // Heine => Giran Harbor
+	        case 16:
+	            redirectTownId = 14;
+	            break; // Schuttgart => Rune
+	        case 17: 
+	        	redirectTownId = 9; 
+	        	break; // Ivory Tower => Oren
+	        case 18:
+	            redirectTownId = 14;
+	            break; // Primeval Isle Wharf => Rune
         }
 
         return redirectTownId;
@@ -214,50 +211,12 @@ public class TownManager
 
     public final Town getClosestTown(int x, int y)
     {
-        switch (MapRegionTable.getInstance().getMapRegion(x, y))
-        {
-        case 0:
-            return getTown(2); // TI
-        case 1:
-            return getTown(3); // Elven
-        case 2:
-            return getTown(1); // DE
-        case 3:
-            return getTown(4); // Orc
-        case 4:
-            return getTown(6); // Dwarven
-        case 5:
-            return getTown(7); // Gludio
-        case 6:
-            return getTown(5); // Gludin
-        case 7:
-            return getTown(8); // Dion
-        case 8:
-            return getTown(9); // Giran
-        case 9:
-            return getTown(10); // Oren
-        case 10:
-            return getTown(12); // Aden
-        case 11:
-            return getTown(11); // HV
-        case 12:
-            return getTown(16); // Floran
-        case 13:
-            return getTown(15); // Heine
-        case 14:
-            return getTown(14); // Rune
-        case 15:
-            return getTown(13); // Goddard
-        case 16:
-            return getTown(17); // Schuttgart
-            /*
-             * case 17: return getTown(18); // Ivory Tower
-             */
-        case 18:
-            return getTown(19); // Prime Isle Wharf
-        }
-
-        return getTown(16); // Default to floran
+    	int mapRegion = MapRegionTable.getInstance().getMapRegion(x, y);
+    	
+    	if (mapRegion < 0 || mapRegion > 18)
+    		return getTown(10);
+    	
+    	return getTown(mapRegion);
     }
 
     public final boolean townHasCastleInSeige(int townId)
