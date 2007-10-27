@@ -646,8 +646,8 @@
   </item>
   <item id="61" name="Giran Harbor">
     <type>Peace</type>
-    <town>12></town>
-    <castle>8</caslte>
+    <town>12</town>
+    <castle>8</castle>
     <point x="47189" y="185982" z="-3911" />
     <point x="49284" y="183651" z="-3911" />
     <point x="52767" y="186787" z="-3911" />
@@ -655,8 +655,8 @@
   </item>
   <item id="62" name="Giran Harbor">
     <type>Peace</type>
-    <town>12></town>
-    <castle>8</caslte>
+    <town>12</town>
+    <castle>8</castle>
     <point x="45288" y="186705" z="-3811" />
     <point x="47947" y="185316" z="-3811" />
     <point x="50535" y="189487" z="-3811" />
@@ -664,8 +664,8 @@
   </item>
   <item id="63" name="Giran Harbor">
     <type>Peace</type>
-    <town>12></town>
-    <castle>8</caslte>
+    <town>12</town>
+    <castle>8</castle>
     <point x="43935" y="187891" z="-3606" />
     <point x="45949" y="186815" z="-3606" />
     <point x="46215" y="187346" z="-3606" />
@@ -673,8 +673,8 @@
   </item>
   <item id="64" name="Giran Harbor">
     <type>Peace</type>
-    <town>12></town>
-    <castle>8</caslte>
+    <town>12</town>
+    <castle>8</castle>
     <point x="41861" y="188551" z="-3814" />
     <point x="44221" y="187269" z="-3814" />
     <point x="46275" y="191156" z="-3814" />
