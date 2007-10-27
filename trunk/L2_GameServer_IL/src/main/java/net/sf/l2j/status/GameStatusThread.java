@@ -80,6 +80,9 @@ import net.sf.l2j.gameserver.util.DynamicExtension;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+* Some lil' fixes by NB4L1
+*/
 
 public class GameStatusThread extends Thread
 {
@@ -154,24 +157,29 @@ public class GameStatusThread extends Thread
     {
         _cSocket = client;
         _uptime = uptime;
+		
+		// Fix for telneting from other OS... by NB4L1
+		System.setProperty("line.separator", "\r\n");
         
         _print = new PrintWriter(_cSocket.getOutputStream());
         _read  = new BufferedReader(new InputStreamReader(_cSocket.getInputStream()));
         
         if ( isValidIP(client) ) {    
-            telnetOutput(1, client.getInetAddress().getHostAddress()+" accepted.");
-            _print.println("Welcome To The L2J Telnet Session.");
-            _print.println("Please Insert Your Password!");
+            telnetOutput(1, client.getInetAddress().getHostAddress()+" accepted!");
+            _print.println("Welcome to the L2j-Free Telnet Server...");
+            _print.println("Please insert your Password!");
             _print.print("Password: ");
-            _print.flush();
+            //_print.flush();
             String tmpLine = _read.readLine();
-            if ( tmpLine == null )  {
-                _print.println("Error.");
+            if (tmpLine == null)
+			{
+                _print.println("Error during Connection!");
                 _print.println("Disconnected...");
                 _print.flush();
                 _cSocket.close();
             }
-            else {
+            else
+			{
                 if (tmpLine.compareTo(StatusPW) != 0)
                 {
                     _print.println("Incorrect Password!");
@@ -181,8 +189,8 @@ public class GameStatusThread extends Thread
                 }
                 else
                 {
-                    _print.println("Password Correct!");
-                    _print.println("[L2J]");
+                    _print.println("Connection accepted... Welcome!");
+                    _print.println("[L2j-Free Telnet Console]");
                     _print.print("");
                     _print.flush();
                     start();
@@ -213,8 +221,10 @@ public class GameStatusThread extends Thread
                     _print.println("The following is a list of all available commands: ");
                     _print.println("help                - shows this help.");
                     _print.println("status              - displays basic server statistics.");
+					_print.println("printmemusage       - displays memory amounts in JVM.");
                     _print.println("performance         - shows server performance statistics.");
                     _print.println("purge               - removes finished threads from thread pools.");
+					_print.println("gc                  - forced garbage collection.");
                     _print.println("announce <text>     - announces <text> in game.");
                     _print.println("msg <nick> <text>   - Sends a whisper to char <nick> with <text>.");
                     _print.println("gmchat <text>       - Sends a message to all GMs with <text>.");
@@ -261,7 +271,6 @@ public class GameStatusThread extends Thread
                     int minionCount = 0;
                     int minionsGroupCount = 0;
                     int npcCount=0;
-                    int charCount=0;
                     int pcCount=0;
                     int doorCount=0;
                     int summonCount=0;
@@ -294,8 +303,6 @@ public class GameStatusThread extends Thread
                             summonCount++;
                         else if (obj instanceof L2DoorInstance)
                             doorCount++;
-                        else if (obj instanceof L2Character)
-                            charCount++;
                     }
                     _print.println("Server Status: ");
                     _print.println("  --->  Player Count: " + playerCount + "/" + max); 
@@ -310,7 +317,6 @@ public class GameStatusThread extends Thread
                     _print.println("  +............ L2Pc: " + pcCount);
                     _print.println("  +........ L2Summon: " + summonCount);
                     _print.println("  +.......... L2Door: " + doorCount);
-                    _print.println("  +.......... L2Char: " + charCount);
                     _print.println("  --->   Ingame Time: " + gameTime());
                     _print.println("  ---> Server Uptime: " + getUptime(_uptime));
                     _print.println("  --->      GM Count: " + getOnlineGMS());
@@ -318,6 +324,14 @@ public class GameStatusThread extends Thread
                     _print.println("  RAM Used: "+((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/1048576)); // 1024 * 1024 = 1048576
                     _print.flush();
                 }
+                else if (_usrCommand.equals("printmemusage"))
+				{
+					for (String line : GameServer.getMemUsage())
+					{
+						_print.println(line);
+					}
+					_print.flush();
+				}
                 else if (_usrCommand.equals("performance"))
                 {
                     for (String line : ThreadPoolManager.getInstance().getStats())
@@ -336,6 +350,25 @@ public class GameStatusThread extends Thread
                 		_print.println(line);
                 	}
                 	_print.flush();
+                }
+                else if (_usrCommand.equals("gc"))
+                {
+					for (String line : GameServer.getMemUsage())
+					{
+						_print.println(line);
+					}
+					_print.println("");
+					_print.println("#########################");
+					_print.println("# Garbage collecting... #");
+					System.gc();
+					_print.println("# Ready...              #");
+					_print.println("#########################");
+                	_print.println("");
+					for (String line : GameServer.getMemUsage())
+					{
+						_print.println(line);
+					}
+					_print.flush();
                 }
                 else if (_usrCommand.startsWith("announce"))
                 {
