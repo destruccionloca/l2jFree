@@ -33,8 +33,8 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
@@ -54,29 +54,29 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Disablers implements ISkillHandler
 {
-    private static final SkillType[] SKILL_IDS = {L2Skill.SkillType.STUN,
-                                       L2Skill.SkillType.ROOT,
-                                       L2Skill.SkillType.SLEEP,
-                                       L2Skill.SkillType.CONFUSION,
-                                       L2Skill.SkillType.AGGDAMAGE, 
-                                       L2Skill.SkillType.AGGREDUCE,
-                                       L2Skill.SkillType.AGGREDUCE_CHAR, 
-                                       L2Skill.SkillType.AGGREMOVE,
-                                       L2Skill.SkillType.UNBLEED, 
-                                       L2Skill.SkillType.UNPOISON,
-                                       L2Skill.SkillType.MUTE, 
-                                       L2Skill.SkillType.FAKE_DEATH,
-                                       L2Skill.SkillType.CONFUSE_MOB_ONLY,
-                                       L2Skill.SkillType.NEGATE,
-                                       L2Skill.SkillType.CANCEL, 
-                                       L2Skill.SkillType.PARALYZE,
-                                       L2Skill.SkillType.UNSUMMON_ENEMY_PET,
-                                       L2Skill.SkillType.BETRAY,
-                                       L2Skill.SkillType.CANCEL_TARGET,
-                                       L2Skill.SkillType.ERASE,
-                                       L2Skill.SkillType.DEBUFF,
-                                       L2Skill.SkillType.MAGE_BANE,
-                                       L2Skill.SkillType.WARRIOR_BANE};
+    private static final SkillType[] SKILL_IDS = {SkillType.STUN,
+                                       SkillType.ROOT,
+                                       SkillType.SLEEP,
+                                       SkillType.CONFUSION,
+                                       SkillType.AGGDAMAGE, 
+                                       SkillType.AGGREDUCE,
+                                       SkillType.AGGREDUCE_CHAR, 
+                                       SkillType.AGGREMOVE,
+                                       SkillType.UNBLEED, 
+                                       SkillType.UNPOISON,
+                                       SkillType.MUTE, 
+                                       SkillType.FAKE_DEATH,
+                                       SkillType.CONFUSE_MOB_ONLY,
+                                       SkillType.NEGATE,
+                                       SkillType.CANCEL, 
+                                       SkillType.PARALYZE,
+                                       SkillType.UNSUMMON_ENEMY_PET,
+                                       SkillType.BETRAY,
+                                       SkillType.CANCEL_TARGET,
+                                       SkillType.ERASE,
+                                       SkillType.DEBUFF,
+                                       SkillType.MAGE_BANE,
+                                       SkillType.WARRIOR_BANE};
     protected static Log _log = LogFactory.getLog(L2Skill.class.getName());
     private  String[] _negateStats=null;
     private  float _negatePower=0.f;

@@ -29,8 +29,9 @@ import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2SiegeGuardAI;
 import net.sf.l2j.gameserver.datatables.EventDroplist;
-import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.EventDroplist.DateDrop;
+import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -343,20 +344,43 @@ public class L2Attackable extends L2NpcInstance
         
         return !target.isInvul();
     }
-    
-    /**
-     * Reduce the current HP of the L2Attackable.<BR><BR>
-     * 
-     * @param damage The HP decrease value
-     * @param attacker The L2Character who attacks
-     * 
-     */
-    @Override
-    public void reduceCurrentHp(double damage, L2Character attacker)
-    {
-        reduceCurrentHp(damage, attacker, true);
-    }
-    
+
+	/**
+	* Reduce the current HP of the L2Attackable.<BR><BR>
+	* 
+	* @param damage The HP decrease value
+	* @param attacker The L2Character who attacks
+	* 
+	*/
+	@Override
+	public void reduceCurrentHp(double damage, L2Character attacker)
+	{
+		// Check Raidboss attack
+		// Character will be petrified if attacking a raid that's more
+		// than 8 levels lower
+		if (isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
+		{
+			int level = 0;
+			if (attacker instanceof L2PcInstance)
+				level = attacker.getLevel();
+			else if (attacker instanceof L2Summon)
+				level = ((L2Summon)attacker).getOwner().getLevel();
+
+			if (level > getLevel() + 8)
+			{
+				L2Skill skill = SkillTable.getInstance().getInfo(4515, 99);
+
+				if (skill != null)
+					skill.getEffects(this, attacker);
+				else
+					_log.warn("Skill 4515 at level 99 is missing in DP.");
+				
+				damage = 0; // prevents messing up drop calculation
+			}
+		}
+		reduceCurrentHp(damage, attacker, true);
+	}
+
     /**
      * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR>
      * 

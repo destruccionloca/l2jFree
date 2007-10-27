@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
@@ -4519,31 +4518,7 @@ public abstract class L2Character extends L2Object
         // If attack isn't aborted, send a message system (critical hit, missed...) to attacker/target if they are L2PcInstance
         if (!isAttackAborted())
         {
-			// Check Raidboss attack
-			// Character will be petrified if attacking a raid that's more
-			// than 8 levels lower
-        	if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
-			{
-				int level = 0;
-				if (this instanceof L2PcInstance)
-					level = getLevel();
-				else if (this instanceof L2Summon)
-					level = ((L2Summon)this).getOwner().getLevel();
-
-				if (level > target.getLevel() + 8)
-				{
-					L2Skill skill = SkillTable.getInstance().getInfo(4515, 99);
-
-					if (skill != null)
-						skill.getEffects(target, this);
-					else
-						_log.warn("Skill 4515 at level 99 is missing in DP.");
-					
-					damage = 0; // prevents messing up drop calculation
-				}
-			}
-
-        	sendDamageMessage(target, damage, false, crit, miss);
+            sendDamageMessage(target, damage, false, crit, miss);
             
             // If L2Character target is a L2PcInstance, send a system message
             if (target instanceof L2PcInstance)
@@ -4571,7 +4546,7 @@ public abstract class L2Character extends L2Object
             if (!miss && damage > 0)
             {
                 L2Weapon weapon = getActiveWeaponItem();
-                boolean isBow = (weapon != null && weapon.getItemType().toString().equalsIgnoreCase("Bow"));
+                boolean isBow = (weapon != null && weapon.getItemType() == L2WeaponType.BOW);
                 
                 if (!isBow) // Do not reflect or absorb if weapon is of type bow
                 {
