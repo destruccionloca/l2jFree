@@ -1574,8 +1574,13 @@ public final class Formulas
         d += 0.5 * Rnd.nextGaussian();
         return d > 0;
     }
-
+	
 	public double calcSkillVulnerability(L2Character target, L2Skill skill)
+	{
+		return calcSkillVulnerability(target, skill, skill.getSkillType());
+	}
+	
+    public double calcSkillVulnerability(L2Character target, L2Skill skill, SkillType type)
 	{
 		double multiplier = 1;	// initialize...
 
@@ -1658,7 +1663,6 @@ public final class Formulas
 			}
 			
 			// Finally, calculate skilltype vulnerabilities
-			SkillType type = skill.getSkillType();
 			if (type != null)
 			{
 				switch (type)
@@ -1776,7 +1780,7 @@ public final class Formulas
         int lvlmodifier = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel())
             * lvlDepend;
         double statmodifier = calcSkillStatModifier(type, target);
-        double resmodifier = calcSkillVulnerability(target, skill);
+        double resmodifier = calcSkillVulnerability(target, skill, type);
         
         int ssmodifier = 100;
         if (bss) ssmodifier = 200;
