@@ -45,7 +45,8 @@ public class CastleManager
 		return _instance;
 	}
 
-	public CastleManager(){}
+	private static final int _castleCirclets[] = { 0, 6838, 6835, 6839, 6837, 6840, 6834, 6836, 8182, 8183 };
+	public CastleManager() {}
 
 	public final Castle getClosestCastle(L2Object activeObject)
 	{
@@ -159,5 +160,19 @@ public class CastleManager
 		for (Castle castle : _castles.values())
 			if (castle.getTaxPercent() > maxTax)
 				castle.setTaxPercent(maxTax);
+	}
+
+	int _castleId = 1; // from this castle
+	public int getCirclet()
+	{
+		return getCircletByCastleId(_castleId);
+	}
+
+	public int getCircletByCastleId(int castleId)
+	{
+		if (castleId > 0 && castleId < 10)
+			return _castleCirclets[castleId];
+		
+		return 0;
 	}
 }

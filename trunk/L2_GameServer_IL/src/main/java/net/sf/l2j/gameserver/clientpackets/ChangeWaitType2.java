@@ -18,6 +18,11 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
+import net.sf.l2j.gameserver.serverpackets.ChairSit;
 
 /**
  * This class ...
@@ -41,22 +46,39 @@ public class ChangeWaitType2 extends L2GameClientPacket
 	 * format:		cd
 	 * @param decrypt
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _typeStand = (readD() == 1);
-    }
-
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-	    if(getClient() != null && getClient().getActiveChar() != null)
-	    {
-	        if (_typeStand)
-	            getClient().getActiveChar().standUp(false); // false - No forced standup but user requested - Checks if animation already running.
-	        else
-	            getClient().getActiveChar().sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
-	    }
+		_typeStand = (readD() == 1);
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		L2Object target = player.getTarget();
+		if(getClient() != null && player != null)
+		{
+			if (player.getMountType() != 0) //prevent sit/stand if you riding
+				return;
+			if (target != null 
+					&& !player.isSitting()
+					&& target instanceof L2StaticObjectInstance
+					&& ((L2StaticObjectInstance)target).getType() == 1
+					&& CastleManager.getInstance().getCastle(target) != null
+					&& player.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
+			)
+			{
+				ChairSit cs = new ChairSit(player,((L2StaticObjectInstance)target).getStaticObjectId());
+				player.sendPacket(cs);
+				player.sitDown();
+				player.broadcastPacket(cs);
+			}
+			if (_typeStand)
+				player.standUp(false); // false - No forced standup but user requested - Checks if animation already running.
+			else
+				player.sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
+		}
 	}
 
 	/* (non-Javadoc)

@@ -112,9 +112,7 @@ public class RequestActionUse extends L2GameClientPacket
                         && !activeChar.isSitting()
                         && target instanceof L2StaticObjectInstance
                         && ((L2StaticObjectInstance)target).getType() == 1
-                        && activeChar.getClan() != null
                         && CastleManager.getInstance().getCastle(target) != null
-                        && activeChar.isCastleLord(CastleManager.getInstance().getCastle(target).getCastleId())
                         && activeChar.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
                    )
                 {

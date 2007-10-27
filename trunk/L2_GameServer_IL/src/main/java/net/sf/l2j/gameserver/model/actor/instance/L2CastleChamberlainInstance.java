@@ -23,14 +23,19 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2TradeList;
+import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.BuyList;
 import net.sf.l2j.gameserver.serverpackets.ExShowCropInfo;
 import net.sf.l2j.gameserver.serverpackets.ExShowCropSetting;
 import net.sf.l2j.gameserver.serverpackets.ExShowManorDefaultInfo;
@@ -56,7 +61,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class L2CastleChamberlainInstance extends L2FolkInstance
 {
-	//private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
+	private final static Log _log = LogFactory.getLog(L2CastleChamberlainInstance.class.getName());
 
 	protected static final int COND_ALL_FALSE = 0;
 	protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
@@ -223,6 +228,41 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 				}
 				player.sendPacket(html);
 				return;
+			}
+			else if (actualCommand.equalsIgnoreCase("items"))
+			{
+				if (val == "") return;
+				player.tempInvetoryDisable();
+
+				if (_log.isDebugEnabled()) _log.info("Showing chamberlain buylist");
+
+				int buy;
+				{
+					int castleId = getCastle().getCastleId();
+					int circlet = CastleManager.getInstance().getCircletByCastleId(castleId);
+					PcInventory s = player.getInventory();
+					if (s.getItemByItemId(circlet)==null)
+					{
+						buy = (Integer.parseInt(val+"1"));
+					}
+					else
+					{
+						buy = (Integer.parseInt(val+"2"));
+					}
+				}
+				L2TradeList list = TradeListTable.getInstance().getBuyList(buy);
+				if (list != null && list.getNpcId() == getNpcId())
+				{
+					BuyList bl = new BuyList(list, player.getAdena(), 0);
+					player.sendPacket(bl);
+				}
+				else
+				{
+					_log.warn("player: " + player.getName()
+							+ " attempting to buy from chamberlain that don't have buylist!");
+					_log.warn("buylist id:" + buy);
+				}
+				player.sendPacket(new ActionFailed());
 			}
 			else if (actualCommand.equalsIgnoreCase("manage_vault"))
 			{

@@ -83,7 +83,7 @@ public class GeoPathFinding extends PathFinding
         //_log.warning("end"+end.getLoc().getNodeY());
         if(start == null || end == null) return null;
         //return searchAStar(start, end);
-        return search(start, end);
+        return searchByClosest(start, end);
     }
     
     /**
