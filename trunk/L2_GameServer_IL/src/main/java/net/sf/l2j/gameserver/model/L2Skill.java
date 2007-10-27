@@ -216,7 +216,6 @@ public abstract class L2Skill
         REELING,
         CANCEL_TARGET,
         CHARGE_SELF,
-        CRITS,
         CREATE_ITEM      (L2SkillCreateItem.class),
         AGGDEBUFF,
         COMBATPOINTPERHEAL,
@@ -1082,7 +1081,6 @@ public abstract class L2Skill
     {
         return ((getSkillType() == SkillType.PDAM)||
                 (getSkillType() == SkillType.STUN)||
-                (getSkillType() == SkillType.CRITS)||
                 (getSkillType() == SkillType.CHARGEDAM));
     }
     
@@ -1229,7 +1227,6 @@ public abstract class L2Skill
             case WARRIOR_BANE:
             case AGGREMOVE:
             case AGGREDUCE_CHAR: 
-            case CRITS:
             case CHARGE_SELF:
             case UNSUMMON_ENEMY_PET:
             case CANCEL_TARGET:

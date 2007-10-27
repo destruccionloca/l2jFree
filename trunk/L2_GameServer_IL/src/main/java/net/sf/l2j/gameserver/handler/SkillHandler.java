@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.handler.skillhandlers.ChargeSelf;
 import net.sf.l2j.gameserver.handler.skillhandlers.CombatPointHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Continuous;
 import net.sf.l2j.gameserver.handler.skillhandlers.Craft;
-import net.sf.l2j.gameserver.handler.skillhandlers.Crits;
 import net.sf.l2j.gameserver.handler.skillhandlers.DeluxeKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Disablers;
 import net.sf.l2j.gameserver.handler.skillhandlers.DrainSoul;
@@ -90,7 +89,6 @@ public class SkillHandler
         registerSkillHandler(new CombatPointHeal());
         registerSkillHandler(new Continuous());
         registerSkillHandler(new Craft());
-        registerSkillHandler(new Crits());
         registerSkillHandler(new CPperHeal()); 
         registerSkillHandler(new DeluxeKey());
         registerSkillHandler(new Disablers());

@@ -1745,7 +1745,7 @@ public final class Formulas
         int value = (int) skill.getPower();
         int lvlDepend = skill.getLevelDepend();
         
-        if (type == SkillType.PDAM || type == SkillType.MDAM || type == SkillType.CRITS) // For additional effects on PDAM skills (like STUN, SHOCK,...)
+        if (type == SkillType.PDAM || type == SkillType.MDAM) // For additional effects on PDAM skills (like STUN, SHOCK,...)
         {
             value = skill.getEffectPower();
             type = skill.getEffectType();
@@ -1758,14 +1758,8 @@ public final class Formulas
                 value = 50;
                 type = SkillType.STUN;
             }
-            if (skill.getSkillType() == SkillType.CRITS)
-            {
-                value = 50;
-                type = SkillType.CRITS;
-            }
             if (skill.getSkillType() == SkillType.MDAM)
             {
-
                 value = 30;
                 type = SkillType.PARALYZE;
             }
