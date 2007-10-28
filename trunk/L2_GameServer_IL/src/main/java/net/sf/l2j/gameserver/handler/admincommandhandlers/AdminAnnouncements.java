@@ -48,9 +48,10 @@ public class AdminAnnouncements implements IAdminCommandHandler {
 			};
 	private static final int REQUIRED_LEVEL = Config.GM_ANNOUNCE;
 
-	public boolean useAdminCommand(String command, L2PcInstance activeChar) {
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+	public boolean useAdminCommand(String command, L2PcInstance activeChar)
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
 		
 		if (command.equals("admin_list_announcements"))
 		{
@@ -63,9 +64,8 @@ public class AdminAnnouncements implements IAdminCommandHandler {
 		} 
 		else if (command.startsWith("admin_announce_menu"))
 		{
-			Announcements sys = new Announcements();
-			sys.handleAnnounce(command, 20);
-			Announcements.getInstance().listAnnouncements(activeChar);	
+			Announcements.getInstance().handleAnnounce(command, 20);
+			Announcements.getInstance().listAnnouncements(activeChar);
 		}
 		else if (command.equals("admin_announce_announcements"))
 		{
@@ -89,22 +89,21 @@ public class AdminAnnouncements implements IAdminCommandHandler {
 		}
 		else if (command.startsWith("admin_del_announcement"))
 		{
-            try
-            {
-    			int val = new Integer(command.substring(23)).intValue();
-    			Announcements.getInstance().delAnnouncement(val);
-    			Announcements.getInstance().listAnnouncements(activeChar);
-            }
-            catch (StringIndexOutOfBoundsException e)
-            { }
+			try
+			{
+				int val = new Integer(command.substring(23)).intValue();
+				Announcements.getInstance().delAnnouncement(val);
+				Announcements.getInstance().listAnnouncements(activeChar);
+			}
+			catch (StringIndexOutOfBoundsException e)
+			{}
 		}
 		
 		// Command is admin announce 
 		else if (command.startsWith("admin_announce"))
 		{
 			// Call method from another class
-			Announcements sys = new Announcements();
-			sys.handleAnnounce(command, 15);
+			Announcements.getInstance().handleAnnounce(command, 15);
 		}
 		
 		return true;

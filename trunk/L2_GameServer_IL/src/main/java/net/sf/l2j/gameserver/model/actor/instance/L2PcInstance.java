@@ -352,7 +352,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** Sitting down and Standing up fix */
     protected boolean _protectedSitStand = false;
-    private boolean _isRunningAnimation = false;
 
     /** The Identifier of the L2PcInstance */
     private int _charId = 0x00030b7a;
@@ -7281,13 +7280,6 @@ public final class L2PcInstance extends L2PlayableInstance
         		return;
         	}
         }
-        // GeoData Los Check here
-        if (!(target instanceof L2DoorInstance) && skill.getCastRange() > 0 && !GeoData.getInstance().canSeeTarget(this, target))
-        {
-            sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
-            sendPacket(new ActionFailed());
-            return;
-        }
 
         //************************************* Check skill availability *******************************************
 
@@ -7457,7 +7449,7 @@ public final class L2PcInstance extends L2PlayableInstance
                    sklTargetType != SkillTargetType.TARGET_CLAN &&
                    sklTargetType != SkillTargetType.TARGET_ALLY &&
                    sklTargetType != SkillTargetType.TARGET_PARTY &&
-                   sklTargetType != SkillTargetType.TARGET_SELF)            
+                   sklTargetType != SkillTargetType.TARGET_SELF)
             {
                 // Send a Server->Client packet ActionFailed to the L2PcInstance
                 sendPacket(new ActionFailed());
@@ -7603,6 +7595,14 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             sendPacket(new ActionFailed());
             abortCast();
+            return;
+        }
+
+        // GeoData Los Check here
+        if (!(target instanceof L2DoorInstance) && skill.getCastRange() > 0 && !GeoData.getInstance().canSeeTarget(this, target))
+        {
+            sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
+            sendPacket(new ActionFailed());
             return;
         }
 
@@ -10958,21 +10958,5 @@ public final class L2PcInstance extends L2PlayableInstance
 			currenteffect.destroy();
 		}
 		stopAllEffects(); 
-	}
-
-	/**
-	 * Set _isRunningAnimation to given value
-	 */
-	public void setIsRunningAnimation(boolean state)
-	{
-		_isRunningAnimation = state;
-	}
-
-	/**
-	 * @return _isRunningAnimation
-	 */
-	public boolean isRunningAnimation()
-	{
-		return _isRunningAnimation;
 	}
 }

@@ -70,7 +70,7 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 
 		// Get the level of the used skill
 		int level = activeChar.getSkillLevel(_magicId);
-		if (level <= 0 || activeChar.isAfraid()) 
+		if (level <= 0) 
 		{
 			activeChar.sendPacket(new ActionFailed());
 			return;
