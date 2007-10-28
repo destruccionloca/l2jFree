@@ -933,7 +933,7 @@ public final class Formulas
             	int clanHallIndex = player.getClan().getHasHideout();
             	if (clanHallIndex > 0 && clanHallIndex == player.getInsideClanHall()) 
             	{
-            		ClanHall clansHall = ClanHallManager.getInstance().getClanHall(clanHallIndex);
+            		ClanHall clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex);
             		if(clansHall != null)
             			if (clansHall.getFunction(ClanHall.FUNC_RESTORE_HP) != null) 
             				hpRegenMultiplier *= 1+ clansHall.getFunction(ClanHall.FUNC_RESTORE_HP).getLvl()/100;
@@ -1004,7 +1004,7 @@ public final class Formulas
             	int clanHallIndex = player.getClan().getHasHideout();
             	if (clanHallIndex > 0 && player.getInsideClanHall() == clanHallIndex)
             	{
-            		ClanHall clansHall = ClanHallManager.getInstance().getClanHall(clanHallIndex);
+            		ClanHall clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex);
             		if(clansHall != null)
             			if (clansHall.getFunction(ClanHall.FUNC_RESTORE_MP) != null) 
             				mpRegenMultiplier *= 1+ clansHall.getFunction(ClanHall.FUNC_RESTORE_MP).getLvl()/100;

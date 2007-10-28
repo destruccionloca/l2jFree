@@ -43,7 +43,7 @@ public class ClanHallZone extends DefaultZone
 		
 		if (character instanceof L2PcInstance)
 		{
-			ClanHall clanHall = ClanHallManager.getInstance().getClanHall(clanHallId);
+			ClanHall clanHall = ClanHallManager.getInstance().getClanHallById(clanHallId);
 			if (clanHall == null) return;
 			
 			// Send decoration packet

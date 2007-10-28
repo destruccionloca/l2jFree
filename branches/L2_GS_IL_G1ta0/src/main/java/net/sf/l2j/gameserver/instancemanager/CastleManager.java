@@ -13,6 +13,7 @@
 package net.sf.l2j.gameserver.instancemanager;
 
 import java.io.File;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -26,8 +27,8 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.tools.geometry.Point3D;
@@ -42,7 +43,7 @@ public class CastleManager
 	protected static Log _log = LogFactory.getLog(CastleManager.class.getName());
 
 	private static CastleManager _instance;
-	private FastMap<Integer, Castle> _castles;
+	private Map<Integer, Castle> _castles;
 
 	public static final CastleManager getInstance()
 	{
@@ -54,7 +55,7 @@ public class CastleManager
 		return _instance;
 	}
 
-	public CastleManager()
+	private CastleManager()
 	{}
 
 	public void reload()
@@ -252,19 +253,6 @@ public class CastleManager
 		return getCastles().get(castleId);
 	}
 
-	public final Castle getCastleByLoc(int x, int y, int z)
-	{
-		for(Castle castle : getCastles().values())
-		{
-			if(castle != null && castle.getZone(ZoneType.CastleArea) != null)
-			{
-				if(castle.getZone(ZoneType.CastleArea).checkIfInZone(x, y, z))
-					return castle;
-			}
-		}
-		return null;
-	}
-
 	public final Castle getCastleByName(String name)
 	{
 		for(Castle castle : getCastles().values())
@@ -288,6 +276,19 @@ public class CastleManager
 		return null;
 	}
 
+	public final Castle getCastleByLoc(int x, int y, int z)
+	{
+		for(Castle castle : getCastles().values())
+		{
+			if(castle != null && castle.getZone(ZoneType.CastleArea) != null)
+			{
+				if(castle.getZone(ZoneType.CastleArea).checkIfInZone(x, y, z))
+					return castle;
+			}
+		}
+		return null;
+	}
+	
 	public final Castle getClosestCastle(L2Object activeObject)
 	{
 		//TODO:
@@ -315,7 +316,7 @@ public class CastleManager
 		return null;
 	}
 
-	public final FastMap<Integer, Castle> getCastles()
+	public final Map<Integer, Castle> getCastles()
 	{
 		if(_castles == null)
 			_castles = new FastMap<Integer, Castle>();

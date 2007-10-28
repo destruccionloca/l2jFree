@@ -400,36 +400,32 @@ public class Auction
     /** End of auction */
     public void endAuction()
     {
-    	if(ClanHallManager.getInstance() != null && ClanHallManager.getInstance().loaded())
-		{
-	        if (_highestBidderId == 0 && _sellerId == 0)
-	        {
-	            startAutoTask();
-	            return;
-	        }
-	        if (_highestBidderId == 0 && _sellerId > 0)
-	        {
-	            /** If seller haven't sell ClanHall, auction removed,
-	             *  THIS MUST BE CONFIRMED */
-	        	int aucId = AuctionManager.getInstance().getAuctionIndex(_id);
-	        	AuctionManager.getInstance().getAuctions().remove(aucId);
-	            return;
-	        }
-	        if (_sellerId > 0)
-	        {
-	            returnItem(_sellerClanName, 57, _highestBidderMaxBid, true);
-	            returnItem(_sellerClanName, 57, ClanHallManager.getInstance().getClanHall(_itemId).getLease(), false);
-	        }
-		    deleteAuctionFromDB();
-		    L2Clan Clan = ClanTable.getInstance().getClanByName(_bidders.get(_highestBidderId).getClanName());
-		    _bidders.remove(_highestBidderId);
-		    Clan.setAuctionBiddedAt(0, true);
-		    removeBids();
-		    ClanHallManager.getInstance().setOwner(_itemId, Clan);
-    	}else{
-    		/** Task waiting ClanHallManager is loaded every 3s */
-    		ThreadPoolManager.getInstance().scheduleGeneral(new AutoEndTask(), 3000); 
+    	if (_highestBidderId == 0 && _sellerId == 0)
+    	{
+    		startAutoTask();
+    		return;
     	}
+    	if (_highestBidderId == 0 && _sellerId > 0)
+    	{
+    		/** If seller haven't sell ClanHall, auction removed,
+    		 *  THIS MUST BE CONFIRMED */
+    		int aucId = AuctionManager.getInstance().getAuctionIndex(_id);
+    		AuctionManager.getInstance().getAuctions().remove(aucId);
+    		return;
+    	}
+    	if (_sellerId > 0)
+    	{
+    		returnItem(_sellerClanName, 57, _highestBidderMaxBid, true);
+    		returnItem(_sellerClanName, 57, ClanHallManager.getInstance().getClanHallById(_itemId).getLease(), false);
+    	}
+    	deleteAuctionFromDB();
+    	L2Clan Clan = ClanTable.getInstance().getClanByName(_bidders.get(_highestBidderId).getClanName());
+    	_bidders.remove(_highestBidderId);
+    	Clan.setAuctionBiddedAt(0, true);
+    	removeBids();
+    	ClanHall clanHall = ClanHallManager.getInstance().getClanHallById(_itemId);
+    	clanHall.setOwner(Clan);
+    	
     }
     /** Cancel bid */
     public void cancelBid(int bidder)

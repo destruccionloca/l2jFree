@@ -69,7 +69,7 @@ public class AdminSiege implements IAdminCommandHandler
 		Castle castle = null;
 		ClanHall clanhall = null;
 		if (command.startsWith("admin_clanhall"))
-			clanhall = ClanHallManager.getInstance().getClanHall(Integer.parseInt(st.nextToken()));
+			clanhall = ClanHallManager.getInstance().getClanHallById(Integer.parseInt(st.nextToken()));
 		else if (st.hasMoreTokens())
 			castle = CastleManager.getInstance().getCastleByName(st.nextToken());
 		// Get castle

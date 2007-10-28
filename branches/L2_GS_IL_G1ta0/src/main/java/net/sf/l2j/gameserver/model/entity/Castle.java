@@ -65,8 +65,8 @@ public class Castle
 
 	private FastList<L2DoorInstance> _doors = new FastList<L2DoorInstance>();
 	private FastList<String> _doorDefault = new FastList<String>();
-	private FastMap<RestartType, FastList<Point3D>> _restarts = new FastMap<RestartType, FastList<Point3D>>();
-	private FastMap<ZoneType, IZone> _zones = new FastMap<ZoneType, IZone>();
+	private FastMap<RestartType, FastList<Point3D>> _restarts;
+	private FastMap<ZoneType, IZone> _zones;
 	
 	private int _castleId = 0;
 	private int _masterCastleId = 0;
@@ -602,42 +602,16 @@ public class Castle
 	public final int getMasterCastleId()
 	{
 		if (_masterCastleId == 0)
-		{
-			if (getSettings() != null)
-			{
+			_masterCastleId = getSettings().getInteger("masterCastleId", getCastleId());
 
-				try
-				{
-					_masterCastleId = getSettings().getInteger("masterCastleId");
-				}
-				catch (Exception e)
-				{
-					_masterCastleId = getCastleId();
-				}
-			}
-		}
-		
 		return _masterCastleId;
 	}
 	
 	public final int getCircletId()
 	{
 		if (_circletId < 0)
-		{
-			if (getSettings() != null)
-			{
-
-				try
-				{
-					_circletId = getSettings().getInteger("circletId");
-				}
-				catch (Exception e)
-				{
-					_circletId = 0;
-				}
-			}
-		}
-		
+			_circletId = getSettings().getInteger("circletId", 0);
+	
 		return _circletId;
 	}
 	
@@ -760,6 +734,9 @@ public class Castle
 	
 	public void addZone(IZone zone)
 	{
+		if(_zones == null)
+			_zones = new FastMap<ZoneType, IZone>();
+		
 		_zones.put(zone.getZoneType(), zone);
 	}
 	

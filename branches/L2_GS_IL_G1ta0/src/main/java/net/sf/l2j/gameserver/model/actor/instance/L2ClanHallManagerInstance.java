@@ -26,20 +26,17 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2TeleportLocation;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
-import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.BuyList;
 import net.sf.l2j.gameserver.serverpackets.ClanHallDecoration;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.WareHouseDepositList;
 import net.sf.l2j.gameserver.serverpackets.WareHouseWithdrawalList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -54,7 +51,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     protected static final int COND_ALL_FALSE = 1;
     protected static final int COND_BUSY_BECAUSE_OF_SIEGE = 2;
     protected static final int COND_OWNER = 3;
-    private int _clanHallId = -1;
+    protected ClanHall _clanHall = null;
 
 	/**
 	 * @param objectId
@@ -660,6 +657,18 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
         }
     }
     
+    /**
+     * Check is npc inside of clan hall
+     */
+    @Override
+    public void onSpawn()
+    {
+    	super.onSpawn();
+    	
+		if (getClanHall() == null)
+			_log.warn("ClanHall Manager ( template Id " + getTemplate().getIdTemplate() + ") spawned outside of clan hall!");
+    }
+    	
     private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
     {
         html.replace("%objectId%", String.valueOf(getObjectId()));
@@ -703,12 +712,10 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     /** Return the L2ClanHall this L2NpcInstance belongs to. */
     public final ClanHall getClanHall()
     {
-        if (_clanHallId < 0)
-        {
-        	_clanHallId = ClanHallManager.getInstance().getClanHall(getX(), getY()).getId();
-            if (_clanHallId < 0) return null;
-        }
-        return ClanHallManager.getInstance().getClanHall(_clanHallId);
+    	if (_clanHall == null)
+    		_clanHall = ClanHallManager.getInstance().getClanHallById(getInsideClanHall());
+
+    	return _clanHall;
     }
     
     private void showVaultWindowDeposit(L2PcInstance player)

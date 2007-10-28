@@ -276,7 +276,7 @@ public class L2DoorInstance extends L2Character
     
     public ClanHall getClanHall()
     {
-        return ClanHallManager.getInstance().getClanHall(getInsideClanHall());
+        return ClanHallManager.getInstance().getClanHallById(getInsideClanHall());
     }
 
     /** Return the castle this door belongs to. */
