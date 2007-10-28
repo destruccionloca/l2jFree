@@ -61,7 +61,7 @@ public class NpcInfo extends L2GameServerPacket
 		_collisionHeight = _activeChar.getTemplate().getCollisionHeight();
 		_collisionRadius = _activeChar.getTemplate().getCollisionRadius();
 		if (cha.getTemplate().isServerSideName())
-			_name = cha.getTemplate().getName();
+			_name = cha.getName();
 
 		if (cha.isChampion() )
 		{
@@ -79,7 +79,7 @@ public class NpcInfo extends L2GameServerPacket
 		if (Config.SHOW_NPC_LVL && _activeChar instanceof L2MonsterInstance)
 		{
 			String t = "Lv " + cha.getLevel() + (cha.getAggroRange() > 0 ? "*" : "");
-			if (_title != null)
+			if (_title != null && !_title.equals(""))
 				t += " " + _title;
 			
 			_title = t;
@@ -110,7 +110,7 @@ public class NpcInfo extends L2GameServerPacket
 		if (cha.getTemplate().isServerSideName() || cha instanceof L2PetInstance)
 		{
 			_name = _activeChar.getName();
-			_title = cha.getTitle();
+			_title = _activeChar.getTitle();
 		}
 		
 		_x = _activeChar.getX();

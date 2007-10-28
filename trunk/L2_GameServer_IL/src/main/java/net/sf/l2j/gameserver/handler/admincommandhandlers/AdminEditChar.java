@@ -29,11 +29,13 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
+import net.sf.l2j.gameserver.serverpackets.NpcInfo;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
@@ -279,6 +281,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			st.nextToken();
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;
+			L2NpcInstance npc = null;
 
 			if (activeChar != target && activeChar.getAccessLevel()<REQUIRED_LEVEL2)
 				return false;
@@ -287,6 +290,8 @@ public class AdminEditChar implements IAdminCommandHandler
 				player = activeChar;
 			else if (target instanceof L2PcInstance)
 				player = (L2PcInstance)target;
+			else if (target instanceof L2NpcInstance)
+				npc = (L2NpcInstance)target;
 			else
 				return false;
 
@@ -295,9 +300,17 @@ public class AdminEditChar implements IAdminCommandHandler
 			while(st.hasMoreTokens())
 				val += " " + st.nextToken();
 
-			player.setTitle(val);
-			if(player != activeChar) player.sendMessage("Your title has been changed by a GM");
-			player.broadcastUserInfo();
+			if(player != null)
+			{
+				player.setTitle(val);
+				if(player != activeChar) player.sendMessage("Your title has been changed by a GM");
+				player.broadcastUserInfo();
+			}
+			else if(npc != null)
+			{
+				npc.setTitle(val);
+				npc.broadcastPacket(new NpcInfo(npc, null));
+			}
 		}
 		else if (command.startsWith("admin_setname"))
 		{

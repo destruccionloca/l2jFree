@@ -290,8 +290,9 @@ public class L2NpcInstance extends L2Character
             return;
         }
         
-        // Set the name of the L2Character
+        // Set the name and the title of the L2Character
         setName(template.getName());
+        setTitle(template.getTitle());
     }
 
     @Override

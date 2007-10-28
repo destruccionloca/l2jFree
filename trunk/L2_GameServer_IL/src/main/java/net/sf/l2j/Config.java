@@ -1011,6 +1011,7 @@ public final class Config
     public static int					GLOBAL_CHAT_TIME;
     public static              ChatMode DEFAULT_TRADE_CHAT;				// Trade chat state
     public static int					TRADE_CHAT_TIME;
+    public static boolean 				REGION_CHAT_ALSO_BLOCKED;
     public static boolean 				LOG_CHAT;						// Logging Chat Window
     public static boolean 				LOG_ITEMS;
     public static int 					DEFAULT_PUNISH;					// Default punishment for illegal actions
@@ -1114,9 +1115,10 @@ public final class Config
             ALLOW_GUARDS                    = Boolean.parseBoolean(optionsSettings.getProperty("AllowGuards", "False"));
 
             DEFAULT_GLOBAL_CHAT             = ChatMode.valueOf(optionsSettings.getProperty("GlobalChat", "REGION").toUpperCase());
-            GLOBAL_CHAT_TIME				= Integer.parseInt(optionsSettings.getProperty("GlobalChatTime", "1"));
+            GLOBAL_CHAT_TIME                = Integer.parseInt(optionsSettings.getProperty("GlobalChatTime", "1"));
             DEFAULT_TRADE_CHAT              = ChatMode.valueOf(optionsSettings.getProperty("TradeChat", "REGION").toUpperCase());
-            TRADE_CHAT_TIME					= Integer.parseInt(optionsSettings.getProperty("TradeChatTime", "1"));            
+            TRADE_CHAT_TIME                 = Integer.parseInt(optionsSettings.getProperty("TradeChatTime", "1"));
+            REGION_CHAT_ALSO_BLOCKED        = Boolean.parseBoolean(optionsSettings.getProperty("RegionChatAlsoBlocked", "false"));
 
             LOG_CHAT                        = Boolean.parseBoolean(optionsSettings.getProperty("LogChat", "false"));
             LOG_ITEMS                       = Boolean.parseBoolean(optionsSettings.getProperty("LogItems", "false"));

@@ -22,6 +22,7 @@ import net.sf.l2j.Config.ChatMode;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
+import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
@@ -66,14 +67,20 @@ public class ChatTrade implements IChatHandler
 		{
 			int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-				if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY())) 
+			{
+				if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY())
+					&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
 					player.sendPacket(cs);
+			}
 		}
 		else if (Config.DEFAULT_TRADE_CHAT == ChatMode.GLOBAL ||
 			Config.DEFAULT_TRADE_CHAT == ChatMode.GM && activeChar.isGM())
 		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-				player.sendPacket(cs);
+			{
+				if(!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
+					player.sendPacket(cs);
+			}
 		}
 	}
 }

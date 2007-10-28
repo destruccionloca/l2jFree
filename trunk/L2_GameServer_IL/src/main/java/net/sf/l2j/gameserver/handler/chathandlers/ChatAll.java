@@ -17,7 +17,9 @@
  */
 package net.sf.l2j.gameserver.handler.chathandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IChatHandler;
+import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
@@ -46,7 +48,8 @@ public class ChatAll implements IChatHandler
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 		for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
 		{
-			if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
+			if (player != null && activeChar.isInsideRadius(player, 1250, false, true)
+				&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
 			{
 				player.sendPacket(cs);
 			}

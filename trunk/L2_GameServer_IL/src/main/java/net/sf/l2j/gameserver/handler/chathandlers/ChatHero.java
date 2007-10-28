@@ -17,6 +17,7 @@
  */
 package net.sf.l2j.gameserver.handler.chathandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
@@ -69,7 +70,7 @@ public class ChatHero implements IChatHandler
 		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (!BlockList.isBlocked(player, activeChar))
+				if (!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
 				{
 					player.sendPacket(cs);
 				}
