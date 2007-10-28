@@ -1,4 +1,4 @@
-<!-- TODO: 
+<!-- TODO:
             - Schuttgart, Primeval Isle Wharf -->
 <list>
   <item id="1" name="Talking Island">
@@ -648,6 +648,7 @@
     <type>Peace</type>
     <town>12</town>
     <castle>8</castle>
+    <restart x="17817" y="170079" z="-3530" />
     <point x="47189" y="185982" z="-3911" />
     <point x="49284" y="183651" z="-3911" />
     <point x="52767" y="186787" z="-3911" />
@@ -915,7 +916,7 @@
   </item>
   <item id="83" name="Heine">
     <type>Peace</type>
-    <town>16</town>
+    <town>13</town>
     <castle>6</castle>
     <restart x="111381" y="219064" z="-3543" />
     <restart_chaotic x="119536" y="218558" z="-3495" />
