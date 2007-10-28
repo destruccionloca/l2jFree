@@ -40,12 +40,12 @@ import java.util.StringTokenizer;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
+import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.cache.HtmCache;
-import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
@@ -68,6 +68,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
@@ -392,7 +393,7 @@ public class GameStatusThread extends Thread
                         String name = st.nextToken();
                         String message = val.substring(name.length()+1);
                         L2PcInstance reciever = L2World.getInstance().getPlayer(name);
-                        CreatureSay cs = new CreatureSay(0, Say2.TELL, "Telnet Priv", message);
+                        CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), "Telnet Priv", message);
                         if(reciever != null)
                         {
                             reciever.sendPacket(cs);

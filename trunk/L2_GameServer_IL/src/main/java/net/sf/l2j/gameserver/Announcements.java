@@ -45,6 +45,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
+
 /**
  * This class ...
  * 
@@ -91,12 +93,12 @@ public class Announcements implements AnnouncementsMBean
 	{
 		for (int i = 0; i < _announcements.size(); i++)
 		{
-			CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), _announcements.get(i));
+			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Critical_Announce.getId(), activeChar.getName(), _announcements.get(i));
 			activeChar.sendPacket(cs);
 		}
 		if (leaderboardAnnouncement != null) 
         {
-		    CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, activeChar.getName(), leaderboardAnnouncement);
+		    CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Critical_Announce.getId(), activeChar.getName(), leaderboardAnnouncement);
 		    activeChar.sendPacket(cs);
         }        
 		
@@ -223,7 +225,7 @@ public class Announcements implements AnnouncementsMBean
 	}
 	
 	public void announceToAll(String text) {
-		CreatureSay cs = new CreatureSay(0, Say2.ANNOUNCEMENT, "", text);
+		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), "", text);
 
 		if(Config.IRC_ENABLED && Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("10Announce: " + text);

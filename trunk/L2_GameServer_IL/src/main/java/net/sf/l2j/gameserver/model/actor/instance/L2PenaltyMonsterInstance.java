@@ -18,11 +18,11 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
-import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -58,7 +58,7 @@ public class L2PenaltyMonsterInstance extends L2MonsterInstance
     {
         if (Rnd.nextInt(100) <= 80)
         {
-            CreatureSay cs = new CreatureSay(getObjectId(), Say2.ALL, getName(), "Mmm, your bait was delicious!");
+            CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal.getId(), getName(), "Mmm, your bait was delicious!");
             broadcastPacket(cs);
         }
         _ptk = ptk;
@@ -75,7 +75,7 @@ public class L2PenaltyMonsterInstance extends L2MonsterInstance
 
         if (Rnd.nextInt(100) <= 75)
         {
-            CreatureSay cs = new CreatureSay(getObjectId(), Say2.ALL, getName(), "I will tell fishes not to take your bait!");
+            CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal.getId(), getName(), "I will tell fishes not to take your bait!");
             broadcastPacket(cs);
         }
         return true;

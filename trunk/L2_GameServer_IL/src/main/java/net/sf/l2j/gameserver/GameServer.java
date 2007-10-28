@@ -54,6 +54,7 @@ import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
+import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.UserCommandHandler;
@@ -257,6 +258,7 @@ public class GameServer
         AdminCommandHandler.getInstance();
         UserCommandHandler.getInstance();
         VoicedCommandHandler.getInstance();
+        ChatHandler.getInstance();
 
     	Util.printSection("Misc");
         TaskManager.getInstance();

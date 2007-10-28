@@ -34,12 +34,12 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.GameTimeController;
-import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.datatables.RecordTable;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.ShowBoard;
@@ -246,7 +246,7 @@ public class RegionBBSManager extends BaseBBSManager
                     record.setParameters(new Object[]{"TELL", "[" + activeChar.getName() + " to "+receiver.getName()+"]"}); 
                     _logChat.log(record); 
                 } 
-                CreatureSay cs = new CreatureSay(activeChar.getObjectId(), Say2.TELL, activeChar.getName(), ar3);
+                CreatureSay cs = new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), activeChar.getName(), ar3);
                 if (!BlockList.isBlocked(receiver, activeChar))
                 {
                     if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
@@ -270,7 +270,7 @@ public class RegionBBSManager extends BaseBBSManager
                     }
 
                     receiver.sendPacket(cs);
-                    activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), Say2.TELL, "->" + receiver.getName(), ar3));
+                    activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), "->" + receiver.getName(), ar3));
                     htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;"+receiver.getName()+smallButton);
                     htmlCode.append("</td></tr></table></body></html>");
                     separateAndSend(htmlCode.toString(),activeChar)  ;

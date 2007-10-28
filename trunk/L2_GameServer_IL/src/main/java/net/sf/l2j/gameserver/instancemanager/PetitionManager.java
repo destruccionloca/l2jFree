@@ -25,7 +25,6 @@ import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -37,6 +36,8 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
 
 /**
  * Petition Manager
@@ -473,7 +474,7 @@ public final class PetitionManager
             
 			if (currPetition.getPetitioner() != null && currPetition.getPetitioner().getObjectId() == player.getObjectId())
 			{
-				cs = new CreatureSay(player.getObjectId(), Say2.PETITION_PLAYER, player.getName(), messageText);
+				cs = new CreatureSay(player.getObjectId(), SystemChatChannelId.Chat_User_Pet.getId(), player.getName(), messageText);
 				currPetition.addLogMessage(cs);
 				
 				currPetition.sendResponderPacket(cs);
@@ -483,7 +484,7 @@ public final class PetitionManager
 			
 			if (currPetition.getResponder() != null && currPetition.getResponder().getObjectId() == player.getObjectId())
 			{
-				cs = new CreatureSay(player.getObjectId(), Say2.PETITION_GM, player.getName(), messageText);
+				cs = new CreatureSay(player.getObjectId(), SystemChatChannelId.Chat_GM_Pet.getId(), player.getName(), messageText);
 				currPetition.addLogMessage(cs);
 				
 				currPetition.sendResponderPacket(cs);

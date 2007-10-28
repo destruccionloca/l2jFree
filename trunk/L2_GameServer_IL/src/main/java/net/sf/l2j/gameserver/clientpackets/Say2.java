@@ -22,21 +22,19 @@ import java.nio.BufferUnderflowException;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
-import net.sf.l2j.gameserver.instancemanager.IrcManager;
-import net.sf.l2j.gameserver.instancemanager.PetitionManager;
-import net.sf.l2j.gameserver.model.BlockList;
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.util.FloodProtector;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import net.sf.l2j.gameserver.handler.ChatHandler;
+import net.sf.l2j.gameserver.handler.IChatHandler;
+
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
 /**
  * This class ...
  * 
@@ -48,44 +46,8 @@ public class Say2 extends L2GameClientPacket
     private final static Log _log = LogFactory.getLog(Say2.class.getName());
     private static Log _logChat = LogFactory.getLog("chat");
 
-    public final static int ALL = 0;
-    public final static int SHOUT = 1; //!
-    public final static int TELL = 2;
-    public final static int PARTY = 3; //#
-    public final static int CLAN = 4;  //@
-    public final static int GM = 5;    
-    public final static int PETITION_PLAYER = 6; // used for petition
-    public final static int PETITION_GM = 7; //* used for petition
-    public final static int TRADE = 8; //+
-    public final static int ALLIANCE = 9; //$
-    public final static int ANNOUNCEMENT = 10;
-    public final static int PARTYROOM_ALL = 15; //(yellow)
-    public final static int PARTYROOM_COMMANDER = 16; //(blue)
-    public final static int HERO_VOICE = 17;
-    
-    private final static String[] CHAT_NAMES = {
-        "ALL  ",
-        "SHOUT",
-        "TELL ",
-        "PARTY",
-        "CLAN ",
-        "GM   ",
-        "PETITION_PLAYER",
-        "PETITION_GM",
-        "TRADE",
-        "ALLIANCE",
-        "ANNOUNCEMENT", //10
-        "WILLCRASHCLIENT:)",
-        "FAKEALL?",
-        "FAKEALL?",
-        "FAKEALL?",
-        "PARTYROOM_ALL",
-        "PARTYROOM_COMMANDER",
-        "HERO_VOICE"
-    };
-    
     private String _text;
-    private int _type;
+    private SystemChatChannelId _type;
     private String _target;
     /**
      * packet type id 0x38
@@ -98,38 +60,37 @@ public class Say2 extends L2GameClientPacket
         _text = readS();
         try
         {
-            _type = readD();
+        	_type = SystemChatChannelId.getChatType(readD());
         }
         catch (BufferUnderflowException e) 
         {
-            _type = CHAT_NAMES.length;
+            _type = SystemChatChannelId.Chat_None;
         }
-        _target = (_type == TELL) ? readS() : null;
+        _target = _type == SystemChatChannelId.Chat_Tell ? readS() : null;
     }
 
     @Override
     protected void runImpl()
     {
-        if (_log.isDebugEnabled()) 
-            _log.info("Say2: Msg Type = '" + _type + "' Text = '" + _text + "'.");
-        
-        if(_type >= CHAT_NAMES.length)
-        {
-            _log.warn("Say2: Invalid type: "+_type);
-            return;
-        }
-        
         L2PcInstance activeChar = getClient().getActiveChar();
-                
+
+        // If no channel is choosen - return
+		if (_type == SystemChatChannelId.Chat_None)
+		{
+            _log.warn("[Say2.java] Illegal chat channel was used.");
+			return;
+		}
+
         if (activeChar == null)
         {
             _log.warn("[Say2.java] Active Character is null.");
             return;
         }
 
+        // If player is chat banned
         if (activeChar.isChatBanned())
         {
-            if (_type == ALL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
+        	if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
             {
                 // [L2J_JP EDIT]
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
@@ -137,27 +98,21 @@ public class Say2 extends L2GameClientPacket
             }
         }
         
+        // If player is jailed
         if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
         {
-            if (_type == TELL || _type == SHOUT || _type == TRADE || _type == HERO_VOICE)
+        	if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
             {
                 activeChar.sendMessage("You can not chat with the outside of the jail.");
                 return;
             }
         }
         
-        if (_type == PETITION_PLAYER && activeChar.isGM()) 
-            _type = PETITION_GM;
-                    
-
-        if (Config.LOG_CHAT) 
-        {
-            if (_type == TELL)
-                _logChat.info( CHAT_NAMES[_type] + "[" + activeChar.getName() + " to "+_target+"] " + _text);
-            else
-                _logChat.info( CHAT_NAMES[_type] + "[" + activeChar.getName() + "] " + _text);
-        }
-
+        // If Petition and GM use GM_Petition Channel
+		if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM()) 
+			_type = SystemChatChannelId.Chat_GM_Pet;
+		
+		// Say Filter implementation
         if(Config.USE_SAY_FILTER) 
         {
             for(String pattern : Config.FILTER_LIST)
@@ -165,180 +120,58 @@ public class Say2 extends L2GameClientPacket
                     _text = _text.replaceAll(pattern,"^_^");
             }
         }       
-        
-        CreatureSay cs = new CreatureSay(activeChar.getObjectId(), _type, activeChar.getName(), _text);
-    
-                
-        switch (_type)
+
+        if (_text.startsWith(".") && !_text.startsWith("..") &&
+        	_type == SystemChatChannelId.Chat_Normal)
         {
-            case TELL:
-                L2PcInstance receiver = L2World.getInstance().getPlayer(_target);
-                
-                if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
+            StringTokenizer st = new StringTokenizer(_text);
+
+            if (st.countTokens()>=1)
+            {
+                String command = st.nextToken().substring(1);
+                String params = "";
+                if (st.countTokens()==0)
                 {
-                    if (Config.JAIL_DISABLE_CHAT && receiver.isInJail())
-                    {
-                        activeChar.sendMessage("Player is in jail.");
-                        return;
-                    }
-                    if (receiver.isChatBanned())
-                    {
-                        activeChar.sendMessage("Player is chat banned.");
-                        return;
-                    }
-                    if (!receiver.getMessageRefusal())
-                    {
-                        receiver.sendPacket(cs);
-                        activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(),  _type, "->" + receiver.getName(), _text));
-                    }
-                    else
-                    {
-                        activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
-                    }
+                    if (activeChar.getTarget()!=null) params=activeChar.getTarget().getName();
                 }
+                else params=st.nextToken().trim();
+
+                IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
+
+                if (vch != null) 
+                    vch.useVoicedCommand(command, activeChar, params);
                 else
-                {
-                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_IS_NOT_ONLINE);
-                    sm.addString(_target);        
-                    activeChar.sendPacket(sm);
-                    sm = null;
-                }
-            break;
-        case SHOUT:
-            	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_GLOBAL_CHAT) && !activeChar.isGM())
-            	{
-            		activeChar.sendMessage("Not possible to use Global Chat");
-            		return;
-            	}
-
-        		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout"))
-	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("07!"+ activeChar.getName() +": " + _text);
-	        	}
-                if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("on") ||
-                        (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
-                {
-                    int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
-                    for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-                    {
-                        if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY())) 
-                            player.sendPacket(cs);
-                    }
-                }
-                else if (Config.DEFAULT_GLOBAL_CHAT.equalsIgnoreCase("global"))
-                {
-                    for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-                    {
-                        player.sendPacket(cs);                        
-                    }
-                }                
-                break;
-        case TRADE:
-	        	if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_TRADE_CHAT) && !activeChar.isGM())
-	        	{
-	        		activeChar.sendMessage("Not possible to use Trade Chat");
-	        		return;
-	        	}
-        	
-	        	if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("trade"))
-	        	{
-	        		IrcManager.getInstance().getConnection().sendChan("13+"+ activeChar.getName() +": " + _text);
-	        	}
-                if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on") ||
-                        (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm") && activeChar.isGM()))
-                {
-                	for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-                	{
-                        player.sendPacket(cs);
-                	}
-                } else if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("limited"))
-                {
-                    int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
-                    for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-                    {
-                        if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY())) 
-                            player.sendPacket(cs);
-                    }
-                }
-             break;
-        case ALL:
-            if (_text.startsWith(".") && !_text.startsWith(".."))
-            {
-                StringTokenizer st = new StringTokenizer(_text);
-
-                if (st.countTokens()>=1)
-                {
-                    String command = st.nextToken().substring(1);
-                    String params = "";
-                    if (st.countTokens()==0)
-                    {
-                        if (activeChar.getTarget()!=null) params=activeChar.getTarget().getName();
-                    }
-                    else params=st.nextToken().trim();
-
-                    IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
-
-                    if (vch != null) 
-                        vch.useVoicedCommand(command, activeChar, params);
-                    else
-                        _log.warn("No handler registered for voice command '"+command+"'");
-                }
-            }
-            else
-            {
-                for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
-                {
-                    if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
-                        player.sendPacket(cs);
-                }
-                activeChar.sendPacket(cs);
-            }
-            break;
-        case CLAN:
-            if (activeChar.getClan() != null)
-                activeChar.getClan().broadcastToOnlineMembers(cs);
-            break;  
-        case ALLIANCE:
-            if (activeChar.getClan() != null)
-                activeChar.getClan().broadcastToOnlineAllyMembers(cs);
-            break;
-        case PARTY:
-            if (activeChar.isInParty())
-                activeChar.getParty().broadcastToPartyMembers(cs);
-            break;
-        case PETITION_PLAYER:
-        case PETITION_GM:
-            if (!PetitionManager.getInstance().isPlayerInConsultation(activeChar))
-            {
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_IN_PETITION_CHAT));
-                break;
+                    _log.warn("No handler registered for voice command '"+command+"'");
             }
             
-            PetitionManager.getInstance().sendActivePetitionMessage(activeChar, _text);
-            break;
-        case PARTYROOM_ALL:
-        case PARTYROOM_COMMANDER:
-            //PartyCommandManager.getInstance().sendChannelMessage(activeChar, _text);
-            break;
-        case HERO_VOICE:
-            if (activeChar.isHero())
-            {
-                if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_HEROVOICE))
-                {
-                    activeChar.sendMessage("Action failed. Heroes are only able to speak in the global channel once every 10 seconds.");
-                    return;
-                }
-                for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-                    if (!BlockList.isBlocked(player, activeChar))
-                        player.sendPacket(cs);
-                
-                if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("hero"))
-                {
-                    IrcManager.getInstance().getConnection().sendChan("12%"+ activeChar.getName() +": " + _text);
-                }
-            }
-            break;
-        }           
+            return;
+        }
+        // Some custom implementation to show how to add channels
+        // (for me Chat_System is used for emotes - further informations
+        // in ChatSystem.java)
+        // else if (_text.startsWith("(")&&
+        //		_text.length() >= 5 &&
+        //		_type == SystemChatChannelId.Chat_Normal)
+        //{
+		//	_type = SystemChatChannelId.Chat_System;
+		//	
+		//	_text = _text.substring(1);
+		//	_text = "*" + _text + "*";
+        //}
+        
+		// Log chat to file
+        if (Config.LOG_CHAT) 
+        {
+            if (_type == SystemChatChannelId.Chat_Tell)
+                _logChat.info( _type.getName() + "[" + activeChar.getName() + " to "+_target+"] " + _text);
+            else
+                _logChat.info( _type.getName() + "[" + activeChar.getName() + "] " + _text);
+        }
+		
+		IChatHandler ich = ChatHandler.getInstance().getChatHandler(_type);
+		
+		if (ich != null)
+			ich.useChatHandler(activeChar, _target, _type, _text);
     }
 
     /* (non-Javadoc)
