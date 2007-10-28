@@ -42,7 +42,6 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -140,8 +139,6 @@ public class AntharasManager
     // status in lair.
     protected boolean _isBossSpawned = false;
     protected boolean _isIntervalForNextSpawn = false;
-    protected IZone  _zone;
-    protected String _zoneName;
     protected String _questName;
     
     // location of banishment
@@ -187,7 +184,6 @@ public class AntharasManager
     	_isBossSpawned = false;
     	_isIntervalForNextSpawn = false;
     	_PlayersInLair.clear();
-        _zoneName = "Lair of Antharas";
     	_questName = "antharas";
 
         // setting spawn data of monsters.
@@ -284,9 +280,7 @@ public class AntharasManager
     
     public boolean checkIfInZone(L2PcInstance pc)
     {
-    	if ( _zone == null )
-    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDangeon, _zoneName );
-    	return _zone.checkIfInZone(pc);
+    	return pc.isInsideZone(ZoneType.AntharasLair);
     }
     
     // Whether it lairs is confirmed. 

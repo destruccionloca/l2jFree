@@ -19,19 +19,19 @@
 package net.sf.l2j.gameserver.model.entity;
 
 import java.util.Calendar;
-import javolution.util.FastList;
 
-import net.sf.l2j.gameserver.ai.CtrlIntention;
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.ExDuelEnd;
 import net.sf.l2j.gameserver.serverpackets.ExDuelReady;
 import net.sf.l2j.gameserver.serverpackets.ExDuelStart;
-import net.sf.l2j.gameserver.serverpackets.ExDuelEnd;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -809,10 +809,9 @@ public class Duel
 			if (isDuelistInPvp(true)) return DuelResultEnum.Canceled;
 
 			// is one of the players in a Siege, Peace or PvP zone?
-			SiegeManager tmpSM = SiegeManager.getInstance();
-			if (_playerA.getInPeaceZone() || _playerB.getInPeaceZone()
-					|| tmpSM.checkIfInZone(_playerA) || tmpSM.checkIfInZone(_playerB)
-					|| _playerA.getInPvpZone() || _playerB.getInPvpZone()) return DuelResultEnum.Canceled;
+			if (_playerA.isInsideZone(ZoneType.Peace) || _playerB.isInsideZone(ZoneType.Peace)
+					|| _playerA.isInsideZone(ZoneType.Arena) || _playerB.isInsideZone(ZoneType.Arena))
+					 return DuelResultEnum.Canceled;
 		}
 
 		return DuelResultEnum.Continue;

@@ -91,14 +91,6 @@ public class DoorTable
 				L2DoorInstance door = parseList(line);
 				_staticItems.put(door.getDoorId(), door);
 				door.spawnMe(door.getX(), door.getY(),door.getZ());
-				ClanHall clanhall = ClanHallManager.getInstance().getClanHall(door.getX(),door.getY(),500);
-				if (clanhall != null)
-				{
-				    clanhall.getDoors().add(door);
-				    door.setClanHall(clanhall);
-                    if (_log.isDebugEnabled())
-                        _log.debug("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
-				}
 			}
 
 			_log.info("DoorTable: Loaded " + _staticItems.size() + " Door Templates.");

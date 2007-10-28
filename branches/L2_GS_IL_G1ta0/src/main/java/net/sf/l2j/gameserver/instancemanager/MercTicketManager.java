@@ -191,7 +191,12 @@ public class MercTicketManager
             	x = rs.getInt("x");
             	y = rs.getInt("y");
             	z = rs.getInt("z");
-            	Castle castle = CastleManager.getInstance().getCastle(x,y,z);
+            	Castle castle = null;
+            	//TODO:
+            	_log.error("CastleManager.getClosestCastle(x, y, z) not done!!!");
+            	/*
+            	Castle castle = CastleManager.getInstance().getClosestCastle(x, y, z);
+            	*/
             	if(castle != null)
             		startindex = 10*(castle.getCastleId()-1);
 	        	

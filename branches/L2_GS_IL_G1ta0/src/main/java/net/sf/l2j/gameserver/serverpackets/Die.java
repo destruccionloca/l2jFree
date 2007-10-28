@@ -87,7 +87,7 @@ public class Die extends L2GameServerPacket
 		{
 			L2SiegeClan siegeClan = null;
 			Boolean isInDefense = false;
-			Siege siege = SiegeManager.getInstance().getSiege(_activeChar);
+			Siege siege = SiegeManager.getInstance().getSiege(_clan);
 
 			if (siege != null && siege.getIsInProgress())
 			{

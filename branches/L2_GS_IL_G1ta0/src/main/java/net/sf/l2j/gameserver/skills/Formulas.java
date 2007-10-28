@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -115,6 +114,7 @@ public final class Formulas
             super(pStat, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             env.value += env.player.getLevel() / 3.0;
@@ -138,6 +138,7 @@ public final class Formulas
             super(pStat, 0x20, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             env.value *= env.player.getLevelMod();
@@ -172,6 +173,7 @@ public final class Formulas
         /**
          * Calculate the modifier of the state concerned.<BR><BR>
          */
+        @Override
         public void calc(Env env)
         {
             if (!cond.test(env)) return;
@@ -194,6 +196,7 @@ public final class Formulas
             super(Stats.POWER_ATTACK, 0x30, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             env.value *= STRbonus[env.player.getStat().getSTR()] * env.player.getLevelMod();
@@ -213,6 +216,7 @@ public final class Formulas
             super(Stats.MAGIC_ATTACK, 0x20, null);
         }
  
+        @Override
         public void calc(Env env)
         {
             double intb = INTbonus[env.player.getINT()];
@@ -234,6 +238,7 @@ public final class Formulas
             super(Stats.MAGIC_DEFENCE, 0x20, null);
         }
 
+        @Override
         public void calc(Env env)
         {
             if (env.player instanceof L2PcInstance)
@@ -263,6 +268,7 @@ public final class Formulas
             super(Stats.POWER_DEFENCE, 0x20, null);
         }
  
+        @Override
         public void calc(Env env)
         {
             if (env.player instanceof L2PcInstance)
@@ -295,6 +301,7 @@ public final class Formulas
             setCondition(new ConditionUsingItemType(L2WeaponType.BOW.mask()));
         }
         
+        @Override
         public void calc(Env env)
         {
             if (!cond.test(env)) return;
@@ -316,6 +323,7 @@ public final class Formulas
             super(Stats.ACCURACY_COMBAT, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2Character p = env.player;
@@ -340,6 +348,7 @@ public final class Formulas
             super(Stats.EVASION_RATE, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2Character p = env.player;
@@ -363,6 +372,7 @@ public final class Formulas
             super(Stats.CRITICAL_RATE, 0x30, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2Character p = env.player;
@@ -392,6 +402,7 @@ public final class Formulas
             super(Stats.RUN_SPEED, 0x30, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env.player;
@@ -413,6 +424,7 @@ public final class Formulas
             super(Stats.POWER_ATTACK_SPEED, 0x20, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env.player;
@@ -434,6 +446,7 @@ public final class Formulas
             super(Stats.MAGIC_ATTACK_SPEED, 0x20, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env.player;
@@ -455,6 +468,7 @@ public final class Formulas
             super(Stats.MAX_LOAD, 0x30, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env.player;
@@ -477,6 +491,7 @@ public final class Formulas
             super(Stats.STAT_STR, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
@@ -499,6 +514,7 @@ public final class Formulas
             super(Stats.STAT_DEX, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
@@ -521,6 +537,7 @@ public final class Formulas
             super(Stats.STAT_INT, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
@@ -543,6 +560,7 @@ public final class Formulas
             super(Stats.STAT_MEN, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
@@ -565,6 +583,7 @@ public final class Formulas
             super(Stats.STAT_CON, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
@@ -587,6 +606,7 @@ public final class Formulas
             super(Stats.STAT_WIT, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             //          L2PcTemplate t = (L2PcTemplate)env._player.getTemplate();
@@ -609,6 +629,7 @@ public final class Formulas
             super(Stats.MAX_HP, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcTemplate t = (L2PcTemplate) env.player.getTemplate();
@@ -634,6 +655,7 @@ public final class Formulas
             super(Stats.MAX_HP, 0x20, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env.player;
@@ -655,6 +677,7 @@ public final class Formulas
             super(Stats.MAX_CP, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcTemplate t = (L2PcTemplate) env.player.getTemplate();
@@ -680,6 +703,7 @@ public final class Formulas
             super(Stats.MAX_CP, 0x20, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env.player;
@@ -701,6 +725,7 @@ public final class Formulas
             super(Stats.MAX_MP, 0x10, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcTemplate t = (L2PcTemplate) env.player.getTemplate();
@@ -726,6 +751,7 @@ public final class Formulas
             super(Stats.MAX_MP, 0x20, null);
         }
         
+        @Override
         public void calc(Env env)
         {
             L2PcInstance p = (L2PcInstance) env.player;
@@ -875,7 +901,7 @@ public final class Formulas
 		if (cha instanceof L2BossInstance)
 		{
 			L2BossInstance boss = (L2BossInstance) cha;
-			if ((boss.getNpcId() == 29022) && (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Sunlight Room" , boss)) && (boss.getZ() >= -2952))
+			if ((boss.getNpcId() == 29022) && boss.isInsideZone(ZoneType.SunLightRoom) && (boss.getZ() >= -2952))
 				hpRegenMultiplier *= 0.75;
 		}
         
@@ -902,10 +928,10 @@ public final class Formulas
                 if (siegeModifier > 0) init *= siegeModifier;
             }
             
-            if (player.getIsInClanHall() == 2 && player.getClan() != null)
+            if (player.getInsideClanHall() > 0 && player.getClan() != null)
             {
             	int clanHallIndex = player.getClan().getHasHideout();
-            	if (clanHallIndex > 0) 
+            	if (clanHallIndex > 0 && clanHallIndex == player.getInsideClanHall()) 
             	{
             		ClanHall clansHall = ClanHallManager.getInstance().getClanHall(clanHallIndex);
             		if(clansHall != null)
@@ -915,7 +941,7 @@ public final class Formulas
             }
 
             // Mother Tree effect is calculated at last
-            if (player.getInMotherTreeZone()) hpRegenBonus += 2;
+            if (player.isInsideZone(ZoneType.MotherTree)) hpRegenBonus += 2;
 
             // Calculate Movement bonus
             if (player.isSitting() && player.getLevel() < 41) // Sitting below lvl 40
@@ -971,12 +997,12 @@ public final class Formulas
                 init *= calcFestivalRegenModifier(player);
 
             // Mother Tree effect is calculated at last
-            if (player.getInMotherTreeZone()) mpRegenBonus += 1;
+            if (player.isInsideZone(ZoneType.MotherTree)) mpRegenBonus += 1;
             
-            if (player.getIsInClanHall() == 2 && player.getClan() != null)
+            if (player.getInsideClanHall() > 0 && player.getClan() != null)
             {
             	int clanHallIndex = player.getClan().getHasHideout();
-            	if (clanHallIndex > 0)
+            	if (clanHallIndex > 0 && player.getInsideClanHall() == clanHallIndex)
             	{
             		ClanHall clansHall = ClanHallManager.getInstance().getClanHall(clanHallIndex);
             		if(clansHall != null)
@@ -1062,8 +1088,8 @@ public final class Formulas
     {
         if (activeChar == null || activeChar.getClan() == null) return 0;
 
-        Siege siege = SiegeManager.getInstance().getSiege(activeChar);
-        if (siege == null || !siege.getIsInProgress()) return 0;
+        Siege siege = SiegeManager.getInstance().getSiege(activeChar.getClan());
+        if (siege == null || !siege.getIsInProgress() || !activeChar.isInsideZone(ZoneType.SiegeBattleField)) return 0;
         
         L2SiegeClan siegeClan = siege.getAttackerClan(activeChar.getClan().getClanId());
         if (siegeClan == null || siegeClan.getFlag().size() == 0

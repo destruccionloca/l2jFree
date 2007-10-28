@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
@@ -53,6 +52,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PenaltyMonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -211,7 +211,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             
             // depending on config, do not allow mobs to attack _new_ players in peacezones, 
             // unless they are already following those players from outside the peacezone. 
-               if (!Config.ALT_MOB_AGRO_IN_PEACEZONE && ZoneManager.getInstance().checkIfInZonePeace(target)) 
+               if (!Config.ALT_MOB_AGRO_IN_PEACEZONE && target.isInsideZone(ZoneType.Peace)) 
                 return false;
 
             // Check if the actor is Aggressive

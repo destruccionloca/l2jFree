@@ -99,7 +99,7 @@ public class L2MerchantInstance extends L2FolkInstance
     {
         double taxRate = 0;
 
-        if (getIsInTown()) taxRate = getCastle().getTaxRate();
+        if (getCastle() != null) taxRate = getCastle().getTaxRate();
 
         player.tempInvetoryDisable();
 

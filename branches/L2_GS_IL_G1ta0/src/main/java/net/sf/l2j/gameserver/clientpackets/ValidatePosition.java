@@ -180,9 +180,6 @@ public class ValidatePosition extends L2GameClientPacket
         }
 		if(activeChar.getParty() != null)
 			activeChar.getParty().broadcastToPartyMembers(activeChar,new PartyMemberPosition(activeChar));
-		
-		if (Config.ALLOW_WATER)
-			activeChar.checkWaterState();
 
 		// [L2J_JP ADD START SANDMAN]
 		// if this is a castle that is currently being sieged, and the rider is NOT a castle owner

@@ -65,7 +65,7 @@ public class ChangeWaitType2 extends L2GameClientPacket
 					&& !player.isSitting()
 					&& target instanceof L2StaticObjectInstance
 					&& ((L2StaticObjectInstance)target).getType() == 1
-					&& CastleManager.getInstance().getCastle(target) != null
+					&& CastleManager.getInstance().getCastleByLoc(target.getX(), target.getY(), target.getZ()) != null
 					&& player.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
 			)
 			{

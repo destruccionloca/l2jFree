@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.ai.L2DoorAI;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -62,7 +63,6 @@ public class L2DoorInstance extends L2Character
     final static Log _log = LogFactory.getLog(L2DoorInstance.class.getName());
     
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
-    private int _castleIndex = -2;
     private int _mapRegion = -1;
     
     // when door is closed, the dimensions are
@@ -77,8 +77,6 @@ public class L2DoorInstance extends L2Character
     protected final String _name;
     private int _open;
     private boolean _unlockable;
-    
-    private ClanHall _clanHall;
     
     protected int _autoActionDelay = -1;
     private ScheduledFuture _autoActionTask;
@@ -275,33 +273,18 @@ public class L2DoorInstance extends L2Character
             return 0;
         return dmg;
     }
-
-    public final Castle getCastle()
-    {
-    	Castle castle = null;
-
-    	if (_castleIndex < 0) 
-    		{
-            	castle = CastleManager.getInstance().getCastle(this);
-            	if (castle != null)
-            	_castleIndex = castle.getCastleId();
-    		}
-    	if (_castleIndex > 0) 
-    		castle = CastleManager.getInstance().getCastleById(_castleIndex);
-    	
-    	return castle;
-    }
-    
-    public void setClanHall(ClanHall clanHall)
-    {
-        _clanHall = clanHall;
-    }
     
     public ClanHall getClanHall()
     {
-        return _clanHall;
+        return ClanHallManager.getInstance().getClanHall(getInsideClanHall());
     }
 
+    /** Return the castle this door belongs to. */
+    public final Castle getCastle()
+    {
+    	return CastleManager.getInstance().getCastleById(getInsideCastle());
+    }
+    
     public boolean isEnemyOf(@SuppressWarnings("unused") L2Character cha) 
     {
         return true;

@@ -27,9 +27,10 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.util.L2ObjectSet;
-
+import net.sf.l2j.gameserver.model.L2ZoneManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -50,6 +51,10 @@ public final class L2WorldRegion
     private L2ObjectSet<L2Object> _visibleObjects;
 
     private FastList<L2WorldRegion> _surroundingRegions;
+    
+    private L2ZoneManager _zoneManager;
+
+    
     private int _tileX, _tileY;
     private Boolean _active = false;   
     protected ScheduledFuture _neighborsTask = null;
@@ -340,6 +345,40 @@ public final class L2WorldRegion
         return "(" + _tileX + ", " + _tileY + ")";
     }
 
+    public void addZone(IZone zone)
+    {
+    	if (_zoneManager == null)
+    	{
+    		_zoneManager = new L2ZoneManager();
+    	}
+    	_zoneManager.addZone(zone);
+    }
+    
+    public void revalidateZones(L2Character character)
+    {
+    	if (_zoneManager != null)
+    	{
+    		_zoneManager.revalidateZones(character);
+    	}
+    }
+    
+    public void removeFromZones(L2Character character)
+    {
+    	if (_zoneManager != null)
+    	{
+    		_zoneManager.removeCharacter(character);
+    	}
+    }
+    
+    public FastList<IZone> getZones()
+    {
+    	if (_zoneManager != null)
+    	{
+    		return _zoneManager.getZones();
+    	}
+    	return null;
+    }
+    
     /**
      * Deleted all spawns in the world.
      */

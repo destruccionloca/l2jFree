@@ -1,32 +1,32 @@
-/* This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
+/*
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2, or (at your option) any later version. This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place - Suite 330, Boston, MA 02111-1307, USA.
  * http://www.gnu.org/copyleft/gpl.html
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
 
 import javolution.util.FastList;
-import javolution.util.FastMap;
-import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.handler.IZoneHandler;
+import net.sf.l2j.gameserver.handler.ZoneHandler;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.tools.geometry.Point3D;
+
 /**
  * @author G1ta0
  * This class is base class for ingame Zone
@@ -37,62 +37,49 @@ public abstract class ZoneBase implements IZone
 
 	private Point3D _min;
 	private Point3D _max;
-	FastList<Point3D> _points2D;
-	private Map<RestartType, FastList<Point3D> > _restarts;
+	private int _zMin, _zMax;
+	private FastList<Point3D> _points2D;
+	private static Map<L2Character, Object> _characters = Collections.synchronizedMap(new WeakHashMap<L2Character, Object>());
 	private int _id;
-	private int _castleId;
-	private int _townId;
 	private ZoneType _zoneType;
 	private String _zoneName;
+	private StatsSet _zoneSet;
+	private IZoneHandler _zoneHandler;
 
 	public ZoneBase()
 	{
 
 	}
 
-	public ZoneBase(int id, String zoneName, ZoneType zoneType)
+	public ZoneBase(int id, String zoneName, ZoneType zoneType, StatsSet zoneSet)
 	{
 		setId(id);
 		setZoneType(zoneType);
 		setZoneName(zoneName);
+		setSettings(zoneSet);
+		_zoneHandler = ZoneHandler.getInstance().getZoneHandler(this);
+		_points2D = new FastList<Point3D>();
+	}
+
+	public void addPoint(int x, int y)
+	{
+		getPoints().add(new Point3D(x, y, 0));
+	}
+
+	public void setZ(int zMin, int zMax)
+	{
+		_zMin = Math.min(zMin, zMax);
+		_zMax = Math.max(zMin, zMax);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.zone.IZone#addPoint(net.sf.l2j.gameserver.model.Location)
+	 * @see net.sf.l2j.gameserver.model.zone.IZone#checkIfCharacterInZone(net.sf.l2j.gameserver.model.L2Character)
 	 */
-	public void addPoint(Point3D point)
+	public boolean checkIfCharacterInZone(L2Character character)
 	{
-		if (getMin() == null)
-			setMin(point);
-		if (getMax() == null)
-			setMax(point);
-
-		setMax(new Point3D(Math.max(point.getX(), getMax().getX()), Math.max(point.getY(), getMax().getY()), Math.max(point
-				.getZ(), getMax().getZ())));
-		setMin(new Point3D(Math.min(point.getX(), getMin().getX()), Math.min(point.getY(), getMin().getY()), Math.min(point
-				.getZ(), getMin().getZ())));
-
-		if (_points2D == null) _points2D = new FastList<Point3D>();
-		getPoints().add(point);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.l2j.gameserver.model.zone.IZone#addRestartPoint(net.sf.l2j.gameserver.model.zone.IZone.RestartType,
-	 *      net.sf.l2j.gameserver.model.Location)
-	 */
-	public void addRestartPoint(RestartType restartType, Point3D point)
-	{
-		if (_restarts == null)
-			_restarts = new FastMap<RestartType, FastList<Point3D>>();
-		
-		if (_restarts.get(restartType) == null)
-			_restarts.put(restartType, new FastList<Point3D>());
-		
-		_restarts.get(restartType).add(point);
+		return getCharacters().contains(character);
 	}
 
 	/*
@@ -133,6 +120,14 @@ public abstract class ZoneBase implements IZone
 	 */
 	public Point3D getMax()
 	{
+		if(_max == null)
+		{
+			_max = new Point3D(getPoints().get(0).getX(), getPoints().get(0).getY(), Math.max(_zMax, _zMin));
+
+			for(Point3D point : getPoints())
+				_max.setXYZ(Math.max(point.getX(), _max.getX()), Math.max(point.getY(), _max.getY()), Math.max(_zMax, _zMin));
+		}
+
 		return _max;
 	}
 
@@ -143,9 +138,17 @@ public abstract class ZoneBase implements IZone
 	 */
 	public Point3D getMin()
 	{
+		if(_min == null)
+		{
+			_min = new Point3D(getPoints().get(0).getX(), getPoints().get(0).getY(), Math.min(_zMax, _zMin));
+
+			for(Point3D point : getPoints())
+				_min.setXYZ(Math.min(point.getX(), _min.getX()), Math.min(point.getY(), _min.getY()), Math.min(_zMax, _zMin));
+		}
+
 		return _min;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -155,61 +158,19 @@ public abstract class ZoneBase implements IZone
 	{
 		return _points2D;
 	}
-	
-	@SuppressWarnings("unused")
-	protected void setMax(Point3D point)
-	{
-		_max = point;
-	}
-
-	@SuppressWarnings("unused")
-	protected void setMin(Point3D point)
-	{
-		_min = point;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.l2j.gameserver.model.zone.IZone#getRestartPoint(net.sf.l2j.gameserver.model.zone.IZone.RestartType)
-	 */
-	public Location getRestartPoint(RestartType restartType)
-	{
-		if (restartType == RestartType.RestartRandom)
-			return getRandomLocation();
-		else if (_restarts != null)
-		{
-			if (_restarts.get(restartType) != null)
-			{
-				Point3D point = _restarts.get(restartType).get(Rnd.nextInt(_restarts.get(restartType).size()));
-				return new Location(point.getX(), point.getY(), point.getZ());
-			}
-		}
-		return null;
-	}
 
 	public abstract Location getRandomLocation();
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.zone.IZone#getZoneCastle()
+	 * @see net.sf.l2j.gameserver.model.zone.IZone#getSettings()
 	 */
-	public int getCastleId()
+	public StatsSet getSettings()
 	{
-		return _castleId;
+		return _zoneSet;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.l2j.gameserver.model.zone.IZone#getZoneTown()
-	 */
-	public int getTownId()
-	{
-		return _townId;
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -245,6 +206,11 @@ public abstract class ZoneBase implements IZone
 		return _zoneType;
 	}
 
+	public Set<L2Character> getCharacters()
+	{
+		return _characters.keySet();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -258,23 +224,13 @@ public abstract class ZoneBase implements IZone
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see net.sf.l2j.gameserver.model.zone.IZone#setZoneCastle(int)
+	 * @see net.sf.l2j.gameserver.model.zone.IZone#setSettings(net.sf.l2j.gameserver.templates.StatsSet)
 	 */
-	public void setCastleId(int castleId)
+	public void setSettings(StatsSet zoneSet)
 	{
-		_castleId = castleId;
+		_zoneSet = zoneSet;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see net.sf.l2j.gameserver.model.zone.IZone#setZoneCastle(int)
-	 */
-	public void setTownId(int townId)
-	{
-		_townId = townId;
-	}
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -293,6 +249,56 @@ public abstract class ZoneBase implements IZone
 	public void setZoneType(ZoneType zoneType)
 	{
 		_zoneType = zoneType;
+	}
+
+	public void revalidateInZone(L2Character character)
+	{
+		// If the object is inside the zone...
+		if(checkIfInZone(character.getX(), character.getY(), character.getZ()))
+		{
+			// Was the character not yet inside this zone?
+			if(!_characters.containsKey(character))
+			{
+				_characters.put(character, null);
+				if(_zoneHandler != null)
+					_zoneHandler.onEnter(character);
+			}
+		}
+		else
+		{
+			// Was the character inside this zone?
+			if(!_characters.containsKey(character))
+			{
+				_characters.remove(character);
+				if(_zoneHandler != null)
+					_zoneHandler.onExit(character);
+			}
+		}
+	}
+
+	/**
+	 * Force fully removes a character from the zone
+	 * Should use during teleport / logoff
+	 * @param character
+	 */
+	public void removeFromZone(L2Character character)
+	{
+		if(_characters.containsKey(character))
+		{
+			_characters.remove(character);
+			if(_zoneHandler != null)
+				_zoneHandler.onExit(character);
+		}
+	}
+
+	/**
+	 * Will scan the zones char list for the character
+	 * @param character
+	 * @return
+	 */
+	public boolean checkIfInZone(L2Character character)
+	{
+		return _characters.containsKey(character);
 	}
 
 }

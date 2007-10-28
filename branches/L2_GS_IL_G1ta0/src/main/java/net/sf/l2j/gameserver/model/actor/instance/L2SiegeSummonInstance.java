@@ -38,7 +38,7 @@ public class L2SiegeSummonInstance extends L2SummonInstance
 
 	@Override
 	public void onSpawn()
-	{
+	{/*
 		super.onSpawn();
 		Siege siege = SiegeManager.getInstance().getSiege(this);
 		if (!getOwner().isGM() && (siege == null || !siege.getIsInProgress()))
@@ -46,6 +46,6 @@ public class L2SiegeSummonInstance extends L2SummonInstance
 			//TODO: Implement zone handler and unsummon it when leaving zone
 			unSummon(getOwner());
 			getOwner().sendMessage("Summon was unsummoned because it exited siege zone");
-		}
+		}*/
 	}
 }

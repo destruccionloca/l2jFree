@@ -209,7 +209,7 @@ public class RequestBuyItem extends L2GameClientPacket
         }
 
         double taxRate = 0;
-        if (merchant != null && merchant.getIsInTown()) taxRate = merchant.getCastle().getTaxRate();
+        if (merchant != null && merchant.getCastle() != null) taxRate = merchant.getCastle().getTaxRate();
         long subTotal = 0;
         int tax = 0;
         
@@ -314,7 +314,7 @@ public class RequestBuyItem extends L2GameClientPacket
         if (!player.isGM())
         {
             //  Charge buyer and add tax to castle treasury if not owned by npc clan
-            if (merchant.getIsInTown() && merchant.getCastle().getOwnerId() > 0)
+            if (merchant.getCastle() != null && merchant.getCastle().getOwnerId() > 0)
                 merchant.getCastle().addToTreasury(tax);
         }
         //  Check if player is Gm and buying from Gm shop or have proper access level

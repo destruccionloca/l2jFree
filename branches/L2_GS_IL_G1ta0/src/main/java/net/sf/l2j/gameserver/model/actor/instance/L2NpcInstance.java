@@ -18,14 +18,13 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
+
 import java.text.DateFormat;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
-
-import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ACTIVE;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.Config.CacheType;
 import net.sf.l2j.gameserver.Olympiad;
@@ -46,9 +45,8 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
-import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
-import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
+import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -70,7 +68,6 @@ import net.sf.l2j.gameserver.model.actor.knownlist.NpcKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
 import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
-import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
@@ -137,9 +134,6 @@ public class L2NpcInstance extends L2Character
 
     /** True if a Dwarf has used Spoil on this L2NpcInstance */
     private boolean _isSpoil = false;
-
-    /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
-    private int _castleIndex = -2;
     
     public boolean isEventMob = false,
                   _isEventMobTvT = false,
@@ -148,7 +142,6 @@ public class L2NpcInstance extends L2Character
                   _isEventVIPNPC = false,
                   _isEventVIPNPCEnd = false;                  
 
-    private boolean _isInTown = false;
     private int _isSpoiledBy = 0;
 
     protected RandomAnimationTask _rAniTask = null;
@@ -853,31 +846,21 @@ public class L2NpcInstance extends L2Character
     /** Return the L2Castle this L2NpcInstance belongs to. */
     public final Castle getCastle()
     {
-        // Get castle this NPC belongs to (excluding L2Attackable)
-        if (_castleIndex < 0)
-        {
-            Town town = TownManager.getInstance().getTown(this);
-            // Npc was spawned in town
-            _isInTown = (town != null);
-            
-            if (! _isInTown )
-            {
-            	_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
-            }
-            else
-            	if (town.getCastle() != null)
-            		_castleIndex = town.getCastle().getCastleId();
-            	else
-            		_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
-        }
+    	int _castleId = 0;
 
-        return CastleManager.getInstance().getCastleById(_castleIndex);
-    }
-    
-    public final boolean getIsInTown()
-    {
-        if (_castleIndex < 0) getCastle();
-        return _isInTown;
+    	if (getInsideCastle() > 0)
+    		_castleId = getInsideCastle();
+    	else
+    		if (getInsideCastleTerritory() > 0)
+    			_castleId =getInsideCastleTerritory();
+    		else
+    			if (getInsideCastleSiege() > 0)
+    				_castleId = getInsideCastleSiege();
+
+    	if (_castleId > 0)
+    		return CastleManager.getInstance().getCastleById(_castleId);
+
+    	return null;
     }
     
     /**
@@ -1096,7 +1079,7 @@ public class L2NpcInstance extends L2Character
                 html.replace("%objectId%", String.valueOf(getObjectId()));
                 html.replace("%npcname%", getName());
                 
-                if (getIsInTown())
+                if (getCastle() != null)
                 {
                     html.replace("%castlename%", getCastle().getName());
                     html.replace("%taxpercent%", "" + getCastle().getTaxPercent());

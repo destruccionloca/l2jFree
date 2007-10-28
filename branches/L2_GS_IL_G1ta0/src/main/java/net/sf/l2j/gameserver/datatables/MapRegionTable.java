@@ -161,6 +161,9 @@ public class MapRegionTable
 
     public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)
     {
+    	//TODO: replace restart manager with separate manager with soe zones. 
+    	
+    	/*
         if (activeChar instanceof L2PcInstance)
         {
             L2PcInstance player = ((L2PcInstance) activeChar);
@@ -294,5 +297,7 @@ public class MapRegionTable
         // TODO: Micht: Maybe we should add some checks to prevent exception
         // here.
         return TownManager.getInstance().getClosestTown(activeChar).getSpawn();
+        */
+    	return null;
     }
 }

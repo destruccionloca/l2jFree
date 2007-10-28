@@ -44,7 +44,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -844,7 +843,7 @@ public class Olympiad
     
     public boolean playerInStadia(L2PcInstance player)
     {
-        return ZoneManager.getInstance().checkIfInZone(ZoneType.OlympiadStadia , player);
+        return player.isInsideZone(ZoneType.OlympiadStadia);
     }
     
     public int[] getWaitingList()

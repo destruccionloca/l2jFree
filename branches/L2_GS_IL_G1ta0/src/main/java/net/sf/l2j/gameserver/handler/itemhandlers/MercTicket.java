@@ -50,7 +50,9 @@ public class MercTicket implements IItemHandler
     {
     	int itemId = item.getItemId();
     	L2PcInstance activeChar = (L2PcInstance)playable;
-    	Castle castle = CastleManager.getInstance().getCastle(activeChar);
+    	Castle castle = null;
+    	if (activeChar.getClan() != null)
+    	    castle = CastleManager.getInstance().getCastleById(activeChar.getClan().getHasCastle());
     	int castleId = -1;
     	if (castle != null) castleId = castle.getCastleId();
     	

@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
@@ -1780,7 +1781,10 @@ public class L2Clan
 				return false;
 			}
 		}
-       if (SiegeManager.getInstance().checkIfInZone(activeChar) && SiegeManager.getInstance().checkIfInZone(target))
+		Siege siege1 = SiegeManager.getInstance().getSiege(activeChar.getClan());
+		Siege siege2 = SiegeManager.getInstance().getSiege(activeChar.getClan());
+		
+       if (siege1 != null && siege1.getIsInProgress() && siege2 != null && siege2.getIsInProgress())
         {
         	activeChar.sendPacket(new SystemMessage(SystemMessageId.OPPOSING_CLAN_IS_PARTICIPATING_IN_SIEGE));
             return false;
@@ -1918,7 +1922,7 @@ public class L2Clan
 			player.sendPacket(new SystemMessage(SystemMessageId.FEATURE_ONLY_FOR_ALLIANCE_LEADER));
 			return;
 		}
-        if (SiegeManager.getInstance().checkIfInZone(player))
+        if (player.getSiegeState() != 0)
         {
             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISSOLVE_ALLY_WHILE_IN_SIEGE));
             return;

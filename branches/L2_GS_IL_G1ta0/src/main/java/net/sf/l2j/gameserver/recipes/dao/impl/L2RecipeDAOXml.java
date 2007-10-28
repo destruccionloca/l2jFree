@@ -53,16 +53,18 @@ public class L2RecipeDAOXml implements IL2RecipeDAO
 			factory.setValidating(false);
 			factory.setIgnoringComments(true);
 			doc = factory.newDocumentBuilder().parse(recipesXml);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
-			_log.error("Recipes: Error loading "+recipesXml.getAbsolutePath()+" !");
+			_log.error("Recipes: Error loading " + recipesXml.getAbsolutePath() + " !");
 		}
 		try
 		{
 			parseDocument(doc);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
-			_log.error("Recipes: Error while reading "+recipesXml.getAbsolutePath()+" !");
+			_log.error("Recipes: Error while reading " + recipesXml.getAbsolutePath() + " !");
 		}
 
 		_log.info("Recipes: Loaded " + _lists.size() + " recipes.");
@@ -70,24 +72,25 @@ public class L2RecipeDAOXml implements IL2RecipeDAO
 
 	protected void parseDocument(Document doc)
 	{
-		for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
+		for(Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
 		{
-			if ("list".equalsIgnoreCase(n.getNodeName()))
+			if("list".equalsIgnoreCase(n.getNodeName()))
 			{
-				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
+				for(Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
-					if ("item".equalsIgnoreCase(d.getNodeName()))
+					if("item".equalsIgnoreCase(d.getNodeName()))
 					{
 						L2Recipe recipe = parseEntry(d);
-						if ( recipe != null )
-						_lists.put(new Integer(_lists.size()), recipe);
+						if(recipe != null)
+							_lists.put(new Integer(_lists.size()), recipe);
 					}
 				}
-			} else if ("item".equalsIgnoreCase(n.getNodeName()))
+			}
+			else if("item".equalsIgnoreCase(n.getNodeName()))
 			{
 				L2Recipe recipe = parseEntry(n);
-				if ( recipe != null )
-				_lists.put(new Integer(_lists.size()), recipe);
+				if(recipe != null)
+					_lists.put(new Integer(_lists.size()), recipe);
 			}
 		}
 	}
@@ -106,47 +109,53 @@ public class L2RecipeDAOXml implements IL2RecipeDAO
 		List<L2RecipeComponent> recipePartList = new FastList<L2RecipeComponent>();
 
 		Node first = n.getFirstChild();
-		for (n = first; n != null; n = n.getNextSibling())
+		for(n = first; n != null; n = n.getNextSibling())
 		{
-			if ("ingredient".equalsIgnoreCase(n.getNodeName()))
+			if("ingredient".equalsIgnoreCase(n.getNodeName()))
 			{
 				int ingredientId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
 				int ingredientCount = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
 				L2RecipeComponent rp = new L2RecipeComponent(ingredientId, ingredientCount);
 				recipePartList.add(rp);
-			} else if ("production".equalsIgnoreCase(n.getNodeName()))
+			}
+			else if("production".equalsIgnoreCase(n.getNodeName()))
 			{
 				productId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
 				productQuantity = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
-			} else if ("recipe".equalsIgnoreCase(n.getNodeName()))
+			}
+			else if("recipe".equalsIgnoreCase(n.getNodeName()))
 			{
 				recipeId = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
 				level = Integer.parseInt(n.getAttributes().getNamedItem("level").getNodeValue());
-			} else if ("dwarven".equalsIgnoreCase(n.getNodeName()))
+			}
+			else if("dwarven".equalsIgnoreCase(n.getNodeName()))
 			{
 				isDwarvenRecipe = true;
-			} else if ("common".equalsIgnoreCase(n.getNodeName()))
+			}
+			else if("common".equalsIgnoreCase(n.getNodeName()))
 			{
 				isDwarvenRecipe = false;
-			} else if ("mpCost".equalsIgnoreCase(n.getNodeName()))
+			}
+			else if("mpCost".equalsIgnoreCase(n.getNodeName()))
 			{
 				mpCost = Integer.parseInt(n.getTextContent());
-			} else if ("successRate".equalsIgnoreCase(n.getNodeName()))
+			}
+			else if("successRate".equalsIgnoreCase(n.getNodeName()))
 			{
 				successRate = Integer.parseInt(n.getTextContent());
 			}
 		}
 
-		if ((productId > 0) && (productQuantity > 0) && (recipePartList.size() > 0))
+		if((productId > 0) && (productQuantity > 0) && (recipePartList.size() > 0))
 		{
-			L2Recipe recipe = new L2Recipe(id, level, recipeId, name, successRate, mpCost, productId, productQuantity,
-					isDwarvenRecipe);
+			L2Recipe recipe = new L2Recipe(id, level, recipeId, name, successRate, mpCost, productId, productQuantity, isDwarvenRecipe);
 
-			for (L2RecipeComponent recipePart : recipePartList)
+			for(L2RecipeComponent recipePart : recipePartList)
 				recipe.addRecipe(recipePart);
 
 			return recipe;
-		} else
+		}
+		else
 			return null;
 	}
 
@@ -171,13 +180,10 @@ public class L2RecipeDAOXml implements IL2RecipeDAO
 	 */
 	public L2Recipe getRecipeById(int recId)
 	{
-		for (int i = 0; i < _lists.size(); i++)
+		for(int i = 0; i < _lists.size(); i++)
 		{
 			L2Recipe find = _lists.get(new Integer(i));
-			if (find.getId() == recId)
-			{
-				return find;
-			}
+			if(find.getId() == recId){ return find; }
 		}
 		return null;
 	}
@@ -192,13 +198,10 @@ public class L2RecipeDAOXml implements IL2RecipeDAO
 	 */
 	public L2Recipe getRecipeByItemId(int itemId)
 	{
-		for (int i = 0; i < _lists.size(); i++)
+		for(int i = 0; i < _lists.size(); i++)
 		{
 			L2Recipe find = _lists.get(new Integer(i));
-			if (find.getRecipeId() == itemId)
-			{
-				return find;
-			}
+			if(find.getRecipeId() == itemId){ return find; }
 		}
 		return null;
 	}
@@ -222,7 +225,7 @@ public class L2RecipeDAOXml implements IL2RecipeDAO
 	{
 		int[] recipeIds = new int[_lists.size()];
 		int i = 0;
-		for (Map.Entry<Integer, L2Recipe> e : _lists.entrySet())
+		for(Map.Entry<Integer, L2Recipe> e : _lists.entrySet())
 		{
 			recipeIds[i] = e.getValue().getRecipeId();
 			i++;

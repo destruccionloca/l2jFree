@@ -37,7 +37,6 @@ import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -57,6 +56,7 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.serverpackets.ClientSetTime;
@@ -360,9 +360,6 @@ public class EnterWorld extends L2GameClientPacket
 			sendPacket(d);
 		}
 
-		if (Config.ALLOW_WATER)
-		    activeChar.checkWaterState();
-
 		setPledgeClass(activeChar);
 		
 		//add char to online characters
@@ -434,7 +431,7 @@ public class EnterWorld extends L2GameClientPacket
 			}
 		}
 
-		if (!activeChar.isGM() && activeChar.getSiegeState() < 2 && SiegeManager.getInstance().checkIfInZone(activeChar))
+		if (!activeChar.isGM() && activeChar.getSiegeState() < 2 && activeChar.isInsideZone(ZoneType.SiegeBattleField))
 		{
 			// Attacker or spectator logging in to a siege zone. Actually should be checked for inside castle only?
 			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);

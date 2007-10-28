@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -87,7 +86,7 @@ public class Recall implements ISkillHandler
 					L2PcInstance targetChar = (L2PcInstance) target;
 
 					// [L2J_JP ADD]
-					if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, targetChar))
+					if (targetChar.isInsideZone(ZoneType.NoEscape))
 					{
 						targetChar.sendMessage("You can not escape from here.");
 						targetChar.sendPacket(new ActionFailed());

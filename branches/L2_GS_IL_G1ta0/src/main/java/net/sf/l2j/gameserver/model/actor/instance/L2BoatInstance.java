@@ -260,7 +260,7 @@ public class L2BoatInstance extends L2Character
 					{
 						//player.getKnownList().addKnownObject(this);
 						player.getPosition().setXYZ(x,y,z);
-						player.revalidateZone(false);
+						player.revalidateZones(false);
 					}
 				}
 				if(check == true)

@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
@@ -253,8 +254,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check if player is in Siege
-        else if(CastleManager.getInstance().getCastle(activeChar) != null 
-                && CastleManager.getInstance().getCastle(activeChar).getSiege().getIsInProgress())
+        else if(activeChar.isInsideZone(ZoneType.SiegeBattleField))
         {
             activeChar.sendMessage("You are in siege, you can't go to your partner.");
             return false;
@@ -315,8 +315,7 @@ public class Wedding implements IVoicedCommandHandler
         	activeChar.sendMessage("Your partner is in a festival.");
         	return false;
         }
-        else if(CastleManager.getInstance().getCastle(partner) != null 
-        		&& CastleManager.getInstance().getCastle(partner).getSiege().getIsInProgress())
+        else if(partner.isInsideZone(ZoneType.SiegeBattleField))
         {
         	if (partner.getAppearance().getSex())
         		activeChar.sendMessage("Your partner is in siege, you can't go to her.");

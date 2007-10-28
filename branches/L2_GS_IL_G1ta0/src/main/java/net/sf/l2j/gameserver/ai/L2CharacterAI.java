@@ -675,7 +675,7 @@ public class L2CharacterAI extends AbstractAI
         // Launch an explore task if necessary
         if (_accessor.getActor() instanceof L2PcInstance)
         {
-            ((L2PcInstance) _accessor.getActor()).revalidateZone(true);
+            ((L2PcInstance) _accessor.getActor()).revalidateZones(true);
         }
         //else _accessor.getActor().revalidateZone();
 
@@ -932,7 +932,7 @@ public class L2CharacterAI extends AbstractAI
                 {
                     if(getAttackTarget() == getFollowTarget()) 
                     {
-                        if (((L2PlayableInstance)_actor).isInsidePeaceZone(_actor, target)) 
+                        if (((L2PlayableInstance)_actor).isInsidePeaceZone(_actor, (L2Character) target)) 
                         {
                             stopFollow();
                             setIntention(AI_INTENTION_IDLE);

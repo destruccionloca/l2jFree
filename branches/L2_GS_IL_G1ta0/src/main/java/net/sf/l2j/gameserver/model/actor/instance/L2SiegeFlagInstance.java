@@ -39,8 +39,9 @@ public class L2SiegeFlagInstance extends L2NpcInstance
         super(objectId, template);
 
         _player = player;
-        _siege = SiegeManager.getInstance().getSiege(_player);
         _advanced = advanced;
+        if (_player.getClan() == null)
+        	_siege = SiegeManager.getInstance().getSiege(_player.getClan());
         if (_player.getClan() == null || _siege == null)
         {
             deleteMe();

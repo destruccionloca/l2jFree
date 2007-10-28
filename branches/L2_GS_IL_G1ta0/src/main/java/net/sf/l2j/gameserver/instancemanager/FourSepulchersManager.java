@@ -41,6 +41,7 @@ import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Spawn;
@@ -1369,8 +1370,8 @@ public class FourSepulchersManager
 		}
 	}
 	
-	public boolean checkIfInDangeon(L2Object obj)
+	public boolean checkIfInDangeon(L2Character character)
 	{
-		return ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, _zoneName, obj);
+		return character.isInsideZone(ZoneType.FourSepulchers);
 	}
 }

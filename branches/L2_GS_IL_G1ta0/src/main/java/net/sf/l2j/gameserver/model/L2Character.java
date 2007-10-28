@@ -45,7 +45,6 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -66,6 +65,7 @@ import net.sf.l2j.gameserver.model.actor.status.CharStatus;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc;
 import net.sf.l2j.gameserver.pathfinding.geonodes.GeoPathFinding;
@@ -163,7 +163,7 @@ public abstract class L2Character extends L2Object
     private int _lastHealAmount                             = 0;
     private CharStat _stat;
     private CharStatus _status;
-    private long _timePreviousBroadcastStatusUpdate          = 0;
+    private long _timePreviousBroadcastStatusUpdate         = 0;
     private L2CharTemplate _template;                       // The link on the L2CharTemplate object containing generic and static properties of this L2Character type (ex : Max HP, Speed...)
     private String _title;
     private String _aiClass = "default";
@@ -171,6 +171,14 @@ public abstract class L2Character extends L2Object
 	private double _hpUpdateIncCheck = .0;
 	private double _hpUpdateDecCheck = .0;
 	private double _hpUpdateInterval = .0;
+	
+	/** Map of zone types */
+	private FastMap<ZoneType, Integer> _zones              = new FastMap<ZoneType, Integer>();
+	/** Zone defined variables */
+	private int _inClanHallId							   = 0; // Id of ClanHall
+	private int _inCastleId							       = 0; // Id of Castle (Inner)
+	private int _inSiegeId							       = 0; // Id of Castle (Siege)
+	private int _inCastleTerritoryId				       = 0; // Id of Castle (Town)
 	
     /** Table of Calculators containing all used calculator */
     private Calculator[] _calculators;
@@ -258,6 +266,13 @@ public abstract class L2Character extends L2Object
 		decayMe();
 	}
 	
+	@Override
+	public void onSpawn()
+	{
+		super.onSpawn();
+		revalidateZones();
+	}
+	
     public void onTeleported()
     {
         setIsTeleporting(false);
@@ -273,6 +288,12 @@ public abstract class L2Character extends L2Object
 			getPet().teleToLocation(getPosition().getX() + Rnd.get(-100,100), getPosition().getY() + Rnd.get(-100,100), getPosition().getZ(), false);
 			getPet().setFollowStatus(true);
 		}
+    }
+    
+    public void revalidateZones()
+    {
+    	if (getWorldRegion() == null) return;
+    	getWorldRegion().revalidateZones(this);
     }
     
     // =========================================================
@@ -481,10 +502,7 @@ public abstract class L2Character extends L2Object
 
         decayMe();
 
-        if (!(this instanceof L2PcInstance)) 
-            onTeleported();
-        else
-            ((L2PcInstance)this).revalidateZone(true);
+        onTeleported();
     }
 
     public void teleToLocation(int x, int y, int z) { teleToLocation(x, y, z, true); }
@@ -3716,12 +3734,12 @@ public abstract class L2Character extends L2Object
         else
         {
             super.getPosition().setXYZ(m._xMoveFrom + (int)(elapsed * m._xSpeedTicks),m._yMoveFrom + (int)(elapsed * m._ySpeedTicks),super.getZ());
-            if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(false);
         }
 
         // Set the timer of last position update to now
         m._moveTimestamp = gameTicks;
-
+        revalidateZones();
+        
         return false;
     }
 
@@ -3753,7 +3771,7 @@ public abstract class L2Character extends L2Object
        {
            getPosition().setXYZ(pos.x, pos.y, pos.z);
            setHeading(pos.heading);
-           if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZone(true);
+           if (this instanceof L2PcInstance) ((L2PcInstance)this).revalidateZones(true);
        }
        sendPacket(new StopMove(this));
        if (updateKnownObjects) ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(this));
@@ -4726,6 +4744,7 @@ public abstract class L2Character extends L2Object
     * @param player The L2PcInstance to attack
     *
     */
+    @Override
     public void onForcedAttack(L2PcInstance player)
     {
         if (isInsidePeaceZone(player))
@@ -4793,15 +4812,15 @@ public abstract class L2Character extends L2Object
         return false;
     }
 
-    public boolean isInsidePeaceZone(L2PcInstance attacker, L2Object target)
+    public boolean isInsidePeaceZone(L2PcInstance attacker, L2Character target)
     {
         return (
                    (attacker.getAccessLevel() < Config.GM_PEACEATTACK) &&
-                   isInsidePeaceZone((L2Object)attacker, target)
+                   isInsidePeaceZone(attacker, target)
                );
     }
 
-    public boolean isInsidePeaceZone(L2Object attacker, L2Object target)
+    public boolean isInsidePeaceZone(L2Character attacker, L2Character target)
     {
         if (target == null) return false;
         if (target instanceof L2MonsterInstance) return false;
@@ -4828,28 +4847,9 @@ public abstract class L2Character extends L2Object
                     return false;
             }
         }
-        // Right now only L2PcInstance has up-to-date zone status...
-        if (attacker instanceof L2PcInstance)
-        {
-            if (target instanceof L2PcInstance)
-            {
-                return (((L2PcInstance)target).getInPeaceZone() || ((L2PcInstance)attacker).getInPeaceZone());
-            }
-            else return ( 
-                    ((L2PcInstance)attacker).getInPeaceZone() ||
-                    ZoneManager.getInstance().checkIfInZonePeace(target)
-                    );
-        }
-        if (target instanceof L2PcInstance)
-        {
-            return ( 
-                    ((L2PcInstance)target).getInPeaceZone() ||
-                    ZoneManager.getInstance().checkIfInZonePeace(attacker)
-                    );
-        }
         return ( 
-                ZoneManager.getInstance().checkIfInZonePeace(attacker) ||   
-                ZoneManager.getInstance().checkIfInZonePeace(target)        
+        		((L2Character)attacker).isInsideZone(ZoneType.Peace) || 
+        		((L2Character)target).isInsideZone(ZoneType.Peace)        
                 );
     }
     
@@ -5969,4 +5969,83 @@ public abstract class L2Character extends L2Object
 	}
 
 	public void setForceBuff(ForceBuff fb) {}
+	
+	public void setInZone(ZoneType zoneType)
+	{
+		int count = 1;
+		if (_zones.containsKey(zoneType))
+		{
+			count = _zones.get(zoneType);
+			count ++;
+		} 
+		_zones.put(zoneType, count);
+	}
+	
+	public void setOutZone(ZoneType zoneType)
+	{
+		if (_zones.containsKey(zoneType))
+		{
+			int count = _zones.get(zoneType);
+			count --;
+			if (count <= 0) _zones.remove(zoneType);
+			else _zones.put(zoneType, count);
+		}
+	}
+	
+	public boolean isInsideZone(ZoneType zoneType)
+	{
+		return _zones.containsKey(zoneType);
+	}
+	
+	/** Set clan hall, where character is in 
+	 *  This is calls from clan hall zone handler 
+	 */
+	public void setInsideClanHall(int clanHallId)
+	{
+		_inClanHallId = clanHallId;
+	}
+	
+	/** Set castle, where character is in 
+	 *  This is calls from castle zone handler 
+	 */
+	public void setInsideCastle(int castleId)
+	{
+		_inCastleId = castleId;
+	}	
+	
+	/** Set castle siege zone, where character is in 
+	 *  This is calls from siege battlefield zone handler 
+	 */
+	public void setInsideSiege(int castleId)
+	{
+		_inSiegeId = castleId;
+	}	
+	
+	/** Set castle territory, where character is in 
+	 *  This is calls from zone handler (peace zone... etc)
+	 */
+	public void setInsideCastleTerritory(int castleId)
+	{
+		_inCastleTerritoryId = castleId;
+	}
+	
+	public int getInsideClanHall()
+	{
+		return _inClanHallId;
+	}
+	
+	public int getInsideCastle()
+	{
+		return _inCastleId;
+	}
+	
+	public int getInsideCastleSiege()
+	{
+		return _inSiegeId;
+	}
+	
+	public int getInsideCastleTerritory()
+	{
+		return _inCastleTerritoryId;
+	}
 }

@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -73,7 +72,7 @@ public class ScrollOfEscape implements IItemHandler
 			return;
 
 		// [L2J_JP ADD]
-		if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, activeChar))
+		if (activeChar.isInsideZone(ZoneType.NoEscape))
 		{
 			activeChar.sendMessage("You can not escape from here.");
 			activeChar.sendPacket(new ActionFailed());

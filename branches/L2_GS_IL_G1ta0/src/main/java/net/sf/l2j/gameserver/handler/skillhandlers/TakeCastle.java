@@ -52,7 +52,7 @@ public class TakeCastle implements ISkillHandler
         if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId())
             return;
 
-        Castle castle = CastleManager.getInstance().getCastle(player);
+        Castle castle = CastleManager.getInstance().getCastleById(player.getInsideCastle());
         if (castle == null || !checkIfOkToCastSealOfRule(player, castle, true))
             return;
 
@@ -72,7 +72,7 @@ public class TakeCastle implements ISkillHandler
      */
     public static boolean checkIfOkToCastSealOfRule(L2Character activeChar, boolean isCheckOnly)
     {
-        return checkIfOkToCastSealOfRule(activeChar, CastleManager.getInstance().getCastle(activeChar), isCheckOnly);
+        return checkIfOkToCastSealOfRule(activeChar,  CastleManager.getInstance().getCastleById(activeChar.getInsideCastle()), isCheckOnly);
     }
 
     public static boolean checkIfOkToCastSealOfRule(L2Character activeChar, Castle castle, boolean isCheckOnly)

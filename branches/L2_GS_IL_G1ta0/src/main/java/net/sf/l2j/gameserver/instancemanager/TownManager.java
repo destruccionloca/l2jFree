@@ -71,22 +71,8 @@ public class TownManager
 
     private final void load()
     {
-        // go thru all world zones and search for town zones
-        for (short region : ZoneManager.getInstance().getZoneMap().keySet())
-            for (Map.Entry<ZoneType, FastList<IZone>> zt : ZoneManager.getInstance().getZoneMap().get(region).entrySet())
-                for (IZone zone : zt.getValue())
-                {
-                    if (zone.getTownId() > -1)
-                    {
-                        if (getTowns().get(zone.getTownId()) == null)
-                        {
-                            Town town = new Town(zone.getTownId());
-                            getTowns().put(zone.getTownId(), town);
-                        }
-                        getTowns().get(zone.getTownId()).addTerritory(zone);
-                    }
-                }
-        _log.info("TownManager: Loaded " + getTowns().size() + " towns.");
+    	//TODO:
+    	_log.error("TownManager not done !!!");
     }
 
     public String getTownName(int townId)

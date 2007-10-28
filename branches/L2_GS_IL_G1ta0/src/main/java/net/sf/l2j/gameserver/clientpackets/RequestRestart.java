@@ -18,22 +18,21 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.CharSelectInfo;
 import net.sf.l2j.gameserver.serverpackets.RestartResponse;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
-import net.sf.l2j.gameserver.Olympiad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -127,7 +126,7 @@ public class RequestRestart extends L2GameClientPacket
         // [L2J_JP ADD START]
         if (!(player.isGM()))
         {
-            if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,player)){
+            if(player.isInsideZone(ZoneType.NoEscape)){
                 player.sendMessage("You can not restart in here.");
                 player.sendPacket(new ActionFailed());
                 return;                   

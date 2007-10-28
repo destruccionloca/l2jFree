@@ -22,10 +22,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -38,7 +38,6 @@ import net.sf.l2j.gameserver.serverpackets.FriendList;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
-import net.sf.l2j.gameserver.Olympiad;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -76,7 +75,7 @@ public class Logout extends L2GameClientPacket
         // [L2J_JP ADD START]
         if (!(player.isGM()))
         {
-            if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, player)){
+            if(player.isInsideZone(ZoneType.NoEscape)){
                 player.sendMessage("You can not log out in here.");
                 player.sendPacket(new ActionFailed());
                 return;                   

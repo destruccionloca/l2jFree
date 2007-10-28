@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
@@ -112,7 +113,7 @@ public class RequestActionUse extends L2GameClientPacket
                         && !activeChar.isSitting()
                         && target instanceof L2StaticObjectInstance
                         && ((L2StaticObjectInstance)target).getType() == 1
-                        && CastleManager.getInstance().getCastle(target) != null
+                        && CastleManager.getInstance().getCastleByLoc(target.getX(), target.getY(), target.getZ()) != null
                         && activeChar.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
                    )
                 {
@@ -158,7 +159,7 @@ public class RequestActionUse extends L2GameClientPacket
                         return;
                     }
 
-                    if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK && activeChar.isInsidePeaceZone(pet, target))
+                    if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK && activeChar.isInsidePeaceZone(pet, (L2Character)target))
                     {
                     	if(!activeChar.isInFunEvent() || !target.isInFunEvent())
                     	{

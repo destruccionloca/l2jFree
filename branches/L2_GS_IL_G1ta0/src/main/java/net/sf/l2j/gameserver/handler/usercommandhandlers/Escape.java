@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -56,7 +55,7 @@ public class Escape implements IUserCommandHandler
             return false;
 
         // [L2J_JP ADD]
-        if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,activeChar))
+        if(activeChar.isInsideZone(ZoneType.NoEscape))
         {
             activeChar.sendMessage("You can not escape from here.");
             activeChar.sendPacket(new ActionFailed());

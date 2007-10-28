@@ -32,7 +32,6 @@ import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
@@ -40,7 +39,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 
 import org.apache.commons.logging.Log;
@@ -211,9 +209,12 @@ public class ClanHall
 	/** Return zone */
     public final IZone getZone()
     {
-        if (_zone == null) 
-        	_zone = ZoneManager.getInstance().getZone(ZoneType.ClanHall, _clanHallId);
         return _zone;
+    }
+	/** Set zone */
+    public final void setZone(IZone zone)
+    {
+        _zone = zone;
     }
     /** Return lease*/
     public final int getLease()

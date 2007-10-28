@@ -23,14 +23,13 @@ import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.Revive;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -99,7 +98,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 					case 2: // to castle
 						Boolean isInDefense = false;
-						castle = CastleManager.getInstance().getCastle(activeChar);
+						castle = CastleManager.getInstance().getCastleByOwner(activeChar.getClan());
 						if (castle != null && castle.getSiege().getIsInProgress())
 						{
 							//siege in progress
@@ -118,7 +117,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 					case 3: // to siege HQ
 						L2SiegeClan siegeClan = null;
-						Siege siege = SiegeManager.getInstance().getSiege(activeChar);
+						Siege siege = SiegeManager.getInstance().getSiege(activeChar.getClan());
 						
 						if (siege != null && siege.getIsInProgress())
 							siegeClan = siege.getAttackerClan(activeChar.getClan());
@@ -151,8 +150,8 @@ public class RequestRestartPoint extends L2GameClientPacket
 						break;
 
 					default:
-						if (ZoneManager.getInstance().checkIfInZone(ZoneType.Jail , activeChar) ||
-							ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape , activeChar) )
+						if (activeChar.isInsideZone(ZoneType.Jail) ||
+								activeChar.isInsideZone(ZoneType.NoEscape) )
 						{
 							if (loc == null)
 								loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died
@@ -189,7 +188,8 @@ public class RequestRestartPoint extends L2GameClientPacket
 			return;
 		}
 
-		Castle castle = CastleManager.getInstance().getCastle(activeChar.getX(),activeChar.getY(), activeChar.getZ());
+		//TODO: need better code for this checks...
+		Castle castle = CastleManager.getInstance().getCastleById(activeChar.getInsideCastleSiege());
 		if (castle != null && castle.getSiege().getIsInProgress())
 		{
 			//DeathFinalizer df = new DeathFinalizer(10000);

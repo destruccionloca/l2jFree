@@ -733,12 +733,14 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
         if (list != null)
         {
             //you cannot teleport to village that is in siege Not sure about this one though
+        	//TODO:
+        	/*
             if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
             {
                 player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
                 return;
             }
-            else if(player.reduceAdena("Teleport", list.getPrice(), this, true))
+            else*/ if(player.reduceAdena("Teleport", list.getPrice(), this, true))
             {
                 if (_log.isDebugEnabled())
                  _log.warn("Teleporting player "+player.getName()+" for CH to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
@@ -755,7 +757,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     {
         double taxRate = 0;
 
-        if (getIsInTown()) taxRate = getCastle().getTaxRate();
+        if (getCastle() != null) taxRate = getCastle().getTaxRate();
 
         player.tempInvetoryDisable();
 

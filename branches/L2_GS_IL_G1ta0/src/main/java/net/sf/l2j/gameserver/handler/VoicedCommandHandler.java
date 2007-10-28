@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class VoicedCommandHandler
 {
-	private final static Log _log = LogFactory.getLog(ItemHandler.class.getName());
+	private final static Log _log = LogFactory.getLog(VoicedCommandHandler.class.getName());
 	
 	private static VoicedCommandHandler _instance;
 	

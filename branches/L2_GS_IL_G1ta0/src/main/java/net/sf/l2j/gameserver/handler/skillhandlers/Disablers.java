@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -39,6 +38,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
@@ -376,8 +376,8 @@ public class Disablers implements ISkillHandler
                                 ((PCChar.getPvpFlag() !=0 
                                         || PCChar.isInOlympiadMode() 
                                         || PCChar.isInCombat() 
-                                        || ZoneManager.getInstance().checkIfInZonePvP(PCChar))
-                                ))
+                                        || PCChar.isInsideZone(ZoneType.Arena)
+                                )))
                         {
                             PCChar.setTarget(activeChar); //c5 hate PvP
                             PCChar.abortAttack();
@@ -405,7 +405,7 @@ public class Disablers implements ISkillHandler
                                                 ((PCChar.getPvpFlag() !=0 
                                                         || PCChar.isInOlympiadMode() 
                                                         || PCChar.isInCombat() 
-                                                        || ZoneManager.getInstance().checkIfInZonePvP(PCChar))
+                                                        || PCChar.isInsideZone(ZoneType.Arena))
                                                 ))
                                         {
                                             target.setTarget(activeChar);

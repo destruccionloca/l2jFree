@@ -76,7 +76,7 @@ public class L2FishermanInstance extends L2MerchantInstance
     private void showBuyWindow(L2PcInstance player, int val)
     {
         double taxRate = 0;
-        if (getIsInTown()) taxRate = getCastle().getTaxRate();
+        if (getCastle() != null) taxRate = getCastle().getTaxRate();
         player.tempInvetoryDisable();
         if (_log.isDebugEnabled()) _log.debug("Showing buylist");
         L2TradeList list = TradeListTable.getInstance().getBuyList(val);

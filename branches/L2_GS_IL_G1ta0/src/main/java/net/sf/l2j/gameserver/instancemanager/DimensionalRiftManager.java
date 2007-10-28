@@ -241,7 +241,7 @@ public class DimensionalRiftManager
         riftRoom.setRoomType(roomType);
 
         for (Point3D point : points)
-            riftRoom.addPoint(point);
+            riftRoom.addPoint(point.getX(), point.getY());
         for (Map.Entry<RestartType, Point3D> teleport : teleports.entrySet())
             riftRoom.addRestartPoint(teleport.getKey(), teleport.getValue());
         for (L2Spawn spawn : spawns)

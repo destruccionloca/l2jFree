@@ -21,6 +21,7 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
 /**
  * @author G1ta0
@@ -33,35 +34,25 @@ public class ZonePoly extends ZoneBase
     public ZonePoly()
     {
     }
+
+    public ZonePoly(int id, String zoneName, ZoneType zoneType, StatsSet zoneSet)
+    {
+    	super(id, zoneName, zoneType, zoneSet);
+    }
     
-	public ZonePoly(int id, String zoneName, ZoneType zoneType)
-	{
-		setId(id);
-		setCastleId(0);
-		setTownId(0);
-		setZoneType(zoneType);
-		setZoneName(zoneName);
-	}
-
-	public ZonePoly(int id, int castleId, int townId, String zoneName, ZoneType zoneType)
-	{
-		setId(id);
-		setCastleId(castleId);
-		setTownId(townId);
-		setZoneType(zoneType);
-		setZoneName(zoneName);
-	}
-
+    @Override
 	public boolean checkIfInZone(L2Object obj)
 	{
 		return checkIfInZone(obj.getPosition().getX(), obj.getPosition().getY(), obj.getPosition().getZ());
 	}
 
+	@Override
 	public boolean checkIfInZone(int x, int y)
 	{
 		return cn_PnPoly(x, y);
 	}
 
+	@Override
 	public boolean checkIfInZone(int x, int y, int z)
 	{
 		if (checkIfInZone(x, y))
@@ -75,6 +66,7 @@ public class ZonePoly extends ZoneBase
 
 	}
 
+	@Override
 	public Location getRandomLocation()
 	{
 		int z = getMin().getZ();
@@ -84,6 +76,7 @@ public class ZonePoly extends ZoneBase
 		return new Location(x, y, z);
 	}
 
+	@Override
 	public double getZoneDistance(int x, int y)
 	{
 		int x2 = getMin().getX() + Math.abs(getMax().getX() - getMin().getX()) / 2;
@@ -92,6 +85,7 @@ public class ZonePoly extends ZoneBase
 		return Util.calculateDistance(x, y, 0, x2, y2);
 	}
 
+	@Override
 	public double getZoneDistance(int x, int y, int z)
 	{
 		int x2 = getMin().getX() + Math.abs(getMax().getX() - getMin().getX()) / 2;

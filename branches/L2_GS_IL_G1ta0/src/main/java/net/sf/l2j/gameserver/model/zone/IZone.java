@@ -18,11 +18,14 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import java.util.Set;
+
 import javolution.util.FastList;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.tools.geometry.Point3D;
 
 /**
@@ -35,11 +38,8 @@ public interface IZone
 	/** Set Zone internal Id **/
 	public void setId(int id);
 	
-	/** Set Castle Id, that zone belongs to **/
-	public void setCastleId(int castleId);
-	
-	/** Set Town Id, that zone belongs to **/
-	public void setTownId(int townId);
+	/** Set zone settings **/
+	public void setSettings(StatsSet zoneSet);
 	
 	/** Set zone type **/
 	public void setZoneType(ZoneType zoneType);
@@ -48,19 +48,25 @@ public interface IZone
 	public void setZoneName(String zoneName);
 	
 	/** Add zone point for calculation **/
-	public void addPoint(Point3D point);
+	public void addPoint(int x, int y);
 	
-	/** Add restart point for player spawn **/
-	public void addRestartPoint(RestartType restartType,Point3D point);
+	/** Set zone max, min z coord **/
+	public void setZ(int zMin, int zMax);
 	
 	/** Check if L2Object is in zone **/
 	public boolean checkIfInZone(L2Object obj);
+
+	/** Check if L2Character is in zone **/
+	public boolean checkIfCharacterInZone(L2Character character);
 	
 	/** Check if x,y is in planar zone **/
 	public boolean checkIfInZone(int x, int y);
 	
 	/** Check if point is in zone **/
 	public boolean checkIfInZone(int x, int y, int z);
+	
+	/** Get random point in zone **/
+	public Location getRandomLocation();
 	
 	/** Calculate distance from x,y point to center of planar zone rectangle **/
 	public double getZoneDistance(int x, int y);
@@ -71,20 +77,14 @@ public interface IZone
 	/** Get Zone internal Id **/
 	public int getId();
 	
-	/** Get Castle Id, that zone belongs to **/
-	public int getCastleId();
-	
-	/** Get Town Id, that zone belongs to **/
-	public int getTownId();
+	/** Get zone settings **/
+	public StatsSet getSettings();
 	
 	/** Get zone name **/
 	public String getZoneName();
 	
 	/** Get zone type **/
 	public ZoneType getZoneType();
-	
-	/** Get restart point for player spawn **/
-	public Location getRestartPoint(RestartType restartType);
 	
 	/** Get zone points **/
 	public FastList<Point3D> getPoints();
@@ -94,4 +94,13 @@ public interface IZone
 	
 	/** Get right top point of zone rectangle **/
 	public Point3D getMax();
+	
+	/** Get in-zone character list **/
+	public Set<L2Character> getCharacters();
+	
+	/** Revalidate in-zone character **/
+	public void revalidateInZone(L2Character character);
+	
+	/** Remove character from zone' character list **/
+	public void removeFromZone(L2Character character);
 }

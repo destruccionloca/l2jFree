@@ -58,11 +58,12 @@ public final class L2ObservationInstance extends L2FolkInstance
             String val = command.substring(13);
             StringTokenizer st = new StringTokenizer(val);
             st.nextToken(); // Bypass cost
-
-            if (SiegeManager.getInstance().checkIfInZone(Integer.parseInt(st.nextToken()),
+            // TODO:
+            _log.error("SiegeManager.getInstance().checkIfInZone not done !!!");
+            /*if (SiegeManager.getInstance().checkIfInZone(Integer.parseInt(st.nextToken()),
                                                          Integer.parseInt(st.nextToken()),
                                                          Integer.parseInt(st.nextToken()))) doObserve(player,val);
-            else player.sendPacket(new SystemMessage(SystemMessageId.ONLY_VIEW_SIEGE));
+            else player.sendPacket(new SystemMessage(SystemMessageId.ONLY_VIEW_SIEGE));*/
         }
         else if (command.startsWith("observe"))
         {

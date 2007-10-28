@@ -586,7 +586,7 @@ public abstract class L2Summon extends L2PlayableInstance
         // Check if this is offensive magic skill
         if (skill.isOffensive())  
 		{
-			if (isInsidePeaceZone(this, target)
+			if (isInsidePeaceZone(this, (L2Character)target)
 					&& getOwner() != null
 					&& (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
 			{
