@@ -54,5 +54,4 @@ public class ChatSystem implements IChatHandler
     	
     	activeChar.sendPacket(cs);
 	}
-
 }

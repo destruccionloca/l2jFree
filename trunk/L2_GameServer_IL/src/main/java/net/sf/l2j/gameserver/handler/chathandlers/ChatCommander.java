@@ -63,5 +63,4 @@ public class ChatCommander implements IChatHandler
 		//		Util.getAllianz(activeChar) == Util.getAllianz(player))
 		//		player.sendPacket(cs);
 	}
-
 }

@@ -47,19 +47,17 @@ public class ChatWhisper implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
-		
 		L2PcInstance receiver = L2World.getInstance().getPlayer(target);
 		
 		if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
-		{	
+		{
 			if (!receiver.getMessageRefusal())
 			{
-                receiver.sendPacket(cs);
+				receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text));
 				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(),  chatType.getId(), "->" + receiver.getName(), text));
 			}
-            else
-	            activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
+			else
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));
 		}
 		else
 		{
@@ -69,5 +67,4 @@ public class ChatWhisper implements IChatHandler
 			sm = null;
 		}
 	}
-
 }

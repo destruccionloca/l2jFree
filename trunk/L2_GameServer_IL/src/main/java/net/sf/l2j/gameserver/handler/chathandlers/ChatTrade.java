@@ -18,12 +18,15 @@
 package net.sf.l2j.gameserver.handler.chathandlers;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.Config.ChatMode;
 import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IChatHandler;
+import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
+import net.sf.l2j.gameserver.util.FloodProtector;
 
 /**
  *
@@ -46,19 +49,31 @@ public class ChatTrade implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
-		
-		if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("on") ||
-				Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("gm") && activeChar.isGM())
-	        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-	            player.sendPacket(cs);
-        else if (Config.DEFAULT_TRADE_CHAT.equalsIgnoreCase("limited"))
-        {
-            int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
-            for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-	            if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY())) 
-                    player.sendPacket(cs);
-        }
-	}
+		if (!FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_TRADE_CHAT) && !activeChar.isGM())
+		{ 
+			activeChar.sendMessage("Flood protection: Using trade chat failed.");
+			return;
+		}
 
+		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("trade"))
+		{
+			IrcManager.getInstance().getConnection().sendChan("13+"+ activeChar.getName() +": " + text);
+		}
+
+		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+
+		if (Config.DEFAULT_TRADE_CHAT == ChatMode.REGION)
+		{
+			int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+				if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY())) 
+					player.sendPacket(cs);
+		}
+		else if (Config.DEFAULT_TRADE_CHAT == ChatMode.GLOBAL ||
+			Config.DEFAULT_TRADE_CHAT == ChatMode.GM && activeChar.isGM())
+		{
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+				player.sendPacket(cs);
+		}
+	}
 }

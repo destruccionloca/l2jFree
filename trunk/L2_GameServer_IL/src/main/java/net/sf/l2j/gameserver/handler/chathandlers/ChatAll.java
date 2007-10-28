@@ -41,16 +41,16 @@ public class ChatAll implements IChatHandler
 	/**
 	 * @see de.dc.l2j.gameserver.handler.IChatHandler#useChatHandler(de.dc.l2j.gameserver.character.player.L2PcInstance, de.dc.l2j.gameserver.network.enums.SystemChatChannelId, java.lang.String)
 	 */
-	public void useChatHandler(L2PcInstance activeChar, String target,	SystemChatChannelId chatType, String text)
+	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
+		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 		for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
-	        if (player != null && activeChar.isInsideRadius(player, 1250, false, true)) {
-            	CreatureSay cs2 = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);         
-				player.sendPacket(cs2);	
-            }
-		
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);			
-        activeChar.sendPacket(cs);
+		{
+			if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
+			{
+				player.sendPacket(cs);
+			}
+		}
+		activeChar.sendPacket(cs);
 	}
-
 }

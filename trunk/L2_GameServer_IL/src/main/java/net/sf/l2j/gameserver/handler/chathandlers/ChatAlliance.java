@@ -47,6 +47,6 @@ public class ChatAlliance implements IChatHandler
 			return;
 		
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
-		activeChar.getClan().broadcastToOnlineAllyMembers(cs);			
+		activeChar.getClan().broadcastToOnlineAllyMembers(cs);
 	}
 }

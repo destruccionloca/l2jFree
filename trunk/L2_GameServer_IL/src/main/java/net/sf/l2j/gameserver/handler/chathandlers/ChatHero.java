@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
+import net.sf.l2j.gameserver.util.FloodProtector;
 
 /**
  *
@@ -47,9 +48,32 @@ public class ChatHero implements IChatHandler
 	{
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 
-		if (activeChar.isHero())
-	        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		boolean canSpeak = activeChar.isGM();
+		
+		if(!canSpeak)
+		{
+			if (activeChar.isHero())
+			{
+				if(FloodProtector.getInstance().tryPerformAction(activeChar.getObjectId(), FloodProtector.PROTECTED_HEROVOICE))
+				{
+					canSpeak = true;
+				}
+				else
+				{
+					activeChar.sendMessage("Action failed. Heroes are only able to speak in the global channel once every 10 seconds.");
+				}
+			}
+		}
+		
+		if (canSpeak)
+		{
+			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+			{
 				if (!BlockList.isBlocked(player, activeChar))
+				{
 					player.sendPacket(cs);
+				}
+			}
+		}
 	}
 }

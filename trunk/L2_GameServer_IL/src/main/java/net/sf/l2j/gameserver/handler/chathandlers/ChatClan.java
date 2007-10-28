@@ -43,10 +43,11 @@ public class ChatClan implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
+		if (activeChar.getClan() == null)
+			return;
+
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
-		
-		if (activeChar.getClan() != null)
-			activeChar.getClan().broadcastToOnlineMembers(cs);
+		activeChar.getClan().broadcastToOnlineMembers(cs);
 	}
 
 }

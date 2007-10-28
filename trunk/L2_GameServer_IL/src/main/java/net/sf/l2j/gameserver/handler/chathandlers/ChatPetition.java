@@ -55,5 +55,4 @@ public class ChatPetition implements IChatHandler
 		
 		PetitionManager.getInstance().sendActivePetitionMessage(activeChar, text);
 	}
-
 }

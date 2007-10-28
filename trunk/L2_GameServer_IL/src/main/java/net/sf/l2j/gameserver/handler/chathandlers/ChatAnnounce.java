@@ -62,5 +62,4 @@ public class ChatAnnounce implements IChatHandler
 			if (player != null)
 				player.sendPacket(cs);
 	}
-
 }

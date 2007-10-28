@@ -964,7 +964,7 @@ public final class Config
     public static boolean 				PRECISE_DROP_CALCULATION;		// Accept precise drop calculation ?
     public static boolean 				MULTIPLE_ITEM_DROP;				// Accept multi-items drop ?
     /** This is setting of experimental Client <--> Server Player coordinates synchronization<br>
-     * <b><u>Valeurs :</u></b>
+     * <b><u>Values :</u></b>
      * <li>0 - no synchronization at all</li>
      * <li>1 - parcial synchronization Client --> Server only * using this option it is difficult for players 
      *         to bypass obstacles</li>
@@ -1006,9 +1006,10 @@ public final class Config
     public static boolean       		ALLOW_RENTPET;
     public static boolean 	    		ALLOW_BOAT;
     public static boolean        		ALLOW_CURSED_WEAPONS;			// Allow cursed weapons ?
-    public static String  				DEFAULT_GLOBAL_CHAT;			// Global chat state
+    public static enum         ChatMode { GLOBAL, REGION, GM, OFF }
+    public static              ChatMode DEFAULT_GLOBAL_CHAT;			// Global chat state
     public static int					GLOBAL_CHAT_TIME;
-    public static String  				DEFAULT_TRADE_CHAT;				// Trade chat state
+    public static              ChatMode DEFAULT_TRADE_CHAT;				// Trade chat state
     public static int					TRADE_CHAT_TIME;
     public static boolean 				LOG_CHAT;						// Logging Chat Window
     public static boolean 				LOG_ITEMS;
@@ -1112,9 +1113,9 @@ public final class Config
             ALLOW_WEDDING                   = Boolean.parseBoolean(optionsSettings.getProperty("AllowWedding", "False"));
             ALLOW_GUARDS                    = Boolean.parseBoolean(optionsSettings.getProperty("AllowGuards", "False"));
 
-            DEFAULT_GLOBAL_CHAT             = optionsSettings.getProperty("GlobalChat", "ON");
+            DEFAULT_GLOBAL_CHAT             = ChatMode.valueOf(optionsSettings.getProperty("GlobalChat", "REGION").toUpperCase());
             GLOBAL_CHAT_TIME				= Integer.parseInt(optionsSettings.getProperty("GlobalChatTime", "1"));
-            DEFAULT_TRADE_CHAT              = optionsSettings.getProperty("TradeChat", "ON");
+            DEFAULT_TRADE_CHAT              = ChatMode.valueOf(optionsSettings.getProperty("TradeChat", "REGION").toUpperCase());
             TRADE_CHAT_TIME					= Integer.parseInt(optionsSettings.getProperty("TradeChatTime", "1"));            
 
             LOG_CHAT                        = Boolean.parseBoolean(optionsSettings.getProperty("LogChat", "false"));
@@ -2663,8 +2664,8 @@ public final class Config
         else if (pName.equalsIgnoreCase("MinimumPKRequiredToDrop")) KARMA_PK_LIMIT = Integer.parseInt(pValue);
         
         else if (pName.equalsIgnoreCase("PvPTime")) PVP_TIME = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("GlobalChat")) DEFAULT_GLOBAL_CHAT = pValue;
-        else if (pName.equalsIgnoreCase("TradeChat")) DEFAULT_TRADE_CHAT = pValue;
+        else if (pName.equalsIgnoreCase("GlobalChat")) DEFAULT_GLOBAL_CHAT = ChatMode.valueOf(pValue.toUpperCase());
+        else if (pName.equalsIgnoreCase("TradeChat")) DEFAULT_TRADE_CHAT = ChatMode.valueOf(pValue.toUpperCase());
 		else if (pName.equalsIgnoreCase("MenuStyle")) GM_ADMIN_MENU_STYLE = pValue;
         
         else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
