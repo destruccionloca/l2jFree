@@ -25,6 +25,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.FriendList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -43,7 +44,7 @@ public class L2FriendList
 	private final static Log _log = LogFactory.getLog(L2FriendList.class.getName());
     
 	private static final String RESTORE_FRIENDLIST="SELECT friend_id,friend_name FROM character_friends WHERE char_id=?";
-	private static final String RESTORE_FRIEND_ID="SELECT friend_id FROM character_friends, characters WHERE char_id=? AND friend_id=obj_id AND char_name=?";
+	private static final String RESTORE_FRIEND_ID="SELECT friend_id FROM character_friends WHERE char_id=? AND friend_name=?";
 	private static final String DELETE_FROM_FRIENDLIST="DELETE FROM character_friends WHERE (char_id=? AND friend_id=?) OR (char_id=? AND friend_id=?)";
 	private static final String ADD_TO_FRIENDLIST="INSERT INTO character_friends (char_id, friend_id, friend_name) VALUES (?, ?, ?),(?, ?, ?)";
 
@@ -203,12 +204,11 @@ public class L2FriendList
     	java.sql.Connection con = null;
 		
     	try {
-			
 		    con = L2DatabaseFactory.getInstance().getConnection(con);
 		    PreparedStatement statement;
 			statement = con.prepareStatement(RESTORE_FRIEND_ID);
 		    statement.setInt(1, listOwner.getObjectId());
-		    statement.setString(2, L2DatabaseFactory.getInstance().safetyString(new String[]{_character}));
+		    statement.setString(2, _character);
 		    ResultSet rset = statement.executeQuery();
   		    if (rset.next())
   		    	_friendId = rset.getInt("friend_id");
@@ -275,6 +275,9 @@ public class L2FriendList
     public static void addToFriendList(L2PcInstance requestor, L2PcInstance character)
     {
     	requestor.getFriendList().addToFriendList(character);
+    	
+    	requestor.sendPacket(new FriendList(requestor));
+    	character.sendPacket(new FriendList(character));
     }
     
     /**
@@ -286,6 +289,8 @@ public class L2FriendList
     public static void removeFromFriendList(L2PcInstance requestor, String character)
     {
     	requestor.getFriendList().removeFromFriendList(character);
+    	
+    	requestor.sendPacket(new FriendList(requestor));
     }
     
     /**
@@ -297,6 +302,9 @@ public class L2FriendList
     public static void removeFromFriendList(L2PcInstance requestor, L2PcInstance character)
     {
     	requestor.getFriendList().removeFromFriendList(character);
+    	
+    	requestor.sendPacket(new FriendList(requestor));
+    	character.sendPacket(new FriendList(character));
     }
     
     /**
