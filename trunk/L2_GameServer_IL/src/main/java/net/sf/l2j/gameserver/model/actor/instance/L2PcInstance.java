@@ -352,6 +352,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** Sitting down and Standing up fix */
     protected boolean _protectedSitStand = false;
+    private boolean _isRunningAnimation = false;
 
     /** The Identifier of the L2PcInstance */
     private int _charId = 0x00030b7a;
@@ -10957,5 +10958,21 @@ public final class L2PcInstance extends L2PlayableInstance
 			currenteffect.destroy();
 		}
 		stopAllEffects(); 
+	}
+
+	/**
+	 * Set _isRunningAnimation to given value
+	 */
+	public void setIsRunningAnimation(boolean state)
+	{
+		_isRunningAnimation = state;
+	}
+
+	/**
+	 * @return _isRunningAnimation
+	 */
+	public boolean isRunningAnimation()
+	{
+		return _isRunningAnimation;
 	}
 }

@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.clientpackets;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -78,6 +79,7 @@ public class RequestSocialAction extends L2GameClientPacket
         
 		if (	activeChar.getPrivateStoreType()==0 &&
 				activeChar.getActiveRequester()==null &&
+				!activeChar.isRunningAnimation() &&
 				!activeChar.isAlikeDead() &&
 				(!activeChar.isAllSkillsDisabled() || activeChar.isInDuel()) &&
 				activeChar.getAI().getIntention()==CtrlIntention.AI_INTENTION_IDLE)
@@ -86,11 +88,28 @@ public class RequestSocialAction extends L2GameClientPacket
 				_log.debug("Social Action:" + _actionId);
 			
 			SocialAction atk = new SocialAction(activeChar.getObjectId(), _actionId);
-			
+			// Schedule a social task to wait for the animation to finish
+			ThreadPoolManager.getInstance().scheduleGeneral(new SocialTask(this), 2600);
+			activeChar.setIsParalyzed(true);
+			activeChar.setIsRunningAnimation(true);
 			activeChar.broadcastPacket(atk);
 		}
 	}
-	
+
+	private class SocialTask implements Runnable
+	{
+		L2PcInstance _player;
+		SocialTask(RequestSocialAction action)
+		{
+			_player = getClient().getActiveChar();
+		}
+		public void run()
+		{
+			_player.setIsRunningAnimation(false);
+			_player.setIsParalyzed(false);
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
 	 */
