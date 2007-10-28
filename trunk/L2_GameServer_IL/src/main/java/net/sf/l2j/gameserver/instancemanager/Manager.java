@@ -25,7 +25,7 @@ public class Manager
 		CastleManager.getInstance().reload();
 		ClanHallManager.getInstance().reload();
 //		QuestManager.getInstance().reload();
-		TownManager.getInstance().reload();
 		ZoneManager.getInstance().reload();
+		TownManager.getInstance().reload();
 	}
 }

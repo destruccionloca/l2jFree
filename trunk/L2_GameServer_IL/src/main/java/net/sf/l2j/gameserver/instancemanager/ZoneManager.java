@@ -225,7 +225,7 @@ public class ZoneManager
         int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
         String name = n.getAttributes().getNamedItem("name").getNodeValue();
         int castleId = 0;
-        int townId = 0;
+        int townId = -1;
         String typeName = "Default";
 
         List<Point3D> points = new FastList<Point3D>();

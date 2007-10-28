@@ -76,7 +76,7 @@ public class TownManager
             for (Map.Entry<ZoneType, FastList<IZone>> zt : ZoneManager.getInstance().getZoneMap().get(region).entrySet())
                 for (IZone zone : zt.getValue())
                 {
-                    if (zone.getTownId() > 0)
+                    if (zone.getTownId() > -1)
                     {
                         if (getTowns().get(zone.getTownId()) == null)
                         {
