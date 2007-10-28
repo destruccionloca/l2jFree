@@ -219,7 +219,7 @@ public class TownManager
     	return getTown(mapRegion);
     }
 
-    public final boolean townHasCastleInSeige(int townId)
+    public final boolean townHasCastleInSiege(int townId)
     {
         int castleIndex = getTown(townId).getCastleId();
         if (castleIndex > 0)
@@ -231,9 +231,9 @@ public class TownManager
         return false;
     }
 
-    public final boolean townHasCastleInSeige(int x, int y)
+    public final boolean townHasCastleInSiege(int x, int y)
     {
-        return townHasCastleInSeige(getClosestTown(x, y).getTownId());
+        return townHasCastleInSiege(getClosestTown(x, y).getTownId());
     }
 
     public final Town getTown(int townId)

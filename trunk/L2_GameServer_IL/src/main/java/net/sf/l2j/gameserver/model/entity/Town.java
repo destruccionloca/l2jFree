@@ -70,7 +70,7 @@ public class Town
 		
         // If a redirect to town id is avail, town belongs to a castle,
 		// and castle is under siege then redirect		
-		if (TownManager.getInstance().townHasCastleInSeige(getTownId()))
+		if (TownManager.getInstance().townHasCastleInSiege(getTownId()))
 			town = TownManager.getInstance().getTown(TownManager.getInstance().getRedirectTownNumber(getTownId()));
 		
 		Location loc = null;
@@ -88,7 +88,7 @@ public class Town
 		
         // If a redirect to town id is avail, town belongs to a castle,
 		// and castle is under siege then redirect
-		if (TownManager.getInstance().townHasCastleInSeige(getTownId()))
+		if (TownManager.getInstance().townHasCastleInSiege(getTownId()))
 			town = TownManager.getInstance().getTown(TownManager.getInstance().getRedirectTownNumber(getTownId()));
 		
 		Location loc = null;
@@ -114,7 +114,7 @@ public class Town
 	{
         if (Config.ZONE_TOWN == 2) return false;
 		if (Config.ZONE_TOWN == 1 && 
-			TownManager.getInstance().townHasCastleInSeige(getTownId())) return false;
+			TownManager.getInstance().townHasCastleInSiege(getTownId())) return false;
            
 		return true;
 	}
