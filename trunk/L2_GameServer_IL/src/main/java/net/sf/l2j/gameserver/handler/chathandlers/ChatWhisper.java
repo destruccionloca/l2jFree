@@ -51,7 +51,7 @@ public class ChatWhisper implements IChatHandler
 		
 		if (receiver != null && !BlockList.isBlocked(receiver, activeChar))
 		{
-			if (!receiver.getMessageRefusal())
+			if (!receiver.getMessageRefusal() || activeChar.isGM())
 			{
 				receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text));
 				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(),  chatType.getId(), "->" + receiver.getName(), text));

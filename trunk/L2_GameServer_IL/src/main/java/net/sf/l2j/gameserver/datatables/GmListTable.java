@@ -177,6 +177,8 @@ public class GmListTable
 				sm.addString(name);
 				player.sendPacket(sm);
 			}
+
+			player.sendPacket(new SystemMessage(SystemMessageId.FRIEND_LIST_FOOTER));
 		}
 	}
 

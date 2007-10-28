@@ -3047,7 +3047,7 @@ public enum SystemMessageId
      * ID: 487<br>
      * Message: ======<Friends List>======
      */
-    FRIEND_LIST_HEAD(487),
+    FRIEND_LIST_HEADER(487),
     
     /**
      * ID: 488<br>
@@ -3065,7 +3065,7 @@ public enum SystemMessageId
      * ID: 490<br>
      * Message: ========================
      */
-    FRIEND_LIST_FOOT(490),
+    FRIEND_LIST_FOOTER(490),
     
     /**
      * ID: 133<br>

@@ -85,14 +85,6 @@ public class RequestBlock extends L2GameClientPacket
 
                 BlockList.addToBlockList(activeChar, _target);
 
-                sm = new SystemMessage(SystemMessageId.S1_WAS_ADDED_TO_YOUR_IGNORE_LIST);
-                sm.addString(_target.getName());
-                activeChar.sendPacket(sm);
-
-                sm = new SystemMessage(SystemMessageId.S1_HAS_ADDED_YOU_TO_IGNORE_LIST);
-                sm.addString(activeChar.getName());
-                _target.sendPacket(sm);
-
                 break;
             }
             case UNBLOCK:
@@ -105,17 +97,12 @@ public class RequestBlock extends L2GameClientPacket
                     }
                     else
                         BlockList.removeFromBlockList(activeChar, _target);
-
-                    sm = new SystemMessage(SystemMessageId.S1_WAS_REMOVED_FROM_YOUR_IGNORE_LIST);
-                    sm.addString(_name);
-                    activeChar.sendPacket(sm);
                 }
                 break;
             }
             case BLOCKLIST:
             {
-                sm = new SystemMessage(SystemMessageId.BLOCK_LIST_HEADER);
-                BlockList.sendListToOwner(activeChar);               
+                BlockList.sendListToOwner(activeChar);
                 break;
             }
             case ALLBLOCK:

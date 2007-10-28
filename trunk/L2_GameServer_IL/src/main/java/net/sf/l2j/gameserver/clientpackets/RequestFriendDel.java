@@ -67,11 +67,12 @@ public class RequestFriendDel extends L2GameClientPacket{
  			sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
 			sm.addString(_name);
 			activeChar.sendPacket(sm);
-            // Notify target that requester deleted from friends list.			
+            // Notify target that requester deleted from friends list.
 			sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_DELETED_FROM_YOUR_FRIENDS_LIST);
 			sm.addString(activeChar.getName());
 			friend.sendPacket(sm);
-        } else
+        }
+        else
         {
         	L2FriendList.removeFromFriendList(activeChar, _name);
             // Notify that target deleted from friends list.
@@ -79,7 +80,6 @@ public class RequestFriendDel extends L2GameClientPacket{
 			sm.addString(_name);
 			activeChar.sendPacket(sm);
         }
-			sm = null;
 	}
 	
 	@Override
@@ -88,5 +88,3 @@ public class RequestFriendDel extends L2GameClientPacket{
 		return _C__61_REQUESTFRIENDDEL;
 	}
 }
-
-

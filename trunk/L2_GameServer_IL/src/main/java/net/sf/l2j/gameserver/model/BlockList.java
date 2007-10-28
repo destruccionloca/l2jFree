@@ -137,9 +137,11 @@ public class BlockList
     
     public static void sendListToOwner(L2PcInstance listOwner)
     {
+        listOwner.sendPacket(new SystemMessage(SystemMessageId.BLOCK_LIST_HEADER));
         for (String playerName : listOwner.getBlockList().getBlockList())
         {
-            listOwner.sendPacket(new SystemMessage(SystemMessageId.S1_S2).addString(playerName));
+            listOwner.sendMessage(playerName);
         }
+        listOwner.sendPacket(new SystemMessage(SystemMessageId.FRIEND_LIST_FOOTER));
     }
 }
