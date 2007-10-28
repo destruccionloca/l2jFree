@@ -552,8 +552,6 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
                     { 
                         player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
                     }
-                    // remove all effects
-                    player.removeAllEffects();
                     // notify the world about our disconnect
                     player.deleteMe();
                     
