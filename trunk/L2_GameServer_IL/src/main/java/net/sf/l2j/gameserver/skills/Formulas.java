@@ -1660,8 +1660,8 @@ public final class Formulas
 			// Finally, calculate skilltype vulnerabilities
 			SkillType type = skill.getSkillType();
 
-			// For additional effects on PDAM and MDAM skills (like STUN, SHOCK, PARALYZE...)
-			if (type != null && (type == SkillType.PDAM || type == SkillType.MDAM))
+			// For additional effects on damage dealing skills, with effects...
+			if (type != null && (type == SkillType.PDAM || type == SkillType.MDAM || type == SkillType.DRAIN))
 				type = skill.getEffectType();
 
 			if (type != null)
@@ -1746,7 +1746,7 @@ public final class Formulas
         int value = (int) skill.getPower();
         int lvlDepend = skill.getLevelDepend();
         
-        if (type == SkillType.PDAM || type == SkillType.MDAM) // For additional effects on PDAM skills (like STUN, SHOCK,...)
+        if (type == SkillType.PDAM || type == SkillType.MDAM || type == SkillType.DRAIN)
         {
             value = skill.getEffectPower();
             type = skill.getEffectType();
@@ -1759,9 +1759,9 @@ public final class Formulas
                 value = 50;
                 type = SkillType.STUN;
             }
-            if (skill.getSkillType() == SkillType.MDAM)
+            if (skill.getSkillType() == SkillType.MDAM || type == SkillType.DRAIN)
             {
-                value = 30;
+                value = 20;
                 type = SkillType.PARALYZE;
             }
         }
