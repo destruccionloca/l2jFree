@@ -1574,15 +1574,10 @@ public final class Formulas
         d += 0.5 * Rnd.nextGaussian();
         return d > 0;
     }
-	
+
 	public double calcSkillVulnerability(L2Character target, L2Skill skill)
 	{
-		return calcSkillVulnerability(target, skill, skill.getSkillType());
-	}
-	
-    public double calcSkillVulnerability(L2Character target, L2Skill skill, SkillType type)
-	{
-		double multiplier = 1;	// initialize...
+		double multiplier = 1; // initialize...
 
 		// Get the skill type to calculate its effect in function of base stats
 		// of the L2Character target
@@ -1661,8 +1656,14 @@ public final class Formulas
 				multiplier = target.calcStat(Stats.DARK_VULN, multiplier, target, skill);
 				break;
 			}
-			
+
 			// Finally, calculate skilltype vulnerabilities
+			SkillType type = skill.getSkillType();
+
+			// For additional effects on PDAM and MDAM skills (like STUN, SHOCK, PARALYZE...)
+			if (type != null && (type == SkillType.PDAM || type == SkillType.MDAM))
+				type = skill.getEffectType();
+
 			if (type != null)
 			{
 				switch (type)
@@ -1774,7 +1775,7 @@ public final class Formulas
         int lvlmodifier = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel())
             * lvlDepend;
         double statmodifier = calcSkillStatModifier(type, target);
-        double resmodifier = calcSkillVulnerability(target, skill, type);
+        double resmodifier = calcSkillVulnerability(target, skill);
         
         int ssmodifier = 100;
         if (bss) ssmodifier = 200;
