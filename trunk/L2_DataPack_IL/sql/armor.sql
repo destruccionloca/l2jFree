@@ -1047,5 +1047,5 @@ INSERT INTO `armor` VALUES
 INSERT INTO `armor` VALUES (9084, 'Shadow Item: Dark Crystal Helmet', 'head', 'true', 'none', 570, 'crystal', 'a', 0, 90, 69, 0, 0, 1740000, 139, 'true', 'true', 'true', 'true', 0, 0);
 
 -- Update
-UPDATE `armor` SET dropable = 'false', tradeable = 'false', destroyable = 'false' WHERE `item_id` IN 
-( 6834, 6835, 6836, 6837, 6838, 6839, 6840,6841 );
+UPDATE `armor` SET dropable = 'false', tradeable = 'false', destroyable = 'false', price = '0', sellable = 'false' WHERE `item_id` IN 
+( 6834, 6835, 6836, 6837, 6838, 6839, 6840, 6841, 8181, 8182, 8183 );
