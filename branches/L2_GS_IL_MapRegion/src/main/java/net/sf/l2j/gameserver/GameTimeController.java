@@ -132,11 +132,7 @@ public class GameTimeController
         // Create an ArrayList to contain all L2Character that are arrived to destination
         List<L2Character> ended = null;
 
-        // Go throw the table containing L2Character in movement
-        for (int i = 0; i < chars.length; i++)
-        {
-
-            L2Character cha = chars[i];
+        for (L2Character cha : chars) {
 
             // Update the position of the L2Character and return True if the movement is finished
             boolean end = cha.updatePosition(_gameTicks);

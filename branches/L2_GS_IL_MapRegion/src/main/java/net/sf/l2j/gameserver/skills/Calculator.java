@@ -19,8 +19,6 @@
 package net.sf.l2j.gameserver.skills;
 
 import net.sf.l2j.gameserver.skills.funcs.Func;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.L2Character;
 
 /**
  * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). 
@@ -156,10 +154,9 @@ public final class Calculator
 	{
 		Func[] funcs = _functions;
 		
-		for (int i=0; i < funcs.length; i++) 
-		{
-			if (funcs[i].funcOwner == owner)
-				removeFunc(funcs[i]);
+		for (Func element : funcs) {
+			if (element.funcOwner == owner)
+				removeFunc(element);
 		}
 	}
 
@@ -171,7 +168,7 @@ public final class Calculator
 	{
 		Func[] funcs = _functions;
 		
-		for (int i=0; i < funcs.length; i++)
-			funcs[i].calc(env);
+		for (Func element : funcs)
+			element.calc(env);
 	}
 }

@@ -43,11 +43,10 @@ public class Charge implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		
-        for(int index = 0;index < targets.length;index++)
-        {
-        	if (!(targets[index] instanceof L2PcInstance))
+        for (L2Object element : targets) {
+        	if (!(element instanceof L2PcInstance))
         		continue;
-			L2PcInstance target = (L2PcInstance)targets[index];
+			L2PcInstance target = (L2PcInstance)element;
 			skill.getEffects(activeChar, target);
 		}
         // self Effect :]

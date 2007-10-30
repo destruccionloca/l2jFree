@@ -77,12 +77,11 @@ public class SummonFriend implements ISkillHandler
         
 		try 
         {
-			for (int index = 0; index < targets.length; index++)
-			{
-				if (!(targets[index] instanceof L2Character))
+			for (L2Object element : targets) {
+				if (!(element instanceof L2Character))
 					continue;
 
-				L2Character target = (L2Character)targets[index];
+				L2Character target = (L2Character)element;
 				
 				if (activeChar == target) continue;
 				//check if skill is allowed on other.properties for raidbosses

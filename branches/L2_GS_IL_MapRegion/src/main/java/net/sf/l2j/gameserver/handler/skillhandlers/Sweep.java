@@ -53,10 +53,9 @@ public class Sweep implements ISkillHandler
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		boolean send = false;
 		
-        for(int index = 0;index < targets.length;index++) 
-        { 
-            if (!(targets[index] instanceof L2Attackable)) continue;
-	        L2Attackable target = (L2Attackable)targets[index];
+        for (L2Object element : targets) { 
+            if (!(element instanceof L2Attackable)) continue;
+	        L2Attackable target = (L2Attackable)element;
 	        //check if skill is allowed on other.properties for raidbosses
 			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;

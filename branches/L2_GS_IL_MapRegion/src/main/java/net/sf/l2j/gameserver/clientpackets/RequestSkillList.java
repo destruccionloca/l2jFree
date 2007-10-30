@@ -60,11 +60,8 @@ public class RequestSkillList extends L2GameClientPacket
 		SkillList response = new SkillList();
 		L2Skill[] skills = cha.getAllSkills();
 		
-		for (int i = 0; i < skills.length; i++)
-		{
-			L2Skill s = skills[i];
-            
-            if (s == null) 
+		for (L2Skill s : skills) {
+			if (s == null) 
                 continue;
 			if (s.getId() > 9000)
 				continue; // fake skills to change base stats

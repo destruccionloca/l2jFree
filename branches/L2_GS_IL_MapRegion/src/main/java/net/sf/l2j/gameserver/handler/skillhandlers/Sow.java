@@ -66,12 +66,11 @@ public class Sow implements ISkillHandler
 		if(_log.isDebugEnabled())
 			_log.info("Casting sow");
 		
-		for (int index = 0; index < targetList.length; index++)
-		{
-			if (!(targetList[0] instanceof L2MonsterInstance))
+		for (L2Object element : targetList) {
+			if (!(element instanceof L2MonsterInstance))
 				continue;
 	
-			_target = (L2MonsterInstance) targetList[0];
+			_target = (L2MonsterInstance) element;
 	
 			if (_target.isSeeded())
 			{

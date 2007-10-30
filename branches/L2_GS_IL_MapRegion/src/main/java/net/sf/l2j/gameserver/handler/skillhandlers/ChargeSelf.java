@@ -47,10 +47,9 @@ public class ChargeSelf implements ISkillHandler
     public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
     {
         int damage =0;
-        for(int index = 0;index < targets.length;index++)
-        {   L2Character target = (L2Character)targets[index];
+        for (L2Object element : targets) {   L2Character target = (L2Character)element;
             L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-            if (!(targets[index] instanceof L2PcInstance))
+            if (!(element instanceof L2PcInstance))
                 continue;
             
             if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance &&

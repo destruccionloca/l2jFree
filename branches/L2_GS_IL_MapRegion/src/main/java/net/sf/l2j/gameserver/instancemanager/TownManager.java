@@ -21,12 +21,13 @@ import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Town;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -71,7 +72,7 @@ public class TownManager
 
     private final void load()
     {
-        // go thru all world zones and search for town zones
+        // go through all world zones and search for town zones
         for (short region : ZoneManager.getInstance().getZoneMap().keySet())
             for (Map.Entry<ZoneType, FastList<IZone>> zt : ZoneManager.getInstance().getZoneMap().get(region).entrySet())
                 for (IZone zone : zt.getValue())
@@ -82,6 +83,11 @@ public class TownManager
                         {
                             Town town = new Town(zone.getTownId());
                             getTowns().put(zone.getTownId(), town);
+                            
+                            // find region for townzone
+                            Point3D point = zone.getPoints().get(0);
+                            L2MapRegion mapRegion = MapRegionManager.getInstance().getRegion(point.getX(), point.getY(), point.getZ());
+                            mapRegion.setTown(town);
                         }
                         getTowns().get(zone.getTownId()).addTerritory(zone);
                     }
@@ -206,17 +212,17 @@ public class TownManager
 
     public final Town getClosestTown(L2Object activeObject)
     {
-        return getClosestTown(activeObject.getPosition().getX(), activeObject.getPosition().getY());
+        return getClosestTown(activeObject.getPosition().getX(), activeObject.getPosition().getY(), activeObject.getPosition().getZ());
     }
 
-    public final Town getClosestTown(int x, int y)
+    public final Town getClosestTown(int x, int y, int z)
     {
-    	int mapRegion = MapRegionTable.getInstance().getMapRegion(x, y);
+    	L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
     	
-    	if (mapRegion < 0 || mapRegion > 18)
+    	if (region.getTown() == null)
     		return getTown(10);
     	
-    	return getTown(mapRegion);
+    	return region.getTown();
     }
 
     public final boolean townHasCastleInSiege(int townId)
@@ -231,9 +237,9 @@ public class TownManager
         return false;
     }
 
-    public final boolean townHasCastleInSiege(int x, int y)
+    public final boolean townHasCastleInSiege(int x, int y, int z)
     {
-        return townHasCastleInSiege(getClosestTown(x, y).getTownId());
+        return townHasCastleInSiege(getClosestTown(x, y, z).getTownId());
     }
 
     public final Town getTown(int townId)
@@ -260,6 +266,7 @@ public class TownManager
     {
         if (_towns == null)
             _towns = new FastMap<Integer, Town>();
+        
         return _towns;
     }
 

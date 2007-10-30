@@ -31,7 +31,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -46,6 +45,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
@@ -2309,9 +2309,8 @@ public class SevenSignsFestival implements SpawnListener
                     break;
             }
             
-            for (int i = 0; i < _npcSpawns.length; i++)
-            {
-                FestivalSpawn currSpawn = new FestivalSpawn(_npcSpawns[i]);
+            for (int[] element : _npcSpawns) {
+                FestivalSpawn currSpawn = new FestivalSpawn(element);
                 
                 // Only spawn archers/marksmen if specified to do so.
                 if (spawnType == 1 && isFestivalArcher(currSpawn._npcId))
@@ -2437,7 +2436,7 @@ public class SevenSignsFestival implements SpawnListener
             catch (Exception e)
             {
                 // If an exception occurs, just move the player to the nearest town.
-                participant.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+                participant.teleToLocation(TeleportWhereType.Town);
             }
             
             participant.sendMessage("You have been removed from the festival arena.");

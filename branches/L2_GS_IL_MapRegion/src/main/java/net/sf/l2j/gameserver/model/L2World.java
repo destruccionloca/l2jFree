@@ -343,20 +343,17 @@ public final class L2World implements L2WorldMBean
         if (_log.isDebugEnabled())
             _log.info("objects in range:"+visible.length);
         
-        // tell the player about the surroundings
-        // Go through the visible objects contained in the circular area
-        for (int i = 0; i < visible.length; i++)
-        {
+        for (L2Object element : visible) {
             // Add the object in L2ObjectHashSet(L2Object) _knownObjects of the visible L2Character according to conditions :
             //   - L2Character is visible
             //   - object is not already known
             //   - object is in the watch distance
             // If L2Object is a L2PcInstance, add L2Object in L2ObjectHashSet(L2PcInstance) _knownPlayer of the visible L2Character
-            visible[i].getKnownList().addKnownObject(object, dropper);
+            element.getKnownList().addKnownObject(object, dropper);
             
             // Add the visible L2Object in L2ObjectHashSet(L2Object) _knownObjects of the object according to conditions
             // If visible L2Object is a L2PcInstance, add visible L2Object in L2ObjectHashSet(L2PcInstance) _knownPlayer of the object
-            object.getKnownList().addKnownObject(visible[i], dropper);
+            object.getKnownList().addKnownObject(element, dropper);
         }
     }
 

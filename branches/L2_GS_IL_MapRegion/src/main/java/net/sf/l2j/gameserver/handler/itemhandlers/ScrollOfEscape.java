@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.handler.itemhandlers;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
@@ -31,6 +30,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -186,13 +186,13 @@ public class ScrollOfEscape implements IItemHandler
 				if ((_itemId == 1830 || _itemId == 5859)
 						&& CastleManager.getInstance().getCastleByOwner(_activeChar.getClan()) != null)
 				{
-					_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Castle);
+					_activeChar.teleToLocation(TeleportWhereType.Castle);
 				}
 				// escape to clan hall if own's one
 				else if ((_itemId == 1829 || _itemId == 5858) && _activeChar.getClan() != null
 						&& ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null)
 				{
-					_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.ClanHall);
+					_activeChar.teleToLocation(TeleportWhereType.ClanHall);
 				}
 				else if (_itemId == 5858) // do nothing
 				{
@@ -207,7 +207,7 @@ public class ScrollOfEscape implements IItemHandler
 				else
 				{
 					if (_itemId < 7117)
-						_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+						_activeChar.teleToLocation(TeleportWhereType.Town);
 					else
 					{
 						switch (_itemId)
@@ -322,7 +322,7 @@ public class ScrollOfEscape implements IItemHandler
 							break;
 						// To nearest town
 						default:
-							_activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+							_activeChar.teleToLocation(TeleportWhereType.Town);
 							break;
 						}
 					}

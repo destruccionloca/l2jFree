@@ -190,14 +190,13 @@ public class SailrenManager
             L2NpcTemplate cube = NpcTable.getInstance().getTemplate(32107);
             L2Spawn spawnDat;
         	
-            for(int i = 0;i < _sailrenCubeLocation.length; i++)
-            {
+            for (int[] element : _sailrenCubeLocation) {
                 spawnDat = new L2Spawn(cube);
                 spawnDat.setAmount(1);
-                spawnDat.setLocx(_sailrenCubeLocation[i][0]);
-                spawnDat.setLocy(_sailrenCubeLocation[i][1]);
-                spawnDat.setLocz(_sailrenCubeLocation[i][2]);
-                spawnDat.setHeading(_sailrenCubeLocation[i][3]);
+                spawnDat.setLocx(element[0]);
+                spawnDat.setLocy(element[1]);
+                spawnDat.setLocz(element[2]);
+                spawnDat.setHeading(element[3]);
                 spawnDat.setRespawnDelay(60);
                 spawnDat.setLocation(0);
                 SpawnTable.getInstance().addNewSpawn(spawnDat, false);

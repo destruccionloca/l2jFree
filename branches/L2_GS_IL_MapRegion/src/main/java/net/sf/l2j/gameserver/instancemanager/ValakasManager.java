@@ -190,14 +190,13 @@ public class ValakasManager
         {
             L2NpcTemplate Cube = NpcTable.getInstance().getTemplate(_teleportCubeId);
             L2Spawn spawnDat;
-            for(int i = 0;i < _teleportCubeLocation.length; i++)
-            {
+            for (int[] element : _teleportCubeLocation) {
                 spawnDat = new L2Spawn(Cube);
                 spawnDat.setAmount(1);
-                spawnDat.setLocx(_teleportCubeLocation[i][0]);
-                spawnDat.setLocy(_teleportCubeLocation[i][1]);
-                spawnDat.setLocz(_teleportCubeLocation[i][2]);
-                spawnDat.setHeading(_teleportCubeLocation[i][3]);
+                spawnDat.setLocx(element[0]);
+                spawnDat.setLocy(element[1]);
+                spawnDat.setLocz(element[2]);
+                spawnDat.setHeading(element[3]);
                 spawnDat.setRespawnDelay(60);
                 spawnDat.setLocation(0);
                 SpawnTable.getInstance().addNewSpawn(spawnDat, false);

@@ -66,9 +66,8 @@ public class StrSiegeAssault implements ISkillHandler
                 // TODO: damage calculation below is crap
                 int damage = 0;
 
-                for (int index = 0; index < targets.length; index++)
-                {
-                    L2Character target = (L2Character) targets[index];
+                for (L2Object element : targets) {
+                    L2Character target = (L2Character) element;
                     L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
                     if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance && target.isAlikeDead()
                             && target.isFakeDeath())

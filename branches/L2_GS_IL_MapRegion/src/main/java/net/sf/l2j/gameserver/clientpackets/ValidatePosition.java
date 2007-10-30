@@ -21,11 +21,11 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -199,7 +199,7 @@ public class ValidatePosition extends L2GameClientPacket
 		        SystemMessage sm = new SystemMessage(SystemMessageId.AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN);
 		        activeChar.sendPacket(sm);
                 sm = null;
-		        activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		        activeChar.teleToLocation(TeleportWhereType.Town);
 		    }
 		}
 		

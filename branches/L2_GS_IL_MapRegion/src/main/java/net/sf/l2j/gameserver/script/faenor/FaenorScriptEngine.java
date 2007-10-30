@@ -90,11 +90,10 @@ public class FaenorScriptEngine extends ScriptEngine
         if (files == null) return;
         ZipFile zipPack;
 
-        for (int i = 0; i < files.length; i++)
-        {
+        for (File element : files) {
             try
             {
-                zipPack = new ZipFile(files[i]);
+                zipPack = new ZipFile(element);
             }
             catch (ZipException e)
             {

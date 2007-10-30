@@ -121,12 +121,11 @@ public class AdminLevel implements IAdminCommandHandler
 	 */    
 	private void showAdminCommandHelp(L2PcInstance activeChar, String command)
 	{
-		for (int i=0; i < ADMIN_COMMANDS.length; i++)
-		{
-			if (command.equals(ADMIN_COMMANDS[i][0]))
+		for (String[] element : ADMIN_COMMANDS) {
+			if (command.equals(element[0]))
 			{
-				for (int k=1; k < ADMIN_COMMANDS[i].length; k++)
-					activeChar.sendMessage(ADMIN_COMMANDS[i][k]);
+				for (int k=1; k < element.length; k++)
+					activeChar.sendMessage(element[k]);
 			}
 		}
 	}

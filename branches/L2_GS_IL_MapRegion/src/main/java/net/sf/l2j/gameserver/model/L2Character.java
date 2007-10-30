@@ -40,11 +40,10 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.datatables.DoorTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable.TeleportWhereType;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
@@ -64,6 +63,7 @@ import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynch
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.actor.status.CharStatus;
 import net.sf.l2j.gameserver.model.entity.Duel;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -498,7 +498,7 @@ public abstract class L2Character extends L2Object
 		teleToLocation(x, y, z, allowRandomOffset);
 	}
    
-    public void teleToLocation(TeleportWhereType teleportWhere) { teleToLocation(MapRegionTable.getInstance().getTeleToLocation(this, teleportWhere), true); }
+    public void teleToLocation(TeleportWhereType teleportWhere) { teleToLocation(MapRegionManager.getInstance().getTeleToLocation(this, teleportWhere), true); }
     
     // =========================================================
     // Method - Private
@@ -2856,10 +2856,7 @@ public abstract class L2Character extends L2Object
         L2Effect[] effects = getAllEffects();
         if (effects != null && effects.length > 0)
         {
-            for (int i = 0; i < effects.length; i++)
-            {
-                L2Effect effect = effects[i];
-               
+            for (L2Effect effect : effects) {
                 if (effect == null)
                     continue;
 
@@ -5185,12 +5182,11 @@ public abstract class L2Character extends L2Object
         if(escapeRange > 0) 
         {
             List<L2Character> targetList = new FastList<L2Character>();
-            for (int i = 0; i < targets.length; i++)
-            {
-                if (targets[i] instanceof L2Character)
+            for (L2Object element : targets) {
+                if (element instanceof L2Character)
                 {
-                    if(!isInsideRadius(targets[i],escapeRange,true,false) || !GeoData.getInstance().canSeeTarget(this, targets[i])) continue;
-                    else targetList.add((L2Character)targets[i]);
+                    if(!isInsideRadius(element,escapeRange,true,false) || !GeoData.getInstance().canSeeTarget(this, element)) continue;
+                    else targetList.add((L2Character)element);
                 }
             }
             if(targetList.isEmpty()) 
@@ -5229,12 +5225,10 @@ public abstract class L2Character extends L2Object
             // Send a Server->Client packet MagicSkillLaunched to the L2Character AND to all L2PcInstance in the _KnownPlayers of the L2Character
             if (!skill.isPotion()) broadcastPacket(new MagicSkillLaunched(this, magicId, level, targets));
 
-            // Go through targets table
-            for (int i = 0;i < targets.length;i++)
-            {
-                if (targets[i] instanceof L2PlayableInstance)
+            for (L2Object element : targets) {
+                if (element instanceof L2PlayableInstance)
                 {
-                    L2Character target = (L2Character) targets[i];
+                    L2Character target = (L2Character) element;
 
                     if (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.SEED)
                     {

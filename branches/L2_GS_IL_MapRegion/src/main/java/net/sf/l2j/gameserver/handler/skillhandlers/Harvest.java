@@ -67,12 +67,11 @@ public class Harvest implements ISkillHandler
 		if(_log.isDebugEnabled())
 			_log.info("Casting harvest");
 		
-		for (int index = 0; index < targetList.length; index++)
-		{
-			if (!(targetList[index] instanceof L2MonsterInstance))
+		for (L2Object element : targetList) {
+			if (!(element instanceof L2MonsterInstance))
 				continue;
 	
-			_target = (L2MonsterInstance) targetList[index];
+			_target = (L2MonsterInstance) element;
 			
 			if (_activeChar != _target.getSeeder())
 			{
