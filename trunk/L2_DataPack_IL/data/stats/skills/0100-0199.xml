@@ -1025,9 +1025,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul order="0x30" stat="rShld" val="#rShld">
-      <using kind="Shield"/>
-    </mul>
+    <mul order="0x30" stat="rShld" val="#rShld"/>
   </for>
 </skill>
 <skill id="163" levels="1" name="Spellcraft">

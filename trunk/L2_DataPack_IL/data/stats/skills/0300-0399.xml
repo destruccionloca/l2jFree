@@ -673,7 +673,7 @@
   </for>
 </skill>
 <skill id="316" levels="1" name="Aegis">
-  <!-- done by roxaz -->
+  <!-- done by NB4L1 -->
   <set name="target" val="TARGET_SELF"/>
   <set name="power" val="0.0"/>
   <set name="skillType" val="PASSIVE"/>
@@ -681,11 +681,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <cond>
-      <using kind="Shield"/>
-    </cond>
-    <mul order="0x30" stat="sDef" val="1.2"/>
-    <mul order="0x30" stat="pDef" val="1.1"/>
+    <set order="0x30" stat="shldAngle" val="180"/>
   </for>
 </skill>
 <skill id="317" levels="5" name="Focus Attack">
@@ -719,6 +715,7 @@
   </for>
 </skill>
 <skill id="318" levels="1" name="Aegis Stance" enchantLevels1="30" >
+  <!-- done by NB4L1 -->
   <table name="#ench1sDef">
   0.61 0.62 0.62 0.63 0.64 0.64 0.65 0.66 0.66 0.67
   0.68 0.68 0.69 0.70 0.70 0.71 0.72 0.72 0.73 0.74
@@ -731,15 +728,15 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="2" val="9">
+    <effect count="0x7fffffff" name="ManaDamOverTime" time="0x7fffffff" val="0">
       <mul order="0x30" stat="sDef" val="0.6"/>
-      <mul order="0x30" stat="pDef" val="1.35"/>
+      <set order="0x30" stat="shldAngle" val="180"/>
     </effect>
   </for>
   <enchant1for>
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="2" val="9">
+    <effect count="0x7fffffff" name="ManaDamOverTime" time="0x7fffffff" val="0">
       <mul order="0x30" stat="sDef" val="#ench1sDef"/>
-      <mul order="0x30" stat="pDef" val="1.35"/>
+      <set order="0x30" stat="shldAngle" val="180"/>
     </effect>
   </enchant1for>
 </skill>
@@ -1394,12 +1391,8 @@
   <set name="skillTime" val="1000"/>
   <set name="hitTime" val="1000"/>
   <for>
-    <effect count="1" name="Stun" time="2" val="0">
-      <using kind="Shield"/>
-    </effect>
-    <effect count="1" name="RemoveTarget" time="1" val="0">
-      <using kind="Shield"/>
-    </effect>
+    <effect count="1" name="Stun" time="2" val="0"/>
+    <effect count="1" name="RemoveTarget" time="1" val="0"/>
   </for>
 </skill>
 <skill id="353" levels="1" name="Shield Slam">
@@ -1418,12 +1411,8 @@
   <set name="skillTime" val="2000"/>
   <set name="hitTime" val="2000"/>
   <for>
-    <effect count="1" name="PsychicalMute" time="120" val="0">
-      <using kind="Shield"/>
-    </effect>
-    <effect count="1" name="RemoveTarget" time="1" val="0">
-      <using kind="Shield"/>
-    </effect>
+    <effect count="1" name="PsychicalMute" time="120" val="0"/>
+    <effect count="1" name="RemoveTarget" time="1" val="0"/>
   </for>
 </skill>
 <skill id="354" levels="1" name="Hamstring Shot">
@@ -2151,7 +2140,6 @@
   <set name="mpConsume" val="72"/>
   <set name="itemConsumeId" val="1785"/>
   <set name="itemConsumeCount" val="40"/>
-<!--  <set name="weaponsAllowed" val="2"/> -->
   <set name="skillTime" val="1000"/>
   <set name="hitTime" val="1000"/>
   <set name="reuseDelay" val="1200000"/>
@@ -2164,11 +2152,6 @@
   <set name="effectRange" val="-1"/>
   <set name="buffDuration" val="30000"/>
   <for>
-  <!--
-    <cond>
-      <using kind="Shield"/>
-    </cond>
-  -->
     <effect name="Buff" time="30" count="1" val="0" stackOrder="1" stackType="hero">
       <add order="0x40" stat="pDef" val="5400"/>
       <add order="0x40" stat="mDef" val="4050"/>

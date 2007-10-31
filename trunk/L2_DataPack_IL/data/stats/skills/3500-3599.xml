@@ -1413,7 +1413,7 @@ Description(s):
     <mul val='1.25' order='0x30' stat='maxHp'/>
     <mul val='1.30' order='0x30' stat='maxMp'/>
     <mul val='1.50' order='0x30' stat='maxCp'/>
-    <mul val='1.33' order='0x30' stat='rShld'/>
+    <mul val='1.33' order='0x30' stat='sDef'/>
     <mul val='1.09' order='0x30' stat='reflectDam'/>
   </for>
 </skill>
