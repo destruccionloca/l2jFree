@@ -23,6 +23,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -107,6 +108,13 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             		sb.append("</table>");
             	}
             	
+            	if (Config.CLASS_MASTER_STRIDER_UPDATE)
+            	{
+            		sb.append("<table width=270>");
+	                sb.append("<tr><td><br></td></tr>");
+	                sb.append("<tr><td><a action=\"bypass -h npc_"+getObjectId()+"_upgrade_hatchling\">Upgrade Hatchling to Strider</a></td></tr>");
+	        		sb.append("</table>");
+            	}
             	sb.append("<br>");
             }
             else
@@ -232,6 +240,25 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             sb.append("</body></html>");
             html.setHtml(sb.toString());
             player.sendPacket(html);
+        }
+        else if (command.startsWith("upgrade_hatchling") && Config.CLASS_MASTER_STRIDER_UPDATE)
+        {
+        	int[] hatchCollar = { 3500, 3501, 3502 };
+        	int[] striderCollar = { 4422, 4423, 4424 };
+        	
+        	//TODO: Maybe show a complete list of all hatchlings instead of using first one
+        	for (int i = 0; i < 3; i++)
+        	{
+        		L2ItemInstance collar = player.getInventory().getItemByItemId(hatchCollar[i]);
+        		
+        		if (collar != null)
+        		{
+        			player.getInventory().destroyItem("ClassMaster", collar, player, this);
+        			player.getInventory().addItem("ClassMaster", striderCollar[i], 1, player, this);
+        			
+        			return;
+        		}
+        	}
         }
         else
         {
