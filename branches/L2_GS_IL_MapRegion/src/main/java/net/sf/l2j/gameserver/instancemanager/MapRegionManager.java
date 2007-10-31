@@ -128,9 +128,18 @@ public class MapRegionManager
     	_mapRegionRestartReload = null;
     	_mapAreasReload = null;
     	
+    	int redirectCount = 0;
+    	
+    	for (L2MapRegionRestart restart : _mapRegionRestart.values())
+    	{
+    		if (restart.getBannedRace() != null)
+    			redirectCount++;
+    	}
+    	
     	_log.info("MapRegionManager: Loaded " + _mapRegionRestart.size() + " restartpoint(s).");
     	_log.info("MapRegionManager: Loaded " + _mapAreas.size() + " arearegion(s).");
     	_log.info("MapRegionManager: Loaded " + _mapRegions.size() + " zoneregion(s).");
+    	_log.info("MapRegionManager: Loaded " + redirectCount + " race depending redirects.");
     }
     
     public void reload()
@@ -240,6 +249,20 @@ public class MapRegionManager
     	return _mapRegions;
     }
 
+    public L2MapRegionRestart getRestartLocation(L2PcInstance activeChar)
+    {
+    	L2MapRegion region = getRegion(activeChar);
+    	
+    	int restartId = region.getRestartId(activeChar.getRace());
+    	
+    	return _mapRegionRestart.get(restartId);
+    }
+    
+    public L2MapRegionRestart getRestartLocation(int restartId)
+    {
+    	return _mapRegionRestart.get(restartId);
+    }
+    
     public Point3D getRestartPoint(L2PcInstance activeChar)
     {
     	L2MapRegion region = getRegion(activeChar);

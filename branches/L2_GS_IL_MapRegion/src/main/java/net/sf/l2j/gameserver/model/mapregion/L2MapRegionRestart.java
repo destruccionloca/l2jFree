@@ -83,11 +83,11 @@ public class L2MapRegionRestart
 			}
 			else if ("bannedrace".equalsIgnoreCase(n.getNodeName()))
 			{
-				Node e = node.getAttributes().getNamedItem("race");
+				Node e = n.getAttributes().getNamedItem("race");
 				if (e != null)
 					_bannedRace = Race.getRaceByName(e.getNodeValue());
 
-				e = node.getAttributes().getNamedItem("restartId");
+				e = n.getAttributes().getNamedItem("restartId");
 				if (e != null)
 					_bannedRaceRestartId = Integer.parseInt(e.getNodeValue());
 			}
@@ -165,5 +165,18 @@ public class L2MapRegionRestart
 		Random rnd = new Random();
 		int pointId = rnd.nextInt(_chaosPoints.size());
 		return _chaosPoints.get(pointId);
+	}
+	
+	public Race getBannedRace()
+	{
+		if (_bannedRaceRestartId > -1)
+			return _bannedRace;
+		
+		return null;
+	}
+	
+	public int getRedirectId()
+	{
+		return _bannedRaceRestartId;
 	}
 }
