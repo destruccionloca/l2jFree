@@ -215,7 +215,6 @@ public abstract class L2Skill
         PUMPING,
         REELING,
         CANCEL_TARGET,
-        CHARGE_SELF,
         CREATE_ITEM      (L2SkillCreateItem.class),
         AGGDEBUFF,
         COMBATPOINTPERHEAL,
@@ -1227,7 +1226,6 @@ public abstract class L2Skill
             case WARRIOR_BANE:
             case AGGREMOVE:
             case AGGREDUCE_CHAR: 
-            case CHARGE_SELF:
             case UNSUMMON_ENEMY_PET:
             case CANCEL_TARGET:
             case BETRAY:
