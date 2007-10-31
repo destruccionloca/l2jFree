@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.Manager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Multisell;
@@ -428,19 +429,24 @@ public class AdminAdmin implements IAdminCommandHandler
 					TradeListTable.getInstance().reloadAll();
 					activeChar.sendMessage("TradeList Table reloaded.");
 				}
-				else if(type.equals("zone"))
+				else if(type.equals("zones"))
 				{
 					ZoneManager.getInstance().reload();
 					activeChar.sendMessage("Zones reloaded.");
 				}
+				else if(type.equals("mapregion"))
+				{
+					MapRegionManager.getInstance().reload();
+					activeChar.sendMessage("MapRegions reloaded.");
+				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone>");
+					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zones|mapregion>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone>");
+				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zones|mapregion>");
 			}
 		}
 

@@ -86,8 +86,12 @@ public class TownManager
                             
                             // find region for townzone
                             Point3D point = zone.getPoints().get(0);
-                            L2MapRegion mapRegion = MapRegionManager.getInstance().getRegion(point.getX(), point.getY(), point.getZ());
-                            mapRegion.setTown(town);
+                            L2MapRegion mapRegion = MapRegionManager.getInstance().getRegion(point.getX(), point.getY());
+                            if (mapRegion != null)
+                            {
+                            	mapRegion.setTown(town);
+                            	_log.info("TownManager: Town "+town.getName()+" was assigned to regionId "+mapRegion.getId()+".");
+                            }
                         }
                         getTowns().get(zone.getTownId()).addTerritory(zone);
                     }
@@ -217,12 +221,12 @@ public class TownManager
 
     public final Town getClosestTown(int x, int y, int z)
     {
-    	L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
+    	Town town = getTown(x, y, z);
     	
-    	if (region.getTown() == null)
+    	if (town == null)
     		return getTown(10);
     	
-    	return region.getTown();
+    	return town;
     }
 
     public final boolean townHasCastleInSiege(int townId)

@@ -39,6 +39,8 @@ public class L2MapRegion
 	private int _zMin = -999999999;
 	private int _zMax = 999999999;
 	private Town _town = null;
+	
+	private boolean _specialRegion = true;
 
 	public L2MapRegion(Node node)
 	{
@@ -47,6 +49,27 @@ public class L2MapRegion
 			_id = Integer.parseInt(e.getNodeValue());
 		
 		parseRangeData(node);
+	}
+	
+	/**
+	 * for adding L2MapRegion by L2MapArea
+	 * @param id
+	 * @param polygon
+	 */
+	public L2MapRegion(int id, int restartId, L2Polygon polygon)
+	{
+		_id = id;
+		_polygon = polygon;
+		
+		// add restartpoints by id
+		_restarts.put(Race.human, restartId);
+		_restarts.put(Race.darkelf , restartId);
+		_restarts.put(Race.dwarf , restartId);
+		_restarts.put(Race.elf , restartId);
+		_restarts.put(Race.orc, restartId);
+		
+		// set to AreaMapRegion
+		_specialRegion = false;
 	}
 	
 	private void parseRangeData(Node node)
@@ -95,6 +118,9 @@ public class L2MapRegion
     				_restarts.put(race, restartId);
 			}
 		}
+		
+		// add first point at the end of the polygon again for crossing
+		_polygon.addPoint(_polygon.getXPoints()[0], _polygon.getYPoints()[0]);
 	}
 	
 	public int getRestartId(Race race)
@@ -152,6 +178,9 @@ public class L2MapRegion
     	if (!(x > xMin && x < xMax && y > yMin && y < yMax))
     		return false;
     	
+    	if (z == -1)
+    		return true;
+    	
     	if (_zMin == -999999999 && _zMax == 999999999) 
     		return true;
     	else
@@ -166,5 +195,10 @@ public class L2MapRegion
     public Town getTown()
     {
     	return _town;
+    }
+    
+    public boolean isSpecialRegion()
+    {
+    	return _specialRegion;
     }
 }

@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.Town;
+import net.sf.l2j.gameserver.model.mapregion.L2MapArea;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegionRestart;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
@@ -60,9 +61,11 @@ public class MapRegionManager
 
     private Map<Integer, L2MapRegion> _mapRegions = new FastMap<Integer, L2MapRegion>();
     private Map<Integer, L2MapRegionRestart> _mapRegionRestart = new FastMap<Integer, L2MapRegionRestart>();
+    private Map<Integer, L2MapArea> _mapAreas = new FastMap<Integer, L2MapArea>();
     
     private Map<Integer, L2MapRegion> _mapRegionsReload = null;
     private Map<Integer, L2MapRegionRestart> _mapRegionRestartReload = null;
+    private Map<Integer, L2MapArea> _mapAreasReload = null;
     
     public final static MapRegionManager getInstance()
     {
@@ -81,6 +84,7 @@ public class MapRegionManager
     {
     	_mapRegionsReload = new FastMap<Integer, L2MapRegion>();
     	_mapRegionRestartReload = new FastMap<Integer, L2MapRegionRestart>();
+    	_mapAreasReload = new FastMap<Integer, L2MapArea>();
     	
     	for (File xml : Util.getDatapackFiles("mapregion", ".xml"))
     	{
@@ -117,13 +121,16 @@ public class MapRegionManager
     	// Replace old maps with reloaded ones
     	_mapRegions = _mapRegionsReload;
     	_mapRegionRestart = _mapRegionRestartReload;
+    	_mapAreas = _mapAreasReload;
     	
     	// Reset unused maps
     	_mapRegionsReload = null;
     	_mapRegionRestartReload = null;
+    	_mapAreasReload = null;
     	
-    	_log.info("MapRegionManager: Loaded " + _mapRegionsReload.size() + " restartpoint(s).");
-    	_log.info("MapRegionManager: Loaded " + _mapRegions.size() + " region(s).");
+    	_log.info("MapRegionManager: Loaded " + _mapRegionRestart.size() + " restartpoint(s).");
+    	_log.info("MapRegionManager: Loaded " + _mapAreas.size() + " arearegion(s).");
+    	_log.info("MapRegionManager: Loaded " + _mapRegions.size() + " zoneregion(s).");
     }
     
     public void reload()
@@ -135,6 +142,7 @@ public class MapRegionManager
     {
     	Map<Integer, L2MapRegion> regions = new FastMap<Integer, L2MapRegion>();
     	Map<Integer, L2MapRegionRestart> restarts = new FastMap<Integer, L2MapRegionRestart>();
+    	Map<Integer, L2MapArea> areas = new FastMap<Integer, L2MapArea>();
     	
     	for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
     	{
@@ -154,7 +162,7 @@ public class MapRegionManager
     								if (!regions.containsKey(region.getId()))
     									regions.put(region.getId(), region);
     								else
-    									throw new Exception("Duplicate regionId: "+region.getId()+".");
+    									throw new Exception("Duplicate zoneRegionId: "+region.getId()+".");
     						}
     					}
     				}
@@ -162,7 +170,7 @@ public class MapRegionManager
     				{
     					for (Node f = d.getFirstChild(); f != null; f = f.getNextSibling())
     					{
-    						if ("region".equalsIgnoreCase(f.getNodeName()))
+    						if ("restartpoint".equalsIgnoreCase(f.getNodeName()))
     						{
     							L2MapRegionRestart restart = new L2MapRegionRestart(f);
     							
@@ -174,9 +182,57 @@ public class MapRegionManager
     						}
     					}
     				}
+    				else if ("areas".equalsIgnoreCase(d.getNodeName()))
+    				{
+    					for (Node f = d.getFirstChild(); f != null; f = f.getNextSibling())
+    					{
+    						if ("restartarea".equalsIgnoreCase(f.getNodeName()))
+    						{
+    							int id = -1;
+    							
+    							Node e = f.getAttributes().getNamedItem("id");
+    							if (e != null)
+    							{
+    								id = Integer.parseInt(e.getTextContent());
+    								
+    								for (Node r = f.getFirstChild(); r != null; r = r.getNextSibling())
+    								{
+    									if ("map".equalsIgnoreCase(r.getNodeName()))
+    									{
+    										int X = 0;
+    										int Y = 0;
+    										
+    										Node t = r.getAttributes().getNamedItem("X");
+    										if (t != null)
+    											X = Integer.parseInt(t.getTextContent());
+    										
+    										t = r.getAttributes().getNamedItem("Y");
+    										if (t != null)
+    											Y = Integer.parseInt(t.getTextContent());
+    										
+    										L2MapArea area = new L2MapArea(id, X, Y);
+    										
+    										if (area != null)
+    											if (!areas.containsKey(area.getId()))
+    											{
+    												areas.put(area.getId(), area);
+    												regions.put(area.getId(), area.getMapRegion());
+    											}
+    											else
+    												throw new Exception("Duplicate areaRegionId: "+area.getId()+".");
+    									}
+    								}
+    							}
+    						}
+    					}
+    				}
     			}
     		}
     	}
+    	
+    	_mapRegionsReload = regions;
+    	_mapRegionRestartReload = restarts;
+    	_mapAreasReload = areas;
     }
     
     public Map<Integer, L2MapRegion> getRegions()
@@ -195,7 +251,8 @@ public class MapRegionManager
     	if (restart != null)
     		return restart.getRandomRestartPoint(activeChar.getRace());
     	
-    	return null;
+    	restart = _mapRegionRestart.get(0);
+    	return restart.getRandomRestartPoint(activeChar.getRace());
     }
     
     public Point3D getRestartPoint(int restartId)
@@ -205,7 +262,8 @@ public class MapRegionManager
     	if (restart != null)
     		return restart.getRandomRestartPoint();
     	
-    	return null;
+    	restart = _mapRegionRestart.get(0);
+    	return restart.getRandomRestartPoint();
     } 
 
     public Point3D getChaosRestartPoint(L2PcInstance activeChar)
@@ -219,7 +277,8 @@ public class MapRegionManager
     	if (restart != null)
     		return restart.getRandomChaosRestartPoint(activeChar.getRace());
     	
-    	return null;
+    	restart = _mapRegionRestart.get(0);
+    	return restart.getRandomChaosRestartPoint(activeChar.getRace());
     }
     
     public Point3D getChaosRestartPoint(int restartId)
@@ -229,7 +288,8 @@ public class MapRegionManager
     	if (restart != null)
     		return restart.getRandomChaosRestartPoint();
     	
-    	return null;
+    	restart = _mapRegionRestart.get(0);
+    	return restart.getRandomChaosRestartPoint();
     }
     
     public L2MapRegion getRegion(L2Character activeChar)
@@ -244,15 +304,31 @@ public class MapRegionManager
     
     public L2MapRegion getRegion(int x, int y, int z)
     {
+    	L2MapRegion areaRegion = null; 
+    	
     	for (L2MapRegion region : _mapRegions.values())
     	{
     		if (region.checkIfInRegion(x, y, z))
     		{
-    			return region;
+    			// prefer special regions
+    			if (region.isSpecialRegion())
+    				return region;
+    			else
+    				areaRegion = region;
     		}
     	}
     	
+    	if (areaRegion != null)
+    		return areaRegion;
+    	
     	return null;
+    }
+    
+    
+    
+    public L2MapRegion getRegion(int x, int y)
+    {
+    	return getRegion(x, y, -1);
     }
     
     public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)

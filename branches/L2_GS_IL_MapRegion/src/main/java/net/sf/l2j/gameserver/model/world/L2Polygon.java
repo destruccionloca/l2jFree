@@ -58,8 +58,31 @@ public class L2Polygon implements Serializable
     
     public boolean contains(int x, int y)
     {
-    	return contains((double) x, (double) y);
+    	//return contains((double) x, (double) y);
+    	return cn_PnPoly(x, y);
     }
+
+	/**
+	 * cn_PnPoly(): crossing number test for a point in a polygon
+	 * Return:  false = outside, true = inside 
+	 * http://www.geometryalgorithms.com/Archive/algorithm_0103/algorithm_0103.htm
+	 */
+	private final boolean cn_PnPoly( int x, int y)
+	{
+	    int    cn = 0;    // the crossing number counter
+
+	    // loop through all edges of the polygon
+	    for (int i=0; i<_nPoints - 1; i++) {
+	       if (((_yPoints[i] <= y) && (_yPoints[i+1] > y))    // an upward crossing
+	        || ((_yPoints[i] > y) && (_yPoints[i+1] <= y))) { // a downward crossing
+	            // compute the actual edge-ray intersect x-coordinate
+	            float vt = (float)(y - _yPoints[i]) / (_yPoints[i+1] - _yPoints[i]);
+	            if (x < _xPoints[i] + vt * (_xPoints[i+1] - _xPoints[i])) // x < intersect
+	                ++cn;
+	        }
+	    }
+	    return (cn & 1) == 1;    // 0 if even (out), and 1 if odd (in)
+	}
     
     public boolean contains(double x, double y)
     {
