@@ -44,7 +44,7 @@ public class L2SkillCharge extends L2Skill
 			return;
 		
 		// get the effect
-		EffectCharge effect = (EffectCharge) caster.getEffect(this);
+		EffectCharge effect = (EffectCharge) caster.getEffect(L2Effect.EffectType.CHARGE);
 		if (effect != null)
 		{
 			if (effect.numCharges < numCharges)
@@ -63,18 +63,8 @@ public class L2SkillCharge extends L2Skill
 				SystemMessage sm = new SystemMessage(SystemMessageId.FORCE_MAXIMUM);
 				caster.sendPacket(sm);
 			}
-			return;
 		}
-		getEffects(caster, caster);
-
-        // effect self :]
-        //L2Effect seffect = caster.getEffect(getId());
-        //if (seffect != null && seffect.isSelfEffect())
-        //{
-            //Replace old effect with new one.
-            //seffect.exit();
-        //}
-        // cast self effect if any
-        getEffectsSelf(caster);
+		else
+			getEffects(caster, caster);
     }
 }
