@@ -5660,9 +5660,9 @@ public abstract class L2Character extends L2Object
      * Return True if the target is front L2Character and can be seen.<BR><BR>
      * degrees = 0..180, front->sides->back
      */
-    public boolean isInFront(L2Character target, int degrees)
+    public boolean isInFront(L2Character target, double degrees)
     {
-        int head = getHeadingTo(target, false);
+        double head = getHeadingTo(target, false);
         if (head <= 32768*degrees/180 || head >= (65536 - 32768*degrees/180))
             return true;
         return false;

@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.handler.skillhandlers.BeastFeed;
 import net.sf.l2j.gameserver.handler.skillhandlers.Blow;
 import net.sf.l2j.gameserver.handler.skillhandlers.CPperHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Charge;
-import net.sf.l2j.gameserver.handler.skillhandlers.ChargeSelf;
 import net.sf.l2j.gameserver.handler.skillhandlers.CombatPointHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Continuous;
 import net.sf.l2j.gameserver.handler.skillhandlers.Craft;
@@ -85,7 +84,6 @@ public class SkillHandler
         registerSkillHandler(new BeastFeed());
         registerSkillHandler(new Blow());
         registerSkillHandler(new Charge());
-        registerSkillHandler(new ChargeSelf());
         registerSkillHandler(new CombatPointHeal());
         registerSkillHandler(new Continuous());
         registerSkillHandler(new Craft());
