@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
 import net.sf.l2j.gameserver.communitybbs.services.forum.ForumService;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -248,6 +249,9 @@ public class L2Clan
     	sm.addString(newLeader.getName());
     	broadcastToOnlineMembers(sm);
     	sm = null;
+		
+		CrownManager.getInstance().checkCrowns(exLeader);
+		CrownManager.getInstance().checkCrowns(newLeader);
     }
     /**
      * @return Returns the leaderName.

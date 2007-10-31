@@ -291,7 +291,7 @@ public class Castle
 				new Announcements().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
 
 				// remove crowns
-				CrownManager.getInstance().removeCrowns(oldOwner); 
+				CrownManager.getInstance().checkCrowns(oldOwner); 
 			}						   
 		}
 		
@@ -604,7 +604,7 @@ public class Castle
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 
 				// give crowns
-				CrownManager.getInstance().giveCrowns(clan, getCastleId());
+				CrownManager.getInstance().checkCrowns(clan);
 				
 				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000);   // Schedule owner tasks to start running 
 			}
