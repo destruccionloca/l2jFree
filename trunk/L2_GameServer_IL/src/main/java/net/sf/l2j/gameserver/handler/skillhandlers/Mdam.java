@@ -161,16 +161,6 @@ public class Mdam implements ISkillHandler
 
                 activeChar.sendDamageMessage(target, damage, mcrit, false, false);
 
-                if (target instanceof L2PcInstance) //aura flare de-buff.
-                {
-                    if (skill.getId() == 1231)
-                    {
-                        activeChar.stopEffect(skill.getId());
-                        if (activeChar.getEffect(skill.getId()) != null)
-                            activeChar.removeEffect(activeChar.getEffect(skill.getId()));
-                        skill.getEffects(activeChar, activeChar);
-                    }
-                }
                 if (activeChar instanceof L2SummonInstance)
                     ((L2SummonInstance) activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1).addNumber(damage));
                 //if (activeChar instanceof L2PetInstance)
@@ -186,7 +176,7 @@ public class Mdam implements ISkillHandler
                     if (Pet != null)
                     Pet.unSummon(Owner);
                 }
-                if (skill.hasEffects() && skill.getId() != 1231)
+                if (skill.hasEffects())
                 {
                     if (target.reflectSkill(skill))
                     {

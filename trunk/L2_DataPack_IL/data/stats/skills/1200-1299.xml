@@ -820,9 +820,6 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <for>
-    <effect self="1" count="1" name="Buff" time="3" val="0">
-      <mul order="0x30" stat="pvpMagicalDmg" val="0.5"/>
-    </effect>
   </for>
 </skill>
 <skill id="1232" levels="3" name="Blazing Skin" enchantLevels1="30" enchantLevels2="30" >

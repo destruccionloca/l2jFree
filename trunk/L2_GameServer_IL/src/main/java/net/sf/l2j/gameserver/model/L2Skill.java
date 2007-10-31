@@ -711,40 +711,6 @@ public abstract class L2Skill
      */
     public final double getPower(L2Character activeChar)
     {
-         //Use another formula for Curse Death Link because default formula is very weak
-        /*if (_skillType == SkillType.DEATHLINK && activeChar != null)
-            return _power * Math.pow(1.7165 - activeChar.getCurrentHp()/activeChar.getMaxHp(), 2) * 0.577;
-        else return _power;
-        */
-        if (_skillType == SkillType.DEATHLINK || _skillType == SkillType.FATALCOUNTER)
-        {
-        if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.29)
-            return _power * 1.1;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.26)
-            return _power * 1.19;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.23)
-            return _power * 1.215;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.21)
-            return _power * 1.22;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.16)
-            return _power * 1.23;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.13)
-            return _power * 1.24;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.09)
-            return _power * 1.35;
-        else if (activeChar.getStatus().getCurrentHp() >= 200)
-            return _power * 1.8;
-        else if (activeChar.getStatus().getCurrentHp() >= 170)
-            return _power * 2.1;
-        else if (activeChar.getStatus().getCurrentHp() >= 150)
-            return _power * 2.2;
-        else if (activeChar.getStatus().getCurrentHp() >= 130)
-            return _power * 2.3;
-        else if (activeChar.getStatus().getCurrentHp() >= 100)
-            return _power * 2.5;
-        else
-            return _power * 2.8;
-        }
         return _power;
     }
 

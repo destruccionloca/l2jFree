@@ -1268,6 +1268,13 @@ public final class Formulas
             //Skill Valakas
             if ( ((L2NpcInstance) target).getTemplate().getIdTemplate() == 12899) damage *= attacker.getStat().getPAtkValakas(target); 
         }
+		
+		if (skill != null) 
+		{
+			if (skill.getSkillType() == SkillType.FATALCOUNTER)
+				damage *= (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
+		}
+		
         if (shld)
         {
             if (100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100)) 
@@ -1371,7 +1378,7 @@ public final class Formulas
                 }
             }
         }
-        else if (mcrit) damage *= 2; // TODO: *4 ???
+        else if (mcrit) damage *= 4;
         
         // Pvp bonusses for dmg
 		if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
@@ -1391,7 +1398,16 @@ public final class Formulas
            damage = damage*Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
         else if (attacker instanceof L2NpcInstance)
             damage = damage*Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
-        
+		
+		if (skill != null)
+        {
+			if (target instanceof L2PlayableInstance && skill.getId() == 1231) //aura flare de-buff.
+				damage /= 2;
+			
+            if (skill.getSkillType() == SkillType.DEATHLINK)
+                damage = damage * (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
+        }
+		
         return damage;
     }
 
