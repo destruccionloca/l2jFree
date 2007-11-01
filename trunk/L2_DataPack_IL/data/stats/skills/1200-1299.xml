@@ -2504,7 +2504,6 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="560"/>
   <cond>
-    <!-- need core support for <player mp="25"/> -->
     <player mp="25"/>
   </cond>
   <for>
