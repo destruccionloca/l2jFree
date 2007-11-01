@@ -52,9 +52,8 @@ public class Blow implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets){
 		if(activeChar.isAlikeDead())
 			return;
-        for(int index = 0;index < targets.length;index++)
-        {
-			L2Character target = (L2Character)targets[index];
+        for (L2Object element : targets) {
+			L2Character target = (L2Character)element;
 			//check if skill is allowed on other.properties for raidbosses
 			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;

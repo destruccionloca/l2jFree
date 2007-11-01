@@ -29,8 +29,10 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -205,7 +207,7 @@ public class DoorTable
 		door.setRange(rangeXMin, rangeYMin, rangeZMin, rangeXMax, rangeYMax, rangeZMax);
 		try 
 		{
-			door.setMapRegion(MapRegionTable.getInstance().getMapRegion(x,y));
+			door.setMapRegion(MapRegionManager.getInstance().getRegion(x, y, z));
 		} 
 		catch (Exception e) 
 		{ 
@@ -264,10 +266,10 @@ public class DoorTable
 
     public boolean checkIfDoorsBetween(int x, int y, int z, int tx, int ty, int tz)
     {
-    	int region;
+    	L2MapRegion region;
     	try 
     	{ 
-    		 region = MapRegionTable.getInstance().getMapRegion(x,y);
+    		 region = MapRegionManager.getInstance().getRegion(x, y, z);
     	} 
     	catch (Exception e) 
     	{ 

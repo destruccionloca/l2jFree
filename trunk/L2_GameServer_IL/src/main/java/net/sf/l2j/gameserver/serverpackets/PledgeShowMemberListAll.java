@@ -84,9 +84,8 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 		writePledge(0);
 		
 		SubPledge[] subPledge = _clan.getAllSubPledges();
-		for (int i = 0; i<subPledge.length; i++)
-		{
-			_activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(subPledge[i]));
+		for (SubPledge element : subPledge) {
+			_activeChar.sendPacket(new PledgeReceiveSubPledgeCreated(element));
 		}
 		
 		for (L2ClanMember m : _members)

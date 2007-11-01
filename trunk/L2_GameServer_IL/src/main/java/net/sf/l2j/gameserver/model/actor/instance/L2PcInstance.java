@@ -60,7 +60,6 @@ import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NobleSkillTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -141,6 +140,7 @@ import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
@@ -2263,9 +2263,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
 		while (skills.length > unLearnable)
 		{
-			for (int i = 0; i < skills.length; i++)
-			{
-				L2SkillLearn s = skills[i];
+			for (L2SkillLearn s : skills) {
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 				if (sk == null || !sk.getCanLearn(getClassId()))
 				{
@@ -5155,8 +5153,8 @@ public final class L2PcInstance extends L2PlayableInstance
             
             L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
             InventoryUpdate iu = new InventoryUpdate();
-            for (int i = 0; i < unequiped.length; i++)
-                iu.addModifiedItem(unequiped[i]);
+            for (L2ItemInstance element : unequiped)
+				iu.addModifiedItem(element);
             sendPacket(iu);
 
             abortAttack();
@@ -5191,8 +5189,8 @@ public final class L2PcInstance extends L2PlayableInstance
         	
             L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(sld.getItem().getBodyPart());
             InventoryUpdate iu = new InventoryUpdate();
-            for (int i = 0; i < unequiped.length; i++)
-                iu.addModifiedItem(unequiped[i]);
+            for (L2ItemInstance element : unequiped)
+				iu.addModifiedItem(element);
             sendPacket(iu);
 
             abortAttack();
@@ -6027,21 +6025,19 @@ public final class L2PcInstance extends L2PlayableInstance
 
             L2Recipe[] recipes = getCommonRecipeBook();
 
-            for (int count = 0; count < recipes.length; count++)
-            {
+            for (L2Recipe element : recipes) {
                 statement = con.prepareStatement("REPLACE INTO character_recipebook (char_id, id, type) values(?,?,0)");
                 statement.setInt(1, getObjectId());
-                statement.setInt(2, recipes[count].getId());
+                statement.setInt(2, element.getId());
                 statement.execute();
                 statement.close();
             }
 
             recipes = getDwarvenRecipeBook();
-            for (int count = 0; count < recipes.length; count++)
-            {
+            for (L2Recipe element : recipes) {
                 statement = con.prepareStatement("REPLACE INTO character_recipebook (char_id, id, type) values(?,?,1)");
                 statement.setInt(1, getObjectId());
-                statement.setInt(2, recipes[count].getId());
+                statement.setInt(2, element.getId());
                 statement.execute();
                 statement.close();
             }
@@ -9079,7 +9075,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			// if the rent of a wyvern expires while over a flying zone, tp to down before unmounting
 			if (checkLandingState() && getMountType()==2)
-				teleToLocation(MapRegionTable.TeleportWhereType.Town);
+				teleToLocation(TeleportWhereType.Town);
 			_taskRentPet.cancel(true);
 			Ride dismount = new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0);
 			sendPacket(dismount);
@@ -9144,7 +9140,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 && isIn7sDungeon()
                 && SevenSigns.getInstance().getPlayerCabal(this) != SevenSigns.getInstance().getCabalHighestScore())
             {
-                teleToLocation(MapRegionTable.TeleportWhereType.Town);
+                teleToLocation(TeleportWhereType.Town);
                 setIsIn7sDungeon(false);
                 sendMessage("You have been teleported to the nearest town due to the beginning of the Seal Validation period.");
             }
@@ -9154,7 +9150,7 @@ public final class L2PcInstance extends L2PlayableInstance
             if (!isGM() && isIn7sDungeon()
                 && SevenSigns.getInstance().getPlayerCabal(this) == SevenSigns.CABAL_NULL)
             {
-                teleToLocation(MapRegionTable.TeleportWhereType.Town);
+                teleToLocation(TeleportWhereType.Town);
                 setIsIn7sDungeon(false);
                 sendMessage("You have been teleported to the nearest town because you have not signed for any cabal.");
             }
@@ -9191,35 +9187,35 @@ public final class L2PcInstance extends L2PlayableInstance
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
-			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			teleToLocation(TeleportWhereType.Town);
 		} else if (!isGM() && BaiumManager.getInstance().checkIfInZone(this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
-			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			teleToLocation(TeleportWhereType.Town);
 		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Lilith", this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
-			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			teleToLocation(TeleportWhereType.Town);
 		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Anakim", this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
-			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			teleToLocation(TeleportWhereType.Town);
 		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Zaken", this)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
-			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			teleToLocation(TeleportWhereType.Town);
 		} else if (!isGM() && ValakasManager.getInstance().checkIfInZone(this))
 		{
     		if (getQuestState("valakas") != null) getQuestState("valakas").exitQuest(true);
-			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			teleToLocation(TeleportWhereType.Town);
 		} else if (!isGM() && SailrenManager.getInstance().checkIfInZone(this))
 		{
     		if (getQuestState("sailren") != null) getQuestState("sailren").exitQuest(true);
-			teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			teleToLocation(TeleportWhereType.Town);
 		}
     }
 

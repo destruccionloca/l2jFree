@@ -151,12 +151,11 @@ public class Disablers implements ISkillHandler
                 activeSummon.setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
             }
         }
-        for (int index = 0; index < targets.length; index++) 
-        {
+        for (L2Object element : targets) {
             // Get a target L2Character targets
-            if (!(targets[index] instanceof L2Character)) continue;
+            if (!(element instanceof L2Character)) continue;
    
-            L2Character target = (L2Character) targets[index];
+            L2Character target = (L2Character) element;
                        
             if (target == null || target.isDead()) //bypass if target is null or dead
                 continue;

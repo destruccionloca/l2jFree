@@ -101,7 +101,8 @@ public class TestL2Skill extends TestCase
             l2skill.attach(new ConditionItemId(57),true);
             
             L2Character activeChar = new L2BoatInstance(1,new L2CharTemplate(statsSetForTestNpc),"BoatPeople");
-            l2skill.checkCondition(activeChar, true);
+            //TODO: second parameter needs to be fixed
+            l2skill.checkCondition(activeChar,activeChar, true);
         }
         catch (Exception e)
         {

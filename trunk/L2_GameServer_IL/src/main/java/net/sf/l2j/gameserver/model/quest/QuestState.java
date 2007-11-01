@@ -190,9 +190,8 @@ public final class QuestState
 					L2DropData d = ds.next();
 					String[] states = d.getStateIDs();
                     
-					for (int k=0; k < states.length; k++) 
-                    {
-						if (getState().getName().equals(states[k])) 
+					for (String element : states) {
+						if (getState().getName().equals(element)) 
                         {
 							ds.remove();
 							break;
@@ -910,15 +909,8 @@ public final class QuestState
 		// Clean drops
 		if (getDrops() != null) 
         {
-			// Go through values of class variable "drops" pointing out mobs that drop for quest
-		    for (Iterator<List<L2DropData>> i = getDrops().values().iterator(); i.hasNext();) 
-            {
-		    	List<L2DropData> lst = i.next();
-                
-		    	// Go through values of mobs that drop for quest pointing out drops of the mob
-		    	for (Iterator<L2DropData> ds = lst.iterator(); ds.hasNext();) 
-                {
-					L2DropData d = ds.next();
+			for (List<L2DropData> lst : getDrops().values()) {
+		    	for (L2DropData d : lst) {
 					int itemId = d.getItemId();
                     
 					// Get [item from] / [presence of the item in] the inventory of the player 

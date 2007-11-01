@@ -43,9 +43,8 @@ public class Unlock implements ISkillHandler
 
 		if (targetList == null) return;
 
-		for (int index = 0; index < targetList.length; index++)
-		{
-			L2Object target = targetList[index];
+		for (L2Object element : targetList) {
+			L2Object target = element;
 
 			boolean success = Formulas.getInstance().calculateUnlockChance(skill);
 			if (target instanceof L2DoorInstance)
@@ -74,7 +73,7 @@ public class Unlock implements ISkillHandler
 			}
 			else if (target instanceof L2ChestInstance)
 			{
-				L2ChestInstance chest = (L2ChestInstance) targetList[index];
+				L2ChestInstance chest = (L2ChestInstance) element;
 				if (chest.getStatus().getCurrentHp() <= 0 || chest.isInteracted())
 				{
 					activeChar.sendPacket(new ActionFailed());

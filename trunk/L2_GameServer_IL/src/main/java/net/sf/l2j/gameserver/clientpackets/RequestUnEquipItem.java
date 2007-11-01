@@ -88,11 +88,9 @@ public class RequestUnEquipItem extends L2GameClientPacket
         
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 
 		
-		// show the update in the inventory
-		for (int i = 0; i < unequiped.length; i++)
-		{
-            activeChar.checkSSMatch(null, unequiped[i]);			
-            activeChar.getInventory().updateInventory(unequiped[i]);
+		for (L2ItemInstance element : unequiped) {
+            activeChar.checkSSMatch(null, element);			
+            activeChar.getInventory().updateInventory(element);
 		}
 		activeChar.broadcastUserInfo();
 		

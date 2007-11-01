@@ -1967,11 +1967,11 @@ public class L2Attackable extends L2NpcInstance
                                 // Allocate current and levelup ids' for higher level crystals
                                 if(crystalLVL > 9)
                                 {
-                                    for(int i = 0; i < SoulCrystal.HighSoulConvert.length; i++)
-                                        // Get the next stage above 10 using array.
-                                        if(id == SoulCrystal.HighSoulConvert[i][0])
+                                    for (int[] element : SoulCrystal.HighSoulConvert)
+										// Get the next stage above 10 using array.
+                                        if(id == element[0])
                                         {
-                                            crystalNEW = SoulCrystal.HighSoulConvert[i][1]; break;
+                                            crystalNEW = element[1]; break;
                                         }
                                 }
                                 else

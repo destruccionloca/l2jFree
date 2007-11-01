@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.datatables.HennaTreeTable;
 import net.sf.l2j.gameserver.datatables.HeroSkillTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.LevelUpData;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NobleSkillTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
@@ -76,6 +75,7 @@ import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -156,9 +156,9 @@ public class GameServer
 	            if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
 	        }
         }
+        MapRegionManager.getInstance();        
         ZoneManager.getInstance();
         ClanHallManager.getInstance();
-        MapRegionTable.getInstance();        
         DoorTable.getInstance();
         StaticObjects.getInstance();
         GameTimeController.getInstance();

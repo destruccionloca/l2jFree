@@ -18,9 +18,10 @@
  */
 package net.sf.l2j.gameserver.handler.usercommandhandlers;
 
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -37,9 +38,12 @@ public class Loc implements IUserCommandHandler
      */
     public boolean useUserCommand(@SuppressWarnings("unused") int id, L2PcInstance activeChar)
     {
-    	int _nearestTown=MapRegionTable.getInstance().getClosestTownNumber(activeChar);
+    	Town town = TownManager.getInstance().getClosestTown(activeChar);
+
+    	int nearestTown = town.getTownId();
+    	
     	SystemMessageId msg;
-    	switch (_nearestTown)
+    	switch (nearestTown)
     	{
     	case 0: msg = SystemMessageId.LOC_TI_S1_S2_S3; break;
     	case 1: msg = SystemMessageId.LOC_ELVEN_S1_S2_S3; break;
@@ -58,6 +62,7 @@ public class Loc implements IUserCommandHandler
         case 14: msg = SystemMessageId.LOC_RUNE_S1_S2_S3; break;
         case 15: msg = SystemMessageId.LOC_GODDARD_S1_S2_S3; break;
         case 16: msg = SystemMessageId.LOC_SCHUTTGART_S1_S2_S3; break;
+        case 19: msg = SystemMessageId.LOC_FLORAN_S1_S2_S3; break;
         default: msg = SystemMessageId.LOC_ADEN_S1_S2_S3;
     	}
         SystemMessage sm = new SystemMessage(msg);

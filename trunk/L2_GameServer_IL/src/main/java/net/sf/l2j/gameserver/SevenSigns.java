@@ -27,18 +27,17 @@ import java.util.Map;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.AutoChatHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
-import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -1295,7 +1294,7 @@ public class SevenSigns
             {
                 if (!onlinePlayer.isGM() && onlinePlayer.isIn7sDungeon() && !currPlayer.getString("cabal").equals(compWinner)) 
                 {
-                    onlinePlayer.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+                    onlinePlayer.teleToLocation(TeleportWhereType.Town);
                     onlinePlayer.setIsIn7sDungeon(false);
                     onlinePlayer.sendMessage("You have been teleported to the nearest town due to the beginning of the Seal Validation period.");
                 }
@@ -1304,7 +1303,7 @@ public class SevenSigns
             {
                 if (!onlinePlayer.isGM() && onlinePlayer.isIn7sDungeon() && !currPlayer.getString("cabal").equals("")) 
                 {
-                    onlinePlayer.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+                    onlinePlayer.teleToLocation(TeleportWhereType.Town);
                     onlinePlayer.setIsIn7sDungeon(false);
                     onlinePlayer.sendMessage("You have been teleported to the nearest town because you have not signed for any cabal.");
                 }

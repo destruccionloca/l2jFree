@@ -79,9 +79,8 @@ public class Continuous implements ISkillHandler
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance)activeChar;
 		
-		for(int index = 0;index < targets.length;index++)
-		{
-			target = (L2Character)targets[index];
+		for (L2Object element : targets) {
+			target = (L2Character)element;
 			//check if skill is allowed on other.properties for raidbosses
 			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;

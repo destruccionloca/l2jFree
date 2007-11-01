@@ -1529,8 +1529,8 @@ public class Olympiad
                     {
                         L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
                         InventoryUpdate iu = new InventoryUpdate();
-                        for (int i = 0; i < unequiped.length; i++)
-                            iu.addModifiedItem(unequiped[i]);
+                        for (L2ItemInstance element : unequiped)
+							iu.addModifiedItem(element);
                         player.sendPacket(iu);
                         player.abortAttack();
                         player.broadcastUserInfo();

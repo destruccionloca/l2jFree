@@ -1644,9 +1644,8 @@ public class L2NpcInstance extends L2Character
                 
                 if (qlst != null && qlst.length > 0) 
                 {
-                    for (int i=0; i < qlst.length; i++) 
-                    {
-                        if (qlst[i] == q) 
+                    for (Quest element : qlst) {
+                        if (element == q) 
                         {
                             qs = q.newQuestState(player);
                             //disabled by mr. becouse quest dialog only show on second click.

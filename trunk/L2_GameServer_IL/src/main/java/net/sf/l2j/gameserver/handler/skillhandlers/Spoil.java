@@ -54,12 +54,11 @@ public class Spoil implements ISkillHandler
             return;
         }
 
-        for (int index = 0; index < targetList.length; index++) 
-        {
-            if (!(targetList[index] instanceof L2MonsterInstance))
+        for (L2Object element : targetList) {
+            if (!(element instanceof L2MonsterInstance))
                 continue;
 
-            L2MonsterInstance target = (L2MonsterInstance) targetList[index];
+            L2MonsterInstance target = (L2MonsterInstance) element;
             //check if skill is allowed on other.properties for raidbosses
 			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
 				continue;
@@ -73,7 +72,7 @@ public class Spoil implements ISkillHandler
             boolean spoil = false;
             if ( target.isDead() == false ) 
             {
-                spoil = Formulas.getInstance().calcMagicSuccess(activeChar, (L2Character)targetList[index], skill);
+                spoil = Formulas.getInstance().calcMagicSuccess(activeChar, (L2Character)element, skill);
                 
                 if (spoil)
                 {

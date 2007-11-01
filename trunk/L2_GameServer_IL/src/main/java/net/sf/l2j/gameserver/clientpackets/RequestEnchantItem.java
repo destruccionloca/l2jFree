@@ -368,9 +368,8 @@ public class RequestEnchantItem extends L2GameClientPacket
                 {
 					L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(item.getEquipSlot());
                 	InventoryUpdate iu = new InventoryUpdate();
-                    for (int i = 0; i < unequiped.length; i++)
-                    {
-                        iu.addItem(unequiped[i]);
+                    for (L2ItemInstance element : unequiped) {
+                        iu.addItem(element);
                     }
                     activeChar.sendPacket(iu);
                 }

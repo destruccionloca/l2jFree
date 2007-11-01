@@ -21,11 +21,11 @@ public class Manager
 {
 	public static void reloadAll()
 	{
+		MapRegionManager.getInstance().reload();
+		ZoneManager.getInstance().reload();
+		TownManager.getInstance().reload();
 		AuctionManager.getInstance().reload();
 		CastleManager.getInstance().reload();
 		ClanHallManager.getInstance().reload();
-//		QuestManager.getInstance().reload();
-		ZoneManager.getInstance().reload();
-		TownManager.getInstance().reload();
 	}
 }

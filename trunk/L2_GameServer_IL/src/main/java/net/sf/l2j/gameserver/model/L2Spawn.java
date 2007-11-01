@@ -22,7 +22,6 @@ import java.lang.reflect.Constructor;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.Config.CorrectSpawnsZ;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;

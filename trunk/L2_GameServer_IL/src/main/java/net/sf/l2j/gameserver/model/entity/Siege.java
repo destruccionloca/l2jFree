@@ -28,7 +28,6 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
@@ -46,13 +45,13 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.serverpackets.SiegeInfo;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
-import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -278,9 +277,9 @@ public class Siege
                 announceToPlayer("The siege of " + getCastle().getName() + " has ended in a draw.", false);
 
             removeFlags(); // Removes all flags. Note: Remove flag before teleporting players
-            teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
-            teleportPlayer(Siege.TeleportWhoType.DefenderNotOwner, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
-            teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
+            teleportPlayer(Siege.TeleportWhoType.Attacker, TeleportWhereType.Town); // Teleport to the second closest town
+            teleportPlayer(Siege.TeleportWhoType.DefenderNotOwner, TeleportWhereType.Town); // Teleport to the second closest town
+            teleportPlayer(Siege.TeleportWhoType.Spectator, TeleportWhereType.Town); // Teleport to the second closest town
             _isInProgress = false; // Flag so that siege instance can be started
             updatePlayerSiegeStateFlags(true);
             saveCastleSiege(); // Save castle specific data
@@ -396,8 +395,8 @@ public class Siege
                         }
                     }
                 }
-                teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.SiegeFlag); // Teleport to the second closest town
-                teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);     // Teleport to the second closest town
+                teleportPlayer(Siege.TeleportWhoType.Attacker, TeleportWhereType.SiegeFlag); // Teleport to the second closest town
+                teleportPlayer(Siege.TeleportWhoType.Spectator, TeleportWhereType.Town);     // Teleport to the second closest town
                 
                 removeDefenderFlags();       // Removes defenders' flags
                 getCastle().removeUpgrade(); // Remove all castle upgrade
@@ -430,7 +429,7 @@ public class Siege
             _isInProgress = true; // Flag so that same siege instance cannot be started again 
             loadSiegeClan(); // Load siege clan from db
             updatePlayerSiegeStateFlags(false);
-            teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport to the closest town
+            teleportPlayer(Siege.TeleportWhoType.Attacker, TeleportWhereType.Town); // Teleport to the closest town
             //teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);      // Teleport to the second closest town
             spawnArtifact(getCastle().getCastleId()); // Spawn artifact
             spawnControlTower(getCastle().getCastleId()); // Spawn control tower
@@ -856,7 +855,7 @@ public class Siege
     /**
      * Teleport players
      */
-    public void teleportPlayer(TeleportWhoType teleportWho, MapRegionTable.TeleportWhereType teleportWhere)
+    public void teleportPlayer(TeleportWhoType teleportWho, TeleportWhereType teleportWhere)
     {
         FastList<L2PcInstance> players;
         switch (teleportWho)

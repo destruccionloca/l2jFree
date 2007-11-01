@@ -323,8 +323,8 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(_item.getEquipSlot());
                 
                     if (_item.isEquipped())
-                        for (int ui = 0; ui < unequiped.length; ui++)
-                            iu.addModifiedItem(unequiped[ui]);
+						for (L2ItemInstance element : unequiped)
+							iu.addModifiedItem(element);
                 
                     player.destroyItem("CraftManager", _itemsSelected.get(i), 1, player, true);
                     iu.addModifiedItem(player.getInventory().getItemByObjectId(_itemsSelected.get(i)));

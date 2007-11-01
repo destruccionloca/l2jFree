@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -29,6 +28,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -72,12 +72,11 @@ public class Recall implements ISkillHandler
 
 		try
 		{
-			for (int index = 0; index < targets.length; index++)
-			{
-				if (!(targets[index] instanceof L2Character))
+			for (L2Object element : targets) {
+				if (!(element instanceof L2Character))
 					continue;
 
-				L2Character target = (L2Character) targets[index];
+				L2Character target = (L2Character) element;
 				// check if skill is allowed on other.properties for raidbosses
 				if (target.isRaid() && !target.checkSkillCanAffectMyself(skill))
 					continue;
@@ -125,7 +124,7 @@ public class Recall implements ISkillHandler
 					}
 				}
 
-				target.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+				target.teleToLocation(TeleportWhereType.Town);
 			}
 		} catch (Throwable e)
 		{
@@ -164,12 +163,11 @@ public class Recall implements ISkillHandler
 
 		try
 		{
-			for (int index = 0; index < targets.length; index++)
-			{
-				if (!(targets[index] instanceof L2Character))
+			for (L2Object element : targets) {
+				if (!(element instanceof L2Character))
 					continue;
 
-				L2Character target = (L2Character) targets[index];
+				L2Character target = (L2Character) element;
 
 				target.abortAttack();
 

@@ -32,7 +32,6 @@ import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.cache.HtmCache;
-import net.sf.l2j.gameserver.clientpackets.Say2;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -113,9 +112,8 @@ public class Announcements implements AnnouncementsMBean
 			if (validDateRange.isValid() && validDateRange.isWithinRange(currentDate))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				for (int j=0; j<msg.length; j++)
-				{
-					sm.addString(msg[j]);
+				for (String element : msg) {
+					sm.addString(element);
 				}
 				activeChar.sendPacket(sm);
 			}

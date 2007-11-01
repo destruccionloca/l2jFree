@@ -51,9 +51,9 @@ public class L2SkillDrain extends L2Skill
 		boolean ss = false;
 		boolean bss = false;
 		
-		for(int index = 0;index < targets.length;index++)
+        for (L2Object element : targets)
 		{
-			L2Character target = (L2Character)targets[index];
+			L2Character target = (L2Character)element;
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
 

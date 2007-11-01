@@ -19,12 +19,13 @@ package net.sf.l2j.gameserver.handler.chathandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.Config.ChatMode;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.util.FloodProtector;
@@ -65,10 +66,10 @@ public class ChatTrade implements IChatHandler
 
 		if (Config.DEFAULT_TRADE_CHAT == ChatMode.REGION)
 		{
-			int region = MapRegionTable.getInstance().getMapRegion(activeChar.getX(), activeChar.getY());
+			L2MapRegion region = MapRegionManager.getInstance().getRegion(activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if (region == MapRegionTable.getInstance().getMapRegion(player.getX(),player.getY())
+				if (region == MapRegionManager.getInstance().getRegion(player.getX(),player.getY(), activeChar.getZ())
 					&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
 					player.sendPacket(cs);
 			}

@@ -100,20 +100,19 @@ public class L2SkillElemental extends L2Skill
 			}
 		}
 		
-		for (int index = 0; index < targets.length; index++)
+        for (L2Object element : targets)
 		{
-			L2Character target = (L2Character)targets[index];
+			L2Character target = (L2Character)element;
 			if (target.isAlikeDead())
 				continue;
 			
 			boolean charged = true;
 			if (!_seedAny)
 			{
-				for (int i=0;i<_seeds.length;i++)
-				{
-					if (_seeds[i]!=0)
+				for (int element0 : _seeds) {
+					if (element0!=0)
 					{
-						L2Effect e = target.getEffect(_seeds[i]);
+						L2Effect e = target.getEffect(element0);
 						if (e==null || !e.getInUse())
 						{
 							charged = false;
@@ -125,11 +124,10 @@ public class L2SkillElemental extends L2Skill
 			else
 			{
 				charged = false;
-				for (int i=0;i<_seeds.length;i++)
-				{
-					if (_seeds[i]!=0)
+				for (int element0 : _seeds) {
+					if (element0!=0)
 					{
-						L2Effect e = target.getEffect(_seeds[i]);
+						L2Effect e = target.getEffect(element0);
 						if (e!=null && e.getInUse())
 						{
 							charged = true;

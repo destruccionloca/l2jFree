@@ -18,10 +18,10 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Manor;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -119,7 +119,7 @@ public class Seed implements IItemHandler
 
         _seedId = item.getItemId();
 
-        if(areaValid(MapRegionTable.getInstance().getAreaCastle(_activeChar)))
+        if(areaValid(MapRegionManager.getInstance().getAreaCastle(_activeChar)))
         {
             //TODO: get right skill level
             _target.setSeeded(_seedId, _activeChar);

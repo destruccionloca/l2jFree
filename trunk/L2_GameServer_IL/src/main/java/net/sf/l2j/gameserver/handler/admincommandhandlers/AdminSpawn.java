@@ -697,8 +697,8 @@ public class AdminSpawn implements IAdminCommandHandler
     	{
     		if (result.length > 0)
             {
-            	for (int i=0; i < result.length; i++)
-            		activeChar.sendMessage(result[i].getDbId()+ " "+ result[i].getLocx()+ " " + result[i].getLocy() + " " +result[i].getLocz()+ " "+ result[i].getAmount());
+            	for (L2Spawn element : result)
+					activeChar.sendMessage(element.getDbId()+ " "+ element.getLocx()+ " " + element.getLocy() + " " +element.getLocz()+ " "+ element.getAmount());
             	
             	activeChar.sendMessage("Total spawns for NPC ID " +npcId + " is " + result.length + ".");
             }
@@ -713,12 +713,11 @@ public class AdminSpawn implements IAdminCommandHandler
      */    
     private void showAdminCommandHelp(L2PcInstance activeChar, String command)
     {
-    	for (int i=0; i < ADMIN_COMMANDS.length; i++)
-    	{
-    		if (command.equals(ADMIN_COMMANDS[i][0]))
+    	for (String[] element : ADMIN_COMMANDS) {
+    		if (command.equals(element[0]))
     		{
-    			for (int k=1; k < ADMIN_COMMANDS[i].length; k++)
-    				activeChar.sendMessage(ADMIN_COMMANDS[i][k]);
+    			for (int k=1; k < element.length; k++)
+    				activeChar.sendMessage(element[k]);
     		}
     	}
     }

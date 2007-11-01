@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.model.actor.stat.DoorStat;
 import net.sf.l2j.gameserver.model.actor.status.DoorStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.DoorStatusUpdate;
@@ -63,7 +64,7 @@ public class L2DoorInstance extends L2Character
     
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
     private int _castleIndex = -2;
-    private int _mapRegion = -1;
+    private L2MapRegion _mapRegion = null;
     
     // when door is closed, the dimensions are
     private int _rangeXMin = 0;
@@ -567,12 +568,12 @@ public class L2DoorInstance extends L2Character
     	_rangeZMax = zMax;
     }
     
-    public int getMapRegion()
+    public L2MapRegion getMapRegion()
     {
     	return _mapRegion;
     }
 
-    public void setMapRegion(int region)
+    public void setMapRegion(L2MapRegion region)
     {
     	_mapRegion = region;
     }

@@ -43,9 +43,7 @@ public class GMViewSkillInfo extends L2GameServerPacket
 		writeS(_activeChar.getName());
 		writeD(_skills.length);
 		
-		for (int i = 0; i < _skills.length; i++)
-		{
-			L2Skill skill = _skills[i];
+		for (L2Skill skill : _skills) {
 			writeD(skill.isPassive() ? 1 : 0);
 			writeD(skill.getLevel());
 			writeD(skill.getId());

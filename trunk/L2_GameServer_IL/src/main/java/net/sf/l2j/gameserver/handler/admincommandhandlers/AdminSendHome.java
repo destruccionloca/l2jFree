@@ -19,12 +19,12 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -88,6 +88,6 @@ public class AdminSendHome implements IAdminCommandHandler
     
     private void doSendhome(L2Character targetChar)
     {
-    	targetChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+    	targetChar.teleToLocation(TeleportWhereType.Town);
     }
 }

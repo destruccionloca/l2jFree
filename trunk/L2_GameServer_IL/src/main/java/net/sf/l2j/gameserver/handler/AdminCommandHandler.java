@@ -64,6 +64,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPathNode;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPetition;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPledge;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPolymorph;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRegion;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRepairChar;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRes;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRideWyvern;
@@ -148,6 +149,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminPathNode());
         registerAdminCommandHandler(new AdminPledge());
         registerAdminCommandHandler(new AdminPolymorph());
+        registerAdminCommandHandler(new AdminRegion());
         registerAdminCommandHandler(new AdminRepairChar());
         registerAdminCommandHandler(new AdminRes());
         registerAdminCommandHandler(new AdminRideWyvern());
@@ -173,18 +175,17 @@ public class AdminCommandHandler
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)
 	{
 		String[] ids = handler.getAdminCommandList();
-		for (int i = 0; i < ids.length; i++)
-		{
-			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+ids[i]);
+		for (String element : ids) {
+			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+element);
 			
-			if (_datatable.keySet().contains(new String(ids[i])))
+			if (_datatable.keySet().contains(new String(element)))
 			{
-				_log.warn("Duplicated command \""+ids[i]+"\" definition in "+ handler.getClass().getName()+".");
+				_log.warn("Duplicated command \""+element+"\" definition in "+ handler.getClass().getName()+".");
 			} else
-				_datatable.put(ids[i], handler);
+				_datatable.put(element, handler);
 			
-			if (Config.ALT_PRIVILEGES_ADMIN && !Config.GM_COMMAND_PRIVILEGES.containsKey(ids[i]))
-				_log.warn("Command \""+ids[i]+"\" have no access level definition. Can't be used.");
+			if (Config.ALT_PRIVILEGES_ADMIN && !Config.GM_COMMAND_PRIVILEGES.containsKey(element))
+				_log.warn("Command \""+element+"\" have no access level definition. Can't be used.");
 		}
 	}
 	

@@ -67,9 +67,8 @@ public class Heal implements ISkillHandler
         if (activeChar instanceof L2PcInstance)
             player = (L2PcInstance)activeChar;
         
-        for (int index = 0; index < targets.length; index++)
-        {
-            target = (L2Character)targets[index];
+        for (L2Object element : targets) {
+            target = (L2Character)element;
             //We should not heal if char is dead
             if (target == null || target.isDead())
                 continue;
@@ -133,12 +132,10 @@ public class Heal implements ISkillHandler
             if (skill.getSkillType() == SkillType.BALANCE_HEAL)
             {
                 double fullHP = 0;
-                for (int member = 0; member < targets.length; member++)
-                {
+                for (L2Object element0 : targets) {
                     fullHP += target.getStatus().getCurrentHp();
                 }
-                for (int member = 0; member < targets.length; member++)
-                {
+                for (L2Object element0 : targets) {
                 target.getStatus().setCurrentHp(fullHP/targets.length);
                 }
             }

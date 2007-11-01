@@ -71,10 +71,9 @@ public class UserCommandHandler
 	public void registerUserCommandHandler(IUserCommandHandler handler)
 	{
 		int[] ids = handler.getUserCommandList();
-		for (int i = 0; i < ids.length; i++)
-		{
-			if (_log.isDebugEnabled()) _log.debug("Adding handler for user command "+ids[i]);
-			_datatable.put(new Integer(ids[i]), handler);
+		for (int element : ids) {
+			if (_log.isDebugEnabled()) _log.debug("Adding handler for user command "+element);
+			_datatable.put(new Integer(element), handler);
 		}
 	}
 	
