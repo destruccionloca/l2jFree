@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.handler.usercommandhandlers;
 
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
-import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Town;
@@ -63,6 +62,7 @@ public class Loc implements IUserCommandHandler
         case 14: msg = SystemMessageId.LOC_RUNE_S1_S2_S3; break;
         case 15: msg = SystemMessageId.LOC_GODDARD_S1_S2_S3; break;
         case 16: msg = SystemMessageId.LOC_SCHUTTGART_S1_S2_S3; break;
+        case 19: msg = SystemMessageId.LOC_FLORAN_S1_S2_S3; break;
         default: msg = SystemMessageId.LOC_ADEN_S1_S2_S3;
     	}
         SystemMessage sm = new SystemMessage(msg);

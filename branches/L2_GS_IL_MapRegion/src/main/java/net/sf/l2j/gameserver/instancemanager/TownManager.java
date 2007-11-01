@@ -162,6 +162,9 @@ public class TownManager
 	        case 18:
 	            nearestTown = "Primeval Isle Wharf";
 	            break;
+	        case 19:
+	        	nearestTown = "Floran Village";
+	        	break;
 	        default:
 	            nearestTown = "";
 	            break;
