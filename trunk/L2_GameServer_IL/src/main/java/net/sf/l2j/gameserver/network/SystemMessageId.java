@@ -946,19 +946,31 @@ public enum SystemMessageId
 	 * ID: 1065<br>
 	 * Message: While operating a private store or workshop, you cannot discard, destroy, or trade an item.
 	 */
-    CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE(1065),
-    
-    /**
-     * ID: 1036<br>
-     * Message: You have exceeded the quantity that can be inputted.
-     */
-    YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED(1036),
-    
-    /**
-     * ID: 1050<br>
-     * Message: There are no communities in my clan. Clan communities are allowed for clans with skill levels of 2 and higher.
-     */
-    NO_CB_IN_MY_CLAN(1050),
+	CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE(1065),
+	
+	/**
+	* ID: 1036<br>
+	* Message: You have exceeded the quantity that can be inputted.
+	*/
+	YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED(1036),
+
+	/**
+	* ID: 1050<br>
+	* Message: There are no communities in my clan. Clan communities are allowed for clans with skill levels of 2 and higher.
+	*/
+	NO_CB_IN_MY_CLAN(1050),
+
+	/** 
+	 * ID: 1051 <br>
+	 * Message: Payment for your clan hall has not been made please make payment tomorrow.
+	 */
+	PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW(1051),
+
+	/** 
+	 * ID: 1052 <br>
+	 * Message: Payment of Clan Hall is overdue the owner loose Clan Hall.
+	 */
+	THE_CLAN_HALL_FEE_IS_ONE_WEEK_OVERDUE_THEREFORE_THE_CLAN_HALL_OWNERSHIP_HAS_BEEN_REVOKED(1052),
     
     /**
      * ID: 938<br>

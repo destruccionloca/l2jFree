@@ -332,7 +332,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	* @param caster
 	* @param force type
 	*/
-    @Override	
+    @Override
 	public void startForceBuff(L2Character target, L2Skill skill)
 	{
 		if(!(target instanceof L2PcInstance))return;
@@ -3323,7 +3323,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         // Restrict iteractions during restart/shutdown
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_PC_ITERACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
             sendMessage("Player iteraction disabled during restart/shutdown!");
             player.sendPacket(new ActionFailed());
@@ -3350,7 +3350,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Check if the L2PcInstance is confused
-        if (player.isConfused())
+        if (player.isOutOfControl())
         {
             // Send a Server->Client packet ActionFailed to the player
             ActionFailed af = new ActionFailed();
@@ -7371,7 +7371,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Check if all casting conditions are completed
-        if (!skill.checkCondition(this, false))
+        if (!skill.checkCondition(this, target, false))
         {
             // Send a Server->Client packet ActionFailed to the L2PcInstance
             sendPacket(new ActionFailed());

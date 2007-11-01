@@ -550,15 +550,15 @@ public class GeoEngine extends GeoData
 		LineNumberReader lnr = null;
 		try
 		{
-			_log.info("Geo Engine: - Loading Geodata...");			
+			_log.info("Geo Engine: - Loading Geodata...");
 			File Data = new File("./data/geodata/geo_index.txt");
 			if (!Data.exists())
 				return;
 			
-			lnr = new LineNumberReader(new BufferedReader(new FileReader(Data)));	
+			lnr = new LineNumberReader(new BufferedReader(new FileReader(Data)));
 		} catch (Exception e) {
-			e.printStackTrace();		
-			throw new Error("Failed to Load geo_index File.");	
+			e.printStackTrace();
+			throw new Error("Failed to Load geo_index File.");
 		}
 		String line;
 		try
@@ -577,12 +577,12 @@ public class GeoEngine extends GeoData
 		}
 		try
 		{			
-			File geo_bugs = new File("./data/geodata/geo_bugs.txt");			
+			File geo_bugs = new File("./data/geodata/geo_bugs.txt");
 			
 			_geoBugsOut = new BufferedOutputStream(new FileOutputStream(geo_bugs,true));
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Error("Failed to Load geo_bugs.txt File.");	
+			throw new Error("Failed to Load geo_bugs.txt File.");
 		}
 	}
 
@@ -737,7 +737,7 @@ public class GeoEngine extends GeoData
 		int blockY = getBlock(geoy);
 		int cellX, cellY, index;
 		//Geodata without index - it is just empty so index can be calculated on the fly
-		if(_geodataIndex.get(region) == null) index = ((blockX << 8) + blockY)*3;		
+		if(_geodataIndex.get(region) == null) index = ((blockX << 8) + blockY)*3;
 		//Get Index for current block of current region geodata
 		else index = _geodataIndex.get(region).get(((blockX << 8))+(blockY));
 		//Buffer that Contains current Region GeoData
@@ -752,7 +752,7 @@ public class GeoEngine extends GeoData
 		byte type = geo.get(index);
 		index++;
 	    if(type == 0)//flat
-	        return geo.getShort(index);	    
+	        return geo.getShort(index);
 	    else if(type == 1)//complex
 	    {
 	    	cellX = getCell(geox);
@@ -789,7 +789,7 @@ public class GeoEngine extends GeoData
 	            height = (short)(height&0x0fff0);
 				height = (short)(height >> 1); //height / 2
 	            if ((z-temph)*(z-temph) > (z-height)*(z-height))
-	                temph = height;            
+	                temph = height;
 	            layers--;
 	            index += 2;
 	        }	        
@@ -811,7 +811,7 @@ public class GeoEngine extends GeoData
 		int cellX, cellY, index;
 		short temph = Short.MIN_VALUE;
 		//Geodata without index - it is just empty so index can be calculated on the fly
-		if(_geodataIndex.get(region) == null) index = ((blockX << 8) + blockY)*3;		
+		if(_geodataIndex.get(region) == null) index = ((blockX << 8) + blockY)*3;
 		//Get Index for current block of current region geodata
 		else index = _geodataIndex.get(region).get(((blockX << 8))+(blockY));
 		//Buffer that Contains current Region GeoData
@@ -826,7 +826,7 @@ public class GeoEngine extends GeoData
 		byte type = geo.get(index);
 		index++;
 	    if(type == 0)//flat	    
-	    	temph = geo.getShort(index);	    
+	    	temph = geo.getShort(index);
 	    else if(type == 1)//complex
 	    {
 	    	cellX = getCell(geox);
@@ -845,7 +845,7 @@ public class GeoEngine extends GeoData
 	        int offset = (cellX << 3) + cellY;
 	        while(offset > 0)
 	        {
-	            byte lc = geo.get(index);		                
+	            byte lc = geo.get(index);
 	            index += (lc << 1) + 1;
 	            offset--;
 	        }
@@ -854,32 +854,31 @@ public class GeoEngine extends GeoData
 	        index++;
 			if(layers <= 0 || layers > 125)
 			{
-				_log.warn("Geo Engine: - invalid layers count: "+layers+" at: "+geox+" "+geoy);				
+				_log.warn("Geo Engine: - invalid layers count: "+layers+" at: "+geox+" "+geoy);
 	            return (short)zmin;
 			}			
 	        while(layers > 0)
-	        {	            
+	        {
 	            height = geo.getShort(index);
 	            height = (short)(height&0x0fff0);
 				height = (short)(height >> 1); //height / 2
 	            if ((zmin-temph)*(zmin-temph) > (zmin-height)*(zmin-height))
-	                temph = height;            
+	                temph = height;
 	            layers--;
 	            index += 2;
 	        }
-	        if (temph > zmax + 150 || temph < zmin - 150)        
+	        if (temph > zmax + 200 || temph < zmin - 200)
 	        {
-	        	//Just log error - we trust GeoData and spawn NPC on nearlest GeoData Z
 	        	if(_log.isDebugEnabled())
 	        		_log.warn("SpawnHeight Error - Couldnt find correct layer to spawn NPC - GeoData or Spawnlist Bug!: zmin: "+zmin+" zmax: "+zmax+" value: "+temph+" SpawnId: "+spawnid+" at: "+geox+" : "+geoy);
-	        	return temph;
+	        	return (short)zmin;
 	        }
 	    }
-	    if (temph > zmax + 600 || temph < zmin - 600) 
+	    if (temph > zmax + 1000 || temph < zmin - 1000)
 	    {
-	    	//Just log error - we trust GeoData and spawn NPC on Z given by GeoData
 	    	if(_log.isDebugEnabled())
-	    		_log.warn("SpawnHeight Error - Spawnlist z value is wrong or GeoData error: zmin: "+zmin+" zmax: "+zmax+" value: "+temph+" SpawnId: "+spawnid+" at: "+geox+" : "+geoy);	        
+	    		_log.warn("SpawnHeight Error - Spawnlist z value is wrong or GeoData error: zmin: "+zmin+" zmax: "+zmax+" value: "+temph+" SpawnId: "+spawnid+" at: "+geox+" : "+geoy);
+	    	return (short)zmin;
         }
 	    return temph;
 	}

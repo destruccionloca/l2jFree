@@ -64,10 +64,6 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		if (activeChar == null)
 			return;
 
-		// If Alternate rule Karma punishment is set to true, forbid skill Return to player with Karma
-		if (_magicId == 1050 && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0)
-			return;
-
 		// Get the level of the used skill
 		int level = activeChar.getSkillLevel(_magicId);
 		if (level <= 0) 
@@ -76,12 +72,22 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 			return;
 		}
 
+		if (activeChar.isOutOfControl())
+		{
+			activeChar.sendPacket(new ActionFailed());
+			return; 
+		}
+
 		// Get the L2Skill template corresponding to the skillID received from the client
 		L2Skill skill = SkillTable.getInstance().getInfo(_magicId, level);
 
 		// Check the validity of the skill
 		if (skill != null && skill.getSkillType() != SkillType.NOTDONE)
 		{
+			// If Alternate rule Karma punishment is set to true, forbid skill Return to player with Karma
+			if (skill.getSkillType() == L2Skill.SkillType.RECALL && !Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0)
+				return;
+
 			// _log.debug("  skill:"+skill.getName() + " level:"+skill.getLevel() + " passive:"+skill.isPassive());
 			// _log.debug("  range:"+skill.getCastRange()+" targettype:"+skill.getTargetType()+" optype:"+skill.getOperateType()+" power:"+skill.getPower());
 			// _log.debug("  reusedelay:"+skill.getReuseDelay()+" hittime:"+skill.getHitTime());

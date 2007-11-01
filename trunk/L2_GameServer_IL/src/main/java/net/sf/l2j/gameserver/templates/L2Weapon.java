@@ -325,7 +325,7 @@ public final class L2Weapon  extends L2Item
                 continue;
             }
             
-            if (!skill.checkCondition(caster, true)) 
+            if (!skill.checkCondition(caster, target, true)) 
                 continue; // Skill condition not met
             
             if (target.getEffect(skill.getId()) != null)
@@ -361,9 +361,9 @@ public final class L2Weapon  extends L2Item
                 continue; // These skills should not work on RaidBoss
 
             if (trigger.isToggle() && skill.getSkillType() == SkillType.BUFF)
-            	continue; // No buffing with toggle skills
+                continue; // No buffing with toggle skills
             
-            if (!skill.checkCondition(caster, true)) 
+            if (!skill.checkCondition(caster, target, true))
                 continue; // Skill condition not met
             
                 //target.removeEffect(target.getEffect(skill.getId()));

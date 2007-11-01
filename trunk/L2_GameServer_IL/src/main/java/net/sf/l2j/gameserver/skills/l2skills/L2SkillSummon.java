@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillSummon extends L2Skill
 {
-	private int	 _npcId;
+	private int     _npcId;
 	private float   _expPenalty;
 	private boolean _isCubic;
 	
@@ -44,9 +44,9 @@ public class L2SkillSummon extends L2Skill
 	{
 		super(set);
 		
-		_npcId	  = set.getInteger("npcId", 0); // default for undescribed skills
+		_npcId      = set.getInteger("npcId", 0); // default for undescribed skills
 		_expPenalty = set.getFloat ("expPenalty", 0.f);
-		_isCubic	= set.getBool  ("isCubic", false);
+		_isCubic    = set.getBool  ("isCubic", false);
 	}
 
 	public boolean checkCondition(L2Character activeChar, boolean itemOrWeapons)
@@ -59,7 +59,7 @@ public class L2SkillSummon extends L2Skill
 				if (getTargetType() != L2Skill.SkillTargetType.TARGET_SELF)
 				{
 					return true; //Player is always able to cast mass cubic skill
-				}				
+				}
 				int mastery = player.getSkillLevel(L2Skill.SKILL_CUBIC_MASTERY);
 				if (mastery < 0)
 					mastery = 0;
@@ -85,7 +85,7 @@ public class L2SkillSummon extends L2Skill
 				}
 			}
 		}
-		return super.checkCondition(activeChar, itemOrWeapons);
+		return super.checkCondition(activeChar, null, itemOrWeapons);
 	}
 	
 	public void useSkill(L2Character caster, L2Object[] targets)
@@ -124,7 +124,7 @@ public class L2SkillSummon extends L2Skill
 							c = null;
 						}
 						player.getCubics().clear();
-					}				
+					}
 					if (player.getCubics().size() > mastery) continue;
 					if (player.getCubics().containsKey(_npcId))
 					{

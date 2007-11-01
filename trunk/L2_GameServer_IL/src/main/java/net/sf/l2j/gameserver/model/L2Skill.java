@@ -135,6 +135,7 @@ public abstract class L2Skill
     {
         PDAM,
         MDAM,
+        CPDAM,
         DOT,
         BLEED,
         POISON,
@@ -1156,6 +1157,7 @@ public abstract class L2Skill
         {
             case PDAM:
             case MDAM:
+            case CPDAM:
             case DOT:
             case BLEED:
             case POISON:
@@ -1269,7 +1271,7 @@ public abstract class L2Skill
         return false;
     }
     
-    public boolean checkCondition(L2Character activeChar, boolean itemOrWeapon)
+    public boolean checkCondition(L2Character activeChar, L2Object target, boolean itemOrWeapon)
     {
         if((getCondition() & L2Skill.COND_SHIELD) != 0)
         {
@@ -1285,11 +1287,14 @@ public abstract class L2Skill
 
         Condition preCondition = _preCondition;
         if(itemOrWeapon) preCondition = _itemPreCondition;
-
         if (preCondition == null) return true;
+
         Env env = new Env();
         env.player = activeChar;
+        if (target instanceof L2Character) // TODO: object or char?
+            env.target = (L2Character)target;
         env.skill = this;
+
         if (!preCondition.test(env))
         {
             String msg = preCondition.getMessage();

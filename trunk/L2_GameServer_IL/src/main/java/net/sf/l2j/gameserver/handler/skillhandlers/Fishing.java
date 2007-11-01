@@ -66,7 +66,7 @@ public class Fishing implements ISkillHandler
             return;
         }
         if (player.isInBoat())
-        {           
+        {
             //You can't fish while you are on boat
             player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_ON_BOAT));
             return;
@@ -123,35 +123,36 @@ public class Fishing implements ISkillHandler
             //Fishing poles are not installed
             player.sendPacket(new SystemMessage(SystemMessageId.FISHING_POLE_NOT_EQUIPPED));
             return;
-        }       
+        }
         L2ItemInstance lure = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
         if (lure == null)
         {
-            //Not enough bait
+            //Bait not equiped.
             player.sendPacket(new SystemMessage(SystemMessageId.BAIT_ON_HOOK_BEFORE_FISHING));
             return;
         }
         player.setLure(lure);
-        L2ItemInstance lure2 = player.getInventory().destroyItem("Consume", player.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LHAND), 1, player, null);
+        L2ItemInstance lure2 = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
 
-        if (lure2 == null || lure2.getCount() == 0)
+        if (lure2 == null || lure2.getCount() < 1) //Not enough bait.
         {
             player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_BAIT));
             player.sendPacket(new ItemList(player,false));
         }
-        else
+        else //Has enough bait, consume 1 and update inventory. Start fishing follows.
         {
+            lure2 = player.getInventory().destroyItem("Consume", player.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LHAND), 1, player, null);
             InventoryUpdate iu = new InventoryUpdate();
             iu.addModifiedItem(lure2);
             player.sendPacket(iu);
         }
         
         // client itself find z coord of a float
-        player.startFishing(x,y, z + 10);      
+        player.startFishing(x,y, z + 10);
     } 
     
-    public SkillType[] getSkillIds() 
-    { 
-        return SKILL_IDS; 
-    } 
+    public SkillType[] getSkillIds()
+    {
+        return SKILL_IDS;
+    }
 }

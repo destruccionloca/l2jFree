@@ -24,13 +24,15 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.effects.EffectSeed;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
-public class L2SkillSeed extends L2Skill {
-
-	public L2SkillSeed(StatsSet set) {
+public class L2SkillSeed extends L2Skill
+{
+	public L2SkillSeed(StatsSet set)
+	{
 		super(set);
 	}
 
-	public void useSkill(L2Character caster, L2Object[] targets) {
+	public void useSkill(L2Character caster, L2Object[] targets)
+	{
 		if (caster.isAlikeDead())
 			return;
 
@@ -40,25 +42,15 @@ public class L2SkillSeed extends L2Skill {
 			if (target.isAlikeDead() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
 				continue;
 			
-            EffectSeed oldEffect = (EffectSeed) target.getEffect(getId());
-            if (oldEffect == null)
-                getEffects(caster, target);
-            else oldEffect.increasePower();
+			EffectSeed oldEffect = (EffectSeed) target.getEffect(getId());
+			if (oldEffect == null)
+				getEffects(caster, target);
+			else oldEffect.increasePower();
 			
-            L2Effect[] effects = target.getAllEffects();
-            for (int j = 0; j < effects.length; j++)
-                if (effects[j].getEffectType() == L2Effect.EffectType.SEED)
-                    effects[j].rescheduleEffect();
-/*
-			for (int j=0;j<effects.length;j++){
-				if (effects[j].getEffectType()==L2Effect.EffectType.SEED){
-					EffectSeed e = (EffectSeed)effects[j];
-					if (e.getInUse() || e.getSkill().getId()==this.getId()){
-						e.rescheduleEffect();
-					}
-				}
-			}
-*/
+			L2Effect[] effects = target.getAllEffects();
+			for (int j = 0; j < effects.length; j++)
+				if (effects[j].getEffectType() == L2Effect.EffectType.SEED)
+					effects[j].rescheduleEffect();
 		}
 	}
 }

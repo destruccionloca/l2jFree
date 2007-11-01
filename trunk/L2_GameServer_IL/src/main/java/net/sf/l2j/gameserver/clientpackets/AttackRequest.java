@@ -65,19 +65,19 @@ public class AttackRequest extends L2GameClientPacket
 		else
 			target = L2World.getInstance().findObject(_objectId);
 		if (target == null) return;
-        if (activeChar.getTarget() != target)
+		if (activeChar.getTarget() != target)
 		{
 			target.onAction(activeChar);
 		}
 		else
 		{
-            if((target.getObjectId() != activeChar.getObjectId())
+			if((target.getObjectId() != activeChar.getObjectId())
 					&& activeChar.getPrivateStoreType() ==0 
 					&& activeChar.getActiveRequester() ==null)
 			{
 				//_log.info("Starting ForcedAttack");
 				target.onForcedAttack(activeChar);
-				//_log.info("Ending ForcedAttack");				
+				//_log.info("Ending ForcedAttack");
 			} 
 			else
 			{

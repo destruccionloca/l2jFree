@@ -66,5 +66,5 @@ public class L2SkillCharge extends L2Skill
 		}
 		else
 			getEffects(caster, caster);
-    }
+	}
 }

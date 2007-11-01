@@ -47,6 +47,7 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState;
 import net.sf.l2j.gameserver.skills.conditions.ConditionSkillStats;
 import net.sf.l2j.gameserver.skills.conditions.ConditionSlotItemId;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetAggro;
+import net.sf.l2j.gameserver.skills.conditions.ConditionTargetClassIdRestriction;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetLevel;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetUndead;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
@@ -465,13 +466,24 @@ abstract class DocumentBase
             }
             else if ("level".equalsIgnoreCase(a.getNodeName()))
             {
-            	int lvl = Integer.decode(getValue(a.getNodeValue(), template));
+                int lvl = Integer.decode(getValue(a.getNodeValue(), template));
                 cond = joinAnd(cond, new ConditionTargetLevel(lvl));
+            }
+            else if ("class_id_restriction".equalsIgnoreCase(a.getNodeName()))
+            {
+                FastList<Integer> array = new FastList<Integer>();
+                StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
+                while (st.hasMoreTokens())
+                {
+                    String item = st.nextToken().trim();
+                    array.add(Integer.decode(getValue(item, null)));
+                }
+                cond = joinAnd(cond, new ConditionTargetClassIdRestriction(array));
             }
             else if ("undead".equalsIgnoreCase(a.getNodeName()))
             {
-            	boolean val = Boolean.valueOf(a.getNodeValue());
-            	cond = joinAnd(cond, new ConditionTargetUndead(val));
+                boolean val = Boolean.valueOf(a.getNodeValue());
+                cond = joinAnd(cond, new ConditionTargetUndead(val));
             }
             else if ("using".equalsIgnoreCase(a.getNodeName()))
             {

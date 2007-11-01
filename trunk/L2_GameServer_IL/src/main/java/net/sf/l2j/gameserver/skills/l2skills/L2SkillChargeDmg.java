@@ -34,19 +34,18 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 
 public class L2SkillChargeDmg extends L2Skill 
 {
-
 	final int numCharges;
 	final int chargeSkillId;
 	
 	public L2SkillChargeDmg(StatsSet set)
-    {
+	{
 		super(set);
 		
 		numCharges = set.getInteger("num_charges", getLevel());
 		chargeSkillId = set.getInteger("charge_skill_id");
 	}
 
-	public boolean checkCondition(L2Character activeChar, boolean itemOrWeapon)
+	public boolean checkCondition(L2Character activeChar, L2Object target, boolean itemOrWeapon)
 	{
 		if (activeChar instanceof L2PcInstance)
 		{
@@ -60,15 +59,13 @@ public class L2SkillChargeDmg extends L2Skill
 				return false;
 			}
 		}
-		return super.checkCondition(activeChar, itemOrWeapon);
+		return super.checkCondition(activeChar, target, itemOrWeapon);
 	}
 	
 	public void useSkill(L2Character activeChar, L2Object[] targets)
-    {
+	{
 		if (activeChar.isAlikeDead())
-        {
 			return;
-        }
 		
 		// get the effect
 		EffectCharge effect = (EffectCharge) activeChar.getEffect(chargeSkillId);
@@ -110,15 +107,15 @@ public class L2SkillChargeDmg extends L2Skill
 			int damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, this, shld, false, false, soul);
 			if (crit) damage *= 2;
 
-    		if (activeChar instanceof L2PcInstance)
-    		{
-    			L2PcInstance activeCaster = (L2PcInstance)activeChar;
-    			
-    			if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-    				damage = 0;
-    		}
+			if (activeChar instanceof L2PcInstance)
+			{
+				L2PcInstance activeCaster = (L2PcInstance)activeChar;
+				
+				if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+					damage = 0;
+			}
 
-    		if (damage > 0)
+			if (damage > 0)
 			{
 				double finalDamage = damage;
 				finalDamage = finalDamage+(modifier*finalDamage);

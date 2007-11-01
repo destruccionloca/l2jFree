@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.CPperHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Charge;
 import net.sf.l2j.gameserver.handler.skillhandlers.CombatPointHeal;
 import net.sf.l2j.gameserver.handler.skillhandlers.Continuous;
+import net.sf.l2j.gameserver.handler.skillhandlers.CpDam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Craft;
 import net.sf.l2j.gameserver.handler.skillhandlers.DeluxeKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Disablers;
@@ -87,6 +88,7 @@ public class SkillHandler
         registerSkillHandler(new CombatPointHeal());
         registerSkillHandler(new Continuous());
         registerSkillHandler(new Craft());
+		registerSkillHandler(new CpDam());
         registerSkillHandler(new CPperHeal()); 
         registerSkillHandler(new DeluxeKey());
         registerSkillHandler(new Disablers());

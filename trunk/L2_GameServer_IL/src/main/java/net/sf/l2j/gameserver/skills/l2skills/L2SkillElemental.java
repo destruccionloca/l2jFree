@@ -60,18 +60,18 @@ public class L2SkillElemental extends L2Skill
 		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
 
 		if (activeChar instanceof L2PcInstance) 
-        {
+		{
 			if (weaponInst == null) 
 			{ 
-				SystemMessage sm2 = new SystemMessage(SystemMessageId.S1_S2);  
-				sm2.addString("You must equip one weapon before cast spell.");  
+				SystemMessage sm2 = new SystemMessage(SystemMessageId.S1_S2);
+				sm2.addString("You must equip one weapon before cast spell.");
 				activeChar.sendPacket(sm2); 
 				return; 
 			}
 		}
-        
+
 		if (weaponInst != null) 
-        {
+		{
 			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT) 
 			{
 				bss = true;
@@ -83,25 +83,25 @@ public class L2SkillElemental extends L2Skill
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
-        // If there is no weapon equipped, check for an active summon.
-        else if (activeChar instanceof L2Summon)
-        {
-            L2Summon activeSummon = (L2Summon)activeChar;
-            
-            if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-            {
-                bss = true;
-                activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-            }
-            else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-            {
-                ss = true;
-                activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
-            }
-        }
+		// If there is no weapon equipped, check for an active summon.
+		else if (activeChar instanceof L2Summon)
+		{
+			L2Summon activeSummon = (L2Summon)activeChar;
+
+			if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+			{
+				bss = true;
+				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+			}
+			else if (activeSummon.getChargedSpiritShot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+			{
+				ss = true;
+				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
+			}
+		}
 		
-        for (int index = 0; index < targets.length; index++)
-        {
+		for (int index = 0; index < targets.length; index++)
+		{
 			L2Character target = (L2Character)targets[index];
 			if (target.isAlikeDead())
 				continue;
@@ -150,23 +150,23 @@ public class L2SkillElemental extends L2Skill
 			
 			int damage = target.isPetrified() ? 0 : (int)Formulas.getInstance().calcMagicDam(activeChar, target, this, ss, bss, mcrit);
 
-            if (damage > 0)
-            {
-                target.reduceCurrentHp(damage, activeChar);
+			if (damage > 0)
+			{
+				target.reduceCurrentHp(damage, activeChar);
 
-                // Manage attack or cast break of the target (calculating rate, sending message...)
-                if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
-                {
-                    target.breakAttack();
-                    target.breakCast();
-                }
-                activeChar.sendDamageMessage(target, damage, false, false, false);
-            }
+				// Manage attack or cast break of the target (calculating rate, sending message...)
+				if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+				{
+					target.breakAttack();
+					target.breakCast();
+				}
+				activeChar.sendDamageMessage(target, damage, false, false, false);
+			}
 			// activate attacked effects, if any
 			target.stopEffect(getId());
-            if (target.getEffect(getId()) != null)
-                target.removeEffect(target.getEffect(getId()));
-            getEffects(activeChar, target);
+			if (target.getEffect(getId()) != null)
+				target.removeEffect(target.getEffect(getId()));
+			getEffects(activeChar, target);
 		}
-    }
+	}
 }

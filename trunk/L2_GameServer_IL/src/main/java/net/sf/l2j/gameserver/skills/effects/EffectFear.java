@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
 import net.sf.l2j.gameserver.skills.Env;
@@ -35,8 +36,8 @@ import net.sf.l2j.gameserver.skills.Env;
  *
  * Implementation of the Fear Effect
  */
-final class EffectFear extends L2Effect {
-
+final class EffectFear extends L2Effect
+{
 	public static final int FEAR_RANGE = 500;
 	
 	public EffectFear(Env env, EffectTemplate template)
@@ -48,18 +49,17 @@ final class EffectFear extends L2Effect {
 	{
 		return EffectType.FEAR;
 	}
-	
+
 	/** Notify started */
-	public void onStart() {
-        if (!(getEffected() instanceof L2PcInstance))
+	public void onStart()
+	{
 		getEffected().startFear();
-        if (!(getEffected() instanceof L2PcInstance))
 		onActionTime();
 	}
-	
+
 	/** Notify exited */
-	public void onExit() {
-		
+	public void onExit()
+	{
 		getEffected().stopFear(this);
 	}
 
@@ -71,16 +71,14 @@ final class EffectFear extends L2Effect {
         if(getEffected() instanceof L2SiegeGuardInstance) return false;
 
         // Fear skills cannot be used on Headquarters Flag.
-        if(getEffected() instanceof L2NpcInstance && ((L2NpcInstance)getEffected()).getNpcId() == 35062) return false;
+        if(getEffected() instanceof L2SiegeFlagInstance) return false;
         
-        if(getEffected() instanceof L2SiegeSummonInstance)
-            return false;
+        if(getEffected() instanceof L2SiegeSummonInstance) return false;
 
         int posX = getEffected().getX();
         int posY = getEffected().getY();
         int posZ = getEffected().getZ();
 
-        // Random r = L2Character.getRnd();
         int signx=-1;
         int signy=-1;
         if (getEffected().getX()>getEffector().getX())

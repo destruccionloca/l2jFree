@@ -1612,7 +1612,7 @@ public abstract class L2Character extends L2Object
     public final boolean isAlikeDead() { return isFakeDeath() || !(getStatus().getCurrentHp() > 0.5); }
 
     /** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
-    public boolean isAllSkillsDisabled() { return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed() || isAfraid(); }
+    public boolean isAllSkillsDisabled() { return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed(); }
 
     /** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
     public boolean isAttackingDisabled() { return isStunned() || isSleeping() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed()  || isFallsdown(); }
@@ -1653,7 +1653,7 @@ public abstract class L2Character extends L2Object
     /** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
     public boolean isMovementDisabled() { return isStunned() || isRooted() || isSleeping() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath()  || isFallsdown(); }
 
-    /** Return True if the L2Character can be controlled by the player (confused, affraid). */
+    /** Return True if the L2Character can be controlled by the player (confused, afraid). */
     public final boolean isOutOfControl() { return isConfused() || isAfraid(); }
 
     public final boolean isOverloaded() { return _isOverloaded; }
