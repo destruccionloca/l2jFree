@@ -11,8 +11,7 @@ CREATE TABLE IF NOT EXISTS `clanhall` (
   `paidUntil` decimal(20,0) NOT NULL default '0',
   `Grade` decimal(1,0) NOT NULL default '0',
   `paid` int( 1 ) NOT NULL default '0',
-  KEY `id` (`id`),
-  '0'
+  PRIMARY KEY `id` (`id`)
 ) DEFAULT CHARSET=utf8;
 
 INSERT IGNORE INTO `clanhall` VALUES ('21','Fortress of Resistance','0','500000','Ol Mahum Fortress of Resistance','Dion','0','0','0');
