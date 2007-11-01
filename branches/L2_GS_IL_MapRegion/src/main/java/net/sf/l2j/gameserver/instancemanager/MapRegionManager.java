@@ -269,14 +269,17 @@ public class MapRegionManager
     {
     	L2MapRegion region = getRegion(activeChar);
     	
-    	int restartId = region.getRestartId(activeChar.getRace());
+    	if (region != null)
+    	{
+	    	int restartId = region.getRestartId(activeChar.getRace());
+	    	
+	    	L2MapRegionRestart restart = _mapRegionRestart.get(restartId);
+	    	
+	    	if (restart != null)
+	    		return restart.getRandomRestartPoint(activeChar.getRace());
+    	}
     	
-    	L2MapRegionRestart restart = _mapRegionRestart.get(restartId);
-    	
-    	if (restart != null)
-    		return restart.getRandomRestartPoint(activeChar.getRace());
-    	
-    	restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
+    	L2MapRegionRestart restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
     	return restart.getRandomRestartPoint(activeChar.getRace());
     }
     
@@ -295,14 +298,17 @@ public class MapRegionManager
     {
     	L2MapRegion region = getRegion(activeChar);
     	
-    	int restartId = region.getRestartId(activeChar.getRace());
-    	
-    	L2MapRegionRestart restart = _mapRegionRestart.get(restartId);
-    	
-    	if (restart != null)
-    		return restart.getRandomChaosRestartPoint(activeChar.getRace());
-    	
-    	restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
+    	if (region != null)
+    	{
+	    	int restartId = region.getRestartId(activeChar.getRace());
+	    	
+	    	L2MapRegionRestart restart = _mapRegionRestart.get(restartId);
+	    	
+	    	if (restart != null)
+	    		return restart.getRandomChaosRestartPoint(activeChar.getRace());
+    	}
+	    	
+    	L2MapRegionRestart restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
     	return restart.getRandomChaosRestartPoint(activeChar.getRace());
     }
     
