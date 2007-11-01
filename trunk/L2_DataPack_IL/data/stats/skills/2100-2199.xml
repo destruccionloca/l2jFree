@@ -592,7 +592,7 @@
   <set name="castRange" val="-1"/>  
   <set name="num_charges" val="7"/>  
   <for>  
-    <effect count="1" name="Charge" time="0x7fffffff" val="1"/>  
+    <effect count="1" name="Charge" time="600" val="1"/>  
   </for>  
 </skill>
 <skill id="2166" levels="2" name="CP Gauge Potion">

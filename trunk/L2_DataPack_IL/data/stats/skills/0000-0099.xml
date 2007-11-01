@@ -1251,7 +1251,7 @@
   <table name="#charges"> 1 2 3 4 5 6 7 </table>
   <set name="weaponsAllowed" val="1024"/>
   <set name="mpConsume" val="5"/>
-  <set name="hpConsume" val="20"/>
+  <set name="hpConsume" val="25"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="900"/>
@@ -1262,9 +1262,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="num_charges" val="#charges"/>
-  <set name="aggroPoints" val="150"/>
+  <set name="aggroPoints" val="200"/>
   <for>
-    <effect count="1" name="Charge" time="0x7fffffff" val="1"/>
+    <effect count="1" name="Charge" time="600" val="1"/>
   </for>
 </skill>
 <skill id="51" levels="1" name="Lure" enchantLevels1="30" >
