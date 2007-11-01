@@ -1226,6 +1226,7 @@ public final class Config
     //  *******************************************************************************************    
     public static final String  ALT_SETTINGS_FILE			= "./config/altsettings.properties";
     //  *******************************************************************************************
+    public static int				ALT_DEFAULT_RESTARTTOWN;			// Set alternative default restarttown
     public static boolean 			ALT_GAME_CREATION;					// Alternative game crafting
     public static double 			ALT_GAME_CREATION_SPEED;			// Alternative game crafting speed mutiplier - default 0 (fastest but still not instant)
     public static double 			ALT_GAME_CREATION_XP_RATE;			// Alternative game crafting XP rate multiplier - default 1
@@ -1365,6 +1366,7 @@ public final class Config
             altSettings.load(is);
             is.close();
             
+            ALT_DEFAULT_RESTARTTOWN	= Integer.parseInt(altSettings.getProperty("AltDefaultRestartTown", "0"));
             ALT_GAME_TIREDNESS      = Boolean.parseBoolean(altSettings.getProperty("AltGameTiredness", "false"));
             ALT_GAME_CREATION       = Boolean.parseBoolean(altSettings.getProperty("AltGameCreation", "false"));
             ALT_GAME_CREATION_SPEED = Double.parseDouble(altSettings.getProperty("AltGameCreationSpeed", "1"));

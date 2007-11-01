@@ -25,6 +25,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import javolution.util.FastMap;
 
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.Location;
@@ -274,7 +276,7 @@ public class MapRegionManager
     	if (restart != null)
     		return restart.getRandomRestartPoint(activeChar.getRace());
     	
-    	restart = _mapRegionRestart.get(0);
+    	restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
     	return restart.getRandomRestartPoint(activeChar.getRace());
     }
     
@@ -285,7 +287,7 @@ public class MapRegionManager
     	if (restart != null)
     		return restart.getRandomRestartPoint();
     	
-    	restart = _mapRegionRestart.get(0);
+    	restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
     	return restart.getRandomRestartPoint();
     } 
 
@@ -300,7 +302,7 @@ public class MapRegionManager
     	if (restart != null)
     		return restart.getRandomChaosRestartPoint(activeChar.getRace());
     	
-    	restart = _mapRegionRestart.get(0);
+    	restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
     	return restart.getRandomChaosRestartPoint(activeChar.getRace());
     }
     
@@ -311,7 +313,7 @@ public class MapRegionManager
     	if (restart != null)
     		return restart.getRandomChaosRestartPoint();
     	
-    	restart = _mapRegionRestart.get(0);
+    	restart = _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
     	return restart.getRandomChaosRestartPoint();
     }
     
@@ -354,6 +356,7 @@ public class MapRegionManager
     	return getRegion(x, y, -1);
     }
     
+    //TODO: Needs to be clean rewritten
     public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)
     {
     	if (activeChar instanceof L2PcInstance)
