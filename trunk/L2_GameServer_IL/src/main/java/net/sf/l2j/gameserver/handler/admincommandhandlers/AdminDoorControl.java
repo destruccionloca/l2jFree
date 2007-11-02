@@ -59,7 +59,6 @@ public class AdminDoorControl implements IAdminCommandHandler
         "admin_openall",
         "admin_closeall"
     };
-    //private static final FastMap<String, Integer>   doorMap = new FastMap<String, Integer>(); //FIXME: should we jute remove this?
     
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {

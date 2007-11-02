@@ -402,7 +402,7 @@ public class RequestEnchantItem extends L2GameClientPacket
             }
         }
         sm = null;
-        activeChar.sendPacket(new EnchantResult(item.getEnchantLevel())); //FIXME i'm really not sure about this...
+        activeChar.sendPacket(new EnchantResult(item.getEnchantLevel()));
         activeChar.getInventory().updateInventory(item);
         activeChar.broadcastUserInfo();
     }

@@ -94,7 +94,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
             return;
         }
         
-        // FIXME: this check should be (and most probabliy is) done in the TradeList mechanics
         long priceTotal = 0;
         for(ItemRequest ir : _items)
         {
@@ -120,7 +119,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			priceTotal += ir.getPrice() * ir.getCount();
         }
         
-        // FIXME: this check should be (and most probabliy is) done in the TradeList mechanics
         if(priceTotal < 0 || priceTotal > Integer.MAX_VALUE)
         {
             String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";

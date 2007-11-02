@@ -43,7 +43,6 @@ class SuperCmdSummonCmd extends L2GameClientPacket
 	@Override
     protected void runImpl()
 	{
-		// TODO Auto-generated method stub
 	}
 
 	/* (non-Javadoc)

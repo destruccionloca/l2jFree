@@ -506,9 +506,6 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
      * <li>If target is dead or timeout is expired, stop this attack and set the Intention to AI_INTENTION_ACTIVE</li>
      * <li>Call all L2Object of its Faction inside the Faction Range</li>
      * <li>Chose a target and order to attack it with magic skill or physical attack</li><BR><BR>
-     * 
-     * TODO: Manage casting rules to healer mobs (like Ant Nurses)
-     * 
      */
     private void thinkAttack()
     {

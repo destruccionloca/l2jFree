@@ -149,15 +149,6 @@ public class ValidatePosition extends L2GameClientPacket
 
             int realHeading = activeChar.getHeading();
         
-            //activeChar.setHeading(_heading);
-            
-            //TODO: do we need to validate?
-            /*double dx = (_x - realX); 
-             double dy = (_y - realY); 
-             double dist = Math.sqrt(dx*dx + dy*dy);
-             if ((dist < 500)&&(dist > 2)) //check it wasnt teleportation, and char isn't there yet
-             activeChar.sendPacket(new CharMoveToLocation(activeChar));*/
-            
             if (_log.isDebugEnabled()) {
                 _log.debug("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
                 _log.debug("server pos: "+ realX + " "+realY+ " "+realZ +" head "+realHeading);

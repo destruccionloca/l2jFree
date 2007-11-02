@@ -227,8 +227,7 @@ public class Duel
 				if (count == 4)
 				{
 					// players need to be teleportet first
-					//TODO: stadia manager needs a function to return an unused stadium for duels
-					// currently only teleports to the same stadium
+					//TODO: stadia manager needs a function to return an unused stadium for duels currently only teleports to the same stadium
 					_duel.teleportPlayers(149485, 46718, -3413);
 					
 					// give players 20 seconds to complete teleport and get ready (its ought to be 30 on offical..)
@@ -547,8 +546,8 @@ public class Duel
 	 */
 	public void teleportPlayers(int x, int y, int z)
 	{
-		//TODO: adjust the values if needed... or implement something better (especially using more then 1 arena)
 		if (!_partyDuel) return;
+		
 		int offset=0;
 		
 		for (L2PcInstance temp : _playerA.getParty().getPartyMembers())
@@ -728,7 +727,6 @@ public class Duel
 				stopFighting();
 				// dont restore hp, mp, cp
 				restorePlayerConditions(true);
-				//TODO: is there no other message for a canceled duel?
 				// send SystemMessage
 				sm = new SystemMessage(SystemMessageId.THE_DUEL_HAS_ENDED_IN_A_TIE);
 
@@ -830,7 +828,6 @@ public class Duel
 		// stop the fight
 		stopFighting();
 
-		// TODO: Can every party member cancel a party duel? or only the party leaders?
 		if (_partyDuel)
 		{
 			if (_playerA.getParty().getPartyMembers().contains(player))

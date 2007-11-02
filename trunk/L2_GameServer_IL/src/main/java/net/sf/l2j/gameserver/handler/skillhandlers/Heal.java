@@ -136,7 +136,7 @@ public class Heal implements ISkillHandler
                     fullHP += target.getStatus().getCurrentHp();
                 }
                 for (L2Object element0 : targets) {
-                target.getStatus().setCurrentHp(fullHP/targets.length);
+                	target.getStatus().setCurrentHp(fullHP/targets.length);
                 }
             }
             if (skill.getSkillType() == SkillType.HEAL_STATIC)

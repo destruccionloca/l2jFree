@@ -29,9 +29,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /** 
  * @author _drunk_ 
- * 
- * TODO To change the template for this generated type comment go to 
- * Window - Preferences - Java - Code Style - Code Templates 
  */ 
 public class BeastFeed implements ISkillHandler 
 { 

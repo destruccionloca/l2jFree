@@ -326,7 +326,6 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 						case 0:
 							filename = "data/html/chamberlain/manor/manor.htm";
 							break;
-						// TODO: correct in html's to 1
 						case 4:
 							filename = "data/html/chamberlain/manor/manor_help00"+st.nextToken()+".htm";
 							break;

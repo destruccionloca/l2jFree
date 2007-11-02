@@ -120,7 +120,7 @@ public class Sow implements ISkillHandler
 			{
 				_activeChar.getParty().broadcastToPartyMembers(sm);
 			}
-			//TODO: Mob should not agro on player, this way doesn't work really nice
+			//FIXME: Mob should not become aggro against player, this way doesn't work really nice
 			_activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, _target);
 			_target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
@@ -129,7 +129,6 @@ public class Sow implements ISkillHandler
 	
 	private boolean calcSuccess()
 	{
-		// TODO: check all the chances
 		int basicSuccess = (L2Manor.getInstance().isAlternative(_seedId)?20:90);
 		int minlevelSeed = 0;
 		int maxlevelSeed = 0;

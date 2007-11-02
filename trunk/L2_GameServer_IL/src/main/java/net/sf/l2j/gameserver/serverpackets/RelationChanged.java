@@ -54,7 +54,6 @@ public class RelationChanged extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		// TODO Auto-generated method stub
 		writeC(0xce);
 		writeD(_objId);
 		writeD(_relation);
@@ -69,7 +68,6 @@ public class RelationChanged extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		// TODO Auto-generated method stub
 		return _S__CE_RELATIONCHANGED;
 	}
 }

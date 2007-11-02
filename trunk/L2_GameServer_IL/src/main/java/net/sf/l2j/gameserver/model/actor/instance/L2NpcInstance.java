@@ -1392,11 +1392,11 @@ public class L2NpcInstance extends L2Character
         setTarget(player);
         
         int _priceTotal = 0;
-        // TODO: add faction points support (evil33t, im waiting for you ^^ )
-        //       add more options for player condition, like: pk, ssq winner/looser...etc
-        //       add ancient adena price
-        //       add autobuff tasks for npc (with options range,ignorePrice,showCast)
-        //       add buff template striction to specified npc ids, merchants like 
+        //TODO: add faction points support (evil33t, im waiting for you ^^ )
+        //TODO: add more options for player condition, like: pk, ssq winner/looser...etc
+        //TODO: add ancient adena price
+        //TODO: add autobuff tasks for npc (with options range,ignorePrice,showCast)
+        //TODO: add buff template striction to specified npc ids, merchants like 
         for (L2BuffTemplate _buff:_templateBuffs)
         {
             if ( _buff.checkPlayer(player) && _buff.checkPrice(player)) 
@@ -1671,7 +1671,7 @@ public class L2NpcInstance extends L2Character
             questId = qs.getQuest().getName();
             String stateId = qs.getStateId();
             String path = "data/jscript/quests/"+questId+"/"+stateId+".htm";
-            content = HtmCache.getInstance().getHtm(path); //TODO path for quests html
+            content = HtmCache.getInstance().getHtm(path);
             
             if (_log.isDebugEnabled())
             {
@@ -2566,7 +2566,7 @@ public class L2NpcInstance extends L2Character
      */
     public void deleteMe()
     {
-        //FIXME this is just a temp hack, we should find a better solution
+        //FIXME: this is just a temp hack, we should find a better solution
         
         try { decayMe(); } catch (Throwable t) {_log.fatal("deletedMe(): " + t); }
         

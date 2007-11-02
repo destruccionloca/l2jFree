@@ -1181,7 +1181,7 @@ public final class Formulas
                 case SWORD:
                     stat = Stats.SWORD_WPN_VULN;
                     break;
-                case BIGSWORD: //TODO: have a proper resistance/vulnerability for Big swords
+                case BIGSWORD:
                     stat = Stats.SWORD_WPN_VULN;
                     break;
             }
@@ -1578,7 +1578,7 @@ public final class Formulas
                 return false; // these skills should have only 1/1000 chance on raid, now it's 0.
 
         double defence = 0;
-        // TODO: CHECK/FIX THIS FORMULA UP!!
+        //FIXME: CHECK/FIX THIS FORMULA UP!!
         double attack = 0; 
         
         if ( ! target.checkSkillCanAffectMyself(skill))
@@ -1781,7 +1781,7 @@ public final class Formulas
             value = skill.getEffectPower();
             type = skill.getEffectType();
         }
-        // TODO: Temporary fix for skills with EffectPower = 0 or EffectType not set
+        //FIXME: Temporary fix for skills with EffectPower = 0 or EffectType not set
         if (value == 0 || type == null)
         {
             if (skill.getSkillType() == SkillType.PDAM)
@@ -1796,11 +1796,11 @@ public final class Formulas
             }
         }
         
-        // TODO: Temporary fix for skills with Power = 0 or LevelDepend not set
+        //FIXME: Temporary fix for skills with Power = 0 or LevelDepend not set
         if (value == 0) value = (type == SkillType.PARALYZE) ? 50 : 80;
         if (lvlDepend == 0) lvlDepend = (type == SkillType.PARALYZE) ? 1 : 2;
         
-        // TODO: Temporary fix for NPC skills with MagicLevel not set
+        //FIXME: Temporary fix for NPC skills with MagicLevel not set
         // int lvlmodifier = (skill.getMagicLevel() - target.getLevel()) * lvlDepend;
         int lvlmodifier = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel())
             * lvlDepend;

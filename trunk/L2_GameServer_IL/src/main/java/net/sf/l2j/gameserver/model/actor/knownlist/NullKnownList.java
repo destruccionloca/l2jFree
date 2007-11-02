@@ -30,7 +30,6 @@ public class NullKnownList extends ObjectKnownList
 	public NullKnownList(L2Object activeObject)
     {
         super(activeObject);
-        // TODO Auto-generated constructor stub
     }
     
     /* (non-Javadoc)

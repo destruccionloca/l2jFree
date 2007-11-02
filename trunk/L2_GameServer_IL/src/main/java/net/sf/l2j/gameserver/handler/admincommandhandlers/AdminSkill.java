@@ -239,7 +239,7 @@ public class AdminSkill implements IAdminCommandHandler {
     }
     
 	private void removeSkillsPage(L2PcInstance activeChar, int page)
-	{	//TODO: Externalize HTML
+	{
 		L2Object target = activeChar.getTarget();
 		L2PcInstance player = null;
 		if (target instanceof L2PcInstance)

@@ -49,7 +49,7 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 	@Override
 	protected void runImpl()
 	{
-		// TODO: remove me
+		//TODO: implementation missing
 		System.out.println("C6: RequestExMagicSkillUseGround. x: "+_x+" y: "+_y+" z: "+_z+" skill: "+_skillId+" crtl: "+_ctrlPressed+" shift: "+_shiftPressed);
 	}
 

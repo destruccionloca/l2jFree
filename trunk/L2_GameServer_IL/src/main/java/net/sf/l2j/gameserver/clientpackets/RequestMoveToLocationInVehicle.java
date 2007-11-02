@@ -94,7 +94,6 @@ public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

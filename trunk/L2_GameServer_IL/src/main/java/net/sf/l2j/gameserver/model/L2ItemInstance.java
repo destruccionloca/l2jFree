@@ -622,7 +622,7 @@ public final class L2ItemInstance extends L2Object
        return (
        (!isEquipped()) // Not equipped
     		&& (getItem().getType2() != 3) // Not Quest Item
-    		&& (getItem().getType2() != 4 || getItem().getType1() != 1) // TODO: what does this mean?
+    		&& (getItem().getType2() != 4 || getItem().getType1() != 1) // Not Money or Shield Armor
     		&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not Control item of currently summoned pet
     		&& (player.getActiveEnchantItem() != this) // Not momentarily used enchant scroll
     		&& (allowAdena || getItemId() != 57)

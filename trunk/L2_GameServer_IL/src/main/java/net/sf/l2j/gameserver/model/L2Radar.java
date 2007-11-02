@@ -56,7 +56,6 @@ public final class L2Radar
 
     public void removeAllMarkers()
     {
-        // TODO: Need method to remove all markers from radar at once
         for (RadarMarker tempMarker : _markers)
             _player.sendPacket(new RadarControl(1, tempMarker._type, tempMarker._x, tempMarker._y, tempMarker._z));
 
@@ -65,8 +64,7 @@ public final class L2Radar
 
     public void loadMarkers()
     {
-        // TODO: Need method to re-send radar markers after load/teleport/death
-        // etc.
+        //TODO: Need method to re-send radar markers after load/teleport/death
     }
 
     public class RadarMarker

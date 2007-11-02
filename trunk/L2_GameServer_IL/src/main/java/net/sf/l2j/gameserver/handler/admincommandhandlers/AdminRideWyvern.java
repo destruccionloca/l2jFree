@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 /**
  * @author 
  *
- * TODO nothing.
  */
 public class AdminRideWyvern implements IAdminCommandHandler
 {

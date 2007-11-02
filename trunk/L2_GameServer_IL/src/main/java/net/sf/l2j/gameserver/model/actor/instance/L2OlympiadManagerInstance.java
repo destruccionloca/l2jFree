@@ -148,8 +148,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                     }
                     else
                     {
-                        player.sendMessage("Not enough points, or not currently in Valdation Period");
-                        //TODO Send HTML packet "Saying not enough olympiad points.
+                        player.sendMessage("Not enough points, or not currently in Validation Period");
                     }
                     break;
                 case 7:

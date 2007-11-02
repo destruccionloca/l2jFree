@@ -69,7 +69,6 @@ public class NodeLoc extends AbstractNodeLoc
     @Override
     public short getNodeX()
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 
@@ -79,7 +78,6 @@ public class NodeLoc extends AbstractNodeLoc
     @Override
     public short getNodeY()
     {
-        // TODO Auto-generated method stub
         return 0;
     }
     

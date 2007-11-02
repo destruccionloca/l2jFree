@@ -63,7 +63,7 @@ public class StrSiegeAssault implements ISkillHandler
                 else
                     itemToTake.setCount(itemToTake.getCount() - skill.getItemConsume());
 
-                // TODO: damage calculation below is crap
+                //TODO: damage calculation below is crap - needs rewrite
                 int damage = 0;
 
                 for (L2Object element : targets) {

@@ -121,7 +121,7 @@ public class Seed implements IItemHandler
 
         if(areaValid(MapRegionManager.getInstance().getAreaCastle(_activeChar)))
         {
-            //TODO: get right skill level
+            //FIXME: get right skill level
             _target.setSeeded(_seedId, _activeChar);
             L2Skill skill = SkillTable.getInstance().getInfo(2097, 3); //sowing skill
             _activeChar.useMagic(skill,false,false);

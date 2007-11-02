@@ -4700,7 +4700,6 @@ public enum SystemMessageId
     
     /**
      * ID: 1675<br>
-     * TODO: Correct this message
      * Message: A manor cannot be set up between 6 a.m. and 8 p.m.
      */
     A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM(1675),
@@ -5047,5 +5046,14 @@ public enum SystemMessageId
     public int getId()
     {
         return _id;
+    }
+    
+    public static final SystemMessageId getSystemMessageId(int id)
+    {
+    	for (SystemMessageId sysmsgid : SystemMessageId.values())
+    		if (sysmsgid.getId() == id)
+    			return sysmsgid;
+    	
+    	return SystemMessageId.S1_S2;
     }
 }

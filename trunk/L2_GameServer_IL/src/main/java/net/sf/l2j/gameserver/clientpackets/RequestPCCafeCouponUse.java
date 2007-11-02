@@ -48,7 +48,7 @@ public class RequestPCCafeCouponUse extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        // TODO
+        //TODO: implementation missing
         _log.debug("C5: RequestPCCafeCouponUse: S: "+_str);
     }
 

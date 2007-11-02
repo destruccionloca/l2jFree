@@ -125,7 +125,7 @@ public abstract class L2Effect
 	private int _period;
 	private int _periodStartTicks;
 	private int _periodfirsttime;
-    private int _skillid;
+
 	// function templates
 	private final FuncTemplate[] _funcTemplates;
 	

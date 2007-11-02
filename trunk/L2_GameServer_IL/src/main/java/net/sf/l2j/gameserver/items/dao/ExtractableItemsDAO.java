@@ -25,8 +25,6 @@ import net.sf.l2j.gameserver.items.model.L2ExtractableItem;
  * Interface for manipulation of Extractable Items
  * 
  * An extractable item is ....
- * TODO : complete description
- * 
  */
 public interface ExtractableItemsDAO
 {

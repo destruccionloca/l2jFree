@@ -32,10 +32,8 @@ import net.sf.l2j.gameserver.model.L2DropData;
  */
 public class State
 {
-	// TODO - Begins
 	/** Prototype of empty String list */
 	private static final String[] _emptyStrList = new String[0];
-	// TODO - End
 	
 	/** Name of the quest */
     /** Quest object associated to the state */

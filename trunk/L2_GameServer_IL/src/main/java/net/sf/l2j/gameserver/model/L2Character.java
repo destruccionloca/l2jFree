@@ -691,7 +691,6 @@ public abstract class L2Character extends L2Object
         // Get the Attack Speed of the L2Character (delay (in milliseconds) before next attack)
         int sAtk = calculateAttackSpeed(target, weaponInst);
         // the hit is calculated to happen halfway to the animation - might need further tuning e.g. in bow case
-        int sAtkHitMoment = sAtk/2;
         _attackEndTime = GameTimeController.getGameTicks();
         _attackEndTime += (sAtk / GameTimeController.MILLIS_IN_TICK);
         _attackEndTime -= 1;
@@ -2019,7 +2018,7 @@ public abstract class L2Character extends L2Object
 	public static final int ABNORMAL_EFFECT_IMPRISIONING_2	= 0x400000;
 	public static final int ABNORMAL_EFFECT_MAGIC_CIRCLE	= 0x800000;
 	
-	// XXX TEMP HACKS (get the proper mask for these effects)
+	//FIXME: TEMP HACKS (get the proper mask for these effects)
     public static final int ABNORMAL_EFFECT_CONFUSED   = 0x0020;
     public static final int ABNORMAL_EFFECT_AFRAID    = 0x0010;
 
@@ -4678,7 +4677,6 @@ public abstract class L2Character extends L2Object
             
             if (this instanceof L2PcInstance)
             {
-                //TODO Remove sendPacket because it's always done in abortAttack
                 sendPacket(new ActionFailed());
                 
                 // Send a system message

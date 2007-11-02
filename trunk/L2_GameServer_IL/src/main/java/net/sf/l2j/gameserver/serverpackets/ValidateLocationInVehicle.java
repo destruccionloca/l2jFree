@@ -43,7 +43,7 @@ public class ValidateLocationInVehicle extends L2GameServerPacket
     {
         writeC(0x73);
         writeD(_activeChar.getObjectId());
-        writeD(1343225858); //TODO verify vehicle object id ??
+        writeD(1343225858); //FIXME: verify vehicle object id ??
         writeD(_activeChar.getX());
         writeD(_activeChar.getY());
         writeD(_activeChar.getZ());

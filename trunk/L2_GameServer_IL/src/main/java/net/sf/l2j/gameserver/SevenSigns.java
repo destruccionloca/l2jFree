@@ -45,11 +45,11 @@ import org.apache.commons.logging.LogFactory;
 /**
  *  Seven Signs Engine
  *    
- *  TODO: 
- *  - Implementation of the Seal of Strife for sieges.
- *  
  *  @author Tempy
  */
+
+//TODO: Implementation of the Seal of Strife for sieges.
+
 public class SevenSigns 
 {
     protected static Log _log = LogFactory.getLog(SevenSigns.class.getName());

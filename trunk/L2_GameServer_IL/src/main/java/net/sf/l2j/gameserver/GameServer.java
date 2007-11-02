@@ -119,7 +119,6 @@ public class GameServer
     private static final Log _log = LogFactory.getLog(GameServer.class.getName());	
     public static GameServer gameServer;
     private final IdFactory _idFactory;
-    private final ThreadPoolManager _threadpools;
     private final Shutdown _shutdownHandler;
     private final SelectorThread<L2GameClient> _selectorThread;
     private static Status _statusServer;
@@ -144,7 +143,7 @@ public class GameServer
             throw new Exception("Could not initialize the ID factory");
         }
         _log.info("IdFactory: Free ObjectID's remaining: " + IdFactory.getInstance().size());
-        _threadpools = ThreadPoolManager.getInstance();
+        ThreadPoolManager.getInstance();
         if (Config.GEODATA)
         {
 	        GeoData.getInstance();

@@ -175,27 +175,6 @@ public class RequestSellItem extends L2GameClientPacket
             }
 
 			item = player.getInventory().destroyItem("Sell", objectId, count, player, null);
-			
-/* TODO: Disabled until Leaseholders are rewritten ;-)
-			int price = item.getReferencePrice()*(int)count/2;
-			L2ItemInstance li = null;
-			L2ItemInstance la = null;
-			if (_listId > 1000000) {
-				li = merchant.findLeaseItem(item.getItemId(),item.getEnchantLevel());
-				la = merchant.getLeaseAdena();
-				if (li == null || la == null) continue;
-				price = li.getPriceToBuy()*(int)count; // player sells, thus merchant buys.
-				if (price > la.getCount()) continue;
-			}
-*/
-/* TODO: Disabled until Leaseholders are rewritten ;-)
-				if (item != null && _listId > 1000000) {
-					li.setCount(li.getCount()+(int)count);
-					li.updateDatabase();
-					la.setCount(la.getCount()-price);
-					la.updateDatabase();
-				}
-*/
 		}
 		player.addAdena("Sell", (int)totalPrice, merchant, false);
 

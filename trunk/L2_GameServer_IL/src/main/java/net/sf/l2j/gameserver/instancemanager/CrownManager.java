@@ -18,9 +18,6 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.sql.PreparedStatement;
-
-import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.CrownTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
@@ -47,7 +44,7 @@ public class CrownManager
 		return _instance;
 	}
 	
-	public void CrownManager()
+	public CrownManager()
 	{
 		_log.info("CrownManager: initialized");
 	}

@@ -84,8 +84,6 @@ public class AdminAdmin implements IAdminCommandHandler
 		{
 			showMainPage(activeChar, command);
 		}
-		
-		// TODO: Convert Config pages to html
 		else if (command.equals("admin_config_server"))
 		{
 			ShowConfigPage(activeChar);
@@ -94,8 +92,6 @@ public class AdminAdmin implements IAdminCommandHandler
 		{
 			ShowConfigPage2(activeChar);
 		}
-		
-		
 		else if(command.startsWith("admin_gmliston"))
 		{
 			GmListTable.getInstance().showGm(activeChar);
@@ -120,9 +116,6 @@ public class AdminAdmin implements IAdminCommandHandler
 			}		
 			
 		}
-
-		// TODO: Write htm's for reload
-		
 		else if(command.startsWith("admin_reload_config"))
 		{
 			StringTokenizer st = new StringTokenizer(command);

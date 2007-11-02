@@ -34,9 +34,6 @@ import org.apache.commons.logging.LogFactory;
 public class L2Potion extends L2Object
 {
     protected static final Log _log = LogFactory.getLog(L2Potion.class.getName());
-
-
-	private L2Character _target;
 	
 	private Future _potionHpRegTask;
 	private Future _potionMpRegTask;
@@ -110,7 +107,6 @@ public class L2Potion extends L2Object
 	public void setCurrentHpPotion1(L2Character activeChar, int item)
 	{
 		_potion = item;
-		_target = activeChar;
 
 		switch (_potion)
 		{
@@ -207,7 +203,6 @@ public class L2Potion extends L2Object
 	public void setCurrentMpPotion1(L2Character activeChar, int item)
 	{
 		_potion = item;
-		_target = activeChar;
 
 		switch (_potion)
 		{

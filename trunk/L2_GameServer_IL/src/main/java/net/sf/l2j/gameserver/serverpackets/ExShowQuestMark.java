@@ -36,7 +36,6 @@ public class ExShowQuestMark extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -46,7 +45,6 @@ public class ExShowQuestMark extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		// TODO Auto-generated method stub
 		writeC(0xfe);
 		writeH(0x1a);
 		writeD(_questId);

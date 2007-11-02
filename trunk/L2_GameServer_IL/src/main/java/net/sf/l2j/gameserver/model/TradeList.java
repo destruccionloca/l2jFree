@@ -763,7 +763,7 @@ public class TradeList
         PcInventory ownerInventory = _owner.getInventory();
         PcInventory playerInventory = player.getInventory();
         
-        //we must check item are available before begining transaction, TODO: should we remove that check when transfering items as it's done here? (there might be synchro problems if player clicks fast if we remove it)
+        //we must check item are available before begining transaction,
         // also check if augmented items are traded. If so, cancel it...
         for (ItemRequest item : items)
         {

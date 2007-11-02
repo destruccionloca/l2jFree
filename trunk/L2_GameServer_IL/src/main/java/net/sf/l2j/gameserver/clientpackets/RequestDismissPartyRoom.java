@@ -50,7 +50,6 @@ public class RequestDismissPartyRoom extends L2GameClientPacket
 	@Override
     protected void runImpl()
 	{
-		// TODO Auto-generated method stub
 		_log.info("This packet is not well known : RequestDismissPartyRoom");
 		_log.info("Data received: d:"+_data1+" d:"+_data2);
 

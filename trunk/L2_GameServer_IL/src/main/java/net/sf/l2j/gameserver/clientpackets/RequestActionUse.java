@@ -392,16 +392,16 @@ public class RequestActionUse extends L2GameClientPacket
             case 1001:
                 break;
             case 1003: // Wind Hatchling/Strider - Wild Stun
-                useSkill(4710); //TODO use correct skill lvl based on pet lvl
+                useSkill(4710); //FIXME: use correct skill lvl based on pet lvl
                 break;
             case 1004: // Wind Hatchling/Strider - Wild Defense
-                useSkill(4711, activeChar); //TODO use correct skill lvl based on pet lvl
+                useSkill(4711, activeChar); //FIXME: use correct skill lvl based on pet lvl
                 break;
             case 1005: // Star Hatchling/Strider - Bright Burst
-                useSkill(4712); //TODO use correct skill lvl based on pet lvl
+                useSkill(4712); //FIXME: use correct skill lvl based on pet lvl
                 break;
             case 1006: // Star Hatchling/Strider - Bright Heal
-                useSkill(4713, activeChar); //TODO use correct skill lvl based on pet lvl
+                useSkill(4713, activeChar); //FIXME: use correct skill lvl based on pet lvl
                 break;
             case 1007: // Cat Queen - Blessing of Queen
                 useSkill(4699, activeChar);

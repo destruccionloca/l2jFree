@@ -249,22 +249,7 @@ public class RequestBuyItem extends L2GameClientPacket
                 if (itemId >= 3960 && itemId <= 4026) price *= Config.RATE_SIEGE_GUARDS_PRICE;
     
             }
-/* TODO: Disabled until Leaseholders are rewritten ;-)
-            } else {
-                L2ItemInstance li = merchant.findLeaseItem(itemId, 0);
-                if (li == null || li.getCount() < cnt) {
-                    cnt = li.getCount();
-                    if (cnt <= 0) {
-                        items.remove(i);
-                        continue;
-                    }
-                    items.get(i).setCount((int)cnt);
-                }
-                price = li.getPriceToSell(); // lease holder sells the item
-                weight = li.getItem().getWeight();
-            }
-            
-*/
+
             if (price < 0)
             {
                 _log.warn("ERROR, no price found .. wrong buylist ??");
@@ -343,28 +328,6 @@ public class RequestBuyItem extends L2GameClientPacket
 
             // Add item to Inventory and adjust update packet
             player.getInventory().addItem(list.isGm()?"GMShop":"Buy", itemId, count, player, merchant);
-
-
-/* TODO: Disabled until Leaseholders are rewritten ;-)
-            // Update Leaseholder list
-            if (_listId >= 1000000) 
-            {
-                L2ItemInstance li = merchant.findLeaseItem(item.getItemId(), 0);
-                if (li == null)
-                    continue;
-                if (li.getCount() < item.getCount())
-                    item.setCount(li.getCount());
-                li.setCount(li.getCount() - item.getCount());
-                li.updateDatabase();
-                price = item.getCount() + li.getPriceToSell();
-                L2ItemInstance la = merchant.getLeaseAdena();
-                la.setCount(la.getCount() + price);
-
-                la.updateDatabase();
-                player.getInventory().addItem(item);
-                item.updateDatabase();
-            }
-*/
         }
 
         if (merchant != null)

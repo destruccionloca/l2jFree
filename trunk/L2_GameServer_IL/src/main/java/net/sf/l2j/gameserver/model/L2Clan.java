@@ -586,7 +586,6 @@ public class L2Clan
         {
             if(_level >= 2)
             {
-            	// TODO to refactor, maybe use an observable pattern
                 ForumService fs = (ForumService)L2Registry.getBean(IServiceRegistry.FORUM);
                 _forum = fs.getForumForClanAndCreateIfNotAvailable(_name, getClanId()); 
             }
@@ -952,7 +951,6 @@ public class L2Clan
 
         for(L2Skill skill : _skills.values())
         {
-            //TODO add skills according to members class( in ex. don't add Clan Agillity skill's effect to lower class then Baron)
             if (skill.getMinPledgeClass() <= cm.getPledgeClass())
             {
                 cm.addSkill(skill, false); // Skill is not saved to player DB
@@ -1161,7 +1159,7 @@ public class L2Clan
     public class RankPrivs
     {
         private int _rankId;
-        private int _party;// TODO find out what this stuff means and implement it
+        private int _party;
         private int _rankPrivs;
         
         public RankPrivs(int rank, int party, int privs)
@@ -1906,7 +1904,6 @@ public class L2Clan
 
         player.sendPacket(new UserInfo(player));
 
-        //TODO: Need correct message id
         player.sendMessage("Alliance " + allyName + " has been created.");
     }
 

@@ -50,6 +50,7 @@ public class AttackableKnownList extends NpcKnownList
         // Remove the L2Object from the _aggrolist of the L2Attackable            
         if (object != null && object instanceof L2Character)
             getActiveChar().getAggroList().remove(object);
+        
         // Set the L2Attackable Intention to AI_INTENTION_IDLE
         Collection<L2PcInstance> known = getKnownPlayers().values();
         

@@ -172,7 +172,6 @@ public class BitSetIDFactory extends IdFactory
     @Override
     public int getCurrentId()
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 }

@@ -56,7 +56,7 @@ public abstract class L2Item
     
     public static final int SLOT_NONE = 0x0000;
     public static final int SLOT_UNDERWEAR = 0x0001;
-    public static final int SLOT_CLOAK = 0x0003; //TODO:?????
+    public static final int SLOT_CLOAK = 0x0003;
     public static final int SLOT_R_EAR = 0x0002;
     public static final int SLOT_L_EAR = 0x0004;
     public static final int SLOT_NECK = 0x0008;

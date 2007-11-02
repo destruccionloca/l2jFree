@@ -512,7 +512,6 @@ public class EnterWorld extends L2GameClientPacket
             if(obj == null || !(obj instanceof L2PcInstance))
             {
                 // If other char is deleted, maybe a npc or mob takes the ID
-                // TODO: Break marriage here and clean up database if obj not instance of L2PcInstance
                 return;
             }
             

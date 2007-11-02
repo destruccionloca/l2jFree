@@ -170,7 +170,7 @@ public final class L2WorldRegion
                 else if (o instanceof L2NpcInstance)
                 {
                     // Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it 
-                    // L2Monsterinstance/L2Attackable socials are handled by AI (TODO: check the instances)
+                    // L2Monsterinstance/L2Attackable socials are handled by AI
                     ((L2NpcInstance)o).startRandomAnimationTimer();
                 }
             }
@@ -215,7 +215,6 @@ public final class L2WorldRegion
         // turn the AI on or off to match the region's activation.
         switchAI(value);
         
-        // TODO
         // turn the geodata on or off to match the region's activation.
         if(value)
             if(_log.isDebugEnabled())

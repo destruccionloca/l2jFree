@@ -198,8 +198,6 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                         showChatWindow(player, 2, "d", false);
                         return;
                     }
-                      
-                    // TODO: Check if the player has delevelled by comparing their skill levels.
                     
                     /*
                      * Check to see if the player has already signed up,

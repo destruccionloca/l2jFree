@@ -44,7 +44,6 @@ public class ExDuelReady extends L2GameServerPacket
      */
     public ExDuelReady()
     {
-        // TODO find the good value
         _unk1 = 0;
     }    
     

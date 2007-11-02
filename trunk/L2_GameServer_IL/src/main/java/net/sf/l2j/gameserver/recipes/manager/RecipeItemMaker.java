@@ -247,7 +247,7 @@ public class RecipeItemMaker implements Runnable
                         * GameTimeController.TICKS_PER_SECOND / Config.RATE_CRAFT_COST)
                         * GameTimeController.MILLIS_IN_TICK;
                 
-                // FIXME: please fix this packet to show crafting animation (somebody)
+                //FIXME: please fix this packet to show crafting animation (somebody)
                 MagicSkillUser msk = new MagicSkillUser(player, skillId, skillLevel, delay, 0);
                 player.broadcastPacket(msk);
                 

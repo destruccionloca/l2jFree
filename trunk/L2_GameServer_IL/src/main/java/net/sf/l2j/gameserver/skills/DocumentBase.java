@@ -76,9 +76,6 @@ import org.w3c.dom.Node;
 
 /**
  * @author mkizub
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 abstract class DocumentBase
 {

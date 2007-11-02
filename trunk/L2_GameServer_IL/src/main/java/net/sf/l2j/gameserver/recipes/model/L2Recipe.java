@@ -25,7 +25,6 @@ package net.sf.l2j.gameserver.recipes.model;
  */
 public class L2Recipe
 {   
-    // TODO move all those constant declaration in a specific constant file 
 	private static final int ARROWS_MAX = 1345;
 
     private static final int ARROWS_INF = 1341;

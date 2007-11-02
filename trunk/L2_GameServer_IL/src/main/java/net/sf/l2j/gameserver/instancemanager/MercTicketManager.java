@@ -75,7 +75,7 @@ public class MercTicketManager
     // Data Field
     private FastList<L2ItemInstance> _droppedTickets;	// to keep track of items on the ground
     
-    //TODO move all these values into siege.properties
+    //FIXME: move all these values into siege.properties
     // max tickets per merc type = 10 + (castleid * 2)?
     // max ticker per castle = 40 + (castleid * 20)?
     private static final int[] MAX_MERC_PER_TYPE = {

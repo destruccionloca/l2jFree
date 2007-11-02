@@ -35,13 +35,11 @@ import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -339,14 +337,6 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
                             openNextDoor(getNpcId());
                             player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
                     }                	
-                }
-                else
-                {
-        			{
-        				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-        				sm.addString("-"); //TODO:
-        				player.sendPacket(sm);
-        			}
                 }
             }
             else if (command.startsWith("Entry"))

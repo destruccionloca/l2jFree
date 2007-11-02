@@ -209,11 +209,10 @@ public class RequestAquireSkill extends L2GameClientPacket
                 return;
             }
         }
-        else if (_skillType == 2) //pledgeskills TODO: Find appropriate system messages.
+        else if (_skillType == 2)
         {
             if (!player.isClanLeader()) 
             {
-               // TODO: Find and add system msg
                player.sendMessage("This feature is available only for the clan leader");
                return;
             }

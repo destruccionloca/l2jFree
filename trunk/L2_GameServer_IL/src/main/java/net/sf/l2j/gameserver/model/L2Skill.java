@@ -231,8 +231,7 @@ public abstract class L2Skill
         UNSUMMON_ENEMY_PET,
         BETRAY,
         BALANCE_LIFE,
-        SERVER_SIDE, //TODO: IMPLEMENT
-        // unimplemented
+        SERVER_SIDE,
         NOTDONE;
         
         private final Class<? extends L2Skill> _class;
@@ -1275,13 +1274,7 @@ public abstract class L2Skill
     {
         if((getCondition() & L2Skill.COND_SHIELD) != 0)
         {
-            /*
-            L2Armor armorPiece;
-            L2ItemInstance dummy;
-            dummy = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-            armorPiece = (L2Armor) dummy.getItem();
-            */
-            //TODO add checks for shield here.
+            //TODO: add checks for shield here.
             
         }
 
@@ -1291,7 +1284,7 @@ public abstract class L2Skill
 
         Env env = new Env();
         env.player = activeChar;
-        if (target instanceof L2Character) // TODO: object or char?
+        if (target instanceof L2Character)
             env.target = (L2Character)target;
         env.skill = this;
 
@@ -1696,36 +1689,6 @@ public abstract class L2Skill
             if (targetList.size() == 0) return null;
             return targetList.toArray(new L2Character[targetList.size()]);
         }        
-        /*case TARGET_MULTIFACE:
-        {
-            if ((!(target instanceof L2Attackable) && !(target instanceof L2PcInstance)))
-            {
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-                return null;
-            }
-
-            if (onlyFirst == false) targetList.add(target);
-            else return new L2Character[] {target};
-
-            int radius = getSkillRadius();
-
-            for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
-            {
-                if (obj == null) continue;
-                if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
-
-                if (obj instanceof L2Attackable && obj != target) targetList.add((L2Character) obj);
-
-                if (targetList.size() == 0)
-                {
-                    activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_CANT_FOUND));
-                    return null;
-                }
-            }
-            return targetList.toArray(new L2Character[targetList.size()]);
-            //TODO multiface targets all around right now.  need it to just get targets
-            //the character is facing.
-        }*/
         case TARGET_PARTY:
         {
             if (onlyFirst)

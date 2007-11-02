@@ -401,8 +401,9 @@ public class NpcTable implements NpcTableMBean
         finally
         {
             try { con.close(); } catch (Exception e) {}
-            return loaded;
         }
+
+        return loaded;
     }
 
     // just wrapper
@@ -519,7 +520,6 @@ public class NpcTable implements NpcTableMBean
      */
     public Set<Integer> getAllNpcOfClassType(String classType)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -529,7 +529,6 @@ public class NpcTable implements NpcTableMBean
      */
     public Set<Integer> getAllNpcOfL2jClass(Class clazz)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -539,7 +538,6 @@ public class NpcTable implements NpcTableMBean
      */
     public Set<Integer> getAllNpcOfAiType(String aiType)
     {
-        // TODO Auto-generated method stub
         return null;
     }    
 }

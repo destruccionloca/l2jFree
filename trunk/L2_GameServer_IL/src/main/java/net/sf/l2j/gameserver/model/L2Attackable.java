@@ -883,7 +883,6 @@ public class L2Attackable extends L2NpcInstance
     {
         if (getAI() instanceof L2SiegeGuardAI)
         {
-            // TODO: this just prevents error until siege guards are handled properly
             stopHating(target);
             setTarget(null);
             getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null, null);
@@ -1601,7 +1600,9 @@ public class L2Attackable extends L2NpcInstance
             // Randomize drop position  
             int newX = getX() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
             int newY = getY() + Rnd.get(randDropLim * 2 + 1) - randDropLim;
-            int newZ = Math.max(getZ(), lastAttacker.getZ()) + 20; // TODO: temp hack, do something nicer when we have geodatas
+            
+            //FIXME: temp hack, do something nicer when we have geodatas
+            int newZ = Math.max(getZ(), lastAttacker.getZ()) + 20;
 
             // Init the dropped L2ItemInstance and add it in the world as a visible object at the position where mob was last
             ditem = ItemTable.getInstance().createItem("Loot", item.getItemId(), item.getCount(), lastAttacker, this);

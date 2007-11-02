@@ -125,7 +125,9 @@ public class ExtractableItems implements IItemHandler
             activeChar.sendPacket(sm);
         } else
         {
-            activeChar.sendMessage("Item failed to open"); // TODO: Put a more proper message here.
+        	SystemMessage sm = new SystemMessage(SystemMessageId.S1_FAILED);
+        	sm.addString("Extraction");
+            activeChar.sendPacket(sm);
         }
 
         activeChar.destroyItemByItemId("Extract", itemID, 1, activeChar

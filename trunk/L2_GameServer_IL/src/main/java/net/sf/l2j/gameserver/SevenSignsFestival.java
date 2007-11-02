@@ -61,13 +61,14 @@ import org.apache.commons.logging.LogFactory;
 /**
  *  Seven Signs Festival of Darkness Engine
  *    
- *  TODO:
- *  - Archer mobs should target healer characters over other party members.
  *  - ADDED 29 Sep: Players that leave a party during the Seven Signs Festival will now take damage and cannot be healed. 
  *    
  *  @author Tempy
  *  @fixed and modified by Wolverine
  */
+
+//FIXME: Archer mobs should target healer characters over other party members.
+
 public class SevenSignsFestival implements SpawnListener
 {
     protected static Log _log = LogFactory.getLog(SevenSignsFestival.class.getName());

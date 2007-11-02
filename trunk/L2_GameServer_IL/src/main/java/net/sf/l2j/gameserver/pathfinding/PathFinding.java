@@ -67,7 +67,7 @@ public abstract class PathFinding
 		to_visit.add(start);
 		
 		int i = 0;
-		while (i < 800)//TODO! Add limit to cfg. Worst case max distance is 1810..
+		while (i < 800)
 		{
 			Node node;
 			try 
@@ -115,7 +115,7 @@ public abstract class PathFinding
 		// load) level of intelligence though. 
 		
 		// List of Visited Nodes
-		FastNodeList visited = new FastNodeList(700);//TODO! Add limit to cfg
+		FastNodeList visited = new FastNodeList(700);//
 
 		// List of Nodes to Visit
 		LinkedList<Node> to_visit = new LinkedList<Node>();
@@ -125,7 +125,7 @@ public abstract class PathFinding
 		int dx, dy;
 		boolean added;
 		int i = 0;
-		while (i < 700)//TODO! Add limit to cfg.
+		while (i < 700)
 		{
 			Node node;
 			try 
@@ -182,14 +182,14 @@ public abstract class PathFinding
 		int end_x = end.getLoc().getX();
 		int end_y = end.getLoc().getY();
 		//List of Visited Nodes
-		FastNodeList visited = new FastNodeList(800);//TODO! Add limit to cfg
+		FastNodeList visited = new FastNodeList(800);
 
 		// List of Nodes to Visit
 		BinaryNodeHeap to_visit = new BinaryNodeHeap(800);
 		to_visit.add(start);
 		
 		int i = 0;
-		while (i < 800)//TODO! Add limit to cfg
+		while (i < 800)
 		{
 			Node node;
 			try 

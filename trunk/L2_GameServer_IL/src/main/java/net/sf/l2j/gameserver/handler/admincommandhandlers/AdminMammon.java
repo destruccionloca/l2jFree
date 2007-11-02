@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.AutoSpawnHandler;
 import net.sf.l2j.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
@@ -164,7 +165,7 @@ public class AdminMammon implements IAdminCommandHandler
 				activeChar.sendMessage("Command format: //msg <SYSTEM_MSG_ID>");
 				return true;
 			}
-			activeChar.sendPacket(new SystemMessage(msgId));
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.getSystemMessageId(msgId)));
 		}
 		return true;
 	}

@@ -66,113 +66,103 @@ public class AiManager
 	
 	public void load()
 	{
-		//try
-		//{
-			//TODO redo all the SpecificAiManger loading it's completely messed up:
-			//JarFile jar = new JarFile("./l2jserver.jar");
-			URL url = Class.class.getResource("/net/sf/l2j/gameserver/ai/managers");
-			//jar.getJarEntry("/net/sf/l2j/gameserver/ai/managers").get;
-			if(url == null)
+		URL url = Class.class.getResource("/net/sf/l2j/gameserver/ai/managers");
+
+		if(url == null)
+		{
+			_log.severe("Could not open the ai managers folder. No ai will be loaded!");
+			return;
+		}
+		File directory = new File(url.getFile());
+		for(String file : directory.list())
+		{
+			if(file.endsWith(".class"))
 			{
-				_log.severe("Could not open the ai managers folder. No ai will be loaded!");
-				return;
-			}
-			File directory = new File(url.getFile());
-			for(String file : directory.list())
-			{
-				if(file.endsWith(".class"))
+				try
 				{
-					try
+					Class managerClass = Class.forName("net.sf.l2j.gameserver.ai.managers."+file.substring(0, file.length() - 6));
+					Object managerObject = managerClass.newInstance();
+					if(!(managerObject instanceof ISpecificAiManager))
 					{
-						Class managerClass = Class.forName("net.sf.l2j.gameserver.ai.managers."+file.substring(0, file.length() - 6));
-						Object managerObject = managerClass.newInstance();
-						if(!(managerObject instanceof ISpecificAiManager))
+						_log.info("A class that was not a ISpecificAiManager was found in the ai managers folder.");
+						continue;
+					}
+					ISpecificAiManager managerInstance = (ISpecificAiManager)managerObject;
+					for(EventHandler handler : managerInstance.getEventHandlers())
+					{
+						AiPlugingParameters pparams = handler.getPlugingParameters();
+						pparams.convertToIDs();
+						boolean perfectMatch = false;
+						// let's check if any previously created AiInstance is allready used for the NPC concerned by this handler
+						List<Intersection> intersections = new FastList<Intersection>();
+						for(AiInstance ai : _aiList)
 						{
-							_log.info("A class that was not a ISpecificAiManager was found in the ai managers folder.");
-							continue;
+							if(ai.getPluginingParamaters().equals(pparams))
+							{
+								ai.addHandler(handler);
+								perfectMatch = true;
+								break;
+							}
+							Intersection intersection = new Intersection(ai);
+							for(int id : pparams.getIDs())
+							{
+								if(ai.getPluginingParamaters().contains(id))
+								{
+									//intersection with this AI
+									intersection.ids.add(id);
+								}
+							}
+							if(!intersection.isEmpty())
+								intersections.add(intersection);
 						}
-						ISpecificAiManager managerInstance = (ISpecificAiManager)managerObject;
-						for(EventHandler handler : managerInstance.getEventHandlers())
+						if(perfectMatch)
+							continue;
+						for(Intersection i : intersections)
 						{
-							AiPlugingParameters pparams = handler.getPlugingParameters();
-							pparams.convertToIDs();
-							boolean perfectMatch = false;
-							// let's check if any previously created AiInstance is allready used for the NPC concerned by this handler
-							List<Intersection> intersections = new FastList<Intersection>();
-							for(AiInstance ai : _aiList)
-							{
-								if(ai.getPluginingParamaters().equals(pparams))
-								{
-									ai.addHandler(handler);
-									perfectMatch = true;
-									break;
-								}
-								Intersection intersection = new Intersection(ai);
-								for(int id : pparams.getIDs())
-								{
-									if(ai.getPluginingParamaters().contains(id))
-									{
-										//intersection with this AI
-										intersection.ids.add(id);
-									}
-								}
-								if(!intersection.isEmpty())
-									intersections.add(intersection);
-							}
-							if(perfectMatch)
-								continue;
-							for(Intersection i : intersections)
-							{
-								//remove secant ids on both AiInstances
-								pparams.removeIDs(i.ids);
-								i.ai.getPluginingParamaters().removeIDs(i.ids); //TODO if this is extracted to a more general purpose method, dont forget to update linkages to AiIntances
-								//create a new instance with the secant ids that will inherit all the handlers from the secant Ai
-								AiPlugingParameters newAiPparams = new AiPlugingParameters(null,null,null,i.ids,null);
-								AiInstance newAi = new AiInstance(i.ai,newAiPparams);
-								newAi.addHandler(handler);
-								_aiList.add(newAi);
-							}
-							if(pparams.isEmpty())
-								continue;
-							// create a new instance with the remaining ids
-							AiInstance newAi = new AiInstance(pparams);
+							//remove secant ids on both AiInstances
+							pparams.removeIDs(i.ids);
+							i.ai.getPluginingParamaters().removeIDs(i.ids);
+							//create a new instance with the secant ids that will inherit all the handlers from the secant Ai
+							AiPlugingParameters newAiPparams = new AiPlugingParameters(null,null,null,i.ids,null);
+							AiInstance newAi = new AiInstance(i.ai,newAiPparams);
 							newAi.addHandler(handler);
 							_aiList.add(newAi);
 						}
-						
+						if(pparams.isEmpty())
+							continue;
+						// create a new instance with the remaining ids
+						AiInstance newAi = new AiInstance(pparams);
+						newAi.addHandler(handler);
+						_aiList.add(newAi);
 					}
-					catch(ClassCastException e)
-					{
-						e.printStackTrace();
-					}
-					catch (ClassNotFoundException e)
-					{
-						e.printStackTrace();
-					}
-					catch (IllegalArgumentException e)
-					{
-						e.printStackTrace();
-					}
-					catch (SecurityException e)
-					{
-						e.printStackTrace();
-					}
-					catch (InstantiationException e)
-					{
-						e.printStackTrace();
-					}
-					catch (IllegalAccessException e)
-					{
-						e.printStackTrace();
-					}
+					
+				}
+				catch(ClassCastException e)
+				{
+					e.printStackTrace();
+				}
+				catch (ClassNotFoundException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IllegalArgumentException e)
+				{
+					e.printStackTrace();
+				}
+				catch (SecurityException e)
+				{
+					e.printStackTrace();
+				}
+				catch (InstantiationException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IllegalAccessException e)
+				{
+					e.printStackTrace();
 				}
 			}
-		//}
-		//catch (IOException e1)
-		//{
-		//	// TODO Auto-generated catch block
-		//	e1.printStackTrace();
-		//}
+		}
 
 		// build a mighty map
 		for(AiInstance ai : _aiList)

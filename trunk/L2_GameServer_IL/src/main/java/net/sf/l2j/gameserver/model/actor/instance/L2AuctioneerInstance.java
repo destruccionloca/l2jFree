@@ -75,13 +75,11 @@ public final class L2AuctioneerInstance extends L2FolkInstance
         int condition = validateCondition(player);
         if (condition == COND_ALL_FALSE)
         {
-        	//TODO: html
         	player.sendMessage("Wrong conditions.");
         	return;
         }
         if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
         {
-        	//TODO: html
         	player.sendMessage("Busy because of siege.");
         	return;
         }

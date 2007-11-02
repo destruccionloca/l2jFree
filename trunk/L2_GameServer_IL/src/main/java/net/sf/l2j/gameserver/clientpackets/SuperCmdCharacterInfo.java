@@ -45,7 +45,6 @@ public final class SuperCmdCharacterInfo extends L2GameClientPacket
 	@Override
     protected void runImpl()
 	{
-		// TODO Auto-generated method stub
 	}
 
 	/* (non-Javadoc)

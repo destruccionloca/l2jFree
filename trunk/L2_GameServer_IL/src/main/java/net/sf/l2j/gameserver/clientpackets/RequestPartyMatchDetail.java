@@ -35,7 +35,7 @@ public class RequestPartyMatchDetail extends L2GameClientPacket
 
 	private int _objectId;
     @SuppressWarnings("unused")
-	private int _unk1;
+	private int _unk1;				//TODO: analyse value unk1
 	/**
 	 * packet type id 0x71
 	 * 
@@ -51,7 +51,6 @@ public class RequestPartyMatchDetail extends L2GameClientPacket
     protected void readImpl()
     {
         _objectId = readD();
-        //TODO analyse value unk1
         _unk1 = readD();
     }
 

@@ -465,7 +465,6 @@ public final class L2PcInstance extends L2PlayableInstance
 	private L2TamedBeastInstance _tamedBeast = null;
 	
     // client radar
-    //TODO: This needs to be better intergrated and saved/loaded
     private L2Radar _radar;
 
     // these values are only stored temporarily
@@ -1435,14 +1434,14 @@ public final class L2PcInstance extends L2PlayableInstance
     }
     
     /**
-     * TODO move this from L2PcInstance, there is no reason to have this here
+     * FIXME: move this from L2PcInstance, there is no reason to have this here
      * @param questId
      * @param stateId
      */
     private void showQuestWindow(String questId, String stateId)
     {
         String path = "data/jscript/quests/" + questId + "/" + stateId + ".htm";
-        String content = HtmCache.getInstance().getHtm(path); //TODO path for quests html
+        String content = HtmCache.getInstance().getHtm(path);
 
         if (content != null)
         {
@@ -3188,7 +3187,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public L2ItemInstance checkItemManipulation(int objectId, int count, String action)
     {
-        //TODO: if we remove objects that are not visisble from the L2World, we'll have to remove this check
         if (L2World.getInstance().findObject(objectId) == null)
         {
             _log.debug(getObjectId() + ": player tried to " + action + " item not available in L2World");
@@ -3503,10 +3501,6 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public void broadcastStatusUpdate()
     {
-        //TODO We mustn't send these informations to other players
-        // Send the Server->Client packet StatusUpdate with current HP and MP to all L2PcInstance that must be informed of HP/MP updates of this L2PcInstance
-        //super.broadcastStatusUpdate();
-
         // Send the Server->Client packet StatusUpdate with current HP, MP and CP to this L2PcInstance
         StatusUpdate su = new StatusUpdate(getObjectId());
         su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
@@ -3527,7 +3521,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (isInOlympiadMode())
         {
-            // TODO: implement new OlympiadUserInfo
+            //FIXME: implement new OlympiadUserInfo
             for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             {
                 if (player.getOlympiadGameId()==getOlympiadGameId())
@@ -4620,7 +4614,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		long expGained = Math.abs(exp);
 		expGained /= Config.KARMA_XP_DIVIDER;
 		
-		// FIXME Micht : Maybe this code should be fixed and karma set to a long value
 		int karmaLost = 0;
 		if (expGained > Integer.MAX_VALUE)
 			karmaLost = Integer.MAX_VALUE;
@@ -4697,7 +4690,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void deathPenalty(boolean atwar)
     {
-        // TODO Need Correct Penalty
+        //FIXME: Need Correct Penalty
 
         // Get the level of the L2PcInstance
         final int lvl = getLevel();
@@ -7068,9 +7061,12 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if the attacker isn't the L2PcInstance Pet
         if (attacker == this || attacker == getPet()) return false;
 
-        // TODO: check for friendly mobs
         // Check if the attacker is a L2MonsterInstance
-        if (attacker instanceof L2MonsterInstance) return true;
+        if (attacker instanceof L2MonsterInstance)
+        	if (attacker instanceof L2FriendlyMobInstance)
+        		return false;
+        	else
+        		return true;
 
         // Check if the attacker is not in the same party
         if (getParty() != null && getParty().getPartyMembers().contains(attacker)) return false;
@@ -8487,7 +8483,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		// This is somewhat hacky - but that case should never happen anyway...
 		if (_noDuelReason == 0) _noDuelReason = SystemMessageId.THERE_IS_NO_OPPONENT_TO_RECEIVE_YOUR_CHALLENGE_FOR_A_DUEL.getId();
 
-		SystemMessage sm = new SystemMessage(_noDuelReason);
+		SystemMessage sm = new SystemMessage(SystemMessageId.getSystemMessageId(_noDuelReason));
 		sm.addString(getName());
 		_noDuelReason = 0;
 		return sm;

@@ -41,7 +41,7 @@ public class AnswerJoinPartyRoom extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        // TODO
+        // TODO: implementation missing
         System.out.println("C5:AnswerJoinPartyRoom: d: "+_requesterID);
     }
 

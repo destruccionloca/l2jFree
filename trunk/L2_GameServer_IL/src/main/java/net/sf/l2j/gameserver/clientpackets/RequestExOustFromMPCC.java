@@ -44,7 +44,6 @@ public class RequestExOustFromMPCC extends L2GameClientPacket
 	@Override
     protected void runImpl()
 	{
-		// TODO Auto-generated method stub
 		_log.info("This packet is not well known : RequestExOustFromMPCC");
 		_log.info("Data received: "+_name);
 
