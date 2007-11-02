@@ -20,12 +20,4 @@ public class L2Properties extends Properties
 		
 		return value.trim();
 	}
-	
-	@Override
-	public String getProperty(String key)
-	{
-		String value = super.getProperty(key);
-		
-		return value.trim();
-	}
 }
