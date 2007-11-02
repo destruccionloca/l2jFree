@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.model.mapregion;
 
-import java.util.Random;
-
 import net.sf.l2j.gameserver.model.world.L2Polygon;
 
 import org.apache.commons.logging.Log;
@@ -48,7 +46,7 @@ public class L2MapArea
     	_id = (int)((System.nanoTime() + x) / (y * 256));
     	
     	_restartId = restartId;
-    	_X = (x - 16) * _tileHeightWidth - 131840;
+    	_X = (x - 15) * _tileHeightWidth - 164608;
     	_Y = (y - 10) * _tileHeightWidth - 262144;
     	
     	L2Polygon poly = new L2Polygon();
