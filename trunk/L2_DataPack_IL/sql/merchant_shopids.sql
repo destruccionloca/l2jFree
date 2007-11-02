@@ -630,6 +630,8 @@ INSERT INTO merchant_shopids VALUES (335584, '35584');
 INSERT INTO merchant_shopids VALUES (335586, '35586');
 INSERT INTO merchant_shopids VALUES (135586, '35586');
 INSERT INTO merchant_shopids VALUES (235586, '35586');
+INSERT INTO merchant_shopids VALUES (355111, '35511');
+INSERT INTO merchant_shopids VALUES (355571, '35557');
 
 -- Correction
 DELETE FROM `merchant_shopids` WHERE `shop_id` IN ( 350071,9061 );

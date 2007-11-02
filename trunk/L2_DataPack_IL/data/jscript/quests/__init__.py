@@ -84,6 +84,7 @@ __all__ = [
 '107_MercilessPunishment',
 '108_JumbleTumbleDiamondFuss',
 '110_ToThePrimevalIsle',
+'117_OceanOfDistantStar',
 '118_ToLeadAndBeLed',
 '121_PavelTheGiants',
 '122_OminousNews',
@@ -187,6 +188,7 @@ __all__ = [
 '334_TheWishingPotion',
 '336_CoinOfMagic',
 '338_AlligatorHunter',
+'340_SubjugationOfLizardmen',
 '341_HuntingForWildBeasts',
 '343_UnderTheShadowOfTheIvoryTower',
 '344_1000YearsEndofLamentation',
@@ -288,12 +290,16 @@ __all__ = [
 '635_InTheDimensionalRift',
 '636_TruthBeyond',
 '637_ThroughOnceMore',
+'644_GraveRobberAnnihilation',
 '645_GhostsOfBatur',
 '647_InfluxOfMachines',
 '649_ALooterAndARailroadMan',
+'650_ABrokenDream',
 '651_RunawayYouth',
 '652_AnAgedExAdventurer',
 '653_WildMaiden',
+'659_IdRatherBeCollectingFairyBreath',
+'660_AidingtheFloranVillage',
 '999_C3Tutorial'
 ]
 print ""
