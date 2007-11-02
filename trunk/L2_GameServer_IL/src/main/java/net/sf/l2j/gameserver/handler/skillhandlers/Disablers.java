@@ -626,9 +626,12 @@ public class Disablers implements ISkillHandler
                                     case 4515:
                                     case 110:
                                     case 111:
+                                    case 1323:
+                                    case 1325:
+                                        // Cannot cancel skills 4082, 4215, 4515, 110, 111, 1323, 1325
                                         break;
                                     default:
-                                        if(e.getSkill().getSkillType() == SkillType.BUFF)
+                                        if(e.getSkill().getSkillType() == SkillType.BUFF) //sleep, slow, surrenders etc
                                         {
                                             int rate = 100;
                                             int level = e.getLevel();
@@ -640,6 +643,8 @@ public class Disablers implements ISkillHandler
                                                 maxfive--;
                                             }
                                         }
+                                        else
+                                            e.exit();
                                         break;
                                 }
                                 if(maxfive == 0) break;

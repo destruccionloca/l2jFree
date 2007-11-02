@@ -1322,9 +1322,9 @@ public final class Config
     public static boolean       	IS_CRAFTING_ENABLED;				// Crafting Enabled?
     public static boolean   		FAIL_FAKEDEATH;						// Config for Fake Death Fail Feature
     public static boolean 			ALT_FLYING_WYVERN_IN_SIEGE;			// Config for Wyvern enable flying in siege **/
-    public static int 				ALT_OLY_START_TIME;			// Olympiad Compitition Starting time
-    public static int 				ALT_OLY_MIN;				// Olympiad Compition Min
-    public static int 				ALT_OLY_CPERIOD;			// Olympaid Comptetition Period
+    public static int 				ALT_OLY_START_TIME;			// Olympiad Competition Starting time
+    public static int 				ALT_OLY_MIN;				// Olympiad Minutes
+    public static int 				ALT_OLY_CPERIOD;			// Olympaid Competition Period
     public static int 				ALT_OLY_BATTLE;				// Olympiad Battle Period
     public static int 				ALT_OLY_BWAIT;				// Olympiad Battle Wait
     public static int 				ALT_OLY_IWAIT;				// Olympiad Inital Wait
@@ -1475,7 +1475,7 @@ public final class Config
             ALT_MANOR_REFRESH_MIN                               = Integer.parseInt(altSettings.getProperty("AltManorRefreshMin","00"));
             ALT_MANOR_APPROVE_TIME                              = Integer.parseInt(altSettings.getProperty("AltManorApproveTime","6"));
             ALT_MANOR_APPROVE_MIN                               = Integer.parseInt(altSettings.getProperty("AltManorApproveMin","00"));
-            ALT_MANOR_MAINTENANCE_PERIOD                        = Integer.parseInt(altSettings.getProperty("AltManorMaintenancePreiod","360000"));
+            ALT_MANOR_MAINTENANCE_PERIOD                        = Integer.parseInt(altSettings.getProperty("AltManorMaintenancePeriod","360000"));
             ALT_MANOR_SAVE_ALL_ACTIONS                          = Boolean.parseBoolean(altSettings.getProperty("AltManorSaveAllActions","false"));
             ALT_MANOR_SAVE_PERIOD_RATE                          = Integer.parseInt(altSettings.getProperty("AltManorSavePeriodRate","2"));
 

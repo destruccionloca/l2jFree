@@ -93,7 +93,8 @@ public abstract class L2Effect
         TARGET_ME,
         REMOVE_TARGET,
         BATTLE_FORCE,
-        SPELL_FORCE        
+        SPELL_FORCE,
+        CHARM_OF_LUCK
     }
 	
 	private static final Func[] _emptyFunctionSet = new Func[0];
