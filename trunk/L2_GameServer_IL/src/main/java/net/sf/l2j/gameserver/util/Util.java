@@ -157,33 +157,6 @@ public final class Util
         return result;
     }
     
-    // Micht: Removed this because UNUSED
-    /*
-    public static boolean checkIfInRange(int range, int x1, int y1, int x2, int y2) 
-    {
-        return checkIfInRange(range, x1, y1, 0, x2, y2, 0, false);
-    }
-
-    public static boolean checkIfInRange(int range, int x1, int y1, int z1, int x2, int y2, int z2, boolean includeZAxis)
-    {
-
-        if (includeZAxis)
-        {
-            return ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2) + (z1 - z2)*(z1 - z2)) <= range * range;
-        }
-        else
-        {
-            return ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2)) <= range * range;
-        }
-    }
-
-    public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
-    {
-        if (obj1 == null || obj2 == null) return false;
-        
-        return checkIfInRange(range, obj1.getPosition().getX(), obj1.getPosition().getY(), obj1.getPosition().getZ(), obj2.getPosition().getX(), obj2.getPosition().getY(), obj2.getPosition().getZ(), includeZAxis);
-    }
-    */
     public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
     {
         if (range == -1) return true; // not limited
@@ -217,19 +190,6 @@ public final class Util
     	if (heading == 0) return 360;
         return 9.0 * (heading / 1610.0); // = 360.0 * (heading / 64400.0)
     }
-    
-    /**
-     * Returns the number of "words" in a given string.
-     * 
-     * @param String str
-     * @return int numWords
-     */
-    /*
-    public static int countWords(String str)
-    {
-        return str.trim().split(" ").length;
-    }
-    */
     
     /**
      * Returns a delimited string for an given array of string elements.<BR>

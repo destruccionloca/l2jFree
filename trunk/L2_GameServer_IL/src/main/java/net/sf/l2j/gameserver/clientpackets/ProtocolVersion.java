@@ -64,8 +64,7 @@ public class ProtocolVersion extends L2GameClientPacket
 		}
         else if (_version < Config.MIN_PROTOCOL_REVISION)
         {
-            _log.info("Client (" + getClient().getAccountName() + ") Protocol Revision:" + _version + " is too low. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
-            _log.info("Login name name: "+getClient().getAccountName());
+            _log.info("Client Protocol Revision:" + _version + " is too low. only "+Config.MIN_PROTOCOL_REVISION+" and "+Config.MAX_PROTOCOL_REVISION+" are supported. Closing connection.");
             _log.warn("Wrong Protocol Version "+_version);
             getClient().closeNow();
         }
