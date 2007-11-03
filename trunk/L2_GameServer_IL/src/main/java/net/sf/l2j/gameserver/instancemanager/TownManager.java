@@ -22,6 +22,7 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
@@ -85,12 +86,24 @@ public class TownManager
                             getTowns().put(zone.getTownId(), town);
                             
                             // find region for townzone
-                            Point3D point = zone.getPoints().get(0);
-                            L2MapRegion mapRegion = MapRegionManager.getInstance().getRegion(point.getX(), point.getY());
-                            if (mapRegion != null)
-                            {
-                            	mapRegion.setTown(town);
-                            	_log.info("TownManager: Town "+town.getName()+" was assigned to regionId "+mapRegion.getId()+".");
+                            if (zone.getTownId() != 12)
+                            {                            	
+	                            int middleX = 0;
+	                            int middleY = 0;
+	                            for (Point3D point : zone.getPoints())
+	                            {
+	                            	middleX += point.getX();
+	                            	middleY += point.getY();
+	                            }
+	                            middleX /= zone.getPoints().size();
+	                            middleY /= zone.getPoints().size();
+	                            
+	                            L2MapRegion mapRegion = MapRegionManager.getInstance().getRegion(middleX, middleY);
+	                            if (mapRegion != null)
+	                            {
+	                            	MapRegionManager.getInstance().setTown(mapRegion.getRestartId(Race.human), town);
+	                            	_log.info("TownManager: Town "+town.getName()+" was assigned to regionId "+mapRegion.getId()+".");
+	                            }
                             }
                         }
                         getTowns().get(zone.getTownId()).addTerritory(zone);
@@ -224,11 +237,12 @@ public class TownManager
 
     public final Town getClosestTown(int x, int y, int z)
     {
-    	Town town = getTown(x, y, z);
+    	L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
+    	Town town = getTown(10);
     	
-    	if (town == null)
-    		return getTown(10);
-    	
+    	if (region != null && region.getTown() != null)
+    		town = region.getTown();
+    		
     	return town;
     }
 

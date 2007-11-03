@@ -41,6 +41,7 @@ public class L2MapRegion
 	private Town _town = null;
 	
 	private boolean _specialRegion = true;
+	private L2MapArea _area = null;
 
 	public L2MapRegion(Node node)
 	{
@@ -56,10 +57,11 @@ public class L2MapRegion
 	 * @param id
 	 * @param polygon
 	 */
-	public L2MapRegion(int id, int restartId, L2Polygon polygon)
+	public L2MapRegion(int id, int restartId, L2Polygon polygon, L2MapArea area)
 	{
 		_id = id;
 		_polygon = polygon;
+		_area = area;
 		
 		// add restartpoints by id
 		_restarts.put(Race.human, restartId);
@@ -147,6 +149,9 @@ public class L2MapRegion
 
 	public final boolean checkIfInRegion(int x, int y, int z)
     {
+		if (!_specialRegion)
+			return (_area.checkIfInRegion(x, y));
+		
     	if (!quickIsInsideRegion(x, y, z)) 
     		return false;
     	
@@ -200,5 +205,10 @@ public class L2MapRegion
     public boolean isSpecialRegion()
     {
     	return _specialRegion;
+    }
+    
+    public L2MapArea getArea()
+    {
+    	return _area;
     }
 }

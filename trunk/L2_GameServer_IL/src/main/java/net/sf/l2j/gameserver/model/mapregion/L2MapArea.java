@@ -55,7 +55,7 @@ public class L2MapArea
     	poly.addPoint(_X + _tileHeightWidth, _Y +_tileHeightWidth);
     	poly.addPoint(_X, _Y + _tileHeightWidth);
     	
-    	_region = new L2MapRegion(_id, _restartId, poly);
+    	_region = new L2MapRegion(_id, _restartId, poly, this);
     }
     
     public int getId()
@@ -73,7 +73,7 @@ public class L2MapArea
     	return (x >= _X &&
     			x <= (_X + _tileHeightWidth) &&
     			y >= _Y &&
-    			y <= (_Y * _tileHeightWidth));
+    			y <= (_Y + _tileHeightWidth));
     }
     
     public L2MapRegion getMapRegion()

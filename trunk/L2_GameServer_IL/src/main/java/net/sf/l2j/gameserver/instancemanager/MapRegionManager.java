@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
@@ -63,10 +64,12 @@ public class MapRegionManager
 
     private Map<Integer, L2MapRegion> _mapRegions = new FastMap<Integer, L2MapRegion>();
     private Map<Integer, L2MapRegionRestart> _mapRegionRestart = new FastMap<Integer, L2MapRegionRestart>();
+    private Map<Integer, L2MapArea> _mapRestartArea = new FastMap<Integer, L2MapArea>();
     private Map<Integer, L2MapArea> _mapAreas = new FastMap<Integer, L2MapArea>();
     
     private Map<Integer, L2MapRegion> _mapRegionsReload = null;
     private Map<Integer, L2MapRegionRestart> _mapRegionRestartReload = null;
+    private Map<Integer, L2MapArea> _mapRestartAreaReload = null;
     private Map<Integer, L2MapArea> _mapAreasReload = null;
     
     public final static MapRegionManager getInstance()
@@ -86,6 +89,7 @@ public class MapRegionManager
     {
     	_mapRegionsReload = new FastMap<Integer, L2MapRegion>();
     	_mapRegionRestartReload = new FastMap<Integer, L2MapRegionRestart>();
+        _mapRestartAreaReload = new FastMap<Integer, L2MapArea>();
     	_mapAreasReload = new FastMap<Integer, L2MapArea>();
     	
     	for (File xml : Util.getDatapackFiles("mapregion", ".xml"))
@@ -123,11 +127,13 @@ public class MapRegionManager
     	// Replace old maps with reloaded ones
     	_mapRegions = _mapRegionsReload;
     	_mapRegionRestart = _mapRegionRestartReload;
+        _mapRestartArea = _mapRestartAreaReload;
     	_mapAreas = _mapAreasReload;
     	
     	// Reset unused maps
     	_mapRegionsReload = null;
     	_mapRegionRestartReload = null;
+    	_mapRestartAreaReload = null;
     	_mapAreasReload = null;
     	
     	int redirectCount = 0;
@@ -139,7 +145,7 @@ public class MapRegionManager
     	}
     	
     	_log.info("MapRegionManager: Loaded " + _mapRegionRestart.size() + " restartpoint(s).");
-    	_log.info("MapRegionManager: Loaded " + _mapAreas.size() + " arearegion(s).");
+    	_log.info("MapRegionManager: Loaded " + _mapRestartArea.size()+ "restartareas with "+_mapAreas.size() + " arearegion(s).");
     	_log.info("MapRegionManager: Loaded " + _mapRegions.size() + " zoneregion(s).");
     	_log.info("MapRegionManager: Loaded " + redirectCount + " race depending redirects.");
     }
@@ -153,6 +159,7 @@ public class MapRegionManager
     {
     	Map<Integer, L2MapRegion> regions = new FastMap<Integer, L2MapRegion>();
     	Map<Integer, L2MapRegionRestart> restarts = new FastMap<Integer, L2MapRegionRestart>();
+    	Map<Integer, L2MapArea> restartAreas = new FastMap<Integer, L2MapArea>();
     	Map<Integer, L2MapArea> areas = new FastMap<Integer, L2MapArea>();
     	
     	for (Node n = doc.getFirstChild(); n != null; n = n.getNextSibling())
@@ -226,6 +233,7 @@ public class MapRegionManager
     										if (area != null)
     											if (!areas.containsKey(area.getId()))
     											{
+    												restartAreas.put(id, area);
     												areas.put(area.getId(), area);
     												regions.put(area.getId(), area.getMapRegion());
     											}
@@ -243,6 +251,7 @@ public class MapRegionManager
     	
     	_mapRegionsReload = regions;
     	_mapRegionRestartReload = restarts;
+    	_mapRestartArea = restartAreas;
     	_mapAreasReload = areas;
     }
     
@@ -509,5 +518,14 @@ public class MapRegionManager
     	Town town = region.getTown();
     	
     	return town.getCastleId();
+    }
+    
+    public void setTown(int restartId, Town town)
+    {
+    	for (L2MapRegion region : _mapRegions.values())
+    	{
+    		if (region.getRestartId(Race.human ) == restartId)
+    			region.setTown(town);
+    	}
     }
 }

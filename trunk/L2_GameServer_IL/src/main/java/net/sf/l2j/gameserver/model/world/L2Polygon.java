@@ -83,68 +83,6 @@ public class L2Polygon implements Serializable
 	    }
 	    return (cn & 1) == 1;    // 0 if even (out), and 1 if odd (in)
 	}
-    
-    public boolean contains(double x, double y)
-    {
-    	if (_nPoints <= 2)
-	        return false;
-    	int hits = 0;
-
-    	int lastx = _xPoints[_nPoints - 1];
-    	int lasty = _yPoints[_nPoints - 1];
-    	int curx, cury;
-
-    	// Walk the edges of the polygon
-    	for (int i = 0; i < _nPoints; lastx = curx, lasty = cury, i++)
-    	{
-    		curx = _xPoints[i];
-    		cury = _yPoints[i];
-
-    		if (cury == lasty) continue;
-
-    		int leftx;
-    		if (curx < lastx)
-    		{
-    			if (x >= lastx) continue;
-    			leftx = curx;
-    		}
-    		else
-    		{
-    			if (x >= curx) continue;
-    			leftx = lastx;
-    		}
-
-    		double test1, test2;
-    		if (cury < lasty)
-    		{
-    			if (y < cury || y >= lasty) continue;
-    			
-    			if (x < leftx)
-    			{
-    				hits++;
-    				continue;
-    			}
-    			test1 = x - curx;
-    			test2 = y - cury;
-    		}
-    		else
-    		{
-    			if (y < lasty || y >= cury) continue;
-    			
-    			if (x < leftx)
-    			{
-    				hits++;
-    				continue;
-    			}
-    			test1 = x - lastx;
-    			test2 = y - lasty;
-    		}
-    		
-    		if (test1 < test2 / (lasty - cury) * (lastx - curx)) hits++;
-    	}
-
-    	return (hits & 1) != 0;
-    }
 
     public int[] getYPoints()
     {
