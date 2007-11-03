@@ -58,8 +58,8 @@ public class ChatCommander implements IChatHandler
 
 		//FIXME: For me it was sending Commands to the whole allianceside (totally
 		//       not retaillike)
-		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			if (player != null)
-				player.sendPacket(cs);
+		//for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		//	if (player != null)
+		//		player.sendPacket(cs);
 	}
 }
