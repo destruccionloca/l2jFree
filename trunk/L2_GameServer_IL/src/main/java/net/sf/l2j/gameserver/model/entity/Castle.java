@@ -88,6 +88,7 @@ public class Castle
 	private IZone _zone;
 	private IZone _zoneHQ;
 	private IZone _zoneBF;
+	private IZone _zoneDS;
 	private L2Clan _formerOwner;
 	private String _name;
 
@@ -703,9 +704,9 @@ public class Castle
 
 	public final IZone getDefenderSpawn()
 	{
-		if (_zoneBF == null)
-			_zoneBF = ZoneManager.getInstance().getZone(ZoneType.DefenderSpawn, getCastleId());
-		return _zoneBF;
+		if (_zoneDS == null)
+			_zoneDS = ZoneManager.getInstance().getZone(ZoneType.DefenderSpawn, getCastleId());
+		return _zoneDS;
 	}
 
 	public FastList<SeedProduction> getSeedProduction(int period)
