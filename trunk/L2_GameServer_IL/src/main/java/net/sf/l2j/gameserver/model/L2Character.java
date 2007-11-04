@@ -1461,6 +1461,8 @@ public abstract class L2Character extends L2Object
         else
             stopAllEffects();
         
+        calculateRewards(killer);
+
         // Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
         broadcastStatusUpdate();
 
@@ -1477,7 +1479,10 @@ public abstract class L2Character extends L2Object
         getAttackByList().clear();
         return true;
     }
-        
+
+    protected void calculateRewards(L2Character killer)
+    {}
+
     /** Sets HP, MP and CP and revives the L2Character. */
     public void doRevive()
     {
@@ -5176,7 +5181,8 @@ public abstract class L2Character extends L2Object
             getForceBuff().delete();
             return;
         }
-        
+
+        // Escaping from under skill's radius and peace zone check. First version, not perfect in AoE skills.
         int escapeRange = 0;
         if(skill.getEffectRange() > escapeRange) escapeRange = skill.getEffectRange();
         else if(skill.getCastRange() < 0 && skill.getSkillRadius() > 80) escapeRange = skill.getSkillRadius();
@@ -5184,16 +5190,28 @@ public abstract class L2Character extends L2Object
         if(escapeRange > 0) 
         {
             List<L2Character> targetList = new FastList<L2Character>();
-            for (L2Object element : targets) {
+            for (L2Object element : targets)
+            {
                 if (element instanceof L2Character)
                 {
-                    if(!isInsideRadius(element,escapeRange,true,false) || !GeoData.getInstance().canSeeTarget(this, element)) continue;
-                    else targetList.add((L2Character)element);
+                    if(!isInsideRadius(element, escapeRange, true, false) || !GeoData.getInstance().canSeeTarget(this, element))
+                        continue;
+                    if(this instanceof L2PcInstance)
+                    {
+                        if(((L2Character)element).isInsidePeaceZone((L2PcInstance)this))
+                            continue;
+                    }
+                    else
+                    {
+                        if(((L2Character)element).isInsidePeaceZone(this, element))
+                            continue;
+                    }
+                    targetList.add((L2Character)element);
                 }
             }
             if(targetList.isEmpty()) 
             {
-                abortCast();    
+                abortCast();
                 return;
             }
             else targets = targetList.toArray(new L2Character[targetList.size()]);

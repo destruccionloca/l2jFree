@@ -41,6 +41,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
@@ -142,7 +143,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
         // Check if the target isn't invulnerable
         if (target.isInvul())
-            return false;
+        {
+            // However EffectInvincible requires to check GMs specially
+            if (target instanceof L2PcInstance && ((L2PcInstance)target).isGM())
+                return false;
+            if (target instanceof L2Summon && ((L2Summon)target).getOwner().isGM())
+                return false;
+        }
+
         // Check if the target isn't a Folk or a Door
         if (target instanceof L2FolkInstance || target instanceof L2DoorInstance) return false;
 

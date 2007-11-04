@@ -107,15 +107,14 @@ public abstract class PathFinding
 		// Always continues checking from the closest to target non-blocked 
 		// node from to_visit list. There's extra length in path if needed
 		// to go backwards/sideways but when moving generally forwards, this is extra fast 
-		// and accurate. And can reach insane distances. If this has 
-		// to run for full 800 (maybe limit it much lower) is slower than the 
-		// basic search though.
+		// and accurate. And can reach insane distances (try it with 800 nodes..).
+		// Minimum required node count would be around 300-400.
 		// Generally returns a bit (only a bit) more intelligent looking routes than
 		// the basic version. Not a true distance image (which would increase CPU
 		// load) level of intelligence though. 
 		
 		// List of Visited Nodes
-		FastNodeList visited = new FastNodeList(700);//
+		FastNodeList visited = new FastNodeList(550);
 
 		// List of Nodes to Visit
 		LinkedList<Node> to_visit = new LinkedList<Node>();
@@ -125,7 +124,7 @@ public abstract class PathFinding
 		int dx, dy;
 		boolean added;
 		int i = 0;
-		while (i < 700)
+		while (i < 550)
 		{
 			Node node;
 			try 
@@ -148,7 +147,7 @@ public abstract class PathFinding
 				if (neighbors == null) continue;
 				for (Node n : neighbors)
 				{
-					if (!visited.contains(n) && !to_visit.contains(n))
+					if (!visited.containsRev(n) && !to_visit.contains(n))
 					{
 						added = false;
 						n.setParent(node);

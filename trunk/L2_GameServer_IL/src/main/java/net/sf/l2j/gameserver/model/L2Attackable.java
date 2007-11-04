@@ -278,9 +278,6 @@ public class L2Attackable extends L2NpcInstance
     /** The table containing all L2PcInstance that successfuly absorbed the soul of this L2Attackable */
     private FastMap<L2PcInstance, AbsorberInfo> _absorbersList = new FastMap<L2PcInstance, AbsorberInfo>().setShared(true);
 
-    /** Have this L2Attackable to drop somethink on DIE? **/
-    private boolean _haveToDrop;
-    
     /** Have this L2Attackable to reward Exp and SP on Die? **/
     private boolean _mustGiveExpSp;
     /**
@@ -298,7 +295,6 @@ public class L2Attackable extends L2NpcInstance
     {
         super(objectId, template);
         getKnownList(); // init knownlist
-        _haveToDrop = true;
         _mustGiveExpSp = true;
     }
 
@@ -427,13 +423,7 @@ public class L2Attackable extends L2NpcInstance
         // Reduce the current HP of the L2Attackable and launch the doDie Task if necessary
         super.reduceCurrentHp(damage, attacker, awake);
     }
-    
-    public synchronized void setHaveToDrop(boolean value) {
-        _haveToDrop = value;
-    }
-    
-    public synchronized boolean getHaveToDrop() { return _haveToDrop; }
-    
+
     public synchronized void setMustRewardExpSp(boolean value) {
         _mustGiveExpSp = value;
     }
@@ -470,14 +460,6 @@ public class L2Attackable extends L2NpcInstance
         }
         catch (Exception e) { _log.fatal("", e); }
         
-        // Distribute Exp and SP rewards to L2PcInstance (including Summon owner) that hit the L2Attackable and to their Party members
-        if (getHaveToDrop() || getMustRewardExpSP())
-        {
-            try { 
-                calculateRewards(killer); 
-            } catch (Exception e) 
-                { _log.fatal("", e); }
-        }
         // Notify the Quest Engine of the L2Attackable death if necessary
         try {
         	if (killer instanceof L2PcInstance || killer instanceof L2Summon)
@@ -509,18 +491,26 @@ public class L2Attackable extends L2NpcInstance
      * @param lastAttacker The L2Character that has killed the L2Attackable
      * 
      */
-    private void calculateRewards(L2Character lastAttacker)
+    @Override
+    protected void calculateRewards(L2Character lastAttacker)
     {
-        if (getAggroListRP().isEmpty()) return;
-        if (getMustRewardExpSP())
+        // Creates an empty list of rewards
+        FastMap<L2Character, RewardInfo> rewards = new FastMap<L2Character, RewardInfo>().setShared(true);
+
+        try 
         {
-            // Creates an empty list of rewards
-            FastMap<L2Character, RewardInfo> rewards = new FastMap<L2Character, RewardInfo>().setShared(true);
-            int rewardCount = 0;
+            if (getAggroListRP().isEmpty()) return;
             
+            // Manage Base, Quests and Sweep drops of the L2Attackable
+            doItemDrop(lastAttacker);
+            // Manage drop of Special Events created by GM for a defined period
+            doEventDrop(lastAttacker);
+            
+            if (!getMustRewardExpSP()) return; 
+
+            int rewardCount = 0;
             int damage;
-            L2Character attacker;
-            L2Character ddealer;
+            L2Character attacker, ddealer;
             RewardInfo reward;
             
             // While Interating over This Map Removing Object is Not Allowed
@@ -533,6 +523,7 @@ public class L2Attackable extends L2NpcInstance
 
                     // Get the L2Character corresponding to this attacker 
                     attacker = info._attacker;
+
                     // Get damages done by this attacker
                     damage = info._damage;
                     
@@ -540,7 +531,8 @@ public class L2Attackable extends L2NpcInstance
                     if (damage > 1)
                     {
                         if ( (attacker instanceof L2SummonInstance) || 
-                            ((attacker instanceof L2PetInstance) && ((L2PetInstance)attacker).getPetData().getOwnerExpTaken() > 0) )
+                                ((attacker instanceof L2PetInstance) && 
+                                ((L2PetInstance)attacker).getPetData().getOwnerExpTaken() > 0) )
                             ddealer = ((L2Summon)attacker).getOwner();
                         else
                             ddealer = info._attacker;
@@ -550,7 +542,7 @@ public class L2Attackable extends L2NpcInstance
 
                         // Calculate real damages (Summoners should get own damage plus summon's damage)
                         reward = rewards.get(ddealer);
-                            
+
                         if (reward == null)
                         {
                             reward = new RewardInfo(ddealer, damage);
@@ -568,18 +560,15 @@ public class L2Attackable extends L2NpcInstance
             {
                 L2Party attackerParty;
                 long exp;
-                int levelDiff;
-                int partyDmg;
-                int partyLvl;
-                float partyMul;
-                float penalty;
+                int levelDiff, partyDmg, partyLvl, sp;
+                float partyMul, penalty;
                 RewardInfo reward2;
-                int sp;
                 int[] tmp;
 
                 for (FastMap.Entry<L2Character, RewardInfo> entry = rewards.head(), end = rewards.tail(); (entry = entry.getNext()) != end;)
                 {
                     if (entry == null) continue;
+
                     reward = entry.getValue();
                     if(reward == null) continue;
                     
@@ -663,7 +652,7 @@ public class L2Attackable extends L2NpcInstance
                         // Go through all L2PcInstance in the party
                         for (L2PcInstance pl : attackerParty.getPartyMembers())
                         {
-                        	if (pl == null || pl.isDead()) continue;
+                            if (pl == null || pl.isDead()) continue;
 
                             // Get the RewardInfo of this L2PcInstance from L2Attackable rewards
                             reward2 = rewards.get(pl);
@@ -671,39 +660,39 @@ public class L2Attackable extends L2NpcInstance
                             // If the L2PcInstance is in the L2Attackable rewards add its damages to party damages
                             if (reward2 != null)
                             {
-                            	if (Util.checkIfInRange(Config.ALT_PARTY_RANGE, this, pl, true))
-                            	{
-                            		partyDmg += reward2._dmg; // Add L2PcInstance damages to party damages
-                            		rewardedMembers.add(pl);
-                            		if (pl.getLevel() > partyLvl) partyLvl = pl.getLevel();
-                            	}
-                            	rewards.remove(pl); // Remove the L2PcInstance from the L2Attackable rewards
+                                if (Util.checkIfInRange(Config.ALT_PARTY_RANGE, this, pl, true))
+                                {
+                                    partyDmg += reward2._dmg; // Add L2PcInstance damages to party damages
+                                    rewardedMembers.add(pl);
+                                    if (pl.getLevel() > partyLvl) partyLvl = pl.getLevel();
+                                }
+                                rewards.remove(pl); // Remove the L2PcInstance from the L2Attackable rewards
                             }
                             else
                             {
-                            	// Add L2PcInstance of the party (that have attacked or not) to members that can be rewarded
-                            	// and in range of the monster.
-                            	if (Util.checkIfInRange(Config.ALT_PARTY_RANGE, this, pl, true))
-                            	{
-                            		rewardedMembers.add(pl);
-                            		if (pl.getLevel() > partyLvl) partyLvl = pl.getLevel();
-                            	}
+                                // Add L2PcInstance of the party (that have attacked or not) to members that can be rewarded
+                                // and in range of the monster.
+                                if (Util.checkIfInRange(Config.ALT_PARTY_RANGE, this, pl, true))
+                                {
+                                    rewardedMembers.add(pl);
+                                    if (pl.getLevel() > partyLvl) partyLvl = pl.getLevel();
+                                }
                             }
                             L2PlayableInstance summon = pl.getPet();
                             if (summon != null && summon instanceof L2PetInstance)
                             {
-                            	reward2 = rewards.get(summon);
-                            	if (reward2 != null) // Pets are only added if they have done damage
+                                reward2 = rewards.get(summon);
+                                if (reward2 != null) // Pets are only added if they have done damage
                                 {
-                                	if (Util.checkIfInRange(Config.ALT_PARTY_RANGE, this, summon, true))
-                                	{
-                                		partyDmg += reward2._dmg; // Add summon damages to party damages
-                                		rewardedMembers.add(summon);
-                                		if (summon.getLevel() > partyLvl) partyLvl = summon.getLevel();
-                                	}
-                                	rewards.remove(summon); // Remove the summon from the L2Attackable rewards
+                                    if (Util.checkIfInRange(Config.ALT_PARTY_RANGE, this, summon, true))
+                                    {
+                                        partyDmg += reward2._dmg; // Add summon damages to party damages
+                                        rewardedMembers.add(summon);
+                                        if (summon.getLevel() > partyLvl) partyLvl = summon.getLevel();
+                                    }
+                                    rewards.remove(summon); // Remove the summon from the L2Attackable rewards
                                 }
-                            }                        
+                            }
                         }
                         
                         // If the party didn't killed this L2Attackable alone
@@ -761,29 +750,29 @@ public class L2Attackable extends L2NpcInstance
             // rewarding with Raid Points according to % of hate from all which are making raid
             if(this instanceof L2RaidBossInstance || this instanceof L2BossInstance)
             {
-            	int points;
-            	long total_damage = 0;
-            	for (AggroInfo info : getDamageContributors().values())
+                int points;
+                long total_damage = 0;
+                for (AggroInfo info : getDamageContributors().values())
                 {
                     if (info == null) continue;
-            		total_damage += info._hate;
-            	}
-            	for (AggroInfo info : getDamageContributors().values())
+                    total_damage += info._hate;
+                }
+                for (AggroInfo info : getDamageContributors().values())
                 {
                     if (info == null) continue;
-            		points = (int)Math.round(100.0 * total_damage / info._hate);
-            		RaidPointsManager.getInstance().addPoints(info._attacker.getObjectId(), getNpcId(), points);
-            		SystemMessage sms = new SystemMessage(SystemMessageId.EARNED_S1_RAID_POINTS);
+                    points = (int)Math.round(100.0 * total_damage / info._hate);
+                    RaidPointsManager.getInstance().addPoints(info._attacker.getObjectId(), getNpcId(), points);
+                    SystemMessage sms = new SystemMessage(SystemMessageId.EARNED_S1_RAID_POINTS);
                     sms.addNumber(points);
                     info._attacker.sendPacket(sms);
-            	}
-            	RaidPointsManager.getInstance().calculateRanking();
+                }
+                RaidPointsManager.getInstance().calculateRanking();
             }
         }
-        // Manage Base, Quests and Sweep drops of the L2Attackable
-        if (getHaveToDrop()) doItemDrop(lastAttacker);
-        // Manage drop of Special Events created by GM for a defined period
-        doEventDrop(lastAttacker);
+        catch(Exception e)
+        {
+            _log.fatal("",e);
+        }
     }
     
     

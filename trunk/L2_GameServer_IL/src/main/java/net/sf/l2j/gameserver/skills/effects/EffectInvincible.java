@@ -1,4 +1,5 @@
-/* This program is free software; you can redistribute it and/or modify
+/*
+ * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -15,43 +16,42 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.pathfinding.utils;
+package net.sf.l2j.gameserver.skills.effects;
 
-import net.sf.l2j.gameserver.pathfinding.Node;
+import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.skills.Env;
 
-/**
- *
- * @author -Nemesiss-
- */
-public class FastNodeList
+public class EffectInvincible extends L2Effect
 {
-	private Node[] _list;
-	private int _size;
-
-	public FastNodeList(int size)
+	public EffectInvincible(Env env, EffectTemplate template)
 	{
-		_list = new Node[size];
+		super(env, template);
 	}
 
-	public void add(Node n)
+	@Override
+	public EffectType getEffectType()
 	{
-		_list[_size] = n;
-		_size++;
+		return L2Effect.EffectType.INVINCIBLE;
 	}
 
-	public boolean contains(Node n)
+	@Override
+	public void onStart()
 	{
-		for (int i =0; i < _size; i++)
-			if(_list[i].equals(n))
-				return true;
+		getEffected().setIsInvul(true);
+	}
+	
+	@Override
+	public boolean onActionTime()
+	{
+		// Simply stop the effect
+		getEffected().setIsInvul(false);
 		return false;
 	}
 
-	public boolean containsRev(Node n)
+
+	@Override
+	public void onExit()
 	{
-		for (int i=_size-1; i >= 0; i--)
-			if(_list[i].equals(n))
-				return true;
-		return false;
+		getEffected().setIsInvul(false);
 	}
 }
