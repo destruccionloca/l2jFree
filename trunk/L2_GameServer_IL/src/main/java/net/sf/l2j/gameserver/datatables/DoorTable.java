@@ -60,6 +60,7 @@ public class DoorTable
 	{
 		_staticItems = new FastMap<Integer,L2DoorInstance>();
 		parseData();
+		checkAutoOpen();
 	}
         
 	public void reloadAll() 
