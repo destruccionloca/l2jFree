@@ -5196,15 +5196,18 @@ public abstract class L2Character extends L2Object
                 {
                     if(!isInsideRadius(element, escapeRange, true, false) || !GeoData.getInstance().canSeeTarget(this, element))
                         continue;
-                    if(this instanceof L2PcInstance)
+                    if(skill.isOffensive())
                     {
-                        if(((L2Character)element).isInsidePeaceZone((L2PcInstance)this))
-                            continue;
-                    }
-                    else
-                    {
-                        if(((L2Character)element).isInsidePeaceZone(this, element))
-                            continue;
+                    	if(this instanceof L2PcInstance)  
+                    	{  
+                    		if(((L2Character)element).isInsidePeaceZone((L2PcInstance)this))   
+                    			continue;  
+                    	}  
+                    	else  
+                    	{  
+                    		if(((L2Character)element).isInsidePeaceZone(this, element))   
+                    			continue;  
+                    	}
                     }
                     targetList.add((L2Character)element);
                 }
