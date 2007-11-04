@@ -79,30 +79,18 @@ public final class L2WorldRegion
     public class NeighborsTask implements Runnable
     {
         private boolean _isActivating;
-        private short _nextNeighbor;
         
         public NeighborsTask(boolean isActivating)
         {
             _isActivating = isActivating;
-            _nextNeighbor = 0;
         }
         
         public void run()
         {
             if (_isActivating)
             {
-                if (_nextNeighbor <= getSurroundingRegions().size())
-                {
-                    L2WorldRegion neighbor = getSurroundingRegions().get(_nextNeighbor);
-                    neighbor.setActive(true);
-                    _nextNeighbor++;
-                }
-                
-                if (_nextNeighbor > getSurroundingRegions().size())
-                {
-                    _neighborsTask.cancel(true);
-                    _neighborsTask = null;
-                }
+				for (L2WorldRegion neighbor: getSurroundingRegions())
+					neighbor.setActive(true);
             }
             else
             {
@@ -242,7 +230,7 @@ public final class L2WorldRegion
         }
         
         // then, set a timer to activate the neighbors
-        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME, 2000);
+		_neighborsTask = ThreadPoolManager.getInstance().scheduleGeneral(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME);
     }
     
     /** starts a timer to set neighbors (including self) as inactive
