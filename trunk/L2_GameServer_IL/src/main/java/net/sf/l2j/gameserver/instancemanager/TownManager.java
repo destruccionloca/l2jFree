@@ -248,6 +248,9 @@ public class TownManager
 
     public final boolean townHasCastleInSiege(int townId)
     {
+    	if (getTown(townId) == null)
+    		return false;
+    	
         int castleIndex = getTown(townId).getCastleId();
         if (castleIndex > 0)
         {
