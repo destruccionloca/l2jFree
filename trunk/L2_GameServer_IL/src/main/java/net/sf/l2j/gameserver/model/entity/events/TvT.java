@@ -563,7 +563,10 @@ public class TvT
 				{
 					case 3600: // 1 hour left
 						if (_joining)
+						{
+							Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
 							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till registration close!");
+						}
 						else if (_started)
 							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till event finish!");
 
@@ -577,7 +580,10 @@ public class TvT
 					case 120: // 2 minutes left
 					case 60: // 1 minute left
 						if (_joining)
+						{
+							Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
 							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till registration close!");
+						}
 						else if (_started)
 							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till event finish!");
 						
