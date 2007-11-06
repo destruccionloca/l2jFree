@@ -158,7 +158,6 @@ public abstract class L2Character extends L2Object
     private boolean _isPetrified                            = false; // cannot receive dmg from hits.
     private boolean _isStunned                              = false; // Cannot move/attack until stun timed out
     protected boolean _isTeleporting                        = false;
-    private L2Character _lastBuffer                         = null;
     protected boolean _isInvul                              = false;
     private int _lastHealAmount                             = 0;
     private CharStat _stat;
@@ -1199,21 +1198,6 @@ public abstract class L2Character extends L2Object
         )
         {
             target = (L2Character) targets[0];
- 
-            if (this instanceof L2PcInstance && target instanceof L2PcInstance && target.getAI().getIntention() == CtrlIntention.AI_INTENTION_ATTACK)
-            {
-                if(skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HOT || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.HEAL_PERCENT || skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.MANAHEAL_PERCENT || skill.getSkillType() == SkillType.BALANCE_LIFE)
-                    target.setLastBuffer(this);
- 
-                if (((L2PcInstance)this).isInParty() && skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY)
-                {
-                    L2Party party = ((L2PcInstance)this).getParty();
-                    FastList<L2PcInstance> members = party.getPartyMembers();
- 
-                    for (L2PcInstance member : members)
-                        member.setLastBuffer(this);
-                }
-            }
         }
         else if ( skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET  ) 
         {
@@ -5908,19 +5892,9 @@ public abstract class L2Character extends L2Object
         return _aiClass;
     }
 
-    public L2Character getLastBuffer()
-    {
-        return _lastBuffer;
-    }
-
     public int getLastHealAmount()
     {
         return _lastHealAmount;
-    }
-
-    public void setLastBuffer(L2Character buffer)
-    {
-        _lastBuffer = buffer;
     }
 
     public void setLastHealAmount(int hp)
