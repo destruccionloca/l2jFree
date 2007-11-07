@@ -24,15 +24,15 @@ package net.sf.l2j.gameserver.network;
 public enum SystemChatChannelId
 {
 	Chat_Normal ("ALL"),
-	Chat_Shout ("SHOUT"),
-	Chat_Tell ("WHISPER"),
-	Chat_Party ("PARTY"),
-	Chat_Clan ("CLAN"),
-	Chat_System ("EMOTE"),
-	Chat_User_Pet ("USERPET"),
-	Chat_GM_Pet ("GMPET"),
-	Chat_Market ("TRADE"),
-	Chat_Alliance ("ALLIANCE"),
+	Chat_Shout ("SHOUT"), // !
+	Chat_Tell ("WHISPER"), // "
+	Chat_Party ("PARTY"), // #
+	Chat_Clan ("CLAN"), // @
+	Chat_System ("EMOTE"), // (
+	Chat_User_Pet ("USERPET"), // *
+	Chat_GM_Pet ("GMPET"), // *
+	Chat_Market ("TRADE"), // +
+	Chat_Alliance ("ALLIANCE"), // $
 	Chat_Announce ("ANNOUNCE"),
 	Chat_Custom ("CRASH"),
 	Chat_L2Friend ("L2FRIEND"),
@@ -40,32 +40,31 @@ public enum SystemChatChannelId
 	Chat_Party_Room ("PARTYROOM"),
 	Chat_Commander ("COMMANDER"),
 	Chat_Inner_Partymaster ("INNERPARTYMASTER"),
-	Chat_Hero ("HERO"),
+	Chat_Hero ("HERO"), // %
 	Chat_Critical_Announce ("CRITANNOUNCE"),
 	Chat_None ("NONE");
-	
-	
+
 	private String _channelName;
-	
+
 	private SystemChatChannelId(String channelName)
 	{
 		_channelName = channelName;
 	}
-	
+
 	public int getId()
 	{
 		return this.ordinal();
 	}
-	
+
 	public String getName()
 	{
 		return _channelName;
 	}
-	
+
 	public static SystemChatChannelId getChatType(int channelId)
 	{
 		for (SystemChatChannelId channel : SystemChatChannelId.values())
-	        if (channel.getId() == channelId)
+			if (channel.getId() == channelId)
 				return channel;
 
 		return SystemChatChannelId.Chat_None;

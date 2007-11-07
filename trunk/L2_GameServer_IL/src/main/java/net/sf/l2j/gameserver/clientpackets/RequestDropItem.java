@@ -83,7 +83,7 @@ public class RequestDropItem extends L2GameClientPacket
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
             && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            activeChar.sendMessage("Transactions isn't allowed during restart/shutdown!");
+            activeChar.sendMessage("Transactions are not allowed during restart/shutdown.");
             activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }

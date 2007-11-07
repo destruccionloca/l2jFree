@@ -109,10 +109,11 @@ public class L2SkillElemental extends L2Skill
 			boolean charged = true;
 			if (!_seedAny)
 			{
-				for (int element0 : _seeds) {
+				for (int element0 : _seeds)
+				{
 					if (element0!=0)
 					{
-						L2Effect e = target.getEffect(element0);
+						L2Effect e = target.getFirstEffect(element0);
 						if (e==null || !e.getInUse())
 						{
 							charged = false;
@@ -124,10 +125,11 @@ public class L2SkillElemental extends L2Skill
 			else
 			{
 				charged = false;
-				for (int element0 : _seeds) {
+				for (int element0 : _seeds)
+				{
 					if (element0!=0)
 					{
-						L2Effect e = target.getEffect(element0);
+						L2Effect e = target.getFirstEffect(element0);
 						if (e!=null && e.getInUse())
 						{
 							charged = true;
@@ -161,9 +163,7 @@ public class L2SkillElemental extends L2Skill
 				activeChar.sendDamageMessage(target, damage, false, false, false);
 			}
 			// activate attacked effects, if any
-			target.stopEffect(getId());
-			if (target.getEffect(getId()) != null)
-				target.removeEffect(target.getEffect(getId()));
+			target.stopSkillEffects(getId());
 			getEffects(activeChar, target);
 		}
 	}

@@ -447,7 +447,7 @@ public abstract class L2Character extends L2Object
         if (this instanceof L2PcInstance && Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TELEPORT && Shutdown.getCounterInstance() != null 
                 && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            sendMessage("Teleport isn't allowed during restart/shutdown!");
+            sendMessage("Teleport is not allowed during restart/shutdown.");
             return;
         }
         
@@ -2569,21 +2569,27 @@ public abstract class L2Character extends L2Object
         updateAbnormalEffect();
     }
 
-   /**
-    * Stop and remove the L2Effect corresponding to the L2Skill Identifier and update client magic icone.<BR><BR>
-    *
-    * <B><U> Concept</U> :</B><BR><BR>
-    * All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>.
-    * The Integer key of _effects is the L2Skill Identifier that has created the L2Effect.<BR><BR>
-    *
-    * @param effectId The L2Skill Identifier of the L2Effect to remove from _effects
-    *
-    */
-    public final void stopEffect(int effectId)
-    {
-        L2Effect effect = getEffect(effectId);
-        if(effect != null) effect.exit();
-    }
+	/**
+	* Stop and remove the L2Effects corresponding to the L2Skill Identifier and update client magic icone.<BR><BR>
+	*
+	* <B><U> Concept</U> :</B><BR><BR>
+	* All active skills effects in progress on the L2Character are identified in ConcurrentHashMap(Integer,L2Effect) <B>_effects</B>.
+	* The Integer key of _effects is the L2Skill Identifier that has created the L2Effect.<BR><BR>
+	*
+	* @param effectId The L2Skill Identifier of the L2Effect to remove from _effects
+	*
+	*/
+	public final void stopSkillEffects(int skillId)
+	{
+		// Get all skills effects on the L2Character
+		L2Effect[] effects = getAllEffects();
+		if (effects == null) return;
+
+		for(L2Effect e : effects)
+		{
+			if (e.getSkill().getId() == skillId) e.exit();
+		}
+	}
 
     /**
     * Stop and remove all L2Effect of the selected type (ex : BUFF, DMG_OVER_TIME...) from the L2Character and update client magic icone.<BR><BR>
@@ -2961,7 +2967,7 @@ public abstract class L2Character extends L2Object
     * @return The L2Effect corresponding to the L2Skill Identifier
     *
     */
-    public final L2Effect getEffect(int index)
+    public final L2Effect getFirstEffect(int index)
     {
        FastTable<L2Effect> effects = _effects;
        if (effects == null) return null;
@@ -2990,7 +2996,7 @@ public abstract class L2Character extends L2Object
     * @return The first L2Effect created by the L2Skill
     *
     */
-    public final L2Effect getEffect(L2Skill skill)
+    public final L2Effect getFirstEffect(L2Skill skill)
     {
        FastTable<L2Effect> effects = _effects;
        if (effects == null) return null;
@@ -3021,7 +3027,7 @@ public abstract class L2Character extends L2Object
     * @return The first L2Effect corresponding to the Effect Type
     *
     */
-    public final L2Effect getEffect(L2Effect.EffectType tp)
+    public final L2Effect getFirstEffect(L2Effect.EffectType tp)
     {
         FastTable<L2Effect> effects = _effects;
         if (effects == null) return null;

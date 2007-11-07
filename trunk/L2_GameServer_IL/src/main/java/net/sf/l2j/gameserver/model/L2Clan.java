@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.communitybbs.model.forum.Forums;
 import net.sf.l2j.gameserver.communitybbs.services.forum.ForumService;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -359,17 +360,22 @@ public class L2Clan
 		}
 		exMember.saveApprenticeAndSponsor(0, 0);
 
-        if (exMember.isOnline())
-        {
+		if (Config.REMOVE_CASTLE_CIRCLETS)
+		{
+			CastleManager.getInstance().removeCirclet(exMember,getHasCastle());
+		}
+
+		if (exMember.isOnline())
+		{
 			L2PcInstance player = exMember.getPlayerInstance();
 			
-		    player.setApprentice(0);
+			player.setApprentice(0);
 			player.setSponsor(0);
 			
 			if (player.isClanLeader())
 			{
-		        SiegeManager.getInstance().removeSiegeSkills(player);
-		        player.setClanCreateExpiryTime(System.currentTimeMillis() + Config.ALT_CLAN_CREATE_DAYS * 86400000L); //24*60*60*1000 = 86400000
+				SiegeManager.getInstance().removeSiegeSkills(player);
+				player.setClanCreateExpiryTime(System.currentTimeMillis() + Config.ALT_CLAN_CREATE_DAYS * 86400000L); //24*60*60*1000 = 86400000
 			}
 			player.setClan(null);
 			player.setClanJoinExpiryTime(clanJoinExpiryTime);
@@ -457,10 +463,11 @@ public class L2Clan
         List<L2PcInstance> result = new FastList<L2PcInstance>();
         for (L2ClanMember temp : _members.values())
         {
-            if (temp.isOnline() && temp.getPlayerInstance()!=null && !temp.getName().equals(exclude))
+            try
             {
-                result.add(temp.getPlayerInstance());
-            }
+                if (temp.isOnline() && !temp.getName().equals(exclude))
+                    result.add(temp.getPlayerInstance());
+            } catch (NullPointerException e) {}
         }
         
         return result.toArray(new L2PcInstance[result.size()]);
@@ -935,12 +942,16 @@ public class L2Clan
         if(_skills.size() < 1) return;
         for (L2ClanMember temp : _members.values())
         {
-            if (temp.isOnline() && temp.getPlayerInstance()!=null)
-                addSkillEffects(temp.getPlayerInstance(),notify);
+            try
+            {
+                if (temp.isOnline() && temp.getPlayerInstance() != null)
+                    addSkillEffects(temp.getPlayerInstance(), notify);
+            }
+            catch (NullPointerException e) {}
         }
     }
     
-    public void addSkillEffects(L2PcInstance cm, boolean notify)    
+    public void addSkillEffects(L2PcInstance cm, boolean notify)
     {
         if (cm == null)
             return;
@@ -958,9 +969,9 @@ public class L2Clan
             }
         }
     }
-    
-    public void broadcastToOnlineAllyMembers(L2GameServerPacket packet)
-    {
+
+	public void broadcastToOnlineAllyMembers(L2GameServerPacket packet)
+	{
 		if (getAllyId() == 0)
 		{
 			return;
@@ -972,35 +983,37 @@ public class L2Clan
 				clan.broadcastToOnlineMembers(packet);
 			}
 		}
-    }
-    
-    public void broadcastToOnlineMembers(L2GameServerPacket packet)
-    {
-        for (L2ClanMember member : _members.values())
-        {
-            if (member.isOnline() && member.getPlayerInstance() != null)
-            {
-                member.getPlayerInstance().sendPacket(packet);
-            }
-        }
-    }
-    
-    public void broadcastToOtherOnlineMembers(L2GameServerPacket packet, L2PcInstance player)
-    {
-        for (L2ClanMember member : _members.values())
-        {
-            if (member.isOnline() && member.getPlayerInstance() != null && member.getPlayerInstance() != player)
-            {
-                member.getPlayerInstance().sendPacket(packet);
-            }
-        }
-    }
-    
-    @Override
-    public String toString()
-    {
-        return getName();
-    }
+	}
+
+	public void broadcastToOnlineMembers(L2GameServerPacket packet)
+	{
+		for (L2ClanMember member : _members.values())
+		{
+			try
+			{
+				if (member.isOnline())
+					member.getPlayerInstance().sendPacket(packet);
+			} catch (NullPointerException e) {}
+		}
+	}
+
+	public void broadcastToOtherOnlineMembers(L2GameServerPacket packet, L2PcInstance player)
+	{
+		for (L2ClanMember member : _members.values())
+		{
+			try
+			{
+				if (member.isOnline() && member.getPlayerInstance() != player)
+					member.getPlayerInstance().sendPacket(packet);
+			} catch (NullPointerException e) {}
+		}
+	}
+
+	@Override
+	public String toString()
+	{
+		return getName();
+	}
 
     /**
      * @return

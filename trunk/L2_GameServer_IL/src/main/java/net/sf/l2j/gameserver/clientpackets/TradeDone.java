@@ -57,7 +57,7 @@ public class TradeDone extends L2GameClientPacket
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.cancelActiveTrade();
 			sendPacket(new ActionFailed());
 			return;

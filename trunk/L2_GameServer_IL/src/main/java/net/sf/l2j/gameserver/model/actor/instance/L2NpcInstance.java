@@ -585,11 +585,11 @@ public class L2NpcInstance extends L2Character
             player.sendPacket(new ActionFailed());
             return;
         }
-        // Restrict iteractions during restart/shutdown
+        // Restrict interactions during restart/shutdown
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_NPC_ITERACTION && Shutdown.getCounterInstance() != null 
                 && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            sendMessage("All NPC iteractions disabled during restart/shutdown!");
+            sendMessage("NPC interaction disabled during restart/shutdown.");
             ActionFailed af = new ActionFailed();
             player.sendPacket(af);
             return;
@@ -1405,7 +1405,7 @@ public class L2NpcInstance extends L2Character
                 {
                     _priceTotal+=_buff.getAdenaPrice();
                      
-                    if (_buff.forceCast() || player.getEffect(_buff.getSkill()) == null)
+                    if (_buff.forceCast() || player.getFirstEffect(_buff.getSkill()) == null)
                     {
                         // regeneration ^^
                         getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());

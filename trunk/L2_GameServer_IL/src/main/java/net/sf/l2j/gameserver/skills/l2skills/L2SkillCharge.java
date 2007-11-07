@@ -44,7 +44,7 @@ public class L2SkillCharge extends L2Skill
 			return;
 		
 		// get the effect
-		EffectCharge effect = (EffectCharge) caster.getEffect(L2Effect.EffectType.CHARGE);
+		EffectCharge effect = (EffectCharge) caster.getFirstEffect(L2Effect.EffectType.CHARGE);
 		if (effect != null)
 		{
 			if (effect.numCharges < numCharges)

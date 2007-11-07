@@ -53,7 +53,13 @@ public class TakeCastle implements ISkillHandler
         if (castle == null || !checkIfOkToCastSealOfRule(player, castle, true))
             return;
 
-    	castle.setOwner(player.getClan());
+        try
+        {
+            if(targets[0] instanceof L2ArtefactInstance)
+                castle.Engrave(player.getClan(), targets[0].getObjectId());
+        }
+        catch(Exception e) 
+        {}
     } 
     
     public SkillType[] getSkillIds() 

@@ -44,6 +44,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Pdam;
 import net.sf.l2j.gameserver.handler.skillhandlers.Recall;
 import net.sf.l2j.gameserver.handler.skillhandlers.Resurrect;
 import net.sf.l2j.gameserver.handler.skillhandlers.SiegeFlag;
+import net.sf.l2j.gameserver.handler.skillhandlers.Signets;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sow;
 import net.sf.l2j.gameserver.handler.skillhandlers.Spoil;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
@@ -104,6 +105,7 @@ public class SkillHandler
         registerSkillHandler(new Recall());
         registerSkillHandler(new Resurrect());
         registerSkillHandler(new SiegeFlag());
+		registerSkillHandler(new Signets());
         registerSkillHandler(new Sow());
         registerSkillHandler(new Spoil());
         registerSkillHandler(new StrSiegeAssault());

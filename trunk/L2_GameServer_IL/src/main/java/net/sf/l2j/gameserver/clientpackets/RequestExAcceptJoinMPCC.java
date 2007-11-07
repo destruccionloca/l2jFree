@@ -18,8 +18,8 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.gameserver.model.L2CommandChannel;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * @author -Wooden-
@@ -27,25 +27,44 @@ import org.apache.commons.logging.LogFactory;
  */
 public class RequestExAcceptJoinMPCC extends L2GameClientPacket
 {
-	private final static Log _log = LogFactory.getLog(RequestExAcceptJoinMPCC.class.getName());
 	private static final String _C__D0_0E_REQUESTEXASKJOINMPCC = "[C] D0:0E RequestExAcceptJoinMPCC";
-	private int _data;
+	private int _response;
 
-    @Override
-    protected void readImpl()
-    {
-        _data = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_response = readD();
+	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-    protected void runImpl()
+	protected void runImpl()
 	{
-		_log.info("This packet is not well known : RequestExAcceptJoinMPCC");
-		_log.info("Data received: "+_data);
-		
+		L2PcInstance player = getClient().getActiveChar();
+		if(player != null)
+		{
+			L2PcInstance requestor = player.getActiveRequester();
+			if (requestor == null)
+				return;
+
+			if (_response == 1) 
+			{
+				if(!requestor.getParty().isInCommandChannel())
+				{
+					new L2CommandChannel(requestor); // Create new CC
+				}
+				requestor.getParty().getCommandChannel().addParty(player.getParty());
+			}
+			else
+			{
+				requestor.sendMessage("The player declined to join your Command Channel.");
+			}
+			
+			player.setActiveRequester(null);
+			requestor.onTransactionResponse();
+		}
 	}
 
 	/* (non-Javadoc)

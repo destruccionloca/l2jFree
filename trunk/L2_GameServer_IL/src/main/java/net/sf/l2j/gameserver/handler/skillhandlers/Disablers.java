@@ -413,10 +413,8 @@ public class Disablers implements ISkillHandler
                                                 target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK,activeChar);}
                                         }
                                     }
-                                    activeChar.stopEffect(skill.getId());
                                     target.setTarget(activeChar); //c5 hate PvP
-                                    if (activeChar.getEffect(skill.getId()) != null)
-                                        activeChar.removeEffect(activeChar.getEffect(skill.getId()));
+                                    activeChar.stopSkillEffects(skill.getId());
                                     skill.getEffects(activeChar, activeChar);
                                     target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) ((150*skill.getPower())/(target.getLevel()+7)));
                                 }
@@ -812,7 +810,7 @@ public class Disablers implements ISkillHandler
             }//end switch
         }//end for
         // self Effect :]
-        L2Effect effect = activeChar.getEffect(skill.getId());
+        L2Effect effect = activeChar.getFirstEffect(skill.getId());
         if (effect != null && effect.isSelfEffect())
         {
            //Replace old effect with new one.

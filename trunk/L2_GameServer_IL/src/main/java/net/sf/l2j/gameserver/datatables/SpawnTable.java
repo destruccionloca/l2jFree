@@ -376,8 +376,7 @@ public class SpawnTable implements SpawnTableMBean
             catch (Exception e)
             {
                 // problem with deleting spawn
-                _log.warn("SpawnTable: Spawn " + spawn.getDbId() + " could not be removed from DB: "
-                    + e);
+                _log.warn("SpawnTable: Spawn "+ spawn.getDbId() +" could not be removed from DB: "+e);
             }
             finally
             {

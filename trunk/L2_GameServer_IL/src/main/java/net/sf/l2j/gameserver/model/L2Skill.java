@@ -156,6 +156,7 @@ public abstract class L2Skill
         RESURRECT,
         PASSIVE,
         CONT,
+        SIGNET,
         CONFUSION,
         UNLOCK,
         CHARGE                (L2SkillCharge.class),
@@ -2702,7 +2703,7 @@ public abstract class L2Skill
                 if (e.getEffectType()== L2Effect.EffectType.CHARGE)
                 {
                     env.skill = SkillTable.getInstance().getInfo(8, effector.getSkillLevel(8));
-                    EffectCharge effect = (EffectCharge) env.target.getEffect(L2Effect.EffectType.CHARGE);
+                    EffectCharge effect = (EffectCharge) env.target.getFirstEffect(L2Effect.EffectType.CHARGE);
                     if (effect != null) 
                     {
                         if (effect.numCharges < _numCharges)

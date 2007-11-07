@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.handler.chathandlers.ChatClan;
 import net.sf.l2j.gameserver.handler.chathandlers.ChatCommander;
 import net.sf.l2j.gameserver.handler.chathandlers.ChatHero;
 import net.sf.l2j.gameserver.handler.chathandlers.ChatParty;
+import net.sf.l2j.gameserver.handler.chathandlers.ChatPartyRoom;
 import net.sf.l2j.gameserver.handler.chathandlers.ChatPetition;
 import net.sf.l2j.gameserver.handler.chathandlers.ChatShout;
 import net.sf.l2j.gameserver.handler.chathandlers.ChatSystem;
@@ -69,6 +70,7 @@ public class ChatHandler
 		registerChatHandler(new ChatSystem());
 		registerChatHandler(new ChatHero());
 		registerChatHandler(new ChatParty());
+		registerChatHandler(new ChatPartyRoom());
 		registerChatHandler(new ChatPetition());
 		registerChatHandler(new ChatShout());
 		registerChatHandler(new ChatTrade());

@@ -1232,6 +1232,7 @@ public final class Config
     public static double 			ALT_GAME_CREATION_XP_RATE;			// Alternative game crafting XP rate multiplier - default 1
     public static double 			ALT_GAME_CREATION_SP_RATE;			// Alternative game crafting SP rate multiplier - default 1
     public static boolean 			ALT_BLACKSMITH_USE_RECIPES;			// Alternative setting to blacksmith use of recipes to craft - default true
+    public static boolean 			REMOVE_CASTLE_CIRCLETS;				// Remove Castle circlets after clan lose his castle? - default true
     public static double 			ALT_WEIGHT_LIMIT;					// Alternative game weight limit multiplier - default 1
     public static int 				ALT_GAME_NUMBER_OF_CUMULATED_BUFF;	// Alternative number of cumulated buff
     public static boolean 			ALT_DISABLE_RAIDBOSS_PETRIFICATION;	// Disable Raidboss Petrification
@@ -1268,6 +1269,7 @@ public final class Config
     public static int 				MAX_SUBCLASS;						// Allow to change max number of subclasses
     public static boolean 			ALT_GAME_VIEWNPC;					// View npc stats/drop by shift-cliking it for nongm-players    
     public static boolean 			ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;	// Alternative gaming - all new characters always are newbies.
+    public static boolean 			ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;// Alternative gaming - clan members with see privilege can also withdraw from clan warehouse.
     public static boolean 			ALT_STRICT_HERO_SYSTEM;				// Strict Hero Mode
     public static boolean 			ALT_STRICT_SEVENSIGNS;				// Strict Seven Signs
     public static boolean 			SP_BOOK_NEEDED;						// Spell Book needed to learn skill
@@ -1408,6 +1410,7 @@ public final class Config
             ALT_GAME_FREIGHTS       = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
             ALT_GAME_FREIGHT_PRICE  = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
             ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
+            REMOVE_CASTLE_CIRCLETS  = Boolean.parseBoolean(altSettings.getProperty("RemoveCastleCirclets", "true"));
             ALT_PARTY_RANGE         = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
             ALT_PARTY_RANGE2        = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
             CHANCE_BREAK            = Integer.parseInt(altSettings.getProperty("ChanceToBreak", "10"));
@@ -1433,6 +1436,7 @@ public final class Config
             MAX_SUBCLASS                                        = Integer.parseInt(altSettings.getProperty("MaxSubclass","3"));
             ALT_GAME_VIEWNPC                                    = Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
             ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE                  = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
+            ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH                = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
             DWARF_RECIPE_LIMIT                                  = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit","50"));
             COMMON_RECIPE_LIMIT                                 = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit","50"));
             
@@ -2613,7 +2617,7 @@ public final class Config
         else if (pName.equalsIgnoreCase("MaxPAtkSpeed")) MAX_PATK_SPEED = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("MaxMAtkSpeed")) MAX_MATK_SPEED = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("GradePenalty")) GRADE_PENALTY = Boolean.parseBoolean(pValue);
-
+        else if (pName.equalsIgnoreCase("RemoveCastleCirclets")) REMOVE_CASTLE_CIRCLETS = Boolean.valueOf(pValue);
         else if (pName.equalsIgnoreCase("AltGameCancelByHit"))
         {
             ALT_GAME_CANCEL_BOW     = pValue.equalsIgnoreCase("bow") || pValue.equalsIgnoreCase("all");

@@ -78,7 +78,7 @@ public class RequestEnchantItem extends L2GameClientPacket
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null 
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            activeChar.sendMessage("Enchant isn't allowed during restart/shutdown!");
+            activeChar.sendMessage("Enchanting items is not allowed during restart/shutdown.");
             return;
         }
         

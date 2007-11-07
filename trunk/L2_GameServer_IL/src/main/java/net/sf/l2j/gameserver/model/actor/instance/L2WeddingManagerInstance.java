@@ -212,10 +212,10 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                         player.getInventory().reduceAdena("Wedding", Config.WEDDING_PRICE, player, player.getLastFolkNPC());                       
                         sendHtmlMessage(player, filename, replace);
                         return;
-                    }                    
+                    }
                 } 
             }
-        }                
+        }
         sendHtmlMessage(player, filename, replace);
     } 
 

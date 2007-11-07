@@ -1526,6 +1526,10 @@ public final class L2PcInstance extends L2PlayableInstance
         _siegeState = siegeState;
     }
 
+    /**
+     * Get the siege state of the L2PcInstance.<BR><BR>
+    * 1 = attacker, 2 = defender, 0 = not involved
+     */
     public byte getSiegeState()
     {
         return _siegeState;
@@ -3317,11 +3321,11 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void onAction(L2PcInstance player)
     {
-        // Restrict iteractions during restart/shutdown
+        // Restrict interactions during restart/shutdown
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_PC_ITERACTION && Shutdown.getCounterInstance() != null 
             && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            sendMessage("Player iteraction disabled during restart/shutdown!");
+            sendMessage("Player interaction disabled during restart/shutdown.");
             player.sendPacket(new ActionFailed());
             return;
         }
@@ -7177,7 +7181,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (skill.isToggle())
         {
             // Get effects of the skill
-            L2Effect effect = getEffect(skill);
+            L2Effect effect = getFirstEffect(skill);
 
             if (effect != null)
             {
@@ -7606,15 +7610,19 @@ public final class L2PcInstance extends L2PlayableInstance
 
     }
 
-    public boolean isInLooterParty(int LooterId)
-    {
-       L2PcInstance looter = (L2PcInstance)L2World.getInstance().findObject(LooterId);
-        
-       if (isInParty() && looter != null) 
-            return getParty().getPartyMembers().contains(looter);
+	public boolean isInLooterParty(int LooterId)
+	{
+		L2PcInstance looter = (L2PcInstance)L2World.getInstance().findObject(LooterId);
 
-        return false;
-    }
+		// if L2PcInstance is in a CommandChannel
+		if (isInParty() && getParty().isInCommandChannel() && looter != null)
+			return getParty().getCommandChannel().getMembers().contains(looter);
+
+		if (isInParty() && looter != null) 
+			return getParty().getPartyMembers().contains(looter);
+
+		return false;
+	}
 
     /**
      * Check if the requested casting is a Pc->Pc skill cast and if it's a valid pvp condition

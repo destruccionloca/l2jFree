@@ -27,10 +27,10 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
  *
  * @author  Noctarius
  */
-//TODO: Add here retaillike Commander Channel Code (I'm not sure how it is working on retail - so it's just from my server with =text) **Noctarius**
-public class ChatCommander implements IChatHandler
+
+public class ChatPartyRoom implements IChatHandler
 {
-	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Commander };
+	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Party_Room };
 
 	/**
 	 * @see de.dc.l2j.gameserver.handler.IChatHandler#getChatTypes()
@@ -56,8 +56,7 @@ public class ChatCommander implements IChatHandler
 
 		if (activeChar.isInParty())
 		{
-			if (activeChar.getParty().isInCommandChannel() && 
-					activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar))
+			if (activeChar.getParty().isInCommandChannel() && activeChar.getParty().isLeader(activeChar))
 			{
 				CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
 				activeChar.getParty().getCommandChannel().broadcastToChannelMembers(cs);

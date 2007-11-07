@@ -57,6 +57,7 @@ public class L2Party
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
 	private int _itemLastLoot = 0;
+	private L2CommandChannel _commandChannel = null;
 
 	private DimensionalRift _dr;
 
@@ -340,7 +341,7 @@ public class L2Party
 			{
 				if (isLeader(player))
 				{
-                    player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_TRANSFER_RIGHTS_TO_YOURSELF));
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_TRANSFER_RIGHTS_TO_YOURSELF));
 				}
 				else
 				{
@@ -348,17 +349,22 @@ public class L2Party
 					L2PcInstance temp;
 					int p1 = getPartyMembers().indexOf(player);
 					temp = getLeader();
-                    getPartyMembers().set(0,getPartyMembers().get(p1));
-                    getPartyMembers().set(p1,temp);
-					
+					getPartyMembers().set(0,getPartyMembers().get(p1));
+					getPartyMembers().set(p1,temp);
+
 					SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
 					msg.addString(getLeader().getName());
 					broadcastToPartyMembers(msg);
+					broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+					if (isInCommandChannel())
+					{
+						_commandChannel.setChannelLeader(getPartyMembers().get(0));
+					}
 				}
 			}
 			else
 			{
-                player.sendPacket(new SystemMessage(SystemMessageId.YOU_CAN_TRANSFER_RIGHTS_ONLY_TO_ANOTHER_PARTY_MEMBER));
+				player.sendPacket(new SystemMessage(SystemMessageId.YOU_CAN_TRANSFER_RIGHTS_ONLY_TO_ANOTHER_PARTY_MEMBER));
 			}
 		}
 		
@@ -757,6 +763,21 @@ public class L2Party
 	public int getLevel() { return _partyLvl; }
 
 	public int getLootDistribution() { return _itemDistribution; }
+
+	public boolean isInCommandChannel()
+	{
+		return _commandChannel != null;
+	}
+
+	public L2CommandChannel getCommandChannel()
+	{
+		return _commandChannel;
+	}
+
+	public void setCommandChannel(L2CommandChannel channel)
+	{
+		_commandChannel = channel;
+	}
 
 	public boolean isInDimensionalRift() { return _dr != null; }
 

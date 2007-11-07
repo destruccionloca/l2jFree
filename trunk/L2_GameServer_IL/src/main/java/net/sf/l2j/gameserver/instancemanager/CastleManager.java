@@ -17,10 +17,16 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.sql.PreparedStatement;
+
 import javolution.util.FastMap;
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2ClanMember;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
@@ -174,5 +180,62 @@ public class CastleManager
 			return _castleCirclets[castleId];
 		
 		return 0;
+	}
+
+	// remove this castle's circlets from the clan
+	public void removeCirclet(L2Clan clan, int castleId)
+	{
+		for (L2ClanMember member : clan.getMembers())
+			removeCirclet(member, castleId);
+	}
+
+	public void removeCirclet(L2ClanMember member, int castleId)
+	{
+		if (member == null) return;
+		L2PcInstance player = member.getPlayerInstance();
+		int circletId = getCircletByCastleId(castleId);
+		
+		if (circletId != 0)
+		{
+			// online-player circlet removal
+			if (player != null)
+			{
+				try 
+				{
+					L2ItemInstance circlet = player.getInventory().getItemByItemId(circletId);
+					if (circlet != null)
+					{
+						if (circlet.isEquipped())
+							player.getInventory().unEquipItemInSlotAndRecord(circlet.getEquipSlot());
+						player.destroyItemByItemId("CastleCircletRemoval", circletId, 1, player, true);
+					}
+					return;
+				}
+				catch (NullPointerException e)
+				{
+					// continue removing offline
+				}
+			}
+			// else offline-player circlet removal
+			java.sql.Connection con = null;
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement statement = con.prepareStatement("DELETE FROM items WHERE owner_id = ? and item_id = ?");
+				statement.setInt(1, member.getObjectId());
+				statement.setInt(2, circletId);
+				statement.execute();
+				statement.close();
+			}
+			catch (Exception e)
+			{
+				_log.error("Failed to remove castle circlets offline for player "+member.getName());
+				e.printStackTrace();
+			}
+			finally
+			{
+				try { con.close(); } catch (Exception e) {}
+			}
+		}
 	}
 }

@@ -21,8 +21,11 @@ package net.sf.l2j.gameserver.model.entity;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
+import java.util.Map;
 
+import net.sf.l2j.Config;
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.CastleUpdater;
@@ -76,27 +79,56 @@ public class Castle
 
 	private FastList<L2DoorInstance> _doors		= new FastList<L2DoorInstance>();
 	private FastList<String> _doorDefault		  = new FastList<String>();
-	private int _castleId					  = 0;
-	private int _ownerId					   = 0;
-	private Siege _siege					   = null;
+	private int _castleId					= 0;
+	private int _ownerId					= 0;
+	private Siege _siege					= null;
 	private Calendar _siegeDate;
 	private int _siegeDayOfWeek				= 7; // Default to saturday
 	private int _siegeHourOfDay				= 20; // Default to 8 pm server time
 	private int _taxPercent					= 0;
 	private double _taxRate					= 0;
-	private int _treasury					  = 0;
+	private int _treasury					= 0;
 	private IZone _zone;
 	private IZone _zoneHQ;
 	private IZone _zoneBF;
 	private IZone _zoneDS;
 	private L2Clan _formerOwner;
+	private int _nbArtifact					= 1;
+	private Map<Integer, Integer> _engrave  = new FastMap<Integer, Integer>();
+
 	private String _name;
 
 	public Castle(int castleId)
 	{
 		_castleId = castleId;
+		if(_castleId == 7 || castleId == 9) // Goddard and Schuttgart
+			_nbArtifact = 2;
+
 		load();
 		loadDoor();
+	}
+
+	public void Engrave(L2Clan clan, int objId) 
+	{
+		_engrave.put(objId, clan.getClanId());
+		if (_engrave.size() == _nbArtifact)
+		{
+			boolean rst = true;
+			for (int id : _engrave.values())
+			{
+				if (id != clan.getClanId())
+					rst = false;
+			}
+			if(rst)
+			{
+				_engrave.clear();
+				setOwner(clan);
+			}
+			else
+				getSiege().announceToPlayer("Clan " + clan.getName() + " has finished to engrave one of the rulers.", true);
+		}
+		else
+			getSiege().announceToPlayer("Clan " + clan.getName() + " has finished to engrave one of the rulers.", true);
 	}
 
 	/** Add amount to castle instance's treasury (warehouse). */
@@ -261,10 +293,14 @@ public class Castle
 	public void removeOwner(L2Clan clan)
 	{	
 		if (clan != null)
-		{	
+		{
 			_formerOwner = clan;
+			if (Config.REMOVE_CASTLE_CIRCLETS)
+			{
+				CastleManager.getInstance().removeCirclet(_formerOwner,getCastleId());
+			}
 			clan.setHasCastle(0);
-			new Announcements().announceToAll(clan.getName() + " has lost " +getName() + " castle.");
+			Announcements.getInstance().announceToAll(clan.getName() + " has lost " +getName() + " castle.");
 			clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 		}
 		
@@ -281,25 +317,31 @@ public class Castle
 		// Remove old owner
 		if (getOwnerId() > 0 && (clan == null || clan.getClanId() != getOwnerId()))
 		{
-			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId());			// Try to find clan instance 
+			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId()); // Try to find clan instance 
 			if (oldOwner != null)
 			{
 				
 				if (_formerOwner == null)
+				{
 					_formerOwner = oldOwner;
+					if (Config.REMOVE_CASTLE_CIRCLETS)
+					{
+						CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
+					}
+				}
 				
-				oldOwner.setHasCastle(0);											   // Unset has castle flag for old owner
-				new Announcements().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
+				oldOwner.setHasCastle(0);   // Unset has castle flag for old owner
+				Announcements.getInstance().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
 
 				// remove crowns
 				CrownManager.getInstance().checkCrowns(oldOwner); 
-			}						   
+			}
 		}
 		
-		updateOwnerInDB(clan);														  // Update in database
+		updateOwnerInDB(clan);              // Update in database
 
-		if (getSiege().getIsInProgress())											   // If siege in progress
-			getSiege().midVictory();													// Mid victory phase of siege
+		if (getSiege().getIsInProgress())   // If siege in progress
+			getSiege().midVictory();        // Mid victory phase of siege
 	}
 
 	// This method updates the castle tax rate
@@ -338,7 +380,7 @@ public class Castle
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("Update castle set taxPercent = ? where id = ?");
+			PreparedStatement statement = con.prepareStatement("UPDATE castle SET taxPercent = ? WHERE id = ?");
 			statement.setInt(1, taxPercent);
 			statement.setInt(2, getCastleId());
 			statement.execute();
@@ -406,7 +448,7 @@ public class Castle
 
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 
-			statement = con.prepareStatement("Select * from castle where id = ?");
+			statement = con.prepareStatement("SELECT * FROM castle WHERE id = ?");
 			statement.setInt(1, getCastleId());
 			rs = statement.executeQuery();
 
@@ -434,7 +476,7 @@ public class Castle
 
 			_taxRate = _taxPercent / 100.0;
 
-			statement = con.prepareStatement("Select clan_id from clan_data where hasCastle = ?");
+			statement = con.prepareStatement("SELECT clan_id FROM clan_data WHERE hasCastle = ?");
 			statement.setInt(1, getCastleId());
 			rs = statement.executeQuery();
 
@@ -465,30 +507,30 @@ public class Castle
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("Select * from castle_door where castleId = ?");
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM castle_door WHERE castleId = ?");
 			statement.setInt(1, getCastleId());
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next())
 			{
 				// Create list of the door default for use when respawning dead doors
-				_doorDefault.add(rs.getString("name") 
-						+ ";" + rs.getInt("id") 
-						+ ";" + rs.getInt("x") 
-						+ ";" + rs.getInt("y") 
-						+ ";" + rs.getInt("z") 
-						+ ";" + rs.getInt("range_xmin") 
-						+ ";" + rs.getInt("range_ymin") 
+				_doorDefault.add(rs.getString("name")
+						+ ";" + rs.getInt("id")
+						+ ";" + rs.getInt("x")
+						+ ";" + rs.getInt("y")
+						+ ";" + rs.getInt("z")
+						+ ";" + rs.getInt("range_xmin")
+						+ ";" + rs.getInt("range_ymin")
 						+ ";" + rs.getInt("range_zmin")
-						+ ";" + rs.getInt("range_xmax") 
-						+ ";" + rs.getInt("range_ymax") 
-						+ ";" + rs.getInt("range_zmax")						 
-						+ ";" + rs.getInt("hp") 
-						+ ";" + rs.getInt("pDef") 
+						+ ";" + rs.getInt("range_xmax")
+						+ ";" + rs.getInt("range_ymax")
+						+ ";" + rs.getInt("range_zmax")
+						+ ";" + rs.getInt("hp")
+						+ ";" + rs.getInt("pDef")
 						+ ";" + rs.getInt("mDef"));
 
 				L2DoorInstance door = DoorTable.parseList(_doorDefault.get(_doorDefault.size() - 1));
-				door.spawnMe(door.getX(), door.getY(),door.getZ());			 
+				door.spawnMe(door.getX(), door.getY(),door.getZ());
 				_doors.add(door);
 				DoorTable.getInstance().putDoor(door);
 			}
@@ -509,7 +551,7 @@ public class Castle
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("Select * from castle_doorupgrade where doorId in (Select Id from castle_door where castleId = ?)");
+			PreparedStatement statement = con.prepareStatement("SELECT * FROM castle_doorupgrade WHERE doorId in (Select Id from castle_door where castleId = ?)");
 			statement.setInt(1, getCastleId());
 			ResultSet rs = statement.executeQuery();
 
@@ -533,7 +575,7 @@ public class Castle
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("delete from castle_doorupgrade where doorId in (select id from castle_door where castleId=?)");
+			PreparedStatement statement = con.prepareStatement("DELETE FROM castle_doorupgrade WHERE doorId IN (SELECT id FROM castle_door WHERE castleId = ?)");
 			statement.setInt(1, getCastleId());
 			statement.execute();
 			statement.close();
@@ -551,7 +593,7 @@ public class Castle
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("INSERT INTO castle_doorupgrade (doorId, hp, pDef, mDef) values (?,?,?,?)");
+			PreparedStatement statement = con.prepareStatement("INSERT INTO castle_doorupgrade (doorId, hp, pDef, mDef) VALUES (?,?,?,?)");
 			statement.setInt(1, doorId);
 			statement.setInt(2, hp);
 			statement.setInt(3, pDef);
@@ -585,12 +627,12 @@ public class Castle
 			// ============================================================================
 			// NEED TO REMOVE HAS CASTLE FLAG FROM CLAN_DATA
 			// SHOULD BE CHECKED FROM CASTLE TABLE
-			statement = con.prepareStatement("UPDATE clan_data SET hasCastle=0 WHERE hasCastle=?");
+			statement = con.prepareStatement("UPDATE clan_data SET hasCastle = 0 WHERE hasCastle = ?");
 			statement.setInt(1, getCastleId());
 			statement.execute();
 			statement.close();   
 
-			statement = con.prepareStatement("UPDATE clan_data SET hasCastle=? WHERE clan_id=?");
+			statement = con.prepareStatement("UPDATE clan_data SET hasCastle = ? WHERE clan_id = ?");
 			statement.setInt(1, getCastleId());
 			statement.setInt(2, getOwnerId());
 			statement.execute();
@@ -601,7 +643,7 @@ public class Castle
 			if (clan != null)
 			{
 				clan.setHasCastle(getCastleId()); // Set has castle flag for new owner
-				new Announcements().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
+				Announcements.getInstance().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 
 				// give crowns

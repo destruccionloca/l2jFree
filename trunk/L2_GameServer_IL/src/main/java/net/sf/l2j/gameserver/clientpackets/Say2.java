@@ -60,7 +60,7 @@ public class Say2 extends L2GameClientPacket
         _text = readS();
         try
         {
-        	_type = SystemChatChannelId.getChatType(readD());
+            _type = SystemChatChannelId.getChatType(readD());
         }
         catch (BufferUnderflowException e) 
         {
@@ -75,11 +75,11 @@ public class Say2 extends L2GameClientPacket
         L2PcInstance activeChar = getClient().getActiveChar();
 
         // If no channel is choosen - return
-		if (_type == SystemChatChannelId.Chat_None)
-		{
+        if (_type == SystemChatChannelId.Chat_None)
+        {
             _log.warn("[Say2.java] Illegal chat channel was used.");
-			return;
-		}
+            return;
+        }
 
         if (activeChar == null)
         {
@@ -90,7 +90,7 @@ public class Say2 extends L2GameClientPacket
         // If player is chat banned
         if (activeChar.isChatBanned())
         {
-        	if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
+            if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
             {
                 // [L2J_JP EDIT]
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.CHATTING_IS_CURRENTLY_PROHIBITED));
@@ -101,7 +101,7 @@ public class Say2 extends L2GameClientPacket
         // If player is jailed
         if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
         {
-        	if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
+            if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
             {
                 activeChar.sendMessage("You can not chat with the outside of the jail.");
                 return;
@@ -109,10 +109,10 @@ public class Say2 extends L2GameClientPacket
         }
         
         // If Petition and GM use GM_Petition Channel
-		if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM()) 
-			_type = SystemChatChannelId.Chat_GM_Pet;
-		
-		// Say Filter implementation
+        if (_type == SystemChatChannelId.Chat_User_Pet && activeChar.isGM()) 
+            _type = SystemChatChannelId.Chat_GM_Pet;
+        
+        // Say Filter implementation
         if(Config.USE_SAY_FILTER) 
         {
             for(String pattern : Config.FILTER_LIST)
@@ -122,7 +122,7 @@ public class Say2 extends L2GameClientPacket
         }       
 
         if (_text.startsWith(".") && !_text.startsWith("..") &&
-        	_type == SystemChatChannelId.Chat_Normal)
+            _type == SystemChatChannelId.Chat_Normal)
         {
             StringTokenizer st = new StringTokenizer(_text);
 
@@ -153,13 +153,13 @@ public class Say2 extends L2GameClientPacket
         //		_text.length() >= 5 &&
         //		_type == SystemChatChannelId.Chat_Normal)
         //{
-		//	_type = SystemChatChannelId.Chat_System;
-		//	
-		//	_text = _text.substring(1);
-		//	_text = "*" + _text + "*";
+        //	_type = SystemChatChannelId.Chat_System;
+        //	
+        //	_text = _text.substring(1);
+        //	_text = "*" + _text + "*";
         //}
         
-		// Log chat to file
+        // Log chat to file
         if (Config.LOG_CHAT) 
         {
             if (_type == SystemChatChannelId.Chat_Tell)
@@ -167,11 +167,11 @@ public class Say2 extends L2GameClientPacket
             else
                 _logChat.info( _type.getName() + "[" + activeChar.getName() + "] " + _text);
         }
-		
-		IChatHandler ich = ChatHandler.getInstance().getChatHandler(_type);
-		
-		if (ich != null)
-			ich.useChatHandler(activeChar, _target, _type, _text);
+        
+        IChatHandler ich = ChatHandler.getInstance().getChatHandler(_type);
+        
+        if (ich != null)
+            ich.useChatHandler(activeChar, _target, _type, _text);
     }
 
     /* (non-Javadoc)
