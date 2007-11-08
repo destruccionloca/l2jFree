@@ -930,6 +930,7 @@ public final class Config
     //  *******************************************************************************************
     public static boolean 				ASSERT;							// Enable/disable assertions
     public static boolean 				DEVELOPER;						// Enable/disable DEVELOPER TREATMENT	
+	public static boolean 				ACCEPT_GEOEDITOR_CONN;
     public static boolean       		TEST_KNOWNLIST = false;			// Internal properties for developers tests only
     public static boolean 				ALLOW_WEDDING;
     public static boolean 				SERVER_LIST_BRACKET;			// Displays [] in front of server name ?
@@ -1066,6 +1067,7 @@ public final class Config
             
             ASSERT                          = Boolean.parseBoolean(optionsSettings.getProperty("Assert", "false"));
             DEVELOPER                       = Boolean.parseBoolean(optionsSettings.getProperty("Developer", "false"));
+			ACCEPT_GEOEDITOR_CONN			= Boolean.parseBoolean(optionsSettings.getProperty("AcceptGeoeditorConn", "false"));
             SERVER_LIST_TESTSERVER          = Boolean.parseBoolean(optionsSettings.getProperty("TestServer", "false"));
                          
             SERVER_LIST_BRACKET             = Boolean.parseBoolean(optionsSettings.getProperty("ServerListBrackets", "false"));

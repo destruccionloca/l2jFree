@@ -52,6 +52,7 @@ import net.sf.l2j.gameserver.datatables.StaticObjects;
 import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
+import net.sf.l2j.gameserver.geoeditorcon.GeoEditorListener;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -267,6 +268,9 @@ public class GameServer
         	OnlinePlayers.getInstance();        
         FloodProtector.getInstance();
         
+		if (Config.ACCEPT_GEOEDITOR_CONN)
+			GeoEditorListener.getInstance();
+		
         _shutdownHandler = Shutdown.getInstance();
         Runtime.getRuntime().addShutdownHook(_shutdownHandler);        
 
