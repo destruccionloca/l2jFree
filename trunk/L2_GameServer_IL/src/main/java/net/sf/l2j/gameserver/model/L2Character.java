@@ -1367,11 +1367,17 @@ public abstract class L2Character extends L2Object
                 _skillCast.cancel(true);
                 _skillCast = null;
             }
-
+			
+            if (_skillHitTime != null)
+            {
+                _skillHitTime.cancel(true);
+                _skillHitTime = null;
+            }
+			
             // Create a task MagicUseTask with Medium priority to launch the MagicSkill at the end of the casting time
             // Note: for client animation reasons even a bit before
             _skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill), skillTime - 50);
-			ThreadPoolManager.getInstance().scheduleEffect(new FinishSkillCast(skill, getTarget()), hitTime);
+			_skillHitTime = ThreadPoolManager.getInstance().scheduleEffect(new FinishSkillCast(skill, getTarget()), hitTime);
         }
         else
         {
@@ -1893,6 +1899,8 @@ public abstract class L2Character extends L2Object
 				if (getTarget() != null && getTarget() == _target && (getTarget() instanceof L2Character))
 					getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getTarget());
 			}
+			
+			_skillHitTime = null;
 		}
 	}
 	
@@ -3232,6 +3240,7 @@ public abstract class L2Character extends L2Object
     
     /** Future Skill Cast */
      protected Future _skillCast;
+	 protected Future _skillHitTime;
     
     /** Char Coords from Client */
     private int _clientX;
@@ -3653,10 +3662,17 @@ public abstract class L2Character extends L2Object
         {
             _castEndTime = 0;
             _castInterruptTime = 0;
+			
             if (_skillCast != null)
             {
                 _skillCast.cancel(true);
                 _skillCast = null;
+            }
+			
+            if (_skillHitTime != null)
+            {
+                _skillHitTime.cancel(true);
+                _skillHitTime = null;
             }
             
             if(getForceBuff() != null)
@@ -5334,6 +5350,7 @@ public abstract class L2Character extends L2Object
             _castEndTime = 0;
             _castInterruptTime = 0;
             _skillCast = null;
+			_skillHitTime = null;
             
             // Launch the magic skill in order to calculate its effects
             callSkill(skill, targets);
