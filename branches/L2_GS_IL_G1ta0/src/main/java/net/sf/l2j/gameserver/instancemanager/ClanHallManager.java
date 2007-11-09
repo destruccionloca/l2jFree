@@ -140,6 +140,7 @@ public class ClanHallManager
 					if(zone.getSettings() == null)
 						zone.setSettings(new StatsSet());
 					zone.getSettings().set("clanHallId", id);
+					clanHall.addZone(zone);
 					ZoneManager.addZone(zone);
 				}
 			}

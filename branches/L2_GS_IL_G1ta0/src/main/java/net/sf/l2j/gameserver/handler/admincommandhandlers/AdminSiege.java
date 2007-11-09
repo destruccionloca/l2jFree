@@ -32,7 +32,6 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
-import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -148,11 +147,11 @@ public class AdminSiege implements IAdminCommandHandler
 			{
 				if (player == null || player.getClan() == null)
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-				else if(!ClanHallManager.getInstance().isFree(clanhall.getId()))
+				else if(!clanhall.isFree())
 					activeChar.sendMessage("This ClanHall isn't free!");
 				else if(player.getClan().getHasHideout() == 0)
 				{
-					ClanHallManager.getInstance().setOwner(clanhall.getId(), player.getClan());
+					clanhall.setOwner(player.getClan());
 					if(AuctionManager.getInstance().getAuction(clanhall.getId()) != null)
 						AuctionManager.getInstance().getAuction(clanhall.getId()).deleteAuctionFromDB();
 				}
@@ -161,8 +160,8 @@ public class AdminSiege implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_clanhalldel"))
 			{
-				if(!ClanHallManager.getInstance().isFree(clanhall.getId())){
-					ClanHallManager.getInstance().setFree(clanhall.getId());
+				if(!clanhall.isFree()){
+					clanhall.free();
 					AuctionManager.getInstance().initNPC(clanhall.getId());
 				}else
 					activeChar.sendMessage("This ClanHall is already Free!");
@@ -177,11 +176,7 @@ public class AdminSiege implements IAdminCommandHandler
 			}
 			else if (command.equalsIgnoreCase("admin_clanhallteleportself"))
 			{
-				IZone zone = clanhall.getZone();
-				if (zone != null)
-				{
-					activeChar.teleToLocation(zone.getRestartPoint(RestartType.RestartRandom), true); 
-				}
+				activeChar.teleToLocation(clanhall.getRestartPoint(RestartType.RestartOwner), true); 
 			}
 			else if (command.equalsIgnoreCase("admin_spawn_doors"))
 			{
@@ -239,18 +234,19 @@ public class AdminSiege implements IAdminCommandHandler
 		adminReply.replace("%clanhalls%", cList.toString());
 		cList.clear();
 		i=0;
-		for (ClanHall clanhall: ClanHallManager.getInstance().getFreeClanHalls().values())
+		for (ClanHall clanhall: ClanHallManager.getInstance().getClanHalls().values())
 		{
-			if (clanhall != null)
+			if (clanhall != null && clanhall.isFree())
 			{
 				cList.append("<td fixwidth=134><a action=\"bypass -h admin_clanhall "+clanhall.getId()+"\">");
 				cList.append(clanhall.getName()+"</a></td>");
 				i++;
-			}
-			if (i>1)
-			{
-				cList.append("</tr><tr>");
-				i=0;
+				
+				if (i>1)
+				{
+					cList.append("</tr><tr>");
+					i=0;
+				}
 			}
 		}
 		adminReply.replace("%freeclanhalls%", cList.toString());

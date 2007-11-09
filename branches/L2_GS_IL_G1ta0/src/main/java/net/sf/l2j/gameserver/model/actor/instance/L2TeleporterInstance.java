@@ -188,12 +188,12 @@ public final class L2TeleporterInstance extends L2FolkInstance
                 player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
                 return;
             }
-            else */if (TownManager.getInstance().townHasCastleInSeige(list.getLocX(), list.getLocY()))
+            else if (TownManager.getInstance().townHasCastleInSeige(list.getLocX(), list.getLocY()))
             {
                 player.sendPacket(new SystemMessage(SystemMessageId.NO_PORT_THAT_IS_IN_SIGE));
                 return;
             }
-            else if (list.isForNoble() && !player.isNoble())
+            else */if (list.isForNoble() && !player.isNoble())
             {
                 String filename = "data/html/teleporter/nobleteleporter-no.htm";
                 NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());

@@ -239,7 +239,7 @@ public class DimensionalRift
 
 	protected void teleportToWaitingRoom(L2PcInstance player)
 	{
-        player.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
+        player.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoom().getTeleport(), true);
 	}
 
 	public void killRift()

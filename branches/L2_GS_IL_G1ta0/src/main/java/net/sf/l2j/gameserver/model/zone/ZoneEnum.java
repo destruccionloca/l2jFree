@@ -38,7 +38,7 @@ public final class ZoneEnum
 		NoEscape,
 		Jail,
 		MotherTree,
-		Reserved,
+		DimensionalRift,
 		LairOfLilith,
 		LairOfAnakim,
 		LairOfZaken,

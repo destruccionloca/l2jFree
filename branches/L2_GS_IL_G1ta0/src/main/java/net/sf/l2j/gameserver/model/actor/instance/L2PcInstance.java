@@ -3726,12 +3726,12 @@ public final class L2PcInstance extends L2PlayableInstance
 				newTarget = null;
 			
 			// Can't target and attack rift invaders if not in the same room
-			else if(isInParty() && getParty().isInDimensionalRift())
+			else if((newTarget instanceof L2RiftInvaderInstance) && isInParty() && getParty().isInDimensionalRift())
 			{
 				RoomType riftType = getParty().getDimensionalRift().getType();
 				byte riftRoom = getParty().getDimensionalRift().getCurrentRoom();
 				
-				if (newTarget != null && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(newTarget.getX(), newTarget.getY(), newTarget.getZ()))
+				if (newTarget != null && !DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).isInRoom((L2Character)newTarget));
 					newTarget = null;
 			}
 		}
@@ -9117,7 +9117,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (isInParty() && getParty().isInDimensionalRift())
         {
-            if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
+            if (!DimensionalRiftManager.getInstance().getWaitingRoom().isInRoom(this))
                 getParty().getDimensionalRift().memberRessurected(this);
         }
 

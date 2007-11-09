@@ -404,9 +404,9 @@ public class EnterWorld extends L2GameClientPacket
             activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadia");
         }
 
-        if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
+        if (activeChar.isInsideZone(ZoneType.DimensionalRift))
         {
-            activeChar.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
+            activeChar.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoom().getTeleport(), true);
         }
 
 		if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())

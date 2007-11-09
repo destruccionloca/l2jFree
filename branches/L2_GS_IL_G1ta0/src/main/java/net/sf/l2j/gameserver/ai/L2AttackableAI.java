@@ -605,7 +605,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                                 RoomType riftType = getAttackTarget().getParty().getDimensionalRift().getType();
                                 byte riftRoom = getAttackTarget().getParty().getDimensionalRift().getCurrentRoom();
 
-                                if (!DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).checkIfInZone(npc.getX(), npc.getY(), npc.getZ()))
+                                if (!DimensionalRiftManager.getInstance().getRoom(riftType, riftRoom).isInRoom(npc))
                                     continue;
                             }
 

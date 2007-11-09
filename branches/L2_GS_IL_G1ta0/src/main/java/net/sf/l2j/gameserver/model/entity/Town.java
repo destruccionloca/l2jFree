@@ -66,6 +66,8 @@ public class Town
 	
 	public final Location getSpawn()
 	{
+		//TODO: not done !!!
+		/*
 		Town town = this;
 		
         // If a redirect to town id is avail, town belongs to a castle,
@@ -79,11 +81,14 @@ public class Town
 			loc = zone.getRestartPoint(RestartType.RestartNormal);
 			if (loc != null) break;
 		}
-		return loc;
+		return loc;*/
+		return null;
 	}
 
 	public final Location getKarmaSpawn()
 	{
+		//TODO: not done !!!
+		/*
 		Town town = this;
 		
         // If a redirect to town id is avail, town belongs to a castle,
@@ -97,7 +102,8 @@ public class Town
 			loc = zone.getRestartPoint(RestartType.RestartChaotic);
 			if (loc != null) break;
 		}
-		return loc;
+		return loc;*/
+		return null;
 	}
 	
 	public final int getTownId()
@@ -121,9 +127,12 @@ public class Town
 	
 	public final void addTerritory(IZone zone)
 	{
+		//TODO: not done !!!
+		/*
         if (zone.getCastleId() > 0) 
 		_castleId = zone.getCastleId();
 		getTerritory().add(zone);
+		*/
 	}
 	
 	public final FastList<IZone> getTerritory()

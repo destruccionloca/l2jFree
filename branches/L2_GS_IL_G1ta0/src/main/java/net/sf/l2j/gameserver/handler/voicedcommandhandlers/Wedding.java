@@ -24,15 +24,13 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
-import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
@@ -241,8 +239,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
          // Check to see if the player is in dimensional rift.
-        else if (DimensionalRiftManager.getInstance().checkIfInRiftZone
-                (activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
+        else if (activeChar.isInsideZone(ZoneType.DimensionalRift))
         {
             activeChar.sendMessage("You are in the dimensional rift.");
             return false;
@@ -304,8 +301,7 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Your partner is in an event.");
             return false;
         }
-        else if (DimensionalRiftManager.getInstance().checkIfInRiftZone
-                (partner.getX(), partner.getY(), partner.getZ(), false))
+        else if (partner.isInsideZone(ZoneType.DimensionalRift))
         {
             activeChar.sendMessage("Your partner is in dimensional rift.");
             return false;
