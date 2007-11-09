@@ -1371,7 +1371,7 @@ public abstract class L2Character extends L2Object
             // Create a task MagicUseTask with Medium priority to launch the MagicSkill at the end of the casting time
             // Note: for client animation reasons even a bit before
             _skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill), skillTime - 50);
-			ThreadPoolManager.getInstance().scheduleEffect(new FinishSkillCast(), hitTime);
+			ThreadPoolManager.getInstance().scheduleEffect(new FinishSkillCast(skill, getTarget()), hitTime);
         }
         else
         {
@@ -1873,9 +1873,26 @@ public abstract class L2Character extends L2Object
 	
 	class FinishSkillCast implements Runnable
 	{
+		L2Skill _skill;
+		L2Object _target;
+		
+		private FinishSkillCast(L2Skill skill, L2Object target)
+		{
+			_skill = skill;
+			_target = target;
+		}
+		
 		public void run()
 		{
 			enableAllSkills();
+			
+			if (_skill.getSkillType() == SkillType.PDAM ||
+				_skill.getSkillType() == SkillType.BLOW ||
+				_skill.getSkillType() == SkillType.CHARGEDAM) 
+			{
+				if (getTarget() != null && getTarget() == _target && (getTarget() instanceof L2Character))
+					getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getTarget());
+			}
 		}
 	}
 	
@@ -5320,19 +5337,6 @@ public abstract class L2Character extends L2Object
             
             // Launch the magic skill in order to calculate its effects
             callSkill(skill, targets);
-
-            //if the skill has changed the character's state to something other than STATE_CASTING
-            //then just leave it that way, otherwise switch back to STATE_IDLE.
-            //if(isCastingNow())
-            //  getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-
-            // If the skill type is PDAM or DRAIN_SOUL, notify the AI of the target with AI_INTENTION_ATTACK
-            if (skill.getSkillType() == SkillType.PDAM 
-                    || skill.getSkillType() == SkillType.DRAIN_SOUL) 
-            {
-                if ((getTarget() != null) && (getTarget() instanceof L2Character))
-                   getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getTarget());
-            }
         }
 
         if (skill.isOffensive() && !(skill.getSkillType() == SkillType.UNLOCK) && !(skill.getSkillType() == SkillType.DELUXE_KEY_UNLOCK))
@@ -5340,29 +5344,29 @@ public abstract class L2Character extends L2Object
 
         // Notify the AI of the L2Character with EVT_FINISH_CASTING
         getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING);
-
-        /* 
-         * If character is a player, then wipe their current cast state and  
-         * check if a skill is queued.
-         * 
-         * If there is a queued skill, launch it and wipe the queue.
-         */
-        if (this instanceof L2PcInstance)
-        {
-            L2PcInstance currPlayer = (L2PcInstance)this;
-            SkillDat queuedSkill = currPlayer.getQueuedSkill();
-            
-            currPlayer.setCurrentSkill(null, false, false);
-            
-            if (queuedSkill != null)
-                {                     
-                    currPlayer.setQueuedSkill(null, false, false);
-                
-
-                    // DON'T USE : Recursive call to useMagic() method
-                    // currPlayer.useMagic(queuedSkill.getSkill(), queuedSkill.isCtrlPressed(), queuedSkill.isShiftPressed());
-                    ThreadPoolManager.getInstance().executeTask(new QueuedMagicUseTask(currPlayer, queuedSkill.getSkill(), queuedSkill.isCtrlPressed(), queuedSkill.isShiftPressed()) );
-            }
+		
+		/* 
+		 * If character is a player, then wipe their current cast state and  
+		 * check if a skill is queued.
+		 * 
+		 * If there is a queued skill, launch it and wipe the queue.
+		 */
+		if (this instanceof L2PcInstance)
+		{
+			L2PcInstance currPlayer = (L2PcInstance)this;
+			SkillDat queuedSkill = currPlayer.getQueuedSkill();
+			
+			currPlayer.setCurrentSkill(null, false, false);
+			
+			if (queuedSkill != null)
+			{                     
+				currPlayer.setQueuedSkill(null, false, false);
+				
+				
+				// DON'T USE : Recursive call to useMagic() method
+				// currPlayer.useMagic(queuedSkill.getSkill(), queuedSkill.isCtrlPressed(), queuedSkill.isShiftPressed());
+				ThreadPoolManager.getInstance().executeTask(new QueuedMagicUseTask(currPlayer, queuedSkill.getSkill(), queuedSkill.isCtrlPressed(), queuedSkill.isShiftPressed()) );
+			}
         }
    }
 
