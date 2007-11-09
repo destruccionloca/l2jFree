@@ -259,6 +259,12 @@ public class L2Spawn
 		return _template.getNpcId();
 	}
 	
+	// TODO : This is just a temp fix... check every quest
+	public int getNpcid()
+	{
+		return _template.getNpcId();
+	}
+	
 	/**
 	 * Return the heading of L2NpcInstance when they are spawned.<BR><BR>
 	 */
