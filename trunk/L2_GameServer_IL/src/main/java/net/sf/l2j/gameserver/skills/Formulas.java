@@ -1505,18 +1505,18 @@ public final class Formulas
     
     /** Calculate delay (in milliseconds) for skills cast */
     public final int calcMAtkSpd(L2Character attacker, @SuppressWarnings("unused")
-    L2Character target, L2Skill skill, double skillTime)
+    L2Character target, L2Skill skill, double time)
     {
-        if (skill.isMagic()) return (int) (skillTime * 333 / attacker.getMAtkSpd());
-        return (int) (skillTime * 333 / attacker.getPAtkSpd());
+        if (skill.isMagic()) return (int) (time * 333 / attacker.getMAtkSpd());
+        return (int) (time * 333 / attacker.getPAtkSpd());
 
     }
 
     /** Calculate delay (in milliseconds) for skills cast */
-    public final int calcMAtkSpd(L2Character attacker, L2Skill skill, double skillTime)
+    public final int calcMAtkSpd(L2Character attacker, L2Skill skill, double time)
     {
-        if (skill.isMagic()) return (int) (skillTime * 333 / attacker.getMAtkSpd());
-        return (int) (skillTime * 333 / attacker.getPAtkSpd());
+        if (skill.isMagic()) return (int) (time * 333 / attacker.getMAtkSpd());
+        return (int) (time * 333 / attacker.getPAtkSpd());
     }
     
     /** Returns true if hit missed (taget evaded) */

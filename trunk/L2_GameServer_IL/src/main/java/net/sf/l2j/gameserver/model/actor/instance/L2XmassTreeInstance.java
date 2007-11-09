@@ -63,8 +63,8 @@ public class L2XmassTreeInstance extends L2NpcInstance
                 setTarget(player);
                 doCast(skill);
 
-                MagicSkillUser msu = new MagicSkillUser(_caster, player, skill.getId(), 1,
-                                                        skill.getSkillTime(), 0);
+                MagicSkillUser msu = new MagicSkillUser(
+					_caster, player, skill.getId(), 1, skill.getSkillTime(), 0);
                 broadcastPacket(msu);
                 return true;
             }

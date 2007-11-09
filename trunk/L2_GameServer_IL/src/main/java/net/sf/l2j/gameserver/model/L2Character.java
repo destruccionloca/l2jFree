@@ -1252,14 +1252,19 @@ public abstract class L2Character extends L2Object
 
         // Get the delay under wich the cast can be aborted (base)
         int skillInterruptTime = skill.getSkillInterruptTime();
+		
+		//delay to disable skills
+		int hitTime = skill.getHitTime();
         
-        boolean forceBuff = skill.getSkillType() == SkillType.FORCE_BUFF
-                                      && (target instanceof L2PcInstance);
+        boolean forceBuff = skill.getSkillType() == SkillType.FORCE_BUFF && (target instanceof L2PcInstance);
         
         // Calculate the casting time of the skill (base + modifier of MAtkSpd)
         // Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
-        if(!forceBuff)
-            skillTime = Formulas.getInstance().calcMAtkSpd(this, skill, skillTime);
+		if (!forceBuff)
+		{
+			skillTime = Formulas.getInstance().calcMAtkSpd(this, skill, skillTime);
+			hitTime = Formulas.getInstance().calcMAtkSpd(this, skill, hitTime);
+		}
 
         // Calculate the Interrupt Time of the skill (base + modifier) if the skill is a spell else 0
         if (skill.isMagic())
@@ -1278,6 +1283,7 @@ public abstract class L2Character extends L2Object
                 //Only takes 70% of the time to cast a BSpS/SpS cast
                 skillTime = (int)(0.70 * skillTime);
                 skillInterruptTime = (int)(0.70 * skillInterruptTime);
+				hitTime = (int)(0.70 * hitTime);
                 
                 //Because the following are magic skills that do not actively 'eat' BSpS/SpS,
                 //I must 'eat' them here so players don't take advantage of infinite speed increase
@@ -1298,7 +1304,7 @@ public abstract class L2Character extends L2Object
         }
 
         // Set the _castEndTime and _castInterruptTim
-        _castEndTime = 10 + GameTimeController.getGameTicks() + skillTime / GameTimeController.MILLIS_IN_TICK;
+        _castEndTime = 10 + GameTimeController.getGameTicks() + hitTime / GameTimeController.MILLIS_IN_TICK;
         _castInterruptTime = GameTimeController.getGameTicks() + skillInterruptTime / GameTimeController.MILLIS_IN_TICK;
 
         // Init the reuse time of the skill
@@ -1365,6 +1371,7 @@ public abstract class L2Character extends L2Object
             // Create a task MagicUseTask with Medium priority to launch the MagicSkill at the end of the casting time
             // Note: for client animation reasons even a bit before
             _skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill), skillTime - 50);
+			ThreadPoolManager.getInstance().scheduleEffect(new FinishSkillCast(), hitTime);
         }
         else
         {
@@ -1854,7 +1861,6 @@ public abstract class L2Character extends L2Object
         {
             try
             {
-            	enableAllSkills();
                 onMagicUseTimer(_targets, _skill);
                 _skillCast = null;
             }
@@ -1864,7 +1870,15 @@ public abstract class L2Character extends L2Object
             }
         }
     }
-    
+	
+	class FinishSkillCast implements Runnable
+	{
+		public void run()
+		{
+			enableAllSkills();
+		}
+	}
+	
     /** Task lauching the function useMagic() */
     class QueuedMagicUseTask implements Runnable
     {

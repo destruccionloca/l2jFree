@@ -1260,7 +1260,6 @@ public final class Config
     public static int 				ALT_DAGGER_RATE_FRONT;				// Alternative increasement to success rate for dagger/critical skills if activeChar is in Front of target
     public static boolean 			ALT_GAME_FREIGHTS;					// Alternative freight modes - Freights can be withdrawed from any village
     public static int 				ALT_GAME_FREIGHT_PRICE;				// Alternative freight modes - Sets the price value for each freightened item
-    public static float 			ALT_GAME_SKILL_HIT_RATE;			// Fast or slow multiply coefficient for skill hit time
     public static boolean 			ALT_GAME_DELEVEL;					// Alternative gameing - loss of XP on death
     public static boolean 			ALT_GAME_MAGICFAILURES;				// Alternative gameing - magic dmg failures
     public static boolean 			ALT_GAME_FREE_TELEPORT;				// Alternative gaming - allow free teleporting around the world.
@@ -1409,7 +1408,6 @@ public final class Config
             
             ALT_GAME_FREIGHTS       = Boolean.parseBoolean(altSettings.getProperty("AltGameFreights", "false"));
             ALT_GAME_FREIGHT_PRICE  = Integer.parseInt(altSettings.getProperty("AltGameFreightPrice", "1000"));
-            ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(altSettings.getProperty("AltGameSkillHitRate", "1."));
             REMOVE_CASTLE_CIRCLETS  = Boolean.parseBoolean(altSettings.getProperty("RemoveCastleCirclets", "true"));
             ALT_PARTY_RANGE         = Integer.parseInt(altSettings.getProperty("AltPartyRange", "1600"));
             ALT_PARTY_RANGE2        = Integer.parseInt(altSettings.getProperty("AltPartyRange2", "1400"));
@@ -2638,7 +2636,6 @@ public final class Config
         else if (pName.equalsIgnoreCase("AltGameFreightPrice")) ALT_GAME_FREIGHT_PRICE = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("AltPartyRange")) ALT_PARTY_RANGE = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("AltPartyRange2")) ALT_PARTY_RANGE2 = Integer.parseInt(pValue);
-        else if (pName.equalsIgnoreCase("AltGameSkillHitRate")) ALT_GAME_SKILL_HIT_RATE = Float.parseFloat(pValue);
 
         else if (pName.equalsIgnoreCase("CraftingEnabled")) IS_CRAFTING_ENABLED = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("SpBookNeeded")) SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);

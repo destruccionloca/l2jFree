@@ -129,7 +129,7 @@ public class AdminTest implements IAdminCommandHandler
             	
                 skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
                 if (skill != null)
-                	adminTestSkill(activeChar,skillId,skillLvl,skill.getHitTime());
+                	adminTestSkill(activeChar,skillId,skillLvl,skill.getSkillTime());
                 else
                 	activeChar.sendMessage("Skill id "+skillId+" not found.");
         	}
@@ -237,7 +237,7 @@ public class AdminTest implements IAdminCommandHandler
      * @param activeChar
      * @param skill
      */
-    public void adminTestSkill(L2PcInstance activeChar,int skillId, int skilLvl, int hitTime)
+    public void adminTestSkill(L2PcInstance activeChar,int skillId, int skilLvl, int skillTime)
     {
     	L2Object target;
     	
@@ -245,8 +245,8 @@ public class AdminTest implements IAdminCommandHandler
     		target = activeChar.getTarget();
     	else 
     		target = activeChar;
-       	activeChar.sendMessage("S="+skillId+" Lv="+skilLvl+" Hit="+hitTime);
-       	MagicSkillUser msu = new MagicSkillUser((L2Character)activeChar, (L2Character)target, skillId, skilLvl, hitTime, 1);
+       	activeChar.sendMessage("S="+skillId+" Lv="+skilLvl+" Time="+skillTime);
+       	MagicSkillUser msu = new MagicSkillUser((L2Character)activeChar, (L2Character)target, skillId, skilLvl, skillTime, 1);
        	activeChar.broadcastPacket(msu);
     }
 

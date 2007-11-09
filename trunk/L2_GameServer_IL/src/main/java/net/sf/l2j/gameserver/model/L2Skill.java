@@ -508,10 +508,10 @@ public abstract class L2Skill
         _iRate        = set.getInteger("iRate", 0);
         _iKill        = set.getBool  ("iKill", false);
         _castRange    = set.getInteger("castRange", 0);
-        _effectRange = set.getInteger("effectRange", -1);
+        _effectRange  = set.getInteger("effectRange", -1);
         _skillTime    = set.getInteger("skillTime", 0);
         _skillInterruptTime = set.getInteger("skillTime", _skillTime/2);
-        _hitTime      = set.getInteger("hitTime", 0);
+        int __hitTime = set.getInteger("hitTime", _skillTime);
         _reuseDelay   = set.getInteger("reuseDelay", 0);
         _skillType    = set.getEnum("skillType", SkillType.class);
         _isDance      = set.getBool("isDance",false);
@@ -619,6 +619,37 @@ public abstract class L2Skill
                 }
             }
         }
+		
+		// First some infos about, how it should work:
+		// In the .... skilldata there are 2 period of times in connection with skill casting.
+		//
+		// The first means the time, while you can see the blue line around chars head, 
+		// 	thats the real time, while you are casting.
+		// At the moment it finishes, the client start the ending animation of the skill.
+		// For example the PDAM skills makes the "real" hit after this time.
+		//
+		// The second means the time after the first finished, while you can't make anything else,
+		// 	like a protection to be sure, that the skill ends
+		//
+		// L2j is different from ..... :
+		// SkillTime means the first time...
+		// HitTime means first + second time....
+		// 
+		// So HitTime is ALWAYS BIGGER OR EQUAL TO SkillTime !!!
+		// 
+		// If you don't know what I'm talking about: just think about blows.
+		// Sometimes you can't see the blow iself, if you use a new skill exactly after that.
+		//				by NB4L1 (L2j*iNF)
+		// Lil' off:  ... and finally fuck off police for taking away 100+ warez servers is Hungary (2007.11.08.)
+		
+		// Temporary fix until DP Side is fine :)
+		if (__hitTime < _skillTime)
+			_hitTime = _skillTime;
+		else
+			_hitTime = __hitTime;
+		
+		if (_skillTime != _hitTime)
+			_log.info(_id + " ID @ Level " + _level + " -> SkillTime: " + _skillTime + " | HitTime: " + _hitTime);
     }
     
     public abstract void useSkill(L2Character caster, L2Object[] targets);
@@ -823,7 +854,7 @@ public abstract class L2Skill
      */
     public final int getHitTime()
     {
-        return Math.round(Config.ALT_GAME_SKILL_HIT_RATE * _hitTime);
+        return _hitTime;
     }
 
     /**

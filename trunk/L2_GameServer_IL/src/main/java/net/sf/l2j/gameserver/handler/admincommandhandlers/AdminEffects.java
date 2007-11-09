@@ -488,12 +488,12 @@ public class AdminEffects implements IAdminCommandHandler
 			try
 			{
 				L2Object obj = activeChar.getTarget();
-				int level = 1,hittime = 1;
+				int level = 1,skilltime = 1;
 				int skill = Integer.parseInt(st.nextToken());
 				if (st.hasMoreTokens())
 					level = Integer.parseInt(st.nextToken());
 				if (st.hasMoreTokens())
-					hittime = Integer.parseInt(st.nextToken());
+					skilltime = Integer.parseInt(st.nextToken());
 				if (obj != null) 
 				{
 					if (!(obj instanceof L2Character))
@@ -501,7 +501,7 @@ public class AdminEffects implements IAdminCommandHandler
 					else
 					{
 						L2Character target = (L2Character)obj;
-						target.broadcastPacket(new MagicSkillUser(target,activeChar,skill,level,hittime,0));
+						target.broadcastPacket(new MagicSkillUser(target,activeChar,skill,level,skilltime,0));
 						activeChar.sendMessage(obj.getName()+" performs MSU "+skill+"/"+level+" by your request.");
 					}
 				}
@@ -510,7 +510,7 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage: //effect skill [level | level hittime]");
+				activeChar.sendMessage("Usage: //effect skill [level | level skilltime]");
 			}
 		}
 		else if (command.startsWith("admin_abnormal"))
