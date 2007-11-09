@@ -18,7 +18,8 @@ DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,
                      skill_spellbooks,skill_trees,spawnlist,teleport,topic,weapon;
 
 DROP TABLE IF EXISTS buff_templates,character_raidpoints,couples,ctf,ctf_teams,
-                     custom_npc,custom_spawnlist,dm,four_sepulchers_spawnlist,
-                     tvt,tvt_teams,version,VIPinfo;
+                     custom_npc,custom_spawnlist,custom_armor,custom_etcitem,
+                     custom_merchant_buylists,custom_merchant_shopids,custom_weapon,
+                     four_sepulchers_spawnlist,tvt,tvt_teams,version,VIPinfo;
 
 DROP TABLE IF EXISTS temporaryobjecttable,connection_test_table;

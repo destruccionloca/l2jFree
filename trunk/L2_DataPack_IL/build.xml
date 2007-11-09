@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="L2JFree_Datapack_IL" default="dist" basedir=".">
   <description>
-        This script will build the L2J-free datapack.
-        
-        $Author: DrLecter $
-        $Date: 2007-04-18 14:49:44 -0300 (we, 18 apr 2007) $
-        $Revision: 1133 $
+        This script will build the l2jfree datapack.
         
         This program is free software; you can redistribute it and/or modify
         it under the terms of the GNU General Public License as published by
@@ -23,7 +19,6 @@
         02111-1307, USA.
         
         http://www.gnu.org/copyleft/gpl.html
-        
   </description>
 
   <property name="build" location="build"/>
@@ -74,8 +69,8 @@
            <exclude name="geodata/**"/>
            <exclude name="pathnode/**"/>
            <include name="sql/*.*"/>
-           <include name="sql/experimental/*.*"/>
            <include name="sql/updates/*.*"/>
+           <include name="sql/custom/*.*"/>
            <include name="tools/*.*"/>
          </fileset>
       </copy>
@@ -84,8 +79,8 @@
           <include name="servername.xml"/>
         </fileset>
       </copy>
-      <delete file="${build}/L2J_DataPack.zip"/>
-      <zip destfile="${build}/L2J_DataPack.zip" basedir="${build.dist}"/>
+      <delete file="${build}/l2jfree_datapack_il.zip"/>
+      <zip destfile="${build}/l2jfree_datapack_il.zip" basedir="${build.dist}"/>
     </target>
 
     <target name="version"
@@ -102,7 +97,7 @@
       version=${l2j-free-dp.revision}
       builddate=${build.tstamp}
       detailed info:
-</concat>
+	  </concat>
       <concat destfile="${properties-file}" append="true">
         <filelist dir="${src}/../.svn/" files="entries"/>
         <filterchain>
@@ -112,7 +107,7 @@
              <ignoreblank/>
           </tokenfilter>
         </filterchain>
-</concat>
+	  </concat>
     </target>
 
     <target name="clean" 

@@ -6911,3 +6911,6 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
 -- L2JFree changes
 
 UPDATE `etcitem` SET `item_type`='quest' WHERE (`item_id`='6353'); -- Blue Gemstone
+
+ALTER TABLE etcitem ADD COLUMN item_display_id int(11) NOT NULL DEFAULT 0 AFTER item_id;
+update etcitem set item_display_id = item_id;
