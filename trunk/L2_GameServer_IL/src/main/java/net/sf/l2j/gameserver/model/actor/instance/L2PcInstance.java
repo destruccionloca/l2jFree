@@ -2701,7 +2701,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				if (item.getCount() > 1) 
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
-					sm.addItemName(item.getItemId());
+					sm.addItemName(item.getItemDisplayId());
 					sm.addNumber(item.getCount());
 					sendPacket(sm);
 				}
@@ -2709,13 +2709,13 @@ public final class L2PcInstance extends L2PlayableInstance
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_A_S1_S2);
 					sm.addNumber(item.getEnchantLevel());
-					sm.addItemName(item.getItemId());
+					sm.addItemName(item.getItemDisplayId());
 					sendPacket(sm);
 				}
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
-					sm.addItemName(item.getItemId());
+					sm.addItemName(item.getItemDisplayId());
 					sendPacket(sm);
 				}
 			}
@@ -2799,19 +2799,20 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param count : int Quantity of items to be added
 	 */
 	private void sendMessageForNewItem(int itemId, int count, String process) {
+		L2Item temp = ItemTable.getInstance().getTemplate(itemId);
 		if (count > 1)
 		{
   	        if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
 	        {
 	            SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-	            sm.addItemName(itemId);
+	            sm.addItemName(temp.getItemDisplayId());
 	            sm.addNumber(count);
 	            sendPacket(sm);
 	        }
 	        else
 	        {
 	            SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
-	            sm.addItemName(itemId);
+	            sm.addItemName(temp.getItemDisplayId());
 	            sm.addNumber(count);
 	            sendPacket(sm);
 	        }
@@ -2821,13 +2822,13 @@ public final class L2PcInstance extends L2PlayableInstance
 	        if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
 	        {
 	            SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-	            sm.addItemName(itemId);
+	            sm.addItemName(temp.getItemDisplayId());
 	            sendPacket(sm);
 	        }
 	        else
 	        {
 	            SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
-	            sm.addItemName(itemId);
+	            sm.addItemName(temp.getItemDisplayId());
 	            sendPacket(sm);
 	        }			
 		}

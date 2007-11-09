@@ -53,7 +53,7 @@ public class PackageSendableList extends L2GameServerPacket
 		{
 			writeH(item.getItem().getType1());
 			writeD(item.getObjectId());
-			writeD(item.getItemId());
+			writeD(item.getItemDisplayId());
 			writeD(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(0x00);

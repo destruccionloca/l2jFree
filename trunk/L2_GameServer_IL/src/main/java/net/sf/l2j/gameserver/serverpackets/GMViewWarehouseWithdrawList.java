@@ -72,7 +72,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
                 writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
                 
                 writeD(item.getObjectId()); //unconfirmed, works
-                writeD(item.getItemId()); //unconfirmed, works
+                writeD(item.getItemDisplayId()); //unconfirmed, works
                 writeD(item.getCount()); //unconfirmed, works
                 writeH(item.getItem().getType2()); // item type2 //unconfirmed, works
                 writeH(0x00);  // ?

@@ -349,7 +349,7 @@ public class L2Multisell
         {
             return _itemId;
         }
-
+        
         /**
          * @param itemCount The itemCount to set.
          */
@@ -550,6 +550,7 @@ public class L2Multisell
             	
                 int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
                 int count = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
+                
                 boolean isTaxIngredient = false, mantainIngredient = false;
                 
                 attribute = n.getAttributes().getNamedItem("isTaxIngredient");
@@ -569,7 +570,7 @@ public class L2Multisell
             {
                 int id = Integer.parseInt(n.getAttributes().getNamedItem("id").getNodeValue());
                 int count = Integer.parseInt(n.getAttributes().getNamedItem("count").getNodeValue());
-
+                
                 MultiSellIngredient e = new MultiSellIngredient(id, count, false, false); 
                 entry.addProduct(e);
             }

@@ -116,6 +116,7 @@ public abstract class L2Item
     private static final int[] crystalEnchantBonusWeapon = {0, 90, 45, 67, 144, 250};
 
     private final int _itemId;
+    private final int _itemDisplayId;
     private final String _name;
     private final int _type1;   // needed for item list (inventory)
     private final int _type2;   // different lists for armor, weapon, etc
@@ -167,6 +168,7 @@ public abstract class L2Item
     {
         _type = type;
         _itemId = set.getInteger("item_id");
+        _itemDisplayId = set.getInteger("item_display_id");
         _name   = set.getString("name");
         _type1  = set.getInteger("type1");  // needed for item list (inventory)
         _type2  = set.getInteger("type2");  // different lists for armor, weapon, etc
@@ -212,6 +214,11 @@ public abstract class L2Item
         return _itemId;
     }
 
+    public final int getItemDisplayId()
+    {
+        return _itemDisplayId;
+    }
+    
     public abstract int getItemMask();
     
     /**

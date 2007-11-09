@@ -70,7 +70,7 @@ public class WearList extends L2GameServerPacket
 		for (L2ItemInstance item : _list)
 		{
 		    if (item.getItem().getCrystalType()<=_expertise && item.isEquipable()){
-			writeD(item.getItemId());
+			writeD(item.getItemDisplayId());
 			writeH(item.getItem().getType2());	// item type2
 
 			if (item.getItem().getType1() != L2Item.TYPE1_ITEM_QUESTITEM_ADENA)

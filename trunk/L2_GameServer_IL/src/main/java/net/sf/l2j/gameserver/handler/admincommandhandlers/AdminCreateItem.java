@@ -24,7 +24,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ItemList;
+import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
@@ -108,11 +108,12 @@ public class AdminCreateItem implements IAdminCommandHandler
 				return;
 			}
 		}
+		
 		activeChar.getInventory().addItem("Admin", id, num, activeChar, null);
+	    activeChar.sendPacket(new InventoryUpdate());
+
 		
-		ItemList il = new ItemList(activeChar, true);
-		activeChar.sendPacket(il);
-		
-		activeChar.sendMessage("You have spawned " + num + " item(s) number " + id + " in your inventory."); 
+		activeChar.sendMessage("You have spawned " + num + " item(s) number " + id + " in your inventory.");
+
 	}
 }

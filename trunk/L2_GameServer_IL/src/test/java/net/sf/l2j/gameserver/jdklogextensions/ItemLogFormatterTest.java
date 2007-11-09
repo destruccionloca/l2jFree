@@ -59,6 +59,7 @@ public class ItemLogFormatterTest extends TestCase
         super.setUp();
         statsSetForTestItem = new StatsSet();
         statsSetForTestItem.set("item_id",32);
+        statsSetForTestItem.set("item_display_id",32);        
         statsSetForTestItem.set("name","Dark Crystal Boots Light Armor");
         statsSetForTestItem.set("type1",1);  // needed for item list (inventory)
         statsSetForTestItem.set("type2",1);  // different lists for armor, weapon, etc

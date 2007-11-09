@@ -81,7 +81,7 @@ public class Sweep implements ISkillHandler
 
 						SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2); // you picked up $s1$s2
 						smsg.addNumber(ritem.getCount());
-						smsg.addItemName(item.getItemId());
+						smsg.addItemName(item.getItemDisplayId());
 						player.sendPacket(smsg);
 					}
 				}

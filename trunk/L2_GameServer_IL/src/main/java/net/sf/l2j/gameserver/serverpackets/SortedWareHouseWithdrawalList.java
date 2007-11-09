@@ -278,8 +278,8 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
             {
                 try
                 {
-                    L2Recipe rp1 = rc.getRecipeByItemId(o1.getItemId());
-                    L2Recipe rp2 = rc.getRecipeByItemId(o2.getItemId());
+                    L2Recipe rp1 = rc.getRecipeByItemId(o1.getItem().getItemDisplayId());
+                    L2Recipe rp2 = rc.getRecipeByItemId(o2.getItem().getItemDisplayId());
                     
                     if (rp1 == null) return (order == A2Z ? A2Z : Z2A);
                     if (rp2 == null) return (order == A2Z ? Z2A : A2Z);
@@ -698,7 +698,7 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 		{
 			writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
 			writeD(0x00); //unconfirmed, works
-			writeD(item.getItemId()); //unconfirmed, works
+			writeD(item.getItem().getItemDisplayId()); //unconfirmed, works
 			writeD(item.getCount()); //unconfirmed, works
 			writeH(item.getItem().getType2());	// item type2 //unconfirmed, works
 			writeH(ENDmarker);	// ?
