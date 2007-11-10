@@ -156,11 +156,12 @@ class Quest (JQuest) :
                pst.getQuestTimer("Soul of Water Ashutar has despawned").cancel()
    elif npcId in Ketra_Orcs :
       st = player.getQuestState(qn)
-      if st.getQuestItemsCount(Ice_Heart) :
-         st.takeItems(Ice_Heart,-1)
-         st.unset("cond")
-         st.unset("id")
-         st.exitQuest(1)
+      if st :      
+         if st.getQuestItemsCount(Ice_Heart) :
+            st.takeItems(Ice_Heart,-1)
+            st.unset("cond")
+            st.unset("id")
+            st.exitQuest(1)
    return
 
 QUEST       = Quest(610,qn,"Magical Power of Water - Part 2")
