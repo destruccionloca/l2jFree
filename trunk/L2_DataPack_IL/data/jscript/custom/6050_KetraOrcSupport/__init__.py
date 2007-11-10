@@ -46,7 +46,7 @@ class Quest (JQuest) :
             st.takeItems(Horn,horns)
             npc.setTarget(player)
             npc.doCast(SkillTable.getInstance().getInfo(skillId,level))
-            npc.setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp())
+            npc.getStatus().setCurrentHpMp(npc.getMaxHp(), npc.getMaxMp())
             htmltext = "31372-4.htm"
     elif event == "Withdraw" :
         if player.getWarehouse().getSize() == 0 :
