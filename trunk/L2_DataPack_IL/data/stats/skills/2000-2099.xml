@@ -1105,7 +1105,7 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="1800"/>
+  <set name="hitTime" val="1400"/>
   <set name="reuseDelay" val="8000"/>
   <set name="skillTime" val="1400"/>
   <set name="skillType" val="SOW"/>

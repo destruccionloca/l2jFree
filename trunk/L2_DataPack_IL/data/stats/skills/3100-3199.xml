@@ -1925,7 +1925,7 @@
   <set name="skillTime" val="1500"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="2500"/>
-  <set name="hitTime" val="1000"/>
+  <set name="hitTime" val="1500"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
@@ -1957,10 +1957,10 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="350"/>
-  <set name="skillTime" val="4000"/>
+  <set name="skillTime" val="5000"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="30000"/>
-  <set name="hitTime" val="6000"/>
+  <set name="hitTime" val="5000"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
@@ -1992,10 +1992,10 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="350"/>
-  <set name="skillTime" val="4000"/>
+  <set name="skillTime" val="5000"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="30000"/>
-  <set name="hitTime" val="6000"/>
+  <set name="hitTime" val="5000"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
@@ -2027,10 +2027,10 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="350"/>
-  <set name="skillTime" val="4000"/>
+  <set name="skillTime" val="5000"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="30000"/>
-  <set name="hitTime" val="6000"/>
+  <set name="hitTime" val="5000"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
