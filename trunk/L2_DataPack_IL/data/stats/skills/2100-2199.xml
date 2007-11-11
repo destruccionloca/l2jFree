@@ -659,6 +659,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="NEGATE"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="1000"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="600"/>
   <set name="negateStats" val="SLEEP"/>

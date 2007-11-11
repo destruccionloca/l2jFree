@@ -140,9 +140,9 @@
   <set name="power" val="11000.0"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="1100"/>
-  <set name="hitTime" val="6000"/>
   <set name="overHit" val="true"/>
   <set name="skillTime" val="6000"/>
+  <set name="hitTime" val="8000"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="9000"/>
@@ -158,9 +158,9 @@
   <set name="power" val="11000.0"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="1100"/>
-  <set name="hitTime" val="3000"/>
   <set name="overHit" val="true"/>
   <set name="skillTime" val="3000"/>
+  <set name="hitTime" val="6000"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="9000"/>
@@ -178,8 +178,8 @@
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="400"/>
-  <set name="hitTime" val="2300"/>
   <set name="skillTime" val="2300"/>
+  <set name="hitTime" val="5000"/>
   <set name="skillType" val="FEAR"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="17000"/>
@@ -197,8 +197,8 @@
   <set name="power" val="90"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="850"/>
-  <set name="hitTime" val="2800"/>
   <set name="skillTime" val="2800"/>
+  <set name="hitTime" val="4000"/>
   <set name="skillType" val="DEBUFF"/>
   <set name="reuseDelay" val="6000000"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -225,9 +225,9 @@
   <set name="lvlDepend" val="1"/>
   <set name="power" val="250.0"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="2300"/>
   <set name="element" val="2"/>
   <set name="skillTime" val="2300"/>
+  <set name="hitTime" val="5000"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="17000"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -243,10 +243,10 @@
   <set name="power" val="10.0"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="700"/>
-  <set name="hitTime" val="3200"/>
   <set name="element" val="4"/>
   <set name="overHit" val="true"/>
   <set name="skillTime" val="3200"/>
+  <set name="hitTime" val="5000"/>
   <set name="skillType" val="PARALYZE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>
@@ -499,10 +499,10 @@
   <set name="magicLvl" val="75"/>
   <set name="lvlDepend" val="1"/>
   <set name="power" val="500.0"/>
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="200"/>
   <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="2500"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="100"/>
@@ -516,9 +516,9 @@
   <set name="power" val="14000.0"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="600"/>
-  <set name="hitTime" val="2300"/>
   <set name="element" val="2"/>
   <set name="skillTime" val="2300"/>
+  <set name="hitTime" val="4000"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
@@ -532,8 +532,8 @@
   <set name="power" val="4000.0"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="250"/>
-  <set name="hitTime" val="1500"/>
   <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="4000"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
@@ -549,8 +549,8 @@
   <set name="power" val="367.0"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="300"/>
-  <set name="hitTime" val="6000"/>
   <set name="skillTime" val="6000"/>
+  <set name="hitTime" val="10000"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>
@@ -563,8 +563,8 @@
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="150"/>
-  <set name="hitTime" val="3600"/>
   <set name="skillTime" val="3600"/>
+  <set name="hitTime" val="5000"/>
   <set name="skillType" val="PARALYZE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="900"/>

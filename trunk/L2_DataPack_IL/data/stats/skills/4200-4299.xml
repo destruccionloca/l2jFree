@@ -379,6 +379,7 @@
   <set name="target" val="TARGET_NONE"/>
   <set name="element" val="6"/>
   <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="4000"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
@@ -394,6 +395,7 @@
   <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="skillType" val="ROOT"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -423,12 +425,12 @@
   <!-- Zaken skills -->
   <set name="magicLvl" val="60"/>
   <set name="lvlDepend" val="1"/>
-  <set name="hitTime" val="1500"/>
   <set name="power" val="7224.0"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="100"/>
   <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="3000"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="100"/>
