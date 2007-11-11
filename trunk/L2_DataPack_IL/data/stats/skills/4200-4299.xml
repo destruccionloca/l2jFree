@@ -353,9 +353,9 @@
 </skill>
 <skill id="4216" levels="1" name="Scatter Enemy">
   <!--  Zaken skills - teleport PC --> 
-  <set name="hitTime" val="2900" /> 
   <set name="target" val="TARGET_ONE" /> 
   <set name="skillTime" val="2900" /> 
+  <set name="hitTime" val="3000" /> 
   <set name="skillType" val="RECALL" /> 
   <set name="operateType" val="OP_ACTIVE" /> 
   <set name="castRange" val="800" /> 
@@ -363,9 +363,9 @@
   </skill>
 <skill id="4217" levels="1" name="Scatter Enemies">
   <!--  Zaken skills --> 
-  <set name="hitTime" val="2900" /> 
   <set name="target" val="TARGET_AURA" /> 
   <set name="skillTime" val="2900" /> 
+  <set name="hitTime" val="3000" /> 
   <set name="skillType" val="RECALL" /> 
   <set name="operateType" val="OP_ACTIVE" /> 
   <set name="castRange" val="800" /> 
@@ -410,9 +410,9 @@
   <set name="magicLvl" val="60"/>
   <set name="lvlDepend" val="1"/>
   <set name="power" val="7224.0"/>
-  <set name="hitTime" val="2100"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="2100"/>
+  <set name="hitTime" val="3000"/>
   <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -585,11 +585,11 @@
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1000"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="20"/>
   <set name="reuseDelay" val="6000"/>
   <set name="skillTime" val="1000"/>
+  <set name="hitTime" val="1800"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -754,10 +754,10 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="150"/>
-  <set name="hitTime" val="1000"/>
   <set name="overHit" val="true"/>
   <set name="reuseDelay" val="6000"/>
   <set name="skillTime" val="1000"/>
+  <set name="hitTime" val="1800"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -841,11 +841,11 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="save" val="2"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="element" val="3"/>
   <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1700"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="120000"/>

@@ -1505,10 +1505,10 @@
   <set name="power" val="#power"/>
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="3100"/>
   <set name="element" val="3"/>
   <set name="reuseDelay" val="8000"/>
   <set name="skillTime" val="3100"/>
+  <set name="hitTime" val="3300"/>
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>

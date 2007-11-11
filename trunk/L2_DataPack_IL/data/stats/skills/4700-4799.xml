@@ -232,11 +232,11 @@
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
-  <set name="hitTime" val="1100"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="overHit" val="true"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="1100"/>
+  <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="12000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="9000"/>
@@ -255,10 +255,10 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="hitTime" val="1100"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="skillTime" val="1100"/>
+  <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="120000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="30000"/>
@@ -281,11 +281,11 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="MDAM"/>
   <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
@@ -390,10 +390,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -405,10 +405,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -420,10 +420,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -435,10 +435,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -450,10 +450,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -465,10 +465,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -481,10 +481,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -497,10 +497,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -514,10 +514,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -531,10 +531,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -549,10 +549,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -564,10 +564,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -579,10 +579,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -594,10 +594,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -609,10 +609,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/> 
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -623,11 +623,11 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="200"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -639,10 +639,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -654,10 +654,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -669,10 +669,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -684,10 +684,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -699,10 +699,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -714,10 +714,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -729,10 +729,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -744,10 +744,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -759,10 +759,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -774,10 +774,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -791,10 +791,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -808,10 +808,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -825,10 +825,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -842,10 +842,10 @@
   <table name="#mpConsume"> 18 25 35 47 59 72 83 88 91 93 95 96 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="830"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
@@ -860,10 +860,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -875,10 +875,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -890,10 +890,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -905,10 +905,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
@@ -920,10 +920,10 @@
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="#power"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="830"/>
   <set name="condition" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillTime" val="830"/>
+  <set name="hitTime" val="1490"/>
   <set name="skillType" val="BLOW"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
