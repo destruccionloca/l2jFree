@@ -607,13 +607,7 @@ public class CursedWeapon
     }
     public int getLevel()
     {
-        if (_nbKills > _stageKills*_skillMaxLevel)
-        {
-            return _skillMaxLevel;
-        } else
-        {
-            return (_nbKills / _stageKills);
-        }
+		return Math.min(1 + (_nbKills / _stageKills), _skillMaxLevel);
     }
     public long getTimeLeft()
     {
