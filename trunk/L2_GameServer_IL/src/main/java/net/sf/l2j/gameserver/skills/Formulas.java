@@ -1600,6 +1600,11 @@ public final class Formulas
 
 	public double calcSkillVulnerability(L2Character target, L2Skill skill)
 	{
+		return calcSkillVulnerability(target, skill, skill.getSkillType());
+	}
+	
+	public double calcSkillVulnerability(L2Character target, L2Skill skill, SkillType type)
+	{
 		double multiplier = 1; // initialize...
 
 		// Get the skill type to calculate its effect in function of base stats
@@ -1679,14 +1684,8 @@ public final class Formulas
 				multiplier = target.calcStat(Stats.DARK_VULN, multiplier, target, skill);
 				break;
 			}
-
+			
 			// Finally, calculate skilltype vulnerabilities
-			SkillType type = skill.getSkillType();
-
-			// For additional effects on damage dealing skills, with effects...
-			if (type != null && (type == SkillType.PDAM || type == SkillType.MDAM || type == SkillType.DRAIN))
-				type = skill.getEffectType();
-
 			if (type != null)
 			{
 				switch (type)
@@ -1770,7 +1769,7 @@ public final class Formulas
 				|| type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF))
 			return false; // these skills should not work on RaidBoss
  
-        if ( ! target.checkSkillCanAffectMyself(skill))
+        if (!target.checkSkillCanAffectMyself(skill))
             return false;
         
         int value = (int) skill.getPower();
@@ -1781,31 +1780,36 @@ public final class Formulas
             value = skill.getEffectPower();
             type = skill.getEffectType();
         }
-        //FIXME: Temporary fix for skills with EffectPower = 0 or EffectType not set
-        if (value == 0 || type == null)
-        {
-            if (skill.getSkillType() == SkillType.PDAM)
-            {
-                value = 50;
-                type = SkillType.STUN;
-            }
-            if (skill.getSkillType() == SkillType.MDAM || type == SkillType.DRAIN)
-            {
-                value = 20;
-                type = SkillType.PARALYZE;
-            }
-        }
+		
+		// FIXME: Skills should be checked to be able to remove this dirty check
+		if (type == null)
+		{
+			_log.info("Skill ID: " + skill.getId() + " hasn't got definied type!");
+			
+			if (skill.getSkillType() == SkillType.PDAM)
+				type = SkillType.STUN;
+			else if (skill.getSkillType() == SkillType.MDAM || type == SkillType.DRAIN)
+				type = SkillType.PARALYZE;
+		}
         
-        //FIXME: Temporary fix for skills with Power = 0 or LevelDepend not set
-        if (value == 0) value = (type == SkillType.PARALYZE) ? 50 : 80;
-        if (lvlDepend == 0) lvlDepend = (type == SkillType.PARALYZE) ? 1 : 2;
-        
+		if (value == 0)
+		{
+			_log.info("Skill ID: " + skill.getId() + " hasn't got definied power!");
+			value = 20; //To avoid unbalanced overpowered skills...
+		}
+		
+		if (lvlDepend == 0)
+		{
+			_log.info("Skill ID: " + skill.getId() + " hasn't got definied lvlDepend!");
+			lvlDepend = 1; //To avoid unbalanced overpowered skills...
+		}
+		
         //FIXME: Temporary fix for NPC skills with MagicLevel not set
         // int lvlmodifier = (skill.getMagicLevel() - target.getLevel()) * lvlDepend;
-        int lvlmodifier = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel())
-            * lvlDepend;
+        int lvlmodifier = lvlDepend * (
+			(skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel());
         double statmodifier = calcSkillStatModifier(type, target);
-        double resmodifier = calcSkillVulnerability(target, skill);
+        double resmodifier = calcSkillVulnerability(target, skill, type);
         
         int ssmodifier = 100;
         if (bss) ssmodifier = 200;
