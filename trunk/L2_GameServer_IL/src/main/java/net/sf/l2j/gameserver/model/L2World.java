@@ -339,9 +339,9 @@ public final class L2World implements L2WorldMBean
         
         // Get all visible objects contained in the _visibleObjects of L2WorldRegions 
         // in a circular area of 2000 units
-        L2Object[] visible = getVisibleObjects(object, 2000);
+        FastList<L2Object> visible = getVisibleObjects(object, 2000);
         if (_log.isDebugEnabled())
-            _log.info("objects in range:"+visible.length);
+            _log.info("objects in range:"+visible.size());
         
         for (L2Object element : visible) {
             // Add the object in L2ObjectHashSet(L2Object) _knownObjects of the visible L2Character according to conditions :
@@ -466,7 +466,7 @@ public final class L2World implements L2WorldMBean
      * @param object L2object that determine the current L2WorldRegion 
      * 
      */
-    public Collection<L2Object> getVisibleObjects(L2Object object)
+    public FastList<L2Object> getVisibleObjects(L2Object object)
     {
         L2WorldRegion reg = object.getWorldRegion();
         
@@ -474,10 +474,10 @@ public final class L2World implements L2WorldMBean
             return null;
         
         // Create an FastList in order to contain all visible L2Object
-        List<L2Object> result = new FastList<L2Object>();
+        FastList<L2Object> result = new FastList<L2Object>();
         
         // Create a FastList containing all regions around the current region
-        List<L2WorldRegion> _regions = reg.getSurroundingRegions();
+        FastList<L2WorldRegion> _regions = reg.getSurroundingRegions();
         
         // Go through the FastList of region
         for (int i = 0; i < _regions.size(); i++) 
@@ -524,20 +524,20 @@ public final class L2World implements L2WorldMBean
      * @param radius Radius of the circular area
      * 
      */
-    public L2Object[] getVisibleObjects(L2Object object, int radius)
+    public FastList<L2Object> getVisibleObjects(L2Object object, int radius)
     {
         if (object == null || !object.isVisible())
-            return new L2Object[0];
+            return new FastList<L2Object>();
         
         int x = object.getX();
         int y = object.getY();
         int sqRadius = radius*radius;
         
         // Create an FastList in order to contain all visible L2Object
-        List<L2Object> result = new FastList<L2Object>();
+        FastList<L2Object> result = new FastList<L2Object>();
         
         // Create an FastList containing all regions around the current region
-        List<L2WorldRegion> _regions = object.getWorldRegion().getSurroundingRegions();
+        FastList<L2WorldRegion> _regions = object.getWorldRegion().getSurroundingRegions();
         
         // Go through the FastList of region
         for (int i = 0; i < _regions.size(); i++) {
@@ -569,7 +569,7 @@ public final class L2World implements L2WorldMBean
             }
         }
         
-        return result.toArray(new L2Object[result.size()]);
+        return result;
     }
         
     
@@ -588,10 +588,10 @@ public final class L2World implements L2WorldMBean
      * @param radius Radius of the spheric area
      * 
      */
-    public L2Object[] getVisibleObjects3D(L2Object object, int radius)
+    public FastList<L2Object> getVisibleObjects3D(L2Object object, int radius)
     {
         if (object == null || !object.isVisible())
-            return new L2Object[0];
+            return new FastList<L2Object>();
         
         int x = object.getX();
         int y = object.getY();
@@ -599,10 +599,10 @@ public final class L2World implements L2WorldMBean
         int sqRadius = radius*radius;
         
         // Create an FastList in order to contain all visible L2Object
-        List<L2Object> result = new FastList<L2Object>();
+        FastList<L2Object> result = new FastList<L2Object>();
         
         // Create an FastList containing all regions around the current region
-        List<L2WorldRegion> _regions = object.getWorldRegion().getSurroundingRegions();
+        FastList<L2WorldRegion> _regions = object.getWorldRegion().getSurroundingRegions();
         
         // Go through visible object of the selected region
         for (int i = 0; i < _regions.size(); i++)
@@ -633,7 +633,7 @@ public final class L2World implements L2WorldMBean
             }
         }
         
-        return result.toArray(new L2Object[result.size()]);
+        return result;
     }
     
     /**
@@ -649,7 +649,7 @@ public final class L2World implements L2WorldMBean
      * @param object L2object that determine the current L2WorldRegion 
      * 
      */
-    public Collection<L2PlayableInstance> getVisiblePlayable(L2Object object)
+    public FastList<L2PlayableInstance> getVisiblePlayable(L2Object object)
     {
         L2WorldRegion reg = object.getWorldRegion();
         
@@ -660,7 +660,7 @@ public final class L2World implements L2WorldMBean
         FastList<L2PlayableInstance> result = new FastList<L2PlayableInstance>();
         
         // Create a FastList containing all regions around the current region
-        List<L2WorldRegion> _regions = reg.getSurroundingRegions();
+        FastList<L2WorldRegion> _regions = reg.getSurroundingRegions();
         
         // Go through the FastList of region
         for (int i = 0; i < _regions.size(); i++) 
