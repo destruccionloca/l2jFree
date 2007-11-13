@@ -329,10 +329,11 @@ class Quest (JQuest) :
       # this part is just for laras parts.  It is only available to players who are doing the quest
       if npcId in DROPLIST_LARA.keys() :
          if not st : return
+         if st.getState() == COMPLETED : return
          random = st.getRandom(100)
          var, value, chance, item = DROPLIST_LARA[npcId]
          count = st.getQuestItemsCount(item)
-         if int(st.get(var)) == value and count < 30 and random < chance:
+         if st.getInt(var) == value and count < 30 and random < chance:
             st.giveItems(item,1)
             if count == 29:
                st.playSound("Itemsound.quest_middle")
