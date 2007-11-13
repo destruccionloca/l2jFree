@@ -192,7 +192,7 @@ public class CharKnownList extends ObjectKnownList
             }
         } else
         {
-            Collection<L2PlayableInstance> playables = L2World.getInstance().getVisiblePlayable(getActiveObject());
+            FastList<L2PlayableInstance> playables = L2World.getInstance().getVisiblePlayable(getActiveObject());
             if (playables == null)
                 return;
 
