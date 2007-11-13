@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -166,7 +167,7 @@ public class CharKnownList extends ObjectKnownList
 
         if (isActiveObjectPlayable)
         {
-            Collection<L2Object> objects = L2World.getInstance().getVisibleObjects(getActiveObject());
+            FastList<L2Object> objects = L2World.getInstance().getVisibleObjects(getActiveObject());
             if (objects == null)
                 return;
 
