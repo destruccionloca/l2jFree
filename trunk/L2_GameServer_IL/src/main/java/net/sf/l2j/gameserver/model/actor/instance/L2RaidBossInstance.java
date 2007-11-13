@@ -73,15 +73,26 @@ public final class L2RaidBossInstance extends L2MonsterInstance
      * @param skill the casted skill
      * @see L2Character#checkSkillCanAffectMyself(L2Skill)
      */
-    @Override
-    public boolean checkSkillCanAffectMyself(L2Skill skill)
-    {
-        return  !(skill.getSkillType() == SkillType.CONFUSION 
-                || skill.getSkillType() == SkillType.MUTE 
-                || skill.getSkillType() == SkillType.PARALYZE 
-                || skill.getSkillType() == SkillType.ROOT 
-                || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()));
-    }    
+	@Override
+	public boolean checkSkillCanAffectMyself(L2Skill skill)
+	{
+		if (!checkSkillCanAffectMyself(skill.getSkillType()) || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))
+			return false;
+		
+		return true;
+	}
+	
+	@Override
+	public boolean checkSkillCanAffectMyself(SkillType type)
+	{
+		if (type == SkillType.CONFUSION	||	type == SkillType.MUTE		||	type == SkillType.PARALYZE	||
+			type == SkillType.ROOT		||	type == SkillType.FEAR		||	type == SkillType.SLEEP		||
+			type == SkillType.STUN		||	type == SkillType.DEBUFF	||	type == SkillType.AGGDEBUFF
+		)
+			return false;
+		
+		return true;
+	}    
 
     @Override
     protected int getMaintenanceInterval() { return RAIDBOSS_MAINTENANCE_INTERVAL; }

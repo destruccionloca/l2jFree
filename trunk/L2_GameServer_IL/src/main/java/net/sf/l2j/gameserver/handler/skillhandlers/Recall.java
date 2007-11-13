@@ -77,10 +77,7 @@ public class Recall implements ISkillHandler
 					continue;
 
 				L2Character target = (L2Character) element;
-				// check if skill is allowed on other.properties for raidbosses
-				if (target.isRaid() && !target.checkSkillCanAffectMyself(skill))
-					continue;
-
+				
 				if (target instanceof L2PcInstance)
 				{
 					L2PcInstance targetChar = (L2PcInstance) target;

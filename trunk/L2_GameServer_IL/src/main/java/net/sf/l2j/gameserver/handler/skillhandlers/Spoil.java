@@ -56,10 +56,7 @@ public class Spoil implements ISkillHandler
                 continue;
 
             L2MonsterInstance target = (L2MonsterInstance) element;
-            //check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
-
+			
             if (target.isSpoil()) {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.ALREDAY_SPOILED));
                 continue;

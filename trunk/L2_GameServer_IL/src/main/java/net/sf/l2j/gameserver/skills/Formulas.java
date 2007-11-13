@@ -1568,20 +1568,14 @@ public final class Formulas
         return Rnd.get(100) < shldRate;
     }
 
+	// This should be deprecated and calcSkillSuccess() should be used instead
     public boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
     {
-        SkillType type = skill.getSkillType();
-        if (target.isRaid() 
-            && (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
-            || type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-            || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF))
-                return false; // these skills should have only 1/1000 chance on raid, now it's 0.
-
         double defence = 0;
         //FIXME: CHECK/FIX THIS FORMULA UP!!
         double attack = 0; 
         
-        if ( ! target.checkSkillCanAffectMyself(skill))
+        if (!target.checkSkillCanAffectMyself(skill))
             return false;
         
         if (skill.isActive() && skill.isOffensive())
@@ -1761,19 +1755,13 @@ public final class Formulas
  
     public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean sps, boolean bss)
     {
-		SkillType type = skill.getSkillType();
-
-		if (target.isRaid()
-			&& (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
-				|| type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-				|| type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF))
-			return false; // these skills should not work on RaidBoss
- 
         if (!target.checkSkillCanAffectMyself(skill))
             return false;
         
         int value = (int) skill.getPower();
         int lvlDepend = skill.getLevelDepend();
+
+		SkillType type = skill.getSkillType();
         
         if (type == SkillType.PDAM || type == SkillType.MDAM || type == SkillType.DRAIN)
         {
@@ -1791,6 +1779,9 @@ public final class Formulas
 			else if (skill.getSkillType() == SkillType.MDAM || type == SkillType.DRAIN)
 				type = SkillType.PARALYZE;
 		}
+		
+        if (!target.checkSkillCanAffectMyself(type))
+            return false;
         
 		if (value == 0)
 		{

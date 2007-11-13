@@ -48,10 +48,7 @@ public class CombatPointHeal implements ISkillHandler
         
         for (L2Object element : targets) {
             target = (L2Character)element;
-            //check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
-            
+			
             double cp = skill.getPower(); 
             //int cLev = activeChar.getLevel();
             //hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;

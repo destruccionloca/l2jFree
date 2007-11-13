@@ -320,10 +320,8 @@ public final class L2Weapon  extends L2Item
         for (L2Skill skill : _skillsOnCrit)
         {
             // check if this skill can affect the target
-            if (!target.checkSkillCanAffectMyself(skill))
-            {
+            if (!target.checkSkillCanAffectMyself(skill)) // TODO: a check for skills  like pdam with an effect
                 continue;
-            }
             
             if (!skill.checkCondition(caster, target, true)) 
                 continue; // Skill condition not met

@@ -82,7 +82,7 @@ public class Continuous implements ISkillHandler
 		for (L2Object element : targets) {
 			target = (L2Character)element;
 			//check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+			if(!target.checkSkillCanAffectMyself(skill))
 				continue;
 
 			switch(skill.getSkillType())

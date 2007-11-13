@@ -54,9 +54,7 @@ public class Blow implements ISkillHandler
 			return;
         for (L2Object element : targets) {
 			L2Character target = (L2Character)element;
-			//check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
+			
 			if(target.isAlikeDead())
 				continue;
 			if(activeChar.isBehindTarget())

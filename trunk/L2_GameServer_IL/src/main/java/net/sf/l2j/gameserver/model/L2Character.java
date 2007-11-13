@@ -5996,6 +5996,11 @@ public abstract class L2Character extends L2Object
 	{
 		return true;
 	}
+	
+	public boolean checkSkillCanAffectMyself(SkillType type)
+	{
+		return true;
+	}
 
 	public ForceBuff getForceBuff()
 	{

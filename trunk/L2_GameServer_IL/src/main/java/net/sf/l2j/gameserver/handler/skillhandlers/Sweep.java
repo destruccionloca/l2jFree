@@ -53,10 +53,7 @@ public class Sweep implements ISkillHandler
         for (L2Object element : targets) { 
             if (!(element instanceof L2Attackable)) continue;
 	        L2Attackable target = (L2Attackable)element;
-	        //check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
-            
+	        
             L2Attackable.RewardItem[] items = null;
             boolean isSweeping = false;
             synchronized (target) {
