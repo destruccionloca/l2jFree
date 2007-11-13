@@ -170,7 +170,7 @@ public class GameStatusThread extends Thread
             _print.println("Welcome to the L2j-Free Telnet Server...");
             _print.println("Please insert your Password!");
             _print.print("Password: ");
-            //_print.flush();
+            _print.flush();
             String tmpLine = _read.readLine();
             if (tmpLine == null)
 			{
