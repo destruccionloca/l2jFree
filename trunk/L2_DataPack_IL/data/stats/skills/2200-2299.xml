@@ -818,7 +818,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="300000"/>
   <set name="reuseDelay" val="300000"/>
-  <set name="skillTime" val="1500"/>
+  <set name="skillTime" val="100"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
 </skill>
@@ -829,7 +829,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="540000"/>
   <set name="reuseDelay" val="540000"/>
-  <set name="skillTime" val="1500"/>
+  <set name="skillTime" val="100"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
 </skill>
@@ -840,7 +840,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="300000"/>
   <set name="reuseDelay" val="300000"/>
-  <set name="skillTime" val="1500"/>
+  <set name="skillTime" val="100"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
 </skill>

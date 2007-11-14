@@ -546,6 +546,42 @@
   <for>
   </for>
 </skill>
+<skill id="1316" levels="1" name="Fishing Expertise -C-Grade">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1317" levels="1" name="Fishing Expertise -B-Grade">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1318" levels="1" name="Fishing Expertise -A-Grade">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1319" levels="1" name="Fishing Expertise -S-Grade">
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
 <skill id="1320" levels="9" name="Create Common Item">
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -560,9 +596,9 @@
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillRadius" val="0"/>
-  <set name="hitTime" val="0"/>
+  <set name="hitTime" val="450"/>
   <set name="reuseDelay" val="0"/>
-  <set name="skillTime" val="0"/>
+  <set name="skillTime" val="450"/>
   <set name="skillType" val="DWARVEN_CRAFT"/>
   <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -576,9 +612,9 @@
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillRadius" val="0"/>
-  <set name="hitTime" val="0"/>
+  <set name="hitTime" val="450"/>
   <set name="reuseDelay" val="0"/>
-  <set name="skillTime" val="0"/>
+  <set name="skillTime" val="450"/>
   <set name="skillType" val="COMMON_CRAFT"/>
   <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -637,8 +673,7 @@
   <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
   <set name="reuseDelay" val="8000"/>
-  <set name="skillTime" val="6000"/>
-  <set name="hitTime" val="6000"/>
+  <set name="skillTime" val="4000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>

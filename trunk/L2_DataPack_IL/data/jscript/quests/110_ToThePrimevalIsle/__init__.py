@@ -59,7 +59,7 @@ class Quest (JQuest) :
             htmltext = "2.htm"
     elif id == COMPLETED:
       st.exitQuest(0)
-      htmltext = "<html><body>This quest has already been completed.</body></html>"
+      htmltext = "<html><body>This quest have already been completed.</body></html>"
     return htmltext    
 
 QUEST=Quest(110,qn,"To The Primeval Isle")
