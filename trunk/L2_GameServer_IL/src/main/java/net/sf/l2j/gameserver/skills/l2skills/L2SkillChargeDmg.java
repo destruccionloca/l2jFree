@@ -98,6 +98,8 @@ public class L2SkillChargeDmg extends L2Skill
 			boolean soul = (weapon != null 
 							&& weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT 
 							&& weapon.getItemType() != L2WeaponType.DAGGER );
+			
+			// damage calculation, crit is static 2x
 			int damage = (int)Formulas.getInstance().calcPhysDam(activeChar, target, this, shld, false, false, soul);
 			if (crit) damage *= 2;
 

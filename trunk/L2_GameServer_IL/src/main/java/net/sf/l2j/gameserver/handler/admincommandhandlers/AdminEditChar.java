@@ -304,7 +304,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				player.setTitle(val);
 				if(player != activeChar) player.sendMessage("Your title has been changed by a GM");
-				player.broadcastUserInfo();
+				player.broadcastTitleInfo();
 			}
 			else if(npc != null)
 			{

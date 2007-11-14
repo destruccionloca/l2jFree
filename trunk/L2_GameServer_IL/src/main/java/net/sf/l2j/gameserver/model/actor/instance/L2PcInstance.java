@@ -196,6 +196,7 @@ import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TargetSelected;
+import net.sf.l2j.gameserver.serverpackets.TitleUpdate;
 import net.sf.l2j.gameserver.serverpackets.TradeStart;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
@@ -3574,10 +3575,21 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Send a Server->Client packet CharInfo to all L2PcInstance in _knownPlayers of the L2PcInstance
         if (_log.isDebugEnabled())
-            _log.debug("players to notify:" + getKnownList().getKnownPlayers().size()
-                + " packet: [S] 03 CharInfo");
+            _log.debug("players to notify:" + getKnownList().getKnownPlayers().size() + " packet: [S] 03 CharInfo");
 
         Broadcast.toKnownPlayers(this, new CharInfo(this));
+    }
+
+    public final void broadcastTitleInfo()
+    {
+        // Send a Server->Client packet UserInfo to this L2PcInstance
+        sendPacket(new UserInfo(this));
+
+        // Send a Server->Client packet TitleUpdate to all L2PcInstance in _KnownPlayers of the L2PcInstance
+        if (_log.isDebugEnabled())
+            _log.debug("players to notify:" + getKnownList().getKnownPlayers().size() + " packet: [S] cc TitleUpdate");
+
+        Broadcast.toKnownPlayers(this, new TitleUpdate(this));
     }
 
     /**

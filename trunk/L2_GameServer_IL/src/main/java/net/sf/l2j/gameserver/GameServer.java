@@ -52,6 +52,7 @@ import net.sf.l2j.gameserver.datatables.StaticObjects;
 import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
+import net.sf.l2j.gameserver.geoeditorcon.GeoEditorListener;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -127,15 +128,15 @@ public class GameServer
     
     public GameServer() throws Throwable
     {
-    	Config.load();
-    	Util.printSection("Database");
-    	L2DatabaseFactory.initInstance();
-    	Util.printSection("Preparations");
-    	new PathCreator();
-    	Util.printSection("World");
-    	RandomIntGenerator.getInstance();    	
+        Config.load();
+        Util.printSection("Database");
+        L2DatabaseFactory.initInstance();
+        Util.printSection("Preparations");
+        new PathCreator();
+        Util.printSection("World");
+        RandomIntGenerator.getInstance();
         L2World.getInstance();
-        Announcements.getInstance();        
+        Announcements.getInstance();
         _idFactory = IdFactory.getInstance();
         if (!_idFactory.isInitialized())
         {
@@ -146,16 +147,16 @@ public class GameServer
         ThreadPoolManager.getInstance();
         if (Config.GEODATA)
         {
-	        GeoData.getInstance();
-	        if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
-	        
-	        if (Config.GEO_PATH_FINDING)
-	        {
-	            GeoPathFinding.getInstance();
-	            if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
-	        }
+            GeoData.getInstance();
+            if ( _log.isDebugEnabled())_log.debug("GeoData initialized");
+            
+            if (Config.GEO_PATH_FINDING)
+            {
+                GeoPathFinding.getInstance();
+                if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
+            }
         }
-        MapRegionManager.getInstance();        
+        MapRegionManager.getInstance();
         ZoneManager.getInstance();
         ClanHallManager.getInstance();
         DoorTable.getInstance();
@@ -164,7 +165,7 @@ public class GameServer
         BoatService boatService =(BoatService)L2Registry.getBean(IServiceRegistry.BOAT);
         boatService.loadBoatDatas();
         TeleportLocationTable.getInstance();
-    	Util.printSection("Skills");
+        Util.printSection("Skills");
         SkillTreeTable.getInstance();
         SkillsEngine.getInstance();
         SkillTable.getInstance();
@@ -176,22 +177,22 @@ public class GameServer
         ItemTable.getInstance();
         ArmorSetsTable.getInstance();
         AugmentationData.getInstance();
-        if(Config.SP_BOOK_NEEDED)        
-        	SkillSpellbookTable.getInstance();        
+        if(Config.SP_BOOK_NEEDED)
+            SkillSpellbookTable.getInstance();
         SummonItemsData.getInstance();
         if(Config.ALLOW_FISHING)
-        	FishTable.getInstance();
+            FishTable.getInstance();
         ItemsOnGroundManager.getInstance();
         if (Config.AUTODESTROY_ITEM_AFTER > 0 || Config.HERB_AUTO_DESTROY_TIME > 0)
             ItemsAutoDestroy.getInstance();
-    	Util.printSection("Characters");
+        Util.printSection("Characters");
         CharTemplateTable.getInstance();
         LevelUpData.getInstance();
         HennaTable.getInstance();
         HennaTreeTable.getInstance();
         if(Config.ALLOW_WEDDING)
             CoupleManager.getInstance();
-        CursedWeaponsManager.getInstance();        
+        CursedWeaponsManager.getInstance();
         ClanTable.getInstance();
         CrestCache.getInstance();
         Hero.getInstance();
@@ -200,25 +201,25 @@ public class GameServer
         HtmCache.getInstance();
         BuffTemplateTable.getInstance();
         PetDataTable.getInstance().loadPetsData();
-    	Util.printSection("Spawns");
-        DayNightSpawnManager.getInstance().notifyChangeMode();        
+        Util.printSection("Spawns");
+        DayNightSpawnManager.getInstance().notifyChangeMode();
         SpawnTable.getInstance();
         RaidBossSpawnManager.getInstance();
         RaidPointsManager.getInstance();
         AutoChatHandler.getInstance();
         AutoSpawnHandler.getInstance();
-    	Util.printSection("Castles and Towns");
+        Util.printSection("Castles and Towns");
         CastleManager.getInstance();
         CrownManager.getInstance();
         MercTicketManager.getInstance();
         TownManager.getInstance();
         SiegeManager.getInstance();
-    	Util.printSection("Economy");
-        TradeListTable.getInstance();    	
+        Util.printSection("Economy");
+        TradeListTable.getInstance();
         CastleManorManager.getInstance();
         L2Manor.getInstance();
         AuctionManager.getInstance();
-    	Util.printSection("SevenSigns");
+        Util.printSection("SevenSigns");
         SevenSigns.getInstance();
         SevenSignsFestival.getInstance();
         Util.printSection("Olympiad");
@@ -232,15 +233,15 @@ public class GameServer
         AntharasManager.getInstance().init();
         BaiumManager.getInstance().init();
         ValakasManager.getInstance().init();
-    	Util.printSection("Quests");        
+        Util.printSection("Quests");
         QuestManager.getInstance();
         Util.printSection("Events/ScriptEngine");
-        EventDroplist.getInstance();        
+        EventDroplist.getInstance();
         FaenorScriptEngine.getInstance();
         Util.printSection("Extensions");
         if(Config.FACTION_ENABLED)
         {
-        	Util.printSection("Factions");
+            Util.printSection("Factions");
             FactionManager.getInstance();
             FactionQuestManager.getInstance();
         }
@@ -251,7 +252,7 @@ public class GameServer
         }
         
 
-    	Util.printSection("Handlers");
+        Util.printSection("Handlers");
         ItemHandler.getInstance();
         SkillHandler.getInstance();
         AdminCommandHandler.getInstance();
@@ -259,32 +260,32 @@ public class GameServer
         VoicedCommandHandler.getInstance();
         ChatHandler.getInstance();
 
-    	Util.printSection("Misc");
+        Util.printSection("Misc");
         TaskManager.getInstance();
         GmListTable.getInstance();
         PetitionManager.getInstance();
         if(Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
-        	OnlinePlayers.getInstance();        
+            OnlinePlayers.getInstance();
         FloodProtector.getInstance();
         
         _shutdownHandler = Shutdown.getInstance();
-        Runtime.getRuntime().addShutdownHook(_shutdownHandler);        
+        Runtime.getRuntime().addShutdownHook(_shutdownHandler);
 
-        System.gc();        
+        System.gc();
 
         Util.printSection("ServerThreads");
         _loginThread = LoginServerThread.getInstance();
         _loginThread.start();
         
         SelectorServerConfig ssc = new SelectorServerConfig(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
-		L2GamePacketHandler gph = new L2GamePacketHandler();
+        L2GamePacketHandler gph = new L2GamePacketHandler();
 
-		_selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
-		_selectorThread.openServerSocket();
-		_selectorThread.start();
+        _selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
+        _selectorThread.openServerSocket();
+        _selectorThread.start();
 
-		if(Config.IRC_ENABLED)
-	        IrcManager.getInstance().getConnection().sendChan("GameServer Started");
+        if(Config.IRC_ENABLED)
+            IrcManager.getInstance().getConnection().sendChan("GameServer Started");
         if ( Config.IS_TELNET_ENABLED ) 
         {
             _statusServer = new Status();
@@ -295,24 +296,27 @@ public class GameServer
         if ( Config.JMX_TCP_PORT != -1 ||  Config.JMX_HTTP_PORT != -1 )
             AdminSrv.getInstance().registerMbeans();
 
+        if (Config.ACCEPT_GEOEDITOR_CONN)
+            GeoEditorListener.getInstance();
+
         Util.printSection("l2jfree");
         _log.info("Revision: "+getVersionNumber());
         _log.info("Build date: "+getBuildDate());
         _log.info("Compiler version: "+getBuildJdk());
-		_log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
+        _log.info("Maximum Numbers of Connected Players: " + Config.MAXIMUM_ONLINE_USERS);
         printMemUsage();
         
         Util.printSection("GameServerLog");
         if(Config.ENABLE_JYTHON_SHELL)
         {
-        	Util.printSection("JythonShell");
-        	Util.JythonShell();
+            Util.printSection("JythonShell");
+            Util.JythonShell();
         }
     }
     
     public static void printMemUsage()
     {
-		Util.printSection("Memory");
+        Util.printSection("Memory");
         for (String line : getMemUsage())
                 _log.info(line);
     }
@@ -326,7 +330,7 @@ public class GameServer
         double usedMem = allocatedMem - cachedMem; // really used memory
         double useableMem = maxMem - usedMem; //allocated, but non-used and non-allocated memory
         return new String[] {
-        		" - AllowedMemory: " +((int)(maxMem))+" KB",
+                " - AllowedMemory: " +((int)(maxMem))+" KB",
                 "Allocated: "+((int)(allocatedMem))+" KB ("+(((double)(Math.round(allocatedMem/maxMem*1000000)))/10000)+"%)",
                 "Non-Allocated: "+((int)(nonAllocatedMem))+" KB ("+(((double)(Math.round(nonAllocatedMem/maxMem*1000000)))/10000)+"%)",
                 "- AllocatedMemory: "+((int)(allocatedMem))+" KB",
@@ -371,7 +375,7 @@ public class GameServer
 
     public SelectorThread<L2GameClient> getSelectorThread()
     {
-    	return _selectorThread;
+        return _selectorThread;
     }
     
     public long getUsedMemoryMB()
@@ -381,7 +385,7 @@ public class GameServer
     
     public static void main(String[] args) throws Throwable
     {
-    	System.setProperty("python.cachedir", "../cachedir");
+        System.setProperty("python.cachedir", "../cachedir");
         gameServer = new GameServer();
     }
 }

@@ -227,7 +227,16 @@ public class GeoEngine extends GeoData
         // it might not work when distance is small and path vertical
         else if (distance2 < 82)
         {
-        	return(dz*dz <= 40000); // 200 too deep/high. This value should be in sync with NLOS
+            // 200 too deep/high. This value should be in sync with NLOS
+            if(dz*dz > 40000)
+            {
+                short region = getRegionOffset(x,y);
+                // geodata is loaded for region and mobs should have correct Z coordinate...
+                // so there would likely be a floor in between the two
+                if (_geodata.get(region) != null)
+                    return false;
+            }
+            return true;
         }
 
         // Increment in Z coordinate when moving along X or Y axis 
@@ -322,7 +331,7 @@ public class GeoEngine extends GeoData
      */
     private static boolean canSeeDebug(L2PcInstance gm, int x, int y, double z, int tx, int ty, int tz)
     {
-    	int dx = (tx - x);
+        int dx = (tx - x);
         int dy = (ty - y);
         final double dz = (tz - z);
         final int distance2 = dx*dx+dy*dy;
@@ -330,7 +339,7 @@ public class GeoEngine extends GeoData
         if (distance2 > 90000) // (300*300) 300*16 = 4800 in world coord
         {
             //Avoid too long check
-        	gm.sendMessage("dist > 300");
+            gm.sendMessage("dist > 300");
             return false;
         }
         // very short checks: 9 => 144 world distance
@@ -338,7 +347,16 @@ public class GeoEngine extends GeoData
         // it might not work when distance is small and path vertical
         else if (distance2 < 82)
         {
-        	return(dz*dz <= 40000); // 200 too deep/high. This value should be in sync with NLOS
+            // 200 too deep/high. This value should be in sync with NLOS
+            if(dz*dz > 40000)
+            {
+                short region = getRegionOffset(x,y);
+                // geodata is loaded for region and mobs should have correct Z coordinate...
+                // so there would likely be a floor in between the two
+                if (_geodata.get(region) != null)
+                    return false;
+            }
+            return true;
         }
 
         // Increment in Z coordinate when moving along X or Y axis 

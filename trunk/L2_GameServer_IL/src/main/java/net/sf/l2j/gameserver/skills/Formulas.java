@@ -1269,13 +1269,13 @@ public final class Formulas
             //Skill Valakas
             if ( ((L2NpcInstance) target).getTemplate().getIdTemplate() == 12899) damage *= attacker.getStat().getPAtkValakas(target); 
         }
-		
-		if (skill != null) 
-		{
-			if (skill.getSkillType() == SkillType.FATALCOUNTER)
-				damage *= (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
-		}
-		
+        
+        if (skill != null) 
+        {
+            if (skill.getSkillType() == SkillType.FATALCOUNTER)
+                damage *= (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
+        }
+
         if (shld)
         {
             if (100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100)) 
@@ -1479,9 +1479,8 @@ public final class Formulas
     }
     
     /** Calculate delay (in milliseconds) before next ATTACK */
-    public final int calcPAtkSpd(@SuppressWarnings("unused")
-    L2Character attacker, @SuppressWarnings("unused")
-    L2Character target, double rate)
+    public final int calcPAtkSpd(@SuppressWarnings("unused") L2Character attacker,
+                                 @SuppressWarnings("unused") L2Character target, double rate)
     {
         //will fix freeze at >1000 atkspd, optimum calcation between 0 to 1400
         // return (int) (3*Math.pow(rate, 2)/2000 - 4*rate + 2700);
@@ -1494,12 +1493,12 @@ public final class Formulas
         if (attacker instanceof L2PcInstance)
         {
             if(rate < 2) return 2700;
-            else return (int)((460000 *Config.ALT_ATTACK_DELAY )/rate);   
+            else return (int)((470000 *Config.ALT_ATTACK_DELAY )/rate);
         }
         else
         {
             if(rate < 2) return 2700;
-            else return (int)((460000)/rate); 
+            else return (int)((470000)/rate);
         }
     }
     

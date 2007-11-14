@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.geoeditorcon.GeoEditorListener;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
@@ -174,6 +175,16 @@ public class ValidatePosition extends L2GameClientPacket
 		
 		if (Config.ALLOW_WATER)
 			activeChar.checkWaterState();
+
+		if (Config.ACCEPT_GEOEDITOR_CONN)
+		{
+			if (GeoEditorListener.getInstance().getThread() != null 
+				&& GeoEditorListener.getInstance().getThread().isWorking() 
+				&& GeoEditorListener.getInstance().getThread().isSend(activeChar))
+			{
+				GeoEditorListener.getInstance().getThread().sendGmPosition(_x,_y,(short)_z);
+			}
+		}
 
 		// [L2J_JP ADD START SANDMAN]
 		// if this is a castle that is currently being sieged, and the rider is NOT a castle owner

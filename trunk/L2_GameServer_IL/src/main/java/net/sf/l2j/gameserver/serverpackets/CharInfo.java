@@ -341,9 +341,6 @@ public class CharInfo extends L2GameServerPacket
 			
 			writeD(_activeChar.getAppearance().getTitleColor());
 			
-			// Just an idea maybe it works for Cursed Weapon Glow.... if not revert @ NB4L1
-			//writeD(0x00); // ??
-			
 			if (_activeChar.isCursedWeaponEquiped())
 				writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
 			else

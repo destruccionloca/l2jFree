@@ -988,6 +988,7 @@ public final class Config
     public static enum   CorrectSpawnsZ { TOWN, MONSTER, ALL, NONE }
     public static        CorrectSpawnsZ GEO_CORRECT_Z;					// Enable spawns' z-correction
     public static boolean				FORCE_GEODATA;					// Force loading GeoData to psychical memory
+    public static boolean				ACCEPT_GEOEDITOR_CONN;			// Accept connection from geodata editor
 
     public static boolean       		ALLOW_DISCARDITEM;
     public static boolean       		ALLOW_FREIGHT;
@@ -1188,6 +1189,7 @@ public final class Config
             FORCE_GEODATA                   = Boolean.parseBoolean(optionsSettings.getProperty("ForceGeoData", "True")) && GEODATA;
             String correctZ                 = GEODATA ? optionsSettings.getProperty("GeoCorrectZ", "ALL") : "NONE";
             GEO_CORRECT_Z                   = CorrectSpawnsZ.valueOf(correctZ.toUpperCase());
+            ACCEPT_GEOEDITOR_CONN           = Boolean.parseBoolean(optionsSettings.getProperty("AcceptGeoeditorConn", "False"));
 
             SHOW_L2J_LICENSE                = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
             SHOW_HTML_WELCOME               = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));

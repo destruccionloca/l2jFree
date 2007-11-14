@@ -22,7 +22,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import javolution.util.FastList;
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -148,28 +150,39 @@ public abstract class ItemContainer
         return count;
     }
 
-    /**
-     * Adds item to inventory
+	/**
+	* Adds item to inventory
 	 * @param process : String Identifier of process triggering this action
-     * @param item : L2ItemInstance to be added
+	* @param item : L2ItemInstance to be added
 	 * @param actor : L2PcInstance Player requesting the item add
 	 * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
-     * @return L2ItemInstance corresponding to the new item or the updated item in inventory
-     */
-    public L2ItemInstance addItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
-    {
+	* @return L2ItemInstance corresponding to the new item or the updated item in inventory
+	*/
+	public L2ItemInstance addItem(String process, L2ItemInstance item, L2PcInstance actor, L2Object reference)
+	{
 		L2ItemInstance olditem = getItemByItemId(item.getItemId());
-		
+
 		// If stackable item is found in inventory just add to current quantity
 		if (olditem != null && olditem.isStackable())
 		{
-			olditem.changeCount(process, item.getCount(), actor, reference);
+			int count = item.getCount();
+			olditem.changeCount(process, count, actor, reference);
 			olditem.setLastChange(L2ItemInstance.MODIFIED);
 
 			// And destroys the item
 			ItemTable.getInstance().destroyItem(process, item, actor, reference);
 			item.updateDatabase();
 			item = olditem;
+
+			// Updates database
+			if (item.getItemId() == 57 && count < 10000 * Config.RATE_DROP_ADENA) 
+			{
+				// Small adena changes won't be saved to database all the time
+				if (GameTimeController.getGameTicks() % 5 == 0)
+					item.updateDatabase();
+			}
+			else
+				item.updateDatabase();
 		}
 		// If item hasn't be found in inventory, create new one
 		else
@@ -180,10 +193,11 @@ public abstract class ItemContainer
 
 			// Add item in inventory
 			addItem(item);
+
+			// Updates database
+			item.updateDatabase();
 		}
 
-		// Updates database
-		item.updateDatabase();
 		refreshWeight();
 		return item;
 	}
@@ -207,7 +221,14 @@ public abstract class ItemContainer
 			item.changeCount(process, count, actor, reference);
 			item.setLastChange(L2ItemInstance.MODIFIED);
 			// Updates database
-			item.updateDatabase();
+			if (itemId == 57 && count < 10000*Config.RATE_DROP_ADENA) 
+			{
+				// Small adena changes won't be saved to database all the time
+				if (GameTimeController.getGameTicks() % 5 == 0)
+					item.updateDatabase();
+			}
+			else
+				item.updateDatabase();
 		}
 		// If item hasn't be found in inventory, create new one
 		else
