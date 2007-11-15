@@ -1480,27 +1480,16 @@ public final class Formulas
     
     /** Calculate delay (in milliseconds) before next ATTACK */
     public final int calcPAtkSpd(@SuppressWarnings("unused") L2Character attacker,
-                                 @SuppressWarnings("unused") L2Character target, double rate)
-    {
-        //will fix freeze at >1000 atkspd, optimum calcation between 0 to 1400
-        // return (int) (3*Math.pow(rate, 2)/2000 - 4*rate + 2700);
-        // will fix freeze at >1800 atkspd, optimum calcation between 0 to 1700
-        //if (attacker instanceof L2PcInstance)
-        //    return (int)(((Math.pow(rate, 2)-4000*rate + 4074102.5641)/1900+15)*Config.ALT_ATTACK_DELAY); 
-        // else
-        //  return (int)((Math.pow(rate, 2)-4000*rate + 4074102.5641)/1900+15);
-        //  return (int) (3 * Math.pow(rate, 2) / 2000 - 4 * rate + 2700); 
-        if (attacker instanceof L2PcInstance)
-        {
-            if(rate < 2) return 2700;
-            else return (int)((470000 *Config.ALT_ATTACK_DELAY )/rate);
-        }
-        else
-        {
-            if(rate < 2) return 2700;
-            else return (int)((470000)/rate);
-        }
-    }
+                                 @SuppressWarnings("unused") L2Character target, double atkSpd, double base)
+	{
+		if (attacker instanceof L2PcInstance)
+			base *= Config.ALT_ATTACK_DELAY;
+		
+		if (atkSpd < 10)
+			atkSpd = 10;
+		
+		return (int)(base/atkSpd);
+	}
     
     /** Calculate delay (in milliseconds) for skills cast */
     public final int calcMAtkSpd(L2Character attacker, @SuppressWarnings("unused")

@@ -177,7 +177,7 @@
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
     <!-- SA: Quick Recovery -->
-    <mul val='0.85' order='0x30' stat='atkReuse'/>
+    <set val='697' order='0x50' stat='bowReuse'/>
     <!-- Enhances damage to target during PvP -->
     <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
     <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>

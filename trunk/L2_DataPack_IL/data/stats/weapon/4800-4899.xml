@@ -143,7 +143,7 @@
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
     <!-- SA: Quick Recovery -->
-    <mul val='0.83' order='0x30' stat='atkReuse'/>
+    <set val='1248' order='0x50' stat='bowReuse'/>
   </for>
 </item>
 <item id='4813' name="elemental_bow_guidance">
@@ -184,7 +184,7 @@
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
     <!-- SA: Quick Recovery -->
-    <mul val='0.8' order='0x30' stat='atkReuse'/>
+    <set val='639' order='0x50' stat='bowReuse'/>
   </for>
 </item>
 <item id='4816' name="elven_bow_of_nobility_evasion">
@@ -378,7 +378,7 @@
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
     <!-- SA: Quick Recovery -->
-    <mul val='0.87' order='0x30' stat='atkReuse'/>
+    <set val='1310' order='0x50' stat='bowReuse'/>
   </for>
 </item>
 <item id='4830' name="bow_of_peril_cheap_shot">
@@ -430,8 +430,6 @@
     <set val='293' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-    <!-- SA: Quick Recovery -->
-    <mul val='0.9' order='0x30' stat='atkReuse'/>
   </for>
 </item>
 <item id='4834' name="scythe_anger">

@@ -689,10 +689,13 @@ public abstract class L2Character extends L2Object
 
         // Get the Attack Speed of the L2Character (delay (in milliseconds) before next attack)
         int timeAtk = calculateTimeBetweenAttacks(target, weaponItem);
-        // the hit is calculated to happen halfway to the animation - might need further tuning e.g. in bow case
+        // the hit is calculated to happen halfway to the animation - might need further tuning e.g. in bow, dual case
         int timeToHit = timeAtk/2;
+        // Get the Attack Reuse Delay of the L2Weapon
+        int reuse = calculateReuseTime(target, weaponItem);
+		
         _attackEndTime = GameTimeController.getGameTicks();
-        _attackEndTime += (timeAtk / GameTimeController.MILLIS_IN_TICK);
+        _attackEndTime += (timeAtk + reuse) / GameTimeController.MILLIS_IN_TICK;
         _attackEndTime -= 1;
         
         int ssGrade = 0;
@@ -707,9 +710,6 @@ public abstract class L2Character extends L2Object
 
         // Set the Attacking Body part to CHEST
         setAttackingBodypart();
-
-        // Get the Attack Reuse Delay of the L2Weapon
-        int reuse = calculateReuseTime(target, weaponItem);
 
         // Select the type of attack to start
         if (weaponItem == null)
@@ -773,7 +773,7 @@ public abstract class L2Character extends L2Object
         // If the Server->Client packet Attack contains at least 1 hit, send the Server->Client packet Attack
         // to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
         if (attack.hasHits()) 
-                broadcastPacket(attack);
+            broadcastPacket(attack);
 
         // Notify AI with EVT_READY_TO_ACT
         ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), timeAtk+reuse);
@@ -4973,45 +4973,52 @@ public abstract class L2Character extends L2Object
 	*/
 	public int calculateTimeBetweenAttacks(L2Character target, L2Weapon weapon)
 	{
-		double atkSpd = 0;
-		if (weapon !=null)
-		{
-			switch (weapon.getItemType())
-			{
-				case BOW:
-					atkSpd = getStat().getPAtkSpd();
-					return (int)(1500*345/atkSpd);
-				//case DAGGER:
-					//atkSpd = getStat().getPAtkSpd();
-					//atkSpd /= 1.15;
-					//break;
-				default:
-					atkSpd = getStat().getPAtkSpd();
-			}
-		}
-		else
-			atkSpd = getPAtkSpd();
-		return Formulas.getInstance().calcPAtkSpd(this, target, atkSpd);
+		double base = 470000; //supposed to be 500'000... imo @ NB4L1
+		
+		if (weapon != null && weapon.getItemType() == L2WeaponType.BOW)
+			base = 517500;
+		
+		return Formulas.getInstance().calcPAtkSpd(this, target, getPAtkSpd(), base);
 	}
 
 	public int calculateReuseTime(L2Character target, L2Weapon weapon)
 	{
-		if (weapon == null) return 0;
+		// Source L2P
+		// Formula for maximum bow shots per second appears to be (Atk.Spd./1000)*(1500/Weapon Delay)
+		// That means: one shot takes: 1000*(1000*reuse)/(atkSpd*1500) = (2000/3)*reuse/atkSpd
+		// Normal attack time: 517500/atkSpd
+		// Difference is ((2000/3)*reuse - 517500)/atkSpd
+		// Reuse goes from 697 SB QR, to 1500 Normal...
+		// So 2000/3*697 = 464'666
+		// 2000/3*800 = 533'333
+		// 2000/3*1500 = 1'000'000
+		// Btw it can be, that the values are calculated from later, not from the beginning of the shot....
 		
-		int reuse = weapon.getAttackReuseDelay();
+		double reuse = 0;
+		
+		if (weapon != null)
+			reuse = weapon.getAttackReuseDelay();
+		
 		// only bows should continue for now
 		if (reuse == 0) return 0; 
-		// else if (reuse < 10) reuse = 1500;
 		
-		reuse *= getStat().getReuseModifier(target);
-		double atkSpd = getStat().getPAtkSpd();
-		switch (weapon.getItemType())
-		{
-			case BOW:
-				return (int)(reuse*345/atkSpd);
-			default:
-				return (int)(reuse*312/atkSpd);
-		}
+		reuse = getBowReuse(reuse);
+		
+		reuse = ((2000 / 3) * reuse) - 517500;
+		// OR
+		// It can be, that the values are calculated from later, not from the beginning of the shot....
+		// reuse = (2000 / 3) * reuse;
+		
+		if (reuse < 0)
+			reuse = 0;
+		
+		return Formulas.getInstance().calcPAtkSpd(this, target, getPAtkSpd(), reuse);
+	}
+	
+	/** Return the bow reuse time. */
+	public final double getBowReuse(double reuse)
+	{
+		return calcStat(Stats.BOW_REUSE, reuse, null, null);
 	}
 
     /**
@@ -5911,9 +5918,9 @@ public abstract class L2Character extends L2Object
     public int getPAtkSpd() 
     {
         int _patkspd = getStat().getPAtkSpd();
-        if(Config.MAX_PATK_SPEED>0)
+        if (Config.MAX_PATK_SPEED > 0)
         {
-            if(_patkspd>Config.MAX_PATK_SPEED)
+            if (_patkspd > Config.MAX_PATK_SPEED)
                 return Config.MAX_PATK_SPEED;
         }
         return _patkspd; 

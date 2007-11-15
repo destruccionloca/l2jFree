@@ -94,7 +94,7 @@ public final class L2Weapon  extends L2Item
 		_shieldDef       = set.getInteger("shield_def");
 		_shieldDefRate   = set.getDouble("shield_def_rate");
 		_atkSpeed        = set.getInteger("atk_speed");
-		_atkReuse        = set.getInteger("atk_reuse", type==L2WeaponType.BOW ? 1500 : 0);
+		_atkReuse		= set.getInteger("atk_reuse", initAtkReuse(type));
 		_mpConsume       = set.getInteger("mp_consume");
 		_mDam            = set.getInteger("m_dam");
        
@@ -127,6 +127,23 @@ public final class L2Weapon  extends L2Item
 		    skill.attach(new ConditionGameChance(sCh),true);
 		    attachOnCrit(skill);
 		}
+	}
+	
+	private int initAtkReuse(L2WeaponType type)
+	{
+		// http://www.l2p.bravehost.com/endL2P/misc.html
+		// Normal bows have a base Weapon Delay of 1500 - Like Draconic Bow (atkSpd == 293)
+		// Yumi bows have a base Weapon Delay of 820 - Like Soul Bow (atkSpd == 227)
+		
+		if (type != L2WeaponType.BOW)
+			return 0;
+		
+		if (_atkSpeed == 293)
+			return 1500;
+		if (_atkSpeed == 227)
+			return 820;
+		
+		return 1500;
 	}
 	
 	/**

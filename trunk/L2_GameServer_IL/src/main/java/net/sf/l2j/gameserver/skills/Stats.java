@@ -159,6 +159,7 @@ public enum Stats
     PDEF_VALAKAS    ("pDef-valakas"),
 
     ATK_REUSE       ("atkReuse"),
+    BOW_REUSE       ("bowReuse"),
 
     //ExSkill :)
     INV_LIM         ("inventoryLimit"),
