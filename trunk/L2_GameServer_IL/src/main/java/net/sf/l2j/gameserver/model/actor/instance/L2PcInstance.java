@@ -9153,8 +9153,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (SevenSigns.getInstance().isSealValidationPeriod()
             || SevenSigns.getInstance().isCompResultsPeriod())
         {
-            if (!isGM()
-                && isIn7sDungeon()
+            if (!isGM() && isIn7sDungeon() && Config.ALT_STRICT_SEVENSIGNS
                 && SevenSigns.getInstance().getPlayerCabal(this) != SevenSigns.getInstance().getCabalHighestScore())
             {
                 teleToLocation(TeleportWhereType.Town);
@@ -9164,7 +9163,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         else
         {
-            if (!isGM() && isIn7sDungeon()
+            if (!isGM() && isIn7sDungeon() && Config.ALT_STRICT_SEVENSIGNS
                 && SevenSigns.getInstance().getPlayerCabal(this) == SevenSigns.CABAL_NULL)
             {
                 teleToLocation(TeleportWhereType.Town);
