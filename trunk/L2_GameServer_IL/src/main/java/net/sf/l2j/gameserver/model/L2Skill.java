@@ -510,7 +510,7 @@ public abstract class L2Skill
         _castRange    = set.getInteger("castRange", 0);
         _effectRange  = set.getInteger("effectRange", -1);
         _skillTime    = set.getInteger("skillTime", 0);
-        _skillInterruptTime = set.getInteger("skillTime", _skillTime/2);
+        _skillInterruptTime = _skillTime/2;
         int __hitTime = set.getInteger("hitTime", _skillTime);
         _reuseDelay   = set.getInteger("reuseDelay", 0);
         _skillType    = set.getEnum("skillType", SkillType.class);
@@ -641,15 +641,16 @@ public abstract class L2Skill
 		// Sometimes you can't see the blow iself, if you use a new skill exactly after that.
 		//				by NB4L1 (L2j*iNF)
 		// Lil' off:  ... and finally fuck off police for taking away 100+ warez servers is Hungary (2007.11.08.)
+		// Update: Every miracle lives 3 days... traffic is the same as it was (2007.11.15)
 		
-		// Temporary fix until DP Side is fine :)
+		// Warn if something is not ok with HitTime vs SkillTime...
 		if (__hitTime < _skillTime)
+		{
 			_hitTime = _skillTime;
+			_log.warn(_id + " ID @ Level " + _level + " -> SkillTime: " + _skillTime + " | HitTime: " + __hitTime);
+		}
 		else
 			_hitTime = __hitTime;
-		
-		if (_skillTime != _hitTime)
-			_log.info(_id + " ID @ Level " + _level + " -> SkillTime: " + _skillTime + " | HitTime: " + _hitTime);
     }
     
     public abstract void useSkill(L2Character caster, L2Object[] targets);
