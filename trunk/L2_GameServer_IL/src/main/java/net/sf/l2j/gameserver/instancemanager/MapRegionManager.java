@@ -251,7 +251,7 @@ public class MapRegionManager
     	
     	_mapRegionsReload = regions;
     	_mapRegionRestartReload = restarts;
-    	_mapRestartArea = restartAreas;
+    	_mapRestartAreaReload = restartAreas;
     	_mapAreasReload = areas;
     }
     
