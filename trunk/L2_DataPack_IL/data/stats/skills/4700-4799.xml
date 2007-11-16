@@ -194,14 +194,16 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="save" val="4"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="PDAM"/>
+  <set name="lvlDepend" val="1"/>
   <set name="skillTime" val="2000"/>
   <set name="reuseDelay" val="10000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
+  <set name="effectType" val="STUN"/>
+  <set name="effectPower" val="50"/>
   <for>
 	<effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
