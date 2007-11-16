@@ -2172,7 +2172,6 @@
   <set name="skillTime" val="1500"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="2500"/>
-  <set name="hitTime" val="1000"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>

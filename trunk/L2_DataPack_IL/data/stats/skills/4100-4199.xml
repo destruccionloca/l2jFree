@@ -803,18 +803,14 @@
   <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
   <set name="power" val="#power"/>
   <set name="save" val="3"/>
-  <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="2000"/>
-  <set name="reuseDelay" val="8000"/>
-  <set name="skillTime" val="3000"/>
   <set name="skillType" val="POISON"/>
   <set name="stat" val="POISON"/>
-  <set name="isMagic" val="true"/>
+  <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="180000"/>
-  <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
     <effect count="6" name="DamOverTime" time="5" val="#dmg" abnormal="poison"/>
   </for>

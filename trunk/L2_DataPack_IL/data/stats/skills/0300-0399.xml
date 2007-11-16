@@ -1130,9 +1130,8 @@
   <set name="power" val="80"/>
   <set name="magicLvl" val="78"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="1000"/>
   <set name="reuseDelay" val="120000"/>
-  <set name="skillTime" val="2000"/>
+  <set name="skillTime" val="1800"/>
   <set name="skillType" val="CANCEL"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="skill_landing_percent" val="85"/>
