@@ -695,7 +695,7 @@ public abstract class L2Character extends L2Object
         int reuse = calculateReuseTime(target, weaponItem);
 		
         _attackEndTime = GameTimeController.getGameTicks();
-        _attackEndTime += (timeAtk + reuse) / GameTimeController.MILLIS_IN_TICK;
+        _attackEndTime += timeAtk / GameTimeController.MILLIS_IN_TICK;
         _attackEndTime -= 1;
         
         int ssGrade = 0;
@@ -4993,6 +4993,7 @@ public abstract class L2Character extends L2Object
 		// 2000/3*800 = 533'333
 		// 2000/3*1500 = 1'000'000
 		// Btw it can be, that the values are calculated from later, not from the beginning of the shot....
+		// L2Calc uses another formula, not this one writed on the same site -.- strange
 		
 		double reuse = 0;
 		
@@ -5004,10 +5005,14 @@ public abstract class L2Character extends L2Object
 		
 		reuse = getBowReuse(reuse);
 		
-		reuse = ((2000 / 3) * reuse) - 517500;
+		// Calculated from the beginning of the shot
+		// reuse = ((2000 / 3) * reuse) - 517500;
 		// OR
 		// It can be, that the values are calculated from later, not from the beginning of the shot....
 		// reuse = (2000 / 3) * reuse;
+		// OR
+		// middle value
+		reuse = ((2000 / 3) * reuse) - 300000;
 		
 		if (reuse < 0)
 			reuse = 0;
