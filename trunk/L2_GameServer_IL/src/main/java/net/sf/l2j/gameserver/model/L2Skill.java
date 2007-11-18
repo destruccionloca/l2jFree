@@ -57,6 +57,7 @@ import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCharge;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeDmg;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeEffect;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCreateItem;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
@@ -170,6 +171,7 @@ public abstract class L2Skill
         AGGREMOVE,
         AGGREDUCE_CHAR,
         CHARGEDAM             (L2SkillChargeDmg.class),
+        CHARGE_EFFECT         (L2SkillChargeEffect.class),
         CONFUSE_MOB_ONLY,
         DEATHLINK,
         BLOW,
@@ -212,6 +214,7 @@ public abstract class L2Skill
         DELUXE_KEY_UNLOCK,
         SOW,
         HARVEST,
+        GET_PLAYER,
         
         FISHING,
         PUMPING,
@@ -405,9 +408,9 @@ public abstract class L2Skill
     private final int _effectRange;
     
     // all times in milliseconds 
-    private final int _skillTime;
-    private final int _skillInterruptTime;
     private final int _hitTime;
+    private final int _skillInterruptTime;
+    private final int _coolTime;
     private final int _reuseDelay;
     private final int _buffDuration;
    
@@ -509,10 +512,12 @@ public abstract class L2Skill
         _iKill        = set.getBool  ("iKill", false);
         _castRange    = set.getInteger("castRange", 0);
         _effectRange  = set.getInteger("effectRange", -1);
-        _skillTime    = set.getInteger("skillTime", 0);
-        _skillInterruptTime = _skillTime/2;
-        int __hitTime = set.getInteger("hitTime", _skillTime);
+
+        _hitTime      = set.getInteger("hitTime", 0);
+        _coolTime = set.getInteger("coolTime", 0);
+        _skillInterruptTime = (_hitTime / 2);
         _reuseDelay   = set.getInteger("reuseDelay", 0);
+
         _skillType    = set.getEnum("skillType", SkillType.class);
         _isDance      = set.getBool("isDance",false);
         if(_isDance)
@@ -619,38 +624,6 @@ public abstract class L2Skill
                 }
             }
         }
-		
-		// First some infos about, how it should work:
-		// In the .... skilldata there are 2 period of times in connection with skill casting.
-		//
-		// The first means the time, while you can see the blue line around chars head, 
-		// 	thats the real time, while you are casting.
-		// At the moment it finishes, the client start the ending animation of the skill.
-		// For example the PDAM skills makes the "real" hit after this time.
-		//
-		// The second means the time after the first finished, while you can't make anything else,
-		// 	like a protection to be sure, that the skill ends
-		//
-		// L2j is different from ..... :
-		// SkillTime means the first time...
-		// HitTime means first + second time....
-		// 
-		// So HitTime is ALWAYS BIGGER OR EQUAL TO SkillTime !!!
-		// 
-		// If you don't know what I'm talking about: just think about blows.
-		// Sometimes you can't see the blow iself, if you use a new skill exactly after that.
-		//				by NB4L1 (L2j*iNF)
-		// Lil' off:  ... and finally fuck off police for taking away 100+ warez servers is Hungary (2007.11.08.)
-		// Update: Every miracle lives 3 days... traffic is the same as it was (2007.11.15)
-		
-		// Warn if something is not ok with HitTime vs SkillTime...
-		if (__hitTime < _skillTime)
-		{
-			_hitTime = _skillTime;
-			_log.warn(_id + " ID @ Level " + _level + " -> SkillTime: " + _skillTime + " | HitTime: " + __hitTime);
-		}
-		else
-			_hitTime = __hitTime;
     }
     
     public abstract void useSkill(L2Character caster, L2Object[] targets);
@@ -1020,9 +993,9 @@ public abstract class L2Skill
         return _reuseDelay;
     }
 
-    public final int getSkillTime()
+    public final int getCoolTime()
     {
-        return _skillTime;
+        return _coolTime;
     }
 
     public final int getSkillInterruptTime()
@@ -1162,7 +1135,12 @@ public abstract class L2Skill
     {
         return _isOffensive;
     }
-    
+
+    public final int getNumCharges()
+    {
+        return _numCharges;
+    }
+
     public final int getBaseCritRate()
     {
         return _baseCritRate;

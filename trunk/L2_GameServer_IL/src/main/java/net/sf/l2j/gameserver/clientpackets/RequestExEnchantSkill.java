@@ -162,7 +162,6 @@ public class RequestExEnchantSkill extends L2GameClientPacket
                 _log.info("Learned skill " + _skillId + " for " + _requiredSp + " SP.");
             
             player.getStat().removeExpAndSp(_requiredExp, _requiredSp);
-            player.updateStats();
             
             SystemMessage ep = new SystemMessage(SystemMessageId.EXP_DECREASED_BY_S1);
             ep.addNumber(_requiredExp);

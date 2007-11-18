@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.skills;
 
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 
 /**
@@ -150,14 +151,20 @@ public final class Calculator
 	/**
 	 * Remove each Func with the specified owner of the Calculator.<BR><BR>
 	 */
-	public synchronized void removeOwner(Object owner) 
+	public synchronized FastList<Stats> removeOwner(Object owner)
 	{
 		Func[] funcs = _functions;
+		FastList<Stats> modifiedStats = new FastList<Stats>();
 		
-		for (Func element : funcs) {
+		for (Func element : funcs)
+		{
 			if (element.funcOwner == owner)
+			{
+				modifiedStats.add(element.stat);
 				removeFunc(element);
+			}
 		}
+		return modifiedStats;
 	}
 
 	

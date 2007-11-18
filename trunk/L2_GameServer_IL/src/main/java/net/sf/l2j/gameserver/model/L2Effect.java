@@ -53,13 +53,14 @@ public abstract class L2Effect
 		ACTING,
 		FINISHING
 	}
-    
-	public static enum EffectType  {
+
+	public static enum EffectType
+	{
 		BUFF,
-        CHARGE,
-        DMG_OVER_TIME,
+		CHARGE,
+		DMG_OVER_TIME,
 		HEAL_OVER_TIME,
-        COMBAT_POINT_HEAL_OVER_TIME,
+		COMBAT_POINT_HEAL_OVER_TIME,
 		MANA_DMG_OVER_TIME,
 		MANA_HEAL_OVER_TIME,
 		RELAXING,
@@ -78,9 +79,9 @@ public abstract class L2Effect
 		STUN_SELF,
         BLUFF,
         BETRAY,
-        NOBLESSE_BLESSING,        
+        NOBLESSE_BLESSING,
         PETRIFICATION,
-        ROTATE, // for bluff skill        
+        ROTATE, // for bluff skill
         CANCEL_TARGET,
         CANCEL_TARGET_SHOCK,
         CANCEL_TARGET_PHYSICAL,
@@ -138,6 +139,8 @@ public abstract class L2Effect
 
 	// abnormal effect mask
 	private int _abnormalEffect;
+
+	public boolean preventExitUpdate;
 
 	public final class EffectTask implements Runnable
 	{	
@@ -301,25 +304,25 @@ public abstract class L2Effect
 	{
 		stopEffectTask();
 		_currentTask = new EffectTask(duration, -1);
-        _currentFuture = ThreadPoolManager.getInstance().scheduleEffect(
-        		_currentTask, duration);
-		if (_state == EffectState.ACTING)
-			_effected.addEffect(this);
-		updateEffects(_effected);
+		_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(
+			_currentTask, duration);
+		if (_state == EffectState.ACTING) _effected.addEffect(this);
 	}
 	
 	private synchronized void startEffectTaskAtFixedRate(int delay, int rate)
 	{
 		stopEffectTask();
 		_currentTask = new EffectTask(delay, rate);
-        _currentFuture = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(
-        		_currentTask, delay, rate);
-		if (_state == EffectState.ACTING)
-			_effected.addEffect(this);
-		updateEffects(_effected);
+		_currentFuture = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(
+			_currentTask, delay, rate);
+		if (_state == EffectState.ACTING) _effected.addEffect(this);
 	}
-	
-	
+
+	public final void exit()
+	{
+		exit(false);
+	}
+
 	/**
 	 * Stop the L2Effect task and send Server->Client update packet.<BR><BR>
 	 * 
@@ -328,8 +331,9 @@ public abstract class L2Effect
 	 * <li>Stop the task of the L2Effect, remove it and update client magic icone </li><BR><BR>
 	 * 
 	 */
-	public final void exit()
+	public final void exit(boolean preventUpdate)
 	{
+		preventExitUpdate = preventUpdate;
 		_state = EffectState.FINISHING;
 		scheduleEffect();
 	}
@@ -352,9 +356,6 @@ public abstract class L2Effect
 			_currentTask = null;
 			
 			_effected.removeEffect(this);
-			
-			// Not implemented
-			_effected.updateStats();
 		}
 	}
 	
@@ -456,12 +457,7 @@ public abstract class L2Effect
                             
 		}
 	}
-	
-	public void updateEffects(L2Character effectedChar)
-	{
-		effectedChar.updateStats();
-	}
-	
+
     public Func[] getStatFuncs()
     {
     	if (_funcTemplates == null)

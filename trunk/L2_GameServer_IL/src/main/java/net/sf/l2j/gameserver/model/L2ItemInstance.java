@@ -918,8 +918,6 @@ public final class L2ItemInstance extends L2Object
 					StatusUpdate su = new StatusUpdate(player.getObjectId());
 					su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 					player.sendPacket(su);
-					
-					player.broadcastUserInfo();
 				}
 				else
 				{

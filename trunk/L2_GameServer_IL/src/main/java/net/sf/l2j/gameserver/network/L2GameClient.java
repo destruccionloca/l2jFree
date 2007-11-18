@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
+import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.util.EventData;
 
 import org.apache.commons.logging.Log;
@@ -419,10 +420,12 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
             // preinit some values for each login
             character.setRunning(); // running is default
-            character.standUp();        // standing is default
+            character.standUp();    // standing is default
             
-            character.updateStats();
-            character.updateKarma();
+            character.refreshOverloaded();
+            character.refreshExpertisePenalty();
+            character.sendPacket(new UserInfo(character));
+            character.broadcastKarma();
             character.setOnlineStatus(true);
         }
         else

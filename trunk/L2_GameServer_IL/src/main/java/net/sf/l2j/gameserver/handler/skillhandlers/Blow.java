@@ -177,20 +177,19 @@ public class Blow implements ISkillHandler
          		   	}
             		else if (target instanceof L2NpcInstance) // If is a monster remove first damage and after 50% of current hp
             			target.reduceCurrentHp(target.getStatus().getCurrentHp()/2, activeChar);
-	            	activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));   
+	            	activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
 				}
 			}
-            L2Effect effect = activeChar.getFirstEffect(skill.getId());    
-            //Self Effect
-            if (effect != null && effect.isSelfEffect())                   
-            	effect.exit();            
-            skill.getEffectsSelf(activeChar);
-			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target, null);
-        }
+			L2Effect effect = activeChar.getFirstEffect(skill.getId());
+			//Self Effect
+			if (effect != null && effect.isSelfEffect())
+				effect.exit();
+			skill.getEffectsSelf(activeChar);
+		}
 	}
 	
 	public SkillType[] getSkillIds()
-    {
-        return SKILL_IDS;
-    }
+	{
+		return SKILL_IDS;
+	}
 }

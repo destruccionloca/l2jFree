@@ -35,18 +35,16 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
  */
 public class AdminPForge implements IAdminCommandHandler
 {
-    //private final static Log _log = LogFactory.getLog(AdminPForge.class);
-    private static final String[] ADMIN_COMMANDS = {"admin_forge","admin_forge2","admin_forge3" };
-    private static final int REQUIRED_LEVEL = Config.GM_MIN;
-	
+	//private final static Log _log = LogFactory.getLog(AdminPForge.class);
+	private static final String[] ADMIN_COMMANDS = {"admin_forge","admin_forge2","admin_forge3" };
+	private static final int REQUIRED_LEVEL = Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-    {
+	{
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
+				return false;
 
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-    		if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
-                return false;
-        
 		if (command.equals("admin_forge"))
 		{
 			showMainPage(activeChar);
@@ -155,14 +153,17 @@ public class AdminPForge implements IAdminCommandHandler
 				}
 				else
 				{
-					activeChar.sendPacket(sp);
+					if(activeChar.getTarget() == null)
+						activeChar.sendPacket(sp);
+					else if(activeChar.getTarget() instanceof L2PcInstance)
+						((L2PcInstance)activeChar.getTarget()).sendPacket(sp);
 				}
 				showPage3(activeChar,format,command);
 			}
 			catch(Exception ex)
 			{
 				ex.printStackTrace();
-			}            
+			}
 		}
 		return true;
 	}

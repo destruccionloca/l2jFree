@@ -145,9 +145,10 @@ public class RequestDestroyItem extends L2GameClientPacket
 				iu.addModifiedItem(element);
 			}
 			activeChar.sendPacket(iu);
+			activeChar.broadcastUserInfo();
 		}
 
-        if (PetDataTable.isPetItem(itemId))
+		if (PetDataTable.isPetItem(itemId))
 		{
 			java.sql.Connection con = null;
 			try
@@ -176,11 +177,10 @@ public class RequestDestroyItem extends L2GameClientPacket
 		
 		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, count, activeChar, null);
 
-        if(removedItem == null)
-           return;
+		if(removedItem == null)
+			return;
 		
 		activeChar.getInventory().updateInventory(removedItem);
-		activeChar.broadcastUserInfo();
 
 		L2World world = L2World.getInstance();
 		world.removeObject(removedItem);

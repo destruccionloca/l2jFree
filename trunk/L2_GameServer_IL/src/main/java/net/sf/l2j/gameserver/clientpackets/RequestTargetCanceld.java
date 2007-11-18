@@ -29,37 +29,36 @@ public class RequestTargetCanceld extends L2GameClientPacket
 {
 	private static final String _C__37_REQUESTTARGETCANCELD = "[C] 37 RequestTargetCanceld";
 	//private final static Log _log = LogFactory.getLog(RequestTargetCanceld.class.getName());
-    
-    private int _unselect; 
+
+	private int _unselect; 
 
 	/**
 	 * packet type id 0x37
 	 * packet format rev656  ch
 	 * @param rawPacket
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _unselect = readH();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_unselect = readH();
+	}
 
-
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2Character activeChar = getClient().getActiveChar();
-        if (activeChar != null)
-        {
-            if (_unselect == 0)
-            {
-               if (activeChar.isCastingNow())
-                   activeChar.abortCast();
-               else if (activeChar.getTarget() != null)
-                   activeChar.setTarget(null);
-            }
-           else if (activeChar.getTarget() != null)
-              activeChar.setTarget(null);	
-        }
+		if (activeChar != null)
+		{
+			if (_unselect == 0)
+			{
+				if (activeChar.isCastingNow() && activeChar.canAbortCast())
+					activeChar.abortCast();
+				else if (activeChar.getTarget() != null)
+					activeChar.setTarget(null);
+			}
+			else if (activeChar.getTarget() != null)
+				activeChar.setTarget(null);
+		}
 	}
 
 	/* (non-Javadoc)

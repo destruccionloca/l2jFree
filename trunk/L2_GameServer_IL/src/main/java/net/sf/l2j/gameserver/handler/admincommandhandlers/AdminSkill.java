@@ -506,7 +506,7 @@ public class AdminSkill implements IAdminCommandHandler {
             if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
             {
                 activeChar.setTarget(activeChar);
-                MagicSkillUser msk = new MagicSkillUser(activeChar, skillid, 1, skill.getSkillTime() , skill.getReuseDelay());
+                MagicSkillUser msk = new MagicSkillUser(activeChar, skillid, 1, skill.getHitTime() , skill.getReuseDelay());
                 activeChar.broadcastPacket(msk);
                 if (_log.isDebugEnabled()) _log.debug("showing self skill, id: "+skill.getId()+" named: "+skill.getName());
             }

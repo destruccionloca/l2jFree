@@ -582,13 +582,9 @@ public class AdminEditChar implements IAdminCommandHandler
 		if ( newKarma >= 0 ) 
 		{
 			// for display
-			int oldKarma = player.getKarma();			
+			int oldKarma = player.getKarma();
 			// update karma
 			player.setKarma(newKarma);
-			CharInfo info1 = new CharInfo(player);
-			player.broadcastPacket(info1);
-			UserInfo info2 = new UserInfo(player);
-			player.sendPacket(info2);
 			//Common character information
 			player.sendPacket( new SystemMessage(SystemMessageId.YOUR_KARMA_HAS_BEEN_CHANGED_TO).addString(String.valueOf(newKarma)));
 			//Admin information

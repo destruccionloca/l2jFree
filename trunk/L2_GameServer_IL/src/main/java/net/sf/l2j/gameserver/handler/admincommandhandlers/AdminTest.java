@@ -129,7 +129,7 @@ public class AdminTest implements IAdminCommandHandler
             	
                 skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
                 if (skill != null)
-                	adminTestSkill(activeChar,skillId,skillLvl,skill.getSkillTime());
+                	adminTestSkill(activeChar,skillId,skillLvl,skill.getHitTime());
                 else
                 	activeChar.sendMessage("Skill id "+skillId+" not found.");
         	}
