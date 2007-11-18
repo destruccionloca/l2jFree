@@ -202,8 +202,8 @@ public class GameServer
         BuffTemplateTable.getInstance();
         PetDataTable.getInstance().loadPetsData();
         Util.printSection("Spawns");
-        DayNightSpawnManager.getInstance().notifyChangeMode();
         SpawnTable.getInstance();
+		DayNightSpawnManager.getInstance().notifyChangeMode();
         RaidBossSpawnManager.getInstance();
         RaidPointsManager.getInstance();
         AutoChatHandler.getInstance();
