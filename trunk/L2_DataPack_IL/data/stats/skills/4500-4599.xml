@@ -9,7 +9,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -19,7 +18,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -29,7 +27,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -39,7 +36,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -49,7 +45,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -59,7 +54,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -69,7 +63,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -79,7 +72,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -89,7 +81,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -99,7 +90,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -109,7 +99,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -119,7 +108,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -129,7 +117,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -139,7 +126,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -149,7 +135,6 @@
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -175,7 +160,6 @@ one's level by 9 or more. This curse cannot be undone. -->
   <set name="power" val="5600"/>
   <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillTime" val="2000"/>
   <set name="skillType" val="HEAL"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -189,7 +173,6 @@ one's level by 9 or more. This curse cannot be undone. -->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -199,7 +182,6 @@ one's level by 9 or more. This curse cannot be undone. -->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -209,7 +191,6 @@ one's level by 9 or more. This curse cannot be undone. -->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -219,7 +200,6 @@ one's level by 9 or more. This curse cannot be undone. -->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -229,7 +209,6 @@ one's level by 9 or more. This curse cannot be undone. -->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -242,30 +221,29 @@ chances and the success rate of dagger skills. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
   <for>
   </for>
 </skill>
 <skill id="4523" levels="1" name="Quest - BOSS Evasion">
 <!-- TODO -->
+  <set name="hitTime" val="10000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4524" levels="1" name="Quest - BOSS Bluff">
 <!-- TODO -->
+  <set name="hitTime" val="10000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -275,7 +253,6 @@ chances and the success rate of dagger skills. -->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -286,7 +263,6 @@ chances and the success rate of dagger skills. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -297,7 +273,6 @@ chances and the success rate of dagger skills. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
   <set name="aggroPoints" val="100"/>
   <for>
   </for>
@@ -309,7 +284,6 @@ chances and the success rate of dagger skills. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
   <for>
   </for>
@@ -321,7 +295,6 @@ chances and the success rate of dagger skills. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -332,7 +305,6 @@ chances and the success rate of dagger skills. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -343,7 +315,6 @@ chances and the success rate of dagger skills. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -353,21 +324,18 @@ chances and the success rate of dagger skills. -->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
-<skill id="4533" levels="1" name="Dance of Resist">
+<skill id="4533" levels="1" name="Dance of Resistance">
 <!-- TODO 
 Temporarily decreases Speed and Accuracy significantly. 
 Dance of Inspiration can remove the curse.-->
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -375,13 +343,11 @@ Dance of Inspiration can remove the curse.-->
 <!-- TODO 
 Temporarily decreases Atk.Speed and Evasion significantly. 
 Dance of Fury can remove the curse.-->
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -389,13 +355,11 @@ Dance of Fury can remove the curse.-->
 <!-- TODO 
 Temporarily decreases P.Def and P.Atk significantly. 
 Dance of Vampire can remove the curse.-->
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -403,13 +367,11 @@ Dance of Vampire can remove the curse.-->
 <!-- TODO 
 Temporarily decreases Speed and Accuracy significantly. 
 Song of Wind can remove the curse.-->
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -417,13 +379,11 @@ Song of Wind can remove the curse.-->
 <!-- TODO 
 Temporarily decreases Atk.Speed and Evasion significantly. 
 Song of Water can remove the curse.-->
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -431,13 +391,11 @@ Song of Water can remove the curse.-->
 <!-- TODO 
 Temporarily decreases P.Def and P.Atk significantly. 
 Song of Vengeance can remove the curse.-->
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -445,14 +403,12 @@ Song of Vengeance can remove the curse.-->
 <!-- TODO 
 Temporarily decreases Speed and Accuracy significantly.  
 Guidance spell can remove the curse.-->
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -460,14 +416,12 @@ Guidance spell can remove the curse.-->
 <!-- TODO 
 Temporarily decreases P.Def and Speed significantly. 
 Shield spell can remove the curse.-->
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -475,14 +429,12 @@ Shield spell can remove the curse.-->
 <!-- TODO 
 Temporarily decreases P.Atk, M.Atk and Atk.Speed significantly. 
 Might spell can remove the curse.-->
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -492,7 +444,6 @@ Might spell can remove the curse.-->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -502,7 +453,6 @@ Might spell can remove the curse.-->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -513,7 +463,6 @@ Might spell can remove the curse.-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -523,17 +472,15 @@ Might spell can remove the curse.-->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4546" levels="1" name="Quest - Commune to Slate">
 <!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="1000"/>
-  <set name="effectRange" val="1400"/>
+  <set name="castRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -543,7 +490,6 @@ Might spell can remove the curse.-->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
-  <set name="effectRange" val="1400"/>
   <for>
   </for>
 </skill>
@@ -553,31 +499,26 @@ Might spell can remove the curse.-->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/>
-  <set name="effectRange" val="1400"/>
   <for>
   </for>
 </skill>
 <skill id="4549" levels="1" name="Quest - Unsealed Altar">
 <!-- TODO -->
-  <set name="hitTime" val="3000"/>
   <set name="target" val="TARGET_NONE"/>
-  <set name="skillTime" val="3000"/>
+  <set name="hitTime" val="3000"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4550" levels="1" name="Quest - Cursed Altar">
 <!-- TODO -->
-  <set name="hitTime" val="3000"/>
   <set name="target" val="TARGET_NONE"/>
-  <set name="skillTime" val="3000"/>
+  <set name="hitTime" val="3000"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -592,7 +533,6 @@ is decreased. Effect 1-10-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -606,7 +546,6 @@ Accuracy is increased and Evasion is decreased. Effect 1-10-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -620,7 +559,6 @@ is increased and P. Atk. is decreased. Effect 1-10-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -634,7 +572,6 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -644,7 +581,6 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -656,7 +592,6 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -668,7 +603,6 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -680,7 +614,6 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -690,7 +623,6 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="900"/>
   <for>
   </for>
 </skill>
@@ -701,15 +633,14 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="1500"/>
   <set name="element" val="2"/>
   <set name="reuseDelay" val="6000"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="150"/>
-  <set name="effectRange" val="450"/>
+  <set name="effectRange" val="650"/>
   <for>
   </for>
 </skill>
@@ -719,15 +650,14 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="1500"/>
   <set name="element" val="2"/>
   <set name="reuseDelay" val="6000"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="150"/>
-  <set name="effectRange" val="450"/>
+  <set name="effectRange" val="650"/>
   <for>
   </for>
 </skill>
@@ -735,14 +665,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 15 24 33 44 57 69 82 87 90 94 97 98 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="5000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="5000"/>
+  <set name="hitTime" val="5000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="900"/>
-  <set name="effectRange" val="1450"/>
   <for>
   </for>
 </skill>
@@ -750,14 +678,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 15 24 33 44 57 69 82 87 90 94 97 98 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="5000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="5000"/>
+  <set name="hitTime" val="5000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="900"/>
-  <set name="effectRange" val="1450"/>
   <for>
   </for>
 </skill>
@@ -765,14 +691,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 15 24 33 44 57 69 82 87 90 94 97 98 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2500"/>
+  <set name="hitTime" val="2500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="1000"/>
-  <set name="effectRange" val="1450"/>
   <for>
   </for>
 </skill>
@@ -781,17 +705,16 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <table name="#power"> 37.0 39.0 41.0 43.0 45.0 46.0 48.0 50.0 51.0 53.0 54.0 56.0 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="5000"/>
   <set name="target" val="TARGET_AREA"/>
-  <set name="skillRadius" val="205"/>
+  <set name="skillRadius" val="200"/>
   <set name="element" val="2"/>
   <set name="skillType" val="MDAM"/>
-  <set name="skillTime" val="5000"/>
+  <set name="hitTime" val="5000"/>
   <set name="reuseDelay" val="6000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="500"/>
-  <set name="effectRange" val="950"/>
+  <set name="effectRange" val="1000"/>
   <for>
   </for>
 </skill>
@@ -800,17 +723,16 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <table name="#power"> 37.0 39.0 41.0 43.0 45.0 46.0 48.0 50.0 51.0 53.0 54.0 56.0 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="5000"/>
   <set name="target" val="TARGET_AREA"/>
-  <set name="skillRadius" val="205"/>
+  <set name="skillRadius" val="200"/>
   <set name="element" val="2"/>
   <set name="skillType" val="MDAM"/>
-  <set name="skillTime" val="5000"/>
+  <set name="hitTime" val="5000"/>
   <set name="reuseDelay" val="6000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="500"/>
-  <set name="effectRange" val="950"/>
+  <set name="effectRange" val="1000"/>
   <for>
   </for>
 </skill>
@@ -819,17 +741,16 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <table name="#power"> 37.0 39.0 41.0 43.0 45.0 46.0 48.0 50.0 51.0 53.0 54.0 56.0 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
-  <set name="hitTime" val="5000"/>
   <set name="target" val="TARGET_AREA"/>
-  <set name="skillRadius" val="205"/>
+  <set name="skillRadius" val="200"/>
   <set name="element" val="2"/>
   <set name="skillType" val="MDAM"/>
-  <set name="skillTime" val="5000"/>
+  <set name="hitTime" val="2500"/>
   <set name="reuseDelay" val="6000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="950"/>
+  <set name="castRange" val="1000"/>
+  <set name="effectRange" val="1000"/>
   <for>
   </for>
 </skill>
@@ -837,14 +758,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 22 37 49 67 84 104 122 129 135 140 144 145 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="5000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="5000"/>
+  <set name="hitTime" val="5000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="900"/>
-  <set name="effectRange" val="1150"/>
   <for>
   </for>
 </skill>
@@ -852,14 +771,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 22 37 49 67 84 104 122 129 135 140 144 145 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="5000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="5000"/>
+  <set name="hitTime" val="5000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="900"/>
-  <set name="effectRange" val="1150"/>
   <for>
   </for>
 </skill>
@@ -867,14 +784,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 22 37 49 67 84 104 122 129 135 140 144 145 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2500"/>
+  <set name="hitTime" val="2500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="1000"/>
-  <set name="effectRange" val="1450"/>
   <for>
   </for>
 </skill>
@@ -884,16 +799,15 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_AURA"/>
-  <set name="skillRadius" val="400"/>
-  <set name="hitTime" val="5000"/>
+  <set name="skillRadius" val="200"/>
   <set name="element" val="2"/>
   <set name="reuseDelay" val="15000"/>
-  <set name="skillTime" val="5000"/>
+  <set name="hitTime" val="5000"/>
   <set name="skillType" val="MDAM"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="400"/>
-  <set name="effectRange" val="950"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -901,13 +815,11 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 27 44 62 85 109 135 157 168 177 183 187 189 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1800"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1800"/>
+  <set name="hitTime" val="1800"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="450"/>
   <set name="baseCritRate" val="15"/>
   <for>
   </for>
@@ -916,13 +828,11 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 14 22 31 43 55 68 79 84 89 92 94 95 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1900"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1900"/>
+  <set name="hitTime" val="1900"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1150"/>
   <for>
   </for>
 </skill>
@@ -930,13 +840,11 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 9 15 21 29 37 45 53 56 59 61 63 63 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1900"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1900"/>
+  <set name="hitTime" val="1900"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
-  <set name="effectRange" val="1050"/>
   <set name="baseCritRate" val="15"/>
   <for>
   </for>
@@ -945,14 +853,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 20 49 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
   </for>
@@ -961,14 +867,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 15 27 49 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
   </for>
@@ -977,14 +881,12 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="500"/>
-  <set name="effectRange" val="1000"/>
   <for>
   </for>
 </skill>
@@ -996,7 +898,6 @@ is increased and MP consumption is decreased. Effect 1-10-->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
   <for>
   </for>
 </skill>
@@ -1004,13 +905,11 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 27 44 62 85 109 135 157 168 177 182 187 189 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1800"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1800"/>
+  <set name="hitTime" val="1800"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
   <for>
   </for>
 </skill>
@@ -1018,13 +917,11 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 25 41 57 77 100 123 143 153 161 166 170 172 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1800"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1800"/>
+  <set name="hitTime" val="1800"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
   <for>
   </for>
 </skill>
@@ -1032,13 +929,11 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 25 41 57 77 100 123 143 153 161 166 170 172 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1800"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1800"/>
+  <set name="hitTime" val="1800"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
   <for>
   </for>
 </skill>
@@ -1046,13 +941,11 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 25 41 57 77 100 123 143 153 161 166 170 172 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1800"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1800"/>
+  <set name="hitTime" val="1800"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
   <for>
   </for>
 </skill>
@@ -1060,29 +953,25 @@ is increased and MP consumption is decreased. Effect 1-10-->
 <!-- TODO -->
   <table name="#mpConsume"> 38 63 88 119 154 190 222 237 249 258 263 266 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="700"/>
-  <set name="effectRange" val="1100"/>
   <for>
   </for>
 </skill>
-<skill id="4584" levels="12" name="Reducing P.Def Shock">
+<skill id="4584" levels="12" name="Reducing P. Def Shock">
 <!-- TODO
 Instantly decreases P. Def. and gets shocked so that one's 
 target cannot move temporarily. Effect 3. -->
   <table name="#mpConsume"> 25 41 57 77 100 123 143 153 161 166 170 172 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1800"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1800"/>
+  <set name="hitTime" val="1800"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
   <for>
   </for>
 </skill>
@@ -1090,14 +979,12 @@ target cannot move temporarily. Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 29 53 98 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
   </for>
@@ -1106,14 +993,12 @@ target cannot move temporarily. Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 77 78 83 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
   <for>
   </for>
 </skill>
@@ -1122,14 +1007,12 @@ target cannot move temporarily. Effect 3. -->
 Temporarily decreases Accuracy.  Effect 3. -->
   <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1500"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1500"/>
+  <set name="hitTime" val="1500"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="500"/>
-  <set name="effectRange" val="1000"/>
   <for>
   </for>
 </skill>
@@ -1137,14 +1020,12 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 40 98 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
   </for>
@@ -1153,14 +1034,12 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 35 58 79 105 135 165 194 207 217 224 229 233 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="500"/>
-  <set name="effectRange" val="1000"/>
   <for>
   </for>
 </skill>
@@ -1168,14 +1047,12 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 35 58 79 105 135 165 194 207 217 224 229 233 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="500"/>
-  <set name="effectRange" val="1000"/>
   <for>
   </for>
 </skill>
@@ -1183,59 +1060,51 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 35 58 79 105 135 165 194 207 217 224 229 233 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="1000"/>
-  <set name="effectRange" val="1400"/>
   <for>
   </for>
 </skill>
-<skill id="4592" levels="12" name="Decrease P.Def">
+<skill id="4592" levels="12" name="Decrease P. Def">
 <!-- TODO -->
   <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
   <for>
   </for>
 </skill>
-<skill id="4593" levels="12" name="Decrease P.Def">
+<skill id="4593" levels="12" name="Decrease P. Def">
 <!-- TODO -->
   <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
   <for>
   </for>
 </skill>
-<skill id="4594" levels="12" name="Decrease P.Def">
+<skill id="4594" levels="12" name="Decrease P. Def">
 <!-- TODO -->
   <table name="#mpConsume"> 24 39 53 70 90 110 130 138 145 150 153 155 </table>
   <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
   <set name="hitTime" val="2000"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="1000"/>
-  <set name="effectRange" val="1500"/>
   <for>
   </for>
 </skill>
@@ -1243,14 +1112,12 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 29 53 98 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
   </for>
@@ -1259,14 +1126,12 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 25 42 58 78 100 123 144 153 162 167 170 173 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
   <for>
   </for>
 </skill>
@@ -1274,14 +1139,12 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 25 42 58 78 100 123 144 153 162 167 170 173 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="4000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="4000"/>
+  <set name="hitTime" val="4000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="600"/>
-  <set name="effectRange" val="1100"/>
   <for>
   </for>
 </skill>
@@ -1289,14 +1152,12 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 25 42 58 78 100 123 144 153 162 167 170 173 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="2000"/>
+  <set name="hitTime" val="2000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="1000"/>
-  <set name="effectRange" val="1400"/>
   <for>
   </for>
 </skill>
@@ -1304,13 +1165,11 @@ Temporarily decreases Accuracy.  Effect 3. -->
 <!-- TODO -->
   <table name="#mpConsume"> 37 62 86 116 149 184 215 229 241 249 255 258 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="1800"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
-  <set name="skillTime" val="1800"/>
+  <set name="hitTime" val="1800"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="effectRange" val="400"/>
   <for>
   </for>
 </skill>

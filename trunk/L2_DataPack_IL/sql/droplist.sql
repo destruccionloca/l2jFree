@@ -21545,6 +21545,85 @@ INSERT INTO `droplist` VALUES
 (22057,1539,1,3,-1,131157),   -- Greater Healing Potion 
 (22057,1875,1,1,-1,91969),   -- Stone of Purity 
 (22057,4601,1,1,-1,25142),   -- Greater Dye of STR <Str+3 Con-3>
+(22058,57,699,1421,0,700000),	-- Adena
+(22058,1342,10,30,1,125000),	-- Fine Steel Arrow
+(22058,1864,1,1,1,35714),	-- Stem
+(22058,1869,1,1,1,17544),	-- Iron Ore
+(22058,1915,1,1,2,9524),	-- Ring of Ages Gemstone
+(22058,1914,1,1,2,6250),	-- Earring of Binding Gemstone
+(22058,1916,1,1,2,4878),	-- Necklace of Mermaid Teardrop
+(22058,1880,1,1,1,1709),	-- Steel
+(22058,2170,1,1,2,1377),	-- Recipe: Nassen's Earring
+(22058,4043,1,1,1,700),		-- Asofe
+(22058,5550,1,1,1,356),		-- Durable Metal Plate
+(22058,885,1,1,2,178),		-- Ring of Ages
+(22058,8725,1,1,2,131),		-- Life Stone: level 52
+(22058,854,1,1,2,71),		-- Earring of Binding
+(22058,917,1,1,2,71),		-- Necklace of Mermaid
+(22058,8735,1,1,2,35),		-- Mid-Grade Life Stone: level 52
+(22058,1914,1,1,-1,125051),	-- Earring of Binding Gemstone
+(22058,2169,1,1,-1,91521),	-- Recipe: Necklace of Binding
+(22058,1915,1,1,-1,85712),	-- Ring of Ages Gemstone
+(22059,57,1836,3719,0,700000),	-- Adena
+(22059,1869,1,80,1,200000),	-- Iron Ore
+(22059,1864,1,80,1,200000),	-- Stem
+(22059,1880,1,1,1,20408),	-- Steel
+(22059,4043,1,16,1,9433),	-- Asofe
+(22059,2108,1,1,2,3636),	-- Fisted Blade Piece
+(22059,5550,1,1,2,2183),	-- Durable Metal Plate
+(22059,1869,1,9,-1,352544),	-- Iron Ore
+(22059,2170,1,1,-1,89377),	-- Recipe: Nassen's Earring
+(22059,1916,1,1,-1,84878),	-- Necklace of Mermaid Teardrop
+(22060,57,1633,3292,0,700000),	-- Adena
+(22060,1865,1,1,1,16666),	-- Varnish
+(22060,1870,1,1,1,16666),	-- Coal
+(22060,4039,1,1,1,9259),	-- Mold Glue
+(22060,4043,1,1,1,7246),	-- Asofe
+(22060,1874,1,1,1,6211),	-- Oriharukon Ore
+(22060,8329,1,1,2,2066),	-- Pa'agrian Sword Blade
+(22060,2091,1,1,2,516),		-- Tsurugi Blade
+(22060,2089,1,1,2,515),		-- Caliburs Edge
+(22060,2090,1,1,2,514),		-- Delusional Blade
+(22060,2095,1,1,2,513),		-- Sword of Nightmare Blade
+(22060,2096,1,1,2,512),		-- Sword of Whispering Death Blade
+(22060,1870,1,6,-1,132522),	-- Coal
+(22060,4602,1,1,-1,42852),	-- Greater Dye of STR <Str+3 Dex-3>
+(22060,1539,1,3,-1,131157),	-- Greater Healing Potion
+(22062,57,589,1202,0,700000),	-- Adena
+(22062,1342,10,30,1,11111),	-- Fine Steel Arrow
+(22062,1873,1,1,1,24390),	-- Silver Nugget
+(22062,1895,1,1,1,16129),	-- Metalic Fibber
+(22062,1876,1,1,1,10869),	-- Mithril Ore
+(22062,1969,1,1,2,6135),	-- Dwarven Chain Gaiters Material
+(22062,1968,1,1,2,3289),	-- Dwarven Chain Mail Shirt Material
+(22062,952,1,1,1,731),		-- Scroll: Enchant Weapon (Grade C)
+(22062,4042,1,1,1,557),		-- Enria
+(22062,8724,1,1,2,226),		-- Life Stone: level 49
+(22062,8734,1,1,2,105),		-- Mid-Grade Life Stone: level 49
+(22062,382,1,1,2,87),		-- Dwarven Chain Gaiters
+(22062,355,1,1,2,87),		-- Dwarven Chain mail Shirt
+(22062,1912,1,1,-1,85521),	-- Ring of Protection Gemstone
+(22062,2166,1,1,-1,13584),	-- Recipe: Earrings of Binding (100%)
+(22062,2167,1,1,-1,15241),	-- Recipe: Ring of Ages
+(22063,57,2076,4097,0,700000),	-- Adena
+(22063,1873,1,80,1,11111),	-- Silver Nugget
+(22063,1866,1,1,1,11111),	-- Suede
+(22063,1864,3,80,1,83333),	-- Stem
+(22063,1865,3,86,1,76923),	-- Varnish
+(22063,2091,1,1,2,8772),	-- Tsurugi Blade
+(22063,1864,1,10,-1,200000),	-- Stem
+(22063,1539,1,2,-1,131157),	-- Greater Healing Potion
+(22064,57,1918,3862,0,700000),	-- Adena
+(22064,1868,1,3,1,200000),	-- Thread
+(22064,1342,30,90,2,125000),	-- Fine Steel Arrow
+(22064,1873,1,1,1,66666),	-- Silver Nugget
+(22064,5549,1,1,1,19608),	-- Metallic Thread
+(22064,1889,1,1,1,15625),	-- Compound Braid
+(22064,4044,1,1,1,4950),	-- Thons
+(22064,2108,1,1,2,4237),	-- Fisted Blade Piece
+(22064,1983,1,1,-1,11217),	-- Shining Circlet Pattern
+(22064,2233,1,1,-1,6215),	-- Recipe: Divine Tunic
+(22064,2089,1,1,-1,12504),	-- Caliburs Edge
 (22079,57,466,1581,0,700000), -- Adena
 (22079,1871,1,1,2,111111), -- Charcoal
 (22079,1866,1,1,2,76923), -- Suede
@@ -22429,7 +22508,7 @@ INSERT INTO `droplist` VALUES
 (22142,7916,1,1,2,22727), -- Dark Crystal
 (22142,5220,1,1,2,22727), -- Metal Hardener
 (22142,5495,1,1,1,7936), -- Sealed Shield of Nightmare Fragment
-(22142,4996,1,1,1,8352), -- Sealed Helm of Nightmare Design
+(22142,5527,1,1,1,8352), -- Sealed Helm of Nightmare Design
 (22142,5528,1,1,1,6024), -- Sealed Majestic Circlet Design
 (22142,4041,1,1,2,2631), -- Mold Hardener
 (22142,8732,1,1,2,364), -- Life Stone: level 76
@@ -26301,115 +26380,218 @@ INSERT INTO `droplist` VALUES
 -- admins who have drop multipliers might want to edit chances  
 INSERT INTO `droplist` VALUES   
 -- Skull of The Dead - C-Grade  
-(25410,8158,1,3,100,250000), -- Road Scavenger Leader (40)  
-(25026,8158,1,3,100,250000), -- Katu Van Leader Atui (49)  
-(25437,8158,2,2,100,250000), -- Timak Orc Gosmos (45)  
-(25044,8158,1,2,100,250000), -- Barion (47)  
+(25026,8158,4,6,100,250000), -- Katu Van Leader Atui (49)
+(25044,8158,1,2,100,250000), -- Barion (47)
+(25047,8158,9,9,100,250000), -- Karte (49)
+(25155,8158,4,4,100,250000), -- Shaman King Selu (40)
+(25335,8158,3,3,100,250000), -- Anakazel (48)
+(25410,8158,4,9,100,250000), -- Road Scavenger Leader (40)
+(25412,8158,1,2,100,250000), -- Necrosentinel Royal Guard (47)
+(25418,8158,5,5,100,250000), -- Dread Avenger Kraven (44)
+(25437,8158,2,2,100,250000), -- Timak Orc Gosmos (45)
+(25438,8158,5,5,100,250000), -- Thief Kelbar (44)
 
 -- Skull of The Dead - B-Grade  
-(25336,8159,1,1,100,250000), -- Anakazel (58)  
-(25256,8159,1,3,100,250000), -- Taik High Prefect Arak (60)  
-(25407,8159,1,3,100,250000), -- Lord Ishka (60)  
-(25131,8159,1,1,100,250000), -- Carnage Lord Gato (50)  
-(25050,8159,1,1,100,250000), -- Verfa (51)  
+(25013,8159,4,4,100,250000), -- Ghost of Peasant Leader (50)
+(25050,8159,2,3,100,250000), -- Verfa (51)
+(25106,8159,4,4,100,250000), -- Ghost of the Well Lidia (60)
+(25131,8159,2,3,100,250000), -- Carnage Lord Gato (50)
+(25137,8159,1,1,100,250000), -- Beleth's Seer Sephia (55)
+(25176,8159,1,3,100,250000), -- Black Lily (55)
+(25256,8159,5,8,100,250000), -- Taik High Prefect Arak (60)
+(25336,8159,1,3,100,250000), -- Anakazel (58)
+(25407,8159,4,5,100,250000), -- Lord Ishka (60)
+(25434,8159,1,1,100,250000), -- Bandit Leader Barda (55)
+(25460,8159,1,2,100,250000), -- Deadman Ereve (51)
+(25475,8159,1,1,100,250000), -- Ghost Knight Kabed (55)
 
--- Skull of Death: A-Grade --
-(25035,8160,1,3,100,250000), -- Shilen's Messenger Cabrio Raid Boss lvl 70
-(25220,8160,1,3,100,250000), -- Death Lord Hallate Raid Boss lvl 73
-(25248,8160,1,1,100,250000), -- Doom Blade Tanatos Raid Boss lvl 72
-(25092,8160,1,1,100,250000), -- Korim Raid Boss lvl 70
-(25447,8160,1,1,100,250000), -- Immortal Savior Mardil Raid Boss lvl 71
-(25109,8160,1,3,100,250000), -- Antharas Priest Cloe Raid Boss lvl 74
-(25233,8160,1,1,100,250000), -- Spirit of Andras,the Betrayer Raid Boss lvl 69
-(25337,8160,1,1,100,250000), -- Anakazel Invaders'Leader  Boss lvl 68
-(25235,8160,1,3,100,250000), -- Vanor Chief Kandra Raid Boss lvl 72
-(25328,8160,1,2,100,250000), -- Eilhalder von Hellmann Raid Boss lvl 71
-(25444,8160,1,1,100,250000), -- Enmity Ghost Ramdal Raid Boss lvl 65
-(25051,8160,1,1,100,250000), -- Rahha Raid Boss lvl 65
-(25073,8160,2,3,100,250000), -- Bloody Priest Rudelto Raid Boss lvl 69
-(25281,8160,1,1,100,250000), -- Anakim's Nemesis Zakaron Raid Boss lvl 70
-(25322,8160,1,1,100,250000), -- Demon's Agent Falston Raid Boss lvl 66
+-- Skull of The Dead: A-Grade --
+(25035,8160,1,3,100,250000), -- Shilen's Messenger Cabrio (70)
+(25051,8160,1,3,100,250000), -- Rahha (65)
+(25073,8160,1,3,100,250000), -- Bloody Priest Rudelto (69)
+(25092,8160,1,3,100,250000), -- Korim (70)
+(25109,8160,1,3,100,250000), -- Antharas Priest Cloe (74)
+(25220,8160,1,3,100,250000), -- Death Lord Hallate (73)
+(25233,8160,1,1,100,250000), -- Spirit of Andras, the Betrayer (69)
+(25235,8160,1,3,100,250000), -- Vanor Chief Kandra (72)
+(25296,8160,1,3,100,250000), -- Icicle Emperor Bumbalump (74)
+(25248,8160,1,1,100,250000), -- Doom Blade Tanatos (72)
+(25281,8160,3,3,100,250000), -- Anakim's Nemesis Zakaron (70)
+(25322,8160,1,2,100,250000), -- Demon's Agent Falston (66)
+(25328,8160,1,3,100,250000), -- Eilhalder von Hellmann (71)
+(25337,8160,1,1,100,250000), -- Anakazel (68)
+(25444,8160,1,1,100,250000), -- Enmity Ghost Ramdal (65)
+(25447,8160,1,3,100,250000), -- Immortal Savior Mardil (71)
 
 -- Dragon's Heart - C-Grade 
-(25415,8161,1,2,100,250000), -- Nakondas (35)  
+(25214,8161,5,6,100,250000), -- Fafurion's Page Sika (40)
+(25415,8161,4,4,100,250000), -- Nakondas (40)
+(25441,8161,4,4,100,250000), -- Evil Spirit Cyrion (45)
 
 -- Dragon's Heart - B-Grade  
-(25238,8162,1,1,100,250000), -- Abyss Brukunt (67)  
-(25234,8162,1,2,100,250000), -- Ancient Weird Drake (65)  
+(25234,8162,4,9,100,250000), -- Ancient Weird Drake (65)
+(25238,8162,1,3,100,250000), -- Abyss Brukunt (67)
 
 -- Dragon's Heart: A-Grade --
-(25198,8163,1,3,100,250000), -- Fafurion's Herald Lokness Raid Boss lvl 70
-(25453,8163,1,1,100,250000), -- Meanas Anor Raid Boss lvl 70
-(25163,8163,1,3,100,250000), -- Roaring Skylancer Raid Boss lvl 70
+(25163,8163,1,3,100,250000), -- Roaring Skylancer (70)
+(25198,8163,1,3,100,250000), -- Fafurion's Herald Lokness (70)
+(25453,8163,1,3,100,250000), -- Meanas Anor (70)
 
 -- Egg of Earth - C-Grade  
-(25208,8164,1,3,100,250000), -- Water Couatle Ateka (40)  
-(25490,8164,1,2,100,250000), -- Gwindorr (40)  
-(25134,8164,1,2,100,250000), -- Leto Chief Talkin (40)  
+(25057,8164,5,5,100,250000), -- Biconne of Blue Sky (45)
+(25085,8164,3,3,100,250000), -- Timak Orc Chief Ranger (44)
+(25099,8164,1,1,100,250000), -- Rotten Tree Repiro (44)
+(25134,8164,3,6,100,250000), -- Leto Chief Talkin (40)
+(25192,8164,4,4,100,250000), -- Earth Protector Panathen (43)
+(25208,8164,6,9,100,250000), -- Water Couatle Ateka (40)
+(25420,8164,9,9,100,250000), -- Orfen's Handmaiden (48)
+(25490,8164,4,9,100,250000), -- Gwindorr (40)
+(25498,8164,4,5,100,250000), -- Fafurion's Henchman Istary (45)
 
 -- Egg of Earth - B-Grade  
-(25089,8165,1,1,100,250000), -- Soulless Wild Boar (59)  
-(25217,8165,1,1,100,250000), -- Cursed Clara (50)  
-(25463,8165,1,1,100,250000), -- Harit Guardian Garangky (56) 
+(25067,8165,1,1,100,250000), -- Captain of Red Flag Shaka (52)
+(25089,8165,1,3,100,250000), -- Soulless Wild Boar (59)
+(25103,8165,1,3,100,250000), -- Sorcerer Isirr (55)
+(25122,8165,2,2,100,250000), -- Refugee Hopeful Leo (56)
+(25217,8165,1,3,100,250000), -- Cursed Clara (50)
+(25230,8165,1,3,100,250000), -- Timak Seer Ragoth (57)
+(25463,8165,1,1,100,250000), -- Harit Guardian Garangky (56)
+(25473,8165,2,2,100,250000), -- Grave Robber Kim (52)
+(25493,8165,3,3,100,250000), -- Eva's Spirit Niniel (55)
 
 -- Egg of Earth: A-Grade --
-(25252,8166,1,1,100,250000), -- Palibati Queen Themis Raid Boss lvl 70
-(25199,8166,1,1,100,250000), -- Water Dragon Seer Sheshark Raid Boss lvl 72
-(25202,8166,1,3,100,250000), -- Krokian Padisha Sobekk Raid Boss lvl 74
-(25269,8166,1,1,100,250000), -- Beast Lord Behemoth Raid Boss lvl 70
-(25255,8166,1,1,100,250000), -- Gargoyle Lord Tiphon Raid Boss lvl 65
-(25478,8166,1,1,100,250000), -- Shilen's Priest Hisilrome Raid Boss lvl 65
-(25263,8166,1,1,100,250000), -- Kernon's Faithful Servant Kelone Raid Boss lvl 67
-(25226,8166,1,1,100,250000), -- Roaring Lord Kastor Raid Boss lvl 62
-(25125,8166,1,1,100,250000), -- Fierce Tiger King Angel Raid Boss lvl 65
+(25125,8166,2,2,100,250000), -- Fierce Tiger King Angel (65)
+(25199,8166,1,3,100,250000), -- Water Dragon Seer Sheshark (72)
+(25202,8166,1,3,100,250000), -- Krokian Padisha Sobekk (74)
+(25226,8166,1,3,100,250000), -- Roaring Lord Kastor (62)
+(25252,8166,1,3,100,250000), -- Palibati Queen Themis (70)
+(25255,8166,1,1,100,250000), -- Gargoyle Lord Tiphon (65)
+(25263,8166,1,3,100,250000), -- Kernon's Faithful Servant Kelone (67)
+(25269,8166,1,1,100,250000), -- Beast Lord Behemoth (70)
+(25478,8166,1,1,100,250000), -- Shilen's Priest Hisilrome (65)
 
 -- False Nucleus of Life - C-grade  
-(25214,8167,1,1,100,250000), -- Fafurion's Page Sika (40)  
+(25115,8167,6,8,100,250000), -- Icarus Sample 1 (40)
+(25158,8167,1,1,100,250000), -- King Tarlk (48)
+(25214,8167,1,1,100,250000), -- Fafurion's Page Sika (40)
+(25260,8167,6,6,100,250000), -- Iron Giant Totem (45)
 
 -- False Nucleus of Life - B-grade  
+(25162,8168,4,8,100,250000), -- Giant Marpanak (60)
 (25179,8168,1,3,100,250000), -- Guardian of the Statue of Giant Karum (60) 
 
 -- False Nucleus of Life: A-Grade --
-(25523,8169,1,1,100,250000), -- Plague Golem Raid Boss lvl 73
-(25296,8169,1,3,100,250000), -- Icicle Emperor Bumbalump Raid Boss lvl 74
-(25467,8169,1,1,100,250000), -- Gorgolos Raid Boss lvl 64
-(25470,8169,1,1,100,250000), -- Last Titan Utenus Raid Boss lvl 66
-(25140,8169,1,1,100,250000), -- Hekaton Prime Raid Boss lvl 65
+(25140,8169,1,3,100,250000), -- Hekaton Prime (65)
+(25179,8169,1,1,100,250000), -- Guardian of the Statue of Giant Karum (60)
+(25255,8169,2,2,100,250000), -- Gargoyle Lord Tiphon (65)
+(25269,8169,1,3,100,250000), -- Beast Lord Behemoth (70)
+(25296,8169,1,3,100,250000), -- Icicle Emperor Bumbalump (74)
+(25467,8169,1,1,100,250000), -- Gorgolos (64)
+(25470,8169,1,1,100,250000), -- Last Titan Utenus (66)
+(25523,8169,1,2,100,250000), -- Plague Golem (73)
 
 -- Angel's Soul - C-Grade  
-(25487,8170,1,3,100,250000), -- Water Spirit Lian (40)  
+(25064,8170,5,5,100,250000), -- Wizard of Storm Teruk (40)
+(25487,8170,4,9,100,250000), -- Water Spirit Lian (40)
 
 -- Angel's Soul - B-Grade  
-(25070,8171,1,1,100,250000), -- Enchanted Forest Watcher Ruell (55)  
-(25159,8171,1,1,100,250000), -- Unicorn Paniel (54) 
+(25010,8171,1,1,100,250000), -- Furious Thieles (55)
+(25070,8171,1,2,100,250000), -- Enchanted Forest Watcher Ruell (55)
+(25159,8171,2,2,100,250000), -- Paniel The Unicorn (54)
+(25280,8171,6,6,100,250000), -- Pagan Watcher Cerberon (55)
 
 -- Angel's Soul: A-Grade --
-(25325,8172,1,3,100,250000), -- Flame of Splendor Barakiel Raid Boss lvl 70
-(25423,8172,1,1,100,250000); -- Fairy Queen Timiniel Raid Boss lvl 61
+(25325,8172,1,3,100,250000), -- Flame of Splendor Barakiel (70)
+(25423,8172,1,1,100,250000), -- Fairy Queen Timiniel (56)
 
 -- Destruction Tombstone --
 INSERT INTO `droplist` VALUES 
-(25035,8176,3,9,101,250000), -- Shilen's Messenger Cabrio Raid Boss lvl 70
-(25453,8176,3,9,101,250000), -- Meanas Anor Raid Boss lvl 70
-(25523,8176,3,9,101,250000), -- Plague Golem Raid Boss lvl 73
-(25296,8176,3,9,101,250000), -- Icicle Emperor Bumbalump Raid Boss lvl 74
-(25337,8176,1,3,101,250000), -- Anakazel Invaders'Leader  Boss lvl 68
-(25410,8176,1,1,101,250000), -- Road Scavenger Leader Raid Boss lvl 40
-(25235,8176,3,8,101,250000), -- Vanor Chief Kandra Raid Boss lvl 72
-(25478,8176,2,3,101,250000), -- Shilen's Priest Hisilrome Raid Boss lvl 65
-(25281,8176,3,7,101,250000), -- Anakim's Nemesis Zakaron Raid Boss lvl 70
-(25026,8176,1,1,101,250000), -- Katu Van Leader Atui Raid Boss lvl 49
-(25423,8176,1,3,101,250000), -- Fairy Queen Timiniel Raid Boss lvl 61
-(25051,8176,3,4,101,250000), -- Rahha Raid Boss lvl 65
-(25230,8176,1,2,101,250000), -- Timak Seer Ragoth Raid Boss lvl 57
-(25044,8176,1,1,101,250000), -- Barion Raid Boss lvl 47
-(25064,8176,1,1,101,250000), -- Wizard of Storm Teruk Raid Boss lvl 40
-(25122,8176,1,3,101,250000), -- Refugee Hopeful Leo Raid Boss lvl 56
-(25179,8176,1,2,101,250000), -- Guardian of the Statue of Giant Karum Raid Boss lvl 60
-(25418,8176,1,1,101,250000), -- Dread Avenger Kraven Raid Boss lvl 44
-(25158,8176,2,2,101,250000), -- King Tarlk Raid Boss lvl 48
-(25192,8176,1,1,101,250000), -- Earth Protector Panathen Raid Boss lvl 43
-(25067,8176,3,3,101,250000); -- Captain of Red Flag Shaka Raid Boss lvl 52
+(25010,8176,1,1,101,250000), -- Furious Thieles (55)
+(25013,8176,7,7,101,250000), -- Ghost of Peasant Leader (50)
+(25016,8176,8,8,101,250000), -- The 3rd Underwater Guardian (60)
+(25026,8176,2,3,101,250000), -- Katu Van Leader Atui (49)
+(25035,8176,3,9,101,250000), -- Shilen's Messenger Cabrio (70)
+(25044,8176,2,3,101,250000), -- Barion (47)
+(25050,8176,2,2,101,250000), -- Verfa (51)
+(25051,8176,3,9,101,250000), -- Rahha (65)
+(25057,8176,2,2,101,250000), -- Biconne of Blue sky (45)
+(25064,8176,1,1,101,250000), -- Wizard of Storm Teruk (40)
+(25067,8176,1,1,101,250000), -- Captain of Red Flag Shaka (52)
+(25070,8176,2,3,101,250000), -- Enchanted Forest Watcher Ruell (55)
+(25073,8176,3,6,101,250000), -- Bloody Priest Rudelto (69)
+(25088,8176,3,3,101,250000), -- Crazy Mechanic Golem (43)
+(25089,8176,1,2,101,250000), -- Soulless Wild Boar (59)
+(25092,8176,3,9,101,250000), -- Korim (70)
+(25102,8176,1,1,101,250000), -- Shacram (45)
+(25103,8176,1,3,101,250000), -- Sorcerer Isirr (55)
+(25106,8176,1,1,101,250000), -- Ghost of the Well Lidia (60)
+(25109,8176,4,9,101,250000), -- Antharas Priest Cloe (74)
+(25115,8176,1,2,101,250000), -- Icarus Sample 1 (40)
+(25122,8176,1,3,101,250000), -- Refugee Hopeful Leo (56)
+(25125,8176,7,7,101,250000), -- Fierce Tiger King Angel (65)
+(25131,8176,2,2,101,250000), -- Carnage Lord Gato (50)
+(25134,8176,1,1,101,250000), -- Leto Chief Talkin (40)
+(25140,8176,4,8,101,250000), -- Hekaton Prime (65)
+(25155,8176,1,2,101,250000), -- Shaman King Selu (55)
+(25158,8176,1,1,101,250000), -- King Tarlk (48)
+(25159,8176,3,3,101,250000), -- Paniel the Unicorn (54)
+(25162,8176,5,6,101,250000), -- Giant Marpanak (60)
+(25163,8176,3,9,101,250000), -- Roaring Skylancer (70)
+(25176,8176,1,2,101,250000), -- Black Lily (55)
+(25179,8176,1,3,101,250000), -- Guardian of the Statue of Giant Karum (60)
+(25192,8176,1,1,101,250000), -- Earth Protector Panathen (43)
+(25198,8176,3,8,101,250000), -- Fafurion''s Herald Lokness (70)
+(25199,8176,3,9,101,250000), -- Water Dragon Seer Sheshark (72)
+(25202,8176,3,9,101,250000), -- Krokian Padisha Sobekk (74)
+(25208,8176,1,1,101,250000), -- Water Couatle Ateka (40)
+(25217,8176,3,3,101,250000), -- Cursed Clara (50)
+(25220,8176,3,9,101,250000), -- Death Lord Hallate (73)
+(25226,8176,5,8,101,250000), -- Roaring Lord Kastor (62)
+(25230,8176,1,1,101,250000), -- Timak Seer Ragoth (57)
+(25233,8176,3,9,101,250000), -- Spirit of Andras, the Betrayer (69)
+(25234,8176,2,3,101,250000), -- Ancient Weird Drake (60)
+(25235,8176,3,7,101,250000), -- Vanor Chief Kandra (72)
+(25238,8176,1,3,101,250000), -- Abyss Brukunt (59)
+(25248,8176,3,9,101,250000), -- Doom Blade tanatos (72)
+(25252,8176,3,9,101,250000), -- Palibati Queen Themis (70)
+(25255,8176,4,8,101,250000), -- Gargoyle Lord Tiphon (65)
+(25256,8176,1,3,101,250000), -- Taik High Prefect Arak (60)
+(25263,8176,3,8,101,250000), -- Kernon's Faithful Servant Kelone (67)
+(25269,8176,3,9,101,250000), -- Beast Lord Behemoth (70)
+(25281,8176,5,8,101,250000), -- Anakim's Nemesis Zakaron (70)
+(25296,8176,3,9,101,250000), -- Icicle Emperor Bumbalump (74)
+(25322,8176,4,7,101,250000), -- Demon's Agent Falston (66)
+(25325,8176,3,9,101,250000), -- Flame of Splendor Barakiel (70)
+(25328,8176,3,9,101,250000), -- Eilhalder von Hellmann (71)
+(25335,8176,1,1,101,250000), -- Anakazel (48)
+(25336,8176,1,3,101,250000), -- Anakazel (58)
+(25337,8176,1,3,101,250000), -- Anakazel (68)
+(25407,8176,1,3,101,250000), -- Lord Ishka (60)
+(25410,8176,1,1,101,250000), -- Road Scavenger Leader (40)
+(25412,8176,1,1,101,250000), -- Necrosentinel Royal Guard (47)
+(25415,8176,1,1,101,250000), -- Nakondas (40)
+(25418,8176,2,2,101,250000), -- Dread Avenger Kraven (44)
+(25420,8176,2,2,101,250000), -- Orfen's Handmaiden (48)
+(25423,8176,2,3,101,250000), -- Fairy Queen Timiniel (56)
+(25434,8176,3,3,101,250000), -- Bandit Leader Barda (55)
+(25437,8176,2,2,101,250000), -- Timak Orc Gosmos (45)
+(25438,8176,1,2,101,250000), -- Thief Kelbar (44)
+(25441,8176,2,2,101,250000), -- Evil Spirit Cyrion (45)
+(25444,8176,1,3,101,250000), -- Enmity Ghost Ramdal (65)
+(25447,8176,3,9,101,250000), -- Immortal Savior Mardil (71)
+(25453,8176,3,9,101,250000), -- Meanas Anor (70)
+(25456,8176,1,1,101,250000), -- Mirror of Oblivion (49)
+(25460,8176,2,3,101,250000), -- Deadman Ereve (51)
+(25467,8176,2,3,101,250000), -- Gorgolos (64)
+(25470,8176,1,3,101,250000), -- Last Titan utenus (66)
+(25473,8176,1,3,101,250000), -- Grave Rober kim (52)
+(25475,8176,2,2,101,250000), -- Ghost Knight Kabed (55)
+(25478,8176,1,3,101,250000), -- Shilen's Priest Hisilrome (65)
+(25487,8176,1,1,101,250000), -- Water Spirit Lian (40)
+(25490,8176,1,1,101,250000), -- Gwindorr (40)
+(25493,8176,2,2,101,250000), -- Eva's Spirit Niniel (55)
+(25498,8176,2,3,101,250000), -- Fafurion's Henchman Istary (45)
+(25523,8176,4,8,101,250000), -- Plague Golem (73)
 
 -- Ancient Book - Divine Inspiration (Original Language Version) 
 INSERT INTO `droplist` VALUES 
@@ -26433,7 +26615,13 @@ INSERT INTO `droplist` VALUES
 (25269,8619,1,1,102,250000), -- Beast Lord Behemoth (70)  
 (25325,8619,1,1,102,250000), -- Flame of Splendor Barakiel (70)  
 (25470,8619,1,1,102,250000), -- Last Titan Utenus (66)  
-(25296,8619,1,1,102,250000); -- Icicle Emperor Bumbalump (74) 
+(25296,8619,1,1,102,250000), -- Icicle Emperor Bumbalump (74) 
+
+-- Ancient Book - Divine Inspiration (Manuscript)
+(29019,8620,12,29,102,1000000), -- Antharas (79)
+(29025,8620,5,15,102,800000), -- Baium (80)
+(29028,8620,12,19,102,1000000), -- Valakas (85)
+(29047,8620,5,25,102,1000000); -- Scarlet Van Halisha (90)
 
 -- Temp drop for a late C5 spellbook... needs to be done properly later
 --

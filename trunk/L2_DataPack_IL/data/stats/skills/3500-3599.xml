@@ -6,6 +6,7 @@
   Description(s):
       Increases P. Def. and MaxHP.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -20,8 +21,9 @@
 <skill id="3501" levels="1" name="Devotion Set">
 <!--
   Description(s):
-      Increases Casting Spd. +15%
+      Increases Casting Spd.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -35,8 +37,9 @@
 <skill id="3502" levels="1" name="Mithril Heavy Armor Set">
 <!--
   Description(s):
-      Increases resistance to poison attack.(+20%)
+      Increases resistance to poison attack.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -50,8 +53,9 @@
 <skill id="3503" levels="1" name="Reinforced Leather Set">
 <!--
   Description(s):
-  Increases Maximum MP.(+80)
-  -->
+      Increases Maximum MP.
+-->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -65,8 +69,9 @@
 <skill id="3504" levels="1" name="Knowledge Set">
 <!--
   Description(s):
-      Decreases MP regeneration(-5%) and increases M. Atk.(+10%)
+      Decreases MP regeneration and increases M. Atk.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -81,8 +86,9 @@
 <skill id="3505" levels="1" name="Manticore Set">
 <!--
   Description(s):
-      Increases Maximum MP.(+92)
+      Increases Maximum MP.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -96,8 +102,9 @@
 <skill id="3506" levels="1" name="Brigandine Set">
 <!--
   Description(s):
-      Increases P. Def.(+5%) and MaxHP.(+153)
+      Increases P. Def. and MaxHP.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -112,8 +119,9 @@
 <skill id="3507" levels="1" name="Elven Mithril Set">
 <!--
   Description(s):
-      Increases Speed(+7%). INT-1, WIT+1
+      Increases Speed. INT-1, WIT+1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -129,8 +137,9 @@
 <skill id="3508" levels="1" name="Mithril Light Armor Set">
 <!--
   Description(s):
-      Increases Evasion.(+4)
+      Increases Evasion.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -144,8 +153,9 @@
 <skill id="3509" levels="1" name="Chain Mail Set">
 <!--
   Description(s):
-      Increases resistance to Dagger attacks.(+5.24%)
+      Increases resistance to Dagger attacks.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -165,8 +175,9 @@
 <skill id="3510" levels="1" name="Karmian Set">
 <!--
   Description(s):
-      Increases P. Def.(+5.24%) and Casting Spd.(+15%)
+      Increases P. Def. and Casting Spd.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -183,6 +194,7 @@
   Description(s):
       STR+4, CON-1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -197,8 +209,9 @@
 <skill id="3512" levels="1" name="Composite Heavy Armor Set">
 <!--
   Description(s):
-      Increases your weight capacity.(+5795)
+      Increases your weight capacity.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -212,8 +225,9 @@
 <skill id="3513" levels="1" name="Demon's Set">
 <!--
   Description(s):
-      Reduces maximum HP(-270). INT+4, WIT-1
+      Reduces maximum HP. INT+4, WIT-1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -229,8 +243,9 @@
 <skill id="3514" levels="1" name="Theca Leather Light Armor Set">
 <!--
   Description(s):
-      Increases P. Def.(+5.24%)
+      Increases P. Def.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -244,8 +259,9 @@
 <skill id="3515" levels="1" name="Drake Leather Set">
 <!--
   Description(s):
-      Increases M. Def.(+5.24%)
+      Increases M. Def.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -259,8 +275,9 @@
 <skill id="3516" levels="1" name="Full Plate Set">
 <!--
   Description(s):
-      Increases maximum HP.(+270)
+      Increases maximum HP.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -274,8 +291,9 @@
 <skill id="3517" levels="1" name="Divine Set">
 <!--
   Description(s):
-      Increases P. Def.(+5.24%) and MaxMP.(+171) INT-1, WIT+1
+      Increases P. Def. and MaxMP. INT-1, WIT+1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -292,8 +310,9 @@
 <skill id="3518" levels="1" name="Zubei's Heavy Armor Set">
 <!--
   Description(s):
-      Increases P. Def.(+5.24%) and MaxHP.(+294)
+      Increases P. Def. and MaxHP.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -308,8 +327,9 @@
 <skill id="3519" levels="1" name="Avadon Breastplate Heavy Armor Set">
 <!--
   Description(s):
-      Increases maximum HP.(+294)
+      Increases maximum HP.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -323,8 +343,9 @@
 <skill id="3520" levels="1" name="Zubei's Leather Shirt Light Armor Set">
 <!--
   Description(s):
-      Increases Evasion.(+4)
+      Increases Evasion.
 -->
+<!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -338,8 +359,9 @@
 <skill id="3521" levels="1" name="Avadon Light Armor Set">
 <!--
   Description(s):
-      Increases M. Def.(+5.25%) and maximum weight limit.(+5795)
+      Increases M. Def. and maximum weight limit.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -353,9 +375,12 @@
 </skill>
 <skill id="3522" levels="1" name="Tunic of Zubei Robe Set">
 <!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Decreases MP regeneration(-5%) and increases M. Atk.(+10%)
+      Decreases MP regeneration and increases M. Atk.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -370,8 +395,9 @@
 <skill id="3523" levels="1" name="Avadon Robe Set">
 <!--
   Description(s):
-      Increases P. Def.(+5.247%) and Casting Spd.(+15%)
+      Increases P. Def. and Casting Spd.
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -386,8 +412,9 @@
 <skill id="3524" levels="1" name="Blue Wolf Heavy Armor Set">
 <!--
   Description(s):
-      Increases Speed(+7) and HP recovery rate(5.24%). STR+3, CON-1, DEX-2
+      Increases Speed and HP recovery rate. STR+3, CON-1, DEX-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -405,9 +432,9 @@
 <skill id="3525" levels="1" name="Doom Heavy Armor Set">
 <!--
   Description(s):
-      Increases MaxHP(+320) and lung capacity. STR-3, CON+3
-TODO: Increase lung capacity
+      Increases MaxHP and lung capacity. STR-3, CON+3
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -424,8 +451,9 @@ TODO: Increase lung capacity
 <skill id="3526" levels="1" name="Blue Wolf Light Armor Set">
 <!--
   Description(s):
-      Increases P. Def.(+5.24%) and Casting Spd.(+15%) INT-2, MEN+3, WIT-1
+      Increases P. Def. and Casting Spd. INT-2, MEN+3, WIT-1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -443,11 +471,9 @@ TODO: Increase lung capacity
 <skill id="3527" levels="1" name="Doom Light Armor Set">
 <!--
   Description(s):
-      Increases lung capacity, P. Atk.(+2.7%),
-      MP recovery rate(+2.5%),
-      resistance to poison attacks.(+20%)
-      STR-1, CON-2, DEX+3
+      Increases lung capacity, P. Atk., MP recovery rate and resistance to poison attacks. STR-1, CON-2, DEX+3
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -467,8 +493,9 @@ TODO: Increase lung capacity
 <skill id="3528" levels="1" name="Blue Wolf Robe Set">
 <!--
   Description(s):
-      Increases MaxMP(+206) and MP recovery rate(+5.24%). INT-2, MEN-1, WIT+3
+      Increases MaxMP and MP recovery rate. INT-2, MEN-1, WIT+3
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -486,11 +513,9 @@ TODO: Increase lung capacity
 <skill id="3529" levels="1" name="Doom Robe Set">
 <!--
   Description(s):
-      Increases Speed(+7),
-	lung capacity,
-	MP recovery rate(+5.24%).
-	INT+2, MEN+1, WIT-3
+      Increases Speed, lung capacity and MP recovery rate. INT+2, MEN+1, WIT-3
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -509,10 +534,9 @@ TODO: Increase lung capacity
 <skill id="3530" levels="1" name="Dark Crystal Breastplate Heavy Armor Set">
 <!--
   Description(s):
-      Increases resistance to paralysis attacks(+50%)
-	and improves effectiveness of HP recovery magic.(+4%)
-	STR-2, CON+2
+      Increases resistance to paralysis attacks and improves effectiveness of HP recovery magic. STR-2, CON+2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -529,11 +553,9 @@ TODO: Increase lung capacity
 <skill id="3531" levels="1" name="Tallum Heavy Armor Set">
 <!--
   Description(s):
-      Increases resistance to poison/bleeding attacks.(+80%)
-	Atk. Spd. (+8%) 
-	maximum weight(+5759)
- 	STR+2, CON-2
+      Increases resistance to poison/bleeding attacks. Atk. Spd. and maximum weight limit are also increased. STR+2, CON-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -552,10 +574,9 @@ TODO: Increase lung capacity
 <skill id="3532" levels="1" name="Dark Crystal Light Armor Set">
 <!--
   Description(s):
-      Increases resistance to paralysis attacks(+50%).
-	Atk. Spd.(+4%) ,P. Atk.(+4%) 
-	STR+1, CON-1
+      Increases resistance to paralysis attacks. Atk. Spd. and P. Atk. are also increased. STR+1, CON-1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -573,11 +594,9 @@ TODO: Increase lung capacity
 <skill id="3533" levels="1" name="Tallum Light Armor Set">
 <!--
   Description(s):
-      Increases resistance to poison/bleeding attacks(+80%). 
-	MP recovery rate(+8%)
-	MaxMP (+222)
-	MEN+2, WIT-2
+      Increases resistance to poison/bleeding attacks. MP recovery rate and MaxMP are also increased. MEN+2, WIT-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -596,11 +615,9 @@ TODO: Increase lung capacity
 <skill id="3534" levels="1" name="Tallum Robe Set">
 <!--
   Description(s):
-      Increases resistance to poison/bleeding attacks(+80%). 
-	Casting Spd.(+15%) 
-	M. Def.(+8%) 
-	INT-2, WIT+2
+      Increases resistance to poison/bleeding attacks. Casting Spd. and M. Def. are also increased. INT-2, WIT+2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -619,13 +636,9 @@ TODO: Increase lung capacity
 <skill id="3535" levels="1" name="Dark Crystal Robe Set">
 <!--
   Description(s):
-      Decreases magic cancel rate  	
-      increases resistance to paralysis attacks. (+50%)
-	P. Def.  (+8%), 
-	Casting Spd. (+15%)
-	Speed . (+7)
-	WIT+2, MEN-2
+      Decreases magic cancel rate and increases resistance to paralysis attacks. P. Def., Casting Spd. and Speed are also increased. WIT+2, MEN-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -645,10 +658,9 @@ TODO: Increase lung capacity
 <skill id="3536" levels="1" name="Nightmare Heavy Armor Set">
 <!--
   Description(s):
-      P. Atk.(+4%)
-	resistance to Sleep/Hold attack (+70%) 
-	CON+2, DEX-2
+      Increases P. Atk. and resistance to Sleep/Hold attack.. CON+2, DEX-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -666,11 +678,9 @@ TODO: Increase lung capacity
 <skill id="3537" levels="1" name="Majestic Heavy Armor Set">
 <!--
   Description(s):
-      Increases resistance to shock attacks. (+50%)
-	P. Atk.(+4%) 
-	Accuracy(+3) 
-	STR+2. CON-2
+      Increases resistance to shock attacks. P. Atk. and Accuracy are also increased. STR+2. CON-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -688,11 +698,9 @@ TODO: Increase lung capacity
 <skill id="3538" levels="1" name="Nightmarish Leather Light Armor Set">
 <!--
   Description(s):
-      Increases resistance to Sleep/Hold attack (+70%)
-	M. Def.(+4%) 
-	Restores HP by using part of the damage inflicted upon the enemy(3%), excluding damage caused by skill or remote attack. 
-	DEX+1, CON-1
+      Increases resistance to Sleep/Hold attack and M. Def. Restores HP by using part of the damage inflicted upon the enemy, excluding damage caused by skill or remote attack. DEX+1, CON-1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -711,12 +719,9 @@ TODO: Increase lung capacity
 <skill id="3539" levels="1" name="Majestic Light Armor Set">
 <!--
   Description(s):
-      Increases resistance to shock attacks.(+50%) 
-	P. Atk.(+8%) - archery, 
-	MaxMP(+240) 
-	maximum weight limit(+5759). 
-	DEX+1, CON-1
+      Increases resistance to shock attacks. P. Atk., MaxMP and maximum weight limit are also increased. DEX+1, CON-1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -739,11 +744,9 @@ TODO: Increase lung capacity
 <skill id="3540" levels="1" name="Nightmare Robe Set">
 <!--
   Description(s):
-      Increases MP regeneration(+4%) 
-	M. Atk.(+8%)
-	resistance to sleep/hold attacks(+70%). 
-	INT+2, WIT-2
+      Increases MP regeneration, M. Atk. and resistance to sleep/hold attacks. INT+2, WIT-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -762,12 +765,9 @@ TODO: Increase lung capacity
 <skill id="3541" levels="1" name="Majestic Robe Set">
 <!--
   Description(s):
-      Increases resistance to shock attacks. 
-	MaxMP(+240), 
-	Casting Spd.(+15%)
-	MP recovery rate (+8%). 
-	MEN+1, INT-1
+      Increases resistance to shock attacks. MaxMP, Casting Spd. and MP recovery rate are also increased. MEN+1, INT-1
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -805,7 +805,7 @@ TODO: Increase lung capacity
 <skill id="3543" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Increases maximum HP.(+126)
+      Increases maximum HP.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -820,7 +820,7 @@ TODO: Increase lung capacity
 <skill id="3544" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Increases maximum HP.(+20)
+      Increases maximum HP.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -835,7 +835,7 @@ TODO: Increase lung capacity
 <skill id="3545" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Increases maximum HP.(+198)
+      Increases maximum HP.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -850,7 +850,7 @@ TODO: Increase lung capacity
 <skill id="3546" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Increases M. Def. (+5.26%)
+      Increases M. Def.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -865,7 +865,7 @@ TODO: Increase lung capacity
 <skill id="3547" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Increases shield defense rate.(+5.24%)
+      Increases shield defense rate.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -880,7 +880,7 @@ TODO: Increase lung capacity
 <skill id="3548" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Increases shield defense rate.(+24%)
+      Increases shield defense rate.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -895,7 +895,22 @@ TODO: Increase lung capacity
 <skill id="3549" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Increases shield defense rate.(+24%)
+      Increases shield defense rate.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+    <mul stat='rShld' order='0x30' val='1.24'/>
+  </for>
+</skill>
+<skill id="3550" levels="1" name="Equipped with Shield">
+<!--
+  Description(s):
+      Increases shield defense rate.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -907,25 +922,10 @@ TODO: Increase lung capacity
     <mul stat='rShld' order='0x30' val='1.18'/>
   </for>
 </skill>
-<skill id="3550" levels="1" name="Equipped with Shield">
-<!--
-  Description(s):
-      Increases shield defense rate.(+18%)
--->
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
-  <for>
-    <mul val='1.18' order='0x30' stat='rShld'/>
-  </for>
-</skill>
 <skill id="3551" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Returns damage inflicted by enemy back upon him(5%). Not applied to damage inflicted by a skill or remote attack.
+      Returns damage inflicted by enemy back upon him. Not applied to damage inflicted by a skill or remote attack.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -939,27 +939,25 @@ TODO: Increase lung capacity
 </skill>
 <skill id="3552" levels="2" name="Special Ability: PvP Damage">
 <!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Lvl 1 - Increases damage inflicted during PvP.
       Lv1 2 - Launches an attack that strikes multiple opponents, and inflicts additional damage during PvP.
 -->
-  <set name="power" val="0.0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="3553" levels="1" name="Imperial Crusader Heavy Armor Set">
 <!--
   Description(s):
-      Increases MaxHP, (+445)
-	P. Def (+8%)
-	resistance to sleep/hold attacks(+70%). 
-	STR+2, DEX-2
+      Increases MaxHP, P. Def and resistance to sleep/hold attacks. STR+2, DEX-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -978,7 +976,7 @@ TODO: Increase lung capacity
 <skill id="3554" levels="1" name="Equipped with Shield">
 <!--
   Description(s):
-      Additional resistance to Poison/Bleed.(+80%)
+      Additional resistance to Poison/Bleed.
 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -994,12 +992,9 @@ TODO: Increase lung capacity
 <skill id="3555" levels="1" name="Draconic Light Armor Set">
 <!--
   Description(s):
-      Increases MaxMP(+289), 
-	Atk. Spd(+4%), 
-	P. Atk(+4%), 
-	maximum weight limit(+5759). 
-	DEX+1, STR+1, CON-2
+      Increases MaxHP, Atk. Spd, P. Atk, and maximum weight limit. DEX+1, STR+1, CON-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1019,13 +1014,9 @@ TODO: Increase lung capacity
 <skill id="3556" levels="1" name="Major Arcana Robe Set">
 <!--
   Description(s):
-      Decreases chance of magic casting being canceled(-50%). 
-	Increases resistance to shock attacks(+50%), 
-	M. Atk.(+8%), 
-	Speed(+7)
-	maximum weight limit(5759). 
-	WIT+1, INT+1, MEN-2
+      Decreases chance of magic casting being canceled. Increases resistance to shock attacks, M. Atk., Speed and maximum weight limit. WIT+1, INT+1, MEN-2
 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1044,10 +1035,6 @@ TODO: Increase lung capacity
   </for>
 </skill>
 <skill id="3557" levels="1" name="Necklace of Valakas">
-<!--
-Description(s):
-      Increases resistance to fire/water attacks, MaxHP, P. Atk., M. Atk. and damage magic critical attack rate. Decreases skill re-use time. Reflects some of the physical damage received back upon the enemy (does not include damage from skill or range attacks).
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1067,10 +1054,6 @@ Description(s):
   </for>
 </skill>
 <skill id="3558" levels="1" name="Earring of Antharas">
-<!--
-Description(s):
-      Increases resistance to earth attacks and bleed/shock/mental attacks, and improves the effectiveness of HP recovery magic. Decreases skill MP consumption and restores HP by using some of the damage inflicted upon the enemy (does not include damage from skill or range attacks).
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1088,10 +1071,6 @@ Description(s):
   </for>
 </skill>
 <skill id="3559" levels="1" name="Earring of Zaken">
-<!--
-Description(s):
-      Increases resistance to bleed/shock/mental attacks, improves the effect of HP regeneration magic and restores HP by using some of the damage inflicted upon the enemy (does not include damage from skill or range attacks).
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1107,10 +1086,6 @@ Description(s):
   </for>
 </skill>
 <skill id="3560" levels="1" name="Earring of Orfen">
-<!--
- Description(s):
-      Increases healing from heal spells and resistance to Bleed attack.
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1123,10 +1098,6 @@ Description(s):
   </for>
 </skill>
 <skill id="3561" levels="1" name="Ring of Baium">
-<!--
-Description(s):
-      Increases resistance to poison/hold attacks and critical attack damage. Also increases Accuracy, Atk. Spd. and Casting Spd.
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1143,10 +1114,6 @@ Description(s):
   </for>
 </skill>
 <skill id="3562" levels="1" name="Ring of Ant Queen">
-<!--
- Description(s):
-      Increases resistance to poison/hold attacks and critical attack damage. Also increases Accuracy.
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1161,10 +1128,6 @@ Description(s):
   </for>
 </skill>
 <skill id="3563" levels="1" name="Ring of Core">
-<!--
-  Description(s):
-      Increases Accuracy, and resistance to Poison attack.
--->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1434,7 +1397,7 @@ Description(s):
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="Buff" time="15" val="0" stackOrder="0.77" stackType="pDefDown">
-      <div order="0x30" stat="pDef" val="0.77"/>
+      <mul order="0x30" stat="pDef" val="0.77"/>
     </effect>
   </for>
 </skill>
