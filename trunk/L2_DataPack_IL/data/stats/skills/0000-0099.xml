@@ -1163,9 +1163,6 @@
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="ignoreShld" val="true"/>
-  <enchant1 name="effectPower" val="#ench1effPower"/>
-  <enchant2 name="mpConsume" val="#ench2MpConsume"/>
-  <enchant2 name="power" val="#ench2Power"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="effectType" val="STUN"/>
