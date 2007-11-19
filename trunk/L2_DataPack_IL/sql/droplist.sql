@@ -26502,7 +26502,7 @@ INSERT INTO `droplist` VALUES
 
 -- Angel's Soul: A-Grade --
 (25325,8172,1,3,100,250000), -- Flame of Splendor Barakiel (70)
-(25423,8172,1,1,100,250000), -- Fairy Queen Timiniel (56)
+(25423,8172,1,1,100,250000); -- Fairy Queen Timiniel (56)
 
 -- Destruction Tombstone --
 INSERT INTO `droplist` VALUES 
@@ -26591,7 +26591,7 @@ INSERT INTO `droplist` VALUES
 (25490,8176,1,1,101,250000), -- Gwindorr (40)
 (25493,8176,2,2,101,250000), -- Eva's Spirit Niniel (55)
 (25498,8176,2,3,101,250000), -- Fafurion's Henchman Istary (45)
-(25523,8176,4,8,101,250000), -- Plague Golem (73)
+(25523,8176,4,8,101,250000); -- Plague Golem (73)
 
 -- Ancient Book - Divine Inspiration (Original Language Version) 
 INSERT INTO `droplist` VALUES 
