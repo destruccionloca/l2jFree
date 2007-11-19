@@ -247,7 +247,7 @@
   <set name="hitTime" val="500"/>
   <set name="skillType" val="DELUXE_KEY_UNLOCK"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="itemConsumeId" val="#itemConsume"/>
+  <set name="itemConsumeId" val="#itemConsume" />
   <set name="itemConsumeCount" val="1"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
@@ -397,6 +397,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -412,6 +413,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -635,6 +637,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="3600000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -699,6 +702,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -713,6 +717,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -727,6 +732,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -741,6 +747,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -755,6 +762,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -769,6 +777,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="120000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -791,6 +800,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="HEAL_STATIC"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="300000"/>
   <set name="reuseDelay" val="300000"/>
   <set name="hitTime" val="0"/>
   <set name="castRange" val="-1"/>
@@ -801,6 +811,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="MANAHEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="540000"/>
   <set name="reuseDelay" val="540000"/>
   <set name="hitTime" val="0"/>
   <set name="castRange" val="-1"/>
@@ -811,6 +822,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="COMBATPOINTHEAL"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="300000"/>
   <set name="reuseDelay" val="300000"/>
   <set name="hitTime" val="0"/>
   <set name="castRange" val="-1"/>

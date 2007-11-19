@@ -6,6 +6,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="HOT"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="15000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -18,6 +19,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="HOT"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="20000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -33,6 +35,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="buffDuration" val="20000"/>
   <set name="isPotion" val="true"/>
   <for>
     <effect count="4" name="ManaHealOverTime" time="5" val="1.5" stackOrder="1.5" stackType="MpRecover"/> 
@@ -45,6 +48,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="buffDuration" val="40000"/>
   <set name="isPotion" val="true"/>
   <for>
     <effect count="4" name="ManaHealOverTime" time="10" val="1.5" stackOrder="1.5" stackType="MpRecover"/>
@@ -57,6 +61,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="buffDuration" val="15000"/>
   <set name="isPotion" val="true"/>
   <for>
   </for>
@@ -104,6 +109,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="300000"/>
   <set name="castRange" val="-1"/>
   <set name="isPotion" val="true"/>
   <for>
@@ -115,6 +121,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -130,6 +137,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -334,6 +342,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="HOT"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="15000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -348,6 +357,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="HOT"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="15000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -362,6 +372,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -377,6 +388,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -392,6 +404,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="1200000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
@@ -418,6 +431,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="HOT"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="buffDuration" val="15000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isPotion" val="true"/>
