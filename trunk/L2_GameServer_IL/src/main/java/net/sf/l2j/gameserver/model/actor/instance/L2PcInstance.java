@@ -2438,7 +2438,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void sitDown(boolean force)
     {
-        if (isCastingNow())
+        if (isCastingNow() && !_relax)
         {
             sendMessage("Cannot sit while casting");
             return;

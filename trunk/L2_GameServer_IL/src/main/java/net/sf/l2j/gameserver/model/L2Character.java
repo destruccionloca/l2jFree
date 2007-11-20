@@ -5557,6 +5557,7 @@ public abstract class L2Character extends L2Object
 		switch(skill.getSkillType())
 		{
 			case PDAM: case BLOW: case CHARGEDAM: case DRAIN_SOUL: // Soul Crystal casting
+			case SPOIL: case SOW:
 				if ((getTarget() != null) && (getTarget() instanceof L2Character))
 					getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getTarget());
 				break;

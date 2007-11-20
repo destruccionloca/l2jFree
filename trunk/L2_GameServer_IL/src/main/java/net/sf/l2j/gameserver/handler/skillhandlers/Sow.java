@@ -121,7 +121,6 @@ public class Sow implements ISkillHandler
 				_activeChar.getParty().broadcastToPartyMembers(sm);
 			}
 			//FIXME: Mob should not become aggro against player, this way doesn't work really nice
-			_activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, _target);
 			_target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
 
