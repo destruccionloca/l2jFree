@@ -1362,12 +1362,6 @@ public abstract class L2Character extends L2Object
                 _skillCast = null;
             }
 
-            if (_skillHitTime != null)
-            {
-                _skillHitTime.cancel(true);
-                _skillHitTime = null;
-            }
-
             // Create a task MagicUseTask to launch the MagicSkill at the end of the casting time (hitTime)
             // For client animation reasons (party buffs especially) 200 ms before!
             if (getForceBuff() != null)
@@ -3239,7 +3233,6 @@ public abstract class L2Character extends L2Object
     
     /** Future Skill Cast */
      protected Future _skillCast;
-	 protected Future _skillHitTime;
     
     /** Char Coords from Client */
     private int _clientX;
@@ -3525,12 +3518,12 @@ public abstract class L2Character extends L2Object
 			if (stat==Stats.POWER_ATTACK_SPEED)
 			{
 				if (su == null) su = new StatusUpdate(getObjectId());
-				su.addAttribute(StatusUpdate.ATK_SPD, (int)getStatus().getCurrentHp());
+				su.addAttribute(StatusUpdate.ATK_SPD, getPAtkSpd());
 			}
 			else if (stat==Stats.MAGIC_ATTACK_SPEED)
 			{
 				if (su == null) su = new StatusUpdate(getObjectId());
-				su.addAttribute(StatusUpdate.CAST_SPD, (int)getStatus().getCurrentMp());
+				su.addAttribute(StatusUpdate.CAST_SPD, getMAtkSpd());
 			}
 			//else if (stat==Stats.MAX_HP) // TODO: self only and add more stats...
 			//{
@@ -3774,12 +3767,6 @@ public abstract class L2Character extends L2Object
             {
                 _skillCast.cancel(true);
                 _skillCast = null;
-            }
-			
-            if (_skillHitTime != null)
-            {
-                _skillHitTime.cancel(true);
-                _skillHitTime = null;
             }
             
             if(getForceBuff() != null)
