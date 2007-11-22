@@ -27728,3 +27728,9 @@ INSERT INTO droplist (mobId, itemId, `min`, `max`, category, chance) VALUES
 (29069, 8612, 4, 36, 12, 700000),
 (29069, 8613, 4, 36, 13, 700000),
 (29069, 8614, 4, 36, 14, 700000);
+
+-- L2j-free
+INSERT INTO droplist VALUES
+(20598, 8946, 1, 1, 2, 4762), -- Spellbook: Invocation (L2WH)
+(20813, 8945, 1, 1, 2, 6578), -- Spellbook: Celestial Shield (L2WH)
+(22201, 8882, 1, 1, 2, 1719); -- Spellbook: Salvation (L2WH)
