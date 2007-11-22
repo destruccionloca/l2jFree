@@ -138,7 +138,7 @@ public class CrestCache
 			}
 		}
 
-		_log.info("CrestCache]: " + String.format("%.3f", getMemoryUsage())
+		_log.info("[CrestCache]: " + String.format("%.3f", getMemoryUsage())
 				+ "MB on " + getLoadedFiles() + " files loaded. (Forget Time: "
 				+ (_cachePledge.getForgetTime() / 1000) + "s , Capacity: "
 				+ _cachePledge.capacity() + ")");
