@@ -5547,12 +5547,11 @@ public abstract class L2Character extends L2Object
 		//then just leave it that way, otherwise switch back to STATE_IDLE.
 		//if(isCastingNow())
 		//  getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
-
-		// If the skill type is PDAM or DRAIN_SOUL, notify the AI of the target with AI_INTENTION_ATTACK
+		
 		switch(skill.getSkillType())
 		{
-			case PDAM: case BLOW: case CHARGEDAM: case DRAIN_SOUL: // Soul Crystal casting
-			case SPOIL: case SOW:
+			case PDAM: case BLOW: case CHARGEDAM: case SPOIL: 
+			//case SOW: case DRAIN_SOUL: // Soul Crystal casting
 				if ((getTarget() != null) && (getTarget() instanceof L2Character))
 					getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, getTarget());
 				break;
