@@ -54,52 +54,39 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		super(objectId, template);
 	}
 
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-       player.sendPacket(new ActionFailed());
-       player.setTarget(this);
-       player.sendPacket(new MyTargetSelected(getObjectId(), -15));
-   
-       if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-           showChatWindow(player);
-    }
-
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		player.sendPacket( new ActionFailed() );
-
 		int condition = validateCondition(player);
-        if (condition <= COND_BUSY_BECAUSE_OF_SIEGE)
-            return;
+		if (condition <= COND_BUSY_BECAUSE_OF_SIEGE)
+			return;
 
-        StringTokenizer st = new StringTokenizer(command, " ");
-        String actualCommand = st.nextToken(); // Get actual command
+		StringTokenizer st = new StringTokenizer(command, " ");
+		String actualCommand = st.nextToken(); // Get actual command
 
 		if (actualCommand.equalsIgnoreCase("goto"))
 		{
 			if (st.countTokens() <= 0) {return;}
 			int whereTo = Integer.parseInt(st.nextToken());
-		    if (condition == COND_REGULAR)
-            {
-                doTeleport(player, whereTo);
-                return;
-            }
-		    else if (condition == COND_OWNER)
-		    {
+			if (condition == COND_REGULAR)
+			{
+				doTeleport(player, whereTo);
+				return;
+			}
+			else if (condition == COND_OWNER)
+			{
 				int minPrivilegeLevel = 0; // NOTE: Replace 0 with highest level when privilege level is implemented
 				if (st.countTokens() >= 1) {minPrivilegeLevel = Integer.parseInt(st.nextToken());}
 				if (10 >= minPrivilegeLevel) // NOTE: Replace 10 with privilege level of player
 					doTeleport(player, whereTo);
 				else
-				    player.sendMessage("You do not sufficient access level to teleport there.");
-                return;
-		    }
+					player.sendMessage("You don't have the sufficient access level to teleport there.");
+				return;
+			}
 		}
-
-        super.onBypassFeedback(player, command);
+		super.onBypassFeedback(player, command);
 	}
+
 	@Override
 	public String getHtmlPath(int npcId, int val)
 	{
@@ -131,9 +118,9 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		else if (condition > COND_ALL_FALSE)
 		{
 	        if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
-	            filename = "data/html/teleporter/castleteleporter-busy.htm";		// Busy because of siege
-	        else if (condition == COND_OWNER)										// Clan owns castle
-	            filename = "data/html/teleporter/" + getNpcId() + ".htm";		// Owner message window
+	            filename = "data/html/teleporter/castleteleporter-busy.htm";  // Busy because of siege
+	        else if (condition == COND_OWNER)                                 // Clan owns castle
+	            filename = "data/html/teleporter/" + getNpcId() + ".htm";     // Owner message window
 		}
 
         NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
@@ -169,10 +156,10 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 	{
 		if (player.getClan() != null && getCastle() != null)
 		{
-	        if (getCastle().getSiege().getIsInProgress())
-	            return COND_BUSY_BECAUSE_OF_SIEGE;										// Busy because of siege
-	        else if (getCastle().getOwnerId() == player.getClanId())					// Clan owns castle
-	            return COND_OWNER;	// Owner
+			if (getCastle().getSiege().getIsInProgress())
+				return COND_BUSY_BECAUSE_OF_SIEGE;                   // Busy because of siege
+			else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle
+				return COND_OWNER;                                   // Owner
 		}
 		
 		return COND_ALL_FALSE;

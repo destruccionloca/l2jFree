@@ -144,7 +144,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
     {
         if (command.startsWith("FestivalDesc"))
         {
-            int val = Integer.parseInt(command.substring(13));            
+            int val = Integer.parseInt(command.substring(13));
             showChatWindow(player, val, null, true);
         }
         else if (command.startsWith("Festival"))
@@ -497,4 +497,4 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
 
         return calCalc.get(Calendar.YEAR) + "/" + calCalc.get(Calendar.MONTH) + "/" + calCalc.get(Calendar.DAY_OF_MONTH);
     }
-}    
+}

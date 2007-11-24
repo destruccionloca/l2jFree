@@ -57,14 +57,6 @@ public final class L2WarehouseInstance extends L2FolkInstance
     }
 
     @Override
-    public void onAction(L2PcInstance player)
-    {
-        if (_log.isDebugEnabled()) _log.debug("Warehouse activated");
-        player.setLastFolkNPC(this);
-        super.onAction(player);
-    }
-
-    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";

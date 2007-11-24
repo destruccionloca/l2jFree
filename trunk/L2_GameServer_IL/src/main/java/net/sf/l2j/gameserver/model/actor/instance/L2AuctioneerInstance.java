@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.entity.Auction;
 import net.sf.l2j.gameserver.model.entity.Auction.Bidder;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
-import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -55,23 +54,8 @@ public final class L2AuctioneerInstance extends L2FolkInstance
     }
 
     @Override
-    public void onAction(L2PcInstance player)
-    {
-    	if (_log.isDebugEnabled()) _log.warn("Auctioneer activated");
-        player.sendPacket(new ActionFailed());
-        player.setTarget(this);
-        player.setLastFolkNPC(this);
-        super.onAction(player);
-        if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-            showMessageWindow(player);
-    }
-
-    @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) return;
-        player.sendPacket(new ActionFailed());
-
         int condition = validateCondition(player);
         if (condition == COND_ALL_FALSE)
         {

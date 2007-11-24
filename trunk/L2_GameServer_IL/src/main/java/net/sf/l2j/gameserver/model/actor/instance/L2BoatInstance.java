@@ -100,7 +100,7 @@ public class L2BoatInstance extends L2Character
 	{
 		super(objectId, template);
 		super.setKnownList(new BoatKnownList(this));
-		_name = name;				
+		_name = name;
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class L2BoatInstance extends L2Character
      * @param speed
 	 */
 	public void moveToLocation(int x, int y, int z,float speed)
-	{				     
+	{
        final int curX = getX();
        final int curY = getY();
        final int curZ = getZ();

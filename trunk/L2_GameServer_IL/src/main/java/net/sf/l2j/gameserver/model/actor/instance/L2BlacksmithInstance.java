@@ -34,13 +34,6 @@ public class L2BlacksmithInstance extends L2FolkInstance
 	}
 	
 	@Override
-	public void onAction(L2PcInstance player)
-	{
-		player.setLastFolkNPC(this);
-		super.onAction(player);
-	}
-	
-	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		if (command.startsWith("multisell"))

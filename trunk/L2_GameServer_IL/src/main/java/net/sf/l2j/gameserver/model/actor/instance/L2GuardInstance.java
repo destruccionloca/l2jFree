@@ -202,12 +202,11 @@ public final class L2GuardInstance extends L2Attackable
     @Override
     public void onAction(L2PcInstance player)
     {
+        if (!canTarget(player)) return;
+
         // Check if the L2PcInstance already target the L2GuardInstance
         if (getObjectId() != player.getTargetId())
         {
-            // Set the L2PcInstance Intention to AI_INTENTION_IDLE
-            player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
-            
             if (_log.isDebugEnabled()) _log.debug(player.getObjectId()+": Targetted guard "+getObjectId());
             
             // Set the target of the L2PcInstance player
@@ -230,34 +229,28 @@ public final class L2GuardInstance extends L2Attackable
                 
                 // Set the L2PcInstance Intention to AI_INTENTION_ATTACK
                 player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-            } 
-            else 
+            }
+            else
             {
                 // Calculate the distance between the L2PcInstance and the L2NpcInstance
-                if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+                if (!canInteract(player))
                 {
                     // Set the L2PcInstance Intention to AI_INTENTION_INTERACT
                     player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-                } 
-                else 
-                {   
+                }
+                else
+                {
                     // Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2NpcInstance
                     // to display a social action of the L2GuardInstance on their client
                     SocialAction sa = new SocialAction(getObjectId(), Rnd.nextInt(8));
                     broadcastPacket(sa);
-                    
-                    
+
                     // Open a chat window on client with the text of the L2GuardInstance
                     showChatWindow(player, 0);
-                    
-                    // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-                    player.sendPacket(new ActionFailed());  
-                    
-                    // Set the L2PcInstance Intention to AI_INTENTION_IDLE 
-                    player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, null);
-                    
                 }
             }
         }
+        // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+        player.sendPacket(new ActionFailed());
     }
 }

@@ -21,13 +21,19 @@ import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -36,6 +42,44 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2CabaleBufferInstance extends L2NpcInstance
 {
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (!canTarget(player)) return;
+
+		if (this != player.getTarget())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
+
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			// The color to display in the select window is White
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
+			player.sendPacket(my);
+
+			// Send a Server->Client packet ValidateLocation to correct the L2ArtefactInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			// Calculate the distance between the L2PcInstance and the L2NpcInstance
+			if (!canInteract(player))
+			{
+				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+			}
+			else
+			{
+				// Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2NpcInstance
+				// to display a social action of the L2NpcInstance on their client
+				SocialAction sa = new SocialAction(getObjectId(), Rnd.get(8));
+				broadcastPacket(sa);
+			}
+		}
+		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+		player.sendPacket(new ActionFailed());
+	}
+
     private ScheduledFuture _aiTask;
     
     private class CabalaAI implements Runnable
@@ -128,7 +172,7 @@ public class L2CabaleBufferInstance extends L2NpcInstance
             if (player.getLevel() > 40)
                 skillLevel = 2;
             
-        	if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getDistanceToWatchObject(player), false, false))
+            if (player.isDead() || !player.isVisible() || !isInsideRadius(player, getDistanceToWatchObject(player), false, false))
                 return false;
 
             L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
@@ -137,15 +181,13 @@ public class L2CabaleBufferInstance extends L2NpcInstance
             {
                 skill.getEffects(_caster, player);
                 
-           		broadcastPacket(new MagicSkillUser(_caster, player, skill.getId(), skillLevel, skill.getHitTime(), 0));
+                broadcastPacket(new MagicSkillUser(_caster, player, skill.getId(), skillLevel, skill.getHitTime(), 0));
                 
-           		SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
-           		sm.addSkillName(skillId);
-           		player.sendPacket(sm);
-                    
-           		return true;
+                SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+                sm.addSkillName(skillId);
+                player.sendPacket(sm);
+                return true;
             }
-
             return false;
         }
     }

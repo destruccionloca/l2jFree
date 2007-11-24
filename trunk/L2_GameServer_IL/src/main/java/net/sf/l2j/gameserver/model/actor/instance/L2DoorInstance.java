@@ -176,9 +176,9 @@ public class L2DoorInstance extends L2Character
     public L2DoorInstance(int objectId, L2CharTemplate template, int doorId, String name, boolean unlockable)
     {
         super(objectId, template);
-        getKnownList();	// init knownlist
-        getStat();			// init stats
-        getStatus();		// init status
+        getKnownList(); // init knownlist
+        getStat();      // init stats
+        getStatus();    // init status
         _doorId = doorId;
         _name = name;
         _unlockable = unlockable;
@@ -388,50 +388,49 @@ public class L2DoorInstance extends L2Character
         if (player == null)
             return;
         
+        // Check if the L2PcInstance already target the L2NpcInstance
         if (this != player.getTarget())
         {
+            // Set the target of the L2PcInstance player
             player.setTarget(this);
             
+            // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
             MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel());
             player.sendPacket(my);
             
 //            if (isAutoAttackable(player))
-//            {   
+//            {
                 DoorStatusUpdate su = new DoorStatusUpdate(this);
                 player.sendPacket(su);
 //            }
             
-            // correct location
+            // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
             player.sendPacket(new ValidateLocation(this));
         }
         else
         {
-//            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel());
-//            player.sendPacket(my);
-            if (isAutoAttackable(player) )
+            if (isAutoAttackable(player))
             {
                 if (Math.abs(player.getZ() - getZ()) < 400) // this max heigth difference might need some tweaking
                 {
                     player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
                 }
-                else
-                {
-                    player.sendPacket(new ActionFailed());
-                }
-            } else if (player.getClan()!=null && getClanHall() != null && player.getClanId() == getClanHall().getOwnerId())
-    	    {
+            }
+            else if (player.getClan()!=null && getClanHall() != null && player.getClanId() == getClanHall().getOwnerId())
+            {
                 if (!isInsideRadius(player, L2NpcInstance.INTERACTION_DISTANCE, false, false))
                 {
                     player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-        		} else
+                }
+                else
                 {
-        		    if (getOpen() == 1) openMe();
-        		    else closeMe();
-        		    player.sendPacket(new ActionFailed());
-            	}
-    	    } else 
-                player.sendPacket(new ActionFailed());
+                    if (getOpen() == 1) openMe();
+                    else closeMe();
+                }
+            }
         }
+        // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+        player.sendPacket(new ActionFailed());
     }
 
     @Override

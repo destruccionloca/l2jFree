@@ -61,12 +61,10 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
-		player.sendPacket( new ActionFailed() );
-
 		int condition = validateCondition(player);
 
-        StringTokenizer st = new StringTokenizer(command, " ");
-        String actualCommand = st.nextToken(); // Get actual command
+		StringTokenizer st = new StringTokenizer(command, " ");
+		String actualCommand = st.nextToken(); // Get actual command
 
 		if (actualCommand.equalsIgnoreCase("goto"))
 		{
@@ -112,21 +110,21 @@ public final class L2TeleporterInstance extends L2FolkInstance
             
 			if (st.countTokens() <= 0) {return;}
 			int whereTo = Integer.parseInt(st.nextToken());
-		    if (condition == COND_REGULAR)
-            {
-                doTeleport(player, whereTo);
-                return;
-            }
-		    else if (condition == COND_OWNER)
-		    {
+			if (condition == COND_REGULAR)
+			{
+				doTeleport(player, whereTo);
+				return;
+			}
+			else if (condition == COND_OWNER)
+			{
 				int minPrivilegeLevel = 0;          // NOTE: Replace 0 with highest level when privilege level is implemented
 				if (st.countTokens() >= 1) {minPrivilegeLevel = Integer.parseInt(st.nextToken());}
 				if (10 >= minPrivilegeLevel)        // NOTE: Replace 10 with privilege level of player
 					doTeleport(player, whereTo);
 				else
-				    player.sendMessage("You do not sufficient access level to teleport there.");
-                return;
-		    }
+					player.sendMessage("You don't have the sufficient access level to teleport there.");
+				return;
+			}
 		}
 
         super.onBypassFeedback(player, command);
@@ -148,26 +146,26 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		return "data/html/teleporter/" + pom + ".htm";
 	}
 
-    @Override
-    public void showChatWindow(L2PcInstance player)
+	@Override
+	public void showChatWindow(L2PcInstance player)
 	{
 		String filename = "data/html/teleporter/castleteleporter-no.htm";
 		
 		int condition = validateCondition(player);
 		if (condition == COND_REGULAR)
 		{
-		    super.showChatWindow(player);
-		    return;
+			super.showChatWindow(player);
+			return;
 		}
 		else if (condition > COND_ALL_FALSE)
 		{
-	        if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
-	            filename = "data/html/teleporter/castleteleporter-busy.htm";		// Busy because of siege
-	        else if (condition == COND_OWNER)										// Clan owns castle
-	            filename = getHtmlPath(getNpcId(), 0);                              // Owner message window
+			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
+				filename = "data/html/teleporter/castleteleporter-busy.htm"; // Busy because of siege
+			else if (condition == COND_OWNER)                                // Clan owns castle
+				filename = getHtmlPath(getNpcId(), 0);                       // Owner message window
 		}
 
-        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		html.replace("%npcname%", getName());
@@ -226,14 +224,14 @@ public final class L2TeleporterInstance extends L2FolkInstance
 
     private int validateCondition(L2PcInstance player)
     {
-        if (CastleManager.getInstance().getCastle(this) == null)                        // Teleporter isn't on castle ground
-            return COND_REGULAR;                                                        // Regular access
-        else if (getCastle().getSiege().getIsInProgress())                              // Teleporter is on castle ground and siege is in progress
-            return COND_BUSY_BECAUSE_OF_SIEGE;                                          // Busy because of siege
-        else if (player.getClan() != null)                                              // Teleporter is on castle ground and player is in a clan
+        if (CastleManager.getInstance().getCastle(this) == null)     // Teleporter isn't on castle ground
+            return COND_REGULAR;                                     // Regular access
+        else if (getCastle().getSiege().getIsInProgress())           // Teleporter is on castle ground and siege is in progress
+            return COND_BUSY_BECAUSE_OF_SIEGE;                       // Busy because of siege
+        else if (player.getClan() != null)                           // Teleporter is on castle ground and player is in a clan
         {
-            if (getCastle().getOwnerId() == player.getClanId())                         // Clan owns castle
-                return COND_OWNER;                                                      // Owner
+            if (getCastle().getOwnerId() == player.getClanId())      // Clan owns castle
+                return COND_OWNER;                                   // Owner
         }
         
         return COND_ALL_FALSE;

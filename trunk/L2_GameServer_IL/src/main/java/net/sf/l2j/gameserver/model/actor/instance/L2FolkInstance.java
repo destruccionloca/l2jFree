@@ -50,6 +50,13 @@ public class L2FolkInstance extends L2NpcInstance
         _classesToTeach = template.getTeachInfo();
     }
 
+    @Override
+    public void onAction(L2PcInstance player)
+    {
+        player.setLastFolkNPC(this);
+        super.onAction(player);
+    }
+
     /**
      * this displays SkillList to the player.
      * @param player
@@ -210,7 +217,7 @@ public class L2FolkInstance extends L2NpcInstance
         
         player.sendPacket(new ActionFailed());
     }
-    
+
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {

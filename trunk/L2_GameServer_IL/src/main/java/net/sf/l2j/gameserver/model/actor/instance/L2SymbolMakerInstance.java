@@ -135,18 +135,6 @@ public class L2SymbolMakerInstance extends L2FolkInstance
 		super(objectID, template);
 	}
 
-	/**
-	 * this is called when a player interacts with this NPC
-	 * @param player
-	 */
-	@Override
-	public void onAction(L2PcInstance player)
-	{
-		if (_log.isDebugEnabled()) _log.debug("Symbol Maker activated");
-		player.setLastFolkNPC(this);
-		super.onAction(player);
-	}
-
 	@Override
 	public String getHtmlPath(int npcId, int val)
 	{

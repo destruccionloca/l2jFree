@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -30,28 +31,53 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2WeddingManagerInstance extends L2NpcInstance
 {
-    /**
-     * @author evill33t & squeezed
-     */
-    public L2WeddingManagerInstance(int objectId, L2NpcTemplate template)
-    {
-        super(objectId, template);
-    }
-    
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        player.sendPacket(new ActionFailed());
-        player.setTarget(this);
-        player.sendPacket(new MyTargetSelected(getObjectId(), -15));
+	/**
+	* @author evill33t & squeezed
+	*/
+	public L2WeddingManagerInstance(int objectId, L2NpcTemplate template)
+	{
+		super(objectId, template);
+	}
 
-        showMessageWindow(player);
-    }
-    
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (!canTarget(player)) return;
+
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (this != player.getTarget())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
+
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
+
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			// Calculate the distance between the L2PcInstance and the L2NpcInstance
+			if (!canInteract(player))
+			{
+				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+			}
+			else
+			{
+				showMessageWindow(player);
+			}
+		}
+		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+		player.sendPacket(new ActionFailed());
+	}
+
     private void showMessageWindow(L2PcInstance player)
     {
         String filename = "data/html/wedding/start.htm";
@@ -73,7 +99,8 @@ public class L2WeddingManagerInstance extends L2NpcInstance
         String replace = "";
         
         // if player has no partner
-        if(player.getPartnerId()==0){
+        if(player.getPartnerId()==0)
+        {
             filename = "data/html/wedding/nopartner.htm";
             sendHtmlMessage(player, filename, replace);
             return;

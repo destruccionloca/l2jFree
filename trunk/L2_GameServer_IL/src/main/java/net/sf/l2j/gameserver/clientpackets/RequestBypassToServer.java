@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 
 import org.apache.commons.logging.Log;
@@ -124,16 +125,16 @@ public class RequestBypassToServer extends L2GameClientPacket
                     L2Object object = L2World.getInstance().findObject(Integer.parseInt(id));
                     if (_command.substring(endOfId+1).startsWith("event_participate")) L2Event.inscribePlayer(activeChar);
 
-                    if (_command.substring(endOfId+1).startsWith("vip_joinVIPTeam"))
+                    else if (_command.substring(endOfId+1).startsWith("vip_joinVIPTeam"))
                         VIP.addPlayerVIP(activeChar);
                    
-                    if (_command.substring(endOfId+1).startsWith("vip_joinNotVIPTeam"))
+                    else if (_command.substring(endOfId+1).startsWith("vip_joinNotVIPTeam"))
                         VIP.addPlayerNotVIP(activeChar);
                    
-                    if (_command.substring(endOfId+1).startsWith("vip_finishVIP"))
+                    else if (_command.substring(endOfId+1).startsWith("vip_finishVIP"))
                         VIP.vipWin(activeChar);
 
-                    if (_command.substring(endOfId+1).startsWith("tvt_player_join "))
+                    else if (_command.substring(endOfId+1).startsWith("tvt_player_join "))
                     {
                         String teamName = _command.substring(endOfId+1).substring(16);
 
@@ -143,7 +144,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not join now!");
                     }
                    
-                    if (_command.substring(endOfId+1).startsWith("tvt_player_leave"))
+                    else if (_command.substring(endOfId+1).startsWith("tvt_player_leave"))
                     {
                         if (TvT._joining)
                             TvT.removePlayer(activeChar);
@@ -151,7 +152,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not leave now!");
                     }
                     
-                    if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
+                    else if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
                     {
                         if (DM._joining)
                             DM.addPlayer(activeChar);
@@ -159,15 +160,15 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not join now!");
                     }
                    
-                    if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
+                    else if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
                     {
                         if (DM._joining)
                             DM.removePlayer(activeChar);
                         else
                             activeChar.sendMessage("The event is already started. You can not leave now!");
                     }
-                               
-                    if (_command.substring(endOfId+1).startsWith("ctf_player_join "))
+                    
+                    else if (_command.substring(endOfId+1).startsWith("ctf_player_join "))
                     {
                         String teamName = _command.substring(endOfId+1).substring(16); 
                         
@@ -177,7 +178,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not join now!");
                     }
 
-                    if (_command.substring(endOfId+1).startsWith("ctf_player_leave"))
+                    else if (_command.substring(endOfId+1).startsWith("ctf_player_leave"))
                     {
                         if (CTF._joining)
                             CTF.removePlayer(activeChar);
@@ -185,11 +186,13 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not leave now!");
                     }
 
-                    if (object != null && object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+                    else if (object != null && object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
                     {
-                        ((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId+1));
+                        ((L2NpcInstance)object).onBypassFeedback(activeChar, _command.substring(endOfId+1));
                     }
-                } catch (NumberFormatException nfe) {}
+                    activeChar.sendPacket(new ActionFailed());
+                }
+                catch (NumberFormatException nfe) {}
             }
             //  Draw a Symbol
             else if (_command.equals("menu_select?ask=-16&reply=1"))

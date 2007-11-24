@@ -94,40 +94,42 @@ public class L2SiegeFlagInstance extends L2NpcInstance
         onAction(player);
     }
 
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        if (player == null)
-            return;
-        
-        if (this != player.getTarget())
-        {
-            player.setTarget(this);
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (player == null || !canTarget(player))
+			return;
 
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-            player.sendPacket(my);
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (this != player.getTarget())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
 
-            StatusUpdate su = new StatusUpdate(getObjectId());
-            su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
-            su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
-            player.sendPacket(su);
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
+			player.sendPacket(my);
 
-            player.sendPacket(new ValidateLocation(this));
-        }
-        else
-        {
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-            player.sendPacket(my);
+			// Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
+			StatusUpdate su = new StatusUpdate(getObjectId());
+			su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
+			su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
+			player.sendPacket(su);
 
-            if (
-                    isAutoAttackable(player) &&                 // Object is attackable
-                    Math.abs(player.getZ() - getZ()) < 100      // Less then max height difference
-            )
-                player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-            else 
-                player.sendPacket(new ActionFailed());
-        }
-    }
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			if (isAutoAttackable(player) && Math.abs(player.getZ() - getZ()) < 100)
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+			else
+			{
+				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+				player.sendPacket(new ActionFailed());
+			}
+		}
+	}
 
     @Override
     public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)

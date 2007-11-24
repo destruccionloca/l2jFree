@@ -123,6 +123,8 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
     @Override
     public void onAction(L2PcInstance player)
     {
+        if (!canTarget(player)) return;
+
         // Check if the L2PcInstance already target the L2NpcInstance
         if (this != player.getTarget())
         {
@@ -131,19 +133,27 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             // Set the target of the L2PcInstance player
             player.setTarget(this);
             
-            // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-            // The player.getLevel() - getLevel() permit to display the correct color in the select window
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-            player.sendPacket(my);
+
             
             // Check if the player is attackable (without a forced attack)
             if (isAutoAttackable(player))
-            {   
+            {
+                // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+                // The player.getLevel() - getLevel() permit to display the correct color in the select window
+                MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
+                player.sendPacket(my);
+
                 // Send a Server->Client packet StatusUpdate of the L2NpcInstance to the L2PcInstance to update its HP bar
                 StatusUpdate su = new StatusUpdate(getObjectId());
                 su.addAttribute(StatusUpdate.CUR_HP, (int)getStatus().getCurrentHp() );
                 su.addAttribute(StatusUpdate.MAX_HP, getMaxHp() );
                 player.sendPacket(su);
+            }
+            else
+            {
+                // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+                MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
+                player.sendPacket(my);
             }
             
             // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
@@ -151,11 +161,6 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
         }
         else
         {
-            // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-            // The player.getLevel() - getLevel() permit to display the correct color
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
-            player.sendPacket(my);
-            
             // Check if the player is attackable (without a forced attack) and isn't dead
             if (isAutoAttackable(player) && !isAlikeDead())
             {
@@ -175,19 +180,12 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             if(!isAutoAttackable(player)) 
             {
                 // Calculate the distance between the L2PcInstance and the L2NpcInstance
-                if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+                if (!canInteract(player))
                 {
-                    // player.setCurrentState(L2Character.STATE_INTERACT);
-                    // player.setInteractTarget(this);
-                    // player.moveTo(this.getX(), this.getY(), this.getZ(), INTERACTION_DISTANCE);
-                    
                     // Notify the L2PcInstance AI with AI_INTENTION_INTERACT
                     player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-                    
-                    // Send a Server->Client packet ActionFailed (target is out of interaction range) to the L2PcInstance player
-                    player.sendPacket(new ActionFailed());
-                } 
-                else 
+                }
+                else
                 {
                     // Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2NpcInstance
                     // to display a social action of the L2NpcInstance on their client
@@ -195,11 +193,10 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
                     broadcastPacket(sa);
                     
                     doAction(player);
-
-                    // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-                    player.sendPacket(new ActionFailed());                  
                 }
             }
+            // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+            player.sendPacket(new ActionFailed());
         }
     }
 
@@ -292,61 +289,51 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        if (player == null) return;
-        // Get the distance between the L2PcInstance and the L2SepulcherNpcInstance
-        if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+        if (isBusy())
         {
-            player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
-        } 
-        else 
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+            html.setFile("data/html/npcbusy.htm");
+            html.replace("%busymessage%", getBusyMessage());
+            html.replace("%npcname%", getName());
+            html.replace("%playername%", player.getName());
+            player.sendPacket(html);
+        }
+        else if (command.startsWith("Chat"))
         {
-            if (isBusy())
+            int val = 0;
+            try 
             {
-                player.sendPacket( new ActionFailed() );
-                
-                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
-                html.setFile("data/html/npcbusy.htm");
-                html.replace("%busymessage%", getBusyMessage());
-                html.replace("%npcname%", getName());
-                html.replace("%playername%", player.getName());
-                player.sendPacket(html);
+                val = Integer.parseInt(command.substring(5));
             }
-            else if (command.startsWith("Chat"))
+            catch (IndexOutOfBoundsException ioobe){}
+            catch (NumberFormatException nfe){}
+            showChatWindow(player, val);
+        }
+        else if (command.startsWith("open_gate"))
+        {
+            L2ItemInstance hallsKey = player.getInventory().getItemByItemId(HALLS_KEY);
+            if(hallsKey != null && FourSepulchersManager.getInstance().isAttackTime())
             {
-                int val = 0;
-                try 
+                switch(getNpcId())
                 {
-                    val = Integer.parseInt(command.substring(5));
-                } catch (IndexOutOfBoundsException ioobe) {
-                } catch (NumberFormatException nfe) {}
-                showChatWindow(player, val);
-            }
-            else if (command.startsWith("open_gate"))
-            {
-                L2ItemInstance hallsKey = player.getInventory().getItemByItemId(HALLS_KEY);
-                if(hallsKey != null && FourSepulchersManager.getInstance().isAttackTime())
-                {
-                    switch(getNpcId())
-                    {
-                    	case 31929:
-                    	case 31934:
-                    	case 31939:
-                    	case 31944:
-                    		FourSepulchersManager.getInstance().spawnShadow(getNpcId());
-                    	default:
-                            openNextDoor(getNpcId());
-                            player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
-                    }                	
+                    case 31929:
+                    case 31934:
+                    case 31939:
+                    case 31944:
+                        FourSepulchersManager.getInstance().spawnShadow(getNpcId());
+                    default:
+                        openNextDoor(getNpcId());
+                        player.destroyItemByItemId("Quest", HALLS_KEY, hallsKey.getCount(), player, true);
                 }
             }
-            else if (command.startsWith("Entry"))
-            {
-            	FourSepulchersManager.getInstance().entry(getNpcId(),player);
-            }
-            else
-            {
-                super.onBypassFeedback(player, command);
-            }
+        }
+        else if (command.startsWith("Entry"))
+        {
+            FourSepulchersManager.getInstance().entry(getNpcId(),player);
+        }
+        else
+        {
+            super.onBypassFeedback(player, command);
         }
     }
 

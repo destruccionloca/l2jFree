@@ -30,13 +30,6 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 		super(objectId, template);
 	}
 
-	@Override
-	public void onAction(L2PcInstance player)
-	{
-		player.setLastFolkNPC(this);
-		super.onAction(player);
-	}
-
 	private void showRetrieveWindow(L2PcInstance player)
 	{
 		player.sendPacket(new ActionFailed());
@@ -157,8 +150,8 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 		int condition = validateCondition(player);
 		if (condition > COND_ALL_FALSE) {
 			if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
-				filename = "data/html/castlewarehouse/castlewarehouse-busy.htm";	// Busy because of siege
-			else if (condition == COND_OWNER) {										// Clan owns castle
+				filename = "data/html/castlewarehouse/castlewarehouse-busy.htm"; // Busy because of siege
+			else if (condition == COND_OWNER) {                                  // Clan owns castle
 				if (val == 0) 
 					filename = "data/html/castlewarehouse/castlewarehouse.htm";
 				else
@@ -179,7 +172,7 @@ public class L2CastleWarehouseInstance extends L2FolkInstance
 		if (getCastle() != null && getCastle().getCastleId() > 0) {
 			if (player.getClan() != null) {
 				if (getCastle().getSiege().getIsInProgress())
-					return COND_BUSY_BECAUSE_OF_SIEGE;					 // Busy because of siege
+					return COND_BUSY_BECAUSE_OF_SIEGE;                   // Busy because of siege
 				else if (getCastle().getOwnerId() == player.getClanId()) // Clan owns castle
 					return COND_OWNER;  
 			}

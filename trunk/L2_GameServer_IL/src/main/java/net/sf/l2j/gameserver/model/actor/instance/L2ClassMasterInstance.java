@@ -51,25 +51,32 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     {
         super(objectId, template);
     }
-    
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        if (getObjectId() != player.getTargetId())
-        {
-            player.setTarget(this);
-            player.sendPacket(new MyTargetSelected(getObjectId(), 0));
-            // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
-            player.sendPacket(new ValidateLocation(this));
-        }
-        else
-        {
-            if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-            {
-                player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-                return;
-            }
-            
+
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (!canTarget(player)) return;
+
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (getObjectId() != player.getTargetId())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
+
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
+
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			if (!canInteract(player))
+			{
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+				return;
+			}
+
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><body>");
@@ -159,8 +166,8 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             html.setHtml(sb.toString());
             player.sendPacket(html);
             
-            player.sendPacket(new ActionFailed());
         }
+        player.sendPacket(new ActionFailed());
     }
     
     @Override

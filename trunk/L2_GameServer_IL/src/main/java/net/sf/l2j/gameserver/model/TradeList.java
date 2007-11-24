@@ -299,7 +299,7 @@ public class TradeList
         
         if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroitem())
         {
-                return null;
+            return null;
         }
         if (count > item.getCount()) return null;
         
