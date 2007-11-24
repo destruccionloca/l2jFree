@@ -1633,6 +1633,7 @@
       <mul order="0x30" stat="runSpd" val="0.7"/>
       <mul order="0x30" stat="pAtk" val="1.2"/>
       <mul order="0x30" stat="cAtk" val="1.2"/>
+    </effect>
   </for>
 </skill>
 <skill id="77" levels="2" name="Attack Aura">
