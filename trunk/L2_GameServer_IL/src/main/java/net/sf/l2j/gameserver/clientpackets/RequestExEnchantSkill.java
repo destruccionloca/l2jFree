@@ -174,30 +174,32 @@ public class RequestExEnchantSkill extends L2GameClientPacket
             SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_SUCCEEDED_IN_ENCHANTING_THE_SKILL_S1);
             sm.addSkillName(_skillId);
             player.sendPacket(sm);
+            player.sendSkillList();
         }
         else
-        {           
+        {
             if (skill.getLevel() > 100)
             {
                 _skillLvl = _baseLvl;
                 player.addSkill(SkillTable.getInstance().getInfo(_skillId, _skillLvl), true);
+                player.sendSkillList();
             }
             SystemMessage sm = new SystemMessage(SystemMessageId.YOU_HAVE_FAILED_TO_ENCHANT_THE_SKILL_S1);
             sm.addSkillName(_skillId);
             player.sendPacket(sm);
         }
         trainer.showEnchantSkillList(player, player.getClassId());
-            
+        
         // update all the shortcuts to this skill
         L2ShortCut[] allShortCuts = player.getAllShortCuts();
-            
-        for (L2ShortCut sc : allShortCuts)          
-        {               
+        
+        for (L2ShortCut sc : allShortCuts)
+        {
             if (sc.getId() == _skillId && sc.getType() == L2ShortCut.TYPE_SKILL)
             {
                 L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), _skillLvl, 1);
-                player.sendPacket(new ShortCutRegister(newsc));                 
-                player.registerShortCut(newsc);                 
+                player.sendPacket(new ShortCutRegister(newsc));
+                player.registerShortCut(newsc);
             }
         }
     }

@@ -189,6 +189,7 @@ import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SendTradeDone;
 import net.sf.l2j.gameserver.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.serverpackets.ShortCutInit;
+import net.sf.l2j.gameserver.serverpackets.SkillList;
 import net.sf.l2j.gameserver.serverpackets.Snoop;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.SpecialCamera;
@@ -2241,15 +2242,12 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
-		// Auto-Learn skills if activated
-		if (Config.AUTO_LEARN_SKILLS)
-		{
-			giveAvailableSkills();
-		}
-		
-        // This function gets called on login, so not such a bad place to check weight
-        refreshOverloaded(); // Update the overloaded status of the L2PcInstance
-        refreshExpertisePenalty(); // Update the expertise status of the L2PcInstance
+        // Auto-Learn skills if activated
+        if (Config.AUTO_LEARN_SKILLS)
+        {
+            giveAvailableSkills();
+        }
+        sendSkillList();
     }
 
     /** Set the Experience value of the L2PcInstance. */
@@ -5860,8 +5858,8 @@ public final class L2PcInstance extends L2PlayableInstance
                     String charName = chars.getString("char_name");
                     player._chars.put(charId, charName);
                 }
-				chars.close();
-				stmt.close();
+                chars.close();
+                stmt.close();
                 break;
             }
 
@@ -5884,6 +5882,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
             // Update the overloaded status of the L2PcInstance
             player.refreshOverloaded();
+            // Update the expertise status of the L2PcInstance
+            player.refreshExpertisePenalty();
         }
         catch (Exception e)
         {
@@ -6621,16 +6621,14 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 con.close();
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e){}
         }
         // Update Noble Skills after subclass change
         if (isNoble())
             setNoble(true);
-		// Update Hero Skills after subclass change
-		if (isHero())
-			setHero(true);        
+        // Update Hero Skills after subclass change
+        if (isHero())
+            setHero(true);
     }
 
     /**
@@ -8387,13 +8385,15 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void setHero(boolean hero)
     {
-    	if (hero && _baseClass==_activeClass)    	
-    		for (L2Skill s : HeroSkillTable.getHeroSkills())    		
-    			addSkill(s, false); //Dont Save Hero skills to Sql
-    	else    	
-    		for (L2Skill s : HeroSkillTable.getHeroSkills())    		
-    			super.removeSkill(s); //Just Remove skills without deleting from Sql 	    	
+        if (hero && _baseClass == _activeClass)
+            for (L2Skill s : HeroSkillTable.getHeroSkills())
+                addSkill(s, false); //Dont Save Hero skills to Sql
+        else
+            for (L2Skill s : HeroSkillTable.getHeroSkills())
+                super.removeSkill(s); //Just Remove skills without deleting from Sql
         _hero = hero;
+        
+        sendSkillList();
     }
 
     public void setIsInOlympiadMode(boolean b)
@@ -8423,13 +8423,15 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void setNoble(boolean val)
     {
-       if (val)        
-           for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())            
-               addSkill(s, false); //Dont Save Noble skills to Sql
-       else        
-           for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())            
-               super.removeSkill(s); //Just Remove skills without deleting from Sql 
-       _noble = val;
+        if (val)
+            for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())
+                addSkill(s, false); //Dont Save Noble skills to Sql
+        else
+            for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())
+                super.removeSkill(s); //Just Remove skills without deleting from Sql 
+        _noble = val;
+        
+        sendSkillList();
     }
 
 	public boolean isInDuel()
@@ -8691,6 +8693,30 @@ public final class L2PcInstance extends L2PlayableInstance
         return (_alliedVarkaKetra > 0);
     }
 
+    public void sendSkillList()
+    {
+        sendSkillList(this);
+    }
+
+    public void sendSkillList(L2PcInstance player)
+    {
+        SkillList sl = new SkillList();
+        if(player != null)
+        {
+            for (L2Skill s : player.getAllSkills())
+            {
+                if (s == null) 
+                    continue;
+                if (s.getId() > 9000)
+                    continue; // Fake skills to change base stats
+                sl.addSkill(s.getId(), s.getLevel(), s.isPassive());
+            }
+        }
+        sendPacket(sl);
+    }
+
+
+
     /**
      * 1. Add the specified class ID as a subclass (up to the maximum number of <b>three</b>)
      * for this character.<BR>
@@ -8740,9 +8766,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 con.close();
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e){}
         }
 
         // Commit after database INSERT incase exception is thrown.
@@ -8855,9 +8879,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 con.close();
             }
-            catch (Exception e)
-            {
-            }
+            catch (Exception e){}
         }
 
         getSubClasses().remove(classIndex);
@@ -10733,10 +10755,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
 	public void calculateDeathPenaltyBuffLevel(L2Character killer)
 	{
-		if(Rnd.get(100) <= Config.DEATH_PENALTY_CHANCE
-				&& !(killer instanceof L2PcInstance)
-				&& !(this.getCharmOfLuck() && (killer instanceof L2BossInstance || killer instanceof L2RaidBossInstance)))
-			increaseDeathPenaltyBuffLevel();
+		if(killer instanceof L2PcInstance
+			&& !isGM()
+			&& !getCharmOfLuck()
+			&& killer.isRaid()
+			&& Rnd.get(100) <= Config.DEATH_PENALTY_CHANCE)
+				increaseDeathPenaltyBuffLevel();
 	}
 
 	public void increaseDeathPenaltyBuffLevel()

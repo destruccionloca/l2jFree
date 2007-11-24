@@ -380,7 +380,7 @@ public class UseItem extends L2GameClientPacket
                 //_log.debug("item not equipable id:"+ item.getItemId());
                 if (itemid == 4393) 
                 {
-                        activeChar.sendPacket(new ShowCalculator(4393));
+                    activeChar.sendPacket(new ShowCalculator(4393));
                 }
                 else if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.ROD)
                         && ((itemid >= 6519 && itemid <= 6527) || (itemid >= 7610 && itemid <= 7613) || (itemid >= 7807 && itemid <= 7809) || (itemid >= 8484 && itemid <= 8486) || (itemid >= 8505 && itemid <= 8513)))

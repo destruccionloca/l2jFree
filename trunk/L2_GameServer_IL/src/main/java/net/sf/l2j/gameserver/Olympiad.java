@@ -1480,7 +1480,7 @@ public class Olympiad
                     }
                     //Abort casting if player casting
                     if (player.isCastingNow())
-                    	player.abortCast();
+                        player.abortCast();
                     
                     //Remove Hero Skills
                     if (player.isHero())
@@ -1490,6 +1490,8 @@ public class Olympiad
                             player.removeSkill(skill,false);
                         }
                     }
+
+                    player.sendSkillList();
 
                     //Remove Buffs
                     player.stopAllEffects();
@@ -1741,6 +1743,8 @@ public class Olympiad
                         for(L2Skill skill: HeroSkillTable.getHeroSkills())
                             player.addSkill(skill,false);
                     }
+
+                    player.sendSkillList();
                 }
                 catch(Exception e) {}
             }
