@@ -185,7 +185,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 			}
 			if(!isAutoAttackable(player))
 			{
-				if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+				if (!canInteract(player))
 				{
 					// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 					player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);

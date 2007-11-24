@@ -395,7 +395,7 @@ public class L2DoorInstance extends L2Character
             player.setTarget(this);
             
             // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel());
+            MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
             player.sendPacket(my);
             
 //            if (isAutoAttackable(player))

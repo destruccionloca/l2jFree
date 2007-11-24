@@ -92,7 +92,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 		else
 		{
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
-			if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
+			if (!canInteract(player))
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
