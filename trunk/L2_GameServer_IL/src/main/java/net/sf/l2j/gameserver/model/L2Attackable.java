@@ -1066,7 +1066,7 @@ public class L2Attackable extends L2NpcInstance
 
         if (isChampion())
         {
-            if ((drop.getItemId() == 57 || (drop.getItemId() >= 6360 && drop.getItemId() <= 6362)))
+            if (drop.getItemId() == 57 || drop.getItemId() == 5575 || drop.getItemId() == 6360 || drop.getItemId() == 6361 || drop.getItemId() == 6362)
             {
                 champRate = Config.CHAMPION_ADENA;
             }             
@@ -1192,7 +1192,7 @@ public class L2Attackable extends L2NpcInstance
             
             if (isChampion())
             {
-                if ((drop.getItemId() == 57 || (drop.getItemId() >= 6360 && drop.getItemId() <= 6362)))
+                if (drop.getItemId() == 57 || drop.getItemId() == 5575 || drop.getItemId() == 6360 || drop.getItemId() == 6361 || drop.getItemId() == 6362)
                 {
                     champRate = Config.CHAMPION_ADENA;
                 } else
@@ -1402,9 +1402,17 @@ public class L2Attackable extends L2NpcInstance
                 {
                     if (_log.isDebugEnabled()) _log.info("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
                 
-                    // Check if the autoLoot mode is active
-                    if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                    else DropItem(player, item); // drop the item on the ground
+                    // Check if the autoLoot mode for items/Adena is active
+                    if (item.getItemId() == 57 || item.getItemId() == 5575 || item.getItemId() == 6360 || item.getItemId() == 6361 || item.getItemId() == 6362)
+                    {
+                    	if (Config.AUTO_LOOT_ADENA) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+                        else DropItem(player, item); // drop the item on the ground
+                    }
+                    else
+                    {
+                    	if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+                        else DropItem(player, item); // drop the item on the ground
+                    }                    
 
                     // Broadcast message if RaidBoss was defeated
                     if(this instanceof L2RaidBossInstance)
@@ -1421,7 +1429,7 @@ public class L2Attackable extends L2NpcInstance
         }
 
         // Apply Special Item drop with rnd qty for champions
-        if (Config.CHAMPION_FREQUENCY > 0 && isChampion() && (player.getLevel() <= getLevel()) && Config.CHAMPION_SPCL_CHANCE > 0 && (Rnd.get(100) < Config.CHAMPION_SPCL_CHANCE))
+        if (Config.CHAMPION_FREQUENCY > 0 && isChampion() && Math.abs(getLevel() - player.getLevel()) >= Config.CHAMPION_SPCL_LVL_DIFF && Config.CHAMPION_SPCL_CHANCE > 0 && Rnd.get(100) < Config.CHAMPION_SPCL_CHANCE)
         {
             int champqty = Rnd.get(Config.CHAMPION_SPCL_QTY);
             champqty++; //quantity should actually vary between 1 and whatever admin specified as max, inclusive.

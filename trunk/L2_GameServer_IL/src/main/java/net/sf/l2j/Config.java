@@ -285,6 +285,7 @@ public final class Config
     public static int       CHAMPION_MIN_LEVEL;   // Champion Minimum Level
     public static int       CHAMPION_MAX_LEVEL;   // Champion Maximum Level
     public static boolean   CHAMPION_MINIONS;     // set Minions to champions when leader champion
+    public static int       CHAMPION_SPCL_LVL_DIFF; // level diff with mob level is more this value - don't drop an special reward item.
     public static int       CHAMPION_SPCL_CHANCE; // Chance in % to drop an special reward item.
     public static int       CHAMPION_SPCL_ITEM;   // Item ID that drops from Champs.
     public static int       CHAMPION_SPCL_QTY;    // Amount of special champ drop items.
@@ -311,6 +312,7 @@ public final class Config
             CHAMPION_MIN_LEVEL      = Integer.parseInt(championsSettings.getProperty("ChampionMinLevel", "20"));
             CHAMPION_MAX_LEVEL      = Integer.parseInt(championsSettings.getProperty("ChampionMaxLevel", "60"));
             CHAMPION_MINIONS        = Boolean.parseBoolean(championsSettings.getProperty("ChampionMinions", "false"));
+            CHAMPION_SPCL_LVL_DIFF  = Integer.parseInt(championsSettings.getProperty("ChampionSpecialItemLevelDiff", "0"));
             CHAMPION_SPCL_CHANCE    = Integer.parseInt(championsSettings.getProperty("ChampionSpecialItemChance", "0"));
             CHAMPION_SPCL_ITEM      = Integer.parseInt(championsSettings.getProperty("ChampionSpecialItemID", "6393"));
             CHAMPION_SPCL_QTY       = Integer.parseInt(championsSettings.getProperty("ChampionSpecialItemAmount", "1"));
@@ -1304,6 +1306,7 @@ public final class Config
     public static boolean 			ALT_CRAFT_ALLOW_CRYSTALLIZE;      	// allow to break items
     public static boolean 			ALT_CRAFT_ALLOW_COMMON;            	// allow to craft common craft recipes
     public static boolean 			AUTO_LOOT;							// Accept auto-loot ?
+    public static boolean 			AUTO_LOOT_ADENA;
     public static boolean 			AUTO_LOOT_HERBS;
     public static boolean 			SPAWN_SIEGE_GUARD;					// Config for spawn siege guards 
 	public static int 				TIME_IN_A_DAY_OF_OPEN_A_DOOR;		
@@ -1422,6 +1425,7 @@ public final class Config
             LIFE_CRYSTAL_NEEDED                                 = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
             ES_SP_BOOK_NEEDED                                   = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded","true"));
             AUTO_LOOT                                           = altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
+            AUTO_LOOT_ADENA                                     = altSettings.getProperty("AutoLootAdena").trim().equalsIgnoreCase("True");
             AUTO_LOOT_HERBS                                     = altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
             ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
             ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
@@ -2489,6 +2493,7 @@ public final class Config
         else if (pName.equalsIgnoreCase("ChampionMinLevel")) CHAMPION_MIN_LEVEL = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionMaxLevel")) CHAMPION_MAX_LEVEL = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionMinions")) CHAMPION_MINIONS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("ChampionSpecialItemLevelDiff")) CHAMPION_SPCL_LVL_DIFF = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionSpecialItemChance")) CHAMPION_SPCL_CHANCE = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionSpecialItemID")) CHAMPION_SPCL_ITEM = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("ChampionSpecialItemAmount")) CHAMPION_SPCL_QTY = Integer.parseInt(pValue);
@@ -2643,6 +2648,7 @@ public final class Config
         else if (pName.equalsIgnoreCase("SpBookNeeded")) SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("LifeCrystalNeeded")) LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AutoLoot")) AUTO_LOOT = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("AutoLootAdena")) AUTO_LOOT_ADENA = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AutoLootHerbs")) AUTO_LOOT_HERBS = Boolean.parseBoolean(pValue);
 
         else if (pName.equalsIgnoreCase("AltKarmaPlayerCanBeKilledInPeaceZone")) ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE = Boolean.parseBoolean(pValue);

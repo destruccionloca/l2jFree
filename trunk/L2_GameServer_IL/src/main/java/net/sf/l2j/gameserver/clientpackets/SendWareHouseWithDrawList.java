@@ -152,7 +152,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 			L2ItemInstance oldItem = warehouse.getItemByObjectId(objectId);
 			if (oldItem == null || oldItem.getCount() < count)
 				player.sendMessage("Can't withdraw requested item"+(count>1?"s":""));
-			L2ItemInstance newItem = warehouse.transferItem("Warehouse", objectId, count, player.getInventory(), player, player.getLastFolkNPC());
+			L2ItemInstance newItem = warehouse.transferItem((warehouse instanceof ClanWarehouse)?"ClanWarehouse":"Warehouse", objectId, count, player.getInventory(), player, player.getLastFolkNPC());
 			if (newItem == null)
 			{
 				_log.warn("Error withdrawing a warehouse object for char " + player.getName());

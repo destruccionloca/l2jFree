@@ -180,7 +180,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 					continue;
 			}
 			
-			L2ItemInstance newItem = player.getInventory().transferItem("Warehouse", objectId, count, warehouse, player, player.getLastFolkNPC());
+			L2ItemInstance newItem = player.getInventory().transferItem((warehouse instanceof ClanWarehouse)?"ClanWarehouse":"Warehouse", objectId, count, warehouse, player, player.getLastFolkNPC());
 			if (newItem == null)
 			{
 				_log.warn("Error depositing a warehouse object for char "+player.getName()+" (newitem == null)");

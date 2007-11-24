@@ -274,7 +274,7 @@ public class Auction
 	{
     	if (bidder.getClan() != null && bidder.getClan().getWarehouse().getAdena() >= quantity)
     	{
-    		bidder.getClan().getWarehouse().destroyItemByItemId("Buy", _adenaId, quantity, bidder, bidder);
+    		bidder.getClan().getWarehouse().destroyItemByItemId("Auction", _adenaId, quantity, bidder, bidder);
         	return true;
     	}
 		bidder.sendMessage("You do not have enough adena");

@@ -109,7 +109,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 		}
 
 		int itemId = itemToRemove.getItemId();
-        if (itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || CursedWeaponsManager.getInstance().isCursed(itemId))
+        if (itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || (CursedWeaponsManager.getInstance().isCursed(itemId) &&  !activeChar.isGM()))
 		{
 		    activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 		    return;

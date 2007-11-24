@@ -1547,7 +1547,7 @@ public final class Formulas
         if (!target.isInFront(attacker, shldAngle))
             return false;
 		
-        // if attacker use bow and target wear shield, shield block rate is multiplied by 1.3 (30%)
+        // if attacker use bow and target wear shield, shield block rate is multiplied by 1.5 (50%)
 		if (attacker != null && attacker.getActiveWeaponItem() != null 
 			&& attacker.getActiveWeaponItem().getItemType() == L2WeaponType.BOW
 		)
