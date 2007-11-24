@@ -409,7 +409,7 @@ public abstract class L2Skill
     
     // all times in milliseconds 
     private final int _hitTime;
-    //private final int _skillInterruptTime;
+    private final int _skillInterruptTime;
     private final int _coolTime;
     private final int _reuseDelay;
     private final int _buffDuration;
@@ -515,7 +515,7 @@ public abstract class L2Skill
 
         _hitTime      = set.getInteger("hitTime", 0);
         _coolTime = set.getInteger("coolTime", 0);
-        //_skillInterruptTime = (_hitTime / 2);
+        _skillInterruptTime = (_hitTime / 2);
         _reuseDelay   = set.getInteger("reuseDelay", 0);
 
         _skillType    = set.getEnum("skillType", SkillType.class);
@@ -998,10 +998,10 @@ public abstract class L2Skill
         return _coolTime;
     }
 
-    //public final int getSkillInterruptTime()
-    //{
-    //    return _skillInterruptTime;
-    //}
+    public final int getSkillInterruptTime()
+    {
+        return _skillInterruptTime;
+    }
     
     public final int getSkillRadius()
     {
