@@ -1205,6 +1205,11 @@ public class TvT
     
     public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
     {
+    	if(_players.contains(eventPlayer))
+    	{
+            eventPlayer.sendMessage("You already participated in the event!"); 
+            return false;
+    	}
         if (CTF._savePlayers.contains(eventPlayer.getName())) 
         {
             eventPlayer.sendMessage("You already participated in another event!"); 
