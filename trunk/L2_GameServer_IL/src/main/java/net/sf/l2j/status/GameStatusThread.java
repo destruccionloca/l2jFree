@@ -1092,7 +1092,7 @@ public class GameStatusThread extends Thread
     
     private int getOnlineGMS()
     {
-        return GmListTable.getInstance().getAllGms(true).length;
+        return GmListTable.getInstance().getAllGms(true).size();
     }
     
     private String getUptime(int time)

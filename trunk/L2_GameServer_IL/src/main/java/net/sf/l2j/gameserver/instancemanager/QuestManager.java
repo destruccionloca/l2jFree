@@ -69,7 +69,8 @@ public class QuestManager
     // Method - Public
     public final boolean reload(String questFolder)
     {
-    	return QuestJython.reloadQuest(questFolder);
+        getQuest(questFolder).saveGlobalData();
+        return QuestJython.reloadQuest(questFolder);
     }
     
     /**
@@ -80,12 +81,13 @@ public class QuestManager
      */
     public final boolean reload(int questId)
     {
-    	Quest q = getQuest(questId);
-    	if (q == null)
-    	{
-    		return false;
-    	}
-    	return QuestJython.reloadQuest(q.getName());
+        Quest q = getQuest(questId);
+        if (q == null)
+        {
+            return false;
+        }
+        q.saveGlobalData();
+        return QuestJython.reloadQuest(q.getName());
     }
     
     // =========================================================
@@ -94,6 +96,11 @@ public class QuestManager
     {
         QuestJython.init();
         _log.info("Loaded: " + getQuests().size() + " quests");
+    }
+    public final void save()
+    {
+        for(Quest q : _quests)
+            q.saveGlobalData();
     }
 
     // =========================================================
