@@ -1895,31 +1895,32 @@ public final class L2PcInstance extends L2PlayableInstance
     public void refreshOverloaded()
     {
         int maxLoad = getMaxLoad();
+        int newWeightPenalty = 0;
+
         if (maxLoad > 0 && !_dietMode)
         {
             setIsOverloaded(getCurrentLoad() > maxLoad);
             int weightproc = getCurrentLoad() * 1000 / maxLoad;
-            int newWeightPenalty;
+
             if (weightproc < 500) newWeightPenalty = 0;
             else if (weightproc < 666) newWeightPenalty = 1;
             else if (weightproc < 800) newWeightPenalty = 2;
             else if (weightproc < 1000) newWeightPenalty = 3;
             else newWeightPenalty = 4;
+        }
 
-            if (_curWeightPenalty != newWeightPenalty)
-            {
-                _curWeightPenalty = newWeightPenalty;
-                if (newWeightPenalty > 0) 
-                    super.addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty));
-                else 
-                    super.removeSkill(getKnownSkill(4270));
-                
-                sendPacket(new EtcStatusUpdate(this));
-                broadcastUserInfo();
-                StatusUpdate su = new StatusUpdate(getObjectId());
-                sendPacket(su);
-                Broadcast.toKnownPlayers(this, new CharInfo(this));
-            }
+        if (_curWeightPenalty != newWeightPenalty)
+        {
+            _curWeightPenalty = newWeightPenalty;
+            if (newWeightPenalty > 0) 
+                super.addSkill(SkillTable.getInstance().getInfo(4270, newWeightPenalty));
+            else 
+                super.removeSkill(getKnownSkill(4270));
+
+            sendPacket(new EtcStatusUpdate(this));
+            StatusUpdate su = new StatusUpdate(getObjectId());
+            sendPacket(su);
+            broadcastUserInfo();
         }
     }
 
