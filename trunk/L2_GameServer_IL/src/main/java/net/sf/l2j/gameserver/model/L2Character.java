@@ -5043,49 +5043,24 @@ public abstract class L2Character extends L2Object
 	*/
 	public int calculateTimeBetweenAttacks(L2Character target, L2Weapon weapon)
 	{
-		double base = 470000; //supposed to be 500'000... imo @ NB4L1
-		
-		if (weapon != null && weapon.getItemType() == L2WeaponType.BOW)
-			base = 517500;
-		
-		return Formulas.getInstance().calcPAtkSpd(this, target, getPAtkSpd(), base);
+		return Formulas.getInstance().calcPAtkSpd(this, target, getPAtkSpd(), 500000);
 	}
 
 	public int calculateReuseTime(L2Character target, L2Weapon weapon)
 	{
 		// Source L2P
-		// Formula for maximum bow shots per second appears to be (Atk.Spd./1000)*(1500/Weapon Delay)
-		// That means: one shot takes: 1000*(1000*reuse)/(atkSpd*1500) = (2000/3)*reuse/atkSpd
-		// Normal attack time: 517500/atkSpd
-		// Difference is ((2000/3)*reuse - 517500)/atkSpd
-		// Reuse goes from 697 SB QR, to 1500 Normal...
-		// So 2000/3*697 = 464'666
-		// 2000/3*800 = 533'333
-		// 2000/3*1500 = 1'000'000
-		// Btw it can be, that the values are calculated from later, not from the beginning of the shot....
-		// L2Calc uses another formula, not this one writed on the same site -.- strange
+		// Standing still and with no SA, normal bows and yumi bows shoot the exact same number of shots per second. 
+		// Normal Bows allow faster use of skills and more kiteability due to having a higher Atk. Spd. while Yumi Bows have significant P.Atk. 
+		// The SA "Quick Recovery" reduces the red bar Weapon Delay on a bow to the following: 
+		// Reuse goes from 639 EB QR, to 1500 Normal...
 		
-		double reuse = 0;
+		if (weapon == null) return 0;
 		
-		if (weapon != null)
-			reuse = weapon.getAttackReuseDelay();
+		double reuse = weapon.getAttackReuseDelay();
 		
-		// only bows should continue for now
-		if (reuse == 0) return 0; 
+		if (reuse == 0) return 0;
 		
-		reuse = getBowReuse(reuse);
-		
-		// Calculated from the beginning of the shot
-		// reuse = ((2000 / 3) * reuse) - 517500;
-		// OR
-		// It can be, that the values are calculated from later, not from the beginning of the shot....
-		// reuse = (2000 / 3) * reuse;
-		// OR
-		// middle value
-		reuse = ((2000 / 3) * reuse) - 300000;
-		
-		if (reuse < 0)
-			reuse = 0;
+		reuse = getBowReuse(reuse) * 333;
 		
 		return Formulas.getInstance().calcPAtkSpd(this, target, getPAtkSpd(), reuse);
 	}
