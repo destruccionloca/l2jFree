@@ -146,7 +146,7 @@ public class L2NpcInstance extends L2Character
                   _isEventMobDM = false,
                   _isEventMobCTF = false,
                   _isEventVIPNPC = false,
-                  _isEventVIPNPCEnd = false;                  
+                  _isEventVIPNPCEnd = false;
 
     private boolean _isInTown = false;
     private int _isSpoiledBy = 0;
@@ -672,7 +672,7 @@ public class L2NpcInstance extends L2Character
                     else if (_isEventVIPNPC)
                        VIP.showJoinHTML(player, String.valueOf(getObjectId()));
                     else if (_isEventVIPNPCEnd)
-                       VIP.showEndHTML(player, String.valueOf(getObjectId()));                    
+                       VIP.showEndHTML(player, String.valueOf(getObjectId()));
                     else 
                     {
                         Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.NPC_FIRST_TALK);

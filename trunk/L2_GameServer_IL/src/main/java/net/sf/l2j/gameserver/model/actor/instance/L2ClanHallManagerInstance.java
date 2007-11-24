@@ -689,13 +689,13 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     protected int validateCondition(L2PcInstance player)
     {   
         if (getClanHall() == null) return COND_ALL_FALSE;
-    	if (player.isGM()) return COND_OWNER;
+        if (player.isGM()) return COND_OWNER;
         if (player.getClan() != null)
-        {                                     
-            if (getClanHall().getOwnerId() == player.getClanId())                                          
+        {
+            if (getClanHall().getOwnerId() == player.getClanId())
                 return COND_OWNER;
             else
-            	return COND_OWNER_FALSE;
+                return COND_OWNER_FALSE;
         }
         return COND_ALL_FALSE;
     }
@@ -705,7 +705,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     {
         if (_clanHallId < 0)
         {
-        	_clanHallId = ClanHallManager.getInstance().getClanHall(getX(), getY()).getId();
+            _clanHallId = ClanHallManager.getInstance().getClanHall(getX(), getY()).getId();
             if (_clanHallId < 0) return null;
         }
         return ClanHallManager.getInstance().getClanHall(_clanHallId);
@@ -727,8 +727,8 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     
     private void doTeleport(L2PcInstance player, int val)
     {
-       if(_log.isDebugEnabled())
-    	   player.sendMessage("doTeleport(L2PcInstance player, int val) is called");
+        if(_log.isDebugEnabled())
+            player.sendMessage("doTeleport(L2PcInstance player, int val) is called");
         L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
         if (list != null)
         {
@@ -760,7 +760,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
         player.tempInvetoryDisable();
 
         if (_log.isDebugEnabled())
-        	_log.info("Showing buylist :"+player.getName()+" List ID :"+val);
+            _log.info("Showing buylist :"+player.getName()+" List ID :"+val);
 
         L2TradeList list = TradeListTable.getInstance().getBuyList(val);
 
@@ -778,8 +778,10 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
         player.sendPacket(new ActionFailed());
     }
-    private void revalidateDeco(L2PcInstance player){
-		ClanHallDecoration bl = new ClanHallDecoration(ClanHallManager.getInstance().getClanHallByOwner(player.getClan()));
-		player.sendPacket(bl);
+
+    private void revalidateDeco(L2PcInstance player)
+    {
+        ClanHallDecoration bl = new ClanHallDecoration(ClanHallManager.getInstance().getClanHallByOwner(player.getClan()));
+        player.sendPacket(bl);
     }
 }

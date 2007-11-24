@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.Location;
-import net.sf.l2j.gameserver.model.SpawnListener;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
@@ -250,7 +249,6 @@ public class DimensionalRiftManager
             spawn.setLocx(loc.getX());
             spawn.setLocy(loc.getY());
             spawn.setLocz(loc.getZ());
-            L2Spawn.addSpawnListener(new RiftSpawnListener(roomType, (byte) id));
             SpawnTable.getInstance().addNewSpawn(spawn, false);
             riftRoom.getSpawns().add(spawn);
         }
@@ -381,28 +379,6 @@ public class DimensionalRiftManager
         if (d.getSpawnTimer() != null)
             d.getSpawnTimer().cancel();
         d.setSpawnTimer(null);
-    }
-
-    private class RiftSpawnListener implements SpawnListener
-    {
-        private RoomType _roomType;
-        private byte _roomId;
-
-        public RiftSpawnListener(RoomType roomType, byte roomId)
-        {
-            _roomType = roomType;
-            _roomId = roomId;
-        }
-
-        public void npcSpawned(L2NpcInstance mob)
-        {
-            if (mob instanceof L2RiftInvaderInstance)
-            {
-                L2RiftInvaderInstance rMob = (L2RiftInvaderInstance) mob;
-                rMob.setType(_roomType);
-                rMob.setRoom(_roomId);
-            }
-        }
     }
 
     private int getNeededItems(RoomType roomType)

@@ -23,31 +23,8 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2RiftInvaderInstance extends L2MonsterInstance
 {
-    private RoomType _roomType;
-    private byte _roomId;
-
 	public L2RiftInvaderInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
-	}
-
-	public RoomType  getType()
-	{
-		return _roomType;
-	}
-	
-	public byte getRoom()
-	{
-		return _roomId;
-	}
-	
-	public void setType(RoomType roomType)
-	{
-        roomType = _roomType;
-	}
-	
-	public void setRoom(byte roomId)
-	{
-        _roomId = roomId;
 	}
 }

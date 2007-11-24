@@ -65,7 +65,7 @@ public class L2FolkInstance extends L2NpcInstance
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
-            sb.append("<html><head><body>");
+            sb.append("<html><body>");
             sb.append("I cannot teach you. My class list is empty.<br> Ask admin to fix it. Need add my npcid and classes to skill_learn.sql.<br>NpcId:"+npcId+", Your classId:"+player.getClassId().getId()+"<br>");
             sb.append("</body></html>");
             html.setHtml(sb.toString());
@@ -78,7 +78,7 @@ public class L2FolkInstance extends L2NpcInstance
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
-            sb.append("<html><head><body>");
+            sb.append("<html><body>");
             sb.append("I cannot teach you any skills.<br> You must find your current class teachers.");
             sb.append("</body></html>");
             html.setHtml(sb.toString());
@@ -142,7 +142,7 @@ public class L2FolkInstance extends L2NpcInstance
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
-            sb.append("<html><head><body>");
+            sb.append("<html><body>");
             sb.append("I cannot teach you. My class list is empty.<br> Ask admin to fix it. Need add my npcid and classes to skill_learn.sql.<br>NpcId:"+npcId+", Your classId:"+player.getClassId().getId()+"<br>");
             sb.append("</body></html>");
             html.setHtml(sb.toString());
@@ -155,7 +155,7 @@ public class L2FolkInstance extends L2NpcInstance
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
-            sb.append("<html><head><body>");
+            sb.append("<html><body>");
             sb.append("I cannot teach you any skills.<br> You must find your current class teachers.");
             sb.append("</body></html>");
             html.setHtml(sb.toString());
@@ -196,7 +196,7 @@ public class L2FolkInstance extends L2NpcInstance
             else
             {
                 TextBuilder sb = new TextBuilder();
-                sb.append("<html><head><body>");
+                sb.append("<html><body>");
                 sb.append("You've learned all skills for your class.<br>");
                 sb.append("</body></html>");
                 html.setHtml(sb.toString());
@@ -241,11 +241,7 @@ public class L2FolkInstance extends L2NpcInstance
                         }
                     }
                     
-                    String text = 
-                        "<html>\n"+
-                        "<body>\n"+
-                        "<center>Skill learning:</center>\n"+
-                        "<br>\n";
+                    String text = "<html><body><center>Skill learning:</center><br>";
                     
 					if (!own_class) 
                     {
@@ -288,8 +284,7 @@ public class L2FolkInstance extends L2NpcInstance
                     }
                     
                     text +=
-                        "</body>\n"+
-                        "</html>";
+                        "</body></html>";
                     
                     insertObjectIdAndShowChatWindow(player, text);
                     player.sendPacket( new ActionFailed() );

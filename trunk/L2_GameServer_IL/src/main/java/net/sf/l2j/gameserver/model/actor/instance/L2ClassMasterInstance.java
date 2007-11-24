@@ -57,11 +57,9 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     {
         if (getObjectId() != player.getTargetId())
         {
-            player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
-            
             player.setTarget(this);
-            player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
-            // correct location
+            player.sendPacket(new MyTargetSelected(getObjectId(), 0));
+            // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
             player.sendPacket(new ValidateLocation(this));
         }
         else
@@ -221,15 +219,15 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     		}
     		
             changeClass(player, val);
-    		
+
             player.rewardSkills();
             
             if(newJobLevel == 3)
-           	 	// system sound 3rd occupation
-            	player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER));
+                // system sound 3rd occupation
+                player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER));
             else
-            	// system sound for 1st and 2nd occupation
-            	player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER));    
+                // system sound for 1st and 2nd occupation
+                player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER));
 
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
@@ -240,6 +238,11 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             sb.append("</body></html>");
             html.setHtml(sb.toString());
             player.sendPacket(html);
+
+            // Update the overloaded status of the L2PcInstance
+            player.refreshOverloaded();
+            // Update the expertise status of the L2PcInstance
+            player.refreshExpertisePenalty();
         }
         else if (command.startsWith("upgrade_hatchling") && Config.CLASS_MASTER_STRIDER_UPDATE)
         {
@@ -268,11 +271,10 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     
     private void changeClass(L2PcInstance player, int val)
     {
-    	if (_log.isDebugEnabled()) _log.debug("Changing class to ClassId:" + val);
+        if (_log.isDebugEnabled()) _log.debug("Changing class to ClassId:" + val);
         player.setClassId(val);
         
-        if (player.isSubClassActive()) player.getSubClasses().get(player.getClassIndex()).setClassId(
-                                                                                                     player.getActiveClass());
+        if (player.isSubClassActive()) player.getSubClasses().get(player.getClassIndex()).setClassId(player.getActiveClass());
         else player.setBaseClass(player.getActiveClass());
         
         player.broadcastUserInfo();

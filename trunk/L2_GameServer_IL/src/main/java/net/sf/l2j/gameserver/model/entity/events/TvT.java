@@ -1092,7 +1092,7 @@ public class TvT
         {
             NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
-            TextBuilder replyMSG = new TextBuilder("<html><head><body>");
+            TextBuilder replyMSG = new TextBuilder("<html><body>");
             replyMSG.append("TvT Match<br><br><br>");
             replyMSG.append("Current event...<br1>");
             replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + _eventName + "</font><br1>");

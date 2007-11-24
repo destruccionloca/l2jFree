@@ -91,7 +91,7 @@ public class Hero
     {
         if (_instance == null)
             _instance = new Hero();
-        return _instance;       
+        return _instance;
     }
     
     public Hero()
@@ -241,8 +241,8 @@ public class Hero
                 
                 if (player == null) continue;
                 try 
-                {  
-                	player.setHero(false);
+                {
+                    player.setHero(false);
                     
                     items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_LR_HAND);
                     iu = new InventoryUpdate();
@@ -275,7 +275,7 @@ public class Hero
                         iu.addModifiedItem(item);
                     }
                     player.sendPacket(iu);
-                                         
+
                     items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_DHAIR);
                      iu = new InventoryUpdate();
                     for (L2ItemInstance item : items)
@@ -475,11 +475,13 @@ public class Hero
                     statement.close();
                 }
             }
-        } catch(SQLException e)
+        }
+        catch(SQLException e)
         {
             _log.warn("HeroSystem: Couldnt update Heroes");
             if (_log.isDebugEnabled())  _log.debug("",e);
-        } finally
+        }
+        finally
         {
             try{con.close();}catch(Exception e){ _log.error("",e);}
         }
@@ -502,25 +504,27 @@ public class Hero
             statement.close();
         }
         catch(SQLException e){ _log.error("",e);}
-        finally{
+        finally
+        {
             try{con.close();}catch(SQLException e){ _log.error("",e);}
         }
     }
 
-     private void deleteSkillsInDb() 
-     { 
-         Connection con = null; 
-          
-         try 
-         { 
-             con = L2DatabaseFactory.getInstance().getConnection(con); 
-             PreparedStatement statement = con.prepareStatement(DELETE_SKILLS); 
-             statement.execute(); 
-             statement.close(); 
-         } 
-         catch(SQLException e){_log.error(e.getMessage(),e);} 
-         finally{ 
-             try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
-         }
-     }
+    private void deleteSkillsInDb() 
+    {
+        Connection con = null;
+        
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement = con.prepareStatement(DELETE_SKILLS);
+            statement.execute();
+            statement.close();
+        }
+        catch(SQLException e){_log.error(e.getMessage(),e);}
+        finally
+        {
+            try{con.close();}catch(SQLException e){_log.error(e.getMessage(),e);}
+        }
+    }
 }

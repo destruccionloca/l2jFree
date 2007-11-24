@@ -542,8 +542,8 @@ public class TradeList
         return true;
     }
 
-    /**                                                                                                   
-     * Count items slots                                                                                  
+    /**
+     * Count items slots
      */
 
     public int countItemsSlots(L2PcInstance partner)
@@ -563,8 +563,8 @@ public class TradeList
         return slots;
     }
 
-    /**                                                                                                   
-     * Calc weight of items in tradeList                                                                  
+    /**
+     * Calc weight of items in tradeList
      */
 
     public int calcItemsWeight()
