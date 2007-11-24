@@ -1064,15 +1064,15 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             sendMessage("You can not log out in here.");
             sendPacket(new ActionFailed());
-            return false;
+            return false;                   
         }
-
+	
         if(isFlying())
         {
-            sendMessage("You can not log out while flying.");
-            sendPacket(new ActionFailed());
-            return false;
-        }
+   		 sendMessage("You can not log out while flying.");
+         sendPacket(new ActionFailed());
+         return false;                   
+    	}
         // [L2J_JP ADD END]
         
         // prevent player to disconnect when in combat
@@ -1947,7 +1947,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 _expertisePenalty = newPenalty;
 
-                if (newPenalty > 0) super.addSkill(SkillTable.getInstance().getInfo(4267, 1));
+                if (newPenalty > 0) super.addSkill(SkillTable.getInstance().getInfo(4267, newPenalty));
                 else super.removeSkill(getKnownSkill(4267));
 
                 sendPacket(new EtcStatusUpdate(this));
@@ -3369,6 +3369,7 @@ public final class L2PcInstance extends L2PlayableInstance
             // The color to display in the select window is White
             player.sendPacket(new MyTargetSelected(getObjectId(), 0));
             if (player != this) player.sendPacket(new ValidateLocation(this));
+
         }
         else
         {
@@ -3389,7 +3390,7 @@ public final class L2PcInstance extends L2PlayableInstance
                             || (player.isCursedWeaponEquiped() && getLevel() < 21))
                     {
                         player.sendPacket(new ActionFailed());
-                    }
+                    } 
                     else
                     {
 						if (Config.GEO_CHECK_LOS)
@@ -3622,7 +3623,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (_client != null)
         {
             _client.sendPacket(packet);
-        }
+        }        
     }
 
     /**
@@ -3644,11 +3645,15 @@ public final class L2PcInstance extends L2PlayableInstance
             sendPacket(new ActionFailed());
 
             if (temp.getPrivateStoreType() == STORE_PRIVATE_SELL || temp.getPrivateStoreType() == STORE_PRIVATE_PACKAGE_SELL)
-                sendPacket(new PrivateStoreListSell(this, temp));
-            else if (temp.getPrivateStoreType() == STORE_PRIVATE_BUY)
-                sendPacket(new PrivateStoreListBuy(this, temp));
+                sendPacket(new PrivateStoreListSell(
+                                                                                                      this,
+                                                                                                      temp));
+            else if (temp.getPrivateStoreType() == STORE_PRIVATE_BUY) sendPacket(new PrivateStoreListBuy(
+                                                                                                         this,
+                                                                                                         temp));
             else if (temp.getPrivateStoreType() == STORE_PRIVATE_MANUFACTURE)
                 sendPacket(new RecipeShopSellList(this, temp));
+
         }
         else
         {
@@ -3856,7 +3861,7 @@ public final class L2PcInstance extends L2PlayableInstance
         //if (newTarget != null && !GeoData.getInstance().canSeeTarget(this, newTarget))
         if (newTarget != null && Math.abs(newTarget.getZ() - getZ()) > 1000)
              newTarget = null;
-
+             
         // Get the current target
         L2Object oldTarget = getTarget();
         if (oldTarget != null)
@@ -4035,13 +4040,13 @@ public final class L2PcInstance extends L2PlayableInstance
 
                     sendMessage("You will be revived and teleported to team spot in 20 seconds!");
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                    {
-                        public void run()
-                        {
-                            teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
-                            doRevive();
-                        }
-                    }, 20000);
+                                                                    {
+                                                                        public void run()
+                                                                        {
+                                                                            teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
+                                                                            doRevive();
+                                                                        }
+                                                                    }, 20000);
                 }
             }
             
@@ -4051,14 +4056,14 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     sendMessage("You will be revived and teleported to team spot in 20 seconds!");
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                    {
-                        public void run()
-                        {
-                            teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
-                            doRevive();
-                        }
-                    }, 20000);
-                }
+                                                                    {
+                                                                        public void run()
+                                                                        {
+                                                                            teleToLocation(TvT._teamsX.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsY.get(TvT._teams.indexOf(_teamNameTvT)), TvT._teamsZ.get(TvT._teams.indexOf(_teamNameTvT)), false);
+                                                                            doRevive();
+                                                                        }
+                                                                    }, 20000);
+                    }
             }
             
             else if ((killer instanceof L2PcInstance && ((L2PcInstance)killer)._inEventCTF) && _inEventCTF)
@@ -4312,6 +4317,7 @@ public final class L2PcInstance extends L2PlayableInstance
             boolean isKarmaDrop = false;
             boolean isKillerNpc = (killer instanceof L2NpcInstance);
             int pkLimit = Config.KARMA_PK_LIMIT;
+            ;
 
             int dropEquip = 0;
             int dropEquipWeapon = 0;
@@ -6739,6 +6745,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         updateEffectIcons();
+		checkIfWeaponIsAllowed();
     }
 
     /**
