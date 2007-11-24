@@ -356,6 +356,11 @@ public abstract class Inventory extends ItemContainer
 
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
+			if(!(getOwner() instanceof L2PcInstance))
+				return;
+
+			L2PcInstance player = (L2PcInstance)getOwner();
+
 			boolean remove = false;
 			int removeSkillId1 = 0; // set skill
 			int removeSkillId2 = 0; // shield skill
@@ -402,11 +407,7 @@ public abstract class Inventory extends ItemContainer
 				{
 					L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId1,1);
 					if(skill != null)
-					{
-						L2PcInstance owner = (L2PcInstance)getOwner();
-						owner.removeSkill(skill);
-						owner.sendSkillList();
-					}
+						player.removeSkill(skill);
 					else
 						_log.warn("Inventory.ArmorSetListener: Incorrect skill: "+removeSkillId1+".");
 				}
@@ -414,11 +415,7 @@ public abstract class Inventory extends ItemContainer
 				{
 					L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId2,1);
 					if(skill != null)
-					{
-						L2PcInstance owner = (L2PcInstance)getOwner();
-						owner.removeSkill(skill);
-						owner.sendSkillList();
-					}
+						player.removeSkill(skill);
 					else
 						_log.warn("Inventory.ArmorSetListener: Incorrect skill: "+removeSkillId2+".");
 				}
@@ -426,14 +423,11 @@ public abstract class Inventory extends ItemContainer
 				{
 					L2Skill skill = SkillTable.getInstance().getInfo(removeSkillId3,1);
 					if(skill != null)
-					{
-						L2PcInstance owner = (L2PcInstance)getOwner();
-						owner.removeSkill(skill);
-						owner.sendSkillList();
-					}
+						player.removeSkill(skill);
 					else
 						_log.warn("Inventory.ArmorSetListener: Incorrect skill: "+removeSkillId3+".");
 				}
+				player.sendSkillList();
 			}
 		}
 	}

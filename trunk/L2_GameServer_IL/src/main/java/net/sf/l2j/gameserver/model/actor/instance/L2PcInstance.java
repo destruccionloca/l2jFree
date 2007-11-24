@@ -1947,7 +1947,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 _expertisePenalty = newPenalty;
 
-                if (newPenalty > 0) super.addSkill(SkillTable.getInstance().getInfo(4267, newPenalty));
+                if (newPenalty > 0) super.addSkill(SkillTable.getInstance().getInfo(4267, 1));
                 else super.removeSkill(getKnownSkill(4267));
 
                 sendPacket(new EtcStatusUpdate(this));
