@@ -8976,6 +8976,7 @@ public final class L2PcInstance extends L2PlayableInstance
 					{
 						getParty().removePartyMember(this);
 						sendMessage("You have been removed from your party, because the level difference is too big.");
+						break;
 					}
 				}
 			}
