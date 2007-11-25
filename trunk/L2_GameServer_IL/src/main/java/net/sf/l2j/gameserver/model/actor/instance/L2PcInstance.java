@@ -8966,8 +8966,22 @@ public final class L2PcInstance extends L2PlayableInstance
 
         _classIndex = classIndex;
 
-        if(isInParty())
-        	getParty().recalculatePartyLevel();
+        if (isInParty())
+		{
+			if (Config.MAX_PARTY_LEVEL_DIFFERENCE > 0)
+			{
+				for (L2PcInstance p : getParty().getPartyMembers())
+				{
+					if (Math.abs(p.getLevel() - getLevel()) > Config.MAX_PARTY_LEVEL_DIFFERENCE)
+					{
+						getParty().removePartyMember(this);
+						sendMessage("You have been removed from your party, because the level difference is too big.");
+					}
+				}
+			}
+        	else
+				getParty().recalculatePartyLevel();
+		}
         
         /* 
          * Update the character's change in class status.
