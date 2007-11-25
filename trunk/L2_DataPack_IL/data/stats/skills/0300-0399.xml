@@ -1093,6 +1093,7 @@
   <set name="power" val="30.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="HEAL_PERCENT"/>
+  <set name="magicLvl" val="78"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
@@ -1111,11 +1112,11 @@
 <skill id="342" levels="1" name="Touch of Death">
   <set name="hpConsume" val="1004"/>
   <set name="power" val="80"/>
-  <set name="magicLvl" val="78"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="120000"/>
   <set name="hitTime" val="1800"/>
   <set name="skillType" val="CANCEL"/>
+  <set name="magicLvl" val="78"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="skill_landing_percent" val="85"/>
   <set name="castRange" val="40"/>
