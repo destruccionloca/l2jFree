@@ -192,7 +192,7 @@ abstract class DocumentBase
     {
         NamedNodeMap attrs = n.getAttributes();
         String name = attrs.getNamedItem("name").getNodeValue();
-        int time, count = 1;
+        int time = 0, count = 1;
         if (attrs.getNamedItem("count") != null)
         {
             count = Integer.decode(getValue(attrs.getNamedItem("count").getNodeValue(), template));
@@ -201,9 +201,8 @@ abstract class DocumentBase
         {
         	time = Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(),template));
         }
-        else
-            time = ((L2Skill) template).getBuffDuration() / 1000 / count;
-        time = time * ((L2Skill) template).getTimeMulti();
+        
+        time *= ((L2Skill) template).getTimeMulti();
         boolean self = false;
         if (attrs.getNamedItem("self") != null)
         {

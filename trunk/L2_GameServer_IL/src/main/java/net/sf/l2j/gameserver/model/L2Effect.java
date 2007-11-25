@@ -238,11 +238,21 @@ public abstract class L2Effect
 	 * Returns the elapsed time of the task.
 	 * @return Time in seconds.
 	 */
-    public int getTaskTime()
+    public int getElapsedTaskTime()
     {
-    	if (_count == _totalCount) return 0;
-    	return (Math.abs(_count-_totalCount+1)*_period) + getTime()+1;
+    	return (_totalCount - _count) * _period + getTime() + 1;
     }
+	
+	public int getTotalTaskTime()
+	{
+		return _totalCount * _period;
+	}
+	
+	public int getRemainingTaskTime()
+	{
+		return getTotalTaskTime() - getElapsedTaskTime();
+	}
+	
 	public boolean getInUse()
 	{
 		return _inUse;
@@ -486,13 +496,15 @@ public abstract class L2Effect
 		if (_state == EffectState.FINISHING || _state == EffectState.CREATED) 
 			return;
 		L2Skill sk = getSkill();
+		int time = -1;
 		if (task._rate > 0)
-        {
-        	if (sk.isPotion()) mi.addEffect(sk.getId(), getLevel(), sk.getBuffDuration()-(getTaskTime()*1000));
-        	else mi.addEffect(sk.getId(), getLevel(), -1);
-        }
+			time = getRemainingTaskTime() * 1000;
+			//Why only potions? HOT skills should have this too.. maybe not retail, but more informative...
+			//if (sk.isPotion()) time = getRemainingTaskTime() * 1000;
 		else
-			mi.addEffect(getSkill().getId(), getLevel(), (int)future.getDelay(TimeUnit.MILLISECONDS));
+			time = (int)future.getDelay(TimeUnit.MILLISECONDS);
+		
+		mi.addEffect(sk.getId(), sk.getLevel(), time);
 	}
 	
     public final void addPartySpelledIcon(PartySpelled ps)

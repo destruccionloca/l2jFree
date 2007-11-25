@@ -412,7 +412,6 @@ public abstract class L2Skill
     private final int _skillInterruptTime;
     private final int _coolTime;
     private final int _reuseDelay;
-    private final int _buffDuration;
    
     /** Target type of the skill : SELF, PARTY, CLAN, PET... */
     private final SkillTargetType _targetType;
@@ -527,7 +526,6 @@ public abstract class L2Skill
         else
             _timeMulti = Config.ALT_BUFF_TIME;
 
-        _buffDuration = set.getInteger("buffDuration", 1);
         _skillRadius  = set.getInteger("skillRadius", 80);
         
         _targetType   = set.getEnum("target", SkillTargetType.class);
@@ -789,14 +787,6 @@ public abstract class L2Skill
     public final SkillType getEffectType()  
     { 
         return _effectType;
-    }
-    
-    /**
-     * @return Returns the buffDuration.
-     */
-    public final int getBuffDuration()
-    {
-        return _buffDuration * _timeMulti;
     }
 
     /**
