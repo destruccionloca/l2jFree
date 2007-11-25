@@ -86,7 +86,8 @@ public class RequestEnchantItem extends L2GameClientPacket
         L2ItemInstance scroll = activeChar.getActiveEnchantItem();
         activeChar.setActiveEnchantItem(null);
         if (item == null || scroll == null) return;
-        //if (item.getLocation()!=L2ItemInstance.ItemLocation.INVENTORY) return;
+        if ((item.getLocation()!=L2ItemInstance.ItemLocation.INVENTORY) || (item.getLocation()!=L2ItemInstance.ItemLocation.PAPERDOLL))
+        	return;
         
         int itemId = item.getItemId();
         
