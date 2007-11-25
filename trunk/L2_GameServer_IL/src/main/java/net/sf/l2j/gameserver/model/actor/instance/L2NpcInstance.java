@@ -665,8 +665,7 @@ public class L2NpcInstance extends L2Character
                     player.sendPacket(new ActionFailed());
                 }
             }
-            
-            if(!isAutoAttackable(player)) 
+            else if(!isAutoAttackable(player)) 
             {
                 // Calculate the distance between the L2PcInstance and the L2NpcInstance
                 if (!canInteract(player))
@@ -704,6 +703,8 @@ public class L2NpcInstance extends L2Character
                     }
                 }
             }
+			else
+				player.sendPacket(new ActionFailed());
         }
     }
     
