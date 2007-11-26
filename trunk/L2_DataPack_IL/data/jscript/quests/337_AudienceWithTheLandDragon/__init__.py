@@ -249,7 +249,7 @@ class Quest (JQuest) :
    if st :
      npcId = npc.getNpcId()
      maxHp = npc.getMaxHp()
-     nowHp = npc.getCurrentHp()
+     nowHp = npc.getStatus().getCurrentHp()
      cond = st.getInt("cond")
      if npcId == ABYSS_JEWEL1 :
          if cond == 2 and st.getInt("moke")<>1:
