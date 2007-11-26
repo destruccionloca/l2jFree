@@ -22,19 +22,20 @@ import java.nio.BufferUnderflowException;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.handler.ChatHandler;
+import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import net.sf.l2j.gameserver.handler.ChatHandler;
-import net.sf.l2j.gameserver.handler.IChatHandler;
-
-import net.sf.l2j.gameserver.network.SystemChatChannelId;
 /**
  * This class ...
  * 
@@ -99,9 +100,9 @@ public class Say2 extends L2GameClientPacket
         }
         
         // If player is jailed
-        if (activeChar.isInJail() && Config.JAIL_DISABLE_CHAT)
+        if ((activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar)) && Config.JAIL_DISABLE_CHAT)
         {
-            if (_type != SystemChatChannelId.Chat_User_Pet && _type !=SystemChatChannelId.Chat_Tell)
+            if (_type != SystemChatChannelId.Chat_User_Pet || _type != SystemChatChannelId.Chat_Normal)
             {
                 activeChar.sendMessage("You can not chat with the outside of the jail.");
                 return;

@@ -27,11 +27,13 @@ import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
@@ -247,7 +249,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check to see if player is in jail
-        else if (activeChar.isInJail())
+        else if (activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar))
         {
             activeChar.sendMessage("You can't escape from jail.");
             return false;
