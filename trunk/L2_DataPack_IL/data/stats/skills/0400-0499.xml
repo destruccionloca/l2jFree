@@ -1112,7 +1112,7 @@
       Lvl 2 - A Sonic Force detonation significantly increases your speed. Level 3 Sonic Force charge required. An equipped dual-sword weapon is required to use this skill. Effect 2.
   -->
   <table name="#charges"> 2 3 </table>
-  <table name="#spd"> 1.25 1.58 </table>
+  <table name="#spd"> 40 66 </table>
   <table name="#mpConsume"> 29 32 </table>
   <set name="hitTime" val="1000"/>
   <set name="reuseDelay" val="75000"/>
@@ -1129,7 +1129,7 @@
   </cond>
   <for>
     <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="SpeedUpS"> <!-- changed to 15s duration - retail info -->
-      <mul order="0x30" stat="runSpd" val="#spd"/>
+      <add order="0x40" stat="runSpd" val="#spd"/>
     </effect>
   </for>
 </skill>
