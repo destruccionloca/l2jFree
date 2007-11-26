@@ -136,7 +136,7 @@ public abstract class L2Character extends L2Object
     // Data Field
     private FastList<L2Character> _attackByList;
     private L2Character _attackingChar;
-    private L2Skill _attackingCharSkill;
+    private L2Skill _lastSkillCast;
     private boolean _isAfraid                               = false; // Flee in a random direction
     private boolean _isConfused                             = false; // Attack anyone randomly
     private boolean _isFakeDeath                            = false; // Fake death
@@ -1228,7 +1228,7 @@ public abstract class L2Character extends L2Object
         }
 
         setAttackingChar(this);
-        setAttackingCharSkill(skill);
+        //setLastSkillCast(skill);
         
         // Get the Identifier of the skill
         int magicId = skill.getId();
@@ -1590,13 +1590,6 @@ public abstract class L2Character extends L2Object
         _attackingChar = player;
         addAttackerToAttackByList(player);
     }
-
-    public final L2Skill getAttackingCharSkill() { return _attackingCharSkill; }
-    /**
-     * Set _attackingCharSkill to the L2Skill used against this L2Character.<BR><BR>
-     * @param skill The L2Skill used against this L2Character
-     */
-    public void setAttackingCharSkill (L2Skill skill) { _attackingCharSkill = skill; }
 
     public final boolean isAfraid() { return _isAfraid; }
     public final void setIsAfraid(boolean value) { _isAfraid = value; }
@@ -2420,7 +2413,7 @@ public abstract class L2Character extends L2Object
             //attacked from aggressive monster
             {
                 if(Rnd.nextInt(100) >= 75)  //fails at 25%.
-             	   setIsFakeDeath(false);
+                    setIsFakeDeath(false);
             }
         }
         else
@@ -4841,6 +4834,7 @@ public abstract class L2Character extends L2Object
      */
     public void breakCast()
     {
+        // damage can only cancel magical skills
         if (isCastingNow() && canAbortCast())
         {
             // Abort the cast of the L2Character and send Server->Client MagicSkillCanceld/ActionFailed packet.
@@ -5327,7 +5321,6 @@ public abstract class L2Character extends L2Object
 			enableAllSkills();
 
 			setAttackingChar(null);
-			setAttackingCharSkill(null);
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 
 			return;
@@ -5386,7 +5379,6 @@ public abstract class L2Character extends L2Object
 			enableAllSkills();
 
 			setAttackingChar(null);
-			setAttackingCharSkill(null);
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 
 			_castEndTime = 0;
@@ -5423,7 +5415,6 @@ public abstract class L2Character extends L2Object
 			enableAllSkills();
 
 			setAttackingChar(null);
-			setAttackingCharSkill(null);
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			return;
 		}

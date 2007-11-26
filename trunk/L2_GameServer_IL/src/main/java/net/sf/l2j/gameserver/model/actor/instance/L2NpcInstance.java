@@ -352,11 +352,6 @@ public class L2NpcInstance extends L2Character
         return getTemplate().getFactionId();
     }
 
-    public final byte getSpecialFaction()
-    {
-        return getTemplate().getSpecialFaction();
-    }
-
     /**
      * Return the Level of this L2NpcInstance contained in the L2NpcTemplate.<BR><BR>
      */

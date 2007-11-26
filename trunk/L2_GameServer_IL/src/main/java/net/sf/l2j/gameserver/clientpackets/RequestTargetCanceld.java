@@ -51,8 +51,7 @@ public class RequestTargetCanceld extends L2GameClientPacket
 		{
 			if (_unselect == 0)
 			{
-				// TODO: some checks for cast aborting...
-				if (activeChar.isCastingNow() /*&& activeChar.canAbortCast()*/)
+				if (activeChar.isCastingNow())
 					activeChar.abortCast();
 				else if (activeChar.getTarget() != null)
 					activeChar.setTarget(null);

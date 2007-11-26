@@ -162,21 +162,22 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         // Check if the target is a L2PcInstance
         if (target instanceof L2PcInstance)
         {
+            L2PcInstance player = (L2PcInstance)target;
             // Don't take the aggro if the GM has the access level below or equal to GM_DONT_TAKE_AGGRO
-            if (((L2PcInstance)target).isGM() && ((L2PcInstance)target).getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO)
+            if (player.isGM() && player.getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO)
                 return false;
             
             // Check if the AI isn't a Raid Boss and the target isn't in silent move mode
-            if (!(me instanceof L2RaidBossInstance) && ((L2PcInstance)target).isSilentMoving() && !((L2PcInstance)target).isCastingNow() && !((L2PcInstance)target).isAttackingNow())
+            if (!(me instanceof L2RaidBossInstance) && player.isSilentMoving() && !player.isCastingNow() && !player.isAttackingNow())
                 return false;
             
             // Check for npc ally
-            if (me.getSpecialFaction() == L2NpcTemplate.FACTION_VARKA && ((L2PcInstance)target).isAlliedWithVarka())
+            if (me.getFactionId() == "varka" && player.isAlliedWithVarka())
                 return false;
-            else if (me.getSpecialFaction() == L2NpcTemplate.FACTION_KETRA && ((L2PcInstance)target).isAlliedWithKetra())
+            else if (me.getFactionId() == "ketra" && player.isAlliedWithKetra())
                 return false;
             // check if the target is within the grace period for JUST getting up from fake death
-            if (((L2PcInstance)target).isRecentFakeDeath())
+            if (player.isRecentFakeDeath())
                 return false;
         }
         

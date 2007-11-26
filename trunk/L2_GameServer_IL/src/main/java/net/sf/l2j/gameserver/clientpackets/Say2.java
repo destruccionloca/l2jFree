@@ -100,9 +100,9 @@ public class Say2 extends L2GameClientPacket
         }
         
         // If player is jailed
-        if ((activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar)) && Config.JAIL_DISABLE_CHAT)
+        if ((activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
         {
-            if (_type != SystemChatChannelId.Chat_User_Pet || _type != SystemChatChannelId.Chat_Normal)
+            if (_type != SystemChatChannelId.Chat_User_Pet && _type != SystemChatChannelId.Chat_Normal)
             {
                 activeChar.sendMessage("You can not chat with the outside of the jail.");
                 return;
