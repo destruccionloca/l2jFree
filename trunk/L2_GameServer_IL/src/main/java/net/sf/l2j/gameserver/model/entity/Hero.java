@@ -437,7 +437,7 @@ public class Hero
 	        }
 	        catch(SQLException e)
 	        {
-	            _log.warn("HeroSystem: Couldnt update Heroes - UPDATE_ALL");
+	            _log.warn("HeroSystem: Couldnt update all Heroes");
 	            if (_log.isDebugEnabled())  _log.debug("",e);
 	        }
 	        finally
@@ -486,7 +486,7 @@ public class Hero
                 	}
         	        catch(SQLException e)
         	        {
-        	            _log.warn("HeroSystem: Couldnt update Heroes");
+        	            _log.warn("HeroSystem: Couldnt insert Heroes");
         	            if (_log.isDebugEnabled())  _log.debug("",e);
         	        }
                 	
