@@ -18,10 +18,14 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.JoinParty;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.model.entity.events.CTF;
+import net.sf.l2j.gameserver.model.entity.events.DM;
+import net.sf.l2j.gameserver.model.entity.events.TvT;
 
 /**
  *  sample
@@ -55,6 +59,32 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 			L2PcInstance requestor = player.getActiveRequester();
 			if (requestor == null)
 				return;
+			
+			//Prevents from inviting to party if player is not in event and if target on event and ALLOW_INTERFERENCE = false
+			if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE))
+	        {
+	            if ((requestor._inEventTvT && !player._inEventTvT) || (!requestor._inEventTvT && player._inEventTvT))
+	            {
+	            	SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+					requestor.sendPacket(msg);
+					msg = null;
+	            	return;
+	            }
+	            else if ((requestor._inEventCTF && !player._inEventCTF) || (!requestor._inEventCTF && player._inEventCTF))
+	            {
+	            	SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+					requestor.sendPacket(msg);
+					msg = null;
+	            	return;
+	            }
+	            else if ((requestor._inEventDM && !player._inEventDM) || (!requestor._inEventDM && player._inEventDM))
+	            {
+	            	SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+					requestor.sendPacket(msg);
+					msg = null;
+	            	return;
+	            }
+	        }
 
 			JoinParty join = new JoinParty(_response);
 			requestor.sendPacket(join);	

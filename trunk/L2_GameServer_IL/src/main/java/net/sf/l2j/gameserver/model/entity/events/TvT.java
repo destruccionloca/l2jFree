@@ -49,6 +49,7 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -711,8 +712,9 @@ public class TvT
         {
             Announcements.getInstance().announceToAll(_eventName + "(TvT): " + _topTeam + "'s win the match! " + _topKills + " kills.");
             rewardTeam(_topTeam);
+            playKneelAnimation(_topTeam);
         }
-
+        
         if(Config.TVT_ANNOUNCE_TEAM_STATS)
         {
             Announcements.getInstance().announceToAll(_eventName + " Team Statistics:");
@@ -725,6 +727,20 @@ public class TvT
 
         teleportFinish();
     }
+    //show loosers animation
+    public static void playKneelAnimation(String teamName)
+	{
+    	for (L2PcInstance player : _players)
+        {
+            if (player != null)
+            {
+                if (!player._teamNameTvT.equals(teamName))
+                {
+                	player.broadcastPacket(new SocialAction(player.getObjectId(), 7));
+                }
+            }
+        }
+	}
     
     private static boolean finishEventOk()
     {
