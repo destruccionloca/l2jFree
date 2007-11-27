@@ -653,6 +653,8 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 	{
 		if (!canTarget(player)) return;
 
+		player.setLastFolkNPC(this);
+
 		// Check if the L2PcInstance already target the L2NpcInstance
 		if (this != player.getTarget())
 		{
