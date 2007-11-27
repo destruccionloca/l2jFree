@@ -547,7 +547,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             {
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile("data/html/auction/location.htm");
-                html.replace("%location%", TownManager.getInstance().getClosestTown(player).getName());
+                html.replace("%location%", TownManager.getInstance().getClosestTownName(player));
                 html.replace("%LOCATION%", getPictureName(player));
                 html.replace("%AGIT_LINK_BACK%", "bypass -h npc_"+getObjectId()+"_start");
                 player.sendPacket(html);

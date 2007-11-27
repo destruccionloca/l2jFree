@@ -130,6 +130,11 @@ public class L2MapRegion
 		return _restarts.get(race);
 	}
 	
+	public int getRestartId()
+	{
+		return getRestartId(Race.human);
+	}
+	
 	public int[] getZ()
 	{
 		int[] z = { _zMin, _zMax };

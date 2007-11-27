@@ -21,14 +21,15 @@ import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegionRestart;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
-import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -82,29 +83,11 @@ public class TownManager
                     {
                         if (getTowns().get(zone.getTownId()) == null)
                         {
-                            Town town = new Town(zone.getTownId());
+                            Town town = new Town(zone.getTownId(), zone);
                             getTowns().put(zone.getTownId(), town);
                             
-                            // find region for townzone
-                            if (zone.getTownId() != 12)
-                            {                            	
-	                            int middleX = 0;
-	                            int middleY = 0;
-	                            for (Point3D point : zone.getPoints())
-	                            {
-	                            	middleX += point.getX();
-	                            	middleY += point.getY();
-	                            }
-	                            middleX /= zone.getPoints().size();
-	                            middleY /= zone.getPoints().size();
-	                            
-	                            L2MapRegion mapRegion = MapRegionManager.getInstance().getRegion(middleX, middleY);
-	                            if (mapRegion != null)
-	                            {
-	                            	MapRegionManager.getInstance().setTown(mapRegion.getRestartId(Race.human), town);
-	                            	_log.info("TownManager: Town "+town.getName()+" was assigned to regionId "+mapRegion.getId()+".");
-	                            }
-                            }
+                            if (town.getMapRegion() != null)
+                            	_log.info("TownManager: Town "+town.getName()+" was assigned to RestartId "+town.getMapRegion().getRestartId());
                         }
                         getTowns().get(zone.getTownId()).addTerritory(zone);
                     }
@@ -170,7 +153,7 @@ public class TownManager
 	            nearestTown = "Town of Shuttgart";
 	            break;
 	        case 17:
-	            nearestTown = "Ivory Tower";
+	            nearestTown = "Dimensional Gap";
 	            break;
 	        case 18:
 	            nearestTown = "Primeval Isle Wharf";
@@ -238,11 +221,50 @@ public class TownManager
     public final Town getClosestTown(int x, int y, int z)
     {
     	L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
-    	Town town = getTown(10);
+    	Town town = getTown(Config.ALT_DEFAULT_RESTARTTOWN);
     	
-    	if (region != null && region.getTown() != null)
-    		town = region.getTown();
+    	if (region != null)
+    	{
+    		L2MapRegionRestart restart = MapRegionManager.getInstance().getRestartLocation(region.getRestartId());
     		
+    		if (restart != null)
+    			switch (restart.getBbsId())
+    			{
+    				case 1: //Talking Island
+    					return getTown(0);
+    				case 2: //Gludin
+    					return getTown(6);
+    				case 3: //Darkelfen Village
+    					return getTown(2);
+    				case 4: //Elfen Village
+    					return getTown(1);
+    				case 5: //Dion
+    					return getTown(7);
+    				case 6: //Giran
+    					return getTown(12);
+    				case 7: //Dimensional Gap
+    					return getTown(17); 
+    				case 8: //Orc Village
+    					return getTown(3);
+    				case 9: //Dwarfen Village
+    					return getTown(4);
+    				case 10: //Oren Villag
+    					return getTown(9);
+    				case 11: //Hunters Village
+    					return getTown(11);
+    				case 12: //Heine
+    					return getTown(13);
+    				case 13: //Aden
+    					return getTown(10);
+    				case 14: //Rune
+    					return getTown(14);
+    				case 15: //Goddard
+    					return getTown(15);
+    				case 25: //Schuttgart - FIXME
+    					return getTown(16);
+    			}
+    	}
+    	
     	return town;
     }
 
@@ -294,4 +316,8 @@ public class TownManager
         return _towns;
     }
 
+    public String getClosestTownName(L2Character activeChar)
+    {
+    	return getTownName(getClosestTown(activeChar).getTownId());
+    }
 }

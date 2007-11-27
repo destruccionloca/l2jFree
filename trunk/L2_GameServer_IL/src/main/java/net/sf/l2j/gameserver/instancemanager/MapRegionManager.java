@@ -32,7 +32,6 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
@@ -145,7 +144,7 @@ public class MapRegionManager
     	}
     	
     	_log.info("MapRegionManager: Loaded " + _mapRegionRestart.size() + " restartpoint(s).");
-    	_log.info("MapRegionManager: Loaded " + _mapRestartArea.size()+ "restartareas with "+_mapAreas.size() + " arearegion(s).");
+    	_log.info("MapRegionManager: Loaded " + _mapRestartArea.size()+ " restartareas with "+_mapAreas.size() + " arearegion(s).");
     	_log.info("MapRegionManager: Loaded " + _mapRegions.size() + " zoneregion(s).");
     	_log.info("MapRegionManager: Loaded " + redirectCount + " race depending redirects.");
     }
@@ -347,7 +346,6 @@ public class MapRegionManager
     	L2MapRegion areaRegion = null; 
     	
     	for (L2MapRegion region : _mapRegions.values())
-    	{
     		if (region.checkIfInRegion(x, y, z))
     		{
     			// prefer special regions
@@ -356,16 +354,10 @@ public class MapRegionManager
     			else
     				areaRegion = region;
     		}
-    	}
-    	
-    	if (areaRegion != null)
-    		return areaRegion;
-    	
-    	return null;
+
+    	return areaRegion;
     }
-    
-    
-    
+   
     public L2MapRegion getRegion(int x, int y)
     {
     	return getRegion(x, y, -1);
@@ -518,14 +510,5 @@ public class MapRegionManager
     	Town town = region.getTown();
     	
     	return town.getCastleId();
-    }
-    
-    public void setTown(int restartId, Town town)
-    {
-    	for (L2MapRegion region : _mapRegions.values())
-    	{
-    		if (region.getRestartId(Race.human ) == restartId)
-    			region.setTown(town);
-    	}
     }
 }

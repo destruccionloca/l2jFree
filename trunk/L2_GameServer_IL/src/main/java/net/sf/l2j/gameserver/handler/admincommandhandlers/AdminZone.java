@@ -80,7 +80,7 @@ public class AdminZone implements IAdminCommandHandler
         					activeChar.sendMessage("Zone (XY"+(zone.checkIfInZone(activeChar)?("Z)"):(")"))+"("+zone.getZoneType().toString()+"): ID "+zone.getId()+" " +zone.getZoneName()+"Z["+zone.getMin().getZ()+":"+zone.getMax().getZ()+"]");
         	}
             activeChar.sendMessage("Closest Castle: " + CastleManager.getInstance().getClosestCastle(activeChar).getName());
-            activeChar.sendMessage("Closest Town: " + TownManager.getInstance().getClosestTown(activeChar).getName());
+            activeChar.sendMessage("Closest Town: " + TownManager.getInstance().getClosestTownName(activeChar));
 
             Location loc;
 

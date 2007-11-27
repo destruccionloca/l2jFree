@@ -1424,9 +1424,9 @@ public final class Config
             SP_BOOK_NEEDED                                      = Boolean.parseBoolean(altSettings.getProperty("SpBookNeeded", "true"));
             LIFE_CRYSTAL_NEEDED                                 = Boolean.parseBoolean(altSettings.getProperty("LifeCrystalNeeded", "true"));
             ES_SP_BOOK_NEEDED                                   = Boolean.parseBoolean(altSettings.getProperty("EnchantSkillSpBookNeeded","true"));
-            AUTO_LOOT                                           = altSettings.getProperty("AutoLoot").trim().equalsIgnoreCase("True");
-            AUTO_LOOT_ADENA                                     = altSettings.getProperty("AutoLootAdena").trim().equalsIgnoreCase("True");
-            AUTO_LOOT_HERBS                                     = altSettings.getProperty("AutoLootHerbs").trim().equalsIgnoreCase("True");
+            AUTO_LOOT                                           = altSettings.getProperty("AutoLoot", "true").trim().equalsIgnoreCase("True");
+            AUTO_LOOT_ADENA                                     = altSettings.getProperty("AutoLootAdena", "true").trim().equalsIgnoreCase("True");
+            AUTO_LOOT_HERBS                                     = altSettings.getProperty("AutoLootHerbs", "true").trim().equalsIgnoreCase("True");
             ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE    = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanBeKilledInPeaceZone", "false"));
             ALT_GAME_KARMA_PLAYER_CAN_SHOP                      = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanShop", "true"));
             ALT_GAME_KARMA_PLAYER_CAN_USE_GK                    = Boolean.parseBoolean(altSettings.getProperty("AltKarmaPlayerCanUseGK", "false"));

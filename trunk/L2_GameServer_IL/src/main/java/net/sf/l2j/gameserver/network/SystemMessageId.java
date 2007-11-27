@@ -1866,6 +1866,12 @@ public enum SystemMessageId
     LOC_HEINE_S1_S2_S3(926),
     
     /**
+     * ID: 1222<br>
+     * Message: Current location : $s1, $s2, $s3 (GM Consultation Service)
+     */
+    LOC_GM_CONSULATION_SERVICE_S1_S2_S3(1222),
+    
+    /**
      * ID: 1537<br>
      * Message: Current Location: $s1, $s2, $s3 (near Rune Village)
      */
@@ -1876,12 +1882,30 @@ public enum SystemMessageId
      * Message: Current Location: $s1, $s2, $s3 (near the Town of Goddard)
      */
     LOC_GODDARD_S1_S2_S3(1538),
+	
+    /**
+     * ID: 1643<br>
+     * Message: Current Location: $s1, $s2, $s3 (Dimensional Gap)
+     */
+    LOC_DIMENSIONAL_GAP_S1_S2_S3(1643),
+
+    /**
+     * ID: 1659<br>
+     * Message: Current Location: $s1, $s2, $s3 (Cemetery of the Empire)
+     */
+    LOC_CEMETARY_OF_THE_EMPIRE_S1_S2_S3(1659),
     
     /**
      * ID: 1714<br>
      * Message: Current Location: $s1, $s2, $s3 (Near the Town of Schuttgart)
      */
     LOC_SCHUTTGART_S1_S2_S3(1714),
+    
+    /**
+     * ID: 1924<br>
+     * Message: Current Location: $s1, $s2, $s3 (Near the Primeval Isle)
+     */
+    LOC_PRIMEVAL_ISLE_S1_S2_S3(1924),
 	
 	/**
 	 * ID: 562<br>
@@ -4888,109 +4912,7 @@ public enum SystemMessageId
      */
     THIS_FUNCTION_IS_INACCESSIBLE_RIGHT_NOW(483),
 
-    /**
-     * ID: 941<br>
-     * Message: Restart at Talking Island Village.
-     */
-    RESTART_AT_TALKING_ISLAND_VILLAGE(941),
-
-    /**
-     * ID: 942<br>
-     * Message: Restart at Gludin Village.
-     */
-    RESTART_AT_GLUDIN_VILLAGE(942),
-
-    /**
-     * ID: 943<br>
-     * Message: Restart at the Town of Gludin.
-     */
-    RESTART_AT_THE_TOWN_OF_GLUDIN(943),
-
-    /**
-     * ID: 944<br>
-     * Message: Restart at the Neutral Zone.
-     */
-    RESTART_AT_THE_NEUTRAL_ZONE(944),
-
-    /**
-     * ID: 945<br>
-     * Message: Restart at the Elven Village.
-     */
-    RESTART_AT_THE_ELVEN_VILLAGE(945),
-
-    /**
-     * ID: 946<br>
-     * Message: Restart at the Dark Elf Village.
-     */
-    RESTART_AT_THE_DARK_ELF_VILLAGE(946),
-
-    /**
-     * ID: 947<br>
-     * Message: Restart at the Town of Dion.
-     */
-    RESTART_AT_THE_TOWN_OF_DION(947),
-
-    /**
-     * ID: 948<br>
-     * Message: Restart at Floran Village.
-     */
-    RESTART_AT_FLORAN_VILLAGE(948),
-
-    /**
-     * ID: 949<br>
-     * Message: Restart at the Town of Giran.
-     */
-    RESTART_AT_THE_TOWN_OF_GIRAN(949),
-
-    /**
-     * ID: 950<br>
-     * Message: Restart at Giran Harbor.
-     */
-    RESTART_AT_GIRAN_HARBOR(950),
-
-    /**
-     * ID: 951<br>
-     * Message: Restart at the Orc Village.
-     */
-    RESTART_AT_THE_ORC_VILLAGE(951),
-
-    /**
-     * ID: 952<br>
-     * Message: Restart at the Dwarven Village.
-     */
-    RESTART_AT_THE_DWARVEN_VILLAGE(952),
-
-    /**
-     * ID: 953<br>
-     * Message: Restart at the Town of Oren.
-     */
-    RESTART_AT_THE_TOWN_OF_OREN(953),
-
-    /**
-     * ID: 954<br>
-     * Message: Restart at Hunters Village.
-     */
-    RESTART_AT_HUNTERS_VILLAGE(954),
-
-    /**
-     * ID: 955<br>
-     * Message: Restart at the Town of Aden.
-     */
-    RESTART_AT_THE_TOWN_OF_ADEN(955),
-
-    /**
-     * ID: 956<br>
-     * Message: Restart at the Coliseum.
-     */
-    RESTART_AT_THE_COLISEUM(956),
-
-    /**
-     * ID: 957<br>
-     * Message: Restart at Heine.
-     */
-    RESTART_AT_HEINE(957),
-
-    /**
+   /**
      * ID: 148<br>
      * Message: You cannot use quest items.
      */
@@ -5030,7 +4952,109 @@ public enum SystemMessageId
      * ID: 1597<br>
      * Message: $1 has failed.
      */
-    S1_FAILED(1597);
+    S1_FAILED(1597),
+    
+    /**
+     * ID: 941<br>
+     * Message: Restart at Talking Island Village. 
+     */
+    RESTART_AT_TI(941),
+    
+    /**
+     * ID: 942<br>
+     * Message: Restart at Gludin Village.
+     */
+    RESTART_AT_GLUDIN(942),
+    
+    /**
+     * ID: 943<br>
+     * Message: Restart at the Town of Gludin. || guess should be Gludio ;)
+     */
+    RESTART_AT_GLUDIO(943),
+    
+    /**
+     * ID: 944<br>
+     * Message: Restart at the Neutral Zone.
+     */
+    RESTART_AT_NEUTRAL_ZONE(944),
+    
+    /**
+     * ID: 945<br>
+     * Message: Restart at the Elven Village.
+     */
+    RESTART_AT_ELFEN_VILLAGE(945),
+    
+    /**
+     * ID: 946<br>
+     * Message: Restart at the Dark Elf Village.
+     */
+    RESTART_AT_DARKELF_VILLAGE(946),
+    
+    /**
+     * ID: 947<br>
+     * Message: Restart at the Town of Dion.
+     */
+    RESTART_AT_DION(947),
+    
+    /**
+     * ID: 948<br>
+     * Message: Restart at Floran Village.
+     */
+    RESTART_AT_FLORAN(948),
+    
+    /**
+     * ID: 949<br>
+     * Message: Restart at the Town of Giran.
+     */
+    RESTART_AT_GIRAN(949),
+    
+    /**
+     * ID: 950<br>
+     * Message: Restart at Giran Harbor.
+     */
+    RESTART_AT_GIRAN_HARBOR(950),
+    
+    /**
+     * ID: 951<br>
+     * Message: Restart at the Orc Village.
+     */
+    RESTART_AT_ORC_VILLAGE(951),
+    
+    /**
+     * ID: 952<br>
+     * Message: Restart at the Dwarven Village.
+     */
+    RESTART_AT_DWARFEN_VILLAGE(952),
+    
+    /**
+     * ID: 953<br>
+     * Message: Restart at the Town of Oren.
+     */
+    RESTART_AT_OREN(953),
+    
+    /**
+     * ID: 954<br>
+     * Message: Restart at Hunters Village.
+     */
+    RESTART_AT_HUNTERS_VILLAGE(954),
+    
+    /**
+     * ID: 955<br>
+     * Message: Restart at the Town of Aden.
+     */
+    RESTART_AT_ADEN(955),
+    
+    /**
+     * ID: 956<br>
+     * Message: Restart at the Coliseum.
+     */
+    RESTART_AT_COLISEUM(956),
+    
+    /**
+     * ID: 957<br>
+     * Message: Restart at Heine.
+     */
+    RESTART_AT_HEINE(957);
 
     // =========================== //
     // End L2J-Free System Messages //

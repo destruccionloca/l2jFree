@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2RiftInvaderInstance extends L2MonsterInstance

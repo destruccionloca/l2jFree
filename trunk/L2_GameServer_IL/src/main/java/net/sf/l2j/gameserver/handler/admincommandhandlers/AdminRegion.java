@@ -31,8 +31,10 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
@@ -97,6 +99,9 @@ public class AdminRegion implements IAdminCommandHandler
 
                 loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
                 activeChar.sendMessage("TeleToLocation (Town): x:" + loc.getX() + " y:" + loc.getY() + " z:" + loc.getZ());
+
+                String nearestTown = TownManager.getInstance().getClosestTownName(activeChar);
+                Announcements.getInstance().announceToAll(activeChar.getName() + " has tried spawn-announce near " + nearestTown + "!");
         	}
         }
         return true;

@@ -21,23 +21,29 @@ package net.sf.l2j.gameserver.model.entity;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
+import net.sf.l2j.tools.geometry.Point3D;
 
 public class Town
 {
 	private FastList<IZone> _territory;
+	private L2MapRegion _region;
 	private int _townId;
 	private int _castleId;
 	
-	public Town(int townId)
+	public Town(int townId, IZone zone)
 	{
 		_townId = townId;
 		_castleId = 0;
 		_territory = new FastList<IZone>();
+		
+		_region = findMapRegion(zone);
 	}
 
 	/** Return true if object is inside the zone */
@@ -129,5 +135,29 @@ public class Town
 	public final FastList<IZone> getTerritory()
 	{
 		return _territory;
+	}
+	
+	public L2MapRegion getMapRegion()
+	{
+		return _region;
+	}
+	
+	private L2MapRegion findMapRegion(IZone zone)
+	{
+		int middleX = 0;
+		int middleY = 0;
+		
+		for (Point3D point : zone.getPoints())
+		{
+			middleX += point.getX();
+			middleY += point.getY();
+		}
+		
+		middleX /= zone.getPoints().size();
+		middleY /= zone.getPoints().size();
+
+		L2MapRegion region = MapRegionManager.getInstance().getRegion(middleX, middleY);
+		
+		return region;
 	}
 }

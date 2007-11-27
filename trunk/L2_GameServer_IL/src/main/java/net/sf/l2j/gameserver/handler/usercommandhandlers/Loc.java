@@ -18,10 +18,14 @@
  */
 package net.sf.l2j.gameserver.handler.usercommandhandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Town;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegionRestart;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
@@ -38,38 +42,62 @@ public class Loc implements IUserCommandHandler
      */
     public boolean useUserCommand(@SuppressWarnings("unused") int id, L2PcInstance activeChar)
     {
-    	Town town = TownManager.getInstance().getClosestTown(activeChar);
+    	L2MapRegionRestart restart = null;
+    	SystemMessageId msg = SystemMessageId.LOC_ADEN_S1_S2_S3;
 
-    	int nearestTown = town.getTownId();
-    	
-    	SystemMessageId msg;
-    	switch (nearestTown)
+    	//Standard Town
+    	Town town = TownManager.getInstance().getTown(Config.ALT_DEFAULT_RESTARTTOWN);
+    	if (town != null && town.getMapRegion() != null)
     	{
-    	case 0: msg = SystemMessageId.LOC_TI_S1_S2_S3; break;
-    	case 1: msg = SystemMessageId.LOC_ELVEN_S1_S2_S3; break;
-    	case 2: msg = SystemMessageId.LOC_DARK_ELVEN_S1_S2_S3; break;
-    	case 3: msg = SystemMessageId.LOC_ORC_S1_S2_S3; break;
-    	case 4: msg = SystemMessageId.LOC_DWARVEN_S1_S2_S3; break;
-    	case 5: msg = SystemMessageId.LOC_GLUDIO_S1_S2_S3; break;
-    	case 6: msg = SystemMessageId.LOC_GLUDIN_S1_S2_S3; break;
-    	case 7: msg = SystemMessageId.LOC_DION_S1_S2_S3; break;
-    	case 8: msg = SystemMessageId.LOC_GIRAN_S1_S2_S3; break;
-    	case 9: msg = SystemMessageId.LOC_OREN_S1_S2_S3; break;
-    	case 10: msg = SystemMessageId.LOC_ADEN_S1_S2_S3; break;
-    	case 11: msg = SystemMessageId.LOC_HUNTER_S1_S2_S3; break;
-    	case 12: msg = SystemMessageId.LOC_GIRAN_HARBOR_S1_S2_S3; break;
-    	case 13: msg = SystemMessageId.LOC_HEINE_S1_S2_S3; break;
-        case 14: msg = SystemMessageId.LOC_RUNE_S1_S2_S3; break;
-        case 15: msg = SystemMessageId.LOC_GODDARD_S1_S2_S3; break;
-        case 16: msg = SystemMessageId.LOC_SCHUTTGART_S1_S2_S3; break;
-        case 19: msg = SystemMessageId.LOC_FLORAN_S1_S2_S3; break;
-        default: msg = SystemMessageId.LOC_ADEN_S1_S2_S3;
+    		restart = MapRegionManager.getInstance().getRestartLocation(town.getMapRegion().getRestartId()); 
+    		
+    		if (restart != null)
+    			msg = SystemMessageId.getSystemMessageId(restart.getLocName());
     	}
+
+    	L2MapRegion region = MapRegionManager.getInstance().getRegion(activeChar);
+    	if (region != null)
+    	{
+    		int restartId = region.getRestartId();
+    		restart = MapRegionManager.getInstance().getRestartLocation(restartId);
+    		msg = SystemMessageId.getSystemMessageId(restart.getLocName());
+    	}
+    	
         SystemMessage sm = new SystemMessage(msg);
         sm.addNumber(activeChar.getX());
         sm.addNumber(activeChar.getY());
         sm.addNumber(activeChar.getZ());
         activeChar.sendPacket(sm);
+        
+        if (restart != null)
+        {
+        	if (restart.getLocName() < 1222)
+        	{
+        		if (restart.getLocName() != 943)
+        		{
+        			SystemMessage message = new SystemMessage(SystemMessageId.getSystemMessageId(msg.getId()+31));
+        			activeChar.sendPacket(message);
+        		}
+        		else
+        			activeChar.sendMessage("Restart at the Town of Gludio.");        			
+        	}
+        	else
+        		if (SystemMessageId.LOC_GM_CONSULATION_SERVICE_S1_S2_S3.getId() == restart.getLocName())
+        			activeChar.sendMessage("Restart at the GM Consulation Service.");
+        		else if (SystemMessageId.LOC_RUNE_S1_S2_S3.getId() == restart.getLocName())
+        			activeChar.sendMessage("Restart at Rune Township.");
+        		else if (SystemMessageId.LOC_GODDARD_S1_S2_S3.getId() == restart.getLocName())
+        			activeChar.sendMessage("Restart at the Town of Goddard.");
+        		else if (SystemMessageId.LOC_DIMENSIONAL_GAP_S1_S2_S3.getId() == restart.getLocName())
+        			activeChar.sendMessage("Restart at the Dimensional Gap.");
+        		else if (SystemMessageId.LOC_CEMETARY_OF_THE_EMPIRE_S1_S2_S3.getId() == restart.getLocName())
+        			activeChar.sendMessage("Restart at the Cemetary of the Empire.");
+        		else if (SystemMessageId.LOC_SCHUTTGART_S1_S2_S3.getId() == restart.getLocName())
+        			activeChar.sendMessage("Restart at the Town of Schuttgart.");
+        		else if (SystemMessageId.LOC_PRIMEVAL_ISLE_S1_S2_S3.getId() == restart.getLocName())
+        			activeChar.sendMessage("Restart at the Primeval Isle.");
+        }
+
         return true;
     }
 
