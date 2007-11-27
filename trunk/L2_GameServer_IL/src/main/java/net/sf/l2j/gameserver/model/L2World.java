@@ -366,7 +366,8 @@ public final class L2World implements L2WorldMBean
      */
     public void removeFromAllPlayers(L2PcInstance cha)
     {
-        _allPlayers.remove(cha.getName().toLowerCase());
+        if (cha != null && !cha.isTeleporting())
+			_allPlayers.remove(cha.getName().toLowerCase());
     }
 
     
