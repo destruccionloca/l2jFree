@@ -1205,6 +1205,19 @@ public class TvT
     
     public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
     {
+    	for(L2PcInstance player: _players)
+    	{
+    		if(player.getObjectId()==eventPlayer.getObjectId())
+        	{
+                eventPlayer.sendMessage("You already participated in the event!"); 
+                return false;
+        	}
+    		else if(player.getName()==eventPlayer.getName())
+        	{
+                eventPlayer.sendMessage("You already participated in the event!"); 
+                return false;
+        	}
+    	}
     	if(_players.contains(eventPlayer))
     	{
             eventPlayer.sendMessage("You already participated in the event!"); 

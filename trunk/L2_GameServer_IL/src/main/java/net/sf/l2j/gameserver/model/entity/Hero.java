@@ -189,33 +189,40 @@ public class Hero
      */
     private void initRelationBetweenHeroAndClan(ResultSet resultSet, StatsSet hero) throws SQLException
     {
-        if (resultSet.next())
-        {
-            int clanId = resultSet.getInt("clanid");
-            int allyId = resultSet.getInt("allyId");
-            
-            String clanName = "";
-            String allyName = "";
-            int clanCrest = 0;
-            int allyCrest = 0;
-            
-            if (clanId > 0)
-            {
-                clanName = ClanTable.getInstance().getClan(clanId).getName();
-                clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
-                
-                if (allyId > 0)
-                {
-                    allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
-                    allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
-                }
-            }
-            
-            hero.set(CLAN_CREST, clanCrest);
-            hero.set(CLAN_NAME, clanName);
-            hero.set(ALLY_CREST, allyCrest);
-            hero.set(ALLY_NAME, allyName);
-        }
+    	try
+    	{
+	        if (resultSet.next())
+	        {
+	            int clanId = resultSet.getInt("clanid");
+	            int allyId = resultSet.getInt("allyId");
+	            
+	            String clanName = "";
+	            String allyName = "";
+	            int clanCrest = 0;
+	            int allyCrest = 0;
+	            
+	            if (clanId > 0)
+	            {
+	                clanName = ClanTable.getInstance().getClan(clanId).getName();
+	                clanCrest = ClanTable.getInstance().getClan(clanId).getCrestId();
+	                
+	                if (allyId > 0)
+	                {
+	                    allyName = ClanTable.getInstance().getClan(clanId).getAllyName();
+	                    allyCrest = ClanTable.getInstance().getClan(clanId).getAllyCrestId();
+	                }
+	            }
+	            
+	            hero.set(CLAN_CREST, clanCrest);
+	            hero.set(CLAN_NAME, clanName);
+	            hero.set(ALLY_CREST, allyCrest);
+	            hero.set(ALLY_NAME, allyName);
+	        }
+    	}
+    	catch (NullPointerException e)
+    	{
+    		_log.fatal("Hero: initRelationBetweenHeroAndClan ",e);
+    	}
     }
     
     public Map<Integer, StatsSet> getHeroes()
@@ -419,72 +426,92 @@ public class Hero
     public void updateHeroes(boolean setDefault)
     {
         Connection con = null;
-        try
+        con = L2DatabaseFactory.getInstance().getConnection(con);        
+        if(setDefault)
         {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            if(setDefault)
-            {
+	        try
+	        {
                 PreparedStatement statement = con.prepareStatement(UPDATE_ALL);
                 statement.execute();
                 statement.close();
-            }
-            else
+	        }
+	        catch(SQLException e)
+	        {
+	            _log.warn("HeroSystem: Couldnt update Heroes - UPDATE_ALL");
+	            if (_log.isDebugEnabled())  _log.debug("",e);
+	        }
+	        finally
+	        {
+	            try{con.close();}catch(Exception e){ _log.error("",e);}
+	        }
+        }
+        else
+        {
+            PreparedStatement statement;
+            
+            for (Integer heroId : _heroes.keySet())
             {
-                PreparedStatement statement;
+                StatsSet hero = _heroes.get(heroId);
                 
-                for (Integer heroId : _heroes.keySet())
+                if (_completeHeroes == null || !_completeHeroes.containsKey(heroId))
                 {
-                    StatsSet hero = _heroes.get(heroId);
+                	try
+                	{
+	                    statement = con.prepareStatement(INSERT_HERO);
+	                    statement.setInt(1, heroId);
+	                    statement.setString(2, hero.getString(Olympiad.CHAR_NAME));
+	                    statement.setInt(3, hero.getInteger(Olympiad.CLASS_ID));
+	                    statement.setInt(4, hero.getInteger(COUNT));
+	                    statement.setInt(5, hero.getInteger(PLAYED));
+	                    statement.execute();
+	                    
+	                    Connection con2 = null;
+	                    con2 = L2DatabaseFactory.getInstance().getConnection(con2);
+	                    PreparedStatement statement2 = con2.prepareStatement(GET_CLAN_ALLY);
+	                    statement2.setInt(1, heroId);
+	                    ResultSet rset2 = statement2.executeQuery();
+	                    
+	                    initRelationBetweenHeroAndClan(rset2, hero);
+	                    
+	                    rset2.close();
+	                    statement2.close();
+	                    con2.close();
+	                    
+	                    _heroes.remove(hero);
+	                    _heroes.put(heroId, hero);
+	                    
+	                    _completeHeroes.put(heroId, hero);
+	                    
+		                statement.close();
+                	}
+        	        catch(SQLException e)
+        	        {
+        	            _log.warn("HeroSystem: Couldnt update Heroes");
+        	            if (_log.isDebugEnabled())  _log.debug("",e);
+        	        }
+                	
+                }
+                else
+                {
+                	try
+                	{
+	                    statement = con.prepareStatement(UPDATE_HERO);
+	                    statement.setInt(1, hero.getInteger(COUNT));
+	                    statement.setInt(2, hero.getInteger(PLAYED));
+	                    statement.setInt(3, heroId);
+	                    statement.execute();
+		                statement.close();
+                	}
+        	        catch(SQLException e)
+        	        {
+        	            _log.warn("HeroSystem: Couldnt update Heroes");
+        	            if (_log.isDebugEnabled())  _log.debug("",e);
+        	        }
                     
-                    if (_completeHeroes == null || !_completeHeroes.containsKey(heroId))
-                    {
-                        statement = con.prepareStatement(INSERT_HERO);
-                        statement.setInt(1, heroId);
-                        statement.setString(2, hero.getString(Olympiad.CHAR_NAME));
-                        statement.setInt(3, hero.getInteger(Olympiad.CLASS_ID));
-                        statement.setInt(4, hero.getInteger(COUNT));
-                        statement.setInt(5, hero.getInteger(PLAYED));
-                        statement.execute();
-                        
-                        Connection con2 = null;
-                        con2 = L2DatabaseFactory.getInstance().getConnection(con2);
-                        PreparedStatement statement2 = con2.prepareStatement(GET_CLAN_ALLY);
-                        statement2.setInt(1, heroId);
-                        ResultSet rset2 = statement2.executeQuery();
-                        
-                        initRelationBetweenHeroAndClan(rset2, hero);
-                        
-                        rset2.close();
-                        statement2.close();
-                        con2.close();
-                        
-                        _heroes.remove(hero);
-                        _heroes.put(heroId, hero);
-                        
-                        _completeHeroes.put(heroId, hero);
-                    }
-                    else
-                    {
-                        statement = con.prepareStatement(UPDATE_HERO);
-                        statement.setInt(1, hero.getInteger(COUNT));
-                        statement.setInt(2, hero.getInteger(PLAYED));
-                        statement.setInt(3, heroId);
-                        statement.execute();
-                    }
-                    
-                    statement.close();
                 }
             }
-        }
-        catch(SQLException e)
-        {
-            _log.warn("HeroSystem: Couldnt update Heroes");
-            if (_log.isDebugEnabled())  _log.debug("",e);
-        }
-        finally
-        {
-            try{con.close();}catch(Exception e){ _log.error("",e);}
-        }
+        try{con.close();}catch(Exception e){ _log.error("",e);}            
+        }	        
     }
     
     public int[] getHeroItems()
