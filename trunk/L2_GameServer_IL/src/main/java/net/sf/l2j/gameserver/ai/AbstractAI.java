@@ -518,7 +518,7 @@ abstract class AbstractAI implements Ctrl
         }
         else
         {
-            _actor.sendPacket(new ActionFailed());
+            clientActionFailed();
         }
     }
 
@@ -547,7 +547,7 @@ abstract class AbstractAI implements Ctrl
         }
         else
         {
-            _actor.sendPacket(new ActionFailed());
+            clientActionFailed();
         }
     }
 
@@ -574,7 +574,7 @@ abstract class AbstractAI implements Ctrl
         }
         else
         {
-            _actor.sendPacket(new ActionFailed());
+            clientActionFailed();
         }
     }
 

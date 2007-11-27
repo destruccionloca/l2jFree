@@ -184,17 +184,27 @@ public class L2PlayerAI extends L2CharacterAI
     private void thinkAttack()
     {
         L2Character target = getAttackTarget();
-        if (target == null) return;
+        if (target == null)
+		{
+			clientActionFailed();
+			return;
+		}
+		
         if (checkTargetLostOrDead(target))
         {
             // Notify the target
             setAttackTarget(null);
+			clientActionFailed();
             return;
         }
-        if (maybeMoveToPawn(target, _actor.getPhysicalAttackRange())) return;
+		
+        if (maybeMoveToPawn(target, _actor.getPhysicalAttackRange()))
+		{
+			clientActionFailed();
+			return;
+		}
 
         _accessor.doAttack(target);
-        return;
     }
 
     private void thinkCast()
@@ -209,13 +219,20 @@ public class L2PlayerAI extends L2CharacterAI
                 //Notify the target
                 setCastTarget(null);
             }
+			clientActionFailed();
             return;
         }
 
         // if (_log.isDebugEnabled()) _log.warn("L2PlayerAI: thinkCast -> valid target: " + _cast_target);
 
         if (target != null)
-            if (maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill))) return;
+		{
+            if (maybeMoveToPawn(target, _actor.getMagicalAttackRange(_skill)))
+			{
+				clientActionFailed();
+				return;
+			}
+		}
         
         if (_skill.getHitTime() > 50) clientStopMoving(null);
 
@@ -232,36 +249,60 @@ public class L2PlayerAI extends L2CharacterAI
             if (target != null && oldTarget != target) _actor.setTarget(oldTarget);
         }
         else _accessor.doCast(_skill);
-
-        return;
     }
 
     private void thinkPickUp()
     {
-        if (_actor.isAllSkillsDisabled()) return;
+        if (_actor.isAllSkillsDisabled())
+		{
+			clientActionFailed();
+			return;
+		}
         L2Object target = getTarget();
-        if (checkTargetLost(target)) return;
-        if (maybeMoveToPawn(target, 36)) return;
+        if (checkTargetLost(target))
+		{
+			clientActionFailed();
+			return;
+		}
+        if (maybeMoveToPawn(target, 36))
+		{
+			clientActionFailed();
+			return;
+		}
         setIntention(AI_INTENTION_IDLE);
         ((L2PcInstance.AIAccessor) _accessor).doPickupItem(target);
-        return;
     }
 
     private void thinkInteract()
     {
-        if (_actor.isAllSkillsDisabled()) return;
+        if (_actor.isAllSkillsDisabled())
+		{
+			clientActionFailed();
+			return;
+		}
         L2Object target = getTarget();
-        if (checkTargetLost(target)) return;
-        if (maybeMoveToPawn(target, 36)) return;
+        if (checkTargetLost(target))
+		{
+			clientActionFailed();
+			return;
+		}
+        if (maybeMoveToPawn(target, 36))
+		{
+			clientActionFailed();
+			return;
+		}
         if (!(target instanceof L2StaticObjectInstance)) ((L2PcInstance.AIAccessor) _accessor).doInteract((L2Character) target);
         setIntention(AI_INTENTION_IDLE);
-        return;
     }
 
     @Override
     protected void onEvtThink()
     {
-        if (_thinking || _actor.isAllSkillsDisabled()) return;
+        if (_thinking || _actor.isAllSkillsDisabled())
+		{
+			clientActionFailed();
+			return;
+		}
 
         /*
          if (_log.isDebugEnabled())

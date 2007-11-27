@@ -401,8 +401,8 @@ public class L2CharacterAI extends AbstractAI
         // do not follow yourself
         if (_actor == target)
         {
-                clientActionFailed();
-                return;
+            clientActionFailed();
+            return;
         }
 
         // Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
@@ -676,8 +676,11 @@ public class L2CharacterAI extends AbstractAI
         }
         //else _accessor.getActor().revalidateZone();
 
-        if (_accessor.getActor().moveToNextRoutePoint()) 
-            return;
+        if (_accessor.getActor().moveToNextRoutePoint())
+		{
+			clientActionFailed();
+			return;
+		}
 
         clientStoppedMoving();
 
