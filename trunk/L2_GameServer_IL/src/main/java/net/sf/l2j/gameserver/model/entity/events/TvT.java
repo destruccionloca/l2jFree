@@ -727,9 +727,9 @@ public class TvT
 
         teleportFinish();
     }
-    //show loosers animation
+    //show loosers and winners animations
     public static void playKneelAnimation(String teamName)
-	{
+    {
     	for (L2PcInstance player : _players)
         {
             if (player != null)
@@ -738,9 +738,13 @@ public class TvT
                 {
                 	player.broadcastPacket(new SocialAction(player.getObjectId(), 7));
                 }
+                else if (player._teamNameTvT.equals(teamName))
+                {
+                	player.broadcastPacket(new SocialAction(player.getObjectId(), 3));
+                }
             }
         }
-	}
+    }
     
     private static boolean finishEventOk()
     {

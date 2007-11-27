@@ -62,29 +62,28 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 			
 			//Prevents from inviting to party if player is not in event and if target on event and ALLOW_INTERFERENCE = false
 			if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE))
-	        {
-	            if ((requestor._inEventTvT && !player._inEventTvT) || (!requestor._inEventTvT && player._inEventTvT))
-	            {
-	            	SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+			{
+				SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+				
+				if ((requestor._inEventTvT && !player._inEventTvT) || (!requestor._inEventTvT && player._inEventTvT))
+				{
 					requestor.sendPacket(msg);
 					msg = null;
-	            	return;
-	            }
-	            else if ((requestor._inEventCTF && !player._inEventCTF) || (!requestor._inEventCTF && player._inEventCTF))
-	            {
-	            	SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
+					return;
+				}
+				else if ((requestor._inEventCTF && !player._inEventCTF) || (!requestor._inEventCTF && player._inEventCTF))
+				{
 					requestor.sendPacket(msg);
 					msg = null;
-	            	return;
-	            }
-	            else if ((requestor._inEventDM && !player._inEventDM) || (!requestor._inEventDM && player._inEventDM))
+					return;
+				}
+				else if ((requestor._inEventDM && !player._inEventDM) || (!requestor._inEventDM && player._inEventDM))
 	            {
-	            	SystemMessage msg = new SystemMessage(SystemMessageId.YOU_HAVE_INVITED_THE_WRONG_TARGET);
 					requestor.sendPacket(msg);
 					msg = null;
-	            	return;
+					return;
 	            }
-	        }
+			}
 
 			JoinParty join = new JoinParty(_response);
 			requestor.sendPacket(join);	

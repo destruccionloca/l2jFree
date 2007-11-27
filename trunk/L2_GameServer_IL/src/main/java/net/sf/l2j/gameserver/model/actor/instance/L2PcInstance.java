@@ -3853,14 +3853,14 @@ public final class L2PcInstance extends L2PlayableInstance
 			
 			//Prevents from targeting if player not in event and if target on event and ALLOW_INTERFERENCE = false
 			else if ((newTarget instanceof L2PcInstance) && (TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE))
-	        {
-	            if ((_inEventTvT && !((L2PcInstance)newTarget)._inEventTvT) || (!_inEventTvT && ((L2PcInstance)newTarget)._inEventTvT))
-	            	newTarget = null;
-	            else if ((_inEventCTF && !((L2PcInstance)newTarget)._inEventCTF) || (!_inEventCTF && ((L2PcInstance)newTarget)._inEventCTF))
-	            	newTarget = null;
-	            else if ((_inEventDM && !((L2PcInstance)newTarget)._inEventDM) || (!_inEventDM && ((L2PcInstance)newTarget)._inEventDM))
-	            	newTarget = null;
-	        }
+			{
+				if ((_inEventTvT && !((L2PcInstance)newTarget)._inEventTvT) || (!_inEventTvT && ((L2PcInstance)newTarget)._inEventTvT))
+					newTarget = null;
+				else if ((_inEventCTF && !((L2PcInstance)newTarget)._inEventCTF) || (!_inEventCTF && ((L2PcInstance)newTarget)._inEventCTF))
+					newTarget = null;
+				else if ((_inEventDM && !((L2PcInstance)newTarget)._inEventDM) || (!_inEventDM && ((L2PcInstance)newTarget)._inEventDM))
+					newTarget = null;
+			}
 		}
  
         // Prevents /target exploiting
