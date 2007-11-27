@@ -828,8 +828,6 @@
   </item>
   <item id="76" name="Ivory Tower">
     <type>Peace</type>
-    <town>17</town>
-    <castle>4</castle>
     <!-- Town of Oren -->
     <restart x="80853" y="54653" z="-1524" />
     <restart_chaotic x="73840" y="58193" z="-2730" />
@@ -999,8 +997,17 @@
     <point x="83881" y="-146500" />
     <point x="90908" y="-139486" />
   </item>
+  <item id="90" name="Dimentional Gap">
+  	<type>Peace</type>
+  	<town>17</town>
+  	<castle>9</castle>
+  	<point x="-115441" y="-182134" z="-6964" />
+  	<point x="-114106" y="-182134" z="-6964" />
+  	<point x="-114106" y="-178021" z="-6964" />
+  	<point x="-115476" y="-178021" z="-6064" />
+  </item>
   <!-- TODO -->
-  <item id="90" name="Primeval Isle Wharf">
+  <item id="91" name="Primeval Isle Wharf">
 <!--<type>Peace</type>-->
     <town>18</town>
     <castle>8</castle>

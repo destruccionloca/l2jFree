@@ -996,7 +996,7 @@
 			<chaospoint X="181722" Y="-80785" Z="-2728" />
 			<chaospoint X="181491" Y="-80868" Z="-2728" />
 		</restartpoint>
-		<restartpoint id="34" name="schuttgart_town" bbs="25" locname="1660">
+		<restartpoint id="34" name="schuttgart_town" bbs="25" locname="1714">
 			<point X="87331" Y="-142842" Z="-1317" />
 			<point X="87346" Y="-142374" Z="-1340" />
 			<point X="86685" Y="-143016" Z="-1340" />
@@ -1007,6 +1007,18 @@
 			<chaospoint X="81536" Y="-140296" Z="-2216" />
 			<chaospoint X="86602" Y="-137510" Z="-2276" />
 			<chaospoint X="88923" Y="-138968" Z="-2275" />
+		</restartpoint>
+		<restartpoint id="35" name="primeval_isle" bbs="14" locname="1924">
+			<point X="10825" Y="-24156" Z="-3645" />
+			<point X="9404" Y="-23758" Z="-3734" />
+			<point X="9839" Y="-23385" Z="-3725" />
+			<point X="10240" Y="-24338" Z="-3689" />
+			<point X="10967" Y="-24918" Z="-3683" />
+			<chaospoint X="38040" Y="-38512" Z="-3508" />
+			<chaospoint X="42640" Y="-54496" Z="-2310" />
+			<chaospoint X="38304" Y="-55440" Z="-1136" />
+			<chaospoint X="40192" Y="-57600" Z="-2343" />
+			<chaospoint X="38400" Y="-56832" Z="-992" />
 		</restartpoint>
 	</restartpoints>
 
@@ -2126,6 +2138,18 @@
 			<restart race="dwarf" restartId="33" />
 			<restart race="elf" restartId="33" />
 		</region>
+		<region id="1089">
+			<zHeight min="-4600" max="-2000" />
+			<point X="1529" Y="-28344" />
+			<point X="31929" Y="-27544" />
+			<point X="31729" Y="-2144" />
+			<point X="-71" Y="-3144" />
+			<restart race="human" restartId="35" />
+			<restart race="darkelf" restartId="35" />
+			<restart race="orc" restartId="35" />
+			<restart race="dwarf" restartId="35" />
+			<restart race="elf" restartId="35" />
+		</region>
 	</regions>
 
 	<areas>
@@ -2182,6 +2206,7 @@
 			<map X="20" Y="22" />
 			<map X="21" Y="21" />
 			<map X="21" Y="22" />
+			<map X="18" Y="10" />
 		</restartarea>
 		<restartarea id="7">
 			<map X="20" Y="23" />
@@ -2230,12 +2255,14 @@
 			<map X="22" Y="18" />
 			<map X="22" Y="17" />
 			<map X="23" Y="17" />
+			<map X="19" Y="10" />
 		</restartarea>
 		<restartarea id="13">
 			<map X="23" Y="20" />
 			<map X="23" Y="19" />
 			<map X="24" Y="20" />
 			<map X="25" Y="20" />
+			<map X="20" Y="10" />
 		</restartarea>
 		<restartarea id="14">
 			<map X="23" Y="18" />
