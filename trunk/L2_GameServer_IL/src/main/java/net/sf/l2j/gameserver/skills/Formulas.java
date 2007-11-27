@@ -1803,14 +1803,13 @@ public final class Formulas
         double resmodifier = calcSkillVulnerability(target, skill, type);
         
         int ssmodifier = 100;
-        if (bss) ssmodifier = 200;
-        else if (sps) ssmodifier = 150;        
-        else if (ss) ssmodifier = 150;
+        if (bss) ssmodifier = 150;
+        else if (sps || ss) ssmodifier = 125;        
         
         int rate = (int) ((value * statmodifier + lvlmodifier) * resmodifier);
         if (skill.isMagic())
             rate += (int) (Math.pow((double) attacker.getMAtk(target, skill)
-                / target.getMDef(attacker, skill), 0.2) * 100) - 100;
+                / target.getMDef(attacker, skill), 0.1) * 100) - 100;
 
         if (rate > 99) rate = 99;
         else if (rate < 1) rate = 1;

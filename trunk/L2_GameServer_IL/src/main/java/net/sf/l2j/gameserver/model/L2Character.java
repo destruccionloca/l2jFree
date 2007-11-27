@@ -1691,17 +1691,17 @@ public abstract class L2Character extends L2Object
     
     public final boolean isPetrified() 
     {
-        boolean state = false;
         L2Effect[] effects = getAllEffects();
         for (L2Effect e : effects)
         {
             if (e.getEffectType() == L2Effect.EffectType.PETRIFIED)
-                state = true;
-            else
-                state = false; 
+			{
+                _isPetrified = true;
+				return true;
+			}
         }
-        _isPetrified = state ;
-        return _isPetrified;
+        _isPetrified = false;
+        return false;
     } 
     public final boolean isBetrayed() { return _isBetrayed; }
     public final void setIsBetrayed(boolean value) { _isBetrayed = value; }
@@ -4795,14 +4795,15 @@ public abstract class L2Character extends L2Object
                     target.breakAttack();
                     target.breakCast();
                 }
+				
+				// Launch weapon Special ability effect if available
+				L2Weapon activeWeapon = getActiveWeaponItem();
+				
+				if (activeWeapon != null)
+					activeWeapon.getSkillEffects(this, target, crit);
+				
+				target.checkFear();
             }
-        
-            // Launch weapon Special ability effect if available
-            L2Weapon activeWeapon = getActiveWeaponItem();
-            
-            if (activeWeapon != null)
-                activeWeapon.getSkillEffects(this, target, crit);
-            
             return;
         }
 
@@ -5715,6 +5716,9 @@ public abstract class L2Character extends L2Object
                                 activeChar.updatePvPStatus();
                         }
                     }
+					
+					if (skill != null && skill.isOffensive())
+						player.checkFear();
                 }
             }
             
@@ -6171,4 +6175,19 @@ public abstract class L2Character extends L2Object
 	}
 
 	public void setForceBuff(ForceBuff fb) {}
+	
+	public void checkFear()
+	{
+		L2Effect[] effects = getAllEffects();
+		
+		if (effects == null) return;
+		
+		for (L2Effect e : effects)
+		{
+			if (e.getEffectType() == L2Effect.EffectType.FEAR)
+			{
+				e.exit();
+			}
+		}
+	}
 }
