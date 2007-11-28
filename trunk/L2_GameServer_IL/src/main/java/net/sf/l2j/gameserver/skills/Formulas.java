@@ -1463,7 +1463,9 @@ public final class Formulas
     /** Returns true in case when ATTACK is canceled due to hit */
    public final boolean calcAtkBreak(L2Character target, double dmg)
    {
-        double init = 0;
+        if (target.isRaid()) return false;
+		
+		double init = 0;
 
        if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow()) init = 50;
        if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())

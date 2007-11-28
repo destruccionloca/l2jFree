@@ -124,7 +124,7 @@ public class L2SkillDrain extends L2Skill
 				target.reduceCurrentHp(damage, activeChar);
 
 				// Manage attack or cast break of the target (calculating rate, sending message...)
-				if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+				if (Formulas.getInstance().calcAtkBreak(target, damage))
 				{
 					target.breakAttack();
 					target.breakCast();

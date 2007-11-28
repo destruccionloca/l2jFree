@@ -101,7 +101,7 @@ public class CpDam implements ISkillHandler
             int damage = (int)(target.getStatus().getCurrentCp() * (1-skill.getPower()));
             
             // Manage attack or cast break of the target (calculating rate, sending message...)
-            if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+            if (Formulas.getInstance().calcAtkBreak(target, damage))
             {
             	target.breakAttack();
             	target.breakCast();

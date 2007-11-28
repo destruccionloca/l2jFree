@@ -149,7 +149,7 @@ public class Mdam implements ISkillHandler
             if (damage > 0)
             {
                 // Manage attack or cast break of the target (calculating rate, sending message...)
-                if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+                if (Formulas.getInstance().calcAtkBreak(target, damage))
                 {
                     target.breakAttack();
                     target.breakCast();

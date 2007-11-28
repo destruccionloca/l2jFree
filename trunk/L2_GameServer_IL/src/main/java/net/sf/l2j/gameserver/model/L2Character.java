@@ -4785,12 +4785,8 @@ public abstract class L2Character extends L2Object
                 target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
                 getAI().clientStartAutoAttack();
 
-                if(target.getForceBuff() != null)
-                {
-                    target.abortCast();
-                }
                 // Manage attack or cast break of the target (calculating rate, sending message...)
-                else if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+                if (Formulas.getInstance().calcAtkBreak(target, damage))
                 {
                     target.breakAttack();
                     target.breakCast();
@@ -4802,7 +4798,7 @@ public abstract class L2Character extends L2Object
 				if (activeWeapon != null)
 					activeWeapon.getSkillEffects(this, target, crit);
 				
-				target.checkFear();
+				target.checkRemovalOnHit();
             }
             return;
         }
@@ -5718,7 +5714,7 @@ public abstract class L2Character extends L2Object
                     }
 					
 					if (skill != null && skill.isOffensive())
-						player.checkFear();
+						player.checkRemovalOnHit();
                 }
             }
             
@@ -6176,8 +6172,11 @@ public abstract class L2Character extends L2Object
 
 	public void setForceBuff(ForceBuff fb) {}
 	
-	public void checkFear()
+	public void checkRemovalOnHit()
 	{
+		if (getForceBuff() != null)
+			abortCast();
+		
 		L2Effect[] effects = getAllEffects();
 		
 		if (effects == null) return;
