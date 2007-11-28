@@ -323,7 +323,7 @@ public final class L2World implements L2WorldMBean
             L2PcInstance player = (L2PcInstance) object;
 
             L2PcInstance tmp = _allPlayers.get(player.getName().toLowerCase());
-            if(tmp!= null)
+            if (tmp!= null && tmp != player)
             {
                 _log.warn("Duplicate character!? Closing both characters ("+player.getName()+")");
                 player.deleteMe();
