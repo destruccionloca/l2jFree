@@ -7211,22 +7211,15 @@ public final class L2PcInstance extends L2PlayableInstance
 		// failed to cast, or the casting is not yet in progress when this is rechecked        
         if (getCurrentSkill() != null && isCastingNow())
         {
-            // Check if new skill different from current skill in progress
-            if (skill.getId() == getCurrentSkill().getSkillId())
-            {
-            	sendPacket(new ActionFailed());
-            	return;
-            }            	
-
-            if (_log.isDebugEnabled() && getQueuedSkill() != null)
-                _log.debug(getQueuedSkill().getSkill().getName() + " is already queued for " + getName()
-                    + ".");
-
-            // Create a new SkillDat object and queue it in the player _queuedSkill
-            setQueuedSkill(skill, forceUse, dontMove);
+            if (getSkillQueueProtectionTime() < System.currentTimeMillis())
+			{
+				setQueuedSkill(skill, forceUse, dontMove);
+			}
+			
             sendPacket(new ActionFailed());
             return;
         }
+		
         if (getQueuedSkill() != null) // wiping out previous values, after casting has been aborted 
         	setQueuedSkill(null, false, false);        
 
@@ -8708,17 +8701,30 @@ public final class L2PcInstance extends L2PlayableInstance
     public void sendSkillList(L2PcInstance player)
     {
         SkillList sl = new SkillList();
-        if(player != null)
+		
+        if (player != null)
         {
             for (L2Skill s : player.getAllSkills())
             {
-                if (s == null) 
+                if (s == null || s.getId() > 9000) // Fake skills to change base stats
                     continue;
-                if (s.getId() > 9000)
-                    continue; // Fake skills to change base stats
+				
+				if (s.getSkillType() == SkillType.NOTDONE)
+				{
+					switch (Config.SEND_NOTDONE_SKILLS)
+					{
+						case 2:
+							if (isGM())
+								break;
+						case 1:
+							continue;
+					}
+				}
+				
                 sl.addSkill(s.getId(), s.getLevel(), s.isPassive());
             }
         }
+		
         sendPacket(sl);
     }
 
@@ -10447,6 +10453,18 @@ public final class L2PcInstance extends L2PlayableInstance
         _queuedSkill = new SkillDat(queuedSkill, ctrlPressed, shiftPressed);
     }
     
+	private long _skillQueueProtectionTime = 0;
+	
+	public void setSkillQueueProtectionTime(long time)
+	{
+		_skillQueueProtectionTime = time;
+	}
+	
+	public long getSkillQueueProtectionTime()
+	{
+		return _skillQueueProtectionTime;
+	}
+	
     public boolean isMaried()
     {
         return _maried;

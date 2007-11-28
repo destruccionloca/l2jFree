@@ -750,6 +750,7 @@ public final class Config
     public static int 				MAX_PETITIONS_PER_PLAYER;
     public static int 				MAX_PETITIONS_PENDING;
     public static boolean 			STORE_SKILL_COOLTIME;				// Store skills cooltime on char exit/relogin
+	public static int				SEND_NOTDONE_SKILLS;
     public static boolean 			ANNOUNCE_MAMMON_SPAWN;
     public static double  			RESPAWN_RESTORE_CP;					// Percent CP is restore on respawn
     public static double  			RESPAWN_RESTORE_HP;					// Percent HP is restore on respawn
@@ -877,6 +878,8 @@ public final class Config
             MAX_PVTSTORE_SLOTS_OTHER = Integer.parseInt(otherSettings.getProperty("MaxPvtStoreSlotsOther", "4"));
             
             STORE_SKILL_COOLTIME = Boolean.parseBoolean(otherSettings.getProperty("StoreSkillCooltime", "true"));
+			
+			SEND_NOTDONE_SKILLS = Integer.parseInt(otherSettings.getProperty("SendNOTDONESkills", "2"));
             
             PET_RENT_NPC =  otherSettings.getProperty("ListPetRentNpc", "30827"); 
             LIST_PET_RENT_NPC = new FastList<Integer>(); 

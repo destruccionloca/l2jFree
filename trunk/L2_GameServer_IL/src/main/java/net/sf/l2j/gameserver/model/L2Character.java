@@ -1300,6 +1300,11 @@ public abstract class L2Character extends L2Object
         // Set the _castEndTime and _castInterruptTim. +10 ticks for lag situations, will be reseted in onMagicFinalizer
         _castEndTime = 10 + GameTimeController.getGameTicks() + (coolTime + hitTime) / GameTimeController.MILLIS_IN_TICK;
         _castInterruptTime = GameTimeController.getGameTicks() + skillInterruptTime / GameTimeController.MILLIS_IN_TICK;
+		
+		if (this instanceof L2PcInstance)
+		{
+			((L2PcInstance)this).setSkillQueueProtectionTime(System.currentTimeMillis() + (coolTime + hitTime) / 2);
+		}
 
         // Init the reuse time of the skill
         int reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
