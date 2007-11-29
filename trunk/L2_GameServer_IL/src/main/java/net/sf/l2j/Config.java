@@ -1243,7 +1243,6 @@ public final class Config
     public static double 			ALT_WEIGHT_LIMIT;					// Alternative game weight limit multiplier - default 1
     public static int 				ALT_GAME_NUMBER_OF_CUMULATED_BUFF;	// Alternative number of cumulated buff
     public static boolean 			ALT_DISABLE_RAIDBOSS_PETRIFICATION;	// Disable Raidboss Petrification
-    public static boolean 			ALT_STATPOINT_DISTRIBUTION;			// Own Stat Point Distribution
     public static int 				ALT_CRITICAL_CAP;					// Critical Cap
     public static boolean 			ALT_GAME_SKILL_LEARN;				// Alternative game skill learning
     public static boolean 			ALT_GAME_CANCEL_BOW;				// Cancel attack bow by hit
@@ -1470,7 +1469,6 @@ public final class Config
             GRADE_PENALTY										= Boolean.parseBoolean(altSettings.getProperty("GradePenalty", "true"));
             ALT_URN_TEMP_FAIL                                   = Integer.parseInt(altSettings.getProperty("UrnTempFail", "10"));
             ALT_DISABLE_RAIDBOSS_PETRIFICATION                  = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
-            ALT_STATPOINT_DISTRIBUTION                          = Boolean.parseBoolean(altSettings.getProperty("AltStatPointDistribution", "false"));
             ALT_CRITICAL_CAP								 	= Integer.parseInt(altSettings.getProperty("AltCriticalCap", "500"));
             
             ALT_OLY_START_TIME                                  = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
