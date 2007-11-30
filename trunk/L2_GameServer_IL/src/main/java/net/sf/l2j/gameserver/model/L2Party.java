@@ -356,6 +356,7 @@ public class L2Party
 					msg.addString(getLeader().getName());
 					broadcastToPartyMembers(msg);
 					broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+					refreshPartyView();
 					if (isInCommandChannel())
 					{
 						_commandChannel.setChannelLeader(getPartyMembers().get(0));
@@ -368,6 +369,55 @@ public class L2Party
 			}
 		}
 		
+	}
+	
+	/**
+	 * Used to refresh the party view window for all party members.
+	 */
+	public void refreshPartyView()
+	{
+		//delete view for all members:
+		broadcastToPartyMembers(new PartySmallWindowDeleteAll());
+		for (L2PcInstance p : getPartyMembers())
+			broadcastToPartyMembers(new PartySmallWindowDelete(p));
+		//rebuild the view for all members:
+		for (L2PcInstance player : getPartyMembers()){
+			if (isLeader(player)){
+				for (L2PcInstance p : getPartyMembers(player,true))
+					player.sendPacket(new PartySmallWindowAdd(p));
+			}
+			else{
+				PartySmallWindowAll window = new PartySmallWindowAll();
+				window.setPartyList(getPartyMembers(player,false));
+				player.sendPacket(window);
+				player.sendPacket(new PartySmallWindowUpdate(getPartyMembers().get(0)));
+			}
+		}
+		for (L2PcInstance player : getPartyMembers())
+			player.updateEffectIcons();
+	}
+	
+	/**
+	 * returns all party members except for player
+	 * @param receives the L2PcInstance player that needs the view
+	 * @param receives boolean is the player a party leader
+	 * @return List<L2PcInstance> of the party members that need to be shown
+	 */
+	public List<L2PcInstance> getPartyMembers(L2PcInstance player, boolean leader)
+	{
+		try{
+			if (_members == null) return getPartyMembers();
+			List<L2PcInstance> list = new FastList<L2PcInstance>();
+			for (L2PcInstance p : _members)
+				if (p!=player) 
+					list.add(p);
+			if(!leader) 
+				list.add(player);
+			return list;
+		}
+		catch(Throwable t){
+			return getPartyMembers();
+		}
 	}
 
 	/**
@@ -401,6 +451,7 @@ public class L2Party
     				msg.addString(getLeader().getName());
     				broadcastToPartyMembers(msg);
     				broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+    				refreshPartyView();
                 }
 			} 
             else 
@@ -435,6 +486,7 @@ public class L2Party
                    msg.addString(getLeader().getName());
                    broadcastToPartyMembers(msg);
                    broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+                   refreshPartyView();
                 }
 			} 
             else 

@@ -825,7 +825,8 @@ public class Olympiad
         spectator.enterOlympiadObserverMode(STADIUMS[id][0], STADIUMS[id][1], STADIUMS[id][2], id);
         
         _manager.getOlympiadInstance(id).addSpectator(spectator);
-        
+        players[0].setOlympiadSide(2);
+        players[1].setOlympiadSide(1);
         spectator.sendPacket(new ExOlympiadUserInfoSpectator(players[0], 2));
         spectator.sendPacket(new ExOlympiadUserInfoSpectator(players[1], 1));
     }

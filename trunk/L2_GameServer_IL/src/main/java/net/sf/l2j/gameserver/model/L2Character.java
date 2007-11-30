@@ -63,6 +63,9 @@ import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynch
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.actor.status.CharStatus;
 import net.sf.l2j.gameserver.model.entity.Duel;
+import net.sf.l2j.gameserver.model.entity.events.CTF;
+import net.sf.l2j.gameserver.model.entity.events.DM;
+import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
@@ -521,7 +524,12 @@ public abstract class L2Character extends L2Object
     {
         if (_log.isDebugEnabled()) 
             _log.debug(getName()+" doAttack: target="+target);
-
+        if (target instanceof L2PlayableInstance && this instanceof L2PlayableInstance){
+        	L2Object[] o = (eventBlocker(new L2Object[] {target})); // A Filter to take out any players not in events.
+        	if (o!=null && o[0]!=null && o[0] instanceof L2Character)
+        		target = (L2Character)o[0];
+        	else target = null;
+        }
         if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead()) 
                 || (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath())
                 || !getKnownList().knowsObject(target)
@@ -1174,6 +1182,9 @@ public abstract class L2Character extends L2Object
             getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
             return;
         }
+        
+        if (this instanceof L2PlayableInstance)
+        	targets = eventBlocker(targets); // A Filter to take out any playables not in events or vice versa.
 
         // Set the target of the skill in function of Skill Type and Target Type
         L2Character target = null;
@@ -1378,6 +1389,79 @@ public abstract class L2Character extends L2Object
             onMagicLaunchedTimer(targets, skill, coolTime, true);
     }
 
+    /**
+     * Function is used to filter out targets during an event.
+     * @param targets - Target list L2Object[] received
+     * @return L2Object[] - New target list, with event participants excluded
+     */
+    private L2Object[] eventBlocker(L2Object[] targets){
+        try{
+        	//If events are not running skip this check. Code efficiency.
+        	if (!TvT._started && !CTF._started && !DM._started)
+        		return targets;
+        	//Let's find the caster:
+        	L2PcInstance caster = null;
+        	if (this instanceof L2PcInstance)
+        		caster = (L2PcInstance)this;
+        	else if (this instanceof L2Summon)
+        		caster = ((L2Summon)this).getOwner();
+        	if (caster == null)
+        		return targets;
+        	//Check the targets:
+        	for (int x=0 ; x<targets.length ; x++){
+            	if (targets[x] == null || !(targets[x] instanceof L2PlayableInstance))
+            		continue; // Don't check mobs
+            	//Find the player to check if he is in event confronting him with the caster:
+            	L2PcInstance target = null;
+            	if (targets[x] instanceof L2PcInstance)
+            		target = (L2PcInstance)targets[x];
+            	else if (targets[x] instanceof L2Summon)
+            		target = ((L2Summon)targets[x]).getOwner();
+            	if (target == null)
+            		continue;
+            	//Run the check, change off limit targets to null:
+            	if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE))
+            	{
+                    if ((target._inEventTvT && !caster._inEventTvT) || (!target._inEventTvT && caster._inEventTvT))
+                        targets[x]=null;
+                    else if ((target._inEventCTF && !caster._inEventCTF) || (!target._inEventCTF && caster._inEventCTF))
+                        targets[x]=null;
+                    else if ((target._inEventDM && !caster._inEventDM) || (!target._inEventDM && caster._inEventDM))
+                    	targets[x]=null;
+            	}
+        	}
+        	//At this point we have an array of targets which some are null, let's clean this array:
+        	
+        	return removeAllNullTargets(targets);
+        }
+        catch (Throwable t){
+        	return removeAllNullTargets(targets);
+        }
+    }
+    
+	/**
+	* @param targets a target list with null targets 
+	* @return a target list without null targets
+	*/
+    public L2Object[] removeAllNullTargets(L2Object[] targets){
+		if (targets == null)
+			return null;
+		int size = 0;
+		for (int x=0; x<targets.length ; x++)
+			if (targets[x]!=null)
+				size++;
+		if (size == 0)
+			return null;
+		L2Object[] newTargets = new L2Object[size];
+		size = 0;
+		for (int x=0; x<targets.length ; x++)
+			if (targets[x]!=null){
+				newTargets[size] = targets[x]; 
+				size++;
+			}
+		return newTargets;
+	}
+    
     /**
      * Index according to skill id the current timestamp of use.<br><br>
      * 
