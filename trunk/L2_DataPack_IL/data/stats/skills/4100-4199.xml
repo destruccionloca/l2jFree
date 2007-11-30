@@ -406,12 +406,16 @@
 </skill>
 <skill id="4122" levels="1" name="Antharas">
   <!-- Antharas Skills -->
+  <set name="magicLvl" val="70"/> <!-- Possibly 79 -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="WEAKNESS"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="windVuln" val="1.5" order="0x30"/>
+    <mul stat="earthVuln" val="0.05" order="0x30"/>
   </for>
 </skill>
 <skill id="4123" levels="12" name="Hostile Feeling">
