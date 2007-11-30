@@ -262,6 +262,7 @@ public final class L2WorldRegion
     {
         if (Config.ASSERT) assert object.getWorldRegion() == this;
 
+        if (object == null) return;
         _visibleObjects.put(object);
 
         if (object instanceof L2PlayableInstance)

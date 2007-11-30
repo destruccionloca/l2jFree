@@ -66,7 +66,7 @@ public class FloodProtector
 	private FloodProtector()
 	{
         _log.info("FloodProtector: initalized.");
-		_floodClient = new FastMap<Integer, Integer[]>(Config.FLOODPROTECTOR_INITIALSIZE);
+		_floodClient = new FastMap<Integer, Integer[]>(Config.FLOODPROTECTOR_INITIALSIZE).setShared(true);
 	}
 	
 	/**

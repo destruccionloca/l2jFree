@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.handler.itemhandlers.ExtractableItems;
 import net.sf.l2j.gameserver.handler.itemhandlers.Firework;
 import net.sf.l2j.gameserver.handler.itemhandlers.FishShots;
 import net.sf.l2j.gameserver.handler.itemhandlers.Harvester;
+import net.sf.l2j.gameserver.handler.itemhandlers.Maps;
 import net.sf.l2j.gameserver.handler.itemhandlers.MercTicket;
 import net.sf.l2j.gameserver.handler.itemhandlers.MysteryPotion;
 import net.sf.l2j.gameserver.handler.itemhandlers.PaganKeys;
@@ -52,7 +53,6 @@ import net.sf.l2j.gameserver.handler.itemhandlers.SoulShots;
 import net.sf.l2j.gameserver.handler.itemhandlers.SpecialXMas;
 import net.sf.l2j.gameserver.handler.itemhandlers.SpiritShot;
 import net.sf.l2j.gameserver.handler.itemhandlers.SummonItems;
-import net.sf.l2j.gameserver.handler.itemhandlers.WorldMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,11 +104,12 @@ public class ItemHandler
         registerItemHandler(new ChestKey());
         registerItemHandler(new CrystalCarol());
         registerItemHandler(new EnchantScrolls());
-        registerItemHandler(new EnergyStone());        
+        registerItemHandler(new EnergyStone());
         registerItemHandler(new ExtractableItems());
         registerItemHandler(new Firework());
         registerItemHandler(new FishShots());
         registerItemHandler(new Harvester());
+        registerItemHandler(new Maps());
         registerItemHandler(new MercTicket());
         registerItemHandler(new MysteryPotion());
         registerItemHandler(new PaganKeys()); 
@@ -126,7 +127,6 @@ public class ItemHandler
         registerItemHandler(new SoulShots());
         registerItemHandler(new SpiritShot());
         registerItemHandler(new SummonItems());
-        registerItemHandler(new WorldMap());
         _log.info("ItemHandler: Loaded " + _datatable.size() + " handlers.");        
     }
     

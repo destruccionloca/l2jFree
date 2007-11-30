@@ -463,7 +463,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             {
                 if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
                 {
-                    player.sendMessage("You don't have the right privilleges to do this");
+                    player.sendMessage("You don't have the right privileges to do this");
                     return;
                 }
                 String filename = "data/html/auction/AgitSaleCancel.htm";
@@ -499,7 +499,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             {
                 if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
                 {
-                    player.sendMessage("You don't have the right privilleges to do this");
+                    player.sendMessage("You don't have the right privileges to do this");
                     return;
                 }
                 String filename = "data/html/auction/AgitSale1.htm";
@@ -517,7 +517,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                 if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
                 {
-                    player.sendMessage("You don't have the right privilleges to do this");
+                    player.sendMessage("You don't have the right privileges to do this");
                     return;
                 }
                 try

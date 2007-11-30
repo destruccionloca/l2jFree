@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.serverpackets.MoveToPawn;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
 import net.sf.l2j.gameserver.serverpackets.StopRotation;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
+import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -82,7 +83,7 @@ abstract class AbstractAI implements Ctrl
                     return;
                 }
 
-                if(!_actor.isInsideRadius(_followTarget, _range, true, false))
+                if (!Util.checkIfInRange(_range, _actor, _followTarget, false))
                     moveToPawn(_followTarget, _range);
             }
             catch (Throwable t)
