@@ -197,6 +197,9 @@ public class RequestBypassToServer extends L2GameClientPacket
             //  Draw a Symbol
             else if (_command.equals("menu_select?ask=-16&reply=1"))
             {
+                if (!activeChar.validateBypass(_command))
+                    return;
+
                 L2Object object = activeChar.getTarget();
                 if (object instanceof L2NpcInstance)
                 {

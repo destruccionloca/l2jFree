@@ -4110,6 +4110,7 @@ public abstract class L2Character extends L2Object
        final int curZ = super.getZ();
 
        // Calculate distance (dx,dy) between current position and destination
+       // TODO: improve Z axis follow support when dx,dy are small
        double dx = (x - curX);
        double dy = (y - curY);
        double distance = Math.sqrt(dx*dx + dy*dy);
@@ -4299,7 +4300,8 @@ public abstract class L2Character extends L2Object
 			}
 			// If no distance to go through, the movement is canceled
 			if (distance < 1 && (Config.GEO_PATH_FINDING
-					|| this instanceof L2PlayableInstance
+					|| this instanceof L2PcInstance
+					|| (this instanceof L2Summon && !((L2Summon)this).getFollowStatus())
 					|| this instanceof L2RiftInvaderInstance))
 			{
 				sin = 0;
@@ -4308,9 +4310,7 @@ public abstract class L2Character extends L2Object
 				x = curX;
 				y = curY;
 
-				if (_log.isDebugEnabled()) _log.info("already in range, no movement needed.");
-
-				// Notify the AI that the L2Character is arrived at destination
+				if(this instanceof L2Summon) ((L2Summon)this).setFollowStatus(false);
 				getAI().notifyEvent(CtrlEvent.EVT_ARRIVED, null);
 				getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE); //needed?
 				return;
@@ -4565,7 +4565,7 @@ public abstract class L2Character extends L2Object
     }
 
     /**
-     * Check if this object is inside the given radius around the given object.<BR><BR>
+     * Check if this object is inside the given radius around the given object. Warning: doesn't cover collision radius!<BR><BR>
      * 
      * If the target is null, we consider that this object is not inside radius 
      * 
@@ -4586,7 +4586,7 @@ public abstract class L2Character extends L2Object
         return isInsideRadius(object.getX(), object.getY(), object.getZ(), radius, checkZ, strictCheck);
     }
     /**
-     * Check if this object is inside the given plan radius around the given point.<BR><BR>
+     * Check if this object is inside the given plan radius around the given point. Warning: doesn't cover collision radius!<BR><BR>
      * 
      * @param x   X position of the target
      * @param y   Y position of the target
@@ -5430,7 +5430,7 @@ public abstract class L2Character extends L2Object
 			{
 				if (element instanceof L2Character)
 				{
-					if(!isInsideRadius(element, escapeRange, true, false) || !GeoData.getInstance().canSeeTarget(this, element))
+					if(!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element))
 						continue;
 					if(skill.isOffensive())
 					{
