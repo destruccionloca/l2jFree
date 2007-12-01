@@ -276,7 +276,7 @@ public class Wedding implements IVoicedCommandHandler
         // Check if player is in a Monster Derby Track
         else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
         {
-        	activeChar.sendMessage("You can't escape from a Monster Derby Track");
+        	activeChar.sendMessage("You can't escape from a Monster Derby Track.");
         	return false;
         }
 
@@ -339,7 +339,7 @@ public class Wedding implements IVoicedCommandHandler
         }
         else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, partner))
         {
-        	activeChar.sendMessage("Your partner is in a Monster Derby Track");
+        	activeChar.sendMessage("Your partner is in a Monster Derby Track.");
         	return false;
         }
         
