@@ -73,7 +73,7 @@ public class ScrollOfEscape implements IItemHandler
 			return;
 
 		// [L2J_JP ADD]
-		if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, activeChar))
+		if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, activeChar) || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar))
 		{
 			activeChar.sendMessage("You can not escape from here.");
 			activeChar.sendPacket(new ActionFailed());

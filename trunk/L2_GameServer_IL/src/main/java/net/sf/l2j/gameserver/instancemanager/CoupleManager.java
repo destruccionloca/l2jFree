@@ -93,7 +93,11 @@ public class CoupleManager
             _log.error("Exception: CoupleManager.load(): " + e.getMessage(),e);
         }
         
-        finally {try { con.close(); } catch (Exception e) {}}
+        finally
+        {
+        	try { con.close(); }
+        	catch (Exception e) {}
+        }
     }
 
     // =========================================================
@@ -152,14 +156,18 @@ public class CoupleManager
                     try
                     {
                         con = L2DatabaseFactory.getInstance().getConnection(con);
-                        PreparedStatement statement = con.prepareStatement("DELETE FROM items WHERE owner_id = ? AAND item_id = ?");
+                        PreparedStatement statement = con.prepareStatement("DELETE FROM items WHERE owner_id = ? AND item_id = ?");
                         statement.setInt(1, PlayerId);
                         statement.setInt(2, ItemId);
                         statement.execute();
                         statement.close();
                     }
                     catch (Exception e) {} 
-                    finally {try { con.close(); } catch (Exception e) {}}
+                    finally
+                    {
+                    	try { con.close(); }
+                    	catch (Exception e) {}
+                    }
                 }
             }
             if (player2 != null)
@@ -188,7 +196,11 @@ public class CoupleManager
                         statement.close();
                     }
                     catch (Exception e) {} 
-                    finally {try { con.close(); } catch (Exception e) {}}
+                    finally
+                    {
+                    	try { con.close(); }
+                    	catch (Exception e) {}
+                    }
                 }
             }
             couple.divorce();
