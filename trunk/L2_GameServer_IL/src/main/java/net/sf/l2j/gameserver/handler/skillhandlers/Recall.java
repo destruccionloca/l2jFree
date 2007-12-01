@@ -83,7 +83,7 @@ public class Recall implements ISkillHandler
 					L2PcInstance targetChar = (L2PcInstance) target;
 
 					// [L2J_JP ADD]
-					if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, targetChar))
+					if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, targetChar) || ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, targetChar))
 					{
 						targetChar.sendMessage("You can not escape from here.");
 						targetChar.sendPacket(new ActionFailed());
@@ -107,7 +107,7 @@ public class Recall implements ISkillHandler
 					}
 
 					// Check to see if player is in jail
-					if (targetChar.isInJail())
+					if (targetChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, targetChar))
 					{
 						targetChar.sendMessage("You can not escape from jail.");
 						continue;
@@ -160,7 +160,8 @@ public class Recall implements ISkillHandler
 
 		try
 		{
-			for (L2Object element : targets) {
+			for (L2Object element : targets)
+			{
 				if (!(element instanceof L2Character))
 					continue;
 
@@ -174,7 +175,8 @@ public class Recall implements ISkillHandler
 
 				target.teleToLocation(loc[rndLoc][0] + rndX, loc[rndLoc][1] + rndY, loc[rndLoc][2]);
 			}
-		} catch (Throwable e)
+		}
+		catch (Throwable e)
 		{
 			if (_log.isDebugEnabled())
 				e.printStackTrace();

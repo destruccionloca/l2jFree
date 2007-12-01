@@ -273,6 +273,12 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You are currently holding a cursed weapon.");
             return false;
         }
+        // Check if player is in a Monster Derby Track
+        else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
+        {
+        	activeChar.sendMessage("You can't escape from a Monster Derby Track");
+        	return false;
+        }
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
@@ -329,6 +335,11 @@ public class Wedding implements IVoicedCommandHandler
         else if (partner.isCursedWeaponEquiped())
         {
         	activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
+        	return false;
+        }
+        else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, partner))
+        {
+        	activeChar.sendMessage("Your partner is in a Monster Derby Track");
         	return false;
         }
         

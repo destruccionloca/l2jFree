@@ -73,7 +73,7 @@ public class ScrollOfEscape implements IItemHandler
 			return;
 
 		// [L2J_JP ADD]
-		if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, activeChar) || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar))
+		if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, activeChar) || ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
 		{
 			activeChar.sendMessage("You can not escape from here.");
 			activeChar.sendPacket(new ActionFailed());
@@ -107,7 +107,7 @@ public class ScrollOfEscape implements IItemHandler
 		}
 
 		// Check to see if player is in jail
-		if (activeChar.isInJail())
+		if (activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar))
 		{
 			activeChar.sendMessage("You can not escape from jail.");
 			return;
