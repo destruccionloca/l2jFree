@@ -284,7 +284,7 @@ echo Custom Weapons
  
 
 echo.
-echo Do you want to update your database with files in update folder?
+echo Do you want to update your database with files in update folder, which are already included in the main files? (RECOMMENDED: NO)
 :askupdate
 set updateprompt=x
 set /p installtype=UPDATE your database: (y) yes or (n) no? 

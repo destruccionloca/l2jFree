@@ -361,7 +361,7 @@ $MYG < ../sql/custom/custom_weapon.sql &> /dev/null
 
 askupdatedb(){
 echo ""
-echo "Do you want to update your database with files in update folder?"
+echo "Do you want to update your database with files in update folder, which are already included in the main files? (RECOMMENDED: NO)"
 echo -ne "UPDATE your database: (y) yes or (n) no?"
 read UPDATETYPE
 case "$UPDATETYPE" in
