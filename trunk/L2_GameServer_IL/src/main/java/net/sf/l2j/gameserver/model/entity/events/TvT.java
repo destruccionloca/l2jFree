@@ -361,7 +361,10 @@ public class TvT
             return;
         
         if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && checkMinPlayers(_playersShuffle.size()))
-            shuffleTeams();
+        {
+        	removeOfflinePlayers();
+        	shuffleTeams();
+        }
         else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && !checkMinPlayers(_playersShuffle.size()))
         {
             Announcements.getInstance().announceToAll("Not enough players for event. Min Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
@@ -425,7 +428,10 @@ public class TvT
             return false;
         
         if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && checkMinPlayers(_playersShuffle.size()))
-            shuffleTeams();
+        {
+        	removeOfflinePlayers();
+			shuffleTeams();
+        }
         else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && !checkMinPlayers(_playersShuffle.size()))
         {
         	Announcements.getInstance().announceToAll("Not enough players for event. Min Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
@@ -582,6 +588,7 @@ public class TvT
 					case 60: // 1 minute left
 						if (_joining)
 						{
+							removeOfflinePlayers();
 							Announcements.getInstance().announceToAll(_eventName + "(TvT): Joinable in " + _joiningLocationName + "!");
 							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till registration close!");
 						}
@@ -668,8 +675,12 @@ public class TvT
                 break;
 
             int playerToAddIndex = Rnd.nextInt(_playersShuffle.size());
-            
-            _players.add(_playersShuffle.get(playerToAddIndex));
+            L2PcInstance player=null;
+            player = _playersShuffle.get(playerToAddIndex);            
+            player._originalNameColorTvT = player.getAppearance().getNameColor();
+            player._originalKarmaTvT = player.getKarma();
+			
+            _players.add(player);
             _players.get(playersCount)._teamNameTvT = _teams.get(teamCount);
             _savePlayers.add(_players.get(playersCount).getName());
             _savePlayerTeams.add(_teams.get(teamCount));
@@ -1135,7 +1146,7 @@ public class TvT
             }
             else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
             {
-                if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer))
+                if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
                 {
                     if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
                         replyMSG.append("You participated already in team <font color=\"LEVEL\">" + eventPlayer._teamNameTvT + "</font><br><br>");
@@ -1217,14 +1228,74 @@ public class TvT
         else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE"))
             _playersShuffle.add(player);
         
-        player._originalNameColorTvT = player.getAppearance().getNameColor();
-        player._originalKarmaTvT = player.getKarma();
         player._inEventTvT = true;
         player._countTvTkills = 0;
     }
     
+    public static void removeOfflinePlayers()
+    {
+    	try
+    	{
+    		if(_playersShuffle== null || _playersShuffle.isEmpty())
+    			return;
+    		if(_playersShuffle!= null && !_playersShuffle.isEmpty())
+    		{
+    			for(L2PcInstance player: _playersShuffle)
+    			{
+    				if(player==null || player.isOnline()==0)
+    					_playersShuffle.remove(player);
+    			}
+    		}
+    	}
+    	catch (Exception e)
+    	{return;}
+    }
+    public static boolean checkShufflePlayers(L2PcInstance eventPlayer)
+    {
+    	try
+    	{
+    		for(L2PcInstance player: _playersShuffle)
+    		{
+    			if(player==null)
+    			{
+    				_playersShuffle.remove(player);
+    				continue;
+    			}
+    			else if(player.getObjectId()==eventPlayer.getObjectId())
+    			{
+    				eventPlayer._inEventTvT = true;
+    				eventPlayer._countTvTkills = 0;
+    				return true;
+    			}
+    			//this 1 is incase player got new objectid after DC or reconnect
+    			else if(player.getName().equals(eventPlayer.getName()))
+    			{
+    				_playersShuffle.remove(player);
+    				_playersShuffle.add(eventPlayer);
+    				eventPlayer._inEventTvT = true;
+    				eventPlayer._countTvTkills = 0;
+    				return true;
+    			}
+    		}
+    	}
+    	catch (Exception e)
+		{}
+    	return false;
+    }
+    
     public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
     {
+    	if (checkShufflePlayers(eventPlayer))
+    	{
+    		eventPlayer.sendMessage("You already participated in the event!");
+    		return false;
+    	}
+    	if (eventPlayer._inEventTvT)
+    	{
+    		eventPlayer.sendMessage("You already participated in the event!"); 
+            return false;
+    	}
+    	
     	for(L2PcInstance player: _players)
     	{
     		if(player.getObjectId()==eventPlayer.getObjectId())
