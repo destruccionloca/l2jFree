@@ -36,13 +36,11 @@ import net.sf.l2j.gameserver.serverpackets.AutoAttackStart;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
 import net.sf.l2j.gameserver.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.serverpackets.Die;
-import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.MoveToLocationInVehicle;
 import net.sf.l2j.gameserver.serverpackets.MoveToPawn;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
 import net.sf.l2j.gameserver.serverpackets.StopRotation;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
-import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -83,9 +81,10 @@ abstract class AbstractAI implements Ctrl
                     return;
                 }
 
-                // TODO: fix Z axis follow support, moveToLocation needs improvements
-                if (!_actor.isInsideRadius(_followTarget, _range, false, false))
+                if (!_actor.isInsideRadius(_followTarget, _range, true, false))
+                {
                     moveToPawn(_followTarget, _range);
+                }
             }
             catch (Throwable t)
             {
@@ -497,9 +496,8 @@ abstract class AbstractAI implements Ctrl
                 }
                 else if (_actor.isOnGeodataPath())
                 {
-                    // TODO: this doesn't mean much for now, calculation and
-                    // packet sending runs 1/sec (even when route is the same)
-                    if (GameTimeController.getGameTicks() < _moveToPawnTimeout) return;
+                    // minimum time to calculate new route is 2 seconds
+                    if (GameTimeController.getGameTicks() < (_moveToPawnTimeout+10)) return;
                 }
             }
 

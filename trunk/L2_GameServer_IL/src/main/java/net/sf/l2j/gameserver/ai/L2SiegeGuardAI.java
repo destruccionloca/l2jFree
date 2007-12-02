@@ -305,7 +305,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
             _actor.setTarget(_attackTarget);
             skills = _actor.getAllSkills();
             dist_2 = _actor.getPlanDistanceSq(_attackTarget.getX(), _attackTarget.getY());
-            range = _actor.getPhysicalAttackRange();
+            range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius() + _attackTarget.getTemplate().getCollisionRadius();
         }
         catch (NullPointerException e)
         {

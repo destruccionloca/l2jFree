@@ -195,18 +195,16 @@ public class L2CubicInstance
                 {
                     if (Rnd.get(1, 100) < _chance)
                     {
-                        L2Skill skill = SkillTable.getInstance().getInfo(
-                                                                         _skills.get(Rnd.get(_skills.size())),
-                                                                         _level);
+                        L2Skill skill = SkillTable.getInstance()
+                            .getInfo(_skills.get(Rnd.get(_skills.size())),_level);
                         if (skill != null)
                         {
                             L2Character[] targets = {_target};
-                            ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(
-                                                                                               skill.getSkillType());
+                            ISkillHandler handler = SkillHandler.getInstance().getSkillHandler(skill.getSkillType());
 
                             int x, y, z;
                             // temporary range check until real behavior of cubics is known/coded
-                            int range = 400; //skill.getCastRange();
+                            int range = _target.getTemplate().getCollisionRadius() + 400; //skill.getCastRange();
 
                             x = (_owner.getX() - _target.getX());
                             y = (_owner.getY() - _target.getY());
@@ -222,8 +220,7 @@ public class L2CubicInstance
                                     skill.useSkill(_owner, targets);
                                 }
 
-                                MagicSkillUser msu = new MagicSkillUser(_owner, _target, skill.getId(),
-                                                                        _level, 0, 0);
+                                MagicSkillUser msu = new MagicSkillUser(_owner,_target,skill.getId(),_level,0,0);
                                 _owner.broadcastPacket(msu);
                             }
                         }
@@ -261,9 +258,8 @@ public class L2CubicInstance
             {
                 if (Rnd.get(1, 100) < _chance)
                 {
-                    L2Skill skill = SkillTable.getInstance().getInfo(
-                                                                     _skills.get(Rnd.get(_skills.size())),
-                                                                     _level);
+                    L2Skill skill = SkillTable.getInstance()
+                        .getInfo(_skills.get(Rnd.get(_skills.size())),_level);
                     if (skill != null)
                     {
                         L2Character target, caster;
@@ -294,7 +290,7 @@ public class L2CubicInstance
                                         z = (caster.getZ() - partyMember.getZ());
                                         if ((x * x) + (y * y) + (z * z) > range * range) continue;
 
-                                        //member is in cubic casting range, check if he need heal and if he have the lowest HP                               
+                                        //member is in cubic casting range, check if he need heal and if he have the lowest HP
                                         if (partyMember.getStatus().getCurrentHp() < partyMember.getMaxHp())
                                         {
                                             if (percentleft > (partyMember.getStatus().getCurrentHp() / partyMember.getMaxHp()))
@@ -323,8 +319,7 @@ public class L2CubicInstance
                             {
                                 skill.useSkill(_owner, targets);
                             }
-                            MagicSkillUser msu = new MagicSkillUser(_owner, target, skill.getId(),
-                                                                    _level, 0, 0);
+                            MagicSkillUser msu = new MagicSkillUser(_owner,target,skill.getId(),_level,0,0);
                             _owner.broadcastPacket(msu);
                         }
                     }

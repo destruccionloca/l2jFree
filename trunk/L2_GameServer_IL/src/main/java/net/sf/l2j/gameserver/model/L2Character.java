@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.model;
 
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_ATTACK;
+import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_FOLLOW;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -486,8 +487,6 @@ public abstract class L2Character extends L2Object
 
         if (!(this instanceof L2PcInstance)) 
             onTeleported();
-        else
-            ((L2PcInstance)this).revalidateZone(true);
     }
 
     public void teleToLocation(int x, int y, int z) { teleToLocation(x, y, z, true); }
@@ -4110,9 +4109,9 @@ public abstract class L2Character extends L2Object
        final int curZ = super.getZ();
 
        // Calculate distance (dx,dy) between current position and destination
-       // TODO: improve Z axis follow support when dx,dy are small
        double dx = (x - curX);
        double dy = (y - curY);
+       double dz = (z - curZ);
        double distance = Math.sqrt(dx*dx + dy*dy);
 
        if (_log.isDebugEnabled()) _log.debug("distance to target:" + distance);
@@ -4130,10 +4129,14 @@ public abstract class L2Character extends L2Object
        double cos;
        double sin;
 
-
        // Check if a movement offset is defined or no distance to go through
        if (offset > 0 || distance < 1)
        {
+           // approximation for moving closer when z coordinates are different
+           // TODO: handle Z axis movement better
+           offset -= Math.abs(dz);
+           if (offset < 5) offset = 5;
+
            // If no distance to go through, the movement is canceled
            if (distance < 1 || distance - offset  <= 0)
            {
@@ -4183,10 +4186,9 @@ public abstract class L2Character extends L2Object
 			int gty = (originalY - L2World.MAP_MIN_Y) >> 4;
 
 			// Movement checks:
-			// when geodata == 2, for all characters except mobs returning home (could be changed later to teleport if pathfinding fails)
-			// when geodata == 1, for l2playableinstance and l2riftinstance only
-			if ((Config.GEO_MOVE_PC && this instanceof L2PlayableInstance)
+			if ((Config.GEO_MOVE_PC && this instanceof L2PcInstance)
 			  || (Config.GEO_MOVE_NPC && this instanceof L2Attackable && !((L2Attackable)this).isReturningToSpawnPoint())
+			  || (this instanceof L2Summon && (getAI().getIntention() != AI_INTENTION_FOLLOW)) // assuming intention_follow only when following owner 
 			  || this instanceof L2RiftInvaderInstance) // Rift mobs should never walk through walls
 			{
 				if (isOnGeodataPath())
