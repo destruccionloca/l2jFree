@@ -1,7 +1,7 @@
--- -------------------------------
+-- --------------------------------
 -- Table structure for table `ctf`
--- Created by SqueezeD from l2jfree
--- -------------------------------
+-- Created by SqueezeD & Serpent for l2jfree
+-- --------------------------------
 DROP TABLE IF EXISTS `ctf`;
 CREATE TABLE `ctf` (
   `eventName` varchar(255) NOT NULL default '',
@@ -16,5 +16,9 @@ CREATE TABLE `ctf` (
   `npcHeading` int(11) NOT NULL default '0',
   `rewardId` int(11) NOT NULL default '0',
   `rewardAmount` int(11) NOT NULL default '0',
-  `teamsCount` int(4) NOT NULL default '0'  
+  `teamsCount` int(4) NOT NULL default '0',
+  `joinTime` int(11) NOT NULL default '0',
+  `eventTime` int(11) NOT NULL default '0',
+  `minPlayers` int(4) NOT NULL default '0',
+  `maxPlayers` int(4) NOT NULL default '0'
 ) DEFAULT CHARSET=utf8;
