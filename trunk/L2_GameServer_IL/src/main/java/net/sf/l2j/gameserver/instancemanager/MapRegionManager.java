@@ -502,12 +502,10 @@ public class MapRegionManager
     
     public int getAreaCastle(L2Character activeChar)
     {
-    	L2MapRegion region = getRegion(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+    	Town town = TownManager.getInstance().getClosestTown(activeChar);
     	
-    	if (region.getTown() == null)
+    	if (town == null)
     		return 5;
-    	
-    	Town town = region.getTown();
     	
     	return town.getCastleId();
     }
