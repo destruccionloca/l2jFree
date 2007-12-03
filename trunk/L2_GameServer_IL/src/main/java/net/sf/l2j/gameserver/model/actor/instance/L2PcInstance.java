@@ -7186,7 +7186,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		// failed to cast, or the casting is not yet in progress when this is rechecked        
         if (getCurrentSkill() != null && isCastingNow())
         {
-            if (getSkillQueueProtectionTime() < System.currentTimeMillis())
+            if (getSkillQueueProtectionTime() < System.currentTimeMillis() ||
+				skill.getId() != getCurrentSkill().getSkillId())
 			{
 				setQueuedSkill(skill, forceUse, dontMove);
 			}

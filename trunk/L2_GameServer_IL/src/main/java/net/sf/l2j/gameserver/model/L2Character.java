@@ -1311,11 +1311,6 @@ public abstract class L2Character extends L2Object
         // Set the _castEndTime and _castInterruptTim. +10 ticks for lag situations, will be reseted in onMagicFinalizer
         _castEndTime = 10 + GameTimeController.getGameTicks() + (coolTime + hitTime) / GameTimeController.MILLIS_IN_TICK;
         _castInterruptTime = GameTimeController.getGameTicks() + skillInterruptTime / GameTimeController.MILLIS_IN_TICK;
-		
-		if (this instanceof L2PcInstance)
-		{
-			((L2PcInstance)this).setSkillQueueProtectionTime(System.currentTimeMillis() + (coolTime + hitTime) / 2);
-		}
 
         // Init the reuse time of the skill
         int reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
@@ -1325,6 +1320,16 @@ public abstract class L2Character extends L2Object
         // Send a Server->Client packet MagicSkillUser with target, displayId, level, skillTime, reuseDelay
         // to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
         broadcastPacket(new MagicSkillUser(this, target, displayId, level, hitTime, reuseDelay));
+		
+		if (this instanceof L2PcInstance)
+		{
+			long protTime = hitTime + coolTime;
+			
+			if (reuseDelay < protTime)
+				protTime /= 2;
+			
+			((L2PcInstance)this).setSkillQueueProtectionTime(System.currentTimeMillis() + protTime);
+		}
 
         // Send a system message USE_S1 to the L2Character
         if (this instanceof L2PcInstance && magicId != 1312)  
