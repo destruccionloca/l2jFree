@@ -1437,6 +1437,16 @@ public class TvT
     public static void cleanTvT()
     {
     	_log.info("TvT : Cleaning players.");
+    	for (L2PcInstance player : _players)
+    	{
+    		if(player != null)
+    		{
+    			removePlayer(player);
+    			if(_savePlayers.contains(player.getName()))
+    				_savePlayers.remove(player.getName());
+    			player._inEventTvT = false;
+    		}
+    	}
     	if (_playersShuffle != null && !_playersShuffle.isEmpty())
     	{
     		for (L2PcInstance player : _playersShuffle)
@@ -1445,30 +1455,13 @@ public class TvT
         			player._inEventTvT = false;
             }
     	}
-    	if (_players != null && !_players.isEmpty())
-    	{
-    		for (L2PcInstance player : _players)
-    		{
-    			if(player != null)
-    			{
-    				removePlayer(player);
-    				if(_savePlayers.contains(player.getName()))
-    					_savePlayers.remove(player.getName());
-    				if (_players.contains(player))
-    					_players.remove(player);
-    			}
-    		}
-    	}
     	_log.info("TvT : Cleaning teams.");
-    	if (_teams != null && !_teams.isEmpty())
+    	for (String team : _teams)
     	{
-    		for (String team : _teams)
-    		{
-    			int index = _teams.indexOf(team);
+    		int index = _teams.indexOf(team);
 
-    			_teamPlayersCount.set(index, 0);
-    			_teamKillsCount.set(index, 0);
-    		}
+    		_teamPlayersCount.set(index, 0);
+    		_teamKillsCount.set(index, 0);
     	}
         
         _topKills = 0;

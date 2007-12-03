@@ -182,7 +182,7 @@ public class CTF
 	}
 	
 	//Purple Announcements 8D for CTF
-	private static void Announcements(String announce){
+	public static void Announcements(String announce){
 		CreatureSay cs = new CreatureSay(0, 2, "Announcements: ", announce);
 		for (L2PcInstance player: L2World.getInstance().getAllPlayers())
 			if (player != null)
@@ -1894,6 +1894,21 @@ public class CTF
     public static void cleanCTF()
     {
     	_log.info("CTF : Cleaning players.");
+    	for (L2PcInstance player : _players)
+    	{
+    		if(player != null)
+    		{
+    			if (player._haveFlagCTF)
+    				removeFlagFromPlayer(player);
+    			else 
+    				player.getInventory().destroyItemByItemId("", CTF._FLAG_IN_HAND_ITEM_ID, 1, player, null);
+    			player._haveFlagCTF = false;
+    			removePlayer(player);
+    			if(_savePlayers.contains(player.getName()))
+    				_savePlayers.remove(player.getName());
+    			player._inEventCTF = false;
+    		}
+    	}
     	if (_playersShuffle != null && !_playersShuffle.isEmpty())
     	{
     		for (L2PcInstance player : _playersShuffle)
@@ -1902,36 +1917,15 @@ public class CTF
         			player._inEventCTF = false;
             }
     	}
-    	if (_players != null && !_players.isEmpty())
-    	{
-    		for (L2PcInstance player : _players)
-    		{
-    			if(player != null)
-    			{
-    				if (player._haveFlagCTF)
-    					removeFlagFromPlayer(player);
-    				else 
-    					player.getInventory().destroyItemByItemId("", CTF._FLAG_IN_HAND_ITEM_ID, 1, player, null);
-    				player._haveFlagCTF = false;
-    				removePlayer(player);
-    				if(_savePlayers.contains(player.getName()))
-    					_savePlayers.remove(player.getName());
-    				player._inEventCTF = false;
-    			}
-    		}
-    	}
     	_log.info("CTF : Cleaning teams and flags.");
-    	if (_teams != null && !_teams.isEmpty())
+    	for (String team : _teams)
     	{
-    		for (String team : _teams)
-    		{
-    			int index = _teams.indexOf(team);
-    			_teamPointsCount.set(index,0);
-    			_flagSpawns.set(index,null);
-    			_flagsTaken.set(index,false);
-    			_teamPlayersCount.set(index, 0);
-    			_teamPointsCount.set(index, 0);
-    		}
+    		int index = _teams.indexOf(team);
+    		_teamPointsCount.set(index,0);
+    		_flagSpawns.set(index,null);
+    		_flagsTaken.set(index,false);
+    		_teamPlayersCount.set(index, 0);
+    		_teamPointsCount.set(index, 0);
     	}
     	_topScore = 0;
         _topTeam = new String();

@@ -4273,7 +4273,7 @@ public final class L2PcInstance extends L2PlayableInstance
         CTF.removeFlagFromPlayer(this);
         broadcastUserInfo();
         _haveFlagCTF = false;
-        Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");    	
+        CTF.Announcements(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");    	
     }
     
     /** UnEnquip on skills with disarm effect **/
