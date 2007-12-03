@@ -834,7 +834,13 @@ public class TvT
     {
         if (!_joining && !_teleport && !_started)
             return;
-        
+        if (_joining && !_teleport && !_started){
+        	unspawnEventNpc();
+        	cleanTvT();
+        	_joining = false;
+        	Announcements.getInstance().announceToAll(_eventName + "(TvT): Match aborted!");
+        	return;
+        }
         _joining = false;
         _teleport = false;
         _started = false;
@@ -1296,6 +1302,12 @@ public class TvT
             return false;
     	}
     	
+    	if (eventPlayer._inEventCTF)
+    	{
+    		eventPlayer.sendMessage("You already participated in the event!"); 
+            return false;
+    	}
+    	
     	for(L2PcInstance player: _players)
     	{
     		if(player.getObjectId()==eventPlayer.getObjectId())
@@ -1402,9 +1414,12 @@ public class TvT
     {
     	if(player._inEventTvT)
     	{
-    		player.getAppearance().setNameColor(player._originalNameColorTvT);
-    		player.setKarma(player._originalKarmaTvT);
-    		player.broadcastUserInfo();
+    		if(!_joining)
+    		{
+    			player.getAppearance().setNameColor(player._originalNameColorTvT);
+    			player.setKarma(player._originalKarmaTvT);
+    			player.broadcastUserInfo();
+    		}
     		player._teamNameTvT = new String();
     		player._countTvTkills = 0;
     		player._inEventTvT = false;
@@ -1422,23 +1437,39 @@ public class TvT
     public static void cleanTvT()
     {
     	_log.info("TvT : Cleaning players.");
-    	for (L2PcInstance player : _players)
-        {
-    		if(player != null)
+    	if (_playersShuffle != null && !_playersShuffle.isEmpty())
+    	{
+    		for (L2PcInstance player : _playersShuffle)
+            {
+        		if(player != null)
+        			player._inEventTvT = false;
+            }
+    	}
+    	if (_players != null && !_players.isEmpty())
+    	{
+    		for (L2PcInstance player : _players)
     		{
-    			removePlayer(player);
-    			if(_savePlayers.contains(player.getName()))
-    				_savePlayers.remove(player.getName());
+    			if(player != null)
+    			{
+    				removePlayer(player);
+    				if(_savePlayers.contains(player.getName()))
+    					_savePlayers.remove(player.getName());
+    				if (_players.contains(player))
+    					_players.remove(player);
+    			}
     		}
-        }
+    	}
     	_log.info("TvT : Cleaning teams.");
-    	for (String team : _teams)
-        {
-            int index = _teams.indexOf(team);
+    	if (_teams != null && !_teams.isEmpty())
+    	{
+    		for (String team : _teams)
+    		{
+    			int index = _teams.indexOf(team);
 
-            _teamPlayersCount.set(index, 0);
-            _teamKillsCount.set(index, 0);
-        }        
+    			_teamPlayersCount.set(index, 0);
+    			_teamKillsCount.set(index, 0);
+    		}
+    	}
         
         _topKills = 0;
         _topTeam = new String();

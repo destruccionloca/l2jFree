@@ -184,7 +184,7 @@ public class UseItem extends L2GameClientPacket
 
             if (item.isEquipable())
             {
-				// No unequipping/equipping while the player is in special conditions
+            	// No unequipping/equipping while the player is in special conditions
 				if (activeChar.isStunned() || activeChar.isSleeping() || activeChar.isParalyzed()
 						|| activeChar.isAlikeDead())
 				{
@@ -195,12 +195,14 @@ public class UseItem extends L2GameClientPacket
 				int bodyPart = item.getItem().getBodyPart();
 
 				// Prevent player to remove the weapon on special conditions
-                if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted())
+                if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted() || (activeChar._inEventCTF && activeChar._haveFlagCTF))
                         && (bodyPart == L2Item.SLOT_LR_HAND 
                             || bodyPart == L2Item.SLOT_L_HAND 
                             || bodyPart == L2Item.SLOT_R_HAND))
                 {
-                    return;
+                    if (activeChar._inEventCTF && activeChar._haveFlagCTF)
+                    	activeChar.sendMessage("This item can not be equipped when you have the flag.");
+                	return;
                 }
                 
                 // Don't allow weapon/shield equipment if a cursed weapon is equiped

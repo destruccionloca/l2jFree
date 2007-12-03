@@ -302,7 +302,6 @@ public final class L2PcInstance extends L2PlayableInstance
             
 			// cancel the recent fake-death protection instantly if the player attacks or casts spells 
 			getPlayer().setRecentFakeDeath(false);
-			
             for (L2CubicInstance cubic : getCubics().values())
             {
                 if (cubic.getId() != L2CubicInstance.LIFE_CUBIC) cubic.doAction(target);
@@ -321,7 +320,6 @@ public final class L2PcInstance extends L2PlayableInstance
            L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
            // the code doesn't now support multiple targets
            if(mainTarget == null || !(mainTarget instanceof L2Character)) return;
-
            for (L2CubicInstance cubic : getCubics().values())
                if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
                     cubic.doAction((L2Character)mainTarget);
@@ -595,7 +593,8 @@ public final class L2PcInstance extends L2PlayableInstance
                  _teamNameHaveFlagCTF,
                  _originalTitleCTF;
     public int _originalNameColorCTF,
-              _originalKarmaCTF;
+               _originalKarmaCTF,
+    		   _countCTFflags;    
     public boolean _inEventCTF = false,
                   _haveFlagCTF = false;
     public Future _posCheckerCTF = null;
@@ -3323,7 +3322,9 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void onAction(L2PcInstance player)
     {
-        // Restrict interactions during restart/shutdown
+    	if (player == null)
+    		return;
+    	// Restrict interactions during restart/shutdown
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_PC_ITERACTION && Shutdown.getCounterInstance() != null 
             && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
@@ -4061,44 +4062,20 @@ public final class L2PcInstance extends L2PlayableInstance
                 }
             }
             
-            else if ((killer instanceof L2PcInstance && ((L2PcInstance)killer)._inEventCTF) && _inEventCTF)
-            {
-                if (CTF._teleport || CTF._started)
-                {
-                    sendMessage("You will be revived and teleported to team flag in 20 seconds!");
-
-                    if (_haveFlagCTF)
-                    {
-                        CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
-                        CTF.spawnFlag(_teamNameHaveFlagCTF);
-                        setTitle(_originalTitleCTF);
-                        broadcastUserInfo();
-                        _haveFlagCTF = false;
-                        Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");
-                    }
-
-                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-                    {
-                        public void run()
-                        {
-                            teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
-                            doRevive();
-                        }
-                    }, 20000);
-                }
-            }
-            
             else if (_inEventCTF)
             {
                 if (CTF._teleport || CTF._started)
                 {
                     sendMessage("You will be revived and teleported to team flag in 20 seconds!");
 
+                    if (_haveFlagCTF)
+                    	removeCTFFlagOnDie();
+
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                     {
                         public void run()
                         {
-                            teleToLocation(CTF._flagsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._flagsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
+                            teleToLocation(CTF._teamsX.get(CTF._teams.indexOf(_teamNameCTF)), CTF._teamsY.get(CTF._teams.indexOf(_teamNameCTF)), CTF._teamsZ.get(CTF._teams.indexOf(_teamNameCTF)), false);
                             doRevive();
                         }
                     }, 20000);
@@ -4290,6 +4267,15 @@ public final class L2PcInstance extends L2PlayableInstance
         return true;
     }
 
+    public void removeCTFFlagOnDie(){
+    	CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
+        CTF.spawnFlag(_teamNameHaveFlagCTF);
+        CTF.removeFlagFromPlayer(this);
+        broadcastUserInfo();
+        _haveFlagCTF = false;
+        Announcements.getInstance().announceToAll(CTF._eventName + "(CTF): " + _teamNameHaveFlagCTF + "'s flag returned.");    	
+    }
+    
     /** UnEnquip on skills with disarm effect **/
     public void onDisarm(L2PcInstance target)
     {

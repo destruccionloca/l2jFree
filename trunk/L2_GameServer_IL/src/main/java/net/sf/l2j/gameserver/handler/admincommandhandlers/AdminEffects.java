@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.serverpackets.SunRise;
 import net.sf.l2j.gameserver.serverpackets.SunSet;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 
 /**
  * This class handles following admin commands: 
@@ -95,10 +96,14 @@ public class AdminEffects implements IAdminCommandHandler
 		{
 			if (!activeChar.getAppearance().getInvisible())
 			{
+				activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+				activeChar.setTarget(activeChar);
+				activeChar.disableAllSkills();
 				activeChar.getAppearance().setInvisible();
 				activeChar.broadcastUserInfo();
 				activeChar.decayMe();
 				activeChar.spawnMe();
+				activeChar.enableAllSkills();				
 			}
 			else
 			{
@@ -109,11 +114,15 @@ public class AdminEffects implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_invis"))
 		{
+			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+			activeChar.setTarget(activeChar);
+			activeChar.disableAllSkills();
 			activeChar.getAppearance().setInvisible();
 			activeChar.broadcastUserInfo();
 			activeChar.decayMe();
 			activeChar.spawnMe();
 			RegionBBSManager.getInstance().changeCommunityBoard();
+			activeChar.enableAllSkills();
 		}
 
 		else if (command.startsWith("admin_vis"))

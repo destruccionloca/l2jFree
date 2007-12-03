@@ -2016,6 +2016,8 @@ public final class Config
     public static boolean CTF_ALLOW_SUMMON;
     public static boolean CTF_ON_START_REMOVE_ALL_EFFECTS;
     public static boolean CTF_ON_START_UNSUMMON_PET;
+    public static boolean CTF_ANNOUNCE_TEAM_STATS;
+    public static boolean CTF_JOIN_CURSED;
     public static boolean TVT_ALLOW_INTERFERENCE;
     public static boolean TVT_ALLOW_POTIONS;
     public static boolean TVT_ALLOW_SUMMON;
@@ -2048,6 +2050,8 @@ public final class Config
            CTF_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowSummon", "false"));
            CTF_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartRemoveAllEffects", "true"));
            CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartUnsummonPet", "true"));
+           CTF_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAnnounceTeamStats", "false"));
+           CTF_JOIN_CURSED = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFJoinWithCursedWeapon", "true"));
            
            TVT_EVEN_TEAMS = funEnginesSettings.getProperty("TvTEvenTeams", "BALANCE");
            TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowInterference", "false"));

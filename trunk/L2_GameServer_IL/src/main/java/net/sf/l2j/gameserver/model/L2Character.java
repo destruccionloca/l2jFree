@@ -457,13 +457,12 @@ public abstract class L2Character extends L2Object
         }
         
         // Stop movement
-        stopMove(null, false);
+		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		setTarget(this);
+		disableAllSkills();        
         abortAttack();
         abortCast();
-        
         setIsTeleporting(true);
-        setTarget(null);
-        getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 
         if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
         {
@@ -487,6 +486,8 @@ public abstract class L2Character extends L2Object
 
         if (!(this instanceof L2PcInstance)) 
             onTeleported();
+		enableAllSkills();
+		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
     }
 
     public void teleToLocation(int x, int y, int z) { teleToLocation(x, y, z, true); }

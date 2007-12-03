@@ -141,10 +141,13 @@ public class L2NpcInstance extends L2Character
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
     private int _castleIndex = -2;
     
+    public String  	_CTF_FlagTeamName;
     public boolean isEventMob = false,
                   _isEventMobTvT = false,
                   _isEventMobDM = false,
                   _isEventMobCTF = false,
+                  _isCTF_throneSpawn = false,
+  				  _isCTF_Flag = false,
                   _isEventVIPNPC = false,
                   _isEventVIPNPCEnd = false;
 
@@ -607,8 +610,9 @@ public class L2NpcInstance extends L2Character
     @Override
     public void onAction(L2PcInstance player)
     {
-        if (!canTarget(player)) return;
-
+        if (!canTarget(player))
+        	return;
+        try{
         // Check if the L2PcInstance already target the L2NpcInstance
         if (this != player.getTarget())
         {
@@ -684,6 +688,10 @@ public class L2NpcInstance extends L2Character
                         DM.showEventHtml(player, String.valueOf(getObjectId()));
                     else if (_isEventMobCTF)
                        CTF.showEventHtml(player, String.valueOf(getObjectId()));
+                    else if (_isCTF_Flag && player._inEventCTF)
+                    	CTF.showFlagHtml(player, String.valueOf(this.getObjectId()),_CTF_FlagTeamName);
+                    else if (_isCTF_throneSpawn)
+                    	CTF.CheckRestoreFlags();
                     else if (_isEventVIPNPC)
                        VIP.showJoinHTML(player, String.valueOf(getObjectId()));
                     else if (_isEventVIPNPCEnd)
@@ -696,11 +704,17 @@ public class L2NpcInstance extends L2Character
                         else
                             showChatWindow(player, 0);
                     }
+                    player.sendPacket(new ActionFailed());
                 }
             }
-			else
-				player.sendPacket(new ActionFailed());
+            else
+            	player.sendPacket(new ActionFailed());
         }
+    	}catch (Throwable e){
+    		System.out.println("Error: L2NpcInstance--> onAction(){"+e.toString()+"}\n\n");
+    		player.sendPacket(new ActionFailed());
+    		return;
+    	}        
     }
     
     /**
