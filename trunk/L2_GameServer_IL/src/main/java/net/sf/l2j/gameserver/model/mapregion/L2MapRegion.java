@@ -22,7 +22,6 @@ import java.util.Map;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.base.Race;
-import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.world.L2Polygon;
 
 import org.w3c.dom.Node;
@@ -38,7 +37,6 @@ public class L2MapRegion
 	private Map<Race, Integer> _restarts = new FastMap<Race, Integer>();
 	private int _zMin = -999999999;
 	private int _zMax = 999999999;
-	private Town _town = null;
 	
 	private boolean _specialRegion = true;
 	private L2MapArea _area = null;
@@ -196,17 +194,7 @@ public class L2MapRegion
     	else
     		return z > _zMin && z < _zMax;
     }
-    
-    public void setTown(Town town)
-    {
-    	_town = town;
-    }
-    
-    public Town getTown()
-    {
-    	return _town;
-    }
-    
+
     public boolean isSpecialRegion()
     {
     	return _specialRegion;

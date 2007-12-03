@@ -28,12 +28,11 @@ import javolution.util.FastMap;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
-import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.entity.Auction;
+import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.entity.Auction.Bidder;
-import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
@@ -590,12 +589,9 @@ public final class L2AuctioneerInstance extends L2FolkInstance
     }
     private String getPictureName(L2PcInstance activeChar)
     {
-        L2MapRegion region = MapRegionManager.getInstance().getRegion(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+    	Town town = TownManager.getInstance().getClosestTown(activeChar);
         
-        if (region.getTown() == null)
-        	return "";
-        
-        int nearestTownId = region.getTown().getTownId();
+        int nearestTownId = town.getTownId();
         String nearestTown;
         
         switch (nearestTownId)

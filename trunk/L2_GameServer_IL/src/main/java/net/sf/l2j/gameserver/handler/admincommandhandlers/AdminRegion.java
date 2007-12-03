@@ -77,9 +77,6 @@ public class AdminRegion implements IAdminCommandHandler
         		activeChar.sendMessage("Actual region: "+region.getId());
         		activeChar.sendMessage("Respawn position will be: "+restart.getName()+" ("+restart.getLocName()+")");
         		
-        		if (region.getTown() != null)
-        			activeChar.sendMessage("Assigned Town: "+region.getTown().getName());
-        		
         		if (restart.getBannedRace() != null)
         		{
         			L2MapRegionRestart redirect = MapRegionManager.getInstance().getRestartLocation(restart.getRedirectId());
