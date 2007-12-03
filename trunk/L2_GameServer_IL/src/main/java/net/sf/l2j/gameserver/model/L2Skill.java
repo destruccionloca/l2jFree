@@ -476,7 +476,9 @@ public abstract class L2Skill
     private final float _successRate; 
     private final int _minPledgeClass;
     
-    private final int _aggroPoints; 
+    private final int _aggroPoints;
+	
+	private final float _pvpMulti;
     
     protected Condition _preCondition;
     protected Condition _itemPreCondition;
@@ -576,7 +578,9 @@ public abstract class L2Skill
         _sSBoost = set.getFloat("SSBoost", 0.f);
         
         _aggroPoints = set.getInteger("aggroPoints", 0);
-
+		
+		_pvpMulti = set.getFloat("pvpMulti", 1.f);
+		
         String canLearn = set.getString("canLearn", null);
         if (canLearn == null)
         {
@@ -1037,6 +1041,11 @@ public abstract class L2Skill
     {
         return _aggroPoints;
     }
+
+	public final float getPvpMulti()
+	{
+		return _pvpMulti;
+	}
 
     public final boolean useSoulShot()
     {

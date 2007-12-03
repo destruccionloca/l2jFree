@@ -1100,6 +1100,8 @@ public final class Formulas
 		damage = target.calcStat(Stats.DAGGER_WPN_VULN, damage, target, null);
 		damage *= 70. / defence;
 		damage += Rnd.get() * attacker.getRandomDamage(target);
+		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+			damage *= skill.getPvpMulti();
 		return damage < 1 ? 1. : damage;
 	}
 
@@ -1286,6 +1288,9 @@ public final class Formulas
         {
             if (skill.getSkillType() == SkillType.FATALCOUNTER)
                 damage *= (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
+			
+			if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+				damage *= skill.getPvpMulti();
         }
 
         if (shld)
@@ -1414,8 +1419,8 @@ public final class Formulas
 		
 		if (skill != null)
         {
-			if (target instanceof L2PlayableInstance && skill.getId() == 1231) //aura flare de-buff.
-				damage /= 2;
+			if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+				damage *= skill.getPvpMulti();
 			
             if (skill.getSkillType() == SkillType.DEATHLINK)
                 damage = damage * (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
@@ -1933,6 +1938,8 @@ public final class Formulas
 
         double damage = (Math.sqrt(mAtk) * skill.getPower(attacker) * (mp/97)) / mDef;
         damage *= calcSkillVulnerability(target, skill);
+		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+			damage *= skill.getPvpMulti();
         return damage;
     }
     
