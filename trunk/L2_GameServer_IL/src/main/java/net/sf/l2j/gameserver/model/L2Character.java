@@ -98,6 +98,7 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.TargetUnselected;
 import net.sf.l2j.gameserver.serverpackets.TeleportToLocation;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.skills.Calculator;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -695,7 +696,11 @@ public abstract class L2Character extends L2Object
             wasSSCharged = (((L2Summon)this).getChargedSoulShot() != L2ItemInstance.CHARGED_NONE);
         else
             wasSSCharged = (weaponInst != null && weaponInst.getChargedSoulshot() != L2ItemInstance.CHARGED_NONE);
-
+		if (this instanceof L2Attackable && ((L2Attackable)this).isUsingShots()){
+			wasSSCharged = true;
+			((L2Attackable)this).broadcastPacket(new MagicSkillUser(this, this, 2153, 1, 0, 0), 360000/*600*/);
+			((L2Attackable)this).broadcastPacket(new ExAutoSoulShot(5789, 0));
+		}
         // Get the Attack Speed of the L2Character (delay (in milliseconds) before next attack)
         int timeAtk = calculateTimeBetweenAttacks(target, weaponItem);
         // the hit is calculated to happen halfway to the animation - might need further tuning e.g. in bow, dual case
@@ -1161,14 +1166,20 @@ public abstract class L2Character extends L2Object
         //Recharge AutoSoulShot
         if (skill.useSoulShot())
         {
-            if (this instanceof L2PcInstance) 
+        	if ((this instanceof L2Attackable && ((L2Attackable)this).isUsingShots())){
+        		((L2Attackable)this).broadcastPacket(new ExAutoSoulShot(5789, 0));	
+        	}            
+        	if (this instanceof L2PcInstance) 
                 ((L2PcInstance)this).rechargeAutoSoulShot(true, false, false);
             else if (this instanceof L2Summon)
                 ((L2Summon)this).getOwner().rechargeAutoSoulShot(true, false, true);
         }
         else if (skill.useSpiritShot())
         {
-            if (this instanceof L2PcInstance) 
+        	if ((this instanceof L2Attackable && ((L2Attackable)this).isUsingShots())){
+        		((L2Attackable)this).broadcastPacket(new ExAutoSoulShot(3952, 0));	
+        	}            
+        	if (this instanceof L2PcInstance) 
                 ((L2PcInstance)this).rechargeAutoSoulShot(false, true, false);
             else if (this instanceof L2Summon)
                 ((L2Summon)this).getOwner().rechargeAutoSoulShot(false, true, true);
@@ -1279,7 +1290,11 @@ public abstract class L2Character extends L2Object
 
         // Calculate altered Cast Speed due to BSpS/SpS
         L2ItemInstance weaponInst = getActiveWeaponInstance();
-        
+		if ((this instanceof L2Attackable && ((L2Attackable)this).isUsingShots())){
+			hitTime = (int)(0.70 * hitTime);
+			skillInterruptTime = (int)(0.70 * skillInterruptTime);
+			((L2Attackable)this).broadcastPacket(new MagicSkillUser(this, this, 2163, 1, 0, 0), 360000/*600*/);
+		}        
         if (weaponInst != null && skill.isMagic() && !forceBuff && skill.getTargetType() != SkillTargetType.TARGET_SELF)
         {
             if ((weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)

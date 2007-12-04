@@ -288,6 +288,7 @@ public class L2Attackable extends L2NpcInstance
 
     /** Have this L2Attackable to reward Exp and SP on Die? **/
     private boolean _mustGiveExpSp;
+    private boolean _isUsingShots = false;
     /**
      * Constructor of L2Attackable (use L2Character and L2NpcInstance constructor).<BR><BR>
      *  
@@ -304,8 +305,18 @@ public class L2Attackable extends L2NpcInstance
         super(objectId, template);
         getKnownList(); // init knownlist
         _mustGiveExpSp = true;
+        if (getLevel()>70 && !(this instanceof L2RaidBossInstance))
+        	if (template.getRhand()>0)
+        		if (Rnd.get(100)<10+getLevel()-70){ // Set % chance to 10% + mob level - 70, so mob lvl 71->11%, 72->12% etc...
+        			_isUsingShots = true;
+        		}
+
     }
 
+    public boolean isUsingShots(){
+    	return _isUsingShots;
+    }
+    
     @Override
     public AttackableKnownList getKnownList()
     {
