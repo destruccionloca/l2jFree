@@ -148,7 +148,7 @@ public class CTF
 			//add the index of the team who's FLAG WAS TAKEN to the list
 			if (player != null){
 				if (player.isOnline() == 0 && player._haveFlagCTF){ // logged off with a flag in his hands
-					Announcements.getInstance().announceToAll(_eventName + "(CTF): " + player.getName() + " logged off with a CTF flag!");
+					Announcements(_eventName + "(CTF): " + player.getName() + " logged off with a CTF flag!");
 					player._haveFlagCTF = false;
 					if (_teams.indexOf(player._teamNameHaveFlagCTF)>=0)
 						if (_flagsTaken.get(_teams.indexOf(player._teamNameHaveFlagCTF))){
@@ -181,9 +181,9 @@ public class CTF
 			return;}
 	}
 	
-	//Purple Announcements 8D for CTF
+	//Collored Announcements 8D for CTF
 	public static void Announcements(String announce){
-		CreatureSay cs = new CreatureSay(0, 2, "Announcements: ", announce);
+		CreatureSay cs = new CreatureSay(0, 18, "Announcements: ", announce);
 		for (L2PcInstance player: L2World.getInstance().getAllPlayers())
 			if (player != null)
 				player.sendPacket(cs);

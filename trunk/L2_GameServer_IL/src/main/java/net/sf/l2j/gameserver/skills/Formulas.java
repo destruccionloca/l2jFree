@@ -1779,7 +1779,8 @@ public final class Formulas
 		// FIXME: Skills should be checked to be able to remove this dirty check
 		if (type == null)
 		{
-			_log.debug("Skill ID: " + skill.getId() + " hasn't got definied type!");
+			if (_log.isDebugEnabled())
+				_log.debug("Skill ID: " + skill.getId() + " hasn't got definied type!");
 			
 			if (skill.getSkillType() == SkillType.PDAM)
 				type = SkillType.STUN;
@@ -1792,13 +1793,15 @@ public final class Formulas
         
 		if (value == 0)
 		{
-			_log.debug("Skill ID: " + skill.getId() + " hasn't got definied power!");
+			if (_log.isDebugEnabled())
+				_log.debug("Skill ID: " + skill.getId() + " hasn't got definied power!");
 			value = 20; //To avoid unbalanced overpowered skills...
 		}
 		
 		if (lvlDepend == 0)
 		{
-			_log.debug("Skill ID: " + skill.getId() + " hasn't got definied lvlDepend!");
+			if (_log.isDebugEnabled())
+				_log.debug("Skill ID: " + skill.getId() + " hasn't got definied lvlDepend!");
 			lvlDepend = 1; //To avoid unbalanced overpowered skills...
 		}
 		
