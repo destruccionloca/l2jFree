@@ -557,8 +557,8 @@ public class Disablers implements ISkillHandler
                                 sm.addString(target1.getName());
                                 sm.addSkillName(skill.getId());
                                 activeChar.sendPacket(sm);
-                                continue;
                             }
+                            continue;
                         }
                     
                         L2Effect[] effects = target1.getAllEffects();
@@ -572,7 +572,7 @@ public class Disablers implements ISkillHandler
                                     break;
                                 }
                             }
-                        }                        
+                        }
                     }
                     break;
                 }
@@ -594,8 +594,8 @@ public class Disablers implements ISkillHandler
                                 sm.addString(target1.getName());
                                 sm.addSkillName(skill.getId());
                                 activeChar.sendPacket(sm);
-                                continue;
                             }
+                            continue;
                         }
                     
                         L2Effect[] effects = target1.getAllEffects();
