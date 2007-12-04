@@ -1780,6 +1780,7 @@ public abstract class L2Skill
         case TARGET_PARTY_OTHER:
         {
             if (target != null && target != activeChar
+                && target instanceof L2PcInstance
                 && activeChar.getParty() != null && target.getParty() != null
                 && activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID())
             {
