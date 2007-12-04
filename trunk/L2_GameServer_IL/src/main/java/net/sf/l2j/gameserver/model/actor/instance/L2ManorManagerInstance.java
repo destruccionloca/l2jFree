@@ -138,8 +138,15 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 	
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
+		// BypassValidation Exploit plug.
+		if (player.getLastFolkNPC().getObjectId() != this.getObjectId())
+			return;
+
 		if (command.startsWith("manor_menu_select"))
-		{ // input string format:  manor_menu_select?ask=X&state=Y&time=X
+		{
+			// input string format:
+			// manor_menu_select?ask=X&state=Y&time=X
+
 			if (CastleManorManager.getInstance().isUnderMaintenance())
 			{
 				player.sendPacket(new ActionFailed());

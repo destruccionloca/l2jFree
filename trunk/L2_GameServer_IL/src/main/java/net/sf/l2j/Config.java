@@ -1178,7 +1178,7 @@ public final class Config
             PACKET_LIFETIME                 = Integer.parseInt(optionsSettings.getProperty("PacketLifeTime", "0"));
             PACKET_EXECUTIONTIME            = Long.parseLong(optionsSettings.getProperty("PacketExecutionTime", "0"));
 
-            BYPASS_VALIDATION               = Boolean.parseBoolean(optionsSettings.getProperty("BypassValidation", "False"));
+            BYPASS_VALIDATION               = Boolean.parseBoolean(optionsSettings.getProperty("BypassValidation", "True"));
 
             GAMEGUARD_ENFORCE               = Boolean.parseBoolean(optionsSettings.getProperty("GameGuardEnforce", "False"));
             GAMEGUARD_PROHIBITACTION        = Boolean.parseBoolean(optionsSettings.getProperty("GameGuardProhibitAction", "False"));
@@ -2514,6 +2514,8 @@ public final class Config
         else if (pName.equalsIgnoreCase("BBSDefault")) BBS_DEFAULT = pValue;        
         else if (pName.equalsIgnoreCase("AllowBoat")) ALLOW_BOAT = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AllowCursedWeapons")) ALLOW_CURSED_WEAPONS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("AllowManor")) ALLOW_MANOR = Boolean.valueOf(pValue);
+        else if (pName.equalsIgnoreCase("BypassValidation")) BYPASS_VALIDATION = Boolean.valueOf(pValue);
 
         else if (pName.equalsIgnoreCase("ShowLevelOnCommunityBoard")) SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("ShowStatusOnCommunityBoard")) SHOW_STATUS_COMMUNITYBOARD = Boolean.parseBoolean(pValue);

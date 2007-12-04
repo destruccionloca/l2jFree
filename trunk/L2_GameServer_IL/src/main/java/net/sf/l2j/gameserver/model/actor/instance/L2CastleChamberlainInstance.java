@@ -109,6 +109,10 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
+		// BypassValidation Exploit plug.
+		if (player.getLastFolkNPC().getObjectId() != this.getObjectId())
+			return;
+
 		int condition = validateCondition(player);
 		if (condition <= COND_ALL_FALSE)
 			return;
