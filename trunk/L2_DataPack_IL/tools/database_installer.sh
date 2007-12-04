@@ -406,7 +406,7 @@ $MYG < ../sql/updates/070922-[2023].sql
 $MYG < ../sql/updates/070929-[2068].sql
 $MYG < ../sql/updates/071106-[2330].sql
 $MYG < ../sql/updates/071109-[2341].sql
-$MYG < ../sql/updates/071119-[2384].sql
+$MYG < ../sql/updates/071119-[2381].sql
 $MYG < ../sql/updates/071204-[2479].sql
 }
 
