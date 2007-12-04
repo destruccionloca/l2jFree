@@ -268,7 +268,7 @@ public class RequestActionUse extends L2GameClientPacket
                     }
                     else if (!pet.isDead() && !activeChar.isMounted())
                     {
-					if(!activeChar.disarmWeapons()) return;
+                        if(!activeChar.disarmWeapons()) return;
                         Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, pet.getTemplate().getNpcId());
                         activeChar.broadcastPacket(mount);
                         activeChar.setMountType(mount.getMountType());
@@ -278,11 +278,13 @@ public class RequestActionUse extends L2GameClientPacket
                 }
                 else if (activeChar.isMounted())
                 {
-                    if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-                    Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
-                    activeChar.broadcastPacket(dismount);
-                    activeChar.setMountType(0);
-                    activeChar.setMountObjectID(0);
+                    if (activeChar.setMountType(0))
+                    {
+                        if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+                        Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
+                        activeChar.broadcastPacket(dismount);
+                        activeChar.setMountObjectID(0);
+                    }
                 }
                 break;
             case 32: // Wild Hog Cannon - Mode Change
