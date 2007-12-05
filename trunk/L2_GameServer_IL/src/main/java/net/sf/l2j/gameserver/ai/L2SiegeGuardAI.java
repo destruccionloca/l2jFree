@@ -370,7 +370,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                                     L2Effect effect = effects[i];
                                     if (effect.getSkill() == sk)
                                     {
-                                        continue
+                                        continue;
                                     }
                                 }
                             }
