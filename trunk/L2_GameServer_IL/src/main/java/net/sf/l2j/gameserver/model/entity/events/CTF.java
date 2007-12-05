@@ -32,7 +32,6 @@ import java.util.Vector;
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
-import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
@@ -54,12 +53,13 @@ import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.RadarControl;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
-
+import net.sf.l2j.gameserver.model.L2Radar;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -107,7 +107,11 @@ public class CTF
 	public static Vector<L2Spawn> _flagSpawns = new Vector<L2Spawn>(),
 								  _throneSpawns = new Vector<L2Spawn>();
 	public static Vector<Boolean> _flagsTaken = new Vector<Boolean>();
-	public static int _topScore = 0;
+	public static int 	_topScore = 0,
+						eventCenterX=0,
+						eventCenterY=0,
+						eventCenterZ=0,
+						eventOffset=0;
 
 	public static void showFlagHtml(L2PcInstance eventPlayer, String objectId, String teamName)
     {
@@ -176,14 +180,34 @@ public class CTF
 					Announcements(_eventName + "(CTF): " + team + " flag returned due to player error.");
 				}
 			}
-		}}catch(Exception e){
-			System.out.println("CTF.restoreFlags() Error:"+e.toString());
+		}
+		//Check if a player ran away from the event holding a flag:
+		for (L2PcInstance player : _players)
+			if (player!=null && player._haveFlagCTF){
+				if (isOutsideCTFArea(player)){
+					Announcements(_eventName + "(CTF): " + player.getName() + " escaped from the event holding a flag!");
+					player._haveFlagCTF = false;
+					if (_teams.indexOf(player._teamNameHaveFlagCTF)>=0)
+						if (_flagsTaken.get(_teams.indexOf(player._teamNameHaveFlagCTF))){
+							_flagsTaken.set(_teams.indexOf(player._teamNameHaveFlagCTF), false);
+							spawnFlag(player._teamNameHaveFlagCTF);
+							Announcements(_eventName + "(CTF): " + player._teamNameHaveFlagCTF + " flag now returned to place.");
+						}
+					removeFlagFromPlayer(player);
+					player._teamNameHaveFlagCTF = null;
+					player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameCTF)), _teamsY.get(_teams.indexOf(player._teamNameCTF)), _teamsZ.get(_teams.indexOf(player._teamNameCTF)));
+					player.sendMessage("You have been returned to your team spawn");
+    				return;
+				}
+			}
+		}catch(Exception e){
+			_log.info("CTF.restoreFlags() Error:"+e.toString());
 			return;}
 	}
 	
 	//Collored Announcements 8D for CTF
 	public static void Announcements(String announce){
-		CreatureSay cs = new CreatureSay(0, 18, "Announcements: ", announce);
+		CreatureSay cs = new CreatureSay(0, 18, "", announce);
 		for (L2PcInstance player: L2World.getInstance().getAllPlayers())
 			if (player != null)
 				player.sendPacket(cs);
@@ -229,19 +253,26 @@ public class CTF
 	public static void removeFlagFromPlayer(L2PcInstance player)
 	{
 		L2ItemInstance wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+		player._haveFlagCTF = false;
 		if (wpn != null)
 		{
 			L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
+			player.getInventory().destroyItemByItemId("", CTF._FLAG_IN_HAND_ITEM_ID, 1, player, null);
 			InventoryUpdate iu = new InventoryUpdate();
             for (L2ItemInstance element : unequiped)
 				iu.addModifiedItem(element);
-            player.getInventory().destroyItemByItemId("", CTF._FLAG_IN_HAND_ITEM_ID, 1, player, null);
 			player.sendPacket(iu);
 			player.sendPacket(new ItemList(player, true)); // get your weapon back now ...
             player.abortAttack();
             player.broadcastUserInfo();
-			player._haveFlagCTF = false;
 		}
+		else{
+			player.getInventory().destroyItemByItemId("", CTF._FLAG_IN_HAND_ITEM_ID, 1, player, null);
+			player.sendPacket(new ItemList(player, true)); // get your weapon back now ...
+            player.abortAttack();
+            player.broadcastUserInfo();
+		}
+			
 	}
 	
 	
@@ -301,6 +332,7 @@ public class CTF
     			_flagSpawns.get(index).getLastSpawn().decayMe();
     			_flagSpawns.get(index).getLastSpawn().spawnMe(_flagSpawns.get(index).getLastSpawn().getX(), _flagSpawns.get(index).getLastSpawn().getY(), _flagSpawns.get(index).getLastSpawn().getZ());
     			_flagSpawns.get(index).getLastSpawn()._isCTF_Flag = true;
+    			calculateOutSideOfCTF(); // sets event boundaries so players don't run with the flag.
     		}
     		catch(Exception e)
     		{
@@ -449,11 +481,34 @@ public class CTF
     					_player.broadcastUserInfo();
     					_player._haveFlagCTF = true;
     					Announcements(_eventName + "(CTF): " + team + " flag taken by " + _player.getName()+"...");
+    					pointTeamTo(_player,team);
     					break;
     				}
     			}
 			}}catch(Exception e){return;}
     	}
+    
+    public static void pointTeamTo(L2PcInstance hasFlag, String ourFlag){
+    	try{
+    	for (L2PcInstance player : _players){
+    		if (player!=null && player.isOnline()!=0){
+    			if (player._teamNameCTF.equals(ourFlag)){
+    				player.sendMessage(hasFlag.getName()+" took your flag!");
+    				if (player._haveFlagCTF){
+    					player.sendMessage("You can not return the flag to headquarters, until your flag is returned to it's place.");
+    					player.sendPacket(new RadarControl(1, 1, player.getX(), player.getY(), player.getZ()));
+    				}
+    				else{
+    					player.sendPacket(new RadarControl(0, 1, hasFlag.getX(), hasFlag.getY(), hasFlag.getZ()));
+    					L2Radar rdr = new L2Radar(player);
+    					L2Radar.RadarOnPlayer radar = rdr.new RadarOnPlayer(hasFlag,player);
+    					ThreadPoolManager.getInstance().scheduleGeneral(radar, 10000+Rnd.get(30000));
+    				}
+    			}
+    		}
+    	}
+    	}catch(Throwable t){}
+    }
     
     public static int teamPointsCount(String teamName)
     {
@@ -1990,4 +2045,66 @@ public class CTF
         _teamPointsCount.set(index, teamFlagCount);
     }
     
+    /**
+     * Used to calculate the event CTF area, so that players don't run off with the flag.
+     * Essential, since a player may take the flag just so other teams can't score points.
+     * This function is Only called upon ONE time on BEGINING OF EACH EVENT right after we spawn the flags.
+     */
+    private static void calculateOutSideOfCTF(){
+    	if (_teams==null || _flagSpawns==null || _teamsX==null || _teamsY==null || _teamsZ==null)
+    		return;
+    	int division = _teams.size()*2,pos=0;
+    	int[] locX = new int[division], locY = new int[division], locZ = new int[division];
+    	//Get all coordinates inorder to create a polygon:
+    	for (L2Spawn flag : _flagSpawns){    	
+    		locX[pos]=flag.getLocx();
+    		locY[pos]=flag.getLocy();
+    		locZ[pos]=flag.getLocz();
+    		pos++;
+    		if(pos>division/2)
+    			break;
+    	}
+    	for (int x=0; x<_teams.size() ; x++){
+    		locX[pos]=_teamsX.get(x);
+    		locY[pos]=_teamsY.get(x);
+    		locZ[pos]=_teamsZ.get(x);
+    		pos++;
+    		if(pos>division)
+    			break;
+    	}
+    	//find the polygon center, note that it's not the mathematical center of the polygon, 
+    	//rather than a point which centers all coordinates:
+    	int centerX=0, centerY=0, centerZ=0;
+    	for (int x=0; x<pos ; x++){
+    		centerX+=(locX[x]/division);
+    		centerY+=(locY[x]/division);
+    		centerZ+=(locZ[x]/division);
+    	}
+    	//now let's find the furthest distance from the "center" to the egg shaped sphere 
+    	//surrounding the polygon, size x1.5 (for maximum logical area to wander...):
+    	int maxX = 0, maxY = 0,maxZ = 0;
+    	for (int x=0; x<pos ; x++){
+    		if (maxX<2*Math.abs(centerX-locX[x])) maxX = (int)(2*Math.abs(centerX-locX[x]));
+    		if (maxY<2*Math.abs(centerY-locY[x])) maxY = (int)(2*Math.abs(centerY-locY[x]));
+    		if (maxZ<2*Math.abs(centerZ-locZ[x])) maxZ = (int)(2*Math.abs(centerZ-locZ[x]));
+    	}
+
+    	//centerX,centerY,centerZ are the coordinates of the "event center".
+    	//so let's save those coordinates to check on the players:
+    	eventCenterX = centerX;
+    	eventCenterY = centerY;
+    	eventCenterZ = centerZ;
+    	eventOffset  = maxX;
+    	if (eventOffset<maxY)  eventOffset = maxY;
+    	if (eventOffset<maxZ)  eventOffset = maxZ;
+    }
+    
+    public static boolean isOutsideCTFArea(L2PcInstance _player){
+    	if (_player == null || _player.isOnline() == 0) return true;
+    	if (!(_player.getX() > eventCenterX-eventOffset && _player.getX() < eventCenterX+eventOffset &&
+    		_player.getY() > eventCenterY-eventOffset && _player.getY() < eventCenterY+eventOffset &&
+    		_player.getZ() > eventCenterZ-eventOffset && _player.getZ() < eventCenterZ+eventOffset))
+    		return true;
+    	return false;
+    }
 }
