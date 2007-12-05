@@ -45,7 +45,7 @@ public class Heal implements ISkillHandler
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
      */
-    private static final SkillType[] SKILL_IDS = {SkillType.HEAL, SkillType.HEAL_PERCENT ,SkillType.BALANCE_HEAL, SkillType.HEAL_STATIC};
+    private static final SkillType[] SKILL_IDS = {SkillType.HEAL, SkillType.HEAL_PERCENT, SkillType.HEAL_STATIC};
     
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -125,19 +125,10 @@ public class Heal implements ISkillHandler
                     }
                 }
             }
-            if (skill.getSkillType() == SkillType.BALANCE_HEAL)
-            {
-                double fullHP = 0;
-                for (L2Object element0 : targets) {
-                    fullHP += target.getStatus().getCurrentHp();
-                }
-                for (L2Object element0 : targets) {
-                	target.getStatus().setCurrentHp(fullHP/targets.length);
-                }
-            }
+			
             if (skill.getSkillType() == SkillType.HEAL_STATIC)
             	hp = skill.getPower();
-            else if (skill.getSkillType() != SkillType.HEAL_PERCENT && skill.getSkillType() != SkillType.BALANCE_HEAL)
+            else if (skill.getSkillType() != SkillType.HEAL_PERCENT)
                 hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
             
             target.getStatus().setCurrentHp(hp + target.getStatus().getCurrentHp()); 

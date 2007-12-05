@@ -141,7 +141,6 @@ public abstract class L2Skill
         BLEED,
         POISON,
         HEAL,
-        BALANCE_HEAL,
         HOT,
         COMBATPOINTHEAL,
         CPHOT,
