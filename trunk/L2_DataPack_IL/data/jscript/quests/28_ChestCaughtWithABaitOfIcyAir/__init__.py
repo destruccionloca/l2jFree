@@ -56,9 +56,9 @@ class Quest (JQuest) :
         id = st.getState()
         if npcId==OFulle :
             if cond==0 and id==STARTED:
-                PlayerLevel = player.getLevel()
+                PlayerLevel = st.player.getLevel()
                 if PlayerLevel >= 36 :
-                    OFullesSpecialBait= player.getQuestState("51_OFullesSpecialBait")
+                    OFullesSpecialBait= st.player.getQuestState("51_OFullesSpecialBait")
                     if OFullesSpecialBait :
                         if OFullesSpecialBait.getState().getName() == 'Completed':
                             htmltext="31572-01.htm"
