@@ -103,16 +103,32 @@ public class CrownManager
 			}
 		}
 		
+		boolean alreadyFoundCirclet = false;
+		boolean alreadyFoundCrown = false;
 		for (L2ItemInstance item : activeChar.getInventory().getItems())
 		{
-			if (CrownTable.getCrownList().contains(item.getItemId()) &&
-				!(
-					isLeader &&
-					item.getItemId() == 6841 &&
-					crownId > 0
-				) &&
-				item.getItemId() != crownId)
+			if (CrownTable.getCrownList().contains(item.getItemId()))
 			{
+				if (crownId > 0)
+				{
+					if (item.getItemId() == crownId)
+					{
+						if (!alreadyFoundCirclet)
+						{
+							alreadyFoundCirclet = true;
+							continue;
+						}
+					}
+					else if (item.getItemId() == 6841 && isLeader)
+					{
+						if (!alreadyFoundCrown)
+						{
+							alreadyFoundCrown = true;
+							continue;
+						}
+					}
+				}
+				
 				activeChar.destroyItem("Removing Crown", item, activeChar, true);
 				activeChar.getInventory().updateDatabase();
 			}
