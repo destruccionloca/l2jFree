@@ -84,13 +84,14 @@ abstract class AbstractAI implements Ctrl
                 // TODO: fix Z axis follow support, moveToLocation needs improvements
                 // Does not allow targets to follow on infinite distance -> fix for "follow me bug".
                 if (_actor instanceof L2PcInstance && _followTarget instanceof L2PcInstance)
-                	if (!_actor.isInsideRadius(_followTarget, 999, false, false) || !_followTarget.isInsideRadius(_actor, 999, false, false)) 
+				{
+                	if (!_actor.isInsideRadius(_followTarget, 999, true, false))
                 	{
                 		stopFollow();
                 		return;
                 	}
-                moveToPawn(_followTarget, _range);
-
+				}
+				
                 if (!_actor.isInsideRadius(_followTarget, _range, true, false))
                 {
                     moveToPawn(_followTarget, _range);
