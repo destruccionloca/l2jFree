@@ -341,48 +341,45 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
             // check for long ranged skills and heal/buff skills
             if (!Config.ALT_GAME_MOB_ATTACK_AI
                 || (_actor instanceof L2MonsterInstance && Rnd.nextInt(100) <= 10))
+			{
+				int count = 0;
                 for (L2Skill sk : skills)
                 {
-					if (Rnd.get(100) >= (150.0/skills.length))
+					count++;
+					if (Rnd.get(100) >= (100.0 * count / skills.length))
 						continue;
 					
                     int castRange = sk.getCastRange();
                     
-                    if (((sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL) || (dist_2 >= castRange * castRange / 9)
+                    if (((sk.isPositive()) || (dist_2 >= castRange * castRange / 9)
                         && (dist_2 <= castRange * castRange) && (castRange > 70))
                         && !_actor.isSkillDisabled(sk.getId())
-                        && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk) && !sk.isPassive())
+                        && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk) 
+                        && !sk.isPassive())
                     {
                         L2Object OldTarget = _actor.getTarget();
-                        if (sk.getSkillType() == L2Skill.SkillType.BUFF
-                            || sk.getSkillType() == L2Skill.SkillType.HEAL)
+                        if (sk.isPositive())
                         {
-                            if (sk.getSkillType() == L2Skill.SkillType.HEAL
-                                && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+                            if (sk.getSkillType() == L2Skill.SkillType.HEAL)
                             {
-                                continue;
+                                if (_actor.getStatus().getCurrentHp() > (_actor.getMaxHp() / 1.5))
+									continue;
                             }
-                            if (sk.getSkillType() == L2Skill.SkillType.BUFF)
+                            else
                             {
-                                L2Effect[] effects = _actor.getAllEffects();
-                                for (int i = 0; effects != null && i < effects.length; i++)
-                                {
-                                    L2Effect effect = effects[i];
-                                    if (effect.getSkill() == sk)
-                                    {
-                                        continue;
-                                    }
-                                }
+                                if (_actor.getFirstEffect(sk) != null)
+									continue;
                             }
                             _actor.setTarget(_actor);
                         }
-
+						
                         clientStopMoving(null);
                         _accessor.doCast(sk);
                         _actor.setTarget(OldTarget);
                         return;
                     }
                 }
+			}
 
             // Check if the L2SiegeGuardInstance is attacking, knows the target and can't run
             if (!(_actor.isAttackingNow()) && (_actor.getRunSpeed() == 0)
@@ -450,41 +447,37 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
             _attackTimeout = MAX_ATTACK_TIMEOUT + GameTimeController.getGameTicks();
 
             // check for close combat skills && heal/buff skills
-            if (!_actor.isMuted() && Rnd.nextInt(100) <= 5)
+            if (!_actor.isMuted() && Rnd.nextInt(100) <= 10)
             {
+				int count = 0;
                 for (L2Skill sk : skills)
                 {
+					count++;
+					if (Rnd.get(100) >= (100.0 * count / skills.length))
+						continue;
+					
                     int castRange = sk.getCastRange();
                     
-                    if (castRange * castRange >= dist_2 && castRange <= 70 && !sk.isPassive()
-                        && _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk)
-                        && !_actor.isSkillDisabled(sk.getId()))
+                    if (castRange * castRange >= dist_2
+						&& castRange <= 70 
+                        && !_actor.isSkillDisabled(sk.getId())
+						&& _actor.getStatus().getCurrentMp() >= _actor.getStat().getMpConsume(sk)
+						&& !sk.isPassive())
                     {
                         L2Object OldTarget = _actor.getTarget();
-                        if (sk.getSkillType() == L2Skill.SkillType.BUFF
-                            || sk.getSkillType() == L2Skill.SkillType.HEAL)
+                        if (sk.isPositive())
                         {
-                            boolean useSkillSelf = true;
-                            if (sk.getSkillType() == L2Skill.SkillType.HEAL
-                                && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
+                            if (sk.getSkillType() == L2Skill.SkillType.HEAL)
                             {
-                                useSkillSelf = false;
-                                break;
+                                if (_actor.getStatus().getCurrentHp() > (_actor.getMaxHp() / 1.5))
+									continue;
                             }
-                            if (sk.getSkillType() == L2Skill.SkillType.BUFF)
+                            else
                             {
-                                L2Effect[] effects = _actor.getAllEffects();
-                                for (int i = 0; effects != null && i < effects.length; i++)
-                                {
-                                    L2Effect effect = effects[i];
-                                    if (effect.getSkill() == sk)
-                                    {
-                                        useSkillSelf = false;
-                                        break;
-                                    }
-                                }
+                                if (_actor.getFirstEffect(sk) != null)
+									continue;
                             }
-                            if (useSkillSelf) _actor.setTarget(_actor);
+                            _actor.setTarget(_actor);
                         }
 
                         clientStopMoving(null);
