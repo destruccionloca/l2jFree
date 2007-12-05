@@ -340,9 +340,12 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
         {
             // check for long ranged skills and heal/buff skills
             if (!Config.ALT_GAME_MOB_ATTACK_AI
-                || (_actor instanceof L2MonsterInstance && Rnd.nextInt(100) <= 5))
+                || (_actor instanceof L2MonsterInstance && Rnd.nextInt(100) <= 10))
                 for (L2Skill sk : skills)
                 {
+					if (Rnd.get(100) >= (150.0/skills.length))
+						continue;
+					
                     int castRange = sk.getCastRange();
                     
                     if (((sk.getSkillType() == L2Skill.SkillType.BUFF || sk.getSkillType() == L2Skill.SkillType.HEAL) || (dist_2 >= castRange * castRange / 9)
@@ -354,12 +357,10 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                         if (sk.getSkillType() == L2Skill.SkillType.BUFF
                             || sk.getSkillType() == L2Skill.SkillType.HEAL)
                         {
-                            boolean useSkillSelf = true;
                             if (sk.getSkillType() == L2Skill.SkillType.HEAL
                                 && _actor.getStatus().getCurrentHp() > (int) (_actor.getMaxHp() / 1.5))
                             {
-                                useSkillSelf = false;
-                                break;
+                                continue;
                             }
                             if (sk.getSkillType() == L2Skill.SkillType.BUFF)
                             {
@@ -369,12 +370,11 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
                                     L2Effect effect = effects[i];
                                     if (effect.getSkill() == sk)
                                     {
-                                        useSkillSelf = false;
-                                        break;
+                                        continue
                                     }
                                 }
                             }
-                            if (useSkillSelf) _actor.setTarget(_actor);
+                            _actor.setTarget(_actor);
                         }
 
                         clientStopMoving(null);
