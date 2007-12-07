@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Effect;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
@@ -47,6 +48,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -786,13 +788,24 @@ public class TvT
                 if (player._teamNameTvT.equals(teamName) && (player._countTvTkills>0 || Config.TVT_PRICE_NO_KILLS))
                 {
                     PcInventory inv = player.getInventory();
+                    InventoryUpdate iu = new InventoryUpdate();
 
                     if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
-                        inv.addItem("TvT Event: " + _eventName, _rewardId, _rewardAmount, player, null);
+                    {
+                       L2ItemInstance item = inv.addItem("TvT Event: " + _eventName, _rewardId, _rewardAmount, player, null);
+                       
+                       if (item != null)
+                    	   iu.addNewItem(item);
+                    }
                     else
                     {
                         for (int i=0;i<=_rewardAmount-1;i++)
-                            inv.addItem("TvT Event: " + _eventName, _rewardId, 1, player, null);
+                        {
+                        	L2ItemInstance item = inv.addItem("TvT Event: " + _eventName, _rewardId, 1, player, null);
+                            
+                            if (item != null)
+                            	iu.addNewItem(item);
+                        }
                     }
 
                     SystemMessage sm;
@@ -811,6 +824,9 @@ public class TvT
                         player.sendPacket(sm);
                     }
 
+                    //Sends InventoryUpdate
+                    player.sendPacket(iu);
+                    
                     StatusUpdate su = new StatusUpdate(player.getObjectId());
                     su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
                     player.sendPacket(su);
@@ -822,7 +838,7 @@ public class TvT
 
                     nhm.setHtml(replyMSG.toString());
                     player.sendPacket(nhm);
-
+                    
                     // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
                     player.sendPacket( new ActionFailed() );
                 }
