@@ -102,6 +102,10 @@ public final class L2World implements L2WorldMBean
 		return _instance;
     }
     
+    public L2WorldRegion[][] getAllWorldRegions()
+    {
+    	return _worldRegions;
+    }
     /**
      * Add L2Object object in _allObjects.<BR><BR>
      *   

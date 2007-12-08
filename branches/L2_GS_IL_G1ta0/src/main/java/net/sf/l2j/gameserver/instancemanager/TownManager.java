@@ -71,8 +71,7 @@ public class TownManager
 
     private final void load()
     {
-    	//TODO:
-    	_log.error("TownManager not done !!!");
+    	//TODO: mapregion implementation
     }
 
     public String getTownName(int townId)

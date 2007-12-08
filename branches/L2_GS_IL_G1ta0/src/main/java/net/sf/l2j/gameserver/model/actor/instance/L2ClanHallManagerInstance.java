@@ -734,13 +734,11 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
     
     private void doTeleport(L2PcInstance player, int val)
     {
-       if(_log.isDebugEnabled())
-    	   player.sendMessage("doTeleport(L2PcInstance player, int val) is called");
         L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
         if (list != null)
         {
             //you cannot teleport to village that is in siege Not sure about this one though
-        	//TODO:
+        	//TODO: mapregion: fix after implementation
         	/*
             if (SiegeManager.getInstance().checkIfInZone(list.getLocX(), list.getLocY(), list.getLocZ()))
             {

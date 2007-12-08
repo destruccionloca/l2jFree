@@ -65,6 +65,9 @@ public interface IZone
 	/** Check if point is in zone **/
 	public boolean checkIfInZone(int x, int y, int z);
 	
+	/** Check if zone intersects rectangle or rectangle is in zone **/
+	public boolean intersectsRectangle(int cx, int cy, int dx, int dy);
+	
 	/** Get random point in zone **/
 	public Location getRandomLocation();
 	

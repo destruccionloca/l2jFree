@@ -64,8 +64,7 @@ public class ZoneManager
 
 	public void reload()
 	{
-		//TODO:
-		_log.fatal("ZoneManager: reload not done !!!");
+		//TODO: make zone reloading
 	}
 
 	private void load()
@@ -114,6 +113,9 @@ public class ZoneManager
 						{
 							addZone(zone);
 							_count++;
+						} else
+						{
+							_log.warn("One or more zones could not be parsed!");
 						}
 					}
 				}
@@ -125,6 +127,9 @@ public class ZoneManager
 				{
 					addZone(zone);
 					_count++;
+				} else
+				{
+					_log.warn("One or more zones could not be parsed!");
 				}
 			}
 		}
@@ -246,24 +251,34 @@ public class ZoneManager
 		if((zone.getZoneType() == ZoneType.Water && !Config.ALLOW_WATER) || (zone.getZoneType() == ZoneType.Fishing && !Config.ALLOW_FISHING))
 			return;
 
-		L2WorldRegion region = null;
-		L2WorldRegion region_new = null;
-
-		for(int x = zone.getMin().getX(); x <= zone.getMax().getX(); x += (1 << (L2World.SHIFT_BY - 1)))
+		// Get the world regions
+		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
+		
+		// Register the zone into any world region it intersects with...
+		int ax,ay,bx,by;
+		boolean zoneRegistered = false;
+		
+		for (int x=0; x < worldRegions.length; x++)
 		{
-			for(int y = zone.getMin().getY(); y <= zone.getMax().getY(); y += (1 << (L2World.SHIFT_BY - 1)))
+			for (int y=0; y < worldRegions[x].length; y++)
 			{
-				region_new = L2World.getInstance().getRegion(x, y);
-				if(region != region_new)
+				ax = (x-L2World.OFFSET_X) << L2World.SHIFT_BY;
+				bx = ((x+1)-L2World.OFFSET_X) << L2World.SHIFT_BY;
+				ay = (y-L2World.OFFSET_Y) << L2World.SHIFT_BY;
+				by = ((y+1)-L2World.OFFSET_Y) << L2World.SHIFT_BY;
+
+				if (zone.intersectsRectangle(ax, ay, bx, by))
 				{
-					region = region_new;
-					region.addZone(zone);
-					if(_log.isDebugEnabled())
-						_log.info("ZoneManager: adding zone " + region.getName() + " : " + zone.getId() + " " + zone.getZoneName());
+					//if(_log.isDebugEnabled())
+						_log.info("ZoneManager: adding zone " + worldRegions[x][y].getName() + " : " + zone.getId() + " " + zone.getZoneName());
+					zoneRegistered = true;
+					worldRegions[x][y].addZone(zone);
 				}
 			}
 		}
-
+		
+		if (!zoneRegistered)
+			_log.error("ZoneManager: unable to register zone : " + zone.getId() + " " + zone.getZoneName());
 	}
 
 }

@@ -23,6 +23,8 @@ import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.tools.geometry.Point3D;
+
 /**
  * @author G1ta0
  * This class implements Polygon Zone
@@ -94,7 +96,33 @@ public class ZonePoly extends ZoneBase
 		
 		return Util.calculateDistance(x, y, z, x2, y2, z2, true);
 	}
-
+	
+	@Override
+	public boolean intersectsRectangle(int cx, int cy, int dx, int dy)
+	{
+		int rx = 0;
+		int ry = 0;
+		
+		if (checkIfInZone(cx, cy)) return true;
+		if (checkIfInZone(cx, dy)) return true;
+		if (checkIfInZone(dx, dy)) return true;
+		if (checkIfInZone(dx, cy)) return true;
+		
+		for (int i=0; i<getPoints().size() - 1; i++) 
+		{
+			int ax = getPoints().get(i).getX();
+			int ay = getPoints().get(i).getY();
+			int bx = getPoints().get(i+1).getX();
+			int by = getPoints().get(i+1).getY();
+			
+			if (Util.checkIfLineSegementsIntersects(ax, ay, bx, by, cx, cy, cx, dy, rx, ry)) return true;
+			if (Util.checkIfLineSegementsIntersects(ax, ay, bx, by, cx, dy, dx, dy, rx, ry)) return true;
+			if (Util.checkIfLineSegementsIntersects(ax, ay, bx, by, dx, dy, dx, cy, rx, ry)) return true;
+			if (Util.checkIfLineSegementsIntersects(ax, ay, bx, by, cx, cy, dx, cy, rx, ry)) return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * cn_PnPoly(): crossing number test for a point in a polygon
 	 * Return:  false = outside, true = inside 

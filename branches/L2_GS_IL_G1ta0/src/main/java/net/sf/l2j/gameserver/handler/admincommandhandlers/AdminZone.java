@@ -59,13 +59,14 @@ public class AdminZone implements IAdminCommandHandler
 			L2WorldRegion region = L2World.getInstance().getRegion(activeChar.getX(), activeChar.getY());
 			if(region != null && region.getZones() != null)
 			{
+				activeChar.sendMessage("Region " +region.getName()+ " zones: ");
 				for(IZone zone : region.getZones())
 					if(zone.checkIfInZone(activeChar.getX(), activeChar.getY()))
 						activeChar.sendMessage("Zone (XY" + (zone.checkIfInZone(activeChar) ? ("Z)") : (")")) + "(" + zone.getZoneType().toString() + "): ID " + zone.getId() + " " + zone.getZoneName() + " Z[" + zone.getMin().getZ() + ":" + zone.getMax().getZ() + "]");
 			}
 			activeChar.sendMessage("Closest Castle: " + CastleManager.getInstance().getClosestCastle(activeChar).getName());
-			activeChar.sendMessage("Closest Town: " + TownManager.getInstance().getClosestTown(activeChar).getName());
-
+			/*activeChar.sendMessage("Closest Town: " + TownManager.getInstance().getClosestTown(activeChar).getName());
+			
 			Location loc;
 
 			loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Castle);
@@ -79,6 +80,7 @@ public class AdminZone implements IAdminCommandHandler
 
 			loc = MapRegionTable.getInstance().getTeleToLocation(activeChar, MapRegionTable.TeleportWhereType.Town);
 			activeChar.sendMessage("TeleToLocation (Town): x:" + loc.getX() + " y:" + loc.getY() + " z:" + loc.getZ());
+			*/
 		}
 		else if(actualCommand.equalsIgnoreCase("admin_zone_reload"))
 		{

@@ -92,4 +92,28 @@ public class ZoneRect extends ZoneBase
 
 		return Util.calculateDistance(x, y, z, x2, y2, z2, true);
 	}
+	
+	@Override
+	public boolean intersectsRectangle(int cx, int cy, int dx, int dy)
+	{
+		int rx = 0;
+		int ry = 0;
+		
+		if (checkIfInZone(cx, cy)) return true;
+		if (checkIfInZone(cx, dy)) return true;
+		if (checkIfInZone(dx, dy)) return true;
+		if (checkIfInZone(dx, cy)) return true;
+		
+		int ax = getMin().getX();
+		int ay = getMin().getY();
+		int bx = getMax().getX();
+		int by = getMax().getY();
+
+		if (Util.checkIfLineSegementsIntersects(ax, ay, bx, by, cx, cy, cx, dy, rx, ry)) return true;
+		if (Util.checkIfLineSegementsIntersects(ax, ay, bx, by, cx, dy, dx, dy, rx, ry)) return true;
+		if (Util.checkIfLineSegementsIntersects(ax, ay, bx, by, dx, dy, dx, cy, rx, ry)) return true;
+		if (Util.checkIfLineSegementsIntersects(ax, ay, bx, by, cx, cy, dx, cy, rx, ry)) return true;
+		
+		return false;
+	}
 }

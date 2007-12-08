@@ -189,6 +189,13 @@ public abstract class ZoneBase implements IZone
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see net.sf.l2j.gameserver.model.zone.IZone#intersectsRectangle(int , int , int , int );
+	 */
+	public abstract boolean intersectsRectangle(int cx, int cy, int dx, int dy);
+	
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see net.sf.l2j.gameserver.model.zone.IZone#getZoneName()
 	 */
 	public String getZoneName()

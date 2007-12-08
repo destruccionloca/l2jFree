@@ -160,8 +160,7 @@ public class Castle
 	 */
 	public void banishForeigner(L2PcInstance activeChar)
 	{
-		//TODO
-		_log.error("Castle.banishForeigner not done !!!");
+		//TODO: mapregion: fix after implementation
 	}
 
 	public void closeDoor(L2PcInstance activeChar, int doorId)

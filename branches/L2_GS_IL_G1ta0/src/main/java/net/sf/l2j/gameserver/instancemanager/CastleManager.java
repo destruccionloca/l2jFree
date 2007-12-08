@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
@@ -80,7 +81,7 @@ public class CastleManager
 		}
 		catch (Exception e)
 		{
-			_log.error("CastleManager: Error loading " + castlesXml.getAbsolutePath() + "! "+e.getMessage(),e);
+			_log.error("CastleManager: Error loading " + castlesXml.getAbsolutePath() + "! " + e.getMessage(), e);
 		}
 		try
 		{
@@ -88,7 +89,7 @@ public class CastleManager
 		}
 		catch (Exception e)
 		{
-			_log.error("CastleManager: Error while reading " + castlesXml.getAbsolutePath() + "! "+e.getMessage(),e);
+			_log.error("CastleManager: Error while reading " + castlesXml.getAbsolutePath() + "! " + e.getMessage(), e);
 		}
 
 		_log.info("CastleManager: Loaded " + getCastles().size() + " castles.");
@@ -288,32 +289,33 @@ public class CastleManager
 		}
 		return null;
 	}
-	
+
 	public final Castle getClosestCastle(L2Object activeObject)
 	{
-		//TODO:
-		_log.error("Castlemanager.getClosestCastle not done!!!");
-		/*
-		Castle castle = getCastle(activeObject);
+		Castle castle = null;
+
+		if(activeObject instanceof L2Character)
+			castle = getCastles().get(((L2Character) activeObject).getInsideCastle());
+
 		if(castle == null)
 		{
 			double closestDistance = Double.MAX_VALUE;
 			double distance;
 
-			for(Castle castle_check : getCastles().values())
+			for(Castle c : getCastles().values())
 			{
-				if(castle_check == null)
-					continue;
-				distance = castle_check.getZone().getZoneDistance(activeObject.getX(), activeObject.getY());
-				if(closestDistance > distance)
+				if(castle != null && castle.getZone(ZoneType.CastleArea) != null)
 				{
-					closestDistance = distance;
-					castle = castle_check;
+					distance = c.getZone(ZoneType.CastleArea).getZoneDistance(activeObject.getX(), activeObject.getY());
+					if(closestDistance > distance)
+					{
+						closestDistance = distance;
+						castle = c;
+					}
 				}
 			}
 		}
-		*/
-		return null;
+		return castle;
 	}
 
 	public final Map<Integer, Castle> getCastles()

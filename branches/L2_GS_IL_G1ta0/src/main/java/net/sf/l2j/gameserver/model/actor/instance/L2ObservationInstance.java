@@ -58,8 +58,7 @@ public final class L2ObservationInstance extends L2FolkInstance
             String val = command.substring(13);
             StringTokenizer st = new StringTokenizer(val);
             st.nextToken(); // Bypass cost
-            // TODO:
-            _log.error("SiegeManager.getInstance().checkIfInZone not done !!!");
+            //TODO: observeSiege n x y z, where n is  castle id, x y z - observation coord
             /*if (SiegeManager.getInstance().checkIfInZone(Integer.parseInt(st.nextToken()),
                                                          Integer.parseInt(st.nextToken()),
                                                          Integer.parseInt(st.nextToken()))) doObserve(player,val);

@@ -157,33 +157,114 @@ public final class Util
         return result;
     }
     
-    // Micht: Removed this because UNUSED
-    /*
-    public static boolean checkIfInRange(int range, int x1, int y1, int x2, int y2) 
+    /** 
+     * public domain function by Darel Rex Finley, 2006<br><br>
+     * 
+     * Determines the intersection point of the line defined by points A and B with the<br>
+     * line defined by points C and D.
+     * @return true if the intersection point was found<br>
+     *         false if there is no determinable intersection point<br>
+     *         rx, ry intersection point
+     */
+    public static boolean checkIfLinesIntersects(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy, int rx, int ry)
     {
-        return checkIfInRange(range, x1, y1, 0, x2, y2, 0, false);
-    }
 
-    public static boolean checkIfInRange(int range, int x1, int y1, int z1, int x2, int y2, int z2, boolean includeZAxis)
+      double  distAB, theCos, theSin, newX, ABpos ;
+
+      //  Fail if either line is undefined.
+      if (ax==bx && ay==by || cx==dx && cy==dy) return false;
+
+      //  (1) Translate the system so that point A is on the origin.
+      double Bx = bx - ax; 
+      double By = by - ay;
+      double Cx = cx - ax; 
+      double Cy = cy - ay;
+      double Dx = dx - ax;
+      double Dy = dy - ay;
+      
+      //  Discover the length of segment A-B.
+      distAB=Math.sqrt(Bx*Bx+By*By);
+
+      //  (2) Rotate the system so that point B is on the positive X axis.
+      theCos=Bx/distAB;
+      theSin=By/distAB;
+      newX=Cx*theCos+Cy*theSin;
+      Cy  =(int)(Cy*theCos-Cx*theSin); Cx=newX;
+      newX=Dx*theCos+Dy*theSin;
+      Dy  =(int)(Dy*theCos-Dx*theSin); Dx=newX;
+
+      //  Fail if the lines are parallel.
+      if (Cy==Dy) return false;
+
+      //  (3) Discover the position of the intersection point along line A-B.
+      ABpos=Dx+(Cx-Dx)*Dy/(Dy-Cy);
+
+      //  (4) Apply the discovered position to line A-B in the original coordinate system.
+      rx=(int)(ax+ABpos*theCos);
+      ry=(int)(ay+ABpos*theSin);
+
+      //  Success.
+      return true;
+    }
+    
+    /** 
+     * public domain function by Darel Rex Finley, 2006<br><br>
+     * 
+     * Determines the intersection point of the line segment defined by points A and B<br>
+     * with the line segment defined by points C and D.
+     * @return true if the intersection point was found<br>
+     *         false if there is no determinable intersection point<br>
+     *         rx, ry intersection point
+     */
+    public static boolean checkIfLineSegementsIntersects(int ax, int ay, int bx, int by, int cx, int cy, int dx, int dy, int rx, int ry)
     {
 
-        if (includeZAxis)
-        {
-            return ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2) + (z1 - z2)*(z1 - z2)) <= range * range;
-        }
-        else
-        {
-            return ((x1 - x2)*(x1 - x2) + (y1 - y2)*(y1 - y2)) <= range * range;
-        }
-    }
+      double  distAB, theCos, theSin, newX, ABpos ;
 
-    public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
-    {
-        if (obj1 == null || obj2 == null) return false;
-        
-        return checkIfInRange(range, obj1.getPosition().getX(), obj1.getPosition().getY(), obj1.getPosition().getZ(), obj2.getPosition().getX(), obj2.getPosition().getY(), obj2.getPosition().getZ(), includeZAxis);
+      //  Fail if either line is undefined.
+      if (ax==bx && ay==by || cx==dx && cy==dy) return false;
+
+      //  Fail if the segments share an end-point.
+      if (ax==cx && ay==cy || bx==cx && by==cy
+      ||  ax==dx && ay==dy || bx==dx && by==dy) {
+        return false; }
+      
+      //  (1) Translate the system so that point A is on the origin.
+      double Bx = bx - ax; 
+      double By = by - ay;
+      double Cx = cx - ax; 
+      double Cy = cy - ay;
+      double Dx = dx - ax;
+      double Dy = dy - ay;
+      
+      //  Discover the length of segment A-B.
+      distAB=Math.sqrt(Bx*Bx+By*By);
+
+      //  (2) Rotate the system so that point B is on the positive X axis.
+      theCos=Bx/distAB;
+      theSin=By/distAB;
+      newX=Cx*theCos+Cy*theSin;
+      Cy  =(int)(Cy*theCos-Cx*theSin); Cx=newX;
+      newX=Dx*theCos+Dy*theSin;
+      Dy  =(int)(Dy*theCos-Dx*theSin); Dx=newX;
+
+      //  Fail if segment C-D doesn't cross line A-B.
+      if (Cy<0. && Dy<0. || Cy>=0. && Dy>=0.) return false;
+
+      //  (3) Discover the position of the intersection point along line A-B.
+      ABpos=Dx+(Cx-Dx)*Dy/(Dy-Cy);
+
+      //  Fail if segment C-D crosses line A-B outside of segment A-B.
+      if (ABpos<0. || ABpos>distAB) return false;
+
+      //  (4) Apply the discovered position to line A-B in the original coordinate system.
+      rx=(int)(ax+ABpos*theCos);
+      ry=(int)(ay+ABpos*theSin);
+
+      //  Success.
+      return true;
     }
-    */
+ 
     public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
     {
         if (range == -1) return true; // not limited
