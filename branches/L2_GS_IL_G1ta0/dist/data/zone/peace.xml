@@ -1,0 +1,65 @@
+<list>
+  <zone id="1" name="ssq_peace_1720_01">
+    <type>Peace</type>
+    <form zMin="-5208" zMax="-5008">
+      <point x="-78118" y="86296" />
+      <point x="-75860" y="86294" />
+      <point x="-75853" y="87965" />
+      <point x="-78156" y="87967" />
+    </form>
+  </zone>
+  <zone id="2" name="ssq_peace_1720_02">
+    <type>Peace</type>
+    <form zMin="-5200" zMax="-5000">
+      <point x="-81169" y="85693" />
+      <point x="-78118" y="85690" />
+      <point x="-78134" y="87364" />
+      <point x="-81187" y="87364" />
+    </form>
+  </zone>
+  <zone id="3" name="ssq_peace_1720_03">
+    <type>Peace</type>
+    <form zMin="-5200" zMax="-5000">
+      <point x="-81549" y="86361" />
+      <point x="-80995" y="86367" />
+      <point x="-80995" y="86688" />
+      <point x="-81549" y="86688" />
+    </form>
+  </zone>
+  <zone id="4" name="ssq_peace_1721_01">
+    <type>Peace</type>
+    <form zMin="-4952" zMax="-4752">
+      <point x="-77077" y="111140" />
+      <point x="-74838" y="111140" />
+      <point x="-74842" y="112806" />
+      <point x="-77104" y="112779" />
+    </form>
+  </zone>
+  <zone id="5" name="ssq_peace_1721_02">
+    <type>Peace</type>
+    <form zMin="-4956" zMax="-4756">
+      <point x="-80075" y="110530" />
+      <point x="-77066" y="110552" />
+      <point x="-77092" y="112188" />
+      <point x="-80089" y="112184" />
+    </form>
+  </zone>
+  <zone id="6" name="ssq_peace_1721_03">
+    <type>Peace</type>
+    <form zMin="-4944" zMax="-4744">
+      <point x="-80536" y="111192" />
+      <point x="-79984" y="111196" />
+      <point x="-79984" y="111517" />
+      <point x="-80532" y="111517" />
+    </form>
+  </zone>
+  <zone id="7" name="space_of_dimension_peace1">
+    <type>Peace</type>
+    <form zMin="-6964" zMax="-6064">
+      <point x="-115441" y="-182134" />
+      <point x="-114106" y="-182134" />
+      <point x="-114106" y="-178021" />
+      <point x="-115476" y="-178021" />
+    </form>
+  </zone>
+</list>

@@ -1,0 +1,86 @@
+<list>
+  <zone id="1" name="Four Sepulcher">
+    <type>FourSepulchers</type>
+    <form zMin="-7225" zMax="0">
+      <point x="181241" y="-86443" />
+      <point x="192134" y="-84575" />
+    </form>
+  </zone>
+  <zone id="2" name="Four Sepulcher">
+    <type>FourSepulchers</type>
+    <form zMin="-7250" zMax="0">
+      <point x="179551" y="-89844" />
+      <point x="190342" y="-88042" />
+    </form>
+  </zone>
+  <zone id="3" name="Four Sepulcher">
+    <type>FourSepulchers</type>
+    <form zMin="-7250" zMax="0">
+      <point x="172354" y="-86630" />
+      <point x="174073" y="-75565" />
+    </form>
+  </zone>
+  <zone id="4" name="Four Sepulcher">
+    <type>FourSepulchers</type>
+    <form zMin="-7250" zMax="0">
+      <point x="174697" y="-82707" />
+      <point x="176500" y="-71885" />
+    </form>
+  </zone>
+  <zone id="5" name="Lair of Zaken">
+    <type>LairOfZaken</type>
+    <form zMin="-3775" zMax="-2690">
+      <point x="53182" y="216945" />
+      <point x="57311" y="221151" />
+    </form>
+  </zone>
+  <zone id="6" name="Lair of Anakim">
+    <type>LairOfAnakim</type>
+    <form zMin="-5500" zMax="-3895">
+      <point x="184008" y="-10681" />
+      <point x="186107" y="-8589" />
+    </form>
+  </zone>
+  <zone id="7" name="Lair of Lilith">
+    <type>LairOfLilith</type>
+    <form zMin="-5500" zMax="-3895">
+      <point x="183986" y="-13716" />
+      <point x="186097" y="-11532" />
+    </form>
+  </zone>
+  <zone id="8" name="Lair of Antharas">
+    <type>AntharasLair</type>
+    <form zMin="-8220" zMax="-4870">
+      <point x="173439" y="110176" />
+      <point x="187346" y="119469" />
+    </form>
+  </zone>
+  <zone id="9" name="Lair of Baium">
+    <type>BaiumsLair</type>
+    <form zMin="10070" zMax="12480">
+      <point x="109448" y="10233" />
+      <point x="118547" y="21446" />
+    </form>
+  </zone>
+  <zone id="10" name="Lair of Sailren">
+    <type>SailrensLair</type>
+    <form zMin="-1975" zMax="-1944">
+      <point x="26095" y="-8084" />
+      <point x="28987" y="-5295" />
+    </form>
+  </zone>
+  <zone id="11" name="Sunlight Room">
+    <type>SunLightRoom</type>
+    <form zMin="-2952" zMax="-2690">
+      <point x="55794" y="219633" />
+      <point x="56789" y="220629" />
+    </form>
+  </zone>
+  <zone id="12" name="Lair of Valakas">
+    <type>ValakasLair</type>
+    <form zMin="-1640" zMax="9880">
+      <point x="199755" y="-124724" />
+      <point x="224677" y="-103211" />
+    </form>
+  </zone>
+</list>
