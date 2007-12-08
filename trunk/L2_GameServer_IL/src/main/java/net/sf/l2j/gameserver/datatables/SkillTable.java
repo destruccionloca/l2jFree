@@ -32,16 +32,14 @@ import net.sf.l2j.gameserver.templates.L2WeaponType;
  */
 public class SkillTable
 {
-	//private static Logger _log = Logger.getLogger(SkillTable.class.getName());
 	private static SkillTable _instance;
-	
 	private Map<Integer, L2Skill> _skills;
-	private boolean _initialized = true;
     
 	public static SkillTable getInstance()
 	{
 		if (_instance == null)
 			_instance = new SkillTable();
+		
 		return _instance;
 	}
 
@@ -53,17 +51,8 @@ public class SkillTable
     
     public void reload()
     {
-    	synchronized(_instance)
-        {
-    		_instance = null;
-    		_instance = new SkillTable();
-        }
+   		_instance = new SkillTable();
     }
-    
-	public boolean isInitialized()
-	{
-	    return _initialized;
-	}
 	
 	/**
      * Provides the skill hash
@@ -83,7 +72,7 @@ public class SkillTable
      */
     public static int getSkillHashCode(int skillId, int skillLevel)
     {
-        return skillId*256+skillLevel;
+        return skillId * 256 + skillLevel;
     }
     
 	public L2Skill getInfo(int skillId, int level)
@@ -99,9 +88,9 @@ public class SkillTable
 	    {
 	        level++;
 	        temp = _skills.get(SkillTable.getSkillHashCode(magicId, level));
-        
+			
 		    if (temp == null)
-		        return level-1;
+		        return level - 1;
 	    }
         
 	    return level;
@@ -119,7 +108,7 @@ public class SkillTable
 		L2WeaponType.BIGSWORD,
 		L2WeaponType.ROD,
 		L2WeaponType.BIGBLUNT
-		};
+	};
 	
 	public int calcWeaponsAllowed(int mask)
 	{
@@ -128,10 +117,12 @@ public class SkillTable
         
 		int weaponsAllowed = 0;
         
-		for (int i=0; i < weaponDbMasks.length; i++)
-			if ((mask & (1<<i)) != 0)
+		for (int i = 0; i < weaponDbMasks.length; i++)
+		{
+			if ((mask & (1 << i)) != 0)
 				weaponsAllowed |= weaponDbMasks[i].mask();
-
+		}
+		
         return weaponsAllowed;
 	}
 }
