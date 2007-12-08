@@ -152,8 +152,8 @@ public class AdminSiege implements IAdminCommandHandler
 				else if(player.getClan().getHasHideout() == 0)
 				{
 					clanhall.setOwner(player.getClan());
-					if(AuctionManager.getInstance().getAuction(clanhall.getId()) != null)
-						AuctionManager.getInstance().getAuction(clanhall.getId()).deleteAuctionFromDB();
+					if(AuctionManager.getInstance().getAuction(clanhall.getClanHallId()) != null)
+						AuctionManager.getInstance().getAuction(clanhall.getClanHallId()).deleteAuctionFromDB();
 				}
 				else
 					activeChar.sendMessage("You have already a ClanHall!");
@@ -162,7 +162,7 @@ public class AdminSiege implements IAdminCommandHandler
 			{
 				if(!clanhall.isFree()){
 					clanhall.free();
-					AuctionManager.getInstance().initNPC(clanhall.getId());
+					AuctionManager.getInstance().initNPC(clanhall.getClanHallId());
 				}else
 					activeChar.sendMessage("This ClanHall is already Free!");
 			}
@@ -221,7 +221,7 @@ public class AdminSiege implements IAdminCommandHandler
 		{
 			if (clanhall != null)
 			{
-				cList.append("<td fixwidth=134><a action=\"bypass -h admin_clanhall "+clanhall.getId()+"\">");
+				cList.append("<td fixwidth=134><a action=\"bypass -h admin_clanhall "+clanhall.getClanHallId()+"\">");
 				cList.append(clanhall.getName()+"</a></td>");
 				i++;
 			}
@@ -238,7 +238,7 @@ public class AdminSiege implements IAdminCommandHandler
 		{
 			if (clanhall != null && clanhall.isFree())
 			{
-				cList.append("<td fixwidth=134><a action=\"bypass -h admin_clanhall "+clanhall.getId()+"\">");
+				cList.append("<td fixwidth=134><a action=\"bypass -h admin_clanhall "+clanhall.getClanHallId()+"\">");
 				cList.append(clanhall.getName()+"</a></td>");
 				i++;
 				
@@ -266,7 +266,7 @@ public class AdminSiege implements IAdminCommandHandler
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/clanhall.htm");
 		adminReply.replace("%clanhallName%", clanhall.getName());
-		adminReply.replace("%clanhallId%", String.valueOf(clanhall.getId()));
+		adminReply.replace("%clanhallId%", String.valueOf(clanhall.getClanHallId()));
 		L2Clan owner = ClanTable.getInstance().getClan(clanhall.getOwnerId()); 
 		if (owner == null)
 			adminReply.replace("%clanhallOwner%","None");

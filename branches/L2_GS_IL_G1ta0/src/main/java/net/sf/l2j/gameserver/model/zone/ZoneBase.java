@@ -39,7 +39,7 @@ public abstract class ZoneBase implements IZone
 	private Point3D _max;
 	private int _zMin, _zMax;
 	private FastList<Point3D> _points2D;
-	private static Map<L2Character, Object> _characters = Collections.synchronizedMap(new WeakHashMap<L2Character, Object>());
+	private Map<L2Character, IZone> _characters = Collections.synchronizedMap(new WeakHashMap<L2Character, IZone>());
 	private int _id;
 	private ZoneType _zoneType;
 	private String _zoneName;
@@ -259,21 +259,13 @@ public abstract class ZoneBase implements IZone
 			// Was the character not yet inside this zone?
 			if(!_characters.containsKey(character))
 			{
-				_characters.put(character, null);
+				_characters.put(character, this);
 				if(_zoneHandler != null)
 					_zoneHandler.onEnter(character);
 			}
 		}
 		else
-		{
-			// Was the character inside this zone?
-			if(!_characters.containsKey(character))
-			{
-				_characters.remove(character);
-				if(_zoneHandler != null)
-					_zoneHandler.onExit(character);
-			}
-		}
+			removeFromZone(character);
 	}
 
 	/**

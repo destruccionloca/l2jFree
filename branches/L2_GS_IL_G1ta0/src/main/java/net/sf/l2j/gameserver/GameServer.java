@@ -136,6 +136,7 @@ public class GameServer
     	Util.printSection("World");
     	RandomIntGenerator.getInstance();    	
         L2World.getInstance();
+        ZoneManager.getInstance();
         Announcements.getInstance();        
         _idFactory = IdFactory.getInstance();
         if (!_idFactory.isInitialized())
@@ -156,8 +157,6 @@ public class GameServer
 	            if ( _log.isDebugEnabled())_log.debug("GeoPathFinding initialized");
 	        }
         }
-        ZoneManager.getInstance();
-        ClanHallManager.getInstance();
         MapRegionTable.getInstance();        
         DoorTable.getInstance();
         StaticObjects.getInstance();
@@ -196,6 +195,13 @@ public class GameServer
         ClanTable.getInstance();
         CrestCache.getInstance();
         Hero.getInstance();
+    	Util.printSection("Castles and Towns");
+        CastleManager.getInstance();
+        CrownManager.getInstance();
+        SiegeManager.getInstance();
+        ClanHallManager.getInstance();
+        MercTicketManager.getInstance();
+        TownManager.getInstance();
         Util.printSection("NPCs");
         NpcTable.getInstance();
         HtmCache.getInstance();
@@ -207,21 +213,15 @@ public class GameServer
         RaidBossSpawnManager.getInstance();
         RaidPointsManager.getInstance();
         AutoChatHandler.getInstance();
-        AutoSpawnHandler.getInstance();
-    	Util.printSection("Castles and Towns");
-        CastleManager.getInstance();
-        CrownManager.getInstance();
-        MercTicketManager.getInstance();
-        TownManager.getInstance();
-        SiegeManager.getInstance();
+        //AutoSpawnHandler.getInstance();
     	Util.printSection("Economy");
         TradeListTable.getInstance();    	
         CastleManorManager.getInstance();
         L2Manor.getInstance();
         AuctionManager.getInstance();
-    	Util.printSection("SevenSigns");
-        SevenSigns.getInstance();
-        SevenSignsFestival.getInstance();
+    	//Util.printSection("SevenSigns");
+        //SevenSigns.getInstance();
+        //SevenSignsFestival.getInstance();
         Util.printSection("Olympiad");
         Olympiad.getInstance();
         Util.printSection("DimensionalRift");
@@ -233,8 +233,8 @@ public class GameServer
         AntharasManager.getInstance().init();
         BaiumManager.getInstance().init();
         ValakasManager.getInstance().init();
-    	Util.printSection("Quests");        
-        QuestManager.getInstance();
+    	//Util.printSection("Quests");        
+        //QuestManager.getInstance();
         Util.printSection("Events/ScriptEngine");
         EventDroplist.getInstance();        
         FaenorScriptEngine.getInstance();

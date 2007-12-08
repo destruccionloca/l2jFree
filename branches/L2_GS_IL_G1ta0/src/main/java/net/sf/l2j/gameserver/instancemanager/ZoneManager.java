@@ -41,6 +41,8 @@ public class ZoneManager
 
 	private static ZoneManager _instance;
 
+	private int _count;
+	
 	public static final ZoneManager getInstance()
 	{
 		if(_instance == null)
@@ -70,6 +72,8 @@ public class ZoneManager
 	{
 		Document doc = null;
 
+		_count = 0;
+		
 		for(File f : Util.getDatapackFiles("zone", ".xml"))
 		{
 			try
@@ -92,6 +96,7 @@ public class ZoneManager
 				_log.fatal("ZoneManager: Error in file " + f.getAbsolutePath(), e);
 			}
 		}
+		_log.info("ZoneManager: Loaded "+_count+" zones.");
 	}
 
 	protected void parseDocument(Document doc)
@@ -106,7 +111,10 @@ public class ZoneManager
 					{
 						IZone zone = parseZone(d);
 						if(zone != null)
+						{
 							addZone(zone);
+							_count++;
+						}
 					}
 				}
 			}
@@ -114,7 +122,10 @@ public class ZoneManager
 			{
 				IZone zone = parseZone(n);
 				if(zone != null)
+				{
 					addZone(zone);
+					_count++;
+				}
 			}
 		}
 	}
@@ -224,7 +235,8 @@ public class ZoneManager
 		Node first = n.getFirstChild();
 		for(n = first; n != null; n = n.getNextSibling())
 		{
-			_settings.set(n.getAttributes().getNamedItem("name").getNodeValue(), n.getAttributes().getNamedItem("val").getNodeValue());
+			if("set".equalsIgnoreCase(n.getNodeName()))
+				_settings.set(n.getAttributes().getNamedItem("name").getNodeValue(), n.getAttributes().getNamedItem("val").getNodeValue());
 		}
 		return _settings;
 	}

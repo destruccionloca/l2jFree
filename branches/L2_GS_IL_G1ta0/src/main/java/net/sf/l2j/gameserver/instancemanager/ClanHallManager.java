@@ -82,7 +82,7 @@ public class ClanHallManager
 		}
 		catch (Exception e)
 		{
-			_log.error("ClanHallManager: Error loading " + clanhallsXml.getAbsolutePath() + " !");
+			_log.error("ClanHallManager: Error loading " + clanhallsXml.getAbsolutePath() + ": "+e.getMessage(),e);
 		}
 		try
 		{
@@ -90,7 +90,7 @@ public class ClanHallManager
 		}
 		catch (Exception e)
 		{
-			_log.error("ClanHallManager: Error while reading " + clanhallsXml.getAbsolutePath() + " !");
+			_log.error("ClanHallManager: Error while reading " + clanhallsXml.getAbsolutePath() + ": "+e.getMessage(),e);
 		}
 
 		_log.info("ClanHallManager: Loaded " + getClanHalls().size() + " clan halls.");
@@ -108,7 +108,7 @@ public class ClanHallManager
 					{
 						ClanHall clanHall = parseEntity(d);
 						if(clanHall != null)
-							getClanHalls().put(clanHall.getId(), clanHall);
+							getClanHalls().put(clanHall.getClanHallId(), clanHall);
 					}
 				}
 			}
@@ -116,7 +116,7 @@ public class ClanHallManager
 			{
 				ClanHall clanHall = parseEntity(n);
 				if(clanHall != null)
-					getClanHalls().put(clanHall.getId(), clanHall);
+					getClanHalls().put(clanHall.getClanHallId(), clanHall);
 			}
 		}
 	}

@@ -117,7 +117,7 @@ public class DimensionalRiftManager
                 parseDocument(doc);
             } catch (Exception e)
             {
-                _log.fatal("DimensionalRiftManager: Error in file " + f.getAbsolutePath(), e);
+                _log.fatal("DimensionalRiftManager: Error while pasing file " + f.getAbsolutePath(), e);
             }
         }
 
@@ -208,6 +208,7 @@ public class DimensionalRiftManager
             } else if ("teleport".equalsIgnoreCase(n.getNodeName()))
             {
             	 riftRoom.addRestartPoint(RestartType.RestartNormal, parsePoint(n));
+            	 
             } else if ("type".equalsIgnoreCase(n.getNodeName()))
             {
             	roomType = RoomType.getRoomTypeEnum(n.getTextContent());
@@ -215,6 +216,7 @@ public class DimensionalRiftManager
             } else if ("boss".equalsIgnoreCase(n.getNodeName()))
             {
             	riftRoom.setIsBoss(n.getTextContent().equals("1"));
+            	
             } else if ("zone".equalsIgnoreCase(n.getNodeName()))
             {
                 IZone zone = ZoneManager.parseZone(n);

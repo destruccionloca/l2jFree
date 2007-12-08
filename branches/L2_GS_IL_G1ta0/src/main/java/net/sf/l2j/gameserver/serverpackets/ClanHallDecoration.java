@@ -56,7 +56,7 @@ public class ClanHallDecoration extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xf7);
-		writeD(_clanHall.getId()); // clanhall id
+		writeD(_clanHall.getClanHallId()); // clanhall id
 		//FUNC_RESTORE_HP
 		_function = _clanHall.getFunction(ClanHall.FUNC_RESTORE_HP);
 		if(_function == null || _function.getLvl() == 0)

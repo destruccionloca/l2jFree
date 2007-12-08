@@ -80,7 +80,7 @@ public class CastleManager
 		}
 		catch (Exception e)
 		{
-			_log.error("CastleManager: Error loading " + castlesXml.getAbsolutePath() + " !");
+			_log.error("CastleManager: Error loading " + castlesXml.getAbsolutePath() + "! "+e.getMessage(),e);
 		}
 		try
 		{
@@ -88,7 +88,7 @@ public class CastleManager
 		}
 		catch (Exception e)
 		{
-			_log.error("CastleManager: Error while reading " + castlesXml.getAbsolutePath() + " !");
+			_log.error("CastleManager: Error while reading " + castlesXml.getAbsolutePath() + "! "+e.getMessage(),e);
 		}
 
 		_log.info("CastleManager: Loaded " + getCastles().size() + " castles.");

@@ -83,9 +83,10 @@ public class Castle
 	private String _name;
 	private StatsSet _settings = null;
 	
-	public Castle(int castleId, String castleName)
+	public Castle(int castleId, String name)
 	{
 		_castleId = castleId;
+		_name = name;
 		load();
 		loadDoor();
 	}

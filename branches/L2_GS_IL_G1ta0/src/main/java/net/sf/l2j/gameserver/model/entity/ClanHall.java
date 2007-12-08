@@ -186,7 +186,7 @@ public class ClanHall
 				con = L2DatabaseFactory.getInstance().getConnection(con);
 
 				statement = con.prepareStatement(UPDATE_CLANHALL_FUNCTION);
-				statement.setInt(1, getId());
+				statement.setInt(1, getClanHallId());
 				statement.setInt(2, getType());
 				statement.setInt(3, getLvl());
 				statement.setInt(4, getLease());
@@ -227,7 +227,7 @@ public class ClanHall
 	}
 
 	/** Return Id Of Clan hall */
-	public final int getId()
+	public final int getClanHallId()
 	{
 		return _clanHallId;
 	}
@@ -496,28 +496,31 @@ public class ClanHall
 			ResultSet rs;
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			statement = con.prepareStatement(RESTORE_CLANHALL);
-			statement.setInt(1, getId());
+			statement.setInt(1, getClanHallId());
 			rs = statement.executeQuery();
-			_ownerId = rs.getInt("clan_id");
-			_paidUntil = rs.getLong("paidUntil");
-			statement.close();
-
-			if(getOwnerId() > 0)
+			if (rs.next())
 			{
-				L2Clan clan = ClanTable.getInstance().getClan(getOwnerId());
+				_ownerId = rs.getInt("clan_id");
+				_paidUntil = rs.getLong("paidUntil");
+				statement.close();
 
-				if(clan == null)
+				if(getOwnerId() > 0)
 				{
-					free();
-					AuctionManager.getInstance().initNPC(getId());
+					L2Clan clan = ClanTable.getInstance().getClan(getOwnerId());
+
+					if(clan == null)
+					{
+						free();
+						AuctionManager.getInstance().initNPC(getClanHallId());
+					}
+					else
+						clan.setHasHideout(getClanHallId());
 				}
-				else
-					clan.setHasHideout(getId());
 			}
 		}
 		catch (Exception e)
 		{
-			_log.error("Error while loading clan hall: " + e.getMessage(), e);
+			_log.error("Error while loading clan hall " + e.getMessage(), e);
 		}
 		finally
 		{
@@ -540,7 +543,7 @@ public class ClanHall
 			ResultSet rs;
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			statement = con.prepareStatement(RESTORE_CLANHALL_FUNCTIONS);
-			statement.setInt(1, getId());
+			statement.setInt(1, getClanHallId());
 			rs = statement.executeQuery();
 			while(rs.next())
 			{
@@ -573,7 +576,7 @@ public class ClanHall
 			PreparedStatement statement;
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			statement = con.prepareStatement(DELETE_CLANHALL_FUNCTION);
-			statement.setInt(1, getId());
+			statement.setInt(1, getClanHallId());
 			statement.setInt(2, functionType);
 			statement.execute();
 			statement.close();
@@ -604,7 +607,7 @@ public class ClanHall
 			PreparedStatement statement;
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			statement = con.prepareStatement(DELETE_CLANHALL_FUNCTIONS);
-			statement.setInt(1, getId());
+			statement.setInt(1, getClanHallId());
 			statement.execute();
 			statement.close();
 		}
@@ -728,7 +731,7 @@ public class ClanHall
 				else
 				{
 					free();
-					AuctionManager.getInstance().initNPC(getId());
+					AuctionManager.getInstance().initNPC(getClanHallId());
 				}
 			}
 			catch (Throwable t)
