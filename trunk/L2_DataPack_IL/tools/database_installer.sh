@@ -355,6 +355,7 @@ $MYG < ../sql/custom/custom_merchant_shopids.sql &> /dev/null
 $MYG < ../sql/custom/custom_npc.sql &> /dev/null
 $MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
 $MYG < ../sql/custom/custom_weapon.sql &> /dev/null
+$MYG < ../sql/fortress_siege.sql &> /dev/null
 
 }
 
