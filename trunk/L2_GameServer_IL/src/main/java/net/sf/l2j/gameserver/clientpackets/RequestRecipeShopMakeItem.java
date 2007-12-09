@@ -21,6 +21,8 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 public class RequestRecipeShopMakeItem extends L2GameClientPacket 
 {
@@ -69,9 +71,15 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
             activeChar.sendMessage("Currently in Craft Mode");
             return;
         }
-		CraftManager.requestManufactureItem(manufacturer, _recipeId,activeChar);
-	}
-	
+        if (manufacturer.isInDuel() || activeChar.isInDuel())
+        {
+            activeChar.sendPacket(new SystemMessage(SystemMessageId.CANT_CRAFT_DURING_COMBAT));
+            return;
+        }
+
+        CraftManager.requestManufactureItem(manufacturer, _recipeId,activeChar);
+    }
+
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */
