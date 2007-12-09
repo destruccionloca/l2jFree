@@ -2022,12 +2022,12 @@ public final class L2PcInstance extends L2PlayableInstance
    {
         academyCheck(Id);
         
-		if (isSubClassActive()) 
-		{ 
-			getSubClasses().get(_classIndex).setClassId(Id); 
-		} 
-		
-		setClassTemplate(Id);
+        if (isSubClassActive()) 
+        {
+            getSubClasses().get(_classIndex).setClassId(Id); 
+        }
+        doCast(SkillTable.getInstance().getInfo(5103,1));
+        setClassTemplate(Id);
     }
 
     public void checkIfWeaponIsAllowed()
@@ -2276,7 +2276,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
 		while (skills.length > unLearnable)
 		{
-			for (L2SkillLearn s : skills) {
+			for (L2SkillLearn s : skills)
+			{
 				L2Skill sk = SkillTable.getInstance().getInfo(s.getId(), s.getLevel());
 				if (sk == null || !sk.getCanLearn(getClassId()))
 				{
@@ -2294,7 +2295,7 @@ public final class L2PcInstance extends L2PlayableInstance
 			skills = SkillTreeTable.getInstance().getAvailableSkills(this, getClassId());
 		}
 	
-		sendMessage("You have learned " + skillCounter + " new skills.");
+		sendMessage("You have learned " + skillCounter + " new skill"+(skillCounter != 1 ? "s" : "")+".");
 	}
 
     /**
@@ -3460,8 +3461,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	    {
 	    	if (currentCp == getMaxCp())
 	    	{
-	    		_cpUpdateIncCheck = getMaxCp();
-	    		_cpUpdateDecCheck = _cpUpdateIncCheck - _cpUpdateInterval;
+	    		_cpUpdateIncCheck = currentCp + 1;
+	    		_cpUpdateDecCheck = currentCp - _cpUpdateInterval;
 	    	}
 	    	else
 	    	{
@@ -3493,8 +3494,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	    {
 	    	if (currentMp == getMaxMp())
 	    	{
-	    		_mpUpdateIncCheck = getMaxMp();
-	    		_mpUpdateDecCheck = _mpUpdateIncCheck - _mpUpdateInterval;
+	    		_mpUpdateIncCheck = currentMp + 1;
+	    		_mpUpdateDecCheck = currentMp - _mpUpdateInterval;
 	    	}
 	    	else
 	    	{
@@ -6581,8 +6582,8 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	if(getClan()!=null && (skillid >= 370 && skillid <= 391))
 	        		foundskill = true;
 	        	// exclude seal of ruler / build siege hq
-	        	if(getClan()!=null && (skillid>=246 && skillid<=247))
-	        		if(getClan().getLeaderId()==getObjectId())
+	        	if(getClan() != null && (skillid == 246 || skillid == 247))
+	        		if(getClan().getLeaderId() == getObjectId())
 	        			foundskill = true;
 	        	// exclude fishing skills and common skills + dwarfen craft
 	        	if(skillid>=1312 && skillid<=1322)
@@ -6775,7 +6776,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         updateEffectIcons();
-		checkIfWeaponIsAllowed();
+        checkIfWeaponIsAllowed();
     }
 
     /**

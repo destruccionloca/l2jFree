@@ -26,7 +26,9 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
+import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
@@ -110,8 +112,7 @@ public class L2SkillDrain extends L2Skill
 			// Check to see if we should damage the target
 			if (damage > 0 && (!target.isDead() || getTargetType() != SkillTargetType.TARGET_CORPSE_MOB))
 			{
-				if (target.isPetrified())
-					damage= 0;
+				if (target.isPetrified()) damage= 0;
 
 				if (activeChar instanceof L2PcInstance)
 				{
@@ -121,8 +122,6 @@ public class L2SkillDrain extends L2Skill
 						damage = 0;
 				}
 
-				target.reduceCurrentHp(damage, activeChar);
-
 				// Manage attack or cast break of the target (calculating rate, sending message...)
 				if (Formulas.getInstance().calcAtkBreak(target, damage))
 				{
@@ -131,6 +130,34 @@ public class L2SkillDrain extends L2Skill
 				}
 
 				activeChar.sendDamageMessage(target, damage, mcrit, false, false);
+
+				if (hasEffects() && getTargetType() != SkillTargetType.TARGET_CORPSE_MOB)
+				{
+					if (target.reflectSkill(this))
+					{
+						activeChar.stopSkillEffects(getId());
+						getEffects(null, activeChar);
+						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
+						sm.addSkillName(getId());
+						activeChar.sendPacket(sm);
+					}
+					else
+					{
+						// activate attacked effects, if any
+						target.stopSkillEffects(getId());
+						if (Formulas.getInstance().calcSkillSuccess(activeChar, target, this, false, ss, bss))
+							getEffects(activeChar, target);
+						else
+						{
+							SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+							sm.addString(target.getName());
+							sm.addSkillName(getDisplayId());
+							activeChar.sendPacket(sm);
+						}
+					}
+				}
+
+				target.reduceCurrentHp(damage, activeChar);
 			}
 			// Check to see if we should do the decay right after the cast
 			if (target.isDead() && getTargetType() == SkillTargetType.TARGET_CORPSE_MOB && target instanceof L2NpcInstance)

@@ -1277,5 +1277,5 @@ public abstract class Inventory extends ItemContainer
        {
            try { con.close(); } catch (Exception e) {}
        }
-   }
+    }
 }

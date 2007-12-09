@@ -142,13 +142,13 @@ public class L2NpcInstance extends L2Character
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
     private int _castleIndex = -2;
     
-    public String  	_CTF_FlagTeamName;
+    public String _CTF_FlagTeamName;
     public boolean isEventMob = false,
                   _isEventMobTvT = false,
                   _isEventMobDM = false,
                   _isEventMobCTF = false,
                   _isCTF_throneSpawn = false,
-  				  _isCTF_Flag = false,
+                  _isCTF_Flag = false,
                   _isEventMobFOS = false,
                   _isFOS_Artifact = false,
                   _isEventVIPNPC = false,
@@ -158,7 +158,12 @@ public class L2NpcInstance extends L2Character
     private int _isSpoiledBy = 0;
 
     protected RandomAnimationTask _rAniTask = null;
-    
+    private int _currentLHandId;  // normally this shouldn't change from the template, but there exist exceptions
+    private int _currentRHandId;  // normally this shouldn't change from the template, but there exist exceptions
+
+    private int _currentCollisionHeight; // used for npc grow effect skills
+    private int _currentCollisionRadius; // used for npc grow effect skills
+
     /** Task launching the function onRandomAnimation()
     * Scheduled for L2MonsterInstance only if AllowRandomAnimation=true
     */
@@ -289,7 +294,14 @@ public class L2NpcInstance extends L2Character
         getStat();         // init stats
         getStatus();       // init status
         super.initCharStatusUpdateValues(); // init status upadte values
-        
+
+        // initialize the "current" equipment
+        _currentLHandId = getTemplate().getLhand();
+        _currentRHandId = getTemplate().getRhand();
+        // initialize the "current" collisions 
+        _currentCollisionHeight = getTemplate().getCollisionHeight();
+        _currentCollisionRadius = getTemplate().getCollisionRadius();
+
         if (template == null)
         {
             _log.fatal("No template for Npc. Please check your datapack is setup correctly.");
@@ -482,7 +494,7 @@ public class L2NpcInstance extends L2Character
      */
     public int getLeftHandItem()
     {
-        return getTemplate().getLhand();
+        return _currentLHandId;
     }
     
     /**
@@ -490,7 +502,7 @@ public class L2NpcInstance extends L2Character
      */
     public int getRightHandItem()
     {
-        return getTemplate().getRhand();
+        return _currentRHandId;
     }
     
     /**
@@ -2535,6 +2547,12 @@ public class L2NpcInstance extends L2Character
         if (!super.doDie(killer))
             return false;
 
+        // normally this wouldn't really be needed, but for those few exceptions, 
+        // we do need to reset the weapons back to the initial templated weapon.
+        _currentLHandId = getTemplate().getLhand();
+        _currentRHandId = getTemplate().getRhand();
+        _currentCollisionHeight = getTemplate().getCollisionHeight();
+        _currentCollisionRadius = getTemplate().getCollisionRadius();
         DecayTaskManager.getInstance().addDecayTask(this);
         return true;
     }
@@ -2640,5 +2658,37 @@ public class L2NpcInstance extends L2Character
     public boolean isMob() // rather delete this check
     {
         return false; // This means we use MAX_NPC_ANIMATION instead of MAX_MONSTER_ANIMATION
+    }
+
+    // Two functions to change the appearance of the equipped weapons on the NPC
+    // This is only useful for a few NPCs and is most likely going to be called from AI
+    public void setLHandId(int newWeaponId)
+    {
+        _currentLHandId = newWeaponId;
+    }
+
+    public void setRHandId(int newWeaponId)
+    {
+        _currentRHandId = newWeaponId;
+    }
+
+    public void setCollisionHeight(int height)
+    {
+        _currentCollisionHeight = height;
+    }
+
+    public void setCollisionRadius(int radius)
+    {
+        _currentCollisionRadius = radius;
+    }
+
+    public int getCollisionHeight()
+    {
+        return _currentCollisionHeight;
+    }
+
+    public int getCollisionRadius()
+    {
+        return _currentCollisionRadius;
     }
 }

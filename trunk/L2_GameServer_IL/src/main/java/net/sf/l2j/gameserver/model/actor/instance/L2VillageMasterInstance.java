@@ -135,7 +135,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         }
         else if (actualCommand.equalsIgnoreCase("recover_clan"))
         {
-        	recoverClan(player, player.getClanId());
+            recoverClan(player, player.getClanId());
         }
         else if (actualCommand.equalsIgnoreCase("increase_clan_level"))
         {
@@ -152,12 +152,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         }
         else if (command.startsWith("Subclass"))
         { 
-        	int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
+            int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
 
             // Subclasses may not be changed while a skill is in use.
             if (player.isCastingNow() || player.isAllSkillsDisabled())
             {
-            	player.sendPacket(new SystemMessage(SystemMessageId.SUBCLASS_NO_CHANGE_OR_CREATE_WHILE_SKILL_IN_USE));
+                player.sendPacket(new SystemMessage(SystemMessageId.SUBCLASS_NO_CHANGE_OR_CREATE_WHILE_SKILL_IN_USE));
                 return;
             }
 
@@ -277,8 +277,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         allowAddition = false;
                     }
                     
-                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP){
-                        player.sendMessage("You can't add subclass while in events.");
+                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP || player._inEventFOS)
+                    {
+                        player.sendMessage("You can't add a subclass while in an event.");
                         return;
                     }
                     
@@ -360,9 +361,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                      *
                      * Note: paramOne = classIndex
                      */
-                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
+                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP || player._inEventFOS)
                     {
-                         player.sendMessage("You can't change subclass while in events.");  
+                         player.sendMessage("You can't change subclass while in an event.");  
                          return;  
                     }
 
@@ -416,7 +417,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
                         // check player skills
                         if(Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
-                        	player.checkAllowedSkills();
+                            player.checkAllowedSkills();
                     }
                     else
                     {
@@ -736,7 +737,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     
     private final Set<PlayerClass> getAvailableSubClasses(L2PcInstance player)
     {
-    	int charClassId = player.getBaseClass();
+        int charClassId = player.getBaseClass();
 
         if (charClassId >= 88) charClassId = ClassId.values()[charClassId].getParent().getId();
 
