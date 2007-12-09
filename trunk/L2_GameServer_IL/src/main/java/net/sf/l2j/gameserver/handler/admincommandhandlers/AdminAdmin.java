@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.NpcWalkerRoutesTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
@@ -417,6 +418,12 @@ public class AdminAdmin implements IAdminCommandHandler
 					Manager.reloadAll();
 					activeChar.sendMessage("All instance manager has been reloaded");
 				}
+				else if(type.startsWith("npcwalkers"))
+				{
+					NpcWalkerRoutesTable.getInstance().load();
+					activeChar.sendMessage("All NPC walker routes have been reloaded");
+					
+				}				
 				else if(type.equals("tradelist"))
 				{
 					TradeListTable.getInstance().reloadAll();
@@ -434,7 +441,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zones|mapregion>");
+					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zones|mapregion|npcwalkers>");
 				}
 			}
 			catch(Exception e)

@@ -43,6 +43,7 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.LevelUpData;
 import net.sf.l2j.gameserver.datatables.NobleSkillTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.NpcWalkerRoutesTable;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.datatables.SkillSpellbookTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -200,6 +201,8 @@ public class GameServer
         NpcTable.getInstance();
         HtmCache.getInstance();
         BuffTemplateTable.getInstance();
+        if(Config.ALLOW_NPC_WALKERS)
+        	NpcWalkerRoutesTable.getInstance().load();
         PetDataTable.getInstance().loadPetsData();
         Util.printSection("Spawns");
         SpawnTable.getInstance();

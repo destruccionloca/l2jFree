@@ -1012,6 +1012,7 @@ public final class Config
     public static boolean       		ALLOW_RENTPET;
     public static boolean 	    		ALLOW_BOAT;
     public static boolean        		ALLOW_CURSED_WEAPONS;			// Allow cursed weapons ?
+    public static boolean          		ALLOW_NPC_WALKERS;   			//WALKER NPC    
     public static enum         ChatMode { GLOBAL, REGION, GM, OFF }
     public static              ChatMode DEFAULT_GLOBAL_CHAT;			// Global chat state
     public static int					GLOBAL_CHAT_TIME;
@@ -1116,6 +1117,7 @@ public final class Config
             ALLOW_FISHING                   = Boolean.parseBoolean(optionsSettings.getProperty("AllowFishing", "True"));
             ALLOW_MANOR                     = Boolean.parseBoolean(optionsSettings.getProperty("AllowManor", "False"));
             ALLOW_BOAT                      = Boolean.parseBoolean(optionsSettings.getProperty("AllowBoat", "False"));
+            ALLOW_NPC_WALKERS               = Boolean.valueOf(optionsSettings.getProperty("AllowNpcWalkers", "true"));
             ALLOW_CURSED_WEAPONS            = Boolean.parseBoolean(optionsSettings.getProperty("AllowCursedWeapons", "False"));
             ALLOW_WEDDING                   = Boolean.parseBoolean(optionsSettings.getProperty("AllowWedding", "False"));
             ALLOW_GUARDS                    = Boolean.parseBoolean(optionsSettings.getProperty("AllowGuards", "False"));

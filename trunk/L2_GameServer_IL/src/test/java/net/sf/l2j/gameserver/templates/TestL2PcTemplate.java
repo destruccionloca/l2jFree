@@ -34,6 +34,7 @@ public class TestL2PcTemplate extends TestCase
         set.set("baseShldRate",21);
         set.set("baseCritRate",22);
         set.set("baseRunSpd",23);
+        set.set("baseWalkSpd",23);
         
         // Geometry
         set.set("collision_radius",56.0);
