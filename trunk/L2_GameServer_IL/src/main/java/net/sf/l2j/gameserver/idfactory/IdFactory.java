@@ -261,7 +261,7 @@ public abstract class IdFactory
             {
             }
             
-            s.executeUpdate("create table temporaryObjectTable" + " (object_id int NOT NULL PRIMARY KEY)");
+            s.executeUpdate("create table temporaryObjectTable" + " (object_id int NOT NULL PRIMARY KEY) engine=heap");
             
             s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select obj_id from characters");
             s.executeUpdate("insert into temporaryObjectTable (object_id)" + " select object_id from items");

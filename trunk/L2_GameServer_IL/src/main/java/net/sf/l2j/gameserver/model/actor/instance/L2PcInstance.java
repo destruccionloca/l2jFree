@@ -9369,8 +9369,8 @@ public final class L2PcInstance extends L2PlayableInstance
             if (!DimensionalRiftManager.getInstance().checkIfInPeaceZone(getX(), getY(), getZ()))
                 getParty().getDimensionalRift().memberRessurected(this);
         }
-
-        if((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventFOS && FortressSiege._started && Config.FortressSiege_REVIVE_RECOVERY))
+        
+        if((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventFOS && FortressSiege._started && Config.FortressSiege_REVIVE_RECOVERY) || (_inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY))
         {
             getStatus().setCurrentHp(getMaxHp());
             getStatus().setCurrentMp(getMaxMp());
