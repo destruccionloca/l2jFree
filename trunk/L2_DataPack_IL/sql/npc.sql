@@ -6829,3 +6829,16 @@ INSERT INTO `npc` VALUES
 	(29074, 29074, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
 	(29075, 29075, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
 	(29076, 29076, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b', 42, 34.5, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT');
+
+UPDATE `npc` SET `type` = 'L2NpcWalker' WHERE `id` IN (31358,31359,31360,31361,31362,31363,31357,31356,31364,31365,32070,32072);
+
+-- Try lowering walkspeed of walking NPC since seems to walk faster than retail
+UPDATE `npc` SET `runspd` = '45', `walkspd` = '45' WHERE `id` = '31360';
+UPDATE `npc` SET `runspd` = '45', `walkspd` = '45' WHERE `id` = '31362';
+UPDATE `npc` SET `runspd` = '45', `walkspd` = '45' WHERE `id` = '31359';
+UPDATE `npc` SET `runspd` = '45', `walkspd` = '45' WHERE `id` = '31358';
+UPDATE `npc` SET `runspd` = '45', `walkspd` = '45' WHERE `id` = '31357';
+UPDATE `npc` SET `runspd` = '25', `walkspd` = '25' WHERE `id` = '31364';
+UPDATE `npc` SET `runspd` = '25', `walkspd` = '25' WHERE `id` = '31365';
+UPDATE `npc` SET `runspd` = '50', `walkspd` = '50' WHERE `id` = '32070';
+UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12' WHERE `id` = '32072';

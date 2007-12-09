@@ -335,6 +335,7 @@ $MYG < ../sql/skill_trees.sql &> /dev/null
 $MYG < ../sql/spawnlist.sql &> /dev/null
 $MYG < ../sql/teleport.sql &> /dev/null
 $MYG < ../sql/topic.sql &> /dev/null
+$MYG < ../sql/walker_routes.sql &> /dev/null
 $MYG < ../sql/weapon.sql &> /dev/null
 echo "Installing L2JFree content"
 $MYG < ../sql/buff_templates.sql &> /dev/null

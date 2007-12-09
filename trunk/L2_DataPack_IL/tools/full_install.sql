@@ -15,7 +15,8 @@ DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,
                      olympiad_nobles,petitions,pets,pets_stats,pledge_skill_trees,posts,
                      quest_global_data,raidboss_spawnlist,random_spawn,random_spawn_loc,
                      record,seven_signs,seven_signs_festival,seven_signs_status,siege_clans,
-                     skill_learn,skill_spellbooks,skill_trees,spawnlist,teleport,topic,weapon;
+                     skill_learn,skill_spellbooks,skill_trees,spawnlist,teleport,topic,
+                     walker_routes,weapon;
 
 DROP TABLE IF EXISTS buff_templates,character_raidpoints,couples,ctf,ctf_teams,
                      custom_npc,custom_spawnlist,custom_armor,custom_etcitem,
