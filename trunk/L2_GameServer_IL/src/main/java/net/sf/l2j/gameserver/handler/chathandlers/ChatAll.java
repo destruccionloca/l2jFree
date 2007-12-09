@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.handler.chathandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IChatHandler;
 import net.sf.l2j.gameserver.model.BlockList;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
@@ -45,6 +46,15 @@ public class ChatAll implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
+        if (text.startsWith("~") && activeChar._inEventFOS && FortressSiege._started){
+        	CreatureSay cs = new CreatureSay(activeChar.getObjectId(), 16, activeChar.getName(), text.substring(1));
+        	if (FortressSiege._players!=null && !FortressSiege._players.isEmpty()) 
+        			for (L2PcInstance player: FortressSiege._players)
+        				if (player._teamNameFOS.equals(activeChar._teamNameFOS))
+        					player.sendPacket(cs);
+        	return;
+        }
+		
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 		for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
 		{
