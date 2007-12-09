@@ -72,6 +72,7 @@ import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
@@ -148,6 +149,8 @@ public class L2NpcInstance extends L2Character
                   _isEventMobCTF = false,
                   _isCTF_throneSpawn = false,
   				  _isCTF_Flag = false,
+                  _isEventMobFOS = false,
+                  _isFOS_Artifact = false,
                   _isEventVIPNPC = false,
                   _isEventVIPNPCEnd = false;
 
@@ -686,6 +689,10 @@ public class L2NpcInstance extends L2Character
                        TvT.showEventHtml(player, String.valueOf(getObjectId()));
                     else if (_isEventMobDM)
                         DM.showEventHtml(player, String.valueOf(getObjectId()));
+                    else if (_isEventMobFOS)
+                        FortressSiege.showEventHtml(player, String.valueOf(getObjectId()));
+                    else if (_isFOS_Artifact)
+                    	FortressSiege.showArtifactHtml(player, String.valueOf(getObjectId()));
                     else if (_isEventMobCTF)
                        CTF.showEventHtml(player, String.valueOf(getObjectId()));
                     else if (_isCTF_Flag && player._inEventCTF)
@@ -2427,7 +2434,7 @@ public class L2NpcInstance extends L2Character
             case 31770:
             case 31771:
             case 31772:
-                if (player.isHero())
+                if (player.isHero() && !player.isFakeHero())
                     filename = Olympiad.OLYMPIAD_HTML_FILE + "hero_main.htm";
                 else
                     filename = (getHtmlPath(npcId, val));

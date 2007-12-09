@@ -18,6 +18,12 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+/**
+ * CDSDDSS -> (0xd5)(objId)(name)(0x00)(type)(speaker)(name)
+ */
+
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+
 public class Snoop extends L2GameServerPacket
 {
 	private static final String _S__D5_SNOOP = "[S] D5 Snoop";
@@ -26,14 +32,16 @@ public class Snoop extends L2GameServerPacket
 	private int _type;
 	private String _speaker;
 	private String _msg;
+	private L2PcInstance GM;
 	
-	public Snoop(int id, String name, int type, String speaker, String msg)
+	public Snoop(int id, String name, int type, String speaker, String msg, L2PcInstance Snooper)
 	{
 		_convoId = id;
 		_name = name;
 		_type = type;
 		_speaker = speaker;
 		_msg = msg;
+		GM = Snooper;
 	}
 
 	/* (non-Javadoc)
@@ -42,15 +50,16 @@ public class Snoop extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xd5);
-		
-		writeD(_convoId);
-		writeS(_name);
-		writeD(0x00); //??
-		writeD(_type);
-		writeS(_speaker);
-		writeS(_msg);
-		
+//		TODO: NEEDS A NEW DECRYPTING, CURRENT ONE ONLY POPS THE WINDOW!
+			writeC(0xd5);
+			writeD(GM.getObjectId());
+			writeS(_name);
+			writeD(_convoId); //??
+			writeD(_type);
+			writeS("B");
+			writeS("blabla"+_convoId);
+			//System.out.println(_convoId+" "+_name+" "+_type+" "+_speaker+" "+_msg);
+			System.out.println(_convoId);
 	}
 
 	/* (non-Javadoc)

@@ -87,7 +87,7 @@ public class Say2 extends L2GameClientPacket
             _log.warn("[Say2.java] Active Character is null.");
             return;
         }
-
+ 
         // If player is chat banned
         if (activeChar.isChatBanned())
         {

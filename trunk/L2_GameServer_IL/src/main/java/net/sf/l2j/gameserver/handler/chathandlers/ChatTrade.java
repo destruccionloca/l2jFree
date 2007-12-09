@@ -70,8 +70,10 @@ public class ChatTrade implements IChatHandler
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
 				if (region == MapRegionManager.getInstance().getRegion(player.getX(),player.getY(), activeChar.getZ())
-					&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
+					&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar))){
 					player.sendPacket(cs);
+					player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+				}
 			}
 		}
 		else if (Config.DEFAULT_TRADE_CHAT == ChatMode.GLOBAL ||
@@ -79,8 +81,10 @@ public class ChatTrade implements IChatHandler
 		{
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 			{
-				if(!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
+				if(!(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar))){
 					player.sendPacket(cs);
+					player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+				}
 			}
 		}
 	}

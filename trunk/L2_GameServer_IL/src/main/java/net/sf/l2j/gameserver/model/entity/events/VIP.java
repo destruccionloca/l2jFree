@@ -814,6 +814,15 @@ public class VIP {
 
     public static void addPlayerVIP(L2PcInstance activeChar)
     {
+    	if (activeChar._inEventVIP)
+    	{
+    		activeChar.sendMessage("You already participated in the event!");
+    		return;
+    	}
+    	if (activeChar._inEventFOS || activeChar._inEventTvT || activeChar._inEventDM || activeChar._inEventCTF){
+    		activeChar.sendMessage("You already participated in another event!"); 
+            return;
+    	}
         activeChar._isVIP = true;
         _playersVIP.add(activeChar);
         activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();
@@ -823,6 +832,15 @@ public class VIP {
 
     public static void addPlayerNotVIP(L2PcInstance activeChar)
     {
+    	if (activeChar._inEventVIP)
+    	{
+    		activeChar.sendMessage("You already participated in the event!");
+    		return;
+    	}
+    	if (activeChar._inEventFOS || activeChar._inEventTvT || activeChar._inEventDM || activeChar._inEventCTF){
+    		activeChar.sendMessage("You already participated in another event!"); 
+            return;
+    	}
         activeChar._isNotVIP = true;
         _playersNotVIP.add(activeChar);
         activeChar._originalNameColourVIP = activeChar.getAppearance().getNameColor();

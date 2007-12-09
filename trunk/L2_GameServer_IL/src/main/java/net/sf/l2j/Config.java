@@ -2011,6 +2011,7 @@ public final class Config
     //  *******************************************************************************************
     public static String TVT_EVEN_TEAMS;
     public static String CTF_EVEN_TEAMS;
+    public static String FortressSiege_EVEN_TEAMS;
     public static boolean CTF_ALLOW_INTERFERENCE;
     public static boolean CTF_ALLOW_POTIONS;
     public static boolean CTF_ALLOW_SUMMON;
@@ -2018,6 +2019,15 @@ public final class Config
     public static boolean CTF_ON_START_UNSUMMON_PET;
     public static boolean CTF_ANNOUNCE_TEAM_STATS;
     public static boolean CTF_JOIN_CURSED;
+    public static boolean FortressSiege_ALLOW_INTERFERENCE;
+    public static boolean FortressSiege_ALLOW_POTIONS;
+    public static boolean FortressSiege_ALLOW_SUMMON;
+    public static boolean FortressSiege_ON_START_REMOVE_ALL_EFFECTS;
+    public static boolean FortressSiege_ON_START_UNSUMMON_PET;
+    public static boolean FortressSiege_ANNOUNCE_TEAM_STATS;
+    public static boolean FortressSiege_JOIN_CURSED;    
+    public static boolean FortressSiege_REVIVE_RECOVERY;
+    public static boolean FortressSiege_PRICE_NO_KILLS;
     public static boolean TVT_ALLOW_INTERFERENCE;
     public static boolean TVT_ALLOW_POTIONS;
     public static boolean TVT_ALLOW_SUMMON;
@@ -2044,6 +2054,17 @@ public final class Config
            funEnginesSettings.load(is);
            is.close();
            
+           FortressSiege_EVEN_TEAMS = funEnginesSettings.getProperty("FortressSiegeEvenTeams", "BALANCE");
+           FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowInterference", "false"));
+           FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowPotions", "false"));
+           FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowSummon", "false"));
+           FortressSiege_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeOnStartRemoveAllEffects", "true"));
+           FortressSiege_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeOnStartUnsummonPet", "true"));
+           FortressSiege_REVIVE_RECOVERY = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeReviveRecovery", "false"));
+           FortressSiege_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAnnounceTeamStats", "false"));
+           FortressSiege_PRICE_NO_KILLS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegePriceNoKills", "false"));
+           FortressSiege_JOIN_CURSED = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeJoinWithCursedWeapon", "true"));
+           
            CTF_EVEN_TEAMS = funEnginesSettings.getProperty("CTFEvenTeams", "BALANCE");
            CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowInterference", "false"));
            CTF_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAllowPotions", "false"));
@@ -2052,7 +2073,7 @@ public final class Config
            CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartUnsummonPet", "true"));
            CTF_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAnnounceTeamStats", "false"));
            CTF_JOIN_CURSED = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFJoinWithCursedWeapon", "true"));
-           
+    
            TVT_EVEN_TEAMS = funEnginesSettings.getProperty("TvTEvenTeams", "BALANCE");
            TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowInterference", "false"));
            TVT_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowPotions", "false"));
@@ -2688,7 +2709,15 @@ public final class Config
         else if (pName.equalsIgnoreCase("TradeChat")) DEFAULT_TRADE_CHAT = ChatMode.valueOf(pValue.toUpperCase());
 		else if (pName.equalsIgnoreCase("MenuStyle")) GM_ADMIN_MENU_STYLE = pValue;
         
-        else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
+        else if (pName.equalsIgnoreCase("FortressSiegeEvenTeams"))  FortressSiege_EVEN_TEAMS = pValue;
+        else if (pName.equalsIgnoreCase("FortressSiegeAllowInterference")) FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("FortressSiegeAllowPotions")) FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("FortressSiegeAllowSummon")) FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("FortressSiegeOnStartRemoveAllEffects")) FortressSiege_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("FortressSiegeOnStartUnsummonPet")) FortressSiege_ON_START_UNSUMMON_PET = Boolean.parseBoolean(pValue);
+
+        
+		else if (pName.equalsIgnoreCase("CTFEvenTeams"))  CTF_EVEN_TEAMS = pValue;
         else if (pName.equalsIgnoreCase("CTFAllowInterference")) CTF_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("CTFAllowPotions")) CTF_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("CTFAllowSummon")) CTF_ALLOW_SUMMON = Boolean.parseBoolean(pValue);

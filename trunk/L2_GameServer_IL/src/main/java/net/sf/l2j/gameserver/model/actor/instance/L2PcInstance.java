@@ -135,6 +135,7 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
@@ -443,8 +444,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private TradeList _sellList;
     private TradeList _buyList;
     
-    private List<L2PcInstance> _snoopListener = new FastList<L2PcInstance>();
-    private List<L2PcInstance> _snoopedPlayer = new FastList<L2PcInstance>();
+    private List<L2PcInstance> _snoopListener = new FastList<L2PcInstance>(); // list of GMs
+    private List<L2PcInstance> _snoopedPlayer = new FastList<L2PcInstance>(); // list of players being snooped
 
     /** The Private Store type of the L2PcInstance (STORE_PRIVATE_NONE=0, STORE_PRIVATE_SELL=1, sellmanage=2, STORE_PRIVATE_BUY=3, buymanage=4, STORE_PRIVATE_MANUFACTURE=5) */
     private int _privatestore;
@@ -588,6 +589,14 @@ public final class L2PcInstance extends L2PlayableInstance
                _originalKarmaTvT;
     public boolean _inEventTvT = false;
    
+    /** FOS Engine parameters */
+    public String 	_teamNameFOS;
+    public int 		_originalNameColorFOS,
+    				_countFOSKills,
+    				_originalKarmaFOS;
+    public boolean 	_inEventFOS = false,
+    				_FOSRulerSkills = false;
+    
     /** CTF Engine parameters */
     public String _teamNameCTF,
                  _teamNameHaveFlagCTF,
@@ -636,6 +645,7 @@ public final class L2PcInstance extends L2PlayableInstance
     //Death Penalty Buff Level
     private int _deathPenaltyBuffLevel = 0;
 
+    private boolean _fakeHero = false;
     private boolean _hero = false;
     private boolean _noble = false;
     private boolean _inOlympiadMode = false;
@@ -2464,7 +2474,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
         }
-        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP)
+        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP || FortressSiege._sitForced && _inEventFOS)
            sendMessage("The Admin/GM handle if you sit or stand in this match!");
         else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!_protectedSitStand || force))
         {
@@ -3333,13 +3343,20 @@ public final class L2PcInstance extends L2PlayableInstance
             return;
         }
         
-        if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE))
+        if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (FortressSiege._started && !Config.FortressSiege_ALLOW_INTERFERENCE))
         {
             if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
             {
                 player.sendPacket(new ActionFailed());
                 return;
             }
+
+            if ((_inEventFOS && !player._inEventFOS) || (!_inEventFOS && player._inEventFOS))
+            {
+                player.sendPacket(new ActionFailed());
+                return;
+            }
+            
             else if ((_inEventCTF && !player._inEventCTF) || (!_inEventCTF && player._inEventCTF))
             {
                 player.sendPacket(new ActionFailed());
@@ -3382,7 +3399,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             {
                 // Check if this L2PcInstance is autoAttackable
-                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started))
+                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started) || (player._inEventFOS && FortressSiege._started))
                 {
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
@@ -3425,7 +3442,7 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public boolean isInFunEvent()
     {
-    	return(atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP));
+    	return(atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || (FortressSiege._started && _inEventFOS));
     }
 
 	/**
@@ -4022,6 +4039,39 @@ public final class L2PcInstance extends L2PlayableInstance
 
             boolean clanWarKill = false;
 
+            if ((killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventFOS) && _inEventFOS)
+            {
+                if (FortressSiege._teleport || FortressSiege._started)
+                {
+                    if (!(((L2PcInstance)killer)._teamNameFOS.equals(_teamNameFOS)))
+                        ((L2PcInstance)killer)._countFOSKills++;
+                    else{
+                        ((L2PcInstance)killer).sendMessage("Team Kills do not count as kills. They will only harm you in this event");
+                        ((L2PcInstance)killer)._countFOSKills--;
+                    }
+                    sendMessage("You will be revived and teleported to team spot in 10 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable(){
+                        public void run(){
+                            teleToLocation(FortressSiege._teamsX.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsY.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(_teamNameFOS)), false);
+                            doRevive();
+                            updateFOSTitleFlag();
+                        }
+                    }, 10000);
+                }
+            }
+            else if (_inEventFOS){
+                if (FortressSiege._teleport || FortressSiege._started){
+                    sendMessage("You will be revived and teleported to team spot in 10 seconds!");
+                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable(){
+                        public void run(){
+                        	teleToLocation(FortressSiege._teamsX.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsY.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(_teamNameFOS)), false);                            
+                            doRevive();
+                            updateFOSTitleFlag();
+                        }
+                    }, 10000);
+                }
+            }
+            
             if ((killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventTvT) && _inEventTvT)
             {
                 if (TvT._teleport || TvT._started)
@@ -4284,7 +4334,7 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private void onDieDropItem(L2Character killer)
     {
-        if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || killer == null)
+        if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || (FortressSiege._started && _inEventFOS) || killer == null)
         return;
 
         if (getKarma() <= 0 && killer instanceof L2PcInstance
@@ -4409,7 +4459,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (target == null) return;
         if (!(target instanceof L2PlayableInstance)) return;
-        if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM ) return;
+        if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM || _inEventFOS) return;
 
         L2PcInstance targetPlayer = null;
         if (target instanceof L2PcInstance) targetPlayer = (L2PcInstance) target;
@@ -4517,7 +4567,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePvpKills()
     {
-        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
+        if ((FortressSiege._started && _inEventFOS) || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
             return;
 
         // Add karma to attacker and increase its PK counter
@@ -4534,7 +4584,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePkKillsAndKarma(int targLVL)
     {
-        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
+        if ((FortressSiege._started && _inEventFOS) || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
             return;
 
         int baseKarma = Config.KARMA_MIN_KARMA;
@@ -4601,7 +4651,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void updatePvPStatus()
     {
-        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
+        if ((FortressSiege._started && _inEventFOS) || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
             return;
 
         if (getInPvpZone()) return;
@@ -4622,7 +4672,7 @@ public final class L2PcInstance extends L2PlayableInstance
            
         if (player_target == null)
            return;
-        if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM) || (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP))  
+        if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM) || (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP) || (_inEventFOS && FortressSiege._started && player_target._inEventFOS))  
            return; 
         
         if ((isInDuel() && player_target.getDuelId() == getDuelId())) return;
@@ -4682,7 +4732,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Calculate the Experience loss
         long lostExp = 0;
-        if (!atEvent && !_inEventTvT && !_inEventDM && !_inEventCTF && (!_inEventVIP && !VIP._started))
+        if (!atEvent && !_inEventTvT && !_inEventFOS && !_inEventDM && !_inEventCTF && (!_inEventVIP && !VIP._started))
         {
             if (lvl < Experience.MAX_LEVEL) 
                 lostExp = Math.round((getStat().getExpForLevel(lvl+1) - getStat().getExpForLevel(lvl)) * percentLost /100);
@@ -7406,7 +7456,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
 
             // Check if a Forced ATTACK is in progress on non-attackable target
-            if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventDM && DM._started) && !(_inEventCTF && CTF._started) && !(_inEventVIP && VIP._started) &&
+            if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventFOS && FortressSiege._started) && !(_inEventDM && DM._started) && !(_inEventCTF && CTF._started) && !(_inEventVIP && VIP._started) &&
                    sklTargetType != SkillTargetType.TARGET_AURA &&
                    sklTargetType != SkillTargetType.TARGET_CLAN &&
                    sklTargetType != SkillTargetType.TARGET_ALLY &&
@@ -7538,12 +7588,14 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         if (sklTargetType == SkillTargetType.TARGET_HOLY && 
-               !TakeCastle.checkIfOkToCastSealOfRule(this, false))
+               (!FortressSiege.checkIfOkToCastSealOfRule(this) && !TakeCastle.checkIfOkToCastSealOfRule(this, false)))
         {
             sendPacket(new ActionFailed());
             abortCast();
             return;
         }
+        if (sklTargetType == SkillTargetType.TARGET_HOLY && FortressSiege.checkIfOkToCastSealOfRule(this))
+        	FortressSiege.Announcements(getName()+" from team "+FortressSiege._teams.get(0)+" has begun engraving the Artifact.");
 
         if (sklType == SkillType.SIEGEFLAG && 
                !SiegeManager.checkIfOkToPlaceFlag(this, false))
@@ -7598,7 +7650,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean checkPvpSkill(L2Object target, L2Skill skill)
     {
-        if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
+        if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started)  || (_inEventFOS && FortressSiege._started))
             return true;
         
 		// check for PC->PC Pvp status
@@ -8360,6 +8412,10 @@ public final class L2PcInstance extends L2PlayableInstance
         return _friendList;
     }
     
+    public void setFakeHero(boolean hero){
+    	_fakeHero = hero;
+    }
+    
     public void setHero(boolean hero)
     {
         if (hero && _baseClass == _activeClass)
@@ -8386,6 +8442,11 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean isOlympiadStart()
     {
         return _olympiadStart;
+    }
+
+    public boolean isFakeHero()
+    {
+        return _fakeHero;
     }
 
     public boolean isHero()
@@ -9308,7 +9369,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 getParty().getDimensionalRift().memberRessurected(this);
         }
 
-        if(_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY)
+        if((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventFOS && FortressSiege._started && Config.FortressSiege_REVIVE_RECOVERY))
         {
             getStatus().setCurrentHp(getMaxHp());
             getStatus().setCurrentMp(getMaxMp());
@@ -9549,35 +9610,89 @@ public final class L2PcInstance extends L2PlayableInstance
     		getTrainedBeast().onOwnerGotAttacked(attacker);        
     }
 
-    public void broadcastSnoop(int type, String name, String _text)
+    /**
+     * Function is used in the PLAYER, calls snoop for all GMs listening to this player speak.
+     * @param objectId - of the snooped player
+     * @param type - type of msg channel of the snooped player
+     * @param name - name of snooped player
+     * @param _text - the msg the snooped player sent/received
+     */
+    public void broadcastSnoop(int objectId, int type, String name, String _text)
     {
-        if (_snoopListener.size() > 0)
+        if (_snoopListener==null)
+        	return;
+    	if (_snoopListener.size() > 0)
         {
-            Snoop sn = new Snoop(getObjectId(), getName(), type, name, _text);
-
             for (L2PcInstance pci : _snoopListener)
-                if (pci != null) pci.sendPacket(sn);
+                if (pci != null){ 
+                    Snoop sn = new Snoop(getObjectId(), getName(), type, name, _text,pci);
+                	pci.sendPacket(sn);
+                }
         }
     }
-
+    
+    public void refreshSnoop(){
+    	if (_snoopedPlayer==null)
+    		return;
+    	if (_snoopedPlayer.size()>0)
+    		for (L2PcInstance p : _snoopedPlayer){
+    			Snoop sn = new Snoop(getObjectId(), getName(), 0, p.getName(), "***Restarting Snoop for "+p.getName()+"***",this);
+    			sendPacket(sn);
+    		}
+    }
+    
+    /**
+     * Adds a spy ^^ GM to the player listener.
+     * @param pci - GM char that listens to the conversation
+     */
     public void addSnooper(L2PcInstance pci)
     {
-        if (!_snoopListener.contains(pci)) _snoopListener.add(pci);
+        if (!_snoopListener.contains(pci))
+        	_snoopListener.add(pci); // gm list of "pci"s
     }
 
     public void removeSnooper(L2PcInstance pci)
     {
-        _snoopListener.remove(pci);
+    	if (_snoopListener==null)
+    		return;
+    	if (_snoopListener.size()>0)
+    		_snoopListener.remove(pci);
+   }
+
+    public void removeSnooped(L2PcInstance snooped){
+    	if (_snoopedPlayer==null)
+    		return;
+    	if (_snoopedPlayer.size()>0)
+    		_snoopedPlayer.remove(snooped);
+    }
+    
+    public void removeSnooped()
+    {
+    	if (_snoopedPlayer==null)
+    		return;
+    	if (_snoopedPlayer.size()>0){
+    		L2PcInstance player = _snoopedPlayer.get(0); 
+    		_snoopedPlayer.remove(0);
+    		if (player!=null)
+    			player.removeSnooper(this);
+    	}
     }
 
+    /**
+     * Adds a player to the GM queue for being listened.
+     * @param pci - player we listen to
+     */    
     public void addSnooped(L2PcInstance pci)
     {
-        if (!_snoopedPlayer.contains(pci)) _snoopedPlayer.add(pci);
-    }
-
-    public void removeSnooped(L2PcInstance pci)
-    {
-        _snoopedPlayer.remove(pci);
+        if (!_snoopedPlayer.contains(pci)){
+        	_snoopedPlayer.add(pci); // list of players to listen to them...
+        	//for (int x=0xffffff;x>0;x--){
+        		Snoop sn = new Snoop(pci.getObjectId(), pci.getName(), 0, getName(), "***Starting Snoop for "+pci.getName()+"***",this);
+        	//	Snoop sn = new Snoop(x, pci.getName(), x%3, getName(), "***Starting Snoop for "+pci.getName()+"***",this);
+        		sendPacket(sn);
+        	//	for(int y=0;y<10000000;y++){}
+        	//}
+        }
     }
 
     public synchronized void addBypass(String bypass)
@@ -10995,5 +11110,17 @@ public final class L2PcInstance extends L2PlayableInstance
 			currenteffect.destroy();
 		}
 		stopAllEffects(); 
+	}
+	
+	public boolean checkFOS(){
+		return FortressSiege.checkIfOkToCastSealOfRule(this);
+	}
+	
+	public Map<Integer,L2Skill> returnSkills(){
+		return _skills;
+	}
+	
+	public void updateFOSTitleFlag(){
+		FortressSiege.setTitleSiegeFlags(this);
 	}
 }

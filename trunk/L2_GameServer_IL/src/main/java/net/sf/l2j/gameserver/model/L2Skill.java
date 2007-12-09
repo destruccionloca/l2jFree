@@ -1399,9 +1399,11 @@ public abstract class L2Skill
         }*/
         case TARGET_HOLY:
         {
-            if (activeChar instanceof L2PcInstance && activeChar.getTarget() instanceof L2ArtefactInstance)
-            {
-                return new L2Character[] {(L2ArtefactInstance) activeChar.getTarget()};
+            if (activeChar instanceof L2PcInstance){
+            	 if (activeChar.getTarget() instanceof L2ArtefactInstance)
+            		 return new L2Character[] {(L2ArtefactInstance) activeChar.getTarget()};
+            	 else if ( ((L2PcInstance)activeChar).checkFOS())
+            		 return new L2Character[] {(L2NpcInstance) activeChar.getTarget()};
             }
 
             return null;

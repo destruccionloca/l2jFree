@@ -653,11 +653,31 @@ public class DM
     
     public static boolean addPlayerOk(L2PcInstance eventPlayer)
     {
-        if (CTF._savePlayers.contains(eventPlayer.getName()) || TvT._savePlayers.contains(eventPlayer.getName())) 
-        {
-            eventPlayer.sendMessage("You already participate in another event!"); 
+    	if (eventPlayer._inEventTvT)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
             return false;
-        }
+    	}    	
+    	if (eventPlayer._inEventCTF)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
+            return false;
+    	}    	
+    	if (eventPlayer._inEventFOS)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
+            return false;
+    	}    	
+    	if (eventPlayer._inEventDM)
+    	{
+    		eventPlayer.sendMessage("You already participated in the event!"); 
+            return false;
+    	}    	
+    	if (eventPlayer._inEventVIP)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
+            return false;
+    	}
 
         return true;
     }

@@ -23,25 +23,25 @@ package net.sf.l2j.gameserver.network;
  */
 public enum SystemChatChannelId
 {
-	Chat_Normal ("ALL"),
-	Chat_Shout ("SHOUT"), // !
-	Chat_Tell ("WHISPER"), // "
-	Chat_Party ("PARTY"), // #
-	Chat_Clan ("CLAN"), // @
-	Chat_System ("EMOTE"), // (
-	Chat_User_Pet ("USERPET"), // *
-	Chat_GM_Pet ("GMPET"), // *
-	Chat_Market ("TRADE"), // +
-	Chat_Alliance ("ALLIANCE"), // $
-	Chat_Announce ("ANNOUNCE"),
-	Chat_Custom ("CRASH"),
-	Chat_L2Friend ("L2FRIEND"),
-	Chat_MSN ("MSN"),
-	Chat_Party_Room ("PARTYROOM"),
-	Chat_Commander ("COMMANDER"),
-	Chat_Inner_Partymaster ("INNERPARTYMASTER"),
-	Chat_Hero ("HERO"), // %
-	Chat_Critical_Announce ("CRITANNOUNCE"),
+	Chat_Normal ("ALL"),// id = 0 , white
+	Chat_Shout ("SHOUT"), // ! id = 1 , dark orange
+	Chat_Tell ("WHISPER"), // " id = 2, purple
+	Chat_Party ("PARTY"), // # id = 3, green
+	Chat_Clan ("CLAN"), // @ id = 4, blue/purple
+	Chat_System ("EMOTE"), // ( id = 5
+	Chat_User_Pet ("USERPET"), // * id = 6
+	Chat_GM_Pet ("GMPET"), // * id = 7
+	Chat_Market ("TRADE"), // + id = 8 pink
+	Chat_Alliance ("ALLIANCE"), // $ id = 9 light green
+	Chat_Announce ("ANNOUNCE"), // id = 10 light cyan
+	Chat_Custom ("CRASH"), // id = 11 --> Crashes client
+	Chat_L2Friend ("L2FRIEND"), // id = 12 
+	Chat_MSN ("MSN"),// id = 13
+	Chat_Party_Room ("PARTYROOM"),// id = 14
+	Chat_Commander ("COMMANDER"),// id = 15 
+	Chat_Inner_Partymaster ("INNERPARTYMASTER"),// id = 16 
+	Chat_Hero ("HERO"), // % id = 17 blue
+	Chat_Critical_Announce ("CRITANNOUNCE"),// id = 18 dark cyan
 	Chat_None ("NONE");
 
 	private String _channelName;

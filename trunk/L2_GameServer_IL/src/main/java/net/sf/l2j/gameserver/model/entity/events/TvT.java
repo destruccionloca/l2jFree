@@ -1307,20 +1307,13 @@ public class TvT
     
     public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
     {
-    	if (checkShufflePlayers(eventPlayer))
+    	if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventTvT)
     	{
     		eventPlayer.sendMessage("You already participated in the event!");
     		return false;
     	}
-    	if (eventPlayer._inEventTvT)
-    	{
-    		eventPlayer.sendMessage("You already participated in the event!"); 
-            return false;
-    	}
-    	
-    	if (eventPlayer._inEventCTF)
-    	{
-    		eventPlayer.sendMessage("You already participated in the event!"); 
+    	if (eventPlayer._inEventFOS || eventPlayer._inEventCTF || eventPlayer._inEventDM || eventPlayer._inEventVIP){
+    		eventPlayer.sendMessage("You already participated in another event!"); 
             return false;
     	}
     	

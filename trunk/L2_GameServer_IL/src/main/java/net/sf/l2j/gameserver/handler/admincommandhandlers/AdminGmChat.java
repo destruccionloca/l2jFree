@@ -71,8 +71,13 @@ public class AdminGmChat implements IAdminCommandHandler
 			return;
 		}
 		L2PcInstance player = (L2PcInstance)target;
-		player.addSnooper(activeChar);
-		activeChar.addSnooped(player);
+		if (player.getAccessLevel()>activeChar.getAccessLevel()){
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			player.sendMessage(activeChar.getName()+" tried to snoop your conversations. Blocked.");
+			return;
+		}
+		player.addSnooper(activeChar); // GM added to player list
+		activeChar.addSnooped(player); // Player added to GM list
 	}
 
 	public String[] getAdminCommandList()

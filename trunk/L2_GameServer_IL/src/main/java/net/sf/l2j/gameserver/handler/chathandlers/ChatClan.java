@@ -48,5 +48,6 @@ public class ChatClan implements IChatHandler
 
 		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 		activeChar.getClan().broadcastToOnlineMembers(cs);
+		activeChar.getClan().broadcastSnoopToOnlineMembers(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 	}
 }

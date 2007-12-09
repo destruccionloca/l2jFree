@@ -53,5 +53,6 @@ public class ChatPetition implements IChatHandler
 		}
 		
 		PetitionManager.getInstance().sendActivePetitionMessage(activeChar, text);
+		activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), "*Petition:"+text);
 	}
 }

@@ -19,7 +19,7 @@
 
 /**
  * 
- * @author FBIagent / fixed and moded for l2jfree by SqueezeD & Darki699
+ * @author SqueezeD & Darki699 (idea by FBIAgent)
  * 
  */
 
@@ -207,11 +207,23 @@ public class CTF
 	
 	//Collored Announcements 8D for CTF
 	public static void Announcements(String announce){
-		CreatureSay cs = new CreatureSay(0, 18, "", announce);
-		for (L2PcInstance player: L2World.getInstance().getAllPlayers())
-			if (player != null)
-				player.sendPacket(cs);
+		CreatureSay cs = new CreatureSay(0, 18, "", "Announcements: "+announce);
+			if (!_started && !_teleport)
+				for (L2PcInstance player: L2World.getInstance().getAllPlayers()){
+					if (player != null)
+						if (player.isOnline()!=0)
+							player.sendPacket(cs);
+				}
+			else{
+				if (_players!=null && !_players.isEmpty())
+					for (L2PcInstance player: _players){
+						if (player != null)
+							if (player.isOnline()!=0)
+								player.sendPacket(cs);
+					}
+			}
 	}
+		
 	public static void Started(L2PcInstance player){
 		player._teamNameHaveFlagCTF=null;
 		player._haveFlagCTF = false;
@@ -1798,21 +1810,16 @@ public class CTF
     
     public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
     {
-    	if (checkShufflePlayers(eventPlayer))
+    	if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventCTF)
     	{
     		eventPlayer.sendMessage("You already participated in the event!");
     		return false;
     	}
-    	if (eventPlayer._inEventCTF)
-    	{
-    		eventPlayer.sendMessage("You already participated in the event!"); 
+    	if (eventPlayer._inEventFOS || eventPlayer._inEventTvT || eventPlayer._inEventDM || eventPlayer._inEventVIP){
+    		eventPlayer.sendMessage("You already participated in another event!"); 
             return false;
     	}
-    	if (eventPlayer._inEventTvT)
-    	{
-    		eventPlayer.sendMessage("You already participated in the event!"); 
-            return false;
-    	}    	
+    	
     	for(L2PcInstance player: _players)
     	{
     		if(player.getObjectId()==eventPlayer.getObjectId())

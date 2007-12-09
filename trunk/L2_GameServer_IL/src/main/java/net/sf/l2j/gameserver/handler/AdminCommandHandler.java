@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminBBS;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminBan;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminBanChat;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCTFEngine;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminFortressSiegeEngine;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCache;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminChangeAccessLevel;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminCreateItem;
@@ -117,6 +118,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminCache());
         registerAdminCommandHandler(new AdminChangeAccessLevel());
         registerAdminCommandHandler(new AdminCreateItem());
+        registerAdminCommandHandler(new AdminFortressSiegeEngine());
         registerAdminCommandHandler(new AdminCTFEngine());
         registerAdminCommandHandler(new AdminCursedWeapons());
         registerAdminCommandHandler(new AdminDelete());

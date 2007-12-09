@@ -54,7 +54,9 @@ public class ChatWhisper implements IChatHandler
 			if (!receiver.getMessageRefusal() || activeChar.isGM())
 			{
 				receiver.sendPacket(new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text));
+				receiver.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 				activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(),  chatType.getId(), "->" + receiver.getName(), text));
+				activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), "->"+receiver.getName(), text);
 			}
 			else
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE));

@@ -25,11 +25,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
+import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
@@ -72,8 +76,10 @@ public class AdminTeleport implements IAdminCommandHandler
 		"admin_move_to",
 		"admin_teleport_character",
 		"admin_recall",
+		"admin_recall_gm", //[L2J_JP ADD - TSL]
 		"admin_recall_party", //[L2J_JP ADD - TSL]
 		"admin_recall_all", //[L2J_JP ADD - TSL]
+		"admin_recall_offline",
 		"admin_walk",
 		"admin_recall_npc",
 		"admin_go",
@@ -94,6 +100,19 @@ public class AdminTeleport implements IAdminCommandHandler
 		else if (command.equals("admin_teleto"))
 		{
 			activeChar.setTeleMode(1);
+		}
+		else if (command.startsWith("admin_recall_offline "))
+		{
+			try{
+				String[] param = command.split(" ");
+				if (param.length<2){
+					activeChar.sendMessage("Wrong usage: //recall_offline <player name>");
+					return false;
+				}
+				changeCharacterPosition(activeChar, param[1]);
+			}
+			catch(Throwable t){			
+			}
 		}
 		else if (command.equals("admin_teleto r"))
 		{
@@ -215,6 +234,15 @@ public class AdminTeleport implements IAdminCommandHandler
 					else
 						activeChar.sendMessage("Wrong or Player is not in party.");
 				}
+			}
+			catch (StringIndexOutOfBoundsException e)
+			{ }
+		}
+		else if (command.startsWith("admin_recall_gm ")){
+			try{
+				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+					if (player.getAccessLevel()>0)
+						teleportCharacter(player, activeChar.getX(), activeChar.getY(), activeChar.getZ());
 			}
 			catch (StringIndexOutOfBoundsException e)
 			{ }
@@ -522,6 +550,45 @@ public class AdminTeleport implements IAdminCommandHandler
 		else
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+		}
+	}
+	
+	private void changeCharacterPosition(L2PcInstance activeChar, String name){
+		Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=? WHERE char_name=?");
+			statement.setInt(1, activeChar.getX());
+			statement.setString(2, name);
+			statement.execute();
+			statement = con.prepareStatement("UPDATE characters SET y=? WHERE char_name=?");
+			statement.setInt(1, activeChar.getY());
+			statement.setString(2, name);
+			statement.execute();
+			statement = con.prepareStatement("UPDATE characters SET z=? WHERE char_name=?");
+			statement.setInt(1, activeChar.getZ());
+			statement.setString(2, name);
+			statement.execute();
+			int count = statement.getUpdateCount();
+			statement.close();
+			if (count == 0)
+				activeChar.sendMessage("Character not found or position unaltered.");
+			else{
+				activeChar.sendMessage("Character's position is now set to ("+activeChar.getX()+","+activeChar.getY()+","+activeChar.getZ()+")");
+			}
+		}
+		catch (SQLException se)
+		{
+			activeChar.sendMessage("SQLException while changing offline character's position");
+		}
+		finally
+		{
+			try 
+			{
+				con.close();
+			}
+			catch (Exception e) {}
 		}
 	}
 }

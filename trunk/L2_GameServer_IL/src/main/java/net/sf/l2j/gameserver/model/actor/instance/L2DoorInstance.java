@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.model.actor.knownlist.DoorKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.DoorStat;
 import net.sf.l2j.gameserver.model.actor.status.DoorStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.network.L2GameClient;
@@ -313,7 +314,9 @@ public class L2DoorInstance extends L2Character
     {
         if (isUnlockable())
             return true;
-
+        // Attackable during fortress sieges by event participators only
+        if (FortressSiege.isDoorAttackable(getDoorId(),attacker))
+        	return true;
         // Attackable during siege by attacker only
         return (attacker != null 
                 && attacker instanceof L2PcInstance 
