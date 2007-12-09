@@ -2019,6 +2019,7 @@ public final class Config
     public static boolean CTF_ON_START_UNSUMMON_PET;
     public static boolean CTF_ANNOUNCE_TEAM_STATS;
     public static boolean CTF_JOIN_CURSED;
+    public static boolean CTF_REVIVE_RECOVERY;
     public static boolean FortressSiege_ALLOW_INTERFERENCE;
     public static boolean FortressSiege_ALLOW_POTIONS;
     public static boolean FortressSiege_ALLOW_SUMMON;
@@ -2073,7 +2074,8 @@ public final class Config
            CTF_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFOnStartUnsummonPet", "true"));
            CTF_ANNOUNCE_TEAM_STATS = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFAnnounceTeamStats", "false"));
            CTF_JOIN_CURSED = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFJoinWithCursedWeapon", "true"));
-    
+           CTF_REVIVE_RECOVERY = Boolean.parseBoolean(funEnginesSettings.getProperty("CTFReviveRecovery", "false"));
+           
            TVT_EVEN_TEAMS = funEnginesSettings.getProperty("TvTEvenTeams", "BALANCE");
            TVT_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowInterference", "false"));
            TVT_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("TvTAllowPotions", "false"));
