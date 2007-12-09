@@ -276,7 +276,10 @@ public class NpcTable implements NpcTableMBean
             npcDat.set("collision_radius", NpcData.getDouble("collision_radius"));
             npcDat.set("collision_height", NpcData.getDouble("collision_height"));
             npcDat.set("sex", NpcData.getString("sex"));
-            npcDat.set("type", NpcData.getString("type"));
+            if(!Config.ALLOW_NPC_WALKERS && NpcData.getString("type").equalsIgnoreCase("L2NpcWalker"))
+            	npcDat.set("type", "L2Npc");
+            else
+            	npcDat.set("type", NpcData.getString("type"));
             npcDat.set("baseAtkRange", NpcData.getInt("attackrange"));
             npcDat.set("rewardExp", NpcData.getInt("exp"));
             npcDat.set("rewardSp", NpcData.getInt("sp"));
