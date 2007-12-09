@@ -1445,6 +1445,7 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <for>
+    <effect count="1" name="Grow" time="1200" val="0"/>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pAtk">
       <mul order="0x30" stat="pAtk" val="#rate"/>
     </effect>

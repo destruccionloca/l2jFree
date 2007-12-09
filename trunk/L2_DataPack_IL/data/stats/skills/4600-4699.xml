@@ -881,6 +881,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
+    <effect count="1" name="Grow" time="5" val="0"/>
     <effect count="1" name="Buff" time="5" val="0" stackOrder="#pAtk" stackType="pAtk">
      <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
