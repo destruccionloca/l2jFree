@@ -1112,7 +1112,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
-  <cond msg="Your target is no angel"><target raceId="8"/></cond>
+  <cond msg="Your target is no angel"><target race_id="8"/></cond>
   <for>
     <effect count="5" name="Fear" time="9" val="0"/> 
   </for>
