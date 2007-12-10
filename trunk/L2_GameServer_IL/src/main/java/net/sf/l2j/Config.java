@@ -2022,6 +2022,7 @@ public final class Config
     public static boolean CTF_ANNOUNCE_TEAM_STATS;
     public static boolean CTF_JOIN_CURSED;
     public static boolean CTF_REVIVE_RECOVERY;
+    public static boolean FortressSiege_SAME_IP_PLAYERS_ALLOWED;
     public static boolean FortressSiege_ALLOW_INTERFERENCE;
     public static boolean FortressSiege_ALLOW_POTIONS;
     public static boolean FortressSiege_ALLOW_SUMMON;
@@ -2058,6 +2059,7 @@ public final class Config
            is.close();
            
            FortressSiege_EVEN_TEAMS = funEnginesSettings.getProperty("FortressSiegeEvenTeams", "BALANCE");
+           FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeSameIPPlayersAllowed", "false"));
            FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowInterference", "false"));
            FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowPotions", "false"));
            FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("FortressSiegeAllowSummon", "false"));
@@ -2714,6 +2716,7 @@ public final class Config
 		else if (pName.equalsIgnoreCase("MenuStyle")) GM_ADMIN_MENU_STYLE = pValue;
         
         else if (pName.equalsIgnoreCase("FortressSiegeEvenTeams"))  FortressSiege_EVEN_TEAMS = pValue;
+        else if (pName.equalsIgnoreCase("FortressSiegeSameIPPlayersAllowed")) FortressSiege_SAME_IP_PLAYERS_ALLOWED = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("FortressSiegeAllowInterference")) FortressSiege_ALLOW_INTERFERENCE = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("FortressSiegeAllowPotions")) FortressSiege_ALLOW_POTIONS = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("FortressSiegeAllowSummon")) FortressSiege_ALLOW_SUMMON = Boolean.parseBoolean(pValue);

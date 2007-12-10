@@ -27,6 +27,7 @@ package net.sf.l2j.gameserver.model.entity.events;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
@@ -922,10 +923,91 @@ public class FortressSiege
             _savePlayers.add(player.getName());
             _savePlayerTeams.add(_teams.get(teamCount));
             _teamPlayersCount.set(teamCount,_teamPlayersCount.get(teamCount)+1);
+            checkForSameIP(player, teamCount); // Checks for more players from the same IP and puts them in the same team
             if (teamCount == (_teams.size()-1))
             		teamCount = 0;
             else 	teamCount++;
         }
+        //Since we add same IPs to same teams this may cause the teams to be uneven in numbers. 
+        //so we shift amount of players until the teams are even.
+        while (_teamPlayersCount.get(0)>_teamPlayersCount.get(1)+1)
+        	movePlayerFromTeamToTeam(0,1);
+        while (_teamPlayersCount.get(1)>_teamPlayersCount.get(0)+1){
+        	movePlayerFromTeamToTeam(1,0);
+        }
+    }
+    
+    /**
+     * Moves a player from fromTeam team to toTeam team
+     * @param fromTeam - index of the team to move a player from 
+     * @param toTeam - index of the team to move a player to
+     */
+    private static void movePlayerFromTeamToTeam(int fromTeam, int toTeam){
+    	int index = 0;
+    	for (L2PcInstance p : _players)
+    		if (p._teamNameFOS.equals(_teams.get(fromTeam))){
+    			index = _players.indexOf(p);
+    			break;
+    		}
+    	L2PcInstance player = _players.get(index);
+    	player._teamNameFOS = _teams.get(toTeam);
+    	_savePlayerTeams.set(index,_teams.get(toTeam));
+    	_teamPlayersCount.set(fromTeam,_teamPlayersCount.get(fromTeam)-1);
+    	_teamPlayersCount.set(toTeam,_teamPlayersCount.get(toTeam)+1);
+    }
+    
+    /**
+     * Finds all players from the same IP and places them in the same teams, or if FortressSiege_SAME_IP_PLAYERS_ALLOWED reached, throws them from the event ;]
+     * @param player L2PcInstance of the player that has already been removed from the queue
+     */
+    private static void checkForSameIP(L2PcInstance player, int teamNumber){
+    	try{
+    	String playerIP = getIP(player);
+    	if (playerIP == null)
+    		return;
+    	for (L2PcInstance same : _playersShuffle){
+    		if (same == null){
+    			_playersShuffle.remove(same);
+    			continue;
+    		}
+    		String sameIP = getIP(same);
+    		if (sameIP == null)
+    			continue;
+    		if (!sameIP.equals(playerIP))
+    			continue;
+    		//Now we are left with equal IPs:
+    		if (!Config.FortressSiege_SAME_IP_PLAYERS_ALLOWED){
+    			String msg = "Admin does not allow players from the same IP to participate. Player "+player.getName()+" from IP "+playerIP+" is already joined. So player "+same.getName()+" may not join this event!";
+    			player.sendMessage(msg);
+    			same.sendMessage(msg);
+    			removePlayer(same);
+    			continue;
+    		}
+    		//So we allow players from the same IP to join the event:
+            same._originalNameColorFOS = same.getAppearance().getNameColor();
+            same._originalKarmaFOS = same.getKarma();
+            same._teamNameFOS = _teams.get(teamNumber);
+            _players.add(same);
+            _playersShuffle.remove(same);
+            _savePlayers.add(same.getName());
+            _savePlayerTeams.add(_teams.get(teamNumber));
+            _teamPlayersCount.set(teamNumber,_teamPlayersCount.get(teamNumber)+1);
+    	}
+    	}catch(Throwable t){}
+    }
+    
+    private static String getIP(L2PcInstance player){
+		String ip=null;
+    	try{
+			StringTokenizer clientinfo= new StringTokenizer(player.getClient().toString()," ]:-[");
+			clientinfo.nextToken();
+			clientinfo.nextToken();
+			clientinfo.nextToken();
+			clientinfo.nextToken();
+			clientinfo.nextToken();
+			ip = clientinfo.nextToken();
+		}catch (Exception e) {}
+		return ip;
     }
     
     public static void sit(){
