@@ -575,6 +575,7 @@
   <set name="effectRange" val="400"/>
   <set name="aggroPoints" val="379"/>
   <for>
+	<effect count="1" name="Grow" time="1200" val="0"/>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pAtk">
       <mul order="0x30" stat="pAtk" val="#rate"/>
     </effect>
@@ -770,6 +771,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="400"/>
   <for>
+    <effect count="1" name="Grow" time="1200" val="0"/>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="0" stackType="Great">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
