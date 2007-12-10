@@ -21,6 +21,6 @@ DROP TABLE IF EXISTS account_data,armor,armorsets,auction,auction_bid,
 DROP TABLE IF EXISTS buff_templates,character_raidpoints,couples,ctf,ctf_teams,
                      custom_npc,custom_spawnlist,custom_armor,custom_etcitem,
                      custom_merchant_buylists,custom_merchant_shopids,custom_weapon,
-                     four_sepulchers_spawnlist,tvt,tvt_teams,version,VIPinfo,fortress_siege;
+                     fortress_siege,four_sepulchers_spawnlist,tvt,tvt_teams,version,VIPinfo;
 
 DROP TABLE IF EXISTS temporaryobjecttable,connection_test_table;

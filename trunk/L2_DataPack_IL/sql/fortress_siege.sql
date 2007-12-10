@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `fortress_siege` (
   `outerDoor1` int(11) NOT NULL default '0',
   `outerDoor2` int(11) NOT NULL default '0',
   PRIMARY KEY  (`eventName`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `fortress_siege`
