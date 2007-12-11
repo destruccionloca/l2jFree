@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class EffectForce extends L2Effect
 {
-	static final Log _log = LogFactory.getLog(EffectForce.class.getName());
+	protected static final Log _log = LogFactory.getLog(EffectForce.class.getName());
 
 	public int forces = 0;
 	private int _range = -1;
@@ -79,7 +79,12 @@ public class EffectForce extends L2Effect
 	{
 		exit();
 		L2Skill newSkill = SkillTable.getInstance().getInfo(getSkill().getId(), forces);
-		newSkill.getEffects(getEffector(), getEffected());
+		if(newSkill == null)
+		{
+			_log.error("Triggered skill "+getSkill().getId()+" doesn't have level "+forces+" defined");
+		}
+		else
+			newSkill.getEffects(getEffector(), getEffected());
 	}
 
 	public void onExit()

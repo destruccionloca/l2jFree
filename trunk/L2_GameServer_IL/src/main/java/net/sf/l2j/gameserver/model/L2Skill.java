@@ -458,7 +458,7 @@ public abstract class L2Skill
     private final FastList<Integer> _teachers; // which NPC teaches
     private final boolean _isOffensive;
     private final int _numCharges;
-    private final int _forceId;
+    private final int _triggeredId;
 
     private final int _baseCritRate;  // percent of success for skill critical hit (especially for PDAM & BLOW - they're not affected by rCrit values or buffs). Default loads -1 for all other skills but 0 to PDAM & BLOW
     private final int _lethalEffect1;     // percent of success for lethal 1st effect (hit cp to 1 or if mob hp to 50%) (only for PDAM skills)
@@ -567,7 +567,7 @@ public abstract class L2Skill
         _numCharges          = set.getInteger("num_charges", getLevel());
         _successRate         = set.getFloat("rate", 1);
         _minPledgeClass      = set.getInteger("minPledgeClass", 0);
-        _forceId             = set.getInteger("forceId", 0);
+        _triggeredId         = set.getInteger("triggeredId", 0);
 
         _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM  || _skillType == SkillType.BLOW) ? 0 : -1);
         _lethalEffect1 = set.getInteger("lethal1",0);
@@ -751,9 +751,9 @@ public abstract class L2Skill
         return _magicLevel;
     }
 
-    public int getForceId()
+    public int getTriggeredId()
     {
-        return _forceId;
+        return _triggeredId;
     }
 
     public final int getLevelDepend()
@@ -1158,6 +1158,11 @@ public abstract class L2Skill
     {
        return _directHpDmg;
     }
+
+	public final static boolean skillLevelExists(int skillId, int level)
+	{
+		return SkillTable.getInstance().getInfo(skillId, level) != null;
+	}
 
     public final boolean isSkillTypeOffensive()
     {
