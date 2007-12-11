@@ -173,6 +173,7 @@ import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillCanceld;
+import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.ObservationMode;
@@ -2026,8 +2027,11 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             getSubClasses().get(_classIndex).setClassId(Id); 
         }
-        doCast(SkillTable.getInstance().getInfo(5103,1));
         setClassTemplate(Id);
+
+        // Animation: Production - Clan / Transfer
+        MagicSkillUser msu = new MagicSkillUser(this, 5103, 1, 1196, 0);
+        broadcastPacket(msu);
     }
 
     public void checkIfWeaponIsAllowed()

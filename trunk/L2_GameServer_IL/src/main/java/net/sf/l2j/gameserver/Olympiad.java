@@ -1955,14 +1955,12 @@ public class Olympiad
         
         protected boolean makePlayersVisible()
         {
-            _sm = new SystemMessage(SystemMessageId.STARTS_THE_GAME);
             try
             {
                 for (L2PcInstance player : _players)
                 {
                     player.getAppearance().setVisible();
                     player.broadcastUserInfo();
-                    player.sendPacket(_sm);
                     if (player.getPet() != null)
                         player.getPet().updateAbnormalEffect();
                 }
