@@ -64,7 +64,7 @@
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
     <effect count="0x7fffffff" name="BattleForce" time="3" val="15" stackOrder="0" stackType="BattleForce">
-       <mul order="0x30" stat="pAtk" val="1.10"/> <!-- Guessed -->
+       <mul order="0x30" stat="pAtk" val="1.10"/>
     </effect>
   </for>
 </skill>
@@ -75,7 +75,7 @@
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
     <effect count="0x7fffffff" name="SpellForce" time="3" val="15" stackOrder="0" stackType="SpellForce">
-      <mul order="0x30" stat="mAtk" val="1.10"/><!-- Guessed -->
+      <mul order="0x30" stat="mAtk" val="1.10"/>
     </effect>
   </for>
 </skill>
