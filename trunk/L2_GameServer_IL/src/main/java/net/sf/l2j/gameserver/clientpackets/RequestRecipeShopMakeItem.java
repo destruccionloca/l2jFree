@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.recipes.manager.CraftManager;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.util.Util;
 
 public class RequestRecipeShopMakeItem extends L2GameClientPacket 
 {
@@ -77,7 +78,8 @@ public class RequestRecipeShopMakeItem extends L2GameClientPacket
             return;
         }
 
-        CraftManager.requestManufactureItem(manufacturer, _recipeId,activeChar);
+        if (Util.checkIfInRange(150, activeChar, manufacturer, true))
+            CraftManager.requestManufactureItem(manufacturer, _recipeId,activeChar);
     }
 
     /* (non-Javadoc)
