@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.LoginServerThread;
@@ -421,6 +420,12 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendPacket(sm);
 		}
 		
+		try
+		{
+			activeChar.setPledgeClass(activeChar.getClan().getClanMember(activeChar.getObjectId()).calculatePledgeClass(activeChar));
+		}
+		catch(Throwable t){}
+
 		if (activeChar.getClan() != null)
 		{
 			PledgeSkillList psl = new PledgeSkillList(activeChar.getClan());

@@ -304,6 +304,9 @@ public final class L2PcInstance extends L2PlayableInstance
             
 			// cancel the recent fake-death protection instantly if the player attacks or casts spells 
 			getPlayer().setRecentFakeDeath(false);
+			L2Effect silentMove = getPlayer().getFirstEffect(L2Effect.EffectType.SILENT_MOVE);
+			if (silentMove != null)
+				silentMove.exit();
             for (L2CubicInstance cubic : getCubics().values())
             {
                 if (cubic.getId() != L2CubicInstance.LIFE_CUBIC) cubic.doAction(target);
@@ -322,6 +325,9 @@ public final class L2PcInstance extends L2PlayableInstance
            L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
            // the code doesn't now support multiple targets
            if(mainTarget == null || !(mainTarget instanceof L2Character)) return;
+           L2Effect silentMove = getPlayer().getFirstEffect(L2Effect.EffectType.SILENT_MOVE);
+           if (silentMove != null)
+        	   silentMove.exit();
            for (L2CubicInstance cubic : getCubics().values())
                if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
                     cubic.doAction((L2Character)mainTarget);

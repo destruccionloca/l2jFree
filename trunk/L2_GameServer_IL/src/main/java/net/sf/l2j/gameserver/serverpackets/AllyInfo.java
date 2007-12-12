@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
+import javolution.text.TextBuilder;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -104,6 +105,16 @@ public class AllyInfo extends L2GameServerPacket
 		//=========================
 		sm = new SystemMessage(SystemMessageId.CLAN_INFO_FOOT);
 		_cha.sendPacket(sm);
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(0);
+		TextBuilder replyMSG = new TextBuilder("<html><title>Alliance Information</title><body>");
+		replyMSG.append("<center><img src=\"L2UI_CH3.herotower_deco\" width=256 height=32></center>");
+		for (L2Clan clan : ClanTable.getInstance().getClans())
+		    if (clan.getAllyId() == _cha.getAllyId())
+		    	replyMSG.append("<br><center><button value=\""+clan.getName()+"\" action=\"bypass -h show_clan_info "+clan.getName()+"\" width=75 height=21 back=\"L2UI_ch3.Btn1_normalOn\" fore=\"L2UI_ch3.Btn1_normal\"></center><br>");
+		replyMSG.append("<center><img src=\"L2UI_CH3.herotower_deco\" width=256 height=32></center>");
+		replyMSG.append("</body></html>");
+		adminReply.setHtml(replyMSG.toString());
+		_cha.sendPacket(adminReply);
 	}
 	
 	/* (non-Javadoc)

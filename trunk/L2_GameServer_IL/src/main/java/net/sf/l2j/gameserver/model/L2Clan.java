@@ -1189,6 +1189,10 @@ public class L2Clan
         {
             return _subPledgeName;
         }
+        public void setName(String newName)
+        {
+            _subPledgeName = newName;
+        }
         public String getLeaderName()
         {
             return _leaderName;
@@ -1409,9 +1413,14 @@ public class L2Clan
  		   statement.setInt(2, getClanId());
  		   statement.setInt(3, pledgeType);
  		   statement.execute();
+ 		   statement = con.prepareStatement("UPDATE clan_subpledges SET name=? WHERE clan_id=? AND sub_pledge_id=?");
+ 		   statement.setString(1, getSubPledge(pledgeType).getName());
+ 		   statement.setInt(2, getClanId());
+ 		   statement.setInt(3, pledgeType);
+ 		   statement.execute();
  		   statement.close();
  		   if (_log.isDebugEnabled())
- 			   _log.info("New subpledge leader saved in db: "+getClanId());
+ 			   _log.info("New subpledge leader and/or name saved in db: "+getClanId());
  	   }
  	   catch (Exception e)
  	   {

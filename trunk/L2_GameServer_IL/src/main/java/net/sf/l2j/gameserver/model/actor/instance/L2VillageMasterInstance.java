@@ -30,6 +30,8 @@ import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.L2Clan.SubPledge;
@@ -44,6 +46,7 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.AquireSkillList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.PledgeReceiveSubPledgeCreated;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -96,6 +99,23 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             if (cmdParams.equals("")) return;
 
             createSubPledge(player, cmdParams, cmdParams2, 100, 6);
+        }
+        else if (actualCommand.equalsIgnoreCase("assign_subpl_leader"))
+        {
+            if (cmdParams.equals("")) return;
+
+            assignSubPledgeLeader(player, cmdParams, cmdParams2);
+        }
+        else if (actualCommand.equalsIgnoreCase("rename_royal1") ||
+        			actualCommand.equalsIgnoreCase("rename_royal2") ||
+        			actualCommand.equalsIgnoreCase("rename_knights1") ||
+        			actualCommand.equalsIgnoreCase("rename_knights2") ||
+        			actualCommand.equalsIgnoreCase("rename_knights3") ||
+        			actualCommand.equalsIgnoreCase("rename_knights4"))
+        {
+            if (cmdParams.equals("")) 
+            	return;
+            renameSubPledge(player, cmdParams, actualCommand);
         }
         else if (actualCommand.equalsIgnoreCase("create_knight"))
         {
@@ -604,7 +624,13 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_INCORRECT));
 			return;
 		}
-		
+        
+		if(clan.getLeaderSubPledge(leaderName)!=0)
+		{
+        		player.sendMessage(leaderName+" is already a sub unit leader.");
+        			return;
+        	}
+        
 		for (L2Clan tempClan : ClanTable.getInstance().getClans())
 		{
 			if (tempClan.getSubPledge(clanName) != null)
@@ -668,14 +694,124 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         	if (leaderSubPledge.getPlayerInstance() == null) return;
         	leaderSubPledge.getPlayerInstance().setPledgeClass(leaderSubPledge.calculatePledgeClass(leaderSubPledge.getPlayerInstance()));
         	leaderSubPledge.getPlayerInstance().sendPacket(new UserInfo(leaderSubPledge.getPlayerInstance()));
+        	try
+        	{
+            	clan.getClanMember(leaderName).updatePledgeType();
+            	for (L2Skill skill : leaderSubPledge.getPlayerInstance().getAllSkills())
+            		leaderSubPledge.getPlayerInstance().removeSkill(skill,false);
+            	clan.getClanMember(leaderName).getPlayerInstance().setActiveClass(0);
+            }
+        	catch(Throwable t){}
+            for (L2ClanMember member : clan.getMembers())
+            {
+            	if (member == null || member.getPlayerInstance()==null || member.getPlayerInstance().isOnline()==0)
+            		continue;
+        		SubPledge[] subPledge = clan.getAllSubPledges();
+        		for (SubPledge element : subPledge) 
+        		{
+        			member.getPlayerInstance().sendPacket(new PledgeReceiveSubPledgeCreated(element));
+        		}
+            }
+
         }
     }
 
-    public void assignSubPledgeLeader(L2PcInstance player, String clanName, String leaderName)
+    public void renameSubPledge(L2PcInstance player, String newName, String command){
+    	if (player == null || player.getClan() == null || !player.isClanLeader())
+    	{
+    		if (player!=null) 
+    			player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
+    		return;
+    	}
+    	L2Clan clan = player.getClan();
+    	SubPledge[] subPledge = clan.getAllSubPledges();
+    	for (SubPledge element : subPledge) 
+    	{
+    		switch(element.getId()){
+    		case 100: // 1st Royal Guard
+    			if (command.equalsIgnoreCase("rename_royal1")){
+    				changeSubPledge(clan, element, newName);
+    				return;
+    			}
+    			break;
+    		case 200: // 2nd Royal Guard
+    			if (command.equalsIgnoreCase("rename_royal2")){
+    				changeSubPledge(clan, element, newName);
+    				return;
+    			}
+    			break;    			
+    		case 1001: // 1st Order of Knights
+    			if (command.equalsIgnoreCase("rename_knights1")){
+    				changeSubPledge(clan, element, newName);
+    				return;
+    			}
+    			break;    			
+    		case 1002: // 2nd Order of Knights
+    			if (command.equalsIgnoreCase("rename_knights2")){
+    				changeSubPledge(clan, element, newName);
+    				return;
+    			}
+    			break;    			
+    		case 2001: // 3rd Order of Knights
+    			if (command.equalsIgnoreCase("rename_knights3")){
+    				changeSubPledge(clan, element, newName);
+    				return;
+    			}
+    			break;    			
+    		case 2002: // 4th Order of Knights
+    			if (command.equalsIgnoreCase("rename_knights4")){
+    				changeSubPledge(clan, element, newName);
+    				return;
+    			}
+    			break;
+    		}
+    	}
+    	player.sendMessage("Sub unit not found.");
+    }
+    
+    public void changeSubPledge(L2Clan clan, SubPledge element, String newName){
+        if (newName.length() > 16 || newName.length() < 3)
+        {
+            clan.getLeader().getPlayerInstance().sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_TOO_LONG));
+            return;
+        }
+    	String oldName = element.getName(); 
+    	element.setName(newName);
+    	clan.updateSubPledgeInDB(element.getId());
+		for (L2ClanMember member : clan.getMembers())
+		{
+        	if (member == null || member.getPlayerInstance()==null || member.getPlayerInstance().isOnline()==0)
+        		continue;
+    		SubPledge[] subPledge = clan.getAllSubPledges();
+    		for (SubPledge sp : subPledge) 
+    		{
+    			member.getPlayerInstance().sendPacket(new PledgeReceiveSubPledgeCreated(sp));
+    		}
+    		if (member.getPlayerInstance()!= null)
+    			member.getPlayerInstance().sendMessage("Clan sub unit "+oldName+"'s name has been changed into "+newName+".");
+        }
+    }
+    
+    public void assignSubPledgeLeader(L2PcInstance player, String subUnitName, String newLeaderName)
     {
+    	if (player.getClan()==null)
+    	{
+            player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
+            return;    		
+    	}
+    	String leaderName = "";
+    	try
+    	{
+    		leaderName = player.getClan().getSubPledge(subUnitName).getLeaderName();
+    	}
+    	catch(Throwable t)
+    	{
+    		_log.warn("could not find sub unit leader name for sub unit: "+subUnitName+" in clan "+player.getClan());
+    		return;
+    	}
     	if (_log.isDebugEnabled())
-    		_log.info(player.getObjectId() + "(" + player.getName() + ") requested to assign sub clan" + clanName + "leader "
-    	                + "(" + leaderName + ")");
+    		_log.info(player.getObjectId() + "(" + player.getName() + ") requested to assign a new sub clan for " + player.getClan().getName() + " leader "
+    	                + "(" + leaderName + " --> "+newLeaderName+")");
         
         if (!player.isClanLeader())
         {
@@ -683,56 +819,78 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             return;
         }
 
-        if (leaderName.length() > 16)
+        if (leaderName.length() > 16 || newLeaderName.length() > 16)
         {
             player.sendPacket(new SystemMessage(SystemMessageId.NAMING_CHARNAME_UP_TO_16CHARS));
             return;
         }
         
-        if(player.getName().equals(leaderName))
+        if(player.getName().equals(newLeaderName))
         {
-        	player.sendPacket(new SystemMessage(SystemMessageId.CAPTAIN_OF_ROYAL_GUARD_CANNOT_BE_APPOINTED));
+        	player.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT));
         	return;
         }
         
         L2Clan clan = player.getClan();
-        SubPledge subPledge = player.getClan().getSubPledge(clanName);
+        
+        if(leaderName.equals(newLeaderName) || clan.getLeaderSubPledge(newLeaderName)!=0)
+        {
+        	player.sendMessage(newLeaderName+" is already a sub unit leader.");
+        	return;
+        }
+        L2PcInstance newLeader = L2World.getInstance().getPlayer(newLeaderName);
+        if (newLeader!=null)
+        {
+        	if (newLeader.getClan() == null || newLeader.getClan()!=clan){
+        		player.sendMessage(newLeaderName+" is not in your clan!");
+        		return;
+        	}
+        }
+        int leadssubpledge = clan.getLeaderSubPledge(leaderName);
 
-        if (null == subPledge) 
+        if (leadssubpledge == 0) 
         {
-			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_INCORRECT));
+			player.sendMessage(leaderName + " is not a sub unit leader.");
             return;
         }
-        if (subPledge.getId() == L2Clan.SUBUNIT_ACADEMY)
-        {
-			player.sendPacket(new SystemMessage(SystemMessageId.CLAN_NAME_INCORRECT));
-            return;
+    	try
+    	{
+    		clan.getSubPledge(leadssubpledge).setLeaderName(newLeaderName);
+    		clan.getClanMember(newLeaderName).updatePledgeType();
+    		clan.getClanMember(leaderName).setPledgeType(0);
+    		clan.getClanMember(leaderName).updatePledgeType();
+    	}
+    	catch(Throwable t){}
+    	try
+    	{
+        	clan.getClanMember(leaderName).getPlayerInstance().setPledgeClass(clan.getClanMember(leaderName).calculatePledgeClass(clan.getClanMember(leaderName).getPlayerInstance()));
+        	clan.getClanMember(leaderName).getPlayerInstance().setActiveClass(0);
         }
-        
-        if (clan.getClanMember(leaderName) == null || (clan.getClanMember(leaderName).getPledgeType() != 0))
-        {
-            if (subPledge.getId() >= L2Clan.SUBUNIT_KNIGHT1)
-            {
-                player.sendPacket(new SystemMessage(SystemMessageId.CAPTAIN_OF_ORDER_OF_KNIGHTS_CANNOT_BE_APPOINTED));
-            }
-            else if (subPledge.getId() >= L2Clan.SUBUNIT_ROYAL1)
-            {
-                player.sendPacket(new SystemMessage(SystemMessageId.CAPTAIN_OF_ROYAL_GUARD_CANNOT_BE_APPOINTED));
-            }
-            return;
+    	catch(Throwable t){}
+    	
+        clan.updateSubPledgeInDB(leadssubpledge);		
+		for (L2PcInstance member : clan.getOnlineMembers(""))
+		{
+			member.sendMessage(newLeaderName+" has been appointed as sub unit leader instead of "+leaderName+".");
+			member.broadcastUserInfo();
+		}
+		for (L2ClanMember member : clan.getMembers())
+		{
+        	if (member == null || member.getPlayerInstance()==null || member.getPlayerInstance().isOnline()==0)
+        		continue;
+    		SubPledge[] subPledge = clan.getAllSubPledges();
+    		for (SubPledge element : subPledge)
+    		{
+    			member.getPlayerInstance().sendPacket(new PledgeReceiveSubPledgeCreated(element));
+    		}
         }
-        
-        subPledge.setLeaderName(leaderName);
-        clan.updateSubPledgeInDB(subPledge.getId());
-        L2ClanMember leaderSubPledge = clan.getClanMember(leaderName);
-        leaderSubPledge.getPlayerInstance().setPledgeClass(leaderSubPledge.calculatePledgeClass(leaderSubPledge.getPlayerInstance()));
-        leaderSubPledge.getPlayerInstance().sendPacket(new UserInfo(leaderSubPledge.getPlayerInstance()));
-        clan.broadcastClanStatus();
-    	SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_BEEN_SELECTED_AS_CAPTAIN_OF_S2);
-    	sm.addString(leaderName);
-    	sm.addString(clanName);
-    	clan.broadcastToOnlineMembers(sm);
-    	sm = null;
+    	L2ClanMember leaderSubPledge = clan.getClanMember(newLeaderName);
+    	if (leaderSubPledge.getPlayerInstance() == null) return;
+    	leaderSubPledge.getPlayerInstance().setPledgeClass(leaderSubPledge.calculatePledgeClass(leaderSubPledge.getPlayerInstance()));
+    	leaderSubPledge.getPlayerInstance().sendPacket(new UserInfo(leaderSubPledge.getPlayerInstance()));
+    	for (L2Skill skill : leaderSubPledge.getPlayerInstance().getAllSkills())
+    		leaderSubPledge.getPlayerInstance().removeSkill(skill,false);
+    	leaderSubPledge.getPlayerInstance().setActiveClass(0);    	
     }
     
     private final Set<PlayerClass> getAvailableSubClasses(L2PcInstance player)
