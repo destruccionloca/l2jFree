@@ -27,7 +27,6 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_INTERACT;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -53,7 +52,11 @@ import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
  */
 public class L2CharacterAI extends AbstractAI
 {
-    @Override
+    /** Queues (size of GeoDataQueueSize) that stores last saved server/client positions, a check of geodata leaps are made. */
+	private static final int GeoDataQueueSize = 3;
+	private int[][] serverQueue = {new int[GeoDataQueueSize], new int[GeoDataQueueSize], new int[GeoDataQueueSize] }, 
+					clientQueue = {new int[GeoDataQueueSize], new int[GeoDataQueueSize], new int[GeoDataQueueSize] };
+	@Override
     protected void onEvtAttacked(L2Character attacker)
     {
         clientStartAutoAttack();
@@ -668,7 +671,12 @@ public class L2CharacterAI extends AbstractAI
     @Override
     protected void onEvtArrived()
     {
-        // Launch an explore task if necessary
+       	if (needToRestoreClientSideGEOData())
+       	{
+       		return;
+       	}
+    	
+    	// Launch an explore task if necessary
         if (_accessor.getActor() instanceof L2PcInstance)
         {
             ((L2PcInstance) _accessor.getActor()).revalidateZone(true);
@@ -705,7 +713,11 @@ public class L2CharacterAI extends AbstractAI
     @Override
     protected void onEvtArrivedRevalidate()
     {
-        // Launch actions corresponding to the Event Think
+       	if (needToRestoreClientSideGEOData())
+       	{
+       		return;
+       	}
+    	// Launch actions corresponding to the Event Think
         onEvtThink();
     }
 
@@ -723,7 +735,10 @@ public class L2CharacterAI extends AbstractAI
     {
         // Stop the actor movement server side AND client side by sending Server->Client packet StopMove/StopRotation (broadcast)
         clientStopMoving(blocked_at_pos);
-
+       	if (needToRestoreClientSideGEOData())
+       	{
+       		return;
+       	}
         // If the Intention was AI_INTENTION_MOVE_TO, tet the Intention to AI_INTENTION_ACTIVE
         if (getIntention() == AI_INTENTION_MOVE_TO) setIntention(AI_INTENTION_ACTIVE);
 
@@ -1041,5 +1056,114 @@ public class L2CharacterAI extends AbstractAI
             return true;
         }
         return false;
+    }
+    
+    /**
+     * @author Darki699 =)
+     * Checks if client side geodata blocked the character (client side position will be steady and server side will change), 
+     * and if so, restores the server coordinates according to the client side geodata, and stops all action.
+     * @return a boolean value true if the server needs to restore the char x,y,z position according to the client side geodata 
+     */
+    private boolean needToRestoreClientSideGEOData()
+    {
+      	int 	RouteX = Math.abs(_actor.getClientX()-_actor.getX()),
+      			RouteY = Math.abs(_actor.getClientY()-_actor.getX()),
+      			RouteZ = Math.abs(_actor.getClientZ()-_actor.getZ()); 
+    	if (	(RouteX>50 && RouteX<1500) || 
+      			(RouteY>50 && RouteY<1500) || 
+      			(RouteZ>50 && RouteZ<100))
+      	{
+    			//System.out.println(_actor.getName()+"::   client: "+_actor.getClientX()+","+_actor.getClientY()+","+_actor.getClientZ()+" --> server: "+_actor.getX()+","+_actor.getY()+","+_actor.getZ());
+    		
+    		if (serverIsSteady()) // Server side position is steady, so assign client side to the server side.
+    		{
+    	    	//System.out.println("server steady");
+    			_actor.setClientX(_actor.getPosition().getX());
+    	    	_actor.setClientY(_actor.getPosition().getY());
+    	    	_actor.setClientZ(_actor.getPosition().getZ());
+    			return false;
+    		}
+    		if (clientIsSteady()) // Client is steady and server is not, someone trying to jump geodata =P, assign server to client and abort all actions
+    		{
+    			//System.out.println("client steady");
+    			_actor.getPosition().setXYZ(_actor.getClientX(), _actor.getClientY(), _actor.getClientZ());	
+    			clientActionFailed();
+    			stopFollow();
+    			if (_actor.getTarget()!=null)
+       			{
+       				onEvtForgetObject(_actor.getTarget());
+       				if (_actor.isInCombat() || _actor.isAttackingNow())
+       					_actor.setTarget(null);
+       			}
+    			return true;
+       		}
+    		_actor.getPosition().setXYZ(_actor.getClientX(), _actor.getClientY(), _actor.getClientZ());
+       	}
+    	return false;
+    }
+    
+    /**
+     * Checks stability of server side position. Lack of stability may mean that something is trying to jump geodata
+     * @return true is the server side positions for the character are the same over a GeoDataQueueSizex2 seconds. 
+     */
+    private boolean serverIsSteady()
+    {
+    	boolean returnValue = true;
+    	for (int i = 0 ; i < GeoDataQueueSize ; i++)
+    	{
+    		if (serverQueue[0][i] == 0 && serverQueue[1][i] == 0 && serverQueue[2][i]==0)
+    		{
+    			serverQueue[0][i] = _actor.getPosition().getX()/5;
+    			serverQueue[1][i] = _actor.getPosition().getY()/5;
+    			serverQueue[2][i] = _actor.getPosition().getZ()/5;
+    			return false;
+    		}
+    	}
+    	int x=serverQueue[0][0],y=serverQueue[1][0],z=serverQueue[2][0];
+    	for (int i = 1 ; i < GeoDataQueueSize ; i++)
+    	{
+    		if (serverQueue[0][i] != x || serverQueue[1][i] != y || serverQueue[2][i] != z)
+    		{
+    			returnValue = false;
+    		}
+    	}
+		for (int j = 0 ; j < GeoDataQueueSize ; j++)
+		{
+			serverQueue[0][j] = serverQueue[1][j] = serverQueue[2][j] = 0;
+		}
+    	return returnValue;	
+    }
+    
+    /**
+     * Checks stability of client side positions. Stability on the client when server is not stable means geodata obstacles
+     * are in the way of the character, and it is trying to jump over the geodata 
+     * @return true is the client side positions for the character are the same over a GeoDataQueueSizex2 seconds = stable client pos. 
+     */
+    private boolean clientIsSteady()
+    {
+    	boolean returnValue = true;
+    	for (int i = 0 ; i < GeoDataQueueSize ; i++)
+    	{
+    		if (clientQueue[0][i] == 0 && clientQueue[1][i] == 0 && clientQueue[2][i]==0)
+    		{
+    			clientQueue[0][i] = _actor.getClientX()/10;// divison by 10 makes it less accurate, necessary 
+    			clientQueue[1][i] = _actor.getClientY()/10;// in order to check global movements (-+1 is not a move).
+    			clientQueue[2][i] = _actor.getClientZ()/10;
+    			return false;
+    		}
+    	}
+    	int x=clientQueue[0][0],y=clientQueue[1][0],z=clientQueue[2][0];
+    	for (int i = 1 ; i < GeoDataQueueSize ; i++)
+    	{
+    		if (clientQueue[0][i] != x || clientQueue[1][i] != y || clientQueue[2][i] != z)
+    		{
+    			returnValue = false;
+    		}
+    	}
+		for (int j = 0 ; j < GeoDataQueueSize ; j++)
+		{
+			clientQueue[0][j] = clientQueue[1][j] = clientQueue[2][j] = 0;
+		}
+    	return returnValue;	
     }
 }
