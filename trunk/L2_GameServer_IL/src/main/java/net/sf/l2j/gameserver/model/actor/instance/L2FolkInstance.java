@@ -35,13 +35,8 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class L2FolkInstance extends L2NpcInstance 
 {
-    private final static Log _log = LogFactory.getLog(L2FolkInstance.class.getName());
-    
     private List<ClassId> _classesToTeach;
 
     public L2FolkInstance(int objectId, L2NpcTemplate template)

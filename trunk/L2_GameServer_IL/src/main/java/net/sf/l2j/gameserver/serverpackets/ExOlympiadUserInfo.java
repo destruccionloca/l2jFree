@@ -34,7 +34,7 @@ public class ExOlympiadUserInfo extends L2GameServerPacket
 	private static final String _S__FE_29_OLYMPIADUSERINFO = "[S] FE:2C OlympiadUserInfo";
 	
 	@SuppressWarnings("unused")
-	private static L2PcInstance _activeChar;
+	private L2PcInstance _activeChar;
 
 	/**
 	 * @param _player

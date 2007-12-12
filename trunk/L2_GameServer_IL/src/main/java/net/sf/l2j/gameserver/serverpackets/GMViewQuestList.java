@@ -18,12 +18,8 @@
  */
 package net.sf.l2j.gameserver.serverpackets;
 
-import java.util.List;
-
-import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.quest.Quest;
-import net.sf.l2j.gameserver.model.quest.QuestDropInfo;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 
 /**
@@ -33,8 +29,8 @@ import net.sf.l2j.gameserver.model.quest.QuestState;
 public class GMViewQuestList extends L2GameServerPacket
 {
 	private static final String _S__AC_GMVIEWQUESTLIST = "[S] ac GMViewQuestList";
-	
-    private L2PcInstance _activeChar;
+
+	private L2PcInstance _activeChar;
 
 	public GMViewQuestList(L2PcInstance cha)
 	{
@@ -72,32 +68,6 @@ public class GMViewQuestList extends L2GameServerPacket
             }
             
             writeD(qs.getInt("cond"));   // stage of quest progress
-        }
-
-        //Prepare info about all quests
-        List<QuestDropInfo> questDrops = new FastList<QuestDropInfo>();
-        int FullCountDropItems = 0;
-        
-        for (Quest q : questList)
-        {
-            QuestDropInfo newQDrop = new QuestDropInfo(_activeChar, q.getName());
-            //Calculate full count drop items
-            FullCountDropItems += newQDrop.dropList.size();
-            
-            questDrops.add(newQDrop);
-        }
-        
-        writeH(FullCountDropItems);
-        
-        for (QuestDropInfo currQDropInfo : questDrops)
-        {
-            for (QuestDropInfo.DropInfo itemDropInfo : currQDropInfo.dropList)
-            {
-                writeD(itemDropInfo.dropItemObjID);
-                writeD(itemDropInfo.dropItemID);
-                writeD(itemDropInfo.dropItemCount);
-                writeD(5); // ??                        
-            }
         }
 	}
 	

@@ -119,7 +119,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class L2NpcInstance extends L2Character
 {
-    private final static Log _log = LogFactory.getLog(L2NpcInstance.class.getName());
+    protected final static Log _log = LogFactory.getLog(L2NpcInstance.class.getName());
 
     /** The interaction distance of the L2NpcInstance(is used as offset in MovetoLocation method) */
     public static final int INTERACTION_DISTANCE = 150;
@@ -1657,8 +1657,11 @@ public class L2NpcInstance extends L2Character
     {
         String content;
         
-        if (player.getWeightPenalty()>=3){  
-        	player.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
+        Quest q = QuestManager.getInstance().getQuest(questId);
+
+        if (player.getWeightPenalty()>=3 && q != null && q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000)
+        {
+            player.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
             return;
         }
         
@@ -1675,7 +1678,6 @@ public class L2NpcInstance extends L2Character
         }
         else
         {
-            Quest q = QuestManager.getInstance().getQuest(questId);
             if (q != null) 
             {
                 // check for start point

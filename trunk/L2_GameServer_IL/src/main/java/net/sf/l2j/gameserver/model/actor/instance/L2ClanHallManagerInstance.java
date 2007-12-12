@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
@@ -674,7 +673,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 			if (!canInteract(player))
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
-				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+				//player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
 			}
 			else
 			{

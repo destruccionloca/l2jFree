@@ -458,8 +458,8 @@ public class DimensionalRiftManager
     public class DimensionalRiftRoom extends ZoneRect
     {
         private boolean _isBoss;
-        private RoomType _roomType;
-        private final FastList<L2Spawn> _roomSpawns;
+        protected RoomType _roomType;
+        protected final FastList<L2Spawn> _roomSpawns;
 
         public DimensionalRiftRoom()
         {
