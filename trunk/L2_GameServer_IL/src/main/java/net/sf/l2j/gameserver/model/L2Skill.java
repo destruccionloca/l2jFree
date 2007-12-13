@@ -576,8 +576,8 @@ public abstract class L2Skill
             _triggeredCount = 0; // so set count to zero
         else if (triggeredCount == 0) // there is a skill, but count is zero
             _triggeredCount = 1; // then set it to one
-        else
-            _triggeredCount = triggeredCount;
+        else //there is a skill, and the count is valid
+            _triggeredCount = triggeredCount; // so just set it
         
         _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM  || _skillType == SkillType.BLOW) ? 0 : -1);
         _lethalEffect1 = set.getInteger("lethal1",0);
