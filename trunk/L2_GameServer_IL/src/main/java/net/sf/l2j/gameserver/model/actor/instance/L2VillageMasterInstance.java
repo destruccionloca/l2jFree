@@ -652,7 +652,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 		}
         
         if (pledgeType != L2Clan.SUBUNIT_ACADEMY)
-            if (clan.getClanMember(leaderName) == null || clan.getClanMember(leaderName).getPledgeType() != 0)
+            if (clan.getClanMember(leaderName) == null || clan.getClanMember(leaderName).getSubPledgeType() != 0)
             {
                 if (pledgeType >= L2Clan.SUBUNIT_KNIGHT1)
                 {
@@ -692,11 +692,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         {
         	L2ClanMember leaderSubPledge = clan.getClanMember(leaderName);
         	if (leaderSubPledge.getPlayerInstance() == null) return;
-        	leaderSubPledge.getPlayerInstance().setPledgeClass(leaderSubPledge.calculatePledgeClass(leaderSubPledge.getPlayerInstance()));
+        	leaderSubPledge.getPlayerInstance().setPledgeClass(L2ClanMember.getCurrentPledgeClass(leaderSubPledge.getPlayerInstance()));
         	leaderSubPledge.getPlayerInstance().sendPacket(new UserInfo(leaderSubPledge.getPlayerInstance()));
         	try
         	{
-            	clan.getClanMember(leaderName).updatePledgeType();
+            	clan.getClanMember(leaderName).updateSubPledgeType();
             	for (L2Skill skill : leaderSubPledge.getPlayerInstance().getAllSkills())
             		leaderSubPledge.getPlayerInstance().removeSkill(skill,false);
             	clan.getClanMember(leaderName).getPlayerInstance().setActiveClass(0);
@@ -856,14 +856,14 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     	try
     	{
     		clan.getSubPledge(leadssubpledge).setLeaderName(newLeaderName);
-    		clan.getClanMember(newLeaderName).updatePledgeType();
-    		clan.getClanMember(leaderName).setPledgeType(0);
-    		clan.getClanMember(leaderName).updatePledgeType();
+    		clan.getClanMember(newLeaderName).updateSubPledgeType();
+    		clan.getClanMember(leaderName).setSubPledgeType(0);
+    		clan.getClanMember(leaderName).updateSubPledgeType();
     	}
     	catch(Throwable t){}
     	try
     	{
-        	clan.getClanMember(leaderName).getPlayerInstance().setPledgeClass(clan.getClanMember(leaderName).calculatePledgeClass(clan.getClanMember(leaderName).getPlayerInstance()));
+        	clan.getClanMember(leaderName).getPlayerInstance().setPledgeClass(L2ClanMember.getCurrentPledgeClass(clan.getClanMember(leaderName).getPlayerInstance()));
         	clan.getClanMember(leaderName).getPlayerInstance().setActiveClass(0);
         }
     	catch(Throwable t){}
@@ -886,11 +886,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         }
     	L2ClanMember leaderSubPledge = clan.getClanMember(newLeaderName);
     	if (leaderSubPledge.getPlayerInstance() == null) return;
-    	leaderSubPledge.getPlayerInstance().setPledgeClass(leaderSubPledge.calculatePledgeClass(leaderSubPledge.getPlayerInstance()));
+    	leaderSubPledge.getPlayerInstance().setPledgeClass(L2ClanMember.getCurrentPledgeClass(leaderSubPledge.getPlayerInstance()));
     	leaderSubPledge.getPlayerInstance().sendPacket(new UserInfo(leaderSubPledge.getPlayerInstance()));
     	for (L2Skill skill : leaderSubPledge.getPlayerInstance().getAllSkills())
     		leaderSubPledge.getPlayerInstance().removeSkill(skill,false);
-    	leaderSubPledge.getPlayerInstance().setActiveClass(0);    	
+    	leaderSubPledge.getPlayerInstance().setActiveClass(0);
     }
     
     private final Set<PlayerClass> getAvailableSubClasses(L2PcInstance player)

@@ -392,10 +392,10 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private boolean _isIn7sDungeon = false;
     
-    private int _pledgeType = 0;
+    private int _subPledgeType = 0;
     
     /** L2PcInstance's pledge rank*/
-    private int _rank;
+    private int _pledgeRank;
     
     /** Level at which the player joined the clan as an accedemy member*/
     private int _lvlJoinedAcademy = 0;
@@ -860,7 +860,7 @@ public final class L2PcInstance extends L2PlayableInstance
         
         if (getClan() != null && target.getClan() != null)
 		{
-			if (target.getPledgeType() != L2Clan.SUBUNIT_ACADEMY
+			if (target.getSubPledgeType() != L2Clan.SUBUNIT_ACADEMY
 				&& target.getClan().isAtWarWith(getClan().getClanId())) 
 			{
 				result |= RelationChanged.RELATION_1SIDED_WAR;
@@ -1982,7 +1982,7 @@ public final class L2PcInstance extends L2PlayableInstance
     
     public void academyCheck(int Id)
     {
-        if ((getPledgeType() ==-1 || getLvlJoinedAcademy() != 0) && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
+        if ((getSubPledgeType() == -1 || getLvlJoinedAcademy() != 0) && _clan != null && PlayerClass.values()[Id].getLevel() == ClassLevel.Third)
         {
             if(getLvlJoinedAcademy() <= 16) _clan.setReputationScore(_clan.getReputationScore()+400, true);
             else if(getLvlJoinedAcademy() >= 39) _clan.setReputationScore(_clan.getReputationScore()+170, true); 
@@ -5110,8 +5110,8 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _clanId = 0;
             _clanPrivileges = 0;
-            _pledgeType = 0;
-            _rank = 0;
+            _subPledgeType = 0;
+            _pledgeRank = 0;
             _lvlJoinedAcademy = 0;
             _apprentice = 0;
             _sponsor = 0;
@@ -5837,8 +5837,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
                 player.setNoble(rset.getBoolean("nobless"));
                 player.setCharViP((rset.getInt("charViP")==1) ? true : false);
-                player.setPledgeType(rset.getInt("subpledge"));
-                player.setRank(rset.getInt("pledge_rank"));
+                player.setSubPledgeType(rset.getInt("subpledge"));
+                player.setPledgeRank(rset.getInt("pledge_rank"));
                 player.getCharRecommendationStatus().setLastRecomUpdate(rset.getLong("last_recom_date"));
                 player.setApprentice(rset.getInt("apprentice"));
                 player.setSponsor(rset.getInt("sponsor"));
@@ -5846,16 +5846,16 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     if (player.getClan().getLeaderId() != player.getObjectId())
                     {
-                        if(player.getPowerGrade() == 0) 
+                        if(player.getPledgeRank() == 0) 
                         {
-                            player.setPowerGrade(5);
+                            player.setPledgeRank(5);
                         }
-                        player.setClanPrivileges(player.getClan().getRankPrivs(player.getPowerGrade()));
+                        player.setClanPrivileges(player.getClan().getRankPrivs(player.getPledgeRank()));
                     }
                     else 
                     {
                         player.setClanPrivileges(L2Clan.CP_ALL);
-                        player.setPowerGrade(1);
+                        player.setPledgeRank(1);
                     }
                 }
                 else
@@ -6199,8 +6199,8 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setLong(43, getJailTimer());
             statement.setInt(44, isNewbie() ? 1 : 0);
             statement.setInt(45, isNoble() ? 1 : 0);
-            statement.setLong(46, getPowerGrade());
-            statement.setInt(47, getPledgeType());
+            statement.setLong(46, getPledgeRank());
+            statement.setInt(47, getSubPledgeType());
             statement.setLong(48,getCharRecommendationStatus().getLastRecomUpdate());
             statement.setInt(49,getLvlJoinedAcademy());
             statement.setLong(50,getApprentice());
@@ -8596,7 +8596,7 @@ public final class L2PcInstance extends L2PlayableInstance
         return 0;
     }
     
-    // baron etc
+    // Baron, Wise Man etc, calculated on EnterWorld and when rank is changing
 	public void setPledgeClass(int classId)
     {
         _pledgeClass = classId;
@@ -8607,38 +8607,23 @@ public final class L2PcInstance extends L2PlayableInstance
         return _pledgeClass;
     }
     
-    public void setPledgeType(int typeId)
+    public void setSubPledgeType(int typeId)
     {
-        _pledgeType = typeId;
+        _subPledgeType = typeId;
     }
-    public int getPledgeType()
+    public int getSubPledgeType()
     {
-        return _pledgeType;
-    }
-    
-    public void setRank(int rank)
-    {
-        _rank = rank;
-    }
-    public int getRank()
-    {
-        return _rank;
+        return _subPledgeType;
     }
 
-    /**
-     * @return
-     */
-    public int getPowerGrade()
+    public int getPledgeRank()
     {
-        return _rank;
+        return _pledgeRank;
     }
-    
-    /**
-     * @return
-     */
-    public void setPowerGrade(int power)
+
+    public void setPledgeRank(int rank)
     {
-        _rank = power;
+        _pledgeRank = rank;
     }
     
     public int getApprentice()

@@ -232,11 +232,11 @@ public class L2Clan
         setLeader(member);
         updateClanInDB();
 
-        exLeader.setPledgeClass(exLeader.getClan().getClanMember(exLeader.getObjectId()).calculatePledgeClass(exLeader));
+        exLeader.setPledgeClass(L2ClanMember.getCurrentPledgeClass(exLeader));
         exLeader.broadcastUserInfo();
         L2PcInstance newLeader = member.getPlayerInstance();
         newLeader.setClan(this);
-        newLeader.setPledgeClass(member.calculatePledgeClass(newLeader));
+        newLeader.setPledgeClass(member.getCurrentPledgeClass(newLeader));
         newLeader.setClanPrivileges(L2Clan.CP_ALL);
         if (getLevel() >= 4)
         {
@@ -284,12 +284,12 @@ public class L2Clan
     
     public void addClanMember(L2PcInstance player)
     {
-        L2ClanMember member = new L2ClanMember(this,player.getName(), player.getLevel(), player.getClassId().getId(), player.getObjectId(), player.getPledgeType(), player.getPowerGrade(), player.getTitle());
+        L2ClanMember member = new L2ClanMember(this,player.getName(), player.getLevel(), player.getClassId().getId(), player.getObjectId(), player.getSubPledgeType(), player.getPledgeRank(), player.getTitle());
         // store in memory
         addClanMember(member);
 		member.setPlayerInstance(player);
 		player.setClan(this);
-		player.setPledgeClass(member.calculatePledgeClass(player));
+		player.setPledgeClass(L2ClanMember.getCurrentPledgeClass(player));
 		player.sendPacket(new PledgeShowMemberListUpdate(player));
 		player.sendPacket(new UserInfo(player));
     }
@@ -379,7 +379,7 @@ public class L2Clan
 			}
 			player.setClan(null);
 			player.setClanJoinExpiryTime(clanJoinExpiryTime);
-			player.setPledgeClass(exMember.calculatePledgeClass(player));
+			player.setPledgeClass(L2ClanMember.getCurrentPledgeClass(player));
 			player.broadcastUserInfo();
 			// disable clan tab
 			player.sendPacket(new PledgeShowMemberListDeleteAll());
@@ -406,16 +406,16 @@ public class L2Clan
         int result = 0;
         for (L2ClanMember temp : _members.values())
         {
-            if (temp.getPledgeType() == subpl) result++;
+            if (temp.getSubPledgeType() == subpl) result++;
         }
         return result;
     }
     
-    public int getMaxNrOfMembers(int pledgetype)
+    public int getMaxNrOfMembers(int subpledgetype)
     {
         int limit = 0;
 
-		switch (pledgetype)
+		switch (subpledgetype)
 		{
 		case 0:
 			switch (getLevel())
@@ -1270,12 +1270,12 @@ public class L2Clan
     }
     
     /** used to retrieve subPledge by type */
-    public final SubPledge getSubPledge(int pledgeType)
+    public final SubPledge getSubPledge(int subpledgeType)
     {
         if (_subPledges == null)
             return null;
         
-        return _subPledges.get(pledgeType);
+        return _subPledges.get(subpledgeType);
     }
 
     /** used to retrieve subPledge by type */
@@ -1303,13 +1303,13 @@ public class L2Clan
         return _subPledges.values().toArray(new SubPledge[_subPledges.values().size()]);
     }
     
-    public SubPledge createSubPledge(L2PcInstance player, int pledgeType, String leaderName, String subPledgeName)
+    public SubPledge createSubPledge(L2PcInstance player, int subPledgeType, String leaderName, String subPledgeName)
     {
     	SubPledge subPledge = null;
-        pledgeType = getAvailablePledgeTypes(pledgeType);
-        if (pledgeType == 0)
+        subPledgeType = getAvailablePledgeTypes(subPledgeType);
+        if (subPledgeType == 0)
         {
-          	if (pledgeType == L2Clan.SUBUNIT_ACADEMY)
+          	if (subPledgeType == L2Clan.SUBUNIT_ACADEMY)
                 player.sendPacket(new SystemMessage(SystemMessageId.CLAN_HAS_ALREADY_ESTABLISHED_A_CLAN_ACADEMY));
         	else 
         		player.sendMessage("You can't create any more sub-units of this type");
@@ -1321,11 +1321,18 @@ public class L2Clan
         	return null;
         }
         
+		int neededRepu = 0;
+		if(subPledgeType != -1)
+		{
+			if(subPledgeType < L2Clan.SUBUNIT_KNIGHT1)
+				neededRepu = 5000;
+			else if(subPledgeType > L2Clan.SUBUNIT_ROYAL2)
+				neededRepu = 10000;
+		}
+		
         // Royal Guard 5000 points per each
         // Order of Knights 10000 points per each
-        if(pledgeType != -1 &&
-			((getReputationScore() < 5000 && pledgeType < L2Clan.SUBUNIT_KNIGHT1)  ||
-			 (getReputationScore() < 10000 && pledgeType > L2Clan.SUBUNIT_ROYAL2)))
+        if(getReputationScore() < neededRepu)
         {
         	SystemMessage sp = new SystemMessage(SystemMessageId.CLAN_REPUTATION_SCORE_IS_TOO_LOW);
         	player.sendPacket(sp);
@@ -1339,24 +1346,24 @@ public class L2Clan
         		con = L2DatabaseFactory.getInstance().getConnection(con);
         		PreparedStatement statement = con.prepareStatement("INSERT INTO clan_subpledges (clan_id,sub_pledge_id,name,leader_name) values (?,?,?,?)");
         		statement.setInt(1, getClanId());
-        		statement.setInt(2, pledgeType);
+        		statement.setInt(2, subPledgeType);
         		statement.setString(3, subPledgeName);
-        		if (pledgeType != -1)
+        		if (subPledgeType != -1)
         			statement.setString(4, leaderName);
         		else
         			statement.setString(4, "");
         		statement.execute();
         		statement.close();
             
-        		subPledge = new SubPledge(pledgeType, subPledgeName, leaderName);
-        		_subPledges.put(pledgeType, subPledge);
+        		subPledge = new SubPledge(subPledgeType, subPledgeName, leaderName);
+        		_subPledges.put(subPledgeType, subPledge);
         		
-        		if(pledgeType != -1)
+        		if(subPledgeType != -1)
         		{
-        			setReputationScore(getReputationScore() - 2500, true);
+        			setReputationScore(getReputationScore() - neededRepu, true);
         		}
             
-        		if (_log.isDebugEnabled()) _log.debug("New sub_clan saved in db: "+getClanId()+"; "+pledgeType);
+        		if (_log.isDebugEnabled()) _log.debug("New sub_clan saved in db: "+getClanId()+"; "+subPledgeType);
         	}
         	catch (Exception e)
         	{
@@ -1522,7 +1529,7 @@ public class L2Clan
             for (L2ClanMember cm : getMembers())
             {
                 if (cm.isOnline())
-                    if (cm.getPowerGrade() == rank)
+                    if (cm.getPledgeRank() == rank)
                         if (cm.getPlayerInstance() != null)
                         {
                             cm.getPlayerInstance().setClanPrivileges(privs);

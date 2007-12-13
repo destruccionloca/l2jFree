@@ -365,8 +365,6 @@ public class EnterWorld extends L2GameClientPacket
 		if (Config.ALLOW_WATER)
 		    activeChar.checkWaterState();
 
-		setPledgeClass(activeChar);
-		
 		//add char to online characters
 		activeChar.setOnlineStatus(true);
 
@@ -422,7 +420,7 @@ public class EnterWorld extends L2GameClientPacket
 		
 		try
 		{
-			activeChar.setPledgeClass(activeChar.getClan().getClanMember(activeChar.getObjectId()).calculatePledgeClass(activeChar));
+			activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
 		}
 		catch(Throwable t){}
 
@@ -647,20 +645,5 @@ public class EnterWorld extends L2GameClientPacket
 	public String getType()
 	{
 		return _C__03_ENTERWORLD;
-	}
-
-	private void setPledgeClass(L2PcInstance activeChar)
-	{
-		int pledgeClass = 0;
-		if ( activeChar.getClan() != null)
-			pledgeClass = activeChar.getClan().getClanMember(activeChar.getObjectId()).calculatePledgeClass(activeChar);
-		
-		if (activeChar.isNoble() && pledgeClass < 5)
-	           pledgeClass = 5;
-		
-	    if (activeChar.isHero())
-	           pledgeClass = 8;
-	           
-	    activeChar.setPledgeClass(pledgeClass);
 	}
 }

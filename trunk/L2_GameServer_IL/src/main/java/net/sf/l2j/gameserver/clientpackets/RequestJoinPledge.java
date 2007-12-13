@@ -78,7 +78,7 @@ public class RequestJoinPledge extends L2GameClientPacket
     	target.sendPacket(ap);
 	}
 
-	public int getPledgeType()
+	public int getSubPledgeType()
 	{
 		return _pledgeType;
 	}

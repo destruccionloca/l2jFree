@@ -62,7 +62,7 @@ public class RequestPledgeReorganizeMember extends L2GameClientPacket
 		  L2ClanMember member = clan.getClanMember(_memberName);
 		      if(member == null)
 		       	return;
-		  member.setPledgeType(_newPledgeType);
+		  member.setSubPledgeType(_newPledgeType);
 		  clan.broadcastToOnlineMembers(new PledgeShowMemberListUpdate(member));
 	}
 	
