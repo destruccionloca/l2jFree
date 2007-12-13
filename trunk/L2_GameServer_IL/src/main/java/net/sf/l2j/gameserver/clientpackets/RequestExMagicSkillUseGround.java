@@ -15,7 +15,17 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
+
 package net.sf.l2j.gameserver.clientpackets;
+
+import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Fromat:(ch) dddddc
@@ -24,23 +34,24 @@ package net.sf.l2j.gameserver.clientpackets;
 public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 {
 	private static final String _C__D0_2F_REQUESTEXMAGICSKILLUSEGROUND = "[C] D0:2F RequestExMagicSkillUseGround";
+	private final static Log _log = LogFactory.getLog(RequestExMagicSkillUseGround.class.getName());
 
 	private int _x;
 	private int _y;
 	private int _z;
 	private int _skillId;
-	private int _ctrlPressed;
-	private int _shiftPressed;
+	private boolean _ctrlPressed;
+	private boolean _shiftPressed;
 
 	@Override
 	protected void readImpl()
 	{
-		_x = readD();
-		_y = readD();
-		_z = readD();
-		_skillId = readD();
-		_ctrlPressed = readD();
-		_shiftPressed = readC();
+		_x	= readD();
+		_y	= readD();
+		_z	= readD();
+		_skillId		= readD();
+		_ctrlPressed	= readD() != 0;
+		_shiftPressed	= readC() != 0;
 	}
 
 	/**
@@ -51,6 +62,30 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 	{
 		//TODO: implementation missing
 		System.out.println("C6: RequestExMagicSkillUseGround. x: "+_x+" y: "+_y+" z: "+_z+" skill: "+_skillId+" crtl: "+_ctrlPressed+" shift: "+_shiftPressed);
+		
+		L2PcInstance activeChar = getClient().getActiveChar();
+		
+		if (activeChar == null)
+			return;
+		
+		int level = activeChar.getSkillLevel(_skillId);
+		
+		if (level <= 0 || activeChar.isOutOfControl())
+		{
+			activeChar.sendPacket(new ActionFailed());
+			return;
+		}
+		
+		L2Skill skill = SkillTable.getInstance().getInfo(_skillId, level);
+		
+		if (skill == null || skill.getSkillType() == SkillType.NOTDONE)
+		{
+			activeChar.sendPacket(new ActionFailed());
+			return;
+		}
+		
+		// TODO: Handler for that skills... 
+		activeChar.sendPacket(new ActionFailed());
 	}
 
 	/**
