@@ -325,19 +325,28 @@
 </skill>
 <skill id="4216" levels="1" name="Scatter Enemy">
   <!--  Zaken skills - teleport PC -->
-  <set name="target" val="TARGET_ONE" />
-  <set name="hitTime" val="3000" />
-  <set name="skillType" val="RECALL" />
-  <set name="operateType" val="OP_ACTIVE" />
-  <set name="castRange" val="800" />
+  <set name="magicLvl" val="60"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="coolTime" val="100"/>
+  <set name="hitTime" val="3000"/>
+  <set name="skillType" val="RECALL"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="0.0"/>
+  <set name="castRange" val="800"/>
+  <set name="effectRange" val="1300"/>
 </skill>
 <skill id="4217" levels="1" name="Scatter Enemies">
   <!--  Zaken skills -->
-  <set name="target" val="TARGET_AURA" />
-  <set name="hitTime" val="3000" />
-  <set name="skillType" val="RECALL" />
-  <set name="operateType" val="OP_ACTIVE" />
-  <set name="castRange" val="800" />
+  <set name="magicLvl" val="60"/>
+  <set name="target" val="TARGET_AURA"/>
+  <set name="coolTime" val="100"/>
+  <set name="hitTime" val="3000"/>
+  <set name="skillRadius" val="300"/>
+  <set name="skillType" val="RECALL"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="0.0"/>
+  <set name="castRange" val="800"/>
+  <set name="effectRange" val="1300"/>
 </skill>
 <skill id="4218" levels="1" name="Absorb HP MP">
   <!-- Zaken skills -->
@@ -345,10 +354,14 @@
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="element" val="6"/>
+  <set name="coolTime" val="2000"/>
   <set name="hitTime" val="2000"/>
+  <set name="skillRadius" val="100"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="0.0"/>
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
   <for>
   </for>
 </skill>
@@ -356,10 +369,11 @@
   <!-- Zaken skills -->
   <set name="magicLvl" val="60"/>
   <set name="lvlDepend" val="1"/>
-  <set name="power" val="95"/>
   <set name="target" val="TARGET_ONE"/>
+  <set name="coolTime" val="2000"/>
   <set name="hitTime" val="2000"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
+  <set name="power" val="95"/>
+  <set name="reuseDelay" val="0"/>
   <set name="skillType" val="ROOT"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="800"/>
@@ -372,10 +386,11 @@
   <!-- Zaken skills -->
   <set name="magicLvl" val="60"/>
   <set name="lvlDepend" val="1"/>
-  <set name="power" val="7224.0"/>
+  <set name="power" val="7224"/>
   <set name="target" val="TARGET_ONE"/>
+  <set name="coolTime" val="900"/>
   <set name="hitTime" val="2100"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
+  <set name="reuseDelay" val="0"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="50"/>
@@ -387,10 +402,11 @@
   <!-- Zaken skills -->
   <set name="magicLvl" val="60"/>
   <set name="lvlDepend" val="1"/>
-  <set name="power" val="7224.0"/>
+  <set name="power" val="7224"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="100"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
+  <set name="reuseDelay" val="0"/>
+  <set name="coolTime" val="1500"/>
   <set name="hitTime" val="1500"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -401,11 +417,15 @@
 </skill>
 <skill id="4222" levels="1" name="Instant Move">
   <!-- Zaken skills - teleport -->
+  <set name="magicLvl" val="60"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="hitTime" val="500"/>
   <set name="skillType" val="NOTDONE"/>
+  <set name="reuseDelay" val="0"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="0.0"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -413,10 +433,12 @@
   <!-- Zaken skills - change face -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
+  <set name="coolTime" val="1900"/>
   <set name="hitTime" val="1100"/>
   <set name="skillType" val="WEAKNESS"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -424,10 +446,12 @@
   <!-- Zaken skills - change face -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
+  <set name="coolTime" val="1900"/>
   <set name="hitTime" val="1100"/>
   <set name="skillType" val="WEAKNESS"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>

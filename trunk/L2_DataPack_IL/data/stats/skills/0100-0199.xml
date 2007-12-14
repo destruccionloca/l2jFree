@@ -58,7 +58,7 @@
   <enchant1 name="effectPower" val="#ench1effectPower"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="power" val="#ench2Power"/>
-   <for>
+  <for>
     <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
     <effect count="1" name="RemoveTarget" time="1" val="0"/>
   </for>
@@ -236,7 +236,6 @@
   </for>
 </skill>
 <skill id="109" levels="1" name="Ogre Spirit Totem">
-  <set name="weaponsAllowed" val="1280"/>
   <set name="mpConsume" val="21"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -247,6 +246,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="438"/>
+  <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
+  <using kind="Fist, Dual Fist"/>
+  </cond>
   <for>
     <effect name="Buff" time="120" count="1" val="0" stackOrder="1" stackType="possession">
       <mul order="0x30" stat="pDef" val="1.30"/>
