@@ -1445,15 +1445,16 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <for>
-    <effect count="1" name="Grow" time="1200" val="0"/>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="#rate" stackType="pAtk">
       <mul order="0x30" stat="pAtk" val="#rate"/>
     </effect>
+    <effect count="1" name="Grow" time="1200" val="0"/>
   </for>
   <enchant1for>
     <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="1.15" stackType="pAtk">
       <mul order="0x30" stat="pAtk" val="1.15"/>
     </effect>
+    <effect count="1" name="Grow" time="1200" val="0"/>
   </enchant1for>
 </skill>
 <skill id="1069" levels="42" name="Sleep" enchantLevels1="30" enchantLevels2="30" >

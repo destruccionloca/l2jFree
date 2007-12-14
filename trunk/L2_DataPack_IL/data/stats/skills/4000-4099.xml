@@ -433,10 +433,10 @@
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Grow" time="1200" val="0"/>
     <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-pAtk" stackType="pAtk">
       <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
     </effect>
+    <effect count="1" name="Grow" time="1200" val="0"/>
   </for>
 </skill>
 <skill id="4031" levels="3" name="NPC Clan Aegis">

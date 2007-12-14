@@ -238,10 +238,10 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Grow" time="60" val="0"/>
     <effect count="1" name="Buff" time="60" val="0" stackOrder="#Tab-pAtk" stackType="pAtk">
       <mul order="0x30" stat="pAtk" val="#Tab-pAtk"/>
     </effect>
+    <effect count="1" name="Grow" time="60" val="0"/>
   </for>
 </skill>
 <skill id="4318" levels="1" name="Ultimate Buff">
@@ -1451,10 +1451,10 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Grow" time="3600" val="0"/>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="#pAtk" stackType="pAtk">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
+    <effect count="1" name="Grow" time="3600" val="0"/>
   </for>
 </skill>
 <skill id="4394" levels="6" name="Blessed Body">
@@ -1550,7 +1550,6 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Grow" time="3600" val="0"/>
     <effect count="1" name="Buff" time="3600" val="0" stackOrder="1" stackType="berserk">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
       <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>
@@ -1561,6 +1560,7 @@
       <mul order="0x30" stat="mDef" val="#mDef"/>
       <mul order="0x30" stat="pDef" val="#pDef"/>
     </effect>
+    <effect count="1" name="Grow" time="1200" val="0"/>
   </for>
 </skill>
 <skill id="4398" levels="6" name="Bless Shield">
