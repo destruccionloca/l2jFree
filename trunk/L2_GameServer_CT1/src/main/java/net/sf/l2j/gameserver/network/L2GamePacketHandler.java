@@ -86,11 +86,11 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					case 13:
 						msg = new CharacterDelete();	
 						break;
+					case 18:
+						msg = new CharacterSelected();
+						break;
 					case 19:
 						msg = new NewCharacter();
-						break;
-					case 22:
-						msg = new CharacterSelected();
 						break;
 					case 123:
 						msg = new CharacterRestore();
