@@ -84,13 +84,7 @@ public class AdminTeleport implements IAdminCommandHandler
 		"admin_recall_npc",
 		"admin_go",
 		"admin_tele",
-		"admin_teleto",
-		"admin_gonorth",
-		"admin_gowest",
-		"admin_goeast",
-		"admin_goup",
-		"admin_gosouth",
-		"admin_godown"
+		"admin_teleto"
 		};
 	private static final int REQUIRED_LEVEL = Config.GM_TELEPORT;
 	private static final int REQUIRED_LEVEL2 = Config.GM_TELEPORT_OTHER;
