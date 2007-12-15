@@ -482,7 +482,8 @@ abstract class DocumentBase
                 while (st.hasMoreTokens())
                 {
                     String item = st.nextToken().trim();
-                    array.add(Integer.decode(getValue(item, null))-1); //-1 because we want to take effect for exactly race that is by -1 lower in array
+                    //-1 because we want to take effect for exactly race that is by -1 lower in FastList
+                    array.add(Integer.decode(getValue(item, null))-1);
                 }
                 cond = joinAnd(cond, new ConditionTargetRaceId(array));
              }
