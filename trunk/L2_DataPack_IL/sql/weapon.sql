@@ -1364,7 +1364,9 @@ INSERT INTO `weapon` VALUES
 ('9140','Salvation Bow','lrhand','false','900','1','1','wood','none','1','1','bow','12','-3.00000','0','0','0','293','1','1','-1','0', 0,'false','false','false','false','0','0','0','0','0','0','0','0','0','0'),
 ('9141','Redemption Bow - Event Use','lrhand','false','300','1','1','wood','none','1','1','bow','12','-3.00000','0','0','0','293','1','1','60','0', 0,'false','false','false','false','0','0','0','0','0','0','0','0','0','0');
 
--- L2JFree changes
+--
+-- L2J-Free Add-ons
+--
 
-ALTER TABLE weapon ADD COLUMN item_display_id int(11) NOT NULL DEFAULT 0 AFTER item_id;
-update weapon set item_display_id = item_id;
+ALTER TABLE `weapon` ADD COLUMN `item_display_id` int(11) NOT NULL DEFAULT 0 AFTER `item_id`;
+UPDATE `weapon` SET `item_display_id` = `item_id`;

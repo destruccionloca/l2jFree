@@ -6600,9 +6600,9 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(35655,35655,'Court Magician',0,'Rune',0,'Monster3.Elite_Mage',6.50,21.96,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(35656,35656,'Court Magician',0,'Schuttgart',0,'Monster3.Elite_Mage',6.50,21.96,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT');
 
--- 
--- L2J Free Addon
--- 
+--
+-- L2J-Free Add-ons
+--
 
 UPDATE `npc` SET `type` = 'L2SepulcherNpc' WHERE `id` IN
 ( 31452,31453,31454,31455,31456,31457,31458,31459,31460,31461,31462,31463,31464,31465,31466,

@@ -6908,9 +6908,11 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
  ('9206','Greater Healing Potion (Event)','false','potion','5','stackable','liquid','none','-1','0','0','true','true','true','true','InterludeItem','none'),
  ('9207','Quick Healing Potion (Event)','false','potion','5','stackable','liquid','none','-1','0','0','true','true','true','true','InterludeItem','none');
 
--- L2JFree changes
+--
+-- L2J-Free Add-ons
+--
 
-UPDATE `etcitem` SET `item_type`='quest' WHERE (`item_id`='6353'); -- Blue Gemstone
+UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` = 6353; -- Blue Gemstone
 
-ALTER TABLE etcitem ADD COLUMN item_display_id int(11) NOT NULL DEFAULT 0 AFTER item_id;
-update etcitem set item_display_id = item_id;
+ALTER TABLE `etcitem` ADD COLUMN `item_display_id` int(11) NOT NULL DEFAULT 0 AFTER `item_id`;
+UPDATE `etcitem` SET `item_display_id` = `item_id`;

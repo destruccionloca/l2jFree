@@ -27355,7 +27355,9 @@ INSERT INTO `droplist` VALUES
 (21427,8742,1,1,200,34), -- Abraxion
 (22142,8742,1,1,200,21); -- Triol's Layperson
 
--- L2J Free Addon
+--
+-- L2J-Free Add-ons
+--
 
 -- Update Antharas
 DELETE FROM droplist WHERE mobId IN (29019,29066,29067,29068);

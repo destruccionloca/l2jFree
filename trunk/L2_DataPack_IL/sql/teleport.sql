@@ -700,7 +700,9 @@ INSERT INTO teleport VALUES
 ('Clan Hall -> East of Goddard Castle Town',12048,150561,-57489,-2976,0,0),
 ('Clan Hall -> West of Goddard Castle Town',12049,144866,-57464,-2976,0,0);
 
--- L2J Free Addon
+--
+-- L2J-Free Add-ons
+--
 
 -- Add for Castles teleports (ID are high values to limit the risk of duplicates values)
 INSERT INTO `teleport` VALUES
@@ -754,7 +756,7 @@ INSERT INTO `teleport` VALUES
 ('Schuttgart(artifact -> outofcastle)',15048,77562,-149119,-353,0,0);
 
 -- Update Boss Manager
-DELETE FROM teleport WHERE id IN (20000,20001,20002);
+DELETE FROM teleport WHERE id IN ( 20000, 20001, 20002 );
 INSERT INTO teleport VALUES
 	('Lair of Antharas -> Town of Giran',20000,83400,147943,-3404,0,0),
 	('Lair of Baium -> Town of Aden',20001,146331,25762,-2018,0,0),
@@ -798,5 +800,3 @@ INSERT INTO teleport VALUES
 ('Rune Inside',60031,17252,-49160,-1125,0,0),
 ('Rune Artefacts Room',60032,10133,-49152,997,0,0),
 ('Rune Out of the Castle',60033,19118,-49136,-1266,0,0);
-
-

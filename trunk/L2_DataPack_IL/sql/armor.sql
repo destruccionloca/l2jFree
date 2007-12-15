@@ -1043,7 +1043,9 @@ INSERT INTO `armor` VALUES
  ('9204','Iron Circlet - Firework','dhair','false','none','10','wood','none','0','300','0','0','0','0','0','false','false','true','false','0','0'),
  ('9208','Phantom Mask (Event)','dhair','false','none','10','wood','none','0','-1','0','0','0','0','0','false','false','true','false','0','0');
 
--- Add-on
+--
+-- L2J-Free Add-ons
+--
 INSERT INTO `armor` VALUES (9084, 'Shadow Item: Dark Crystal Helmet', 'head', 'true', 'none', 570, 'crystal', 'a', 0, 90, 69, 0, 0, 1740000, 139, 'true', 'true', 'true', 'true', 0, 0);
 
 -- Update

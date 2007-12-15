@@ -247,10 +247,11 @@ INSERT INTO `raidboss_spawnlist` VALUES
 -- (29065,1,26528,-8244,-20,0,43200,129600,0,400000,9999), -- Sailren (87) -- stats to be done (Spawn by Quest)
 -- (29095,1,000000,000000,000000,0,43200,129600,0,400000,9999); -- Gordon (87) -- walking arround Goddard
 
--- L2J Free Addon
+--
+-- L2J-Free Add-ons
+--
 
-DELETE FROM raidboss_spawnlist WHERE `boss_id` IN (25339,25342,25346,25349);
-
+DELETE FROM raidboss_spawnlist WHERE `boss_id` IN ( 25339, 25342, 25346, 25349 );
 INSERT INTO raidboss_spawnlist VALUES
 (25296,1,158322,-121064,-2231,0,43200,129600,0,248996,3718),
 (25328,1,59331,-42403,-3003,0,7200,10800,0,232323,3718),

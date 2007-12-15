@@ -22050,7 +22050,9 @@ INSERT INTO `npcskills` VALUES
 ('35340','1230','28'),
 ('35341','1230','28');
 
--- L2J Free Addon
+--
+-- L2J-Free Add-ons
+--
 
 -- Siege Golem
 INSERT INTO npcskills (npcid, skillid, level) VALUES

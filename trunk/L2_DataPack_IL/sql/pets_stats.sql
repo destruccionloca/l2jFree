@@ -1007,6 +1007,10 @@ INSERT INTO `pets_stats` (`type`, `typeID`, `level`, `expMax`, `hpMax`, `mpMax`,
   ('sin eater',12564,80,43076915,2275,1072,57,94,90,62,117,112,40,137,282,333,4776,79,15,0,8,3,1.0),
   ('sin eater',12564,81,44612271,2304,1073,59,95,93,63,118,113,40,137,282,333,4776,79,15,0,9,4,1.0);
 
+--
+-- L2J-Free Add-ons
+--
+
 -- Pet weight limits for pets, values custom, need to be tweaked/changed
 
 UPDATE `pets_stats` SET `loadMax`='73000' WHERE `typeID`='12077'; -- wolf
