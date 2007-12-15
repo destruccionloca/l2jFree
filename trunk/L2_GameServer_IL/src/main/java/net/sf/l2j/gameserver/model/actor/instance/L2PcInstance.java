@@ -94,7 +94,6 @@ import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
-import net.sf.l2j.gameserver.model.L2DropData;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Fishing;
 import net.sf.l2j.gameserver.model.L2FriendList;
@@ -7736,8 +7735,9 @@ public final class L2PcInstance extends L2PlayableInstance
         switch (mountType)
         {
             case 0:
-                setIsFlying(false);
                 setIsRiding(false);
+                setIsFlying(false);
+             	 isFalling(false,0); // Initialize the fall just incase dismount was made while in-air
                 break; //Dismounted
             case 1:
                 setIsRiding(true);

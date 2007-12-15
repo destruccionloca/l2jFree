@@ -168,6 +168,7 @@ public abstract class L2Character extends L2Object
     protected boolean _isTeleporting                        = false;
     protected boolean _isInvul                              = false;
     private int _lastHealAmount                             = 0;
+    private int[] lastPosition								= {0,0,0};
     private CharStat _stat;
     private CharStatus _status;
     private long _timePreviousBroadcastStatusUpdate          = 0;
@@ -268,9 +269,7 @@ public abstract class L2Character extends L2Object
     public void onTeleported()
     {
         setIsTeleporting(false);
-
 		spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
-
         if (_isPendingRevive) doRevive();
         if (FortressSiege._started && (this instanceof L2PcInstance) && ((L2PcInstance)this)._inEventFOS)
         	FortressSiege.setTitleSiegeFlags((L2PcInstance)this);
@@ -466,6 +465,7 @@ public abstract class L2Character extends L2Object
 		disableAllSkills();        
         abortAttack();
         abortCast();
+        isFalling(false,0);
         setIsTeleporting(true);
 
         if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
@@ -485,8 +485,11 @@ public abstract class L2Character extends L2Object
 
         // Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
         getPosition().setXYZ(x, y, z);
-
         decayMe();
+        setClientX(x);
+        setClientY(y);
+        setClientZ(z);
+        isFalling(false, 0);
 
         if (!(this instanceof L2PcInstance)) 
             onTeleported();
@@ -505,7 +508,190 @@ public abstract class L2Character extends L2Object
 		teleToLocation(x, y, z, allowRandomOffset);
 	}
    
-    public void teleToLocation(TeleportWhereType teleportWhere) { teleToLocation(MapRegionManager.getInstance().getTeleToLocation(this, teleportWhere), true); }
+    public void teleToLocation(TeleportWhereType teleportWhere) 
+    { 
+    	teleToLocation(MapRegionManager.getInstance().getTeleToLocation(this, teleportWhere), true); 
+    }
+    
+    /**************************************-+  Fall Damage  +-***************************************/
+    
+    /**
+     * @author Darki699
+     * Calculates if a L2Character is falling or not. If the character falls, it returns the fall height. 
+     * @param boolean falling: if false no checks are made, but last position is set to the current one
+     * @param int fallHeight: an integer value of the fall already calculated before.  
+     * @return A positive integer of the fall height, if not falling returns -1 
+     */
+    public int isFalling(boolean falling, int fallHeight)
+    {
+    	
+    	if (isFallsdown() && fallHeight == 0) // Avoid double checks -> let him fall only 1 time =P
+    		return -1;
+    	
+    	//If the boolean falling is set to false, just initialize this fall 
+    	if (!falling || (lastPosition[0]==0 && lastPosition[1]==0 && lastPosition[2]==0))
+    	{
+    		lastPosition = new int[] {getClientX(),getClientY(),getClientZ()};
+    		setIsFallsdown(false);
+    		return -1;
+    	}
+    	
+    	int moveChangeX = Math.abs(lastPosition[0] - getClientX()),
+			moveChangeY = Math.abs(lastPosition[1] - getClientY()),
+			// Z has a Positive value ONLY if the L2Character is moving down!
+			moveChangeZ = Math.max(lastPosition[2] - getClientZ(),lastPosition[2] - getZ());
+    	
+    	// Add acumulated damage to this fall, calling this function at a short delay while the fall is in progress
+    	if (moveChangeZ > fallSafeHeight() && moveChangeY < moveChangeZ && moveChangeX < moveChangeZ && !isFlying())
+    	{
+
+    		setIsFallsdown(true);
+    		// Calculate the acumulated fall height for a total fall calculation
+    		fallHeight += moveChangeZ;  
+    		
+    		//set the last position to the current one for the next future calculation 
+    		lastPosition = new int[] {getClientX(),getClientY(),getClientZ()};
+    		getPosition().setXYZ(lastPosition[0], lastPosition[1], lastPosition[2]);
+    		
+    		// Call this function for further checks in the short future (next time we either keep falling, or finalize the fall)
+    		// This "next time" check is a rough estimate on how much time is needed to calculate the next check, and it is based on the current fall height.
+    		ThreadPoolManager.getInstance().scheduleGeneral(new CheckFalling(fallHeight), Math.min(1200, moveChangeZ));
+    		
+    		//Value returned but not currently used. Maybe useful for future features.
+    		return fallHeight;
+    	}
+    	
+    	else	//Stopped falling or is not falling at all.
+    	{
+    		lastPosition = new int[] {getClientX(),getClientY(),getClientZ()};
+    		getPosition().setXYZ(lastPosition[0], lastPosition[1], lastPosition[2]);
+    		
+    		if (fallHeight > fallSafeHeight())
+    		{
+    			doFallDamage(fallHeight);
+    			return fallHeight;
+    		}
+    	}
+    	
+    	return -1;
+    }
+    
+    /**
+     * <font color="ff0000"><b>Needs to be completed!</b></font> Add to safeFallHeight the buff resist values which increase the fall resistance. 
+     * @author Darki699
+     * @see Returns the integer representation of the height from which above it this L2Character suffers fall damage. 
+     * @return integer safeFallHeight is the value from which above it this L2Character suffers a fall damage. 
+     */
+    private int fallSafeHeight()
+    {
+    	
+    	int safeFallHeight = Config.ALT_MINIMUM_FALL_HEIGHT;  
+    	
+    	try
+    	{
+    		if (this instanceof L2PcInstance)
+    		{
+    			safeFallHeight = ((L2PcInstance)this).getTemplate().getBaseFallSafeHeight(((L2PcInstance)this).getAppearance().getSex());
+    		}
+    	}
+    	
+    	catch(Throwable t)
+    	{
+    		_log.fatal( "Template Missing : ", t);
+    	}
+    	
+    	return  safeFallHeight;
+    }
+    
+    
+    private int getFallDamage(int fallHeight)
+    {
+    	int damage = (fallHeight-fallSafeHeight())*2; // Needs verification for actual damage
+		if (damage >= getStatus().getCurrentHp())
+		{
+			damage = (int)(getStatus().getCurrentHp()-1);
+		}
+	
+		broadcastPacket(new ChangeWaitType(this,ChangeWaitType.WT_START_FAKEDEATH));
+		disableAllSkills();
+		
+		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+			{
+				public void run()
+					{
+						L2Character.this.enableAllSkills();
+						broadcastPacket(new ChangeWaitType(L2Character.this,ChangeWaitType.WT_STOP_FAKEDEATH));
+						setIsFallsdown(false);
+						
+						//For some reason this is needed since the client side changes back to last airborn position after 1 second
+						lastPosition = new int[] {getX(),getY(),getZ()};
+						setClientX(lastPosition[0]);
+						setClientY(lastPosition[1]);
+						setClientZ(lastPosition[2]);
+					}
+			}
+			, 1100);
+		
+		return damage;
+    }
+    
+    
+    /**
+     * Receives a integer fallHeight and finalizes the damage effect from the fall. 
+     * @param integer fallHeight representation of the fall
+     * @author Darki699
+     */
+    private void doFallDamage(int fallHeight)
+    {
+    	isFalling(false,0);
+		
+    	int damage = getFallDamage(fallHeight);
+		
+		if (damage < 1)
+			return;
+    	
+    	if (this instanceof L2PcInstance)
+			{
+				L2PcInstance player = ((L2PcInstance)this);
+				
+				if (player.isInvul() || player.isInFunEvent())
+					return;
+				
+				SystemMessage sm = new SystemMessage(SystemMessageId.FALL_DAMAGE_S1);
+				sm.addNumber(damage);
+				sendPacket(sm);
+			}
+			
+		getStatus().reduceHp(damage, this);
+		getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
+    }
+    
+    
+    /**
+     * @author Darki699
+     * Once a character is falling, we call this to run in order to see when he is not falling down any more.
+     * Constructor receives the int fallHeight already calculated, and function isFalling(boolean,int) will be
+     * called again to terminate the fall and calculate the damage.
+     */
+    public class CheckFalling implements Runnable
+    {
+        int _fallHeight;
+
+        public CheckFalling(int fallHeight)
+        {
+        	_fallHeight = fallHeight;
+        }
+
+        public void run()
+        {
+            try
+            {
+                isFalling(true , _fallHeight);
+            } catch (Throwable e) {
+                _log.fatal( "L2PcInstance.CheckFalling exception ", e);
+            }
+        }
+    }
     
     // =========================================================
     // Method - Private

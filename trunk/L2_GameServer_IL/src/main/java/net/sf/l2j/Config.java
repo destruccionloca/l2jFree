@@ -1244,6 +1244,7 @@ public final class Config
     public static boolean 			REMOVE_CASTLE_CIRCLETS;				// Remove Castle circlets after clan lose his castle? - default true
     public static double 			ALT_WEIGHT_LIMIT;					// Alternative game weight limit multiplier - default 1
     public static int 				ALT_GAME_NUMBER_OF_CUMULATED_BUFF;	// Alternative number of cumulated buff
+    public static int 				ALT_MINIMUM_FALL_HEIGHT;			// Minimum Height(Z) that a character needs to fall, in order for it to be considered a fall.
     public static boolean 			ALT_DISABLE_RAIDBOSS_PETRIFICATION;	// Disable Raidboss Petrification
     public static int 				ALT_CRITICAL_CAP;					// Critical Cap
     public static boolean 			ALT_GAME_SKILL_LEARN;				// Alternative game skill learning
@@ -1384,6 +1385,7 @@ public final class Config
             ALT_GAME_CREATION_SP_RATE=Double.parseDouble(altSettings.getProperty("AltGameCreationRateSp", "1"));
             ALT_WEIGHT_LIMIT        =Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1."));
             ALT_BLACKSMITH_USE_RECIPES=Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "true"));
+            ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(altSettings.getProperty("AltMinimumFallHeight", "400"));
             ALT_GAME_NUMBER_OF_CUMULATED_BUFF= Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
             ALT_GAME_SKILL_LEARN    = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
             ALT_GAME_CANCEL_BOW     = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow") || altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
@@ -2641,6 +2643,7 @@ public final class Config
         else if (pName.equalsIgnoreCase("AltWeightLimit")) ALT_WEIGHT_LIMIT = Double.parseDouble(pValue);
         else if (pName.equalsIgnoreCase("AltBlacksmithUseRecipes")) ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(pValue);
         else if (pName.equalsIgnoreCase("AltGameSkillLearn")) ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("AltMinimumFallHeight")) ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("AltNbCumulatedBuff")) ALT_GAME_NUMBER_OF_CUMULATED_BUFF = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("AltBuffTime")) ALT_BUFF_TIME = Integer.parseInt(pValue);
         else if (pName.equalsIgnoreCase("AltSuccessRate")) ALT_DAGGER_RATE = Integer.parseInt(pValue);

@@ -175,7 +175,11 @@ public class ValidatePosition extends L2GameClientPacket
 		
 		if (Config.ALLOW_WATER)
 			activeChar.checkWaterState();
+		
+		if (!activeChar.isInWater() && !activeChar.isFlying())
+			activeChar.isFalling(true,0); // Check if the L2Character isFalling
 
+		
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 		{
 			if (GeoEditorListener.getInstance().getThread() != null 
