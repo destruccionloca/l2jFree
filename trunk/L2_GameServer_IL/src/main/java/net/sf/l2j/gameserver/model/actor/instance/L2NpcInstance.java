@@ -810,6 +810,7 @@ public class L2NpcInstance extends L2Character
             html1.append("<tr><td>Accuracy</td><td>"+getAccuracy()+"</td><td>Evasion</td><td>"+getEvasionRate(null)+"</td></tr>");
             html1.append("<tr><td>Critical</td><td>"+getCriticalHit(null,null)+"</td><td>Speed</td><td>"+getRunSpeed()+"</td></tr>");
             html1.append("<tr><td>Atk.Speed</td><td>"+getPAtkSpd()+"</td><td>Cast.Speed</td><td>"+getMAtkSpd()+"</td></tr>");
+            html1.append("<tr><td>Race</td><td>"+getTemplate().getRace()+"</td><td></td><td></td></tr>");
             html1.append("</table><br>");
             
             html1.append("<font color=\"LEVEL\">Basic Stats</font>");
