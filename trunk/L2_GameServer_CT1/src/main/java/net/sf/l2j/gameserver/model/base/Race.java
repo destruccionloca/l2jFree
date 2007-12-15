@@ -32,7 +32,8 @@ public enum Race
 	elf,
 	darkelf,
 	orc,
-	dwarf;
+	dwarf,
+	kamael;
 	
 	public final static Race getRaceByName(String name)
 	{

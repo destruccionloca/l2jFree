@@ -180,7 +180,28 @@ public enum ClassId
 	doomcryer	      (0x74,  true,   Race.orc,  warcryer),
 
 	fortuneSeeker	  (0x75,  false,  Race.dwarf,  bountyHunter),
-	maestro	          (0x76,  false,  Race.dwarf,  warsmith); 
+	maestro	          (0x76,  false,  Race.dwarf,  warsmith), 
+	
+	dummyEntry31      (119, false, null, null),
+	dummyEntry32      (120, false, null, null),
+	dummyEntry33      (121, false, null, null),
+	dummyEntry34      (122, false, null, null),
+	
+	
+	maleSoldier 	  (0x7B, false, Race.kamael, null),
+	femaleSoldier	  (0x7C, false, Race.kamael, null),
+	trooper			  (0x7D, false, Race.kamael, maleSoldier),
+	warder			  (0x7E, false, Race.kamael, femaleSoldier),
+	berserker		  (0x7F, false, Race.kamael, trooper),
+	maleSoulbreaker	  (0x80, false, Race.kamael, trooper),
+	femaleSoulbreaker (0x81, false, Race.kamael, warder),
+	arbalester		  (0x82, false, Race.kamael, warder),
+	doombringer		  (0x83, false, Race.kamael, berserker),
+	maleSoulhound	  (0x84, false, Race.kamael, maleSoulbreaker),
+	femaleSoulhound	  (0x85, false, Race.kamael, femaleSoulbreaker),
+	trickster		  (0x86, false, Race.kamael, arbalester),
+	inspector		  (0x87, false, Race.kamael, warder),	
+	judicator		  (0x88, false, Race.kamael, inspector);
 	
 	/** The Identifier of the Class */
 	private final int     _id;
