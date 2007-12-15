@@ -25,7 +25,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.FriendList;
+import net.sf.l2j.gameserver.network.serverpackets.FriendList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

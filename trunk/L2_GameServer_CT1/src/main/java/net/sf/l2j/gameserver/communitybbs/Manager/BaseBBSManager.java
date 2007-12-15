@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.communitybbs.Manager;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ShowBoard;
+import net.sf.l2j.gameserver.network.serverpackets.ShowBoard;
 
 
 /**

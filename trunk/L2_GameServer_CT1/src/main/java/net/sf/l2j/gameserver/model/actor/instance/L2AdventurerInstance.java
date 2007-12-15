@@ -20,8 +20,8 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.serverpackets.ExQuestInfo;
-import net.sf.l2j.gameserver.serverpackets.RadarControl;
+import net.sf.l2j.gameserver.network.serverpackets.ExQuestInfo;
+import net.sf.l2j.gameserver.network.serverpackets.RadarControl;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;

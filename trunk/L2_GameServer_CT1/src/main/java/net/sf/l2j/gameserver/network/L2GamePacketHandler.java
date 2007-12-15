@@ -22,8 +22,8 @@ import java.util.concurrent.RejectedExecutionException;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.clientpackets.*;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
+import net.sf.l2j.gameserver.network.clientpackets.*;
 import net.sf.l2j.tools.util.Util;
 
 import org.apache.commons.logging.Log;

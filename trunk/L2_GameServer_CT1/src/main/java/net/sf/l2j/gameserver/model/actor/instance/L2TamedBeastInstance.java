@@ -32,8 +32,8 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Object;
-import net.sf.l2j.gameserver.serverpackets.NpcInfo;
-import net.sf.l2j.gameserver.serverpackets.StopMove;
+import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
+import net.sf.l2j.gameserver.network.serverpackets.StopMove;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.tools.geometry.Point3D;
 

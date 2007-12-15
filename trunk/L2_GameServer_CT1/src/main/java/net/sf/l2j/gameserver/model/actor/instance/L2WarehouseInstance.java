@@ -27,14 +27,14 @@ import net.sf.l2j.gameserver.model.PcFreight;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
-import net.sf.l2j.gameserver.serverpackets.PackageToList;
-import net.sf.l2j.gameserver.serverpackets.SortedWareHouseWithdrawalList;
-import net.sf.l2j.gameserver.serverpackets.SortedWareHouseWithdrawalList.WarehouseListType;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.serverpackets.WareHouseDepositList;
-import net.sf.l2j.gameserver.serverpackets.WareHouseWithdrawalList;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.network.serverpackets.PackageToList;
+import net.sf.l2j.gameserver.network.serverpackets.SortedWareHouseWithdrawalList;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.WareHouseDepositList;
+import net.sf.l2j.gameserver.network.serverpackets.WareHouseWithdrawalList;
+import net.sf.l2j.gameserver.network.serverpackets.SortedWareHouseWithdrawalList.WarehouseListType;
 
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 

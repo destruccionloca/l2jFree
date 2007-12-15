@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
-import net.sf.l2j.gameserver.serverpackets.CreatureSay;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 /**
  *

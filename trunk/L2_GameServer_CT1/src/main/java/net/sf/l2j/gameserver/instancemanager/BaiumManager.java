@@ -42,9 +42,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
-import net.sf.l2j.gameserver.serverpackets.DeleteObject;
-import net.sf.l2j.gameserver.serverpackets.Earthquake;
-import net.sf.l2j.gameserver.serverpackets.SocialAction;
+import net.sf.l2j.gameserver.network.serverpackets.DeleteObject;
+import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
+import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;

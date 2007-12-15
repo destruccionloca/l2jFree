@@ -23,10 +23,10 @@ import javolution.util.FastList;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
-import net.sf.l2j.gameserver.serverpackets.ExCloseMPCC;
-import net.sf.l2j.gameserver.serverpackets.ExOpenMPCC;
-import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.ExCloseMPCC;
+import net.sf.l2j.gameserver.network.serverpackets.ExOpenMPCC;
+import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  *

@@ -19,7 +19,7 @@ package net.sf.l2j.gameserver.model;
 
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.serverpackets.PetInventoryUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.PetInventoryUpdate;
 
 public class PetInventory extends Inventory 
 {

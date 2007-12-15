@@ -24,8 +24,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
-import net.sf.l2j.gameserver.npcserverpackets.GsBasePacket;
-import net.sf.l2j.gameserver.npcserverpackets.PacketsQueue;
+import net.sf.l2j.gameserver.network.npcserverpackets.GsBasePacket;
+import net.sf.l2j.gameserver.network.npcserverpackets.PacketsQueue;
 
 /**
  * 

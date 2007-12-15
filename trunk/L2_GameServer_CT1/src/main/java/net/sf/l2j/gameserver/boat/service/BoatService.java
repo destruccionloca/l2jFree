@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.boat.dao.IBoatTrajetDAO;
 import net.sf.l2j.gameserver.boat.model.L2BoatPoint;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.VehicleDeparture;
+import net.sf.l2j.gameserver.network.serverpackets.VehicleDeparture;
 
 /**
  * A service associated with the boat daos.

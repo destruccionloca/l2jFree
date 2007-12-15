@@ -29,8 +29,8 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
-import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.tools.L2Registry;
 
 import org.apache.commons.logging.Log;

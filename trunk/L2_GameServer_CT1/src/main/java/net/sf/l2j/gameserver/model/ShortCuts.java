@@ -25,8 +25,8 @@ import java.util.TreeMap;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.ExAutoSoulShot;
-import net.sf.l2j.gameserver.serverpackets.ShortCutInit;
+import net.sf.l2j.gameserver.network.serverpackets.ExAutoSoulShot;
+import net.sf.l2j.gameserver.network.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 import org.apache.commons.logging.Log;
