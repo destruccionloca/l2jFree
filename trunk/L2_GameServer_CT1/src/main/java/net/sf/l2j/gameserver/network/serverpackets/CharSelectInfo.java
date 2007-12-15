@@ -80,9 +80,11 @@ public class CharSelectInfo extends L2GameServerPacket
 	{
 		int size = (_characterPackages.length);
 
-		writeC(0x13);
+		writeC(0x09);
 		writeD(size);
-
+        writeD(0);
+        writeC(1);
+        
 		long lastAccess = 0L;
 
 		if (_activeId == -1)
@@ -154,24 +156,15 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
 
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DHAIR));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_REAR));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LEAR));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_NECK));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RFINGER));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LFINGER));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HEAD));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RHAND));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LHAND));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_GLOVES));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_CHEST));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LEGS));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_FEET));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_BACK));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LRHAND));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR));
-			writeD(charInfoPackage.getPaperdollItemDisplayId(Inventory.PAPERDOLL_FACE));
-
+            writeD(0);
+            writeD(0);
+            writeD(0);
+            writeD(0);
+            writeD(0);
+            writeD(0);
+            writeD(0);
+            writeD(0);
+            
 			writeD(charInfoPackage.getHairStyle());
 			writeD(charInfoPackage.getHairColor());
 			writeD(charInfoPackage.getFace());
@@ -187,13 +180,10 @@ public class CharSelectInfo extends L2GameServerPacket
 			// delete .. if != 0
 			// then char is inactive
 			writeD(charInfoPackage.getClassId());
-			if (i == _activeId)
-				writeD(0x01);
-			else
-				writeD(0x00); //c3 auto-select char
-
-				writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
-
+			writeD(i != _activeId ? 0 : 1); 
+			writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
+            writeH(0);
+            writeH(0);
 			writeD(charInfoPackage.getAugmentationId());
 		}
 	}

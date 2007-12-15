@@ -76,7 +76,8 @@ public class ProtocolVersion extends L2GameClientPacket
         }
         else
         {
-            if (_log.isDebugEnabled()) _log.debug("Client Protocol Revision is ok:"+_version);
+            if (_log.isDebugEnabled())
+            	_log.debug("Client Protocol Revision is ok:"+_version);
     		KeyPacket pk = new KeyPacket(getClient().enableCrypt());
     		sendPacket(pk);
         }

@@ -333,7 +333,8 @@ public class LoginServerThread extends Thread
 							{
 								if(par.isAuthed())
 								{
-									if (_log.isDebugEnabled())_log.debug("Login accepted player "+wcToRemove.account+" waited("+(GameTimeController.getGameTicks()-wcToRemove.timestamp)+"ms)");
+									if (_log.isDebugEnabled())
+										_log.debug("Login accepted player "+wcToRemove.account+" waited("+(GameTimeController.getGameTicks()-wcToRemove.timestamp)+"ms)");
 									PlayerInGame pig = new PlayerInGame(par.getAccount());
                                     sendPacket(pig);
                                     wcToRemove.gameClient.setState(GameClientState.AUTHED);
