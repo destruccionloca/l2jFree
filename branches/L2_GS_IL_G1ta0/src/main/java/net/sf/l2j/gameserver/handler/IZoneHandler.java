@@ -28,5 +28,7 @@ public interface IZoneHandler
 {
 	public void onEnter(L2Character character);
 	
+	public void onMove(L2Character character);
+	
 	public void onExit(L2Character character);
 }

@@ -269,7 +269,9 @@ public abstract class ZoneBase implements IZone
 				_characters.put(character, this);
 				if(_zoneHandler != null)
 					_zoneHandler.onEnter(character);
-			}
+			} else
+				if(_zoneHandler != null)
+					_zoneHandler.onMove(character);
 		}
 		else
 			removeFromZone(character);

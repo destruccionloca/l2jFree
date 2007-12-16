@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
@@ -46,6 +47,7 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionUsingItemType;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2Armor;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -928,10 +930,10 @@ public final class Formulas
                 if (siegeModifier > 0) init *= siegeModifier;
             }
             
-            if (player.getInsideClanHall() > 0 && player.getClan() != null)
+            if (player.getInsideClanHallId() > 0 && player.getClan() != null)
             {
             	int clanHallIndex = player.getClan().getHasHideout();
-            	if (clanHallIndex > 0 && clanHallIndex == player.getInsideClanHall()) 
+            	if (clanHallIndex > 0 && clanHallIndex == player.getInsideClanHallId()) 
             	{
             		ClanHall clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex);
             		if(clansHall != null)
@@ -999,10 +1001,10 @@ public final class Formulas
             // Mother Tree effect is calculated at last
             if (player.isInsideZone(ZoneType.MotherTree)) mpRegenBonus += 1;
             
-            if (player.getInsideClanHall() > 0 && player.getClan() != null)
+            if (player.getInsideClanHallId() > 0 && player.getClan() != null)
             {
             	int clanHallIndex = player.getClan().getHasHideout();
-            	if (clanHallIndex > 0 && player.getInsideClanHall() == clanHallIndex)
+            	if (clanHallIndex > 0 && player.getInsideClanHallId() == clanHallIndex)
             	{
             		ClanHall clansHall = ClanHallManager.getInstance().getClanHallById(clanHallIndex);
             		if(clansHall != null)
@@ -1124,6 +1126,8 @@ public final class Formulas
 		damage = target.calcStat(Stats.DAGGER_WPN_VULN, damage, target, null);
 		damage *= 70. / defence;
 		damage += Rnd.get() * attacker.getRandomDamage(target);
+		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+			damage *= skill.getPvpMulti();
 		return damage < 1 ? 1. : damage;
 	}
 
@@ -1206,7 +1210,7 @@ public final class Formulas
                 case SWORD:
                     stat = Stats.SWORD_WPN_VULN;
                     break;
-                case BIGSWORD: //TODO: have a proper resistance/vulnerability for Big swords
+                case BIGSWORD:
                     stat = Stats.SWORD_WPN_VULN;
                     break;
             }
@@ -1269,31 +1273,52 @@ public final class Formulas
 
         if (attacker instanceof L2NpcInstance)
         {
-            int raceId = ((L2NpcInstance) attacker).getTemplate().getRace();
             //Skill Race : Undead
-            if (raceId == 4290) damage /= attacker.getStat().getPDefUndead(target);
+            if (((L2NpcInstance)attacker).getTemplate().getRace() == L2NpcTemplate.Race.UNDEAD)
+                damage /= attacker.getStat().getPDefUndead(target);
             //Skill Valakas
-            if ( ((L2NpcInstance) attacker).getTemplate().getIdTemplate() == 12899)  damage /= attacker.getStat().getPDefValakas(target); 
+            if (((L2NpcInstance)attacker).getTemplate().getIdTemplate() == 12899)  damage /= attacker.getStat().getPDefValakas(target); 
             
         }
         if (target instanceof L2NpcInstance)
         {
-            int raceId = ((L2NpcInstance) target).getTemplate().getRace();
-            //Skill Race : Undead
-            if (raceId == 4290) damage *= attacker.getStat().getPAtkUndead(target);
-            //Skill Race : Beast
-            if (raceId == 4292) damage *= attacker.getStat().getPAtkMonsters(target);
-            //Skill Race : Animal
-            if (raceId == 4293) damage *= attacker.getStat().getPAtkAnimals(target);
-            //Skill Race : Plant
-            if (raceId == 4294) damage *= attacker.getStat().getPAtkPlants(target);
-            //Skill Race : Dragon
-            if (raceId == 4299) damage *= attacker.getStat().getPAtkDragons(target);
-            //Skill Race : Bug
-            if (raceId == 4301) damage *= attacker.getStat().getPAtkInsects(target);
+            switch (((L2NpcInstance) target).getTemplate().getRace())
+            {
+                case UNDEAD:
+                    damage *= attacker.getStat().getPAtkUndead(target);
+                    break;
+                case BEAST:
+                    damage *= attacker.getStat().getPAtkMonsters(target);
+                    break;
+                case ANIMAL:
+                    damage *= attacker.getStat().getPAtkAnimals(target);
+                    break;
+                case PLANT:
+                    damage *= attacker.getStat().getPAtkPlants(target);
+                    break;
+                case DRAGON:
+                    damage *= attacker.getStat().getPAtkDragons(target);
+                    break;
+                case BUG:
+                    damage *= attacker.getStat().getPAtkInsects(target);
+                    break;
+                default:
+                    // nothing
+                    break;
+            }
             //Skill Valakas
             if ( ((L2NpcInstance) target).getTemplate().getIdTemplate() == 12899) damage *= attacker.getStat().getPAtkValakas(target); 
         }
+        
+        if (skill != null) 
+        {
+            if (skill.getSkillType() == SkillType.FATALCOUNTER)
+                damage *= (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
+			
+			if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+				damage *= skill.getPvpMulti();
+        }
+
         if (shld)
         {
             if (100 - Config.ALT_PERFECT_SHLD_BLOCK < Rnd.get(100)) 
@@ -1312,14 +1337,14 @@ public final class Formulas
         }
 
         // Dmg bonusses in PvP fight
-		if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
-				&& (target instanceof L2PcInstance || target instanceof L2Summon))
-		{
-			if(skill == null)
-				damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
-			else
-				damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);	
-		}
+        if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
+                && (target instanceof L2PcInstance || target instanceof L2Summon))
+        {
+            if(skill == null)
+                damage *= attacker.calcStat(Stats.PVP_PHYSICAL_DMG, 1, null, null);
+            else
+                damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+        }
 
         if (attacker instanceof L2PcInstance){
            if (((L2PcInstance) attacker).getClassId().isMage())
@@ -1397,7 +1422,7 @@ public final class Formulas
                 }
             }
         }
-        else if (mcrit) damage *= 2; // TODO: *4 ???
+        else if (mcrit) damage *= 4;
         
         // Pvp bonusses for dmg
 		if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
@@ -1417,7 +1442,16 @@ public final class Formulas
            damage = damage*Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
         else if (attacker instanceof L2NpcInstance)
             damage = damage*Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
-        
+		
+		if (skill != null)
+        {
+			if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+				damage *= skill.getPvpMulti();
+			
+            if (skill.getSkillType() == SkillType.DEATHLINK)
+                damage = damage * (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
+        }
+		
         return damage;
     }
 
@@ -1460,7 +1494,9 @@ public final class Formulas
     /** Returns true in case when ATTACK is canceled due to hit */
    public final boolean calcAtkBreak(L2Character target, double dmg)
    {
-        double init = 0;
+        if (target.isRaid()) return false;
+		
+		double init = 0;
 
        if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow()) init = 50;
        if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())
@@ -1488,44 +1524,32 @@ public final class Formulas
     }
     
     /** Calculate delay (in milliseconds) before next ATTACK */
-    public final int calcPAtkSpd(@SuppressWarnings("unused")
-    L2Character attacker, @SuppressWarnings("unused")
-    L2Character target, double rate)
-    {
-        //will fix freeze at >1000 atkspd, optimum calcation between 0 to 1400
-        // return (int) (3*Math.pow(rate, 2)/2000 - 4*rate + 2700);
-        // will fix freeze at >1800 atkspd, optimum calcation between 0 to 1700
-        //if (attacker instanceof L2PcInstance)
-        //    return (int)(((Math.pow(rate, 2)-4000*rate + 4074102.5641)/1900+15)*Config.ALT_ATTACK_DELAY); 
-        // else
-        //  return (int)((Math.pow(rate, 2)-4000*rate + 4074102.5641)/1900+15);
-        //  return (int) (3 * Math.pow(rate, 2) / 2000 - 4 * rate + 2700); 
-        if (attacker instanceof L2PcInstance)
-        {
-            if(rate < 2) return 2700;
-            else return (int)((460000 *Config.ALT_ATTACK_DELAY )/rate);   
-        }
-        else
-        {
-            if(rate < 2) return 2700;
-            else return (int)((460000)/rate); 
-        }
-    }
+    public final int calcPAtkSpd(@SuppressWarnings("unused") L2Character attacker,
+                                 @SuppressWarnings("unused") L2Character target, double atkSpd, double base)
+	{
+		if (attacker instanceof L2PcInstance)
+			base *= Config.ALT_ATTACK_DELAY;
+		
+		if (atkSpd < 10)
+			atkSpd = 10;
+		
+		return (int)(base/atkSpd);
+	}
     
     /** Calculate delay (in milliseconds) for skills cast */
     public final int calcMAtkSpd(L2Character attacker, @SuppressWarnings("unused")
-    L2Character target, L2Skill skill, double skillTime)
+    L2Character target, L2Skill skill, double time)
     {
-        if (skill.isMagic()) return (int) (skillTime * 333 / attacker.getMAtkSpd());
-        return (int) (skillTime * 333 / attacker.getPAtkSpd());
+        if (skill.isMagic()) return (int) (time * 333 / attacker.getMAtkSpd());
+        return (int) (time * 333 / attacker.getPAtkSpd());
 
     }
 
     /** Calculate delay (in milliseconds) for skills cast */
-    public final int calcMAtkSpd(L2Character attacker, L2Skill skill, double skillTime)
+    public final int calcMAtkSpd(L2Character attacker, L2Skill skill, double time)
     {
-        if (skill.isMagic()) return (int) (skillTime * 333 / attacker.getMAtkSpd());
-        return (int) (skillTime * 333 / attacker.getPAtkSpd());
+        if (skill.isMagic()) return (int) (time * 333 / attacker.getMAtkSpd());
+        return (int) (time * 333 / attacker.getPAtkSpd());
     }
     
     /** Returns true if hit missed (taget evaded) */
@@ -1558,33 +1582,33 @@ public final class Formulas
     /** Returns true if shield defence successfull */
     public boolean calcShldUse(L2Character attacker, L2Character target) 
     {
-        L2Weapon at_weapon = attacker.getActiveWeaponItem();
         double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null)
             * DEXbonus[target.getStat().getDEX()];
-        if (shldRate == 0.0) return false;
-        // Check for passive skill Aegis (316) or Aegis Stance (318)
-        if (target.getKnownSkill(316) == null && target.getEffect(318) == null)
-            if (!target.isFront(attacker)) return false;
-        // if attacker use bow and target wear shield, shield block rate is multiplied by 1.3 (30%)
-        if (at_weapon != null && at_weapon.getItemType() == L2WeaponType.BOW)
-            shldRate *= 1.3;
-        return shldRate > Rnd.get(100);
+        
+		if (shldRate == 0.0) return false;
+		
+		double shldAngle = target.calcStat(Stats.SHIELD_ANGLE, 60, null, null);
+		
+        if (!target.isInFront(attacker, shldAngle))
+            return false;
+		
+        // if attacker use bow and target wear shield, shield block rate is multiplied by 1.5 (50%)
+		if (attacker != null && attacker.getActiveWeaponItem() != null 
+			&& attacker.getActiveWeaponItem().getItemType() == L2WeaponType.BOW
+		)
+            shldRate *= 1.5;
+		
+        return Rnd.get(100) < shldRate;
     }
 
+	// This should be deprecated and calcSkillSuccess() should be used instead
     public boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
     {
-        SkillType type = skill.getSkillType();
-        if (target.isRaid() 
-            && (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
-            || type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-            || type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF))
-                return false; // these skills should have only 1/1000 chance on raid, now it's 0.
-
         double defence = 0;
-        // TODO: CHECK/FIX THIS FORMULA UP!!
+        //FIXME: CHECK/FIX THIS FORMULA UP!!
         double attack = 0; 
         
-        if ( ! target.checkSkillCanAffectMyself(skill))
+        if (!target.checkSkillCanAffectMyself(skill))
             return false;
         
         if (skill.isActive() && skill.isOffensive())
@@ -1600,15 +1624,15 @@ public final class Formulas
         d += 0.5 * Rnd.nextGaussian();
         return d > 0;
     }
-	
+
 	public double calcSkillVulnerability(L2Character target, L2Skill skill)
 	{
 		return calcSkillVulnerability(target, skill, skill.getSkillType());
 	}
 	
-    public double calcSkillVulnerability(L2Character target, L2Skill skill, SkillType type)
+	public double calcSkillVulnerability(L2Character target, L2Skill skill, SkillType type)
 	{
-		double multiplier = 1;	// initialize...
+		double multiplier = 1; // initialize...
 
 		// Get the skill type to calculate its effect in function of base stats
 		// of the L2Character target
@@ -1695,28 +1719,35 @@ public final class Formulas
 				{
 					case BLEED:
 						multiplier = target.calcStat(Stats.BLEED_VULN, multiplier, target, null);
+						break;
 					case POISON:
 						multiplier = target.calcStat(Stats.POISON_VULN, multiplier, target, null);
+						break;
 					case STUN:
 						multiplier = target.calcStat(Stats.STUN_VULN, multiplier, target, null);
+						break;
 					case PARALYZE:
 						multiplier = target.calcStat(Stats.PARALYZE_VULN, multiplier, target, null);
+						break;
 					case ROOT:
 						multiplier = target.calcStat(Stats.ROOT_VULN, multiplier, target, null);
+						break;
 					case SLEEP:
 						multiplier = target.calcStat(Stats.SLEEP_VULN, multiplier, target, null);
+						break;
 					case MUTE:
 					case FEAR:
 					case BETRAY:
 					case AGGREDUCE_CHAR:
 						multiplier = target.calcStat(Stats.DERANGEMENT_VULN, multiplier, target, null);
+						break;
 					case CONFUSION:
 						multiplier = target.calcStat(Stats.CONFUSION_VULN, multiplier, target, null);
+						break;
 					case DEBUFF:
 					case WEAKNESS:
 						multiplier = target.calcStat(Stats.DEBUFF_VULN, multiplier, target, null);
-					default:
-						;
+						break;
 				}
 			}
 		}
@@ -1757,60 +1788,64 @@ public final class Formulas
  
     public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean sps, boolean bss)
     {
-		SkillType type = skill.getSkillType();
-
-		if (target.isRaid()
-			&& (type == SkillType.CONFUSION || type == SkillType.MUTE || type == SkillType.PARALYZE
-				|| type == SkillType.ROOT || type == SkillType.FEAR || type == SkillType.SLEEP
-				|| type == SkillType.STUN || type == SkillType.DEBUFF || type == SkillType.AGGDEBUFF))
-			return false; // these skills should not work on RaidBoss
- 
-        if ( ! target.checkSkillCanAffectMyself(skill))
+        if (!target.checkSkillCanAffectMyself(skill))
             return false;
         
         int value = (int) skill.getPower();
         int lvlDepend = skill.getLevelDepend();
+
+		SkillType type = skill.getSkillType();
         
-        if (type == SkillType.PDAM || type == SkillType.MDAM) // For additional effects on PDAM skills (like STUN, SHOCK,...)
+        if (type == SkillType.PDAM || type == SkillType.MDAM || type == SkillType.DRAIN)
         {
             value = skill.getEffectPower();
             type = skill.getEffectType();
         }
-        // TODO: Temporary fix for skills with EffectPower = 0 or EffectType not set
-        if (value == 0 || type == null)
-        {
-            if (skill.getSkillType() == SkillType.PDAM)
-            {
-                value = 50;
-                type = SkillType.STUN;
-            }
-            if (skill.getSkillType() == SkillType.MDAM)
-            {
-                value = 30;
-                type = SkillType.PARALYZE;
-            }
-        }
+		
+		// FIXME: Skills should be checked to be able to remove this dirty check
+		if (type == null)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Skill ID: " + skill.getId() + " hasn't got definied type!");
+			
+			if (skill.getSkillType() == SkillType.PDAM)
+				type = SkillType.STUN;
+			else if (skill.getSkillType() == SkillType.MDAM || type == SkillType.DRAIN)
+				type = SkillType.PARALYZE;
+		}
+		
+        if (!target.checkSkillCanAffectMyself(type))
+            return false;
         
-        // TODO: Temporary fix for skills with Power = 0 or LevelDepend not set
-        if (value == 0) value = (type == SkillType.PARALYZE) ? 50 : 80;
-        if (lvlDepend == 0) lvlDepend = (type == SkillType.PARALYZE) ? 1 : 2;
-        
-        // TODO: Temporary fix for NPC skills with MagicLevel not set
+		if (value == 0)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Skill ID: " + skill.getId() + " hasn't got definied power!");
+			value = 20; //To avoid unbalanced overpowered skills...
+		}
+		
+		if (lvlDepend == 0)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Skill ID: " + skill.getId() + " hasn't got definied lvlDepend!");
+			lvlDepend = 1; //To avoid unbalanced overpowered skills...
+		}
+		
+        //FIXME: Temporary fix for NPC skills with MagicLevel not set
         // int lvlmodifier = (skill.getMagicLevel() - target.getLevel()) * lvlDepend;
-        int lvlmodifier = ((skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel())
-            * lvlDepend;
+        int lvlmodifier = lvlDepend * (
+			(skill.getMagicLevel() > 0 ? skill.getMagicLevel() : attacker.getLevel()) - target.getLevel());
         double statmodifier = calcSkillStatModifier(type, target);
         double resmodifier = calcSkillVulnerability(target, skill, type);
         
         int ssmodifier = 100;
-        if (bss) ssmodifier = 200;
-        else if (sps) ssmodifier = 150;        
-        else if (ss) ssmodifier = 150;
+        if (bss) ssmodifier = 150;
+        else if (sps || ss) ssmodifier = 125;        
         
         int rate = (int) ((value * statmodifier + lvlmodifier) * resmodifier);
         if (skill.isMagic())
             rate += (int) (Math.pow((double) attacker.getMAtk(target, skill)
-                / target.getMDef(attacker, skill), 0.2) * 100) - 100;
+                / target.getMDef(attacker, skill), 0.1) * 100) - 100;
 
         if (rate > 99) rate = 99;
         else if (rate < 1) rate = 1;
@@ -1932,6 +1967,8 @@ public final class Formulas
 
         double damage = (Math.sqrt(mAtk) * skill.getPower(attacker) * (mp/97)) / mDef;
         damage *= calcSkillVulnerability(target, skill);
+		if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+			damage *= skill.getPvpMulti();
         return damage;
     }
     

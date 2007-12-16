@@ -22,9 +22,9 @@
   </zone>
   <zone id="4" name="Stadia 4">
     <type>OlympiadStadia</type>
-    <form zMin="-3200" zMax="-2800">
-      <point x="-23000" y="-23000" />
-      <point x="-19000" y="-19000" />
+    <form zMin="-3500" zMax="-3100">
+      <point x="-119079" y="-206078" />
+      <point x="-121438" y="-108668" />
     </form>
   </zone>
   <zone id="5" name="Stadia 5">

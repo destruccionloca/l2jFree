@@ -79,7 +79,8 @@ public class MultiSellList extends L2GameServerPacket
     
             	for(MultiSellIngredient i: ent.getProducts())
             	{
-	            	writeH(i.getItemId());
+	            	//writeH(i.getItemId());
+            		writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId());
 	            	writeD(0);
 	            	writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
 	            	writeD(i.getItemCount());
@@ -93,7 +94,10 @@ public class MultiSellList extends L2GameServerPacket
                     int items = i.getItemId();
                     int typeE = 65535;
                     if (items != 65336)
+					{
+						items = ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId();
                         typeE = ItemTable.getInstance().getTemplate(i.getItemId()).getType2();
+					}
                     writeH(items); //ID
                     writeH(typeE);
                     writeD(i.getItemCount()); //Count

@@ -44,7 +44,7 @@ public class L2SkillCreateItem extends L2Skill
         _createItemId = set.getIntegerArray("create_item_id");
         _createItemCount = set.getInteger("create_item_count", 0);
         _randomCount = set.getInteger("random_count", 1);
-    }  
+    }
 
     /**
      * @see net.sf.l2j.gameserver.model.L2Skill#useSkill(net.sf.l2j.gameserver.model.L2Character, net.sf.l2j.gameserver.model.L2Object[])
@@ -60,7 +60,7 @@ public class L2SkillCreateItem extends L2Skill
         }
         L2PcInstance player = (L2PcInstance) activeChar;
         if (activeChar instanceof L2PcInstance)
-        {            
+        {
             int rnd = Rnd.nextInt(_randomCount) + 1;
             int count = _createItemCount * rnd;
             int rndid = Rnd.nextInt(_createItemId.length);
@@ -92,7 +92,7 @@ public class L2SkillCreateItem extends L2Skill
             SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
             smsg.addItemName(item.getItemId());
             activeChar.sendPacket(smsg);
-        }        
+        }
         activeChar.getInventory().updateInventory(item);
     }
 }

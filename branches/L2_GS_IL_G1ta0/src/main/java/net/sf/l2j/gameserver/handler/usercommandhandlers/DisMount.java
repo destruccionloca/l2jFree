@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.Ride;
-import net.sf.l2j.gameserver.util.Broadcast;
 
 /**
  * Support for /dismount command.  
@@ -42,15 +41,17 @@ public class DisMount implements IUserCommandHandler
 
         if (activeChar.isRentedPet())
         {
-        	activeChar.stopRentPet();
+            activeChar.stopRentPet();
         }
         else if (activeChar.isMounted())
         {
-        	if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-			Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
-			Broadcast.toSelfAndKnownPlayersInRadius(activeChar, dismount, 810000/*900*/);
-            activeChar.setMountType(0);
-            activeChar.setMountObjectID(0);
+            if (activeChar.setMountType(0))
+            {
+                if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+                Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
+                activeChar.broadcastPacket(dismount);
+                activeChar.setMountObjectID(0);
+            }
         }
         
         return true;

@@ -37,30 +37,30 @@ public class MagicSkillUser extends L2GameServerPacket
 	private int _targetId;
 	private int _skillId;
 	private int _skillLevel;
-	private int _hitTime;
+	private int _skillTime;
 	private int _reuseDelay;
 	private int _charObjId, _x, _y, _z;
 	
-	public MagicSkillUser(L2Character cha, L2Character target, int skillId, int skillLevel, int hitTime, int reuseDelay)
+	public MagicSkillUser(L2Character cha, L2Character target, int skillId, int skillLevel, int skillTime, int reuseDelay)
 	{
 		_charObjId = cha.getObjectId();
 		_targetId = target.getObjectId();
 		_skillId = skillId;
 		_skillLevel = skillLevel;
-		_hitTime = hitTime;
+		_skillTime = skillTime;
 		_reuseDelay = reuseDelay; 
 		_x = cha.getX();
 		_y = cha.getY();
 		_z = cha.getZ();
 	}
 	
-	public MagicSkillUser(L2Character cha, int skillId, int skillLevel, int hitTime, int reuseDelay)
+	public MagicSkillUser(L2Character cha, int skillId, int skillLevel, int skillTime, int reuseDelay)
 	{
 		_charObjId = cha.getObjectId();
 		_targetId = cha.getTargetId();
 		_skillId = skillId;
 		_skillLevel = skillLevel;
-		_hitTime = hitTime;
+		_skillTime = skillTime;
 		_reuseDelay = reuseDelay; 
 		_x = cha.getX();
 		_y = cha.getY();
@@ -75,7 +75,7 @@ public class MagicSkillUser extends L2GameServerPacket
 		writeD(_targetId);
 		writeD(_skillId);
 		writeD(_skillLevel);
-		writeD(_hitTime);
+		writeD(_skillTime);
 		writeD(_reuseDelay);
 		writeD(_x);
 		writeD(_y);

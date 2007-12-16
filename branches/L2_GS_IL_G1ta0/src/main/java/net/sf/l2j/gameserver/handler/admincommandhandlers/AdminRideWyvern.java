@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 /**
  * @author 
  *
- * TODO nothing.
  */
 public class AdminRideWyvern implements IAdminCommandHandler
 {
@@ -61,7 +60,7 @@ public class AdminRideWyvern implements IAdminCommandHandler
             }
             else if (command.startsWith("admin_ride_strider")) {
                 _petRideId = 12526;
-            }         
+            }
             else
             {
                 SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
@@ -77,9 +76,11 @@ public class AdminRideWyvern implements IAdminCommandHandler
         }
         else if(command.startsWith("admin_unride"))
         {
-            Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT,0);
-            activeChar.broadcastPacket(dismount);
-            activeChar.setMountType(0);
+            if(activeChar.setMountType(0))
+            {
+                Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT,0);
+                activeChar.broadcastPacket(dismount);
+            }
         }
         return true;
     }

@@ -122,7 +122,7 @@ public class L2Fishing implements Runnable
         }
     }
 
-    public void doDie(boolean win)
+    public synchronized void doDie(boolean win)
     {
         _fishAiTask = null;
         
@@ -131,10 +131,12 @@ public class L2Fishing implements Runnable
         if (win)
         {
             int check = Rnd.get(100);
-            if (check <= 5) {
+            if (check <= 5)
+            {
                 PenaltyMonster();
             }
-            else {
+            else
+            {
                 _fisher.sendPacket(new SystemMessage(SystemMessageId.YOU_CAUGHT_SOMETHING));
                 _fisher.addItem("Fishing", _fishId, 1, null, true);
             }

@@ -50,7 +50,6 @@ import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
-import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,7 +89,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 	private static final int REQUIRED_LEVEL2 = Config.GM_NPC_VIEW;
 	
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
-	{//TODO: Tokenize and protect arguments parsing. Externalize HTML.
+	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 			if (!((checkLevel(activeChar.getAccessLevel()) || checkLevel2(activeChar.getAccessLevel())) && activeChar.isGM()))
 				return false;
@@ -908,7 +907,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			adminReply.replace("%rHand%", String.valueOf(npc.getRhand()));
 			adminReply.replace("%lHand%", String.valueOf(npc.getLhand()));
 			adminReply.replace("%armor%", String.valueOf(npc.getArmor()));
-			adminReply.replace("%walkSpd%", String.valueOf(Util.roundTo((float)(npc.getBaseRunSpd()*0.7),3)));
+			adminReply.replace("%walkSpd%", String.valueOf(npc.getBaseWalkSpd()));
 			adminReply.replace("%runSpd%", String.valueOf(npc.getBaseRunSpd()));
 			adminReply.replace("%factionId%", npc.getFactionId() == null ? "" : npc.getFactionId());
 			adminReply.replace("%factionRange%", String.valueOf(npc.getFactionRange()));

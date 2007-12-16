@@ -64,13 +64,9 @@ public class BalanceLife implements ISkillHandler
         double fullHP = 0;
         double currentHPs = 0;
 
-		for (int index = 0; index < targets.length; index++)
-		{
-			target = (L2Character) targets[index];
-			// check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
-
+		for (L2Object element : targets) {
+			target = (L2Character) element;
+			
 			// We should not heal if char is dead
 			if (target == null || target.isDead())
 				continue;
@@ -91,9 +87,8 @@ public class BalanceLife implements ISkillHandler
 
 		double percentHP = currentHPs / fullHP;
 
-		for (int index = 0; index < targets.length; index++)
-		{
-			target = (L2Character) targets[index];
+		for (L2Object element : targets) {
+			target = (L2Character) element;
 
 			double newHP = target.getMaxHp() * percentHP;
 			double totalHeal = newHP - target.getStatus().getCurrentHp();

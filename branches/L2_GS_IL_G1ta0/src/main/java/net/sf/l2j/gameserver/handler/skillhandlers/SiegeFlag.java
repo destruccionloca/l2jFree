@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -29,7 +28,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
 
 /** 
  * @author _drunk_ 
@@ -47,8 +45,6 @@ public class SiegeFlag implements ISkillHandler
 
         if (SiegeManager.checkIfOkToPlaceFlag(activeChar, false))
         {
-            Castle castle = CastleManager.getInstance().getCastleById(activeChar.getInsideCastleSiege());
-
             try
             {
                 // spawn a new flag
@@ -57,7 +53,7 @@ public class SiegeFlag implements ISkillHandler
                 flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
                 flag.setHeading(player.getHeading());
                 flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
-                castle.getSiege().getFlag(player.getClan()).add(flag);
+                SiegeManager.getSiege(player.getClan()).getFlag(player.getClan()).add(flag);
             }
             catch (Exception e)
             {

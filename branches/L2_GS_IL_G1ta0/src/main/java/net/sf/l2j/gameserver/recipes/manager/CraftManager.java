@@ -111,7 +111,6 @@ public class CraftManager
         if ( Config.ALT_GAME_CREATION )
         {
             // don't need to synchronize the method, just need to synchronize access to activeMakers
-            // TODO:  anything else here?
             synchronized (activeMakers)
             {
                 activeMakers.remove(player); 

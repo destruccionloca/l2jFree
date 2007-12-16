@@ -23,6 +23,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -50,27 +51,32 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     {
         super(objectId, template);
     }
-    
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        if (getObjectId() != player.getTargetId())
-        {
-            player.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
-            
-            player.setTarget(this);
-            player.sendPacket(new MyTargetSelected(getObjectId(), player.getLevel() - getLevel()));
-            // correct location
-            player.sendPacket(new ValidateLocation(this));
-        }
-        else
-        {
-            if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-            {
-                player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-                return;
-            }
-            
+
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (!canTarget(player)) return;
+
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (getObjectId() != player.getTargetId())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
+
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			player.sendPacket(new MyTargetSelected(getObjectId(), 0));
+
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			if (!canInteract(player))
+			{
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+				return;
+			}
+
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
             sb.append("<html><body>");
@@ -107,6 +113,13 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             		sb.append("</table>");
             	}
             	
+            	if (Config.CLASS_MASTER_STRIDER_UPDATE)
+            	{
+            		sb.append("<table width=270>");
+	                sb.append("<tr><td><br></td></tr>");
+	                sb.append("<tr><td><a action=\"bypass -h npc_"+getObjectId()+"_upgrade_hatchling\">Upgrade Hatchling to Strider</a></td></tr>");
+	        		sb.append("</table>");
+            	}
             	sb.append("<br>");
             }
             else
@@ -153,8 +166,8 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             html.setHtml(sb.toString());
             player.sendPacket(html);
             
-            player.sendPacket(new ActionFailed());
         }
+        player.sendPacket(new ActionFailed());
     }
     
     @Override
@@ -213,15 +226,15 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     		}
     		
             changeClass(player, val);
-    		
+
             player.rewardSkills();
             
             if(newJobLevel == 3)
-           	 	// system sound 3rd occupation
-            	player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER));
+                // system sound 3rd occupation
+                player.sendPacket(new SystemMessage(SystemMessageId.THIRD_CLASS_TRANSFER));
             else
-            	// system sound for 1st and 2nd occupation
-            	player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER));    
+                // system sound for 1st and 2nd occupation
+                player.sendPacket(new SystemMessage(SystemMessageId.CLASS_TRANSFER));
 
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
@@ -232,6 +245,30 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             sb.append("</body></html>");
             html.setHtml(sb.toString());
             player.sendPacket(html);
+
+            // Update the overloaded status of the L2PcInstance
+            player.refreshOverloaded();
+            // Update the expertise status of the L2PcInstance
+            player.refreshExpertisePenalty();
+        }
+        else if (command.startsWith("upgrade_hatchling") && Config.CLASS_MASTER_STRIDER_UPDATE)
+        {
+        	int[] hatchCollar = { 3500, 3501, 3502 };
+        	int[] striderCollar = { 4422, 4423, 4424 };
+        	
+        	//TODO: Maybe show a complete list of all hatchlings instead of using first one
+        	for (int i = 0; i < 3; i++)
+        	{
+        		L2ItemInstance collar = player.getInventory().getItemByItemId(hatchCollar[i]);
+        		
+        		if (collar != null)
+        		{
+        			player.destroyItem("ClassMaster", collar, player, true);
+        			player.addItem("ClassMaster", striderCollar[i], 1, player, true, true);
+        			
+        			return;
+        		}
+        	}
         }
         else
         {
@@ -241,11 +278,10 @@ public final class L2ClassMasterInstance extends L2FolkInstance
     
     private void changeClass(L2PcInstance player, int val)
     {
-    	if (_log.isDebugEnabled()) _log.debug("Changing class to ClassId:" + val);
+        if (_log.isDebugEnabled()) _log.debug("Changing class to ClassId:" + val);
         player.setClassId(val);
         
-        if (player.isSubClassActive()) player.getSubClasses().get(player.getClassIndex()).setClassId(
-                                                                                                     player.getActiveClass());
+        if (player.isSubClassActive()) player.getSubClasses().get(player.getClassIndex()).setClassId(player.getActiveClass());
         else player.setBaseClass(player.getActiveClass());
         
         player.broadcastUserInfo();

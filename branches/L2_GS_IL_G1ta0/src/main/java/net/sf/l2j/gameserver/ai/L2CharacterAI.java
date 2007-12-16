@@ -28,7 +28,6 @@ import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_MOVE_TO;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_PICK_UP;
 import static net.sf.l2j.gameserver.ai.CtrlIntention.AI_INTENTION_REST;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -97,9 +96,6 @@ public class L2CharacterAI extends AbstractAI
 
         // Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
         clientStopAutoAttack();
-
-        // Stand up the actor server side AND client side by sending Server->Client packet ChangeWaitType (broadcast)
-        clientStandUp();
     }
 
     /**
@@ -268,7 +264,7 @@ public class L2CharacterAI extends AbstractAI
         setCastTarget((L2Character) target);
 
         // Stop actions client-side to cast the skill
-        if (skill.getSkillTime() > 50)
+        if (skill.getHitTime() > 50)
         {
             // Abort the attack of the L2Character and send Server->Client ActionFailed packet
             _actor.abortAttack();
@@ -404,8 +400,8 @@ public class L2CharacterAI extends AbstractAI
         // do not follow yourself
         if (_actor == target)
         {
-                clientActionFailed();
-                return;
+            clientActionFailed();
+            return;
         }
 
         // Stop the actor auto-attack client side by sending Server->Client packet AutoAttackStop (broadcast)
@@ -453,7 +449,7 @@ public class L2CharacterAI extends AbstractAI
         // Set the AI pick up target
         setTarget(object);
 
-        if(object.getX() == 0 && object.getY() == 0) // TODO: Find the drop&spawn bug
+        if(object.getX() == 0 && object.getY() == 0)
         {
         	_log.warn("Object in coords 0,0 - using a temporary fix");
         	object.getPosition().setXYZ(getActor().getX(), getActor().getY(), getActor().getZ()+5);
@@ -679,8 +675,11 @@ public class L2CharacterAI extends AbstractAI
         }
         //else _accessor.getActor().revalidateZone();
 
-        if (_accessor.getActor().moveToNextRoutePoint()) 
-            return;
+        if (_accessor.getActor().moveToNextRoutePoint())
+		{
+			clientActionFailed();
+			return;
+		}
 
         clientStoppedMoving();
 
@@ -915,18 +914,8 @@ public class L2CharacterAI extends AbstractAI
         if (!_actor.isInsideRadius(target, offset, false, false))
         {
             // Caller should be L2Playable and thinkAttack/thinkCast/thinkInteract/thinkPickUp
-            if (Config.GEO_CHECK_LOS && !GeoData.getInstance().canSeeTarget(_actor, target))
-            {
-                if (getFollowTarget() != null)
-                {   // cannot see and follow active
-                    stopFollow();
-                }
-                setIntention(AI_INTENTION_IDLE);
-                return true;
-            }
-
             if (getFollowTarget() != null)
-            { 
+            {
                 // prevent attack-follow into peace zones
                 if(getAttackTarget() != null && _actor instanceof L2PlayableInstance && target instanceof L2PlayableInstance)
                 {
@@ -963,6 +952,7 @@ public class L2CharacterAI extends AbstractAI
             {
                 if (((L2Character)target).isMoving()) offset -= 100;
                 if (offset < 5) offset = 5;
+
                 startFollow((L2Character) target, offset);
             }
             else

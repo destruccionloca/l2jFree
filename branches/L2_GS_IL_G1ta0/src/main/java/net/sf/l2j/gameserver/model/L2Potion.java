@@ -33,19 +33,17 @@ import org.apache.commons.logging.LogFactory;
  */
 public class L2Potion extends L2Object
 {
-    protected static final Log _log = LogFactory.getLog(L2Potion.class.getName());
+	@SuppressWarnings("unused")
+	protected static final Log _log = LogFactory.getLog(L2Potion.class.getName());
 
-
-	private L2Character _target;
-	
 	private Future _potionHpRegTask;
 	private Future _potionMpRegTask;
 	protected int _milliseconds;
-    protected double _effect;
-    protected int _duration;
+	protected double _effect;
+	protected int _duration;
 	private int _potion;
-    protected Object _mpLock = new Object();
-    protected Object _hpLock = new Object();
+	protected Object _mpLock = new Object();
+	protected Object _hpLock = new Object();
 	
 	
 	class PotionHpHealing implements Runnable
@@ -110,7 +108,6 @@ public class L2Potion extends L2Object
 	public void setCurrentHpPotion1(L2Character activeChar, int item)
 	{
 		_potion = item;
-		_target = activeChar;
 
 		switch (_potion)
 		{
@@ -207,7 +204,6 @@ public class L2Potion extends L2Object
 	public void setCurrentMpPotion1(L2Character activeChar, int item)
 	{
 		_potion = item;
-		_target = activeChar;
 
 		switch (_potion)
 		{

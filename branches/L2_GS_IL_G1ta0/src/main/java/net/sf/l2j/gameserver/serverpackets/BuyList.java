@@ -105,7 +105,7 @@ public final class BuyList extends L2GameServerPacket
 			if(item.getCount() >0 || item.getCount() == -1){
 				writeH(item.getItem().getType1()); // item type1
 				writeD(item.getObjectId());
-				writeD(item.getItemId());
+				writeD(item.getItemDisplayId());
 				if(item.getCount() <0)
 					writeD(0x00);   // max amount of items that a player can buy at a time (with this itemid)
 				else

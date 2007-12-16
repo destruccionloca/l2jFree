@@ -28,5 +28,20 @@ package net.sf.l2j.gameserver.model.base;
 
 public enum Race
 {
-	human, elf, darkelf, orc, dwarf;
+	human,
+	elf,
+	darkelf,
+	orc,
+	dwarf;
+	
+	public final static Race getRaceByName(String name)
+	{
+		for (Race race : Race.values())
+		{
+			if (race.name().equals(name))
+				return race;
+		}
+		
+		return Race.human;
+	}
 }

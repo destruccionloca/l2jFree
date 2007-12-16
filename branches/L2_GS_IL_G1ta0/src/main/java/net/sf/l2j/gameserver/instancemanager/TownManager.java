@@ -21,10 +21,13 @@ import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Town;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegionRestart;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 
@@ -71,7 +74,6 @@ public class TownManager
 
     private final void load()
     {
-    	//TODO: mapregion implementation
     }
 
     public String getTownName(int townId)
@@ -132,11 +134,14 @@ public class TownManager
 	            nearestTown = "Town of Shuttgart";
 	            break;
 	        case 17:
-	            nearestTown = "Ivory Tower";
+	            nearestTown = "Dimensional Gap";
 	            break;
 	        case 18:
 	            nearestTown = "Primeval Isle Wharf";
 	            break;
+	        case 19:
+	        	nearestTown = "Floran Village";
+	        	break;
 	        default:
 	            nearestTown = "";
 	            break;
@@ -191,21 +196,64 @@ public class TownManager
 
     public final Town getClosestTown(L2Object activeObject)
     {
-        return getClosestTown(activeObject.getPosition().getX(), activeObject.getPosition().getY());
+        return getClosestTown(activeObject.getPosition().getX(), activeObject.getPosition().getY(), activeObject.getPosition().getZ());
     }
 
-    public final Town getClosestTown(int x, int y)
+    public final Town getClosestTown(int x, int y, int z)
     {
-    	int mapRegion = MapRegionTable.getInstance().getMapRegion(x, y);
+    	L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
+    	Town town = getTown(Config.ALT_DEFAULT_RESTARTTOWN);
     	
-    	if (mapRegion < 0 || mapRegion > 18)
-    		return getTown(10);
+    	if (region != null)
+    	{
+    		L2MapRegionRestart restart = MapRegionManager.getInstance().getRestartLocation(region.getRestartId());
+    		
+    		if (restart != null)
+    			switch (restart.getBbsId())
+    			{
+    				case 1: //Talking Island
+    					return getTown(0);
+    				case 2: //Gludin
+    					return getTown(6);
+    				case 3: //Darkelfen Village
+    					return getTown(2);
+    				case 4: //Elfen Village
+    					return getTown(1);
+    				case 5: //Dion
+    					return getTown(7);
+    				case 6: //Giran
+    					return getTown(12);
+    				case 7: //Dimensional Gap
+    					return getTown(17); 
+    				case 8: //Orc Village
+    					return getTown(3);
+    				case 9: //Dwarfen Village
+    					return getTown(4);
+    				case 10: //Oren Villag
+    					return getTown(9);
+    				case 11: //Hunters Village
+    					return getTown(11);
+    				case 12: //Heine
+    					return getTown(13);
+    				case 13: //Aden
+    					return getTown(10);
+    				case 14: //Rune
+    					return getTown(14);
+    				case 15: //Goddard
+    					return getTown(15);
+    				case 25: //Schuttgart - FIXME
+    					return getTown(16);
+    			}
+    	}
     	
-    	return getTown(mapRegion);
+    	return town;
     }
 
     public final boolean townHasCastleInSiege(int townId)
     {
+    	if (getTown(townId) == null)
+    		return false;
+    	
         int castleIndex = getTown(townId).getCastleId();
         if (castleIndex > 0)
         {
@@ -216,9 +264,9 @@ public class TownManager
         return false;
     }
 
-    public final boolean townHasCastleInSiege(int x, int y)
+    public final boolean townHasCastleInSiege(int x, int y, int z)
     {
-        return townHasCastleInSiege(getClosestTown(x, y).getTownId());
+        return townHasCastleInSiege(getClosestTown(x, y, z).getTownId());
     }
 
     public final Town getTown(int townId)
@@ -245,7 +293,12 @@ public class TownManager
     {
         if (_towns == null)
             _towns = new FastMap<Integer, Town>();
+        
         return _towns;
     }
 
+    public String getClosestTownName(L2Character activeChar)
+    {
+    	return getTownName(getClosestTown(activeChar).getTownId());
+    }
 }

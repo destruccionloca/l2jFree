@@ -18,11 +18,6 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-//import java.util.Collection;
-
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.PartyMatchList;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,11 +69,13 @@ public class RequestPartyMatchList extends L2GameClientPacket
 			// actually the client should get automatic updates for the list
 			// for now we only fill it once
 
-			//Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers(); 
-			//L2PcInstance[] allPlayers = players.toArray(new L2PcInstance[players.size()]);
+			//TODO: Needs rewrite
+			/*
+			Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers(); 
+			L2PcInstance[] allPlayers = players.toArray(new L2PcInstance[players.size()]);
 			L2PcInstance[] empty = new L2PcInstance[] { };
 			PartyMatchList matchList = new PartyMatchList(empty);
-			//sendPacket(matchList);
+			sendPacket(matchList);*/
 		}
 		else if (_status == 3)
 		{

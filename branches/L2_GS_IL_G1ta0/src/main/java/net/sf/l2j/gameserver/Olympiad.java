@@ -711,6 +711,11 @@ public class Olympiad
         
         Calendar currentTime = Calendar.getInstance();
         currentTime.add(Calendar.MONTH, 1);
+        currentTime.set(Calendar.DAY_OF_MONTH, 1);
+        currentTime.set(Calendar.AM_PM, Calendar.AM);
+        currentTime.set(Calendar.HOUR, 12);
+        currentTime.set(Calendar.MINUTE, 0);
+        currentTime.set(Calendar.SECOND, 0);
         _olympiadEnd = currentTime.getTimeInMillis();
         
         Calendar nextChange = Calendar.getInstance();
@@ -819,7 +824,8 @@ public class Olympiad
         spectator.enterOlympiadObserverMode(STADIUMS[id][0], STADIUMS[id][1], STADIUMS[id][2], id);
         
         _manager.getOlympiadInstance(id).addSpectator(spectator);
-        
+        players[0].setOlympiadSide(2);
+        players[1].setOlympiadSide(1);
         spectator.sendPacket(new ExOlympiadUserInfoSpectator(players[0], 2));
         spectator.sendPacket(new ExOlympiadUserInfoSpectator(players[1], 1));
     }
@@ -1474,7 +1480,7 @@ public class Olympiad
                     }
                     //Abort casting if player casting
                     if (player.isCastingNow())
-                    	player.abortCast();
+                        player.abortCast();
                     
                     //Remove Hero Skills
                     if (player.isHero())
@@ -1484,6 +1490,8 @@ public class Olympiad
                             player.removeSkill(skill,false);
                         }
                     }
+
+                    player.sendSkillList();
 
                     //Remove Buffs
                     player.stopAllEffects();
@@ -1528,8 +1536,8 @@ public class Olympiad
                     {
                         L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
                         InventoryUpdate iu = new InventoryUpdate();
-                        for (int i = 0; i < unequiped.length; i++)
-                            iu.addModifiedItem(unequiped[i]);
+                        for (L2ItemInstance element : unequiped)
+							iu.addModifiedItem(element);
                         player.sendPacket(iu);
                         player.abortAttack();
                         player.broadcastUserInfo();
@@ -1735,6 +1743,8 @@ public class Olympiad
                         for(L2Skill skill: HeroSkillTable.getHeroSkills())
                             player.addSkill(skill,false);
                     }
+
+                    player.sendSkillList();
                 }
                 catch(Exception e) {}
             }
@@ -1912,7 +1922,7 @@ public class Olympiad
 
                     skill = SkillTable.getInstance().getInfo(1204, 2);
                     skill.getEffects(player, player);
-                    player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 2, skill.getSkillTime(), 0));
+                    player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 2, skill.getHitTime(), 0));
                     sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                     sm.addSkillName(1204);
                     player.sendPacket(sm);
@@ -1922,7 +1932,7 @@ public class Olympiad
                         //Haste Buff to Fighters
                         skill = SkillTable.getInstance().getInfo(1086, 1);
                         skill.getEffects(player, player);
-                        player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getSkillTime(), 0));
+                        player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getHitTime(), 0));
                         sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                         sm.addSkillName(1086);
                         player.sendPacket(sm);
@@ -1932,7 +1942,7 @@ public class Olympiad
                         //Acumen Buff to Mages
                         skill = SkillTable.getInstance().getInfo(1085, 1);
                         skill.getEffects(player, player);
-                        player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getSkillTime(), 0));
+                        player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getHitTime(), 0));
                         sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                         sm.addSkillName(1085);
                         player.sendPacket(sm);
@@ -1944,14 +1954,12 @@ public class Olympiad
         
         protected boolean makePlayersVisible()
         {
-            _sm = new SystemMessage(SystemMessageId.STARTS_THE_GAME);
             try
             {
                 for (L2PcInstance player : _players)
                 {
                     player.getAppearance().setVisible();
                     player.broadcastUserInfo();
-                    player.sendPacket(_sm);
                     if (player.getPet() != null)
                         player.getPet().updateAbnormalEffect();
                 }

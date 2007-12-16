@@ -1,6 +1,7 @@
 package net.sf.l2j.gameserver.templates;
 
 import junit.framework.TestCase;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate.Race;
 
 public class TestL2NpcTemplate extends TestCase
 {
@@ -18,11 +19,11 @@ public class TestL2NpcTemplate extends TestCase
         set.set("baseINT",4);
         set.set("baseWIT",5);
         set.set("baseMEN",6);
-        set.set ("baseHpMax",7);
+        set.set("baseHpMax",7);
         set.set("baseCpMax",8);
-        set.set ("baseMpMax",9);
-        set.set ("baseHpReg",10);
-        set.set ("baseMpReg",11);
+        set.set("baseMpMax",9);
+        set.set("baseHpReg",10);
+        set.set("baseMpReg",11);
         set.set("basePAtk",12);
         set.set("baseMAtk",13);
         set.set("basePDef",14);
@@ -34,6 +35,7 @@ public class TestL2NpcTemplate extends TestCase
         set.set("baseShldRate",21);
         set.set("baseCritRate",22);
         set.set("baseRunSpd",23);
+        set.set("baseWalkSpd",23);
         
         // Geometry
         set.set("collision_radius",56.0);
@@ -86,7 +88,7 @@ public class TestL2NpcTemplate extends TestCase
         assertEquals(72,template.getNpcFaction());
         assertEquals("faction name",template.getNpcFactionName());
         assertEquals("class",template.getJClass());
-        assertEquals(0,template.getRace());
+        assertEquals(Race.UNKNOWN,template.getRace());
 
     }
     
@@ -119,6 +121,7 @@ public class TestL2NpcTemplate extends TestCase
         set.set("baseShldRate",21);
         set.set("baseCritRate",22);
         set.set("baseRunSpd",23);
+        set.set("baseWalkSpd",23);
         // Geometry
         set.set("collision_radius",56.0);
         set.set("collision_height",57.0);
@@ -148,6 +151,6 @@ public class TestL2NpcTemplate extends TestCase
         assertEquals(null,template.getFactionId());
         assertEquals(0,template.getAbsorbLevel());
         assertEquals("Devine Clan",template.getNpcFactionName());
-        assertEquals(0,template.getRace());
+        assertEquals(Race.UNKNOWN,template.getRace());
     }
 }

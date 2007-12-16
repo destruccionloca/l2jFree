@@ -25,13 +25,13 @@ public class AiUtil
 	
 	public static L2Character getMostHated(@SuppressWarnings("unused") AiParameters aiParams)
 	{
-		//TODO
+		//TODO: return most hated character
 		return null;
 	}
 	
 	public static L2Character getLikedNeedingHelp(@SuppressWarnings("unused") AiParameters aiParams)
 	{
-		//TODO
+		//TODO: return character needs help
 		return null;
 	}
 }

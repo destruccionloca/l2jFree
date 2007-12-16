@@ -34,7 +34,6 @@ import javolution.text.TextBuilder;
 
 /**
  * @author Advi
- * TODO rework formatter to handle commons logging usage (parameters are empty)
  */
 public class ItemLogFormatter extends Formatter
 {

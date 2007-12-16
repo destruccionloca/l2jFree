@@ -67,12 +67,12 @@ public class Harvest implements ISkillHandler
 		if(_log.isDebugEnabled())
 			_log.info("Casting harvest");
 		
-		for (int index = 0; index < targetList.length; index++)
+		for (L2Object element : targetList)
 		{
-			if (!(targetList[index] instanceof L2MonsterInstance))
+			if (!(element instanceof L2MonsterInstance))
 				continue;
 	
-			_target = (L2MonsterInstance) targetList[index];
+			_target = (L2MonsterInstance) element;
 			
 			if (_activeChar != _target.getSeeder())
 			{
@@ -85,19 +85,21 @@ public class Harvest implements ISkillHandler
 			int total = 0;
 			int cropId = 0;
 	
-			// TODO: check items and amount of items player harvest
 			if (_target.isSeeded())
 			{
 			 	if (calcSuccess())
 				{
 			 		L2Attackable.RewardItem[] items = _target.takeHarvest();
-					if (items != null && items.length > 0) {
-						for (L2Attackable.RewardItem ritem : items) {
+					if (items != null && items.length > 0)
+					{
+						for (L2Attackable.RewardItem ritem : items)
+						{
 							cropId = ritem.getItemId(); // always got 1 type of crop as reward
 							if (_activeChar.isInParty()) 
 								_activeChar.getParty().distributeItem(_activeChar, ritem, true, _target);
-							else {
-								L2ItemInstance item = _activeChar.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount() * Config.RATE_DROP_MANOR, _activeChar, _target);
+							else
+							{
+								L2ItemInstance item = _activeChar.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount(), _activeChar, _target);
 								if (iu != null) iu.addItem(item);
 								send = true;
 								total += ritem.getCount();

@@ -100,7 +100,7 @@ public class L2BoatInstance extends L2Character
 	{
 		super(objectId, template);
 		super.setKnownList(new BoatKnownList(this));
-		_name = name;				
+		_name = name;
 	}
 	
 	/**
@@ -110,7 +110,7 @@ public class L2BoatInstance extends L2Character
      * @param speed
 	 */
 	public void moveToLocation(int x, int y, int z,float speed)
-	{				     
+	{
        final int curX = getX();
        final int curY = getY();
        final int curZ = getZ();
@@ -513,7 +513,6 @@ public class L2BoatInstance extends L2Character
 	@Override
 	public void updateAbnormalEffect()
 	{
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -523,7 +522,6 @@ public class L2BoatInstance extends L2Character
 	@Override
 	public L2ItemInstance getActiveWeaponInstance()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -533,7 +531,6 @@ public class L2BoatInstance extends L2Character
 	@Override
 	public L2Weapon getActiveWeaponItem()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -543,7 +540,6 @@ public class L2BoatInstance extends L2Character
 	@Override
 	public L2ItemInstance getSecondaryWeaponInstance()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -553,7 +549,6 @@ public class L2BoatInstance extends L2Character
 	@Override
 	public L2Weapon getSecondaryWeaponItem()
 	{
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -563,7 +558,6 @@ public class L2BoatInstance extends L2Character
 	@Override
 	public int getLevel()
 	{
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
@@ -573,7 +567,6 @@ public class L2BoatInstance extends L2Character
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 

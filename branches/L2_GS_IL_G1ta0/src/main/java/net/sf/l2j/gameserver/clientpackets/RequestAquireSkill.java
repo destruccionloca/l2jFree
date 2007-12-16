@@ -35,6 +35,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2VillageMasterInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ExStorageMaxCount;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
+import net.sf.l2j.gameserver.serverpackets.PledgeSkillList;
 import net.sf.l2j.gameserver.serverpackets.ShortCutRegister;
 import net.sf.l2j.gameserver.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -147,7 +148,7 @@ public class RequestAquireSkill extends L2GameClientPacket
                         
                         // ok
                         player.destroyItem("Consume", spb, trainer, true);
-                    }                    
+                    }
                 }
             }
             else
@@ -209,11 +210,10 @@ public class RequestAquireSkill extends L2GameClientPacket
                 return;
             }
         }
-        else if (_skillType == 2) //pledgeskills TODO: Find appropriate system messages.
+        else if (_skillType == 2)
         {
             if (!player.isClanLeader()) 
             {
-               // TODO: Find and add system msg
                player.sendMessage("This feature is available only for the clan leader");
                return;
             }
@@ -283,7 +283,13 @@ public class RequestAquireSkill extends L2GameClientPacket
             sm = null;
             
             player.getClan().broadcastToOnlineMembers(new PledgeShowInfoUpdate(player.getClan()));
-            
+            player.getClan().broadcastToOnlineMembers(new PledgeSkillList(player.getClan()));
+
+            for(L2PcInstance member: player.getClan().getOnlineMembers(""))
+            {
+                member.sendSkillList();
+            }
+
             ((L2VillageMasterInstance)trainer).showPledgeSkillList(player); //Maybe we shoud add a check here...
             
             return;
@@ -295,12 +301,13 @@ public class RequestAquireSkill extends L2GameClientPacket
         }
         
         player.addSkill(skill, true);
+
+        player.sendSkillList();
         
         if (_log.isDebugEnabled()) 
             _log.debug("Learned skill " + _id + " for " + _requiredSp + " SP.");
         
         player.setSp(player.getSp() - _requiredSp);
-        player.updateStats();
         
         StatusUpdate su = new StatusUpdate(player.getObjectId());
         su.addAttribute(StatusUpdate.SP, player.getSp());
@@ -320,19 +327,19 @@ public class RequestAquireSkill extends L2GameClientPacket
         {
             L2ShortCut[] allShortCuts = player.getAllShortCuts();
             
-            for (L2ShortCut sc : allShortCuts)          
+            for (L2ShortCut sc : allShortCuts)
             {               
                 if (sc.getId() == _id && sc.getType() == L2ShortCut.TYPE_SKILL)
                 {
                     L2ShortCut newsc = new L2ShortCut(sc.getSlot(), sc.getPage(), sc.getType(), sc.getId(), _level, 1);
-                    player.sendPacket(new ShortCutRegister(newsc));                 
-                    player.registerShortCut(newsc);                 
+                    player.sendPacket(new ShortCutRegister(newsc));
+                    player.registerShortCut(newsc);
                 }
             }
         }
         
         if (trainer instanceof L2FishermanInstance)
-            ((L2FishermanInstance) trainer).showSkillList(player);          
+            ((L2FishermanInstance)trainer).showSkillList(player);
         else
             trainer.showSkillList(player, player.getSkillLearningClassId());
 

@@ -328,32 +328,8 @@ public class DM
     {
         if (_topPlayer != null)
         {
-            PcInventory inv = _topPlayer.getInventory();
-                
-            if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
-                inv.addItem("DM Event: " + _eventName, _rewardId, _rewardAmount, _topPlayer, activeChar.getTarget());
-            else
-            {
-                for (int i=0;i<=_rewardAmount-1;i++)
-                    inv.addItem("DM Event: " + _eventName, _rewardId, 1, _topPlayer, activeChar.getTarget());
-            }
-                
-            SystemMessage sm;
+            _topPlayer.addItem("DM Event: " + _eventName, _rewardId, _rewardAmount, _topPlayer, true, true);
 
-            if (_rewardAmount > 1)
-            {
-                sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-                sm.addItemName(_rewardId);
-                sm.addNumber(_rewardAmount);
-                _topPlayer.sendPacket(sm);
-            }
-            else
-            {
-                sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-                sm.addItemName(_rewardId);
-                _topPlayer.sendPacket(sm);
-            }
-                
             StatusUpdate su = new StatusUpdate(_topPlayer.getObjectId());
             su.addAttribute(StatusUpdate.CUR_LOAD, _topPlayer.getCurrentLoad());
             _topPlayer.sendPacket(su);
@@ -653,11 +629,31 @@ public class DM
     
     public static boolean addPlayerOk(L2PcInstance eventPlayer)
     {
-        if (CTF._savePlayers.contains(eventPlayer.getName()) || TvT._savePlayers.contains(eventPlayer.getName())) 
-        {
-            eventPlayer.sendMessage("You already participate in another event!"); 
+    	if (eventPlayer._inEventTvT)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
             return false;
-        }
+    	}    	
+    	if (eventPlayer._inEventCTF)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
+            return false;
+    	}    	
+    	if (eventPlayer._inEventFOS)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
+            return false;
+    	}    	
+    	if (eventPlayer._inEventDM)
+    	{
+    		eventPlayer.sendMessage("You already participated in the event!"); 
+            return false;
+    	}    	
+    	if (eventPlayer._inEventVIP)
+    	{
+    		eventPlayer.sendMessage("You already participated to another event!"); 
+            return false;
+    	}
 
         return true;
     }

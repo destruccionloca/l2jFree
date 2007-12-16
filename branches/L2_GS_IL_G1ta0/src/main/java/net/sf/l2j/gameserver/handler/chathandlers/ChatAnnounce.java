@@ -59,7 +59,9 @@ public class ChatAnnounce implements IChatHandler
 		CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
 		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-			if (player != null)
+			if (player != null){
 				player.sendPacket(cs);
+				player.broadcastSnoop(charObjId, chatType.getId(), charName, text);
+			}
 	}
 }

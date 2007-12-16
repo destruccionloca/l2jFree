@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import java.util.StringTokenizer;
 
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -27,6 +28,7 @@ import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -36,8 +38,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2DoormenInstance extends L2FolkInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2DoormenInstance.class.getName());
-
     private ClanHall _clanHall;
     private static final int COND_ALL_FALSE = 0;
     private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
@@ -63,8 +63,6 @@ public class L2DoormenInstance extends L2FolkInstance
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        player.sendPacket(new ActionFailed());
-
         int condition = validateCondition(player);
         if (condition <= COND_ALL_FALSE) return;
         if (condition == COND_BUSY_BECAUSE_OF_SIEGE) return;
@@ -82,7 +80,7 @@ public class L2DoormenInstance extends L2FolkInstance
                     getClanHall().openCloseDoors(true);
                     player.sendPacket(new NpcHtmlMessage(
                                                          getObjectId(),
-                                                         "<html><head><body>You have <font color=\"LEVEL\">opened</font> the clan hall door.<br>Outsiders may enter the clan hall while the door is open. Please close it when you've finished your business.<br><center><button value=\"Close\" action=\"bypass -h npc_"
+                                                         "<html><body>You have <font color=\"LEVEL\">opened</font> the clan hall door.<br>Outsiders may enter the clan hall while the door is open. Please close it when you've finished your business.<br><center><button value=\"Close\" action=\"bypass -h npc_"
                                                              + getObjectId()
                                                              + "_close_doors\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
                 }
@@ -110,7 +108,7 @@ public class L2DoormenInstance extends L2FolkInstance
                     getClanHall().openCloseDoors(false);
                     player.sendPacket(new NpcHtmlMessage(
                                                          getObjectId(),
-                                                         "<html><head><body>You have <font color=\"LEVEL\">closed</font> the clan hall door.<br>Good day!<br><center><button value=\"To Begining\" action=\"bypass -h npc_"
+                                                         "<html><body>You have <font color=\"LEVEL\">closed</font> the clan hall door.<br>Good day!<br><center><button value=\"To Begining\" action=\"bypass -h npc_"
                                                              + getObjectId()
                                                              + "_Chat\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
                 }
@@ -137,20 +135,44 @@ public class L2DoormenInstance extends L2FolkInstance
         super.onBypassFeedback(player, command);
     }
 
-    /**
-     * this is called when a player interacts with this NPC
-     * @param player
-     */
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        player.sendPacket(new ActionFailed());
-        player.setTarget(this);
-        player.sendPacket(new MyTargetSelected(getObjectId(), -15));
+	/**
+	* this is called when a player interacts with this NPC
+	* @param player
+	*/
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (!canTarget(player)) return;
 
-        if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-            showMessageWindow(player);
-    }
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (this != player.getTarget())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
+
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
+			player.sendPacket(my);
+
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			// Calculate the distance between the L2PcInstance and the L2NpcInstance
+			if (!canInteract(player))
+			{
+				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+			}
+			else
+			{
+				showMessageWindow(player);
+			}
+		}
+		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+		player.sendPacket(new ActionFailed());
+	}
 
     public void showMessageWindow(L2PcInstance player)
     {

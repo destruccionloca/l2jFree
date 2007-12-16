@@ -170,7 +170,7 @@ public class GameStatusThread extends Thread
             _print.println("Welcome to the L2j-Free Telnet Server...");
             _print.println("Please insert your Password!");
             _print.print("Password: ");
-            //_print.flush();
+            _print.flush();
             String tmpLine = _read.readLine();
             if (tmpLine == null)
 			{
@@ -437,27 +437,6 @@ public class GameStatusThread extends Thread
                     _print.println("There are currently " + igm +" GM(s) online...");
                     if ( gmList != "" ) _print.println(gmList);
                 }
-                /*else if (_usrCommand.startsWith("unblock"))
-                {
-                    try
-                    {
-                        _usrCommand = _usrCommand.substring(8);
-                        if (LoginServer.getInstance().unblockIp(_usrCommand))
-                        {
-                            _log.warn("IP removed via TELNET by host: " + _cSocket.getInetAddress().getHostAddress());
-                            _print.println("The IP " + _usrCommand + " has been removed from the hack protection list!");
-                        }
-                        else
-                        {
-                            _print.println("IP not found in hack protection list...");
-                        }
-                        //TODO: with packet
-                    }
-                    catch (StringIndexOutOfBoundsException e)
-                    {
-                        _print.println("Please Enter the IP to Unblock!");
-                    }
-                }*/
                 else if (_usrCommand.startsWith("kick"))
                 {
                     try
@@ -537,7 +516,7 @@ public class GameStatusThread extends Thread
                             InventoryUpdate iu = new InventoryUpdate();
                             iu.addItem(item);
                             SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
-                            sm.addItemName(itemId);
+                            sm.addItemName(item.getItemDisplayId());
                             sm.addNumber(amount);
                             player.sendPacket(iu);
                             _print.println("ok");
@@ -1113,7 +1092,7 @@ public class GameStatusThread extends Thread
     
     private int getOnlineGMS()
     {
-        return GmListTable.getInstance().getAllGms(true).length;
+        return GmListTable.getInstance().getAllGms(true).size();
     }
     
     private String getUptime(int time)

@@ -237,7 +237,7 @@ public class AdminTest implements IAdminCommandHandler
      * @param activeChar
      * @param skill
      */
-    public void adminTestSkill(L2PcInstance activeChar,int skillId, int skilLvl, int hitTime)
+    public void adminTestSkill(L2PcInstance activeChar,int skillId, int skilLvl, int skillTime)
     {
     	L2Object target;
     	
@@ -245,8 +245,8 @@ public class AdminTest implements IAdminCommandHandler
     		target = activeChar.getTarget();
     	else 
     		target = activeChar;
-       	activeChar.sendMessage("S="+skillId+" Lv="+skilLvl+" Hit="+hitTime);
-       	MagicSkillUser msu = new MagicSkillUser((L2Character)activeChar, (L2Character)target, skillId, skilLvl, hitTime, 1);
+       	activeChar.sendMessage("S="+skillId+" Lv="+skilLvl+" Time="+skillTime);
+       	MagicSkillUser msu = new MagicSkillUser((L2Character)activeChar, (L2Character)target, skillId, skilLvl, skillTime, 1);
        	activeChar.broadcastPacket(msu);
     }
 
@@ -274,12 +274,11 @@ public class AdminTest implements IAdminCommandHandler
      */    
     private void showAdminCommandHelp(L2PcInstance activeChar, String command)
     {
-    	for (int i=0; i < ADMIN_COMMANDS.length; i++)
-    	{
-    		if (command.equals(ADMIN_COMMANDS[i][0]))
+    	for (String[] element : ADMIN_COMMANDS) {
+    		if (command.equals(element[0]))
     		{
-    			for (int k=1; k < ADMIN_COMMANDS[i].length; k++)
-    				activeChar.sendMessage(ADMIN_COMMANDS[i][k]);
+    			for (int k=1; k < element.length; k++)
+    				activeChar.sendMessage(element[k]);
     		}
     	}
     }

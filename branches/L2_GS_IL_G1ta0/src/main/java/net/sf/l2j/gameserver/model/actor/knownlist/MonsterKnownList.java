@@ -71,11 +71,6 @@ public class MonsterKnownList extends AttackableKnownList
             
             // Remove all L2Object from _knownObjects and _knownPlayer of the L2MonsterInstance then cancel Attak or Cast and notify AI
             //removeAllKnownObjects();
-            
-            //TODO Remove this function because it's already done in L2Attackable.removeKnownObject 
-            // Set the L2MonsterInstance AI to AI_INTENTION_IDLE
-            // if (hasAI())
-            // getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE, null);
         }
 
         return true;

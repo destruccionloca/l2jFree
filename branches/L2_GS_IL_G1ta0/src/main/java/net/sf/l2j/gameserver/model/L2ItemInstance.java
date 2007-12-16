@@ -86,6 +86,7 @@ public final class L2ItemInstance extends L2Object
 
 	/** ID of the item */
 	private final int _itemId;
+	private final int _itemDisplayId;
 	
 	/** Object L2Item associated to the item */
 	private final L2Item _item;
@@ -150,6 +151,29 @@ public final class L2ItemInstance extends L2Object
 	 * Constructor of the L2ItemInstance from the objectId and the itemId.
 	 * @param objectId : int designating the ID of the object in the world
 	 * @param itemId : int designating the ID of the item
+	 * @param itemDisplayId : int designating the ID of the item to the client
+	 */
+	public L2ItemInstance(int objectId, int itemId, int itemDisplayId)
+	{
+		super(objectId);
+		super.setKnownList(new NullKnownList(this));
+		_itemId = itemId;
+		_itemDisplayId = itemDisplayId;
+		_item = ItemTable.getInstance().getTemplate(itemId);
+		if (_itemId == 0 || _item == null)
+			throw new IllegalArgumentException();
+		super.setName(_item.getName());
+		_count = 1;
+		_loc = ItemLocation.VOID;
+		_type1 = 0;
+		_type2 = 0;
+		_dropTime = 0;
+		_mana = _item.getDuration();
+	}
+	/**
+	 * Constructor of the L2ItemInstance from the objectId and the itemId.
+	 * @param objectId : int designating the ID of the object in the world
+	 * @param itemId : int designating the ID of the item
 	 */
 	public L2ItemInstance(int objectId, int itemId)
 	{
@@ -160,6 +184,7 @@ public final class L2ItemInstance extends L2Object
 		if (_itemId == 0 || _item == null)
 			throw new IllegalArgumentException();
 		super.setName(_item.getName());
+		_itemDisplayId = _item.getItemDisplayId();		
 		_count = 1;
 		_loc = ItemLocation.VOID;
 		_type1 = 0;
@@ -178,6 +203,7 @@ public final class L2ItemInstance extends L2Object
 		super(objectId);
 		super.setKnownList(new NullKnownList(this));
 		_itemId = item.getItemId();
+		_itemDisplayId = item.getItemDisplayId();
 		_item = item;
 		if (_itemId == 0 || _item == null)
 			throw new IllegalArgumentException();
@@ -407,6 +433,11 @@ public final class L2ItemInstance extends L2Object
 	{
 		return _itemId;
 	}
+
+	public int getItemDisplayId()
+	{
+		return _itemDisplayId;
+	}
 	
 	/** 
 	 * Returns true if item is an EtcItem 
@@ -622,7 +653,7 @@ public final class L2ItemInstance extends L2Object
        return (
        (!isEquipped()) // Not equipped
     		&& (getItem().getType2() != 3) // Not Quest Item
-    		&& (getItem().getType2() != 4 || getItem().getType1() != 1) // TODO: what does this mean?
+    		&& (getItem().getType2() != 4 || getItem().getType1() != 1) // Not Money or Shield Armor
     		&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not Control item of currently summoned pet
     		&& (player.getActiveEnchantItem() != this) // Not momentarily used enchant scroll
     		&& (allowAdena || getItemId() != 57)
@@ -867,10 +898,9 @@ public final class L2ItemInstance extends L2Object
 				{
 					L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(getEquipSlot());
 					InventoryUpdate iu = new InventoryUpdate();
-					for (int i = 0; i < unequiped.length; i++)
-					{
-						player.checkSSMatch(null, unequiped[i]);
-						iu.addModifiedItem(unequiped[i]);
+					for (L2ItemInstance element : unequiped) {
+						player.checkSSMatch(null, element);
+						iu.addModifiedItem(element);
 					}
 					player.sendPacket(iu);
 				}
@@ -888,8 +918,6 @@ public final class L2ItemInstance extends L2Object
 					StatusUpdate su = new StatusUpdate(player.getObjectId());
 					su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
 					player.sendPacket(su);
-					
-					player.broadcastUserInfo();
 				}
 				else
 				{

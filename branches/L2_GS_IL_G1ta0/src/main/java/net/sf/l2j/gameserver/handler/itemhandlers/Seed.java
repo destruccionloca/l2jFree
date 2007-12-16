@@ -18,12 +18,13 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Manor;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
@@ -82,16 +83,16 @@ public class Seed implements IItemHandler
         if (CastleManorManager.getInstance().isDisabled())
             return;
         _activeChar = (L2PcInstance)playable;
+
+        L2Object target = _activeChar.getTarget();
         
-        if(!(_activeChar.getTarget() instanceof L2NpcInstance))
+        if(!(target instanceof L2NpcInstance))
         {
             _activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
             _activeChar.sendPacket(new ActionFailed());
             return;
         }
 
-        L2NpcInstance target = (L2NpcInstance) _activeChar.getTarget();
-        
         if ( !(target instanceof L2MonsterInstance)  ||
             (target instanceof L2ChestInstance)  ||
             (target instanceof L2BossInstance)   ||
@@ -119,9 +120,9 @@ public class Seed implements IItemHandler
 
         _seedId = item.getItemId();
 
-        if(areaValid(MapRegionTable.getInstance().getAreaCastle(_activeChar)))
+        if(areaValid(MapRegionManager.getInstance().getAreaCastle(_activeChar)))
         {
-            //TODO: get right skill level
+            //FIXME: get right skill level
             _target.setSeeded(_seedId, _activeChar);
             L2Skill skill = SkillTable.getInstance().getInfo(2097, 3); //sowing skill
             _activeChar.useMagic(skill,false,false);

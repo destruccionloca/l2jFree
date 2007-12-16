@@ -21,9 +21,6 @@ package net.sf.l2j.gameserver.items.model;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 
 /**
- * 
- * FIXME : to rename and factorize with other item model entities
- * 
  * Class explanation:
  * For item counting or checking purposes. When you don't want to modify inventory 
  * class contains itemId, quantity, ownerId, referencePrice, but not objectId 

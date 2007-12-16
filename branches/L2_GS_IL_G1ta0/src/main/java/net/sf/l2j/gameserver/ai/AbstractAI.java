@@ -36,7 +36,6 @@ import net.sf.l2j.gameserver.serverpackets.AutoAttackStart;
 import net.sf.l2j.gameserver.serverpackets.AutoAttackStop;
 import net.sf.l2j.gameserver.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.serverpackets.Die;
-import net.sf.l2j.gameserver.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.serverpackets.MoveToLocationInVehicle;
 import net.sf.l2j.gameserver.serverpackets.MoveToPawn;
 import net.sf.l2j.gameserver.serverpackets.StopMove;
@@ -82,7 +81,21 @@ abstract class AbstractAI implements Ctrl
                     return;
                 }
 
-                moveToPawn(_followTarget, _range);
+                // TODO: fix Z axis follow support, moveToLocation needs improvements
+                // Does not allow targets to follow on infinite distance -> fix for "follow me bug".
+                if (_actor instanceof L2PcInstance && _followTarget instanceof L2PcInstance)
+				{
+                	if (!_actor.isInsideRadius(_followTarget, 999, true, false))
+                	{
+                		stopFollow();
+                		return;
+                	}
+				}
+				
+                if (!_actor.isInsideRadius(_followTarget, _range, true, false))
+                {
+                    moveToPawn(_followTarget, _range);
+                }
             }
             catch (Throwable t)
             {
@@ -470,34 +483,6 @@ abstract class AbstractAI implements Ctrl
     }
 
     /**
-     * Sit Down the actor server side AND client side by sending Server->Client packet ChangeWaitType <I>(broadcast)</I>.<BR><BR>
-     *
-     * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-     *
-     */
-    protected void clientSitDown()
-    {
-        if (_actor instanceof L2PcInstance)
-        {
-            ((L2PcInstance)_actor).sitDown();
-        }
-    }
-
-    /**
-     * Stand up the actor server side AND client side by sending Server->Client packet ChangeWaitType <I>(broadcast)</I>.<BR><BR>
-     *
-     * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
-     *
-     */
-    protected void clientStandUp()
-    {
-        if (_actor instanceof L2PcInstance)
-        {
-            ((L2PcInstance)_actor).standUp();
-        }
-    }
-
-    /**
      * Move the actor to Pawn server side AND client side by sending Server->Client packet MoveToPawn <I>(broadcast)</I>.<BR><BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
@@ -510,10 +495,21 @@ abstract class AbstractAI implements Ctrl
         {
             if (offset < 10) offset = 10;
 
-            // don't send packets too often, check we already moving to this pawn
-            if (_clientMoving && _target == pawn && _clientMovingToPawnOffset == offset)
+            // prevent possible extra calls to this function (there is none?),
+            // also don't send movetopawn packets too often
+            boolean sendPacket = true;
+            if (_clientMoving && _target == pawn)
             {
-                if (GameTimeController.getGameTicks() < _moveToPawnTimeout) return;
+                if (_clientMovingToPawnOffset == offset)
+                {
+                    if (GameTimeController.getGameTicks() < _moveToPawnTimeout) return;
+                    sendPacket = false;
+                }
+                else if (_actor.isOnGeodataPath())
+                {
+                    // minimum time to calculate new route is 2 seconds
+                    if (GameTimeController.getGameTicks() < (_moveToPawnTimeout+10)) return;
+                }
             }
 
             // Set AI movement data
@@ -528,24 +524,29 @@ abstract class AbstractAI implements Ctrl
             // Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
             _accessor.moveTo(pawn.getX(), pawn.getY(), pawn.getZ(), offset);
 
-            // Send a Server->Client packet MoveToPawn/CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
-            L2GameServerPacket msg;
+            if (!_actor.isMoving())
+            {
+                _actor.sendPacket(new ActionFailed());
+                return;
+            }
 
+            // Send a Server->Client packet MoveToPawn/CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
             if (pawn instanceof L2Character)
             {
                 if(_actor.isOnGeodataPath())
-                    msg = new CharMoveToLocation(_actor);
-                else
-                    msg = new MoveToPawn(_actor, (L2Character) pawn, offset);
+                {
+                    _actor.broadcastPacket(new CharMoveToLocation(_actor));
+                    _clientMovingToPawnOffset = 0;
+                }
+                else if (sendPacket) // don't repeat unnecessarily
+                    _actor.broadcastPacket(new MoveToPawn(_actor, (L2Character) pawn, offset));
             }
-            else msg = new CharMoveToLocation(_actor);
-
-            _actor.broadcastPacket(msg);
-
+            else
+                _actor.broadcastPacket(new CharMoveToLocation(_actor));
         }
         else
         {
-            _actor.sendPacket(new ActionFailed());
+            clientActionFailed();
         }
     }
 
@@ -574,7 +575,7 @@ abstract class AbstractAI implements Ctrl
         }
         else
         {
-            _actor.sendPacket(new ActionFailed());
+            clientActionFailed();
         }
     }
 
@@ -601,7 +602,7 @@ abstract class AbstractAI implements Ctrl
         }
         else
         {
-            _actor.sendPacket(new ActionFailed());
+            clientActionFailed();
         }
     }
 
@@ -645,8 +646,13 @@ abstract class AbstractAI implements Ctrl
     // Client has already arrived to target, no need to force StopMove packet
     protected void clientStoppedMoving()
     {
-    	_clientMovingToPawnOffset = 0;
-    	_clientMoving = false;
+        if (_clientMovingToPawnOffset > 0) // movetoPawn needs to be stopped
+        {
+            _clientMovingToPawnOffset = 0;
+            StopMove msg = new StopMove(_actor);
+            _actor.broadcastPacket(msg);
+        }
+        _clientMoving = false;
     }
     
     public boolean isAutoAttacking()

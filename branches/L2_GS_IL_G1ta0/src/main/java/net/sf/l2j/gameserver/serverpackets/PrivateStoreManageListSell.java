@@ -69,7 +69,7 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 		{
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
-			writeD(item.getItem().getItemId());
+			writeD(item.getItem().getItemDisplayId());
 			writeD(item.getCount());
 			writeH(0);
 			writeH(item.getEnchant());//enchant lvl
@@ -83,7 +83,7 @@ public class PrivateStoreManageListSell extends L2GameServerPacket
 		{
 			writeD(item.getItem().getType2()); 
 			writeD(item.getObjectId());
-			writeD(item.getItem().getItemId());
+			writeD(item.getItem().getItemDisplayId());
 			writeD(item.getCount());
 			writeH(0);	
 			writeH(item.getEnchant());//enchant lvl

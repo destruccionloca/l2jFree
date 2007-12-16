@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
+import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
@@ -396,6 +397,9 @@ public class Shutdown extends Thread implements ShutdownMBean
 
         // Save all manor data
         CastleManorManager.getInstance().save();
+
+        // Save all global (non-player specific) Quest data that needs to persist after reboot
+        QuestManager.getInstance().save();
 
         // Save Cursed Weapons data before closing.
         CursedWeaponsManager.getInstance().saveData();

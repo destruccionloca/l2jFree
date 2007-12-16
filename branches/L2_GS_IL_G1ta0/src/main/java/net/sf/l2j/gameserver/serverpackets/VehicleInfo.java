@@ -33,7 +33,6 @@ public class VehicleInfo  extends L2GameServerPacket
 	public VehicleInfo(L2BoatInstance boat)
 	{
 		_boat = boat;
-		// TODO Auto-generated constructor stub
 	}
 
 	/* (non-Javadoc)

@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.ChairSit;
 
 /**
@@ -59,6 +60,12 @@ public class ChangeWaitType2 extends L2GameClientPacket
 		L2Object target = player.getTarget();
 		if(getClient() != null && player != null)
 		{
+			if (player.isOutOfControl())
+			{
+				player.sendPacket(new ActionFailed());
+				return;
+			}
+			
 			if (player.getMountType() != 0) //prevent sit/stand if you riding
 				return;
 			if (target != null 

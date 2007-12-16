@@ -112,6 +112,7 @@
 <!ELEMENT armor EMPTY>
 <!ATTLIST armor
     item_id CDATA #REQUIRED
+    item_display_id CDATA #REQUIRED
     name CDATA #IMPLIED
     bodypart CDATA #REQUIRED
     crystallizable CDATA #REQUIRED
@@ -529,6 +530,7 @@
 <!ELEMENT etcitem EMPTY>
 <!ATTLIST etcitem
     item_id CDATA #REQUIRED
+    item_display_id CDATA #REQUIRED
     name CDATA #IMPLIED
     crystallizable CDATA #IMPLIED
     item_type CDATA #IMPLIED
@@ -1101,6 +1103,7 @@
 <!ELEMENT weapon EMPTY>
 <!ATTLIST weapon
     item_id CDATA #REQUIRED
+    item_display_id CDATA #REQUIRED
     name CDATA #IMPLIED
     bodypart CDATA #IMPLIED
     crystallizable CDATA #IMPLIED

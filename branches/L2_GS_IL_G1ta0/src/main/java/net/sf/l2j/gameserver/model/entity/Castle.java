@@ -18,6 +18,7 @@ import java.util.Calendar;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.CastleUpdater;
@@ -33,12 +34,12 @@ import net.sf.l2j.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Manor;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
-import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.tools.geometry.Point3D;
@@ -160,9 +161,9 @@ public class Castle
 	 */
 	public void banishForeigner(L2PcInstance activeChar)
 	{
-		//TODO: mapregion: fix after implementation
+		//TODO: G1ta0 -> mapregion: fix after implementation
 	}
-
+	
 	public void closeDoor(L2PcInstance activeChar, int doorId)
 	{
 		openCloseDoor(activeChar, doorId, false);
@@ -215,27 +216,33 @@ public class Castle
 	public void setOwner(L2Clan clan)
 	{
 		// Remove old owner
-		if(getOwnerId() > 0 && (clan == null || clan.getClanId() != getOwnerId()))
+		if (getOwnerId() > 0 && (clan == null || clan.getClanId() != getOwnerId()))
 		{
 			L2Clan oldOwner = ClanTable.getInstance().getClan(getOwnerId()); // Try to find clan instance 
-			if(oldOwner != null)
+			if (oldOwner != null)
 			{
-
-				if(_formerOwner == null)
+				
+				if (_formerOwner == null)
+				{
 					_formerOwner = oldOwner;
-
-				oldOwner.setHasCastle(0); // Unset has castle flag for old owner
-				new Announcements().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
+					if (Config.REMOVE_CASTLE_CIRCLETS)
+					{
+						CastleManager.getInstance().removeCirclet(_formerOwner, getCastleId());
+					}
+				}
+				
+				oldOwner.setHasCastle(0);   // Unset has castle flag for old owner
+				Announcements.getInstance().announceToAll(oldOwner.getName() + " has lost " + getName() + " castle!");
 
 				// remove crowns
-				CrownManager.getInstance().removeCrowns(oldOwner);
+				CrownManager.getInstance().checkCrowns(oldOwner); 
 			}
 		}
+		
+		updateOwnerInDB(clan);              // Update in database
 
-		updateOwnerInDB(clan); // Update in database
-
-		if(getSiege().getIsInProgress()) // If siege in progress
-			getSiege().midVictory(); // Mid victory phase of siege
+		if (getSiege().getIsInProgress())   // If siege in progress
+			getSiege().midVictory();        // Mid victory phase of siege
 	}
 
 	// This method updates the castle tax rate
@@ -540,10 +547,10 @@ public class Castle
 
 	private void updateOwnerInDB(L2Clan clan)
 	{
-		if(clan != null)
-			_ownerId = clan.getClanId(); // Update owner id property
+		if (clan != null)
+			_ownerId = clan.getClanId();	// Update owner id property
 		else
-			_ownerId = 0; // Remove owner
+			_ownerId = 0;				   // Remove owner
 
 		java.sql.Connection con = null;
 		try
@@ -554,43 +561,38 @@ public class Castle
 			// ============================================================================
 			// NEED TO REMOVE HAS CASTLE FLAG FROM CLAN_DATA
 			// SHOULD BE CHECKED FROM CASTLE TABLE
-			statement = con.prepareStatement("UPDATE clan_data SET hasCastle=0 WHERE hasCastle=?");
+			statement = con.prepareStatement("UPDATE clan_data SET hasCastle = 0 WHERE hasCastle = ?");
 			statement.setInt(1, getCastleId());
 			statement.execute();
-			statement.close();
+			statement.close();   
 
-			statement = con.prepareStatement("UPDATE clan_data SET hasCastle=? WHERE clan_id=?");
+			statement = con.prepareStatement("UPDATE clan_data SET hasCastle = ? WHERE clan_id = ?");
 			statement.setInt(1, getCastleId());
 			statement.setInt(2, getOwnerId());
 			statement.execute();
-			statement.close();
+			statement.close();   
 			// ============================================================================
 
 			// Announce to clan memebers
-			if(clan != null)
+			if (clan != null)
 			{
 				clan.setHasCastle(getCastleId()); // Set has castle flag for new owner
-				new Announcements().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
+				Announcements.getInstance().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
 
 				// give crowns
-				CrownManager.getInstance().giveCrowns(clan, getCastleId());
-
-				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000); // Schedule owner tasks to start running 
+				CrownManager.getInstance().checkCrowns(clan);
+				
+				ThreadPoolManager.getInstance().scheduleGeneral(new CastleUpdater(clan, 1), 3600000);   // Schedule owner tasks to start running 
 			}
 		}
 		catch (Exception e)
 		{
-			_log.error("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(), e);
+			_log.error("Exception: updateOwnerInDB(L2Clan clan): " + e.getMessage(),e);
 		}
 		finally
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{}
+			try { con.close(); } catch (Exception e) {}
 		}
 	}
 

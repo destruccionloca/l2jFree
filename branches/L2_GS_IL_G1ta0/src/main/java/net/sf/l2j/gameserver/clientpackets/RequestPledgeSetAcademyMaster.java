@@ -65,7 +65,7 @@ public class RequestPledgeSetAcademyMaster extends L2GameClientPacket
         if (currentMember == null || targetMember == null) return;
         
         L2ClanMember apprenticeMember, sponsorMember;
-        if (currentMember.getPledgeType() == L2Clan.SUBUNIT_ACADEMY)
+        if (currentMember.getSubPledgeType() == L2Clan.SUBUNIT_ACADEMY)
         {
             apprenticeMember = currentMember;
             sponsorMember = targetMember;   

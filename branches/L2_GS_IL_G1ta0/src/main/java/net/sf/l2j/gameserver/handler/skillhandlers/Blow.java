@@ -17,7 +17,6 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
-import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -52,12 +51,9 @@ public class Blow implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets){
 		if(activeChar.isAlikeDead())
 			return;
-        for(int index = 0;index < targets.length;index++)
-        {
-			L2Character target = (L2Character)targets[index];
-			//check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
+        for (L2Object element : targets) {
+			L2Character target = (L2Character)element;
+			
 			if(target.isAlikeDead())
 				continue;
 			if(activeChar.isBehindTarget())
@@ -74,9 +70,7 @@ public class Blow implements ISkillHandler
 				{
 					if (target.reflectSkill(skill))
 					{
-						activeChar.stopEffect(skill.getId());
-						if (activeChar.getEffect(skill.getId()) != null)
-							activeChar.removeEffect(target.getEffect(skill.getId()));
+						activeChar.stopSkillEffects(skill.getId());
 						skill.getEffects(null, activeChar);
 						SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 						sm.addSkillName(skill.getId());
@@ -97,7 +91,7 @@ public class Blow implements ISkillHandler
 					damage *= 2;
 					// Vicious Stance is special after C5, and only for BLOW skills
 					// Adds directly to damage
-					L2Effect vicious = activeChar.getEffect(312);
+					L2Effect vicious = activeChar.getFirstEffect(312);
 					if(vicious != null && damage > 1)
 					{
 						for(Func func: vicious.getStatFuncs())
@@ -182,20 +176,19 @@ public class Blow implements ISkillHandler
          		   	}
             		else if (target instanceof L2NpcInstance) // If is a monster remove first damage and after 50% of current hp
             			target.reduceCurrentHp(target.getStatus().getCurrentHp()/2, activeChar);
-	            	activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));   
+	            	activeChar.sendPacket(new SystemMessage(SystemMessageId.LETHAL_STRIKE));
 				}
 			}
-            L2Effect effect = activeChar.getEffect(skill.getId());    
-            //Self Effect
-            if (effect != null && effect.isSelfEffect())                   
-            	effect.exit();            
-            skill.getEffectsSelf(activeChar);
-			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target, null);
-        }
+			L2Effect effect = activeChar.getFirstEffect(skill.getId());
+			//Self Effect
+			if (effect != null && effect.isSelfEffect())
+				effect.exit();
+			skill.getEffectsSelf(activeChar);
+		}
 	}
 	
 	public SkillType[] getSkillIds()
-    {
-        return SKILL_IDS;
-    }
+	{
+		return SKILL_IDS;
+	}
 }

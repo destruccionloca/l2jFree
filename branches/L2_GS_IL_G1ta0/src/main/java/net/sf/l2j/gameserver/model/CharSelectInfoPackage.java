@@ -176,6 +176,10 @@ public class CharSelectInfoPackage
     {
         return _paperdoll[slot][1];
     }
+    public int getPaperdollItemDisplayId(int slot)
+    {
+        return _paperdoll[slot][3];
+    }    
     public int getLevel()
     {
         return _level;

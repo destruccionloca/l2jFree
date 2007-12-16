@@ -58,13 +58,12 @@ public class L2XmassTreeInstance extends L2NpcInstance
         {
             L2Skill skill = SkillTable.getInstance().getInfo(skillId, 1);
 
-            if (player.getEffect(skill) == null)
+            if (player.getFirstEffect(skill) == null)
             {
                 setTarget(player);
                 doCast(skill);
 
-                MagicSkillUser msu = new MagicSkillUser(_caster, player, skill.getId(), 1,
-                                                        skill.getSkillTime(), 0);
+                MagicSkillUser msu = new MagicSkillUser(_caster, player, skill.getId(), 1, skill.getHitTime(), 0);
                 broadcastPacket(msu);
                 return true;
             }

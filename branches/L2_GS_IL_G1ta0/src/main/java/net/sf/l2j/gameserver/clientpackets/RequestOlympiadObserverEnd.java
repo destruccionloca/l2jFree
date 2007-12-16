@@ -34,24 +34,23 @@ public class RequestOlympiadObserverEnd extends L2GameClientPacket
 	 * @param buf
 	 * @param client
 	 */
-    @Override
-    protected void readImpl()
-    {
-        // trigger
-    }
+	@Override
+	protected void readImpl()
+	{
+		// trigger
+	}
 
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-    
-    protected void runImpl()
+	protected void runImpl()
 	{
-       L2PcInstance activeChar = getClient().getActiveChar();
-       if (activeChar == null)
-           return;
-       activeChar.leaveOlympiadObserverMode();
+		L2PcInstance activeChar = getClient().getActiveChar();
+		if (activeChar == null)
+			return;
+		if (activeChar.inObserverMode()) activeChar.leaveOlympiadObserverMode();
 	}
 
 	/* (non-Javadoc)
@@ -59,7 +58,7 @@ public class RequestOlympiadObserverEnd extends L2GameClientPacket
 	 */
 	@Override
 
-    public String getType()
+	public String getType()
 	{
 		return _C__D0_12_REQUESTOLYMPIADOBSERVEREND;
 	}

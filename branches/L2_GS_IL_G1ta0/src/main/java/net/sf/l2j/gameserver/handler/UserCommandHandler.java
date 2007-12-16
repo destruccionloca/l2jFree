@@ -19,6 +19,9 @@
 package net.sf.l2j.gameserver.handler;
 
 import javolution.util.FastMap;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ChannelDelete;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ChannelLeave;
+import net.sf.l2j.gameserver.handler.usercommandhandlers.ChannelListUpdate;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanPenalty;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.ClanWarsList;
 import net.sf.l2j.gameserver.handler.usercommandhandlers.DisMount;
@@ -55,26 +58,28 @@ public class UserCommandHandler
 	private UserCommandHandler()
 	{
 		_datatable = new FastMap<Integer, IUserCommandHandler>();
-        registerUserCommandHandler(new ClanPenalty());
-        registerUserCommandHandler(new ClanWarsList());
-        registerUserCommandHandler(new DisMount());
-        registerUserCommandHandler(new Mount());        
-        registerUserCommandHandler(new PartyInfo());
-        registerUserCommandHandler(new Loc());
-        registerUserCommandHandler(new Escape());
-        registerUserCommandHandler(new Time());
-        registerUserCommandHandler(new ClanWarsList());
+		registerUserCommandHandler(new ChannelLeave());
+		registerUserCommandHandler(new ChannelDelete());
+		registerUserCommandHandler(new ChannelListUpdate());
+		registerUserCommandHandler(new ClanPenalty());
+		registerUserCommandHandler(new ClanWarsList());
+		registerUserCommandHandler(new DisMount());
+		registerUserCommandHandler(new Escape());
+		registerUserCommandHandler(new Loc());
+		registerUserCommandHandler(new Mount());
 		registerUserCommandHandler(new OlympiadStat());
-        _log.info("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");        
+		registerUserCommandHandler(new PartyInfo());
+		registerUserCommandHandler(new Time());
+
+		_log.info("UserCommandHandler: Loaded " + _datatable.size() + " handlers.");
 	}
 	
 	public void registerUserCommandHandler(IUserCommandHandler handler)
 	{
 		int[] ids = handler.getUserCommandList();
-		for (int i = 0; i < ids.length; i++)
-		{
-			if (_log.isDebugEnabled()) _log.debug("Adding handler for user command "+ids[i]);
-			_datatable.put(new Integer(ids[i]), handler);
+		for (int element : ids) {
+			if (_log.isDebugEnabled()) _log.debug("Adding handler for user command "+element);
+			_datatable.put(new Integer(element), handler);
 		}
 	}
 	

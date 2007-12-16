@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.clientpackets;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.LoginServerThread;
@@ -30,9 +29,9 @@ import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.GmListTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
@@ -48,6 +47,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Couple;
 import net.sf.l2j.gameserver.model.entity.Hero;
 import net.sf.l2j.gameserver.model.entity.L2Event;
@@ -55,6 +55,8 @@ import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -360,8 +362,6 @@ public class EnterWorld extends L2GameClientPacket
 			sendPacket(d);
 		}
 
-		setPledgeClass(activeChar);
-		
 		//add char to online characters
 		activeChar.setOnlineStatus(true);
 
@@ -400,7 +400,7 @@ public class EnterWorld extends L2GameClientPacket
         
         if (Olympiad.getInstance().playerInStadia(activeChar))
         {
-            activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+            activeChar.teleToLocation(TeleportWhereType.Town);
             activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadia");
         }
 
@@ -415,6 +415,12 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendPacket(sm);
 		}
 		
+		try
+		{
+			activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
+		}
+		catch(Throwable t){}
+
 		if (activeChar.getClan() != null)
 		{
 			PledgeSkillList psl = new PledgeSkillList(activeChar.getClan());
@@ -429,12 +435,22 @@ public class EnterWorld extends L2GameClientPacket
 				else if (siege.checkIsDefender(activeChar.getClan()))
 					activeChar.setSiegeState((byte)2);
 			}
+			// Add message at connexion if clanHall not paid.
+			// Possibly this is custom...
+			//TODO: check and uncomment if needed
+			/*
+			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
+			if(clanHall != null)
+			{
+				if(!clanHall.getPaid())
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW));
+			} */
 		}
 
 		if (!activeChar.isGM() && activeChar.getSiegeState() < 2 && activeChar.isInsideZone(ZoneType.SiegeBattleField))
 		{
 			// Attacker or spectator logging in to a siege zone. Actually should be checked for inside castle only?
-			activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+			activeChar.teleToLocation(TeleportWhereType.Town);
 			activeChar.sendMessage("You have been teleported to the nearest town due to you being in siege zone");
 		}
 
@@ -448,6 +464,9 @@ public class EnterWorld extends L2GameClientPacket
         
         if (TvT._savePlayers.contains(activeChar.getName()))
            TvT.addDisconnectedPlayer(activeChar);
+
+        if (FortressSiege._savePlayers.contains(activeChar.getName()))
+        	FortressSiege.addDisconnectedPlayer(activeChar);
 
     	if (CTF._savePlayers.contains(activeChar.getName()))
     	    CTF.addDisconnectedPlayer(activeChar);
@@ -499,7 +518,6 @@ public class EnterWorld extends L2GameClientPacket
             if(obj == null || !(obj instanceof L2PcInstance))
             {
                 // If other char is deleted, maybe a npc or mob takes the ID
-                // TODO: Break marriage here and clean up database if obj not instance of L2PcInstance
                 return;
             }
             
@@ -592,11 +610,7 @@ public class EnterWorld extends L2GameClientPacket
             PledgeSkillList response = new PledgeSkillList(clan);
             L2Skill[] skills = clan.getAllSkills();
             
-            // TODO why this code ???
-            for (int i = 0; i < skills.length; i++)
-            {
-                L2Skill s = skills[i];
-                
+            for (L2Skill s : skills) {
                 if (s == null) 
                     continue;
                 
@@ -630,20 +644,5 @@ public class EnterWorld extends L2GameClientPacket
 	public String getType()
 	{
 		return _C__03_ENTERWORLD;
-	}
-
-	private void setPledgeClass(L2PcInstance activeChar)
-	{
-		int pledgeClass = 0;
-		if ( activeChar.getClan() != null)
-			pledgeClass = activeChar.getClan().getClanMember(activeChar.getObjectId()).calculatePledgeClass(activeChar);
-		
-		if (activeChar.isNoble() && pledgeClass < 5)
-	           pledgeClass = 5;
-		
-	    if (activeChar.isHero())
-	           pledgeClass = 8;
-	           
-	    activeChar.setPledgeClass(pledgeClass);
 	}
 }

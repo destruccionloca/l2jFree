@@ -53,13 +53,14 @@ public abstract class L2Effect
 		ACTING,
 		FINISHING
 	}
-    
-	public static enum EffectType  {
+
+	public static enum EffectType
+	{
 		BUFF,
-        CHARGE,
-        DMG_OVER_TIME,
+		CHARGE,
+		DMG_OVER_TIME,
 		HEAL_OVER_TIME,
-        COMBAT_POINT_HEAL_OVER_TIME,
+		COMBAT_POINT_HEAL_OVER_TIME,
 		MANA_DMG_OVER_TIME,
 		MANA_HEAL_OVER_TIME,
 		RELAXING,
@@ -78,22 +79,20 @@ public abstract class L2Effect
 		STUN_SELF,
         BLUFF,
         BETRAY,
-        NOBLESSE_BLESSING,        
+        NOBLESSE_BLESSING,
         PETRIFICATION,
-        ROTATE, // for bluff skill        
         CANCEL_TARGET,
-        CANCEL_TARGET_SHOCK,
-        CANCEL_TARGET_PHYSICAL,
         SILENCE_MAGIC_PHYSICAL,
         ERASE,
         PETRIFIED,
-        SILENCE_PHYSICAL,
         LUCKNOBLESSE,
         PSYCHICAL_MUTE,
         TARGET_ME,
         REMOVE_TARGET,
         BATTLE_FORCE,
-        SPELL_FORCE        
+        SPELL_FORCE,
+        CHARM_OF_LUCK,
+        INVINCIBLE
     }
 	
 	private static final Func[] _emptyFunctionSet = new Func[0];
@@ -124,7 +123,7 @@ public abstract class L2Effect
 	private int _period;
 	private int _periodStartTicks;
 	private int _periodfirsttime;
-    private int _skillid;
+
 	// function templates
 	private final FuncTemplate[] _funcTemplates;
 	
@@ -136,6 +135,8 @@ public abstract class L2Effect
 
 	// abnormal effect mask
 	private int _abnormalEffect;
+
+	public boolean preventExitUpdate;
 
 	public final class EffectTask implements Runnable
 	{	
@@ -233,11 +234,21 @@ public abstract class L2Effect
 	 * Returns the elapsed time of the task.
 	 * @return Time in seconds.
 	 */
-    public int getTaskTime()
+    public int getElapsedTaskTime()
     {
-    	if (_count == _totalCount) return 0;
-    	return (Math.abs(_count-_totalCount+1)*_period) + getTime()+1;
+    	return (_totalCount - _count) * _period + getTime() + 1;
     }
+	
+	public int getTotalTaskTime()
+	{
+		return _totalCount * _period;
+	}
+	
+	public int getRemainingTaskTime()
+	{
+		return getTotalTaskTime() - getElapsedTaskTime();
+	}
+	
 	public boolean getInUse()
 	{
 		return _inUse;
@@ -299,25 +310,25 @@ public abstract class L2Effect
 	{
 		stopEffectTask();
 		_currentTask = new EffectTask(duration, -1);
-        _currentFuture = ThreadPoolManager.getInstance().scheduleEffect(
-        		_currentTask, duration);
-		if (_state == EffectState.ACTING)
-			_effected.addEffect(this);
-		updateEffects(_effected);
+		_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(
+			_currentTask, duration);
+		if (_state == EffectState.ACTING) _effected.addEffect(this);
 	}
 	
 	private synchronized void startEffectTaskAtFixedRate(int delay, int rate)
 	{
 		stopEffectTask();
 		_currentTask = new EffectTask(delay, rate);
-        _currentFuture = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(
-        		_currentTask, delay, rate);
-		if (_state == EffectState.ACTING)
-			_effected.addEffect(this);
-		updateEffects(_effected);
+		_currentFuture = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(
+			_currentTask, delay, rate);
+		if (_state == EffectState.ACTING) _effected.addEffect(this);
 	}
-	
-	
+
+	public final void exit()
+	{
+		exit(false);
+	}
+
 	/**
 	 * Stop the L2Effect task and send Server->Client update packet.<BR><BR>
 	 * 
@@ -326,8 +337,9 @@ public abstract class L2Effect
 	 * <li>Stop the task of the L2Effect, remove it and update client magic icone </li><BR><BR>
 	 * 
 	 */
-	public final void exit()
+	public final void exit(boolean preventUpdate)
 	{
+		preventExitUpdate = preventUpdate;
 		_state = EffectState.FINISHING;
 		scheduleEffect();
 	}
@@ -350,9 +362,6 @@ public abstract class L2Effect
 			_currentTask = null;
 			
 			_effected.removeEffect(this);
-			
-			// Not implemented
-			_effected.updateStats();
 		}
 	}
 	
@@ -454,12 +463,7 @@ public abstract class L2Effect
                             
 		}
 	}
-	
-	public void updateEffects(L2Character effectedChar)
-	{
-		effectedChar.updateStats();
-	}
-	
+
     public Func[] getStatFuncs()
     {
     	if (_funcTemplates == null)
@@ -488,13 +492,15 @@ public abstract class L2Effect
 		if (_state == EffectState.FINISHING || _state == EffectState.CREATED) 
 			return;
 		L2Skill sk = getSkill();
+		int time = -1;
 		if (task._rate > 0)
-        {
-        	if (sk.isPotion()) mi.addEffect(sk.getId(), getLevel(), sk.getBuffDuration()-(getTaskTime()*1000));
-        	else mi.addEffect(sk.getId(), getLevel(), -1);
-        }
+			time = getRemainingTaskTime() * 1000;
+			//Why only potions? HOT skills should have this too.. maybe not retail, but more informative...
+			//if (sk.isPotion()) time = getRemainingTaskTime() * 1000;
 		else
-			mi.addEffect(getSkill().getId(), getLevel(), (int)future.getDelay(TimeUnit.MILLISECONDS));
+			time = (int)future.getDelay(TimeUnit.MILLISECONDS);
+		
+		mi.addEffect(sk.getId(), sk.getLevel(), time);
 	}
 	
     public final void addPartySpelledIcon(PartySpelled ps)

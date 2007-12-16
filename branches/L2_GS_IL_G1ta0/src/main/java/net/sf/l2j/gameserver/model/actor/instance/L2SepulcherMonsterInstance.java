@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -434,12 +435,17 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		
 		public void run()
 		{
+			//DP side isn't ready o.O, (MAYBE OVERSYNCED?!?!),  so this code is useless... btw I let it here, until DP side is ready...
 			L2Skill fp = SkillTable.getInstance().getInfo(4616, 1);
-			fp.getEffects(activeChar, activeChar);
+			L2Effect[] eff = fp.getEffects(activeChar, activeChar);
+			
+			int time = 1000; //to avoid accidental bad values
+			if (eff[0] != null)
+				time = eff[0].getTotalTaskTime();
 
 			if (_changeMortalTask != null)
 				_changeMortalTask.cancel(true);
-			_changeMortalTask = ThreadPoolManager.getInstance().scheduleEffect(new ChangeMortal(), fp.getBuffDuration());
+			_changeMortalTask = ThreadPoolManager.getInstance().scheduleEffect(new ChangeMortal(), time);
 		}
 	}
 

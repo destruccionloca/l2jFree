@@ -60,10 +60,9 @@ public class VoicedCommandHandler
 	public void registerVoicedCommandHandler(IVoicedCommandHandler handler)
 	{
 		String[] ids = handler.getVoicedCommandList();
-		for (int i = 0; i < ids.length; i++)
-		{
-			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+ids[i]);
-			_datatable.put(ids[i], handler);
+		for (String element : ids) {
+			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+element);
+			_datatable.put(element, handler);
 		}
 	}
 	

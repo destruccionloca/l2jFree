@@ -36,7 +36,6 @@ public class BoatKnownList extends CharKnownList
 	public BoatKnownList(L2Character activeChar)
 	{
 		super(activeChar);
-		// TODO Auto-generated constructor stub
 	}
 
     @Override

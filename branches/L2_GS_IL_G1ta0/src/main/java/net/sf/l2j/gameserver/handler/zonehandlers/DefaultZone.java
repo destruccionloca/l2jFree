@@ -125,6 +125,14 @@ public class DefaultZone implements IZoneHandler
 		return _zone;
 	}
 
+	/**
+	 *  Returns current zone types
+	 */
+	public FastList<ZoneType> getZoneTypes()
+	{
+		return zoneType;
+	}
+	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IZoneHandler#onEnter(net.sf.l2j.gameserver.model.zone.IZone, net.sf.l2j.gameserver.model.L2Character)
 	 */
@@ -144,12 +152,20 @@ public class DefaultZone implements IZoneHandler
 				player.sendMessage(onEnterMsg);
 		}
 
-		for(ZoneType zt : zoneType)
-			character.setInZone(zt);
+		for(ZoneType zt : getZoneTypes())
+			character.setInZone(zt, getZone());
 
 		applyEffects(character);
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.handler.IZoneHandler#onMove(net.sf.l2j.gameserver.model.zone.IZone, net.sf.l2j.gameserver.model.L2Character)
+	 */
+	public void onMove(L2Character character)
+	{
+		
+	}
+	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IZoneHandler#onExit(net.sf.l2j.gameserver.model.zone.IZone, net.sf.l2j.gameserver.model.L2Character)
 	 */
@@ -169,8 +185,8 @@ public class DefaultZone implements IZoneHandler
 				player.sendMessage(onExitMsg);
 		}
 
-		for(ZoneType zt : zoneType)
-			character.setOutZone(zt);
+		for(ZoneType zt : getZoneTypes())
+			character.setOutZone(zt, getZone());
 
 		removeEffects(character);
 	}
@@ -182,7 +198,7 @@ public class DefaultZone implements IZoneHandler
 		{
 			for(L2Skill skill : effects)
 			{
-				if(skill.checkCondition(character, false))
+				if(skill.checkCondition(character, character, false)) //TODO: G1ta0-> fix zone effects
 				{
 					try
 					{

@@ -39,6 +39,7 @@ import net.sf.l2j.gameserver.templates.StatsSet;
 public class Item
 {
     public int      id;
+    public int		displayid;
     public Enum     type;
     public String   name;
     public StatsSet set;

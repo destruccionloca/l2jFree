@@ -304,7 +304,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			{
 				player.setTitle(val);
 				if(player != activeChar) player.sendMessage("Your title has been changed by a GM");
-				player.broadcastUserInfo();
+				player.broadcastTitleInfo();
 			}
 			else if(npc != null)
 			{
@@ -582,13 +582,9 @@ public class AdminEditChar implements IAdminCommandHandler
 		if ( newKarma >= 0 ) 
 		{
 			// for display
-			int oldKarma = player.getKarma();			
+			int oldKarma = player.getKarma();
 			// update karma
 			player.setKarma(newKarma);
-			CharInfo info1 = new CharInfo(player);
-			player.broadcastPacket(info1);
-			UserInfo info2 = new UserInfo(player);
-			player.sendPacket(info2);
 			//Common character information
 			player.sendPacket( new SystemMessage(SystemMessageId.YOUR_KARMA_HAS_BEEN_CHANGED_TO).addString(String.valueOf(newKarma)));
 			//Admin information
@@ -698,13 +694,12 @@ public class AdminEditChar implements IAdminCommandHandler
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/charfind.htm");
 		TextBuilder replyMSG = new TextBuilder();
-		for (int i = 0; i < players.length; i++)
-		{	//Add player info into new Table row
-			name = players[i].getName();
+		for (L2PcInstance element : players) {	//Add player info into new Table row
+			name = element.getName();
 			if (name.toLowerCase().contains(CharacterToFind.toLowerCase()))
 			{
 				CharactersFound = CharactersFound+1;
-				replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list "+name+"\">"+name+"</a></td><td width=110>" + players[i].getTemplate().getClassName() + "</td><td width=40>"+players[i].getLevel()+"</td></tr>");
+				replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list "+name+"\">"+name+"</a></td><td width=110>" + element.getTemplate().getClassName() + "</td><td width=40>"+element.getLevel()+"</td></tr>");
 			}
 			if (CharactersFound > 20)
 				break;
@@ -743,14 +738,13 @@ public class AdminEditChar implements IAdminCommandHandler
 		TextBuilder replyMSG = new TextBuilder();
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/ipfind.htm");
-		for (int i = 0; i < players.length; i++)
-		{
-			ip=players[i].getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
+		for (L2PcInstance element : players) {
+			ip=element.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
 			if (ip.equals(IpAdress))
 			{
-				name = players[i].getName();
+				name = element.getName();
 				CharactersFound = CharactersFound+1;
-				replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list "+name+"\">"+name+"</a></td><td width=110>" + players[i].getTemplate().getClassName() + "</td><td width=40>"+players[i].getLevel()+"</td></tr>");
+				replyMSG.append("<tr><td width=80><a action=\"bypass -h admin_character_list "+name+"\">"+name+"</a></td><td width=110>" + element.getTemplate().getClassName() + "</td><td width=40>"+element.getLevel()+"</td></tr>");
 			}
 			if (CharactersFound > 20)
 				break;

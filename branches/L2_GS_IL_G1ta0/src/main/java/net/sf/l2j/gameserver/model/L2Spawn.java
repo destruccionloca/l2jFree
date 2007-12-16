@@ -22,7 +22,6 @@ import java.lang.reflect.Constructor;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.Config.CorrectSpawnsZ;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.Territory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -256,6 +255,12 @@ public class L2Spawn
 	 * Return the Itdentifier of the L2NpcInstance manage by this L2Spwan contained in the L2NpcTemplate.<BR><BR>
 	 */
 	public int getNpcId()
+	{
+		return _template.getNpcId();
+	}
+	
+	// TODO : This is just a temp fix... check every quest
+	public int getNpcid()
 	{
 		return _template.getNpcId();
 	}
@@ -506,7 +511,7 @@ public class L2Spawn
 		}
 		catch (Exception e)
 		{
-			_log.warn( "NPC "+_template.getNpcId()+" class not found", e);
+			System.out.println( "NPC "+_template.getNpcId()+" class not found: "+ e.getMessage());
 		}
 		return mob;
 	}

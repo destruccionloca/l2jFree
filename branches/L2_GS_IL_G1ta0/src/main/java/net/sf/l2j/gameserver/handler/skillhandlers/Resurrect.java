@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
+import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 
 /**
  * This class ...
@@ -51,13 +52,9 @@ public class Resurrect implements ISkillHandler
         L2PcInstance targetPlayer;
         FastList<L2Character> targetToRes = new FastList<L2Character>();
 		
-        for (int index = 0; index < targets.length; index++)
-        {
-            target = (L2Character) targets[index];
-            //check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
-            
+        for (L2Object element : targets) {
+            target = (L2Character) element;
+			
             if (target instanceof L2PcInstance)
             {               
                 targetPlayer = (L2PcInstance)target;
@@ -78,23 +75,28 @@ public class Resurrect implements ISkillHandler
         }
         
         for (L2Character cha: targetToRes)
+        {
             if (activeChar instanceof L2PcInstance)
             {
-               if (cha instanceof L2PcInstance)
-                   ((L2PcInstance)cha).reviveRequest((L2PcInstance)activeChar,skill,false);
-               else if (cha instanceof L2PetInstance)
-               {
-                   if (((L2PetInstance)cha).getOwner() == activeChar)
-                       cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
-                   else
-                       ((L2PetInstance)cha).getOwner().reviveRequest((L2PcInstance)activeChar,skill,true);
-               }
-               else cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
+                if (cha instanceof L2PcInstance)
+                    ((L2PcInstance)cha).reviveRequest((L2PcInstance)activeChar,skill,false);
+                else if (cha instanceof L2PetInstance)
+                {
+                    if (((L2PetInstance)cha).getOwner() == activeChar)
+                        cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
+                    else
+                        ((L2PetInstance)cha).getOwner().reviveRequest((L2PcInstance)activeChar,skill,true);
+                }
+                else cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
             }
-            else cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
-	}
-	
-	
+            else
+            {
+                DecayTaskManager.getInstance().cancelDecayTask(cha);
+                cha.doRevive(Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), activeChar.getStat().getWIT()));
+            }
+        }
+    }
+
 	public SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2TradeList;
+import net.sf.l2j.gameserver.model.actor.instance.L2CastleChamberlainInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ClanHallManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FishermanInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MercManagerInstance;
@@ -106,11 +107,12 @@ public class RequestBuyItem extends L2GameClientPacket
 
         L2Object target = player.getTarget();
         
-        if (!player.isGM() &&                         // Player not GM      
+        if (!player.isGM() &&                         // Player not GM
            (!(target instanceof L2MerchantInstance || // Target not a merchant, fisherman or mercmanager
               target instanceof L2FishermanInstance || 
               target instanceof L2MercManagerInstance ||
-              target instanceof L2ClanHallManagerInstance) ||              
+              target instanceof L2ClanHallManagerInstance ||
+              target instanceof L2CastleChamberlainInstance) ||
              !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))     // Distance is too far
              return;
 
@@ -124,9 +126,11 @@ public class RequestBuyItem extends L2GameClientPacket
             else if (target instanceof L2FishermanInstance)
                 htmlFolder = "fisherman";
             else if (target instanceof L2MercManagerInstance)
-            	ok = true;
-        	else if (target instanceof L2ClanHallManagerInstance)
-         		ok = true;
+                ok = true;
+            else if (target instanceof L2ClanHallManagerInstance)
+                ok = true;
+            else if (target instanceof L2CastleChamberlainInstance)
+                ok = true;
             else
                 ok = false;
         }
@@ -249,22 +253,7 @@ public class RequestBuyItem extends L2GameClientPacket
                 if (itemId >= 3960 && itemId <= 4026) price *= Config.RATE_SIEGE_GUARDS_PRICE;
     
             }
-/* TODO: Disabled until Leaseholders are rewritten ;-)
-            } else {
-                L2ItemInstance li = merchant.findLeaseItem(itemId, 0);
-                if (li == null || li.getCount() < cnt) {
-                    cnt = li.getCount();
-                    if (cnt <= 0) {
-                        items.remove(i);
-                        continue;
-                    }
-                    items.get(i).setCount((int)cnt);
-                }
-                price = li.getPriceToSell(); // lease holder sells the item
-                weight = li.getItem().getWeight();
-            }
-            
-*/
+
             if (price < 0)
             {
                 _log.warn("ERROR, no price found .. wrong buylist ??");
@@ -343,28 +332,6 @@ public class RequestBuyItem extends L2GameClientPacket
 
             // Add item to Inventory and adjust update packet
             player.getInventory().addItem(list.isGm()?"GMShop":"Buy", itemId, count, player, merchant);
-
-
-/* TODO: Disabled until Leaseholders are rewritten ;-)
-            // Update Leaseholder list
-            if (_listId >= 1000000) 
-            {
-                L2ItemInstance li = merchant.findLeaseItem(item.getItemId(), 0);
-                if (li == null)
-                    continue;
-                if (li.getCount() < item.getCount())
-                    item.setCount(li.getCount());
-                li.setCount(li.getCount() - item.getCount());
-                li.updateDatabase();
-                price = item.getCount() + li.getPriceToSell();
-                L2ItemInstance la = merchant.getLeaseAdena();
-                la.setCount(la.getCount() + price);
-
-                la.updateDatabase();
-                player.getInventory().addItem(item);
-                item.updateDatabase();
-            }
-*/
         }
 
         if (merchant != null)

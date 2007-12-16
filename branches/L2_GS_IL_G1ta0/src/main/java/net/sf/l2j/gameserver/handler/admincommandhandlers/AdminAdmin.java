@@ -27,12 +27,14 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
+import net.sf.l2j.gameserver.datatables.NpcWalkerRoutesTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.Manager;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Multisell;
@@ -83,8 +85,6 @@ public class AdminAdmin implements IAdminCommandHandler
 		{
 			showMainPage(activeChar, command);
 		}
-		
-		// TODO: Convert Config pages to html
 		else if (command.equals("admin_config_server"))
 		{
 			ShowConfigPage(activeChar);
@@ -93,8 +93,6 @@ public class AdminAdmin implements IAdminCommandHandler
 		{
 			ShowConfigPage2(activeChar);
 		}
-		
-		
 		else if(command.startsWith("admin_gmliston"))
 		{
 			GmListTable.getInstance().showGm(activeChar);
@@ -119,9 +117,6 @@ public class AdminAdmin implements IAdminCommandHandler
 			}		
 			
 		}
-
-		// TODO: Write htm's for reload
-		
 		else if(command.startsWith("admin_reload_config"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
@@ -423,24 +418,35 @@ public class AdminAdmin implements IAdminCommandHandler
 					Manager.reloadAll();
 					activeChar.sendMessage("All instance manager has been reloaded");
 				}
+				else if(type.startsWith("npcwalkers"))
+				{
+					NpcWalkerRoutesTable.getInstance().load();
+					activeChar.sendMessage("All NPC walker routes have been reloaded");
+					
+				}				
 				else if(type.equals("tradelist"))
 				{
 					TradeListTable.getInstance().reloadAll();
 					activeChar.sendMessage("TradeList Table reloaded.");
 				}
-				else if(type.equals("zone"))
+				else if(type.equals("zones"))
 				{
 					ZoneManager.getInstance().reload();
 					activeChar.sendMessage("Zones reloaded.");
 				}
+				else if(type.equals("mapregion"))
+				{
+					MapRegionManager.getInstance().reload();
+					activeChar.sendMessage("MapRegions reloaded.");
+				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone>");
+					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zones|mapregion|npcwalkers>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone>");
+				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zones|mapregion>");
 			}
 		}
 

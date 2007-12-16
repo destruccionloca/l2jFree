@@ -33,11 +33,14 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.items.model.Item;
+import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
+import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.skills.SkillsEngine;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
@@ -160,18 +163,34 @@ public class ItemTable implements ItemTableMBean
     /** Table of SQL request in order to obtain items from tables [etcitem], [armor], [weapon] */
     private static final String[] SQL_ITEM_SELECTS  =
     {
-        "SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM etcitem",
+        "SELECT item_id, item_display_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM etcitem",
         
-        "SELECT item_id, name, bodypart, crystallizable, armor_type, weight," +
+        "SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight," +
         " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," +
         " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM armor",
         
-        "SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
+        "SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
            " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
            " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
            " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
            " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM weapon"
     };
+    
+    private static final String[] SQL_CUSTOM_ITEM_SELECTS  =
+    {
+        "SELECT item_id, item_display_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM custom_etcitem",
+        
+        "SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight," +
+        " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," +
+        " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM custom_armor",
+        
+        "SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
+           " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
+           " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
+           " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
+           " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM custom_weapon"
+    };
+    
     /** List of etcItem */
     private static final FastMap<Integer, Item> itemData    = new FastMap<Integer, Item>();
     /** List of weapons */
@@ -248,6 +267,45 @@ public class ItemTable implements ItemTableMBean
         }
         finally { try { con.close(); } catch (Exception e) {} }
 
+        con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            for (String selectQuery : SQL_CUSTOM_ITEM_SELECTS)
+            {
+                PreparedStatement statement = con.prepareStatement(selectQuery);
+                ResultSet rset = statement.executeQuery();
+            
+                // Add item in correct FastMap
+                while(rset.next())
+                {
+                    if (selectQuery.endsWith("etcitem"))
+                    {
+                        Item newItem    = readItem(rset);
+                        itemData.put(newItem.id, newItem);
+                    }
+                    else if (selectQuery.endsWith("armor"))
+                    {
+                        Item newItem    = readArmor(rset);
+                        armorData.put(newItem.id, newItem);
+                    }
+                    else if (selectQuery.endsWith("weapon"))
+                    {
+                        Item newItem    = readWeapon(rset);
+                        weaponData.put(newItem.id, newItem);
+                    }                   
+                }
+                rset.close();
+                statement.close();
+            }
+        }
+        catch (Exception e)
+        {
+            _log.warn( "data error on custom item: ", e);
+        }
+        finally { try { con.close(); } catch (Exception e) {} }
+        
+        
         for (L2Armor armor : SkillsEngine.getInstance().loadArmors(armorData))
         {
             _armors.put(armor.getItemId(), armor);
@@ -265,10 +323,7 @@ public class ItemTable implements ItemTableMBean
             _weapons.put(weapon.getItemId(), weapon);
         }
         _log.info("ItemTable: Loaded " + _weapons.size() + " Weapons.");
-
-        //fillEtcItemsTable();
-        //fillArmorsTable();
-        //FillWeaponsTable();
+        
         buildFastLookupTable();
     }
 
@@ -284,9 +339,11 @@ public class ItemTable implements ItemTableMBean
         item.set    = new StatsSet();
         item.type   = _weaponTypes.get(rset.getString("weaponType"));
         item.id     = rset.getInt("item_id");
+        item.displayid = rset.getInt("item_display_id");
         item.name   = rset.getString("name");
 
         item.set.set("item_id", item.id);
+        item.set.set("item_display_id", item.displayid);
         item.set.set("name", item.name);
 
         // lets see if this is a shield
@@ -371,9 +428,11 @@ public class ItemTable implements ItemTableMBean
         item.set    = new StatsSet();
         item.type   = _armorTypes.get(rset.getString("armor_type"));
         item.id     = rset.getInt("item_id");
+        item.displayid = rset.getInt("item_display_id");
         item.name   = rset.getString("name");
                 
         item.set.set("item_id", item.id);
+        item.set.set("item_display_id", item.displayid);
         item.set.set("name", item.name);
         int bodypart = _slots.get(rset.getString("bodypart"));
         item.set.set("bodypart", bodypart);
@@ -442,8 +501,10 @@ public class ItemTable implements ItemTableMBean
         Item item   = new Item();
         item.set    = new StatsSet();
         item.id     = rset.getInt("item_id");
-    
+        item.displayid = rset.getInt("item_display_id");
+        
         item.set.set("item_id", item.id);
+        item.set.set("item_display_id", item.displayid);
         item.set.set("crystallizable", Boolean.valueOf(rset.getString("crystallizable")));
         item.set.set("type1", L2Item.TYPE1_ITEM_QUESTITEM_ADENA);
         item.set.set("type2", L2Item.TYPE2_OTHER);
@@ -528,48 +589,6 @@ public class ItemTable implements ItemTableMBean
     {
         return _initialized;
     }
-    /*
-    private void fillEtcItemsTable()
-    {
-        for (Item itemInfo : itemData.values())
-        {
-            L2EtcItem item = SkillsEngine.getInstance().loadEtcItem(itemInfo.id, itemInfo.type, itemInfo.name, itemInfo.set);
-            if (item == null)
-            {
-                item = new L2EtcItem((L2EtcItemType)itemInfo.type, itemInfo.set);
-            }
-            
-            _etcItems.put(item.getItemId(), item);
-        }
-    }   
-
-    private void fillArmorsTable()
-    {
-        FastList<L2Armor> armorList = SkillsEngine.getInstance().loadArmors(armorData);
-
-        /*for (Item itemInfo : armorData.values())
-            {
-                
-            L2Armor armor = SkillsEngine.getInstance().loadArmor(itemInfo.id, itemInfo.type, itemInfo.name, itemInfo.set);
-            if (armor == null)
-                armor = new L2Armor((L2ArmorType)itemInfo.type, itemInfo.set);
-                
-            _armors.put(armor.getItemId(), armor);
-        }*
-                }
-    
-    private void FillWeaponsTable()
-                {
-                
-        for (Item itemInfo : weaponData.values())
-        {
-            L2Weapon weapon = SkillsEngine.getInstance().loadWeapon(itemInfo.id, itemInfo.type, itemInfo.name, itemInfo.set);
-                if (weapon == null)
-                weapon = new L2Weapon((L2WeaponType)itemInfo.type, itemInfo.set);
-                
-                _weapons.put(weapon.getItemId(), weapon);
-                }
-    }*/
     
     /**
      * Builds a variable in which all items are putting in in function of their ID.
@@ -670,15 +689,36 @@ public class ItemTable implements ItemTableMBean
     public L2ItemInstance createItem(String process, int itemId, int count, L2PcInstance actor, L2Object reference)
     {
         // Create and Init the L2ItemInstance corresponding to the Item Identifier
-        L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId);
+        L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), itemId, itemId);
        
         if (process.equalsIgnoreCase("loot") && !Config.AUTO_LOOT)
         {
-            item.setOwnerId(actor.getObjectId());
-            ScheduledFuture itemLootShedule  = ThreadPoolManager.getInstance().scheduleGeneral(new resetOwner(item), 15000);
+            ScheduledFuture itemLootShedule;
+            long delay = 0;
+            // if in CommandChannel and was killing a World/RaidBoss
+            if (reference != null && reference instanceof L2BossInstance || reference instanceof L2RaidBossInstance)
+            {
+                if(((L2Attackable)reference).getFirstCommandChannelAttacked() != null 
+                        && ((L2Attackable)reference).getFirstCommandChannelAttacked().meetRaidWarCondition(reference))
+                {
+                    item.setOwnerId(((L2Attackable)reference).getFirstCommandChannelAttacked().getChannelLeader().getObjectId());
+                    delay = 300000;
+                }
+                else
+                {
+                    delay = 15000;
+                    item.setOwnerId(actor.getObjectId());
+                }
+            }
+            else
+            {
+                item.setOwnerId(actor.getObjectId());
+                delay = 15000;
+            }
+            itemLootShedule  = ThreadPoolManager.getInstance().scheduleGeneral(new resetOwner(item), delay);
             item.setItemLootShedule(itemLootShedule); 
         }
-                
+
         if (_log.isDebugEnabled()) _log.debug("ItemTable: Item created  oid:" + item.getObjectId()+ " itemid:" + itemId);
         
         // Add the L2ItemInstance object to _allObjects of L2world
@@ -720,7 +760,7 @@ public class ItemTable implements ItemTableMBean
         L2ItemInstance temp = new L2ItemInstance(0, item);
         try
         {
-            temp = new L2ItemInstance(0, itemId);
+            temp = new L2ItemInstance(0, itemId, itemId);
         } 
         catch (ArrayIndexOutOfBoundsException e)
         {
@@ -728,9 +768,7 @@ public class ItemTable implements ItemTableMBean
         }
         
         if (temp.getItem() == null)
-        {
             _log.warn("ItemTable: Item Template missing for Id: "+ itemId);
-        }
         
         return temp;    
     }

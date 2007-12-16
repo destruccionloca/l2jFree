@@ -299,7 +299,7 @@ public class TradeList
         
         if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroitem())
         {
-                return null;
+            return null;
         }
         if (count > item.getCount()) return null;
         
@@ -542,8 +542,8 @@ public class TradeList
         return true;
     }
 
-    /**                                                                                                   
-     * Count items slots                                                                                  
+    /**
+     * Count items slots
      */
 
     public int countItemsSlots(L2PcInstance partner)
@@ -563,8 +563,8 @@ public class TradeList
         return slots;
     }
 
-    /**                                                                                                   
-     * Calc weight of items in tradeList                                                                  
+    /**
+     * Calc weight of items in tradeList
      */
 
     public int calcItemsWeight()
@@ -763,7 +763,7 @@ public class TradeList
         PcInventory ownerInventory = _owner.getInventory();
         PcInventory playerInventory = player.getInventory();
         
-        //we must check item are available before begining transaction, TODO: should we remove that check when transfering items as it's done here? (there might be synchro problems if player clicks fast if we remove it)
+        //we must check item are available before begining transaction,
         // also check if augmented items are traded. If so, cancel it...
         for (ItemRequest item : items)
         {

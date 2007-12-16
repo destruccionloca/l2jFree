@@ -18,9 +18,8 @@
  */
 package net.sf.l2j.gameserver.skills;
 
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.skills.funcs.Func;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.L2Character;
 
 /**
  * A calculator is created to manage and dynamically calculate the effect of a character property (ex : MAX_HP, REGENERATE_HP_RATE...). 
@@ -152,15 +151,20 @@ public final class Calculator
 	/**
 	 * Remove each Func with the specified owner of the Calculator.<BR><BR>
 	 */
-	public synchronized void removeOwner(Object owner) 
+	public synchronized FastList<Stats> removeOwner(Object owner)
 	{
 		Func[] funcs = _functions;
+		FastList<Stats> modifiedStats = new FastList<Stats>();
 		
-		for (int i=0; i < funcs.length; i++) 
+		for (Func element : funcs)
 		{
-			if (funcs[i].funcOwner == owner)
-				removeFunc(funcs[i]);
+			if (element.funcOwner == owner)
+			{
+				modifiedStats.add(element.stat);
+				removeFunc(element);
+			}
 		}
+		return modifiedStats;
 	}
 
 	
@@ -171,7 +175,7 @@ public final class Calculator
 	{
 		Func[] funcs = _functions;
 		
-		for (int i=0; i < funcs.length; i++)
-			funcs[i].calc(env);
+		for (Func element : funcs)
+			element.calc(env);
 	}
 }

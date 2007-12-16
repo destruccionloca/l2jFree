@@ -55,7 +55,6 @@ public class WorldPathFinding extends PathFinding
         return _pathNodesIndex.containsKey(regionoffset);
     }
 
-    //TODO! [Nemesiss]
     /**
      * @see net.sf.l2j.gameserver.pathfinding.PathFinding#FindPath(int, int, short, int, int, short)
      */
@@ -71,14 +70,10 @@ public class WorldPathFinding extends PathFinding
     @Override
     public Node[] readNeighbors(short node_x,short node_y, int idx)
     {
-        // TODO Auto-generated method stub
         return null;
     }
     
-    //Private
-
     private WorldPathFinding()
     {
-        //TODO! {Nemesiss] Load PathNodes.
     }
 }

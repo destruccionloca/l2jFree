@@ -63,7 +63,6 @@ public class AdminDelete implements IAdminCommandHandler
         return (level >= REQUIRED_LEVEL);
     }
 
-    // TODO: add possibility to delete any L2Object (except L2PcInstance)
     private void handleDelete(L2PcInstance activeChar)
     {
         L2Object obj = activeChar.getTarget();

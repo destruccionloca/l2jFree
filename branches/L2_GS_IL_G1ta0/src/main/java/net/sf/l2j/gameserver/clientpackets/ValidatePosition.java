@@ -21,11 +21,12 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.geoeditorcon.GeoEditorListener;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
@@ -149,15 +150,6 @@ public class ValidatePosition extends L2GameClientPacket
 
             int realHeading = activeChar.getHeading();
         
-            //activeChar.setHeading(_heading);
-            
-            //TODO: do we need to validate?
-            /*double dx = (_x - realX); 
-             double dy = (_y - realY); 
-             double dist = Math.sqrt(dx*dx + dy*dy);
-             if ((dist < 500)&&(dist > 2)) //check it wasnt teleportation, and char isn't there yet
-             activeChar.sendPacket(new CharMoveToLocation(activeChar));*/
-            
             if (_log.isDebugEnabled()) {
                 _log.debug("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
                 _log.debug("server pos: "+ realX + " "+realY+ " "+realZ +" head "+realHeading);
@@ -180,6 +172,20 @@ public class ValidatePosition extends L2GameClientPacket
         }
 		if(activeChar.getParty() != null)
 			activeChar.getParty().broadcastToPartyMembers(activeChar,new PartyMemberPosition(activeChar));
+		
+		if (!activeChar.isInWater() && !activeChar.isFlying())
+			activeChar.isFalling(true,0); // Check if the L2Character isFalling
+
+		
+		if (Config.ACCEPT_GEOEDITOR_CONN)
+		{
+			if (GeoEditorListener.getInstance().getThread() != null 
+				&& GeoEditorListener.getInstance().getThread().isWorking() 
+				&& GeoEditorListener.getInstance().getThread().isSend(activeChar))
+			{
+				GeoEditorListener.getInstance().getThread().sendGmPosition(_x,_y,(short)_z);
+			}
+		}
 
 		// [L2J_JP ADD START SANDMAN]
 		// if this is a castle that is currently being sieged, and the rider is NOT a castle owner
@@ -196,7 +202,7 @@ public class ValidatePosition extends L2GameClientPacket
 		        SystemMessage sm = new SystemMessage(SystemMessageId.AREA_CANNOT_BE_ENTERED_WHILE_MOUNTED_WYVERN);
 		        activeChar.sendPacket(sm);
                 sm = null;
-		        activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+		        activeChar.teleToLocation(TeleportWhereType.Town);
 		    }
 		}
 		

@@ -83,13 +83,13 @@ Decent CPU & RAM
 
 Software:
 Java JDK 1.6
-MySql
+MySql 4.x (5.x recommended)
 Datapack
 
 Note:
 Dont play and host the server from the same computer. 
-If you do so and get socket errors set the amount of the ram the gameserver uses
-to 512Mb.
+If you do so and get socket errors set the ram amount of the gameserver to
+to 512Mb or less.
 
 -------------------------------------------------------------------------------
 4. Contact
@@ -110,7 +110,7 @@ Basic rules for reporting are:
     "The latest" does not mean anything when 5 more updates have been done since you set up the server.
 
 Players should ALWAYS consult bugs with their Admin/GM's and have them report it
-on our wiki site. Some bugs may be caused by bad datapack, server
+on our bugtracker or board. Some bugs may be caused by bad datapack, server
 installation or modifications server owner has made. We can't help you
 in that case.
 

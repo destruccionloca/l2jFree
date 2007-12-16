@@ -38,8 +38,6 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public final class L2RaidBossInstance extends L2MonsterInstance
 {
-	//protected static Log _log = LogFactory.getLog(L2RaidBossInstance.class.getName());
-    
     private static final int RAIDBOSS_MAINTENANCE_INTERVAL = 30000; // 30 sec
     
     private RaidBossSpawnManager.StatusEnum _raidStatus;
@@ -73,15 +71,26 @@ public final class L2RaidBossInstance extends L2MonsterInstance
      * @param skill the casted skill
      * @see L2Character#checkSkillCanAffectMyself(L2Skill)
      */
-    @Override
-    public boolean checkSkillCanAffectMyself(L2Skill skill)
-    {
-        return  !(skill.getSkillType() == SkillType.CONFUSION 
-                || skill.getSkillType() == SkillType.MUTE 
-                || skill.getSkillType() == SkillType.PARALYZE 
-                || skill.getSkillType() == SkillType.ROOT 
-                || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()));
-    }    
+	@Override
+	public boolean checkSkillCanAffectMyself(L2Skill skill)
+	{
+		if (!checkSkillCanAffectMyself(skill.getSkillType()) || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))
+			return false;
+		
+		return true;
+	}
+	
+	@Override
+	public boolean checkSkillCanAffectMyself(SkillType type)
+	{
+		if (type == SkillType.CONFUSION	||	type == SkillType.MUTE		||	type == SkillType.PARALYZE	||
+			type == SkillType.ROOT		||	type == SkillType.FEAR		||	type == SkillType.SLEEP		||
+			type == SkillType.STUN		||	type == SkillType.DEBUFF	||	type == SkillType.AGGDEBUFF
+		)
+			return false;
+		
+		return true;
+	}
 
     @Override
     protected int getMaintenanceInterval() { return RAIDBOSS_MAINTENANCE_INTERVAL; }
@@ -120,7 +129,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
                 {
                     teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), true);
                     healFull(); // prevents minor exploiting with it
-                }                    
+                }
                 _minionList.maintainMinions();
             }
         }, 60000, getMaintenanceInterval()+Rnd.get(5000));
@@ -135,19 +144,6 @@ public final class L2RaidBossInstance extends L2MonsterInstance
     {
     	return _raidStatus;
     }
-    
-    /**
-     * Reduce the current HP of the L2Attackable, update its _aggroList and launch the doDie Task if necessary.<BR><BR> 
-     * 
-     */
-    // Duplicate code?
-    //public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
-    //{
-    //    if (isPetrified())
-    //    {damage=0;}
-    //    super.reduceCurrentHp(damage, attacker, awake);
-    //    
-    //}
 
     /**
      * Restore full Amount of HP and MP 
@@ -157,5 +153,5 @@ public final class L2RaidBossInstance extends L2MonsterInstance
     {
         super.getStatus().setCurrentHp(super.getMaxHp());
         super.getStatus().setCurrentMp(super.getMaxMp());
-    }    
+    }
 }

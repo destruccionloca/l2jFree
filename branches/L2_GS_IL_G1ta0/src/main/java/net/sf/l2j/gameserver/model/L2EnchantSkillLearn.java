@@ -53,7 +53,7 @@ public final class L2EnchantSkillLearn
         _exp = exp;
         _rate76 = rate76;
         _rate77 = rate77;
-        _rate78 = rate78;        
+        _rate78 = rate78;
     }
     
     /**

@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
@@ -142,7 +143,14 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 
         // Check if the target isn't invulnerable
         if (target.isInvul())
-            return false;
+        {
+            // However EffectInvincible requires to check GMs specially
+            if (target instanceof L2PcInstance && ((L2PcInstance)target).isGM())
+                return false;
+            if (target instanceof L2Summon && ((L2Summon)target).getOwner().isGM())
+                return false;
+        }
+
         // Check if the target isn't a Folk or a Door
         if (target instanceof L2FolkInstance || target instanceof L2DoorInstance) return false;
 
@@ -154,21 +162,22 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         // Check if the target is a L2PcInstance
         if (target instanceof L2PcInstance)
         {
+            L2PcInstance player = (L2PcInstance)target;
             // Don't take the aggro if the GM has the access level below or equal to GM_DONT_TAKE_AGGRO
-            if (((L2PcInstance)target).isGM() && ((L2PcInstance)target).getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO)
+            if (player.isGM() && player.getAccessLevel() <= Config.GM_DONT_TAKE_AGGRO)
                 return false;
             
             // Check if the AI isn't a Raid Boss and the target isn't in silent move mode
-            if (!(me instanceof L2RaidBossInstance) && ((L2PcInstance)target).isSilentMoving() && !((L2PcInstance)target).isCastingNow() && !((L2PcInstance)target).isAttackingNow())
+            if (!(me instanceof L2RaidBossInstance) && player.isSilentMoving() && !player.isCastingNow() && !player.isAttackingNow())
                 return false;
             
             // Check for npc ally
-            if (me.getSpecialFaction() == L2NpcTemplate.FACTION_VARKA && ((L2PcInstance)target).isAlliedWithVarka())
+            if (me.getFactionId() == "varka" && player.isAlliedWithVarka())
                 return false;
-            else if (me.getSpecialFaction() == L2NpcTemplate.FACTION_KETRA && ((L2PcInstance)target).isAlliedWithKetra())
+            else if (me.getFactionId() == "ketra" && player.isAlliedWithKetra())
                 return false;
             // check if the target is within the grace period for JUST getting up from fake death
-            if (((L2PcInstance)target).isRecentFakeDeath())
+            if (player.isRecentFakeDeath())
                 return false;
         }
         
@@ -536,9 +545,6 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
      * <li>If target is dead or timeout is expired, stop this attack and set the Intention to AI_INTENTION_ACTIVE</li>
      * <li>Call all L2Object of its Faction inside the Faction Range</li>
      * <li>Chose a target and order to attack it with magic skill or physical attack</li><BR><BR>
-     * 
-     * TODO: Manage casting rules to healer mobs (like Ant Nurses)
-     * 
      */
     private void thinkAttack()
     {
@@ -628,7 +634,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 _actor.setTarget(getAttackTarget());
                 skills = _actor.getAllSkills();
                 dist2 = _actor.getPlanDistanceSq(getAttackTarget().getX(), getAttackTarget().getY());
-                range = _actor.getPhysicalAttackRange();
+                range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius() + getAttackTarget().getTemplate().getCollisionRadius();
             }
             catch (NullPointerException e)
             {

@@ -29,6 +29,8 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.events.CTF;
+import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.serverpackets.ExRedSky;
@@ -289,6 +291,7 @@ public class CursedWeapon
 
         if (_log.isDebugEnabled())
             _log.debug("Player "+_player.getName() +" has been awarded with skill "+skill);
+        _player.sendSkillList();
     }
     
 	public void removeSkill()
@@ -296,7 +299,8 @@ public class CursedWeapon
 		_player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
 		_player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
 		_player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
-	}    
+		_player.sendSkillList();
+	}
     
     
     // =========================================================
@@ -330,9 +334,35 @@ public class CursedWeapon
     }
     public void activate(L2PcInstance player, L2ItemInstance item)
     {
+        // if the player is mounted, attempt to unmount first.  Only allow picking up 
+        // the zariche if unmounting is successful.
+        if (player.isMounted())
+        {
+            if (_player.setMountType(0))
+            {
+                Ride dismount = new Ride(_player.getObjectId(), Ride.ACTION_DISMOUNT, 0);
+                _player.broadcastPacket(dismount);
+                _player.setMountObjectID(0);
+            }
+            else
+            {
+                // TODO: correct this custom message.
+                player.sendMessage("You may not pick up this item while riding in this territory");
+                return;
+            }
+        }
+
+        if((player._inEventTvT && !Config.TVT_JOIN_CURSED) || (player._inEventCTF && !Config.CTF_JOIN_CURSED))
+        {
+        	if(player._inEventTvT)
+        		TvT.removePlayer(player);
+        	if(player._inEventCTF)
+        		CTF.removePlayer(player);
+        }
+        
         _isActivated = true;
         
-        // Player holding it datas
+        // Player holding it data
         _player = player;
         _playerId = _player.getObjectId();
         _playerKarma = _player.getKarma();
@@ -345,14 +375,6 @@ public class CursedWeapon
         _player.setPkKills(0);
         if (_player.isInParty())
             _player.getParty().oustPartyMember(_player);
-
-		if (_player.isMounted())
-		{
-			Ride dismount = new Ride(_player.getObjectId(), Ride.ACTION_DISMOUNT, 0);
-			_player.broadcastPacket(dismount);
-			_player.setMountType(0);
-			_player.setMountObjectID(0);
-		}
 
         // Add skill
         giveSkill();
@@ -607,13 +629,7 @@ public class CursedWeapon
     }
     public int getLevel()
     {
-        if (_nbKills > _stageKills*_skillMaxLevel)
-        {
-            return _skillMaxLevel;
-        } else
-        {
-            return (_nbKills / _stageKills);
-        }
+		return Math.min(1 + (_nbKills / _stageKills), _skillMaxLevel);
     }
     public long getTimeLeft()
     {

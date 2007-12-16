@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class GeoData
 {
-    private static Logger _log = Logger.getLogger(GeoData.class.getName());
+    protected static Logger _log = Logger.getLogger(GeoData.class.getName());
     private static GeoData _instance;
    
     public static GeoData getInstance()

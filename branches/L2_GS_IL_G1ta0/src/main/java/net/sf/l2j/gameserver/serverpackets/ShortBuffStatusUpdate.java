@@ -16,35 +16,34 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package net.sf.l2j.gameserver.skills.effects;
+package net.sf.l2j.gameserver.serverpackets;
 
-import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.skills.Env;
+public class ShortBuffStatusUpdate extends L2GameServerPacket
+{
+	private static final String _S__F4_SHORTBUFFSTATUSUPDATE = "[S] F4 ShortBuffStatusUpdate";
+	private int _skillId;
+	private int _skillLvl;
+	private int _duration;
 
-public class EffectSilencePhysical extends L2Effect {
+	public ShortBuffStatusUpdate(int skillId, int skillLvl, int duration)
+	{
+		_skillId = skillId;
+		_skillLvl = skillLvl;
+		_duration = duration;
+	}
 
-    
-    public EffectSilencePhysical(Env env, EffectTemplate template) {
-        super(env, template);
-    }
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0xF4);
+		writeD(_skillId);
+		writeD(_skillLvl);
+		writeD(_duration);
+	}
 
-    public EffectType getEffectType() {
-        return L2Effect.EffectType.SILENCE_PHYSICAL;
-    }
-
-    public void onStart()
-    {
-        getEffected().startPsychicalMuted();
-    }
-    
-    public boolean onActionTime()
-    {
-        getEffected().stopPsychicalMuted(this);
-        return false;
-    }
-
-    public void onExit()
-    {
-       getEffected().stopPsychicalMuted(this);
-    }
+	@Override
+	public String getType()
+	{
+		return _S__F4_SHORTBUFFSTATUSUPDATE;
+	}
 }

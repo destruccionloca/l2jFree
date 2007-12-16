@@ -41,13 +41,11 @@ import net.sf.l2j.gameserver.templates.StatsSet;
  */
 public final class L2FestivalGuideInstance extends L2FolkInstance
 {
-    //private final static Log _log = LogFactory.getLog(L2FestivalGuideInstance.class.getName());
-    
     protected int _festivalType;
     protected int _festivalOracle;
-	protected int _blueStonesNeeded;
-	protected int _greenStonesNeeded;
-	protected int _redStonesNeeded;
+    protected int _blueStonesNeeded;
+    protected int _greenStonesNeeded;
+    protected int _redStonesNeeded;
     
     /**
      * @param template
@@ -146,7 +144,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
     {
         if (command.startsWith("FestivalDesc"))
         {
-            int val = Integer.parseInt(command.substring(13));            
+            int val = Integer.parseInt(command.substring(13));
             showChatWindow(player, val, null, true);
         }
         else if (command.startsWith("Festival"))
@@ -198,8 +196,6 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
                         showChatWindow(player, 2, "d", false);
                         return;
                     }
-                      
-                    // TODO: Check if the player has delevelled by comparing their skill levels.
                     
                     /*
                      * Check to see if the player has already signed up,
@@ -501,4 +497,4 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
 
         return calCalc.get(Calendar.YEAR) + "/" + calCalc.get(Calendar.MONTH) + "/" + calCalc.get(Calendar.DAY_OF_MONTH);
     }
-}    
+}

@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.Ride;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.util.Broadcast;
 
 /**
  * Support for /mount command.  
@@ -69,8 +68,8 @@ public class Mount implements IUserCommandHandler
             {
                 // A pet cannot be ridden while player is in battle.
                 SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
-                activeChar.sendPacket(msg);                        
-            }                   
+                activeChar.sendPacket(msg);
+            }
             else if (activeChar.isSitting() || activeChar.isMoving())
             {
                 // A strider can be ridden only when player is standing.
@@ -79,9 +78,9 @@ public class Mount implements IUserCommandHandler
             }
             else if (!pet.isDead() && !activeChar.isMounted())
             {
-            	if(!activeChar.disarmWeapons()) return false;
+                if(!activeChar.disarmWeapons()) return false;
                 Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, pet.getTemplate().getNpcId());
-                Broadcast.toSelfAndKnownPlayersInRadius(activeChar, mount, 810000/*900*/);
+                activeChar.broadcastPacket(mount);
                 activeChar.setMountType(mount.getMountType());
                 activeChar.setMountObjectID(pet.getControlItemId());
                 pet.unSummon(activeChar);
@@ -89,16 +88,18 @@ public class Mount implements IUserCommandHandler
         }
         else if (activeChar.isRentedPet())
         {
-        	activeChar.stopRentPet();
+            activeChar.stopRentPet();
         }
         else if (activeChar.isMounted())
         {
-        	// Dismount
-        	if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-			Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
-			Broadcast.toSelfAndKnownPlayers(activeChar, dismount);
-            activeChar.setMountType(0);
-            activeChar.setMountObjectID(0);
+            // Dismount
+            if (activeChar.setMountType(0))
+            {
+                if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+                Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
+                activeChar.broadcastPacket(dismount);
+                activeChar.setMountObjectID(0);
+            }
         }
         
         return true;

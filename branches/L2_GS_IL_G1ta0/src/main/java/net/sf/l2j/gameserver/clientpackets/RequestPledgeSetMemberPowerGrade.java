@@ -30,14 +30,14 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class RequestPledgeSetMemberPowerGrade extends L2GameClientPacket
 {
     private static final String _C__D0_1C_REQUESTPLEDGESETMEMBERPOWERGRADE = "[C] D0:1C RequestPledgeSetMemberPowerGrade";
-    private int _powerGrade;
+    private int _pledgeRank;
     private String _member;
 
     @Override
     protected void readImpl()
     {
         _member = readS();
-        _powerGrade = readD();
+        _pledgeRank = readD();
     }
 
     /**
@@ -55,13 +55,13 @@ public class RequestPledgeSetMemberPowerGrade extends L2GameClientPacket
         L2ClanMember member = clan.getClanMember(_member);
         if(member == null)
             return;
-        if(member.getPledgeType() == L2Clan.SUBUNIT_ACADEMY)
+        if(member.getSubPledgeType() == L2Clan.SUBUNIT_ACADEMY)
         {
             // also checked from client side
             activeChar.sendMessage("You cannot change academy member grade");
             return;
         }
-        member.setPowerGrade(_powerGrade);
+        member.setPledgeRank(_pledgeRank);
         clan.broadcastClanStatus();
     }
 

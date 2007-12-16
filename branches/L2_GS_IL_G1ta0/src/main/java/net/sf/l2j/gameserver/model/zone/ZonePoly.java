@@ -100,13 +100,10 @@ public class ZonePoly extends ZoneBase
 	@Override
 	public boolean intersectsRectangle(int cx, int cy, int dx, int dy)
 	{
+		if (checkIfInZone(cx, cy)) return true;
+		
 		int rx = 0;
 		int ry = 0;
-		
-		if (checkIfInZone(cx, cy)) return true;
-		if (checkIfInZone(cx, dy)) return true;
-		if (checkIfInZone(dx, dy)) return true;
-		if (checkIfInZone(dx, cy)) return true;
 		
 		for (int i=0; i<getPoints().size() - 1; i++) 
 		{

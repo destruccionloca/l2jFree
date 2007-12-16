@@ -15,6 +15,7 @@ package net.sf.l2j.gameserver.model.entity;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
+import java.util.Set;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -22,15 +23,19 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeGuardManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.L2SiegeClan.SiegeClanType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
@@ -206,16 +211,16 @@ public class Siege
 	{
 		if(getIsInProgress())
 		{
+			_isInProgress = false; // Flag so that siege instance can be started
 			announceToPlayer("The siege of " + getCastle().getName() + " has finished!", false);
 
 			if(getCastle().getOwnerId() <= 0)
 				announceToPlayer("The siege of " + getCastle().getName() + " has ended in a draw.", false);
 
 			removeFlags(); // Removes all flags. Note: Remove flag before teleporting players
-			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
-			teleportPlayer(Siege.TeleportWhoType.DefenderNotOwner, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
-			teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
-			_isInProgress = false; // Flag so that siege instance can be started
+			TeleportWhoType toTeleport[] = {TeleportWhoType.Attacker, TeleportWhoType.DefenderNotOwner, TeleportWhoType.Spectator};
+			teleportPlayer(toTeleport, TeleportWhereType.Town); // Teleport to the second closest town
+			toTeleport = null;
 			updatePlayerSiegeStateFlags(true);
 			saveCastleSiege(); // Save castle specific data
 			clearSiegeClan(); // Clear siege clan from db
@@ -336,9 +341,9 @@ public class Siege
 						}
 					}
 				}
-				teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.SiegeFlag); // Teleport to the second closest town
-				teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town); // Teleport to the second closest town
-
+				TeleportWhoType toTeleport[] = {TeleportWhoType.Attacker, TeleportWhoType.Spectator};
+				teleportPlayer(toTeleport, TeleportWhereType.Town); // Teleport to the second closest town
+				toTeleport = null;
 				removeDefenderFlags(); // Removes defenders' flags
 				getCastle().removeUpgrade(); // Remove all castle upgrade
 				getCastle().spawnDoor(true); // Respawn door to castle but make them weaker (50% hp)
@@ -370,8 +375,9 @@ public class Siege
 			_isInProgress = true; // Flag so that same siege instance cannot be started again 
 			loadSiegeClan(); // Load siege clan from db
 			updatePlayerSiegeStateFlags(false);
-			teleportPlayer(Siege.TeleportWhoType.Attacker, MapRegionTable.TeleportWhereType.Town); // Teleport to the closest town
-			//teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);      // Teleport to the second closest town
+			TeleportWhoType toTeleport[] = {TeleportWhoType.Attacker};
+			teleportPlayer(toTeleport, TeleportWhereType.Town); // Teleport to the second closest town
+			toTeleport = null;			//teleportPlayer(Siege.TeleportWhoType.Spectator, MapRegionTable.TeleportWhereType.Town);      // Teleport to the second closest town
 			spawnArtifacts(); // Spawn artifact
 			spawnControlTowers(); // Spawn control tower
 			getCastle().spawnDoor(); // Spawn door
@@ -417,9 +423,9 @@ public class Siege
 			for(L2PcInstance member : clan.getOnlineMembers(""))
 			{
 				if(clear)
-					member.setSiegeState((byte) 0);
+					member.setSiegeState(0);
 				else
-					member.setSiegeState((byte) 1);
+					member.setSiegeState(1);
 				member.sendPacket(new UserInfo(member));
 				for(L2PcInstance player : member.getKnownList().getKnownPlayers().values())
 				{
@@ -433,9 +439,9 @@ public class Siege
 			for(L2PcInstance member : clan.getOnlineMembers(""))
 			{
 				if(clear)
-					member.setSiegeState((byte) 0);
+					member.setSiegeState(0);
 				else
-					member.setSiegeState((byte) 2);
+					member.setSiegeState(2);
 				member.sendPacket(new UserInfo(member));
 				for(L2PcInstance player : member.getKnownList().getKnownPlayers().values())
 				{
@@ -590,19 +596,17 @@ public class Siege
 	/** Return list of L2PcInstance in the zone. */
 	public FastList<L2PcInstance> getPlayersInZone()
 	{
-		_log.error("Siege.getPlayersInZone() not done!!!");
-
 		FastList<L2PcInstance> players = new FastList<L2PcInstance>();
-		/*
-		if(getZone() != null)
-			for(L2Character character : getZone().getCharacters())
+		
+		IZone zone = getCastle().getZone(ZoneType.SiegeBattleField);
+		
+		if( zone != null)
+			for(L2Character character : zone.getCharacters())
 			{
-				if(character instanceof L2PcInstance && getZone().checkIfCharacterInZone(character))
+				if(character instanceof L2PcInstance)
 					players.add((L2PcInstance) character);
 			}
-		 */
 		return players;
-
 	}
 
 	/** Return list of L2PcInstance owning the castle in the zone. */
@@ -793,32 +797,45 @@ public class Siege
 	/**
 	 * Teleport players
 	 */
-	public void teleportPlayer(TeleportWhoType teleportWho, MapRegionTable.TeleportWhereType teleportWhere)
+	public void teleportPlayer(TeleportWhoType teleportWho[], TeleportWhereType teleportWhere)
 	{
-		FastList<L2PcInstance> players;
-		switch(teleportWho)
-		{
-			case Owner:
-				players = getOwnersInZone();
-				break;
-			case Attacker:
-				players = getAttackersInZone();
-				break;
-			case DefenderNotOwner:
-				players = getDefendersButNotOwnersInZone();
-				break;
-			case Spectator:
-				players = getSpectatorsInZone();
-				break;
-			default:
-				players = getPlayersInZone();
-		}
+		IZone zone = getCastle().getZone(ZoneType.SiegeBattleField);
+		
+		if( zone != null)
+			for(L2Character character : zone.getCharacters())
+			{
+				if(character instanceof L2PcInstance)
+				{
+					L2PcInstance player = (L2PcInstance)character;
+					
+					if(player.isGM() || player.isInJail()) continue;
+					
+					L2Clan clan = player.getClan(); 
+					for (int i = 0; i < teleportWho.length; i++ )
+					{
+					boolean cond = false;
+					switch (teleportWho[i])
+					{
+						case Owner:
 
-		for(L2PcInstance player : players)
-		{
-			if(player.isGM() || player.isInJail())
-				continue;
-			player.teleToLocation(teleportWhere);
+							if (getCastle().getOwnerId() == clan.getClanId())
+								cond = true;
+						case DefenderNotOwner:
+							if (getCastle().getOwnerId() != clan.getClanId() && player.getSiegeState() == 2)
+								cond = true;
+						case Attacker:
+							if (player.getSiegeState() == 1)
+								cond = true;
+						case Spectator:
+							if (player.getSiegeState() == 0)
+								cond = true;
+						case All:
+								cond = true;
+					}
+					
+					if (cond) player.teleToLocation(teleportWhere);
+				}
+			}
 		}
 	}
 
@@ -1053,6 +1070,27 @@ public class Siege
 		getArtefacts().clear();
 	}
 
+	public void engraveArtefact(L2Clan clan, L2ArtefactInstance ar) 
+	{
+		if (!getArtefacts().contains(ar)) return;
+		
+			ar.setEngravedByClan(clan);
+			
+			int _engravedArtifacts = 0;
+			
+			for(L2ArtefactInstance art : getArtefacts())
+				if(art != null)
+					if (art.getEngravedByClan() == clan) _engravedArtifacts++;
+			
+		if (getArtefacts().size() == _engravedArtifacts)
+		{
+			getCastle().setOwner(clan);
+			announceToPlayer("Clan " + clan.getName() + " has finished to engrave one of the rulers.", true);
+		} else
+			announceToPlayer("Clan " + clan.getName() + " has finished to engrave one of the rulers.", true);
+	}
+
+	
 	/** Get castle artefact spawns. */
 	public FastList<L2Spawn> getControlTowerSpawns()
 	{

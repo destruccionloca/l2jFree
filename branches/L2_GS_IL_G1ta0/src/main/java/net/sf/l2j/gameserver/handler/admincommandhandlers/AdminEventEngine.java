@@ -40,7 +40,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.serverpackets.CharInfo;
-import net.sf.l2j.gameserver.serverpackets.ItemList;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.serverpackets.Revive;
@@ -373,9 +372,9 @@ public class AdminEventEngine implements IAdminCommandHandler {
         	result = "No 'data/events' directory!";
         	return result;
         }        
-        for (int i = 0; i < files.length; i++) {
+        for (String element : files) {
 
-            File file = new File("data/events/" + files[i]);
+            File file = new File("data/events/" + element);
             result+="<font color=\"LEVEL\">" + file.getName() + " </font><br><button value=\"select\" action=\"bypass -h admin_event_set " + file.getName() + "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><button value=\"ver\" action=\"bypass -h admin_event_see " + file.getName() + "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><button value=\"delete\" action=\"bypass -h admin_event_del " + file.getName() + "\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br><br>";
         }
         return result;
@@ -625,13 +624,11 @@ public class AdminEventEngine implements IAdminCommandHandler {
 
     private void createItem(L2PcInstance activeChar, L2PcInstance player, int id, int num)
     {
-       player.getInventory().addItem("Event", id, num, player, activeChar);
-        ItemList il = new ItemList(player, true);
-        player.sendPacket(il);
-                
-        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);      
+        player.addItem("Event", id, num, player, false, true);
+
+        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
         TextBuilder replyMSG = new TextBuilder("<html><body>");
-       
+
         replyMSG.append("CONGRATULATIONS, you should have a present in your inventory");
         replyMSG.append("</body></html>");
         

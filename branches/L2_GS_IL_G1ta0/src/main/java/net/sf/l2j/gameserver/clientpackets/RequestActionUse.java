@@ -269,7 +269,7 @@ public class RequestActionUse extends L2GameClientPacket
                     }
                     else if (!pet.isDead() && !activeChar.isMounted())
                     {
-					if(!activeChar.disarmWeapons()) return;
+                        if(!activeChar.disarmWeapons()) return;
                         Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, pet.getTemplate().getNpcId());
                         activeChar.broadcastPacket(mount);
                         activeChar.setMountType(mount.getMountType());
@@ -279,11 +279,13 @@ public class RequestActionUse extends L2GameClientPacket
                 }
                 else if (activeChar.isMounted())
                 {
-                    if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-                    Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
-                    activeChar.broadcastPacket(dismount);
-                    activeChar.setMountType(0);
-                    activeChar.setMountObjectID(0);
+                    if (activeChar.setMountType(0))
+                    {
+                        if (activeChar.isFlying())activeChar.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+                        Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT, 0);
+                        activeChar.broadcastPacket(dismount);
+                        activeChar.setMountObjectID(0);
+                    }
                 }
                 break;
             case 32: // Wild Hog Cannon - Mode Change
@@ -393,16 +395,16 @@ public class RequestActionUse extends L2GameClientPacket
             case 1001:
                 break;
             case 1003: // Wind Hatchling/Strider - Wild Stun
-                useSkill(4710); //TODO use correct skill lvl based on pet lvl
+                useSkill(4710); //FIXME: use correct skill lvl based on pet lvl
                 break;
             case 1004: // Wind Hatchling/Strider - Wild Defense
-                useSkill(4711, activeChar); //TODO use correct skill lvl based on pet lvl
+                useSkill(4711, activeChar); //FIXME: use correct skill lvl based on pet lvl
                 break;
             case 1005: // Star Hatchling/Strider - Bright Burst
-                useSkill(4712); //TODO use correct skill lvl based on pet lvl
+                useSkill(4712); //FIXME: use correct skill lvl based on pet lvl
                 break;
             case 1006: // Star Hatchling/Strider - Bright Heal
-                useSkill(4713, activeChar); //TODO use correct skill lvl based on pet lvl
+                useSkill(4713, activeChar); //FIXME: use correct skill lvl based on pet lvl
                 break;
             case 1007: // Cat Queen - Blessing of Queen
                 useSkill(4699, activeChar);

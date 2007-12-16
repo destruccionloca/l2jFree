@@ -50,14 +50,15 @@ public final class L2ChestInstance extends L2MonsterInstance
 		_isInteracted = false;
 		_specialDrop = false;
 		setMustRewardExpSp(true);
-		setHaveToDrop(true);
 	}
 
-	public synchronized boolean isInteracted() {
+	public synchronized boolean isInteracted()
+	{
 		return _isInteracted;
 	}
 
-	public synchronized void setInteracted() {
+	public synchronized void setInteracted()
+	{
 		_isInteracted = true;
 	}
 
@@ -150,11 +151,11 @@ public final class L2ChestInstance extends L2MonsterInstance
 
 		L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
 
-		if (player.getEffect(skill) == null)
+		if (player.getFirstEffect(skill) == null)
 		{
 			skill.getEffects(this, player);
-			broadcastPacket(new MagicSkillUser(this, player, skill.getId(), skillLevel,
-												skill.getSkillTime(), 0));
+			broadcastPacket(new MagicSkillUser(
+				this, player, skill.getId(), skillLevel, skill.getHitTime(), 0));
 			return true;
 		}
 		return false;

@@ -33,9 +33,6 @@ import net.sf.l2j.gameserver.util.Util;
 
 /** 
  * @author _drunk_ 
- * 
- * TODO To change the template for this generated type comment go to 
- * Window - Preferences - Java - Code Style - Code Templates 
  */ 
 public class TakeCastle implements ISkillHandler 
 { 
@@ -52,11 +49,18 @@ public class TakeCastle implements ISkillHandler
         if (player.getClan() == null || player.getClan().getLeaderId() != player.getObjectId())
             return;
 
-        Castle castle = CastleManager.getInstance().getCastleById(player.getInsideCastle());
-        if (castle == null || !checkIfOkToCastSealOfRule(player, castle, true))
+        Castle castle = CastleManager.getInstance().getCastleById(player.getInsideCastleId());
+        //TODO: G1ta0 -> move static code to siegemanager
+        if (castle == null || castle.getSiege() == null || !checkIfOkToCastSealOfRule(player, castle, true))
             return;
 
-    	castle.setOwner(player.getClan());
+        try
+        {
+            if(targets[0] instanceof L2ArtefactInstance)
+                castle.getSiege().engraveArtefact(player.getClan(), (L2ArtefactInstance)targets[0]);
+        }
+        catch(Exception e) 
+        {}
     } 
     
     public SkillType[] getSkillIds() 
@@ -72,7 +76,7 @@ public class TakeCastle implements ISkillHandler
      */
     public static boolean checkIfOkToCastSealOfRule(L2Character activeChar, boolean isCheckOnly)
     {
-        return checkIfOkToCastSealOfRule(activeChar,  CastleManager.getInstance().getCastleById(activeChar.getInsideCastle()), isCheckOnly);
+        return checkIfOkToCastSealOfRule(activeChar,  CastleManager.getInstance().getCastleById(activeChar.getInsideCastleId()), isCheckOnly);
     }
 
     public static boolean checkIfOkToCastSealOfRule(L2Character activeChar, Castle castle, boolean isCheckOnly)

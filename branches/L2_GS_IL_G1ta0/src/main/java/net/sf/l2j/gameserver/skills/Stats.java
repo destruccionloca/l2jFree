@@ -75,6 +75,7 @@ public enum Stats
     // walk & escape speed are calculated proportionally,
     // magic speed is a buff
     RUN_SPEED           ("runSpd"),
+    WALK_SPEED          ("walkSpd"), 
     
     //
     // Player-only stats
@@ -159,6 +160,7 @@ public enum Stats
     PDEF_VALAKAS    ("pDef-valakas"),
 
     ATK_REUSE       ("atkReuse"),
+    BOW_REUSE       ("bowReuse"),
 
     //ExSkill :)
     INV_LIM         ("inventoryLimit"),

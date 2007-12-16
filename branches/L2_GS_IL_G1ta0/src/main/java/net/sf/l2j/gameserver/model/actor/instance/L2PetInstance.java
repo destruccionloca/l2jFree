@@ -520,7 +520,6 @@ public class L2PetInstance extends L2Summon
         }
 
         getInventory().addItem("Pickup", target, getOwner(), this);
-        //FIXME Just send the updates if possible (old way wasn't working though)
         PetItemList iu = new PetItemList(this);
         getOwner().sendPacket(iu);
         
@@ -981,7 +980,7 @@ public class L2PetInstance extends L2Summon
 
     private void deathPenalty()
     {
-        // TODO Need Correct Penalty
+        //FIXME: Need Correct Penalty
 
         int lvl = getStat().getLevel();
         double percentLost = -0.07 * lvl + 6.5;

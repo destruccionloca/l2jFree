@@ -83,7 +83,7 @@ public class RequestDropItem extends L2GameClientPacket
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
             && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            activeChar.sendMessage("Transactions isn't allowed during restart/shutdown!");
+            activeChar.sendMessage("Transactions are not allowed during restart/shutdown.");
             activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }
@@ -187,10 +187,9 @@ public class RequestDropItem extends L2GameClientPacket
             
             L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(item.getItem().getBodyPart());
             InventoryUpdate iu = new InventoryUpdate();
-            for (int i = 0; i < unequiped.length; i++)
-            {
-                activeChar.checkSSMatch(null, unequiped[i]);                
-                iu.addModifiedItem(unequiped[i]);
+            for (L2ItemInstance element : unequiped) {
+                activeChar.checkSSMatch(null, element);
+                iu.addModifiedItem(element);
             }
             activeChar.sendPacket(iu);
             activeChar.broadcastUserInfo();
@@ -200,7 +199,7 @@ public class RequestDropItem extends L2GameClientPacket
         
         if (_log.isDebugEnabled()) _log.debug("dropping " + _objectId + " item("+_count+") at: " + _x + " " + _y + " " + _z);
 
-        activeChar.broadcastUserInfo();
+        //activeChar.broadcastUserInfo();
 
         if (dropedItem != null && dropedItem.getItemId() == 57 && dropedItem.getCount() >= 1000000)
         {

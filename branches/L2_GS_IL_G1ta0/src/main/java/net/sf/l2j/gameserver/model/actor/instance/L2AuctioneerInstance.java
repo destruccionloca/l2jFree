@@ -25,15 +25,18 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.entity.Auction;
+import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.entity.Auction.Bidder;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -53,34 +56,54 @@ public final class L2AuctioneerInstance extends L2FolkInstance
         super(objectId, template);
     }
 
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-    	if (_log.isDebugEnabled()) _log.warn("Auctioneer activated");
-        player.sendPacket(new ActionFailed());
-        player.setTarget(this);
-        player.setLastFolkNPC(this);
-        super.onAction(player);
-        if (isInsideRadius(player, INTERACTION_DISTANCE, false, false))
-            showMessageWindow(player);
-    }
+	@Override
+	public void onAction(L2PcInstance player)
+	{
+		if (!canTarget(player)) return;
+
+		player.setLastFolkNPC(this);
+
+		// Check if the L2PcInstance already target the L2NpcInstance
+		if (this != player.getTarget())
+		{
+			// Set the target of the L2PcInstance player
+			player.setTarget(this);
+
+			// Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+			MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
+			player.sendPacket(my);
+
+			// Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
+			player.sendPacket(new ValidateLocation(this));
+		}
+		else
+		{
+			// Calculate the distance between the L2PcInstance and the L2NpcInstance
+			if (!canInteract(player))
+			{
+				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
+				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
+			}
+			else
+			{
+				showMessageWindow(player);
+			}
+		}
+		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+		player.sendPacket(new ActionFailed());
+	}
 
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        if (!isInsideRadius(player, INTERACTION_DISTANCE, false, false)) return;
-        player.sendPacket(new ActionFailed());
-
         int condition = validateCondition(player);
         if (condition == COND_ALL_FALSE)
         {
-        	//TODO: html
         	player.sendMessage("Wrong conditions.");
         	return;
         }
         if (condition == COND_BUSY_BECAUSE_OF_SIEGE)
         {
-        	//TODO: html
         	player.sendMessage("Busy because of siege.");
         	return;
         }
@@ -439,7 +462,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             {
                 if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
                 {
-                    player.sendMessage("You don't have the right privilleges to do this");
+                    player.sendMessage("You don't have the right privileges to do this");
                     return;
                 }
                 String filename = "data/html/auction/AgitSaleCancel.htm";
@@ -475,7 +498,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             {
                 if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
                 {
-                    player.sendMessage("You don't have the right privilleges to do this");
+                    player.sendMessage("You don't have the right privileges to do this");
                     return;
                 }
                 String filename = "data/html/auction/AgitSale1.htm";
@@ -493,7 +516,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                 if (!((player.getClanPrivileges() & L2Clan.CP_CH_AUCTION) == L2Clan.CP_CH_AUCTION))
                 {
-                    player.sendMessage("You don't have the right privilleges to do this");
+                    player.sendMessage("You don't have the right privileges to do this");
                     return;
                 }
                 try
@@ -523,7 +546,8 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             {
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile("data/html/auction/location.htm");
-                html.replace("%location%", TownManager.getInstance().getClosestTown(player).getName());
+                //TODO: G1ta0 -> fix closest town name
+                html.replace("%location%", "" /*TownManager.getInstance().getClosestTownName(player)*/);
                 html.replace("%LOCATION%", getPictureName(player));
                 html.replace("%AGIT_LINK_BACK%", "bypass -h npc_"+getObjectId()+"_start");
                 player.sendPacket(html);
@@ -564,9 +588,13 @@ public final class L2AuctioneerInstance extends L2FolkInstance
 
         return COND_ALL_FALSE;
     }
-    private String getPictureName(L2PcInstance plyr)
+    //TODO: G1ta0-> add picture into xml
+    private String getPictureName(L2PcInstance activeChar)
     {
-        int nearestTownId = MapRegionTable.getInstance().getMapRegion(plyr.getX(), plyr.getY());
+    	/*
+    	Town town = TownManager.getInstance().getClosestTown(activeChar);
+        
+        int nearestTownId = town.getTownId();
         String nearestTown;
         
         switch (nearestTownId)
@@ -577,10 +605,11 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             case 8: nearestTown = "GIRAN"; break;
             case 14: nearestTown = "RUNE"; break;
             case 15: nearestTown = "GODARD"; break;
-            case 16: nearestTown = "SCHTGART"; break;
+            case 16: nearestTown = "SCHUTTGART"; break;
             default: nearestTown = "ADEN"; break;
         }
         
-        return nearestTown;
+        return nearestTown;*/
+    	return "ADEN";
     }
 }

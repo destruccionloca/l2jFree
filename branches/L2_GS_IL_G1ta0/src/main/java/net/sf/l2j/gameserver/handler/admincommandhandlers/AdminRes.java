@@ -57,7 +57,7 @@ public class AdminRes implements IAdminCommandHandler
 		else if (command.startsWith("admin_res_monster "))
 			handleNonPlayerRes(activeChar, command.split(" ")[1]);
 		else if (command.equals("admin_res_monster"))
-			handleNonPlayerRes(activeChar);			
+			handleNonPlayerRes(activeChar);
 		
 		return true;
 	}
@@ -112,12 +112,12 @@ public class AdminRes implements IAdminCommandHandler
 		if (obj == null)
 			obj = activeChar;
 		
-        if (obj instanceof L2ControllableMobInstance)
-        {
-            activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-            return;
-        }
-        
+		if (obj instanceof L2ControllableMobInstance)
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+			return;
+		}
+
 		doResurrect((L2Character)obj);
 		
 		if (_log.isDebugEnabled()) 
@@ -133,7 +133,8 @@ public class AdminRes implements IAdminCommandHandler
 	{
 		L2Object obj = activeChar.getTarget();
 		
-		try {
+		try
+		{
 			int radius = 0;
 			
 			if (!radiusStr.equals(""))
@@ -142,8 +143,8 @@ public class AdminRes implements IAdminCommandHandler
 				
 				for (L2Character knownChar : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 					if (!(knownChar instanceof L2PcInstance)
-					        && !(knownChar instanceof L2ControllableMobInstance))
-							doResurrect(knownChar);
+							&& !(knownChar instanceof L2ControllableMobInstance))
+						doResurrect(knownChar);
 				
 				activeChar.sendMessage("Resurrected all non-players within a " + radius + " unit radius.");
 			}
@@ -164,14 +165,16 @@ public class AdminRes implements IAdminCommandHandler
 
 	private void doResurrect(L2Character targetChar)
 	{
+		if(!targetChar.isDead()) return;
+
 		// If the target is a player, then restore the XP lost on death.
-		if (targetChar instanceof L2PcInstance) 
+		if (targetChar instanceof L2PcInstance)
 			((L2PcInstance)targetChar).restoreExp(100.0);
 		
 		// If the target is an NPC, then abort it's auto decay and respawn.
 		else
-	    	DecayTaskManager.getInstance().cancelDecayTask(targetChar);
-			
+			DecayTaskManager.getInstance().cancelDecayTask(targetChar);
+
 		targetChar.doRevive();
 	}
 }

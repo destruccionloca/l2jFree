@@ -40,7 +40,8 @@ public class AiInstance
 		if(params.isConverted())
 			throw new IllegalArgumentException("AiPluginingParameters of an Ai instance must be converted");
 		_pluginigParams = params;
-		//TODO:update the params (bottom-up)
+		
+		//TODO: update the params (bottom-up)
 		_eventHandlers = new FastMap<AiEventType,EventHandlerSet>();
 		AiManager.getInstance().addAiInstance(this);
 	}

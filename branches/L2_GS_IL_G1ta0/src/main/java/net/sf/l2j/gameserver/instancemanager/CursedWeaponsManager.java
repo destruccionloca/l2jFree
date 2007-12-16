@@ -200,12 +200,6 @@ public class CursedWeaponsManager
             // Retrieve the L2PcInstance from the characters table of the database
             con = L2DatabaseFactory.getInstance().getConnection(con);
 
-			// TODO: See comments below...
-			// This entire for loop should NOT be necessary, since it is already handled by
-			// CursedWeapon.endOfLife().  However, if we indeed *need* to duplicate it for safety,
-			// then we'd better make sure that it FULLY cleans up inactive cursed weapons!
-			// Undesired effects result otherwise, such as player with no zariche but with karma
-			// or a lost-child entry in the cursedweapons table, without a corresponding one in items...
             for (CursedWeapon cw : _cursedWeapons.values())
             {
                 if (cw.isActivated()) continue;
@@ -305,15 +299,8 @@ public class CursedWeaponsManager
         	if (player.isCursedWeaponEquiped()) // cannot own 2 cursed swords
         	{
         		CursedWeapon cw2 = _cursedWeapons.get(player.getCursedWeaponEquipedId());
-				/* TODO: give the bonus level in a more appropriate manner.
-				 *  The following code adds "_stageKills" levels.  This will also show in the char status.
-				 * I do not have enough info to know if the bonus should be shown in the pk count, or if it
-				 * should be a full "_stageKills" bonus or just the remaining from the current count till the 
-				 * of the current stage...
-				 * This code is a TEMP fix, so that the cursed weapon's bonus level can be observed with as 
-				 * little change in the code as possible, until proper info arises.
-				 */
-				cw2.setNbKills(cw2.getStageKills()-1);        		
+
+        		cw2.setNbKills(cw2.getStageKills()-1);        		
 	        		cw2.increaseKills();
 				
 				// erase the newly obtained cursed weapon

@@ -78,7 +78,7 @@ public class RequestEnchantItem extends L2GameClientPacket
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_ENCHANT && Shutdown.getCounterInstance() != null 
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            activeChar.sendMessage("Enchant isn't allowed during restart/shutdown!");
+            activeChar.sendMessage("Enchanting items is not allowed during restart/shutdown.");
             return;
         }
         
@@ -86,6 +86,8 @@ public class RequestEnchantItem extends L2GameClientPacket
         L2ItemInstance scroll = activeChar.getActiveEnchantItem();
         activeChar.setActiveEnchantItem(null);
         if (item == null || scroll == null) return;
+        if ((item.getLocation() != L2ItemInstance.ItemLocation.INVENTORY) && (item.getLocation() != L2ItemInstance.ItemLocation.PAPERDOLL))
+            return;
         
         int itemId = item.getItemId();
         
@@ -368,9 +370,8 @@ public class RequestEnchantItem extends L2GameClientPacket
                 {
 					L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInSlotAndRecord(item.getEquipSlot());
                 	InventoryUpdate iu = new InventoryUpdate();
-                    for (int i = 0; i < unequiped.length; i++)
-                    {
-                        iu.addItem(unequiped[i]);
+                    for (L2ItemInstance element : unequiped) {
+                        iu.addItem(element);
                     }
                     activeChar.sendPacket(iu);
                 }
@@ -403,7 +404,7 @@ public class RequestEnchantItem extends L2GameClientPacket
             }
         }
         sm = null;
-        activeChar.sendPacket(new EnchantResult(item.getEnchantLevel())); //FIXME i'm really not sure about this...
+        activeChar.sendPacket(new EnchantResult(item.getEnchantLevel()));
         activeChar.getInventory().updateInventory(item);
         activeChar.broadcastUserInfo();
     }

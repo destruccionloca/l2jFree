@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ForceBuff
 {
-	static final Log _log = LogFactory.getLog(ForceBuff.class.getName());
+	private static final Log _log = LogFactory.getLog(ForceBuff.class.getName());
 	
 	protected L2PcInstance _caster;
 	private L2PcInstance _target;
@@ -56,7 +56,7 @@ public class ForceBuff
 		_caster = caster;
 		_target = target;
 		_skill = skill;
-		_force = SkillTable.getInstance().getInfo(skill.getForceId(), 1);
+		_force = SkillTable.getInstance().getInfo(skill.getTriggeredId(), 1);
 		_applied = false;
 
 		Runnable r = new Runnable()
@@ -76,7 +76,7 @@ public class ForceBuff
 						if (e.getSkill().getId() == forceId)
 						{
 							EffectForce ef = (EffectForce)e;
-							if(ef.forces < 3)
+							if(L2Skill.skillLevelExists(e.getSkill().getId(), (ef.forces + 1)))
 								ef.increaseForce();
 							create = false;
 							break;
@@ -85,7 +85,14 @@ public class ForceBuff
 				}
 				if(create)
 				{
-					getForce().getEffects(_caster, getTarget());
+					if(getForce() == null)
+					{
+						_log.error("Triggered skill "+_skill.getTriggeredId()+" not found");
+					}
+					else
+					{
+						getForce().getEffects(_caster, getTarget());
+					}
 				}
 			}
 		};

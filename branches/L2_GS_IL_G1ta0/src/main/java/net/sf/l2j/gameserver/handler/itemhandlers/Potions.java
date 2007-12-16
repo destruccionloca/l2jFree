@@ -409,7 +409,7 @@ public class Potions implements IItemHandler
 			{
 				// One can reuse pots after 2/3 of their duration is over.
 				// It would be faster to check if its > 10 but that would screw custom pot durations...
-				if (e.getTaskTime() > (e.getSkill().getBuffDuration()*67)/100000) return true;
+				if (e.getElapsedTaskTime() > (e.getTotalTaskTime() * 2 / 3)) return true;
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 				sm.addItemName(itemId);
 				activeChar.sendPacket(sm);

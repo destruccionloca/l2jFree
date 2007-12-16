@@ -47,7 +47,9 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState;
 import net.sf.l2j.gameserver.skills.conditions.ConditionSkillStats;
 import net.sf.l2j.gameserver.skills.conditions.ConditionSlotItemId;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetAggro;
+import net.sf.l2j.gameserver.skills.conditions.ConditionTargetClassIdRestriction;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetLevel;
+import net.sf.l2j.gameserver.skills.conditions.ConditionTargetRaceId;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetUndead;
 import net.sf.l2j.gameserver.skills.conditions.ConditionTargetUsesWeaponKind;
 import net.sf.l2j.gameserver.skills.conditions.ConditionUsingItemType;
@@ -75,9 +77,6 @@ import org.w3c.dom.Node;
 
 /**
  * @author mkizub
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 abstract class DocumentBase
 {
@@ -194,7 +193,7 @@ abstract class DocumentBase
     {
         NamedNodeMap attrs = n.getAttributes();
         String name = attrs.getNamedItem("name").getNodeValue();
-        int time, count = 1;
+        int time = 0, count = 1;
         if (attrs.getNamedItem("count") != null)
         {
             count = Integer.decode(getValue(attrs.getNamedItem("count").getNodeValue(), template));
@@ -203,9 +202,8 @@ abstract class DocumentBase
         {
         	time = Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(),template));
         }
-        else
-            time = ((L2Skill) template).getBuffDuration() / 1000 / count;
-        time = time * ((L2Skill) template).getTimeMulti();
+        
+        time *= ((L2Skill) template).getTimeMulti();
         boolean self = false;
         if (attrs.getNamedItem("self") != null)
         {
@@ -432,10 +430,8 @@ abstract class DocumentBase
             }            
         }
 
-        // Elemental seed condition processing
-        for (int i = 0; i < ElementSeeds.length; i++)
-        {
-            if (ElementSeeds[i] > 0)
+        for (int element : ElementSeeds) {
+            if (element > 0)
             {
                 cond = joinAnd(cond, new ConditionElementSeed(ElementSeeds));
                 break;
@@ -465,13 +461,36 @@ abstract class DocumentBase
             }
             else if ("level".equalsIgnoreCase(a.getNodeName()))
             {
-            	int lvl = Integer.decode(getValue(a.getNodeValue(), template));
+                int lvl = Integer.decode(getValue(a.getNodeValue(), template));
                 cond = joinAnd(cond, new ConditionTargetLevel(lvl));
             }
+            else if ("class_id_restriction".equalsIgnoreCase(a.getNodeName()))
+            {
+                FastList<Integer> array = new FastList<Integer>();
+                StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
+                while (st.hasMoreTokens())
+                {
+                    String item = st.nextToken().trim();
+                    array.add(Integer.decode(getValue(item, null)));
+                }
+                cond = joinAnd(cond, new ConditionTargetClassIdRestriction(array));
+            }
+            else if ("race_id".equalsIgnoreCase(a.getNodeName()))
+            {
+                FastList<Integer> array = new FastList<Integer>();
+                StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
+                while (st.hasMoreTokens())
+                {
+                    String item = st.nextToken().trim();
+                    //-1 because we want to take effect for exactly race that is by -1 lower in FastList
+                    array.add(Integer.decode(getValue(item, null))-1);
+                }
+                cond = joinAnd(cond, new ConditionTargetRaceId(array));
+             }
             else if ("undead".equalsIgnoreCase(a.getNodeName()))
             {
-            	boolean val = Boolean.valueOf(a.getNodeValue());
-            	cond = joinAnd(cond, new ConditionTargetUndead(val));
+                boolean val = Boolean.valueOf(a.getNodeValue());
+                cond = joinAnd(cond, new ConditionTargetUndead(val));
             }
             else if ("using".equalsIgnoreCase(a.getNodeName()))
             {

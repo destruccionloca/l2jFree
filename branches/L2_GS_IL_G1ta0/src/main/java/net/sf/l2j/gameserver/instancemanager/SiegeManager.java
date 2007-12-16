@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -76,16 +77,16 @@ public class SiegeManager
         L2PcInstance player = (L2PcInstance) activeChar;
 
         L2Clan clan = player.getClan();
-        Castle castle = CastleManager.getInstance().getCastleById(player.getInsideCastleSiege());
-        Siege siege = castle == null? castle.getSiege() : null;
-
+        Siege siege = getSiege(clan); // get siege, that player's clan take action
+        Castle castle = siege == null ? null : siege.getCastle();
+        
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 
         if (clan == null || clan.getLeaderId() != player.getObjectId())
             sm.addString("You must be a clan leader to place a flag.");
         else if (siege == null || !siege.getIsInProgress())
             sm.addString("You can only place a flag during a siege.");
-        else if (castle == null || !activeChar.isInsideZone(ZoneType.CastleHQ))
+        else if (castle == null || !activeChar.isInsideZone(ZoneType.CastleHQ) || activeChar.getInsideSiegeCastleId() != castle.getCastleId())
             sm.addString("You must be on castle ground to place a flag.");
         else if (siege.getAttackerClan(clan) == null)
             sm.addString("You must be an attacker to place a flag.");
@@ -112,16 +113,19 @@ public class SiegeManager
 
         L2PcInstance player = (L2PcInstance) activeChar;
 
-        Castle castle = CastleManager.getInstance().getCastleById(player.getInsideCastleSiege());
-        Siege siege = castle == null? castle.getSiege() : null;
+        L2Clan clan = player.getClan();
+        Siege siege = getSiege(clan); // get siege, that player's clan take action
+        Castle castle = siege == null ? null : siege.getCastle();
 
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
         
-        if (siege == null)
+        if (FortressSiege._started && ((L2PcInstance)activeChar)._inEventFOS && ((L2PcInstance)activeChar)._teamNameFOS.equals(FortressSiege._teams.get(0)) && activeChar.isInsideRadius(FortressSiege.eventCenterX, FortressSiege.eventCenterY, 10000, false))
+        	return true;
+        if (castle == null || !activeChar.isInsideZone(ZoneType.SiegeBattleField) || activeChar.getInsideSiegeCastleId() != castle.getCastleId())
             sm.addString("You must be on castle ground to summon this.");
-        else if (!siege.getIsInProgress())
+        else if (siege == null || !siege.getIsInProgress())
             sm.addString("You can only summon this during a siege.");
-        else if (player.getClanId() != 0 && siege.getAttackerClan(player.getClanId()) == null)
+        else if (clan == null || clan.getClanId() != 0 && siege.getAttackerClan(player.getClanId()) == null)
             sm.addString("You can only summon this as a registered attacker.");
         else
             return true;
@@ -147,12 +151,13 @@ public class SiegeManager
 
         L2PcInstance player = (L2PcInstance) activeChar;
 
-        Castle castle = CastleManager.getInstance().getCastleById(player.getInsideCastleSiege());
-        Siege siege = castle == null? castle.getSiege() : null;
+        L2Clan clan = player.getClan();
+        Siege siege = getSiege(clan); // get siege, that player's clan take action
+        Castle castle = siege == null ? null : siege.getCastle();
 
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
 
-        if (siege == null)
+        if (castle == null || !activeChar.isInsideZone(ZoneType.SiegeBattleField) || activeChar.getInsideSiegeCastleId() != castle.getCastleId())
             sm.addString("You must be on castle ground to use strider siege assault.");
         else if (!siege.getIsInProgress())
             sm.addString("You can only use strider siege assault during a siege.");
@@ -231,7 +236,7 @@ public class SiegeManager
     }
 
     /** get active siege for clan */
-    public final Siege getSiege(L2Clan clan)
+    public static Siege getSiege(L2Clan clan)
     {
         if (clan == null)
             return null;

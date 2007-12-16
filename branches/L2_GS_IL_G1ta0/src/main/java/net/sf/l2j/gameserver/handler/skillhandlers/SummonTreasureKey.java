@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SummonTreasureKey implements ISkillHandler
 {
-    private static Log _log = LogFactory.getLog(ChargeSelf.class.getName());
+    private static Log _log = LogFactory.getLog(SummonTreasureKey.class.getName());
     private static final SkillType[] SKILL_IDS = {SkillType.SUMMON_TREASURE_KEY};
 
     public void useSkill(L2Character activeChar,
@@ -72,7 +72,7 @@ public class SummonTreasureKey implements ISkillHandler
                   break;
                 }
             }
-            player.addItem("Skill", item_id, Rnd.get(2,3), player, false);  
+            player.addItem("Skill", item_id, Rnd.get(2,3), player, false);
         }
         catch (Exception e)
         {

@@ -23,6 +23,7 @@ import java.sql.ResultSet;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.TradeList.TradeItem;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -510,7 +511,7 @@ public class PcInventory extends Inventory
 
     public static int[][] restoreVisibleInventory(int objectId)
     {
-        int[][] paperdoll = new int[0x13][3];
+        int[][] paperdoll = new int[0x13][4];
         java.sql.Connection con = null;
         
         try
@@ -525,8 +526,10 @@ public class PcInventory extends Inventory
             {
                 int slot = invdata.getInt("loc_data");
                 paperdoll[slot][0] = invdata.getInt("object_id");
-                paperdoll[slot][1] = invdata.getInt("item_id");
+                int itemId = invdata.getInt("item_id");
+                paperdoll[slot][1] = itemId;
                 paperdoll[slot][2] = invdata.getInt("enchant_level");
+                paperdoll[slot][3] = ItemTable.getInstance().getTemplate(itemId).getItemDisplayId(); 
             }
             
             invdata.close();
@@ -538,6 +541,7 @@ public class PcInventory extends Inventory
         finally {
             try { con.close(); } catch (Exception e) { _log.warn(""); }
         }
+        
         return paperdoll;
     }
     

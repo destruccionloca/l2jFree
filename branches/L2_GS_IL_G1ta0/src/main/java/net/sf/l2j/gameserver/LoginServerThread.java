@@ -231,7 +231,6 @@ public class LoginServerThread extends Thread
 							if (_log.isDebugEnabled()) _log.debug("Init received");
 							if(init.getRevision() != REVISION)
 							{
-								//TODO: revision mismatch
 								_log.warn("/!\\ Revision mismatch between LS and GS /!\\");
 								break;
 							}

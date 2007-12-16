@@ -32,18 +32,18 @@ public class ObserverReturn extends L2GameClientPacket
 	
 	// cddddc
 
-    @Override
-    protected void readImpl()
-    {
-    }
+	@Override
+	protected void readImpl()
+	{
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
 			return;
-		activeChar.leaveObserverMode();
+		if (activeChar.inObserverMode()) activeChar.leaveObserverMode();
 		//activeChar.teleToLocation(activeChar.getObsX(), activeChar.getObsY(), activeChar.getObsZ());
 	}
 

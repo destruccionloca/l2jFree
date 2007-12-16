@@ -1,4 +1,5 @@
-/* This program is free software; you can redistribute it and/or modify
+/*
+ * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -38,7 +39,6 @@ public class CastleAreaZone extends DefaultZone
 	public CastleAreaZone(IZone zone)
 	{
 		super(zone);
-
 	}
 
 	/**
@@ -47,18 +47,18 @@ public class CastleAreaZone extends DefaultZone
 	 */
 	protected Castle getCastle()
 	{
-		if(castleId == 0 || castle == null)
-		{
-
+		// if castle id not initialized, get id from zone settings
+		if(castleId == 0)
 			try
 			{
 				castleId = getZone().getSettings().getInteger("castleId");
-				castle = CastleManager.getInstance().getCastleById(castleId);
 			}
 			catch (IllegalArgumentException ia)
 			{}
-		}
-		
+
+		if(castleId > 0 && castle == null)
+			castle = CastleManager.getInstance().getCastleById(castleId);
+
 		return castle;
 	}
 
@@ -67,9 +67,10 @@ public class CastleAreaZone extends DefaultZone
 	{
 		super.onEnter(character);
 
-		if (getCastle() == null) return;
-		
-		character.setInsideCastle(getCastle().getCastleId());
+		if(getCastle() == null)
+			return;
+
+		character.setInsideCastleId(getCastle().getCastleId());
 	}
 
 	@Override
@@ -77,7 +78,7 @@ public class CastleAreaZone extends DefaultZone
 	{
 		super.onExit(character);
 
-		character.setInsideCastle(0);
+		character.setInsideCastleId(0);
 	}
 
 }

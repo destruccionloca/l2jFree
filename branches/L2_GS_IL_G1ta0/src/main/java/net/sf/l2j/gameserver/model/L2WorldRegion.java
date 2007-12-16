@@ -84,30 +84,18 @@ public final class L2WorldRegion
     public class NeighborsTask implements Runnable
     {
         private boolean _isActivating;
-        private short _nextNeighbor;
         
         public NeighborsTask(boolean isActivating)
         {
             _isActivating = isActivating;
-            _nextNeighbor = 0;
         }
         
         public void run()
         {
             if (_isActivating)
             {
-                if (_nextNeighbor <= getSurroundingRegions().size())
-                {
-                    L2WorldRegion neighbor = getSurroundingRegions().get(_nextNeighbor);
-                    neighbor.setActive(true);
-                    _nextNeighbor++;
-                }
-                
-                if (_nextNeighbor > getSurroundingRegions().size())
-                {
-                    _neighborsTask.cancel(true);
-                    _neighborsTask = null;
-                }
+				for (L2WorldRegion neighbor: getSurroundingRegions())
+					neighbor.setActive(true);
             }
             else
             {
@@ -175,7 +163,7 @@ public final class L2WorldRegion
                 else if (o instanceof L2NpcInstance)
                 {
                     // Create a RandomAnimation Task that will be launched after the calculated delay if the server allow it 
-                    // L2Monsterinstance/L2Attackable socials are handled by AI (TODO: check the instances)
+                    // L2Monsterinstance/L2Attackable socials are handled by AI
                     ((L2NpcInstance)o).startRandomAnimationTimer();
                 }
             }
@@ -220,7 +208,6 @@ public final class L2WorldRegion
         // turn the AI on or off to match the region's activation.
         switchAI(value);
         
-        // TODO
         // turn the geodata on or off to match the region's activation.
         if(value)
             if(_log.isDebugEnabled())
@@ -248,7 +235,7 @@ public final class L2WorldRegion
         }
         
         // then, set a timer to activate the neighbors
-        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME, 2000);
+		_neighborsTask = ThreadPoolManager.getInstance().scheduleGeneral(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME);
     }
     
     /** starts a timer to set neighbors (including self) as inactive
@@ -280,6 +267,7 @@ public final class L2WorldRegion
     {
         if (Config.ASSERT) assert object.getWorldRegion() == this;
 
+        if (object == null) return;
         _visibleObjects.put(object);
 
         if (object instanceof L2PlayableInstance)
@@ -335,9 +323,9 @@ public final class L2WorldRegion
         return _allPlayable.iterator();
     }
 
-    public Iterator<L2Object> iterateVisibleObjects()
+    public L2ObjectSet<L2Object> getVisibleObjects()
     {
-        return _visibleObjects.iterator();
+        return _visibleObjects;
     }
 
     public String getName()

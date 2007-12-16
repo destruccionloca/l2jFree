@@ -39,7 +39,9 @@ import net.sf.l2j.gameserver.model.actor.knownlist.DoorKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.DoorStat;
 import net.sf.l2j.gameserver.model.actor.status.DoorStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.DoorStatusUpdate;
@@ -63,7 +65,7 @@ public class L2DoorInstance extends L2Character
     final static Log _log = LogFactory.getLog(L2DoorInstance.class.getName());
     
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
-    private int _mapRegion = -1;
+    private L2MapRegion _mapRegion = null;
     
     // when door is closed, the dimensions are
     private int _rangeXMin = 0;
@@ -173,9 +175,9 @@ public class L2DoorInstance extends L2Character
     public L2DoorInstance(int objectId, L2CharTemplate template, int doorId, String name, boolean unlockable)
     {
         super(objectId, template);
-        getKnownList();	// init knownlist
-        getStat();			// init stats
-        getStatus();		// init status
+        getKnownList(); // init knownlist
+        getStat();      // init stats
+        getStatus();    // init status
         _doorId = doorId;
         _name = name;
         _unlockable = unlockable;
@@ -276,13 +278,13 @@ public class L2DoorInstance extends L2Character
     
     public ClanHall getClanHall()
     {
-        return ClanHallManager.getInstance().getClanHallById(getInsideClanHall());
+        return ClanHallManager.getInstance().getClanHallById(getInsideClanHallId());
     }
 
     /** Return the castle this door belongs to. */
     public final Castle getCastle()
     {
-    	return CastleManager.getInstance().getCastleById(getInsideCastle());
+    	return CastleManager.getInstance().getCastleById(getInsideCastleId());
     }
     
     public boolean isEnemyOf(@SuppressWarnings("unused") L2Character cha) 
@@ -295,7 +297,9 @@ public class L2DoorInstance extends L2Character
     {
         if (isUnlockable())
             return true;
-
+        // Attackable during fortress sieges by event participators only
+        if (FortressSiege.isDoorAttackable(getDoorId(),attacker))
+        	return true;
         // Attackable during siege by attacker only
         return (attacker != null 
                 && attacker instanceof L2PcInstance 
@@ -370,50 +374,49 @@ public class L2DoorInstance extends L2Character
         if (player == null)
             return;
         
+        // Check if the L2PcInstance already target the L2NpcInstance
         if (this != player.getTarget())
         {
+            // Set the target of the L2PcInstance player
             player.setTarget(this);
             
-            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel());
+            // Send a Server->Client packet MyTargetSelected to the L2PcInstance player
+            MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
             player.sendPacket(my);
             
 //            if (isAutoAttackable(player))
-//            {   
+//            {
                 DoorStatusUpdate su = new DoorStatusUpdate(this);
                 player.sendPacket(su);
 //            }
             
-            // correct location
+            // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
             player.sendPacket(new ValidateLocation(this));
         }
         else
         {
-//            MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel());
-//            player.sendPacket(my);
-            if (isAutoAttackable(player) )
+            if (isAutoAttackable(player))
             {
                 if (Math.abs(player.getZ() - getZ()) < 400) // this max heigth difference might need some tweaking
                 {
                     player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
                 }
-                else
-                {
-                    player.sendPacket(new ActionFailed());
-                }
-            } else if (player.getClan()!=null && getClanHall() != null && player.getClanId() == getClanHall().getOwnerId())
-    	    {
+            }
+            else if (player.getClan()!=null && getClanHall() != null && player.getClanId() == getClanHall().getOwnerId())
+            {
                 if (!isInsideRadius(player, L2NpcInstance.INTERACTION_DISTANCE, false, false))
                 {
                     player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-        		} else
+                }
+                else
                 {
-        		    if (getOpen() == 1) openMe();
-        		    else closeMe();
-        		    player.sendPacket(new ActionFailed());
-            	}
-    	    } else 
-                player.sendPacket(new ActionFailed());
+                    if (getOpen() == 1) openMe();
+                    else closeMe();
+                }
+            }
         }
+        // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
+        player.sendPacket(new ActionFailed());
     }
 
     @Override
@@ -550,12 +553,12 @@ public class L2DoorInstance extends L2Character
     	_rangeZMax = zMax;
     }
     
-    public int getMapRegion()
+    public L2MapRegion getMapRegion()
     {
     	return _mapRegion;
     }
 
-    public void setMapRegion(int region)
+    public void setMapRegion(L2MapRegion region)
     {
     	_mapRegion = region;
     }

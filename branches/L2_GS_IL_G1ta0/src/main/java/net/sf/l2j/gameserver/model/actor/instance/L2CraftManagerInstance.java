@@ -61,23 +61,15 @@ public class L2CraftManagerInstance extends L2FolkInstance
         super(objectId, template);
         __l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
     }
-    
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        player.setLastFolkNPC(this);
-        super.onAction(player);
-    }
-    
+
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
         if (command.startsWith("multisell"))
         {
-        	L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(9).trim()), player, false, getCastle().getTaxRate());
-        } else
-        // List player inventory items for crystallization
-        if (command.startsWith("Crystallize")) 
+            L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(9).trim()), player, false, getCastle().getTaxRate());
+        }
+        else if (command.startsWith("Crystallize")) // List player inventory items for crystallization
         {
             int _pageId;
     
@@ -323,8 +315,8 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(_item.getEquipSlot());
                 
                     if (_item.isEquipped())
-                        for (int ui = 0; ui < unequiped.length; ui++)
-                            iu.addModifiedItem(unequiped[ui]);
+						for (L2ItemInstance element : unequiped)
+							iu.addModifiedItem(element);
                 
                     player.destroyItem("CraftManager", _itemsSelected.get(i), 1, player, true);
                     iu.addModifiedItem(player.getInventory().getItemByObjectId(_itemsSelected.get(i)));

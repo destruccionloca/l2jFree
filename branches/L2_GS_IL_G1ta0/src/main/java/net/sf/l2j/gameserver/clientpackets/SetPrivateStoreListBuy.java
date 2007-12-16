@@ -56,8 +56,8 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
         for (int x = 0; x < _count; x++)
         {
             int itemId = readD(); _items[x * 3 + 0] = itemId;
-            readH();//TODO analyse this
-            readH();//TODO analyse this
+            readH();//TODO: analyse this
+            readH();//TODO: analyse this
             long cnt    = readD(); 
         if (cnt > Integer.MAX_VALUE || cnt < 0)
         {
@@ -78,7 +78,7 @@ public class SetPrivateStoreListBuy extends L2GameClientPacket
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			player.sendMessage("Transactions isn't allowed during restart/shutdown!");
+			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			sendPacket(new ActionFailed());
 			return;
         }

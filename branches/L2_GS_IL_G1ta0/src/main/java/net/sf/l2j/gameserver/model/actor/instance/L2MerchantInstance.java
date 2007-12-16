@@ -56,15 +56,6 @@ public class L2MerchantInstance extends L2FolkInstance
     }
 
     @Override
-    public void onAction(L2PcInstance player)
-    {
-        if (_log.isDebugEnabled()) _log.debug("Merchant activated");
-        player.sendPacket(new ActionFailed());
-        player.setLastFolkNPC(this);
-        super.onAction(player);
-    }
-
-    @Override
     public String getHtmlPath(int npcId, int val)
     {
         String pom = "";
@@ -136,12 +127,6 @@ public class L2MerchantInstance extends L2FolkInstance
     @Override
     public void onBypassFeedback(L2PcInstance player, String command)
     {
-        player.sendPacket(new ActionFailed());
-
-        // first do the common stuff
-        // and handle the commands that all NPC classes know
-        //super.onBypassFeedback(player, command);
-
         StringTokenizer st = new StringTokenizer(command, " ");
         String actualCommand = st.nextToken(); // Get actual command
 

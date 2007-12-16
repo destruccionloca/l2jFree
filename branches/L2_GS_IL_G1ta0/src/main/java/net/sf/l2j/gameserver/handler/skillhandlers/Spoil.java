@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.handler.skillhandlers; 
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
-import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -33,9 +32,6 @@ import net.sf.l2j.gameserver.skills.Formulas;
 
 /** 
  * @author _drunk_ 
- * 
- * TODO To change the template for this generated type comment go to 
- * Window - Preferences - Java - Code Style - Code Templates 
  */ 
 public class Spoil implements ISkillHandler 
 { 
@@ -54,16 +50,12 @@ public class Spoil implements ISkillHandler
             return;
         }
 
-        for (int index = 0; index < targetList.length; index++) 
-        {
-            if (!(targetList[index] instanceof L2MonsterInstance))
+        for (L2Object element : targetList) {
+            if (!(element instanceof L2MonsterInstance))
                 continue;
 
-            L2MonsterInstance target = (L2MonsterInstance) targetList[index];
-            //check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
-
+            L2MonsterInstance target = (L2MonsterInstance) element;
+			
             if (target.isSpoil()) {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.ALREDAY_SPOILED));
                 continue;
@@ -73,7 +65,7 @@ public class Spoil implements ISkillHandler
             boolean spoil = false;
             if ( target.isDead() == false ) 
             {
-                spoil = Formulas.getInstance().calcMagicSuccess(activeChar, (L2Character)targetList[index], skill);
+                spoil = Formulas.getInstance().calcMagicSuccess(activeChar, (L2Character)element, skill);
                 
                 if (spoil)
                 {
@@ -81,15 +73,14 @@ public class Spoil implements ISkillHandler
                     target.setIsSpoiledBy(activeChar.getObjectId());
                     activeChar.sendPacket(new SystemMessage(SystemMessageId.SPOIL_SUCCESS));
                 }
-				else 
-				{
-					SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-					sm.addString(target.getName());
-					sm.addSkillName(skill.getDisplayId());
-					activeChar.sendPacket(sm);
-				}	                
+                else
+                {
+                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+                    sm.addString(target.getName());
+                    sm.addSkillName(skill.getDisplayId());
+                    activeChar.sendPacket(sm);
+                }
                 target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
-                activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, target);
             }
         }
     } 

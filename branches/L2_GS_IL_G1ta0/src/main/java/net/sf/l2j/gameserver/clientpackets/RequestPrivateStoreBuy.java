@@ -73,7 +73,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
         if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
            && Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-            player.sendMessage("Transactions aren't allowed during restart/shutdown!");
+            player.sendMessage("Transactions are not allowed during restart/shutdown.");
             sendPacket(new ActionFailed());
             return;
         }
@@ -94,7 +94,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
             return;
         }
         
-        // FIXME: this check should be (and most probabliy is) done in the TradeList mechanics
         long priceTotal = 0;
         for(ItemRequest ir : _items)
         {
@@ -120,7 +119,6 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
 			priceTotal += ir.getPrice() * ir.getCount();
         }
         
-        // FIXME: this check should be (and most probabliy is) done in the TradeList mechanics
         if(priceTotal < 0 || priceTotal > Integer.MAX_VALUE)
         {
             String msgErr = "[RequestPrivateStoreBuy] player "+getClient().getActiveChar().getName()+" tried an overflow exploit, ban this player!";

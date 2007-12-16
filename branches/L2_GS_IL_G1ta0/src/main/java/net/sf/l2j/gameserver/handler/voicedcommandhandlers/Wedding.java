@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -51,15 +52,15 @@ public class Wedding implements IVoicedCommandHandler
     private static final String[] VOICED_COMMANDS = { "divorce", "engage", "gotolove" };
 
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#useUserCommand(int, net.sf.l2j.gameserver.model.L2PcInstance)
+     * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#useVoicedCommand(String, net.sf.l2j.gameserver.model.L2PcInstance), String)
      */
     public boolean useVoicedCommand(String command, L2PcInstance activeChar, String target)
     {
-        if(command.startsWith("engage"))
+        if (command.startsWith("engage"))
             return Engage(activeChar);
-        else if(command.startsWith("divorce"))
+        else if (command.startsWith("divorce"))
             return Divorce(activeChar);
-        else if(command.startsWith("gotolove"))
+        else if (command.startsWith("gotolove"))
             return GoToLove(activeChar);
         return false;
     }
@@ -73,7 +74,7 @@ public class Wedding implements IVoicedCommandHandler
         int _coupleId = activeChar.getCoupleId();
         int AdenaAmount = 0;
         
-        if(activeChar.isMaried())
+        if (activeChar.isMaried())
         {
             activeChar.sendMessage("You are now divorced."); 
 
@@ -90,7 +91,7 @@ public class Wedding implements IVoicedCommandHandler
         if (partner != null)
         {
             partner.setPartnerId(0);
-            if(partner.isMaried())
+            if (partner.isMaried())
                 partner.sendMessage("Your fiance has decided to divorce from you.");
             else
                 partner.sendMessage("Your fiance has decided to break the engagement with you.");
@@ -125,7 +126,7 @@ public class Wedding implements IVoicedCommandHandler
         if (activeChar.getPartnerId()!=0)
         {
             activeChar.sendMessage("You are already engaged.");
-            if(Config.WEDDING_PUNISH_INFIDELITY)
+            if (Config.WEDDING_PUNISH_INFIDELITY)
             {
                 activeChar.startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD); // give player a Big Head
                 // lets recycle the sevensigns debuffs
@@ -136,14 +137,14 @@ public class Wedding implements IVoicedCommandHandler
                 if (activeChar.getLevel() > 40)
                     skillLevel = 2;
                 
-                if(activeChar.isMageClass())
+                if (activeChar.isMageClass())
                     skillId = 4361;
                 else
                     skillId = 4362;
                 
                 L2Skill skill = SkillTable.getInstance().getInfo(skillId, skillLevel);
                 
-                if (activeChar.getEffect(skill) == null)
+                if (activeChar.getFirstEffect(skill) == null)
                 {
                     skill.getEffects(activeChar, activeChar);
                     SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
@@ -157,25 +158,25 @@ public class Wedding implements IVoicedCommandHandler
         L2PcInstance ptarget = (L2PcInstance)activeChar.getTarget();
         
         // check if player target himself
-        if(ptarget.getObjectId() == activeChar.getObjectId())
+        if (ptarget.getObjectId() == activeChar.getObjectId())
         {
             activeChar.sendMessage("Is there something wrong with you, are you trying to go out with yourself?");
             return false;
         }
 
-        if(ptarget.isMaried())
+        if (ptarget.isMaried())
         {
             activeChar.sendMessage("Player already married.");
             return false;
         }
 
-        if(ptarget.getPartnerId() != 0)
+        if (ptarget.getPartnerId() != 0)
         {
             activeChar.sendMessage("Player already engaged.");
             return false;
         }
 
-        if(ptarget.isEngageRequest())
+        if (ptarget.isEngageRequest())
         {
             activeChar.sendMessage("Player already asked by someone else.");
             return false;
@@ -187,7 +188,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         
-        if(!L2FriendList.isInFriendList(activeChar, ptarget))
+        if (!L2FriendList.isInFriendList(activeChar, ptarget))
         {
             activeChar.sendMessage("The player you want to ask is not on your friends list, you must first be on each others friends list before you choose to engage.");
             return false;
@@ -203,12 +204,12 @@ public class Wedding implements IVoicedCommandHandler
         if (activeChar.isCastingNow() || activeChar.isMovementDisabled() 
                 || activeChar.isMuted() || activeChar.isAlikeDead())
             return false;
-        if(!activeChar.isMaried())
+        if (!activeChar.isMaried())
         {
             activeChar.sendMessage("You're not married."); 
             return false;
         }
-        else if(activeChar.getPartnerId()==0)
+        else if (activeChar.getPartnerId()==0)
         {
             activeChar.sendMessage("Couldn't find your fiance in Database - Inform a Gamemaster.");
             _log.error("Married but couldn't find partner for "+activeChar.getName());
@@ -245,7 +246,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check to see if player is in jail
-        else if (activeChar.isInJail())
+        else if (activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar))
         {
             activeChar.sendMessage("You can't escape from jail.");
             return false;
@@ -268,35 +269,41 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("You are currently holding a cursed weapon.");
             return false;
         }
+        // Check if player is in a Monster Derby Track
+        else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
+        {
+        	activeChar.sendMessage("You can't escape from a Monster Derby Track.");
+        	return false;
+        }
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
-        if(partner == null)
+        if (partner == null)
         {
             activeChar.sendMessage("Your partner is not online.");
             return false;
         }
-        else if(partner.isInJail())
+        else if (partner.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, partner))
         {
             activeChar.sendMessage("Your partner is in jail.");
             return false;
         }
-        else if(partner.isInOlympiadMode())
+        else if (partner.isInOlympiadMode())
         {
             activeChar.sendMessage("Your partner is in Olympiad now.");
             return false;
         }
-        else if(partner.inObserverMode())
+        else if (partner.inObserverMode())
         {
             activeChar.sendMessage("Your partner is in observer mode.");
             return false;
         }
-        else if(partner.isInDuel())
+        else if (partner.isInDuel())
         {
             activeChar.sendMessage("Your partner is in a duel.");
             return false;
         }
-        else if(partner.isInFunEvent())
+        else if (partner.isInFunEvent())
         {
             activeChar.sendMessage("Your partner is in an event.");
             return false;
@@ -322,6 +329,11 @@ public class Wedding implements IVoicedCommandHandler
         else if (partner.isCursedWeaponEquiped())
         {
         	activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
+        	return false;
+        }
+        else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, partner))
+        {
+        	activeChar.sendMessage("Your partner is in a Monster Derby Track.");
         	return false;
         }
         
@@ -376,12 +388,13 @@ public class Wedding implements IVoicedCommandHandler
             try 
             {
                 _activeChar.teleToLocation(_partnerx, _partnery, _partnerz);
-            } catch (Throwable e) { _log.error(e.getMessage(),e); }
+            }
+            catch (Throwable e) { _log.error(e.getMessage(),e); }
         }
     }
     
     /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.handler.IUserCommandHandler#getUserCommandList()
+     * @see net.sf.l2j.gameserver.handler.IVoicedCommandHandler#getVoicedCommandList()
      */
     public String[] getVoicedCommandList()
     {

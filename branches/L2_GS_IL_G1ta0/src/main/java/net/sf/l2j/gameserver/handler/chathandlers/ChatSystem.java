@@ -49,9 +49,12 @@ public class ChatSystem implements IChatHandler
     	CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName() + "'s Emote", text);         
 
     	for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
-	        if (player != null && activeChar.isInsideRadius(player, 1250, false, true))
+	        if (player != null && activeChar.isInsideRadius(player, 1250, false, true)){
 	            player.sendPacket(cs);
+	            player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+	        }
     	
     	activeChar.sendPacket(cs);
+    	activeChar.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 	}
 }

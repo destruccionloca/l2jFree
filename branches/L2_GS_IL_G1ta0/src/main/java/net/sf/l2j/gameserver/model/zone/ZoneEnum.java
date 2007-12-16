@@ -25,6 +25,7 @@ public final class ZoneEnum
 		Arena,
 		MonsterDerbyTrack,
 		OlympiadStadia,
+		Town,
 		CastleArea,
 		CastleHQ,
 		DefenderSpawn,

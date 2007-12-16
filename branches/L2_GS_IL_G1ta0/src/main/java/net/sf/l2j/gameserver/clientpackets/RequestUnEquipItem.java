@@ -54,14 +54,17 @@ public class RequestUnEquipItem extends L2GameClientPacket
     @Override
     protected void runImpl()
 	{
-		if (_log.isDebugEnabled()) 
+    	if (_log.isDebugEnabled()) 
             _log.debug("request unequip slot " + _slot);
         
 		L2PcInstance activeChar = getClient().getActiveChar();
         
 		if (activeChar == null)
 		    return;
-        
+		if (activeChar._haveFlagCTF){
+            activeChar.sendMessage("You can't unequip a CTF flag.");
+            return;			
+		}
 		L2ItemInstance item = activeChar.getInventory().getPaperdollItemByL2ItemId(_slot);
 		if (item != null && item.isWear())
 		{
@@ -88,11 +91,9 @@ public class RequestUnEquipItem extends L2GameClientPacket
         
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 
 		
-		// show the update in the inventory
-		for (int i = 0; i < unequiped.length; i++)
-		{
-            activeChar.checkSSMatch(null, unequiped[i]);			
-            activeChar.getInventory().updateInventory(unequiped[i]);
+		for (L2ItemInstance element : unequiped) {
+            activeChar.checkSSMatch(null, element);			
+            activeChar.getInventory().updateInventory(element);
 		}
 		activeChar.broadcastUserInfo();
 		

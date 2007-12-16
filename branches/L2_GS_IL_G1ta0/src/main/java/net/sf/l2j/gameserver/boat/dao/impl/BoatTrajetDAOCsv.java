@@ -150,7 +150,6 @@ public class BoatTrajetDAOCsv implements IBoatTrajetDAO
      */
     public int getNumberOfBoatTrajet()
     {
-        // TODO Auto-generated method stub
         return _trajet.size();
     }    
     

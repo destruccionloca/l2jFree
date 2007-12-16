@@ -132,11 +132,7 @@ public class GameTimeController
         // Create an ArrayList to contain all L2Character that are arrived to destination
         List<L2Character> ended = null;
 
-        // Go throw the table containing L2Character in movement
-        for (int i = 0; i < chars.length; i++)
-        {
-
-            L2Character cha = chars[i];
+        for (L2Character cha : chars) {
 
             // Update the position of the L2Character and return True if the movement is finished
             boolean end = cha.updatePosition(_gameTicks);
@@ -153,7 +149,6 @@ public class GameTimeController
 
         // Create a task to update the _knownObject and _knowPlayers of each L2Character that finished its movement and of their already known L2Object 
         // then notify AI with EVT_ARRIVED
-        // TODO: maybe a general TP is needed for that kinda stuff (all knownlist updates should be done in a TP anyway).
         if (ended != null)
             ThreadPoolManager.getInstance().executeTask(new MovingObjectArrived(ended));
 
@@ -189,7 +184,7 @@ public class GameTimeController
 
                     _gameTicks = (int) (runtime / MILLIS_IN_TICK); // new ticks value (ticks now) 
 
-                    if (_oldTicks != _gameTicks) moveObjects(); // XXX: if this makes objects go slower, remove it
+                    if (_oldTicks != _gameTicks) moveObjects();
                     // but I think it can't make that effect. is it better to call moveObjects() twice in same
                     // tick to make-up for missed tick ?   or is it better to ignore missed tick ?
                     // (will happen very rarely but it will happen ... on garbage collection definitely)
@@ -244,8 +239,11 @@ public class GameTimeController
         {
             for (L2Character cha : _ended)
             {
-                cha.getKnownList().updateKnownObjects();
-                cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
+                try
+                {
+                    cha.getKnownList().updateKnownObjects();
+                    cha.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
+                } catch (NullPointerException e) {}
             }
         }
     }

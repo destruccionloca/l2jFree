@@ -19,6 +19,7 @@ package net.sf.l2j.gameserver.model;
 
 import java.util.Vector;
 
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.serverpackets.RadarControl;
 
@@ -56,7 +57,6 @@ public final class L2Radar
 
     public void removeAllMarkers()
     {
-        // TODO: Need method to remove all markers from radar at once
         for (RadarMarker tempMarker : _markers)
             _player.sendPacket(new RadarControl(1, tempMarker._type, tempMarker._x, tempMarker._y, tempMarker._z));
 
@@ -65,8 +65,7 @@ public final class L2Radar
 
     public void loadMarkers()
     {
-        // TODO: Need method to re-send radar markers after load/teleport/death
-        // etc.
+        //TODO: Need method to re-send radar markers after load/teleport/death
     }
 
     public class RadarMarker
@@ -109,4 +108,25 @@ public final class L2Radar
             }
         }
     }
+    
+    public class RadarOnPlayer implements Runnable{
+    	private final L2PcInstance _myTarget, _me;
+    	public RadarOnPlayer(L2PcInstance target, L2PcInstance me){
+    		_me = me;
+    		_myTarget = target;
+    	}
+    	public void run(){
+    		try{
+    		if (_me == null || _me.isOnline()==0)
+    			return;
+    		_me.sendPacket(new RadarControl(1, 1, _me.getX(), _me.getY(), _me.getZ()));
+    		if (_myTarget == null || _myTarget.isOnline()==0 || !_myTarget._haveFlagCTF){
+    			return;
+    		}
+    		_me.sendPacket(new RadarControl(0, 1, _myTarget.getX(), _myTarget.getY(), _myTarget.getZ()));
+    		ThreadPoolManager.getInstance().scheduleGeneral(new RadarOnPlayer(_myTarget,_me), 15000);
+    		}catch(Throwable t)
+    		{}
+    	}
+    }    
 }

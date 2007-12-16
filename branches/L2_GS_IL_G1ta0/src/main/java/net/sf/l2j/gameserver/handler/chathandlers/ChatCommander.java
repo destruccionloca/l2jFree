@@ -26,8 +26,7 @@ import net.sf.l2j.gameserver.serverpackets.CreatureSay;
  *
  * @author  Noctarius
  */
-//TODO: Add here retaillike Commander Channel Code (I'm not sure how it is
-//      working on retail - so it's just from my server with =text) **Noctarius**
+//TODO: Add here retaillike Commander Channel Code (I'm not sure how it is working on retail - so it's just from my server with =text) **Noctarius**
 public class ChatCommander implements IChatHandler
 {
 	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Commander };
@@ -53,14 +52,15 @@ public class ChatCommander implements IChatHandler
 			charName = activeChar.getName();
 			charObjId = activeChar.getObjectId();
 		}
-		
-		CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
 
-		//FIXME: For me it was sending Commands to the whole allianceside (totally
-		//       not retaillike) 
-		//for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-		//	if (player != null &&
-		//		Util.getAllianz(activeChar) == Util.getAllianz(player))
-		//		player.sendPacket(cs);
+		if (activeChar.isInParty())
+		{
+			if (activeChar.getParty().isInCommandChannel() && 
+					activeChar.getParty().getCommandChannel().getChannelLeader().equals(activeChar))
+			{
+				CreatureSay cs = new CreatureSay(charObjId, chatType.getId(), charName, text);
+				activeChar.getParty().getCommandChannel().broadcastToChannelMembers(cs);
+			}
+		}
 	}
 }

@@ -54,21 +54,6 @@ public class RequestPartyMatchConfig extends L2GameClientPacket
         _automaticRegistration    = readD();
         _showLevel                = readD();
         _showClass                = readD();
-        
-        /*
-         *  TODO: Check if this this part of the packet has been 
-         *  removed by latest versions.
-         *
-        try
-        {
-            _memo                 = readS();
-        }
-        catch (BufferUnderflowException e)
-        {
-            _memo                 = "";
-            _log.warning("Memo field non existant in packet. Notify devs.");
-            e.printStackTrace();
-        }*/
     }
 
     @Override

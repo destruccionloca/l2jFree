@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
-import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -60,7 +59,7 @@ public final class L2MinionInstance extends L2MonsterInstance
     @Override
     public boolean isRaid()
     {
-        return getLeader().isRaid(); 
+        return getLeader().isRaid();
     }
     
     /**
@@ -70,18 +69,23 @@ public final class L2MinionInstance extends L2MonsterInstance
      * @param skill the casted skill
      * @see L2Character#checkSkillCanAffectMyself(L2Skill)
      */
-    @Override
-    public boolean checkSkillCanAffectMyself(L2Skill skill)
-    {
-        // Only minions of raidboss and boss are not affected by some skills
-        boolean isMasterBoss = (isRaid() && _master instanceof L2BossInstance );
-        
-        return  !(isMasterBoss && (skill.getSkillType() == SkillType.CONFUSION 
-                || skill.getSkillType() == SkillType.MUTE 
-                || skill.getSkillType() == SkillType.PARALYZE 
-                || skill.getSkillType() == SkillType.ROOT 
-                || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId())));
-    }    
+	@Override
+	public boolean checkSkillCanAffectMyself(L2Skill skill)
+	{
+		if (getLeader() == null)
+			return true;
+		
+		return getLeader().checkSkillCanAffectMyself(skill);
+	}
+	
+	@Override
+	public boolean checkSkillCanAffectMyself(SkillType type)
+	{
+		if (getLeader() == null)
+			return true;
+		
+		return getLeader().checkSkillCanAffectMyself(type);
+	}    
 
 	/**
 	 * Return the master of this L2MinionInstance.<BR><BR>
@@ -101,7 +105,7 @@ public final class L2MinionInstance extends L2MonsterInstance
         // check the region where this mob is, do not activate the AI if region is inactive.
         L2WorldRegion region = L2World.getInstance().getRegion(getX(),getY());
         if ((region !=null) && (!region.isActive()))
-            ((L2AttackableAI) getAI()).stopAITask();        
+            ((L2AttackableAI) getAI()).stopAITask();
 
     }
 	

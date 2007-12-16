@@ -85,6 +85,14 @@ public class RequestAnswerJoinAlly extends L2GameClientPacket
 				activeChar.getClan().setAllyName(clan.getAllyName());
 				activeChar.getClan().setAllyPenaltyExpiryTime(0, 0);
 				activeChar.getClan().updateClanInDB();
+				// Added to set the Alliance Crest when a clan joins an ally.
+				try
+				{ 
+					activeChar.getClan().setAllyCrestId(requestor.getClan().getAllyCrestId());
+					for (L2PcInstance member : activeChar.getClan().getOnlineMembers(""))
+						member.broadcastUserInfo();
+				}
+				catch(Throwable t){}
 	        }
 		}
 

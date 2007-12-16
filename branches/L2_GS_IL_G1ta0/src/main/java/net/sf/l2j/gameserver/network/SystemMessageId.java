@@ -946,19 +946,31 @@ public enum SystemMessageId
 	 * ID: 1065<br>
 	 * Message: While operating a private store or workshop, you cannot discard, destroy, or trade an item.
 	 */
-    CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE(1065),
-    
-    /**
-     * ID: 1036<br>
-     * Message: You have exceeded the quantity that can be inputted.
-     */
-    YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED(1036),
-    
-    /**
-     * ID: 1050<br>
-     * Message: There are no communities in my clan. Clan communities are allowed for clans with skill levels of 2 and higher.
-     */
-    NO_CB_IN_MY_CLAN(1050),
+	CANNOT_TRADE_DISCARD_DROP_ITEM_WHILE_IN_SHOPMODE(1065),
+	
+	/**
+	* ID: 1036<br>
+	* Message: You have exceeded the quantity that can be inputted.
+	*/
+	YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED(1036),
+
+	/**
+	* ID: 1050<br>
+	* Message: There are no communities in my clan. Clan communities are allowed for clans with skill levels of 2 and higher.
+	*/
+	NO_CB_IN_MY_CLAN(1050),
+
+	/** 
+	 * ID: 1051 <br>
+	 * Message: Payment for your clan hall has not been made please make payment tomorrow.
+	 */
+	PAYMENT_FOR_YOUR_CLAN_HALL_HAS_NOT_BEEN_MADE_PLEASE_MAKE_PAYMENT_TO_YOUR_CLAN_WAREHOUSE_BY_S1_TOMORROW(1051),
+
+	/** 
+	 * ID: 1052 <br>
+	 * Message: Payment of Clan Hall is overdue the owner loose Clan Hall.
+	 */
+	THE_CLAN_HALL_FEE_IS_ONE_WEEK_OVERDUE_THEREFORE_THE_CLAN_HALL_OWNERSHIP_HAS_BEEN_REVOKED(1052),
     
     /**
      * ID: 938<br>
@@ -1854,6 +1866,12 @@ public enum SystemMessageId
     LOC_HEINE_S1_S2_S3(926),
     
     /**
+     * ID: 1222<br>
+     * Message: Current location : $s1, $s2, $s3 (GM Consultation Service)
+     */
+    LOC_GM_CONSULATION_SERVICE_S1_S2_S3(1222),
+    
+    /**
      * ID: 1537<br>
      * Message: Current Location: $s1, $s2, $s3 (near Rune Village)
      */
@@ -1864,12 +1882,30 @@ public enum SystemMessageId
      * Message: Current Location: $s1, $s2, $s3 (near the Town of Goddard)
      */
     LOC_GODDARD_S1_S2_S3(1538),
+	
+    /**
+     * ID: 1643<br>
+     * Message: Current Location: $s1, $s2, $s3 (Dimensional Gap)
+     */
+    LOC_DIMENSIONAL_GAP_S1_S2_S3(1643),
+
+    /**
+     * ID: 1659<br>
+     * Message: Current Location: $s1, $s2, $s3 (Cemetery of the Empire)
+     */
+    LOC_CEMETARY_OF_THE_EMPIRE_S1_S2_S3(1659),
     
     /**
      * ID: 1714<br>
      * Message: Current Location: $s1, $s2, $s3 (Near the Town of Schuttgart)
      */
     LOC_SCHUTTGART_S1_S2_S3(1714),
+    
+    /**
+     * ID: 1924<br>
+     * Message: Current Location: $s1, $s2, $s3 (Near the Primeval Isle)
+     */
+    LOC_PRIMEVAL_ISLE_S1_S2_S3(1924),
 	
 	/**
 	 * ID: 562<br>
@@ -4688,7 +4724,6 @@ public enum SystemMessageId
     
     /**
      * ID: 1675<br>
-     * TODO: Correct this message
      * Message: A manor cannot be set up between 6 a.m. and 8 p.m.
      */
     A_MANOR_CANNOT_BE_SET_UP_BETWEEN_6_AM_AND_8_PM(1675),
@@ -4877,109 +4912,7 @@ public enum SystemMessageId
      */
     THIS_FUNCTION_IS_INACCESSIBLE_RIGHT_NOW(483),
 
-    /**
-     * ID: 941<br>
-     * Message: Restart at Talking Island Village.
-     */
-    RESTART_AT_TALKING_ISLAND_VILLAGE(941),
-
-    /**
-     * ID: 942<br>
-     * Message: Restart at Gludin Village.
-     */
-    RESTART_AT_GLUDIN_VILLAGE(942),
-
-    /**
-     * ID: 943<br>
-     * Message: Restart at the Town of Gludin.
-     */
-    RESTART_AT_THE_TOWN_OF_GLUDIN(943),
-
-    /**
-     * ID: 944<br>
-     * Message: Restart at the Neutral Zone.
-     */
-    RESTART_AT_THE_NEUTRAL_ZONE(944),
-
-    /**
-     * ID: 945<br>
-     * Message: Restart at the Elven Village.
-     */
-    RESTART_AT_THE_ELVEN_VILLAGE(945),
-
-    /**
-     * ID: 946<br>
-     * Message: Restart at the Dark Elf Village.
-     */
-    RESTART_AT_THE_DARK_ELF_VILLAGE(946),
-
-    /**
-     * ID: 947<br>
-     * Message: Restart at the Town of Dion.
-     */
-    RESTART_AT_THE_TOWN_OF_DION(947),
-
-    /**
-     * ID: 948<br>
-     * Message: Restart at Floran Village.
-     */
-    RESTART_AT_FLORAN_VILLAGE(948),
-
-    /**
-     * ID: 949<br>
-     * Message: Restart at the Town of Giran.
-     */
-    RESTART_AT_THE_TOWN_OF_GIRAN(949),
-
-    /**
-     * ID: 950<br>
-     * Message: Restart at Giran Harbor.
-     */
-    RESTART_AT_GIRAN_HARBOR(950),
-
-    /**
-     * ID: 951<br>
-     * Message: Restart at the Orc Village.
-     */
-    RESTART_AT_THE_ORC_VILLAGE(951),
-
-    /**
-     * ID: 952<br>
-     * Message: Restart at the Dwarven Village.
-     */
-    RESTART_AT_THE_DWARVEN_VILLAGE(952),
-
-    /**
-     * ID: 953<br>
-     * Message: Restart at the Town of Oren.
-     */
-    RESTART_AT_THE_TOWN_OF_OREN(953),
-
-    /**
-     * ID: 954<br>
-     * Message: Restart at Hunters Village.
-     */
-    RESTART_AT_HUNTERS_VILLAGE(954),
-
-    /**
-     * ID: 955<br>
-     * Message: Restart at the Town of Aden.
-     */
-    RESTART_AT_THE_TOWN_OF_ADEN(955),
-
-    /**
-     * ID: 956<br>
-     * Message: Restart at the Coliseum.
-     */
-    RESTART_AT_THE_COLISEUM(956),
-
-    /**
-     * ID: 957<br>
-     * Message: Restart at Heine.
-     */
-    RESTART_AT_HEINE(957),
-
-    /**
+   /**
      * ID: 148<br>
      * Message: You cannot use quest items.
      */
@@ -5019,7 +4952,109 @@ public enum SystemMessageId
      * ID: 1597<br>
      * Message: $1 has failed.
      */
-    S1_FAILED(1597);
+    S1_FAILED(1597),
+    
+    /**
+     * ID: 941<br>
+     * Message: Restart at Talking Island Village. 
+     */
+    RESTART_AT_TI(941),
+    
+    /**
+     * ID: 942<br>
+     * Message: Restart at Gludin Village.
+     */
+    RESTART_AT_GLUDIN(942),
+    
+    /**
+     * ID: 943<br>
+     * Message: Restart at the Town of Gludin. || guess should be Gludio ;)
+     */
+    RESTART_AT_GLUDIO(943),
+    
+    /**
+     * ID: 944<br>
+     * Message: Restart at the Neutral Zone.
+     */
+    RESTART_AT_NEUTRAL_ZONE(944),
+    
+    /**
+     * ID: 945<br>
+     * Message: Restart at the Elven Village.
+     */
+    RESTART_AT_ELFEN_VILLAGE(945),
+    
+    /**
+     * ID: 946<br>
+     * Message: Restart at the Dark Elf Village.
+     */
+    RESTART_AT_DARKELF_VILLAGE(946),
+    
+    /**
+     * ID: 947<br>
+     * Message: Restart at the Town of Dion.
+     */
+    RESTART_AT_DION(947),
+    
+    /**
+     * ID: 948<br>
+     * Message: Restart at Floran Village.
+     */
+    RESTART_AT_FLORAN(948),
+    
+    /**
+     * ID: 949<br>
+     * Message: Restart at the Town of Giran.
+     */
+    RESTART_AT_GIRAN(949),
+    
+    /**
+     * ID: 950<br>
+     * Message: Restart at Giran Harbor.
+     */
+    RESTART_AT_GIRAN_HARBOR(950),
+    
+    /**
+     * ID: 951<br>
+     * Message: Restart at the Orc Village.
+     */
+    RESTART_AT_ORC_VILLAGE(951),
+    
+    /**
+     * ID: 952<br>
+     * Message: Restart at the Dwarven Village.
+     */
+    RESTART_AT_DWARFEN_VILLAGE(952),
+    
+    /**
+     * ID: 953<br>
+     * Message: Restart at the Town of Oren.
+     */
+    RESTART_AT_OREN(953),
+    
+    /**
+     * ID: 954<br>
+     * Message: Restart at Hunters Village.
+     */
+    RESTART_AT_HUNTERS_VILLAGE(954),
+    
+    /**
+     * ID: 955<br>
+     * Message: Restart at the Town of Aden.
+     */
+    RESTART_AT_ADEN(955),
+    
+    /**
+     * ID: 956<br>
+     * Message: Restart at the Coliseum.
+     */
+    RESTART_AT_COLISEUM(956),
+    
+    /**
+     * ID: 957<br>
+     * Message: Restart at Heine.
+     */
+    RESTART_AT_HEINE(957);
 
     // =========================== //
     // End L2J-Free System Messages //
@@ -5035,5 +5070,14 @@ public enum SystemMessageId
     public int getId()
     {
         return _id;
+    }
+    
+    public static final SystemMessageId getSystemMessageId(int id)
+    {
+    	for (SystemMessageId sysmsgid : SystemMessageId.values())
+    		if (sysmsgid.getId() == id)
+    			return sysmsgid;
+    	
+    	return SystemMessageId.S1_S2;
     }
 }

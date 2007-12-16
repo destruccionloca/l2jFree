@@ -27,9 +27,6 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /**
  * @author Administrator
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
  */
 public class RequestRecipeItemMakeSelf extends L2GameClientPacket 
 {
@@ -57,7 +54,7 @@ public class RequestRecipeItemMakeSelf extends L2GameClientPacket
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_CREATEITEM && Shutdown.getCounterInstance() != null 
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			activeChar.sendMessage("Item creation isn't allowed during restart/shutdown!");
+			activeChar.sendMessage("Item creation is not allowed during restart/shutdown.");
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }

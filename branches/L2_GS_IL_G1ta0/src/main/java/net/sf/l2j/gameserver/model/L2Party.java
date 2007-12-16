@@ -57,6 +57,7 @@ public class L2Party
 	private int _partyLvl = 0;
 	private int _itemDistribution = 0;
 	private int _itemLastLoot = 0;
+	private L2CommandChannel _commandChannel = null;
 
 	private DimensionalRift _dr;
 
@@ -212,6 +213,18 @@ public class L2Party
             member.sendPacket(msg);
 	}
 
+	/**
+	 * Broadcasts packet to every party member 
+	 * @param msg
+	 */
+	public void broadcastSnoopToPartyMembers(int objid, int type, String name, String text) 
+    {
+		for(L2PcInstance member : getPartyMembers()){
+            if (member == null)
+            	continue;
+			member.broadcastSnoop(objid, type, name, text);
+		}
+	}
 	
 	/**
 	 * Send a Server->Client packet to all other L2PcInstance of the Party.<BR><BR>
@@ -340,7 +353,7 @@ public class L2Party
 			{
 				if (isLeader(player))
 				{
-                    player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_TRANSFER_RIGHTS_TO_YOURSELF));
+					player.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_TRANSFER_RIGHTS_TO_YOURSELF));
 				}
 				else
 				{
@@ -348,20 +361,75 @@ public class L2Party
 					L2PcInstance temp;
 					int p1 = getPartyMembers().indexOf(player);
 					temp = getLeader();
-                    getPartyMembers().set(0,getPartyMembers().get(p1));
-                    getPartyMembers().set(p1,temp);
-					
+					getPartyMembers().set(0,getPartyMembers().get(p1));
+					getPartyMembers().set(p1,temp);
+
 					SystemMessage msg = new SystemMessage(SystemMessageId.S1_HAS_BECOME_A_PARTY_LEADER);
 					msg.addString(getLeader().getName());
 					broadcastToPartyMembers(msg);
+					broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+					refreshPartyView();
+					if (isInCommandChannel())
+					{
+						_commandChannel.setChannelLeader(getPartyMembers().get(0));
+					}
 				}
 			}
 			else
 			{
-                player.sendPacket(new SystemMessage(SystemMessageId.YOU_CAN_TRANSFER_RIGHTS_ONLY_TO_ANOTHER_PARTY_MEMBER));
+				player.sendPacket(new SystemMessage(SystemMessageId.YOU_CAN_TRANSFER_RIGHTS_ONLY_TO_ANOTHER_PARTY_MEMBER));
 			}
 		}
 		
+	}
+	
+	/**
+	 * Used to refresh the party view window for all party members.
+	 */
+	public void refreshPartyView()
+	{
+		//delete view for all members:
+		broadcastToPartyMembers(new PartySmallWindowDeleteAll());
+		for (L2PcInstance p : getPartyMembers())
+			broadcastToPartyMembers(new PartySmallWindowDelete(p));
+		//rebuild the view for all members:
+		for (L2PcInstance player : getPartyMembers()){
+			if (isLeader(player)){
+				for (L2PcInstance p : getPartyMembers(player,true))
+					player.sendPacket(new PartySmallWindowAdd(p));
+			}
+			else{
+				PartySmallWindowAll window = new PartySmallWindowAll();
+				window.setPartyList(getPartyMembers(player,false));
+				player.sendPacket(window);
+				player.sendPacket(new PartySmallWindowUpdate(getPartyMembers().get(0)));
+			}
+		}
+		for (L2PcInstance player : getPartyMembers())
+			player.updateEffectIcons();
+	}
+	
+	/**
+	 * returns all party members except for player
+	 * @param receives the L2PcInstance player that needs the view
+	 * @param receives boolean is the player a party leader
+	 * @return List<L2PcInstance> of the party members that need to be shown
+	 */
+	public List<L2PcInstance> getPartyMembers(L2PcInstance player, boolean leader)
+	{
+		try{
+			if (_members == null) return getPartyMembers();
+			List<L2PcInstance> list = new FastList<L2PcInstance>();
+			for (L2PcInstance p : _members)
+				if (p!=player) 
+					list.add(p);
+			if(!leader) 
+				list.add(player);
+			return list;
+		}
+		catch(Throwable t){
+			return getPartyMembers();
+		}
 	}
 
 	/**
@@ -395,6 +463,7 @@ public class L2Party
     				msg.addString(getLeader().getName());
     				broadcastToPartyMembers(msg);
     				broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+    				refreshPartyView();
                 }
 			} 
             else 
@@ -429,6 +498,7 @@ public class L2Party
                    msg.addString(getLeader().getName());
                    broadcastToPartyMembers(msg);
                    broadcastToPartyMembers(new PartySmallWindowUpdate(getLeader()));
+                   refreshPartyView();
                 }
 			} 
             else 
@@ -619,7 +689,7 @@ public class L2Party
 				{
 					if (((L2PetInstance)member).getPetData().getOwnerExpTaken() > 0)
 						continue;
-					else // TODO: This is a temporary fix while correct pet xp in party is figured out
+					else
 						penalty = (float)0.85;
 				}
 				
@@ -757,6 +827,21 @@ public class L2Party
 	public int getLevel() { return _partyLvl; }
 
 	public int getLootDistribution() { return _itemDistribution; }
+
+	public boolean isInCommandChannel()
+	{
+		return _commandChannel != null;
+	}
+
+	public L2CommandChannel getCommandChannel()
+	{
+		return _commandChannel;
+	}
+
+	public void setCommandChannel(L2CommandChannel channel)
+	{
+		_commandChannel = channel;
+	}
 
 	public boolean isInDimensionalRift() { return _dr != null; }
 

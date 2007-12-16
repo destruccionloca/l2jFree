@@ -105,13 +105,9 @@ public class Mdam implements ISkillHandler
             }
         }
 
-        for (int index = 0; index < targets.length; index++)
-        {
-            L2Character target = (L2Character) targets[index];
-            //check if skill is allowed on other.properties for raidbosses
-            if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-                continue;
-
+        for (L2Object element : targets) {
+            L2Character target = (L2Character) element;
+			
             if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
                 && target.isAlikeDead() && target.isFakeDeath())
             {
@@ -153,7 +149,7 @@ public class Mdam implements ISkillHandler
             if (damage > 0)
             {
                 // Manage attack or cast break of the target (calculating rate, sending message...)
-                if (!target.isRaid() && Formulas.getInstance().calcAtkBreak(target, damage))
+                if (Formulas.getInstance().calcAtkBreak(target, damage))
                 {
                     target.breakAttack();
                     target.breakCast();
@@ -161,16 +157,6 @@ public class Mdam implements ISkillHandler
 
                 activeChar.sendDamageMessage(target, damage, mcrit, false, false);
 
-                if (target instanceof L2PcInstance) //aura flare de-buff.
-                {
-                    if (skill.getId() == 1231)
-                    {
-                        activeChar.stopEffect(skill.getId());
-                        if (activeChar.getEffect(skill.getId()) != null)
-                            activeChar.removeEffect(activeChar.getEffect(skill.getId()));
-                        skill.getEffects(activeChar, activeChar);
-                    }
-                }
                 if (activeChar instanceof L2SummonInstance)
                     ((L2SummonInstance) activeChar).getOwner().sendPacket(new SystemMessage(SystemMessageId.SUMMON_GAVE_DAMAGE_S1).addNumber(damage));
                 //if (activeChar instanceof L2PetInstance)
@@ -186,13 +172,11 @@ public class Mdam implements ISkillHandler
                     if (Pet != null)
                     Pet.unSummon(Owner);
                 }
-                if (skill.hasEffects() && skill.getId() != 1231)
+                if (skill.hasEffects())
                 {
                     if (target.reflectSkill(skill))
                     {
-                        activeChar.stopEffect(skill.getId());
-                        if (activeChar.getEffect(skill.getId()) != null)
-                            activeChar.removeEffect(target.getEffect(skill.getId()));
+                        activeChar.stopSkillEffects(skill.getId());
                         skill.getEffects(null, activeChar);
                         SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                         sm.addSkillName(skill.getId());
@@ -201,9 +185,7 @@ public class Mdam implements ISkillHandler
                     else
                     {
                         // activate attacked effects, if any
-                        target.stopEffect(skill.getId());
-                        if (target.getEffect(skill.getId()) != null)
-                            target.removeEffect(target.getEffect(skill.getId()));
+                        target.stopSkillEffects(skill.getId());
                         if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, ss, bss)) 
                             skill.getEffects(activeChar, target);
                         else
@@ -221,7 +203,7 @@ public class Mdam implements ISkillHandler
             }
         }
         // self Effect :]
-        L2Effect effect = activeChar.getEffect(skill.getId());        
+        L2Effect effect = activeChar.getFirstEffect(skill.getId());        
         if (effect != null && effect.isSelfEffect())        
         {            
            //Replace old effect with new one.            

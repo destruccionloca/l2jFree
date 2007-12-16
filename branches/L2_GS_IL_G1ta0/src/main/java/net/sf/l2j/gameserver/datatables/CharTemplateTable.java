@@ -28,7 +28,6 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.StatsSet;
-import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -119,6 +118,7 @@ public class CharTemplateTable
 				set.set("baseMAtkSpd", /*classId.isMage()? 166 : 333*/ rset.getInt("char_templates.m_spd"));
 				set.set("baseCritRate", rset.getInt("char_templates.critical")/10);
 				set.set("baseRunSpd", rset.getInt("move_spd")*Config.RATE_RUN_SPEED);
+				set.set("baseWalkSpd",0);
 				set.set("baseShldDef", 0);
 				set.set("baseShldRate", 0);
 				set.set("baseAtkRange", 40);

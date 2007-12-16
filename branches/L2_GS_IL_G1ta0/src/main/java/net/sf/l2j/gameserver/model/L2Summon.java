@@ -66,8 +66,7 @@ public abstract class L2Summon extends L2PlayableInstance
     private int _chargedSoulShot;
     private int _chargedSpiritShot;
     
-    // TODO: currently, all servitors use 1 shot.  However, this value
-    // should vary depending on the servitor template (id and level)!
+    // TODO: currently, all servitors use 1 shot.  However, this value should vary depending on the servitor template (id and level)!
     private int _soulShotsPerHit = 1;
     private int _spiritShotsPerHit = 1;
     protected boolean _showSummonAnimation;
@@ -308,7 +307,6 @@ public abstract class L2Summon extends L2PlayableInstance
         //getAI().stopMoveTask();
         owner.sendPacket(new PetDelete(getObjectId(), 2));
         
-        //FIXME: I think it should really drop items to ground and only owner can take for a while
         giveAllToOwner(); 
         decayMe();
         getKnownList().removeAllKnownObjects();

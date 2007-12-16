@@ -22,9 +22,9 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.serverpackets.ActionFailed;
@@ -123,7 +123,7 @@ public class Escape implements IUserCommandHandler
             
             try 
             {
-                _activeChar.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+                _activeChar.teleToLocation(TeleportWhereType.Town);
             } catch (Throwable e) { _log.error(e.getMessage(),e); }
         }
     }

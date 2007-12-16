@@ -109,7 +109,7 @@ public class RequestDestroyItem extends L2GameClientPacket
 		}
 
 		int itemId = itemToRemove.getItemId();
-        if (itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || CursedWeaponsManager.getInstance().isCursed(itemId))
+        if (itemToRemove.isWear() || (!itemToRemove.isDestroyable() && !activeChar.isGM()) || (CursedWeaponsManager.getInstance().isCursed(itemId) &&  !activeChar.isGM()))
 		{
 		    activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
 		    return;
@@ -139,16 +139,16 @@ public class RequestDestroyItem extends L2GameClientPacket
 			L2ItemInstance[] unequiped =
 				activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getEquipSlot()); 
 			InventoryUpdate iu = new InventoryUpdate();
-			for (int i = 0; i < unequiped.length; i++)
-			{
-				activeChar.checkSSMatch(null, unequiped[i]);
+			for (L2ItemInstance element : unequiped) {
+				activeChar.checkSSMatch(null, element);
 				
-				iu.addModifiedItem(unequiped[i]);
+				iu.addModifiedItem(element);
 			}
 			activeChar.sendPacket(iu);
+			activeChar.broadcastUserInfo();
 		}
 
-        if (PetDataTable.isPetItem(itemId))
+		if (PetDataTable.isPetItem(itemId))
 		{
 			java.sql.Connection con = null;
 			try
@@ -177,11 +177,10 @@ public class RequestDestroyItem extends L2GameClientPacket
 		
 		L2ItemInstance removedItem = activeChar.getInventory().destroyItem("Destroy", _objectId, count, activeChar, null);
 
-        if(removedItem == null)
-           return;
+		if(removedItem == null)
+			return;
 		
 		activeChar.getInventory().updateInventory(removedItem);
-		activeChar.broadcastUserInfo();
 
 		L2World world = L2World.getInstance();
 		world.removeObject(removedItem);

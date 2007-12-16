@@ -40,7 +40,8 @@ public class AdminGeodata implements IAdminCommandHandler
         "admin_geo_unload"
         };
     private static final int REQUIRED_LEVEL = Config.GM_MIN;
-    
+
+    @SuppressWarnings("deprecation")
     public boolean useAdminCommand(String command, L2PcInstance activeChar) 
     {
         if (!Config.ALT_PRIVILEGES_ADMIN)
@@ -58,7 +59,9 @@ public class AdminGeodata implements IAdminCommandHandler
         else if (command.equals("admin_geo_type"))
         {
             short type = GeoData.getInstance().getType(activeChar.getX(),activeChar.getY());
-            activeChar.sendMessage("GeoEngine: Geo_Type = "+type);            
+            activeChar.sendMessage("GeoEngine: Geo_Type = "+type);
+            short height = GeoData.getInstance().getHeight(activeChar.getX(),activeChar.getY(),activeChar.getZ());
+            activeChar.sendMessage("GeoEngine: height = "+height);
         }
         else if (command.equals("admin_geo_nswe"))
         {
@@ -100,6 +103,7 @@ public class AdminGeodata implements IAdminCommandHandler
                 {
                     byte rx = Byte.parseByte(v[0]);
                     byte ry = Byte.parseByte(v[1]);
+
                     boolean result = GeoData.loadGeodataFile(rx, ry);
                     
                     if(result)

@@ -65,7 +65,7 @@ public class ClanHallZone extends DefaultZone
 		 
 		if (getClanHall() == null) return;
 		
-		character.setInsideClanHall(getClanHall().getClanHallId());
+		character.setInsideClanHallId(getClanHall().getClanHallId());
 		
 		if (character instanceof L2PcInstance)
 		{
@@ -80,7 +80,7 @@ public class ClanHallZone extends DefaultZone
 	{
 		super.onExit(character);
 		
-		character.setInsideClanHall(0);
+		character.setInsideClanHallId(0);
 	}
 
 }

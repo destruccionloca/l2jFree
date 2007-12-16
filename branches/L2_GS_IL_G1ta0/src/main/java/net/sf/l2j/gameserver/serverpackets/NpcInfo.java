@@ -55,11 +55,11 @@ public class NpcInfo extends L2GameServerPacket
 		_activeChar = cha;
 		_idTemplate = cha.getTemplate().getIdTemplate();
 		_isAttackable = cha.isAutoAttackable(attacker);
-		_rhand = cha.getTemplate().getRhand();
-		_lhand = cha.getTemplate().getLhand();
+		_rhand = cha.getRightHandItem();
+		_lhand = cha.getLeftHandItem();
 		_isSummoned = false;
-		_collisionHeight = _activeChar.getTemplate().getCollisionHeight();
-		_collisionRadius = _activeChar.getTemplate().getCollisionRadius();
+		_collisionHeight = cha.getCollisionHeight();
+		_collisionRadius = cha.getCollisionRadius();
 		if (cha.getTemplate().isServerSideName())
 			_name = cha.getName();
 
@@ -178,8 +178,8 @@ public class NpcInfo extends L2GameServerPacket
 		writeC(0000);  // C2
 		
 		writeC(0x00);  // C3  team circle 1-blue, 2-red 
-		writeF(0x00);  // C4 i think it is _collisionRadius a second time
-		writeF(0x00);  // C4	  "		_collisionHeight	 "
+		writeF(_collisionRadius);
+		writeF(_collisionHeight);
 		writeD(0x00);  // C4 
 		writeD(0x00);  // C6 
 	}

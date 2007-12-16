@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.serverpackets.SunRise;
 import net.sf.l2j.gameserver.serverpackets.SunSet;
 import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.ai.CtrlIntention;
 
 /**
  * This class handles following admin commands: 
@@ -95,10 +96,14 @@ public class AdminEffects implements IAdminCommandHandler
 		{
 			if (!activeChar.getAppearance().getInvisible())
 			{
+				activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+				activeChar.setTarget(activeChar);
+				activeChar.disableAllSkills();
 				activeChar.getAppearance().setInvisible();
 				activeChar.broadcastUserInfo();
 				activeChar.decayMe();
 				activeChar.spawnMe();
+				activeChar.enableAllSkills();				
 			}
 			else
 			{
@@ -109,11 +114,15 @@ public class AdminEffects implements IAdminCommandHandler
 		}
 		else if (command.startsWith("admin_invis"))
 		{
+			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+			activeChar.setTarget(activeChar);
+			activeChar.disableAllSkills();
 			activeChar.getAppearance().setInvisible();
 			activeChar.broadcastUserInfo();
 			activeChar.decayMe();
 			activeChar.spawnMe();
 			RegionBBSManager.getInstance().changeCommunityBoard();
+			activeChar.enableAllSkills();
 		}
 
 		else if (command.startsWith("admin_vis"))
@@ -281,9 +290,8 @@ public class AdminEffects implements IAdminCommandHandler
 			try
 			{
 				int val = Integer.parseInt(st.nextToken());
-				boolean sendMessage = activeChar.getEffect(7029) != null;
-
-				activeChar.stopEffect(7029);
+				boolean sendMessage = activeChar.getFirstEffect(7029) != null;
+				activeChar.stopSkillEffects(7029);
 				if (val == 0 && sendMessage)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.EFFECT_S1_DISAPPEARED).addSkillName(7029));
@@ -489,12 +497,12 @@ public class AdminEffects implements IAdminCommandHandler
 			try
 			{
 				L2Object obj = activeChar.getTarget();
-				int level = 1,hittime = 1;
+				int level = 1,skilltime = 1;
 				int skill = Integer.parseInt(st.nextToken());
 				if (st.hasMoreTokens())
 					level = Integer.parseInt(st.nextToken());
 				if (st.hasMoreTokens())
-					hittime = Integer.parseInt(st.nextToken());
+					skilltime = Integer.parseInt(st.nextToken());
 				if (obj != null) 
 				{
 					if (!(obj instanceof L2Character))
@@ -502,7 +510,7 @@ public class AdminEffects implements IAdminCommandHandler
 					else
 					{
 						L2Character target = (L2Character)obj;
-						target.broadcastPacket(new MagicSkillUser(target,activeChar,skill,level,hittime,0));
+						target.broadcastPacket(new MagicSkillUser(target,activeChar,skill,level,skilltime,0));
 						activeChar.sendMessage(obj.getName()+" performs MSU "+skill+"/"+level+" by your request.");
 					}
 				}
@@ -511,7 +519,7 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage: //effect skill [level | level hittime]");
+				activeChar.sendMessage("Usage: //effect skill [level | level skilltime]");
 			}
 		}
 		else if (command.startsWith("admin_abnormal"))

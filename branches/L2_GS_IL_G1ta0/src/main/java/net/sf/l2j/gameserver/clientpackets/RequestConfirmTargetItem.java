@@ -70,7 +70,6 @@ public final class RequestConfirmTargetItem extends L2GameClientPacket
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.ONCE_AN_ITEM_IS_AUGMENTED_IT_CANNOT_BE_AUGMENTED_AGAIN));
 			return;
 		}
-		//TODO: can do better? : currently: using isdestroyable() as a check for hero / cursed weapons
 		else if (itemGrade < L2Item.CRYSTAL_C || itemType != L2Item.TYPE2_WEAPON || !item.isDestroyable() || item.isShadowItem())
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));

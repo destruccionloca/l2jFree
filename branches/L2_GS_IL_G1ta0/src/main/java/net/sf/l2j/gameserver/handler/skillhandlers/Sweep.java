@@ -34,9 +34,6 @@ import net.sf.l2j.gameserver.serverpackets.SystemMessage;
 
 /** 
  * @author _drunk_ 
- * 
- * TODO To change the template for this generated type comment go to 
- * Window - Preferences - Java - Code Style - Code Templates 
  */ 
 public class Sweep implements ISkillHandler 
 { 
@@ -53,25 +50,23 @@ public class Sweep implements ISkillHandler
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 		boolean send = false;
 		
-        for(int index = 0;index < targets.length;index++) 
-        { 
-            if (!(targets[index] instanceof L2Attackable)) continue;
-	        L2Attackable target = (L2Attackable)targets[index];
-	        //check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
-            
-            L2Attackable.RewardItem[] items = null;
-            boolean isSweeping = false;
-            synchronized (target) {
-                if (target.isSweepActive())
-                {
-                    items = target.takeSweep();
-                    isSweeping = true;
-                }
-            }
-            if (isSweeping)
-            {
+		for (L2Object element : targets)
+		{
+			if (!(element instanceof L2Attackable)) continue;
+			L2Attackable target = (L2Attackable)element;
+
+			L2Attackable.RewardItem[] items = null;
+			boolean isSweeping = false;
+			synchronized (target)
+			{
+				if (target.isSweepActive())
+				{
+					items = target.takeSweep();
+					isSweeping = true;
+				}
+			}
+			if (isSweeping)
+			{
 				if (items == null || items.length == 0) continue;
 				for (L2Attackable.RewardItem ritem : items)
 				{
@@ -85,7 +80,7 @@ public class Sweep implements ISkillHandler
 
 						SystemMessage smsg = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2); // you picked up $s1$s2
 						smsg.addNumber(ritem.getCount());
-						smsg.addItemName(item.getItemId());
+						smsg.addItemName(item.getItemDisplayId());
 						player.sendPacket(smsg);
 					}
 				}

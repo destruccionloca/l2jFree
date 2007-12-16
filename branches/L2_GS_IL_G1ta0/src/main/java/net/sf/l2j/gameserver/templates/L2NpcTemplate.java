@@ -89,8 +89,7 @@ public final class L2NpcTemplate extends L2CharTemplate
     private String  _npcFactionName;
     private String  _jClass;
     
-    /** fixed skills*/
-    private int     _race;
+    private Race _race;
     
     /** The table containing all Item that can be dropped by L2NpcInstance using this L2NpcTemplate*/
     private final List<L2DropCategory> _categories = new FastList<L2DropCategory>();   
@@ -110,17 +109,39 @@ public final class L2NpcTemplate extends L2CharTemplate
     /** contains a list of quests for each event type (questStart, questAttack, questKill, etc)*/
     private Map<Quest.QuestEventType, Quest[]> _questEvents;
 
-    private byte _specialFaction = 0;
-
-    /** Some factions needed for special mob ai */
-    public static final byte FACTION_KETRA = 1;
-    public static final byte FACTION_VARKA = 2;
-
     public static enum AbsorbCrystalType
     {
         LAST_HIT,
         FULL_PARTY,
         PARTY_ONE_RANDOM
+    }
+
+    public static enum Race
+    {
+        UNDEAD,
+        MAGICCREATURE,
+        BEAST,
+        ANIMAL,
+        PLANT,
+        HUMANOID,
+        SPIRIT,
+        ANGEL,
+        DEMON,
+        DRAGON,
+        GIANT,
+        BUG,
+        FAIRIE,
+        HUMAN,
+        ELVE,
+        DARKELVE,
+        ORC,
+        DWARVE,
+        OTHER,
+        NONLIVING,
+        SIEGEWEAPON,
+        DEFENDINGARMY,
+        MERCENARIE,
+        UNKNOWN
     }
 
     /**
@@ -154,7 +175,7 @@ public final class L2NpcTemplate extends L2CharTemplate
         _npcFaction = set.getInteger("NPCFaction", 0);
         _npcFactionName = set.getString("NPCFactionName", "Devine Clan");
         _jClass= set.getString("jClass");
-        _race = 0;
+        _race = null;
         _teachInfo = null;
     }
     
@@ -331,38 +352,131 @@ public final class L2NpcTemplate extends L2CharTemplate
 			// if only one registration per npc is allowed for this event type
 			// then only register this NPC if not already registered for the specified event.
 			// if a quest allows multiple registrations, then register regardless of count
-			if (EventType.isMultipleRegistrationAllowed() || (len < 1))
+			// In all cases, check if this new registration is replacing an older copy of the SAME quest
+			if (!EventType.isMultipleRegistrationAllowed())
 			{
-				Quest[] tmp = new Quest[len+1];
-				for (int i=0; i < len; i++) {
-					if (_quests[i].getName().equals(q.getName())) {
-						_quests[i] = q;
-						return;
-		            }
-					tmp[i] = _quests[i];
-		        }
-				tmp[len] = q;
-				_questEvents.put(EventType, tmp);
+				if (_quests[0].getName().equals(q.getName()))
+					_quests[0] = q;
+				else 
+					_log.warn("Quest event not allowed in multiple quests.  Skipped addition of Event Type \""+EventType+"\" for NPC \""+_name +"\" and quest \""+q.getName()+"\".");
 			}
 			else
 			{
-				_log.warn("Quest event not allowed in multiple quests.  Skipped addition of Event Type \""+EventType+"\" for NPC \""+_name +"\" and quest \""+q.getName()+"\".");
+				// be ready to add a new quest to a new copy of the list, with larger size than previously.
+				Quest[] tmp = new Quest[len+1];
+				// loop through the existing quests and copy them to the new list.  While doing so, also 
+				// check if this new quest happens to be just a replacement for a previously loaded quest.  
+				// If so, just save the updated reference and do NOT use the new list. Else, add the new
+				// quest to the end of the new list
+				for (int i=0; i < len; i++)
+				{
+					if (_quests[i].getName().equals(q.getName()))
+					{
+						_quests[i] = q;
+						return;
+					}
+					tmp[i] = _quests[i];
+				}
+				tmp[len] = q;
+				_questEvents.put(EventType, tmp);
 			}
 		}
-    }
-    
+	}
+
 	public Quest[] getEventQuests(Quest.QuestEventType EventType)
 	{
 		if (_questEvents == null)
 			return null;
 		return _questEvents.get(EventType);
     }
-    
-    public void setRace(int newrace)
-    {
-        _race = newrace;
-    }
-    
+
+	public void setRace(int raceId)
+	{
+		switch (raceId)
+		{
+			case 1:
+				_race = L2NpcTemplate.Race.UNDEAD;
+				break;
+			case 2:
+				_race = L2NpcTemplate.Race.MAGICCREATURE;
+				break;
+			case 3:
+				_race = L2NpcTemplate.Race.BEAST;
+				break;
+			case 4:
+				_race = L2NpcTemplate.Race.ANIMAL;
+				break;
+			case 5:
+				_race = L2NpcTemplate.Race.PLANT;
+				break;
+			case 6:
+				_race = L2NpcTemplate.Race.HUMANOID;
+				break;
+			case 7:
+				_race = L2NpcTemplate.Race.SPIRIT;
+				break;
+			case 8:
+				_race = L2NpcTemplate.Race.ANGEL;
+				break;
+			case 9:
+				_race = L2NpcTemplate.Race.DEMON;
+				break;
+			case 10:
+				_race = L2NpcTemplate.Race.DRAGON;
+				break;
+			case 11:
+				_race = L2NpcTemplate.Race.GIANT;
+				break;
+			case 12:
+				_race = L2NpcTemplate.Race.BUG;
+				break;
+			case 13:
+				_race = L2NpcTemplate.Race.FAIRIE;
+				break;
+			case 14:
+				_race = L2NpcTemplate.Race.HUMAN;
+				break;
+			case 15:
+				_race = L2NpcTemplate.Race.ELVE;
+				break;
+			case 16:
+				_race = L2NpcTemplate.Race.DARKELVE;
+				break;
+			case 17:
+				_race = L2NpcTemplate.Race.ORC;
+				break;
+			case 18:
+				_race = L2NpcTemplate.Race.DWARVE;
+				break;
+			case 19:
+				_race = L2NpcTemplate.Race.OTHER;
+				break;
+			case 20:
+				_race = L2NpcTemplate.Race.NONLIVING;
+				break;
+			case 21:
+				_race = L2NpcTemplate.Race.SIEGEWEAPON;
+				break;
+			case 22:
+				_race = L2NpcTemplate.Race.DEFENDINGARMY;
+				break;
+			case 23:
+				_race = L2NpcTemplate.Race.MERCENARIE;
+				break;
+			default:
+				_race = L2NpcTemplate.Race.UNKNOWN;
+				break;
+		}
+	}
+
+	public L2NpcTemplate.Race getRace()
+	{
+		if (_race == null)
+			_race = L2NpcTemplate.Race.UNKNOWN;
+		
+		return _race;
+	}
+
     public int getNpcFaction()
     {
         return _npcFaction;
@@ -460,10 +574,6 @@ public final class L2NpcTemplate extends L2CharTemplate
             _factionId = null;
             return;
         }
-        if(factionId.equals("ketra"))
-            _specialFaction = FACTION_KETRA;
-        else if(factionId.equals("varka"))
-            _specialFaction = FACTION_VARKA;
         _factionId = factionId.intern();
     }
 
@@ -692,14 +802,6 @@ public final class L2NpcTemplate extends L2CharTemplate
     }
 
     /**
-     * @return the race
-     */
-    public int getRace()
-    {
-        return _race;
-    }
-
-    /**
      * @param factionName the nPCFactionName to set
      */
     public void setNPCFactionName(String factionName)
@@ -721,10 +823,5 @@ public final class L2NpcTemplate extends L2CharTemplate
     public void setJClass(String class1)
     {
         _jClass = class1;
-    }
-
-    public byte getSpecialFaction()
-    {
-        return _specialFaction;
     }
 }

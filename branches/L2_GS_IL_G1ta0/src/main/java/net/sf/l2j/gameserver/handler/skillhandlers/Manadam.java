@@ -65,26 +65,26 @@ public class Manadam implements ISkillHandler
                 weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
             }
         }
-		for (int index = 0; index < targets.length; index++)
-		{
-			target = (L2Character) targets[index];
-			//check if skill is allowed on other.properties for raidbosses
-			if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-				continue;
+		for (L2Object element : targets) {
+			target = (L2Character) element;
 			
-            if(target.reflectSkill(skill))
-            	target = activeChar;
-            
+			if(target.reflectSkill(skill))
+				target = activeChar;
+
 			boolean acted = Formulas.getInstance().calcMagicAffected(activeChar, target, skill);
 			if (!acted)
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
-			} else
+			}
+			else
 			{
 				double damage = Formulas.getInstance().calcManaDam(activeChar, target, skill, ss, bss);
 				
 				double mp = ( damage > target.getStatus().getCurrentMp() ? target.getStatus().getCurrentMp() : damage);
-				target.getStatus().setCurrentMp(target.getStatus().getCurrentMp() - mp);
+				target.reduceCurrentMp(mp);
+				if (damage > 0)
+					if (target.isSleeping()) target.stopSleeping(null);
+
 				StatusUpdate sump = new StatusUpdate(target.getObjectId());
 				sump.addAttribute(StatusUpdate.CUR_MP, (int) target.getStatus().getCurrentMp());
 				// [L2J_JP EDIT START - TSL]
@@ -107,11 +107,11 @@ public class Manadam implements ISkillHandler
 				sm.addNumber((int)mp);
 				target.sendPacket(sm);
 				if (activeChar instanceof L2PcInstance)
-	            {
-	                SystemMessage sm2 = new SystemMessage(SystemMessageId.YOUR_OPPONENTS_MP_WAS_REDUCED_BY_S1);
+				{
+					SystemMessage sm2 = new SystemMessage(SystemMessageId.YOUR_OPPONENTS_MP_WAS_REDUCED_BY_S1);
 					sm2.addNumber((int)mp);
-	                activeChar.sendPacket(sm2);
-	            }
+					activeChar.sendPacket(sm2);
+				}
 				// [L2J_JP EDIT END - TSL]
 			}
 		}

@@ -49,10 +49,8 @@ public class RequestPledgePowerGradeList extends L2GameClientPacket
             player.sendPacket(new PledgePowerGradeList(privs));
             //_log.warn("plegdepowergradelist send, privs length: "+privs.length);
         }
-        
     }
-    
-    
+
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */

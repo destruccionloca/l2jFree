@@ -36,18 +36,20 @@ public class AdminCTFEngine implements IAdminCommandHandler {
 
  private static final String[] ADMIN_COMMANDS = {"admin_ctf",
                                            "admin_ctf_name", "admin_ctf_desc", "admin_ctf_join_loc",
+                                           "admin_ctf_minlvl", "admin_ctf_maxlvl",
                                            "admin_ctf_npc", "admin_ctf_npc_pos",
                                            "admin_ctf_reward", "admin_ctf_reward_amount",
-                                           "admin_ctf_team_add", "admin_ctf_team_remove", "admin_ctf_team_pos", "admin_ctf_team_color", "admin_ctf_team_flag",
+                                           "admin_ctf_team_add", "admin_ctf_team_remove", "admin_ctf_team_pos", "admin_ctf_team_color","admin_ctf_team_flag",
                                            "admin_ctf_join", "admin_ctf_teleport", "admin_ctf_start", "admin_ctf_abort", "admin_ctf_finish",
-                                           "admin_ctf_sit","admin_ctf_minlvl","admin_ctf_maxlvl",
-                                           "admin_ctf_dump", "admin_ctf_save", "admin_ctf_load"};
+                                           "admin_ctf_sit", "admin_ctf_dump", "admin_ctf_save", "admin_ctf_load", "admin_ctf_jointime", 
+                                           "admin_ctf_eventtime", "admin_ctf_autoevent","admin_ctf_minplayers","admin_ctf_maxplayers"};
  
  private static final int REQUIRED_LEVEL = 100;
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
-        if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+        try{
+    	if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
         
         if (command.equals("admin_ctf"))
             showMainPage(activeChar);
@@ -68,11 +70,36 @@ public class AdminCTFEngine implements IAdminCommandHandler {
             CTF._minlvl = Integer.valueOf(command.substring(17));
             showMainPage(activeChar);
         }
+        else if (command.startsWith("admin_ctf_team_flag "))
+        {
+            String[] params;
+
+            params = command.split(" ");
+            
+            if (params.length != 2)
+            {
+                activeChar.sendMessage("Wrong usge: //ctf_team_flag <teamName>");
+                return false;
+            }
+
+            CTF.setTeamFlag(params[1], activeChar);
+            showMainPage(activeChar);
+        }
         else if (command.startsWith("admin_ctf_maxlvl "))
         {
             if (!CTF.checkMaxLevel(Integer.valueOf(command.substring(17))))
                 return false;
             CTF._maxlvl = Integer.valueOf(command.substring(17));
+            showMainPage(activeChar);
+        }
+        else if (command.startsWith("admin_ctf_minplayers "))
+        {
+            CTF._minPlayers = Integer.valueOf(command.substring(21));
+            showMainPage(activeChar);
+        }
+        else if (command.startsWith("admin_ctf_maxplayers "))
+        {
+            CTF._maxPlayers = Integer.valueOf(command.substring(21));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_ctf_join_loc "))
@@ -100,6 +127,16 @@ public class AdminCTFEngine implements IAdminCommandHandler {
             CTF._rewardAmount = Integer.valueOf(command.substring(24));
             showMainPage(activeChar);
         }
+        else if (command.startsWith("admin_ctf_jointime "))
+        {
+            CTF._joinTime = Integer.valueOf(command.substring(19));
+            showMainPage(activeChar);
+        }
+        else if (command.startsWith("admin_ctf_eventtime "))
+        {
+            CTF._eventTime = Integer.valueOf(command.substring(20));
+            showMainPage(activeChar);
+        }
         else if (command.startsWith("admin_ctf_team_add "))
         {
             String teamName = command.substring(19);
@@ -111,23 +148,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         {
             String teamName = command.substring(22);
 
-
             CTF.removeTeam(teamName);
-            showMainPage(activeChar);
-        }
-        else if (command.startsWith("admin_ctf_team_flag "))
-        {
-            String[] params;
-
-            params = command.split(" ");
-            
-            if (params.length != 3)
-            {
-                activeChar.sendMessage("Wrong usge: //ctf_flag_id <npcId> <teamName>");
-                return false;
-            }
-
-            CTF.setTeamFlag(params[2], Integer.valueOf(params[1]));
             showMainPage(activeChar);
         }
         else if (command.startsWith("admin_ctf_team_pos "))
@@ -145,7 +166,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
             
             if (params.length != 3)
             {
-                activeChar.sendMessage("Wrong usge: //ctf_team_color <colorHex> <teamName>");
+                activeChar.sendMessage("Wrong usege: //ctf_team_color <colorHex> <teamName>");
                 return false;
             }
 
@@ -154,7 +175,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_ctf_join"))
         {
-            CTF.startJoin(activeChar);
+        	CTF.startJoin(activeChar);
             showMainPage(activeChar);
         }
         else if (command.equals("admin_ctf_teleport"))
@@ -164,7 +185,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_ctf_start"))
         {
-            CTF.startEvent();
+        	CTF.startEvent(activeChar);
             showMainPage(activeChar);
         }
         else if(command.equals("admin_ctf_abort"))
@@ -175,7 +196,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         }
         else if(command.equals("admin_ctf_finish"))
         {
-            CTF.finishEvent(activeChar);
+            CTF.finishEvent();
             showMainPage(activeChar);
         }
         else if (command.equals("admin_ctf_sit"))
@@ -188,6 +209,14 @@ public class AdminCTFEngine implements IAdminCommandHandler {
             CTF.loadData();
             showMainPage(activeChar);
         }
+        else if (command.equals("admin_ctf_autoevent"))
+        {
+        	if(CTF._joinTime>0 && CTF._eventTime>0)
+        		CTF.autoEvent();
+        	else
+        		activeChar.sendMessage("Wrong usege: join time or event time invallid.");
+            showMainPage(activeChar);
+        }
         else if (command.equals("admin_ctf_save"))
         {
             CTF.saveData();
@@ -197,6 +226,10 @@ public class AdminCTFEngine implements IAdminCommandHandler {
             CTF.dumpData();
 
         return true;
+        }catch(Throwable t){
+        	activeChar.sendMessage("The command was not used correctly");
+        	return false;
+        }
     }
 
     public String[] getAdminCommandList()
@@ -221,8 +254,13 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         replyMSG.append("<td width=\"100\"><button value=\"Description\" action=\"bypass -h admin_ctf_desc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Join Location\" action=\"bypass -h admin_ctf_join_loc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Max lvl\" action=\"bypass -h admin_ctf_maxlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Min lvl\" action=\"bypass -h admin_ctf_minlvl $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Max players\" action=\"bypass -h admin_ctf_maxplayers $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Min players\" action=\"bypass -h admin_ctf_minplayers $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"NPC\" action=\"bypass -h admin_ctf_npc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"NPC Pos\" action=\"bypass -h admin_ctf_npc_pos\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
@@ -230,17 +268,20 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         replyMSG.append("<td width=\"100\"><button value=\"Reward\" action=\"bypass -h admin_ctf_reward $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Reward Amount\" action=\"bypass -h admin_ctf_reward_amount $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Join Time\" action=\"bypass -h admin_ctf_jointime $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Event Time\" action=\"bypass -h admin_ctf_eventtime $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Add\" action=\"bypass -h admin_ctf_team_add $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Color\" action=\"bypass -h admin_ctf_team_color $input1 $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Team Flag\" action=\"bypass -h admin_ctf_team_flag $input1 $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Pos\" action=\"bypass -h admin_ctf_team_pos $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("</tr></table><table><tr>");
+        replyMSG.append("<td width=\"100\"><button value=\"Team Flag\" action=\"bypass -h admin_ctf_team_flag $input1 $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Team Remove\" action=\"bypass -h admin_ctf_team_remove $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Join\" action=\"bypass -h admin_ctf_join\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Teleport\" action=\"bypass -h admin_ctf_teleport\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Start\" action=\"bypass -h admin_ctf_start\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("</tr><br><tr>");
+        replyMSG.append("</tr></table><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Abort\" action=\"bypass -h admin_ctf_abort\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Finish\" action=\"bypass -h admin_ctf_finish\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><table><tr>");
@@ -249,6 +290,7 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         replyMSG.append("</tr></table><br><br><table><tr>");
         replyMSG.append("<td width=\"100\"><button value=\"Save\" action=\"bypass -h admin_ctf_save\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("<td width=\"100\"><button value=\"Load\" action=\"bypass -h admin_ctf_load\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Auto Event\" action=\"bypass -h admin_ctf_autoevent\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
         replyMSG.append("</tr></table><br><br>");
         replyMSG.append("Current event...<br1>");
         replyMSG.append("    ... name:&nbsp;<font color=\"00FF00\">" + CTF._eventName + "</font><br1>");
@@ -259,6 +301,10 @@ public class AdminCTFEngine implements IAdminCommandHandler {
         replyMSG.append("    ... reward Amount:&nbsp;<font color=\"00FF00\">" + CTF._rewardAmount + "</font><br><br>");
         replyMSG.append("    ... Min lvl:&nbsp;<font color=\"00FF00\">" + CTF._minlvl + "</font><br>");
         replyMSG.append("    ... Max lvl:&nbsp;<font color=\"00FF00\">" + CTF._maxlvl + "</font><br><br>");
+        replyMSG.append("    ... Min Players:&nbsp;<font color=\"00FF00\">" + CTF._minPlayers + "</font><br>");
+        replyMSG.append("    ... Max Players:&nbsp;<font color=\"00FF00\">" + CTF._maxPlayers + "</font><br><br>");
+        replyMSG.append("    ... Joining Time:&nbsp;<font color=\"00FF00\">" + CTF._joinTime + "</font><br>");
+        replyMSG.append("    ... Event Timer:&nbsp;<font color=\"00FF00\">" + CTF._eventTime + "</font><br><br>");
         replyMSG.append("Current teams:<br1>");
         replyMSG.append("<center><table border=\"0\">");
         
@@ -275,9 +321,11 @@ public class AdminCTFEngine implements IAdminCommandHandler {
             }
 
             replyMSG.append("</td></tr><tr><td>");
-            replyMSG.append("Flag Id: " +CTF._flagIds.get(CTF._teams.indexOf(team)));
-            replyMSG.append("</td></tr><tr><td>");
             replyMSG.append(CTF._teamColors.get(CTF._teams.indexOf(team)));
+            replyMSG.append("</td></tr><tr><td>");
+            replyMSG.append(CTF._teamsX.get(CTF._teams.indexOf(team)) + ", " + CTF._teamsY.get(CTF._teams.indexOf(team)) + ", " + CTF._teamsZ.get(CTF._teams.indexOf(team)));
+            replyMSG.append("</td></tr><tr><td>");
+            replyMSG.append("Flag Id: " +CTF._flagIds.get(CTF._teams.indexOf(team)));
             replyMSG.append("</td></tr><tr><td>");
             replyMSG.append(CTF._flagsX.get(CTF._teams.indexOf(team)) + ", " + CTF._flagsY.get(CTF._teams.indexOf(team)) + ", " + CTF._flagsZ.get(CTF._teams.indexOf(team)));
             replyMSG.append("</td></tr><tr><td width=\"60\"><button value=\"Remove\" action=\"bypass -h admin_ctf_team_remove " + team + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");

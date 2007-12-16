@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
+import javolution.util.FastList;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -62,7 +63,7 @@ public class SummonFriend implements ISkillHandler
         }
        	
         // check for summoner not in raid areas
-        L2Object[] objects = L2World.getInstance().getVisibleObjects(activeChar, 5000);
+        FastList<L2Object> objects = L2World.getInstance().getVisibleObjects(activeChar, 5000);
         
         if (objects != null)
         {
@@ -78,18 +79,14 @@ public class SummonFriend implements ISkillHandler
         
 		try 
         {
-			for (int index = 0; index < targets.length; index++)
-			{
-				if (!(targets[index] instanceof L2Character))
+			for (L2Object element : targets) {
+				if (!(element instanceof L2Character))
 					continue;
 
-				L2Character target = (L2Character)targets[index];
+				L2Character target = (L2Character)element;
 				
 				if (activeChar == target) continue;
-				//check if skill is allowed on other.properties for raidbosses
-				if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
-					continue;
-
+				
                 if (target instanceof L2PcInstance)
                 {
                     L2PcInstance targetChar = (L2PcInstance)target;
@@ -153,7 +150,7 @@ public class SummonFriend implements ISkillHandler
                     }
                     
                     // Requires a Summoning Crystal
-                    if (targetChar.getInventory().getItemByItemId(8615) == null)
+                    if ((targetChar.getInventory().getItemByItemId(8615) == null) && (skill.getId() != 1429))
                     {
                     	((L2PcInstance)activeChar).sendMessage("Your target cannot be summoned while he hasn't got a Summoning Crystal");
                     	targetChar.sendMessage("You cannot be summoned while you haven't got a Summoning Crystal");
@@ -162,10 +159,10 @@ public class SummonFriend implements ISkillHandler
                     
                     if (!Util.checkIfInRange(0, activeChar, target, false))
                     {
-                    	targetChar.getInventory().destroyItemByItemId("Consume", 8615, 1, targetChar, activeChar);
                     	targetChar.sendMessage("You are summoned to a party member.");
-                    	
                     	targetChar.teleToLocation(activeChar.getX(),activeChar.getY(),activeChar.getZ(), true);
+                    	if (skill.getId() != 1429)
+                          targetChar.getInventory().destroyItemByItemId("Consume", 8615, 1, targetChar, activeChar);
                     }
                     else
                     {

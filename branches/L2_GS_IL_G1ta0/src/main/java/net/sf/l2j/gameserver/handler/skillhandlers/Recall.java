@@ -19,7 +19,7 @@
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.datatables.MapRegionTable;
+import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -124,7 +124,7 @@ public class Recall implements ISkillHandler
 					}
 				}
 
-				target.teleToLocation(MapRegionTable.TeleportWhereType.Town);
+				target.teleToLocation(TeleportWhereType.Town);
 			}
 		} catch (Throwable e)
 		{

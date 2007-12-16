@@ -247,7 +247,7 @@ public class RecipeItemMaker implements Runnable
                         * GameTimeController.TICKS_PER_SECOND / Config.RATE_CRAFT_COST)
                         * GameTimeController.MILLIS_IN_TICK;
                 
-                // FIXME: please fix this packet to show crafting animation (somebody)
+                //FIXME: please fix this packet to show crafting animation (somebody)
                 MagicSkillUser msk = new MagicSkillUser(player, skillId, skillLevel, delay, 0);
                 player.broadcastPacket(msk);
                 
@@ -451,28 +451,13 @@ public class RecipeItemMaker implements Runnable
             GMAudit.auditGMAction(player, "transferitem", "PcInventory", params);
         }
         
-        L2ItemInstance createdItem = target.getInventory().addItem("Manufacture", itemId, itemCount,
-                                                                   target, player);
-        
-        // inform customer of earned item
-        SystemMessage sm = null;
-        if (itemCount > 1)
-        {
-            sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-            sm.addItemName(itemId);
-            sm.addNumber(itemCount);
-            target.sendPacket(sm);
-        } else
-        {
-            sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-            sm.addItemName(itemId);
-            target.sendPacket(sm);
-        }
-        
+        L2ItemInstance createdItem = target.addItem("Manufacture", itemId, itemCount,
+                                                                   target, true, true);
+
         if (target != player)
         {
             // inform manufacturer of earned profit
-            sm = new SystemMessage(SystemMessageId.EARNED_ADENA);
+            SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ADENA);
             sm.addNumber(price);
             player.sendPacket(sm);
         }

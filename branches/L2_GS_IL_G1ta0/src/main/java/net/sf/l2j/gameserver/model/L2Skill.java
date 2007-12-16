@@ -53,6 +53,7 @@ import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCharge;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeDmg;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeEffect;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCreateItem;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
@@ -131,11 +132,11 @@ public abstract class L2Skill
     {
         PDAM,
         MDAM,
+        CPDAM,
         DOT,
         BLEED,
         POISON,
         HEAL,
-        BALANCE_HEAL,
         HOT,
         COMBATPOINTHEAL,
         CPHOT,
@@ -151,6 +152,7 @@ public abstract class L2Skill
         RESURRECT,
         PASSIVE,
         CONT,
+        SIGNET,
         CONFUSION,
         UNLOCK,
         CHARGE                (L2SkillCharge.class),
@@ -164,6 +166,7 @@ public abstract class L2Skill
         AGGREMOVE,
         AGGREDUCE_CHAR,
         CHARGEDAM             (L2SkillChargeDmg.class),
+        CHARGE_EFFECT         (L2SkillChargeEffect.class),
         CONFUSE_MOB_ONLY,
         DEATHLINK,
         BLOW,
@@ -206,12 +209,12 @@ public abstract class L2Skill
         DELUXE_KEY_UNLOCK,
         SOW,
         HARVEST,
+        GET_PLAYER,
         
         FISHING,
         PUMPING,
         REELING,
         CANCEL_TARGET,
-        CHARGE_SELF,
         CREATE_ITEM      (L2SkillCreateItem.class),
         AGGDEBUFF,
         COMBATPOINTPERHEAL,
@@ -227,8 +230,7 @@ public abstract class L2Skill
         UNSUMMON_ENEMY_PET,
         BETRAY,
         BALANCE_LIFE,
-        SERVER_SIDE, //TODO: IMPLEMENT
-        // unimplemented
+        SERVER_SIDE,
         NOTDONE;
         
         private final Class<? extends L2Skill> _class;
@@ -401,11 +403,10 @@ public abstract class L2Skill
     private final int _effectRange;
     
     // all times in milliseconds 
-    private final int _skillTime;
-    private final int _skillInterruptTime;
     private final int _hitTime;
+    private final int _skillInterruptTime;
+    private final int _coolTime;
     private final int _reuseDelay;
-    private final int _buffDuration;
    
     /** Target type of the skill : SELF, PARTY, CLAN, PET... */
     private final SkillTargetType _targetType;
@@ -453,7 +454,8 @@ public abstract class L2Skill
     private final FastList<Integer> _teachers; // which NPC teaches
     private final boolean _isOffensive;
     private final int _numCharges;
-    private final int _forceId;
+    private final int _triggeredId;
+	private final int _triggeredCount;
 
     private final int _baseCritRate;  // percent of success for skill critical hit (especially for PDAM & BLOW - they're not affected by rCrit values or buffs). Default loads -1 for all other skills but 0 to PDAM & BLOW
     private final int _lethalEffect1;     // percent of success for lethal 1st effect (hit cp to 1 or if mob hp to 50%) (only for PDAM skills)
@@ -470,7 +472,9 @@ public abstract class L2Skill
     private final float _successRate; 
     private final int _minPledgeClass;
     
-    private final int _aggroPoints; 
+    private final int _aggroPoints;
+	
+	private final float _pvpMulti;
     
     protected Condition _preCondition;
     protected Condition _itemPreCondition;
@@ -504,11 +508,13 @@ public abstract class L2Skill
         _iRate        = set.getInteger("iRate", 0);
         _iKill        = set.getBool  ("iKill", false);
         _castRange    = set.getInteger("castRange", 0);
-        _effectRange = set.getInteger("effectRange", -1);
-        _skillTime    = set.getInteger("skillTime", 0);
-        _skillInterruptTime = set.getInteger("skillTime", _skillTime/2);
+        _effectRange  = set.getInteger("effectRange", -1);
+
         _hitTime      = set.getInteger("hitTime", 0);
+        _coolTime = set.getInteger("coolTime", 0);
+        _skillInterruptTime = (_hitTime / 2);
         _reuseDelay   = set.getInteger("reuseDelay", 0);
+
         _skillType    = set.getEnum("skillType", SkillType.class);
         _isDance      = set.getBool("isDance",false);
         if(_isDance)
@@ -518,7 +524,6 @@ public abstract class L2Skill
         else
             _timeMulti = Config.ALT_BUFF_TIME;
 
-        _buffDuration = set.getInteger("buffDuration", 1);
         _skillRadius  = set.getInteger("skillRadius", 80);
         
         _targetType   = set.getEnum("target", SkillTargetType.class);
@@ -559,8 +564,17 @@ public abstract class L2Skill
         _numCharges          = set.getInteger("num_charges", getLevel());
         _successRate         = set.getFloat("rate", 1);
         _minPledgeClass      = set.getInteger("minPledgeClass", 0);
-        _forceId             = set.getInteger("forceId", 0);
-
+        
+        _triggeredId         = set.getInteger("triggeredId", 0);
+        int triggeredCount   = set.getInteger("triggeredCount", 1);
+        
+        if (_triggeredId == 0) // no triggered skill
+            _triggeredCount = 0; // so set count to zero
+        else if (triggeredCount == 0) // there is a skill, but count is zero
+            _triggeredCount = 1; // then set it to one
+        else //there is a skill, and the count is valid
+            _triggeredCount = triggeredCount; // so just set it
+        
         _baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM  || _skillType == SkillType.BLOW) ? 0 : -1);
         _lethalEffect1 = set.getInteger("lethal1",0);
         _lethalEffect2 = set.getInteger("lethal2",0);
@@ -569,7 +583,9 @@ public abstract class L2Skill
         _sSBoost = set.getFloat("SSBoost", 0.f);
         
         _aggroPoints = set.getInteger("aggroPoints", 0);
-
+		
+		_pvpMulti = set.getFloat("pvpMulti", 1.f);
+		
         String canLearn = set.getString("canLearn", null);
         if (canLearn == null)
         {
@@ -708,40 +724,6 @@ public abstract class L2Skill
      */
     public final double getPower(L2Character activeChar)
     {
-         //Use another formula for Curse Death Link because default formula is very weak
-        /*if (_skillType == SkillType.DEATHLINK && activeChar != null)
-            return _power * Math.pow(1.7165 - activeChar.getCurrentHp()/activeChar.getMaxHp(), 2) * 0.577;
-        else return _power;
-        */
-        if (_skillType == SkillType.DEATHLINK || _skillType == SkillType.FATALCOUNTER)
-        {
-        if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.29)
-            return _power * 1.1;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.26)
-            return _power * 1.19;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.23)
-            return _power * 1.215;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.21)
-            return _power * 1.22;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.16)
-            return _power * 1.23;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.13)
-            return _power * 1.24;
-        else if (activeChar.getStatus().getCurrentHp() >= activeChar.getMaxHp()*0.09)
-            return _power * 1.35;
-        else if (activeChar.getStatus().getCurrentHp() >= 200)
-            return _power * 1.8;
-        else if (activeChar.getStatus().getCurrentHp() >= 170)
-            return _power * 2.1;
-        else if (activeChar.getStatus().getCurrentHp() >= 150)
-            return _power * 2.2;
-        else if (activeChar.getStatus().getCurrentHp() >= 130)
-            return _power * 2.3;
-        else if (activeChar.getStatus().getCurrentHp() >= 100)
-            return _power * 2.5;
-        else
-            return _power * 2.8;
-        }
         return _power;
     }
 
@@ -775,10 +757,20 @@ public abstract class L2Skill
         return _magicLevel;
     }
 
-    public int getForceId()
+    public int getTriggeredId()
     {
-        return _forceId;
+        return _triggeredId;
     }
+	
+	public int getTriggeredCount()
+	{
+		return _triggeredCount;
+	}
+	
+	public L2Skill getTriggeredSkill()
+	{
+		return SkillTable.getInstance().getInfo(_triggeredId, 1); // is there any skill with bigger level than one?! :$
+	}
 
     public final int getLevelDepend()
     {
@@ -815,14 +807,6 @@ public abstract class L2Skill
     { 
         return _effectType;
     }
-    
-    /**
-     * @return Returns the buffDuration.
-     */
-    public final int getBuffDuration()
-    {
-        return _buffDuration * _timeMulti;
-    }
 
     /**
      * @return Returns the timeMulti.
@@ -853,7 +837,7 @@ public abstract class L2Skill
      */
     public final int getHitTime()
     {
-        return Math.round(Config.ALT_GAME_SKILL_HIT_RATE * _hitTime);
+        return _hitTime;
     }
 
     /**
@@ -1018,9 +1002,9 @@ public abstract class L2Skill
         return _reuseDelay;
     }
 
-    public final int getSkillTime()
+    public final int getCoolTime()
     {
-        return _skillTime;
+        return _coolTime;
     }
 
     public final int getSkillInterruptTime()
@@ -1072,6 +1056,11 @@ public abstract class L2Skill
     {
         return _aggroPoints;
     }
+
+	public final float getPvpMulti()
+	{
+		return _pvpMulti;
+	}
 
     public final boolean useSoulShot()
     {
@@ -1160,7 +1149,12 @@ public abstract class L2Skill
     {
         return _isOffensive;
     }
-    
+
+    public final int getNumCharges()
+    {
+        return _numCharges;
+    }
+
     public final int getBaseCritRate()
     {
         return _baseCritRate;
@@ -1181,12 +1175,18 @@ public abstract class L2Skill
        return _directHpDmg;
     }
 
+	public final static boolean skillLevelExists(int skillId, int level)
+	{
+		return SkillTable.getInstance().getInfo(skillId, level) != null;
+	}
+
     public final boolean isSkillTypeOffensive()
     {
         switch (_skillType)
         {
             case PDAM:
             case MDAM:
+            case CPDAM:
             case DOT:
             case BLEED:
             case POISON:
@@ -1223,7 +1223,6 @@ public abstract class L2Skill
             case WARRIOR_BANE:
             case AGGREMOVE:
             case AGGREDUCE_CHAR: 
-            case CHARGE_SELF:
             case UNSUMMON_ENEMY_PET:
             case CANCEL_TARGET:
             case BETRAY:
@@ -1301,27 +1300,24 @@ public abstract class L2Skill
         return false;
     }
     
-    public boolean checkCondition(L2Character activeChar, boolean itemOrWeapon)
+    public boolean checkCondition(L2Character activeChar, L2Object target, boolean itemOrWeapon)
     {
         if((getCondition() & L2Skill.COND_SHIELD) != 0)
         {
-            /*
-            L2Armor armorPiece;
-            L2ItemInstance dummy;
-            dummy = activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-            armorPiece = (L2Armor) dummy.getItem();
-            */
-            //TODO add checks for shield here.
+            //TODO: add checks for shield here.
             
         }
 
         Condition preCondition = _preCondition;
         if(itemOrWeapon) preCondition = _itemPreCondition;
-
         if (preCondition == null) return true;
+
         Env env = new Env();
         env.player = activeChar;
+        if (target instanceof L2Character)
+            env.target = (L2Character)target;
         env.skill = this;
+
         if (!preCondition.test(env))
         {
             String msg = preCondition.getMessage();
@@ -1424,9 +1420,11 @@ public abstract class L2Skill
         }*/
         case TARGET_HOLY:
         {
-            if (activeChar instanceof L2PcInstance && activeChar.getTarget() instanceof L2ArtefactInstance)
-            {
-                return new L2Character[] {(L2ArtefactInstance) activeChar.getTarget()};
+            if (activeChar instanceof L2PcInstance){
+            	 if (activeChar.getTarget() instanceof L2ArtefactInstance)
+            		 return new L2Character[] {(L2ArtefactInstance) activeChar.getTarget()};
+            	 else if ( ((L2PcInstance)activeChar).checkFOS())
+            		 return new L2Character[] {(L2NpcInstance) activeChar.getTarget()};
             }
 
             return null;
@@ -1719,36 +1717,6 @@ public abstract class L2Skill
             if (targetList.size() == 0) return null;
             return targetList.toArray(new L2Character[targetList.size()]);
         }        
-        /*case TARGET_MULTIFACE:
-        {
-            if ((!(target instanceof L2Attackable) && !(target instanceof L2PcInstance)))
-            {
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-                return null;
-            }
-
-            if (onlyFirst == false) targetList.add(target);
-            else return new L2Character[] {target};
-
-            int radius = getSkillRadius();
-
-            for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
-            {
-                if (obj == null) continue;
-                if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
-
-                if (obj instanceof L2Attackable && obj != target) targetList.add((L2Character) obj);
-
-                if (targetList.size() == 0)
-                {
-                    activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_CANT_FOUND));
-                    return null;
-                }
-            }
-            return targetList.toArray(new L2Character[targetList.size()]);
-            //TODO multiface targets all around right now.  need it to just get targets
-            //the character is facing.
-        }*/
         case TARGET_PARTY:
         {
             if (onlyFirst)
@@ -1830,6 +1798,7 @@ public abstract class L2Skill
         case TARGET_PARTY_OTHER:
         {
             if (target != null && target != activeChar
+                && target instanceof L2PcInstance
                 && activeChar.getParty() != null && target.getParty() != null
                 && activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID())
             {
@@ -2748,7 +2717,7 @@ public abstract class L2Skill
                 if (e.getEffectType()== L2Effect.EffectType.CHARGE)
                 {
                     env.skill = SkillTable.getInstance().getInfo(8, effector.getSkillLevel(8));
-                    EffectCharge effect = (EffectCharge) env.target.getEffect(L2Effect.EffectType.CHARGE);
+                    EffectCharge effect = (EffectCharge) env.target.getFirstEffect(L2Effect.EffectType.CHARGE);
                     if (effect != null) 
                     {
                         if (effect.numCharges < _numCharges)

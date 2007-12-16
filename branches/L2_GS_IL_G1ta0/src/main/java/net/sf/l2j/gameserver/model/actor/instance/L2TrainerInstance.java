@@ -20,8 +20,6 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 /**
  * This class ...
  * 
@@ -29,25 +27,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class L2TrainerInstance extends L2FolkInstance
 {
-    private final static Log _log = LogFactory.getLog(L2TrainerInstance.class.getName());
     /**
      * @param template
      */
     public L2TrainerInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
-    }
-
-    /**
-     * this is called when a player interacts with this NPC
-     * @param player
-     */
-    @Override
-    public void onAction(L2PcInstance player)
-    {
-        if (_log.isDebugEnabled()) _log.debug("Trainer activated");
-        player.setLastFolkNPC(this);
-        super.onAction(player);
     }
 
     @Override

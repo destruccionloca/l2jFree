@@ -66,12 +66,11 @@ public class Sow implements ISkillHandler
 		if(_log.isDebugEnabled())
 			_log.info("Casting sow");
 		
-		for (int index = 0; index < targetList.length; index++)
-		{
-			if (!(targetList[0] instanceof L2MonsterInstance))
+		for (L2Object element : targetList) {
+			if (!(element instanceof L2MonsterInstance))
 				continue;
 	
-			_target = (L2MonsterInstance) targetList[0];
+			_target = (L2MonsterInstance) element;
 	
 			if (_target.isSeeded())
 			{
@@ -121,8 +120,7 @@ public class Sow implements ISkillHandler
 			{
 				_activeChar.getParty().broadcastToPartyMembers(sm);
 			}
-			//TODO: Mob should not agro on player, this way doesn't work really nice
-			_activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, _target);
+			//FIXME: Mob should not become aggro against player, this way doesn't work really nice
 			_target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
 
@@ -130,7 +128,6 @@ public class Sow implements ISkillHandler
 	
 	private boolean calcSuccess()
 	{
-		// TODO: check all the chances
 		int basicSuccess = (L2Manor.getInstance().isAlternative(_seedId)?20:90);
 		int minlevelSeed = 0;
 		int maxlevelSeed = 0;

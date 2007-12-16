@@ -99,20 +99,24 @@ public class AdminCreateItem implements IAdminCommandHandler
 	
 	private void createItem(L2PcInstance activeChar, int id, int num)
 	{
+		L2Item template = ItemTable.getInstance().getTemplate(id);
+		if (template == null)
+		{
+			activeChar.sendMessage("This item doesn't exist.");
+			return;
+		}
 		if (num > 20)
 		{
-			L2Item template = ItemTable.getInstance().getTemplate(id);
 			if (!template.isStackable())
 			{
 				activeChar.sendMessage("This item does not stack - Creation aborted.");
 				return;
 			}
 		}
+
 		activeChar.getInventory().addItem("Admin", id, num, activeChar, null);
-		
-		ItemList il = new ItemList(activeChar, true);
-		activeChar.sendPacket(il);
-		
-		activeChar.sendMessage("You have spawned " + num + " item(s) number " + id + " in your inventory."); 
+		activeChar.sendMessage("You have spawned " + num + " " + template.getName() + " (" + id + ") in your inventory.");
+		// Send whole item list and open inventory window
+		activeChar.sendPacket(new ItemList(activeChar, true));
 	}
 }

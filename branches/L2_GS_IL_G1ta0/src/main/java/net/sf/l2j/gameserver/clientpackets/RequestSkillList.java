@@ -18,9 +18,7 @@
  */
 package net.sf.l2j.gameserver.clientpackets;
 
-import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.serverpackets.SkillList;
 
 /**
  * This class ...
@@ -31,11 +29,11 @@ public class RequestSkillList extends L2GameClientPacket
 {
 	private static final String _C__3F_REQUESTSKILLLIST = "[C] 3F RequestSkillList";
 	//private final static Log _log = LogFactory.getLog(RequestSkillList.class.getName());
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int _unk1;
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int _unk2;
-    @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	private int _unk3;
 
 	/**
@@ -43,36 +41,21 @@ public class RequestSkillList extends L2GameClientPacket
 	 * format:		c
 	 * @param rawPacket
 	 */
-    @Override
-    protected void readImpl()
-    {
-        // this is just a trigger packet. it has no content
+	@Override
+	protected void readImpl()
+	{
+		// this is just a trigger packet. it has no content
 	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance cha = getClient().getActiveChar();
-        
-        if (cha == null)
-            return;
 
-		SkillList response = new SkillList();
-		L2Skill[] skills = cha.getAllSkills();
-		
-		for (int i = 0; i < skills.length; i++)
-		{
-			L2Skill s = skills[i];
-            
-            if (s == null) 
-                continue;
-			if (s.getId() > 9000)
-				continue; // fake skills to change base stats
-            
-			response.addSkill(s.getId(), s.getLevel(), s.isPassive());
-		}
-		
-		sendPacket(response);
+		if (cha == null)
+			return;
+
+		cha.sendSkillList();
 	}
 
 	/* (non-Javadoc)

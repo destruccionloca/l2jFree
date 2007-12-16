@@ -64,10 +64,12 @@ public abstract class Quest
 
 	private final int _questId;
 	private final String _name;
+	private final String _prefixPath;       // used only for admin_quest_reload
 	private final String _descr;
-    private State _initialState;
-    private Map<String, State> _states;
-	
+	private State _initialState;
+	private Map<String, State> _states;
+	private FastList<Integer> _questItemIds;
+
 	/**
 	 * Return collection view of the values contains in the allEventS
 	 * @return Collection<Quest>
@@ -87,7 +89,19 @@ public abstract class Quest
 		_questId = questId;
 		_name = name;
 		_descr = descr;
-        _states = new FastMap<String, State>();
+		_states = new FastMap<String, State>();
+
+		// Given the quest instance, create a string representing the path and questName 
+		// like a simplified version of a canonical class name.  That is, if a script is in 
+		// DATAPACK_PATH/jscript/quests/abc the result will be quests.abc
+		// Similarly, for a script in DATAPACK_PATH/jscript/ai/individual/myClass.py
+		// the result will be ai.individual.myClass
+		// All quests are to be indexed, processed, and reloaded by this form of pathname.
+		StringBuffer temp = new StringBuffer(getClass().getCanonicalName());
+		temp.delete(0, temp.indexOf(".jscript.")+9);
+		temp.delete(temp.indexOf(getClass().getSimpleName()), temp.length());
+		_prefixPath = temp.toString();
+
 		if (questId != 0)
 		{
 			QuestManager.getInstance().addQuest(Quest.this);
@@ -97,15 +111,36 @@ public abstract class Quest
 			_allEventsS.put(name, this);
 		}
 	}
+
+	/**
+	 * The function init_LoadGlobalData is, by default, called by the constructor of all quests.
+	 * Children of this class can implement this function in order to define what variables
+	 * to load and what structures to save them in.  By default, nothing is loaded.
+	 */
+	protected void init_LoadGlobalData()
+	{
+		;
+	}
 	
+	/**
+	 * The function saveGlobalData is, by default, called at shutdown, for all quests, by the QuestManager.
+	 * Children of this class can implement this function in order to convert their structures 
+	 * into <var, value> tuples and make calls to save them to the database, if needed.
+	 * By default, nothing is saved.
+	 */
+	public void saveGlobalData()
+	{
+		;
+	}
+
     public static enum QuestEventType 
     {
-    	NPC_FIRST_TALK(false),  // control the first dialog shown by NPCs when they are clicked (some quests must override the default npc action)
-        QUEST_START(true),	// onTalk action from start npcs
-        QUEST_TALK(true),		// onTalk action from npcs participating in a quest
-        MOBGOTATTACKED(true),	// onAttack action triggered when a mob gets attacked by someone
-        MOBKILLED(true),		// onKill action triggered when a mob gets killed. 
-    	MOB_TARGETED_BY_SKILL(true);  // onSkillUse action triggered when a character uses a skill on a mob
+        NPC_FIRST_TALK(false),  // control the first dialog shown by NPCs when they are clicked (some quests must override the default npc action)
+        QUEST_START(true),      // onTalk action from start npcs
+        QUEST_TALK(true),       // onTalk action from npcs participating in a quest
+        MOBGOTATTACKED(true),   // onAttack action triggered when a mob gets attacked by someone
+        MOBKILLED(true),        // onKill action triggered when a mob gets killed. 
+        MOB_TARGETED_BY_SKILL(true);  // onSkillUse action triggered when a character uses a skill on a mob
         
         // control whether this event type is allowed for the same npc template in multiple quests
         // or if the npc must be registered in at most one quest for the specified event 
@@ -164,7 +199,17 @@ public abstract class Quest
 	public String getName() {
 		return _name;
 	}
-	
+
+	/**
+	* Return name of the prefix path for the quest, down to the last "."
+	 * For example "quests." or "ai.individual."
+	 * @return String
+	 */
+	public String getPrefixPath()
+	{
+		return _prefixPath;
+	}
+
 	/**
 	 * Return description of the quest
 	 * @return String
@@ -386,7 +431,7 @@ public abstract class Quest
 	 * Add state of quests, drops and variables for quests in the HashMap _quest of L2PcInstance
 	 * @param player : Player who is entering the world
 	 */
-	public static void playerEnter(L2PcInstance player) 
+	public final static void playerEnter(L2PcInstance player)
 	{
         java.sql.Connection con = null;
         try
@@ -483,6 +528,126 @@ public abstract class Quest
 		}
 	}
 
+	/**
+	 * Insert (or Update) in the database variables that need to stay persistant for this quest after a reboot.
+	 * This function is for storage of values that do not related to a specific player but are
+	 * global for all characters.  For example, if we need to disable a quest-gatekeeper until 
+	 * a certain time (as is done with some grand-boss gatekeepers), we can save that time in the DB.  
+	 * @param var : String designating the name of the variable for the quest
+	 * @param value : String designating the value of the variable for the quest
+	 */
+	public final void saveGlobalQuestVar(String var, String value)
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("REPLACE INTO quest_global_data (quest_name,var,value) VALUES (?,?,?)");
+			statement.setString(1, getName());
+			statement.setString(2, var);
+			statement.setString(3, value);
+			statement.executeUpdate();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("could not insert global quest variable:", e);
+		}
+		finally
+		{
+			try { con.close(); } catch (Exception e) {}
+		}
+	}
+
+	/**
+	 * Read from the database a previously saved variable for this quest.
+	 * Due to performance considerations, this function should best be used only when the quest is first loaded.
+	 * Subclasses of this class can define structures into which these loaded values can be saved.
+	 * However, on-demand usage of this function throughout the script is not prohibited, only not recommended. 
+	 * Values read from this function were entered by calls to "saveGlobalQuestVar"
+	 * @param var : String designating the name of the variable for the quest
+	 * @return String : String representing the loaded value for the passed var, or an empty string if the var was invalid
+	 */
+	public final String loadGlobalQuestVar(String var)
+	{
+		String result = "";
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("SELECT value FROM quest_global_data WHERE quest_name = ? AND var = ?");
+			statement.setString(1, getName());
+			statement.setString(2, var);
+			ResultSet rs = statement.executeQuery();
+			if (rs.first())
+				result =  rs.getString(1);
+			rs.close();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("could not load global quest variable:", e);
+		}
+		finally
+		{
+			try { con.close(); } catch (Exception e) {}
+		}
+		return result;
+	}
+
+	/**
+	 * Permanently delete from the database a global quest variable that was previously saved for this quest.
+	 * @param var : String designating the name of the variable for the quest
+	 */
+	public final void deleteGlobalQuestVar(String var)
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ? AND var = ?");
+			statement.setString(1, getName());
+			statement.setString(2, var);
+			statement.executeUpdate();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("could not delete global quest variable:", e);
+		}
+		finally
+		{
+			try { con.close(); } catch (Exception e) {}
+		}
+	}
+
+	/**
+	 * Permanently delete from the database all global quest variables that was previously saved for this quest.
+	 */
+	public final void deleteAllGlobalQuestVars()
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ?");
+			statement.setString(1, getName());
+			statement.executeUpdate();
+			statement.close();
+		}
+		catch (Exception e)
+		{
+			_log.warn("could not delete global quest variables:", e);
+		}
+		finally
+		{
+			try { con.close(); } catch (Exception e) {}
+		}
+	}
 
 	/**
 	 * Insert in the database the quest for the player.
@@ -499,7 +664,7 @@ public abstract class Quest
             PreparedStatement statement;
             statement = con.prepareStatement("INSERT INTO character_quests (char_id,name,var,value) VALUES (?,?,?,?)");
             statement.setInt   (1, qs.getPlayer().getObjectId());
-            statement.setString(2, qs.getQuest().getName());
+            statement.setString(2, qs.getQuestName());
             statement.setString(3, var);
             statement.setString(4, value);
 	    statement.executeUpdate();
@@ -535,7 +700,7 @@ public abstract class Quest
             statement = con.prepareStatement("UPDATE character_quests SET value=? WHERE char_id=? AND name=? AND var = ?");
             statement.setString(1, value);
             statement.setInt   (2, qs.getPlayer().getObjectId());
-            statement.setString(3, qs.getQuest().getName());
+            statement.setString(3, qs.getQuestName());
             statement.setString(4, var);
 			statement.executeUpdate();
             statement.close();
@@ -560,7 +725,7 @@ public abstract class Quest
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=? AND var=?");
             statement.setInt   (1, qs.getPlayer().getObjectId());
-            statement.setString(2, qs.getQuest().getName());
+            statement.setString(2, qs.getQuestName());
             statement.setString(3, var);
 	    statement.executeUpdate();
             statement.close();
@@ -584,7 +749,7 @@ public abstract class Quest
             PreparedStatement statement;
             statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=?");
             statement.setInt   (1, qs.getPlayer().getObjectId());
-            statement.setString(2, qs.getQuest().getName());
+            statement.setString(2, qs.getQuestName());
 			statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
@@ -633,7 +798,7 @@ public abstract class Quest
      * Add this quest to the list of quests that the passed mob will respond to for the specified Event type.<BR><BR>
      * @param npcId : id of the NPC to register
      * @param eventType : type of event being registered 
-     * @return int : npcId
+     * @return L2NpcTemplate : Npc Template corresponding to the npcId, or null if the id is invalid
      */
 	public L2NpcTemplate addEventId(int npcId, QuestEventType eventType)
 	{
@@ -963,5 +1128,17 @@ public abstract class Quest
             _log.warn("Could not spawn Npc " + npcId);
         }
         return null;
+    }
+
+    public void registerItem(int itemId)
+    {
+        if (_questItemIds == null)
+            _questItemIds = new FastList<Integer>();
+        _questItemIds.add(itemId);
+    }
+
+    public FastList<Integer> getRegisteredItemIds()
+    {
+        return _questItemIds;
     }
 }

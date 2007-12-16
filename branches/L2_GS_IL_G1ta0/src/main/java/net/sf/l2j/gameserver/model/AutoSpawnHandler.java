@@ -489,7 +489,8 @@ public class AutoSpawnHandler
 	                }
 				}
 
-                String nearestTown = TownManager.getInstance().getClosestTown(npcInst).getName();
+				//TODO: G1ta0 -> fix nearest town name
+                String nearestTown = "" ; //TownManager.getInstance().getClosestTownName(npcInst);
                 
                 // Announce to all players that the spawn has taken place, with the nearest town location.
                 if (spawnInst.isBroadcasting())

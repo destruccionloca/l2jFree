@@ -48,12 +48,8 @@ public class SnoopQuit extends L2GameClientPacket
 		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_snoopID);
 		if (player == null)
 			return;
-		L2PcInstance activeChar = getClient().getActiveChar();
-		if (activeChar == null)
-			return;
-
-		player.removeSnooper(activeChar);
-		activeChar.removeSnooped(player);
+		player.removeSnooped(); // Removes only the first snooper, doesn't matter which button window you press
+		player.refreshSnoop();
 
 	}
 

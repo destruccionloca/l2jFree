@@ -100,7 +100,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	{
 		_log.info("ThreadPoolManager: io:"+Config.IO_PACKET_THREAD_CORE_SIZE+" generalPackets:"+Config.GENERAL_PACKET_THREAD_CORE_SIZE+" general:"+Config.GENERAL_THREAD_CORE_SIZE+" ai:"+Config.AI_MAX_THREAD);
 		
-		_effectsScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_EFFECTS, new PriorityThreadFactory("EffectsSTPool", Thread.MIN_PRIORITY));
+		_effectsScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_EFFECTS, new PriorityThreadFactory("EffectsSTPool", Thread.NORM_PRIORITY));
 		_generalScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.THREAD_P_GENERAL, new PriorityThreadFactory("GerenalSTPool", Thread.NORM_PRIORITY));
 		
 		_ioPacketsThreadPool = new ThreadPoolExecutor(Config.IO_PACKET_THREAD_CORE_SIZE, Integer.MAX_VALUE,

@@ -96,13 +96,11 @@ public class ZoneRect extends ZoneBase
 	@Override
 	public boolean intersectsRectangle(int cx, int cy, int dx, int dy)
 	{
+	
+		if (checkIfInZone(cx, cy)) return true;
+
 		int rx = 0;
 		int ry = 0;
-		
-		if (checkIfInZone(cx, cy)) return true;
-		if (checkIfInZone(cx, dy)) return true;
-		if (checkIfInZone(dx, dy)) return true;
-		if (checkIfInZone(dx, cy)) return true;
 		
 		int ax = getMin().getX();
 		int ay = getMin().getY();

@@ -27,6 +27,7 @@ import net.sf.l2j.gameserver.instancemanager.AuctionManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.Location;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.IZone;
@@ -471,19 +472,18 @@ public class ClanHall
 	/** Banish Foreigner */
 	public void banishForeigner(L2PcInstance activeChar)
 	{
-	//TODO not done !!!
-	/*
-	// Get players from this and nearest world regions
-	for(L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
-	{
-		if(!(player instanceof L2PcInstance))
-			continue;
-		// Skip if player is in clan
-		if(((L2PcInstance) player).getClanId() == getOwnerId())
-			continue;
-		if(checkIfInZone(player))
-			player.teleToLocation(MapRegionTable.TeleportWhereType.Town);
-	}*/
+		if (getZone(ZoneType.ClanHall) == null) return;
+		// Get players from this and nearest world regions
+		for(L2Character character : getZone(ZoneType.ClanHall).getCharacters())
+		{
+			if(!(character instanceof L2PcInstance))
+				continue;
+			// Skip if player is in clan
+			if(((L2PcInstance) character).getClanId() == getOwnerId())
+				continue;
+
+			character.teleToLocation(getRestartPoint(RestartType.RestartNormal), true);
+		}
 	}
 
 	/** Restore clan hall owner and paid period from DB */

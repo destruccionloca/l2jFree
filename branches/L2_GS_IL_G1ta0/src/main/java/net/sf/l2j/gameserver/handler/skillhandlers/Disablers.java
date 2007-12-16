@@ -151,17 +151,16 @@ public class Disablers implements ISkillHandler
                 activeSummon.setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
             }
         }
-        for (int index = 0; index < targets.length; index++) 
-        {
+        for (L2Object element : targets) {
             // Get a target L2Character targets
-            if (!(targets[index] instanceof L2Character)) continue;
+            if (!(element instanceof L2Character)) continue;
    
-            L2Character target = (L2Character) targets[index];
+            L2Character target = (L2Character) element;
                        
             if (target == null || target.isDead()) //bypass if target is null or dead
                 continue;
             //check if skill is allowed on other.properties for raidbosses
-            if(target.isRaid() && ! target.checkSkillCanAffectMyself(skill))
+            if(!target.checkSkillCanAffectMyself(skill))
                 continue;
             
             switch (type)
@@ -414,10 +413,8 @@ public class Disablers implements ISkillHandler
                                                 target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK,activeChar);}
                                         }
                                     }
-                                    activeChar.stopEffect(skill.getId());
                                     target.setTarget(activeChar); //c5 hate PvP
-                                    if (activeChar.getEffect(skill.getId()) != null)
-                                        activeChar.removeEffect(activeChar.getEffect(skill.getId()));
+                                    activeChar.stopSkillEffects(skill.getId());
                                     skill.getEffects(activeChar, activeChar);
                                     target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int) ((150*skill.getPower())/(target.getLevel()+7)));
                                 }
@@ -534,10 +531,10 @@ public class Disablers implements ISkillHandler
                     {
                         if (activeChar instanceof L2PcInstance)  
                         {
-                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);  
-                            sm.addString(target.getName());  
-                            sm.addSkillName(skill.getId());  
-                            activeChar.sendPacket(sm);  
+                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+                            sm.addString(target.getName());
+                            sm.addSkillName(skill.getId());
+                            activeChar.sendPacket(sm);
                         }
                     }
 
@@ -552,8 +549,17 @@ public class Disablers implements ISkillHandler
                         if(target1.reflectSkill(skill))
                            target1 = activeChar;
 
-                        if (! Formulas.getInstance().calcSkillSuccess(activeChar, target1, skill, ss, sps, bss))
+                        if (!Formulas.getInstance().calcSkillSuccess(activeChar, target1, skill, ss, sps, bss))
+                        {
+                            if (activeChar instanceof L2PcInstance)
+                            {
+                                SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+                                sm.addString(target1.getName());
+                                sm.addSkillName(skill.getId());
+                                activeChar.sendPacket(sm);
+                            }
                             continue;
+                        }
                     
                         L2Effect[] effects = target1.getAllEffects();
                         for(L2Effect e: effects)
@@ -566,7 +572,7 @@ public class Disablers implements ISkillHandler
                                     break;
                                 }
                             }
-                        }                        
+                        }
                     }
                     break;
                 }
@@ -575,13 +581,22 @@ public class Disablers implements ISkillHandler
                 {
                     for(L2Object t: targets)
                     {
-                       L2Character target1 = (L2Character) t;
+                        L2Character target1 = (L2Character) t;
 
-                       if(target1.reflectSkill(skill))
-                           target1 = activeChar;
+                        if(target1.reflectSkill(skill))
+                            target1 = activeChar;
 
-                       if (! Formulas.getInstance().calcSkillSuccess(activeChar, target1, skill, ss, sps, bss))
-                           continue;
+                        if (!Formulas.getInstance().calcSkillSuccess(activeChar, target1, skill, ss, sps, bss))
+                        {
+                            if (activeChar instanceof L2PcInstance)
+                            {
+                                SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+                                sm.addString(target1.getName());
+                                sm.addSkillName(skill.getId());
+                                activeChar.sendPacket(sm);
+                            }
+                            continue;
+                        }
                     
                         L2Effect[] effects = target1.getAllEffects();
                         for(L2Effect e: effects)
@@ -598,7 +613,7 @@ public class Disablers implements ISkillHandler
                     }
                     break;
                 }
-                           
+
                 case NEGATE:
                 case CANCEL:
                 {
@@ -627,9 +642,12 @@ public class Disablers implements ISkillHandler
                                     case 4515:
                                     case 110:
                                     case 111:
+                                    case 1323:
+                                    case 1325:
+                                        // Cannot cancel skills 4082, 4215, 4515, 110, 111, 1323, 1325
                                         break;
                                     default:
-                                        if(e.getSkill().getSkillType() == SkillType.BUFF)
+                                        if(e.getSkill().getSkillType() == SkillType.BUFF) //sleep, slow, surrenders etc
                                         {
                                             int rate = 100;
                                             int level = e.getLevel();
@@ -641,6 +659,8 @@ public class Disablers implements ISkillHandler
                                                 maxfive--;
                                             }
                                         }
+                                        else
+                                            e.exit();
                                         break;
                                 }
                                 if(maxfive == 0) break;
@@ -667,61 +687,6 @@ public class Disablers implements ISkillHandler
                         negateEffect(target,SkillType.BUFF,_negatePower,_negateId);
                         break;
                     }
-      
-                    else if (skill.getId() == 1344 || skill.getId() == 1350) //warrior bane
-                    {
-                        if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))
-                        {
-                            L2Effect[] effects = target.getAllEffects();
-                            for (L2Effect e : effects)
-                            {
-                                if (e.getSkill().getSkillType() == SkillType.BUFF) //remove attck.speed and speed buffs
-                                {
-                                    switch(e.getSkill().getId())
-                                    {
-                                        case 230: case 268: case 275: case 298: case 1062: case 1086:
-                                        case 1251: case 1261: case 1282: case 1356: case 1361:
-                                            e.exit();
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                            sm.addString(skill.getName() + " failed."); 
-                            if (activeChar instanceof L2PcInstance)
-                                activeChar.sendPacket(sm);
-                        }
-                        break;
-                    }
-                    else if (skill.getId() == 1345 || skill.getId() == 1351) //mage bane m.attk _ c.speed
-                    {
-                        if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, false, sps, bss))    
-                        {
-                            L2Effect[] effects = target.getAllEffects();
-                            for (L2Effect e : effects)
-                            {
-                                if (e.getSkill().getSkillType() == SkillType.BUFF)
-                                {
-                                    switch(e.getSkill().getId())
-                                    {
-                                        case 273: case 276: case 1002: case 1004: case 1059: case 1062:
-                                        case 1085: case 1261: case 1361: case 1365:
-                                            e.exit();
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                            sm.addString(skill.getName() + " failed."); 
-                            if (activeChar instanceof L2PcInstance)
-                                activeChar.sendPacket(sm);
-                        }
-                        break;
-                    }
                     // Touch of Death
                     else if (skill.getId() == 342 && target != activeChar)//can't cancel your self
                     {
@@ -740,17 +705,22 @@ public class Disablers implements ISkillHandler
                                     if (level > 0) skillrate = Integer.valueOf(200/(1 + level));
                                     if (skillrate > 95) skillrate = 95;
                                     else if (skillrate < 5) skillrate = 5;
-                                    if(Rnd.get(100) < skillrate) {
+                                    if(Rnd.get(100) < skillrate)
+                                    {
                                         e.exit();
                                         maxfive--;
                                     }
                                 }
                                 if(maxfive == 0) break;
                             }
+                            skill.getEffects(activeChar, target);
                         }
                         else if(activeChar instanceof L2PcInstance)
                         {
-                            activeChar.sendMessage(skill.getName()+" failed.");
+                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+                            sm.addString(target.getName());
+                            sm.addSkillName(skill.getId());
+                            activeChar.sendPacket(sm);
                         }
                         break;
                     }
@@ -808,7 +778,7 @@ public class Disablers implements ISkillHandler
             }//end switch
         }//end for
         // self Effect :]
-        L2Effect effect = activeChar.getEffect(skill.getId());
+        L2Effect effect = activeChar.getFirstEffect(skill.getId());
         if (effect != null && effect.isSelfEffect())
         {
            //Replace old effect with new one.

@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
+import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.GMAudit;
@@ -30,11 +31,14 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
+import net.sf.l2j.gameserver.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.serverpackets.GMViewPledgeInfo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,6 +108,10 @@ public class RequestBypassToServer extends L2GameClientPacket
             {
                 comeHere(activeChar);
             }
+            else if (_command.startsWith("show_clan_info "))
+            {
+            	activeChar.sendPacket(new GMViewPledgeInfo(ClanTable.getInstance().getClanByName(_command.substring(15)),activeChar));
+            }
             else if (_command.startsWith("player_help "))
             {
                 playerHelp(activeChar, _command.substring(12));
@@ -124,16 +132,16 @@ public class RequestBypassToServer extends L2GameClientPacket
                     L2Object object = L2World.getInstance().findObject(Integer.parseInt(id));
                     if (_command.substring(endOfId+1).startsWith("event_participate")) L2Event.inscribePlayer(activeChar);
 
-                    if (_command.substring(endOfId+1).startsWith("vip_joinVIPTeam"))
+                    else if (_command.substring(endOfId+1).startsWith("vip_joinVIPTeam"))
                         VIP.addPlayerVIP(activeChar);
                    
-                    if (_command.substring(endOfId+1).startsWith("vip_joinNotVIPTeam"))
+                    else if (_command.substring(endOfId+1).startsWith("vip_joinNotVIPTeam"))
                         VIP.addPlayerNotVIP(activeChar);
                    
-                    if (_command.substring(endOfId+1).startsWith("vip_finishVIP"))
+                    else if (_command.substring(endOfId+1).startsWith("vip_finishVIP"))
                         VIP.vipWin(activeChar);
 
-                    if (_command.substring(endOfId+1).startsWith("tvt_player_join "))
+                    else if (_command.substring(endOfId+1).startsWith("tvt_player_join "))
                     {
                         String teamName = _command.substring(endOfId+1).substring(16);
 
@@ -143,7 +151,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not join now!");
                     }
                    
-                    if (_command.substring(endOfId+1).startsWith("tvt_player_leave"))
+                    else if (_command.substring(endOfId+1).startsWith("tvt_player_leave"))
                     {
                         if (TvT._joining)
                             TvT.removePlayer(activeChar);
@@ -151,7 +159,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not leave now!");
                     }
                     
-                    if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
+                    else if (_command.substring(endOfId+1).startsWith("dmevent_player_join"))
                     {
                         if (DM._joining)
                             DM.addPlayer(activeChar);
@@ -159,15 +167,15 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not join now!");
                     }
                    
-                    if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
+                    else if (_command.substring(endOfId+1).startsWith("dmevent_player_leave"))
                     {
                         if (DM._joining)
                             DM.removePlayer(activeChar);
                         else
                             activeChar.sendMessage("The event is already started. You can not leave now!");
                     }
-                               
-                    if (_command.substring(endOfId+1).startsWith("ctf_player_join "))
+                    
+                    else if (_command.substring(endOfId+1).startsWith("ctf_player_join "))
                     {
                         String teamName = _command.substring(endOfId+1).substring(16); 
                         
@@ -177,7 +185,7 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not join now!");
                     }
 
-                    if (_command.substring(endOfId+1).startsWith("ctf_player_leave"))
+                    else if (_command.substring(endOfId+1).startsWith("ctf_player_leave"))
                     {
                         if (CTF._joining)
                             CTF.removePlayer(activeChar);
@@ -185,15 +193,37 @@ public class RequestBypassToServer extends L2GameClientPacket
                             activeChar.sendMessage("The event is already started. You can not leave now!");
                     }
 
-                    if (object != null && object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+                    else if (_command.substring(endOfId+1).startsWith("fos_player_join "))
                     {
-                        ((L2NpcInstance) object).onBypassFeedback(activeChar, _command.substring(endOfId+1));
+                        String teamName = _command.substring(endOfId+1).substring(16); 
+                        
+                        if (FortressSiege._joining)
+                        	FortressSiege.addPlayer(activeChar, teamName);
+                        else
+                            activeChar.sendMessage("The event has already begun. You can not join now!");
                     }
-                } catch (NumberFormatException nfe) {}
+
+                    else if (_command.substring(endOfId+1).startsWith("fos_player_leave")){
+                        if (FortressSiege._joining)
+                        	FortressSiege.removePlayer(activeChar);
+                        else
+                            activeChar.sendMessage("The event has already begun. You can not withdraw your participation now!");
+                    }
+
+                    else if (object != null && object instanceof L2NpcInstance && endOfId > 0 && activeChar.isInsideRadius(object, L2NpcInstance.INTERACTION_DISTANCE, false, false))
+                    {
+                        ((L2NpcInstance)object).onBypassFeedback(activeChar, _command.substring(endOfId+1));
+                    }
+                    activeChar.sendPacket(new ActionFailed());
+                }
+                catch (NumberFormatException nfe) {}
             }
             //  Draw a Symbol
             else if (_command.equals("menu_select?ask=-16&reply=1"))
             {
+                if (!activeChar.validateBypass(_command))
+                    return;
+
                 L2Object object = activeChar.getTarget();
                 if (object instanceof L2NpcInstance)
                 {

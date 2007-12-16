@@ -75,7 +75,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_CREATEITEM && Shutdown.getCounterInstance() != null 
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
-			activeChar.sendMessage("Item creation isn't allowed during restart/shutdown!");
+			activeChar.sendMessage("Item creation is not allowed during restart/shutdown.");
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
             return;
         }
@@ -200,9 +200,8 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 			L2ItemInstance[] unequiped =
 				activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getEquipSlot());
 			InventoryUpdate iu = new InventoryUpdate();
-			for (int i = 0; i < unequiped.length; i++)
-			{
-				iu.addModifiedItem(unequiped[i]);
+			for (L2ItemInstance element : unequiped) {
+				iu.addModifiedItem(element);
 			}
 			activeChar.sendPacket(iu);
 			// activeChar.updatePDef();
