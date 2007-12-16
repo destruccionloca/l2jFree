@@ -73,7 +73,7 @@ public class AquireSkillInfo extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        writeC(0x8b);
+        writeC(0x91);
         writeD(_id);
         writeD(_level);
         writeD(_spCost);

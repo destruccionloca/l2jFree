@@ -93,7 +93,7 @@ public final class RequestConfirmCancelItem extends L2GameClientPacket
 				return;
 		}
 		
-		activeChar.sendPacket(new ExConfirmCancelItem(_itemId, price));
+		activeChar.sendPacket(new ExPutItemResultForVariationCancel(_itemId, price));
 	}
 
 	/**

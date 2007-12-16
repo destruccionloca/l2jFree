@@ -31,7 +31,7 @@ public class CharDeleteOk extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x23);
+		writeC(0x1d);
 	}
 
 	/* (non-Javadoc)

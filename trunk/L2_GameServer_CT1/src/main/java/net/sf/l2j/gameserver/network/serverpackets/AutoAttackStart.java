@@ -42,7 +42,7 @@ public class AutoAttackStart extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x2b);
+		writeC(0x25);
 		writeD(_targetObjId);
 	}
 

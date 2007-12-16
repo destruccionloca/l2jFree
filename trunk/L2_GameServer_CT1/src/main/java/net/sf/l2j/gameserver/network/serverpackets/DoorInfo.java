@@ -49,6 +49,7 @@ public class DoorInfo extends L2GameServerPacket
 		writeC(0x4c);
 		writeD(_door.getObjectId());
 		writeD(_door.getDoorId());
+		writeD(0x00); //door hp view
 	}
 	
 	/* (non-Javadoc)

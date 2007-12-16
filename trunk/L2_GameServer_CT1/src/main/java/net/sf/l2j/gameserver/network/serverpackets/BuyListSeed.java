@@ -62,7 +62,7 @@ public final class BuyListSeed extends L2GameServerPacket
 	@Override
 	public void writeImpl()
 	{
-		writeC(0xE8);
+		writeC(0xE9);
 
 		writeD(_money);                        // current money
 		writeD(_manorId);                      // manor id

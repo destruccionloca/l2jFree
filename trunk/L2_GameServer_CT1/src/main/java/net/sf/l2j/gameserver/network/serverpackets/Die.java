@@ -18,12 +18,12 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.entity.Castle;
 
 /**
  * sample
@@ -46,6 +46,10 @@ public class Die extends L2GameServerPacket
 	private net.sf.l2j.gameserver.model.L2Clan _clan;
 	private static final int REQUIRED_LEVEL = net.sf.l2j.Config.GM_FIXED;
 	L2Character _activeChar;
+    private int showVillage;
+    private int showClanhall;
+    private int showCastle;
+    private int showFlag;
 
 	/**
 	 * @param _characters
@@ -63,6 +67,22 @@ public class Die extends L2GameServerPacket
 		_fake = !cha.isDead();
 		if (cha instanceof L2Attackable)
 			_sweepable = ((L2Attackable)cha).isSweepActive();
+        if(_clan != null)
+        {
+            showClanhall = _clan.getHasHideout() <= 0 ? 0 : 1;
+            showCastle = _clan.getHasCastle() <= 0 ? 0 : 1;
+            L2SiegeClan siegeClan = null;
+            Boolean isInDefense = Boolean.valueOf(false);
+            Castle castle = CastleManager.getInstance().getCastle(_activeChar);
+            if(castle != null && castle.getSiege().getIsInProgress())
+            {
+                siegeClan = castle.getSiege().getAttackerClan(_clan);
+                if(siegeClan == null && castle.getSiege().checkIsDefender(_clan))
+                    isInDefense = Boolean.valueOf(true);
+            }
+            showFlag = siegeClan == null || isInDefense.booleanValue() || siegeClan.getFlag().size() <= 0 ? 0 : 1;
+        }
+        showVillage = 1;		
 	}
 
 	@Override
@@ -71,48 +91,16 @@ public class Die extends L2GameServerPacket
 		if (_fake)
 			return;
 
-		writeC(0x06);
-
+		writeC(0x0);
+		
 		writeD(_charObjId); 
-		// NOTE:
-		// 6d 00 00 00 00 - to nearest village
-		// 6d 01 00 00 00 - to hide away
-		// 6d 02 00 00 00 - to castle
-		// 6d 03 00 00 00 - to siege HQ
-		// sweepable
-		// 6d 04 00 00 00 - FIXED
-
-		writeD(0x01);                                                   // 6d 00 00 00 00 - to nearest village
-		if (_clan != null)
-		{
-			L2SiegeClan siegeClan = null;
-			Boolean isInDefense = false;
-			Siege siege = SiegeManager.getInstance().getSiege(_activeChar);
-
-			if (siege != null && siege.getIsInProgress())
-			{
-				//siege in progress            	
-				siegeClan = siege.getAttackerClan(_clan);
-				if (siegeClan == null && siege.checkIsDefender(_clan))
-					isInDefense = true;
-			}
-
-			writeD(_clan.getHasHideout() > 0 ? 0x01 : 0x00);            // 6d 01 00 00 00 - to hide away
-			writeD(_clan.getHasCastle() > 0 ||
-					isInDefense? 0x01 : 0x00);                          // 6d 02 00 00 00 - to castle
-			writeD(siegeClan != null && 
-					!isInDefense &&
-					siegeClan.getFlag().size() > 0 ? 0x01 : 0x00);      // 6d 03 00 00 00 - to siege HQ
-		}
-		else 
-		{
-			writeD(0x00);                                               // 6d 01 00 00 00 - to hide away
-			writeD(0x00);                                               // 6d 02 00 00 00 - to castle
-			writeD(0x00);                                               // 6d 03 00 00 00 - to siege HQ
-		}
-
+        writeD(showVillage);
+        writeD(showClanhall);
+        writeD(showCastle);
+        writeD(showFlag);
 		writeD(_sweepable ? 0x01 : 0x00);                               // sweepable  (blue glow)
 		writeD(_access >= REQUIRED_LEVEL? 0x01: 0x00);                  // 6d 04 00 00 00 - to FIXED
+        writeD(0x00); // fortress
 	}
 
 	/* (non-Javadoc)

@@ -107,7 +107,7 @@ public class Attack extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x05);
+		writeC(0x33);
 
 		writeD(_attackerObjId);
 		writeD(_hits[0]._targetId);

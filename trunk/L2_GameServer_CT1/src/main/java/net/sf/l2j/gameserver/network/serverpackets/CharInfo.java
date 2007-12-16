@@ -107,7 +107,7 @@ public class CharInfo extends L2GameServerPacket
 			
 			if (template != null)
 			{
-				writeC(0x16);
+				writeC(0x0c);
 				writeD(_activeChar.getObjectId());
 				writeD(_activeChar.getPoly().getPolyId()+1000000);  // npctype id
 				writeD(_activeChar.getKarma() > 0 ? 1 : 0);
@@ -115,7 +115,7 @@ public class CharInfo extends L2GameServerPacket
 				writeD(_y);
 				writeD(_z);
 				writeD(_heading);
-				writeD(0x00);
+				writeD(0x11);
 				writeD(_mAtkSpd);
 				writeD(_pAtkSpd);
 				writeD(_runSpd);
@@ -158,8 +158,8 @@ public class CharInfo extends L2GameServerPacket
 					writeS(_activeChar.getTitle());
 				}
 				writeD(0);
-				writeD(0);
-				writeD(0000);  // hmm karma ??
+                writeD(_activeChar.getPvpFlag());
+                writeD(_activeChar.getKarma());
 
 				if (gmSeeInvis)
 				{
@@ -170,11 +170,18 @@ public class CharInfo extends L2GameServerPacket
 					writeD(_activeChar.getAbnormalEffect());  // C2
 				}
 
-				writeD(0);  // C2
-				writeD(0);  // C2
-				writeD(0);  // C2
-				writeD(0);  // C2
-				writeC(0);  // C2
+                writeD(0x0);
+                writeD(_activeChar.getClanCrestId());
+                writeD(0x0);
+                writeD(_activeChar.getAllyCrestId());
+                writeC(0x0);
+                writeC(_activeChar.getTeam());
+                writeF(0x0);
+                writeF(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
 			} else
 			{
 				_log.warn("Character "+_activeChar.getName()+" ("+_activeChar.getObjectId()+") morphed in a Npc ("+_activeChar.getPoly().getPolyId()+") w/o template.");

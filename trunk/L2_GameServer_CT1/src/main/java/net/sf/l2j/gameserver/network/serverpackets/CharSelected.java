@@ -45,10 +45,10 @@ public class CharSelected extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x15);
+		writeC(0x0b);
 
 		writeS(_activeChar.getName());
-		writeD(_activeChar.getCharId()); // ??
+		writeD(_activeChar.getCharId());
 		writeS(_activeChar.getTitle());
 		writeD(_sessionId);
 		writeD(_activeChar.getClanId());
@@ -66,7 +66,7 @@ public class CharSelected extends L2GameServerPacket
 		writeD(_activeChar.getSp());
 		writeQ(_activeChar.getExp());
 		writeD(_activeChar.getLevel());
-		writeD(_activeChar.getKarma());	// thx evill33t
+		writeD(_activeChar.getKarma());
 		writeD(0x0);	//?
 		writeD(_activeChar.getINT()); 
 		writeD(_activeChar.getStat().getSTR()); 
@@ -75,37 +75,20 @@ public class CharSelected extends L2GameServerPacket
 		writeD(_activeChar.getStat().getDEX()); 
 		writeD(_activeChar.getStat().getWIT()); 
 		for (int i=0; i<30; i++)
-		{
 			writeD(0x00);
-		}
-//		writeD(0); //c3
-//writeD(0); //c3
-//		writeD(0); //c3
-
 
 		writeD(0x00);       //c3  work
 		writeD(0x00);       //c3  work
 		
 		// extra info
-		writeD(GameTimeController.getInstance().getGameTime());	// in-game time 
-
-		writeD(0x00);   //  
-
-		writeD(0x00);       //c3 
-
-		writeD(0x00);       //c3 InspectorBin
-		writeD(0x00);       //c3 
-		writeD(0x00);       //c3 
-		writeD(0x00);       //c3 
-
-		writeD(0x00);       //c3 InspectorBin for 528 client
-		writeD(0x00);       //c3 
-		writeD(0x00);       //c3 
-		writeD(0x00);       //c3 
-		writeD(0x00);       //c3 
-		writeD(0x00);       //c3 
-		writeD(0x00);       //c3 
-		writeD(0x00);       //c3 
+		writeD(GameTimeController.getInstance().getGameTime());	// in-game time
+		
+        writeD(0);
+        writeD(0);
+        writeC(0);
+        writeH(0);
+        writeH(0);
+        writeD(0); 
 	}
 
 	/* (non-Javadoc)

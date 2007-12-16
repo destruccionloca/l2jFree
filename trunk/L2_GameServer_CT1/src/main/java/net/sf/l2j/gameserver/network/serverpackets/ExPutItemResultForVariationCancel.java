@@ -18,34 +18,45 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- *
- * @author  chris_00
- * 
- * close the CommandChannel Information window
+ * Format: (ch)ddd
  * 
  */
-public class ExCloseMPCC extends L2GameServerPacket
+public class ExPutItemResultForVariationCancel extends L2GameServerPacket
 {
+	private static final String _S__FE_56_EXCONFIRMCANCELITEM = "[S] FE:56 ExConfirmCancelItem";
+	
+	private int _itemObjId;
+	private int _price;
+	
+	public ExPutItemResultForVariationCancel(int itemObjId, int price)
+	{
+		_itemObjId = itemObjId;
+		_price = price;
+	}
 
-	private static final String _S__FE_26_EXCLOSEMPCC = "[S] FE:26 ExCloseMPCC";
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	/**
+	 * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xFE);
-		writeH(0x13);		
+		writeC(0xfe);
+		writeH(0x57);
+		writeD(0x40A97712);
+		writeD(_itemObjId);
+		writeD(0x27);
+		writeD(0x2006);
+		writeQ(_price);
+		writeD(0x01);
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_26_EXCLOSEMPCC;
+		return _S__FE_56_EXCONFIRMCANCELITEM;
 	}
-	
+
 }

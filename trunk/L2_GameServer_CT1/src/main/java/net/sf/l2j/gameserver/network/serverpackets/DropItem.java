@@ -56,7 +56,7 @@ public class DropItem extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x0c);
+		writeC(0x16);
 		writeD(_charObjId);
 		writeD(_item.getObjectId());
 		writeD(_item.getItemDisplayId());

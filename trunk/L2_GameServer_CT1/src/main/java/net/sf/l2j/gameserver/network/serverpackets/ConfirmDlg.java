@@ -27,23 +27,39 @@ public class ConfirmDlg extends L2GameServerPacket
 	private static final String _S__ED_CONFIRMDLG = "[S] ed ConfirmDlg";
 	private int _requestId;
 	private String _name;
+    private int _time;
+    private int _loc[];	
 
 	public ConfirmDlg(int requestId, String requestorName)
 	{
 		_requestId = requestId;
 		_name = requestorName;
 	}
+
+	public ConfirmDlg(int requestId, String requestorName, int time, int loc[], int id)
+    {
+		_requestId = requestId;
+        _name = requestorName;
+        _time = time;
+        _loc = loc;
+        _requestId = id;
+    }
 	
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xed);
+		writeC(0xf3);
 		writeD(_requestId);
 		writeD(0x02); // ??
 		writeD(0x00); // ??
 		writeS(_name);
-		writeD(0x01); // ??
-		writeD(0x00); // ??
+        writeD(_time == 0 ? 6 : 7);
+        writeD(_loc != null ? _loc[0] : 0);
+        writeD(_loc != null ? _loc[1] : 0);
+        writeD(_loc != null ? _loc[2] : 0);
+        if(_time != 0)
+            writeD(_time);
+        writeD(_requestId);
 	}
 
 	/* (non-Javadoc)

@@ -90,7 +90,7 @@ public class AquireSkillList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x8a);
+		writeC(0x90);
         writeD(_fishingSkills.ordinal());   //c4 : C5 : 0: usuall  1: fishing 2: clans
 		writeD(_skills.size());
 

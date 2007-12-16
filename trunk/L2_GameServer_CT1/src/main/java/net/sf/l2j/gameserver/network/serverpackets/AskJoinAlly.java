@@ -53,8 +53,8 @@ public class AskJoinAlly extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xa8);
-    		writeD(_requestorObjId);
+		writeC(0xbb);
+    	writeD(_requestorObjId);
 		writeS(_requestorName);
 	}
 	
