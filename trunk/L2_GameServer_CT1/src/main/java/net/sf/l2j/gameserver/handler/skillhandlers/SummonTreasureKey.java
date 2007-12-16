@@ -72,7 +72,7 @@ public class SummonTreasureKey implements ISkillHandler
                   break;
                 }
             }
-            player.addItem("Skill", item_id, Rnd.get(2,3), player, false);  
+            player.addItem("Skill", item_id, Rnd.get(2,3), player, false);
         }
         catch (Exception e)
         {

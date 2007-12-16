@@ -54,8 +54,8 @@ public class CharacterCreate extends L2GameClientPacket
 	
 	// cSdddddddddddd
 	private String _name;
-    private int _race;
-    private byte _sex;
+	private int _race;
+	private byte _sex;
 	private int _classId;
 	private int _int;
 	private int _str;
@@ -72,13 +72,13 @@ public class CharacterCreate extends L2GameClientPacket
 	/**
 	 * @param decrypt
 	 */
-    @Override
-    protected void readImpl()
-    {
+	@Override
+	protected void readImpl()
+	{
 		
 		_name      = readS();
 		_race      = readD();
-        _sex       = (byte)readD();
+		_sex       = (byte)readD();
 		_classId   = readD();
 		_int       = readD();
 		_str       = readD();
@@ -91,18 +91,18 @@ public class CharacterCreate extends L2GameClientPacket
 		_face      = (byte)readD();
 	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
-        if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
-        {
-            if (_log.isDebugEnabled())
-                _log.debug("Max number of characters reached. Creation failed.");
-            CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
-            sendPacket(ccf);
-            return;
-        }
-        else if (CharNameTable.getInstance().doesCharNameExist(_name))
+		if (CharNameTable.getInstance().accountCharNumber(getClient().getAccountName()) >= Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT && Config.MAX_CHARACTERS_NUMBER_PER_ACCOUNT != 0)
+		{
+			if (_log.isDebugEnabled())
+				_log.debug("Max number of characters reached. Creation failed.");
+			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_TOO_MANY_CHARACTERS);
+			sendPacket(ccf);
+			return;
+		}
+		else if (CharNameTable.getInstance().doesCharNameExist(_name))
 		{
 			if (_log.isDebugEnabled())
 				_log.debug("charname: "+ _name + " already exists. creation failed.");
@@ -110,7 +110,7 @@ public class CharacterCreate extends L2GameClientPacket
 			sendPacket(ccf);
 			return;
 		}
-        else if (!Config.CNAME_PATTERN.matcher(_name).matches())
+		else if (!Config.CNAME_PATTERN.matcher(_name).matches())
 		{
 			if (_log.isDebugEnabled()) 
 				_log.debug("charname: " + _name + " is invalid. creation failed.");
@@ -122,7 +122,7 @@ public class CharacterCreate extends L2GameClientPacket
 		if (_log.isDebugEnabled())
 			_log.debug("charname: " + _name + " classId: " + _classId);
 		
-        L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
+		L2PcTemplate template = CharTemplateTable.getInstance().getTemplate(_classId);
 		if(template == null || template.getClassBaseLevel() > 1) 
 		{
 			CharCreateFail ccf = new CharCreateFail(CharCreateFail.REASON_CREATION_FAILED);
@@ -169,29 +169,35 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		ItemTable itemTable = ItemTable.getInstance();
 		L2Item[] items = template.getItems();
-		for (L2Item element : items) {
+		for (L2Item element : items)
+		{
 			L2ItemInstance item = newChar.getInventory().addItem("Init", element.getItemId(), 1, newChar, null);
-			if (item.getItemId()==5588){
-			    //add tutbook shortcut
-			    shortcut = new L2ShortCut(11,0,1,item.getObjectId(),-1,1);
-			    newChar.registerShortCut(shortcut);
+			if (item.getItemId()==5588)
+			{
+				//add tutbook shortcut
+				shortcut = new L2ShortCut(11,0,1,item.getObjectId(),-1,1);
+				newChar.registerShortCut(shortcut);
 			}
-			if (item.isEquipable()){
-			  if (newChar.getActiveWeaponItem() == null || !(item.getItem().getType2() != L2Item.TYPE2_WEAPON))
-			    newChar.getInventory().equipItemAndRecord(item);
+			if (item.isEquipable())
+			{
+				if (newChar.getActiveWeaponItem() == null || !(item.getItem().getType2() != L2Item.TYPE2_WEAPON))
+					newChar.getInventory().equipItemAndRecord(item);
 			}
 		}
 		
 		L2SkillLearn[] startSkills = SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId());
-		for (L2SkillLearn element : startSkills) {
+		for (L2SkillLearn element : startSkills)
+		{
 			newChar.addSkill(SkillTable.getInstance().getInfo(element.getId(), element.getLevel()), true);
-			if (element.getId()==1001 || element.getId()==1177){
-			    shortcut = new L2ShortCut(1,0,2,element.getId(),1,1);
-			    newChar.registerShortCut(shortcut);
+			if (element.getId()==1001 || element.getId()==1177)
+			{
+				shortcut = new L2ShortCut(1,0,2,element.getId(),1,1);
+				newChar.registerShortCut(shortcut);
 			}
-			if (element.getId()==1216){
-			    shortcut = new L2ShortCut(10,0,2,element.getId(),1,1);
-			    newChar.registerShortCut(shortcut);
+			if (element.getId()==1216)
+			{
+				shortcut = new L2ShortCut(10,0,2,element.getId(),1,1);
+				newChar.registerShortCut(shortcut);
 			}
 			if (_log.isDebugEnabled()) 
 				_log.debug("adding starter skill:" + element.getId()+ " / "+ element.getLevel());
@@ -204,8 +210,8 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		CharSelectInfo cl =	new CharSelectInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.getConnection().sendPacket(cl);
-        client.setCharSelection(cl.getCharInfo());
-        if (_log.isDebugEnabled()) _log.debug("Character init end");
+		client.setCharSelection(cl.getCharInfo());
+		if (_log.isDebugEnabled()) _log.debug("Character init end");
 	}
 	
 	/* (non-Javadoc)

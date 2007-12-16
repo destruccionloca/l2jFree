@@ -2740,7 +2740,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @param sendMessage : boolean Specifies whether to send message to Client about this action
      */
-    public void addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage, boolean UpdateIL)
+    public L2ItemInstance addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage, boolean UpdateIL)
     {
         if (count > 0)
         {
@@ -2751,91 +2751,98 @@ public final class L2PcInstance extends L2PlayableInstance
             }
 
             // Add the item to inventory
-            L2ItemInstance newitem = _inventory.addItem(process, itemId, count, this, reference);
+            L2ItemInstance newItem = _inventory.addItem(process, itemId, count, this, reference);
             
-            processAddItem(UpdateIL, newitem);
+            processAddItem(UpdateIL, newItem);
+            return newItem;
         }
+        return null;
     }
 
 	/**
 	 * @param UpdateIL
 	 * @param newitem
 	 */
-	private void processAddItem(boolean UpdateIL, L2ItemInstance newitem) {
+	private void processAddItem(boolean UpdateIL, L2ItemInstance newitem)
+	{
 		// Send inventory update packet
 		if (!Config.FORCE_INVENTORY_UPDATE)
 		{
-		    InventoryUpdate playerIU = new InventoryUpdate();
-		    playerIU.addItem(newitem);
-		    sendPacket(playerIU);
+			InventoryUpdate playerIU = new InventoryUpdate();
+			playerIU.addItem(newitem);
+			sendPacket(playerIU);
 		}
-		else sendPacket(new ItemList(this, false));            
+		else
+			sendPacket(new ItemList(this, false));
 		
 		// Cursed Weapon
 		if(CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
 		{
-		    CursedWeaponsManager.getInstance().activate(this, newitem);
+			CursedWeaponsManager.getInstance().activate(this, newitem);
 		}
-		
-         //Auto use herbs - autoloot
-         if (newitem.getItemType() == L2EtcItemType.HERB)
-         {
-		    IItemHandler handler = ItemHandler.getInstance().getItemHandler(newitem.getItemId());                
-		    if (handler == null) 
-		        _log.warn("No item handler registered for item ID " + newitem.getItemId() + ".");
-		    else 
-		        handler.useItem(this, newitem);
+
+		//Auto use herbs - autoloot
+		if (newitem.getItemType() == L2EtcItemType.HERB)
+		{
+			IItemHandler handler = ItemHandler.getInstance().getItemHandler(newitem.getItemId());
+			if (handler == null)
+				_log.warn("No item handler registered for item ID " + newitem.getItemId() + ".");
+			else
+				handler.useItem(this, newitem);
 		}
-         // If over capacity, drop the item
-		if (!isGM() && !_inventory.validateCapacity(0)) 
-		    dropItem("InvDrop", newitem, null, true);
-		
+
+		// If over capacity, drop the item
+		if (!isGM() && !_inventory.validateCapacity(0))
+			dropItem("InvDrop", newitem, null, true);
+
 		//Update current load as well
-		if(UpdateIL){            
-		    StatusUpdate su = new StatusUpdate(getObjectId());
-		    su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
-		    sendPacket(su);
+		if(UpdateIL)
+		{
+			StatusUpdate su = new StatusUpdate(getObjectId());
+			su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
+			sendPacket(su);
 		}
-	}    
+	}
 
 	/**
      * @param process : String Identifier of process triggering this action
      * @param itemId : int Item Identifier of the item to be added
      * @param count : int Quantity of items to be added
 	 */
-	private void sendMessageForNewItem(int itemId, int count, String process) {
+	private void sendMessageForNewItem(int itemId, int count, String process)
+	{
 		L2Item temp = ItemTable.getInstance().getTemplate(itemId);
 		if (count > 1)
 		{
-  	        if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
-	        {
-	            SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-	            sm.addItemName(temp.getItemDisplayId());
-	            sm.addNumber(count);
-	            sendPacket(sm);
-	        }
-	        else
-	        {
-	            SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
-	            sm.addItemName(temp.getItemDisplayId());
-	            sm.addNumber(count);
-	            sendPacket(sm);
-	        }
+			if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+				sm.addItemName(temp.getItemDisplayId());
+				sm.addNumber(count);
+				sendPacket(sm);
+			}
+			else
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1_S2);
+				sm.addItemName(temp.getItemDisplayId());
+				sm.addNumber(count);
+				sendPacket(sm);
+			}
 		}
 		else
 		{
-	        if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
-	        {
-	            SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-	            sm.addItemName(temp.getItemDisplayId());
-	            sendPacket(sm);
-	        }
-	        else
-	        {
-	            SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
-	            sm.addItemName(temp.getItemDisplayId());
-	            sendPacket(sm);
-	        }			
+			if (process.equalsIgnoreCase("sweep") || process.equalsIgnoreCase("Quest"))
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
+				sm.addItemName(temp.getItemDisplayId());
+				sendPacket(sm);
+			}
+			else
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_PICKED_UP_S1);
+				sm.addItemName(temp.getItemDisplayId());
+				sendPacket(sm);
+			}
 		}
 	}
 

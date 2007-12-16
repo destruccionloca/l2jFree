@@ -179,14 +179,14 @@ public class L2NpcInstance extends L2Character
                 {
                     // Cancel further animation timers until intention is changed to ACTIVE again.
                     if(getAI().getIntention() != AI_INTENTION_ACTIVE)
-                        return; 
+                        return;
                 }
                 else
                 {
                     if (!isInActiveRegion()) // NPCs in inactive region don't run this task 
                         return;
                     // update knownlist to remove playable which aren't in range any more
-                    getKnownList().updateKnownObjects(); 
+                    getKnownList().updateKnownObjects();
                 }
 
                 if(!(isDead() || isStunned() || isSleeping() || isParalyzed()))
@@ -341,7 +341,7 @@ public class L2NpcInstance extends L2Character
     @Override
     public final L2NpcTemplate getTemplate() 
     { 
-        return (L2NpcTemplate)super.getTemplate(); 
+        return (L2NpcTemplate)super.getTemplate();
     }
     
     /**
@@ -516,19 +516,19 @@ public class L2NpcInstance extends L2Character
     /**
      * Set the spoil state of this L2NpcInstance.<BR><BR>
      */
-    public void setSpoil(boolean isSpoil) 
+    public void setSpoil(boolean isSpoil)
     {
         _isSpoil = isSpoil;
     }
 
-    public final int getIsSpoiledBy() 
-    { 
-        return _isSpoiledBy; 
+    public final int getIsSpoiledBy()
+    {
+        return _isSpoiledBy;
     }
     
-    public final void setIsSpoiledBy(int value) 
-    { 
-        _isSpoiledBy = value; 
+    public final void setIsSpoiledBy(int value)
+    {
+        _isSpoiledBy = value;
     }
 
     /**
@@ -821,10 +821,10 @@ public class L2NpcInstance extends L2Character
             
             html1.append("<br><center><table><tr><td><button value=\"Edit NPC\" action=\"bypass -h admin_edit_npc " + getTemplate().getNpcId() + "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br1></td>");
             html1.append("<td><button value=\"Kill\" action=\"bypass -h admin_kill\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><br1></tr>");
-            html1.append("<tr><td><button value=\"Show DropList\" action=\"bypass -h admin_show_droplist " + getTemplate().getNpcId() + "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");           
+            html1.append("<tr><td><button value=\"Show DropList\" action=\"bypass -h admin_show_droplist " + getTemplate().getNpcId() + "\" width=100 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
             html1.append("<td><button value=\"Delete\" action=\"bypass -h admin_delete\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
             // [L2J_JP ADD START]
-            html1.append("<tr><td><button value=\"Show Skillist\" action=\"bypass -h admin_show_skilllist_npc " + getTemplate().getNpcId() + "\" width=100 height=20 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td></td></tr>"); 
+            html1.append("<tr><td><button value=\"Show Skillist\" action=\"bypass -h admin_show_skilllist_npc " + getTemplate().getNpcId() + "\" width=100 height=20 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td><td></td></tr>");
             // [L2J_JP ADD END]
             html1.append("</table></center><br>");
             html1.append("</body></html>");
@@ -1006,9 +1006,9 @@ public class L2NpcInstance extends L2Character
                             if(Rnd.nextInt(100)<chance) 
                             {
                                 ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
-                                player.getInventory().addItem("PetUpdate", exchangeItem, 1, player, this);
+                                player.addItem("PetUpdate", exchangeItem, 1, player, true, true);
                                 
-                                NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());    
+                                NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
                                 TextBuilder replyMSG = new TextBuilder("<html><body>");
                                 replyMSG.append("Congratulations, the evolution suceeded.");
                                 replyMSG.append("</body></html>");
@@ -1030,7 +1030,7 @@ public class L2NpcInstance extends L2Character
                     }
                     else
                     {
-                        NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());      
+                        NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
                         TextBuilder replyMSG = new TextBuilder("<html><body>");
                        
                         replyMSG.append("You will need 20.000.000 and have the pet summoned for the ceremony ...");
@@ -1096,8 +1096,8 @@ public class L2NpcInstance extends L2Character
                             if(Rnd.nextInt(100)<chance) 
                             {
                                 ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
-                                player.getInventory().addItem("PetUpdate", exchangeItem, 1, player, this);
-                                NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());      
+                                player.addItem("PetUpdate", exchangeItem, 1, player, true, true);
+                                NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
                                 TextBuilder replyMSG = new TextBuilder("<html><body>");
                               
                                 replyMSG.append("Congratulations, the evolution suceeded.");
@@ -1121,7 +1121,7 @@ public class L2NpcInstance extends L2Character
                     }
                     else
                     {
-                        NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());      
+                        NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
                         TextBuilder replyMSG = new TextBuilder("<html><body>");
                        
                         replyMSG.append("You will need 6.000.000 and have the pet summoned for the ceremony ...");
@@ -1134,7 +1134,7 @@ public class L2NpcInstance extends L2Character
             }            
             else if (command.equalsIgnoreCase("TerritoryStatus"))
             {
-                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId()); 
+                NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
                 { 
                     if (getCastle().getOwnerId() > 0)
                     {
@@ -1161,7 +1161,7 @@ public class L2NpcInstance extends L2Character
                         html.replace("%territory%", "The Kingdom of Aden");
                     }
                 }
-                player.sendPacket(html); 
+                player.sendPacket(html);
             }
             else if (command.startsWith("Quest"))
             {
@@ -1359,7 +1359,7 @@ public class L2NpcInstance extends L2Character
             // [J2J_JP ADD END]            
             else if (command.startsWith("remove_death_penalty"))
             {
-                NpcHtmlMessage Reply = new NpcHtmlMessage(getObjectId());      
+                NpcHtmlMessage Reply = new NpcHtmlMessage(getObjectId());
                 TextBuilder replyMSG = new TextBuilder("<html><body>Black Judge:<br>");
             	
                 if(player.getDeathPenaltyBuffLevel()>0)
@@ -1402,7 +1402,7 @@ public class L2NpcInstance extends L2Character
         
         try
         {
-            _templateId = Integer.parseInt(buffTemplate); 
+            _templateId = Integer.parseInt(buffTemplate);
         }
         catch (NumberFormatException  e)
         {
@@ -1452,7 +1452,7 @@ public class L2NpcInstance extends L2Character
                         
                         // yes, its not for all skills right, but atleast player will know 
                         // for what he paid =)
-                        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT); 
+                        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
                         sm.addSkillName(_buff.getSkill().getId());
                         player.sendPacket(sm);
                         sm = null;
@@ -2201,7 +2201,7 @@ public class L2NpcInstance extends L2Character
                                 else
                                     filename += "dawn_priest_2a.htm";
                             else
-                                filename += "dawn_priest_2b.htm";                        
+                                filename += "dawn_priest_2b.htm";
                         else
                             filename += "dawn_priest_1b.htm";
                         break;
@@ -2218,7 +2218,7 @@ public class L2NpcInstance extends L2Character
                             else
                                 filename += "dawn_priest_2b.htm";
                         else
-                            filename += "dawn_priest_1a.htm";                    
+                            filename += "dawn_priest_1a.htm";
                     break;
                 }
                 break;

@@ -263,8 +263,8 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         		
         		if (collar != null)
         		{
-        			player.getInventory().destroyItem("ClassMaster", collar, player, this);
-        			player.getInventory().addItem("ClassMaster", striderCollar[i], 1, player, this);
+        			player.destroyItem("ClassMaster", collar, player, true);
+        			player.addItem("ClassMaster", striderCollar[i], 1, player, true, true);
         			
         			return;
         		}

@@ -298,7 +298,8 @@ public final class L2UrnInstance extends L2FolkInstance
                 smsg.addItemName(item.getItemId());
                 smsg.addNumber(count);
                 player.sendPacket(smsg);
-            } else
+            }
+            else
             {
                 SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
                 smsg.addItemName(item.getItemId());

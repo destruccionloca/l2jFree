@@ -40,7 +40,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
-import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.Revive;
@@ -625,13 +624,11 @@ public class AdminEventEngine implements IAdminCommandHandler {
 
     private void createItem(L2PcInstance activeChar, L2PcInstance player, int id, int num)
     {
-       player.getInventory().addItem("Event", id, num, player, activeChar);
-        ItemList il = new ItemList(player, true);
-        player.sendPacket(il);
-                
-        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);      
+        player.addItem("Event", id, num, player, false, true);
+
+        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
         TextBuilder replyMSG = new TextBuilder("<html><body>");
-       
+
         replyMSG.append("CONGRATULATIONS, you should have a present in your inventory");
         replyMSG.append("</body></html>");
         

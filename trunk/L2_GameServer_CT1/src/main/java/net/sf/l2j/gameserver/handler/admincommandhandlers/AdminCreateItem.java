@@ -24,7 +24,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
@@ -45,8 +45,8 @@ public class AdminCreateItem implements IAdminCommandHandler
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-            if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM())) return false;
 		
 		if (command.equals("admin_itemcreate"))
 		{
@@ -99,9 +99,14 @@ public class AdminCreateItem implements IAdminCommandHandler
 	
 	private void createItem(L2PcInstance activeChar, int id, int num)
 	{
+		L2Item template = ItemTable.getInstance().getTemplate(id);
+		if (template == null)
+		{
+			activeChar.sendMessage("This item doesn't exist.");
+			return;
+		}
 		if (num > 20)
 		{
-			L2Item template = ItemTable.getInstance().getTemplate(id);
 			if (!template.isStackable())
 			{
 				activeChar.sendMessage("This item does not stack - Creation aborted.");
@@ -110,10 +115,9 @@ public class AdminCreateItem implements IAdminCommandHandler
 		}
 		
 		activeChar.getInventory().addItem("Admin", id, num, activeChar, null);
-	    activeChar.sendPacket(new InventoryUpdate());
-
-		
-		activeChar.sendMessage("You have spawned " + num + " item(s) number " + id + " in your inventory.");
+		activeChar.sendMessage("You have spawned " + num + " " + template.getName() + " (" + id + ") in your inventory.");
+		// Send whole item list and open inventory window
+		activeChar.sendPacket(new ItemList(activeChar, true));
 
 	}
 }

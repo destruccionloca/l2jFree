@@ -67,7 +67,8 @@ public class Harvest implements ISkillHandler
 		if(_log.isDebugEnabled())
 			_log.info("Casting harvest");
 		
-		for (L2Object element : targetList) {
+		for (L2Object element : targetList)
+		{
 			if (!(element instanceof L2MonsterInstance))
 				continue;
 	
@@ -89,12 +90,15 @@ public class Harvest implements ISkillHandler
 			 	if (calcSuccess())
 				{
 			 		L2Attackable.RewardItem[] items = _target.takeHarvest();
-					if (items != null && items.length > 0) {
-						for (L2Attackable.RewardItem ritem : items) {
+					if (items != null && items.length > 0)
+					{
+						for (L2Attackable.RewardItem ritem : items)
+						{
 							cropId = ritem.getItemId(); // always got 1 type of crop as reward
 							if (_activeChar.isInParty()) 
 								_activeChar.getParty().distributeItem(_activeChar, ritem, true, _target);
-							else {
+							else
+							{
 								L2ItemInstance item = _activeChar.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount(), _activeChar, _target);
 								if (iu != null) iu.addItem(item);
 								send = true;

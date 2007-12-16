@@ -49,7 +49,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
@@ -58,6 +57,7 @@ import net.sf.l2j.gameserver.network.serverpackets.RadarControl;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.model.L2Radar;
 import org.apache.commons.logging.Log;
@@ -1270,35 +1270,7 @@ public class CTF
             {
                 if (player._teamNameCTF.equals(teamName))
                 {
-                    PcInventory inv = player.getInventory();
-
-                    if (ItemTable.getInstance().createDummyItem(_rewardId).isStackable())
-                        inv.addItem("CTF Event: " + _eventName, _rewardId, _rewardAmount, player, null);
-                    else
-                    {
-                        for (int i=0;i<=_rewardAmount-1;i++)
-                            inv.addItem("CTF Event: " + _eventName, _rewardId, 1, player, null);
-                    }
-
-                    SystemMessage sm;
-
-                    if (_rewardAmount > 1)
-                    {
-                        sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-                        sm.addItemName(_rewardId);
-                        sm.addNumber(_rewardAmount);
-                        player.sendPacket(sm);
-                    }
-                    else
-                    {
-                        sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-                        sm.addItemName(_rewardId);
-                        player.sendPacket(sm);
-                    }
-
-                    StatusUpdate su = new StatusUpdate(player.getObjectId());
-                    su.addAttribute(StatusUpdate.CUR_LOAD, player.getCurrentLoad());
-                    player.sendPacket(su);
+                    player.addItem("CTF Event: " + _eventName, _rewardId, _rewardAmount, player, true, true);
 
                     NpcHtmlMessage nhm = new NpcHtmlMessage(5);
                     TextBuilder replyMSG = new TextBuilder("");

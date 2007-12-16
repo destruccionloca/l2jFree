@@ -92,13 +92,13 @@ public class CrownManager
 		{
 			if (isLeader && activeChar.getInventory().getItemByItemId(6841) == null)
 			{
-				activeChar.getInventory().addItem("Crown", 6841, 1, activeChar, null);
+				activeChar.addItem("Crown", 6841, 1, activeChar, true, true);
 				activeChar.getInventory().updateDatabase();
 			}
 			
 			if (activeChar.getInventory().getItemByItemId(crownId) == null)
 			{
-				activeChar.getInventory().addItem("Crown", crownId, 1, activeChar, null);
+				activeChar.addItem("Crown", crownId, 1, activeChar, true, true);
 				activeChar.getInventory().updateDatabase();
 			}
 		}
