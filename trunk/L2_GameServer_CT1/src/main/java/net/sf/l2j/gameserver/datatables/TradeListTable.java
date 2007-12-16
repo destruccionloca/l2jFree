@@ -48,12 +48,16 @@ public class TradeListTable
     public class RestoreCount implements Runnable
     {
     	private int timer;
-    	public RestoreCount(int time){
+    	
+    	public RestoreCount(int time)
+    	{
     		timer = time;
     	}
-        public void run()
+        
+    	public void run()
         {
-        	try {
+        	try 
+        	{
             	restoreCount(timer);
             	dataTimerSave(timer);
             	ThreadPoolManager.getInstance().scheduleGeneral(new RestoreCount(timer), (long)timer*60*60*1000);
@@ -133,7 +137,8 @@ public class TradeListTable
                         if (!buylist.isGm() && buyItem.getReferencePrice()>_price)
                             _log.warn("TradeListTable: Reference price of item " + _itemId + " in  "+(custom?"custom ":"")+ "buylist " + buylist.getListId() + " higher then sell price.");
                     }
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     _log.warn("TradeListTable: Problem with "+(custom?"custom ":"")+ "buylist " + buylist.getListId() + " item " + _itemId + ".");
                 }
@@ -163,7 +168,8 @@ public class TradeListTable
 				long currentMillis = System.currentTimeMillis();
 				PreparedStatement statement2 = con.prepareStatement("SELECT DISTINCT time, savetimer FROM "+(custom?"merchant_buylists":"merchant_buylists")+" WHERE time <> 0 ORDER BY time");
 				ResultSet rset2 = statement2.executeQuery();
-				while (rset2.next()){
+				while (rset2.next())
+				{
 					time = rset2.getInt("time");
 					savetimer = rset2.getLong("savetimer");
 					if(savetimer-currentMillis>0)
@@ -173,7 +179,8 @@ public class TradeListTable
 				}
 				rset2.close();
 				statement2.close();
-			}catch (Exception e)
+			}
+			catch (Exception e)
 			{
 				_log.warn("TradeController: "+(custom?"custom ":"")+"Could not restore Timer for Item count.");
 				e.printStackTrace();

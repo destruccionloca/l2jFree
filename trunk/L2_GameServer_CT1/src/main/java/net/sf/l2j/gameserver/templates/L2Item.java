@@ -62,8 +62,8 @@ public abstract class L2Item
     public static final int SLOT_NECK = 0x00008;
     public static final int SLOT_R_FINGER = 0x00010;
     public static final int SLOT_L_FINGER = 0x00020;
-    public static final int SLOT_LR_FINGER = 0x00048;
-    public static final int SLOT_HEAD = 0x00030;
+    public static final int SLOT_LR_FINGER = 0x00030;
+    public static final int SLOT_HEAD = 0x00040;
     public static final int SLOT_R_HAND = 0x00080;
     public static final int SLOT_L_HAND = 0x00100;
     public static final int SLOT_GLOVES = 0x00200;

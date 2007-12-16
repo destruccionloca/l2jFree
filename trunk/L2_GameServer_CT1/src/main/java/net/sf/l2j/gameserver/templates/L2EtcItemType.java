@@ -35,7 +35,8 @@ public enum L2EtcItemType {
 	SPELLBOOK  ( 9, "Spellbook"),
     SEED       (10, "Seed"),
     SHOT       (11, "Shot"),
-    HERB	   (12, "Herb");
+    HERB	   (12, "Herb"),
+	BOLT	   (13, "Bolt");
 	
 	final int _id;
 	final String _name;

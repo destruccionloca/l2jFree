@@ -42,11 +42,6 @@ import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.11.2.5.2.5 $ $Date: 2005/03/27 15:29:18 $
- */
 public class ClanTable
 {
     private static final Log _log = LogFactory.getLog(ClanTable.class.getName());
@@ -326,7 +321,8 @@ public class ClanTable
 		return false;
 	}
 
-    public void storeclanswars(int clanId1, int clanId2){
+    public void storeclanswars(int clanId1, int clanId2)
+    {
         L2Clan clan1 = ClanTable.getInstance().getClan(clanId1);
         L2Clan clan2 = ClanTable.getInstance().getClan(clanId2);
         clan1.setEnemyClan(clan2);
@@ -354,15 +350,10 @@ public class ClanTable
         {
             try { con.close(); } catch (Exception e) {}
         }
-        //SystemMessage msg = new SystemMessage(SystemMessageId.WAR_WITH_THE_S1_CLAN_HAS_BEGUN);
-	//
+
         SystemMessage msg = new SystemMessage(SystemMessageId.CLAN_WAR_DECLARED_AGAINST_S1_IF_KILLED_LOSE_LOW_EXP);
         msg.addString(clan2.getName());
         clan1.broadcastToOnlineMembers(msg);
-        //msg = new SystemMessage(SystemMessageId.WAR_WITH_THE_S1_CLAN_HAS_BEGUN);
-        //msg.addString(clan1.getName());
-        //clan2.broadcastToOnlineMembers(msg);
-	// clan1 declared clan war.
         msg = new SystemMessage(SystemMessageId.CLAN_S1_DECLARED_WAR);
         msg.addString(clan1.getName());
         clan2.broadcastToOnlineMembers(msg);
@@ -376,16 +367,6 @@ public class ClanTable
         clan2.deleteEnemyClan(clan1);
         clan1.broadcastClanStatus();
         clan2.broadcastClanStatus();
-        //for(L2ClanMember player: clan1.getMembers())
-        //{
-        //    if(player.getPlayerInstance()!=null)
-	//			player.getPlayerInstance().setWantsPeace(0);
-        //}
-        //for(L2ClanMember player: clan2.getMembers())
-        //{
-        //    if(player.getPlayerInstance()!=null)
-	//			player.getPlayerInstance().setWantsPeace(0);
-        //}
      	java.sql.Connection con = null;
         try
         {
@@ -395,10 +376,6 @@ public class ClanTable
             statement.setInt(1,clanId1);
             statement.setInt(2,clanId2);
             statement.execute();
-            //statement = con.prepareStatement("DELETE FROM clan_wars WHERE clan1=? AND clan2=?");
-            //statement.setInt(1,clanId2);
-            //statement.setInt(2,clanId1);
-            //statement.execute();
             
             statement.close();
         }
@@ -410,16 +387,12 @@ public class ClanTable
         {
             try { con.close(); } catch (Exception e) {}
         }
-        //SystemMessage msg = new SystemMessage(SystemMessageId.WAR_WITH_THE_S1_CLAN_HAS_ENDED);
         SystemMessage msg = new SystemMessage(SystemMessageId.WAR_AGAINST_S1_HAS_STOPPED);
         msg.addString(clan2.getName());
         clan1.broadcastToOnlineMembers(msg);
         msg = new SystemMessage(SystemMessageId.CLAN_S1_HAS_DECIDED_TO_STOP);
         msg.addString(clan1.getName());
         clan2.broadcastToOnlineMembers(msg);
-        //msg = new SystemMessage(SystemMessageId.WAR_WITH_THE_S1_CLAN_HAS_ENDED);
-        //msg.addString(clan1.getName());
-        //clan2.broadcastToOnlineMembers(msg);
     }
     
     public void checkSurrender(L2Clan clan1, L2Clan clan2)

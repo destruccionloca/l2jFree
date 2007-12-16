@@ -107,7 +107,10 @@ public class SkillTable
 		L2WeaponType.DAGGER,
 		L2WeaponType.BIGSWORD,
 		L2WeaponType.ROD,
-		L2WeaponType.BIGBLUNT
+		L2WeaponType.BIGBLUNT,
+		L2WeaponType.ANCIENT_SWORD,
+		L2WeaponType.RAPIER,
+		L2WeaponType.CROSSBOW
 	};
 	
 	public int calcWeaponsAllowed(int mask)

@@ -84,13 +84,16 @@ public class GmListTable
 	 */
 	public void addGm(L2PcInstance player, boolean hidden)
 	{
-		if (_log.isDebugEnabled()) _log.debug("added gm: "+player.getName());
+		if (_log.isDebugEnabled())
+			_log.debug("added gm: "+player.getName());
+		
 		_gmList.put(player,hidden);
 	}
 	
 	public void deleteGm(L2PcInstance player)
 	{
-		if (_log.isDebugEnabled()) _log.debug("deleted gm: "+player.getName());
+		if (_log.isDebugEnabled())
+			_log.debug("deleted gm: "+player.getName());
 
 		_gmList.remove(player);
 	}
@@ -102,7 +105,8 @@ public class GmListTable
 	public void showGm(L2PcInstance player)
 	{
 		FastMap.Entry<L2PcInstance, Boolean> gm = _gmList.getEntry(player);
-		if (gm != null) gm.setValue(false);
+		if (gm != null)
+			gm.setValue(false);
 	}
 	
 	/**
@@ -112,7 +116,8 @@ public class GmListTable
 	public void hideGm(L2PcInstance player)
 	{
 		FastMap.Entry<L2PcInstance, Boolean> gm = _gmList.getEntry(player);
-		if (gm != null) gm.setValue(true);
+		if (gm != null)
+			gm.setValue(true);
 	}
 
 	public boolean isGmOnline(boolean includeHidden)

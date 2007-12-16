@@ -66,19 +66,23 @@ public class HennaTable
 		java.sql.Connection con = null;
 		try
 		{
-			try {
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("SELECT symbol_id, symbol_name, dye_id, dye_amount, price, stat_INT, stat_STR, stat_CON, stat_MEM, stat_DEX, stat_WIT FROM henna");
-			ResultSet hennadata = statement.executeQuery();
-
-			fillHennaTable(hennadata);
-			hennadata.close();
-			statement.close();
-			} catch (Exception e) {
+			try 
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement statement = con.prepareStatement("SELECT symbol_id, symbol_name, dye_id, dye_amount, price, stat_INT, stat_STR, stat_CON, stat_MEM, stat_DEX, stat_WIT FROM henna");
+				ResultSet hennadata = statement.executeQuery();
+	
+				fillHennaTable(hennadata);
+				hennadata.close();
+				statement.close();
+			} 
+			catch (Exception e) 
+			{
 				_log.error("error while creating henna table " + e,e);
 			}
-			 
-		} finally {
+		} 
+		finally 
+		{
 			try { con.close(); } catch (Exception e) {}
 		}
 	}

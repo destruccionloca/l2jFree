@@ -75,23 +75,29 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 		
 		for (L2ItemInstance item : _items)
 		{
-			writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
-			writeD(0x00); //unconfirmed, works
-			writeD(item.getItemDisplayId()); //unconfirmed, works
-			writeD(item.getCount()); //unconfirmed, works
-			writeH(item.getItem().getType2());	// item type2 //unconfirmed, works
+			writeH(item.getItem().getType1());
+			writeD(item.getObjectId());
+			writeD(item.getItemDisplayId());
+			writeD(item.getCount());
+			writeH(item.getItem().getType2());
+			writeH(item.getCustomType1() );
+			writeD(item.getItem().getBodyPart());
+			writeH(item.getEnchantLevel());
+            writeH(item.getCustomType2() );
 			writeH(0x00);	// ?
-			writeD(item.getItem().getBodyPart());	// ?
-			writeH(item.getEnchantLevel());	// enchant level -confirmed
-			writeH(0x00);	// ?
-			writeH(0x00);	// ?
-			writeD(item.getObjectId()); // item id - confimed		
+			writeD(item.getObjectId());
 			if (item.isAugmented())
 			{
 				writeD(0x0000FFFF&item.getAugmentation().getAugmentationId());
 				writeD(item.getAugmentation().getAugmentationId()>>16);
 			}
 			else writeQ(0x00);
+            writeD(0x00); //fire
+            writeD(0x00); //water
+            writeD(0x00); //wind
+            writeD(0x00); //earth
+            writeD(0x00); //holy
+            writeD(0x00); //unholy
 		}
 	}
 	

@@ -56,6 +56,6 @@ public class VehicleInfo  extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return "[S] 59 VehicleInfo";
+		return "[S] 60 VehicleInfo";
 	}
 }

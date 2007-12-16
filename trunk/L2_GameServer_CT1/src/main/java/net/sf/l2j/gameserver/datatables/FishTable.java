@@ -46,6 +46,7 @@ public class FishTable
     {
         return _instance;
     }
+    
     private FishTable()
     {
         //Create table that contains all fish datas
@@ -75,7 +76,8 @@ public class FishTable
                     int wait_time = Fishes.getInt("wait_time");
                     int combat_time = Fishes.getInt("combat_time");
                     fish = new FishData(id, lvl, name, hp, hpreg, type, group, fish_guts, guts_check_time, wait_time, combat_time);
-                    switch (fish.getGroup()) {
+                    switch (fish.getGroup()) 
+                    {
                         case 0:
                             _fishsEasy.add(fish);
                             break;
@@ -110,7 +112,8 @@ public class FishTable
     {
         List<FishData> result = new FastList<FishData>();
         List<FishData> _fishs = null;
-        switch (group) {
+        switch (group) 
+        {
             case 0:
                 _fishs = _fishsEasy;
                 break;

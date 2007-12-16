@@ -79,82 +79,91 @@ public class ItemTable implements ItemTableMBean
     
     static
     {
-        _materials.put("paper",            L2Item.MATERIAL_PAPER);
-        _materials.put("wood",             L2Item.MATERIAL_WOOD);
-        _materials.put("liquid",           L2Item.MATERIAL_LIQUID);
-        _materials.put("cloth",            L2Item.MATERIAL_CLOTH);
-        _materials.put("leather",          L2Item.MATERIAL_LEATHER);
-        _materials.put("horn",             L2Item.MATERIAL_HORN);
-        _materials.put("bone",             L2Item.MATERIAL_BONE);
-        _materials.put("bronze",           L2Item.MATERIAL_BRONZE);
-        _materials.put("fine_steel",       L2Item.MATERIAL_FINE_STEEL);
-        _materials.put("cotton",           L2Item.MATERIAL_FINE_STEEL);
-        _materials.put("mithril",          L2Item.MATERIAL_MITHRIL);
-        _materials.put("silver",           L2Item.MATERIAL_SILVER);
-        _materials.put("gold",             L2Item.MATERIAL_GOLD);
-        _materials.put("adamantaite",      L2Item.MATERIAL_ADAMANTAITE);
-        _materials.put("steel",            L2Item.MATERIAL_STEEL);
-        _materials.put("oriharukon",       L2Item.MATERIAL_ORIHARUKON);
-        _materials.put("blood_steel",      L2Item.MATERIAL_BLOOD_STEEL);
-        _materials.put("crystal",          L2Item.MATERIAL_CRYSTAL);
-        _materials.put("damascus",         L2Item.MATERIAL_DAMASCUS);
-        _materials.put("chrysolite",       L2Item.MATERIAL_CHRYSOLITE);
-        _materials.put("scale_of_dragon",  L2Item.MATERIAL_SCALE_OF_DRAGON);
-        _materials.put("dyestuff",         L2Item.MATERIAL_DYESTUFF);
-        _materials.put("cobweb",           L2Item.MATERIAL_COBWEB);
-        _materials.put("seed",             L2Item.MATERIAL_SEED);
+        _materials.put("paper",            	L2Item.MATERIAL_PAPER);
+        _materials.put("wood",             	L2Item.MATERIAL_WOOD);
+        _materials.put("liquid",           	L2Item.MATERIAL_LIQUID);
+        _materials.put("cloth",            	L2Item.MATERIAL_CLOTH);
+        _materials.put("leather",          	L2Item.MATERIAL_LEATHER);
+        _materials.put("horn",             	L2Item.MATERIAL_HORN);
+        _materials.put("bone",             	L2Item.MATERIAL_BONE);
+        _materials.put("bronze",           	L2Item.MATERIAL_BRONZE);
+        _materials.put("fine_steel",       	L2Item.MATERIAL_FINE_STEEL);
+        _materials.put("cotton",           	L2Item.MATERIAL_FINE_STEEL);
+        _materials.put("mithril",          	L2Item.MATERIAL_MITHRIL);
+        _materials.put("silver",           	L2Item.MATERIAL_SILVER);
+        _materials.put("gold",             	L2Item.MATERIAL_GOLD);
+        _materials.put("adamantaite",      	L2Item.MATERIAL_ADAMANTAITE);
+        _materials.put("steel",            	L2Item.MATERIAL_STEEL);
+        _materials.put("oriharukon",       	L2Item.MATERIAL_ORIHARUKON);
+        _materials.put("blood_steel",      	L2Item.MATERIAL_BLOOD_STEEL);
+        _materials.put("crystal",          	L2Item.MATERIAL_CRYSTAL);
+        _materials.put("damascus",         	L2Item.MATERIAL_DAMASCUS);
+        _materials.put("chrysolite",       	L2Item.MATERIAL_CHRYSOLITE);
+        _materials.put("scale_of_dragon",  	L2Item.MATERIAL_SCALE_OF_DRAGON);
+        _materials.put("dyestuff",         	L2Item.MATERIAL_DYESTUFF);
+        _materials.put("cobweb",           	L2Item.MATERIAL_COBWEB);
+        _materials.put("seed",             	L2Item.MATERIAL_SEED);
         
-        _crystalTypes.put("s",             L2Item.CRYSTAL_S);
-        _crystalTypes.put("a",             L2Item.CRYSTAL_A);
-        _crystalTypes.put("b",             L2Item.CRYSTAL_B);
-        _crystalTypes.put("c",             L2Item.CRYSTAL_C);
-        _crystalTypes.put("d",             L2Item.CRYSTAL_D);
-        _crystalTypes.put("none",          L2Item.CRYSTAL_NONE);
+        _crystalTypes.put("s",             	L2Item.CRYSTAL_S);
+        _crystalTypes.put("a",             	L2Item.CRYSTAL_A);
+        _crystalTypes.put("b",             	L2Item.CRYSTAL_B);
+        _crystalTypes.put("c",             	L2Item.CRYSTAL_C);
+        _crystalTypes.put("d",             	L2Item.CRYSTAL_D);
+        _crystalTypes.put("none",          	L2Item.CRYSTAL_NONE);
 
-        _weaponTypes.put("blunt",          L2WeaponType.BLUNT);
-        _weaponTypes.put("bow",            L2WeaponType.BOW);
-        _weaponTypes.put("dagger",         L2WeaponType.DAGGER);
-        _weaponTypes.put("dual",           L2WeaponType.DUAL);
-        _weaponTypes.put("dualfist",       L2WeaponType.DUALFIST);
-        _weaponTypes.put("etc",            L2WeaponType.ETC);
-        _weaponTypes.put("fist",           L2WeaponType.FIST);
-        _weaponTypes.put("none",           L2WeaponType.NONE); // these are shields !
-        _weaponTypes.put("pole",           L2WeaponType.POLE);
-        _weaponTypes.put("sword",          L2WeaponType.SWORD);
-        _weaponTypes.put("bigsword",       L2WeaponType.BIGSWORD); //Two-Handed Swords
-        _weaponTypes.put("pet",            L2WeaponType.PET); //Pet Weapon 
-        _weaponTypes.put("rod",            L2WeaponType.ROD); //Fishing Rods
-        _weaponTypes.put("bigblunt",       L2WeaponType.BIGBLUNT); //Two handed blunt
-        _armorTypes.put("none",            L2ArmorType.NONE);
-        _armorTypes.put("light",           L2ArmorType.LIGHT);
-        _armorTypes.put("heavy",           L2ArmorType.HEAVY);
-        _armorTypes.put("magic",           L2ArmorType.MAGIC);
-        _armorTypes.put("pet",             L2ArmorType.PET);
+        _weaponTypes.put("blunt",          	L2WeaponType.BLUNT);
+        _weaponTypes.put("bow",            	L2WeaponType.BOW);
+        _weaponTypes.put("dagger",         	L2WeaponType.DAGGER);
+        _weaponTypes.put("dual",           	L2WeaponType.DUAL);
+        _weaponTypes.put("dualfist",       	L2WeaponType.DUALFIST);
+        _weaponTypes.put("etc",            	L2WeaponType.ETC);
+        _weaponTypes.put("fist",           	L2WeaponType.FIST);
+        _weaponTypes.put("none",           	L2WeaponType.NONE); // these are shields !
+        _weaponTypes.put("pole",           	L2WeaponType.POLE);
+        _weaponTypes.put("sword",          	L2WeaponType.SWORD);
+        _weaponTypes.put("bigsword",       	L2WeaponType.BIGSWORD); //Two-Handed Swords
+        _weaponTypes.put("pet",            	L2WeaponType.PET); //Pet Weapon 
+        _weaponTypes.put("rod",            	L2WeaponType.ROD); //Fishing Rods
+        _weaponTypes.put("bigblunt",       	L2WeaponType.BIGBLUNT); //Two handed blunt
+        _weaponTypes.put("crossbow", 		L2WeaponType.CROSSBOW);
+        _weaponTypes.put("rapier", 			L2WeaponType.RAPIER);
+        _weaponTypes.put("ancient", 		L2WeaponType.ANCIENT_SWORD);
         
-        _slots.put("chest",                L2Item.SLOT_CHEST);
-        _slots.put("fullarmor",            L2Item.SLOT_FULL_ARMOR); 
-        _slots.put("head",                 L2Item.SLOT_HEAD);
-        _slots.put("hair",                 L2Item.SLOT_HAIR);
-        _slots.put("face",                 L2Item.SLOT_FACE);
-        _slots.put("dhair",                L2Item.SLOT_DHAIR);
-        _slots.put("underwear",            L2Item.SLOT_UNDERWEAR);
-        _slots.put("cloak",                L2Item.SLOT_CLOAK);
-        _slots.put("back",                 L2Item.SLOT_BACK);
-        _slots.put("neck",                 L2Item.SLOT_NECK);
-        _slots.put("legs",                 L2Item.SLOT_LEGS);
-        _slots.put("feet",                 L2Item.SLOT_FEET);
-        _slots.put("gloves",               L2Item.SLOT_GLOVES);
-        _slots.put("chest,legs",           L2Item.SLOT_CHEST | L2Item.SLOT_LEGS);
-        _slots.put("rhand",                L2Item.SLOT_R_HAND);
-        _slots.put("lhand",                L2Item.SLOT_L_HAND);
-        _slots.put("lrhand",               L2Item.SLOT_LR_HAND);
-        _slots.put("rear,lear",            L2Item.SLOT_R_EAR | L2Item.SLOT_L_EAR);
-        _slots.put("rfinger,lfinger",      L2Item.SLOT_R_FINGER | L2Item.SLOT_L_FINGER);
-        _slots.put("none",                 L2Item.SLOT_NONE);
-        _slots.put("wolf",                 L2Item.SLOT_WOLF);  // for wolf
-        _slots.put("hatchling",            L2Item.SLOT_HATCHLING); // for hatchling
-        _slots.put("strider",              L2Item.SLOT_STRIDER); // for strider
-        _slots.put("babypet",              L2Item.SLOT_BABYPET); // for babypet
+        _armorTypes.put("none",            	L2ArmorType.NONE);
+        _armorTypes.put("light",           	L2ArmorType.LIGHT);
+        _armorTypes.put("heavy",           	L2ArmorType.HEAVY);
+        _armorTypes.put("magic",           	L2ArmorType.MAGIC);
+        _armorTypes.put("pet",             	L2ArmorType.PET);
+        
+        _slots.put("shirt", 				L2Item.SLOT_UNDERWEAR);
+        _slots.put("belt", 					L2Item.SLOT_ALLDRESS);
+        _slots.put("braslet", 				L2Item.SLOT_R_BRACELET);
+        _slots.put("talisman", 				L2Item.SLOT_DECO);
+        _slots.put("chest", 				L2Item.SLOT_CHEST);
+        _slots.put("fullarmor", 			L2Item.SLOT_FULL_ARMOR);
+        _slots.put("head", 					L2Item.SLOT_HEAD);
+        _slots.put("hair", 					L2Item.SLOT_HAIR);
+        _slots.put("face", 					L2Item.SLOT_HAIR2);
+        _slots.put("hair2", 				L2Item.SLOT_HAIR2);
+        _slots.put("dhair", 				L2Item.SLOT_HAIRALL);
+        _slots.put("hairall", 				L2Item.SLOT_HAIRALL);
+        _slots.put("underwear", 			L2Item.SLOT_UNDERWEAR);
+        _slots.put("back", 					L2Item.SLOT_BACK);
+        _slots.put("neck", 					L2Item.SLOT_NECK);
+        _slots.put("legs", 					L2Item.SLOT_LEGS);
+        _slots.put("feet", 					L2Item.SLOT_FEET);
+        _slots.put("gloves", 				L2Item.SLOT_GLOVES);
+        _slots.put("chest,legs",			L2Item.SLOT_CHEST | L2Item.SLOT_LEGS);
+        _slots.put("rhand", 				L2Item.SLOT_R_HAND);
+        _slots.put("lhand", 				L2Item.SLOT_L_HAND);
+        _slots.put("lrhand",               	L2Item.SLOT_LR_HAND);
+        _slots.put("rear,lear",				L2Item.SLOT_R_EAR | L2Item.SLOT_L_EAR);
+        _slots.put("rfinger,lfinger",		L2Item.SLOT_R_FINGER | L2Item.SLOT_L_FINGER);
+        _slots.put("wolf",					L2Item.SLOT_WOLF);
+        _slots.put("hatchling",				L2Item.SLOT_HATCHLING);
+        _slots.put("strider",				L2Item.SLOT_STRIDER);
+        _slots.put("babypet",				L2Item.SLOT_BABYPET);
+        _slots.put("none",                 	L2Item.SLOT_NONE);
     }
 
     
@@ -358,34 +367,34 @@ public class ItemTable implements ItemTableMBean
             item.set.set("type2", L2Item.TYPE2_WEAPON);
         }
         
-        item.set.set("bodypart",       _slots.get(rset.getString("bodypart")));
-        item.set.set("material",       _materials.get(rset.getString("material")));
-        item.set.set("crystal_type",   _crystalTypes.get(rset.getString("crystal_type")));
-        item.set.set("crystallizable", Boolean.valueOf(rset.getString("crystallizable")).booleanValue());
-        item.set.set("weight",         rset.getInt("weight"));
-        item.set.set("soulshots",      rset.getInt("soulshots"));
-        item.set.set("spiritshots",    rset.getInt("spiritshots"));
-        item.set.set("p_dam",          rset.getInt("p_dam"));
-        item.set.set("rnd_dam",        rset.getInt("rnd_dam"));
-        item.set.set("critical",       rset.getInt("critical"));
-        item.set.set("hit_modify",     rset.getDouble("hit_modify"));
-        item.set.set("avoid_modify",   rset.getInt("avoid_modify"));
-        item.set.set("shield_def",     rset.getInt("shield_def"));
-        item.set.set("shield_def_rate",rset.getInt("shield_def_rate"));
-        item.set.set("atk_speed",      rset.getInt("atk_speed"));
-        item.set.set("mp_consume",     rset.getInt("mp_consume"));
-        item.set.set("m_dam",          rset.getInt("m_dam"));
-        item.set.set("duration",     rset.getInt("duration"));
-        item.set.set("price",          rset.getInt("price"));
-        item.set.set("crystal_count",  rset.getInt("crystal_count"));
-        item.set.set("sellable",       Boolean.valueOf(rset.getString("sellable")));
-        item.set.set("dropable",       Boolean.valueOf(rset.getString("dropable")));
-        item.set.set("destroyable",       Boolean.valueOf(rset.getString("destroyable")));
+        item.set.set("bodypart",       	_slots.get(rset.getString("bodypart")));
+        item.set.set("material",       	_materials.get(rset.getString("material")));
+        item.set.set("crystal_type",   	_crystalTypes.get(rset.getString("crystal_type")));
+        item.set.set("crystallizable", 	Boolean.valueOf(rset.getString("crystallizable")).booleanValue());
+        item.set.set("weight",         	rset.getInt("weight"));
+        item.set.set("soulshots",      	rset.getInt("soulshots"));
+        item.set.set("spiritshots",    	rset.getInt("spiritshots"));
+        item.set.set("p_dam",          	rset.getInt("p_dam"));
+        item.set.set("rnd_dam",        	rset.getInt("rnd_dam"));
+        item.set.set("critical",       	rset.getInt("critical"));
+        item.set.set("hit_modify",     	rset.getDouble("hit_modify"));
+        item.set.set("avoid_modify",   	rset.getInt("avoid_modify"));
+        item.set.set("shield_def",     	rset.getInt("shield_def"));
+        item.set.set("shield_def_rate",	rset.getInt("shield_def_rate"));
+        item.set.set("atk_speed",      	rset.getInt("atk_speed"));
+        item.set.set("mp_consume",     	rset.getInt("mp_consume"));
+        item.set.set("m_dam",          	rset.getInt("m_dam"));
+        item.set.set("duration",     	rset.getInt("duration"));
+        item.set.set("price",          	rset.getInt("price"));
+        item.set.set("crystal_count",  	rset.getInt("crystal_count"));
+        item.set.set("sellable",       	Boolean.valueOf(rset.getString("sellable")));
+        item.set.set("dropable",       	Boolean.valueOf(rset.getString("dropable")));
+        item.set.set("destroyable",    	Boolean.valueOf(rset.getString("destroyable")));
         item.set.set("tradeable",       Boolean.valueOf(rset.getString("tradeable")));
         
 
-        item.set.set("item_skill_id", rset.getInt("item_skill_id"));
-        item.set.set("item_skill_lvl", rset.getInt("item_skill_lvl"));
+        item.set.set("item_skill_id", 	rset.getInt("item_skill_id"));
+        item.set.set("item_skill_lvl", 	rset.getInt("item_skill_lvl"));
         
         item.set.set("enchant4_skill_id", rset.getInt("enchant4_skill_id"));
         item.set.set("enchant4_skill_lvl", rset.getInt("enchant4_skill_lvl"));
@@ -448,8 +457,8 @@ public class ItemTable implements ItemTableMBean
 
         if (bodypart == L2Item.SLOT_NECK ||
             bodypart == L2Item.SLOT_HAIR ||
-            bodypart == L2Item.SLOT_FACE ||
-            bodypart == L2Item.SLOT_DHAIR ||            
+            bodypart == L2Item.SLOT_HAIR2 ||
+            bodypart == L2Item.SLOT_HAIRALL ||            
             (bodypart & L2Item.SLOT_L_EAR) != 0 || 
             (bodypart & L2Item.SLOT_L_FINGER) != 0)
         {
@@ -532,6 +541,11 @@ public class ItemTable implements ItemTableMBean
             item.type = L2EtcItemType.ARROW;
             item.set.set("bodypart", L2Item.SLOT_L_HAND);
         }
+        if(itemType.equals("bolt"))
+        {
+            item.type = L2EtcItemType.BOLT;
+            item.set.set("bodypart", L2Item.SLOT_L_HAND);
+        }        
         else if (itemType.equals("quest"))
         {
             item.type = L2EtcItemType.QUEST;

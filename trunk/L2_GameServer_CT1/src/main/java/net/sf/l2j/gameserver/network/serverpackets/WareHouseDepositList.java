@@ -38,7 +38,7 @@ public class WareHouseDepositList extends L2GameServerPacket
 	public static final int CASTLE = 3; //not sure
 	public static final int FREIGHT = 4; //not sure
 	private static Log _log = LogFactory.getLog(WareHouseDepositList.class.getName());
-	private static final String _S__53_WAREHOUSEDEPOSITLIST = "[S] 41 WareHouseDepositList";
+	private static final String _S__41_WAREHOUSEDEPOSITLIST = "[S] 41 WareHouseDepositList";
 	private L2PcInstance _activeChar;
 	private int _activeCharAdena;
 	private FastList<L2ItemInstance> _items;
@@ -81,23 +81,31 @@ public class WareHouseDepositList extends L2GameServerPacket
 		
 		for (L2ItemInstance item : _items)
 		{
-			writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
-			writeD(item.getObjectId()); //unconfirmed, works
-			writeD(item.getItemDisplayId()); //unconfirmed, works
-			writeD(item.getCount()); //unconfirmed, works
-			writeH(item.getItem().getType2());	// item type2 //unconfirmed, works
-			writeH(0x00);	// ? 100
-			writeD(item.getItem().getBodyPart());	// ?
-			writeH(item.getEnchantLevel());	// enchant level -confirmed
-			writeH(0x00);	// ? 300
+			writeH(item.getItem().getType1());
+			writeD(item.getObjectId());
+			writeD(item.getItemDisplayId());
+			writeD(item.getCount());
+			writeH(item.getItem().getType2());
+            writeH(item.getCustomType1());
+			writeD(item.getItem().getBodyPart());
+			writeH(item.getEnchantLevel());
+            writeH(item.getCustomType2());
 			writeH(0x00);	// ? 200
-			writeD(item.getObjectId()); // item id - confimed
+			writeD(item.getObjectId());
 			if (item.isAugmented())
 			{
 				writeD(0x0000FFFF&item.getAugmentation().getAugmentationId());
 				writeD(item.getAugmentation().getAugmentationId()>>16);
 			}
 			else writeQ(0x00);
+            writeD(0x00); //attack attr element
+            writeD(0x00); //attack attr element val
+            writeD(0x00); //fire
+            writeD(0x00); //water
+            writeD(0x00); //wind
+            writeD(0x00); //earth
+            writeD(0x00); //holy
+            writeD(0x00); //unholy
 		}
 	}
 	
@@ -107,6 +115,6 @@ public class WareHouseDepositList extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__53_WAREHOUSEDEPOSITLIST;
+		return _S__41_WAREHOUSEDEPOSITLIST;
 	}
 }
