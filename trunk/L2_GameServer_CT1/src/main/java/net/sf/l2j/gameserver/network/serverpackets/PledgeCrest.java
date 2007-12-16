@@ -52,7 +52,7 @@ public class PledgeCrest extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x6c);
+		writeC(0x6a);
 		writeD(_crestId);
 		writeD(_crestSize);
 		writeB(_data);

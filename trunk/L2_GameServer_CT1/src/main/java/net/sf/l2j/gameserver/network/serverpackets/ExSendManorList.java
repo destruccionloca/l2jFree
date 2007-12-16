@@ -46,7 +46,7 @@ public class ExSendManorList extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xFE);
-		writeH(0x1B);
+		writeH(0x22);
 		writeD(_manors.size());
 		for (int i = 0; i < _manors.size(); i++)
 		{

@@ -64,7 +64,7 @@ public class SendMacroList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xE7);
+		writeC(0xE8);
 		
 		writeD(_rev); // macro change revision (changes after each macro edition)
 		writeC(0);    //unknown

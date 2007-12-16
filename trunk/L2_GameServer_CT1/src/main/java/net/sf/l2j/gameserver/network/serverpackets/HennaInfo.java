@@ -54,7 +54,7 @@ public final class HennaInfo extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 
-		writeC(0xe4);
+		writeC(0xe5);
 
 		writeC(_activeChar.getHennaStatINT());	//equip INT
 		writeC(_activeChar.getHennaStatSTR());	//equip STR
