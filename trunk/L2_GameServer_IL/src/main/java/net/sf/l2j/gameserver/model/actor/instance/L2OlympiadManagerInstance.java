@@ -135,16 +135,8 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                     int passes = Olympiad.getInstance().getNoblessePasses(player.getObjectId());
                     if (passes > 0)
                     {
-                        L2ItemInstance item = player.getInventory().addItem("Olympiad", GATE_PASS, passes, player, this);
-                        
-                        InventoryUpdate iu = new InventoryUpdate();
-                        iu.addModifiedItem(item);
-                        player.sendPacket(iu);
-                        
-                        SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-                        sm.addNumber(passes);
-                        sm.addItemName(item.getItemId());
-                        player.sendPacket(sm);
+                        // Sends the correct packet even for newly created items
+                        player.addItem("Olympiad", GATE_PASS, passes, player, true, true);
                     }
                     else
                     {
@@ -152,7 +144,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                     }
                     break;
                 case 7:
-                	L2Multisell.getInstance().SeparateAndSend(102, player, false, getCastle().getTaxRate());
+                    L2Multisell.getInstance().SeparateAndSend(102, player, false, getCastle().getTaxRate());
                     break;
                     default:
                         _log.warn("Olympiad System: Couldnt send packet for request " + val);

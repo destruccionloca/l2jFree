@@ -801,16 +801,16 @@ public class FourSepulchersManager
 					drifty = Rnd.get(-80, 80);
 					mem.teleToLocation(Location[0] + driftx, Location[1] + drifty, Location[2]);
 					mem.destroyItemByItemId("Quest", _entrancePass, 1, mem,true);
-                    if (mem.getInventory().getItemByItemId(_oldBrooch) == null)
-                    {
+					if (mem.getInventory().getItemByItemId(_oldBrooch) == null)
+					{
 						mem.addItem("Quest", _usedEntrancePass, 1, mem, true);
-                    }
+					}
 
 					L2ItemInstance hallsKey = mem.getInventory().getItemByItemId(_hallsKey);
-	                if(hallsKey != null)
-	                {
-	                	mem.destroyItemByItemId("Quest", _hallsKey, hallsKey.getCount(), mem, true);
-	                }
+					if(hallsKey != null)
+					{
+						mem.destroyItemByItemId("Quest", _hallsKey, hallsKey.getCount(), mem, true);
+					}
 				}
 
 				_challengers.remove(npcId);

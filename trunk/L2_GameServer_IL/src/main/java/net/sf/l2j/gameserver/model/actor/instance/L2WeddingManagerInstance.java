@@ -138,22 +138,23 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     couple.marry();
 
                     //messages to the couple
-                    player.sendMessage("Congratulations you are married!");
+                    player.sendMessage("Congratulations, you are married!");
                     player.setMaried(true);
                     player.setMaryRequest(false);
-                    ptarget.sendMessage("Congratulations you are married!"); 
+                    ptarget.sendMessage("Congratulations, you are married!"); 
                     ptarget.setMaried(true);
                     ptarget.setMaryRequest(false);
                     
                     // give cupid's bows to couple's
-                    InventoryUpdate iu = new InventoryUpdate();
-                    player.getInventory().addItem("Cupids Bow",9140,1,player,null); // give cupids bow
+                    player.addItem("Cupids Bow", 9140, 1, player, true, true); // give cupids bow
                     player.getInventory().updateDatabase(); // update database
-                    player.sendPacket(iu);
-                    ptarget.getInventory().addItem("Cupids Bow",9140,1,ptarget,null); // give cupids bow
+                    ptarget.addItem("Cupids Bow", 9140, 1, ptarget, true, true); // give cupids bow
                     ptarget.getInventory().updateDatabase(); // update database
-                    ptarget.sendPacket(iu);
-                    
+
+                    // Refresh client side skill lists
+                    player.sendSkillList();
+                    ptarget.sendSkillList();
+
                     //wedding march
                     MagicSkillUser MSU = new MagicSkillUser(player, player, 2230, 1, 1, 0);
                     player.broadcastPacket(MSU);
@@ -173,7 +174,6 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                         ptarget.sendPacket(MSU);
                         ptarget.broadcastPacket(MSU);
                         ptarget.useMagic(skill, false, false);
-
                     }
                     
                     Announcements.getInstance().announceToAll("Gratulations, "+player.getName()+" and "+ptarget.getName()+" has married.");            

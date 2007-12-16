@@ -169,29 +169,35 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		ItemTable itemTable = ItemTable.getInstance();
 		L2Item[] items = template.getItems();
-		for (L2Item element : items) {
+		for (L2Item element : items)
+		{
 			L2ItemInstance item = newChar.getInventory().addItem("Init", element.getItemId(), 1, newChar, null);
-			if (item.getItemId()==5588){
-			    //add tutbook shortcut
-			    shortcut = new L2ShortCut(11,0,1,item.getObjectId(),-1,1);
-			    newChar.registerShortCut(shortcut);
+			if (item.getItemId()==5588)
+			{
+				//add tutbook shortcut
+				shortcut = new L2ShortCut(11,0,1,item.getObjectId(),-1,1);
+				newChar.registerShortCut(shortcut);
 			}
-			if (item.isEquipable()){
-			  if (newChar.getActiveWeaponItem() == null || !(item.getItem().getType2() != L2Item.TYPE2_WEAPON))
-			    newChar.getInventory().equipItemAndRecord(item);
+			if (item.isEquipable())
+			{
+				if (newChar.getActiveWeaponItem() == null || !(item.getItem().getType2() != L2Item.TYPE2_WEAPON))
+					newChar.getInventory().equipItemAndRecord(item);
 			}
 		}
 		
 		L2SkillLearn[] startSkills = SkillTreeTable.getInstance().getAvailableSkills(newChar, newChar.getClassId());
-		for (L2SkillLearn element : startSkills) {
+		for (L2SkillLearn element : startSkills)
+		{
 			newChar.addSkill(SkillTable.getInstance().getInfo(element.getId(), element.getLevel()), true);
-			if (element.getId()==1001 || element.getId()==1177){
-			    shortcut = new L2ShortCut(1,0,2,element.getId(),1,1);
-			    newChar.registerShortCut(shortcut);
+			if (element.getId()==1001 || element.getId()==1177)
+			{
+				shortcut = new L2ShortCut(1,0,2,element.getId(),1,1);
+				newChar.registerShortCut(shortcut);
 			}
-			if (element.getId()==1216){
-			    shortcut = new L2ShortCut(10,0,2,element.getId(),1,1);
-			    newChar.registerShortCut(shortcut);
+			if (element.getId()==1216)
+			{
+				shortcut = new L2ShortCut(10,0,2,element.getId(),1,1);
+				newChar.registerShortCut(shortcut);
 			}
 			if (_log.isDebugEnabled()) 
 				_log.debug("adding starter skill:" + element.getId()+ " / "+ element.getLevel());
@@ -204,8 +210,8 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		CharSelectInfo cl =	new CharSelectInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.getConnection().sendPacket(cl);
-        client.setCharSelection(cl.getCharInfo());
-        if (_log.isDebugEnabled()) _log.debug("Character init end");
+		client.setCharSelection(cl.getCharInfo());
+		if (_log.isDebugEnabled()) _log.debug("Character init end");
 	}
 	
 	/* (non-Javadoc)

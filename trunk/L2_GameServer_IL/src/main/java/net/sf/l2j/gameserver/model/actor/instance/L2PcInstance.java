@@ -2740,7 +2740,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param reference : L2Object Object referencing current action like NPC selling item or previous item in transformation
      * @param sendMessage : boolean Specifies whether to send message to Client about this action
      */
-    public void addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage, boolean UpdateIL)
+    public L2ItemInstance addItem(String process, int itemId, int count, L2Object reference, boolean sendMessage, boolean UpdateIL)
     {
         if (count > 0)
         {
@@ -2751,17 +2751,20 @@ public final class L2PcInstance extends L2PlayableInstance
             }
 
             // Add the item to inventory
-            L2ItemInstance newitem = _inventory.addItem(process, itemId, count, this, reference);
+            L2ItemInstance newItem = _inventory.addItem(process, itemId, count, this, reference);
             
-            processAddItem(UpdateIL, newitem);
+            processAddItem(UpdateIL, newItem);
+            return newItem;
         }
+        return null;
     }
 
 	/**
 	 * @param UpdateIL
 	 * @param newitem
 	 */
-	private void processAddItem(boolean UpdateIL, L2ItemInstance newitem) {
+	private void processAddItem(boolean UpdateIL, L2ItemInstance newitem)
+	{
 		// Send inventory update packet
 		if (!Config.FORCE_INVENTORY_UPDATE)
 		{
@@ -2791,7 +2794,8 @@ public final class L2PcInstance extends L2PlayableInstance
 		    dropItem("InvDrop", newitem, null, true);
 		
 		//Update current load as well
-		if(UpdateIL){            
+		if(UpdateIL)
+		{            
 		    StatusUpdate su = new StatusUpdate(getObjectId());
 		    su.addAttribute(StatusUpdate.CUR_LOAD, getCurrentLoad());
 		    sendPacket(su);
@@ -2803,7 +2807,8 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param itemId : int Item Identifier of the item to be added
      * @param count : int Quantity of items to be added
 	 */
-	private void sendMessageForNewItem(int itemId, int count, String process) {
+	private void sendMessageForNewItem(int itemId, int count, String process)
+	{
 		L2Item temp = ItemTable.getInstance().getTemplate(itemId);
 		if (count > 1)
 		{

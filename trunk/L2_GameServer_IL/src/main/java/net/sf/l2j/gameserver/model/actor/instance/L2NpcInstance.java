@@ -1006,9 +1006,9 @@ public class L2NpcInstance extends L2Character
                             if(Rnd.nextInt(100)<chance) 
                             {
                                 ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
-                                player.getInventory().addItem("PetUpdate", exchangeItem, 1, player, this);
+                                player.addItem("PetUpdate", exchangeItem, 1, player, true, true);
                                 
-                                NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());    
+                                NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
                                 TextBuilder replyMSG = new TextBuilder("<html><body>");
                                 replyMSG.append("Congratulations, the evolution suceeded.");
                                 replyMSG.append("</body></html>");
@@ -1096,8 +1096,8 @@ public class L2NpcInstance extends L2Character
                             if(Rnd.nextInt(100)<chance) 
                             {
                                 ThreadPoolManager.getInstance().scheduleGeneral(new destroyTemporalSummon(summon, player), 6000);
-                                player.getInventory().addItem("PetUpdate", exchangeItem, 1, player, this);
-                                NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());      
+                                player.addItem("PetUpdate", exchangeItem, 1, player, true, true);
+                                NpcHtmlMessage adminReply = new NpcHtmlMessage(getObjectId());
                                 TextBuilder replyMSG = new TextBuilder("<html><body>");
                               
                                 replyMSG.append("Congratulations, the evolution suceeded.");
