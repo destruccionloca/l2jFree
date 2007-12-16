@@ -1,7 +1,7 @@
 import sys
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.serverpackets import MagicSkillUser
 from net.sf.l2j.gameserver.ai import CtrlIntention
+from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j.gameserver.network.serverpackets import MagicSkillUser
 
 # Angel spawns...when one of the angels in the keys dies, the other angel will spawn.
 

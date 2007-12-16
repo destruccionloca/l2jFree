@@ -6,7 +6,7 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.serverpackets import RadarControl
+from net.sf.l2j.gameserver.network.serverpackets import RadarControl
 #Quest info
 QUEST_NUMBER,QUEST_NAME,QUEST_DESCRIPTION = 348,"ArrogantSearch","An Arrogant Search"
 qn = "348_ArrogantSearch"
