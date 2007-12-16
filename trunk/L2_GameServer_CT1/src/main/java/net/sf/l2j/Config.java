@@ -801,6 +801,8 @@ public final class Config
     public static String			FORBIDDEN_RAID_SKILLS;
     public static FastList<Integer> FORBIDDEN_RAID_SKILLS_LIST  = new FastList<Integer>();
     public static int           	DEATH_PENALTY_CHANCE;				// Death Penalty chance
+    
+    public static CreateKamaelChar	CAN_CREATE_KAMAEL_RACE;				// Decides who can create a kamael char
     //  *******************************************************************************************
     //  *******************************************************************************************
     public static void loadOtherConfig()
@@ -920,6 +922,12 @@ public final class Config
             }
 
             DEATH_PENALTY_CHANCE = Integer.parseInt(otherSettings.getProperty("DeathPenaltyChance", "20"));
+            
+            String temp = otherSettings.getProperty("CreateKamaelChar", "None");
+            CAN_CREATE_KAMAEL_RACE = CreateKamaelChar.NONE;
+            for (CreateKamaelChar ckc : CreateKamaelChar.values())
+            	if (ckc.name().equalsIgnoreCase(temp))
+            		CAN_CREATE_KAMAEL_RACE = ckc;
         }
         catch (Exception e)
         {

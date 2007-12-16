@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import java.util.Iterator;
+
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 
@@ -40,12 +42,14 @@ public class CharTemplates extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x17);
+		writeC(0x0D);
 		writeD(_chars.size());
 
-		for (L2PcTemplate temp : _chars)
+		for (Iterator it = _chars.iterator(); it.hasNext(); writeD(0x0a))
 		{
-			writeD(temp.getRace().ordinal());
+			L2PcTemplate temp = (L2PcTemplate)it.next();
+			//writeD(temp.getRace().ordinal());
+			writeD(0x00);
 			writeD(temp.getClassId().getId());
 			writeD(0x46);
 			writeD(temp.getBaseSTR());
@@ -64,7 +68,6 @@ public class CharTemplates extends L2GameServerPacket
 			writeD(0x0a);
 			writeD(0x46);
 			writeD(temp.getBaseMEN());
-			writeD(0x0a);
 		}
 	}
 

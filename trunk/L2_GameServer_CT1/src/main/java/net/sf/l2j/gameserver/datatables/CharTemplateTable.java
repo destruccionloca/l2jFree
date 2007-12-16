@@ -56,8 +56,9 @@ public class CharTemplateTable
                                                 "Eva Templar", "Sword Muse", "Wind Rider", "Moonlight Sentinel", "Mystic Muse", "Elemental Master", "Eva's Saint", 
                                                 "Shillien Templar", "Spectral Dancer", "Ghost Hunter", "Ghost Sentinel", "Storm Screamer", "Spectral Master", "Shillien Saint", 
                                                 "Titan", "Grand Khavatari", "Dominator", "Doomcryer", 
-                                                "Fortune Seeker", "Maestro", "dummyEntry31", "dummyEntry32", "dummyEntry33", "dummyEntry34",
-                                                "maleSoldier", "femaleSoldier", "trooper", "warder", "berserker", "maleSoulbreaker", "femaleSoulbreaker", "arbalester", "doombringer", "maleSoulhound", "femaleSoulhound", "trickster", "inspector", "judicator"
+                                                "Fortune Seeker", "Maestro",
+                                                "dummyEntry31", "dummyEntry32", "dummyEntry33", "dummyEntry34",
+                                                "Male Soldier", "Female Soldier", "Trooper", "Warder", "Berserker", "Male Soulbreaker", "Female Souldbreaker", "Arbalester", "Doombringer", "Male Soulhound", "Female Soulhound", "Trickster", "Inspector", "Judicator"
     };
     
 	private FastMap<Integer, L2PcTemplate> _templates;
