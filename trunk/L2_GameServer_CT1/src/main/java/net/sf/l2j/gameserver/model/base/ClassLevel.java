@@ -39,5 +39,7 @@ public enum ClassLevel
     First,
     Second,
     Third,
-    Fourth
+    Fourth,
+    Fifth,
+    Sixth
 }

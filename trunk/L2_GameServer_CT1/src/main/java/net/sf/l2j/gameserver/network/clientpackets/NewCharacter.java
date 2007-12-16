@@ -83,6 +83,12 @@ public class NewCharacter extends L2GameClientPacket
 		template = CharTemplateTable.getInstance().getTemplate(ClassId.dwarvenFighter);	// dwarf fighter
 		ct.addChar(template);
 
+		template = CharTemplateTable.getInstance().getTemplate(ClassId.maleSoldier); //kamael male soldier
+		ct.addChar(template);
+		
+		template = CharTemplateTable.getInstance().getTemplate(ClassId.femaleSoldier); // kamael female soldier
+		ct.addChar(template);
+		
 		sendPacket(ct);
 	}
 
