@@ -93,7 +93,6 @@ __all__ = [
 '122_OminousNews',
 '123_TheLeaderAndTheFollower',
 '124_MeetingTheElroki',
-'127_KamaelAWindowToTheFuture',
 '151_SaveMySister1',
 '152_ShardsOfGolem',
 '153_WharfOldtimersFavor',

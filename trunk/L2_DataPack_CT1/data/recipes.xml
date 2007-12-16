@@ -18338,4 +18338,725 @@
     <!-- Magic Reagents -->
     <ingredient id="9170" count="6" />
   </item>
+
+  <!-- 1stThrone Recipes by Skatershi -->
+
+  <item id="872" name="mk_dynasty_blade_i">
+    <!-- Recipe - Dynasty Sword (60%) -->
+    <recipe id="9967" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Sword -->
+    <production id="9442" count="1" />
+    <!-- Dynasty Sword Piece -->
+    <ingredient id="9616" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="788" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="788" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="394" />
+    <!-- Enria -->
+    <ingredient id="4042" count="394" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="394" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="479" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+  <item id="873" name="mk_dynasty_two_hand_sword_i">
+    <!-- Recipe - Dynasty Blade (60%) -->
+    <recipe id="9968" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Blade -->
+    <production id="9443" count="1" />
+    <!-- Dynasty Blade Piece -->
+    <ingredient id="9617" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="836" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="418" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="418" />
+    <!-- Enria -->
+    <ingredient id="4042" count="418" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="418" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="481" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+   <item id="874" name="mk_dynasty_magic_sword_i">
+    <!-- Recipe - Dynasty Phantom (60%) -->
+    <recipe id="9969" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Phantom -->
+    <production id="9444" count="1" />
+    <!-- Dynasty Phantom Piece -->
+    <ingredient id="9618" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="788" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="788" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="394" />
+    <!-- Enria -->
+    <ingredient id="4042" count="394" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="394" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="479" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+   <item id="875" name="mk_dynasty_bow_i">
+    <!-- Recipe - Dynasty Bow (60%) -->
+    <recipe id="9970" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Bow -->
+    <production id="9445" count="1" />
+    <!-- Dynasty Bow Piece -->
+    <ingredient id="9619" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="1390" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="556" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="278" />
+    <!-- Compound Braid -->
+    <ingredient id="1889" count="278" />
+    <!-- Enria -->
+    <ingredient id="4042" count="278" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="278" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="483" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+   <item id="876" name="mk_dynasty_dagger_i">
+    <!-- Recipe - Dynasty Knife (60%) -->
+    <recipe id="9971" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Knife -->
+    <production id="9446" count="1" />
+    <!-- Dynasty Knife Piece -->
+    <ingredient id="9620" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="788" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="788" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="394" />
+    <!-- Enria -->
+    <ingredient id="4042" count="394" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="394" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="479" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+   <item id="877" name="mk_dynasty_spear_i">
+    <!-- Recipe - Dynasty Halberd (60%) -->
+    <recipe id="9972" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Halberd -->
+    <production id="9447" count="1" />
+    <!-- Dynasty Halberd Piece -->
+    <ingredient id="9621" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="952" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="476" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="952" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="238" />
+    <!-- Enria -->
+    <ingredient id="4042" count="238" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="238" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="479" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+   <item id="878" name="mk_dynasty_hammer_i">
+    <!-- Recipe - Dynasty Cudgel (60%) -->
+    <recipe id="9973" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Cudgel -->
+    <production id="9448" count="1" />
+    <!-- Halberd Cudgel Piece -->
+    <ingredient id="9622" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="552" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="552" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="1104" />
+    <!-- Enria -->
+    <ingredient id="4042" count="276" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="276" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="486" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+   <item id="879" name="mk_dynasty_staff_i">
+    <!-- Recipe - Dynasty Mace (60%) -->
+    <recipe id="9974" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Mace -->
+    <production id="9449" count="1" />
+    <!-- Dynasty Mace Piece -->
+    <ingredient id="9623" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Oriharukon -->
+    <ingredient id="1893" count="374" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="748" />
+    <!-- Compound Braid -->
+    <ingredient id="1889" count="374" />
+    <!-- Coarse Bone Powder -->
+    <ingredient id="1881" count="748" />
+    <!-- Enria -->
+    <ingredient id="4042" count="374" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="374" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="476" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+  <item id="880" name="mk_dynasty_jamadhr_i">
+    <!-- Recipe - Dynasty Bagh-Nakh (60%) -->
+    <recipe id="9975" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Dynasty Bagh-Nakh -->
+    <production id="9450" count="1" />
+    <!-- Dynasty Bagh-Nakh Piece -->
+    <ingredient id="9624" count="18" />
+    <!-- Warsmith's Holder -->
+    <ingredient id="5554" count="4" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="552" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="552" />
+    <!-- Durable Metal Plate -->
+    <ingredient id="5550" count="1104" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="276" />
+    <!-- Enria -->
+    <ingredient id="4042" count="276" />
+    <!-- Adamantine -->
+    <ingredient id="9629" count="276" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="486" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="154" />
+  </item>
+  <item id="881" name="mk_sealed_dynasty_blast_plate_i">
+    <!-- Recipe - Sealed Dynasty Breast Plate (60%) -->
+    <recipe id="9482" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Breast Plate -->
+    <production id="9514" count="1" />
+    <!-- Sealed Dynasty Breast Plate Piece -->
+    <ingredient id="9530" count="18" />
+    <!-- Arcsmith's Anvil -->
+    <ingredient id="5553" count="3" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="468" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="312" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="156" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="157" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="44" />
+  </item>
+  <item id="882" name="mk_sealed_dynasty_gaiter_i">
+    <!-- Recipe - Sealed Dynasty Gaiter (60%) -->
+    <recipe id="9483" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Gaiter -->
+    <production id="9515" count="1" />
+    <!-- Sealed Dynasty Gaiter Piece -->
+    <ingredient id="9531" count="18" />
+    <!-- Arcsmith's Anvil -->
+    <ingredient id="5553" count="2" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="288" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="192" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="96" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="101" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="26" />
+  </item>
+  <item id="883" name="mk_sealed_dynasty_helmet_i">
+    <!-- Recipe - Sealed Dynasty Helmet (60%) -->
+    <recipe id="9484" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Helmet -->
+    <production id="9516" count="1" />
+    <!-- Sealed Dynasty Helmet Piece -->
+    <ingredient id="9532" count="18" />
+    <!-- Leolin's Mold -->
+    <ingredient id="5551" count="1" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="560" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="56" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="56" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="56" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="15" />
+  </item>
+  <item id="884" name="mk_sealed_dynasty_gauntlet_i">
+    <!-- Recipe - Sealed Dynasty Gauntlet (60%) -->
+    <recipe id="9485" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Gauntlets -->
+    <production id="9517" count="1" />
+    <!-- Sealed Dynasty Gauntlets Piece -->
+    <ingredient id="9533" count="18" />
+    <!-- Warsmith's Mold -->
+    <ingredient id="5552" count="1" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="132" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="220" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="44" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="44" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="39" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="9" />
+  </item>
+  <item id="885" name="mk_sealed_dynasty_boots_i">
+    <!-- Recipe - Sealed Dynasty Boots (60%) -->
+    <recipe id="9486" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Boots -->
+    <production id="9518" count="1" />
+    <!-- Sealed Dynasty Boot Piece -->
+    <ingredient id="9534" count="18" />
+    <!-- Warsmith's Mold -->
+    <ingredient id="5552" count="1" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="132" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="220" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="44" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="44" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="39" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="9" />
+  </item>
+  <item id="886" name="mk_sealed_dynasty_leather_mail_i">
+    <!-- Recipe - Sealed Dynasty Leather Armor (60%) -->
+    <recipe id="9487" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Leather Armor -->
+    <production id="9519" count="1" />
+    <!-- Sealed Dynasty Leather Armor Piece -->
+    <ingredient id="9535" count="18" />
+    <!-- Leolin's Mold -->
+    <ingredient id="5551" count="1" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="770" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="154" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="154" />
+    <!-- Metallic Fiber -->
+    <ingredient id="1895" count="462" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="115" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="32" />
+  </item>
+  <item id="887" name="mk_sealed_dynasty_leather_legging_i">
+    <!-- Recipe - Sealed Dynasty Leather Armor (60%) -->
+    <recipe id="9488" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Leather Leggings -->
+    <production id="9520" count="1" />
+    <!-- Sealed Dynasty Leather Leggings Piece -->
+    <ingredient id="9536" count="18" />
+    <!-- Leolin's Mold -->
+    <ingredient id="5551" count="1" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="470" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="94" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="94" />
+    <!-- Metallic Fiber -->
+    <ingredient id="1895" count="282" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="75" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="19" />
+  </item>
+  <item id="888" name="mk_sealed_dynasty_leather_helmet_i">
+    <!-- Recipe - Sealed Dynasty Leather Helmet (60%) -->
+    <recipe id="9489" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Leather Helmet -->
+    <production id="9521" count="1" />
+    <!-- Sealed Dynasty Leather Helmet Piece -->
+    <ingredient id="9537" count="18" />
+    <!-- Leolin's Mold -->
+    <ingredient id="5551" count="1" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="560" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="56" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="56" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="56" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="15" />
+  </item>
+  <item id="889" name="mk_sealed_dynasty_leather_gloves_i">
+    <!-- Recipe - Sealed Dynasty Leather Gloves (60%) -->
+    <recipe id="9490" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Leather Gloves -->
+    <production id="9522" count="1" />
+    <!-- Sealed Dynasty Leather Glove Piece -->
+    <ingredient id="9538" count="18" />
+    <!-- Warsmith's Mold -->
+    <ingredient id="5552" count="1" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="132" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="220" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="44" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="44" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="39" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="9" />
+  </item>
+  <item id="890" name="mk_sealed_dynasty_leather_boots_i">
+    <!-- Recipe - Sealed Dynasty Leather Boots (60%) -->
+    <recipe id="9491" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Leather Boots -->
+    <production id="9523" count="1" />
+    <!-- Sealed Dynasty Leather Boots Piece -->
+    <ingredient id="9539" count="18" />
+    <!-- Warsmith's Mold -->
+    <ingredient id="5552" count="1" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="132" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="220" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="44" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="44" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="39" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="9" />
+  </item>
+  <item id="891" name="mk_sealed_dynasty_tunic_i">
+    <!-- Recipe - Sealed Dynasty Tunic (60%) -->
+    <recipe id="9492" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Tunic -->
+    <production id="9524" count="1" />
+    <!-- Sealed Dynasty Tunic Piece -->
+    <ingredient id="9540" count="18" />
+    <!-- Leolin's Mold -->
+    <ingredient id="5551" count="1" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="770" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="154" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="154" />
+    <!-- Metallic Fiber -->
+    <ingredient id="1895" count="462" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="115" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="32" />
+  </item>
+  <item id="892" name="mk_sealed_dynasty_hose_i">
+    <!-- Recipe - Sealed Dynasty Stockings (60%) -->
+    <recipe id="9493" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Stockings -->
+    <production id="9525" count="1" />
+    <!-- Sealed Dynasty Stocking Piece -->
+    <ingredient id="9541" count="18" />
+    <!-- Leolin's Mold -->
+    <ingredient id="5551" count="1" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="470" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="94" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="94" />
+    <!-- Metallic Fiber -->
+    <ingredient id="1895" count="282" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="75" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="19" />
+  </item>
+  <item id="893" name="mk_sealed_dynasty_circlet_i">
+    <!-- Recipe - Sealed Dynasty Circlet (60%) -->
+    <recipe id="9494" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Circlet -->
+    <production id="9526" count="1" />
+    <!-- Sealed Dynasty Circlet Piece -->
+    <ingredient id="9542" count="18" />
+    <!-- Leolin's Mold -->
+    <ingredient id="5551" count="1" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="560" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="56" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="56" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="56" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="15" />
+  </item>
+  <item id="894" name="mk_sealed_dynasty_gloves_i">
+    <!-- Recipe - Sealed Dynasty Gloves (60%) -->
+    <recipe id="9495" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Gloves -->
+    <production id="9527" count="1" />
+    <!-- Sealed Dynasty Glove Piece -->
+    <ingredient id="9543" count="18" />
+    <!-- Warsmith's Mold -->
+    <ingredient id="5552" count="1" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="132" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="220" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="44" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="44" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="39" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="9" />
+  </item>
+  <item id="895" name="mk_sealed_dynasty_shoes_i">
+    <!-- Recipe - Sealed Dynasty Shoes (60%) -->
+    <recipe id="9496" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Shoes -->
+    <production id="9528" count="1" />
+    <!-- Sealed Dynasty Shoes Piece -->
+    <ingredient id="9544" count="18" />
+    <!-- Warsmith's Mold -->
+    <ingredient id="5552" count="1" />
+    <!-- High Grade Suede -->
+    <ingredient id="1885" count="132" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="220" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="44" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="44" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="39" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="9" />
+  </item>
+  <item id="896" name="mk_sealed_dynasty_shield_i">
+    <!-- Recipe - Sealed Dynasty Shield (60%) -->
+    <recipe id="9497" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>60</successRate>
+    <!-- Sealed Dynasty Shield -->
+    <production id="9529" count="1" />
+    <!-- Sealed Dynasty Shield Piece -->
+    <ingredient id="9545" count="18" />
+    <!-- Leolin's Mold -->
+    <ingredient id="5551" count="1" />
+    <!-- Mithril Alloy -->
+    <ingredient id="1890" count="120" />
+    <!-- Synthetic Cokes -->
+    <ingredient id="1888" count="40" />
+    <!-- Crafted Leather -->
+    <ingredient id="1894" count="40" />
+    <!-- Asofe -->
+    <ingredient id="4043" count="40" />
+    <!-- Orichalcum -->
+    <ingredient id="9630" count="40" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="42" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="10" />
+  </item>
+  <item id="897" name="mk_sealed_dynasty_earring_i">
+    <!-- Recipe - Sealed Dynasty Earrings (70%) -->
+    <recipe id="9985" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>70</successRate>
+    <!-- Sealed Dynasty Earring -->
+    <production id="9452" count="1" />
+    <!-- Sealed Dynasty Earring Gemstone -->
+    <ingredient id="9991" count="18" />
+    <!-- Warsmith's Mold -->
+    <ingredient id="5552" count="1" />
+    <!-- Leonard -->
+    <ingredient id="9628" count="68" />
+    <!-- Thons -->
+    <ingredient id="4044" count="68" />
+    <!-- Varnish of Purity -->
+    <ingredient id="1887" count="204" />
+    <!-- Metallic Fiber -->
+    <ingredient id="1895" count="340" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="42" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="11" />
+  </item>
+  <item id="898" name="mk_sealed_dynasty_neckalce_i">
+    <!-- Recipe - Sealed Dynasty Necklace (70%) -->
+    <recipe id="9986" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>70</successRate>
+    <!-- Sealed Dynasty Necklace -->
+    <production id="9453" count="1" />
+    <!-- Sealed Dynasty Necklace Gemstone -->
+    <ingredient id="9992" count="18" />
+    <!-- Warsmith's Mold -->
+    <ingredient id="5552" count="1" />
+    <!-- Leonard -->
+    <ingredient id="9628" count="92" />
+    <!-- Thons -->
+    <ingredient id="4044" count="92" />
+    <!-- Varnish of Purity -->
+    <ingredient id="1887" count="276" />
+    <!-- Metallic Fiber -->
+    <ingredient id="1895" count="460" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="58" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="15" />
+  </item>
+  <item id="899" name="mk_sealed_dynasty_ring_i">
+    <!-- Recipe - Sealed Dynasty Ring (70%) -->
+    <recipe id="9987" level="9" />
+    <common />
+    <mpCost>240</mpCost>
+    <successRate>70</successRate>
+    <!-- Sealed Dynasty Ring -->
+    <production id="9454" count="1" />
+    <!-- Sealed Dynasty Ring Gemstone -->
+    <ingredient id="9993" count="18" />
+    <!-- Maestro Mold -->
+    <ingredient id="4048" count="1" />
+    <!-- Leonard -->
+    <ingredient id="9628" count="46" />
+    <!-- Thons -->
+    <ingredient id="4044" count="46" />
+    <!-- Varnish of Purity -->
+    <ingredient id="1887" count="138" />
+    <!-- Metallic Fiber -->
+    <ingredient id="1895" count="230" />
+    <!-- Crystal: S Grade -->
+    <ingredient id="1462" count="31" />
+    <!-- Gemstone S -->
+    <ingredient id="2134" count="7" />
+  </item>
 </list>
