@@ -179,6 +179,7 @@ public class MercTicketManager
 	        int npcId;
 	        int itemId;
 	        int x,y,z;
+	        int mercPlaced[] =  new int[10];
 	        // start index to begin the search for the itemId corresponding to this NPC
 	        // this will help with: 
 	        //    a) skip unnecessary iterations in the search loop
@@ -193,8 +194,15 @@ public class MercTicketManager
             	z = rs.getInt("z");
             	Castle castle = CastleManager.getInstance().getCastle(x,y,z);
             	if(castle != null)
+            	{
             		startindex = 10*(castle.getCastleId()-1);
-	        	
+            		// Needed to add a max merc check becase of a cheat (players switch clan leaders
+            		// and place more guards. Need a check added here and during siege start)
+            		mercPlaced[castle.getCastleId()-1] += 1;
+            		if (mercPlaced[castle.getCastleId()-1] > MERCS_MAX_PER_CASTLE[castle.getCastleId()-1])
+            			break;
+            	}
+            	
             	// find the FIRST ticket itemId with spawns the saved NPC in the saved location 
 	        	for (int i=startindex;i<NPC_IDS.length;i++)
 	                if (NPC_IDS[i] == npcId) // Find the index of the item used
@@ -286,6 +294,17 @@ public class MercTicketManager
     }
     
     /**
+     * Added to prevent multiple mercenaries spawns on siege time. 
+     * Function is called from SiegeGuardManager.spawnSiegeGuard() during siege time
+     * @param int of castleId
+     * @return int representation of max allowed guards 
+     */
+    public int getMaxAllowedMerc(int castleId)
+    {
+    	return MERCS_MAX_PER_CASTLE[castleId-1];
+    }
+    
+    /**
      * addTicket actions 
      * 1) find the npc that needs to be saved in the mercenary spawns, given this item
      * 2) Use the passed character's location info to add the spawn
@@ -303,7 +322,24 @@ public class MercTicketManager
         Castle castle = CastleManager.getInstance().getClosestCastle(activeChar);
         if (castle == null)		//this should never happen at this point
         	return -1;
-
+        
+    	int count 		= 	0,
+    		castleId	= 	castle.getCastleId();
+        
+    	// Added second check for maximum allowed siege guards. Some players found a way to bypass this
+    	// Hopefully this will prevent the cheat.
+    	for (L2ItemInstance t : _droppedTickets)
+        {
+        	if (getTicketCastleId(t.getItemId()) == castleId)
+        		count++;
+        }
+        
+    	if (count > MERCS_MAX_PER_CASTLE [ castleId - 1 ])
+    	{
+    		activeChar.sendMessage("You cannot hire any more mercenaries.");
+    		return -1;
+    	}
+        
         //check if this item can be added here
         for (int i = 0; i < ITEM_IDS.length; i++)
         {
