@@ -1,0 +1,192 @@
+<list>
+  <item id="1" name="Monster Race Track">
+    <type>Arena</type>
+    <restart x="12312" y="182752" z="-3558" />
+    <point x="11947" y="183019" z="-3596" />
+    <point x="12937" y="183019" z="-3596" />
+    <point x="12943" y="184010" z="-3596" />
+    <point x="11941" y="184010" z="-3396" />
+  </item>
+  <item id="2" name="Monster Race Track">
+    <type>Peace</type>
+    <point x="11714" y="181568" z="-3652" />
+    <point x="14406" y="181571" z="-3652" />
+    <point x="14405" y="182673" z="-3652" />
+    <point x="11714" y="182673" z="-3452" />
+  </item>
+  <item id="3" name="Monster Race Track">
+    <type>Peace</type>
+    <point x="13309" y="181324" z="-3610" />
+    <point x="14061" y="181610" z="-3410" />
+  </item>
+  <item id="4" name="Monster Race Track">
+    <type>Peace</type>
+    <point x="13559" y="182641" z="-3608" />
+    <point x="14073" y="182640" z="-3608" />
+    <point x="14073" y="182919" z="-3608" />
+    <point x="13560" y="182918" z="-3408" />
+  </item>
+  <item id="5" name="Monster Race Track">
+    <type>Peace</type>
+    <point x="12196" y="182662" z="-3612" />
+    <point x="12447" y="182663" z="-3612" />
+    <point x="12447" y="182766" z="-3612" />
+    <point x="12197" y="182766" z="-3412" />
+  </item>
+  <item id="6" name="Monster Race Track">
+    <type>Peace</type>
+    <point x="11706" y="182774" z="-3624" />
+    <point x="13194" y="182769" z="-3624" />
+    <point x="13194" y="183006" z="-3624" />
+    <point x="11701" y="183017" z="-3424" />
+  </item>
+  <item id="7" name="Monster Race Track">
+    <type>Peace</type>
+    <point x="11701" y="184017" z="-3616" />
+    <point x="13188" y="184011" z="-3616" />
+    <point x="13194" y="184265" z="-3616" />
+    <point x="11701" y="184260" z="-3416" />
+  </item>
+  <item id="8" name="Monster Race Track">
+    <type>Peace</type>
+    <point x="11697" y="183013" z="-3620" />
+    <point x="11945" y="183019" z="-3620" />
+    <point x="11940" y="184015" z="-3620" />
+    <point x="11697" y="184015" z="-3420" />
+  </item>
+  <item id="9" name="Monster Race Track">
+    <type>Peace</type>
+    <point x="12945" y="183013" z="-3624" />
+    <point x="13193" y="183008" z="-3624" />
+    <point x="13193" y="184009" z="-3624" />
+    <point x="12945" y="184009" z="-3424" />
+  </item>
+  <item id="10" name="Gludin Arena">
+    <type>Arena</type>
+    <restart x="-86979" y="142402" z="-3643" />    
+    <point x="-88411" y="141732" z="-3752" />
+    <point x="-87429" y="141733" z="-3752" />
+    <point x="-87429" y="142708" z="-3752" />
+    <point x="-88408" y="142708" z="-3352" />
+  </item>
+  <item id="11" name="Gludin Arena">
+    <type>Peace</type>
+    <point x="-88445" y="141473" z="-3723" />
+    <point x="-87166" y="141474" z="-3723" />
+    <point x="-87166" y="141726" z="-3723" />
+    <point x="-88441" y="141726" z="-3223" />
+  </item>
+  <item id="12" name="Gludin Arena">
+    <type>Peace</type>
+    <point x="-88666" y="141473" z="-3745" />
+    <point x="-88417" y="141474" z="-3745" />
+    <point x="-88414" y="142740" z="-3745" />
+    <point x="-88666" y="142746" z="-3245" />
+  </item>
+  <item id="13" name="Gludin Arena">
+    <type>Peace</type>
+    <point x="-88665" y="142716" z="-3723" />
+    <point x="-87165" y="142716" z="-3723" />
+    <point x="-87165" y="142973" z="-3723" />
+    <point x="-88667" y="142973" z="-3223" />
+  </item>
+  <item id="14" name="Gludin Arena">
+    <type>Peace</type>
+    <point x="-87418" y="141681" z="-3732" />
+    <point x="-87165" y="141680" z="-3732" />
+    <point x="-87166" y="142779" z="-3732" />
+    <point x="-87416" y="142779" z="-3232" />
+  </item>
+  <item id="15" name="Giran Arena">
+    <type>Arena</type>
+    <restart x="73890" y="142656" z="-3778" />
+    <point x="72493" y="142263" z="-3850" />
+    <point x="73493" y="142264" z="-3850" />
+    <point x="73493" y="143261" z="-3850" />
+    <point x="72495" y="143258" z="-3350" />
+  </item>
+  <item id="16" name="Giran Arena">
+    <type>Arena</type>
+    <restart x="73890" y="142656" z="-3778" />
+    <point x="82120" y="148800" z="-3598" />
+    <point x="82380" y="148410" z="-3598" />
+  </item>
+  <item id="17" name="Giran Arena">
+    <type>Peace</type>
+    <point x="73490" y="142231" z="-3851" />
+    <point x="73743" y="142232" z="-3851" />
+    <point x="73741" y="143316" z="-3851" />
+    <point x="73494" y="143312" z="-3351" />
+  </item>
+  <item id="18" name="Giran Arena">
+    <type>Peace</type>
+    <point x="72462" y="142013" z="-3855" />
+    <point x="73744" y="142013" z="-3855" />
+    <point x="73743" y="142268" z="-3855" />
+    <point x="72461" y="142268" z="-3355" />
+  </item>
+  <item id="19" name="Giran Arena">
+    <type>Peace</type>
+    <point x="72244" y="142015" z="-3853" />
+    <point x="72497" y="142012" z="-3853" />
+    <point x="72497" y="143285" z="-3853" />
+    <point x="72242" y="143280" z="-3353" />
+  </item>
+  <item id="20" name="Giran Arena">
+    <type>Peace</type>
+    <point x="72242" y="143255" z="-3856" />
+    <point x="73743" y="143257" z="-3856" />
+    <point x="73743" y="143513" z="-3856" />
+    <point x="72243" y="143514" z="-3356" />
+  </item>
+  <item id="21" name="Olympiad Stadium">
+    <type>Arena</type>
+    <restart x="147451" y="46728" z="-3410" />
+    <point x="151252" y="45918" z="-3498" />
+    <point x="151219" y="46182" z="-3498" />
+    <point x="150677" y="46786" z="-3498" />
+    <point x="148334" y="46788" z="-3498" />
+    <point x="147748" y="46166" z="-3498" />
+    <point x="147744" y="45916" z="-3498" />
+    <point x="148238" y="45301" z="-3498" />
+    <point x="150781" y="45307" z="-3298" />
+  </item>
+  <item id="22" name="Olympiad Stadium">
+    <type>Arena</type>
+    <restart x="147451" y="46728" z="-3410" />
+    <point x="151236" y="47268" z="-3498" />
+    <point x="151255" y="47520" z="-3498" />
+    <point x="150785" y="48132" z="-3498" />
+    <point x="148258" y="48126" z="-3498" />
+    <point x="147712" y="47532" z="-3498" />
+    <point x="147728" y="47294" z="-3498" />
+    <point x="148278" y="46707" z="-3498" />
+    <point x="150697" y="46709" z="-3298" />
+  </item>
+  <item id="23" name="Olympiad Stadium">
+    <type>Arena</type>
+    <restart x="147451" y="46728" z="-3410" />
+    <point x="148047" y="46276" z="-3587" />
+    <point x="150955" y="46276" z="-3587" />
+    <point x="150956" y="47052" z="-3587" />
+    <point x="148049" y="47053" z="-3387" />
+  </item>
+  <item id="24" name="Olympiad Stadium">
+    <type>Peace</type>
+    <point x="147779" y="46196" z="-3468" />
+    <point x="148045" y="46481" z="-3468" />
+    <point x="148047" y="46958" z="-3468" />
+    <point x="147772" y="47256" z="-3468" />
+    <point x="147078" y="47258" z="-3468" />
+    <point x="147095" y="46203" z="-3268" />
+  </item>
+  <item id="25" name="Olympiad Stadium">
+    <type>Peace</type>
+    <point x="151221" y="46184" z="-3472" />
+    <point x="151928" y="46183" z="-3472" />
+    <point x="151925" y="47248" z="-3472" />
+    <point x="151222" y="47262" z="-3472" />
+    <point x="150952" y="46956" z="-3472" />
+    <point x="150954" y="46486" z="-3272" />
+  </item>
+</list>

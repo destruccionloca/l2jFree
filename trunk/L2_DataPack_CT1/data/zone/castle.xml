@@ -1,0 +1,341 @@
+<!-- TODO: 
+            - Rune, Schuttgart                -->
+<list>
+  <item id="1" name="Gludio">
+    <type>CastleArea</type>
+    <castle>5</castle>
+    <restart x="-81447" y="152760" z="-3170" />
+    <restart x="-81447" y="152880" z="-3170" />
+    <restart x="-81447" y="152640" z="-3170" />
+    <restart x="-82186" y="152760" z="-3170" />
+    <restart x="-82186" y="152880" z="-3170" />
+    <restart x="-82186" y="152640" z="-3170" />
+    <restart x="-81780" y="152760" z="-3170" />
+    <restart x="-81780" y="152880" z="-3170" />
+    <restart x="-81780" y="152640" z="-3170" />
+    <restart_chaotic x="-81616" y="157104" z="-3150" />
+    <restart_chaotic x="-80688" y="157216" z="-3150" />
+    <restart_chaotic x="-79568" y="156960" z="-3150" />
+    <restart_chaotic x="-78800" y="157744" z="-3150" />
+    <restart_chaotic x="-80448" y="157968" z="-3130" />
+    <restart_chaotic x="-81712" y="159536" z="-3230" />
+    <restart_chaotic x="-79744" y="160592" z="-3330" />
+    <restart_chaotic x="-79584" y="159408" z="-3180" />
+    <restart_chaotic x="-74016" y="150656" z="-2800" />
+    <restart_chaotic x="-72720" y="149632" z="-2780" />
+    <restart_chaotic x="-75904" y="162000" z="-3300" />
+    <restart_chaotic x="-75488" y="161472" z="-3250" />
+    <restart_chaotic x="-74688" y="160736" z="-3200" />
+    <restart_chaotic x="-74352" y="161488" z="-3250" />
+    <restart_chaotic x="-76656" y="160768" z="-3280" />
+    <restart_chaotic x="-77472" y="160960" z="-3470" />
+    <restart_chaotic x="-77776" y="158752" z="-3270" />
+    <restart_chaotic x="-80448" y="161488" z="-3420" />
+    <restart_chaotic x="-75440" y="162672" z="-3350" />
+    <restart_chaotic x="-81760" y="161248" z="-3200" />
+
+    <restart_owner x="-16554" y="109382" z="-1799" />
+    <restart_owner x="-16869" y="109375" z="-1799" />
+    <restart_owner x="-16659" y="109261" z="-1799" />
+    <restart_owner x="-16618" y="109485" z="-1799" />
+
+    <point x="-20060" y="106912" z="-4452" />
+    <point x="-15820" y="106912" z="-4452" />
+    <point x="-15816" y="113449" z="-4452" />
+    <point x="-20061" y="113413" z="3547" />
+  </item>
+  <item id="2" name="Dion">
+    <type>CastleArea</type>
+    <castle>5</castle>
+    <restart x="-81447" y="152760" z="-3170" />
+    <restart x="-81447" y="152880" z="-3170" />
+    <restart x="-81447" y="152640" z="-3170" />
+    <restart x="-82186" y="152760" z="-3170" />
+    <restart x="-82186" y="152880" z="-3170" />
+    <restart x="-82186" y="152640" z="-3170" />
+    <restart x="-81780" y="152760" z="-3170" />
+    <restart x="-81780" y="152880" z="-3170" />
+    <restart x="-81780" y="152640" z="-3170" />
+    <restart_chaotic x="-81616" y="157104" z="-3150" />
+    <restart_chaotic x="-80688" y="157216" z="-3150" />
+    <restart_chaotic x="-79568" y="156960" z="-3150" />
+    <restart_chaotic x="-78800" y="157744" z="-3150" />
+    <restart_chaotic x="-80448" y="157968" z="-3130" />
+    <restart_chaotic x="-81712" y="159536" z="-3230" />
+    <restart_chaotic x="-79744" y="160592" z="-3330" />
+    <restart_chaotic x="-79584" y="159408" z="-3180" />
+    <restart_chaotic x="-74016" y="150656" z="-2800" />
+    <restart_chaotic x="-72720" y="149632" z="-2780" />
+    <restart_chaotic x="-75904" y="162000" z="-3300" />
+    <restart_chaotic x="-75488" y="161472" z="-3250" />
+    <restart_chaotic x="-74688" y="160736" z="-3200" />
+    <restart_chaotic x="-74352" y="161488" z="-3250" />
+    <restart_chaotic x="-76656" y="160768" z="-3280" />
+    <restart_chaotic x="-77472" y="160960" z="-3470" />
+    <restart_chaotic x="-77776" y="158752" z="-3270" />
+    <restart_chaotic x="-80448" y="161488" z="-3420" />
+    <restart_chaotic x="-75440" y="162672" z="-3350" />
+    <restart_chaotic x="-81760" y="161248" z="-3200" />
+
+    <restart_owner x="20514" y="160368" z="-1993" />
+    <restart_owner x="20829" y="160375" z="-1993" />
+    <restart_owner x="20619" y="160489" z="-1993" />
+    <restart_owner x="20578" y="160265" z="-1993" />
+
+    <point x="24020" y="162838" z="-4646" />
+    <point x="19780" y="162838" z="-4646" />
+    <point x="19776" y="156301" z="-4646" />
+    <point x="24021" y="156337" z="4000" />
+  </item>
+  <item id="3" name="Giran">
+    <type>CastleArea</type>
+    <castle>5</castle>
+    <restart x="116127" y="76015" z="-2729" />
+    <restart x="115683" y="77610" z="-2650" />
+    <restart x="117304" y="76318" z="-2670" />
+    <restart x="119862" y="76603" z="-2220" />
+    <restart x="117671" y="78998" z="-2210" />
+    <restart x="117189" y="78952" z="-2210" />
+    <restart x="115861" y="75200" z="-2550" />
+    <restart x="118275" y="74859" z="-2557" />
+    <restart x="118229" y="74677" z="-2450" />
+    <restart x="115685" y="75072" z="-2550" />
+    <restart x="116704" y="75695" z="-2680" />
+    <restart x="116737" y="76738" z="-2650" />
+    <restart x="115193" y="77594" z="-2670" />
+    <restart x="116158" y="77443" z="-2660" />
+    <restart_chaotic x="122098" y="70373" z="-2864" />
+    <restart_chaotic x="118674" y="71218" z="-2743" />
+    <restart_chaotic x="118040" y="67175" z="-2905" />
+    <restart_chaotic x="119300" y="70660" z="-2850" />
+    <restart_chaotic x="118851" y="70566" z="-2800" />
+    <restart_chaotic x="112655" y="70976" z="-3122" />
+    <restart_chaotic x="119712" y="66376" z="-2960" />
+    <restart_chaotic x="107511" y="82890" z="-2515" />
+    <restart_chaotic x="105702" y="82773" z="-2803" />
+    <restart_chaotic x="104257" y="82194" z="-2581" />
+    <restart_chaotic x="104474" y="81109" z="-2651" />
+
+    <restart_owner x="116540" y="146655" z="-1866" />
+    <restart_owner x="116547" y="146340" z="-1866" />
+    <restart_owner x="116661" y="146550" z="-1866" />
+    <restart_owner x="116437" y="146591" z="-1866" />
+
+    <point x="119010" y="143149" z="-4519" />
+    <point x="119010" y="147389" z="-4519" />
+    <point x="112473" y="147393" z="-4519" />
+    <point x="112509" y="143148" z="19931" />
+  </item>
+  <item id="4" name="Oren">
+    <type>CastleArea</type>
+    <castle>5</castle>
+    <restart x="116127" y="76015" z="-2729" />
+    <restart x="115683" y="77610" z="-2650" />
+    <restart x="117304" y="76318" z="-2670" />
+    <restart x="119862" y="76603" z="-2220" />
+    <restart x="117671" y="78998" z="-2210" />
+    <restart x="117189" y="78952" z="-2210" />
+    <restart x="115861" y="75200" z="-2550" />
+    <restart x="118275" y="74859" z="-2557" />
+    <restart x="118229" y="74677" z="-2450" />
+    <restart x="115685" y="75072" z="-2550" />
+    <restart x="116704" y="75695" z="-2680" />
+    <restart x="116737" y="76738" z="-2650" />
+    <restart x="115193" y="77594" z="-2670" />
+    <restart x="116158" y="77443" z="-2660" />
+    <restart_chaotic x="122098" y="70373" z="-2864" />
+    <restart_chaotic x="118674" y="71218" z="-2743" />
+    <restart_chaotic x="118040" y="67175" z="-2905" />
+    <restart_chaotic x="119300" y="70660" z="-2850" />
+    <restart_chaotic x="118851" y="70566" z="-2800" />
+    <restart_chaotic x="112655" y="70976" z="-3122" />
+    <restart_chaotic x="119712" y="66376" z="-2960" />
+    <restart_chaotic x="107511" y="82890" z="-2515" />
+    <restart_chaotic x="105702" y="82773" z="-2803" />
+    <restart_chaotic x="104257" y="82194" z="-2581" />
+    <restart_chaotic x="104474" y="81109" z="-2651" />
+
+    <restart_owner x="82616" y="38750" z="-1593" />
+    <restart_owner x="82623" y="38435" z="-1593" />
+    <restart_owner x="82737" y="38645" z="-1593" />
+    <restart_owner x="82513" y="38686" z="-1593" />
+
+    <point x="85086" y="35244" z="-4246" />
+    <point x="85086" y="39484" z="-4246" />
+    <point x="78549" y="39488" z="-4246" />
+    <point x="78585" y="35243" z="19931" />
+  </item>
+  <item id="5" name="Aden">
+    <type>CastleArea</type>
+    <restart x="116127" y="76015" z="-2729" />
+    <restart x="115683" y="77610" z="-2650" />
+    <restart x="117304" y="76318" z="-2670" />
+    <restart x="119862" y="76603" z="-2220" />
+    <restart x="117671" y="78998" z="-2210" />
+    <restart x="117189" y="78952" z="-2210" />
+    <restart x="115861" y="75200" z="-2550" />
+    <restart x="118275" y="74859" z="-2557" />
+    <restart x="118229" y="74677" z="-2450" />
+    <restart x="115685" y="75072" z="-2550" />
+    <restart x="116704" y="75695" z="-2680" />
+    <restart x="116737" y="76738" z="-2650" />
+    <restart x="115193" y="77594" z="-2670" />
+    <restart x="116158" y="77443" z="-2660" />
+    <restart_chaotic x="122098" y="70373" z="-2864" />
+    <restart_chaotic x="118674" y="71218" z="-2743" />
+    <restart_chaotic x="118040" y="67175" z="-2905" />
+    <restart_chaotic x="119300" y="70660" z="-2850" />
+    <restart_chaotic x="118851" y="70566" z="-2800" />
+    <restart_chaotic x="112655" y="70976" z="-3122" />
+    <restart_chaotic x="119712" y="66376" z="-2960" />
+    <restart_chaotic x="107511" y="82890" z="-2515" />
+    <restart_chaotic x="105702" y="82773" z="-2803" />
+    <restart_chaotic x="104257" y="82194" z="-2581" />
+    <restart_chaotic x="104474" y="81109" z="-2651" />
+    
+    <restart_owner x="147700" y="4608" z="-2784" />
+    <restart_owner x="147705" y="4865" z="-2784" />
+    <restart_owner x="147200" y="4865" z="-2784" />
+    <restart_owner x="147200" y="4350" z="-2784" />
+    <restart_owner x="147705" y="4350" z="-2784" />
+
+    <point x="144599" y="577" z="-3328" />
+    <point x="150295" y="577" z="-3328" />
+    <point x="150295" y="8521" z="-3328" />
+    <point x="144599" y="8521" z="6672" />
+  </item>
+  <item id="6" name="Innadrile">
+    <type>CastleArea</type>
+    <castle>5</castle>
+    <restart x="116127" y="76015" z="-2729" />
+    <restart x="115683" y="77610" z="-2650" />
+    <restart x="117304" y="76318" z="-2670" />
+    <restart x="119862" y="76603" z="-2220" />
+    <restart x="117671" y="78998" z="-2210" />
+    <restart x="117189" y="78952" z="-2210" />
+    <restart x="115861" y="75200" z="-2550" />
+    <restart x="118275" y="74859" z="-2557" />
+    <restart x="118229" y="74677" z="-2450" />
+    <restart x="115685" y="75072" z="-2550" />
+    <restart x="116704" y="75695" z="-2680" />
+    <restart x="116737" y="76738" z="-2650" />
+    <restart x="115193" y="77594" z="-2670" />
+    <restart x="116158" y="77443" z="-2660" />
+    <restart_chaotic x="122098" y="70373" z="-2864" />
+    <restart_chaotic x="118674" y="71218" z="-2743" />
+    <restart_chaotic x="118040" y="67175" z="-2905" />
+    <restart_chaotic x="119300" y="70660" z="-2850" />
+    <restart_chaotic x="118851" y="70566" z="-2800" />
+    <restart_chaotic x="112655" y="70976" z="-3122" />
+    <restart_chaotic x="119712" y="66376" z="-2960" />
+    <restart_chaotic x="107511" y="82890" z="-2515" />
+    <restart_chaotic x="105702" y="82773" z="-2803" />
+    <restart_chaotic x="104257" y="82194" z="-2581" />
+    <restart_chaotic x="104474" y="81109" z="-2651" />
+
+    <restart_owner x="114465" y="249147" z="-89" />
+    <restart_owner x="114780" y="249154" z="-89" />
+    <restart_owner x="114570" y="249268" z="-89" />
+    <restart_owner x="114529" y="249044" z="-89" />
+
+    <point x="117971" y="251617" z="-2742" />
+    <point x="113731" y="251617" z="-2742" />
+    <point x="113727" y="245080" z="-2742" />
+    <point x="117972" y="245116" z="4000" />
+  </item>
+  <item id="7" name="Goddard">
+    <type>CastleArea</type>
+    <castle>8</castle>
+    <restart x="38096" y="-46976" z="899" />
+    <restart x="38608" y="-47168" z="899" />
+    <restart x="38752" y="-47792" z="899" />
+    <restart x="38848" y="-48640" z="899" />
+    <restart x="38272" y="-49008" z="899" />
+    <restart x="38112" y="-49792" z="899" />
+    <restart x="43408" y="-51120" z="-800" />
+    <restart x="43536" y="-50416" z="-800" />
+    <restart x="44368" y="-50592" z="-800" />
+    <restart x="44000" y="-49952" z="-800" />
+    <restart x="45072" y="-49936" z="-800" />
+    <restart x="45824" y="-49056" z="-800" />
+    <restart x="45632" y="-47968" z="-800" />
+    <restart x="44864" y="-47824" z="-800" />
+    <restart x="43744" y="-47920" z="-800" />
+    <restart x="43792" y="-48928" z="-800" />
+    <restart_chaotic x="42640" y="-54496" z="-2310" />
+    <restart_chaotic x="38304" y="-55440" z="-1136" />
+    <restart_chaotic x="40192" y="-57600" z="-2343" />
+    <restart_chaotic x="38400" y="-56832" z="-992" />
+    <restart_chaotic x="35632" y="-54800" z="-1744" />
+    <restart_chaotic x="36407" y="-54245" z="-1224" />
+    <restart_chaotic x="43936" y="-56480" z="-3627" />
+    <restart_chaotic x="39440" y="-60080" z="-2870" />
+    <restart_chaotic x="41376" y="-55376" z="-1488" />
+    <restart_chaotic x="41920" y="-57760" z="-2392" />
+    <restart_chaotic x="41409" y="-58699" z="-2848" />
+    <restart_chaotic x="40784" y="-59888" z="-2600" />
+    
+    <restart_owner x="147408" y="-46448" z="-963" />
+    <restart_owner x="147520" y="-46432" z="-963" />
+    <restart_owner x="147408" y="-46896" z="-963" />
+    <restart_owner x="147536" y="-46896" z="-963" />
+
+    <point x="144023" y="-51298" z="-3670" />
+    <point x="150893" y="-51298" z="-3670" />
+    <point x="150743" y="-48031" z="-3670" />
+    <point x="150075" y="-46567" z="-3670" />
+    <point x="149381" y="-45932" z="-3670" />
+    <point x="149767" y="-45321" z="-3670" />
+    <point x="149628" y="-45254" z="-3670" />
+    <point x="149204" y="-45845" z="-3670" />
+    <point x="147805" y="-45106" z="-3670" />
+    <point x="147108" y="-45106" z="-3670" />
+    <point x="145714" y="-45845" z="-3670" />
+    <point x="145288" y="-45254" z="-3670" />
+    <point x="145143" y="-45321" z="-3670" />
+    <point x="145557" y="-45932" z="-3670" />
+    <point x="144721" y="-46567" z="-3670" />
+    <point x="144212" y="-48031" z="1830" />
+  </item>
+  <item id="8" name="Rune">
+    <type>CastleArea</type>
+    <restart x="148560" y="-55904" z="-2779" />
+    <restart x="150704" y="-55744" z="-2979" />
+    <restart x="150400" y="-56752" z="-2979" />
+    <restart x="149872" y="-57424" z="-2979" />
+    <restart_chaotic x="142656" y="-55008" z="-3024" />
+    <restart_chaotic x="142832" y="-55680" z="-3462" />
+    <restart_chaotic x="143152" y="-56368" z="-3456" />
+    <restart_chaotic x="145344" y="-59472" z="-3344" />
+
+    <restart_owner x="11224" y="-49176" z="3864" />
+    <restart_owner x="11048" y="-49256" z="3864" />
+    <restart_owner x="11048" y="-49080" z="3864" />
+
+    <point x="7432" y="-52472" z="-2200" />
+    <point x="15096" y="-52712" z="-2200" />
+    <point x="16856" y="-52248" z="-220" />
+    <point x="17704" y="-51560" z="-2200" />
+    <point x="18296" y="-50552" z="-2200" />
+    <point x="18728" y="-49160" z="-2200" />
+    <point x="18296" y="-47752" z="-2200" />
+    <point x="17736" y="-46744" z="-2200" />
+    <point x="16808" y="-46024" z="-2200" />
+    <point x="15112" y="-45576" z="-2200" />
+    <point x="7288" y="-45688" z="6000" />
+  </item>
+  <item id="9" name="Schuttgart">
+    <type>CastleArea</type>
+    <castle>8</castle>
+    <restart x="149872" y="-57424" z="-2979" />
+
+    <restart_owner x="77536" y="-153295" z="-389" />
+    
+<!--
+    <restart_owner x="77524" y="-152709" z="-545" />
+-->    
+    <restart_chaotic x="142656" y="-55008" z="-3024" />
+    <point x="75500" y="-145250" />
+    <point x="76000" y="-144750" />
+  </item>
+</list>

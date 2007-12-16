@@ -1,0 +1,1019 @@
+<!-- TODO:
+            - Schuttgart, Primeval Isle Wharf -->
+<list>
+  <item id="1" name="Talking Island">
+    <type>Peace</type>
+    <town>0</town>
+    <castle>1</castle>
+    <restart x="-84176" y="243382" z="-3126" />
+    <restart_chaotic x="-79077" y="240355" z="-3440" />
+    <point x="-84028" y="239722" z="-3966" />
+    <point x="-81007" y="243210" z="-3966" />
+    <point x="-81021" y="243484" z="-3966" />
+    <point x="-84308" y="246247" z="-3966" />
+    <point x="-84552" y="246239" z="-3966" />
+    <point x="-87638" y="242837" z="-3966" />
+    <point x="-87611" y="242574" z="-3966" />
+    <point x="-84305" y="239649" z="-3466" />
+  </item>
+  <item id="2" name="Talking Island">
+    <type>Peace</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-83428" y="240398" z="-3820" />
+    <point x="-82605" y="241262" z="-3820" />
+    <point x="-81512" y="242568" z="-3820" />
+    <point x="-82035" y="242583" z="-3820" />
+    <point x="-83396" y="241129" z="-3320" />
+  </item>
+  <item id="3" name="Talking Island">
+    <type>Peace</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-86138" y="243444" z="-3789" />
+    <point x="-85039" y="244801" z="-3789" />
+    <point x="-84811" y="245977" z="-3789" />
+    <point x="-86323" y="244370" z="-3789" />
+    <point x="-87229" y="243237" z="-3289" />
+  </item>
+  <item id="4" name="Talking Island">
+    <type>Peace</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-85539" y="241748" z="-3846" />
+    <point x="-87612" y="242572" z="-3846" />
+    <point x="-87470" y="242383" z="-3846" />
+    <point x="-86310" y="241337" z="-3846" />
+    <point x="-85622" y="240814" z="-3346" />
+  </item>
+  <item id="5" name="Talking Island (Mage Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-90034" y="248143" z="-3699" />
+    <point x="-89960" y="248698" z="-3699" />
+    <point x="-90520" y="248847" z="-3699" />
+    <point x="-91136" y="248445" z="-3699" />
+    <point x="-91270" y="248296" z="-3699" />
+    <point x="-91328" y="248092" z="-3699" />
+    <point x="-91250" y="247867" z="-3699" />
+    <point x="-91063" y="247704" z="-3699" />
+    <point x="-90863" y="247676" z="-3699" />
+    <point x="-90638" y="247748" z="-2699" />
+  </item>
+  <item id="6" name="Talking Island (Mage Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-90165" y="247096" z="-4043" />
+    <point x="-88576" y="248162" z="-4043" />
+    <point x="-89962" y="250239" z="-4043" />
+    <point x="-91512" y="249150" z="-3043" />
+  </item>
+  <item id="7" name="Talking Island (Mage Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-88457" y="248867" z="-3659" />
+    <point x="-88611" y="249099" z="-3659" />
+    <point x="-89054" y="249756" z="-3659" />
+    <point x="-89279" y="250048" z="-3659" />
+    <point x="-89684" y="250143" z="-3659" />
+    <point x="-90008" y="249970" z="-3659" />
+    <point x="-88864" y="248209" z="-3659" />
+    <point x="-88542" y="248446" z="-2659" />
+  </item>
+  <item id="8" name="Talking Island (Mage Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-88732" y="248912" z="-3659" />
+    <point x="-88418" y="249116" z="-3659" />
+    <point x="-89005" y="249980" z="-3659" />
+    <point x="-89311" y="249787" z="-2659" />
+  </item>
+  <item id="9" name="Talking Island (Mage Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-88612" y="249461" z="-3659" />
+    <point x="-88559" y="249539" z="-3659" />
+    <point x="-88581" y="249649" z="-3659" />
+    <point x="-88680" y="249708" z="-3659" />
+    <point x="-88761" y="249704" z="-3659" />
+    <point x="-89050" y="249513" z="-3659" />
+    <point x="-89073" y="249332" z="-3659" />
+    <point x="-88895" y="249273" z="-2659" />
+  </item>
+  <item id="10" name="Talking Island (Fighter Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-73436" y="257725" z="-3284" />
+    <point x="-71668" y="256229" z="-3284" />
+    <point x="-69952" y="258077" z="-3284" />
+    <point x="-71896" y="259701" z="-2284" />
+  </item>
+  <item id="11" name="Talking Island (Fighter Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-73180" y="257663" z="-3272" />
+    <point x="-72460" y="258619" z="-3272" />
+    <point x="-72720" y="258831" z="-3272" />
+    <point x="-73284" y="258115" z="-3272" />
+    <point x="-73260" y="257855" z="-2272" />
+  </item>
+  <item id="12" name="Talking Island (Fighter Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-71279" y="256408" z="-3272" />
+    <point x="-70679" y="257116" z="-3272" />
+    <point x="-70939" y="257328" z="-3272" />
+    <point x="-71575" y="256612" z="-3272" />
+    <point x="-71634" y="256392" z="-2272" />
+  </item>
+  <item id="13" name="Talking Island (Fighter Start)">
+    <type>Newbie</type>
+    <town>0</town>
+    <castle>1</castle>
+    <point x="-72596" y="259181" z="-3306" />
+    <point x="-70363" y="257272" z="-3306" />
+    <point x="-70041" y="257631" z="-3306" />
+    <point x="-72303" y="259545" z="-2306" />
+  </item>
+  <item id="14" name="Talking Island Harbor">
+    <type>Peace</type>
+    <point x="-96610" y="258814" z="-3684" />
+    <point x="-96389" y="258748" z="-3684" />
+    <point x="-96369" y="258787" z="-3684" />
+    <point x="-96374" y="259051" z="-3684" />
+    <point x="-96640" y="259059" z="-3484" />
+  </item>
+  <item id="15" name="Talking Island Harbor">
+    <type>Peace</type>
+    <point x="-96561" y="258759" z="-3676" />
+    <point x="-96411" y="258764" z="-3676" />
+    <point x="-96553" y="259066" z="-3676" />
+    <point x="-97256" y="259068" z="-3676" />
+    <point x="-97245" y="258787" z="-3476" />
+  </item>
+  <item id="16" name="Talking Island Harbor">
+    <type>Peace</type>
+    <point x="-96969" y="259036" z="-3672" />
+    <point x="-96649" y="259036" z="-3672" />
+    <point x="-96648" y="261414" z="-3672" />
+    <point x="-96968" y="261414" z="-3472" />
+  </item>
+  <item id="17" name="Talking Island Harbor">
+    <type>Peace</type>
+    <point x="-97161" y="259866" z="-3672" />
+    <point x="-96961" y="259866" z="-3672" />
+    <point x="-96961" y="260203" z="-3672" />
+    <point x="-97161" y="260203" z="-3472" />
+  </item>
+  <item id="18" name="Talking Island Harbor">
+    <type>Peace</type>
+    <point x="-96750" y="259679" z="-3679" />
+    <point x="-96326" y="259679" z="-3679" />
+    <point x="-96326" y="260400" z="-3679" />
+    <point x="-96750" y="260400" z="-3479" />
+  </item>
+  <item id="19" name="Talking Island Harbor">
+    <type>Peace</type>
+    <point x="-97290" y="261068" z="-3685" />
+    <point x="-95888" y="261068" z="-3685" />
+    <point x="-95888" y="261419" z="-3685" />
+    <point x="-97290" y="261418" z="-3485" />
+  </item>
+  <item id="20" name="Talking Island Harbor">
+    <type>Peace</type>
+    <point x="-97476" y="260763" z="-3681" />
+    <point x="-97167" y="260763" z="-3681" />
+    <point x="-97167" y="261419" z="-3681" />
+    <point x="-97476" y="261419" z="-3481" />
+  </item>
+  <item id="21" name="Talking Island Harbor">
+    <type>Peace</type>
+    <point x="-97237" y="259333" z="-3670" />
+    <point x="-96923" y="259333" z="-3670" />
+    <point x="-96923" y="259637" z="-3670" />
+    <point x="-97237" y="259637" z="-3470" />
+  </item>
+  <item id="22" name="DE Village">
+    <type>Peace</type>
+    <town>2</town>
+    <castle>4</castle>
+    <restart x="12181" y="16675" z="-4580" />
+    <restart_chaotic x="1675" y="19581" z="-3110" />
+    <point x="15719" y="16735" z="-8507" />
+    <point x="14885" y="19139" z="-8507" />
+    <point x="12223" y="21049" z="-8507" />
+    <point x="8962" y="20203" z="-8507" />
+    <point x="7340" y="18060" z="-8507" />
+    <point x="7372" y="15649" z="-8507" />
+    <point x="8018" y="14013" z="-8507" />
+    <point x="9389" y="12836" z="-8507" />
+    <point x="10669" y="12131" z="-8507" />
+    <point x="12499" y="12455" z="-8507" />
+    <point x="14684" y="13625" z="-8507" />
+    <point x="15441" y="15060" z="-1507" />
+  </item>
+  <item id="23" name="DE Village (Start)">
+    <type>Peace</type>
+    <town>2</town>
+    <castle>4</castle>
+    <point x="28422" y="8936" z="-4571" />
+    <point x="30282" y="10670" z="-4571" />
+    <point x="29952" y="11744" z="-4571" />
+    <point x="28457" y="13117" z="-4571" />
+    <point x="27730" y="13126" z="-4571" />
+    <point x="26435" y="11893" z="-4571" />
+    <point x="26450" y="10146" z="-4571" />
+    <point x="27792" y="8929" z="-2071" />
+  </item>
+  <item id="24" name="DE Village (Start)">
+    <type>Newbie</type>
+    <town>2</town>
+    <castle>4</castle>
+    <point x="29434" y="10233" z="-4588" />
+    <point x="31273" y="10233" z="-4588" />
+    <point x="31273" y="11827" z="-4588" />
+    <point x="29431" y="11830" z="-2088" />
+  </item>
+  <item id="25" name="Elven Village">
+    <type>Peace</type>
+    <town>1</town>
+    <castle>4</castle>
+    <restart x="45525" y="48376" z="-3059" />
+    <restart_chaotic x="43503" y="40398" z="-3450" />
+    <point x="47758" y="51443" z="-3511" />
+    <point x="46735" y="52457" z="-3511" />
+    <point x="45358" y="52947" z="-3511" />
+    <point x="44182" y="52419" z="-3511" />
+    <point x="43398" y="51830" z="-3511" />
+    <point x="43006" y="51401" z="-3511" />
+    <point x="42508" y="50515" z="-3511" />
+    <point x="42343" y="49479" z="-3511" />
+    <point x="42547" y="48421" z="-3511" />
+    <point x="43138" y="47363" z="-3511" />
+    <point x="44342" y="46639" z="-3511" />
+    <point x="45621" y="46486" z="-3511" />
+    <point x="45974" y="46554" z="-3511" />
+    <point x="47114" y="46996" z="-3511" />
+    <point x="47777" y="47710" z="-3511" />
+    <point x="48202" y="48441" z="-3511" />
+    <point x="48400" y="49391" z="-3511" />
+    <point x="48365" y="50345" z="-2011" />
+  </item>
+  <item id="26" name="Elven Village (Start)">
+    <type>Newbie</type>
+    <town>1</town>
+    <castle>4</castle>
+    <point x="47987" y="40688" z="-4071" />
+    <point x="47644" y="41254" z="-4071" />
+    <point x="47139" y="41756" z="-4071" />
+    <point x="46576" y="42051" z="-4071" />
+    <point x="45590" y="42006" z="-4071" />
+    <point x="44823" y="41489" z="-4071" />
+    <point x="44355" y="40860" z="-4071" />
+    <point x="44168" y="40397" z="-4071" />
+    <point x="44319" y="39900" z="-4071" />
+    <point x="44723" y="39030" z="-4071" />
+    <point x="45366" y="38626" z="-4071" />
+    <point x="46511" y="38446" z="-4071" />
+    <point x="47292" y="38808" z="-4071" />
+    <point x="47736" y="39330" z="-4071" />
+    <point x="48079" y="39911" z="-2571" />
+  </item>
+  <item id="27" name="Elven Village (Start)">
+    <type>Newbie</type>
+    <town>1</town>
+    <castle>4</castle>
+    <point x="44215" y="39803" z="-4082" />
+    <point x="44497" y="40504" z="-4082" />
+    <point x="43643" y="41416" z="-4082" />
+    <point x="43398" y="41419" z="-4082" />
+    <point x="42884" y="41191" z="-4082" />
+    <point x="42475" y="40529" z="-4082" />
+    <point x="42466" y="40285" z="-4082" />
+    <point x="42762" y="39658" z="-4082" />
+    <point x="43311" y="39336" z="-4082" />
+    <point x="43546" y="39327" z="-2582" />
+  </item>
+  <item id="28" name="Elven Village (Start)">
+    <type>Newbie</type>
+    <town>1</town>
+    <castle>4</castle>
+    <point x="49799" y="39991" z="-4082" />
+    <point x="49812" y="40226" z="-4082" />
+    <point x="48958" y="41201" z="-4082" />
+    <point x="48724" y="41204" z="-4082" />
+    <point x="48096" y="40759" z="-4082" />
+    <point x="47883" y="40159" z="-4082" />
+    <point x="48123" y="39481" z="-4082" />
+    <point x="48636" y="39123" z="-4082" />
+    <point x="48885" y="39121" z="-4082" />
+    <point x="49368" y="39360" z="-2582" />
+  </item>
+  <item id="29" name="Gludio Castle Town">
+    <type>Peace</type>
+    <town>5</town>
+    <castle>1</castle>
+    <restart x="-14138" y="122042" z="-2988" />
+    <restart_chaotic x="-18872" y="126216" z="-3280" />
+    <point x="-11998" y="123905" z="-3245" />
+    <point x="-12880" y="126192" z="-3245" />
+    <point x="-13928" y="126485" z="-3245" />
+    <point x="-14408" y="126484" z="-3245" />
+    <point x="-15239" y="126174" z="-3245" />
+    <point x="-16120" y="125367" z="-3245" />
+    <point x="-16551" y="124468" z="-3245" />
+    <point x="-16550" y="123911" z="-3245" />
+    <point x="-16509" y="123323" z="-3245" />
+    <point x="-14638" y="122381" z="-3245" />
+    <point x="-12022" y="122270" z="-2745" />
+  </item>
+  <item id="30" name="Gludio Castle Town">
+    <type>Peace</type>
+    <town>5</town>
+    <castle>1</castle>
+    <point x="-14956" y="121115" z="-3156" />
+    <point x="-12670" y="121093" z="-3156" />
+    <point x="-12021" y="121755" z="-3156" />
+    <point x="-12019" y="123005" z="-3156" />
+    <point x="-15400" y="123009" z="-2656" />
+  </item>
+  <item id="31" name="Gludin Village">
+    <type>Peace</type>
+    <town>6</town>
+    <castle>1</castle>
+    <restart x="-82856" y="150901" z="-3128" />
+    <restart_chaotic x="-85915" y="150402" z="-3060" />
+    <point x="-79283" y="149148" z="-3244" />
+    <point x="-78525" y="149851" z="-3244" />
+    <point x="-78549" y="152429" z="-3244" />
+    <point x="-82513" y="152442" z="-3244" />
+    <point x="-82502" y="149146" z="-2744" />
+  </item>
+  <item id="32" name="Gludin Village">
+    <type>Peace</type>
+    <town>6</town>
+    <castle>1</castle>
+    <point x="-84874" y="149370" z="-3244" />
+    <point x="-81337" y="152419" z="-2744" />
+  </item>
+  <item id="33" name="Gludin Village">
+    <type>Peace</type>
+    <town>6</town>
+    <castle>1</castle>
+    <point x="-84884" y="152261" z="-3276" />
+    <point x="-78803" y="152218" z="-3276" />
+    <point x="-78803" y="156106" z="-3276" />
+    <point x="-84884" y="156113" z="-2776" />
+  </item>
+  <item id="34" name="Gludin Village">
+    <type>Peace</type>
+    <town>6</town>
+    <castle>1</castle>
+    <point x="-80701" y="155963" z="-3291" />
+    <point x="-79097" y="154122" z="-3291" />
+    <point x="-77125" y="155447" z="-3291" />
+    <point x="-77977" y="156512" z="-2791" />
+  </item>
+  <item id="35" name="Gludin Harbor">
+    <type>Peace</type>
+    <point x="-92600" y="148457" z="-3708" />
+    <point x="-90416" y="148372" z="-3708" />
+    <point x="-90412" y="151666" z="-3708" />
+    <point x="-92508" y="151678" z="-3708" />
+    <point x="-93497" y="149244" z="-3508" />
+  </item>
+  <item id="36" name="Gludin Harbor">
+    <type>Peace</type>
+    <point x="-94294" y="148251" z="-3694" />
+    <point x="-92763" y="148869" z="-3694" />
+    <point x="-92437" y="152317" z="-3694" />
+    <point x="-93461" y="153244" z="-3694" />
+    <point x="-95444" y="151462" z="-3694" />
+    <point x="-95446" y="149881" z="-3694" />
+    <point x="-94588" y="148248" z="-3494" />
+  </item>
+  <item id="37" name="Dion Castle Town">
+    <type>Peace</type>
+    <town>7</town>
+    <castle>2</castle>
+    <restart x="18823" y="145048" z="-3126" />
+    <restart_chaotic x="23652" y="144823" z="-3330" />
+    <point x="14290" y="141403" z="-3157" />
+    <point x="15261" y="141328" z="-3157" />
+    <point x="17478" y="142633" z="-3157" />
+    <point x="17461" y="143349" z="-3157" />
+    <point x="16751" y="144384" z="-3157" />
+    <point x="15769" y="144681" z="-3157" />
+    <point x="14470" y="143863" z="-3157" />
+    <point x="14010" y="143120" z="-3157" />
+    <point x="13978" y="141885" z="-2157" />
+  </item>
+  <item id="38" name="Dion Castle Town">
+    <type>Peace</type>
+    <town>7</town>
+    <castle>2</castle>
+    <point x="15653" y="141687" z="-2802" />
+    <point x="17220" y="141541" z="-2802" />
+    <point x="17361" y="142876" z="-2802" />
+    <point x="15789" y="143037" z="-2302" />
+  </item>
+  <item id="39" name="Dion Castle Town">
+    <type>Peace</type>
+    <town>7</town>
+    <castle>2</castle>
+    <point x="17006" y="141806" z="-2858" />
+    <point x="17410" y="141768" z="-2858" />
+    <point x="17503" y="142644" z="-2858" />
+    <point x="17107" y="142709" z="-2358" />
+  </item>
+  <item id="40" name="Dion Castle Town">
+    <type>Peace</type>
+    <town>7</town>
+    <castle>2</castle>
+    <point x="15469" y="143498" z="-3152" />
+    <point x="17126" y="142976" z="-3152" />
+    <point x="19489" y="144901" z="-3152" />
+    <point x="17861" y="147667" z="-3152" />
+    <point x="16125" y="146877" z="-2452" />
+  </item>
+  <item id="41" name="Dion Castle Town">
+    <type>Peace</type>
+    <town>7</town>
+    <castle>2</castle>
+    <point x="20387" y="142469" z="-3246" />
+    <point x="21407" y="143663" z="-3246" />
+    <point x="21426" y="146351" z="-3246" />
+    <point x="16711" y="146346" z="-3246" />
+    <point x="16461" y="143892" z="-3246" />
+    <point x="18915" y="142444" z="-2546" />
+  </item>
+  <item id="42" name="Floran Village">
+    <type>Peace</type>
+    <town>19</town>
+    <castle>1</castle>
+    <restart x="17817" y="170079" z="-3530" />
+    <point x="18134" y="169527" z="-3957" />
+    <point x="18602" y="169760" z="-3957" />
+    <point x="18641" y="169827" z="-3957" />
+    <point x="18429" y="170529" z="-3957" />
+    <point x="17386" y="170916" z="-3957" />
+    <point x="16777" y="170706" z="-3957" />
+    <point x="16555" y="170564" z="-3957" />
+    <point x="16530" y="170497" z="-3957" />
+    <point x="16732" y="169864" z="-3957" />
+    <point x="17253" y="169433" z="-3957" />
+    <point x="17396" y="169394" z="-3957" />
+    <point x="17768" y="169440" z="-3357" />
+  </item>
+  <item id="43" name="Floran Village">
+    <type>Peace</type>
+    <town>19</town>
+    <castle>1</castle>
+    <point x="17082" y="169410" z="-3967" />
+    <point x="17464" y="169397" z="-3967" />
+    <point x="17285" y="169889" z="-3967" />
+    <point x="16773" y="170007" z="-3967" />
+    <point x="16717" y="169945" z="-3967" />
+    <point x="16823" y="169466" z="-3967" />
+    <point x="16882" y="169431" z="-3367" />
+  </item>
+  <item id="44" name="Floran Village">
+    <type>Peace</type>
+    <town>19</town>
+    <castle>1</castle>
+    <point x="18487" y="170499" z="-3956" />
+    <point x="18390" y="170915" z="-3956" />
+    <point x="18343" y="170933" z="-3956" />
+    <point x="17768" y="170965" z="-3956" />
+    <point x="17223" y="170891" z="-3956" />
+    <point x="16878" y="170752" z="-3956" />
+    <point x="18430" y="170079" z="-3956" />
+    <point x="18543" y="170093" z="-3356" />
+  </item>
+  <item id="45" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <restart x="81236" y="148638" z="-3469" />
+    <restart_chaotic x="79125" y="154197" z="-3490" />
+    <point x="85048" y="145756" z="-3464" />
+    <point x="86104" y="145752" z="-3464" />
+    <point x="86100" y="145888" z="-3464" />
+    <point x="85060" y="145856" z="-3264" />
+  </item>
+  <item id="46" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="77164" y="147420" z="-3654" />
+    <point x="79291" y="147417" z="-3654" />
+    <point x="79278" y="149808" z="-3654" />
+    <point x="77155" y="149824" z="-2654" />
+  </item>
+  <item id="47" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="79193" y="144776" z="-3598" />
+    <point x="85019" y="144748" z="-3598" />
+    <point x="85148" y="149864" z="-3598" />
+    <point x="79198" y="149858" z="-1598" />
+  </item>
+  <item id="48" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="79198" y="149858" z="-3598" />
+    <point x="79193" y="144776" z="-3598" />
+    <point x="82120" y="144776" z="-3598" />
+    <point x="82120" y="149858" z="-1598" />
+  </item>
+  <item id="49" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="82380" y="149864" z="-3598" />
+    <point x="82380" y="144748" z="-3598" />
+    <point x="85019" y="144748" z="-3598" />
+    <point x="85148" y="149864" z="-1598" />
+  </item>
+  <item id="50" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="82120" y="149858" z="-3598" />
+    <point x="82120" y="148800" z="-3598" />
+    <point x="82380" y="148800" z="-3598" />
+    <point x="82380" y="149864" z="-1598" />
+  </item>
+  <item id="51" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="82120" y="148410" z="-3598" />
+    <point x="82120" y="144776" z="-3598" />
+    <point x="82380" y="144748" z="-3598" />
+    <point x="82380" y="148410" z="-1598" />
+  </item>
+  <item id="52" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="79180" y="149311" z="-3602" />
+    <point x="83508" y="149374" z="-3602" />
+    <point x="83510" y="151272" z="-3602" />
+    <point x="79197" y="151297" z="-2402" />
+  </item>
+  <item id="53" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="85619" y="150120" z="-3636" />
+    <point x="86004" y="150125" z="-3636" />
+    <point x="86005" y="152300" z="-3636" />
+    <point x="85617" y="152305" z="-3036" />
+  </item>
+  <item id="54" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="84848" y="152234" z="-3799" />
+    <point x="86779" y="152240" z="-3799" />
+    <point x="86781" y="153610" z="-3799" />
+    <point x="84844" y="153610" z="-2399" />
+  </item>
+  <item id="55" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="84922" y="146919" z="-3872" />
+    <point x="88437" y="146909" z="-3872" />
+    <point x="88445" y="150047" z="-3872" />
+    <point x="85090" y="150032" z="-1872" />
+  </item>
+  <item id="56" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="80304" y="143626" z="-3810" />
+    <point x="85033" y="143631" z="-3810" />
+    <point x="85029" y="144930" z="-3810" />
+    <point x="80298" y="144914" z="-2110" />
+  </item>
+  <item id="57" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="79190" y="150958" z="-3538" />
+    <point x="82705" y="150962" z="-3538" />
+    <point x="82717" y="152824" z="-3538" />
+    <point x="79202" y="152821" z="-3338" />
+  </item>
+  <item id="58" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="84838" y="145789" z="-3496" />
+    <point x="86101" y="145774" z="-3496" />
+    <point x="86105" y="146911" z="-3496" />
+    <point x="84842" y="146925" z="-2996" />
+  </item>
+  <item id="59" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="85088" y="149126" z="-3599" />
+    <point x="86468" y="149142" z="-3599" />
+    <point x="86488" y="150240" z="-3599" />
+    <point x="85089" y="150240" z="-2999" />
+  </item>
+  <item id="60" name="Giran Castle Town">
+    <type>Peace</type>
+    <town>8</town>
+    <castle>3</castle>
+    <point x="83111" y="143502" z="-3410" />
+    <point x="85038" y="143499" z="-3410" />
+    <point x="85038" y="143856" z="-3410" />
+    <point x="83111" y="143859" z="-3210" />
+  </item>
+  <item id="61" name="Giran Harbor">
+    <type>Peace</type>
+    <town>12</town>
+    <castle>8</castle>
+    <restart x="17817" y="170079" z="-3530" />
+    <point x="47189" y="185982" z="-3911" />
+    <point x="49284" y="183651" z="-3911" />
+    <point x="52767" y="186787" z="-3911" />
+    <point x="49719" y="190044" z="-3411" />
+  </item>
+  <item id="62" name="Giran Harbor">
+    <type>Peace</type>
+    <town>12</town>
+    <castle>8</castle>
+    <point x="45288" y="186705" z="-3811" />
+    <point x="47947" y="185316" z="-3811" />
+    <point x="50535" y="189487" z="-3811" />
+    <point x="47639" y="191052" z="-3311" />
+  </item>
+  <item id="63" name="Giran Harbor">
+    <type>Peace</type>
+    <town>12</town>
+    <castle>8</castle>
+    <point x="43935" y="187891" z="-3606" />
+    <point x="45949" y="186815" z="-3606" />
+    <point x="46215" y="187346" z="-3606" />
+    <point x="44226" y="188420" z="-3106" />
+  </item>
+  <item id="64" name="Giran Harbor">
+    <type>Peace</type>
+    <town>12</town>
+    <castle>8</castle>
+    <point x="41861" y="188551" z="-3814" />
+    <point x="44221" y="187269" z="-3814" />
+    <point x="46275" y="191156" z="-3814" />
+    <point x="44031" y="192413" z="-3314" />
+  </item>
+  <item id="65" name="Hardin\'s Academy">
+    <type>Peace</type>
+    <point x="106216" y="112467" z="-3434" />
+    <point x="106779" y="113174" z="-3434" />
+    <point x="106759" y="114084" z="-3434" />
+    <point x="106174" y="115069" z="-3434" />
+    <point x="105181" y="115072" z="-3434" />
+    <point x="104608" y="113714" z="-3434" />
+    <point x="104782" y="112755" z="-3434" />
+    <point x="105248" y="112466" z="-2934" />
+  </item>
+  <item id="66" name="Orc Village (Start)">
+    <type>Newbie</type>
+    <town>3</town>
+    <castle>9</castle>
+    <point x="-58952" y="-115543" z="-1483" />
+    <point x="-52769" y="-115553" z="-1483" />
+    <point x="-52758" y="-111736" z="-1483" />
+    <point x="-58952" y="-111749" z="516" />
+  </item>
+  <item id="67" name="Orc Village">
+    <type>Peace</type>
+    <town>3</town>
+    <castle>9</castle>
+    <restart x="-45232" y="-113603" z="-224" />
+    <restart_chaotic x="-44413" y="-121762" z="-235" />
+    <point x="-42044" y="-113585" z="-397" />
+    <point x="-42533" y="-111862" z="-397" />
+    <point x="-43811" y="-110599" z="-397" />
+    <point x="-45614" y="-110071" z="-397" />
+    <point x="-47375" y="-110007" z="-397" />
+    <point x="-47397" y="-117215" z="-397" />
+    <point x="-46661" y="-117220" z="-397" />
+    <point x="-45633" y="-117094" z="-397" />
+    <point x="-43791" y="-116569" z="-397" />
+    <point x="-42530" y="-115322" z="603" />
+  </item>
+  <item id="68" name="Orc Village">
+    <type>Peace</type>
+    <town>3</town>
+    <castle>9</castle>
+    <point x="-50211" y="-116941" z="-460" />
+    <point x="-47413" y="-117301" z="-460" />
+    <point x="-47358" y="-109913" z="-460" />
+    <point x="-49161" y="-109305" z="-460" />
+    <point x="-51245" y="-109819" z="-460" />
+    <point x="-53401" y="-112501" z="-460" />
+    <point x="-53788" y="-113966" z="-460" />
+    <point x="-52931" y="-115293" z="540" />
+  </item>
+  <item id="69" name="Dwarven Village (Start)">
+    <type>Newbie</type>
+    <town>4</town>
+    <castle>9</castle>
+    <point x="110063" y="-175794" z="-652" />
+    <point x="110565" y="-173944" z="-652" />
+    <point x="110518" y="-173426" z="-652" />
+    <point x="109153" y="-171575" z="-652" />
+    <point x="106345" y="-171905" z="-652" />
+    <point x="104853" y="-174391" z="-652" />
+    <point x="105481" y="-176144" z="-652" />
+    <point x="106031" y="-177035" z="-652" />
+    <point x="107660" y="-177623" z="-652" />
+    <point x="109208" y="-177140" z="348" />
+  </item>
+  <item id="70" name="Dwarven Village">
+    <type>Peace</type>
+    <town>4</town>
+    <castle>9</castle>
+    <point x="117520" y="-181718" z="-1600" />
+    <point x="117423" y="-180017" z="-1600" />
+    <point x="115371" y="-176774" z="-1600" />
+    <point x="114885" y="-176815" z="-1600" />
+    <point x="114070" y="-177180" z="-1600" />
+    <point x="113883" y="-179469" z="-1600" />
+    <point x="114580" y="-181875" z="-400" />
+  </item>
+  <item id="71" name="Dwarven Village">
+    <type>Peace</type>
+    <town>4</town>
+    <castle>9</castle>
+    <restart x="115074" y="-178115" z="-880" />
+    <restart_chaotic x="12009" y="-187319" z="-3309" />
+    <point x="117630" y="-182925" z="-1685" />
+    <point x="115159" y="-182811" z="-1685" />
+    <point x="115477" y="-183673" z="-1685" />
+    <point x="115600" y="-183891" z="-1685" />
+    <point x="115740" y="-184086" z="-1685" />
+    <point x="115948" y="-184206" z="-1685" />
+    <point x="116257" y="-184251" z="-1685" />
+    <point x="116710" y="-184253" z="-1685" />
+    <point x="117023" y="-184164" z="-1685" />
+    <point x="117204" y="-184034" z="-1685" />
+    <point x="117335" y="-183812" z="-1685" />
+    <point x="117503" y="-183386" z="-685" />
+  </item>
+  <item id="72" name="Dwarven Village">
+    <type>Peace</type>
+    <town>4</town>
+    <castle>9</castle>
+    <point x="114641" y="-183866" z="-1724" />
+    <point x="117517" y="-183140" z="-1724" />
+    <point x="117778" y="-182649" z="-1724" />
+    <point x="117775" y="-182246" z="-1724" />
+    <point x="117733" y="-182086" z="-1724" />
+    <point x="117432" y="-181576" z="-1724" />
+    <point x="114638" y="-181551" z="-724" />
+  </item>
+  <item id="73" name="Dwarven Village">
+    <type>Peace</type>
+    <town>4</town>
+    <castle>9</castle>
+    <point x="116406" y="-176891" z="-1000" />
+    <point x="115964" y="-176809" z="-1000" />
+    <point x="115535" y="-176773" z="-1000" />
+    <point x="115142" y="-176788" z="-1000" />
+    <point x="115867" y="-178003" z="-1000" />
+    <point x="117355" y="-179595" z="-1000" />
+    <point x="117300" y="-178525" z="-1000" />
+    <point x="117172" y="-177847" z="-1000" />
+    <point x="116798" y="-177111" z="-1000" />
+    <point x="116643" y="-176968" z="-400" />
+  </item>
+  <item id="74" name="Dwarven Village">
+    <type>Peace</type>
+    <town>4</town>
+    <castle>9</castle>
+    <point x="116649" y="-179760" z="-1257" />
+    <point x="117429" y="-180911" z="-1257" />
+    <point x="117493" y="-180052" z="-1257" />
+    <point x="117467" y="-179575" z="-1257" />
+    <point x="116977" y="-178211" z="-1257" />
+    <point x="116142" y="-178429" z="-657" />
+  </item>
+  <item id="75" name="Town of Oren">
+    <type>Peace</type>
+    <town>9</town>
+    <castle>4</castle>
+    <restart x="80853" y="54653" z="-1524" />
+    <restart_chaotic x="73840" y="58193" z="-2730" />
+    <point x="78900" y="52076" z="-1822" />
+    <point x="84126" y="52049" z="-1822" />
+    <point x="84099" y="57117" z="-1822" />
+    <point x="78872" y="57144" z="-1022" />
+  </item>
+  <item id="76" name="Ivory Tower">
+    <type>Peace</type>
+    <!-- Town of Oren -->
+    <restart x="80853" y="54653" z="-1524" />
+    <restart_chaotic x="73840" y="58193" z="-2730" />
+    <point x="86094" y="16382" z="-4652" />
+    <point x="85888" y="16744" z="-4652" />
+    <point x="85510" y="16968" z="-4652" />
+    <point x="85139" y="16966" z="-4652" />
+    <point x="84767" y="16736" z="-4652" />
+    <point x="84576" y="16394" z="-4652" />
+    <point x="84580" y="15977" z="-4652" />
+    <point x="84783" y="15631" z="-4652" />
+    <point x="85143" y="15417" z="-4652" />
+    <point x="85499" y="15403" z="-4652" />
+    <point x="85886" y="15642" z="-4652" />
+    <point x="86049" y="15990" z="347" />
+  </item>
+  <item id="77" name="Hunter Village">
+    <type>Peace</type>
+    <town>11</town>
+    <castle>5</castle>
+    <restart x="117163" y="76511" z="-2712" />
+    <restart_chaotic x="114137" y="72993" z="-2445" />
+    <point x="120837" y="78996" z="-2749" />
+    <point x="118917" y="80603" z="-2749" />
+    <point x="116981" y="80412" z="-2749" />
+    <point x="115383" y="79832" z="-2749" />
+    <point x="114029" y="76721" z="-2749" />
+    <point x="114670" y="74772" z="-2749" />
+    <point x="115464" y="74131" z="-2749" />
+    <point x="118488" y="74094" z="-2749" />
+    <point x="120717" y="74271" z="-2749" />
+    <point x="121548" y="76702" z="-1249" />
+  </item>
+  <item id="78" name="Town of Aden">
+    <type>Peace</type>
+    <town>10</town>
+    <castle>5</castle>
+    <restart_chaotic x="44413" y="22610" z="235" />
+    <restart x="147391" y="25967" z="-2012" />
+    <point x="150222" y="20224" z="-2532" />
+    <point x="151214" y="21124" z="-2532" />
+    <point x="151291" y="29988" z="-2532" />
+    <point x="150278" y="30956" z="-2532" />
+    <point x="144297" y="30912" z="-2532" />
+    <point x="143434" y="30078" z="-2532" />
+    <point x="143415" y="21117" z="-2532" />
+    <point x="144415" y="20200" z="-1032" />
+  </item>
+  <item id="79" name="Town of Aden">
+    <type>Peace</type>
+    <town>10</town>
+    <castle>5</castle>
+    <point x="145783" y="30543" z="-2517" />
+    <point x="149035" y="30552" z="-2517" />
+    <point x="147953" y="31586" z="-2517" />
+    <point x="147032" y="31586" z="-1017" />
+  </item>
+  <item id="80" name="Town of Aden">
+    <type>Peace</type>
+    <town>10</town>
+    <castle>5</castle>
+    <point x="151101" y="24718" z="-2215" />
+    <point x="151485" y="24715" z="-2215" />
+    <point x="151489" y="25546" z="-2215" />
+    <point x="151098" y="25549" z="-715" />
+  </item>
+  <item id="81" name="Town of Aden">
+    <type>Peace</type>
+    <town>10</town>
+    <castle>5</castle>
+    <point x="147162" y="19914" z="-2101" />
+    <point x="147775" y="19914" z="-2101" />
+    <point x="147834" y="20395" z="-2101" />
+    <point x="147099" y="20394" z="-601" />
+  </item>
+  <item id="82" name="Town of Aden">
+    <type>Peace</type>
+    <town>10</town>
+    <castle>5</castle>
+    <point x="143117" y="25953" z="-2456" />
+    <point x="143728" y="25712" z="-2456" />
+    <point x="143728" y="26882" z="-2456" />
+    <point x="143118" y="26712" z="-956" />
+  </item>
+  <item id="83" name="Heine">
+    <type>Peace</type>
+    <town>13</town>
+    <castle>6</castle>
+    <restart x="111381" y="219064" z="-3543" />
+    <restart_chaotic x="119536" y="218558" z="-3495" />
+    <point x="106085" y="216119" z="-4287" />
+    <point x="116559" y="216118" z="-4287" />
+    <point x="116533" y="229030" z="-4287" />
+    <point x="106085" y="229015" z="-3287" />
+  </item>
+  <item id="84" name="Heine">
+    <type>Peace</type>
+    <town>13</town>
+    <castle>6</castle>
+    <point x="103796" y="217964" z="-4128" />
+    <point x="106602" y="217963" z="-4128" />
+    <point x="106602" y="218361" z="-4128" />
+    <point x="103796" y="218363" z="-3128" />
+  </item>
+  <item id="85" name="Heine">
+    <type>Peace</type>
+    <town>13</town>
+    <castle>6</castle>
+    <point x="115950" y="219084" z="-4096" />
+    <point x="118877" y="219084" z="-4096" />
+    <point x="118879" y="219496" z="-4096" />
+    <point x="115952" y="219498" z="-3096" />
+  </item>
+  <item id="86" name="Town  of Goddard">
+    <type>Peace</type>
+    <town>15</town>
+    <castle>7</castle>
+    <restart x="148558" y="-56030" z="-2781" />
+    <restart_chaotic x="147419" y="-64980" z="-3457" />
+    <point x="146517" y="-59854" z="-4928" />
+    <point x="148916" y="-59847" z="-4928" />
+    <point x="151301" y="-58338" z="-4928" />
+    <point x="152005" y="-56872" z="-4928" />
+    <point x="152043" y="-55010" z="-4928" />
+    <point x="150847" y="-51615" z="-4928" />
+    <point x="145228" y="-51601" z="-4928" />
+    <point x="143824" y="-54220" z="-4928" />
+    <point x="143444" y="-56732" z="-4928" />
+    <point x="144680" y="-58725" z="1072" />
+  </item>
+  <item id="87" name="Rune Township">
+    <type>Peace</type>
+    <town>14</town>
+    <castle>8</castle>
+    <restart x="43894" y="-48330" z="-797" />
+    <restart_chaotic x="142931" y="-44733" z="-1326" />
+    <point x="39503" y="-52761" z="-1516" />
+    <point x="42159" y="-46969" z="-1516" />
+    <point x="44445" y="-45865" z="-1516" />
+    <point x="46202" y="-46919" z="-1516" />
+    <point x="47212" y="-48809" z="-1516" />
+    <point x="47224" y="-51046" z="-1516" />
+    <point x="45845" y="-51986" z="-1516" />
+    <point x="43334" y="-52810" z="-1516" />
+    <point x="39608" y="-53505" z="484" />
+  </item>
+  <item id="88" name="Rune Township">
+    <type>Peace</type>
+    <town>14</town>
+    <castle>8</castle>
+    <point x="43099" y="-38911" z="-7660" />
+    <point x="40028" y="-35494" z="-7660" />
+    <point x="37429" y="-35357" z="-7660" />
+    <point x="32846" y="-38149" z="-7660" />
+    <point x="32804" y="-50466" z="-7660" />
+    <point x="36348" y="-52427" z="-7660" />
+    <point x="39429" y="-52058" z="-7660" />
+    <point x="46334" y="-46534" z="7340" />
+  </item>
+  <!-- TODO -->
+  <item id="89" name="Schuttgart">
+    <type>Peace</type>
+    <town>16</town>
+    <castle>9</castle>
+    <restart x="87331" y="-142842" z="-1317" />
+    <restart_chaotic x="85184" y="-138560" z="-2256" />
+    <point x="83881" y="-146500" />
+    <point x="90908" y="-139486" />
+  </item>
+  <item id="90" name="Dimentional Gap">
+  	<type>Peace</type>
+  	<town>17</town>
+  	<castle>9</castle>
+  	<point x="-115441" y="-182134" z="-6964" />
+  	<point x="-114106" y="-182134" z="-6964" />
+  	<point x="-114106" y="-178021" z="-6964" />
+  	<point x="-115476" y="-178021" z="-6064" />
+  </item>
+  <!-- TODO -->
+  <item id="91" name="Primeval Isle Wharf">
+<!--<type>Peace</type>-->
+    <town>18</town>
+    <castle>8</castle>
+    <restart x="10825" y="-24156" z="-3645" />
+    <restart_chaotic x="38040" y="-38512" z="-3508" />
+    <point x="9458" y="-24206" />
+    <point x="10773" y="-22441" />
+  </item>
+</list>

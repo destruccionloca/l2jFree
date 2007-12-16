@@ -1,0 +1,51 @@
+<list>
+  <item id="1" name="ssq_peace_1720_01">
+    <type>Peace</type>
+    <point x="-78118" y="86296" z="-5208" />
+    <point x="-75860" y="86294" z="-5208" />
+    <point x="-75853" y="87965" z="-5208" />
+    <point x="-78156" y="87967" z="-5008" />
+  </item>
+  <item id="2" name="ssq_peace_1720_02">
+    <type>Peace</type>
+    <point x="-81169" y="85693" z="-5200" />
+    <point x="-78118" y="85690" z="-5200" />
+    <point x="-78134" y="87364" z="-5200" />
+    <point x="-81187" y="87364" z="-5000" />
+  </item>
+  <item id="3" name="ssq_peace_1720_03">
+    <type>Peace</type>
+    <point x="-81549" y="86361" z="-5200" />
+    <point x="-80995" y="86367" z="-5200" />
+    <point x="-80995" y="86688" z="-5200" />
+    <point x="-81549" y="86688" z="-5000" />
+  </item>
+  <item id="4" name="ssq_peace_1721_01">
+    <type>Peace</type>
+    <point x="-77077" y="111140" z="-4952" />
+    <point x="-74838" y="111140" z="-4952" />
+    <point x="-74842" y="112806" z="-4952" />
+    <point x="-77104" y="112779" z="-4752" />
+  </item>
+  <item id="5" name="ssq_peace_1721_02">
+    <type>Peace</type>
+    <point x="-80075" y="110530" z="-4956" />
+    <point x="-77066" y="110552" z="-4956" />
+    <point x="-77092" y="112188" z="-4956" />
+    <point x="-80089" y="112184" z="-4756" />
+  </item>
+  <item id="6" name="ssq_peace_1721_03">
+    <type>Peace</type>
+    <point x="-80536" y="111192" z="-4944" />
+    <point x="-79984" y="111196" z="-4944" />
+    <point x="-79984" y="111517" z="-4944" />
+    <point x="-80532" y="111517" z="-4744" />
+  </item>
+  <item id="7" name="space_of_dimension_peace1">
+    <type>Peace</type>
+    <point x="-115441" y="-182134" z="-6964" />
+    <point x="-114106" y="-182134" z="-6964" />
+    <point x="-114106" y="-178021" z="-6964" />
+    <point x="-115476" y="-178021" z="-6064" />
+  </item>
+</list>
