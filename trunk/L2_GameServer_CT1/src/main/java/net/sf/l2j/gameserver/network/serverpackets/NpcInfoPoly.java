@@ -112,7 +112,7 @@ public class NpcInfoPoly extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x16);
+		writeC(0x0c);
 		writeD(_obj.getObjectId());
 		writeD(_npcId+1000000);  // npctype id
 		writeD(_isAttackable ? 1 : 0); 

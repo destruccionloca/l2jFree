@@ -167,7 +167,7 @@ import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.LeaveWorld;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillCanceld;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillCanceled;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -5436,7 +5436,7 @@ public final class L2PcInstance extends L2PlayableInstance
         enableAllSkills();
 
         // Send a Server->Client Packet MagicSkillCanceld to the L2PcInstance and all L2PcInstance in the _knownPlayers of the L2Character (broadcast)
-        MagicSkillCanceld msc = new MagicSkillCanceld(getObjectId());
+        MagicSkillCanceled msc = new MagicSkillCanceled(getObjectId());
 
         // Broadcast the packet to self and known players.
         Broadcast.toSelfAndKnownPlayersInRadius(this, msc, 810000/*900*/);

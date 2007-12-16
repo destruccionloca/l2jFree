@@ -60,7 +60,7 @@ public class PartySpelled extends L2GameServerPacket
     protected final void writeImpl()
     {
         if (_activeChar == null) return;
-        writeC(0xee);
+        writeC(0xf4);
         writeD(_activeChar instanceof L2SummonInstance ? 2 : _activeChar instanceof L2PetInstance ? 1 : 0);
         writeD(_activeChar.getObjectId());
         writeD(_effects.size());

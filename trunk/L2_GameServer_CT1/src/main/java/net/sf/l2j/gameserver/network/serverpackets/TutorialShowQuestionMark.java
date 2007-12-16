@@ -34,7 +34,7 @@ public class TutorialShowQuestionMark extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xa1);
+		writeC(0xa7);
 		writeD(_blink);
 		
 	}

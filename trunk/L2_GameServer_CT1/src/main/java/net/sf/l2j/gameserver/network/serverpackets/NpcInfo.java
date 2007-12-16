@@ -132,7 +132,7 @@ public class NpcInfo extends L2GameServerPacket
 			if (((L2Summon)_activeChar).getOwner() != null 
 					&& ((L2Summon)_activeChar).getOwner().getAppearance().getInvisible())
 				return;
-		writeC(0x16);
+		writeC(0x0c);
 		writeD(_activeChar.getObjectId());
 		writeD(_idTemplate+1000000);  // npctype id
 		writeD(_isAttackable ? 1 : 0); 

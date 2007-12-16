@@ -94,7 +94,7 @@ public class QuestList extends L2GameServerPacket
 	     */
 	    if((_quests == null) || (_quests.length == 0))
 	    {
-	        writeC(0x80);
+	        writeC(0x86);
 			writeH(0);
 			writeH(0);
 			return;

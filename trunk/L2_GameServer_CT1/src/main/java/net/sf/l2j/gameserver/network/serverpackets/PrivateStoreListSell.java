@@ -58,7 +58,7 @@ public class PrivateStoreListSell extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x9b);
+		writeC(0xa1);
 		writeD(_storePlayer.getObjectId());
 		writeD(_packageSale ? 1 : 0);
 		writeD(_activeCharAdena);

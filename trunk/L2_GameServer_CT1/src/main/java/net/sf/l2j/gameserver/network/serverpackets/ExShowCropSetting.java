@@ -117,7 +117,7 @@ public class ExShowCropSetting extends L2GameServerPacket
 	public void writeImpl()
 	{
 		writeC(0xFE);     // Id
-		writeH(0x20);     // SubId
+		writeH(0x2b);     // SubId
 
 		writeD(_manorId); // manor id
 		writeD(_count);   // size

@@ -33,7 +33,7 @@ public class ExShowVariationCancelWindow extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x51);
+		writeH(0x52);
 	}
 
 	/**

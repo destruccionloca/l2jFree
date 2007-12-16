@@ -42,7 +42,7 @@ public class SpecialCamera extends L2GameServerPacket
     @Override
     public void writeImpl()
     {   
-        writeC(0xc7);
+        writeC(0xd6);
         writeD(_id);
         writeD(_dist);
         writeD(_yaw);

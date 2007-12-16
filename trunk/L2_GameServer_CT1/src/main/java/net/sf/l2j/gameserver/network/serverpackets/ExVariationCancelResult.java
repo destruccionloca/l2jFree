@@ -41,7 +41,7 @@ public class ExVariationCancelResult extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x57);
+		writeH(0x58);
 		writeD(_closeWindow);
 		writeD(_unk1);
 	}

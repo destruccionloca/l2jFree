@@ -43,7 +43,7 @@ public class ShowMiniMap extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x9d);
+		writeC(0xa3);
 		writeD(_mapId);
 		writeD(SevenSigns.getInstance().getCurrentPeriod());
 	}

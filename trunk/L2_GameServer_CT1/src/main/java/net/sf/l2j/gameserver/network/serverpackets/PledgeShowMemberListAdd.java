@@ -62,7 +62,7 @@ public class PledgeShowMemberListAdd extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x55);
+		writeC(0x5c);
 		writeS(_name);
 		writeD(_lvl);
 		writeD(_classId);

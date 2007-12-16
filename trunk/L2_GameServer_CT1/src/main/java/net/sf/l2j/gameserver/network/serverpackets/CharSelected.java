@@ -77,8 +77,8 @@ public class CharSelected extends L2GameServerPacket
 		for (int i=0; i<30; i++)
 			writeD(0x00);
 
-		writeD(0x00);       //c3  work
-		writeD(0x00);       //c3  work
+		writeF(0.0D);       //c3  work
+		writeF(0.0D);       //c3  work
 		
 		// extra info
 		writeD(GameTimeController.getInstance().getGameTime());	// in-game time

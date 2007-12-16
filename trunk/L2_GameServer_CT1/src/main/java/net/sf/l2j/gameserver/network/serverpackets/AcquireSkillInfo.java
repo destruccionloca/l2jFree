@@ -34,7 +34,7 @@ import javolution.util.FastList;
  * 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class AquireSkillInfo extends L2GameServerPacket
+public class AcquireSkillInfo extends L2GameServerPacket
 {
     private static final String _S__A4_AQUIRESKILLINFO = "[S] 8b AquireSkillInfo";
     private FastList<Req> _reqs;
@@ -56,7 +56,7 @@ public class AquireSkillInfo extends L2GameServerPacket
         }
     }
 
-    public AquireSkillInfo(int id, int level, int spCost, int mode)
+    public AcquireSkillInfo(int id, int level, int spCost, int mode)
     {
         _reqs = new FastList<Req>();
         _id = id;

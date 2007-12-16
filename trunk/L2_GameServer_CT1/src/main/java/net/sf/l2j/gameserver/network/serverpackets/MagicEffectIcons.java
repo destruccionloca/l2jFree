@@ -61,7 +61,7 @@ public class MagicEffectIcons extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x7f);
+		writeC(0x85);
 		
 		writeH(_effects.size());
 		for (Effect temp : _effects)

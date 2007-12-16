@@ -52,7 +52,7 @@ public class PetItemList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xB2);
+		writeC(0xB3);
 		
 		L2ItemInstance[] items = _activeChar.getInventory().getItems();
 		int count = items.length; 

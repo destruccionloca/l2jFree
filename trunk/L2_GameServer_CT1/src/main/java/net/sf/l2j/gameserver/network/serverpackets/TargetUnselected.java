@@ -51,7 +51,7 @@ public class TargetUnselected extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x2a);
+		writeC(0x24);
 		writeD(_targetObjId);
 		writeD(_x);
 		writeD(_y);

@@ -60,7 +60,7 @@ public class ExEnchantSkillList extends L2GameServerPacket
 	protected void writeImpl()
     {
         writeC(0xfe);
-        writeH(0x17);
+        writeH(0x29);
 
         writeD(_skills.size());
         for (Skill sk : _skills)

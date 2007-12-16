@@ -51,7 +51,7 @@ public class Snoop extends L2GameServerPacket
 	protected void writeImpl()
 	{
 //		TODO: NEEDS A NEW DECRYPTING, CURRENT ONE ONLY POPS THE WINDOW!
-			writeC(0xd5);
+			writeC(0xdb);
 			writeD(GM.getObjectId());
 			writeS(_name);
 			writeD(_convoId); //??

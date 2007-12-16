@@ -50,7 +50,7 @@ public class ExFishingStart extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x13);
+		writeH(0x1e);
 		writeD(_activeChar.getObjectId());
 		writeD(_fishType); // fish type
 		writeD(_x); // x poisson

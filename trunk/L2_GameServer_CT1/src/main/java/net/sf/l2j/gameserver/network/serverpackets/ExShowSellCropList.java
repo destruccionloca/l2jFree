@@ -89,7 +89,7 @@ public class ExShowSellCropList extends L2GameServerPacket
 	public void writeImpl()
 	{
 		writeC(0xFE);
-		writeH(0x21);
+		writeH(0x2c);
 
 		writeD(_manorId);				// manor id
 		writeD(_cropsItems.size());		// size

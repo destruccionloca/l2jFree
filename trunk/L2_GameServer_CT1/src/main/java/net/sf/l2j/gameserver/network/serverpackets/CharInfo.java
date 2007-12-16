@@ -189,7 +189,7 @@ public class CharInfo extends L2GameServerPacket
 		}
 		else
 		{
-			writeC(0x03);		
+			writeC(0x31);		
 			writeD(_x);
 			writeD(_y);
 			writeD(_z);
@@ -218,28 +218,35 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_FACE));
 			
 			// c6 new h's
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
+			writeD(0x00);
+			writeD(0x00);
 			writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
 			writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LRHAND));
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
-			writeH(0x00);
+			writeD(0x00);
+			writeD(0x00);
+
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
 			
 			writeD(_activeChar.getPvpFlag());
 			writeD(_activeChar.getKarma());
@@ -353,6 +360,9 @@ public class CharInfo extends L2GameServerPacket
 				writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
 			else
 				writeD(0x00);
+			
+			writeD(0x0);
+			writeD(0x0);
 		}
 	}
 	

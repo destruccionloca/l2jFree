@@ -42,7 +42,7 @@ public class GMViewPledgeInfo extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x90);
+		writeC(0x96);
 		writeS(_activeChar.getName());
 		writeD(_clan.getClanId());
 		writeD(0x00); // Ashitaka fix

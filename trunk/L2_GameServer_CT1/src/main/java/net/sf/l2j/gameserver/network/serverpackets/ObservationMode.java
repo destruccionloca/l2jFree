@@ -45,7 +45,7 @@ public class ObservationMode extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xdf);
+		writeC(0xeb);
 		writeD(_x); 
 		writeD(_y); 
 		writeD(_z); 

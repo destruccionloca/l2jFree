@@ -35,7 +35,7 @@ public class ExRestartClient extends L2GameServerPacket
 	void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x47);
+		writeH(0x48);
 	}
 
 	/**

@@ -52,7 +52,7 @@ public class ExShowProcureCropDetail extends L2GameServerPacket
 	public void writeImpl()
 	{
 		writeC(0xFE);
-		writeH(0x22);
+		writeH(0x78);
 
 		writeD(_cropId); // crop id
 		writeD(_castleCrops.size());   // size

@@ -67,7 +67,7 @@ public class ExShowCropInfo extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xFE);     // Id
-		writeH(0x1D);     // SubId
+		writeH(0x24);     // SubId
 		writeC(0);
 		writeD(_manorId); // Manor ID
 		writeD(0);

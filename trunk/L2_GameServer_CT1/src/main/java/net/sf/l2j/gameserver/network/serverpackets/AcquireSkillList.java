@@ -44,7 +44,7 @@ import javolution.util.FastList;
  * 0030: 00 d4 00 00 00 01 00 00 00 06 00 00 00 08 52 00    ..............R.
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $ 
  */
-public class AquireSkillList extends L2GameServerPacket
+public class AcquireSkillList extends L2GameServerPacket
 {
     public enum skillType
     {
@@ -76,7 +76,7 @@ public class AquireSkillList extends L2GameServerPacket
 		}
 	}
 
-	public AquireSkillList(skillType type)
+	public AcquireSkillList(skillType type)
 	{
 		_skills = new FastList<Skill>();
 		_fishingSkills = type;

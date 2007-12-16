@@ -54,7 +54,7 @@ public class ManagePledgePower extends L2GameServerPacket
 			privs = ((L2PcInstance)L2World.getInstance().findObject(_clanId)).getClanPrivileges();
 			*/
         }
-        writeC(0x30);
+        writeC(0x2a);
         writeD(0);
         writeD(0);
         writeD(_privs);

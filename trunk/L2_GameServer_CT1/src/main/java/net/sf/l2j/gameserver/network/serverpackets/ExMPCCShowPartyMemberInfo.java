@@ -32,7 +32,7 @@ public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x4a);
+		writeH(0x4b);
 		
 		//FIXME: this packet has a list, so im not going to add temp vars ^^
 	}

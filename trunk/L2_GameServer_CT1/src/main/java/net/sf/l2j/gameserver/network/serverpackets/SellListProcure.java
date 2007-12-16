@@ -58,7 +58,7 @@ public class SellListProcure extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        writeC(0xE9);
+        writeC(0xEf);
         writeD(_money);         // money
         writeD(0x00);           // lease ?
         writeH(_sellList.size());         // list size

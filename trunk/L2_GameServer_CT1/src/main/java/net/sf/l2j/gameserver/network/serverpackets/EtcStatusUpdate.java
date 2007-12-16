@@ -74,18 +74,18 @@ public class EtcStatusUpdate extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xF9);				//several icons to a separate line (0 = disabled)
+		writeC(0xF9);											//several icons to a separate line (0 = disabled)
 		if (_effect != null)
-			writeD(_effect.getLevel()); // 1-7 increase force, lvl
+			writeD(_effect.getLevel()); 						// 1-7 increase force, lvl
 		else
-			writeD(0x00); // 1-7 increase force, lvl
+			writeD(0x00); 										// 1-7 increase force, lvl
         writeD(_activeChar.getWeightPenalty());
         writeD(_activeChar.getMessageRefusal() ? 1 : 0);
-        writeD(0x00); // danger area
+        writeD(0x00); 											// danger area TODO: core support
         writeD(_activeChar.getExpertisePenalty());
         writeD(_activeChar.getCharmOfCourage() ? 1 : 0);
         writeD(_activeChar.getDeathPenaltyBuffLevel());
-        writeD(0x00); //souls 
+        writeD(0x00); 											//souls TODO: core support
 	}
 
 	/**

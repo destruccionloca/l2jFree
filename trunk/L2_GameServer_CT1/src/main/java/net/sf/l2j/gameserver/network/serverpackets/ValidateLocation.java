@@ -49,7 +49,7 @@ public class ValidateLocation extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x61);
+		writeC(0x79);
 		
 		writeD(_charObjId);
 		writeD(_x);

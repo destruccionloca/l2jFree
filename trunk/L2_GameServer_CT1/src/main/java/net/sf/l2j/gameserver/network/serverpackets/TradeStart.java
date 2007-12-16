@@ -44,7 +44,7 @@ public class TradeStart extends L2GameServerPacket
 		if (_activeChar.getActiveTradeList() == null || _activeChar.getActiveTradeList().getPartner() == null)
 			return;
 
-		writeC(0x1E);
+		writeC(0x14);
 		writeD(_activeChar.getActiveTradeList().getPartner().getObjectId());
 		//writeD((_char != null || _char.getTransactionRequester() != null)? _char.getTransactionRequester().getObjectId() : 0);
 		

@@ -64,7 +64,7 @@ public class SSQStatus extends L2GameServerPacket
     	int totalDawnMembers = SevenSigns.getInstance().getTotalMembers(SevenSigns.CABAL_DAWN);
     	int totalDuskMembers = SevenSigns.getInstance().getTotalMembers(SevenSigns.CABAL_DUSK);
     	
-        writeC(0xf5);
+        writeC(0xfb);
 
         writeC(_page);
         writeC(SevenSigns.getInstance().getCurrentPeriod()); // current period?

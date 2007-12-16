@@ -91,7 +91,7 @@ public class ItemList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x1b);
+		writeC(0x11);
 		writeH(_showWindow ? 0x01 : 0x00);
 		
 		int count = _items.length; 

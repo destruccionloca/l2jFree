@@ -44,7 +44,7 @@ public class PackageSendableList extends L2GameServerPacket
 	protected
 	void writeImpl()
 	{
-		writeC(0xC3);
+		writeC(0xd2);
 		
 		writeD(_playerObjId);
 		writeD(getClient().getActiveChar().getAdena());

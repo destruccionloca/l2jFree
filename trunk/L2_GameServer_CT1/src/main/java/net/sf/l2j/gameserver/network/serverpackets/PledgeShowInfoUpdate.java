@@ -39,7 +39,7 @@ public class PledgeShowInfoUpdate extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		//ddddddddddSdd
-		writeC(0x88);
+		writeC(0x8e);
 		//sending empty data so client will ask all the info in response ;)
 		writeD(_clan.getClanId());
 		writeD(0);

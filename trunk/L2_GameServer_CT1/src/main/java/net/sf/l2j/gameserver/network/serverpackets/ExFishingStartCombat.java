@@ -50,7 +50,7 @@ public class ExFishingStartCombat extends L2GameServerPacket
 	void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x15);
+		writeH(0x27);
 		
 		writeD(_activeChar.getObjectId());
 		writeD(_time);

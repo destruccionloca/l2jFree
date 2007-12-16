@@ -39,7 +39,7 @@ public class ExPCCafePointInfo extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xFE);
-		writeH(0x31);
+		writeH(0x32);
 		writeD(_unk1);
 		writeD(_unk2);
 		writeC(_unk3);

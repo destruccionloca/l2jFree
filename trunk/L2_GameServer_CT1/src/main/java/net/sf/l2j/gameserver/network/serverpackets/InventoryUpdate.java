@@ -99,7 +99,7 @@ public class InventoryUpdate extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x27);
+		writeC(0x21);
 		int count = _items.size(); 
 		writeH(count);
 		for (ItemInfo item : _items)

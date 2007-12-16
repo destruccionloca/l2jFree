@@ -103,24 +103,25 @@ public final class BuyList extends L2GameServerPacket
 		{
 			if(item.getCount() >0 || item.getCount() == -1)
 			{
+				//TODO: Needs Coresupport for last Dwords
 				writeH(item.getItem().getType1()); // item type1
 				writeD(item.getObjectId());
 				writeD(item.getItemDisplayId());
 				writeD(item.getCount() >= 0 ? item.getCount() : 0); // max amount of items that a player can buy at a time (with this itemid)
 				writeH(item.getItem().getType2());					// item type2
-				writeH(0x00);										// custom type1
+				writeH(item.getCustomType1());						// custom type1
 				writeD(item.getItem().getBodyPart());
 				writeH(item.getEnchantLevel());						// enchant level
-				writeH(0x00);										// custom type2
+				writeH(item.getCustomType2());						// custom type2
                 writeD((int)(item.getPriceToSell() * (_taxRate)));
-                writeD(0x00);
-                writeD(0x00);
-                writeD(0x00);
-                writeD(0x00);
-                writeD(0x00);
-                writeD(0x00);
-                writeD(0x00);
-                writeD(0x00);
+                writeD(0x00);										// Elemental Attack
+                writeD(0x00);										// Elemental Attack Value
+                writeD(0x00);										// Fire Defense
+                writeD(0x00);										// Water Defense
+                writeD(0x00);										// Wind Defense
+                writeD(0x00);										// Earth Defense
+                writeD(0x00);										// Holy Defense
+                writeD(0x00);										// UNholy Defense
 			}
 		}
 	}

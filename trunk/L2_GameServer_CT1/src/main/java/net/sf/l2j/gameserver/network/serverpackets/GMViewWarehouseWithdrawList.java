@@ -47,7 +47,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x95);
+		writeC(0x9b);
 		writeS(_playerName);
 		writeD(_money);
 		writeH(_items.length);

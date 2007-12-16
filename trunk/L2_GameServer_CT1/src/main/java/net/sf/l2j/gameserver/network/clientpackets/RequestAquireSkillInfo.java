@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.AquireSkillInfo;
+import net.sf.l2j.gameserver.network.serverpackets.AcquireSkillInfo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,7 +104,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
                 return; // cheater :)
             
             int requiredSp = SkillTreeTable.getInstance().getSkillCost(activeChar, skill);
-			AquireSkillInfo asi = new AquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp,0);
+			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredSp,0);
             
             if (Config.SP_BOOK_NEEDED)
             {
@@ -137,7 +137,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
                 return; // cheater :)
             
             
-            AquireSkillInfo asi = new AquireSkillInfo(skill.getId(), skill.getLevel(), requiredRep,2);
+            AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), requiredRep,2);
             
             if (Config.LIFE_CRYSTAL_NEEDED)
             {
@@ -167,7 +167,7 @@ public class RequestAquireSkillInfo extends L2GameClientPacket
                 spcost = s.getSpCost();
             }
             
-			AquireSkillInfo asi = new AquireSkillInfo(skill.getId(), skill.getLevel(), spcost, 1);
+			AcquireSkillInfo asi = new AcquireSkillInfo(skill.getId(), skill.getLevel(), spcost, 1);
             asi.addRequirement(4, costid, costcount, 0);
             sendPacket(asi);
         }

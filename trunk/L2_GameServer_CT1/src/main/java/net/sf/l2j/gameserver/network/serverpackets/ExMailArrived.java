@@ -36,7 +36,7 @@ public class ExMailArrived extends L2GameServerPacket
 	void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x2d);
+		writeH(0x2e);
 		
 	}
 

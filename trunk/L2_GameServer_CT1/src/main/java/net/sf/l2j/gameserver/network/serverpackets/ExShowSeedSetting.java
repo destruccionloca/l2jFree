@@ -112,7 +112,7 @@ public class ExShowSeedSetting extends L2GameServerPacket
 	public void writeImpl()
 	{
 		writeC(0xFE);     // Id
-		writeH(0x1F);     // SubId
+		writeH(0x26);     // SubId
 
 		writeD(_manorId); // manor id
 		writeD(_count);   // size 

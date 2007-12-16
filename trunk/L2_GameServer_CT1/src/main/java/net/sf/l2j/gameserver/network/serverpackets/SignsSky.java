@@ -53,7 +53,7 @@ public class SignsSky extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        writeC(0xf8);
+        writeC(0x41);
 
         if (_state == 2) // Dawn Sky
             writeH(258);

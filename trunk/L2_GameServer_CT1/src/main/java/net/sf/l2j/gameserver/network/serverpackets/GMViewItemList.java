@@ -46,7 +46,7 @@ public class GMViewItemList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x94);
+		writeC(0x9a);
 		writeS(_playerName);
 		writeD(_cha.getInventoryLimit()); // inventory limit
 		writeH(0x01); // show window ??

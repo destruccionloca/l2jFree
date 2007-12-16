@@ -100,7 +100,7 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 	
 	void writePledge(int mainOrSubpledge)
 	{
-		writeC(0x53);
+		writeC(0x5a);
 		
 		writeD(mainOrSubpledge); //c5 main clan 0 or any subpledge 1?
 		writeD(_clan.getClanId());

@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.AquireSkillList;
+import net.sf.l2j.gameserver.network.serverpackets.AcquireSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.ExEnchantSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -90,7 +90,7 @@ public class L2FolkInstance extends L2NpcInstance
         }
         
         L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player, classId);
-        AquireSkillList asl = new AquireSkillList(AquireSkillList.skillType.Usual);
+        AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.skillType.Usual);
 		int counts = 0;
         
         for (L2SkillLearn s: skills)

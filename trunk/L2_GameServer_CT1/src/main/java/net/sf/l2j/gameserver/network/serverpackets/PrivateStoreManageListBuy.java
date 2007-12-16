@@ -46,7 +46,7 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xb7);
+		writeC(0xbd);
 		//section 1 
 		writeD(_activeChar.getObjectId());
 		writeD(_activeCharAdena);

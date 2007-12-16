@@ -70,7 +70,7 @@ public class ExOlympiadSpelledInfo extends L2GameServerPacket
         if (_player == null)
             return;
 		writeC(0xfe);
-		writeH(0x2a);
+		writeH(0x7b);
 		writeD(_player.getObjectId());
 		writeD(_effects.size());
         for (Effect temp : _effects)

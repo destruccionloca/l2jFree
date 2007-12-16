@@ -39,7 +39,7 @@ public class TradeOwnAdd extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x20);
+		writeC(0x1a);
 		
 		writeH(1);  // item count
 		

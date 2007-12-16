@@ -63,7 +63,7 @@ public class GetOffVehicle extends L2GameServerPacket
 	{
 		if (_boat == null || _activeChar == null) return;
 
-		writeC(0x5d);
+		writeC(0x6f);
 		writeD(_activeChar.getObjectId());
 		writeD(_boat.getObjectId());
 		writeD(_x);

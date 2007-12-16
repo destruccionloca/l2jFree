@@ -47,7 +47,7 @@ public class ExFishingEnd extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x14);
+		writeH(0x1f);
 		writeD(_activeChar.getObjectId());
 		writeC(_win ? 1 : 0);
 		

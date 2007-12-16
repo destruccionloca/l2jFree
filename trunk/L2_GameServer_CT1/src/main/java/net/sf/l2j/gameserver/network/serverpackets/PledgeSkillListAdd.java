@@ -42,7 +42,7 @@ public class PledgeSkillListAdd extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x3a);
+		writeH(0x3b);
 		
 		writeD(_id);
 		writeD(_lvl);

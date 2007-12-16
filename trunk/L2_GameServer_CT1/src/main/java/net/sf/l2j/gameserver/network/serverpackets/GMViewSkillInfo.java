@@ -39,7 +39,7 @@ public class GMViewSkillInfo extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x91);
+		writeC(0x97);
 		writeS(_activeChar.getName());
 		writeD(_skills.length);
 		

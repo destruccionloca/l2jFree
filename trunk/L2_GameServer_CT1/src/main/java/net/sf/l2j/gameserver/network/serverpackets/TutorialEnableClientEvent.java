@@ -41,7 +41,7 @@ public class TutorialEnableClientEvent extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        writeC(0xA2);
+        writeC(0xA8);
         writeC(_event);
         writeC(0xFF); // unknown
         writeC(0x6F); // unknown

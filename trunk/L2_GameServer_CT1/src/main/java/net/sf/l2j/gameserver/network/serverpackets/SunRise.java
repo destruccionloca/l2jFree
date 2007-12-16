@@ -30,7 +30,7 @@ public class SunRise extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x1c);
+		writeC(0x12);
 	}
 
 	/* (non-Javadoc)

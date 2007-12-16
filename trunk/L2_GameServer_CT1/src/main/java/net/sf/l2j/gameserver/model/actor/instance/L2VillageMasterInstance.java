@@ -44,7 +44,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.AquireSkillList;
+import net.sf.l2j.gameserver.network.serverpackets.AcquireSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -974,7 +974,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         if(player.getClan() == null) return;
         
         L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
-        AquireSkillList asl = new AquireSkillList(AquireSkillList.skillType.Clan);
+        AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.skillType.Clan);
         int counts = 0;
         
         for (L2PledgeSkillLearn s: skills)

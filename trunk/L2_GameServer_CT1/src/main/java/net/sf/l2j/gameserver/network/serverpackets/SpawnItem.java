@@ -56,7 +56,7 @@ public class SpawnItem extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x0b);
+		writeC(0x05);
 		writeD(_objectId);
 		writeD(_itemId);
 		

@@ -33,7 +33,7 @@ public class ExRequestHackShield extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x48);
+		writeH(0x49);
 	}
 
 	/**

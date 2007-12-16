@@ -27,7 +27,7 @@ public class NormalCamera extends L2GameServerPacket
     @Override
     public void writeImpl()
     {
-        writeC(0xc8);
+        writeC(0xd7);
     }
     
     @Override

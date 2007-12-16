@@ -35,7 +35,7 @@ public class ExDuelEnd extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x4e);
+		writeH(0x4f);
 		
 		writeD(_unk1);
 	}

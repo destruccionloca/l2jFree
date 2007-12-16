@@ -43,7 +43,7 @@ public class ExVariationResult extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x55);
+		writeH(0x56);
 		writeD(_stat12);
 		writeD(_stat34);
 		writeD(_unk3);

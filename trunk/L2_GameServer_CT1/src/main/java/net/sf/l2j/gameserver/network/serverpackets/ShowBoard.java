@@ -82,7 +82,7 @@ public class ShowBoard extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x6e);
+		writeC(0x7b);
 		writeC(0x01); //c4 1 to show community 00 to hide 
 		writeS("bypass _bbshome"); // top
 		writeS("bypass _bbsgetfav"); // favorite

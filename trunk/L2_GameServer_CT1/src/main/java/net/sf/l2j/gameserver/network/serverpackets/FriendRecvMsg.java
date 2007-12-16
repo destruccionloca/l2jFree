@@ -47,7 +47,7 @@ public class FriendRecvMsg extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xfd);
+		writeC(0x78);
 		
 		writeD(0); // ??
 		writeS(_receiver);

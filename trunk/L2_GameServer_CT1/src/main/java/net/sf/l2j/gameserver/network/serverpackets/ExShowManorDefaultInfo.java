@@ -59,7 +59,7 @@ public class ExShowManorDefaultInfo extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xFE);
-		writeH(0x1E);
+		writeH(0x25);
 		writeC(0);
 		writeD(_crops.size());
 		for (int cropId : _crops)

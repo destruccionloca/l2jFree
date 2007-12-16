@@ -83,7 +83,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.MagicEffectIcons;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillCanceld;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillCanceled;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
@@ -4104,7 +4104,7 @@ public abstract class L2Character extends L2Object
             // cancels the skill hit scheduled task
             enableAllSkills();                                      // re-enables the skills
             if (this instanceof L2PcInstance) getAI().notifyEvent(CtrlEvent.EVT_FINISH_CASTING); // setting back previous intention
-            broadcastPacket(new MagicSkillCanceld(getObjectId()));  // broadcast packet to stop animations client-side
+            broadcastPacket(new MagicSkillCanceled(getObjectId()));  // broadcast packet to stop animations client-side
             sendPacket(new ActionFailed());                         // send an "action failed" packet to the caster
         }
     }

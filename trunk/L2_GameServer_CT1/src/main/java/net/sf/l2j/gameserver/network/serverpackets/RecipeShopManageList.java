@@ -60,7 +60,7 @@ public class RecipeShopManageList  extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xd8);
+		writeC(0xde);
 		writeD(_seller.getObjectId());
 		writeD(_seller.getAdena());
 		writeD(_isDwarven ? 0x00 : 0x01);

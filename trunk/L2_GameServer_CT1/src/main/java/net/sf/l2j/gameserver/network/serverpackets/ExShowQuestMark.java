@@ -46,7 +46,7 @@ public class ExShowQuestMark extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x1a);
+		writeH(0x21);
 		writeD(_questId);
 	}
 

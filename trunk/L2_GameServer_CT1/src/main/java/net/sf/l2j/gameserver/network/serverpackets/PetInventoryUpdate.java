@@ -75,7 +75,7 @@ public class PetInventoryUpdate extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xb3);
+		writeC(0x9e);
 		int count = _items.size(); 
 		writeH(count);
 		for (ItemInfo item : _items)

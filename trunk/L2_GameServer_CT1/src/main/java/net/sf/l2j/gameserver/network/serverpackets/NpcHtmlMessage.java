@@ -220,7 +220,7 @@ public class NpcHtmlMessage extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x0f);
+		writeC(0x19);
 
 		writeD(_npcObjId);
 		writeS(_html);

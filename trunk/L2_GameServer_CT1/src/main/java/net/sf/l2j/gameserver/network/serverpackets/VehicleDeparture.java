@@ -57,7 +57,7 @@ public class VehicleDeparture extends L2GameServerPacket
 	protected
 	void writeImpl()
 	{
-		writeC(0x5a);
+		writeC(0x6c);
 		writeD(_boat.getObjectId());   
 		writeD(_speed1);        
 		writeD(_speed2);        

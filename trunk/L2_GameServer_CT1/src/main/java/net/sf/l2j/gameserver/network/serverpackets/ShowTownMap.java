@@ -45,7 +45,7 @@ public class ShowTownMap extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xde);
+		writeC(0xea);
 		writeS(_texture);
 		writeD(_x);
 		writeD(_y);

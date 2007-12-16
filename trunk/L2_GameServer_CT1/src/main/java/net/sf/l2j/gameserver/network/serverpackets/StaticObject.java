@@ -45,7 +45,7 @@ public class StaticObject extends L2GameServerPacket
         protected final void writeImpl()
         {
             
-            writeC(0x99);
+            writeC(0x9f);
             writeD(_staticObject.getStaticObjectId());    //staticObjectId
             writeD(_staticObject.getObjectId());    //objectId
                 

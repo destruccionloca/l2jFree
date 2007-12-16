@@ -57,7 +57,7 @@ public class ExFishingHpRegen extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x16);
+		writeH(0x28);
 		
 		writeD(_activeChar.getObjectId());
 		writeD(_time);

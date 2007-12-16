@@ -50,6 +50,7 @@ public class Die extends L2GameServerPacket
     private int showClanhall;
     private int showCastle;
     private int showFlag;
+    private int showFortress;
 
 	/**
 	 * @param _characters
@@ -100,7 +101,7 @@ public class Die extends L2GameServerPacket
         writeD(showFlag);
 		writeD(_sweepable ? 0x01 : 0x00);                               // sweepable  (blue glow)
 		writeD(_access >= REQUIRED_LEVEL? 0x01: 0x00);                  // 6d 04 00 00 00 - to FIXED
-        writeD(0x00); // fortress
+        writeD(0x00); 													// fortress (showFortress)
 	}
 
 	/* (non-Javadoc)

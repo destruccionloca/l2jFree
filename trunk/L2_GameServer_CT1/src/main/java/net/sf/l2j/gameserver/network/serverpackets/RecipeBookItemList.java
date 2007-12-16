@@ -51,7 +51,7 @@ public class RecipeBookItemList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xD6);
+		writeC(0xDc);
 		
 		writeD(_isDwarvenCraft ? 0x00 : 0x01); //0 = Dwarven - 1 = Common 
 	 	writeD(_maxMp); 

@@ -59,7 +59,7 @@ public class MonRaceInfo extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        writeC(0xdd);
+        writeC(0xe3);
         
         writeD(_unknown1);
         writeD(_unknown2);

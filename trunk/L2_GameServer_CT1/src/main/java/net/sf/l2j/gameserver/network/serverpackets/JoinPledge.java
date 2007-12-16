@@ -37,7 +37,7 @@ public class JoinPledge extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x33);
+		writeC(0x2d);
 		
 		writeD(_pledgeId);
 	}

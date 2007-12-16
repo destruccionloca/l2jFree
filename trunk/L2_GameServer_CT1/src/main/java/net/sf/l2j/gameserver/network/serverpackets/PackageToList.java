@@ -48,7 +48,7 @@ public class PackageToList extends L2GameServerPacket
 	protected
 	void writeImpl()
 	{
-		writeC(0xC2);
+		writeC(0xC8);
 		writeD(_players.size());
 		for(int objId : _players.keySet())
 		{

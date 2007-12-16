@@ -67,7 +67,7 @@ public class Ride extends L2GameServerPacket
     {
         L2PcInstance cha = getClient().getActiveChar();
         if (cha == null) return;        
-        writeC(0x86);
+        writeC(0x8c);
         writeD(_id);
         writeD(_bRide);
         writeD(_rideType);

@@ -52,7 +52,7 @@ public class WearList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xef);
+		writeC(0xf5);
 		writeC(0xc0);	// ?
 		writeC(0x13);	// ?
 		writeC(0x00);	// ?

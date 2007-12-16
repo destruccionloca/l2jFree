@@ -52,7 +52,7 @@ public class MoveToPawn extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x60);
+		writeC(0x72);
 		
 		writeD(_charObjId);
 		writeD(_targetId);

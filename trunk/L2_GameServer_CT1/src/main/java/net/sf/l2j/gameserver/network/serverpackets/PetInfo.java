@@ -70,7 +70,7 @@ public class PetInfo extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xb1);
+		writeC(0xb2);
 		writeD(_summon.getSummonType()); 
 		writeD(_summon.getObjectId());
         writeD(_summon.getTemplate().getIdTemplate()+1000000);

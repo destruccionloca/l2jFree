@@ -46,7 +46,7 @@ public class ExOlympiadMode extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x2b);
+		writeH(0x7c);
 		writeC(_mode);
 	}
 	

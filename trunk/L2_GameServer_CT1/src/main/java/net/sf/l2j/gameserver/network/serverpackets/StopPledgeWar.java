@@ -33,7 +33,7 @@ public class StopPledgeWar extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        writeC(0x67);
+        writeC(0x65);
         writeS(_pledgeName);
         writeS(_playerName);
     }

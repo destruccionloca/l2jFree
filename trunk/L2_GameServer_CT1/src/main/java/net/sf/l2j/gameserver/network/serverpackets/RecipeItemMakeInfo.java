@@ -65,7 +65,7 @@ public class RecipeItemMakeInfo extends L2GameServerPacket
 
         if (recipe != null)
         {
-            writeC(0xD7);
+            writeC(0xDd);
 
             writeD(_id);
             writeD(recipe.isDwarvenRecipe() ? 0 : 1); // 0 = Dwarven - 1 = Common 

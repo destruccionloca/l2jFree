@@ -46,7 +46,7 @@ public class GMViewCharacterInfo extends L2GameServerPacket
 		int _runSpd = (int) (_activeChar.getRunSpeed() / moveMultiplier);
 		int _walkSpd = (int) (_activeChar.getStat().getWalkSpeed() / moveMultiplier);
 
-		writeC(0x8f);
+		writeC(0x95);
 
 		writeD(_activeChar.getX());
 		writeD(_activeChar.getY());

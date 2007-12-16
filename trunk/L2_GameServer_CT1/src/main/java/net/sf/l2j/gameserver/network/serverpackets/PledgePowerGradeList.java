@@ -47,7 +47,7 @@ public class PledgePowerGradeList extends L2GameServerPacket
 	protected final void writeImpl()
 	{
         writeC(0xFE);
-        writeH(0x3b);
+        writeH(0x3c);
         writeD(_privs.length);
         for (RankPrivs element : _privs) {
             writeD(element.getRank());
