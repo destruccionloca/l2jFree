@@ -921,7 +921,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
          * Sorcerer, Spellsinger and Spellhowler
          * 
          */
-        Set<PlayerClass> availSubs = currClass.getAvaliableSubclasses();
+        Set<PlayerClass> availSubs = currClass.getAvaliableSubclasses(player);
 
         if (availSubs != null)
         {

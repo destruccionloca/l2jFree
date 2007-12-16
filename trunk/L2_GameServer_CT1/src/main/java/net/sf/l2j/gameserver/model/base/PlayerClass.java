@@ -46,7 +46,10 @@ import static net.sf.l2j.gameserver.model.base.Race.orc;
 
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
+
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * This class ...
@@ -184,35 +187,46 @@ public enum PlayerClass {
         _type = pType;
     }
 
-    public final Set<PlayerClass> getAvaliableSubclasses()
+    public final Set<PlayerClass> getAvaliableSubclasses(L2PcInstance player)
     {
         Set<PlayerClass> subclasses = null;
 
         if (_level == Third)
         {
-            subclasses = EnumSet.copyOf(mainSubclassSet);
+        	if (player.getRace() != kamael)
+        	{
+		        subclasses = EnumSet.copyOf(mainSubclassSet);
+		
+		        subclasses.removeAll(neverSubclassed);
+		        subclasses.remove(this);
+		
+		        switch (_race)
+		        {
+		            case elf:
+		                subclasses.removeAll(getSet(darkelf, Third));
+		                break;
+		            case darkelf:
+		                subclasses.removeAll(getSet(elf, Third));
+		                break;
+		        }
 
-            subclasses.removeAll(neverSubclassed);
-            subclasses.remove(this);
+	            Set<PlayerClass> unavaliableClasses = subclassSetMap.get(this);
 
-            switch (_race)
-            {
-                case elf:
-                    subclasses.removeAll(getSet(darkelf, Third));
-                    break;
-                case darkelf:
-                    subclasses.removeAll(getSet(elf, Third));
-                    break;
-                case kamael:
-                	break;
-            }
-
-            Set<PlayerClass> unavaliableClasses = subclassSetMap.get(this);
-
-            if (unavaliableClasses != null)
-            {
-                subclasses.removeAll(unavaliableClasses);
-            }
+	            if (unavaliableClasses != null)
+	            {
+	                subclasses.removeAll(unavaliableClasses);
+	            }
+        	}
+        	else
+        	{
+        		subclasses = new HashSet<PlayerClass>();
+        		subclasses.add(inspector);
+        	}
+        }
+        else if (_level == Fifth)
+        {
+    		subclasses = new HashSet<PlayerClass>();
+        	subclasses.add(judicator);
         }
 
         return subclasses;
