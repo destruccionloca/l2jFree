@@ -342,7 +342,12 @@ public class L2ClanMember
        L2Clan clan = player.getClan();
        if (clan != null)
        {
-           switch (player.getClan().getLevel())
+
+    	   // Added 2nd hero check. Some other functions call this calculations. 
+    	   if(player.isHero())
+               return 8;
+    	   
+    	   switch (player.getClan().getLevel())
            {
                case 4:
                    if (player.isClanLeader())

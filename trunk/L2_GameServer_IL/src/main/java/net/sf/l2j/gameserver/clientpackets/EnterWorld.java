@@ -418,14 +418,21 @@ public class EnterWorld extends L2GameClientPacket
 			activeChar.sendPacket(sm);
 		}
 		
-		try
-		{
-			activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
-		}
-		catch(Throwable t){}
-
 		if (activeChar.getClan() != null)
 		{
+			
+			try
+			{
+				//Sets the apropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz) 
+				activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
+
+				//Restores clan skills on world entry (they don't show up for themselves) :)
+				activeChar.getClan().addSkillEffects(activeChar , false);
+				
+			}
+			
+			catch(Throwable t){}
+
 			PledgeSkillList psl = new PledgeSkillList(activeChar.getClan());
 			activeChar.sendPacket(psl);
 			

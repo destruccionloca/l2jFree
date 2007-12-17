@@ -466,7 +466,7 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
             String c = Integer.toHexString(FortressSiege._teamColors.get(FortressSiege._teams.indexOf(team)));
             while (c.length()<6)
             	c="0"+c;
-            replyMSG.append("Color: <font color=\"00FF00\">0x"+c+"</font><font color=\""+c+"\"> 8D </font>");
+            replyMSG.append("Color: <font color=\"00FF00\">0x"+c.toUpperCase()+"</font><font color=\""+c+"\"> 8D </font>");
             replyMSG.append("</td></tr><tr><td>");
             replyMSG.append("Position: <font color=\"00FF00\">("+FortressSiege._teamsX.get(FortressSiege._teams.indexOf(team)) + ", " + FortressSiege._teamsY.get(FortressSiege._teams.indexOf(team)) + ", " + FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(team))+")</font>");
             replyMSG.append("</td></tr><tr>");
