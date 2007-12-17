@@ -138,15 +138,38 @@ public class SiegeGuardManager {
     
     /**
      * Spawn guards.<BR><BR>
+     * Added cheat proof check by Darki699. Some players found a way to spawn more than the allowed
+     * amount of siege guards. This check for max hired guards should stop this.
      */
     public void spawnSiegeGuard()
     {
-        if (Config.SPAWN_SIEGE_GUARD)
-        {
-	        loadSiegeGuard();
-	        for (L2Spawn spawn: getSiegeGuardSpawn())
-	            if (spawn != null) spawn.init();
-        }
+    	try
+    	{
+    		int hiredCount  = 0;
+    		int hiredMax    = MercTicketManager.getInstance().getMaxAllowedMerc(_castle.getCastleId());
+    		boolean isHired = (getCastle().getOwnerId() > 0) ? true : false;
+    		if (Config.SPAWN_SIEGE_GUARD)
+    		{
+    			loadSiegeGuard();
+    			for (L2Spawn spawn: getSiegeGuardSpawn())
+    			{
+    				if (spawn != null)
+    				{
+    					spawn.init();
+    					if (isHired)
+    					{
+    						hiredCount++;
+    						if (hiredCount > hiredMax)
+    							return;
+    					}
+    				}
+    			}
+    		}
+    	}
+    	catch (Throwable t)
+    	{
+    		_log.warn("Error spawning siege guards for castle " + getCastle().getName() + ":" + t.toString());
+    	}
     }
 
     /**
