@@ -641,30 +641,31 @@ public abstract class L2Character extends L2Object
      * @param integer fallHeight representation of the fall
      * @author Darki699
      */
-    private void doFallDamage(int fallHeight)
-    {
-    	isFalling(false,0);
-		
-    	int damage = getFallDamage(fallHeight);
-		
+	private void doFallDamage(int fallHeight)
+	{
+		isFalling(false,0);
+
+		if (isInvul() || (this instanceof L2PcInstance && ((L2PcInstance)this).isInFunEvent()))
+		{
+			setIsFallsdown(false);
+			return;
+		}
+
+		int damage = getFallDamage(fallHeight);
+
 		if (damage < 1)
 			return;
-    	
-    	if (this instanceof L2PcInstance)
-			{
-				L2PcInstance player = ((L2PcInstance)this);
-				
-				if (player.isInvul() || player.isInFunEvent())
-					return;
-				
-				SystemMessage sm = new SystemMessage(SystemMessageId.FALL_DAMAGE_S1);
-				sm.addNumber(damage);
-				sendPacket(sm);
-			}
-			
+
+		if (this instanceof L2PcInstance)
+		{
+			SystemMessage sm = new SystemMessage(SystemMessageId.FALL_DAMAGE_S1);
+			sm.addNumber(damage);
+			sendPacket(sm);
+		}
+
 		getStatus().reduceHp(damage, this);
 		getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, this);
-    }
+	}
     
     
     /**

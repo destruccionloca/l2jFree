@@ -9183,6 +9183,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
             _taskWater = null;
             sendPacket(new SetupGauge(2, 0));
+            // Added to sync fall when swimming stops: 
+            // (e.g. catacombs players swim down and then they fell when they got out of the water).
+            isFalling(false,0); 
         }
     }
 

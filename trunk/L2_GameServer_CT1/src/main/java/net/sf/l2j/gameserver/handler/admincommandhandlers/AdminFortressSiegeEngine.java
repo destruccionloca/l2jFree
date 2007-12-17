@@ -465,15 +465,15 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
             replyMSG.append("</td></tr><tr><td>");
             String c = Integer.toHexString(FortressSiege._teamColors.get(FortressSiege._teams.indexOf(team)));
             while (c.length()<6)
-            	c="0"+c;
-            replyMSG.append("Color: <font color=\"00FF00\">0x"+c+"</font><font color=\""+c+"\"> 8D </font>");
+                c="0"+c;
+            replyMSG.append("Color: <font color=\"00FF00\">0x"+c.toUpperCase()+"</font><font color=\""+c+"\"> 8D </font>");
             replyMSG.append("</td></tr><tr><td>");
             replyMSG.append("Position: <font color=\"00FF00\">("+FortressSiege._teamsX.get(FortressSiege._teams.indexOf(team)) + ", " + FortressSiege._teamsY.get(FortressSiege._teams.indexOf(team)) + ", " + FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(team))+")</font>");
             replyMSG.append("</td></tr><tr>");
             if (team.equals(FortressSiege._teams.get(0)))
-            	replyMSG.append("<td width=\"100\"><button value=\"Tele>Team1\" action=\"bypass -h admin_fos_tele1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+                replyMSG.append("<td width=\"100\"><button value=\"Tele>Team1\" action=\"bypass -h admin_fos_tele1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
             if (team.equals(FortressSiege._teams.get(1)))
-            	replyMSG.append("<td width=\"100\"><button value=\"Tele>Team2\" action=\"bypass -h admin_fos_tele2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+                replyMSG.append("<td width=\"100\"><button value=\"Tele>Team2\" action=\"bypass -h admin_fos_tele2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
         }
         replyMSG.append("<tr><td>Artifact:  <font color=\"00FF00\">("+FortressSiege._flagX + ", " + FortressSiege._flagY+ ", " + FortressSiege._flagZ+")</font></td></tr>");
         replyMSG.append("<tr><td width=\"100\"><button value=\"Tele>Artif\" action=\"bypass -h admin_fos_tele3\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
