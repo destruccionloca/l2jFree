@@ -88,11 +88,28 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             int jobLevel = classId.level();
             
             int newJobLevel = jobLevel + 1;
-            
-            if(((level >= 20 && jobLevel == 0 ) || 
+
+            boolean canUpgrade = false;
+            if (player.getPet() != null)
+            {
+            	if (player.getPet().getNpcId() == 12311 || player.getPet().getNpcId() == 12312 || player.getPet().getNpcId() == 12313)
+            	{
+            		if (player.getPet().getLevel() >= 55)
+            			canUpgrade = true;
+            		else
+            			player.sendMessage("The level of your hatchling is to low to be upgraded.");
+            	}
+            	else
+            		player.sendMessage("You have to summon an hatchling.");
+            }
+            else
+            	player.sendMessage("You have to summon an hatchling if you want to upgrade him.");
+
+            if ((((level >= 20 && jobLevel == 0 ) || 
                 (level >= 40 && jobLevel == 1 ) || 
                 (level >= 76 && jobLevel == 2)) &&
                 Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
+            	|| (Config.CLASS_MASTER_STRIDER_UPDATE && canUpgrade))
             {
             	sb.append("You can change your occupation to following:<br>");
             	
@@ -263,6 +280,8 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         		
         		if (collar != null)
         		{
+        			// Unsummon the hatchling
+        			player.getPet().unSummon(player);
         			player.destroyItem("ClassMaster", collar, player, true);
         			player.addItem("ClassMaster", striderCollar[i], 1, player, true, true);
         			
