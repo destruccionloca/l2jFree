@@ -1370,9 +1370,13 @@ INSERT INTO skill_learn VALUES
 (32098,94),
 (32098,95),
 (32098,96),
-(32098,97),
+(32098,97);
 
+--
+-- L2J-Free Add-ons
+--
 
+INSERT INTO `skill_learn` VALUES
 (32141, 123),
 (32141, 125),
 (32141, 127),

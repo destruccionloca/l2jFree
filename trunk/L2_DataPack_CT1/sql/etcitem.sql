@@ -6912,7 +6912,7 @@ INSERT INTO `etcitem` (`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
 -- L2J-Free Add-ons
 --
 
-insert  into `etcitem`(`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`consume_type`,`material`,`crystal_type`,`duration`,`price`,`crystal_count`,`sellable`,`dropable`,`destroyable`,`tradeable`,`oldname`,`oldtype`) values 
+INSERT INTO `etcitem`(`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`consume_type`,`material`,`crystal_type`,`duration`,`price`,`crystal_count`,`sellable`,`dropable`,`destroyable`,`tradeable`,`oldname`,`oldtype`) VALUES
 ('9451','Dynastic Essence','false','none','60','stackable','wood',NULL,'-1','0',NULL,'true','true','true','true','',''),
 ('9482','Recipe: Sealed Dynasty Blast Plate (60%)','false','none','30','stackable','wood',NULL,'-1','0',NULL,'true','true','true','true','',''),
 ('9483','Recipe: Sealed Dynasty Gaiter (60%)','false','none','30','stackable','wood',NULL,'-1','0',NULL,'true','true','true','true','',''),
@@ -7420,9 +7420,8 @@ insert  into `etcitem`(`item_id`,`name`,`crystallizable`,`item_type`,`weight`,`c
 ('10275','Battle Manual - Warp','false','none','120','stackable','wood',NULL,'-1','0',NULL,'true','true','true','true','',''),
 ('10276','Battle Manual - Soul Shock','false','none','120','stackable','wood',NULL,'-1','0',NULL,'true','true','true','true','','');
 
-
-
 UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` = 6353; -- Blue Gemstone
+UPDATE `etcitem` SET `weight` = 10 WHERE `item_id` IN ( 2515, 4038, 5168, 5169, 6316, 7208, 7209, 9668 ); -- Update weight for pets' food for CT1
 
 ALTER TABLE `etcitem` ADD COLUMN `item_display_id` int(11) NOT NULL DEFAULT 0 AFTER `item_id`;
 UPDATE `etcitem` SET `item_display_id` = `item_id`;

@@ -6843,8 +6843,7 @@ UPDATE `npc` SET `runspd` = '25', `walkspd` = '25' WHERE `id` = '31365';
 UPDATE `npc` SET `runspd` = '50', `walkspd` = '50' WHERE `id` = '32070';
 UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12' WHERE `id` = '32072';
 
-
-insert into `npc`(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) values 
+INSERT INTO `npc`(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
 ('13036',0,'Alchemist\'s Chest',0,'',0,'LineageMonster.mimic_even','8.50','8.50','1','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'40','43','30','21','35','25','0','0','500','500','500','500','253','0','253','0','0','80','120',NULL,'0',0,'0','LAST_HIT'),
 ('22228',0,'Grey Elpy',0,'',0,'LineageMonster.elpy','5.00','4.50','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
 ('22229',0,'Young Grey Keltir',0,'',0,'LineageMonster.keltir','9.50','10.00','1','male','L2Monster',40,'152.00','33.00',2.00,1.00,'10','10','10','10','10','10','32','3','7','49','6','35','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
@@ -8379,4 +8378,3 @@ insert into `npc`(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideT
 ('13094',0,'Zombie',0,'',0,'LineageMonster3.zombie_laborer','11.00','24.60','1','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
 ('13098',0,'Event Treasure Chest',0,'',0,NULL,'2.00','6.00','1','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120',NULL,'0',0,'0','LAST_HIT'),
 ('16030',0,'Great Wolf',0,'',0,'LineageMonster4.Pet_Wolf_Ba','32.00','23.56','70','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120',NULL,'0',0,'0','LAST_HIT');
-

@@ -1047,7 +1047,7 @@ INSERT INTO `armor` VALUES
 -- L2J-Free Add-ons
 --
 
-INSERT INTO `armor` VALUES 
+INSERT INTO `armor` VALUES
 ('9391', 'Human Circlet', 'hairall', 'true', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '0', '0'),
 ('9392', 'Elven Circlet', 'hairall', 'true', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '0', '0'),
 ('9393', 'Dark Elven Circlet', 'hairall', 'true', 'none', '10', 'wood', 'none', '0', '-1', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '0', '0'),
@@ -1327,12 +1327,11 @@ INSERT INTO `armor` VALUES
 ('10170', 'Baylor\'s Earring', 'rear,lear', 'true', 'none', '150', 'wood', 'none', '0', '-1', '0', '71', '31', '0', '0', 'true', 'true', 'true', 'true', '0', '0'),
 ('10273', 'Wolf Summoning Bracelet', 'braslet', 'true', 'none', '150', 'wood', 'none', '0', '0', '0', '0', '0', '0', '0', 'true', 'true', 'true', 'true', '0', '0');
 
-
 INSERT INTO `armor` VALUES (9084, 'Shadow Item: Dark Crystal Helmet', 'head', 'true', 'none', 570, 'crystal', 'a', 0, 90, 69, 0, 0, 1740000, 139, 'true', 'true', 'true', 'true', 0, 0);
 
 -- Update
-UPDATE `armor` SET dropable = 'false', tradeable = 'false', destroyable = 'false', price = '0', sellable = 'false' WHERE `item_id` IN 
+UPDATE `armor` SET `dropable` = 'false', `tradeable` = 'false', `destroyable` = 'false', `price` = '0', `sellable` = 'false' WHERE `item_id` IN 
 ( 6834, 6835, 6836, 6837, 6838, 6839, 6840, 6841, 8181, 8182, 8183 );
 
-ALTER TABLE armor ADD COLUMN item_display_id int(11) NOT NULL DEFAULT 0 AFTER item_id;
-update armor set item_display_id = item_id;
+ALTER TABLE `armor` ADD COLUMN `item_display_id` int(11) NOT NULL DEFAULT 0 AFTER `item_id`;
+UPDATE `armor` SET `item_display_id` = `item_id`;
