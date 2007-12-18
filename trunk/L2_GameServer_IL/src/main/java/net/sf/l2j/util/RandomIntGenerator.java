@@ -23,12 +23,20 @@ import net.sf.l2j.gameserver.model.L2DropData;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.gameserver.lib.MersenneTwisterFast;
 
-public class RandomIntGenerator{
-    
+public class RandomIntGenerator
+{
     private static final Log _log = LogFactory.getLog(RandomIntGenerator.class); 
+
+    private static MersenneTwisterFast _randomMTF;
     private boolean[] buffer = new boolean[L2DropData.MAX_CHANCE];
     private static RandomIntGenerator _instance;
+    
+    public MersenneTwisterFast getMTF()
+    {
+    	return _randomMTF;
+    }
     
     public static final RandomIntGenerator getInstance()
     {
@@ -40,6 +48,7 @@ public class RandomIntGenerator{
     private RandomIntGenerator()
     {
         Restart();
+   	 	_randomMTF = new MersenneTwisterFast(4357); //seed
         ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Sched(),1000, 1000);
         _log.info("RandomIntGenerator: initialized");
     }
@@ -52,21 +61,25 @@ public class RandomIntGenerator{
         }            
     }
 
-    public synchronized double nextRandom(){
+    public synchronized double nextRandom()
+    {
         double r = 0;
         int pos = 0, iteration = 0;;
-        pos = (int) (java.lang.Math.random() * L2DropData.MAX_CHANCE);
+        pos = (int) (_randomMTF.nextDouble() * L2DropData.MAX_CHANCE);
+        
         while(buffer[pos] && iteration <= L2DropData.MAX_CHANCE)
         {
             pos+=33333;
             iteration++;
             if(pos>=L2DropData.MAX_CHANCE) pos = pos - L2DropData.MAX_CHANCE;
         }
+        
         if(iteration >= L2DropData.MAX_CHANCE)
         {
             Restart();
-            pos = (int) (java.lang.Math.random() * L2DropData.MAX_CHANCE);
+            pos = (int) (_randomMTF.nextDouble() * L2DropData.MAX_CHANCE);
         }
+        
         r = (double)pos / L2DropData.MAX_CHANCE;
         buffer[pos] = true;
         return r;

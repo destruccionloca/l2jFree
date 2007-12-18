@@ -306,7 +306,7 @@ public class RequestEnchantItem extends L2GameClientPacket
             else if(_charlevel>=76 && _itemlevel <= Config.ENCHANT_DWARF_3_ENCHANTLEVEL)
                 chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
         }
-        
+
         if (Rnd.get(100) < chance)
         {
             synchronized(item)
