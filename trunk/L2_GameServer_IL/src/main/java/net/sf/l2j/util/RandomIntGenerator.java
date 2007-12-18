@@ -18,24 +18,21 @@
  */
 package net.sf.l2j.util;
 
-import net.sf.l2j.gameserver.ThreadPoolManager;
-import net.sf.l2j.gameserver.model.L2DropData;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import net.sf.l2j.gameserver.lib.MersenneTwisterFast;
+
+import java.security.SecureRandom;
 
 public class RandomIntGenerator
 {
     private static final Log _log = LogFactory.getLog(RandomIntGenerator.class); 
 
-    private static MersenneTwisterFast _randomMTF;
-    private boolean[] buffer = new boolean[L2DropData.MAX_CHANCE];
+    SecureRandom random = new SecureRandom();
     private static RandomIntGenerator _instance;
     
-    public MersenneTwisterFast getMTF()
+    public SecureRandom getSecureRandom()
     {
-    	return _randomMTF;
+    	return random;
     }
     
     public static final RandomIntGenerator getInstance()
@@ -47,46 +44,6 @@ public class RandomIntGenerator
     
     private RandomIntGenerator()
     {
-        Restart();
-   	 	_randomMTF = new MersenneTwisterFast(4357); //seed
-        ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Sched(),1000, 1000);
         _log.info("RandomIntGenerator: initialized");
-    }
-    
-    private class Sched implements Runnable
-    {
-        public void run()
-        {
-            nextRandom();
-        }            
-    }
-
-    public synchronized double nextRandom()
-    {
-        double r = 0;
-        int pos = 0, iteration = 0;;
-        pos = (int) (_randomMTF.nextDouble() * L2DropData.MAX_CHANCE);
-        
-        while(buffer[pos] && iteration <= L2DropData.MAX_CHANCE)
-        {
-            pos+=33333;
-            iteration++;
-            if(pos>=L2DropData.MAX_CHANCE) pos = pos - L2DropData.MAX_CHANCE;
-        }
-        
-        if(iteration >= L2DropData.MAX_CHANCE)
-        {
-            Restart();
-            pos = (int) (_randomMTF.nextDouble() * L2DropData.MAX_CHANCE);
-        }
-        
-        r = (double)pos / L2DropData.MAX_CHANCE;
-        buffer[pos] = true;
-        return r;
-    }
-
-    public void Restart()
-    {
-        for (int i = 0; i < L2DropData.MAX_CHANCE; i++) buffer[i] = false;        
     }
 }
