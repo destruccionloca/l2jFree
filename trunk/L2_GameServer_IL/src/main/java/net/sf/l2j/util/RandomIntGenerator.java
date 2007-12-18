@@ -27,12 +27,13 @@ public class RandomIntGenerator
 {
     private static final Log _log = LogFactory.getLog(RandomIntGenerator.class); 
 
-    SecureRandom random = new SecureRandom();
+    private SecureRandom _random = new SecureRandom();
+    
     private static RandomIntGenerator _instance;
     
     public SecureRandom getSecureRandom()
     {
-    	return random;
+    	return _random;
     }
     
     public static final RandomIntGenerator getInstance()
