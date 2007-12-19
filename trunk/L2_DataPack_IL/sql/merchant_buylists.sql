@@ -17701,6 +17701,6 @@ INSERT INTO `merchant_buylists` (`item_id`,`price`,`shop_id`,`order`,`count`,`cu
 UPDATE `merchant_buylists` SET `price` = `price` * 1.20;
 UPDATE `merchant_buylists` SET `price` = 2 WHERE `item_id` = 17 AND `price` < 2 AND `price` != 0; -- Wooden Arrow
 UPDATE `merchant_buylists` SET `price` = 3 WHERE `item_id` = 1341 AND `price` < 3 AND `price` != 0; -- Bone Arrow
-UPDATE `merchant_buylists` SET `price` = 750 WHERE `item_id` = 1522 AND `price` < 2 AND `price` != 0; -- Amulet: Chant of Battle
+UPDATE `merchant_buylists` SET `price` = 750 WHERE `item_id` = 1522 AND `price` < 750 AND `price` != 0; -- Amulet: Chant of Battle
 UPDATE `merchant_buylists` SET `price` = 1600 WHERE `item_id` = 1856 AND `price` < 1600 AND `price` != 0; -- Amulet: Chant of Life
 UPDATE `merchant_buylists` SET `price` = 8000 WHERE `item_id` = 3946 AND `price` < 8000 AND `price` != 0; -- Boat Ticket: Giran to Talking Island
