@@ -121,12 +121,8 @@ public class CharKnownList extends ObjectKnownList
      * <BR>
      * <BR>
      */
-	private long _lastUpdate = 0;
-	
     public final synchronized void updateKnownObjects()
     {
-    	if (System.currentTimeMillis() - _lastUpdate < 100) return;
-		
 		// Remove all invisible and too far objects<br>
         // Go through knownObjects
         Collection<L2Object> knownObjects = getKnownObjects().values();
@@ -219,8 +215,6 @@ public class CharKnownList extends ObjectKnownList
                 addKnownObject(playable);
             }
         }
-		
-		_lastUpdate = System.currentTimeMillis();
     }
 
     public L2Character getActiveChar() { return (L2Character)super.getActiveObject(); }
