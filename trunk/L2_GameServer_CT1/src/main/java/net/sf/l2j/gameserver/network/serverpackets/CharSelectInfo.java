@@ -138,7 +138,7 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(0x00);
 			writeD(0x00);
 
-			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_DHAIR));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIRALL));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_REAR));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LEAR));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_NECK));
@@ -154,7 +154,7 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
 			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
-			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+			writeD(charInfoPackage.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR2));
 
             writeD(0);
             writeD(0);

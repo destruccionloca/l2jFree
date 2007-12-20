@@ -204,7 +204,7 @@ public class CharInfo extends L2GameServerPacket
 			else
 				writeD(_activeChar.getBaseClass());
 			
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_DHAIR));
+			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIRALL));
 			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HEAD));
 			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RHAND));
 			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LHAND));
@@ -215,7 +215,7 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_BACK));
 			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LRHAND));
 			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_FACE));
+			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR2));
 			
 			// c6 new h's
 			writeD(0x00);

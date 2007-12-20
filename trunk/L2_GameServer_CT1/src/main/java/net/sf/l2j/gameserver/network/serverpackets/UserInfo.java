@@ -125,7 +125,7 @@ public class UserInfo extends L2GameServerPacket
 
         writeD(0x28); // unknown
 
-        writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_DHAIR));
+        writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HAIRALL));
         writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_REAR));
         writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LEAR));
         writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_NECK));
@@ -141,9 +141,9 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_BACK));
         writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND));
         writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
-        writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_FACE));
+        writeD(_activeChar.getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_HAIR2));
         
-        writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_DHAIR));
+        writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIRALL));
         writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_REAR));
         writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_LEAR));
         writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_NECK));
@@ -159,7 +159,7 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_BACK));
         writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_LRHAND));
         writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR));
-        writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_FACE));
+        writeD(_activeChar.getInventory().getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR2));
         
         // c6 new h's
         writeH(0x00);

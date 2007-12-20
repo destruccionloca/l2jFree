@@ -275,7 +275,7 @@ public class Hero
                     }
                     player.sendPacket(iu);
                     
-                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_FACE);
+                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_HAIR2);
                     iu = new InventoryUpdate();
                     for (L2ItemInstance item : items)
                     {
@@ -283,7 +283,7 @@ public class Hero
                     }
                     player.sendPacket(iu);
 
-                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_DHAIR);
+                    items = player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_HAIRALL);
                      iu = new InventoryUpdate();
                     for (L2ItemInstance item : items)
                     {

@@ -65,9 +65,9 @@ public abstract class Inventory extends ItemContainer
     public static final int PAPERDOLL_FEET = 12;
     public static final int PAPERDOLL_BACK = 13;
     public static final int PAPERDOLL_LRHAND = 14;
-    public static final int PAPERDOLL_FACE = 15;
+    public static final int PAPERDOLL_HAIR2 = 15;
     public static final int PAPERDOLL_HAIR = 16;
-    public static final int PAPERDOLL_DHAIR = 17;
+    public static final int PAPERDOLL_HAIRALL = 17;
     public static final int PAPERDOLL_CLOAK = 18;
     
     //Speed percentage mods
@@ -675,7 +675,7 @@ public abstract class Inventory extends ItemContainer
             return item.getItemId();
         else if (slot == PAPERDOLL_HAIR)
         {
-            item = _paperdoll[PAPERDOLL_DHAIR]; 
+            item = _paperdoll[PAPERDOLL_HAIRALL]; 
             if (item != null)
                 return item.getItemId();
         }
@@ -694,7 +694,7 @@ public abstract class Inventory extends ItemContainer
             return item.getItemDisplayId();
         else if (slot == PAPERDOLL_HAIR)
         {
-            item = _paperdoll[PAPERDOLL_DHAIR]; 
+            item = _paperdoll[PAPERDOLL_HAIRALL]; 
             if (item != null)
                 return item.getItemDisplayId();
         }
@@ -730,7 +730,7 @@ public abstract class Inventory extends ItemContainer
             return item.getObjectId();
         else if (slot == PAPERDOLL_HAIR)
         {
-            item = _paperdoll[PAPERDOLL_DHAIR]; 
+            item = _paperdoll[PAPERDOLL_HAIRALL]; 
             if (item != null)
                 return item.getObjectId();
         }        
@@ -883,11 +883,11 @@ public abstract class Inventory extends ItemContainer
         case L2Item.SLOT_R_FINGER:  pdollSlot = PAPERDOLL_RFINGER;  break;
         case L2Item.SLOT_L_FINGER:  pdollSlot = PAPERDOLL_LFINGER;  break;
         case L2Item.SLOT_HAIR:      pdollSlot = PAPERDOLL_HAIR; break;
-        case L2Item.SLOT_FACE:      pdollSlot = PAPERDOLL_FACE; break;
-        case L2Item.SLOT_DHAIR:
+        case L2Item.SLOT_HAIR2:      pdollSlot = PAPERDOLL_HAIR2; break;
+        case L2Item.SLOT_HAIRALL:
             setPaperdollItem(PAPERDOLL_HAIR, null);
-            setPaperdollItem(PAPERDOLL_FACE, null);// this should be the same as in DHAIR
-            pdollSlot = PAPERDOLL_DHAIR;
+            setPaperdollItem(PAPERDOLL_HAIR2, null);// this should be the same as in DHAIR
+            pdollSlot = PAPERDOLL_HAIRALL;
             break;        
         case L2Item.SLOT_HEAD:      pdollSlot = PAPERDOLL_HEAD; break;
         case L2Item.SLOT_R_HAND:    pdollSlot = PAPERDOLL_RHAND; break;
@@ -899,7 +899,7 @@ public abstract class Inventory extends ItemContainer
         case L2Item.SLOT_BACK:      pdollSlot = PAPERDOLL_BACK; break;
         case L2Item.SLOT_FEET:      pdollSlot = PAPERDOLL_FEET; break;
         case L2Item.SLOT_UNDERWEAR: pdollSlot = PAPERDOLL_UNDER;break;
-        case L2Item.SLOT_CLOAK:     pdollSlot = PAPERDOLL_CLOAK;break;
+        //case L2Item.SLOT_CLOAK:     pdollSlot = PAPERDOLL_CLOAK;break;
         
         case L2Item.SLOT_LR_HAND:
             setPaperdollItem(PAPERDOLL_LHAND, null);
@@ -1071,38 +1071,38 @@ public abstract class Inventory extends ItemContainer
                 setPaperdollItem(PAPERDOLL_HEAD, item);
                 break;
             case L2Item.SLOT_HAIR:
-               if (setPaperdollItem(PAPERDOLL_DHAIR, null) != null)
+               if (setPaperdollItem(PAPERDOLL_HAIRALL, null) != null)
                {
-                   setPaperdollItem(PAPERDOLL_DHAIR, null);
+                   setPaperdollItem(PAPERDOLL_HAIRALL, null);
                    setPaperdollItem(PAPERDOLL_HAIR, null);
-                   setPaperdollItem(PAPERDOLL_FACE, null);
+                   setPaperdollItem(PAPERDOLL_HAIR2, null);
                }
                else
                    setPaperdollItem(PAPERDOLL_HAIR, null);                
                 setPaperdollItem(PAPERDOLL_HAIR, item);
                 break;
-            case L2Item.SLOT_FACE:
-               if (setPaperdollItem(PAPERDOLL_DHAIR, null) != null)
+            case L2Item.SLOT_HAIR2:
+               if (setPaperdollItem(PAPERDOLL_HAIRALL, null) != null)
                {
-                   setPaperdollItem(PAPERDOLL_DHAIR, null);
+                   setPaperdollItem(PAPERDOLL_HAIRALL, null);
                    setPaperdollItem(PAPERDOLL_HAIR, null);
-                   setPaperdollItem(PAPERDOLL_FACE, null);
+                   setPaperdollItem(PAPERDOLL_HAIR2, null);
                }
                else
-                   setPaperdollItem(PAPERDOLL_FACE, null);
-               setPaperdollItem(PAPERDOLL_FACE, item);
+                   setPaperdollItem(PAPERDOLL_HAIR2, null);
+               setPaperdollItem(PAPERDOLL_HAIR2, item);
                break;
-            case L2Item.SLOT_DHAIR:
+            case L2Item.SLOT_HAIRALL:
                if (setPaperdollItem(PAPERDOLL_HAIR, null) != null)
                {
                    setPaperdollItem(PAPERDOLL_HAIR, null);
-                   setPaperdollItem(PAPERDOLL_FACE, null);
+                   setPaperdollItem(PAPERDOLL_HAIR2, null);
                }
                else
                {
-                   setPaperdollItem(PAPERDOLL_FACE, null);
+                   setPaperdollItem(PAPERDOLL_HAIR2, null);
                }               
-               setPaperdollItem(PAPERDOLL_DHAIR, item);
+               setPaperdollItem(PAPERDOLL_HAIRALL, item);
                break;                
             case L2Item.SLOT_UNDERWEAR:
                 setPaperdollItem(PAPERDOLL_UNDER, item);
@@ -1110,9 +1110,9 @@ public abstract class Inventory extends ItemContainer
             case L2Item.SLOT_BACK:
                 setPaperdollItem(PAPERDOLL_BACK, item);
                 break;
-            case L2Item.SLOT_CLOAK:
+            /*case L2Item.SLOT_CLOAK:
                 setPaperdollItem(PAPERDOLL_CLOAK, item);
-                break;
+                break;*/
             default:
                 _log.warn("unknown body slot:" + targetSlot);
         }
