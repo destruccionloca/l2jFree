@@ -84,7 +84,7 @@ class Quest (JQuest) :
    if player.getClan() == None :
      htmltext = "31961-00.htm"
      st.exitQuest(1)
-   elif player.getPledgeType() == -1 :
+   elif player.getSubPledgeType() == -1 :
      if id==COMPLETED:
        htmltext = "<html><body>This quest has already been completed.</body></html>" 
      elif player.getLevel() < 19 or not player.getSponsor() :
