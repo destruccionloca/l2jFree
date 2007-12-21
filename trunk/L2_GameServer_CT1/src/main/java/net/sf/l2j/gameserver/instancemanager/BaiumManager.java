@@ -263,7 +263,7 @@ public class BaiumManager
     public boolean checkIfInZone(L2PcInstance pc)
     {
     	if ( _zone == null )
-    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDangeon, _zoneName );
+    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDungeon, _zoneName );
     	return _zone.checkIfInZone(pc);
     }
     

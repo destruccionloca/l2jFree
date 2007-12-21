@@ -1308,7 +1308,7 @@ public class FourSepulchersManager
             
             for(L2PcInstance player :L2World.getInstance().getAllPlayers())
             {
-            	if ( checkIfInDangeon(player) &&
+            	if ( checkIfInDungeon(player) &&
             		(player.getZ() >= -7250 && player.getZ() <= -6841) &&
             		!player.isGM())
             	{
@@ -1369,8 +1369,8 @@ public class FourSepulchersManager
 		}
 	}
 	
-	public boolean checkIfInDangeon(L2Object obj)
+	public boolean checkIfInDungeon(L2Object obj)
 	{
-		return ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, _zoneName, obj);
+		return ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, _zoneName, obj);
 	}
 }

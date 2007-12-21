@@ -4303,7 +4303,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // [L2J_JP ADD SANDMAN]
         // When the player has been annihilated, the player is banished from the Four Sepulcher. 
-        if (FourSepulchersManager.getInstance().checkIfInDangeon(this) &&
+        if (FourSepulchersManager.getInstance().checkIfInDungeon(this) &&
                 (getZ() >= -7250 && getZ() <= -6841))
             FourSepulchersManager.getInstance().checkAnnihilated(this);
         // When the player has been annihilated, the player is banished from the lair. 
@@ -9251,7 +9251,7 @@ public final class L2PcInstance extends L2PlayableInstance
         revalidateZone(true);
 
 		// [L2J_JP ADD SANDMAN]
-		if (!isGM() && FourSepulchersManager.getInstance().checkIfInDangeon(this) &&
+		if (!isGM() && FourSepulchersManager.getInstance().checkIfInDungeon(this) &&
 				(getZ() >= -7250 && getZ() <= -6841) && 
 				(System.currentTimeMillis() - getLastAccess() >= 300000))
 		{
@@ -9272,17 +9272,17 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
 			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Lilith", this)
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Lilith", this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Anakim", this)
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Anakim", this)
 				&& (getZ() >= 10070 && getZ() <= 12480)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Zaken", this)
+		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Zaken", this)
 				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
 		{
 			teleToLocation(TeleportWhereType.Town);

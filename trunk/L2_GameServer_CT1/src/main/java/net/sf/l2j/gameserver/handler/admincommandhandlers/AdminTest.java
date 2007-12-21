@@ -114,7 +114,7 @@ public class AdminTest implements IAdminCommandHandler
                 activeChar.sendMessage(line);
             }
         }
-        else if (cmd.startsWith("admin_docast") || cmd.startsWith("admin_docastself"))
+        else if (cmd.equals("admin_docast") || cmd.equals("admin_docastself"))
         {
             L2Object obj = activeChar.getTarget();
             L2Character caster = null;
@@ -140,7 +140,7 @@ public class AdminTest implements IAdminCommandHandler
                 return false;
             }
             L2Character target = null;
-            if (caster.getTarget() == null || !(caster.getTarget() instanceof L2Character) || cmd.startsWith("admin_docastself "))
+            if (caster.getTarget() == null || !(caster.getTarget() instanceof L2Character) || cmd.equals("admin_docastself"))
             {
                 target = caster;
             }

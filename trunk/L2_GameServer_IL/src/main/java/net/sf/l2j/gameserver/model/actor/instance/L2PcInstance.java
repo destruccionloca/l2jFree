@@ -4304,7 +4304,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // [L2J_JP ADD SANDMAN]
         // When the player has been annihilated, the player is banished from the Four Sepulcher. 
-        if (FourSepulchersManager.getInstance().checkIfInDangeon(this) &&
+        if (FourSepulchersManager.getInstance().checkIfInDungeon(this) &&
                 (getZ() >= -7250 && getZ() <= -6841))
             FourSepulchersManager.getInstance().checkAnnihilated(this);
         // When the player has been annihilated, the player is banished from the lair. 
@@ -9255,7 +9255,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if(!isGM())
 		{
 	    	// Four-Sepulcher,It is less than 5 minutes.
-	    	if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Four Sepulcher", this) &&
+	    	if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Four Sepulcher", this) &&
 	   			(System.currentTimeMillis() - getLastAccess() >= 300000))
 	    	{
 	    		int driftX = Rnd.get(-80,80);
@@ -9271,7 +9271,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	    	//
 	    	// 10 minutes
     		// Antharas
-	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Antharas", this))
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Antharas", this))
     		{
     	    	// Lair of bosses,It is less than 30 minutes from server starting.
 	    		// Player can restart inside lair, but Antharas do not respawn.
@@ -9289,7 +9289,7 @@ public final class L2PcInstance extends L2PlayableInstance
     		}
     		
     		// Baium
-	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Baium", this))
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Baium", this))
     		{
 				if (System.currentTimeMillis() - getLastAccess() >= 600000)
 				{
@@ -9301,28 +9301,28 @@ public final class L2PcInstance extends L2PlayableInstance
     		}
 
     		// Lilith
-	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Lilith", this))
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Lilith", this))
     		{
 				if (System.currentTimeMillis() - getLastAccess() >= 600000)
 					teleToLocation(TeleportWhereType.Town);
     		}
     		
     		// Anakim
-	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Anakim", this))
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Anakim", this))
     		{
 				if (System.currentTimeMillis() - getLastAccess() >= 600000)
 					teleToLocation(TeleportWhereType.Town);
     		}
     		
     		// Zaken
-	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Zaken", this))
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Zaken", this))
     		{
 				if (System.currentTimeMillis() - getLastAccess() >= 600000)
 					teleToLocation(TeleportWhereType.Town);
     		}
 
     		// High Priestess van Halter
-	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Altar of Sacrifice", this))
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Altar of Sacrifice", this))
 			{
 				if(System.currentTimeMillis() - getLastAccess() >= 600000)
 					teleToLocation(TeleportWhereType.Town);
@@ -9332,7 +9332,7 @@ public final class L2PcInstance extends L2PlayableInstance
     	
     		// 0 minutes
     		// Valakas
-	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Valakas", this))
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Valakas", this))
     		{
     	    	// Lair of bosses,It is less than 30 minutes from server starting.
 	    		// Player can restart inside lair, and begin fight against Valakas 30min later.
@@ -9349,7 +9349,7 @@ public final class L2PcInstance extends L2PlayableInstance
     		}
 
     		// Sailren
-	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Lair of Sailren", this))
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Sailren", this))
     		{
         		if (getQuestState("sailren") != null) getQuestState("sailren").exitQuest(true);
         		teleToLocation(TeleportWhereType.Town);

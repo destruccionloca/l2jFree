@@ -27,24 +27,24 @@ public final class ZoneEnum
 	public enum ZoneType
 	{
 		Default,
-        Arena,
+		Arena,
 		MonsterDerbyTrack,
 		OlympiadStadia,
 		CastleArea,
 		CastleHQ,
-        DefenderSpawn,
+		DefenderSpawn,
 		SiegeBattleField,
 		ClanHall,
 		Newbie,
 		Fishing,
 		Peace,
-		Dangeon,
+		Dungeon,
 		Water, 
 		NoLanding,
 		NoEscape,
 		Jail,
 		MotherTree,
-		BossDangeon;
+		BossDungeon;
 
 
 		public final static ZoneType getZoneTypeEnum(String typeName)

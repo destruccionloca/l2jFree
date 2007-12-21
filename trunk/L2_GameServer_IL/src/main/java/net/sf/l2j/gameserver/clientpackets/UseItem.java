@@ -163,7 +163,7 @@ public class UseItem extends L2GameClientPacket
             if (activeChar.isDead())
             {
                 SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addItemName(itemId);
+				sm.addItemName(item.getItemDisplayId());
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
                 return;
@@ -173,7 +173,7 @@ public class UseItem extends L2GameClientPacket
             if (item.getItem().isForWolf() || item.getItem().isForHatchling() || item.getItem().isForStrider() || item.getItem().isForBabyPet())
             {
             	SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_EQUIP_PET_ITEM); // You cannot equip a pet item.
-				sm.addItemName(itemId);
+				sm.addItemName(item.getItemDisplayId());
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
                 return;
@@ -251,12 +251,12 @@ public class UseItem extends L2GameClientPacket
                    {
                        sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
                        sm.addNumber(item.getEnchantLevel());
-                       sm.addItemName(itemId);
+                       sm.addItemName(item.getItemDisplayId());
                    }
                    else
                    {
                        sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-                       sm.addItemName(itemId);
+                       sm.addItemName(item.getItemDisplayId());
                    }
                    activeChar.sendPacket(sm);
 
@@ -323,12 +323,12 @@ public class UseItem extends L2GameClientPacket
 					{
 						sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
 						sm.addNumber(item.getEnchantLevel());
-						sm.addItemName(itemId);
+						sm.addItemName(item.getItemDisplayId());
 					}
 					else
 					{
 						sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-						sm.addItemName(itemId);
+						sm.addItemName(item.getItemDisplayId());
 					}
 					activeChar.sendPacket(sm);
 					

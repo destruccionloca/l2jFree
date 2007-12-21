@@ -877,7 +877,7 @@ public final class Formulas
 		if (cha instanceof L2BossInstance)
 		{
 			L2BossInstance boss = (L2BossInstance) cha;
-			if ((boss.getNpcId() == 29022) && (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon, "Sunlight Room" , boss)) && (boss.getZ() >= -2952))
+			if ((boss.getNpcId() == 29022) && (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Sunlight Room" , boss)) && (boss.getZ() >= -2952))
 				hpRegenMultiplier *= 0.75;
 		}
         

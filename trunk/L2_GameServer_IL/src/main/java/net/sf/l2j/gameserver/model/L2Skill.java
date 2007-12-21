@@ -2345,7 +2345,7 @@ public abstract class L2Skill
 	        || (ZoneManager.getInstance().checkIfInZone(
 	                                                    ZoneType.Arena,
 	                                                    activeChar.getX(), activeChar.getY()))
-	        || ((ZoneManager.getInstance().checkIfInZone(ZoneType.BossDangeon,"Four Sepulcher", activeChar) &&
+	        || ((ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon,"Four Sepulcher", activeChar) &&
 	        		(activeChar.getZ() >= -7250 && activeChar.getZ() <= -6841)))
 	    	)
 	    {
@@ -2522,7 +2522,7 @@ public abstract class L2Skill
 	                                                      activeChar.getX(), activeChar.getY()))
 	        || (ZoneManager.getInstance().checkIfInZone(ZoneType.Arena,
 	                                                    activeChar.getX(), activeChar.getY()))
-	        || ((FourSepulchersManager.getInstance().checkIfInDangeon(activeChar) &&
+	        || ((FourSepulchersManager.getInstance().checkIfInDungeon(activeChar) &&
 	        		(activeChar.getZ() >= -7250 && activeChar.getZ() <= -6841)))
 	    	)
 	    {
