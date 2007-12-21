@@ -1012,8 +1012,7 @@ public class VanHalterManager
     	
     	for (L2NpcInstance goa : _GuardOfAltar)
     	{
-        	CreatureSay cs = new CreatureSay(goa.getObjectId(),1,goa.getName(),"??’d3?K‚?”?‚×?J‚©‚?‚?‚µ‚½?B");
-        	//CreatureSay cs = new CreatureSay(goa.getObjectId(),1,goa.getName(),"The door of the 3rd floor in the altar was opened.");
+        	CreatureSay cs = new CreatureSay(goa.getObjectId(),1,goa.getName(),"The door of the 3rd floor in the altar was opened.");
     		for (L2PcInstance pc : _PlayersInLair)
     		{
     			pc.sendPacket(cs);
