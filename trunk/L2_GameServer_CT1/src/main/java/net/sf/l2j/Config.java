@@ -1376,6 +1376,7 @@ public final class Config
 	public static int					TIME_IN_A_DAY_OF_OPEN_A_DOOR;
 	public static int					TIME_OF_OPENING_A_DOOR;
 	public static int					NURSEANT_RESPAWN_DELAY;
+	public static int 					TIMELIMITOFINVADE;											//Time limit of invade to lair of bosses after server restarted
 	public static int					DWARF_RECIPE_LIMIT;											// Recipebook limits
 	public static int					COMMON_RECIPE_LIMIT;
 	public static int					CHANCE_BREAK;												// Chance For Soul Crystal to Break
@@ -1569,6 +1570,8 @@ public final class Config
 			else if (NURSEANT_RESPAWN_DELAY > 120)
 				NURSEANT_RESPAWN_DELAY = 120;
 			NURSEANT_RESPAWN_DELAY = NURSEANT_RESPAWN_DELAY * 1000;
+			
+			TIMELIMITOFINVADE = Integer.parseInt(altSettings.getProperty("TimeLimitOfInvade", "1800000"));
 			
 			ALT_GAME_SUMMON_PENALTY_RATE = Float.parseFloat(altSettings.getProperty("AltSummonPenaltyRate", "1"));
 			
@@ -2233,31 +2236,63 @@ public final class Config
 	// *******************************************************************************************
 	public static final String	BOSS_FILE	= "./config/boss.properties";
 	// *******************************************************************************************
-	public static int			FWA_INTERVALOFANTHARAS;
-	public static int			FWA_APPTIMEOFANTHARAS;
-	public static int			FWA_ACTIVITYTIMEOFANTHARAS;
-	public static boolean		FWA_OLDANTHARAS;
-	public static int			FWA_LIMITOFWEAK;
-	public static int			FWA_LIMITOFNORMAL;
-	public static int			FWA_INTERVALOFBEHEMOTHONWEAK;
-	public static int			FWA_INTERVALOFBEHEMOTHONNORMAL;
-	public static int			FWA_INTERVALOFBEHEMOTHONSTRONG;
-	public static int			FWA_INTERVALOFBOMBERONWEAK;
-	public static int			FWA_INTERVALOFBOMBERONNORMAL;
-	public static int			FWA_INTERVALOFBOMBERONSTRONG;
-	public static boolean		FWA_MOVEATRANDOM;
-	public static int			FWB_INTERVALOFBAIUM;
-	public static int			FWB_ACTIVITYTIMEOFBAIUM;
-	public static boolean		FWB_MOVEATRANDOM;
-	public static int			FWV_INTERVALOFVALAKAS;
-	public static int			FWV_APPTIMEOFVALAKAS;
-	public static int			FWV_ACTIVITYTIMEOFVALAKAS;
-	public static int			FWV_CAPACITYOFLAIR;
-	public static boolean		FWV_MOVEATRANDOM;
-	public static boolean		FWS_ENABLESINGLEPLAYER;
-	public static int			FWS_INTERVALOFSAILRENSPAWN;
-	public static int			FWS_INTERVALOFNEXTMONSTER;
-	public static int			FWS_ACTIVITYTIMEOFMOBS;
+    /***************************************** 
+     * Antharas CONFIG                       * 
+     *****************************************/
+    public static int FWA_FIXINTERVALOFANTHARAS; 
+    public static int FWA_RANDOMINTERVALOFANTHARAS; 
+    public static int FWA_APPTIMEOFANTHARAS; 
+    public static int FWA_ACTIVITYTIMEOFANTHARAS; 
+    public static boolean FWA_OLDANTHARAS; 
+    public static int FWA_LIMITOFWEAK; 
+    public static int FWA_LIMITOFNORMAL; 
+    public static int FWA_INTERVALOFBEHEMOTHONWEAK; 
+    public static int FWA_INTERVALOFBEHEMOTHONNORMAL; 
+    public static int FWA_INTERVALOFBEHEMOTHONSTRONG; 
+    public static int FWA_INTERVALOFBOMBERONWEAK; 
+    public static int FWA_INTERVALOFBOMBERONNORMAL; 
+    public static int FWA_INTERVALOFBOMBERONSTRONG; 
+    public static boolean FWA_MOVEATRANDOM;
+    
+    /****************************************** 
+     * Baium CONFIG                           * 
+     ******************************************/ 
+    public static int FWB_FIXINTERVALOFBAIUM; 
+    public static int FWB_RANDOMINTERVALOFBAIUM; 
+    public static int FWB_ACTIVITYTIMEOFBAIUM; 
+    public static boolean FWB_MOVEATRANDOM; 
+    
+    /****************************************** 
+     * Valakas CONFIG                         * 
+     ******************************************/ 
+    public static int FWV_FIXINTERVALOFVALAKAS; 
+    public static int FWV_RANDOMINTERVALOFVALAKAS; 
+    public static int FWV_APPTIMEOFVALAKAS; 
+    public static int FWV_ACTIVITYTIMEOFVALAKAS; 
+    public static int FWV_CAPACITYOFLAIR; 
+    public static boolean FWV_MOVEATRANDOM; 
+    
+    /******************************************* 
+     * sailren CONFIG                          * 
+     *******************************************/
+    public static boolean FWS_ENABLESINGLEPLAYER; 
+    public static int FWS_FIXINTERVALOFSAILRENSPAWN; 
+    public static int FWS_RANDOMINTERVALOFSAILRENSPAWN; 
+    public static int FWS_INTERVALOFNEXTMONSTER; 
+    public static int FWS_ACTIVITYTIMEOFMOBS;
+    
+    /******************************************* 
+     * High Priestess van Halter CONFIG        * 
+     *******************************************/ 
+    public static int HPH_FIXINTERVALOFHALTER; 
+    public static int HPH_RANDOMINTERVALOFHALTER; 
+    public static int HPH_APPTIMEOFHALTER; 
+    public static int HPH_ACTIVITYTIMEOFHALTER; 
+    public static int HPH_FIGHTTIMEOFHALTER; 
+    public static int HPH_CALLROYALGUARDHELPERCOUNT; 
+    public static int HPH_CALLROYALGUARDHELPERINTERVAL; 
+    public static int HPH_INTERVALOFDOOROFALTER; 
+    public static int HPH_TIMEOFLOCKUPDOOROFALTAR;
 	
 	// *******************************************************************************************
 	public static void loadBossConfig()
@@ -2270,82 +2305,105 @@ public final class Config
 			bossSettings.load(is);
 			is.close();
 			
-			FWA_INTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("IntervalOfAntharas", "1440"));
-			if (FWA_INTERVALOFANTHARAS < 5 || FWA_INTERVALOFANTHARAS > 1440)
-				FWA_INTERVALOFANTHARAS = 1440;
-			FWA_INTERVALOFANTHARAS = FWA_INTERVALOFANTHARAS * 60000;
-			FWA_APPTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfAntharas", "10"));
-			if (FWA_APPTIMEOFANTHARAS < 5 || FWA_APPTIMEOFANTHARAS > 60)
-				FWA_APPTIMEOFANTHARAS = 10;
-			FWA_APPTIMEOFANTHARAS = FWA_APPTIMEOFANTHARAS * 60000;
-			FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfAntharas", "120"));
-			if (FWA_ACTIVITYTIMEOFANTHARAS < 120 || FWA_ACTIVITYTIMEOFANTHARAS > 720)
-				FWA_ACTIVITYTIMEOFANTHARAS = 120;
-			FWA_ACTIVITYTIMEOFANTHARAS = FWA_ACTIVITYTIMEOFANTHARAS * 60000;
-			FWA_OLDANTHARAS = Boolean.parseBoolean(bossSettings.getProperty("OldAntharas", "False"));
-			FWA_LIMITOFWEAK = Integer.parseInt(bossSettings.getProperty("LimitOfWeak", "299"));
-			FWA_LIMITOFNORMAL = Integer.parseInt(bossSettings.getProperty("LimitOfNormal", "399"));
-			FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnWeak", "8"));
-			if (FWA_INTERVALOFBEHEMOTHONWEAK < 1 || FWA_INTERVALOFBEHEMOTHONWEAK > 10)
-				FWA_INTERVALOFBEHEMOTHONWEAK = 8;
-			FWA_INTERVALOFBEHEMOTHONWEAK = FWA_INTERVALOFBEHEMOTHONWEAK * 60000;
-			FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnNormal", "5"));
-			if (FWA_INTERVALOFBEHEMOTHONNORMAL < 1 || FWA_INTERVALOFBEHEMOTHONNORMAL > 10)
-				FWA_INTERVALOFBEHEMOTHONNORMAL = 5;
-			FWA_INTERVALOFBEHEMOTHONNORMAL = FWA_INTERVALOFBEHEMOTHONNORMAL * 60000;
-			FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnStrong", "3"));
-			if (FWA_INTERVALOFBEHEMOTHONSTRONG < 1 || FWA_INTERVALOFBEHEMOTHONSTRONG > 10)
-				FWA_INTERVALOFBEHEMOTHONSTRONG = 3;
-			FWA_INTERVALOFBEHEMOTHONSTRONG = FWA_INTERVALOFBEHEMOTHONSTRONG * 60000;
-			FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnWeak", "6"));
-			if (FWA_INTERVALOFBOMBERONWEAK < 1 || FWA_INTERVALOFBOMBERONWEAK > 10)
-				FWA_INTERVALOFBOMBERONWEAK = 6;
-			FWA_INTERVALOFBOMBERONWEAK = FWA_INTERVALOFBOMBERONWEAK * 60000;
-			FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnNormal", "4"));
-			if (FWA_INTERVALOFBOMBERONNORMAL < 1 || FWA_INTERVALOFBOMBERONNORMAL > 10)
-				FWA_INTERVALOFBOMBERONNORMAL = 4;
-			FWA_INTERVALOFBOMBERONNORMAL = FWA_INTERVALOFBOMBERONNORMAL * 60000;
-			FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnStrong", "3"));
-			if (FWA_INTERVALOFBOMBERONSTRONG < 1 || FWA_INTERVALOFBOMBERONSTRONG > 10)
-				FWA_INTERVALOFBOMBERONSTRONG = 3;
-			FWA_INTERVALOFBOMBERONSTRONG = FWA_INTERVALOFBOMBERONSTRONG * 60000;
-			FWA_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
-			FWB_INTERVALOFBAIUM = Integer.parseInt(bossSettings.getProperty("IntervalOfBaium", "1440"));
-			if (FWB_INTERVALOFBAIUM < 5 || FWB_INTERVALOFBAIUM > 1440)
-				FWB_INTERVALOFBAIUM = 1440;
-			FWB_INTERVALOFBAIUM = FWB_INTERVALOFBAIUM * 60000;
-			FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfBaium", "120"));
-			if (FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720)
-				FWB_ACTIVITYTIMEOFBAIUM = 120;
-			FWB_ACTIVITYTIMEOFBAIUM = FWB_ACTIVITYTIMEOFBAIUM * 60000;
-			FWB_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
-			FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayer", "False"));
-			FWS_INTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("IntervalOfSailrenSpawn", "1440"));
-			if (FWS_INTERVALOFSAILRENSPAWN < 5 || FWS_INTERVALOFSAILRENSPAWN > 1440)
-				FWS_INTERVALOFSAILRENSPAWN = 1440;
-			FWS_INTERVALOFSAILRENSPAWN = FWS_INTERVALOFSAILRENSPAWN * 60000;
-			FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonster", "1"));
-			if (FWS_INTERVALOFNEXTMONSTER < 1 || FWS_INTERVALOFNEXTMONSTER > 10)
-				FWS_INTERVALOFNEXTMONSTER = 1;
-			FWS_INTERVALOFNEXTMONSTER = FWS_INTERVALOFNEXTMONSTER * 60000;
-			FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobs", "120"));
-			if (FWS_ACTIVITYTIMEOFMOBS < 1 || FWS_ACTIVITYTIMEOFMOBS > 120)
-				FWS_ACTIVITYTIMEOFMOBS = 120;
-			FWS_ACTIVITYTIMEOFMOBS = FWS_ACTIVITYTIMEOFMOBS * 60000;
-			FWV_INTERVALOFVALAKAS = Integer.parseInt(bossSettings.getProperty("IntervalOfValakas", "1440"));
-			if (FWV_INTERVALOFVALAKAS < 5 || FWV_INTERVALOFVALAKAS > 1440)
-				FWV_INTERVALOFVALAKAS = 1440;
-			FWV_INTERVALOFVALAKAS = FWV_INTERVALOFVALAKAS * 60000;
-			FWV_APPTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfValakas", "20"));
-			if (FWV_APPTIMEOFVALAKAS < 5 || FWV_APPTIMEOFVALAKAS > 60)
-				FWV_APPTIMEOFVALAKAS = 10;
-			FWV_APPTIMEOFVALAKAS = FWV_APPTIMEOFVALAKAS * 60000;
-			FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfValakas", "120"));
-			if (FWV_ACTIVITYTIMEOFVALAKAS < 120 || FWV_ACTIVITYTIMEOFVALAKAS > 720)
-				FWV_ACTIVITYTIMEOFVALAKAS = 120;
-			FWV_ACTIVITYTIMEOFVALAKAS = FWV_ACTIVITYTIMEOFVALAKAS * 60000;
-			FWV_CAPACITYOFLAIR = Integer.parseInt(bossSettings.getProperty("CapacityOfLairOfValakas", "200"));
-			FWV_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
+            //antharas
+            FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfAntharas", "11520")); 
+            if(FWA_FIXINTERVALOFANTHARAS < 5 || FWA_FIXINTERVALOFANTHARAS > 20160) FWA_FIXINTERVALOFANTHARAS = 11520; 
+            FWA_FIXINTERVALOFANTHARAS = FWA_FIXINTERVALOFANTHARAS * 60000; 
+            FWA_RANDOMINTERVALOFANTHARAS = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfAntharas", "8640")); 
+            if(FWA_RANDOMINTERVALOFANTHARAS < 5 || FWA_RANDOMINTERVALOFANTHARAS > 20160) FWA_RANDOMINTERVALOFANTHARAS = 8640; 
+            FWA_RANDOMINTERVALOFANTHARAS = FWA_RANDOMINTERVALOFANTHARAS * 60000; 
+            FWA_APPTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfAntharas", "10")); 
+            if(FWA_APPTIMEOFANTHARAS < 5 || FWA_APPTIMEOFANTHARAS > 60) FWA_APPTIMEOFANTHARAS = 10; 
+            FWA_APPTIMEOFANTHARAS = FWA_APPTIMEOFANTHARAS * 60000; 
+            FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfAntharas", "120")); 
+            if(FWA_ACTIVITYTIMEOFANTHARAS < 120 || FWA_ACTIVITYTIMEOFANTHARAS > 720) FWA_ACTIVITYTIMEOFANTHARAS = 120; 
+            FWA_ACTIVITYTIMEOFANTHARAS = FWA_ACTIVITYTIMEOFANTHARAS * 60000; 
+            FWA_OLDANTHARAS = Boolean.parseBoolean(bossSettings.getProperty("OldAntharas", "False")); 
+            FWA_LIMITOFWEAK = Integer.parseInt(bossSettings.getProperty("LimitOfWeak", "299")); 
+            FWA_LIMITOFNORMAL = Integer.parseInt(bossSettings.getProperty("LimitOfNormal", "399")); 
+            if(FWA_LIMITOFWEAK >= FWA_LIMITOFNORMAL) FWA_LIMITOFNORMAL = FWA_LIMITOFWEAK + 1; 
+            FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnWeak", "8")); 
+            if(FWA_INTERVALOFBEHEMOTHONWEAK < 1 || FWA_INTERVALOFBEHEMOTHONWEAK > 10) FWA_INTERVALOFBEHEMOTHONWEAK = 8; 
+            FWA_INTERVALOFBEHEMOTHONWEAK = FWA_INTERVALOFBEHEMOTHONWEAK * 60000; 
+            FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnNormal", "5")); 
+            if(FWA_INTERVALOFBEHEMOTHONNORMAL < 1 || FWA_INTERVALOFBEHEMOTHONNORMAL > 10) FWA_INTERVALOFBEHEMOTHONNORMAL = 5; 
+            FWA_INTERVALOFBEHEMOTHONNORMAL = FWA_INTERVALOFBEHEMOTHONNORMAL * 60000; 
+            FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBehemothOnStrong", "3")); 
+            if(FWA_INTERVALOFBEHEMOTHONSTRONG < 1 || FWA_INTERVALOFBEHEMOTHONSTRONG > 10) FWA_INTERVALOFBEHEMOTHONSTRONG = 3; 
+            FWA_INTERVALOFBEHEMOTHONSTRONG = FWA_INTERVALOFBEHEMOTHONSTRONG * 60000; 
+            FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnWeak", "6")); 
+            if(FWA_INTERVALOFBOMBERONWEAK < 1 || FWA_INTERVALOFBOMBERONWEAK > 10) FWA_INTERVALOFBOMBERONWEAK = 6; 
+            FWA_INTERVALOFBOMBERONWEAK = FWA_INTERVALOFBOMBERONWEAK * 60000; 
+            FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnNormal", "4")); 
+            if(FWA_INTERVALOFBOMBERONNORMAL < 1 || FWA_INTERVALOFBOMBERONNORMAL > 10) FWA_INTERVALOFBOMBERONNORMAL = 4; 
+            FWA_INTERVALOFBOMBERONNORMAL = FWA_INTERVALOFBOMBERONNORMAL * 60000; 
+            FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(bossSettings.getProperty("IntervalOfBomberOnStrong", "3")); 
+            if(FWA_INTERVALOFBOMBERONSTRONG < 1 || FWA_INTERVALOFBOMBERONSTRONG > 10) FWA_INTERVALOFBOMBERONSTRONG = 3; 
+            FWA_INTERVALOFBOMBERONSTRONG = FWA_INTERVALOFBOMBERONSTRONG * 60000; 
+            FWA_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True")); 
+
+            //baium
+            FWB_FIXINTERVALOFBAIUM = Integer.parseInt(bossSettings.getProperty("FixIntervalOfBaium", "7200")); 
+            if(FWB_FIXINTERVALOFBAIUM < 5 || FWB_FIXINTERVALOFBAIUM > 12960) FWB_FIXINTERVALOFBAIUM = 7200; 
+            FWB_FIXINTERVALOFBAIUM = FWB_FIXINTERVALOFBAIUM * 60000; 
+            FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfBaium", "5760")); 
+            if(FWB_RANDOMINTERVALOFBAIUM < 5 || FWB_RANDOMINTERVALOFBAIUM > 12960) FWB_RANDOMINTERVALOFBAIUM = 5760; 
+            FWB_RANDOMINTERVALOFBAIUM = FWB_RANDOMINTERVALOFBAIUM * 60000; 
+            FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfBaium", "120")); 
+            if(FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720) FWB_ACTIVITYTIMEOFBAIUM = 120; 
+            FWB_ACTIVITYTIMEOFBAIUM = FWB_ACTIVITYTIMEOFBAIUM * 60000; 
+			             FWB_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
+            
+            //sailren
+            FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayer", "False")); 
+            FWS_FIXINTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("FixIntervalOfSailrenSpawn", "1440")); 
+            if(FWS_FIXINTERVALOFSAILRENSPAWN < 5 || FWS_FIXINTERVALOFSAILRENSPAWN > 2880) FWS_FIXINTERVALOFSAILRENSPAWN = 1440; 
+            FWS_FIXINTERVALOFSAILRENSPAWN = FWS_FIXINTERVALOFSAILRENSPAWN * 60000; 
+            FWS_RANDOMINTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfSailrenSpawn", "1440")); 
+            if(FWS_RANDOMINTERVALOFSAILRENSPAWN < 5 || FWS_RANDOMINTERVALOFSAILRENSPAWN > 2880) FWS_RANDOMINTERVALOFSAILRENSPAWN = 1440; 
+            FWS_RANDOMINTERVALOFSAILRENSPAWN = FWS_RANDOMINTERVALOFSAILRENSPAWN * 60000; 
+            FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonster", "1")); 
+            if(FWS_INTERVALOFNEXTMONSTER < 1 || FWS_INTERVALOFNEXTMONSTER > 10) FWS_INTERVALOFNEXTMONSTER = 1; 
+            FWS_INTERVALOFNEXTMONSTER = FWS_INTERVALOFNEXTMONSTER * 60000; 
+            FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobs", "120")); 
+            if(FWS_ACTIVITYTIMEOFMOBS < 1 || FWS_ACTIVITYTIMEOFMOBS > 120) FWS_ACTIVITYTIMEOFMOBS = 120; 
+            FWS_ACTIVITYTIMEOFMOBS = FWS_ACTIVITYTIMEOFMOBS * 60000;
+            
+            //valakas
+            FWV_FIXINTERVALOFVALAKAS = Integer.parseInt(bossSettings.getProperty("FixIntervalOfValakas", "11520")); 
+            if(FWV_FIXINTERVALOFVALAKAS < 5 || FWV_FIXINTERVALOFVALAKAS > 20160) FWV_FIXINTERVALOFVALAKAS = 11520; 
+            FWV_FIXINTERVALOFVALAKAS = FWV_FIXINTERVALOFVALAKAS * 60000; 
+            FWV_RANDOMINTERVALOFVALAKAS = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfValakas", "8640")); 
+            if(FWV_RANDOMINTERVALOFVALAKAS < 5 || FWV_RANDOMINTERVALOFVALAKAS > 20160) FWV_RANDOMINTERVALOFVALAKAS = 8640; 
+            FWV_RANDOMINTERVALOFVALAKAS = FWV_RANDOMINTERVALOFVALAKAS * 60000; 
+            FWV_APPTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("AppTimeOfValakas", "20")); 
+            if(FWV_APPTIMEOFVALAKAS < 5 || FWV_APPTIMEOFVALAKAS > 60) FWV_APPTIMEOFVALAKAS = 10; 
+            FWV_APPTIMEOFVALAKAS = FWV_APPTIMEOFVALAKAS * 60000; 
+            FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfValakas", "120")); 
+            if(FWV_ACTIVITYTIMEOFVALAKAS < 120 || FWV_ACTIVITYTIMEOFVALAKAS > 720) FWV_ACTIVITYTIMEOFVALAKAS = 120; 
+            FWV_ACTIVITYTIMEOFVALAKAS = FWV_ACTIVITYTIMEOFVALAKAS * 60000; 
+            FWV_CAPACITYOFLAIR = Integer.parseInt(bossSettings.getProperty("CapacityOfLairOfValakas", "200")); 
+            FWV_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True")); 
+            
+            //High Priestess van Halter
+            HPH_FIXINTERVALOFHALTER = Integer.parseInt(bossSettings.getProperty("FixIntervalOfHalter", "172800")); 
+            if (HPH_FIXINTERVALOFHALTER < 300 || HPH_FIXINTERVALOFHALTER > 864000) HPH_FIXINTERVALOFHALTER = 172800; 
+            HPH_RANDOMINTERVALOFHALTER = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfHalter", "86400")); 
+            if (HPH_RANDOMINTERVALOFHALTER < 300 || HPH_RANDOMINTERVALOFHALTER > 864000) HPH_RANDOMINTERVALOFHALTER = 86400; 
+            HPH_APPTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("AppTimeOfHalter", "20")); 
+            if (HPH_APPTIMEOFHALTER < 5 || HPH_APPTIMEOFHALTER > 60) HPH_APPTIMEOFHALTER = 20; 
+            HPH_ACTIVITYTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfHalter", "21600")); 
+            if (HPH_ACTIVITYTIMEOFHALTER < 7200 || HPH_ACTIVITYTIMEOFHALTER > 86400) HPH_ACTIVITYTIMEOFHALTER = 21600; 
+            HPH_FIGHTTIMEOFHALTER = Integer.parseInt(bossSettings.getProperty("FightTimeOfHalter", "7200")); 
+            if (HPH_FIGHTTIMEOFHALTER < 7200 || HPH_FIGHTTIMEOFHALTER > 21600) HPH_FIGHTTIMEOFHALTER = 7200; 
+            HPH_CALLROYALGUARDHELPERCOUNT = Integer.parseInt(bossSettings.getProperty("CallRoyalGuardHelperCount", "6")); 
+            if (HPH_CALLROYALGUARDHELPERCOUNT < 1 || HPH_CALLROYALGUARDHELPERCOUNT > 6) HPH_CALLROYALGUARDHELPERCOUNT = 6; 
+            HPH_CALLROYALGUARDHELPERINTERVAL = Integer.parseInt(bossSettings.getProperty("CallRoyalGuardHelperInterval", "10")); 
+            if (HPH_CALLROYALGUARDHELPERINTERVAL < 1 || HPH_CALLROYALGUARDHELPERINTERVAL > 60) HPH_CALLROYALGUARDHELPERINTERVAL = 10; 
+            HPH_INTERVALOFDOOROFALTER = Integer.parseInt(bossSettings.getProperty("IntervalOfDoorOfAlter", "5400")); 
+            if (HPH_INTERVALOFDOOROFALTER < 60 || HPH_INTERVALOFDOOROFALTER > 5400) HPH_INTERVALOFDOOROFALTER = 5400; 
+            HPH_TIMEOFLOCKUPDOOROFALTAR = Integer.parseInt(bossSettings.getProperty("TimeOfLockUpDoorOfAltar", "180")); 
+            if (HPH_TIMEOFLOCKUPDOOROFALTAR < 60 || HPH_TIMEOFLOCKUPDOOROFALTAR > 600) HPH_TIMEOFLOCKUPDOOROFALTAR = 180;
 		}
 		catch (Exception e)
 		{
@@ -3057,64 +3115,82 @@ public final class Config
 		
 		else if (pName.equalsIgnoreCase("FailFakeDeath"))
 			FAIL_FAKEDEATH = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AltFlyingWyvernInSiege")) 
+			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.valueOf(pValue); 
+        else if (pName.equalsIgnoreCase("TimeInADayOfOpenADoor")) 
+        	TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("TimeOfOpeningADoor")) 
+        	TIME_OF_OPENING_A_DOOR = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("NurseAntRespawnDelay")) 
+        	NURSEANT_RESPAWN_DELAY = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("TimeLimitOfInvade")) 
+        	TIMELIMITOFINVADE = Integer.parseInt(pValue);
 		
-		// JP fight with Antharas Custom Setting
-		else if (pName.equalsIgnoreCase("IntervalOfAntharas"))
-			FWA_INTERVALOFANTHARAS = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("AppTimeOfAntharas"))
-			FWA_APPTIMEOFANTHARAS = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("ActivityTimeOfAntharas"))
-			FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("OldAntharas"))
-			FWA_OLDANTHARAS = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("LimitOfWeak"))
-			FWA_LIMITOFWEAK = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("LimitOfNormal"))
-			FWA_LIMITOFNORMAL = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnWeak"))
-			FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnNormal"))
-			FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("IntervalOfBehemothOnStrong"))
-			FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("IntervalOfBomberOnWeak"))
-			FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("IntervalOfBomberOnNormal"))
-			FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("IntervalOfBomberOnStrong"))
-			FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("MoveAtRandom"))
-			FWA_MOVEATRANDOM = Boolean.parseBoolean(pValue);
-		
+		 // JP fight with Antharas Custom Setting
+        else if (pName.equalsIgnoreCase("FixIntervalOfAntharas")) 
+        	FWA_FIXINTERVALOFANTHARAS = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("RandomIntervalOfAntharas")) 
+        	FWA_RANDOMINTERVALOFANTHARAS = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("AppTimeOfAntharas")) 
+        	FWA_APPTIMEOFANTHARAS = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("ActivityTimeOfAntharas")) 
+        	FWA_ACTIVITYTIMEOFANTHARAS = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("OldAntharas")) 
+        	FWA_OLDANTHARAS = Boolean.parseBoolean(pValue); 
+        else if (pName.equalsIgnoreCase("LimitOfWeak")) 
+        	FWA_LIMITOFWEAK = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("LimitOfNormal")) 
+        	FWA_LIMITOFNORMAL = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("IntervalOfBehemothOnWeak")) 
+        	FWA_INTERVALOFBEHEMOTHONWEAK = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("IntervalOfBehemothOnNormal")) 
+        	FWA_INTERVALOFBEHEMOTHONNORMAL = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("IntervalOfBehemothOnStrong")) 
+        	FWA_INTERVALOFBEHEMOTHONSTRONG = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("IntervalOfBomberOnWeak")) 
+        	FWA_INTERVALOFBOMBERONWEAK = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("IntervalOfBomberOnNormal")) 
+        	FWA_INTERVALOFBOMBERONNORMAL = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("IntervalOfBomberOnStrong")) 
+        	FWA_INTERVALOFBOMBERONSTRONG = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("MoveAtRandom")) 
+        	FWA_MOVEATRANDOM = Boolean.parseBoolean(pValue); 
+		 
 		// JP fight with Baium Custom Setting
-		else if (pName.equalsIgnoreCase("IntervalOfBaium"))
-			FWB_INTERVALOFBAIUM = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("ActivityTimeOfBaium"))
-			FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("MoveAtRandom"))
-			FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue);
-		
+        else if (pName.equalsIgnoreCase("FixIntervalOfBaium")) 
+        	FWB_FIXINTERVALOFBAIUM = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("RandomIntervalOfBaium")) 
+        	FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("ActivityTimeOfBaium")) 
+        	FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("MoveAtRandom")) 
+        	FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue); 
+		 
 		// JP fight with Valakas Custom Setting
-		else if (pName.equalsIgnoreCase("IntervalOfValakas"))
-			FWV_INTERVALOFVALAKAS = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("AppTimeOfValakas"))
-			FWV_APPTIMEOFVALAKAS = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("ActivityTimeOfValakas"))
-			FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("CapacityOfLairOfValakas"))
-			FWV_CAPACITYOFLAIR = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("MoveAtRandom"))
-			FWV_MOVEATRANDOM = Boolean.parseBoolean(pValue);
-		
+        else if (pName.equalsIgnoreCase("FixIntervalOfValakas")) 
+        	FWV_FIXINTERVALOFVALAKAS = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("RandomIntervalOfValakas")) 
+        	FWV_RANDOMINTERVALOFVALAKAS = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("AppTimeOfValakas")) 
+        	FWV_APPTIMEOFVALAKAS = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("ActivityTimeOfValakas")) 
+        	FWV_ACTIVITYTIMEOFVALAKAS = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("CapacityOfLairOfValakas")) 
+        	FWV_CAPACITYOFLAIR = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("MoveAtRandom")) 
+        	FWV_MOVEATRANDOM = Boolean.parseBoolean(pValue); 
+		 
 		// JP fight with sailren Custom Setting
-		else if (pName.equalsIgnoreCase("EnableSinglePlayer"))
-			FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("IntervalOfSailrenSpawn"))
-			FWS_INTERVALOFSAILRENSPAWN = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("IntervalOfNextMonster"))
-			FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("ActivityTimeOfMobs"))
-			FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("EnableSinglePlayer")) 
+        	FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(pValue); 
+        else if (pName.equalsIgnoreCase("FixIntervalOfSailrenSpawn")) 
+        	FWS_FIXINTERVALOFSAILRENSPAWN = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("RandomIntervalOfSailrenSpawn")) 
+        	FWS_RANDOMINTERVALOFSAILRENSPAWN = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("IntervalOfNextMonster")) 
+        	FWS_INTERVALOFNEXTMONSTER = Integer.parseInt(pValue); 
+        else if (pName.equalsIgnoreCase("ActivityTimeOfMobs")) 
+        	FWS_ACTIVITYTIMEOFMOBS = Integer.parseInt(pValue); 
 		
 		// Siege settings
 		else if (pName.equalsIgnoreCase("AttackerMaxClans"))

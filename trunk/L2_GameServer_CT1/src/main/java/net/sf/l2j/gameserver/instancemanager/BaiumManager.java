@@ -17,12 +17,10 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-/**
- @author sandman
- **/
 
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -40,9 +38,9 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
-import net.sf.l2j.gameserver.network.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -62,15 +60,11 @@ public class BaiumManager
     private final static Log _log = LogFactory.getLog(BaiumManager.class.getName());
     private static BaiumManager _instance = new BaiumManager();
 
-    // config
-    // Interval time of Boss.
-    protected int _intervalOfBoss;
+    //location of Statue of Baium  
+    private final int _StatueofBaiumId = 29025;  
+    private final int _StatueofBaiumLocation[] = {116067,17484,10110,41740};  
+    protected L2Spawn _StatueofBaiumSpawn = null; 
 
-    // Activity time of Boss.
-    protected int _activityTimeOfBoss;
-
-    // Whether it moves at random after Valakas appears is decided.
-    protected boolean _moveAtRandom = true;
 
     // location of arcangels.
     private final int _angelLocation[][] = 
@@ -124,8 +118,7 @@ public class BaiumManager
     protected Future _callAngelTask = null;
 
     // status in lair.
-    protected boolean _isBossSpawned = false;
-    protected boolean _isIntervalForNextSpawn = false;
+    protected GrandBossState _State = new GrandBossState(29020);
     protected IZone  _zone;
     protected String _zoneName;
     protected String _questName;
@@ -152,14 +145,7 @@ public class BaiumManager
     // initialize
     public void init()
     {
-    	// read configuration.
-    	_intervalOfBoss = Config.FWB_INTERVALOFBAIUM;
-    	_activityTimeOfBoss = Config.FWB_ACTIVITYTIMEOFBAIUM;
-    	_moveAtRandom = Config.FWB_MOVEATRANDOM;
-    	
     	// initialize status in lair.
-    	_isBossSpawned = false;
-    	_isIntervalForNextSpawn = false;
     	_PlayersInLair.clear();
         _zoneName = "Lair of Baium";
         _questName = "baium";
@@ -170,11 +156,23 @@ public class BaiumManager
             L2NpcTemplate template1;
             L2Spawn tempSpawn;
             
+            //Statue of Baium  
+            template1 = NpcTable.getInstance().getTemplate(_StatueofBaiumId);  
+            _StatueofBaiumSpawn = new L2Spawn(template1);  
+            _StatueofBaiumSpawn.setAmount(1);  
+            _StatueofBaiumSpawn.setLocx(_StatueofBaiumLocation[0]);  
+            _StatueofBaiumSpawn.setLocy(_StatueofBaiumLocation[1]);  
+            _StatueofBaiumSpawn.setLocz(_StatueofBaiumLocation[2]);  
+            _StatueofBaiumSpawn.setHeading(_StatueofBaiumLocation[3]);  
+            _StatueofBaiumSpawn.setRespawnDelay(Config.FWB_ACTIVITYTIMEOFBAIUM * 2);  
+            _StatueofBaiumSpawn.stopRespawn();  
+            SpawnTable.getInstance().addNewSpawn(_StatueofBaiumSpawn, false);
+            
             // Baium.
             template1 = NpcTable.getInstance().getTemplate(29020);
             tempSpawn = new L2Spawn(template1);
             tempSpawn.setAmount(1);
-            tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
+            tempSpawn.setRespawnDelay(Config.FWB_ACTIVITYTIMEOFBAIUM * 2);
             SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
             _monsterSpawn.put(29020, tempSpawn);
         }
@@ -251,7 +249,21 @@ public class BaiumManager
             _log.warn(e.getMessage());
         }
         
-        _log.info("BaiumManager:Init BaiumManager.");
+        _log.info("BaiumManager : State of Baium is " + _State.getState() + ".");  
+        if (_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
+        	_StatueofBaiumSpawn.doSpawn();  
+        else if (_State.getState().equals(GrandBossState.StateEnum.INTERVAL) || _State.getState().equals(GrandBossState.StateEnum.DEAD))  
+        	setInetrvalEndTask();  
+
+        Date dt = new Date(_State.getRespawnDate());  
+        _log.info("BaiumManager : Next spawn date of Baium is " + dt + ".");  
+        _log.info("BaiumManager : Init BaiumManager.");  
+    }  
+
+    // return Baium state.  
+    public GrandBossState.StateEnum getState()  
+    {  
+    	return _State.getState();
     }
 
     // return list of intruders.
@@ -302,21 +314,22 @@ public class BaiumManager
         // get target from statue,to kill a player of make Baium awake.
         L2PcInstance target = (L2PcInstance)_npcBaium.getTarget();
         
-        // delete statue.
-        DeleteObject deo = new DeleteObject(_npcBaium);
-        _npcBaium.broadcastPacket(deo);
-
         // do spawn.
         L2Spawn baiumSpawn = _monsterSpawn.get(29020);
         baiumSpawn.setLocx(_npcBaium.getX());
         baiumSpawn.setLocy(_npcBaium.getY());
         baiumSpawn.setLocz(_npcBaium.getZ());
         baiumSpawn.setHeading(_npcBaium.getHeading());
+        
+        //delete statue.  
+        _npcBaium.deleteMe();  
+
         L2BossInstance baium = (L2BossInstance)baiumSpawn.doSpawn();
         _monsters.add(baium);
 
-        // decay statue.
-        _npcBaium.decayMe();
+        _State.setRespawnDate(Rnd.get(Config.FWB_FIXINTERVALOFBAIUM,Config.FWB_FIXINTERVALOFBAIUM + Config.FWB_RANDOMINTERVALOFBAIUM)+ Config.FWB_ACTIVITYTIMEOFBAIUM);  
+        _State.setState(GrandBossState.StateEnum.ALIVE);  
+        _State.update();
         
         // stop respawn of statue.
         _npcBaium.getSpawn().stopRespawn();
@@ -352,7 +365,7 @@ public class BaiumManager
         	ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(baium),35500);
 
         // move at random.
-        if(_moveAtRandom)
+        if(Config.FWB_MOVEATRANDOM)
         {
         	L2CharPosition pos = new L2CharPosition(Rnd.get(112826, 116241),Rnd.get(15575, 16375),10078,0);
         	_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(
@@ -361,7 +374,7 @@ public class BaiumManager
         
         // set delete task.
         _activityTimeEndTask = 
-        	ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_activityTimeOfBoss);
+        	ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),Config.FWB_ACTIVITYTIMEOFBAIUM);
 
         baium = null;
     }
@@ -369,7 +382,10 @@ public class BaiumManager
     // Whether it lairs is confirmed. 
     public boolean isEnableEnterToLair()
     {
-        return (!_isBossSpawned && !_isIntervalForNextSpawn);
+    	if(_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
+    		return true;
+    	else
+    		return false;
     }
 
     // update list of intruders.
@@ -514,19 +530,8 @@ public class BaiumManager
 			_callAngelTask = null;
 		}
 
-		// init state of Baium's lair.
-    	_isBossSpawned = false;
-    	_isIntervalForNextSpawn = true;
-
 		// interval begin.
-		setInetrvalEndTask();
-
-		// set statue of Baium respawn.
-    	_npcBaium.getSpawn().setRespawnDelay(_intervalOfBoss);
-		_npcBaium.getSpawn().startRespawn();
-		_npcBaium.getSpawn().decreaseCount(_npcBaium);
-		_npcBaium = null;
-
+		setInetrvalEndTask();		
 	}
 
     // update knownlist.
@@ -546,7 +551,6 @@ public class BaiumManager
 		{
 			_teleportCube.add(spawnDat.doSpawn());
 		}
-    	_isIntervalForNextSpawn = true;
     }
 
     // When the party is annihilated, they are banished.
@@ -583,8 +587,16 @@ public class BaiumManager
     // start interval.
     public void setInetrvalEndTask()
     {
+    	//init state of Baium's lair.  
+    	if (!_State.getState().equals(GrandBossState.StateEnum.INTERVAL))  
+    	{  
+    		_State.setRespawnDate(Rnd.get(Config.FWB_FIXINTERVALOFBAIUM,Config.FWB_FIXINTERVALOFBAIUM + Config.FWB_RANDOMINTERVALOFBAIUM));  
+    		_State.setState(GrandBossState.StateEnum.INTERVAL);  
+    		_State.update();  
+    	}  
+
     	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(
-            	new IntervalEnd(),_intervalOfBoss);
+            	new IntervalEnd(),_State.getInterval());
     }
 
     // at end of interval.
@@ -596,7 +608,13 @@ public class BaiumManager
     	
     	public void run()
     	{
-    		_isIntervalForNextSpawn = false;
+    		_PlayersInLair.clear();  
+    		_State.setState(GrandBossState.StateEnum.NOTSPAWN);  
+    		_State.update();  
+
+    		// statue of Baium respawn.  
+    		_StatueofBaiumSpawn.doSpawn(); 
+
     		if(_intervalEndTask != null)
     		{
     			_intervalEndTask.cancel(true);
@@ -608,9 +626,13 @@ public class BaiumManager
     // setting teleport cube spawn task.
     public void setCubeSpawn()
     {
-    	ascensionArcAngel();
-		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-            	new CubeSpawn(),10000);
+    	_State.setState(GrandBossState.StateEnum.DEAD);  
+    	_State.update();  
+
+    	ascensionArcAngel();  
+
+    	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000); 
+
     }
     
     // do spawn teleport cube.
@@ -737,7 +759,8 @@ public class BaiumManager
     	}
     	public void run()
     	{
-    		_target.reduceCurrentHp(100000 + Rnd.get(_target.getMaxHp()/2,_target.getMaxHp()),_boss);
+    		if (_target != null)  
+    			_target.reduceCurrentHp(100000 + Rnd.get(_target.getMaxHp()/2,_target.getMaxHp()),_boss);
     	}
     }
 }

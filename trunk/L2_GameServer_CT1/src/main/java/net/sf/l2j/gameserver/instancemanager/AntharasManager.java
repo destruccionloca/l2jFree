@@ -17,12 +17,9 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-/**
- @author L2J_JP SANDMAN
- **/
-
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -42,6 +39,7 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -62,49 +60,6 @@ public class AntharasManager
     private final static Log _log = LogFactory.getLog(AntharasManager.class.getName());
     private static AntharasManager _instance = new AntharasManager();
 
-    // config
-    // Interval time of Boss.
-    protected int _intervalOfBoss;
-
-    // Delay of appearance time of Boss.
-    protected int _appTimeOfBoss;
-
-    // Activity time of Boss.
-    protected int _activityTimeOfBoss;
-
-    // Type of Antharas subjugation.
-    // If setting 'True'. The change in the power of Antharas doesn't occur.
-    protected boolean _oldAntharas;
-
-    // Limitation value to change power of Antharas by number of players in Antharas's lair. 
-    // Weak: LimitOfWeak >= Players
-    // Normal: LimitOfWeak < Players <= LimitOfNormal
-    // Strong: Players > LimitOfNormal
-    // Weak
-    protected int _limitOfWeak;
-    // Normal
-    protected int _limitOfNormal;
-
-    // Interval time for spawn of Antharas's minions.
-    // Value is minute. Range 1-10
-    // Behemoth Dragon
-    // Weak
-    protected int _intervalOfBehemothOnWeak;
-    // Normal
-    protected int _intervalOfBehemothOnNormal;
-    // Strong
-    protected int _intervalOfBehemothOnStrong;
-    // Dragon Bomber
-    // Weak
-    protected int _intervalOfBomberOnWeak;
-    // Normal
-    protected int _intervalOfBomberOnNormal;
-    // Strong
-    protected int _intervalOfBomberOnStrong;
-
-    // Whether it moves at random after Antharas appears is decided.
-    protected boolean _moveAtRandom = true;
-    
     // location of teleport cube.
     private final int _teleportCubeId = 31859;
     private final int _teleportCubeLocation[][] =
@@ -138,8 +93,7 @@ public class AntharasManager
     protected Future _MovieTsak = null;
     
     // status in lair.
-    protected boolean _isBossSpawned = false;
-    protected boolean _isIntervalForNextSpawn = false;
+    protected GrandBossState _State = new GrandBossState(29019);
     protected IZone  _zone;
     protected String _zoneName;
     protected String _questName;
@@ -167,25 +121,7 @@ public class AntharasManager
     // initialize
     public void init()
     {
-    	// read configuration.
-    	_intervalOfBoss = Config.FWA_INTERVALOFANTHARAS;
-    	_appTimeOfBoss = Config.FWA_APPTIMEOFANTHARAS;
-    	_activityTimeOfBoss = Config.FWA_ACTIVITYTIMEOFANTHARAS;
-    	_oldAntharas = Config.FWA_OLDANTHARAS;
-    	_limitOfWeak = Config.FWA_LIMITOFWEAK;
-    	_limitOfNormal = Config.FWA_LIMITOFNORMAL;
-    	if(_limitOfWeak >= _limitOfNormal) _limitOfNormal = _limitOfWeak + 1;
-    	_intervalOfBehemothOnWeak = Config.FWA_INTERVALOFBEHEMOTHONWEAK;
-    	_intervalOfBehemothOnNormal = Config.FWA_INTERVALOFBEHEMOTHONNORMAL;
-    	_intervalOfBehemothOnStrong = Config.FWA_INTERVALOFBEHEMOTHONSTRONG;
-    	_intervalOfBomberOnWeak = Config.FWA_INTERVALOFBOMBERONWEAK;
-    	_intervalOfBomberOnNormal = Config.FWA_INTERVALOFBOMBERONNORMAL;
-    	_intervalOfBomberOnStrong = Config.FWA_INTERVALOFBOMBERONSTRONG;
-    	_moveAtRandom = Config.FWA_MOVEATRANDOM;
-    	
     	// initialize status in lair.
-    	_isBossSpawned = false;
-    	_isIntervalForNextSpawn = false;
     	_PlayersInLair.clear();
         _zoneName = "Lair of Antharas";
     	_questName = "antharas";
@@ -204,7 +140,7 @@ public class AntharasManager
             tempSpawn.setLocz(-7623);
             tempSpawn.setHeading(32542);
             tempSpawn.setAmount(1);
-            tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
+            tempSpawn.setRespawnDelay(Config.FWA_ACTIVITYTIMEOFANTHARAS * 2);
             SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
             _monsterspawn.put(29019, tempSpawn);
             
@@ -216,7 +152,7 @@ public class AntharasManager
             tempSpawn.setLocz(-7623);
             tempSpawn.setHeading(32542);
             tempSpawn.setAmount(1);
-            tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
+            tempSpawn.setRespawnDelay(Config.FWA_ACTIVITYTIMEOFANTHARAS * 2);
             SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
             _monsterspawn.put(29066, tempSpawn);
             
@@ -228,7 +164,7 @@ public class AntharasManager
             tempSpawn.setLocz(-7623);
             tempSpawn.setHeading(32542);
             tempSpawn.setAmount(1);
-            tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
+            tempSpawn.setRespawnDelay(Config.FWA_ACTIVITYTIMEOFANTHARAS * 2);
             SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
             _monsterspawn.put(29067, tempSpawn);
             
@@ -240,7 +176,7 @@ public class AntharasManager
             tempSpawn.setLocz(-7623);
             tempSpawn.setHeading(32542);
             tempSpawn.setAmount(1);
-            tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
+            tempSpawn.setRespawnDelay(Config.FWA_ACTIVITYTIMEOFANTHARAS * 2);
             SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
             _monsterspawn.put(29068, tempSpawn);
         }
@@ -272,8 +208,21 @@ public class AntharasManager
             _log.warn(e.getMessage());
         }
         
-        _log.info("AntharasManager:Init AntharasManager.");
-    }
+        _log.info("AntharasManager : State of Antharas is " + _State.getState() + ".");  
+        if (!_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
+                setInetrvalEndTask();  
+          
+                Date dt = new Date(_State.getRespawnDate());  
+        _log.info("AntharasManager : Next spawn date of Antharas is " + dt + ".");  
+        _log.info("AntharasManager : Init AntharasManager.");  
+    }  
+
+    // return Antaras state.  
+    public GrandBossState.StateEnum getState()  
+    {  
+        return _State.getState();  
+    } 
+
 
     // return list of intruders.
     public List<L2PcInstance> getPlayersInLair()
@@ -291,7 +240,10 @@ public class AntharasManager
     // Whether it lairs is confirmed. 
     public boolean isEnableEnterToLair()
     {
-    	return (_isBossSpawned == false && _isIntervalForNextSpawn == false);
+    	if(_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN)) 
+    		return true; 
+    	else 
+    		return false; 
     }
 
     // update list of intruders.
@@ -354,7 +306,6 @@ public class AntharasManager
 		{
 			_teleportCube.add(spawnDat.doSpawn());
 		}
-    	_isIntervalForNextSpawn = true;
     }
     
 	// When the party is annihilated, they are banished.
@@ -396,7 +347,7 @@ public class AntharasManager
 
     	if (_monsterSpawnTask == null)
         {
-    		_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(	new AntharasSpawn(1,null),_appTimeOfBoss);
+    		_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new AntharasSpawn(1,null),Config.FWA_APPTIMEOFANTHARAS);
         }
     }
     
@@ -424,11 +375,11 @@ public class AntharasManager
 				case 1: // spawn.
 					// Strength of Antharas is decided by the number of players that
 					// invaded the lair.
-					if (_oldAntharas)
+					if (Config.FWA_OLDANTHARAS)
 						npcId = 29019; // old
-					else if (_PlayersInLair.size() <= _limitOfWeak)
+					else if (_PlayersInLair.size() <= Config.FWA_LIMITOFWEAK)
 						npcId = 29066; // weak
-					else if (_PlayersInLair.size() >= _limitOfNormal)
+					else if (_PlayersInLair.size() >= Config.FWA_LIMITOFNORMAL)
 						npcId = 29068; // strong
 					else
 						npcId = 29067; // normal
@@ -439,31 +390,36 @@ public class AntharasManager
 					_monsters.add(_antharas);
 					_antharas.setIsImobilised(true);
 					_antharas.setIsInSocialAction(true);
+					
+					_State.setRespawnDate(Rnd.get(Config.FWA_FIXINTERVALOFANTHARAS,Config.FWA_FIXINTERVALOFANTHARAS + Config.FWA_RANDOMINTERVALOFANTHARAS) + Config.FWA_ACTIVITYTIMEOFANTHARAS);  
+					_State.setState(GrandBossState.StateEnum.ALIVE);  
+					_State.update();  
+
 	
 					// set KnownList
 					updateKnownList(_antharas);
 	
 					// setting 1st time of minions spawn task.
-					if (!_oldAntharas)
+					if (!Config.FWA_OLDANTHARAS)
 					{
 						int intervalOfBehemoth;
 						int intervalOfBomber;
 	
 						// Interval of minions is decided by the number of players
 						// that invaded the lair.
-						if (_PlayersInLair.size() <= _limitOfWeak) // weak
+						if (_PlayersInLair.size() <= Config.FWA_LIMITOFWEAK) // weak
 						{
-							intervalOfBehemoth = _intervalOfBehemothOnWeak;
-							intervalOfBomber = _intervalOfBomberOnWeak;
-						} else if (_PlayersInLair.size() >= _limitOfNormal) // strong
+							intervalOfBehemoth = Config.FWA_INTERVALOFBEHEMOTHONWEAK;
+							intervalOfBomber = Config.FWA_INTERVALOFBOMBERONWEAK;
+						} else if (_PlayersInLair.size() >= Config.FWA_LIMITOFNORMAL) // strong
 						{
-							intervalOfBehemoth = _intervalOfBehemothOnStrong;
-							intervalOfBomber = _intervalOfBomberOnStrong;
+							intervalOfBehemoth = Config.FWA_INTERVALOFBEHEMOTHONSTRONG;
+							intervalOfBomber = Config.FWA_INTERVALOFBOMBERONSTRONG;
 						} else
 						// normal
 						{
-							intervalOfBehemoth = _intervalOfBehemothOnNormal;
-							intervalOfBomber = _intervalOfBomberOnNormal;
+							intervalOfBehemoth = Config.FWA_INTERVALOFBEHEMOTHONNORMAL;
+							intervalOfBomber = Config.FWA_INTERVALOFBOMBERONNORMAL;
 						}
 	
 						// spawn Behemoth.
@@ -622,7 +578,7 @@ public class AntharasManager
 					_mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(_antharas), 16);
 	
 					// move at random.
-					if (_moveAtRandom)
+					if (Config.FWA_MOVEATRANDOM)
 					{
 						L2CharPosition pos = new L2CharPosition(Rnd.get(175000,	178500), Rnd.get(112400, 116000), -7707, 0);
 						_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(new MoveAtRandom(_antharas, pos),
@@ -630,7 +586,7 @@ public class AntharasManager
 					}
 	
 					// set delete task.
-					_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_activityTimeOfBoss);
+					_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),Config.FWA_ACTIVITYTIMEOFANTHARAS);
 	
 		            if(_socialTask != null)
 		            {
@@ -668,7 +624,7 @@ public class AntharasManager
                 tempSpawn.setLocz(-7709);
                 tempSpawn.setHeading(0);
                 tempSpawn.setAmount(1);
-                tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
+                tempSpawn.setRespawnDelay(Config.FWA_ACTIVITYTIMEOFANTHARAS * 2);
                 SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
                 
         		// do spawn.
@@ -721,7 +677,7 @@ public class AntharasManager
                 tempSpawn.setLocz(-7709);
                 tempSpawn.setHeading(0);
                 tempSpawn.setAmount(1);
-                tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
+                tempSpawn.setRespawnDelay(Config.FWA_ACTIVITYTIMEOFANTHARAS * 2);
                 SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
                 
         		// do spawn.
@@ -889,10 +845,6 @@ public class AntharasManager
 			_moveAtRandomTask = null;
 		}
 
-		// init state of Antharas's lair.
-    	_isBossSpawned = false;
-    	_isIntervalForNextSpawn = true;
-
 		// interval begin.
 		setInetrvalEndTask();
 	}
@@ -900,8 +852,16 @@ public class AntharasManager
     // start interval.
     public void setInetrvalEndTask()
     {
+    	//init state of Antharas's lair.  
+    	if (!_State.getState().equals(GrandBossState.StateEnum.INTERVAL))  
+    	{  
+    		_State.setRespawnDate(Rnd.get(Config.FWA_FIXINTERVALOFANTHARAS,Config.FWA_FIXINTERVALOFANTHARAS + Config.FWA_RANDOMINTERVALOFANTHARAS));  
+    		_State.setState(GrandBossState.StateEnum.INTERVAL);  
+    		_State.update();  
+    	} 
+
     	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(
-            	new IntervalEnd(),_intervalOfBoss);
+            	new IntervalEnd(),_State.getInterval());
     }
 
     // at end of interval.
@@ -913,7 +873,10 @@ public class AntharasManager
     	
     	public void run()
     	{
-    		_isIntervalForNextSpawn = false;
+    		_PlayersInLair.clear();  
+    		_State.setState(GrandBossState.StateEnum.NOTSPAWN);  
+    		_State.update();  
+
     		if(_intervalEndTask != null)
     		{
     			_intervalEndTask.cancel(true);
@@ -925,8 +888,11 @@ public class AntharasManager
     // setting teleport cube spawn task.
     public void setCubeSpawn()
     {
-		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(
-            	new CubeSpawn(),10000);
+    	_State.setState(GrandBossState.StateEnum.DEAD);  
+    	_State.update();  
+
+    	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000); 
+
     }
     
     // update knownlist.

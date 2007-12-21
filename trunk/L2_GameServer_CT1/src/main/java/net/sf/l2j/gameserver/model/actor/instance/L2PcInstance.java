@@ -36,6 +36,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.Announcements;
+import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ItemsAutoDestroy;
@@ -82,6 +83,7 @@ import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ValakasManager;
+import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.lib.Rnd;
@@ -132,6 +134,7 @@ import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Duel;
+import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
@@ -9250,50 +9253,109 @@ public final class L2PcInstance extends L2PlayableInstance
         setInMotherTreeZone(false, false);
         revalidateZone(true);
 
-		// [L2J_JP ADD SANDMAN]
-		if (!isGM() && FourSepulchersManager.getInstance().checkIfInDungeon(this) &&
-				(getZ() >= -7250 && getZ() <= -6841) && 
-				(System.currentTimeMillis() - getLastAccess() >= 300000))
+//      [L2J_JP ADD SANDMAN] Check of a restart prohibition area.
+		if(!isGM())
 		{
-			int driftX = Rnd.get(-80,80);
-			int driftY = Rnd.get(-80,80);
-			teleToLocation(178293 + driftX,-84607 + driftY,-7216);
-		}
-		// [L2J_JP ADD SANDMAN]
-		if (!isGM() && AntharasManager.getInstance().checkIfInZone(this)
-				&& (getZ() >= -8220 && getZ() <= -4870)
-				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
-		{
-			if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
-			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && BaiumManager.getInstance().checkIfInZone(this)
-				&& (getZ() >= 10070 && getZ() <= 12480)
-				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
-		{
-			if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
-			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Lilith", this)
-				&& (getZ() >= 10070 && getZ() <= 12480)
-				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
-		{
-			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Anakim", this)
-				&& (getZ() >= 10070 && getZ() <= 12480)
-				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
-		{
-			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Zaken", this)
-				&& (System.currentTimeMillis() - getLastAccess() >= 600000))
-		{
-			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && ValakasManager.getInstance().checkIfInZone(this))
-		{
-    		if (getQuestState("valakas") != null) getQuestState("valakas").exitQuest(true);
-			teleToLocation(TeleportWhereType.Town);
-		} else if (!isGM() && SailrenManager.getInstance().checkIfInZone(this))
-		{
-    		if (getQuestState("sailren") != null) getQuestState("sailren").exitQuest(true);
-			teleToLocation(TeleportWhereType.Town);
+	    	// Four-Sepulcher,It is less than 5 minutes.
+	    	if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Four Sepulcher", this) &&
+	   			(System.currentTimeMillis() - getLastAccess() >= 300000))
+	    	{
+	    		int driftX = Rnd.get(-80,80);
+	    		int driftY = Rnd.get(-80,80);
+	    		teleToLocation(178293 + driftX,-84607 + driftY,-7216);
+	    	}
+	    	
+	    	// It is less than a time limit from player restarting.
+    		// TODO write code for restart fight against bosses.
+	    	// Lair of bosses,It is less than 30 minutes from server starting.
+    		// It is only for Antharas and Valakas that I know it now.
+    		// Thanks a lot Serafiel of L2J_JP.
+	    	//
+	    	// 10 minutes
+    		// Antharas
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Antharas", this))
+    		{
+    	    	// Lair of bosses,It is less than 30 minutes from server starting.
+	    		// Player can restart inside lair, but Antharas do not respawn.
+    	    	if(System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE)
+    	    	{
+	        		if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
+    	    	}
+        		else if (System.currentTimeMillis() - getLastAccess() >= 600000)
+				{
+	        		if (getQuestState("antharas") != null) getQuestState("antharas").exitQuest(true);
+	        		teleToLocation(TeleportWhereType.Town);
+				}
+				else
+	        		AntharasManager.getInstance().addPlayerToLair(this);
+    		}
+    		
+    		// Baium
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Baium", this))
+    		{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+				{
+	        		if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
+	        		teleToLocation(TeleportWhereType.Town);
+				}
+				else
+	        		BaiumManager.getInstance().addPlayerToLair(this);
+    		}
+
+    		// Lilith
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Lilith", this))
+    		{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+					teleToLocation(TeleportWhereType.Town);
+    		}
+    		
+    		// Anakim
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Anakim", this))
+    		{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+					teleToLocation(TeleportWhereType.Town);
+    		}
+    		
+    		// Zaken
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Zaken", this))
+    		{
+				if (System.currentTimeMillis() - getLastAccess() >= 600000)
+					teleToLocation(TeleportWhereType.Town);
+    		}
+
+    		// High Priestess van Halter
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Altar of Sacrifice", this))
+			{
+				if(System.currentTimeMillis() - getLastAccess() >= 600000)
+					teleToLocation(TeleportWhereType.Town);
+	        	else
+	        		VanHalterManager.getInstance().intruderDetection(this);
+			}
+    	
+    		// 0 minutes
+    		// Valakas
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Valakas", this))
+    		{
+    	    	// Lair of bosses,It is less than 30 minutes from server starting.
+	    		// Player can restart inside lair, and begin fight against Valakas 30min later.
+    	    	if(System.currentTimeMillis() - GameServer.dateTimeServerStarted.getTimeInMillis() <= Config.TIMELIMITOFINVADE &&
+    	    			ValakasManager.getInstance().getState().equals(GrandBossState.StateEnum.ALIVE))
+    			{
+	    			ValakasManager.getInstance().addPlayerToLair(this);
+    			}
+    	    	else
+    	    	{
+    	    		if (getQuestState("valakas") != null) getQuestState("valakas").exitQuest(true);
+    	    		teleToLocation(TeleportWhereType.Town);
+    	    	}
+    		}
+
+    		// Sailren
+	    	else if (ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, "Lair of Sailren", this))
+    		{
+        		if (getQuestState("sailren") != null) getQuestState("sailren").exitQuest(true);
+        		teleToLocation(TeleportWhereType.Town);
+    		}
 		}
     }
 
