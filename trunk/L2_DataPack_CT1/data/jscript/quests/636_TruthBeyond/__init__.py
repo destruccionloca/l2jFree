@@ -38,7 +38,18 @@ class Quest (JQuest) :
      npcId = npc.getNpcId()
      id = st.getState()
      cond = st.getInt("cond")
-     if cond == 0 and id == CREATED:
+     if id == COMPLETED and not st.getQuestItemsCount(MARK) and not st.getQuestItemsCount(8065) and not st.getQuestItemsCount(8067) :
+       st.set("cond","0")
+       st.setState(CREATED)
+       cond = 0
+       id = CREATED
+     elif id == COMPLETED and st.getQuestItemsCount(MARK) == 1 :
+       return "<html><body>Go to the temple and talk to the teleporter near the front gate.</body></html>"
+     elif id == COMPLETED and st.getQuestItemsCount(8065) == 1 :
+       return "<html><body>This quest is already completed. To become a pagan you should try to go <font color = \"LEVEL\">Through the gate once more</font>.</body></html>"
+     elif id == COMPLETED and st.getQuestItemsCount(8067) == 1 :
+       return "<html><body>You are already a Pagan. There are no further tasks for you here.</body></html>"
+     if cond == 0 and id == CREATED :
        if npcId == ELIYAH :
          if player.getLevel()>72 :
            htmltext = "31329-02.htm"

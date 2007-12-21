@@ -3,7 +3,8 @@ __all__ = [
 'antharas',
 'baium',
 'valakas',
-'sailren'
+'sailren',
+'vanhalter'
 ]
 
 for name in __all__ :
