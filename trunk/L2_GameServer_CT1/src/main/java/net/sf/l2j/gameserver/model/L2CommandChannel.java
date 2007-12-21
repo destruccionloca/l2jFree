@@ -205,6 +205,8 @@ public class L2CommandChannel
 	    		return (getMemberCount() > 225);
 	    	case 29028: // Valakas
 	    		return (getMemberCount() > 99);
+	    	case 29045: // Frintezza
+	    		return (getMemberCount() > 35);
 	    	default: // normal Raidboss
 	    		return (getMemberCount() > 18);
 		}

@@ -99,6 +99,8 @@ public final class L2BossInstance extends L2MonsterInstance
      * <li>29028    Valakas</li>
      * <li>29006    Core</li>
      * <li>29045    Frintezza</li>
+     * <li>29046    Scarlet Van Halisha 1st Morph</li>
+     * <li>29047    Scarlet Van Halisha 3rd Morph</li>
      * </ul>
      * <br>
      * <b>For now it's nothing more than a L2Monster but there'll be a scripting<br>

@@ -92,22 +92,31 @@ public class DecayTaskManager
             			switch(monster.getNpcId())
             			{
             				case 29028:     // Valakas
-            						forDecay = 18000;
-            						break;
+            					forDecay = 18000;
+            					break;
             				case 29019:     // Antharas
             				case 29066:     // Antharas
             				case 29067:     // Antharas
             				case 29068:     // Antharas
-            						forDecay = 12000;
-            						break;
+            					forDecay = 12000;
+            					break;
             				case 29014:     // Orfen
-            						forDecay = 150000;
-            						break;
+            					forDecay = 150000;
+            					break;
             				case 29001:     // Queen Ant
-	                                forDecay = 150000;
-	                                break;
+            					forDecay = 150000;
+            					break;
+            				case 29046:     // Scarlet Van Halisha lvl 85 -> Morphing
+            					forDecay = 2000;
+            					break;
+            				case 29045:     // Frintezza
+            					forDecay = 9500;
+            					break;
+            				case 29047:     // Scarlet Van Halisha lvl 90
+            					forDecay = 7500;
+            					break;
             				default:
-	                                forDecay = 8500;
+            					forDecay = 8500;
             			}
             		}
             	}

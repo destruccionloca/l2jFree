@@ -45,44 +45,54 @@ public class AdminTest implements IAdminCommandHandler
     };
 */
     private static final String[][] ADMIN_COMMANDS = {
-    	{"admin_stats",                                       
+    	{"admin_stats",
     		
     		"Shows server performance statistics.",
     		"Usage: stats"
-    	}, 				                       
-    	{"admin_skill",                                 
+    	},
+    	{"admin_docast",
     		
-    		"Test skill animation.",
-    		"Usage: skill skillID <level>",
+    		"Test skill animation on target.",
+    		"Usage: //docast <skill id> <skill level> <skill time>",
     		"Options:",
-    		"skillID - Id of skill animation of that you want to test",
-    		"<level> - skill level, Default is 1",
-     	},
-    	{"admin_targets",                                 
+    		"skill id - Id of skill animation that you want to test",
+    		"skill level - skill level of the skill you want to display",
+    		"skill time - the duration of the casting animation"
+    	},
+    	{"admin_docastself",
+    		
+    		"Test skill animation on oneself.",
+    		"Usage: //docastself <skill id> <skill level> <skill time>",
+    		"Options:",
+    		"skill id - Id of skill animation that you want to test",
+    		"skill level - skill level of the skill you want to display",
+    		"skill time - the duration of the casting animation"
+    	},
+    	{"admin_targets",
     		
     		"List skill targets (only multiple targets supported).",
     		"Usage: targets skillID <level>",
     		"Options:",
     		"skillID - Id of skill, target list you want to see",
     		"<level> - skill level, Default is 1",
-     	},
-    	{"admin_mp",                                 
+    	},
+    	{"admin_mp",
     		
     		"Enable/disable client-server packets monitor.",
     		"Usage: mp |dump",
     		"Options:",
     		"dump - dump currently cuptured packets",
-     	},
-    	{"admin_known",                                 
+    	},
+    	{"admin_known",
     		
     		"Enable/disable knownlist ingame debug messages.",
     		"Usage: knownlist",
     	},
-    	{"admin_heading",                                 
+    	{"admin_heading",
     		
     		"Show usefull info about target heading and angle.",
     		"Usage: heading",
-     	}
+    	}
     };
 
     /* (non-Javadoc)
@@ -104,37 +114,41 @@ public class AdminTest implements IAdminCommandHandler
                 activeChar.sendMessage(line);
             }
         }
-        else if (cmd.equals("admin_skill"))
+        else if (cmd.startsWith("admin_docast ") || cmd.startsWith("admin_docastself "))
         {
-        	L2Skill skill;
-        	int skillId = 0;
-        	int skillLvl = 1;
-        	
+            L2Object obj = activeChar.getTarget();
+            L2Character caster = null;
+            if (obj == null || !(obj instanceof L2Character))
+            {
+                caster = activeChar;
+            }
+            else
+            {
+                caster = (L2Character)obj;
+            }
+
+            int skillId = 0, skillLevel = 0, skillTime = 0;
             try
             {
-            	skillId = Integer.parseInt(st.nextToken());
-            	if (st.hasMoreTokens())
-            		skillLvl = Integer.parseInt(st.nextToken());  
+                skillId = Integer.parseInt(st.nextToken());
+                skillLevel = Integer.parseInt(st.nextToken());
+                skillTime = Integer.parseInt(st.nextToken());
             }
             catch(Exception e)
             {
+                activeChar.sendMessage("Usage: //docast <skill id> <skill level> <skill time>");
+                return false;
             }
-            
-            if (skillId > 0)
-        	{
-                int skillLvlMax = SkillTable.getInstance().getMaxLevel(skillId, 1);
-                
-                if (skillLvl > skillLvlMax)
-                	skillLvl = skillLvlMax;
-            	
-                skill = SkillTable.getInstance().getInfo(skillId, skillLvl);
-                if (skill != null)
-                	adminTestSkill(activeChar,skillId,skillLvl,skill.getHitTime());
-                else
-                	activeChar.sendMessage("Skill id "+skillId+" not found.");
-        	}
+            L2Character target = null;
+            if (caster.getTarget() == null || !(caster.getTarget() instanceof L2Character) || cmd.startsWith("admin_docastself "))
+            {
+                target = caster;
+            }
             else
-            	showAdminCommandHelp(activeChar,cmd);
+                target = (L2Character)caster.getTarget();
+
+            caster.broadcastPacket(new MagicSkillUser(caster, target, skillId, skillLevel, skillTime, 0));
+            activeChar.sendMessage("Did a cast for skill: "+skillId+", level: "+skillLevel);
         }
         else if (cmd.equals("admin_mp"))
         {
@@ -230,24 +244,6 @@ public class AdminTest implements IAdminCommandHandler
             	showAdminCommandHelp(activeChar,cmd);
         }
         return true;
-    }
-    
-    /**
-     * Test skill animation
-     * @param activeChar
-     * @param skill
-     */
-    public void adminTestSkill(L2PcInstance activeChar,int skillId, int skilLvl, int skillTime)
-    {
-    	L2Object target;
-    	
-       	if (activeChar.getTarget() != null && (activeChar.getTarget() instanceof L2Character))
-    		target = activeChar.getTarget();
-    	else 
-    		target = activeChar;
-       	activeChar.sendMessage("S="+skillId+" Lv="+skilLvl+" Time="+skillTime);
-       	MagicSkillUser msu = new MagicSkillUser((L2Character)activeChar, (L2Character)target, skillId, skilLvl, skillTime, 1);
-       	activeChar.broadcastPacket(msu);
     }
 
     /**

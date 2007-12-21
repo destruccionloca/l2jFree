@@ -555,8 +555,10 @@ public abstract class L2Character extends L2Object
     		
     		// Call this function for further checks in the short future (next time we either keep falling, or finalize the fall)
     		// This "next time" check is a rough estimate on how much time is needed to calculate the next check, and it is based on the current fall height.
-    		ThreadPoolManager.getInstance().scheduleGeneral(new CheckFalling(fallHeight), Math.min(1200, moveChangeZ));
-    		
+    		CheckFalling cf = new CheckFalling(fallHeight);
+    		Future task = ThreadPoolManager.getInstance().scheduleGeneral(cf, Math.min(1200, moveChangeZ));
+    		cf.setTask(task);
+
     		//Value returned but not currently used. Maybe useful for future features.
     		return fallHeight;
     	}
@@ -681,19 +683,33 @@ public abstract class L2Character extends L2Object
      */
     public class CheckFalling implements Runnable
     {
-        int _fallHeight;
+        private int _fallHeight;
+        private Future _task;
 
         public CheckFalling(int fallHeight)
         {
-        	_fallHeight = fallHeight;
+            _fallHeight = fallHeight;
+        }
+
+        public void setTask(Future task)
+        {
+            _task = task;
         }
 
         public void run()
         {
+            if (_task != null)
+            {
+                _task.cancel(true);
+                _task = null;
+            }
+            
             try
             {
                 isFalling(true , _fallHeight);
-            } catch (Throwable e) {
+            }
+            catch (Throwable e)
+            {
                 _log.fatal( "L2PcInstance.CheckFalling exception ", e);
             }
         }
