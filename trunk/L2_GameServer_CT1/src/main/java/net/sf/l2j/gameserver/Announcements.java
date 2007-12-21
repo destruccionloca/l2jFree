@@ -1,19 +1,17 @@
 /*
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 2, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * Place - Suite 330, Boston, MA 02111-1307, USA.
+ * 
  * http://www.gnu.org/copyleft/gpl.html
  */
 package net.sf.l2j.gameserver;
@@ -53,13 +51,13 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class Announcements implements AnnouncementsMBean
 {
-	private final static Log _log = LogFactory.getLog(Announcements.class.getName());
+	private final static Log		_log					= LogFactory.getLog(Announcements.class.getName());
 	
-	private static Announcements _instance;
-	private List<String> _announcements = new FastList<String>();
-	private List<List<Object>> _eventAnnouncements = new FastList<List<Object>>();
-    private String leaderboardAnnouncement = null;
-
+	private static Announcements	_instance;
+	private List<String>			_announcements			= new FastList<String>();
+	private List<List<Object>>		_eventAnnouncements		= new FastList<List<Object>>();
+	private String					leaderboardAnnouncement	= null;
+	
 	public Announcements()
 	{
 		loadAnnouncements();
@@ -72,7 +70,6 @@ public class Announcements implements AnnouncementsMBean
 		
 		return _instance;
 	}
-	
 	
 	public void loadAnnouncements()
 	{
@@ -87,7 +84,7 @@ public class Announcements implements AnnouncementsMBean
 			_log.info("data/announcements.txt doesn't exist");
 		}
 	}
-
+	
 	public void showAnnouncements(L2PcInstance activeChar)
 	{
 		for (int i = 0; i < _announcements.size(); i++)
@@ -95,31 +92,32 @@ public class Announcements implements AnnouncementsMBean
 			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), _announcements.get(i));
 			activeChar.sendPacket(cs);
 		}
-		if (leaderboardAnnouncement != null) 
+		if (leaderboardAnnouncement != null)
 		{
 			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), leaderboardAnnouncement);
 			activeChar.sendPacket(cs);
 		}
-
+		
 		for (int i = 0; i < _eventAnnouncements.size(); i++)
 		{
-			List<Object> entry   = _eventAnnouncements.get(i);
-
-			DateRange validDateRange  = (DateRange)entry.get(0);
-			String[] msg              = (String[])entry.get(1);
-			Date currentDate          = new Date();
-
+			List<Object> entry = _eventAnnouncements.get(i);
+			
+			DateRange validDateRange = (DateRange) entry.get(0);
+			String[] msg = (String[]) entry.get(1);
+			Date currentDate = new Date();
+			
 			if (validDateRange.isValid() && validDateRange.isWithinRange(currentDate))
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				for (String element : msg) {
+				for (String element : msg)
+				{
 					sm.addString(element);
 				}
 				activeChar.sendPacket(sm);
 			}
 		}
 	}
-
+	
 	public void addEventAnnouncement(DateRange validDateRange, String[] msg)
 	{
 		FastList<Object> entry = new FastList<Object>();
@@ -127,7 +125,7 @@ public class Announcements implements AnnouncementsMBean
 		entry.add(msg);
 		_eventAnnouncements.add(entry);
 	}
-
+	
 	public void listAnnouncements(L2PcInstance activeChar)
 	{
 		String content = HtmCache.getInstance().getHtmForce("data/html/admin/announce.htm");
@@ -137,40 +135,41 @@ public class Announcements implements AnnouncementsMBean
 		for (int i = 0; i < _announcements.size(); i++)
 		{
 			replyMSG.append("<table width=260><tr><td width=220>" + _announcements.get(i) + "</td><td width=40>");
-			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_announcement " + i + "\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
+			replyMSG.append("<button value=\"Delete\" action=\"bypass -h admin_del_announcement " + i
+					+ "\" width=60 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
 		}
 		adminReply.replace("%announces%", replyMSG.toString());
 		activeChar.sendPacket(adminReply);
 	}
-
+	
 	public void addAnnouncement(String text)
 	{
 		_announcements.add(text);
 		saveToDisk();
 	}
-    
-	public void setLeaderboardAnnouncement(String announce) 
+	
+	public void setLeaderboardAnnouncement(String announce)
 	{
 		leaderboardAnnouncement = announce;
 	}
-
+	
 	public void delAnnouncement(int line)
 	{
 		_announcements.remove(line);
 		saveToDisk();
 	}
-
+	
 	private void readFromDisk(File file)
 	{
 		LineNumberReader lnr = null;
 		try
 		{
-			int i=0;
+			int i = 0;
 			String line = null;
-			lnr = new LineNumberReader(new InputStreamReader(new FileInputStream(file),"UTF-8"));
-			while ( (line = lnr.readLine()) != null)
+			lnr = new LineNumberReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+			while ((line = lnr.readLine()) != null)
 			{
-				StringTokenizer st = new StringTokenizer(line,"\n\r");
+				StringTokenizer st = new StringTokenizer(line, "\n\r");
 				if (st.hasMoreTokens())
 				{
 					String announcement = st.nextToken();
@@ -184,16 +183,25 @@ public class Announcements implements AnnouncementsMBean
 		}
 		catch (IOException e1)
 		{
-			_log.fatal( "Error reading announcements", e1);
+			_log.fatal("Error reading announcements", e1);
 		}
-		finally { try{ lnr.close(); } catch (Exception e2) {} }
+		finally
+		{
+			try
+			{
+				lnr.close();
+			}
+			catch (Exception e2)
+			{
+			}
+		}
 	}
-
+	
 	private void saveToDisk()
 	{
 		File file = new File("data/announcements.txt");
-		FileWriter save = null; 
-
+		FileWriter save = null;
+		
 		try
 		{
 			save = new FileWriter(file);
@@ -211,12 +219,12 @@ public class Announcements implements AnnouncementsMBean
 			_log.warn("saving the announcements file has failed: " + e);
 		}
 	}
-
+	
 	public void announceToAll(String text)
 	{
 		CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), "", text);
-
-		if(Config.IRC_ENABLED && Config.IRC_ANNOUNCE)
+		
+		if (Config.IRC_ENABLED && Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("10Announce: " + text);
 		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
@@ -224,7 +232,7 @@ public class Announcements implements AnnouncementsMBean
 			player.sendPacket(cs);
 		}
 	}
-
+	
 	public void announceToAll(SystemMessage sm)
 	{
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
@@ -232,7 +240,7 @@ public class Announcements implements AnnouncementsMBean
 			player.sendPacket(sm);
 		}
 	}
-
+	
 	// Method fo handling announcements from admin
 	public void handleAnnounce(String command, int lengthToTrim)
 	{
@@ -249,11 +257,14 @@ public class Announcements implements AnnouncementsMBean
 			// empty message.. ignore
 		}
 	}
-
+	
 	/**
-	* Announce to players.<BR><BR>
-	* @param message The String of the message to send to player
-	*/
+	 * Announce to players.<BR>
+	 * <BR>
+	 * 
+	 * @param message
+	 *            The String of the message to send to player
+	 */
 	public void announceToPlayers(String message)
 	{
 		// Get all players
