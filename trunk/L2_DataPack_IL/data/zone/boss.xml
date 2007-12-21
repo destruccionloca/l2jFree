@@ -59,4 +59,9 @@
     <point x="199755" y="-124724" z="-1640" />
     <point x="224677" y="-103211" z="9880" />
   </item>
+  <item id="13" name="Altar of Sacrifice">
+    <type>BossDungeon</type>
+    <point x="-18176" y="-54972" z="-10730" />
+    <point x="-14614" y="-51620" z="-10290" />
+  </item>
 </list>
