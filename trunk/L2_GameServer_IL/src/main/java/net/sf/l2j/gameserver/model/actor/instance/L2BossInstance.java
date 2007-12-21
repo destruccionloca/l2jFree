@@ -56,14 +56,6 @@ public final class L2BossInstance extends L2MonsterInstance
     protected L2Character _Atacker;
     protected static final int NurseAntRespawnDelay = Config.NURSEANT_RESPAWN_DELAY;
 
-    protected Future _SocialTask = null;
-    protected Future _SocialTask2 = null;
-    protected Future _SocialTask3 = null;
-    protected Future _RecallPcTask = null;
-    protected Future _KillingPcTask = null;
-    protected Future _CallAngelTask = null;
-    protected Future _MobiliseTask = null;
-    protected Future _DeleteTask = null;
     protected Future minionMaintainTask = null;
 
     protected L2PcInstance _TargetForKill = null;

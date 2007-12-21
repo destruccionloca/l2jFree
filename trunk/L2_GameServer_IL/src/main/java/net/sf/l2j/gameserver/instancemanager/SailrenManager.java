@@ -17,12 +17,10 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-/**
- @author L2J_JP SANDMAN
- **/
 
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -37,6 +35,7 @@ import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -60,17 +59,6 @@ public class SailrenManager
     private final static Log _log = LogFactory.getLog(SailrenManager.class.getName());
     private static SailrenManager _instance = new SailrenManager();
 
-    // config
-    // Properties of fight with sailren.
-    // Whether to enable the entry of a single player.
-    protected static final boolean _enableSinglePlayer = Config.FWS_ENABLESINGLEPLAYER;
-    // Interval of spawn of next Sailren.
-    protected static final int _intervalOfSailrenSpawn = Config.FWS_INTERVALOFSAILRENSPAWN;
-    // Interval of spawn of next monster.
-    protected static final int _intervalOfNextMonster = Config.FWS_INTERVALOFNEXTMONSTER;
-    // Activity time of monsters.
-    protected static final int _activityTimeOfMobs = Config.FWS_ACTIVITYTIMEOFMOBS;
-    
     // teleport cube location.
     private final int _sailrenCubeLocation[][] = { {27734,-6838,-1982,0} };
     protected List<L2Spawn> _sailrenCubeSpawn = new FastList<L2Spawn>();
@@ -100,9 +88,8 @@ public class SailrenManager
     protected Future _socialTask = null;
     
     // State of sailren's lair.
-    protected boolean _isSailrenSpawned = false;
+    protected GrandBossState _State = new GrandBossState(29065);
     protected boolean _isAlreadyEnteredOtherParty = false;
-    protected boolean _isIntervalForSailrenSpawn = false;
 
     protected IZone  _zone;
     protected String _zoneName;
@@ -123,9 +110,8 @@ public class SailrenManager
     public void init()
     {
     	// init state.
-    	_isSailrenSpawned = false;
+    	_playersInSailrenLair.clear();
     	_isAlreadyEnteredOtherParty = false;
-    	_isIntervalForSailrenSpawn = false;
         _zoneName = "Lair of Sailren";
     	_questName = "sailren";
     	
@@ -142,7 +128,7 @@ public class SailrenManager
             _velociraptorSpawn.setLocz(-1983);
             _velociraptorSpawn.setHeading(44732);
             _velociraptorSpawn.setAmount(1);
-            _velociraptorSpawn.setRespawnDelay(_intervalOfSailrenSpawn * 2);
+            _velociraptorSpawn.setRespawnDelay(Config.FWS_ACTIVITYTIMEOFMOBS * 2);
             SpawnTable.getInstance().addNewSpawn(_velociraptorSpawn, false);
             
             // Pterosaur
@@ -153,7 +139,7 @@ public class SailrenManager
             _pterosaurSpawn.setLocz(-1983);
             _pterosaurSpawn.setHeading(44732);
             _pterosaurSpawn.setAmount(1);
-            _pterosaurSpawn.setRespawnDelay(_intervalOfSailrenSpawn * 2);
+            _pterosaurSpawn.setRespawnDelay(Config.FWS_ACTIVITYTIMEOFMOBS * 2);
             SpawnTable.getInstance().addNewSpawn(_pterosaurSpawn, false);
             
             // Tyrannosaurus
@@ -164,7 +150,7 @@ public class SailrenManager
             _tyrannoSpawn.setLocz(-1983);
             _tyrannoSpawn.setHeading(44732);
             _tyrannoSpawn.setAmount(1);
-            _tyrannoSpawn.setRespawnDelay(_intervalOfSailrenSpawn * 2);
+            _tyrannoSpawn.setRespawnDelay(Config.FWS_ACTIVITYTIMEOFMOBS * 2);
             SpawnTable.getInstance().addNewSpawn(_tyrannoSpawn, false);
             
             // Sailren
@@ -175,7 +161,7 @@ public class SailrenManager
             _sailrenSapwn.setLocz(-1983);
             _sailrenSapwn.setHeading(44732);
             _sailrenSapwn.setAmount(1);
-            _sailrenSapwn.setRespawnDelay(_intervalOfSailrenSpawn * 2);
+            _sailrenSapwn.setRespawnDelay(Config.FWS_ACTIVITYTIMEOFMOBS * 2);
             SpawnTable.getInstance().addNewSpawn(_sailrenSapwn, false);
             
         }
@@ -208,7 +194,19 @@ public class SailrenManager
             _log.warn(e.getMessage());
         }
         
-        _log.info("SailrenManager:Init SailrenManager.");
+        _log.info("SailrenManager : State of Sailren is " + _State.getState() + ".");  
+        if (!_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
+        	setIntervalEndTask();
+
+        Date dt = new Date(_State.getRespawnDate());  
+        _log.info("SailrenManager : Next spawn date of Sailren is " + dt + ".");  
+        _log.info("SailrenManager : Init SailrenManager.");  
+    }  
+
+    // return Sailren state.  
+    public GrandBossState.StateEnum getState()  
+    {  
+    	return _State.getState();
     }
 
     // getting list of players in sailren's lair.
@@ -227,11 +225,13 @@ public class SailrenManager
     // whether it is permitted to enter the sailren's lair is confirmed. 
     public int canIntoSailrenLair(L2PcInstance pc)
     {
-    	if (_isSailrenSpawned) return 1;
-    	if (_isAlreadyEnteredOtherParty) return 2;
-    	if (_isIntervalForSailrenSpawn) return 3;
-    	if ((_enableSinglePlayer == false) && (pc.getParty() == null)) return 4;
-    	return 0;
+    	if ((Config.FWS_ENABLESINGLEPLAYER == false) && (pc.getParty() == null)) return 4;  
+    	else if (_isAlreadyEnteredOtherParty) return 2;  
+    	else if (_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN)) return 0;  
+    	else if (_State.getState().equals(GrandBossState.StateEnum.ALIVE) || _State.getState().equals(GrandBossState.StateEnum.DEAD) ) return 1;  
+    	else if (_State.getState().equals(GrandBossState.StateEnum.INTERVAL)) return 3;  
+    	else return 0; 
+
     }
     
     // set sailren spawn task.
@@ -241,7 +241,7 @@ public class SailrenManager
 
     	if (_sailrenSpawnTask == null)
         {
-        	_sailrenSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new SailrenSpawn(NpcId),_intervalOfNextMonster);
+        	_sailrenSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new SailrenSpawn(NpcId),Config.FWS_INTERVALOFNEXTMONSTER);
         }
     }
 
@@ -377,7 +377,6 @@ public class SailrenManager
 		}
 
 		// init state of sailren's lair.
-		_isSailrenSpawned = false;
 		_velociraptor = null;
 		_pterosaur = null;
 		_tyranno = null;
@@ -394,19 +393,29 @@ public class SailrenManager
 		{
 			_sailrenCube.add(spawnDat.doSpawn());
 		}
-    	_isIntervalForSailrenSpawn = true;
     }
     
     // task of teleport cube spawn.
     public void setCubeSpawn()
     {
-		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000);
+    	_State.setState(GrandBossState.StateEnum.DEAD);  
+    	_State.update();  
+
+    	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000); 
+
     }
     
     // task of interval of sailren spawn.
     public void setIntervalEndTask()
     {
-    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(new IntervalEnd(),_intervalOfSailrenSpawn);
+    	if (!_State.getState().equals(GrandBossState.StateEnum.INTERVAL))  
+    	{  
+    		_State.setRespawnDate(Rnd.get(Config.FWS_FIXINTERVALOFSAILRENSPAWN,Config.FWS_FIXINTERVALOFSAILRENSPAWN + Config.FWS_RANDOMINTERVALOFSAILRENSPAWN));  
+    		_State.setState(GrandBossState.StateEnum.INTERVAL);  
+    		_State.update();  
+    	}  
+
+    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(new IntervalEnd(),_State.getInterval());
     }
 
     // update knownlist.
@@ -431,8 +440,7 @@ public class SailrenManager
     	
         public void run()
         {
-        	_isSailrenSpawned = true;
-            switch (_NpcId)
+        	switch (_NpcId)
             {
             	case 22218:		// Velociraptor
             		_velociraptor = _velociraptorSpawn.doSpawn();
@@ -448,7 +456,7 @@ public class SailrenManager
             			_activityTimeEndTask.cancel(true);
             			_activityTimeEndTask = null;
             		}
-            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_velociraptor),_activityTimeOfMobs);
+            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_velociraptor),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
             	case 22199:		// Pterosaur
             		_velociraptorSpawn.stopRespawn();
@@ -465,7 +473,7 @@ public class SailrenManager
             			_activityTimeEndTask.cancel(true);
             			_activityTimeEndTask = null;
             		}
-            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_pterosaur),_activityTimeOfMobs);
+            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_pterosaur),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
             	case 22217:		// Tyrannosaurus
             		_pterosaurSpawn.stopRespawn();
@@ -482,11 +490,16 @@ public class SailrenManager
             			_activityTimeEndTask.cancel(true);
             			_activityTimeEndTask = null;
             		}
-            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_tyranno),_activityTimeOfMobs);
+            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_tyranno),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
             	case 29065:		// Sailren
             		_tyrannoSpawn.stopRespawn();
             		_sailren = _sailrenSapwn.doSpawn();
+            		
+            		_State.setRespawnDate(Rnd.get(Config.FWS_FIXINTERVALOFSAILRENSPAWN,Config.FWS_FIXINTERVALOFSAILRENSPAWN + Config.FWS_RANDOMINTERVALOFSAILRENSPAWN) + Config.FWS_ACTIVITYTIMEOFMOBS);  
+            		_State.setState(GrandBossState.StateEnum.ALIVE);  
+            		_State.update(); 
+
             		_sailren.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
             		if(_socialTask != null)
             		{
@@ -499,7 +512,7 @@ public class SailrenManager
             			_activityTimeEndTask.cancel(true);
             			_activityTimeEndTask = null;
             		}
-            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_sailren),_activityTimeOfMobs);
+            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_sailren),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
             	default:
             		break;
@@ -557,7 +570,10 @@ public class SailrenManager
     	
     	public void run()
     	{
-    		_isIntervalForSailrenSpawn = false;
+    		_playersInSailrenLair.clear();  
+    		_State.setState(GrandBossState.StateEnum.NOTSPAWN);  
+    		_State.update(); 
+
     		if(_intervalEndTask != null)
     		{
     			_intervalEndTask.cancel(true);

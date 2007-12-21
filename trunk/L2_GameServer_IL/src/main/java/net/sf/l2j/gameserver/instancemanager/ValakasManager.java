@@ -17,12 +17,9 @@
  * http://www.gnu.org/copyleft/gpl.html
  */
 
-/**
- @author L2J_JP SANDMAN
- **/
-
 package net.sf.l2j.gameserver.instancemanager;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -40,6 +37,7 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.model.zone.IZone;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.serverpackets.SocialAction;
@@ -60,22 +58,6 @@ public class ValakasManager
     private final static Log _log = LogFactory.getLog(ValakasManager.class.getName());
     private static ValakasManager _instance = new ValakasManager();
 
-    // config
-    // Interval time of Boss.
-    protected int _intervalOfBoss;
-
-    // Delay of appearance time of Boss.
-    protected int _appTimeOfBoss;
-
-    // Activity time of Boss.
-    protected int _activityTimeOfBoss;
-
-    // Capacity Of Lair Of Valakas.
-    protected int _capacity;
-    
-    // Whether it moves at random after Valakas appears is decided.
-    protected boolean _moveAtRandom = true;
-    
     // location of teleport cube.
     private final int _teleportCubeId = 31759;
     private final int _teleportCubeLocation[][] =
@@ -119,8 +101,7 @@ public class ValakasManager
     protected Future _moveAtRandomTask = null;
     
     // status in lair.
-    protected boolean _isBossSpawned = false;
-    protected boolean _isIntervalForNextSpawn = false;
+    protected GrandBossState _State = new GrandBossState(29028);
     protected IZone  _zone;
     protected String _zoneName;
     protected String _questName;
@@ -147,16 +128,7 @@ public class ValakasManager
     // initialize
     public void init()
     {
-    	// read configuration.
-    	_intervalOfBoss = Config.FWV_INTERVALOFVALAKAS;
-    	_appTimeOfBoss = Config.FWV_APPTIMEOFVALAKAS;
-    	_activityTimeOfBoss = Config.FWV_ACTIVITYTIMEOFVALAKAS;
-    	_capacity = Config.FWV_CAPACITYOFLAIR;
-    	_moveAtRandom = Config.FWV_MOVEATRANDOM;
-    	
     	// initialize status in lair.
-    	_isBossSpawned = false;
-    	_isIntervalForNextSpawn = false;
     	_playersInLair.clear();
         _zoneName = "Lair of Valakas";
         _questName = "valakas";
@@ -176,7 +148,7 @@ public class ValakasManager
             //tempSpawn.setHeading(22106);
             tempSpawn.setHeading(833);
             tempSpawn.setAmount(1);
-            tempSpawn.setRespawnDelay(_intervalOfBoss * 2);
+            tempSpawn.setRespawnDelay(Config.FWV_ACTIVITYTIMEOFVALAKAS * 2);
             SpawnTable.getInstance().addNewSpawn(tempSpawn, false);
             _monsterSpawn.put(29028, tempSpawn);
         }
@@ -208,7 +180,21 @@ public class ValakasManager
             _log.warn(e.getMessage());
         }
         
-        _log.info("ValakasManager:Init ValakasManager.");
+        _log.info("ValakasManager : State of Valakas is " + _State.getState() + ".");  
+        if (_State.getState().equals(GrandBossState.StateEnum.ALIVE))  
+        	restartValakas();  
+        else if (!_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
+        	setInetrvalEndTask();  
+
+        Date dt = new Date(_State.getRespawnDate());  
+        _log.info("ValakasManager : Next spawn date of Valakas is " + dt + ".");  
+        _log.info("ValakasManager : Init ValakasManager.");  
+    }  
+
+    // return Valakas state.  
+    public GrandBossState.StateEnum getState()  
+    {  
+    	return _State.getState();
     }
 
     // return list of intruders.
@@ -227,9 +213,12 @@ public class ValakasManager
     // Whether it lairs is confirmed. 
     public boolean isEnableEnterToLair()
     {
-    	if(_playersInLair.size() >= _capacity) return false;
-    	
-    	return(_isBossSpawned == false && _isIntervalForNextSpawn == false);
+    	if(_playersInLair.size() >= Config.FWV_CAPACITYOFLAIR) return false;  
+
+    	if(_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
+    		return true; 
+    	else  
+    		return false;
     }
 
     // update list of intruders.
@@ -276,7 +265,6 @@ public class ValakasManager
 		{
 			_teleportCube.add(spawnDat.doSpawn());
 		}
-    	_isIntervalForNextSpawn = true;
     }
     
 	// When the party is annihilated, they are banished.
@@ -318,7 +306,7 @@ public class ValakasManager
 
     	if (_monsterSpawnTask == null)
         {
-    		_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(	new ValakasSpawn(1,null),_appTimeOfBoss);
+    		_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(	new ValakasSpawn(1,null),Config.FWV_APPTIMEOFVALAKAS);
         }
     }
     
@@ -346,9 +334,14 @@ public class ValakasManager
 	            	L2Spawn valakasSpawn = _monsterSpawn.get(29028);
 	            	_valakas = (L2BossInstance)valakasSpawn.doSpawn();
 	            	_monsters.add(_valakas);
-	            	updateKnownList(_valakas);
 	            	_valakas.setIsImobilised(true);
 	            	_valakas.setIsInSocialAction(true);
+	            	
+	            	updateKnownList(_valakas);  
+
+	            	_State.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS,Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS) + Config.FWV_ACTIVITYTIMEOFVALAKAS);  
+	            	_State.setState(GrandBossState.StateEnum.ALIVE);  
+	            	_State.update();
 	    		
 					// set next task.
 		            if(_socialTask != null)
@@ -362,6 +355,7 @@ public class ValakasManager
 	
 	    		case 2:
 	            	// do social.
+	    			updateKnownList(_valakas);
 	                sa = new SocialAction(_valakas.getObjectId(), 1);
 	                _valakas.broadcastPacket(sa);
 					
@@ -614,14 +608,14 @@ public class ValakasManager
 					_mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(_valakas),16);
 	
 	                // move at random.
-	                if(_moveAtRandom)
+	                if(Config.FWV_MOVEATRANDOM)
 	                {
 	                	L2CharPosition pos = new L2CharPosition(Rnd.get(211080, 214909),Rnd.get(-115841, -112822),-1662,0);
 	                	_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(new MoveAtRandom(_valakas,pos),32);
 	                }
 	                
 	                // set delete task.
-	                _activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),_activityTimeOfBoss);
+	                _activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),Config.FWV_ACTIVITYTIMEOFVALAKAS);
 	
 					break;
     		}
@@ -711,10 +705,6 @@ public class ValakasManager
 			_moveAtRandomTask = null;
 		}
 
-		// init state of Valakas's lair.
-    	_isBossSpawned = false;
-    	_isIntervalForNextSpawn = true;
-
 		// interval begin.
 		setInetrvalEndTask();
 	}
@@ -722,7 +712,15 @@ public class ValakasManager
     // start interval.
     public void setInetrvalEndTask()
     {
-    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(new IntervalEnd(),_intervalOfBoss);
+    	//init state of Valakas's lair.  
+    	if (!_State.getState().equals(GrandBossState.StateEnum.INTERVAL))  
+    	{  
+    		_State.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS,Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS));  
+    		_State.setState(GrandBossState.StateEnum.INTERVAL);  
+    		_State.update();  
+    	}  
+
+    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(new IntervalEnd(),_State.getInterval()); 
     }
 
     // at end of interval.
@@ -734,7 +732,10 @@ public class ValakasManager
     	
     	public void run()
     	{
-    		_isIntervalForNextSpawn = false;
+    		_playersInLair.clear();  
+    		_State.setState(GrandBossState.StateEnum.NOTSPAWN);  
+    		_State.update();  
+
     		if(_intervalEndTask != null)
     		{
     			_intervalEndTask.cancel(true);
@@ -746,7 +747,12 @@ public class ValakasManager
     // setting teleport cube spawn task.
     public void setCubeSpawn()
     {
-		_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000);
+    	//init state of Valakas's lair.  
+    	_State.setState(GrandBossState.StateEnum.DEAD);  
+    	_State.update();  
+
+    	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000); 
+
     }
     
     // update knownlist.
@@ -812,4 +818,26 @@ public class ValakasManager
     		_npc.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
     	}
     }
+    
+    //when a server restart while fight against Valakas.  
+    protected void restartValakas()  
+    {  
+    	L2BossInstance valakas = null;  
+    	// do spawn.  
+    	L2Spawn valakasSpawn = _monsterSpawn.get(29028);  
+    	valakas = (L2BossInstance)valakasSpawn.doSpawn();  
+    	_monsters.add(valakas);  
+    	valakas.setIsImobilised(true);  
+    	valakas.setIsInSocialAction(true);  
+
+    	// set next task.  
+    	if(_socialTask != null)  
+    	{  
+    		_socialTask.cancel(true);  
+    		_socialTask = null;  
+    	}  
+    	_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(2,valakas), Config.TIMELIMITOFINVADE + 1000);  
+
+}  
+
 }
