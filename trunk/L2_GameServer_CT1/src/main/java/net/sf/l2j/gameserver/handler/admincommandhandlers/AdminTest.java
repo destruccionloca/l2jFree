@@ -114,7 +114,7 @@ public class AdminTest implements IAdminCommandHandler
                 activeChar.sendMessage(line);
             }
         }
-        else if (cmd.startsWith("admin_docast ") || cmd.startsWith("admin_docastself "))
+        else if (cmd.startsWith("admin_docast") || cmd.startsWith("admin_docastself"))
         {
             L2Object obj = activeChar.getTarget();
             L2Character caster = null;

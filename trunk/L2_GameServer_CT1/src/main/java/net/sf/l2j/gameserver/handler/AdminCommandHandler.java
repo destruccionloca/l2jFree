@@ -65,6 +65,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPathNode;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPetition;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPledge;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminPolymorph;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminQuest;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRegion;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRepairChar;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRes;
@@ -127,6 +128,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminEditChar());
         registerAdminCommandHandler(new AdminEditNpc());
         registerAdminCommandHandler(new AdminEffects());
+        registerAdminCommandHandler(new AdminEnchant());
         registerAdminCommandHandler(new AdminEventEngine());
         registerAdminCommandHandler(new AdminExpSp());
         registerAdminCommandHandler(new AdminFightCalculator());
@@ -151,6 +153,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminPathNode());
         registerAdminCommandHandler(new AdminPledge());
         registerAdminCommandHandler(new AdminPolymorph());
+        registerAdminCommandHandler(new AdminQuest());
         registerAdminCommandHandler(new AdminRegion());
         registerAdminCommandHandler(new AdminRepairChar());
         registerAdminCommandHandler(new AdminRes());
@@ -165,7 +168,6 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminTeleport());
         registerAdminCommandHandler(new AdminTvTEngine());
         registerAdminCommandHandler(new AdminTest());
-        registerAdminCommandHandler(new AdminEnchant());
         registerAdminCommandHandler(new AdminUnblockIp());
         registerAdminCommandHandler(new AdminVIPEngine());
         registerAdminCommandHandler(new AdminZone());
@@ -177,13 +179,15 @@ public class AdminCommandHandler
 	public void registerAdminCommandHandler(IAdminCommandHandler handler)
 	{
 		String[] ids = handler.getAdminCommandList();
-		for (String element : ids) {
+		for (String element : ids)
+		{
 			if (_log.isDebugEnabled()) _log.debug("Adding handler for command "+element);
 			
 			if (_datatable.keySet().contains(new String(element)))
 			{
 				_log.warn("Duplicated command \""+element+"\" definition in "+ handler.getClass().getName()+".");
-			} else
+			}
+			else
 				_datatable.put(element, handler);
 			
 			if (Config.ALT_PRIVILEGES_ADMIN && !Config.GM_COMMAND_PRIVILEGES.containsKey(element))
@@ -194,7 +198,8 @@ public class AdminCommandHandler
 	public IAdminCommandHandler getAdminCommandHandler(String adminCommand)
 	{
 		String command = adminCommand;
-		if (adminCommand.indexOf(" ") != -1) {
+		if (adminCommand.indexOf(" ") != -1)
+		{
 			command = adminCommand.substring(0, adminCommand.indexOf(" "));
 		}
 		if (_log.isDebugEnabled())
