@@ -38,8 +38,8 @@ class antharas(JQuest):
 
   def onKill(self,npc,player,isPet):
     st = player.getQuestState("antharas")
-    if not st: return
     AntharasManager.getInstance().setCubeSpawn()
+    if not st: return
     st.exitQuest(1)
 
 # Quest class and state definition
