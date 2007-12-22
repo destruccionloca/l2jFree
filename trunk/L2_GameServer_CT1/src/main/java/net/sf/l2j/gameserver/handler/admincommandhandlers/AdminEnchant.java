@@ -100,8 +100,6 @@ public class AdminEnchant implements IAdminCommandHandler
                 armorType = Inventory.PAPERDOLL_NECK;
             else if (command.startsWith("admin_setun"))
                 armorType = Inventory.PAPERDOLL_UNDER;
-            else if (command.startsWith("admin_setba"))
-                armorType = Inventory.PAPERDOLL_BACK;
             
             if (armorType != -1)
             {
@@ -162,8 +160,8 @@ public class AdminEnchant implements IAdminCommandHandler
         } else 
         {
             // for bows and double handed weapons
-            parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
-            if (parmorInstance != null && parmorInstance.getEquipSlot() == Inventory.PAPERDOLL_LRHAND)
+            parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
+            if (parmorInstance != null && parmorInstance.getEquipSlot() == Inventory.PAPERDOLL_RHAND)
                 itemInstance = parmorInstance;
         }
         
