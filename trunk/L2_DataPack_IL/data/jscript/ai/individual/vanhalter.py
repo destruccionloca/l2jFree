@@ -15,7 +15,7 @@ class vanhalter(JQuest):
     npcId = npc.getNpcId()
     if npcId == 29062 :
       maxHp = npc.getMaxHp()
-      curHp = npc.getCurrentHp()
+      curHp = npc.getStatus().getCurrentHp()
       if (curHp / maxHp) * 100 <= 20 :
         VanHalterManager.getInstance().callRoyalGuardHelper()
 
