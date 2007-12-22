@@ -47,13 +47,14 @@ public final class EffectTemplate
 	public final int period; // in seconds
 	public final int abnormalEffect;
 	public FuncTemplate[] funcTemplates;
+    public final int transformId;	
 	
 	public final String stackType;
 	public final float stackOrder;
 	
 	public EffectTemplate(Condition pAttachCond, Condition pApplayCond,
 			String func, Lambda pLambda, int pCounter, int pPeriod, 
-			int pAbnormalEffect, String pStackType, float pStackOrder)
+			int pAbnormalEffect, String pStackType, float pStackOrder, int transform)
 	{
 		attachCond = pAttachCond;
 		applayCond = pApplayCond;
@@ -63,6 +64,7 @@ public final class EffectTemplate
 		abnormalEffect = pAbnormalEffect;
 		stackType = pStackType;
 		stackOrder = pStackOrder;
+        transformId = transform;		
 		try
 		{
 			_func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect"+func);

@@ -1,15 +1,11 @@
 /*
- * This program is free software; you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
+ * This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 2, or (at your option) any later version.
  * 
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along with
- * this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+ * You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place - Suite 330, Boston, MA 02111-1307, USA.
  * 
  * http://www.gnu.org/copyleft/gpl.html
@@ -51,6 +47,7 @@ import net.sf.l2j.gameserver.datatables.StaticObjects;
 import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
+import net.sf.l2j.gameserver.datatables.TransformationsTable;
 import net.sf.l2j.gameserver.geoeditorcon.GeoEditorListener;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
@@ -172,6 +169,7 @@ public class GameServer
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
 		SkillTable.getInstance();
+		TransformationsTable.getInstance();
 		NobleSkillTable.getInstance();
 		_log.info("NobleSkills initialized");
 		HeroSkillTable.getInstance();
@@ -326,25 +324,8 @@ public class GameServer
 	public static void printMemUsage()
 	{
 		Util.printSection("Memory");
-		for (String line : getMemUsage())
+		for (String line : Util.getMemUsage())
 			_log.info(line);
-	}
-	
-	public static String[] getMemUsage()
-	{
-		double maxMem = ((long) (Runtime.getRuntime().maxMemory() / 1024)); // maxMemory is the upper limit the jvm can use
-		double allocatedMem = ((long) (Runtime.getRuntime().totalMemory() / 1024)); // totalMemory the size of the current allocation pool
-		double nonAllocatedMem = maxMem - allocatedMem; // non allocated memory till jvm limit
-		double cachedMem = ((long) (Runtime.getRuntime().freeMemory() / 1024)); // freeMemory the unused memory in the allocation pool
-		double usedMem = allocatedMem - cachedMem; // really used memory
-		double useableMem = maxMem - usedMem; // allocated, but non-used and non-allocated memory
-		return new String[] { " - AllowedMemory: " + ((int) (maxMem)) + " KB",
-				"Allocated: " + ((int) (allocatedMem)) + " KB (" + (((double) (Math.round(allocatedMem / maxMem * 1000000))) / 10000) + "%)",
-				"Non-Allocated: " + ((int) (nonAllocatedMem)) + " KB (" + (((double) (Math.round(nonAllocatedMem / maxMem * 1000000))) / 10000) + "%)",
-				"- AllocatedMemory: " + ((int) (allocatedMem)) + " KB",
-				"Used: " + ((int) (usedMem)) + " KB (" + (((double) (Math.round(usedMem / maxMem * 1000000))) / 10000) + "%)",
-				"Unused (cached): " + ((int) (cachedMem)) + " KB (" + (((double) (Math.round(cachedMem / maxMem * 1000000))) / 10000) + "%)",
-				"- UseableMemory: " + ((int) (useableMem)) + " KB (" + (((double) (Math.round(useableMem / maxMem * 1000000))) / 10000) + "%)" };
 	}
 	
 	/**

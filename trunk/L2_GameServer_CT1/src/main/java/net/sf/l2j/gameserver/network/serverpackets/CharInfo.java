@@ -204,50 +204,51 @@ public class CharInfo extends L2GameServerPacket
 			else
 				writeD(_activeChar.getBaseClass());
 			
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIRALL));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HEAD));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_RHAND));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LHAND));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_GLOVES));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_CHEST));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LEGS));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_FEET));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_BACK));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_LRHAND));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR));
-			writeD(_inv.getPaperdollItemDisplayId(Inventory.PAPERDOLL_HAIR2));
-			
-			// c6 new h's
-			writeD(0x00);
-			writeD(0x00);
-			writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_LRHAND));
-			writeD(0x00);
-			writeD(0x00);
-
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			writeD(0x00);
-			
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
+            
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            writeH(0x00);
+            
+            for(int i = 0; i < 20; i++)
+                writeH(0x00);
+            
 			writeD(_activeChar.getPvpFlag());
 			writeD(_activeChar.getKarma());
 	

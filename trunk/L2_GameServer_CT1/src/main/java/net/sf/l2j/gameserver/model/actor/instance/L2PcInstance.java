@@ -31,6 +31,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -56,6 +57,7 @@ import net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendationS
 import net.sf.l2j.gameserver.characters.service.CharRecommendationService;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
+import net.sf.l2j.gameserver.datatables.TransformationsTable.L2Transformation;
 import net.sf.l2j.gameserver.datatables.FishTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
@@ -731,7 +733,9 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _IsWearingFormalWear = false;
 
 	// Current force buff this caster is casting to a target
-	protected ForceBuff _forceBuff;    
+	protected ForceBuff _forceBuff;
+	
+    private L2Transformation _transform;
     
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
@@ -5160,7 +5164,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Unequip the weapon
         L2ItemInstance wpn = getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-        if (wpn == null) wpn = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+        if (wpn == null) wpn = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
         if (wpn != null)
         {
             if (wpn.isWear())
@@ -7352,6 +7356,35 @@ public final class L2PcInstance extends L2PlayableInstance
             // Send a Server->Client packet ActionFailed to the L2PcInstance
             sendPacket(new ActionFailed());
             return;
+        }
+
+        if(skill.getSkillType() == SkillType.TRANSFORM)
+        {
+            boolean found = false;
+            L2Effect al2effect[] = getAllEffects();
+            int i = 0;
+            for(int k = al2effect.length; i < k; i++)
+            {
+                L2Effect ef = al2effect[i];
+                if(ef.getEffectType() == net.sf.l2j.gameserver.model.L2Effect.EffectType.TRANSFORM)
+                    found = true;
+            }
+
+            if(found)
+            {
+            	sendPacket(new SystemMessage(1518));
+                return;
+            }
+            if(getPet() != null)
+            {
+            	sendPacket(new SystemMessage(1518));
+                return;
+            }
+            if(isRiding() || isFlying())
+            {
+            	sendPacket(new SystemMessage(1518));
+                return;
+            }
         }
 
         // Check if the spell consummes an Item
@@ -11180,4 +11213,32 @@ public final class L2PcInstance extends L2PlayableInstance
 	public void updateFOSTitleFlag(){
 		FortressSiege.setTitleSiegeFlags(this);
 	}
+	
+    public boolean isKamaelic()
+    {
+        return getRace() == Race.kamael;
+    }
+    
+    public boolean isTransformed()
+    {
+        return _transform != null;
+    }
+    
+    public L2Transformation getTransform()
+    {
+        return _transform;
+    }
+
+    public void setTransform(L2Transformation t)
+    {
+        _transform = t;
+        broadcastUserInfo();
+    }
+
+    public void untransform()
+    {
+        _transform = null;
+        broadcastUserInfo();
+    }
+    
 }

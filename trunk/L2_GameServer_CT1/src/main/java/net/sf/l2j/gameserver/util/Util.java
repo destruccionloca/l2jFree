@@ -50,6 +50,23 @@ import org.python.util.InteractiveConsole;
  */
 public final class Util
 {
+	public static String[] getMemUsage()
+	{
+		double maxMem = ((long) (Runtime.getRuntime().maxMemory() / 1024)); // maxMemory is the upper limit the jvm can use
+		double allocatedMem = ((long) (Runtime.getRuntime().totalMemory() / 1024)); // totalMemory the size of the current allocation pool
+		double nonAllocatedMem = maxMem - allocatedMem; // non allocated memory till jvm limit
+		double cachedMem = ((long) (Runtime.getRuntime().freeMemory() / 1024)); // freeMemory the unused memory in the allocation pool
+		double usedMem = allocatedMem - cachedMem; // really used memory
+		double useableMem = maxMem - usedMem; // allocated, but non-used and non-allocated memory
+		return new String[] { " - AllowedMemory: " + ((int) (maxMem)) + " KB",
+				"Allocated: " + ((int) (allocatedMem)) + " KB (" + (((double) (Math.round(allocatedMem / maxMem * 1000000))) / 10000) + "%)",
+				"Non-Allocated: " + ((int) (nonAllocatedMem)) + " KB (" + (((double) (Math.round(nonAllocatedMem / maxMem * 1000000))) / 10000) + "%)",
+				"- AllocatedMemory: " + ((int) (allocatedMem)) + " KB",
+				"Used: " + ((int) (usedMem)) + " KB (" + (((double) (Math.round(usedMem / maxMem * 1000000))) / 10000) + "%)",
+				"Unused (cached): " + ((int) (cachedMem)) + " KB (" + (((double) (Math.round(cachedMem / maxMem * 1000000))) / 10000) + "%)",
+				"- UseableMemory: " + ((int) (useableMem)) + " KB (" + (((double) (Math.round(useableMem / maxMem * 1000000))) / 10000) + "%)" };
+	}
+	
     public static void JythonShell() 
     {
         InteractiveConsole interp = null;

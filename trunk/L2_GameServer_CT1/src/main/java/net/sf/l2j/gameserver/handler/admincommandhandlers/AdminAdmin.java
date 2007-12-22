@@ -48,6 +48,7 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class handles following admin commands:
@@ -72,7 +73,7 @@ public class AdminAdmin implements IAdminCommandHandler
 				// L2J-FREE
 				"admin_camera",	// test for moviemode.
 				"admin_reload_config", "admin_config_server",
-				"admin_summon", "admin_unsummon"};
+				"admin_summon", "admin_unsummon", "admin_memusage"};
 
 	private static final int REQUIRED_LEVEL = Config.GM_MENU;
 
@@ -285,6 +286,13 @@ public class AdminAdmin implements IAdminCommandHandler
 					adminSummon(activeChar, npcId);
 			}catch(Exception e){
 				activeChar.sendMessage("Usage: //summon <npcid>");
+			}
+		}
+		else if(command.startsWith("admin_memsuage"))
+		{
+			for (String line : Util.getMemUsage())
+			{
+				activeChar.sendMessage(line);
 			}
 		}
 		else if(command.startsWith("admin_unsummon"))

@@ -2411,6 +2411,42 @@ public final class Config
 			throw new Error("Failed to Load " + BOSS_FILE + " File.");
 		}
 	}
+
+	// *******************************************************************************************
+	public static final String	KAMAEL_FILE	= "./config/kamael.properties";
+	// *******************************************************************************************
+    public static boolean KAMAEL_CAN_USE_HEAVY;
+    public static boolean KAMAEL_CAN_USE_MAGIC;
+    public static boolean KAMAEL_CAN_USE_SHIELD;
+    public static boolean HUMAN_CAN_USE_RAPIER;
+    public static boolean HUMAN_CAN_USE_ANCIENT;
+    public static boolean HUMAN_CAN_USE_CROSSBOW;
+	
+	// *******************************************************************************************
+	public static void loadKamaelConfig()
+	{
+		_log.info("loading " + KAMAEL_FILE);
+		try
+		{
+			Properties kamaelSettings = new L2Properties();
+			InputStream is = new FileInputStream(new File(KAMAEL_FILE));
+			kamaelSettings.load(is);
+			is.close();
+			
+			KAMAEL_CAN_USE_HEAVY  = Boolean.parseBoolean(kamaelSettings.getProperty("KamaelCanUseHeavy", "False")); 
+			KAMAEL_CAN_USE_MAGIC  = Boolean.parseBoolean(kamaelSettings.getProperty("KamaelCanUseMagic", "False"));
+			KAMAEL_CAN_USE_SHIELD = Boolean.parseBoolean(kamaelSettings.getProperty("KamaelCanUseShield", "False"));
+			HUMAN_CAN_USE_ANCIENT  = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseAncient", "False")); 
+			HUMAN_CAN_USE_RAPIER  = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseRapier", "False"));
+			HUMAN_CAN_USE_CROSSBOW = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseCrossbow", "False"));
+		}
+		catch (Exception e)
+		{
+			_log.error(e.getMessage(), e);
+			throw new Error("Failed to Load " + KAMAEL_FILE + " File.");
+		}
+	}
+	
 	
 	// *******************************************************************************************
 	public static final String	LOG_FILE		= "./config/logging.properties";
