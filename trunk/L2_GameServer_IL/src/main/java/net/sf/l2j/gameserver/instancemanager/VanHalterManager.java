@@ -234,7 +234,7 @@ public class VanHalterManager
         }
         catch (Exception e)
         {
-            _log.warn("VanHaletrManager : " + e.getMessage());
+            _log.warn("VanHalterManager : " + e.getMessage());
         }
         
     	// set time up.
@@ -246,15 +246,15 @@ public class VanHalterManager
 		_SetBleedTask = ThreadPoolManager.getInstance().scheduleEffect(new Bleeding(),2000);
 
 		// check state of High Priestess van Halter.
-		_log.info("VanHaletrManager : State of High Priestess van Halter is " + _State.getState() + ".");
+		_log.info("VanHalterManager : State of High Priestess van Halter is " + _State.getState() + ".");
 		if (_State.getState().equals(GrandBossState.StateEnum.INTERVAL))
 			enterInterval();
 		else
 			_State.setState(GrandBossState.StateEnum.NOTSPAWN);
 		
 		Date dt = new Date(_State.getRespawnDate());
-		_log.info("VanHaletrManager : Next spawn date of High Priestess van Halter is " + dt + ".");
-        _log.info("VanHaletrManager : init VanHaletrManager.");
+		_log.info("VanHalterManager : Next spawn date of High Priestess van Halter is " + dt + ".");
+        _log.info("VanHalterManager : init VanHalterManager.");
     }
     
     // return High Priestess van Halter state.
@@ -304,18 +304,18 @@ public class VanHalterManager
                 	_RoyalGuardSpawn.add(spawnDat);
                 }
                 else {
-                    _log.warn("VanHaletrManager.loadRoyalGuard: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+                    _log.warn("VanHalterManager.loadRoyalGuard: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
                 }
             }
 
             rset.close();
             statement.close();
-            _log.info("VanHaletrManager.loadRoyalGuard: Loaded " + _RoyalGuardSpawn.size() + " Royal Guard spawn locations.");
+            _log.info("VanHalterManager.loadRoyalGuard: Loaded " + _RoyalGuardSpawn.size() + " Royal Guard spawn locations.");
         }
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warn("VanHaletrManager.loadRoyalGuard: Spawn could not be initialized: " + e);
+            _log.warn("VanHalterManager.loadRoyalGuard: Spawn could not be initialized: " + e);
         }
         finally
         {
@@ -380,18 +380,18 @@ public class VanHalterManager
                 	_ToriolRevelationSpawn.add(spawnDat);
                 }
                 else {
-                    _log.warn("VanHaletrManager.loadToriolRevelation: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+                    _log.warn("VanHalterManager.loadToriolRevelation: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
                 }
             }
 
             rset.close();
             statement.close();
-            _log.info("VanHaletrManager.loadToriolRevelation: Loaded " + _ToriolRevelationSpawn.size() + " Triol's Revelation spawn locations.");
+            _log.info("VanHalterManager.loadToriolRevelation: Loaded " + _ToriolRevelationSpawn.size() + " Triol's Revelation spawn locations.");
         }
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warn("VanHaletrManager.loadToriolRevelation: Spawn could not be initialized: " + e);
+            _log.warn("VanHalterManager.loadToriolRevelation: Spawn could not be initialized: " + e);
         }
         finally
         {
@@ -461,18 +461,18 @@ public class VanHalterManager
                 	_RoyalGuardCaptainSpawn.add(spawnDat);
                 }
                 else {
-                    _log.warn("VanHaletrManager.loadRoyalGuardCaptain: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+                    _log.warn("VanHalterManager.loadRoyalGuardCaptain: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
                 }
             }
 
             rset.close();
             statement.close();
-            _log.info("VanHaletrManager.loadRoyalGuardCaptain: Loaded " + _RoyalGuardCaptainSpawn.size() + " Royal Guard Captain spawn locations.");
+            _log.info("VanHalterManager.loadRoyalGuardCaptain: Loaded " + _RoyalGuardCaptainSpawn.size() + " Royal Guard Captain spawn locations.");
         }
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warn("VanHaletrManager.loadRoyalGuardCaptain: Spawn could not be initialized: " + e);
+            _log.warn("VanHalterManager.loadRoyalGuardCaptain: Spawn could not be initialized: " + e);
         }
         finally
         {
@@ -538,18 +538,18 @@ public class VanHalterManager
                 	_RoyalGuardHelperSpawn.add(spawnDat);
                 }
                 else {
-                    _log.warn("VanHaletrManager.loadRoyalGuardHelper: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+                    _log.warn("VanHalterManager.loadRoyalGuardHelper: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
                 }
             }
 
             rset.close();
             statement.close();
-            _log.info("VanHaletrManager.loadRoyalGuardHelper: Loaded " + _RoyalGuardHelperSpawn.size() + " Royal Guard Helper spawn locations.");
+            _log.info("VanHalterManager.loadRoyalGuardHelper: Loaded " + _RoyalGuardHelperSpawn.size() + " Royal Guard Helper spawn locations.");
         }
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warn("VanHaletrManager.loadRoyalGuardHelper: Spawn could not be initialized: " + e);
+            _log.warn("VanHalterManager.loadRoyalGuardHelper: Spawn could not be initialized: " + e);
         }
         finally
         {
@@ -612,18 +612,18 @@ public class VanHalterManager
                 	_GuardOfAltarSpawn.add(spawnDat);
                 }
                 else {
-                    _log.warn("VanHaletrManager.loadGuardOfAltar: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+                    _log.warn("VanHalterManager.loadGuardOfAltar: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
                 }
             }
 
             rset.close();
             statement.close();
-            _log.info("VanHaletrManager.loadGuardOfAltar: Loaded " + _GuardOfAltarSpawn.size() + " Guard Of Altar spawn locations.");
+            _log.info("VanHalterManager.loadGuardOfAltar: Loaded " + _GuardOfAltarSpawn.size() + " Guard Of Altar spawn locations.");
         }
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warn("VanHaletrManager.loadGuardOfAltar: Spawn could not be initialized: " + e);
+            _log.warn("VanHalterManager.loadGuardOfAltar: Spawn could not be initialized: " + e);
         }
         finally
         {
@@ -689,18 +689,18 @@ public class VanHalterManager
                 	_vanHalterSpawn = spawnDat;
                 }
                 else {
-                    _log.warn("VanHaletrManager.loadVanHalter: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+                    _log.warn("VanHalterManager.loadVanHalter: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
                 }
             }
 
             rset.close();
             statement.close();
-            _log.info("VanHaletrManager.loadVanHalter: Loaded High Priestess van Halter spawn locations.");
+            _log.info("VanHalterManager.loadVanHalter: Loaded High Priestess van Halter spawn locations.");
         }
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warn("VanHaletrManager.loadVanHalter: Spawn could not be initialized: " + e);
+            _log.warn("VanHalterManager.loadVanHalter: Spawn could not be initialized: " + e);
         }
         finally
         {
@@ -758,18 +758,18 @@ public class VanHalterManager
                 	_RitualOfferingSpawn = spawnDat;
                 }
                 else {
-                    _log.warn("VanHaletrManager.loadRitualOffering: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+                    _log.warn("VanHalterManager.loadRitualOffering: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
                 }
             }
 
             rset.close();
             statement.close();
-            _log.info("VanHaletrManager.loadRitualOffering: Loaded Ritual Offering spawn locations.");
+            _log.info("VanHalterManager.loadRitualOffering: Loaded Ritual Offering spawn locations.");
         }
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warn("VanHaletrManager.loadRitualOffering: Spawn could not be initialized: " + e);
+            _log.warn("VanHalterManager.loadRitualOffering: Spawn could not be initialized: " + e);
         }
         finally
         {
@@ -828,18 +828,18 @@ public class VanHalterManager
                 	_RitualSacrificeSpawn = spawnDat;
                 }
                 else {
-                    _log.warn("VanHaletrManager.loadRitualSacrifice: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
+                    _log.warn("VanHalterManager.loadRitualSacrifice: Data missing in NPC table for ID: " + rset.getInt("npc_templateid") + ".");
                 }
             }
 
             rset.close();
             statement.close();
-            _log.info("VanHaletrManager.loadRitualSacrifice: Loaded Ritual Sacrifice spawn locations.");
+            _log.info("VanHalterManager.loadRitualSacrifice: Loaded Ritual Sacrifice spawn locations.");
         }
         catch (Exception e)
         {
             // problem with initializing spawn, go to next one
-            _log.warn("VanHaletrManager.loadRitualSacrifice: Spawn could not be initialized: " + e);
+            _log.warn("VanHalterManager.loadRitualSacrifice: Spawn could not be initialized: " + e);
         }
         finally
         {
