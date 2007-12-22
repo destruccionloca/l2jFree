@@ -87,10 +87,9 @@
 </skill>
 <skill id="5006" levels="1" name="Frintezza's Melody">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+	Implemented on Java Core
   Description(s):
-      A general performance.
+      A general performance. Starts the symphony when the raid movie begins.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -101,8 +100,7 @@
 </skill>
 <skill id="5007" levels="5" name="Frintezza's Songs">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+	Implemented on Java Core
   Description(s):
       Lvl 1 - Frintezza's Healing Rhapsody      Music to soothe the soul.
       Lvl 2 - Frintezza's Rampaging Opus        A Consecutive Dash + Portrait Replay Performance
@@ -119,8 +117,7 @@
 </skill>
 <skill id="5008" levels="5" name="Frintezza's Songs">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+	Implemented on Java Core
   Description(s):
       Lvl 1 - Frintezza's Concert Hall Melody        Music that makes you feel oh so good inside.
       Lvl 2 - Frintezza's Rampaging Opus en masse    Consecutive Dash + Portrait Replay Performance
@@ -128,11 +125,17 @@
       Lvl 4 - Mournful Chorale Prelude               Instantly decreases the effect of HP regeneration magic.
       Lvl 5 - Hypnotic Mazurka                       Instantly immobilizes the target by making it dance involuntarily.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="reuseDelay" val="0"/>
+  <set name="hitTime" val="0"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="0"/>
   <for>
+    <effect count="1" name="Buff" time="15" val="0"/>
   </for>
 </skill>
 <skill id="5009" levels="1" name="Frintezza's Ghostly Fighter">
