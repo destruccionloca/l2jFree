@@ -21,6 +21,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.FrintezzaManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
@@ -38,7 +39,7 @@ public class AdminDelete implements IAdminCommandHandler
 {
     //private final static Log _log = LogFactory.getLog(AdminDelete.class.getName());
 
-    private static final String[] ADMIN_COMMANDS = {"admin_delete"};
+    private static final String[] ADMIN_COMMANDS = {"admin_delete" , "admin_frintezza" };
 
     private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 
@@ -50,7 +51,15 @@ public class AdminDelete implements IAdminCommandHandler
         }
 
         if (command.equals("admin_delete")) handleDelete(activeChar);
+
+        else if (command.equals("admin_frintezza"))
+        {
+			activeChar.sendMessage("Frintezza was Initialized.");
+        	FrintezzaManager.getInstance().setScarletSpawnTask();
+        }
+        
         return true;
+        
     }
 
     public String[] getAdminCommandList()

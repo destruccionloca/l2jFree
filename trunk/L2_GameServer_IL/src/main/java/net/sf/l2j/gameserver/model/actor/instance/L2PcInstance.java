@@ -79,6 +79,7 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
+import net.sf.l2j.gameserver.instancemanager.FrintezzaManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -939,13 +940,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Create a L2Radar object
         _radar = new L2Radar(this);
-
-        // Retrieve from the database all skills of this L2PcInstance and add them to _skills
-        // Retrieve from the database all items of this L2PcInstance and add them to _inventory
-        getInventory().restore();
-        if (!Config.WAREHOUSE_CACHE)
-            getWarehouse();
-        getFreight().restore();
+        
     }
 
     private L2PcInstance(int objectId)
@@ -4316,6 +4311,8 @@ public final class L2PcInstance extends L2PlayableInstance
             ValakasManager.getInstance().checkAnnihilated();
         else if (BaiumManager.getInstance().checkIfInZone(this))
             BaiumManager.getInstance().checkAnnihilated();
+        else if (FrintezzaManager.getInstance().checkIfInZone(this))
+            FrintezzaManager.getInstance().checkAnnihilated();
 
         return true;
     }
@@ -5933,6 +5930,13 @@ public final class L2PcInstance extends L2PlayableInstance
             {
             }
         }
+        
+        //Retrieve from the database all items of this L2PcInstance and add them to _inventory
+        player.getInventory().restore();
+        if (!Config.WAREHOUSE_CACHE)
+            player.getWarehouse();
+        player.getFreight().restore();
+        
         return player;
     }
 

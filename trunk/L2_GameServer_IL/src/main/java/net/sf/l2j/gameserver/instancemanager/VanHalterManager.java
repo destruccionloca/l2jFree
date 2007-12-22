@@ -45,6 +45,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.entity.GrandBossState;
+import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.serverpackets.MagicSkillUser;
@@ -114,6 +116,8 @@ public class VanHalterManager
     boolean _isCaptainSpawned = false;
     boolean _isHelperCalled = false;
     protected GrandBossState _State = new GrandBossState(29062);
+    protected IZone  _zone;
+    protected String _zoneName;
     
     public VanHalterManager()
     {
@@ -132,6 +136,7 @@ public class VanHalterManager
     {
     	// clear intruder.
     	_PlayersInLair.clear();
+    	_zoneName = "Altar of Sacrifice";
 
     	// clear flag.
         _isLocked = false;
@@ -256,6 +261,13 @@ public class VanHalterManager
     public GrandBossState.StateEnum getState()
     {
     	return _State.getState();
+    }
+    
+    public boolean checkIfInZone(L2PcInstance pc)
+    {
+    	if ( _zone == null )
+    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDungeon, _zoneName );
+    	return _zone.checkIfInZone(pc);
     }
 
     // load Royal Guard.
