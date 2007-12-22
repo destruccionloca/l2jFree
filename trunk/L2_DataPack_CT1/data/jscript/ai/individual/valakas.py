@@ -39,8 +39,8 @@ class valakas(JQuest):
 
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("valakas")
-    if not st: return
     ValakasManager.getInstance().setCubeSpawn()
+    if not st: return
     st.exitQuest(1)
 
 # Quest class and state definition

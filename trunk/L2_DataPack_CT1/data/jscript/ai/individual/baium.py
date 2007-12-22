@@ -38,8 +38,8 @@ class baium (JQuest):
 
   def onKill(self,npc,player,isPet):
     st = player.getQuestState("baium")
-    if not st: return
     BaiumManager.getInstance().setCubeSpawn()
+    if not st: return
     st.exitQuest(1)
 
 # Quest class and state definition
