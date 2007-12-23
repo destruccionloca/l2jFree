@@ -73,7 +73,7 @@ public class RequestHennaEquip extends L2GameClientPacket
 		if ((_count >= temp.getAmountDyeRequire())&& (activeChar.getAdena()>= temp.getPrice()) && activeChar.addHenna(temp))
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-			sm.addItemName(temp.getItemIdDye());
+			sm.addItemNameById(temp.getItemIdDye());
 			activeChar.sendPacket(sm);
 			sm = null;			
 			activeChar.reduceAdena("Henna", temp.getPrice(), activeChar.getLastFolkNPC(), true);

@@ -20,7 +20,9 @@ package net.sf.l2j.gameserver.serverpackets;
 
 import java.util.Vector;
 
+import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.templates.L2Item;
 
 /**
  * This class ...
@@ -85,7 +87,29 @@ public class SystemMessage extends L2GameServerPacket
 		return this;
 	}
 
-	public SystemMessage addItemName(int id)
+	public SystemMessage addItemName(L2ItemInstance item)
+	{
+		return addItemName(item.getItem());
+	}
+
+	public SystemMessage addItemName(L2Item item)
+	{
+		if(item.getItemDisplayId() == item.getItemId())
+		{
+			_types.add(new Integer(TYPE_ITEM_NAME));
+			_values.add(new Integer(item.getItemId()));
+		}
+		else
+		{
+			// Custom item - send custom name
+			_types.add(new Integer(TYPE_TEXT));
+			_values.add(item.getName());
+		}
+		
+		return this;
+	}
+
+	public SystemMessage addItemNameById(int id)
 	{
 		_types.add(new Integer(TYPE_ITEM_NAME));
 		_values.add(new Integer(id));
@@ -139,7 +163,7 @@ public class SystemMessage extends L2GameServerPacket
 				case TYPE_ITEM_NAME:
 				{
 					int t1 = ((Integer)_values.get(i)).intValue();
-					writeD(t1);	
+					writeD(t1);
 					break;
 				}
 				case TYPE_SKILL_NAME:
@@ -154,9 +178,9 @@ public class SystemMessage extends L2GameServerPacket
 					int t1 = ((int[])_values.get(i))[0];
 					int t2 = ((int[])_values.get(i))[1];
 					int t3 = ((int[])_values.get(i))[2];
-					writeD(t1);	
-					writeD(t2);	
-					writeD(t3);	
+					writeD(t1);
+					writeD(t2);
+					writeD(t3);
 					break;
 				}
 			}

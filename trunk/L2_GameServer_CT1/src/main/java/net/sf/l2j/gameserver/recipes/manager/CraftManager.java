@@ -186,7 +186,7 @@ public class CraftManager
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
             sm.addString("You are busy creating ");
-            sm.addItemName(recipe.getItemId());
+            sm.addItemNameById(recipe.getItemId());
             player.sendPacket(sm);
             return;
         }

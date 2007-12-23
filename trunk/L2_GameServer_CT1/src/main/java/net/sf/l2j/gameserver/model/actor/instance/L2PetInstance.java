@@ -155,7 +155,7 @@ public class L2PetInstance extends L2Summon
                         if (_ownerInventory)
                         {
                             SystemMessage sm = new SystemMessage(SystemMessageId.PET_TOOK_S1_BECAUSE_HE_WAS_HUNGRY);
-                            sm.addItemName(foodId);
+                            sm.addItemName(food);
                             getOwner().sendPacket(sm);
                         }
 
@@ -385,7 +385,7 @@ public class L2PetInstance extends L2Summon
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
             sm.addNumber(count);
-            sm.addItemName(item.getItemId());
+            sm.addItemName(item);
             getOwner().sendPacket(sm);
         }
         return true;
@@ -419,7 +419,7 @@ public class L2PetInstance extends L2Summon
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
             sm.addNumber(count);
-            sm.addItemName(itemId);
+            sm.addItemName(item);
             getOwner().sendPacket(sm);
         }
         
@@ -447,25 +447,24 @@ public class L2PetInstance extends L2Summon
        }
        
         L2ItemInstance target = (L2ItemInstance) object;
-    	
+
        // Herbs
         if ( target.getItemId() > 8599 && target.getItemId() < 8615 )
        {
            SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
-           smsg.addItemName(target.getItemId());
-           getOwner().sendPacket(smsg);            
+           smsg.addItemName(target);
+           getOwner().sendPacket(smsg);
            return;
         }
         
        // Cursed weapons
-       if ( CursedWeaponsManager.getInstance().isCursed(target.getItemId()) )   
+       if ( CursedWeaponsManager.getInstance().isCursed(target.getItemId()) )
        {
            SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
-            smsg.addItemName(target.getItemId());
+            smsg.addItemName(target);
             getOwner().sendPacket(smsg);
            return;
        }
-
 
        int weight=ItemTable.getInstance().getTemplate(target.getItemId()).getWeight() * target.getCount();
        
@@ -496,14 +495,14 @@ public class L2PetInstance extends L2Summon
                 else if (target.getCount() > 1)
                 {
                     SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S2_S1_S);
-                    smsg.addItemName(target.getItemId());
+                    smsg.addItemName(target);
                     smsg.addNumber(target.getCount());
                     getOwner().sendPacket(smsg);
                 }
                 else
                 {
                     SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
-                    smsg.addItemName(target.getItemId());
+                    smsg.addItemName(target);
                     getOwner().sendPacket(smsg);
                 }
                 

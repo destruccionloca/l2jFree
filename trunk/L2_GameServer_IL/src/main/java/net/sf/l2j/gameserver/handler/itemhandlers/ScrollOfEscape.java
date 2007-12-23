@@ -150,7 +150,7 @@ public class ScrollOfEscape implements IItemHandler
 		// End SoE Animation section
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
-		sm.addItemName(itemId);
+		sm.addItemName(item);
 		activeChar.sendPacket(sm);
 
 		EscapeFinalizer ef = new EscapeFinalizer(activeChar, itemId);

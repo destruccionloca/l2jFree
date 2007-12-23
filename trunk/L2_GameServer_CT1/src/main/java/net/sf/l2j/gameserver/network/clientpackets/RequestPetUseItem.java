@@ -72,7 +72,7 @@ public class RequestPetUseItem extends L2GameClientPacket
         if (activeChar.isAlikeDead() || pet.isDead()) 
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-            sm.addItemName(item.getItemId());
+            sm.addItemName(item);
             activeChar.sendPacket(sm);
             return;
         }

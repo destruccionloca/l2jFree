@@ -1395,14 +1395,14 @@ public class FortressSiege
 					if (_rewardAmount > 1)
 					{
 						sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-						sm.addItemName(_rewardId);
+						sm.addItemNameById(_rewardId);
 						sm.addNumber(_rewardAmount);
 						player.sendPacket(sm);
 					}
 					else
 					{
 						sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-						sm.addItemName(_rewardId);
+						sm.addItemNameById(_rewardId);
 						player.sendPacket(sm);
 					}
 					StatusUpdate su = new StatusUpdate(player.getObjectId());

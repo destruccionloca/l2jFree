@@ -92,73 +92,73 @@ public class Potions implements IItemHandler
 
 	        // Healing and speed potions
         	case 65: // red_potion, xml: 2001
-				if (!isUseable(activeChar,itemId,2001)) 
+				if (!isUseable(activeChar,item, 2001)) 
 					return;
 	            res = usePotion(activeChar, 2001, 1);
 	            break;
         	case 725: // healing_drug, xml: 2002
-        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId, 2002))
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, item, 2002))
         			return;
 	            res = usePotion(activeChar, 2002, 1);
 	            break;
         	case 727: // _healing_potion, xml: 2032
-        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId,2032))
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, item,2032))
         			return;
  				res = usePotion(activeChar, 2032, 1);
 	            break;
         	case 733: //_Endeavor potion, xml: 2010
-				if (!isUseable(activeChar,itemId,2010)) 
+				if (!isUseable(activeChar,item, 2010))
 					return;
 	            res = usePotion(activeChar, 2010, 1);
 	            break;
         	case 734: // quick_step_potion, xml: 2011
-				if (!isUseable(activeChar,itemId,2011)) 
+				if (!isUseable(activeChar,item, 2011))
 					return;
 	            res = usePotion(activeChar, 2011, 1);
 	            break;
         	case 735: // swift_attack_potion, xml: 2012
-				if (!isUseable(activeChar,itemId,2012)) 
+				if (!isUseable(activeChar,item, 2012))
 					return;
 	            res = usePotion(activeChar, 2012, 1);
 	            break;
         	case 1060: // lesser_healing_potion,
         	case 1073: // beginner's potion, xml:
-        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId,2031))
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, item, 2031))
         			return;
  				res = usePotion(activeChar, 2031, 1);
 	            break;
         	case 1061: // healing_potion, xml: 2032
-        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId,2032))
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, item, 2032))
         			return;
  				res = usePotion(activeChar, 2032, 1);
 	            break;
         	case 1062: // haste_potion, xml: 2033
-				if (!isUseable(activeChar,itemId,2033)) 
+				if (!isUseable(activeChar, item, 2033))
 					return;
 	            res = usePotion(activeChar, 2033, 1);
 	            break;
         	case 1374: // adv_quick_step_potion, xml: 2034
-				if (!isUseable(activeChar,itemId,2034)) 
+				if (!isUseable(activeChar, item, 2034))
 					return;
 	            res = usePotion(activeChar, 2034, 1);
 	            break;
         	case 1375: // adv_swift_attack_potion, xml: 2035
-				if (!isUseable(activeChar,itemId,2035)) 
+				if (!isUseable(activeChar, item, 2035))
 					return;
 	            res = usePotion(activeChar, 2035, 1);
 	            break;
         	case 1539: // greater_healing_potion, xml: 2037
-        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId, 2037))
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, item, 2037))
         			return;
  				res = usePotion(activeChar, 2037, 1);
 	            break;
         	case 1540: // quick_healing_potion, xml: 2038
-        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId, 2038))
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, item, 2038))
         			return;
  				res = usePotion(activeChar, 2038, 1);
 	            break;
         	case 5283: // Rice Cake, xml: 2136
-        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, itemId,2136)) 
+        		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, item, 2136))
         			return;
  				MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2136, 1, 1, 0);
 	            activeChar.broadcastPacket(MSU);
@@ -167,13 +167,13 @@ public class Potions implements IItemHandler
         	case 5591: // CP and Greater CP
         	case 5592: // Potion
 				// elixir of Mental Strength
-				if (!isUseable(activeChar, L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME, itemId,2166)) 
+				if (!isUseable(activeChar, L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME, item, 2166))
 					return;
  				res = usePotion(activeChar, 2166, (itemId == 5591) ? 1 : 2);
 	            break;
         	case 6035:
         	case 6036: // Magic Haste Potion, xml: 2169
-				if (!isUseable(activeChar,itemId,2169)) 
+				if (!isUseable(activeChar, item, 2169)) 
 					return;
         		res = usePotion(activeChar, 2169, (itemId == 6035) ? 1 : 2);
         		break;
@@ -185,7 +185,7 @@ public class Potions implements IItemHandler
             case 8626:  
             case 8627:
             	// elixir of Life
-        		if (!isUseable(activeChar,itemId, 2136)) 
+        		if (!isUseable(activeChar, item, 2136))
         			return;
 				if ( 
 						(itemId == 8622 && activeChar.getExpertiseIndex()==0) ||
@@ -199,7 +199,7 @@ public class Potions implements IItemHandler
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE);
-					sm.addItemName(itemId);
+					sm.addItemName(item);
 					activeChar.sendPacket(sm);
 					return;
 				}
@@ -211,7 +211,7 @@ public class Potions implements IItemHandler
             case 8632:  
             case 8633: 
                 // elixir of Strength
-        		if (!isUseable(activeChar,itemId, 2288)) 
+        		if (!isUseable(activeChar, item, 2288))
         			return;
                 if (				
 						(itemId == 8628 && activeChar.getExpertiseIndex()==0) ||
@@ -225,7 +225,7 @@ public class Potions implements IItemHandler
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE);
-					sm.addItemName(itemId);
+					sm.addItemName(item);
 					activeChar.sendPacket(sm);
 					return;
 				}		
@@ -237,7 +237,7 @@ public class Potions implements IItemHandler
             case 8638:  
             case 8639: 
                 // elixir of cp
-        		if (!isUseable(activeChar,itemId, 2289)) 
+        		if (!isUseable(activeChar, item, 2289))
         			return;
                 if (  
              	 		(itemId == 8634 && activeChar.getExpertiseIndex()==0) ||
@@ -251,7 +251,7 @@ public class Potions implements IItemHandler
 				else
 				{
 					SystemMessage sm = new SystemMessage(SystemMessageId.INCOMPATIBLE_ITEM_GRADE);
-					sm.addItemName(itemId);
+					sm.addItemName(item);
 					activeChar.sendPacket(sm);
 					return;
 				}			
@@ -397,7 +397,7 @@ public class Potions implements IItemHandler
             playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
     }
 
-    private boolean isEffectReplaceable(L2PcInstance activeChar, Enum effectType, int itemId)
+    private boolean isEffectReplaceable(L2PcInstance activeChar, Enum effectType, L2ItemInstance item)
 	{
 		L2Effect[] effects = activeChar.getAllEffects();
 		
@@ -411,7 +411,7 @@ public class Potions implements IItemHandler
 				// It would be faster to check if its > 10 but that would screw custom pot durations...
 				if (e.getElapsedTaskTime() > (e.getTotalTaskTime() * 2 / 3)) return true;
 				SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-				sm.addItemName(itemId);
+				sm.addItemName(item);
 				activeChar.sendPacket(sm);
 				return false;
 			}
@@ -419,21 +419,21 @@ public class Potions implements IItemHandler
 		return true;
 	}
 
-    private boolean isUseable(L2PcInstance activeChar, int itemId, int skillid)
+    private boolean isUseable(L2PcInstance activeChar, L2ItemInstance item, int skillid)
     {
     	if (activeChar.isSkillDisabled(skillid))
     	{
     		SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
-    		sm.addItemName(itemId);
+    		sm.addItemName(item);
     		activeChar.sendPacket(sm);
     		return false;
     	}
     	return true;
     }
     
-    private boolean isUseable(L2PcInstance activeChar, Enum effectType, int itemId,int skillid)
+    private boolean isUseable(L2PcInstance activeChar, Enum effectType, L2ItemInstance item,int skillid)
     {
-    	return (isEffectReplaceable(activeChar,effectType,itemId) && isUseable(activeChar,itemId,skillid));
+    	return (isEffectReplaceable(activeChar,effectType,item) && isUseable(activeChar,item,skillid));
     }
 
     public boolean usePotion(L2PcInstance activeChar, int magicId, int level)

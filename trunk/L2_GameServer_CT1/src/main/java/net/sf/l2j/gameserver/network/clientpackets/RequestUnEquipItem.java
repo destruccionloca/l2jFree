@@ -92,7 +92,7 @@ public class RequestUnEquipItem extends L2GameClientPacket
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 
 		
 		for (L2ItemInstance element : unequiped) {
-            activeChar.checkSSMatch(null, element);			
+            activeChar.checkSSMatch(null, element);
             activeChar.getInventory().updateInventory(element);
 		}
 		activeChar.broadcastUserInfo();
@@ -106,12 +106,12 @@ public class RequestUnEquipItem extends L2GameClientPacket
             {
             	sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
             	sm.addNumber(unequiped[0].getEnchantLevel());
-            	sm.addItemName(unequiped[0].getItemId());
+            	sm.addItemName(unequiped[0]);
             }
             else
             {
 	            sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-	            sm.addItemName(unequiped[0].getItemId());
+	            sm.addItemName(unequiped[0]);
             }
             activeChar.sendPacket(sm);
             sm = null;

@@ -356,7 +356,7 @@ public class RecipeItemMaker implements Runnable
             {
                 SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED); // you equipped ...
                 sm.addNumber(count);
-                sm.addItemName(item.getItemId());
+                sm.addItemNameById(item.getItemId());
                 player.sendPacket(sm);
             } 
             else target.sendMessage("Manufacturer " + player.getName() + " used " + count + " "

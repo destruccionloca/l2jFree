@@ -295,14 +295,14 @@ public final class L2UrnInstance extends L2FolkInstance
             if (count > 1)
             {
                 SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-                smsg.addItemName(item.getItemId());
+                smsg.addItemName(item);
                 smsg.addNumber(count);
                 player.sendPacket(smsg);
             }
             else
             {
                 SystemMessage smsg = new SystemMessage(SystemMessageId.EARNED_ITEM);
-                smsg.addItemName(item.getItemId());
+                smsg.addItemName(item);
                 player.sendPacket(smsg);
             }
         }

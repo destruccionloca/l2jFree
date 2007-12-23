@@ -389,7 +389,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
             player.setRace(1, 0);
             sm = new SystemMessage(SystemMessageId.ACQUIRED);
             sm.addNumber(_raceNumber);
-            sm.addItemName(4443);
+            sm.addItemNameById(4443);
             player.sendPacket(sm);
             L2ItemInstance item = new L2ItemInstance(IdFactory.getInstance().getNextId(), 4443);
             item.setCount(1);

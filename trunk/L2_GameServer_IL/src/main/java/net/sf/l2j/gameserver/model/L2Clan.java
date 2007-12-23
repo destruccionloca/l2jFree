@@ -2074,10 +2074,10 @@ public class L2Clan
 	                    player.sendPacket(sp);
                         sp = null;
                         SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-                        sm.addItemName(1419);
+                        sm.addItemNameById(1419);
                         sm.addNumber(1);
                         player.sendPacket(sm);
-                        sm = null;	                    
+                        sm = null;
 	                    increaseClanLevel = true;
                     }
                 }
@@ -2097,7 +2097,7 @@ public class L2Clan
 	                    player.sendPacket(sp);
                         sp = null;
                         SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-                        sm.addItemName(3874);
+                        sm.addItemNameById(3874);
                         sm.addNumber(1);
                         player.sendPacket(sm);
                         sm = null;
@@ -2120,7 +2120,7 @@ public class L2Clan
 	                    player.sendPacket(sp);
                         sp = null;
                         SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-                        sm.addItemName(3870);
+                        sm.addItemNameById(3870);
                         sm.addNumber(1);
                         player.sendPacket(sm);
                         sm = null;

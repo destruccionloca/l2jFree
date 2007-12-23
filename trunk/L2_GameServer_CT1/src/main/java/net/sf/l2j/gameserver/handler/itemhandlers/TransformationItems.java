@@ -20,12 +20,13 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class TransformationItems implements IItemHandler
 {
 	private static final int	ITEM_IDS[]	= { 9648, 9649, 9650, 9651, 9652, 9653, 9654, 9655, 9897, 10131, 10132, 10133, 10134, 10135, 10136, 10137, 10138,
-			10151, 10274					};
+			10151, 10274};
 	
 	public TransformationItems()
 	{
@@ -39,7 +40,7 @@ public class TransformationItems implements IItemHandler
 		int itemId = item.getItemId();
 		if (client.getPet() != null || client.isTransformed())
 		{
-			client.sendPacket((new SystemMessage(113)).addItemName(itemId));
+			client.sendPacket((new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED)).addItemName(item));
 			return;
 		}
 		int skillId = 0;

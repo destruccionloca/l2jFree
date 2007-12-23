@@ -77,7 +77,7 @@ public class EnergyStone implements IItemHandler
             if (_skill == null)
             {
                 SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-                sm.addItemName(5589);
+                sm.addItemNameById(5589);
                 activeChar.sendPacket(sm);
                 return;
             }
@@ -117,7 +117,7 @@ public class EnergyStone implements IItemHandler
         else
         {
              SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-             sm.addItemName(5589);
+             sm.addItemNameById(5589);
              activeChar.sendPacket(sm);
              return;
         }

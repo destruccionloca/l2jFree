@@ -400,23 +400,23 @@ public class L2TradeList
 		        {
 		            msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S2);
 		            msg.addString(buyer.getName());
-		            msg.addItemName(sellerItem.getItemId());
+		            msg.addItemName(sellerItem);
 		            sysmsgs.add(msg);
 		            msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S2);
 		            msg.addString("You");
-		            msg.addItemName(sellerItem.getItemId());
+		            msg.addItemName(sellerItem);
 		            sysmsgs.add(msg);
 		        }
 		        else
 		        {
 		            msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
 		            msg.addString(buyer.getName());
-		            msg.addItemName(sellerItem.getItemId());
+		            msg.addItemName(sellerItem);
 		            msg.addNumber(amount);
 		            sysmsgs.add(msg);
 		            msg = new SystemMessage(SystemMessageId.S1_PURCHASED_S3_S2_S);
 		            msg.addString("You");
-		            msg.addItemName(sellerItem.getItemId());
+		            msg.addItemName(sellerItem);
 		            msg.addNumber(amount);
 		            sysmsgs.add(msg);
 		        }

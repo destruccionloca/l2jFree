@@ -121,7 +121,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     player.getInventory().updateInventory(recordSevenSigns);
 
                     sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-                    sm.addItemName(SevenSigns.RECORD_SEVEN_SIGNS_ID);
+                    sm.addItemNameById(SevenSigns.RECORD_SEVEN_SIGNS_ID);
                     player.sendPacket(sm);
                     break;
                 case 3: // Join Cabal Intro 1
@@ -176,7 +176,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                                     {
                                         sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
                                         sm.addNumber(1);
-                                        sm.addItemName(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
+                                        sm.addItemNameById(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
                                         player.sendPacket(sm);
                                         allowJoinDawn = true;
                                     }

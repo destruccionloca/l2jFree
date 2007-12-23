@@ -319,7 +319,7 @@ public class MultiSellChoose extends L2GameClientPacket
 	        if (e.getItemCount() * _amount > 1)
 	        {
 	        	sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-	            sm.addItemName(e.getItemId());
+	            sm.addItemNameById(e.getItemId());
 	            sm.addNumber(e.getItemCount() * _amount);
 	            player.sendPacket(sm);
 	            sm = null;
@@ -330,12 +330,12 @@ public class MultiSellChoose extends L2GameClientPacket
 	            {
 	                sm = new SystemMessage(SystemMessageId.ACQUIRED);
 	                sm.addNumber(_enchantment);
-	                sm.addItemName(e.getItemId());
+	                sm.addItemNameById(e.getItemId());
 	            }
 	            else
 	            {
 	                sm = new SystemMessage(SystemMessageId.EARNED_ITEM);
-	                sm.addItemName(e.getItemId());
+	                sm.addItemNameById(e.getItemId());
 	            }
 	            player.sendPacket(sm);
 	            sm = null;

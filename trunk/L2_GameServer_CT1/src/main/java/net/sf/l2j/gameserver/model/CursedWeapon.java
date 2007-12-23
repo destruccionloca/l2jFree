@@ -176,7 +176,7 @@ public class CursedWeapon
 	    		else _player.sendPacket(new ItemList(_player, true));
 	    		
 	    		_player.broadcastUserInfo();
-			}        	
+			}
             //  is dropped on the ground
 			else if (_item != null)
             {
@@ -191,7 +191,7 @@ public class CursedWeapon
         
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_DISAPPEARED);
         sm.addString(_name);
-        sm.addItemName(_itemId);
+        sm.addItemName(_item);
         CursedWeaponsManager.announce(sm);
         
         // Reset  state
@@ -263,7 +263,7 @@ public class CursedWeapon
         _isDropped = true;
         SystemMessage sm = new SystemMessage(SystemMessageId.S2_WAS_DROPPED_IN_THE_S1_REGION);
 		sm.addZoneName(player.getX(), player.getY(), player.getZ()); // Region Name
-		sm.addItemName(_itemId);
+		sm.addItemName(_item);
 		CursedWeaponsManager.announce(sm); // in the Hot Spring region
     }
     
@@ -384,7 +384,7 @@ public class CursedWeapon
         //L2ItemInstance[] items = 
         _player.getInventory().equipItemAndRecord(_item);
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-        sm.addItemName(_item.getItemId());
+        sm.addItemName(_item);
         _player.sendPacket(sm);
         
         // Fully heal player
@@ -410,7 +410,7 @@ public class CursedWeapon
 
         sm = new SystemMessage(SystemMessageId.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION);
 		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
-		sm.addItemName(_item.getItemId());
+		sm.addItemName(_item);
 		CursedWeaponsManager.announce(sm);
     }
     

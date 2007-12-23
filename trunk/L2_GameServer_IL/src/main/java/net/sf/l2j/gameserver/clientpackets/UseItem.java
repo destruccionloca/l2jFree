@@ -104,7 +104,7 @@ public class UseItem extends L2GameClientPacket
 			 * Alt game - Karma punishment // SOE
 			 * 736  	Scroll of Escape
 			 * 1538  	Blessed Scroll of Escape
-			 * 1829  	Scroll of Escape: Clan Hall  	
+			 * 1829  	Scroll of Escape: Clan Hall
 			 * 1830  	Scroll of Escape: Castle
 			 * 3958  	L2Day - Blessed Scroll of Escape
 			 * 5858  	Blessed Scroll of Escape: Clan Hall
@@ -114,7 +114,7 @@ public class UseItem extends L2GameClientPacket
 			 * 7117  	Scroll of Escape to Talking Island
 			 * 7118  	Scroll of Escape to Elven Village
 			 * 7119  	Scroll of Escape to Dark Elf Village
-			 * 7120  	Scroll of Escape to Orc Village  	
+			 * 7120  	Scroll of Escape to Orc Village
 			 * 7121  	Scroll of Escape to Dwarven Village
 			 * 7122  	Scroll of Escape to Gludin Village
 			 * 7123  	Scroll of Escape to the Town of Gludio
@@ -134,10 +134,10 @@ public class UseItem extends L2GameClientPacket
 			 * 7555  	Scroll of Escape to Elven Village
 			 * 7556  	Scroll of Escape to Dark Elf Village
 			 * 7557  	Scroll of Escape to Orc Village
-			 * 7558  	Scroll of Escape to Dwarven Village  	
+			 * 7558  	Scroll of Escape to Dwarven Village
 			 * 7559  	Scroll of Escape to Giran Castle Town
 			 * 7618  	Scroll of Escape - Ketra Orc Village
-			 * 7619  	Scroll of Escape - Varka Silenos Village  	 
+			 * 7619  	Scroll of Escape - Varka Silenos Village
 			 */
 			if (!Config.ALT_GAME_KARMA_PLAYER_CAN_TELEPORT && activeChar.getKarma() > 0 
 				&& (itemId == 736 || itemId == 1538 || itemId == 1829 || itemId == 1830 
@@ -152,18 +152,18 @@ public class UseItem extends L2GameClientPacket
             
             if (activeChar.isFishing() && (itemId < 6535 || itemId > 6540))
             {
-                // You cannot do anything else while fishing                
-                SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);                
+                // You cannot do anything else while fishing
+                SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_DO_WHILE_FISHING_3);
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
-                return;                
+                return;
             }
             
             // Char cannot use item when dead
             if (activeChar.isDead())
             {
                 SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
-				sm.addItemName(item.getItemDisplayId());
+				sm.addItemName(item);
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
                 return;
@@ -173,7 +173,7 @@ public class UseItem extends L2GameClientPacket
             if (item.getItem().isForWolf() || item.getItem().isForHatchling() || item.getItem().isForStrider() || item.getItem().isForBabyPet())
             {
             	SystemMessage sm = new SystemMessage(SystemMessageId.CANNOT_EQUIP_PET_ITEM); // You cannot equip a pet item.
-				sm.addItemName(item.getItemDisplayId());
+				sm.addItemName(item);
                 getClient().getActiveChar().sendPacket(sm);
                 sm = null;
                 return;
@@ -251,12 +251,12 @@ public class UseItem extends L2GameClientPacket
                    {
                        sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
                        sm.addNumber(item.getEnchantLevel());
-                       sm.addItemName(item.getItemDisplayId());
+                       sm.addItemName(item);
                    }
                    else
                    {
                        sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-                       sm.addItemName(item.getItemDisplayId());
+                       sm.addItemName(item);
                    }
                    activeChar.sendPacket(sm);
 
@@ -323,12 +323,12 @@ public class UseItem extends L2GameClientPacket
 					{
 						sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
 						sm.addNumber(item.getEnchantLevel());
-						sm.addItemName(item.getItemDisplayId());
+						sm.addItemName(item);
 					}
 					else
 					{
 						sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-						sm.addItemName(item.getItemDisplayId());
+						sm.addItemName(item);
 					}
 					activeChar.sendPacket(sm);
 					

@@ -176,7 +176,7 @@ public class RequestAquireSkill extends L2GameClientPacket
                 counts++;
                 costid = s.getIdCost();
                 costcount = s.getCostCount();
-                _requiredSp = s.getSpCost();                
+                _requiredSp = s.getSpCost();
             }
             
             if (counts == 0)
@@ -198,7 +198,7 @@ public class RequestAquireSkill extends L2GameClientPacket
                 
                 SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
                 sm.addNumber(costcount);
-                sm.addItemName(costid);
+                sm.addItemNameById(costid);
                 sendPacket(sm);
                 sm = null;
             }
@@ -255,7 +255,7 @@ public class RequestAquireSkill extends L2GameClientPacket
             		}
             		
             		SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-            		sm.addItemName(itemId);
+            		sm.addItemNameById(itemId);
             		sm.addNumber(1);
             		sendPacket(sm);
             		sm = null;
