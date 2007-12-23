@@ -1373,4 +1373,9 @@ public class FourSepulchersManager
 	{
 		return ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, _zoneName, obj);
 	}
+
+	public Map<Integer,Integer> getHallGateKeepers()
+	{
+		return _hallGateKeepers;
+	}
 }

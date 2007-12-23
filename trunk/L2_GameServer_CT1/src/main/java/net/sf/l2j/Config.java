@@ -408,7 +408,7 @@ public final class Config
 	}
 	
 	// *******************************************************************************************
-	public static final String	SEPULCHURS_FILE	= "./config/sepulchurs.properties";
+	public static final String	FOUR_SEPULCHERS_FILE = "./config/foursepulchers.properties";
 	// *******************************************************************************************
 	public static int			FS_TIME_ATTACK;
 	public static int			FS_TIME_COOLDOWN;
@@ -419,11 +419,11 @@ public final class Config
 	// *******************************************************************************************
 	public static void loadSepulchursConfig()
 	{
-		_log.info("loading " + SEPULCHURS_FILE);
+		_log.info("loading " + FOUR_SEPULCHERS_FILE);
 		try
 		{
 			Properties sepulchursSettings = new L2Properties();
-			InputStream is = new FileInputStream(new File(SEPULCHURS_FILE));
+			InputStream is = new FileInputStream(new File(FOUR_SEPULCHERS_FILE));
 			sepulchursSettings.load(is);
 			is.close();
 			
@@ -447,7 +447,7 @@ public final class Config
 		catch (Exception e)
 		{
 			_log.error(e.getMessage(), e);
-			throw new Error("Failed to Load " + SEPULCHURS_FILE + " File.");
+			throw new Error("Failed to Load " + FOUR_SEPULCHERS_FILE + " File.");
 		}
 	}
 	

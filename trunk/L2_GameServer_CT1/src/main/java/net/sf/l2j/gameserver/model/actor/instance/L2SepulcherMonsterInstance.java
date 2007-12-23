@@ -258,7 +258,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		}
 	}
 	
-	protected void giveCup(L2PcInstance player)
+	private void giveCup(L2PcInstance player)
 	{
 	    String questId = "620_FourGoblets";
 	    int cupId = 0;
@@ -303,7 +303,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		}
 	}
 
-	protected class VictimSpawnKeyBox implements Runnable
+	private class VictimSpawnKeyBox implements Runnable
 	{
 		L2SepulcherMonsterInstance _activeChar;
 		
@@ -322,7 +322,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
         }
 	}
 
-	protected class OnDeadEvent implements Runnable
+	private class OnDeadEvent implements Runnable
 	{
 		L2SepulcherMonsterInstance _activeChar;
 		
@@ -425,7 +425,7 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
         }
 	}
 	
-	protected class ChangeImmortal implements Runnable
+	private class ChangeImmortal implements Runnable
 	{
 		L2SepulcherMonsterInstance activeChar;
 		public ChangeImmortal(L2SepulcherMonsterInstance mob)
@@ -433,9 +433,9 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 			activeChar = mob;
 		}
 		
+		@Override
 		public void run()
 		{
-			//DP side isn't ready o.O, (MAYBE OVERSYNCED?!?!),  so this code is useless... btw I let it here, until DP side is ready...
 			L2Skill fp = SkillTable.getInstance().getInfo(4616, 1);
 			L2Effect[] eff = fp.getEffects(activeChar, activeChar);
 			
@@ -449,12 +449,9 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 		}
 	}
 
-	protected class ChangeMortal implements Runnable
+	private class ChangeMortal implements Runnable
 	{
-		public ChangeMortal()
-		{
-		}
-		
+		@Override
 		public void run()
 		{
 			setIsInvul(false);

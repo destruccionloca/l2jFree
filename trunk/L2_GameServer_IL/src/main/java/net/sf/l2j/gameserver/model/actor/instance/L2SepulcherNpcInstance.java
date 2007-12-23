@@ -1,12 +1,4 @@
-/*
- * $HeadURL: $
- *
- * $Author: $
- * $Date: $
- * $Revision: $
- *
- * 
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -47,13 +39,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * This class ...
- * @version $Revision: $ $Date: $
+ * 
  * @author  sandman
  */
 public class L2SepulcherNpcInstance extends L2NpcInstance
 {
-	private final static Log _log = LogFactory.getLog(L2SepulcherNpcInstance.class.getName());
+    private final static Log _log = LogFactory.getLog(L2SepulcherNpcInstance.class.getName());
 
     protected static Map<Integer,Integer> _hallGateKeepers = new FastMap<Integer,Integer>();
 
@@ -61,35 +52,13 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
     protected Future _spawnNextMysteriousBoxTask = null;
     protected Future _spawnMonsterTask = null;
     
-    private final String _HTML_FILE_PATH = "data/html/SepulcherNpc/";
+    private final static String HTML_FILE_PATH = "data/html/SepulcherNpc/";
     
-    private final int HALLS_KEY = 7260;
+    private final static int HALLS_KEY = 7260;
 
     public L2SepulcherNpcInstance(int objectID, L2NpcTemplate template)
     {
         super(objectID, template);
-
-        _hallGateKeepers.clear();
-        _hallGateKeepers.put(31925, 25150012);
-        _hallGateKeepers.put(31926, 25150013);
-        _hallGateKeepers.put(31927, 25150014);
-        _hallGateKeepers.put(31928, 25150015);
-        _hallGateKeepers.put(31929, 25150016);
-        _hallGateKeepers.put(31930, 25150002);
-        _hallGateKeepers.put(31931, 25150003);
-        _hallGateKeepers.put(31932, 25150004);
-        _hallGateKeepers.put(31933, 25150005);
-        _hallGateKeepers.put(31934, 25150006);
-        _hallGateKeepers.put(31935, 25150032);
-        _hallGateKeepers.put(31936, 25150033);
-        _hallGateKeepers.put(31937, 25150034);
-        _hallGateKeepers.put(31938, 25150035);
-        _hallGateKeepers.put(31939, 25150036);
-        _hallGateKeepers.put(31940, 25150022);
-        _hallGateKeepers.put(31941, 25150023);
-        _hallGateKeepers.put(31942, 25150024);
-        _hallGateKeepers.put(31943, 25150025);
-        _hallGateKeepers.put(31944, 25150026);
 
         if(_closeTask != null) _closeTask.cancel(true);
         if(_spawnNextMysteriousBoxTask != null) _spawnNextMysteriousBoxTask.cancel(true);
@@ -272,7 +241,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             pom = npcId + "-" + val;
         }
 
-        return _HTML_FILE_PATH + pom + ".htm";
+        return HTML_FILE_PATH + pom + ".htm";
     }
 
     @Override
@@ -312,7 +281,17 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
         else if (command.startsWith("open_gate"))
         {
             L2ItemInstance hallsKey = player.getInventory().getItemByItemId(HALLS_KEY);
-            if(hallsKey != null && FourSepulchersManager.getInstance().isAttackTime())
+            if(hallsKey == null)
+            {
+                // TODO: proper htm message
+                player.sendMessage("You need a Chapel Key.");
+            }
+            else if (!FourSepulchersManager.getInstance().isAttackTime())
+            {
+                // TODO: proper htm message
+                player.sendMessage("Fighting time is over!");
+            }
+            else
             {
                 switch(getNpcId())
                 {
@@ -339,7 +318,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 
     public void openNextDoor(int npcId)
     {
-        int doorId = _hallGateKeepers.get(npcId).intValue();
+        int doorId = FourSepulchersManager.getInstance().getHallGateKeepers().get(npcId).intValue();
         DoorTable _doorTable = DoorTable.getInstance();
         _doorTable.getDoor(doorId).openMe();
         
