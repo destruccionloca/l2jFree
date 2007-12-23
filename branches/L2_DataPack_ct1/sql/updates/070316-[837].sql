@@ -1,1 +1,0 @@
-ALTER TABLE `characters` ADD `charViP` DECIMAL(1,0) NOT NULL DEFAULT '0';
