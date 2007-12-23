@@ -18,7 +18,7 @@ CREATE TABLE `vanhalter_spawnlist` (
   `periodOfDay` decimal(2,0) default '0',
   PRIMARY KEY  (`id`),
   KEY `key_npc_templateid` (`npc_templateid`)
-) ENGINE=MyISAM DEFAULT CHARSET=sjis;
+) DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records 
@@ -73,4 +73,3 @@ INSERT INTO `vanhalter_spawnlist` VALUES ('47', 'Pagan Temple', '1', '29062', '-
 INSERT INTO `vanhalter_spawnlist` VALUES ('48', 'Pagan Temple', '1', '32038', '-16397', '-53199', '-10448', '0', '0', '16384', '172800', '0', '0');
 INSERT INTO `vanhalter_spawnlist` VALUES ('49', 'Pagan Temple', '1', '22195', '-16397', '-53199', '-10448', '0', '0', '16384', '172800', '0', '0');
 INSERT INTO `vanhalter_spawnlist` VALUES ('50', 'Pagan Temple', '1', '22191', '-16397', '-53199', '-10448', '0', '0', '16384', '60', '0', '0');
-

@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `grandboss_intervallist` (
   `respawnDate` decimal(20,0) NOT NULL,
   `state` int(11) NOT NULL,
   PRIMARY KEY  (`bossId`)
-) ENGINE=MyISAM DEFAULT CHARSET=sjis;
+) DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records 
@@ -18,4 +18,3 @@ VALUES
 (29028,0,0),
 (29062,0,0),
 (29065,0,0);
-
