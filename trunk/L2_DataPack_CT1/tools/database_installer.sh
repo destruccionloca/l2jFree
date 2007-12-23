@@ -379,43 +379,7 @@ esac
 }
 
 updatedb(){
-$MYG < ../sql/updates/061120-[14].sql
-$MYG < ../sql/updates/061124-[34].sql
-$MYG < ../sql/updates/061126-[59].sql
-$MYG < ../sql/updates/061207-[150].sql
-$MYG < ../sql/updates/070111.sql
-$MYG < ../sql/updates/070204-[483].sql
-$MYG < ../sql/updates/070206-[531].sql
-$MYG < ../sql/updates/070224-[611].sql
-$MYG < ../sql/updates/070225-[630].sql
-$MYG < ../sql/updates/070301-[671].sql
-$MYG < ../sql/updates/070301-[674].sql
-$MYG < ../sql/updates/070301-[677].sql
-$MYG < ../sql/updates/070303-[697].sql
-$MYG < ../sql/updates/070309-[744].sql
-$MYG < ../sql/updates/070309-[744-2].sql
-$MYG < ../sql/updates/070309-[747].sql
-$MYG < ../sql/updates/070309-[753].sql
-$MYG < ../sql/updates/070311-[796].sql
-$MYG < ../sql/updates/070316-[837].sql
-$MYG < ../sql/updates/070329-[951].sql
-$MYG < ../sql/updates/070402-[1002].sql
-$MYG < ../sql/updates/070409-[1060].sql
-$MYG < ../sql/updates/070504-[1287].sql
-$MYG < ../sql/updates/070519-[1387].sql
-$MYG < ../sql/updates/070605-[1497].sql
-$MYG < ../sql/updates/070607-[1523].sql
-$MYG < ../sql/updates/070610-[1535].sql
-$MYG < ../sql/updates/070612-[1552].sql
-$MYG < ../sql/updates/070717-[1744].sql
-$MYG < ../sql/updates/070831-[1923].sql
-$MYG < ../sql/updates/070922-[2018].sql
-$MYG < ../sql/updates/070922-[2023].sql
-$MYG < ../sql/updates/070929-[2068].sql
-$MYG < ../sql/updates/071106-[2330].sql
-$MYG < ../sql/updates/071109-[2341].sql
-$MYG < ../sql/updates/071119-[2381].sql
-$MYG < ../sql/updates/071204-[2479].sql
+$MYG < ../sql/updates/il_to_ct1_update.sql
 }
 
 finish(){
