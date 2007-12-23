@@ -100,7 +100,7 @@ public class QuestList extends L2GameServerPacket
 			return;
 		}
 		
-		writeC(0x80);
+		writeC(0x86);
 		writeH(_quests.length);
 		for (Quest q : _quests)
 		{

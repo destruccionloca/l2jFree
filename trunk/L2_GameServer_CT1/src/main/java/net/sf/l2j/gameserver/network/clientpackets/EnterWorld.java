@@ -258,7 +258,6 @@ public class EnterWorld extends L2GameClientPacket
         SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
         sendPacket(sm);
 
-        /*
         if (Config.SHOW_L2J_LICENSE)
         {
         	sm = new SystemMessage(SystemMessageId.S1_S2);
@@ -482,7 +481,7 @@ public class EnterWorld extends L2GameClientPacket
             DM.addDisconnectedPlayer(activeChar);
 
         QuestList ql = new QuestList();
-        activeChar.sendPacket(ql);*/
+        activeChar.sendPacket(ql);
 	}
 
 

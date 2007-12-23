@@ -63,6 +63,7 @@ public class ItemList extends L2GameServerPacket
 	{
 		_items = cha.getInventory().getItems();
 		_showWindow = showWindow;
+		cha.sendPacket(new UserInfo(cha));
 		if (_log.isDebugEnabled())
 		{
 			showDebug();
@@ -106,6 +107,7 @@ public class ItemList extends L2GameServerPacket
 			
 			writeD(temp.getObjectId());
 			writeD(temp.getItemDisplayId());
+			writeD(0x00);
 			writeD(temp.getCount());
 			writeH(temp.getItem().getType2());	// item type2
 			writeH(temp.getCustomType1());	// item type3
