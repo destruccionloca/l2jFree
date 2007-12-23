@@ -822,7 +822,11 @@ public final class Config
 	public static String			FORBIDDEN_RAID_SKILLS;
 	public static FastList<Integer>	FORBIDDEN_RAID_SKILLS_LIST	= new FastList<Integer>();
 	public static int				DEATH_PENALTY_CHANCE;										// Death Penalty chance
-																								
+	// Augmentation chances , chancestat=100 -chanceskill-chancebasestat 
+	public static int AUGMENT_BASESTAT;
+	public static int AUGMENT_SKILL;
+	public static boolean AUGMENT_EXCLUDE_NOTDONE;
+
 	// *******************************************************************************************
 	// *******************************************************************************************
 	public static void loadOtherConfig()
@@ -855,7 +859,12 @@ public final class Config
 			WAREHOUSE_SLOTS_CLAN = Integer.parseInt(otherSettings.getProperty("MaximumWarehouseSlotsForClan", "150"));
 			FREIGHT_SLOTS = Integer.parseInt(otherSettings.getProperty("MaximumFreightSlots", "20"));
 			MAX_ITEM_IN_PACKET = Math.max(INVENTORY_MAXIMUM_NO_DWARF, Math.max(INVENTORY_MAXIMUM_DWARF, INVENTORY_MAXIMUM_GM));
-			
+
+			/* Augmentation chances */
+			AUGMENT_BASESTAT = Integer.parseInt(otherSettings.getProperty("AugmentBasestat", "1"));
+			AUGMENT_SKILL = Integer.parseInt(otherSettings.getProperty("AugmentSkill", "11"));
+			AUGMENT_EXCLUDE_NOTDONE = Boolean.parseBoolean(otherSettings.getProperty("AugmentExcludeNotdone", "false"));
+
 			/* if different from 100 (ie 100%) heal rate is modified acordingly */
 			NPC_HP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCHpRegenMultiplier", "100")) / 100;
 			NPC_MP_REGEN_MULTIPLIER = Double.parseDouble(otherSettings.getProperty("NPCMpRegenMultiplier", "100")) / 100;

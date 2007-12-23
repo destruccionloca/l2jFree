@@ -63,8 +63,8 @@ public class AugmentationData
 	
 	// chances
 	//private static final int CHANCE_STAT = 88;
-	private static final int CHANCE_SKILL = 11;
-	private static final int CHANCE_BASESTAT = 1;
+	private static int CHANCE_SKILL = 11;
+	private static int CHANCE_BASESTAT = 1;
 	
 	// stats
 	private static final int STAT_START = 1;
@@ -182,7 +182,8 @@ public class AugmentationData
 	// =========================================================
 	// Method - Private
 	
-	@SuppressWarnings("unchecked") private final void load()
+	@SuppressWarnings("unchecked")
+	private final void load()
 	{
 		// Load the skillmap
 		// Note: the skillmap data is only used when generating new augmentations
@@ -190,6 +191,15 @@ public class AugmentationData
 		// items description...
 		try
 		{
+			//min. 1% for stats seems normal
+			if(Config.AUGMENT_BASESTAT > 0 && Config.AUGMENT_SKILL > 0 &&
+				((Config.AUGMENT_BASESTAT % 100) + (Config.AUGMENT_SKILL % 100)) < 100)
+			{
+				CHANCE_BASESTAT=Config.AUGMENT_BASESTAT % 100;
+				CHANCE_SKILL=Config.AUGMENT_SKILL % 100;
+				
+			}
+
 			SkillTable st = SkillTable.getInstance();
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			factory.setValidating(false);
@@ -231,9 +241,16 @@ public class AugmentationData
 								}
 							}
 							
-							if (type.equalsIgnoreCase("active")) _activeSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
-							else if (type.equalsIgnoreCase("passive")) _passiveSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
-							else _chanceSkills.add(new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId));
+							augmentationSkill temp=new augmentationSkill(skillId, st.getMaxLevel(skillId, 1), augmentationId);
+							
+							//added by Alex - check if NOTDONE and exclude from list
+							if(temp == null || temp.getSkill(1) == null || (Config.AUGMENT_EXCLUDE_NOTDONE &&
+								(temp.getSkill(1).getSkillType()==L2Skill.SkillType.NOTDONE)
+								&& (temp.getSkill(1).getTargetType()==L2Skill.SkillTargetType.TARGET_NONE)))
+								continue;
+							if (type.equalsIgnoreCase("active") ) _activeSkills.add(temp);
+							else if (type.equalsIgnoreCase("passive")) _passiveSkills.add(temp);
+							else _chanceSkills.add(temp);
 						}
 					}
 				}
@@ -385,20 +402,31 @@ public class AugmentationData
 			switch (Rnd.get(1,3))
 			{
 				case 1:	// chance skill
-					temp = _chanceSkills.get(Rnd.get(0,_chanceSkills.size()-1));
-					skill = temp.getSkill(lifeStoneLevel);
-					stat34 = temp.getAugmentationSkillId();
-					break;
+					if(_chanceSkills.size() > 0)
+					{
+						temp = _chanceSkills.get(Rnd.get(0, _chanceSkills.size()-1));
+						skill = temp.getSkill(lifeStoneLevel);
+						stat34 = temp.getAugmentationSkillId();
+						break;
+					}
+					//fall to an active
 				case 2: // active skill
-					temp = _activeSkills.get(Rnd.get(0,_activeSkills.size()-1));
-					skill = temp.getSkill(lifeStoneLevel);
-					stat34 = temp.getAugmentationSkillId();
-					break;
+					if(_activeSkills.size() > 0)
+					{
+						temp = _activeSkills.get(Rnd.get(0,_activeSkills.size()-1));
+						skill = temp.getSkill(lifeStoneLevel);
+					
+						stat34 = temp.getAugmentationSkillId();
+						break;
+					}
 				case 3: // passive skill
-					temp = _passiveSkills.get(Rnd.get(0,_passiveSkills.size()-1));
-					skill = temp.getSkill(lifeStoneLevel);
-					stat34 = temp.getAugmentationSkillId();
-					break;
+					if(_passiveSkills.size() > 0)
+					{
+						temp = _passiveSkills.get(Rnd.get(0,_passiveSkills.size()-1));
+						skill = temp.getSkill(lifeStoneLevel);
+						stat34 = temp.getAugmentationSkillId();
+						break;
+					}
 			}
 		}
 
