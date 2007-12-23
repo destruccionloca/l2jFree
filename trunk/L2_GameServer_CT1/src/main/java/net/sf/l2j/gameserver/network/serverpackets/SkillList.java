@@ -20,6 +20,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 import java.util.Vector;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.L2Skill;
 
 /**
  * 
@@ -80,12 +81,13 @@ public class SkillList extends L2GameServerPacket
     {
         writeC(0x5f);
         writeD(_owner.getAllSkills().length);
-        for (int i = 0; i < _skills.size(); i++)
+        L2Skill templ[] = _owner.getAllSkills();
+        for (int i = 0; i < templ.length; i++)
         {
-            Skill temp = _skills.get(i);
-            writeD(temp.passive ? 1 : 0);
-            writeD(temp.level);
-            writeD(temp.id);
+            L2Skill temp = templ[i];
+            writeD(temp.isPassive() ? 1 : 0);
+            writeD(temp.getLevel());
+            writeD(temp.getDisplayId());
             writeC(0x00); //transformation
         }
     }
