@@ -1,0 +1,1 @@
+alter table items add attributes varchar(50) not null default '';

@@ -1,1 +1,0 @@
-ALTER TABLE `characters` CHANGE `base_class` `base_class` INT( 4 ) NOT NULL DEFAULT '0';
