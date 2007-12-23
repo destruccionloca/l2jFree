@@ -344,23 +344,25 @@ $MYG < ../sql/couples.sql &> /dev/null
 $MYG < ../sql/ctf.sql &> /dev/null
 $MYG < ../sql/ctf_teams.sql &> /dev/null
 $MYG < ../sql/dm.sql &> /dev/null
+$MYG < ../sql/fortress_siege.sql &> /dev/null
+$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
+$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
 $MYG < ../sql/tvt.sql &> /dev/null
 $MYG < ../sql/tvt_teams.sql &> /dev/null
+$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
 $MYG < ../sql/version.sql &> /dev/null
 $MYG < ../sql/vip.sql &> /dev/null
 $MYG < ../sql/custom/custom_armor.sql &> /dev/null
+$MYG < ../sql/custom/custom_droplist.sql &> /dev/null
 $MYG < ../sql/custom/custom_etcitem.sql &> /dev/null
 $MYG < ../sql/custom/custom_merchant_buylists.sql &> /dev/null
 $MYG < ../sql/custom/custom_merchant_shopids.sql &> /dev/null
 $MYG < ../sql/custom/custom_npc.sql &> /dev/null
+$MYG < ../sql/custom/custom_npcskills.sql &> /dev/null
 $MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
 $MYG < ../sql/custom/custom_weapon.sql &> /dev/null
-$MYG < ../sql/fortress_siege.sql &> /dev/null
 
 $MYG < ../sql/forced_updates.sql &> /dev/null 
-$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
-$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
-$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
 
 }
 
