@@ -823,8 +823,6 @@ public final class Config
 	public static FastList<Integer>	FORBIDDEN_RAID_SKILLS_LIST	= new FastList<Integer>();
 	public static int				DEATH_PENALTY_CHANCE;										// Death Penalty chance
 																								
-	public static CreateKamaelChar	CAN_CREATE_KAMAEL_RACE;										// Decides who can create a kamael char
-	
 	// *******************************************************************************************
 	// *******************************************************************************************
 	public static void loadOtherConfig()
@@ -945,11 +943,6 @@ public final class Config
 			
 			DEATH_PENALTY_CHANCE = Integer.parseInt(otherSettings.getProperty("DeathPenaltyChance", "20"));
 			
-			String temp = otherSettings.getProperty("CreateKamaelChar", "None");
-			CAN_CREATE_KAMAEL_RACE = CreateKamaelChar.NONE;
-			for (CreateKamaelChar ckc : CreateKamaelChar.values())
-				if (ckc.name().equalsIgnoreCase(temp))
-					CAN_CREATE_KAMAEL_RACE = ckc;
 		}
 		catch (Exception e)
 		{
@@ -2421,7 +2414,7 @@ public final class Config
     public static boolean HUMAN_CAN_USE_RAPIER;
     public static boolean HUMAN_CAN_USE_ANCIENT;
     public static boolean HUMAN_CAN_USE_CROSSBOW;
-	
+	public static CreateKamaelChar	CAN_CREATE_KAMAEL_RACE;										// Decides who can create a kamael char
 	// *******************************************************************************************
 	public static void loadKamaelConfig()
 	{
@@ -2439,6 +2432,12 @@ public final class Config
 			HUMAN_CAN_USE_ANCIENT  = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseAncient", "False")); 
 			HUMAN_CAN_USE_RAPIER  = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseRapier", "False"));
 			HUMAN_CAN_USE_CROSSBOW = Boolean.parseBoolean(kamaelSettings.getProperty("HumanCanUseCrossbow", "False"));
+			
+			String temp = kamaelSettings.getProperty("CreateKamaelChar", "None");
+			CAN_CREATE_KAMAEL_RACE = CreateKamaelChar.NONE;
+			for (CreateKamaelChar ckc : CreateKamaelChar.values())
+				if (ckc.name().equalsIgnoreCase(temp))
+					CAN_CREATE_KAMAEL_RACE = ckc;
 		}
 		catch (Exception e)
 		{
@@ -2647,6 +2646,7 @@ public final class Config
 		loadIrcConfig();
 		loadBossConfig();
 		loadSayFilter();
+		loadKamaelConfig();
 		
 		initDBProperties();
 	}

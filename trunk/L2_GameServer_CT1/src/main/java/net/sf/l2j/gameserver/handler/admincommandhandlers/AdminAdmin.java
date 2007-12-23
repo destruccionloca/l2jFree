@@ -231,9 +231,14 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadWeddingConfig();
 					activeChar.sendMessage("Wedding config reloaded");
 				}
+				else if(type.equals("kamael"))
+				{
+					Config.loadKamaelConfig();
+					activeChar.sendMessage("Kamael config reloaded");
+				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
+					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|kamael>");
 				}
 			}
 			catch(Exception e)

@@ -855,10 +855,16 @@ public class GameStatusThread extends Thread
 							Config.loadWeddingConfig();
 							_print.println("Wedding config reloaded");
 						}
+						else if (type.equals("kamael"))
+						{
+							Config.loadKamaelConfig();
+							_print.println("Kamael config reloaded");
+						}
+						
 						else
 						{
 							_print
-									.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
+									.println("Usage:  reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|kamael>");
 						}
 					}
 					catch (Exception e)
