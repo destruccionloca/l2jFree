@@ -87,6 +87,7 @@ import net.sf.l2j.tools.versionning.service.VersionningService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.gameserver.network.serverpackets.ExBasicActionList;
 
 /**
  * Enter World Packet Handler<p>
@@ -482,6 +483,10 @@ public class EnterWorld extends L2GameClientPacket
 
         QuestList ql = new QuestList();
         activeChar.sendPacket(ql);
+        
+        ExBasicActionList ba = new ExBasicActionList();
+        activeChar.sendPacket(ba);
+        
 	}
 
 

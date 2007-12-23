@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 import java.util.Vector;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
  * 
@@ -43,6 +44,7 @@ public class SkillList extends L2GameServerPacket
 {
     private static final String _S__6D_SKILLLIST = "[S] 58 SkillList";
     private Vector<Skill> _skills;
+    private L2PcInstance _owner;
 
     class Skill
     {
@@ -56,6 +58,11 @@ public class SkillList extends L2GameServerPacket
             level = pLevel;
             passive = pPassive;
         }
+    }
+
+    public SkillList(L2PcInstance client)
+    {
+        _owner = client;
     }
 
     public SkillList()
@@ -72,8 +79,7 @@ public class SkillList extends L2GameServerPacket
     protected final void writeImpl()
     {
         writeC(0x5f);
-        writeD(_skills.size());
-
+        writeD(_owner.getAllSkills().length);
         for (int i = 0; i < _skills.size(); i++)
         {
             Skill temp = _skills.get(i);

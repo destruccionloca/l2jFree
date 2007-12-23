@@ -41,7 +41,7 @@ public final class RequestMagicSkillList extends L2GameClientPacket
         } 
         else
         {
-            sendPacket(new SkillList());
+            sendPacket(new SkillList(cha));
             return;
         }
     }
