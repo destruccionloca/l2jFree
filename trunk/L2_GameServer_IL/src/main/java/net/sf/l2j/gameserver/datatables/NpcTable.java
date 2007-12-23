@@ -147,11 +147,53 @@ public class NpcTable implements NpcTableMBean
                 npcskills.close();
                 statement.close();
             } 
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 _log.fatal("NPCTable: Error reading NPC skills table: " + e);
             }
-            
+
             try 
+            {
+                con = L2DatabaseFactory.getInstance().getConnection(con);
+                PreparedStatement statement = con.prepareStatement("SELECT npcid, skillid, level FROM custom_npcskills");
+                ResultSet npcskills = statement.executeQuery();
+                L2NpcTemplate npcDat = null;
+                L2Skill npcSkill = null;
+    
+                while (npcskills.next())
+                {
+                    int mobId = npcskills.getInt("npcid");
+                    npcDat = _npcs.get(mobId);
+                    
+                    if (npcDat == null)
+                        continue;
+                    
+                    int skillId = npcskills.getInt("skillid");
+                    int level = npcskills.getInt("level");
+                    
+                    if (skillId == 4416)
+                    {
+                        npcDat.setRace(level);
+                        continue;
+                    }
+
+                    npcSkill = SkillTable.getInstance().getInfo(skillId, level);
+                    
+                    if (npcSkill == null)
+                        continue;
+                    
+                    npcDat.addSkill(npcSkill);
+                }
+                
+                npcskills.close();
+                statement.close();
+            } 
+            catch (Exception e)
+            {
+                _log.fatal("NPCTable: Error reading custom NPC skills table: " + e);
+            }
+
+            try
             {
                 PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist ORDER BY mobId, chance DESC");
                 ResultSet dropData = statement2.executeQuery();
@@ -182,8 +224,45 @@ public class NpcTable implements NpcTableMBean
                 dropData.close();
                 statement2.close();
             } 
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 _log.fatal("NPCTable: Error reading NPC drop data: " + e);
+            }
+
+            try
+            {
+                PreparedStatement statement2 = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM custom_droplist ORDER BY mobId, chance DESC");
+                ResultSet dropData = statement2.executeQuery();
+                L2DropData dropDat = null;
+                L2NpcTemplate npcDat = null;
+                
+                while (dropData.next())
+                {
+                    int mobId = dropData.getInt("mobId");
+                    npcDat = _npcs.get(mobId);
+                    if (npcDat == null)
+                    {
+                        _log.fatal("NPCTable: No npc correlating with id : " + mobId);
+                        continue;
+                    }
+                    dropDat = new L2DropData();
+                    
+                    dropDat.setItemId(dropData.getInt("itemId"));
+                    dropDat.setMinDrop(dropData.getInt("min"));
+                    dropDat.setMaxDrop(dropData.getInt("max"));
+                    dropDat.setChance(dropData.getInt("chance"));
+                    
+                    int category = dropData.getInt("category");
+                    
+                    npcDat.addDropData(dropDat, category);
+                }
+
+                dropData.close();
+                statement2.close();
+            } 
+            catch (Exception e)
+            {
+                _log.fatal("NPCTable: Error reading custom NPC drop data: " + e);
             }
 
             try 
