@@ -7277,4 +7277,44 @@ public abstract class L2Character extends L2Object
 	{
 		return _isDisarmed;
 	}
+	
+    public int getDefAttrFire()
+    {
+        return (int)getStat().getElementAttributeFire();
+    }
+
+    public int getDefAttrWater()
+    {
+        return (int)getStat().getElementAttributeWater();
+    }
+
+    public int getDefAttrEarth()
+    {
+        return (int)getStat().getElementAttributeEarth();
+    }
+
+    public int getDefAttrWind()
+    {
+        return (int)getStat().getElementAttributeWind();
+    }
+
+    public int getDefAttrHoly()
+    {
+        return (int)getStat().getElementAttributeHoly();
+    }
+
+    public int getDefAttrUnholy()
+    {
+        return (int)getStat().getElementAttributeUnholy();
+    }
+
+    public int getAttackElement()
+    {
+        return getStat().getAttackElement();
+    }
+
+    public int getAttackElementValue()
+    {
+        return (int)getStat().getAttackElementValue();
+    }
 }

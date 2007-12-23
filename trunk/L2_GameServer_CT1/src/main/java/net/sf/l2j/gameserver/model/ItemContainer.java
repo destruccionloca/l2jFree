@@ -590,4 +590,17 @@ public abstract class ItemContainer
     
     public boolean validateCapacity(int slots) { return true; }
     public boolean validateWeight(int weight) { return true; }
+    
+    public int getUnequippedSize()
+    {
+        int count = 0;
+        for(L2ItemInstance temp:_items)
+        {
+            if(!temp.isEquipped())
+                count++;
+        }
+
+        return count;
+    }
+    
 }

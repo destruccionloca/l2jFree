@@ -62,6 +62,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  * 																					*...*: here i am not sure at least it looks like it reads that much data (32 bytes), not sure about the format inside because it is not read thanks to the ususal parsing function
  * 
  * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh [h] c dc d hhdh ddddc c dcc cddd d c dd d d
+ * dddddSddddQddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddddddddffffddddSdddddcccddh
 
  * @version $Revision: 1.14.2.4.2.12 $ $Date: 2005/04/11 10:05:55 $
  */
@@ -93,6 +94,12 @@ public class UserInfo extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
+/*        if(client.isTransformed())
+        {
+            client.sendPacket(new UserInfoTransformed(client));
+            return;
+        }*/
+    	
         writeC(0x32);
 
         writeD(_activeChar.getX());
@@ -104,8 +111,10 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getRace().ordinal());
         writeD(_activeChar.getAppearance().getSex()? 1 : 0);
 
-        if (_activeChar.getClassIndex() == 0) writeD(_activeChar.getClassId().getId());
-        else writeD(_activeChar.getBaseClass());
+        if (_activeChar.getClassIndex() == 0)
+        	writeD(_activeChar.getClassId().getId());
+        else
+        	writeD(_activeChar.getBaseClass());
 
         writeD(_activeChar.getLevel());
         writeQ(_activeChar.getExp());
@@ -153,53 +162,45 @@ public class UserInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO5));
         writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO6));
 
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_UNDER));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_REAR));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LEAR));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_NECK));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_RFINGER));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LFINGER));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HEAD));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LHAND));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_GLOVES));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_CHEST));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LEGS));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_FEET));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_HAIR2));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_RBRACELET));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_LBRACELET));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO1));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO2));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO3));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO4));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO5));
-        writeD(_inv.getPaperdollObjectId(Inventory.PAPERDOLL_DECO6));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_NECK));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RFINGER));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LFINGER));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO1));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO2));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO3));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO4));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
+        writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
+          
+        writeH(0x00);
+        writeH(0x00);
+        writeH(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
         
-        writeH(0);
-        writeH(0);
-        writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        // end of c6 new h's
+        for(int i = 0; i < 40; i++)
+            writeH(0x00);
         
         writeD(_activeChar.getPAtk(null));
         writeD(_activeChar.getPAtkSpd());
@@ -208,23 +209,21 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getAccuracy());
         writeD(_activeChar.getCriticalHit(null, null));
         writeD(_activeChar.getMAtk(null, null));
-
         writeD(_activeChar.getMAtkSpd());
         writeD(_activeChar.getPAtkSpd());
-
         writeD(_activeChar.getMDef(null, null));
-
-        writeD(_activeChar.getPvpFlag()); // 0-non-pvp  1-pvp = violett name
+        writeD(_activeChar.getPvpFlag());
         writeD(_activeChar.getKarma());
 
         writeD(_runSpd);
         writeD(_walkSpd);
-        writeD(_swimRunSpd); // swimspeed
-        writeD(_swimWalkSpd); // swimspeed
+        writeD(_swimRunSpd);
+        writeD(_swimWalkSpd);
         writeD(_flRunSpd);
         writeD(_flWalkSpd);
         writeD(_flyRunSpd);
         writeD(_flyWalkSpd);
+
         writeF(_moveMultiplier);
         writeF(_activeChar.getStat().getAttackSpeedMultiplier());
 
@@ -275,7 +274,7 @@ public class UserInfo extends L2GameServerPacket
         writeC(0x00); //1-find party members
 
         writeD(_activeChar.getAbnormalEffect());
-        writeC(0x00);
+        writeC(0x11);
 
         writeD(_activeChar.getClanPrivileges());
 
@@ -283,6 +282,8 @@ public class UserInfo extends L2GameServerPacket
         writeH(_activeChar.getCharRecommendationStatus().getRecomHave()); //c2  recommendations received
         writeD(0x00);
         writeH(_activeChar.getInventoryLimit());
+
+        //writeH(_inv.getUnequippedSize());
 
         writeD(_activeChar.getClassId().getId());
         writeD(0x00); // special effects? circles around player...
@@ -315,12 +316,20 @@ public class UserInfo extends L2GameServerPacket
         
         writeD(_activeChar.getAppearance().getTitleColor());
         
-        //writeD(0x00); // ??
-        
         if (_activeChar.isCursedWeaponEquiped())
         	writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
         else
         	writeD(0x00);
+        
+        writeD(0x00);
+        writeD(_activeChar.getAttackElement());
+        writeD(_activeChar.getAttackElementValue());
+        writeD(_activeChar.getDefAttrFire());
+        writeD(_activeChar.getDefAttrWater());
+        writeD(_activeChar.getDefAttrWind());
+        writeD(_activeChar.getDefAttrEarth());
+        writeD(_activeChar.getDefAttrHoly());
+        writeD(_activeChar.getDefAttrUnholy());
     }
 
     /* (non-Javadoc)

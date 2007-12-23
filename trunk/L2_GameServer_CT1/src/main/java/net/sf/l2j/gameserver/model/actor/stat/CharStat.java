@@ -644,4 +644,44 @@ public class CharStat
         
         return (int) calcStat(Stats.MP_CONSUME, skill.getMpInitialConsume(), null, skill);
     }
+    
+    public double getElementAttributeFire()
+    {
+        return calcStat(Stats.defenceAttrFire, _activeChar.getTemplate().getAttributeFire(), null, null);
+    }
+
+    public double getElementAttributeWater()
+    {
+        return calcStat(Stats.defenceAttrWater, _activeChar.getTemplate().getAttributeWater(), null, null);
+    }
+
+    public double getElementAttributeEarth()
+    {
+        return calcStat(Stats.defenceAttrEarth, _activeChar.getTemplate().getAttributeEarth(), null, null);
+    }
+
+    public double getElementAttributeWind()
+    {
+        return calcStat(Stats.defenceAttrWind, _activeChar.getTemplate().getAttributeWind(), null, null);
+    }
+
+    public double getElementAttributeHoly()
+    {
+        return calcStat(Stats.defenceAttrHoly, _activeChar.getTemplate().getAttributeHoly(), null, null);
+    }
+
+    public double getElementAttributeUnholy()
+    {
+        return calcStat(Stats.defenceAttrUnholy, _activeChar.getTemplate().getAttributeUnholy(), null, null);
+    }
+
+    public int getAttackElement()
+    {
+        return -2;
+    }
+
+    public double getAttackElementValue()
+    {
+        return 0.0D;
+    }
 }

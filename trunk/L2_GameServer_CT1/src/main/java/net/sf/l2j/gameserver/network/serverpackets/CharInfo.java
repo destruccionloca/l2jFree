@@ -90,6 +90,7 @@ public class CharInfo extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
+	
 		boolean gmSeeInvis = false;
 
 		if (_activeChar.getAppearance().getInvisible())
@@ -100,6 +101,12 @@ public class CharInfo extends L2GameServerPacket
 			else
 				return;
 		}
+
+/*        if(_activeChar.isTransformed())
+        {
+            ((L2GameClient)getClient()).getActiveChar().sendPacket(new CharInfoTransformed(_activeChar));
+            return;
+        }*/
 		
 		if (_activeChar.getPoly().isMorphed())
 		{
@@ -120,8 +127,8 @@ public class CharInfo extends L2GameServerPacket
 				writeD(_pAtkSpd);
 				writeD(_runSpd);
 				writeD(_walkSpd);
-				writeD(_swimRunSpd/*0x32*/);  // swimspeed
-				writeD(_swimWalkSpd/*0x32*/);  // swimspeed
+				writeD(_swimRunSpd);  // swimspeed
+				writeD(_swimWalkSpd);  // swimspeed
 				writeD(_flRunSpd);
 				writeD(_flWalkSpd);
 				writeD(_flyRunSpd);
@@ -170,13 +177,13 @@ public class CharInfo extends L2GameServerPacket
 					writeD(_activeChar.getAbnormalEffect());  // C2
 				}
 
-                writeD(0x0);
+                writeD(0x00);
                 writeD(_activeChar.getClanCrestId());
-                writeD(0x0);
+                writeD(0x00);
                 writeD(_activeChar.getAllyCrestId());
-                writeC(0x0);
+                writeC(0x00);
                 writeC(_activeChar.getTeam());
-                writeF(0x0);
+                writeF(0x00);
                 writeF(0x00);
                 writeD(0x00);
                 writeD(0x00);
@@ -260,8 +267,8 @@ public class CharInfo extends L2GameServerPacket
 	
 			writeD(_runSpd);
 			writeD(_walkSpd);
-			writeD(_swimRunSpd/*0x32*/);  // swimspeed
-			writeD(_swimWalkSpd/*0x32*/);  // swimspeed
+			writeD(_swimRunSpd);
+			writeD(_swimWalkSpd);
 			writeD(_flRunSpd);
 			writeD(_flWalkSpd);
 			writeD(_flyRunSpd);
@@ -323,7 +330,7 @@ public class CharInfo extends L2GameServerPacket
 			{
 				writeD(_activeChar.getAbnormalEffect());
 			}
-			
+
 			writeC(_activeChar.getCharRecommendationStatus().getRecomLeft());                       //Changed by Thorgrim
 			writeH(_activeChar.getCharRecommendationStatus().getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
 			writeD(_activeChar.getClassId().getId());

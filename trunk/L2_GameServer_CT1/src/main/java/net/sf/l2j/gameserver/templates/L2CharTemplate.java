@@ -94,12 +94,18 @@ public class L2CharTemplate
 
 	private  boolean isUndead;
 	
-    //C4 Stats
     private  int baseMpConsumeRate;
     private  int baseHpConsumeRate;
 	
 	private  int collisionRadius;   
 	private  int collisionHeight;
+
+    private int attributeFire;
+    private int attributeWater;
+    private int attributeEarth;
+    private int attributeWind;
+    private int attributeHoly;
+    private int attributeUnholy;
 	
     /**
      * Empty constructor (we have to use setter to initialize the object).
@@ -180,6 +186,13 @@ public class L2CharTemplate
 		// Geometry
 		collisionRadius    = set.getInteger("collision_radius");
 		collisionHeight    = set.getInteger("collision_height");
+		
+        attributeFire 		= set.getInteger("attributeFire", 0);
+        attributeWater 		= set.getInteger("attributeWater", 0);
+        attributeEarth 		= set.getInteger("attributeEarth", 0);
+        attributeWind 		= set.getInteger("attributeWind", 0);
+        attributeHoly 		= set.getInteger("attributeHoly", 0);
+        attributeUnholy 	= set.getInteger("attributeUnholy", 0);
 	}
 
     /**
@@ -1101,4 +1114,64 @@ public class L2CharTemplate
     {
         isUndead = _isUndead;
     }
+
+	public int getAttributeFire()
+	{
+		return attributeFire;
+	}
+
+	public void setAttributeFire(int attributeFire)
+	{
+		this.attributeFire = attributeFire;
+	}
+
+	public int getAttributeWater()
+	{
+		return attributeWater;
+	}
+
+	public void setAttributeWater(int attributeWater)
+	{
+		this.attributeWater = attributeWater;
+	}
+
+	public int getAttributeEarth()
+	{
+		return attributeEarth;
+	}
+
+	public void setAttributeEarth(int attributeEarth)
+	{
+		this.attributeEarth = attributeEarth;
+	}
+
+	public int getAttributeWind()
+	{
+		return attributeWind;
+	}
+
+	public void setAttributeWind(int attributeWind)
+	{
+		this.attributeWind = attributeWind;
+	}
+
+	public int getAttributeHoly()
+	{
+		return attributeHoly;
+	}
+
+	public void setAttributeHoly(int attributeHoly)
+	{
+		this.attributeHoly = attributeHoly;
+	}
+
+	public int getAttributeUnholy()
+	{
+		return attributeUnholy;
+	}
+
+	public void setAttributeUnholy(int attributeUnholy)
+	{
+		this.attributeUnholy = attributeUnholy;
+	}
 }
