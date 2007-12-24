@@ -98,14 +98,14 @@ public class WareHouseDepositList extends L2GameServerPacket
 				writeD(item.getAugmentation().getAugmentationId()>>16);
 			}
 			else writeQ(0x00);
-            writeD(0x00); //attack attr element
-            writeD(0x00); //attack attr element val
-            writeD(0x00); //fire
-            writeD(0x00); //water
-            writeD(0x00); //wind
-            writeD(0x00); //earth
-            writeD(0x00); //holy
-            writeD(0x00); //unholy
+            writeD(item.getAttackAttrElement());
+            writeD(item.getAttackAttrElementVal());
+            writeD(item.getDefAttrFire());
+            writeD(item.getDefAttrWater());
+            writeD(item.getDefAttrWind());
+            writeD(item.getDefAttrEarth());
+            writeD(item.getDefAttrHoly());
+            writeD(item.getDefAttrUnholy());
 		}
 	}
 	

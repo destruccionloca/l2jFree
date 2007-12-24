@@ -72,7 +72,15 @@ public class GMViewItemList extends L2GameServerPacket
 				writeD(temp.getAugmentation().getAugmentationId());
 			else
 				writeD(0x00);
-			writeD(-1); // C6
+            writeD(temp.getMana());
+            writeD(temp.getAttackAttrElement());
+            writeD(temp.getAttackAttrElementVal());
+            writeD(temp.getDefAttrFire());
+            writeD(temp.getDefAttrWater());
+            writeD(temp.getDefAttrWind());
+            writeD(temp.getDefAttrEarth());
+            writeD(temp.getDefAttrHoly());
+            writeD(temp.getDefAttrUnholy());
 		}
 	}
 	

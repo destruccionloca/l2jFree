@@ -121,9 +121,11 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeH(0x00);
             writeH(0x00);
 			
-			writeD(item.getAugemtationBoni());
-			writeD(item.getMana());
-			
+			//writeD(item.getAugemtationBoni());
+			//writeD(item.getMana());
+
+            writeD(0x00);
+            writeD(0x00);
             writeD(0x00);
             writeD(0x00);
             writeD(0x00);

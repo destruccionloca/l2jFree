@@ -46,6 +46,15 @@ public class TradeList
         private int _enchant;
         private int _count;
         private int _price;
+        private int _attackAttrElement;
+        private int _attackAttrElementValue;
+        private int _def_fire;
+        private int _def_water;
+        private int _def_wind;
+        private int _def_earth;
+        private int _def_holy;
+        private int _def_unholy;
+        
 
         public TradeItem(L2ItemInstance item, int count, int price)
         {
@@ -54,6 +63,16 @@ public class TradeList
             _enchant = item.getEnchantLevel();
             _count = count;
             _price = price;
+            _attackAttrElement = 0;
+            _attackAttrElementValue = 0;
+            _def_fire = item.getDefAttrFire();
+            _def_water = item.getDefAttrWater();
+            _def_wind = item.getDefAttrWind();
+            _def_earth = item.getDefAttrEarth();
+            _def_holy = item.getDefAttrHoly();
+            _def_unholy = item.getDefAttrUnholy();
+            _attackAttrElement = item.getAttackAttrElement();
+            _attackAttrElementValue = item.getAttackAttrElementVal();
         }
 
         public TradeItem(L2Item item, int count, int price)
@@ -72,6 +91,14 @@ public class TradeList
             _enchant = item.getEnchant();
             _count = count;
             _price = price;
+            _def_fire = item.getDefAttrFire();
+            _def_water = item.getDefAttrWater();
+            _def_wind = item.getDefAttrWind();
+            _def_earth = item.getDefAttrEarth();
+            _def_holy = item.getDefAttrHoly();
+            _def_unholy = item.getDefAttrUnholy();
+            _attackAttrElement = item.getAttackAttrElement();
+            _attackAttrElementValue = item.getAttackAttrElementVal();
         }
 
         public void setObjectId(int objectId)
@@ -118,6 +145,47 @@ public class TradeList
         {
             return _price;
         }
+        
+        public int getAttackAttrElement()
+        {
+            return _attackAttrElement;
+        }
+
+        public int getAttackAttrElementVal()
+        {
+            return _attackAttrElementValue;
+        }
+
+        public int getDefAttrFire()
+        {
+            return _def_fire;
+        }
+
+        public int getDefAttrWater()
+        {
+            return _def_water;
+        }
+
+        public int getDefAttrEarth()
+        {
+            return _def_earth;
+        }
+
+        public int getDefAttrWind()
+        {
+            return _def_wind;
+        }
+
+        public int getDefAttrHoly()
+        {
+            return _def_holy;
+        }
+
+        public int getDefAttrUnholy()
+        {
+            return _def_unholy;
+        }
+        
     }
 
     private final static Log _log = LogFactory.getLog(TradeList.class.getName());

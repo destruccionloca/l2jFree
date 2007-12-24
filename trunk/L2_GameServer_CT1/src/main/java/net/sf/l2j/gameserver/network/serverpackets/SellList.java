@@ -80,8 +80,7 @@ public class SellList extends L2GameServerPacket
 	{
 		writeC(0x10);
 		writeD(_money);
-		writeD(_lease == null ? 0x00 : 1000000 + _lease.getTemplate().getNpcId());
-		
+		writeD(0x00);
 		writeH(_selllist.size());
 		
 		for (L2ItemInstance item : _selllist)
@@ -91,14 +90,20 @@ public class SellList extends L2GameServerPacket
 			writeD(item.getItemDisplayId());
 			writeD(item.getCount());
 			writeH(item.getItem().getType2());
-			writeH(0x00);
+            writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getEnchantLevel());
-			writeH(0x00);
-			writeH(0x00);
-			
-			if (_lease == null)
-				writeD(item.getItem().getReferencePrice()/2); // wtf??? there is no conditional part in SellList!! this d should allways be here 0.o! fortunately the lease stuff are never ever use so the if allways exectues
+            writeH(item.getCustomType2());
+            writeH(0x00);
+            writeD(item.getItem().getReferencePrice() / 2);
+            writeD(item.getAttackAttrElement());
+            writeD(item.getAttackAttrElementVal());
+            writeD(item.getDefAttrFire());
+            writeD(item.getDefAttrWater());
+            writeD(item.getDefAttrWind());
+            writeD(item.getDefAttrEarth());
+            writeD(item.getDefAttrHoly());
+            writeD(item.getDefAttrUnholy());
 		}
 	}
 

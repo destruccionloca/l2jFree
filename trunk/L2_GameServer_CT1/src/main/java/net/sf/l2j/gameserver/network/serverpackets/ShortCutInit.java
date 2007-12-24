@@ -65,6 +65,14 @@ public class ShortCutInit extends L2GameServerPacket
             	writeD(0x00);
             	writeH(0x00);
             	writeH(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);            	
             	break;
             case L2ShortCut.TYPE_SKILL: //2
             	writeD(sc.getId());

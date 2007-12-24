@@ -112,6 +112,7 @@ public final class BuyList extends L2GameServerPacket
 				writeD(item.getItem().getBodyPart());
 				writeH(item.getEnchantLevel());						// enchant level
 				writeH(item.getCustomType2());						// custom type2
+                writeH(0x00);
                 writeD((int)(item.getPriceToSell() * (_taxRate)));
                 writeD(item.getAttackAttrElement());
                 writeD(item.getAttackAttrElementVal());

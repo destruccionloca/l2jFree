@@ -50,16 +50,13 @@ public class Snoop extends L2GameServerPacket
 	@Override
 	protected void writeImpl()
 	{
-//		TODO: NEEDS A NEW DECRYPTING, CURRENT ONE ONLY POPS THE WINDOW!
-			writeC(0xdb);
-			writeD(GM.getObjectId());
-			writeS(_name);
-			writeD(_convoId); //??
-			writeD(_type);
-			writeS("B");
-			writeS("blabla"+_convoId);
-			//System.out.println(_convoId+" "+_name+" "+_type+" "+_speaker+" "+_msg);
-			System.out.println(_convoId);
+        writeC(0xdb);
+        writeD(_convoId);
+        writeS(_name);
+        writeD(0);
+        writeD(_type);
+        writeS(_speaker);
+        writeS(_msg);
 	}
 
 	/* (non-Javadoc)

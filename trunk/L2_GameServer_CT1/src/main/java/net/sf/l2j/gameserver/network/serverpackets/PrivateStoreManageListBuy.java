@@ -77,6 +77,14 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 			writeH(item.getItem().getType2());
 			writeD(item.getPrice());//your price
 			writeD(item.getItem().getReferencePrice());//fixed store price
+	        writeD(item.getAttackAttrElement());
+	        writeD(item.getAttackAttrElementVal());
+	        writeD(item.getDefAttrFire());
+	        writeD(item.getDefAttrWater());
+	        writeD(item.getDefAttrWind());
+	        writeD(item.getDefAttrEarth());
+	        writeD(item.getDefAttrHoly());
+	        writeD(item.getDefAttrUnholy());		
 		}	
 	}
 	
