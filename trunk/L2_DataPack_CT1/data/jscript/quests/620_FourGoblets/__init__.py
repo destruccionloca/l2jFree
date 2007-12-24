@@ -171,6 +171,7 @@ class Quest (JQuest) :
       st.playSound("ItemSound.quest_accept")
       return "CONTINUE.htm"
 
+    # Ghost Chamberlain of Elmoreden: Teleport to 4th sepulcher
     elif event == "15" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
         st.getPlayer().teleToLocation(178298,-84574,-7216)
@@ -182,6 +183,7 @@ class Quest (JQuest) :
       else :
         return "NG.htm"
 
+    # Ghost Chamberlain of Elmoreden: Teleport to Imperial Tomb entrance
     elif event == "16" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
         st.getPlayer().teleToLocation(186942,-75602,-2834)
@@ -193,6 +195,7 @@ class Quest (JQuest) :
       else :
         return "NG.htm"
 
+    # Teleport to Pilgrims Temple
     elif event == "17" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
         st.getPlayer().teleToLocation(169590,-90218,-2914)
@@ -217,7 +220,7 @@ QUEST.addTalkId(NAMELESS_SPIRIT)
 for npcTalkId in [GHOST_OF_WIGOTH_1,GHOST_OF_WIGOTH_2,CONQ_SM,EMPER_SM,SAGES_SM,JUDGE_SM,GHOST_CHAMBERLAIN_1,GHOST_CHAMBERLAIN_2] :
   QUEST.addTalkId(npcTalkId)
 
-for npcStartId in [CONQ_SM,EMPER_SM,SAGES_SM,JUDGE_SM] : 
+for npcStartId in [CONQ_SM,EMPER_SM,SAGES_SM,JUDGE_SM,GHOST_CHAMBERLAIN_1,GHOST_CHAMBERLAIN_2] : 
   QUEST.addStartNpc(npcStartId)
 
 for npcKillId in range(18120,18256) :
