@@ -8,13 +8,16 @@ from net.sf.l2j.gameserver.instancemanager      import FourSepulchersManager
 qn = "620_FourGoblets"
 
 #NPC
-GHOST_OF_WIGOTH_1 = 31452
 NAMELESS_SPIRIT = 31453
+
+GHOST_OF_WIGOTH_1 = 31452
 GHOST_OF_WIGOTH_2 = 31454
+
 CONQ_SM = 31921
 EMPER_SM = 31922
 SAGES_SM = 31923
 JUDGE_SM = 31924
+
 GHOST_CHAMBERLAIN_1 = 31919
 GHOST_CHAMBERLAIN_2 = 31920
 
@@ -57,7 +60,7 @@ class Quest (JQuest) :
         else :
           htmltext = "31453-FNG.htm"
       elif int(st.get("cond")) == 2 :
-        htmltext = "<html><body>Not implemented yet.</body></html>"
+        htmltext = "31453-TELE.htm"
 
     elif npcId == GHOST_OF_WIGOTH_1 :
       htmltext = "31452.htm"
@@ -66,40 +69,13 @@ class Quest (JQuest) :
       htmltext = "31454-1.htm"
 
     elif npcId == CONQ_SM :
-      if FourSepulchersManager.getInstance().isEntryTime() :
-        if FourSepulchersManager.getInstance().isEnableEntry(npcId,st.getPlayer()) :
-          htmltext = "31921-OK.htm"
-        else :
-          htmltext = "31921-NG2.htm"
-      else :
-        htmltext = "31921-NG1.htm"
-
+      htmltext = "31921-E.htm"
     elif npcId == EMPER_SM :
-      if FourSepulchersManager.getInstance().isEntryTime() :
-        if FourSepulchersManager.getInstance().isEnableEntry(npcId,st.getPlayer()) :
-          htmltext = "31922-OK.htm"
-        else :
-          htmltext = "31922-NG2.htm"
-      else :
-        htmltext = "31922-NG1.htm"
-
+      htmltext = "31922-E.htm"
     elif npcId == SAGES_SM :
-      if FourSepulchersManager.getInstance().isEntryTime() :
-        if FourSepulchersManager.getInstance().isEnableEntry(npcId,st.getPlayer()) :
-          htmltext = "31923-OK.htm"
-        else :
-          htmltext = "31923-NG2.htm"
-      else :
-        htmltext = "31923-NG1.htm"
-
+      htmltext = "31923-E.htm"
     elif npcId == JUDGE_SM :
-      if FourSepulchersManager.getInstance().isEntryTime() :
-        if FourSepulchersManager.getInstance().isEnableEntry(npcId,st.getPlayer()) :
-          htmltext = "31924-OK.htm"
-        else :
-          htmltext = "31924-NG2.htm"
-      else :
-        htmltext = "31924-NG1.htm"
+      htmltext = "31924-E.htm"
 
     elif npcId == GHOST_CHAMBERLAIN_1 :
       htmltext = "31919.htm"
@@ -120,8 +96,16 @@ class Quest (JQuest) :
             st.playSound("ItemSound.quest_itemget")
       return
 
-  def onEvent (self,event,st) :
-    if event == "11" :
+  def onAdvEvent (self,event,npc,player) :
+    st = player.getQuestState(qn)
+
+    if event == "Enter" : 
+      FourSepulchersManager.getInstance().tryEntry(npc,player)
+      return
+
+    if not st : return
+
+    elif event == "11" :
       if st.getQuestItemsCount(SEALED_BOX) >= 1 :
         htmltext = "31454-1.htm"
         st.takeItems(SEALED_BOX,1)
@@ -163,7 +147,7 @@ class Quest (JQuest) :
           st.giveItems(REWARDS[11],1)
 
       else :
-        htmltext = "31454-NG.htm"
+        return "31454-NG.htm"
 
     elif event == "12" :
       if st.getQuestItemsCount(GOBLETS[0]) >= 1 and st.getQuestItemsCount(GOBLETS[1]) >= 1 and st.getQuestItemsCount(GOBLETS[2]) >= 1 and st.getQuestItemsCount(GOBLETS[3]) >= 1 :
@@ -174,18 +158,18 @@ class Quest (JQuest) :
         st.giveItems(ANTIQUE_BROOCH,1)
         st.set("cond","2")
         st.playSound("ItemSound.quest_finish")
-        htmltext = "31453-22.htm"
+        return "31453-22.htm"
       else :
-        htmltext = "31453-FNG.htm"
+        return "31453-FNG.htm"
 
     elif event == "13" :
       st.playSound("ItemSound.quest_accept")
       st.exitQuest(1)
-      htmltext = "END.htm"
+      return "END.htm"
 
     elif event == "14" :
       st.playSound("ItemSound.quest_accept")
-      htmltext = "CONTINUE.htm"
+      return "CONTINUE.htm"
 
     elif event == "15" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
@@ -196,7 +180,7 @@ class Quest (JQuest) :
         st.getPlayer().teleToLocation(178298,-84574,-7216)
         return
       else :
-        htmltext = "NG.htm"
+        return "NG.htm"
 
     elif event == "16" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
@@ -207,7 +191,7 @@ class Quest (JQuest) :
         st.getPlayer().teleToLocation(186942,-75602,-2834)
         return
       else :
-        htmltext = "NG.htm"
+        return "NG.htm"
 
     elif event == "17" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
@@ -218,9 +202,7 @@ class Quest (JQuest) :
         st.getPlayer().teleToLocation(169590,-90218,-2914)
         return
       else :
-        htmltext = "NG.htm"
-
-    return htmltext
+        return "NG.htm"
 
 
 QUEST       = Quest(620,"620_FourGoblets","quest")
@@ -234,6 +216,9 @@ QUEST.addTalkId(NAMELESS_SPIRIT)
 
 for npcTalkId in [GHOST_OF_WIGOTH_1,GHOST_OF_WIGOTH_2,CONQ_SM,EMPER_SM,SAGES_SM,JUDGE_SM,GHOST_CHAMBERLAIN_1,GHOST_CHAMBERLAIN_2] :
   QUEST.addTalkId(npcTalkId)
+
+for npcStartId in [CONQ_SM,EMPER_SM,SAGES_SM,JUDGE_SM] : 
+  QUEST.addStartNpc(npcStartId)
 
 for npcKillId in range(18120,18256) :
   QUEST.addKillId(npcKillId)

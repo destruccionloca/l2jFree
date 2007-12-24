@@ -283,15 +283,9 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             L2ItemInstance hallsKey = player.getInventory().getItemByItemId(HALLS_KEY);
             if(hallsKey == null)
             {
-                // TODO: proper htm message
-                player.sendMessage("You need a Chapel Key.");
+                showHtmlFile(player, "Gatekeeper-no.htm");
             }
-            else if (!FourSepulchersManager.getInstance().isAttackTime())
-            {
-                // TODO: proper htm message
-                player.sendMessage("Fighting time is over!");
-            }
-            else
+            else if (FourSepulchersManager.getInstance().isAttackTime())
             {
                 switch(getNpcId())
                 {
@@ -375,4 +369,12 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
             FourSepulchersManager.getInstance().spawnMonster(_NpcId);
         }
     }
+
+	public void showHtmlFile(L2PcInstance player, String file)
+	{
+		NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+		html.setFile("data/html/SepulcherNpc/"+file);
+		html.replace("%npcname%", getName());
+		player.sendPacket(html);
+	}
 }
