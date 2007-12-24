@@ -2342,7 +2342,7 @@ public abstract class L2Character extends L2Object
     /**
      * FastTable containing all active skills effects in progress of a L2Character.
      */
-	private FastTable<L2Effect> _effects = new FastTable<L2Effect>();
+	private FastTable<L2Effect> _effects;
 
     /** The table containing the List of all stacked effect in progress for each Stack group Identifier */
     protected FastMap<String, FastList<L2Effect>> _stackedEffects;

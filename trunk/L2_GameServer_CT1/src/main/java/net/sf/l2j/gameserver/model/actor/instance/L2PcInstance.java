@@ -946,7 +946,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Create a L2Radar object
         _radar = new L2Radar(this);
-        
+
+        // Retrieve from the database all items of this L2PcInstance and add them to _inventory
+        getInventory().restore();
+        if (!Config.WAREHOUSE_CACHE)
+            getWarehouse();
+        getFreight().restore();
     }
 
     private L2PcInstance(int objectId)
@@ -5938,13 +5943,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
             }
         }
-        
-        //Retrieve from the database all items of this L2PcInstance and add them to _inventory
-        player.getInventory().restore();
-        if (!Config.WAREHOUSE_CACHE)
-            player.getWarehouse();
-        player.getFreight().restore();
-        
+
         return player;
     }
 

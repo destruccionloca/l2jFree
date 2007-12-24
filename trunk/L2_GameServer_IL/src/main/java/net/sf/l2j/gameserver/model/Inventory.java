@@ -27,7 +27,6 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.datatables.ArmorSetsTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2Armor;
@@ -659,7 +658,7 @@ public abstract class Inventory extends ItemContainer
 			case 0x010000:
 				return _paperdoll[16];
 			case 0x080000:
-				return _paperdoll[17];			
+				return _paperdoll[17];
 		}
 		return null;
 	}
@@ -1242,80 +1241,42 @@ public abstract class Inventory extends ItemContainer
             ResultSet inv = statement.executeQuery();
 
             L2ItemInstance item;
-            
-            int 	itemCount 	= 0,
-            		maxItems	= 100;
-            boolean warnMessage	= true;
-            
-            if(getOwner() instanceof L2PcInstance)
-            {
-            	L2PcInstance player = (L2PcInstance)getOwner();
-            	maxItems = 	(player.getAccessLevel() > 0) ? 
-            			 	Config.INVENTORY_MAXIMUM_GM : (player.getRace() == Race.dwarf) ? 
-            			 			Config.INVENTORY_MAXIMUM_DWARF : Config.INVENTORY_MAXIMUM_NO_DWARF; 
-            }
-            	
             while (inv.next())
             {
                 int objectId = inv.getInt(1);
                 item = L2ItemInstance.restoreFromDb(objectId);
                 if (item == null) continue;
-                
-                itemCount++;
-                
+
                 if(getOwner() instanceof L2PcInstance)
                 {
                     L2PcInstance player = (L2PcInstance)getOwner();
 
                     if(!player.isGM() && Config.ALT_STRICT_HERO_SYSTEM && !player.isHero() && item.isHeroitem())
                         item.setLocation(ItemLocation.INVENTORY);
-                    
-                    if (maxItems < itemCount)
-                    {
-                    	
-                    	if (!item.isStackable())
-                    	{
-                    		if (warnMessage)
-                    			player.sendMessage("Could not restore all items! Items will be restored when you do not exceed inventory quantity.");
-                    		warnMessage = false;
-                    		continue;
-                    	}
-                    	
-                    	else if (getItemByItemId(item.getItemId()) == null)
-                    	{
-                    		if (warnMessage)
-                    			player.sendMessage("Could not restore all items! Items will be restored when you do not exceed inventory quantity.");
-                    		warnMessage = false;
-                    		continue;
-                    	}
-                    		
-                    }
-               }
-               
-               L2World.getInstance().storeObject(item);
-               
-               // If stackable item is found in inventory just add to current quantity
-               if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
-               {
-                   addItem("Restore", item, null, getOwner());
-                   itemCount--;
-               }
-               else addItem(item);
-           }
-           
-           inv.close();
-           statement.close();
-           refreshWeight();
-           restoreEquipedItemsPassiveSkill();
-           restoreArmorSetPassiveSkill();
-       }
-       catch (Exception e)
-       {
-           _log.warn("Could not restore inventory : " + e);
-       } 
-       finally 
-       {
-           try { con.close(); } catch (Exception e) {}
-       }
+                }
+                
+                L2World.getInstance().storeObject(item);
+                
+                // If stackable item is found in inventory just add to current quantity
+                if (item.isStackable() && getItemByItemId(item.getItemId()) != null)
+                    addItem("Restore", item, null, getOwner());
+                else
+                    addItem(item);
+            }
+            
+            inv.close();
+            statement.close();
+            refreshWeight();
+            restoreEquipedItemsPassiveSkill();
+            restoreArmorSetPassiveSkill();
+        }
+        catch (Exception e)
+        {
+            _log.warn("Could not restore inventory : " + e);
+        } 
+        finally 
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
     }
 }
