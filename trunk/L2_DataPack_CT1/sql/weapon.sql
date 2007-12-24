@@ -1655,6 +1655,3 @@ INSERT INTO `weapon`(`item_id`,`name`,`bodypart`,`weight`,`soulshots`,`spiritsho
 ('10253', 'Dynasty Crusher', 'rhand', '1740', '0', '0', 'steel', 's', '307', '0', 'blunt', '4', '4.00000', '0', '0', '0', '379', '0', '140', '-1', '0', '0', 'true', 'true', 'true', 'true', 'true', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
 ('10277', 'Monster Only (Behamah Pole)', 'rhand', '2140', '0', '0', 'steel', 'none', '24', '0', 'sword', '8', '-3.00000', '0', '0', '0', '325', '0', '17', '-1', '0', '0', 'true', 'true', 'true', 'true', 'true', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
 ('10278', 'Monster Only (Behamah Dual)', 'rhand', '2530', '0', '0', 'steel', 'none', '73', '0', 'sword', '8', '0.00000', '0', '0', '0', '325', '0', '37', '-1', '0', '0', 'true', 'true', 'true', 'true', 'true', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
-
-ALTER TABLE `weapon` ADD COLUMN `item_display_id` int(11) NOT NULL DEFAULT 0 AFTER `item_id`;
-UPDATE `weapon` SET `item_display_id` = `item_id`;

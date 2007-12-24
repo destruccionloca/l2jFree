@@ -1332,6 +1332,3 @@ INSERT INTO `armor` VALUES (9084, 'Shadow Item: Dark Crystal Helmet', 'head', 't
 -- Update
 UPDATE `armor` SET `dropable` = 'false', `tradeable` = 'false', `destroyable` = 'false', `price` = '0', `sellable` = 'false' WHERE `item_id` IN 
 ( 6834, 6835, 6836, 6837, 6838, 6839, 6840, 6841, 8181, 8182, 8183 );
-
-ALTER TABLE `armor` ADD COLUMN `item_display_id` int(11) NOT NULL DEFAULT 0 AFTER `item_id`;
-UPDATE `armor` SET `item_display_id` = `item_id`;
