@@ -89,27 +89,11 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             
             int newJobLevel = jobLevel + 1;
 
-            boolean canUpgrade = false;
-            if (player.getPet() != null)
-            {
-            	if (player.getPet().getNpcId() == 12311 || player.getPet().getNpcId() == 12312 || player.getPet().getNpcId() == 12313)
-            	{
-            		if (player.getPet().getLevel() >= 55)
-            			canUpgrade = true;
-            		else
-            			player.sendMessage("The level of your hatchling is to low to be upgraded.");
-            	}
-            	else
-            		player.sendMessage("You have to summon an hatchling.");
-            }
-            else
-            	player.sendMessage("You have to summon an hatchling if you want to upgrade him.");
-
             if ((((level >= 20 && jobLevel == 0 ) || 
                 (level >= 40 && jobLevel == 1 ) || 
                 (level >= 76 && jobLevel == 2)) &&
                 Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
-            	|| (Config.CLASS_MASTER_STRIDER_UPDATE && canUpgrade))
+            	|| (Config.CLASS_MASTER_STRIDER_UPDATE))
             {
             	sb.append("You can change your occupation to following:<br>");
             	
@@ -270,24 +254,42 @@ public final class L2ClassMasterInstance extends L2FolkInstance
         }
         else if (command.startsWith("upgrade_hatchling") && Config.CLASS_MASTER_STRIDER_UPDATE)
         {
-        	int[] hatchCollar = { 3500, 3501, 3502 };
-        	int[] striderCollar = { 4422, 4423, 4424 };
-        	
-        	//TODO: Maybe show a complete list of all hatchlings instead of using first one
-        	for (int i = 0; i < 3; i++)
-        	{
-        		L2ItemInstance collar = player.getInventory().getItemByItemId(hatchCollar[i]);
-        		
-        		if (collar != null)
-        		{
-        			// Unsummon the hatchling
-        			player.getPet().unSummon(player);
-        			player.destroyItem("ClassMaster", collar, player, true);
-        			player.addItem("ClassMaster", striderCollar[i], 1, player, true, true);
-        			
-        			return;
-        		}
-        	}
+            boolean canUpgrade = false;
+            if (player.getPet() != null)
+            {
+                if (player.getPet().getNpcId() == 12311 || player.getPet().getNpcId() == 12312 || player.getPet().getNpcId() == 12313)
+                {
+                    if (player.getPet().getLevel() >= 55)
+                        canUpgrade = true;
+                    else
+                        player.sendMessage("The level of your hatchling is too low to be upgraded.");
+                }
+                else
+                    player.sendMessage("You have to summon your hatchling.");
+            }
+            else
+                player.sendMessage("You have to summon your hatchling if you want to upgrade him.");
+
+            if (!canUpgrade) return;
+
+            int[] hatchCollar = { 3500, 3501, 3502 };
+            int[] striderCollar = { 4422, 4423, 4424 };
+
+            //TODO: Maybe show a complete list of all hatchlings instead of using first one
+            for (int i = 0; i < 3; i++)
+            {
+                L2ItemInstance collar = player.getInventory().getItemByItemId(hatchCollar[i]);
+
+                if (collar != null)
+                {
+                    // Unsummon the hatchling
+                    player.getPet().unSummon(player);
+                    player.destroyItem("ClassMaster", collar, player, true);
+                    player.addItem("ClassMaster", striderCollar[i], 1, player, true, true);
+
+                    return;
+                }
+            }
         }
         else
         {
