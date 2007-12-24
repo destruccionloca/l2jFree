@@ -28,6 +28,8 @@
  */
 package net.sf.l2j.gameserver.util;
 
+import java.util.concurrent.Future;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -43,7 +45,8 @@ import org.apache.commons.logging.LogFactory;
 public final class IllegalPlayerAction implements Runnable
 {
 	private static Log _logAudit = LogFactory.getLog("audit");
-
+	private Future _task;
+	
     protected String _message;
     protected int _punishment;
     protected L2PcInstance _actor;
@@ -74,9 +77,20 @@ public final class IllegalPlayerAction implements Runnable
         }
     }
     
+    public void setTask(Future task)
+    {
+    	_task = task;
+    }
+    
     public void run()
     {
-		_logAudit.info("AUDIT:"+ _message + ","+_actor + " "+_punishment);
+		if (_task != null)
+		{
+			_task.cancel(true);
+			_task = null;
+		}
+    	
+    	_logAudit.info("AUDIT:"+ _message + ","+_actor + " "+_punishment);
 
         GmListTable.broadcastMessageToGMs(_message);
 

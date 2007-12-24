@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.Vector;
+import java.util.concurrent.Future;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -109,24 +110,53 @@ public final class L2Radar
         }
     }
     
-    public class RadarOnPlayer implements Runnable{
+    public class RadarOnPlayer implements Runnable
+    {
+    	
     	private final L2PcInstance _myTarget, _me;
-    	public RadarOnPlayer(L2PcInstance target, L2PcInstance me){
+    	
+    	private Future _task;
+    	
+    	
+    	public RadarOnPlayer(L2PcInstance target, L2PcInstance me)
+    	{
     		_me = me;
     		_myTarget = target;
     	}
-    	public void run(){
-    		try{
-    		if (_me == null || _me.isOnline()==0)
-    			return;
-    		_me.sendPacket(new RadarControl(1, 1, _me.getX(), _me.getY(), _me.getZ()));
-    		if (_myTarget == null || _myTarget.isOnline()==0 || !_myTarget._haveFlagCTF){
-    			return;
+    	
+    	public void setTask (Future task)
+    	{
+    		_task = task;
+    	}
+    	
+    	public void run()
+    	{
+    		try
+    		{
+        		if (_task != null)
+        		{
+        			_task.cancel(true);
+        			_task = null;
+        		}
+    			
+    			if (_me == null || _me.isOnline()==0)
+        			return;
+        		
+        		_me.sendPacket(new RadarControl(1, 1, _me.getX(), _me.getY(), _me.getZ()));
+        		
+        		if (_myTarget == null || _myTarget.isOnline()==0 || !_myTarget._haveFlagCTF)
+        		{
+        			return;
+        		}
+        		
+        		_me.sendPacket(new RadarControl(0, 1, _myTarget.getX(), _myTarget.getY(), _myTarget.getZ()));
+        		
+        		RadarOnPlayer rop = new RadarOnPlayer(_myTarget,_me);
+        		Future task = ThreadPoolManager.getInstance().scheduleGeneral(rop, 15000);
+        		rop.setTask(task);
     		}
-    		_me.sendPacket(new RadarControl(0, 1, _myTarget.getX(), _myTarget.getY(), _myTarget.getZ()));
-    		ThreadPoolManager.getInstance().scheduleGeneral(new RadarOnPlayer(_myTarget,_me), 15000);
-    		}catch(Throwable t)
-    		{}
+    		
+    		catch(Throwable t) {}
     	}
     }    
 }

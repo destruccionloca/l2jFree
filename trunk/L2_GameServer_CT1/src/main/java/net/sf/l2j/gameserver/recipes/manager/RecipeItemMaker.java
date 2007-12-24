@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.recipes.manager;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -67,6 +68,7 @@ public class RecipeItemMaker implements Runnable
     private int totalItems;
     private int materialsRefPrice;
     private int delay;
+    private Future _task;
     
     public RecipeItemMaker(L2PcInstance pPlayer, L2Recipe pRecipe, L2PcInstance pTarget)
     {
@@ -190,9 +192,20 @@ public class RecipeItemMaker implements Runnable
         isValid = true;
     }
     
+    public void setTask(Future task)
+    {
+    	_task = task;
+    }
+    
     public void run()
     {   
-        if (!Config.IS_CRAFTING_ENABLED)
+        if (_task != null)
+        {
+        	_task.cancel(true);
+        	_task = null;
+        }
+    	
+    	if (!Config.IS_CRAFTING_ENABLED)
         {
             target.sendMessage("Item creation is currently disabled.");
             abort();
@@ -252,7 +265,8 @@ public class RecipeItemMaker implements Runnable
                 player.broadcastPacket(msk);
                 
                 player.sendPacket(new SetupGauge(0, delay));
-                ThreadPoolManager.getInstance().scheduleGeneral(this, 100 + delay);
+                Future task = ThreadPoolManager.getInstance().scheduleGeneral(this, 100 + delay);
+                this.setTask(task);
             } 
             else 
             {
@@ -372,7 +386,8 @@ public class RecipeItemMaker implements Runnable
             if (Config.ALT_GAME_CREATION)
             {
                 player.sendPacket(new SetupGauge(0, delay));
-                ThreadPoolManager.getInstance().scheduleGeneral(this, 100 + delay);
+                Future task = ThreadPoolManager.getInstance().scheduleGeneral(this, 100 + delay);
+                this.setTask(task);
             }
             else
                 // no rest - report no mana

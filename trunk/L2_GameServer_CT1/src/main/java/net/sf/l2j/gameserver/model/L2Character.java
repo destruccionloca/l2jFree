@@ -669,24 +669,42 @@ public abstract class L2Character extends L2Object
 		broadcastPacket(new ChangeWaitType(this, ChangeWaitType.WT_START_FAKEDEATH));
 		disableAllSkills();
 		
-		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-		{
-			public void run()
-			{
-				L2Character.this.enableAllSkills();
-				broadcastPacket(new ChangeWaitType(L2Character.this, ChangeWaitType.WT_STOP_FAKEDEATH));
-				setIsFallsdown(false);
-				
-				// For some reason this is needed since the client side changes back to last airborn position after 1 second
-				lastPosition = new int[] { getX(), getY(), getZ() };
-				setClientX(lastPosition[0]);
-				setClientY(lastPosition[1]);
-				setClientZ(lastPosition[2]);
-			}
-		}, 1100);
+		restateFallingChar rfc = new restateFallingChar(); 
+		Future task = ThreadPoolManager.getInstance().scheduleGeneral(rfc, 1100);
+		rfc.setTask(task);
 		
 		return damage;
 	}
+	
+	private class restateFallingChar implements Runnable
+	{
+		private Future _task;
+    	
+    	public void setTask (Future task)
+    	{
+    		_task = task;
+    	}
+    	
+    	public void run()
+    	{
+    		if (_task != null)
+    		{
+    			_task.cancel(true);
+    			_task = null;
+    		}
+
+    		L2Character.this.enableAllSkills();
+    		broadcastPacket(new ChangeWaitType(L2Character.this,ChangeWaitType.WT_STOP_FAKEDEATH));
+    		setIsFallsdown(false);
+
+    		//For some reason this is needed since the client side changes back to last airborn position after 1 second
+    		lastPosition = new int[] {getX(),getY(),getZ()};
+    		setClientX(lastPosition[0]);
+    		setClientY(lastPosition[1]);
+    		setClientZ(lastPosition[2]);
+    	}
+	}
+	
 	
 	/**
 	 * Receives a integer fallHeight and finalizes the damage effect from the fall.
@@ -906,7 +924,9 @@ public abstract class L2Character extends L2Object
 					{
 						// If L2PcInstance doesn't have enough MP, stop the attack
 						
-						ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
+						NotifyAITask nait = new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT);                        
+                    	Future task = ThreadPoolManager.getInstance().scheduleAi(nait, 1000);
+                    	nait.setTask(task);
 						
 						sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
 						sendPacket(new ActionFailed());
@@ -921,7 +941,9 @@ public abstract class L2Character extends L2Object
 				else
 				{
 					// Cancel the action because the bow can't be re-use at this moment
-					ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
+					NotifyAITask nait = new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT);
+                	Future task = ThreadPoolManager.getInstance().scheduleAi(nait, 1000);
+                	nait.setTask(task);
 					
 					sendPacket(new ActionFailed());
 					return;
@@ -1060,7 +1082,9 @@ public abstract class L2Character extends L2Object
 			broadcastPacket(attack);
 		
 		// Notify AI with EVT_READY_TO_ACT
-		ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), timeAtk + reuse);
+		NotifyAITask nait = new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT);
+        Future task = ThreadPoolManager.getInstance().scheduleAi(nait, timeAtk+reuse);
+        nait.setTask(task);
 	}
 	
 	/**
@@ -1129,7 +1153,9 @@ public abstract class L2Character extends L2Object
 		}
 		
 		// Create a new hit task with Medium priority
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
+		HitTask ht = new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1);
+        Future task = ThreadPoolManager.getInstance().scheduleAi(ht, sAtk);
+        ht.setTask(task);
 		
 		// Calculate and set the disable delay of the bow in function of the Attack Speed
 		_disableBowAttackEndTime = (sAtk + reuse) / GameTimeController.MILLIS_IN_TICK + GameTimeController.getGameTicks();
@@ -1207,10 +1233,14 @@ public abstract class L2Character extends L2Object
 		}
 		
 		// Create a new hit task with Medium priority for hit 1
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk / 2);
+		HitTask ht = new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1);
+        Future task = ThreadPoolManager.getInstance().scheduleAi(ht, sAtk/2);
+        ht.setTask(task);
 		
 		// Create a new hit task with Medium priority for hit 2 with a higher delay
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage2, crit2, miss2, attack.soulshot, shld2), sAtk);
+        ht 	 = new HitTask(target, damage2, crit2, miss2, attack.soulshot, shld2);
+        task = ThreadPoolManager.getInstance().scheduleAi(ht, sAtk);
+        ht.setTask(task);
 		
 		// Add those hits to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
@@ -1389,7 +1419,9 @@ public abstract class L2Character extends L2Object
 		}
 		
 		// Create a new hit task with Medium priority
-		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
+		HitTask ht = new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1);
+        Future task = ThreadPoolManager.getInstance().scheduleAi(ht, sAtk);
+        ht.setTask(task);
 		
 		// Add this hit to the Server-Client packet Attack
 		attack.addHit(target, damage1, miss1, crit1, shld1);
@@ -1697,9 +1729,15 @@ public abstract class L2Character extends L2Object
 			// Create a task MagicUseTask to launch the MagicSkill at the end of the casting time (hitTime)
 			// For client animation reasons (party buffs especially) 200 ms before!
 			if (getForceBuff() != null)
-				_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 2), hitTime);
+			{
+            	MagicUseTask mut = new MagicUseTask(targets, skill, coolTime, 2);
+            	_skillCast = ThreadPoolManager.getInstance().scheduleEffect(mut, hitTime);
+            }
 			else
-				_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 1), hitTime - 200);
+			{
+            	MagicUseTask mut = new MagicUseTask(targets, skill, coolTime, 1);
+            	_skillCast = ThreadPoolManager.getInstance().scheduleEffect(mut, hitTime-200);
+            }
 		}
 		else
 			onMagicLaunchedTimer(targets, skill, coolTime, true);
@@ -2477,6 +2515,7 @@ public abstract class L2Character extends L2Object
 	/** Task lauching the function enableSkill() */
 	class EnableSkill implements Runnable
 	{
+		private Future 	_task;
 		int	_skillId;
 		
 		public EnableSkill(int skillId)
@@ -2484,10 +2523,21 @@ public abstract class L2Character extends L2Object
 			_skillId = skillId;
 		}
 		
+		public void setTask(Future task)
+        {
+        	_task = task;
+        }
+		
 		public void run()
 		{
-			try
-			{
+			if (_task == null)
+            {
+            	_task.cancel(true);
+            	_task = null;
+            }
+        	
+        	try
+            {
 				enableSkill(_skillId);
 			}
 			catch (Throwable e)
@@ -2512,6 +2562,8 @@ public abstract class L2Character extends L2Object
 	 */
 	class HitTask implements Runnable
 	{
+		private Future _task;
+		
 		L2Character	_hitTarget;
 		int			_damage;
 		boolean		_crit;
@@ -2529,10 +2581,21 @@ public abstract class L2Character extends L2Object
 			_soulshot = soulshot;
 		}
 		
+		private void setTask (Future task)
+        {
+        	_task = task;
+        }
+		
 		public void run()
 		{
-			try
-			{
+			if (_task != null)
+            {
+            	_task.cancel(true);
+            	_task = null;
+            }
+        	
+        	try
+            {
 				onHitTimer(_hitTarget, _damage, _crit, _miss, _soulshot, _shld);
 			}
 			catch (Throwable e)
@@ -2618,16 +2681,28 @@ public abstract class L2Character extends L2Object
 	public class NotifyAITask implements Runnable
 	{
 		private final CtrlEvent	_evt;
+		private Future 			_task;
 		
 		NotifyAITask(CtrlEvent evt)
 		{
 			this._evt = evt;
 		}
 		
+		public void setTask(Future task)
+        {
+        	_task = task;
+        }
+		
 		public void run()
 		{
-			try
-			{
+			if (_task != null)
+            {
+            	_task.cancel(true);
+            	_task = null;
+            }
+        	
+        	try
+            {
 				getAI().notifyEvent(_evt, null);
 			}
 			catch (Throwable t)
@@ -5119,7 +5194,11 @@ public abstract class L2Character extends L2Object
 		
 		// Create a task to notify the AI that L2Character arrives at a check point of the movement
 		if (tm > 3000)
-			ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE), 2000);
+		{
+			NotifyAITask nait = new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE);
+			Future task = ThreadPoolManager.getInstance().scheduleAi( nait , 2000);
+			nait.setTask(task);
+		}
 		
 		// the CtrlEvent.EVT_ARRIVED will be sent when the character will actually arrive
 		// to destination by GameTimeController
@@ -5207,7 +5286,11 @@ public abstract class L2Character extends L2Object
 		
 		// Create a task to notify the AI that L2Character arrives at a check point of the movement
 		if (tm > 3000)
-			ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE), 2000);
+		{
+			NotifyAITask nait = new NotifyAITask(CtrlEvent.EVT_ARRIVED_REVALIDATE);			
+			Future task = ThreadPoolManager.getInstance().scheduleAi(nait, 2000);
+			nait.setTask(task);
+		}
 		
 		// the CtrlEvent.EVT_ARRIVED will be sent when the character will actually arrive
 		// to destination by GameTimeController
@@ -6252,7 +6335,12 @@ public abstract class L2Character extends L2Object
 	{
 		if (skill == null || targets == null || targets.length <= 0)
 		{
-			_skillCast = null;
+			if (_skillCast != null)
+			{
+				_skillCast.cancel(true);
+				_skillCast = null;
+			}
+			
 			enableAllSkills();
 			
 			setAttackingChar(null);
@@ -6313,7 +6401,12 @@ public abstract class L2Character extends L2Object
 		// Potions can be used while faking death.
 		if (!isCastingNow() || (isAlikeDead() && !skill.isPotion()))
 		{
-			_skillCast = null;
+			if (_skillCast != null)
+			{
+				_skillCast.cancel(true);
+				_skillCast = null;
+			}
+			
 			enableAllSkills();
 			
 			setAttackingChar(null);
@@ -6350,7 +6443,12 @@ public abstract class L2Character extends L2Object
 	{
 		if (skill == null || targets == null || targets.length <= 0)
 		{
-			_skillCast = null;
+			if (_skillCast != null)
+			{
+				_skillCast.cancel(true);
+				_skillCast = null;
+			}
+			
 			enableAllSkills();
 			
 			setAttackingChar(null);
@@ -6359,7 +6457,12 @@ public abstract class L2Character extends L2Object
 		}
 		if (getForceBuff() != null)
 		{
-			_skillCast = null;
+			if (_skillCast != null)
+			{
+				_skillCast.cancel(true);
+				_skillCast = null;
+			}
+			
 			enableAllSkills();
 			
 			getForceBuff().delete();
@@ -6446,7 +6549,12 @@ public abstract class L2Character extends L2Object
 	 */
 	public void onMagicFinalizer(L2Object[] targets, L2Skill skill)
 	{
-		_skillCast = null;
+		if (_skillCast != null)
+		{
+			_skillCast.cancel(true);
+			_skillCast = null;
+		}
+		
 		_castEndTime = 0;
 		_castInterruptTime = 0;
 		enableAllSkills();
@@ -6564,8 +6672,12 @@ public abstract class L2Character extends L2Object
 	public void disableSkill(int skillId, long delay)
 	{
 		disableSkill(skillId);
-		if (delay > 10)
-			ThreadPoolManager.getInstance().scheduleAi(new EnableSkill(skillId), delay);
+		if (delay > 10) 
+		{
+			EnableSkill es = new EnableSkill(skillId);
+			Future task = ThreadPoolManager.getInstance().scheduleAi(es, delay);
+			es.setTask(task);
+		}
 	}
 	
 	/**
