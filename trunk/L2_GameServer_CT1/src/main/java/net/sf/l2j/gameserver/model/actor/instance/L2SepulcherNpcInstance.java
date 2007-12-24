@@ -306,10 +306,6 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
                 }
             }
         }
-        else if (command.startsWith("Entry"))
-        {
-            FourSepulchersManager.getInstance().entry(getNpcId(),player);
-        }
         else
         {
             super.onBypassFeedback(player, command);

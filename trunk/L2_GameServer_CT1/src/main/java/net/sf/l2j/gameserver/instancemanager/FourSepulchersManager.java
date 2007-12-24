@@ -1,12 +1,4 @@
-/*
- * $HeadURL: $
- *
- * $Author: $
- * $Date: $
- * $Revision: $
- *
- * 
- * This program is free software; you can redistribute it and/or modify
+/* This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -50,6 +42,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SepulcherMonsterInstance;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
@@ -68,11 +61,11 @@ public class FourSepulchersManager
 
     private static FourSepulchersManager _instance;
 
-    private String _questId = "620_FourGoblets";
-    private int _entrancePass = 7075;
-    private int _usedEntrancePass = 7261;
-    private final int _hallsKey = 7260;
-    private int _oldBrooch = 7262;
+    private static final String QUEST_ID = "620_FourGoblets";
+    private static final int ENTRANCE_PASS = 7075;
+    private static final int USED_PASS = 7261;
+    private static final int CHAPEL_KEY = 7260;
+    private static final int ANTIQUE_BROOCH = 7262;
 
     protected boolean _inEntryTime = false;
     protected boolean _inWarmUpTime = false;
@@ -728,55 +721,99 @@ public class FourSepulchersManager
     	return _inAttackTime;
     }
     
-    public synchronized boolean isEnableEntry(int npcId,L2PcInstance player)
-    {
-        if(!isEntryTime()) return false;
-        
-        else if(_hallInUse.get(npcId).booleanValue()) return false;
+	public synchronized void tryEntry(L2NpcInstance npc, L2PcInstance player)
+	{
+		int npcId = npc.getNpcId();
+		switch(npcId)
+		{
+			// ID ok
+			case 31921: case 31922: case 31923: case 31924:
+				break;
+			// ID not ok
+			default:
+				if (!player.isGM())
+				{
+					_log.warn("Player " + player.getName() + "(" + player.getObjectId() + ") tried to cheat in four sepulchers.");
+					Util.handleIllegalPlayerAction(player, "Warning!! Character " + player.getName()
+						+ " tried to enter four sepulchers with invalid npc id.", Config.DEFAULT_PUNISH);
+				}
+				return;
+		}
 
-        else if(Config.FS_PARTY_MEMBER_COUNT > 1)
-        {
-        	if(player.getParty() == null) return false;
-        		
-        	if(!player.getParty().isLeader(player)) return false;
-        	
-            if (player.getParty().getMemberCount() < Config.FS_PARTY_MEMBER_COUNT) return false;
+		if(!isEntryTime())
+		{
+			showHtmlFile(player, npcId+"-NE.htm", npc, null);
+			return;
+		}
 
-            else
-            {
-                for (L2PcInstance mem : player.getParty().getPartyMembers())
-                {
-                    if(mem.getQuestState(_questId).get("<state>") == null) return false;
-                    if (mem.getInventory().getItemByItemId(_entrancePass) == null) return false;
+		if(_hallInUse.get(npcId).booleanValue())
+		{
+			showHtmlFile(player, npcId+"-FULL.htm", npc, null);
+			return;
+		}
 
-                    int invLimitCnt = mem.getInventoryLimit();
-                    int invItemCnt = mem.getInventory().getItems().length;
-                    if((invItemCnt / invLimitCnt) >= 0.8) return false;
-                    
-                    int invLimitWeight = mem.getMaxLoad();
-                    int invWeight = mem.getInventory().getTotalWeight();
-                    if((invWeight / invLimitWeight) >= 0.8) return false;
-                }
-            }
-        }
-        else
-        {
-            if(player.getQuestState(_questId).get("<state>") == null) return false;
-            if(player.getInventory().getItemByItemId(_entrancePass) == null) return false;
-            
-            int invLimitCnt = player.getInventoryLimit();
-            int invItemCnt = player.getInventory().getItems().length;
-            if((invItemCnt / invLimitCnt) >= 0.8) return false;
-            
-            int invLimitWeight = player.getMaxLoad();
-            int invWeight = player.getInventory().getTotalWeight();
-            if((invWeight / invLimitWeight) >= 0.8) return false;
-        }
+		if(Config.FS_PARTY_MEMBER_COUNT > 1)
+		{
+			if(!player.isInParty() || player.getParty().getMemberCount() < Config.FS_PARTY_MEMBER_COUNT)
+			{
+				showHtmlFile(player, npcId+"-SP.htm", npc, null);
+				return;
+			}
 
-        return true;
-    }
-    
-    public void entry(int npcId, L2PcInstance player)
+			if(!player.getParty().isLeader(player))
+			{
+				showHtmlFile(player, npcId+"-NL.htm", npc, null);
+				return;
+			}
+			
+			for (L2PcInstance mem : player.getParty().getPartyMembers())
+			{
+				// FIXME: After accepting the quest, a player must relog
+				if(mem.getQuestState(QUEST_ID).get("<state>") == null)
+				{
+					showHtmlFile(player, npcId+"-NS.htm", npc, mem);
+					return;
+				}
+				if (mem.getInventory().getItemByItemId(ENTRANCE_PASS) == null)
+				{
+					showHtmlFile(player, npcId+"-SE.htm", npc, mem);
+					return;
+				}
+
+				if(player.getWeightPenalty() >= 3)
+				{
+					mem.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
+					return;
+				}
+			}
+		}
+		else
+		{
+			// FIXME: After accepting the quest, a player still must relog
+			if(player.getQuestState(QUEST_ID).get("<state>") == null)
+			{
+				showHtmlFile(player, npcId+"-NS.htm", npc, player);
+				return;
+			}
+			if(player.getInventory().getItemByItemId(ENTRANCE_PASS) == null)
+			{
+				showHtmlFile(player, npcId+"-SE.htm", npc, player);
+				return;
+			}
+
+			if(player.getWeightPenalty() >= 3)
+			{
+				player.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
+				return;
+			}
+		}
+
+		showHtmlFile(player, npcId+"-OK.htm", npc, null);
+		
+		entry(npcId, player);
+	}
+
+	private void entry(int npcId, L2PcInstance player)
 	{
 		int[] Location = _startHallSpawns.get(npcId);
 		int driftx;
@@ -784,82 +821,64 @@ public class FourSepulchersManager
 
 		if (Config.FS_PARTY_MEMBER_COUNT > 1)
 		{
-			if (isEnableEntry(npcId, player))
+			List<L2PcInstance> members = new FastList<L2PcInstance>();
+			for (L2PcInstance mem : player.getParty().getPartyMembers())
 			{
-				List<L2PcInstance> members = new FastList<L2PcInstance>();
-				for (L2PcInstance mem : player.getParty().getPartyMembers())
+				if (!mem.isDead() && Util.checkIfInRange(700, player, mem, true))
 				{
-					if (!mem.isDead() && Util.checkIfInRange(700, player, mem, true))
-					{
-						members.add(mem);
-					}
+					members.add(mem);
 				}
-
-				for (L2PcInstance mem : members)
-				{
-					driftx = Rnd.get(-80, 80);
-					drifty = Rnd.get(-80, 80);
-					mem.teleToLocation(Location[0] + driftx, Location[1] + drifty, Location[2]);
-					mem.destroyItemByItemId("Quest", _entrancePass, 1, mem,true);
-					if (mem.getInventory().getItemByItemId(_oldBrooch) == null)
-					{
-						mem.addItem("Quest", _usedEntrancePass, 1, mem, true);
-					}
-
-					L2ItemInstance hallsKey = mem.getInventory().getItemByItemId(_hallsKey);
-					if(hallsKey != null)
-					{
-						mem.destroyItemByItemId("Quest", _hallsKey, hallsKey.getCount(), mem, true);
-					}
-				}
-
-				_challengers.remove(npcId);
-				_challengers.put(npcId, player);
-
-				_hallInUse.remove(npcId);
-				_hallInUse.put(npcId, true);
 			}
-			else
-			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				sm.addString("Wrong conditions.");
-				player.sendPacket(sm);
-			}
-		}
-		else
-		{
-			if (isEnableEntry(npcId, player))
+
+			for (L2PcInstance mem : members)
 			{
 				driftx = Rnd.get(-80, 80);
 				drifty = Rnd.get(-80, 80);
-				player.teleToLocation(Location[0] + driftx, Location[1] + drifty, Location[2]);
-				player.destroyItemByItemId("Quest", _entrancePass, 1, player, true);
-                if (player.getInventory().getItemByItemId(_oldBrooch) == null)
-                {
-                	player.addItem("Quest", _usedEntrancePass, 1, player, true);
-                }
+				mem.teleToLocation(Location[0] + driftx, Location[1] + drifty, Location[2]);
+				mem.destroyItemByItemId("Quest", ENTRANCE_PASS, 1, mem,true);
+				if (mem.getInventory().getItemByItemId(ANTIQUE_BROOCH) == null)
+				{
+					mem.addItem("Quest", USED_PASS, 1, mem, true);
+				}
 
-				L2ItemInstance hallsKey = player.getInventory().getItemByItemId(_hallsKey);
-                if(hallsKey != null)
-                {
-                	player.destroyItemByItemId("Quest", _hallsKey, hallsKey.getCount(), player, true);
-                }
-
-				_challengers.remove(npcId);
-				_challengers.put(npcId, player);
-
-				_hallInUse.remove(npcId);
-				_hallInUse.put(npcId, true);
+				L2ItemInstance hallsKey = mem.getInventory().getItemByItemId(CHAPEL_KEY);
+				if(hallsKey != null)
+				{
+					mem.destroyItemByItemId("Quest", CHAPEL_KEY, hallsKey.getCount(), mem, true);
+				}
 			}
-			else
+
+			_challengers.remove(npcId);
+			_challengers.put(npcId, player);
+
+			_hallInUse.remove(npcId);
+			_hallInUse.put(npcId, true);
+		}
+		else
+		{
+			driftx = Rnd.get(-80, 80);
+			drifty = Rnd.get(-80, 80);
+			player.teleToLocation(Location[0] + driftx, Location[1] + drifty, Location[2]);
+			player.destroyItemByItemId("Quest", ENTRANCE_PASS, 1, player, true);
+			if (player.getInventory().getItemByItemId(ANTIQUE_BROOCH) == null)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				sm.addString("Wrong conditions.");
-				player.sendPacket(sm);
+				player.addItem("Quest", USED_PASS, 1, player, true);
 			}
+
+			L2ItemInstance hallsKey = player.getInventory().getItemByItemId(CHAPEL_KEY);
+			if(hallsKey != null)
+			{
+				player.destroyItemByItemId("Quest", CHAPEL_KEY, hallsKey.getCount(), player, true);
+			}
+
+			_challengers.remove(npcId);
+			_challengers.put(npcId, player);
+
+			_hallInUse.remove(npcId);
+			_hallInUse.put(npcId, true);
 		}
 	}
-    
+
     public void spawnMysteriousBox(int npcId)
     {
     	if (!isAttackTime()) return;
@@ -1360,12 +1379,11 @@ public class FourSepulchersManager
 		public void run()
 		{
 			onPartyAnnihilated(_player);
-            if(_onPartyAnnihilatedTask != null)
-            {
-            	_onPartyAnnihilatedTask.cancel(true);
-            	_onPartyAnnihilatedTask = null;
-            }
-			
+			if(_onPartyAnnihilatedTask != null)
+			{
+				_onPartyAnnihilatedTask.cancel(true);
+				_onPartyAnnihilatedTask = null;
+			}
 		}
 	}
 	
@@ -1377,5 +1395,14 @@ public class FourSepulchersManager
 	public Map<Integer,Integer> getHallGateKeepers()
 	{
 		return _hallGateKeepers;
+	}
+
+	public void showHtmlFile(L2PcInstance player, String file, L2NpcInstance npc, L2PcInstance member)
+	{
+		NpcHtmlMessage html = new NpcHtmlMessage(npc.getObjectId());
+		html.setFile("data/html/SepulcherNpc/"+file);
+		if(member != null)
+			html.replace("%member%", member.getName());
+		player.sendPacket(html);
 	}
 }

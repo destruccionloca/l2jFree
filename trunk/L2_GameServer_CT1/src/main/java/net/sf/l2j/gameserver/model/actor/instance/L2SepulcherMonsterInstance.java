@@ -433,7 +433,6 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 			activeChar = mob;
 		}
 		
-		@Override
 		public void run()
 		{
 			L2Skill fp = SkillTable.getInstance().getInfo(4616, 1);
@@ -451,7 +450,6 @@ public class L2SepulcherMonsterInstance extends L2MonsterInstance
 
 	private class ChangeMortal implements Runnable
 	{
-		@Override
 		public void run()
 		{
 			setIsInvul(false);
