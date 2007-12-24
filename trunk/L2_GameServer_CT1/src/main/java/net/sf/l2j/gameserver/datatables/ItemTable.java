@@ -366,7 +366,6 @@ public class ItemTable implements ItemTableMBean
             item.set.set("type1", L2Item.TYPE1_WEAPON_RING_EARRING_NECKLACE);
             item.set.set("type2", L2Item.TYPE2_WEAPON);
         }
-        
         item.set.set("bodypart",       	_slots.get(rset.getString("bodypart")));
         item.set.set("material",       	_materials.get(rset.getString("material")));
         item.set.set("crystal_type",   	_crystalTypes.get(rset.getString("crystal_type")));

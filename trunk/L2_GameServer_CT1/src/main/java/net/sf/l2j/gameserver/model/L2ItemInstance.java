@@ -1432,7 +1432,7 @@ public final class L2ItemInstance extends L2Object
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
 					.prepareStatement("INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,price_sell,price_buy,object_id,custom_type1,custom_type2,mana_left,attributes) "
-							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1, _ownerId);
 			statement.setInt(2, _itemId);
 			statement.setInt(3, getCount());
