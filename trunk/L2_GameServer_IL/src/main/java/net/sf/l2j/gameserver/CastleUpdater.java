@@ -17,8 +17,6 @@
  */
 package net.sf.l2j.gameserver;
 
-import java.util.concurrent.Future;
-
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.ItemContainer;
@@ -38,8 +36,7 @@ import org.apache.commons.logging.LogFactory;
 public class CastleUpdater implements Runnable
 {
 	private final static Log _log = LogFactory.getLog(CastleUpdater.class);
-	private Future _task;
-	
+
 	private L2Clan _clan;
 	private int _runCount = 0;
 
@@ -49,21 +46,10 @@ public class CastleUpdater implements Runnable
 		_runCount = runCount;
 	}
 
-	public void setTask(Future task)
-	{
-		_task = task;
-	}
-	
 	public void run()
 	{
 		try
 		{
-			if (_task != null)
-			{
-				_task.cancel(true);
-				_task = null;
-			}
-			
 			// Move current castle treasury to clan warehouse every 2 hour
 			ItemContainer warehouse = _clan.getWarehouse();
 			if ((warehouse != null) && (_clan.getHasCastle() > 0)) 
@@ -80,8 +66,7 @@ public class CastleUpdater implements Runnable
 				}
 				_runCount++;
 				CastleUpdater cu = new CastleUpdater(_clan, _runCount);
-				Future task = ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
-				cu.setTask(task);
+				ThreadPoolManager.getInstance().scheduleGeneral(cu, 3600000);
 			}
 		}
 		catch (Throwable e)

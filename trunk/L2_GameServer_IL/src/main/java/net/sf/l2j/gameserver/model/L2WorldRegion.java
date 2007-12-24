@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.Iterator;
-import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
@@ -80,27 +79,15 @@ public final class L2WorldRegion
     public class NeighborsTask implements Runnable
     {
         private boolean _isActivating;
-        private Future 	_task;
         
         public NeighborsTask(boolean isActivating)
         {
             _isActivating = isActivating;
         }
         
-        public void setTask(Future task)
-        {
-        	_task = task;
-        }
-        
         public void run()
         {
-            if (_task != null)
-            {
-            	_task.cancel(true);
-            	_task = null;
-            }
-        	
-        	if (_isActivating)
+            if (_isActivating)
             {
 				for (L2WorldRegion neighbor: getSurroundingRegions())
 					neighbor.setActive(true);
@@ -243,9 +230,7 @@ public final class L2WorldRegion
         }
         
         // then, set a timer to activate the neighbors
-        NeighborsTask nt = new NeighborsTask(true);
-        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneral(nt, 1000*Config.GRID_NEIGHBOR_TURNON_TIME);
-        nt.setTask(_neighborsTask);
+		_neighborsTask = ThreadPoolManager.getInstance().scheduleGeneral(new NeighborsTask(true), 1000*Config.GRID_NEIGHBOR_TURNON_TIME);
     }
     
     /** starts a timer to set neighbors (including self) as inactive
@@ -264,9 +249,7 @@ public final class L2WorldRegion
         
         // start a timer to "suggest" a deactivate to self and neighbors.
         // suggest means: first check if a neighbor has L2PcInstances in it.  If not, deactivate.
-        NeighborsTask nt = new NeighborsTask(false);
-        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneral(nt, 1000*Config.GRID_NEIGHBOR_TURNOFF_TIME);
-        nt.setTask(_neighborsTask);
+        _neighborsTask = ThreadPoolManager.getInstance().scheduleGeneral(new NeighborsTask(false), 1000*Config.GRID_NEIGHBOR_TURNOFF_TIME);
     }
     
     /**

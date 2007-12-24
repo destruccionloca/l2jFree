@@ -21,7 +21,6 @@ package net.sf.l2j.gameserver.recipes.manager;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
-import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -152,8 +151,7 @@ public class CraftManager
                 synchronized (activeMakers)
                 {
                     activeMakers.put(manufacturer, maker);
-                    Future task = ThreadPoolManager.getInstance().scheduleGeneral(maker, 100);
-                    maker.setTask(task);
+                    ThreadPoolManager.getInstance().scheduleGeneral(maker, 100);
                 }
             }
             else maker.run();
@@ -201,8 +199,7 @@ public class CraftManager
                 synchronized (activeMakers)
                 {
                     activeMakers.put(player, maker);
-                    Future task = ThreadPoolManager.getInstance().scheduleGeneral(maker, 100);
-                    maker.setTask(task);
+                    ThreadPoolManager.getInstance().scheduleGeneral(maker, 100);
                 }
             }
             else maker.run();
