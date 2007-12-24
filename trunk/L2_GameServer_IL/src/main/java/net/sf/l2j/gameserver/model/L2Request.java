@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver.model;
 
+import java.util.concurrent.Future;
+
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.clientpackets.L2GameClientPacket;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -121,16 +123,33 @@ public class L2Request
 	{
 		_isRequestor = isRequestor ? true : false;
 		_isAnswerer = isRequestor ? false : true;
-		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
-		{
-			public void run()
-			{
-				clear();
-			}
-		}, REQUEST_TIMEOUT * 1000);
+		Clear c = new Clear();
+		Future task = ThreadPoolManager.getInstance().scheduleGeneral(c, REQUEST_TIMEOUT * 1000);
+		c.setTask(task);
 
 	}
 
+	class Clear implements Runnable
+	{
+		Future _task;
+		
+		public void setTask (Future task)
+		{
+			_task = task;
+		}
+		
+		public void run()
+		{
+			if (_task != null)
+			{
+				_task.cancel(true);
+				_task = null;
+			}
+			clear();
+		}
+	}
+	
+	
 	/**
 	 * Clears PC request state. Should be called after answer packet receive.<BR><BR>
 	 */

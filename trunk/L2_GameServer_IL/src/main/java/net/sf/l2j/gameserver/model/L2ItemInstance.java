@@ -23,6 +23,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.Config;
@@ -799,7 +800,15 @@ public final class L2ItemInstance extends L2Object
 	 */
 	public class ScheduleConsumeManaTask implements Runnable
 	{
+		private Future _task;
+		
 		private L2ItemInstance _shadowItem;
+		
+		
+		public void setTask(Future task)
+		{
+			_task = task;
+		}
 		
 		public ScheduleConsumeManaTask(L2ItemInstance item)
 		{
@@ -808,6 +817,12 @@ public final class L2ItemInstance extends L2Object
 		
 		public void run()
 		{
+			if (_task != null)
+			{
+				_task.cancel(true);
+				_task = null;
+			}
+			
 			try
 			{
 				// decrease mana
@@ -947,7 +962,9 @@ public final class L2ItemInstance extends L2Object
 	private void scheduleConsumeManaTask()
 	{
 		_consumingMana = true;
-		ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleConsumeManaTask(this), MANA_CONSUMPTION_RATE);
+		ScheduleConsumeManaTask scmt = new ScheduleConsumeManaTask(this);
+		Future task = ThreadPoolManager.getInstance().scheduleGeneral(scmt, MANA_CONSUMPTION_RATE);
+		scmt.setTask(task);
 	}
 
 	/**

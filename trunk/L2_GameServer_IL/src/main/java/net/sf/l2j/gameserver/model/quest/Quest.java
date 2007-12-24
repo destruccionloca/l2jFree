@@ -24,6 +24,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -1055,15 +1056,29 @@ public abstract class Quest
 
     public class DeSpawnScheduleTimerTask implements Runnable
     {
-        L2NpcInstance _npc = null;
-        public DeSpawnScheduleTimerTask(L2NpcInstance npc)
+        private Future 	_task;
+    	L2NpcInstance 	_npc = null;
+        
+    	
+    	public DeSpawnScheduleTimerTask(L2NpcInstance npc)
         {
             _npc = npc;
         }
         
-        public void run()
+        public void setTask(Future task)
         {
-           _npc.onDecay();
+        	_task = task;
+        }
+    	
+    	public void run()
+        {
+    		if (_task != null)
+    		{
+    			_task.cancel(true);
+    			_task = null;
+    		}
+    		
+    		_npc.onDecay();
         }
     }
 
@@ -1118,7 +1133,11 @@ public abstract class Quest
                 result = spawn.spawnOne();
 
                 if (despawnDelay > 0)
-                    ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);
+                {
+                	DeSpawnScheduleTimerTask dsstt = new DeSpawnScheduleTimerTask(result);
+                	Future task = ThreadPoolManager.getInstance().scheduleGeneral(dsstt, despawnDelay);
+                	dsstt.setTask(task);
+                }
 
                 return result;
             }

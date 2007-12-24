@@ -286,7 +286,8 @@ public class AutoSpawnHandler
                 if (spawnTask != null)
                     spawnTask.cancel(false);
                 
-                ThreadPoolManager.getInstance().scheduleEffect(rd, 0);
+                ScheduledFuture task = ThreadPoolManager.getInstance().scheduleEffect(rd, 0);
+                rd.setTask(task);
             }
 
             spawnInst.setSpawnActive(isActive);
@@ -503,7 +504,8 @@ public class AutoSpawnHandler
             	// If there is no despawn time, do not create a despawn task. 
             	if (spawnInst.getDespawnDelay() > 0) {
             		AutoDespawner rd = new AutoDespawner(_objectId);
-                    ThreadPoolManager.getInstance().scheduleAi(rd, spawnInst.getDespawnDelay()-1000);
+            		ScheduledFuture task = ThreadPoolManager.getInstance().scheduleAi(rd, spawnInst.getDespawnDelay()-1000);
+            		rd.setTask(task);
             	}
 			} 
 			catch (Exception e) {
@@ -521,16 +523,28 @@ public class AutoSpawnHandler
      */
 	private class AutoDespawner implements Runnable 
 	{
-		private int _objectId;
+		private ScheduledFuture _task;
+		private int 			_objectId;
 			
         public AutoDespawner (int objectId) 
         {
 			_objectId = objectId;
 		}
 		
-		public void run()
+		public void setTask (ScheduledFuture task)
 		{
-		    try {
+			_task = task;
+		}
+        
+        public void run()
+		{
+		    if (_task != null)
+		    {
+		    	_task.cancel(true);
+		    	_task = null;
+		    }
+        	
+        	try {
 		        AutoSpawnInstance spawnInst = _registeredSpawns.get(_objectId);
 		        
 		        for (L2NpcInstance npcInst : spawnInst.getNPCInstanceList()) 

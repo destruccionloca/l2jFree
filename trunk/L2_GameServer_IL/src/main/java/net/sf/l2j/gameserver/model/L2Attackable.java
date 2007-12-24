@@ -22,6 +22,8 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ItemsAutoDestroy;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -430,7 +432,8 @@ public class L2Attackable extends L2NpcInstance
             {
                 _firstCommandChannelAttacked = attacker.getParty().getCommandChannel();
                 _commandChannelTimer = new CommandChannelTimer(this, attacker.getParty().getCommandChannel());
-                ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
+                Future task = ThreadPoolManager.getInstance().scheduleGeneral(_commandChannelTimer, 300000); // 5 min
+                _commandChannelTimer.setTask(task);
                 _firstCommandChannelAttacked.broadcastToChannelMembers(new CreatureSay(0, SystemChatChannelId.Chat_Party_Room.getId(), "", "You have looting rights!"));
             }
         }
@@ -2371,6 +2374,8 @@ public class L2Attackable extends L2NpcInstance
 
 	private class CommandChannelTimer implements Runnable
 	{
+		private Future _task;
+		
 		private L2Attackable _monster;
 		private L2CommandChannel _channel;
 		
@@ -2380,11 +2385,23 @@ public class L2Attackable extends L2NpcInstance
 			_channel = channel;
 		}
 		
+		
+		public void setTask(Future task)
+		{
+			_task = task;
+		}
+		
 		/**
 		 * @see java.lang.Runnable#run()
 		 */
 		public void run()
 		{
+			if (_task != null)
+			{
+				_task.cancel(true);
+				_task = null;
+			}
+			
 			_monster.setCommandChannelTimer(null);
 			_monster.setFirstCommandChannelAttacked(null);
 			for (L2Character player : _monster.getAggroListRP().keySet())
@@ -2396,7 +2413,8 @@ public class L2Attackable extends L2NpcInstance
 						// if a player which is in first attacked CommandChannel, restart the timer ;)
 						_monster.setCommandChannelTimer(this);
 						_monster.setFirstCommandChannelAttacked(_channel);
-						ThreadPoolManager.getInstance().scheduleGeneral(this, 300000); // 5 min
+						_task = ThreadPoolManager.getInstance().scheduleGeneral(this, 300000); // 5 min
+						this.setTask(_task);
 						break;
 					}
 				}

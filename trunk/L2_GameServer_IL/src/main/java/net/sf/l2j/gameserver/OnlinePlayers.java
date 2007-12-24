@@ -18,6 +18,8 @@
  */
 package net.sf.l2j.gameserver;
 
+import java.util.concurrent.Future;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2World;
 
@@ -27,14 +29,31 @@ public class OnlinePlayers
 
     class AnnounceOnline implements Runnable
     {
-        public void run()
+        private Future _task;
+    	
+    	public void run()
         {
+        	if (_task != null)
+        	{
+        		_task.cancel(true);
+        		_task = null;
+        	}
+        	
         	if (L2World.getInstance().getAllPlayers().size() == 1)
         		Announcements.getInstance().announceToAll("There is: "+L2World.getInstance().getAllPlayers().size()+" online player.");
         	else
         		Announcements.getInstance().announceToAll("There are: "+L2World.getInstance().getAllPlayers().size()+" online players.");
-            ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceOnline(), Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL);
-        }        
+        	AnnounceOnline ao = new AnnounceOnline();
+        	Future task = ThreadPoolManager.getInstance().scheduleGeneral(ao, Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL);
+        	ao.setTask(task);
+            
+        }
+    	
+        public void setTask (Future task)
+        {
+        	_task = task;
+        }
+        
     }
     
     public static OnlinePlayers getInstance() 
@@ -45,6 +64,8 @@ public class OnlinePlayers
     }
     private OnlinePlayers()
     {
-        ThreadPoolManager.getInstance().scheduleGeneral(new AnnounceOnline(), Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL);
+    	AnnounceOnline ao = new AnnounceOnline();
+    	Future task = ThreadPoolManager.getInstance().scheduleGeneral(ao, Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL);
+    	ao.setTask(task);
     }
 }

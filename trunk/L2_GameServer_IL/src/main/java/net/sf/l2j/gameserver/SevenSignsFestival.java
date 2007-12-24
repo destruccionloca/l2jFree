@@ -1851,7 +1851,13 @@ public class SevenSignsFestival implements SpawnListener
         
         public synchronized void run()
         {
-            // The manager shouldn't be running if Seal Validation is in effect.
+        	if (_managerScheduledTask != null)
+        	{
+        		_managerScheduledTask.cancel(true);
+        		_managerScheduledTask = null;
+        	}
+        	
+        	// The manager shouldn't be running if Seal Validation is in effect.
             if (SevenSigns.getInstance().isSealValidationPeriod())
                 return;
             
