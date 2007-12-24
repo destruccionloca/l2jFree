@@ -199,12 +199,6 @@ public class Olympiad
 					{
 						public void run()
 						{
-							if (_scheduledValdationTask != null)
-                            {
-                            	_scheduledValdationTask.cancel(true);
-                            	_scheduledValdationTask = null;
-                            }
-							
 							_period = 0;
 							_currentCycle++;
 							deleteNobles();
@@ -323,24 +317,10 @@ public class Olympiad
 				Announcements.getInstance().announceToAll("Olympiad Validation Period has began");
 				
 				_isOlympiadEnd = true;
-				
-				if (_scheduledOlympiadEnd != null)
-                {
-                	_scheduledOlympiadEnd.cancel(true);
-                	_scheduledOlympiadEnd = null;
-                }
-                
 				if (_scheduledManagerTask != null)
-                {
-                    _scheduledManagerTask.cancel(true);
-                    _scheduledManagerTask = null;
-                }
-                
+					_scheduledManagerTask.cancel(true);
 				if (_scheduledWeeklyTask != null)
-                {
-                    _scheduledWeeklyTask.cancel(true);
-                    _scheduledWeeklyTask = null;
-                }
+					_scheduledWeeklyTask.cancel(true);
 				
 				Calendar validationEnd = Calendar.getInstance();
 				_validationEnd = validationEnd.getTimeInMillis() + VALIDATION_PERIOD;
@@ -368,12 +348,6 @@ public class Olympiad
 				{
 					public void run()
 					{
-						if (_scheduledValdationTask != null)
-                        {
-                        	_scheduledValdationTask.cancel(true);
-                        	_scheduledValdationTask = null;
-                        }
-						
 						Announcements.getInstance().announceToAll("Olympiad Validation Period has ended");
 						_period = 0;
 						_currentCycle++;
@@ -596,12 +570,6 @@ public class Olympiad
 		{
 			public void run()
 			{
-				if (_scheduledCompStart != null)
-            	{
-            		_scheduledCompStart.cancel(true);
-            		_scheduledCompStart = null;
-            	}
-				
 				if (isOlympiadEnd())
 					return;
 				
@@ -618,18 +586,7 @@ public class Olympiad
 					{
 						if (isOlympiadEnd())
 							return;
-						
-						if (_scheduledCompEnd != null)
-                        {
-                        	_scheduledCompEnd.cancel(true);
-                        	_scheduledCompEnd = null;
-                        }
-                        
-                        if (_scheduledManagerTask != null)
-                        {
-                        	_scheduledManagerTask.cancel(true);
-                        	_scheduledManagerTask = null;
-                        }
+						_scheduledManagerTask.cancel(true);
 						_inCompPeriod = false;
 						Announcements.getInstance().announceToAll(new SystemMessage(SystemMessageId.THE_OLYMPIAD_GAME_HAS_ENDED));
 						_log.info("Olympiad System: Olympiad Game Ended");
@@ -699,12 +656,6 @@ public class Olympiad
 		{
 			public void run()
 			{
-				if (_scheduledValdationTask != null)
-                {
-                	_scheduledValdationTask.cancel(true);
-                	_scheduledValdationTask = null;
-                }
-				
 				Announcements.getInstance().announceToAll("Olympiad Validation Period has ended");
 				_period = 0;
 				_currentCycle++;
@@ -1214,12 +1165,7 @@ public class Olympiad
 		{
 			if (isOlympiadEnd())
 			{
-				if (_scheduledManagerTask != null)
-                {
-                	_scheduledManagerTask.cancel(true);
-                	_scheduledManagerTask = null;
-                }
-				
+				_scheduledManagerTask.cancel(true);
 				return;
 			}
 			

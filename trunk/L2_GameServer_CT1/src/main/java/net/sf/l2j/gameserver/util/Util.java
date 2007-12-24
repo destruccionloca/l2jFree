@@ -30,7 +30,6 @@ package net.sf.l2j.gameserver.util;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.concurrent.Future;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -91,9 +90,7 @@ public final class Util
 	
     public static void handleIllegalPlayerAction(L2PcInstance actor, String message, int punishment)
     {
-    	IllegalPlayerAction ipa = new IllegalPlayerAction(actor,message, punishment);
-    	Future task = ThreadPoolManager.getInstance().scheduleGeneral(ipa, 5000);
-    	ipa.setTask(task);
+        ThreadPoolManager.getInstance().scheduleGeneral(new IllegalPlayerAction(actor,message, punishment), 5000);
     }
     
     public static String getRelativePath(File base,File file)

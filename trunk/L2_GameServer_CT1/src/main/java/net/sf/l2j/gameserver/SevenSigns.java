@@ -22,7 +22,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Map;
-import java.util.concurrent.Future;
 
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -177,8 +176,7 @@ public class SevenSigns
 			
 			// Schedule a time for the next period change.
 			SevenSignsPeriodChange sspc = new SevenSignsPeriodChange();
-			Future task = ThreadPoolManager.getInstance().scheduleGeneral(sspc, milliToChange);
-			sspc.setTask(task);
+			ThreadPoolManager.getInstance().scheduleGeneral(sspc, milliToChange);
 			
 			// Thanks to http://rainbow.arch.scriptmania.com/scripts/timezone_countdown.html for help with this.
 			double numSecs = (milliToChange / 1000) % 60;
@@ -1308,24 +1306,9 @@ public class SevenSigns
 	 */
 	protected class SevenSignsPeriodChange implements Runnable
 	{
-		private Future _task;
-		
-		public void setTask (Future task)
+		public void run()
 		{
-			_task = task;
-		}
-        
-        
-		public void run() 
-        {
-         /* 
-            if (_task != null)
-            {
-            	_task.cancel(true);
-            	_task = null;
-            }
-			
-			/* 
+			/*
 			 * Remember the period check here refers to the period just ENDED!
 			 */
 			final int periodEnded = getCurrentPeriod();
@@ -1421,8 +1404,7 @@ public class SevenSigns
 			setCalendarForNextPeriodChange();
 			
 			SevenSignsPeriodChange sspc = new SevenSignsPeriodChange();
-			_task = ThreadPoolManager.getInstance().scheduleGeneral(sspc, getMilliToPeriodChange());
-	        sspc.setTask(_task);
+			ThreadPoolManager.getInstance().scheduleGeneral(sspc, getMilliToPeriodChange());
 		}
 	}
 }

@@ -20,7 +20,6 @@
 package net.sf.l2j.gameserver.model;
 
 import java.util.Iterator;
-import java.util.concurrent.Future;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -62,24 +61,16 @@ public class L2SkillZone
 		// aoe spells - casting during the whole time...
 		_standAlone = standAlone;
 		
-		ZoneCheck zc = new ZoneCheck(_triggeredCount);
-		Future task = ThreadPoolManager.getInstance().scheduleGeneral(zc, _triggeredDelay);
-		zc.setTask(task);
+		ThreadPoolManager.getInstance().scheduleGeneral(new ZoneCheck(_triggeredCount), _triggeredDelay);
 	}
 	
 	private class ZoneCheck implements Runnable
 	{
-		private Future _task;
 		private int _count;
 		
 		public ZoneCheck(int count)
 		{
 			int _count = count;
-		}
-		
-		public void setTask (Future task)
-		{
-			_task = task;
 		}
 		
 		private void regionCheck(L2WorldRegion reg)
@@ -120,11 +111,7 @@ public class L2SkillZone
 		public void run()
 		{
 			//global things
-			if (_task != null)
-			{
-				_task.cancel(true);
-				_task = null;
-			}
+			
 			
 			// effects
 			regionCheck(_region);
@@ -135,9 +122,7 @@ public class L2SkillZone
 			// scheduling
 			if (shouldContinue())
 			{
-				ZoneCheck zc = new ZoneCheck(_count);
-				_task = ThreadPoolManager.getInstance().scheduleGeneral(zc, _triggeredDelay);
-				zc.setTask(_task);
+				ThreadPoolManager.getInstance().scheduleGeneral(new ZoneCheck(_count), _triggeredDelay);
 			}
 			else
 			{

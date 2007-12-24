@@ -19,7 +19,6 @@
 package net.sf.l2j.gameserver.model;
 
 import java.lang.reflect.Constructor;
-import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -120,8 +119,7 @@ public class L2Spawn
 	{
 		//L2NpcInstance _instance;
 		//int _objId;
-        private L2NpcInstance 	_oldNpc;
-        private Future 			_task;
+        private L2NpcInstance _oldNpc;
 		
 		public SpawnTask(/*int objid*/L2NpcInstance pOldNpc)
 		{
@@ -129,19 +127,8 @@ public class L2Spawn
             _oldNpc = pOldNpc;
 		}
 		
-		public void setTask(Future task)
-		{
-			_task = task;
-		}
-		
 		public void run()
 		{		
-			if (_task != null)
-			{
-				_task.cancel(true);
-				_task = null;
-			}
-			
 			try
 			{
                 //doSpawn();
@@ -432,9 +419,7 @@ public class L2Spawn
 			
 			// Create a new SpawnTask to launch after the respawn Delay
 			//ClientScheduler.getInstance().scheduleLow(new SpawnTask(npcId), _respawnDelay);
-			SpawnTask st = new SpawnTask(oldNpc);
-			Future task = ThreadPoolManager.getInstance().scheduleGeneral(st, _respawnDelay);
-			st.setTask(task);
+			ThreadPoolManager.getInstance().scheduleGeneral(new SpawnTask(oldNpc), _respawnDelay);
 		}
 	}
 	

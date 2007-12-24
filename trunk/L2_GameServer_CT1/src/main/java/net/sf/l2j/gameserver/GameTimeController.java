@@ -312,10 +312,7 @@ public class GameTimeController
 				{
 					_doorTable.getDoor(21240006).openMe();
 					// The door will be closed in '_CloseTime' minutes.
-					ClosePiratesRoom cpr = new ClosePiratesRoom();
-                    ScheduledFuture task = ThreadPoolManager.getInstance().scheduleEffect(cpr,(_CloseTime*60*1000));
-                    cpr.setTask(task);
-                    
+					ThreadPoolManager.getInstance().scheduleEffect(new ClosePiratesRoom(), (_CloseTime * 60 * 1000));
 				} catch (Exception e)
 				{
 					_log.warn(e.getMessage());
@@ -329,24 +326,12 @@ public class GameTimeController
 	// Close door of pirate's room.
 	class ClosePiratesRoom implements Runnable
 	{
-		private ScheduledFuture _task;
-    	final DoorTable _doorTable = DoorTable.getInstance();
+		final DoorTable	_doorTable	= DoorTable.getInstance();
 		
-    	public void setTask (ScheduledFuture task)
+		public void run()
 		{
-    		_task = task;
-        }
-    	
-    	public void run()
-        {
-            if (_task != null)
-            {
-            	_task.cancel(true);
-            	_task = null;
-            }
-    		
-    		try
-            {
+			try
+			{
 				_doorTable.getDoor(21240006).closeMe();
 			} catch (Exception e)
 			{
