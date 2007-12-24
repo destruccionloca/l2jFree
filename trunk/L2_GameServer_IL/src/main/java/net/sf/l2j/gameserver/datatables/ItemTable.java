@@ -163,13 +163,13 @@ public class ItemTable implements ItemTableMBean
     /** Table of SQL request in order to obtain items from tables [etcitem], [armor], [weapon] */
     private static final String[] SQL_ITEM_SELECTS  =
     {
-        "SELECT item_id, item_display_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM etcitem",
+        "SELECT item_id, name, crystallizable, item_type, weight, consume_type, material, crystal_type, duration, price, crystal_count, sellable, dropable, destroyable, tradeable FROM etcitem",
         
-        "SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight," +
+        "SELECT item_id, name, bodypart, crystallizable, armor_type, weight," +
         " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," +
         " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM armor",
         
-        "SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
+        "SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
            " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
            " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
            " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
@@ -243,17 +243,17 @@ public class ItemTable implements ItemTableMBean
                 {
                     if (selectQuery.endsWith("etcitem"))
                     {
-                        Item newItem    = readItem(rset);
+                        Item newItem    = readItem(rset, false);
                         itemData.put(newItem.id, newItem);
                     }
                     else if (selectQuery.endsWith("armor"))
                     {
-                        Item newItem    = readArmor(rset);
+                        Item newItem    = readArmor(rset, false);
                         armorData.put(newItem.id, newItem);
                     }
                     else if (selectQuery.endsWith("weapon"))
                     {
-                        Item newItem    = readWeapon(rset);
+                        Item newItem    = readWeapon(rset, false);
                         weaponData.put(newItem.id, newItem);
                     }                   
                 }
@@ -281,17 +281,17 @@ public class ItemTable implements ItemTableMBean
                 {
                     if (selectQuery.endsWith("etcitem"))
                     {
-                        Item newItem    = readItem(rset);
+                        Item newItem    = readItem(rset, true);
                         itemData.put(newItem.id, newItem);
                     }
                     else if (selectQuery.endsWith("armor"))
                     {
-                        Item newItem    = readArmor(rset);
+                        Item newItem    = readArmor(rset, true);
                         armorData.put(newItem.id, newItem);
                     }
                     else if (selectQuery.endsWith("weapon"))
                     {
-                        Item newItem    = readWeapon(rset);
+                        Item newItem    = readWeapon(rset, true);
                         weaponData.put(newItem.id, newItem);
                     }                   
                 }
@@ -333,13 +333,13 @@ public class ItemTable implements ItemTableMBean
      * @return Item : object created from the database record
      * @throws SQLException 
      */
-    private Item readWeapon(ResultSet rset) throws SQLException
+    private Item readWeapon(ResultSet rset, boolean custom) throws SQLException
     {
         Item item   = new Item();
         item.set    = new StatsSet();
         item.type   = _weaponTypes.get(rset.getString("weaponType"));
         item.id     = rset.getInt("item_id");
-        item.displayid = rset.getInt("item_display_id");
+        item.displayid = custom ? rset.getInt("item_display_id") : item.id;
         item.name   = rset.getString("name");
 
         item.set.set("item_id", item.id);
@@ -422,13 +422,13 @@ public class ItemTable implements ItemTableMBean
      * @return Item : object created from the database record
      * @throws SQLException 
      */
-    private Item readArmor(ResultSet rset) throws SQLException
+    private Item readArmor(ResultSet rset, boolean custom) throws SQLException
     {
         Item item   = new Item();
         item.set    = new StatsSet();
         item.type   = _armorTypes.get(rset.getString("armor_type"));
         item.id     = rset.getInt("item_id");
-        item.displayid = rset.getInt("item_display_id");
+        item.displayid = custom ? rset.getInt("item_display_id") : item.id;
         item.name   = rset.getString("name");
                 
         item.set.set("item_id", item.id);
@@ -496,12 +496,12 @@ public class ItemTable implements ItemTableMBean
      * @return Item : object created from the database record
      * @throws SQLException 
      */
-    private Item readItem(ResultSet rset) throws SQLException
+    private Item readItem(ResultSet rset, boolean custom) throws SQLException
     {
         Item item   = new Item();
         item.set    = new StatsSet();
         item.id     = rset.getInt("item_id");
-        item.displayid = rset.getInt("item_display_id");
+        item.displayid = custom ? rset.getInt("item_display_id") : item.id;
         
         item.set.set("item_id", item.id);
         item.set.set("item_display_id", item.displayid);
