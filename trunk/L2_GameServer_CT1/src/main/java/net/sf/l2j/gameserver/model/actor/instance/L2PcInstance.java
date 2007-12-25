@@ -31,7 +31,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
-import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
@@ -57,7 +56,6 @@ import net.sf.l2j.gameserver.characters.model.recommendation.CharRecommendationS
 import net.sf.l2j.gameserver.characters.service.CharRecommendationService;
 import net.sf.l2j.gameserver.datatables.CharTemplateTable;
 import net.sf.l2j.gameserver.datatables.ClanTable;
-import net.sf.l2j.gameserver.datatables.TransformationsTable.L2Transformation;
 import net.sf.l2j.gameserver.datatables.FishTable;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.HennaTable;
@@ -67,6 +65,7 @@ import net.sf.l2j.gameserver.datatables.NobleSkillTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
+import net.sf.l2j.gameserver.datatables.TransformationsTable.L2Transformation;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -140,9 +139,9 @@ import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.entity.GrandBossState;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
-import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
+import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
@@ -2261,7 +2260,8 @@ public final class L2PcInstance extends L2PlayableInstance
             giveAvailableSkills();
         }
         refreshOverloaded();
-        refreshExpertisePenalty();        
+        refreshExpertisePenalty();
+        sendSkillList();
     }
 
     /** Set the Experience value of the L2PcInstance. */
@@ -8478,6 +8478,7 @@ public final class L2PcInstance extends L2PlayableInstance
             for (L2Skill s : HeroSkillTable.getHeroSkills())
                 super.removeSkill(s); //Just Remove skills without deleting from Sql
         _hero = hero;
+        sendSkillList();
     }
 
     public void setIsInOlympiadMode(boolean b)
@@ -8519,6 +8520,7 @@ public final class L2PcInstance extends L2PlayableInstance
             for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())
                 super.removeSkill(s); //Just Remove skills without deleting from Sql 
         _noble = val;
+        sendSkillList();
     }
 
 	public boolean isInDuel()
@@ -8767,7 +8769,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void sendSkillList()
     {
-    	new SkillList(this);
+    	sendPacket(new SkillList(this));
     }
 
     /**
