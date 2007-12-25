@@ -78,7 +78,7 @@ public class SellList extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x10);
+		writeC(0x06);
 		writeD(_money);
 		writeD(0x00);
 		writeH(_selllist.size());
