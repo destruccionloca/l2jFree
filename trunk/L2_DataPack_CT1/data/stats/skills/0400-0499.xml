@@ -379,7 +379,7 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="Buff" time="600" val="0">
-      <mul order="0x30" stat="PhysicalMpConsumeRate" val="0.7"/>
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#MpConsumeRate"/>
     </effect>
   </for>
 </skill>
@@ -799,7 +799,7 @@
       </and>
     </mul>
 <!-- need to add MP consumption decrease and check whether armor restriction applies to it as well
-    <mul order="0x30" stat="MpConsumeRate" val="?"/>
+    <mul order="0x30" stat="MagicalMpConsumeRate" val="?"/>
 -->
   </for>
 </skill>
