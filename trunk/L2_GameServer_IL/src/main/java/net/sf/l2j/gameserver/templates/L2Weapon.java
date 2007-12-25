@@ -372,6 +372,9 @@ public final class L2Weapon  extends L2Item
             if (trigger.isOffensive() != skill.isOffensive()) 
                 continue; // Trigger only same type of skill
 
+            if (trigger.getId() >= 1320 && trigger.getId() <= 1322)
+                continue; // No buffing with Common and Dwarven Craft
+
             if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT)) 
                 continue; // These skills should not work on RaidBoss
 
