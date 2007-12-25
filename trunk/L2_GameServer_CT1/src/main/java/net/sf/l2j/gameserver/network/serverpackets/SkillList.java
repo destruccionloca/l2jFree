@@ -66,11 +66,6 @@ public class SkillList extends L2GameServerPacket
         _owner = client;
     }
 
-    public SkillList()
-    {
-        _skills = new Vector<Skill>();
-    }
-
     public void addSkill(int id, int level, boolean passive)
     {
         _skills.add(new Skill(id, level, passive));

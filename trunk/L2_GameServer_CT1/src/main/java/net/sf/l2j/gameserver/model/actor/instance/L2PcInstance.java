@@ -8767,7 +8767,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void sendSkillList(L2PcInstance player)
     {
-        SkillList sl = new SkillList();
+        SkillList sl = new SkillList(this);
 		
         if (player != null)
         {
