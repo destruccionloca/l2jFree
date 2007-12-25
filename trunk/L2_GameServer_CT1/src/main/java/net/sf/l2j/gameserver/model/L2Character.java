@@ -1623,7 +1623,16 @@ public abstract class L2Character extends L2Object
 		_castInterruptTime = GameTimeController.getGameTicks() + skillInterruptTime / GameTimeController.MILLIS_IN_TICK;
 		
 		// Init the reuse time of the skill
-		int reuseDelay = (int) (skill.getReuseDelay() * getStat().getMReuseRate(skill));
+		int reuseDelay;
+		
+		if(skill.isMagic())
+		{
+			reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
+		}
+		else
+		{
+			reuseDelay = (int)(skill.getReuseDelay() * getStat().getPReuseRate(skill));
+		}
 		
 		reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
 		
@@ -1658,7 +1667,18 @@ public abstract class L2Character extends L2Object
 		if (initmpcons > 0)
 		{
 			StatusUpdate su = new StatusUpdate(getObjectId());
-			getStatus().reduceMp(calcStat(Stats.MP_CONSUME_RATE, initmpcons, null, null));
+			if(skill.isDance())
+			{
+				getStatus().reduceMp(calcStat(Stats.DANCE_CONSUME_RATE, initmpcons, null, null));
+			}
+			else if(skill.isMagic())
+			{
+				getStatus().reduceMp(calcStat(Stats.MAGIC_CONSUME_RATE, initmpcons, null, null));
+			}
+			else
+			{
+				getStatus().reduceMp(calcStat(Stats.PHYSICAL_CONSUME_RATE, initmpcons, null, null));
+			}
 			su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
 			sendPacket(su);
 		}
@@ -6400,8 +6420,19 @@ public abstract class L2Character extends L2Object
 			
 			if (mpConsume > 0)
 			{
-				getStatus().reduceMp(calcStat(Stats.MP_CONSUME_RATE, mpConsume, null, null));
-				su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
+				if(skill.isDance())
+				{
+					getStatus().reduceMp(calcStat(Stats.DANCE_CONSUME_RATE, mpConsume, null, null));
+				}
+				else if(skill.isMagic())
+				{
+					getStatus().reduceMp(calcStat(Stats.MAGIC_CONSUME_RATE, mpConsume, null, null));
+				}
+				else
+				{
+					getStatus().reduceMp(calcStat(Stats.PHYSICAL_CONSUME_RATE, mpConsume, null, null));
+				}
+				su.addAttribute(StatusUpdate.CUR_MP, (int)getStatus().getCurrentMp());
 				isSendStatus = true;
 			}
 			

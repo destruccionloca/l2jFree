@@ -47,7 +47,6 @@ public enum Stats
     MAGIC_ATTACK        ("mAtk"),
     POWER_ATTACK_SPEED  ("pAtkSpd"),
     MAGIC_ATTACK_SPEED  ("mAtkSpd"), // how fast a spell is casted (including animation)
-    MAGIC_REUSE_RATE    ("mReuse"), // how fast spells becomes ready to reuse
     SHIELD_DEFENCE      ("sDef"),
     CRITICAL_DAMAGE     ("cAtk"),
     PVP_PHYSICAL_DMG    ("pvpPhysDmg"),
@@ -159,8 +158,10 @@ public enum Stats
     PATK_VALAKAS    ("pAtk-valakas"),
     PDEF_VALAKAS    ("pDef-valakas"),
 
-    ATK_REUSE       ("atkReuse"),
-    BOW_REUSE       ("bowReuse"),
+    //ATK_REUSE        ("atkReuse"),
+    PHYS_REUSE_RATE  ("pReuse"),
+    MAGIC_REUSE_RATE ("mReuse"),
+    BOW_REUSE        ("bowReuse"),
 
     //ExSkill :)
     INV_LIM         ("inventoryLimit"),
@@ -172,7 +173,9 @@ public enum Stats
     REC_C_LIM       ("CommonRecipeLimit"),
     
     //C4 Stats
-    MP_CONSUME_RATE        ("MpConsumeRate"),
+    PHYSICAL_CONSUME_RATE  ("PhysicalMpConsumeRate"),
+    MAGIC_CONSUME_RATE     ("MagicalMpConsumeRate"),
+    DANCE_CONSUME_RATE     ("DanceMpConsumeRate"),
     HP_CONSUME_RATE        ("HpConsumeRate"),
     MP_CONSUME             ("MpConsume"),
     SOULSHOT_COUNT         ("soulShotCount"),
