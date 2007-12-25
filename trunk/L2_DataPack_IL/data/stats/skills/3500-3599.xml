@@ -1054,7 +1054,8 @@
     <add val='4' order='0x40' stat='absorbDam'/>
     <mul val='0.4' order='0x30' stat='stunVuln'/>
     <mul val='0.4' order='0x30' stat='derangementVuln'/>
-    <mul val='0.95' order='0x30' stat='MpConsumeRate'/>
+    <mul val='0.95' order='0x30' stat='PhysicalMpConsumeRate'/>
+    <mul val='0.95' order='0x30' stat='MagicalMpConsumeRate'/>
     <mul val='0.85' order='0x30' stat='earthVuln'/>
   </for>
 </skill>
@@ -1708,7 +1709,7 @@
     <mul val='1.50' order='0x30' stat='maxCp'/>
     <add val='29.67' order='0x40' stat='mAtk'/>
     <mul val='1.54' order='0x30' stat='mCritRate'/>
-    <mul val='0.96' order='0x30' stat='MpConsumeRate'/>
+    <mul val='0.96' order='0x30' stat='MagicalMpConsumeRate'/>
     <sub val='106' order='0x40' stat='cancel'/>
   </for>
 </skill>
