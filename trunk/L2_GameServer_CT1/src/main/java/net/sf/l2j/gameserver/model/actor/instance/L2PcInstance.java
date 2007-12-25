@@ -2260,7 +2260,8 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             giveAvailableSkills();
         }
-        sendSkillList();
+        refreshOverloaded();
+        refreshExpertisePenalty();        
     }
 
     /** Set the Experience value of the L2PcInstance. */
@@ -8477,8 +8478,6 @@ public final class L2PcInstance extends L2PlayableInstance
             for (L2Skill s : HeroSkillTable.getHeroSkills())
                 super.removeSkill(s); //Just Remove skills without deleting from Sql
         _hero = hero;
-        
-        sendSkillList();
     }
 
     public void setIsInOlympiadMode(boolean b)
@@ -8520,8 +8519,6 @@ public final class L2PcInstance extends L2PlayableInstance
             for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())
                 super.removeSkill(s); //Just Remove skills without deleting from Sql 
         _noble = val;
-        
-        sendSkillList();
     }
 
 	public boolean isInDuel()
@@ -8770,40 +8767,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void sendSkillList()
     {
-        sendSkillList(this);
+    	new SkillList(this);
     }
-
-    public void sendSkillList(L2PcInstance player)
-    {
-        SkillList sl = new SkillList(this);
-		
-        if (player != null)
-        {
-            for (L2Skill s : player.getAllSkills())
-            {
-                if (s == null || s.getId() > 9000) // Fake skills to change base stats
-                    continue;
-				
-				if (s.getSkillType() == SkillType.NOTDONE)
-				{
-					switch (Config.SEND_NOTDONE_SKILLS)
-					{
-						case 2:
-							if (isGM())
-								break;
-						case 1:
-							continue;
-					}
-				}
-				
-                sl.addSkill(s.getId(), s.getLevel(), s.isPassive());
-            }
-        }
-		
-        sendPacket(sl);
-    }
-
-
 
     /**
      * 1. Add the specified class ID as a subclass (up to the maximum number of <b>three</b>)

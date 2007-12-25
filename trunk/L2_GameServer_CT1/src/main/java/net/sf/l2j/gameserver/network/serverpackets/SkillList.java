@@ -21,6 +21,8 @@ package net.sf.l2j.gameserver.network.serverpackets;
 import java.util.Vector;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.Config;
 
 /**
  * 
@@ -44,31 +46,11 @@ import net.sf.l2j.gameserver.model.L2Skill;
 public class SkillList extends L2GameServerPacket
 {
     private static final String _S__6D_SKILLLIST = "[S] 58 SkillList";
-    private Vector<Skill> _skills;
     private L2PcInstance _owner;
-
-    class Skill
-    {
-        public int id;
-        public int level;
-        public boolean passive;
-
-        Skill(int pId, int pLevel, boolean pPassive)
-        {
-            id = pId;
-            level = pLevel;
-            passive = pPassive;
-        }
-    }
 
     public SkillList(L2PcInstance client)
     {
         _owner = client;
-    }
-
-    public void addSkill(int id, int level, boolean passive)
-    {
-        _skills.add(new Skill(id, level, passive));
     }
 
     @Override
@@ -80,6 +62,19 @@ public class SkillList extends L2GameServerPacket
         for (int i = 0; i < templ.length; i++)
         {
             L2Skill temp = templ[i];
+        	
+			if (temp.getSkillType() == SkillType.NOTDONE)
+			{
+				switch (Config.SEND_NOTDONE_SKILLS)
+				{
+					case 2:
+						if (_owner.isGM())
+							break;
+					case 1:
+						continue;
+				}
+			}
+        	
             writeD(temp.isPassive() ? 1 : 0);
             writeD(temp.getLevel());
             writeD(temp.getDisplayId());
