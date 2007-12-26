@@ -18,7 +18,6 @@ package net.sf.l2j.gameserver.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Iterator;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -842,11 +841,10 @@ public abstract class Inventory extends ItemContainer
 				// Put old item from paperdoll slot to base location
 				old.setLocation(getBaseLocation());
 				old.setLastChange(L2ItemInstance.MODIFIED);
-				for (Iterator iterator = _paperdollListeners.iterator(); iterator.hasNext();)
+				for (PaperdollListener temp : _paperdollListeners)
 				{
-					PaperdollListener listener = (PaperdollListener) iterator.next();
-					if (listener != null)
-						listener.notifyUnequiped(slot, old);
+					if (temp != null)
+						temp.notifyUnequiped(slot, old);
 				}
 				old.updateDatabase();
 			}
@@ -857,8 +855,8 @@ public abstract class Inventory extends ItemContainer
 				item.setLocation(getEquipLocation(), slot);
 				item.setLastChange(L2ItemInstance.MODIFIED);
 				PaperdollListener listener;
-				for (Iterator iterator1 = _paperdollListeners.iterator(); iterator1.hasNext(); listener.notifyEquiped(slot, item))
-					listener = (PaperdollListener) iterator1.next();
+				for (PaperdollListener temp : _paperdollListeners)
+					temp.notifyEquiped(slot, item);
 				
 				item.updateDatabase();
 			}
@@ -1013,6 +1011,7 @@ public abstract class Inventory extends ItemContainer
 				pdollSlot = PAPERDOLL_RHAND;
 				break;
 		}
+		
 		if (pdollSlot >= 0)
 			setPaperdollItem(pdollSlot, null);
 	}
@@ -1433,7 +1432,7 @@ public abstract class Inventory extends ItemContainer
 				item = L2ItemInstance.restoreFromDb(objectId);
 				if (item == null)
 					continue;
-
+				
 				if (getOwner() instanceof L2PcInstance)
 				{
 					L2PcInstance player = (L2PcInstance) getOwner();

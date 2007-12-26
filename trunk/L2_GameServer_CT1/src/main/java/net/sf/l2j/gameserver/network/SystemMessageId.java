@@ -1624,6 +1624,12 @@ public enum SystemMessageId
     ALREADY_AT_WAR_WITH_S1_WAIT_5_DAYS(628),
     
     /**
+     * ID: 1518<br>
+     * Message: You do not meet the required condition to equip that item.
+     */
+    NO_CONDITION_TO_EQUIP(1518),
+    
+    /**
      * ID: 1562<br>
      * Message: A Clan War has been declared against the clan, $s1. 
      * If you are killed during the Clan War by members of the opposing clan, 

@@ -2261,6 +2261,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         refreshOverloaded();
         refreshExpertisePenalty();
+        sendSkillList();
     }
 
     /** Set the Experience value of the L2PcInstance. */
@@ -8477,6 +8478,7 @@ public final class L2PcInstance extends L2PlayableInstance
             for (L2Skill s : HeroSkillTable.getHeroSkills())
                 super.removeSkill(s); //Just Remove skills without deleting from Sql
         _hero = hero;
+        sendSkillList();
     }
 
     public void setIsInOlympiadMode(boolean b)
@@ -8518,6 +8520,7 @@ public final class L2PcInstance extends L2PlayableInstance
             for (L2Skill s : NobleSkillTable.getInstance().getNobleSkills())
                 super.removeSkill(s); //Just Remove skills without deleting from Sql 
         _noble = val;
+        sendSkillList();
     }
 
 	public boolean isInDuel()
