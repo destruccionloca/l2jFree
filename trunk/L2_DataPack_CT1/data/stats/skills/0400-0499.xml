@@ -1325,4 +1325,1401 @@
 <!-- how can I use num_charges when skillType is not CHARGEDAM ? -->
   </for>
 </skill>
+<skill id="462" levels="1" name="Guilted Body">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl 1 - Body of Original Sin. Only able to equip light armor and effect of recovery magic reduces in half.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="463" levels="3" name="Weapon Mastery">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl 1 - Attack power increase.
+      Lvl 2 - Attack power increase.
+      Lvl 3 - Attack power increase.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="464" levels="5" name="Armor Mastery">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl 1 - Increases P. Def.
+      Lvl 2 - Increases P. Def.
+      Lvl 3 - Increases P. Def.
+      Lvl 4 - Increases P. Def.
+      Lvl 5 - Increases P. Def.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="465" levels="50" name="Light Armor Mastery">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases P. Def. when wearing light armor.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="466" levels="55" name="Magic Immunity">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases M. Def.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="467" levels="23" name="Soul Mastery">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Absorbs a soul. 73 or more Exp is needed to absorb a soul. Maximum of 5 souls can be absorbed.
+      Lvl   2	Absorbs a soul. 147 or more Exp is needed to absorb a soul. Maximum of 7 souls can be absorbed.
+      Lvl	3	Absorbs a soul. 220 or more Exp is needed to absorb a soul. Maximum of 9 souls can be absorbed.
+      Lvl	4	Absorbs a soul. 294 or more Exp. is needed to absorb a soul. There is a 15% chance of absorbing an additional soul on a critical hit. Maximum of 10 souls can be absorbed.
+      Lvl	5	Absorbs a soul. 385 or more Exp. is needed to absorb a soul. There is a 15% chance of absorbing an additional soul on a critical hit. Maximum of 12 souls can be absorbed.
+      Lvl	6	Absorbs a soul. 486 or more Exp. is needed to absorb a soul. There is a 15% chance of absorbing an additional soul on a critical hit. Maximum of 14 souls can be absorbed.
+      Lvl	7	Absorbs a soul. 614 or more Exp. is needed to absorb a soul. There is a 15% chance of absorbing an additional soul on a critical hit. Maximum of 16 souls can be absorbed.
+      Lvl	8	Absorbs a soul. 777 or more Exp. is needed to absorb a soul. There is a 15% chance of absorbing an additional soul on a critical hit. Maximum of 18 souls can be absorbed.
+      Lvl	9	Absorbs a soul. 960 or more Exp. is needed to absorb a soul. There is a 20% chance of absorbing an additional soul on a critical hit. Maximum of 20 souls can be absorbed.
+      Lvl	10	Absorbs a soul. 1109 or more Exp. is needed to absorb a soul. There is a 20% chance of absorbing an additional soul on a critical hit. Maximum of 21 souls can be absorbed.
+      Lvl	11	Absorbs a soul. 1269 or more Exp. is needed to absorb a soul. There is a 20% chance of absorbing an additional soul on a critical hit. Maximum of 22 souls can be absorbed.
+      Lvl	12	Absorbs a soul. 1440 or more Exp. is needed to absorb a soul. There is a 20% chance of absorbing an additional soul on a critical hit. Maximum of 23 souls can be absorbed.
+      Lvl	13	Absorbs a soul. 1622 or more Exp. is needed to absorb a soul. There is a 20% chance of absorbing an additional soul on a critical hit. Maximum of 24 souls can be absorbed.
+      Lvl	14	Absorbs a soul. 1815 or more Exp. is needed to absorb a soul. There is a 20% chance of absorbing an additional soul on a critical hit. Maximum of 25 souls can be absorbed.
+      Lvl	15	Absorbs a soul. 2018 or more Exp. is needed to absorb a soul. There is a 25% chance of absorbing an additional soul on a critical hit. Maximum of 26 souls can be absorbed.
+      Lvl	16	Absorbs a soul. 2160 or more Exp. is needed to absorb a soul. There is a 25% chance of absorbing an additional soul on a critical hit. Maximum of 27 souls can be absorbed.
+      Lvl	17	Absorbs a soul. 2306 or more Exp. is needed to absorb a soul. There is a 25% chance of absorbing an additional soul on a critical hit. Maximum of 28 souls can be absorbed.
+      Lvl	18	Absorbs a soul. 2457 or more Exp. is needed to absorb a soul. There is a 25% chance of absorbing an additional soul on a critical hit. Maximum of 29 souls can be absorbed.
+      Lvl	19	Absorbs a soul. 2613 or more Exp. is needed to absorb a soul. There is a 25% chance of absorbing an additional soul on a critical hit. Maximum of 30 souls can be absorbed.
+      Lvl	20	Absorbs a soul. 2774 or more Exp. is needed to absorb a soul. There is a 25% chance of absorbing an additional soul on a critical hit. Maximum of 31 souls can be absorbed.
+      Lvl	21	Absorbs a soul. 2940 or more Exp. is needed to absorb a soul. There is a 30% chance of absorbing an additional soul on a critical hit. Maximum of 32 souls can be absorbed.
+      Lvl	22	Absorbs a soul. 3110 or more Exp. is needed to absorb a soul. There is a 30% chance of absorbing an additional soul on a critical hit. Maximum of 33 souls can be absorbed.
+      Lvl	23	Absorbs a soul. 3285 or more Exp. is needed to absorb a soul. There is a 30% chance of absorbing an additional soul on a critical hit. Maximum of 35 souls can be absorbed.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="468" levels="9" name="Fallen Attack">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 20.
+      Lvl	2	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 22.
+      Lvl	3	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 24.
+      Lvl	4	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 31.
+      Lvl	5	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 34.
+      Lvl	6	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 37.
+      Lvl	7	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 48.
+      Lvl	8	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 52.
+      Lvl	9	Deal a powerful strike to the enemy. An equipped sword, rapier or blunt weapon is required to use this skill. Over-hit is possible. Power 56.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="469" levels="1" name="Rapid Attack">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Temporarily increase Atk. Spd. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="470" levels="7" name="Detect Trap">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Detect traps below Level 18. Consumes 1 Soul.
+      Lvl	2	Detect traps below Level 28. Consumes 1 Soul.
+      Lvl	3	Detect traps below Level 38. Consumes 1 Soul.
+      Lvl	4	Detect traps below Level 48. Consumes 1 Soul.
+      Lvl	5	Detect traps below Level 58. Consumes 1 Soul.
+      Lvl	6	Detect traps below Level 68. Consumes 1 Soul.
+      Lvl	7	Detect traps below Level 78. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="471" levels="7" name="Defuse Trap">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Disarm traps below Level 18. Consumes 1 Soul.
+      Lvl	2	Disarm traps below Level 28. Consumes 1 Soul.
+      Lvl	3	Disarm traps below Level 38. Consumes 1 Soul.
+      Lvl	4	Disarm traps below Level 48. Consumes 1 Soul.
+      Lvl	5	Disarm traps below Level 58. Consumes 1 Soul.
+      Lvl	6	Disarm traps below Level 68. Consumes 1 Soul.
+      Lvl	7	Disarm traps below Level 78. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="472" levels="45" name="Ancient Sword Mastery">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases P. Atk. when using two-handed ancient sword weapons.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="473" levels="45" name="Crossbow Mastery">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases P. Atk. when using a crossbow.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="474" levels="45" name="Rapier Mastery">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases P. Atk. when using rapiers.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="475" levels="1" name="Strike Back">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Reflects damage caused by a melee attack skill back to your enemy. Consumes MP while active. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="476" levels="15" name="Dark Strike">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 90.
+      Lvl	2	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 97.
+      Lvl	3	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 105.
+      Lvl	4	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 123.
+      Lvl	5	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 132.
+      Lvl	6	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 143.
+      Lvl	7	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 165.
+      Lvl	8	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 177.
+      Lvl	9	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 191.
+      Lvl	10	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 219.
+      Lvl	11	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 235.
+      Lvl	12	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 251.
+      Lvl	13	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 287.
+      Lvl	14	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 306.
+      Lvl	15	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 326.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="477" levels="37" name="Dark Smash" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 615.
+      Lvl	2	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 654.
+      Lvl	3	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 694.
+      Lvl	4	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 737.
+      Lvl	5	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 781.
+      Lvl	6	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 827.
+      Lvl	7	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 875.
+      Lvl	8	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 924.
+      Lvl	9	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 976.
+      Lvl	10	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1030.
+      Lvl	11	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1085.
+      Lvl	12	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1143.
+      Lvl	13	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1202.
+      Lvl	14	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1264.
+      Lvl	15	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1327.
+      Lvl	16	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1392.
+      Lvl	17	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1459.
+      Lvl	18	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1527.
+      Lvl	19	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1597.
+      Lvl	20	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1669.
+      Lvl	21	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1743.
+      Lvl	22	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1817.
+      Lvl	23	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1894.
+      Lvl	24	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1971.
+      Lvl	25	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2050.
+      Lvl	26	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2130.
+      Lvl	27	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2211.
+      Lvl	28	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2293.
+      Lvl	29	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2375.
+      Lvl	30	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2459.
+      Lvl	31	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2542.
+      Lvl	32	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2626.
+      Lvl	33	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2710.
+      Lvl	34	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2794.
+      Lvl	35	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2878.
+      Lvl	36	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2961.
+      Lvl	37	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 3044.
+      Lvl	101	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3230.	+1 Power	Maximizes the skill's power. Power is increased.
+      Lvl	102	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3252.	+2 Power	The power is increased.
+      Lvl	103	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3274.	+3 Power	The power is increased.
+      Lvl	104	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3296.	+4 Power	The power is increased.
+      Lvl	105	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3318.	+5 Power	The power is increased.
+      Lvl	106	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3340.	+6 Power	The power is increased.
+      Lvl	107	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3362.	+7 Power	The power is increased.
+      Lvl	108	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3384.	+8 Power	The power is increased.
+      Lvl	109	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3405.	+9 Power	The power is increased.
+      Lvl	110	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3427.	+10 Power	The power is increased.
+      Lvl	111	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3449.	+11 Power	The power is increased.
+      Lvl	112	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3471.	+12 Power	The power is increased.
+      Lvl	113	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3493.	+13 Power	The power is increased.
+      Lvl	114	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3515.	+14 Power	The power is increased.
+      Lvl	115	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3537.	+15 Power	The power is increased.
+      Lvl	116	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3559.	+16 Power	The power is increased.
+      Lvl	117	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3581.	+17 Power	The power is increased.
+      Lvl	118	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3603.	+18 Power	The power is increased.
+      Lvl	119	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3625.	+19 Power	The power is increased.
+      Lvl	120	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3647.	+20 Power	The power is increased.
+      Lvl	121	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3669.	+21 Power	The power is increased.
+      Lvl	122	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3691.	+22 Power	The power is increased.
+      Lvl	123	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3713.	+23 Power	The power is increased.
+      Lvl	124	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3735.	+24 Power	The power is increased.
+      Lvl	125	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3757.	+25 Power	The power is increased.
+      Lvl	126	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3779.	+26 Power	The power is increased.
+      Lvl	127	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3801.	+27 Power	The power is increased.
+      Lvl	128	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3823.	+28 Power	The power is increased.
+      Lvl	129	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3845.	+29 Power	The power is increased.
+      Lvl	130	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3867.	+30 Power	The power is increased.
+      Lvl	201	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
+      Lvl	202	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+2 Cost	The MP consumption is decreased.
+      Lvl	203	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+3 Cost	The MP consumption is decreased.
+      Lvl	204	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+4 Cost	The MP consumption is decreased.
+      Lvl	205	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+5 Cost	The MP consumption is decreased.
+      Lvl	206	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+6 Cost	The MP consumption is decreased.
+      Lvl	207	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+7 Cost	The MP consumption is decreased.
+      Lvl	208	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+8 Cost	The MP consumption is decreased.
+      Lvl	209	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+9 Cost	The MP consumption is decreased.
+      Lvl	210	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+10 Cost	The MP consumption is decreased.
+      Lvl	211	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+11 Cost	The MP consumption is decreased.
+      Lvl	212	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+12 Cost	The MP consumption is decreased.
+      Lvl	213	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+13 Cost	The MP consumption is decreased.
+      Lvl	214	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+14 Cost	The MP consumption is decreased.
+      Lvl	215	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+15 Cost	The MP consumption is decreased.
+      Lvl	216	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+16 Cost	The MP consumption is decreased.
+      Lvl	217	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+17 Cost	The MP consumption is decreased.
+      Lvl	218	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+18 Cost	The MP consumption is decreased.
+      Lvl	219	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+19 Cost	The MP consumption is decreased.
+      Lvl	220	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+20 Cost	The MP consumption is decreased.
+      Lvl	221	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+21 Cost	The MP consumption is decreased.
+      Lvl	222	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+22 Cost	The MP consumption is decreased.
+      Lvl	223	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+23 Cost	The MP consumption is decreased.
+      Lvl	224	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+24 Cost	The MP consumption is decreased.
+      Lvl	225	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+25 Cost	The MP consumption is decreased.
+      Lvl	226	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+26 Cost	The MP consumption is decreased.
+      Lvl	227	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+27 Cost	The MP consumption is decreased.
+      Lvl	228	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+28 Cost	The MP consumption is decreased.
+      Lvl	229	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+29 Cost	The MP consumption is decreased.
+      Lvl	230	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+30 Cost	The MP consumption is decreased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="478" levels="15" name="Double Thrust">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 90.
+      Lvl	2	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 97.
+      Lvl	3	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 105.
+      Lvl	4	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 123.
+      Lvl	5	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 132.
+      Lvl	6	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 143.
+      Lvl	7	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 165.
+      Lvl	8	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 177.
+      Lvl	9	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 191.
+      Lvl	10	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 219.
+      Lvl	11	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 235.
+      Lvl	12	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 251.
+      Lvl	13	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 287.
+      Lvl	14	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 306.
+      Lvl	15	Makes two quick stabs. Consumes 1 Soul. An equipped rapier is required to use this skill. Power 326.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="479" levels="1" name="Hard March">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases own speed. Consumes 1 Soul. MP continually decreases.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="480" levels="1" name="Dark Blade">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Grants the ability to do dark damage. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="481" levels="2" name="Dark Armor">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases resistance to dark attacks. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="482" levels="2" name="Furious Soul">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Communicates with absorbed soul to increase critical rate and critical damage. Evasion/Defense power is decreased while the effect lasts. Consumes 2 soul. Effect 1.
+      Lvl	2	Communicates with absorbed soul to increase critical rate and critical damage. Evasion/Defense power is decreased while the effect lasts. Consumes 2 soul. Effect 2.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="483" levels="2" name="Sword Shield" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Effect 1.
+      Lvl	2	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Effect 2.
+      Lvl	101	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+1 Power	Maximizes the skill's effect. The effect is increased.
+      Lvl	102	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+2 Power	The effect is increased.
+      Lvl	103	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+3 Power	The effect is increased.
+      Lvl	104	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+4 Power	The effect is increased.
+      Lvl	105	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+5 Power	The effect is increased.
+      Lvl	106	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+6 Power	The effect is increased.
+      Lvl	107	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+7 Power	The effect is increased.
+      Lvl	108	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+8 Power	The effect is increased.
+      Lvl	109	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+9 Power	The effect is increased.
+      Lvl	110	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+10 Power	The effect is increased.
+      Lvl	111	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+11 Power	The effect is increased.
+      Lvl	112	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+12 Power	The effect is increased.
+      Lvl	113	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+13 Power	The effect is increased.
+      Lvl	114	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+14 Power	The effect is increased.
+      Lvl	115	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+15 Power	The effect is increased.
+      Lvl	116	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+16 Power	The effect is increased.
+      Lvl	117	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+17 Power	The effect is increased.
+      Lvl	118	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+18 Power	The effect is increased.
+      Lvl	119	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+19 Power	The effect is increased.
+      Lvl	120	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+20 Power	The effect is increased.
+      Lvl	121	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+21 Power	The effect is increased.
+      Lvl	122	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+22 Power	The effect is increased.
+      Lvl	123	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+23 Power	The effect is increased.
+      Lvl	124	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+24 Power	The effect is increased.
+      Lvl	125	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+25 Power	The effect is increased.
+      Lvl	126	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+26 Power	The effect is increased.
+      Lvl	127	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+27 Power	The effect is increased.
+      Lvl	128	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+28 Power	The effect is increased.
+      Lvl	129	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+29 Power	The effect is increased.
+      Lvl	130	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+30 Power	The effect is increased.
+      Lvl	201	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+1 Cost	Maximizes the skill's efficiency. Decreases the penalty.
+      Lvl	202	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+2 Cost	Decreases the penalty.
+      Lvl	203	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+3 Cost	Decreases the penalty.
+      Lvl	204	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+4 Cost	Decreases the penalty.
+      Lvl	205	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+5 Cost	Decreases the penalty.
+      Lvl	206	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+6 Cost	Decreases the penalty.
+      Lvl	207	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+7 Cost	Decreases the penalty.
+      Lvl	208	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+8 Cost	Decreases the penalty.
+      Lvl	209	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+9 Cost	Decreases the penalty.
+      Lvl	210	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+10 Cost	Decreases the penalty.
+      Lvl	211	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+11 Cost	Decreases the penalty.
+      Lvl	212	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+12 Cost	Decreases the penalty.
+      Lvl	213	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+13 Cost	Decreases the penalty.
+      Lvl	214	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+14 Cost	Decreases the penalty.
+      Lvl	215	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+15 Cost	Decreases the penalty.
+      Lvl	216	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+16 Cost	Decreases the penalty.
+      Lvl	217	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+17 Cost	Decreases the penalty.
+      Lvl	218	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+18 Cost	Decreases the penalty.
+      Lvl	219	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+19 Cost	Decreases the penalty.
+      Lvl	220	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+20 Cost	Decreases the penalty.
+      Lvl	221	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+21 Cost	Decreases the penalty.
+      Lvl	222	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+22 Cost	Decreases the penalty.
+      Lvl	223	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+23 Cost	Decreases the penalty.
+      Lvl	224	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+24 Cost	Decreases the penalty.
+      Lvl	225	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+25 Cost	Decreases the penalty.
+      Lvl	226	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+26 Cost	Decreases the penalty.
+      Lvl	227	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+27 Cost	Decreases the penalty.
+      Lvl	228	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+28 Cost	Decreases the penalty.
+      Lvl	229	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+29 Cost	Decreases the penalty.
+      Lvl	230	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+30 Cost	Decreases the penalty.
+      
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="484" levels="1" name="Rush">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Charge an enemy.  An ancient sword or short sword must be equipped to use this skill. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="485" levels="7" name="Disarm" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+            Lvl	1		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
+            Lvl	2		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
+            Lvl	3		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
+            Lvl	4		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
+            Lvl	5		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
+            Lvl	6		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
+            Lvl	7		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
+            Lvl	101		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+1 Chance	Maximizes the skill's success rate. The success rate is increased.
+            Lvl	102		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+2 Chance	The success rate is increased.
+            Lvl	103		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+3 Chance	The success rate is increased.
+            Lvl	104		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+4 Chance	The success rate is increased.
+            Lvl	105		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+5 Chance	The success rate is increased.
+            Lvl	106		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+6 Chance	The success rate is increased.
+            Lvl	107		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+7 Chance	The success rate is increased.
+            Lvl	108		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+8 Chance	The success rate is increased.
+            Lvl	109		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+9 Chance	The success rate is increased.
+            Lvl	110		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+10 Chance	The success rate is increased.
+            Lvl	111		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+11 Chance	The success rate is increased.
+            Lvl	112		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+12 Chance	The success rate is increased.
+            Lvl	113		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+13 Chance	The success rate is increased.
+            Lvl	114		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+14 Chance	The success rate is increased.
+            Lvl	115		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+15 Chance	The success rate is increased.
+            Lvl	116		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+16 Chance	The success rate is increased.
+            Lvl	117		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+17 Chance	The success rate is increased.
+            Lvl	118		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+18 Chance	The success rate is increased.
+            Lvl	119		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+19 Chance	The success rate is increased.
+            Lvl	120		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+20 Chance	The success rate is increased.
+            Lvl	121		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+21 Chance	The success rate is increased.
+            Lvl	122		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+22 Chance	The success rate is increased.
+            Lvl	123		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+23 Chance	The success rate is increased.
+            Lvl	124		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+24 Chance	The success rate is increased.
+            Lvl	125		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+25 Chance	The success rate is increased.
+            Lvl	126		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+26 Chance	The success rate is increased.
+            Lvl	127		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+27 Chance	The success rate is increased.
+            Lvl	128		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+28 Chance	The success rate is increased.
+            Lvl	129		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+29 Chance	The success rate is increased.
+            Lvl	130		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+30 Chance	The success rate is increased.
+            Lvl	201		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+1 Time	Maximizes the skill's duration. Increases the duration.
+            Lvl	202		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+2 Time	Increases the duration.
+            Lvl	203		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+3 Time	Increases the duration.
+            Lvl	204		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+4 Time	Increases the duration.
+            Lvl	205		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+5 Time	Increases the duration.
+            Lvl	206		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+6 Time	Increases the duration.
+            Lvl	207		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+7 Time	Increases the duration.
+            Lvl	208		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+8 Time	Increases the duration.
+            Lvl	209		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+9 Time	Increases the duration.
+            Lvl	210		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+10 Time	Increases the duration.
+            Lvl	211		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+11 Time	Increases the duration.
+            Lvl	212		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+12 Time	Increases the duration.
+            Lvl	213		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+13 Time	Increases the duration.
+            Lvl	214		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+14 Time	Increases the duration.
+            Lvl	215		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+15 Time	Increases the duration.
+            Lvl	216		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+16 Time	Increases the duration.
+            Lvl	217		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+17 Time	Increases the duration.
+            Lvl	218		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+18 Time	Increases the duration.
+            Lvl	219		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+19 Time	Increases the duration.
+            Lvl	220		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+20 Time	Increases the duration.
+            Lvl	221		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+21 Time	Increases the duration.
+            Lvl	222		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+22 Time	Increases the duration.
+            Lvl	223		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+23 Time	Increases the duration.
+            Lvl	224		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+24 Time	Increases the duration.
+            Lvl	225		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+25 Time	Increases the duration.
+            Lvl	226		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+26 Time	Increases the duration.
+            Lvl	227		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+27 Time	Increases the duration.
+            Lvl	228		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+28 Time	Increases the duration.
+            Lvl	229		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+29 Time	Increases the duration.
+            Lvl	230		Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+30 Time	Increases the duration.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="486" levels="2" name="Increase Range">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Increases crossbow range.
+      Lvl	2	Increases crossbow range.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="487" levels="15" name="Penetrate Shot">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 179.
+      Lvl	2	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 194.
+      Lvl	3	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 210.
+      Lvl	4	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 245.
+      Lvl	5	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 264.
+      Lvl	6	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 285.
+      Lvl	7	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 330.
+      Lvl	8	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 354.
+      Lvl	9	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 381.
+      Lvl	10	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 438.
+      Lvl	11	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 469.
+      Lvl	12	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 502.
+      Lvl	13	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 573.
+      Lvl	14	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 611.
+      Lvl	15	Releases a powerful bolt at a distant enemy. Consumes 1 Soul. Over-hit is possible. An equipped crossbow is required to use this skill. Power 651.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="489" levels="1" name="Shift Target">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Transfers the Aggression of nearby enemies to a selected party member. Consumes 3 soul. An equipped crossbow is required to use this skill. Can be used on party members only.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="490" levels="2" name="Fast Shot" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Effect 1.
+      Lvl	2	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Effect 2.
+      Lvl	101	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+1 Time	Maximizes the skill's duration. Increases the duration.
+      Lvl	102	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+2 Time	Increases the duration.
+      Lvl	103	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+3 Time	Increases the duration.
+      Lvl	104	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+4 Time	Increases the duration.
+      Lvl	105	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+5 Time	Increases the duration.
+      Lvl	106	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+6 Time	Increases the duration.
+      Lvl	107	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+7 Time	Increases the duration.
+      Lvl	108	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+8 Time	Increases the duration.
+      Lvl	109	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+9 Time	Increases the duration.
+      Lvl	110	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+10 Time	Increases the duration.
+      Lvl	111	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+11 Time	Increases the duration.
+      Lvl	112	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+12 Time	Increases the duration.
+      Lvl	113	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+13 Time	Increases the duration.
+      Lvl	114	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+14 Time	Increases the duration.
+      Lvl	115	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+15 Time	Increases the duration.
+      Lvl	116	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+16 Time	Increases the duration.
+      Lvl	117	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+17 Time	Increases the duration.
+      Lvl	118	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+18 Time	Increases the duration.
+      Lvl	119	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+19 Time	Increases the duration.
+      Lvl	120	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+20 Time	Increases the duration.
+      Lvl	121	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+21 Time	Increases the duration.
+      Lvl	122	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+22 Time	Increases the duration.
+      Lvl	123	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+23 Time	Increases the duration.
+      Lvl	124	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+24 Time	Increases the duration.
+      Lvl	125	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+25 Time	Increases the duration.
+      Lvl	126	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+26 Time	Increases the duration.
+      Lvl	127	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+27 Time	Increases the duration.
+      Lvl	128	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+28 Time	Increases the duration.
+      Lvl	129	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+29 Time	Increases the duration.
+      Lvl	130	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+30 Time	Increases the duration.
+      Lvl	201	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
+      Lvl	202	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+2 Cost	The MP consumption is decreased.
+      Lvl	203	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+3 Cost	The MP consumption is decreased.
+      Lvl	204	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+4 Cost	The MP consumption is decreased.
+      Lvl	205	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+5 Cost	The MP consumption is decreased.
+      Lvl	206	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+6 Cost	The MP consumption is decreased.
+      Lvl	207	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+7 Cost	The MP consumption is decreased.
+      Lvl	208	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+8 Cost	The MP consumption is decreased.
+      Lvl	209	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+9 Cost	The MP consumption is decreased.
+      Lvl	210	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+10 Cost	The MP consumption is decreased.
+      Lvl	211	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+11 Cost	The MP consumption is decreased.
+      Lvl	212	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+12 Cost	The MP consumption is decreased.
+      Lvl	213	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+13 Cost	The MP consumption is decreased.
+      Lvl	214	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+14 Cost	The MP consumption is decreased.
+      Lvl	215	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+15 Cost	The MP consumption is decreased.
+      Lvl	216	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+16 Cost	The MP consumption is decreased.
+      Lvl	217	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+17 Cost	The MP consumption is decreased.
+      Lvl	218	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+18 Cost	The MP consumption is decreased.
+      Lvl	219	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+19 Cost	The MP consumption is decreased.
+      Lvl	220	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+20 Cost	The MP consumption is decreased.
+      Lvl	221	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+21 Cost	The MP consumption is decreased.
+      Lvl	222	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+22 Cost	The MP consumption is decreased.
+      Lvl	223	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+23 Cost	The MP consumption is decreased.
+      Lvl	224	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+24 Cost	The MP consumption is decreased.
+      Lvl	225	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+25 Cost	The MP consumption is decreased.
+      Lvl	226	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+26 Cost	The MP consumption is decreased.
+      Lvl	227	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+27 Cost	The MP consumption is decreased.
+      Lvl	228	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+28 Cost	The MP consumption is decreased.
+      Lvl	229	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+29 Cost	The MP consumption is decreased.
+      Lvl	230	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+30 Cost	The MP consumption is decreased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="491" levels="1" name="Not In Use">
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="492" levels="25" name="Spread Wing" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+		Lvl	1		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 722.
+		Lvl	2		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 758.
+		Lvl	3		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 796.
+		Lvl	4		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 835.
+		Lvl	5		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 875.
+		Lvl	6		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 916.
+		Lvl	7		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 959.
+		Lvl	8		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1002.
+		Lvl	9		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1046.
+		Lvl	10		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1091.
+		Lvl	11		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1136.
+		Lvl	12		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1183.
+		Lvl	13		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1230.
+		Lvl	14		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1278.
+		Lvl	15		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1327.
+		Lvl	16		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1376.
+		Lvl	17		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1425.
+		Lvl	18		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1475.
+		Lvl	19		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1525.
+		Lvl	20		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1576.
+		Lvl	21		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1626.
+		Lvl	22		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1677.
+		Lvl	23		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1727.
+		Lvl	24		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1777.
+		Lvl	25		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Power 1827.
+		Lvl	101		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 1938.	+1 Power	Maximizes the skill's power. Power is increased.
+		Lvl	102		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 1951.	+2 Power	The power is increased.
+		Lvl	103		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 1964.	+3 Power	The power is increased.
+		Lvl	104		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 1978.	+4 Power	The power is increased.
+		Lvl	105		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 1991.	+5 Power	The power is increased.
+		Lvl	106		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2004.	+6 Power	The power is increased.
+		Lvl	107		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2017.	+7 Power	The power is increased.
+		Lvl	108		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2030.	+8 Power	The power is increased.
+		Lvl	109		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2043.	+9 Power	The power is increased.
+		Lvl	110		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2057.	+10 Power	The power is increased.
+		Lvl	111		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2070.	+11 Power	The power is increased.
+		Lvl	112		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2083.	+12 Power	The power is increased.
+		Lvl	113		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2096.	+13 Power	The power is increased.
+		Lvl	114		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2109.	+14 Power	The power is increased.
+		Lvl	115		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2123.	+15 Power	The power is increased.
+		Lvl	116		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2136.	+16 Power	The power is increased.
+		Lvl	117		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2149.	+17 Power	The power is increased.
+		Lvl	118		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2162.	+18 Power	The power is increased.
+		Lvl	119		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2175.	+19 Power	The power is increased.
+		Lvl	120		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2189.	+20 Power	The power is increased.
+		Lvl	121		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2202.	+21 Power	The power is increased.
+		Lvl	122		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2215.	+22 Power	The power is increased.
+		Lvl	123		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2228.	+23 Power	The power is increased.
+		Lvl	124		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2241.	+24 Power	The power is increased.
+		Lvl	125		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2255.	+25 Power	The power is increased.
+		Lvl	126		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2268.	+26 Power	The power is increased.
+		Lvl	127		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2281.	+27 Power	The power is increased.
+		Lvl	128		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2294.	+28 Power	The power is increased.
+		Lvl	129		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2307.	+29 Power	The power is increased.
+		Lvl	130		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Power: Power is increased. Power 2320.	+30 Power	The power is increased.
+		Lvl	201		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
+		Lvl	202		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+2 Cost	The MP consumption is decreased.
+		Lvl	203		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+3 Cost	The MP consumption is decreased.
+		Lvl	204		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+4 Cost	The MP consumption is decreased.
+		Lvl	205		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+5 Cost	The MP consumption is decreased.
+		Lvl	206		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+6 Cost	The MP consumption is decreased.
+		Lvl	207		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+7 Cost	The MP consumption is decreased.
+		Lvl	208		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+8 Cost	The MP consumption is decreased.
+		Lvl	209		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+9 Cost	The MP consumption is decreased.
+		Lvl	210		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+10 Cost	The MP consumption is decreased.
+		Lvl	211		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+11 Cost	The MP consumption is decreased.
+		Lvl	212		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+12 Cost	The MP consumption is decreased.
+		Lvl	213		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+13 Cost	The MP consumption is decreased.
+		Lvl	214		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+14 Cost	The MP consumption is decreased.
+		Lvl	215		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+15 Cost	The MP consumption is decreased.
+		Lvl	216		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+16 Cost	The MP consumption is decreased.
+		Lvl	217		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+17 Cost	The MP consumption is decreased.
+		Lvl	218		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+18 Cost	The MP consumption is decreased.
+		Lvl	219		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+19 Cost	The MP consumption is decreased.
+		Lvl	220		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+20 Cost	The MP consumption is decreased.
+		Lvl	221		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+21 Cost	The MP consumption is decreased.
+		Lvl	222		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+22 Cost	The MP consumption is decreased.
+		Lvl	223		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+23 Cost	The MP consumption is decreased.
+		Lvl	224		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+24 Cost	The MP consumption is decreased.
+		Lvl	225		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+25 Cost	The MP consumption is decreased.
+		Lvl	226		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+26 Cost	The MP consumption is decreased.
+		Lvl	227		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+27 Cost	The MP consumption is decreased.
+		Lvl	228		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+28 Cost	The MP consumption is decreased.
+		Lvl	229		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+29 Cost	The MP consumption is decreased.
+		Lvl	230		Use your wing to attack hostile enemies behind you. Consumes 1 Soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 1827.	+30 Cost	The MP consumption is decreased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="493" levels="28" name="Storm Assault" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+		Lvl		1	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 618.
+		Lvl		2	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 651.
+		Lvl		3	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 686.
+		Lvl		4	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 722.
+		Lvl		5	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 758.
+		Lvl		6	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 796.
+		Lvl		7	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 835.
+		Lvl		8	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 875.
+		Lvl		9	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 916.
+		Lvl		10	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 959.
+		Lvl		11	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1002.
+		Lvl		12	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1046.
+		Lvl		13	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1091.
+		Lvl		14	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1136.
+		Lvl		15	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1183.
+		Lvl		16	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1230.
+		Lvl		17	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1278.
+		Lvl		18	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1327.
+		Lvl		19	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1376.
+		Lvl		20	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1425.
+		Lvl		21	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1475.
+		Lvl		22	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1525.
+		Lvl		23	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1576.
+		Lvl		24	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1626.
+		Lvl		25	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1677.
+		Lvl		26	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1727.
+		Lvl		27	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1777.
+		Lvl		28	Charges like a storm to attack nearby enemies. Consumes 3 soul.  An equipped ancient sword weapon is required to use this skill. Power 1827.
+		Lvl		101	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 1938.	+1 Power	Maximizes the skill's power. Power is increased.
+		Lvl		102	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 1951.	+2 Power	The power is increased.
+		Lvl		103	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 1964.	+3 Power	The power is increased.
+		Lvl		104	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 1978.	+4 Power	The power is increased.
+		Lvl		105	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 1991.	+5 Power	The power is increased.
+		Lvl		106	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2004.	+6 Power	The power is increased.
+		Lvl		107	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2017.	+7 Power	The power is increased.
+		Lvl		108	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2030.	+8 Power	The power is increased.
+		Lvl		109	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2043.	+9 Power	The power is increased.
+		Lvl		110	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2057.	+10 Power	The power is increased.
+		Lvl		111	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2070.	+11 Power	The power is increased.
+		Lvl		112	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2083.	+12 Power	The power is increased.
+		Lvl		113	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2096.	+13 Power	The power is increased.
+		Lvl		114	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2109.	+14 Power	The power is increased.
+		Lvl		115	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2123.	+15 Power	The power is increased.
+		Lvl		116	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2136.	+16 Power	The power is increased.
+		Lvl		117	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2149.	+17 Power	The power is increased.
+		Lvl		118	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2162.	+18 Power	The power is increased.
+		Lvl		119	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2175.	+19 Power	The power is increased.
+		Lvl		120	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2189.	+20 Power	The power is increased.
+		Lvl		121	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2202.	+21 Power	The power is increased.
+		Lvl		122	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2215.	+22 Power	The power is increased.
+		Lvl		123	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2228.	+23 Power	The power is increased.
+		Lvl		124	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2241.	+24 Power	The power is increased.
+		Lvl		125	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2255.	+25 Power	The power is increased.
+		Lvl		126	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2268.	+26 Power	The power is increased.
+		Lvl		127	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2281.	+27 Power	The power is increased.
+		Lvl		128	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2294.	+28 Power	The power is increased.
+		Lvl		129	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2307.	+29 Power	The power is increased.
+		Lvl		130	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 2320.	+30 Power	The power is increased.
+		Lvl		201	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
+		Lvl		202	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+2 Cost	The MP consumption is decreased.
+		Lvl		203	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+3 Cost	The MP consumption is decreased.
+		Lvl		204	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+4 Cost	The MP consumption is decreased.
+		Lvl		205	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+5 Cost	The MP consumption is decreased.
+		Lvl		206	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+6 Cost	The MP consumption is decreased.
+		Lvl		207	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+7 Cost	The MP consumption is decreased.
+		Lvl		208	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+8 Cost	The MP consumption is decreased.
+		Lvl		209	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+9 Cost	The MP consumption is decreased.
+		Lvl		210	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+10 Cost	The MP consumption is decreased.
+		Lvl		211	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+11 Cost	The MP consumption is decreased.
+		Lvl		212	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+12 Cost	The MP consumption is decreased.
+		Lvl		213	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+13 Cost	The MP consumption is decreased.
+		Lvl		214	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+14 Cost	The MP consumption is decreased.
+		Lvl		215	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+15 Cost	The MP consumption is decreased.
+		Lvl		216	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+16 Cost	The MP consumption is decreased.
+		Lvl		217	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+17 Cost	The MP consumption is decreased.
+		Lvl		218	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+18 Cost	The MP consumption is decreased.
+		Lvl		219	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+19 Cost	The MP consumption is decreased.
+		Lvl		220	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+20 Cost	The MP consumption is decreased.
+		Lvl		221	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+21 Cost	The MP consumption is decreased.
+		Lvl		222	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+22 Cost	The MP consumption is decreased.
+		Lvl		223	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+23 Cost	The MP consumption is decreased.
+		Lvl		224	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+24 Cost	The MP consumption is decreased.
+		Lvl		225	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+25 Cost	The MP consumption is decreased.
+		Lvl		226	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+26 Cost	The MP consumption is decreased.
+		Lvl		227	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+27 Cost	The MP consumption is decreased.
+		Lvl		228	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+28 Cost	The MP consumption is decreased.
+		Lvl		229	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+29 Cost	The MP consumption is decreased.
+		Lvl		230	Charges like a storm to attack nearby enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 1827.	+30 Cost	The MP consumption is decreased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="494" levels="37" name="Shoulder Charge">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Attack with a powerful charge, ramming an enemy with your shoulder. Instantly puts the enemy into shock. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="495" levels="10" name="Blade Rush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+		Lvl		1		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 6.	none	none
+		Lvl		2		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 6.	none	none
+		Lvl		3		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
+		Lvl		4		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
+		Lvl		5		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
+		Lvl		6		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
+		Lvl		7		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
+		Lvl		8		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 8.	none	none
+		Lvl		9		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 8.	none	none
+		Lvl		10		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 8.	none	none
+		Lvl		101		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 8.	+1 Power	Maximizes the skill's effect. The effect is increased.
+		Lvl		102		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+2 Power	The effect is increased.
+		Lvl		103		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+3 Power	The effect is increased.
+		Lvl		104		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+4 Power	The effect is increased.
+		Lvl		105		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+5 Power	The effect is increased.
+		Lvl		106		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+6 Power	The effect is increased.
+		Lvl		107		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+7 Power	The effect is increased.
+		Lvl		108		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+8 Power	The effect is increased.
+		Lvl		109		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+9 Power	The effect is increased.
+		Lvl		110		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+10 Power	The effect is increased.
+		Lvl		111		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+11 Power	The effect is increased.
+		Lvl		112		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+12 Power	The effect is increased.
+		Lvl		113		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+13 Power	The effect is increased.
+		Lvl		114		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+14 Power	The effect is increased.
+		Lvl		115		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+15 Power	The effect is increased.
+		Lvl		116		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+16 Power	The effect is increased.
+		Lvl		117		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+17 Power	The effect is increased.
+		Lvl		118		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+18 Power	The effect is increased.
+		Lvl		119		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+19 Power	The effect is increased.
+		Lvl		120		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+20 Power	The effect is increased.
+		Lvl		121		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+21 Power	The effect is increased.
+		Lvl		122		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+22 Power	The effect is increased.
+		Lvl		123		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+23 Power	The effect is increased.
+		Lvl		124		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+24 Power	The effect is increased.
+		Lvl		125		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+25 Power	The effect is increased.
+		Lvl		126		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+26 Power	The effect is increased.
+		Lvl		127		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+27 Power	The effect is increased.
+		Lvl		128		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+28 Power	The effect is increased.
+		Lvl		129		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+29 Power	The effect is increased.
+		Lvl		130		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+30 Power	The effect is increased.
+		Lvl		201		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+1 Chance	Maximizes the skill's success rate. The success rate is increased.
+		Lvl		202		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+2 Chance	The success rate is increased.
+		Lvl		203		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+3 Chance	The success rate is increased.
+		Lvl		204		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+4 Chance	The success rate is increased.
+		Lvl		205		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+5 Chance	The success rate is increased.
+		Lvl		206		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+6 Chance	The success rate is increased.
+		Lvl		207		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+7 Chance	The success rate is increased.
+		Lvl		208		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+8 Chance	The success rate is increased.
+		Lvl		209		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+9 Chance	The success rate is increased.
+		Lvl		210		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+10 Chance	The success rate is increased.
+		Lvl		211		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+11 Chance	The success rate is increased.
+		Lvl		212		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+12 Chance	The success rate is increased.
+		Lvl		213		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+13 Chance	The success rate is increased.
+		Lvl		214		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+14 Chance	The success rate is increased.
+		Lvl		215		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+15 Chance	The success rate is increased.
+		Lvl		216		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+16 Chance	The success rate is increased.
+		Lvl		217		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+17 Chance	The success rate is increased.
+		Lvl		218		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+18 Chance	The success rate is increased.
+		Lvl		219		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+19 Chance	The success rate is increased.
+		Lvl		220		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+20 Chance	The success rate is increased.
+		Lvl		221		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+21 Chance	The success rate is increased.
+		Lvl		222		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+22 Chance	The success rate is increased.
+		Lvl		223		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+23 Chance	The success rate is increased.
+		Lvl		224		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+24 Chance	The success rate is increased.
+		Lvl		225		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+25 Chance	The success rate is increased.
+		Lvl		226		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+26 Chance	The success rate is increased.
+		Lvl		227		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+27 Chance	The success rate is increased.
+		Lvl		228		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+28 Chance	The success rate is increased.
+		Lvl		229		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+29 Chance	The success rate is increased.
+		Lvl		230		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+30 Chance	The success rate is increased.
+		Lvl		301		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
+		Lvl		302		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+2 Cost	The MP consumption is decreased.
+		Lvl		303		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+3 Cost	The MP consumption is decreased.
+		Lvl		304		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+4 Cost	The MP consumption is decreased.
+		Lvl		305		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+5 Cost	The MP consumption is decreased.
+		Lvl		306		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+6 Cost	The MP consumption is decreased.
+		Lvl		307		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+7 Cost	The MP consumption is decreased.
+		Lvl		308		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+8 Cost	The MP consumption is decreased.
+		Lvl		309		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+9 Cost	The MP consumption is decreased.
+		Lvl		310		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+10 Cost	The MP consumption is decreased.
+		Lvl		311		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+11 Cost	The MP consumption is decreased.
+		Lvl		312		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+12 Cost	The MP consumption is decreased.
+		Lvl		313		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+13 Cost	The MP consumption is decreased.
+		Lvl		314		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+14 Cost	The MP consumption is decreased.
+		Lvl		315		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+15 Cost	The MP consumption is decreased.
+		Lvl		316		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+16 Cost	The MP consumption is decreased.
+		Lvl		317		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+17 Cost	The MP consumption is decreased.
+		Lvl		318		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+18 Cost	The MP consumption is decreased.
+		Lvl		319		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+19 Cost	The MP consumption is decreased.
+		Lvl		320		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+20 Cost	The MP consumption is decreased.
+		Lvl		321		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+21 Cost	The MP consumption is decreased.
+		Lvl		322		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+22 Cost	The MP consumption is decreased.
+		Lvl		323		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+23 Cost	The MP consumption is decreased.
+		Lvl		324		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+24 Cost	The MP consumption is decreased.
+		Lvl		325		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+25 Cost	The MP consumption is decreased.
+		Lvl		326		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+26 Cost	The MP consumption is decreased.
+		Lvl		327		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+27 Cost	The MP consumption is decreased.
+		Lvl		328		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+28 Cost	The MP consumption is decreased.
+		Lvl		329		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+29 Cost	The MP consumption is decreased.
+		Lvl		330		Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+30 Cost	The MP consumption is decreased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="496" levels="31" name="Slashing Blade" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+		Lvl		1		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 656.
+		Lvl		2		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 693.
+		Lvl		3		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 732.
+		Lvl		4		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 773.
+		Lvl		5		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 814.
+		Lvl		6		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 857.
+		Lvl		7		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 902.
+		Lvl		8		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 948.
+		Lvl		9		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 995.
+		Lvl		10		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1044.
+		Lvl		11		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1094.
+		Lvl		12		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1145.
+		Lvl		13		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1198.
+		Lvl		14		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1252.
+		Lvl		15		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1307.
+		Lvl		16		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1363.
+		Lvl		17		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1420.
+		Lvl		18		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1479.
+		Lvl		19		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1538.
+		Lvl		20		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1598.
+		Lvl		21		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1658.
+		Lvl		22		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1720.
+		Lvl		23		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1782.
+		Lvl		24		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1844.
+		Lvl		25		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1907.
+		Lvl		26		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 1970.
+		Lvl		27		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 2033.
+		Lvl		28		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 2096.
+		Lvl		29		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 2158.
+		Lvl		30		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 2221.
+		Lvl		31		Swing sword to attack nearby enemies. Consumes 2 soul.  An equipped ancient sword weapon is required to use this skill. Over-hit is possible. Power 2283.
+		Lvl		101		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2422.	+1 Power	Maximizes the skill's effect. The effect is increased.
+		Lvl		102		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2439.	+2 Power	The effect is increased.
+		Lvl		103		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2455.	+3 Power	The effect is increased.
+		Lvl		104		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2472.	+4 Power	The effect is increased.
+		Lvl		105		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2488.	+5 Power	The effect is increased.
+		Lvl		106		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2505.	+6 Power	The effect is increased.
+		Lvl		107		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2521.	+7 Power	The effect is increased.
+		Lvl		108		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2538.	+8 Power	The effect is increased.
+		Lvl		109		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2554.	+9 Power	The effect is increased.
+		Lvl		110		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2571.	+10 Power	The effect is increased.
+		Lvl		111		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2587.	+11 Power	The effect is increased.
+		Lvl		112		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2604.	+12 Power	The effect is increased.
+		Lvl		113		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2620.	+13 Power	The effect is increased.
+		Lvl		114		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2637.	+14 Power	The effect is increased.
+		Lvl		115		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2653.	+15 Power	The effect is increased.
+		Lvl		116		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2670.	+16 Power	The effect is increased.
+		Lvl		117		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2686.	+17 Power	The effect is increased.
+		Lvl		118		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2703.	+18 Power	The effect is increased.
+		Lvl		119		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2719.	+19 Power	The effect is increased.
+		Lvl		120		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2736.	+20 Power	The effect is increased.
+		Lvl		121		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2752.	+21 Power	The effect is increased.
+		Lvl		122		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2769.	+22 Power	The effect is increased.
+		Lvl		123		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2785.	+23 Power	The effect is increased.
+		Lvl		124		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2802.	+24 Power	The effect is increased.
+		Lvl		125		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2818.	+25 Power	The effect is increased.
+		Lvl		126		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2835.	+26 Power	The effect is increased.
+		Lvl		127		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2851.	+27 Power	The effect is increased.
+		Lvl		128		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2868.	+28 Power	The effect is increased.
+		Lvl		129		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2884.	+29 Power	The effect is increased.
+		Lvl		130		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Power: Power is increased. Power 2900.	+30 Power	The effect is increased.
+		Lvl		201		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
+		Lvl		202		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+2 Cost	The MP consumption is decreased.
+		Lvl		203		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+3 Cost	The MP consumption is decreased.
+		Lvl		204		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+4 Cost	The MP consumption is decreased.
+		Lvl		205		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+5 Cost	The MP consumption is decreased.
+		Lvl		206		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+6 Cost	The MP consumption is decreased.
+		Lvl		207		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+7 Cost	The MP consumption is decreased.
+		Lvl		208		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+8 Cost	The MP consumption is decreased.
+		Lvl		209		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+9 Cost	The MP consumption is decreased.
+		Lvl		210		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+10 Cost	The MP consumption is decreased.
+		Lvl		211		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+11 Cost	The MP consumption is decreased.
+		Lvl		212		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+12 Cost	The MP consumption is decreased.
+		Lvl		213		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+13 Cost	The MP consumption is decreased.
+		Lvl		214		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+14 Cost	The MP consumption is decreased.
+		Lvl		215		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+15 Cost	The MP consumption is decreased.
+		Lvl		216		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+16 Cost	The MP consumption is decreased.
+		Lvl		217		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+17 Cost	The MP consumption is decreased.
+		Lvl		218		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+18 Cost	The MP consumption is decreased.
+		Lvl		219		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+19 Cost	The MP consumption is decreased.
+		Lvl		220		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+20 Cost	The MP consumption is decreased.
+		Lvl		221		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+21 Cost	The MP consumption is decreased.
+		Lvl		222		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+22 Cost	The MP consumption is decreased.
+		Lvl		223		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+23 Cost	The MP consumption is decreased.
+		Lvl		224		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+24 Cost	The MP consumption is decreased.
+		Lvl		225		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+25 Cost	The MP consumption is decreased.
+		Lvl		226		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+26 Cost	The MP consumption is decreased.
+		Lvl		227		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+27 Cost	The MP consumption is decreased.
+		Lvl		228		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+28 Cost	The MP consumption is decreased.
+		Lvl		229		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+29 Cost	The MP consumption is decreased.
+		Lvl		230		Swing sword to attack nearby enemies. Consumes 2 soul. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 2283.	+30 Cost	The MP consumption is decreased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="497" levels="16" name="Crushing Pain" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+		Lvl		1		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 4558.
+		Lvl		2		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 4750.
+		Lvl		3		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 4944.
+		Lvl		4		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5142.
+		Lvl		5		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5342.
+		Lvl		6		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5545.
+		Lvl		7		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5751.
+		Lvl		8		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5958.
+		Lvl		9		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 6166.
+		Lvl		10		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 6376.
+		Lvl		11		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 6586.
+		Lvl		12		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 6797.
+		Lvl		13		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 7008.
+		Lvl		14		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 7218.
+		Lvl		15		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 7427.
+		Lvl		16		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 7635.
+		Lvl		101		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8100.	+1 Power	Maximizes the skill's effect. The effect is increased.
+		Lvl		102		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8155.	+2 Power	The effect is increased.
+		Lvl		103		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8210.	+3 Power	The effect is increased.
+		Lvl		104		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8266.	+4 Power	The effect is increased.
+		Lvl		105		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8321.	+5 Power	The effect is increased.
+		Lvl		106		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8376.	+6 Power	The effect is increased.
+		Lvl		107		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8431.	+7 Power	The effect is increased.
+		Lvl		108		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8486.	+8 Power	The effect is increased.
+		Lvl		109		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8541.	+9 Power	The effect is increased.
+		Lvl		110		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8596.	+10 Power	The effect is increased.
+		Lvl		111		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8652.	+11 Power	The effect is increased.
+		Lvl		112		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8707.	+12 Power	The effect is increased.
+		Lvl		113		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8762.	+13 Power	The effect is increased.
+		Lvl		114		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8817.	+14 Power	The effect is increased.
+		Lvl		115		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8872.	+15 Power	The effect is increased.
+		Lvl		116		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8927.	+16 Power	The effect is increased.
+		Lvl		117		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8982.	+17 Power	The effect is increased.
+		Lvl		118		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9038.	+18 Power	The effect is increased.
+		Lvl		119		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9093.	+19 Power	The effect is increased.
+		Lvl		120		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9148.	+20 Power	The effect is increased.
+		Lvl		121		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9203.	+21 Power	The effect is increased.
+		Lvl		122		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9258.	+22 Power	The effect is increased.
+		Lvl		123		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9313.	+23 Power	The effect is increased.
+		Lvl		124		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9368.	+24 Power	The effect is increased.
+		Lvl		125		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9424.	+25 Power	The effect is increased.
+		Lvl		126		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9479.	+26 Power	The effect is increased.
+		Lvl		127		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9534.	+27 Power	The effect is increased.
+		Lvl		128		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9589.	+28 Power	The effect is increased.
+		Lvl		129		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9644.	+29 Power	The effect is increased.
+		Lvl		130		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9699.	+30 Power	The effect is increased.
+		Lvl		201		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
+		Lvl		202		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+2 Cost	The MP consumption is decreased.
+		Lvl		203		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+3 Cost	The MP consumption is decreased.
+		Lvl		204		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+4 Cost	The MP consumption is decreased.
+		Lvl		205		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+5 Cost	The MP consumption is decreased.
+		Lvl		206		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+6 Cost	The MP consumption is decreased.
+		Lvl		207		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+7 Cost	The MP consumption is decreased.
+		Lvl		208		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+8 Cost	The MP consumption is decreased.
+		Lvl		209		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+9 Cost	The MP consumption is decreased.
+		Lvl		210		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+10 Cost	The MP consumption is decreased.
+		Lvl		211		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+11 Cost	The MP consumption is decreased.
+		Lvl		212		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+12 Cost	The MP consumption is decreased.
+		Lvl		213		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+13 Cost	The MP consumption is decreased.
+		Lvl		214		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+14 Cost	The MP consumption is decreased.
+		Lvl		215		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+15 Cost	The MP consumption is decreased.
+		Lvl		216		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+16 Cost	The MP consumption is decreased.
+		Lvl		217		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+17 Cost	The MP consumption is decreased.
+		Lvl		218		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+18 Cost	The MP consumption is decreased.
+		Lvl		219		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+19 Cost	The MP consumption is decreased.
+		Lvl		220		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+20 Cost	The MP consumption is decreased.
+		Lvl		221		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+21 Cost	The MP consumption is decreased.
+		Lvl		222		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+22 Cost	The MP consumption is decreased.
+		Lvl		223		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+23 Cost	The MP consumption is decreased.
+		Lvl		224		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+24 Cost	The MP consumption is decreased.
+		Lvl		225		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+25 Cost	The MP consumption is decreased.
+		Lvl		226		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+26 Cost	The MP consumption is decreased.
+		Lvl		227		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+27 Cost	The MP consumption is decreased.
+		Lvl		228		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+28 Cost	The MP consumption is decreased.
+		Lvl		229		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+29 Cost	The MP consumption is decreased.
+		Lvl		230		Deals a powerful attack to the enemy. Consumes 1 Soul. An equipped ancient sword is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+30 Cost	The MP consumption is decreased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="498" levels="12" name="Contagion" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+		Lvl		1		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5342.
+		Lvl		2		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5545.
+		Lvl		3		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5751.
+		Lvl		4		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 5958.
+		Lvl		5		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 6166.
+		Lvl		6		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 6376.
+		Lvl		7		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 6586.
+		Lvl		8		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 6797.
+		Lvl		9		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 7008.
+		Lvl		10		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 7218.
+		Lvl		11		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 7427.
+		Lvl		12		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Power 7635.
+		Lvl		101		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8100.	+1 Power	Maximizes the skill's effect. The effect is increased.
+		Lvl		102		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8155.	+2 Power	The effect is increased.
+		Lvl		103		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8210.	+3 Power	The effect is increased.
+		Lvl		104		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8266.	+4 Power	The effect is increased.
+		Lvl		105		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8321.	+5 Power	The effect is increased.
+		Lvl		106		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8376.	+6 Power	The effect is increased.
+		Lvl		107		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8431.	+7 Power	The effect is increased.
+		Lvl		108		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8486.	+8 Power	The effect is increased.
+		Lvl		109		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8541.	+9 Power	The effect is increased.
+		Lvl		110		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8596.	+10 Power	The effect is increased.
+		Lvl		111		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8652.	+11 Power	The effect is increased.
+		Lvl		112		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8707.	+12 Power	The effect is increased.
+		Lvl		113		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8762.	+13 Power	The effect is increased.
+		Lvl		114		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8817.	+14 Power	The effect is increased.
+		Lvl		115		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8872.	+15 Power	The effect is increased.
+		Lvl		116		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8927.	+16 Power	The effect is increased.
+		Lvl		117		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 8982.	+17 Power	The effect is increased.
+		Lvl		118		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9038.	+18 Power	The effect is increased.
+		Lvl		119		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9093.	+19 Power	The effect is increased.
+		Lvl		120		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9148.	+20 Power	The effect is increased.
+		Lvl		121		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9203.	+21 Power	The effect is increased.
+		Lvl		122		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9258.	+22 Power	The effect is increased.
+		Lvl		123		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9313.	+23 Power	The effect is increased.
+		Lvl		124		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9368.	+24 Power	The effect is increased.
+		Lvl		125		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9424.	+25 Power	The effect is increased.
+		Lvl		126		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9479.	+26 Power	The effect is increased.
+		Lvl		127		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9534.	+27 Power	The effect is increased.
+		Lvl		128		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9589.	+28 Power	The effect is increased.
+		Lvl		129		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9644.	+29 Power	The effect is increased.
+		Lvl		130		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Power: Power is increased. Power 9699.	+30 Power	The effect is increased.
+		Lvl		201		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
+		Lvl		202		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+2 Cost	The MP consumption is decreased.
+		Lvl		203		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+3 Cost	The MP consumption is decreased.
+		Lvl		204		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+4 Cost	The MP consumption is decreased.
+		Lvl		205		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+5 Cost	The MP consumption is decreased.
+		Lvl		206		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+6 Cost	The MP consumption is decreased.
+		Lvl		207		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+7 Cost	The MP consumption is decreased.
+		Lvl		208		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+8 Cost	The MP consumption is decreased.
+		Lvl		209		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+9 Cost	The MP consumption is decreased.
+		Lvl		210		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+10 Cost	The MP consumption is decreased.
+		Lvl		211		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+11 Cost	The MP consumption is decreased.
+		Lvl		212		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+12 Cost	The MP consumption is decreased.
+		Lvl		213		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+13 Cost	The MP consumption is decreased.
+		Lvl		214		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+14 Cost	The MP consumption is decreased.
+		Lvl		215		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+15 Cost	The MP consumption is decreased.
+		Lvl		216		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+16 Cost	The MP consumption is decreased.
+		Lvl		217		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+17 Cost	The MP consumption is decreased.
+		Lvl		218		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+18 Cost	The MP consumption is decreased.
+		Lvl		219		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+19 Cost	The MP consumption is decreased.
+		Lvl		220		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+20 Cost	The MP consumption is decreased.
+		Lvl		221		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+21 Cost	The MP consumption is decreased.
+		Lvl		222		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+22 Cost	The MP consumption is decreased.
+		Lvl		223		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+23 Cost	The MP consumption is decreased.
+		Lvl		224		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+24 Cost	The MP consumption is decreased.
+		Lvl		225		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+25 Cost	The MP consumption is decreased.
+		Lvl		226		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+26 Cost	The MP consumption is decreased.
+		Lvl		227		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+27 Cost	The MP consumption is decreased.
+		Lvl		228		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+28 Cost	The MP consumption is decreased.
+		Lvl		229		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+29 Cost	The MP consumption is decreased.
+		Lvl		230		Exacerbates a bleeding wound with additional attacks. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill. Shield defense is ignored. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 7635.	+30 Cost	The MP consumption is decreased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="499" levels="3" name="Shoulder Charge">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Courage	Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 1.
+      Lvl	2	Courage	Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 2.
+      Lvl	3	Courage	Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 3.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
 </list>

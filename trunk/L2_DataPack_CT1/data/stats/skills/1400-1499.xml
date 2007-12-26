@@ -646,4 +646,161 @@
   <for>
   </for>
 </skill>
+<skill id="1431" levels="6" name="Fallen Arrow">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl 1 - Release an arrow infused with darkness. Consumes 1 Soul. Power 13.
+	  Lvl 2 - Release an arrow infused with darkness. Consumes 1 Soul. Power 14.
+	  Lvl 3 - Release an arrow infused with darkness. Consumes 1 Soul. Power 16.
+	  Lvl 4 - Release an arrow infused with darkness. Consumes 1 Soul. Power 18.
+	  Lvl 5 - Release an arrow infused with darkness. Consumes 1 Soul. Power 20.
+	  Lvl 6 - Release an arrow infused with darkness. Consumes 1 Soul. Power 22.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1432" levels="2" name="Increase Power">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl 1 - Temporarily increase your P Atk. Consumes 1 Soul. Effect 1.
+	  Lvl 2 - Temporarily increase your P Atk. Consumes 1 Soul. Effect 2.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1433" levels="10" name="Abyssal Blaze">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl   1	Disperses a materialized soul. Consumes 1 Soul. Power 24.
+      Lvl	2	Disperses a materialized soul. Consumes 1 Soul. Power 26.
+      Lvl	3	Disperses a materialized soul. Consumes 1 Soul. Power 28.
+      Lvl	4	Disperses a materialized soul. Consumes 1 Soul. Power 31.
+      Lvl	5	Disperses a materialized soul. Consumes 1 Soul. Power 33.
+      Lvl	6	Disperses a materialized soul. Consumes 1 Soul. Power 35.
+      Lvl	7	Disperses a materialized soul. Consumes 1 Soul. Power 38.
+      Lvl	8	Disperses a materialized soul. Consumes 1 Soul. Power 40.
+      Lvl	9	Disperses a materialized soul. Consumes 1 Soul. Power 43.
+      Lvl	10	Disperses a materialized soul. Consumes 1 Soul. Power 46.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1434" levels="4" name="Dark Explosion">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl 	1 	Detonates a soul to damage nearby enemies. Consumes 1 Soul. Power 16.
+      Lvl	2	Detonates a soul to damage nearby enemies. Consumes 1 Soul. Power 18.
+      Lvl	3	Detonates a soul to damage nearby enemies. Consumes 1 Soul. Power 20.
+      Lvl	4	Detonates a soul to damage nearby enemies. Consumes 1 Soul. Power 23.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1435" levels="2" name="Death Mark" enchantLevels1="30" enchantLevels2="30">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Stigmatize target with darkness. Consumes 1 Soul. Effect 1.
+      Lvl	2	Stigmatize target with darkness. Consumes 1 Soul. Effect 2.
+      Lvl	3	Stigmatize target with darkness. Consumes 2 soul. Effect 3.
+      Lvl	4	Stigmatize target with darkness. Consumes 2 soul. Effect 4.
+      Lvl	5	Stigmatize target with darkness. Consumes 2 soul. Effect 5.
+      Lvl	6	Stigmatize target with darkness. Consumes 2 soul. Effect 6.
+      Lvl	7	Stigmatize target with darkness. Consumes 2 soul. Effect 7.
+      Lvl	8	Stigmatize target with darkness. Consumes 2 soul. Effect 8.
+      Lvl	9	Stigmatize target with darkness. Consumes 2 soul. Effect 9.
+      Lvl	10	Stigmatize target with darkness. Consumes 2 soul. Effect 10.
+      Lvl	101	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 10.	+1 Power	Maximizes the skill's effect. The effect is increased.
+      Lvl	102	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 10.	+2 Power	Increases the efficiency.
+      Lvl	103	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 10.	+3 Power	Increases the efficiency.
+      Lvl	104	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 10.	+4 Power	Increases the efficiency.
+      Lvl	105	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 10.	+5 Power	Increases the efficiency.
+      Lvl	106	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 10.	+6 Power	Increases the efficiency.
+      Lvl	107	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 10.	+7 Power	Increases the efficiency.
+      Lvl	108	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 10.	+8 Power	Increases the efficiency.
+      Lvl	109	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 11.	+9 Power	Increases the efficiency.
+      Lvl	110	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 11.	+10 Power	Increases the efficiency.
+      Lvl	111	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 11.	+11 Power	Increases the efficiency.
+      Lvl	112	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 11.	+12 Power	Increases the efficiency.
+      Lvl	113	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 11.	+13 Power	Increases the efficiency.
+      Lvl	114	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 11.	+14 Power	Increases the efficiency.
+      Lvl	115	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 11.	+15 Power	Increases the efficiency.
+      Lvl	116	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 11.	+16 Power	Increases the efficiency.
+      Lvl	117	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+17 Power	Increases the efficiency.
+      Lvl	118	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+18 Power	Increases the efficiency.
+      Lvl	119	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+19 Power	Increases the efficiency.
+      Lvl	120	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+20 Power	Increases the efficiency.
+      Lvl	121	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+21 Power	Increases the efficiency.
+      Lvl	122	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+22 Power	Increases the efficiency.
+      Lvl	123	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+23 Power	Increases the efficiency.
+      Lvl	124	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+24 Power	Increases the efficiency.
+      Lvl	125	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 12.	+25 Power	Increases the efficiency.
+      Lvl	126	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 13.	+26 Power	Increases the efficiency.
+      Lvl	127	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 13.	+27 Power	Increases the efficiency.
+      Lvl	128	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 13.	+28 Power	Increases the efficiency.
+      Lvl	129	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 13.	+29 Power	Increases the efficiency.
+      Lvl	130	Stigmatize target with darkness. Consumes 2 soul. Enchant Power: Increases effect. Effect 13.	+30 Power	Increases the efficiency.
+      Lvl	201	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+1 Chance	Maximizes the skill's success rate. The success rate is increased.
+      Lvl	202	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+2 Chance	The success rate is increased.
+      Lvl	203	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+3 Chance	The success rate is increased.
+      Lvl	204	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+4 Chance	The success rate is increased.
+      Lvl	205	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+5 Chance	The success rate is increased.
+      Lvl	206	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+6 Chance	The success rate is increased.
+      Lvl	207	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+7 Chance	The success rate is increased.
+      Lvl	208	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+8 Chance	The success rate is increased.
+      Lvl	209	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+9 Chance	The success rate is increased.
+      Lvl	210	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+10 Chance	The success rate is increased.
+      Lvl	211	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+11 Chance	The success rate is increased.
+      Lvl	212	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+12 Chance	The success rate is increased.
+      Lvl	213	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+13 Chance	The success rate is increased.
+      Lvl	214	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+14 Chance	The success rate is increased.
+      Lvl	215	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+15 Chance	The success rate is increased.
+      Lvl	216	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+16 Chance	The success rate is increased.
+      Lvl	217	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+17 Chance	The success rate is increased.
+      Lvl	218	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+18 Chance	The success rate is increased.
+      Lvl	219	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+19 Chance	The success rate is increased.
+      Lvl	220	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+20 Chance	The success rate is increased.
+      Lvl	221	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+21 Chance	The success rate is increased.
+      Lvl	222	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+22 Chance	The success rate is increased.
+      Lvl	223	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+23 Chance	The success rate is increased.
+      Lvl	224	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+24 Chance	The success rate is increased.
+      Lvl	225	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+25 Chance	The success rate is increased.
+      Lvl	226	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+26 Chance	The success rate is increased.
+      Lvl	227	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+27 Chance	The success rate is increased.
+      Lvl	228	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+28 Chance	The success rate is increased.
+      Lvl	229	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+29 Chance	The success rate is increased.
+      Lvl	230	Stigmatize target with darkness. Consumes 2 soul. Enchant Chance: Success rate is increased. Effect 10.	+30 Chance	The success rate is increased.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
 </list>
