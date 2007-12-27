@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE list SYSTEM "skills.dtd">
+<list>
+<skill id="600" levels="1" name="Residence Guidance">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases the Accuracy of clan members who possess their residence.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="601" levels="1" name="Residence Agility">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases the Evasion of clan members who possess their residence.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="602" levels="1" name="Residence Shield Block">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases the shield defense rate of clan members who possess their residence.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="603" levels="1" name="Residence Shield Defense">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases shield defense power of clan members who possess their residence.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="604" levels="1" name="Residence Resist Typhoon">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases clan members' resistance to water and wind attacks.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="605" levels="1" name="Residence Resist Lava">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases clan members' resistance to fire and earth attacks.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="606" levels="1" name="Residence Fortitude">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases clan members' resistance to stun attacks.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="607" levels="1" name="Residence Freedom">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases clan members' resistance to hold attacks.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="608" levels="1" name="Residence Vigilance">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases clan members' resistance to sleep attacks.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="609" levels="1" name="Residence Movement">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases the Speed of clan members who possess their residence.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="610" levels="1" name="Residence Death Fortune">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Decreases Exp. loss and the chance of other death penalties when killed by a monster or player.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="611" levels="3" name="Fire Squad">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Increases the squad's P. Atk.
+	Lvl	2	Increases the squad's P. Atk. and critical attack power.
+	Lvl	3	Increases the squad's P. Atk., critical power and critical rate.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="612" levels="3" name="Water Squad">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Increases the squad's P. Def.
+	Lvl	2	Increases the squad's P. Def. and M. Def.
+	Lvl	3	Increases the squad's P. Def., M. Def., and shield defense power.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="613" levels="3" name="Wind Squad">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Increases the squad's Accuracy.
+	Lvl	2	Increases the squad's Accuracy and Evasion.
+	Lvl	3	Increases the squad's Accuracy, Evasion and Speed.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="614" levels="3" name="Earth Squad">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Increases the squad's M. Def.
+	Lvl	2	Increases the squad's M. Def.
+	Lvl	3	Increases the squad's M. Def.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="615" levels="3" name="Holy Squad">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Increases the squad's healing power.
+	Lvl	2	Increases the squad's healing power and Max MP.
+	Lvl	3	Increases the squad's healing power and Max MP, and decreases its MP consumption rate.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="616" levels="3" name="Dark Squad">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Increases the squad's M. Atk.
+	Lvl	2	Increases the squad's M. Atk.
+	Lvl	3	Increases the squad's M. Atk. and magic critical rate.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="617" levels="1" name="Transform Onyx Beast">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Transform into an Onyx Beast.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="618" levels="1" name="Transform Death Blader">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+		Transform into a Death Blader.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="619" levels="1" name="Transform Dispel">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Cancels transformation.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="620" levels="1" name="Quiver of Bolts - Grade B">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Summons Silver Bolts. Minimum 700, maximum 2800 bolts are summoned. Consumes 1 Crystal: B-Grade.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="621" levels="1" name="Create Special Bolt">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Creates a bolt to be used with a special skill.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="622" levels="1" name="Ultimate Escape">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Greatly increases own evasion rate and speed instantly. Consumes 3 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="623" levels="1" name="Find Trap">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Detects traps below Level 78.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="624" levels="1" name="Remove Trap">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Disarms traps below Level 78.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="625" levels="1" name="Soul Gathering">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Gather nearby souls. The maximum number of souls can be absorbed at once. Consumes 10 Spirit Ores.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="626" levels="4" name="Critical Sense">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Increases critical rate and critical attack power.
+      Lvl	2	Increases critical rate and critical attack power.
+      Lvl	3	Increases critical rate and critical attack power.
+      Lvl	4	Increases critical rate and critical attack power.      
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="627" levels="40" name="Soul Shock">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Lvl	1	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 344.
+      Lvl	2	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 367.
+      Lvl	3	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 391.
+      Lvl	4	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 443.
+      Lvl	5	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 471.
+      Lvl	6	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 500.
+      Lvl	7	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 530.
+      Lvl	8	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 562.
+      Lvl	9	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 595.
+      Lvl	10	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 630.
+      Lvl	11	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 666.
+      Lvl	12	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 703.
+      Lvl	13	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 742.
+      Lvl	14	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 782.
+      Lvl	15	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 823.
+      Lvl	16	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 866.
+      Lvl	17	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 910.
+      Lvl	18	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 955.
+      Lvl	19	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1002.
+      Lvl	20	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1050.
+      Lvl	21	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1100.
+      Lvl	22	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1150.
+      Lvl	23	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1202.
+      Lvl	24	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1255.
+      Lvl	25	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1309.
+      Lvl	26	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1364.
+      Lvl	27	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1420.
+      Lvl	28	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1476.
+      Lvl	29	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1534.
+      Lvl	30	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1592.
+      Lvl	31	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1651.
+      Lvl	32	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1710.
+      Lvl	33	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1770.
+      Lvl	34	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1830.
+      Lvl	35	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1891.
+      Lvl	36	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 1951.
+      Lvl	37	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 2012.
+      Lvl	38	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 2072.
+      Lvl	39	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 2132.
+      Lvl	40	Fires a close-range shot that causes your target to panic. An equipped bow or crossbow is required to use this skill. Overhit available. Consumes 1 Soul. Power 2192.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="628" levels="1" name="Warp">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Teleports you to the battlefront. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="629" levels="1" name="Magic Rabbit Eye">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Clear your mind and search your soul to find the hidden treasure box.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="630" levels="1" name="Rabbit Tornado">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Opens a treasure box with a spinning kick.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+</list>

@@ -1805,4 +1805,265 @@
   <for>
   </for>
 </skill>
+<skill id="1473" levels="1" name="Change Weapon">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Changes a general weapon to a Kamael exclusive weapon. The weapon can be reverted back to a general weapon.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1474" levels="1" name="Abyssal Power">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+      Increases M. Atk.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1475" levels="3" name="Erase Mark">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Cures the death mark for up to Effect 3.
+	Lvl	2	Cures death mark up to Effect 7.
+	Lvl	3	Cures the death mark for up to Effect 10.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+<skill id="1476" levels="3" name="Appetite for Destruction">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
+	Lvl	2	Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
+	Lvl	3	Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+<skill id="1477" levels="3" name="Vampiric Impulse">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
+	Lvl	2	Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
+	Lvl	3	Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+<skill id="1478" levels="2" name="Protection Instinct">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Awakens the defensive instincts of a party member. Instantly increases P. Def. and Magic Resistance by great amount. Consumes 5 soul.
+	Lvl	2	Awakens the defensive instincts of a party member. Instantly increases P. Def. and Magic Resistance by great amount. Consumes 5 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+<skill id="1479" levels="3" name="Magic Impulse">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
+	Lvl	2	Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
+	Lvl	3	Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1480" levels="1" name="Soul Harmony">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Consumes a large amount of your soul to communicate with party members' souls. Communicating to party members' souls while they are immobilized recovers MP. Consumes 20 Souls.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1481" levels="7" name="Obilivion">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+	Lvl	2	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+	Lvl	3	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+	Lvl	4	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+	Lvl	5	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+	Lvl	6	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+	Lvl	7	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1482" levels="4" name="Weak Constitution">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
+	Lvl	2	When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
+	Lvl	3	When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
+	Lvl	4	When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1483" levels="7" name="Thin Skin">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+	Lvl	2	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+	Lvl	3	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+	Lvl	4	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+	Lvl	5	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+	Lvl	6	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+	Lvl	7	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1484" levels="4" name="Enervation">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
+	Lvl	2	May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
+	Lvl	3	May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
+	Lvl	4	May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1485" levels="3" name="Spite">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
+	Lvl	2	Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
+	Lvl	3	Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1486" levels="4" name="Mental Impoverish">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
+	Lvl	2	Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
+	Lvl	3	Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
+	Lvl	4	Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1487" levels="8" name="Restoration">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Continually recover HP. Consumes 1 Soul.
+	Lvl	2	Continually recover HP. Consumes 1 Soul.
+	Lvl	3	Continually recover HP. Consumes 1 Soul.
+	Lvl	4	Continually recover HP. Consumes 1 Soul.
+	Lvl	5	Continually recover HP. Consumes 1 Soul.
+	Lvl	6	Continually recover HP. Consumes 1 Soul.
+	Lvl	7	Continually recover HP. Consumes 1 Soul.
+	Lvl	8	Continually recover HP. Consumes 1 Soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="1488" levels="3" name="Restoration Impact">
+<!--
+  Needs to be finished.
+  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  Description(s):
+	Lvl	1	Recovers 10% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
+	Lvl	2	Recovers 15% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
+	Lvl	3	Recovers 20% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
+-->
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
+  <for>
+  </for>
+</skill>
 </list>
