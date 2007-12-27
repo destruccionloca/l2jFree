@@ -2159,7 +2159,7 @@
   <for>
   </for>
 </skill>
-<skill id="584" levels="" name="Power Claw">
+<skill id="584" levels="1" name="Power Claw">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
