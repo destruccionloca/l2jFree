@@ -1848,6 +1848,7 @@
   <set name="castRange" val="-1"/>
   <for>
   </for>
+</skill>
 <skill id="1476" levels="3" name="Appetite for Destruction">
 <!--
   Needs to be finished.
@@ -1863,6 +1864,7 @@
   <set name="castRange" val="-1"/>
   <for>
   </for>
+</skill>
 <skill id="1477" levels="3" name="Vampiric Impulse">
 <!--
   Needs to be finished.
@@ -1878,6 +1880,7 @@
   <set name="castRange" val="-1"/>
   <for>
   </for>
+</skill>
 <skill id="1478" levels="2" name="Protection Instinct">
 <!--
   Needs to be finished.
@@ -1892,6 +1895,7 @@
   <set name="castRange" val="-1"/>
   <for>
   </for>
+</skill>
 <skill id="1479" levels="3" name="Magic Impulse">
 <!--
   Needs to be finished.
