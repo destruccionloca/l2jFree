@@ -1830,7 +1830,7 @@
   <for>
   </for>
 </skill>
-</skill><skill id="564" levels="4" name="Gravity Control">
+<skill id="564" levels="4" name="Gravity Control">
 <!--
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
