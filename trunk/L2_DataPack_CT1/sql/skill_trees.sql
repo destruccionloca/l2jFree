@@ -13435,6 +13435,8 @@ INSERT INTO skill_trees VALUES (38,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (44,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (49,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (53,194,1,'Lucky',0,1);
+INSERT INTO skill_trees VALUES (123,194,1,'Lucky',0,1);
+INSERT INTO skill_trees VALUES (124,194,1,'Lucky',0,1);
 
 -- Expertise D, C, B, A, S (Done by DJ MELERIX)
 
@@ -13443,46 +13445,67 @@ INSERT INTO skill_trees VALUES (0,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (0,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (0,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (0,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (0,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (10,239,1,'Expertise D',0,20);
 INSERT INTO skill_trees VALUES (10,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (10,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (10,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (10,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (10,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (18,239,1,'Expertise D',0,20);
 INSERT INTO skill_trees VALUES (18,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (18,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (18,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (18,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (18,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (25,239,1,'Expertise D',0,20);
 INSERT INTO skill_trees VALUES (25,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (25,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (25,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (25,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (25,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (31,239,1,'Expertise D',0,20);
 INSERT INTO skill_trees VALUES (31,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (31,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (31,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (31,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (31,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (38,239,1,'Expertise D',0,20);
 INSERT INTO skill_trees VALUES (38,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (38,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (38,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (38,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (38,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (44,239,1,'Expertise D',0,20);
 INSERT INTO skill_trees VALUES (44,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (44,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (44,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (44,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (44,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (49,239,1,'Expertise D',0,20);
 INSERT INTO skill_trees VALUES (49,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (49,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (49,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (49,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (49,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (53,239,1,'Expertise D',0,20);
 INSERT INTO skill_trees VALUES (53,239,2,'Expertise C',0,40);
 INSERT INTO skill_trees VALUES (53,239,3,'Expertise B',0,52);
 INSERT INTO skill_trees VALUES (53,239,4,'Expertise A',0,61);
 INSERT INTO skill_trees VALUES (53,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (53,239,6,'Expertise S80',0,80);
+INSERT INTO skill_trees VALUES (123,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (123,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (123,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (123,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (123,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (123,239,6,'Expertise S80',0,80);
+INSERT INTO skill_trees VALUES (124,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (124,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (124,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (124,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (124,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (124,239,6,'Expertise S80',0,80);
 
 -- Skill Mastery (330 STR - 331 INT) (Done by DJ MELERIX)
 
@@ -13925,7 +13948,7 @@ INSERT INTO skill_trees VALUES (115,1427,1,'Flames of Invincibility',150000000,8
 INSERT INTO skill_trees VALUES (105,1428,1,'Mass Recharge',150000000,80); -- Evas Saint -- 
 INSERT INTO skill_trees VALUES (112,1428,1,'Mass Recharge',150000000,80); -- Shillien Saint --
 
--- Kamael
+-- Skills for Kamael Male Soldier & Trooper
 INSERT INTO `skill_trees` VALUES ('123', '462', '1', 'Guilted Body', '0', '1');
 INSERT INTO `skill_trees` VALUES ('123', '463', '1', 'Weapon Mastery', '160', '5');
 INSERT INTO `skill_trees` VALUES ('123', '464', '1', 'Armor Mastery', '160', '5');
@@ -14067,6 +14090,8 @@ INSERT INTO `skill_trees` VALUES ('125', '1433', '9', 'Abyssal Blaze', '11000', 
 INSERT INTO `skill_trees` VALUES ('125', '1433', '10', 'Abyssal Blaze', '11000', '36');
 INSERT INTO `skill_trees` VALUES ('125', '1434', '4', 'Dark Explosion', '22100', '36');
 INSERT INTO `skill_trees` VALUES ('125', '1445', '3', 'Surrender to the Unholy', '22100', '36');
+
+-- Skills for Berserker, Doombringer
 INSERT INTO `skill_trees` VALUES ('127', '465', '14', 'Light Armor Mastery', '16000', '40');
 INSERT INTO `skill_trees` VALUES ('127', '465', '15', 'Light Armor Mastery', '16000', '40');
 INSERT INTO `skill_trees` VALUES ('127', '465', '16', 'Light Armor Mastery', '16000', '40');
@@ -14434,6 +14459,8 @@ INSERT INTO `skill_trees` VALUES ('131', '330', '1', 'Skill Mastery', '14700000'
 INSERT INTO `skill_trees` VALUES ('131', '426', '1', 'Battle Force', '14700000', '77');
 INSERT INTO `skill_trees` VALUES ('131', '526', '1', 'Enuma Elish', '64000000', '78');
 INSERT INTO `skill_trees` VALUES ('131', '538', '1', 'Final Form', '80000000', '79');
+
+-- Skills for Male Soulbreaker / Soul Hound
 INSERT INTO `skill_trees` VALUES ('128', '465', '14', 'Light Armor Mastery', '14000', '40');
 INSERT INTO `skill_trees` VALUES ('128', '465', '15', 'Light Armor Mastery', '14000', '40');
 INSERT INTO `skill_trees` VALUES ('128', '465', '16', 'Light Armor Mastery', '14000', '40');
@@ -14782,6 +14809,8 @@ INSERT INTO `skill_trees` VALUES ('132', '426', '1', 'Battle Force', '14700000',
 INSERT INTO `skill_trees` VALUES ('132', '427', '1', 'Spell Force', '14700000', '77');
 INSERT INTO `skill_trees` VALUES ('132', '1469', '1', 'Leopold Summons', '64000000', '78');
 INSERT INTO `skill_trees` VALUES ('132', '538', '1', 'Final Form', '80000000', '79');
+
+-- Skill for Kamael Female Soldier & Warder
 INSERT INTO `skill_trees` VALUES ('124', '462', '1', 'Guilted Body', '0', '1');
 INSERT INTO `skill_trees` VALUES ('124', '463', '1', 'Weapon Mastery', '160', '5');
 INSERT INTO `skill_trees` VALUES ('124', '464', '1', 'Armor Mastery', '160', '5');
@@ -14930,6 +14959,317 @@ INSERT INTO `skill_trees` VALUES ('126', '1433', '9', 'Abyssal Blaze', '10400', 
 INSERT INTO `skill_trees` VALUES ('126', '1433', '10', 'Abyssal Blaze', '10400', '36');
 INSERT INTO `skill_trees` VALUES ('126', '1434', '4', 'Dark Explosion', '20700', '36');
 INSERT INTO `skill_trees` VALUES ('126', '1445', '3', 'Surrender to the Unholy', '20700', '36');
+
+
+-- Skills for Arbalester, Trickster
+NSERT INTO `skill_trees` (`class_id`,`skill_id`,`level`,`name`,`sp`,`min_level`) VALUES
+(130,465,14,'Light Armor Mastery',12000,40),
+(130,465,15,'Light Armor Mastery',12000,40),
+(130,465,16,'Light Armor Mastery',12000,40),
+(130,466,19,'Magic Immunity',12000,40),
+(130,466,20,'Magic Immunity',12000,40),
+(130,466,21,'Magic Immunity',12000,40),
+(130,467,9,'Soul Mastery',49000,40),
+(130,473,9,'Crossbow Mastery',12000,40),
+(130,473,10,'Crossbow Mastery',12000,40),
+(130,473,11,'Crossbow Mastery',12000,40),
+(130,486,2,'Increase Range',35000,40),
+(130,489,1,'Shift Target',35000,40),
+(130,502,1,'Life to Soul',49000,40),
+(130,487,1,'Penetrate Shot',12000,40),
+(130,487,2,'Penetrate Shot',12000,40),
+(130,487,3,'Penetrate Shot',12000,40),
+(130,518,1,'Binding Trap',35000,40),
+(130,522,1,'Real Target',35000,40),
+(130,465,17,'Light Armor Mastery',12000,43),
+(130,465,18,'Light Armor Mastery',12000,43),
+(130,465,19,'Light Armor Mastery',12000,43),
+(130,466,22,'Magic Immunity',12000,43),
+(130,466,23,'Magic Immunity',12000,43),
+(130,466,24,'Magic Immunity',12000,43),
+(130,467,10,'Soul Mastery',46000,43),
+(130,473,12,'Crossbow Mastery',12000,43),
+(130,473,13,'Crossbow Mastery',12000,43),
+(130,473,14,'Crossbow Mastery',12000,43),
+(130,487,4,'Penetrate Shot',12000,43),
+(130,487,5,'Penetrate Shot',12000,43),
+(130,487,6,'Penetrate Shot',12000,43),
+(130,509,1,'Bleeding Shot',13000,43),
+(130,509,2,'Bleeding Shot',13000,43),
+(130,509,3,'Bleeding Shot',13000,43),
+(130,525,1,'Decoy',35000,43),
+(130,465,20,'Light Armor Mastery',17000,46),
+(130,465,21,'Light Armor Mastery',17000,46),
+(130,465,22,'Light Armor Mastery',17000,46),
+(130,466,25,'Magic Immunity',17000,46),
+(130,466,26,'Magic Immunity',17000,46),
+(130,466,27,'Magic Immunity',17000,46),
+(130,467,11,'Soul Mastery',75000,46),
+(130,471,4,'Defuse Trap',50000,46),
+(130,473,15,'Crossbow Mastery',17000,46),
+(130,473,16,'Crossbow Mastery',17000,46),
+(130,473,17,'Crossbow Mastery',17000,46),
+(130,487,7,'Penetrate Shot',17000,46),
+(130,487,8,'Penetrate Shot',17000,46),
+(130,487,9,'Penetrate Shot',17000,46),
+(130,508,1,'Rising Shot',17000,46),
+(130,508,2,'Rising Shot',17000,46),
+(130,508,3,'Rising Shot',17000,46),
+(130,509,4,'Bleeding Shot',17000,46),
+(130,509,5,'Bleeding Shot',17000,46),
+(130,509,6,'Bleeding Shot',17000,46),
+(130,518,2,'Binding Trap',50000,46),
+(130,465,23,'Light Armor Mastery',27000,49),
+(130,465,24,'Light Armor Mastery',27000,49),
+(130,465,25,'Light Armor Mastery',27000,49),
+(130,466,28,'Magic Immunity',27000,49),
+(130,466,29,'Magic Immunity',27000,49),
+(130,466,30,'Magic Immunity',27000,49),
+(130,467,12,'Soul Mastery',82000,49),
+(130,473,18,'Crossbow Mastery',27000,49),
+(130,473,19,'Crossbow Mastery',27000,49),
+(130,473,20,'Crossbow Mastery',27000,49),
+(130,502,2,'Life to Soul',82000,49),
+(130,487,10,'Penetrate Shot',27000,49),
+(130,487,11,'Penetrate Shot',27000,49),
+(130,487,12,'Penetrate Shot',27000,49),
+(130,508,4,'Rising Shot',27000,49),
+(130,508,5,'Rising Shot',27000,49),
+(130,508,6,'Rising Shot',27000,49),
+(130,509,7,'Bleeding Shot',27000,49),
+(130,509,8,'Bleeding Shot',27000,49),
+(130,509,9,'Bleeding Shot',27000,49),
+(130,511,1,'Temptation',82000,49),
+(130,515,1,'Poison Trap',82000,49),
+(130,465,26,'Light Armor Mastery',36000,52),
+(130,465,27,'Light Armor Mastery',36000,52),
+(130,465,28,'Light Armor Mastery',36000,52),
+(130,466,31,'Magic Immunity',36000,52),
+(130,466,32,'Magic Immunity',36000,52),
+(130,466,33,'Magic Immunity',36000,52),
+(130,467,13,'Soul Mastery',115000,52),
+(130,473,21,'Crossbow Mastery',36000,52),
+(130,473,22,'Crossbow Mastery',36000,52),
+(130,473,23,'Crossbow Mastery',36000,52),
+(130,487,13,'Penetrate Shot',36000,52),
+(130,487,14,'Penetrate Shot',36000,52),
+(130,487,15,'Penetrate Shot',36000,52),
+(130,508,7,'Rising Shot',36000,52),
+(130,508,8,'Rising Shot',36000,52),
+(130,508,9,'Rising Shot',36000,52),
+(130,509,10,'Bleeding Shot',36000,52),
+(130,509,11,'Bleeding Shot',36000,52),
+(130,509,12,'Bleeding Shot',36000,52),
+(130,516,1,'Slow Trap',107000,52),
+(130,518,3,'Binding Trap',107000,52),
+(130,522,2,'Real Target',107000,52),
+(130,525,2,'Decoy',107000,52),
+(130,620,1,'Quiver of Bolts - Grade B',107000,52),
+(130,1405,1,'Divine Inspiration',620000,52),
+(130,465,29,'Light Armor Mastery',52000,55),
+(130,465,30,'Light Armor Mastery',52000,55),
+(130,465,31,'Light Armor Mastery',52000,55),
+(130,466,34,'Magic Immunity',52000,55),
+(130,466,35,'Magic Immunity',52000,55),
+(130,466,36,'Magic Immunity',52000,55),
+(130,467,14,'Soul Mastery',157000,55),
+(130,471,5,'Defuse Trap',157000,55),
+(130,473,24,'Crossbow Mastery',52000,55),
+(130,473,25,'Crossbow Mastery',52000,55),
+(130,473,26,'Crossbow Mastery',52000,55),
+(130,490,2,'Fast Shot',157000,55),
+(130,487,16,'Penetrate Shot',52000,55),
+(130,487,17,'Penetrate Shot',52000,55),
+(130,487,18,'Penetrate Shot',52000,55),
+(130,508,10,'Rising Shot',52000,55),
+(130,508,11,'Rising Shot',52000,55),
+(130,508,12,'Rising Shot',52000,55),
+(130,509,13,'Bleeding Shot',52000,55),
+(130,509,14,'Bleeding Shot',52000,55),
+(130,509,15,'Bleeding Shot',52000,55),
+(130,515,2,'Poison Trap',157000,55),
+(130,517,1,'Flash Trap',157000,55),
+(130,465,32,'Light Armor Mastery',73000,58),
+(130,465,33,'Light Armor Mastery',73000,58),
+(130,465,34,'Light Armor Mastery',73000,58),
+(130,466,37,'Magic Immunity',73000,58),
+(130,466,38,'Magic Immunity',73000,58),
+(130,466,39,'Magic Immunity',73000,58),
+(130,467,15,'Soul Mastery',200000,58),
+(130,473,27,'Crossbow Mastery',73000,58),
+(130,473,28,'Crossbow Mastery',73000,58),
+(130,473,29,'Crossbow Mastery',73000,58),
+(130,502,3,'Life to Soul',200000,58),
+(130,487,19,'Penetrate Shot',73000,58),
+(130,487,20,'Penetrate Shot',73000,58),
+(130,487,21,'Penetrate Shot',73000,58),
+(130,508,13,'Rising Shot',73000,58),
+(130,508,14,'Rising Shot',73000,58),
+(130,508,15,'Rising Shot',73000,58),
+(130,509,16,'Bleeding Shot',73000,58),
+(130,509,17,'Bleeding Shot',73000,58),
+(130,509,18,'Bleeding Shot',73000,58),
+(130,516,2,'Slow Trap',218000,58),
+(130,518,4,'Binding Trap',218000,58),
+(130,465,35,'Light Armor Mastery',97000,60),
+(130,465,36,'Light Armor Mastery',97000,60),
+(130,466,40,'Magic Immunity',97000,60),
+(130,466,41,'Magic Immunity',97000,60),
+(130,467,16,'Soul Mastery',223000,60),
+(130,473,30,'Crossbow Mastery',97000,60),
+(130,473,31,'Crossbow Mastery',97000,60),
+(130,487,22,'Penetrate Shot',97000,60),
+(130,487,23,'Penetrate Shot',97000,60),
+(130,508,16,'Rising Shot',97000,60),
+(130,508,17,'Rising Shot',97000,60),
+(130,509,19,'Bleeding Shot',97000,60),
+(130,509,20,'Bleeding Shot',97000,60),
+(130,515,3,'Poison Trap',193000,60),
+(130,517,2,'Flash Trap',193000,60),
+(130,519,1,'Quiver of Bolts: A-Grade',193000,60),
+(130,521,1,'Sharpshooting',193000,60),
+(130,525,3,'Decoy',193000,60),
+(130,1405,2,'Divine Inspiration',620000,61),
+(130,465,37,'Light Armor Mastery',140000,62),
+(130,465,38,'Light Armor Mastery',140000,62),
+(130,466,42,'Magic Immunity',140000,62),
+(130,466,43,'Magic Immunity',140000,62),
+(130,467,17,'Soul Mastery',290000,62),
+(130,473,32,'Crossbow Mastery',140000,62),
+(130,473,33,'Crossbow Mastery',140000,62),
+(130,487,24,'Penetrate Shot',140000,62),
+(130,487,25,'Penetrate Shot',140000,62),
+(130,508,18,'Rising Shot',140000,62),
+(130,508,19,'Rising Shot',140000,62),
+(130,509,21,'Bleeding Shot',140000,62),
+(130,509,22,'Bleeding Shot',140000,62),
+(130,516,3,'Slow Trap',290000,62),
+(130,518,5,'Binding Trap',290000,62),
+(130,521,2,'Sharpshooting',290000,62),
+(130,522,3,'Real Target',290000,62),
+(130,523,1,'Imbue Dark Seed',290000,62),
+(130,465,39,'Light Armor Mastery',170000,64),
+(130,465,40,'Light Armor Mastery',170000,64),
+(130,466,44,'Magic Immunity',170000,64),
+(130,466,45,'Magic Immunity',170000,64),
+(130,467,18,'Soul Mastery',340000,64),
+(130,473,34,'Crossbow Mastery',170000,64),
+(130,473,35,'Crossbow Mastery',170000,64),
+(130,487,26,'Penetrate Shot',170000,64),
+(130,487,27,'Penetrate Shot',170000,64),
+(130,508,20,'Rising Shot',170000,64),
+(130,508,21,'Rising Shot',170000,64),
+(130,509,23,'Bleeding Shot',170000,64),
+(130,509,24,'Bleeding Shot',170000,64),
+(130,515,4,'Poison Trap',340000,64),
+(130,517,3,'Flash Trap',340000,64),
+(130,521,3,'Sharpshooting',340000,64),
+(130,523,2,'Imbue Dark Seed',340000,64),
+(130,465,41,'Light Armor Mastery',194000,66),
+(130,465,42,'Light Armor Mastery',194000,66),
+(130,466,46,'Magic Immunity',194000,66),
+(130,466,47,'Magic Immunity',194000,66),
+(130,467,19,'Soul Mastery',440000,66),
+(130,471,6,'Defuse Trap',389000,66),
+(130,473,36,'Crossbow Mastery',194000,66),
+(130,473,37,'Crossbow Mastery',194000,66),
+(130,502,4,'Life to Soul',440000,66),
+(130,487,28,'Penetrate Shot',194000,66),
+(130,487,29,'Penetrate Shot',194000,66),
+(130,508,22,'Rising Shot',194000,66),
+(130,508,23,'Rising Shot',194000,66),
+(130,509,25,'Bleeding Shot',194000,66),
+(130,509,26,'Bleeding Shot',194000,66),
+(130,516,4,'Slow Trap',389000,66),
+(130,518,6,'Binding Trap',389000,66),
+(130,521,4,'Sharpshooting',389000,66),
+(130,523,3,'Imbue Dark Seed',389000,66),
+(130,525,4,'Decoy',389000,66),
+(130,465,43,'Light Armor Mastery',280000,68),
+(130,465,44,'Light Armor Mastery',280000,68),
+(130,466,48,'Magic Immunity',280000,68),
+(130,466,49,'Magic Immunity',280000,68),
+(130,467,20,'Soul Mastery',560000,68),
+(130,473,38,'Crossbow Mastery',280000,68),
+(130,473,39,'Crossbow Mastery',280000,68),
+(130,487,30,'Penetrate Shot',280000,68),
+(130,487,31,'Penetrate Shot',280000,68),
+(130,508,24,'Rising Shot',280000,68),
+(130,508,25,'Rising Shot',280000,68),
+(130,509,27,'Bleeding Shot',280000,68),
+(130,509,28,'Bleeding Shot',280000,68),
+(130,515,5,'Poison Trap',560000,68),
+(130,517,4,'Flash Trap',560000,68),
+(130,521,5,'Sharpshooting',560000,68),
+(130,523,4,'Imbue Dark Seed',560000,68),
+(130,465,45,'Light Armor Mastery',310000,70),
+(130,465,46,'Light Armor Mastery',310000,70),
+(130,466,50,'Magic Immunity',310000,70),
+(130,466,51,'Magic Immunity',310000,70),
+(130,467,21,'Soul Mastery',720000,70),
+(130,473,40,'Crossbow Mastery',310000,70),
+(130,473,41,'Crossbow Mastery',310000,70),
+(130,487,32,'Penetrate Shot',310000,70),
+(130,487,33,'Penetrate Shot',310000,70),
+(130,508,26,'Rising Shot',310000,70),
+(130,508,27,'Rising Shot',310000,70),
+(130,509,29,'Bleeding Shot',310000,70),
+(130,509,30,'Bleeding Shot',310000,70),
+(130,516,5,'Slow Trap',620000,70),
+(130,518,7,'Binding Trap',620000,70),
+(130,521,6,'Sharpshooting',620000,70),
+(130,522,4,'Real Target',620000,70),
+(130,523,5,'Imbue Dark Seed',620000,70),
+(130,525,5,'Decoy',620000,70),
+(130,465,47,'Light Armor Mastery',400000,72),
+(130,465,48,'Light Armor Mastery',400000,72),
+(130,466,52,'Magic Immunity',400000,72),
+(130,466,53,'Magic Immunity',400000,72),
+(130,467,22,'Soul Mastery',860000,72),
+(130,473,42,'Crossbow Mastery',400000,72),
+(130,473,43,'Crossbow Mastery',400000,72),
+(130,502,5,'Life to Soul',860000,72),
+(130,487,34,'Penetrate Shot',400000,72),
+(130,487,35,'Penetrate Shot',400000,72),
+(130,508,28,'Rising Shot',400000,72),
+(130,508,29,'Rising Shot',400000,72),
+(130,509,31,'Bleeding Shot',400000,72),
+(130,509,32,'Bleeding Shot',400000,72),
+(130,515,6,'Poison Trap',800000,72),
+(130,517,5,'Flash Trap',800000,72),
+(130,521,7,'Sharpshooting',800000,72),
+(130,523,6,'Imbue Dark Seed',800000,72),
+(130,465,49,'Light Armor Mastery',760000,74),
+(130,465,50,'Light Armor Mastery',760000,74),
+(130,466,54,'Magic Immunity',760000,74),
+(130,466,55,'Magic Immunity',760000,74),
+(130,467,23,'Soul Mastery',1900000,74),
+(130,471,7,'Defuse Trap',1530000,74),
+(130,473,44,'Crossbow Mastery',810000,74),
+(130,473,45,'Crossbow Mastery',760000,74),
+(130,487,36,'Penetrate Shot',760000,74),
+(130,487,37,'Penetrate Shot',760000,74),
+(130,508,30,'Rising Shot',760000,74),
+(130,508,31,'Rising Shot',760000,74),
+(130,509,33,'Bleeding Shot',760000,74),
+(130,509,34,'Bleeding Shot',760000,74),
+(130,516,6,'Slow Trap',1530000,74),
+(130,518,8,'Binding Trap',1530000,74),
+(130,520,1,'Quiver of Bolts: S-Grade',810000,74),
+(130,521,8,'Sharpshooting',1530000,74),
+(130,523,7,'Imbue Dark Seed',1530000,74),
+(130,525,6,'Decoy',1530000,74),
+(130,1405,3,'Divine Inspiration',620000,76),
+(130,1405,4,'Divine Inspiration',620000,76),
+(134,328,1,'Wisdom',12500000,76),
+(134,329,1,'Health',12500000,76),
+(134,330,1,'Skill Mastery',14700000,77),
+(134,426,1,'Battle Force',14700000,77),
+(134,334,1,'Focus Skill Mastery',32000000,78),
+(134,1470,1,'Prahnah',32000000,78),
+(134,538,1,'Final Form',80000000,79);
+
+-- Skills for Female Soulbreaker / Soul Hound
 INSERT INTO `skill_trees` VALUES ('129', '465', '14', 'Light Armor Mastery', '14000', '40');
 INSERT INTO `skill_trees` VALUES ('129', '465', '15', 'Light Armor Mastery', '14000', '40');
 INSERT INTO `skill_trees` VALUES ('129', '465', '16', 'Light Armor Mastery', '14000', '40');

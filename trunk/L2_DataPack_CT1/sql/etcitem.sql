@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `etcitem` (
   `weight` decimal(4,0) default NULL,
   `consume_type` varchar(9) default NULL,
   `material` varchar(11) default NULL,
-  `crystal_type` varchar(4) default NULL,
+  `crystal_type` varchar(4) NOT NULL default 'none', 
   `duration` decimal(3,0) default NULL,
   `price` decimal(11,0) default NULL,
   `crystal_count` int(4) default NULL,

@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `armor` (
   `tradeable` varchar(5) NOT NULL default 'true',
   `item_skill_id` decimal(11,0) NOT NULL default '0',
   `item_skill_lvl` decimal(11,0) NOT NULL default '0',
-  PRIMARY KEY (`item_id`)
+  PRIMARY KEY(`item_id`)
 ) DEFAULT CHARSET=utf8;
 
 INSERT INTO `armor` VALUES 
