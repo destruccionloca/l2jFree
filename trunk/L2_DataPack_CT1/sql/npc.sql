@@ -6600,246 +6600,6 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(35655,35655,'Court Magician',0,'Rune',0,'Monster3.Elite_Mage',6.50,21.96,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(35656,35656,'Court Magician',0,'Schuttgart',0,'Monster3.Elite_Mage',6.50,21.96,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT');
 
---
--- L2J-Free Add-ons
---
-
-UPDATE `npc` SET `type` = 'L2SepulcherNpc' WHERE `id` IN
-( 31452,31453,31454,31455,31456,31457,31458,31459,31460,31461,31462,31463,31464,31465,31466,
-  31467,31468,31469,31470,31471,31472,31473,31474,31475,31476,31477,31478,31479,31480,31481,
-  31482,31483,31484,31485,31486,31487,31919,31920,31921,31922,31923,31924,31925,31926,31927,
-  31928,31929,31930,31931,31932,31933,31934,31935,31936,31937,31938,31939,31940,31941,31942,
-  31943,31944 );
-
-UPDATE `npc` SET `type` = 'L2SepulcherMonster' WHERE `id` IN
-( 25339,25342,25346,25349,18120,18121,18122,18123,18124,18125,18126,18127,18128,18129,18130,
-  18131,18132,18133,18134,18135,18136,18137,18138,18139,18140,18141,18142,18143,18144,18145,
-  18146,18147,18148,18149,18150,18151,18152,18153,18154,18155,18156,18157,18158,18159,18160,
-  18161,18162,18163,18164,18165,18166,18167,18168,18169,18170,18171,18172,18183,18184,18185,
-  18186,18187,18188,18189,18190,18191,18192,18193,18194,18195,18196,18197,18198,18199,18200,
-  18201,18202,18203,18204,18205,18206,18207,18208,18209,18210,18211,18212,18213,18214,18215,
-  18216,18217,18218,18219,18220,18221,18222,18223,18224,18225,18226,18227,18228,18229,18230,
-  18231,18232,18233,18234,18235,18236,18237,18238,18239,18240,18241,18242,18243,18244,18245,
-  18246,18247,18248,18249,18250,18251,18252,18253,18254,18255,18256 );
-
-UPDATE `npc` SET `faction_range` = '600' WHERE `id` IN
-( 18120,18121,18122,18123,18124,18125,18126,18127,18128,18129,18130,18131,18132,18133,18134,
-  18135,18136,18137,18138,18139,18140,18141,18142,18143,18144,18145,18146,18147,18148,18149,
-  18150,18151,18152,18153,18154,18155,18156,18157,18158,18159,18160,18161,18162,18163,18164,
-  18165,18166,18167,18168,18169,18170,18171,18172,18183,18184,18185,18186,18187,18188,18189,
-  18190,18191,18192,18193,18194,18195,18196,18197,18198,18199,18200,18201,18202,18203,18204,
-  18205,18206,18207,18208,18209,18210,18211,18212,18213,18214,18215,18216,18217,18218,18219,
-  18220,18221,18222,18223,18224,18225,18226,18227,18228,18229,18230,18231,18232,18233,18234,
-  18235,18236,18237,18238,18239,18240,18241,18242,18243,18244,18245,18246,18247,18248,18249,
-  18250,18251,18252,18253,18254,18255,18256 );
-
-UPDATE `npc` SET `runspd` = '0' WHERE `id` IN
-( 18196,18197,18198,18199,18200,18201,18202,18203,18204,18205,18206,18207,18208,18209,18210,18211,18256 );
-
-UPDATE `npc` SET `type` = 'L2Minion' WHERE `id` = 29064;
-
--- EXP / SP fix for Minons
-UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` = 25080;
-UPDATE `npc` SET `exp` = 1329218, `sp` = 122342 WHERE `id` = 25081;
-UPDATE `npc` SET `exp` = 20912, `sp` = 1972 WHERE `id` = 25264;
-UPDATE `npc` SET `exp` = 0, `sp` = 0 WHERE `id` = 25265;
-UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` = 25353;
-UPDATE `npc` SET `exp` = 3276, `sp` = 164 WHERE `id` = 25361;
-UPDATE `npc` SET `exp` = 2356, `sp` = 104 WHERE `id` = 25374;
-UPDATE `npc` SET `exp` = 5228, `sp` = 300 WHERE `id` = 25384;
-UPDATE `npc` SET `exp` = 4616, `sp` = 256 WHERE `id` = 25393;
-UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` = 25411;
-UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` = 25419;
-UPDATE `npc` SET `exp` = 12488, `sp` = 952 WHERE `id` = 25474;
-UPDATE `npc` SET `exp` = 12488, `sp` = 952 WHERE `id` = 25497;
-UPDATE `npc` SET `exp` = 1733, `sp` = 108 WHERE `id` = 25505;
-UPDATE `npc` SET `exp` = 440000, `sp` = 40000 WHERE `id` = 25511;
-UPDATE `npc` SET `exp` = 295, `sp` = 10 WHERE `id` = 27037;
-UPDATE `npc` SET `exp` = 1081, `sp` = 59 WHERE `id` = 27111;
-UPDATE `npc` SET `exp` = 1471, `sp` = 1 WHERE `id` = 29003;
-UPDATE `npc` SET `exp` = 2712, `sp` = 128 WHERE `id` IN ( 25002,25003 );
-UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` IN ( 25005,25006 );
-UPDATE `npc` SET `exp` = 8072, `sp` = 528 WHERE `id` IN ( 25008,25009 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25011,25012 );
-UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25014,25015 );
-UPDATE `npc` SET `exp` = 16712, `sp` = 1428 WHERE `id` IN ( 25017,25018 );
-UPDATE `npc` SET `exp` = 5228, `sp` = 300 WHERE `id` IN ( 25021,25022,25024,25025 );
-UPDATE `npc` SET `exp` = 11060, `sp` = 808 WHERE `id` IN ( 25027,25028 );
-UPDATE `npc` SET `exp` = 12980, `sp` = 1004 WHERE `id` IN ( 25030,25031 );
-UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25033,25034 );
-UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25036,25037 );
-UPDATE `npc` SET `exp` = 3676, `sp` = 188 WHERE `id` IN ( 25039,25040 );
-UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25042,25043 );
-UPDATE `npc` SET `exp` = 10160, `sp` = 720 WHERE `id` IN ( 25045,25046 );
-UPDATE `npc` SET `exp` = 11060, `sp` = 808 WHERE `id` IN ( 25048,25049 );
-UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25052,25053 );
-UPDATE `npc` SET `exp` = 26256, `sp` = 2800 WHERE `id` IN ( 25055,25056 );
-UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25058,25059 );
-UPDATE `npc` SET `exp` = 2900, `sp` = 140 WHERE `id` IN ( 25061,25062 );
-UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25065,25066 );
-UPDATE `npc` SET `exp` = 12488, `sp` = 952 WHERE `id` IN ( 25068, 25069 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25071,25072 );
-UPDATE `npc` SET `exp` = 22204, `sp` = 2160 WHERE `id` IN ( 25074,25075 );
-UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25077,25078 );
-UPDATE `npc` SET `exp` = 6932, `sp` = 432 WHERE `id` IN ( 25083,25084 );
-UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` IN ( 25086,25087 );
-UPDATE `npc` SET `exp` = 16148, `sp` = 1364 WHERE `id` IN ( 25090,25091 );
-UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25093,25094 );
-UPDATE `npc` SET `exp` = 3892, `sp` = 204 WHERE `id` IN ( 25096,25097 );
-UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` IN ( 25100,25101 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25104,25105 );
-UPDATE `npc` SET `exp` = 18452, `sp` = 1644 WHERE `id` IN ( 25107,25108 );
-UPDATE `npc` SET `exp` = 25556, `sp` = 2684 WHERE `id` IN ( 25110,25111 );
-UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` IN ( 25113,25114 );
-UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25116,25117 );
-UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25120,25121 );
-UPDATE `npc` SET `exp` = 14524, `sp` = 1172 WHERE `id` IN ( 25123,25124 );
-UPDATE `npc` SET `exp` = 4916, `sp` = 276 WHERE `id` IN ( 25129,25130 );
-UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25132,25133 );
-UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25135,25136 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25138,25139 );
-UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25141,25142 );
-UPDATE `npc` SET `exp` = 29156, `sp` = 3304 WHERE `id` IN ( 25144,25145 );
-UPDATE `npc` SET `exp` = 2356, `sp` = 104 WHERE `id` IN ( 25147,25148 );
-UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25150,25151 );
-UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25153,25154 );
-UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25156,25157 );
-UPDATE `npc` SET `exp` = 13484, `sp` = 1060 WHERE `id` IN ( 25160,25161 );
-UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25167,25168 );
-UPDATE `npc` SET `exp` = 6572, `sp` = 404 WHERE `id` IN ( 25171,25172 );
-UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25174,25175 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25177,25178 );
-UPDATE `npc` SET `exp` = 16712, `sp` = 1428 WHERE `id` IN ( 25180,25181 );
-UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25183,25184 );
-UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25186,25187 );
-UPDATE `npc` SET `exp` = 5228, `sp` = 300 WHERE `id` IN ( 25190,25191 );
-UPDATE `npc` SET `exp` = 8468, `sp` = 564 WHERE `id` IN ( 25193,25194 );
-UPDATE `npc` SET `exp` = 24188, `sp` = 2464 WHERE `id` IN ( 25200,25201 );
-UPDATE `npc` SET `exp` = 25556, `sp` = 2684 WHERE `id` IN ( 25203,25204 );
-UPDATE `npc` SET `exp` = 26968, `sp` = 2920 WHERE `id` IN ( 25206,25207 );
-UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25209,25210 );
-UPDATE `npc` SET `exp` = 5884, `sp` = 348 WHERE `id` IN ( 25212,25213 );
-UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25215,25216 );
-UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25218,25219 );
-UPDATE `npc` SET `exp` = 24868, `sp` = 2572 WHERE `id` IN ( 25221,25222 );
-UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25224,25225 );
-UPDATE `npc` SET `exp` = 17860, `sp` = 1572 WHERE `id` IN ( 25227,25228 );
-UPDATE `npc` SET `exp` = 15056, `sp` = 1236 WHERE `id` IN ( 25231,25232 );
-UPDATE `npc` SET `exp` = 24188, `sp` = 2464 WHERE `id` IN ( 25236,25237 );
-UPDATE `npc` SET `exp` = 20912, `sp` = 1972 WHERE `id` IN ( 25239,25240 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25242,25243 );
-UPDATE `npc` SET `exp` = 28416, `sp` = 3172 WHERE `id` IN ( 25246,25247 );
-UPDATE `npc` SET `exp` = 26256, `sp` = 2800 WHERE `id` IN ( 25250,25251 );
-UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25253,25254 );
-UPDATE `npc` SET `exp` = 16712, `sp` = 1428 WHERE `id` IN ( 25257,25258 );
-UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25261,25262 );
-UPDATE `npc` SET `exp` = 26256, `sp` = 2800 WHERE `id` IN ( 25267,25268 );
-UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25270,25271 );
-UPDATE `npc` SET `exp` = 6742, `sp` = 730 WHERE `id` IN ( 25274,25275 );
-UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25278,25279 );
-UPDATE `npc` SET `exp` = 29908, `sp` = 3440 WHERE `id` IN ( 25284,25285,25287,25288,25289 );
-UPDATE `npc` SET `exp` = 28416, `sp` = 3172 WHERE `id` IN ( 25291,25292,25294,25295 );
-UPDATE `npc` SET `exp` = 25556, `sp` = 2684 WHERE `id` IN ( 25297,25298 );
-UPDATE `npc` SET `exp` = 29908, `sp` = 3440 WHERE `id` IN ( 25300,25301 );
-UPDATE `npc` SET `exp` = 33008, `sp` = 4024 WHERE `id` IN ( 25303,25304 );
-UPDATE `npc` SET `exp` = 35436, `sp` = 4504 WHERE `id` IN ( 25307,25308 );
-UPDATE `npc` SET `exp` = 29908, `sp` = 3440 WHERE `id` IN ( 25310,25311 );
-UPDATE `npc` SET `exp` = 33008, `sp` = 4024 WHERE `id` IN ( 25313,25314 );
-UPDATE `npc` SET `exp` = 35436, `sp` = 4504 WHERE `id` IN ( 25317,25318 );
-UPDATE `npc` SET `exp` = 33808, `sp` = 4180 WHERE `id` IN ( 25320,25321 );
-UPDATE `npc` SET `exp` = 20280, `sp` = 1884 WHERE `id` IN ( 25323,25324 );
-UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25326,25327 );
-UPDATE `npc` SET `exp` = 6922, `sp` = 761 WHERE `id` IN ( 25329,25330,25331,25332 );
-UPDATE `npc` SET `exp` = 346100, `sp` = 38050 WHERE `id` IN ( 25340,25341,25343,25344,25345,25347,25348,25350,25351 );
-UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25355,25356 );
-UPDATE `npc` SET `exp` = 2356, `sp` = 104 WHERE `id` IN ( 25358,25359 );
-UPDATE `npc` SET `exp` = 2712, `sp` = 128 WHERE `id` IN ( 25363,25364,25367,25368 );
-UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25370,25371 );
-UPDATE `npc` SET `exp` = 2240, `sp` = 100 WHERE `id` IN ( 25376,25377,25379,25381,25382 );
-UPDATE `npc` SET `exp` = 5884, `sp` = 348 WHERE `id` IN ( 25386,25387 );
-UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25389,25390 );
-UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25396,25397 );
-UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25399,25400 );
-UPDATE `npc` SET `exp` = 4616, `sp` = 256 WHERE `id` IN ( 25402,25403,25405,25406 );
-UPDATE `npc` SET `exp` = 16712, `sp` = 1428 WHERE `id` IN ( 25408,25409 );
-UPDATE `npc` SET `exp` = 10160, `sp` = 720 WHERE `id` IN ( 25413,25414 );
-UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25416,25417 );
-UPDATE `npc` SET `exp` = 10604, `sp` = 760 WHERE `id` IN ( 25421,25422 );
-UPDATE `npc` SET `exp` = 14524, `sp` = 1172 WHERE `id` IN ( 25424,25425 );
-UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25427,25428,25430 );
-UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` IN ( 25432,25433 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25435,25436 );
-UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` IN ( 25439,25440 );
-UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25442,25443 );
-UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25445,25446 );
-UPDATE `npc` SET `exp` = 23516, `sp` = 2360 WHERE `id` IN ( 25448,25449 );
-UPDATE `npc` SET `exp` = 28416, `sp` = 3172 WHERE `id` IN ( 25451,25452 );
-UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25454,25455 );
-UPDATE `npc` SET `exp` = 11060, `sp` = 808 WHERE `id` IN ( 25457,25458,25459 );
-UPDATE `npc` SET `exp` = 12000, `sp` = 904 WHERE `id` IN ( 25461,25462 );
-UPDATE `npc` SET `exp` = 14524, `sp` = 1172 WHERE `id` IN ( 25464,25465,25466 );
-UPDATE `npc` SET `exp` = 19052, `sp` = 1720 WHERE `id` IN ( 25468,25469 );
-UPDATE `npc` SET `exp` = 20280, `sp` = 1884 WHERE `id` IN ( 25471,25472 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25476,25477 );
-UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25479,25480 );
-UPDATE `npc` SET `exp` = 12980, `sp` = 1004 WHERE `id` IN ( 25482,25483 );
-UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25485,25486 );
-UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25488,25489,25491,25492 );
-UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25494,25495 );
-UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25499,25500 );
-UPDATE `npc` SET `exp` = 1154, `sp` = 64 WHERE `id` IN ( 25502,25503 );
-UPDATE `npc` SET `exp` = 30, `sp` = 2 WHERE `id` IN ( 25507,25508,25510 );
-UPDATE `npc` SET `exp` = 33008, `sp` = 4024 WHERE `id` IN ( 25515,25516 );
-UPDATE `npc` SET `exp` = 30, `sp` = 2 WHERE `id` IN ( 25518,25519 );
-UPDATE `npc` SET `exp` = 6742, `sp` = 730 WHERE `id` IN ( 25525,25526 );
-UPDATE `npc` SET `exp` = 440000, `sp` = 40000 WHERE `id` IN ( 29063,29064 );
-
-INSERT INTO `npc` VALUES
-(25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11.00,27.00,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,NULL,0,1,0,'LAST_HIT'),
-(25165,25165,'Slave Warrior of Skylancer',0,'Raid Fighter',0,'Monster.bugbear',17.00,35.00,69,'male','L2Minion',40,15898,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,6668,1840,8676,747,278,0,253,0,0,0,80,120,NULL,0,0,0,'LAST_HIT'),
-(27198,27198,'Gremlin',0,'',0,'Monster.gremlin',10.00,15.00,1,'male','L2Monster',40,62,44,3.16,0.91,40,43,30,21,35,10,29,2,9,39,3,32,278,0,253,0,0,0,20,50,NULL,0,0,0,'LAST_HIT'),
-(35001,35001,'Royal Gatekeeper',0,'Gludio',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35002,35002,'Royal Gatekeeper',0,'Dion',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35003,35003,'Royal Gatekeeper',0,'Giran',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35004,35004,'Royal Gatekeeper',0,'Oren',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35005,35005,'Royal Gatekeeper',0,'Aden',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,5149,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,941,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35006,35006,'Radcliff',0,'Chamberlain', 0,'NPC.a_chamberlain_MHuman',9.50,22.50,70,'male','L2CastleChamberlain',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35007,35007,'Rodd',0,'Mercenary Manager',0,'NPC.a_common_peopleA_MHuman',8.00,21.50,70,'male','L2MercManager',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1335,470,780,382,278,0,253,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
-(35008,35008,'Shamus',0, 'Sir',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,72,'male','L2SiegeGuard',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0,'LAST_HIT'),
-(35009,35009,'Morpheus',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,72,'male','L2SiegeGuard',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0,'LAST_HIT');
-
--- Update Boss Manager
-UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 31385;
-UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` = 29065;	
-UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `id` IN ( 32107,31759,31859 );
-
-UPDATE `npc` SET `aggro` = 800 WHERE `id` IN ( 29019,29066,29067,29068,29028 );
-UPDATE `npc` SET `aggro` = 500 WHERE `id` IN ( 29014,29020,29021,29022 );
-
-DELETE FROM `npc` WHERE `id` BETWEEN 29066 AND 29076;
-INSERT INTO `npc` VALUES
-(29066, 29066, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 11506110, 19511, 2092.02, 233.22, 60, 57, 73, 76, 70, 80, 230931687, 25593295, 11698, 7088, 24699, 1442, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
-(29067, 29067, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 13090000, 22197, 2380, 265.32, 60, 57, 73, 76, 70, 80, 262720918, 29116376, 13308, 8064, 28099, 1641, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
-(29068, 29068, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 14307370, 24261, 2601.34, 289.99, 60, 57, 73, 76, 70, 80, 287153963, 31824199, 14546, 8814, 30712, 1794, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
-(29069, 29069, 'Behemoth Dragon', 0, '', 0, 'Monster3.antaras_ex_a', 63, 54, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
-(29070, 29070, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
-(29071, 29071, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
-(29072, 29072, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
-(29073, 29073, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
-(29074, 29074, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
-(29075, 29075, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
-(29076, 29076, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b', 42, 34.5, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT');
-
-DELETE FROM npc WHERE id IN ( 29045,29046,29047,29048,29049,29050,29051 );
-INSERT INTO npc VALUES
-(29045,29045,'Frintezza',0,'',0,'Monster3.frintessa',10,42,90,'male','L2Boss',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT'),
-(29046,29046,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa',29,90,85,'male','L2Boss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,'frintezza_clan',6000,0,13,'FULL_PARTY'),
-(29047,29047,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa_tran',29,110,90,'male','L2Boss',60,23480000,22393,830.62,3.09,40,43,30,21,20,10,496960259,40375148,23813,7000,12680,6238,409,6000,3819,8222,0,0,92,187,'frintezza_clan',6000,0,13,'FULL_PARTY'),
-(29048,29048,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2Boss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29049,29049,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2Boss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29050,29050,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT'),
-(29051,29051,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit_winged',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT');
-
 UPDATE `npc` SET `type` = 'L2NpcWalker' WHERE `id` IN (31358,31359,31360,31361,31362,31363,31357,31356,31364,31365,32070,32072);
 
 -- Try lowering walkspeed of walking NPC since seems to walk faster than retail
@@ -6853,7 +6613,7 @@ UPDATE `npc` SET `runspd` = '25', `walkspd` = '25' WHERE `id` = '31365';
 UPDATE `npc` SET `runspd` = '50', `walkspd` = '50' WHERE `id` = '32070';
 UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12' WHERE `id` = '32072';
 
-insert  into `npc`(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) values
+INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
 (13095,13095,'Pixy',0,'',0,'LineageMonster.pixy','8.00','22.00','1','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
 (13096,13096,'Rabbit',0,'',0,'LineageMonster.rabbit','8.00','22.00','1','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
 (16025,16025,'Black Hair Wolf',0,'',0,'LineageMonster4.Pet_Wolf_B','32.00','21.41','70','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','0','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
@@ -8394,3 +8154,243 @@ insert  into `npc`(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 (13093,13093,'Pig',0,'',0,'LineageNPC2.E_pig_ball','15.00','18.30','1','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
 (13094,13094,'Zombie',0,'',0,'LineageMonster3.zombie_laborer','11.00','24.60','1','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
 (16030,16030,'Great Wolf',0,'',0,'LineageMonster4.Pet_Wolf_Ba','32.00','23.56','70','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120',NULL,'0',0,'0','LAST_HIT');
+
+--
+-- L2J-Free Add-ons
+--
+
+UPDATE `npc` SET `type` = 'L2SepulcherNpc' WHERE `id` IN
+( 31452,31453,31454,31455,31456,31457,31458,31459,31460,31461,31462,31463,31464,31465,31466,
+  31467,31468,31469,31470,31471,31472,31473,31474,31475,31476,31477,31478,31479,31480,31481,
+  31482,31483,31484,31485,31486,31487,31919,31920,31921,31922,31923,31924,31925,31926,31927,
+  31928,31929,31930,31931,31932,31933,31934,31935,31936,31937,31938,31939,31940,31941,31942,
+  31943,31944 );
+
+UPDATE `npc` SET `type` = 'L2SepulcherMonster' WHERE `id` IN
+( 25339,25342,25346,25349,18120,18121,18122,18123,18124,18125,18126,18127,18128,18129,18130,
+  18131,18132,18133,18134,18135,18136,18137,18138,18139,18140,18141,18142,18143,18144,18145,
+  18146,18147,18148,18149,18150,18151,18152,18153,18154,18155,18156,18157,18158,18159,18160,
+  18161,18162,18163,18164,18165,18166,18167,18168,18169,18170,18171,18172,18183,18184,18185,
+  18186,18187,18188,18189,18190,18191,18192,18193,18194,18195,18196,18197,18198,18199,18200,
+  18201,18202,18203,18204,18205,18206,18207,18208,18209,18210,18211,18212,18213,18214,18215,
+  18216,18217,18218,18219,18220,18221,18222,18223,18224,18225,18226,18227,18228,18229,18230,
+  18231,18232,18233,18234,18235,18236,18237,18238,18239,18240,18241,18242,18243,18244,18245,
+  18246,18247,18248,18249,18250,18251,18252,18253,18254,18255,18256 );
+
+UPDATE `npc` SET `faction_range` = '600' WHERE `id` IN
+( 18120,18121,18122,18123,18124,18125,18126,18127,18128,18129,18130,18131,18132,18133,18134,
+  18135,18136,18137,18138,18139,18140,18141,18142,18143,18144,18145,18146,18147,18148,18149,
+  18150,18151,18152,18153,18154,18155,18156,18157,18158,18159,18160,18161,18162,18163,18164,
+  18165,18166,18167,18168,18169,18170,18171,18172,18183,18184,18185,18186,18187,18188,18189,
+  18190,18191,18192,18193,18194,18195,18196,18197,18198,18199,18200,18201,18202,18203,18204,
+  18205,18206,18207,18208,18209,18210,18211,18212,18213,18214,18215,18216,18217,18218,18219,
+  18220,18221,18222,18223,18224,18225,18226,18227,18228,18229,18230,18231,18232,18233,18234,
+  18235,18236,18237,18238,18239,18240,18241,18242,18243,18244,18245,18246,18247,18248,18249,
+  18250,18251,18252,18253,18254,18255,18256 );
+
+UPDATE `npc` SET `runspd` = '0' WHERE `id` IN
+( 18196,18197,18198,18199,18200,18201,18202,18203,18204,18205,18206,18207,18208,18209,18210,18211,18256 );
+
+UPDATE `npc` SET `type` = 'L2Minion' WHERE `id` = 29064;
+
+-- EXP / SP fix for Minons
+UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` = 25080;
+UPDATE `npc` SET `exp` = 1329218, `sp` = 122342 WHERE `id` = 25081;
+UPDATE `npc` SET `exp` = 20912, `sp` = 1972 WHERE `id` = 25264;
+UPDATE `npc` SET `exp` = 0, `sp` = 0 WHERE `id` = 25265;
+UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` = 25353;
+UPDATE `npc` SET `exp` = 3276, `sp` = 164 WHERE `id` = 25361;
+UPDATE `npc` SET `exp` = 2356, `sp` = 104 WHERE `id` = 25374;
+UPDATE `npc` SET `exp` = 5228, `sp` = 300 WHERE `id` = 25384;
+UPDATE `npc` SET `exp` = 4616, `sp` = 256 WHERE `id` = 25393;
+UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` = 25411;
+UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` = 25419;
+UPDATE `npc` SET `exp` = 12488, `sp` = 952 WHERE `id` = 25474;
+UPDATE `npc` SET `exp` = 12488, `sp` = 952 WHERE `id` = 25497;
+UPDATE `npc` SET `exp` = 1733, `sp` = 108 WHERE `id` = 25505;
+UPDATE `npc` SET `exp` = 440000, `sp` = 40000 WHERE `id` = 25511;
+UPDATE `npc` SET `exp` = 295, `sp` = 10 WHERE `id` = 27037;
+UPDATE `npc` SET `exp` = 1081, `sp` = 59 WHERE `id` = 27111;
+UPDATE `npc` SET `exp` = 1471, `sp` = 1 WHERE `id` = 29003;
+UPDATE `npc` SET `exp` = 2712, `sp` = 128 WHERE `id` IN ( 25002,25003 );
+UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` IN ( 25005,25006 );
+UPDATE `npc` SET `exp` = 8072, `sp` = 528 WHERE `id` IN ( 25008,25009 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25011,25012 );
+UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25014,25015 );
+UPDATE `npc` SET `exp` = 16712, `sp` = 1428 WHERE `id` IN ( 25017,25018 );
+UPDATE `npc` SET `exp` = 5228, `sp` = 300 WHERE `id` IN ( 25021,25022,25024,25025 );
+UPDATE `npc` SET `exp` = 11060, `sp` = 808 WHERE `id` IN ( 25027,25028 );
+UPDATE `npc` SET `exp` = 12980, `sp` = 1004 WHERE `id` IN ( 25030,25031 );
+UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25033,25034 );
+UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25036,25037 );
+UPDATE `npc` SET `exp` = 3676, `sp` = 188 WHERE `id` IN ( 25039,25040 );
+UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25042,25043 );
+UPDATE `npc` SET `exp` = 10160, `sp` = 720 WHERE `id` IN ( 25045,25046 );
+UPDATE `npc` SET `exp` = 11060, `sp` = 808 WHERE `id` IN ( 25048,25049 );
+UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25052,25053 );
+UPDATE `npc` SET `exp` = 26256, `sp` = 2800 WHERE `id` IN ( 25055,25056 );
+UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25058,25059 );
+UPDATE `npc` SET `exp` = 2900, `sp` = 140 WHERE `id` IN ( 25061,25062 );
+UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25065,25066 );
+UPDATE `npc` SET `exp` = 12488, `sp` = 952 WHERE `id` IN ( 25068, 25069 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25071,25072 );
+UPDATE `npc` SET `exp` = 22204, `sp` = 2160 WHERE `id` IN ( 25074,25075 );
+UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25077,25078 );
+UPDATE `npc` SET `exp` = 6932, `sp` = 432 WHERE `id` IN ( 25083,25084 );
+UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` IN ( 25086,25087 );
+UPDATE `npc` SET `exp` = 16148, `sp` = 1364 WHERE `id` IN ( 25090,25091 );
+UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25093,25094 );
+UPDATE `npc` SET `exp` = 3892, `sp` = 204 WHERE `id` IN ( 25096,25097 );
+UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` IN ( 25100,25101 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25104,25105 );
+UPDATE `npc` SET `exp` = 18452, `sp` = 1644 WHERE `id` IN ( 25107,25108 );
+UPDATE `npc` SET `exp` = 25556, `sp` = 2684 WHERE `id` IN ( 25110,25111 );
+UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` IN ( 25113,25114 );
+UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25116,25117 );
+UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25120,25121 );
+UPDATE `npc` SET `exp` = 14524, `sp` = 1172 WHERE `id` IN ( 25123,25124 );
+UPDATE `npc` SET `exp` = 4916, `sp` = 276 WHERE `id` IN ( 25129,25130 );
+UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25132,25133 );
+UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25135,25136 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25138,25139 );
+UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25141,25142 );
+UPDATE `npc` SET `exp` = 29156, `sp` = 3304 WHERE `id` IN ( 25144,25145 );
+UPDATE `npc` SET `exp` = 2356, `sp` = 104 WHERE `id` IN ( 25147,25148 );
+UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25150,25151 );
+UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25153,25154 );
+UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25156,25157 );
+UPDATE `npc` SET `exp` = 13484, `sp` = 1060 WHERE `id` IN ( 25160,25161 );
+UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25167,25168 );
+UPDATE `npc` SET `exp` = 6572, `sp` = 404 WHERE `id` IN ( 25171,25172 );
+UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25174,25175 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25177,25178 );
+UPDATE `npc` SET `exp` = 16712, `sp` = 1428 WHERE `id` IN ( 25180,25181 );
+UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25183,25184 );
+UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25186,25187 );
+UPDATE `npc` SET `exp` = 5228, `sp` = 300 WHERE `id` IN ( 25190,25191 );
+UPDATE `npc` SET `exp` = 8468, `sp` = 564 WHERE `id` IN ( 25193,25194 );
+UPDATE `npc` SET `exp` = 24188, `sp` = 2464 WHERE `id` IN ( 25200,25201 );
+UPDATE `npc` SET `exp` = 25556, `sp` = 2684 WHERE `id` IN ( 25203,25204 );
+UPDATE `npc` SET `exp` = 26968, `sp` = 2920 WHERE `id` IN ( 25206,25207 );
+UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25209,25210 );
+UPDATE `npc` SET `exp` = 5884, `sp` = 348 WHERE `id` IN ( 25212,25213 );
+UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25215,25216 );
+UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25218,25219 );
+UPDATE `npc` SET `exp` = 24868, `sp` = 2572 WHERE `id` IN ( 25221,25222 );
+UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25224,25225 );
+UPDATE `npc` SET `exp` = 17860, `sp` = 1572 WHERE `id` IN ( 25227,25228 );
+UPDATE `npc` SET `exp` = 15056, `sp` = 1236 WHERE `id` IN ( 25231,25232 );
+UPDATE `npc` SET `exp` = 24188, `sp` = 2464 WHERE `id` IN ( 25236,25237 );
+UPDATE `npc` SET `exp` = 20912, `sp` = 1972 WHERE `id` IN ( 25239,25240 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25242,25243 );
+UPDATE `npc` SET `exp` = 28416, `sp` = 3172 WHERE `id` IN ( 25246,25247 );
+UPDATE `npc` SET `exp` = 26256, `sp` = 2800 WHERE `id` IN ( 25250,25251 );
+UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25253,25254 );
+UPDATE `npc` SET `exp` = 16712, `sp` = 1428 WHERE `id` IN ( 25257,25258 );
+UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25261,25262 );
+UPDATE `npc` SET `exp` = 26256, `sp` = 2800 WHERE `id` IN ( 25267,25268 );
+UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25270,25271 );
+UPDATE `npc` SET `exp` = 6742, `sp` = 730 WHERE `id` IN ( 25274,25275 );
+UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25278,25279 );
+UPDATE `npc` SET `exp` = 29908, `sp` = 3440 WHERE `id` IN ( 25284,25285,25287,25288,25289 );
+UPDATE `npc` SET `exp` = 28416, `sp` = 3172 WHERE `id` IN ( 25291,25292,25294,25295 );
+UPDATE `npc` SET `exp` = 25556, `sp` = 2684 WHERE `id` IN ( 25297,25298 );
+UPDATE `npc` SET `exp` = 29908, `sp` = 3440 WHERE `id` IN ( 25300,25301 );
+UPDATE `npc` SET `exp` = 33008, `sp` = 4024 WHERE `id` IN ( 25303,25304 );
+UPDATE `npc` SET `exp` = 35436, `sp` = 4504 WHERE `id` IN ( 25307,25308 );
+UPDATE `npc` SET `exp` = 29908, `sp` = 3440 WHERE `id` IN ( 25310,25311 );
+UPDATE `npc` SET `exp` = 33008, `sp` = 4024 WHERE `id` IN ( 25313,25314 );
+UPDATE `npc` SET `exp` = 35436, `sp` = 4504 WHERE `id` IN ( 25317,25318 );
+UPDATE `npc` SET `exp` = 33808, `sp` = 4180 WHERE `id` IN ( 25320,25321 );
+UPDATE `npc` SET `exp` = 20280, `sp` = 1884 WHERE `id` IN ( 25323,25324 );
+UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25326,25327 );
+UPDATE `npc` SET `exp` = 6922, `sp` = 761 WHERE `id` IN ( 25329,25330,25331,25332 );
+UPDATE `npc` SET `exp` = 346100, `sp` = 38050 WHERE `id` IN ( 25340,25341,25343,25344,25345,25347,25348,25350,25351 );
+UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25355,25356 );
+UPDATE `npc` SET `exp` = 2356, `sp` = 104 WHERE `id` IN ( 25358,25359 );
+UPDATE `npc` SET `exp` = 2712, `sp` = 128 WHERE `id` IN ( 25363,25364,25367,25368 );
+UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25370,25371 );
+UPDATE `npc` SET `exp` = 2240, `sp` = 100 WHERE `id` IN ( 25376,25377,25379,25381,25382 );
+UPDATE `npc` SET `exp` = 5884, `sp` = 348 WHERE `id` IN ( 25386,25387 );
+UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25389,25390 );
+UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25396,25397 );
+UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25399,25400 );
+UPDATE `npc` SET `exp` = 4616, `sp` = 256 WHERE `id` IN ( 25402,25403,25405,25406 );
+UPDATE `npc` SET `exp` = 16712, `sp` = 1428 WHERE `id` IN ( 25408,25409 );
+UPDATE `npc` SET `exp` = 10160, `sp` = 720 WHERE `id` IN ( 25413,25414 );
+UPDATE `npc` SET `exp` = 5552, `sp` = 324 WHERE `id` IN ( 25416,25417 );
+UPDATE `npc` SET `exp` = 10604, `sp` = 760 WHERE `id` IN ( 25421,25422 );
+UPDATE `npc` SET `exp` = 14524, `sp` = 1172 WHERE `id` IN ( 25424,25425 );
+UPDATE `npc` SET `exp` = 3088, `sp` = 152 WHERE `id` IN ( 25427,25428,25430 );
+UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` IN ( 25432,25433 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25435,25436 );
+UPDATE `npc` SET `exp` = 8876, `sp` = 600 WHERE `id` IN ( 25439,25440 );
+UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25442,25443 );
+UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25445,25446 );
+UPDATE `npc` SET `exp` = 23516, `sp` = 2360 WHERE `id` IN ( 25448,25449 );
+UPDATE `npc` SET `exp` = 28416, `sp` = 3172 WHERE `id` IN ( 25451,25452 );
+UPDATE `npc` SET `exp` = 22852, `sp` = 2260 WHERE `id` IN ( 25454,25455 );
+UPDATE `npc` SET `exp` = 11060, `sp` = 808 WHERE `id` IN ( 25457,25458,25459 );
+UPDATE `npc` SET `exp` = 12000, `sp` = 904 WHERE `id` IN ( 25461,25462 );
+UPDATE `npc` SET `exp` = 14524, `sp` = 1172 WHERE `id` IN ( 25464,25465,25466 );
+UPDATE `npc` SET `exp` = 19052, `sp` = 1720 WHERE `id` IN ( 25468,25469 );
+UPDATE `npc` SET `exp` = 20280, `sp` = 1884 WHERE `id` IN ( 25471,25472 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25476,25477 );
+UPDATE `npc` SET `exp` = 19660, `sp` = 1800 WHERE `id` IN ( 25479,25480 );
+UPDATE `npc` SET `exp` = 12980, `sp` = 1004 WHERE `id` IN ( 25482,25483 );
+UPDATE `npc` SET `exp` = 11528, `sp` = 852 WHERE `id` IN ( 25485,25486 );
+UPDATE `npc` SET `exp` = 7304, `sp` = 464 WHERE `id` IN ( 25488,25489,25491,25492 );
+UPDATE `npc` SET `exp` = 14000, `sp` = 1116 WHERE `id` IN ( 25494,25495 );
+UPDATE `npc` SET `exp` = 9296, `sp` = 636 WHERE `id` IN ( 25499,25500 );
+UPDATE `npc` SET `exp` = 1154, `sp` = 64 WHERE `id` IN ( 25502,25503 );
+UPDATE `npc` SET `exp` = 30, `sp` = 2 WHERE `id` IN ( 25507,25508,25510 );
+UPDATE `npc` SET `exp` = 33008, `sp` = 4024 WHERE `id` IN ( 25515,25516 );
+UPDATE `npc` SET `exp` = 30, `sp` = 2 WHERE `id` IN ( 25518,25519 );
+UPDATE `npc` SET `exp` = 6742, `sp` = 730 WHERE `id` IN ( 25525,25526 );
+UPDATE `npc` SET `exp` = 440000, `sp` = 40000 WHERE `id` IN ( 29063,29064 );
+
+INSERT INTO `npc` VALUES
+(25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11.00,27.00,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,NULL,0,1,0,'LAST_HIT'),
+(25165,25165,'Slave Warrior of Skylancer',0,'Raid Fighter',0,'Monster.bugbear',17.00,35.00,69,'male','L2Minion',40,15898,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,6668,1840,8676,747,278,0,253,0,0,0,80,120,NULL,0,0,0,'LAST_HIT'),
+(27198,27198,'Gremlin',0,'',0,'Monster.gremlin',10.00,15.00,1,'male','L2Monster',40,62,44,3.16,0.91,40,43,30,21,35,10,29,2,9,39,3,32,278,0,253,0,0,0,20,50,NULL,0,0,0,'LAST_HIT'),
+(35001,35001,'Royal Gatekeeper',0,'Gludio',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
+(35002,35002,'Royal Gatekeeper',0,'Dion',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
+(35003,35003,'Royal Gatekeeper',0,'Giran',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
+(35004,35004,'Royal Gatekeeper',0,'Oren',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
+(35005,35005,'Royal Gatekeeper',0,'Aden',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,5149,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,941,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
+(35006,35006,'Radcliff',0,'Chamberlain', 0,'NPC.a_chamberlain_MHuman',9.50,22.50,70,'male','L2CastleChamberlain',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
+(35007,35007,'Rodd',0,'Mercenary Manager',0,'NPC.a_common_peopleA_MHuman',8.00,21.50,70,'male','L2MercManager',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1335,470,780,382,278,0,253,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
+(35008,35008,'Shamus',0, 'Sir',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,72,'male','L2SiegeGuard',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0,'LAST_HIT'),
+(35009,35009,'Morpheus',0,'Sir',0,'NPC.a_royal_guardA_MHuman',7.00,24.00,72,'male','L2SiegeGuard',40,80268,6260,13.43,3.09,40,43,30,21,35,10,518,1,8479,491,849,399,278,0,253,2,0,0,80,120,'gludio_siege_clan',1200,1,0,'LAST_HIT');
+
+-- Update Boss Manager
+UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 31385;
+UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` = 29065;	
+UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `id` IN ( 32107,31759,31859 );
+
+UPDATE `npc` SET `aggro` = 800 WHERE `id` IN ( 29019,29066,29067,29068,29028 );
+UPDATE `npc` SET `aggro` = 500 WHERE `id` IN ( 29014,29020,29021,29022 );
+
+DELETE FROM `npc` WHERE `id` BETWEEN 29066 AND 29076;
+INSERT INTO `npc` VALUES
+(29066, 29066, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 11506110, 19511, 2092.02, 233.22, 60, 57, 73, 76, 70, 80, 230931687, 25593295, 11698, 7088, 24699, 1442, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
+(29067, 29067, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 13090000, 22197, 2380, 265.32, 60, 57, 73, 76, 70, 80, 262720918, 29116376, 13308, 8064, 28099, 1641, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
+(29068, 29068, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 14307370, 24261, 2601.34, 289.99, 60, 57, 73, 76, 70, 80, 287153963, 31824199, 14546, 8814, 30712, 1794, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
+(29069, 29069, 'Behemoth Dragon', 0, '', 0, 'Monster3.antaras_ex_a', 63, 54, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
+(29070, 29070, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
+(29071, 29071, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
+(29072, 29072, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
+(29073, 29073, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
+(29074, 29074, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
+(29075, 29075, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b_80p', 37, 28, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT'),
+(29076, 29076, 'Dragon Bomber', 0, '', 0, 'Monster3.antaras_ex_b', 42, 34.5, 78, 'male', 'L2Monster', 40, 400000, 9999, 13.43, 3.09, 40, 43, 30, 21, 20, 10, 0, 0, 9000, 5000, 6000, 6000, 300, 500, 333, 0, 0, 0, 88, 132, '', 0, 0, 0,'LAST_HIT');
+
+DELETE FROM npc WHERE id IN ( 29045,29046,29047,29048,29049,29050,29051 );
+INSERT INTO npc VALUES
+(29045,29045,'Frintezza',0,'',0,'Monster3.frintessa',10,42,90,'male','L2Boss',2000,790857,22197,830.62,3.09,40,43,30,21,20,10,1470000,13232048,9182,6214,7133,4191,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,13,'LAST_HIT'),
+(29046,29046,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa',29,90,85,'male','L2Boss',50,23480000,22393,823.48,265,60,57,73,76,70,80,496960259,40375148,10699,5036,12680,4191,278,6000,3819,8204,0,0,55,132,'frintezza_clan',6000,0,13,'FULL_PARTY'),
+(29047,29047,'Scarlet van Halisha',0,'',0,'Monster3.follower_of_frintessa_tran',29,110,90,'male','L2Boss',60,23480000,22393,830.62,3.09,40,43,30,21,20,10,496960259,40375148,23813,7000,12680,6238,409,6000,3819,8222,0,0,92,187,'frintezza_clan',6000,0,13,'FULL_PARTY'),
+(29048,29048,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2Boss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
+(29049,29049,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2Boss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
+(29050,29050,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT'),
+(29051,29051,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit_winged',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT');

@@ -1362,13 +1362,7 @@ INSERT INTO `weapon` VALUES
 ('9136','Sword of Valakas (1-Handed)','rhand','true','1380','3','3','oriharukon','c','156','10','sword','8','0.00000','0','0','0','379','0','83','-1','0', 0,'true','true','true','true','0','0','0','0','0','0','0','0','0','0'),
 ('9137','Sword of Valakas (2-Handed)','lrhand','true','2180','2','2','fine_steel','d','78','10','bigsword','8','0.00000','0','0','0','325','0','39','-1','0', 0,'true','true','true','true','0','0','0','0','0','0','0','0','0','0'),
 ('9140','Salvation Bow','lrhand','false','900','1','1','wood','none','1','1','bow','12','-3.00000','0','0','0','293','1','1','-1','0', 0,'false','false','false','false','0','0','0','0','0','0','0','0','0','0'),
-('9141','Redemption Bow - Event Use','lrhand','false','300','1','1','wood','none','1','1','bow','12','-3.00000','0','0','0','293','1','1','60','0', 0,'false','false','false','false','0','0','0','0','0','0','0','0','0','0');
-
---
--- L2J-Free Add-ons
---
-
-INSERT INTO `weapon`(`item_id`,`name`,`bodypart`,`weight`,`soulshots`,`spiritshots`,`material`,`crystal_type`,`p_dam`,`rnd_dam`,`weaponType`,`critical`,`hit_modify`,`avoid_modify`,`shield_def`,`shield_def_rate`,`atk_speed`,`mp_consume`,`m_dam`,`duration`,`price`,`crystal_count`,`sellable`,`dropable`,`destroyable`,`tradeable`,`crystallizable`,`item_skill_id`,`item_skill_lvl`,`enchant4_skill_id`,`enchant4_skill_lvl`,`onCast_skill_id`,`onCast_skill_lvl`,`onCast_skill_chance`,`onCrit_skill_id`,`onCrit_skill_lvl`,`onCrit_skill_chance`) VALUES
+('9141','Redemption Bow - Event Use','lrhand','false','300','1','1','wood','none','1','1','bow','12','-3.00000','0','0','0','293','1','1','60','0', 0,'false','false','false','false','0','0','0','0','0','0','0','0','0','0'),
 ('9209', 'Rapier', 'rhand', '1520', '2', '2', 'wood', 'd', '36', '0', 'rapier', '10', '-1.00000', '0', '0', '0', '406', '0', '26', '-1', '0', '0', 'true', 'true', 'true', 'true', 'true', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
 ('9210', 'Talwar', 'lrhand', '2100', '2', '2', 'wood', 'd', '43', '0', 'ancient', '6', '2.00000', '0', '0', '0', '350', '0', '26', '-1', '0', '0', 'true', 'true', 'true', 'true', 'true', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
 ('9211', 'Talwar', 'lrhand', '2100', '2', '2', 'wood', 'd', '43', '0', 'ancient', '6', '2.00000', '0', '0', '0', '350', '0', '26', '-1', '0', '0', 'true', 'true', 'true', 'true', 'true', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'),
