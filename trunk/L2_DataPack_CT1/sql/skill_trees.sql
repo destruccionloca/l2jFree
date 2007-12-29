@@ -14962,7 +14962,7 @@ INSERT INTO `skill_trees` VALUES ('126', '1445', '3', 'Surrender to the Unholy',
 
 
 -- Skills for Arbalester, Trickster
-NSERT INTO `skill_trees` (`class_id`,`skill_id`,`level`,`name`,`sp`,`min_level`) VALUES
+INSERT INTO `skill_trees` (`class_id`,`skill_id`,`level`,`name`,`sp`,`min_level`) VALUES
 (130,465,14,'Light Armor Mastery',12000,40),
 (130,465,15,'Light Armor Mastery',12000,40),
 (130,465,16,'Light Armor Mastery',12000,40),
