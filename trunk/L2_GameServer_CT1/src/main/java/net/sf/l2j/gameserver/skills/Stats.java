@@ -191,7 +191,7 @@ public enum Stats
     defenceAttrHoly		("defenceAttrHoly"),
     defenceAttrUnholy	("defenceAttrUnholy"),
     
-    transformId	("transformId")
+    transformId		("transformId")
     ;
     
     public static final int NUM_STATS = values().length; 

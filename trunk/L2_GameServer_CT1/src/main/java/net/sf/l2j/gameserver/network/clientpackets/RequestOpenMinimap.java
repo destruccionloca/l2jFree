@@ -38,16 +38,9 @@ public final class RequestOpenMinimap extends L2GameClientPacket
 		L2PcInstance client = getClient().getActiveChar();
 		if (client == null)
 			return;
-		if (!client.canOpenMinimap())
-		{
-			client.sendPacket(new SystemMessage(2207));
-			return;
-		}
-		else
-		{
-			client.sendPacket(new ShowMiniMap(1665));
-			return;
-		}
+
+		client.sendPacket(new ShowMiniMap(1665));
+		return;
 	}
 	
 	public String getType()

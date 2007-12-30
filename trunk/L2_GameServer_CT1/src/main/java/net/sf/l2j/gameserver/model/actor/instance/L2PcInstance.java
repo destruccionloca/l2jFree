@@ -736,7 +736,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	
     private L2Transformation _transform;
     
-    private boolean _canOpenMap = true;
+    private int _collectedSouls = 0;
     
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
@@ -11216,15 +11216,17 @@ public final class L2PcInstance extends L2PlayableInstance
         _transform = null;
         broadcastUserInfo();
     }
-
-    public boolean canOpenMinimap()
-    {
-        return _canOpenMap;
-    }
-
-    public void setCanOpenMinimap(boolean b)
-    {
-        _canOpenMap = b;
-    }
     
+    public int getSouls()
+    {
+        return _collectedSouls;
+    }
+
+    public void setSouls(int souls)
+    {
+    	_collectedSouls = souls;
+        if(_collectedSouls > 45)
+            _collectedSouls = 45;
+        sendPacket(new EtcStatusUpdate(this));
+    }
 }

@@ -316,7 +316,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 	                    msg = new RequestSendFriendMsg();
 	                    break;
 	                case 108:
-	                    msg = new RequestOpenMinimap();
+	                	msg = new RequestOpenMinimap();
 	                    break;
 	                case 110:
 	                    msg = new RequestRecordInfo();
@@ -690,7 +690,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			                    break;
 */			                    	
 			                case 66:
-			                    msg = new RequestOpenMinimap();
+			                    //msg = new RequestOpenMinimap(); /* Not used in CT1 */
 			                    break;
 			                case 67:
 			                    msg = new RequestGetBossRecord();

@@ -262,24 +262,33 @@ public class UseItem extends L2GameClientPacket
                 L2ItemInstance ae = activeChar.getInventory().getPaperdollItemByL2ItemId(bodyPart);
                 if(ae != null)
                 {
+            		//Find Arrows if arrows are equipped in LHand:
+            		if (activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND) == 
+            			activeChar.getInventory().findArrowForBow(ae.getItem()))
+            		{
+            			//Remove arrows if they're equipped:
+            			activeChar.getInventory().unEquipItemInBodySlotAndRecord(Inventory.PAPERDOLL_LHAND);
+            			activeChar.getInventory().setPaperdollItem(Inventory.PAPERDOLL_LHAND, null);
+            		}                	
                     activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
                     activeChar.checkSSMatch(item, ae);
     				if (ae.getEnchantLevel() > 0)
     				{
     					sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
-    					sm.addNumber(ae.getEnchantLevel());
-    					sm.addItemName(ae);
+    					sm.addNumber(item.getEnchantLevel());
+    					sm.addItemName(item);
     				}
     				else
     				{
     					sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-    					sm.addItemName(ae);
+    					sm.addItemName(item);
     				}
                     if(ae.isAugmented())
                         ae.getAugmentation().removeBoni(activeChar);
                     activeChar.getInventory().equipItemAndRecord(item);
                     if(item.isAugmented())
                         item.getAugmentation().applyBoni(activeChar);
+                    activeChar.sendPacket(sm);                    
                 }
                 else
                 {
@@ -292,21 +301,28 @@ public class UseItem extends L2GameClientPacket
             {
                 if(item.isWear())
                     return;
+
+            	if (bodyPart == L2Item.SLOT_L_EAR || bodyPart == L2Item.SLOT_LR_EAR ||
+                	bodyPart == L2Item.SLOT_L_FINGER || bodyPart == L2Item.SLOT_LR_FINGER)
+                		activeChar.getInventory().setPaperdollItem(item.getEquipSlot(), null);
+                
                 activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
 				if (item.getEnchantLevel() > 0)
 				{
-					sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
+					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
 					sm.addNumber(item.getEnchantLevel());
 					sm.addItemName(item);
 				}
 				else
 				{
-					sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
+					sm = new SystemMessage(SystemMessageId.S1_DISARMED);
 					sm.addItemName(item);
 				}
 
                 if(item.isAugmented())
                     item.getAugmentation().removeBoni(activeChar);
+                
+                activeChar.sendPacket(sm);
             }
             item.decreaseMana(false);
             
