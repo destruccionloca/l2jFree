@@ -13363,7 +13363,7 @@ INSERT INTO enchant_skill_trees VALUES
 (1334, 127, 'Summon Cursed Man', 7, '+27 Summon', 1998000, 19980000, 126, 0, 0, 1), 
 (1334, 128, 'Summon Cursed Man', 7, '+28 Summon', 2447000, 24470000, 127, 0, 0, 1), 
 (1334, 129, 'Summon Cursed Man', 7, '+29 Summon', 2525000, 25250000, 128, 0, 0, 1), 
-(1334, 130, 'Summon Cursed Man', 7, '+30 Summon', 2597000, 25970000, 129, 0, 0, 0);
+(1334, 130, 'Summon Cursed Man', 7, '+30 Summon', 2597000, 25970000, 129, 0, 0, 0),
 (1401, 101, 'Major Heal', 11, '+1 Power', 306000, 3060000, 11, 82, 92, 97),
 (1401, 102, 'Major Heal', 11, '+2 Power', 315000, 3150000, 101, 80, 90, 95),
 (1401, 103, 'Major Heal', 11, '+3 Power', 325000, 3250000, 102, 78, 88, 93),
