@@ -177,6 +177,9 @@ esac
 logininstall(){
 echo "Deleting LoginServer tables for new content."
 $MYL < login_install.sql &> /dev/null
+echo "Installing LoginServer tables"
+$MYG < ../sql/accounts.sql &> /dev/null
+$MYG < ../sql/gameservers.sql &> /dev/null
 }
 
 gsbackup(){
