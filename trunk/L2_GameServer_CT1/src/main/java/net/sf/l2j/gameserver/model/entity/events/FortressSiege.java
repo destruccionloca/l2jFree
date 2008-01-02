@@ -27,7 +27,6 @@ package net.sf.l2j.gameserver.model.entity.events;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javolution.text.TextBuilder;
@@ -61,7 +60,6 @@ import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
-import net.sf.l2j.gameserver.network.serverpackets.SkillList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
@@ -973,6 +971,8 @@ public class FortressSiege
 	public static boolean checkIfOkToCastSealOfRule(L2PcInstance player)
 	{
 		if (!_started)
+			return false;
+		else if (Math.abs(player.getZ() - _flagZ) > 50)
 			return false;
 		if (player.getTarget() instanceof L2NpcInstance && 
 			((L2NpcInstance)player.getTarget())._isFOS_Artifact && 
