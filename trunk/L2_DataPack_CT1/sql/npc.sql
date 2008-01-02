@@ -8345,6 +8345,10 @@ UPDATE `npc` SET `exp` = 30, `sp` = 2 WHERE `id` IN ( 25518,25519 );
 UPDATE `npc` SET `exp` = 6742, `sp` = 730 WHERE `id` IN ( 25525,25526 );
 UPDATE `npc` SET `exp` = 440000, `sp` = 40000 WHERE `id` IN ( 29063,29064 );
 
+UPDATE `npc` SET `type` = 'L2RiftInvader' WHERE `id` IN ( 21671,21694,21717,21740,21763,21786 );
+UPDATE `npc` SET `absorb_type` = 'FULL_PARTY' WHERE `id` IN ( 29066,29067,29068 );
+UPDATE `npc` SET `type` = 'L2CastleTeleporter' WHERE `id` = 35137;
+
 INSERT INTO `npc` VALUES
 (25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11.00,27.00,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,NULL,0,1,0,'LAST_HIT'),
 (25165,25165,'Slave Warrior of Skylancer',0,'Raid Fighter',0,'Monster.bugbear',17.00,35.00,69,'male','L2Minion',40,15898,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,6668,1840,8676,747,278,0,253,0,0,0,80,120,NULL,0,0,0,'LAST_HIT'),
