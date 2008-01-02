@@ -1,14 +1,4 @@
 /*
- * $Header: MultiSellList.java, 2/08/2005 14:21:01 luisantonioa Exp $
- *
- * $Author: luisantonioa $
- * $Date: 2/08/2005 14:21:01 $
- * $Revision: 1 $
- * $Log: MultiSellList.java,v $
- * Revision 1  2/08/2005 14:21:01  luisantonioa
- * Added copyright notice
- *
- * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -57,8 +47,6 @@ public class MultiSellList extends L2GameServerPacket
     @Override
     protected void writeImpl()
     {
-    	// [ddddd] [dchh] [hdhdh] [hhdh]
-    	
         writeC(0xd0);
         writeD(_listId);    // list id
         writeD(_page);		// page
@@ -88,7 +76,7 @@ public class MultiSellList extends L2GameServerPacket
     
             	for(MultiSellIngredient i: ent.getProducts())
             	{
-            		writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId());
+            		writeD(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId());
 	            	writeD(0x00);
 	            	writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
 	            	writeD(i.getItemCount());
@@ -107,7 +95,7 @@ public class MultiSellList extends L2GameServerPacket
 
                 for(MultiSellIngredient i : ent.getIngredients())
                 {
-                    writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId()); //ID
+                    writeD(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId()); //ID
                     writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
                     writeD(i.getItemCount()); //Count
                     writeH(i.getEnchantmentLevel()); //Enchant Level

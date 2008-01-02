@@ -100,6 +100,7 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
             writeD(item.getDefAttrEarth());
             writeD(item.getDefAttrHoly());
             writeD(item.getDefAttrUnholy());
+            writeD(item.getMana());
 		}
 	}
 	
