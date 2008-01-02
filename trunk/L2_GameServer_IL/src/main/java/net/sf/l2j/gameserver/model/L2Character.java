@@ -271,8 +271,6 @@ public abstract class L2Character extends L2Object
         setIsTeleporting(false);
 		spawnMe(getPosition().getX(), getPosition().getY(), getPosition().getZ());
         if (_isPendingRevive) doRevive();
-        if (FortressSiege._started && (this instanceof L2PcInstance) && ((L2PcInstance)this)._inEventFOS)
-        	FortressSiege.setTitleSiegeFlags((L2PcInstance)this);
         // Modify the position of the pet if necessary
 		if(getPet() != null)
 		{
@@ -493,7 +491,11 @@ public abstract class L2Character extends L2Object
 
         if (!(this instanceof L2PcInstance)) 
             onTeleported();
-		enableAllSkills();
+        
+        else if (FortressSiege._started && (this instanceof L2PcInstance) && ((L2PcInstance)this)._inEventFOS)
+        	FortressSiege.setTitleSiegeFlags((L2PcInstance)this);
+
+        enableAllSkills();
 		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
     }
 
