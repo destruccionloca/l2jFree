@@ -43,6 +43,7 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2ShortCut;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -75,6 +76,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeStatusChanged;
 import net.sf.l2j.gameserver.network.serverpackets.QuestList;
 import net.sf.l2j.gameserver.network.serverpackets.ShortCutInit;
+import net.sf.l2j.gameserver.network.serverpackets.ShortCutRegister;
 import net.sf.l2j.gameserver.network.serverpackets.SignsSky;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
@@ -454,6 +456,8 @@ public class EnterWorld extends L2GameClientPacket
 			}
 		}
 
+		updateShortCuts(activeChar);
+		
 		if (!activeChar.isGM() && activeChar.getSiegeState() < 2 && SiegeManager.getInstance().checkIfInZone(activeChar))
 		{
 			// Attacker or spectator logging in to a siege zone. Actually should be checked for inside castle only?
@@ -610,6 +614,20 @@ public class EnterWorld extends L2GameClientPacket
         }
     }
 
+   /**
+    * CT1 doesn't update shortcuts so we need to reregister them to the client
+    * @param activeChar
+    */
+   private void updateShortCuts(L2PcInstance activeChar)
+   {
+       L2ShortCut[] allShortCuts = activeChar.getAllShortCuts();
+       
+       for (L2ShortCut sc : allShortCuts)
+       {
+          activeChar.sendPacket(new ShortCutRegister(sc));
+       }
+   }
+   
     /**
      * @param activeChar
      */
