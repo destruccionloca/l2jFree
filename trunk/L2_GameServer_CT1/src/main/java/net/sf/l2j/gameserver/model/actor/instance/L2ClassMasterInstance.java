@@ -89,31 +89,33 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             
             int newJobLevel = jobLevel + 1;
 
-            if ((((level >= 20 && jobLevel == 0 ) || 
-                (level >= 40 && jobLevel == 1 ) || 
-                (level >= 76 && jobLevel == 2)) &&
-                Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
-            	|| (Config.CLASS_MASTER_STRIDER_UPDATE))
+            if ((((level >= 20 && jobLevel == 0 ) || (level >= 40 && jobLevel == 1 ) || (level >= 76 && jobLevel == 2))
+            		&& Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
+            		|| Config.CLASS_MASTER_STRIDER_UPDATE)
             {
-            	sb.append("You can change your occupation to following:<br>");
-            	
-            	for (ClassId child : ClassId.values())
-                	if (child.childOf(classId) && child.level() == newJobLevel)
-                		sb.append("<br><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (child.getId()) + "\"> " + CharTemplateTable.getClassNameById(child.getId()) + "</a>");
-            	
-            	if (Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel) != null &&
-            		Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).size() > 0)
+            	if (((level >= 20 && jobLevel == 0 ) || (level >= 40 && jobLevel == 1 ) || (level >= 76 && jobLevel == 2))
+            			&& Config.CLASS_MASTER_SETTINGS.isAllowed(newJobLevel))
             	{
-            		sb.append("<br><br>Item(s) required for class change:");
-            		sb.append("<table width=270>");
-            		for(Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+            		sb.append("You can change your occupation to following:<br>");
+
+            		for (ClassId child : ClassId.values())
+            			if (child.childOf(classId) && child.level() == newJobLevel)
+            				sb.append("<br><a action=\"bypass -h npc_" + getObjectId() + "_change_class " + (child.getId()) + "\"> " + CharTemplateTable.getClassNameById(child.getId()) + "</a>");
+
+            		if (Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel) != null &&
+            				Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).size() > 0)
             		{
-            			int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
-            			sb.append("<tr><td><font color=\"LEVEL\">"+_count+"</font></td><td>"+ItemTable.getInstance().getTemplate(_itemId).getName()+"</td></tr>");
+            			sb.append("<br><br>Item(s) required for class change:");
+            			sb.append("<table width=270>");
+            			for(Integer _itemId : Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).keySet())
+            			{
+            				int _count = Config.CLASS_MASTER_SETTINGS.getRequireItems(newJobLevel).get(_itemId);
+            				sb.append("<tr><td><font color=\"LEVEL\">"+_count+"</font></td><td>"+ItemTable.getInstance().getTemplate(_itemId).getName()+"</td></tr>");
+            			}
+            			sb.append("</table>");
             		}
-            		sb.append("</table>");
             	}
-            	
+
             	if (Config.CLASS_MASTER_STRIDER_UPDATE)
             	{
             		sb.append("<table width=270>");
