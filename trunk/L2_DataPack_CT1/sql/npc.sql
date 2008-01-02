@@ -8348,6 +8348,7 @@ UPDATE `npc` SET `exp` = 440000, `sp` = 40000 WHERE `id` IN ( 29063,29064 );
 UPDATE `npc` SET `type` = 'L2RiftInvader' WHERE `id` IN ( 21671,21694,21717,21740,21763,21786 );
 UPDATE `npc` SET `absorb_type` = 'FULL_PARTY' WHERE `id` IN ( 29066,29067,29068 );
 UPDATE `npc` SET `type` = 'L2CastleTeleporter' WHERE `id` = 35137;
+UPDATE `npc` SET `class` = 'Monster.mimic', `armor` = NULL , `faction_id` = NULL WHERE `id` = 13098;
 
 INSERT INTO `npc` VALUES
 (25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11.00,27.00,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,NULL,0,1,0,'LAST_HIT'),
