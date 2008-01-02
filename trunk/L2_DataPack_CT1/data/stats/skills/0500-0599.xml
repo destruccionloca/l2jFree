@@ -1,4 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="500" levels="2" name="True Berserker">
   <set name="target" val="TARGET_NONE"/>
