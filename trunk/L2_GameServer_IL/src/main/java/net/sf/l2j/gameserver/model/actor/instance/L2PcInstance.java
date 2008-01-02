@@ -9067,6 +9067,15 @@ public final class L2PcInstance extends L2PlayableInstance
             getCubics().clear();
         }
 
+        abortCast();
+
+        if(_forceBuff != null)
+            _forceBuff.delete();
+
+        for(L2Character character : getKnownList().getKnownCharacters())
+            if(character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+                character.abortCast();
+
         for (L2Skill oldSkill : getAllSkills())
             super.removeSkill(oldSkill);
 
