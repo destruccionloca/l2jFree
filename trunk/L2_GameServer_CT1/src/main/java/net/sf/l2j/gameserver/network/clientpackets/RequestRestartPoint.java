@@ -77,7 +77,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 				Castle castle=null;
 				
 				if (activeChar.isInJail()) _requestedPointType = 27;
-				else if (activeChar.isFestivalParticipant()) _requestedPointType = 4;
+				else if (activeChar.isFestivalParticipant()) _requestedPointType = 5;
 
 				switch (_requestedPointType)
 				{
@@ -117,7 +117,11 @@ public class RequestRestartPoint extends L2GameClientPacket
 						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
 						break;
 
-					case 3: // to siege HQ
+					case 3: // to Fortress - not implemented
+						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
+						break;
+
+					case 4: // to siege HQ
 						L2SiegeClan siegeClan = null;
 						Siege siege = SiegeManager.getInstance().getSiege(activeChar);
 						
@@ -134,7 +138,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.SiegeFlag);
 						break;
 
-					case 4: // Fixed or Player is a festival participant
+					case 5: // Fixed or Player is a festival participant
 						if (!activeChar.isGM() && !activeChar.isFestivalParticipant())
 						{
 							//cheater
@@ -151,7 +155,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 						loc = new Location(-114356, -249645, -2984);
 						break;
 
-					default:
+					default: // 0
 						if (ZoneManager.getInstance().checkIfInZone(ZoneType.Jail , activeChar) ||
 							ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape , activeChar) )
 						{
