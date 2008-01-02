@@ -593,7 +593,7 @@ public class L2Clan
         _hasHideout = hasHideout;
     }
     /**
-     * @param hasHideout The hasHideout to set.
+     * @param has Fortress The hasFortress to set.
      */
     public void setHasFortress(int hasFortress)
     {

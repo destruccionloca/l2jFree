@@ -67,6 +67,7 @@ public class L2MapRegion
 		_restarts.put(Race.dwarf , restartId);
 		_restarts.put(Race.elf , restartId);
 		_restarts.put(Race.orc, restartId);
+		_restarts.put(Race.kamael, restartId);
 		
 		// set to AreaMapRegion
 		_specialRegion = false;
