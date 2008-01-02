@@ -74,12 +74,12 @@ public class PetInfo extends L2GameServerPacket
 		writeD(_summon.getSummonType()); 
 		writeD(_summon.getObjectId());
         writeD(_summon.getTemplate().getIdTemplate()+1000000);
-		writeD(0);
+		writeD(0x00);
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
 		writeD(_heading);
-		writeD(0);
+		writeD(0x00);
 		writeD(_mAtkSpd);	
 		writeD(_pAtkSpd);
 		writeD(_runSpd);	
@@ -95,17 +95,17 @@ public class PetInfo extends L2GameServerPacket
 		writeF(1/*_cha.getAttackSpeedMultiplier()*/);
 		writeF(_summon.getTemplate().getCollisionRadius());
 		writeF(_summon.getTemplate().getCollisionHeight());
-		writeD(0); // right hand weapon
-		writeD(0);
-		writeD(0); // left hand weapon
-		writeC(1);	// name above char 1=true ... ??
+		writeD(0x00); // right hand weapon
+		writeD(0x00);
+		writeD(0x00); // left hand weapon
+		writeC(0x01);	// name above char 1=true ... ??
 		writeC(_summon.isRunning() ? 1 : 0);	// running=1  
 		writeC(_summon.isInCombat() ? 1 : 0);	// attacking 1=true
 		writeC(_summon.isAlikeDead() ? 1 : 0);  // dead 1=true
 		writeC(_isSummoned ? 2 : 0); // invisible ?? 0=false  1=true   2=summoned (only works if model has a summon animation)
 		writeS(_summon.getName());
 		writeS(_summon.getTitle());
-		writeD(1);
+		writeD(0x01);
 		writeD(_summon.getPvpFlag());	//0 = white,2= purpleblink, if its greater then karma = purple 
 		writeD(_summon.getKarma());  // hmm karma ??
 		writeD(_curFed); // how fed it is

@@ -71,39 +71,56 @@ public class MultiSellList extends L2GameServerPacket
             for(MultiSellEntry ent : _list.getEntries())
             {
             	writeD(ent.getEntryId());
-            	writeD(0x00); // C6
-            	writeD(0x00); // C6
-            	writeC(1);
-            	writeH(ent.getProducts().size());
-            	writeH(ent.getIngredients().size());
+                writeC(ent.stackable());
+                writeH(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeD(0x00);
+                writeH(ent.getProducts().size());
+                writeH(ent.getIngredients().size());
     
             	for(MultiSellIngredient i: ent.getProducts())
             	{
-	            	//writeH(i.getItemId());
             		writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId());
-	            	writeD(0);
+	            	writeD(0x00);
 	            	writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
 	            	writeD(i.getItemCount());
-	        	    writeH(i.getEnchantmentLevel()); //enchtant lvl
-	            	writeD(0x00); // C6
-	            	writeD(0x00); // C6
+	        	    writeH(i.getEnchantmentLevel()); //enchant lvl
+                    writeD(i.getAugmentationId());
+                    writeD(i.getManaLeft());
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
             	}
 
                 for(MultiSellIngredient i : ent.getIngredients())
                 {
-                    int items = i.getItemId();
-                    int typeE = 65535;
-                    if (items != 65336)
-					{
-						items = ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId();
-                        typeE = ItemTable.getInstance().getTemplate(i.getItemId()).getType2();
-					}
-                    writeH(items); //ID
-                    writeH(typeE);
+                    writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId()); //ID
+                    writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
                     writeD(i.getItemCount()); //Count
                     writeH(i.getEnchantmentLevel()); //Enchant Level
-                    writeD(0x00); // C6
-                    writeD(0x00); // C6
+                    writeD(i.getAugmentationId());
+                    writeD(i.getManaLeft());
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
+                    writeD(0x00);
                 }
             }
         }

@@ -131,6 +131,9 @@ public class L2Multisell
             	if (!item.isWear() && ((item.getItem() instanceof L2Armor) || (item.getItem() instanceof L2Weapon)))
             	{
             		enchantLevel = (listTemplate.getMaintainEnchantment()? item.getEnchantLevel() : 0);
+                    int augmentId = item.getAugmentation().getAugmentationId();
+                    int mana = item.getMana();
+            		
             		// loop through the entries to see which ones we wish to include
 	                for (MultiSellEntry ent : listTemplate.getEntries())
 	                {
@@ -149,7 +152,7 @@ public class L2Multisell
 		                // manipulate the ingredients of the template entry for this particular instance shown
 		                // i.e: Assign enchant levels and/or apply taxes as needed.
 		                if (doInclude)
-		                	list.addEntry(prepareEntry(ent, listTemplate.getApplyTaxes(), listTemplate.getMaintainEnchantment(), enchantLevel, taxRate));
+		                	list.addEntry(prepareEntry(ent, listTemplate.getApplyTaxes(), listTemplate.getMaintainEnchantment(), enchantLevel, augmentId, mana, taxRate));
 	                }  
             	}
             } // end for each inventory item.
@@ -158,7 +161,7 @@ public class L2Multisell
         {
         	// if no taxes are applied, no modifications are needed
     		for (MultiSellEntry ent : listTemplate.getEntries())
-    			list.addEntry(prepareEntry(ent, listTemplate.getApplyTaxes(), false, 0, taxRate));        			
+    			list.addEntry(prepareEntry(ent, listTemplate.getApplyTaxes(), false, 0, 0, -1, taxRate));        			
         }
         
         return list;
@@ -170,7 +173,7 @@ public class L2Multisell
 	//    amount of adena is appended to the entry
 	// c) If the entry already has adena as an entry, the taxIngredient is used in order to increase
 	//	  the count for the existing adena ingredient 
-	private MultiSellEntry prepareEntry(MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantLevel, double taxRate)
+	private MultiSellEntry prepareEntry(MultiSellEntry templateEntry, boolean applyTaxes, boolean maintainEnchantment, int enchantLevel, int augmentId, int mana, double taxRate)
 	{
 		MultiSellEntry newEntry = L2Multisell.getInstance().new MultiSellEntry();
 		newEntry.setEntryId(templateEntry.getEntryId()*100000+enchantLevel);
@@ -198,7 +201,11 @@ public class L2Multisell
         	{
             	L2Item tempItem = ItemTable.getInstance().createDummyItem(ing.getItemId()).getItem();
             	if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
+            	{
             		newIngredient.setEnchantmentLevel(enchantLevel);
+                    newIngredient.setAugmentationId(augmentId);
+                    newIngredient.setManaLeft(mana);            		
+            	}
         	}
         	
         	// finally, add this ingredient to the entry
@@ -222,7 +229,11 @@ public class L2Multisell
             	// (note, if maintain enchantment is "false" this modification will result to a +0)
             	L2Item tempItem = ItemTable.getInstance().createDummyItem(ing.getItemId()).getItem();
             	if ((tempItem instanceof L2Armor) || (tempItem instanceof L2Weapon))
+            	{
             		newIngredient.setEnchantmentLevel(enchantLevel);
+                    newIngredient.setAugmentationId(augmentId);
+                    newIngredient.setManaLeft(mana);            		
+            	}
             }
         	newEntry.addProduct(newIngredient);
         }
@@ -305,11 +316,21 @@ public class L2Multisell
         {
             return _ingredients;
         }
+        
+        public int stackable()
+        {
+            for(MultiSellIngredient p : _products)
+            {
+                if(!ItemTable.getInstance().createDummyItem(p.getItemId()).isStackable())
+                    return 0;
+            }
+            return 1;
+        }        
     }
 
     public class MultiSellIngredient
     {
-        private int _itemId, _itemCount, _enchantmentLevel;
+        private int _itemId, _itemCount, _enchantmentLevel, _augmentationId, _manaLeft;
         private boolean _isTaxIngredient, _mantainIngredient;
 
         public MultiSellIngredient(int itemId, int itemCount, boolean isTaxIngredient, boolean mantainIngredient)
@@ -401,6 +422,26 @@ public class L2Multisell
         {
         	return _mantainIngredient;
         }
+        
+        public int getAugmentationId()
+        {
+            return _augmentationId;
+        }
+
+        public int getManaLeft()
+        {
+            return _manaLeft;
+        }
+
+        public void setAugmentationId(int id)
+        {
+        	_augmentationId = id;
+        }
+
+        public void setManaLeft(int mana)
+        {
+            _manaLeft = mana;
+        }        
     }
 
     public class MultiSellListContainer
