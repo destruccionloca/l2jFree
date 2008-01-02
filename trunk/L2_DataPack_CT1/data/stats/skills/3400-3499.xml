@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <list>
-<skill id="600" levels="1" name="Residence Guidance">
+<skill id="3400" levels="1" name="Traits Strengthen Earring">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -8,7 +8,7 @@
   <for>
   </for>
 </skill>
-<skill id="601" levels="1" name="Residence Agility">
+<skill id="3401" levels="1" name="Dynasty Resistance Necklace">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -16,7 +16,7 @@
   <for>
   </for>
 </skill>
-<skill id="602" levels="1" name="Residence Shield Block">
+<skill id="3402" levels="1" name="Dynasty Resistance Ring">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -24,7 +24,7 @@
   <for>
   </for>
 </skill>
-<skill id="603" levels="1" name="Residence Shield Defense">
+<skill id="3403" levels="1" name="Dynasty Resistance Earring">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -32,7 +32,7 @@
   <for>
   </for>
 </skill>
-<skill id="604" levels="1" name="Residence Resist Typhoon">
+<skill id="3404" levels="1" name="Mystery Effect">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -40,7 +40,7 @@
   <for>
   </for>
 </skill>
-<skill id="605" levels="1" name="Residence Resist Lava">
+<skill id="3405" levels="1" name="Large Firecracker Effect">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -48,7 +48,7 @@
   <for>
   </for>
 </skill>
-<skill id="606" levels="1" name="Residence Fortitude">
+<skill id="3406" levels="1" name="Weight Decrease Ring">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -56,7 +56,7 @@
   <for>
   </for>
 </skill>
-<skill id="607" levels="1" name="Residence Freedom">
+<skill id="3407" levels="1" name="Stealth Ring">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -64,7 +64,7 @@
   <for>
   </for>
 </skill>
-<skill id="608" levels="1" name="Residence Vigilance">
+<skill id="3408" levels="1" name="Blessed Ring of Escape">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -72,7 +72,7 @@
   <for>
   </for>
 </skill>
-<skill id="609" levels="1" name="Residence Movement">
+<skill id="3409" levels="1" name="Blessed Ring of Resurrection">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -80,7 +80,7 @@
   <for>
   </for>
 </skill>
-<skill id="610" levels="1" name="Residence Death Fortune">
+<skill id="3410" levels="1" name="Blue Talisman of Reflection">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -88,7 +88,7 @@
   <for>
   </for>
 </skill>
-<skill id="611" levels="3" name="Fire Squad">
+<skill id="3411" levels="1" name="Special Ability: Focus">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -96,7 +96,7 @@
   <for>
   </for>
 </skill>
-<skill id="612" levels="3" name="Water Squad">
+<skill id="3412" levels="1" name="Dynasty Breast Plate">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -104,7 +104,7 @@
   <for>
   </for>
 </skill>
-<skill id="613" levels="3" name="Wind Squad">
+<skill id="3413" levels="1" name="Dynasty Leather Armor">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -112,7 +112,7 @@
   <for>
   </for>
 </skill>
-<skill id="614" levels="3" name="Earth Squad">
+<skill id="3414" levels="1" name="Dynasty Leather Armor">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -120,7 +120,7 @@
   <for>
   </for>
 </skill>
-<skill id="615" levels="3" name="Holy Squad">
+<skill id="3415" levels="1" name="Dynasty Leather Armor">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -128,7 +128,7 @@
   <for>
   </for>
 </skill>
-<skill id="616" levels="3" name="Dark Squad">
+<skill id="3416" levels="1" name="Dynasty Tunic">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -136,7 +136,7 @@
   <for>
   </for>
 </skill>
-<skill id="617" levels="1" name="Transform Onyx Beast">
+<skill id="3417" levels="1" name="Equipped with Shield">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -144,7 +144,7 @@
   <for>
   </for>
 </skill>
-<skill id="618" levels="1" name="Transform Death Blader">
+<skill id="3418" levels="1" name="Active Skill: Transform Pig">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -152,7 +152,7 @@
   <for>
   </for>
 </skill>
-<skill id="619" levels="1" name="Transform Dispel">
+<skill id="3419" levels="1" name="Magic Immunity">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -160,7 +160,7 @@
   <for>
   </for>
 </skill>
-<skill id="620" levels="1" name="Quiver of Bolts - Grade B">
+<skill id="3420" levels="1" name="Dynasty Leather Armor">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -168,7 +168,7 @@
   <for>
   </for>
 </skill>
-<skill id="621" levels="1" name="Create Special Bolt">
+<skill id="3421" levels="1" name="Wolf Mount">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -176,7 +176,7 @@
   <for>
   </for>
 </skill>
-<skill id="622" levels="1" name="Ultimate Escape">
+<skill id="3422" levels="1" name="Wolf Dismount">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -184,7 +184,7 @@
   <for>
   </for>
 </skill>
-<skill id="623" levels="1" name="Find Trap">
+<skill id="3423" levels="1" name="Agathion Seal Cancel - Little Angel">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -192,7 +192,7 @@
   <for>
   </for>
 </skill>
-<skill id="624" levels="1" name="Remove Trap">
+<skill id="3424" levels="1" name="Agathion Seal Cancel - Little Devil">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -200,7 +200,7 @@
   <for>
   </for>
 </skill>
-<skill id="625" levels="1" name="Soul Gathering">
+<skill id="3425" levels="1" name="Agathion Seal Cancel - Rudolph">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -208,7 +208,7 @@
   <for>
   </for>
 </skill>
-<skill id="626" levels="4" name="Critical Sense">
+<skill id="3426" levels="1" name="Maximum Ability">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -216,31 +216,7 @@
   <for>
   </for>
 </skill>
-<skill id="627" levels="40" name="Soul Shock">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
-</skill>
-<skill id="628" levels="1" name="Warp">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
-</skill>
-<skill id="629" levels="1" name="Magic Rabbit Eye">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
-</skill>
-<skill id="630" levels="1" name="Rabbit Tornado">
+<skill id="3427" levels="1" name="Special Ability: Infinity Rapier">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>

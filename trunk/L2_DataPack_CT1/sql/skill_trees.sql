@@ -61,6 +61,8 @@ CREATE TABLE `skill_trees` (
 -- DWARVES 3rd Professions
 -- 117=Fortune Seeker   | 118=Maestro
 
+
+
 INSERT INTO skill_trees VALUES (0,3,1,'Power Strike',50,5);
 INSERT INTO skill_trees VALUES (0,3,2,'Power Strike',50,5);
 INSERT INTO skill_trees VALUES (0,3,3,'Power Strike',50,5);
@@ -96,7 +98,14 @@ INSERT INTO skill_trees VALUES (0,142,2,'Armor Mastery',550,10);
 INSERT INTO skill_trees VALUES (0,142,3,'Armor Mastery',550,10);
 INSERT INTO skill_trees VALUES (0,142,4,'Armor Mastery',2000,15);
 INSERT INTO skill_trees VALUES (0,142,5,'Armor Mastery',2000,15);
+INSERT INTO skill_trees VALUES (0,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (0,226,1,'Relax',160,5);
+INSERT INTO skill_trees VALUES (0,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (0,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (0,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (0,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (0,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (0,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (1,75,1,'Detect Insect Weakness',18000,32);
 INSERT INTO skill_trees VALUES (1,78,1,'War Cry',3700,20);
 INSERT INTO skill_trees VALUES (1,100,1,'Stun Attack',1200,20);
@@ -666,6 +675,8 @@ INSERT INTO skill_trees VALUES (2,312,20,'Vicious Stance',1630000,74);
 INSERT INTO skill_trees VALUES (2,424,1,'War Frenzy',153000,58);
 INSERT INTO skill_trees VALUES (2,424,2,'War Frenzy',440000,66);
 INSERT INTO skill_trees VALUES (2,424,3,'War Frenzy',1630000,74);
+INSERT INTO skill_trees VALUES (2,451,1,'Sonic Move',250000,62);
+INSERT INTO skill_trees VALUES (2,451,2,'Sonic Move',490000,68);
 INSERT INTO skill_trees VALUES (3,36,1,'Whirlwind',13000,40);
 INSERT INTO skill_trees VALUES (3,36,2,'Whirlwind',13000,40);
 INSERT INTO skill_trees VALUES (3,36,3,'Whirlwind',13000,40);
@@ -950,6 +961,11 @@ INSERT INTO skill_trees VALUES (3,422,3,'Polearm Accuracy',1700000,74);
 INSERT INTO skill_trees VALUES (3,424,1,'War Frenzy',173000,58);
 INSERT INTO skill_trees VALUES (3,424,2,'War Frenzy',500000,66);
 INSERT INTO skill_trees VALUES (3,424,3,'War Frenzy',1700000,74);
+INSERT INTO skill_trees VALUES (3,452,1,'Shock Stomp',154000,55);
+INSERT INTO skill_trees VALUES (3,452,2,'Shock Stomp',290000,60);
+INSERT INTO skill_trees VALUES (3,452,3,'Shock Stomp',480000,64);
+INSERT INTO skill_trees VALUES (3,452,4,'Shock Stomp',710000,68);
+INSERT INTO skill_trees VALUES (3,452,5,'Shock Stomp',1200000,72);
 INSERT INTO skill_trees VALUES (4,28,1,'Aggression',3300,24);
 INSERT INTO skill_trees VALUES (4,28,2,'Aggression',3300,24);
 INSERT INTO skill_trees VALUES (4,28,3,'Aggression',3300,24);
@@ -2431,7 +2447,14 @@ INSERT INTO skill_trees VALUES (10,146,2,'Anti Magic',240,7);
 INSERT INTO skill_trees VALUES (10,146,3,'Anti Magic',1100,14);
 INSERT INTO skill_trees VALUES (10,146,4,'Anti Magic',1100,14);
 INSERT INTO skill_trees VALUES (10,163,1,'Spellcraft',0,1);
+INSERT INTO skill_trees VALUES (10,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (10,214,1,'Mana Recovery',0,1);
+INSERT INTO skill_trees VALUES (10,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (10,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (10,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (10,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (10,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (10,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (10,244,1,'Armor Mastery',470,7);
 INSERT INTO skill_trees VALUES (10,244,2,'Armor Mastery',1100,14);
 INSERT INTO skill_trees VALUES (10,244,3,'Armor Mastery',1100,14);
@@ -2950,6 +2973,11 @@ INSERT INTO skill_trees VALUES (12,1297,3,'Clear Mind',110000,56);
 INSERT INTO skill_trees VALUES (12,1297,4,'Clear Mind',240000,62);
 INSERT INTO skill_trees VALUES (12,1297,5,'Clear Mind',410000,68);
 INSERT INTO skill_trees VALUES (12,1297,6,'Clear Mind',1210000,74);
+INSERT INTO skill_trees VALUES (12,1417,1,'Aura Flash',129000,58);
+INSERT INTO skill_trees VALUES (12,1417,2,'Aura Flash',220000,62);
+INSERT INTO skill_trees VALUES (12,1417,3,'Aura Flash',370000,66);
+INSERT INTO skill_trees VALUES (12,1417,4,'Aura Flash',520000,70);
+INSERT INTO skill_trees VALUES (12,1417,5,'Aura Flash',1150000,74);
 INSERT INTO skill_trees VALUES (13,146,13,'Anti Magic',11000,40);
 INSERT INTO skill_trees VALUES (13,146,14,'Anti Magic',11000,40);
 INSERT INTO skill_trees VALUES (13,146,15,'Anti Magic',11000,40);
@@ -3729,7 +3757,7 @@ INSERT INTO skill_trees VALUES (14,1386,7,'Arcane Disruption',550000,68);
 INSERT INTO skill_trees VALUES (14,1386,8,'Arcane Disruption',550000,70);
 INSERT INTO skill_trees VALUES (14,1386,9,'Arcane Disruption',1070000,72);
 INSERT INTO skill_trees VALUES (14,1386,10,'Arcane Disruption',1350000,74);
-INSERT INTO skill_trees VALUES (14,1403,1,'Summon Friend',105000,56);
+INSERT INTO skill_trees VALUES (14,1403,1,'Summon Friend',105000,56); -- client only knows 1 lvl
 INSERT INTO skill_trees VALUES (15,146,5,'Anti Magic',1600,20);
 INSERT INTO skill_trees VALUES (15,146,6,'Anti Magic',1600,20);
 INSERT INTO skill_trees VALUES (15,146,7,'Anti Magic',3400,25);
@@ -4333,6 +4361,7 @@ INSERT INTO skill_trees VALUES (16,1402,2,'Major Group Heal',170000,62);
 INSERT INTO skill_trees VALUES (16,1402,3,'Major Group Heal',280000,66);
 INSERT INTO skill_trees VALUES (16,1402,4,'Major Group Heal',390000,70);
 INSERT INTO skill_trees VALUES (16,1402,5,'Major Group Heal',880000,74);
+INSERT INTO skill_trees VALUES (16,1418,1,'Celestial Shield',190000,64);
 INSERT INTO skill_trees VALUES (17,146,13,'Anti Magic',11000,40);
 INSERT INTO skill_trees VALUES (17,146,14,'Anti Magic',11000,40);
 INSERT INTO skill_trees VALUES (17,146,15,'Anti Magic',11000,40);
@@ -4687,6 +4716,13 @@ INSERT INTO skill_trees VALUES (18,142,2,'Armor Mastery',460,10);
 INSERT INTO skill_trees VALUES (18,142,3,'Armor Mastery',460,10);
 INSERT INTO skill_trees VALUES (18,142,4,'Armor Mastery',1700,15);
 INSERT INTO skill_trees VALUES (18,142,5,'Armor Mastery',1700,15);
+INSERT INTO skill_trees VALUES (18,194,1,'Lucky',0,1);
+INSERT INTO skill_trees VALUES (18,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (18,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (18,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (18,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (18,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (18,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (19,15,1,'Charm',1400,20);
 INSERT INTO skill_trees VALUES (19,15,2,'Charm',1400,20);
 INSERT INTO skill_trees VALUES (19,15,3,'Charm',1400,20);
@@ -5140,6 +5176,10 @@ INSERT INTO skill_trees VALUES (20,402,7,'Arrest',560000,68);
 INSERT INTO skill_trees VALUES (20,402,8,'Arrest',620000,70);
 INSERT INTO skill_trees VALUES (20,402,9,'Arrest',800000,72);
 INSERT INTO skill_trees VALUES (20,402,10,'Arrest',1860000,74);
+INSERT INTO skill_trees VALUES (20,449,1,'Summon Attractive Cubic',250000,62);
+INSERT INTO skill_trees VALUES (20,449,2,'Summon Attractive Cubic',470000,66);
+INSERT INTO skill_trees VALUES (20,449,3,'Summon Attractive Cubic',580000,70);
+INSERT INTO skill_trees VALUES (20,449,4,'Summon Attractive Cubic',1730000,74);
 INSERT INTO skill_trees VALUES (21,15,16,'Charm',16000,40);
 INSERT INTO skill_trees VALUES (21,15,17,'Charm',16000,40);
 INSERT INTO skill_trees VALUES (21,15,18,'Charm',16000,40);
@@ -6142,7 +6182,14 @@ INSERT INTO skill_trees VALUES (25,146,2,'Anti Magic',260,7);
 INSERT INTO skill_trees VALUES (25,146,3,'Anti Magic',1100,14);
 INSERT INTO skill_trees VALUES (25,146,4,'Anti Magic',1100,14);
 INSERT INTO skill_trees VALUES (25,163,1,'Spellcraft',0,1);
+INSERT INTO skill_trees VALUES (25,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (25,214,1,'Mana Recovery',0,1);
+INSERT INTO skill_trees VALUES (25,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (25,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (25,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (25,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (25,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (25,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (25,244,1,'Armor Mastery',520,7);
 INSERT INTO skill_trees VALUES (25,244,2,'Armor Mastery',1100,14);
 INSERT INTO skill_trees VALUES (25,244,3,'Armor Mastery',1100,14);
@@ -6707,6 +6754,11 @@ INSERT INTO skill_trees VALUES (27,1297,3,'Clear Mind',91000,56);
 INSERT INTO skill_trees VALUES (27,1297,4,'Clear Mind',200000,62);
 INSERT INTO skill_trees VALUES (27,1297,5,'Clear Mind',370000,68);
 INSERT INTO skill_trees VALUES (27,1297,6,'Clear Mind',1050000,74);
+INSERT INTO skill_trees VALUES (27,1417,1,'Aura Flash',110000,58);
+INSERT INTO skill_trees VALUES (27,1417,2,'Aura Flash',190000,62);
+INSERT INTO skill_trees VALUES (27,1417,3,'Aura Flash',320000,66);
+INSERT INTO skill_trees VALUES (27,1417,4,'Aura Flash',430000,70);
+INSERT INTO skill_trees VALUES (27,1417,5,'Aura Flash',1000000,74);
 INSERT INTO skill_trees VALUES (28,67,1,'Summon Life Cubic',30000,40);
 INSERT INTO skill_trees VALUES (28,67,2,'Summon Life Cubic',63000,48);
 INSERT INTO skill_trees VALUES (28,67,3,'Summon Life Cubic',100000,52);
@@ -7047,7 +7099,7 @@ INSERT INTO skill_trees VALUES (28,1384,2,'Mass Surrender to Water',250000,62);
 INSERT INTO skill_trees VALUES (28,1384,3,'Mass Surrender to Water',440000,66);
 INSERT INTO skill_trees VALUES (28,1384,4,'Mass Surrender to Water',550000,70);
 INSERT INTO skill_trees VALUES (28,1384,5,'Mass Surrender to Water',1350000,74);
-INSERT INTO skill_trees VALUES (28,1403,1,'Summon Friend',105000,56);
+INSERT INTO skill_trees VALUES (28,1403,1,'Summon Friend',105000,56); -- client only knows 1 lvl
 INSERT INTO skill_trees VALUES (29,146,5,'Anti Magic',1600,20);
 INSERT INTO skill_trees VALUES (29,146,6,'Anti Magic',1600,20);
 INSERT INTO skill_trees VALUES (29,146,7,'Anti Magic',3200,25);
@@ -7621,6 +7673,13 @@ INSERT INTO skill_trees VALUES (31,142,2,'Armor Mastery',460,10);
 INSERT INTO skill_trees VALUES (31,142,3,'Armor Mastery',460,10);
 INSERT INTO skill_trees VALUES (31,142,4,'Armor Mastery',1400,15);
 INSERT INTO skill_trees VALUES (31,142,5,'Armor Mastery',1400,15);
+INSERT INTO skill_trees VALUES (31,194,1,'Lucky',0,1);
+INSERT INTO skill_trees VALUES (31,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (31,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (31,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (31,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (31,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (31,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (31,294,1,'Shadow Sense',2900,15);
 INSERT INTO skill_trees VALUES (32,2,1,'Confusion',8800,24);
 INSERT INTO skill_trees VALUES (32,2,2,'Confusion',13000,28);
@@ -9286,7 +9345,14 @@ INSERT INTO skill_trees VALUES (38,146,2,'Anti Magic',240,7);
 INSERT INTO skill_trees VALUES (38,146,3,'Anti Magic',1100,14);
 INSERT INTO skill_trees VALUES (38,146,4,'Anti Magic',1100,14);
 INSERT INTO skill_trees VALUES (38,163,1,'Spellcraft',0,1);
+INSERT INTO skill_trees VALUES (38,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (38,214,1,'Mana Recovery',0,1);
+INSERT INTO skill_trees VALUES (38,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (38,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (38,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (38,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (38,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (38,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (38,244,1,'Armor Mastery',470,7);
 INSERT INTO skill_trees VALUES (38,244,2,'Armor Mastery',1100,14);
 INSERT INTO skill_trees VALUES (38,244,3,'Armor Mastery',1100,14);
@@ -9852,6 +9918,11 @@ INSERT INTO skill_trees VALUES (40,1297,3,'Clear Mind',91000,56);
 INSERT INTO skill_trees VALUES (40,1297,4,'Clear Mind',200000,62);
 INSERT INTO skill_trees VALUES (40,1297,5,'Clear Mind',370000,68);
 INSERT INTO skill_trees VALUES (40,1297,6,'Clear Mind',1050000,74);
+INSERT INTO skill_trees VALUES (40,1417,1,'Aura Flash',105000,58);
+INSERT INTO skill_trees VALUES (40,1417,2,'Aura Flash',190000,62);
+INSERT INTO skill_trees VALUES (40,1417,3,'Aura Flash',320000,66);
+INSERT INTO skill_trees VALUES (40,1417,4,'Aura Flash',470000,70);
+INSERT INTO skill_trees VALUES (40,1417,5,'Aura Flash',1000000,74);
 INSERT INTO skill_trees VALUES (41,33,1,'Summon Phantom Cubic',30000,40);
 INSERT INTO skill_trees VALUES (41,33,2,'Summon Phantom Cubic',39000,44);
 INSERT INTO skill_trees VALUES (41,33,3,'Summon Phantom Cubic',100000,52);
@@ -10192,7 +10263,7 @@ INSERT INTO skill_trees VALUES (41,1385,2,'Mass Surrender to Wind',250000,62);
 INSERT INTO skill_trees VALUES (41,1385,3,'Mass Surrender to Wind',440000,66);
 INSERT INTO skill_trees VALUES (41,1385,4,'Mass Surrender to Wind',550000,70);
 INSERT INTO skill_trees VALUES (41,1385,5,'Mass Surrender to Wind',1350000,74);
-INSERT INTO skill_trees VALUES (41,1403,1,'Summon Friend',105000,56);
+INSERT INTO skill_trees VALUES (41,1403,1,'Summon Friend',105000,56); -- client only knows 1 lvl
 INSERT INTO skill_trees VALUES (42,146,5,'Anti Magic',1600,20);
 INSERT INTO skill_trees VALUES (42,146,6,'Anti Magic',1600,20);
 INSERT INTO skill_trees VALUES (42,146,7,'Anti Magic',3200,25);
@@ -10669,7 +10740,14 @@ INSERT INTO skill_trees VALUES (44,142,2,'Armor Mastery',690,10);
 INSERT INTO skill_trees VALUES (44,142,3,'Armor Mastery',690,10);
 INSERT INTO skill_trees VALUES (44,142,4,'Armor Mastery',2000,15);
 INSERT INTO skill_trees VALUES (44,142,5,'Armor Mastery',2000,15);
+INSERT INTO skill_trees VALUES (44,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (44,226,1,'Relax',190,5);
+INSERT INTO skill_trees VALUES (44,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (44,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (44,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (44,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (44,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (44,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (44,295,1,'Iron Body',4000,15);
 INSERT INTO skill_trees VALUES (45,34,1,'Bandage',3400,20);
 INSERT INTO skill_trees VALUES (45,94,1,'Rage',5300,24);
@@ -11548,7 +11626,14 @@ INSERT INTO skill_trees VALUES (49,146,2,'Anti Magic',260,7);
 INSERT INTO skill_trees VALUES (49,146,3,'Anti Magic',880,14);
 INSERT INTO skill_trees VALUES (49,146,4,'Anti Magic',880,14);
 INSERT INTO skill_trees VALUES (49,163,1,'Spellcraft',0,1);
+INSERT INTO skill_trees VALUES (49,194,1,'Lucky',0,1);
 INSERT INTO skill_trees VALUES (49,214,1,'Mana Recovery',0,1);
+INSERT INTO skill_trees VALUES (49,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (49,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (49,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (49,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (49,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (49,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (49,250,1,'Weapon Mastery',520,7);
 INSERT INTO skill_trees VALUES (49,250,2,'Weapon Mastery',1800,14);
 INSERT INTO skill_trees VALUES (49,251,1,'Robe Mastery',260,7);
@@ -12501,6 +12586,14 @@ INSERT INTO skill_trees VALUES (53,142,3,'Armor Mastery',550,10);
 INSERT INTO skill_trees VALUES (53,142,4,'Armor Mastery',3300,15);
 INSERT INTO skill_trees VALUES (53,142,5,'Armor Mastery',3300,15);
 INSERT INTO skill_trees VALUES (53,150,1,'Weight Limit',1100,10);
+INSERT INTO skill_trees VALUES (53,172,1,'Create Item',310,5);
+INSERT INTO skill_trees VALUES (53,194,1,'Lucky',0,1);
+INSERT INTO skill_trees VALUES (53,239,1,'Expertise D',0,20);
+INSERT INTO skill_trees VALUES (53,239,2,'Expertise C',0,40);
+INSERT INTO skill_trees VALUES (53,239,3,'Expertise B',0,52);
+INSERT INTO skill_trees VALUES (53,239,4,'Expertise A',0,61);
+INSERT INTO skill_trees VALUES (53,239,5,'Expertise S',0,76);
+INSERT INTO skill_trees VALUES (53,239,6,'Expertise S80',0,80);
 INSERT INTO skill_trees VALUES (53,254,1,'Spoil',1100,10);
 INSERT INTO skill_trees VALUES (54,34,1,'Bandage',4100,20);
 INSERT INTO skill_trees VALUES (54,100,1,'Stun Attack',1400,20);
@@ -12884,6 +12977,9 @@ INSERT INTO skill_trees VALUES (56,100,15,'Stun Attack',11000,36);
 INSERT INTO skill_trees VALUES (56,148,1,'Vital Force',7000,24);
 INSERT INTO skill_trees VALUES (56,148,2,'Vital Force',25000,32);
 INSERT INTO skill_trees VALUES (56,150,2,'Weight Limit',7000,24);
+INSERT INTO skill_trees VALUES (56,172,2,'Create Item',3700,20);
+INSERT INTO skill_trees VALUES (56,172,3,'Create Item',13000,28);
+INSERT INTO skill_trees VALUES (56,172,4,'Create Item',34000,36);
 INSERT INTO skill_trees VALUES (56,205,1,'Blunt Mastery',3700,20);
 INSERT INTO skill_trees VALUES (56,205,2,'Blunt Mastery',7000,24);
 INSERT INTO skill_trees VALUES (56,205,3,'Blunt Mastery',6700,28);
@@ -13001,6 +13097,11 @@ INSERT INTO skill_trees VALUES (57,148,6,'Vital Force',242000,58);
 INSERT INTO skill_trees VALUES (57,148,7,'Vital Force',600000,64);
 INSERT INTO skill_trees VALUES (57,148,8,'Vital Force',1330000,72);
 INSERT INTO skill_trees VALUES (57,150,3,'Weight Limit',67000,46);
+INSERT INTO skill_trees VALUES (57,172,5,'Create Item',46000,43);
+INSERT INTO skill_trees VALUES (57,172,6,'Create Item',98000,49);
+INSERT INTO skill_trees VALUES (57,172,7,'Create Item',189000,55);
+INSERT INTO skill_trees VALUES (57,172,8,'Create Item',400000,62);
+INSERT INTO skill_trees VALUES (57,172,9,'Create Item',870000,70);
 INSERT INTO skill_trees VALUES (57,205,9,'Blunt Mastery',14000,40);
 INSERT INTO skill_trees VALUES (57,205,10,'Blunt Mastery',14000,40);
 INSERT INTO skill_trees VALUES (57,205,11,'Blunt Mastery',14000,40);
@@ -13225,12 +13326,14 @@ INSERT INTO skill_trees VALUES (57,422,3,'Polearm Accuracy',2170000,74);
 INSERT INTO skill_trees VALUES (57,424,1,'War Frenzy',242000,58);
 INSERT INTO skill_trees VALUES (57,424,2,'War Frenzy',640000,66);
 INSERT INTO skill_trees VALUES (57,424,3,'War Frenzy',2170000,74);
+INSERT INTO skill_trees VALUES (57,448,1,'Summon Swoop Cannon',3300000,68);
 INSERT INTO skill_trees VALUES (88,328,1,'Wisdom',10000000,76);
 INSERT INTO skill_trees VALUES (88,329,1,'Health',10000000,76);
 INSERT INTO skill_trees VALUES (88,340,1,'Riposte Stance',12250000,77);
 INSERT INTO skill_trees VALUES (88,345,1,'Sonic Rage',16000000,78);
 INSERT INTO skill_trees VALUES (88,359,1,'Eye of Hunter',12250000,77);
 INSERT INTO skill_trees VALUES (88,360,1,'Eye of Slayer',16000000,78);
+INSERT INTO skill_trees VALUES (88,442,1,'Sonic Barrier',80000000,79);
 INSERT INTO skill_trees VALUES (89,328,1,'Wisdom',10000000,76);
 INSERT INTO skill_trees VALUES (89,329,1,'Health',10000000,76);
 INSERT INTO skill_trees VALUES (89,339,1,'Parry Stance',12800000,78);
@@ -13280,6 +13383,7 @@ INSERT INTO skill_trees VALUES (96,1346,1,'Warrior Servitor',12250000,77);
 INSERT INTO skill_trees VALUES (96,1349,1,'Final Servitor',21340000,78);
 INSERT INTO skill_trees VALUES (96,1350,1,'Warrior Bane',10000000,76);
 INSERT INTO skill_trees VALUES (96,1351,1,'Mage Bane',12250000,77);
+INSERT INTO skill_trees VALUES (96,1406,1,'Summon Feline King',80000000,79);
 INSERT INTO skill_trees VALUES (97,328,1,'Wisdom',8340000,76);
 INSERT INTO skill_trees VALUES (97,329,1,'Health',8340000,76);
 INSERT INTO skill_trees VALUES (97,336,1,'Arcane Wisdom',16000000,78);
@@ -13287,6 +13391,8 @@ INSERT INTO skill_trees VALUES (97,1335,1,'Balance Life',8340000,76);
 INSERT INTO skill_trees VALUES (97,1353,1,'Divine Protection',11000000,77);
 INSERT INTO skill_trees VALUES (97,1360,1,'Mass Block Shield',11000000,77);
 INSERT INTO skill_trees VALUES (97,1361,1,'Mass Block Wind Walk',16000000,78);
+INSERT INTO skill_trees VALUES (97,1409,1,'Cleanse',16000000,78);
+INSERT INTO skill_trees VALUES (97,1426,1,'Miracle',150000000,80);
 INSERT INTO skill_trees VALUES (98,328,1,'Wisdom',8340000,76);
 INSERT INTO skill_trees VALUES (98,329,1,'Health',8340000,76);
 INSERT INTO skill_trees VALUES (98,336,1,'Arcane Wisdom',21340000,78);
@@ -13306,6 +13412,7 @@ INSERT INTO skill_trees VALUES (100,329,1,'Health',12500000,76);
 INSERT INTO skill_trees VALUES (100,349,1,'Song of Renewal',14670000,77);
 INSERT INTO skill_trees VALUES (100,363,1,'Song of Meditation',14670000,77);
 INSERT INTO skill_trees VALUES (100,364,1,'Song of Champion',32000000,78);
+INSERT INTO skill_trees VALUES (100,437,1,'Song of Silence',80000000,79);
 INSERT INTO skill_trees VALUES (101,328,1,'Wisdom',12500000,76);
 INSERT INTO skill_trees VALUES (101,334,1,'Focus Skill Mastery',16000000,78);
 INSERT INTO skill_trees VALUES (101,344,1,'Lethal Blow',12500000,76);
@@ -13327,6 +13434,7 @@ INSERT INTO skill_trees VALUES (104,338,1,'Arcane Agility',21340000,78);
 INSERT INTO skill_trees VALUES (104,1347,1,'Wizard Servitor',14670000,77);
 INSERT INTO skill_trees VALUES (104,1349,1,'Final Servitor',21340000,78);
 INSERT INTO skill_trees VALUES (104,1350,1,'Warrior Bane',12500000,76);
+INSERT INTO skill_trees VALUES (104,1407,1,'Summon Magnus the Unicorn',80000000,79);
 INSERT INTO skill_trees VALUES (105,328,1,'Wisdom',8340000,76);
 INSERT INTO skill_trees VALUES (105,329,1,'Health',8340000,76);
 INSERT INTO skill_trees VALUES (105,336,1,'Arcane Wisdom',21340000,78);
@@ -13334,6 +13442,7 @@ INSERT INTO skill_trees VALUES (105,1353,1,'Divine Protection',11000000,77);
 INSERT INTO skill_trees VALUES (105,1354,1,'Arcane Protection',8340000,76);
 INSERT INTO skill_trees VALUES (105,1355,1,'Prophecy of Water',21340000,78);
 INSERT INTO skill_trees VALUES (105,1359,1,'Block Wind Walk',11000000,77);
+INSERT INTO skill_trees VALUES (105,1428,1,'Mass Recharge',150000000,80);
 INSERT INTO skill_trees VALUES (106,328,1,'Wisdom',10000000,76);
 INSERT INTO skill_trees VALUES (106,329,1,'Health',10000000,76);
 INSERT INTO skill_trees VALUES (106,335,1,'Fortitude',10000000,76);
@@ -13369,12 +13478,14 @@ INSERT INTO skill_trees VALUES (111,338,1,'Arcane Agility',21340000,78);
 INSERT INTO skill_trees VALUES (111,1348,1,'Assassin Servitor',12250000,77);
 INSERT INTO skill_trees VALUES (111,1349,1,'Final Servitor',21340000,78);
 INSERT INTO skill_trees VALUES (111,1351,1,'Mage Bane',12250000,77);
+INSERT INTO skill_trees VALUES (111,1408,1,'Summon Spectral Lord',80000000,79);
 INSERT INTO skill_trees VALUES (112,328,1,'Wisdom',10000000,76);
 INSERT INTO skill_trees VALUES (112,329,1,'Health',10000000,76);
 INSERT INTO skill_trees VALUES (112,336,1,'Arcane Wisdom',21340000,78);
 INSERT INTO skill_trees VALUES (112,1354,1,'Arcane Protection',10000000,76);
 INSERT INTO skill_trees VALUES (112,1357,1,'Prophecy of Wind',21340000,78);
 INSERT INTO skill_trees VALUES (112,1358,1,'Block Shield',13000000,77);
+INSERT INTO skill_trees VALUES (112,1428,1,'Mass Recharge',150000000,80);
 INSERT INTO skill_trees VALUES (113,328,1,'Wisdom',10000000,76);
 INSERT INTO skill_trees VALUES (113,329,1,'Health',10000000,76);
 INSERT INTO skill_trees VALUES (113,335,1,'Fortitude',10000000,76);
@@ -13386,6 +13497,7 @@ INSERT INTO skill_trees VALUES (114,329,1,'Health',10000000,76);
 INSERT INTO skill_trees VALUES (114,335,1,'Fortitude',10000000,76);
 INSERT INTO skill_trees VALUES (114,340,1,'Riposte Stance',13000000,77);
 INSERT INTO skill_trees VALUES (114,346,1,'Raging Force',21340000,78);
+INSERT INTO skill_trees VALUES (114,443,1,'Force Barrier',80000000,79);
 INSERT INTO skill_trees VALUES (115,328,1,'Wisdom',8340000,76);
 INSERT INTO skill_trees VALUES (115,329,1,'Health',8340000,76);
 INSERT INTO skill_trees VALUES (115,337,1,'Arcane Power',16000000,78);
@@ -13393,11 +13505,14 @@ INSERT INTO skill_trees VALUES (115,1364,1,'The Eye of Pa\'agrio',11000000,77);
 INSERT INTO skill_trees VALUES (115,1365,1,'The Soul of Pa\'agrio',11000000,77);
 INSERT INTO skill_trees VALUES (115,1366,1,'Seal of Despair',16000000,78);
 INSERT INTO skill_trees VALUES (115,1367,1,'Seal of Disease',8340000,76);
+INSERT INTO skill_trees VALUES (115,1414,1,'Victories of Pa\'agrio',80000000,79);
+INSERT INTO skill_trees VALUES (115,1416,1,'Pa\'agrio\'s Fist',80000000,79);
 INSERT INTO skill_trees VALUES (116,328,1,'Wisdom',12500000,76);
 INSERT INTO skill_trees VALUES (116,329,1,'Health',12500000,76);
 INSERT INTO skill_trees VALUES (116,336,1,'Arcane Wisdom',16000000,78);
 INSERT INTO skill_trees VALUES (116,1362,1,'Chant of Spirit',14670000,77);
 INSERT INTO skill_trees VALUES (116,1363,1,'Chant of Victory',16000000,78);
+INSERT INTO skill_trees VALUES (116,1413,1,'Magnus\' Chant',80000000,79);
 INSERT INTO skill_trees VALUES (117,328,1,'Wisdom',8340000,76);
 INSERT INTO skill_trees VALUES (117,329,1,'Health',8340000,76);
 INSERT INTO skill_trees VALUES (117,339,1,'Parry Stance',16000000,78);
@@ -13411,101 +13526,6 @@ INSERT INTO skill_trees VALUES (118,339,1,'Parry Stance',16000000,78);
 INSERT INTO skill_trees VALUES (118,340,1,'Riposte Stance',12250000,77);
 INSERT INTO skill_trees VALUES (118,347,1,'Earthquake',16000000,78);
 INSERT INTO skill_trees VALUES (118,362,1,'Armor Crush',12250000,77);
-
--- Create Item 172 (Done by DJ MELERIX) (Fixed by Hexa)
-
-INSERT INTO skill_trees VALUES (53,172,1,'Create Item',310,5);
-INSERT INTO skill_trees VALUES (56,172,2,'Create Item',3700,20);
-INSERT INTO skill_trees VALUES (56,172,3,'Create Item',13000,28);
-INSERT INTO skill_trees VALUES (56,172,4,'Create Item',34000,36);
-INSERT INTO skill_trees VALUES (57,172,5,'Create Item',46000,43);
-INSERT INTO skill_trees VALUES (57,172,6,'Create Item',98000,49);
-INSERT INTO skill_trees VALUES (57,172,7,'Create Item',189000,55);
-INSERT INTO skill_trees VALUES (57,172,8,'Create Item',400000,62);
-INSERT INTO skill_trees VALUES (57,172,9,'Create Item',870000,70);
-
--- Lucky 194 (Done by DJ MELERIX)
-
-INSERT INTO skill_trees VALUES (0,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (10,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (18,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (25,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (31,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (38,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (44,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (49,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (53,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (123,194,1,'Lucky',0,1);
-INSERT INTO skill_trees VALUES (124,194,1,'Lucky',0,1);
-
--- Expertise D, C, B, A, S (Done by DJ MELERIX)
-
-INSERT INTO skill_trees VALUES (0,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (0,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (0,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (0,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (0,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (0,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (10,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (10,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (10,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (10,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (10,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (10,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (18,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (18,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (18,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (18,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (18,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (18,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (25,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (25,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (25,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (25,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (25,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (25,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (31,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (31,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (31,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (31,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (31,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (31,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (38,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (38,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (38,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (38,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (38,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (38,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (44,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (44,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (44,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (44,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (44,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (44,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (49,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (49,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (49,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (49,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (49,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (49,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (53,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (53,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (53,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (53,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (53,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (53,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (123,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (123,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (123,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (123,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (123,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (123,239,6,'Expertise S80',0,80);
-INSERT INTO skill_trees VALUES (124,239,1,'Expertise D',0,20);
-INSERT INTO skill_trees VALUES (124,239,2,'Expertise C',0,40);
-INSERT INTO skill_trees VALUES (124,239,3,'Expertise B',0,52);
-INSERT INTO skill_trees VALUES (124,239,4,'Expertise A',0,61);
-INSERT INTO skill_trees VALUES (124,239,5,'Expertise S',0,76);
-INSERT INTO skill_trees VALUES (124,239,6,'Expertise S80',0,80);
 
 -- Skill Mastery (330 STR - 331 INT) (Done by DJ MELERIX)
 
@@ -13646,1975 +13666,1243 @@ INSERT INTO skill_trees VALUES (49,1322,1,'Common Craft',0,1);
 INSERT INTO skill_trees VALUES (53,1322,1,'Common Craft',0,1);
 
 
--- Interlude skills (Done by DJ MELERIX) 
-
--- Banish Seraph 450
-INSERT INTO skill_trees VALUES (6,450,1,'Banish Seraph',138000,55); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,2,'Banish Seraph',141000,58); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,3,'Banish Seraph',208000,60); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,4,'Banish Seraph',250000,62); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,5,'Banish Seraph',300000,64); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,6,'Banish Seraph',440000,66); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,7,'Banish Seraph',520000,68); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,8,'Banish Seraph',550000,70); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,9,'Banish Seraph',750000,72); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (6,450,10,'Banish Seraph',1630000,74); -- Dark Avenger -- 
-INSERT INTO skill_trees VALUES (33,450,1,'Banish Seraph',110000,55); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,2,'Banish Seraph',120000,58); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,3,'Banish Seraph',153000,60); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,4,'Banish Seraph',200000,62); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,5,'Banish Seraph',240000,64); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,6,'Banish Seraph',350000,66); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,7,'Banish Seraph',410000,68); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,8,'Banish Seraph',470000,70); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,9,'Banish Seraph',600000,72); -- Shillien Knight -- 
-INSERT INTO skill_trees VALUES (33,450,10,'Banish Seraph',1300000,74); -- Shillien Knight -- 
-
--- Shock Stomp 452
-INSERT INTO skill_trees VALUES (3,452,1,'Shock Stomp',154000,55); -- Warlord -- 
-INSERT INTO skill_trees VALUES (3,452,2,'Shock Stomp',290000,60); -- Warlord -- 
-INSERT INTO skill_trees VALUES (3,452,3,'Shock Stomp',480000,64); -- Warlord -- 
-INSERT INTO skill_trees VALUES (3,452,4,'Shock Stomp',710000,68); -- Warlord -- 
-INSERT INTO skill_trees VALUES (3,452,5,'Shock Stomp',1200000,72); -- Warlord -- 
-
--- Invocation 1430
-INSERT INTO skill_trees VALUES (16,1430,1,'Invocation',81000,56); -- Bishop -- 
-INSERT INTO skill_trees VALUES (16,1430,2,'Invocation',120000,60); -- Bishop -- 
-INSERT INTO skill_trees VALUES (16,1430,3,'Invocation',190000,64); -- Bishop -- 
-INSERT INTO skill_trees VALUES (16,1430,4,'Invocation',320000,68); -- Bishop -- 
-INSERT INTO skill_trees VALUES (16,1430,5,'Invocation',650000,72); -- Bishop -- 
-INSERT INTO skill_trees VALUES (30,1430,1,'Invocation',88000,56); -- Elven Elder -- 
-INSERT INTO skill_trees VALUES (30,1430,2,'Invocation',150000,60); -- Elven Elder -- 
-INSERT INTO skill_trees VALUES (30,1430,3,'Invocation',240000,64); -- Elven Elder -- 
-INSERT INTO skill_trees VALUES (30,1430,4,'Invocation',410000,68); -- Elven Elder -- 
-INSERT INTO skill_trees VALUES (30,1430,5,'Invocation',750000,72); -- Elven Elder -- 
-INSERT INTO skill_trees VALUES (43,1430,1,'Invocation',118000,56); -- Shillien Elder -- 
-INSERT INTO skill_trees VALUES (43,1430,2,'Invocation',200000,60); -- Shillien Elder -- 
-INSERT INTO skill_trees VALUES (43,1430,3,'Invocation',370000,64); -- Shillien Elder -- 
-INSERT INTO skill_trees VALUES (43,1430,4,'Invocation',550000,68); -- Shillien Elder -- 
-INSERT INTO skill_trees VALUES (43,1430,5,'Invocation',1070000,72); -- Shillien Elder -- 
-
--- Aura Flash 1417
-INSERT INTO skill_trees VALUES (12,1417,1,'Aura Flash',129000,58); -- Sorcerer/ss -- 
-INSERT INTO skill_trees VALUES (12,1417,2,'Aura Flash',220000,62); -- Sorcerer/ss -- 
-INSERT INTO skill_trees VALUES (12,1417,3,'Aura Flash',370000,66); -- Sorcerer/ss -- 
-INSERT INTO skill_trees VALUES (12,1417,4,'Aura Flash',520000,70); -- Sorcerer/ss -- 
-INSERT INTO skill_trees VALUES (12,1417,5,'Aura Flash',1150000,74); -- Sorcerer/ss -- 
-INSERT INTO skill_trees VALUES (27,1417,1,'Aura Flash',110000,58); -- Spellsinger -- 
-INSERT INTO skill_trees VALUES (27,1417,2,'Aura Flash',190000,62); -- Spellsinger -- 
-INSERT INTO skill_trees VALUES (27,1417,3,'Aura Flash',320000,66); -- Spellsinger -- 
-INSERT INTO skill_trees VALUES (27,1417,4,'Aura Flash',430000,70); -- Spellsinger -- 
-INSERT INTO skill_trees VALUES (27,1417,5,'Aura Flash',1000000,74); -- Spellsinger -- 
-INSERT INTO skill_trees VALUES (40,1417,1,'Aura Flash',105000,58); -- Spellhowler -- 
-INSERT INTO skill_trees VALUES (40,1417,2,'Aura Flash',190000,62); -- Spellhowler -- 
-INSERT INTO skill_trees VALUES (40,1417,3,'Aura Flash',320000,66); -- Spellhowler -- 
-INSERT INTO skill_trees VALUES (40,1417,4,'Aura Flash',470000,70); -- Spellhowler -- 
-INSERT INTO skill_trees VALUES (40,1417,5,'Aura Flash',1000000,74); -- Spellhowler -- 
-
--- Escape Shackle 453
-INSERT INTO skill_trees VALUES (8,453,1,'Escape Shackle',242000,60); -- Treasure Hunter -- 
-INSERT INTO skill_trees VALUES (23,453,1,'Escape Shackle',223000,60); -- Plainswalker -- 
-INSERT INTO skill_trees VALUES (36,453,1,'Escape Shackle',181000,60); -- Abyss Walker -- 
-
--- Break Duress 461
-INSERT INTO skill_trees VALUES (48,461,1,'Break Duress',264000,60); -- Tyrant -- 
-INSERT INTO skill_trees VALUES (48,461,2,'Break Duress',500000,66); -- Tyrant -- 
-
--- Sonic Move 451
-INSERT INTO skill_trees VALUES (2,451,1,'Sonic Move',250000,62); -- Gladiator -- 
-INSERT INTO skill_trees VALUES (2,451,2,'Sonic Move',490000,68); -- Gladiator -- 
-
--- Summon Attractive Cubic 449
-INSERT INTO skill_trees VALUES (20,449,1,'Summon Attractive Cubic',250000,62); -- Temple Knight -- 
-INSERT INTO skill_trees VALUES (20,449,2,'Summon Attractive Cubic',470000,66); -- Temple Knight -- 
-INSERT INTO skill_trees VALUES (20,449,3,'Summon Attractive Cubic',580000,70); -- Temple Knight -- 
-INSERT INTO skill_trees VALUES (20,449,4,'Summon Attractive Cubic',1730000,74); -- Temple Knight -- 
-
--- Celestial Shield 1418
-INSERT INTO skill_trees VALUES (16,1418,1,'Celestial Shield',190000,64); -- Bishop -- 
-
--- Summon Swoop Cannon 448
-INSERT INTO skill_trees VALUES (57,448,1,'Summon Swoop Cannon',3300000,68); -- Warsmith -- 
-
--- Battle Force 426
-INSERT INTO skill_trees VALUES (89,426,1,'Battle Force',12250000,77); -- Dreadnought -- 
-INSERT INTO skill_trees VALUES (88,426,1,'Battle Force',12250000,77); -- Duelist -- 
-INSERT INTO skill_trees VALUES (90,426,1,'Battle Force',13000000,77); -- Phoenix Knight -- 
-INSERT INTO skill_trees VALUES (91,426,1,'Battle Force',13000000,77); -- Hell Knight  -- 
-INSERT INTO skill_trees VALUES (93,426,1,'Battle Force',14670000,77); -- Adventurer -- 
-INSERT INTO skill_trees VALUES (92,426,1,'Battle Force',14670000,77); -- Sagittarius -- 
-INSERT INTO skill_trees VALUES (99,426,1,'Battle Force',13000000,77); -- Evas Templar -- 
-INSERT INTO skill_trees VALUES (100,426,1,'Battle Force',14670000,77); -- Sword Muse -- 
-INSERT INTO skill_trees VALUES (101,426,1,'Battle Force',14670000,77); -- Wind Rider -- 
-INSERT INTO skill_trees VALUES (102,426,1,'Battle Force',14670000,77); -- Moonlight Sentinel -- 
-INSERT INTO skill_trees VALUES (106,426,1,'Battle Force',13000000,77); -- Shillien Templar -- 
-INSERT INTO skill_trees VALUES (107,426,1,'Battle Force',14670000,77); -- Spectral Dancer -- 
-INSERT INTO skill_trees VALUES (108,426,1,'Battle Force',14670000,77); -- Ghost Hunter -- 
-INSERT INTO skill_trees VALUES (109,426,1,'Battle Force',14670000,77); -- Ghost Sentinel -- 
-INSERT INTO skill_trees VALUES (113,426,1,'Battle Force',13000000,77); -- Titan -- 
-INSERT INTO skill_trees VALUES (114,426,1,'Battle Force',13000000,77); -- Grand Khavatari -- 
-INSERT INTO skill_trees VALUES (117,426,1,'Battle Force',11000000,77); -- Fortune Seeker -- 
-INSERT INTO skill_trees VALUES (118,426,1,'Battle Force',12250000,77); -- Maestro -- 
-
--- Spell Force 427
-INSERT INTO skill_trees VALUES (94,427,1,'Spell Force',18000000,77); -- Archmage -- 
-INSERT INTO skill_trees VALUES (95,427,1,'Spell Force',11000000,77); -- Soultaker -- 
-INSERT INTO skill_trees VALUES (96,427,1,'Spell Force',12250000,77); -- Arcana Lord -- 
-INSERT INTO skill_trees VALUES (97,427,1,'Spell Force',11000000,77); -- Cardinal -- 
-INSERT INTO skill_trees VALUES (98,427,1,'Spell Force',11000000,77); -- Hierophant -- 
-INSERT INTO skill_trees VALUES (103,427,1,'Spell Force',14670000,77); -- Mystic Muse -- 
-INSERT INTO skill_trees VALUES (104,427,1,'Spell Force',14670000,77); -- Elemental Master -- 
-INSERT INTO skill_trees VALUES (105,427,1,'Spell Force',11000000,77); -- Evas Saint -- 
-INSERT INTO skill_trees VALUES (110,427,1,'Spell Force',13000000,77); -- Storm Screamer -- 
-INSERT INTO skill_trees VALUES (111,427,1,'Spell Force',12250000,77); -- Spectral Master -- 
-INSERT INTO skill_trees VALUES (112,427,1,'Spell Force',13000000,77); -- Shillien Saint -- 
-INSERT INTO skill_trees VALUES (115,427,1,'Spell Force',11000000,77); -- Dominator -- 
-INSERT INTO skill_trees VALUES (116,427,1,'Spell Force',14670000,77); -- Doomcryer -- 
-
--- Force Meditation 441
-INSERT INTO skill_trees VALUES (114,441,1,'Force Meditation',21340000,78); -- Grand Khavatari -- 
-
--- Pa'agrio's Emblem 1415
-INSERT INTO skill_trees VALUES (115,1415,1,'Pa\'agrio\'s Emblem',16000000,78); -- Dominator -- 
-
--- Gate Chant 1429
-INSERT INTO skill_trees VALUES (116,1429,1,'Gate Chant',16000000,78); -- Doomcryer -- 
+-- Interlude Skills (Done by DJ MELERIX)
 
 -- Inner Rhythm 428
-INSERT INTO skill_trees VALUES (100,428,1,'Inner Rhythm',32000000,78); -- Sword Muse -- 
-INSERT INTO skill_trees VALUES (107,428,1,'Inner Rhythm',32000000,78); -- Spectral Dancer -- 
+INSERT INTO skill_trees VALUES (100,428,1,'Inner Rhythm',32000000,78); -- Sword Muse --
+INSERT INTO skill_trees VALUES (107,428,1,'Inner Rhythm',32000000,78); -- Spectral Dancer --
+
 
 -- Knighthood 429
-INSERT INTO skill_trees VALUES (90,429,1,'Knighthood',21340000,78); -- Phoenix Knight -- 
-INSERT INTO skill_trees VALUES (91,429,1,'Knighthood',21340000,78); -- Hell Knight -- 
-INSERT INTO skill_trees VALUES (99,429,1,'Knighthood',21340000,78); -- Evas Templar -- 
-INSERT INTO skill_trees VALUES (106,429,1,'Knighthood',21340000,78); -- Shillien Templar -- 
+INSERT INTO skill_trees VALUES (90,429,1,'Knighthood',21340000,78); -- Phoenix Knight --
+INSERT INTO skill_trees VALUES (91,429,1,'Knighthood',21340000,78); -- Hell Knight --
+INSERT INTO skill_trees VALUES (99,429,1,'Knighthood',21340000,78); -- Evas Templar --
+INSERT INTO skill_trees VALUES (106,429,1,'Knighthood',21340000,78); -- Shillien Templar --
 
 -- Master of Combat 430
-INSERT INTO skill_trees VALUES (89,430,1,'Master of Combat',12800000,78); -- Dreadnought -- 
-INSERT INTO skill_trees VALUES (113,430,1,'Master of Combat',16000000,78); -- Titan -- 
-INSERT INTO skill_trees VALUES (114,430,1,'Master of Combat',21340000,78); -- Grand Khavatari -- 
-INSERT INTO skill_trees VALUES (117,430,1,'Master of Combat',16000000,78); -- Fortune Seeker -- 
-INSERT INTO skill_trees VALUES (118,430,1,'Master of Combat',16000000,78); -- Maestro -- 
-INSERT INTO skill_trees VALUES (88,430,1,'Master of Combat',16000000,78); -- Duelist -- 
+INSERT INTO skill_trees VALUES (89,430,1,'Master of Combat',12800000,78); -- Dreadnought --
+INSERT INTO skill_trees VALUES (113,430,1,'Master of Combat',16000000,78); -- Titan --
+INSERT INTO skill_trees VALUES (114,430,1,'Master of Combat',21340000,78); -- Grand Khavatari --
+INSERT INTO skill_trees VALUES (117,430,1,'Master of Combat',16000000,78); -- Fortune Seeker --
+INSERT INTO skill_trees VALUES (118,430,1,'Master of Combat',16000000,78); -- Maestro --
+INSERT INTO skill_trees VALUES (88,430,1,'Master of Combat',16000000,78); -- Duelist --
 
 -- Archery 431
-INSERT INTO skill_trees VALUES (92,431,1,'Archery',32000000,78); -- Sagittarius -- 
-INSERT INTO skill_trees VALUES (102,431,1,'Archery',21340000,78); -- Moonlight Sentinel -- 
-INSERT INTO skill_trees VALUES (109,431,1,'Archery',21340000,78); -- Ghost Sentinel -- 
+INSERT INTO skill_trees VALUES (92,431,1,'Archery',32000000,78); -- Sagittarius --
+INSERT INTO skill_trees VALUES (102,431,1,'Archery',21340000,78); -- Moonlight Sentinel --
+INSERT INTO skill_trees VALUES (109,431,1,'Archery',21340000,78); -- Ghost Sentinel --
 
 -- Assassination 432
-INSERT INTO skill_trees VALUES (93,432,1,'Assassination',16000000,78); -- Adventurer -- 
-INSERT INTO skill_trees VALUES (101,432,1,'Assassination',16000000,78); -- Wind Rider -- 
-INSERT INTO skill_trees VALUES (108,432,1,'Assassination',16000000,78); -- Ghost Hunter -- 
+INSERT INTO skill_trees VALUES (93,432,1,'Assassination',16000000,78); -- Adventurer --
+INSERT INTO skill_trees VALUES (101,432,1,'Assassination',16000000,78); -- Wind Rider --
+INSERT INTO skill_trees VALUES (108,432,1,'Assassination',16000000,78); -- Ghost Hunter --
 
 -- Arcane Roar 433
-INSERT INTO skill_trees VALUES (94,433,1,'Arcane Roar',21340000,78); -- Archmage -- 
-INSERT INTO skill_trees VALUES (103,433,1,'Arcane Roar',21340000,78); -- Mystic Muse -- 
-INSERT INTO skill_trees VALUES (110,433,1,'Arcane Roar',21340000,78); -- Storm Screamer -- 
+INSERT INTO skill_trees VALUES (94,433,1,'Arcane Roar',21340000,78); -- Archmage --
+INSERT INTO skill_trees VALUES (103,433,1,'Arcane Roar',21340000,78); -- Mystic Muse --
+INSERT INTO skill_trees VALUES (110,433,1,'Arcane Roar',21340000,78); -- Storm Screamer --
 
 -- Necromancy 434
-INSERT INTO skill_trees VALUES (95,434,1,'Necromancy',16000000,78); -- Soultaker -- 
+INSERT INTO skill_trees VALUES (95,434,1,'Necromancy',16000000,78); -- Soultaker --
 
 -- Summon Lore 435
-INSERT INTO skill_trees VALUES (96,435,1,'Summon Lore',21340000,78); -- Arcana Lord -- 
-INSERT INTO skill_trees VALUES (104,435,1,'Summon Lore',21340000,78); -- Elemental Master -- 
-INSERT INTO skill_trees VALUES (111,435,1,'Summon Lore',21340000,78); -- Spectral Master -- 
+INSERT INTO skill_trees VALUES (96,435,1,'Summon Lore',21340000,78); -- Arcana Lord --
+INSERT INTO skill_trees VALUES (104,435,1,'Summon Lore',21340000,78); -- Elemental Master --
+INSERT INTO skill_trees VALUES (111,435,1,'Summon Lore',21340000,78); -- Spectral Master --
 
 -- Divine Lore 436
-INSERT INTO skill_trees VALUES (97,436,1,'Divine Lore',16000000,78); -- Cardinal -- 
-INSERT INTO skill_trees VALUES (98,436,1,'Divine Lore',21340000,78); -- Hierophant -- 
-INSERT INTO skill_trees VALUES (105,436,1,'Divine Lore',21340000,78); -- Evas Saint -- 
-INSERT INTO skill_trees VALUES (112,436,1,'Divine Lore',21340000,78); -- Shillien Saint -- 
-INSERT INTO skill_trees VALUES (115,436,1,'Divine Lore',16000000,78); -- Dominator -- 
-INSERT INTO skill_trees VALUES (116,436,1,'Divine Lore',16000000,78); -- Doomcryer -- 
-
--- Song of Silence 437
-INSERT INTO skill_trees VALUES (100,437,1,'Song of Silence',80000000,79); -- Sword Muse -- 
+INSERT INTO skill_trees VALUES (97,436,1,'Divine Lore',16000000,78); -- Cardinal --
+INSERT INTO skill_trees VALUES (98,436,1,'Divine Lore',21340000,78); -- Hierophant --
+INSERT INTO skill_trees VALUES (105,436,1,'Divine Lore',21340000,78); -- Evas Saint --
+INSERT INTO skill_trees VALUES (112,436,1,'Divine Lore',21340000,78); -- Shillien Saint --
+INSERT INTO skill_trees VALUES (115,436,1,'Divine Lore',16000000,78); -- Dominator --
+INSERT INTO skill_trees VALUES (116,436,1,'Divine Lore',16000000,78); -- Doomcryer --
 
 -- Soul of the Phoenix 438
-INSERT INTO skill_trees VALUES (90,438,1,'Soul of the Phoenix',80000000,79); -- Phoenix Knight -- 
+INSERT INTO skill_trees VALUES (90,438,1,'Soul of the Phoenix',80000000,79); -- Phoenix Knight --
 
 -- Shield of Revenge 439
-INSERT INTO skill_trees VALUES (91,439,1,'Shield of Revenge',80000000,79); -- Hell Knight -- 
+INSERT INTO skill_trees VALUES (91,439,1,'Shield of Revenge',80000000,79); -- Hell Knight --
 
--- Sonic Barrier 442
-INSERT INTO skill_trees VALUES (88,442,1,'Sonic Barrier',80000000,79); -- Duelist -- 
+-- Braveheart 440
+INSERT INTO skill_trees VALUES (88,440,1,'Braveheart',12800000,78); -- Duelist --
+INSERT INTO skill_trees VALUES (89,440,1,'Braveheart',12800000,78); -- Dreadnought --
+INSERT INTO skill_trees VALUES (113,440,1,'Braveheart',12800000,78); -- Titan --
+INSERT INTO skill_trees VALUES (117,440,1,'Braveheart',12800000,78); -- Fortune Seeker --
+INSERT INTO skill_trees VALUES (118,440,1,'Braveheart',12800000,78); -- Maestro --
 
--- Force Barrier 443
-INSERT INTO skill_trees VALUES (114,443,1,'Force Barrier',80000000,79); -- Grand Khavatari -- 
+-- Force Meditation 441
+INSERT INTO skill_trees VALUES (114,441,1,'Force Meditation',21340000,78); -- Grand Khavatari --
 
 -- Mirage 445
-INSERT INTO skill_trees VALUES (93,445,1,'Mirage',80000000,79); -- Adventurer -- 
+INSERT INTO skill_trees VALUES (93,445,1,'Mirage',80000000,79); -- Adventurer --
 
 -- Dodge 446
-INSERT INTO skill_trees VALUES (101,446,1,'Dodge',80000000,79); -- Wind Rider -- 
+INSERT INTO skill_trees VALUES (101,446,1,'Dodge',80000000,79); -- Wind Rider --
 
 -- Counterattack 447
-INSERT INTO skill_trees VALUES (108,447,1,'Counterattack',80000000,79); -- Ghost Hunter -- 
+INSERT INTO skill_trees VALUES (108,447,1,'Counterattack',80000000,79); -- Ghost Hunter --
 
--- Summon Feline King 1406
-INSERT INTO skill_trees VALUES (96,1406,1,'Summon Feline King',80000000,79); -- Arcana Lord -- 
+-- Banish Seraph 450
+INSERT INTO skill_trees VALUES (6,450,1,'Banish Seraph',138000,55); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,2,'Banish Seraph',141000,58); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,3,'Banish Seraph',208000,60); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,4,'Banish Seraph',250000,62); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,5,'Banish Seraph',300000,64); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,6,'Banish Seraph',440000,66); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,7,'Banish Seraph',520000,68); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,8,'Banish Seraph',550000,70); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,9,'Banish Seraph',750000,72); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (6,450,10,'Banish Seraph',1630000,74); -- Dark Avenger --
+INSERT INTO skill_trees VALUES (33,450,1,'Banish Seraph',110000,55); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,2,'Banish Seraph',120000,58); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,3,'Banish Seraph',153000,60); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,4,'Banish Seraph',200000,62); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,5,'Banish Seraph',240000,64); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,6,'Banish Seraph',350000,66); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,7,'Banish Seraph',410000,68); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,8,'Banish Seraph',470000,70); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,9,'Banish Seraph',600000,72); -- Shillien Knight --
+INSERT INTO skill_trees VALUES (33,450,10,'Banish Seraph',1300000,74); -- Shillien Knight --
 
--- Summon Magnus the Unicorn 1407
-INSERT INTO skill_trees VALUES (104,1407,1,'Summon Magnus the Unicorn',80000000,79); -- Elemental Master -- 
-
--- Summon Spectral Lord 1408
-INSERT INTO skill_trees VALUES (111,1408,1,'Summon Spectral Lord',80000000,79); -- Spectral Master -- 
-
--- Cleanse 1409
-INSERT INTO skill_trees VALUES (97,1409,1,'Cleanse',16000000,78); -- Cardinal -- 
-
--- Salvation 1410
-INSERT INTO skill_trees VALUES (97,1410,1,'Salvation',80000000,79); -- Cardinal -- 
-
--- Mystic Immunity 1411
-INSERT INTO skill_trees VALUES (98,1411,1,'Mystic Immunity',80000000,79); -- Hierophant -- 
-
--- Spell Turning 1412
-INSERT INTO skill_trees VALUES (98,1412,1,'Spell Turning',80000000,79); -- Hierophant -- 
-
--- Magnus' Chant 1413
-INSERT INTO skill_trees VALUES (116,1413,1,'Magnus\' Chant',80000000,79); -- Doomcryer -- 
-
--- Victories of Pa'agrio 1414
-INSERT INTO skill_trees VALUES (115,1414,1,'Victories of Pa\'agrio',80000000,79); -- Dominator -- 
-
--- Pa'agrio's Fist 1416
-INSERT INTO skill_trees VALUES (115,1416,1,'Pa\'agrio\'s Fist',80000000,79); -- Dominator -- 
+-- Escape Shackle 453
+INSERT INTO skill_trees VALUES (8,453,1,'Escape Shackle',242000,60); -- Treasure Hunter --
+INSERT INTO skill_trees VALUES (23,453,1,'Escape Shackle',223000,60); -- Plainswalker --
+INSERT INTO skill_trees VALUES (36,453,1,'Escape Shackle',181000,60); -- Abyss Walker --
 
 -- Symbol of Defense 454
-INSERT INTO skill_trees VALUES (90,454,1,'Symbol of Defense',150000000,80); -- Phoenix Knight -- 
-INSERT INTO skill_trees VALUES (91,454,1,'Symbol of Defense',150000000,80); -- Hell Knight -- 
-INSERT INTO skill_trees VALUES (99,454,1,'Symbol of Defense',150000000,80); -- Evas Templar -- 
-INSERT INTO skill_trees VALUES (106,454,1,'Symbol of Defense',150000000,80); -- Shillien Templar -- 
+INSERT INTO skill_trees VALUES (90,454,1,'Symbol of Defense',150000000,80); -- Phoenix Knight --
+INSERT INTO skill_trees VALUES (91,454,1,'Symbol of Defense',150000000,80); -- Hell Knight --
+INSERT INTO skill_trees VALUES (99,454,1,'Symbol of Defense',150000000,80); -- Evas Templar --
+INSERT INTO skill_trees VALUES (106,454,1,'Symbol of Defense',150000000,80); -- Shillien Templar --
 
 -- Symbol of Noise 455
-INSERT INTO skill_trees VALUES (100,455,1,'Symbol of Noise',150000000,80); -- Sword Muse -- 
-INSERT INTO skill_trees VALUES (107,455,1,'Symbol of Noise',150000000,80); -- Spectral Dancer -- 
+INSERT INTO skill_trees VALUES (100,455,1,'Symbol of Noise',150000000,80); -- Sword Muse --
+INSERT INTO skill_trees VALUES (107,455,1,'Symbol of Noise',150000000,80); -- Spectral Dancer --
 
 -- Symbol of Resistance 456
-INSERT INTO skill_trees VALUES (113,456,1,'Symbol of Resistance',150000000,80); -- Titan -- 
-INSERT INTO skill_trees VALUES (117,456,1,'Symbol of Resistance',150000000,80); -- Fortune Seeker -- 
+INSERT INTO skill_trees VALUES (113,456,1,'Symbol of Resistance',150000000,80); -- Titan --
+INSERT INTO skill_trees VALUES (117,456,1,'Symbol of Resistance',150000000,80); -- Fortune Seeker --
 
 -- Symbol of Honor 457
-INSERT INTO skill_trees VALUES (89,457,1,'Symbol of Honor',150000000,80); -- Dreadnought -- 
-INSERT INTO skill_trees VALUES (118,457,1,'Symbol of Honor',150000000,80); -- Maestro -- 
+INSERT INTO skill_trees VALUES (89,457,1,'Symbol of Honor',150000000,80); -- Dreadnought --
+INSERT INTO skill_trees VALUES (118,457,1,'Symbol of Honor',150000000,80); -- Maestro --
 
 -- Symbol of Energy 458
-INSERT INTO skill_trees VALUES (88,458,1,'Symbol of Energy',150000000,80); -- Duelist -- 
-INSERT INTO skill_trees VALUES (114,458,1,'Symbol of Energy',150000000,80); -- Grand Khavatari -- 
+INSERT INTO skill_trees VALUES (88,458,1,'Symbol of Energy',150000000,80); -- Duelist --
+INSERT INTO skill_trees VALUES (114,458,1,'Symbol of Energy',150000000,80); -- Grand Khavatari --
 
 -- Symbol of the Sniper 459
-INSERT INTO skill_trees VALUES (92,459,1,'Symbol of the Sniper',150000000,80); -- Sagittarius -- 
-INSERT INTO skill_trees VALUES (102,459,1,'Symbol of the Sniper',150000000,80); -- Moonlight Sentinel -- 
-INSERT INTO skill_trees VALUES (109,459,1,'Symbol of the Sniper',150000000,80); -- Ghost Sentinel -- 
+INSERT INTO skill_trees VALUES (92,459,1,'Symbol of the Sniper',150000000,80); -- Sagittarius --
+INSERT INTO skill_trees VALUES (102,459,1,'Symbol of the Sniper',150000000,80); -- Moonlight Sentinel --
+INSERT INTO skill_trees VALUES (109,459,1,'Symbol of the Sniper',150000000,80); -- Ghost Sentinel --
 
 -- Symbol of the Assassin 460
-INSERT INTO skill_trees VALUES (93,460,1,'Symbol of the Assassin',150000000,80); -- Adventurer -- 
-INSERT INTO skill_trees VALUES (101,460,1,'Symbol of the Assassin',150000000,80); -- Wind Rider -- 
-INSERT INTO skill_trees VALUES (108,460,1,'Symbol of the Assassin',150000000,80); -- Ghost Hunter -- 
+INSERT INTO skill_trees VALUES (93,460,1,'Symbol of the Assassin',150000000,80); -- Adventurer --
+INSERT INTO skill_trees VALUES (101,460,1,'Symbol of the Assassin',150000000,80); -- Wind Rider --
+INSERT INTO skill_trees VALUES (108,460,1,'Symbol of the Assassin',150000000,80); -- Ghost Hunter --
+
+-- Break Duress 461
+INSERT INTO skill_trees VALUES (48,461,1,'Break Duress',264000,60); -- Tyrant --
+INSERT INTO skill_trees VALUES (48,461,2,'Break Duress',500000,66); -- Tyrant --
+
+-- Salvation 1410
+INSERT INTO skill_trees VALUES (97,1410,1,'Salvation',80000000,79); -- Cardinal --
+
+-- Mystic Immunity 1411
+INSERT INTO skill_trees VALUES (98,1411,1,'Mystic Immunity',80000000,79); -- Hierophant --
+
+-- Spell Turning 1412
+INSERT INTO skill_trees VALUES (98,1412,1,'Spell Turning',80000000,79); -- Hierophant --
+
+-- Pa'agrio's Emblem 1415
+INSERT INTO skill_trees VALUES (115,1415,1,'Pa\'agrio\'s Emblem',16000000,78); -- Dominator --
 
 -- Volcano 1419
-INSERT INTO skill_trees VALUES (94,1419,1,'Volcano',150000000,80); -- Archmage -- 
+INSERT INTO skill_trees VALUES (94,1419,1,'Volcano',150000000,80); -- Archmage --
 
 -- Cyclone 1420
-INSERT INTO skill_trees VALUES (110,1420,1,'Cyclone',150000000,80); -- Storm Screamer -- 
+INSERT INTO skill_trees VALUES (110,1420,1,'Cyclone',150000000,80); -- Storm Screamer --
 
 -- Raging Waves 1421
-INSERT INTO skill_trees VALUES (103,1421,1,'Raging Waves',150000000,80); -- Mystic Muse -- 
-
--- Gehenna 1423
-INSERT INTO skill_trees VALUES (95,1423,1,'Gehenna',150000000,80); -- Soultaker -- 
+INSERT INTO skill_trees VALUES (103,1421,1,'Raging Waves',150000000,80); -- Mystic Muse --
 
 -- Day of Doom 1422
-INSERT INTO skill_trees VALUES (95,1422,1,'Day of Doom',150000000,80); -- Soultaker -- 
+INSERT INTO skill_trees VALUES (95,1422,1,'Day of Doom',150000000,80); -- Soultaker --
+
+-- Gehenna 1423
+INSERT INTO skill_trees VALUES (95,1423,1,'Gehenna',150000000,80); -- Soultaker --
 
 -- Anti-Summoning Field 1424
-INSERT INTO skill_trees VALUES (96,1424,1,'Anti-Summoning Field',150000000,80); -- Arcana Lord -- 
-INSERT INTO skill_trees VALUES (104,1424,1,'Anti-Summoning Field',150000000,80); -- Elemental Master -- 
-INSERT INTO skill_trees VALUES (111,1424,1,'Anti-Summoning Field',150000000,80); -- Spectral Master -- 
+INSERT INTO skill_trees VALUES (96,1424,1,'Anti-Summoning Field',150000000,80); -- Arcana Lord --
+INSERT INTO skill_trees VALUES (104,1424,1,'Anti-Summoning Field',150000000,80); -- Elemental Master --
+INSERT INTO skill_trees VALUES (111,1424,1,'Anti-Summoning Field',150000000,80); -- Spectral Master --
 
 -- Purification Field 1425
-INSERT INTO skill_trees VALUES (97,1425,1,'Purification Field',150000000,80); -- Cardinal -- 
-
--- Miracle 1426
-INSERT INTO skill_trees VALUES (97,1426,1,'Miracle',150000000,80); -- Cardinal -- 
+INSERT INTO skill_trees VALUES (97,1425,1,'Purification Field',150000000,80); -- Cardinal --
 
 -- Flames of Invincibility 1427
-INSERT INTO skill_trees VALUES (115,1427,1,'Flames of Invincibility',150000000,80); -- Dominator -- 
+INSERT INTO skill_trees VALUES (115,1427,1,'Flames of Invincibility',150000000,80); -- Dominator --
 
--- Mass Recharge 1428
-INSERT INTO skill_trees VALUES (105,1428,1,'Mass Recharge',150000000,80); -- Evas Saint -- 
-INSERT INTO skill_trees VALUES (112,1428,1,'Mass Recharge',150000000,80); -- Shillien Saint --
+-- Gate Chant 1429
+INSERT INTO skill_trees VALUES (116,1429,1,'Gate Chant',16000000,78); -- Doomcryer --
+
+-- Invocation 1430
+INSERT INTO skill_trees VALUES (16,1430,1,'Invocation',81000,56); -- Bishop --
+INSERT INTO skill_trees VALUES (16,1430,2,'Invocation',120000,60); -- Bishop --
+INSERT INTO skill_trees VALUES (16,1430,3,'Invocation',190000,64); -- Bishop --
+INSERT INTO skill_trees VALUES (16,1430,4,'Invocation',320000,68); -- Bishop --
+INSERT INTO skill_trees VALUES (16,1430,5,'Invocation',650000,72); -- Bishop --
+INSERT INTO skill_trees VALUES (30,1430,1,'Invocation',88000,56); -- Elven Elder --
+INSERT INTO skill_trees VALUES (30,1430,2,'Invocation',150000,60); -- Elven Elder --
+INSERT INTO skill_trees VALUES (30,1430,3,'Invocation',240000,64); -- Elven Elder --
+INSERT INTO skill_trees VALUES (30,1430,4,'Invocation',410000,68); -- Elven Elder --
+INSERT INTO skill_trees VALUES (30,1430,5,'Invocation',750000,72); -- Elven Elder --
+INSERT INTO skill_trees VALUES (43,1430,1,'Invocation',118000,56); -- Shillien Elder --
+INSERT INTO skill_trees VALUES (43,1430,2,'Invocation',200000,60); -- Shillien Elder --
+INSERT INTO skill_trees VALUES (43,1430,3,'Invocation',370000,64); -- Shillien Elder --
+INSERT INTO skill_trees VALUES (43,1430,4,'Invocation',550000,68); -- Shillien Elder --
+INSERT INTO skill_trees VALUES (43,1430,5,'Invocation',1070000,72); -- Shillien Elder --
+
+-- Battle Force 426
+INSERT INTO skill_trees VALUES (89,426,1,'Battle Force',12250000,77); -- Dreadnought --
+INSERT INTO skill_trees VALUES (88,426,1,'Battle Force',12250000,77); -- Duelist --
+INSERT INTO skill_trees VALUES (90,426,1,'Battle Force',13000000,77); -- Phoenix Knight --
+INSERT INTO skill_trees VALUES (91,426,1,'Battle Force',13000000,77); -- Hell Knight  --
+INSERT INTO skill_trees VALUES (93,426,1,'Battle Force',14670000,77); -- Adventurer --
+INSERT INTO skill_trees VALUES (92,426,1,'Battle Force',14670000,77); -- Sagittarius --
+INSERT INTO skill_trees VALUES (99,426,1,'Battle Force',13000000,77); -- Evas Templar --
+INSERT INTO skill_trees VALUES (100,426,1,'Battle Force',14670000,77); -- Sword Muse --
+INSERT INTO skill_trees VALUES (101,426,1,'Battle Force',14670000,77); -- Wind Rider --
+INSERT INTO skill_trees VALUES (102,426,1,'Battle Force',14670000,77); -- Moonlight Sentinel --
+INSERT INTO skill_trees VALUES (106,426,1,'Battle Force',13000000,77); -- Shillien Templar --
+INSERT INTO skill_trees VALUES (107,426,1,'Battle Force',14670000,77); -- Spectral Dancer --
+INSERT INTO skill_trees VALUES (108,426,1,'Battle Force',14670000,77); -- Ghost Hunter --
+INSERT INTO skill_trees VALUES (109,426,1,'Battle Force',14670000,77); -- Ghost Sentinel --
+INSERT INTO skill_trees VALUES (113,426,1,'Battle Force',13000000,77); -- Titan --
+INSERT INTO skill_trees VALUES (114,426,1,'Battle Force',13000000,77); -- Grand Khavatari --
+INSERT INTO skill_trees VALUES (117,426,1,'Battle Force',11000000,77); -- Fortune Seeker --
+INSERT INTO skill_trees VALUES (118,426,1,'Battle Force',12250000,77); -- Maestro --
+
+-- Spell Force 427
+INSERT INTO skill_trees VALUES (94,427,1,'Spell Force',18000000,77); -- Archmage --
+INSERT INTO skill_trees VALUES (95,427,1,'Spell Force',11000000,77); -- Soultaker --
+INSERT INTO skill_trees VALUES (96,427,1,'Spell Force',12250000,77); -- Arcana Lord --
+INSERT INTO skill_trees VALUES (97,427,1,'Spell Force',11000000,77); -- Cardinal --
+INSERT INTO skill_trees VALUES (98,427,1,'Spell Force',11000000,77); -- Hierophant --
+INSERT INTO skill_trees VALUES (103,427,1,'Spell Force',14670000,77); -- Mystic Muse --
+INSERT INTO skill_trees VALUES (104,427,1,'Spell Force',14670000,77); -- Elemental Master --
+INSERT INTO skill_trees VALUES (105,427,1,'Spell Force',11000000,77); -- Evas Saint --
+INSERT INTO skill_trees VALUES (110,427,1,'Spell Force',13000000,77); -- Storm Screamer --
+INSERT INTO skill_trees VALUES (111,427,1,'Spell Force',12250000,77); -- Spectral Master --
+INSERT INTO skill_trees VALUES (112,427,1,'Spell Force',13000000,77); -- Shillien Saint --
+INSERT INTO skill_trees VALUES (115,427,1,'Spell Force',11000000,77); -- Dominator --
+INSERT INTO skill_trees VALUES (116,427,1,'Spell Force',14670000,77); -- Doomcryer --
+
 
 -- Skills for Kamael Male Soldier & Trooper
-INSERT INTO `skill_trees` VALUES ('123', '462', '1', 'Guilted Body', '0', '1');
-INSERT INTO `skill_trees` VALUES ('123', '463', '1', 'Weapon Mastery', '160', '5');
-INSERT INTO `skill_trees` VALUES ('123', '464', '1', 'Armor Mastery', '160', '5');
-INSERT INTO `skill_trees` VALUES ('123', '466', '1', 'Magic Immunity', '160', '5');
-INSERT INTO `skill_trees` VALUES ('123', '467', '1', 'Soul Mastery', '160', '5');
-INSERT INTO `skill_trees` VALUES ('123', '468', '1', 'Fallen Attack', '50', '5');
-INSERT INTO `skill_trees` VALUES ('123', '468', '2', 'Fallen Attack', '50', '5');
-INSERT INTO `skill_trees` VALUES ('123', '468', '3', 'Fallen Attack', '50', '5');
-INSERT INTO `skill_trees` VALUES ('123', '1431', '1', 'Fallen Arrow', '80', '5');
-INSERT INTO `skill_trees` VALUES ('123', '1431', '2', 'Fallen Arrow', '80', '5');
-INSERT INTO `skill_trees` VALUES ('123', '463', '2', 'Weapon Mastery', '790', '10');
-INSERT INTO `skill_trees` VALUES ('123', '464', '2', 'Armor Mastery', '390', '10');
-INSERT INTO `skill_trees` VALUES ('123', '464', '3', 'Armor Mastery', '390', '10');
-INSERT INTO `skill_trees` VALUES ('123', '466', '2', 'Magic Immunity', '390', '10');
-INSERT INTO `skill_trees` VALUES ('123', '466', '3', 'Magic Immunity', '390', '10');
-INSERT INTO `skill_trees` VALUES ('123', '467', '2', 'Soul Mastery', '790', '10');
-INSERT INTO `skill_trees` VALUES ('123', '468', '4', 'Fallen Attack', '260', '10');
-INSERT INTO `skill_trees` VALUES ('123', '468', '5', 'Fallen Attack', '260', '10');
-INSERT INTO `skill_trees` VALUES ('123', '468', '6', 'Fallen Attack', '260', '10');
-INSERT INTO `skill_trees` VALUES ('123', '1431', '3', 'Fallen Arrow', '390', '10');
-INSERT INTO `skill_trees` VALUES ('123', '1431', '4', 'Fallen Arrow', '390', '10');
-INSERT INTO `skill_trees` VALUES ('123', '1432', '1', 'Increase Power', '790', '10');
-INSERT INTO `skill_trees` VALUES ('123', '463', '3', 'Weapon Mastery', '3300', '15');
-INSERT INTO `skill_trees` VALUES ('123', '464', '4', 'Armor Mastery', '1700', '15');
-INSERT INTO `skill_trees` VALUES ('123', '464', '5', 'Armor Mastery', '1700', '15');
-INSERT INTO `skill_trees` VALUES ('123', '466', '4', 'Magic Immunity', '1700', '15');
-INSERT INTO `skill_trees` VALUES ('123', '466', '5', 'Magic Immunity', '1700', '15');
-INSERT INTO `skill_trees` VALUES ('123', '467', '3', 'Soul Mastery', '3300', '15');
-INSERT INTO `skill_trees` VALUES ('123', '468', '7', 'Fallen Attack', '1100', '15');
-INSERT INTO `skill_trees` VALUES ('123', '468', '8', 'Fallen Attack', '1100', '15');
-INSERT INTO `skill_trees` VALUES ('123', '468', '9', 'Fallen Attack', '1100', '15');
-INSERT INTO `skill_trees` VALUES ('123', '1431', '5', 'Fallen Arrow', '1700', '15');
-INSERT INTO `skill_trees` VALUES ('123', '1431', '6', 'Fallen Arrow', '1700', '15');
-INSERT INTO `skill_trees` VALUES ('125', '465', '1', 'Light Armor Mastery', '1800', '20');
-INSERT INTO `skill_trees` VALUES ('125', '465', '2', 'Light Armor Mastery', '1800', '20');
-INSERT INTO `skill_trees` VALUES ('125', '466', '6', 'Magic Immunity', '1800', '20');
-INSERT INTO `skill_trees` VALUES ('125', '466', '7', 'Magic Immunity', '1800', '20');
-INSERT INTO `skill_trees` VALUES ('125', '467', '4', 'Soul Mastery', '3700', '20');
-INSERT INTO `skill_trees` VALUES ('125', '472', '1', 'Ancient Sword Mastery', '3700', '20');
-INSERT INTO `skill_trees` VALUES ('125', '474', '1', 'Rapier Mastery', '4100', '20');
-INSERT INTO `skill_trees` VALUES ('125', '475', '1', 'Strike Back', '3700', '20');
-INSERT INTO `skill_trees` VALUES ('125', '476', '1', 'Dark Strike', '1200', '20');
-INSERT INTO `skill_trees` VALUES ('125', '476', '2', 'Dark Strike', '1200', '20');
-INSERT INTO `skill_trees` VALUES ('125', '476', '3', 'Dark Strike', '1200', '20');
-INSERT INTO `skill_trees` VALUES ('125', '478', '1', 'Double Thrust', '1200', '20');
-INSERT INTO `skill_trees` VALUES ('125', '478', '2', 'Double Thrust', '1200', '20');
-INSERT INTO `skill_trees` VALUES ('125', '478', '3', 'Double Thrust', '1200', '20');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '1', 'Abyssal Blaze', '1800', '20');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '2', 'Abyssal Blaze', '1800', '20');
-INSERT INTO `skill_trees` VALUES ('125', '1473', '1', 'Change Weapon', '3700', '20');
-INSERT INTO `skill_trees` VALUES ('125', '465', '3', 'Light Armor Mastery', '2900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '465', '4', 'Light Armor Mastery', '2900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '466', '8', 'Magic Immunity', '2900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '466', '9', 'Magic Immunity', '2900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '467', '5', 'Soul Mastery', '5800', '24');
-INSERT INTO `skill_trees` VALUES ('125', '472', '2', 'Ancient Sword Mastery', '5800', '24');
-INSERT INTO `skill_trees` VALUES ('125', '474', '2', 'Rapier Mastery', '5800', '24');
-INSERT INTO `skill_trees` VALUES ('125', '476', '4', 'Dark Strike', '1900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '476', '5', 'Dark Strike', '1900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '476', '6', 'Dark Strike', '1900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '478', '4', 'Double Thrust', '1900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '478', '5', 'Double Thrust', '1900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '478', '6', 'Double Thrust', '1900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '482', '1', 'Furious Soul', '5800', '24');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '3', 'Abyssal Blaze', '2900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '4', 'Abyssal Blaze', '2900', '24');
-INSERT INTO `skill_trees` VALUES ('125', '1434', '1', 'Dark Explosion', '5800', '24');
-INSERT INTO `skill_trees` VALUES ('125', '1435', '1', 'Death Mark', '5800', '24');
-INSERT INTO `skill_trees` VALUES ('125', '1475', '1', 'Erase Mark', '5800', '24');
-INSERT INTO `skill_trees` VALUES ('125', '465', '5', 'Light Armor Mastery', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '465', '6', 'Light Armor Mastery', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '465', '7', 'Light Armor Mastery', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '466', '10', 'Magic Immunity', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '466', '11', 'Magic Immunity', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '466', '12', 'Magic Immunity', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '467', '6', 'Soul Mastery', '10000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '472', '3', 'Ancient Sword Mastery', '5000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '472', '4', 'Ancient Sword Mastery', '5000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '474', '3', 'Rapier Mastery', '5000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '474', '4', 'Rapier Mastery', '5000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '476', '7', 'Dark Strike', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '476', '8', 'Dark Strike', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '476', '9', 'Dark Strike', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '478', '7', 'Double Thrust', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '478', '8', 'Double Thrust', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '478', '9', 'Double Thrust', '3300', '28');
-INSERT INTO `skill_trees` VALUES ('125', '479', '1', 'Hard March', '10000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '1432', '2', 'Increase Power', '10000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '5', 'Abyssal Blaze', '5000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '6', 'Abyssal Blaze', '5000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '1434', '2', 'Dark Explosion', '10000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '1445', '1', 'Surrender to the Unholy', '10000', '28');
-INSERT INTO `skill_trees` VALUES ('125', '465', '8', 'Light Armor Mastery', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '465', '9', 'Light Armor Mastery', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '465', '10', 'Light Armor Mastery', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '466', '13', 'Magic Immunity', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '466', '14', 'Magic Immunity', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '466', '15', 'Magic Immunity', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '467', '7', 'Soul Mastery', '15300', '32');
-INSERT INTO `skill_trees` VALUES ('125', '472', '5', 'Ancient Sword Mastery', '7700', '32');
-INSERT INTO `skill_trees` VALUES ('125', '472', '6', 'Ancient Sword Mastery', '7700', '32');
-INSERT INTO `skill_trees` VALUES ('125', '474', '5', 'Rapier Mastery', '7700', '32');
-INSERT INTO `skill_trees` VALUES ('125', '474', '6', 'Rapier Mastery', '7700', '32');
-INSERT INTO `skill_trees` VALUES ('125', '476', '10', 'Dark Strike', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '476', '11', 'Dark Strike', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '476', '12', 'Dark Strike', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '478', '10', 'Double Thrust', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '478', '11', 'Double Thrust', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '478', '12', 'Double Thrust', '5000', '32');
-INSERT INTO `skill_trees` VALUES ('125', '481', '1', 'Dark Armor', '15300', '32');
-INSERT INTO `skill_trees` VALUES ('125', '484', '1', 'Rush', '15300', '32');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '7', 'Abyssal Blaze', '7700', '32');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '8', 'Abyssal Blaze', '7700', '32');
-INSERT INTO `skill_trees` VALUES ('125', '1434', '3', 'Dark Explosion', '15300', '32');
-INSERT INTO `skill_trees` VALUES ('125', '1435', '2', 'Death Mark', '15300', '32');
-INSERT INTO `skill_trees` VALUES ('125', '1445', '2', 'Surrender to the Unholy', '15300', '32');
-INSERT INTO `skill_trees` VALUES ('125', '465', '11', 'Light Armor Mastery', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '465', '12', 'Light Armor Mastery', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '465', '13', 'Light Armor Mastery', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '466', '16', 'Magic Immunity', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '466', '17', 'Magic Immunity', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '466', '18', 'Magic Immunity', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '467', '8', 'Soul Mastery', '22100', '36');
-INSERT INTO `skill_trees` VALUES ('125', '472', '7', 'Ancient Sword Mastery', '11000', '36');
-INSERT INTO `skill_trees` VALUES ('125', '472', '8', 'Ancient Sword Mastery', '11000', '36');
-INSERT INTO `skill_trees` VALUES ('125', '474', '7', 'Rapier Mastery', '11000', '36');
-INSERT INTO `skill_trees` VALUES ('125', '474', '8', 'Rapier Mastery', '11000', '36');
-INSERT INTO `skill_trees` VALUES ('125', '476', '13', 'Dark Strike', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '476', '14', 'Dark Strike', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '476', '15', 'Dark Strike', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '478', '13', 'Double Thrust', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '478', '14', 'Double Thrust', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '478', '15', 'Double Thrust', '7400', '36');
-INSERT INTO `skill_trees` VALUES ('125', '480', '1', 'Dark Blade', '22100', '36');
-INSERT INTO `skill_trees` VALUES ('125', '483', '1', 'Sword Shield', '22100', '36');
-INSERT INTO `skill_trees` VALUES ('125', '485', '1', 'Disarm', '22100', '36');
-INSERT INTO `skill_trees` VALUES ('125', '499', '1', 'Courage', '22100', '36');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '9', 'Abyssal Blaze', '11000', '36');
-INSERT INTO `skill_trees` VALUES ('125', '1433', '10', 'Abyssal Blaze', '11000', '36');
-INSERT INTO `skill_trees` VALUES ('125', '1434', '4', 'Dark Explosion', '22100', '36');
-INSERT INTO `skill_trees` VALUES ('125', '1445', '3', 'Surrender to the Unholy', '22100', '36');
+INSERT INTO `skill_trees` (`class_id`,`skill_id`,`level`,`name`,`sp`,`min_level`) VALUES
+ (123,141,1,'Weapon Mastery',160,5),
+ (123,141,2,'Weapon Mastery',790,10),
+ (123,141,3,'Weapon Mastery',3300,15),
+ (123,142,1,'Armor Mastery',160,5),
+ (123,142,2,'Armor Mastery',390,10),
+ (123,142,3,'Armor Mastery',390,10),
+ (123,142,4,'Armor Mastery',1700,15),
+ (123,142,5,'Armor Mastery',1700,15),
+ (123,194,1,'Lucky',0,1),
+ (123,239,1,'Expertise D',0,20),
+ (123,239,2,'Expertise C',0,40),
+ (123,239,3,'Expertise B',0,52),
+ (123,239,4,'Expertise A',0,61),
+ (123,239,5,'Expertise S',0,76),
+ (123,239,6,'Expertise S80',0,80),
+ (123,462,1,'Guilted Body',0,1),
+ (123,466,1,'Magic Immunity',160,5),
+ (123,466,2,'Magic Immunity',390,10),
+ (123,466,3,'Magic Immunity',390,10),
+ (123,466,4,'Magic Immunity',1700,15),
+ (123,466,5,'Magic Immunity',1700,15),
+ (123,467,1,'Soul Mastery',160,5),
+ (123,467,2,'Soul Mastery',790,10),
+ (123,467,3,'Soul Mastery',3300,15),
+ (123,468,1,'Fallen Attack',50,5),
+ (123,468,2,'Fallen Attack',50,5),
+ (123,468,3,'Fallen Attack',50,5),
+ (123,468,4,'Fallen Attack',260,10),
+ (123,468,5,'Fallen Attack',260,10),
+ (123,468,6,'Fallen Attack',260,10),
+ (123,468,7,'Fallen Attack',1100,15),
+ (123,468,8,'Fallen Attack',1100,15),
+ (123,468,9,'Fallen Attack',1100,15),
+ (123,1320,1,'Create Common Item',0,1),
+ (123,1320,2,'Create Common Item',0,20),
+ (123,1320,3,'Create Common Item',0,28),
+ (123,1320,4,'Create Common Item',0,36),
+ (123,1320,5,'Create Common Item',0,43),
+ (123,1320,6,'Create Common Item',0,49),
+ (123,1320,7,'Create Common Item',0,55),
+ (123,1320,8,'Create Common Item',0,62),
+ (123,1320,9,'Create Common Item',0,70),
+ (123,1431,1,'Fallen Arrow',80,5),
+ (123,1431,2,'Fallen Arrow',80,5),
+ (123,1431,3,'Fallen Arrow',390,10),
+ (123,1431,4,'Fallen Arrow',390,10),
+ (123,1431,5,'Fallen Arrow',1700,15),
+ (123,1431,6,'Fallen Arrow',1700,15),
+ (123,1432,1,'Increase Power',790,10),
+ (124,141,1,'Weapon Mastery',160,5),
+ (124,141,2,'Weapon Mastery',790,10),
+ (124,141,3,'Weapon Mastery',2500,15),
+ (124,142,1,'Armor Mastery',160,5),
+ (124,142,2,'Armor Mastery',400,10),
+ (124,142,3,'Armor Mastery',400,10),
+ (124,142,4,'Armor Mastery',1250,15),
+ (124,142,5,'Armor Mastery',1250,15),
+ (124,194,1,'Lucky',0,1),
+ (124,239,1,'Expertise D',0,20),
+ (124,239,2,'Expertise C',0,40),
+ (124,239,3,'Expertise B',0,52),
+ (124,239,4,'Expertise A',0,61),
+ (124,239,5,'Expertise S',0,76),
+ (124,239,6,'Expertise S80',0,80),
+ (124,462,1,'Guilted Body',0,1),
+ (124,466,1,'Magic Immunity',160,5),
+ (124,466,2,'Magic Immunity',400,10),
+ (124,466,3,'Magic Immunity',400,10),
+ (124,466,4,'Magic Immunity',1250,15),
+ (124,466,5,'Magic Immunity',1250,15),
+ (124,467,1,'Soul Mastery',160,5),
+ (124,467,2,'Soul Mastery',790,10),
+ (124,467,3,'Soul Mastery',2500,15),
+ (124,468,1,'Fallen Attack',50,5),
+ (124,468,2,'Fallen Attack',50,5),
+ (124,468,3,'Fallen Attack',50,5),
+ (124,468,4,'Fallen Attack',260,10),
+ (124,468,5,'Fallen Attack',260,10),
+ (124,468,6,'Fallen Attack',260,10),
+ (124,468,7,'Fallen Attack',830,15),
+ (124,468,8,'Fallen Attack',830,15),
+ (124,468,9,'Fallen Attack',830,15),
+ (124,469,1,'Rapid Attack',790,10),
+ (124,470,1,'Detect Trap',1250,15),
+ (124,471,1,'Defuse Trap',1250,15),
+ (124,1320,1,'Create Common Item',0,1),
+ (124,1320,2,'Create Common Item',0,20),
+ (124,1320,3,'Create Common Item',0,28),
+ (124,1320,4,'Create Common Item',0,36),
+ (124,1320,5,'Create Common Item',0,43),
+ (124,1320,6,'Create Common Item',0,49),
+ (124,1320,7,'Create Common Item',0,55),
+ (124,1320,8,'Create Common Item',0,62),
+ (124,1320,9,'Create Common Item',0,70),
+ (124,1431,1,'Fallen Arrow',80,5),
+ (124,1431,2,'Fallen Arrow',80,5),
+ (124,1431,3,'Fallen Arrow',400,10),
+ (124,1431,4,'Fallen Arrow',400,10),
+ (124,1431,5,'Fallen Arrow',1250,15),
+ (124,1431,6,'Fallen Arrow',1250,15),
+ (125,465,1,'Light Armor Mastery',1800,20),
+ (125,465,2,'Light Armor Mastery',1800,20),
+ (125,465,3,'Light Armor Mastery',2900,24),
+ (125,465,4,'Light Armor Mastery',2900,24),
+ (125,465,5,'Light Armor Mastery',3300,28),
+ (125,465,6,'Light Armor Mastery',3300,28),
+ (125,465,7,'Light Armor Mastery',3300,28),
+ (125,465,8,'Light Armor Mastery',5000,32),
+ (125,465,9,'Light Armor Mastery',5000,32),
+ (125,465,10,'Light Armor Mastery',5000,32),
+ (125,465,11,'Light Armor Mastery',7400,36),
+ (125,465,12,'Light Armor Mastery',7400,36),
+ (125,465,13,'Light Armor Mastery',7400,36),
+ (125,466,6,'Magic Immunity',1800,20),
+ (125,466,7,'Magic Immunity',1800,20),
+ (125,466,8,'Magic Immunity',2900,24),
+ (125,466,9,'Magic Immunity',2900,24),
+ (125,466,10,'Magic Immunity',3300,28),
+ (125,466,11,'Magic Immunity',3300,28),
+ (125,466,12,'Magic Immunity',3300,28),
+ (125,466,13,'Magic Immunity',5000,32),
+ (125,466,14,'Magic Immunity',5000,32),
+ (125,466,15,'Magic Immunity',5000,32),
+ (125,466,16,'Magic Immunity',7400,36),
+ (125,466,17,'Magic Immunity',7400,36),
+ (125,466,18,'Magic Immunity',7400,36),
+ (125,467,4,'Soul Mastery',3700,20),
+ (125,467,5,'Soul Mastery',5800,24),
+ (125,467,6,'Soul Mastery',10000,28),
+ (125,467,7,'Soul Mastery',15300,32),
+ (125,467,8,'Soul Mastery',22100,36),
+ (125,472,1,'Ancient Sword Mastery',3700,20),
+ (125,472,2,'Ancient Sword Mastery',5800,24),
+ (125,472,3,'Ancient Sword Mastery',5000,28),
+ (125,472,4,'Ancient Sword Mastery',5000,28),
+ (125,472,5,'Ancient Sword Mastery',7700,32),
+ (125,472,6,'Ancient Sword Mastery',7700,32),
+ (125,472,7,'Ancient Sword Mastery',11000,36),
+ (125,472,8,'Ancient Sword Mastery',11000,36),
+ (125,474,1,'Rapier Mastery',4100,20),
+ (125,474,2,'Rapier Mastery',5800,24),
+ (125,474,3,'Rapier Mastery',5000,28),
+ (125,474,4,'Rapier Mastery',5000,28),
+ (125,474,5,'Rapier Mastery',7700,32),
+ (125,474,6,'Rapier Mastery',7700,32),
+ (125,474,7,'Rapier Mastery',11000,36),
+ (125,474,8,'Rapier Mastery',11000,36),
+ (125,475,1,'Strike Back',3700,20),
+ (125,476,1,'Dark Strike',1200,20),
+ (125,476,2,'Dark Strike',1200,20),
+ (125,476,3,'Dark Strike',1200,20),
+ (125,476,4,'Dark Strike',1900,24),
+ (125,476,5,'Dark Strike',1900,24),
+ (125,476,6,'Dark Strike',1900,24),
+ (125,476,7,'Dark Strike',3300,28),
+ (125,476,8,'Dark Strike',3300,28),
+ (125,476,9,'Dark Strike',3300,28),
+ (125,476,10,'Dark Strike',5000,32),
+ (125,476,11,'Dark Strike',5000,32),
+ (125,476,12,'Dark Strike',5000,32),
+ (125,476,13,'Dark Strike',7400,36),
+ (125,476,14,'Dark Strike',7400,36),
+ (125,476,15,'Dark Strike',7400,36),
+ (125,478,1,'Double Thrust',1200,20),
+ (125,478,2,'Double Thrust',1200,20),
+ (125,478,3,'Double Thrust',1200,20),
+ (125,478,4,'Double Thrust',1900,24),
+ (125,478,5,'Double Thrust',1900,24),
+ (125,478,6,'Double Thrust',1900,24),
+ (125,478,7,'Double Thrust',3300,28),
+ (125,478,8,'Double Thrust',3300,28),
+ (125,478,9,'Double Thrust',3300,28),
+ (125,478,10,'Double Thrust',5000,32),
+ (125,478,11,'Double Thrust',5000,32),
+ (125,478,12,'Double Thrust',5000,32),
+ (125,478,13,'Double Thrust',7400,36),
+ (125,478,14,'Double Thrust',7400,36),
+ (125,478,15,'Double Thrust',7400,36),
+ (125,479,1,'Hard March',10000,28),
+ (125,480,1,'Dark Blade',22100,36),
+ (125,481,1,'Dark Armor',15300,32),
+ (125,482,1,'Furious Soul',5800,24),
+ (125,483,1,'Sword Shield',22100,36),
+ (125,484,1,'Rush',15300,32),
+ (125,485,1,'Disarm',22100,36),
+ (125,499,1,'Courage',22100,36),
+ (125,1432,2,'Increase Power',10000,28),
+ (125,1433,1,'Abyssal Blaze',1800,20),
+ (125,1433,2,'Abyssal Blaze',1800,20),
+ (125,1433,3,'Abyssal Blaze',2900,24),
+ (125,1433,4,'Abyssal Blaze',2900,24),
+ (125,1433,5,'Abyssal Blaze',5000,28),
+ (125,1433,6,'Abyssal Blaze',5000,28),
+ (125,1433,7,'Abyssal Blaze',7700,32),
+ (125,1433,8,'Abyssal Blaze',7700,32),
+ (125,1433,9,'Abyssal Blaze',11000,36),
+ (125,1433,10,'Abyssal Blaze',11000,36),
+ (125,1434,1,'Dark Explosion',5800,24),
+ (125,1434,2,'Dark Explosion',10000,28),
+ (125,1434,3,'Dark Explosion',15300,32),
+ (125,1434,4,'Dark Explosion',22100,36),
+ (125,1435,1,'Death Mark',5800,24),
+ (125,1435,2,'Death Mark',15300,32),
+ (125,1445,1,'Surrender to the Unholy',10000,28),
+ (125,1445,2,'Surrender to the Unholy',15300,32),
+ (125,1445,3,'Surrender to the Unholy',22100,36),
+ (125,1473,1,'Change Weapon',3700,20),
+ (125,1475,1,'Erase Mark',5800,24);
+ 
+ -- Skill for Kamael Female Soldier & Warder
+ INSERT INTO `skill_trees` (`class_id`,`skill_id`,`level`,`name`,`sp`,`min_level`) VALUES
 
--- Skills for Berserker, Doombringer
-INSERT INTO `skill_trees` VALUES ('127', '465', '14', 'Light Armor Mastery', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '465', '15', 'Light Armor Mastery', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '465', '16', 'Light Armor Mastery', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '466', '19', 'Magic Immunity', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '466', '20', 'Magic Immunity', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '466', '21', 'Magic Immunity', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '467', '9', 'Soul Mastery', '49000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '472', '9', 'Ancient Sword Mastery', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '472', '10', 'Ancient Sword Mastery', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '472', '11', 'Ancient Sword Mastery', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '477', '1', 'Dark Smash', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '477', '2', 'Dark Smash', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '477', '3', 'Dark Smash', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '494', '1', 'Shoulder', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '494', '2', 'Shoulder', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '494', '3', 'Shoulder', '16000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '500', '1', 'True Berserker', '49000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '502', '1', 'Life to Soul', '49000', '40');
-INSERT INTO `skill_trees` VALUES ('127', '465', '17', 'Light Armor Mastery', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '465', '18', 'Light Armor Mastery', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '465', '19', 'Light Armor Mastery', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '466', '22', 'Magic Immunity', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '466', '23', 'Magic Immunity', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '466', '24', 'Magic Immunity', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '467', '10', 'Soul Mastery', '46000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '472', '12', 'Ancient Sword Mastery', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '472', '13', 'Ancient Sword Mastery', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '472', '14', 'Ancient Sword Mastery', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '477', '4', 'Dark Smash', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '477', '5', 'Dark Smash', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '477', '6', 'Dark Smash', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '481', '2', 'Dark Armor', '46000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '485', '2', 'Disarm', '46000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '494', '4', 'Shoulder', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '494', '5', 'Shoulder', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '494', '6', 'Shoulder', '15000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '503', '1', 'Scorn', '46000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '312', '1', 'Vicious Stance', '46000', '43');
-INSERT INTO `skill_trees` VALUES ('127', '465', '20', 'Light Armor Mastery', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '465', '21', 'Light Armor Mastery', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '465', '22', 'Light Armor Mastery', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '466', '25', 'Magic Immunity', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '466', '26', 'Magic Immunity', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '466', '27', 'Magic Immunity', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '467', '11', 'Soul Mastery', '75000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '472', '15', 'Ancient Sword Mastery', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '472', '16', 'Ancient Sword Mastery', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '472', '17', 'Ancient Sword Mastery', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '477', '7', 'Dark Smash', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '477', '8', 'Dark Smash', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '477', '9', 'Dark Smash', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '494', '7', 'Shoulder', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '494', '8', 'Shoulder', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '494', '9', 'Shoulder', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '496', '1', 'Slashing Blade', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '496', '2', 'Slashing Blade', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '496', '3', 'Slashing Blade', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '467', '1', 'Soul Mastery', '75000', '46');
-INSERT INTO `skill_trees` VALUES ('127', '465', '23', 'Light Armor Mastery', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '465', '24', 'Light Armor Mastery', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '465', '25', 'Light Armor Mastery', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '466', '28', 'Magic Immunity', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '466', '29', 'Magic Immunity', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '466', '30', 'Magic Immunity', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '467', '12', 'Soul Mastery', '82000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '472', '18', 'Ancient Sword Mastery', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '472', '19', 'Ancient Sword Mastery', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '472', '20', 'Ancient Sword Mastery', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '477', '10', 'Dark Smash', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '477', '11', 'Dark Smash', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '477', '12', 'Dark Smash', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '485', '3', 'Disarm', '82000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '493', '1', 'Storm Assault', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '493', '2', 'Storm Assault', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '493', '3', 'Storm Assault', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '494', '10', 'Shoulder', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '494', '11', 'Shoulder', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '494', '12', 'Shoulder', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '496', '4', 'Slashing Blade', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '496', '5', 'Slashing Blade', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '496', '6', 'Slashing Blade', '27000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '499', '2', 'Courage', '82000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '501', '1', 'Violent Temper', '82000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '502', '2', 'Life to Soul', '82000', '49');
-INSERT INTO `skill_trees` VALUES ('127', '465', '26', 'Light Armor Mastery', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '465', '27', 'Light Armor Mastery', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '465', '28', 'Light Armor Mastery', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '466', '31', 'Magic Immunity', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '466', '32', 'Magic Immunity', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '466', '33', 'Magic Immunity', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '467', '13', 'Soul Mastery', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '472', '21', 'Ancient Sword Mastery', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '472', '22', 'Ancient Sword Mastery', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '472', '23', 'Ancient Sword Mastery', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '477', '13', 'Dark Smash', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '477', '14', 'Dark Smash', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '477', '15', 'Dark Smash', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '483', '2', 'Sword Shield', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '492', '1', 'Spread Wing', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '492', '2', 'Spread Wing', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '492', '3', 'Spread Wing', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '493', '4', 'Storm Assault', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '493', '5', 'Storm Assault', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '493', '6', 'Storm Assault', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '494', '13', 'Shoulder', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '494', '14', 'Shoulder', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '494', '15', 'Shoulder', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '496', '7', 'Slashing Blade', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '496', '8', 'Slashing Blade', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '496', '9', 'Slashing Blade', '38000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '500', '2', 'True Berserker', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '501', '2', 'Violent Temper', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '312', '2', 'Vicious Stance', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('127', '465', '29', 'Light Armor Mastery', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '465', '30', 'Light Armor Mastery', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '465', '31', 'Light Armor Mastery', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '466', '34', 'Magic Immunity', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '466', '35', 'Magic Immunity', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '466', '36', 'Magic Immunity', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '467', '14', 'Soul Mastery', '157000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '472', '24', 'Ancient Sword Mastery', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '472', '25', 'Ancient Sword Mastery', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '472', '26', 'Ancient Sword Mastery', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '477', '16', 'Dark Smash', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '477', '17', 'Dark Smash', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '477', '18', 'Dark Smash', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '482', '2', 'Furious Soul', '157000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '485', '4', 'Disarm', '157000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '492', '4', 'Spread Wing', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '492', '5', 'Spread Wing', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '492', '6', 'Spread Wing', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '493', '7', 'Storm Assault', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '493', '8', 'Storm Assault', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '493', '9', 'Storm Assault', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '494', '16', 'Shoulder', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '494', '17', 'Shoulder', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '494', '18', 'Shoulder', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '495', '1', 'Blade Rush', '157000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '496', '10', 'Slashing Blade', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '496', '11', 'Slashing Blade', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '496', '12', 'Slashing Blade', '52000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '501', '3', 'Violent Temper', '157000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '503', '2', 'Scorn', '157000', '55');
-INSERT INTO `skill_trees` VALUES ('127', '465', '32', 'Light Armor Mastery', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '465', '33', 'Light Armor Mastery', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '465', '34', 'Light Armor Mastery', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '466', '37', 'Magic Immunity', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '466', '38', 'Magic Immunity', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '466', '39', 'Magic Immunity', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '467', '15', 'Soul Mastery', '200000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '472', '27', 'Ancient Sword Mastery', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '472', '28', 'Ancient Sword Mastery', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '472', '29', 'Ancient Sword Mastery', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '477', '19', 'Dark Smash', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '477', '20', 'Dark Smash', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '477', '21', 'Dark Smash', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '492', '7', 'Spread Wing', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '492', '8', 'Spread Wing', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '492', '9', 'Spread Wing', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '493', '10', 'Storm Assault', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '493', '11', 'Storm Assault', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '493', '12', 'Storm Assault', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '494', '19', 'Shoulder', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '494', '20', 'Shoulder', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '494', '21', 'Shoulder', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '495', '2', 'Blade Rush', '200000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '496', '13', 'Slashing Blade', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '496', '14', 'Slashing Blade', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '496', '15', 'Slashing Blade', '67000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '501', '4', 'Violent Temper', '200000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '502', '3', 'Life to Soul', '200000', '58');
-INSERT INTO `skill_trees` VALUES ('127', '465', '35', 'Light Armor Mastery', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '465', '36', 'Light Armor Mastery', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '466', '40', 'Magic Immunity', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '466', '41', 'Magic Immunity', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '467', '16', 'Soul Mastery', '223000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '472', '30', 'Ancient Sword Mastery', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '472', '31', 'Ancient Sword Mastery', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '477', '22', 'Dark Smash', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '477', '23', 'Dark Smash', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '492', '10', 'Spread Wing', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '492', '11', 'Spread Wing', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '493', '13', 'Storm Assault', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '493', '14', 'Storm Assault', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '494', '22', 'Shoulder', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '494', '23', 'Shoulder', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '495', '3', 'Blade Rush', '223000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '496', '16', 'Slashing Blade', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '496', '17', 'Slashing Blade', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '497', '1', 'Crushing Pain', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '497', '2', 'Crushing Pain', '112000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '501', '5', 'Violent Temper', '223000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '312', '3', 'Vicious Stance', '223000', '60');
-INSERT INTO `skill_trees` VALUES ('127', '465', '37', 'Light Armor Mastery', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '465', '38', 'Light Armor Mastery', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '466', '42', 'Magic Immunity', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '466', '43', 'Magic Immunity', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '467', '17', 'Soul Mastery', '290000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '472', '32', 'Ancient Sword Mastery', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '472', '33', 'Ancient Sword Mastery', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '477', '24', 'Dark Smash', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '477', '25', 'Dark Smash', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '485', '5', 'Disarm', '290000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '492', '12', 'Spread Wing', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '492', '13', 'Spread Wing', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '493', '15', 'Storm Assault', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '493', '16', 'Storm Assault', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '494', '24', 'Shoulder', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '494', '25', 'Shoulder', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '495', '4', 'Blade Rush', '290000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '496', '18', 'Slashing Blade', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '496', '19', 'Slashing Blade', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '497', '3', 'Crushing Pain', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '497', '4', 'Crushing Pain', '140000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '499', '3', 'Courage', '290000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '501', '6', 'Violent Temper', '290000', '62');
-INSERT INTO `skill_trees` VALUES ('127', '465', '39', 'Light Armor Mastery', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '465', '40', 'Light Armor Mastery', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '466', '44', 'Magic Immunity', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '466', '45', 'Magic Immunity', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '467', '18', 'Soul Mastery', '340000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '472', '34', 'Ancient Sword Mastery', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '472', '35', 'Ancient Sword Mastery', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '477', '26', 'Dark Smash', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '477', '27', 'Dark Smash', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '492', '14', 'Spread Wing', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '492', '15', 'Spread Wing', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '493', '17', 'Storm Assault', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '493', '18', 'Storm Assault', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '494', '26', 'Shoulder', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '494', '27', 'Shoulder', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '495', '5', 'Blade Rush', '340000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '496', '20', 'Slashing Blade', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '496', '21', 'Slashing Blade', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '497', '5', 'Crushing Pain', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '497', '6', 'Crushing Pain', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '498', '1', 'Contagion', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '498', '2', 'Contagion', '170000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '501', '7', 'Violent Temper', '340000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '503', '3', 'Scorn', '340000', '64');
-INSERT INTO `skill_trees` VALUES ('127', '465', '41', 'Light Armor Mastery', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '465', '42', 'Light Armor Mastery', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '466', '46', 'Magic Immunity', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '466', '47', 'Magic Immunity', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '467', '19', 'Soul Mastery', '440000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '472', '36', 'Ancient Sword Mastery', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '472', '37', 'Ancient Sword Mastery', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '477', '28', 'Dark Smash', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '477', '29', 'Dark Smash', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '492', '16', 'Spread Wing', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '492', '17', 'Spread Wing', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '493', '19', 'Storm Assault', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '493', '20', 'Storm Assault', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '494', '28', 'Shoulder', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '494', '29', 'Shoulder', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '495', '6', 'Blade Rush', '440000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '496', '22', 'Slashing Blade', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '496', '23', 'Slashing Blade', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '497', '7', 'Crushing Pain', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '497', '8', 'Crushing Pain', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '498', '3', 'Contagion', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '498', '4', 'Contagion', '220000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '501', '8', 'Violent Temper', '500000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '502', '4', 'Life to Soul', '440000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '312', '4', 'Vicious Stance', '440000', '66');
-INSERT INTO `skill_trees` VALUES ('127', '465', '43', 'Light Armor Mastery', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '465', '44', 'Light Armor Mastery', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '466', '48', 'Magic Immunity', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '466', '49', 'Magic Immunity', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '467', '20', 'Soul Mastery', '560000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '472', '38', 'Ancient Sword Mastery', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '472', '39', 'Ancient Sword Mastery', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '477', '30', 'Dark Smash', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '477', '31', 'Dark Smash', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '485', '6', 'Disarm', '560000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '492', '18', 'Spread Wing', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '492', '19', 'Spread Wing', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '493', '21', 'Storm Assault', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '493', '22', 'Storm Assault', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '494', '30', 'Shoulder', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '494', '31', 'Shoulder', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '495', '7', 'Blade Rush', '560000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '496', '24', 'Slashing Blade', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '496', '25', 'Slashing Blade', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '497', '9', 'Crushing Pain', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '497', '10', 'Crushing Pain', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '498', '5', 'Contagion', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '498', '6', 'Contagion', '280000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '501', '9', 'Violent Temper', '560000', '68');
-INSERT INTO `skill_trees` VALUES ('127', '465', '45', 'Light Armor Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '465', '46', 'Light Armor Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '466', '50', 'Magic Immunity', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '466', '51', 'Magic Immunity', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '467', '21', 'Soul Mastery', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '472', '40', 'Ancient Sword Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '472', '41', 'Ancient Sword Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '477', '32', 'Dark Smash', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '477', '33', 'Dark Smash', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '492', '20', 'Spread Wing', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '492', '21', 'Spread Wing', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '493', '23', 'Storm Assault', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '493', '24', 'Storm Assault', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '494', '32', 'Shoulder', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '494', '33', 'Shoulder', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '495', '8', 'Blade Rush', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '496', '26', 'Slashing Blade', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '496', '27', 'Slashing Blade', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '497', '11', 'Crushing Pain', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '497', '12', 'Crushing Pain', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '498', '7', 'Contagion', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '498', '8', 'Contagion', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '501', '10', 'Violent Temper', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('127', '465', '47', 'Light Armor Mastery', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '465', '48', 'Light Armor Mastery', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '466', '52', 'Magic Immunity', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '466', '53', 'Magic Immunity', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '467', '22', 'Soul Mastery', '860000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '472', '42', 'Ancient Sword Mastery', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '472', '43', 'Ancient Sword Mastery', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '477', '34', 'Dark Smash', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '477', '35', 'Dark Smash', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '492', '22', 'Spread Wing', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '492', '23', 'Spread Wing', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '493', '25', 'Storm Assault', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '493', '26', 'Storm Assault', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '494', '34', 'Shoulder', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '494', '35', 'Shoulder', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '495', '9', 'Blade Rush', '860000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '496', '28', 'Slashing Blade', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '496', '29', 'Slashing Blade', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '497', '13', 'Crushing Pain', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '497', '14', 'Crushing Pain', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '498', '9', 'Contagion', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '498', '10', 'Contagion', '430000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '501', '11', 'Violent Temper', '860000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '502', '5', 'Life to Soul', '860000', '72');
-INSERT INTO `skill_trees` VALUES ('127', '465', '49', 'Light Armor Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '465', '50', 'Light Armor Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '466', '54', 'Magic Immunity', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '466', '55', 'Magic Immunity', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '467', '23', 'Soul Mastery', '1900000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '472', '44', 'Ancient Sword Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '472', '45', 'Ancient Sword Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '477', '36', 'Dark Smash', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '477', '37', 'Dark Smash', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '485', '7', 'Disarm', '1900000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '492', '24', 'Spread Wing', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '492', '25', 'Spread Wing', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '493', '27', 'Storm Assault', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '493', '28', 'Storm Assault', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '494', '36', 'Shoulder', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '494', '37', 'Shoulder', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '495', '10', 'Blade Rush', '1900000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '496', '30', 'Slashing Blade', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '496', '31', 'Slashing Blade', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '497', '15', 'Crushing Pain', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '497', '16', 'Crushing Pain', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '498', '11', 'Contagion', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '498', '12', 'Contagion', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('127', '502', '12', 'Violent Temper', '1900000', '74');
-INSERT INTO `skill_trees` VALUES ('131', '328', '1', 'Wisdom', '12500000', '76');
-INSERT INTO `skill_trees` VALUES ('131', '329', '1', 'Health', '12500000', '76');
-INSERT INTO `skill_trees` VALUES ('131', '335', '1', 'Fortitude', '10000000', '76');
-INSERT INTO `skill_trees` VALUES ('131', '330', '1', 'Skill Mastery', '14700000', '77');
-INSERT INTO `skill_trees` VALUES ('131', '426', '1', 'Battle Force', '14700000', '77');
-INSERT INTO `skill_trees` VALUES ('131', '526', '1', 'Enuma Elish', '64000000', '78');
-INSERT INTO `skill_trees` VALUES ('131', '538', '1', 'Final Form', '80000000', '79');
-
--- Skills for Male Soulbreaker / Soul Hound
-INSERT INTO `skill_trees` VALUES ('128', '465', '14', 'Light Armor Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '465', '15', 'Light Armor Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '465', '16', 'Light Armor Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '466', '19', 'Magic Immunity', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '466', '20', 'Magic Immunity', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '466', '21', 'Magic Immunity', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '467', '9', 'Soul Mastery', '43000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '474', '9', 'Rapier Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '474', '10', 'Rapier Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '474', '11', 'Rapier Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '502', '1', 'Violent Temper', '43000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '504', '1', 'Triple Thrust', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '504', '2', 'Triple Thrust', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '504', '3', 'Triple Thrust', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '1435', '3', 'Death Mark', '43000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '1', 'Soul of Pain', '22000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '2', 'Soul of Pain', '22000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '4', 'Surrender to the Unholy', '43000', '40');
-INSERT INTO `skill_trees` VALUES ('128', '465', '17', 'Light Armor Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '465', '18', 'Light Armor Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '465', '19', 'Light Armor Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '466', '22', 'Magic Immunity', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '466', '23', 'Magic Immunity', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '466', '24', 'Magic Immunity', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '467', '10', 'Soul Mastery', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '474', '12', 'Rapier Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '474', '13', 'Rapier Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '474', '14', 'Rapier Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '481', '2', 'Dark Armor', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '504', '4', 'Triple Thrust', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '504', '5', 'Triple Thrust', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '504', '6', 'Triple Thrust', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '312', '1', 'Vicious Stance', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '3', 'Soul of Pain', '21000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '4', 'Soul of Pain', '21000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '1441', '1', 'Soul to Empower', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '5', 'Surrender to the Unholy', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '1474', '1', 'Abyssal Power', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('128', '465', '20', 'Light Armor Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '465', '21', 'Light Armor Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '465', '22', 'Light Armor Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '466', '25', 'Magic Immunity', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '466', '26', 'Magic Immunity', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '466', '27', 'Magic Immunity', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '467', '11', 'Soul Mastery', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '474', '15', 'Rapier Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '474', '16', 'Rapier Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '474', '17', 'Rapier Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '504', '7', 'Triple Thrust', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '504', '8', 'Triple Thrust', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '504', '9', 'Triple Thrust', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '1435', '4', 'Death Mark', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '5', 'Soul of Pain', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '6', 'Soul of Pain', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '1', 'Dark Flame', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '2', 'Dark Flame', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '1443', '1', 'Dark Weapon', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '6', 'Surrender to the Unholy', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '1475', '2', 'Erase Mark', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('128', '465', '23', 'Light Armor Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '465', '24', 'Light Armor Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '465', '25', 'Light Armor Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '466', '28', 'Magic Immunity', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '466', '29', 'Magic Immunity', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '466', '30', 'Magic Immunity', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '467', '12', 'Soul Mastery', '89000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '474', '18', 'Rapier Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '474', '19', 'Rapier Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '474', '20', 'Rapier Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '502', '2', 'Violent Temper', '89000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '504', '10', 'Triple Thrust', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '504', '11', 'Triple Thrust', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '504', '12', 'Triple Thrust', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '505', '1', 'Shining Edge', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '505', '2', 'Shining Edge', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '505', '3', 'Shining Edge', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '7', 'Soul of Pain', '45000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '8', 'Soul of Pain', '45000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '3', 'Dark Flame', '45000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '4', 'Dark Flame', '45000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '1444', '1', 'Pride of Kamael', '89000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '7', 'Surrender to the Unholy', '89000', '49');
-INSERT INTO `skill_trees` VALUES ('128', '465', '26', 'Light Armor Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '465', '27', 'Light Armor Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '465', '28', 'Light Armor Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '466', '31', 'Magic Immunity', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '466', '32', 'Magic Immunity', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '466', '33', 'Magic Immunity', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '467', '13', 'Soul Mastery', '107000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '474', '21', 'Rapier Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '474', '22', 'Rapier Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '474', '23', 'Rapier Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '492', '1', 'Spread Wing', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '492', '2', 'Spread Wing', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '492', '3', 'Spread Wing', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '504', '13', 'Triple Thrust', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '504', '14', 'Triple Thrust', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '504', '15', 'Triple Thrust', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '505', '4', 'Shining Edge', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '505', '5', 'Shining Edge', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '505', '6', 'Shining Edge', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '506', '1', 'Checkmate', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '312', '2', 'Vicious Stance', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '1435', '5', 'Death Mark', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '9', 'Soul of Pain', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '10', 'Soul of Pain', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '5', 'Dark Flame', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '6', 'Dark Flame', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '8', 'Surrender to the Unholy', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '1446', '1', 'Shadow Bind', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('128', '465', '29', 'Light Armor Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '465', '30', 'Light Armor Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '465', '31', 'Light Armor Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '466', '34', 'Magic Immunity', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '466', '35', 'Magic Immunity', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '466', '36', 'Magic Immunity', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '467', '14', 'Soul Mastery', '183000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '474', '24', 'Rapier Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '474', '25', 'Rapier Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '474', '26', 'Rapier Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '492', '4', 'Spread Wing', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '492', '5', 'Spread Wing', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '492', '6', 'Spread Wing', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '504', '16', 'Triple Thrust', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '504', '17', 'Triple Thrust', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '504', '18', 'Triple Thrust', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '505', '7', 'Shining Edge', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '505', '8', 'Shining Edge', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '505', '9', 'Shining Edge', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '11', 'Soul of Pain', '92000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '12', 'Soul of Pain', '92000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '7', 'Dark Flame', '92000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '8', 'Dark Flame', '92000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '1440', '1', 'Steal Divinity', '183000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '1441', '2', 'Soul to Empower', '183000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '9', 'Surrender to the Unholy', '183000', '55');
-INSERT INTO `skill_trees` VALUES ('128', '465', '32', 'Light Armor Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '465', '33', 'Light Armor Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '465', '34', 'Light Armor Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '466', '37', 'Magic Immunity', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '466', '38', 'Magic Immunity', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '466', '39', 'Magic Immunity', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '467', '15', 'Soul Mastery', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '474', '27', 'Rapier Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '474', '28', 'Rapier Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '474', '29', 'Rapier Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '492', '7', 'Spread Wing', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '492', '8', 'Spread Wing', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '492', '9', 'Spread Wing', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '502', '3', 'Violent Temper', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '504', '19', 'Triple Thrust', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '504', '20', 'Triple Thrust', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '504', '21', 'Triple Thrust', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '505', '10', 'Shining Edge', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '505', '11', 'Shining Edge', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '505', '12', 'Shining Edge', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1435', '6', 'Death Mark', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '13', 'Soul of Pain', '80000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '14', 'Soul of Pain', '80000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '9', 'Dark Flame', '80000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '10', 'Dark Flame', '80000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '1', 'Annihilation', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1442', '1', 'Protection from Darkness', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '10', 'Surrender to the Unholy', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '1447', '1', 'Voice Bind', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('128', '465', '35', 'Light Armor Mastery', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '465', '36', 'Light Armor Mastery', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '466', '40', 'Magic Immunity', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '466', '41', 'Magic Immunity', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '467', '16', 'Soul Mastery', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '474', '30', 'Rapier Mastery', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '474', '31', 'Rapier Mastery', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '492', '10', 'Spread Wing', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '492', '11', 'Spread Wing', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '504', '22', 'Triple Thrust', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '504', '23', 'Triple Thrust', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '505', '13', 'Shining Edge', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '505', '14', 'Shining Edge', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '506', '2', 'Checkmate', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '312', '3', 'Vicious Stance', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '15', 'Soul of Pain', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '16', 'Soul of Pain', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '11', 'Dark Flame', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '12', 'Dark Flame', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '2', 'Annihilation', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '1440', '2', 'Steal Divinity', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '11', 'Surrender to the Unholy', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '1448', '1', 'Blink', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('128', '465', '37', 'Light Armor Mastery', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '465', '38', 'Light Armor Mastery', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '466', '42', 'Magic Immunity', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '466', '43', 'Magic Immunity', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '467', '17', 'Soul Mastery', '330000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '474', '32', 'Rapier Mastery', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '474', '33', 'Rapier Mastery', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '492', '12', 'Spread Wing', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '492', '13', 'Spread Wing', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '504', '24', 'Triple Thrust', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '504', '25', 'Triple Thrust', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '505', '15', 'Shining Edge', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '505', '16', 'Shining Edge', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '1435', '7', 'Death Mark', '330000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '17', 'Soul of Pain', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '18', 'Soul of Pain', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '13', 'Dark Flame', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '14', 'Dark Flame', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '3', 'Annihilation', '330000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '12', 'Surrender to the Unholy', '330000', '62');
-INSERT INTO `skill_trees` VALUES ('128', '465', '39', 'Light Armor Mastery', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '465', '40', 'Light Armor Mastery', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '466', '44', 'Magic Immunity', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '466', '45', 'Magic Immunity', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '467', '18', 'Soul Mastery', '400000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '474', '34', 'Rapier Mastery', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '474', '35', 'Rapier Mastery', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '492', '14', 'Spread Wing', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '492', '15', 'Spread Wing', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '504', '26', 'Triple Thrust', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '504', '27', 'Triple Thrust', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '505', '17', 'Shining Edge', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '505', '18', 'Shining Edge', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '19', 'Soul of Pain', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '20', 'Soul of Pain', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '15', 'Dark Flame', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '16', 'Dark Flame', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '4', 'Annihilation', '400000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '1440', '3', 'Steal Divinity', '400000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '13', 'Surrender to the Unholy', '400000', '64');
-INSERT INTO `skill_trees` VALUES ('128', '465', '41', 'Light Armor Mastery', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '465', '42', 'Light Armor Mastery', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '466', '46', 'Magic Immunity', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '466', '47', 'Magic Immunity', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '467', '19', 'Soul Mastery', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '474', '36', 'Rapier Mastery', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '474', '37', 'Rapier Mastery', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '492', '16', 'Spread Wing', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '492', '17', 'Spread Wing', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '502', '4', 'Violent Temper', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '504', '28', 'Triple Thrust', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '504', '29', 'Triple Thrust', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '505', '19', 'Shining Edge', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '505', '20', 'Shining Edge', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '506', '3', 'Checkmate', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '312', '4', 'Vicious Stance', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1435', '8', 'Death Mark', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '21', 'Soul of Pain', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '22', 'Soul of Pain', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '17', 'Dark Flame', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '18', 'Dark Flame', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '5', 'Annihilation', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1439', '1', 'Curse of Divinity', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1442', '2', 'Protection from Darkness', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '14', 'Surrender to the Unholy', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '1475', '3', 'Erase Mark', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('128', '465', '43', 'Light Armor Mastery', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '465', '44', 'Light Armor Mastery', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '466', '48', 'Magic Immunity', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '466', '49', 'Magic Immunity', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '467', '20', 'Soul Mastery', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '474', '38', 'Rapier Mastery', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '474', '39', 'Rapier Mastery', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '492', '18', 'Spread Wing', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '492', '19', 'Spread Wing', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '504', '30', 'Triple Thrust', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '504', '31', 'Triple Thrust', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '505', '21', 'Shining Edge', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '505', '22', 'Shining Edge', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '23', 'Soul of Pain', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '24', 'Soul of Pain', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '19', 'Dark Flame', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '20', 'Dark Flame', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '6', 'Annihilation', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '1439', '2', 'Curse of Divinity', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '1440', '4', 'Steal Divinity', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '15', 'Surrender to the Unholy', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('128', '465', '45', 'Light Armor Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '465', '46', 'Light Armor Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '466', '50', 'Magic Immunity', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '466', '51', 'Magic Immunity', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '467', '21', 'Soul Mastery', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '474', '40', 'Rapier Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '474', '41', 'Rapier Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '492', '20', 'Spread Wing', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '492', '21', 'Spread Wing', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '504', '32', 'Triple Thrust', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '504', '33', 'Triple Thrust', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '505', '23', 'Shining Edge', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '505', '24', 'Shining Edge', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '1435', '9', 'Death Mark', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '25', 'Soul of Pain', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '26', 'Soul of Pain', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '21', 'Dark Flame', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '22', 'Dark Flame', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '7', 'Annihilation', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '1439', '3', 'Curse of Divinity', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '16', 'Surrender to the Unholy', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('128', '465', '47', 'Light Armor Mastery', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '465', '48', 'Light Armor Mastery', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '466', '52', 'Magic Immunity', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '466', '53', 'Magic Immunity', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '467', '22', 'Soul Mastery', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '474', '42', 'Rapier Mastery', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '474', '43', 'Rapier Mastery', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '492', '22', 'Spread Wing', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '492', '23', 'Spread Wing', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '502', '5', 'Violent Temper', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '504', '34', 'Triple Thrust', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '504', '35', 'Triple Thrust', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '505', '25', 'Shining Edge', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '505', '26', 'Shining Edge', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '506', '4', 'Checkmate', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '27', 'Soul of Pain', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '28', 'Soul of Pain', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '23', 'Dark Flame', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '24', 'Dark Flame', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '8', 'Annihilation', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '1439', '4', 'Curse of Divinity', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '1440', '5', 'Steal Divinity', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '17', 'Surrender to the Unholy', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('128', '465', '49', 'Light Armor Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '465', '50', 'Light Armor Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '466', '54', 'Magic Immunity', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '466', '55', 'Magic Immunity', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '467', '23', 'Soul Mastery', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '474', '44', 'Rapier Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '474', '45', 'Rapier Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '492', '24', 'Spread Wing', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '492', '25', 'Spread Wing', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '504', '36', 'Triple Thrust', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '504', '37', 'Triple Thrust', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '505', '27', 'Shining Edge', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '505', '28', 'Shining Edge', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1435', '10', 'Death Mark', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '29', 'Soul of Pain', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1436', '30', 'Soul of Pain', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '25', 'Dark Flame', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1437', '26', 'Dark Flame', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1438', '9', 'Annihilation', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1439', '5', 'Curse of Divinity', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1442', '3', 'Protection from Darkness', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('128', '1445', '18', 'Surrender to the Unholy', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('132', '328', '1', 'Wisdom', '12500000', '76');
-INSERT INTO `skill_trees` VALUES ('132', '329', '1', 'Health', '12500000', '76');
-INSERT INTO `skill_trees` VALUES ('132', '330', '1', 'Skill Mastery', '14700000', '77');
-INSERT INTO `skill_trees` VALUES ('132', '426', '1', 'Battle Force', '14700000', '77');
-INSERT INTO `skill_trees` VALUES ('132', '427', '1', 'Spell Force', '14700000', '77');
-INSERT INTO `skill_trees` VALUES ('132', '1469', '1', 'Leopold Summons', '64000000', '78');
-INSERT INTO `skill_trees` VALUES ('132', '538', '1', 'Final Form', '80000000', '79');
-
--- Skill for Kamael Female Soldier & Warder
-INSERT INTO `skill_trees` VALUES ('124', '462', '1', 'Guilted Body', '0', '1');
-INSERT INTO `skill_trees` VALUES ('124', '463', '1', 'Weapon Mastery', '160', '5');
-INSERT INTO `skill_trees` VALUES ('124', '464', '1', 'Armor Mastery', '160', '5');
-INSERT INTO `skill_trees` VALUES ('124', '466', '1', 'Magic Immunity', '160', '5');
-INSERT INTO `skill_trees` VALUES ('124', '467', '1', 'Soul Mastery', '160', '5');
-INSERT INTO `skill_trees` VALUES ('124', '468', '1', 'Fallen Attack', '50', '5');
-INSERT INTO `skill_trees` VALUES ('124', '468', '2', 'Fallen Attack', '50', '5');
-INSERT INTO `skill_trees` VALUES ('124', '468', '3', 'Fallen Attack', '50', '5');
-INSERT INTO `skill_trees` VALUES ('124', '1431', '1', 'Fallen Arrow', '80', '5');
-INSERT INTO `skill_trees` VALUES ('124', '1431', '2', 'Fallen Arrow', '80', '5');
-INSERT INTO `skill_trees` VALUES ('124', '463', '2', 'Weapon Mastery', '790', '10');
-INSERT INTO `skill_trees` VALUES ('124', '464', '2', 'Armor Mastery', '400', '10');
-INSERT INTO `skill_trees` VALUES ('124', '464', '3', 'Armor Mastery', '400', '10');
-INSERT INTO `skill_trees` VALUES ('124', '466', '2', 'Magic Immunity', '400', '10');
-INSERT INTO `skill_trees` VALUES ('124', '466', '3', 'Magic Immunity', '400', '10');
-INSERT INTO `skill_trees` VALUES ('124', '467', '2', 'Soul Mastery', '790', '10');
-INSERT INTO `skill_trees` VALUES ('124', '468', '4', 'Fallen Attack', '260', '10');
-INSERT INTO `skill_trees` VALUES ('124', '468', '5', 'Fallen Attack', '260', '10');
-INSERT INTO `skill_trees` VALUES ('124', '468', '6', 'Fallen Attack', '260', '10');
-INSERT INTO `skill_trees` VALUES ('124', '469', '1', 'Rapid Attack', '790', '10');
-INSERT INTO `skill_trees` VALUES ('124', '1431', '3', 'Fallen Arrow', '390', '10');
-INSERT INTO `skill_trees` VALUES ('124', '1431', '4', 'Fallen Arrow', '390', '10');
-INSERT INTO `skill_trees` VALUES ('124', '463', '3', 'Weapon Mastery', '2500', '15');
-INSERT INTO `skill_trees` VALUES ('124', '464', '4', 'Armor Mastery', '1250', '15');
-INSERT INTO `skill_trees` VALUES ('124', '464', '5', 'Armor Mastery', '1250', '15');
-INSERT INTO `skill_trees` VALUES ('124', '466', '4', 'Magic Immunity', '1250', '15');
-INSERT INTO `skill_trees` VALUES ('124', '466', '5', 'Magic Immunity', '1250', '15');
-INSERT INTO `skill_trees` VALUES ('124', '467', '3', 'Soul Mastery', '2500', '15');
-INSERT INTO `skill_trees` VALUES ('124', '468', '7', 'Fallen Attack', '830', '15');
-INSERT INTO `skill_trees` VALUES ('124', '468', '8', 'Fallen Attack', '830', '15');
-INSERT INTO `skill_trees` VALUES ('124', '468', '9', 'Fallen Attack', '830', '15');
-INSERT INTO `skill_trees` VALUES ('124', '470', '1', 'Detect Trap', '1250', '15');
-INSERT INTO `skill_trees` VALUES ('124', '471', '1', 'Defuse Trap', '1250', '15');
-INSERT INTO `skill_trees` VALUES ('124', '1431', '5', 'Fallen Arrow', '1250', '15');
-INSERT INTO `skill_trees` VALUES ('124', '1431', '6', 'Fallen Arrow', '1250', '15');
-INSERT INTO `skill_trees` VALUES ('126', '465', '1', 'Light Armor Mastery', '2100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '465', '2', 'Light Armor Mastery', '2100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '466', '6', 'Magic Immunity', '2100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '466', '7', 'Magic Immunity', '2100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '467', '4', 'Soul Mastery', '4100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '473', '1', 'Bowgun Mastery', '4100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '474', '1', 'Rapier Mastery', '4100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '478', '1', 'Double Thrust', '1400', '20');
-INSERT INTO `skill_trees` VALUES ('126', '478', '2', 'Double Thrust', '1400', '20');
-INSERT INTO `skill_trees` VALUES ('126', '478', '3', 'Double Thrust', '1400', '20');
-INSERT INTO `skill_trees` VALUES ('126', '487', '1', 'Penetrate Shot', '1400', '20');
-INSERT INTO `skill_trees` VALUES ('126', '487', '2', 'Penetrate Shot', '1400', '20');
-INSERT INTO `skill_trees` VALUES ('126', '487', '3', 'Penetrate Shot', '1400', '20');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '1', 'Abyssal Blaze', '2100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '2', 'Abyssal Blaze', '2100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '1473', '1', 'Change Weapon', '4100', '20');
-INSERT INTO `skill_trees` VALUES ('126', '465', '3', 'Light Armor Mastery', '2300', '24');
-INSERT INTO `skill_trees` VALUES ('126', '465', '4', 'Light Armor Mastery', '2300', '24');
-INSERT INTO `skill_trees` VALUES ('126', '466', '8', 'Magic Immunity', '2300', '24');
-INSERT INTO `skill_trees` VALUES ('126', '466', '9', 'Magic Immunity', '2300', '24');
-INSERT INTO `skill_trees` VALUES ('126', '467', '5', 'Soul Mastery', '4700', '24');
-INSERT INTO `skill_trees` VALUES ('126', '470', '2', 'Detect Trap', '2300', '24');
-INSERT INTO `skill_trees` VALUES ('126', '471', '2', 'Defuse Trap', '2300', '24');
-INSERT INTO `skill_trees` VALUES ('126', '473', '2', 'Bowgun Mastery', '4700', '24');
-INSERT INTO `skill_trees` VALUES ('126', '474', '2', 'Rapier Mastery', '4700', '24');
-INSERT INTO `skill_trees` VALUES ('126', '478', '4', 'Double Thrust', '1600', '24');
-INSERT INTO `skill_trees` VALUES ('126', '478', '5', 'Double Thrust', '1600', '24');
-INSERT INTO `skill_trees` VALUES ('126', '478', '6', 'Double Thrust', '1600', '24');
-INSERT INTO `skill_trees` VALUES ('126', '479', '1', 'Hard March', '4700', '24');
-INSERT INTO `skill_trees` VALUES ('126', '486', '1', 'Increase Range', '4700', '24');
-INSERT INTO `skill_trees` VALUES ('126', '487', '4', 'Penetrate Shot', '1600', '24');
-INSERT INTO `skill_trees` VALUES ('126', '487', '5', 'Penetrate Shot', '1600', '24');
-INSERT INTO `skill_trees` VALUES ('126', '487', '6', 'Penetrate Shot', '1600', '24');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '3', 'Abyssal Blaze', '2300', '24');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '4', 'Abyssal Blaze', '2300', '24');
-INSERT INTO `skill_trees` VALUES ('126', '1434', '1', 'Dark Explosion', '4700', '24');
-INSERT INTO `skill_trees` VALUES ('126', '1435', '1', 'Death Mark', '4700', '24');
-INSERT INTO `skill_trees` VALUES ('126', '1475', '1', 'Erase Mark', '4700', '24');
-INSERT INTO `skill_trees` VALUES ('126', '465', '5', 'Light Armor Mastery', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '465', '6', 'Light Armor Mastery', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '465', '7', 'Light Armor Mastery', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '466', '10', 'Magic Immunity', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '466', '11', 'Magic Immunity', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '466', '12', 'Magic Immunity', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '467', '6', 'Soul Mastery', '10900', '28');
-INSERT INTO `skill_trees` VALUES ('126', '473', '3', 'Bowgun Mastery', '5500', '28');
-INSERT INTO `skill_trees` VALUES ('126', '473', '4', 'Bowgun Mastery', '5500', '28');
-INSERT INTO `skill_trees` VALUES ('126', '474', '3', 'Rapier Mastery', '5500', '28');
-INSERT INTO `skill_trees` VALUES ('126', '474', '4', 'Rapier Mastery', '5500', '28');
-INSERT INTO `skill_trees` VALUES ('126', '478', '7', 'Double Thrust', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '478', '8', 'Double Thrust', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '478', '9', 'Double Thrust', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '487', '7', 'Penetrate Shot', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '487', '8', 'Penetrate Shot', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '487', '9', 'Penetrate Shot', '3600', '28');
-INSERT INTO `skill_trees` VALUES ('126', '514', '1', 'Fire Trap', '10900', '28');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '5', 'Abyssal Blaze', '5500', '28');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '6', 'Abyssal Blaze', '5500', '28');
-INSERT INTO `skill_trees` VALUES ('126', '1434', '2', 'Dark Explosion', '10900', '28');
-INSERT INTO `skill_trees` VALUES ('126', '1445', '1', 'Surrender to the Unholy', '10900', '28');
-INSERT INTO `skill_trees` VALUES ('126', '465', '8', 'Light Armor Mastery', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '465', '9', 'Light Armor Mastery', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '465', '10', 'Light Armor Mastery', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '466', '13', 'Magic Immunity', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '466', '14', 'Magic Immunity', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '466', '15', 'Magic Immunity', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '467', '7', 'Soul Mastery', '14300', '32');
-INSERT INTO `skill_trees` VALUES ('126', '473', '5', 'Bowgun Mastery', '7200', '32');
-INSERT INTO `skill_trees` VALUES ('126', '473', '6', 'Bowgun Mastery', '7200', '32');
-INSERT INTO `skill_trees` VALUES ('126', '474', '5', 'Rapier Mastery', '7200', '32');
-INSERT INTO `skill_trees` VALUES ('126', '474', '6', 'Rapier Mastery', '7200', '32');
-INSERT INTO `skill_trees` VALUES ('126', '478', '10', 'Double Thrust', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '478', '11', 'Double Thrust', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '478', '12', 'Double Thrust', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '481', '1', 'Dark Armor', '14300', '32');
-INSERT INTO `skill_trees` VALUES ('126', '487', '10', 'Penetrate Shot', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '487', '11', 'Penetrate Shot', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '487', '12', 'Penetrate Shot', '4800', '32');
-INSERT INTO `skill_trees` VALUES ('126', '490', '1', 'Fast Shot', '14300', '32');
-INSERT INTO `skill_trees` VALUES ('126', '484', '1', 'Rush', '14300', '32');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '7', 'Abyssal Blaze', '7200', '32');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '8', 'Abyssal Blaze', '7200', '32');
-INSERT INTO `skill_trees` VALUES ('126', '1434', '3', 'Dark Explosion', '14300', '32');
-INSERT INTO `skill_trees` VALUES ('126', '1435', '2', 'Death Mark', '14300', '32');
-INSERT INTO `skill_trees` VALUES ('126', '1445', '2', 'Surrender to the Unholy', '14300', '32');
-INSERT INTO `skill_trees` VALUES ('126', '465', '11', 'Light Armor Mastery', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '465', '12', 'Light Armor Mastery', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '465', '13', 'Light Armor Mastery', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '466', '16', 'Magic Immunity', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '466', '17', 'Magic Immunity', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '466', '18', 'Magic Immunity', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '467', '8', 'Soul Mastery', '20700', '36');
-INSERT INTO `skill_trees` VALUES ('126', '470', '3', 'Detect Trap', '10400', '36');
-INSERT INTO `skill_trees` VALUES ('126', '471', '3', 'Defuse Trap', '10400', '36');
-INSERT INTO `skill_trees` VALUES ('126', '473', '7', 'Bowgun Mastery', '10400', '36');
-INSERT INTO `skill_trees` VALUES ('126', '473', '8', 'Bowgun Mastery', '10400', '36');
-INSERT INTO `skill_trees` VALUES ('126', '474', '7', 'Rapier Mastery', '10400', '36');
-INSERT INTO `skill_trees` VALUES ('126', '474', '8', 'Rapier Mastery', '10400', '36');
-INSERT INTO `skill_trees` VALUES ('126', '478', '13', 'Double Thrust', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '478', '14', 'Double Thrust', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '478', '15', 'Double Thrust', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '480', '1', 'Dark Blade', '20700', '36');
-INSERT INTO `skill_trees` VALUES ('126', '487', '13', 'Penetrate Shot', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '487', '14', 'Penetrate Shot', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '487', '15', 'Penetrate Shot', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '514', '2', 'Fire Trap', '20700', '36');
-INSERT INTO `skill_trees` VALUES ('126', '101', '1', 'Stunning Shot', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '101', '2', 'Stunning Shot', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '101', '3', 'Stunning Shot', '6900', '36');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '9', 'Abyssal Blaze', '10400', '36');
-INSERT INTO `skill_trees` VALUES ('126', '1433', '10', 'Abyssal Blaze', '10400', '36');
-INSERT INTO `skill_trees` VALUES ('126', '1434', '4', 'Dark Explosion', '20700', '36');
-INSERT INTO `skill_trees` VALUES ('126', '1445', '3', 'Surrender to the Unholy', '20700', '36');
-
+ (126,465,1,'Light Armor Mastery',2100,20),
+ (126,465,2,'Light Armor Mastery',2100,20),
+ (126,466,6,'Magic Immunity',2100,20),
+ (126,466,7,'Magic Immunity',2100,20),
+ (126,467,4,'Soul Mastery',4100,20),
+ (126,473,1,'Crossbow Mastery',4100,20),
+ (126,474,1,'Rapier Mastery',4100,20),
+ (126,478,1,'Double Thrust',1400,20),
+ (126,478,2,'Double Thrust',1400,20),
+ (126,478,3,'Double Thrust',1400,20),
+ (126,487,1,'Penetrate Shot',1400,20),
+ (126,487,2,'Penetrate Shot',1400,20),
+ (126,487,3,'Penetrate Shot',1400,20),
+ (126,1433,1,'Abyssal Blaze',2100,20),
+ (126,1433,2,'Abyssal Blaze',2100,20),
+ (126,1473,1,'Change Weapon',4100,20),
+ (126,465,3,'Light Armor Mastery',2300,24),
+ (126,465,4,'Light Armor Mastery',2300,24),
+ (126,466,8,'Magic Immunity',2300,24),
+ (126,466,9,'Magic Immunity',2300,24),
+ (126,467,5,'Soul Mastery',4700,24),
+ (126,470,2,'Detect Trap',2300,24),
+ (126,471,2,'Defuse Trap',2300,24),
+ (126,473,2,'Crossbow Mastery',4700,24),
+ (126,474,2,'Rapier Mastery',4700,24),
+ (126,478,4,'Double Thrust',1600,24),
+ (126,478,5,'Double Thrust',1600,24),
+ (126,478,6,'Double Thrust',1600,24),
+ (126,479,1,'Hard March',4700,24),
+ (126,486,1,'Increase Range',4700,24),
+ (126,487,4,'Penetrate Shot',1600,24),
+ (126,487,5,'Penetrate Shot',1600,24),
+ (126,487,6,'Penetrate Shot',1600,24),
+ (126,1433,3,'Abyssal Blaze',2300,24),
+ (126,1433,4,'Abyssal Blaze',2300,24),
+ (126,1434,1,'Dark Explosion',4700,24),
+ (126,1435,1,'Death Mark',4700,24),
+ (126,1475,1,'Erase Mark',4700,24),
+ (126,465,5,'Light Armor Mastery',3600,28),
+ (126,465,6,'Light Armor Mastery',3600,28),
+ (126,465,7,'Light Armor Mastery',3600,28),
+ (126,466,10,'Magic Immunity',3600,28),
+ (126,466,11,'Magic Immunity',3600,28),
+ (126,466,12,'Magic Immunity',3600,28),
+ (126,467,6,'Soul Mastery',10900,28),
+ (126,473,3,'Crossbow Mastery',5500,28),
+ (126,473,4,'Crossbow Mastery',5500,28),
+ (126,474,3,'Rapier Mastery',5500,28),
+ (126,474,4,'Rapier Mastery',5500,28),
+ (126,478,7,'Double Thrust',3600,28),
+ (126,478,8,'Double Thrust',3600,28),
+ (126,478,9,'Double Thrust',3600,28),
+ (126,487,7,'Penetrate Shot',3600,28),
+ (126,487,8,'Penetrate Shot',3600,28),
+ (126,487,9,'Penetrate Shot',3600,28),
+ (126,514,1,'Fire Trap',10900,28),
+ (126,1433,5,'Abyssal Blaze',5500,28),
+ (126,1433,6,'Abyssal Blaze',5500,28),
+ (126,1434,2,'Dark Explosion',10900,28),
+ (126,1445,1,'Surrender to the Unholy',10900,28),
+ (126,465,8,'Light Armor Mastery',4800,32),
+ (126,465,9,'Light Armor Mastery',4800,32),
+ (126,465,10,'Light Armor Mastery',4800,32),
+ (126,466,13,'Magic Immunity',4800,32),
+ (126,466,14,'Magic Immunity',4800,32),
+ (126,466,15,'Magic Immunity',4800,32),
+ (126,467,7,'Soul Mastery',14300,32),
+ (126,473,5,'Crossbow Mastery',7200,32),
+ (126,473,6,'Crossbow Mastery',7200,32),
+ (126,474,5,'Rapier Mastery',7200,32),
+ (126,474,6,'Rapier Mastery',7200,32),
+ (126,478,10,'Double Thrust',4800,32),
+ (126,478,11,'Double Thrust',4800,32),
+ (126,478,12,'Double Thrust',4800,32),
+ (126,481,1,'Dark Armor',14300,32),
+ (126,487,10,'Penetrate Shot',4800,32),
+ (126,487,11,'Penetrate Shot',4800,32),
+ (126,487,12,'Penetrate Shot',4800,32),
+ (126,490,1,'Fast Shot',14300,32),
+ (126,484,1,'Rush',14300,32),
+ (126,1433,7,'Abyssal Blaze',7200,32),
+ (126,1433,8,'Abyssal Blaze',7200,32),
+ (126,1434,3,'Dark Explosion',14300,32),
+ (126,1435,2,'Death Mark',14300,32),
+ (126,1445,2,'Surrender to the Unholy',14300,32),
+ (126,465,11,'Light Armor Mastery',6900,36),
+ (126,465,12,'Light Armor Mastery',6900,36),
+ (126,465,13,'Light Armor Mastery',6900,36),
+ (126,466,16,'Magic Immunity',6900,36),
+ (126,466,17,'Magic Immunity',6900,36),
+ (126,466,18,'Magic Immunity',6900,36),
+ (126,467,8,'Soul Mastery',20700,36),
+ (126,470,3,'Detect Trap',10400,36),
+ (126,471,3,'Defuse Trap',10400,36),
+ (126,473,7,'Crossbow Mastery',10400,36),
+ (126,473,8,'Crossbow Mastery',10400,36),
+ (126,474,7,'Rapier Mastery',10400,36),
+ (126,474,8,'Rapier Mastery',10400,36),
+ (126,478,13,'Double Thrust',6900,36),
+ (126,478,14,'Double Thrust',6900,36),
+ (126,478,15,'Double Thrust',6900,36),
+ (126,480,1,'Dark Blade',20700,36),
+ (126,487,13,'Penetrate Shot',6900,36),
+ (126,487,14,'Penetrate Shot',6900,36),
+ (126,487,15,'Penetrate Shot',6900,36),
+ (126,514,2,'Fire Trap',20700,36),
+ (126,101,1,'Stunning Shot',6900,36),
+ (126,101,2,'Stunning Shot',6900,36),
+ (126,101,3,'Stunning Shot',6900,36),
+ (126,1433,9,'Abyssal Blaze',10400,36),
+ (126,1433,10,'Abyssal Blaze',10400,36),
+ (126,1434,4,'Dark Explosion',20700,36),
+ (126,1445,3,'Surrender to the Unholy',20700,36);
+ 
+ 
+ -- Skills for Berserker, Doombringer
+ INSERT INTO `skill_trees` (`class_id`,`skill_id`,`level`,`name`,`sp`,`min_level`) VALUES
+ (127,465,14,'Light Armor Mastery',16000,40),
+ (127,465,15,'Light Armor Mastery',16000,40),
+ (127,465,16,'Light Armor Mastery',16000,40),
+ (127,466,19,'Magic Immunity',16000,40),
+ (127,466,20,'Magic Immunity',16000,40),
+ (127,466,21,'Magic Immunity',16000,40),
+ (127,467,9,'Soul Mastery',49000,40),
+ (127,472,9,'Ancient Sword Mastery',16000,40),
+ (127,472,10,'Ancient Sword Mastery',16000,40),
+ (127,472,11,'Ancient Sword Mastery',16000,40),
+ (127,477,1,'Dark Smash',16000,40),
+ (127,477,2,'Dark Smash',16000,40),
+ (127,477,3,'Dark Smash',16000,40),
+ (127,494,1,'Shoulder Charge',16000,40),
+ (127,494,2,'Shoulder Charge',16000,40),
+ (127,494,3,'Shoulder Charge',16000,40),
+ (127,500,1,'True Berserker',49000,40),
+ (127,502,1,'Life to Soul',49000,40),
+ (127,465,17,'Light Armor Mastery',15000,43),
+ (127,465,18,'Light Armor Mastery',15000,43),
+ (127,465,19,'Light Armor Mastery',15000,43),
+ (127,466,22,'Magic Immunity',15000,43),
+ (127,466,23,'Magic Immunity',15000,43),
+ (127,466,24,'Magic Immunity',15000,43),
+ (127,467,10,'Soul Mastery',46000,43),
+ (127,472,12,'Ancient Sword Mastery',15000,43),
+ (127,472,13,'Ancient Sword Mastery',15000,43),
+ (127,472,14,'Ancient Sword Mastery',15000,43),
+ (127,477,4,'Dark Smash',15000,43),
+ (127,477,5,'Dark Smash',15000,43),
+ (127,477,6,'Dark Smash',15000,43),
+ (127,481,2,'Dark Armor',46000,43),
+ (127,485,2,'Disarm',46000,43),
+ (127,494,4,'Shoulder Charge',15000,43),
+ (127,494,5,'Shoulder Charge',15000,43),
+ (127,494,6,'Shoulder Charge',15000,43),
+ (127,503,1,'Scorn',46000,43),
+ (127,312,1,'Vicious Stance',46000,43),
+ (127,465,20,'Light Armor Mastery',25000,46),
+ (127,465,21,'Light Armor Mastery',25000,46),
+ (127,465,22,'Light Armor Mastery',25000,46),
+ (127,466,25,'Magic Immunity',25000,46),
+ (127,466,26,'Magic Immunity',25000,46),
+ (127,466,27,'Magic Immunity',25000,46),
+ (127,467,11,'Soul Mastery',75000,46),
+ (127,472,15,'Ancient Sword Mastery',25000,46),
+ (127,472,16,'Ancient Sword Mastery',25000,46),
+ (127,472,17,'Ancient Sword Mastery',25000,46),
+ (127,477,7,'Dark Smash',25000,46),
+ (127,477,8,'Dark Smash',25000,46),
+ (127,477,9,'Dark Smash',25000,46),
+ (127,494,7,'Shoulder Charge',25000,46),
+ (127,494,8,'Shoulder Charge',25000,46),
+ (127,494,9,'Shoulder Charge',25000,46),
+ (127,496,1,'Slashing Blade',25000,46),
+ (127,496,2,'Slashing Blade',25000,46),
+ (127,496,3,'Slashing Blade',25000,46),
+ (127,467,1,'Soul Mastery',75000,46),
+ (127,465,23,'Light Armor Mastery',27000,49),
+ (127,465,24,'Light Armor Mastery',27000,49),
+ (127,465,25,'Light Armor Mastery',27000,49),
+ (127,466,28,'Magic Immunity',27000,49),
+ (127,466,29,'Magic Immunity',27000,49),
+ (127,466,30,'Magic Immunity',27000,49),
+ (127,467,12,'Soul Mastery',82000,49),
+ (127,472,18,'Ancient Sword Mastery',27000,49),
+ (127,472,19,'Ancient Sword Mastery',27000,49),
+ (127,472,20,'Ancient Sword Mastery',27000,49),
+ (127,477,10,'Dark Smash',27000,49),
+ (127,477,11,'Dark Smash',27000,49),
+ (127,477,12,'Dark Smash',27000,49),
+ (127,485,3,'Disarm',82000,49),
+ (127,493,1,'Storm Assault',27000,49),
+ (127,493,2,'Storm Assault',27000,49),
+ (127,493,3,'Storm Assault',27000,49),
+ (127,494,10,'Shoulder Charge',27000,49),
+ (127,494,11,'Shoulder Charge',27000,49),
+ (127,494,12,'Shoulder Charge',27000,49),
+ (127,496,4,'Slashing Blade',27000,49),
+ (127,496,5,'Slashing Blade',27000,49),
+ (127,496,6,'Slashing Blade',27000,49),
+ (127,499,2,'Courage',82000,49),
+ (127,501,1,'Violent Temper',82000,49),
+ (127,502,2,'Life to Soul',82000,49),
+ (127,465,26,'Light Armor Mastery',38000,52),
+ (127,465,27,'Light Armor Mastery',38000,52),
+ (127,465,28,'Light Armor Mastery',38000,52),
+ (127,466,31,'Magic Immunity',38000,52),
+ (127,466,32,'Magic Immunity',38000,52),
+ (127,466,33,'Magic Immunity',38000,52),
+ (127,467,13,'Soul Mastery',115000,52),
+ (127,472,21,'Ancient Sword Mastery',38000,52),
+ (127,472,22,'Ancient Sword Mastery',38000,52),
+ (127,472,23,'Ancient Sword Mastery',38000,52),
+ (127,477,13,'Dark Smash',38000,52),
+ (127,477,14,'Dark Smash',38000,52),
+ (127,477,15,'Dark Smash',38000,52),
+ (127,483,2,'Sword Shield',115000,52),
+ (127,492,1,'Spread Wing',38000,52),
+ (127,492,2,'Spread Wing',38000,52),
+ (127,492,3,'Spread Wing',38000,52),
+ (127,493,4,'Storm Assault',38000,52),
+ (127,493,5,'Storm Assault',38000,52),
+ (127,493,6,'Storm Assault',38000,52),
+ (127,494,13,'Shoulder Charge',38000,52),
+ (127,494,14,'Shoulder Charge',38000,52),
+ (127,494,15,'Shoulder Charge',38000,52),
+ (127,496,7,'Slashing Blade',38000,52),
+ (127,496,8,'Slashing Blade',38000,52),
+ (127,496,9,'Slashing Blade',38000,52),
+ (127,500,2,'True Berserker',115000,52),
+ (127,501,2,'Violent Temper',115000,52),
+ (127,312,2,'Vicious Stance',115000,52),
+ (127,465,29,'Light Armor Mastery',52000,55),
+ (127,465,30,'Light Armor Mastery',52000,55),
+ (127,465,31,'Light Armor Mastery',52000,55),
+ (127,466,34,'Magic Immunity',52000,55),
+ (127,466,35,'Magic Immunity',52000,55),
+ (127,466,36,'Magic Immunity',52000,55),
+ (127,467,14,'Soul Mastery',157000,55),
+ (127,472,24,'Ancient Sword Mastery',52000,55),
+ (127,472,25,'Ancient Sword Mastery',52000,55),
+ (127,472,26,'Ancient Sword Mastery',52000,55),
+ (127,477,16,'Dark Smash',52000,55),
+ (127,477,17,'Dark Smash',52000,55),
+ (127,477,18,'Dark Smash',52000,55),
+ (127,482,2,'Furious Soul',157000,55),
+ (127,485,4,'Disarm',157000,55),
+ (127,492,4,'Spread Wing',52000,55),
+ (127,492,5,'Spread Wing',52000,55),
+ (127,492,6,'Spread Wing',52000,55),
+ (127,493,7,'Storm Assault',52000,55),
+ (127,493,8,'Storm Assault',52000,55),
+ (127,493,9,'Storm Assault',52000,55),
+ (127,494,16,'Shoulder Charge',52000,55),
+ (127,494,17,'Shoulder Charge',52000,55),
+ (127,494,18,'Shoulder Charge',52000,55),
+ (127,495,1,'Blade Rush',157000,55),
+ (127,496,10,'Slashing Blade',52000,55),
+ (127,496,11,'Slashing Blade',52000,55),
+ (127,496,12,'Slashing Blade',52000,55),
+ (127,501,3,'Violent Temper',157000,55),
+ (127,503,2,'Scorn',157000,55),
+ (127,465,32,'Light Armor Mastery',67000,58),
+ (127,465,33,'Light Armor Mastery',67000,58),
+ (127,465,34,'Light Armor Mastery',67000,58),
+ (127,466,37,'Magic Immunity',67000,58),
+ (127,466,38,'Magic Immunity',67000,58),
+ (127,466,39,'Magic Immunity',67000,58),
+ (127,467,15,'Soul Mastery',200000,58),
+ (127,472,27,'Ancient Sword Mastery',67000,58),
+ (127,472,28,'Ancient Sword Mastery',67000,58),
+ (127,472,29,'Ancient Sword Mastery',67000,58),
+ (127,477,19,'Dark Smash',67000,58),
+ (127,477,20,'Dark Smash',67000,58),
+ (127,477,21,'Dark Smash',67000,58),
+ (127,492,7,'Spread Wing',67000,58),
+ (127,492,8,'Spread Wing',67000,58),
+ (127,492,9,'Spread Wing',67000,58),
+ (127,493,10,'Storm Assault',67000,58),
+ (127,493,11,'Storm Assault',67000,58),
+ (127,493,12,'Storm Assault',67000,58),
+ (127,494,19,'Shoulder Charge',67000,58),
+ (127,494,20,'Shoulder Charge',67000,58),
+ (127,494,21,'Shoulder Charge',67000,58),
+ (127,495,2,'Blade Rush',200000,58),
+ (127,496,13,'Slashing Blade',67000,58),
+ (127,496,14,'Slashing Blade',67000,58),
+ (127,496,15,'Slashing Blade',67000,58),
+ (127,501,4,'Violent Temper',200000,58),
+ (127,502,3,'Life to Soul',200000,58),
+ (127,465,35,'Light Armor Mastery',112000,60),
+ (127,465,36,'Light Armor Mastery',112000,60),
+ (127,466,40,'Magic Immunity',112000,60),
+ (127,466,41,'Magic Immunity',112000,60),
+ (127,467,16,'Soul Mastery',223000,60),
+ (127,472,30,'Ancient Sword Mastery',112000,60),
+ (127,472,31,'Ancient Sword Mastery',112000,60),
+ (127,477,22,'Dark Smash',112000,60),
+ (127,477,23,'Dark Smash',112000,60),
+ (127,492,10,'Spread Wing',112000,60),
+ (127,492,11,'Spread Wing',112000,60),
+ (127,493,13,'Storm Assault',112000,60),
+ (127,493,14,'Storm Assault',112000,60),
+ (127,494,22,'Shoulder Charge',112000,60),
+ (127,494,23,'Shoulder Charge',112000,60),
+ (127,495,3,'Blade Rush',223000,60),
+ (127,496,16,'Slashing Blade',112000,60),
+ (127,496,17,'Slashing Blade',112000,60),
+ (127,497,1,'Crushing Pain',112000,60),
+ (127,497,2,'Crushing Pain',112000,60),
+ (127,501,5,'Violent Temper',223000,60),
+ (127,312,3,'Vicious Stance',223000,60),
+ (127,465,37,'Light Armor Mastery',140000,62),
+ (127,465,38,'Light Armor Mastery',140000,62),
+ (127,466,42,'Magic Immunity',140000,62),
+ (127,466,43,'Magic Immunity',140000,62),
+ (127,467,17,'Soul Mastery',290000,62),
+ (127,472,32,'Ancient Sword Mastery',140000,62),
+ (127,472,33,'Ancient Sword Mastery',140000,62),
+ (127,477,24,'Dark Smash',140000,62),
+ (127,477,25,'Dark Smash',140000,62),
+ (127,485,5,'Disarm',290000,62),
+ (127,492,12,'Spread Wing',140000,62),
+ (127,492,13,'Spread Wing',140000,62),
+ (127,493,15,'Storm Assault',140000,62),
+ (127,493,16,'Storm Assault',140000,62),
+ (127,494,24,'Shoulder Charge',140000,62),
+ (127,494,25,'Shoulder Charge',140000,62),
+ (127,495,4,'Blade Rush',290000,62),
+ (127,496,18,'Slashing Blade',140000,62),
+ (127,496,19,'Slashing Blade',140000,62),
+ (127,497,3,'Crushing Pain',140000,62),
+ (127,497,4,'Crushing Pain',140000,62),
+ (127,499,3,'Courage',290000,62),
+ (127,501,6,'Violent Temper',290000,62),
+ (127,465,39,'Light Armor Mastery',170000,64),
+ (127,465,40,'Light Armor Mastery',170000,64),
+ (127,466,44,'Magic Immunity',170000,64),
+ (127,466,45,'Magic Immunity',170000,64),
+ (127,467,18,'Soul Mastery',340000,64),
+ (127,472,34,'Ancient Sword Mastery',170000,64),
+ (127,472,35,'Ancient Sword Mastery',170000,64),
+ (127,477,26,'Dark Smash',170000,64),
+ (127,477,27,'Dark Smash',170000,64),
+ (127,492,14,'Spread Wing',170000,64),
+ (127,492,15,'Spread Wing',170000,64),
+ (127,493,17,'Storm Assault',170000,64),
+ (127,493,18,'Storm Assault',170000,64),
+ (127,494,26,'Shoulder Charge',170000,64),
+ (127,494,27,'Shoulder Charge',170000,64),
+ (127,495,5,'Blade Rush',340000,64),
+ (127,496,20,'Slashing Blade',170000,64),
+ (127,496,21,'Slashing Blade',170000,64),
+ (127,497,5,'Crushing Pain',170000,64),
+ (127,497,6,'Crushing Pain',170000,64),
+ (127,498,1,'Contagion',170000,64),
+ (127,498,2,'Contagion',170000,64),
+ (127,501,7,'Violent Temper',340000,64),
+ (127,503,3,'Scorn',340000,64),
+ (127,465,41,'Light Armor Mastery',220000,66),
+ (127,465,42,'Light Armor Mastery',220000,66),
+ (127,466,46,'Magic Immunity',220000,66),
+ (127,466,47,'Magic Immunity',220000,66),
+ (127,467,19,'Soul Mastery',440000,66),
+ (127,472,36,'Ancient Sword Mastery',220000,66),
+ (127,472,37,'Ancient Sword Mastery',220000,66),
+ (127,477,28,'Dark Smash',220000,66),
+ (127,477,29,'Dark Smash',220000,66),
+ (127,492,16,'Spread Wing',220000,66),
+ (127,492,17,'Spread Wing',220000,66),
+ (127,493,19,'Storm Assault',220000,66),
+ (127,493,20,'Storm Assault',220000,66),
+ (127,494,28,'Shoulder Charge',220000,66),
+ (127,494,29,'Shoulder Charge',220000,66),
+ (127,495,6,'Blade Rush',440000,66),
+ (127,496,22,'Slashing Blade',220000,66),
+ (127,496,23,'Slashing Blade',220000,66),
+ (127,497,7,'Crushing Pain',220000,66),
+ (127,497,8,'Crushing Pain',220000,66),
+ (127,498,3,'Contagion',440000,66),
+ (127,498,4,'Contagion',220000,66),
+ (127,501,8,'Violent Temper',500000,66),
+ (127,502,4,'Life to Soul',440000,66),
+ (127,312,4,'Vicious Stance',440000,66),
+ (127,465,43,'Light Armor Mastery',280000,68),
+ (127,465,44,'Light Armor Mastery',280000,68),
+ (127,466,48,'Magic Immunity',280000,68),
+ (127,466,49,'Magic Immunity',280000,68),
+ (127,467,20,'Soul Mastery',560000,68),
+ (127,472,38,'Ancient Sword Mastery',280000,68),
+ (127,472,39,'Ancient Sword Mastery',280000,68),
+ (127,477,30,'Dark Smash',280000,68),
+ (127,477,31,'Dark Smash',280000,68),
+ (127,485,6,'Disarm',560000,68),
+ (127,492,18,'Spread Wing',280000,68),
+ (127,492,19,'Spread Wing',280000,68),
+ (127,493,21,'Storm Assault',280000,68),
+ (127,493,22,'Storm Assault',280000,68),
+ (127,494,30,'Shoulder Charge',280000,68),
+ (127,494,31,'Shoulder Charge',280000,68),
+ (127,495,7,'Blade Rush',560000,68),
+ (127,496,24,'Slashing Blade',280000,68),
+ (127,496,25,'Slashing Blade',280000,68),
+ (127,497,9,'Crushing Pain',280000,68),
+ (127,497,10,'Crushing Pain',280000,68),
+ (127,498,5,'Contagion',280000,68),
+ (127,498,6,'Contagion',280000,68),
+ (127,501,9,'Violent Temper',560000,68),
+ (127,465,45,'Light Armor Mastery',360000,70),
+ (127,465,46,'Light Armor Mastery',360000,70),
+ (127,466,50,'Magic Immunity',360000,70),
+ (127,466,51,'Magic Immunity',360000,70),
+ (127,467,21,'Soul Mastery',720000,70),
+ (127,472,40,'Ancient Sword Mastery',360000,70),
+ (127,472,41,'Ancient Sword Mastery',360000,70),
+ (127,477,32,'Dark Smash',360000,70),
+ (127,477,33,'Dark Smash',360000,70),
+ (127,492,20,'Spread Wing',360000,70),
+ (127,492,21,'Spread Wing',360000,70),
+ (127,493,23,'Storm Assault',360000,70),
+ (127,493,24,'Storm Assault',360000,70),
+ (127,494,32,'Shoulder Charge',360000,70),
+ (127,494,33,'Shoulder Charge',360000,70),
+ (127,495,8,'Blade Rush',720000,70),
+ (127,496,26,'Slashing Blade',360000,70),
+ (127,496,27,'Slashing Blade',360000,70),
+ (127,497,11,'Crushing Pain',360000,70),
+ (127,497,12,'Crushing Pain',360000,70),
+ (127,498,7,'Contagion',360000,70),
+ (127,498,8,'Contagion',360000,70),
+ (127,501,10,'Violent Temper',720000,70),
+ (127,465,47,'Light Armor Mastery',430000,72),
+ (127,465,48,'Light Armor Mastery',430000,72),
+ (127,466,52,'Magic Immunity',430000,72),
+ (127,466,53,'Magic Immunity',430000,72),
+ (127,467,22,'Soul Mastery',860000,72),
+ (127,472,42,'Ancient Sword Mastery',430000,72),
+ (127,472,43,'Ancient Sword Mastery',430000,72),
+ (127,477,34,'Dark Smash',430000,72),
+ (127,477,35,'Dark Smash',430000,72),
+ (127,492,22,'Spread Wing',430000,72),
+ (127,492,23,'Spread Wing',430000,72),
+ (127,493,25,'Storm Assault',430000,72),
+ (127,493,26,'Storm Assault',430000,72),
+ (127,494,34,'Shoulder Charge',430000,72),
+ (127,494,35,'Shoulder Charge',430000,72),
+ (127,495,9,'Blade Rush',860000,72),
+ (127,496,28,'Slashing Blade',430000,72),
+ (127,496,29,'Slashing Blade',430000,72),
+ (127,497,13,'Crushing Pain',430000,72),
+ (127,497,14,'Crushing Pain',430000,72),
+ (127,498,9,'Contagion',430000,72),
+ (127,498,10,'Contagion',430000,72),
+ (127,501,11,'Violent Temper',860000,72),
+ (127,502,5,'Life to Soul',860000,72),
+ (127,465,49,'Light Armor Mastery',930000,74),
+ (127,465,50,'Light Armor Mastery',930000,74),
+ (127,466,54,'Magic Immunity',930000,74),
+ (127,466,55,'Magic Immunity',930000,74),
+ (127,467,23,'Soul Mastery',1900000,74),
+ (127,472,44,'Ancient Sword Mastery',930000,74),
+ (127,472,45,'Ancient Sword Mastery',930000,74),
+ (127,477,36,'Dark Smash',930000,74),
+ (127,477,37,'Dark Smash',930000,74),
+ (127,485,7,'Disarm',1900000,74),
+ (127,492,24,'Spread Wing',930000,74),
+ (127,492,25,'Spread Wing',930000,74),
+ (127,493,27,'Storm Assault',930000,74),
+ (127,493,28,'Storm Assault',930000,74),
+ (127,494,36,'Shoulder Charge',930000,74),
+ (127,494,37,'Shoulder Charge',930000,74),
+ (127,495,10,'Blade Rush',1900000,74),
+ (127,496,30,'Slashing Blade',930000,74),
+ (127,496,31,'Slashing Blade',930000,74),
+ (127,497,15,'Crushing Pain',930000,74),
+ (127,497,16,'Crushing Pain',930000,74),
+ (127,498,11,'Contagion',930000,74),
+ (127,498,12,'Contagion',930000,74),
+ (127,501,12,'Violent Temper',1900000,74),
+ (131,328,1,'Wisdom',12500000,76),
+ (131,329,1,'Health',12500000,76),
+ (131,335,1,'Fortitude',10000000,76),
+ (131,330,1,'Skill Mastery',14700000,77),
+ (131,426,1,'Battle Force',14700000,77),
+ (131,526,1,'Enuma Elish',64000000,78),
+ (131,538,1,'Final Form',80000000,79);
 
 -- Skills for Arbalester, Trickster
 INSERT INTO `skill_trees` (`class_id`,`skill_id`,`level`,`name`,`sp`,`min_level`) VALUES
-(130,465,14,'Light Armor Mastery',12000,40),
-(130,465,15,'Light Armor Mastery',12000,40),
-(130,465,16,'Light Armor Mastery',12000,40),
-(130,466,19,'Magic Immunity',12000,40),
-(130,466,20,'Magic Immunity',12000,40),
-(130,466,21,'Magic Immunity',12000,40),
-(130,467,9,'Soul Mastery',49000,40),
-(130,473,9,'Crossbow Mastery',12000,40),
-(130,473,10,'Crossbow Mastery',12000,40),
-(130,473,11,'Crossbow Mastery',12000,40),
-(130,486,2,'Increase Range',35000,40),
-(130,489,1,'Shift Target',35000,40),
-(130,502,1,'Life to Soul',49000,40),
-(130,487,1,'Penetrate Shot',12000,40),
-(130,487,2,'Penetrate Shot',12000,40),
-(130,487,3,'Penetrate Shot',12000,40),
-(130,518,1,'Binding Trap',35000,40),
-(130,522,1,'Real Target',35000,40),
-(130,465,17,'Light Armor Mastery',12000,43),
-(130,465,18,'Light Armor Mastery',12000,43),
-(130,465,19,'Light Armor Mastery',12000,43),
-(130,466,22,'Magic Immunity',12000,43),
-(130,466,23,'Magic Immunity',12000,43),
-(130,466,24,'Magic Immunity',12000,43),
-(130,467,10,'Soul Mastery',46000,43),
-(130,473,12,'Crossbow Mastery',12000,43),
-(130,473,13,'Crossbow Mastery',12000,43),
-(130,473,14,'Crossbow Mastery',12000,43),
-(130,487,4,'Penetrate Shot',12000,43),
-(130,487,5,'Penetrate Shot',12000,43),
-(130,487,6,'Penetrate Shot',12000,43),
-(130,509,1,'Bleeding Shot',13000,43),
-(130,509,2,'Bleeding Shot',13000,43),
-(130,509,3,'Bleeding Shot',13000,43),
-(130,525,1,'Decoy',35000,43),
-(130,465,20,'Light Armor Mastery',17000,46),
-(130,465,21,'Light Armor Mastery',17000,46),
-(130,465,22,'Light Armor Mastery',17000,46),
-(130,466,25,'Magic Immunity',17000,46),
-(130,466,26,'Magic Immunity',17000,46),
-(130,466,27,'Magic Immunity',17000,46),
-(130,467,11,'Soul Mastery',75000,46),
-(130,471,4,'Defuse Trap',50000,46),
-(130,473,15,'Crossbow Mastery',17000,46),
-(130,473,16,'Crossbow Mastery',17000,46),
-(130,473,17,'Crossbow Mastery',17000,46),
-(130,487,7,'Penetrate Shot',17000,46),
-(130,487,8,'Penetrate Shot',17000,46),
-(130,487,9,'Penetrate Shot',17000,46),
-(130,508,1,'Rising Shot',17000,46),
-(130,508,2,'Rising Shot',17000,46),
-(130,508,3,'Rising Shot',17000,46),
-(130,509,4,'Bleeding Shot',17000,46),
-(130,509,5,'Bleeding Shot',17000,46),
-(130,509,6,'Bleeding Shot',17000,46),
-(130,518,2,'Binding Trap',50000,46),
-(130,465,23,'Light Armor Mastery',27000,49),
-(130,465,24,'Light Armor Mastery',27000,49),
-(130,465,25,'Light Armor Mastery',27000,49),
-(130,466,28,'Magic Immunity',27000,49),
-(130,466,29,'Magic Immunity',27000,49),
-(130,466,30,'Magic Immunity',27000,49),
-(130,467,12,'Soul Mastery',82000,49),
-(130,473,18,'Crossbow Mastery',27000,49),
-(130,473,19,'Crossbow Mastery',27000,49),
-(130,473,20,'Crossbow Mastery',27000,49),
-(130,502,2,'Life to Soul',82000,49),
-(130,487,10,'Penetrate Shot',27000,49),
-(130,487,11,'Penetrate Shot',27000,49),
-(130,487,12,'Penetrate Shot',27000,49),
-(130,508,4,'Rising Shot',27000,49),
-(130,508,5,'Rising Shot',27000,49),
-(130,508,6,'Rising Shot',27000,49),
-(130,509,7,'Bleeding Shot',27000,49),
-(130,509,8,'Bleeding Shot',27000,49),
-(130,509,9,'Bleeding Shot',27000,49),
-(130,511,1,'Temptation',82000,49),
-(130,515,1,'Poison Trap',82000,49),
-(130,465,26,'Light Armor Mastery',36000,52),
-(130,465,27,'Light Armor Mastery',36000,52),
-(130,465,28,'Light Armor Mastery',36000,52),
-(130,466,31,'Magic Immunity',36000,52),
-(130,466,32,'Magic Immunity',36000,52),
-(130,466,33,'Magic Immunity',36000,52),
-(130,467,13,'Soul Mastery',115000,52),
-(130,473,21,'Crossbow Mastery',36000,52),
-(130,473,22,'Crossbow Mastery',36000,52),
-(130,473,23,'Crossbow Mastery',36000,52),
-(130,487,13,'Penetrate Shot',36000,52),
-(130,487,14,'Penetrate Shot',36000,52),
-(130,487,15,'Penetrate Shot',36000,52),
-(130,508,7,'Rising Shot',36000,52),
-(130,508,8,'Rising Shot',36000,52),
-(130,508,9,'Rising Shot',36000,52),
-(130,509,10,'Bleeding Shot',36000,52),
-(130,509,11,'Bleeding Shot',36000,52),
-(130,509,12,'Bleeding Shot',36000,52),
-(130,516,1,'Slow Trap',107000,52),
-(130,518,3,'Binding Trap',107000,52),
-(130,522,2,'Real Target',107000,52),
-(130,525,2,'Decoy',107000,52),
-(130,620,1,'Quiver of Bolts - Grade B',107000,52),
-(130,1405,1,'Divine Inspiration',620000,52),
-(130,465,29,'Light Armor Mastery',52000,55),
-(130,465,30,'Light Armor Mastery',52000,55),
-(130,465,31,'Light Armor Mastery',52000,55),
-(130,466,34,'Magic Immunity',52000,55),
-(130,466,35,'Magic Immunity',52000,55),
-(130,466,36,'Magic Immunity',52000,55),
-(130,467,14,'Soul Mastery',157000,55),
-(130,471,5,'Defuse Trap',157000,55),
-(130,473,24,'Crossbow Mastery',52000,55),
-(130,473,25,'Crossbow Mastery',52000,55),
-(130,473,26,'Crossbow Mastery',52000,55),
-(130,490,2,'Fast Shot',157000,55),
-(130,487,16,'Penetrate Shot',52000,55),
-(130,487,17,'Penetrate Shot',52000,55),
-(130,487,18,'Penetrate Shot',52000,55),
-(130,508,10,'Rising Shot',52000,55),
-(130,508,11,'Rising Shot',52000,55),
-(130,508,12,'Rising Shot',52000,55),
-(130,509,13,'Bleeding Shot',52000,55),
-(130,509,14,'Bleeding Shot',52000,55),
-(130,509,15,'Bleeding Shot',52000,55),
-(130,515,2,'Poison Trap',157000,55),
-(130,517,1,'Flash Trap',157000,55),
-(130,465,32,'Light Armor Mastery',73000,58),
-(130,465,33,'Light Armor Mastery',73000,58),
-(130,465,34,'Light Armor Mastery',73000,58),
-(130,466,37,'Magic Immunity',73000,58),
-(130,466,38,'Magic Immunity',73000,58),
-(130,466,39,'Magic Immunity',73000,58),
-(130,467,15,'Soul Mastery',200000,58),
-(130,473,27,'Crossbow Mastery',73000,58),
-(130,473,28,'Crossbow Mastery',73000,58),
-(130,473,29,'Crossbow Mastery',73000,58),
-(130,502,3,'Life to Soul',200000,58),
-(130,487,19,'Penetrate Shot',73000,58),
-(130,487,20,'Penetrate Shot',73000,58),
-(130,487,21,'Penetrate Shot',73000,58),
-(130,508,13,'Rising Shot',73000,58),
-(130,508,14,'Rising Shot',73000,58),
-(130,508,15,'Rising Shot',73000,58),
-(130,509,16,'Bleeding Shot',73000,58),
-(130,509,17,'Bleeding Shot',73000,58),
-(130,509,18,'Bleeding Shot',73000,58),
-(130,516,2,'Slow Trap',218000,58),
-(130,518,4,'Binding Trap',218000,58),
-(130,465,35,'Light Armor Mastery',97000,60),
-(130,465,36,'Light Armor Mastery',97000,60),
-(130,466,40,'Magic Immunity',97000,60),
-(130,466,41,'Magic Immunity',97000,60),
-(130,467,16,'Soul Mastery',223000,60),
-(130,473,30,'Crossbow Mastery',97000,60),
-(130,473,31,'Crossbow Mastery',97000,60),
-(130,487,22,'Penetrate Shot',97000,60),
-(130,487,23,'Penetrate Shot',97000,60),
-(130,508,16,'Rising Shot',97000,60),
-(130,508,17,'Rising Shot',97000,60),
-(130,509,19,'Bleeding Shot',97000,60),
-(130,509,20,'Bleeding Shot',97000,60),
-(130,515,3,'Poison Trap',193000,60),
-(130,517,2,'Flash Trap',193000,60),
-(130,519,1,'Quiver of Bolts: A-Grade',193000,60),
-(130,521,1,'Sharpshooting',193000,60),
-(130,525,3,'Decoy',193000,60),
-(130,1405,2,'Divine Inspiration',620000,61),
-(130,465,37,'Light Armor Mastery',140000,62),
-(130,465,38,'Light Armor Mastery',140000,62),
-(130,466,42,'Magic Immunity',140000,62),
-(130,466,43,'Magic Immunity',140000,62),
-(130,467,17,'Soul Mastery',290000,62),
-(130,473,32,'Crossbow Mastery',140000,62),
-(130,473,33,'Crossbow Mastery',140000,62),
-(130,487,24,'Penetrate Shot',140000,62),
-(130,487,25,'Penetrate Shot',140000,62),
-(130,508,18,'Rising Shot',140000,62),
-(130,508,19,'Rising Shot',140000,62),
-(130,509,21,'Bleeding Shot',140000,62),
-(130,509,22,'Bleeding Shot',140000,62),
-(130,516,3,'Slow Trap',290000,62),
-(130,518,5,'Binding Trap',290000,62),
-(130,521,2,'Sharpshooting',290000,62),
-(130,522,3,'Real Target',290000,62),
-(130,523,1,'Imbue Dark Seed',290000,62),
-(130,465,39,'Light Armor Mastery',170000,64),
-(130,465,40,'Light Armor Mastery',170000,64),
-(130,466,44,'Magic Immunity',170000,64),
-(130,466,45,'Magic Immunity',170000,64),
-(130,467,18,'Soul Mastery',340000,64),
-(130,473,34,'Crossbow Mastery',170000,64),
-(130,473,35,'Crossbow Mastery',170000,64),
-(130,487,26,'Penetrate Shot',170000,64),
-(130,487,27,'Penetrate Shot',170000,64),
-(130,508,20,'Rising Shot',170000,64),
-(130,508,21,'Rising Shot',170000,64),
-(130,509,23,'Bleeding Shot',170000,64),
-(130,509,24,'Bleeding Shot',170000,64),
-(130,515,4,'Poison Trap',340000,64),
-(130,517,3,'Flash Trap',340000,64),
-(130,521,3,'Sharpshooting',340000,64),
-(130,523,2,'Imbue Dark Seed',340000,64),
-(130,465,41,'Light Armor Mastery',194000,66),
-(130,465,42,'Light Armor Mastery',194000,66),
-(130,466,46,'Magic Immunity',194000,66),
-(130,466,47,'Magic Immunity',194000,66),
-(130,467,19,'Soul Mastery',440000,66),
-(130,471,6,'Defuse Trap',389000,66),
-(130,473,36,'Crossbow Mastery',194000,66),
-(130,473,37,'Crossbow Mastery',194000,66),
-(130,502,4,'Life to Soul',440000,66),
-(130,487,28,'Penetrate Shot',194000,66),
-(130,487,29,'Penetrate Shot',194000,66),
-(130,508,22,'Rising Shot',194000,66),
-(130,508,23,'Rising Shot',194000,66),
-(130,509,25,'Bleeding Shot',194000,66),
-(130,509,26,'Bleeding Shot',194000,66),
-(130,516,4,'Slow Trap',389000,66),
-(130,518,6,'Binding Trap',389000,66),
-(130,521,4,'Sharpshooting',389000,66),
-(130,523,3,'Imbue Dark Seed',389000,66),
-(130,525,4,'Decoy',389000,66),
-(130,465,43,'Light Armor Mastery',280000,68),
-(130,465,44,'Light Armor Mastery',280000,68),
-(130,466,48,'Magic Immunity',280000,68),
-(130,466,49,'Magic Immunity',280000,68),
-(130,467,20,'Soul Mastery',560000,68),
-(130,473,38,'Crossbow Mastery',280000,68),
-(130,473,39,'Crossbow Mastery',280000,68),
-(130,487,30,'Penetrate Shot',280000,68),
-(130,487,31,'Penetrate Shot',280000,68),
-(130,508,24,'Rising Shot',280000,68),
-(130,508,25,'Rising Shot',280000,68),
-(130,509,27,'Bleeding Shot',280000,68),
-(130,509,28,'Bleeding Shot',280000,68),
-(130,515,5,'Poison Trap',560000,68),
-(130,517,4,'Flash Trap',560000,68),
-(130,521,5,'Sharpshooting',560000,68),
-(130,523,4,'Imbue Dark Seed',560000,68),
-(130,465,45,'Light Armor Mastery',310000,70),
-(130,465,46,'Light Armor Mastery',310000,70),
-(130,466,50,'Magic Immunity',310000,70),
-(130,466,51,'Magic Immunity',310000,70),
-(130,467,21,'Soul Mastery',720000,70),
-(130,473,40,'Crossbow Mastery',310000,70),
-(130,473,41,'Crossbow Mastery',310000,70),
-(130,487,32,'Penetrate Shot',310000,70),
-(130,487,33,'Penetrate Shot',310000,70),
-(130,508,26,'Rising Shot',310000,70),
-(130,508,27,'Rising Shot',310000,70),
-(130,509,29,'Bleeding Shot',310000,70),
-(130,509,30,'Bleeding Shot',310000,70),
-(130,516,5,'Slow Trap',620000,70),
-(130,518,7,'Binding Trap',620000,70),
-(130,521,6,'Sharpshooting',620000,70),
-(130,522,4,'Real Target',620000,70),
-(130,523,5,'Imbue Dark Seed',620000,70),
-(130,525,5,'Decoy',620000,70),
-(130,465,47,'Light Armor Mastery',400000,72),
-(130,465,48,'Light Armor Mastery',400000,72),
-(130,466,52,'Magic Immunity',400000,72),
-(130,466,53,'Magic Immunity',400000,72),
-(130,467,22,'Soul Mastery',860000,72),
-(130,473,42,'Crossbow Mastery',400000,72),
-(130,473,43,'Crossbow Mastery',400000,72),
-(130,502,5,'Life to Soul',860000,72),
-(130,487,34,'Penetrate Shot',400000,72),
-(130,487,35,'Penetrate Shot',400000,72),
-(130,508,28,'Rising Shot',400000,72),
-(130,508,29,'Rising Shot',400000,72),
-(130,509,31,'Bleeding Shot',400000,72),
-(130,509,32,'Bleeding Shot',400000,72),
-(130,515,6,'Poison Trap',800000,72),
-(130,517,5,'Flash Trap',800000,72),
-(130,521,7,'Sharpshooting',800000,72),
-(130,523,6,'Imbue Dark Seed',800000,72),
-(130,465,49,'Light Armor Mastery',760000,74),
-(130,465,50,'Light Armor Mastery',760000,74),
-(130,466,54,'Magic Immunity',760000,74),
-(130,466,55,'Magic Immunity',760000,74),
-(130,467,23,'Soul Mastery',1900000,74),
-(130,471,7,'Defuse Trap',1530000,74),
-(130,473,44,'Crossbow Mastery',810000,74),
-(130,473,45,'Crossbow Mastery',760000,74),
-(130,487,36,'Penetrate Shot',760000,74),
-(130,487,37,'Penetrate Shot',760000,74),
-(130,508,30,'Rising Shot',760000,74),
-(130,508,31,'Rising Shot',760000,74),
-(130,509,33,'Bleeding Shot',760000,74),
-(130,509,34,'Bleeding Shot',760000,74),
-(130,516,6,'Slow Trap',1530000,74),
-(130,518,8,'Binding Trap',1530000,74),
-(130,520,1,'Quiver of Bolts: S-Grade',810000,74),
-(130,521,8,'Sharpshooting',1530000,74),
-(130,523,7,'Imbue Dark Seed',1530000,74),
-(130,525,6,'Decoy',1530000,74),
-(130,1405,3,'Divine Inspiration',620000,76),
-(130,1405,4,'Divine Inspiration',620000,76),
-(134,328,1,'Wisdom',12500000,76),
-(134,329,1,'Health',12500000,76),
-(134,330,1,'Skill Mastery',14700000,77),
-(134,426,1,'Battle Force',14700000,77),
-(134,334,1,'Focus Skill Mastery',32000000,78),
-(134,1470,1,'Prahnah',32000000,78),
-(134,538,1,'Final Form',80000000,79);
-
--- Skills for Female Soulbreaker / Soul Hound
-INSERT INTO `skill_trees` VALUES ('129', '465', '14', 'Light Armor Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '465', '15', 'Light Armor Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '465', '16', 'Light Armor Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '466', '19', 'Magic Immunity', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '466', '20', 'Magic Immunity', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '466', '21', 'Magic Immunity', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '467', '9', 'Soul Mastery', '43000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '474', '9', 'Rapier Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '474', '10', 'Rapier Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '474', '11', 'Rapier Mastery', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '502', '1', 'Violent Temper', '43000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '504', '1', 'Triple Thrust', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '504', '2', 'Triple Thrust', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '504', '3', 'Triple Thrust', '14000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '1435', '3', 'Death Mark', '43000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '1', 'Soul of Pain', '22000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '2', 'Soul of Pain', '22000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '4', 'Surrender to the Unholy', '43000', '40');
-INSERT INTO `skill_trees` VALUES ('129', '465', '17', 'Light Armor Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '465', '18', 'Light Armor Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '465', '19', 'Light Armor Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '466', '22', 'Magic Immunity', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '466', '23', 'Magic Immunity', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '466', '24', 'Magic Immunity', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '467', '10', 'Soul Mastery', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '474', '12', 'Rapier Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '474', '13', 'Rapier Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '474', '14', 'Rapier Mastery', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '481', '2', 'Dark Armor', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '504', '4', 'Triple Thrust', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '504', '5', 'Triple Thrust', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '504', '6', 'Triple Thrust', '14000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '312', '1', 'Vicious Stance', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '3', 'Soul of Pain', '21000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '4', 'Soul of Pain', '21000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '1441', '1', 'Soul to Empower', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '5', 'Surrender to the Unholy', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '1474', '1', 'Abyssal Power', '42000', '43');
-INSERT INTO `skill_trees` VALUES ('129', '465', '20', 'Light Armor Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '465', '21', 'Light Armor Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '465', '22', 'Light Armor Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '466', '25', 'Magic Immunity', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '466', '26', 'Magic Immunity', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '466', '27', 'Magic Immunity', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '467', '11', 'Soul Mastery', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '474', '15', 'Rapier Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '474', '16', 'Rapier Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '474', '17', 'Rapier Mastery', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '504', '7', 'Triple Thrust', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '504', '8', 'Triple Thrust', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '504', '9', 'Triple Thrust', '17000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '1435', '4', 'Death Mark', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '5', 'Soul of Pain', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '6', 'Soul of Pain', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '1', 'Dark Flame', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '2', 'Dark Flame', '25000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '1443', '1', 'Dark Weapon', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '6', 'Surrender to the Unholy', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '1475', '2', 'Erase Mark', '50000', '46');
-INSERT INTO `skill_trees` VALUES ('129', '465', '23', 'Light Armor Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '465', '24', 'Light Armor Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '465', '25', 'Light Armor Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '466', '28', 'Magic Immunity', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '466', '29', 'Magic Immunity', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '466', '30', 'Magic Immunity', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '467', '12', 'Soul Mastery', '89000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '474', '18', 'Rapier Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '474', '19', 'Rapier Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '474', '20', 'Rapier Mastery', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '502', '2', 'Violent Temper', '89000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '504', '10', 'Triple Thrust', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '504', '11', 'Triple Thrust', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '504', '12', 'Triple Thrust', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '505', '1', 'Shining Edge', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '505', '2', 'Shining Edge', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '505', '3', 'Shining Edge', '30000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '7', 'Soul of Pain', '45000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '8', 'Soul of Pain', '45000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '3', 'Dark Flame', '45000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '4', 'Dark Flame', '45000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '1444', '1', 'Pride of Kamael', '89000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '7', 'Surrender to the Unholy', '89000', '49');
-INSERT INTO `skill_trees` VALUES ('129', '465', '26', 'Light Armor Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '465', '27', 'Light Armor Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '465', '28', 'Light Armor Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '466', '31', 'Magic Immunity', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '466', '32', 'Magic Immunity', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '466', '33', 'Magic Immunity', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '467', '13', 'Soul Mastery', '107000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '474', '21', 'Rapier Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '474', '22', 'Rapier Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '474', '23', 'Rapier Mastery', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '492', '1', 'Spread Wing', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '492', '2', 'Spread Wing', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '492', '3', 'Spread Wing', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '504', '13', 'Triple Thrust', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '504', '14', 'Triple Thrust', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '504', '15', 'Triple Thrust', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '505', '4', 'Shining Edge', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '505', '5', 'Shining Edge', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '505', '6', 'Shining Edge', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '506', '1', 'Checkmate', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '312', '2', 'Vicious Stance', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '1435', '5', 'Death Mark', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '9', 'Soul of Pain', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '10', 'Soul of Pain', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '5', 'Dark Flame', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '6', 'Dark Flame', '36000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '8', 'Surrender to the Unholy', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '1446', '1', 'Shadow Bind', '115000', '52');
-INSERT INTO `skill_trees` VALUES ('129', '465', '29', 'Light Armor Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '465', '30', 'Light Armor Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '465', '31', 'Light Armor Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '466', '34', 'Magic Immunity', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '466', '35', 'Magic Immunity', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '466', '36', 'Magic Immunity', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '467', '14', 'Soul Mastery', '183000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '474', '24', 'Rapier Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '474', '25', 'Rapier Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '474', '26', 'Rapier Mastery', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '492', '4', 'Spread Wing', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '492', '5', 'Spread Wing', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '492', '6', 'Spread Wing', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '504', '16', 'Triple Thrust', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '504', '17', 'Triple Thrust', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '504', '18', 'Triple Thrust', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '505', '7', 'Shining Edge', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '505', '8', 'Shining Edge', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '505', '9', 'Shining Edge', '61000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '11', 'Soul of Pain', '92000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '12', 'Soul of Pain', '92000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '7', 'Dark Flame', '92000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '8', 'Dark Flame', '92000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '1440', '1', 'Steal Divinity', '183000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '1441', '2', 'Soul to Empower', '183000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '9', 'Surrender to the Unholy', '183000', '55');
-INSERT INTO `skill_trees` VALUES ('129', '465', '32', 'Light Armor Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '465', '33', 'Light Armor Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '465', '34', 'Light Armor Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '466', '37', 'Magic Immunity', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '466', '38', 'Magic Immunity', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '466', '39', 'Magic Immunity', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '467', '15', 'Soul Mastery', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '474', '27', 'Rapier Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '474', '28', 'Rapier Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '474', '29', 'Rapier Mastery', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '492', '7', 'Spread Wing', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '492', '8', 'Spread Wing', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '492', '9', 'Spread Wing', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '502', '3', 'Violent Temper', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '504', '19', 'Triple Thrust', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '504', '20', 'Triple Thrust', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '504', '21', 'Triple Thrust', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '505', '10', 'Shining Edge', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '505', '11', 'Shining Edge', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '505', '12', 'Shining Edge', '53000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1435', '6', 'Death Mark', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '13', 'Soul of Pain', '80000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '14', 'Soul of Pain', '80000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '9', 'Dark Flame', '80000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '10', 'Dark Flame', '80000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '1', 'Annihilation', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1442', '1', 'Protection from Darkness', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '10', 'Surrender to the Unholy', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '1447', '1', 'Voice Bind', '160000', '58');
-INSERT INTO `skill_trees` VALUES ('129', '465', '35', 'Light Armor Mastery', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '465', '36', 'Light Armor Mastery', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '466', '40', 'Magic Immunity', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '466', '41', 'Magic Immunity', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '467', '16', 'Soul Mastery', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '474', '30', 'Rapier Mastery', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '474', '31', 'Rapier Mastery', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '492', '10', 'Spread Wing', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '492', '11', 'Spread Wing', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '504', '22', 'Triple Thrust', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '504', '23', 'Triple Thrust', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '505', '13', 'Shining Edge', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '505', '14', 'Shining Edge', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '506', '2', 'Checkmate', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '312', '3', 'Vicious Stance', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '15', 'Soul of Pain', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '16', 'Soul of Pain', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '11', 'Dark Flame', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '12', 'Dark Flame', '97000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '2', 'Annihilation', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '1440', '2', 'Steal Divinity', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '11', 'Surrender to the Unholy', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '1448', '1', 'Blink', '193000', '60');
-INSERT INTO `skill_trees` VALUES ('129', '465', '37', 'Light Armor Mastery', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '465', '38', 'Light Armor Mastery', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '466', '42', 'Magic Immunity', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '466', '43', 'Magic Immunity', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '467', '17', 'Soul Mastery', '330000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '474', '32', 'Rapier Mastery', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '474', '33', 'Rapier Mastery', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '492', '12', 'Spread Wing', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '492', '13', 'Spread Wing', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '504', '24', 'Triple Thrust', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '504', '25', 'Triple Thrust', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '505', '15', 'Shining Edge', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '505', '16', 'Shining Edge', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '1435', '7', 'Death Mark', '330000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '17', 'Soul of Pain', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '18', 'Soul of Pain', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '13', 'Dark Flame', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '14', 'Dark Flame', '170000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '3', 'Annihilation', '330000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '12', 'Surrender to the Unholy', '330000', '62');
-INSERT INTO `skill_trees` VALUES ('129', '465', '39', 'Light Armor Mastery', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '465', '40', 'Light Armor Mastery', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '466', '44', 'Magic Immunity', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '466', '45', 'Magic Immunity', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '467', '18', 'Soul Mastery', '400000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '474', '34', 'Rapier Mastery', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '474', '35', 'Rapier Mastery', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '492', '14', 'Spread Wing', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '492', '15', 'Spread Wing', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '504', '26', 'Triple Thrust', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '504', '27', 'Triple Thrust', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '505', '17', 'Shining Edge', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '505', '18', 'Shining Edge', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '19', 'Soul of Pain', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '20', 'Soul of Pain', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '15', 'Dark Flame', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '16', 'Dark Flame', '200000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '4', 'Annihilation', '400000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '1440', '3', 'Steal Divinity', '400000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '13', 'Surrender to the Unholy', '400000', '64');
-INSERT INTO `skill_trees` VALUES ('129', '465', '41', 'Light Armor Mastery', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '465', '42', 'Light Armor Mastery', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '466', '46', 'Magic Immunity', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '466', '47', 'Magic Immunity', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '467', '19', 'Soul Mastery', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '474', '36', 'Rapier Mastery', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '474', '37', 'Rapier Mastery', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '492', '16', 'Spread Wing', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '492', '17', 'Spread Wing', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '502', '4', 'Violent Temper', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '504', '28', 'Triple Thrust', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '504', '29', 'Triple Thrust', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '505', '19', 'Shining Edge', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '505', '20', 'Shining Edge', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '506', '3', 'Checkmate', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '312', '4', 'Vicious Stance', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1435', '8', 'Death Mark', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '21', 'Soul of Pain', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '22', 'Soul of Pain', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '17', 'Dark Flame', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '18', 'Dark Flame', '190000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '5', 'Annihilation', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1439', '1', 'Curse of Divinity', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1442', '2', 'Protection from Darkness', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '14', 'Surrender to the Unholy', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '1475', '3', 'Erase Mark', '390000', '66');
-INSERT INTO `skill_trees` VALUES ('129', '465', '43', 'Light Armor Mastery', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '465', '44', 'Light Armor Mastery', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '466', '48', 'Magic Immunity', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '466', '49', 'Magic Immunity', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '467', '20', 'Soul Mastery', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '474', '38', 'Rapier Mastery', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '474', '39', 'Rapier Mastery', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '492', '18', 'Spread Wing', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '492', '19', 'Spread Wing', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '504', '30', 'Triple Thrust', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '504', '31', 'Triple Thrust', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '505', '21', 'Shining Edge', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '505', '22', 'Shining Edge', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '23', 'Soul of Pain', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '24', 'Soul of Pain', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '19', 'Dark Flame', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '20', 'Dark Flame', '300000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '6', 'Annihilation', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '1439', '2', 'Curse of Divinity', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '1440', '4', 'Steal Divinity', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '15', 'Surrender to the Unholy', '600000', '68');
-INSERT INTO `skill_trees` VALUES ('129', '465', '45', 'Light Armor Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '465', '46', 'Light Armor Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '466', '50', 'Magic Immunity', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '466', '51', 'Magic Immunity', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '467', '21', 'Soul Mastery', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '474', '40', 'Rapier Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '474', '41', 'Rapier Mastery', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '492', '20', 'Spread Wing', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '492', '21', 'Spread Wing', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '504', '32', 'Triple Thrust', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '504', '33', 'Triple Thrust', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '505', '23', 'Shining Edge', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '505', '24', 'Shining Edge', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '1435', '9', 'Death Mark', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '25', 'Soul of Pain', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '26', 'Soul of Pain', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '21', 'Dark Flame', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '22', 'Dark Flame', '360000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '7', 'Annihilation', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '1439', '3', 'Curse of Divinity', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '16', 'Surrender to the Unholy', '720000', '70');
-INSERT INTO `skill_trees` VALUES ('129', '465', '47', 'Light Armor Mastery', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '465', '48', 'Light Armor Mastery', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '466', '52', 'Magic Immunity', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '466', '53', 'Magic Immunity', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '467', '22', 'Soul Mastery', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '474', '42', 'Rapier Mastery', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '474', '43', 'Rapier Mastery', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '492', '22', 'Spread Wing', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '492', '23', 'Spread Wing', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '502', '5', 'Violent Temper', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '504', '34', 'Triple Thrust', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '504', '35', 'Triple Thrust', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '505', '25', 'Shining Edge', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '505', '26', 'Shining Edge', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '506', '4', 'Checkmate', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '27', 'Soul of Pain', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '28', 'Soul of Pain', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '23', 'Dark Flame', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '24', 'Dark Flame', '400000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '8', 'Annihilation', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '1439', '4', 'Curse of Divinity', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '1440', '5', 'Steal Divinity', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '17', 'Surrender to the Unholy', '800000', '72');
-INSERT INTO `skill_trees` VALUES ('129', '465', '49', 'Light Armor Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '465', '50', 'Light Armor Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '466', '54', 'Magic Immunity', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '466', '55', 'Magic Immunity', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '467', '23', 'Soul Mastery', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '474', '44', 'Rapier Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '474', '45', 'Rapier Mastery', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '492', '24', 'Spread Wing', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '492', '25', 'Spread Wing', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '504', '36', 'Triple Thrust', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '504', '37', 'Triple Thrust', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '505', '27', 'Shining Edge', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '505', '28', 'Shining Edge', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1435', '10', 'Death Mark', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '29', 'Soul of Pain', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1436', '30', 'Soul of Pain', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '25', 'Dark Flame', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1437', '26', 'Dark Flame', '930000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1438', '9', 'Annihilation', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1439', '5', 'Curse of Divinity', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1442', '3', 'Protection from Darkness', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('129', '1445', '18', 'Surrender to the Unholy', '1860000', '74');
-INSERT INTO `skill_trees` VALUES ('133', '328', '1', 'Wisdom', '12500000', '76');
-INSERT INTO `skill_trees` VALUES ('133', '329', '1', 'Health', '12500000', '76');
-INSERT INTO `skill_trees` VALUES ('133', '330', '1', 'Skill Mastery', '14700000', '77');
-INSERT INTO `skill_trees` VALUES ('133', '426', '1', 'Battle Force', '14700000', '77');
-INSERT INTO `skill_trees` VALUES ('133', '427', '1', 'Spell Force', '14700000', '77');
-INSERT INTO `skill_trees` VALUES ('133', '1469', '1', 'Leopold Summons', '64000000', '78');
-INSERT INTO `skill_trees` VALUES ('133', '538', '1', 'Final Form', '80000000', '79');
+ (130,465,14,'Light Armor Mastery',12000,40),
+ (130,465,15,'Light Armor Mastery',12000,40),
+ (130,465,16,'Light Armor Mastery',12000,40),
+ (130,466,19,'Magic Immunity',12000,40),
+ (130,466,20,'Magic Immunity',12000,40),
+ (130,466,21,'Magic Immunity',12000,40),
+ (130,467,9,'Soul Mastery',49000,40),
+ (130,473,9,'Crossbow Mastery',12000,40),
+ (130,473,10,'Crossbow Mastery',12000,40),
+ (130,473,11,'Crossbow Mastery',12000,40),
+ (130,486,2,'Increase Range',35000,40),
+ (130,489,1,'Shift Target',35000,40),
+ (130,502,1,'Life to Soul',49000,40),
+ (130,487,1,'Penetrate Shot',12000,40),
+ (130,487,2,'Penetrate Shot',12000,40),
+ (130,487,3,'Penetrate Shot',12000,40),
+ (130,518,1,'Binding Trap',35000,40),
+ (130,522,1,'Real Target',35000,40),
+ (130,465,17,'Light Armor Mastery',12000,43),
+ (130,465,18,'Light Armor Mastery',12000,43),
+ (130,465,19,'Light Armor Mastery',12000,43),
+ (130,466,22,'Magic Immunity',12000,43),
+ (130,466,23,'Magic Immunity',12000,43),
+ (130,466,24,'Magic Immunity',12000,43),
+ (130,467,10,'Soul Mastery',46000,43),
+ (130,473,12,'Crossbow Mastery',12000,43),
+ (130,473,13,'Crossbow Mastery',12000,43),
+ (130,473,14,'Crossbow Mastery',12000,43),
+ (130,487,4,'Penetrate Shot',12000,43),
+ (130,487,5,'Penetrate Shot',12000,43),
+ (130,487,6,'Penetrate Shot',12000,43),
+ (130,509,1,'Bleeding Shot',13000,43),
+ (130,509,2,'Bleeding Shot',13000,43),
+ (130,509,3,'Bleeding Shot',13000,43),
+ (130,525,1,'Decoy',35000,43),
+ (130,465,20,'Light Armor Mastery',17000,46),
+ (130,465,21,'Light Armor Mastery',17000,46),
+ (130,465,22,'Light Armor Mastery',17000,46),
+ (130,466,25,'Magic Immunity',17000,46),
+ (130,466,26,'Magic Immunity',17000,46),
+ (130,466,27,'Magic Immunity',17000,46),
+ (130,467,11,'Soul Mastery',75000,46),
+ (130,471,4,'Defuse Trap',50000,46),
+ (130,473,15,'Crossbow Mastery',17000,46),
+ (130,473,16,'Crossbow Mastery',17000,46),
+ (130,473,17,'Crossbow Mastery',17000,46),
+ (130,487,7,'Penetrate Shot',17000,46),
+ (130,487,8,'Penetrate Shot',17000,46),
+ (130,487,9,'Penetrate Shot',17000,46),
+ (130,508,1,'Rising Shot',17000,46),
+ (130,508,2,'Rising Shot',17000,46),
+ (130,508,3,'Rising Shot',17000,46),
+ (130,509,4,'Bleeding Shot',17000,46),
+ (130,509,5,'Bleeding Shot',17000,46),
+ (130,509,6,'Bleeding Shot',17000,46),
+ (130,518,2,'Binding Trap',50000,46),
+ (130,465,23,'Light Armor Mastery',27000,49),
+ (130,465,24,'Light Armor Mastery',27000,49),
+ (130,465,25,'Light Armor Mastery',27000,49),
+ (130,466,28,'Magic Immunity',27000,49),
+ (130,466,29,'Magic Immunity',27000,49),
+ (130,466,30,'Magic Immunity',27000,49),
+ (130,467,12,'Soul Mastery',82000,49),
+ (130,473,18,'Crossbow Mastery',27000,49),
+ (130,473,19,'Crossbow Mastery',27000,49),
+ (130,473,20,'Crossbow Mastery',27000,49),
+ (130,502,2,'Life to Soul',82000,49),
+ (130,487,10,'Penetrate Shot',27000,49),
+ (130,487,11,'Penetrate Shot',27000,49),
+ (130,487,12,'Penetrate Shot',27000,49),
+ (130,508,4,'Rising Shot',27000,49),
+ (130,508,5,'Rising Shot',27000,49),
+ (130,508,6,'Rising Shot',27000,49),
+ (130,509,7,'Bleeding Shot',27000,49),
+ (130,509,8,'Bleeding Shot',27000,49),
+ (130,509,9,'Bleeding Shot',27000,49),
+ (130,511,1,'Temptation',82000,49),
+ (130,515,1,'Poison Trap',82000,49),
+ (130,465,26,'Light Armor Mastery',36000,52),
+ (130,465,27,'Light Armor Mastery',36000,52),
+ (130,465,28,'Light Armor Mastery',36000,52),
+ (130,466,31,'Magic Immunity',36000,52),
+ (130,466,32,'Magic Immunity',36000,52),
+ (130,466,33,'Magic Immunity',36000,52),
+ (130,467,13,'Soul Mastery',115000,52),
+ (130,473,21,'Crossbow Mastery',36000,52),
+ (130,473,22,'Crossbow Mastery',36000,52),
+ (130,473,23,'Crossbow Mastery',36000,52),
+ (130,487,13,'Penetrate Shot',36000,52),
+ (130,487,14,'Penetrate Shot',36000,52),
+ (130,487,15,'Penetrate Shot',36000,52),
+ (130,508,7,'Rising Shot',36000,52),
+ (130,508,8,'Rising Shot',36000,52),
+ (130,508,9,'Rising Shot',36000,52),
+ (130,509,10,'Bleeding Shot',36000,52),
+ (130,509,11,'Bleeding Shot',36000,52),
+ (130,509,12,'Bleeding Shot',36000,52),
+ (130,516,1,'Slow Trap',107000,52),
+ (130,518,3,'Binding Trap',107000,52),
+ (130,522,2,'Real Target',107000,52),
+ (130,525,2,'Decoy',107000,52),
+ (130,620,1,'Quiver of Bolts - Grade B',107000,52),
+ (130,1405,1,'Divine Inspiration',620000,52),
+ (130,465,29,'Light Armor Mastery',52000,55),
+ (130,465,30,'Light Armor Mastery',52000,55),
+ (130,465,31,'Light Armor Mastery',52000,55),
+ (130,466,34,'Magic Immunity',52000,55),
+ (130,466,35,'Magic Immunity',52000,55),
+ (130,466,36,'Magic Immunity',52000,55),
+ (130,467,14,'Soul Mastery',157000,55),
+ (130,471,5,'Defuse Trap',157000,55),
+ (130,473,24,'Crossbow Mastery',52000,55),
+ (130,473,25,'Crossbow Mastery',52000,55),
+ (130,473,26,'Crossbow Mastery',52000,55),
+ (130,490,2,'Fast Shot',157000,55),
+ (130,487,16,'Penetrate Shot',52000,55),
+ (130,487,17,'Penetrate Shot',52000,55),
+ (130,487,18,'Penetrate Shot',52000,55),
+ (130,508,10,'Rising Shot',52000,55),
+ (130,508,11,'Rising Shot',52000,55),
+ (130,508,12,'Rising Shot',52000,55),
+ (130,509,13,'Bleeding Shot',52000,55),
+ (130,509,14,'Bleeding Shot',52000,55),
+ (130,509,15,'Bleeding Shot',52000,55),
+ (130,515,2,'Poison Trap',157000,55),
+ (130,517,1,'Flash Trap',157000,55),
+ (130,465,32,'Light Armor Mastery',73000,58),
+ (130,465,33,'Light Armor Mastery',73000,58),
+ (130,465,34,'Light Armor Mastery',73000,58),
+ (130,466,37,'Magic Immunity',73000,58),
+ (130,466,38,'Magic Immunity',73000,58),
+ (130,466,39,'Magic Immunity',73000,58),
+ (130,467,15,'Soul Mastery',200000,58),
+ (130,473,27,'Crossbow Mastery',73000,58),
+ (130,473,28,'Crossbow Mastery',73000,58),
+ (130,473,29,'Crossbow Mastery',73000,58),
+ (130,502,3,'Life to Soul',200000,58),
+ (130,487,19,'Penetrate Shot',73000,58),
+ (130,487,20,'Penetrate Shot',73000,58),
+ (130,487,21,'Penetrate Shot',73000,58),
+ (130,508,13,'Rising Shot',73000,58),
+ (130,508,14,'Rising Shot',73000,58),
+ (130,508,15,'Rising Shot',73000,58),
+ (130,509,16,'Bleeding Shot',73000,58),
+ (130,509,17,'Bleeding Shot',73000,58),
+ (130,509,18,'Bleeding Shot',73000,58),
+ (130,516,2,'Slow Trap',218000,58),
+ (130,518,4,'Binding Trap',218000,58),
+ (130,465,35,'Light Armor Mastery',97000,60),
+ (130,465,36,'Light Armor Mastery',97000,60),
+ (130,466,40,'Magic Immunity',97000,60),
+ (130,466,41,'Magic Immunity',97000,60),
+ (130,467,16,'Soul Mastery',223000,60),
+ (130,473,30,'Crossbow Mastery',97000,60),
+ (130,473,31,'Crossbow Mastery',97000,60),
+ (130,487,22,'Penetrate Shot',97000,60),
+ (130,487,23,'Penetrate Shot',97000,60),
+ (130,508,16,'Rising Shot',97000,60),
+ (130,508,17,'Rising Shot',97000,60),
+ (130,509,19,'Bleeding Shot',97000,60),
+ (130,509,20,'Bleeding Shot',97000,60),
+ (130,515,3,'Poison Trap',193000,60),
+ (130,517,2,'Flash Trap',193000,60),
+ (130,519,1,'Quiver of Bolts: A-Grade',193000,60),
+ (130,521,1,'Sharpshooting',193000,60),
+ (130,525,3,'Decoy',193000,60),
+ (130,1405,2,'Divine Inspiration',620000,61),
+ (130,465,37,'Light Armor Mastery',140000,62),
+ (130,465,38,'Light Armor Mastery',140000,62),
+ (130,466,42,'Magic Immunity',140000,62),
+ (130,466,43,'Magic Immunity',140000,62),
+ (130,467,17,'Soul Mastery',290000,62),
+ (130,473,32,'Crossbow Mastery',140000,62),
+ (130,473,33,'Crossbow Mastery',140000,62),
+ (130,487,24,'Penetrate Shot',140000,62),
+ (130,487,25,'Penetrate Shot',140000,62),
+ (130,508,18,'Rising Shot',140000,62),
+ (130,508,19,'Rising Shot',140000,62),
+ (130,509,21,'Bleeding Shot',140000,62),
+ (130,509,22,'Bleeding Shot',140000,62),
+ (130,516,3,'Slow Trap',290000,62),
+ (130,518,5,'Binding Trap',290000,62),
+ (130,521,2,'Sharpshooting',290000,62),
+ (130,522,3,'Real Target',290000,62),
+ (130,523,1,'Imbue Dark Seed',290000,62),
+ (130,465,39,'Light Armor Mastery',170000,64),
+ (130,465,40,'Light Armor Mastery',170000,64),
+ (130,466,44,'Magic Immunity',170000,64),
+ (130,466,45,'Magic Immunity',170000,64),
+ (130,467,18,'Soul Mastery',340000,64),
+ (130,473,34,'Crossbow Mastery',170000,64),
+ (130,473,35,'Crossbow Mastery',170000,64),
+ (130,487,26,'Penetrate Shot',170000,64),
+ (130,487,27,'Penetrate Shot',170000,64),
+ (130,508,20,'Rising Shot',170000,64),
+ (130,508,21,'Rising Shot',170000,64),
+ (130,509,23,'Bleeding Shot',170000,64),
+ (130,509,24,'Bleeding Shot',170000,64),
+ (130,515,4,'Poison Trap',340000,64),
+ (130,517,3,'Flash Trap',340000,64),
+ (130,521,3,'Sharpshooting',340000,64),
+ (130,523,2,'Imbue Dark Seed',340000,64),
+ (130,465,41,'Light Armor Mastery',194000,66),
+ (130,465,42,'Light Armor Mastery',194000,66),
+ (130,466,46,'Magic Immunity',194000,66),
+ (130,466,47,'Magic Immunity',194000,66),
+ (130,467,19,'Soul Mastery',440000,66),
+ (130,471,6,'Defuse Trap',389000,66),
+ (130,473,36,'Crossbow Mastery',194000,66),
+ (130,473,37,'Crossbow Mastery',194000,66),
+ (130,502,4,'Life to Soul',440000,66),
+ (130,487,28,'Penetrate Shot',194000,66),
+ (130,487,29,'Penetrate Shot',194000,66),
+ (130,508,22,'Rising Shot',194000,66),
+ (130,508,23,'Rising Shot',194000,66),
+ (130,509,25,'Bleeding Shot',194000,66),
+ (130,509,26,'Bleeding Shot',194000,66),
+ (130,516,4,'Slow Trap',389000,66),
+ (130,518,6,'Binding Trap',389000,66),
+ (130,521,4,'Sharpshooting',389000,66),
+ (130,523,3,'Imbue Dark Seed',389000,66),
+ (130,525,4,'Decoy',389000,66),
+ (130,465,43,'Light Armor Mastery',280000,68),
+ (130,465,44,'Light Armor Mastery',280000,68),
+ (130,466,48,'Magic Immunity',280000,68),
+ (130,466,49,'Magic Immunity',280000,68),
+ (130,467,20,'Soul Mastery',560000,68),
+ (130,473,38,'Crossbow Mastery',280000,68),
+ (130,473,39,'Crossbow Mastery',280000,68),
+ (130,487,30,'Penetrate Shot',280000,68),
+ (130,487,31,'Penetrate Shot',280000,68),
+ (130,508,24,'Rising Shot',280000,68),
+ (130,508,25,'Rising Shot',280000,68),
+ (130,509,27,'Bleeding Shot',280000,68),
+ (130,509,28,'Bleeding Shot',280000,68),
+ (130,515,5,'Poison Trap',560000,68),
+ (130,517,4,'Flash Trap',560000,68),
+ (130,521,5,'Sharpshooting',560000,68),
+ (130,523,4,'Imbue Dark Seed',560000,68),
+ (130,465,45,'Light Armor Mastery',310000,70),
+ (130,465,46,'Light Armor Mastery',310000,70),
+ (130,466,50,'Magic Immunity',310000,70),
+ (130,466,51,'Magic Immunity',310000,70),
+ (130,467,21,'Soul Mastery',720000,70),
+ (130,473,40,'Crossbow Mastery',310000,70),
+ (130,473,41,'Crossbow Mastery',310000,70),
+ (130,487,32,'Penetrate Shot',310000,70),
+ (130,487,33,'Penetrate Shot',310000,70),
+ (130,508,26,'Rising Shot',310000,70),
+ (130,508,27,'Rising Shot',310000,70),
+ (130,509,29,'Bleeding Shot',310000,70),
+ (130,509,30,'Bleeding Shot',310000,70),
+ (130,516,5,'Slow Trap',620000,70),
+ (130,518,7,'Binding Trap',620000,70),
+ (130,521,6,'Sharpshooting',620000,70),
+ (130,522,4,'Real Target',620000,70),
+ (130,523,5,'Imbue Dark Seed',620000,70),
+ (130,525,5,'Decoy',620000,70),
+ (130,465,47,'Light Armor Mastery',400000,72),
+ (130,465,48,'Light Armor Mastery',400000,72),
+ (130,466,52,'Magic Immunity',400000,72),
+ (130,466,53,'Magic Immunity',400000,72),
+ (130,467,22,'Soul Mastery',860000,72),
+ (130,473,42,'Crossbow Mastery',400000,72),
+ (130,473,43,'Crossbow Mastery',400000,72),
+ (130,502,5,'Life to Soul',860000,72),
+ (130,487,34,'Penetrate Shot',400000,72),
+ (130,487,35,'Penetrate Shot',400000,72),
+ (130,508,28,'Rising Shot',400000,72),
+ (130,508,29,'Rising Shot',400000,72),
+ (130,509,31,'Bleeding Shot',400000,72),
+ (130,509,32,'Bleeding Shot',400000,72),
+ (130,515,6,'Poison Trap',800000,72),
+ (130,517,5,'Flash Trap',800000,72),
+ (130,521,7,'Sharpshooting',800000,72),
+ (130,523,6,'Imbue Dark Seed',800000,72),
+ (130,465,49,'Light Armor Mastery',760000,74),
+ (130,465,50,'Light Armor Mastery',760000,74),
+ (130,466,54,'Magic Immunity',760000,74),
+ (130,466,55,'Magic Immunity',760000,74),
+ (130,467,23,'Soul Mastery',1900000,74),
+ (130,471,7,'Defuse Trap',1530000,74),
+ (130,473,44,'Crossbow Mastery',810000,74),
+ (130,473,45,'Crossbow Mastery',760000,74),
+ (130,487,36,'Penetrate Shot',760000,74),
+ (130,487,37,'Penetrate Shot',760000,74),
+ (130,508,30,'Rising Shot',760000,74),
+ (130,508,31,'Rising Shot',760000,74),
+ (130,509,33,'Bleeding Shot',760000,74),
+ (130,509,34,'Bleeding Shot',760000,74),
+ (130,516,6,'Slow Trap',1530000,74),
+ (130,518,8,'Binding Trap',1530000,74),
+ (130,520,1,'Quiver of Bolts: S-Grade',810000,74),
+ (130,521,8,'Sharpshooting',1530000,74),
+ (130,523,7,'Imbue Dark Seed',1530000,74),
+ (130,525,6,'Decoy',1530000,74),
+ (130,1405,3,'Divine Inspiration',620000,76),
+ (130,1405,4,'Divine Inspiration',620000,76),
+ (134,328,1,'Wisdom',12500000,76),
+ (134,329,1,'Health',12500000,76),
+ (134,330,1,'Skill Mastery',14700000,77),
+ (134,426,1,'Battle Force',14700000,77),
+ (134,334,1,'Focus Skill Mastery',32000000,78),
+ (134,1470,1,'Prahnah',32000000,78),
+ (134,538,1,'Final Form',80000000,79);
