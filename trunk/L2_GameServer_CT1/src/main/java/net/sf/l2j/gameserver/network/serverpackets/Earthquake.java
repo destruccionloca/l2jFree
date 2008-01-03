@@ -24,7 +24,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class Earthquake extends L2GameServerPacket
 {
-	private static final String _S__C4_EARTHQUAKE = "[S] C4 Earthquake";
+	private static final String _S__C4_EARTHQUAKE = "[S] d3 Earthquake";
 	private int _x;
 	private int _y;
 	private int _z;

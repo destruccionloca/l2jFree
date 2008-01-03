@@ -18,8 +18,6 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-
-
 /**
  *
  * sample
@@ -36,7 +34,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class ExDuelReady extends L2GameServerPacket
 {
-	private static final String _S__4B_ExDuelAskStart_0X4B = "[S] 39 ExDuelReady 0x4b";
+	private static final String _S__FE_4D_ExDuelAskStart = "[S] FE:4d ExDuelReady 0x4b";
 	private int _unk1;
 
     /**
@@ -70,6 +68,6 @@ public class ExDuelReady extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__4B_ExDuelAskStart_0X4B;
+		return _S__FE_4D_ExDuelAskStart;
 	}
 }

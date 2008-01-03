@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class ExDuelUpdateUserInfo extends L2GameServerPacket
 {
-    private static final String _S__FE_4F_EXDUELUPDATEUSERINFO = "[S] FE:4F ExDuelUpdateUserInfo";
+    private static final String _S__FE_4F_EXDUELUPDATEUSERINFO = "[S] FE:50 ExDuelUpdateUserInfo";
     private L2PcInstance _activeChar;
 
     public ExDuelUpdateUserInfo(L2PcInstance cha)

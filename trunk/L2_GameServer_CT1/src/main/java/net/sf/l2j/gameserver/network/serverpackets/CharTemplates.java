@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.templates.L2PcTemplate;
 public class CharTemplates extends L2GameServerPacket
 {
 	// dddddddddddddddddddd
-	private static final String _S__23_CHARTEMPLATES = "[S] 23 CharTemplates";
+	private static final String _S__23_CHARTEMPLATES = "[S] 0d CharTemplates";
 	private FastList<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
 	
 	public void addChar(L2PcTemplate template)

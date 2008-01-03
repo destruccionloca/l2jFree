@@ -23,7 +23,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class ExDuelAskStart extends L2GameServerPacket
 {
-	private static final String _S__FE_4B_EXDUELASKSTART = "[S] FE:4B ExDuelAskStart";
+	private static final String _S__FE_4B_EXDUELASKSTART = "[S] FE:4c ExDuelAskStart";
 	
 	private String _requestorName;
 	private int _partyDuel;

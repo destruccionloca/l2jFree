@@ -38,7 +38,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
  */
 public class DropItem extends L2GameServerPacket
 {
-	private static final String _S__16_DROPITEM = "[S] 0c DropItem";
+	private static final String _S__16_DROPITEM = "[S] 16 DropItem";
 	private L2ItemInstance _item;
 	private int _charObjId;
 
@@ -75,7 +75,7 @@ public class DropItem extends L2GameServerPacket
 		}
 		writeD(_item.getCount());
 		
-		writeD(1); // unknown
+		writeD(0x01); // unknown
 	}
 	
 	/* (non-Javadoc)

@@ -23,7 +23,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class ExAskJoinPartyRoom extends L2GameServerPacket
 {
-	private static final String _S__FE_34_EXASKJOINPARTYROOM = "[S] FE:34 ExAskJoinPartyRoom";
+	private static final String _S__FE_34_EXASKJOINPARTYROOM = "[S] FE:35 ExAskJoinPartyRoom";
 	private String _charName;
 	
 	

@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class Dice extends L2GameServerPacket
 {
-	private static final String _S__D4_Dice = "[S] D4 Dice";
+	private static final String _S__D4_Dice = "[S] da Dice";
 	private int _charObjId;
 	private int _itemId;
 	private int _number;

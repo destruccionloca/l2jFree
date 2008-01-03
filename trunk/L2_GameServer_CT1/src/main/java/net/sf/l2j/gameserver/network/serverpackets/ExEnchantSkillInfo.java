@@ -22,7 +22,7 @@ import javolution.util.FastList;
 
 public class ExEnchantSkillInfo extends L2GameServerPacket
 {
-    private static final String _S__FE_18_EXENCHANTSKILLINFO = "[S] FE:18 ExEnchantSkillInfo";
+    private static final String _S__FE_18_EXENCHANTSKILLINFO = "[S] FE:2a ExEnchantSkillInfo";
     private FastList<Req> _reqs;
     private int _id;
     private int _level;

@@ -25,13 +25,12 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class ExAutoSoulShot extends L2GameServerPacket
 {
-	private static final String _S__FE_12_EXAUTOSOULSHOT = "[S] FE:12 ExAutoSoulShot";
+	private static final String _S__FE_12_EXAUTOSOULSHOT = "[S] FE:0c ExAutoSoulShot";
 	private int _itemId;
 	private int _type;
 
 	/**
 	 * 0xfe:0x12 ExAutoSoulShot         (ch)dd 
-	 * @param _characters
 	 */
 	public ExAutoSoulShot(int itemId, int type)
 	{
@@ -43,7 +42,7 @@ public class ExAutoSoulShot extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0xFE);
-		writeH(0x0c);     // sub id
+		writeH(0x0c);
 		writeD(_itemId);
 		writeD(_type);
 	}

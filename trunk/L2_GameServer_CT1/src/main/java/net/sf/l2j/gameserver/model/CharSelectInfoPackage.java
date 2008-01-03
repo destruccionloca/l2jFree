@@ -34,6 +34,7 @@ public class CharSelectInfoPackage
     private int _sp =0;
     private int _clanId=0;
     private int _karma =0;
+    private int _pkKills=0;    
     private int _augmentationId=0;
     private int _race=0;
     private int _classId=0;
@@ -257,5 +258,13 @@ public class CharSelectInfoPackage
     public int getAugmentationId()
     {
     	return _augmentationId;
+    }
+    public void setPkKills(int PkKills)
+    {
+        _pkKills = PkKills;
+    }
+    public int getPkKills()
+    {
+        return _pkKills;
     }    
 }

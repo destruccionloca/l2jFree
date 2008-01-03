@@ -29,7 +29,7 @@ import net.sf.l2j.tools.geometry.Point3D;
  */
 public class ExCursedWeaponLocation extends L2GameServerPacket
 {
-	private static final String _S__FE_46_EXCURSEDWEAPONLOCATION = "[S] FE:46 ExCursedWeaponLocation";
+	private static final String _S__FE_46_EXCURSEDWEAPONLOCATION = "[S] FE:47 ExCursedWeaponLocation";
 	private List<CursedWeaponInfo> _cursedWeaponInfo;
 	
 	public ExCursedWeaponLocation(List<CursedWeaponInfo> cursedWeaponInfo)
@@ -44,7 +44,7 @@ public class ExCursedWeaponLocation extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x47);
+		writeH(0x47); // TODO: l2j has 0x46 please test it i am quite sure its 47 
 		
 		if(!_cursedWeaponInfo.isEmpty())
 		{

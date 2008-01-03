@@ -154,7 +154,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.CameraMode;
 import net.sf.l2j.gameserver.network.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
-import net.sf.l2j.gameserver.network.serverpackets.ClanHallDecoration;
+import net.sf.l2j.gameserver.network.serverpackets.AgitDecoInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExAutoSoulShot;
@@ -1688,7 +1688,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	    {
 	    	if (getIsInClanHall() > 0) return; // already inside hall, 
 	    									   // assumes there are no 2 adjacent halls
-	    	ClanHallDecoration bl = new ClanHallDecoration(clanHall);
+	    	AgitDecoInfo bl = new AgitDecoInfo(clanHall);
         	sendPacket(bl);
         	if(getClan() != null && getClanId() == clanHall.getOwnerId())
 	    		setIsInClanHall((byte)2); // own
@@ -9883,7 +9883,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param name - name of snooped player
      * @param _text - the msg the snooped player sent/received
      */
-    public void broadcastSnoop(int objectId, int type, String name, String _text)
+    public void broadcastSnoop(int type, String name, String _text)
     {
         if (_snoopListener==null)
         	return;

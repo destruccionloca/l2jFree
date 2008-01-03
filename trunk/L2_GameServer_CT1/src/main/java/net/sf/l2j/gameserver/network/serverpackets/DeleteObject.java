@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.model.L2Object;
  */
 public class DeleteObject extends L2GameServerPacket
 {
-	private static final String _S__1E_DELETEOBJECT = "[S] 12 DeleteObject";
+	private static final String _S__1E_DELETEOBJECT = "[S] 08 DeleteObject";
 	private int _objectId;
 
 	public DeleteObject(L2Object obj)

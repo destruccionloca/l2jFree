@@ -27,7 +27,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 public class ExAskJoinMPCC extends L2GameServerPacket
 {
 
-	private static final String _S__FE_27_EXASKJOINMPCC = "[S] FE:27 ExAskJoinMPCC";
+	private static final String _S__FE_27_EXASKJOINMPCC = "[S] FE:1a ExAskJoinMPCC";
 
 	private String _requestorName;
 	/**

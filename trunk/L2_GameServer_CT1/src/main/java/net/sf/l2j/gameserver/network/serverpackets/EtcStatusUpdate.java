@@ -29,35 +29,7 @@ import net.sf.l2j.gameserver.skills.effects.EffectCharge;
  */
 public class EtcStatusUpdate extends L2GameServerPacket
 {
-	private static final String _S__F3_ETCSTATUSUPDATE = "[S] F3 EtcStatusUpdate";
-
-	/**
-	 *
-	 * Packet for lvl 3 client buff line
-	 *
-	 * Example:(C4)
-	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 - empty statusbar
-	 * F3 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 - increased force lvl 1
-	 * F3 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 - weight penalty lvl 1
-	 * F3 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 - chat banned
-	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 - Danger Area lvl 1
-	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 - lvl 1 grade penalty
-	 *
-	 * packet format: cdd //and last three are ddd???
- 	 *
-	 * Some test results:
-	 * F3 07 00 00 00 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 - lvl 7 increased force lvl 4 weight penalty
-	 *
-	 * Example:(C5 709)
-	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 0F 00 00 00 - lvl 1 charm of courage lvl 15 Death Penalty
-	 *
-	 *
-	 * NOTE:
-	 * End of buff:
-	 * You must send empty packet
-	 * F3 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-	 * to remove the statusbar or just empty 
-	 */
+	private static final String _S__F3_ETCSTATUSUPDATE = "[S] f9 EtcStatusUpdate";
 
 	private L2PcInstance _activeChar;
 	private EffectCharge _effect;
@@ -85,7 +57,7 @@ public class EtcStatusUpdate extends L2GameServerPacket
         writeD(_activeChar.getExpertisePenalty());
         writeD(_activeChar.getCharmOfCourage() ? 1 : 0);
         writeD(_activeChar.getDeathPenaltyBuffLevel());
-        writeD(0x00); 											//souls TODO: core support
+        writeD(_activeChar.getAbsorbedSouls());
 	}
 
 	/**

@@ -24,7 +24,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class ConfirmDlg extends L2GameServerPacket
 {
-	private static final String _S__ED_CONFIRMDLG = "[S] ed ConfirmDlg";
+	private static final String _S__ED_CONFIRMDLG = "[S] f3 ConfirmDlg";
 	private int _requestId;
 	private String _name;
     private int _time;

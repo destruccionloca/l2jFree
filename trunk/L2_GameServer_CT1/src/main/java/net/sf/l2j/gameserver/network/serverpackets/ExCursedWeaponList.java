@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class ExCursedWeaponList extends L2GameServerPacket
 {
-	private static final String _S__FE_45_EXCURSEDWEAPONLIST = "[S] FE:45 ExCursedWeaponList";
+	private static final String _S__FE_45_EXCURSEDWEAPONLIST = "[S] FE:46 ExCursedWeaponList";
 	private List<Integer> _cursedWeaponIds;
 	
 	public ExCursedWeaponList(List<Integer> cursedWeaponIds)
