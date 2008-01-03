@@ -20,35 +20,35 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * Send Private (Friend) Message
- * 
+ *
  * Format: c dSSS
- *  
+ *
  * d: Unknown
  * S: Sending Player
  * S: Receiving Player
  * S: Message
- * 
+ *
  * @author Tempy
  */
-public class FriendRecvMsg extends L2GameServerPacket
+public class L2FriendSay extends L2GameServerPacket
 {
-	private static final String _S__FD_FRIENDRECVMSG = "[S] FD FriendRecvMsg";
-	
+	private static final String S_78_L2FRIENDSAY = "[S] 78 L2FriendSay";
+
 	private String _sender, _receiver, _message;
-	
-	public FriendRecvMsg(String sender, String reciever, String message)
+
+	public L2FriendSay(String sender, String reciever, String message)
 	{
 		_sender = sender;
 		_receiver = reciever;
-		
+
 		_message = message;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x78);
-		
+
 		writeD(0); // ??
 		writeS(_receiver);
 		writeS(_sender);
@@ -58,6 +58,6 @@ public class FriendRecvMsg extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FD_FRIENDRECVMSG;
+		return S_78_L2FRIENDSAY;
 	}
 }

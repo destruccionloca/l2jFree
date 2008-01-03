@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.AskJoinFriend;
+import net.sf.l2j.gameserver.network.serverpackets.FriendAddRequest;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -79,8 +79,8 @@ public class RequestFriendInvite extends L2GameClientPacket
 		    sm.addString(activeChar.getName());
 		    friend.sendPacket(sm);
 		    
-		    AskJoinFriend ajf = new AskJoinFriend(activeChar.getName());
-		    friend.sendPacket(ajf);  	    
+		    FriendAddRequest ajf = new FriendAddRequest(activeChar.getName());
+		    friend.sendPacket(ajf);
     	} 
         else 
         {

@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.DoorStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
+import net.sf.l2j.gameserver.network.serverpackets.StaticObject;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
@@ -401,11 +402,11 @@ public class L2DoorInstance extends L2Character
             MyTargetSelected my = new MyTargetSelected(getObjectId(), 0);
             player.sendPacket(my);
             
-//            if (isAutoAttackable(player))
-//            {
-                DoorStatusUpdate su = new DoorStatusUpdate(this);
-                player.sendPacket(su);
-//            }
+            //if (isAutoAttackable(player))
+            //{
+            StaticObject su = new StaticObject(this);
+            player.sendPacket(su);
+            //}
             
             // Send a Server->Client packet ValidateLocation to correct the L2NpcInstance position and heading on the client
             player.sendPacket(new ValidateLocation(this));
@@ -449,8 +450,9 @@ public class L2DoorInstance extends L2Character
                     .getLevel());
             player.sendPacket(my);
 
-            if (isAutoAttackable(player)) {
-                DoorStatusUpdate su = new DoorStatusUpdate(this);
+            if (isAutoAttackable(player))
+            {
+                StaticObject su = new StaticObject(this);
                 player.sendPacket(su);
             }
 
@@ -491,7 +493,7 @@ public class L2DoorInstance extends L2Character
         if (knownPlayers == null || knownPlayers.isEmpty())
             return;
 
-        DoorStatusUpdate su = new DoorStatusUpdate(this);
+        StaticObject su = new StaticObject(this);
         for (L2PcInstance player : knownPlayers)
             player.sendPacket(su);
     }

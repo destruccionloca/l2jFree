@@ -18,55 +18,37 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-
-/**
- *
- * sample
- * <p>
- * 7d 
- * c1 b2 e0 4a 
- * 00 00 00 00
- * <p>
- * 
- * format
- * cdd
- * 
- * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
-public class AskJoinFriend extends L2GameServerPacket
+public final class StartRotation extends L2GameServerPacket
 {
-	private static final String _S__83_ASKJoinFriend = "[S] 83 AskJoinFriend [sd]";
-	//private final static Log _log = LogFactory.getLog(AskJoinFriend.class.getName());
+	private static final String S_7A_STARTROTATION = "[S] 7a StartRotation";
+	private int _charObjId;
+	private int _degree;
+	private int _side;
 
-	private String _requestorName;
-	//private int _itemDistribution;
-
-	/**
-	 * @param int objectId of the target
-	 * @param int 
-	 */
-//	public AskJoinFriend(String requestorName, int itemDistribution)
-	public AskJoinFriend(String requestorName)
+	public StartRotation(L2PcInstance player, int degree, int side)
 	{
-		_requestorName = requestorName;
-//		_itemDistribution = itemDistribution;
+		_charObjId = player.getObjectId();
+		_degree = degree;
+		_side = side;
 	}
 
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x83);
-		writeS(_requestorName);
-		writeD(0);
+		writeC(0x7a);
+		writeD(_charObjId);
+		writeD(_degree);
+		writeD(_side);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__83_ASKJoinFriend;
+		return S_7A_STARTROTATION;
 	}
 }

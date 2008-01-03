@@ -18,6 +18,10 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ListPartyWaiting;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,7 +78,7 @@ public class RequestPartyMatchList extends L2GameClientPacket
 			Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers(); 
 			L2PcInstance[] allPlayers = players.toArray(new L2PcInstance[players.size()]);
 			L2PcInstance[] empty = new L2PcInstance[] { };
-			PartyMatchList matchList = new PartyMatchList(empty);
+			ListPartyWaiting matchList = new ListPartyWaiting(empty);
 			sendPacket(matchList);*/
 		}
 		else if (_status == 3)

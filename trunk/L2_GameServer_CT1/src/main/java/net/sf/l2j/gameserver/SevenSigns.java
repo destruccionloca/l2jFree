@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.model.AutoSpawnHandler.AutoSpawnInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.SignsSky;
+import net.sf.l2j.gameserver.network.serverpackets.SSQInfo;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
@@ -1392,7 +1392,7 @@ public class SevenSigns
 			
 			teleLosingCabalFromDungeons(getCabalShortName(getCabalHighestScore()));
 			
-			SignsSky ss = new SignsSky();
+			SSQInfo ss = new SSQInfo();
 			
 			for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 				player.sendPacket(ss);

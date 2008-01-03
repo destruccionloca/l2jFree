@@ -18,37 +18,32 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-
-public class BeginRotation extends L2GameServerPacket
+/**
+ * Format: (ch)
+ *
+ * @author  -Wooden-
+ */
+public class ExSearchOrc extends L2GameServerPacket
 {
-	private static final String _S__7A_BEGINROTATION = "[S] 7a BeginRotation [ddd]";
-	private int _charObjId;
-	private int _degree;
-	private int _side;
-	
-	public BeginRotation(L2PcInstance player, int degree, int side)
-	{
-		_charObjId = player.getObjectId();
-		_degree = degree;
-		_side = side;
-	}
-	
+	private static final String _S__FE_45_EXSEARCHORC = "[S] FE:45 ExSearchOrc";
+
+	/**
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+	 */
 	@Override
-	protected final void writeImpl()
+	protected void writeImpl()
 	{
-		writeC(0x7a);
-		writeD(_charObjId);
-		writeD(_degree);
-		writeD(_side);
+		writeC(0xfe);
+		writeH(0x45);
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__7A_BEGINROTATION;
+		return _S__FE_45_EXSEARCHORC;
 	}
+
 }

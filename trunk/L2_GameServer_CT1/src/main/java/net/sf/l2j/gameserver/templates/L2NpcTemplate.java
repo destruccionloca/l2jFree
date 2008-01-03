@@ -210,7 +210,8 @@ public final class L2NpcTemplate extends L2CharTemplate
         
         // If the player is on a third class, fetch the class teacher
         // information for its parent class.
-        if (classId.getId() >= 88)
+        // TODO Unhardcode this ClassId value
+        if (classId.getId() >= 88 && classId.getId() <= 118)
             return _teachInfo.contains(classId.getParent());
         
         return _teachInfo.contains(classId);

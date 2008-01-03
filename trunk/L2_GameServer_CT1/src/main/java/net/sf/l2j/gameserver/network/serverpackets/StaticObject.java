@@ -1,7 +1,4 @@
 /*
- * $Header: /cvsroot/l2j/L2_Gameserver/java/net/sf/l2j/gameserver/serverpackets/ASendPacket.java,v 1.14.2.3 2005/01/25 15:12:27 luisantonioa Exp $
- *
- * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
@@ -21,44 +18,78 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-
+import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 
 public class StaticObject extends L2GameServerPacket
 {
+	private final static String S_9F_STATICOBJECT = "[S] 9f StaticObject";
+	private final int _staticObjectId;
+	private final int _objectId;
+	private final int _type;
+	private final boolean _isTargetable;
+	private final int _meshIndex;
+	private final boolean _isClosed;
+	private final boolean _isEnemy;
+	private final int _maxHp;
+	private final int _currentHp;
+	private final boolean _showHp;
+	private final int _damageGrade;
 
-        private static final String _S__99_StaticObjectPacket = "[S] 99 StaticObjectPacket";
-        private L2StaticObjectInstance _staticObject;
-            
-        /**
-         * [S]0x99 StaticObjectPacket   dd     
-         * @param _
-         */
+	public StaticObject(L2StaticObjectInstance staticObject)
+	{
+		_staticObjectId = staticObject.getStaticObjectId();
+		_objectId = staticObject.getObjectId();
+		_type = 0;
+		_isTargetable = true;
+		_meshIndex = 0;
+		_isClosed = false;
+		_isEnemy = false;
+		_maxHp = 0;
+		_currentHp = 0;
+		_showHp = false;
+		_damageGrade = 0;
+	}
 
-        public StaticObject(L2StaticObjectInstance StaticObject)
-        {
-            _staticObject = StaticObject;           // staticObjectId
-            
-        }
-        
-        @Override
-        protected final void writeImpl()
-        {
-            
-            writeC(0x9f);
-            writeD(_staticObject.getStaticObjectId());    //staticObjectId
-            writeD(_staticObject.getObjectId());    //objectId
-                
-            
-        }
+	public StaticObject(L2DoorInstance door)
+	{
+		_staticObjectId = door.getDoorId();
+		_objectId = door.getObjectId();
+		_type = 1;
+		_isTargetable = true;
+		_meshIndex = 1;
+		_isClosed = door.getOpen() == 1;
+		_isEnemy = false;
+		_maxHp = door.getMaxHp();
+		_currentHp = (int) door.getStatus().getCurrentHp();
+		_showHp = false;
+		_damageGrade = door.getDamage();
+	}
+
+	@Override
+	protected final void writeImpl()
+	{
+		writeC(0x9f);
+		writeD(_staticObjectId);
+		writeD(_objectId);
+		writeD(_type);
+		writeD(_isTargetable ? 1 : 0);
+		writeD(_meshIndex);
+		writeD(_isClosed ? 1 : 0);
+		writeD(_isEnemy ? 1 : 0);
+		writeD(_maxHp);
+		writeD(_currentHp);
+		writeD(_showHp ? 1 : 0);
+		writeD(_damageGrade);
+	}
 
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__99_StaticObjectPacket;
-    }
+	/* (non-Javadoc)
+	* @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	*/
+	@Override
+	public String getType()
+	{
+		return S_9F_STATICOBJECT;
+	}
 }

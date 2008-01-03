@@ -204,7 +204,7 @@ import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StopMove;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.TargetSelected;
-import net.sf.l2j.gameserver.network.serverpackets.TitleUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.NicknameChanged;
 import net.sf.l2j.gameserver.network.serverpackets.TradeStart;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
@@ -3704,11 +3704,11 @@ public final class L2PcInstance extends L2PlayableInstance
         // Send a Server->Client packet UserInfo to this L2PcInstance
         sendPacket(new UserInfo(this));
 
-        // Send a Server->Client packet TitleUpdate to all L2PcInstance in _KnownPlayers of the L2PcInstance
+        // Send a Server->Client packet NicknameChanged to all L2PcInstance in _KnownPlayers of the L2PcInstance
         if (_log.isDebugEnabled())
-            _log.debug("players to notify:" + getKnownList().getKnownPlayers().size() + " packet: [S] cc TitleUpdate");
+            _log.debug("players to notify:" + getKnownList().getKnownPlayers().size() + " packet: [S] cc NicknameChanged");
 
-        Broadcast.toKnownPlayers(this, new TitleUpdate(this));
+        Broadcast.toKnownPlayers(this, new NicknameChanged(this));
     }
 
     /**

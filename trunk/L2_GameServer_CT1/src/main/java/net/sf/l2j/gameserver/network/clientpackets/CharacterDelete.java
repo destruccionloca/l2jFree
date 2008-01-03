@@ -21,7 +21,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.CharDeleteFail;
-import net.sf.l2j.gameserver.network.serverpackets.CharDeleteOk;
+import net.sf.l2j.gameserver.network.serverpackets.CharDeleteSuccess;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -65,7 +65,7 @@ public class CharacterDelete extends L2GameClientPacket
 		}
 		if (character == null)
 		{
-			sendPacket(new CharDeleteOk());
+			sendPacket(new CharDeleteSuccess());
 		}
 		else
 		{

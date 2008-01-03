@@ -52,7 +52,7 @@ import net.sf.l2j.gameserver.network.loginserverpackets.InitLS;
 import net.sf.l2j.gameserver.network.loginserverpackets.KickPlayer;
 import net.sf.l2j.gameserver.network.loginserverpackets.LoginServerFail;
 import net.sf.l2j.gameserver.network.loginserverpackets.PlayerAuthResponse;
-import net.sf.l2j.gameserver.network.serverpackets.AuthLoginFail;
+import net.sf.l2j.gameserver.network.serverpackets.LoginFail;
 import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
 import net.sf.l2j.tools.security.NewCrypt;
 import net.sf.l2j.tools.util.Util;
@@ -349,7 +349,7 @@ public class LoginServerThread extends Thread
 								else
 								{
 									_log.warn("session key is not correct. closing connection");
-									wcToRemove.gameClient.getConnection().sendPacket(new AuthLoginFail(1));
+									wcToRemove.gameClient.getConnection().sendPacket(new LoginFail(1));
 									wcToRemove.gameClient.closeNow();
 								}
 								_waitingClients.remove(wcToRemove);

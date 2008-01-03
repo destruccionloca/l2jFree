@@ -198,10 +198,5 @@ public class L2SkillSummon extends L2Skill
 			
 		L2World.getInstance().storeObject(summon);
 		summon.spawnMe(activeChar.getX()+50, activeChar.getY()+100, activeChar.getZ());
-			
-		summon.setFollowStatus(true);
-		summon.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
-											  // if someone comes into range now, the animation shouldnt show any more
-		activeChar.sendPacket(new PetInfo(summon));
 	}
 }

@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.model.L2Transformation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -228,10 +229,16 @@ public class UserInfo extends L2GameServerPacket
         writeF(_activeChar.getStat().getAttackSpeedMultiplier());
 
         L2Summon pet = _activeChar.getPet();
+        L2Transformation trans;
         if (_activeChar.getMountType() != 0 && pet != null)
         {
             writeF(pet.getTemplate().getCollisionRadius());
             writeF(pet.getTemplate().getCollisionHeight());
+        }
+        else if ((trans = _activeChar.getTransformation()) != null)
+        {
+            writeF(trans.getCollisionRadius());
+            writeF(trans.getCollisionHeight());
         }
         else
         {
@@ -321,7 +328,8 @@ public class UserInfo extends L2GameServerPacket
         else
         	writeD(0x00);
         
-        writeD(0x00);
+        writeD(_activeChar.getTranformationId());
+
         writeD(_activeChar.getAttackElement());
         writeD(_activeChar.getAttackElementValue());
         writeD(_activeChar.getDefAttrFire());

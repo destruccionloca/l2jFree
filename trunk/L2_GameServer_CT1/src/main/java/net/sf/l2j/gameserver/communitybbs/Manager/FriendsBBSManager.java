@@ -29,8 +29,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.AskJoinFriend;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
+import net.sf.l2j.gameserver.network.serverpackets.FriendAddRequest;
 import net.sf.l2j.gameserver.network.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
@@ -215,7 +215,7 @@ public class FriendsBBSManager extends BaseBBSManager
     {   
     	L2PcInstance friend = L2World.getInstance().getPlayer(name);
     	
-	    AskJoinFriend ajf = new AskJoinFriend(activeChar.getName());
+	    FriendAddRequest ajf = new FriendAddRequest(activeChar.getName());
 	    friend.sendPacket(ajf);  
     }
     

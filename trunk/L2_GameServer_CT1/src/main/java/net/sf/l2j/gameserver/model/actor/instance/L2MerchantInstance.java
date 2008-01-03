@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.Ride;
 import net.sf.l2j.gameserver.network.serverpackets.SellList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.WearList;
+import net.sf.l2j.gameserver.network.serverpackets.ShopPreviewList;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -76,7 +76,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
         if (list != null)
         {
-            WearList bl = new WearList(list, player.getAdena(), player.getExpertiseIndex());
+            ShopPreviewList bl = new ShopPreviewList(list, player.getAdena(), player.getExpertiseIndex());
             player.sendPacket(bl);
         }
         else

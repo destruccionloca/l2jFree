@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ExConfirmVariationRefiner;
+import net.sf.l2j.gameserver.network.serverpackets.ExPutIntensiveResultForVariationMake;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 
@@ -119,7 +119,7 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 				break;
 		}
 		
-		activeChar.sendPacket(new ExConfirmVariationRefiner(_refinerItemObjId, refinerItemId, gemstoneItemId, gemstoneCount));
+		activeChar.sendPacket(new ExPutIntensiveResultForVariationMake(_refinerItemObjId, refinerItemId, gemstoneItemId, gemstoneCount));
 		
 		activeChar.sendPacket(sm);	
 	}

@@ -1,4 +1,5 @@
-/* This program is free software; you can redistribute it and/or modify
+/*
+ * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -17,41 +18,28 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
+ * This class ...
  *
- * @author  devScarlet
+ * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class TitleUpdate extends L2GameServerPacket
+public class CharDeleteSuccess extends L2GameServerPacket
 {
-	private static final String _S__CC_TITLE_UPDATE = "[S] cc TitleUpdate";
-	private String _title;
-	private int _objectId;
-	
-	public TitleUpdate(L2PcInstance cha)
+	private static final String S_1D_CHARDELETESUCCESS = "[S] 1d CharDeleteSuccess";
+
+	@Override
+	protected final void writeImpl()
 	{
-		_objectId = cha.getObjectId();
-		_title = cha.getTitle();
+		writeC(0x1d);
 	}
 
-	/**
-	 * @see net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket#writeImpl()
-	 */
-	@Override
-	protected void writeImpl()
-	{
-		writeC(0xcc);
-		writeD(_objectId);
-		writeS(_title);
-	}
-	
-	/**
-	 * @see net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket#getType()
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__CC_TITLE_UPDATE;
+		return S_1D_CHARDELETESUCCESS;
 	}
 }

@@ -22,7 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.FriendRecvMsg;
+import net.sf.l2j.gameserver.network.serverpackets.L2FriendSay;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -73,7 +73,7 @@ public class RequestSendFriendMsg extends L2GameClientPacket
 			_logChat.info("PRIV_MSG" + "[" + activeChar.getName() + " to "+ _reciever +"]" + _message);
 		}
         
-        FriendRecvMsg frm = new FriendRecvMsg(activeChar.getName(), _reciever, _message);
+        L2FriendSay frm = new L2FriendSay(activeChar.getName(), _reciever, _message);
         targetPlayer.sendPacket(frm);
     }
 

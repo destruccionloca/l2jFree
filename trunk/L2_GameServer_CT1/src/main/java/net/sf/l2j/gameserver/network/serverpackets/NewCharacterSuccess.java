@@ -18,37 +18,41 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import java.util.Iterator;
+import java.util.List;
 
 import javolution.util.FastList;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.3.2.1.2.7 $ $Date: 2005/03/27 15:29:39 $
  */
-public class CharTemplates extends L2GameServerPacket
+public class NewCharacterSuccess extends L2GameServerPacket
 {
-	private static final String _S__0D_CHARTEMPLATES = "[S] 0d CharTemplates [d (ddddddddddddddddddd)]";
-	private FastList<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
-	
+	// dddddddddddddddddddd
+	private static final String S_0D_CHARTEMPLATES = "[S] 0d CharTemplates";
+	private List<L2PcTemplate> _chars = new FastList<L2PcTemplate>();
+
+    public NewCharacterSuccess()
+    {
+        
+    }
+    
 	public void addChar(L2PcTemplate template)
 	{
 		_chars.add(template);
-	}	
+	}
 
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x0D);
+		writeC(0x0d);
 		writeD(_chars.size());
 
-		for (Iterator it = _chars.iterator(); it.hasNext(); writeD(0x0a))
+		for (L2PcTemplate temp : _chars)
 		{
-			L2PcTemplate temp = (L2PcTemplate)it.next();
-			//writeD(temp.getRace().ordinal());
-			writeD(0x00);
+			writeD(temp.getRace().ordinal());
 			writeD(temp.getClassId().getId());
 			writeD(0x46);
 			writeD(temp.getBaseSTR());
@@ -67,6 +71,7 @@ public class CharTemplates extends L2GameServerPacket
 			writeD(0x0a);
 			writeD(0x46);
 			writeD(temp.getBaseMEN());
+			writeD(0x0a);
 		}
 	}
 
@@ -76,6 +81,6 @@ public class CharTemplates extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__0D_CHARTEMPLATES;
+		return S_0D_CHARTEMPLATES;
 	}
 }

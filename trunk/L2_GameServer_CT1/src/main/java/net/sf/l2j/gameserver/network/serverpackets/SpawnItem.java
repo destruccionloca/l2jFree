@@ -19,6 +19,7 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.model.L2Object;
 
 /**
  * 15 
@@ -34,7 +35,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
  * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
-public class SpawnItem extends L2GameServerPacket
+public final class SpawnItem extends L2GameServerPacket
 {
 	private static final String _S__15_SPAWNITEM = "[S] 15 SpawnItem";
 	private int _objectId;
@@ -42,15 +43,26 @@ public class SpawnItem extends L2GameServerPacket
 	private int _x, _y, _z;
 	private int _stackable, _count;
 
-	public SpawnItem(L2ItemInstance item)
+	public SpawnItem(L2Object obj)
 	{
-		_objectId = item.getObjectId();
-		_itemId = item.getItemDisplayId();
-		_x = item.getX();
-		_y = item.getY();
-		_z = item.getZ();
-		_stackable = item.isStackable() ? 0x01 : 0x00;
-		_count = item.getCount();
+		_objectId = obj.getObjectId();
+		_x = obj.getX();
+		_y = obj.getY();
+		_z = obj.getZ();
+		
+		if (obj instanceof L2ItemInstance)
+		{
+			L2ItemInstance item = (L2ItemInstance) obj;
+			_itemId = item.getItemDisplayId();
+			_stackable = item.isStackable() ? 0x01 : 0x00;
+			_count = item.getCount();
+		}
+		else
+		{
+			_itemId = obj.getPoly().getPolyId();
+			_stackable = 0;
+			_count = 1;
+		}
 	}
 	
 	@Override

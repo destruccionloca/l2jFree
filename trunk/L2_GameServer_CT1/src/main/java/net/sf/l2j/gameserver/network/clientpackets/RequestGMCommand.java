@@ -21,10 +21,11 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.GMHennaInfo;
 import net.sf.l2j.gameserver.network.serverpackets.GMViewCharacterInfo;
 import net.sf.l2j.gameserver.network.serverpackets.GMViewItemList;
 import net.sf.l2j.gameserver.network.serverpackets.GMViewPledgeInfo;
-import net.sf.l2j.gameserver.network.serverpackets.GMViewQuestList;
+import net.sf.l2j.gameserver.network.serverpackets.GMViewQuestInfo;
 import net.sf.l2j.gameserver.network.serverpackets.GMViewSkillInfo;
 import net.sf.l2j.gameserver.network.serverpackets.GMViewWarehouseWithdrawList;
 
@@ -72,13 +73,15 @@ public class RequestGMCommand extends L2GameClientPacket
 			case 1: // player status
 			{
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_VIEW_INFO)
-				sendPacket(new GMViewCharacterInfo(player));
+				{
+					sendPacket(new GMViewCharacterInfo(player));
+					sendPacket(new GMHennaInfo(player));
+				}
 				break;
 			}
 			case 2: // player clan
 			{
-				if (activeChar.getAccessLevel() >= Config.GM_CHAR_CLAN_VIEW)
-				if (player.getClan() != null)
+				if (activeChar.getAccessLevel() >= Config.GM_CHAR_CLAN_VIEW && player.getClan() != null)
 					sendPacket(new GMViewPledgeInfo(player.getClan(),player));
 
                 break;
@@ -86,26 +89,28 @@ public class RequestGMCommand extends L2GameClientPacket
 			case 3: // player skills
 			{
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_VIEW_SKILL)
-				sendPacket(new GMViewSkillInfo(player));
+					sendPacket(new GMViewSkillInfo(player));
 				break;
 			}
 			case 4: // player quests
 			{
-                if (activeChar.getAccessLevel() >= Config.GM_CHAR_VIEW_QUEST)
-                sendPacket(new GMViewQuestList(player));
-			    break;
+				if (activeChar.getAccessLevel() >= Config.GM_CHAR_VIEW_QUEST)
+					sendPacket(new GMViewQuestInfo(player));
+				break;
 			}
 			case 5: // player inventory
 			{
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_INVENTORY)
-				sendPacket(new GMViewItemList(player));
+				{
+					sendPacket(new GMViewItemList(player));
+					sendPacket(new GMHennaInfo(player));
+				}
 				break;
 			}
 			case 6: // player warehouse
 			{
-			    // gm warehouse view to be implemented
 				if (activeChar.getAccessLevel() >= Config.GM_CHAR_VIEW_WAREHOUSE)
-				sendPacket(new GMViewWarehouseWithdrawList(player));
+					sendPacket(new GMViewWarehouseWithdrawList(player));
 			    break;
 			}
 		}

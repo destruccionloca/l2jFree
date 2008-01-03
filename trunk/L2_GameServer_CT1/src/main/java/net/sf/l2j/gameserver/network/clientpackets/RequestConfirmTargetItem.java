@@ -21,7 +21,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ExConfirmVariationItem;
+import net.sf.l2j.gameserver.network.serverpackets.ExPutItemResultForVariationMake;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 
@@ -103,7 +103,7 @@ public final class RequestConfirmTargetItem extends L2GameClientPacket
 			return;
 		}
 
-		activeChar.sendPacket(new ExConfirmVariationItem(_itemObjId));
+		activeChar.sendPacket(new ExPutItemResultForVariationMake(_itemObjId));
 		activeChar.sendPacket(new SystemMessage(SystemMessageId.SELECT_THE_CATALYST_FOR_AUGMENTATION));
 	}
 

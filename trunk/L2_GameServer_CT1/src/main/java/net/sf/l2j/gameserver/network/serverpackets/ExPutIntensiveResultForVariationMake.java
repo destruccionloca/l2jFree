@@ -17,39 +17,42 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-public class ExConfirmVariationGemstone extends L2GameServerPacket
+/**
+ * Format: (ch)ddddd
+ *
+ */
+public class ExPutIntensiveResultForVariationMake extends L2GameServerPacket
 {
-	private static final String _S__FE_54_EXCONFIRMVARIATIONGEMSTONE = "[S] FE:54 ExConfirmVariationGemstone [ddddd]";
-	
-	private int _gemstoneObjId;
-	private int _unk1;
+	private static final String S_FE_54_EXPUTINTENSIVERESULTFORVARIATIONMAKE = "[S] FE:54 ExPutIntensiveResultForVariationMake";
+
+	private int _refinerItemObjId;
+	private int _lifestoneItemId;
+	private int _gemstoneItemId;
 	private int _gemstoneCount;
 	private int _unk2;
-	private int _unk3;
-	
-	public ExConfirmVariationGemstone(int gemstoneObjId, int count)
+
+	public ExPutIntensiveResultForVariationMake(int refinerItemObjId, int lifeStoneId, int gemstoneItemId, int gemstoneCount)
 	{
-		_gemstoneObjId = gemstoneObjId;
-		_unk1 = 1;
-		_gemstoneCount = count;
+		_refinerItemObjId = refinerItemObjId;
+		_lifestoneItemId = lifeStoneId;
+		_gemstoneItemId = gemstoneItemId;
+		_gemstoneCount = gemstoneCount;
 		_unk2 = 1;
-		_unk3 = 1;
 	}
 
 	/**
-	 * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
 	@Override
 	protected void writeImpl()
 	{
 		writeC(0xfe);
 		writeH(0x54);
-		
-        writeD(_gemstoneObjId);
-        writeD(_unk1);
-        writeD(_gemstoneCount);
-        writeD(_unk2);
-        writeD(_unk3);
+		writeD(_refinerItemObjId);
+		writeD(_lifestoneItemId);
+		writeD(_gemstoneItemId);
+		writeD(_gemstoneCount);
+		writeD(_unk2);
 	}
 
 	/**
@@ -58,7 +61,7 @@ public class ExConfirmVariationGemstone extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_54_EXCONFIRMVARIATIONGEMSTONE;
+		return S_FE_54_EXPUTINTENSIVERESULTFORVARIATIONMAKE;
 	}
 
 }

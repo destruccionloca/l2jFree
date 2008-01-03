@@ -19,39 +19,42 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 
+
 /**
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
+ *
+ * sample
+ * <p>
+ * 7d
+ * c1 b2 e0 4a
+ * 00 00 00 00
+ * <p>
+ *
+ * format
+ * cdd
+ *
+ * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class AuthLoginFail extends L2GameServerPacket
+public class FriendAddRequest extends L2GameServerPacket
 {
-	private static final String _S__0A_AUTHLOGINFAIL = "[S] 0a AuthLoginFail [d]";
-	public static final int NO_TEXT = 0;
-	public static final int SYSTEM_ERROR_LOGIN_LATER = 1;
-	public static final int PASSWORD_DOES_NOT_MATCH_THIS_ACCOUNT = 2;
-	public static final int PASSWORD_DOES_NOT_MATCH_THIS_ACCOUNT2 = 3;
-	public static final int ACCESS_FAILED_TRY_LATER = 4;
-	public static final int INCORRECT_ACCOUNT_INFO_CONTACT_CUSTOMER_SUPPORT = 5;
-	public static final int ACCESS_FAILED_TRY_LATER2 = 6;
-	public static final int ACOUNT_ALREADY_IN_USE = 7;
-	public static final int ACCESS_FAILED_TRY_LATER3 = 8;
-	public static final int ACCESS_FAILED_TRY_LATER4 = 9;
-	public static final int ACCESS_FAILED_TRY_LATER5 = 10;
-	
-	private int _reason;
+	private static final String S_83_FRIENDADDREQUEST = "[S] 83 FriendAddRequest";
+
+	private String _requestorName;
 
 	/**
-	 * @param _characters
+	 * @param int objectId of the target
+	 * @param int
 	 */
-	public AuthLoginFail(int reason)
+	public FriendAddRequest(String requestorName)
 	{
-		_reason = reason;
+		_requestorName = requestorName;
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x0a);
-		writeD(_reason); 
+		writeC(0x83);
+		writeS(_requestorName);
+		writeD(0);
 	}
 
 	/* (non-Javadoc)
@@ -60,6 +63,6 @@ public class AuthLoginFail extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__0A_AUTHLOGINFAIL;
+		return S_83_FRIENDADDREQUEST;
 	}
 }

@@ -169,7 +169,7 @@ public abstract class L2Item
      * @param type : Enum designating the type of the item
      * @param set : StatsSet corresponding to a set of couples (key,value) for description of the item
      */
-    protected L2Item(Enum type, StatsSet set)
+    protected L2Item(Enum<?> type, StatsSet set)
     {
         _type = type;
         _itemId = set.getInteger("item_id");
@@ -374,7 +374,12 @@ public abstract class L2Item
     {
         return ((_itemId >= 6611 && _itemId <= 6621) || _itemId == 6842);
     }
-    
+
+    public boolean isEquipable()
+    {
+        return this.getBodyPart() != 0 && !(this.getItemType() instanceof L2EtcItemType);
+    }
+
     /**
      * Returns the price of reference of the item
      * @return int
