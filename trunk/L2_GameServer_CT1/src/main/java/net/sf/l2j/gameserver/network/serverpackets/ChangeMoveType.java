@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  */
 public class ChangeMoveType extends L2GameServerPacket
 {
-	private static final String _S__3E_CHANGEMOVETYPE = "[S] 3E ChangeMoveType";
+	private static final String _S__3E_CHANGEMOVETYPE = "[S] 28 ChangeMoveType";
 	public static final int WALK = 0;
 	public static final int RUN = 1;
 	

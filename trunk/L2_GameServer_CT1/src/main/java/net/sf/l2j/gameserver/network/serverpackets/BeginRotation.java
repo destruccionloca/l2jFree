@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class BeginRotation extends L2GameServerPacket
 {
-	private static final String _S__77_BEGINROTATION = "[S] 62 BeginRotation";
+	private static final String _S__77_BEGINROTATION = "[S] 7a BeginRotation";
 	private int _charObjId;
 	private int _degree;
 	private int _side;

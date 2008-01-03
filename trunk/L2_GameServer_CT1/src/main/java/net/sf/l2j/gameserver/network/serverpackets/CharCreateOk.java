@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class CharCreateOk extends L2GameServerPacket
 {
-	private static final String _S__25_CHARCREATEOK = "[S] 19 CharCreateOk";
+	private static final String _S__25_CHARCREATEOK = "[S] 0f CharCreateOk";
 	
 	@Override
 	protected final void writeImpl()

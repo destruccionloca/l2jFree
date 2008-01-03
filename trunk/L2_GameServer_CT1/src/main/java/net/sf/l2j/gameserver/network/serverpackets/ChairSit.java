@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  */
 public class ChairSit extends L2GameServerPacket
 {
-    private static final String _S__e1_CHAIRSIT = "[S] e1 ChairSit";
+    private static final String _S__e1_CHAIRSIT = "[S] ed ChairSit";
     
     private L2PcInstance _activeChar;
     private int _staticObjectId;

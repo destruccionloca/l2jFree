@@ -28,6 +28,8 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.gameserver.model.L2Transformation;
+import net.sf.l2j.gameserver.model.L2Summon;
 
 /**
  * 0000: 03 32 15 00 00 44 fe 00 00 80 f1 ff ff 00 00 00    .2...D..........<p>
@@ -56,7 +58,7 @@ public class CharInfo extends L2GameServerPacket
 {
 	private final static Log _log = LogFactory.getLog(CharInfo.class.getName());
 
-	private static final String _S__03_CHARINFO = "[S] 03 CharInfo";
+	private static final String _S__03_CHARINFO = "[S] 31 CharInfo";
 	private L2PcInstance _activeChar;
 	private Inventory _inv;
 	private int _x, _y, _z, _heading;
@@ -114,7 +116,7 @@ public class CharInfo extends L2GameServerPacket
 			
 			if (template != null)
 			{
-				writeC(0x0c);
+				writeC(0x16);
 				writeD(_activeChar.getObjectId());
 				writeD(_activeChar.getPoly().getPolyId()+1000000);  // npctype id
 				writeD(_activeChar.getKarma() > 0 ? 1 : 0);
@@ -122,7 +124,7 @@ public class CharInfo extends L2GameServerPacket
 				writeD(_y);
 				writeD(_z);
 				writeD(_heading);
-				writeD(0x11);
+				writeD(0x00);
 				writeD(_mAtkSpd);
 				writeD(_pAtkSpd);
 				writeD(_runSpd);
@@ -138,16 +140,16 @@ public class CharInfo extends L2GameServerPacket
 				writeF(template.getCollisionRadius());
 				writeF(template.getCollisionHeight());
 				writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND)); // right hand weapon
-				writeD(0);
+				writeD(0x00);
 				writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND)); // left hand weapon
-				writeC(1);	// name above char 1=true ... ??
+				writeC(0x01);	// name above char 1=true ... ??
 				writeC(_activeChar.isRunning() ? 1 : 0);
 				writeC(_activeChar.isInCombat() ? 1 : 0);
 				writeC(_activeChar.isAlikeDead() ? 1 : 0);
 				
 				if (gmSeeInvis)
 				{
-					writeC(0);
+					writeC(0x00);
 				}
 				else
 				{
@@ -164,7 +166,7 @@ public class CharInfo extends L2GameServerPacket
 				{
 					writeS(_activeChar.getTitle());
 				}
-				writeD(0);
+				writeD(0x00);
                 writeD(_activeChar.getPvpFlag());
                 writeD(_activeChar.getKarma());
 
@@ -182,13 +184,13 @@ public class CharInfo extends L2GameServerPacket
                 writeD(0x00);
                 writeD(_activeChar.getAllyCrestId());
                 writeC(0x00);
-                writeC(_activeChar.getTeam());
+/*                writeC(_activeChar.getTeam());
                 writeF(0x00);
                 writeF(0x00);
                 writeD(0x00);
                 writeD(0x00);
                 writeD(0x00);
-                writeD(0x00);
+                writeD(0x00);*/
 			} else
 			{
 				_log.warn("Character "+_activeChar.getName()+" ("+_activeChar.getObjectId()+") morphed in a Npc ("+_activeChar.getPoly().getPolyId()+") w/o template.");
@@ -223,38 +225,58 @@ public class CharInfo extends L2GameServerPacket
             writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
             writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
             writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
-            
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            writeH(0x00);
-            
-            for(int i = 0; i < 20; i++)
-                writeH(0x00);
+			// T1 new d's
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			writeD(0x00);
+			// end of t1 new d's
+			
+			// c6 new h's
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeD(_inv.getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			// T1 new h's
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			writeH(0x00);
+			// end of t1 new h's
             
 			writeD(_activeChar.getPvpFlag());
 			writeD(_activeChar.getKarma());
@@ -275,8 +297,24 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_flyWalkSpd);
 			writeF(_activeChar.getStat().getMovementSpeedMultiplier()); // _cha.getProperMultiplier()
 			writeF(_activeChar.getStat().getAttackSpeedMultiplier()); // _cha.getAttackSpeedMultiplier()
-			writeF(_activeChar.getBaseTemplate().getCollisionRadius());
-			writeF(_activeChar.getBaseTemplate().getCollisionHeight());
+			
+            L2Summon pet = _activeChar.getPet();
+            L2Transformation trans;
+            if (_activeChar.getMountType() != 0 && pet != null)
+            {
+                writeF(pet.getTemplate().getCollisionRadius());
+                writeF(pet.getTemplate().getCollisionHeight());
+            }
+            else if ((trans = _activeChar.getTransformation()) != null)
+            {
+                writeF(trans.getCollisionRadius());
+                writeF(trans.getCollisionHeight());
+            }
+            else
+            {
+                writeF(_activeChar.getBaseTemplate().getCollisionRadius());
+                writeF(_activeChar.getBaseTemplate().getCollisionHeight());
+            }
 	
 			writeD(_activeChar.getAppearance().getHairStyle());
 			writeD(_activeChar.getAppearance().getHairColor());
@@ -370,7 +408,7 @@ public class CharInfo extends L2GameServerPacket
 				writeD(0x00);
 			
 			writeD(0x0);
-			writeD(0x0);
+			writeD(_activeChar.getTranformationId());
 		}
 	}
 	

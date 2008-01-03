@@ -33,7 +33,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  */
 public class ChangeWaitType extends L2GameServerPacket
 {
-	private static final String _S__3F_CHANGEWAITTYPE = "[S] 2F ChangeWaitType";
+	private static final String _S__3F_CHANGEWAITTYPE = "[S] 29 ChangeWaitType";
 	private int _charObjId;
 	private int _moveType;
 	private int _x, _y, _z;

@@ -46,7 +46,7 @@ import net.sf.l2j.gameserver.model.L2TradeList;
 
 public final class BuyListSeed extends L2GameServerPacket
 {
-	private static final String _S__E8_BUYLISTSEED = "[S] E8 BuyListSeed";
+	private static final String _S__E8_BUYLISTSEED = "[S] E9 BuyListSeed";
 
 	private int _manorId;
 	private List<L2ItemInstance> _list = new FastList<L2ItemInstance>();

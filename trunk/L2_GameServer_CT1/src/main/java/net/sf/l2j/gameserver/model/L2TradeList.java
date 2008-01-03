@@ -498,8 +498,5 @@ public class L2TradeList
 			}
 		}
 	}
-		
-	
-	
 }
 

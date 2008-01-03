@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class CharDeleteFail extends L2GameServerPacket
 {
-	private static final String _S__34_CHARDELETEFAIL = "[S] 24 CharDeleteFail";
+	private static final String _S__34_CHARDELETEFAIL = "[S] 1e CharDeleteFail";
 
 	public static final int REASON_DELETION_FAILED = 0x01;
 	public static final int REASON_YOU_MAY_NOT_DELETE_CLAN_MEMBER = 0x02;

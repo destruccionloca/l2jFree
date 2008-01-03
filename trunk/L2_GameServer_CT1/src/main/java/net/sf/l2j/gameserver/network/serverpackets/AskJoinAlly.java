@@ -36,7 +36,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class AskJoinAlly extends L2GameServerPacket
 {
-	private static final String _S__A8_ASKJOINALLY_0XA8 = "[S] a8 AskJoinAlly 0xa8";
+	private static final String _S__A8_ASKJOINALLY_0XA8 = "[S] bb AskJoinAlly";
 
 	private String _requestorName;
     private int _requestorObjId;

@@ -53,7 +53,7 @@ public class AcquireSkillList extends L2GameServerPacket
     	Clan
     }
 	
-	private static final String _S__A3_AQUIRESKILLLIST = "[S] 8a AquireSkillList";
+	private static final String _S__A3_AQUIRESKILLLIST = "[S] 90 AquireSkillList";
 	
 	private List<Skill> _skills;
 	private skillType _fishingSkills;

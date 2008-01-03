@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class CharSelected extends L2GameServerPacket
 {
 	//   SdSddddddddddffddddddddddddddddddddddddddddddddddddddddd d
-	private static final String _S__21_activeCharRSELECTED = "[S] 15 CharSelected";
+	private static final String _S__21_activeCharRSELECTED = "[S] 0b CharSelected";
 	private L2PcInstance _activeChar;
 	private int _sessionId;
 

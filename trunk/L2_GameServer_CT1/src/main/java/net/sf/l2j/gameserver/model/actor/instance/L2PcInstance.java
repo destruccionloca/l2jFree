@@ -64,7 +64,6 @@ import net.sf.l2j.gameserver.datatables.NobleSkillTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
-import net.sf.l2j.gameserver.datatables.TransformationsTable.L2Transformation;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
@@ -231,6 +230,7 @@ import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.gameserver.model.L2Transformation;
 
 /**
  * This class represents all player characters in the world.
@@ -707,7 +707,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _inCrystallize;
 
     private boolean _inCraftMode;
-
+    
     /** Current skill in use */
     private SkillDat _currentSkill;
 
@@ -11520,7 +11520,7 @@ public final class L2PcInstance extends L2PlayableInstance
             this.untransform();
         }
         _transformation = transformation;
-        //transformation.onTransform();
+        transformation.onTransform();
         this.broadcastUserInfo();
     }
     
@@ -11528,7 +11528,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (this.isTransformed())
         {
-            //_transformation.onUntransform();
+            _transformation.onUntransform();
             _transformation = null;
             this.broadcastUserInfo();
         }

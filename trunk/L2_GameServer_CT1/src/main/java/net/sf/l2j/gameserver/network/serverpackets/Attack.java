@@ -54,7 +54,7 @@ public class Attack extends L2GameServerPacket
     
 	// dh
 	
-	private static final String _S__06_ATTACK = "[S] 06 Attack";
+	private static final String _S__06_ATTACK = "[S] 33 Attack";
 	protected final int _attackerObjId;
 	public final boolean soulshot;
     protected int _grade; 

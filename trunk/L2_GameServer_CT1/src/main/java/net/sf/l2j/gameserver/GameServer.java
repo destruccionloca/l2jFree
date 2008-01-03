@@ -15,6 +15,7 @@ package net.sf.l2j.gameserver;
 import java.net.InetAddress;
 import java.util.Calendar;
 
+import net.sf.l2j.gameserver.instancemanager.TransformationManager;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.admin.AdminSrv;
@@ -47,7 +48,6 @@ import net.sf.l2j.gameserver.datatables.StaticObjects;
 import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
-import net.sf.l2j.gameserver.datatables.TransformationsTable;
 import net.sf.l2j.gameserver.geoeditorcon.GeoEditorListener;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
@@ -169,7 +169,6 @@ public class GameServer
 		SkillTreeTable.getInstance();
 		SkillsEngine.getInstance();
 		SkillTable.getInstance();
-		TransformationsTable.getInstance();
 		NobleSkillTable.getInstance();
 		_log.info("NobleSkills initialized");
 		HeroSkillTable.getInstance();
@@ -240,6 +239,7 @@ public class GameServer
 		FrintezzaManager.getInstance().init();
 		Util.printSection("Quests");
 		QuestManager.getInstance();
+		TransformationManager.getInstance();
 		Util.printSection("Events/ScriptEngine");
 		EventDroplist.getInstance();
 		FaenorScriptEngine.getInstance();

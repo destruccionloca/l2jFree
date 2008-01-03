@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class CharDeleteOk extends L2GameServerPacket
 {
-	private static final String _S__33_CHARDELETEOK = "[S] 23 CharDeleteOk";
+	private static final String _S__33_CHARDELETEOK = "[S] 1d CharDeleteOk";
 	
 	@Override
 	protected final void writeImpl()

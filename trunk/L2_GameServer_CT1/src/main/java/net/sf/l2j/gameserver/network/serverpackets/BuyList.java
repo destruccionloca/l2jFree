@@ -61,7 +61,7 @@ import net.sf.l2j.gameserver.templates.L2Item;
  */
 public final class BuyList extends L2GameServerPacket
 {
-	private static final String _S__1D_BUYLIST = "[S] 11 BuyList";
+	private static final String _S__1D_BUYLIST = "[S] 07 BuyList";
 	private int _listId;
 	private L2ItemInstance[] _list;
 	private int _money;
@@ -113,7 +113,10 @@ public final class BuyList extends L2GameServerPacket
 				writeH(item.getEnchantLevel());						// enchant level
 				writeH(item.getCustomType2());						// custom type2
                 writeH(0x00);
-                writeD((int)(item.getPriceToSell() * (_taxRate)));
+	            if (item.getItemId() >= 3960 && item.getItemId() <= 4026)//Config.RATE_SIEGE_GUARDS_PRICE-//'
+	                writeD((int)(item.getPriceToSell() * Config.RATE_SIEGE_GUARDS_PRICE * (1 + _taxRate)));
+	            else
+	                writeD((int)(item.getPriceToSell() * (1 + _taxRate)));
                 writeD(item.getAttackAttrElement());
                 writeD(item.getAttackAttrElementVal());
                 writeD(item.getDefAttrFire());

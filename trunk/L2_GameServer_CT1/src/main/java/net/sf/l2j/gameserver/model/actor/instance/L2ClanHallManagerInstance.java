@@ -35,8 +35,8 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.AgitDecoInfo;
 import net.sf.l2j.gameserver.network.serverpackets.BuyList;
-import net.sf.l2j.gameserver.network.serverpackets.ClanHallDecoration;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -805,7 +805,7 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
 
     private void revalidateDeco(L2PcInstance player)
     {
-        ClanHallDecoration bl = new ClanHallDecoration(ClanHallManager.getInstance().getClanHallByOwner(player.getClan()));
+        AgitDecoInfo bl = new AgitDecoInfo(ClanHallManager.getInstance().getClanHallByOwner(player.getClan()));
         player.sendPacket(bl);
     }
 }
