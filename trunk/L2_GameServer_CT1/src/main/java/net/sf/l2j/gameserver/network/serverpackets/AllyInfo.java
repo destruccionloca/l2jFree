@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 public class AllyInfo extends L2GameServerPacket
 {
 	//private final static Log _log = LogFactory.getLog(AllyInfo.class.getName());
-	private static final String _S__7A_FRIENDLIST = "[S] b5 AllyInfo";
+	private static final String _S__B5_ALLYINFO = "[S] b5 AllyInfo";
 	private static L2PcInstance _cha ;
 
 	public AllyInfo(L2PcInstance cha)
@@ -123,6 +123,6 @@ public class AllyInfo extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__7A_FRIENDLIST;
+		return _S__B5_ALLYINFO;
 	}
 }

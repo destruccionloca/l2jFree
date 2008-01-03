@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 public class ChooseInventoryItem extends L2GameServerPacket
 {
-	private static final String _S__6F_CHOOSEINVENTORYITEM = "[S] 7c ChooseInventoryItem";
+	private static final String _S__7C_CHOOSEINVENTORYITEM = "[S] 7c ChooseInventoryItem [d]";
 
 	private int _itemId;
 	   
@@ -42,6 +42,6 @@ public class ChooseInventoryItem extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__6F_CHOOSEINVENTORYITEM;
+		return _S__7C_CHOOSEINVENTORYITEM;
 	}
 }

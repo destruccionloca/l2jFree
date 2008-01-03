@@ -23,7 +23,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class ExCaptureOrc extends L2GameServerPacket
 {
-	private static final String _S__FE_44_EXCAPTUREORC = "[S] FE:45 ExCaptureOrc";
+	private static final String _S__FE_45_EXCAPTUREORC = "[S] FE:45 ExCaptureOrc [b]";
 	
 	private final static byte[] _test;
 	static
@@ -49,6 +49,7 @@ public class ExCaptureOrc extends L2GameServerPacket
 	{
 		writeC(0xFE);
 		writeH(0x44);
+		
 		writeB(_test);
 	}
 	
@@ -58,6 +59,6 @@ public class ExCaptureOrc extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_44_EXCAPTUREORC;
+		return _S__FE_45_EXCAPTUREORC;
 	}
 }

@@ -22,7 +22,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public final class ExBasicActionList extends L2GameServerPacket
 {
-    private static final String _S__FE_5E_EXBASICACTIONLIST = "[S] FE:5F ExBasicActionList";
+    private static final String _S__FE_5F_EXBASICACTIONLIST = "[S] FE:5F ExBasicActionList [d(d)]";
     
     private final int[] _actionIds;
     
@@ -59,7 +59,7 @@ public final class ExBasicActionList extends L2GameServerPacket
     @Override
     public String getType()
     {
-        return _S__FE_5E_EXBASICACTIONLIST;
+        return _S__FE_5F_EXBASICACTIONLIST;
     }
 
     /**
@@ -70,6 +70,7 @@ public final class ExBasicActionList extends L2GameServerPacket
     {
         writeC(0xfe);
         writeH(0x5f);
+        
         writeD(_actionIds.length);
         for (int i = 0; i < _actionIds.length; i++)
         {

@@ -39,7 +39,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
  */
 public class Die extends L2GameServerPacket
 {
-	private static final String _S__0B_DIE = "[S] 00 Die";
+	private static final String _S__00_DIE = "[S] 00 Die [dddddddd]";
 	private int _charObjId;
 	private boolean _fake;
 	private boolean _sweepable;
@@ -112,6 +112,6 @@ public class Die extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__0B_DIE;
+		return _S__00_DIE;
 	}
 }

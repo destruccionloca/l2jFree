@@ -36,7 +36,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class AskJoinFriend extends L2GameServerPacket
 {
-	private static final String _S__7d_ASKJoinFriend_0X7d = "[S] 83 AskJoinFriend";
+	private static final String _S__83_ASKJoinFriend = "[S] 83 AskJoinFriend [sd]";
 	//private final static Log _log = LogFactory.getLog(AskJoinFriend.class.getName());
 
 	private String _requestorName;
@@ -67,6 +67,6 @@ public class AskJoinFriend extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__7d_ASKJoinFriend_0X7d;
+		return _S__83_ASKJoinFriend;
 	}
 }

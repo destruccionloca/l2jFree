@@ -20,19 +20,9 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2Character;
 
-/**
- * 
- * sample
- *
- * 0000: 3e 2a 89 00 4c 01 00 00 00                         .|...
- *
- * format   dd
- * 
- * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:57 $
- */
 public class ChangeMoveType extends L2GameServerPacket
 {
-	private static final String _S__3E_CHANGEMOVETYPE = "[S] 28 ChangeMoveType";
+	private static final String _S__28_CHANGEMOVETYPE = "[S] 28 ChangeMoveType [ddd]";
 	public static final int WALK = 0;
 	public static final int RUN = 1;
 	
@@ -51,7 +41,7 @@ public class ChangeMoveType extends L2GameServerPacket
 		writeC(0x28);
 		writeD(_chaObjId);
 		writeD(_running ? RUN : WALK);
-		writeD(0); //c2
+		writeD(0x00);
 	}
 
 	/* (non-Javadoc)
@@ -60,6 +50,6 @@ public class ChangeMoveType extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__3E_CHANGEMOVETYPE;
+		return _S__28_CHANGEMOVETYPE;
 	}
 }

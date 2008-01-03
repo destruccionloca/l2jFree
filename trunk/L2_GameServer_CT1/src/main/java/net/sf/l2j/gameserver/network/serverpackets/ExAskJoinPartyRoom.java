@@ -18,12 +18,11 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- * Format: ch S
  * @author  KenM
  */
 public class ExAskJoinPartyRoom extends L2GameServerPacket
 {
-	private static final String _S__FE_34_EXASKJOINPARTYROOM = "[S] FE:35 ExAskJoinPartyRoom";
+	private static final String _S__FE_35_EXASKJOINPARTYROOM = "[S] FE:35 ExAskJoinPartyRoom [s]";
 	private String _charName;
 	
 	
@@ -38,6 +37,7 @@ public class ExAskJoinPartyRoom extends L2GameServerPacket
 	{
 		writeC(0xFE);
 		writeH(0x35);
+		
 		writeS(_charName);
 	}
 
@@ -47,7 +47,6 @@ public class ExAskJoinPartyRoom extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_34_EXASKJOINPARTYROOM;
+		return _S__FE_35_EXASKJOINPARTYROOM;
 	}
-
 }

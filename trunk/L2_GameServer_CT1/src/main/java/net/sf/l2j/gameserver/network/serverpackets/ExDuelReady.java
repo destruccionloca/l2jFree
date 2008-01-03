@@ -18,23 +18,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-/**
- *
- * sample
- * <p>
- * 4b 
- * c1 b2 e0 4a 
- * 00 00 00 00
- * <p>
- * 
- * format
- * cdd
- * 
- * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
 public class ExDuelReady extends L2GameServerPacket
 {
-	private static final String _S__FE_4D_ExDuelAskStart = "[S] FE:4d ExDuelReady 0x4b";
+	private static final String _S__FE_4D_ExDuelAskStart = "[S] FE:4d ExDuelReady 0x4b [d]";
 	private int _unk1;
 
     /**
@@ -59,6 +45,7 @@ public class ExDuelReady extends L2GameServerPacket
 	{
 		writeC(0xfe);
         writeH(0x4d);
+        
         writeD(_unk1);
 	}
 	

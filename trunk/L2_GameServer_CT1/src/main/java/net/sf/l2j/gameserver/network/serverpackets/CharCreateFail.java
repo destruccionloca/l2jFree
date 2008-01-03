@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class CharCreateFail extends L2GameServerPacket
 {
-	private static final String _S__26_CHARCREATEFAIL = "[S] 10 CharCreateFail";
+	private static final String _S__10_CHARCREATEFAIL = "[S] 10 CharCreateFail [d]";
 	
 	public static final int REASON_CREATION_FAILED = 0x00;
 	public static final int REASON_TOO_MANY_CHARACTERS = 0x01;
@@ -53,6 +53,6 @@ public class CharCreateFail extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__26_CHARCREATEFAIL;
+		return _S__10_CHARCREATEFAIL;
 	}
 }

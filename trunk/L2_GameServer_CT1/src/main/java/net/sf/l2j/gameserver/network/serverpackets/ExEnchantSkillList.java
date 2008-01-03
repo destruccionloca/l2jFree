@@ -24,7 +24,7 @@ import javolution.util.FastList;
 
 public class ExEnchantSkillList extends L2GameServerPacket
 {
-    private static final String _S__FE_17_EXENCHANTSKILLLIST = "[S] FE:17 ExEnchantSkillList";
+    private static final String _S__FE_29_EXENCHANTSKILLLIST = "[S] FE:29 ExEnchantSkillList [d(dddq)]";
     private List<Skill> _skills;
 
     class Skill
@@ -53,9 +53,6 @@ public class ExEnchantSkillList extends L2GameServerPacket
         _skills = new FastList<Skill>();
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-     */
     @Override
 	protected void writeImpl()
     {
@@ -70,16 +67,11 @@ public class ExEnchantSkillList extends L2GameServerPacket
             writeD(sk.sp);
             writeQ(sk.exp);
         }
-
     }
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
     @Override
     public String getType()
     {
-        return _S__FE_17_EXENCHANTSKILLLIST;
+        return _S__FE_29_EXENCHANTSKILLLIST;
     }
-
 }

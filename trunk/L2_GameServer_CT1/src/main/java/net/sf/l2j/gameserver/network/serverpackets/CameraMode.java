@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 public class CameraMode extends L2GameServerPacket
 {
-    private static final String _S__F1_CAMERAMODE = "[S] F7 CameraMode";
+    private static final String _S__F7_CAMERAMODE = "[S] F7 CameraMode [d]";
     
     private int _mode;
 
@@ -45,6 +45,6 @@ public class CameraMode extends L2GameServerPacket
     @Override
     public String getType()
     {
-        return _S__F1_CAMERAMODE;
+        return _S__F7_CAMERAMODE;
     }
 }

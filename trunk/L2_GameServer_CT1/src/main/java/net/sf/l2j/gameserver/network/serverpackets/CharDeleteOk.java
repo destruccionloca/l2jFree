@@ -18,15 +18,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
 public class CharDeleteOk extends L2GameServerPacket
 {
-	private static final String _S__33_CHARDELETEOK = "[S] 1d CharDeleteOk";
+	private static final String _S__1D_CHARDELETEOK = "[S] 1d CharDeleteOk []";
 	
 	@Override
 	protected final void writeImpl()
@@ -40,6 +34,6 @@ public class CharDeleteOk extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__33_CHARDELETEOK;
+		return _S__1D_CHARDELETEOK;
 	}
 }

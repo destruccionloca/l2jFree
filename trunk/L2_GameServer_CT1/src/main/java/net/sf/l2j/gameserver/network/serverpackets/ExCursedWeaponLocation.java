@@ -23,13 +23,11 @@ import java.util.List;
 import net.sf.l2j.tools.geometry.Point3D;
 
 /**
- * Format: (ch) d[ddddd]
- *
  * @author  -Wooden-
  */
 public class ExCursedWeaponLocation extends L2GameServerPacket
 {
-	private static final String _S__FE_46_EXCURSEDWEAPONLOCATION = "[S] FE:47 ExCursedWeaponLocation";
+	private static final String _S__FE_47_EXCURSEDWEAPONLOCATION = "[S] FE:47 ExCursedWeaponLocation [d(dd ddd)]";
 	private List<CursedWeaponInfo> _cursedWeaponInfo;
 	
 	public ExCursedWeaponLocation(List<CursedWeaponInfo> cursedWeaponInfo)
@@ -72,7 +70,7 @@ public class ExCursedWeaponLocation extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_46_EXCURSEDWEAPONLOCATION;
+		return _S__FE_47_EXCURSEDWEAPONLOCATION;
 	}
 	
 	public static class CursedWeaponInfo

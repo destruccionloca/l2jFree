@@ -20,13 +20,11 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 
 /**
- * format  d   rev 417
- * 
  * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
  */
 public class AuthLoginFail extends L2GameServerPacket
 {
-	private static final String _S__12_AUTHLOGINFAIL = "[S] 0a AuthLoginFail";
+	private static final String _S__0A_AUTHLOGINFAIL = "[S] 0a AuthLoginFail [d]";
 	public static final int NO_TEXT = 0;
 	public static final int SYSTEM_ERROR_LOGIN_LATER = 1;
 	public static final int PASSWORD_DOES_NOT_MATCH_THIS_ACCOUNT = 2;
@@ -62,6 +60,6 @@ public class AuthLoginFail extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__12_AUTHLOGINFAIL;
+		return _S__0A_AUTHLOGINFAIL;
 	}
 }

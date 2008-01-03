@@ -25,28 +25,12 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 
 /**
- * Format: c ddh[hdddhhd]
- * c - id (0xE8)
- * 
- * d - money
- * d - manor id
- * h - size
- * [
- * h - item type 1
- * d - object id
- * d - item id
- * d - count
- * h - item type 2
- * h
- * d - price
- * ]
- * 
  * @author l3x
  */
 
 public final class BuyListSeed extends L2GameServerPacket
 {
-	private static final String _S__E8_BUYLISTSEED = "[S] E9 BuyListSeed";
+	private static final String _S__E9_BUYLISTSEED = "[S] E9 BuyListSeed [dd h (hdddhhd)]";
 
 	private int _manorId;
 	private List<L2ItemInstance> _list = new FastList<L2ItemInstance>();
@@ -84,6 +68,6 @@ public final class BuyListSeed extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__E8_BUYLISTSEED;
+		return _S__E9_BUYLISTSEED;
 	}
 }

@@ -25,13 +25,12 @@ import javolution.util.FastList;
 /**
  *
  * MagicEffectIcons
- * format   h (dhd)
  *
  * @version $Revision: 1.3.2.1.2.6 $ $Date: 2005/04/05 19:41:08 $
  */
 public class AbnormalStatusUpdate extends L2GameServerPacket
 {
-	private static final String _S__97_ABNORMALSTATUSUPDATE = "[S] 85 AbnormalStatusUpdate";
+	private static final String _S__85_ABNORMALSTATUSUPDATE = "[S] 85 AbnormalStatusUpdate [h (dhd)]";
 	private List<Effect> _effects;
 
 	private class Effect
@@ -83,6 +82,6 @@ public class AbnormalStatusUpdate extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__97_ABNORMALSTATUSUPDATE;
+		return _S__85_ABNORMALSTATUSUPDATE;
 	}
 }

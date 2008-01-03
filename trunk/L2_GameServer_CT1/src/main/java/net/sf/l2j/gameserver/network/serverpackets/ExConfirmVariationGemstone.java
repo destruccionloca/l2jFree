@@ -17,13 +17,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-/**
- * Format: (ch)ddddd
- * 
- */
 public class ExConfirmVariationGemstone extends L2GameServerPacket
 {
-	private static final String _S__FE_54_EXCONFIRMVARIATIONGEMSTONE = "[S] FE:54 ExConfirmVariationGemstone";
+	private static final String _S__FE_54_EXCONFIRMVARIATIONGEMSTONE = "[S] FE:54 ExConfirmVariationGemstone [ddddd]";
 	
 	private int _gemstoneObjId;
 	private int _unk1;
@@ -48,6 +44,7 @@ public class ExConfirmVariationGemstone extends L2GameServerPacket
 	{
 		writeC(0xfe);
 		writeH(0x54);
+		
         writeD(_gemstoneObjId);
         writeD(_unk1);
         writeD(_gemstoneCount);

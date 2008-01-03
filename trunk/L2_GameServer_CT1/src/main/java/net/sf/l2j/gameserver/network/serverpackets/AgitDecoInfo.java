@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.entity.ClanHall.ClanHallFunction;
  */
 public class AgitDecoInfo extends L2GameServerPacket
 {
-    private static final String _S__F7_AGITDECOINFO = "[S] fd AgitDecoInfo";
+    private static final String _S__FD_AGITDECOINFO = "[S] fd AgitDecoInfo [dcccccccccccdd]";
     private ClanHall _clanHall;
     private ClanHallFunction _function;
     public AgitDecoInfo(ClanHall ClanHall)
@@ -153,6 +153,6 @@ public class AgitDecoInfo extends L2GameServerPacket
     @Override
     public String getType()
     {
-        return _S__F7_AGITDECOINFO;
+        return _S__FD_AGITDECOINFO;
     }
 }

@@ -18,12 +18,11 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- * Format: ch d[Sdd]
  * @author  KenM
  */
 public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket
 {
-	private static final String _S__FE_4A_EXMPCCSHOWPARTYMEMBERINFO = "[S] FE:4A ExMPCCShowPartyMemberInfo";
+	private static final String _S__FE_4B_EXMPCCSHOWPARTYMEMBERINFO = "[S] FE:4b ExMPCCShowPartyMemberInfo []";
 
 	/**
 	 * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
@@ -33,17 +32,13 @@ public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket
 	{
 		writeC(0xfe);
 		writeH(0x4b);
-		
 		//FIXME: this packet has a list, so im not going to add temp vars ^^
 	}
 
-	/**
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_4A_EXMPCCSHOWPARTYMEMBERINFO;
+		return _S__FE_4B_EXMPCCSHOWPARTYMEMBERINFO;
 	}
 	
 }

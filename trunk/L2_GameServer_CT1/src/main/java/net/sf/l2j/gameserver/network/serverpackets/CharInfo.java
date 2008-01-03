@@ -23,42 +23,19 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.model.L2Transformation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import net.sf.l2j.gameserver.model.L2Transformation;
-import net.sf.l2j.gameserver.model.L2Summon;
 
-/**
- * 0000: 03 32 15 00 00 44 fe 00 00 80 f1 ff ff 00 00 00    .2...D..........<p>
- * 0010: 00 6b b4 c0 4a 45 00 6c 00 6c 00 61 00 6d 00 69    .k..JE.l.l.a.m.i<p>
- * 0020: 00 00 00 01 00 00 00 01 00 00 00 12 00 00 00 00    ................<p>
- * 0030: 00 00 00 2a 00 00 00 42 00 00 00 71 02 00 00 31    ...*...B...q...1<p>
- * 0040: 00 00 00 18 00 00 00 1f 00 00 00 25 00 00 00 00    ...........%....<p>
- * 0050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 f9    ................<p>
- * 0060: 00 00 00 b3 01 00 00 00 00 00 00 00 00 00 00 7d    ...............}<p>
- * 0070: 00 00 00 5a 00 00 00 32 00 00 00 32 00 00 00 00    ...Z...2...2....<p>
- * 0080: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 67    ...............g<p>
- * 0090: 66 66 66 66 66 f2 3f 5f 63 97 a8 de 1a f9 3f 00    fffff.?_c.....?.<p>
- * 00a0: 00 00 00 00 00 1e 40 00 00 00 00 00 00 37 40 01    .............7..<p>
- * 00b0: 00 00 00 01 00 00 00 01 00 00 00 00 00 c1 0c 00    ................<p>
- * 00c0: 00 00 00 00 00 00 00 00 00 01 01 00 00 00 00 00    ................<p>
- * 00d0: 00 00<p>
- * <p>
- *  dddddSdddddddddddddddddddddddddddffffdddSdddccccccc (h)<p>
- *  dddddSdddddddddddddddddddddddddddffffdddSdddddccccccch
- *  dddddSddddddddddddddddddddddddddddffffdddSdddddccccccch (h) c (dchd) ddc dcc c cddd d 
- *  dddddSdddddddddddddddhhhhhhhhhhhhhhhhhhhhhhhhddddddddddddddffffdddSdddddccccccch [h] c (ddhd) ddc c ddc cddd d d dd d d d
-
- * @version $Revision: 1.7.2.6.2.11 $ $Date: 2005/04/11 10:05:54 $
- */
 public class CharInfo extends L2GameServerPacket
 {
 	private final static Log _log = LogFactory.getLog(CharInfo.class.getName());
 
-	private static final String _S__03_CHARINFO = "[S] 31 CharInfo";
+	private static final String _S__31_CHARINFO = "[S] 31 CharInfo [dddddsddd dddddddddddd dddddddd hhhh d hhhhhhhhhhhh d hhhh hhhhhhhhhhhhhhhh dddddd dddddddd ffff ddd s ddddd ccccccc h c d c h ddd cc d ccc ddddddddddd]";
 	private L2PcInstance _activeChar;
 	private Inventory _inv;
 	private int _x, _y, _z, _heading;
@@ -104,12 +81,6 @@ public class CharInfo extends L2GameServerPacket
 				return;
 		}
 
-/*        if(_activeChar.isTransformed())
-        {
-            ((L2GameClient)getClient()).getActiveChar().sendPacket(new CharInfoTransformed(_activeChar));
-            return;
-        }*/
-		
 		if (_activeChar.getPoly().isMorphed())
 		{
 			L2NpcTemplate template = NpcTable.getInstance().getTemplate(_activeChar.getPoly().getPolyId());
@@ -418,6 +389,6 @@ public class CharInfo extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__03_CHARINFO;
+		return _S__31_CHARINFO;
 	}
 }

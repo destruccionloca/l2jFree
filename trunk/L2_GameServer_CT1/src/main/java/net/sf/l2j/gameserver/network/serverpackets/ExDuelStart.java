@@ -18,12 +18,11 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- * Format: ch d
  * @author  KenM
  */
 public class ExDuelStart extends L2GameServerPacket
 {
-	private static final String _S__FE_4D_EXDUELSTART = "[S] FE:4e ExDuelStart";
+	private static final String _S__FE_4E_EXDUELSTART = "[S] FE:4e ExDuelStart [d]";
 	private int _unk1;
 	
 	public ExDuelStart(int unk1)
@@ -49,7 +48,6 @@ public class ExDuelStart extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_4D_EXDUELSTART;
+		return _S__FE_4E_EXDUELSTART;
 	}
-
 }

@@ -22,28 +22,6 @@ import java.util.List;
 
 import javolution.util.FastList;
 
-/**
- * sample 
- * 
- * a3 
- * 05000000 
- * 03000000 03000000 06000000 3c000000 00000000 	power strike
- * 10000000 02000000 06000000 3c000000 00000000 	mortal blow
- * 38000000 04000000 06000000 36010000 00000000 	power shot
- * 4d000000 01000000 01000000 98030000 01000000 	ATTACK aura  920sp
- * 8e000000 03000000 03000000 cc010000 00000000     Armor Mastery
- * 
- * format   d (ddddd)
- * skillid, level, maxlevel?,
- *
- * C4 format changes:
- * 0000: [8a] [00 00 00 00] [35 00 00 00] 92 00 00 00 01 00 00    .....5..........
- *            ^^^^^^^^^^^^^
- * 0010: 00 2d 00 00 00 04 01 00 00 00 00 00 00 a4 00 00    .-..............
- * 0020: 00 01 00 00 00 03 00 00 00 e4 0c 00 00 00 00 00    ................
- * 0030: 00 d4 00 00 00 01 00 00 00 06 00 00 00 08 52 00    ..............R.
- * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $ 
- */
 public class AcquireSkillList extends L2GameServerPacket
 {
     public enum skillType
@@ -53,7 +31,7 @@ public class AcquireSkillList extends L2GameServerPacket
     	Clan
     }
 	
-	private static final String _S__A3_AQUIRESKILLLIST = "[S] 90 AquireSkillList";
+	private static final String _S__90_AQUIRESKILLLIST = "[S] 90 AquireSkillList [dd (ddddd)]";
 	
 	private List<Skill> _skills;
 	private skillType _fishingSkills;
@@ -110,6 +88,6 @@ public class AcquireSkillList extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__A3_AQUIRESKILLLIST;
+		return _S__90_AQUIRESKILLLIST;
 	}
 }

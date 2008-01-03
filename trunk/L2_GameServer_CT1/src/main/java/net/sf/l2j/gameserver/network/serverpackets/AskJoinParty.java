@@ -18,25 +18,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-
-
-/**
- *
- * sample
- * <p>
- * 4b 
- * c1 b2 e0 4a 
- * 00 00 00 00
- * <p>
- * 
- * format
- * cdd
- * 
- * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
 public class AskJoinParty extends L2GameServerPacket
 {
-	private static final String _S__4B_ASKJOINPARTY_0X4B = "[S] 39 AskJoinParty";
+	private static final String _S__39_ASKJOINPARTY = "[S] 39 AskJoinParty [sd]";
 	//private final static Log _log = LogFactory.getLog(AskJoinParty.class.getName());
 
 	private String _requestorName;
@@ -66,6 +50,6 @@ public class AskJoinParty extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__4B_ASKJOINPARTY_0X4B;
+		return _S__39_ASKJOINPARTY;
 	}
 }

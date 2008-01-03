@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public final class ActionFailed extends L2GameServerPacket
 {
-	private static final String _S__35_ACTIONFAILED = "[S] 1f ActionFailed";
+	private static final String _S__1f_ACTIONFAILED = "[S] 1f ActionFailed []";
 	
 	@Override
 	protected void writeImpl()
@@ -40,6 +40,6 @@ public final class ActionFailed extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__35_ACTIONFAILED;
+		return _S__1f_ACTIONFAILED;
 	}
 }

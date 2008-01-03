@@ -20,7 +20,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 public class EnchantResult extends L2GameServerPacket
 {
-	private static final String _S__81_ENCHANTRESULT = "[S] 87 EnchantResult";
+	private static final String _S__87_ENCHANTRESULT = "[S] 87 EnchantResult [d]";
 	private int _unknown;
 
 	public EnchantResult(int unknown)
@@ -41,6 +41,6 @@ public class EnchantResult extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__81_ENCHANTRESULT;
+		return _S__87_ENCHANTRESULT;
 	}
 }

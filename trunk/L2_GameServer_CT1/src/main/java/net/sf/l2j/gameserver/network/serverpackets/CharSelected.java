@@ -21,15 +21,9 @@ package net.sf.l2j.gameserver.network.serverpackets;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.4.2.5.2.6 $ $Date: 2005/03/27 15:29:39 $
- */
 public class CharSelected extends L2GameServerPacket
 {
-	//   SdSddddddddddffddddddddddddddddddddddddddddddddddddddddd d
-	private static final String _S__21_activeCharRSELECTED = "[S] 0b CharSelected";
+	private static final String _S__0B_activeCharRSELECTED = "[S] 0b CharSelected [sdsddddddddddffdqdddddddddddd ddddddddddddddddddddddddddd ff ddd c hh d]";
 	private L2PcInstance _activeChar;
 	private int _sessionId;
 
@@ -74,7 +68,13 @@ public class CharSelected extends L2GameServerPacket
 		writeD(_activeChar.getStat().getMEN()); 
 		writeD(_activeChar.getStat().getDEX()); 
 		writeD(_activeChar.getStat().getWIT()); 
-		for (int i=0; i<30; i++)
+		
+		writeD(0x00);
+		writeD(0x00);
+
+		writeD(_activeChar.getClassId().getId());
+		
+		for (int i=0; i<27; i++)
 			writeD(0x00);
 
 		writeF(0.0D);       //c3  work
@@ -83,12 +83,12 @@ public class CharSelected extends L2GameServerPacket
 		// extra info
 		writeD(GameTimeController.getInstance().getGameTime());	// in-game time
 		
-        writeD(0);
-        writeD(0);
-        writeC(0);
-        writeH(0);
-        writeH(0);
-        writeD(0); 
+        writeD(0x00);
+        writeD(0x00);
+        writeC(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeD(0x00); 
 	}
 
 	/* (non-Javadoc)
@@ -97,6 +97,6 @@ public class CharSelected extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__21_activeCharRSELECTED;
+		return _S__0B_activeCharRSELECTED;
 	}
 }

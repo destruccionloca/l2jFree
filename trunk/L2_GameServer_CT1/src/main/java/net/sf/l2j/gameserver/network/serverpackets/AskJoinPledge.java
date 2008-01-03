@@ -26,7 +26,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class AskJoinPledge extends L2GameServerPacket
 {
-	private static final String _S__44_ASKJOINPLEDGE = "[S] 2c AskJoinPledge";
+	private static final String _S__2C_ASKJOINPLEDGE = "[S] 2c AskJoinPledge [ds]";
 
 	private int _requestorObjId;
 	private String _pledgeName;
@@ -52,6 +52,6 @@ public class AskJoinPledge extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__44_ASKJOINPLEDGE;
+		return _S__2C_ASKJOINPLEDGE;
 	}
 }

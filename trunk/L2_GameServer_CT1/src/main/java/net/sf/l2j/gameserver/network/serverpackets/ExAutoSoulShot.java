@@ -18,14 +18,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
- */
 public class ExAutoSoulShot extends L2GameServerPacket
 {
-	private static final String _S__FE_12_EXAUTOSOULSHOT = "[S] FE:0c ExAutoSoulShot";
+	private static final String _S__FE_0C_EXAUTOSOULSHOT = "[S] FE:0c ExAutoSoulShot [dd]";
 	private int _itemId;
 	private int _type;
 
@@ -43,6 +38,7 @@ public class ExAutoSoulShot extends L2GameServerPacket
 	{
 		writeC(0xFE);
 		writeH(0x0c);
+		
 		writeD(_itemId);
 		writeD(_type);
 	}
@@ -53,6 +49,6 @@ public class ExAutoSoulShot extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_12_EXAUTOSOULSHOT;
+		return _S__FE_0C_EXAUTOSOULSHOT;
 	}
 }

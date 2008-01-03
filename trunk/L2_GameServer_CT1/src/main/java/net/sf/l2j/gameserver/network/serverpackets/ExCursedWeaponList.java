@@ -21,13 +21,11 @@ package net.sf.l2j.gameserver.network.serverpackets;
 import java.util.List;
 
 /**
- * Format: (ch) d[d]
- *
  * @author  -Wooden-
  */
 public class ExCursedWeaponList extends L2GameServerPacket
 {
-	private static final String _S__FE_45_EXCURSEDWEAPONLIST = "[S] FE:46 ExCursedWeaponList";
+	private static final String _S__FE_46_EXCURSEDWEAPONLIST = "[S] FE:46 ExCursedWeaponList [d(d)]";
 	private List<Integer> _cursedWeaponIds;
 	
 	public ExCursedWeaponList(List<Integer> cursedWeaponIds)
@@ -57,7 +55,6 @@ public class ExCursedWeaponList extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_45_EXCURSEDWEAPONLIST;
+		return _S__FE_46_EXCURSEDWEAPONLIST;
 	}
-	
 }

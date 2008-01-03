@@ -18,44 +18,46 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-public class Dice extends L2GameServerPacket
-{
-	private static final String _S__DA_Dice = "[S] da Dice [dddddd]";
-	private int _charObjId;
-	private int _itemId;
-	private int _number;
-	private int _x;
-	private int _y;
-	private int _z;
+import net.sf.l2j.gameserver.model.L2Character;
 
-	public Dice(int charObjId, int itemId, int number, int x , int y , int z)
+public class CharMoveToLocation extends L2GameServerPacket
+{
+	private static final String _S__2F_CHARMOVETOLOCATION = "[S] 2f CharMoveToLocation [ddddddd]";
+	private int _charObjId, _x, _y, _z, _xDst, _yDst, _zDst;
+	
+	public CharMoveToLocation(L2Character cha)
 	{
-		_charObjId = charObjId;
-		_itemId = itemId;
-		_number = number;
-		_x =x;
-		_y =y;
-		_z =z;
+		_charObjId = cha.getObjectId();
+		_x = cha.getX();
+		_y = cha.getY();
+		_z = cha.getZ();
+		_xDst = cha.getXdestination();
+		_yDst = cha.getYdestination();
+		_zDst = cha.getZdestination();
 	}
 	
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xDA);
-		writeD(_charObjId);  //object id of player
-		writeD(_itemId);     //	item id of dice (spade)  4625,4626,4627,4628
-		writeD(_number);      //number rolled
-		writeD(_x);       //x
-		writeD(_y);       //y
-		writeD(_z);     //z
+		writeC(0x2f);
+		
+		writeD(_charObjId);
+		
+		writeD(_xDst);
+		writeD(_yDst);
+		writeD(_zDst);
+		
+		writeD(_x);
+		writeD(_y);
+		writeD(_z);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__DA_Dice;
+		return _S__2F_CHARMOVETOLOCATION;
 	}
 }

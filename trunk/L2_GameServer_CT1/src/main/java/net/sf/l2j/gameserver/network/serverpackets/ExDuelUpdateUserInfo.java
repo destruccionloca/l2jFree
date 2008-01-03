@@ -20,12 +20,11 @@ package net.sf.l2j.gameserver.network.serverpackets;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * Format: ch Sddddddddd
  * @author  KenM
  */
 public class ExDuelUpdateUserInfo extends L2GameServerPacket
 {
-    private static final String _S__FE_4F_EXDUELUPDATEUSERINFO = "[S] FE:50 ExDuelUpdateUserInfo";
+    private static final String _S__FE_50_EXDUELUPDATEUSERINFO = "[S] FE:50 ExDuelUpdateUserInfo [sddddddddd]";
     private L2PcInstance _activeChar;
 
     public ExDuelUpdateUserInfo(L2PcInstance cha)
@@ -33,15 +32,13 @@ public class ExDuelUpdateUserInfo extends L2GameServerPacket
         _activeChar = cha;
     }
 
-    /**
-     * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-     */
     @Override
     protected
     void writeImpl()
     {
         writeC(0xfe);
         writeH(0x50);
+        
         writeS(_activeChar.getName());
         writeD(_activeChar.getObjectId());
         writeD(_activeChar.getClassId().getId());
@@ -54,13 +51,10 @@ public class ExDuelUpdateUserInfo extends L2GameServerPacket
         writeD(_activeChar.getStat().getMaxCp());
     }
 
-    /**
-     * @see net.sf.l2j.gameserver.BasePacket#getType()
-     */
     @Override
     public String getType()
     {
-        return _S__FE_4F_EXDUELUPDATEUSERINFO;
+        return _S__FE_50_EXDUELUPDATEUSERINFO;
     }
 
 }

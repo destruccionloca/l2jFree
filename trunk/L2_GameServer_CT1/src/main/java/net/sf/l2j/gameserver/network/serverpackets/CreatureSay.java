@@ -19,15 +19,9 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.4.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
 public class CreatureSay extends L2GameServerPacket
 {
-	// ddSS
-	private static final String _S__4A_CREATURESAY = "[S] 4A CreatureSay";
+	private static final String _S__4A_CREATURESAY = "[S] 4A CreatureSay [ddss]";
 	private int _objectId;
 	private int _textType;
 	private String _charName;
@@ -49,6 +43,7 @@ public class CreatureSay extends L2GameServerPacket
 	protected final void writeImpl()
 	{
 		writeC(0x4a);
+		
 		writeD(_objectId);
 		writeD(_textType);
 		writeS(_charName);

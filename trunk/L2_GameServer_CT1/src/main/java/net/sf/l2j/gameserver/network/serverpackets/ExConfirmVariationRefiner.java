@@ -17,13 +17,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-/**
- * Format: (ch)ddddd
- * 
- */
 public class ExConfirmVariationRefiner extends L2GameServerPacket
 {
-	private static final String _S__FE_53_EXCONFIRMVARIATIONREFINER = "[S] FE:53 ExConfirmVariationRefiner";
+	private static final String _S__FE_53_EXCONFIRMVARIATIONREFINER = "[S] FE:53 ExConfirmVariationRefiner [ddddd]";
 	
 	private int _refinerItemObjId;
 	private int _lifestoneItemId;
@@ -48,6 +44,7 @@ public class ExConfirmVariationRefiner extends L2GameServerPacket
 	{
 		writeC(0xfe);
 		writeH(0x53);
+		
 		writeD(_refinerItemObjId);
 		writeD(_lifestoneItemId);
 		writeD(_gemstoneItemId);

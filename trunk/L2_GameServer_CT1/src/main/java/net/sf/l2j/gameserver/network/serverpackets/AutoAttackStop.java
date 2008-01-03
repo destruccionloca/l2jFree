@@ -18,17 +18,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-
-/**
- * This class ...
- * 
- * @version $Revision: 1.3.2.1.2.3 $ $Date: 2005/03/27 15:29:57 $
- */
 public class AutoAttackStop extends L2GameServerPacket
 {
-	// dh
-	
-	private static final String _S__3C_AUTOATTACKSTOP = "[S] 26 AutoAttackStop";
+	private static final String _S__26_AUTOATTACKSTOP = "[S] 26 AutoAttackStop [d]";
 	private int _targetObjId;
 
 	/**
@@ -52,6 +44,6 @@ public class AutoAttackStop extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__3C_AUTOATTACKSTOP;
+		return _S__26_AUTOATTACKSTOP;
 	}
 }

@@ -20,11 +20,10 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * @author Dezmond_snz
- * Format: cdddsdd
  */
 public class ConfirmDlg extends L2GameServerPacket
 {
-	private static final String _S__ED_CONFIRMDLG = "[S] f3 ConfirmDlg";
+	private static final String _S__F3_CONFIRMDLG = "[S] f3 ConfirmDlg [dddsdddd{d}d]";
 	private int _requestId;
 	private String _name;
     private int _time;
@@ -68,6 +67,6 @@ public class ConfirmDlg extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__ED_CONFIRMDLG;
+		return _S__F3_CONFIRMDLG;
 	}
 }

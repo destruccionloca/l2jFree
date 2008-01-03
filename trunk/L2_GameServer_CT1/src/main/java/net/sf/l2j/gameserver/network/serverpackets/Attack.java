@@ -21,17 +21,6 @@ package net.sf.l2j.gameserver.network.serverpackets;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 
-
-/**
- * sample
- * 06 8f19904b 2522d04b 00000000 80 950c0000 4af50000 08f2ffff 0000    - 0 damage (missed 0x80)
- * 06 85071048 bc0e504b 32000000 10 fc41ffff fd240200 a6f5ffff 0100 bc0e504b 33000000 10                                     3....
-  
- * format
- * dddc dddh (ddc)
- * 
- * @version $Revision: 1.3.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
- */
 public class Attack extends L2GameServerPacket
 {
     private class Hit 
@@ -51,10 +40,8 @@ public class Attack extends L2GameServerPacket
             
         }
     }
-    
-	// dh
 	
-	private static final String _S__06_ATTACK = "[S] 33 Attack";
+	private static final String _S__33_ATTACK = "[S] 33 Attack [dddc dddh (ddc)]";
 	protected final int _attackerObjId;
 	public final boolean soulshot;
     protected int _grade; 
@@ -131,6 +118,6 @@ public class Attack extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__06_ATTACK;
+		return _S__33_ATTACK;
 	}
 }

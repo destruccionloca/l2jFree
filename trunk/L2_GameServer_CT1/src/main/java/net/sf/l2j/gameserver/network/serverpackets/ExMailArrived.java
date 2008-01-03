@@ -19,14 +19,11 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- * Fromat: (ch) 
- * (just a trigger)
  * @author -Wooden-
- *
  */
 public class ExMailArrived extends L2GameServerPacket
 {
-	private static final String _S__FE_2D_EXMAILARRIVED = "[S] FE:2D ExMailArrived";
+	private static final String _S__FE_2E_EXMAILARRIVED = "[S] FE:2e ExMailArrived []";
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
@@ -46,7 +43,7 @@ public class ExMailArrived extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__FE_2D_EXMAILARRIVED;
+		return _S__FE_2E_EXMAILARRIVED;
 	}
 	
 }
