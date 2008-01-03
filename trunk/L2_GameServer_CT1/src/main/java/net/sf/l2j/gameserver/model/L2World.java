@@ -473,14 +473,11 @@ public final class L2World implements L2WorldMBean
         // Create an FastList in order to contain all visible L2Object
         FastList<L2Object> result = new FastList<L2Object>();
         
-        // Create a FastList containing all regions around the current region
-        FastList<L2WorldRegion> _regions = reg.getSurroundingRegions();
-        
         // Go through the FastList of region
-        for (int i = 0; i < _regions.size(); i++)
+        for (L2WorldRegion regi : reg.getSurroundingRegions())
         {
             // Go through visible objects of the selected region
-            for (L2Object _object : _regions.get(i).getVisibleObjects())
+            for (L2Object _object : regi.getVisibleObjects())
             {
             	if (_object == null)
             		continue;
@@ -525,14 +522,11 @@ public final class L2World implements L2WorldMBean
         // Create an FastList in order to contain all visible L2Object
         FastList<L2Object> result = new FastList<L2Object>();
         
-        // Create an FastList containing all regions around the current region
-        FastList<L2WorldRegion> _regions = object.getWorldRegion().getSurroundingRegions();
-        
         // Go through the FastList of region
-        for (int i = 0; i < _regions.size(); i++) 
+        for (L2WorldRegion regi : object.getWorldRegion().getSurroundingRegions())
         {
             // Go through visible objects of the selected region
-            for (L2Object _object : _regions.get(i).getVisibleObjects())
+            for (L2Object _object : regi.getVisibleObjects())
             {
                 if (_object == null) continue;
                 if (_object.equals(object)) continue;   // skip our own character
@@ -585,14 +579,11 @@ public final class L2World implements L2WorldMBean
         
         // Create an FastList in order to contain all visible L2Object
         FastList<L2Object> result = new FastList<L2Object>();
-        
-        // Create an FastList containing all regions around the current region
-        FastList<L2WorldRegion> _regions = object.getWorldRegion().getSurroundingRegions();
-        
+
         // Go through visible object of the selected region
-        for (int i = 0; i < _regions.size(); i++)
+        for (L2WorldRegion regi : object.getWorldRegion().getSurroundingRegions())
         {
-        	for (L2Object _object : _regions.get(i).getVisibleObjects())
+        	for (L2Object _object : regi.getVisibleObjects())
             {
         		if (_object == null) continue;
         		if (_object.equals(object)) continue;   // skip our own character
@@ -639,15 +630,12 @@ public final class L2World implements L2WorldMBean
         
         // Create an FastList in order to contain all visible L2Object
         FastList<L2PlayableInstance> result = new FastList<L2PlayableInstance>();
-        
-        // Create a FastList containing all regions around the current region
-        FastList<L2WorldRegion> _regions = reg.getSurroundingRegions();
-        
+
         // Go through the FastList of region
-        for (int i = 0; i < _regions.size(); i++)
+        for (L2WorldRegion regi : reg.getSurroundingRegions())
         {
             // Create an Iterator to go through the visible L2Object of the L2WorldRegion
-            Iterator<L2PlayableInstance> _playables = _regions.get(i).iterateAllPlayers();
+            Iterator<L2PlayableInstance> _playables = regi.iterateAllPlayers();
             
             // Go through visible object of the selected region
             while (_playables.hasNext())

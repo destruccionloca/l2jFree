@@ -84,7 +84,7 @@ public final class L2ItemInstance extends L2Object
 	/** Location of the item : Inventory, PaperDoll, WareHouse */
 	private ItemLocation		_loc;
 	
-	/** Slot where item is stored */
+	/** Slot where item is stored : Paperdoll slot, inventory order ...*/
 	private int					_locData;
 	
 	/** Level of enchantment of the item */
@@ -168,7 +168,7 @@ public final class L2ItemInstance extends L2Object
 		if (_itemId == 0 || _item == null)
 			throw new IllegalArgumentException();
 		super.setName(_item.getName());
-		_count = 1;
+		setCount(1);
 		_loc = ItemLocation.VOID;
 		_type1 = 0;
 		_type2 = 0;
@@ -194,7 +194,7 @@ public final class L2ItemInstance extends L2Object
 			throw new IllegalArgumentException();
 		super.setName(_item.getName());
 		_itemDisplayId = _item.getItemDisplayId();
-		_count = 1;
+		setCount(1);
 		_loc = ItemLocation.VOID;
 		_type1 = 0;
 		_type2 = 0;
@@ -220,7 +220,7 @@ public final class L2ItemInstance extends L2Object
 		if (_itemId == 0 || _item == null)
 			throw new IllegalArgumentException();
 		super.setName(_item.getName());
-		_count = 1;
+		setCount(1);
 		_loc = ItemLocation.VOID;
 		_mana = _item.getDuration();
 	}
@@ -311,30 +311,43 @@ public final class L2ItemInstance extends L2Object
 	{
 		return _loc;
 	}
-	
+
 	/**
-	 * Returns the quantity of item
-	 * 
-	 * @return int
-	 */
+	* Sets the quantity of the item.<BR><BR>
+	* @param count the new count to set
+	*/
+	public void setCount(int count)
+	{
+		if (getCount() == count) 
+		{
+			return;
+		}
+		
+		_count = count >= -1 ? count : 0;
+		_storedInDb = false;
+	}
+
+	/**
+	* @return Returns the count.
+	*/
 	public int getCount()
 	{
 		return _count;
 	}
-	
+
 	// No logging (function designed for shots only)
 	public void changeCountWithoutTrace(String process, int count, L2PcInstance creator, L2Object reference)
 	{
 		if (count == 0)
 			return;
 		
-		if (count > 0 && _count > Integer.MAX_VALUE - count)
-			_count = Integer.MAX_VALUE;
+		if ( count > 0 && getCount() > Integer.MAX_VALUE - count)
+			setCount(Integer.MAX_VALUE);
 		else
-			_count += count;
+			setCount(getCount() + count);
 		
-		if (_count < 0)
-			_count = 0;
+		if (getCount() < 0)
+			setCount(0);
 		
 		_storedInDb = false;
 	}
@@ -358,13 +371,13 @@ public final class L2ItemInstance extends L2Object
 		if (count == 0)
 			return;
 		
-		if (count > 0 && _count > Integer.MAX_VALUE - count)
-			_count = Integer.MAX_VALUE;
+		if ( count > 0 && getCount() > Integer.MAX_VALUE - count)
+			setCount(Integer.MAX_VALUE);
 		else
-			_count += count;
+			setCount(getCount() + count);
 		
-		if (_count < 0)
-			_count = 0;
+		if (getCount() < 0)
+			setCount(0);
 		
 		_storedInDb = false;
 		
@@ -378,24 +391,7 @@ public final class L2ItemInstance extends L2Object
 			_logItems.info(param);
 		}
 	}
-	
-	/**
-	 * Sets the quantity of the item.<BR>
-	 * <BR>
-	 * <U><I>Remark :</I></U> If loc and loc_data different from database, say datas not up-to-date
-	 * 
-	 * @param count :
-	 *            int
-	 */
-	public void setCount(int count)
-	{
-		if (_count == count)
-			return;
-		
-		_count = count >= -1 ? count : 0;
-		_storedInDb = false;
-	}
-	
+
 	/**
 	 * Returns if item is equipable
 	 * 
@@ -421,10 +417,10 @@ public final class L2ItemInstance extends L2Object
 	 * 
 	 * @return int
 	 */
-	public int getEquipSlot()
+	public int getLocationSlot()
 	{
 		if (Config.ASSERT)
-			assert _loc == ItemLocation.PAPERDOLL || _loc == ItemLocation.PET_EQUIP || _loc == ItemLocation.FREIGHT;
+			assert _loc == ItemLocation.PAPERDOLL || _loc == ItemLocation.PET_EQUIP || _loc == ItemLocation.FREIGHT || _loc == ItemLocation.INVENTORY;
 		
 		return _locData;
 	}
@@ -997,7 +993,7 @@ public final class L2ItemInstance extends L2Object
 				// unequip
 				if (isEquipped())
 				{
-					L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(getEquipSlot());
+					L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(getLocationSlot());
 					InventoryUpdate iu = new InventoryUpdate();
 					for (L2ItemInstance element : unequiped)
 					{
@@ -1149,14 +1145,14 @@ public final class L2ItemInstance extends L2Object
 		{ return; }
 		if (_existsInDb)
 		{
-			if (_ownerId == 0 || _loc == ItemLocation.VOID || (_count == 0 && _loc != ItemLocation.LEASE))
+			if (_ownerId == 0 || _loc == ItemLocation.VOID || (getCount() == 0 && _loc != ItemLocation.LEASE))
 				removeFromDb();
 			else
 				updateInDb();
 		}
 		else
 		{
-			if (_count == 0 && _loc != ItemLocation.LEASE)
+			if (getCount() == 0 && _loc != ItemLocation.LEASE)
 				return;
 			if (_loc == ItemLocation.VOID || _ownerId == 0)
 				return;
@@ -1232,7 +1228,7 @@ public final class L2ItemInstance extends L2Object
 				inst._existsInDb = true;
 				inst._storedInDb = true;
 				inst._ownerId = owner_id;
-				inst._count = count;
+				inst.setCount(count);
 				inst._enchantLevel = enchant_level;
 				inst._type1 = custom_type1;
 				inst._type2 = custom_type2;
@@ -1580,15 +1576,12 @@ public final class L2ItemInstance extends L2Object
 	public void restoreInitCount()
 	{
 		if (_decrease)
-			_count = _initCount;
+			setCount(_initCount);
 	}
 	
 	public void setTime(int time)
 	{
-		if (time > 0)
-			_time = time;
-		else
-			_time = 0;
+		_time = time > 0 ?  time : 0;
 	}
 	
 	public int getTime()

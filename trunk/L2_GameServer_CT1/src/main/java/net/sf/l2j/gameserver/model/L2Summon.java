@@ -33,9 +33,14 @@ import net.sf.l2j.gameserver.model.actor.status.SummonStatus;
 import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowAdd;
+import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowDelete;
+import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
+import net.sf.l2j.gameserver.network.serverpackets.PartySpelled;
 import net.sf.l2j.gameserver.network.serverpackets.PetDelete;
+import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.network.serverpackets.PetStatusShow;
 import net.sf.l2j.gameserver.network.serverpackets.PetStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -95,6 +100,23 @@ public abstract class L2Summon extends L2PlayableInstance
         _ai = new L2SummonAI(new L2Summon.AIAccessor());
         
         getPosition().setXYZInvisible(owner.getX()+50, owner.getY()+100, owner.getZ()+100);
+    }
+
+    @Override
+    public void onSpawn()
+    {
+        super.onSpawn();
+        
+        this.setFollowStatus(true);
+        this.setShowSummonAnimation(false); // addVisibleObject created the info packets with summon animation
+                                              // if someone comes into range now, the animation shouldnt show any more
+        this.getOwner().sendPacket(new PetInfo(this));
+        
+        L2Party party = this.getOwner().getParty();
+        if (party != null)
+        {
+            party.broadcastToPartyMembers(this.getOwner(), new ExPartyPetWindowAdd(this));
+        }
     }
 
     @Override
@@ -297,15 +319,69 @@ public abstract class L2Summon extends L2PlayableInstance
     {
         super.broadcastStatusUpdate();
 
-        if (getOwner() != null && isVisible())
+        if (isVisible())
+        {
             getOwner().sendPacket(new PetStatusUpdate(this));
+            
+            L2Party party = this.getOwner().getParty();
+            if (party != null)
+            {
+                party.broadcastToPartyMembers(this.getOwner(), new ExPartyPetWindowUpdate(this));
+            }
+        }
     }
-    
+
+    @Override
+    public void updateEffectIcons(boolean partyOnly)
+    {
+        PartySpelled ps = new PartySpelled(this);
+        
+        // Go through all effects if any
+        L2Effect[] effects = getAllEffects();
+        if (effects != null && effects.length > 0)
+        {
+            for (int i = 0; i < effects.length; i++)
+            {
+                L2Effect effect = effects[i];
+
+                if (effect == null)
+                    continue;
+                
+                if (effect.getInUse())
+                {
+                    effect.addPartySpelledIcon(ps);
+                }
+            }
+        }
+        
+        L2Party party = this.getOwner().getParty();
+        if (party != null)
+        {
+            // tell everyone about the summon effect
+            party.broadcastToPartyMembers(ps);
+        }
+        else
+        {
+            // tell only the owner
+            this.getOwner().sendPacket(ps);
+        }
+    }
+
+    public void onSummon()
+    {
+        
+    }
+
     public void deleteMe(L2PcInstance owner)
     {   
         getAI().stopFollow();
         //getAI().stopMoveTask();
         owner.sendPacket(new PetDelete(getObjectId(), 2));
+        L2Party party;
+        if ((party = owner.getParty()) != null)
+        {
+             party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
+        }
         
         giveAllToOwner(); 
         decayMe();
@@ -321,6 +397,11 @@ public abstract class L2Summon extends L2PlayableInstance
             getAI().stopFollow();
             //getAI().stopMoveTask();
             owner.sendPacket(new PetDelete(getObjectId(), 2));
+            L2Party party;
+            if ((party = owner.getParty()) != null)
+            {
+                party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
+            }
             store();
             
             giveAllToOwner();

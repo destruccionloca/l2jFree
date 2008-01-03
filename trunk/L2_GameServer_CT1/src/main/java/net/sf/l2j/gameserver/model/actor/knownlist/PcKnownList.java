@@ -43,7 +43,6 @@ import net.sf.l2j.gameserver.network.serverpackets.PrivateStoreMsgSell;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeShopMsg;
 import net.sf.l2j.gameserver.network.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.network.serverpackets.SpawnItem;
-import net.sf.l2j.gameserver.network.serverpackets.SpawnItemPoly;
 import net.sf.l2j.gameserver.network.serverpackets.StaticObject;
 import net.sf.l2j.gameserver.network.serverpackets.VehicleInfo;
 
@@ -89,6 +88,8 @@ public class PcKnownList extends PlayableKnownList
      */
     @Override
     public boolean addKnownObject(L2Object object) { return addKnownObject(object, null); }
+
+    @SuppressWarnings("cast")
     @Override
     public boolean addKnownObject(L2Object object, L2Character dropper)
     {
@@ -97,7 +98,7 @@ public class PcKnownList extends PlayableKnownList
         if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
         {
             //if (object.getPolytype().equals("item"))
-                getActiveChar().sendPacket(new SpawnItemPoly(object));
+                getActiveChar().sendPacket(new SpawnItem(object));
             //else if (object.getPolytype().equals("npc"))
             //    sendPacket(new NpcInfoPoly(object, this));
 
@@ -109,12 +110,11 @@ public class PcKnownList extends PlayableKnownList
                 if (dropper != null)
                     getActiveChar().sendPacket(new DropItem((L2ItemInstance) object, dropper.getObjectId()));
                 else
-                    getActiveChar().sendPacket(new SpawnItem((L2ItemInstance) object));
+                    getActiveChar().sendPacket(new SpawnItem(object));
             }
             else if (object instanceof L2DoorInstance)
             {
-                getActiveChar().sendPacket(new DoorInfo((L2DoorInstance) object));
-                getActiveChar().sendPacket(new DoorStatusUpdate((L2DoorInstance) object));
+                getActiveChar().sendPacket(new StaticObject((L2DoorInstance) object));
             }
             else if (object instanceof L2BoatInstance)
             {

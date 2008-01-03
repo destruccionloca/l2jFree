@@ -34,6 +34,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.entity.DimensionalRift;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowAdd;
+import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowDelete;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.PartySmallWindowAdd;
 import net.sf.l2j.gameserver.network.serverpackets.PartySmallWindowAll;
@@ -276,7 +278,17 @@ public class L2Party
 		PartySmallWindowAll window = new PartySmallWindowAll();
 		window.setPartyList(getPartyMembers());
 		player.sendPacket(window);
-		
+
+		// sends pets/summons of party members
+		L2Summon summon;
+		for (L2PcInstance pMember : getPartyMembers())
+		{
+			if ((summon = pMember.getPet()) != null)
+			{
+				player.sendPacket(new ExPartyPetWindowAdd(summon));
+			}
+		}
+
 		SystemMessage msg = new SystemMessage(SystemMessageId.YOU_JOINED_S1_PARTY);
 		msg.addString(getLeader().getName());
 		player.sendPacket(msg);
@@ -285,7 +297,13 @@ public class L2Party
 		msg.addString(player.getName());
 		broadcastToPartyMembers(msg);
 		broadcastToPartyMembers(new PartySmallWindowAdd(player));
-		
+
+		// if member has pet/summon add it to other as well
+		if (player.getPet() != null)
+		{
+			broadcastToPartyMembers(new ExPartyPetWindowAdd(player.getPet()));
+		}
+
 		//add player to party, adjust party level
         getPartyMembers().add(player);
 		if (player.getLevel() > _partyLvl)
@@ -294,10 +312,19 @@ public class L2Party
         }
 		//update partySpelled 
 		for(L2PcInstance member : getPartyMembers())
-            member.updateEffectIcons(true); // update party icons only
+		{
+			member.updateEffectIcons(true); // update party icons only
+			summon = member.getPet();
+			if (summon != null)
+			{
+				summon.updateEffectIcons();
+			}
+		}
 
 		if (isInDimensionalRift())
+		{
 			_dr.partyMemberInvited();
+		}
 		return true;
 	}
 	
@@ -327,6 +354,11 @@ public class L2Party
 			msg.addString(player.getName());
 			broadcastToPartyMembers(msg);
 			broadcastToPartyMembers(new PartySmallWindowDelete(player));
+			L2Summon summon = player.getPet();
+			if (summon != null)
+			{
+				broadcastToPartyMembers(new ExPartyPetWindowDelete(summon));
+			}
 
 			if (isInDimensionalRift())
 				_dr.partyMemberExited(player);
@@ -703,8 +735,22 @@ public class L2Party
 					
 					// Add the XP/SP points to the requested party member
 					if (!member.isDead())
-						member.addExpAndSp(Math.round(member.calcStat(Stats.EXPSP_RATE, xpReward * preCalculation, null, null)), 
-						                  (int)member.calcStat(Stats.EXPSP_RATE, spReward * preCalculation, null, null));
+					{
+						long addexp = Math.round(member.calcStat(Stats.EXPSP_RATE, xpReward * preCalculation, null, null));
+						int addsp = (int)member.calcStat(Stats.EXPSP_RATE, spReward * preCalculation, null, null);
+						if (target != null && member instanceof L2PcInstance)
+						{
+							if (((L2PcInstance)member).getSkillLevel(467) > 0)
+							{
+								L2Skill skill = SkillTable.getInstance().getInfo(467,((L2PcInstance)member).getSkillLevel(467));
+								if (skill.getExpNeeded() <= addexp && Rnd.get(100) < 20)
+								{
+									((L2PcInstance)member).absorbSoul(skill,target);
+								}
+							}
+						}
+						member.addExpAndSp(addexp,addsp);
+					}
 				}
 				else
 				{

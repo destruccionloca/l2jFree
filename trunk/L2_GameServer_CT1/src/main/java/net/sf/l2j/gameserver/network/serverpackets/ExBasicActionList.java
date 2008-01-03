@@ -1,80 +1,60 @@
-/* This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
+/**
+ * 
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
  * thx red rabbit
  */
-public final class ExBasicActionList extends L2GameServerPacket
+public class ExBasicActionList extends L2GameServerPacket
 {
-    private static final String _S__FE_5F_EXBASICACTIONLIST = "[S] FE:5F ExBasicActionList [d(d)]";
-    
-    private final int[] _actionIds;
-    
-    public static final ExBasicActionList DEFAULT_ACTION_LIST = new ExBasicActionList();
-    
-    private ExBasicActionList()
-    {
-        this(ExBasicActionList.getDefaultActionList());
-    }
-    
-    public static int[] getDefaultActionList()
-    {
-        int[] actionIds = new int[60 + 1 + 46];
-        for (int i = 0; i < actionIds.length; i++)
-        {
-            actionIds[i] = 0 + i;
-        }
-        for (int i = 1000; i < 1046; i++)
-        {
-            actionIds[i - 1000 + 60] = i;
-        }
-        return actionIds;
-    }
-    
-    public ExBasicActionList(int... actionIds)
-    {
-        _actionIds = actionIds;
-    }
-    
-    
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _S__FE_5F_EXBASICACTIONLIST;
-    }
+	private static final String S_FE_5F_EXBASICACTIONLIST = "[S] FE:5F ExBasicActionList [d(d)]";
 
-    /**
-     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
-     */
-    @Override
-    protected void writeImpl()
-    {
+	@Override
+	public String getType()
+	{
+		return S_FE_5F_EXBASICACTIONLIST;
+	}
+
+	@Override
+	protected void writeImpl()
+	{
         writeC(0xfe);
         writeH(0x5f);
-        
-        writeD(_actionIds.length);
-        for (int i = 0; i < _actionIds.length; i++)
-        {
-            writeD(_actionIds[i]);
-        }
+        writeD(0x22);
+        writeD(0x00);
+        writeD(0x01);
+        writeD(0x02);
+        writeD(0x03);
+        writeD(0x04);
+        writeD(0x05);
+        writeD(0x06);
+        writeD(0x0a);
+        writeD(0x1c);
+        writeD(0x28);
+        writeD(0x25);
+        writeD(0x37);
+        writeD(0x39);
+        writeD(0x3a);
+        writeD(0x3b);
+        writeD(0x07);
+        writeD(0x08);
+        writeD(0x09);
+        writeD(0x0b);
+        writeD(0x32);
+        writeD(0x38);
+        writeD(0x3c);
+        writeD(0x0c);
+        writeD(0x0d);
+        writeD(0x0e);
+        writeD(0x18);
+        writeD(0x19);
+        writeD(0x1a);
+        writeD(0x1d);
+        writeD(0x1e);
+        writeD(0x1f);
+        writeD(0x21);
+        writeD(0x22);
+        writeD(0x23);
     }
 }

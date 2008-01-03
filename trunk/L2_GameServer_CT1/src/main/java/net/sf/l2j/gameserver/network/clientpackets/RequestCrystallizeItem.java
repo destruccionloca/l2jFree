@@ -198,7 +198,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 		if (itemToRemove.isEquipped())
 		{
 			L2ItemInstance[] unequiped =
-				activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getEquipSlot());
+				activeChar.getInventory().unEquipItemInSlotAndRecord(itemToRemove.getLocationSlot());
 			InventoryUpdate iu = new InventoryUpdate();
 			for (L2ItemInstance element : unequiped) {
 				iu.addModifiedItem(element);

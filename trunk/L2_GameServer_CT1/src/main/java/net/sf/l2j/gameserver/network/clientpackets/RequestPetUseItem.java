@@ -116,7 +116,7 @@ public class RequestPetUseItem extends L2GameClientPacket
         if (item.isEquipable())
         {
             if (item.isEquipped())
-                pet.getInventory().unEquipItemInSlot(item.getEquipSlot());
+                pet.getInventory().unEquipItemInSlot(item.getLocationSlot());
             else
                 pet.getInventory().equipItem(item);
             

@@ -187,7 +187,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                 case 2:
                     // for example >> Olympiad 1_88
                     int classId = Integer.parseInt(command.substring(11));
-                    if (classId >= 88)
+                    if ((classId >= 88 && classId <= 118) || (classId >= 131 && classId <= 134) || classId == 136)
                     {
                         replyMSG.append("<center>Grand Olympiad Ranking");
                         replyMSG.append("<img src=\"L2UI.SquareWhite\" width=270 height=1><img src=\"L2UI.SquareBlank\" width=1 height=3>");

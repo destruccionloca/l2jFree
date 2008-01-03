@@ -22,6 +22,8 @@ import java.util.StringTokenizer;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.datatables.MerchantPriceConfigTable;
+import net.sf.l2j.gameserver.datatables.MerchantPriceConfigTable.MerchantPriceConfig;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2TradeList;
@@ -32,8 +34,8 @@ import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.Ride;
 import net.sf.l2j.gameserver.network.serverpackets.SellList;
-import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ShopPreviewList;
+import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -47,6 +49,9 @@ import org.apache.commons.logging.LogFactory;
 public class L2MerchantInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2MerchantInstance.class.getName());
+
+    private MerchantPriceConfig _mpc;
+
     /**
      * @param template
      */
@@ -66,7 +71,22 @@ public class L2MerchantInstance extends L2FolkInstance
         return "data/html/merchant/" + pom + ".htm";
     }
 
-    private void showWearWindow(L2PcInstance player, int val)
+    @Override
+    public void onSpawn()
+    {
+        super.onSpawn();
+        _mpc = MerchantPriceConfigTable.getInstance().getMerchantPriceConfig(this);
+    }
+
+    /**
+     * @return Returns the mpc.
+     */
+    public MerchantPriceConfig getMpc()
+    {
+        return _mpc;
+    }
+
+    private final void showWearWindow(L2PcInstance player, int val)
     {
         player.tempInvetoryDisable();
 
@@ -86,11 +106,9 @@ public class L2MerchantInstance extends L2FolkInstance
         }
     }
 
-    private void showBuyWindow(L2PcInstance player, int val)
+    protected void showBuyWindow(L2PcInstance player, int val)
     {
-        double taxRate = 0;
-
-        if (getIsInTown()) taxRate = getCastle().getTaxRate();
+        double taxRate = getMpc().getTotalTaxRate();
 
         player.tempInvetoryDisable();
 
@@ -113,7 +131,7 @@ public class L2MerchantInstance extends L2FolkInstance
         player.sendPacket(new ActionFailed());
     }
 
-    private void showSellWindow(L2PcInstance player)
+    protected final void showSellWindow(L2PcInstance player)
     {
         if (_log.isDebugEnabled()) _log.debug("Showing selllist");
 
@@ -185,7 +203,7 @@ public class L2MerchantInstance extends L2FolkInstance
         }
     }
 
-	public void showRentPetWindow(L2PcInstance player)
+	public final void showRentPetWindow(L2PcInstance player)
 	{
 	    if (!Config.LIST_PET_RENT_NPC.contains(getTemplate().getNpcId())) return;
 	
@@ -240,7 +258,7 @@ public class L2MerchantInstance extends L2FolkInstance
 	}
 	
     @Override
-    public void onActionShift(L2GameClient client)
+    public final void onActionShift(L2GameClient client)
     {
         L2PcInstance player = client.getActiveChar();
         if (player == null) return;

@@ -20,11 +20,8 @@ package net.sf.l2j.gameserver.model.actor.instance;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
-import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Clan;
-import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.BuyList;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
@@ -33,7 +30,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public final class L2MercManagerInstance extends L2FolkInstance
+public final class L2MercManagerInstance extends L2MerchantInstance
 {
     private final static Log _log = LogFactory.getLog(L2MercManagerInstance.class.getName());
 
@@ -111,24 +108,6 @@ public final class L2MercManagerInstance extends L2FolkInstance
         }
 
         super.onBypassFeedback(player, command);
-    }
-
-    private void showBuyWindow(L2PcInstance player, int val)
-    {
-        player.tempInvetoryDisable();
-        if (_log.isDebugEnabled()) _log.debug("Showing buylist");
-        L2TradeList list = TradeListTable.getInstance().getBuyList(val);
-        if (list != null && list.getNpcId()== getNpcId())
-        {
-            BuyList bl = new BuyList(list, player.getAdena(), 0);
-            player.sendPacket(bl);
-        }
-        else
-        {
-            _log.warn("possible client hacker: " + player.getName()
-                + " attempting to buy from GM shop! < Ban him!");
-            _log.warn("buylist id:" + val);
-        }
     }
 
     public void showMessageWindow(L2PcInstance player)

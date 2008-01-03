@@ -38,7 +38,6 @@ import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.network.serverpackets.PetItemList;
 import net.sf.l2j.gameserver.network.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.network.serverpackets.SpawnItem;
-import net.sf.l2j.gameserver.network.serverpackets.SpawnItemPoly;
 import net.sf.l2j.gameserver.network.serverpackets.StaticObject;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.network.serverpackets.VehicleInfo;
@@ -56,6 +55,7 @@ public class RequestRecordInfo extends L2GameClientPacket
         // trigger
     }
 
+    @SuppressWarnings("cast")
     @Override
     protected void runImpl()
     {
@@ -73,15 +73,14 @@ public class RequestRecordInfo extends L2GameClientPacket
                 continue;
 
             if (object.getPoly().isMorphed() && object.getPoly().getPolyType().equals("item"))
-                _activeChar.sendPacket(new SpawnItemPoly(object));
+                _activeChar.sendPacket(new SpawnItem(object));
             else
             {
                 if (object instanceof L2ItemInstance)
-                    _activeChar.sendPacket(new SpawnItem((L2ItemInstance) object));
+                    _activeChar.sendPacket(new SpawnItem(object));
                 else if (object instanceof L2DoorInstance)
                 {
-                    _activeChar.sendPacket(new DoorInfo((L2DoorInstance) object));
-                    _activeChar.sendPacket(new DoorStatusUpdate((L2DoorInstance) object));
+                    _activeChar.sendPacket(new StaticObject((L2DoorInstance) object));
                 }
                 else if (object instanceof L2BoatInstance)
                 {

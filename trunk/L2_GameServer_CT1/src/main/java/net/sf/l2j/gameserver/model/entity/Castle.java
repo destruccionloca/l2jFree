@@ -134,7 +134,11 @@ public class Castle
 	/** Add amount to castle instance's treasury (warehouse). */
 	public void addToTreasury(int amount)
 	{
-		if (getOwnerId() <= 0) return;
+		// check if owned
+		if (getOwnerId() <= 0) 
+		{
+			return;
+		}
 
 		if (_name.equalsIgnoreCase("Schuttgart") || _name.equalsIgnoreCase("Goddard"))
 		{

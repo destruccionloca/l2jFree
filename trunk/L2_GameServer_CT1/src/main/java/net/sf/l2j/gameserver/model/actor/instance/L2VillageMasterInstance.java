@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -338,18 +339,34 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                      if (!Config.ALT_GAME_SUBCLASS_WITHOUT_QUESTS)
                      {
 
-                        QuestState qs = player.getQuestState("235_MimirsElixir");
-                        if(qs == null || !qs.isCompleted())
-                        {
-                            player.sendMessage("You must have completed the Mimir's Elixir quest to continue adding your sub class.");
-                            return;
-                        }
-                        qs = player.getQuestState("234_FatesWhisper");
+                        QuestState qs = player.getQuestState("234_FatesWhisper");
                         if(qs == null || !qs.isCompleted())
                         {
                             player.sendMessage("You must have completed the Fate's Whisper quest to continue adding your sub class.");
                             return;
                         }
+                        
+                        if (!player.isKamaelic())
+                        {
+                            qs = player.getQuestState("235_MimirsElixir");
+                            if(qs == null || !qs.isCompleted())
+                            {
+                                player.sendMessage("You must have completed the Mimir's Elixir quest to continue adding your sub class.");
+                                return;
+                            }
+                        }
+                        //Kamale have different quest than 235
+                        //temporarily disabled while quest is missing XD
+                        /*else
+                        {
+                            qs = player.getQuestState("236_SeedsOfChaos");
+                            if(qs == null || !qs.isCompleted())
+                            {
+                                player.sendMessage("You must have completed the Seeds of Chaos quest to continue adding your sub class.");
+                                return;
+                            }
+
+                        }*/
                     }
 
                     ////////////////// \\\\\\\\\\\\\\\\\\
@@ -897,7 +914,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     {
         int charClassId = player.getBaseClass();
 
-        if (charClassId >= 88) charClassId = ClassId.values()[charClassId].getParent().getId();
+        if (((charClassId >= 88 && charClassId <= 118) || (charClassId >= 131 && charClassId <= 134) || charClassId == 136) 
+                && player.getClassId().getParent() != null)
+            charClassId = player.getClassId().getParent().ordinal();
 
         final Race npcRace = getVillageMasterRace();
         final ClassType npcTeachType = getVillageMasterTeachType();
@@ -906,8 +925,13 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
         /**
          * If the race of your main class is Elf or Dark Elf, 
-         * you may not select each class as a subclass to the other class, 
-         * and you may not select Overlord and Warsmith class as a subclass.
+         * you may not select each class as a subclass to the other class.
+         *
+         * If the race of your main class is Kamael, you may not subclass any other race
+         * If the race of your main class is NOT Kamael, you may not subclass any Kamael class
+         *
+         * You may not select Overlord and Warsmith class as a subclass.
+         *
          * 
          * You may not select a similar class as the subclass. 
          * The occupations classified as similar classes are as follows:
@@ -920,10 +944,13 @@ public final class L2VillageMasterInstance extends L2FolkInstance
          * Swordsinger and Bladedancer 
          * Sorcerer, Spellsinger and Spellhowler
          * 
+         * Also, Kamael have a special, hidden 4 subclass, the inspector, which can
+         * only be taken if you have already completed the other two Kamael subclasses
+         *
          */
         Set<PlayerClass> availSubs = currClass.getAvaliableSubclasses(player);
 
-        if (availSubs != null)
+        if (availSubs != null && !availSubs.isEmpty())
         {
             for (PlayerClass availSub : availSubs)
             {
@@ -932,11 +959,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                     SubClass prevSubClass = subList.next();
 
                     int subClassId = prevSubClass.getClassId();
-                    if (subClassId >= 88) subClassId = ClassId.values()[subClassId].getParent().getId();
+                    if ((subClassId >= 88 && subClassId <= 118) || (subClassId >= 131 && subClassId <= 134) || subClassId == 136) 
+                        subClassId = ClassId.values()[subClassId].getParent().getId();
 
                     if (availSub.ordinal() == subClassId
                         || availSub.ordinal() == charClassId)
-                        availSubs.remove(PlayerClass.values()[availSub.ordinal()]);
+                        availSubs.remove(PlayerClass.values()[subClassId]);
                 }
 
                 if ((npcRace == Race.Human || npcRace == Race.Elf))
@@ -954,11 +982,14 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                 {
                     // If the master is not human and not light elf, 
                     // then remove any classes not of the same race as the master.
-                    if ((npcRace != Race.Human && npcRace != Race.Elf)
-                        && !availSub.isOfRace(npcRace)) availSubs.remove(availSub);
+                    if (!availSub.isOfRace(npcRace)) availSubs.remove(availSub);
                 }
             }
         }
+        
+        if ((availSubs == null || availSubs.isEmpty()) && player.getRace() == Race.Kamael)
+            //if kamael character has already subclassed twice, they can now subclass inspector!!!
+            availSubs = EnumSet.of(PlayerClass.inspector);
 
         return availSubs;
     }

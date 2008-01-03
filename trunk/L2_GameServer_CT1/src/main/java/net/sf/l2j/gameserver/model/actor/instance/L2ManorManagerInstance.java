@@ -31,7 +31,6 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.BuyList;
 import net.sf.l2j.gameserver.network.serverpackets.BuyListSeed;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowCropInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowManorDefaultInfo;
@@ -114,28 +113,6 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 		player.sendPacket(new ActionFailed());
 	}
 
-	private void showBuyWindow(L2PcInstance player, String val)
-	{
-		double taxRate = 0;
-		player.tempInvetoryDisable();
-
-		L2TradeList list = TradeListTable.getInstance().getBuyList(Integer.parseInt(val));
-
-		if (list != null )
-		{
-			list.getItems().get(0).setCount(1);
-			BuyList bl = new BuyList(list, player.getAdena(), taxRate);
-			player.sendPacket(bl);
-		}
-		else
-		{
-			_log.info("possible client hacker: " + player.getName() + " attempting to buy from GM shop! < Ban him!");
-			_log.info("buylist id:" + val);
-		}
-
-		player.sendPacket(new ActionFailed());
-	}
-	
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
 		// BypassValidation Exploit plug.
@@ -209,7 +186,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 				player.sendPacket(new ExShowManorDefaultInfo());
 				break;
 			case 6: // Buy harvester
-				this.showBuyWindow(player, "3" + getNpcId());
+				this.showBuyWindow(player, Integer.parseInt("3" + getNpcId()));
 				break;
 			case 9: // Edit sales (Crop sales)
 				player.sendPacket(new ExShowProcureCropDetail(state));

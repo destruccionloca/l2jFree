@@ -177,6 +177,7 @@ import net.sf.l2j.gameserver.network.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillCanceled;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
+import net.sf.l2j.gameserver.network.serverpackets.NicknameChanged;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ObservationMode;
 import net.sf.l2j.gameserver.network.serverpackets.ObservationReturn;
@@ -193,7 +194,6 @@ import net.sf.l2j.gameserver.network.serverpackets.QuestList;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeShopSellList;
 import net.sf.l2j.gameserver.network.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.network.serverpackets.Ride;
-import net.sf.l2j.gameserver.network.serverpackets.SendTradeDone;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.network.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.network.serverpackets.SkillList;
@@ -204,7 +204,7 @@ import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StopMove;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.TargetSelected;
-import net.sf.l2j.gameserver.network.serverpackets.NicknameChanged;
+import net.sf.l2j.gameserver.network.serverpackets.TradeDone;
 import net.sf.l2j.gameserver.network.serverpackets.TradeStart;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
@@ -3048,7 +3048,7 @@ public final class L2PcInstance extends L2PlayableInstance
             // Check if the item is a Try On item in order to remove it
             if (item.isWear())
             {
-                if (item.isEquipped()) getInventory().unEquipItemInSlotAndRecord(item.getEquipSlot());
+                if (item.isEquipped()) getInventory().unEquipItemInSlotAndRecord(item.getLocationSlot());
 
                 if (_inventory.destroyItem(process, item, this, reference) == null)
                 {
@@ -3589,7 +3589,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-/*    @Override
+    @Override
     public final void updateEffectIcons(boolean partyOnly)
     {
         // Create the main packet if needed
@@ -3670,7 +3670,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 }
             }
         }
-    }*/
+    }
 
     /**
      * Send a Server->Client packet UserInfo to this L2PcInstance and CharInfo to all L2PcInstance in its _knownPlayers.<BR><BR>
@@ -4532,7 +4532,7 @@ public final class L2PcInstance extends L2PlayableInstance
                         // Set proper chance according to Item type of equipped Item
                         itemDropPercent = itemDrop.getItem().getType2() == L2Item.TYPE2_WEAPON ? dropEquipWeapon
                                                                                               : dropEquip;
-                        getInventory().unEquipItemInSlotAndRecord(itemDrop.getEquipSlot());
+                        getInventory().unEquipItemInSlotAndRecord(itemDrop.getLocationSlot());
                     }
                     else itemDropPercent = dropItem; // Item in inventory
 
@@ -5123,7 +5123,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         _activeTradeList.lock();
         _activeTradeList = null;
-        sendPacket(new SendTradeDone(0));
+        sendPacket(new TradeDone(0));
         SystemMessage msg = new SystemMessage(SystemMessageId.S1_CANCELED_TRADE);
         msg.addString(partner.getName());
         sendPacket(msg);
@@ -5132,7 +5132,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public void onTradeFinish(boolean successfull)
     {
         _activeTradeList = null;
-        sendPacket(new SendTradeDone(1));
+        sendPacket(new TradeDone(1));
         if (successfull) sendPacket(new SystemMessage(SystemMessageId.TRADE_SUCCESSFUL));
     }
 
@@ -5424,7 +5424,7 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Reduce the number of bolts owned by the L2PcInstance and send it Server->Client Packet InventoryUpdate or ItemList (to unequip if the last bolt was consummed).<BR><BR>
      */
-/*    @Override
+    @Override
     protected void reduceBoltCount()
     {
         L2ItemInstance bolts = getInventory().destroyItem("Consume", getInventory().getPaperdollObjectId(Inventory.PAPERDOLL_LHAND), 1, this, null);
@@ -5451,12 +5451,12 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             else sendPacket(new ItemList(this, false));
         }
-    }*/
+    }
 
     /**
      * Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True.<BR><BR>
      */
-/*    @Override
+    @Override
     protected boolean checkAndEquipBolts()
     {
         // Check if nothing is equiped in left hand
@@ -5482,7 +5482,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         return _boltItem != null;
-    }*/
+    }
 
     /**
      * Return True if the L2PcInstance use a dual weapon.<BR><BR>

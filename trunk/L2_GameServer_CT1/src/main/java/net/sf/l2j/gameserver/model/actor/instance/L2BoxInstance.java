@@ -64,7 +64,7 @@ public class L2BoxInstance extends L2NpcInstance {
 
     private final static Log _log = LogFactory.getLog(L2BoxInstance.class.getName());
 
-    private class L2BoxItem implements Comparable
+    private class L2BoxItem implements Comparable<L2BoxItem>
     {
 		public int itemid;
 		public int id;
@@ -83,12 +83,12 @@ public class L2BoxInstance extends L2NpcInstance {
 			id = _id;
 			enchant = _enchant;
 		}
-		public int compareTo(Object o)
+		public int compareTo(L2BoxItem o)
 		{
-			int r = name.compareToIgnoreCase(((L2BoxItem)o).name);
+			int r = name.compareToIgnoreCase(o.name);
 			if (r != 0)
 				return r;
-			if (id < ((L2BoxItem)o).id)
+			if (id < o.id)
 				return -1;
 			return 1;
 		}
@@ -184,7 +184,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		return result;
 	}
 
-	public List getAccess()
+	public List<String> getAccess()
 	{
 		java.sql.Connection con = null;
 		List<String> acl = new FastList<String>();

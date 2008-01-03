@@ -30,13 +30,11 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2TeleportLocation;
-import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AgitDecoInfo;
-import net.sf.l2j.gameserver.network.serverpackets.BuyList;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -48,7 +46,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class L2ClanHallManagerInstance extends L2FolkInstance
+public class L2ClanHallManagerInstance extends L2MerchantInstance
 {
     private final static Log _log = LogFactory.getLog(L2ClanHallManagerInstance.class.getName());
     protected static final int COND_OWNER_FALSE = 0;
@@ -774,33 +772,6 @@ public class L2ClanHallManagerInstance extends L2FolkInstance
             _log.warn("No teleport destination with id:" +val);
         }
         player.sendPacket( new ActionFailed() );
-    }
-    private void showBuyWindow(L2PcInstance player, int val)
-    {
-        double taxRate = 0;
-
-        if (getIsInTown()) taxRate = getCastle().getTaxRate();
-
-        player.tempInvetoryDisable();
-
-        if (_log.isDebugEnabled())
-            _log.info("Showing buylist :"+player.getName()+" List ID :"+val);
-
-        L2TradeList list = TradeListTable.getInstance().getBuyList(val);
-
-        if (list != null && list.getNpcId() == getNpcId())
-        {
-            BuyList bl = new BuyList(list, player.getAdena(), taxRate);
-            player.sendPacket(bl);
-        }
-        else
-        {
-            _log.warn("possible client hacker: " + player.getName()
-                + " attempting to buy from GM shop! < Ban him!");
-            _log.warn("buylist id:" + val);
-        }
-
-        player.sendPacket(new ActionFailed());
     }
 
     private void revalidateDeco(L2PcInstance player)

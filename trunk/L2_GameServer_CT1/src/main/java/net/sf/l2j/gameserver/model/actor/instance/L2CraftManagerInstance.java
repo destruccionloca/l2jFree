@@ -312,7 +312,7 @@ public class L2CraftManagerInstance extends L2FolkInstance
                     _item.getItem().getCrystalCount() > 0)
                 {       
             
-                    L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(_item.getEquipSlot());
+                    L2ItemInstance[] unequiped = player.getInventory().unEquipItemInSlotAndRecord(_item.getLocationSlot());
                 
                     if (_item.isEquipped())
 						for (L2ItemInstance element : unequiped)

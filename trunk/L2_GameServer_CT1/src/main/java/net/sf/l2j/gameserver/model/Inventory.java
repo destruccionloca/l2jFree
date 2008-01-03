@@ -648,7 +648,7 @@ public abstract class Inventory extends ItemContainer
 	protected void removeItem(L2ItemInstance item)
 	{
 		// Unequip item if equiped
-		// if (item.isEquipped()) unEquipItemInSlotAndRecord(item.getEquipSlot());
+		// if (item.isEquipped()) unEquipItemInSlotAndRecord(item.getLocationSlot());
 		for (int i = 0; i < _paperdoll.length; i++)
 			if (_paperdoll[i] == item)
 				unEquipItemInSlot(i);

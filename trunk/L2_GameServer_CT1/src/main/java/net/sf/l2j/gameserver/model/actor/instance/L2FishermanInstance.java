@@ -25,12 +25,9 @@ import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
-import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AcquireSkillList;
-import net.sf.l2j.gameserver.network.serverpackets.BuyList;
-import net.sf.l2j.gameserver.network.serverpackets.SellList;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -60,40 +57,6 @@ public class L2FishermanInstance extends L2MerchantInstance
             pom = npcId + "-" + val;
         
         return "data/html/fisherman/" + pom + ".htm";
-    }
-
-    private void showBuyWindow(L2PcInstance player, int val)
-    {
-        double taxRate = 0;
-        if (getIsInTown()) taxRate = getCastle().getTaxRate();
-        player.tempInvetoryDisable();
-        if (_log.isDebugEnabled()) _log.debug("Showing buylist");
-        L2TradeList list = TradeListTable.getInstance().getBuyList(val);
-
-        if (list != null && list.getNpcId()== getNpcId())
-        {
-            BuyList bl = new BuyList(list, player.getAdena(), taxRate);
-            player.sendPacket(bl);
-        }
-        else
-        {
-            _log.warn("possible client hacker: " + player.getName()
-                + " attempting to buy from GM shop! < Ban him!");
-            _log.warn("buylist id:" + val);
-        }
-
-        player.sendPacket(new ActionFailed());
-    }
-
-    private void showSellWindow(L2PcInstance player)
-    {
-        if (_log.isDebugEnabled()) _log.debug("Showing selllist");
-
-        player.sendPacket(new SellList(player));
-
-        if (_log.isDebugEnabled()) _log.debug("Showing sell window");
-
-        player.sendPacket(new ActionFailed());
     }
 
     @Override

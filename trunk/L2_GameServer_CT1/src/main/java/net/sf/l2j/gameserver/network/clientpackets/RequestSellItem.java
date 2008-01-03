@@ -96,6 +96,11 @@ public class RequestSellItem extends L2GameClientPacket
 
     @Override
     protected void runImpl()
+    {
+        this.processSell();
+    }
+    
+	protected void processSell()
 	{
 		L2PcInstance player = getClient().getActiveChar();
         if (player == null) return;

@@ -154,14 +154,14 @@ public class AdminEnchant implements IAdminCommandHandler
 
         // only attempt to enchant if there is a weapon equipped
         L2ItemInstance parmorInstance = player.getInventory().getPaperdollItem(armorType);
-        if (parmorInstance != null && parmorInstance.getEquipSlot() == armorType)
+        if (parmorInstance != null && parmorInstance.getLocationSlot() == armorType)
         {
             itemInstance = parmorInstance;
         } else 
         {
             // for bows and double handed weapons
             parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-            if (parmorInstance != null && parmorInstance.getEquipSlot() == Inventory.PAPERDOLL_RHAND)
+            if (parmorInstance != null && parmorInstance.getLocationSlot() == Inventory.PAPERDOLL_RHAND)
                 itemInstance = parmorInstance;
         }
         

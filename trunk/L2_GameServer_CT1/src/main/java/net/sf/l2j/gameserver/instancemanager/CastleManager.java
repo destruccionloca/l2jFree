@@ -206,7 +206,7 @@ public class CastleManager
 					if (circlet != null)
 					{
 						if (circlet.isEquipped())
-							player.getInventory().unEquipItemInSlotAndRecord(circlet.getEquipSlot());
+							player.getInventory().unEquipItemInSlotAndRecord(circlet.getLocationSlot());
 						player.destroyItemByItemId("CastleCircletRemoval", circletId, 1, player, true);
 					}
 					return;

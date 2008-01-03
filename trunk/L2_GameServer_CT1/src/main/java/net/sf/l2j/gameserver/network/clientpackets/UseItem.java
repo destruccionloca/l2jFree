@@ -363,7 +363,7 @@ public class UseItem extends L2GameClientPacket
 
             	if (bodyPart == L2Item.SLOT_L_EAR || bodyPart == L2Item.SLOT_LR_EAR ||
                 	bodyPart == L2Item.SLOT_L_FINGER || bodyPart == L2Item.SLOT_LR_FINGER)
-                		activeChar.getInventory().setPaperdollItem(item.getEquipSlot(), null);
+                		activeChar.getInventory().setPaperdollItem(item.getLocationSlot(), null);
                 
                 activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
 				if (item.getEnchantLevel() > 0)
