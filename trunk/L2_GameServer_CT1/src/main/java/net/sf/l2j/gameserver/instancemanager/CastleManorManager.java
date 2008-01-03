@@ -73,9 +73,9 @@ public class CastleManorManager
 	private boolean _underMaintenance;
 	private boolean _disabled;
 	
-	protected ScheduledFuture _scheduledManorRefresh;
-	protected ScheduledFuture _scheduledMaintenanceEnd;
-	protected ScheduledFuture _scheduledNextPeriodapprove;
+	protected ScheduledFuture<?> _scheduledManorRefresh;
+	protected ScheduledFuture<?> _scheduledMaintenanceEnd;
+	protected ScheduledFuture<?> _scheduledNextPeriodapprove;
 	
 	public static final CastleManorManager getInstance()
 	{

@@ -4764,6 +4764,60 @@ public enum SystemMessageId
      */
     OBSERVERS_CANNOT_PARTICIPATE(781),
 
+    /**
+     * ID: 2224<br>
+     * Message: Crossbow is preparing to fire.
+     */
+    CROSSBOW_PREPARING_TO_FIRE(2224),
+
+    /**
+     * ID: 2226<br>
+     * Message: Not enough bolts.
+     */
+    NOT_ENOUGH_BOLTS(2226),
+
+    /**
+     * ID: 2189<br>
+     * Message: Current Location: $s1, $s2, $s3 (near Near Kamael Village)
+     */
+    LOC_KAMAEL_VILLAGE_S1_S2_S3(2189),
+
+    /**
+     * ID: 2190<br>
+     * Message: Current Location: $s1, $s2, $s3 (Near south of Wastelands Camp)
+     */
+    LOC_WASTELANDS_CAMP_S1_S2_S3(2190),
+
+    /**
+     * ID: 2259<br>
+     * Message: Current Location: $s1, $s2, $s3 (near Fantasy Island)
+     */
+    LOC_FANTASY_ISLAND_S1_S2_S3(2259),
+
+    /**
+    * ID: 2162<br>
+    * Message: Your soul has increased by $s1, so it is now at $s2.
+    */
+   YOUR_SOUL_HAS_INCREASED_BY_S1_SO_IT_IS_NOW_AT_S2(2162),
+
+   /**
+    * ID: 2163<br>
+    * Message: Soul cannot be increased anymore.
+    */
+   SOUL_CANNOT_BE_INCREASED_ANYMORE(2163),
+
+   /**
+    * ID: 2186<br>
+    * Message: Soul cannot be absorbed anymore.
+    */
+   SOUL_CANNOT_BE_ABSORBED_ANYMORE(2186),
+
+   /**
+    * ID: 2195<br>
+    * Message: There is not enough soul.
+    */
+   THERE_IS_NOT_ENOUGH_SOUL(2195),
+
     // ======================= //
     // L2J-Free System Messages //
     // ======================= //

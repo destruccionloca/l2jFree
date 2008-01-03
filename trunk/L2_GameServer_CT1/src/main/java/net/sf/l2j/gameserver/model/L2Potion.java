@@ -36,8 +36,8 @@ public class L2Potion extends L2Object
 	@SuppressWarnings("unused")
 	protected static final Log _log = LogFactory.getLog(L2Potion.class.getName());
 
-	private Future _potionHpRegTask;
-	private Future _potionMpRegTask;
+	private Future<?> _potionHpRegTask;
+	private Future<?> _potionMpRegTask;
 	protected int _milliseconds;
 	protected double _effect;
 	protected int _duration;

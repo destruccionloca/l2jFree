@@ -80,12 +80,12 @@ public class SailrenManager
     protected L2NpcInstance _sailren;		// Sailren
     
     // Tasks
-    protected Future _cubeSpawnTask = null;
-    protected Future _sailrenSpawnTask = null;
-    protected Future _intervalEndTask = null;
-    protected Future _activityTimeEndTask = null;
-    protected Future _onPartyAnnihilatedTask = null;
-    protected Future _socialTask = null;
+    protected Future<?> _cubeSpawnTask = null;
+    protected Future<?> _sailrenSpawnTask = null;
+    protected Future<?> _intervalEndTask = null;
+    protected Future<?> _activityTimeEndTask = null;
+    protected Future<?> _onPartyAnnihilatedTask = null;
+    protected Future<?> _socialTask = null;
     
     // State of sailren's lair.
     protected GrandBossState _State = new GrandBossState(29065);

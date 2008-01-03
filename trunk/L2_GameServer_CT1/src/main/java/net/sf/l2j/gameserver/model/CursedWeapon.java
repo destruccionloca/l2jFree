@@ -62,7 +62,7 @@ public class CursedWeapon
     
     private boolean _isDropped = false;
     private boolean _isActivated = false;
-    private ScheduledFuture _removeTask;
+    private ScheduledFuture<?> _removeTask;
 
     private int _nbKills = 0;
     private long _endTime = 0;

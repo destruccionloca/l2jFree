@@ -486,7 +486,7 @@ public class SevenSignsFestival implements SpawnListener
 	// ////////////////////// \\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	protected FestivalManager						_managerInstance;
-	protected ScheduledFuture						_managerScheduledTask;
+	protected ScheduledFuture<?>					_managerScheduledTask;
 	
 	protected int									_signsCycle						= SevenSigns.getInstance().getCurrentCycle();
 	protected int									_festivalCycle;
@@ -647,7 +647,7 @@ public class SevenSignsFestival implements SpawnListener
 	 * 
 	 * @return ScheduledFuture festManagerScheduler
 	 */
-	protected final ScheduledFuture getFestivalManagerSchedule()
+	protected final ScheduledFuture<?> getFestivalManagerSchedule()
 	{
 		if (_managerScheduledTask == null)
 			startFestivalManager();

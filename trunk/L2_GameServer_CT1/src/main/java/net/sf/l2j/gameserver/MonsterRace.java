@@ -32,7 +32,7 @@ public class MonsterRace
 	private final static Log	_log	= LogFactory.getLog(MonsterRace.class);
 	private L2NpcInstance[]		_monsters;
 	private static MonsterRace	_instance;
-	private Constructor			_constructor;
+	private Constructor<?>		_constructor;
 	private int[][]				_speeds;
 	private int[]				_first, _second;
 	

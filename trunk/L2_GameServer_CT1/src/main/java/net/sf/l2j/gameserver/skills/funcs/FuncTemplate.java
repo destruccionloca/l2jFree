@@ -37,7 +37,7 @@ public final class FuncTemplate {
 	public Condition attachCond;
 	public Condition applayCond;
 	public final Class func;
-	public final Constructor constructor;
+	public final Constructor<?> constructor;
 	public final Stats stat;
 	public final int order;
 	public final Lambda lambda;

@@ -97,7 +97,7 @@ public class L2Spawn
     private int _respawnMaxDelay;
 
 	/** The generic constructor of L2NpcInstance managed by this L2Spawn */
-	private Constructor _constructor;
+	private Constructor<?> _constructor;
 	
 	/** If True a L2NpcInstance is respawned each time that another is killed */
     // [L2J_JP DELETE]private boolean _doRespawn;

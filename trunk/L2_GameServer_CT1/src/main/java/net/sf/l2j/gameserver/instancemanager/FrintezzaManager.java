@@ -120,7 +120,7 @@ public class FrintezzaManager
 
 			_scarletIsWeakest = true;
 	
-	protected Future					_monsterSpawnTask	= null, _activityTimeEndTask = null;
+	protected Future<?>					_monsterSpawnTask	= null, _activityTimeEndTask = null;
 	
 	// Actually questname should be "Last Imperial Prince" or "Journey to a Settlement"
 	protected String					_questName			= "frintezza";
@@ -403,13 +403,13 @@ public class FrintezzaManager
 	
 	private class OnPlayersAnnihilatedTask implements Runnable
 	{
-		private Future	_task;
+		private Future<?> _task;
 		
 		public OnPlayersAnnihilatedTask()
 		{ /* Nothing */
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			_task = task;
 		}
@@ -515,7 +515,7 @@ public class FrintezzaManager
 	 * @return null Future value to reset that task
 	 */
 	
-	private Future cancelTask(Future task)
+	private Future cancelTask(Future<?> task)
 	{
 		
 		if (task != null)
@@ -603,16 +603,16 @@ public class FrintezzaManager
 	private class ScarletWeakSpawn implements Runnable
 	{
 		
-		private int		_taskId	= 0;
+		private int			_taskId	= 0;
 		
-		private Future	_task;
+		private Future<?>	_task;
 		
 		public ScarletWeakSpawn(int taskId)
 		{
 			_taskId = taskId;
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			_task = task;
 		}
@@ -623,7 +623,7 @@ public class FrintezzaManager
 			_task = cancelTask(_task);
 			ScarletWeakSpawn s = null;
 			SetMobilised mobilise;
-			Future _mobiliseTask;
+			Future<?> _mobiliseTask;
 			
 			switch (_taskId)
 			{
@@ -862,7 +862,7 @@ public class FrintezzaManager
 					
 					demon1.setIsImobilised(false);
 					doSkill ds = new doSkill(demon1, skill, _intervalOfFrintezzaSongs, 1000);
-					Future _doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4000);
+					Future<?> _doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4000);
 					ds.setTask(_doSkillTask);
 					
 					demon2.setIsImobilised(false);
@@ -886,7 +886,7 @@ public class FrintezzaManager
 					
 					// Start random attacks on players for Frintezza
 					ReTarget _retarget = new ReTarget(frintezza);
-					Future _reTargetTask = ThreadPoolManager.getInstance().scheduleEffect(_retarget, _intervalOfRetarget);
+					Future<?> _reTargetTask = ThreadPoolManager.getInstance().scheduleEffect(_retarget, _intervalOfRetarget);
 					_retarget.setTask(_reTargetTask);
 					
 					// Start random attacks on players for Scarlet
@@ -895,7 +895,7 @@ public class FrintezzaManager
 					_retarget.setTask(_reTargetTask);
 					
 					Music music = new Music();
-					Future _MusicTask = ThreadPoolManager.getInstance().scheduleEffect(music, Rnd.get(_intervalOfFrintezzaSongs));
+					Future<?> _MusicTask = ThreadPoolManager.getInstance().scheduleEffect(music, Rnd.get(_intervalOfFrintezzaSongs));
 					music.setTask(_MusicTask);
 					
 					startAttackListeners();
@@ -932,13 +932,13 @@ public class FrintezzaManager
 	private class Music implements Runnable
 	{
 		
-		private Future	_MusicTask;
+		private Future<?>	_MusicTask;
 		
 		public Music()
 		{
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			_MusicTask = task;
 		}
@@ -962,7 +962,7 @@ public class FrintezzaManager
 			
 			// Launch the song's effects (they start about 10 seconds after he starts to play)
 			SongEffectLaunched launchSong = new SongEffectLaunched(getSongTargets(song), song, currentHp, 10000);
-			Future _songLaunchedTask = ThreadPoolManager.getInstance().scheduleGeneral(launchSong, 10000);
+			Future<?> _songLaunchedTask = ThreadPoolManager.getInstance().scheduleGeneral(launchSong, 10000);
 			launchSong.setTask(_songLaunchedTask);
 			
 			// Schedule a new song to be played in 30-40 seconds...
@@ -1137,7 +1137,7 @@ public class FrintezzaManager
 		
 		private int			_song, _previousHp, _currentTime;
 		
-		private Future		_songLaunchedTask;
+		private Future<?>	_songLaunchedTask;
 		
 		/**
 		 * Constructor
@@ -1159,7 +1159,7 @@ public class FrintezzaManager
 			_currentTime = currentTimeOfSong;
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			_songLaunchedTask = task;
 		}
@@ -1309,7 +1309,7 @@ public class FrintezzaManager
 		
 		// Set exit timer for these stats
 		exitDecreaseRegHp exit = new exitDecreaseRegHp(target, getDecreaseRegHpFunc());
-		Future task = ThreadPoolManager.getInstance().scheduleEffect(exit, getDebuffPeriod(skill, target));
+		Future<?> task = ThreadPoolManager.getInstance().scheduleEffect(exit, getDebuffPeriod(skill, target));
 		exit.setTask(task);
 		
 	}
@@ -1411,7 +1411,7 @@ public class FrintezzaManager
 	private class exitDecreaseRegHp implements Runnable
 	{
 		
-		private Future		_task;
+		private Future<?>	_task;
 		
 		private Func		_func;
 		
@@ -1423,7 +1423,7 @@ public class FrintezzaManager
 			_char = character;
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			_task = task;
 		}
@@ -1454,7 +1454,7 @@ public class FrintezzaManager
 		
 		private final L2Skill		_skill;
 		
-		private Future				_task;
+		private Future<?>			_task;
 		
 		public startStunDanceEffect(L2Character target, L2Skill skill)
 		{
@@ -1529,14 +1529,14 @@ public class FrintezzaManager
 		
 		private final L2Character	_effected;
 		
-		private Future				_task;
+		private Future<?>			_task;
 		
 		public exitStunDanceEffect(L2Character target)
 		{
 			_effected = target;
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			_task = task;
 		}
@@ -1575,7 +1575,7 @@ public class FrintezzaManager
 		
 		// Set listeners for the Demons.
 		attackerListener al = new attackerListener(demon1, 1);
-		Future task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
+		Future<?> task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(2000));
 		al.setTask(task);
 		
 		al = new attackerListener(demon2, 1);
@@ -1632,7 +1632,7 @@ public class FrintezzaManager
 	private class attackerListener implements Runnable
 	{
 		
-		private Future		_task;
+		private Future<?>	_task;
 		
 		private L2Character	_mob;
 		
@@ -1647,7 +1647,7 @@ public class FrintezzaManager
 			
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			
 			_task = task;
@@ -1666,7 +1666,7 @@ public class FrintezzaManager
 			
 			// Set next listener.
 			attackerListener al = new attackerListener(_mob, _aggroDamage);
-			Future task = ThreadPoolManager.getInstance().scheduleGeneral(al, _callForHelpInterval + Rnd.get(500));
+			Future<?> task = ThreadPoolManager.getInstance().scheduleGeneral(al, _callForHelpInterval + Rnd.get(500));
 			al.setTask(task);
 			
 			// If the mob is dead, we do nothing until next respawn
@@ -1943,7 +1943,7 @@ public class FrintezzaManager
 		}
 		
 		respawnDemon r = new respawnDemon(mob);
-		Future task = ThreadPoolManager.getInstance().scheduleEffect(r, _intervalOfDemons);
+		Future<?> task = ThreadPoolManager.getInstance().scheduleEffect(r, _intervalOfDemons);
 		r.setTask(task);
 		
 		return -1;
@@ -1958,7 +1958,7 @@ public class FrintezzaManager
 	private class respawnDemon implements Runnable
 	{
 		
-		private Future				_task;
+		private Future<?>			_task;
 		
 		private L2MonsterInstance	_mob;
 		
@@ -1967,7 +1967,7 @@ public class FrintezzaManager
 			_mob = mob;
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			_task = task;
 		}
@@ -2119,23 +2119,23 @@ public class FrintezzaManager
 		
 		// add Attack Listener
 		attackerListener al = new attackerListener(strongScarlet, 150);
-		Future task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(4000) + 1000);
+		Future<?> task = ThreadPoolManager.getInstance().scheduleGeneral(al, Rnd.get(4000) + 1000);
 		al.setTask(task);
 		
 		// add retarget Listener
 		ReTarget _retarget = new ReTarget(strongScarlet);
-		Future _reTargetTask = ThreadPoolManager.getInstance().scheduleEffect(_retarget, _intervalOfRetarget);
+		Future<?> _reTargetTask = ThreadPoolManager.getInstance().scheduleEffect(_retarget, _intervalOfRetarget);
 		_retarget.setTask(_reTargetTask);
 		
 		// mobilize Strong Scarlet
 		SetMobilised mobilise = new SetMobilised(strongScarlet);
-		Future _mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(mobilise, 4000);
+		Future<?> _mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(mobilise, 4000);
 		mobilise.setTask(_mobiliseTask);
 		
 		// set teleport speed
 		L2Skill skill = SkillTable.getInstance().getInfo(1086, 1);
 		doSkill ds = new doSkill(strongScarlet, skill, _intervalOfRetarget, 300);
-		Future _doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4016);
+		Future<?> _doSkillTask = ThreadPoolManager.getInstance().scheduleEffect(ds, 4016);
 		ds.setTask(_doSkillTask);
 	}
 	

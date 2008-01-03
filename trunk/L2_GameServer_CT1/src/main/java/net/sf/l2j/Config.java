@@ -1339,6 +1339,13 @@ public final class Config
 	public static boolean				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;							// Alternative gaming - all new characters always are newbies.
 	public static boolean				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;						// Alternative gaming - clan members with see privilege can
 																									// also withdraw from clan warehouse.
+	public static boolean				CASTLE_SHIELD; // Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
+	public static boolean				CLANHALL_SHIELD; // Alternative gaming - Clan Hall Shield can be equiped by all clan members if they own a clan hall. - default True
+	public static boolean				APELLA_ARMORS; // Alternative gaming - Apella armors can be equiped only by clan members if their class is Baron or higher - default True
+	public static boolean				OATH_ARMORS; // Alternative gaming - Clan Oath Armors can be equiped only by clan members - default True
+	public static boolean				CASTLE_CROWN; // Alternative gaming - Castle Crown can be equiped only by castle lord - default True
+	public static boolean				CASTLE_CIRCLETS; // Alternative gaming - Castle Circlets can be equiped only by clan members if they own a castle - default True
+
 	public static boolean				ALT_STRICT_HERO_SYSTEM;										// Strict Hero Mode
 	public static boolean				ALT_STRICT_SEVENSIGNS;										// Strict Seven Signs
 	public static boolean				SP_BOOK_NEEDED;												// Spell Book needed to learn skill
@@ -1513,6 +1520,13 @@ public final class Config
 			ALT_GAME_VIEWNPC = Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
 			ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
 			ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
+			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
+			CASTLE_SHIELD = Boolean.parseBoolean(altSettings.getProperty("CastleShieldRestriction", "True"));
+			CLANHALL_SHIELD = Boolean.parseBoolean(altSettings.getProperty("ClanHallShieldRestriction", "True"));
+			APELLA_ARMORS = Boolean.parseBoolean(altSettings.getProperty("ApellaArmorsRestriction", "True"));
+			OATH_ARMORS = Boolean.parseBoolean(altSettings.getProperty("OathArmorsRestriction", "True"));
+			CASTLE_CROWN = Boolean.parseBoolean(altSettings.getProperty("CastleLordsCrownRestriction", "True"));
+			CASTLE_CIRCLETS = Boolean.parseBoolean(altSettings.getProperty("CastleCircletsRestriction", "True"));
 			DWARF_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("DwarfRecipeLimit", "50"));
 			COMMON_RECIPE_LIMIT = Integer.parseInt(altSettings.getProperty("CommonRecipeLimit", "50"));
 			
@@ -3079,6 +3093,18 @@ public final class Config
 			DWARF_RECIPE_LIMIT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("CommonRecipeLimit"))
 			COMMON_RECIPE_LIMIT = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("CastleShieldRestriction"))
+			CASTLE_SHIELD = Boolean.valueOf(pValue);
+		else if (pName.equalsIgnoreCase("ClanHallShieldRestriction"))
+			CLANHALL_SHIELD = Boolean.valueOf(pValue);
+		else if (pName.equalsIgnoreCase("ApellaArmorsRestriction"))
+			APELLA_ARMORS = Boolean.valueOf(pValue);
+		else if (pName.equalsIgnoreCase("OathArmorsRestriction"))
+			OATH_ARMORS = Boolean.valueOf(pValue);
+		else if (pName.equalsIgnoreCase("CastleLordsCrownRestriction"))
+			CASTLE_CROWN = Boolean.valueOf(pValue);
+		else if (pName.equalsIgnoreCase("CastleCircletsRestriction"))
+			CASTLE_CIRCLETS = Boolean.valueOf(pValue);
 		
 		// PvP settings
 		else if (pName.equalsIgnoreCase("MinKarma"))

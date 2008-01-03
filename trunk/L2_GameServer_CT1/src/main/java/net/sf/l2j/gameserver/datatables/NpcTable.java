@@ -606,7 +606,7 @@ public class NpcTable implements NpcTableMBean
      * @param class1
      * @return
      */
-    public Set<Integer> getAllNpcOfL2jClass(Class clazz)
+    public Set<Integer> getAllNpcOfL2jClass(Class<?> clazz)
     {
         return null;
     }

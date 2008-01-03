@@ -80,7 +80,7 @@ public class AiManager
 			{
 				try
 				{
-					Class managerClass = Class.forName("net.sf.l2j.gameserver.ai.managers."+file.substring(0, file.length() - 6));
+					Class<?> managerClass = Class.forName("net.sf.l2j.gameserver.ai.managers."+file.substring(0, file.length() - 6));
 					Object managerObject = managerClass.newInstance();
 					if(!(managerObject instanceof ISpecificAiManager))
 					{

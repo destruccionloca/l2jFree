@@ -52,7 +52,7 @@ public final class L2WorldRegion
     private FastList<L2WorldRegion> _surroundingRegions;
     private int _tileX, _tileY;
     private Boolean _active = false;   
-    protected ScheduledFuture _neighborsTask = null;
+    protected ScheduledFuture<?> _neighborsTask = null;
     public static final int MAP_MIN_X = -131072;
     public static final int MAP_MAX_X = 228608;
     public static final int MAP_MIN_Y = -262144;

@@ -127,7 +127,7 @@ public class DynamicExtension
             return;
         try
 		{
-            Class extension = Class.forName(className, true, classLoader);
+            Class<?> extension = Class.forName(className, true, classLoader);
             Object obj = extension.newInstance();
             extension.getMethod("init", new Class[0]).invoke(obj, new Object[0]);
             _log.info("Extension " + className + " loaded.");
@@ -173,7 +173,7 @@ public class DynamicExtension
         try
 		{
             Object obj = _loadedExtensions.get(className);
-            Class extension = obj.getClass();
+            Class<?> extension = obj.getClass();
             _loadedExtensions.remove(className);
             extension.getMethod("unload", new Class[0]).invoke(obj, new Object[0]);
             _log.info("Extension " + className + " unloaded.");

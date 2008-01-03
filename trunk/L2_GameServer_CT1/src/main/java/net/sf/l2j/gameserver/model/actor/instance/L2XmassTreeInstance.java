@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2XmassTreeInstance extends L2NpcInstance
 {
-    private ScheduledFuture _aiTask;
+    private ScheduledFuture<?> _aiTask;
 
     class XmassAI implements Runnable
     {

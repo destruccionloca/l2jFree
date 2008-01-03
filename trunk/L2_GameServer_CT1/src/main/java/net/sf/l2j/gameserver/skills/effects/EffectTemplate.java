@@ -38,7 +38,7 @@ public final class EffectTemplate
     private static Log _log = LogFactory.getLog(EffectTemplate.class.getName());
 
 	private final Class<?> _func;
-	private final Constructor _constructor;
+	private final Constructor<?> _constructor;
 
 	public final Condition attachCond;
 	public final Condition applayCond;

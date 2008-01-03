@@ -146,7 +146,7 @@ public final class L2ItemInstance extends L2Object
 	private int					ad_holy						= 0;
 	private int					ad_unholy					= 0;
 	
-	private ScheduledFuture		itemLootShedule				= null;
+	private ScheduledFuture<?>	itemLootShedule				= null;
 	
 	/**
 	 * Constructor of the L2ItemInstance from the objectId and the itemId.
@@ -1532,12 +1532,12 @@ public final class L2ItemInstance extends L2Object
 		itemLootShedule = null;
 	}
 	
-	public void setItemLootShedule(ScheduledFuture sf)
+	public void setItemLootShedule(ScheduledFuture<?> sf)
 	{
 		itemLootShedule = sf;
 	}
 	
-	public ScheduledFuture getItemLootShedule()
+	public ScheduledFuture<?> getItemLootShedule()
 	{
 		return itemLootShedule;
 	}

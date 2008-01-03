@@ -72,11 +72,11 @@ public class FourSepulchersManager
     protected boolean _inAttackTime = false;
     protected boolean _inCoolDownTime = false;
 
-    protected Future _changeCoolDownTimeTask = null;
-    protected Future _changeEntryTimeTask = null; 
-    protected Future _changeWarmUpTimeTask = null;
-    protected Future _changeAttackTimeTask = null;
-    protected Future _onPartyAnnihilatedTask = null;
+    protected Future<?> _changeCoolDownTimeTask = null;
+    protected Future<?> _changeEntryTimeTask = null; 
+    protected Future<?> _changeWarmUpTimeTask = null;
+    protected Future<?> _changeAttackTimeTask = null;
+    protected Future<?> _onPartyAnnihilatedTask = null;
      
     protected static Map<Integer,Integer> _hallGateKeepers = new FastMap<Integer,Integer>();
     

@@ -77,13 +77,13 @@ public class AutoSpawnHandler
 	private static final int DEFAULT_DESPAWN = 3600000; //1 hour in millisecs
 	
     protected FastMap<Integer, AutoSpawnInstance> _registeredSpawns;
-    protected FastMap<Integer, ScheduledFuture> _runningSpawns;
+    protected FastMap<Integer, ScheduledFuture<?>> _runningSpawns;
     protected boolean _activeState = true;
     
 	private AutoSpawnHandler()
 	{
         _registeredSpawns = new FastMap<Integer, AutoSpawnInstance>();
-        _runningSpawns = new FastMap<Integer, ScheduledFuture>();
+        _runningSpawns = new FastMap<Integer, ScheduledFuture<?>>();
         
         restoreSpawnData();
 	}
@@ -228,7 +228,7 @@ public class AutoSpawnHandler
 	        _registeredSpawns.remove(spawnInst);
 	        
 	        // Cancel the currently associated running scheduled task.
-	        ScheduledFuture respawnTask = _runningSpawns.remove(spawnInst._objectId);
+	        ScheduledFuture<?> respawnTask = _runningSpawns.remove(spawnInst._objectId);
             respawnTask.cancel(false);
 	        
 	        if (_log.isDebugEnabled())
@@ -268,7 +268,7 @@ public class AutoSpawnHandler
         
         if (isSpawnRegistered(objectId)) 
         {
-            ScheduledFuture spawnTask = null;
+            ScheduledFuture<?> spawnTask = null;
             
             if (isActive) {
                 AutoSpawner rs = new AutoSpawner(objectId);

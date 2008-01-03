@@ -83,7 +83,7 @@ public class L2DoorInstance extends L2Character
     private ClanHall _clanHall;
     
     protected int _autoActionDelay = -1;
-    private ScheduledFuture _autoActionTask;
+    private ScheduledFuture<?> _autoActionTask;
     
     
     /** This class may be created only by L2Character and only for AI */

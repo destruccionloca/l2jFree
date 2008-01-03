@@ -56,7 +56,7 @@ public final class L2BossInstance extends L2MonsterInstance
     protected L2Character _Atacker;
     protected static final int NurseAntRespawnDelay = Config.NURSEANT_RESPAWN_DELAY;
 
-    protected Future minionMaintainTask = null;
+    protected Future<?> minionMaintainTask = null;
 
     protected L2PcInstance _TargetForKill = null;
     public void setTargetForKill(L2PcInstance Target)

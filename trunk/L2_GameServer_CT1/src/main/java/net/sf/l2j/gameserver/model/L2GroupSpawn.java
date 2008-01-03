@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  */
 public class L2GroupSpawn extends L2Spawn 
 {
-	private Constructor _constructor;
+	private Constructor<?> _constructor;
 	private L2NpcTemplate _template;
 	
 	public L2GroupSpawn(L2NpcTemplate mobTemplate) throws SecurityException, ClassNotFoundException, NoSuchMethodException 

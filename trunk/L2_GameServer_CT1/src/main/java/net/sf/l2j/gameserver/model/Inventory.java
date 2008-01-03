@@ -178,7 +178,7 @@ public abstract class Inventory extends ItemContainer
 				}
 				case 16: // L2WeaponType.CROSSBOW
 				{
-					L2ItemInstance arrow = findBoltForCrossbow(item.getItem());
+					L2ItemInstance arrow = findBoltForCrossBow(item.getItem());
 					if (arrow != null)
 						setPaperdollItem(PAPERDOLL_LHAND, arrow);
 					break;
@@ -1077,7 +1077,7 @@ public abstract class Inventory extends ItemContainer
 				}
 				if (item.getItem().getItemType() == L2WeaponType.CROSSBOW)
 				{
-					L2ItemInstance bold = findBoltForCrossbow(item.getItem());
+					L2ItemInstance bold = findBoltForCrossBow(item.getItem());
 					if (bold != null)
 						setPaperdollItem(PAPERDOLL_LHAND, bold);
 				}
@@ -1322,7 +1322,7 @@ public abstract class Inventory extends ItemContainer
 		return getItemByItemId(arrowsId);
 	}
 	
-	public L2ItemInstance findBoltForCrossbow(L2Item crossbow)
+	public L2ItemInstance findBoltForCrossBow(L2Item crossbow)
 	{
 		int arrowsId = 0;
 		

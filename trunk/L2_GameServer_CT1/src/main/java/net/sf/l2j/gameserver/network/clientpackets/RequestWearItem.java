@@ -54,7 +54,7 @@ public class RequestWearItem extends L2GameClientPacket
     private static final String _C__C6_REQUESTWEARITEM = "[C] C6 RequestWearItem";
     protected static Log _log = LogFactory.getLog(RequestWearItem.class.getName());
     
-    protected Future _removeWearItemsTask;
+    protected Future<?> _removeWearItemsTask;
     
     @SuppressWarnings("unused")
     private int _unknow;

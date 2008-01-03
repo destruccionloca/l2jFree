@@ -336,6 +336,11 @@ public abstract class L2Skill
 	private final int				_numCharges;
 	private final int				_triggeredId;
 	private final int				_triggeredCount;
+
+	private final int				_soulConsume;
+	private final int				_numSouls;
+	private final int				_expNeeded;
+	private final int				_critChance;
 	
 	private final int				_baseCritRate;								// percent of success for skill critical hit (especially for PDAM & BLOW -
 																				// they're not affected by rCrit values or buffs). Default loads -1 for all
@@ -458,7 +463,12 @@ public abstract class L2Skill
 		else
 			// there is a skill, and the count is valid
 			_triggeredCount = triggeredCount; // so just set it
-			
+
+		_numSouls = set.getInteger("num_souls", 0);
+		_soulConsume = set.getInteger("soulConsumeCount", 0);
+		_expNeeded = set.getInteger("expNeeded", 0);
+		_critChance = set.getInteger("critChance", 0);
+
 		_baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM || _skillType == SkillType.BLOW) ? 0 : -1);
 		_lethalEffect1 = set.getInteger("lethal1", 0);
 		_lethalEffect2 = set.getInteger("lethal2", 0);
@@ -1053,7 +1063,27 @@ public abstract class L2Skill
 	{
 		return _numCharges;
 	}
+
+	public final int getNumSouls()
+	{
+		return _numSouls;
+	}
+
+	public final int getSoulConsumeCount()
+	{
+		return _soulConsume;
+	}
 	
+	public final int getExpNeeded()
+	{
+		return _expNeeded;
+	}
+
+	public final int getCritChance()
+	{
+		return _critChance;
+	}
+
 	public final int getBaseCritRate()
 	{
 		return _baseCritRate;
@@ -1187,17 +1217,8 @@ public abstract class L2Skill
 					return true;
 			}
 		}
-		TextBuilder skillmsg = new TextBuilder();
-		skillmsg.append(getName());
-		skillmsg.append(" can only be used with weapons of type ");
-		for (L2WeaponType wt : L2WeaponType.values())
-		{
-			if ((wt.mask() & weaponsAllowed) != 0)
-				skillmsg.append(wt).append('/');
-		}
-		skillmsg.setCharAt(skillmsg.length() - 1, '.');
-		SystemMessage message = new SystemMessage(SystemMessageId.S1_S2);
-		message.addString(skillmsg.toString());
+		SystemMessage message = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+		message.addString(getName());
 		activeChar.sendPacket(message);
 		
 		return false;

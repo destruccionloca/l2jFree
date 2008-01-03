@@ -64,6 +64,7 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ClientSetTime;
 import net.sf.l2j.gameserver.network.serverpackets.Die;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.ExBasicActionList;
 import net.sf.l2j.gameserver.network.serverpackets.ExStorageMaxCount;
 import net.sf.l2j.gameserver.network.serverpackets.FriendList;
 import net.sf.l2j.gameserver.network.serverpackets.GameGuardQuery;
@@ -77,7 +78,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PledgeStatusChanged;
 import net.sf.l2j.gameserver.network.serverpackets.QuestList;
 import net.sf.l2j.gameserver.network.serverpackets.ShortCutInit;
 import net.sf.l2j.gameserver.network.serverpackets.ShortCutRegister;
-import net.sf.l2j.gameserver.network.serverpackets.SignsSky;
+import net.sf.l2j.gameserver.network.serverpackets.SkillCoolTime;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
@@ -126,7 +127,31 @@ public class EnterWorld extends L2GameClientPacket
             getClient().closeNow();
 		    return;
         }
+
+		// Send Macro List
+		activeChar.getMacroses().sendUpdate();
 		
+		// Send Item List
+		sendPacket(new ItemList(activeChar, false));
+		
+		// Send gg check (even if we are not going to check for reply)
+		activeChar.queryGameGuard();
+		
+		// Send Shortcuts
+		sendPacket(new ShortCutInit(activeChar));
+		
+		// Send Action list
+		activeChar.sendPacket(ExBasicActionList.DEFAULT_ACTION_LIST);
+
+		activeChar.sendSkillList();
+		
+		activeChar.sendPacket(new HennaInfo(activeChar));
+		
+		sendPacket(new UserInfo(activeChar));
+		
+		Quest.playerEnter(activeChar);
+		activeChar.sendPacket(new QuestList());
+
 		// Register in flood protector
 		FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());
 
@@ -204,16 +229,10 @@ public class EnterWorld extends L2GameClientPacket
 		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))            
 			L2Event.restoreAndTeleChar(activeChar);
 	
-		
-		if (SevenSigns.getInstance().isSealValidationPeriod())
-            sendPacket(new SignsSky());
-
         // Buff and status icons
         if (Config.STORE_SKILL_COOLTIME)
             activeChar.restoreEffects();
 
-        activeChar.sendPacket(new EtcStatusUpdate(activeChar));
-        
         if (activeChar.getAllEffects() != null)
         {
             for (L2Effect e : activeChar.getAllEffects())
@@ -223,13 +242,22 @@ public class EnterWorld extends L2GameClientPacket
                     activeChar.stopEffects(L2Effect.EffectType.HEAL_OVER_TIME);
                     activeChar.removeEffect(e);
                 }
-                if (e.getEffectType() == L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME)
+                else if (e.getEffectType() == L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME)
                 {
                     activeChar.stopEffects(L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME);
                     activeChar.removeEffect(e);
                 }
+                
+                //  Charges are gone after relog.
+                else if (e.getEffectType() == L2Effect.EffectType.CHARGE)
+                {
+                    e.exit();
+                }
             }
         }
+
+        activeChar.sendPacket(new EtcStatusUpdate(activeChar));
+
         // apply augmentation boni for equipped items
         for (L2ItemInstance temp : activeChar.getInventory().getAugmentedItems())
             if (temp != null && temp.isEquipped()) temp.getAugmentation().applyBoni(activeChar);
@@ -237,27 +265,10 @@ public class EnterWorld extends L2GameClientPacket
         //Expand Skill
         ExStorageMaxCount esmc = new ExStorageMaxCount(activeChar);  
         activeChar.sendPacket(esmc);
-       
-        activeChar.getMacroses().sendUpdate();
 
-        UserInfo ui = new UserInfo(activeChar);
-        sendPacket(ui);
-
-        HennaInfo hi = new HennaInfo(activeChar);
-        sendPacket(hi);
-        
         FriendList fl = new FriendList(activeChar);
         sendPacket(fl);
-        
-        ItemList il = new ItemList(activeChar, false);
-        sendPacket(il);
 
-        ShortCutInit sci = new ShortCutInit(activeChar);
-        sendPacket(sci);
-        
-        //ClientSetTime cst = new ClientSetTime();
-        //sendPacket(cst);
-                
         SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
         sendPacket(sm);
 
@@ -346,7 +357,6 @@ public class EnterWorld extends L2GameClientPacket
              sendPacket(sm);
         }        
 
-		Quest.playerEnter(activeChar);
 		
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);
 		
@@ -404,6 +414,8 @@ public class EnterWorld extends L2GameClientPacket
         
         activeChar.onPlayerEnter();
         
+        sendPacket(new SkillCoolTime(activeChar));
+
         if (Olympiad.getInstance().playerInStadia(activeChar))
         {
             activeChar.teleToLocation(TeleportWhereType.Town);

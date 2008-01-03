@@ -104,18 +104,18 @@ public class BaiumManager
     protected List<L2NpcInstance> _monsters = new FastList<L2NpcInstance>();
 
     // tasks.
-    protected Future _cubeSpawnTask = null;
-    protected Future _monsterSpawnTask = null;
-    protected Future _intervalEndTask = null;
-    protected Future _activityTimeEndTask = null;
-    protected Future _onPlayersAnnihilatedTask = null;
-    protected Future _socialTask = null;
-    protected Future _mobiliseTask = null;
-    protected Future _moveAtRandomTask = null;
-    protected Future _socialTask2 = null;
-    protected Future _recallPcTask = null;
-    protected Future _killPcTask = null;
-    protected Future _callAngelTask = null;
+    protected Future<?> _cubeSpawnTask = null;
+    protected Future<?> _monsterSpawnTask = null;
+    protected Future<?> _intervalEndTask = null;
+    protected Future<?> _activityTimeEndTask = null;
+    protected Future<?> _onPlayersAnnihilatedTask = null;
+    protected Future<?> _socialTask = null;
+    protected Future<?> _mobiliseTask = null;
+    protected Future<?> _moveAtRandomTask = null;
+    protected Future<?> _socialTask2 = null;
+    protected Future<?> _recallPcTask = null;
+    protected Future<?> _killPcTask = null;
+    protected Future<?> _callAngelTask = null;
 
     // status in lair.
     protected GrandBossState _State = new GrandBossState(29020);

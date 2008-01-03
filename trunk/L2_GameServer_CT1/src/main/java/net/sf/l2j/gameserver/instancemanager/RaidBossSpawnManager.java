@@ -53,7 +53,7 @@ public class RaidBossSpawnManager {
     protected static FastMap<Integer, L2RaidBossInstance> _bosses;
     protected static FastMap<Integer, L2Spawn> _spawns;
     protected static FastMap<Integer, StatsSet> _storedInfo;
-    protected static FastMap<Integer, ScheduledFuture> _schedules;
+    protected static FastMap<Integer, ScheduledFuture<?>> _schedules;
     
     public static enum StatusEnum {
         ALIVE,
@@ -64,7 +64,7 @@ public class RaidBossSpawnManager {
     public RaidBossSpawnManager()
     {
         _bosses = new FastMap<Integer, L2RaidBossInstance>();
-        _schedules = new FastMap<Integer,ScheduledFuture>();
+        _schedules = new FastMap<Integer,ScheduledFuture<?>>();
         _storedInfo = new FastMap<Integer, StatsSet>();
         _spawns = new FastMap<Integer, L2Spawn>();
         
@@ -198,7 +198,7 @@ public class RaidBossSpawnManager {
             
             _log.info("RaidBossSpawnManager: Updated " + boss.getName() + " respawn time to " + respawnTime);
             
-            ScheduledFuture futureSpawn;
+            ScheduledFuture<?> futureSpawn;
             futureSpawn = ThreadPoolManager.getInstance().scheduleGeneral(new spawnSchedule(boss.getNpcId()), respawn_delay);
             
             _schedules.put(boss.getNpcId(), futureSpawn);
@@ -255,7 +255,7 @@ public class RaidBossSpawnManager {
         }
         else
         {
-            ScheduledFuture futureSpawn;
+            ScheduledFuture<?> futureSpawn;
             long spawnTime = respawnTime - Calendar.getInstance().getTimeInMillis();
             
             futureSpawn = ThreadPoolManager.getInstance().scheduleGeneral(new spawnSchedule(bossId), spawnTime);
@@ -312,7 +312,7 @@ public class RaidBossSpawnManager {
         
         if (_schedules.containsKey(bossId))
         {
-            ScheduledFuture f = _schedules.get(bossId);
+            ScheduledFuture<?> f = _schedules.get(bossId);
             f.cancel(true);
             _schedules.remove(bossId);
         }
@@ -452,7 +452,7 @@ public class RaidBossSpawnManager {
         {
             for (Integer bossId : _schedules.keySet())
             {
-                ScheduledFuture f = _schedules.get(bossId);
+                ScheduledFuture<?> f = _schedules.get(bossId);
                 f.cancel(true);
             }
         }

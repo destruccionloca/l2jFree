@@ -609,7 +609,7 @@ public abstract class L2Character extends L2Object
 			// Call this function for further checks in the short future (next time we either keep falling, or finalize the fall)
 			// This "next time" check is a rough estimate on how much time is needed to calculate the next check, and it is based on the current fall height.
 			CheckFalling cf = new CheckFalling(fallHeight);
-			Future task = ThreadPoolManager.getInstance().scheduleGeneral(cf, Math.min(1200, moveChangeZ));
+			Future<?> task = ThreadPoolManager.getInstance().scheduleGeneral(cf, Math.min(1200, moveChangeZ));
 			cf.setTask(task);
 			
 			// Value returned but not currently used. Maybe useful for future features.
@@ -729,15 +729,15 @@ public abstract class L2Character extends L2Object
 	 */
 	public class CheckFalling implements Runnable
 	{
-		private int		_fallHeight;
-		private Future	_task;
+		private int			_fallHeight;
+		private Future<?>	_task;
 		
 		public CheckFalling(int fallHeight)
 		{
 			_fallHeight = fallHeight;
 		}
 		
-		public void setTask(Future task)
+		public void setTask(Future<?> task)
 		{
 			_task = task;
 		}
@@ -4027,7 +4027,7 @@ public abstract class L2Character extends L2Object
 	protected L2CharacterAI				_ai;
 	
 	/** Future Skill Cast */
-	protected Future					_skillCast;
+	protected Future<?>					_skillCast;
 	
 	/** Char Coords from Client */
 	private int							_clientX;
@@ -6929,7 +6929,7 @@ public abstract class L2Character extends L2Object
 		return 1;
 	}
 	
-	public final void setSkillCast(Future newSkillCast)
+	public final void setSkillCast(Future<?> newSkillCast)
 	{
 		_skillCast = newSkillCast;
 	}
@@ -6941,7 +6941,7 @@ public abstract class L2Character extends L2Object
 		// _castInterruptTime = newSkillCastEndTime-12;
 	}
 	
-	private Future	_PvPRegTask;
+	private Future<?> _PvPRegTask;
 	
 	private long	_pvpFlagLasts;
 	

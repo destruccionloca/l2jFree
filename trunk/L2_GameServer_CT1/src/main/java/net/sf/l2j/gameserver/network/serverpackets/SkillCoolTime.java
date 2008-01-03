@@ -17,41 +17,23 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import java.util.Collection;
+
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.TimeStamp;
+
 /**
- * thx red rabbit
+ *
+ * @author  KenM
  */
-public final class ExBasicActionList extends L2GameServerPacket
+public class SkillCoolTime extends L2GameServerPacket
 {
-    private static final String _S__FE_5E_EXBASICACTIONLIST = "[S] FE:5F ExBasicActionList";
+    public Collection<TimeStamp> _reuseTimeStamps;
     
-    private final int[] _actionIds;
-    
-    public static final ExBasicActionList DEFAULT_ACTION_LIST = new ExBasicActionList();
-    
-    private ExBasicActionList()
+    public SkillCoolTime(L2PcInstance cha)
     {
-        this(ExBasicActionList.getDefaultActionList());
+        _reuseTimeStamps = cha.getReuseTimeStamps();
     }
-    
-    public static int[] getDefaultActionList()
-    {
-        int[] actionIds = new int[60 + 1 + 46];
-        for (int i = 0; i < actionIds.length; i++)
-        {
-            actionIds[i] = 0 + i;
-        }
-        for (int i = 1000; i < 1046; i++)
-        {
-            actionIds[i - 1000 + 60] = i;
-        }
-        return actionIds;
-    }
-    
-    public ExBasicActionList(int... actionIds)
-    {
-        _actionIds = actionIds;
-    }
-    
     
     /**
      * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
@@ -59,7 +41,7 @@ public final class ExBasicActionList extends L2GameServerPacket
     @Override
     public String getType()
     {
-        return _S__FE_5E_EXBASICACTIONLIST;
+        return "[S] C7 SkillCoolTime";
     }
 
     /**
@@ -68,12 +50,14 @@ public final class ExBasicActionList extends L2GameServerPacket
     @Override
     protected void writeImpl()
     {
-        writeC(0xfe);
-        writeH(0x5f);
-        writeD(_actionIds.length);
-        for (int i = 0; i < _actionIds.length; i++)
+        writeD(_reuseTimeStamps.size()); // list size
+        for (TimeStamp ts : _reuseTimeStamps)
         {
-            writeD(_actionIds[i]);
+            writeD(ts.getSkill());
+            writeD(0x00);
+            writeD((int) ts.getReuse());
+            writeD((int) ts.getRemaining());
         }
     }
+    
 }

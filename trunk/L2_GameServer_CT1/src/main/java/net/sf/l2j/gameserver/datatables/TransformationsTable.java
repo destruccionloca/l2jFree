@@ -165,14 +165,6 @@ public class TransformationsTable
 		{
 		}
 		
-		try
-		{
-			lnr.close();
-		}
-		catch (Exception exception2)
-		{
-		}
-		
 		_log.info("TransformationsTable: Loaded " + transforms.size() + " transforms.");
 		return;
 	}

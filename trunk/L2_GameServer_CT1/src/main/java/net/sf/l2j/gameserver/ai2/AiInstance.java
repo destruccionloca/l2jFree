@@ -121,9 +121,11 @@ public class AiInstance
 	
 	public void triggerEvent(AiEvent event, AiParameters aiParams)
 	{
+		if(aiParams.isEventInhibited(event.getType()))
+			return;
+		boolean restart = false;
 		synchronized(aiParams)
 		{
-			boolean restart = false;
 			// if there was no events in the queue start processing events after we add them.
 			if(!aiParams.hasEvents())
 			{

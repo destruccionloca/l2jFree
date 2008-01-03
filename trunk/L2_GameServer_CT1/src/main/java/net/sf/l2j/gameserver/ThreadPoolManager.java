@@ -124,7 +124,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		_aiScheduledThreadPool = new ScheduledThreadPoolExecutor(Config.AI_MAX_THREAD, new PriorityThreadFactory("AISTPool", Thread.NORM_PRIORITY));
 	}
 	
-	public ScheduledFuture scheduleEffect(Runnable r, long delay)
+	public ScheduledFuture<?> scheduleEffect(Runnable r, long delay)
 	{
 		try
 		{
@@ -138,7 +138,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		}
 	}
 	
-	public ScheduledFuture scheduleEffectAtFixedRate(Runnable r, long initial, long delay)
+	public ScheduledFuture<?> scheduleEffectAtFixedRate(Runnable r, long initial, long delay)
 	{
 		try
 		{
@@ -154,7 +154,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		}
 	}
 	
-	public ScheduledFuture scheduleGeneral(Runnable r, long delay)
+	public ScheduledFuture<?> scheduleGeneral(Runnable r, long delay)
 	{
 		try
 		{
@@ -168,7 +168,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		}
 	}
 	
-	public ScheduledFuture scheduleGeneralAtFixedRate(Runnable r, long initial, long delay)
+	public ScheduledFuture<?> scheduleGeneralAtFixedRate(Runnable r, long initial, long delay)
 	{
 		try
 		{
@@ -184,7 +184,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		}
 	}
 	
-	public ScheduledFuture scheduleAi(Runnable r, long delay)
+	public ScheduledFuture<?> scheduleAi(Runnable r, long delay)
 	{
 		try
 		{
@@ -198,7 +198,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 		}
 	}
 	
-	public ScheduledFuture scheduleAiAtFixedRate(Runnable r, long initial, long delay)
+	public ScheduledFuture<?> scheduleAiAtFixedRate(Runnable r, long initial, long delay)
 	{
 		try
 		{

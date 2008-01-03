@@ -18,6 +18,7 @@
  */
 package net.sf.l2j.gameserver.ai2;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.PriorityBlockingQueue;
@@ -34,6 +35,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 public class AiParameters
 {
 	private Queue<AiEvent> _eventQueue;
+	private EnumSet<AiEventType> _inhibitions;
 	private L2NpcInstance _actor;
 	private List<Hated> _hated;
 	private List<Liked> _liked;
@@ -75,6 +77,7 @@ public class AiParameters
 		_hated = new FastList<Hated>();
 		_liked = new FastList<Liked>();
 		_actor = actor;
+		_inhibitions = EnumSet.noneOf(AiEventType.class);
 	}
 
 	/**
@@ -128,6 +131,25 @@ public class AiParameters
 		_hated.clear();
 		_liked.clear();
 		_eventQueue.clear();
+		_inhibitions.clear();
 	}
-	
+
+	public void inhibit(AiEventType type)
+	{
+		_inhibitions.add(type);
+	}
+
+	public void deInhibit(AiEventType type)
+	{
+		_inhibitions.remove(type);
+	}
+
+	/**
+	 * @param type
+	 * @return
+	 */
+	public boolean isEventInhibited(AiEventType type)
+	{
+		return _inhibitions.contains(type);
+	}
 }

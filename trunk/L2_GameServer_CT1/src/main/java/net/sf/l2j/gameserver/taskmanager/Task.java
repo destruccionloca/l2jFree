@@ -39,7 +39,7 @@ public abstract class Task
             _log.debug("Task" + getName() + " inializate");
     }
     
-    public ScheduledFuture launchSpecial(ExecutedTask instance)
+    public ScheduledFuture<?> launchSpecial(ExecutedTask instance)
     {
         return null;
     }

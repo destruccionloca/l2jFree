@@ -48,9 +48,9 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 
     protected static Map<Integer,Integer> _hallGateKeepers = new FastMap<Integer,Integer>();
 
-    protected Future _closeTask = null;
-    protected Future _spawnNextMysteriousBoxTask = null;
-    protected Future _spawnMonsterTask = null;
+    protected Future<?> _closeTask = null;
+    protected Future<?> _spawnNextMysteriousBoxTask = null;
+    protected Future<?> _spawnMonsterTask = null;
     
     private final static String HTML_FILE_PATH = "data/html/SepulcherNpc/";
     

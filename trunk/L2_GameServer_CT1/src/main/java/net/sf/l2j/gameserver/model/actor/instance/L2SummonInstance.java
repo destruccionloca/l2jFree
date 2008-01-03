@@ -52,8 +52,8 @@ public class L2SummonInstance extends L2Summon
 
     private static final int SUMMON_LIFETIME_INTERVAL = 1200000; // 20 minutes
     
-    private static Future _summonLifeTask;
-    private static Future _summonConsumeTask;
+    private static Future<?> _summonLifeTask;
+    private static Future<?> _summonConsumeTask;
 
     private static final int SUMMON_LIFETIME_REFRESH_INTERVAL = 30000; // 30 seconds
     

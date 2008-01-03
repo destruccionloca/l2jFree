@@ -321,7 +321,7 @@ public class AutoChatHandler implements SpawnListener
         private boolean _isActive;
 
         private FastMap<Integer, AutoChatDefinition> _chatDefinitions = new FastMap<Integer, AutoChatDefinition>();
-        protected ScheduledFuture _chatTask;
+        protected ScheduledFuture<?> _chatTask;
 
         protected AutoChatInstance(int npcId, String[] chatTexts, long chatDelay, int chatRange, boolean chatRandom, boolean isGlobal)
         {

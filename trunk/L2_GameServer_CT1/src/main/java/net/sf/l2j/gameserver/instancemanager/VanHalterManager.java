@@ -99,15 +99,15 @@ public class VanHalterManager
     protected L2RaidBossInstance _vanHalter = null;
     
     // Task
-    protected Future _MovieTask = null;
-    protected Future _CloseDoorOfAltarTask = null;
-    protected Future _OpenDoorOfAltarTask = null;
-    protected Future _LockUpDoorOfAltarTask = null;
-    protected Future _CallRoyalGuardHelperTask = null;
-    protected Future _TimeUpTask = null;
-    protected Future _IntervalTask = null;
-    protected Future _HalterEscapeTask = null;
-    protected Future _SetBleedTask = null;
+    protected Future<?> _MovieTask = null;
+    protected Future<?> _CloseDoorOfAltarTask = null;
+    protected Future<?> _OpenDoorOfAltarTask = null;
+    protected Future<?> _LockUpDoorOfAltarTask = null;
+    protected Future<?> _CallRoyalGuardHelperTask = null;
+    protected Future<?> _TimeUpTask = null;
+    protected Future<?> _IntervalTask = null;
+    protected Future<?> _HalterEscapeTask = null;
+    protected Future<?> _SetBleedTask = null;
     
     // state of High Priestess van Halter
     boolean _isLocked = false;
