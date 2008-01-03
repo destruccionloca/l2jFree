@@ -29,12 +29,12 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.3.4.3 $ $Date: 2005/03/27 15:29:57 $
  */
-public class CharMoveToLocation extends L2GameServerPacket
+public class MoveToLocation extends L2GameServerPacket
 {
-	private static final String _S__01_CHARMOVETOLOCATION = "[S] 2f CharMoveToLocation";
+	private static final String _S__01_CHARMOVETOLOCATION = "[S] 01 CharMoveToLocation";
 	private int _charObjId, _x, _y, _z, _xDst, _yDst, _zDst;
 	
-	public CharMoveToLocation(L2Character cha)
+	public MoveToLocation(L2Character cha)
 	{
 		_charObjId = cha.getObjectId();
 		_x = cha.getX();

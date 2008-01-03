@@ -34,8 +34,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStart;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStop;
-import net.sf.l2j.gameserver.network.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.network.serverpackets.Die;
+import net.sf.l2j.gameserver.network.serverpackets.MoveToLocation;
 import net.sf.l2j.gameserver.network.serverpackets.MoveToLocationInVehicle;
 import net.sf.l2j.gameserver.network.serverpackets.MoveToPawn;
 import net.sf.l2j.gameserver.network.serverpackets.StopMove;
@@ -530,19 +530,19 @@ abstract class AbstractAI implements Ctrl
                 return;
             }
 
-            // Send a Server->Client packet MoveToPawn/CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
+            // Send a Server->Client packet MoveToPawn/MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
             if (pawn instanceof L2Character)
             {
                 if(_actor.isOnGeodataPath())
                 {
-                    _actor.broadcastPacket(new CharMoveToLocation(_actor));
+                    _actor.broadcastPacket(new MoveToLocation(_actor));
                     _clientMovingToPawnOffset = 0;
                 }
                 else if (sendPacket) // don't repeat unnecessarily
                     _actor.broadcastPacket(new MoveToPawn(_actor, (L2Character) pawn, offset));
             }
             else
-                _actor.broadcastPacket(new CharMoveToLocation(_actor));
+                _actor.broadcastPacket(new MoveToLocation(_actor));
         }
         else
         {
@@ -551,7 +551,7 @@ abstract class AbstractAI implements Ctrl
     }
 
     /**
-     * Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation <I>(broadcast)</I>.<BR><BR>
+     * Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation <I>(broadcast)</I>.<BR><BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
      *
@@ -568,8 +568,8 @@ abstract class AbstractAI implements Ctrl
             // Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
             _accessor.moveTo(x, y, z);
 
-            // Send a Server->Client packet CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
-            CharMoveToLocation msg = new CharMoveToLocation(_actor);
+            // Send a Server->Client packet MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
+            MoveToLocation msg = new MoveToLocation(_actor);
             _actor.broadcastPacket(msg);
 
         }
@@ -591,8 +591,8 @@ abstract class AbstractAI implements Ctrl
              // Calculate movement data for a move to location action and add the actor to movingObjects of GameTimeController
              _accessor.moveTo(((L2PcInstance)_actor).getBoat().getX() - destination.x,((L2PcInstance)_actor).getBoat().getY()- destination.y,((L2PcInstance)_actor).getBoat().getZ() - destination.z);
              */
-            // Send a Server->Client packet CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
-            //CharMoveToLocation msg = new CharMoveToLocation(_actor);
+            // Send a Server->Client packet MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
+            //CharMoveToLocation msg = new MoveToLocation(_actor);
             if (((L2PcInstance) _actor).getBoat() != null)
             {
                 MoveToLocationInVehicle msg = new MoveToLocationInVehicle(_actor, destination, origin);
@@ -725,7 +725,7 @@ abstract class AbstractAI implements Ctrl
     }
 
     /**
-     * Update the state of this actor client side by sending Server->Client packet MoveToPawn/CharMoveToLocation and AutoAttackStart to the L2PcInstance player.<BR><BR>
+     * Update the state of this actor client side by sending Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance player.<BR><BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : Low level function, used by AI subclasses</B></FONT><BR><BR>
      *
@@ -744,8 +744,8 @@ abstract class AbstractAI implements Ctrl
             }
             else
             {
-                // Send a Server->Client packet CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
-                CharMoveToLocation msg = new CharMoveToLocation(_actor);
+                // Send a Server->Client packet MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
+                MoveToLocation msg = new MoveToLocation(_actor);
                 player.sendPacket(msg);
             }
         }

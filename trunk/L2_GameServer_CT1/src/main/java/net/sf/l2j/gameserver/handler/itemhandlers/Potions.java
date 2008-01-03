@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -160,7 +160,7 @@ public class Potions implements IItemHandler
         	case 5283: // Rice Cake, xml: 2136
         		if (!isUseable(activeChar, L2Effect.EffectType.HEAL_OVER_TIME, item, 2136))
         			return;
- 				MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2136, 1, 1, 0);
+ 				MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2136, 1, 1, 0);
 	            activeChar.broadcastPacket(MSU);
 	            res= usePotion(activeChar, 2136, 1);
 	            break;

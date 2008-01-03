@@ -30,7 +30,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -147,7 +147,7 @@ public class AdminTest implements IAdminCommandHandler
             else
                 target = (L2Character)caster.getTarget();
 
-            caster.broadcastPacket(new MagicSkillUser(caster, target, skillId, skillLevel, skillTime, 0));
+            caster.broadcastPacket(new MagicSkillUse(caster, target, skillId, skillLevel, skillTime, 0));
             activeChar.sendMessage("Did a cast for skill: "+skillId+", level: "+skillLevel);
         }
         else if (cmd.equals("admin_mp"))

@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
@@ -143,7 +143,7 @@ public class ScrollOfEscape implements IItemHandler
 		activeChar.disableAllSkills();
 
 		L2Skill skill = SkillTable.getInstance().getInfo(escapeSkill, 1);
-		MagicSkillUser msu = new MagicSkillUser(activeChar, escapeSkill, 1, skill.getHitTime(), 0);
+		MagicSkillUse msu = new MagicSkillUse(activeChar, escapeSkill, 1, skill.getHitTime(), 0);
 		activeChar.broadcastPacket(msu);
 		SetupGauge sg = new SetupGauge(0, skill.getHitTime());
 		activeChar.sendPacket(sg);

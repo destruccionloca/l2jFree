@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeItemMakeInfo;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeShopItemInfo;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
@@ -248,7 +248,7 @@ public class RecipeItemMaker implements Runnable
                         * GameTimeController.MILLIS_IN_TICK;
                 
                 //FIXME: please fix this packet to show crafting animation (somebody)
-                MagicSkillUser msk = new MagicSkillUser(player, skillId, skillLevel, delay, 0);
+                MagicSkillUse msk = new MagicSkillUse(player, skillId, skillLevel, delay, 0);
                 player.broadcastPacket(msk);
                 
                 player.sendPacket(new SetupGauge(0, delay));

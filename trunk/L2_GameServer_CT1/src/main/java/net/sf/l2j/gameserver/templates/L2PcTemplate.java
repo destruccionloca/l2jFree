@@ -311,27 +311,27 @@ public class L2PcTemplate extends L2CharTemplate {
     
     public int getBaseFallSafeHeight(boolean female)
     {
-    	if (classId.getRace() == Race.darkelf || classId.getRace() == Race.elf)
+    	if (classId.getRace() == Race.Darkelf || classId.getRace() == Race.Elf)
     	{
     		return (classId.isMage()) ? ((female) ? 330 : 300) : ((female) ? 380 : 350); 
     	}
 
-    	else if (classId.getRace() == Race.dwarf)
+    	else if (classId.getRace() == Race.Dwarf)
     	{
     		return ((female) ? 200 : 180); 
     	}
  	
-    	else if (classId.getRace() == Race.human)
+    	else if (classId.getRace() == Race.Human)
     	{
     		return (classId.isMage()) ? ((female) ? 220 : 200) : ((female) ? 270 : 250);
     	}
     	
-    	else if (classId.getRace() == Race.orc)
+    	else if (classId.getRace() == Race.Orc)
     	{
     		return (classId.isMage()) ? ((female) ? 280 : 250) : ((female) ? 220 : 200);
     	}
     		
-    	return Config.ALT_MINIMUM_FALL_HEIGHT;    	
+    	return Config.ALT_MINIMUM_FALL_HEIGHT;
     	
     	/**
     	  	Dark Elf Fighter F 380 

@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.L2Character;
  * 
  * @version $Revision: 1.4.2.1.2.4 $ $Date: 2005/03/27 15:29:39 $
  */
-public class MagicSkillUser extends L2GameServerPacket
+public class MagicSkillUse extends L2GameServerPacket
 {
 	private static final String _S__5A_MAGICSKILLUSER = "[S] 5A MagicSkillUser";
 	private int _targetId;
@@ -41,7 +41,7 @@ public class MagicSkillUser extends L2GameServerPacket
 	private int _reuseDelay;
 	private int _charObjId, _x, _y, _z;
 	
-	public MagicSkillUser(L2Character cha, L2Character target, int skillId, int skillLevel, int skillTime, int reuseDelay)
+	public MagicSkillUse(L2Character cha, L2Character target, int skillId, int skillLevel, int skillTime, int reuseDelay)
 	{
 		_charObjId = cha.getObjectId();
 		_targetId = target.getObjectId();
@@ -54,7 +54,7 @@ public class MagicSkillUser extends L2GameServerPacket
 		_z = cha.getZ();
 	}
 	
-	public MagicSkillUser(L2Character cha, int skillId, int skillLevel, int skillTime, int reuseDelay)
+	public MagicSkillUse(L2Character cha, int skillId, int skillLevel, int skillTime, int reuseDelay)
 	{
 		_charObjId = cha.getObjectId();
 		_targetId = cha.getTargetId();

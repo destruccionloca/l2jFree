@@ -1,4 +1,5 @@
-/* This program is free software; you can redistribute it and/or modify
+/*
+ * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2, or (at your option)
  * any later version.
@@ -17,34 +18,57 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+
+import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.util.Util;
 
 /**
- * @author zabbix
- * Lets drink to code!
+ * Format: c dddd
  * 
- * Unknown Packet:ca
- * 0000: 45 00 01 00 1e 37 a2 f5 00 00 00 00 00 00 00 00    E....7..........
+ * @author  KenM
  */
 
 public class GameGuardReply extends L2GameClientPacket
 {
     private static final String _C__CA_GAMEGUARDREPLY = "[C] CA GameGuardReply";
 
+    private static final byte[] VALID =
+    {
+        (byte) 0x88, 0x40, 0x1c, (byte) 0xa7, (byte) 0x83, 0x42, (byte) 0xe9, 0x15, 
+        (byte) 0xde, (byte) 0xc3, 0x68, (byte) 0xf6, 0x2d, 0x23, (byte) 0xf1, 0x3f, 
+        (byte) 0xee, 0x68, 0x5b, (byte) 0xc5, 
+    };
+    
+    private byte[] _reply = new byte[8];
+    
     @Override
     protected void readImpl()
-    {   
+    {
+        readB(_reply, 0, 4);
+        readD();
+        readB(_reply, 4, 4);
     }
 
     @Override
     protected void runImpl()
     {
-        L2PcInstance activeChar = getClient().getActiveChar();
-        
-        if(activeChar == null)
-            return;
-        
-        getClient().setGameGuardOk(true);
+        L2GameClient client = this.getClient();
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance( "SHA" );
+            byte[] result = md.digest(_reply);
+            if (Arrays.equals(result, VALID))
+            {
+                client.setGameGuardOk(true);
+            }
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override

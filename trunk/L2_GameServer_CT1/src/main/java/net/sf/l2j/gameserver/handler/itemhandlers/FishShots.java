@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
@@ -92,7 +92,7 @@ public class FishShots implements IItemHandler
 
         //activeChar.sendPacket(new SystemMessage(SystemMessageId.ENABLED_SPIRITSHOT));
         
-        MagicSkillUser MSU = new MagicSkillUser(activeChar, SKILL_IDS[grade],1,0,0); 
+        MagicSkillUse MSU = new MagicSkillUse(activeChar, SKILL_IDS[grade],1,0,0); 
         Broadcast.toSelfAndKnownPlayers(activeChar, MSU);
         activeChar.setTarget(oldTarget);        
     } 

@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.FloodProtector;
 
@@ -59,7 +59,7 @@ public class Firework implements IItemHandler
          */
         if (itemId == 6403) // elven_firecracker, xml: 2023
         {
-            MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2023, 1, 1, 0);
+            MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2023, 1, 1, 0);
             activeChar.sendPacket(MSU);
             activeChar.broadcastPacket(MSU);
             useFw(activeChar, 2023, 1);
@@ -70,7 +70,7 @@ public class Firework implements IItemHandler
          */
         else if (itemId == 6406) // firework, xml: 2024
         {
-            MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2024, 1, 1, 0);
+            MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2024, 1, 1, 0);
             activeChar.sendPacket(MSU);
             activeChar.broadcastPacket(MSU);
             useFw(activeChar, 2024, 1);
@@ -81,7 +81,7 @@ public class Firework implements IItemHandler
          */
         else if (itemId == 6407) // large_firework, xml: 2025
         {
-            MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2025, 1, 1, 0);
+            MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2025, 1, 1, 0);
             activeChar.sendPacket(MSU);
             activeChar.broadcastPacket(MSU);
             useFw(activeChar, 2025, 1);

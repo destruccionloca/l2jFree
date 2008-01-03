@@ -87,7 +87,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ExShowVariationCancelWindow;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowVariationMakeWindow;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
@@ -1000,8 +1000,8 @@ public class L2NpcInstance extends L2Character
 
                             int level = summon.getLevel();
                             int chance = (level-54)*10;
-                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUser(spawn.getLastSpawn(), spawn.getLastSpawn(), 1034, 1, 1, 1));
-                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUser(spawn.getLastSpawn(), summon, 1034, 1, 1, 1));
+                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUse(spawn.getLastSpawn(), spawn.getLastSpawn(), 1034, 1, 1, 1));
+                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUse(spawn.getLastSpawn(), summon, 1034, 1, 1, 1));
 
                             if(Rnd.nextInt(100)<chance) 
                             {
@@ -1086,12 +1086,12 @@ public class L2NpcInstance extends L2Character
                             spawn.getLastSpawn().decayMe();
                             spawn.getLastSpawn().spawnMe(spawn.getLastSpawn().getX(),spawn.getLastSpawn().getY(),spawn.getLastSpawn().getZ());
                             
-                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUser(spawn.getLastSpawn(), summon, 297, 1, 1, 1));
+                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUse(spawn.getLastSpawn(), summon, 297, 1, 1, 1));
                             
                             int level = summon.getLevel();
                             int chance = (level-34)*10;
-                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUser(spawn.getLastSpawn(), spawn.getLastSpawn(), 1034, 1, 1, 1));
-                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUser(spawn.getLastSpawn(), summon, 1034, 1, 1, 1));
+                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUse(spawn.getLastSpawn(), spawn.getLastSpawn(), 1034, 1, 1, 1));
+                            spawn.getLastSpawn().broadcastPacket(new MagicSkillUse(spawn.getLastSpawn(), summon, 1034, 1, 1, 1));
                             
                             if(Rnd.nextInt(100)<chance) 
                             {
@@ -1459,7 +1459,7 @@ public class L2NpcInstance extends L2Character
                         if (_buff.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
                         {
                             // Ignore skill cast time, using 100ms for NPC buffer's animation
-                            MagicSkillUser msu = new MagicSkillUser(player, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
+                            MagicSkillUse msu = new MagicSkillUse(player, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
                             broadcastPacket(msu);
                             
                             for (L2Effect effect : _buff.getSkill().getEffectsSelf(player))
@@ -1474,7 +1474,7 @@ public class L2NpcInstance extends L2Character
                         }
                         else
                         {   // Ignore skill cast time, using 100ms for NPC buffer's animation
-                            MagicSkillUser msu = new MagicSkillUser(this, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
+                            MagicSkillUse msu = new MagicSkillUse(this, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
                             broadcastPacket(msu);
                         }
                         

@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
-import net.sf.l2j.gameserver.network.serverpackets.CharSelectInfo;
+import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
 
 public final class CharacterPrevState extends L2GameClientPacket
 {
@@ -33,7 +33,7 @@ public final class CharacterPrevState extends L2GameClientPacket
 
     protected void runImpl()
     {
-        CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
+        CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
         sendPacket(cl);
     }
 

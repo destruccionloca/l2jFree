@@ -18,7 +18,7 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
-import net.sf.l2j.gameserver.network.serverpackets.CharSelectInfo;
+import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
 
 /**
  * This class ...
@@ -51,7 +51,7 @@ public class CharacterRestore extends L2GameClientPacket
 	    {
 		getClient().markRestoredChar(_charSlot);
 	    } catch (Exception e){}
-		CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
+		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
 		sendPacket(cl);
 		getClient().setCharSelection(cl.getCharInfo());
 	}

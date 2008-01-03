@@ -295,7 +295,7 @@ public class RequestEnchantItem extends L2GameClientPacket
                         && item.getEnchantLevel() < Config.ENCHANT_SAFE_MAX_FULL))
             chance = 100;
         
-        else if(activeChar.getRace() == Race.dwarf && Config.ENCHANT_DWARF_SYSTEM)
+        else if(activeChar.getRace() == Race.Dwarf && Config.ENCHANT_DWARF_SYSTEM)
         {
             int _charlevel = activeChar.getLevel();
             int _itemlevel = item.getEnchantLevel();

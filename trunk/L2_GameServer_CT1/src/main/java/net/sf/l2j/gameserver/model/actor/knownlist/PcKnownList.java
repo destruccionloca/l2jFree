@@ -69,20 +69,20 @@ public class PcKnownList extends PlayableKnownList
      *
      * <B><U> object is a L2DoorInstance </U> :</B><BR><BR>
      * <li> Send Server-Client Packets DoorInfo and DoorStatusUpdate to the L2PcInstance </li>
-     * <li> Send Server->Client packet MoveToPawn/CharMoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
+     * <li> Send Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
      *
      * <B><U> object is a L2NpcInstance </U> :</B><BR><BR>
      * <li> Send Server-Client Packet NpcInfo to the L2PcInstance </li>
-     * <li> Send Server->Client packet MoveToPawn/CharMoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
+     * <li> Send Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
      *
      * <B><U> object is a L2Summon </U> :</B><BR><BR>
      * <li> Send Server-Client Packet NpcInfo/PetItemList (if the L2PcInstance is the owner) to the L2PcInstance </li>
-     * <li> Send Server->Client packet MoveToPawn/CharMoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
+     * <li> Send Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
      *
      * <B><U> object is a L2PcInstance </U> :</B><BR><BR>
      * <li> Send Server-Client Packet CharInfo to the L2PcInstance </li>
      * <li> If the object has a private store, Send Server-Client Packet PrivateStoreMsgSell to the L2PcInstance </li>
-     * <li> Send Server->Client packet MoveToPawn/CharMoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
+     * <li> Send Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance </li><BR><BR>
      *
      * @param object The L2Object to add to _knownObjects and _knownPlayer
      * @param dropper The L2Character who dropped the L2Object
@@ -216,7 +216,7 @@ public class PcKnownList extends PlayableKnownList
 
             if (object instanceof L2Character)
             {
-                // Update the state of the L2Character object client side by sending Server->Client packet MoveToPawn/CharMoveToLocation and AutoAttackStart to the L2PcInstance
+                // Update the state of the L2Character object client side by sending Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance
                 L2Character obj = (L2Character) object;
                 obj.getAI().describeStateToPlayer(getActiveChar());
             }

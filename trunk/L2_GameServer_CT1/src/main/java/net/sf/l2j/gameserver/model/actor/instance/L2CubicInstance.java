@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -220,7 +220,7 @@ public class L2CubicInstance
                                     skill.useSkill(_owner, targets);
                                 }
 
-                                MagicSkillUser msu = new MagicSkillUser(_owner,_target,skill.getId(),_level,0,0);
+                                MagicSkillUse msu = new MagicSkillUse(_owner,_target,skill.getId(),_level,0,0);
                                 _owner.broadcastPacket(msu);
                             }
                         }
@@ -319,7 +319,7 @@ public class L2CubicInstance
                             {
                                 skill.useSkill(_owner, targets);
                             }
-                            MagicSkillUser msu = new MagicSkillUser(_owner,target,skill.getId(),_level,0,0);
+                            MagicSkillUse msu = new MagicSkillUse(_owner,target,skill.getId(),_level,0,0);
                             _owner.broadcastPacket(msu);
                         }
                     }

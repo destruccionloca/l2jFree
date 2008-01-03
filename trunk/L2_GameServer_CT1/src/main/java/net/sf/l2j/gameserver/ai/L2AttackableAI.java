@@ -464,7 +464,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
                 x1 = ((L2MinionInstance)_actor).getLeader().getX() + Rnd.nextInt( (offset - 30) * 2 ) - ( offset - 30 );
                 y1 = ((L2MinionInstance)_actor).getLeader().getY() + Rnd.nextInt( (offset - 30) * 2 ) - ( offset - 30 );
                 z1 = ((L2MinionInstance)_actor).getLeader().getZ();
-                // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
+                // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation (broadcast)
                 moveTo(x1, y1, z1);
                 return;
             }
@@ -518,7 +518,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
             }
 
             //_log.config("Curent pos ("+getX()+", "+getY()+"), moving to ("+x1+", "+y1+").");
-            // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet CharMoveToLocation (broadcast)
+            // Move the actor to Location (x,y,z) server side AND client side by sending Server->Client packet MoveToLocation (broadcast)
             moveTo(x1, y1, z1);
             // [L2J_JP ADD]
             // following boss

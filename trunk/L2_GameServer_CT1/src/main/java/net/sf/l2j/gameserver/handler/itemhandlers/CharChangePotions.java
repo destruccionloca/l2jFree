@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 
 /**
@@ -79,6 +79,8 @@ public class CharChangePotions implements IItemHandler {
 			activeChar.getAppearance().setHairColor(2);
 			break;
 		case 5241:
+			if (activeChar.isKamaelic())
+				return;
 			activeChar.getAppearance().setHairColor(3);
 			break;
 		case 5242:
@@ -105,7 +107,7 @@ public class CharChangePotions implements IItemHandler {
 		}
 		
         // Create a summon effect!
-        MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, 2003, 1, 1, 0);
+        MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, 2003, 1, 1, 0);
         activeChar.broadcastPacket(MSU);
         
 		// Update the changed stat for the character in the DB.

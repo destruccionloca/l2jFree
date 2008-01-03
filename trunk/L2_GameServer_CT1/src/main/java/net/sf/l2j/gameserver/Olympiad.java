@@ -57,7 +57,7 @@ import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadUserInfoSpectator;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
@@ -2004,7 +2004,7 @@ public class Olympiad
 					
 					skill = SkillTable.getInstance().getInfo(1204, 2);
 					skill.getEffects(player, player);
-					player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 2, skill.getHitTime(), 0));
+					player.broadcastPacket(new MagicSkillUse(player, player, skill.getId(), 2, skill.getHitTime(), 0));
 					sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 					sm.addSkillName(1204);
 					player.sendPacket(sm);
@@ -2014,7 +2014,7 @@ public class Olympiad
 						// Haste Buff to Fighters
 						skill = SkillTable.getInstance().getInfo(1086, 1);
 						skill.getEffects(player, player);
-						player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getHitTime(), 0));
+						player.broadcastPacket(new MagicSkillUse(player, player, skill.getId(), 1, skill.getHitTime(), 0));
 						sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 						sm.addSkillName(1086);
 						player.sendPacket(sm);
@@ -2024,7 +2024,7 @@ public class Olympiad
 						// Acumen Buff to Mages
 						skill = SkillTable.getInstance().getInfo(1085, 1);
 						skill.getEffects(player, player);
-						player.broadcastPacket(new MagicSkillUser(player, player, skill.getId(), 1, skill.getHitTime(), 0));
+						player.broadcastPacket(new MagicSkillUse(player, player, skill.getId(), 1, skill.getHitTime(), 0));
 						sm = new SystemMessage(SystemMessageId.YOU_FEEL_S1_EFFECT);
 						sm.addSkillName(1085);
 						player.sendPacket(sm);

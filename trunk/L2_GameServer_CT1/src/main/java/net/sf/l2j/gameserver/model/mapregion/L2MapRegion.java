@@ -62,12 +62,12 @@ public class L2MapRegion
 		_area = area;
 		
 		// add restartpoints by id
-		_restarts.put(Race.human, restartId);
-		_restarts.put(Race.darkelf , restartId);
-		_restarts.put(Race.dwarf , restartId);
-		_restarts.put(Race.elf , restartId);
-		_restarts.put(Race.orc, restartId);
-		_restarts.put(Race.kamael, restartId);
+		_restarts.put(Race.Human, restartId);
+		_restarts.put(Race.Darkelf , restartId);
+		_restarts.put(Race.Dwarf , restartId);
+		_restarts.put(Race.Elf , restartId);
+		_restarts.put(Race.Orc, restartId);
+		_restarts.put(Race.Kamael, restartId);
 		
 		// set to AreaMapRegion
 		_specialRegion = false;
@@ -104,7 +104,7 @@ public class L2MapRegion
 			}
 			else if ("restart".equalsIgnoreCase(n.getNodeName()))
 			{
-				Race race = Race.human;
+				Race race = Race.Human;
 				int restartId = 0;
 				
     			Node d = n.getAttributes().getNamedItem("race");
@@ -131,7 +131,7 @@ public class L2MapRegion
 	
 	public int getRestartId()
 	{
-		return getRestartId(Race.human);
+		return getRestartId(Race.Human);
 	}
 	
 	public int[] getZ()

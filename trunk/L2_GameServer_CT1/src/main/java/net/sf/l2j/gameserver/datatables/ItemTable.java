@@ -611,29 +611,22 @@ public class ItemTable implements ItemTableMBean
         int highestId = 0;      
         
         // Get highest ID of item in armor FastMap, then in weapon FastMap, and finally in etcitem FastMap
-        for (Iterator<Integer> iter = _armors.keySet().iterator(); iter.hasNext();)
+        for (L2Armor item : _armors.values())
         {
-            Integer id = iter.next();
-            L2Armor item = _armors.get(id);
             if (item.getItemId() > highestId)
             {
                 highestId = item.getItemId();
             }
         }
-        for (Iterator<Integer> iter = _weapons.keySet().iterator(); iter.hasNext();)
+        for (L2Weapon item : _weapons.values())
         {
-            
-            Integer id = iter.next();
-            L2Weapon item = _weapons.get(id);
             if (item.getItemId() > highestId)
             {
                 highestId = item.getItemId();
             }
         }
-        for (Iterator<Integer> iter = _etcItems.keySet().iterator(); iter.hasNext();)
+        for (L2EtcItem item : _etcItems.values())
         {
-            Integer id = iter.next();
-            L2EtcItem item = _etcItems.get(id);
             if (item.getItemId() > highestId)
             {
                 highestId = item.getItemId();
@@ -645,30 +638,24 @@ public class ItemTable implements ItemTableMBean
         _allTemplates = new L2Item[highestId +1];
         
         // Insert armor item in Fast Look Up Table
-        for (Iterator<Integer> iter = _armors.keySet().iterator(); iter.hasNext();)
+        for (L2Armor item : _armors.values())
         {
-            Integer id = iter.next();
-            L2Armor item = _armors.get(id);
-            assert _allTemplates[id.intValue()] == null;
-            _allTemplates[id.intValue()] = item;
+            assert _allTemplates[item.getItemId()] == null;
+            _allTemplates[item.getItemId()] = item;
         }
 
         // Insert weapon item in Fast Look Up Table
-        for (Iterator<Integer> iter = _weapons.keySet().iterator(); iter.hasNext();)
+        for (L2Weapon item : _weapons.values())
         {
-            Integer id = iter.next();
-            L2Weapon item = _weapons.get(id);
-            assert _allTemplates[id.intValue()] == null;
-            _allTemplates[id.intValue()] = item;
+            assert _allTemplates[item.getItemId()] == null;
+            _allTemplates[item.getItemId()] = item;
         }
         
         // Insert etcItem item in Fast Look Up Table
-        for (Iterator<Integer> iter = _etcItems.keySet().iterator(); iter.hasNext();)
+        for (L2EtcItem item : _etcItems.values())
         {
-            Integer id = iter.next();
-            L2EtcItem item = _etcItems.get(id);
-            assert _allTemplates[id.intValue()] == null;
-            _allTemplates[id.intValue()] = item;
+            assert _allTemplates[item.getItemId()] == null;
+            _allTemplates[item.getItemId()] = item;
         }
     }
 

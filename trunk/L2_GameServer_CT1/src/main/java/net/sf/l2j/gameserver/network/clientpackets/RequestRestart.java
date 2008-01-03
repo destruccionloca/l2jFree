@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.CharSelectInfo;
+import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
 import net.sf.l2j.gameserver.network.serverpackets.RestartResponse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -175,7 +175,7 @@ public class RequestRestart extends L2GameClientPacket
         sendPacket(response);    
         
         // send char list
-        CharSelectInfo cl = new CharSelectInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
+        CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
         sendPacket(cl);
         getClient().setCharSelection(cl.getCharInfo());
     }

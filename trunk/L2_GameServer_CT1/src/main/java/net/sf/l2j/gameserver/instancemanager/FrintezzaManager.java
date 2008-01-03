@@ -49,7 +49,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -689,7 +689,7 @@ public class FrintezzaManager
 				case 6:
 					// show movie
 					showSocialActionMovie(frintezza, 240, 90, 3, 300, 6000, 0);
-					frintezza.broadcastPacket(new MagicSkillUser(frintezza, frintezza, 5006, 1, _intervalOfFrintezzaSongs, 0), 360000/* 600 */);
+					frintezza.broadcastPacket(new MagicSkillUse(frintezza, frintezza, 5006, 1, _intervalOfFrintezzaSongs, 0), 360000/* 600 */);
 					
 					// set next task.
 					s = new ScarletWeakSpawn(7);
@@ -956,7 +956,7 @@ public class FrintezzaManager
 			else if (song > 5)
 				song = 5;
 			
-			frintezza.broadcastPacket(new MagicSkillUser(frintezza, frintezza, 5007, song, _intervalOfFrintezzaSongs, 0), 10000);
+			frintezza.broadcastPacket(new MagicSkillUse(frintezza, frintezza, 5007, song, _intervalOfFrintezzaSongs, 0), 10000);
 			
 			int currentHp = (int) (frintezza.getStatus().getCurrentHp());
 			
@@ -1208,7 +1208,7 @@ public class FrintezzaManager
 					continue;
 				
 				// show the magic effect on the target - visual effect
-				((L2Character) target).broadcastPacket(new MagicSkillUser(frintezza, ((L2Character) target), 5008, _song, 2000, 0), 10000);
+				((L2Character) target).broadcastPacket(new MagicSkillUse(frintezza, ((L2Character) target), 5008, _song, 2000, 0), 10000);
 				
 				// calculate the song's damage
 				calculateSongEffects((L2Character) target);
@@ -2072,7 +2072,7 @@ public class FrintezzaManager
 		
 		// animation
 		weakScarlet.getPoly().setPolyInfo("npc", "29047");
-		MagicSkillUser msk = new MagicSkillUser(weakScarlet, 1008, 1, 4000, 0);
+		MagicSkillUse msk = new MagicSkillUse(weakScarlet, 1008, 1, 4000, 0);
 		weakScarlet.broadcastPacket(msk);
 		SetupGauge sg = new SetupGauge(0, 4000);
 		weakScarlet.sendPacket(sg);
@@ -2345,7 +2345,7 @@ public class FrintezzaManager
 					// Returns a list of the players that targeted the _caster
 					boolean[] targeted = getTargeted(_caster);
 					
-					_caster.broadcastPacket(new MagicSkillUser(_caster, ((L2Character) tempTarget), _skill.getId(), _skill.getLevel(), 0, 0), 10000);
+					_caster.broadcastPacket(new MagicSkillUse(_caster, ((L2Character) tempTarget), _skill.getId(), _skill.getLevel(), 0, 0), 10000);
 					_caster.decayMe();
 					_caster.getPosition().setXYZ(x, y, z);
 					_caster.spawnMe(x, y, z);

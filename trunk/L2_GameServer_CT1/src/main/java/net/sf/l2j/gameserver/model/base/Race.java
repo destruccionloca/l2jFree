@@ -28,12 +28,12 @@ package net.sf.l2j.gameserver.model.base;
 
 public enum Race
 {
-	human,
-	elf,
-	darkelf,
-	orc,
-	dwarf,
-	kamael;
+	Human,
+	Elf,
+	Darkelf,
+	Orc,
+	Dwarf,
+	Kamael;
 	
 	public final static Race getRaceByName(String name)
 	{
@@ -43,6 +43,6 @@ public enum Race
 				return race;
 		}
 		
-		return Race.human;
+		return Race.Human;
 	}
 }

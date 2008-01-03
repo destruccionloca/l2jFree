@@ -22,9 +22,12 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.Inventory;
+import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Race;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
@@ -33,6 +36,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.ShowCalculator;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
+import net.sf.l2j.gameserver.templates.L2ArmorType;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -143,7 +147,62 @@ public class UseItem extends L2GameClientPacket
 				&& (itemId == 736 || itemId == 1538 || itemId == 1829 || itemId == 1830 || itemId == 3958 || itemId == 5858 || itemId == 5859 || itemId == 6663
 						|| itemId == 6664 || (itemId >= 7117 && itemId <= 7135) || (itemId >= 7554 && itemId <= 7559) || itemId == 7618 || itemId == 7619))
 			return;
-		
+
+		L2Clan cl = activeChar.getClan();
+		//A shield that can only be used by the members of a clan that owns a castle.
+		if ((cl == null||cl.getHasCastle() == 0) && itemId == 7015 && Config.CASTLE_SHIELD)
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+			return;
+		}
+
+		//A shield that can only be used by the members of a clan that owns a clan hall.
+		if ((cl == null|| cl.getHasHideout() == 0) && itemId == 6902 && Config.CLANHALL_SHIELD)
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+			return;
+		}
+
+		//Apella armor used by clan members may be worn by a Baron or a higher level Aristocrat.
+		if ((itemId >=7860 && itemId <=7879) && Config.APELLA_ARMORS && (cl == null||activeChar.getPledgeClass() < 5))
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+			return;
+		}
+
+		//Clan Oath armor used by all clan members
+		if ((itemId >=7850 && itemId <=7859) && Config.OATH_ARMORS && (cl == null))
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+			return;
+		}
+
+		//The Lord's Crown used by castle lords only
+		if (itemId ==6841 && Config.CASTLE_CROWN && (cl == null||(cl.getHasCastle() == 0||!activeChar.isClanLeader())))
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+			return;
+		}
+
+		//Castle circlets used by the members of a clan that owns a castle, academy members are excluded.
+		if (Config.CASTLE_CIRCLETS &&((itemId >= 6834 && itemId <= 6840)||itemId == 8182||itemId == 8183))
+		{
+			if (cl ==null)
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+				return;
+			}
+			else
+			{
+				int circletId = CastleManager.getInstance().getCircletByCastleId(cl.getHasCastle());
+				if (activeChar.getSubPledgeType() == -1||circletId != itemId)
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+					return;
+				}
+			}
+		}
+
 		// Items that cannot be used
 		if (itemId == 57)
 			return;

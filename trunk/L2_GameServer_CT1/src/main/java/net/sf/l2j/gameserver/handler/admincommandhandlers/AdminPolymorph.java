@@ -22,11 +22,12 @@ import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
+import net.sf.l2j.gameserver.instancemanager.TransformationManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
@@ -37,8 +38,15 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class AdminPolymorph implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = { "admin_polymorph", "admin_unpolymorph",
-			"admin_polymorph_menu", "admin_unpolymorph_menu"	};
+	private static final String[] ADMIN_COMMANDS = 
+	{ 
+		"admin_polymorph",
+		"admin_unpolymorph",
+		"admin_polymorph_menu",
+		"admin_unpolymorph_menu",
+		"admin_transform",
+		"admin_untransform",
+	};
 
 	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 
@@ -48,7 +56,58 @@ public class AdminPolymorph implements IAdminCommandHandler
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
 		
-		if (command.startsWith("admin_polymorph"))
+		if (command.equals("admin_untransform"))
+		{
+			L2Object obj = activeChar.getTarget();
+			if (obj != null && obj instanceof L2PcInstance)
+			{
+				L2PcInstance cha = (L2PcInstance) obj;
+				cha.untransform();
+			}
+			else
+			{
+				activeChar.sendMessage("Must target an Player for transformation");
+			}
+		}
+		else if (command.startsWith("admin_transform"))
+		{
+			L2Object obj = activeChar.getTarget();
+			if (obj != null && obj instanceof L2PcInstance)
+			{
+				L2PcInstance cha = (L2PcInstance) obj;
+				
+				String[] parts = command.split(" ");
+				if (parts.length >= 2)
+				{
+					try
+					{
+						int id = Integer.parseInt(parts[1]);
+						long duration = Long.MAX_VALUE; // forever by default
+						if (parts.length > 2)
+						{
+							duration = Long.parseLong(parts[2]);
+						}
+						if (!TransformationManager.getInstance().transformPlayer(id, cha, duration))
+						{
+							cha.sendMessage("Unknow transformation id: "+id);
+						}
+					}
+					catch (NumberFormatException e)
+					{
+						activeChar.sendMessage("Usage: //transform <id> [duration (secs)]");
+					}
+				}
+				else
+				{
+					activeChar.sendMessage("Usage: //transform <id>");
+				}
+			}
+			else
+			{
+				activeChar.sendMessage("Must target an Player for transformation");
+			}
+		}
+		else if (command.startsWith("admin_polymorph"))
 		{
 			StringTokenizer st = new StringTokenizer(command);
 			L2Object target = activeChar.getTarget();
@@ -73,8 +132,10 @@ public class AdminPolymorph implements IAdminCommandHandler
 		{
 			doUnpoly(activeChar,activeChar.getTarget());
 		}
-		if (command.contains("menu"))
+		if (command.contains("polymorph_menu"))
+		{
 			showMainPage(activeChar);
+		}
 		return true;
 	}
 
@@ -98,7 +159,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			if(obj instanceof L2Character)
 			{
 				L2Character Char = (L2Character) obj;
-				MagicSkillUser msk = new MagicSkillUser(Char, 1008, 1, 4000, 0);
+				MagicSkillUse msk = new MagicSkillUse(Char, 1008, 1, 4000, 0);
 				Char.broadcastPacket(msk);
 				SetupGauge sg = new SetupGauge(0, 4000);
 				Char.sendPacket(sg);

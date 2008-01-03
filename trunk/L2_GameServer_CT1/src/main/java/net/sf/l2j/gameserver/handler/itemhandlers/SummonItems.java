@@ -43,8 +43,7 @@ import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
-import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.Ride;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -160,11 +159,10 @@ public class SummonItems implements IItemHandler
 
             activeChar.setPet(petSummon);
 
-            activeChar.sendPacket(new MagicSkillUser(activeChar, 2046, 1, 1000, 600000));
+            activeChar.sendPacket(new MagicSkillUse(activeChar, 2046, 1, 1000, 600000));
             activeChar.sendPacket(new SystemMessage(SystemMessageId.SUMMON_A_PET));
             L2World.getInstance().storeObject(petSummon);
             petSummon.spawnMe(activeChar.getX()+50, activeChar.getY()+100, activeChar.getZ());
-            activeChar.sendPacket(new PetInfo(petSummon));
             petSummon.startFeed(false);
             item.setEnchantLevel(petSummon.getLevel());
 

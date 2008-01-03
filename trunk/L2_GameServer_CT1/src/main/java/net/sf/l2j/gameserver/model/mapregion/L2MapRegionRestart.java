@@ -43,7 +43,7 @@ public class L2MapRegionRestart
 	private List<Point3D> _restartPoints = new FastList<Point3D>();
 	private List<Point3D> _chaosPoints = new FastList<Point3D>();
 	
-	private Race _bannedRace = Race.human;
+	private Race _bannedRace = Race.Human;
 	private int _bannedRaceRestartId = -1;
 	
 	public L2MapRegionRestart(Node node)

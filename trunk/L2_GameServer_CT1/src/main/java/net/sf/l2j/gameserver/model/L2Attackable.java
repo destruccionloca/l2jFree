@@ -669,7 +669,22 @@ public class L2Attackable extends L2NpcInstance
                                 sp *= Config.CHAMPION_EXP_SP;
                             }
                             if (!attacker.isDead())
-                                attacker.addExpAndSp(Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null)),(int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null));
+                            {
+                                long addexp = Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null));
+                                int addsp = (int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null);
+                                if (attacker instanceof L2PcInstance)
+                                {
+                                    if (((L2PcInstance)attacker).getSkillLevel(467) > 0)
+                                    {
+                                        L2Skill skill = SkillTable.getInstance().getInfo(467,((L2PcInstance)attacker).getSkillLevel(467));
+                                        if (skill.getExpNeeded() <= addexp)
+                                        {
+                                            ((L2PcInstance)attacker).absorbSoul(skill,this);
+                                        }
+                                    }
+                                }
+                                attacker.addExpAndSp(addexp,addsp);
+                            }
                         }
                     }
                     else
@@ -790,7 +805,7 @@ public class L2Attackable extends L2NpcInstance
                         }
                         
                         // Distribute Experience and SP rewards to L2PcInstance Party members in the known area of the last attacker
-                        if (partyDmg > 0) attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl);
+                        if (partyDmg > 0) attackerParty.distributeXpAndSp(exp, sp, rewardedMembers, partyLvl, this);
                     }
                 }
             }

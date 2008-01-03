@@ -36,7 +36,7 @@ import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.ExRedSky;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.SignsSky;
@@ -510,7 +510,7 @@ public class AdminEffects implements IAdminCommandHandler
 					else
 					{
 						L2Character target = (L2Character)obj;
-						target.broadcastPacket(new MagicSkillUser(target,activeChar,skill,level,skilltime,0));
+						target.broadcastPacket(new MagicSkillUse(target,activeChar,skill,level,skilltime,0));
 						activeChar.sendMessage(obj.getName()+" performs MSU "+skill+"/"+level+" by your request.");
 					}
 				}

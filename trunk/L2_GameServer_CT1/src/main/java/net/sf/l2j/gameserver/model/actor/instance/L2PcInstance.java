@@ -175,7 +175,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillCanceled;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ObservationMode;
@@ -1656,7 +1656,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void setInMotherTreeZone(boolean inMotherTreeZone, boolean warnPlayer)
     {
-        if (getRace() != Race.elf)
+        if (getRace() != Race.Elf)
         {
             // if player is not a member of elven race Mother Tree have no effect on him
             _inMotherTreeZone = false;
@@ -1664,7 +1664,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         if (isInParty()) for (L2PcInstance member : getParty().getPartyMembers())
-            if (member.getRace() != Race.elf)
+            if (member.getRace() != Race.Elf)
             {
                 // if player is in party with a non-elven race Mother Tree effect is cancelled
                 _inMotherTreeZone = false;
@@ -2035,7 +2035,7 @@ public final class L2PcInstance extends L2PlayableInstance
         setClassTemplate(Id);
 
         // Animation: Production - Clan / Transfer
-        MagicSkillUser msu = new MagicSkillUser(this, 5103, 1, 1196, 0);
+        MagicSkillUse msu = new MagicSkillUse(this, 5103, 1, 1196, 0);
         broadcastPacket(msu);
     }
 
@@ -2239,7 +2239,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         //Active skill dwarven craft
-        if (getSkillLevel(1321) < 1 && getRace() == Race.dwarf)
+        if (getSkillLevel(1321) < 1 && getRace() == Race.Dwarf)
         {
             L2Skill skill = SkillTable.getInstance().getInfo(1321, 1);
             addSkill(skill);
@@ -9883,7 +9883,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param name - name of snooped player
      * @param _text - the msg the snooped player sent/received
      */
-    public void broadcastSnoop(int type, String name, String _text)
+    public void broadcastSnoop(int objId, int type, String name, String _text)
     {
         if (_snoopListener==null)
         	return;
@@ -9891,7 +9891,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             for (L2PcInstance pci : _snoopListener)
                 if (pci != null){ 
-                    Snoop sn = new Snoop(getObjectId(), getName(), type, name, _text,pci);
+                    Snoop sn = new Snoop(objId, getName(), type, name, _text,pci);
                 	pci.sendPacket(sn);
                 }
         }
@@ -10665,7 +10665,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             ivlim = Config.INVENTORY_MAXIMUM_GM;
         }
-        else if (getRace() == Race.dwarf)
+        else if (getRace() == Race.Dwarf)
         {
             ivlim = Config.INVENTORY_MAXIMUM_DWARF;
         }
@@ -10681,7 +10681,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public int getWareHouseLimit()
     {
         int whlim;
-        if (getRace() == Race.dwarf)
+        if (getRace() == Race.Dwarf)
         {
             whlim = Config.WAREHOUSE_SLOTS_DWARF;
         }
@@ -10697,7 +10697,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public int getPrivateSellStoreLimit()
     {
         int pslim;
-        if (getRace() == Race.dwarf)
+        if (getRace() == Race.Dwarf)
         {
             pslim = Config.MAX_PVTSTORE_SLOTS_DWARF;
         }
@@ -10713,7 +10713,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public int getPrivateBuyStoreLimit()
     {
         int pblim;
-        if (getRace() == Race.dwarf)
+        if (getRace() == Race.Dwarf)
         {
             pblim = Config.MAX_PVTSTORE_SLOTS_DWARF;
         }
@@ -11446,7 +11446,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	
     public boolean isKamaelic()
     {
-        return getRace() == Race.kamael;
+        return getRace() == Race.Kamael;
     }
 
     public boolean canOpenPrivateStore()

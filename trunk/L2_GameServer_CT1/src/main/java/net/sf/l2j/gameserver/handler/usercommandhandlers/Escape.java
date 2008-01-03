@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Broadcast;
@@ -90,7 +90,7 @@ public class Escape implements IUserCommandHandler
         activeChar.setTarget(activeChar);
         activeChar.disableAllSkills();
 
-        MagicSkillUser msk = new MagicSkillUser(activeChar, 1050, 1, unstuckTimer, 0);
+        MagicSkillUse msk = new MagicSkillUse(activeChar, 1050, 1, unstuckTimer, 0);
         Broadcast.toSelfAndKnownPlayersInRadius(activeChar, msk, 810000/*900*/);
         SetupGauge sg = new SetupGauge(0, unstuckTimer);
         activeChar.sendPacket(sg);

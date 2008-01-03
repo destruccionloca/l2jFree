@@ -24,8 +24,8 @@ import javolution.util.FastList;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.AbnormalStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
-import net.sf.l2j.gameserver.network.serverpackets.MagicEffectIcons;
 import net.sf.l2j.gameserver.network.serverpackets.PartySpelled;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
@@ -478,7 +478,7 @@ public abstract class L2Effect
 		return funcs.toArray(new Func[funcs.size()]);
 	}
 	
-	public final void addIcon(MagicEffectIcons mi)
+	public final void addIcon(AbnormalStatusUpdate mi)
 	{
 		EffectTask task = _currentTask;
 		ScheduledFuture<?> future = _currentFuture;

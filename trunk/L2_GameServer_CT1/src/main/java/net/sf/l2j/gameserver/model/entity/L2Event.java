@@ -35,7 +35,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.util.EventData;
@@ -67,8 +67,8 @@ public class L2Event
     {
         for (int i = 1; i <= players.size(); i++)
         {
-            LinkedList temp = players.get(i);
-            Iterator it = temp.iterator();
+            LinkedList<String> temp = players.get(i);
+            Iterator<String> it = temp.iterator();
             while (it.hasNext())
             {
                 if (it.next().equals(name)) return i;
@@ -89,13 +89,13 @@ public class L2Event
             kills = 0;
             for (int i = 1; i <= teamsNumber; i++)
             {
-                LinkedList temp = players.get(i);
-                Iterator it = temp.iterator();
+                LinkedList<String> temp = players.get(i);
+                Iterator<String> it = temp.iterator();
                 while (it.hasNext())
                 {
                     try
                     {
-                        L2PcInstance player = L2World.getInstance().getPlayer((String) it.next());
+                        L2PcInstance player = L2World.getInstance().getPlayer(it.next());
                         if (!killersTemp.contains(player.getName()))
                         {
                             if (player.kills.size() > kills)
@@ -116,12 +116,12 @@ public class L2Event
         for (int i = 0; i < N; i++)
         {
             kills = 0;
-            Iterator it = killersTemp.iterator();
+            Iterator<String> it = killersTemp.iterator();
             while (it.hasNext())
             {
                 try
                 {
-                    L2PcInstance player = L2World.getInstance().getPlayer((String) it.next());
+                    L2PcInstance player = L2World.getInstance().getPlayer(it.next());
                     if (player.kills.size() > kills)
                     {
                         kills = player.kills.size();
@@ -200,8 +200,7 @@ public class L2Event
             spawn.getLastSpawn().spawnMe(spawn.getLastSpawn().getX(), spawn.getLastSpawn().getY(),
                                          spawn.getLastSpawn().getZ());
 
-            spawn.getLastSpawn().broadcastPacket(
-                                                 new MagicSkillUser(spawn.getLastSpawn(),
+            spawn.getLastSpawn().broadcastPacket(new MagicSkillUse(spawn.getLastSpawn(),
                                                                     spawn.getLastSpawn(), 1034, 1, 1, 1));
 
             npcs.add(String.valueOf(spawn.getLastSpawn().getObjectId()));
@@ -230,7 +229,7 @@ public class L2Event
 
         for (int k = 0; k < L2Event.teamsNumber; k++)
         {
-            Iterator it = L2Event.players.get(k + 1).iterator();
+            Iterator<String> it = L2Event.players.get(k + 1).iterator();
             boolean temp = false;
             while (it.hasNext())
             {

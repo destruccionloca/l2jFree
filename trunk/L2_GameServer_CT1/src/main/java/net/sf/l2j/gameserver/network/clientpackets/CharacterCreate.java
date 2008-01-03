@@ -34,7 +34,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.serverpackets.CharCreateFail;
 import net.sf.l2j.gameserver.network.serverpackets.CharCreateOk;
-import net.sf.l2j.gameserver.network.serverpackets.CharSelectInfo;
+import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
 import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 
@@ -208,7 +208,7 @@ public class CharacterCreate extends L2GameClientPacket
 		
 		// send char list
 		
-		CharSelectInfo cl =	new CharSelectInfo(client.getAccountName(), client.getSessionId().playOkID1);
+		CharSelectionInfo cl =	new CharSelectionInfo(client.getAccountName(), client.getSessionId().playOkID1);
 		client.getConnection().sendPacket(cl);
 		client.setCharSelection(cl.getCharInfo());
 		if (_log.isDebugEnabled()) _log.debug("Character init end");

@@ -939,7 +939,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         availSubs.remove(PlayerClass.values()[availSub.ordinal()]);
                 }
 
-                if ((npcRace == Race.human || npcRace == Race.elf))
+                if ((npcRace == Race.Human || npcRace == Race.Elf))
                 {
                     // If the master is human or light elf, ensure that fighter-type 
                     // masters only teach fighter classes, and priest-type masters 
@@ -947,14 +947,14 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                     if (!availSub.isOfType(npcTeachType)) availSubs.remove(availSub);
 
                     // Remove any non-human or light elf classes.
-                    else if (!availSub.isOfRace(Race.human)
-                        && !availSub.isOfRace(Race.elf)) availSubs.remove(availSub);
+                    else if (!availSub.isOfRace(Race.Human)
+                        && !availSub.isOfRace(Race.Elf)) availSubs.remove(availSub);
                 }
                 else
                 {
                     // If the master is not human and not light elf, 
                     // then remove any classes not of the same race as the master.
-                    if ((npcRace != Race.human && npcRace != Race.elf)
+                    if ((npcRace != Race.Human && npcRace != Race.Elf)
                         && !availSub.isOfRace(npcRace)) availSubs.remove(availSub);
                 }
             }
@@ -1029,17 +1029,17 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     {
         String npcClass = getTemplate().getJClass().toLowerCase();
 
-        if (npcClass.indexOf("human") > -1) return Race.human;
+        if (npcClass.indexOf("human") > -1) return Race.Human;
 
-        if (npcClass.indexOf("darkelf") > -1) return Race.darkelf;
+        if (npcClass.indexOf("darkelf") > -1) return Race.Darkelf;
 
-        if (npcClass.indexOf("elf") > -1) return Race.elf;
+        if (npcClass.indexOf("elf") > -1) return Race.Elf;
 
-        if (npcClass.indexOf("orc") > -1) return Race.orc;
+        if (npcClass.indexOf("orc") > -1) return Race.Orc;
 
-        if (npcClass.indexOf("kamael") > -1) return Race.kamael;
+        if (npcClass.indexOf("kamael") > -1) return Race.Kamael;
         
-        return Race.dwarf;
+        return Race.Dwarf;
     }
 
     private final ClassType getVillageMasterTeachType()

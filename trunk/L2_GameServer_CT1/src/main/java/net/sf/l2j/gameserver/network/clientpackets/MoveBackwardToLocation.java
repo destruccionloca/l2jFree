@@ -110,7 +110,8 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         {
             activeChar.sendPacket(new ActionFailed());
         }
-        else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
+        else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null &&
+            ((activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW) || (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.CROSSBOW)))
         {
             activeChar.sendPacket(new ActionFailed());
         }

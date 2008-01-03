@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 /**
@@ -154,7 +154,7 @@ public final class L2ChestInstance extends L2MonsterInstance
 		if (player.getFirstEffect(skill) == null)
 		{
 			skill.getEffects(this, player);
-			broadcastPacket(new MagicSkillUser(
+			broadcastPacket(new MagicSkillUse(
 				this, player, skill.getId(), skillLevel, skill.getHitTime(), 0));
 			return true;
 		}

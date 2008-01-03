@@ -234,7 +234,7 @@ public class Hero
     {
         updateHeroes(true);
         
-        List heroItems = Arrays.asList(_heroItems);
+        List<int[]> heroItems = Arrays.asList(_heroItems);
         L2ItemInstance[] items;
         InventoryUpdate iu;
         

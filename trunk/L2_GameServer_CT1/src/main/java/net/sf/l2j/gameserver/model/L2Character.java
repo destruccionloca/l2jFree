@@ -31,7 +31,6 @@ import javolution.util.FastTable;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.GeoData;
-import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlEvent;
@@ -75,17 +74,14 @@ import net.sf.l2j.gameserver.network.serverpackets.Attack;
 import net.sf.l2j.gameserver.network.serverpackets.ChangeMoveType;
 import net.sf.l2j.gameserver.network.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
-import net.sf.l2j.gameserver.network.serverpackets.CharMoveToLocation;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExAutoSoulShot;
-import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
-import net.sf.l2j.gameserver.network.serverpackets.MagicEffectIcons;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillCanceled;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
+import net.sf.l2j.gameserver.network.serverpackets.MoveToLocation;
 import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
-import net.sf.l2j.gameserver.network.serverpackets.PartySpelled;
 import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.network.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.network.serverpackets.Revive;
@@ -940,9 +936,51 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 			}
+		}
+		// Check for a crossbow
+		if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.CROSSBOW))
+		{
+			//Check for bolts
+			if (this instanceof L2PcInstance)
+			{
+				// Checking if target has moved to peace zone - only for player-crossbow attacks at the moment
+				// Other melee is checked in movement code and for offensive spells a check is done every time
+				if (target.isInsidePeaceZone((L2PcInstance)this))
+				{
+					getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+					sendPacket(new ActionFailed());
+					return;
+				}
+
+				// Verify if the crossbow can be use
+				if (_disableCrossBowAttackEndTime <= GameTimeController.getGameTicks())
+				{
+					// Set the period of bow non re-use
+					_disableCrossBowAttackEndTime = 5 * GameTimeController.TICKS_PER_SECOND + GameTimeController.getGameTicks();
+				}
+				else
+				{
+					// Cancel the action because the crossbow can't be re-use at this moment
+					ThreadPoolManager.getInstance().scheduleAi(new NotifyAITask(CtrlEvent.EVT_READY_TO_ACT), 1000);
+
+					sendPacket(new ActionFailed());
+					return;
+				}
+
+				// Equip bolts needed in left hand and send a Server->Client packet ItemList to the L2PcINstance then return True
+				if (!checkAndEquipBolts())
+				{
+					// Cancel the action because the L2PcInstance have no arrow
+					getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+
+					sendPacket(new ActionFailed());
+					sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_BOLTS));
+					return;
+				}
+			}
 			else if (this instanceof L2NpcInstance)
 			{
-				if (_disableBowAttackEndTime > GameTimeController.getGameTicks())
+				if (_disableCrossBowAttackEndTime > GameTimeController.getGameTicks())
 					return;
 			}
 		}
@@ -970,7 +1008,7 @@ public abstract class L2Character extends L2Object
 		if (this instanceof L2Attackable && ((L2Attackable) this).isUsingShots())
 		{
 			wasSSCharged = true;
-			((L2Attackable) this).broadcastPacket(new MagicSkillUser(this, this, 2153, 1, 0, 0), 360000/* 600 */);
+			((L2Attackable) this).broadcastPacket(new MagicSkillUse(this, this, 2153, 1, 0, 0), 360000/* 600 */);
 			((L2Attackable) this).broadcastPacket(new ExAutoSoulShot(5789, 0));
 		}
 		// Get the Attack Speed of the L2Character (delay (in milliseconds) before next attack)
@@ -1003,6 +1041,9 @@ public abstract class L2Character extends L2Object
 		
 		else if (weaponItem.getItemType() == L2WeaponType.BOW)
 			hitted = doAttackHitByBow(attack, target, timeAtk, reuse);
+
+		else if (weaponItem.getItemType() == L2WeaponType.CROSSBOW)
+			hitted = doAttackHitByCrossBow(attack, target, timeAtk, reuse);
 		
 		else if (weaponItem.getItemType() == L2WeaponType.POLE)
 			hitted = doAttackHitByPole(attack, timeToHit);
@@ -1142,7 +1183,79 @@ public abstract class L2Character extends L2Object
 		// Return true if hit isn't missed
 		return !miss1;
 	}
-	
+
+	/**
+	* Launch a CrossBow attack.<BR><BR>
+	*
+	* <B><U> Actions</U> :</B><BR><BR>
+	* <li>Calculate if hit is missed or not </li>
+	* <li>Consumme bolts </li>
+	* <li>If hit isn't missed, calculate if shield defense is efficient </li>
+	* <li>If hit isn't missed, calculate if hit is critical </li>
+	* <li>If hit isn't missed, calculate physical damages </li>
+	* <li>If the L2Character is a L2PcInstance, Send a Server->Client packet SetupGauge </li>
+	* <li>Create a new hit task with Medium priority</li>
+	* <li>Calculate and set the disable delay of the crossbow in function of the Attack Speed</li>
+	* <li>Add this hit to the Server-Client packet Attack </li><BR><BR>
+	*
+	* @param attack Server->Client packet Attack in which the hit will be added
+	* @param target The L2Character targeted
+	* @param sAtk The Attack Speed of the attacker
+	*
+	* @return True if the hit isn't missed
+	*
+	*/
+	private boolean doAttackHitByCrossBow(Attack attack, L2Character target, int sAtk, int reuse)
+	{
+		int damage1 = 0;
+		boolean shld1 = false;
+		boolean crit1 = false;
+
+		// Calculate if hit is missed or not
+		boolean miss1 = Formulas.getInstance().calcHitMiss(this, target);
+
+		// Consumme arrows
+		reduceBoltCount();
+
+		_move = null;
+
+		// Check if hit isn't missed
+		if (!miss1)
+		{
+			// Calculate if shield defense is efficient
+			shld1 = Formulas.getInstance().calcShldUse(this, target);
+
+			// Calculate if hit is critical
+			crit1 = Formulas.getInstance().calcCrit(getStat().getCriticalHit(target, null));
+
+			// Calculate physical damages
+			damage1 = (int)Formulas.getInstance().calcPhysDam(this, target, null, shld1, crit1, false, attack.soulshot);
+		}
+
+		// Check if the L2Character is a L2PcInstance
+		if (this instanceof L2PcInstance)
+		{
+			// Send a system message
+			sendPacket(new SystemMessage(SystemMessageId.CROSSBOW_PREPARING_TO_FIRE));
+
+			// Send a Server->Client packet SetupGauge
+			SetupGauge sg = new SetupGauge(SetupGauge.RED, sAtk+reuse);
+			sendPacket(sg);
+		}
+
+		// Create a new hit task with Medium priority
+		ThreadPoolManager.getInstance().scheduleAi(new HitTask(target, damage1, crit1, miss1, attack.soulshot, shld1), sAtk);
+
+		// Calculate and set the disable delay of the bow in function of the Attack Speed
+		_disableCrossBowAttackEndTime = (sAtk+reuse)/GameTimeController.MILLIS_IN_TICK + GameTimeController.getGameTicks();
+
+		// Add this hit to the Server-Client packet Attack
+		attack.addHit(target, damage1, miss1, crit1, shld1);
+
+		// Return true if hit isn't missed
+		return !miss1;
+	}
+
 	/**
 	 * Launch a Dual attack.<BR>
 	 * <BR>
@@ -1408,7 +1521,7 @@ public abstract class L2Character extends L2Object
 	 * <li>Verify the possibilty of the the cast : skill is a spell, caster isn't muted... </li>
 	 * <li>Get the list of all targets (ex : area effects) and define the L2Charcater targeted (its stats will be used in calculation)</li>
 	 * <li>Calculate the casting time (base + modifier of MAtkSpd), interrupt time and re-use delay</li>
-	 * <li>Send a Server->Client packet MagicSkillUser (to diplay casting animation), a packet SetupGauge (to display casting bar) and a system message </li>
+	 * <li>Send a Server->Client packet MagicSkillUse (to diplay casting animation), a packet SetupGauge (to display casting bar) and a system message </li>
 	 * <li>Disable all skills during the casting time (create a task EnableAllSkills)</li>
 	 * <li>Disable the skill during the re-use delay (create a task EnableSkill)</li>
 	 * <li>Create a task MagicUseTask (that will call method onMagicUseTimer) to launch the Magic Skill at the end of the casting time</li>
@@ -1592,7 +1705,7 @@ public abstract class L2Character extends L2Object
 		{
 			hitTime = (int) (0.70 * hitTime);
 			skillInterruptTime = (int) (0.70 * skillInterruptTime);
-			((L2Attackable) this).broadcastPacket(new MagicSkillUser(this, this, 2163, 1, 0, 0), 360000/* 600 */);
+			((L2Attackable) this).broadcastPacket(new MagicSkillUse(this, this, 2163, 1, 0, 0), 360000/* 600 */);
 		}
 		if (weaponInst != null && skill.isMagic() && !forceBuff && skill.getTargetType() != SkillTargetType.TARGET_SELF)
 		{
@@ -1638,9 +1751,9 @@ public abstract class L2Character extends L2Object
 		
 		reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
 		
-		// Send a Server->Client packet MagicSkillUser with target, displayId, level, skillTime, reuseDelay
+		// Send a Server->Client packet MagicSkillUse with target, displayId, level, skillTime, reuseDelay
 		// to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
-		broadcastPacket(new MagicSkillUser(this, target, displayId, level, hitTime, reuseDelay));
+		broadcastPacket(new MagicSkillUse(this, target, displayId, level, hitTime, reuseDelay));
 		
 		if (this instanceof L2PcInstance)
 		{
@@ -3584,102 +3697,19 @@ public abstract class L2Character extends L2Object
 	{
 		updateEffectIcons(false);
 	}
-	
-	public final void updateEffectIcons(boolean partyOnly)
-	{
-		// Create a L2PcInstance of this if needed
-		L2PcInstance player = null;
-		if (this instanceof L2PcInstance)
-			player = (L2PcInstance) this;
-		
-		// Create a L2Summon of this if needed
-		L2Summon summon = null;
-		if (this instanceof L2Summon)
-		{
-			summon = (L2Summon) this;
-			player = summon.getOwner();
-		}
-		
-		// Create the main packet if needed
-		MagicEffectIcons mi = null;
-		if (!partyOnly)
-			mi = new MagicEffectIcons();
-		
-		// Create the party packet if needed
-		PartySpelled ps = null;
-		if (summon != null)
-			ps = new PartySpelled(summon);
-		else if (player != null && player.isInParty())
-			ps = new PartySpelled(player);
-		
-		// Create the olympiad spectator packet if needed
-		ExOlympiadSpelledInfo os = null;
-		if (player != null && player.isInOlympiadMode())
-			os = new ExOlympiadSpelledInfo(player);
-		
-		if (mi == null && ps == null && os == null)
-			return; // nothing to do (should not happen)
-			
-		/*
-		 * // Add special effects // Note: Now handled by EtcStatusUpdate packet // NOTE: CHECK IF THEY WERE EVEN VISIBLE TO OTHERS... if (player != null && mi !=
-		 * null) { if (player.getWeightPenalty() > 0) mi.addEffect(4270, player.getWeightPenalty(), -1); if (player.getExpertisePenalty() > 0)
-		 * mi.addEffect(4267, 1, -1); if (player.getMessageRefusal()) mi.addEffect(4269, 1, -1); }
-		 */
 
-		// Go through all effects if any
-		L2Effect[] effects = getAllEffects();
-		if (effects != null && effects.length > 0)
-		{
-			for (L2Effect effect : effects)
-			{
-				if (effect == null)
-					continue;
-				
-				if (effect.getEffectType() == L2Effect.EffectType.CHARGE && player != null)
-				{
-					// handled by EtcStatusUpdate
-					continue;
-				}
-				
-				if (effect.getInUse())
-				{
-					if (mi != null)
-						effect.addIcon(mi);
-					if (ps != null)
-						effect.addPartySpelledIcon(ps);
-					if (os != null)
-						effect.addOlympiadSpelledIcon(os);
-				}
-			}
-		}
-		
-		// Send the packets if needed
-		if (mi != null)
-			sendPacket(mi);
-		if (ps != null && player != null)
-		{
-			// summon info only needs to go to the owner, not to the whole party
-			// player info: if in party, send to all party members except one's self.
-			// if not in party, send to self.
-			if (player.isInParty() && summon == null)
-				player.getParty().broadcastToPartyMembers(player, ps);
-			else
-				player.sendPacket(ps);
-		}
-		if (player != null)
-			player.sendPacket(new EtcStatusUpdate(player));
-		if (os != null)
-		{
-			if (Olympiad.getInstance().getSpectators(player.getOlympiadGameId()) != null)
-			{
-				for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(player.getOlympiadGameId()))
-				{
-					if (spectator == null)
-						continue;
-					spectator.sendPacket(os);
-				}
-			}
-		}
+	/**
+	* Updates Effect Icons for this character(palyer/summon) and his party if any<BR>
+	* 
+	* Overriden in:<BR>
+	* L2PcInstance<BR>
+	* L2Summon<BR>
+	* 
+	* @param partyOnly
+	*/
+	public void updateEffectIcons(boolean partyOnly)
+	{
+		// overriden
 	}
 	
 	// Property - Public
@@ -4016,6 +4046,7 @@ public abstract class L2Character extends L2Object
 	private int							_attackEndTime;
 	private int							_attacking;
 	private int							_disableBowAttackEndTime;
+	private int							_disableCrossBowAttackEndTime;
 	
 	/** Table of calculators containing all standard NPC calculator (ex : ACCURACY_COMBAT, EVASION_RATE */
 	private static final Calculator[]	NPC_STD_CALCULATOR;
@@ -4861,7 +4892,7 @@ public abstract class L2Character extends L2Object
 	 * <li>Create a task to notify the AI that L2Character arrives at a check point of the movement </li>
 	 * <BR>
 	 * <BR>
-	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T send Server->Client packet MoveToPawn/CharMoveToLocation </B></FONT><BR>
+	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method DOESN'T send Server->Client packet MoveToPawn/MoveToLocation </B></FONT><BR>
 	 * <BR>
 	 * <B><U> Example of use </U> :</B><BR>
 	 * <BR>
@@ -5234,8 +5265,8 @@ public abstract class L2Character extends L2Object
 		// the CtrlEvent.EVT_ARRIVED will be sent when the character will actually arrive
 		// to destination by GameTimeController
 		
-		// Send a Server->Client packet CharMoveToLocation to the actor and all L2PcInstance in its _knownPlayers
-		CharMoveToLocation msg = new CharMoveToLocation(this);
+		// Send a Server->Client packet MoveToLocation to the actor and all L2PcInstance in its _knownPlayers
+		MoveToLocation msg = new MoveToLocation(this);
 		broadcastPacket(msg);
 		
 		return true;
@@ -5486,7 +5517,19 @@ public abstract class L2Character extends L2Object
 	{
 		return true;
 	}
-	
+
+	/**
+	* Retun True if bolts are available.<BR><BR>
+	*
+	* <B><U> Overriden in </U> :</B><BR><BR>
+	* <li> L2PcInstance</li><BR><BR>
+	*
+	*/
+	protected boolean checkAndEquipBolts()
+	{
+		return true;
+	}
+
 	/**
 	 * Add Exp and Sp to the L2Character.<BR>
 	 * <BR>
@@ -5787,7 +5830,12 @@ public abstract class L2Character extends L2Object
 	{
 		// default is to do nothin
 	}
-	
+
+	protected void reduceBoltCount()
+	{
+		// default is to do nothin
+	}
+
 	/**
 	 * Manage Forced attack (shift + select target).<BR>
 	 * <BR>
@@ -6460,7 +6508,17 @@ public abstract class L2Character extends L2Object
 			// Consume Items if necessary and Send the Server->Client packet InventoryUpdate with Item modification to all the L2Character
 			if (skill.getItemConsume() > 0)
 				consumeItem(skill.getItemConsumeId(), skill.getItemConsume());
-			
+
+			// Consume Souls if necessary
+			if (skill.getSoulConsumeCount() > 0)
+			{
+				if (this instanceof L2PcInstance)
+				{
+					((L2PcInstance)this).decreaseAbsorbedSouls(skill.getSoulConsumeCount());
+					sendPacket(new EtcStatusUpdate((L2PcInstance)this));
+				}
+			}
+
 			// Launch the magic skill in order to calculate its effects
 			callSkill(skill, targets);
 		}

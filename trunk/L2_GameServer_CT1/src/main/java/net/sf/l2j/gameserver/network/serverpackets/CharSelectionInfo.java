@@ -38,12 +38,12 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @version $Revision: 1.8.2.4.2.6 $ $Date: 2005/04/06 16:13:46 $
  */
-public class CharSelectInfo extends L2GameServerPacket
+public class CharSelectionInfo extends L2GameServerPacket
 {
 	// d SdSddddddddddffddddddddddddddddddddddddddddddddddddddddddddddffd
-	private static final String _S__1F_CHARSELECTINFO = "[S] 09 CharSelectInfo";
+	private static final String _S__1F_CHARSELECTINFO = "[S] 1F CharSelectInfo";
 
-	private final static Log _log = LogFactory.getLog(CharSelectInfo.class.getName());
+	private final static Log _log = LogFactory.getLog(CharSelectionInfo.class.getName());
 
 	private String _loginName;
 
@@ -54,7 +54,7 @@ public class CharSelectInfo extends L2GameServerPacket
 	/**
 	 * @param _characters
 	 */
-	public CharSelectInfo(String loginName, int sessionId)
+	public CharSelectionInfo(String loginName, int sessionId)
 	{
 		_sessionId = sessionId;
 		_loginName = loginName;
@@ -62,7 +62,7 @@ public class CharSelectInfo extends L2GameServerPacket
 		_activeId = -1;
 	}
 	
-	public CharSelectInfo(String loginName, int sessionId, int activeId)
+	public CharSelectionInfo(String loginName, int sessionId, int activeId)
 	{
 		_sessionId = sessionId;
 		_loginName = loginName;
@@ -82,10 +82,8 @@ public class CharSelectInfo extends L2GameServerPacket
 
 		writeC(0x09);
 		writeD(size);
-
-		// Can prevent players from creating new characters (if 0); (if 1, the client will ask if chars may be created (0x13) Response: (0x0D) )
-        writeD(0x07);
-        writeC(0x00);
+        writeD(0);
+        writeC(1);
         
 		long lastAccess = 0L;
 
@@ -130,8 +128,8 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getLevel());
 
 			writeD(charInfoPackage.getKarma()); // karma
-			writeD(charInfoPackage.getPkKills());
 
+            writeD(0x00);
             writeD(0x00);
             writeD(0x00);
             writeD(0x00);
@@ -159,9 +157,8 @@ public class CharSelectInfo extends L2GameServerPacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
 
-            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
-            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
-            
+            writeD(0x00);
+            writeD(0x00);
             writeD(0x00);
             writeD(0x00);
             writeD(0x00);
@@ -186,10 +183,9 @@ public class CharSelectInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getClassId());
 			writeD(i != _activeId ? 0 : 1); 
 			writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
-            writeH(charInfoPackage.getAugmentationId());
-            writeH(0x00); // this is for augmentation too
-            
-            writeD(0x00); // Used to display Transformations (0x01 = Crystal Puma)
+            writeH(0);
+            writeH(0);
+			writeD(charInfoPackage.getAugmentationId());
 		}
 	}
 
@@ -295,8 +291,7 @@ public class CharSelectInfo extends L2GameServerPacket
 		charInfopackage.setMaxMp(chardata.getInt("maxmp"));
 		charInfopackage.setCurrentMp(chardata.getDouble("curmp"));
 		charInfopackage.setKarma(chardata.getInt("karma"));
-        charInfopackage.setPkKills(chardata.getInt("pkkills"));
-        
+
 		charInfopackage.setFace(chardata.getInt("face"));
 		charInfopackage.setHairStyle(chardata.getInt("hairstyle"));
 		charInfopackage.setHairColor(chardata.getInt("haircolor"));

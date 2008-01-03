@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -67,7 +67,7 @@ public class Remedy implements IItemHandler
 					break;
 				}
 			}
-			MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2042, 1, 0, 0);
+			MagicSkillUse MSU = new MagicSkillUse(playable, playable, 2042, 1, 0, 0);
 			activeChar.sendPacket(MSU);
 			activeChar.broadcastPacket(MSU);
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
@@ -83,7 +83,7 @@ public class Remedy implements IItemHandler
 					break;
 				}
 			}
-			MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2043, 1, 0, 0);
+			MagicSkillUse MSU = new MagicSkillUse(playable, playable, 2043, 1, 0, 0);
 			activeChar.sendPacket(MSU);
 			activeChar.broadcastPacket(MSU);
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
@@ -99,7 +99,7 @@ public class Remedy implements IItemHandler
 					break;
 				}
 			}
-			MagicSkillUser MSU = new MagicSkillUser(playable, playable, 34, 1, 0, 0);
+			MagicSkillUse MSU = new MagicSkillUse(playable, playable, 34, 1, 0, 0);
 			activeChar.sendPacket(MSU);
 			activeChar.broadcastPacket(MSU);
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
@@ -115,7 +115,7 @@ public class Remedy implements IItemHandler
 					break;
 				}
 			}
-			MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2045, 1, 0, 0);
+			MagicSkillUse MSU = new MagicSkillUse(playable, playable, 2045, 1, 0, 0);
 			activeChar.sendPacket(MSU);
 			activeChar.broadcastPacket(MSU);
 			playable.destroyItem("Consume", item.getObjectId(), 1, null, false);
@@ -129,7 +129,7 @@ public class Remedy implements IItemHandler
             }
             activeChar.setIsImobilised(false);
             if (activeChar.getFirstEffect(L2Effect.EffectType.ROOT) == null) activeChar.stopRooting(null);
-            MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2042, 1, 0, 0);
+            MagicSkillUse MSU = new MagicSkillUse(playable, playable, 2042, 1, 0, 0);
             activeChar.sendPacket(MSU);
             activeChar.broadcastPacket(MSU);
             playable.destroyItem("Consume", item.getObjectId(), 1, null, false);

@@ -24,8 +24,10 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.datatables.ItemTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
@@ -653,7 +655,7 @@ public class L2Party
 	 * @param rewardedMembers The list of L2PcInstance to reward
 	 * 
 	 */
-    public void distributeXpAndSp(long xpReward, int spReward, List<L2PlayableInstance> rewardedMembers, int topLvl) 
+    public void distributeXpAndSp(long xpReward, int spReward, List<L2PlayableInstance> rewardedMembers, int topLvl, L2NpcInstance target)
     {
         L2SummonInstance summon = null;
         List<L2PlayableInstance> validMembers = getValidMembers(rewardedMembers, topLvl);

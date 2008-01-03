@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCharge;
@@ -98,7 +98,7 @@ public class EnergyStone implements IItemHandler
     
             if (_effect.getLevel() < 2)
             {
-                MagicSkillUser MSU = new MagicSkillUser(playable, activeChar, _skill.getId(), 1, 1, 0);
+                MagicSkillUse MSU = new MagicSkillUse(playable, activeChar, _skill.getId(), 1, 1, 0);
                 activeChar.sendPacket(MSU);
                 activeChar.broadcastPacket(MSU);
                 _effect.addNumCharges(1);

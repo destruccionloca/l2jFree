@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUser;
+import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -48,7 +48,7 @@ public class MysteryPotion implements IItemHandler
 		//item.getItem().getEffects(item, activeChar);
 
 		// Use a summon skill effect for fun ;)
-		MagicSkillUser MSU = new MagicSkillUser(playable, playable, 2103, 1, 0, 0);
+		MagicSkillUse MSU = new MagicSkillUse(playable, playable, 2103, 1, 0, 0);
 		activeChar.sendPacket(MSU);
 		activeChar.broadcastPacket(MSU);
 

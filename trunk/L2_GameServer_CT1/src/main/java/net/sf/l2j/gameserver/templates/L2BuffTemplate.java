@@ -210,11 +210,11 @@ public class L2BuffTemplate
     {
         boolean cond = false;
         if (_race == 0 || _race == 31) return true;
-        if ((player.getRace() == Race.human) && (_race & 16) != 0) cond=true;
-        if ((player.getRace() == Race.elf) && (_race & 8) != 0) cond=true;
-        if ((player.getRace() == Race.darkelf) && (_race & 4) != 0) cond=true;
-        if ((player.getRace() == Race.orc) && (_race & 2) != 0) cond=true;
-        if ((player.getRace() == Race.dwarf) && (_race & 1) != 0) cond=true;
+        if ((player.getRace() == Race.Human) && (_race & 16) != 0) cond=true;
+        if ((player.getRace() == Race.Elf) && (_race & 8) != 0) cond=true;
+        if ((player.getRace() == Race.Darkelf) && (_race & 4) != 0) cond=true;
+        if ((player.getRace() == Race.Orc) && (_race & 2) != 0) cond=true;
+        if ((player.getRace() == Race.Dwarf) && (_race & 1) != 0) cond=true;
         return cond;
     }
     
