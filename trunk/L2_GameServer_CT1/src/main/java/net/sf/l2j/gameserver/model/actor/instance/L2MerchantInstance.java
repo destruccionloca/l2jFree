@@ -108,7 +108,12 @@ public class L2MerchantInstance extends L2FolkInstance
 
     protected void showBuyWindow(L2PcInstance player, int val)
     {
-        double taxRate = getMpc().getTotalTaxRate();
+        double taxRate = 0;
+
+        // not ready yet
+        //taxRate = getMpc().getTotalTaxRate(); 
+        //instead: 
+        if (getIsInTown()) taxRate = getCastle().getTaxRate();
 
         player.tempInvetoryDisable();
 

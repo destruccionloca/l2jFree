@@ -2570,6 +2570,17 @@ public class L2NpcInstance extends L2Character
     {
         _spawn = spawn;
     }
+
+    @Override
+    public void onSpawn()
+    {
+        super.onSpawn();
+
+        if (getTemplate().getEventQuests(Quest.QuestEventType.NPC_SPAWNED) != null)
+            for (Quest quest: getTemplate().getEventQuests(Quest.QuestEventType.NPC_SPAWNED))
+                quest.notifySpawn(this);
+    }
+
     
     /**
      * Remove the L2NpcInstance from the world and update its spawn object (for a complete removal use the deleteMe method).<BR><BR>

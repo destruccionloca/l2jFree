@@ -268,6 +268,22 @@ public final class Util
         return dir.listFiles(filter);
     }
 
+    public static boolean isAlphaNumeric(String text)
+    {
+        if (text == null) return false;
+        boolean result = true;
+        char[] chars = text.toCharArray();
+        for (int i = 0; i < chars.length; i++)
+        {
+            if (!Character.isLetterOrDigit(chars[i]))
+            {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     /**
      * Return amount of adena formatted with "," delimiter
      * @param amount
