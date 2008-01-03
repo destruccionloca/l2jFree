@@ -36,14 +36,16 @@ import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.scripting.ManagedScript;
+import net.sf.l2j.gameserver.scripting.ScriptManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -53,9 +55,10 @@ import org.apache.commons.logging.LogFactory;
  * @author Luis Arias
  *
  */
-public abstract class Quest
+public class Quest extends ManagedScript
 {
 	protected static Log _log = LogFactory.getLog(Quest.class.getName());
+
 
 	/** HashMap containing events from String value of the event */
 	private static Map<String, Quest> _allEventsS = new FastMap<String, Quest>();
@@ -64,11 +67,11 @@ public abstract class Quest
 
 	private final int _questId;
 	private final String _name;
-	private final String _prefixPath;       // used only for admin_quest_reload
+	private final String _prefixPath;	// used only for admin_quest_reload
 	private final String _descr;
-	private State _initialState;
-	private Map<String, State> _states;
-	private FastList<Integer> _questItemIds;
+    private State _initialState;
+    private Map<String, State> _states;
+    private FastList<Integer> _questItemIds;
 
 	/**
 	 * Return collection view of the values contains in the allEventS
@@ -77,9 +80,9 @@ public abstract class Quest
 	public static Collection<Quest> findAllEvents() {
 		return _allEventsS.values();
 	}
-	
+
     /**
-     * (Constructor)Add values to class variables and put the quest in HashMaps. 
+     * (Constructor)Add values to class variables and put the quest in HashMaps.
      * @param questId : int pointing out the ID of the quest
      * @param name : String corresponding to the name of the quest
      * @param descr : String for the description of the quest
@@ -89,19 +92,18 @@ public abstract class Quest
 		_questId = questId;
 		_name = name;
 		_descr = descr;
-		_states = new FastMap<String, State>();
-
-		// Given the quest instance, create a string representing the path and questName 
-		// like a simplified version of a canonical class name.  That is, if a script is in 
-		// DATAPACK_PATH/jscript/quests/abc the result will be quests.abc
-		// Similarly, for a script in DATAPACK_PATH/jscript/ai/individual/myClass.py
-		// the result will be ai.individual.myClass
-		// All quests are to be indexed, processed, and reloaded by this form of pathname.
-		StringBuffer temp = new StringBuffer(getClass().getCanonicalName());
-		temp.delete(0, temp.indexOf(".jscript.")+9);
-		temp.delete(temp.indexOf(getClass().getSimpleName()), temp.length());
-		_prefixPath = temp.toString();
-
+        _states = new FastMap<String, State>();
+        
+    	// Given the quest instance, create a string representing the path and questName 
+    	// like a simplified version of a canonical class name.  That is, if a script is in 
+    	// DATAPACK_PATH/scripts/quests/abc the result will be quests.abc
+    	// Similarly, for a script in DATAPACK_PATH/scripts/ai/individual/myClass.py
+    	// the result will be ai.individual.myClass
+    	// All quests are to be indexed, processed, and reloaded by this form of pathname.
+    	StringBuffer temp = new StringBuffer(getClass().getCanonicalName());
+    	temp.delete(0, temp.indexOf(".scripts.")+9);
+    	temp.delete(temp.indexOf(getClass().getSimpleName()), temp.length());
+    	_prefixPath = temp.toString();
 		if (questId != 0)
 		{
 			QuestManager.getInstance().addQuest(Quest.this);
@@ -110,8 +112,8 @@ public abstract class Quest
 		{
 			_allEventsS.put(name, this);
 		}
+		init_LoadGlobalData();
 	}
-
 	/**
 	 * The function init_LoadGlobalData is, by default, called by the constructor of all quests.
 	 * Children of this class can implement this function in order to define what variables
@@ -133,14 +135,15 @@ public abstract class Quest
 		;
 	}
 
-    public static enum QuestEventType 
+	public static enum QuestEventType 
     {
-        NPC_FIRST_TALK(false),  // control the first dialog shown by NPCs when they are clicked (some quests must override the default npc action)
-        QUEST_START(true),      // onTalk action from start npcs
-        QUEST_TALK(true),       // onTalk action from npcs participating in a quest
-        MOBGOTATTACKED(true),   // onAttack action triggered when a mob gets attacked by someone
-        MOBKILLED(true),        // onKill action triggered when a mob gets killed. 
-        MOB_TARGETED_BY_SKILL(true);  // onSkillUse action triggered when a character uses a skill on a mob
+    	NPC_FIRST_TALK(false),  // control the first dialog shown by NPCs when they are clicked (some quests must override the default npc action)
+        QUEST_START(true),	// onTalk action from start npcs
+        QUEST_TALK(true),		// onTalk action from npcs participating in a quest
+        MOBGOTATTACKED(true),	// onAttack action triggered when a mob gets attacked by someone
+        MOBKILLED(true),		// onKill action triggered when a mob gets killed. 
+    	MOB_TARGETED_BY_SKILL(true),  // onSkillUse action triggered when a character uses a skill on a mob
+    	NPC_SPAWNED(true);            // onSpawn action triggered when an NPC is spawned or respawned.
         
         // control whether this event type is allowed for the same npc template in multiple quests
         // or if the npc must be registered in at most one quest for the specified event 
@@ -199,17 +202,16 @@ public abstract class Quest
 	public String getName() {
 		return _name;
 	}
-
+	
 	/**
-	* Return name of the prefix path for the quest, down to the last "."
+	 * Return name of the prefix path for the quest, down to the last "."
 	 * For example "quests." or "ai.individual."
 	 * @return String
 	 */
-	public String getPrefixPath()
-	{
+	public String getPrefixPath() {
 		return _prefixPath;
 	}
-
+	
 	/**
 	 * Return description of the quest
 	 * @return String
@@ -292,42 +294,36 @@ public abstract class Quest
 	
     
 	// these are methods to call from java
-    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) 
-    {
+    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) {
         String res = null;
         try { res = onAttack(npc, attacker, damage, isPet); } catch (Exception e) { return showError(attacker, e); }
         return showResult(attacker, res);
-    }
-    
-    public final boolean notifyDeath(L2Character killer, L2Character victim, QuestState qs) 
-    {
+    } 
+    public final boolean notifyDeath(L2Character killer, L2Character victim, QuestState qs) {
         String res = null;
         try { res = onDeath(killer, victim, qs); } catch (Exception e) { return showError(qs.getPlayer(), e); }
         return showResult(qs.getPlayer(), res);
-    }
-    
-    public final boolean notifyEvent(String event, L2NpcInstance npc, L2PcInstance player) 
-    {
+    } 
+    public final boolean notifySpawn(L2NpcInstance npc) {
+        try { onSpawn(npc); } catch (Exception e) { _log.warn("", e); return true;}
+        return false;
+    } 
+    public final boolean notifyEvent(String event, L2NpcInstance npc, L2PcInstance player) {
         String res = null;
         try { res = onAdvEvent(event, npc, player); } catch (Exception e) { return showError(player, e); }
         return showResult(player, res);
     } 
-    
-	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) 
-	{
+	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) {
 		String res = null;
 		try { res = onKill(npc, killer, isPet); } catch (Exception e) { return showError(killer, e); }
 		return showResult(killer, res);
 	}
-	
-	public final boolean notifyTalk (L2NpcInstance npc, QuestState qs) 
-	{
+	public final boolean notifyTalk (L2NpcInstance npc, QuestState qs) {
 		String res = null;
 		try { res = onTalk(npc, qs.getPlayer()); } catch (Exception e) { return showError(qs.getPlayer(), e); }
 		qs.getPlayer().setLastQuestNpcObject(npc.getObjectId());
 		return showResult(qs.getPlayer(), res);
 	}
-	
 	// override the default NPC dialogs when a quest defines this for the given NPC
 	public final boolean notifyFirstTalk (L2NpcInstance npc, L2PcInstance player) {
 		String res = null;
@@ -339,7 +335,6 @@ public abstract class Quest
 		npc.showChatWindow(player);
 		return true;
 	}
-	
 	public final boolean notifySkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) {
 		String res = null;
 		try { res = onSkillUse(npc, caster, skill); } catch (Exception e) { return showError(caster, e); }
@@ -373,15 +368,15 @@ public abstract class Quest
     @SuppressWarnings("unused") public String onTalk (L2NpcInstance npc, L2PcInstance talker) { return null; }
     @SuppressWarnings("unused") public String onFirstTalk(L2NpcInstance npc, L2PcInstance player) { return null; } 
     @SuppressWarnings("unused") public String onSkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) { return null; }
-	
+    @SuppressWarnings("unused") public String onSpawn (L2NpcInstance npc) { return null; }
+    
 	/**
 	 * Show message error to player who has an access level greater than 0
 	 * @param player : L2PcInstance
 	 * @param t : Throwable
 	 * @return boolean
 	 */
-	private boolean showError(L2PcInstance player, Throwable t) 
-	{
+	private boolean showError(L2PcInstance player, Throwable t) {
 		_log.warn("", t);
 		if (player.getAccessLevel() > 0) {
 			StringWriter sw = new StringWriter();
@@ -405,8 +400,7 @@ public abstract class Quest
 	 * @param res : String pointing out the message to show at the player
 	 * @return boolean
 	 */
-	private boolean showResult(L2PcInstance player, String res) 
-	{
+	private boolean showResult(L2PcInstance player, String res) {
 		if (res == null)
 			return true;
 		if (res.endsWith(".htm")) {
@@ -431,8 +425,8 @@ public abstract class Quest
 	 * Add state of quests, drops and variables for quests in the HashMap _quest of L2PcInstance
 	 * @param player : Player who is entering the world
 	 */
-	public final static void playerEnter(L2PcInstance player)
-	{
+	public final static void playerEnter(L2PcInstance player) {
+
         java.sql.Connection con = null;
         try
         {
@@ -472,10 +466,12 @@ public abstract class Quest
 				
 				// Create an object State containing the state of the quest
 				State state = q._states.get(stateId);
-				if (state == null) {
+				if (state == null) 
+				{
 					if(_log.isDebugEnabled())
 						_log.info("Unknown state in quest "+questId+" for player "+player.getName());
-					if (Config.AUTODELETE_INVALID_QUEST_DATA){
+					if (Config.AUTODELETE_INVALID_QUEST_DATA)
+					{
 					    invalidQuestData.setInt(1, player.getObjectId());
                         invalidQuestData.setString(2, questId);
                         invalidQuestData.executeUpdate();
@@ -499,9 +495,12 @@ public abstract class Quest
 				String value   = rs.getString("value");
 				// Get the QuestState saved in the loop before
 				QuestState qs = player.getQuestState(questId);
-				if (qs == null) {
-					_log.info("Lost variable "+var+" in quest "+questId+" for player "+player.getName());
-					if (Config.AUTODELETE_INVALID_QUEST_DATA){
+				if (qs == null) 
+				{
+					if(_log.isDebugEnabled())
+						_log.info("Lost variable "+var+" in quest "+questId+" for player "+player.getName());
+					if (Config.AUTODELETE_INVALID_QUEST_DATA)
+					{
 					    invalidQuestDataVar.setInt   (1,player.getObjectId());
                         invalidQuestDataVar.setString(2,questId);
                         invalidQuestDataVar.setString(3,var);
@@ -528,6 +527,7 @@ public abstract class Quest
 		}
 	}
 
+
 	/**
 	 * Insert (or Update) in the database variables that need to stay persistant for this quest after a reboot.
 	 * This function is for storage of values that do not related to a specific player but are
@@ -538,28 +538,24 @@ public abstract class Quest
 	 */
 	public final void saveGlobalQuestVar(String var, String value)
 	{
-		java.sql.Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			statement = con.prepareStatement("REPLACE INTO quest_global_data (quest_name,var,value) VALUES (?,?,?)");
-			statement.setString(1, getName());
-			statement.setString(2, var);
-			statement.setString(3, value);
-			statement.executeUpdate();
-			statement.close();
-		}
-		catch (Exception e)
-		{
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement;
+            statement = con.prepareStatement("REPLACE INTO quest_global_data (quest_name,var,value) VALUES (?,?,?)");
+            statement.setString(1, getName());
+            statement.setString(2, var);
+            statement.setString(3, value);
+            statement.executeUpdate();
+            statement.close();
+        } catch (Exception e) {
 			_log.warn("could not insert global quest variable:", e);
-		}
-		finally
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
+        } finally {
+            try { con.close(); } catch (Exception e) {}
+        }				
 	}
-
+	
 	/**
 	 * Read from the database a previously saved variable for this quest.
 	 * Due to performance considerations, this function should best be used only when the quest is first loaded.
@@ -572,29 +568,25 @@ public abstract class Quest
 	public final String loadGlobalQuestVar(String var)
 	{
 		String result = "";
-		java.sql.Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			statement = con.prepareStatement("SELECT value FROM quest_global_data WHERE quest_name = ? AND var = ?");
-			statement.setString(1, getName());
-			statement.setString(2, var);
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement;
+            statement = con.prepareStatement("SELECT value FROM quest_global_data WHERE quest_name = ? AND var = ?");
+            statement.setString(1, getName());
+            statement.setString(2, var);
 			ResultSet rs = statement.executeQuery();
 			if (rs.first())
 				result =  rs.getString(1);
 			rs.close();
-			statement.close();
-		}
-		catch (Exception e)
-		{
+            statement.close();
+        } catch (Exception e) {
 			_log.warn("could not load global quest variable:", e);
-		}
-		finally
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
-		return result;
+        } finally {
+            try { con.close(); } catch (Exception e) {}
+        }	
+        return result;
 	}
 
 	/**
@@ -603,25 +595,21 @@ public abstract class Quest
 	 */
 	public final void deleteGlobalQuestVar(String var)
 	{
-		java.sql.Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ? AND var = ?");
-			statement.setString(1, getName());
-			statement.setString(2, var);
-			statement.executeUpdate();
-			statement.close();
-		}
-		catch (Exception e)
-		{
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement;
+            statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ? AND var = ?");
+            statement.setString(1, getName());
+            statement.setString(2, var);
+            statement.executeUpdate();
+            statement.close();
+        } catch (Exception e) {
 			_log.warn("could not delete global quest variable:", e);
-		}
-		finally
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
+        } finally {
+            try { con.close(); } catch (Exception e) {}
+        }	
 	}
 
 	/**
@@ -629,34 +617,28 @@ public abstract class Quest
 	 */
 	public final void deleteAllGlobalQuestVars()
 	{
-		java.sql.Connection con = null;
-		try
-		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ?");
-			statement.setString(1, getName());
-			statement.executeUpdate();
-			statement.close();
-		}
-		catch (Exception e)
-		{
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement;
+            statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ?");
+            statement.setString(1, getName());
+            statement.executeUpdate();
+            statement.close();
+        } catch (Exception e) {
 			_log.warn("could not delete global quest variables:", e);
-		}
-		finally
-		{
-			try { con.close(); } catch (Exception e) {}
-		}
-	}
-
+        } finally {
+            try { con.close(); } catch (Exception e) {}
+        }	
+	}	
 	/**
 	 * Insert in the database the quest for the player.
 	 * @param qs : QuestState pointing out the state of the quest
 	 * @param var : String designating the name of the variable for the quest
 	 * @param value : String designating the value of the variable for the quest
 	 */
-	public static void createQuestVarInDb(QuestState qs, String var, String value) 
-	{
+	public static void createQuestVarInDb(QuestState qs, String var, String value) {
         java.sql.Connection con = null;
         try
         {
@@ -670,7 +652,7 @@ public abstract class Quest
 	    statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
-			_log.warn("could not insert char quest:", e);
+			_log.fatal("could not insert char quest:", e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }
@@ -690,8 +672,7 @@ public abstract class Quest
 	 * @param var : String designating the name of the variable for quest
 	 * @param value : String designating the value of the variable for quest
 	 */
-    public static void updateQuestVarInDb(QuestState qs, String var, String value) 
-    {
+    public static void updateQuestVarInDb(QuestState qs, String var, String value) {
         java.sql.Connection con = null;
         try
         {
@@ -705,7 +686,7 @@ public abstract class Quest
 			statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
-			_log.warn("could not update char quest:", e);
+			_log.fatal("could not update char quest:", e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }
@@ -716,8 +697,7 @@ public abstract class Quest
      * @param qs : object QuestState pointing out the player's quest
      * @param var : String designating the variable characterizing the quest
      */
-	public static void deleteQuestVarInDb(QuestState qs, String var) 
-	{
+	public static void deleteQuestVarInDb(QuestState qs, String var) {
         java.sql.Connection con = null;
         try
         {
@@ -740,8 +720,7 @@ public abstract class Quest
 	 * Delete the player's quest from database.
 	 * @param qs : QuestState pointing out the player's quest
 	 */
-	public static void deleteQuestInDb(QuestState qs) 
-	{
+	public static void deleteQuestInDb(QuestState qs) {
         java.sql.Connection con = null;
         try
         {
@@ -753,7 +732,7 @@ public abstract class Quest
 			statement.executeUpdate();
             statement.close();
         } catch (Exception e) {
-			_log.warn("could not delete char quest:", e);
+			_log.fatal("could not delete char quest:", e);
         } finally {
             try { con.close(); } catch (Exception e) {}
         }
@@ -773,8 +752,7 @@ public abstract class Quest
 	 * <LI>val : string corresponding at the ID of the state (in fact, initial state)</LI>
 	 * @param qs : QuestState
 	 */
-	public static void createQuestInDb(QuestState qs) 
-	{
+	public static void createQuestInDb(QuestState qs) {
 		createQuestVarInDb(qs, "<state>", qs.getStateId());
 	}
 	
@@ -786,8 +764,7 @@ public abstract class Quest
 	 * <LI>Save in database the ID state (with or without the star) for the variable called "&lt;state&gt;" of the quest</LI>
 	 * @param qs : QuestState
 	 */
-	public static void updateQuestInDb(QuestState qs) 
-	{
+	public static void updateQuestInDb(QuestState qs) {
 		String val = qs.getStateId();
 		//if (qs.isCompleted())
 		//	val = "*" + val;
@@ -843,8 +820,7 @@ public abstract class Quest
      * @param attackId
      * @return int : attackId
      */
-    public L2NpcTemplate addAttackId(int attackId) 
-    {
+    public L2NpcTemplate addAttackId(int attackId) {
     	return addEventId(attackId, Quest.QuestEventType.MOBGOTATTACKED);
     }
     
@@ -853,8 +829,7 @@ public abstract class Quest
 	 * @param killId
 	 * @return int : killId
 	 */
-	public L2NpcTemplate addKillId(int killId) 
-	{
+	public L2NpcTemplate addKillId(int killId) {
     	return addEventId(killId, Quest.QuestEventType.MOBKILLED);
 	}
 	
@@ -863,8 +838,7 @@ public abstract class Quest
      * @param talkId : ID of the NPC
      * @return int : ID of the NPC
      */
-    public L2NpcTemplate addTalkId(int talkId) 
-    {
+    public L2NpcTemplate addTalkId(int talkId) {
     	return addEventId(talkId, Quest.QuestEventType.QUEST_TALK);
     }
     
@@ -873,11 +847,19 @@ public abstract class Quest
      * @param npcId : ID of the NPC
      * @return int : ID of the NPC
      */
-    public L2NpcTemplate addSkillUseId(int npcId) 
-    {
+    public L2NpcTemplate addSkillUseId(int npcId) {
     	return addEventId(npcId, Quest.QuestEventType.MOB_TARGETED_BY_SKILL);
     }
-
+    
+    /**
+     * Add this quest to the list of quests that the passed npc will respond to for Talk Events.<BR><BR>
+     * @param talkId : ID of the NPC
+     * @return int : ID of the NPC
+     */
+    public L2NpcTemplate addSpawnId(int npcId) {
+        return addEventId(npcId, Quest.QuestEventType.NPC_SPAWNED);
+    }
+    
     // returns a random party member's L2PcInstance for the passed player's party
     // returns the passed player if he has no party.
     public L2PcInstance getRandomPartyMember(L2PcInstance player)
@@ -916,7 +898,7 @@ public abstract class Quest
      * 				condition, or null if no match.  If the var is null, any random party 
      * 				member is returned (i.e. no condition is applied).
      * 				The party member must be within 1500 distance from the target of the reference
-     * 				player, or if no target exists, 1500 distance from the player itself. 
+     * 				player, or if no target exists, 1500 distance from the player itself.
      */
     public L2PcInstance getRandomPartyMember(L2PcInstance player, String var, String value)
     {
@@ -928,7 +910,8 @@ public abstract class Quest
     	if (var == null) 
     		return getRandomPartyMember(player);
     	
-    	// normal cases...if the player is not in a partym check the player's state
+    	
+    	// normal cases...if the player is not in a party, check the player's state
     	QuestState temp = null;
     	L2Party party = player.getParty();
     	// if this player is not in a party, just check if this player instance matches the conditions itself
@@ -948,7 +931,7 @@ public abstract class Quest
     	// get the target for enforcing distance limitations.
     	L2Object target = player.getTarget();
     	if (target == null) target = player;
-    	    	
+    	
     	for(L2PcInstance partyMember: party.getPartyMembers())
     	{
     		temp = partyMember.getQuestState(getName());
@@ -1004,7 +987,7 @@ public abstract class Quest
     	// get the target for enforcing distance limitations.
     	L2Object target = player.getTarget();
     	if (target == null) target = player;
-    	    	
+    	
     	for(L2PcInstance partyMember: party.getPartyMembers())
     	{
     		temp = partyMember.getQuestState(getName());
@@ -1030,10 +1013,10 @@ public abstract class Quest
 
         //Create handler to file linked to the quest
         String directory    = getDescr().toLowerCase();
-        String content = HtmCache.getInstance().getHtm("data/jscript/" + directory + "/" + questId + "/"+fileName);
+        String content = HtmCache.getInstance().getHtm("data/scripts/" + directory + "/" + questId + "/"+fileName);
         
         if (content == null)
-            content = HtmCache.getInstance().getHtmForce("data/jscript/quests/"+questId+"/"+fileName);
+            content = HtmCache.getInstance().getHtmForce("data/scripts/quests/"+questId+"/"+fileName);
 
         if (player != null && player.getTarget() != null)
             content = content.replaceAll("%objectId%", String.valueOf(player.getTarget().getObjectId()));
@@ -1048,17 +1031,17 @@ public abstract class Quest
          
          return content;
 	}
-
+	
     // =========================================================
     //  QUEST SPAWNS
     // =========================================================
 
-    public class DeSpawnScheduleTimerTask implements Runnable
+	public class DeSpawnScheduleTimerTask implements Runnable
     {
         L2NpcInstance _npc = null;
         public DeSpawnScheduleTimerTask(L2NpcInstance npc)
         {
-            _npc = npc;
+        	_npc = npc;
         }
         
         public void run()
@@ -1067,33 +1050,33 @@ public abstract class Quest
         }
     }
 
-    // Method - Public
+	// Method - Public
     /**
      * Add a temporary (quest) spawn
-    * Return instance of newly spawned npc
+     * Return instance of newly spawned npc
      */
-    public L2NpcInstance addSpawn(int npcId, L2Character cha)
-    {
-        return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0);
-    }
-
+	public L2NpcInstance addSpawn(int npcId, L2Character cha)
+	{
+	    return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0);
+	}
+	
     public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay)
     {
-        L2NpcInstance result = null;
+    	L2NpcInstance result = null;
         try 
         {
             L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
             if (template != null)
             {
                 // Sometimes, even if the quest script specifies some xyz (for example npc.getX() etc) by the time the code
-                // reaches here, xyz have become 0!  Also, a questdev might have purposely set xy to 0,0...however,
-                // the spawn code is coded such that if x=y=0, it looks into location for the spawn loc!  This will NOT work
-                // with quest spawns!  For both of the above cases, we need a fail-safe spawn.  For this, we use the 
+            	// reaches here, xyz have become 0!  Also, a questdev might have purposely set xy to 0,0...however,
+            	// the spawn code is coded such that if x=y=0, it looks into location for the spawn loc!  This will NOT work
+            	// with quest spawns!  For both of the above cases, we need a fail-safe spawn.  For this, we use the 
                 // default spawn location, which is at the player's loc.
                 if ((x == 0) && (y == 0))
                 {
-                    _log.fatal("Failed to adjust bad locks for quest spawn!  Spawn aborted!");
-                    return null;
+                	_log.fatal("Failed to adjust bad locks for quest spawn!  Spawn aborted!");
+                	return null;
                 }
                 if (randomOffset)
                 {
@@ -1108,7 +1091,7 @@ public abstract class Quest
                     if (offset == 0) {offset = -1;} // make offset negative
                     offset *= Rnd.get(50, 100); 
                     y += offset;
-                }
+                }       
                 L2Spawn spawn = new L2Spawn(template);
                 spawn.setHeading(heading);
                 spawn.setLocx(x);
@@ -1117,28 +1100,76 @@ public abstract class Quest
                 spawn.stopRespawn();
                 result = spawn.spawnOne();
 
-                if (despawnDelay > 0)
-                    ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);
-
-                return result;
+	            if (despawnDelay > 0)
+		            ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);
+	            
+	            return result;
             }
         }
         catch (Exception e1)
         {
-            _log.warn("Could not spawn Npc " + npcId);
+        	_log.warn("Could not spawn Npc " + npcId);
         }
+          
         return null;
     }
-
+    
     public void registerItem(int itemId)
     {
-        if (_questItemIds == null)
-            _questItemIds = new FastList<Integer>();
-        _questItemIds.add(itemId);
+    	if (_questItemIds == null)
+    		_questItemIds = new FastList<Integer>();
+    	_questItemIds.add(itemId);
     }
-
+    
     public FastList<Integer> getRegisteredItemIds()
     {
-        return _questItemIds;
+    	return _questItemIds;
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.scripting.ManagedScript#getScriptName()
+     */
+    @Override
+    public String getScriptName()
+    {
+        return this.getName();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.scripting.ManagedScript#setActive(boolean)
+     */
+    @Override
+    public void setActive(boolean status)
+    {
+        // TODO implement me
+    }
+    
+    /**
+     * @see net.sf.l2j.gameserver.scripting.ManagedScript#reload()
+     */
+    @Override
+    public boolean reload()
+    {
+        this.saveGlobalData();
+        return super.reload();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.scripting.ManagedScript#unload()
+     */
+    @Override
+    public boolean unload()
+    {
+        this.saveGlobalData();
+        return QuestManager.getInstance().removeQuest(this);
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.scripting.ManagedScript#getScriptManager()
+     */
+    @Override
+    public ScriptManager<?> getScriptManager()
+    {
+        return QuestManager.getInstance();
     }
 }

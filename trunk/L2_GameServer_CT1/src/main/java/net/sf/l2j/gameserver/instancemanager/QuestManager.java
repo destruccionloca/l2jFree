@@ -17,49 +17,36 @@
  */
 package net.sf.l2j.gameserver.instancemanager;
 
-import java.io.File;
-
 import java.util.Map;
-import javolution.util.FastMap;
 
-import net.sf.l2j.Config;
+import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.quest.Quest;
-import net.sf.l2j.gameserver.model.quest.jython.QuestJython;
+import net.sf.l2j.gameserver.scripting.ScriptManager;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class QuestManager
+public class QuestManager extends ScriptManager<Quest>
 {
     protected static Log _log = LogFactory.getLog(QuestManager.class.getName());
-
     // =========================================================
     private static QuestManager _instance;
     public static final QuestManager getInstance()
     {
         if (_instance == null)
         {
-        	File jscript;
+    		_log.info("Initializing QuestManager");
             _instance = new QuestManager();
-            
-            jscript = new File(Config.DATAPACK_ROOT, "data/jscript");
-            for (File file : jscript.listFiles())
-            {
-            	if (file.isFile() && file.getName().endsWith("$py.class"))
-            		file.delete();
-            }
-            if (!Config.ALT_DEV_NO_QUESTS)
-            	_instance.load();
         }
         return _instance;
     }
     // =========================================================
 
-    
+
     // =========================================================
     // Data Field
     private Map<String, Quest> _quests = new FastMap<String, Quest>();
-    
+
     // =========================================================
     // Constructor
     public QuestManager()
@@ -70,14 +57,12 @@ public class QuestManager
     // Method - Public
     public final boolean reload(String questFolder)
     {
-        Quest q = getQuest(questFolder);
-        String path = "";
-        if (q != null)
-        {
-            q.saveGlobalData();
-            path = q.getPrefixPath();
-        }
-        return QuestJython.reloadQuest(path+questFolder);
+    	Quest q = getQuest(questFolder);
+    	if (q == null)
+    	{
+            return false;
+    	}
+    	return q.reload();
     }
     
     /**
@@ -88,57 +73,92 @@ public class QuestManager
      */
     public final boolean reload(int questId)
     {
-        Quest q = getQuest(questId);
-        if (q == null)
-        {
-            return false;
-        }
-        q.saveGlobalData();
-        return QuestJython.reloadQuest(q.getPrefixPath()+q.getName());
+    	Quest q = this.getQuest(questId);
+    	if (q == null)
+    	{
+    		return false;
+    	}
+    	return q.reload();
     }
     
-    // =========================================================
-    // Method - Private
-    private final void load()
+    public final void report()
     {
-        QuestJython.init();
         _log.info("Loaded: " + getQuests().size() + " quests");
     }
+    
     public final void save()
     {
-        for(Quest q : getQuests().values())
-            q.saveGlobalData();
+    	for (Quest q: getQuests().values())
+        {
+    		q.saveGlobalData();
+        }
     }
 
     // =========================================================
     // Property - Public
     public final Quest getQuest(String name)
     {
-        return getQuests().get(name);
+		return getQuests().get(name);
     }
 
     public final Quest getQuest(int questId)
     {
-        for (Quest q: getQuests().values())
-        {
-            if (q.getQuestIntId() == questId)
-                return q;
-        }
-        return null;
+    	for (Quest q: getQuests().values())
+    	{
+    		if (q.getQuestIntId() == questId)
+    			return q;
+    	}
+    	return null;
     }
     
+
     public final void addQuest(Quest newQuest)
     {
-        if (getQuests().containsKey(newQuest.getName()))
-            _log.info("Replaced: "+newQuest.getName()+" with a new version");
-        
-        // Note: FastMap will replace the old value if the key already exists
-        // so there is no need to explicitly try to remove the old reference.
-        getQuests().put(newQuest.getName(), newQuest);
+        if (newQuest == null)
+        {
+            throw new IllegalArgumentException("Quest argument cannot be null");
+        }
+    	Quest old = this.getQuests().put(newQuest.getName(), newQuest);
+        if (old != null)
+        {
+            _log.info("Replaced: ("+old.getName()+") with a new version ("+newQuest.getName()+")");
+        }
+    }
+    
+    public final boolean removeQuest(Quest q)
+    {
+        return this.getQuests().remove(q.getName()) != null;
     }
     
     public final FastMap<String, Quest> getQuests()
     {
+        if (_quests == null) _quests = new FastMap<String, Quest>();
         return (FastMap<String, Quest>) _quests;
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.scripting.ScriptManager#getAllManagedScripts()
+     */
+    public Iterable<Quest> getAllManagedScripts()
+    {
+        return _quests.values();
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.scripting.ScriptManager#unload(net.sf.l2j.gameserver.scripting.ManagedScript)
+     */
+    public boolean unload(Quest ms)
+    {
+        ms.saveGlobalData();
+        return this.removeQuest(ms);
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.scripting.ScriptManager#getScriptManagerName()
+     */
+    @Override
+    public String getScriptManagerName()
+    {
+        return "QuestManager";
     }
 }

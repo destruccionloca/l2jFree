@@ -58,7 +58,7 @@ public class TestL2PcTemplate extends TestCase
         assertNotNull(template);
         
         assertEquals("dummyEntry3",template.getClassId().name());
-        assertEquals("dwarf",template.getRace().name());
+        assertEquals("Dwarf",template.getRace().name());
         assertEquals("classname",template.getClassName());
         assertEquals(62,template.getSpawnX());
         assertEquals(63,template.getSpawnY());

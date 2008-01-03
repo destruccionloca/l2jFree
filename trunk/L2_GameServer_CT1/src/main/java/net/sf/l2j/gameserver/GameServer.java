@@ -14,7 +14,13 @@ package net.sf.l2j.gameserver;
 
 import java.net.InetAddress;
 import java.util.Calendar;
+import java.util.Calendar;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
+import net.sf.l2j.gameserver.scripting.L2ScriptEngineManager;
 import net.sf.l2j.gameserver.instancemanager.TransformationManager;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
@@ -241,8 +247,23 @@ public class GameServer
 		QuestManager.getInstance();
 		TransformationManager.getInstance();
 		Util.printSection("Events/ScriptEngine");
-		EventDroplist.getInstance();
+        try
+        {
+            _log.info("Loading Server Scripts");
+            File scripts = new File("data/scripts.cfg");
+            L2ScriptEngineManager.getInstance().executeScriptList(scripts);
+        }
+        catch (IOException ioe)
+        {
+            _log.fatal("Failed loading scripts.cfg, no script going to be loaded");
+        }
+        
+        QuestManager.getInstance().report();
+        TransformationManager.getInstance().report();		
+		
+        EventDroplist.getInstance();
 		FaenorScriptEngine.getInstance();
+		
 		Util.printSection("Extensions");
 		if (Config.FACTION_ENABLED)
 		{
