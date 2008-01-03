@@ -358,7 +358,7 @@ $MYG < ../sql/custom/custom_npcskills.sql &> /dev/null
 $MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
 $MYG < ../sql/custom/custom_weapon.sql &> /dev/null
 
-$MYG < ../sql/forced_updates.sql &> /dev/null 
+$MYG < ../sql/forced_updates.sql &> /dev/null
 
 }
 
@@ -375,7 +375,8 @@ esac
 }
 
 updatedb(){
-$MYG < ../sql/updates/il_to_ct1_update.sql
+$MYG < ../sql/updates/il_to_ct1_update.sql &> /dev/null
+$MYG < ../sql/updates/20071227update.sql &> /dev/null
 }
 
 finish(){
