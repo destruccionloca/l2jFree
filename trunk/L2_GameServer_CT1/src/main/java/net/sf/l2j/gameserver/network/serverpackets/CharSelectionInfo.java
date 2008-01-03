@@ -33,15 +33,9 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.8.2.4.2.6 $ $Date: 2005/04/06 16:13:46 $
- */
 public class CharSelectionInfo extends L2GameServerPacket
 {
-	// d SdSddddddddddffddddddddddddddddddddddddddddddddddddddddddddddffd
-	private static final String _S__1F_CHARSELECTINFO = "[S] 1F CharSelectInfo";
+	private static final String _S__09_CHARSELECTINFO = "[S] 09 CharSelectInfo [ddc (sdsddd dddd ddd ff d q ddddd dddddddddddddddddddddddddddddddddd ff ddd hh d)]";
 
 	private final static Log _log = LogFactory.getLog(CharSelectionInfo.class.getName());
 
@@ -78,9 +72,9 @@ public class CharSelectionInfo extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-		int size = (_characterPackages.length);
-
 		writeC(0x09);
+
+		int size = (_characterPackages.length);
 		writeD(size);
         writeD(0);
         writeC(1);
@@ -362,6 +356,6 @@ public class CharSelectionInfo extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__1F_CHARSELECTINFO;
+		return _S__09_CHARSELECTINFO;
 	}
 }

@@ -19,17 +19,11 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- * Format: (ch) ddd b
- * d: ?
- * d: crest ID
- * d: crest size
- * b: raw data
  * @author -Wooden-
- *
  */
 public class ExPledgeCrestLarge extends L2GameServerPacket
 {
-	private static final String _S__FE_28_EXPLEDGECRESTLARGE = "[S] FE:28 ExPledgeCrestLarge";
+	private static final String _S__FE_1B_EXPLEDGECRESTLARGE = "[S] FE:1b ExPledgeCrestLarge [ddd b]";
 	private int _crestId;
 	private byte[] _data;
 	
@@ -39,9 +33,6 @@ public class ExPledgeCrestLarge extends L2GameServerPacket
         _data = data;
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-	 */
 	@Override
 	protected void writeImpl()
 	{
@@ -53,16 +44,11 @@ public class ExPledgeCrestLarge extends L2GameServerPacket
 		writeD(_data.length);
 		
 		writeB(_data);
-		
 	}
 
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_28_EXPLEDGECRESTLARGE;
+		return _S__FE_1B_EXPLEDGECRESTLARGE;
 	}
-	
 }

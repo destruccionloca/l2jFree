@@ -18,12 +18,11 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- * Format: ch ddcdc
  * @author  KenM
  */
 public class ExPCCafePointInfo extends L2GameServerPacket
 {
-	private static final String _S__FE_31_EXPCCAFEPOINTINFO = "[S] FE:31 ExPCCafePointInfo";
+	private static final String _S__FE_32_EXPCCAFEPOINTINFO = "[S] FE:32 ExPCCafePointInfo [ddcdc]";
 	private int _unk1, _unk2, _unk3, _unk4, _unk5 = 0;
 	
 	public ExPCCafePointInfo(int val1, int val2, int val3, int val4, int val5)
@@ -40,6 +39,7 @@ public class ExPCCafePointInfo extends L2GameServerPacket
 	{
 		writeC(0xFE);
 		writeH(0x32);
+		
 		writeD(_unk1);
 		writeD(_unk2);
 		writeC(_unk3);
@@ -47,13 +47,9 @@ public class ExPCCafePointInfo extends L2GameServerPacket
 		writeC(_unk5);
 	}
 
-	/**
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_31_EXPCCAFEPOINTINFO;
+		return _S__FE_32_EXPCCAFEPOINTINFO;
 	}
-
 }
