@@ -2,7 +2,7 @@
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
-from data.jscript.quests.SagasSuperclass import Quest as JQuest
+from quests.SagasSuperclass import Quest as JQuest
 
 qn = "87_SagaOfEvasSaint"
 qnu = 87
