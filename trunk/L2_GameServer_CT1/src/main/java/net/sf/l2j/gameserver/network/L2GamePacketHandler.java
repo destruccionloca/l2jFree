@@ -438,6 +438,12 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 	                case 159: 
 	                    msg = new RequestPrivateStoreSell();
 	                    break;
+					case 166:
+						// RequestSkillCoolTime
+						/*if (Config.DEBUG)
+							_log.info("Request Skill Cool Time .. ignored");
+						msg = null;*/
+						break;
 	                case 167: 
 	                    msg = new RequestPackageSendableItemList();
 	                    break;
