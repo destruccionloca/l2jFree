@@ -540,7 +540,7 @@ public class ItemTable implements ItemTableMBean
             item.type = L2EtcItemType.ARROW;
             item.set.set("bodypart", L2Item.SLOT_L_HAND);
         }
-        if(itemType.equals("bolt"))
+        else if(itemType.equals("bolt"))
         {
             item.type = L2EtcItemType.BOLT;
             item.set.set("bodypart", L2Item.SLOT_L_HAND);
