@@ -131,7 +131,9 @@ public class L2Multisell
             	if (!item.isWear() && ((item.getItem() instanceof L2Armor) || (item.getItem() instanceof L2Weapon)))
             	{
             		enchantLevel = (listTemplate.getMaintainEnchantment()? item.getEnchantLevel() : 0);
-                    int augmentId = item.getAugmentation().getAugmentationId();
+            		int augmentId = 0;
+            		if (item.isAugmented())
+            			augmentId = item.getAugmentation().getAugmentationId();
                     int mana = item.getMana();
             		
             		// loop through the entries to see which ones we wish to include
