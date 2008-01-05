@@ -22,6 +22,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.Inventory;
+import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Transformation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -280,7 +281,14 @@ public class UserInfo extends L2GameServerPacket
 
         writeC(0x00); //1-find party members
 
-        writeD(_activeChar.getAbnormalEffect());
+        if (_activeChar.getAppearance().getInvisible())
+        {
+            writeD( (_activeChar.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH) );
+        }
+        else
+        {
+            writeD(_activeChar.getAbnormalEffect());
+        }
         writeC(0x11);
 
         writeD(_activeChar.getClanPrivileges());
