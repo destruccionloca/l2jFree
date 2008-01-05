@@ -147,7 +147,7 @@ public class GrandBossState
             statement.setInt(1, _bossId);
             statement.setLong(2, _respawnDate);
             statement.setInt(3, _state.ordinal());
-            statement.execute();
+            statement.executeUpdate();
             statement.close();
         }
         catch (Exception e)
@@ -171,7 +171,7 @@ public class GrandBossState
             statement.setLong(1, _respawnDate);
             statement.setInt(2, _state.ordinal());
             statement.setInt(3, _bossId);
-            statement.execute();
+            statement.executeUpdate();
             statement.close();
         }
         catch (Exception e)
