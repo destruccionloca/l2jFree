@@ -16,14 +16,15 @@ CLASSPATH=${CLASSPATH}:jmxtools-1.2.8.jar
 CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.4.jar
 
 CLASSPATH=${CLASSPATH}:bsf-2.0.jar
-CLASSPATH=${CLASSPATH}:bsh-2.0.jar
-
+CLASSPATH=${CLASSPATH}:bsh-2.0b4.jar
+CLASSPATH=${CLASSPATH}:bsh-engine-1.0.0.jar
 
 # for second level cache (hibernate)
 CLASSPATH=${CLASSPATH}:ehcache-1.2.3.jar
 
 #jython
 CLASSPATH=${CLASSPATH}:jython-2.2.1.jar
+CLASSPATH=${CLASSPATH}:jython-engine-1.0.0.jar
 
 # for bean use
 CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar
@@ -49,6 +50,9 @@ CLASSPATH=${CLASSPATH}:javolution-1.5.4.2.6.jar
 # main jar
 CLASSPATH=${CLASSPATH}:l2j-commons-1.0.8.jar
 CLASSPATH=${CLASSPATH}:l2j-gameserver-1.0.0.jar
+
+CLASSPATH=${CLASSPATH}:core-3.3.0.jar
+CLASSPATH=${CLASSPATH}:java-engine-1.0.0.jar
 
 # spring 
 CLASSPATH=${CLASSPATH}:spring-2.0.2.jar

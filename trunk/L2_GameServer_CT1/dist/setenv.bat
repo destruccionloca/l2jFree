@@ -16,9 +16,13 @@ SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.4.jar
 
 REM jython
 SET CLASSPATH=%CLASSPATH%;jython-2.2.1.jar
+SET CLASSPATH=%CLASSPATH%;jython-engine-1.0.0.jar
 
 SET CLASSPATH=%CLASSPATH%;bsf-2.0.jar
-SET CLASSPATH=%CLASSPATH%;bsh-2.0.jar
+SET CLASSPATH=%CLASSPATH%;bsh-2.0b4.jar
+SET CLASSPATH=%CLASSPATH%;bsh-engine-1.0.0.jar
+SET CLASSPATH=%CLASSPATH%;core-3.3.0.jar
+SET CLASSPATH=%CLASSPATH%;java-engine-1.0.0.jar
 
 REM for second level cache (hibernate)
 SET CLASSPATH=%CLASSPATH%;ehcache-1.2.3.jar
