@@ -167,7 +167,7 @@ echo "GameServer database installation/upgrade."
 echo -ne "LOGINSERVER DB install type: (f) full, (s) skip or (q) quit? "
 read LOGINPROMPT
 case "$LOGINPROMPT" in
-	"f"|"F") logininstall; loginupgrade; gsbackup; asktype;;
+	"f"|"F") logininstall; gsbackup; asktype;;
 	"s"|"S") gsbackup; asktype;;
 	"q"|"Q") finish;;
 	*) asklogin;;
@@ -231,8 +231,8 @@ echo "WARNING: A full install (f) will destroy all existing character data."
 echo -ne "GAMESERVER DB install type: (f) full install or (u) upgrade or (s) skip or (q) quit?"
 read INSTALLTYPE
 case "$INSTALLTYPE" in
-	"f"|"F") fullinstall; upgradeinstall I;askupdatedb;;
-	"u"|"U") upgradeinstall U;askupdatedb;;
+	"f"|"F") fullinstall; upgradeinstall I; askupdatedb;;
+	"u"|"U") upgradeinstall U; askupdatedb;;
 	"q"|"Q") finish;;
 	*) asktype;;
 esac

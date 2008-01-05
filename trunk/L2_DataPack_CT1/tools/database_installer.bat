@@ -36,9 +36,8 @@ echo          Choose skip (s) to skip loginserver DB installation and go to
 echo          gameserver DB installation/upgrade.
 :asklogin
 set loginprompt=x
-set /p loginprompt=LOGINSERVER DB install type: (f) full or (u) upgrade or {s} skip or (q) quit? 
+set /p loginprompt=LOGINSERVER DB install type: (f) full or (s) skip or (q) quit? 
 if /i %loginprompt%==f goto logininstall
-if /i %loginprompt%==u goto loginupgrade
 if /i %loginprompt%==s goto gsbackup
 if /i %loginprompt%==q goto end
 goto asklogin
@@ -46,9 +45,6 @@ goto asklogin
 :logininstall
 echo Deleting LoginServer tables for new content.
 %mysqlPath% -h %lshost% -u %lsuser% --password=%lspass% -D %lsdb% < login_install.sql
-
-:loginupgrade
-echo Installing new LoginServer content.
 %mysqlPath% -h %lshost% -u %lsuser% --password=%lspass% -D %lsdb% < ../sql/accounts.sql
 %mysqlPath% -h %lshost% -u %lsuser% --password=%lspass% -D %lsdb% < ../sql/gameservers.sql
 
