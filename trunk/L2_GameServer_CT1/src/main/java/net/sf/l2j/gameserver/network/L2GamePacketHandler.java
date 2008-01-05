@@ -641,10 +641,10 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			                case 34:
 			                    msg = new RequestSaveKeyMapping();
 		                    	break;	
+*/		                    	
 			                case 36:
 			                    msg = new RequestSaveInventoryOrder();
 			                    break;
-*/	
 			                case 37:
 			                    msg = new RequestExitPartyMatchingWaitingRoom();
 			                    break;	
