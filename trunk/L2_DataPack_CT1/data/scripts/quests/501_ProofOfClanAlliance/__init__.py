@@ -137,7 +137,7 @@ class Quest (JQuest) :
      leaderst.startQuestTimer("poison_timer",3600000)
      skill = SkillTable.getInstance().getInfo(4082,1)
      npc.setTarget(player)
-     npc.broadcastPacket(MagicSkillUser(npc,player,skill.getDisplayId(),1,skill.getHitTime(),0))
+     npc.broadcastPacket(MagicSkillUse(npc,player,skill.getDisplayId(),1,skill.getHitTime(),0))
      npc.callSkill(skill, [player])
      leaderst.addNotifyOfDeath(player)
    elif event == "poison_timer" :
