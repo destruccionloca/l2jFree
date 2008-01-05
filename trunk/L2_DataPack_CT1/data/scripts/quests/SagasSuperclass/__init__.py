@@ -1,17 +1,14 @@
 # Made by Emperorc
 import sys
-from net.sf.l2j.gameserver.ai import CtrlEvent
-from net.sf.l2j.gameserver.ai import CtrlIntention
-from net.sf.l2j.gameserver.datatables import SpawnTable
-from net.sf.l2j.gameserver.lib import Rnd
-from net.sf.l2j.gameserver.model import L2Spawn
-from net.sf.l2j.gameserver.model import L2World
+from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
-from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.network.serverpackets import CreatureSay
+from net.sf.l2j.gameserver.datatables import SpawnTable
+from net.sf.l2j.gameserver.ai import CtrlIntention
 from net.sf.l2j.gameserver.network.serverpackets import MagicSkillUse
-from java.util import Iterator
+from net.sf.l2j.gameserver.model import L2World
+from net.sf.l2j.gameserver.lib import Rnd
 
 qn = "SagasSuperclass"
 Archon_Minions = range(21646,21652)
@@ -19,6 +16,9 @@ Guardian_Angels = [27214, 27215, 27216]
 Archon_Hellisha_Norm = [18212, 18214, 18215, 18216, 18218]
 Mobs_Norm = Guardian_Angels+Archon_Minions+Archon_Hellisha_Norm
 Quests = {
+"67":"67_SagaOfTheDoombringer",
+"68":"68_SagaOfTheSoulHound",
+"69":"69_SagaOfTheTrickster",
 "70":"70_SagaOfThePhoenixKnight",
 "71":"71_SagaOfEvasTemplar",
 "72":"72_SagaOfTheSwordMuse",
@@ -51,7 +51,7 @@ Quests = {
 "99":"99_SagaOfTheFortuneSeeker",
 "100":"100_SagaOfTheMaestro"
 }
-QuestClass = [0x05,0x14,0x15,0x02,0x03,0x2e,0x30,0x33,0x34,0x08,0x17,0x24,0x09,0x18,0x25,0x10,0x11,0x1e,0x0c,0x1b,0x28,0x0e,0x1c,0x29,0x0d,0x06,0x22,0x21,0x2b,0x37,0x39]
+QuestClass = [0x7f,[0x80,0x81],0x82,0x05,0x14,0x15,0x02,0x03,0x2e,0x30,0x33,0x34,0x08,0x17,0x24,0x09,0x18,0x25,0x10,0x11,0x1e,0x0c,0x1b,0x28,0x0e,0x1c,0x29,0x0d,0x06,0x22,0x21,0x2b,0x37,0x39]
 PartyQuestMembers = []
 
 class Quest (JQuest) :
@@ -88,12 +88,12 @@ class Quest (JQuest) :
          self.STARTED.addQuestDrop(self.NPC[0],item,1)
 
  def Cast(self, npc,target,skillId,level):
-    target.broadcastPacket(MagicSkillUser(target,target,skillId,level,6000,1))
-    target.broadcastPacket(MagicSkillUser(npc,npc,skillId,level,6000,1))
+    target.broadcastPacket(MagicSkillUse(target,target,skillId,level,6000,1))
+    target.broadcastPacket(MagicSkillUse(npc,npc,skillId,level,6000,1))
 
  def FindTemplate (self, npcId) :
     for spawn in SpawnTable.getInstance().getSpawnTable().values():
-        if spawn.getNpcId() == npcId:
+        if spawn.getNpcid() == npcId:
             npcinstance = spawn.getLastSpawn()
             break
     return npcinstance
@@ -161,6 +161,25 @@ class Quest (JQuest) :
          return st1.getQuestState(self.qn)
      return st1
 
+ def findQuest(self,player) :
+    st = 0
+    for q in Quests.keys() :
+        st = player.getQuestState(str(Quests[q]))
+        if st :
+            if q != "68" :
+                if player.getClassId().getId() == QuestClass[int(q)- 67]:
+                    break
+            else :
+                if player.getClassId().getId() in QuestClass[int(q)- 67]:
+                    break
+    return st
+
+ def getClassId(self,player) :
+     return self.classid
+
+ def getPrevClass(self,player) :
+     return self.prevclass
+
  def onAdvEvent (self,event,npc, player) :
    st = player.getQuestState(self.qn)
    if not st: return
@@ -189,9 +208,10 @@ class Quest (JQuest) :
            st.addExpAndSp(2299404,0)
            st.giveItems(57,5000000)
            st.giveItems(6622,1)
-           player.setClassId(self.classid)
-           if not player.isSubClassActive() and player.getBaseClass() == self.prevclass :
-               player.setBaseClass(self.classid)
+           Class = self.getClassId(player)
+           player.setClassId(Class)
+           if not player.isSubClassActive() and player.getBaseClass() == self.getPrevClass(player) :
+               player.setBaseClass(Class)
            player.broadcastUserInfo()
            self.Cast(self.FindTemplate(self.NPC[0]),player,4339,1)
        else :
@@ -388,7 +408,7 @@ class Quest (JQuest) :
       cond = st.getInt("cond")
       if st.getState() == self.COMPLETED and npcId == self.NPC[0] :
           htmltext == "<html><body>You have already completed this quest!</body></html>"
-      elif player.getClassId().getId() == self.prevclass :
+      elif player.getClassId().getId() == self.getPrevClass(player) :
           if cond == 0 :
               if npcId == self.NPC[0]:
                   htmltext = "0-01.htm"
@@ -484,17 +504,19 @@ class Quest (JQuest) :
           elif cond == 20 :
               if npcId == self.NPC[0] :
                   if player.getLevel() >= 76 :
-                      st.setState(self.COMPLETED)
-                      st.set("cond","0")
-                      htmltext = "0-07.htm"
-                      st.addExpAndSp(2299404,0)
-                      st.giveItems(57,5000000)
-                      st.giveItems(6622,1)
-                      player.setClassId(self.classid)
-                      if not player.isSubClassActive() and player.getBaseClass() == self.prevclass :
-                          player.setBaseClass(self.classid)
-                      player.broadcastUserInfo()
-                      self.Cast(self.FindTemplate(self.NPC[0]),player,4339,1)
+                      htmltext = "0-09.htm"
+                      if not self.getClassId(player) in range(131,135) : #in Kamael quests, npc wants to chat for a bit before changing class
+                          st.setState(self.COMPLETED)
+                          st.set("cond","0")
+                          st.addExpAndSp(2299404,0)
+                          st.giveItems(57,5000000)
+                          st.giveItems(6622,1)
+                          Class = self.getClassId(player)
+                          player.setClassId(Class)
+                          if not player.isSubClassActive() and player.getBaseClass() == self.getPrevClass(player) :
+                              player.setBaseClass(Class)
+                          player.broadcastUserInfo()
+                          self.Cast(self.FindTemplate(self.NPC[0]),player,4339,1)
                   else :
                       htmltext = "0-010.htm"
     return htmltext
@@ -560,50 +582,38 @@ class Quest (JQuest) :
         if party :
             PartyQuestMembers = []
             for player1 in party.getPartyMembers().toArray() :
-                for q in Quests.keys() :
-                    st1 = player1.getQuestState(Quests[q])
-                    if st1 :
-                        if player1.getClassId().getId() == QuestClass[int(q)-70]:
-                            if st1.getInt("cond") == 15 :
-                                PartyQuestMembers.append(st1)
-                                break
+                st1 = self.findQuest(player1)
+                if st1 :
+                    if st1.getInt("cond") == 15 :
+                        PartyQuestMembers.append(st1)
             if len(PartyQuestMembers) > 0 :
                 st2 = PartyQuestMembers[Rnd.get(len(PartyQuestMembers))]
                 st2.getQuest().giveHallishaMark(st2)
         else :
-            for q in Quests.keys() :
-                st1 = player.getQuestState(Quests[q])
-                if st1 :
-                    if player.getClassId().getId() == QuestClass[int(q)-70]:
-                        if st1.getInt("cond") == 15 :
-                            st1.getQuest().giveHallishaMark(st1)
-                            break
+            st1 = self.findQuest(player)
+            if st1 :
+                if st1.getInt("cond") == 15 :
+                    st1.getQuest().giveHallishaMark(st1)
     elif npcId in Archon_Hellisha_Norm :
-        for q in Quests.keys() :
-            st1 = player.getQuestState(Quests[q])
+            st1 = self.findQuest(player)
             if st1 :
-                if player.getClassId().getId() == QuestClass[int(q)-70]:
-                    if st1.getInt("cond") == 15 :
-                        #This is just a guess....not really sure what it actually says, if anything
-                        self.AutoChat(npc,st1.getQuest().Text[4].replace('PLAYERNAME',st1.getPlayer().getName()))
-                        st1.giveItems(st1.getQuest().Items[8],1)
-                        st1.takeItems(st1.getQuest().Items[3],-1)
-                        st1.set("cond","16")
-                        st1.playSound("ItemSound.quest_middle")
-                        break
+                if st1.getInt("cond") == 15 :
+                    #This is just a guess....not really sure what it actually says, if anything
+                    self.AutoChat(npc,st1.getQuest().Text[4].replace('PLAYERNAME',st1.getPlayer().getName()))
+                    st1.giveItems(st1.getQuest().Items[8],1)
+                    st1.takeItems(st1.getQuest().Items[3],-1)
+                    st1.set("cond","16")
+                    st1.playSound("ItemSound.quest_middle")
     elif npcId in Guardian_Angels :
-        for q in Quests.keys() :
-            st1 = player.getQuestState(Quests[q])
+            st1 = self.findQuest(player)
             if st1 :
-                if player.getClassId().getId() == QuestClass[int(q)-70]:
-                    if st1.getInt("cond") == 6 :
-                        if st1.getInt("kills") < 9 :
-                            st1.set("kills",str(st1.getInt("kills")+1))
-                        else :
-                            st1.playSound("ItemSound.quest_middle")
-                            st1.giveItems(st1.getQuest().Items[5],1)
-                            st1.set("cond","7")
-                        break
+                if st1.getInt("cond") == 6 :
+                    if st1.getInt("kills") < 9 :
+                        st1.set("kills",str(st1.getInt("kills")+1))
+                    else :
+                        st1.playSound("ItemSound.quest_middle")
+                        st1.giveItems(st1.getQuest().Items[5],1)
+                        st1.set("cond","7")
     elif st :
         cond = st.getInt("cond")
         if npcId == self.Mob[0] and cond == 8 :
