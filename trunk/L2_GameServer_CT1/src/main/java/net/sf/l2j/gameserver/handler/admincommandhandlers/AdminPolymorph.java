@@ -46,6 +46,8 @@ public class AdminPolymorph implements IAdminCommandHandler
 		"admin_unpolymorph_menu",
 		"admin_transform",
 		"admin_untransform",
+		"admin_transform_menu",
+		"admin_untransform_menu"
 	};
 
 	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
@@ -56,7 +58,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
 		
-		if (command.equals("admin_untransform"))
+		if (command.startsWith("admin_untransform"))
 		{
 			L2Object obj = activeChar.getTarget();
 			if (obj != null && obj instanceof L2PcInstance)
@@ -66,7 +68,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			}
 			else
 			{
-				activeChar.sendMessage("Must target an Player for transformation");
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			}
 		}
 		else if (command.startsWith("admin_transform"))
@@ -97,6 +99,10 @@ public class AdminPolymorph implements IAdminCommandHandler
 						activeChar.sendMessage("Usage: //transform <id> [duration (secs)]");
 					}
 				}
+				else if (parts.length == 1)
+				{
+					cha.untransform();
+				}
 				else
 				{
 					activeChar.sendMessage("Usage: //transform <id>");
@@ -104,7 +110,7 @@ public class AdminPolymorph implements IAdminCommandHandler
 			}
 			else
 			{
-				activeChar.sendMessage("Must target an Player for transformation");
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			}
 		}
 		else if (command.startsWith("admin_polymorph"))
@@ -132,9 +138,9 @@ public class AdminPolymorph implements IAdminCommandHandler
 		{
 			doUnpoly(activeChar,activeChar.getTarget());
 		}
-		if (command.contains("polymorph_menu"))
+		if (command.contains("_menu"))
 		{
-			showMainPage(activeChar);
+			showMainPage(activeChar,command);
 		}
 		return true;
 	}
@@ -190,8 +196,13 @@ public class AdminPolymorph implements IAdminCommandHandler
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 	}
 
-	private void showMainPage(L2PcInstance activeChar)
+	private void showMainPage(L2PcInstance activeChar,String command)
 	{
-		AdminHelpPage.showHelpPage(activeChar, "effects_menu.htm");
+		if (command.contains("transform"))
+			AdminHelpPage.showHelpPage(activeChar, "transform.htm");
+		else if (command.contains("abnormal"))
+			AdminHelpPage.showHelpPage(activeChar, "abnormal.htm");
+		else
+			AdminHelpPage.showHelpPage(activeChar, "effects_menu.htm");
 	}
 }

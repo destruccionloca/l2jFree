@@ -54,7 +54,7 @@ public class ScrollOfEscape implements IItemHandler
 	// all the items ids that this handler knowns
 	private static final int[] ITEM_IDS =
 	{ 736, 1830, 1829, 1538, 3958, 5858, 5859, 7117, 7118, 7119, 7120, 7121, 7122, 7123, 7124, 7125, 7126, 7127, 7128, 7129,
-			7130, 7131, 7132, 7133, 7134, 7135, 7554, 7555, 7556, 7557, 7558, 7559, 7618, 7619 };
+			7130, 7131, 7132, 7133, 7134, 7135, 7554, 7555, 7556, 7557, 7558, 7559, 7618, 7619, 9716 };
 
 	/*
 	 * (non-Javadoc)
@@ -319,6 +319,10 @@ public class ScrollOfEscape implements IItemHandler
 						// Varka Silenos Village
 						case 7619:
 							_activeChar.teleToLocation(108275, -53785, -2524, true);
+							break;
+						// Kamael Village
+						case 9716 :
+							_activeChar.teleToLocation(-117251, 46771, 360, true);
 							break;
 						// To nearest town
 						default:

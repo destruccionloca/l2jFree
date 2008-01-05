@@ -4818,6 +4818,12 @@ public enum SystemMessageId
     */
    THERE_IS_NOT_ENOUGH_SOUL(2195),
 
+    /**
+     * ID: 2229<br>
+     * Message: There is no instance zone under a time limit
+     */
+    NO_INSTANCEZONE_TIME_LIMIT(2229),
+
     // ======================= //
     // L2J-Free System Messages //
     // ======================= //
