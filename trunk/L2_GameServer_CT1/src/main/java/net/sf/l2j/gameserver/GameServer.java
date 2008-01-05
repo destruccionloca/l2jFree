@@ -250,7 +250,7 @@ public class GameServer
         try
         {
             _log.info("Loading Server Scripts");
-            File scripts = new File("data/scripts.cfg");
+            File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(),"data/scripts.cfg");
             L2ScriptEngineManager.getInstance().executeScriptList(scripts);
         }
         catch (IOException ioe)
