@@ -1035,86 +1035,29 @@
   <for>
   </for>
 </skill>
-<skill id="1438" levels="9" name="Annihilation Circle" enchantLevels1="30" enchantLevels2="30">
+<skill id="1438" levels="9" name="Annihilation Circle">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl	1	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 82.
-      Lvl	2	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 85.
-      Lvl	3	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 89.
-      Lvl	4	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 92.
-      Lvl	5	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 96.
-      Lvl	6	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 99.
-      Lvl	7	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 102.
-      Lvl	8	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 105.
-      Lvl	9	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 108.
-      Lvl	101	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 111.	+1 Power	Maximizes the skill's effect. The effect is increased.
-      Lvl	102	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 112.	+2 Power	The effect is increased.
-      Lvl	103	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 112.	+3 Power	The effect is increased.
-      Lvl	104	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 112.	+4 Power	The effect is increased.
-      Lvl	105	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 113.	+5 Power	The effect is increased.
-      Lvl	106	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 113.	+6 Power	The effect is increased.
-      Lvl	107	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 113.	+7 Power	The effect is increased.
-      Lvl	108	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 114.	+8 Power	The effect is increased.
-      Lvl	109	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 114.	+9 Power	The effect is increased.
-      Lvl	110	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 115.	+10 Power	The effect is increased.
-      Lvl	111	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 115.	+11 Power	The effect is increased.
-      Lvl	112	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 115.	+12 Power	The effect is increased.
-      Lvl	113	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 116.	+13 Power	The effect is increased.
-      Lvl	114	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 116.	+14 Power	The effect is increased.
-      Lvl	115	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 116.	+15 Power	The effect is increased.
-      Lvl	116	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 117.	+16 Power	The effect is increased.
-      Lvl	117	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 117.	+17 Power	The effect is increased.
-      Lvl	118	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 117.	+18 Power	The effect is increased.
-      Lvl	119	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 118.	+19 Power	The effect is increased.
-      Lvl	120	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 118.	+20 Power	The effect is increased.
-      Lvl	121	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 119.	+21 Power	The effect is increased.
-      Lvl	122	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 119.	+22 Power	The effect is increased.
-      Lvl	123	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 119.	+23 Power	The effect is increased.
-      Lvl	124	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 120.	+24 Power	The effect is increased.
-      Lvl	125	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 120.	+25 Power	The effect is increased.
-      Lvl	126	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 120.	+26 Power	The effect is increased.
-      Lvl	127	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 121.	+27 Power	The effect is increased.
-      Lvl	128	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 121.	+28 Power	The effect is increased.
-      Lvl	129	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 121.	+29 Power	The effect is increased.
-      Lvl	130	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Power: Power is increased. Power 122.	+30 Power	The effect is increased.
-      Lvl	201	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
-      Lvl	202	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+2 Cost	The MP consumption is decreased.
-      Lvl	203	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+3 Cost	The MP consumption is decreased.
-      Lvl	204	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+4 Cost	The MP consumption is decreased.
-      Lvl	205	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+5 Cost	The MP consumption is decreased.
-      Lvl	206	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+6 Cost	The MP consumption is decreased.
-      Lvl	207	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+7 Cost	The MP consumption is decreased.
-      Lvl	208	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+8 Cost	The MP consumption is decreased.
-      Lvl	209	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+9 Cost	The MP consumption is decreased.
-      Lvl	210	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+10 Cost	The MP consumption is decreased.
-      Lvl	211	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+11 Cost	The MP consumption is decreased.
-      Lvl	212	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+12 Cost	The MP consumption is decreased.
-      Lvl	213	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+13 Cost	The MP consumption is decreased.
-      Lvl	214	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+14 Cost	The MP consumption is decreased.
-      Lvl	215	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+15 Cost	The MP consumption is decreased.
-      Lvl	216	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+16 Cost	The MP consumption is decreased.
-      Lvl	217	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+17 Cost	The MP consumption is decreased.
-      Lvl	218	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+18 Cost	The MP consumption is decreased.
-      Lvl	219	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Cost: MP consumption is decreased. Power 108.	+19 Cost	The MP consumption is decreased.
-      Lvl	220	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+20 Cost	The MP consumption is decreased.
-      Lvl	221	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+21 Cost	The MP consumption is decreased.
-      Lvl	222	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+22 Cost	The MP consumption is decreased.
-      Lvl	223	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+23 Cost	The MP consumption is decreased.
-      Lvl	224	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+24 Cost	The MP consumption is decreased.
-      Lvl	225	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+25 Cost	The MP consumption is decreased.
-      Lvl	226	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+26 Cost	The MP consumption is decreased.
-      Lvl	227	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+27 Cost	The MP consumption is decreased.
-      Lvl	228	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+28 Cost	The MP consumption is decreased.
-      Lvl	229	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+29 Cost	The MP consumption is decreased.
-      Lvl	230	Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Enchant Dark Attack: Strengthens dark attack. Power 108.	+30 Cost	The MP consumption is decreased.
-
+     Flaming hail attack, useful against multiple enemies. Consumes 3 soul. Power 82-108.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume"> 69 73 75 78 80 83 85 87 89</table>
+  <table name="#power"> 82 85 89 92 96 99 102 105 108</table>
+  <table name="#magicLvl"> 58 60 62 64 66 68 70 72 74</table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="target" val="TARGET_AREA"/>
+  <set name="skillRadius" val="200"/>
+  <set name="reuseDelay" val="12000"/>
+  <set name="hitTime" val="1800"/>
+  <set name="coolTime" val="520" />
+  <set name="skillType" val="MDAM"/>
+  <set name="element" val="6"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="500"/>
+  <set name="effectRange" val="900"/>
+  <set name="soulConsumeCount" val="3"/>
   <for>
   </for>
 </skill>
@@ -1156,93 +1099,57 @@
 </skill>
 <skill id="1441" levels="2" name="Soul to Empower">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl 	1	Temporarily increase your magic power. Consumes 1 Soul. Effect 1.
-      Lvl	2	Temporarily increase your magic power. Consumes 1 Soul. Effect 2.
+     Temporarily increase your magic power. Consumes 1 Soul. Effect 1-2.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#mpConsume_Init"> 5 8</table>
+  <table name="#mpConsume"> 33 42</table>
+  <table name="#Tab-mAtk"> 1.55 1.65</table>
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="hitTime" val="2000"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-mAtk" stackType="mAtk">
+      <mul order="0x30" stat="mAtk" val="#Tab-mAtk"/>
+    </effect>
   </for>
 </skill>
-<skill id="1442" levels="3" name="Protection from Darkness" enchantLevels1="30" enchantLevels2="30">
+<skill id="1442" levels="3" name="Protection from Darkness">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl	1	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Effect 1.
-      Lvl	2	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Effect 2.
-      Lvl	3	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Effect 3.
-      Lvl	101	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+1 Power	Maximizes the skill's effect. The effect is increased.
-      Lvl	102	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+2 Power	Increases the efficiency.
-      Lvl	103	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+3 Power	Increases the efficiency.
-      Lvl	104	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+4 Power	Increases the efficiency.
-      Lvl	105	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+5 Power	Increases the efficiency.
-      Lvl	106	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+6 Power	Increases the efficiency.
-      Lvl	107	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+7 Power	Increases the efficiency.
-      Lvl	108	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+8 Power	Increases the efficiency.
-      Lvl	109	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+9 Power	Increases the efficiency.
-      Lvl	110	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+10 Power	Increases the efficiency.
-      Lvl	111	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+11 Power	Increases the efficiency.
-      Lvl	112	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+12 Power	Increases the efficiency.
-      Lvl	113	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+13 Power	Increases the efficiency.
-      Lvl	114	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 3.	+14 Power	Increases the efficiency.
-      Lvl	115	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+15 Power	Increases the efficiency.
-      Lvl	116	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+16 Power	Increases the efficiency.
-      Lvl	117	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+17 Power	Increases the efficiency.
-      Lvl	118	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+18 Power	Increases the efficiency.
-      Lvl	119	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+19 Power	Increases the efficiency.
-      Lvl	120	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+20 Power	Increases the efficiency.
-      Lvl	121	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+21 Power	Increases the efficiency.
-      Lvl	122	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+22 Power	Increases the efficiency.
-      Lvl	123	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+23 Power	Increases the efficiency.
-      Lvl	124	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+24 Power	Increases the efficiency.
-      Lvl	125	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+25 Power	Increases the efficiency.
-      Lvl	126	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+26 Power	Increases the efficiency.
-      Lvl	127	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+27 Power	Increases the efficiency.
-      Lvl	128	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+28 Power	Increases the efficiency.
-      Lvl	129	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 4.	+29 Power	Increases the efficiency.
-      Lvl	130	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Power: Increases effect. Effect 5.	+30 Power	Increases the efficiency.
-      Lvl	201	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+1 Time	Maximizes the skill's duration. Increases the duration.
-      Lvl	202	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+2 Time	Increases the duration.
-      Lvl	203	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+3 Time	Increases the duration.
-      Lvl	204	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+4 Time	Increases the duration.
-      Lvl	205	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+5 Time	Increases the duration.
-      Lvl	206	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+6 Time	Increases the duration.
-      Lvl	207	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+7 Time	Increases the duration.
-      Lvl	208	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+8 Time	Increases the duration.
-      Lvl	209	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+9 Time	Increases the duration.
-      Lvl	210	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+10 Time	Increases the duration.
-      Lvl	211	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+11 Time	Increases the duration.
-      Lvl	212	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+12 Time	Increases the duration.
-      Lvl	213	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+13 Time	Increases the duration.
-      Lvl	214	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+14 Time	Increases the duration.
-      Lvl	215	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+15 Time	Increases the duration.
-      Lvl	216	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+16 Time	Increases the duration.
-      Lvl	217	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+17 Time	Increases the duration.
-      Lvl	218	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+18 Time	Increases the duration.
-      Lvl	219	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+19 Time	Increases the duration.
-      Lvl	220	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+20 Time	Increases the duration.
-      Lvl	221	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+21 Time	Increases the duration.
-      Lvl	222	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+22 Time	Increases the duration.
-      Lvl	223	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+23 Time	Increases the duration.
-      Lvl	224	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+24 Time	Increases the duration.
-      Lvl	225	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+25 Time	Increases the duration.
-      Lvl	226	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+26 Time	Increases the duration.
-      Lvl	227	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+27 Time	Increases the duration.
-      Lvl	228	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+28 Time	Increases the duration.
-      Lvl	229	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+29 Time	Increases the duration.
-      Lvl	230	Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.	+30 Time	Increases the duration.
+  Temporarily increase your target's resistance to dark attacks. Consumes 2 Souls.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume_Init"> 6 7 8 </table>
+  <table name="#mpConsume"> 48 55 61 </table>
+  <table name="#vuln"> 0.85 0.77 0.7 </table>
+  <table name="#aggro"> 285 379 418 </table>
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="8000"/>
+  <set name="hitTime" val="3000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="aggroPoints" val="#aggro"/>
+  <set name="soulConsumeCount" val="2"/>
   <for>
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="DarkAtr">
+      <mul order="0x30" stat="darkVuln" val="#vuln"/>
+    </effect>
   </for>
 </skill>
 <skill id="1443" levels="1" name="Dark Weapon" enchantLevels1="30" enchantLevels2="30">
@@ -1334,126 +1241,35 @@
   <for>
   </for>
 </skill>
-<skill id="1445" levels="18" name="Surrender to the Unholy" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
+<skill id="1445" levels="18" name="Surrender to the Unholy">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl	1	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.
-      Lvl	2	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.
-      Lvl	3	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 3.
-      Lvl	4	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	5	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	6	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	7	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	8	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	9	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	10	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	11	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	12	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	13	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	14	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	15	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	16	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	17	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	18	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.
-      Lvl	101	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+1 Power	Maximizes the skill's effect. The effect is increased.
-      Lvl	102	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+2 Power	Increases the efficiency.
-      Lvl	103	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+3 Power	Increases the efficiency.
-      Lvl	104	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+4 Power	Increases the efficiency.
-      Lvl	105	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+5 Power	Increases the efficiency.
-      Lvl	106	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+6 Power	Increases the efficiency.
-      Lvl	107	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+7 Power	Increases the efficiency.
-      Lvl	108	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+8 Power	Increases the efficiency.
-      Lvl	109	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 4.	+9 Power	Increases the efficiency.
-      Lvl	110	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+10 Power	Increases the efficiency.
-      Lvl	111	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+11 Power	Increases the efficiency.
-      Lvl	112	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+12 Power	Increases the efficiency.
-      Lvl	113	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+13 Power	Increases the efficiency.
-      Lvl	114	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+14 Power	Increases the efficiency.
-      Lvl	115	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+15 Power	Increases the efficiency.
-      Lvl	116	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+16 Power	Increases the efficiency.
-      Lvl	117	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+17 Power	Increases the efficiency.
-      Lvl	118	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+18 Power	Increases the efficiency.
-      Lvl	119	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 5.	+19 Power	Increases the efficiency.
-      Lvl	120	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+20 Power	Increases the efficiency.
-      Lvl	121	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+21 Power	Increases the efficiency.
-      Lvl	122	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+22 Power	Increases the efficiency.
-      Lvl	123	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+23 Power	Increases the efficiency.
-      Lvl	124	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+24 Power	Increases the efficiency.
-      Lvl	125	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+25 Power	Increases the efficiency.
-      Lvl	126	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+26 Power	Increases the efficiency.
-      Lvl	127	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+27 Power	Increases the efficiency.
-      Lvl	128	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+28 Power	Increases the efficiency.
-      Lvl	129	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 6.	+29 Power	Increases the efficiency.
-      Lvl	130	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Power: Increases effect. Effect 7.	+30 Power	Increases the efficiency.
-      Lvl	201	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+1 Chance	Maximizes the skill's success rate. The success rate is increased.
-      Lvl	202	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+2 Chance	The success rate is increased.
-      Lvl	203	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+3 Chance	The success rate is increased.
-      Lvl	204	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+4 Chance	The success rate is increased.
-      Lvl	205	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+5 Chance	The success rate is increased.
-      Lvl	206	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+6 Chance	The success rate is increased.
-      Lvl	207	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+7 Chance	The success rate is increased.
-      Lvl	208	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+8 Chance	The success rate is increased.
-      Lvl	209	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+9 Chance	The success rate is increased.
-      Lvl	210	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+10 Chance	The success rate is increased.
-      Lvl	211	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+11 Chance	The success rate is increased.
-      Lvl	212	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+12 Chance	The success rate is increased.
-      Lvl	213	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+13 Chance	The success rate is increased.
-      Lvl	214	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+14 Chance	The success rate is increased.
-      Lvl	215	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+15 Chance	The success rate is increased.
-      Lvl	216	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+16 Chance	The success rate is increased.
-      Lvl	217	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+17 Chance	The success rate is increased.
-      Lvl	218	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+18 Chance	The success rate is increased.
-      Lvl	219	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+19 Chance	The success rate is increased.
-      Lvl	220	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+20 Chance	The success rate is increased.
-      Lvl	221	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+21 Chance	The success rate is increased.
-      Lvl	222	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+22 Chance	The success rate is increased.
-      Lvl	223	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+23 Chance	The success rate is increased.
-      Lvl	224	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+24 Chance	The success rate is increased.
-      Lvl	225	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+25 Chance	The success rate is increased.
-      Lvl	226	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+26 Chance	The success rate is increased.
-      Lvl	227	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+27 Chance	The success rate is increased.
-      Lvl	228	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+28 Chance	The success rate is increased.
-      Lvl	229	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+29 Chance	The success rate is increased.
-      Lvl	230	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Chance: Success rate is increased. Effect 4.	+30 Chance	The success rate is increased.
-      Lvl	301	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+1 Time	Maximizes the skill's duration. Increases the duration.
-      Lvl	302	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+2 Time	Increases the duration.
-      Lvl	303	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+3 Time	Increases the duration.
-      Lvl	304	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+4 Time	Increases the duration.
-      Lvl	305	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+5 Time	Increases the duration.
-      Lvl	306	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+6 Time	Increases the duration.
-      Lvl	307	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+7 Time	Increases the duration.
-      Lvl	308	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+8 Time	Increases the duration.
-      Lvl	309	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+9 Time	Increases the duration.
-      Lvl	310	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+10 Time	Increases the duration.
-      Lvl	311	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+11 Time	Increases the duration.
-      Lvl	312	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+12 Time	Increases the duration.
-      Lvl	313	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+13 Time	Increases the duration.
-      Lvl	314	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+14 Time	Increases the duration.
-      Lvl	315	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+15 Time	Increases the duration.
-      Lvl	316	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+16 Time	Increases the duration.
-      Lvl	317	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+17 Time	Increases the duration.
-      Lvl	318	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+18 Time	Increases the duration.
-      Lvl	319	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+19 Time	Increases the duration.
-      Lvl	320	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+20 Time	Increases the duration.
-      Lvl	321	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+21 Time	Increases the duration.
-      Lvl	322	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+22 Time	Increases the duration.
-      Lvl	323	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+23 Time	Increases the duration.
-      Lvl	324	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+24 Time	Increases the duration.
-      Lvl	325	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+25 Time	Increases the duration.
-      Lvl	326	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+26 Time	Increases the duration.
-      Lvl	327	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+27 Time	Increases the duration.
-      Lvl	328	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+28 Time	Increases the duration.
-      Lvl	329	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Enchant Time: Skill duration is increased. Effect 4.	+29 Time	Increases the duration.
-      Lvl	330	Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls. Enchant Time: Skill duration is increased. Effect 4.	+30 Time	Increases the duration.
-
+      Instantly decrease the enemy's resistance to dark attacks and increase their resistance to holy attacks. Consumes 2 Souls.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume_Init"> 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10</table>
+  <table name="#mpConsume"> 23 26 29 32 34 38 39 43 44 48 48 51 52 54 55 56 57 59</table>
+  <table name="#magicLvl"> 28 32 36 40 43 46 49 52 56 58 60 62 64 66 68 70 72 74</table>
+  <table name="#Tab-darkVuln"> 1.25 1.25 1.25 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3 1.3</table>
+  <table name="#Tab-castRange"> 750 750 750 900 900 900 900 900 900 900 900 900 900 900 900 900 900 900</table>
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="save" val="2"/>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="power" val="80"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="8000"/>
+  <set name="hitTime" val="1500"/>
+  <set name="skillType" val="WEAKNESS"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="#Tab-castRange"/>
+  <set name="effectRange" val="1400"/>
+  <set name="soulConsumeCount" val="2"/>
   <for>
+    <effect count="1" name="Buff" time="15" val="0" stackOrder="2" stackType="surrender">
+      <mul order="0x30" stat="darkVuln" val="#Tab-darkVuln"/>
+    </effect>
   </for>
 </skill>
 <skill id="1446" levels="1" name="Shadow Bind">
