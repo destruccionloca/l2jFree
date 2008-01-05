@@ -62,10 +62,10 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					case 0:
 						msg = new RequestAuthSequence();
 						break;
-					case 14:
+					case 0x0e:
 						msg = new ProtocolVersion();
 						break;
-					case 43:
+					case 0x2b:
 		                msg = new AuthLogin();
 		                break;
 					default:
@@ -79,28 +79,43 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					case 0:
 						msg = new Logout();
 						break;
-					case 12:
-						msg = new CharacterCreate();	
+					case 0x0c:
+						msg = new CharacterCreate();
 						break;
-					case 13:
-						msg = new CharacterDelete();	
+					case 0x0d:
+						msg = new CharacterDelete();
 						break;
-					case 18:
+					case 0x12:
 						msg = new CharacterSelected();
 						break;
-					case 19:
+					case 0x13:
 						msg = new NewCharacter();
 						break;
-					case 123:
+					case 0x67:
+						msg = new RequestPledgeCrest();
+						break;
+					case 0x7b:
 						msg = new CharacterRestore();
 						break;
-		            case 208: 
-		                int idx = buf.getShort() & 0xffff;
+		            case 0xd0: 
+						int idx = -1;
+		            	if (buf.remaining() >= 2)
+		            	{
+		            		idx = buf.getShort() & 0xffff;
+		            	}
+		            	else
+		            	{
+		            		_log.warn("Client: "+client.toString()+" sent a 0xd0 without the second opcode.");
+		            		break;
+		            	}
+
 		                switch(idx)
 		                {
-		                	case 57:
+		                	case 0x39:
 		                		msg = new CharacterPrevState();
 		                		break;
+							default:
+								printDebugDoubleOpcode(opcode, idx, buf, state, client);
 		                }
 		                break;
 					default:
@@ -111,217 +126,240 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case IN_GAME:
 				switch(opcode)
 				{
-	            	case 0:
+	            	case 0x00:
 	            		msg = new Logout();
 	            		break;
-	                case 1:
+	                case 0x01:
 	                    msg = new AttackRequest();
 	                    break;
-	                case 3:
+	                case 0x03:
 	                    msg = new RequestStartPledgeWar();
 	                    break;
-	                case 4:
+	                case 0x04:
 	                    msg = new RequestReplyStartPledgeWar();
 	                    break;
-	                case 5:
+	                case 0x05:
 	                    msg = new RequestStopPledgeWar();
 	                    break;
-	                case 6:
+	                case 0x06:
 	                    msg = new RequestReplyStopPledgeWar();
 	                    break;
-	                case 7:
+	                case 0x07:
 	                    msg = new GameGuardReply();
 	                    break;
-	                case 9:
+	                case 0x08:
+	                    msg = new RequestReplySurrenderPledgeWar();
+	                    break;
+	                case 0x09:
 	                    msg = new RequestSetPledgeCrest();
 	                    break;
-	                case 11:
+	                case 0x0b:
 	                    msg = new RequestGiveNickName();
 	                    break;
-	                case 15:
+	                case 0x0f:
 	                    msg = new MoveBackwardToLocation();
 	                    break;
-	                case 17:
+	                case 0x11:
 	                    msg = new EnterWorld();
 	                    break;
-	                case 20:
+	                case 0x14:
 	                    msg = new RequestItemList();
 	                    break;
-	                case 22:
+	                case 0x16:
 	                    msg = new RequestUnEquipItem();
 	                    break;
-	                case 23:
+	                case 0x17:
 	                    msg = new RequestDropItem();
 	                    break;
-	                case 25:
+	                case 0x19:
 	                    msg = new UseItem();
 	                    break;
-	                case 26:
+	                case 0x1a:
 	                    msg = new TradeRequest();
 	                    break;
-	                case 27:
+	                case 0x1b:
 	                    msg = new AddTradeItem();
 	                    break;
-	                case 28:
+	                case 0x1c:
 	                    msg = new TradeDone();
 	                    break;
-	                case 31:
+	                case 0x1f:
 	                    msg = new Action();
 	                    break;
-	                case 34:
+	                case 0x22:
 	                    msg = new RequestLinkHtml();
 	                    break;
-	                case 35:
+	                case 0x23:
 	                    msg = new RequestBypassToServer();
 	                    break;
-	                case 36:
+	                case 0x24:
 	                    msg = new RequestBBSwrite();
 	                    break;
-	                case 38:
+	                case 0x26:
 	                    msg = new RequestJoinPledge();
 	                    break;
-	                case 39:
+	                case 0x27:
 	                    msg = new RequestAnswerJoinPledge();
 	                    break;
-	                case 40:
+	                case 0x28:
 	                    msg = new RequestWithdrawalPledge();
 	                    break;
-	                case 41:
+	                case 0x29:
 	                    msg = new RequestOustPledgeMember();
 	                    break;
-	                case 44:
+	                case 0x2c:
 	                    msg = new RequestGetItemFromPet();
 	                    break;
-	                case 46:
+	                case 0x2e:
 	                    msg = new RequestAllyInfo();
 	                    break;
-	                case 47:
+	                case 0x2f:
 	                    msg = new RequestCrystallizeItem();
 	                    break;
-	                case 49:
+	                case 0x30: // t1 ??
+	                    msg = new RequestPrivateStoreManageSell();
+	                    break;
+	                case 0x31:
 	                    msg = new SetPrivateStoreListSell();
 	                    break;
-	                case 52:
+	                //case 0x32:
+	                    //msg = new RequestPrivateStoreManageCancel(data, _client);
+	                    //break;
+	                case 0x34:
 	                    msg = new RequestSocialAction();
 	                    break;
-	                case 53:
+	                case 0x35:
 	                    msg = new ChangeMoveType2();
 	                    break;
-	                case 54:
+	                case 0x36:
 	                    msg = new ChangeWaitType2();
 	                    break;
-	                case 55:
+	                case 0x37:
 	                    msg = new RequestSellItem();
 	                    break;
-	                case 56:
+	                case 0x38:
 	                    msg = new RequestMagicSkillList();
 	                    break;
-	                case 57:
+	                case 0x39:
 	                    msg = new RequestMagicSkillUse();
 	                    break;
-	                case 58:
+	                case 0x3a:
 	                    msg = new Appearing();
 	                    break;
-	                case 59:
+	                case 0x3b:
 	                    msg = new SendWareHouseDepositList();
 	                    break;
-	                case 60:
+	                case 0x3c:
 	                    msg = new SendWareHouseWithDrawList();
 	                    break;
-	                case 61:
+	                case 0x3d:
 	                    msg = new RequestShortCutReg();
 	                    break;
-	                case 63:
+	                case 0x3f:
 	                    msg = new RequestShortCutDel();
 	                    break;
-	                case 64:
+	                case 0x40:
 	                    msg = new RequestBuyItem();
 	                    break;
-	                case 66:
+	                case 0x42:
 	                    msg = new RequestJoinParty();
 	                    break;
-	                case 67:
+	                case 0x43:
 	                    msg = new RequestAnswerJoinParty();
 	                    break;
-	                case 68:
+	                case 0x44:
 	                    msg = new RequestWithDrawalParty();
 	                    break;
-	                case 69:
+	                case 0x45:
 	                    msg = new RequestOustPartyMember();
 	                    break;
-	                case 71:
+	                case 0x46:
+	                    // RequestDismissParty
+	                    break;
+	                case 0x47:
 	                    msg = new CannotMoveAnymore();
 	                    break;
-	                case 72:
+	                case 0x48:
 	                    msg = new RequestTargetCanceld();
 	                    break;
-	                case 73:
+	                case 0x49:
 	                    msg = new Say2();
 	                    break;
-	                case 77:
+	                case 0x4d:
 	                    msg = new RequestPledgeMemberList();
 	                    break;
-	                case 80:
+	                case 0x4f:
+	                    msg = new DummyPacket();
+	                    break;
+	                case 0x50:
 	                    msg = new RequestMagicSkillList();
 	                    break;
-	                case 83:
+	                case 0x52:
+	                    msg = new MoveWithDelta(); 
+	                    break;
+	                case 0x53:
 	                    msg = new RequestGetOnVehicle();
 	                    break;
-	                case 84:
+	                case 0x54:
 	                    msg = new RequestGetOffVehicle();
 	                    break;
-	                case 85:
+	                case 0x55:
 	                    msg = new AnswerTradeRequest();
 	                    break;
-	                case 86:
+	                case 0x56:
 	                    msg = new RequestActionUse();
 	                    break;
-	                case 87:
+	                case 0x57:
 	                    msg = new RequestRestart();
 	                    break;
-	                case 89:
+	                case 0x58:
+	                    msg = new RequestSiegeInfo();
+	                    break;
+	                case 0x59:
 	                    msg = new ValidatePosition();
 	                    break;
-	                case 91:
+	                case 0x5b:
 	                    msg = new StartRotating();
 	                    break;
-	                case 92:
+	                case 0x5c:
 	                    msg = new FinishRotating();
 	                    break;
-	                case 94:
+	                case 0x5e:
 	                    msg = new RequestShowBoard();
 	                    break;
-	                case 95:
+	                case 0x5f:
 	                    msg = new RequestEnchantItem();
 	                    break;
-	                case 96:
+	                case 0x60:
 	                    msg = new RequestDestroyItem();
 	                    break;
-	                case 98:
+	                case 0x62:
 	                    msg = new RequestQuestList();
 	                    break;
-	                case 99:
+	                case 0x63:
 	                    msg = new RequestQuestAbort();
 	                    break;
-	                case 101:
+	                case 0x65:
 	                    msg = new RequestPledgeInfo();
 	                    break;
-	                case 102:
-	                    msg = new RequestPledgeInfo();
+	                case 0x66:
+	                    msg = new RequestPledgeExtendedInfo();
 	                    break;
-	                case 103:
+	                case 0x67:
 	                    msg = new RequestPledgeCrest();
 	                    break;
-	                case 107:
+	                case 0x6b:
 	                    msg = new RequestSendFriendMsg();
 	                    break;
-	                case 108:
-	                	msg = new RequestOpenMinimap();
+	                case 0x6c:
+	                    msg = new RequestOpenMinimap();
 	                    break;
-	                case 110:
+	                case 0x6d: // MSN dialogs so that you dont see them in the console.
+	                    break;
+	                case 0x6e:
 	                    msg = new RequestRecordInfo();
 	                    break;
-	                case 111:
+	                case 0x6f:
 	                    msg = new RequestHennaEquip();
 	                    break;
 /*
@@ -337,213 +375,232 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 	                    msg = new RequestHennaUnEquip();
 	                    break;
 */
-	                case 115:
+	                case 0x73:
 	                    msg = new RequestAquireSkillInfo();
 	                    break;
-	                case 116:
+	                case 0x74:
 	                    msg = new SendBypassBuildCmd();
 	                    break;
-	                case 118:
-	                    msg = new CannotMoveAnymore();
+	                case 0x75:
+	                    msg = new RequestMoveToLocationInVehicle();
 	                    break;
-	                case 119:
+	                case 0x76:
+	                    msg = new CannotMoveAnymoreInVehicle(); // ?
+	                    break;
+	                case 0x77:
 	                    msg = new RequestFriendInvite();
 	                    break;
-	                case 120:
+	                case 0x78:
 	                    msg = new RequestAnswerFriendInvite();
 	                    break;
-	                case 121:
+	                case 0x79:
 	                    msg = new RequestFriendList();
 	                    break;
-	                case 122:
+	                case 0x7a:
 	                    msg = new RequestFriendDel();
 	                    break;
-	                case 124:
+	                case 0x7c:
 	                    msg = new RequestAquireSkill();
 	                    break;
-	                case 125:
+	                case 0x7d:
 	                    msg = new RequestRestartPoint();
 	                    break;
-	                case 126:
+	                case 0x7e:
 	                    msg = new RequestGMCommand();
 	                    break;
-	                case 131: 
+	                case 0x7f:
+	                    msg = new RequestPartyMatchConfig();
+	                    break;
+	                case 0x80:
+	                    msg = new RequestPartyMatchList();
+	                    break;
+	                case 0x81:
+	                    msg = new RequestPartyMatchDetail();
+	                    break;
+	                //case 0x82:
+	                    // RequestPrivateStoreList
+	                    //break;
+	                case 0x83:
 	                    msg = new RequestPrivateStoreBuy();
 	                    break;
-/*
-	                case 134: 
-	                    msg = new RequestTutorialPassCmdToServer();
-	                    break;
-*/
-	                case 135: 
+	                //case 0x86: 
+	                    //msg = new RequestTutorialPassCmdToServer();
+	                    //break;
+	                case 0x87:
 	                    msg = new RequestTutorialQuestionMark();
 	                    break;
-	                case 136: 
+	                case 0x88:
 	                    msg = new RequestTutorialClientEvent();
 	                    break;
-	                case 137: 
+	                case 0x89:
 	                    msg = new RequestPetition();
 	                    break;
-	                case 138: 
+	                case 0x8a:
 	                    msg = new RequestPetitionCancel();
 	                    break;
-	                case 139: 
+	                case 0x8b:
 	                    msg = new RequestGmList();
 	                    break;
-	                case 140: 
+	                case 0x8c:
 	                    msg = new RequestJoinAlly();
 	                    break;
-	                case 141: 
+	                case 0x8d:
 	                    msg = new RequestAnswerJoinAlly();
 	                    break;
-	                case 144: 
+	                case 0x8e:
+	                    msg = new AllyLeave();
+	                    break;
+	                case 0x8f:
+	                    msg = new AllyDismiss();
+	                    break;
+	                case 0x90:
 	                    msg = new RequestDismissAlly();
 	                    break;
-	                case 145: 
+	                case 0x91:
 	                    msg = new RequestSetAllyCrest();
 	                    break;
-	                case 146: 
+	                case 0x92:
 	                    msg = new RequestAllyCrest();
 	                    break;
-	                case 147: 
+	                case 0x93:
 	                    msg = new RequestChangePetName();
 	                    break;
-	                case 148: 
+	                case 0x94:
 	                    msg = new RequestPetUseItem();
 	                    break;
-	                case 149: 
+	                case 0x95:
 	                    msg = new RequestGiveItemToPet();
 	                    break;
-	                case 150: 
+	                case 0x96:
 	                    msg = new RequestPrivateStoreQuitSell();
 	                    break;
-	                case 151: 
+	                case 0x97:
 	                    msg = new SetPrivateStoreMsgSell();
 	                    break;
-	                case 152: 
+	                case 0x98:
 	                    msg = new RequestPetGetItem();
 	                    break;
-	                case 153: 
+	                case 0x99:
 	                    msg = new RequestPrivateStoreManageBuy();
 	                    break;
-	                case 154: 
+	                case 0x9a:
 	                    msg = new SetPrivateStoreListBuy();
 	                    break;
-	                case 156: 
+	                case 0x9c:
 	                    msg = new RequestPrivateStoreQuitBuy();
 	                    break;
-	                case 157: 
+	                case 0x9d:
 	                    msg = new SetPrivateStoreMsgBuy();
 	                    break;
-	                case 159: 
+	                case 0x9f:
 	                    msg = new RequestPrivateStoreSell();
 	                    break;
-					case 166:
-						// RequestSkillCoolTime
-						/*if (Config.DEBUG)
-							_log.info("Request Skill Cool Time .. ignored");
-						msg = null;*/
-						break;
-	                case 167: 
+	                case 0xa6:
+	                    msg = new RequestSkillCoolTime();
+	                    break;
+	                case 0xa7:
 	                    msg = new RequestPackageSendableItemList();
 	                    break;
-	                case 168: 
+	                case 0xa8:
 	                    msg = new RequestPackageSend();
 	                    break;
-	                case 169: 
+	                case 0xa9:
 	                    msg = new RequestBlock();
 	                    break;
-	                case 171: 
+	                case 0xaa:
+	                    // RequestCastleSiegeInfo
+	                    break;
+	                case 0xab:
 	                    msg = new RequestSiegeAttackerList();
 	                    break;
-	                case 172: 
+	                case 0xac:
 	                    msg = new RequestSiegeDefenderList();
 	                    break;
-	                case 173: 
+	                case 0xad:
 	                    msg = new RequestJoinSiege();
 	                    break;
-	                case 174: 
+	                case 0xae:
 	                    msg = new RequestConfirmSiegeWaitingList();
 	                    break;
-	                case 176: 
+	                case 0xb0:
 	                    msg = new MultiSellChoose();
 	                    break;
-	                case 179: 
+	                case 0xb3:
 	                    msg = new RequestUserCommand();
 	                    break;
-	                case 180: 
+	                case 0xb4:
 	                    msg = new SnoopQuit();
 	                    break;
-	                case 181: 
+	                case 0xb5:
 	                    msg = new RequestRecipeBookOpen();
 	                    break;
-	                case 182: 
+	                case 0xb6:
 	                    msg = new RequestRecipeBookDestroy();
 	                    break;
-	                case 183: 
+	                case 0xb7:
 	                    msg = new RequestRecipeItemMakeInfo();
 	                    break;
-	                case 184: 
+	                case 0xb8:
 	                    msg = new RequestRecipeItemMakeSelf();
 	                    break;
-	                case 186: 
+	                case 0xba:
 	                    msg = new RequestRecipeShopMessageSet();
 	                    break;
-	                case 187: 
+	                case 0xbb:
 	                    msg = new RequestRecipeShopListSet();
 	                    break;
-	                case 188: 
+	                case 0xbc:
 	                    msg = new RequestRecipeShopManageQuit();
 	                    break;
-	                case 190: 
+	                case 0xbe:
 	                    msg = new RequestRecipeShopMakeInfo();
 	                    break;
-	                case 191: 
+	                case 0xbf:
 	                    msg = new RequestRecipeShopMakeItem();
 	                    break;
-	                case 192: 
+	                case 0xc0:
 	                    msg = new RequestRecipeShopManagePrev();
 	                    break;
-	                case 193: 
+	                case 0xc1:
 	                    msg = new ObserverReturn();
 	                    break;
-	                case 194: 
+	                case 0xc2:
 	                    msg = new RequestEvaluate();
 	                    break;
-	                case 195: 
+	                case 0xc3:
 	                    msg = new RequestHennaList();
 	                    break;
-	                case 196: 
+	                case 0xc4:
 	                    msg = new RequestHennaItemInfo();
 	                    break;
-	                case 197: 
+	                case 0xc5:
 	                    msg = new RequestBuySeed();
 	                    break;
-	                case 198: 
+	                case 0xc6:
 	                    msg = new DlgAnswer();
 	                    break;
-	                case 199: 
+	                case 0xc7:
 	                    msg = new RequestWearItem();
 	                    break;
-	                case 200: 
+	                case 0xc8:
 	                    msg = new RequestSSQStatus();
 	                    break;
-	                case 203: 
+	                case 0xcb:
 	                    msg = new GameGuardReply();
 	                    break;
-	                case 204: 
+	                case 0xcc:
 	                    msg = new RequestPledgePower();
 	                    break;
-	                case 205: 
+	                case 0xcd:
 	                    msg = new RequestMakeMacro();
 	                    break;
-	                case 206: 
+	                case 0xce:
 	                    msg = new RequestDeleteMacro();
 	                    break;
-	                case 207: 
+	                case 0xcf:
 	                    msg = new RequestBuyProcure();
 	                    break;
-	                case 208: 
+	                case 0xd0:
 		            	int id2 = -1;
 		            	if (buf.remaining() >= 2)
 		            	{
@@ -556,174 +613,192 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 		            	}
 		                switch (id2)
 		                {
-			                case 1:
+			                case 0x01:
 			                    msg = new RequestManorList();
 			                    break;
-			                case 2:
+			                case 0x02:
 			                    msg = new RequestProcureCropList();
-			                    break;	
-			                case 3:
+			                    break;
+			                case 0x03:
 			                    msg = new RequestSetSeed();
-			                    break;	
-			                case 4:
+			                    break;
+			                case 0x04:
 			                    msg = new RequestSetCrop();
-			                    break;	
-			                case 5:
+			                    break;
+			                case 0x05:
 			                    msg = new RequestWriteHeroWords();
-			                    break;	
-			                case 6:
+			                    break;
+			                case 0x06:
 			                    msg = new RequestExAskJoinMPCC();
-			                    break;	
-			                case 7:
+			                    break;
+			                case 0x07:
 			                    msg = new RequestExAcceptJoinMPCC();
-			                    break;	
-			                case 8:
+			                    break;
+			                case 0x08:
 			                    msg = new RequestExOustFromMPCC();
-			                    break;	
-			                case 9:
+			                    break;
+			                case 0x09:
 			                    msg = new RequestOustFromPartyRoom();
-			                    break;	
-			                case 10:
+			                    break;
+			                case 0x0a:
 			                    msg = new RequestDismissPartyRoom();
-			                    break;	
-			                case 11:
+			                    break;
+			                case 0x0b:
 			                    msg = new RequestWithdrawPartyRoom();
-			                    break;	
-			                case 12:
+			                    break;
+			                case 0x0c:
 			                    msg = new RequestChangePartyLeader();
-			                    break;	
-			                case 13:
+			                    break;
+			                case 0x0d:
 			                    msg = new RequestAutoSoulShot();
-			                    break;	
-			                case 14:
+			                    break;
+			                case 0x0e:
 			                    msg = new RequestExEnchantSkillInfo();
-			                    break;	
-			                case 15:
+			                    break;
+			                case 0x0f:
 			                    msg = new RequestExEnchantSkill();
-			                    break;	
-			                case 17:
+			                    break;
+			                case 0x10:
 			                    msg = new RequestExPledgeCrestLarge();
-			                    break;	
-			                case 18:
+			                    break;
+			                case 0x11:
+			                    msg = new RequestExSetPledgeCrestLarge();
+			                    break;
+			                case 0x12:
 			                    msg = new RequestPledgeSetAcademyMaster();
-			                    break;	
-			                case 19:
+			                    break;
+			                case 0x13:
 			                    msg = new RequestPledgePowerGradeList();
-			                    break;	
-			                case 20:
+			                    break;
+			                case 0x14:
 			                    msg = new RequestPledgeMemberPowerInfo();
-			                    break;	
-			                case 21:
+			                    break;
+			                case 0x15:
 			                    msg = new RequestPledgeSetMemberPowerGrade();
-			                    break;	
-			                case 22:
+			                    break;
+			                case 0x16:
 			                    msg = new RequestPledgeMemberInfo();
-			                    break;	
-			                case 23:
+			                    break;
+			                case 0x17:
 			                    msg = new RequestPledgeWarList();
-			                    break;	
-			                case 24:
+			                    break;
+			                case 0x18:
 			                    msg = new RequestExFishRanking();
-			                    break;	
-			                case 27:
+			                    break;
+			                case 0x19:
+			                    msg = new RequestPCCafeCouponUse();
+			                    break;
+			                case 0x1b:
 			                    msg = new RequestDuelStart();
-			                    break;	
-			                case 28:
+			                    break;
+			                case 0x1c:
 			                    msg = new RequestDuelAnswerStart();
 			                    break;
-/*	
-			                case 30:
+			                case 0x1e:
 			                    msg = new RequestExRqItemLink();
-			                    break;	
-			                case 33:
+			                    break;
+			                case 0x21:
 			                    msg = new RequestKeyMapping();
-			                    break;	
-			                case 34:
+			                    break;
+			                case 0x22:
 			                    msg = new RequestSaveKeyMapping();
-		                    	break;	
-*/		                    	
-			                case 36:
+			                    break;
+			                case 0x24:
 			                    msg = new RequestSaveInventoryOrder();
 			                    break;
-			                case 37:
+			                case 0x25:
 			                    msg = new RequestExitPartyMatchingWaitingRoom();
-			                    break;	
-			                case 38:
+			                    break;
+			                case 0x26:
 			                    msg = new RequestConfirmTargetItem();
-			                    break;	
-			                case 39:
+			                    break;
+			                case 0x27:
 			                    msg = new RequestConfirmRefinerItem();
-			                    break;	
-			                case 40:
+			                    break;
+			                case 0x28:
 			                    msg = new RequestConfirmGemStone();
-			                    break;	
-			                case 41:
+			                    break;
+			                case 0x29:
 			                    msg = new RequestOlympiadObserverEnd();
-			                    break;	
-			                case 42:
+			                    break;
+			                case 0x2a:
 			                    msg = new RequestCursedWeaponList();
-			                    break;	
-			                case 43:
+			                    break;
+			                case 0x2b:
 			                    msg = new RequestCursedWeaponLocation();
-			                    break;	
-			                case 44:
+			                    break;
+			                case 0x2c:
 			                    msg = new RequestPledgeReorganizeMember();
-			                    break;	
-			                case 46:
+			                    break;
+			                case 0x2e:
 			                    msg = new RequestExMPCCShowPartyMembersInfo();
-			                    break;	
-			                case 47:
+			                    break;
+			                case 0x2f:
 			                    msg = new RequestOlympiadMatchList();
-			                    break;	
-			                case 48:
+			                    break;
+			                case 0x30:
 			                    msg = new RequestAskJoinPartyRoom();
-			                    break;	
-			                case 49:
+			                    break;
+			                case 0x31:
 			                    msg = new AnswerJoinPartyRoom();
 			                    break;
-	
-/*			                case 56:
-			                    msg = new RequestEnchantItemAttribute();
-			                    break;	
-			                case 63:
+			                case 0x32:
+			                    msg = new RequestListPartyMatchingWaitingRoom();
+			                    break;
+			                case 0x33:
+			                    msg = new RequestExEnchantSkillSafe();
+			                    break;
+			                case 0x34:
+			                    msg = new RequestExEnchantSkillUntrain();
+			                    break;
+			                case 0x35:
+			                    msg = new RequestExEnchantSkillRouteChange();
+			                    break;
+			                case 0x36:
+			                    msg = new ExGetOnAirShip();
+			                    break;
+			                //case 0x38:
+			                    //msg = new RequestEnchantItemAttribute();
+			                    //break;
+			                case 0x3f:
 			                    msg = new RequestAllCastleInfo();
-			                    break;	
-			                case 64:
+			                    break;
+			                case 0x40:
 			                    msg = new RequestAllFortressInfo();
-			                    break;	
-			                case 65:
+			                    break;
+			                case 0x41:
 			                    msg = new RequestAllAgitInfo();
 			                    break;
-*/			                    	
-			                case 66:
-			                    //msg = new RequestOpenMinimap(); /* Not used in CT1 */
+			                case 0x42:
+			                    msg = new RequestFortressSiegeInfo();
 			                    break;
-			                case 67:
+			                case 0x43:
 			                    msg = new RequestGetBossRecord();
-			                    break;	
-			                case 68:
+			                    break;
+			                case 0x44:
 			                    msg = new RequestRefine();
-			                    break;	
-			                case 69:
+			                    break;
+			                case 0x45:
 			                    msg = new RequestConfirmCancelItem();
 			                    break;
-			                case 70:
+			                case 0x46:
 			                    msg = new RequestRefineCancel();
 			                    break;
-			                case 71:
+			                case 0x47:
 			                    msg = new RequestExMagicSkillUseGround();
 			                    break;
-			                case 72:
+			                case 0x48:
 			                    msg = new RequestDuelSurrender();
 			                    break;
-		                    default: 
-		                     	printDebugDoubleOpcode(opcode, id2, buf, state, client);
-		                    	break;
-		                }
+			                case 0x49:
+			                    msg = new RequestExEnchantSkillInfoDetail();
+			                    break;
+			                default: 
+			                    printDebugDoubleOpcode(opcode, id2, buf, state, client);
+			                    break;
+			            }
 						break;
-		            /*case 0xee:
-						msg = new RequestChangePartyLeader(data, _client);     
-						break;*/
+
 					default:
 						printDebug(opcode, buf, state, client);
 						break;

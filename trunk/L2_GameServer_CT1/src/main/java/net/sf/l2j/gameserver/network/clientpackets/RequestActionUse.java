@@ -141,6 +141,9 @@ public class RequestActionUse extends L2GameClientPacket
                 if (_log.isDebugEnabled()) 
                     _log.debug("new move type: "+(activeChar.isRunning() ? "RUNNING" : "WALKIN"));
                 break;
+            case 10:
+                activeChar.tryOpenPrivateSellStore();
+                break;
             case 15:
             case 21: // pet follow/stop
                 if (pet != null && !pet.isMovementDisabled() && !activeChar.isBetrayed())
@@ -160,11 +163,11 @@ public class RequestActionUse extends L2GameClientPacket
 
                     if (activeChar.getAccessLevel() < Config.GM_PEACEATTACK && activeChar.isInsidePeaceZone(pet, target))
                     {
-                    	if(!activeChar.isInFunEvent() || !target.isInFunEvent())
-                    	{
-                    		activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
-                        	return;
-                    	}
+                        if(!activeChar.isInFunEvent() || !target.isInFunEvent())
+                        {
+                            activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
+                            return;
+                        }
                     }
 
                     if (target.isAutoAttackable(activeChar) || _ctrlPressed)
@@ -287,6 +290,9 @@ public class RequestActionUse extends L2GameClientPacket
                     }
                 }
                 break;
+            case 28:
+                activeChar.tryOpenPrivateBuyStore();
+                break;
             case 32: // Wild Hog Cannon - Mode Change
                 useSkill(4230);
                 break;
@@ -299,11 +305,11 @@ public class RequestActionUse extends L2GameClientPacket
                     sendPacket(new ActionFailed());
                     return;
                 }
-				if(activeChar.getPrivateStoreType() != 0)
-				{
-					activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-					activeChar.broadcastUserInfo();
-		        }                
+                if(activeChar.getPrivateStoreType() != 0)
+                {
+                    activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+                    activeChar.broadcastUserInfo();
+                }
                 if (activeChar.isSitting())
                     activeChar.standUp();
                 
@@ -348,11 +354,11 @@ public class RequestActionUse extends L2GameClientPacket
                     sendPacket(new ActionFailed());
                     return;
                 }
-				if(activeChar.getPrivateStoreType() != 0)
-				{
-					activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
-					activeChar.broadcastUserInfo();
-		        }                
+                if(activeChar.getPrivateStoreType() != 0)
+                {
+                    activeChar.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
+                    activeChar.broadcastUserInfo();
+                }
                 if (activeChar.isSitting())
                     activeChar.standUp();
                 
@@ -462,14 +468,14 @@ public class RequestActionUse extends L2GameClientPacket
             case 1038: // Spectral Lord - Force Curse
                 useSkill(5140);
                 break;
-			case 1039: // Swoop Cannon - Cannon Fodder
-				if (!(target instanceof L2DoorInstance))
-					useSkill(5110);
-				break;
-			case 1040: // Swoop Cannon - Big Bang
-				if (!(target instanceof L2DoorInstance))
-					useSkill(5111);
-				break;
+            case 1039: // Swoop Cannon - Cannon Fodder
+                if (!(target instanceof L2DoorInstance))
+                    useSkill(5110);
+                break;
+            case 1040: // Swoop Cannon - Big Bang
+                if (!(target instanceof L2DoorInstance))
+                    useSkill(5111);
+                break;
             default:
                 _log.warn(activeChar.getName()+": unhandled action type "+_actionId);
         }
