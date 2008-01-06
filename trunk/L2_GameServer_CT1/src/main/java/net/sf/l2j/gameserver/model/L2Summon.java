@@ -626,7 +626,7 @@ public abstract class L2Summon extends L2PlayableInstance
                 && getOwner() != null
                 && (getOwner().getAccessLevel() < Config.GM_PEACEATTACK))
         {
-            SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_NOT_AVAILABLE);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
             sm.addString(skill.getName());
             getOwner().sendPacket(sm);
             return;

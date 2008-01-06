@@ -23,8 +23,6 @@ import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * This class handles following admin commands:
@@ -68,16 +66,12 @@ public class AdminTarget implements IAdminCommandHandler
 			}
 			else
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				sm.addString("Player "+targetName+" not found");
-				activeChar.sendPacket(sm);
+				activeChar.sendMessage("Player "+targetName+" not found");
 			}
 		}
 		catch (IndexOutOfBoundsException e)
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("Please specify correct name.");
-			activeChar.sendPacket(sm);
+			activeChar.sendMessage("Please specify correct name.");
 		}
 	}
 }

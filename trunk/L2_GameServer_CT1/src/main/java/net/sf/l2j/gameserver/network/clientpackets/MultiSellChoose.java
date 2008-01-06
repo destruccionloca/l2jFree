@@ -166,7 +166,7 @@ public class MultiSellChoose extends L2GameClientPacket
                 }
                 if(player.getClan().getReputationScore() < e.getItemCount())
                 {
-                    player.sendPacket(new SystemMessage(SystemMessageId.THE_CLAN_REPUTATION_SCORE_IS_TOO_LOW));
+                    player.sendPacket(new SystemMessage(SystemMessageId.CLAN_REPUTATION_SCORE_IS_TOO_LOW));
                     return;
                 }
             }

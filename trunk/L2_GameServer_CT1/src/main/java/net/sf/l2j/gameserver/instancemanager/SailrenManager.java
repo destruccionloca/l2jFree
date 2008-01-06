@@ -259,9 +259,7 @@ public class SailrenManager
 
 		if(canIntoSailrenLair(pc) != 0)
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("Entrance was refused because it did not satisfy it. ");
-			pc.sendPacket(sm);
+			pc.sendMessage("Entrance was refused because it did not satisfy it.");
 			_isAlreadyEnteredOtherParty = false;
 			return;
 		}

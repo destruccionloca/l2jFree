@@ -57,7 +57,7 @@ public class Spoil implements ISkillHandler
             L2MonsterInstance target = (L2MonsterInstance) element;
 			
             if (target.isSpoil()) {
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.ALREDAY_SPOILED));
+                activeChar.sendPacket(new SystemMessage(SystemMessageId.ALREADY_SPOILED));
                 continue;
             }
 

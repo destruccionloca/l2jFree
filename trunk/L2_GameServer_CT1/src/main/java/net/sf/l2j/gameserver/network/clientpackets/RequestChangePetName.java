@@ -71,12 +71,7 @@ public class RequestChangePetName extends L2GameClientPacket
 		}
         else if (_name.length() < 3 || _name.length() > 16)
 		{
-            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-            sm.addString("Your pet's name can be up to 16 characters.");
-			// SystemMessage sm = new SystemMessage(SystemMessageId.NAMING_PETNAME_UP_TO_8CHARS);
-        	activeChar.sendPacket(sm);
-        	sm = null;
-        	
+			activeChar.sendMessage("Your pet's name can be up to 16 characters.");
 			return;
 		}
         else if (!Config.CLAN_ALLY_NAME_PATTERN.matcher(_name).matches())

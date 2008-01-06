@@ -215,7 +215,7 @@ public class EnterWorld extends L2GameClientPacket
         {
         	if(Config.CHAR_VIP_COLOR_ENABLED)
         		activeChar.getAppearance().setNameColor(Config.CHAR_VIP_COLOR);
-        }        
+        }
         
         if (Config.PLAYER_SPAWN_PROTECTION > 0)
             activeChar.setProtection(true);
@@ -226,7 +226,7 @@ public class EnterWorld extends L2GameClientPacket
 		
 		if (L2Event.active && L2Event.connectionLossData.containsKey(activeChar.getName()) && L2Event.isOnEvent(activeChar))
 	        L2Event.restoreChar(activeChar);
-		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))            
+		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
 			L2Event.restoreAndTeleChar(activeChar);
 	
         // Buff and status icons
@@ -274,19 +274,19 @@ public class EnterWorld extends L2GameClientPacket
 
         if (Config.SHOW_L2J_LICENSE)
         {
-        	sm = new SystemMessage(SystemMessageId.S1_S2);
+        	sm = new SystemMessage(SystemMessageId.S2_S1);
 	        sm.addString(getText("VGhpcyBTZXJ2ZXIgaXMgcnVubmluZyBMMko="));
             sm.addString(getText("IHZlcnNpb24gNiBkZXYvdW5zdGFibGU="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessageId.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S2_S1);
 	        sm.addString(getText("Y3JlYXRlZCBieSBMMkNoZWYgYW5kIHRoZQ=="));
 	        sm.addString(getText("IEwySiB0ZWFtLg=="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessageId.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S2_S1);
 	        sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 	        sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
 	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessageId.S1_S2);
+	        sm = new SystemMessage(SystemMessageId.S2_S1);
 	        sm.addString(getText("V2VsY29tZSB0byA="));
 	        sm.addString(LoginServerThread.getInstance().getServerName());
 	        sendPacket(sm);
@@ -295,10 +295,10 @@ public class EnterWorld extends L2GameClientPacket
             Version version = versionningService.getVersion();
             if (version!= null)
 	        {
-	        	sm = new SystemMessage(SystemMessageId.S1_S2);
+	            sm = new SystemMessage(SystemMessageId.S2_S1);
 	            sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==")+"   "+version.getRevisionNumber());
 	            sendPacket(sm);
-	            sm = new SystemMessage(SystemMessageId.S1_S2);
+	            sm = new SystemMessage(SystemMessageId.S2_S1);
 	            sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==")+" "+version.getBuildDate());
 	            sendPacket(sm);
 	        }
@@ -348,14 +348,14 @@ public class EnterWorld extends L2GameClientPacket
 
         if(Config.ONLINE_PLAYERS_AT_STARTUP)
         {
-             sm = new SystemMessage(SystemMessageId.S1_S2);
+             sm = new SystemMessage(SystemMessageId.S2_S1);
              if (L2World.getInstance().getAllPlayers().size() == 1)
-            	 sm.addString("Player online: ");
+                 sm.addString("Player online: ");
              else
-            	 sm.addString("Players online: ");
+                 sm.addString("Players online: ");
              sm.addNumber(L2World.getInstance().getAllPlayers().size());
              sendPacket(sm);
-        }        
+        }
 
 		
 		PetitionManager.getInstance().checkPetitionMessages(activeChar);

@@ -53,19 +53,16 @@ public class RequestUserCommand extends L2GameClientPacket
 
     @Override
     protected void runImpl()
-	{
+    {
         L2PcInstance player = getClient().getActiveChar();
-	    if (player == null)
-	        return;
-		
+        if (player == null)
+            return;
+
         IUserCommandHandler handler = UserCommandHandler.getInstance().getUserCommandHandler(_command);
         
         if (handler == null)
         {
-            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-            sm.addString("user commandID "+_command+" not implemented yet");
-            player.sendPacket(sm);
-            sm = null;
+            player.sendMessage("User command ID "+_command+" is not implemented yet.");
         }
         else
         {

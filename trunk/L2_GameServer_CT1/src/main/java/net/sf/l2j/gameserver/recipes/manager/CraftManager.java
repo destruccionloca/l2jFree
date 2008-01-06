@@ -184,9 +184,9 @@ public class CraftManager
         // check if already busy (possible in alt mode only)
         if (CraftManager.isPlayerCrafting(player)) 
         {
-            SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-            sm.addString("You are busy creating ");
+            SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
             sm.addItemNameById(recipe.getItemId());
+            sm.addString("You are busy creating ");
             player.sendPacket(sm);
             return;
         }

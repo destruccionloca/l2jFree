@@ -1249,9 +1249,7 @@ public abstract class L2Skill
 			String msg = preCondition.getMessage();
 			if (msg != null)
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				sm.addString(msg);
-				activeChar.sendPacket(sm);
+				activeChar.sendMessage(msg);
 			}
 			return false;
 		}
@@ -2166,9 +2164,7 @@ public abstract class L2Skill
 			}
 			case TARGET_ITEM:
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-				sm.addString("Target type of skill is not currently handled.");
-				activeChar.sendPacket(sm);
+				activeChar.sendMessage("Target type of skill is not currently handled.");
 				return null;
 			}
 			case TARGET_ENEMY_SUMMON:

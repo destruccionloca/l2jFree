@@ -598,10 +598,10 @@ public class AdminAdmin implements IAdminCommandHandler
 	
 	
 	//[L2J_JP_ADD]
-	public void adminSummon(L2PcInstance activeChar, int npcId){
-		if (activeChar.getPet() != null) {
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			activeChar.sendPacket(sm);
+	public void adminSummon(L2PcInstance activeChar, int npcId)
+	{
+		if (activeChar.getPet() != null)
+		{
 			activeChar.getPet().unSummon(activeChar);
 		}
 		

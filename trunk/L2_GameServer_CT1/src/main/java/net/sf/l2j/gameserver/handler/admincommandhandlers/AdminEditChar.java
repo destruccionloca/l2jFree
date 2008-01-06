@@ -404,10 +404,8 @@ public class AdminEditChar implements IAdminCommandHandler
 			player.setHero(player.isHero() ? false : true);
 			if (player.isHero() == true)
 				player.broadcastPacket(new SocialAction(player.getObjectId(), 16));
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("Admin changed your hero status");
-			player.sendPacket(sm);
-			player.broadcastUserInfo();	   
+			player.sendMessage("Admin changed your hero status");
+			player.broadcastUserInfo();
 		}
 		// [L2J_JP ADD END]
 		else if (command.equals("admin_remclanwait"))

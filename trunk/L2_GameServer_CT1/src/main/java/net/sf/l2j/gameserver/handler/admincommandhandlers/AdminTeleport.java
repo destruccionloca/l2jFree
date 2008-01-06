@@ -382,10 +382,8 @@ public class AdminTeleport implements IAdminCommandHandler
 			
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			activeChar.teleToLocation(x, y, z, false);
-			
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString("You have been teleported to " + Cords);
-			activeChar.sendPacket(sm);
+
+			activeChar.sendMessage("You have been teleported to " + Cords);
 		}
 		catch (NoSuchElementException nsee)
 		{

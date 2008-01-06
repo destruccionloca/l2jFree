@@ -196,7 +196,7 @@ public class ScrollOfEscape implements IItemHandler
 				}
 				else if (_itemId == 5858) // do nothing
 				{
-					_activeChar.sendPacket(new SystemMessage(SystemMessageId.CLAN_HAS_NO_CLAN_HALL));
+					_activeChar.sendMessage("The clan does not own a clanhall.");
 					return;
 				}
 				else if (_itemId == 5859) // do nothing

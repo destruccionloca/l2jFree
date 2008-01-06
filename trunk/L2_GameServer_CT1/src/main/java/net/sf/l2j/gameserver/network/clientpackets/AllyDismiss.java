@@ -79,7 +79,7 @@ public class AllyDismiss extends L2GameClientPacket
         }
         if (clan.getAllyId() != leaderClan.getAllyId())
         {
-			player.sendPacket(new SystemMessage(SystemMessageId.DIFFERANT_ALLIANCE));
+			player.sendPacket(new SystemMessage(SystemMessageId.DIFFERENT_ALLIANCE));
 			return;
         }
         

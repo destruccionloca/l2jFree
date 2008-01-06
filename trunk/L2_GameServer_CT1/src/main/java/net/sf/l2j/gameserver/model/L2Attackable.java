@@ -826,7 +826,7 @@ public class L2Attackable extends L2NpcInstance
                 for (AggroInfo info : getDamageContributors().values())
                 {
                     if (info == null) continue;
-                    points = (int)Math.round(100.0 * total_damage / info._hate);
+                    points = (int)Math.round(100.0 * (info._hate / total_damage));
                     RaidPointsManager.getInstance().addPoints(info._attacker.getObjectId(), getNpcId(), points);
                     SystemMessage sms = new SystemMessage(SystemMessageId.EARNED_S1_RAID_POINTS);
                     sms.addNumber(points);

@@ -198,7 +198,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 		if (castle != null && castle.getSiege().getIsInProgress())
 		{
 			//DeathFinalizer df = new DeathFinalizer(10000);
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
 			if (activeChar.getClan() != null
 					&& castle.getSiege().checkIsAttacker(activeChar.getClan()))
 			{

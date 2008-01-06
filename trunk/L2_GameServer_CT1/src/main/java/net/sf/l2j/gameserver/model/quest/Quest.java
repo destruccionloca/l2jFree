@@ -400,21 +400,23 @@ public class Quest extends ManagedScript
 	 * @param res : String pointing out the message to show at the player
 	 * @return boolean
 	 */
-	private boolean showResult(L2PcInstance player, String res) {
+	private boolean showResult(L2PcInstance player, String res)
+	{
 		if (res == null)
 			return true;
-		if (res.endsWith(".htm")) {
+		if (res.endsWith(".htm"))
+		{
 			showHtmlFile(player, res);
 		}
-		else if (res.startsWith("<html>")) {
+		else if (res.startsWith("<html>"))
+		{
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
 			npcReply.setHtml(res);
 			player.sendPacket(npcReply);
 		}
-		else {
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			sm.addString(res);
-			player.sendPacket(sm);
+		else
+		{
+			player.sendMessage(res);
 		}
 		return false;
 	}
@@ -425,8 +427,8 @@ public class Quest extends ManagedScript
 	 * Add state of quests, drops and variables for quests in the HashMap _quest of L2PcInstance
 	 * @param player : Player who is entering the world
 	 */
-	public final static void playerEnter(L2PcInstance player) {
-
+	public final static void playerEnter(L2PcInstance player)
+	{
         java.sql.Connection con = null;
         try
         {

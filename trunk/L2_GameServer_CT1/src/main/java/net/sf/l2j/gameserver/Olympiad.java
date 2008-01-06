@@ -1982,7 +1982,7 @@ public class Olympiad
 			_nobles.put(_playerOneID, playerOneStat);
 			_nobles.put(_playerTwoID, playerTwoStat);
 			
-			_sm = new SystemMessage(SystemMessageId.YOU_WILL_GO_BACK_TO_THE_VILLAGE_IN_S1_SECOND_S);
+			_sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
 			_sm.addNumber(20);
 			broadcastMessage(_sm, true);
 		}

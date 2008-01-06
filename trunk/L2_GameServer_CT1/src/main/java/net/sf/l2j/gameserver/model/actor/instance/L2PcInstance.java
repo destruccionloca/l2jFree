@@ -1593,7 +1593,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             if (warnPlayer) 
             	if (_inPvpZone)
-            		sendPacket(new SystemMessage(SystemMessageId.ENTERES_COMBAT_ZONE));
+            		sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
             	else
             		sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
         }
@@ -7513,7 +7513,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
         	if(!isInFunEvent() || !target.isInFunEvent())
         	{
-	            SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_NOT_AVAILABLE);
+	            SystemMessage sm = new SystemMessage(SystemMessageId.S1_PREPARED_FOR_REUSE);
 	            sm.addString(skill.getName());
 	            sendPacket(sm);
 	
@@ -9670,7 +9670,7 @@ public final class L2PcInstance extends L2PlayableInstance
            else
            {
                if (Pet)
-            	   Reviver.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_RES)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+            	   Reviver.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RES_PET2)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
                else
             	   Reviver.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
            }

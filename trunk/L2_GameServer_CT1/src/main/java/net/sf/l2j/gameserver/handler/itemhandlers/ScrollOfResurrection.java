@@ -110,7 +110,7 @@ public class ScrollOfResurrection implements IItemHandler
                                if (targetPet.getOwner().isRevivingPet())
                                    activeChar.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
                                else
-                                   activeChar.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_RES)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+                                   activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RES_PET2)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
                                condGood = false;
                            }
                         }

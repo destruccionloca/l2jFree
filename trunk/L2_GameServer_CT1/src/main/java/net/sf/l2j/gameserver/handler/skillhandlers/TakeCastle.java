@@ -83,7 +83,7 @@ public class TakeCastle implements ISkillHandler
         if (activeChar == null || !(activeChar instanceof L2PcInstance))
             return false;
 
-        SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+        SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
         L2PcInstance player = (L2PcInstance)activeChar;
 
         if (castle == null || castle.getCastleId() <= 0)

@@ -21,9 +21,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.Ride;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
  * @author 
@@ -48,10 +46,9 @@ public class AdminRideWyvern implements IAdminCommandHandler
     
         if(command.startsWith("admin_ride"))
         {
-            if(activeChar.isMounted() || activeChar.getPet() != null){
-                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                sm.addString("Already Have a Pet or Mounted.");
-                activeChar.sendPacket(sm);
+            if(activeChar.isMounted() || activeChar.getPet() != null)
+            {
+                activeChar.sendMessage("Already have a pet or mounted.");
                 return false;
             }
             if (command.startsWith("admin_ride_wyvern"))
@@ -63,9 +60,7 @@ public class AdminRideWyvern implements IAdminCommandHandler
             }
             else
             {
-                SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-                sm.addString("Command '"+command+"' not recognized");
-                activeChar.sendPacket(sm);
+                activeChar.sendMessage("Command '"+command+"' not recognized");
                 return false;
             }
             if(!activeChar.disarmWeapons()) return false;

@@ -97,7 +97,7 @@ public class L2SkillSummon extends L2Skill
 
 		if (_npcId == 0)
 		{
-			SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
+			SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
 			sm.addString("Summon skill "+getId()+" not implemented yet.");
 			activeChar.sendPacket(sm);
 			sm = null;

@@ -52,7 +52,8 @@ public class BeastSpiritShot implements IItemHandler
             activeOwner = ((L2Summon)playable).getOwner();
             activeOwner.sendPacket(new SystemMessage(SystemMessageId.PET_CANNOT_USE_ITEM));
             return;
-        } else if (playable instanceof L2PcInstance)
+        }
+		else if (playable instanceof L2PcInstance)
         {
         	activeOwner = (L2PcInstance)playable;
         }
