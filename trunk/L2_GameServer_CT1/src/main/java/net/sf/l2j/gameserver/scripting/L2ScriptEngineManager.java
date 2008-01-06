@@ -95,7 +95,7 @@ public final class L2ScriptEngineManager
     {
         ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
         List<ScriptEngineFactory> factories = scriptEngineManager.getEngineFactories();
-        _log.severe("Initializing Script Engine Manager");
+        _log.info("Initializing Script Engine Manager");
         
         for (ScriptEngineFactory factory : factories)
         {

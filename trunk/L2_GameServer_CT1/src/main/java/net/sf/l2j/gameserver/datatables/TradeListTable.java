@@ -108,7 +108,7 @@ public class TradeListTable
                 int _price = 0;
                 
                 if (!buylist.isGm() && NpcTable.getInstance().getTemplate(rset1.getInt("npc_id")) == null)
-                    _log.warn("TradeListTable: Merchant id " + rset1.getString("npc_id") + " with "+(custom?"custom ":"")+ "buylist " + buylist.getListId() + " not exist.");
+                    _log.warn("TradeListTable: Merchant id " + rset1.getString("npc_id") + " with" + (custom ? " custom ":" ")+ "buylist " + buylist.getListId() + " not exist.");
 
                 try
                 {
@@ -134,13 +134,13 @@ public class TradeListTable
 							buyItem.setCount(count);
                         
                         buylist.addItem(buyItem);
-                        if (!buylist.isGm() && buyItem.getReferencePrice()>_price)
-                            _log.warn("TradeListTable: Reference price of item " + _itemId + " in  "+(custom?"custom ":"")+ "buylist " + buylist.getListId() + " higher then sell price.");
+                        if (!buylist.isGm() && buyItem.getReferencePrice() > _price && _price != -1)
+                            _log.warn("TradeListTable: Reference price of item " + _itemId + " in" + (custom ? " custom ":" ") + "buylist " + buylist.getListId() + " higher then sell price.");
                     }
                 }
                 catch (Exception e)
                 {
-                    _log.warn("TradeListTable: Problem with "+(custom?"custom ":"")+ "buylist " + buylist.getListId() + " item " + _itemId + ".");
+                    _log.warn("TradeListTable: Problem with" + (custom ? " custom ":" ")+ "buylist " + buylist.getListId() + " item " + _itemId + ".");
                 }
                 
                 if (_itemCount>0)
@@ -182,13 +182,13 @@ public class TradeListTable
 			}
 			catch (Exception e)
 			{
-				_log.warn("TradeController: "+(custom?"custom ":"")+"Could not restore Timer for Item count.");
+				_log.warn("TradeController:" + (custom ? " custom ":" ")+"Could not restore Timer for Item count.");
 				e.printStackTrace();
 			}             
         } catch (Exception e)
         {
             // problem with initializing buylists, go to next one
-            _log.warn("TradeListTable: "+(custom?"custom ":"")+"Buylists could not be initialized.",e);
+            _log.warn("TradeListTable:" + (custom ? " custom ":" ") + "Buylists could not be initialized.",e);
         } finally
         {
             try
