@@ -17968,10 +17968,10 @@ UPDATE `merchant_buylists` SET `price` = 3 WHERE `item_id` = 1341 AND `price` < 
 UPDATE `merchant_buylists` SET `price` = 750 WHERE `item_id` = 1522 AND `price` < 750 AND `price` != 0; -- Amulet: Chant of Battle
 UPDATE `merchant_buylists` SET `price` = 1600 WHERE `item_id` = 1856 AND `price` < 1600 AND `price` != 0; -- Amulet: Chant of Life
 UPDATE `merchant_buylists` SET `price` = 8000 WHERE `item_id` = 3946 AND `price` < 8000 AND `price` != 0; -- Boat Ticket: Giran to Talking Island
-UPDATE `merchant_buylists` SET `price` = 11 WHERE `item_id` = 112 AND `price` < 12 AND `price` != 0; -- Apprentice's Earring
-UPDATE `merchant_buylists` SET `price` = 13 WHERE `item_id` = 113 AND `price` < 13 AND `price` != 0; -- Mystic's Earring
-UPDATE `merchant_buylists` SET `price` = 16 WHERE `item_id` = 114 AND `price` < 16 AND `price` != 0; -- Earring of Strength
-UPDATE `merchant_buylists` SET `price` = 16 WHERE `item_id` = 115 AND `price` < 16 AND `price` != 0; -- Earring of Wisdom
+UPDATE `merchant_buylists` SET `price` = 11 WHERE `item_id` = 112 AND `price` < 12 AND `price` <= 0; -- Apprentice's Earring
+UPDATE `merchant_buylists` SET `price` = 13 WHERE `item_id` = 113 AND `price` < 13 AND `price` <= 0; -- Mystic's Earring
+UPDATE `merchant_buylists` SET `price` = 16 WHERE `item_id` = 114 AND `price` < 16 AND `price` <= 0; -- Earring of Strength
+UPDATE `merchant_buylists` SET `price` = 16 WHERE `item_id` = 115 AND `price` < 16 AND `price` <= 0; -- Earring of Wisdom
 UPDATE `merchant_buylists` SET `price` = 66 WHERE `item_id` = 118 AND `price` < 66 AND `price` != 0; -- Necklace of Magic
 UPDATE `merchant_buylists` SET `price` = 8890 WHERE `item_id` = 845 AND `price` < 8890 AND `price` != 0; -- Cat's Eye Earring
 UPDATE `merchant_buylists` SET `price` = 540 WHERE `item_id` = 875 AND `price` < 540 AND `price` != 0; -- Ring of Knowledge
