@@ -232,12 +232,9 @@ abstract class DocumentBase
         {
             stackOrder = Float.parseFloat(getValue(attrs.getNamedItem("stackOrder").getNodeValue(), template));
         }
-        int transformId = 0;
-        if(attrs.getNamedItem("transformId") != null)
-            transformId = Integer.parseInt(getValue(attrs.getNamedItem("transformId").getNodeValue(), template));
         
         EffectTemplate lt = new EffectTemplate(attachCond, applayCond, name, lambda, count, time,
-                                               abnormal, stackType, stackOrder, transformId);
+                                               abnormal, stackType, stackOrder);
         parseTemplate(n, lt);
         if (template instanceof L2Item) ((L2Item) template).attach(lt);
         else if (template instanceof L2Skill && !self) ((L2Skill) template).attach(lt);

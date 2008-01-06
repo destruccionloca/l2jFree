@@ -80,9 +80,6 @@ public abstract class L2Effect
 	// the current state
 	private EffectState				_state;
 	
-	// transformation id
-	private final int				_transformId;
-	
 	// period, seconds
 	private int						_period;
 	private int						_periodStartTicks;
@@ -156,7 +153,6 @@ public abstract class L2Effect
 		_abnormalEffect = template.abnormalEffect;
 		_stackType = template.stackType;
 		_stackOrder = template.stackOrder;
-		_transformId = template.transformId;
 		_periodStartTicks = GameTimeController.getGameTicks();
 		_periodfirsttime = 0;
 		scheduleEffect();
@@ -241,11 +237,6 @@ public abstract class L2Effect
 	public float getStackOrder()
 	{
 		return _stackOrder;
-	}
-	
-	public int getTransformationId()
-	{
-		return _transformId;
 	}
 	
 	public final L2Skill getSkill()

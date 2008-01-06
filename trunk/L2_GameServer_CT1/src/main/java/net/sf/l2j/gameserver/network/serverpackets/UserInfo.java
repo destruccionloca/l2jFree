@@ -96,12 +96,6 @@ public class UserInfo extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-/*        if(client.isTransformed())
-        {
-            client.sendPacket(new UserInfoTransformed(client));
-            return;
-        }*/
-    	
         writeC(0x32);
 
         writeD(_activeChar.getX());
@@ -190,19 +184,59 @@ public class UserInfo extends L2GameServerPacket
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO5));
         writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_DECO6));
           
-        writeH(0x00);
-        writeH(0x00);
-        writeH(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
-        writeH(0x00);
+        // c6 new h's
         writeH(0x00);
         writeH(0x00);
         writeH(0x00);
         writeH(0x00);
         writeH(0x00);
-        writeH(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_RHAND));
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeD(_activeChar.getInventory().getPaperdollAugmentationId(Inventory.PAPERDOLL_LRHAND));
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        // end of c6 new h's
         
-        for(int i = 0; i < 40; i++)
-            writeH(0x00);
+        // start of T1 new h's
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        writeH(0x00);
+        // end of T1 new h's
         
         writeD(_activeChar.getPAtk(null));
         writeD(_activeChar.getPAtkSpd());

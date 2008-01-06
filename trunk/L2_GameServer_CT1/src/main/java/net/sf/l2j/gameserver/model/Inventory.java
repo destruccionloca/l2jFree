@@ -50,30 +50,36 @@ public abstract class Inventory extends ItemContainer
 		public void notifyUnequiped(int slot, L2ItemInstance inst);
 	}
 	
-	public static final int						PAPERDOLL_UNDER		= 0;
-	public static final int						PAPERDOLL_HEAD		= 1;
-	public static final int						PAPERDOLL_HAIR		= 2;
-	public static final int						PAPERDOLL_HAIR2		= 3;
-	public static final int						PAPERDOLL_NECK		= 4;
-	public static final int						PAPERDOLL_RHAND		= 5;
-	public static final int						PAPERDOLL_CHEST		= 6;
-	public static final int						PAPERDOLL_LHAND		= 7;
-	public static final int						PAPERDOLL_REAR		= 8;
-	public static final int						PAPERDOLL_LEAR		= 9;
-	public static final int						PAPERDOLL_GLOVES	= 10;
-	public static final int						PAPERDOLL_LEGS		= 11;
-	public static final int						PAPERDOLL_FEET		= 12;
-	public static final int						PAPERDOLL_RFINGER	= 13;
-	public static final int						PAPERDOLL_LFINGER	= 14;
-	public static final int						PAPERDOLL_LBRACELET	= 15;
-	public static final int						PAPERDOLL_RBRACELET	= 16;
-	public static final int						PAPERDOLL_DECO1		= 17;
-	public static final int						PAPERDOLL_DECO2		= 18;
-	public static final int						PAPERDOLL_DECO3		= 19;
-	public static final int						PAPERDOLL_DECO4		= 20;
-	public static final int						PAPERDOLL_DECO5		= 21;
-	public static final int						PAPERDOLL_DECO6		= 22;
-	public static final int						PAPERDOLL_MAX		= 23;
+	public static final int PAPERDOLL_UNDER = 0;
+	public static final int PAPERDOLL_REAR = 1;
+	public static final int PAPERDOLL_LEAR = 2;
+    public static final int PAPERDOLL_LREAR = 3;
+	public static final int PAPERDOLL_NECK = 4;
+	public static final int PAPERDOLL_LFINGER = 5;
+	public static final int PAPERDOLL_RFINGER = 6;
+    public static final int PAPERDOLL_LRFINGER = 7;
+	public static final int PAPERDOLL_HEAD = 8;
+	public static final int PAPERDOLL_RHAND = 9;
+	public static final int PAPERDOLL_LHAND = 10;
+	public static final int PAPERDOLL_GLOVES = 11;
+	public static final int PAPERDOLL_CHEST = 12;
+	public static final int PAPERDOLL_LEGS = 13;
+	public static final int PAPERDOLL_FEET = 14;
+	public static final int PAPERDOLL_BACK = 15;
+	public static final int PAPERDOLL_LRHAND = 16;
+    public static final int PAPERDOLL_FULLARMOR = 17;
+    public static final int PAPERDOLL_HAIR = 18;
+    public static final int PAPERDOLL_ALLDRESS = 19;
+	public static final int PAPERDOLL_HAIR2 = 20;
+	public static final int PAPERDOLL_HAIRALL = 21;
+    public static final int PAPERDOLL_RBRACELET = 22;
+    public static final int PAPERDOLL_LBRACELET = 23;
+    public static final int PAPERDOLL_DECO1 = 24;
+    public static final int PAPERDOLL_DECO2 = 24;
+    public static final int PAPERDOLL_DECO3 = 24;
+    public static final int PAPERDOLL_DECO4 = 24;
+    public static final int PAPERDOLL_DECO5 = 24;
+    public static final int PAPERDOLL_DECO6 = 24;
 	
 	// Speed percentage mods
 	public static final double					MAX_ARMOR_WEIGHT	= 12000;
@@ -192,15 +198,15 @@ public abstract class Inventory extends ItemContainer
 	{
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
-			if (slot == PAPERDOLL_RHAND)
+    		if (slot == PAPERDOLL_LRHAND)
 				return;
 			getOwner().removeStatsOwner(item);
 		}
 		
 		public void notifyEquiped(int slot, L2ItemInstance item)
 		{
-			if (slot == PAPERDOLL_RHAND)
-				return;
+    		if (slot == PAPERDOLL_LRHAND)
+    			return;
 			getOwner().addStatFuncs(item.getStatFuncs(getOwner()));
 		}
 	}
@@ -494,7 +500,7 @@ public abstract class Inventory extends ItemContainer
 	 */
 	protected Inventory()
 	{
-		_paperdoll = new L2ItemInstance[0x17];
+		_paperdoll = new L2ItemInstance[30];
 		_paperdollListeners = new FastList<PaperdollListener>();
 		addPaperdollListener(new AmmunationListener());
 		addPaperdollListener(new StatsListener());
