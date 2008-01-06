@@ -92,6 +92,7 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
 				writeD(item.getAugmentation().getAugmentationId()>>16);
 			}
 			else writeQ(0x00);
+			writeD(item.getMana()); 
             writeD(item.getAttackAttrElement());
             writeD(item.getAttackAttrElementVal());
             writeD(item.getDefAttrFire());
@@ -100,7 +101,6 @@ public class WareHouseWithdrawalList extends L2GameServerPacket
             writeD(item.getDefAttrEarth());
             writeD(item.getDefAttrHoly());
             writeD(item.getDefAttrUnholy());
-            writeD(item.getMana());
 		}
 	}
 	
