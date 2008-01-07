@@ -12,7 +12,7 @@ SET CLASSPATH=%CLASSPATH%;jmxremote_optional-1.0.1_03-b57.jar
 SET CLASSPATH=%CLASSPATH%;jmxri-1.2.1-b14.jar
 SET CLASSPATH=%CLASSPATH%;jmxtools-1.2.8.jar
 
-SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.4.jar
+SET CLASSPATH=%CLASSPATH%;l2j-mmocore-1.0.5.jar
 
 REM jython
 SET CLASSPATH=%CLASSPATH%;jython-2.2.1.jar

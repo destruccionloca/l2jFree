@@ -13,7 +13,7 @@ CLASSPATH=${CLASSPATH}:jmxtools-1.2.8.jar
 
 
 
-CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.4.jar
+CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.5.jar
 
 CLASSPATH=${CLASSPATH}:bsf-2.0.jar
 CLASSPATH=${CLASSPATH}:bsh-2.0b4.jar
