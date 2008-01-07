@@ -119,7 +119,7 @@ public class AdminPledge implements IAdminCommandHandler
                 }
                 catch(NumberFormatException nfe){}
                 
-                if (level>=0 && level <9)
+                if (level>=0 && level <11)
                 {
                     player.getClan().changeLevel(level);
                     activeChar.sendMessage("You set level " + level + " for clan " + player.getClan().getName());

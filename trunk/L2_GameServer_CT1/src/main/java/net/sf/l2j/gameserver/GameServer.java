@@ -247,21 +247,21 @@ public class GameServer
 		QuestManager.getInstance();
 		TransformationManager.getInstance();
 		Util.printSection("Events/ScriptEngine");
-        try
-        {
-            _log.info("Loading Server Scripts");
-            File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(),"data/scripts.cfg");
-            L2ScriptEngineManager.getInstance().executeScriptList(scripts);
-        }
-        catch (IOException ioe)
-        {
-            _log.fatal("Failed loading scripts.cfg, no script going to be loaded");
-        }
-        
-        QuestManager.getInstance().report();
-        TransformationManager.getInstance().report();		
-		
-        EventDroplist.getInstance();
+		try
+		{
+			_log.info("Loading Server Scripts");
+			File scripts = new File(Config.DATAPACK_ROOT.getAbsolutePath(),"data/scripts.cfg");
+			L2ScriptEngineManager.getInstance().executeScriptList(scripts);
+		}
+		catch (IOException ioe)
+		{
+			_log.fatal("Failed loading scripts.cfg, no script going to be loaded");
+		}
+
+		QuestManager.getInstance().report();
+		TransformationManager.getInstance().report();
+
+		EventDroplist.getInstance();
 		FaenorScriptEngine.getInstance();
 		
 		Util.printSection("Extensions");

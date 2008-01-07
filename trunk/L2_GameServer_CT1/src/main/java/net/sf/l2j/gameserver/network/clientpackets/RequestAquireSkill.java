@@ -123,20 +123,24 @@ public class RequestAquireSkill extends L2GameClientPacket
             
             if (counts == 0 && !Config.ALT_GAME_SKILL_LEARN)
             {
-            	player.sendPacket(new SystemMessage(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL));
+                player.sendPacket(new SystemMessage(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL));
                 Util.handleIllegalPlayerAction(player, "Player " + player.getName()
                                                + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
                 return;
             }
             
             if (player.getSp() >= _requiredSp)
-            {       
+            {
                 if (Config.SP_BOOK_NEEDED)
                 {
-                    int spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
+                    int spbId = -1;
+                    if (skill.getId() == L2Skill.SKILL_DIVINE_INSPIRATION)
+                        spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill, _level);
+                    else
+                        spbId = SkillSpellbookTable.getInstance().getBookForSkill(skill);
                     
                     if (skill.getLevel() == 1 && spbId > -1)
-                    {                       
+                    {
                         L2ItemInstance spb = player.getInventory().getItemByItemId(spbId);
                         
                         if (spb == null)

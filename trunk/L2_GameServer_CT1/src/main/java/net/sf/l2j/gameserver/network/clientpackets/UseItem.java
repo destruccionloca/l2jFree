@@ -298,7 +298,16 @@ public class UseItem extends L2GameClientPacket
 					activeChar.sendMessage("This item can not be equipped when you have the flag.");
 				return;
 			}
-			
+
+			if (activeChar.isDisarmed()
+				&& (bodyPart == L2Item.SLOT_LR_HAND
+					|| bodyPart == L2Item.SLOT_L_HAND
+					|| bodyPart == L2Item.SLOT_R_HAND))
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+				return;
+			}
+
 			// Don't allow weapon/shield equipment if a cursed weapon is equiped
 			if (activeChar.isCursedWeaponEquiped()
 					&& ((bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND) || itemId == 6408)) // Don't allow to put formal wear

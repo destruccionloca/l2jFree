@@ -82,6 +82,7 @@ public abstract class L2Skill
 	public static final int	SKILL_CREATE_COMMON		= 1320;
 	public static final int	SKILL_CREATE_DWARVEN	= 172;
 	public static final int	SKILL_CRYSTALLIZE		= 248;
+	public static final int	SKILL_DIVINE_INSPIRATION= 1405;
 	
 	public static final int	SKILL_FAKE_INT			= 9001;
 	public static final int	SKILL_FAKE_WIT			= 9002;
@@ -107,7 +108,7 @@ public abstract class L2Skill
 		PDAM, MDAM, CPDAM, DOT, BLEED, POISON, HEAL, HOT, COMBATPOINTHEAL, CPHOT, MANAHEAL, MANAHEAL_PERCENT, MANARECHARGE, MPHOT, AGGDAMAGE, BUFF, DEBUFF, STUN, ROOT, RESURRECT, PASSIVE, CONT, SIGNET, CONFUSION, UNLOCK, CHARGE(
 				L2SkillCharge.class), FEAR, MHOT, DRAIN(L2SkillDrain.class), NEGATE, CANCEL, SLEEP, AGGREDUCE, AGGREMOVE, AGGREDUCE_CHAR, CHARGEDAM(
 				L2SkillChargeDmg.class), CHARGE_EFFECT(L2SkillChargeEffect.class), CONFUSE_MOB_ONLY, DEATHLINK, BLOW, FATALCOUNTER, DETECT_WEAKNESS, ENCHANT_ARMOR, ENCHANT_WEAPON, FEED_PET, HEAL_PERCENT, HEAL_STATIC, LUCK, MANADAM, MDOT, MUTE, RECALL, REFLECT, SUMMON_FRIEND, SOULSHOT, SPIRITSHOT, SPOIL, SWEEP, SUMMON(
-				L2SkillSummon.class), WEAKNESS, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, UNDEAD_DEFENSE, SEED(
+				L2SkillSummon.class), WEAKNESS, DISARM, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, UNDEAD_DEFENSE, SEED(
 				L2SkillSeed.class), BEAST_FEED, FORCE_BUFF, PARALYZE, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, GET_PLAYER,
 
 		FISHING, PUMPING, REELING, CANCEL_TARGET, CREATE_ITEM(L2SkillCreateItem.class), AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, LUCKNOBLESSE(
@@ -198,7 +199,8 @@ public abstract class L2Skill
 	public final static int			STAT_SHIELDDEF			= 335;				// sDef
 	public final static int			STAT_MP_CONSUME_RATE	= 336;				// Rate of mp consume per skill use
 	public final static int			STAT_HP_CONSUME_RATE	= 337;				// Rate of hp consume per skill use
-																				
+	public final static int			STAT_MCRITRATE			= 338;				// Magic Crit Rate
+
 	// COMBAT DAMAGE MODIFIER SKILLS...DETECT WEAKNESS AND WEAKNESS/STRENGTH
 	public final static int			COMBAT_MOD_ANIMAL		= 200;
 	public final static int			COMBAT_MOD_BEAST		= 201;
@@ -1046,6 +1048,7 @@ public abstract class L2Skill
 			case WARRIOR_BANE:
 			case CANCEL_TARGET:
 			case BETRAY:
+			case DISARM:
 			case DELUXE_KEY_UNLOCK:
 			case FATALCOUNTER:
 				return true;
@@ -1157,6 +1160,7 @@ public abstract class L2Skill
 			case BETRAY:
 			case SOW:
 			case HARVEST:
+			case DISARM:
 				return true;
 			default:
 				return false;

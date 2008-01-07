@@ -2387,7 +2387,17 @@ public abstract class L2Character extends L2Object
 	{
 		_isPendingRevive = value;
 	}
-	
+
+	public final boolean isDisarmed()
+	{
+		return _isDisarmed;
+	}
+
+	public final void setIsDisarmed(boolean value)
+	{
+		_isDisarmed = value;
+	}
+
 	/**
 	 * Return the L2Summon of the L2Character.<BR>
 	 * <BR>
@@ -2911,10 +2921,9 @@ public abstract class L2Character extends L2Object
 					return;
 			}
 			
-			// Remove first Buff if number of buffs > ALT_GAME_NUMBER_OF_CUMULATED_BUFF
+			// Remove first Buff if number of buffs > getMaxBuffCount()
 			L2Skill tempskill = newEffect.getSkill();
-			if (getBuffCount() > Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF
-					&& !doesStack(tempskill)
+			if (getBuffCount() > getMaxBuffCount() && !doesStack(tempskill)
 					&& ((tempskill.getSkillType() == L2Skill.SkillType.BUFF || tempskill.getSkillType() == L2Skill.SkillType.DEBUFF
 							|| tempskill.getSkillType() == L2Skill.SkillType.REFLECT || tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT || tempskill
 							.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) && !(tempskill.getId() > 4360 && tempskill.getId() < 4367)))
@@ -7311,7 +7320,16 @@ public abstract class L2Character extends L2Object
 		}
 		getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
 	}
-	
+
+	/**
+	 * Check player max buff count
+	 * @return max buff count
+	 */
+	public int getMaxBuffCount()
+	{
+		return Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF + Math.max(0, getSkillLevel(L2Skill.SKILL_DIVINE_INSPIRATION));
+	}
+
 	/**
 	 * Send system message about damage.<BR>
 	 * <BR>
@@ -7371,17 +7389,7 @@ public abstract class L2Character extends L2Object
 			}
 		}
 	}
-	
-	public void setIsDisarmed(boolean b)
-	{
-		_isDisarmed = b;
-	}
-	
-	public boolean isDisarmed()
-	{
-		return _isDisarmed;
-	}
-	
+
     public int getDefAttrFire()
     {
         return (int)getStat().getElementAttributeFire();

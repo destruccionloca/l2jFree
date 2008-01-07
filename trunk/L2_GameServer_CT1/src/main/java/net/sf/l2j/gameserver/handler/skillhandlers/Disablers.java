@@ -76,7 +76,8 @@ public class Disablers implements ISkillHandler
                                        SkillType.ERASE,
                                        SkillType.DEBUFF,
                                        SkillType.MAGE_BANE,
-                                       SkillType.WARRIOR_BANE};
+                                       SkillType.WARRIOR_BANE,
+                                       SkillType.DISARM};
     protected static Log _log = LogFactory.getLog(L2Skill.class.getName());
     private  String[] _negateStats=null;
     private  float _negatePower=0.f;
@@ -222,6 +223,7 @@ public class Disablers implements ISkillHandler
                     break;
                 }
                 case ROOT:
+                case DISARM:
                 case STUN:
                 {
                     if(target.reflectSkill(skill))
@@ -774,6 +776,10 @@ public class Disablers implements ISkillHandler
                     }//end else
                 }// end case
             }//end switch
+
+            //Possibility of a lethal strike
+            Formulas.getInstance().calcLethalHit(activeChar, target, skill);
+
         }//end for
         // self Effect :]
         L2Effect effect = activeChar.getFirstEffect(skill.getId());

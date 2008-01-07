@@ -10700,7 +10700,7 @@ public enum SystemMessageId
 	 * ID: 1786<br>
 	 * Message: Your clan has failed to defend the castle. $s1 points have been 
 	 * deducted from your clan's reputation score.
-
+	 */
 	YOUR_CLAN_FAILED_TO_DEFEND_CASTLE_AND_S1_POINTS_LOST(1786),
 
 	/**

@@ -220,14 +220,16 @@ public class Continuous implements ISkillHandler
         				target.setTarget(activeChar);
     			}
 			}
+			// Possibility of a lethal strike
+			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
         }
         // self Effect :]
-        L2Effect effect = activeChar.getFirstEffect(skill.getId());        
-        if (effect != null && effect.isSelfEffect())        
-        {            
-        	//Replace old effect with new one.            
-        	effect.exit();        
-        }        
+        L2Effect effect = activeChar.getFirstEffect(skill.getId());
+        if (effect != null && effect.isSelfEffect())
+        {
+        	//Replace old effect with new one.
+        	effect.exit();
+        }
         skill.getEffectsSelf(activeChar);
 	}
 	

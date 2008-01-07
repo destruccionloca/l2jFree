@@ -58,6 +58,7 @@ public class L2CharTemplate
 	private  int baseAtkRange;
 	private  int baseShldRate;
 	private  int baseCritRate;
+	private  int baseMCritRate;
 	private  int baseRunSpd;
 	private  int baseWalkSpd;
 	// SpecialStats
@@ -136,8 +137,9 @@ public class L2CharTemplate
 		baseAtkRange       = set.getInteger("baseAtkRange");
 		baseShldRate       = set.getInteger("baseShldRate");
 		baseCritRate       = set.getInteger("baseCritRate");
+		baseMCritRate      = set.getInteger("baseMCritRate", 8); 
 		baseRunSpd         = set.getInteger("baseRunSpd");
-		baseWalkSpd 	   = set.getInteger("baseWalkSpd");
+		baseWalkSpd        = set.getInteger("baseWalkSpd");
 		
 		// SpecialStats
 		baseBreath         = set.getInteger("baseBreath",         100);
@@ -355,6 +357,22 @@ public class L2CharTemplate
     public void setBaseCritRate(int _baseCritRate)
     {
         baseCritRate = _baseCritRate;
+    }
+
+    /**
+     * @return the baseMCritRate
+     */
+    public int getBaseMCritRate()
+    {
+        return baseMCritRate;
+    }
+
+    /**
+     * @param baseMCritRate the baseMCritRate to set
+     */
+    public void setBaseMCritRate(int _baseMCritRate)
+    {
+        baseMCritRate = _baseMCritRate;
     }
 
     /**

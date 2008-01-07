@@ -237,6 +237,8 @@ public final class Config
 	public static int				MEMBER_FOR_LEVEL_SIX;			// Number of members to level up a clan to lvl 6
 	public static int				MEMBER_FOR_LEVEL_SEVEN;			// Number of members to level up a clan to lvl 7
 	public static int				MEMBER_FOR_LEVEL_EIGHT;			// Number of members to level up a clan to lvl 8
+	public static int				MEMBER_FOR_LEVEL_NINE;			// Number of members to level up a clan to lvl 9
+	public static int				MEMBER_FOR_LEVEL_TEN;			// Number of members to level up a clan to lvl 10
 	
 	// *******************************************************************************************
 	public static void loadClansConfig()
@@ -265,6 +267,8 @@ public final class Config
 			MEMBER_FOR_LEVEL_SIX = Integer.parseInt(clansSettings.getProperty("MemberForLevel6", "30"));
 			MEMBER_FOR_LEVEL_SEVEN = Integer.parseInt(clansSettings.getProperty("MemberForLevel7", "80"));
 			MEMBER_FOR_LEVEL_EIGHT = Integer.parseInt(clansSettings.getProperty("MemberForLevel8", "120"));
+			MEMBER_FOR_LEVEL_NINE = Integer.parseInt(clansSettings.getProperty("MemberForLevel9", "140"));
+			MEMBER_FOR_LEVEL_TEN = Integer.parseInt(clansSettings.getProperty("MemberForLevel10", "140"));
 		}
 		catch (Exception e)
 		{
@@ -1398,6 +1402,7 @@ public final class Config
 	public static boolean				ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE;
 	public static int					ALT_PLAYER_PROTECTION_LEVEL;								// Player Protection Level
 	public static boolean				AUTO_LEARN_SKILLS;											// Config for Auto Learn Skills
+	public static boolean				AUTO_LEARN_DIVINE_INSPIRATION;								// Alternative auto skill learning for divine inspiration (+4 max buff count)
 	public static boolean				GRADE_PENALTY;												// Disable Grade penalty
 	public static boolean				IS_CRAFTING_ENABLED;										// Crafting Enabled?
 	public static boolean				FAIL_FAKEDEATH;												// Config for Fake Death Fail Feature
@@ -1539,6 +1544,7 @@ public final class Config
 			ALT_DANCE_MP_CONSUME = Boolean.parseBoolean(altSettings.getProperty("AltDanceMpConsume", "false"));
 			SPAWN_SIEGE_GUARD = Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
 			AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
+			AUTO_LEARN_DIVINE_INSPIRATION = Boolean.parseBoolean(altSettings.getProperty("AutoLearnDivineInspiration", "false"));
 			MAX_PATK_SPEED = Integer.parseInt(altSettings.getProperty("MaxPAtkSpeed", "0"));
 			MAX_MATK_SPEED = Integer.parseInt(altSettings.getProperty("MaxMAtkSpeed", "0"));
 			ALT_MAGES_PHYSICAL_DAMAGE_MULTI = Float.parseFloat(altSettings.getProperty("AltPDamageMages", "1.00"));

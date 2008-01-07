@@ -105,9 +105,10 @@ public class Mdam implements ISkillHandler
             }
         }
 
-        for (L2Object element : targets) {
+        for (L2Object element : targets)
+        {
             L2Character target = (L2Character) element;
-			
+            
             if (activeChar instanceof L2PcInstance && target instanceof L2PcInstance
                 && target.isAlikeDead() && target.isFakeDeath())
             {
@@ -127,9 +128,6 @@ public class Mdam implements ISkillHandler
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
             
             if (damage < 1) damage = 1;
-
-            //target.reduceCurrentHp(damage, activeChar);
-            //if(target.getStatus().getCurrentHp() - damage <0> 5000 && activeChar instanceof L2PcInstance)
 
             if (damage > 5000 && activeChar instanceof L2PcInstance)
             {
@@ -197,25 +195,25 @@ public class Mdam implements ISkillHandler
                         }
                     }
                 }
-                if (target.isPetrified())
-                {damage=0;}
                 target.reduceCurrentHp(damage, activeChar);
             }
+            // Possibility of a lethal strike
+            Formulas.getInstance().calcLethalHit(activeChar, target, skill);
         }
         // self Effect :]
-        L2Effect effect = activeChar.getFirstEffect(skill.getId());        
-        if (effect != null && effect.isSelfEffect())        
-        {            
-           //Replace old effect with new one.            
-           effect.exit();        
-        }        
+        L2Effect effect = activeChar.getFirstEffect(skill.getId());
+        if (effect != null && effect.isSelfEffect())
+        {
+           //Replace old effect with new one.
+           effect.exit();
+        }
         skill.getEffectsSelf(activeChar);
         
         if (skill.isSuicideAttack())
         {
            activeChar.doDie(null);
            activeChar.getStatus().setCurrentHp(0);
-        }        
+        }
     }
 
     public SkillType[] getSkillIds()

@@ -413,6 +413,7 @@ public class NpcTable implements NpcTableMBean
 
             L2NpcTemplate template = new L2NpcTemplate(npcDat);
             template.addVulnerability(Stats.BOW_WPN_VULN,1);
+            template.addVulnerability(Stats.CROSSBOW_WPN_VULN,1);
             template.addVulnerability(Stats.BLUNT_WPN_VULN,1);
             template.addVulnerability(Stats.DAGGER_WPN_VULN,1);
 
