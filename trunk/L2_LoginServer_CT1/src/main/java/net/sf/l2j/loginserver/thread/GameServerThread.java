@@ -292,8 +292,15 @@ public class GameServerThread extends Thread
         if (this.isAuthed())
         {
             ChangeAccessLevel cal = new ChangeAccessLevel(data);
-            LoginManager.getInstance().setAccountAccessLevel(cal.getAccount(),cal.getLevel());
-            _log.info("Changed "+cal.getAccount()+" access level to "+cal.getLevel());
+            try
+            {
+                LoginManager.getInstance().setAccountAccessLevel(cal.getAccount(),cal.getLevel());
+                _log.info("Changed "+cal.getAccount()+" access level to "+cal.getLevel());
+            }
+            catch (Exception e)
+            {
+                _log.warn("Access level could not be changed. Reason: "+e.getMessage());
+            }
         }
         else
         {
