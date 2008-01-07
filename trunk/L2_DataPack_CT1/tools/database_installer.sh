@@ -376,7 +376,7 @@ esac
 
 updatedb(){
 $MYG < ../sql/updates/il_to_ct1_update.sql &> /dev/null
-$MYG < ../sql/updates/20071227update.sql &> /dev/null
+$MYG < ../sql/updates/20080107update.sql &> /dev/null
 }
 
 finish(){

@@ -300,7 +300,7 @@ goto askupdate
 
 :updatedb
 %mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/updates/il_to_ct1_update.sql
-%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/updates/20071227update.sql
+%mysqlPath% -h %gshost% -u %gsuser% --password=%gspass% -D %gsdb% < ../sql/updates/20080107update.sql
 echo Duplicate Errors on line 1 occure when you already have the lines in your database.
 
 :end
