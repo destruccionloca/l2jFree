@@ -10297,7 +10297,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Memory leaks are bad...
-        _appearance.setOwner(null);
+        //_appearance.setOwner(null); npes are worse
         _appearance = null;
 
         // remove from flood protector
