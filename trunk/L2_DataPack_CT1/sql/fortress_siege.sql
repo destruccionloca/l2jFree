@@ -2,7 +2,7 @@
 -- Table structure for table `fortress_siege`
 -- Done by Darki699
 --
-
+DROP TABLE IF EXISTS `fortress_siege`;
 CREATE TABLE IF NOT EXISTS `fortress_siege` (
   `eventName` varchar(255) NOT NULL default '',
   `eventDesc` varchar(255) NOT NULL default '',
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `fortress_siege` (
   `innerDoor4` int(11) NOT NULL default '0',
   `outerDoor1` int(11) NOT NULL default '0',
   `outerDoor2` int(11) NOT NULL default '0',
-  PRIMARY KEY  (`eventName`)
+  PRIMARY KEY (`eventName`)
 ) DEFAULT CHARSET=utf8;
 
 --
