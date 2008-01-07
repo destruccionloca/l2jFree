@@ -13,7 +13,8 @@ DATA={
 30601:[115594,-177993, -912],#DW
 30599:[ 45470,  48328,-3059],#EV
 30602:[-45067,-113563, -199],#OV
-30598:[-84053, 243343,-3729] #TI
+30598:[-84053, 243343,-3729],#TI 
+32135:[-119712, 44519,368]#SI
 }
 
 class Quest (JQuest) :
@@ -47,9 +48,6 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST       = Quest(1104,qn,"Teleports")
-CREATED     = State('Start',QUEST)
-
-QUEST.setInitialState(CREATED)
 
 for i in DATA.keys() :
     QUEST.addStartNpc(i)

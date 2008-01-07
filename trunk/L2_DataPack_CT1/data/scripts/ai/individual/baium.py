@@ -44,10 +44,7 @@ class baium (JQuest):
 
 # Quest class and state definition
 QUEST       = baium(-1, "baium", "ai")
-CREATED     = State('Start', QUEST)
 
-# Quest initialization
-QUEST.setInitialState(CREATED)
 # Quest NPC starter initialization
 QUEST.addStartNpc(29025)
 QUEST.addStartNpc(31862)

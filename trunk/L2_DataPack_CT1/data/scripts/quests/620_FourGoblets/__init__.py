@@ -33,13 +33,14 @@ REWARDS = [57,81,151,959,1895,2500,4040,4042,4043,5529,5545,5546]
 
 class Quest (JQuest) :
 
-  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+  def __init__(self,id,name,descr):
+      JQuest.__init__(self,id,name,descr)
 
   def onTalk (Self,npc,player) :
     st = player.getQuestState(qn)
     id = st.getState()
 
-    if id == CREATED :
+    if id == State.CREATED :
       st.set("cond","0")
 
     npcId = npc.getNpcId()
@@ -47,7 +48,7 @@ class Quest (JQuest) :
     if npcId == NAMELESS_SPIRIT:
       if int(st.get("cond")) == 0 :
         if st.getPlayer().getLevel() >= 74 :
-          st.setState(STARTED)
+          st.setState(State.STARTED)
           st.playSound("ItemSound.quest_accept")
           htmltext = "31453-SOK.htm"
           st.set("cond","1")
@@ -209,11 +210,7 @@ class Quest (JQuest) :
 
 
 QUEST       = Quest(620,"620_FourGoblets","quest")
-CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST)
-COMPLETED   = State('Completed', QUEST)
 
-QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(NAMELESS_SPIRIT) 
 QUEST.addTalkId(NAMELESS_SPIRIT) 
 

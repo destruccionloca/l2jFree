@@ -56,34 +56,31 @@ class Quest (JQuest) :
    ClassId = st.getPlayer().getClassId()
    
    # DarkElfs got accepted
-   if npcId == TETRARCH_THIFIELL and Race in [Race.darkelf]:
+   if npcId == TETRARCH_THIFIELL and Race in [Race.DarkElf]:
      if ClassId in [ClassId.darkFighter]: 
-       st.setState(STARTED)
+       st.setState(State.STARTED)
        return "30358-01.htm"
      if ClassId in [ClassId.darkMage]:
-       st.setState(STARTED)
+       st.setState(State.STARTED)
        return "30358-02.htm"
      if ClassId in [ClassId.darkWizard, ClassId.shillienOracle, ClassId.palusKnight, ClassId.assassin]:
-       st.setState(COMPLETED)
+       st.setState(State.COMPLETED)
        st.exitQuest(1)
        return "30358-12.htm"
      else:
-       st.setState(COMPLETED)
+       st.setState(State.COMPLETED)
        st.exitQuest(1)
        return "30358-13.htm"
 
    # All other Races must be out
-   if npcId == TETRARCH_THIFIELL and Race in [Race.dwarf, Race.human, Race.elf, Race.orc]:
-     st.setState(COMPLETED)
+   if npcId == TETRARCH_THIFIELL and Race in [Race.Dwarf, Race.Human, Race.Elf, Race.Orc, Race.Kamael]:
+     st.setState(State.COMPLETED)
      st.exitQuest(1)
      return "30358-11.htm"
 
 QUEST     = Quest(30358,qn,"village_master")
-CREATED   = State('Start',     QUEST)
-STARTED   = State('Started',   QUEST)
-COMPLETED = State('Completed', QUEST)
 
-QUEST.setInitialState(CREATED)
+
 
 QUEST.addStartNpc(30358)
 

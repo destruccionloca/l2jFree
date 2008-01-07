@@ -21,9 +21,6 @@ class Quest (JQuest) :
     return
 
 QUEST       = Quest(6111, qn, "Teleports")
-CREATED     = State('Start', QUEST)
-
-QUEST.setInitialState(CREATED)
 
 QUEST.addStartNpc(32111)
 QUEST.addTalkId(32111)

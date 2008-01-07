@@ -16,19 +16,20 @@ MARK = 8064
 
 class Quest (JQuest) :
 
- def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+ def __init__(self,id,name,descr):
+     JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st) :
     htmltext = event
     if htmltext == "31329-04.htm" :
        st.set("cond","1")
-       st.setState(STARTED)
+       st.setState(State.STARTED)
        st.playSound("ItemSound.quest_accept")
     elif htmltext == "32010-02.htm" :
        st.playSound("ItemSound.quest_finish")
        st.giveItems(MARK,1)
        st.unset("cond")
-       st.setState(COMPLETED)
+       st.setState(State.COMPLETED)
     return htmltext
 
  def onTalk (self,npc,player):
@@ -38,25 +39,25 @@ class Quest (JQuest) :
      npcId = npc.getNpcId()
      id = st.getState()
      cond = st.getInt("cond")
-     if id == COMPLETED and not st.getQuestItemsCount(MARK) and not st.getQuestItemsCount(8065) and not st.getQuestItemsCount(8067) :
+     if id == State.COMPLETED and not st.getQuestItemsCount(MARK) and not st.getQuestItemsCount(8065) and not st.getQuestItemsCount(8067) :
        st.set("cond","0")
-       st.setState(CREATED)
+       st.setState(State.CREATED)
        cond = 0
-       id = CREATED
-     elif id == COMPLETED and st.getQuestItemsCount(MARK) == 1 :
+       id = State.CREATED
+     elif id == State.COMPLETED and st.getQuestItemsCount(MARK) == 1 :
        return "<html><body>Go to the temple and talk to the teleporter near the front gate.</body></html>"
-     elif id == COMPLETED and st.getQuestItemsCount(8065) == 1 :
+     elif id == State.COMPLETED and st.getQuestItemsCount(8065) == 1 :
        return "<html><body>This quest is already completed. To become a pagan you should try to go <font color = \"LEVEL\">Through the gate once more</font>.</body></html>"
-     elif id == COMPLETED and st.getQuestItemsCount(8067) == 1 :
+     elif id == State.COMPLETED and st.getQuestItemsCount(8067) == 1 :
        return "<html><body>You are already a Pagan. There are no further tasks for you here.</body></html>"
-     if cond == 0 and id == CREATED :
+     if cond == 0 and id == State.CREATED :
        if npcId == ELIYAH :
          if player.getLevel()>72 :
            htmltext = "31329-02.htm"
        else:
          htmltext = "31329-01.htm"
          st.exitQuest(1)
-     elif id == STARTED :
+     elif id == State.STARTED :
        if npcId == ELIYAH :
          htmltext = "31329-05.htm"
        elif npcId == FLAURON :
@@ -69,11 +70,7 @@ class Quest (JQuest) :
 
 
 QUEST       = Quest(636,qn,"The Truth Beyond the Gate")
-CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST)
-COMPLETED   = State('Completed', QUEST)
 
-QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(ELIYAH)
 
 QUEST.addTalkId(ELIYAH)

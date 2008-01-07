@@ -51,7 +51,8 @@ def do_RequestedEvent(event, st, giveItem1Id, giveItem1Qty, giveItem2Id, giveIte
 ### main code
 class Quest (JQuest) :
 
- def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+ def __init__(self,id,name,descr):
+     JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st) :
     htmltext = event
@@ -64,7 +65,7 @@ class Quest (JQuest) :
             htmltext = do_RequestedEvent(event, st, item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8], item[9], item[10], item[11], item[12], item[13], item[14], item[15], item[16], item[17], item[18], item[19], item[20], item[21], item[22], item[23], item[24], item[25], item[26])
     
     if htmltext != event:
-      st.setState(COMPLETED)
+      st.setState(State.COMPLETED)
       st.exitQuest(1)
 
     return htmltext
@@ -73,16 +74,11 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    htmltext = "<html><body>I have nothing to say to you.</body></html>"
    st.set("cond","0")
-   st.setState(STARTED)
+   st.setState(State.STARTED)
    return InitialHtml
 
 ### Quest class and state definition
 QUEST       = Quest(QuestId,str(QuestId) + "_" + QuestName,QuestDesc)
-CREATED     = State('Start',     QUEST)
-STARTED     = State('Started',   QUEST)
-COMPLETED   = State('Completed', QUEST)
-
-QUEST.setInitialState(CREATED)
 
 QUEST.addStartNpc(31774)
 # Beryl the Cat

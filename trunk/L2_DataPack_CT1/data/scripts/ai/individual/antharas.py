@@ -44,10 +44,7 @@ class antharas(JQuest):
 
 # Quest class and state definition
 QUEST       = antharas(-1, "antharas", "ai")
-CREATED     = State('Start', QUEST)
 
-# Quest initialization
-QUEST.setInitialState(CREATED)
 # Quest NPC starter initialization
 QUEST.addStartNpc(HEART)
 QUEST.addTalkId(HEART)

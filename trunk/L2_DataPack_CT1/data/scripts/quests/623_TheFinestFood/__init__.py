@@ -19,11 +19,12 @@ DROPLIST = {BUFFALO:[BUFFALO_MEAT,99],FLAVA:[LEAF_OF_FLAVA,99],ANTELOPE:[ANTELOP
 REWARDS = [[6849,25000,0,11],[6847,65000,12,23],[6851,25000,24,33],[0,73000,34,100]]
 
 #needed count
-count = 100
 
 class Quest (JQuest) :
 
- def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+ def __init__(self,id,name,descr):
+     JQuest.__init__(self,id,name,descr)
+     self.questItemIds = range(7199,7202)
 
  def onEvent (self,event,st) :
    cond = st.getInt("cond")
@@ -34,7 +35,7 @@ class Quest (JQuest) :
    if event == "31521-03.htm" and cond == 0 :
      if st.getPlayer().getLevel() >= 71 :
         st.set("cond","1")
-        st.setState(STARTED)
+        st.setState(State.STARTED)
         st.playSound("ItemSound.quest_accept")
      else :
         htmltext = "31521-02.htm"
@@ -71,7 +72,7 @@ class Quest (JQuest) :
        horn = st.getQuestItemsCount(ANTELOPE_HORN)
        if cond == 0 :
           htmltext = "31521-01.htm"
-       elif st.getState() == STARTED :
+       elif st.getState() == State.STARTED :
            if cond == 1 :
               htmltext = "31521-05.htm"
            elif cond == 2 and leaf == meat == horn == 100 :
@@ -79,7 +80,7 @@ class Quest (JQuest) :
    return htmltext
 
  def onKill(self,npc,player,isPet):
-   # todo: with the current code, a player who has completed up to 2 out of 3
+   # todo: with the current code, a player who has State.COMPLETED up to 2 out of 3
    # item collections may consume the party drop (i.e. become the selected
    # player in the random, but get nothing because it was the wrong mob)
    # this ought to be corrected later...
@@ -87,18 +88,18 @@ class Quest (JQuest) :
    if not partyMember: return
    st = partyMember.getQuestState(qn)
    if st :
-        if st.getState() == STARTED :
-            cond = st.getInt("cond")
-            item,chance = DROPLIST[npc.getNpcId()]
-            prevItems = st.getQuestItemsCount(item)
+      if st.getState() == State.STARTED :
+         item,chance = DROPLIST[npc.getNpcId()]
+         count = st.getQuestItemsCount(item)
+         if st.getInt("cond") == 1 and count < 100 :
             numItems, chance = divmod(chance*Config.RATE_DROP_QUEST,100)
             if st.getRandom(100) < chance :
-              numItems = numItems + 1
-            if count < (prevItems + numItems) :
-              numItems = count - prevItems
+               numItems += 1
+            if count + numItems >= 100 :
+              numItems = 100 - count
             if numItems != 0 :
               st.giveItems(item,int(numItems))
-              if st.getQuestItemsCount(LEAF_OF_FLAVA) == st.getQuestItemsCount(BUFFALO_MEAT) == st.getQuestItemsCount(ANTELOPE_HORN) == count :
+              if st.getQuestItemsCount(LEAF_OF_FLAVA) == st.getQuestItemsCount(BUFFALO_MEAT) == st.getQuestItemsCount(ANTELOPE_HORN) == 100 :
                  st.set("cond","2")
                  st.playSound("ItemSound.quest_middle")
               else :
@@ -106,15 +107,9 @@ class Quest (JQuest) :
    return
 
 QUEST       = Quest(623,qn,"The Finest Food")
-CREATED     = State('Start', QUEST)
-STARTED     = State('Started', QUEST)
 
-QUEST.setInitialState(CREATED)
 QUEST.addStartNpc(JEREMY)
 QUEST.addTalkId(JEREMY)
 
 for mob in DROPLIST.keys() :
   QUEST.addKillId(mob)
-
-for item in range(7199,7202):
-    STARTED.addQuestDrop(JEREMY,item,1)

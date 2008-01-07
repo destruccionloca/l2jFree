@@ -45,10 +45,7 @@ class valakas(JQuest):
 
 # Quest class and state definition
 QUEST       = valakas(-1,"valakas","ai")
-CREATED     = State('Start',QUEST)
 
-# Quest initialization
-QUEST.setInitialState(CREATED)
 # Quest NPC starter initialization
 QUEST.addStartNpc(31540)
 QUEST.addStartNpc(31385)

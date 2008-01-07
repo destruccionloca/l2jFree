@@ -36,7 +36,6 @@ WK_ROMP = 30843
 
 #Mobs
 MOBS = [ 20670,20671,20954,20956,20958,20959,20960,20964,20969,20967,20970,20971,20974,20975,21001,21003,21005,21020,21021,21089,21108,21110,21113,21114,21116 ]
-
 MOB={
     20670:14,
     20671:14,
@@ -62,7 +61,7 @@ MOB={
     21110:18,
     21113:25,
     21114:23,
-    21116:25
+    21116:25    
 }
 MAX = 100
 
@@ -116,7 +115,7 @@ class Quest (JQuest) :
     htmltext = event
     if event == "yes" :
        htmltext = starting
-       st.setState(STARTED)
+       st.setState(State.STARTED)
        st.set("cond","1")
        st.playSound("ItemSound.quest_accept")
     elif event == "binfo" :
@@ -182,14 +181,14 @@ class Quest (JQuest) :
 
    npcId = npc.getNpcId()
    id = st.getState()
-   if id == CREATED :
+   if id == State.CREATED :
       st.set("cond","0")
       if player.getLevel() < 58 :
          st.exitQuest(1)
          htmltext = error_1
       else :
          htmltext = start
-   elif id == STARTED :
+   elif id == State.STARTED :
       if st.getQuestItemsCount(SI_ORE) >= REQUIRED_ORE :
          htmltext = bingo
       else :
@@ -197,25 +196,25 @@ class Quest (JQuest) :
    return htmltext
 
  def onKill(self,npc,player,isPet):
-     partyMember = self.getRandomPartyMemberState(player, STARTED)
+     partyMember = self.getRandomPartyMemberState(player, State.STARTED)
      if not partyMember : return
      st = partyMember.getQuestState(qn)
      numItems,chance = divmod(MOB[npc.getNpcId()]*Config.RATE_DROP_QUEST,MAX)
      prevItems = st.getQuestItemsCount(SI_ORE)
      if st.getRandom(MAX) < chance :
         numItems = numItems + 1
-     if numItems != 0 :
+     if numItems != 0 :   
         st.giveItems(SI_ORE,int(numItems))
         if int(prevItems+numItems)/REQUIRED_ORE > int(prevItems)/REQUIRED_ORE :
+           st.playSound("ItemSound.quest_middle")
+        else :
            st.playSound("ItemSound.quest_itemget")
      return  
 
 # Quest class and state definition
 QUEST       = Quest(QUEST_NUMBER, str(QUEST_NUMBER)+"_"+QUEST_NAME, QUEST_DESCRIPTION)
-CREATED     = State('Start',     QUEST)
-STARTED     = State('Started',   QUEST)
 
-QUEST.setInitialState(CREATED)
+
 # Quest NPC starter initialization
 QUEST.addStartNpc(WK_ROMP)
 # Quest initialization

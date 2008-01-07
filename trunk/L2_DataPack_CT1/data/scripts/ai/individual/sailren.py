@@ -66,10 +66,6 @@ class sailren (JQuest):
 
 # Quest class and state definition
 QUEST       = sailren(-1, "sailren", "ai")
-CREATED     = State('Start', QUEST)
-
-# Quest initialization
-QUEST.setInitialState(CREATED)
 
 # Quest NPC starter initialization
 QUEST.addStartNpc(STATUE)

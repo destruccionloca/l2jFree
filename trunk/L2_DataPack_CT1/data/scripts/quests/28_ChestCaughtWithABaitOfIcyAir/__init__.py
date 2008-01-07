@@ -37,7 +37,7 @@ class Quest (JQuest) :
                 st.takeItems(KikisLetter,-1)
                 st.giveItems(ElvenRing,1)
                 st.set("cond","0")
-                st.setState(COMPLETED)
+                st.setState(State.COMPLETED)
                 st.playSound("ItemSound.quest_finish")
             else :
                 htmltext="31442-03.htm"
@@ -49,18 +49,18 @@ class Quest (JQuest) :
         if not st : return htmltext
         npcId = npc.getNpcId()
         id=st.getState()
-        if id==CREATED :
-            st.setState(STARTED)
+        if id==State.CREATED :
+            st.setState(State.STARTED)
             st.set("cond","0")
         cond=st.getInt("cond")
         id = st.getState()
         if npcId==OFulle :
-            if cond==0 and id==STARTED:
-                PlayerLevel = st.player.getLevel()
+            if cond==0 and id==State.STARTED:
+                PlayerLevel = player.getLevel()
                 if PlayerLevel >= 36 :
-                    OFullesSpecialBait= st.player.getQuestState("51_OFullesSpecialBait")
+                    OFullesSpecialBait= player.getQuestState("51_OFullesSpecialBait")
                     if OFullesSpecialBait :
-                        if OFullesSpecialBait.getState().getName() == 'Completed':
+                        if OFullesSpecialBait.getState().getName() == 'State.COMPLETED':
                             htmltext="31572-01.htm"
                         else :
                             htmltext="31572-02.htm"
@@ -76,7 +76,7 @@ class Quest (JQuest) :
                     htmltext="31572-06.htm"
             elif cond==2 :
                 htmltext="31572-09.htm"
-            elif cond==0 and id==COMPLETED :
+            elif cond==0 and id==State.COMPLETED :
                 htmltext="<html><body>This quest has already been completed.</body></html>"
         elif npcId==Kiki :
             if cond==2 :
@@ -84,11 +84,8 @@ class Quest (JQuest) :
         return htmltext
 
 QUEST      = Quest(28,qn,"Chest Caught With A Bait Of Icy Air")
-CREATED    = State('Start', QUEST)
-STARTED    = State('Started', QUEST)
-COMPLETED  = State('Completed', QUEST)
 
-QUEST.setInitialState(CREATED)
+
 QUEST.addStartNpc(OFulle)
 QUEST.addTalkId(OFulle)
 QUEST.addTalkId(Kiki)

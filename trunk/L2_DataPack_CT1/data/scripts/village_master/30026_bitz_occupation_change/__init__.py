@@ -30,7 +30,7 @@ class Quest (JQuest) :
    Race  = st.getPlayer().getRace()
    pcId  = st.getPlayer().getClassId().getId()
    # Human fighters get accepted
-   if npcId == GRAND_MASTER_BITZ and Race in [Race.human] and pcId in range(0x0a)+range(88,94) :
+   if npcId == GRAND_MASTER_BITZ and Race in [Race.Human] and pcId in range(0x0a)+range(88,94) :
      #fighter
      if pcId == 0x00:
        htmltext = "30026-01.htm"
@@ -43,7 +43,7 @@ class Quest (JQuest) :
      #gladiator, darkAvenger, hawkeye,  sagitarius, phoenix knight, duelist
      elif pcId in [2, 6, 9, 92, 90, 88 ]:
        htmltext = "30026-09.htm"
-     st.setState(STARTED)
+     st.setState(State.State.STARTED)
    # All other Races and classes must be out
    else :
      st.exitQuest(1)
@@ -51,10 +51,7 @@ class Quest (JQuest) :
    return htmltext
 
 QUEST     = Quest(30026,qn,"village_master")
-CREATED   = State('Start',     QUEST)
-STARTED   = State('Started',   QUEST)
-COMPLETED = State('Completed', QUEST)
 
-QUEST.setInitialState(CREATED)
+
 QUEST.addStartNpc(GRAND_MASTER_BITZ)
 QUEST.addTalkId(GRAND_MASTER_BITZ)
