@@ -5826,7 +5826,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 + "(account_name,obj_Id,char_name,level,maxHp,curHp,maxCp,curCp,maxMp,curMp,"
                 + "face,hairStyle,hairColor,sex,exp,sp,karma,pvpkills,pkkills,clanid,race,"
                 + "classid,deletetime,cancraft,title,accesslevel,online,isin7sdungeon,clan_privs,"
-                + "wantspeace,base_class,newbie,nobless,power_grade,last_recom_date) "
+                + "wantspeace,base_class,newbie,nobless,pledge_rank,last_recom_date) "
                 + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             statement.setString(1, _accountName);
             statement.setInt(2, getObjectId());
