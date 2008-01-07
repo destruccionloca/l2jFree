@@ -69,14 +69,13 @@ public class Hero
             " WHERE characters.obj_Id = ?";
     private static final String GET_CLAN_NAME = "SELECT clan_name FROM clan_data WHERE clan_id = (SELECT clanid FROM characters WHERE char_name = ?)";
     private static final String DELETE_ITEMS = "DELETE FROM items WHERE item_id IN " +
-            "(6842, 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621) " +
+            "(6842, 6611, 6612, 6613, 6614, 6615, 6616, 6617, 6618, 6619, 6620, 6621, 9388, 9389, 9390) " +
             "AND owner_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
     private static final String DELETE_SKILLS = "DELETE FROM character_skills WHERE skill_id IN " + 
             "(395, 396, 1374, 1375, 1376) " + "AND char_obj_id NOT IN (SELECT obj_id FROM characters WHERE accesslevel > 0)";
     
     private static final int[] _heroItems = {6842, 6611, 6612, 6613, 6614, 6615, 6616,
-                                             6617, 6618, 6619, 6620, 6621
-    };
+                                             6617, 6618, 6619, 6620, 6621, 9388, 9389, 9390 };
     private static Map<Integer, StatsSet> _heroes;
     private static Map<Integer, StatsSet> _completeHeroes;
     

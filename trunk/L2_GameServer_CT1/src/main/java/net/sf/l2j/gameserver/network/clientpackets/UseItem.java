@@ -310,7 +310,7 @@ public class UseItem extends L2GameClientPacket
 			
 			// Don't allow weapon/shield hero equipment during Olympiads
 			if (activeChar.isInOlympiadMode() && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND)
-					&& ((item.getItemId() >= 6611 && item.getItemId() <= 6621) || item.getItemId() == 6842))
+					&& ((item.getItemId() >= 6611 && item.getItemId() <= 6621) || (item.getItemId() >= 9388 && item.getItemId() <= 9390) || item.getItemId() == 6842))
 				return;
 			
 			// Equip or unEquip
