@@ -501,6 +501,12 @@ public class CharStat
         return calcStat(Stats.PATK_PLANTS, 1, target, null);
     }
 
+    /** Return the PAtk Modifier against giants. */
+    public final double getPAtkGiants(L2Character target)
+    {
+        return calcStat(Stats.PATK_GIANTS, 1, target, null);
+    }
+
     /** Return the PAtk Modifier against valakas. */
     public final double getPAtkValakas(L2Character target) { return calcStat(Stats.PATK_VALAKAS, 1, target, null); }
     public final double getPDefValakas(L2Character target) { return calcStat(Stats.PDEF_VALAKAS, 1, target, null); }

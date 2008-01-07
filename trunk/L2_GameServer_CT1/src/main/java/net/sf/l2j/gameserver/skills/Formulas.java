@@ -1338,6 +1338,9 @@ public final class Formulas
                 case BUG:
                     damage *= attacker.getStat().getPAtkInsects(target);
                     break;
+                case GIANT:
+                    damage *= attacker.getStat().getPAtkGiants(target);
+                    break;
                 default:
                     // nothing
                     break;
