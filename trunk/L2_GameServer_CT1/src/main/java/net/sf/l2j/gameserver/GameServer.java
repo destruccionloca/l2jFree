@@ -116,8 +116,8 @@ import net.sf.l2j.util.RandomIntGenerator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jserver.mmocore.network.SelectorServerConfig;
-import com.l2jserver.mmocore.network.SelectorThread;
+import org.mmocore.network.SelectorConfig;
+import org.mmocore.network.SelectorThread;
 
 public class GameServer
 {
@@ -305,11 +305,12 @@ public class GameServer
 		_loginThread = LoginServerThread.getInstance();
 		_loginThread.start();
 		
-		SelectorServerConfig ssc = new SelectorServerConfig(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 		L2GamePacketHandler gph = new L2GamePacketHandler();
-		
-		_selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
-		_selectorThread.openServerSocket();
+		SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, gph);
+		sc.setMaxSendPerPass(12);
+		sc.setSelectorSleepTime(20);
+		_selectorThread = new SelectorThread<L2GameClient>(sc, null, gph, gph, gph, null);
+		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 		_selectorThread.start();
 		
 		if (Config.IRC_ENABLED)

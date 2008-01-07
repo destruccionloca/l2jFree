@@ -32,7 +32,7 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jserver.mmocore.network.ReceivablePacket;
+import org.mmocore.network.ReceivablePacket;
 
 /**
  * <p>
@@ -78,7 +78,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	
 	private final static Log			_log	= LogFactory.getLog(ThreadPoolManager.class);
 	
-	private ScheduledThreadPoolExecutor	_effectsScheduledThreadPool;
+	public ScheduledThreadPoolExecutor	_effectsScheduledThreadPool; //??
 	private ScheduledThreadPoolExecutor	_generalScheduledThreadPool;
 	
 	private ThreadPoolExecutor			_generalPacketsThreadPool;

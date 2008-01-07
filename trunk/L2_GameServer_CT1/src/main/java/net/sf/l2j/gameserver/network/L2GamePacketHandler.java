@@ -18,6 +18,7 @@
 package net.sf.l2j.gameserver.network;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
 import java.util.concurrent.RejectedExecutionException;
 
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -28,11 +29,13 @@ import net.sf.l2j.tools.util.Util;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jserver.mmocore.network.IClientFactory;
-import com.l2jserver.mmocore.network.IMMOExecutor;
-import com.l2jserver.mmocore.network.IPacketHandler;
-import com.l2jserver.mmocore.network.MMOConnection;
-import com.l2jserver.mmocore.network.ReceivablePacket;
+import org.mmocore.network.HeaderInfo;
+import org.mmocore.network.IClientFactory;
+import org.mmocore.network.IMMOExecutor;
+import org.mmocore.network.IPacketHandler;
+import org.mmocore.network.MMOConnection;
+import org.mmocore.network.ReceivablePacket;
+import org.mmocore.network.TCPHeaderHandler;
 
 /**
  * Stateful Packet Handler<BR>
@@ -43,8 +46,16 @@ import com.l2jserver.mmocore.network.ReceivablePacket;
  * Note: If for a given exception a packet needs to be handled on more then one state, then it should be added to all these states.
  * @author  KenM
  */
-public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>
+public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> implements IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>
 {
+	/**
+	* @param subHeaderHandler
+	*/
+	public L2GamePacketHandler()
+	{
+		super(null);
+	}
+
 	private static final Log _log = LogFactory.getLog(L2GamePacketHandler.class.getName());
 	
 	public ReceivablePacket<L2GameClient> handlePacket(ByteBuffer buf, L2GameClient client)
@@ -852,6 +863,26 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			{
 				_log.fatal("Failed executing: "+rp.getClass().getSimpleName()+" for Client: "+rp.getClient().toString());
 			}
+		}
+	}
+
+	/**
+	* @see org.mmocore.network.TCPHeaderHandler#handleHeader(java.nio.channels.SelectionKey, java.nio.ByteBuffer)
+	*/
+	@SuppressWarnings("unchecked")
+	@Override
+	public HeaderInfo handleHeader(SelectionKey key, ByteBuffer buf)
+	{
+		if (buf.remaining() >= 2)
+		{
+			int dataPending = (buf.getShort() & 0xffff) - 2;
+			L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient(); 
+			return this.getHeaderInfoReturn().set(0, dataPending, false, client);
+		}
+		else
+		{
+			L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient(); 
+			return this.getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, client);
 		}
 	}
 }

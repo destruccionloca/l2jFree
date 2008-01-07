@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.network.L2GameClient;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jserver.mmocore.network.SendablePacket;
+import org.mmocore.network.SendablePacket;
 
 /**
  *
@@ -60,4 +60,22 @@ public abstract class L2GameServerPacket extends SendablePacket<L2GameClient>
 	 * @return A String with this packet name for debuging purposes
 	 */
 	public abstract String getType();
+
+	/**
+	* @see org.mmocore.network.SendablePacket#getHeaderSize()
+	*/
+	@Override
+	protected int getHeaderSize()
+	{
+		return 2;
+	}
+
+	/**
+	* @see org.mmocore.network.SendablePacket#writeHeader(int)
+	*/
+	@Override
+	protected void writeHeader(int dataSize)
+	{
+		writeH(dataSize + this.getHeaderSize());
+	}
 }

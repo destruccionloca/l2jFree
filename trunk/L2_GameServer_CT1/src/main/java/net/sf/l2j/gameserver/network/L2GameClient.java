@@ -46,8 +46,8 @@ import net.sf.l2j.util.EventData;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jserver.mmocore.network.MMOClient;
-import com.l2jserver.mmocore.network.MMOConnection;
+import org.mmocore.network.MMOClient;
+import org.mmocore.network.MMOConnection;
 
 /**
  * Represents a client connected on Game Server
@@ -497,7 +497,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     {
         try
         {
-            InetAddress address = getConnection().getSocketChannel().socket().getInetAddress();
+            InetAddress address = getConnection().getSocket().getInetAddress();
             switch (getState())
             {
                 case CONNECTED:

@@ -29,6 +29,7 @@
 package net.sf.l2j.gameserver.util;
 
 import java.io.File;
+import java.nio.ByteBuffer;
 import java.util.Collection;
 
 import net.sf.l2j.Config;
@@ -327,4 +328,13 @@ public final class Util
     		s = "="+s;
     	System.out.println(s);
     }
+
+	public static String printData(ByteBuffer buf)
+	{
+		byte[] data = new byte[buf.remaining()];
+		buf.get(data);
+		String hex = Util.printData(data, data.length);
+		buf.position(buf.position() - data.length);
+		return hex;
+	}
 }
