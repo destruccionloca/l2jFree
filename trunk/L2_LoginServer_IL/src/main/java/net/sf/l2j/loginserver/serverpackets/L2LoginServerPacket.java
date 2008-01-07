@@ -19,7 +19,7 @@ package net.sf.l2j.loginserver.serverpackets;
 
 import net.sf.l2j.loginserver.L2LoginClient;
 
-import com.l2jserver.mmocore.network.SendablePacket;
+import org.mmocore.network.SendablePacket;
 
 /**
  *
@@ -27,5 +27,21 @@ import com.l2jserver.mmocore.network.SendablePacket;
  */
 public abstract class L2LoginServerPacket extends SendablePacket<L2LoginClient>
 {
-	
+	/**
+	* @see org.mmocore.network.SendablePacket#getHeaderSize()
+	*/
+	@Override
+	protected int getHeaderSize()
+	{
+		return 2;
+	}
+
+	/**
+	* @see org.mmocore.network.SendablePacket#writeHeader(int)
+	*/
+	@Override
+	protected void writeHeader(int dataSize)
+	{
+		writeH(dataSize + this.getHeaderSize());
+	}
 }

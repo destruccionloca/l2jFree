@@ -25,8 +25,8 @@ import net.sf.l2j.loginserver.clientpackets.RequestAuthLogin;
 import net.sf.l2j.loginserver.clientpackets.RequestServerList;
 import net.sf.l2j.loginserver.clientpackets.RequestServerLogin;
 
-import com.l2jserver.mmocore.network.IPacketHandler;
-import com.l2jserver.mmocore.network.ReceivablePacket;
+import org.mmocore.network.IPacketHandler;
+import org.mmocore.network.ReceivablePacket;
 
 /**
  * Handler for packets received by Login Server

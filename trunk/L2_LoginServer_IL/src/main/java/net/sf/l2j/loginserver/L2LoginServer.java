@@ -37,8 +37,8 @@ import net.sf.l2j.tools.L2Registry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jserver.mmocore.network.SelectorServerConfig;
-import com.l2jserver.mmocore.network.SelectorThread;
+import org.mmocore.network.SelectorConfig;
+import org.mmocore.network.SelectorThread;
 
 /**
  * Main class for loginserver
@@ -131,16 +131,17 @@ public class L2LoginServer
         // o Start the server
         // ------------------
         startServer();
-        _log.info("Login Server ready on "+Config.LOGIN_SERVER_HOSTNAME+":"+Config.LOGIN_SERVER_PORT);        
+        _log.info("Login Server ready on "+Config.LOGIN_SERVER_HOSTNAME+":"+Config.LOGIN_SERVER_PORT);
     }
 
 	/**
 	 * 
 	 */
-	private void startServer() {
+	private void startServer()
+	{
 		try
         {
-            _selectorThread.openServerSocket();
+            _selectorThread.openServerSocket(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.PORT_LOGIN);
         }
         catch (IOException e)
         {
@@ -153,7 +154,8 @@ public class L2LoginServer
 	/**
 	 * @throws IOException
 	 */
-	private void initTelnetServer() throws IOException {
+	private void initTelnetServer() throws IOException
+	{
 		if (Config.IS_TELNET_ENABLED)
         {
             statusServer = new Status();
@@ -168,7 +170,8 @@ public class L2LoginServer
 	/**
 	 * 
 	 */
-	private void initGSListener() {
+	private void initGSListener()
+	{
 		try
         {
             _gameServerListener = new GameServerListener();
@@ -185,18 +188,14 @@ public class L2LoginServer
 	/**
 	 * 
 	 */
-	private void initNetworkLayer() {
-		SelectorServerConfig ssc = null;
-		try {
-			ssc = new SelectorServerConfig(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_SERVER_PORT);
-		} catch (UnknownHostException e1) {
-			e1.printStackTrace();
-		}
+	private void initNetworkLayer()
+	{
         L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
         SelectorHelper sh = new SelectorHelper();
+        SelectorConfig ssc = new SelectorConfig(null, sh);
         try
         {
-            _selectorThread = new SelectorThread<L2LoginClient>(ssc, loginPacketHandler, sh, sh);
+            _selectorThread = new SelectorThread<L2LoginClient>(ssc, null, loginPacketHandler, sh, sh, sh);
             _selectorThread.setAcceptFilter(sh);
         }
         catch (IOException e)
@@ -211,10 +210,11 @@ public class L2LoginServer
 		return statusServer;
 	}
 
-	public GameServerListener getGameServerListener() {
+	public GameServerListener getGameServerListener()
+	{
 		return _gameServerListener;
-	}    
-	
+	}
+
 	public void shutdown(boolean restart)
 	{
 		Runtime.getRuntime().exit(restart ? 2 : 0);

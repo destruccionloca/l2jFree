@@ -22,7 +22,7 @@ import net.sf.l2j.loginserver.L2LoginClient;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.l2jserver.mmocore.network.ReceivablePacket;
+import org.mmocore.network.ReceivablePacket;
 
 /**
  *

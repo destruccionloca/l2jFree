@@ -85,7 +85,7 @@ public class BanManager
         	_bannedIps.clear();
             // try to read banned list
             File file = new File(BAN_LIST);
-            List lines = FileUtils.readLines(file, ENCODING);            
+            List lines = FileUtils.readLines(file, ENCODING);
             
             for (int i = 0 ; i< lines.size();i++)
             {
@@ -163,7 +163,7 @@ public class BanManager
     public void addBanForAddress(String address, long expiration) throws UnknownHostException
     { 
         InetAddress netAddress = InetAddress.getByName(address);
-    	Net _net = new Net(netAddress.getHostAddress());
+        Net _net = new Net(netAddress.getHostAddress());
         _bannedIps.put(_net, new BanInfo(_net,  expiration));
     }
 
