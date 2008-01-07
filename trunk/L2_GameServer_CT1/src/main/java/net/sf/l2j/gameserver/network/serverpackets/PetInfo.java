@@ -119,7 +119,7 @@ public class PetInfo extends L2GameServerPacket
 		writeQ(_summon.getStat().getExp()); 
 		writeQ(_summon.getExpForThisLevel());// 0%  absolute value	
 		writeQ(_summon.getExpForNextLevel());// 100% absoulte value
-		writeD(_summon.getCurrentLoad());//weight
+		writeD(_summon instanceof L2PetInstance ? _summon.getInventory().getTotalWeight() : 0);//weight
 		writeD(_summon.getMaxLoad());//max weight it can carry
 		writeD(_summon.getPAtk(null));//patk
 		writeD(_summon.getPDef(null));//pdef
@@ -129,7 +129,7 @@ public class PetInfo extends L2GameServerPacket
 		writeD(_summon.getEvasionRate(null));//evasion
 		writeD(_summon.getCriticalHit(null,null));//critical
 		writeD(_runSpd);//speed
-		writeD(_summon.getPAtkSpd());//atkspeed
+		writeD(_summon.getPAtkSpd());//atkspeeds
 		writeD(_summon.getMAtkSpd());//casting speed
 		
 		writeD(0);//c2  abnormal visual effect... bleed=1; poison=2; poison & bleed=3; flame=4;

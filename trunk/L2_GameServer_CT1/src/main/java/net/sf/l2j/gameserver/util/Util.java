@@ -328,7 +328,7 @@ public final class Util
     		s = "="+s;
     	System.out.println(s);
     }
-
+/*
 	public static String printData(ByteBuffer buf)
 	{
 		byte[] data = new byte[buf.remaining()];
@@ -336,5 +336,5 @@ public final class Util
 		String hex = Util.printData(data, data.length);
 		buf.position(buf.position() - data.length);
 		return hex;
-	}
+	}*/
 }

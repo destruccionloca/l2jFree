@@ -737,7 +737,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/ipfind.htm");
 		for (L2PcInstance element : players) {
-			ip=element.getClient().getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
+			ip=element.getClient().getConnection().getSocket().getInetAddress().getHostAddress();
 			if (ip.equals(IpAdress))
 			{
 				name = element.getName();
