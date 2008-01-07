@@ -146,6 +146,7 @@ import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.model.quest.State;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -945,6 +946,7 @@ public final class L2PcInstance extends L2PlayableInstance
         initPcStatusUpdateValues();
         
         _accountName = accountName;
+        app.setOwner(this);
         _appearance   = app;
         
         // Create an AI
@@ -1436,7 +1438,7 @@ public final class L2PcInstance extends L2PlayableInstance
                                 && !qs.isCompleted())
                             {
                             	if (qs.getQuest().notifyEvent(event, npc, this))
-                                    showQuestWindow(quest, qs.getStateId());
+                                    showQuestWindow(quest, State.getStateName(qs.getState()));
 
                                 retval = qs;
                             }
@@ -10330,7 +10332,11 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deleteMe()", t);
         }
-        
+
+        // Memory leaks are bad...
+        _appearance.setOwner(null);
+        _appearance = null;
+
         // remove from flood protector
         FloodProtector.getInstance().removePlayer(getObjectId());
 

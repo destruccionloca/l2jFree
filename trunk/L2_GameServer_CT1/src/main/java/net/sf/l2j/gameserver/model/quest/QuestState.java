@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.model.quest;
 
 import java.util.Map;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
@@ -55,10 +54,7 @@ public final class QuestState
 	private final L2PcInstance _player;
 	
 	/** State of the quest */
-	private State _state;
-	
-	/** Boolean representing the completion of the quest */
-	private boolean _isCompleted;
+	private byte _state;
 	
 	/** List of couples (variable for quest,value of the variable for quest) */
 	private Map<String, String> _vars;
@@ -79,7 +75,7 @@ public final class QuestState
 	 * @param state : state of the quest
 	 * @param completed : boolean for completion of the quest
 	 */
-	QuestState(Quest quest, L2PcInstance player, State state, boolean completed)
+	QuestState(Quest quest, L2PcInstance player, byte state)
 	{
 		_questName = quest.getName();
 		_player = player;
@@ -87,7 +83,6 @@ public final class QuestState
 		// Save the state of the quest for the player in the player's list of quest onwed
 		getPlayer().setQuestState(this);
 		
-		_isCompleted = completed;
 		// set the state of the quest
 		_state = state;
 	}
@@ -119,7 +114,7 @@ public final class QuestState
 	 * Return the state of the quest
 	 * @return State
 	 */
-	public State getState() 
+	public byte getState() 
     {
 		return _state;
 	}
@@ -130,7 +125,7 @@ public final class QuestState
 	 */
 	public boolean isCompleted() 
     {
-		return _isCompleted;
+		return (getState() == State.COMPLETED);
 	}
 
 	/**
@@ -138,11 +133,8 @@ public final class QuestState
 	 * @return boolean
 	 */
 	public boolean isStarted() 
-    {
-		if (getStateId().equals("Start") || getStateId().equals("Completed")) 
-		    return false;
-
-        return true;
+	{
+		return (getState() == State.STARTED);
 	}
 	
 	/**
@@ -156,15 +148,10 @@ public final class QuestState
 	 * @param state
 	 * @return object
 	 */
-	public Object setState(State state) 
+	public Object setState(byte state)
 	{
 		// set new state
-		_state = state;
-
-		if(state == null) return null;
-		
-		if(getStateId().equals("Completed")) _isCompleted = true;
-		else _isCompleted = false;
+		_state = State.CREATED;
 
 		Quest.updateQuestInDb(this);
 		QuestList ql = new QuestList();
@@ -172,16 +159,7 @@ public final class QuestState
 		getPlayer().sendPacket(ql);
 		return state;
 	}
-	
-	/**
-	 * Return ID of the state of the quest
-	 * @return String
-	 */
-	public String getStateId() 
-    {
-		return getState().getName();
-	}
-	
+
 	/**
 	 * Add parameter used in quests.
 	 * @param var : String pointing out the name of the variable for quest
@@ -784,15 +762,15 @@ public final class QuestState
 			return this;
 
 		// Say quest is completed
-		_isCompleted = true;
+		setState(State.COMPLETED);
+
 		// Clean registered quest items 
- 
-		FastList<Integer> itemIdList = getQuest().getRegisteredItemIds();
+		int[] itemIdList = getQuest().getRegisteredItemIds();
 		if (itemIdList != null)
 		{
-			for (FastList.Node<Integer> n = itemIdList.head(), end = itemIdList.tail(); (n = n.getNext()) != end;)
+			for (int i=0; i<itemIdList.length; i++)
 			{
-				takeItems(n.getValue().intValue(), -1);
+				takeItems(itemIdList[i], -1);
 			}
 		}
 		

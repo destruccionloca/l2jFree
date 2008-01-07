@@ -79,6 +79,7 @@ import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.model.quest.State;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -1711,7 +1712,7 @@ public class L2NpcInstance extends L2Character
         else 
         {
             questId = qs.getQuest().getName();
-            String stateId = qs.getStateId();
+            String stateId = State.getStateName(qs.getState());
             String path = "data/jscript/quests/"+questId+"/"+stateId+".htm";
             content = HtmCache.getInstance().getHtm(path);
             

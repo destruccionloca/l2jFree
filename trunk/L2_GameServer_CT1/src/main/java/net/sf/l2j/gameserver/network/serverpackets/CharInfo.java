@@ -127,15 +127,15 @@ public class CharInfo extends L2GameServerPacket
 					writeC(_activeChar.getAppearance().getInvisible()? 1 : 0); // invisible ?? 0=false  1=true   2=summoned (only works if model has a summon animation)
 				}
 				
-				writeS(_activeChar.getName());
+				writeS(_activeChar.getAppearance().getVisibleName());;
 
 				if (gmSeeInvis)
 				{
-					writeS("(Invisible) "+_activeChar.getTitle());
+					writeS("(Invisible) "+_activeChar.getAppearance().getVisibleTitle());
 				}
 				else
 				{
-					writeS(_activeChar.getTitle());
+					writeS(_activeChar.getAppearance().getVisibleTitle());
 				}
 				writeD(0x00);
                 writeD(_activeChar.getPvpFlag());
@@ -169,13 +169,13 @@ public class CharInfo extends L2GameServerPacket
 		}
 		else
 		{
-			writeC(0x31);		
+			writeC(0x31);
 			writeD(_x);
 			writeD(_y);
 			writeD(_z);
 			writeD(_heading);
 			writeD(_activeChar.getObjectId());
-			writeS(_activeChar.getName());
+			writeS(_activeChar.getAppearance().getVisibleName());
 			writeD(_activeChar.getRace().ordinal());
 			writeD(_activeChar.getAppearance().getSex()? 1 : 0);
 
@@ -293,11 +293,11 @@ public class CharInfo extends L2GameServerPacket
 			
 			if (gmSeeInvis)
 			{
-				writeS("(Invisible) "+_activeChar.getTitle());
+				writeS("(Invisible) "+_activeChar.getAppearance().getVisibleTitle());
 			}
 			else
 			{
-				writeS(_activeChar.getTitle());
+				writeS(_activeChar.getAppearance().getVisibleTitle());
 			}
 			
 			writeD(_activeChar.getClanId());

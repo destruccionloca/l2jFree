@@ -22,7 +22,6 @@ import java.io.File;
 import java.io.UnsupportedEncodingException;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.LoginServerThread;
 import net.sf.l2j.gameserver.Olympiad;
 import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.TaskPriority;
@@ -285,10 +284,6 @@ public class EnterWorld extends L2GameClientPacket
 	        sm = new SystemMessage(SystemMessageId.S2_S1);
 	        sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 	        sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
-	        sendPacket(sm);
-	        sm = new SystemMessage(SystemMessageId.S2_S1);
-	        sm.addString(getText("V2VsY29tZSB0byA="));
-	        sm.addString(LoginServerThread.getInstance().getServerName());
 	        sendPacket(sm);
         
             VersionningService versionningService = (VersionningService)L2Registry.getBean(IServiceRegistry.VERSIONNING);

@@ -184,14 +184,7 @@ public enum Stats
     BLOCK_RECEIVE_BUFF     ("block_receive;buff"),
     BLOCK_RECEIVE_DEBUFF   ("block_receive;debuff"),
     
-    defenceAttrFire		("defenceAttrFire"),
-    defenceAttrWater	("defenceAttrWater"),
-    defenceAttrEarth	("defenceAttrEarth"),
-    defenceAttrWind		("defenceAttrWind"),
-    defenceAttrHoly		("defenceAttrHoly"),
-    defenceAttrUnholy	("defenceAttrUnholy"),
-    
-    transformId		("transformId")
+    transformId            ("transformId")
     ;
     
     public static final int NUM_STATS = values().length; 

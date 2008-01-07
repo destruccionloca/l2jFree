@@ -103,7 +103,7 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getZ());
         writeD(_activeChar.getHeading());
         writeD(_activeChar.getObjectId());
-        writeS(_activeChar.getName());
+        writeS(_activeChar.getAppearance().getVisibleName());
         writeD(_activeChar.getRace().ordinal());
         writeD(_activeChar.getAppearance().getSex()? 1 : 0);
 
@@ -286,7 +286,7 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getAppearance().getFace());
         writeD((_activeChar.getAccessLevel() >= Config.GM_ALTG_MIN_LEVEL) ? 1 : 0); // builder level
 
-        String title = _activeChar.getTitle();
+        String title = _activeChar.getAppearance().getVisibleTitle();
         if (_activeChar.getAppearance().getInvisible() && _activeChar.isGM()) title = "Invisible";
         if (_activeChar.getPoly().isMorphed())
         {

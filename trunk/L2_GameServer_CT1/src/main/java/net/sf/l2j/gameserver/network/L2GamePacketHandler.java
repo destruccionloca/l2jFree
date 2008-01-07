@@ -59,15 +59,15 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case CONNECTED:
 				switch (opcode)
 				{
-					case 0:
-						msg = new RequestAuthSequence();
+					case 0x00:
+						_log.warn("Client "+client.toString()+" is trying to connect using Interlude Client");
 						break;
 					case 0x0e:
 						msg = new ProtocolVersion();
 						break;
 					case 0x2b:
-		                msg = new AuthLogin();
-		                break;
+						msg = new AuthLogin();
+						break;
 					default:
 						printDebug(opcode, buf, state, client);
 					break;

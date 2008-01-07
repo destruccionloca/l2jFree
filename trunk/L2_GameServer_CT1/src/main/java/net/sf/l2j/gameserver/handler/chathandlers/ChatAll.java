@@ -46,23 +46,29 @@ public class ChatAll implements IChatHandler
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
-        if (text.startsWith("~") && activeChar._inEventFOS && FortressSiege._started){
-        	CreatureSay cs = new CreatureSay(activeChar.getObjectId(), 16, activeChar.getName(), text.substring(1));
-        	if (FortressSiege._players!=null && !FortressSiege._players.isEmpty()) 
-        			for (L2PcInstance player: FortressSiege._players)
-        				if (player._teamNameFOS.equals(activeChar._teamNameFOS))
-        					player.sendPacket(cs);
-        	return;
-        }
-		
-		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
+		if (text.startsWith("~") && activeChar._inEventFOS && FortressSiege._started)
+		{
+			CreatureSay cs = new CreatureSay(activeChar.getObjectId(), 16, activeChar.getName(), text.substring(1));
+			if (FortressSiege._players!=null && !FortressSiege._players.isEmpty()) 
+			{
+				for (L2PcInstance player: FortressSiege._players)
+				{
+					if (player._teamNameFOS.equals(activeChar._teamNameFOS))
+						player.sendPacket(cs);
+				}
+			}
+			return;
+		}
+
+		String name = activeChar.getAppearance().getVisibleName();
+		CreatureSay cs = new CreatureSay(activeChar.getObjectId(), chatType.getId(), name, text);
+
 		for (L2PcInstance player : activeChar.getKnownList().getKnownPlayers().values())
 		{
 			if (player != null && activeChar.isInsideRadius(player, 1250, false, true)
 				&& !(Config.REGION_CHAT_ALSO_BLOCKED && BlockList.isBlocked(player, activeChar)))
 			{
 				player.sendPacket(cs);
-				player.broadcastSnoop(activeChar.getObjectId(), chatType.getId(), activeChar.getName(), text);
 			}
 		}
 		activeChar.sendPacket(cs);

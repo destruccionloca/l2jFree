@@ -98,7 +98,14 @@ public class Say2 extends L2GameClientPacket
                 return;
             }
         }
-        
+
+        if (activeChar.isCursedWeaponEquiped() && (_type == SystemChatChannelId.Chat_Shout || _type == SystemChatChannelId.Chat_Market))
+        {
+            SystemMessage sm = new SystemMessage(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
+            activeChar.sendPacket(sm);
+            return;
+        }
+
         // If player is jailed
         if ((activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
         {
