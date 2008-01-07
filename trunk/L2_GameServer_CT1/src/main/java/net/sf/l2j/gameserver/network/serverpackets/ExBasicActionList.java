@@ -1,38 +1,64 @@
-/**
- * 
+/* This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2, or (at your option)
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * http://www.gnu.org/copyleft/gpl.html
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- * thx red rabbit
+ *
+ * @author  KenM
  */
 public class ExBasicActionList extends L2GameServerPacket
 {
-	private static final String S_FE_5F_EXBASICACTIONLIST = "[S] FE:5F ExBasicActionList [d(d)]";
+    private static final String _S__FE_5E_EXBASICACTIONLIST = "[S] FE:5F ExBasicActionList";
 
-	private static final int[] ActionList =
-	{
-		0x22 , 0x00 , 0x01 , 0x02 , 0x03 , 0x04 , 0x05 , 0x06 , 0x0a , 0x1c , 0x28 ,
-		0x25 , 0x37 , 0x39 , 0x3a , 0x3b , 0x07 , 0x08 , 0x09 , 0x0b , 0x32 , 0x38 ,
-		0x3c , 0x0c , 0x0d , 0x0e , 0x18 , 0x19 , 0x1a , 0x1d , 0x1e , 0x1f , 0x21 ,
-		0x22 , 0x23
-	};
-
-	@Override
-	public String getType()
-	{
-		return S_FE_5F_EXBASICACTIONLIST;
-	}
-
-	@Override
-	protected void writeImpl()
-	{
+    public ExBasicActionList()
+    {
+    	
+    }
+    
+    /**
+     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#writeImpl()
+     */
+    @Override
+    protected final void writeImpl()
+    {
         writeC(0xfe);
         writeH(0x5f);
-        
-        for (int action : ActionList)
+        int[] actionIds = new int[60 + 1 + 46];
+        for (int i = 0; i < actionIds.length; i++)
         {
-        	writeD(action);
+            actionIds[i] = 0 + i;
         }
+        for (int i = 1000; i < 1046; i++)
+        {
+            actionIds[i - 1000 + 60] = i;
+        }
+        writeD(actionIds.length);
+        for (int i = 0; i < actionIds.length; i++)
+        {
+            writeD(actionIds[i]);
+        }
+    }
+    /**
+     * @see net.sf.l2j.gameserver.serverpackets.L2GameServerPacket#getType()
+     */
+    @Override
+    public String getType()
+    {
+        return _S__FE_5E_EXBASICACTIONLIST;
     }
 }
