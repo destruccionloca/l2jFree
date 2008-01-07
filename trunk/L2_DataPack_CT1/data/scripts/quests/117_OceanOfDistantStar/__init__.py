@@ -104,7 +104,7 @@ class Quest (JQuest) :
       if npcId == GHOST_F and cond == 10 :
             htmltext = "9.htm" #link to 9a.htm so link to event 10
     elif id == State.COMPLETED:
-      htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+      htmltext = "<html><body>This quest has already been completed.</body></html>"
     return htmltext
 
   def onKill(self,npc,player,isPet):

@@ -82,7 +82,7 @@ class Quest (JQuest) :
    if player.isSubClassActive() :
      if npcId == CARADINE and cond == 0 and st.getQuestItemsCount(CARADINE_LETTER) == 1 :
        if id == State.COMPLETED :
-         htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+         htmltext = "<html><body>This quest has already been completed.</body></html>"
        elif player.getLevel() < 65 : 
          htmltext = "31740-2.htm"
          st.exitQuest(1)

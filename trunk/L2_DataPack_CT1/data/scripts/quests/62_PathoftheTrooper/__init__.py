@@ -41,7 +41,7 @@ class Quest (JQuest) :
         id = st.getState()
         cond = st.getInt("cond")
         if id == State.COMPLETED :
-            htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+            htmltext = "<html><body>This quest has already been completed.</body></html>"
         elif npcId == Gwain :
             if player.getClassId().getId() != 123 or player.getLevel() < 19:
                 htmltext = "32197-00.htm"

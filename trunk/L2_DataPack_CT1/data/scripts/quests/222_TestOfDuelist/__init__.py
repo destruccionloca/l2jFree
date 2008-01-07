@@ -93,7 +93,7 @@ class Quest (JQuest) :
      st.set("step","0")
      st.set("cond","0")
    if id == State.COMPLETED :
-      htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif st.getInt("step")==0 :
       if player.getClassId().getId() in [0x01,0x2f,0x13,0x20] :
          if player.getLevel() >= 39 :

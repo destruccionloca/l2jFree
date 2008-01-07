@@ -61,7 +61,7 @@ class Quest (JQuest) :
    if id == State.CREATED : 
      st.set("cond","0") 
    if npcId == 30523 and id == State.COMPLETED : 
-      htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>" 
+      htmltext = "<html><body>This quest has already been completed.</body></html>" 
    elif npcId == 30523 and st.getInt("cond")==0 : 
           if player.getRace().ordinal() != 4 : 
             htmltext = "30523-00.htm" 

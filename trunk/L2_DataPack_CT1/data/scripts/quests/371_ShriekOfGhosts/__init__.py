@@ -82,7 +82,7 @@ class Quest (JQuest) :
      urn = st.getQuestItemsCount(URN)
      porcelain = st.getQuestItemsCount(PORCELAIN)
      if id == State.COMPLETED :
-       htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+       htmltext = "<html><body>This quest has already been completed.</body></html>"
      elif id == State.CREATED and npcId == REVA :
        if player.getLevel() < 59 :
          htmltext = "30867-01.htm"

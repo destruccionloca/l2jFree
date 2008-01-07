@@ -43,7 +43,7 @@ class Quest (JQuest) :
        htmltext = "30362-02.htm"
        st.exitQuest(1)
    elif id == State.COMPLETED :
-     htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+     htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif id == State.STARTED :
      try :
        cond = st.getInt("cond")

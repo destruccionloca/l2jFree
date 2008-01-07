@@ -68,7 +68,7 @@ class Quest (JQuest) :
    blood = st.getQuestItemsCount(BLOOD_OF_SAINT)
    id = st.getState()
    if id == State.COMPLETED :
-      htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == HIERARCH :
      if cond == 0 :
         htmltext = "31517-00.htm"

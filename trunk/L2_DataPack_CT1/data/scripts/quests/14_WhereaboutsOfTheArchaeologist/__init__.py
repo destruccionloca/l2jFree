@@ -47,7 +47,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    if npcId == LIESEL and cond == 0 :
      if id == State.COMPLETED :
-       htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+       htmltext = "<html><body>This quest has already been completed.</body></html>"
      elif player.getLevel() < 74 : 
        htmltext = "31263-1.htm"
        st.exitQuest(1)

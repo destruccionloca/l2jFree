@@ -116,7 +116,7 @@ class Quest (JQuest) :
    if npcId != 30106 and id != State.STARTED : return htmltext
 
    if id == State.COMPLETED :
-      htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif id == State.CREATED :
      st.set("cond","0")
      st.set("id","0")

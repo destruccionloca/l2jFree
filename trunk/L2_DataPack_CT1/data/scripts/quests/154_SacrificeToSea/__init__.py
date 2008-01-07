@@ -43,7 +43,7 @@ class Quest (JQuest) :
         htmltext = "30312-02.htm"
         st.exitQuest(1)
    elif npcId == 30312 and st.getInt("cond")==0 and st.getInt("onlyone")==1 :
-        htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+        htmltext = "<html><body>This quest has already been completed.</body></html>"
    if id == State.STARTED:     
        if npcId == 30312 and st.getInt("cond")==1 and (st.getQuestItemsCount(FOX_FUR_YARN_ID)==0 and st.getQuestItemsCount(MAIDEN_DOLL_ID)==0) and st.getQuestItemsCount(FOX_FUR_ID)<10 :
             htmltext = "30312-05.htm"

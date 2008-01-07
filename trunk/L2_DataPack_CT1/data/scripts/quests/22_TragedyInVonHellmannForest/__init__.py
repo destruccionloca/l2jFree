@@ -164,7 +164,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond") 
    onlyone = st.getInt("onlyone")
    if state == State.COMPLETED :
-       htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+       htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif npcId == INNOCENTIN :
        if state == State.CREATED :
            st2 = player.getQuestState("21_HiddenTruth")

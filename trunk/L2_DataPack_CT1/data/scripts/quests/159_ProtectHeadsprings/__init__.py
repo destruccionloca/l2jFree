@@ -41,7 +41,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    count = st.getQuestItemsCount(PLAGUE_DUST)
    if id == State.COMPLETED :
-      htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+      htmltext = "<html><body>This quest has already been completed.</body></html>"
    elif cond == 0 :
       if player.getRace().ordinal() != 1 :
          htmltext = "30154-00.htm"

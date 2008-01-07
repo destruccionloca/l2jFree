@@ -68,7 +68,7 @@ class Quest (JQuest) :
      if id == State.CREATED :
          st.set("cond","0")
      elif id == State.COMPLETED :
-         htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+         htmltext = "<html><body>This quest has already been completed.</body></html>"
      if npcId == MARQUEZ:
          if cond == 0 :
              if player.getLevel() < 75 :

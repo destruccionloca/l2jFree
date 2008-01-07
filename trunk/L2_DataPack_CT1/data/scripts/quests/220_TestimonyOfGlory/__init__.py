@@ -211,7 +211,7 @@ class Quest (JQuest) :
          st.exitQuest(1)
    elif id == State.COMPLETED :                                   # Check if the quest is already made
       if npcId == 30514 :
-        htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+        htmltext = "<html><body>This quest has already been completed.</body></html>"
    else :                                                   # The quest it self
      try :
        cond = st.getInt("cond")

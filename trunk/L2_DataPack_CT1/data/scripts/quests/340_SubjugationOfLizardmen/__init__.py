@@ -73,7 +73,7 @@ class Quest (JQuest) :
      holy = st.getQuestItemsCount(HOLY)
      totem = st.getQuestItemsCount(TOTEM)
      if id == State.COMPLETED :
-       htmltext = "<html><body>This quest has already been State.COMPLETED.</body></html>"
+       htmltext = "<html><body>This quest has already been completed.</body></html>"
      elif id == State.CREATED and npcId == WEIZ :
        if player.getLevel() < 17 :
          htmltext = "30385-01.htm"
