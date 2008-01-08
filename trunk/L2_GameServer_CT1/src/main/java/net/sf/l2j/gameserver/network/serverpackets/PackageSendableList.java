@@ -61,7 +61,7 @@ public class PackageSendableList extends L2GameServerPacket
 			writeH(item.getEnchantLevel());
 			writeH(item.getCustomType2());
 			writeH(0x00);
-			writeD(item.getMana());
+			writeD(item.getObjectId()); // Will be used in RequestPackageSend response packet
 			//T1
 			writeD(item.getAttackAttrElement()); //element type 
 			writeD(item.getAttackAttrElementVal()); //element val 
