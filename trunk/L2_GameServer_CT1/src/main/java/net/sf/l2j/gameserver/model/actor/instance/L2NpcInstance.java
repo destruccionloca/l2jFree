@@ -1647,7 +1647,7 @@ public class L2NpcInstance extends L2Character
      * Open a quest window on client with the text of the L2NpcInstance.<BR><BR>
      * 
      * <B><U> Actions</U> :</B><BR><BR>
-     * <li>Get the text of the quest state in the folder data/jscript/quests/questId/stateId.htm </li>
+     * <li>Get the text of the quest state in the folder data/scripts/quests/questId/stateId.htm </li>
      * <li>Send a Server->Client NpcHtmlMessage containing the text of the L2NpcInstance to the L2PcInstance </li>
      * <li>Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet </li><BR><BR>
      * 
@@ -1713,7 +1713,7 @@ public class L2NpcInstance extends L2Character
         {
             questId = qs.getQuest().getName();
             String stateId = State.getStateName(qs.getState());
-            String path = "data/jscript/quests/"+questId+"/"+stateId+".htm";
+            String path = "data/scripts/quests/"+questId+"/"+stateId+".htm";
             content = HtmCache.getInstance().getHtm(path);
             
             if (_log.isDebugEnabled())

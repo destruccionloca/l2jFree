@@ -49,7 +49,7 @@ public class TaskJython extends Task
     {
         _python.cleanup();
         _python.exec("import sys");
-        _python.execfile("data/jscript/cron/" + task.getParams()[2]);
+        _python.execfile("data/scripts/cron/" + task.getParams()[2]);
     }
 
 }

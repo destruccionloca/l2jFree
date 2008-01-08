@@ -36,7 +36,7 @@ public abstract class QuestJython extends Quest
 		{
 			// Initialize the engine for loading Jython scripts
 			_bsf = new BSFManager();
-			// Execution of all the scripts placed in data/jscript
+			// Execution of all the scripts placed in data/scripts
 			// inside the DataPack directory
 
 			String dataPackDirForwardSlashes = Config.DATAPACK_ROOT.getPath().replaceAll("\\\\","/");
@@ -57,7 +57,7 @@ public abstract class QuestJython extends Quest
 	{
 		try
 		{
-			_bsf.exec("jython", "quest", 0, 0, "reload(data.jscript."+questFolder+");");
+			_bsf.exec("jython", "quest", 0, 0, "reload(data.scripts."+questFolder+");");
 			return true;
 		}
 		catch (Exception e)

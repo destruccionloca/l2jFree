@@ -1458,7 +1458,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void showQuestWindow(String questId, String stateId)
     {
-        String path = "data/jscript/quests/" + questId + "/" + stateId + ".htm";
+        String path = "data/scripts/quests/" + questId + "/" + stateId + ".htm";
         String content = HtmCache.getInstance().getHtm(path);
 
         if (content != null)
