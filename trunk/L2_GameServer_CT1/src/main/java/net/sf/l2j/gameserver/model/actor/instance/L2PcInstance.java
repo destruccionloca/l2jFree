@@ -10295,10 +10295,6 @@ public final class L2PcInstance extends L2PlayableInstance
             _log.fatal( "deleteMe()", t);
         }
 
-        // Memory leaks are bad...
-        //_appearance.setOwner(null); npes are worse
-        _appearance = null;
-
         // remove from flood protector
         FloodProtector.getInstance().removePlayer(getObjectId());
 
