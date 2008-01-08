@@ -141,7 +141,7 @@ public class L2LoginServer
 	{
 		try
         {
-            _selectorThread.openServerSocket(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.PORT_LOGIN);
+            _selectorThread.openServerSocket(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_PORT);
         }
         catch (IOException e)
         {
