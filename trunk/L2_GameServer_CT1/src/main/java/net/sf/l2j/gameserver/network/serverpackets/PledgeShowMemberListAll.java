@@ -129,10 +129,19 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 			writeS(m.getName());
 			writeD(m.getLevel());
 			writeD(m.getClassId());
-			writeD(0); // no visible effect
-			writeD(m.getObjectId());//writeD(1); 
-			writeD(m.isOnline() ? 1 : 0);  // 1=online 0=offline
-			writeD(0); //c5 makes the name yellow. member is in academy and has a sponsor 
+            L2PcInstance player;
+            if ((player = m.getPlayerInstance()) != null)
+            {
+                writeD(player.getAppearance().getSex() ? 1 : 0); // no visible effect
+                writeD(player.getRace().ordinal());//writeD(1);
+            }
+            else
+            {
+                writeD(1); // no visible effect
+                writeD(1); //writeD(1);
+            }
+			writeD(m.isOnline() ? m.getObjectId() : 0);  // objectId=online 0=offline
+			writeD(m.getSponsor() != 0 ? 1 : 0); 
 		}
 	}
 
