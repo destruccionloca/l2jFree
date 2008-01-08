@@ -110,6 +110,7 @@
 <skill id="405" levels="10" name="Banish Undead">
   <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68</table>
   <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10</table>
+  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41</table>
   <set name="itemConsumeId" val="1785"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="mpConsume" val="#mpConsume"/>
@@ -120,6 +121,7 @@
   <set name="skillRadius" val="150"/>
   <set name="skillType" val="FEAR"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="lethal2" val="#lethal2"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="isMagic" val="true"/>
@@ -1099,28 +1101,28 @@
       Lvl 9 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 10 Soul Ores.
       Lvl 10 - Strikes fear into an angel, causing it to flee. Lethal Strike is possible. Consumes 10 Soul Ores.
 -->
-  <table name="#magicLvl"> 55 58 60 62 64 66 68 70 72 74 </table>
   <table name="#mpConsume"> 50 53 55 58 59 61 63 65 67 68</table>
   <table name="#itemConsumeCount"> 5 6 7 7 8 8 9 9 10 10</table>
+  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41</table>
   <set name="itemConsumeId" val="1785"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="0.0"/>
+  <set name="power" val="40"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="hitTime" val="2000"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="hitTime" val="4000"/>
-  <set name="reuseDelay" val="30000"/>
-  <set name="skillTime" val="4000"/>
   <set name="skillType" val="FEAR"/>
-  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="lethal2" val="#lethal2"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
-  <cond msg="Your target is no angel"><target race_id="8"/></cond>
+  <cond msg="Banish Seraph cannot be used due to unsuitable terms.">
+  <target race_id="7"/>
+  </cond>
   <for>
-    <effect count="5" name="Fear" time="9" val="0"/> 
-  </for>
-</skill>
+    <effect count="5" name="Fear" time="6" val="0"/>
+   </for>
+ </skill>
 <skill id="451" levels="2" name="Sonic Move">
   <!--
   Values need checking
@@ -1925,82 +1927,25 @@
 </skill>
 <skill id="485" levels="7" name="Disarm" enchantLevels1="30" enchantLevels2="30">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-	Lvl	1	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
-	Lvl	2	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
-	Lvl	3	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
-	Lvl	4	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
-	Lvl	5	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
-	Lvl	6	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
-	Lvl	7	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
-	Lvl	101	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+1 Chance	Maximizes the skill's success rate. The success rate is increased.
-	Lvl	102	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+2 Chance	The success rate is increased.
-	Lvl	103	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+3 Chance	The success rate is increased.
-	Lvl	104	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+4 Chance	The success rate is increased.
-	Lvl	105	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+5 Chance	The success rate is increased.
-	Lvl	106	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+6 Chance	The success rate is increased.
-	Lvl	107	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+7 Chance	The success rate is increased.
-	Lvl	108	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+8 Chance	The success rate is increased.
-	Lvl	109	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+9 Chance	The success rate is increased.
-	Lvl	110	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+10 Chance	The success rate is increased.
-	Lvl	111	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+11 Chance	The success rate is increased.
-	Lvl	112	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+12 Chance	The success rate is increased.
-	Lvl	113	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+13 Chance	The success rate is increased.
-	Lvl	114	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+14 Chance	The success rate is increased.
-	Lvl	115	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+15 Chance	The success rate is increased.
-	Lvl	116	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+16 Chance	The success rate is increased.
-	Lvl	117	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+17 Chance	The success rate is increased.
-	Lvl	118	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+18 Chance	The success rate is increased.
-	Lvl	119	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+19 Chance	The success rate is increased.
-	Lvl	120	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+20 Chance	The success rate is increased.
-	Lvl	121	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+21 Chance	The success rate is increased.
-	Lvl	122	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+22 Chance	The success rate is increased.
-	Lvl	123	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+23 Chance	The success rate is increased.
-	Lvl	124	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+24 Chance	The success rate is increased.
-	Lvl	125	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+25 Chance	The success rate is increased.
-	Lvl	126	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+26 Chance	The success rate is increased.
-	Lvl	127	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+27 Chance	The success rate is increased.
-	Lvl	128	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+28 Chance	The success rate is increased.
-	Lvl	129	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+29 Chance	The success rate is increased.
-	Lvl	130	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Chance: Success rate is increased.	+30 Chance	The success rate is increased.
-	Lvl	201	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+1 Time	Maximizes the skill's duration. Increases the duration.
-	Lvl	202	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+2 Time	Increases the duration.
-	Lvl	203	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+3 Time	Increases the duration.
-	Lvl	204	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+4 Time	Increases the duration.
-	Lvl	205	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+5 Time	Increases the duration.
-	Lvl	206	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+6 Time	Increases the duration.
-	Lvl	207	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+7 Time	Increases the duration.
-	Lvl	208	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+8 Time	Increases the duration.
-	Lvl	209	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+9 Time	Increases the duration.
-	Lvl	210	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+10 Time	Increases the duration.
-	Lvl	211	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+11 Time	Increases the duration.
-	Lvl	212	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+12 Time	Increases the duration.
-	Lvl	213	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+13 Time	Increases the duration.
-	Lvl	214	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+14 Time	Increases the duration.
-	Lvl	215	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+15 Time	Increases the duration.
-	Lvl	216	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+16 Time	Increases the duration.
-	Lvl	217	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+17 Time	Increases the duration.
-	Lvl	218	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+18 Time	Increases the duration.
-	Lvl	219	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+19 Time	Increases the duration.
-	Lvl	220	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+20 Time	Increases the duration.
-	Lvl	221	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+21 Time	Increases the duration.
-	Lvl	222	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+22 Time	Increases the duration.
-	Lvl	223	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+23 Time	Increases the duration.
-	Lvl	224	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+24 Time	Increases the duration.
-	Lvl	225	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+25 Time	Increases the duration.
-	Lvl	226	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+26 Time	Increases the duration.
-	Lvl	227	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+27 Time	Increases the duration.
-	Lvl	228	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+28 Time	Increases the duration.
-	Lvl	229	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+29 Time	Increases the duration.
-	Lvl	230	Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul. Enchant Time: Skill duration is increased.	+30 Time	Increases the duration.
+   Disarms a target. Weapons cannot be re-equipped while the effect lasts. Consumes 1 Soul.
+   DP side done by Rnn
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume_Init"> 5 5 6 6 6 7 7 </table>
+  <table name="#mpConsume"> 20 25 29 34 40 44 48 </table>
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="40"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="3000"/>
+  <set name="reuseDelay" val="60000"/>
+  <set name="skillType" val="DISARM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
+    <effect count="1" name="Disarm" time="10" val="0"/>
   </for>
 </skill>
 <skill id="486" levels="2" name="Increase Range">
