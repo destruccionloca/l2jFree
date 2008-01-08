@@ -37,39 +37,39 @@ public class PledgeShowMemberListUpdate extends L2GameServerPacket
 	private int _classId;
 	private int _objectId;
 	private boolean _isOnline;
-    private int _race;
-    private int _sex;
-	
+	private int _race;
+	private int _sex;
+
 	public PledgeShowMemberListUpdate(L2PcInstance player)
 	{
 		_activeChar = player;
-		_pledgeType = player.getSubPledgeType();
-		if (_pledgeType == L2Clan.SUBUNIT_ACADEMY) 
+		_pledgeType = _activeChar.getSubPledgeType();
+		if (_pledgeType == L2Clan.SUBUNIT_ACADEMY)
 			_hasSponsor = _activeChar.getSponsor() != 0 ? 1 : 0;
-		else 
+		else
 			_hasSponsor = 0;
 		_name = _activeChar.getName();
 		_level = _activeChar.getLevel();
 		_classId = _activeChar.getClassId().getId();
-        _race = _activeChar.getRace().ordinal();
-        _sex = _activeChar.getAppearance().getSex() ? 1 : 0;
+		_race = _activeChar.getRace().ordinal();
+		_sex = _activeChar.getAppearance().getSex() ? 1 : 0;
 		_objectId = _activeChar.getObjectId();
-		_isOnline = _activeChar.isOnline() == 1;		
+		_isOnline = _activeChar.isOnline() == 1;
 	}
 
 	public PledgeShowMemberListUpdate(L2ClanMember player)
 	{
 		_activeChar = player.getPlayerInstance();
-		_name=player.getName();
-		_level=player.getLevel();
-		_classId=player.getClassId();
-		_objectId=player.getObjectId();
-		_isOnline = _activeChar.isOnline() == 1;
+		_name = player.getName();
+		_level = player.getLevel();
+		_classId = player.getClassId();
+		_objectId = player.getObjectId();
+		_isOnline = player.isOnline();
 		_pledgeType = player.getSubPledgeType();
-	    _race = _activeChar.getRace().ordinal();
-	    _sex = _activeChar.getAppearance().getSex() ? 1 : 0;		
+		_race = player.getRace();
+		_sex = player.getSex();
 		if (_pledgeType == L2Clan.SUBUNIT_ACADEMY) 
-			_hasSponsor = _activeChar.getSponsor() != 0 ? 1 : 0;
+			_hasSponsor = player.getSponsor() != 0 ? 1 : 0;
 		else 
 			_hasSponsor = 0;
 	}
@@ -82,19 +82,10 @@ public class PledgeShowMemberListUpdate extends L2GameServerPacket
 		writeD(_level);
 		writeD(_classId);
 		writeD(_sex);
-        writeD(_race);
-        if (_isOnline)
-        {
-            writeD(_objectId);
-            writeD(_pledgeType);
-        }
-        else
-        {
-            // when going offline send as 0
-            writeD(0);
-            writeD(0);
-        }
-		writeD(_hasSponsor); 
+		writeD(_race);
+		writeD(_isOnline ? _objectId : 0);
+		writeD(_pledgeType);
+		writeD(_hasSponsor);
 	}
 
 	/* (non-Javadoc)

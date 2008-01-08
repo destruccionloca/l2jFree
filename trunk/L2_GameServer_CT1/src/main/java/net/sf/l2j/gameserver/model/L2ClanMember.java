@@ -43,8 +43,10 @@ public class L2ClanMember
     private int _subPledgeType;
     private int _apprentice;
     private int _sponsor;
-    
-    public L2ClanMember(L2Clan clan, String name, int level, int classId, int objectId, int subPledgeType, int pledgeRank, String title)
+    private int _sex;
+    private int _race;
+
+    public L2ClanMember(L2Clan clan, String name, int level, int classId, int objectId, int subPledgeType, int pledgeRank, String title, int sex, int race)
     {
         if(clan == null)
             throw new IllegalArgumentException("Can not create a ClanMember with a null clan.");
@@ -58,7 +60,8 @@ public class L2ClanMember
         _subPledgeType = subPledgeType;
         _apprentice = 0;
         _sponsor = 0;
-
+        _sex = sex;
+        _race = race;
     }
     
     public L2ClanMember(L2PcInstance player)
@@ -76,6 +79,8 @@ public class L2ClanMember
         _title = _player.getTitle();
         _apprentice = 0;
         _sponsor = 0;
+        _sex = _player.getAppearance().getSex() ? 1 : 0;
+        _race = _player.getRace().ordinal();
     }
 
         
@@ -93,6 +98,8 @@ public class L2ClanMember
             _title = _player.getTitle();
             _apprentice = _player.getApprentice();
             _sponsor = _player.getSponsor();
+            _sex = _player.getAppearance().getSex() ? 1 : 0;
+            _race = _player.getRace().ordinal();
         }
         if (player != null)
         {
@@ -292,7 +299,19 @@ public class L2ClanMember
         if (_player != null) return _player.getApprentice();
         else return _apprentice;
     }
+
+    public int getSex()
+    {
+        if (_player != null) return _player.getAppearance().getSex() ? 1 : 0;
+        else return _sex;
+    }
     
+    public int getRace()
+    {
+        if (_player != null) return _player.getRace().ordinal();
+        else return _race;
+    }
+
     public String getApprenticeOrSponsorName() 
     { 
         if(_player != null) 

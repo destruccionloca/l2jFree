@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2Clan.SubPledge;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-//import java.util.logging.Logger;
+
 /**
  * 
  *
@@ -67,8 +67,7 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 	private L2PcInstance _activeChar;
 	private L2ClanMember[] _members;
 	private int _pledgeType;
-	//private static Logger _log = Logger.getLogger(PledgeShowMemberListAll.class.getName());
-	
+
 	public PledgeShowMemberListAll(L2Clan clan, L2PcInstance activeChar)
 	{
 		_clan = clan;
@@ -95,7 +94,6 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 
 		// unless this is sent sometimes, the client doesn't recognise the player as the leader
 		_activeChar.sendPacket(new UserInfo(_activeChar));
-				
 	}
 	
 	void writePledge(int mainOrSubpledge)
@@ -116,7 +114,7 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 		writeD(_clan.getReputationScore()); //was activechar lvl
 		writeD(0); //0
 		writeD(0); //0
-		
+		writeD(0);
 		writeD(_clan.getAllyId());
 		writeS(_clan.getAllyName());
 		writeD(_clan.getAllyCrestId());
@@ -125,21 +123,12 @@ public class PledgeShowMemberListAll extends L2GameServerPacket
 
 		for (L2ClanMember m : _members)
 		{
-    		if(m.getSubPledgeType() != _pledgeType) continue;
+			if(m.getSubPledgeType() != _pledgeType) continue;
 			writeS(m.getName());
 			writeD(m.getLevel());
 			writeD(m.getClassId());
-            L2PcInstance player;
-            if ((player = m.getPlayerInstance()) != null)
-            {
-                writeD(player.getAppearance().getSex() ? 1 : 0); // no visible effect
-                writeD(player.getRace().ordinal());//writeD(1);
-            }
-            else
-            {
-                writeD(1); // no visible effect
-                writeD(1); //writeD(1);
-            }
+			writeD(m.getSex());
+			writeD(m.getRace());
 			writeD(m.isOnline() ? m.getObjectId() : 0);  // objectId=online 0=offline
 			writeD(m.getSponsor() != 0 ? 1 : 0); 
 		}

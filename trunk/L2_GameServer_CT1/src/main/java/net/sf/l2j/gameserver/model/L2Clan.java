@@ -285,7 +285,7 @@ public class L2Clan
     
     public void addClanMember(L2PcInstance player)
     {
-        L2ClanMember member = new L2ClanMember(this,player.getName(), player.getLevel(), player.getClassId().getId(), player.getObjectId(), player.getSubPledgeType(), player.getPledgeRank(), player.getTitle());
+        L2ClanMember member = new L2ClanMember(this,player.getName(), player.getLevel(), player.getClassId().getId(), player.getObjectId(), player.getSubPledgeType(), player.getPledgeRank(), player.getTitle(), player.getAppearance().getSex() ? 1 : 0, player.getRace().ordinal());
         // store in memory
         addClanMember(member);
 		member.setPlayerInstance(player);
@@ -708,7 +708,7 @@ public class L2Clan
             statement.setLong(3, clanCreateExpiryTime);
             statement.setInt(4, member.getObjectId());
             statement.execute();
-            statement.close();                  
+            statement.close();
             if (_log.isDebugEnabled()) _log.info("clan member removed in db: "+getClanId());
             
             statement = con.prepareStatement("UPDATE characters SET apprentice=0 WHERE apprentice=?");
@@ -810,13 +810,13 @@ public class L2Clan
                 
                 int leaderId = (clanData.getInt("leader_id"));          
 
-                PreparedStatement statement2 = con.prepareStatement("SELECT char_name,level,classid,obj_Id,title,pledge_rank,subpledge,apprentice,sponsor FROM characters WHERE clanid=?");
+                PreparedStatement statement2 = con.prepareStatement("SELECT char_name,level,classid,obj_Id,title,pledge_rank,subpledge,apprentice,sponsor,race,sex FROM characters WHERE clanid=?");
                 statement2.setInt(1, getClanId());
                 ResultSet clanMembers = statement2.executeQuery();
                 
                 while (clanMembers.next())
                 {
-                    member = new L2ClanMember(this, clanMembers.getString("char_name"), clanMembers.getInt("level"), clanMembers.getInt("classid"), clanMembers.getInt("obj_id"),clanMembers.getInt("subpledge"), clanMembers.getInt("pledge_rank"), clanMembers.getString("title"));
+                    member = new L2ClanMember(this, clanMembers.getString("char_name"), clanMembers.getInt("level"), clanMembers.getInt("classid"), clanMembers.getInt("obj_id"),clanMembers.getInt("subpledge"), clanMembers.getInt("pledge_rank"), clanMembers.getString("title"), clanMembers.getInt("sex"), clanMembers.getInt("race"));
                     if (member.getObjectId() == leaderId)
                         setLeader(member);
                     else
