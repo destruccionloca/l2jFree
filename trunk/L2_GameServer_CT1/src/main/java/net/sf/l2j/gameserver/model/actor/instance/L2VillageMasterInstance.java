@@ -191,15 +191,13 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
             try
             {
-                int endIndex = command.length();
-
-                if (command.length() > 13)
-                {
-                    endIndex = 13;
-                    paramTwo = Integer.parseInt(command.substring(13).trim());
-                }
+                int endIndex = command.indexOf(' ', 11);
+                if (endIndex == -1)
+                    endIndex = command.length();
 
                 paramOne = Integer.parseInt(command.substring(11, endIndex).trim());
+                if (command.length() > endIndex)
+                    paramTwo = Integer.parseInt(command.substring(endIndex).trim());
             }
             catch (Exception NumberFormatException)
             {
@@ -355,9 +353,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                                 return;
                             }
                         }
-                        //Kamale have different quest than 235
-                        //temporarily disabled while quest is missing XD
-                        /*else
+                        //Kamael have different quest than 235
+                        else
                         {
                             qs = player.getQuestState("236_SeedsOfChaos");
                             if(qs == null || !qs.isCompleted())
@@ -365,8 +362,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                                 player.sendMessage("You must have completed the Seeds of Chaos quest to continue adding your sub class.");
                                 return;
                             }
-
-                        }*/
+                        }
                     }
 
                     ////////////////// \\\\\\\\\\\\\\\\\\
@@ -948,7 +944,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
          * only be taken if you have already completed the other two Kamael subclasses
          *
          */
-        Set<PlayerClass> availSubs = currClass.getAvaliableSubclasses(player);
+        Set<PlayerClass> availSubs = currClass.getAvailableSubclasses(player);
 
         if (availSubs != null && !availSubs.isEmpty())
         {
@@ -964,7 +960,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
                     if (availSub.ordinal() == subClassId
                         || availSub.ordinal() == charClassId)
-                        availSubs.remove(PlayerClass.values()[subClassId]);
+                        availSubs.remove(availSub);
                 }
 
                 if ((npcRace == Race.Human || npcRace == Race.Elf))
@@ -986,11 +982,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                 }
             }
         }
-        
-        if ((availSubs == null || availSubs.isEmpty()) && player.getRace() == Race.Kamael)
-            //if kamael character has already subclassed twice, they can now subclass inspector!!!
-            availSubs = EnumSet.of(PlayerClass.inspector);
-
         return availSubs;
     }
 
@@ -1068,9 +1059,9 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
         if (npcClass.indexOf("orc") > -1) return Race.Orc;
 
-        if (npcClass.indexOf("kamael") > -1) return Race.Kamael;
-        
-        return Race.Dwarf;
+        if (npcClass.indexOf("dwarf") > -1) return Race.Dwarf;
+
+        return Race.Kamael;
     }
 
     private final ClassType getVillageMasterTeachType()

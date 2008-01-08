@@ -135,15 +135,19 @@ public final class L2Weapon  extends L2Item
 		// Normal bows have a base Weapon Delay of 1500 - Like Draconic Bow (atkSpd == 293)
 		// Yumi bows have a base Weapon Delay of 820 - Like Soul Bow (atkSpd == 227)
 		
-		if (type != L2WeaponType.BOW)
-			return 0;
-		
-		if (_atkSpeed == 293)
-			return 1500;
-		if (_atkSpeed == 227)
-			return 820;
-		
-		return 1500;
+		if (type == L2WeaponType.BOW)
+		{
+			if (_atkSpeed == 293)
+				return 1500;
+			if (_atkSpeed == 227)
+				return 820;
+		}
+		else if (type == L2WeaponType.CROSSBOW)
+		{
+			return 1200;
+		}
+
+		return 0;
 	}
 	
 	/**

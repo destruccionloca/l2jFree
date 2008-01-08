@@ -511,7 +511,7 @@ public class L2Spawn
 		}
 		catch (Exception e)
 		{
-			System.out.println( "NPC "+_template.getNpcId()+" class not found: "+ e.getMessage());
+			_log.warn( "NPC "+_template.getNpcId()+" class not found: "+ e.getMessage());
 		}
 		return mob;
 	}

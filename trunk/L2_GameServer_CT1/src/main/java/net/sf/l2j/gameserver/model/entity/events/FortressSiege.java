@@ -458,14 +458,14 @@ public class FortressSiege
 			_log.info("Name: " + player + "	Team: " + _savePlayerTeams.get(_savePlayers.indexOf(player)));
 		_log.info("");
 		_log.info("");
-		System.out.println("**********==Fortress Siege==************");
-		System.out.println("FortressSiege._teamPointsCount:"+_teamPointsCount.toString());
-		System.out.println("FortressSiege._flagSpawn:  "+_flagSpawn.toString());
-		System.out.println("FortressSiege._flagsX:	 "+_flagX);
-		System.out.println("FortressSiege._flagsY:	 "+_flagY);
-		System.out.println("FortressSiege._flagsZ:	 "+_flagZ);
-		System.out.println("************EOF**************\n");
-		System.out.println("");
+		_log.info("**********==Fortress Siege==************");
+		_log.info("FortressSiege._teamPointsCount:"+_teamPointsCount.toString());
+		_log.info("FortressSiege._flagSpawn:  "+_flagSpawn.toString());
+		_log.info("FortressSiege._flagsX:	 "+_flagX);
+		_log.info("FortressSiege._flagsY:	 "+_flagY);
+		_log.info("FortressSiege._flagsZ:	 "+_flagZ);
+		_log.info("************EOF**************\n");
+		_log.info("");
 	}
 	
 	public static void startJoin(L2PcInstance activeChar)

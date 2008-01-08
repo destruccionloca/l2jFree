@@ -125,7 +125,7 @@ public class PlayableStat extends CharStat
     {
         if (value < 0) 
         {
-            System.out.println("PlayableStat.addSp("+value+") : Wrong usage!");
+            _log.warn("PlayableStat.addSp("+value+") : Wrong usage!");
             return false;
         }
         int currentSp = getSp();

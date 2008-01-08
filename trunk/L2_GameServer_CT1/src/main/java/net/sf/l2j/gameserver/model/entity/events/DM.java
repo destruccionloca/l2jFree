@@ -391,63 +391,63 @@ public class DM
     
     public static void dumpData()
     {
-        System.out.println("");
-        System.out.println("");
+        _log.info("");
+        _log.info("");
         
         if (!_joining && !_teleport && !_started)
         {
-            System.out.println("<<---------------------------------->>");
-            System.out.println(">> DM Engine infos dump (INACTIVE) <<");
-            System.out.println("<<--^----^^-----^----^^------^^----->>");
+            _log.info("<<---------------------------------->>");
+            _log.info(">> DM Engine infos dump (INACTIVE) <<");
+            _log.info("<<--^----^^-----^----^^------^^----->>");
         }
         else if (_joining && !_teleport && !_started)
         {
-            System.out.println("<<--------------------------------->>");
-            System.out.println(">> DM Engine infos dump (JOINING) <<");
-            System.out.println("<<--^----^^-----^----^^------^----->>");
+            _log.info("<<--------------------------------->>");
+            _log.info(">> DM Engine infos dump (JOINING) <<");
+            _log.info("<<--^----^^-----^----^^------^----->>");
         }
         else if (!_joining && _teleport && !_started)
         {
-            System.out.println("<<---------------------------------->>");
-            System.out.println(">> DM Engine infos dump (TELEPORT) <<");
-            System.out.println("<<--^----^^-----^----^^------^^----->>");
+            _log.info("<<---------------------------------->>");
+            _log.info(">> DM Engine infos dump (TELEPORT) <<");
+            _log.info("<<--^----^^-----^----^^------^^----->>");
         }
         else if (!_joining && !_teleport && _started)
         {
-            System.out.println("<<--------------------------------->>");
-            System.out.println(">> DM Engine infos dump (STARTED) <<");
-            System.out.println("<<--^----^^-----^----^^------^----->>");
+            _log.info("<<--------------------------------->>");
+            _log.info(">> DM Engine infos dump (STARTED) <<");
+            _log.info("<<--^----^^-----^----^^------^----->>");
         }
 
-        System.out.println("Name: " + _eventName);
-        System.out.println("Desc: " + _eventDesc);
-        System.out.println("Join location: " + _joiningLocationName);
-        System.out.println("Min lvl: " + _minlvl);
-        System.out.println("Max lvl: " + _maxlvl);
+        _log.info("Name: " + _eventName);
+        _log.info("Desc: " + _eventDesc);
+        _log.info("Join location: " + _joiningLocationName);
+        _log.info("Min lvl: " + _minlvl);
+        _log.info("Max lvl: " + _maxlvl);
         
-        System.out.println("");
-        System.out.println("##################################");
-        System.out.println("# _players(Vector<L2PcInstance>) #");
-        System.out.println("##################################");
+        _log.info("");
+        _log.info("##################################");
+        _log.info("# _players(Vector<L2PcInstance>) #");
+        _log.info("##################################");
         
-        System.out.println("Total Players : " + _players.size());
+        _log.info("Total Players : " + _players.size());
         
         for (L2PcInstance player : _players)
         {
             if (player != null)
-                System.out.println("Name: " + player.getName()+ " kills :" + player._countDMkills);
+                _log.info("Name: " + player.getName()+ " kills :" + player._countDMkills);
         }
         
-        System.out.println("");
-        System.out.println("################################");
-        System.out.println("# _savePlayers(Vector<String>) #");
-        System.out.println("################################");
+        _log.info("");
+        _log.info("################################");
+        _log.info("# _savePlayers(Vector<String>) #");
+        _log.info("################################");
         
         for (String player : _savePlayers)
-            System.out.println("Name: " + player );
+            _log.info("Name: " + player );
         
-        System.out.println("");
-        System.out.println("");
+        _log.info("");
+        _log.info("");
     }
     
     public static void loadData()

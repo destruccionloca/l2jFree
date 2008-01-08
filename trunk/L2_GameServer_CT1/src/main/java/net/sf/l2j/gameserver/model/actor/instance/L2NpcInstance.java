@@ -731,7 +731,7 @@ public class L2NpcInstance extends L2Character
             	player.sendPacket(new ActionFailed());
         }
     	}catch (Throwable e){
-    		System.out.println("Error: L2NpcInstance--> onAction(){"+e.toString()+"}\n\n");
+    		_log.error("Error: L2NpcInstance--> onAction(){"+e.toString()+"}\n\n");
     		player.sendPacket(new ActionFailed());
     		return;
     	}        
@@ -1707,7 +1707,7 @@ public class L2NpcInstance extends L2Character
         if (qs == null) 
         {
             // no quests found
-            content = "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>";
+            content = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
         } 
         else 
         {

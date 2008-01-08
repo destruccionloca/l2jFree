@@ -122,15 +122,15 @@ public enum PlayerClass {
     fortuneSeeker(Dwarf, Fighter, Fourth), maestro(Dwarf, Fighter, Fourth),
 
     maleSoldier(Kamael, Fighter, First), trooper(Kamael, Fighter, Second), berserker(Kamael, Fighter, Third),
-    		maleSoulbreaker(Kamael, Fighter, Third), doombringer(Kamael, Fighter, Fourth), maleSoulhound(Kamael,
-    		Fighter, Fourth),
+            maleSoulbreaker(Kamael, Fighter, Third), doombringer(Kamael, Fighter, Fourth), maleSoulhound(Kamael,
+            Fighter, Fourth),
     
     femaleSoldier(Kamael, Fighter, First), warder(Kamael, Fighter, Second), arbalester(Kamael, Fighter, Third),
-    		femaleSoulbreaker(Kamael, Fighter, Third), trickster(Kamael, Fighter, Fourth), femaleSoulhound(Kamael,
-    		Fighter, Fourth),
+            femaleSoulbreaker(Kamael, Fighter, Third), trickster(Kamael, Fighter, Fourth), femaleSoulhound(Kamael,
+            Fighter, Fourth),
 
     inspector(Kamael, Fighter, Fifth), judicator(Kamael, Fighter, Sixth);
-    		
+
     private Race _race;
     private ClassLevel _level;
     private ClassType _type;
@@ -183,7 +183,7 @@ public enum PlayerClass {
         _type = pType;
     }
 
-    public final Set<PlayerClass> getAvaliableSubclasses(L2PcInstance player)
+    public final Set<PlayerClass> getAvailableSubclasses(L2PcInstance player)
     {
         Set<PlayerClass> subclasses = null;
 
@@ -215,8 +215,15 @@ public enum PlayerClass {
         	}
         	else
         	{
-        		subclasses = new HashSet<PlayerClass>();
-        		subclasses.add(inspector);
+        		subclasses = getSet(Kamael,Third);
+        		subclasses.remove(this);
+        		//Check sex, male can't subclass female and vice versa
+        		if (player.getAppearance().getSex())
+        			subclasses.removeAll(EnumSet.of(maleSoulbreaker));
+        		else
+        			subclasses.removeAll(EnumSet.of(femaleSoulbreaker));
+        		if (player.getTotalSubClasses() < 2)
+        			subclasses.removeAll(EnumSet.of(inspector));
         	}
         }
         else if (_level == Fifth)

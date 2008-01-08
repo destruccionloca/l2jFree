@@ -137,7 +137,7 @@ public class CTF
         }
         catch (Exception e)
         {
-            System.out.println(""+"CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception: " + e.getStackTrace());
+            _log.warn(""+"CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception: " + e.getStackTrace());
         }
     }
 
@@ -345,7 +345,7 @@ public class CTF
     		}
     		catch(Exception e)
     		{
-				System.out.println("CTF Engine[spawnAllFlags()]: exception: " + e.getStackTrace());
+				_log.warn("CTF Engine[spawnAllFlags()]: exception: " + e.getStackTrace());
 			}
     	}
     }
@@ -439,8 +439,8 @@ public class CTF
 		}
 		catch(Exception e)
 		{
-			System.out.println("CTF Engine[spawnFlag(" + teamName + ")]: exception: " + e.getStackTrace());
-		}    	
+			_log.warn("CTF Engine[spawnFlag(" + teamName + ")]: exception: " + e.getStackTrace());
+		}
     }
   
    
@@ -1411,17 +1411,17 @@ public class CTF
         
         _log.info("");
         _log.info("");
-    	System.out.println("**********==CTF==************");
-    	System.out.println("CTF._teamPointsCount:"+_teamPointsCount.toString());
-    	System.out.println("CTF._flagIds:"+_flagIds.toString());
-    	System.out.println("CTF._flagSpawns:"+_flagSpawns.toString());
-    	System.out.println("CTF._throneSpawns:"+_throneSpawns.toString());
-    	System.out.println("CTF._flagsTaken:"+_flagsTaken.toString());
-    	System.out.println("CTF._flagsX:"+_flagsX.toString());
-    	System.out.println("CTF._flagsY:"+_flagsY.toString());
-    	System.out.println("CTF._flagsZ:"+_flagsZ.toString());
-        System.out.println("************EOF**************\n");
-        System.out.println("");
+    	_log.info("**********==CTF==************");
+    	_log.info("CTF._teamPointsCount:"+_teamPointsCount.toString());
+    	_log.info("CTF._flagIds:"+_flagIds.toString());
+    	_log.info("CTF._flagSpawns:"+_flagSpawns.toString());
+    	_log.info("CTF._throneSpawns:"+_throneSpawns.toString());
+    	_log.info("CTF._flagsTaken:"+_flagsTaken.toString());
+    	_log.info("CTF._flagsX:"+_flagsX.toString());
+    	_log.info("CTF._flagsY:"+_flagsY.toString());
+    	_log.info("CTF._flagsZ:"+_flagsZ.toString());
+        _log.info("************EOF**************");
+        _log.info("");
     }
     
     public static void loadData()

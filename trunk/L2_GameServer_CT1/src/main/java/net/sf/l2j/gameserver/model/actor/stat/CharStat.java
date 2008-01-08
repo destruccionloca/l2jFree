@@ -25,8 +25,13 @@ import net.sf.l2j.gameserver.skills.Calculator;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Stats;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class CharStat
 {
+    protected final static Log _log = LogFactory.getLog(CharStat.class.getName());
+
     // =========================================================
     // Data Field
     protected L2Character _activeChar;

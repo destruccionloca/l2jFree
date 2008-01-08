@@ -100,21 +100,21 @@ public class GameStatusThread extends Thread
 		if (Config.DEVELOPER)
 		{
 			if (type == 1)
-				System.out.println("TELNET | " + text);
+				_log.info("TELNET | " + text);
 			else if (type == 2)
-				System.out.print("TELNET | " + text);
+				_log.info("TELNET | " + text);
 			else if (type == 3)
-				System.out.print(text);
+				_log.info(text);
 			else if (type == 4)
-				System.out.println(text);
+				_log.info(text);
 			else
-				System.out.println("TELNET | " + text);
+				_log.info("TELNET | " + text);
 		}
 		else
 		{
 			// only print output if the message is rejected
 			if (type == 5)
-				System.out.println("TELNET | " + text);
+				_log.info("TELNET | " + text);
 		}
 	}
 	

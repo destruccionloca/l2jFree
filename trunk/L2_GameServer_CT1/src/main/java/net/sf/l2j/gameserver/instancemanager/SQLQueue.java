@@ -84,20 +84,19 @@ public class SQLQueue
     			{
     				_queue2.addAll(_queue1);
         			_queue1.clear();
-    			}    			
+    			}
         	}
     		if(_queue2.isEmpty()) return;
     		java.sql.Connection con = null;
     		PreparedStatement statement = null;
     		try {
-    			con = L2DatabaseFactory.getInstance().getConnection(con);        			
+    			con = L2DatabaseFactory.getInstance().getConnection(con);
     			for (String sql: _queue2)
     			{
-    				try {        						
+    				try {
     					statement = con.prepareStatement(sql);
     					statement.executeUpdate();
     					statement.close();
-    					//System.out.print(sql + "\n");
     					sql = null;
     				} catch (Exception e) {
     					_log.fatal("error while porcessing sql queue " + e);

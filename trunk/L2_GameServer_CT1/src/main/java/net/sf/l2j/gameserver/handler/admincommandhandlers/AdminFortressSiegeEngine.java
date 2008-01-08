@@ -39,6 +39,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * Fortress Siege Event
  * @author Darki699
@@ -57,7 +60,9 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
                                            "admin_fos_sit", "admin_fos_dump", "admin_fos_save", "admin_fos_load", "admin_fos_jointime", 
                                            "admin_fos_eventtime", "admin_fos_autoevent","admin_fos_minplayers","admin_fos_maxplayers"};
  
- private static final int REQUIRED_LEVEL = 100;
+    private static final int REQUIRED_LEVEL = 100;
+
+    private final static Log _log = LogFactory.getLog(AdminFortressSiegeEngine.class.getName());
 
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
@@ -322,14 +327,18 @@ public class AdminFortressSiegeEngine implements IAdminCommandHandler {
             replyMSG.append("</body></html>");
             adminReply.setHtml(replyMSG.toString());
             if (activeChar!=null) activeChar.sendPacket(adminReply);            
-        }catch (Exception e){
-            System.out.println("Exception: AdminFortressSiegeEngine.showSiegeLoadPage: " + e.getMessage());
-        }finally {try { con.close(); } catch (Exception e) {}}
+        }
+        catch (Exception e)
+        {
+            _log.warn("Exception: AdminFortressSiegeEngine.showSiegeLoadPage: " + e.getMessage());
+        }
+        finally {try { con.close(); } catch (Exception e) {}}
 
     }
     
-    public void showEditEventPage(L2PcInstance activeChar){
-    	NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+    public void showEditEventPage(L2PcInstance activeChar)
+    {
+        NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
         TextBuilder replyMSG = new TextBuilder("<html><body>");
         try{
             replyMSG.append("<center><font color=\"LEVEL\">[FortressSiege Engine by Darki699]</font></center><br><br><br>");

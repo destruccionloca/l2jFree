@@ -7314,7 +7314,6 @@ public abstract class L2Character extends L2Object
 		{
 			for (Map.Entry<Integer, L2Skill> skill : _skills.entrySet())
 			{
-				// System.out.println(skill.getValue().getName());
 				addStatFuncs(skill.getValue().getStatFuncs(null, this));
 			}
 		}
