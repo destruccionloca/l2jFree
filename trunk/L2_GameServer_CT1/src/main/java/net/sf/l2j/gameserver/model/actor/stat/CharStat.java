@@ -38,6 +38,13 @@ public class CharStat
     private long _exp = 0;
     private int _sp = 0;
     private byte _level = 1;
+    
+    private int _earth = 0, 
+    			_water = 0, 
+    			_wind  = 0,
+    			_fire  = 0, 
+    			_holy  = 0,
+    			_dark  = 0;
 
     // =========================================================
     // Constructor
@@ -661,43 +668,85 @@ public class CharStat
         return (int) calcStat(Stats.MP_CONSUME, skill.getMpInitialConsume(), null, skill);
     }
     
-    public double getElementAttributeFire()
+    public final void addElement(L2Skill skill)
     {
-       return (int) (100 - 100 * calcStat(Stats.FIRE_VULN, _activeChar.getTemplate().baseFireVuln, null, null));
+    	switch (skill.getElement())
+		{
+			case L2Skill.ELEMENT_EARTH:
+				_earth += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_FIRE:
+				_fire += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_WATER:
+				_water += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_WIND:
+				_wind += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_HOLY:
+				_holy += skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_DARK:
+				_dark += skill.getMagicLevel();
+				break;
+		}
     }
 
-    public double getElementAttributeWater()
+    public final void removeElement(L2Skill skill)
     {
-        return (int) (100 - 100 * calcStat(Stats.WATER_VULN, _activeChar.getTemplate().baseWaterVuln, null, null));
+    	switch (skill.getElement())
+		{
+			case L2Skill.ELEMENT_EARTH:
+				_earth -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_FIRE:
+				_fire -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_WATER:
+				_water -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_WIND:
+				_wind -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_HOLY:
+				_holy -= skill.getMagicLevel();
+				break;
+			case L2Skill.ELEMENT_DARK:
+				_dark -= skill.getMagicLevel();
+				break;
+		}
     }
 
-    public double getElementAttributeEarth()
+    public final int getAttackElement()
     {
-        return (int) (100 - 100 * calcStat(Stats.EARTH_VULN, _activeChar.getTemplate().baseEarthVuln, null, null));
+    	double 	tempVal = 0,
+				stats[] = { _fire, _water, _wind, _earth, _holy, _dark	};
+    	int 	returnVal = -2;
+
+    	for (int x = 0 ; x < stats.length ; x++)
+    	{
+    		if (stats[x] > tempVal)
+    		{
+    			returnVal = x;
+    			tempVal = stats[x]; 
+    		}
+    	}
+    	return returnVal;
     }
 
-    public double getElementAttributeWind()
+    public final int getAttackElementValue(int attackAttribute)
     {
-        return (int) (100 - 100 * calcStat(Stats.WIND_VULN, _activeChar.getTemplate().baseWindVuln, null, null));
-    }
-
-    public double getElementAttributeHoly()
-    {
-        return (int) (100 - 100 * calcStat(Stats.HOLY_VULN, _activeChar.getTemplate().baseHolyVuln, null, null));
-    }
-
-    public double getElementAttributeUnholy()
-    {
-        return (int) (100 - 100 * calcStat(Stats.DARK_VULN, _activeChar.getTemplate().baseDarkVuln, null, null));
-    }
-
-    public int getAttackElement()
-    {
-        return -2;
-    }
-
-    public double getAttackElementValue()
-    {
-        return 0.0;
+    	switch (attackAttribute)
+        {
+        	case -2: 	return 0;
+        	case 0 : 	return _fire;
+        	case 1 : 	return _water;
+        	case 2 : 	return _wind;
+        	case 3 : 	return _earth;
+        	case 4 : 	return _holy;
+        	case 5 : 	return _dark;
+        }
+    	return 0;
     }
 }

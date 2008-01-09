@@ -6117,6 +6117,15 @@ public abstract class L2Character extends L2Object
 			// Add Func objects of newSkill to the calculator set of the L2Character
 			if (newSkill.getSkillType() != SkillType.NOTDONE)
 				addStatFuncs(newSkill.getStatFuncs(null, this));
+			
+			try
+			{
+				if (newSkill.getElement() != 0)
+				{
+					getStat().addElement(newSkill);
+				}
+			}
+			catch(Throwable t){}
 		}
 		
 		return oldSkill;
@@ -6152,6 +6161,15 @@ public abstract class L2Character extends L2Object
 		
 		// Remove the skill from the L2Character _skills
 		L2Skill oldSkill = _skills.remove(skill.getId());
+		
+		try
+		{
+			if (oldSkill.getElement() != 0)
+			{
+				getStat().removeElement(oldSkill);
+			}
+		}
+		catch(Throwable t){}
 		
 		// Remove all its Func objects from the L2Character calculator set
 		if (oldSkill != null)
@@ -7391,41 +7409,41 @@ public abstract class L2Character extends L2Object
 
     public int getDefAttrFire()
     {
-        return (int)getStat().getElementAttributeFire();
+    	return (int)((getTemplate().baseFireVuln - calcStat(Stats.FIRE_VULN, 1, this, null))*100);
     }
 
     public int getDefAttrWater()
     {
-        return (int)getStat().getElementAttributeWater();
+    	return (int)((getTemplate().baseWaterVuln - calcStat(Stats.WATER_VULN, 1, this, null))*100);
     }
 
     public int getDefAttrEarth()
     {
-        return (int)getStat().getElementAttributeEarth();
+    	return (int)((getTemplate().baseEarthVuln - calcStat(Stats.EARTH_VULN, 1, this, null))*100);
     }
 
     public int getDefAttrWind()
     {
-        return (int)getStat().getElementAttributeWind();
+    	return (int)((getTemplate().baseWindVuln - calcStat(Stats.WIND_VULN, 1, this, null))*100);
     }
 
     public int getDefAttrHoly()
     {
-        return (int)getStat().getElementAttributeHoly();
+    	return (int)((getTemplate().baseHolyVuln - calcStat(Stats.HOLY_VULN, 1, this, null))*100);
     }
 
     public int getDefAttrUnholy()
     {
-        return (int)getStat().getElementAttributeUnholy();
+    	return (int)((getTemplate().baseDarkVuln - calcStat(Stats.DARK_VULN, 1, this, null))*100);
     }
 
     public int getAttackElement()
     {
-        return getStat().getAttackElement();
+    	return getStat().getAttackElement();
     }
 
-    public int getAttackElementValue()
+    public int getAttackElementValue(int attackAttribute)
     {
-        return (int)getStat().getAttackElementValue();
+    	return getStat().getAttackElementValue(attackAttribute);
     }
 }
