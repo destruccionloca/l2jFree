@@ -7,8 +7,8 @@
    <set val='91' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -24,8 +24,8 @@
    <set val='68' order='0x08' stat='mAtk'/>
    <set val='10' order='0x08' stat='rCrit'/>
    <set val='406' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -36,8 +36,8 @@
    <set val='6' order='0x08' stat='rCrit'/>
    <add val='2' order='0x10' stat='accCombat'/>
    <set val='350' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -47,8 +47,8 @@
    <set val='68' order='0x08' stat='mAtk'/>
    <set val='10' order='0x08' stat='rCrit'/>
    <set val='303' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -58,8 +58,8 @@
    <set val='76' order='0x08' stat='mAtk'/>
    <set val='10' order='0x08' stat='rCrit'/>
    <set val='406' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -70,8 +70,8 @@
    <set val='6' order='0x08' stat='rCrit'/>
    <add val='2' order='0x10' stat='accCombat'/>
    <set val='350' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -81,8 +81,8 @@
    <set val='76' order='0x08' stat='mAtk'/>
    <set val='10' order='0x08' stat='rCrit'/>
    <set val='303' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -92,8 +92,8 @@
    <set val='91' order='0x08' stat='mAtk'/>
    <set val='10' order='0x08' stat='rCrit'/>
    <set val='406' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -104,8 +104,8 @@
    <set val='6' order='0x08' stat='rCrit'/>
    <add val='2' order='0x10' stat='accCombat'/>
    <set val='350' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -115,8 +115,8 @@
    <set val='91' order='0x08' stat='mAtk'/>
    <set val='10' order='0x08' stat='rCrit'/>
    <set val='303' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -126,8 +126,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -137,8 +137,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -148,8 +148,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -159,8 +159,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -170,8 +170,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -181,8 +181,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -192,8 +192,8 @@
    <set val='186' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -203,8 +203,8 @@
    <set val='186' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -214,8 +214,8 @@
    <set val='186' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -225,8 +225,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='12' order='0x08' stat='rCrit'/>
    <set val='293' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -236,8 +236,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='12' order='0x08' stat='rCrit'/>
    <set val='293' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -247,8 +247,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='12' order='0x08' stat='rCrit'/>
    <set val='293' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -258,8 +258,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='12' order='0x08' stat='rCrit'/>
    <set val='433' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -269,8 +269,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='12' order='0x08' stat='rCrit'/>
    <set val='433' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -280,8 +280,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='12' order='0x08' stat='rCrit'/>
    <set val='433' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -291,8 +291,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -302,8 +302,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -313,8 +313,8 @@
    <set val='140' order='0x08' stat='mAtk'/>
    <set val='8' order='0x08' stat='rCrit'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -325,8 +325,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -337,8 +337,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -349,8 +349,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -361,8 +361,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -373,8 +373,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -385,8 +385,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='379' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -397,8 +397,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -409,8 +409,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 
@@ -421,8 +421,8 @@
    <set val='4' order='0x08' stat='rCrit'/>
    <add val='4' order='0x10' stat='accCombat'/>
    <set val='325' order='0x08' stat='pAtkSpd'/>
-   <enchant val='0' order='0x0c' stat='pAtk'/>
-   <enchant val='0' order='0x0c' stat='mAtk'/>
+   <enchant val='0' order='0x0C' stat='pAtk'/>
+   <enchant val='0' order='0x0C' stat='mAtk'/>
   </for>
 </item>
 </list>
