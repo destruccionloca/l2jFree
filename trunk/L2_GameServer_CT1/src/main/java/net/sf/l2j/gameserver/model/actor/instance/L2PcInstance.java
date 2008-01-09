@@ -1301,8 +1301,9 @@ public final class L2PcInstance extends L2PlayableInstance
 
         for (QuestState qs : _quests.values())
         {
-            int questId = qs.getQuest().getQuestIntId();
-            if ((questId>999) || (questId<1)) continue;
+            if (qs.getQuest().getQuestIntId() >= 1999) continue;
+
+            if (qs.isCompleted() && !Config.DEVELOPER) continue;
 
             if (!qs.isStarted() && !Config.DEVELOPER) continue;
 
@@ -1458,7 +1459,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void showQuestWindow(String questId, String stateId)
     {
-        String path = "data/scripts/quests/" + questId + "/" + stateId + ".htm";
+        String path = "data/jscript/quests/" + questId + "/" + stateId + ".htm";
         String content = HtmCache.getInstance().getHtm(path);
 
         if (content != null)
@@ -10294,6 +10295,11 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             _log.fatal( "deleteMe()", t);
         }
+
+        untransform();
+        // Memory leaks are bad...
+        //_appearance.setOwner(null); npes are worse
+        //_appearance = null;
 
         // remove from flood protector
         FloodProtector.getInstance().removePlayer(getObjectId());

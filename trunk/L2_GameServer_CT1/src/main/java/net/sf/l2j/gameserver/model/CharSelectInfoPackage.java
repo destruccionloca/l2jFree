@@ -51,6 +51,7 @@ public class CharSelectInfoPackage
     private int _maxMp=0;
     private double _currentMp=0;
     private int[][] _paperdoll;
+    private int _transformationId=0;
     
     
     /**
@@ -267,4 +268,13 @@ public class CharSelectInfoPackage
     {
         return _pkKills;
     }
+    public int getTransformationId()
+    {
+        return _transformationId;
+    }
+    public void setTransformationId(int id)
+    {
+        _transformationId = id;
+    }
+    
 }

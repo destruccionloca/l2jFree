@@ -18,7 +18,6 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class CharSelected extends L2GameServerPacket
@@ -78,22 +77,8 @@ public class CharSelected extends L2GameServerPacket
 		writeD(0x00);
 		writeD(0x00); 
         
-        writeB(new byte[64]);		
-		for (int i=0; i<27; i++)
-			writeD(0x00);
-
-		writeF(0.0D);       //c3  work
-		writeF(0.0D);       //c3  work
-		
-		// extra info
-		writeD(GameTimeController.getInstance().getGameTime());	// in-game time
-		
-        writeD(0x00);
-        writeD(0x00);
-        writeC(0x00);
-        writeH(0x00);
-        writeH(0x00);
-        writeD(0x00); 
+        writeB(new byte[64]);
+ 
 	}
 
 	/* (non-Javadoc)

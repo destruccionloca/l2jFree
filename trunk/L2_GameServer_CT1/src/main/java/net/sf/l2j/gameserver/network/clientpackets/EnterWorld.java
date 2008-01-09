@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CrownManager;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -497,6 +498,10 @@ public class EnterWorld extends L2GameClientPacket
         ExBasicActionList ba = new ExBasicActionList();
         activeChar.sendPacket(ba);
         
+        if(activeChar.isCursedWeaponEquiped())
+        {
+			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquipedId()).transform();
+        }
 	}
 
 

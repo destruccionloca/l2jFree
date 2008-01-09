@@ -76,8 +76,8 @@ public class CharSelectionInfo extends L2GameServerPacket
 
 		int size = (_characterPackages.length);
 		writeD(size);
-        writeD(0);
-        writeC(1);
+        writeD(0x07);
+        writeC(0x00);
         
 		long lastAccess = 0L;
 
@@ -122,7 +122,8 @@ public class CharSelectionInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getLevel());
 
 			writeD(charInfoPackage.getKarma()); // karma
-
+            writeD(charInfoPackage.getPkKills());
+            
             writeD(0x00);
             writeD(0x00);
             writeD(0x00);
@@ -131,9 +132,8 @@ public class CharSelectionInfo extends L2GameServerPacket
             writeD(0x00);
             writeD(0x00);
             writeD(0x00);
-            writeD(0x00);
-
-            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
+            
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIRALL));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_REAR));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEAR));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_NECK));
@@ -146,23 +146,23 @@ public class CharSelectionInfo extends L2GameServerPacket
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
-            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_BACK));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
             writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
-
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
-            writeD(0x00);
             
-			writeD(charInfoPackage.getHairStyle());
-			writeD(charInfoPackage.getHairColor());
-			writeD(charInfoPackage.getFace());
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_RBRACELET));
+            writeD(charInfoPackage.getPaperdollItemId(Inventory.PAPERDOLL_LBRACELET));
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+            writeD(0x00);
+
+            writeD(charInfoPackage.getHairStyle());
+            writeD(charInfoPackage.getHairColor());
+            writeD(charInfoPackage.getFace());
 
 			writeF(charInfoPackage.getMaxHp()); // hp max
 			writeF(charInfoPackage.getMaxMp()); // mp max
@@ -177,9 +177,9 @@ public class CharSelectionInfo extends L2GameServerPacket
 			writeD(charInfoPackage.getClassId());
 			writeD(i != _activeId ? 0 : 1); 
 			writeC(charInfoPackage.getEnchantEffect() > 127 ? 127 : charInfoPackage.getEnchantEffect());
-            writeH(0);
-            writeH(0);
-			writeD(charInfoPackage.getAugmentationId());
+            writeH(charInfoPackage.getAugmentationId());
+            writeH(0x00); // this is for augmentation too
+            writeD(charInfoPackage.getTransformationId());
 		}
 	}
 
@@ -307,9 +307,20 @@ public class CharSelectionInfo extends L2GameServerPacket
 		charInfopackage.setClassId(activeClassId);
 		
 		// Get the augmentation id for equipped weapon
-		int weaponObjId = charInfopackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND);
+		int weaponObjId = charInfopackage.getPaperdollObjectId(Inventory.PAPERDOLL_LRHAND);
 		if (weaponObjId < 1)
 			weaponObjId = charInfopackage.getPaperdollObjectId(Inventory.PAPERDOLL_RHAND);
+
+		//cursed weapon check
+		int weaponId = charInfopackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND);
+		if (weaponId < 1)
+			weaponId = charInfopackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND);
+		if(weaponId==8689)
+			charInfopackage.setTransformationId(302);
+		else if(weaponId==8190)
+			charInfopackage.setTransformationId(301);
+		else
+			charInfopackage.setTransformationId(0);
 		
 		if (weaponObjId > 0)
 		{

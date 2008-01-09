@@ -489,6 +489,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
         }
     }
     
+    
     /**
      * Produces the best possible string representation of this client.
      */

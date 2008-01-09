@@ -44,6 +44,7 @@ import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.gameserver.instancemanager.TransformationManager;
 
 public class CursedWeapon
 {
@@ -257,6 +258,7 @@ public class CursedWeapon
             _player.setPkKills(_playerPkKills);
             _player.setCursedWeaponEquipedId(0);
             removeSkill();
+            untransform();
             _player.abortAttack();      
         }
 
@@ -266,6 +268,19 @@ public class CursedWeapon
 		sm.addItemName(_item);
 		CursedWeaponsManager.announce(sm); // in the Hot Spring region
     }
+
+    public void transform()
+	{
+		if(getItemId()==8689)
+			TransformationManager.getInstance().transformPlayer(302, _player, Long.MAX_VALUE);
+		else if(getItemId()==8190)
+			TransformationManager.getInstance().transformPlayer(301, _player, Long.MAX_VALUE);
+	}
+	
+	public void untransform()
+	{
+		_player.untransform();
+	}
     
    /**
     * Yesod:<br>
@@ -312,7 +327,6 @@ public class CursedWeapon
             endOfLife();
         else 
             _removeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RemoveTask(), _durationLost*12000L, _durationLost*12000L);
-
     }
     
     public boolean checkDrop(L2Attackable attackable,
@@ -404,10 +418,11 @@ public class CursedWeapon
         // Refresh player stats
         _player.broadcastUserInfo();
 
-		SocialAction atk = new SocialAction(_player.getObjectId(), 17);
+		//SocialAction atk = new SocialAction(_player.getObjectId(), 17);
 		
-		_player.broadcastPacket(atk);
+		//_player.broadcastPacket(atk);
 
+		transform();
         sm = new SystemMessage(SystemMessageId.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION);
 		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
 		sm.addItemName(_item);
@@ -479,6 +494,7 @@ public class CursedWeapon
             _player.setPkKills(_playerPkKills);
             _player.setCursedWeaponEquipedId(0);
             removeSkill();
+            untransform();
 
             _player.abortAttack();
             

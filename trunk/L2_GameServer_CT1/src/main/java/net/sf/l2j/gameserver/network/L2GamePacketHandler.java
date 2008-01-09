@@ -64,7 +64,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		
 		ReceivablePacket<L2GameClient> msg = null;
 		GameClientState state = client.getState();
-		
 		switch (state)
 		{
 			case CONNECTED:

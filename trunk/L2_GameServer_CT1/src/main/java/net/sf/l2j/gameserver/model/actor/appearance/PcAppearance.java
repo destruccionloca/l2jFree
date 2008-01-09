@@ -29,6 +29,7 @@ public class PcAppearance
     private byte _hairColor;
     private byte _hairStyle;
     private boolean _sex; //Female true(1)
+    private boolean _displayName;
     /** true if  the player is invisible */
     private boolean _invisible = false;
     /** The current visisble name of this palyer, not necessarily the real one */
@@ -73,7 +74,10 @@ public class PcAppearance
         {
             return this.getOwner().getName();
         }
-        return _visibleName;
+    	if(_displayName)
+    		return _visibleName;
+    	else
+    		return "";
     }
 
     /**
@@ -93,7 +97,10 @@ public class PcAppearance
         {
             return this.getOwner().getTitle();
         }
-        return _visibleTitle;
+        if(_displayName)
+        	return _visibleTitle;
+        else
+        	return "";
     }
 
     // =========================================================
@@ -181,4 +188,15 @@ public class PcAppearance
     {
         return _owner;
     }
+    
+    public boolean getDisplayName()
+    {
+        return _displayName;
+    }
+    
+    public void setDisplayName(boolean b)
+    {
+        _displayName = b;
+    }
+    
 }
