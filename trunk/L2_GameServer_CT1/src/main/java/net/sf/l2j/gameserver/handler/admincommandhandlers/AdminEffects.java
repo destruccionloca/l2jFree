@@ -79,7 +79,7 @@ public class AdminEffects implements IAdminCommandHandler
 		"admin_social", "admin_effect", "admin_social_menu", "admin_effect_menu",
 		"admin_abnormal", "admin_abnormal_menu",
 		"admin_play_sounds","admin_play_sound",
-		"admin_atmosphere","admin_atmosphere_menu"};
+		"admin_atmosphere","admin_atmosphere_menu","admin_give_souls"};
 
 	private static final int REQUIRED_LEVEL = Config.GM_GODMODE;
 
@@ -431,6 +431,27 @@ public class AdminEffects implements IAdminCommandHandler
 				player.sendMessage("You have joined team " + teamVal);
 			}
 			player.broadcastUserInfo();
+		}
+		else if (command.equals("admin_give_souls"))
+		{
+			try
+			{
+				if (st.countTokens() == 2)
+				{
+					int count = Integer.parseInt(st.nextToken());
+					L2Object target = activeChar.getTarget();
+					L2PcInstance player = null;
+					if (target instanceof L2PcInstance)
+						player = (L2PcInstance)target;
+					else
+						return false;
+					player.setAbsorbedSouls(count);
+				}
+			}
+			catch (NumberFormatException nbe)
+			{
+				activeChar.sendMessage("Incorrect parameter");
+			}
 		}
 		else if (command.startsWith("admin_social"))
 		{

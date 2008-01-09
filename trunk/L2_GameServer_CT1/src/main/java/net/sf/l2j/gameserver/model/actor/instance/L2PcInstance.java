@@ -11149,6 +11149,12 @@ public final class L2PcInstance extends L2PlayableInstance
 		_absorbedSouls -= count;
 		sendPacket(new EtcStatusUpdate(this));
 	}
+	
+	public void setAbsorbedSouls(int count)
+	{
+		_absorbedSouls = count;
+		sendPacket(new EtcStatusUpdate(this));
+	}
 
 	public int getDeathPenaltyBuffLevel()
 	{
