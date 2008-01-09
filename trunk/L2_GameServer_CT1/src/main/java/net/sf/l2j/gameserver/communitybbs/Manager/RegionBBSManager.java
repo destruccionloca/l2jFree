@@ -514,12 +514,12 @@ public class RegionBBSManager extends BaseBBSManager
         htmlCode.append("</table>");
    
         htmlCode.append("<table>");
-        htmlCode.append(trOpen + tdOpen + "XP Rate: " + Config.RATE_XP + tdClose + colSpacer);
-        htmlCode.append(tdOpen + "Party XP Rate: " + Config.RATE_PARTY_XP + tdClose + colSpacer);
+        htmlCode.append(trOpen + tdOpen + "XP Rate: x" + Config.RATE_XP + tdClose + colSpacer);
+        htmlCode.append(tdOpen + "Party XP Rate: x" +  Config.RATE_XP * Config.RATE_PARTY_XP + tdClose + colSpacer);
         htmlCode.append(tdOpen + "XP Exponent: " + Config.ALT_GAME_EXPONENT_XP + tdClose + trClose);
         
-        htmlCode.append(trOpen + tdOpen + "SP Rate: " + Config.RATE_SP + tdClose + colSpacer);
-        htmlCode.append(tdOpen + "Party SP Rate: " + Config.RATE_PARTY_SP + tdClose + colSpacer);
+        htmlCode.append(trOpen + tdOpen + "SP Rate: x" + Config.RATE_SP + tdClose + colSpacer);
+        htmlCode.append(tdOpen + "Party SP Rate: x" + Config.RATE_SP * Config.RATE_PARTY_SP + tdClose + colSpacer);
         htmlCode.append(tdOpen + "SP Exponent: " + Config.ALT_GAME_EXPONENT_SP + tdClose + trClose);
         
         htmlCode.append(trOpen + tdOpen + "Drop Rate: " + Config.RATE_DROP_ITEMS + tdClose + colSpacer);

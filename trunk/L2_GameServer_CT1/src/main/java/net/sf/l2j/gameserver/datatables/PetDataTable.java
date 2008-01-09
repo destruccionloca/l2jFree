@@ -52,6 +52,8 @@ public class PetDataTable
     
     public final static int SIN_EATER_ID = 12564;
 
+    public final static int GREAT_WOLF_ID = 16030;
+
     private static FastMap<Integer, FastMap<Integer, L2PetData>> petTable;
     
     public static PetDataTable getInstance()
@@ -224,7 +226,12 @@ public class PetDataTable
     {
         return ( WYVERN_ID == npcId  );
     }
-    
+
+    public static boolean isGreatWolf(int npcId)
+    {
+        return ( GREAT_WOLF_ID == npcId  );
+    }
+
     public static boolean isBaby(int npcId)
     {
         return ( BABY_BUFFALO_ID == npcId || BABY_KOOKABURRA_ID == npcId || BABY_COUGAR_ID == npcId );
@@ -250,6 +257,7 @@ public class PetDataTable
     	STRIDER_STAR            ( STRIDER_STAR_ID, 4423,  5168, true),
     	STRIDER_TWILIGHT        ( STRIDER_TWILIGHT_ID,4424, 5168, true),
     	WYVERN                  ( WYVERN_ID, 5249, 6316, true),
+    	GREAT_WOLF              ( GREAT_WOLF_ID, 0, 0, true), // todo
     	BABY_BUFFALO            ( BABY_BUFFALO_ID, 6648, 7582, false),
     	BABY_KOOKABURRA         ( BABY_KOOKABURRA_ID, 6649,  7582, false),
     	BABY_COUGAR             ( BABY_COUGAR_ID, 6650, 7582, false),

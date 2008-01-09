@@ -182,7 +182,7 @@ public class ItemTable implements ItemTableMBean
            " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
            " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
            " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
-           " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM weapon"
+           " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance, change_weaponId FROM weapon"
     };
     
     private static final String[] SQL_CUSTOM_ITEM_SELECTS  =
@@ -197,7 +197,7 @@ public class ItemTable implements ItemTableMBean
            " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
            " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
            " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
-           " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance FROM custom_weapon"
+           " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance, change_weaponId FROM custom_weapon"
     };
     
     /** List of etcItem */
@@ -405,6 +405,7 @@ public class ItemTable implements ItemTableMBean
         item.set.set("onCrit_skill_id", rset.getInt("onCrit_skill_id"));
         item.set.set("onCrit_skill_lvl", rset.getInt("onCrit_skill_lvl"));
         item.set.set("onCrit_skill_chance", rset.getInt("onCrit_skill_chance"));
+        item.set.set("change_weaponId", rset.getInt("change_weaponId"));
 
         if (item.type == L2WeaponType.PET)
         {

@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class Ride extends L2GameServerPacket
 {
-    private static final String _S__86_Ride = "[S] 86 Ride";
+    private static final String _S__8c_Ride = "[S] 8C Ride";
     public static final int ACTION_MOUNT = 1;
     public static final int ACTION_DISMOUNT = 0;
     private int _id;
@@ -42,10 +42,13 @@ public class Ride extends L2GameServerPacket
         _bRide = action; // 1 for mount ; 2 for dismount
         _rideClassID = npcId + 1000000; // npcID
 
+        // 1 for Strider ; 2 for wyvern
         if (PetDataTable.isStrider(npcId))
-            _rideType = 1; // 1 for Strider ; 2 for wyvern
+            _rideType = 1;
         else if (PetDataTable.isWyvern(npcId))
-            _rideType = 2; // 1 for Strider ; 2 for wyvern
+            _rideType = 2;
+        else if (PetDataTable.isGreatWolf(npcId))
+            _rideType = 3;
     }
 
     public int getMountType()
@@ -80,6 +83,6 @@ public class Ride extends L2GameServerPacket
     @Override
     public String getType()
     {
-        return _S__86_Ride;
+        return _S__8c_Ride;
     }
 }

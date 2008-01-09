@@ -61,6 +61,7 @@ public final class L2Weapon  extends L2Item
 
     private L2Skill _itemSkill = null;     // for passive skill
     private L2Skill _enchant4Skill = null; // skill that activates when item is enchanted +4 (for duals)
+    private final int _changeWeaponId;
 
     // Attached skills for Special Abilities
     protected L2Skill[] _skillsOnCast;
@@ -127,6 +128,7 @@ public final class L2Weapon  extends L2Item
 		    skill.attach(new ConditionGameChance(sCh),true);
 		    attachOnCrit(skill);
 		}
+		_changeWeaponId     = set.getInteger("change_weaponId");
 	}
 	
 	private int initAtkReuse(L2WeaponType type)
@@ -300,6 +302,15 @@ public final class L2Weapon  extends L2Item
 	public L2Skill getEnchant4Skill()
 	{
 	    return _enchant4Skill;
+	}
+
+	/**
+	* Returns the Id in wich weapon this weapon can be changed
+	* @return
+	*/
+	public int getChangeWeaponId()
+	{
+		return _changeWeaponId;
 	}
 
 	/**

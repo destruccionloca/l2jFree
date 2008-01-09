@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -31,7 +30,6 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
-import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -67,13 +65,6 @@ public class L2CabaleBufferInstance extends L2NpcInstance
 			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
-			else
-			{
-				// Send a Server->Client packet SocialAction to the all L2PcInstance on the _knownPlayer of the L2NpcInstance
-				// to display a social action of the L2NpcInstance on their client
-				SocialAction sa = new SocialAction(getObjectId(), Rnd.get(8));
-				broadcastPacket(sa);
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
