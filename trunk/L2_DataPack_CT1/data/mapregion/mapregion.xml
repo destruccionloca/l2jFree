@@ -1020,6 +1020,10 @@
 			<chaospoint X="40192" Y="-57600" Z="-2343" />
 			<chaospoint X="38400" Y="-56832" Z="-992" />
 		</restartpoint>
+		<restartpoint id="999" name="kamael_isla" bbs="14" locname="1924">
+			<point X="-116702" Y="45943" Z="368" />
+			<chaospoint X="-122827" Y="43303" Z="883" />
+		</restartpoint>
 	</restartpoints>
 
 	<regions>
@@ -2313,6 +2317,16 @@
 			<map X="22" Y="14" />
 			<map X="23" Y="13" />
 			<map X="23" Y="14" />
+		</restartarea>
+		<restartarea id="999">
+			<map X="15" Y="18" />
+			<map X="15" Y="19" />
+			<map X="15" Y="20" />
+			<map X="16" Y="18" />
+			<map X="16" Y="19" />
+			<map X="16" Y="20" />
+			<map X="17" Y="18" />
+			<map X="17" Y="19" />
 		</restartarea>
 	</areas>
 </mapregion>
