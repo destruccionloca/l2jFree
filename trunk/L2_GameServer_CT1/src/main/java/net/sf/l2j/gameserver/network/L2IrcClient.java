@@ -303,7 +303,7 @@ public class L2IrcClient extends Thread {
 
 			if(msg.equals("!rates"))
 			{
-				sendChan("XP Rate:"+ Config.RATE_XP + ", SP Rate:" + Config.RATE_SP + ", Spoil Rate:" + Config.RATE_DROP_SPOIL + ", Adena Rate:" + Config.RATE_DROP_ADENA + ", Drop Rate:" + Config.RATE_DROP_ITEMS + ", Party XP Rate:" + Config.RATE_PARTY_XP + ", Party SP Rate:" + Config.RATE_PARTY_SP);
+				sendChan("XP Rate: "+ Config.RATE_XP +" | " + "SP Rate: " + Config.RATE_SP +" | " + "Spoil Rate: " + Config.RATE_DROP_SPOIL +" | " + "Adena Rate: " + Config.RATE_DROP_ADENA +" | " + "Drop Rate: " + Config.RATE_DROP_ITEMS +" | " + "Party XP Rate: " + Config.RATE_PARTY_XP +" | " + "Party SP Rate: " + Config.RATE_PARTY_SP);
 			}
 
 			if(msg.equals("!showon"))
@@ -311,10 +311,18 @@ public class L2IrcClient extends Thread {
 				if(L2World.getInstance().getAllPlayers().size() == 0)
 					sendChan("No Players currently online");
 				else
+				{
+					String _onlineNames = "Players currently online:";
+					boolean _isFirst = true;
 					for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-						sendChan("Players currently online: " + player.getName());
+					{
+						_onlineNames = _onlineNames + (_isFirst?" ":", ") + player.getName();
+						_isFirst = false;
+					}
+					sendChan(_onlineNames);
+				}
 			}
-			
+
 		}
 		
 		public void onQuit(IRCUser u, String msg) 
