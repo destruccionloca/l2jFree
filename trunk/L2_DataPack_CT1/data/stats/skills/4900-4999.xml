@@ -1082,6 +1082,7 @@ Einhasad's Messenger who came down to monitor behaviors of WATER Dragon Fafurion
 
 <skill id="4998" levels="1" name="Lidia - Twister">
 <!-- Done by KID [C5] -->
+  <set name="element" val="1"/> <!-- Wind -->
   <set name="mpConsume" val="116"/>
   <set name="power" val="287"/>
   <set name="target" val="TARGET_ONE"/>
@@ -1095,6 +1096,7 @@ Einhasad's Messenger who came down to monitor behaviors of WATER Dragon Fafurion
 
 <skill id="4999" levels="6" name="Lidia - Range Life Drain">
 <!-- Done by KID [C5] -->
+  <set name="element" val="6"/> <!-- Dark -->
   <set name="mpConsume" val="126"/>
   <set name="power" val="144"/>
   <set name="target" val="TARGET_ONE"/>

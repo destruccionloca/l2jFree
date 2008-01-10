@@ -38,7 +38,6 @@
   </for>
 </skill>
 <skill id="3005" levels="1" name="Bleed">
-  <set name="save" val="4"/>
   <set name="power" val="5.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BLEED"/>
@@ -267,7 +266,6 @@
   <table name="#power"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="2"/>
-  <set name="save" val="4"/>
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BLEED"/>
@@ -318,7 +316,6 @@
   <table name="#magicLvl"> 20 30 44 52 62 72 </table>
   <table name="#dmg"> 18 24 31 38 44 48 </table>
   <table name="#power"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
-  <set name="save" val="3"/>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="power" val="#power"/>
   <set name="lvlDepend" val="1"/>
@@ -1142,7 +1139,6 @@
 -->
   <set name="magicLvl" val="90"/>
   <set name="lvlDepend" val="1"/>
-  <set name="save" val="4"/>
   <set name="power" val="800"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="overHit" val="true"/>
@@ -1217,7 +1213,6 @@
 </skill>
 <skill id="3074" levels="2" name="Special Ability: Magic Silence">
 <!-- Done by SarutrA - SqueezeD -->
-  <set name="save" val="2"/>
   <set name="magicLvl" val="74"/>
   <set name="power" val="80"/>
   <set name="lvlDepend" val="2"/>
@@ -1233,7 +1228,6 @@
 </skill>
 <skill id="3075" levels="2" name="Special Ability: Magic Paralyze">
 <!-- Done by SarutrA - SqueezeD -->
-  <set name="save" val="4"/>
   <set name="magicLvl" val="74"/>
   <set name="power" val="60"/>
   <set name="lvlDepend" val="1"/>
@@ -1283,7 +1277,6 @@
 </skill>
 <skill id="3078" levels="6" name="Special Ability: Magic Silence">
 <!-- Done by SarutrA - SqueezeD -->
-  <set name="save" val="2"/>
   <set name="magicLvl" val="74"/>
   <set name="power" val="80"/>
   <set name="lvlDepend" val="2"/>
@@ -1299,7 +1292,6 @@
 </skill>
 <skill id="3079" levels="6" name="Special Ability: Magic Paralyze">
 <!-- Done by SarutrA - SqueezeD -->
-  <set name="save" val="4"/>
   <set name="magicLvl" val="74"/>
   <set name="power" val="60"/>
   <set name="lvlDepend" val="1"/>

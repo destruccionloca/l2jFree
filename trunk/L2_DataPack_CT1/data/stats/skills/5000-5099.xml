@@ -22,6 +22,7 @@
   Description(s):
       none
 -->
+  <set name="element" val="6"/> <!-- Dark -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -50,6 +51,7 @@
   Description(s):
       none
 -->
+  <set name="element" val="1"/> <!-- Wind -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -201,6 +203,7 @@
   Description(s):
       Portrait ghost drains HP.
 -->
+  <set name="element" val="6"/> <!-- Dark -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -293,6 +296,7 @@
   Description(s):
       Demon 3 HP drain range.
 -->
+  <set name="element" val="6"/> <!-- Dark -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1368,7 +1372,6 @@
   <!-- Antharas Skills -->
   <set name="magicLvl" val="70"/>
   <set name="lvlDepend" val="1"/>
-  <set name="save" val="2"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="900"/>

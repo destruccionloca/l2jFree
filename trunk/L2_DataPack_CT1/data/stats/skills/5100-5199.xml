@@ -224,7 +224,6 @@
   <table name="#magicLvl"> 62 66 70 74 </table> <!-- guessed -->
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
-  <set name="save" val="3"/>
   <set name="power" val="80"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="ROOT"/>
@@ -432,7 +431,7 @@
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>
-  <set name="element" val="2"/>    <!-- Fire -->
+  <set name="element" val="2"/> <!-- Fire -->
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
@@ -476,7 +475,7 @@
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>
-  <set name="element" val="1"/>    <!-- Wind -->
+  <set name="element" val="1"/> <!-- Wind -->
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
@@ -498,7 +497,7 @@
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>
-  <set name="element" val="6"/>    <!-- Dark -->
+  <set name="element" val="6"/> <!-- Dark -->
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
