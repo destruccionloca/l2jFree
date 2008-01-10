@@ -1,4 +1,5 @@
 ALTER TABLE weapon ADD change_weaponId decimal(11,0) NOT NULL default '0';
+ALTER TABLE custom_weapon ADD change_weaponId decimal(11,0) NOT NULL default '0';
 
 UPDATE weapon SET change_weaponId=123 WHERE item_Id=9216;
 UPDATE weapon SET change_weaponId=5285 WHERE item_Id=9210;

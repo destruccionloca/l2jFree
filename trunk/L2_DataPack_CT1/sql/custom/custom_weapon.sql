@@ -37,5 +37,6 @@ CREATE TABLE IF NOT EXISTS `custom_weapon` (
   `onCrit_skill_id` decimal(11,0) NOT NULL default '0',
   `onCrit_skill_lvl` decimal(11,0) NOT NULL default '0',
   `onCrit_skill_chance` decimal(11,0) NOT NULL default '0',
+  `change_weaponId` decimal(11,0) NOT NULL default '0',
   PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
