@@ -280,7 +280,7 @@ public class RequestEnchantItem extends L2GameClientPacket
             return;
         }
         
-        scroll = activeChar.getInventory().destroyItem("Enchant", scroll, activeChar, item);
+        scroll = activeChar.getInventory().destroyItem("Enchant", scroll.getObjectId(), 1, activeChar, item);
         if(scroll == null)
         {
         	sm = new SystemMessage(SystemMessageId.ENCHANT_SCROLL_CANCELLED);
