@@ -432,25 +432,31 @@ public class AdminEffects implements IAdminCommandHandler
 			}
 			player.broadcastUserInfo();
 		}
-		else if (command.equals("admin_give_souls"))
+		else if (command.startsWith("admin_give_souls"))
 		{
 			try
 			{
-				if (st.countTokens() == 1)
+				if (st.countTokens() == 2)
 				{
 					int count = Integer.parseInt(st.nextToken());
 					L2Object target = activeChar.getTarget();
 					L2PcInstance player = null;
 					if (target instanceof L2PcInstance)
+					{
 						player = (L2PcInstance)target;
+						player.setAbsorbedSouls(count);
+					}
 					else
-						return false;
-					player.setAbsorbedSouls(count);
+						activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
+				}
+				else
+				{
+					activeChar.sendMessage("Usage: //give_souls <count>");
 				}
 			}
 			catch (NumberFormatException nbe)
 			{
-				activeChar.sendMessage("Incorrect parameter");
+				activeChar.sendMessage("Usage: //give_souls <count>");
 			}
 		}
 		else if (command.startsWith("admin_social"))

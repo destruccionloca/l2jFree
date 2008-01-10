@@ -100,7 +100,7 @@ public class CursedWeapon
                 _player.setKarma(_playerKarma);
                 _player.setPkKills(_playerPkKills);
                 _player.setCursedWeaponEquipedId(0);
-                removeSkill();
+                removeSkillAndAppearance();
     
                 // Remove 
                 _player.getInventory().unEquipItemInBodySlotAndRecord(L2Item.SLOT_LR_HAND);
@@ -257,8 +257,7 @@ public class CursedWeapon
             _player.setKarma(_playerKarma);
             _player.setPkKills(_playerPkKills);
             _player.setCursedWeaponEquipedId(0);
-            removeSkill();
-            untransform();
+            removeSkillAndAppearance();
             _player.abortAttack();      
         }
 
@@ -275,11 +274,6 @@ public class CursedWeapon
 			TransformationManager.getInstance().transformPlayer(302, _player, Long.MAX_VALUE);
 		else if(getItemId()==8190)
 			TransformationManager.getInstance().transformPlayer(301, _player, Long.MAX_VALUE);
-	}
-	
-	public void untransform()
-	{
-		_player.untransform();
 	}
     
    /**
@@ -309,8 +303,9 @@ public class CursedWeapon
         _player.sendSkillList();
     }
     
-	public void removeSkill()
+	public void removeSkillAndAppearance()
 	{
+		_player.untransform();
 		_player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
 		_player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
 		_player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
@@ -488,13 +483,12 @@ public class CursedWeapon
         } else
         {
             //Unequip & Drop
-            dropIt(null, _player, killer, false);            
+            dropIt(null, _player, killer, false);
             // Reset player stats
             _player.setKarma(_playerKarma);
             _player.setPkKills(_playerPkKills);
             _player.setCursedWeaponEquipedId(0);
-            removeSkill();
-            untransform();
+            removeSkillAndAppearance();
 
             _player.abortAttack();
             

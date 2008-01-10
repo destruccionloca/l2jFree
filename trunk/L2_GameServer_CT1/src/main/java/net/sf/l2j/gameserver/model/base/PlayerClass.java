@@ -28,12 +28,10 @@
  */
 package net.sf.l2j.gameserver.model.base;
 
-import static net.sf.l2j.gameserver.model.base.ClassLevel.Fifth;
 import static net.sf.l2j.gameserver.model.base.ClassLevel.First;
-import static net.sf.l2j.gameserver.model.base.ClassLevel.Fourth;
 import static net.sf.l2j.gameserver.model.base.ClassLevel.Second;
-import static net.sf.l2j.gameserver.model.base.ClassLevel.Sixth;
 import static net.sf.l2j.gameserver.model.base.ClassLevel.Third;
+import static net.sf.l2j.gameserver.model.base.ClassLevel.Fourth;
 import static net.sf.l2j.gameserver.model.base.ClassType.Fighter;
 import static net.sf.l2j.gameserver.model.base.ClassType.Mystic;
 import static net.sf.l2j.gameserver.model.base.ClassType.Priest;
@@ -129,7 +127,7 @@ public enum PlayerClass {
             femaleSoulbreaker(Kamael, Fighter, Third), trickster(Kamael, Fighter, Fourth), femaleSoulhound(Kamael,
             Fighter, Fourth),
 
-    inspector(Kamael, Fighter, Fifth), judicator(Kamael, Fighter, Sixth);
+    inspector(Kamael, Fighter, Third), judicator(Kamael, Fighter, Fourth);
 
     private Race _race;
     private ClassLevel _level;
@@ -187,49 +185,41 @@ public enum PlayerClass {
     {
         Set<PlayerClass> subclasses = null;
 
-        if (_level == Third)
+	    if (player.getRace() != Kamael)
+	    {
+	        subclasses = EnumSet.copyOf(mainSubclassSet);
+	
+	        subclasses.removeAll(neverSubclassed);
+	        subclasses.remove(this);
+	
+	        switch (_race)
+	        {
+	            case Elf:
+	                subclasses.removeAll(getSet(Darkelf, Third));
+	                break;
+	            case Darkelf:
+	                subclasses.removeAll(getSet(Elf, Third));
+	                break;
+	        }
+
+	        Set<PlayerClass> unavaliableClasses = subclassSetMap.get(this);
+
+	        if (unavaliableClasses != null)
+	        {
+	            subclasses.removeAll(unavaliableClasses);
+	        }
+	    }
+        else
         {
-        	if (player.getRace() != Kamael)
-        	{
-		        subclasses = EnumSet.copyOf(mainSubclassSet);
-		
-		        subclasses.removeAll(neverSubclassed);
-		        subclasses.remove(this);
-		
-		        switch (_race)
-		        {
-		            case Elf:
-		                subclasses.removeAll(getSet(Darkelf, Third));
-		                break;
-		            case Darkelf:
-		                subclasses.removeAll(getSet(Elf, Third));
-		                break;
-		        }
-
-	            Set<PlayerClass> unavaliableClasses = subclassSetMap.get(this);
-
-	            if (unavaliableClasses != null)
-	            {
-	                subclasses.removeAll(unavaliableClasses);
-	            }
-        	}
+        	subclasses = getSet(Kamael,Third);
+        	subclasses.remove(this);
+        	//Check sex, male can't subclass female and vice versa
+        	if (player.getAppearance().getSex())
+        		subclasses.removeAll(EnumSet.of(maleSoulbreaker));
         	else
-        	{
-        		subclasses = getSet(Kamael,Third);
-        		subclasses.remove(this);
-        		//Check sex, male can't subclass female and vice versa
-        		if (player.getAppearance().getSex())
-        			subclasses.removeAll(EnumSet.of(maleSoulbreaker));
-        		else
-        			subclasses.removeAll(EnumSet.of(femaleSoulbreaker));
-        		if (player.getTotalSubClasses() < 2)
-        			subclasses.removeAll(EnumSet.of(inspector));
-        	}
-        }
-        else if (_level == Fifth)
-        {
-    		subclasses = new HashSet<PlayerClass>();
-        	subclasses.add(judicator);
+        		subclasses.removeAll(EnumSet.of(femaleSoulbreaker));
+        	if (player.getTotalSubClasses() < 2)
+        		subclasses.removeAll(EnumSet.of(inspector));
         }
 
         return subclasses;
