@@ -289,7 +289,7 @@ public class L2IrcClient extends Thread {
 			
 			if(msg.equals("!online"))
 			{
-				sendChan("Online Players: " + L2World.getInstance().getAllPlayersCount());
+				sendChan("Online Players: " + L2World.getInstance().getAllPlayersCount() + " / " + LoginServerThread.getInstance().getMaxPlayer());
 			}
 
 			if(msg.equals("!gmlist"))
