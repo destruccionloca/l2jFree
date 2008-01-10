@@ -289,7 +289,7 @@ public class L2IrcClient extends Thread {
 			
 			if(msg.equals("!online"))
 			{
-				sendChan("Online Players: " + L2World.getInstance().getAllPlayersCount() + " / " + LoginServerThread.getInstance().getMaxPlayer());
+				sendChan("Online Players: " + L2World.getInstance().getAllPlayersCount());
 			}
 
 			if(msg.equals("!gmlist"))
@@ -299,6 +299,20 @@ public class L2IrcClient extends Thread {
 				else
 					for (L2PcInstance gm : GmListTable.getInstance().getAllGms(false))
 						sendChan(gm.getName());
+			}
+
+			if(msg.equals("!rates"))
+			{
+				sendChan("XP Rate:"+ Config.RATE_XP + ", SP Rate:" + Config.RATE_SP + ", Spoil Rate:" + Config.RATE_DROP_SPOIL + ", Adena Rate:" + Config.RATE_DROP_ADENA + ", Drop Rate:" + Config.RATE_DROP_ITEMS + ", Party XP Rate:" + Config.RATE_PARTY_XP + ", Party SP Rate:" + Config.RATE_PARTY_SP);
+			}
+
+			if(msg.equals("!showon"))
+			{
+				if(L2World.getInstance().getAllPlayers().size() == 0)
+					sendChan("No Players currently online");
+				else
+					for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+						sendChan("Players currently online: " + player.getName());
 			}
 			
 		}
