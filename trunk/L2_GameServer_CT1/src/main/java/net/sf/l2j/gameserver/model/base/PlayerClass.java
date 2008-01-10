@@ -119,15 +119,13 @@ public enum PlayerClass {
 
     fortuneSeeker(Dwarf, Fighter, Fourth), maestro(Dwarf, Fighter, Fourth),
 
-    maleSoldier(Kamael, Fighter, First), trooper(Kamael, Fighter, Second), berserker(Kamael, Fighter, Third),
-            maleSoulbreaker(Kamael, Fighter, Third), doombringer(Kamael, Fighter, Fourth), maleSoulhound(Kamael,
-            Fighter, Fourth),
-    
-    femaleSoldier(Kamael, Fighter, First), warder(Kamael, Fighter, Second), arbalester(Kamael, Fighter, Third),
-            femaleSoulbreaker(Kamael, Fighter, Third), trickster(Kamael, Fighter, Fourth), femaleSoulhound(Kamael,
-            Fighter, Fourth),
-
-    inspector(Kamael, Fighter, Third), judicator(Kamael, Fighter, Fourth);
+    maleSoldier(Kamael, Fighter, First), femaleSoldier(Kamael, Fighter, First),
+        dragoon(Kamael, Fighter, Second), warder(Kamael, Fighter, Second),
+        berserker(Kamael, Fighter, Third), maleSoulbreaker(Kamael, Fighter, Third),
+        femaleSoulbreaker(Kamael, Fighter, Third), arbalester(Kamael, Fighter, Third),
+        doombringer(Kamael, Fighter, Fourth), maleSoulhound(Kamael,  Fighter, Fourth),
+        femaleSoulhound(Kamael, Fighter, Fourth), trickster(Kamael, Fighter, Fourth), 
+        inspector(Kamael, Fighter, Third), judicator(Kamael, Fighter, Fourth);
 
     private Race _race;
     private ClassLevel _level;
@@ -185,30 +183,36 @@ public enum PlayerClass {
     {
         Set<PlayerClass> subclasses = null;
 
-	    if (player.getRace() != Kamael)
-	    {
-	        subclasses = EnumSet.copyOf(mainSubclassSet);
-	
-	        subclasses.removeAll(neverSubclassed);
-	        subclasses.remove(this);
-	
-	        switch (_race)
-	        {
-	            case Elf:
-	                subclasses.removeAll(getSet(Darkelf, Third));
-	                break;
-	            case Darkelf:
-	                subclasses.removeAll(getSet(Elf, Third));
-	                break;
-	        }
+        if (_level != Third) return null;
 
-	        Set<PlayerClass> unavaliableClasses = subclassSetMap.get(this);
+        if (player.getRace() != Kamael)
+        {
+            subclasses = EnumSet.copyOf(mainSubclassSet);
 
-	        if (unavaliableClasses != null)
-	        {
-	            subclasses.removeAll(unavaliableClasses);
-	        }
-	    }
+            // Already done in mainSubclassSet
+            //subclasses.removeAll(neverSubclassed);
+
+            subclasses.remove(this);
+
+            switch (_race)
+            {
+                case Elf:
+                    subclasses.removeAll(getSet(Darkelf, Third));
+                    break;
+                case Darkelf:
+                    subclasses.removeAll(getSet(Elf, Third));
+                    break;
+            }
+
+            subclasses.removeAll(getSet(Kamael, Third));
+
+            Set<PlayerClass> unavailableClasses = subclassSetMap.get(this);
+
+            if (unavailableClasses != null)
+            {
+                subclasses.removeAll(unavailableClasses);
+            }
+        }
         else
         {
         	subclasses = getSet(Kamael,Third);

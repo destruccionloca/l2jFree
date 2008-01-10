@@ -221,8 +221,8 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         for (PlayerClass subClass : subsAvailable)
                             content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 4 "
                                 + subClass.ordinal() + "\" msg=\"1268;"
-                                + formatClassForDisplay(subClass) + "\">"
-                                + formatClassForDisplay(subClass) + "</a><br>");
+                                + CharTemplateTable.getClassNameById(subClass.ordinal()) + "\">"
+                                + CharTemplateTable.getClassNameById(subClass.ordinal()) + "</a><br>");
                     }
                     else
                     {
@@ -425,7 +425,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         for (PlayerClass subClass : subsAvailable)
                             content.append("<a action=\"bypass -h npc_" + getObjectId() + "_Subclass 7 "
                                 + paramOne + " " + subClass.ordinal() + "\">"
-                                + formatClassForDisplay(subClass) + "</a><br>");
+                                + CharTemplateTable.getClassNameById(subClass.ordinal()) + "</a><br>");
                     }
                     else
                     {
@@ -907,16 +907,14 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     
     private final Set<PlayerClass> getAvailableSubClasses(L2PcInstance player)
     {
-        int charClassId = player.getBaseClass();
+        int baseClassId = player.getBaseClass();
 
-        if (((charClassId >= 88 && charClassId <= 118) || (charClassId >= 131 && charClassId <= 134) || charClassId == 136) 
-                && player.getClassId().getParent() != null)
-            charClassId = player.getClassId().getParent().ordinal();
+        // For calculation of available subclasses, we must treat 3rd-stage classes like their 2nd-stage parent classes.
+        // So use the parent class
+        if ((baseClassId >= 88 && baseClassId <= 118) || (baseClassId >= 131 && baseClassId <= 134) || baseClassId == 136)
+            baseClassId = ClassId.values()[baseClassId].getParent().getId();
 
-        final Race npcRace = getVillageMasterRace();
-        final ClassType npcTeachType = getVillageMasterTeachType();
-
-        PlayerClass currClass = PlayerClass.values()[charClassId];
+        PlayerClass baseClass = PlayerClass.values()[baseClassId];
 
         /**
          * If the race of your main class is Elf or Dark Elf, 
@@ -939,12 +937,18 @@ public final class L2VillageMasterInstance extends L2FolkInstance
          * Swordsinger and Bladedancer 
          * Sorcerer, Spellsinger and Spellhowler
          * 
-         * Also, Kamael have a special, hidden 4 subclass, the inspector, which can
+         * Also, Kamael have a special hidden subclass, the inspector, which can
          * only be taken if you have already completed the other two Kamael subclasses
          *
          */
-        Set<PlayerClass> availSubs = currClass.getAvailableSubclasses(player);
 
+        final Race npcRace = getVillageMasterRace();
+        final ClassType npcTeachType = getVillageMasterTeachType();
+
+        Set<PlayerClass> availSubs = baseClass.getAvailableSubclasses(player);
+
+		// Can't take subclass already taken
+		// Can't take subclass you already have as base class
         if (availSubs != null && !availSubs.isEmpty())
         {
             for (PlayerClass availSub : availSubs)
@@ -958,11 +962,11 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         subClassId = ClassId.values()[subClassId].getParent().getId();
 
                     if (availSub.ordinal() == subClassId
-                        || availSub.ordinal() == charClassId)
+                        || availSub.ordinal() == baseClassId)
                         availSubs.remove(availSub);
                 }
 
-                if ((npcRace == Race.Human || npcRace == Race.Elf))
+                if (npcRace == Race.Human || npcRace == Race.Elf)
                 {
                     // If the master is human or light elf, ensure that fighter-type 
                     // masters only teach fighter classes, and priest-type masters 
@@ -1032,18 +1036,6 @@ public final class L2VillageMasterInstance extends L2FolkInstance
         }
         
         player.sendPacket(new ActionFailed());
-    }
-    
-    private final String formatClassForDisplay(PlayerClass className)
-    {
-        String classNameStr = className.toString();
-        char[] charArray = classNameStr.toCharArray();
-
-        for (int i = 1; i < charArray.length; i++)
-            if (Character.isUpperCase(charArray[i]))
-                classNameStr = classNameStr.substring(0, i) + " " + classNameStr.substring(i);
-
-        return classNameStr;
     }
 
     private final Race getVillageMasterRace()

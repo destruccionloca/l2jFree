@@ -436,7 +436,7 @@ public class AdminEffects implements IAdminCommandHandler
 		{
 			try
 			{
-				if (st.countTokens() == 2)
+				if (st.hasMoreTokens())
 				{
 					int count = Integer.parseInt(st.nextToken());
 					L2Object target = activeChar.getTarget();

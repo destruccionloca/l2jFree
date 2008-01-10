@@ -190,17 +190,17 @@ public enum ClassId
 	
 	maleSoldier 	  (0x7B, false, Race.Kamael, null),
 	femaleSoldier	  (0x7C, false, Race.Kamael, null),
-	trooper			  (0x7D, false, Race.Kamael, maleSoldier),
+	dragoon			  (0x7D, false, Race.Kamael, maleSoldier),
 	warder			  (0x7E, false, Race.Kamael, femaleSoldier),
-	berserker		  (0x7F, false, Race.Kamael, trooper),
-	maleSoulbreaker	  (0x80, false, Race.Kamael, trooper),
+	berserker		  (0x7F, false, Race.Kamael, dragoon),
+	maleSoulbreaker	  (0x80, false, Race.Kamael, dragoon),
 	femaleSoulbreaker (0x81, false, Race.Kamael, warder),
 	arbalester		  (0x82, false, Race.Kamael, warder),
 	doombringer		  (0x83, false, Race.Kamael, berserker),
 	maleSoulhound	  (0x84, false, Race.Kamael, maleSoulbreaker),
 	femaleSoulhound	  (0x85, false, Race.Kamael, femaleSoulbreaker),
 	trickster		  (0x86, false, Race.Kamael, arbalester),
-	inspector		  (0x87, false, Race.Kamael, warder),
+	inspector		  (0x87, false, Race.Kamael, null),
 	judicator		  (0x88, false, Race.Kamael, inspector);
 	
 	/** The Identifier of the Class */
