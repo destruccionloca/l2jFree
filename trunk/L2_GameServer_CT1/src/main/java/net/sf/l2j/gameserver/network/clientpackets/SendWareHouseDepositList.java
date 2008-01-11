@@ -131,7 +131,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			if(Config.ALT_STRICT_HERO_SYSTEM)
 			{
 			   
-				if (item.isHeroitem())
+				if (item.isHeroItem())
 					continue;
 			}
 			
@@ -176,7 +176,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 
 			if(Config.ALT_STRICT_HERO_SYSTEM)
 			{
-				if (oldItem.isHeroitem())
+				if (oldItem.isHeroItem())
 					continue;
 			}
 			

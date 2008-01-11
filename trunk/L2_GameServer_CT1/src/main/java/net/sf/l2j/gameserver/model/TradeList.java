@@ -365,7 +365,7 @@ public class TradeList
         if ((!item.isTradeable() && !_owner.isGM()) || item.getItemType() == L2EtcItemType.QUEST)
             return null;
         
-        if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroitem())
+        if (Config.ALT_STRICT_HERO_SYSTEM && item.isHeroItem())
         {
             return null;
         }
@@ -412,7 +412,7 @@ public class TradeList
         
         if (Config.ALT_STRICT_HERO_SYSTEM)
         {
-            if (item.isHeroitem())
+            if (item.isHeroItem())
                 return null;
         }
         

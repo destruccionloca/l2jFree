@@ -117,7 +117,7 @@ public class RequestDestroyItem extends L2GameClientPacket
         
         if (Config.ALT_STRICT_HERO_SYSTEM)
         {
-            if (itemToRemove.isHeroitem() && !activeChar.isGM())
+            if (itemToRemove.isHeroItem() && !activeChar.isGM())
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
                 return;

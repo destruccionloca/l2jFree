@@ -370,7 +370,7 @@ public abstract class L2Item
      * Returns if the item is a heroitem
      * @return boolean
      */
-    public boolean isHeroitem()
+    public boolean isHeroItem()
     {
         return ((_itemId >= 6611 && _itemId <= 6621) || (_itemId >= 9388 && _itemId <= 9390) || _itemId == 6842);
     }

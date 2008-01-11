@@ -870,13 +870,13 @@ public abstract class L2Character extends L2Object
 				return;
 			}
 
-			}
-			else if (isInsidePeaceZone(this, target))
+			if (isInsidePeaceZone(this, target))
 			{
 				getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 				sendPacket(new ActionFailed());
 				return;
 			}
+		}
 
 		// Get the active weapon instance (always equiped in the right hand)
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
@@ -944,6 +944,11 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 			}
+			else if (this instanceof L2NpcInstance)
+			{
+				if (_disableBowAttackEndTime > GameTimeController.getGameTicks())
+					return;
+			}
 		}
 		// Check for a crossbow
 		if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.CROSSBOW))
@@ -951,15 +956,6 @@ public abstract class L2Character extends L2Object
 			//Check for bolts
 			if (this instanceof L2PcInstance)
 			{
-				// Checking if target has moved to peace zone - only for player-crossbow attacks at the moment
-				// Other melee is checked in movement code and for offensive spells a check is done every time
-				if (target.isInsidePeaceZone((L2PcInstance)this))
-				{
-					getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-					sendPacket(new ActionFailed());
-					return;
-				}
-
 				// Verify if the crossbow can be use
 				if (_disableCrossBowAttackEndTime <= GameTimeController.getGameTicks())
 				{

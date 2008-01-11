@@ -847,6 +847,16 @@ public abstract class Inventory extends ItemContainer
 				// Put old item from paperdoll slot to base location
 				old.setLocation(getBaseLocation());
 				old.setLastChange(L2ItemInstance.MODIFIED);
+                // Get the mask for paperdoll
+                int mask = 0;
+                for (int i=0; i < PAPERDOLL_LRHAND; i++)
+                {
+                    L2ItemInstance pi = _paperdoll[i]; 
+                    if (pi != null)
+                        mask |= pi.getItem().getItemMask(); 
+                }
+                _wearedMask = mask;
+				// Notify all paperdoll listener in order to unequip old item in slot
 				for (PaperdollListener temp : _paperdollListeners)
 				{
 					if (temp != null)
@@ -860,10 +870,9 @@ public abstract class Inventory extends ItemContainer
 				_paperdoll[slot] = item;
 				item.setLocation(getEquipLocation(), slot);
 				item.setLastChange(L2ItemInstance.MODIFIED);
-				PaperdollListener listener;
+				_wearedMask |= item.getItem().getItemMask();
 				for (PaperdollListener temp : _paperdollListeners)
 					temp.notifyEquiped(slot, item);
-				
 				item.updateDatabase();
 			}
 		}
@@ -1062,7 +1071,7 @@ public abstract class Inventory extends ItemContainer
 			
 			if (Config.ALT_STRICT_HERO_SYSTEM && !player.isGM() && !player.isHero())
 			{
-				if (item.isHeroitem()) { return; }
+				if (item.isHeroItem()) { return; }
 			}
 		}
 		
@@ -1443,7 +1452,7 @@ public abstract class Inventory extends ItemContainer
 				{
 					L2PcInstance player = (L2PcInstance) getOwner();
 					
-					if (!player.isGM() && Config.ALT_STRICT_HERO_SYSTEM && !player.isHero() && item.isHeroitem())
+					if (!player.isGM() && Config.ALT_STRICT_HERO_SYSTEM && !player.isHero() && item.isHeroItem())
 						item.setLocation(ItemLocation.INVENTORY);
 				}
 				

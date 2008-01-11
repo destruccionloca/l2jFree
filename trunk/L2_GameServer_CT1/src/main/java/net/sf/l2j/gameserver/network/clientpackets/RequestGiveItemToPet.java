@@ -104,7 +104,7 @@ public class RequestGiveItemToPet extends L2GameClientPacket
             return;
         }
         
-        if (Config.ALT_STRICT_HERO_SYSTEM && player.getInventory().getItemByObjectId(_objectId).isHeroitem())
+        if (Config.ALT_STRICT_HERO_SYSTEM && player.getInventory().getItemByObjectId(_objectId).isHeroItem())
         {
             sendPacket(new SystemMessage(SystemMessageId.ITEM_NOT_FOR_PETS));
             return;

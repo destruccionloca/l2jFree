@@ -120,7 +120,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
                 return;
             }
                 
-            if ((item).isHeroitem())
+            if ((item).isHeroItem())
                 return;
             if (_count > item.getCount())
             {

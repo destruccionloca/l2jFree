@@ -102,7 +102,7 @@ public class RequestDropItem extends L2GameClientPacket
         
         if(Config.ALT_STRICT_HERO_SYSTEM)
         {
-           if (item.isHeroitem())
+           if (item.isHeroItem())
             {
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_DISCARD_THIS_ITEM));
                 return;

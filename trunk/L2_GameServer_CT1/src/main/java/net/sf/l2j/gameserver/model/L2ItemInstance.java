@@ -714,9 +714,9 @@ public final class L2ItemInstance extends L2Object
 	 * 
 	 * @return boolean
 	 */
-	public boolean isHeroitem()
+	public boolean isHeroItem()
 	{
-		return _item.isHeroitem();
+		return _item.isHeroItem();
 	}
 	
 	/**

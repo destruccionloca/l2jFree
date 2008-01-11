@@ -98,7 +98,7 @@ public class RequestEnchantItem extends L2GameClientPacket
         }
         SystemMessage sm;
         //can't enchant rods, shadow items, hero items
-        if(item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || (!Config.ENCHANT_HERO_WEAPONS && item.isHeroitem())) 
+        if(item.getItem().getItemType() == L2WeaponType.ROD || item.isShadowItem() || (!Config.ENCHANT_HERO_WEAPONS && item.isHeroItem())) 
         {
         	sm = new SystemMessage(SystemMessageId.INAPPROPRIATE_ENCHANT_CONDITION);
         	activeChar.sendPacket(sm);
