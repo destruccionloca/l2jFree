@@ -92,33 +92,34 @@ public class QuestList extends L2GameServerPacket
 	     * However, the sequence "1000 0000 0000 0000 0000 0010 1101 1111" indicates that the current step is
 	     * the 10th but the 6th and 9th are not to be shown at all (not completed, either).
 	     */
-	    if((_quests == null) || (_quests.length == 0))
-	    {
-	        writeC(0x86);
-			writeH(0);
-			writeH(0);
-			return;
-		}
-		
 		writeC(0x86);
-		writeH(_quests.length);
-		for (Quest q : _quests)
-		{
-			writeD(q.getQuestIntId());
-			QuestState qs = _activeChar.getQuestState(q.getName());
-			if(qs == null)
-			{
-				writeD(0);
-				continue;
-			}
-
-			int states = qs.getInt("__compltdStateFlags");
-			if (states != 0 )
-				writeD(states);
-			else
-				writeD(qs.getInt("cond"));
+		if((_quests == null) || (_quests.length == 0))
+	    {
+			writeH(0x00);
 		}
+		else
+		{
+			writeH(_quests.length);
+			for (Quest q : _quests)
+			{
+				writeD(q.getQuestIntId());
+				QuestState qs = _activeChar.getQuestState(q.getName());
+				if(qs == null)
+				{
+					writeD(0x00);
+					continue;
+				}
+	
+				int states = qs.getInt("__compltdStateFlags");
+				if (states != 0 )
+					writeD(states);
+				else
+					writeD(qs.getInt("cond"));
+			}
+		}
+		writeB(new byte[128]);
 	}
+	
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
