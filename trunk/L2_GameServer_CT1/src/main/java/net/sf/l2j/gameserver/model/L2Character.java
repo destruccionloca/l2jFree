@@ -5953,20 +5953,20 @@ public abstract class L2Character extends L2Object
 				return false;
 			if (target instanceof L2Summon && ((L2Summon) target).getOwner().getKarma() > 0)
 				return false;
-			//if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getKarma() > 0) // Don't need double check
-			//{
+			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getKarma() > 0)
+			{
 				if (target instanceof L2PcInstance && ((L2PcInstance) target).getPvpFlag() > 0)
 					return false;
 				if (target instanceof L2Summon && ((L2Summon) target).getOwner().getPvpFlag() > 0)
 					return false;
-			//}
-			//if (attacker instanceof L2Summon && ((L2Summon) attacker).getOwner().getKarma() > 0)
-			//{
+			}
+			if (attacker instanceof L2Summon && ((L2Summon) attacker).getOwner().getKarma() > 0)
+			{
 				if (target instanceof L2PcInstance && ((L2PcInstance) target).getPvpFlag() > 0)
 					return false;
 				if (target instanceof L2Summon && ((L2Summon) target).getOwner().getPvpFlag() > 0)
 					return false;
-			//}
+			}
 		}
 		// Right now only L2PcInstance has up-to-date zone status...
 		if (attacker instanceof L2PcInstance)
