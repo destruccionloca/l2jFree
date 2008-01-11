@@ -123,7 +123,6 @@ public class AdminSiege implements IAdminCommandHandler
 			else if (command.equalsIgnoreCase("admin_list_siege_clans"))
 			{
 				castle.getSiege().listRegisterClan(activeChar);
-				return true;
 			}
 			else if (command.equalsIgnoreCase("admin_move_defenders"))
 			{

@@ -68,6 +68,4 @@ public class SiegeFlag implements ISkillHandler
     { 
         return SKILL_IDS; 
     }
-
-
 }

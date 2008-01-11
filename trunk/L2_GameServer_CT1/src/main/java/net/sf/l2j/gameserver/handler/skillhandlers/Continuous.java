@@ -183,8 +183,8 @@ public class Continuous implements ISkillHandler
 			{
 				for (L2Effect e : effects)
 				{
-                    if (e != null && e.getSkill().getId() == skill.getId())
-                    {
+					if (e != null && e.getSkill().getId() == skill.getId())
+					{
 						e.exit();
 						stopped = true;
 					}
@@ -208,29 +208,29 @@ public class Continuous implements ISkillHandler
 			else
 				skill.getEffects(activeChar, target);
 
-        	if (skill.getSkillType() == L2Skill.SkillType.AGGDEBUFF)
+			if (skill.getSkillType() == L2Skill.SkillType.AGGDEBUFF)
 			{
-        		if (target instanceof L2Attackable)
-        			target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int)skill.getPower());
-        		else if (target instanceof L2PlayableInstance)
-    			{
-        			if (target.getTarget() == activeChar)
-        				target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK,activeChar);
-        			else
-        				target.setTarget(activeChar);
-    			}
+				if (target instanceof L2Attackable)
+					target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar, (int)skill.getPower());
+				else if (target instanceof L2PlayableInstance)
+				{
+					if (target.getTarget() == activeChar)
+						target.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK,activeChar);
+					else
+						target.setTarget(activeChar);
+				}
 			}
 			// Possibility of a lethal strike
 			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
-        }
-        // self Effect :]
-        L2Effect effect = activeChar.getFirstEffect(skill.getId());
-        if (effect != null && effect.isSelfEffect())
-        {
-        	//Replace old effect with new one.
-        	effect.exit();
-        }
-        skill.getEffectsSelf(activeChar);
+		}
+		// self Effect :]
+		L2Effect effect = activeChar.getFirstEffect(skill.getId());
+		if (effect != null && effect.isSelfEffect())
+		{
+			//Replace old effect with new one.
+			effect.exit();
+		}
+		skill.getEffectsSelf(activeChar);
 	}
 	
 	public SkillType[] getSkillIds()

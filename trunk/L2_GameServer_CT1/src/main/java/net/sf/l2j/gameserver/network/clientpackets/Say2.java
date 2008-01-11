@@ -99,11 +99,16 @@ public class Say2 extends L2GameClientPacket
             }
         }
 
-        if (activeChar.isCursedWeaponEquiped() && (_type == SystemChatChannelId.Chat_Shout || _type == SystemChatChannelId.Chat_Market))
+        if (activeChar.isCursedWeaponEquiped())
         {
-            SystemMessage sm = new SystemMessage(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
-            activeChar.sendPacket(sm);
-            return;
+            switch(_type)
+            {
+                case Chat_Shout:
+                case Chat_Market:
+                    SystemMessage sm = new SystemMessage(SystemMessageId.SHOUT_AND_TRADE_CHAT_CANNOT_BE_USED_WHILE_POSSESSING_CURSED_WEAPON);
+                    activeChar.sendPacket(sm);
+                    return;
+            }
         }
 
         // If player is jailed
@@ -125,9 +130,9 @@ public class Say2 extends L2GameClientPacket
         {
             for(String pattern : Config.FILTER_LIST)
             {
-                    _text = _text.replaceAll(pattern,"^_^");
+                _text = _text.replaceAll(pattern,"^_^");
             }
-        }       
+        }
 
         if (_text.startsWith(".") && !_text.startsWith("..") &&
             _type == SystemChatChannelId.Chat_Normal)
@@ -146,7 +151,7 @@ public class Say2 extends L2GameClientPacket
 
                 IVoicedCommandHandler vch = VoicedCommandHandler.getInstance().getVoicedCommandHandler(command);
 
-                if (vch != null) 
+                if (vch != null)
                     vch.useVoicedCommand(command, activeChar, params);
                 else
                     _log.warn("No handler registered for voice command '"+command+"'");

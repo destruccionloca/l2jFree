@@ -176,10 +176,10 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadLotteryConfig();
 					activeChar.sendMessage("Lottery config reloaded");
 				}
-				else if(type.equals("sepulchurs"))
+				else if(type.equals("sepulchers"))
 				{
-					Config.loadSepulchursConfig();
-					activeChar.sendMessage("Sepulchurs config reloaded");
+					Config.loadSepulchersConfig();
+					activeChar.sendMessage("Four Sepulchers config reloaded");
 				}
 				else if(type.equals("clanhall"))
 				{
@@ -238,12 +238,12 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|kamael>");
+					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|kamael>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchurs|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
+				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
 			}
 		}
 

@@ -57,7 +57,7 @@ public class ChestKey implements IItemHandler
 			L2ChestInstance chest = (L2ChestInstance) target;
 			if (chest.isDead() || chest.isInteracted())
 			{
-				activeChar.sendMessage("The chest Is empty.");
+				activeChar.sendMessage("The chest is empty.");
 				activeChar.sendPacket(new ActionFailed());
 				return;
 			}

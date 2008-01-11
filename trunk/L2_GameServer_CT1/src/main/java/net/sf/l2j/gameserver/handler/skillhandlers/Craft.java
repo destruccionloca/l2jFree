@@ -57,8 +57,7 @@ public class Craft implements ISkillHandler
 		}
 		CraftManager.requestBookOpen(player,(skill.getSkillType() == SkillType.DWARVEN_CRAFT) ? true : false);
 	}
-	
-	
+
 	public SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

@@ -42,7 +42,7 @@ public class ExCursedWeaponLocation extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xfe);
-		writeH(0x47); // TODO: l2j has 0x46 please test it i am quite sure its 47 
+		writeH(0x47); // confirmed
 		
 		if(!_cursedWeaponInfo.isEmpty())
 		{

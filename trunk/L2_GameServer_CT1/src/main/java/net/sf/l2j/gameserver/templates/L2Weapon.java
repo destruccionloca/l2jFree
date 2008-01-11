@@ -409,8 +409,8 @@ public final class L2Weapon  extends L2Item
                 targets[0] = target;
                 
                 // Launch the magic skill and calculate its effects
-                if (handler != null)                
-                    handler.useSkill(caster, skill, targets);            
+                if (handler != null)
+                    handler.useSkill(caster, skill, targets);
                 else
                     skill.useSkill(caster, targets);
                 if ((caster instanceof L2PcInstance) && (target instanceof L2NpcInstance))

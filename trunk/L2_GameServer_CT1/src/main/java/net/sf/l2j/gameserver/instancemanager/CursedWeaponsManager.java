@@ -274,10 +274,11 @@ public class CursedWeaponsManager
     {
         if(Config.ALLOW_CURSED_WEAPONS)
         {
-        if (attackable instanceof L2SiegeGuardInstance
-            || attackable instanceof L2RiftInvaderInstance
-            || attackable instanceof L2FestivalMonsterInstance
-            )return;
+            if (attackable instanceof L2SiegeGuardInstance
+               || attackable instanceof L2RiftInvaderInstance
+               || attackable instanceof L2FestivalMonsterInstance
+               )
+                  return;
 
             if (player.isCursedWeaponEquiped())
                 return;

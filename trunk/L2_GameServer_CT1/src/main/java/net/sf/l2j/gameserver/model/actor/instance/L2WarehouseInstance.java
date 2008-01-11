@@ -93,8 +93,8 @@ public final class L2WarehouseInstance extends L2FolkInstance
         
         if (player.getActiveWarehouse().getSize() == 0)
         {
-        	player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
-        	return;
+            player.sendPacket(new SystemMessage(SystemMessageId.NO_ITEM_DEPOSITED_IN_WH));
+            return;
         }
 
         if (_log.isDebugEnabled()) _log.debug("Showing stored items");
@@ -138,46 +138,42 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
     private void showWithdrawWindowClan(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
     {
-        player.sendPacket(new ActionFailed());
-        if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
+        if (player.getClan() == null || player.getClan().getLevel() == 0)
+        {
+            player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
+        }
+        else if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
         {
             player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE));
             return;
         }
         else
         {
-            if (player.getClan().getLevel() == 0)
-                player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
-            else
-            {
-                player.setActiveWarehouse(player.getClan().getWarehouse());
-                if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan"); 
-                player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN, itemtype, sortorder));
-            }
+            player.setActiveWarehouse(player.getClan().getWarehouse());
+            if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan"); 
+            player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN, itemtype, sortorder));
         }
+        player.sendPacket(new ActionFailed());
     }
 
     private void showWithdrawWindowClan(L2PcInstance player)
     {
-        player.sendPacket(new ActionFailed());
-        if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
+        if (player.getClan() == null || player.getClan().getLevel() == 0)
         {
-        	player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE));
-        	return;
+            player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
+        }
+        else if ((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
+        {
+            player.sendPacket(new SystemMessage(SystemMessageId.YOU_DO_NOT_HAVE_THE_RIGHT_TO_USE_CLAN_WAREHOUSE));
+            return;
         }
         else
         {
-            if (player.getClan().getLevel() == 0)
-            {
-                player.sendPacket(new SystemMessage(SystemMessageId.ONLY_LEVEL_1_CLAN_OR_HIGHER_CAN_USE_WAREHOUSE));
-            }
-            else
-            {
-                player.setActiveWarehouse(player.getClan().getWarehouse());
-                if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan");
-                player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
-            }
+            player.setActiveWarehouse(player.getClan().getWarehouse());
+            if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan");
+            player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
         }
+        player.sendPacket(new ActionFailed());
     }
 
     private void showWithdrawWindowFreight(L2PcInstance player, WarehouseListType itemtype, byte sortorder)

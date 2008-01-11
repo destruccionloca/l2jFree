@@ -41,15 +41,15 @@ public class AdminGm implements IAdminCommandHandler
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		//don't check for gm status ;)
-        if (!Config.ALT_PRIVILEGES_ADMIN)
-        {
-    		if (!checkLevel(activeChar.getAccessLevel())) 
-                return false;
-        }
-        
+		if (!Config.ALT_PRIVILEGES_ADMIN)
+		{
+			if (!checkLevel(activeChar.getAccessLevel())) 
+				return false;
+		}
+		
 		if (command.equals("admin_gm")) 
-            handleGm(activeChar);
-        
+			handleGm(activeChar);
+		
 		return true;
 	}
 
@@ -64,23 +64,23 @@ public class AdminGm implements IAdminCommandHandler
 	}
 
 	private void handleGm(L2PcInstance activeChar) 
-    {
+	{
 		if (activeChar.isGM())
 		{
-            GmListTable.getInstance().deleteGm(activeChar);
+			GmListTable.getInstance().deleteGm(activeChar);
 			activeChar.setIsGM(false);
-            
-            activeChar.sendMessage("You no longer have GM status.");
-            
+			
+			activeChar.sendMessage("You no longer have GM status.");
+			
 			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status off");
 		} 
-        else
-        {
-            GmListTable.getInstance().addGm(activeChar, false);
+		else
+		{
+			GmListTable.getInstance().addGm(activeChar, false);
 			activeChar.setIsGM(true);
-            
+			
 			activeChar.sendMessage("You now have GM status.");
-            
+			
 			if (_log.isDebugEnabled()) _log.debug("GM: "+activeChar.getName()+"("+activeChar.getObjectId()+") turned his GM status on");
 		}
 	}

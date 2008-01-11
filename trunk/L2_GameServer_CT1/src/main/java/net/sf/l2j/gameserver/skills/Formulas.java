@@ -1385,14 +1385,17 @@ public final class Formulas
                 damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
         }
 
-        if (attacker instanceof L2PcInstance){
-           if (((L2PcInstance) attacker).getClassId().isMage())
-            damage = damage*Config.ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
-           else damage = damage*Config.ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;}
+        if (attacker instanceof L2PcInstance)
+        {
+            if (((L2PcInstance) attacker).getClassId().isMage())
+                damage *= Config.ALT_MAGES_PHYSICAL_DAMAGE_MULTI;
+            else
+                damage *= Config.ALT_FIGHTERS_PHYSICAL_DAMAGE_MULTI;
+        }
         else if (attacker instanceof L2Summon)
-           damage = damage*Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI;
+           damage *= Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI;
         else if (attacker instanceof L2NpcInstance)
-            damage = damage*Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
+            damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
         
         return damage;
     }
@@ -1464,8 +1467,8 @@ public final class Formulas
         else if (mcrit) damage *= 4;
         
         // Pvp bonusses for dmg
-		if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
-				&& (target instanceof L2PcInstance || target instanceof L2Summon))
+        if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
+            && (target instanceof L2PcInstance || target instanceof L2Summon))
         {
             if(skill.isMagic())
                 damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
@@ -1473,24 +1476,27 @@ public final class Formulas
                 damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
         }        
 
-        if (attacker instanceof L2PcInstance){
-           if (((L2PcInstance) attacker).getClassId().isMage())
-            damage = damage*Config.ALT_MAGES_MAGICAL_DAMAGE_MULTI;
-           else damage = damage*Config.ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;}
-        else if (attacker instanceof L2Summon)
-           damage = damage*Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
-        else if (attacker instanceof L2NpcInstance)
-            damage = damage*Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
-		
-		if (skill != null)
+        if (attacker instanceof L2PcInstance)
         {
-			if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
-				damage *= skill.getPvpMulti();
-			
+            if (((L2PcInstance) attacker).getClassId().isMage())
+                damage = damage*Config.ALT_MAGES_MAGICAL_DAMAGE_MULTI;
+            else
+                damage = damage*Config.ALT_FIGHTERS_MAGICAL_DAMAGE_MULTI;
+        }
+        else if (attacker instanceof L2Summon)
+            damage *= Config.ALT_PETS_MAGICAL_DAMAGE_MULTI;
+        else if (attacker instanceof L2NpcInstance)
+            damage *= Config.ALT_NPC_MAGICAL_DAMAGE_MULTI;
+
+        if (skill != null)
+        {
+            if (target instanceof L2PlayableInstance) //aura flare de-buff, etc
+                damage *= skill.getPvpMulti();
+
             if (skill.getSkillType() == SkillType.DEATHLINK)
                 damage = damage * (1.0 - attacker.getStatus().getCurrentHp()/attacker.getMaxHp()) * 2.0;
         }
-		
+
         return damage;
     }
 
@@ -1578,15 +1584,15 @@ public final class Formulas
    public final boolean calcAtkBreak(L2Character target, double dmg)
    {
         if (target.isRaid()) return false;
-		
-		double init = 0;
 
-       if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow()) init = 50;
-       if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())
-       {
-           L2Weapon wpn = target.getActiveWeaponItem();
-           if (wpn != null && wpn.getItemType() == L2WeaponType.BOW) init = 15;
-       }
+        double init = 0;
+
+        if (Config.ALT_GAME_CANCEL_CAST && target.isCastingNow()) init = 50;
+        if (Config.ALT_GAME_CANCEL_BOW && target.isAttackingNow())
+        {
+            L2Weapon wpn = target.getActiveWeaponItem();
+            if (wpn != null && wpn.getItemType() == L2WeaponType.BOW) init = 15;
+        }
 
         if (init <= 0) return false; // No attack break
 
@@ -2078,7 +2084,7 @@ public final class Formulas
     
     public double getSTRBonus(L2Character activeChar)
     {
-    	return STRbonus[activeChar.getStat().getSTR()];
+        return STRbonus[activeChar.getStat().getSTR()];
     }
     
     public boolean receiveBlock(L2Character cha, String type)

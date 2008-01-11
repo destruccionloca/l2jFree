@@ -107,7 +107,8 @@ public class NpcTable implements NpcTableMBean
                 if (_npcs.size() > npc_count)
                     _log.info("NpcTable: Loaded " + (_npcs.size()- npc_count) + " Custom Npc Templates.");
             } 
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 _log.fatal("NPCTable: Error creating custom NPC table: " + e);
             }
             
@@ -460,6 +461,16 @@ public class NpcTable implements NpcTableMBean
             loaded = fillNpcTable(rs);
             rs.close();
             st.close();
+
+            if(!loaded)
+            {
+                st = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"id", "idTemplate", "name", "serverSideName", "title", "serverSideTitle", "class", "collision_radius", "collision_height", "level", "sex", "type", "attackrange", "hp", "mp", "hpreg", "mpreg", "str", "con", "dex", "int", "wit", "men", "exp", "sp", "patk", "pdef", "matk", "mdef", "atkspd", "aggro", "matkspd", "rhand", "lhand", "armor", "walkspd", "runspd", "faction_id", "faction_range", "isUndead", "absorb_level", "absorb_type"}) + " FROM custom_npc WHERE id=?");
+                st.setInt(1, id);
+                rs = st.executeQuery();
+                loaded = fillNpcTable(rs);
+                rs.close();
+                st.close();
+            }
 
             // restore additional data from saved copy
             L2NpcTemplate created = getTemplate(id);

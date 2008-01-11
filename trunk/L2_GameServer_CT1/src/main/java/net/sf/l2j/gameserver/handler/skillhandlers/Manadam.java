@@ -47,24 +47,24 @@ public class Manadam implements ISkillHandler
 
 		if (activeChar.isAlikeDead()) return;
 
-        boolean ss = false;
-        boolean bss = false;
+		boolean ss = false;
+		boolean bss = false;
 
-        L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
-        
-        if (weaponInst != null)
-        {
-            if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
-            {
-                bss = true;
-                weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-            }
-            else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
-            {
-                ss = true;
-                weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
-            }
-        }
+		L2ItemInstance weaponInst = activeChar.getActiveWeaponInstance();
+		
+		if (weaponInst != null)
+		{
+			if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
+			{
+				bss = true;
+				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+			}
+			else if (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+			{
+				ss = true;
+				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+			}
+		}
 		for (L2Object element : targets) {
 			target = (L2Character) element;
 			

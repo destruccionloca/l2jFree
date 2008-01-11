@@ -299,10 +299,21 @@ public class EnterWorld extends L2GameClientPacket
 	        }
         }
         
-        if (Config.SHOW_HTML_WELCOME)
+        if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
+        {
+            String Newbie_Path = "data/html/newbie.htm";
+            File mainText = new File(Config.DATAPACK_ROOT, Newbie_Path);
+            if (mainText.exists())
+            {
+                NpcHtmlMessage html = new NpcHtmlMessage(1);
+                html.setFile(Newbie_Path);
+                sendPacket(html);
+            }
+        }
+        else if (Config.SHOW_HTML_WELCOME)
         {
             String Welcome_Path = "data/html/welcome.htm";
-            File mainText = new File(Config.DATAPACK_ROOT, Welcome_Path);	// Return the pathfile of the HTML file
+            File mainText = new File(Config.DATAPACK_ROOT, Welcome_Path); // Return the pathfile of the HTML file
             if (mainText.exists())
             {   
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
@@ -311,17 +322,7 @@ public class EnterWorld extends L2GameClientPacket
             }
         }
         
-        if (Config.SHOW_HTML_NEWBIE && activeChar.getLevel() < Config.LEVEL_HTML_NEWBIE)
-        {
-        	String Newbie_Path = "data/html/newbie.htm";
-        	File mainText = new File(Config.DATAPACK_ROOT, Newbie_Path);
-        	if (mainText.exists())
-        	{
-        		NpcHtmlMessage html = new NpcHtmlMessage(1);
-        		html.setFile(Newbie_Path);
-        		sendPacket(html);
-        	}
-        }
+
         
         // set hero status to character if character is Hero
         if (Hero.getInstance().getHeroes() != null &&

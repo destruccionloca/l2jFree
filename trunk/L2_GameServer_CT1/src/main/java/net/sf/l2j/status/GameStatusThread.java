@@ -802,7 +802,7 @@ public class GameStatusThread extends Thread
 						}
 						else if (type.equals("sepulchurs"))
 						{
-							Config.loadSepulchursConfig();
+							Config.loadSepulchersConfig();
 							_print.println("Sepulchurs config reloaded");
 						}
 						else if (type.equals("clanhall"))

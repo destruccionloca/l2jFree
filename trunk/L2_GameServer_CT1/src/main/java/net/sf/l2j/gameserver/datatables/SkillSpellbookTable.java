@@ -47,7 +47,7 @@ public class SkillSpellbookTable
 	{
 		_skillSpellbooks = new FastMap<Integer, Integer>();
 		java.sql.Connection con = null;
-        
+
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -59,7 +59,7 @@ public class SkillSpellbookTable
 
 			spbooks.close();
 			statement.close();
-            
+
 			_log.info("SkillSpellbookTable: Loaded " + _skillSpellbooks.size() + " Spellbooks.");
 		}
 		catch (Exception e)

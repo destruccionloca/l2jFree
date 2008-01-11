@@ -772,12 +772,12 @@ public class VIP {
 	{
 		if (activeChar._inEventVIP)
 		{
-			activeChar.sendMessage("You already participated in the event!");
+			activeChar.sendMessage("You are already participating in the event!");
 			return;
 		}
 		if (activeChar._inEventFOS || activeChar._inEventTvT || activeChar._inEventDM || activeChar._inEventCTF)
 		{
-			activeChar.sendMessage("You already participated in another event!"); 
+			activeChar.sendMessage("You are already participating in another event!"); 
 			return;
 		}
 		activeChar._isVIP = true;
@@ -791,12 +791,12 @@ public class VIP {
 	{
 		if (activeChar._inEventVIP)
 		{
-			activeChar.sendMessage("You already participated in the event!");
+			activeChar.sendMessage("You are already participating in the event!");
 			return;
 		}
 		if (activeChar._inEventFOS || activeChar._inEventTvT || activeChar._inEventDM || activeChar._inEventCTF)
 		{
-			activeChar.sendMessage("You already participated in another event!"); 
+			activeChar.sendMessage("You are already participating in another event!"); 
 			return;
 		}
 		activeChar._isNotVIP = true;

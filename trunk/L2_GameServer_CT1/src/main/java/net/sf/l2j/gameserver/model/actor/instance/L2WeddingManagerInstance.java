@@ -83,7 +83,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
         String filename = "data/html/wedding/start.htm";
         String replace = "";
         
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         html.setFile(filename);
         html.replace("%objectId%", String.valueOf(getObjectId()));
         html.replace("%replace%", replace);
@@ -176,7 +176,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                         ptarget.useMagic(skill, false, false);
                     }
                     
-                    Announcements.getInstance().announceToAll("Gratulations, "+player.getName()+" and "+ptarget.getName()+" has married.");            
+                    Announcements.getInstance().announceToAll("Gratulations, "+player.getName()+" and "+ptarget.getName()+" have married!");
                     
                     MSU = null;
                     
@@ -248,7 +248,7 @@ public class L2WeddingManagerInstance extends L2NpcInstance
 
     private void sendHtmlMessage(L2PcInstance player, String filename, String replace)
     {
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
+        NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
         html.setFile(filename);
         html.replace("%objectId%", String.valueOf(getObjectId()));
         html.replace("%replace%", replace);

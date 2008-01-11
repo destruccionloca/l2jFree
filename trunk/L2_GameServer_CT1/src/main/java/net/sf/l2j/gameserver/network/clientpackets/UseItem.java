@@ -331,56 +331,56 @@ public class UseItem extends L2GameClientPacket
 			// Equip or unEquip
 			boolean isEquiped = item.isEquipped();
 			SystemMessage sm = null;
-            if(!isEquiped)
-            {
-                L2ItemInstance ae = activeChar.getInventory().getPaperdollItemByL2ItemId(bodyPart);
-                if(ae != null)
-                {
-            		//Find Arrows if arrows are equipped in LHand:
-            		if (activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND) == 
-            			activeChar.getInventory().findArrowForBow(ae.getItem()))
-            		{
-            			//Remove arrows if they're equipped:
-            			activeChar.getInventory().unEquipItemInBodySlotAndRecord(Inventory.PAPERDOLL_LHAND);
-            			activeChar.getInventory().setPaperdollItem(Inventory.PAPERDOLL_LHAND, null);
-            		}                	
-                    activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
-                    activeChar.checkSSMatch(item, ae);
-    				if (ae.getEnchantLevel() > 0)
-    				{
-    					sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
-    					sm.addNumber(item.getEnchantLevel());
-    					sm.addItemName(item);
-    				}
-    				else
-    				{
-    					sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-    					sm.addItemName(item);
-    				}
-                    if(ae.isAugmented())
-                        ae.getAugmentation().removeBoni(activeChar);
-                    activeChar.getInventory().equipItemAndRecord(item);
-                    if(item.isAugmented())
-                        item.getAugmentation().applyBoni(activeChar);
-                    activeChar.sendPacket(sm);                    
-                }
-                else
-                {
-                    activeChar.getInventory().equipItemAndRecord(item);
-                    if(item.isAugmented())
-                        item.getAugmentation().applyBoni(activeChar);
-                }
-            }
-            else
-            {
-                if(item.isWear())
-                    return;
+			if(!isEquiped)
+			{
+				L2ItemInstance ae = activeChar.getInventory().getPaperdollItemByL2ItemId(bodyPart);
+				if(ae != null)
+				{
+					//Find Arrows if arrows are equipped in LHand:
+					if (activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND) == 
+						activeChar.getInventory().findArrowForBow(ae.getItem()))
+					{
+						//Remove arrows if they're equipped:
+						activeChar.getInventory().unEquipItemInBodySlotAndRecord(Inventory.PAPERDOLL_LHAND);
+						activeChar.getInventory().setPaperdollItem(Inventory.PAPERDOLL_LHAND, null);
+					}
+					activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
+					activeChar.checkSSMatch(item, ae);
+					if (ae.getEnchantLevel() > 0)
+					{
+						sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
+						sm.addNumber(item.getEnchantLevel());
+						sm.addItemName(item);
+					}
+					else
+					{
+						sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
+						sm.addItemName(item);
+					}
+					if(ae.isAugmented())
+						ae.getAugmentation().removeBoni(activeChar);
+					activeChar.getInventory().equipItemAndRecord(item);
+					if(item.isAugmented())
+						item.getAugmentation().applyBoni(activeChar);
+					activeChar.sendPacket(sm);
+				}
+				else
+				{
+					activeChar.getInventory().equipItemAndRecord(item);
+					if(item.isAugmented())
+						item.getAugmentation().applyBoni(activeChar);
+				}
+			}
+			else
+			{
+				if(item.isWear())
+					return;
 
-            	if (bodyPart == L2Item.SLOT_L_EAR || bodyPart == L2Item.SLOT_LR_EAR ||
-                	bodyPart == L2Item.SLOT_L_FINGER || bodyPart == L2Item.SLOT_LR_FINGER)
-                		activeChar.getInventory().setPaperdollItem(item.getLocationSlot(), null);
-                
-                activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
+				if (bodyPart == L2Item.SLOT_L_EAR || bodyPart == L2Item.SLOT_LR_EAR ||
+					bodyPart == L2Item.SLOT_L_FINGER || bodyPart == L2Item.SLOT_LR_FINGER)
+						activeChar.getInventory().setPaperdollItem(item.getLocationSlot(), null);
+
+				activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
 				if (item.getEnchantLevel() > 0)
 				{
 					sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
@@ -392,21 +392,17 @@ public class UseItem extends L2GameClientPacket
 					sm = new SystemMessage(SystemMessageId.S1_DISARMED);
 					sm.addItemName(item);
 				}
+				activeChar.sendPacket(sm);
+			}
+			item.decreaseMana(false);
 
-                if(item.isAugmented())
-                    item.getAugmentation().removeBoni(activeChar);
-                
-                activeChar.sendPacket(sm);
-            }
-            item.decreaseMana(false);
-            
-            activeChar.refreshExpertisePenalty();
-            
-            if(item.getItem().getType2() == 0)
-                activeChar.checkIfWeaponIsAllowed();
+			activeChar.refreshExpertisePenalty();
 
-            activeChar.abortAttack();
-            
+			if(item.getItem().getType2() == 0)
+				activeChar.checkIfWeaponIsAllowed();
+
+			activeChar.abortAttack();
+
 			activeChar.sendPacket(new EtcStatusUpdate(activeChar));
 			// if an "invisible" item has changed (Jewels, helmet),
 			// we dont need to send broadcast packet to all other users
@@ -416,13 +412,13 @@ public class UseItem extends L2GameClientPacket
 			{
 				activeChar.broadcastUserInfo();
 				InventoryUpdate iu = new InventoryUpdate();
-	            iu.addItem(item);
+				iu.addItem(item);
 				activeChar.sendPacket(iu);
 			}
 			else if ((item.getItem().getBodyPart() & L2Item.SLOT_HEAD) > 0)
 			{
 				InventoryUpdate iu = new InventoryUpdate();
-	            iu.addItem(item);
+				iu.addItem(item);
 				activeChar.sendPacket(iu);
 				activeChar.sendPacket(new UserInfo(activeChar));
 			}
@@ -431,14 +427,14 @@ public class UseItem extends L2GameClientPacket
 				// because of complicated jewels problem i'm forced to resend the item list :(
 				activeChar.sendPacket(new ItemList(activeChar, true));
 				activeChar.sendPacket(new UserInfo(activeChar));
-			}            
-            activeChar.sendPacket(new ItemList(activeChar, false));
-        } 
+			}
+			activeChar.sendPacket(new ItemList(activeChar, false));
+		}
 		else
-        {
-            L2Weapon weaponItem = activeChar.getActiveWeaponItem();
-            int itemid = item.getItemId();
-            // _log.debug("item not equipable id:"+ item.getItemId());
+		{
+			L2Weapon weaponItem = activeChar.getActiveWeaponItem();
+			int itemid = item.getItemId();
+			// _log.debug("item not equipable id:"+ item.getItemId());
 			if (itemid == 4393)
 			{
 				activeChar.sendPacket(new ShowCalculator(4393));
@@ -463,9 +459,9 @@ public class UseItem extends L2GameClientPacket
 				else
 					handler.useItem(activeChar, item);
 			}
-        }
+		}
 	}
-	
+
 	@Override
 	public String getType()
 	{

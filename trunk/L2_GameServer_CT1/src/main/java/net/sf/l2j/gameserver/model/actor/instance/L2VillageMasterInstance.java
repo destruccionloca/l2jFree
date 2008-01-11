@@ -661,9 +661,10 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 				return;
 			}
 
-		}
+        }
         
         if (pledgeType != L2Clan.SUBUNIT_ACADEMY)
+        {
             if (clan.getClanMember(leaderName) == null || clan.getClanMember(leaderName).getSubPledgeType() != 0)
             {
                 if (pledgeType >= L2Clan.SUBUNIT_KNIGHT1)
@@ -676,6 +677,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                 }
                 return;
             }
+        }
 
         if (clan.createSubPledge(player, pledgeType, leaderName, clanName) == null)
             return;

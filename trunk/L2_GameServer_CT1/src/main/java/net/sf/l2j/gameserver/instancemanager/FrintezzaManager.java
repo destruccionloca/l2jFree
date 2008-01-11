@@ -499,7 +499,7 @@ public class FrintezzaManager
 		}
 		
 		// do social.
-		if (socialAction > 0 && socialAction < 4)
+		if (socialAction > 0 && socialAction < 5)
 		{
 			SocialAction sa = new SocialAction(target.getObjectId(), socialAction);
 			target.broadcastPacket(sa);

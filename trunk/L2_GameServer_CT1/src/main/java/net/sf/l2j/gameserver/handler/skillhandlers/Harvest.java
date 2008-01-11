@@ -49,7 +49,7 @@ public class Harvest implements ISkillHandler
 	private L2MonsterInstance _target;
 	
 	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
-	{ 
+	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
@@ -163,8 +163,9 @@ public class Harvest implements ISkillHandler
 			return true;
 		return false;
 	}
-	
-	public SkillType[] getSkillIds() { 
+
+	public SkillType[] getSkillIds()
+	{
 		return SKILL_IDS; 
 	} 
 }

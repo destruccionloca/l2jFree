@@ -112,7 +112,6 @@ public class RequestActionUse extends L2GameClientPacket
                         && !activeChar.isSitting()
                         && target instanceof L2StaticObjectInstance
                         && ((L2StaticObjectInstance)target).getType() == 1
-                        && CastleManager.getInstance().getCastle(target) != null
                         && activeChar.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
                    )
                 {
@@ -299,7 +298,7 @@ public class RequestActionUse extends L2GameClientPacket
             case 36: // Soulless - Toxic Smoke
                 useSkill(4259);
                 break;
-            case 37:
+            case 37: // Manufacture - Dwarven
                 if (activeChar.isAlikeDead())
                 {
                     sendPacket(new ActionFailed());
@@ -347,7 +346,7 @@ public class RequestActionUse extends L2GameClientPacket
             case 48: // Mechanic Golem - Mech. Cannon
                 useSkill(4068);
                 break;
-            case 51:
+            case 51: // Manufacture -  non-dwarfen
                 // Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
                 if (activeChar.isAlikeDead())
                 {

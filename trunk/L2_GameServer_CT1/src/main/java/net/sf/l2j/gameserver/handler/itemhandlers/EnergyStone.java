@@ -42,15 +42,14 @@ public class EnergyStone implements IItemHandler
 
     public void useItem(L2PlayableInstance playable, L2ItemInstance item)
     {
-      
-    	L2PcInstance activeChar;
+        L2PcInstance activeChar;
         if (playable instanceof L2PcInstance)
         {
-        	activeChar = (L2PcInstance)playable;
+            activeChar = (L2PcInstance)playable;
         }
         else if (playable instanceof L2PetInstance)
         {
-        	activeChar = ((L2PetInstance)playable).getOwner();
+            activeChar = ((L2PetInstance)playable).getOwner();
         }
         else return;
 
@@ -59,7 +58,6 @@ public class EnergyStone implements IItemHandler
         
         if (classid == 2 || classid == 48 || classid == 88 || classid == 114)
         {
-      
             if (activeChar.isAllSkillsDisabled())
             {
                 ActionFailed af = new ActionFailed();
@@ -124,7 +122,7 @@ public class EnergyStone implements IItemHandler
     }
 
     private L2SkillCharge getChargeSkill(L2PcInstance activeChar)
-    {     
+    {
         L2Skill[] skills = activeChar.getAllSkills();
         for (L2Skill s : skills)
         {

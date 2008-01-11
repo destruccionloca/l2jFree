@@ -33,30 +33,30 @@ import org.apache.commons.logging.LogFactory;
  */ 
 public class DrainSoul implements ISkillHandler 
 { 
-    private static final Log _log = LogFactory.getLog(DrainSoul.class.getName()); 
-    private static final SkillType[] SKILL_IDS = {SkillType.DRAIN_SOUL};
-    
-    public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
-    { 
-        if (!(activeChar instanceof L2PcInstance))
+	private static final Log _log = LogFactory.getLog(DrainSoul.class.getName()); 
+	private static final SkillType[] SKILL_IDS = {SkillType.DRAIN_SOUL};
+
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
+	{ 
+		if (!(activeChar instanceof L2PcInstance))
 			return;
 
 		L2Object[] targetList = skill.getTargetList(activeChar);
-        
-        if (targetList == null)
-        {
-            return;
-        }
 
-        _log.debug("Soul Crystal casting succeded.");
-        
-        // This is just a dummy skill handler for the soul crystal skill,
-        // since the Soul Crystal item handler already does everything.
+		if (targetList == null)
+		{
+			return;
+		}
 
-    } 
-    
-    public SkillType[] getSkillIds() 
-    { 
-        return SKILL_IDS; 
-    } 
+		if(_log.isDebugEnabled())
+			_log.debug("Soul Crystal casting succeded.");
+
+		// This is just a dummy skill handler for the soul crystal skill,
+		// since the Soul Crystal item handler already does everything.
+	}
+
+	public SkillType[] getSkillIds() 
+	{
+		return SKILL_IDS; 
+	}
 }

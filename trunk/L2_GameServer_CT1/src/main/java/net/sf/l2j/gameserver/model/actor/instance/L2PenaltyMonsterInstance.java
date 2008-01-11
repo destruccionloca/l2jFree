@@ -40,6 +40,7 @@ public class L2PenaltyMonsterInstance extends L2MonsterInstance
     {
         return _ptk;
     }
+
     @Deprecated
     public void notifyPlayerDead()
     {

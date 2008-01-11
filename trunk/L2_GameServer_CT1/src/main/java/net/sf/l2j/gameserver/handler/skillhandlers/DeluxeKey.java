@@ -33,30 +33,29 @@ import org.apache.commons.logging.LogFactory;
 public class DeluxeKey implements ISkillHandler
 {
 	private final static Log _log = LogFactory.getLog(BeastFeed.class.getName());
-    private static final SkillType[] SKILL_IDS = {SkillType.DELUXE_KEY_UNLOCK};
+	private static final SkillType[] SKILL_IDS = {SkillType.DELUXE_KEY_UNLOCK};
 
-    public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
-    {
-        if (!(activeChar instanceof L2PcInstance))
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
+	{
+		if (!(activeChar instanceof L2PcInstance))
 			return;
 
 		L2Object[] targetList = skill.getTargetList(activeChar);
 
-        if (targetList == null)
-        {
-            return;
-        }
+		if (targetList == null)
+		{
+			return;
+		}
 
-        if(_log.isDebugEnabled())
-        	_log.info("Delux key casting succeded.");
+		if(_log.isDebugEnabled())
+			_log.info("Delux key casting succeded.");
 
-        // This is just a dummy skill handler for the golden food and crystal food skills,
-        // since the AI responce onSkillUse handles the rest.
+		// This is just a dummy skill handler for the golden food and crystal food skills,
+		// since the AI responce onSkillUse handles the rest.
+	}
 
-    }
-
-    public SkillType[] getSkillIds()
-    {
-        return SKILL_IDS;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

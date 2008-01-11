@@ -150,7 +150,8 @@ public class Disablers implements ISkillHandler
                 activeSummon.setChargedSoulShot(L2ItemInstance.CHARGED_NONE);
             }
         }
-        for (L2Object element : targets) {
+        for (L2Object element : targets)
+        {
             // Get a target L2Character targets
             if (!(element instanceof L2Character)) continue;
    
@@ -166,9 +167,9 @@ public class Disablers implements ISkillHandler
             {
                 case CANCEL_TARGET:
                 {
-                    if (target instanceof L2NpcInstance){
+                    if (target instanceof L2NpcInstance)
                         target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);
-                    }
+
                     target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
                     target.setTarget(null);
                     target.breakAttack();

@@ -595,7 +595,7 @@ public class FortressSiege
 			else 
 				replyMSG.append("<font color=\"LEVEL\">Use the Seal Of Ruler Skill to Complete this Siege!</font><br1>");
 			if (!_started)
-				replyMSG.append("The Siege is not in progress yet.<br>Wait for a Admin/GM to start the event.<br>");				
+				replyMSG.append("The Siege is not in progress yet.<br>Wait for a Admin/GM to start the event.<br>");
 			replyMSG.append("</center></body></html>");
 			adminReply.setHtml(replyMSG.toString());
 			eventPlayer.sendPacket(adminReply);
@@ -622,7 +622,7 @@ public class FortressSiege
 			{
 				if (!_started)
 				{
-					replyMSG.append("Currently participated : <font color=\"00FF00\">" + _playersShuffle.size() +".</font><br>");
+					replyMSG.append("Currently participating : <font color=\"00FF00\">" + _playersShuffle.size() +".</font><br>");
 					replyMSG.append("Admin set max players : <font color=\"00FF00\">" + _maxPlayers + "</font><br><br>");
 					replyMSG.append("<font color=\"FFFF00\">You can't participate in this event.</font><br>");
 				}
@@ -633,9 +633,9 @@ public class FortressSiege
 				if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
 				{
 					if (Config.FortressSiege_EVEN_TEAMS.equals("NO") || Config.FortressSiege_EVEN_TEAMS.equals("BALANCE"))
-						replyMSG.append("You participated already in team <font color=\"LEVEL\">" + eventPlayer._teamNameFOS + "</font><br><br>");
+						replyMSG.append("You are already participating in team <font color=\"LEVEL\">" + eventPlayer._teamNameFOS + "</font><br><br>");
 					else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE"))
-						replyMSG.append("You participated already!<br><br>");
+						replyMSG.append("You are already participating!<br><br>");
 					replyMSG.append("<table border=\"0\"><tr>");
 					replyMSG.append("<td width=\"200\">Wait util the event starts or</td>");
 					replyMSG.append("<td width=\"60\"><center><button value=\"Remove\" action=\"bypass -h npc_" + objectId + "_fos_player_leave\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></td>");
@@ -772,30 +772,30 @@ public class FortressSiege
 			return false;
 		if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventFOS)
 		{
-			eventPlayer.sendMessage("You already participated in this event!");
+			eventPlayer.sendMessage("You are already participating in this event!");
 			return false;
 		}
 		if (eventPlayer._inEventTvT || eventPlayer._inEventCTF || eventPlayer._inEventDM || eventPlayer._inEventVIP)
 		{
-			eventPlayer.sendMessage("You already participated in another event!"); 
+			eventPlayer.sendMessage("You are already participating in another event!"); 
 			return false;
 		}
 		for(L2PcInstance player: _players)
 		{
 			if(player.getObjectId()==eventPlayer.getObjectId() || player.getName().equals(eventPlayer.getName()))
 			{
-				eventPlayer.sendMessage("You already participated in this event!"); 
+				eventPlayer.sendMessage("You are already participating in this event!"); 
 				return false;
 			}
 		}
 		if(_players.contains(eventPlayer))
 		{
-			eventPlayer.sendMessage("You already participated in this event!"); 
+			eventPlayer.sendMessage("You are already participating in this event!"); 
 			return false;
 		}
 		if (TvT._savePlayers.contains(eventPlayer.getName()) || CTF._savePlayers.contains(eventPlayer.getName()))
 		{
-			eventPlayer.sendMessage("You already participated in another event!"); 
+			eventPlayer.sendMessage("You are already participating in another event!"); 
 			return false;
 		}
 		if (Config.FortressSiege_EVEN_TEAMS.equals("NO"))
@@ -889,7 +889,7 @@ public class FortressSiege
 		}
 		else if (Config.FortressSiege_EVEN_TEAMS.equals("SHUFFLE") && !checkMinPlayers(_playersShuffle.size()))
 		{
-			Announcements("Not enough players for this event. Minimum Requested : " + _minPlayers +", Participated : " + _playersShuffle.size());
+			Announcements("Not enough players for this event. Minimum Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
 			return;
 		}
 		_joining = false;

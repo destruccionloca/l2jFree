@@ -39,7 +39,7 @@ public class BalanceLife implements ISkillHandler
 	private static final SkillType[] SKILL_IDS = { SkillType.BALANCE_LIFE };
 
 	public void useSkill(L2Character activeChar, L2Skill skill,	L2Object[] targets)
-    {
+	{
 		// L2Character activeChar = activeChar;
 		// check for other effects
 		try
@@ -55,14 +55,15 @@ public class BalanceLife implements ISkillHandler
 
 		L2Character target = null;
 
-        L2PcInstance player = null;
-        if (activeChar instanceof L2PcInstance)
+		L2PcInstance player = null;
+		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance) activeChar;
 
-        double fullHP = 0;
-        double currentHPs = 0;
+		double fullHP = 0;
+		double currentHPs = 0;
 
-		for (L2Object element : targets) {
+		for (L2Object element : targets)
+		{
 			target = (L2Character) element;
 			
 			// We should not heal if char is dead
@@ -81,11 +82,12 @@ public class BalanceLife implements ISkillHandler
 
 			fullHP += target.getMaxHp();
 			currentHPs += target.getStatus().getCurrentHp();
-        }
+		}
 
 		double percentHP = currentHPs / fullHP;
 
-		for (L2Object element : targets) {
+		for (L2Object element : targets)
+		{
 			target = (L2Character) element;
 
 			double newHP = target.getMaxHp() * percentHP;
@@ -101,10 +103,10 @@ public class BalanceLife implements ISkillHandler
 			target.sendPacket(su);
 			target.sendMessage("HP of the party has been balanced.");
 		}
-    }
+	}
 
-    public SkillType[] getSkillIds()
-    {
-        return SKILL_IDS;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

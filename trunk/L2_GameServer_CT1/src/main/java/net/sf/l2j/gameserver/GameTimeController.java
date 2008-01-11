@@ -298,7 +298,6 @@ public class GameTimeController
 	// Open door of pirate's room at AM0:00 every day in game.
 	class OpenPiratesRoom implements Runnable
 	{
-		
 		public void run()
 		{
 			DoorTable _doorTable = DoorTable.getInstance();

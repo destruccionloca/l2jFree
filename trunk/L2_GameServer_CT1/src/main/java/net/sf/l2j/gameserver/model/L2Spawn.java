@@ -169,7 +169,7 @@ public class L2Spawn
 	public L2Spawn(L2NpcTemplate mobTemplate) throws SecurityException
 	{
 		// Set the _template of the L2Spawn
-		 _template = mobTemplate;
+		_template = mobTemplate;
 		
          if (_template == null)
              return;
@@ -485,7 +485,7 @@ public class L2Spawn
 	 */
 	public L2NpcInstance doSpawn()
 	{
-		L2NpcInstance mob = null;	
+		L2NpcInstance mob = null;
 		try
 		{
 			// Check if the L2Spawn is not a L2Pet or L2Minion spawn
@@ -598,7 +598,7 @@ public class L2Spawn
         // Set the heading of the L2NpcInstance (random heading if not defined)
         if (getHeading() == -1)
         {
-            mob.setHeading(Rnd.nextInt(61794));    
+            mob.setHeading(Rnd.nextInt(61794));
         } 
         else 
         {

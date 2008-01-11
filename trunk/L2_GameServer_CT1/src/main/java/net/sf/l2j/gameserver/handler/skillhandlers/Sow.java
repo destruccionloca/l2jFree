@@ -66,7 +66,8 @@ public class Sow implements ISkillHandler
 		if(_log.isDebugEnabled())
 			_log.info("Casting sow");
 		
-		for (L2Object element : targetList) {
+		for (L2Object element : targetList)
+		{
 			if (!(element instanceof L2MonsterInstance))
 				continue;
 	
@@ -123,7 +124,6 @@ public class Sow implements ISkillHandler
 			//FIXME: Mob should not become aggro against player, this way doesn't work really nice
 			_target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
-
 	}
 	
 	private boolean calcSuccess()
@@ -160,7 +160,7 @@ public class Sow implements ISkillHandler
 
 		return (rate < basicSuccess);
 	}
-	
+
 	public SkillType[] getSkillIds()
 	{ 
 		return SKILL_IDS; 

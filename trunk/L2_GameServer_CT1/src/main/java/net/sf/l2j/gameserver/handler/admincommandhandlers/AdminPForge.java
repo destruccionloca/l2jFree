@@ -150,12 +150,13 @@ public class AdminPForge implements IAdminCommandHandler
 				if(broadcast == true)
 				{
 					activeChar.broadcastPacket(sp);
+					activeChar.sendPacket(sp);
 				}
 				else
 				{
-					if(activeChar.getTarget() == null)
+					if(activeChar.getTarget() == null || !(activeChar.getTarget() instanceof L2PcInstance))
 						activeChar.sendPacket(sp);
-					else if(activeChar.getTarget() instanceof L2PcInstance)
+					else
 						((L2PcInstance)activeChar.getTarget()).sendPacket(sp);
 				}
 				showPage3(activeChar,format,command);

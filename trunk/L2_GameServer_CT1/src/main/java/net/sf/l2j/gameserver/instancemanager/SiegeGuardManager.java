@@ -183,7 +183,8 @@ public class SiegeGuardManager {
                 continue;
 
             spawn.stopRespawn();
-            spawn.getLastSpawn().doDie(spawn.getLastSpawn());
+            if(spawn.getLastSpawn() != null)
+                spawn.getLastSpawn().doDie(spawn.getLastSpawn());
         }
 
         getSiegeGuardSpawn().clear();
@@ -200,7 +201,7 @@ public class SiegeGuardManager {
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("SELECT * FROM castle_siege_guards Where castleId = ? And isHired = ?");
+            PreparedStatement statement = con.prepareStatement("SELECT * FROM castle_siege_guards WHERE castleId = ? AND isHired = ?");
             statement.setInt(1, getCastle().getCastleId());
             if (getCastle().getOwnerId() > 0)   // If castle is owned by a clan, then don't spawn default guards
                 statement.setInt(2, 1);
@@ -254,7 +255,7 @@ public class SiegeGuardManager {
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("Insert Into castle_siege_guards (castleId, npcId, x, y, z, heading, respawnDelay, isHired) Values (?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement statement = con.prepareStatement("INSERT INTO castle_siege_guards (castleId, npcId, x, y, z, heading, respawnDelay, isHired) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             statement.setInt(1, getCastle().getCastleId());
             statement.setInt(2, npcId);
             statement.setInt(3, x);

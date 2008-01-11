@@ -5677,6 +5677,8 @@ public abstract class L2Character extends L2Object
 		// If attack isn't aborted, send a message system (critical hit, missed...) to attacker/target if they are L2PcInstance
 		if (!isAttackAborted())
 		{
+			if(target.isPetrified() || target.isInvul()) damage = 0;
+
 			sendDamageMessage(target, damage, false, crit, miss);
 			
 			// If L2Character target is a L2PcInstance, send a system message
@@ -5699,10 +5701,7 @@ public abstract class L2Character extends L2Object
 				sm.addNumber(damage);
 				activeSummon.getOwner().sendPacket(sm);
 			}
-			
-			if (isPetrified())
-				damage = 0;
-			
+
 			if (!miss && damage > 0)
 			{
 				L2Weapon weapon = getActiveWeaponItem();
@@ -6869,7 +6868,9 @@ public abstract class L2Character extends L2Object
 					}
 				}
 				if (skill.getAggroPoints() > 0)
+				{
 					for (L2Object spMob : caster.getKnownList().getKnownObjects().values())
+					{
 						if (spMob instanceof L2NpcInstance)
 						{
 							L2NpcInstance npcMob = (L2NpcInstance) spMob;
@@ -6881,6 +6882,8 @@ public abstract class L2Character extends L2Object
 										npcMob.seeSpell(caster, target, skill);
 							}
 						}
+					}
+				}
 			}
 		}
 		catch (Exception e)
@@ -7339,7 +7342,7 @@ public abstract class L2Character extends L2Object
 	 */
 	public int getMaxBuffCount()
 	{
-		return Config.ALT_GAME_NUMBER_OF_CUMULATED_BUFF + Math.max(0, getSkillLevel(L2Skill.SKILL_DIVINE_INSPIRATION));
+		return Config.BUFFS_MAX_AMOUNT + Math.max(0, getSkillLevel(L2Skill.SKILL_DIVINE_INSPIRATION));
 	}
 
 	/**

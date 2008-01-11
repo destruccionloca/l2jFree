@@ -57,17 +57,17 @@ public class RequestAnswerJoinParty extends L2GameClientPacket
 				return;
 
 			JoinParty join = new JoinParty(_response);
-			requestor.sendPacket(join);	
+			requestor.sendPacket(join);
 
 			if (_response == 1) 
 			{
 				if(requestor.getParty()!=null)
 				{
-					if(requestor.getParty().getMemberCount() >= 9) 
-					{ 
-						player.sendPacket(new SystemMessage(SystemMessageId.PARTY_FULL)); 
-						requestor.sendPacket(new SystemMessage(SystemMessageId.PARTY_FULL)); 
-						return; 
+					if(requestor.getParty().getMemberCount() >= 9)
+					{
+						player.sendPacket(new SystemMessage(SystemMessageId.PARTY_FULL));
+						requestor.sendPacket(new SystemMessage(SystemMessageId.PARTY_FULL));
+						return;
 					}
 				}
 				player.joinParty(requestor.getParty());

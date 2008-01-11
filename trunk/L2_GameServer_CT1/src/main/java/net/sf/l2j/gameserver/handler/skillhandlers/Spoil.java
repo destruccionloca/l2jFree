@@ -35,58 +35,59 @@ import net.sf.l2j.gameserver.skills.Formulas;
  */ 
 public class Spoil implements ISkillHandler 
 { 
-    //private static Logger _log = Logger.getLogger(Spoil.class.getName()); 
-    private static final SkillType[] SKILL_IDS = {SkillType.SPOIL};
-    
-    public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
-    { 
-        if (!(activeChar instanceof L2PcInstance))
-            return;
+	//private static Logger _log = Logger.getLogger(Spoil.class.getName()); 
+	private static final SkillType[] SKILL_IDS = {SkillType.SPOIL};
+	
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
+	{
+		if (!(activeChar instanceof L2PcInstance))
+			return;
 
-        L2Object[] targetList = skill.getTargetList(activeChar);
-        
-        if (targetList == null)
-        {
-            return;
-        }
+		L2Object[] targetList = skill.getTargetList(activeChar);
+		
+		if (targetList == null)
+		{
+			return;
+		}
 
-        for (L2Object element : targetList) {
-            if (!(element instanceof L2MonsterInstance))
-                continue;
+		for (L2Object element : targetList)
+		{
+			if (!(element instanceof L2MonsterInstance))
+				continue;
 
-            L2MonsterInstance target = (L2MonsterInstance) element;
+			L2MonsterInstance target = (L2MonsterInstance) element;
 			
-            if (target.isSpoil()) {
-                activeChar.sendPacket(new SystemMessage(SystemMessageId.ALREADY_SPOILED));
-                continue;
-            }
+			if (target.isSpoil()) {
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.ALREADY_SPOILED));
+				continue;
+			}
 
-            // SPOIL SYSTEM by Lbaldi
-            boolean spoil = false;
-            if ( target.isDead() == false ) 
-            {
-                spoil = Formulas.getInstance().calcMagicSuccess(activeChar, (L2Character)element, skill);
-                
-                if (spoil)
-                {
-                    target.setSpoil(true);
-                    target.setIsSpoiledBy(activeChar.getObjectId());
-                    activeChar.sendPacket(new SystemMessage(SystemMessageId.SPOIL_SUCCESS));
-                }
-                else
-                {
-                    SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
-                    sm.addString(target.getName());
-                    sm.addSkillName(skill.getDisplayId());
-                    activeChar.sendPacket(sm);
-                }
-                target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
-            }
-        }
-    } 
-    
-    public SkillType[] getSkillIds()
-    { 
-        return SKILL_IDS; 
-    } 
+			// SPOIL SYSTEM by Lbaldi
+			boolean spoil = false;
+			if ( target.isDead() == false ) 
+			{
+				spoil = Formulas.getInstance().calcMagicSuccess(activeChar, (L2Character)element, skill);
+				
+				if (spoil)
+				{
+					target.setSpoil(true);
+					target.setIsSpoiledBy(activeChar.getObjectId());
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.SPOIL_SUCCESS));
+				}
+				else
+				{
+					SystemMessage sm = new SystemMessage(SystemMessageId.S1_WAS_UNAFFECTED_BY_S2);
+					sm.addString(target.getName());
+					sm.addSkillName(skill.getDisplayId());
+					activeChar.sendPacket(sm);
+				}
+				target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
+			}
+		}
+	}
+	
+	public SkillType[] getSkillIds()
+	{ 
+		return SKILL_IDS; 
+	} 
 }

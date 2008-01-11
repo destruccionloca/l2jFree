@@ -46,23 +46,23 @@ public class CombatPointHeal implements ISkillHandler
     {
         L2Character target = null;
         
-        for (L2Object element : targets) {
+        for (L2Object element : targets)
+        {
             target = (L2Character)element;
-			
+
             double cp = skill.getPower(); 
             //int cLev = activeChar.getLevel();
             //hp += skill.getPower()/*+(Math.sqrt(cLev)*cLev)+cLev*/;
-            SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED); 
-            sm.addNumber((int)cp); 
-            target.sendPacket(sm);            
-            target.getStatus().setCurrentCp(cp+target.getStatus().getCurrentCp()); 
-            StatusUpdate sump = new StatusUpdate(target.getObjectId()); 
-            sump.addAttribute(StatusUpdate.CUR_CP, (int)target.getStatus().getCurrentCp()); 
-            target.sendPacket(sump);  
+            SystemMessage sm = new SystemMessage(SystemMessageId.S1_CP_WILL_BE_RESTORED);
+            sm.addNumber((int)cp);
+            target.sendPacket(sm);
+            target.getStatus().setCurrentCp(cp+target.getStatus().getCurrentCp());
+            StatusUpdate sump = new StatusUpdate(target.getObjectId());
+            sump.addAttribute(StatusUpdate.CUR_CP, (int)target.getStatus().getCurrentCp());
+            target.sendPacket(sump);
         }
     }
-    
-    
+
     public SkillType[] getSkillIds()
     {
         return SKILL_IDS;

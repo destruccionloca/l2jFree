@@ -35,53 +35,53 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SummonTreasureKey implements ISkillHandler
 {
-    private static Log _log = LogFactory.getLog(SummonTreasureKey.class.getName());
-    private static final SkillType[] SKILL_IDS = {SkillType.SUMMON_TREASURE_KEY};
+	private static Log _log = LogFactory.getLog(SummonTreasureKey.class.getName());
+	private static final SkillType[] SKILL_IDS = {SkillType.SUMMON_TREASURE_KEY};
 
-    public void useSkill(L2Character activeChar,
-	    @SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused")L2Object[] targets)
-    {
-        if (activeChar == null || !(activeChar instanceof L2PcInstance)) return;
+	public void useSkill(L2Character activeChar,
+		@SuppressWarnings("unused") L2Skill skill, @SuppressWarnings("unused")L2Object[] targets)
+	{
+		if (activeChar == null || !(activeChar instanceof L2PcInstance)) return;
 
-        L2PcInstance player = (L2PcInstance) activeChar;
+		L2PcInstance player = (L2PcInstance) activeChar;
 
-        try
-        {
-            int item_id = 0;
+		try
+		{
+			int item_id = 0;
 
-            switch (skill.getLevel())
-            {
-                case 1:
-                {
-                  item_id = Rnd.get(6667, 6669); 
-                  break;
-                }
-                case 2:
-                {
-                  item_id = Rnd.get(6668, 6670); 
-                  break;
-                }
-                case 3:
-                {
-                  item_id = Rnd.get(6669, 6671); 
-                  break;
-                }
-                case 4:
-                {
-                  item_id = Rnd.get(6670, 6672); 
-                  break;
-                }
-            }
-            player.addItem("Skill", item_id, Rnd.get(2,3), player, false);
-        }
-        catch (Exception e)
-        {
-            _log.fatal("Error using skill summon Treasure Key:" + e); 
-        }
-    }
+			switch (skill.getLevel())
+			{
+				case 1:
+				{
+				  item_id = Rnd.get(6667, 6669); 
+				  break;
+				}
+				case 2:
+				{
+				  item_id = Rnd.get(6668, 6670); 
+				  break;
+				}
+				case 3:
+				{
+				  item_id = Rnd.get(6669, 6671); 
+				  break;
+				}
+				case 4:
+				{
+				  item_id = Rnd.get(6670, 6672); 
+				  break;
+				}
+			}
+			player.addItem("Skill", item_id, Rnd.get(2,3), player, false);
+		}
+		catch (Exception e)
+		{
+			_log.fatal("Error using skill summon Treasure Key:" + e);
+		}
+	}
 
-    public SkillType[] getSkillIds()
-    {
-        return SKILL_IDS;
-    }
+	public SkillType[] getSkillIds()
+	{
+		return SKILL_IDS;
+	}
 }

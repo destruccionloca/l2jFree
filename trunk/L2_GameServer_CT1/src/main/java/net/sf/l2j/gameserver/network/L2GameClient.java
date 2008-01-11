@@ -87,6 +87,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
     // Flood protection
     public byte packetsSentInSec = 0;
     public int packetsSentStartTick = 0;
+
+    private boolean _disconnected;
     
     public L2GameClient(MMOConnection<L2GameClient> con)
     {
@@ -525,6 +527,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
          */
         public void run()
         {
+            if(_disconnected) return;
+            _disconnected = true;
             try
             {
                 // Update BBS
@@ -562,6 +566,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
                         saveCharToDisk(player);
                     }
                     catch (Exception e2) { /* ignore any problems here */ }
+                    // remove all effects
+                    player.removeAllEffects();
                     player = null;
                 }
                 L2GameClient.this.setActiveChar(null);

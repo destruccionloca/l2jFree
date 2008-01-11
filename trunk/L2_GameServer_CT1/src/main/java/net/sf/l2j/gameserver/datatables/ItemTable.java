@@ -232,7 +232,7 @@ public class ItemTable implements ItemTableMBean
     /**
      * Constructor.
      */
-    public ItemTable()
+    private ItemTable()
     {
         _etcItems   = new FastMap<Integer, L2EtcItem>();
         _armors     = new FastMap<Integer, L2Armor>();

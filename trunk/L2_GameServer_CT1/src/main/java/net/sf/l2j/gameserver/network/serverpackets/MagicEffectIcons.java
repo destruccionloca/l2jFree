@@ -44,7 +44,7 @@ public class MagicEffectIcons extends L2GameServerPacket
 		{
 			_skillId = pSkillId;
 			_level = pLevel;
-			_duration = pDuration;	
+			_duration = pDuration;
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class MagicEffectIcons extends L2GameServerPacket
 	
 	public void addEffect(int skillId, int level, int duration)
 	{
-		_effects.add(new Effect(skillId, level, duration));		
+		_effects.add(new Effect(skillId, level, duration));
 	}
 	
 	@Override
@@ -68,12 +68,12 @@ public class MagicEffectIcons extends L2GameServerPacket
 		{
 			writeD(temp._skillId);
 			writeH(temp._level);
-            
-            if (temp._duration == -1)
-                writeD(-1);
-            else
-			    writeD(temp._duration / 1000);
-		}		
+
+			if (temp._duration == -1)
+				writeD(-1);
+			else
+				writeD(temp._duration / 1000);
+		}
 	}
 	
 	/* (non-Javadoc)

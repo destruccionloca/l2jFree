@@ -421,7 +421,7 @@ public final class Config
 	public static int			FS_PARTY_MEMBER_COUNT;
 	
 	// *******************************************************************************************
-	public static void loadSepulchursConfig()
+	public static void loadSepulchersConfig()
 	{
 		_log.info("loading " + FOUR_SEPULCHERS_FILE);
 		try
@@ -1297,7 +1297,7 @@ public final class Config
 	public static boolean				REMOVE_CASTLE_CIRCLETS;										// Remove Castle circlets after clan lose his castle? - default
 																									// true
 	public static double				ALT_WEIGHT_LIMIT;											// Alternative game weight limit multiplier - default 1
-	public static int					ALT_GAME_NUMBER_OF_CUMULATED_BUFF;							// Alternative number of cumulated buff
+	public static int					BUFFS_MAX_AMOUNT;											// Alternative number of cumulated buff
 	public static int					ALT_MINIMUM_FALL_HEIGHT;									// Minimum Height(Z) that a character needs to fall, in
 																									// order for it to be considered a fall.
 	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;							// Disable Raidboss Petrification
@@ -1462,7 +1462,7 @@ public final class Config
 			ALT_WEIGHT_LIMIT = Double.parseDouble(altSettings.getProperty("AltWeightLimit", "1."));
 			ALT_BLACKSMITH_USE_RECIPES = Boolean.parseBoolean(altSettings.getProperty("AltBlacksmithUseRecipes", "true"));
 			ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(altSettings.getProperty("AltMinimumFallHeight", "400"));
-			ALT_GAME_NUMBER_OF_CUMULATED_BUFF = Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
+			BUFFS_MAX_AMOUNT = Integer.parseInt(altSettings.getProperty("AltNbCumulatedBuff", "24"));
 			ALT_GAME_SKILL_LEARN = Boolean.parseBoolean(altSettings.getProperty("AltGameSkillLearn", "false"));
 			ALT_GAME_CANCEL_BOW = altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("bow")
 					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
@@ -2665,7 +2665,7 @@ public final class Config
 		loadLotteryConfig();
 		loadWeddingConfig();
 		loadSiegeConfig();
-		loadSepulchursConfig();
+		loadSepulchersConfig();
 		loadClanHallConfig();
 		loadIdFactoryConfig();
 		loadFunEnginesConfig();
@@ -2746,7 +2746,6 @@ public final class Config
 			AUTODESTROY_ITEM_AFTER = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("SaveDroppedItem"))
 			SAVE_DROPPED_ITEM = Boolean.parseBoolean(pValue);
-		// else if (pName.equalsIgnoreCase("CategoryDropSystem")) CATEGORY_DROP_SYSTEM = CategoryDropSystem.valueOf(pValue);
 		else if (pName.equalsIgnoreCase("CoordSynchronize"))
 			COORD_SYNCHRONIZE = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("DeleteCharAfterDays"))
@@ -2994,7 +2993,7 @@ public final class Config
 		else if (pName.equalsIgnoreCase("AltMinimumFallHeight"))
 			ALT_MINIMUM_FALL_HEIGHT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltNbCumulatedBuff"))
-			ALT_GAME_NUMBER_OF_CUMULATED_BUFF = Integer.parseInt(pValue);
+			BUFFS_MAX_AMOUNT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltBuffTime"))
 			ALT_BUFF_TIME = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("AltSuccessRate"))

@@ -27,7 +27,9 @@ import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -206,7 +208,10 @@ public class Wedding implements IVoicedCommandHandler
         if (activeChar.isCastingNow() || activeChar.isMovementDisabled() 
                 || activeChar.isMuted() || activeChar.isAlikeDead())
             return false;
-        if (!activeChar.isMaried())
+
+        Siege siege = SiegeManager.getInstance().getSiege(activeChar);
+
+        if(!activeChar.isMaried())
         {
             activeChar.sendMessage("You're not married."); 
             return false;
@@ -242,8 +247,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
          // Check to see if the player is in dimensional rift.
-        else if (DimensionalRiftManager.getInstance().checkIfInRiftZone
-                (activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
+        else if (activeChar.isInParty() && activeChar.getParty().isInDimensionalRift())
         {
             activeChar.sendMessage("You are in the dimensional rift.");
             return false;
@@ -255,8 +259,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check if player is in Siege
-        else if (CastleManager.getInstance().getCastle(activeChar) != null
-        		&& CastleManager.getInstance().getCastle(activeChar).getSiege().getIsInProgress())
+        else if(siege != null && siege.getIsInProgress())
         {
             activeChar.sendMessage("You are in siege, you can't go to your partner.");
             return false;
@@ -276,18 +279,23 @@ public class Wedding implements IVoicedCommandHandler
         // Check if player is in a Monster Derby Track
         else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
         {
-        	activeChar.sendMessage("You can't escape from a Monster Derby Track.");
-        	return false;
+            activeChar.sendMessage("You can't escape from a Monster Derby Track.");
+            return false;
         }
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
-        if (partner == null)
+        if(partner != null)
+        {
+            siege = SiegeManager.getInstance().getSiege(partner);
+        }
+        else
         {
             activeChar.sendMessage("Your partner is not online.");
             return false;
         }
-        else if (partner.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, partner))
+
+        if (partner.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, partner))
         {
             activeChar.sendMessage("Your partner is in jail.");
             return false;
@@ -320,27 +328,26 @@ public class Wedding implements IVoicedCommandHandler
         }
         else if (partner.isFestivalParticipant())
         {
-        	activeChar.sendMessage("Your partner is in a festival.");
-        	return false;
+            activeChar.sendMessage("Your partner is in a festival.");
+            return false;
         }
-        else if(CastleManager.getInstance().getCastle(partner) != null 
-        		&& CastleManager.getInstance().getCastle(partner).getSiege().getIsInProgress())
+        else if(siege != null && siege.getIsInProgress())
         {
-        	if (partner.getAppearance().getSex())
-        		activeChar.sendMessage("Your partner is in siege, you can't go to her.");
-        	else
-        		activeChar.sendMessage("Your partner is in siege, you can't go to him.");
-        	return false;
+            if (partner.getAppearance().getSex())
+                activeChar.sendMessage("Your partner is in siege, you can't go to her.");
+            else
+                activeChar.sendMessage("Your partner is in siege, you can't go to him.");
+            return false;
         }
         else if (partner.isCursedWeaponEquiped())
         {
-        	activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
-        	return false;
+            activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
+            return false;
         }
         else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, partner))
         {
-        	activeChar.sendMessage("Your partner is in a Monster Derby Track.");
-        	return false;
+            activeChar.sendMessage("Your partner is in a Monster Derby Track.");
+            return false;
         }
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;

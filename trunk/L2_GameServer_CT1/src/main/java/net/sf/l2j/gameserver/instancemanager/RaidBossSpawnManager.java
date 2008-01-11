@@ -54,23 +54,23 @@ public class RaidBossSpawnManager {
     protected static FastMap<Integer, L2Spawn> _spawns;
     protected static FastMap<Integer, StatsSet> _storedInfo;
     protected static FastMap<Integer, ScheduledFuture<?>> _schedules;
-    
-    public static enum StatusEnum {
+
+    public static enum StatusEnum
+    {
         ALIVE,
         DEAD,
         UNDEFINED
     }
-    
+
     public RaidBossSpawnManager()
     {
         _bosses = new FastMap<Integer, L2RaidBossInstance>();
         _schedules = new FastMap<Integer,ScheduledFuture<?>>();
         _storedInfo = new FastMap<Integer, StatsSet>();
         _spawns = new FastMap<Integer, L2Spawn>();
-        
-    	init();
+        init();
     }
-    
+
     public static RaidBossSpawnManager getInstance()
     {
         if (_instance == null)
@@ -78,10 +78,9 @@ public class RaidBossSpawnManager {
         
         return _instance;
     }
-    
+
     private void init()
     {
-        
         Connection con = null;
         
         try
@@ -136,7 +135,7 @@ public class RaidBossSpawnManager {
             try {con.close();} catch(Exception e) {_log.error(e.getMessage(),e);}
         }
     }
-    
+
     private class spawnSchedule implements Runnable
     {
         private int bossId;

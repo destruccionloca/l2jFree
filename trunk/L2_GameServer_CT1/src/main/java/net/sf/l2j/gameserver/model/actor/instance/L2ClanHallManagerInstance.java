@@ -607,15 +607,30 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
                         int skill_lvl = 0;
                         if (st.countTokens() >= 1) skill_lvl = Integer.parseInt(st.nextToken());
                         skill = SkillTable.getInstance().getInfo(skill_id,skill_lvl);
-                        if (skill.getSkillType() == SkillType.SUMMON)
-                            player.doCast(skill);
-                        else
-                            doCast(skill);
-                        if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT)== null)
+                        if(skill == null)
+                        {
+                            _log.warn("Skill "+skill_id+" missing for clanhall manager!");
                             return;
+                        }
+
+                        int mpConsume = skill.getMpConsume();
+                        if(mpConsume > getStatus().getCurrentMp())
+                        {
+                            player.sendPacket(new SystemMessage(SystemMessageId.NOT_ENOUGH_MP));
+                        }
+                        else
+                        {
+                            //reduceCurrentMp(mpConsume);
+                            if (skill.getSkillType() == SkillType.SUMMON)
+                                player.doCast(skill);
+                            else
+                                doCast(skill);
+                            if (getClanHall().getFunction(ClanHall.FUNC_SUPPORT)== null)
+                                return;
+                        }
                         NpcHtmlMessage html = new NpcHtmlMessage(1);
                         if(getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl() == 0)
-                        	return;
+                            return;
                         html.setFile("data/html/clanHallManager/support"+getClanHall().getFunction(ClanHall.FUNC_SUPPORT).getLvl()+".htm");
                         html.replace("%mp%", String.valueOf(getStatus().getCurrentMp()));
                         sendHtmlMessage(player, html);

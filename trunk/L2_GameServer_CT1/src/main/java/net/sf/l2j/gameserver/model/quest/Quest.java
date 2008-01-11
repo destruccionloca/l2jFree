@@ -429,7 +429,8 @@ public class Quest extends ManagedScript
             statement.setInt(1, player.getObjectId());
             statement.setString(2, "<state>");
 			ResultSet rs = statement.executeQuery();
-			while (rs.next()) {
+			while (rs.next())
+			{
 				
 				// Get ID of the quest and ID of its state
 				String questId = rs.getString("name");
@@ -437,13 +438,15 @@ public class Quest extends ManagedScript
 				
 				// Search quest associated with the ID
 				Quest q = QuestManager.getInstance().getQuest(questId);
-				if (q == null) {
+				if (q == null)
+				{
 					if(_log.isDebugEnabled())
 						_log.info("Unknown quest "+questId+" for player "+player.getName());
-					if (Config.AUTODELETE_INVALID_QUEST_DATA){
-                        invalidQuestData.setInt(1, player.getObjectId());
-                        invalidQuestData.setString(2, questId);
-                        invalidQuestData.executeUpdate();
+					if (Config.AUTODELETE_INVALID_QUEST_DATA)
+					{
+						invalidQuestData.setInt(1, player.getObjectId());
+						invalidQuestData.setString(2, questId);
+						invalidQuestData.executeUpdate();
 					}
 					continue;
 				}

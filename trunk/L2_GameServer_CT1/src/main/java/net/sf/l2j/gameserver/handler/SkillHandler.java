@@ -91,11 +91,11 @@ public class SkillHandler
         registerSkillHandler(new Continuous());
         registerSkillHandler(new Craft());
         registerSkillHandler(new CpDam());
-        registerSkillHandler(new CPperHeal()); 
+        registerSkillHandler(new CPperHeal());
         registerSkillHandler(new DeluxeKey());
         registerSkillHandler(new Disablers());
         registerSkillHandler(new DrainSoul());
-        registerSkillHandler(new Fishing()); 
+        registerSkillHandler(new Fishing());
         registerSkillHandler(new FishingSkill());
         registerSkillHandler(new GetPlayer());
         registerSkillHandler(new Harvest());
@@ -116,7 +116,7 @@ public class SkillHandler
         registerSkillHandler(new Sweep());
         registerSkillHandler(new TakeCastle());
         registerSkillHandler(new Unlock());
-        _log.info("SkillHandler: Loaded " + _datatable.size() + " handlers.");        
+        _log.info("SkillHandler: Loaded " + _datatable.size() + " handlers.");
     }
 
 	public void registerSkillHandler(ISkillHandler handler)

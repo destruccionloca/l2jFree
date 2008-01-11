@@ -68,8 +68,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
             String path;
             int cabal = SevenSigns.CABAL_NULL;
             int stoneType = 0;
-            L2ItemInstance ancientAdena = player.getInventory().getItemByItemId(
-                                                                                SevenSigns.ANCIENT_ADENA_ID);
+            L2ItemInstance ancientAdena = player.getInventory().getItemByItemId(SevenSigns.ANCIENT_ADENA_ID);
             int ancientAdenaAmount = ancientAdena == null ? 0 : ancientAdena.getCount();
             int val = Integer.parseInt(command.substring(11, 12).trim());
 
@@ -227,14 +226,11 @@ public class L2SignsPriestInstance extends L2FolkInstance
                     break;
                 case 6: // Contribute Seal Stones - SevenSigns 6 x
                     stoneType = Integer.parseInt(command.substring(13));
-                    L2ItemInstance redStones = player.getInventory().getItemByItemId(
-                                                                                     SevenSigns.SEAL_STONE_RED_ID);
+                    L2ItemInstance redStones = player.getInventory().getItemByItemId(SevenSigns.SEAL_STONE_RED_ID);
                     int redStoneCount = redStones == null ? 0 : redStones.getCount();
-                    L2ItemInstance greenStones = player.getInventory().getItemByItemId(
-                                                                                       SevenSigns.SEAL_STONE_GREEN_ID);
+                    L2ItemInstance greenStones = player.getInventory().getItemByItemId(SevenSigns.SEAL_STONE_GREEN_ID);
                     int greenStoneCount = greenStones == null ? 0 : greenStones.getCount();
-                    L2ItemInstance blueStones = player.getInventory().getItemByItemId(
-                                                                                      SevenSigns.SEAL_STONE_BLUE_ID);
+                    L2ItemInstance blueStones = player.getInventory().getItemByItemId(SevenSigns.SEAL_STONE_BLUE_ID);
                     int blueStoneCount = blueStones == null ? 0 : blueStones.getCount();
                     int contribScore = SevenSigns.getInstance().getPlayerContribScore(player);
                     boolean stonesFound = false;
@@ -491,16 +487,13 @@ public class L2SignsPriestInstance extends L2FolkInstance
                         switch (convertStoneId)
                         {
                             case SevenSigns.SEAL_STONE_BLUE_ID:
-                                ancientAdenaReward = SevenSigns.calcAncientAdenaReward(convertCount, 0,
-                                                                                       0);
+                                ancientAdenaReward = SevenSigns.calcAncientAdenaReward(convertCount, 0, 0);
                                 break;
                             case SevenSigns.SEAL_STONE_GREEN_ID:
-                                ancientAdenaReward = SevenSigns.calcAncientAdenaReward(0, convertCount,
-                                                                                       0);
+                                ancientAdenaReward = SevenSigns.calcAncientAdenaReward(0, convertCount, 0);
                                 break;
                             case SevenSigns.SEAL_STONE_RED_ID:
-                                ancientAdenaReward = SevenSigns.calcAncientAdenaReward(0, 0,
-                                                                                       convertCount);
+                                ancientAdenaReward = SevenSigns.calcAncientAdenaReward(0, 0, convertCount);
                                 break;
                         }
 

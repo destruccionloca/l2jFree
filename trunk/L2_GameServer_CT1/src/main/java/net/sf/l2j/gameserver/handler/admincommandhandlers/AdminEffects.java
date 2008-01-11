@@ -68,7 +68,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 
 public class AdminEffects implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = { "admin_invis", "admin_invisible", "admin_vis",	"admin_visible", "admin_invis_menu",
+	private static final String[] ADMIN_COMMANDS = { "admin_invis", "admin_invisible", "admin_vis", "admin_visible", "admin_invis_menu",
 		"admin_earthquake", "admin_earthquake_menu",
 		"admin_bighead", "admin_shrinkhead",
 		"admin_gmspeed", "admin_gmspeed_menu",

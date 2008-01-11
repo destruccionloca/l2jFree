@@ -45,76 +45,80 @@ public class RequestUnEquipItem extends L2GameClientPacket
 	 * format:		cd 
 	 * @param decrypt
 	 */
-    @Override
-    protected void readImpl()
-    {
-        _slot = readD();
-    }
-
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-    	if (_log.isDebugEnabled()) 
-            _log.debug("request unequip slot " + _slot);
-        
+		_slot = readD();
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		if (_log.isDebugEnabled()) 
+			_log.debug("request unequip slot " + _slot);
+
 		L2PcInstance activeChar = getClient().getActiveChar();
-        
+
 		if (activeChar == null)
-		    return;
-		if (activeChar._haveFlagCTF){
-            activeChar.sendMessage("You can't unequip a CTF flag.");
-            return;			
+			return;
+		if (activeChar._haveFlagCTF)
+		{
+			activeChar.sendMessage("You can't unequip a CTF flag.");
+			return;
 		}
+
 		L2ItemInstance item = activeChar.getInventory().getPaperdollItemByL2ItemId(_slot);
-		if (item != null && item.isWear())
+		if (item == null || item.isWear())
 		{
 			// Wear-items are not to be unequipped
 			return;
 		}
-        // Prevent of unequiping a cursed weapon
-        if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquiped())
-        {
-            // Message ?
-            activeChar.sendMessage("You can't unequip a cursed Weapon.");
-            return;
-        }
-        
-        // Prevent player from unequipping items in special conditions
-        if (activeChar.isStunned() || activeChar.isSleeping() 
-                   || activeChar.isParalyzed() || activeChar.isAlikeDead())
-        {
-            activeChar.sendMessage("Your status does not allow you to do that.");
-            return;
-        }
-        if (activeChar.isAttackingNow() || activeChar.isCastingNow()) 
-           return;
-        
+
+		// Prevent of unequiping a cursed weapon
+		if (_slot == L2Item.SLOT_LR_HAND && activeChar.isCursedWeaponEquiped())
+		{
+			return;
+		}
+
+		// Prevent player from unequipping items in special conditions
+		if (activeChar.isStunned() || activeChar.isSleeping() 
+				|| activeChar.isParalyzed() || activeChar.isAlikeDead())
+		{
+			activeChar.sendMessage("Your status does not allow you to do that.");
+			return;
+		}
+
+		if (activeChar.isAttackingNow() || activeChar.isCastingNow()) 
+			return;
+
 		L2ItemInstance[] unequiped = activeChar.getInventory().unEquipItemInBodySlotAndRecord(_slot); 
-		
-		for (L2ItemInstance element : unequiped) {
-            activeChar.checkSSMatch(null, element);
-            activeChar.getInventory().updateInventory(element);
+
+		for (L2ItemInstance element : unequiped)
+		{
+			activeChar.checkSSMatch(null, element);
+			activeChar.getInventory().updateInventory(element);
 		}
 		activeChar.broadcastUserInfo();
-		
+
 		// this can be 0 if the user pressed the right mousebutton twice very fast
 		if (unequiped.length > 0)
 		{
-        	
-            SystemMessage sm = null;
-            if (unequiped[0].getEnchantLevel() > 0)
-            {
-            	sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-            	sm.addNumber(unequiped[0].getEnchantLevel());
-            	sm.addItemName(unequiped[0]);
-            }
-            else
-            {
-	            sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-	            sm.addItemName(unequiped[0]);
-            }
-            activeChar.sendPacket(sm);
-            sm = null;
+			SystemMessage sm = null;
+			if (unequiped[0].getEnchantLevel() > 0)
+			{
+				sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
+				sm.addNumber(unequiped[0].getEnchantLevel());
+				sm.addItemName(unequiped[0]);
+			}
+			else
+			{
+				sm = new SystemMessage(SystemMessageId.S1_DISARMED);
+				sm.addItemName(unequiped[0]);
+			}
+			activeChar.sendPacket(sm);
+			sm = null;
+			if(unequiped[0].isAugmented())
+				unequiped[0].getAugmentation().removeBoni(activeChar);
 		}
 	}
 

@@ -48,7 +48,9 @@ public class Blow implements ISkillHandler
 	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets){
 		if(activeChar.isAlikeDead())
 			return;
-        for (L2Object element : targets) {
+
+		for (L2Object element : targets)
+		{
 			L2Character target = (L2Character)element;
 			
 			if(target.isAlikeDead())
@@ -74,12 +76,12 @@ public class Blow implements ISkillHandler
 						activeChar.sendPacket(sm);
 					}
 				}
-	            L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
-	            boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() == L2WeaponType.DAGGER);
-	            boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
+				L2ItemInstance weapon = activeChar.getActiveWeaponInstance();
+				boolean soul = (weapon != null && weapon.getChargedSoulshot() == L2ItemInstance.CHARGED_SOULSHOT && weapon.getItemType() == L2WeaponType.DAGGER);
+				boolean shld = Formulas.getInstance().calcShldUse(activeChar, target);
 
-	            // Crit rate base crit rate for skill, modified with STR bonus
-	            boolean crit = false;
+				// Crit rate base crit rate for skill, modified with STR bonus
+				boolean crit = false;
 				if(Formulas.getInstance().calcCrit(skill.getBaseCritRate()*10*Formulas.getInstance().getSTRBonus(activeChar)))
 					crit = true;
 				double damage = (int)Formulas.getInstance().calcBlowDamage(activeChar, target, skill, shld, soul);
@@ -105,43 +107,43 @@ public class Blow implements ISkillHandler
 				}
  
 				if (soul && weapon != null) 
-	            	weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
+					weapon.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 				if(skill.getDmgDirectlyToHP() && target instanceof L2PcInstance)
-	        	{
+				{
 					L2PcInstance player = (L2PcInstance)target;
-	        		if (!player.isInvul())
+					if (!player.isInvul())
 					{
-	        	       if (damage >= player.getStatus().getCurrentHp()) 
-	        	       {
-	        	    	   if(player.isInDuel()) player.getStatus().setCurrentHp(1);
-	        	    	   else
-	        	    	   {
-	        	    		   player.getStatus().setCurrentHp(0);
-	        	    		   if (player.isInOlympiadMode())
-	        	    		   {
-	        	    			   player.abortAttack();
-	        	    			   player.abortCast();
-	        	    			   player.getStatus().stopHpMpRegeneration();
-	        	    		   }
-	        	    		   else
-	        	    			   player.doDie(activeChar);
-	        	    	   }
-	        	       }
-	        	       else 
-	        		      player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
+						if (damage >= player.getStatus().getCurrentHp()) 
+						{
+							if(player.isInDuel()) player.getStatus().setCurrentHp(1);
+							else
+							{
+								player.getStatus().setCurrentHp(0);
+								if (player.isInOlympiadMode())
+								{
+									player.abortAttack();
+									player.abortCast();
+									player.getStatus().stopHpMpRegeneration();
+								}
+								else
+									player.doDie(activeChar);
+							}
+						}
+						else 
+							player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
 					}
-	        		SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
-	        		smsg.addString(activeChar.getName());
-	        		smsg.addNumber((int)damage);
-	        		player.sendPacket(smsg);
-	        	}
-	        	else
-	        		target.reduceCurrentHp(damage, activeChar);
+					SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
+					smsg.addString(activeChar.getName());
+					smsg.addNumber((int)damage);
+					player.sendPacket(smsg);
+				}
+				else
+					target.reduceCurrentHp(damage, activeChar);
 				if(activeChar instanceof L2PcInstance)
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_DID_S1_DMG);
-	            sm.addNumber((int)damage);
-	            activeChar.sendPacket(sm);
+				sm.addNumber((int)damage);
+				activeChar.sendPacket(sm);
 			}
 			//Possibility of a lethal strike
 			Formulas.getInstance().calcLethalHit(activeChar, target, skill);
@@ -153,7 +155,7 @@ public class Blow implements ISkillHandler
 			skill.getEffectsSelf(activeChar);
 		}
 	}
-	
+
 	public SkillType[] getSkillIds()
 	{
 		return SKILL_IDS;

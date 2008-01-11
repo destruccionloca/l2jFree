@@ -106,8 +106,7 @@ public class PcStatus extends PlayableStatus
                 }
             }
         }
-        if (getActiveChar().isPetrified())
-            {value=0;}
+
         super.reduceHp(value, attacker, awake);
 
         if (!getActiveChar().isDead() && getActiveChar().isSitting()) 
@@ -143,8 +142,7 @@ public class PcStatus extends PlayableStatus
             {
                 smsg.addString(attacker.getName());
             }
-            if (getActiveChar().isPetrified())
-            {realValue =0;}
+
             smsg.addNumber((int)realValue);
             getActiveChar().sendPacket(smsg);
         }

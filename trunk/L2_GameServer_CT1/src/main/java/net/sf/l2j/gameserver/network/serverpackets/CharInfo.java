@@ -69,7 +69,9 @@ public class CharInfo extends L2GameServerPacket
 	@Override
 	protected final void writeImpl()
 	{
-	
+		if(_activeChar == null || _activeChar.inObserverMode())
+			return;
+
 		boolean gmSeeInvis = false;
 
 		if (_activeChar.getAppearance().getInvisible())
@@ -150,11 +152,11 @@ public class CharInfo extends L2GameServerPacket
 					writeD(_activeChar.getAbnormalEffect());  // C2
 				}
 
-                writeD(0x00);
-                writeD(_activeChar.getClanCrestId());
-                writeD(0x00);
-                writeD(_activeChar.getAllyCrestId());
-                writeC(0x00);
+				writeD(0x00);
+				writeD(_activeChar.getClanCrestId());
+				writeD(0x00);
+				writeD(_activeChar.getAllyCrestId());
+				writeC(0x00);
 /*                writeC(_activeChar.getTeam());
                 writeF(0x00);
                 writeF(0x00);
@@ -184,18 +186,19 @@ public class CharInfo extends L2GameServerPacket
 			else
 				writeD(_activeChar.getBaseClass());
 			
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
-            writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_UNDER));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HEAD));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LHAND));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_GLOVES));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_CHEST));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_LEGS));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_FEET));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_RHAND));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR));
+			writeD(_inv.getPaperdollItemId(Inventory.PAPERDOLL_HAIR2));
+
 			// T1 new d's
 			writeD(0x00);
 			writeD(0x00);
@@ -248,7 +251,7 @@ public class CharInfo extends L2GameServerPacket
 			writeH(0x00);
 			writeH(0x00);
 			// end of t1 new h's
-            
+
 			writeD(_activeChar.getPvpFlag());
 			writeD(_activeChar.getKarma());
 	
@@ -268,25 +271,25 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_flyWalkSpd);
 			writeF(_activeChar.getStat().getMovementSpeedMultiplier()); // _cha.getProperMultiplier()
 			writeF(_activeChar.getStat().getAttackSpeedMultiplier()); // _cha.getAttackSpeedMultiplier()
-			
-            L2Summon pet = _activeChar.getPet();
-            L2Transformation trans;
-            if (_activeChar.getMountType() != 0 && pet != null)
-            {
-                writeF(pet.getTemplate().getCollisionRadius());
-                writeF(pet.getTemplate().getCollisionHeight());
-            }
-            else if ((trans = _activeChar.getTransformation()) != null)
-            {
-                writeF(trans.getCollisionRadius());
-                writeF(trans.getCollisionHeight());
-            }
-            else
-            {
-                writeF(_activeChar.getBaseTemplate().getCollisionRadius());
-                writeF(_activeChar.getBaseTemplate().getCollisionHeight());
-            }
-	
+
+			L2Summon pet = _activeChar.getPet();
+			L2Transformation trans;
+			if (_activeChar.getMountType() != 0 && pet != null)
+			{
+				writeF(pet.getTemplate().getCollisionRadius());
+				writeF(pet.getTemplate().getCollisionHeight());
+			}
+			else if ((trans = _activeChar.getTransformation()) != null)
+			{
+				writeF(trans.getCollisionRadius());
+				writeF(trans.getCollisionHeight());
+			}
+			else
+			{
+				writeF(_activeChar.getBaseTemplate().getCollisionRadius());
+				writeF(_activeChar.getBaseTemplate().getCollisionHeight());
+			}
+
 			writeD(_activeChar.getAppearance().getHairStyle());
 			writeD(_activeChar.getAppearance().getHairColor());
 			writeD(_activeChar.getAppearance().getFace());

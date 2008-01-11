@@ -91,8 +91,7 @@ public class RequestJoinParty extends L2GameClientPacket
 		
 		if (target.isInJail() || requestor.isInJail()) 
 		{
-			SystemMessage sm = SystemMessage.sendString("Player is in Jail");
-			requestor.sendPacket(sm);
+			requestor.sendMessage("Player is in Jail");
 			return;
 		}
 		
