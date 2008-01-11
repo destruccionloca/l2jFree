@@ -50,7 +50,7 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 		//section 1 
 		writeD(_activeChar.getObjectId());
 		writeD(_activeCharAdena);
-				
+
 		//section2 
 		writeD(_itemList.length); // inventory items for potential buy
 		for (L2ItemInstance item : _itemList)
@@ -62,7 +62,16 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeH(item.getItem().getType2());
-		}	
+
+			writeD(item.getAttackAttrElement());
+			writeD(item.getAttackAttrElementVal());
+			writeD(item.getDefAttrFire());
+			writeD(item.getDefAttrWater());
+			writeD(item.getDefAttrWind());
+			writeD(item.getDefAttrEarth());
+			writeD(item.getDefAttrHoly());
+			writeD(item.getDefAttrUnholy());
+		}
 
 		//section 3
 		writeD(_buyList.length); //count for all items already added for buy
@@ -77,15 +86,16 @@ public class PrivateStoreManageListBuy extends L2GameServerPacket
 			writeH(item.getItem().getType2());
 			writeD(item.getPrice());//your price
 			writeD(item.getItem().getReferencePrice());//fixed store price
-	        writeD(item.getAttackAttrElement());
-	        writeD(item.getAttackAttrElementVal());
-	        writeD(item.getDefAttrFire());
-	        writeD(item.getDefAttrWater());
-	        writeD(item.getDefAttrWind());
-	        writeD(item.getDefAttrEarth());
-	        writeD(item.getDefAttrHoly());
-	        writeD(item.getDefAttrUnholy());		
-		}	
+
+			writeD(item.getAttackAttrElement());
+			writeD(item.getAttackAttrElementVal());
+			writeD(item.getDefAttrFire());
+			writeD(item.getDefAttrWater());
+			writeD(item.getDefAttrWind());
+			writeD(item.getDefAttrEarth());
+			writeD(item.getDefAttrHoly());
+			writeD(item.getDefAttrUnholy());
+		}
 	}
 	
 	/* (non-Javadoc)

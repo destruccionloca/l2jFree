@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public class PrivateStoreListBuy extends L2GameServerPacket
 {
 //	private static final String _S__D1_PRIVATEBUYLISTBUY = "[S] b8 PrivateBuyListBuy";
-	private static final String _S__D1_PRIVATESTORELISTBUY = "[S] b8 PrivateStoreListBuy";
+	private static final String _S__BE_PRIVATESTORELISTBUY = "[S] be PrivateStoreListBuy";
 	private L2PcInstance _storePlayer;
 	private L2PcInstance _activeChar;
 	private int _activeCharAdena;
@@ -69,14 +69,14 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 			
 			writeD(item.getCount());  // maximum possible tradecount
 			
-	        writeD(item.getAttackAttrElement());
-	        writeD(item.getAttackAttrElementVal());
-	        writeD(item.getDefAttrFire());
-	        writeD(item.getDefAttrWater());
-	        writeD(item.getDefAttrWind());
-	        writeD(item.getDefAttrEarth());
-	        writeD(item.getDefAttrHoly());
-	        writeD(item.getDefAttrUnholy());			
+			writeD(item.getAttackAttrElement());
+			writeD(item.getAttackAttrElementVal());
+			writeD(item.getDefAttrFire());
+			writeD(item.getDefAttrWater());
+			writeD(item.getDefAttrWind());
+			writeD(item.getDefAttrEarth());
+			writeD(item.getDefAttrHoly());
+			writeD(item.getDefAttrUnholy());
 		}
 	}
 	
@@ -86,6 +86,6 @@ public class PrivateStoreListBuy extends L2GameServerPacket
 	@Override
     public String getType()
 	{
-		return _S__D1_PRIVATESTORELISTBUY;
+		return _S__BE_PRIVATESTORELISTBUY;
 	}
 }

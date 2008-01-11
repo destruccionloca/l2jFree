@@ -522,18 +522,30 @@ public class PcInventory extends Inventory
             statement2.setInt(1, objectId);
             ResultSet invdata = statement2.executeQuery();
 
+            int slot, objId, itemId, enchant, displayId;
             while (invdata.next())
             {
-                int slot = invdata.getInt("loc_data");
-                paperdoll[slot][0] = invdata.getInt("object_id");
-                int itemId = invdata.getInt("item_id");
+                slot = invdata.getInt("loc_data");
+                objId = invdata.getInt("object_id");
+                itemId = invdata.getInt("item_id");
+                enchant = invdata.getInt("enchant_level");
+                displayId = ItemTable.getInstance().getTemplate(itemId).getItemDisplayId();
+
+                paperdoll[slot][0] = objId;
                 paperdoll[slot][1] = itemId;
-                paperdoll[slot][2] = invdata.getInt("enchant_level");
-                paperdoll[slot][3] = ItemTable.getInstance().getTemplate(itemId).getItemDisplayId(); 
+                paperdoll[slot][2] = enchant;
+                paperdoll[slot][3] = displayId;
+                if (slot == Inventory.PAPERDOLL_LRHAND)
+                {
+                    paperdoll[Inventory.PAPERDOLL_RHAND][0] = objId;
+                    paperdoll[Inventory.PAPERDOLL_RHAND][1] = itemId;
+                    paperdoll[Inventory.PAPERDOLL_RHAND][2] = enchant;
+                    paperdoll[Inventory.PAPERDOLL_RHAND][3] = displayId;
+                }
             }
             
             invdata.close();
-            statement2.close();            
+            statement2.close();
         } 
         catch (Exception e) {
             _log.warn( "could not restore inventory:", e);

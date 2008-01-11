@@ -69,21 +69,21 @@ public class PrivateStoreListSell extends L2GameServerPacket
 			writeD(item.getItem().getType2());
 			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId());
-            writeD(item.getCount());
+			writeD(item.getCount());
 			writeH(0x00);
 			writeH(item.getEnchant());
 			writeH(0x00);
 			writeD(item.getItem().getBodyPart());
 			writeD(item.getPrice()); //your price
 			writeD(item.getItem().getReferencePrice()); //store price
-	        writeD(item.getAttackAttrElement());
-	        writeD(item.getAttackAttrElementVal());
-	        writeD(item.getDefAttrFire());
-	        writeD(item.getDefAttrWater());
-	        writeD(item.getDefAttrWind());
-	        writeD(item.getDefAttrEarth());
-	        writeD(item.getDefAttrHoly());
-	        writeD(item.getDefAttrUnholy());		
+			writeD(item.getAttackAttrElement());
+			writeD(item.getAttackAttrElementVal());
+			writeD(item.getDefAttrFire());
+			writeD(item.getDefAttrWater());
+			writeD(item.getDefAttrWind());
+			writeD(item.getDefAttrEarth());
+			writeD(item.getDefAttrHoly());
+			writeD(item.getDefAttrUnholy());
 		}
 	}
 	

@@ -909,7 +909,7 @@ public enum SystemMessageId
 	* ID: 148<br>
 	* Message: You cannot use quest items.
 	*/
-	YOU_CANNOT_USE_QUEST_ITEMS(148),
+	CANNOT_USE_QUEST_ITEMS(148),
 
 	/**
 	 * ID: 149<br>

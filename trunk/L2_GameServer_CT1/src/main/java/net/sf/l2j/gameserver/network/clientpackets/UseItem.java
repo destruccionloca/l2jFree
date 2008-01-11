@@ -101,7 +101,13 @@ public class UseItem extends L2GameClientPacket
 			// No unequipping wear-items
 			return;
 		}
-		
+
+		if (item.getItem().getType2() == L2Item.TYPE2_QUEST)
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_QUEST_ITEMS));
+			return;
+		}
+
 		int itemId = item.getItemId();
 		/*
 		 * Alt game - Karma punishment // SOE

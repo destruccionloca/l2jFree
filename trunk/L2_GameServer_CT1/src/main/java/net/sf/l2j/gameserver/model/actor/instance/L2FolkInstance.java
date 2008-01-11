@@ -165,7 +165,19 @@ public class L2FolkInstance extends L2NpcInstance
             
             return;
         }
-            
+
+        if(player.getClassId().getId() < 88 || (player.getClassId().getId() >= 123 && player.getClassId().getId() <= 130 ) || player.getClassId().getId() == 135)
+        {
+            NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
+            TextBuilder sb = new TextBuilder();
+            sb.append("<html><body>");
+            sb.append("You must have 3rd class change quest completed.");
+            sb.append("</body></html>");
+            html.setHtml(sb.toString());
+            player.sendPacket(html);
+            return;
+        }
+
         L2EnchantSkillLearn[] skills = SkillTreeTable.getInstance().getAvailableEnchantSkills(player);
         ExEnchantSkillList esl = new ExEnchantSkillList();
         int counts = 0;
