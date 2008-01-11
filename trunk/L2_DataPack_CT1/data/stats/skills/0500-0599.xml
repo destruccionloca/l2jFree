@@ -412,10 +412,23 @@
   </for>
 </skill>
 <skill id="538" levels="1" name="Final Form">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Description:
+  Transform into a final battle form. Consumes 20 soul.  
+-->
+  <set name="mpConsume" val="70"/>
+  <set name="hpConsume" val="200"/>
+  <set name="power" val="0.0"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isMagic" val="false"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="transformId" val="251"/>
+  <set name="duration" val="3600"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="soulConsumeCount" val="20"/>
   <for>
   </for>
 </skill>
