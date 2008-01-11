@@ -126,7 +126,7 @@ public class RequestExEnchantSkill extends L2GameClientPacket
         {
             if (player.getStat().getExp() - player.getStat().getExpForLevel(player.getStat().getLevel()) >= _requiredExp)
             {
-                if (Config.ES_SP_BOOK_NEEDED && (_skillLvl == 101 || _skillLvl == 141)) // only first lvl requires book 
+                if (Config.ES_SP_BOOK_NEEDED && (_skillLvl == 101 || _skillLvl == 201)) // only first lvl requires book 
                 {
                     int spbId = 6622;
                       
