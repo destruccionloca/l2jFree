@@ -860,17 +860,16 @@ public abstract class L2Character extends L2Object
 					sendPacket(new ActionFailed());
 					return;
 				}
-			}
-	
-			// Checking if target has moved to peace zone
-			if (target.isInsidePeaceZone((L2PcInstance)this))
-			{
-				getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-				sendPacket(new ActionFailed());
-				return;
-			}
 
-			if (isInsidePeaceZone(this, target))
+				// Checking if target has moved to peace zone
+				if (target.isInsidePeaceZone((L2PcInstance)this))
+				{
+					getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
+					sendPacket(new ActionFailed());
+					return;
+				}
+			}
+			else if (isInsidePeaceZone(this, target))
 			{
 				getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 				sendPacket(new ActionFailed());
@@ -5934,12 +5933,12 @@ public abstract class L2Character extends L2Object
 		return false;
 	}
 	
-	public boolean isInsidePeaceZone(L2PcInstance attacker, L2Object target)
+	public static boolean isInsidePeaceZone(L2PcInstance attacker, L2Object target)
 	{
 		return ((attacker.getAccessLevel() < Config.GM_PEACEATTACK) && isInsidePeaceZone((L2Object) attacker, target));
 	}
 	
-	public boolean isInsidePeaceZone(L2Object attacker, L2Object target)
+	public static boolean isInsidePeaceZone(L2Object attacker, L2Object target)
 	{
 		if (target == null)
 			return false;
@@ -5954,20 +5953,20 @@ public abstract class L2Character extends L2Object
 				return false;
 			if (target instanceof L2Summon && ((L2Summon) target).getOwner().getKarma() > 0)
 				return false;
-			if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getKarma() > 0)
-			{
+			//if (attacker instanceof L2PcInstance && ((L2PcInstance) attacker).getKarma() > 0) // Don't need double check
+			//{
 				if (target instanceof L2PcInstance && ((L2PcInstance) target).getPvpFlag() > 0)
 					return false;
 				if (target instanceof L2Summon && ((L2Summon) target).getOwner().getPvpFlag() > 0)
 					return false;
-			}
-			if (attacker instanceof L2Summon && ((L2Summon) attacker).getOwner().getKarma() > 0)
-			{
+			//}
+			//if (attacker instanceof L2Summon && ((L2Summon) attacker).getOwner().getKarma() > 0)
+			//{
 				if (target instanceof L2PcInstance && ((L2PcInstance) target).getPvpFlag() > 0)
 					return false;
 				if (target instanceof L2Summon && ((L2Summon) target).getOwner().getPvpFlag() > 0)
 					return false;
-			}
+			//}
 		}
 		// Right now only L2PcInstance has up-to-date zone status...
 		if (attacker instanceof L2PcInstance)

@@ -11122,7 +11122,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _absorbedSouls;
 	}
 
-	public void absorbSoul(L2Skill skill, L2NpcInstance target)
+	public void absorbSoulFromNpc(L2Skill skill, L2NpcInstance target)
 	{
 		if (_absorbedSouls >= skill.getNumSouls())
 		{
@@ -11131,28 +11131,39 @@ public final class L2PcInstance extends L2PlayableInstance
 			return;
 		}
 
-		_absorbedSouls++;
+		increaseAbsorbedSouls(1);
 
+		// Npc -> Player absorb animation
 		sendPacket(new ExSpawnEmitter(getObjectId(),target.getObjectId()));
-		sendPacket(new EtcStatusUpdate(this));
+	}
+
+	public void increaseAbsorbedSouls(int count) // By skill or mob kill
+	{
+		if (count < 0) // Wrong usage
+			return;
+
+		_absorbedSouls = Math.min(_absorbedSouls + count, 45); // Client can't display more
+
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_SOUL_HAS_INCREASED_BY_S1_SO_IT_IS_NOW_AT_S2);
-		sm.addNumber(1);
+		sm.addNumber(count);
 		sm.addNumber(_absorbedSouls);
 		sendPacket(sm);
+		sendPacket(new EtcStatusUpdate(this));
 	}
 
 	public void decreaseAbsorbedSouls(int count)
 	{
-		if (getAbsorbedSouls() <= 0 || (getAbsorbedSouls() - count) < 0)
+		if (count < 0) // Wrong usage
 			return;
 
-		_absorbedSouls -= count;
+		_absorbedSouls = Math.max(_absorbedSouls - count, 0); // Client can't display negative values
+
 		sendPacket(new EtcStatusUpdate(this));
 	}
 	
-	public void setAbsorbedSouls(int count)
+	public void setAbsorbedSouls(int count) // By GM command
 	{
-		_absorbedSouls = count;
+		_absorbedSouls = count < 0 ? 0 : (count > 45 ? 45 : count);
 		sendPacket(new EtcStatusUpdate(this));
 	}
 
@@ -11359,12 +11370,14 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (pcrit)
 		{
 			sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
+
+			// Soul Mastery skill
 			if (getSkillLevel(467) > 0 && target instanceof L2NpcInstance)
 			{
-				L2Skill skill = SkillTable.getInstance().getInfo(467,getSkillLevel(467));
+				L2Skill skill = SkillTable.getInstance().getInfo(467, getSkillLevel(467));
 				if (Rnd.get(100) < skill.getCritChance())
 				{
-					absorbSoul(skill,((L2NpcInstance)target));
+					absorbSoulFromNpc(skill,((L2NpcInstance)target));
 				}
 			}
 		}

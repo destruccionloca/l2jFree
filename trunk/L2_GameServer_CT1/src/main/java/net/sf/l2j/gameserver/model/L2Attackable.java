@@ -674,12 +674,13 @@ public class L2Attackable extends L2NpcInstance
                                 int addsp = (int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null);
                                 if (attacker instanceof L2PcInstance)
                                 {
+                                    // Soul Mastery skill
                                     if (((L2PcInstance)attacker).getSkillLevel(467) > 0)
                                     {
                                         L2Skill skill = SkillTable.getInstance().getInfo(467,((L2PcInstance)attacker).getSkillLevel(467));
                                         if (skill.getExpNeeded() <= addexp)
                                         {
-                                            ((L2PcInstance)attacker).absorbSoul(skill,this);
+                                            ((L2PcInstance)attacker).absorbSoulFromNpc(skill,this);
                                         }
                                     }
                                 }

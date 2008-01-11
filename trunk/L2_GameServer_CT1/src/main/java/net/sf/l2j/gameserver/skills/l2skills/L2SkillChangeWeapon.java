@@ -159,6 +159,7 @@ public class L2SkillChangeWeapon extends L2Skill
                 
                 InventoryUpdate u = new InventoryUpdate();
                 u.addRemovedItem(destroyItem);
+                u.addNewItem(newItem);
                 player.sendPacket(u);
                 
                 player.broadcastUserInfo();
