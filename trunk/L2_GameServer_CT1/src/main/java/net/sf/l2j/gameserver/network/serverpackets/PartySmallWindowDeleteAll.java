@@ -25,12 +25,12 @@ package net.sf.l2j.gameserver.network.serverpackets;
  */
 public class PartySmallWindowDeleteAll extends L2GameServerPacket 
 {
-	private static final String _S__65_PARTYSMALLWINDOWDELETEALL = "[S] 50 PartySmallWindowDeleteAll";
+	private static final String _S__50_PARTYSMALLWINDOWDELETEALL = "[S] 50 PartySmallWindowDeleteAll []";
 	
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x5a);
+		writeC(0x50);
 	}
 
 	/* (non-Javadoc)
@@ -39,6 +39,6 @@ public class PartySmallWindowDeleteAll extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__65_PARTYSMALLWINDOWDELETEALL;
+		return _S__50_PARTYSMALLWINDOWDELETEALL;
 	}
 }

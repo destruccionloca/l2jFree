@@ -20,14 +20,9 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.4.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $
- */
 public class PartySmallWindowAdd extends L2GameServerPacket 
 {
-	private static final String _S__64_PARTYSMALLWINDOWADD = "[S] 4f PartySmallWindowAdd";
+	private static final String _S__4F_PARTYSMALLWINDOWADD = "[S] 4f PartySmallWindowAdd [dddsdddddddddd]";
 	
 	private L2PcInstance _member;
 	
@@ -42,7 +37,7 @@ public class PartySmallWindowAdd extends L2GameServerPacket
 		writeC(0x4f);
 		L2PcInstance player =  getClient().getActiveChar();
 		writeD(player.getObjectId()); // c3
-		writeD(0);//writeD(0x04); ?? //c3
+		writeD(0x00);//writeD(0x04); ?? //c3
 		writeD(_member.getObjectId());
 		writeS(_member.getName());
 		
@@ -55,8 +50,8 @@ public class PartySmallWindowAdd extends L2GameServerPacket
 		writeD(_member.getMaxMp());
 		writeD(_member.getLevel());
 		writeD(_member.getClassId().getId());
-		writeD(0);//writeD(0x01); ??
-		writeD(0);
+		writeD(0x00);//writeD(0x01); ??
+		writeD(0x00);
 	}
 
 	/* (non-Javadoc)
@@ -65,6 +60,6 @@ public class PartySmallWindowAdd extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__64_PARTYSMALLWINDOWADD;
+		return _S__4F_PARTYSMALLWINDOWADD;
 	}
 }
