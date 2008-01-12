@@ -24,7 +24,9 @@ import java.util.List;
 
 import java.util.ArrayList;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.model.CharSelectInfoPackage;
+import net.sf.l2j.gameserver.model.CursedWeapon;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -315,10 +317,15 @@ public class CharSelectionInfo extends L2GameServerPacket
 		int weaponId = charInfopackage.getPaperdollItemId(Inventory.PAPERDOLL_LRHAND);
 		if (weaponId < 1)
 			weaponId = charInfopackage.getPaperdollItemId(Inventory.PAPERDOLL_RHAND);
-		if(weaponId==8689)
-			charInfopackage.setTransformationId(302);
-		else if(weaponId==8190)
-			charInfopackage.setTransformationId(301);
+
+		if (CursedWeaponsManager.getInstance().isCursed(weaponId))
+		{
+			CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(weaponId);
+			if (cw.getTransformId() < 1)
+				charInfopackage.setTransformationId(0);
+			else
+				charInfopackage.setTransformationId(cw.getTransformId());
+		}
 		else
 			charInfopackage.setTransformationId(0);
 		

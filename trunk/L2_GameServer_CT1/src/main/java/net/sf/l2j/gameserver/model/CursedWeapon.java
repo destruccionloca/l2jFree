@@ -27,6 +27,7 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.TransformationManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
@@ -44,14 +45,16 @@ import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import net.sf.l2j.gameserver.instancemanager.TransformationManager;
 
 public class CursedWeapon
 {
     private static final Log _log = LogFactory.getLog(CursedWeaponsManager.class.getName());
 
+    // _name is the name of the cursed weapon associated with its ID.
     private final String _name;
+    // _itemId is the Item ID of the cursed weapon.
     private final int _itemId;
+    // _skillId is the skills ID.
     private final int _skillId;
     private final int _skillMaxLevel;
     private int _dropRate;
@@ -59,9 +62,11 @@ public class CursedWeapon
     private int _durationLost;
     private int _disapearChance;
     private int _stageKills;
+    private int _transformId;
     
-    
+    // this should be false unless if the cursed weapon is dropped, in that case it would be true.
     private boolean _isDropped = false;
+    // this sets the cursed weapon status to true only if a player has the cursed weapon, otherwise this should be false.
     private boolean _isActivated = false;
     private ScheduledFuture<?> _removeTask;
 
@@ -263,18 +268,18 @@ public class CursedWeapon
 
         _isDropped = true;
         SystemMessage sm = new SystemMessage(SystemMessageId.S2_WAS_DROPPED_IN_THE_S1_REGION);
-		sm.addZoneName(player.getX(), player.getY(), player.getZ()); // Region Name
-		sm.addItemName(_item);
-		CursedWeaponsManager.announce(sm); // in the Hot Spring region
+        sm.addZoneName(player.getX(), player.getY(), player.getZ()); // Region Name
+        sm.addItemName(_item);
+        CursedWeaponsManager.announce(sm);
+        _item = null;
     }
 
     public void transform()
-	{
-		if(getItemId()==8689)
-			TransformationManager.getInstance().transformPlayer(302, _player, Long.MAX_VALUE);
-		else if(getItemId()==8190)
-			TransformationManager.getInstance().transformPlayer(301, _player, Long.MAX_VALUE);
-	}
+    {
+        if(_transformId == 0) return;
+
+        TransformationManager.getInstance().transformPlayer(_transformId, _player, Long.MAX_VALUE);
+    }
     
    /**
     * Yesod:<br>
@@ -579,7 +584,10 @@ public class CursedWeapon
         _item = item;
     }
 
-
+    public void setTransformId(int id)
+    {
+        _transformId = id;
+    }
 
     // =========================================================
     // Getter
@@ -587,64 +595,82 @@ public class CursedWeapon
     {
         return _isActivated;
     }
+
     public boolean isDropped()
     {
         return _isDropped;
     }
+
     public long getEndTime()
     {
         return _endTime;
     }
+
     public String getName()
     {
         return _name;
     }
+
     public int getItemId()
     {
         return _itemId;
     }
+
     public int getSkillId()
     {
         return _skillId;
     }
+
     public int getPlayerId()
     {
         return _playerId;
     }
+
     public L2PcInstance getPlayer()
     {
         return _player;
     }
+
     public int getPlayerKarma()
     {
         return _playerKarma;
     }
-	public int getPlayerPkKills()
-	{
-		return _playerPkKills;
-	}    
+
+    public int getPlayerPkKills()
+    {
+        return _playerPkKills;
+    }    
+
     public int getNbKills()
     {
         return _nbKills;
     }
 
-	public int getStageKills()
-	{
-		return _stageKills;
-	}
-	
+    public int getStageKills()
+    {
+        return _stageKills;
+    }
+
     public boolean isActive()
     {
         return _isActivated || _isDropped;
     }
+
     public int getLevel()
     {
-		return Math.min(1 + (_nbKills / _stageKills), _skillMaxLevel);
+        return Math.min(1 + (_nbKills / _stageKills), _skillMaxLevel);
     }
+
     public long getTimeLeft()
     {
         return _endTime - System.currentTimeMillis();
     }
+
+    public int getTransformId()
+    {
+        return _transformId;
+    }
+
     public void goTo(L2PcInstance player)
     {
         if (player == null) return;
@@ -662,7 +688,7 @@ public class CursedWeapon
             player.sendMessage(_name+" isn't in the World.");
         }
     }
-    
+
     public Point3D getWorldPosition()
     {
         if (_isActivated && _player != null)

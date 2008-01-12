@@ -74,10 +74,10 @@ public class PcAppearance
         {
             return this.getOwner().getName();
         }
-    	if(_displayName)
-    		return _visibleName;
-    	else
-    		return "";
+        if(_displayName)
+            return _visibleName;
+        else
+            return "";
     }
 
     /**
@@ -98,9 +98,9 @@ public class PcAppearance
             return this.getOwner().getTitle();
         }
         if(_displayName)
-        	return _visibleTitle;
+            return _visibleTitle;
         else
-        	return "";
+            return "";
     }
 
     // =========================================================

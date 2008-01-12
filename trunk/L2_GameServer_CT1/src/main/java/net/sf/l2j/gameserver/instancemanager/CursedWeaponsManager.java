@@ -147,6 +147,11 @@ public class CursedWeaponsManager
                                     attrs = cd.getAttributes();
                                     val = Integer.parseInt(attrs.getNamedItem("val").getNodeValue());
                                     cw.setStageKills(val);
+                                } else if ("transformId".equalsIgnoreCase(cd.getNodeName()))
+                                {
+                                    attrs = cd.getAttributes();
+                                    val = Integer.parseInt(attrs.getNamedItem("val").getNodeValue());
+                                    cw.setTransformId(val);
                                 }
                             }
                             

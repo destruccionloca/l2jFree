@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Transformation;
+import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -72,6 +73,7 @@ public class UserInfo extends L2GameServerPacket
 {
     private static final String _S__04_USERINFO = "[S] 04 UserInfo";
     private L2PcInstance _activeChar;
+    private PcAppearance _appearance;
     private int _runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd,
             _flyWalkSpd, _relation;
     private float _moveMultiplier;
@@ -82,7 +84,7 @@ public class UserInfo extends L2GameServerPacket
     public UserInfo(L2PcInstance cha)
     {
         _activeChar = cha;
-        
+        _appearance = cha.getAppearance();
         _moveMultiplier = _activeChar.getStat().getMovementSpeedMultiplier();
         _runSpd = (int) (_activeChar.getRunSpeed() / _moveMultiplier);
         _walkSpd = (int) (_activeChar.getStat().getWalkSpeed() / _moveMultiplier);
@@ -103,9 +105,9 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getZ());
         writeD(_activeChar.getHeading());
         writeD(_activeChar.getObjectId());
-        writeS(_activeChar.getAppearance().getVisibleName());
+        writeS(_appearance.getVisibleName());
         writeD(_activeChar.getRace().ordinal());
-        writeD(_activeChar.getAppearance().getSex()? 1 : 0);
+        writeD(_appearance.getSex()? 1 : 0);
 
         if (_activeChar.getClassIndex() == 0)
         	writeD(_activeChar.getClassId().getId());
@@ -281,13 +283,13 @@ public class UserInfo extends L2GameServerPacket
             writeF(_activeChar.getBaseTemplate().getCollisionHeight());
         }
 
-        writeD(_activeChar.getAppearance().getHairStyle());
-        writeD(_activeChar.getAppearance().getHairColor());
-        writeD(_activeChar.getAppearance().getFace());
+        writeD(_appearance.getHairStyle());
+        writeD(_appearance.getHairColor());
+        writeD(_appearance.getFace());
         writeD((_activeChar.getAccessLevel() >= Config.GM_ALTG_MIN_LEVEL) ? 1 : 0); // builder level
 
-        String title = _activeChar.getAppearance().getVisibleTitle();
-        if (_activeChar.getAppearance().getInvisible() && _activeChar.isGM()) title = "Invisible";
+        String title = _appearance.getVisibleTitle();
+        if (_appearance.getInvisible() && _activeChar.isGM()) title = "Invisible";
         if (_activeChar.getPoly().isMorphed())
         {
             L2NpcTemplate polyObj = NpcTable.getInstance().getTemplate(_activeChar.getPoly().getPolyId());
@@ -315,7 +317,7 @@ public class UserInfo extends L2GameServerPacket
 
         writeC(0x00); //1-find party members
 
-        if (_activeChar.getAppearance().getInvisible())
+        if (_appearance.getInvisible())
         {
             writeD( (_activeChar.getAbnormalEffect() | L2Character.ABNORMAL_EFFECT_STEALTH) );
         }
@@ -355,7 +357,7 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getFishx()); //fishing x  
         writeD(_activeChar.getFishy()); //fishing y
         writeD(_activeChar.getFishz()); //fishing z
-        writeD(_activeChar.getAppearance().getNameColor());
+        writeD(_appearance.getNameColor());
         
         //new c5 
         writeC(_activeChar.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
@@ -363,7 +365,7 @@ public class UserInfo extends L2GameServerPacket
         writeD(_activeChar.getPledgeClass()); //changes the text above CP on Status Window
         writeD(0x00); // ??
         
-        writeD(_activeChar.getAppearance().getTitleColor());
+        writeD(_appearance.getTitleColor());
         
         if (_activeChar.isCursedWeaponEquiped())
         	writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
