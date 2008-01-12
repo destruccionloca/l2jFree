@@ -2282,7 +2282,8 @@ public final class Config
     public static int FWB_FIXINTERVALOFBAIUM; 
     public static int FWB_RANDOMINTERVALOFBAIUM; 
     public static int FWB_ACTIVITYTIMEOFBAIUM; 
-    public static boolean FWB_MOVEATRANDOM; 
+    public static boolean FWB_MOVEATRANDOM;
+    public static int FWB_LIMITUNTILSLEEP;
     
     /****************************************** 
      * Valakas CONFIG                         * 
@@ -2374,7 +2375,10 @@ public final class Config
             FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfBaium", "120")); 
             if(FWB_ACTIVITYTIMEOFBAIUM < 120 || FWB_ACTIVITYTIMEOFBAIUM > 720) FWB_ACTIVITYTIMEOFBAIUM = 120; 
             FWB_ACTIVITYTIMEOFBAIUM = FWB_ACTIVITYTIMEOFBAIUM * 60000; 
-			             FWB_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
+            FWB_MOVEATRANDOM = Boolean.parseBoolean(bossSettings.getProperty("MoveAtRandom", "True"));
+            FWB_LIMITUNTILSLEEP = Integer.parseInt(bossSettings.getProperty("LimitUntilSleep", "30"));
+            if(FWB_LIMITUNTILSLEEP < 30 || FWB_LIMITUNTILSLEEP > 90) FWB_LIMITUNTILSLEEP = 30;
+            FWB_LIMITUNTILSLEEP = FWB_LIMITUNTILSLEEP * 60000;
             
             //sailren
             FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayer", "False")); 
@@ -3233,14 +3237,16 @@ public final class Config
         	FWA_MOVEATRANDOM = Boolean.parseBoolean(pValue); 
 		 
 		// JP fight with Baium Custom Setting
-        else if (pName.equalsIgnoreCase("FixIntervalOfBaium")) 
-        	FWB_FIXINTERVALOFBAIUM = Integer.parseInt(pValue); 
-        else if (pName.equalsIgnoreCase("RandomIntervalOfBaium")) 
-        	FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(pValue); 
-        else if (pName.equalsIgnoreCase("ActivityTimeOfBaium")) 
-        	FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(pValue); 
-        else if (pName.equalsIgnoreCase("MoveAtRandom")) 
-        	FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue); 
+        else if (pName.equalsIgnoreCase("FixIntervalOfBaium"))
+        	FWB_FIXINTERVALOFBAIUM = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("RandomIntervalOfBaium"))
+        	FWB_RANDOMINTERVALOFBAIUM = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("ActivityTimeOfBaium"))
+        	FWB_ACTIVITYTIMEOFBAIUM = Integer.parseInt(pValue);
+        else if (pName.equalsIgnoreCase("MoveAtRandom"))
+        	FWB_MOVEATRANDOM = Boolean.parseBoolean(pValue);
+        else if (pName.equalsIgnoreCase("LimitUntilSleep"))
+        	FWB_LIMITUNTILSLEEP = Integer.parseInt(pValue);
 		 
 		// JP fight with Valakas Custom Setting
         else if (pName.equalsIgnoreCase("FixIntervalOfValakas")) 

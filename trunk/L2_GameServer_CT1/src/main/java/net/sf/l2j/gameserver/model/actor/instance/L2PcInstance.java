@@ -606,6 +606,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public String _teamNameTvT;
     public int _originalNameColorTvT,
                _countTvTkills,
+               _countTvTdies,
                _originalKarmaTvT;
     public boolean _inEventTvT = false;
    
@@ -4233,12 +4234,24 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
                     {
+                        _countTvTdies++;
                         ((L2PcInstance)killer)._countTvTkills++;
                         TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
                     }
                     else
-                        ((L2PcInstance)killer).sendMessage("You'r teamkiller !!! Teamkills not counting.");
-
+                    {
+                        ((L2PcInstance)killer).sendMessage("You are a teamkiller !!! Teamkills not allowed, you will get Deathpenalty and your Team will lost one Kill!");
+                        
+                        // Give Penalty for Team-Kill:
+                        // 1. Death Penalty + 5
+                        // 2. Team will lost 1 Kill
+                        if (((L2PcInstance)killer).getDeathPenaltyBuffLevel() < 10)
+                        {
+                        	((L2PcInstance)killer).setDeathPenaltyBuffLevel(((L2PcInstance)killer).getDeathPenaltyBuffLevel()+4);
+                        	((L2PcInstance)killer).increaseDeathPenaltyBuffLevel();
+                        }
+                    	TvT.setTeamKillsCount(_teamNameTvT, TvT.teamKillsCount(_teamNameTvT)-1);
+                    }
                     sendMessage("You will be revived and teleported to team spot in 20 seconds!");
                     ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
                     {
@@ -9510,7 +9523,11 @@ public final class L2PcInstance extends L2PlayableInstance
 	        		teleToLocation(TeleportWhereType.Town);
 				}
 				else
-	        		BaiumManager.getInstance().addPlayerToLair(this);
+				{
+					// Player can restart inside lair, but can not awake Baium.
+					if (getQuestState("baium") != null) getQuestState("baium").exitQuest(true);
+					BaiumManager.getInstance().addPlayerToLair(this);
+				}
     		}
 
     		// Lilith

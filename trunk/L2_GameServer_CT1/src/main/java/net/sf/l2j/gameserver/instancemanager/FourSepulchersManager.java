@@ -22,7 +22,7 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -72,11 +72,11 @@ public class FourSepulchersManager
     protected boolean _inAttackTime = false;
     protected boolean _inCoolDownTime = false;
 
-    protected Future<?> _changeCoolDownTimeTask = null;
-    protected Future<?> _changeEntryTimeTask = null; 
-    protected Future<?> _changeWarmUpTimeTask = null;
-    protected Future<?> _changeAttackTimeTask = null;
-    protected Future<?> _onPartyAnnihilatedTask = null;
+    protected ScheduledFuture<?> _changeCoolDownTimeTask = null;
+    protected ScheduledFuture<?> _changeEntryTimeTask = null; 
+    protected ScheduledFuture<?> _changeWarmUpTimeTask = null;
+    protected ScheduledFuture<?> _changeAttackTimeTask = null;
+    protected ScheduledFuture<?> _onPartyAnnihilatedTask = null;
      
     protected static Map<Integer,Integer> _hallGateKeepers = new FastMap<Integer,Integer>();
     
@@ -187,7 +187,7 @@ public class FourSepulchersManager
         loadEmperorsGraveMonsters();
         
         _changeCoolDownTimeTask =
-            ThreadPoolManager.getInstance().scheduleEffect(new ChangeCoolDownTime(),Config.FS_TIME_ATTACK * 60000);
+            ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(),Config.FS_TIME_ATTACK * 60000);
         
     }
 
@@ -1166,7 +1166,7 @@ public class FourSepulchersManager
     	if(isPartyAnnihilated(player))
     	{
     		_onPartyAnnihilatedTask =
-				ThreadPoolManager.getInstance().scheduleEffect(new OnPartyAnnihilatedTask(player),5000);    			
+				ThreadPoolManager.getInstance().scheduleGeneral(new OnPartyAnnihilatedTask(player),5000);    			
     	}
     }
 
@@ -1254,7 +1254,7 @@ public class FourSepulchersManager
             _inCoolDownTime = false;
             
             _changeWarmUpTimeTask =
-                ThreadPoolManager.getInstance().scheduleEffect(new ChangeWarmUpTime(),Config.FS_TIME_ENTRY * 60000);
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeWarmUpTime(),Config.FS_TIME_ENTRY * 60000);
 
             if(_changeEntryTimeTask != null)
             {
@@ -1275,7 +1275,7 @@ public class FourSepulchersManager
             _inCoolDownTime = false;
             
             _changeAttackTimeTask =
-                ThreadPoolManager.getInstance().scheduleEffect(new ChangeAttackTime(),Config.FS_TIME_WARMUP * 60000);
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeAttackTime(),Config.FS_TIME_WARMUP * 60000);
 
             if(_changeWarmUpTimeTask != null)
             {
@@ -1303,7 +1303,7 @@ public class FourSepulchersManager
             spawnMysteriousBox(31924);
             
             _changeCoolDownTimeTask =
-                ThreadPoolManager.getInstance().scheduleEffect(new ChangeCoolDownTime(),Config.FS_TIME_ATTACK * 60000);
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeCoolDownTime(),Config.FS_TIME_ATTACK * 60000);
 
             if(_changeAttackTimeTask != null)
             {
@@ -1357,7 +1357,7 @@ public class FourSepulchersManager
             }
             
             _changeEntryTimeTask = 
-                ThreadPoolManager.getInstance().scheduleEffect(new ChangeEntryTime(),Config.FS_TIME_COOLDOWN * 60000);
+                ThreadPoolManager.getInstance().scheduleGeneral(new ChangeEntryTime(),Config.FS_TIME_COOLDOWN * 60000);
 
             if(_changeCoolDownTimeTask != null)
             {

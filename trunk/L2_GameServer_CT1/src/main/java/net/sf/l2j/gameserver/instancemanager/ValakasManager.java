@@ -22,7 +22,7 @@ package net.sf.l2j.gameserver.instancemanager;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -49,7 +49,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * 
  * This class ...
- * control for sequence of figth with Valakas.
+ * control for sequence of fight against Valakas.
  * @version $Revision: $ $Date: $
  * @author  L2J_JP SANDMAN
  */
@@ -91,18 +91,18 @@ public class ValakasManager
     protected List<L2NpcInstance> _monsters = new FastList<L2NpcInstance>();
     
     // tasks.
-    protected Future<?> _cubeSpawnTask = null;
-    protected Future<?> _monsterSpawnTask = null;
-    protected Future<?> _intervalEndTask = null;
-    protected Future<?> _activityTimeEndTask = null;
-    protected Future<?> _onPlayersAnnihilatedTask = null;
-    protected Future<?> _socialTask = null;
-    protected Future<?> _mobiliseTask = null;
-    protected Future<?> _moveAtRandomTask = null;
-    protected Future<?> _respawnValakasTask = null;
+    protected ScheduledFuture<?> _cubeSpawnTask = null;
+    protected ScheduledFuture<?> _monsterSpawnTask = null;
+    protected ScheduledFuture<?> _intervalEndTask = null;
+    protected ScheduledFuture<?> _activityTimeEndTask = null;
+    protected ScheduledFuture<?> _onPlayersAnnihilatedTask = null;
+    protected ScheduledFuture<?> _socialTask = null;
+    protected ScheduledFuture<?> _mobiliseTask = null;
+    protected ScheduledFuture<?> _moveAtRandomTask = null;
+    protected ScheduledFuture<?> _respawnValakasTask = null;
     
     // status in lair.
-    protected GrandBossState _State = new GrandBossState(29028);
+    protected GrandBossState _state = new GrandBossState(29028);
     protected IZone  _zone;
     protected String _zoneName;
     protected String _questName;
@@ -194,13 +194,13 @@ public class ValakasManager
             _log.warn(e.getMessage());
         }
         
-        _log.info("ValakasManager : State of Valakas is " + _State.getState() + ".");
-        if (_State.getState().equals(GrandBossState.StateEnum.ALIVE))
+        _log.info("ValakasManager : State of Valakas is " + _state.getState() + ".");
+        if (_state.getState().equals(GrandBossState.StateEnum.ALIVE))
         	restartValakas();
-        else if (!_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
+        else if (!_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
         	setInetrvalEndTask();
 
-        Date dt = new Date(_State.getRespawnDate());
+        Date dt = new Date(_state.getRespawnDate());
         _log.info("ValakasManager : Next spawn date of Valakas is " + dt + ".");
         _log.info("ValakasManager : Init ValakasManager.");
     }
@@ -208,7 +208,7 @@ public class ValakasManager
     // return Valakas state.
     public GrandBossState.StateEnum getState()
     {
-    	return _State.getState();
+    	return _state.getState();
     }
 
     // return list of intruders.
@@ -229,7 +229,7 @@ public class ValakasManager
     {
     	if(_playersInLair.size() >= Config.FWV_CAPACITYOFLAIR) return false;
 
-    	if(_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
+    	if(_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))
     		return true;
     	else
     		return false;
@@ -287,7 +287,7 @@ public class ValakasManager
     	if(isPlayersAnnihilated())
     	{
     		_onPlayersAnnihilatedTask =
-				ThreadPoolManager.getInstance().scheduleEffect(new OnPlayersAnnihilatedTask(),5000);
+				ThreadPoolManager.getInstance().scheduleGeneral(new OnPlayersAnnihilatedTask(),5000);
     	}
     }
 
@@ -320,7 +320,7 @@ public class ValakasManager
 
     	if (_monsterSpawnTask == null)
         {
-    		_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(	new ValakasSpawn(1,null),Config.FWV_APPTIMEOFVALAKAS);
+    		_monsterSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(	new ValakasSpawn(1,null),Config.FWV_APPTIMEOFVALAKAS);
         }
     }
     
@@ -353,9 +353,9 @@ public class ValakasManager
 	            	
 	            	updateKnownList(_valakas);
 
-	            	_State.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS,Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS) + Config.FWV_ACTIVITYTIMEOFVALAKAS); 
-	            	_State.setState(GrandBossState.StateEnum.ALIVE);
-	            	_State.update();
+	            	_state.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS,Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS) + Config.FWV_ACTIVITYTIMEOFVALAKAS); 
+	            	_state.setState(GrandBossState.StateEnum.ALIVE);
+	            	_state.update();
 	    		
 					// set next task.
 		            if(_socialTask != null)
@@ -363,7 +363,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(2,_valakas), 16);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(2,_valakas), 16);
 	
 					break;
 	
@@ -392,7 +392,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(3,_valakas), 1500);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(3,_valakas), 1500);
 	
 					break;
 	
@@ -416,7 +416,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(4,_valakas), 3300);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(4,_valakas), 3300);
 	
 					break;
 	
@@ -440,7 +440,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(5,_valakas), 1300);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(5,_valakas), 1300);
 	
 					break;
 	
@@ -464,7 +464,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(6,_valakas), 1600);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(6,_valakas), 1600);
 	
 					break;
 	
@@ -488,7 +488,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(7,_valakas), 200);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(7,_valakas), 200);
 	
 					break;
 	
@@ -512,7 +512,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(8,_valakas), 5700);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(8,_valakas), 5700);
 	
 					break;
 	
@@ -536,7 +536,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(9,_valakas), 1400);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(9,_valakas), 1400);
 	
 					break;
 	
@@ -560,7 +560,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(10,_valakas), 6700);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(10,_valakas), 6700);
 	
 					break;
 	
@@ -584,7 +584,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(11,_valakas), 3700);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(11,_valakas), 3700);
 	
 					break;
 	
@@ -608,7 +608,7 @@ public class ValakasManager
 		            	_socialTask.cancel(true);
 		            	_socialTask = null;
 		            }
-					_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(12,_valakas), 2000);
+					_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new ValakasSpawn(12,_valakas), 2000);
 	
 					break;
 	
@@ -619,24 +619,24 @@ public class ValakasManager
 						pc.leaveMovieMode();
 					}
 
-					_mobiliseTask = ThreadPoolManager.getInstance().scheduleEffect(new SetMobilised(_valakas),16);
+					_mobiliseTask = ThreadPoolManager.getInstance().scheduleGeneral(new SetMobilised(_valakas),16);
 	
 	                // move at random.
 	                if(Config.FWV_MOVEATRANDOM)
 	                {
 	                	L2CharPosition pos = new L2CharPosition(Rnd.get(211080, 214909),Rnd.get(-115841, -112822),-1662,0);
-	                	_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleEffect(new MoveAtRandom(_valakas,pos),32);
+	                	_moveAtRandomTask = ThreadPoolManager.getInstance().scheduleGeneral(new MoveAtRandom(_valakas,pos),32);
 	                }
 	                
 	                // set delete task.
-	                _activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(),Config.FWV_ACTIVITYTIMEOFVALAKAS);
+	                _activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(),Config.FWV_ACTIVITYTIMEOFVALAKAS);
 	
 					break;
     		}
     	}
     }
 
-    // at end of activitiy time.
+    // at end of activity time.
     private class ActivityTimeEnd implements Runnable
     {
     	public ActivityTimeEnd()
@@ -646,12 +646,6 @@ public class ValakasManager
     	public void run()
     	{
     		setUnspawn();
-    		
-    		if(_activityTimeEndTask != null)
-    		{
-    			_activityTimeEndTask.cancel(true);
-    			_activityTimeEndTask = null;
-    		}
     	}
     }
     
@@ -733,14 +727,14 @@ public class ValakasManager
     public void setInetrvalEndTask()
     {
     	//init state of Valakas's lair.
-    	if (!_State.getState().equals(GrandBossState.StateEnum.INTERVAL))
+    	if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
     	{
-    		_State.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS,Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS));
-    		_State.setState(GrandBossState.StateEnum.INTERVAL);
-    		_State.update();
+    		_state.setRespawnDate(Rnd.get(Config.FWV_FIXINTERVALOFVALAKAS,Config.FWV_FIXINTERVALOFVALAKAS + Config.FWV_RANDOMINTERVALOFVALAKAS));
+    		_state.setState(GrandBossState.StateEnum.INTERVAL);
+    		_state.update();
     	}
 
-    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(new IntervalEnd(),_State.getInterval());
+    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(),_state.getInterval());
     }
 
     // at end of interval.
@@ -753,14 +747,8 @@ public class ValakasManager
     	public void run()
     	{
     		_playersInLair.clear();
-    		_State.setState(GrandBossState.StateEnum.NOTSPAWN);
-    		_State.update();
-
-    		if(_intervalEndTask != null)
-    		{
-    			_intervalEndTask.cancel(true);
-    			_intervalEndTask = null;
-    		}
+    		_state.setState(GrandBossState.StateEnum.NOTSPAWN);
+    		_state.update();
     	}
     }
     
@@ -768,10 +756,10 @@ public class ValakasManager
     public void setCubeSpawn()
     {
     	//init state of Valakas's lair.
-    	_State.setState(GrandBossState.StateEnum.DEAD);
-    	_State.update();
+    	_state.setState(GrandBossState.StateEnum.DEAD);
+    	_state.update();
 
-    	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000);
+    	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new CubeSpawn(),10000);
 
     }
     
@@ -842,33 +830,17 @@ public class ValakasManager
     //when a server restart while fight against Valakas.
     protected void restartValakas()
     {
-    	//      L2BossInstance valakas = null;
-    	//      // do spawn.
-    	//      L2Spawn valakasSpawn = _monsterSpawn.get(29028);
-    	//      valakas = (L2BossInstance)valakasSpawn.doSpawn();
-    	//      _monsters.add(valakas);
-    	//      valakas.setIsImobilised(true);
-    	//      valakas.setIsInSocialAction(true);
-    	//      
-    	//      // set next task.
-    	//        if(_socialTask != null)
-    	//        {
-    	//              _socialTask.cancel(true);
-    	//              _socialTask = null;
-    	//        }
-    	//              _socialTask = ThreadPoolManager.getInstance().scheduleEffect(new ValakasSpawn(2,valakas), Config.TIMELIMITOFINVADE + 1000);
-    	//      
-    	        L2Spawn valakasSpawn = _monsterSpawn.get(32123);
-    	        L2NpcInstance valakas = valakasSpawn.doSpawn();
+    	L2Spawn valakasSpawn = _monsterSpawn.get(32123);
+    	L2NpcInstance valakas = valakasSpawn.doSpawn();
     	_monsters.add(valakas);
 
     	// set next task.
         if(_respawnValakasTask != null)
         {
-                _respawnValakasTask.cancel(true);
-                _respawnValakasTask = null;
+        	_respawnValakasTask.cancel(true);
+        	_respawnValakasTask = null;
         }
-        _respawnValakasTask = ThreadPoolManager.getInstance().scheduleEffect(new RestartValakas(valakas), Config.TIMELIMITOFINVADE + 1000);
+        _respawnValakasTask = ThreadPoolManager.getInstance().scheduleGeneral(new RestartValakas(valakas), Config.TIMELIMITOFINVADE + 1000);
     }
     
     private class RestartValakas implements Runnable
@@ -890,7 +862,7 @@ public class ValakasManager
                 	_monsterSpawnTask.cancel(true);
                 	_monsterSpawnTask = null;
             }
-                _monsterSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(     new ValakasSpawn(1,null),15000);
+                _monsterSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(     new ValakasSpawn(1,null),15000);
         }
     }
 }

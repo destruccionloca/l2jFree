@@ -57,12 +57,6 @@ public final class L2BossInstance extends L2MonsterInstance
     protected static final int NurseAntRespawnDelay = Config.NURSEANT_RESPAWN_DELAY;
 
     protected Future<?> minionMaintainTask = null;
-
-    protected L2PcInstance _TargetForKill = null;
-    public void setTargetForKill(L2PcInstance Target)
-    {
-    	_TargetForKill = Target;
-    }
     
     protected boolean _isInSocialAction = false;
     
@@ -279,6 +273,19 @@ public final class L2BossInstance extends L2MonsterInstance
             	_minionMaintainTask = null;
             }
         }
+    }
+    @Override
+    public void doAttack(L2Character target)
+    {
+    	if(_isInSocialAction) return;
+    	else super.doAttack(target);
+    }
+
+    @Override
+    public void doCast(L2Skill skill)
+    {
+    	if(_isInSocialAction) return;
+    	else super.doCast(skill);
     }
     // [L2J_JP ADD END SANDMAN]
 }

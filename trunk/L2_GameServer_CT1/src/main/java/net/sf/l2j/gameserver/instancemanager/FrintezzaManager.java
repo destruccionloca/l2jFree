@@ -107,7 +107,7 @@ public class FrintezzaManager
 	protected int						_activityTimeOfBoss;
 	
 	// list of intruders.
-	protected List<L2PcInstance>		_PlayersInLair	= new FastList<L2PcInstance>();
+	protected List<L2PcInstance>		_playersInLair	= new FastList<L2PcInstance>();
 	
 	// lists of last saved positions <objectId, location>
 	protected Map<Integer, Point3D>		_lastLocation	= new FastMap<Integer, Point3D>();
@@ -178,7 +178,7 @@ public class FrintezzaManager
 		
 		_isIntervalForNextSpawn = false;
 		
-		_PlayersInLair.clear();
+		_playersInLair.clear();
 		
 		// setting spawn data of monsters.
 		try
@@ -291,7 +291,7 @@ public class FrintezzaManager
 	public List<L2PcInstance> getPlayersInLair()
 	{
 		
-		return _PlayersInLair;
+		return _playersInLair;
 		
 	}
 	
@@ -326,8 +326,8 @@ public class FrintezzaManager
 	public void addPlayerToLair(L2PcInstance pc)
 	{
 		
-		if (!_PlayersInLair.contains(pc))
-			_PlayersInLair.add(pc);
+		if (!_playersInLair.contains(pc))
+			_playersInLair.add(pc);
 		
 	}
 	
@@ -338,7 +338,7 @@ public class FrintezzaManager
 	public synchronized boolean isPlayersAnnihilated()
 	{
 		
-		for (L2PcInstance pc : _PlayersInLair)
+		for (L2PcInstance pc : _playersInLair)
 		{
 			
 			// player is must be alive and stay inside of lair.
@@ -358,10 +358,10 @@ public class FrintezzaManager
 	
 	public void banishesPlayers()
 	{
-		if (_PlayersInLair == null || _PlayersInLair.isEmpty())
+		if (_playersInLair == null || _playersInLair.isEmpty())
 			return;
 		
-		for (L2PcInstance pc : _PlayersInLair)
+		for (L2PcInstance pc : _playersInLair)
 		{
 			if (pc.getQuestState(_questName) != null)
 				pc.getQuestState(_questName).exitQuest(true);
@@ -376,7 +376,7 @@ public class FrintezzaManager
 			}
 		}
 		
-		_PlayersInLair.clear();
+		_playersInLair.clear();
 	}
 	
 	/**
@@ -438,7 +438,7 @@ public class FrintezzaManager
 	public void setScarletSpawnTask()
 	{
 		// When someone has already invaded the lair, nothing is done.
-		if (_PlayersInLair.size() >= 1 || _isIntervalForNextSpawn)
+		if (_playersInLair.size() >= 1 || _isIntervalForNextSpawn)
 			return;
 		
 		if (_monsterSpawnTask == null)
@@ -475,11 +475,11 @@ public class FrintezzaManager
 		
 		updateKnownList(target);
 		
-		if (_PlayersInLair == null || _PlayersInLair.isEmpty())
+		if (_playersInLair == null || _playersInLair.isEmpty())
 			return;
 		
 		// set camera.
-		for (L2PcInstance pc : _PlayersInLair)
+		for (L2PcInstance pc : _playersInLair)
 		{
 			
 			setIdle(pc);
@@ -538,12 +538,12 @@ public class FrintezzaManager
 		
 		Point3D p = new Point3D(174233, -88212, -5116);
 		
-		for (L2PcInstance pc : _PlayersInLair)
+		for (L2PcInstance pc : _playersInLair)
 		{
 			
 			if (pc == null)
 			{
-				_PlayersInLair.remove(pc);
+				_playersInLair.remove(pc);
 				continue;
 			}
 			
@@ -566,18 +566,18 @@ public class FrintezzaManager
 	private void teleportToFinish()
 	{
 		
-		if (_lastLocation == null || _lastLocation.isEmpty() || _PlayersInLair == null)
+		if (_lastLocation == null || _lastLocation.isEmpty() || _playersInLair == null)
 			return;
 		
 		else
 		{
 			
-			for (L2PcInstance pc : _PlayersInLair)
+			for (L2PcInstance pc : _playersInLair)
 			{
 				
 				if (pc == null)
 				{
-					_PlayersInLair.remove(pc);
+					_playersInLair.remove(pc);
 					continue;
 				}
 				
@@ -725,7 +725,7 @@ public class FrintezzaManager
 					
 					Earthquake eq = new Earthquake(weakScarlet.getX(), weakScarlet.getY(), weakScarlet.getZ(), 50, 6);
 					
-					for (L2PcInstance pc : _PlayersInLair)
+					for (L2PcInstance pc : _playersInLair)
 						pc.broadcastPacket(eq);
 					
 					break;
@@ -764,7 +764,7 @@ public class FrintezzaManager
 				case 17:
 
 					// show movie
-					for (L2PcInstance pc : _PlayersInLair)
+					for (L2PcInstance pc : _playersInLair)
 					{
 						pc.setTarget(null);
 						
@@ -849,7 +849,7 @@ public class FrintezzaManager
 				case 32:
 
 					// reset camera.
-					for (L2PcInstance pc : _PlayersInLair)
+					for (L2PcInstance pc : _playersInLair)
 					{
 						pc.leaveMovieMode();
 						pc.enableAllSkills();
@@ -1024,7 +1024,7 @@ public class FrintezzaManager
 			// Target is the players
 			{
 				
-				for (L2PcInstance pc : _PlayersInLair)
+				for (L2PcInstance pc : _playersInLair)
 				{
 					
 					if (pc == null /* || pc.isInvul() || pc.getAppearance().getInvisible() */)
@@ -1743,8 +1743,8 @@ public class FrintezzaManager
 					
 					_mob.setTarget(mostHated);
 					
-					if (mostHated instanceof L2PcInstance && !_PlayersInLair.contains((L2PcInstance) mostHated))
-						_PlayersInLair.add((L2PcInstance) mostHated);
+					if (mostHated instanceof L2PcInstance && !_playersInLair.contains((L2PcInstance) mostHated))
+						_playersInLair.add((L2PcInstance) mostHated);
 					
 				}
 				
@@ -2020,7 +2020,7 @@ public class FrintezzaManager
 			
 			updateKnownList(_mob);
 			
-			L2Character target = _PlayersInLair.get(Rnd.get(_PlayersInLair.size()));
+			L2Character target = _playersInLair.get(Rnd.get(_playersInLair.size()));
 			_mob.setTarget(target);
 			
 			L2CharPosition pos = new L2CharPosition(target.getX(), target.getY(), target.getZ(), 0);
@@ -2140,7 +2140,7 @@ public class FrintezzaManager
 	}
 	
 	/**
-	 * Receives a target and a list of players in _PlayersInLair that should target this target
+	 * Receives a target and a list of players in _playersInLair that should target this target
 	 * 
 	 * @param target
 	 *            L2Character
@@ -2159,7 +2159,7 @@ public class FrintezzaManager
 		su.addAttribute(StatusUpdate.MAX_HP, target.getMaxHp());
 		
 		// set the target again on the players that targeted this _caster
-		for (L2PcInstance pc : _PlayersInLair)
+		for (L2PcInstance pc : _playersInLair)
 		{
 			if (pc != null && targeted[count])
 			{
@@ -2175,7 +2175,7 @@ public class FrintezzaManager
 	}
 	
 	/**
-	 * Receives a target and returns the _PlayersInLair that target this target
+	 * Receives a target and returns the _playersInLair that target this target
 	 * 
 	 * @param target
 	 *            L2Object
@@ -2184,11 +2184,11 @@ public class FrintezzaManager
 	
 	private boolean[] getTargeted(L2Object target)
 	{
-		boolean[] targeted = new boolean[_PlayersInLair.size()];
+		boolean[] targeted = new boolean[_playersInLair.size()];
 		int count = 0;
 		
 		// get the players that targeted this _caster
-		for (L2PcInstance pc : _PlayersInLair)
+		for (L2PcInstance pc : _playersInLair)
 		{
 			if (pc == null || (pc != null && pc.getTarget() != target))
 				targeted[count] = false;
@@ -2272,7 +2272,7 @@ public class FrintezzaManager
 		mobilise.setTask(_mobiliseTask);
 		
 		// reset camera.
-		for (L2PcInstance pc : _PlayersInLair)
+		for (L2PcInstance pc : _playersInLair)
 		{
 			pc.leaveMovieMode();
 			pc.enableAllSkills();
@@ -2389,9 +2389,9 @@ public class FrintezzaManager
 			// removes the task that called this process
 			_task = cancelTask(_task);
 			
-			if (_mob == null || _mob.isDead() || _PlayersInLair == null || _PlayersInLair.isEmpty())
+			if (_mob == null || _mob.isDead() || _playersInLair == null || _playersInLair.isEmpty())
 			{
-				if (bossesAreDead() || _PlayersInLair == null || _PlayersInLair.isEmpty())
+				if (bossesAreDead() || _playersInLair == null || _playersInLair.isEmpty())
 				{
 					// Unspawn in 20 seconds...
 					doUnspawn();
@@ -2405,12 +2405,12 @@ public class FrintezzaManager
 			{
 				try
 				{
-					int index = Rnd.get(_PlayersInLair.size());
+					int index = Rnd.get(_playersInLair.size());
 					
-					if (_PlayersInLair.get(index) == null)
-						_PlayersInLair.remove(index);
+					if (_playersInLair.get(index) == null)
+						_playersInLair.remove(index);
 					
-					_mob.setTarget(_PlayersInLair.get(index));
+					_mob.setTarget(_playersInLair.get(index));
 				}
 				catch (Throwable t)
 				{
@@ -2632,8 +2632,8 @@ public class FrintezzaManager
 			else if (checkIfInZone(pc))
 			{
 				// add the player to the list
-				if (!_PlayersInLair.contains(pc))
-					_PlayersInLair.add(pc);
+				if (!_playersInLair.contains(pc))
+					_playersInLair.add(pc);
 				
 				// add the player to the mob known list
 				if (!boss.getKnownList().getKnownPlayers().containsValue(pc))
@@ -2645,10 +2645,10 @@ public class FrintezzaManager
 			}
 		}
 		
-		for (L2PcInstance pc : _PlayersInLair)
+		for (L2PcInstance pc : _playersInLair)
 		{
 			if (!checkIfInZone(pc))
-				_PlayersInLair.remove(pc);
+				_playersInLair.remove(pc);
 		}
 	}
 	

@@ -17,9 +17,11 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
+import java.util.logging.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
 
@@ -40,6 +42,8 @@ public class GrandBossState
     private int _bossId;
     private long _respawnDate;
     private StateEnum _state;
+    
+    protected static Logger _log = Logger.getLogger(GrandBossState.class.getName());
 
     public int getBossId()
     {
@@ -91,7 +95,7 @@ public class GrandBossState
     public void load()
     {
 
-    	java.sql.Connection con = null;
+    	Connection con = null;
     	
     	try
     	{
@@ -139,7 +143,7 @@ public class GrandBossState
     
     public void save()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -163,7 +167,7 @@ public class GrandBossState
 
     public void update()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
@@ -174,6 +178,7 @@ public class GrandBossState
             statement.setInt(3, _bossId);
             statement.executeUpdate();
             statement.close();
+            _log.info("update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString());
         }
         catch (Exception e)
         {

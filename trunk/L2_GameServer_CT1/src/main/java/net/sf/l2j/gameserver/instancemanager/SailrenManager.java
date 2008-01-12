@@ -22,7 +22,7 @@ package net.sf.l2j.gameserver.instancemanager;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledFuture;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
@@ -80,15 +80,15 @@ public class SailrenManager
     protected L2NpcInstance _sailren;		// Sailren
     
     // Tasks
-    protected Future<?> _cubeSpawnTask = null;
-    protected Future<?> _sailrenSpawnTask = null;
-    protected Future<?> _intervalEndTask = null;
-    protected Future<?> _activityTimeEndTask = null;
-    protected Future<?> _onPartyAnnihilatedTask = null;
-    protected Future<?> _socialTask = null;
+    protected ScheduledFuture<?> _cubeSpawnTask = null;
+    protected ScheduledFuture<?> _sailrenSpawnTask = null;
+    protected ScheduledFuture<?> _intervalEndTask = null;
+    protected ScheduledFuture<?> _activityTimeEndTask = null;
+    protected ScheduledFuture<?> _onPartyAnnihilatedTask = null;
+    protected ScheduledFuture<?> _socialTask = null;
     
     // State of sailren's lair.
-    protected GrandBossState _State = new GrandBossState(29065);
+    protected GrandBossState _state = new GrandBossState(29065);
     protected boolean _isAlreadyEnteredOtherParty = false;
 
     protected IZone  _zone;
@@ -194,11 +194,11 @@ public class SailrenManager
             _log.warn(e.getMessage());
         }
         
-        _log.info("SailrenManager : State of Sailren is " + _State.getState() + ".");  
-        if (!_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
+        _log.info("SailrenManager : State of Sailren is " + _state.getState() + ".");  
+        if (!_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN))  
         	setIntervalEndTask();
 
-        Date dt = new Date(_State.getRespawnDate());  
+        Date dt = new Date(_state.getRespawnDate());  
         _log.info("SailrenManager : Next spawn date of Sailren is " + dt + ".");  
         _log.info("SailrenManager : Init SailrenManager.");  
     }  
@@ -206,7 +206,7 @@ public class SailrenManager
     // return Sailren state.  
     public GrandBossState.StateEnum getState()  
     {  
-    	return _State.getState();
+    	return _state.getState();
     }
 
     // getting list of players in sailren's lair.
@@ -227,9 +227,9 @@ public class SailrenManager
     {
     	if ((Config.FWS_ENABLESINGLEPLAYER == false) && (pc.getParty() == null)) return 4;  
     	else if (_isAlreadyEnteredOtherParty) return 2;  
-    	else if (_State.getState().equals(GrandBossState.StateEnum.NOTSPAWN)) return 0;  
-    	else if (_State.getState().equals(GrandBossState.StateEnum.ALIVE) || _State.getState().equals(GrandBossState.StateEnum.DEAD) ) return 1;  
-    	else if (_State.getState().equals(GrandBossState.StateEnum.INTERVAL)) return 3;  
+    	else if (_state.getState().equals(GrandBossState.StateEnum.NOTSPAWN)) return 0;  
+    	else if (_state.getState().equals(GrandBossState.StateEnum.ALIVE) || _state.getState().equals(GrandBossState.StateEnum.DEAD) ) return 1;  
+    	else if (_state.getState().equals(GrandBossState.StateEnum.INTERVAL)) return 3;  
     	else return 0; 
 
     }
@@ -241,7 +241,7 @@ public class SailrenManager
 
     	if (_sailrenSpawnTask == null)
         {
-        	_sailrenSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new SailrenSpawn(NpcId),Config.FWS_INTERVALOFNEXTMONSTER);
+        	_sailrenSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new SailrenSpawn(NpcId),Config.FWS_INTERVALOFNEXTMONSTER);
         }
     }
 
@@ -300,7 +300,7 @@ public class SailrenManager
     	if(isPartyAnnihilated(pc))
     	{
     		_onPartyAnnihilatedTask =
-				ThreadPoolManager.getInstance().scheduleEffect(new OnPartyAnnihilatedTask(pc),5000);    			
+				ThreadPoolManager.getInstance().scheduleGeneral(new OnPartyAnnihilatedTask(pc),5000);
     	}
     }
 
@@ -396,24 +396,24 @@ public class SailrenManager
     // task of teleport cube spawn.
     public void setCubeSpawn()
     {
-    	_State.setState(GrandBossState.StateEnum.DEAD);  
-    	_State.update();  
+    	_state.setState(GrandBossState.StateEnum.DEAD);  
+    	_state.update();  
 
-    	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleEffect(new CubeSpawn(),10000); 
+    	_cubeSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new CubeSpawn(),10000); 
 
     }
     
     // task of interval of sailren spawn.
     public void setIntervalEndTask()
     {
-    	if (!_State.getState().equals(GrandBossState.StateEnum.INTERVAL))  
+    	if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))  
     	{  
-    		_State.setRespawnDate(Rnd.get(Config.FWS_FIXINTERVALOFSAILRENSPAWN,Config.FWS_FIXINTERVALOFSAILRENSPAWN + Config.FWS_RANDOMINTERVALOFSAILRENSPAWN));  
-    		_State.setState(GrandBossState.StateEnum.INTERVAL);  
-    		_State.update();  
+    		_state.setRespawnDate(Rnd.get(Config.FWS_FIXINTERVALOFSAILRENSPAWN,Config.FWS_FIXINTERVALOFSAILRENSPAWN + Config.FWS_RANDOMINTERVALOFSAILRENSPAWN));  
+    		_state.setState(GrandBossState.StateEnum.INTERVAL);  
+    		_state.update();  
     	}  
 
-    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleEffect(new IntervalEnd(),_State.getInterval());
+    	_intervalEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new IntervalEnd(),_state.getInterval());
     }
 
     // update knownlist.
@@ -448,13 +448,13 @@ public class SailrenManager
             			_socialTask.cancel(true);
             			_socialTask = null;
             		}
-            		_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(_velociraptor,2),6000);
+            		_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_velociraptor,2),6000);
             		if(_activityTimeEndTask != null)
             		{
             			_activityTimeEndTask.cancel(true);
             			_activityTimeEndTask = null;
             		}
-            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_velociraptor),Config.FWS_ACTIVITYTIMEOFMOBS);
+            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_velociraptor),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
             	case 22199:		// Pterosaur
             		_velociraptorSpawn.stopRespawn();
@@ -465,13 +465,13 @@ public class SailrenManager
             			_socialTask.cancel(true);
             			_socialTask = null;
             		}
-            		_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(_pterosaur,2),6000);
+            		_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_pterosaur,2),6000);
             		if(_activityTimeEndTask != null)
             		{
             			_activityTimeEndTask.cancel(true);
             			_activityTimeEndTask = null;
             		}
-            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_pterosaur),Config.FWS_ACTIVITYTIMEOFMOBS);
+            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_pterosaur),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
             	case 22217:		// Tyrannosaurus
             		_pterosaurSpawn.stopRespawn();
@@ -482,21 +482,21 @@ public class SailrenManager
             			_socialTask.cancel(true);
             			_socialTask = null;
             		}
-            		_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(_tyranno,2),6000);
+            		_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_tyranno,2),6000);
             		if(_activityTimeEndTask != null)
             		{
             			_activityTimeEndTask.cancel(true);
             			_activityTimeEndTask = null;
             		}
-            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_tyranno),Config.FWS_ACTIVITYTIMEOFMOBS);
+            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_tyranno),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
             	case 29065:		// Sailren
             		_tyrannoSpawn.stopRespawn();
             		_sailren = _sailrenSapwn.doSpawn();
             		
-            		_State.setRespawnDate(Rnd.get(Config.FWS_FIXINTERVALOFSAILRENSPAWN,Config.FWS_FIXINTERVALOFSAILRENSPAWN + Config.FWS_RANDOMINTERVALOFSAILRENSPAWN) + Config.FWS_ACTIVITYTIMEOFMOBS);  
-            		_State.setState(GrandBossState.StateEnum.ALIVE);  
-            		_State.update(); 
+            		_state.setRespawnDate(Rnd.get(Config.FWS_FIXINTERVALOFSAILRENSPAWN,Config.FWS_FIXINTERVALOFSAILRENSPAWN + Config.FWS_RANDOMINTERVALOFSAILRENSPAWN) + Config.FWS_ACTIVITYTIMEOFMOBS);  
+            		_state.setState(GrandBossState.StateEnum.ALIVE);  
+            		_state.update(); 
 
             		_sailren.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
             		if(_socialTask != null)
@@ -504,13 +504,13 @@ public class SailrenManager
             			_socialTask.cancel(true);
             			_socialTask = null;
             		}
-            		_socialTask = ThreadPoolManager.getInstance().scheduleEffect(new Social(_sailren,2),6000);
+            		_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_sailren,2),6000);
             		if(_activityTimeEndTask != null)
             		{
             			_activityTimeEndTask.cancel(true);
             			_activityTimeEndTask = null;
             		}
-            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleEffect(new ActivityTimeEnd(_sailren),Config.FWS_ACTIVITYTIMEOFMOBS);
+            		_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_sailren),Config.FWS_ACTIVITYTIMEOFMOBS);
             		break;
             	default:
             		break;
@@ -568,15 +568,9 @@ public class SailrenManager
     	
     	public void run()
     	{
-    		_playersInSailrenLair.clear();  
-    		_State.setState(GrandBossState.StateEnum.NOTSPAWN);  
-    		_State.update(); 
-
-    		if(_intervalEndTask != null)
-    		{
-    			_intervalEndTask.cancel(true);
-    			_intervalEndTask = null;
-    		}
+    		_playersInSailrenLair.clear();
+    		_state.setState(GrandBossState.StateEnum.NOTSPAWN);
+    		_state.update();
     	}
     }
     
@@ -593,13 +587,6 @@ public class SailrenManager
 		public void run()
 		{
 			setUnspawn();
-			
-            if(_onPartyAnnihilatedTask != null)
-            {
-            	_onPartyAnnihilatedTask.cancel(true);
-            	_onPartyAnnihilatedTask = null;
-            }
-			
 		}
 	}
 
@@ -612,21 +599,15 @@ public class SailrenManager
         public Social(L2NpcInstance npc,int actionId)
         {
         	_npc = npc;
-            _action = actionId;
+        	_action = actionId;
         }
 
         public void run()
         {
         	updateKnownList(_npc);
-
-    		SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
-            _npc.broadcastPacket(sa);
-
-            if(_socialTask != null)
-    		{
-    			_socialTask.cancel(true);
-    			_socialTask = null;
-    		}
+        	
+        	SocialAction sa = new SocialAction(_npc.getObjectId(), _action);
+        	_npc.broadcastPacket(sa);
         }
     }
 }
