@@ -18,14 +18,9 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-/**
- * This class ...
- * 
- * @version $Revision: 1.1.6.2 $ $Date: 2005/03/27 15:29:39 $
- */
 public class PlaySound extends L2GameServerPacket
 {
-    private static final String _S__98_PlaySound = "[S] 98 PlaySound";
+    private static final String _S__9E_PlaySound = "[S] 9E PlaySound [dSddddd]";
     private int _unknown1;
     private String _soundFile;
     private int _unknown3;
@@ -59,7 +54,7 @@ public class PlaySound extends L2GameServerPacket
     @Override
     protected final void writeImpl()
     {
-        writeC(0x98);
+        writeC(0x9e);
         writeD(_unknown1);              //unknown 0 for quest and ship;
         writeS(_soundFile);
         writeD(_unknown3);              //unknown 0 for quest; 1 for ship;
@@ -75,6 +70,6 @@ public class PlaySound extends L2GameServerPacket
     @Override
     public String getType()
     {
-        return _S__98_PlaySound;
+        return _S__9E_PlaySound;
     }
 }
