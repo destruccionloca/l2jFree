@@ -274,26 +274,26 @@ public class EnterWorld extends L2GameClientPacket
         if (Config.SHOW_L2J_LICENSE)
         {
         	sm = new SystemMessage(SystemMessageId.S2_S1);
-	        sm.addString(getText("VGhpcyBTZXJ2ZXIgaXMgcnVubmluZyBMMko="));
             sm.addString(getText("IHZlcnNpb24gNiBkZXYvdW5zdGFibGU="));
+	        sm.addString(getText("VGhpcyBTZXJ2ZXIgaXMgcnVubmluZyBMMko="));
 	        sendPacket(sm);
 	        sm = new SystemMessage(SystemMessageId.S2_S1);
-	        sm.addString(getText("Y3JlYXRlZCBieSBMMkNoZWYgYW5kIHRoZQ=="));
 	        sm.addString(getText("IEwySiB0ZWFtLg=="));
+	        sm.addString(getText("Y3JlYXRlZCBieSBMMkNoZWYgYW5kIHRoZQ=="));
 	        sendPacket(sm);
 	        sm = new SystemMessage(SystemMessageId.S2_S1);
-	        sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 	        sm.addString(getText("ICBmb3Igc3VwcG9ydC4="));
+	        sm.addString(getText("dmlzaXQgbDJqc2VydmVyLmNvbQ=="));
 	        sendPacket(sm);
         
             VersionningService versionningService = (VersionningService)L2Registry.getBean(IServiceRegistry.VERSIONNING);
             Version version = versionningService.getVersion();
             if (version!= null)
 	        {
-	            sm = new SystemMessage(SystemMessageId.S2_S1);
+	            sm = new SystemMessage(SystemMessageId.S1);
 	            sm.addString(getText("TDJKIFNlcnZlciBWZXJzaW9uOg==")+"   "+version.getRevisionNumber());
 	            sendPacket(sm);
-	            sm = new SystemMessage(SystemMessageId.S2_S1);
+	            sm = new SystemMessage(SystemMessageId.S1);
 	            sm.addString(getText("TDJKIFNlcnZlciBCdWlsZCBEYXRlOg==")+" "+version.getBuildDate());
 	            sendPacket(sm);
 	        }
@@ -344,12 +344,11 @@ public class EnterWorld extends L2GameClientPacket
 
         if(Config.ONLINE_PLAYERS_AT_STARTUP)
         {
-             sm = new SystemMessage(SystemMessageId.S2_S1);
+             sm = new SystemMessage(SystemMessageId.S1);
              if (L2World.getInstance().getAllPlayers().size() == 1)
-                 sm.addString("Player online: ");
+                 sm.addString("Player online: "+L2World.getInstance().getAllPlayers().size());
              else
-                 sm.addString("Players online: ");
-             sm.addNumber(L2World.getInstance().getAllPlayers().size());
+                 sm.addString("Players online: "+L2World.getInstance().getAllPlayers().size());
              sendPacket(sm);
         }
 
@@ -415,7 +414,7 @@ public class EnterWorld extends L2GameClientPacket
         if (Olympiad.getInstance().playerInStadia(activeChar))
         {
             activeChar.teleToLocation(TeleportWhereType.Town);
-            activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadia");
+            activeChar.sendMessage("You have been teleported to the nearest town due to you being in an Olympiad Stadium.");
         }
 
         if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
@@ -478,32 +477,32 @@ public class EnterWorld extends L2GameClientPacket
         if(Config.GAMEGUARD_ENFORCE)
         {
             GameGuardQuery ggq = new GameGuardQuery();
-        	activeChar.sendPacket(ggq);
+            activeChar.sendPacket(ggq);
         }
         
         if (TvT._savePlayers.contains(activeChar.getName()))
            TvT.addDisconnectedPlayer(activeChar);
 
         if (FortressSiege._savePlayers.contains(activeChar.getName()))
-        	FortressSiege.addDisconnectedPlayer(activeChar);
+            FortressSiege.addDisconnectedPlayer(activeChar);
 
-    	if (CTF._savePlayers.contains(activeChar.getName()))
-    	    CTF.addDisconnectedPlayer(activeChar);
+        if (CTF._savePlayers.contains(activeChar.getName()))
+            CTF.addDisconnectedPlayer(activeChar);
         
         if (DM._savePlayers.contains(activeChar.getName()))
             DM.addDisconnectedPlayer(activeChar);
 
         QuestList ql = new QuestList();
         activeChar.sendPacket(ql);
-        
+
         ExBasicActionList ba = new ExBasicActionList();
         activeChar.sendPacket(ba);
         
         if(activeChar.isCursedWeaponEquiped())
         {
-			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquipedId()).transform();
+            CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquipedId()).transform();
         }
-	}
+    }
 
 
     /**

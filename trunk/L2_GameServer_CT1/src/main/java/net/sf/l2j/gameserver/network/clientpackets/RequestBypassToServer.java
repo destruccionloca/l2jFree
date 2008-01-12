@@ -270,7 +270,9 @@ public class RequestBypassToServer extends L2GameClientPacket
                 else
                     player.processQuestEvent(p.substring(0, idx), p.substring(idx).trim());
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             _log.warn("Bad RequestBypassToServer: ", e);
         }
 //      finally

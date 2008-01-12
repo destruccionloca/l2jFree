@@ -108,7 +108,7 @@ public class Announcements implements AnnouncementsMBean
 			
 			if (validDateRange.isValid() && validDateRange.isWithinRange(currentDate))
 			{
-				SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 				for (String element : msg)
 				{
 					sm.addString(element);

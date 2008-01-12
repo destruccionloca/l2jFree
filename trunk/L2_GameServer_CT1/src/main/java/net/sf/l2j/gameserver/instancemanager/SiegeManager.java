@@ -106,7 +106,7 @@ public class SiegeManager
         Siege siege = SiegeManager.getInstance().getSiege(player);
         Castle castle = (siege == null) ? null : siege.getCastle();
 
-        SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
+        SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 
         if (clan == null || clan.getLeaderId() != player.getObjectId())
             sm.addString("You must be a clan leader to place a flag.");
@@ -142,10 +142,10 @@ public class SiegeManager
         // get siege battleground
         Siege siege = SiegeManager.getInstance().getSiege(player);
 
-        SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
+        SystemMessage sm = new SystemMessage(SystemMessageId.S1);
         
         if (FortressSiege._started && ((L2PcInstance)activeChar)._inEventFOS && ((L2PcInstance)activeChar)._teamNameFOS.equals(FortressSiege._teams.get(0)) && activeChar.isInsideRadius(FortressSiege.eventCenterX, FortressSiege.eventCenterY, 10000, false))
-        	return true;
+            return true;
         if (siege == null)
             sm.addString("You must be on castle ground to summon this.");
         else if (!siege.getIsInProgress())
@@ -179,7 +179,7 @@ public class SiegeManager
         // get siege battleground
         Siege siege = SiegeManager.getInstance().getSiege(player);
 
-        SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1);
+        SystemMessage sm = new SystemMessage(SystemMessageId.S1);
 
         if (siege == null)
             sm.addString("You must be on castle ground to use strider siege assault.");

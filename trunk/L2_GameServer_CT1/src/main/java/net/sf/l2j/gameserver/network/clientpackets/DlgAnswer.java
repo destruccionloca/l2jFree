@@ -51,7 +51,7 @@ public class DlgAnswer extends L2GameClientPacket
             _log.debug(getType()+": Answer acepted. Message ID "+_messageId+", answer "+_answer+", unknown field "+_unk);
         if (_messageId == SystemMessageId.RESSURECTION_REQUEST.getId())
             getClient().getActiveChar().reviveAnswer(_answer);
-        else if (Config.ALLOW_WEDDING && getClient().getActiveChar().isEngageRequest() &&_messageId == SystemMessageId.S2_S1.getId())
+        else if (Config.ALLOW_WEDDING && getClient().getActiveChar().isEngageRequest() &&_messageId == SystemMessageId.S1.getId())
             getClient().getActiveChar().engageAnswer(_answer);
     }
 
