@@ -741,12 +741,14 @@ public final class L2PcInstance extends L2PlayableInstance
     /* Flag to disable equipment/skills while wearing formal wear **/
     private boolean _IsWearingFormalWear = false;
 
-	// Current force buff this caster is casting to a target
-	protected ForceBuff _forceBuff;
-	
+    // Current force buff this caster is casting to a target
+    protected ForceBuff _forceBuff;
+
     private L2Transformation _transformation;
-    
-    private int _absorbedSouls = 0;
+
+    // Absorbed Souls
+    private int _souls = 0;
+    private ScheduledFuture<?> _soulTask = null;
     
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
@@ -5010,6 +5012,7 @@ public final class L2PcInstance extends L2PlayableInstance
         getStatus().stopHpMpRegeneration();
         stopWarnUserTakeBreak();
         stopWaterTask();
+        stopSoulTask();
     }
 
     /**
@@ -7621,7 +7624,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // Check if spell consumes a Soul
         if (skill.getSoulConsumeCount() > 0)
         {
-            if (getAbsorbedSouls() < skill.getSoulConsumeCount())
+            if (getSouls() < skill.getSoulConsumeCount())
             {
                 sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NOT_ENOUGH_SOUL));
                 return;
@@ -11159,54 +11162,130 @@ public final class L2PcInstance extends L2PlayableInstance
 		sendPacket(new EtcStatusUpdate(this));
 	}
 
-	public int getAbsorbedSouls()
+	/**
+	* Returns the Number of Souls this L2PcInstance got.
+	* @return
+	*/
+	public int getSouls()
 	{
-		return _absorbedSouls;
+		return _souls;
 	}
 
+	/**
+	* Absorbs a Soul from a Npc.
+	* @param skill
+	* @param target
+	*/
 	public void absorbSoulFromNpc(L2Skill skill, L2NpcInstance target)
 	{
-		if (_absorbedSouls >= skill.getNumSouls())
+		if (_souls >= skill.getNumSouls())
 		{
 			SystemMessage sm = new SystemMessage(SystemMessageId.SOUL_CANNOT_BE_INCREASED_ANYMORE);
 			sendPacket(sm);
 			return;
 		}
 
-		increaseAbsorbedSouls(1);
+		increaseSouls(1);
 
 		// Npc -> Player absorb animation
 		sendPacket(new ExSpawnEmitter(getObjectId(),target.getObjectId()));
 	}
 
-	public void increaseAbsorbedSouls(int count) // By skill or mob kill
+	/**
+	* Increase Souls
+	* @param count
+	*/
+	public void increaseSouls(int count) // By skill or mob kill
 	{
 		if (count < 0) // Wrong usage
 			return;
 
-		_absorbedSouls = Math.min(_absorbedSouls + count, 45); // Client can't display more
+		_souls = Math.min(_souls + count, 45); // Client can't display more
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.YOUR_SOUL_HAS_INCREASED_BY_S1_SO_IT_IS_NOW_AT_S2);
 		sm.addNumber(count);
-		sm.addNumber(_absorbedSouls);
+		sm.addNumber(_souls);
 		sendPacket(sm);
 		sendPacket(new EtcStatusUpdate(this));
+
+		restartSoulTask();
 	}
 
-	public void decreaseAbsorbedSouls(int count)
+	/**
+	* Decreases existing Souls.
+	* @param count
+	*/
+	public void decreaseSouls(int count)
 	{
 		if (count < 0) // Wrong usage
 			return;
 
-		_absorbedSouls = Math.max(_absorbedSouls - count, 0); // Client can't display negative values
+		_souls = Math.max(_souls - count, 0); // No negative values allowed
+
+		if (getSouls() == 0)
+			stopSoulTask();
+		else
+			restartSoulTask();
 
 		sendPacket(new EtcStatusUpdate(this));
 	}
 	
-	public void setAbsorbedSouls(int count) // By GM command
+	public void setSouls(int count) // By GM command
 	{
-		_absorbedSouls = count < 0 ? 0 : (count > 45 ? 45 : count);
+		_souls = count < 0 ? 0 : (count > 45 ? 45 : count);
+		if(_souls > 0)
+			restartSoulTask();
+
 		sendPacket(new EtcStatusUpdate(this));
+	}
+
+	private class SoulTask implements Runnable
+	{
+		L2PcInstance _player;
+		
+		protected SoulTask(L2PcInstance player)
+		{
+			_player = player;
+		}
+
+		public void run()
+		{
+			_player.clearSouls();
+		}
+	}
+	/**
+	* Clear out all Souls from this L2PcInstance
+	*/
+	public void clearSouls()
+	{
+		_souls = 0;
+		stopSoulTask();
+		sendPacket(new EtcStatusUpdate(this));
+	}
+
+	/**
+	* Starts/Restarts the SoulTask to Clear Souls after 10 Mins.
+	*/
+	private void restartSoulTask()
+	{
+		if (_soulTask != null)
+		{
+			_soulTask.cancel(false);
+			_soulTask = null;
+		}
+		_soulTask = ThreadPoolManager.getInstance().scheduleGeneral(new SoulTask(this), 600000);
+	}
+
+	/**
+	* Stops the Clearing Task.
+	*/
+	public void stopSoulTask()
+	{
+		if (_soulTask != null)
+		{
+			_soulTask.cancel(false);
+			_soulTask = null;
+		}
 	}
 
 	public int getDeathPenaltyBuffLevel()

@@ -310,7 +310,8 @@ public class CursedWeapon
     
 	public void removeSkillAndAppearance()
 	{
-		_player.untransform();
+		if(_player.isTransformed())
+			_player.untransform();
 		_player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
 		_player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
 		_player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);

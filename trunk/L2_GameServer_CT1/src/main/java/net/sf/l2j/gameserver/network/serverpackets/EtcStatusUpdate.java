@@ -55,7 +55,7 @@ public class EtcStatusUpdate extends L2GameServerPacket
         writeD(_activeChar.getExpertisePenalty());
         writeD(_activeChar.getCharmOfCourage() ? 1 : 0);
         writeD(_activeChar.getDeathPenaltyBuffLevel());
-        writeD(_activeChar.getAbsorbedSouls());
+        writeD(_activeChar.getSouls());
 	}
 
 	/**

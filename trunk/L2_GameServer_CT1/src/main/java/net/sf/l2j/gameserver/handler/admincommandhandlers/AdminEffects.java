@@ -103,7 +103,7 @@ public class AdminEffects implements IAdminCommandHandler
 				activeChar.broadcastUserInfo();
 				activeChar.decayMe();
 				activeChar.spawnMe();
-				activeChar.enableAllSkills();				
+				activeChar.enableAllSkills();
 			}
 			else
 			{
@@ -444,7 +444,7 @@ public class AdminEffects implements IAdminCommandHandler
 					if (target instanceof L2PcInstance)
 					{
 						player = (L2PcInstance)target;
-						player.setAbsorbedSouls(count);
+						player.setSouls(count);
 					}
 					else
 						activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
