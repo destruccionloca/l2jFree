@@ -4092,45 +4092,60 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public boolean isWearingHeavyArmor()
     {
-        L2ItemInstance armor = getChestArmorInstance();
-        L2ItemInstance legs = getLegsArmorInstance();
-        
-        if(armor==null || legs==null)
-        	return false;
-
-        if (((L2ArmorType)armor.getItemType() == L2ArmorType.HEAVY) && ((L2ArmorType)legs.getItemType() == L2ArmorType.HEAVY)
-                ||(getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR)&&(L2ArmorType)armor.getItemType() == L2ArmorType.HEAVY)
+        if ((getChestArmorInstance() != null) && getLegsArmorInstance() != null)
+        {
+            L2ItemInstance legs = getLegsArmorInstance();
+            L2ItemInstance armor = getChestArmorInstance();
+            if ((L2ArmorType)legs.getItemType() == L2ArmorType.HEAVY && ((L2ArmorType)armor.getItemType() == L2ArmorType.HEAVY))
             return true;
+        }
+        if (getChestArmorInstance() != null)
+        {
+            L2ItemInstance armor = getChestArmorInstance();
+
+            if (getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR && (L2ArmorType)armor.getItemType() == L2ArmorType.HEAVY)
+            return true;
+        }
 
         return false;
     }
 
     public boolean isWearingLightArmor()
     {
-        L2ItemInstance armor = getChestArmorInstance();
-        L2ItemInstance legs = getLegsArmorInstance();
-
-        if(armor==null || legs==null)
-        	return false;
-
-        if (((L2ArmorType)armor.getItemType() == L2ArmorType.LIGHT) && ((L2ArmorType)legs.getItemType() == L2ArmorType.LIGHT)
-                ||(getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR)&&(L2ArmorType)armor.getItemType() == L2ArmorType.LIGHT)
+        if ((getChestArmorInstance() != null) && getLegsArmorInstance() != null)
+        {
+            L2ItemInstance legs = getLegsArmorInstance();
+            L2ItemInstance armor = getChestArmorInstance();
+            if ((L2ArmorType)legs.getItemType() == L2ArmorType.LIGHT && ((L2ArmorType)armor.getItemType() == L2ArmorType.LIGHT))
             return true;
+        }
+        if (getChestArmorInstance() != null)
+        {
+            L2ItemInstance armor = getChestArmorInstance();
+            
+            if (getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR && (L2ArmorType)armor.getItemType() == L2ArmorType.LIGHT)
+            return true;
+        }
 
         return false;
     }
 
     public boolean isWearingMagicArmor()
     {
-        L2ItemInstance armor = getChestArmorInstance();
-        L2ItemInstance legs = getLegsArmorInstance();
-
-        if(armor==null || legs==null)
-        	return false;
-
-        if (((L2ArmorType)armor.getItemType() == L2ArmorType.MAGIC) && ((L2ArmorType)legs.getItemType() == L2ArmorType.MAGIC)
-                ||(getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR)&&(L2ArmorType)armor.getItemType() == L2ArmorType.MAGIC)
+        if ((getChestArmorInstance() != null) && getLegsArmorInstance() != null)
+        {
+            L2ItemInstance legs = getLegsArmorInstance();
+            L2ItemInstance armor = getChestArmorInstance();
+            if ((L2ArmorType)legs.getItemType() == L2ArmorType.MAGIC && ((L2ArmorType)armor.getItemType() == L2ArmorType.MAGIC))
             return true;
+        }
+        if (getChestArmorInstance() != null)
+        {
+            L2ItemInstance armor = getChestArmorInstance();
+            
+            if (getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR && (L2ArmorType)armor.getItemType() == L2ArmorType.MAGIC)
+            return true;
+        }
 
         return false;
     }
