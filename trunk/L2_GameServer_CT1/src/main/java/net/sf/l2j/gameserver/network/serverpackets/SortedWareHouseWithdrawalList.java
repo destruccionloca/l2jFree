@@ -89,8 +89,6 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
     public static final byte TYPE = 4;
     /** sort order body part (wearing) */
     public static final byte WEAR = 5;
-    
-    private int ENDmarker = 0x00;
 
     /**
      * This will instantiate the Warehouselist the Player asked for
@@ -697,22 +695,31 @@ public class SortedWareHouseWithdrawalList extends L2GameServerPacket
 		for (L2WarehouseItem item : _objects)
 		{
 			writeH(item.getItem().getType1()); // item type1 //unconfirmed, works
-			writeD(0x00); //unconfirmed, works
+			writeD(item.getObjectId());
 			writeD(item.getItem().getItemDisplayId()); //unconfirmed, works
 			writeD(item.getCount()); //unconfirmed, works
 			writeH(item.getItem().getType2());	// item type2 //unconfirmed, works
-			writeH(ENDmarker);	// ?
+			writeH(item.getCustomType1());
 			writeD(item.getItem().getBodyPart());	// ?
 			writeH(item.getEnchantLevel());	// enchant level -confirmed
-			writeH(ENDmarker);	// ?
-			writeH(ENDmarker);	// ?
-			writeD(item.getObjectId()); // item id - confimed		
+			writeH(item.getCustomType2());
+			writeH(0x00);
+			writeD(item.getObjectId()); // item id - confimed
 			if (item.isAugmented())
 			{
 				writeD(0x0000FFFF&item.getAugmentationId());
 				writeD(item.getAugmentationId()>>16);
 			}
 			else writeQ(0x00);
+			writeD(item.getManaLeft()); 
+			writeD(item.getAttackAttrElement());
+			writeD(item.getAttackAttrElementVal());
+			writeD(item.getDefAttrFire());
+			writeD(item.getDefAttrWater());
+			writeD(item.getDefAttrWind());
+			writeD(item.getDefAttrEarth());
+			writeD(item.getDefAttrHoly());
+			writeD(item.getDefAttrUnholy());
 		}
 	}
 	
