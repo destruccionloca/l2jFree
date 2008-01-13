@@ -4094,6 +4094,9 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         L2ItemInstance armor = getChestArmorInstance();
         L2ItemInstance legs = getLegsArmorInstance();
+        
+        if(armor==null || legs==null)
+        	return false;
 
         if (((L2ArmorType)armor.getItemType() == L2ArmorType.HEAVY) && ((L2ArmorType)legs.getItemType() == L2ArmorType.HEAVY)
                 ||(getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR)&&(L2ArmorType)armor.getItemType() == L2ArmorType.HEAVY)
@@ -4107,6 +4110,9 @@ public final class L2PcInstance extends L2PlayableInstance
         L2ItemInstance armor = getChestArmorInstance();
         L2ItemInstance legs = getLegsArmorInstance();
 
+        if(armor==null || legs==null)
+        	return false;
+
         if (((L2ArmorType)armor.getItemType() == L2ArmorType.LIGHT) && ((L2ArmorType)legs.getItemType() == L2ArmorType.LIGHT)
                 ||(getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR)&&(L2ArmorType)armor.getItemType() == L2ArmorType.LIGHT)
             return true;
@@ -4118,6 +4124,9 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         L2ItemInstance armor = getChestArmorInstance();
         L2ItemInstance legs = getLegsArmorInstance();
+
+        if(armor==null || legs==null)
+        	return false;
 
         if (((L2ArmorType)armor.getItemType() == L2ArmorType.MAGIC) && ((L2ArmorType)legs.getItemType() == L2ArmorType.MAGIC)
                 ||(getInventory().getPaperdollItem(Inventory.PAPERDOLL_CHEST).getItem().getBodyPart() == L2Item.SLOT_FULL_ARMOR)&&(L2ArmorType)armor.getItemType() == L2ArmorType.MAGIC)

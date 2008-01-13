@@ -72,6 +72,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRes;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRideWyvern;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSendHome;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminShop;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSortMultisellItems;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminShutdown;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSiege;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSkill;
@@ -160,6 +161,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminRideWyvern());
         registerAdminCommandHandler(new AdminSendHome());
         registerAdminCommandHandler(new AdminShop());
+        registerAdminCommandHandler(new AdminSortMultisellItems());
         registerAdminCommandHandler(new AdminShutdown());
         registerAdminCommandHandler(new AdminSiege());
         registerAdminCommandHandler(new AdminSkill());
