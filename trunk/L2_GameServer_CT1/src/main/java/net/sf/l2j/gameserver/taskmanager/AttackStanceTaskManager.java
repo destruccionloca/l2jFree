@@ -11,7 +11,6 @@
  * 
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
- */ttp://www.gnu.org/copyleft/gpl.html
  */
 package net.sf.l2j.gameserver.taskmanager;
 
