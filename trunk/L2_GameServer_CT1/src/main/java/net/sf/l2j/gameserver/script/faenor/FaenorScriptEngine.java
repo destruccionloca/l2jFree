@@ -45,7 +45,7 @@ import org.w3c.dom.Node;
 public class FaenorScriptEngine extends ScriptEngine
 {
     private static Log _log = LogFactory.getLog(GameServer.class.getName());
-    public static String PACKAGE_DIRECTORY = "data/script/";
+    public static String PACKAGE_DIRECTORY = "data/faenor/";
 
     private static FaenorScriptEngine _instance;
 
