@@ -13,6 +13,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
+ /**
+  * 
+  * @author luisantonioa
+  * 
+  */
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;

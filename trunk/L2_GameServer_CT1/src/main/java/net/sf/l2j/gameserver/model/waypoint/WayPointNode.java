@@ -13,6 +13,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.model.waypoint;
+ /**
+  * 
+  * @author luisantonioa
+  * 
+  */
 
 import java.util.Collections;
 import java.util.Map;

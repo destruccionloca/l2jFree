@@ -13,6 +13,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.idfactory;
+ /**
+  * 
+  * @author luisantonioa
+  * 
+  */
 
 import java.util.BitSet;
 import java.util.concurrent.atomic.AtomicInteger;

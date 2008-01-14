@@ -13,6 +13,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.util;
+ /**
+  * 
+  * @author luisantonioa
+  * 
+  */
 
 import java.io.File;
 import java.nio.ByteBuffer;

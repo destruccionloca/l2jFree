@@ -13,6 +13,11 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.model.base;
+ /**
+  * 
+  * @author luisantonioa
+  * 
+  */
 
 import static net.sf.l2j.gameserver.model.base.ClassLevel.First;
 import static net.sf.l2j.gameserver.model.base.ClassLevel.Second;
