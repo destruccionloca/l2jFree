@@ -1692,7 +1692,7 @@ public class CTF
 			}
 			else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
 			{
-				if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
+				if (_players.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
 				{
 					if (Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE"))
 						replyMSG.append("You are already participating in team <font color=\"LEVEL\">" + eventPlayer._teamNameCTF + "</font><br><br>");
@@ -1756,7 +1756,7 @@ public class CTF
 		}
 		catch (Exception e)
 		{
-			_log.error("CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			_log.warn("CTF Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
 		}
 	}
 
@@ -1830,38 +1830,44 @@ public class CTF
 
 	public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
 	{
-		if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventCTF)
+		try
 		{
-			eventPlayer.sendMessage("You are already participating in the event!");
-			return false;
-		}
-		if (eventPlayer._inEventFOS || eventPlayer._inEventTvT || eventPlayer._inEventDM || eventPlayer._inEventVIP){
-			eventPlayer.sendMessage("You are already participating in another event!"); 
-			return false;
-		}
+			if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventCTF)
+			{
+				eventPlayer.sendMessage("You are already participating in the event!");
+				return false;
+			}
+			if (eventPlayer._inEventFOS || eventPlayer._inEventTvT || eventPlayer._inEventDM || eventPlayer._inEventVIP){
+				eventPlayer.sendMessage("You are already participating in another event!"); 
+				return false;
+			}
 		
-		for(L2PcInstance player: _players)
-		{
-			if(player.getObjectId()==eventPlayer.getObjectId())
+			for(L2PcInstance player: _players)
+			{
+				if(player.getObjectId()==eventPlayer.getObjectId())
+				{
+					eventPlayer.sendMessage("You are already participating in the event!"); 
+					return false;
+				}
+				else if(player.getName()==eventPlayer.getName())
+				{
+					eventPlayer.sendMessage("You are already participating in the event!"); 
+					return false;
+				}
+			}
+			if(_players.contains(eventPlayer))
 			{
 				eventPlayer.sendMessage("You are already participating in the event!"); 
 				return false;
 			}
-			else if(player.getName()==eventPlayer.getName())
+			if (TvT._savePlayers.contains(eventPlayer.getName())) 
 			{
-				eventPlayer.sendMessage("You are already participating in the event!"); 
+				eventPlayer.sendMessage("You are already participating in another event!"); 
 				return false;
 			}
-		}
-		if(_players.contains(eventPlayer))
+		}catch (Exception e)
 		{
-			eventPlayer.sendMessage("You are already participating in the event!"); 
-			return false;
-		}
-		if (TvT._savePlayers.contains(eventPlayer.getName())) 
-		{
-			eventPlayer.sendMessage("You are already participating in another event!"); 
-			return false;
+			_log.warn("CTF Siege Engine exception: " + e.getMessage());
 		}
 
 		if (Config.CTF_EVEN_TEAMS.equals("NO"))
@@ -1934,24 +1940,25 @@ public class CTF
 			}
 
 			player._teamNameCTF = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
-			boolean contains = false;
 			for (L2PcInstance p : _players)
 			{
 				if (p==null)
+				{
+					_players.remove(p);
 					continue;
+				}
+				//check by name incase player got new objectId
 				else if (p.getName().equals(player.getName()))
 				{
-					contains = true;
+					player._originalNameColorCTF = player.getAppearance().getNameColor();
+					player._originalKarmaCTF = player.getKarma();
+					player._inEventCTF = true;
+					player._countCTFflags = p._countCTFflags;
+					_players.remove(p); //removing old object id from vector
+					_players.add(player); //adding new objectId to vector
 					break;
 				}
-			}
-			if(!contains && !_players.contains(player))
-				_players.add(player);
-			player._originalNameColorCTF = player.getAppearance().getNameColor();
-			player._originalKarmaCTF = player.getKarma();
-			player._inEventCTF = true;
-			player._countCTFflags = 0;
-
+			}			
 			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameCTF)));
 			player.setKarma(0);
 			player.broadcastUserInfo();
@@ -2055,8 +2062,8 @@ public class CTF
 			{
 				for (L2PcInstance player : _players)
 				{
-					if (player !=  null)
-						player.teleToLocation(_npcX, _npcY, _npcZ);
+					if (player !=  null && player.isOnline()!=0)
+						player.teleToLocation(_npcX, _npcY, _npcZ, false);
 				}
 				cleanCTF();
 			}

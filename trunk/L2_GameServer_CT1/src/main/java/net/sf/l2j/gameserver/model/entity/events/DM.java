@@ -225,7 +225,7 @@ public class DM
 							L2Party party = player.getParty();
 							party.removePartyMember(player);
 						}
-						player.teleToLocation(_playerX, _playerY, _playerZ);
+						player.teleToLocation(_playerX, _playerY, _playerZ, false);
 					}
 				}
 			}
@@ -659,7 +659,7 @@ public class DM
 
 	public static synchronized void addDisconnectedPlayer(L2PcInstance player)
 	{
-		if (!_players.contains(player) && _savePlayers.contains(player.getName()))
+		if ((_teleport || _started) || _savePlayers.contains(player.getName()))
 		{
 			if (Config.DM_ON_START_REMOVE_ALL_EFFECTS)
 			{
@@ -669,20 +669,30 @@ public class DM
 						e.exit();
 				}
 			}
-
-			_players.add(player);
-			
-			player._originalNameColorDM = player.getAppearance().getNameColor();
-			player._originalKarmaDM = player.getKarma();
-			player._inEventDM = true;
-			player._countDMkills = 0;
-			if(_teleport || _started)
+			for (L2PcInstance p : _players)
 			{
-				player.getAppearance().setNameColor(_playerColors);
-				player.setKarma(0);
-				player.broadcastUserInfo();
-				player.teleToLocation(_playerX, _playerY , _playerZ);
+				if (p==null)
+				{
+					_players.remove(p);
+					continue;
+				}
+				//check by name incase player got new objectId
+				else if (p.getName().equals(player.getName()))
+				{
+					player._originalNameColorDM = player.getAppearance().getNameColor();
+					player._originalKarmaDM = player.getKarma();
+					player._inEventDM = true;
+					player._countDMkills =p._countDMkills;
+					_players.remove(p); //removing old object id from vector
+					_players.add(player); //adding new objectId to vector
+					break;
+				}
 			}
+			
+			player.getAppearance().setNameColor(_playerColors);
+			player.setKarma(0);
+			player.broadcastUserInfo();
+			player.teleToLocation(_playerX, _playerY , _playerZ, false);
 		}
 	}
 	
@@ -734,8 +744,8 @@ public class DM
 			{
 				for (L2PcInstance player : _players)
 				{
-					if (player !=  null)
-						player.teleToLocation(_npcX, _npcY, _npcZ);
+					if (player !=  null && player.isOnline()!=0)
+						player.teleToLocation(_npcX, _npcY, _npcZ, false);
 				} 
 				cleanDM();
 			}

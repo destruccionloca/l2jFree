@@ -768,35 +768,42 @@ public class FortressSiege
 	
 	public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
 	{
-		if (teamName == null || eventPlayer == null)
-			return false;
-		if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventFOS)
+		try
 		{
-			eventPlayer.sendMessage("You are already participating in this event!");
-			return false;
-		}
-		if (eventPlayer._inEventTvT || eventPlayer._inEventCTF || eventPlayer._inEventDM || eventPlayer._inEventVIP)
-		{
-			eventPlayer.sendMessage("You are already participating in another event!"); 
-			return false;
-		}
-		for(L2PcInstance player: _players)
-		{
-			if(player.getObjectId()==eventPlayer.getObjectId() || player.getName().equals(eventPlayer.getName()))
+			if (teamName == null || eventPlayer == null)
+				return false;
+			if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventFOS)
+			{
+				eventPlayer.sendMessage("You are already participating in this event!");
+				return false;
+			}
+			if (eventPlayer._inEventTvT || eventPlayer._inEventCTF || eventPlayer._inEventDM || eventPlayer._inEventVIP)
+			{
+				eventPlayer.sendMessage("You are already participating in another event!"); 
+				return false;
+			}
+			for(L2PcInstance player: _players)
+			{
+				if(player.getObjectId()==eventPlayer.getObjectId() || player.getName().equals(eventPlayer.getName()))
+				{
+					eventPlayer.sendMessage("You are already participating in this event!"); 
+					return false;
+				}
+			}
+			if(_players.contains(eventPlayer))
 			{
 				eventPlayer.sendMessage("You are already participating in this event!"); 
 				return false;
 			}
+			if (TvT._savePlayers.contains(eventPlayer.getName()) || CTF._savePlayers.contains(eventPlayer.getName()))
+			{
+				eventPlayer.sendMessage("You are already participating in another event!"); 
+				return false;
+			}
 		}
-		if(_players.contains(eventPlayer))
+		catch (Exception e)
 		{
-			eventPlayer.sendMessage("You are already participating in this event!"); 
-			return false;
-		}
-		if (TvT._savePlayers.contains(eventPlayer.getName()) || CTF._savePlayers.contains(eventPlayer.getName()))
-		{
-			eventPlayer.sendMessage("You are already participating in another event!"); 
-			return false;
+			_log.warn("Fortress Siege Engine exception: " + e.getMessage());
 		}
 		if (Config.FortressSiege_EVEN_TEAMS.equals("NO"))
 			return true;
@@ -1301,7 +1308,7 @@ public class FortressSiege
 				for (L2PcInstance player : _players)
 				{
 					if (player !=  null && player.isOnline()!=0)
-						player.teleToLocation(_npcX, _npcY, _npcZ);
+						player.teleToLocation(_npcX, _npcY, _npcZ, false);
 				}
 				resetData();
 			}
@@ -1576,24 +1583,25 @@ public class FortressSiege
 			player._teamNameFOS = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
 			player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameFOS)), _teamsY.get(_teams.indexOf(player._teamNameFOS)), _teamsZ.get(_teams.indexOf(player._teamNameFOS)));
 			
-			boolean contains = false;
 			for (L2PcInstance p : _players)
 			{
 				if (p==null)
+				{
+					_players.remove(p);
 					continue;
+				}
+				//check by name incase player got new objectId
 				else if (p.getName().equals(player.getName()))
 				{
-					contains = true;
+					player._originalNameColorFOS = player.getAppearance().getNameColor();
+					player._originalKarmaFOS = player.getKarma();
+					player._inEventFOS = true;
+					player._countFOSKills=p._countFOSKills;
+					_players.remove(p); //removing old object id from vector
+					_players.add(player); //adding new objectId to vector
 					break;
 				}
 			}
-			if(!contains && !_players.contains(player))
-				_players.add(player);
-
-			player._originalNameColorFOS = player.getAppearance().getNameColor();
-			player._originalKarmaFOS = player.getKarma();
-			player._inEventFOS = true;
-			player._countFOSKills = 0;
 			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameFOS)));
 			player.setKarma(0);
 

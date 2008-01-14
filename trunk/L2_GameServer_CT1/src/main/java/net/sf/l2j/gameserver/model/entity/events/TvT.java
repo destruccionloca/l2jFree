@@ -1128,7 +1128,7 @@ public class TvT
 			}
 			else if (!_started && _joining && eventPlayer.getLevel()>=_minlvl && eventPlayer.getLevel()<_maxlvl)
 			{
-				if (_players.contains(eventPlayer) || _playersShuffle.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
+				if (_players.contains(eventPlayer) || checkShufflePlayers(eventPlayer))
 				{
 					if (Config.TVT_EVEN_TEAMS.equals("NO") || Config.TVT_EVEN_TEAMS.equals("BALANCE"))
 						replyMSG.append("You are already participating in team <font color=\"LEVEL\">" + eventPlayer._teamNameTvT + "</font><br><br>");
@@ -1192,7 +1192,7 @@ public class TvT
 		}
 		catch (Exception e)
 		{
-			_log.error("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
+			_log.warn("TvT Engine[showEventHtlm(" + eventPlayer.getName() + ", " + objectId + ")]: exception" + e.getMessage());
 		}
 	}
 
@@ -1266,39 +1266,46 @@ public class TvT
 
 	public static boolean addPlayerOk(String teamName, L2PcInstance eventPlayer)
 	{
-		if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventTvT)
+		try
 		{
-			eventPlayer.sendMessage("You are already participating in the event!");
-			return false;
-		}
-		if (eventPlayer._inEventFOS || eventPlayer._inEventCTF || eventPlayer._inEventDM || eventPlayer._inEventVIP)
-		{
-			eventPlayer.sendMessage("You are already participating in another event!"); 
-			return false;
-		}
-		
-		for(L2PcInstance player: _players)
-		{
-			if(player.getObjectId()==eventPlayer.getObjectId())
+			if (checkShufflePlayers(eventPlayer) || eventPlayer._inEventTvT)
+			{
+				eventPlayer.sendMessage("You are already participating in the event!");
+				return false;
+			}
+			if (eventPlayer._inEventFOS || eventPlayer._inEventCTF || eventPlayer._inEventDM || eventPlayer._inEventVIP)
+			{
+				eventPlayer.sendMessage("You are already participating in another event!"); 
+				return false;
+			}
+			
+			for(L2PcInstance player: _players)
+			{
+				if(player.getObjectId()==eventPlayer.getObjectId())
+				{
+					eventPlayer.sendMessage("You are already participating in the event!"); 
+					return false;
+				}
+				else if(player.getName()==eventPlayer.getName())
+				{
+					eventPlayer.sendMessage("You are already participating in the event!"); 
+					return false;
+				}
+			}
+			if(_players.contains(eventPlayer))
 			{
 				eventPlayer.sendMessage("You are already participating in the event!"); 
 				return false;
 			}
-			else if(player.getName()==eventPlayer.getName())
+			if (CTF._savePlayers.contains(eventPlayer.getName())) 
 			{
-				eventPlayer.sendMessage("You are already participating in the event!"); 
+				eventPlayer.sendMessage("You are already participating in another event!"); 
 				return false;
 			}
 		}
-		if(_players.contains(eventPlayer))
+		catch (Exception e)
 		{
-			eventPlayer.sendMessage("You are already participating in the event!"); 
-			return false;
-		}
-		if (CTF._savePlayers.contains(eventPlayer.getName())) 
-		{
-			eventPlayer.sendMessage("You are already participating in another event!"); 
-			return false;
+			_log.warn("TvT Engine exception: " + e.getMessage());
 		}
 
 		if (Config.TVT_EVEN_TEAMS.equals("NO"))
@@ -1365,23 +1372,25 @@ public class TvT
 			}
 
 			player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
-			boolean contains = false;
 			for (L2PcInstance p : _players)
 			{
 				if (p==null)
+				{
+					_players.remove(p);
 					continue;
+				}
+				//check by name incase player got new objectId
 				else if (p.getName().equals(player.getName()))
 				{
-					contains = true;
+					player._originalNameColorTvT = player.getAppearance().getNameColor();
+					player._originalKarmaTvT = player.getKarma();
+					player._inEventTvT = true;
+					player._countTvTkills=p._countTvTkills;
+					_players.remove(p); //removing old object id from vector
+					_players.add(player); //adding new objectId to vector
 					break;
 				}
 			}
-			if(!contains && !_players.contains(player))
-				_players.add(player);
-			player._originalNameColorTvT = player.getAppearance().getNameColor();
-			player._originalKarmaTvT = player.getKarma();
-			player._inEventTvT = true;
-			player._countTvTkills = 0;
 
 			player.getAppearance().setNameColor(_teamColors.get(_teams.indexOf(player._teamNameTvT)));
 			player.setKarma(0);
@@ -1473,9 +1482,10 @@ public class TvT
 			{
 				for (L2PcInstance player : _players)
 				{
-					if (player !=  null)
-						player.teleToLocation(_npcX, _npcY, _npcZ);
+					if (player !=  null && player.isOnline()!=0)
+						player.teleToLocation(_npcX, _npcY, _npcZ, false);
 				}
+				_log.info("TvT: Teleport done.");
 				cleanTvT();
 			}
 		}, 20000);
