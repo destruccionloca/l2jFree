@@ -38,19 +38,15 @@ public class Spoil implements ISkillHandler
 	//private static Logger _log = Logger.getLogger(Spoil.class.getName()); 
 	private static final SkillType[] SKILL_IDS = {SkillType.SPOIL};
 	
-	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
-		L2Object[] targetList = skill.getTargetList(activeChar);
-		
-		if (targetList == null)
-		{
+		if (targets == null)
 			return;
-		}
 
-		for (L2Object element : targetList)
+		for (L2Object element : targets)
 		{
 			if (!(element instanceof L2MonsterInstance))
 				continue;

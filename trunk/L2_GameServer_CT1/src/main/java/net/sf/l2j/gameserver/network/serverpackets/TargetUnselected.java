@@ -56,7 +56,7 @@ public class TargetUnselected extends L2GameServerPacket
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
-//		writeD(_target.getTargetId()); //??  probably not used in client
+		writeD(0x00); //??
 	}
 
 	/* (non-Javadoc)

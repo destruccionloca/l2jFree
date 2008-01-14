@@ -55,9 +55,8 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 		for (L2ItemInstance item : _items)
 		{
 			writeH(item.getItem().getType1());
-
 			writeD(item.getObjectId());
-			writeD(item.getItemId());
+			writeD(item.getItemDisplayId());
 			writeD(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());

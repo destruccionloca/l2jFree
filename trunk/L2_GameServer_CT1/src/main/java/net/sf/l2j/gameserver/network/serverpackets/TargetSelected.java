@@ -58,6 +58,7 @@ public class TargetSelected extends L2GameServerPacket
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
+		writeD(0x00);
 	}
 
 	/* (non-Javadoc)

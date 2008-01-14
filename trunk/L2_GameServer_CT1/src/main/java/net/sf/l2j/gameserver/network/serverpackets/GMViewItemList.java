@@ -69,18 +69,24 @@ public class GMViewItemList extends L2GameServerPacket
 			writeH(temp.getEnchantLevel());
 			writeH(temp.getCustomType2());
 			if (temp.isAugmented())
-				writeD(temp.getAugmentation().getAugmentationId());
+			{
+				writeD(0x0000FFFF & temp.getAugmentation().getAugmentationId());
+				writeD(temp.getAugmentation().getAugmentationId() >> 16);
+			}
 			else
+			{
 				writeD(0x00);
-            writeD(temp.getMana());
-            writeD(temp.getAttackAttrElement());
-            writeD(temp.getAttackAttrElementVal());
-            writeD(temp.getDefAttrFire());
-            writeD(temp.getDefAttrWater());
-            writeD(temp.getDefAttrWind());
-            writeD(temp.getDefAttrEarth());
-            writeD(temp.getDefAttrHoly());
-            writeD(temp.getDefAttrUnholy());
+				writeD(0x00);
+			}
+			writeD(temp.getMana());
+			writeD(temp.getAttackAttrElement());
+			writeD(temp.getAttackAttrElementVal());
+			writeD(temp.getDefAttrFire());
+			writeD(temp.getDefAttrWater());
+			writeD(temp.getDefAttrWind());
+			writeD(temp.getDefAttrEarth());
+			writeD(temp.getDefAttrHoly());
+			writeD(temp.getDefAttrUnholy());
 		}
 	}
 	

@@ -276,6 +276,9 @@ public class CursedWeapon
 
     public void transform()
     {
+        if(_player.isTransformed())
+            _player.untransform();
+
         if(_transformId == 0) return;
 
         TransformationManager.getInstance().transformPlayer(_transformId, _player, Long.MAX_VALUE);
