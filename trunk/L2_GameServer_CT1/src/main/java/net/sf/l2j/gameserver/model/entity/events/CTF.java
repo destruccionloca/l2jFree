@@ -1921,6 +1921,7 @@ public class CTF
 		 * Do NOT fix multiple object Ids on this event or you will ruin the flag reposition check!!!
 		 * All Multiple object Ids will be collected by the Garbage Collector, after the event ends, memory sweep is made!!!
 		 */
+		 
 		if ((Config.CTF_EVEN_TEAMS.equals("SHUFFLE") && (_teleport || _started)) || (Config.CTF_EVEN_TEAMS.equals("NO") || Config.CTF_EVEN_TEAMS.equals("BALANCE")  && (_teleport || _started)))
 		{
 			if (Config.CTF_ON_START_REMOVE_ALL_EFFECTS)
@@ -1933,7 +1934,18 @@ public class CTF
 			}
 
 			player._teamNameCTF = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
-			if(!_players.contains(player.getName()))
+			boolean contains = false;
+			for (L2PcInstance p : _players)
+			{
+				if (p==null)
+					continue;
+				else if (p.getName().equals(player.getName()))
+				{
+					contains = true;
+					break;
+				}
+			}
+			if(!contains && !_players.contains(player))
 				_players.add(player);
 			player._originalNameColorCTF = player.getAppearance().getNameColor();
 			player._originalKarmaCTF = player.getKarma();

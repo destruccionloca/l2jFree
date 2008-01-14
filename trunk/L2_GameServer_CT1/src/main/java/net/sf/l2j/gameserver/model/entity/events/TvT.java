@@ -1365,7 +1365,18 @@ public class TvT
 			}
 
 			player._teamNameTvT = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
-			if(!_players.contains(player.getName()))
+			boolean contains = false;
+			for (L2PcInstance p : _players)
+			{
+				if (p==null)
+					continue;
+				else if (p.getName().equals(player.getName()))
+				{
+					contains = true;
+					break;
+				}
+			}
+			if(!contains && !_players.contains(player))
 				_players.add(player);
 			player._originalNameColorTvT = player.getAppearance().getNameColor();
 			player._originalKarmaTvT = player.getKarma();

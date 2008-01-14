@@ -76,6 +76,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSortMultisellItem
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminShutdown;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSiege;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSkill;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSmartShop;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSpawn;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTarget;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminTeleport;
@@ -165,6 +166,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminShutdown());
         registerAdminCommandHandler(new AdminSiege());
         registerAdminCommandHandler(new AdminSkill());
+        registerAdminCommandHandler(new AdminSmartShop());
         registerAdminCommandHandler(new AdminSpawn());
         registerAdminCommandHandler(new AdminTarget());
         registerAdminCommandHandler(new AdminTeleport());

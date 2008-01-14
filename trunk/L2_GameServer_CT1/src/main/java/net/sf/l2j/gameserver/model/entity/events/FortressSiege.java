@@ -1575,7 +1575,19 @@ public class FortressSiege
 
 			player._teamNameFOS = _savePlayerTeams.get(_savePlayers.indexOf(player.getName()));
 			player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameFOS)), _teamsY.get(_teams.indexOf(player._teamNameFOS)), _teamsZ.get(_teams.indexOf(player._teamNameFOS)));
-			if(!_players.contains(player.getName()))
+			
+			boolean contains = false;
+			for (L2PcInstance p : _players)
+			{
+				if (p==null)
+					continue;
+				else if (p.getName().equals(player.getName()))
+				{
+					contains = true;
+					break;
+				}
+			}
+			if(!contains && !_players.contains(player))
 				_players.add(player);
 
 			player._originalNameColorFOS = player.getAppearance().getNameColor();
