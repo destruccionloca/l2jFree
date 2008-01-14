@@ -58,6 +58,7 @@ public class ClanHallManager
 	{
 		_clanHall = new FastMap<Integer, ClanHall>();
 		_freeClanHall = new FastMap<Integer, ClanHall>();
+		_allClanHalls = new FastMap<Integer, ClanHall>();
 		load();
 	}
 
@@ -66,6 +67,7 @@ public class ClanHallManager
 	{
 		_clanHall.clear();
 		_freeClanHall.clear();
+		_allClanHalls.clear();
 		load();
 	}
 
