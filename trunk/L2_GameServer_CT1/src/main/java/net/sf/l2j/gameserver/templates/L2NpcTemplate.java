@@ -463,10 +463,10 @@ public final class L2NpcTemplate extends L2CharTemplate
 				_race = L2NpcTemplate.Race.MERCENARIE;
 				break;
 			case 24:
-				race = L2NpcTemplate.Race.UNKNOWN;
+				_race = L2NpcTemplate.Race.UNKNOWN;
 				break;
 			case 25:
-				race = L2NpcTemplate.Race.KAMAEL;
+				_race = L2NpcTemplate.Race.KAMAEL;
 				break;
 			default:
 				_race = L2NpcTemplate.Race.NONE;
