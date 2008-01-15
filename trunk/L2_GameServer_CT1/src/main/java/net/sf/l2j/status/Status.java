@@ -84,15 +84,14 @@ public class Status extends Thread
         
         _statusPort       = Integer.parseInt(telnetSettings.getProperty("StatusPort", "12345"));
         _statusPw         = telnetSettings.getProperty("StatusPW");
-            if (_statusPw == null)
-            {
-                _log.warn("Server's Telnet Function Has No Password Defined!");
-                _log.warn("A Password Has Been Automaticly Created!");
-                _statusPw = RndPW(10);
-                _log.warn("Password Has Been Set To: " + _statusPw);
-            }
-            _log.info("StatusServer Started! - Listening on Port: " + _statusPort);
-            _log.info("Password Has Been Set To: " + _statusPw);
+        if (_statusPw == null)
+        {
+            _log.warn("Server's Telnet Function Has No Password Defined!");
+            _log.warn("A Password Has Been Automaticly Created!");
+            _statusPw = RndPW(10);
+            _log.warn("Password Has Been Set To: " + _statusPw);
+        }
+        _log.info("Telnet StatusServer started successfully, listening on Port: " + _statusPort);
         statusServerSocket = new ServerSocket(_statusPort);
         _uptime = (int) System.currentTimeMillis();
     }

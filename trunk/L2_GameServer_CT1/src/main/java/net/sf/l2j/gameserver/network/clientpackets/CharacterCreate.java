@@ -163,7 +163,6 @@ public class CharacterCreate extends L2GameClientPacket
 		shortcut = new L2ShortCut(10,0,3,0,-1,1);
 		newChar.registerShortCut(shortcut);
 		
-		ItemTable itemTable = ItemTable.getInstance();
 		L2Item[] items = template.getItems();
 		for (L2Item element : items)
 		{

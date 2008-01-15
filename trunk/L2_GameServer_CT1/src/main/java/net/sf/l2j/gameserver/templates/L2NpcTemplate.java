@@ -137,7 +137,9 @@ public final class L2NpcTemplate extends L2CharTemplate
         SIEGEWEAPON,
         DEFENDINGARMY,
         MERCENARIE,
-        UNKNOWN
+        UNKNOWN,
+        KAMAEL,
+        NONE
     }
 
     /**
@@ -460,8 +462,14 @@ public final class L2NpcTemplate extends L2CharTemplate
 			case 23:
 				_race = L2NpcTemplate.Race.MERCENARIE;
 				break;
+			case 24:
+				race = L2NpcTemplate.Race.UNKNOWN;
+				break;
+			case 25:
+				race = L2NpcTemplate.Race.KAMAEL;
+				break;
 			default:
-				_race = L2NpcTemplate.Race.UNKNOWN;
+				_race = L2NpcTemplate.Race.NONE;
 				break;
 		}
 	}
@@ -469,7 +477,7 @@ public final class L2NpcTemplate extends L2CharTemplate
 	public L2NpcTemplate.Race getRace()
 	{
 		if (_race == null)
-			_race = L2NpcTemplate.Race.UNKNOWN;
+			_race = L2NpcTemplate.Race.NONE;
 		
 		return _race;
 	}
