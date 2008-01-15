@@ -31,7 +31,7 @@ class vanhalter(JQuest):
 
 
 # Quest class and state definition
-QUEST       = vanhalter(-1,"vanhalter","ai")
+QUEST = vanhalter(-1,"vanhalter","ai")
 
 # Quest NPC starter initialization
 # High Priestess van Halter

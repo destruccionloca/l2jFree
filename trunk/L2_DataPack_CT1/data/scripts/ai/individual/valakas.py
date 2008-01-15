@@ -44,7 +44,7 @@ class valakas(JQuest):
     st.exitQuest(1)
 
 # Quest class and state definition
-QUEST       = valakas(-1,"valakas","ai")
+QUEST = valakas(-1,"valakas","ai")
 
 # Quest NPC starter initialization
 QUEST.addStartNpc(31540)

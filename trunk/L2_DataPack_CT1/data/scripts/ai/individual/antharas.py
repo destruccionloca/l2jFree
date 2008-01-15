@@ -14,14 +14,17 @@ ANTHARAS_STRONG = 29068
 
 # Boss: Antharas
 class antharas(JQuest):
-
-  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
+  def __init__(self,id,name,descr):
+    self.antharas = 29019
+    JQuest.__init__(self,id,name,descr)
 
   def onTalk (self,npc,player):
     st = player.getQuestState("antharas")
     if not st : return "<html><body>You are either not carrying out your quest or don't meet the criteria.</body></html>"
     npcId = npc.getNpcId()
     if npcId == HEART:
+      if player.isFlying() :
+        return '<html><body>Heart of Muscai:<br>You may not enter while flying a wyvern</body></html>'
       if AntharasManager.getInstance().isEnableEnterToLair():
         if st.getQuestItemsCount(PORTAL_STONE) >= 1:
           st.takeItems(PORTAL_STONE,1)
@@ -34,17 +37,17 @@ class antharas(JQuest):
           return '<html><body>Heart of Muscai:<br><br>You do not have the proper stones needed for teleport.<br>It is for the teleport where does 1 stone to you need.<br></body></html>'
       else:
         st.exitQuest(1)
-        return '<html><body>Heart of Muscai:<br><br>Antharas has already awoke!<br>You are not allowed to enter into Lair of Antharas.<br></body></html>'
+        return '<html><body>Heart of Muscai:<br><br>Antharas has already awoke!<br>You are not possible to enter into Lair of Antharas.<br></body></html>'
 
-  def onKill(self,npc,player,isPet):
+  def onKill (self,npc,player,isPet):
     st = player.getQuestState("antharas")
-    AntharasManager.getInstance().setCubeSpawn()
     if not st: return
+    AntharasManager.getInstance().setCubeSpawn()
     st.exitQuest(1)
+    return
 
 # Quest class and state definition
-QUEST       = antharas(-1, "antharas", "ai")
-
+QUEST = antharas(-1, "antharas", "ai")
 # Quest NPC starter initialization
 QUEST.addStartNpc(HEART)
 QUEST.addTalkId(HEART)

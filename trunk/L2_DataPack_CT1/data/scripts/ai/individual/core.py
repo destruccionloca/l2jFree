@@ -41,7 +41,7 @@ class core(JQuest) :
         return 
 
 # now call the constructor (starts up the ai)
-QUEST		= core(-1,"core","ai")
+QUEST = core(-1,"core","ai")
 
 QUEST.addKillId(QUEST.Core)
 QUEST.addAttackId(QUEST.Core)
