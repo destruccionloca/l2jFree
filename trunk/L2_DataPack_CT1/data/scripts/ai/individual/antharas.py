@@ -37,7 +37,7 @@ class antharas(JQuest):
           return '<html><body>Heart of Muscai:<br><br>You do not have the proper stones needed for teleport.<br>It is for the teleport where does 1 stone to you need.<br></body></html>'
       else:
         st.exitQuest(1)
-        return '<html><body>Heart of Muscai:<br><br>Antharas has already awoke!<br>You are not possible to enter into Lair of Antharas.<br></body></html>'
+        return '<html><body>Heart of Muscai:<br><br>Antharas has already awoke!<br>You are not allowed to enter into Lair of Antharas.<br></body></html>'
 
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("antharas")
