@@ -61,7 +61,7 @@ class Quest (JQuest) :
                     st.takeItems(Heart,-1)
                     st.giveItems(Gwain_Rec,1)
                     st.addExpAndSp(3200,4736)
-                    st.setState(State.COMPLETED)
+                    st.exitQuest(False) 
                     st.playSound("ItemSound.quest_finish")
                     st.unset("cond")
                     htmltext = "32197-06.htm"

@@ -78,7 +78,7 @@ class Quest (JQuest) :
            x,y,z=COORD[id]
            player.teleToLocation(x,y,z)
            st.unset("cond")
-           st.setState(State.COMPLETED)
+           st.exitQuest(False) 
            htmltext="7.htm"
         else :
            htmltext="Where?"

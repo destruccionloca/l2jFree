@@ -36,7 +36,7 @@ class Quest (JQuest) :
                 st.takeItems(SmallGlassBox,-1)
                 st.giveItems(PlatedLeatherGloves,1)
                 st.set("cond","0")
-                st.setState(State.COMPLETED)
+                st.exitQuest(False) 
                 st.playSound("ItemSound.quest_finish")
             else :
                 htmltext ="30909-03.htm"
@@ -59,7 +59,7 @@ class Quest (JQuest) :
                 if PlayerLevel >= 48 :
                     WilliesSpecialBait = player.getQuestState("52_WilliesSpecialBait")
                     if WilliesSpecialBait:
-                        if WilliesSpecialBait.getState().getName() == 'State.COMPLETED':
+                        if WilliesSpecialBait.getState() == 'State.COMPLETED':
                             htmltext="31574-01.htm"
                         else :
                             htmltext="31574-02.htm"

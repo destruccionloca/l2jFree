@@ -37,7 +37,7 @@ class Quest (JQuest) :
                 st.takeItems(KikisLetter,-1)
                 st.giveItems(ElvenRing,1)
                 st.set("cond","0")
-                st.setState(State.COMPLETED)
+                st.exitQuest(False) 
                 st.playSound("ItemSound.quest_finish")
             else :
                 htmltext="31442-03.htm"
@@ -60,7 +60,7 @@ class Quest (JQuest) :
                 if PlayerLevel >= 36 :
                     OFullesSpecialBait= player.getQuestState("51_OFullesSpecialBait")
                     if OFullesSpecialBait :
-                        if OFullesSpecialBait.getState().getName() == 'State.COMPLETED':
+                        if OFullesSpecialBait.getState() == 'State.COMPLETED':
                             htmltext="31572-01.htm"
                         else :
                             htmltext="31572-02.htm"

@@ -47,7 +47,7 @@ class Quest (JQuest) :
    if event == "31334-02.htm" :
        st2 = player.getQuestState("21_HiddenTruth")
        if st2 :
-           if not (st2.getState().getName() == 'State.COMPLETED' and player.getLevel() >= 63) :
+           if not (st2.getState() == 'State.COMPLETED' and player.getLevel() >= 63) :
                htmltext = "31334-03.htm"
                st.exitQuest(1)
        else :
@@ -169,7 +169,7 @@ class Quest (JQuest) :
        if state == State.CREATED :
            st2 = player.getQuestState("21_HiddenTruth")
            if st2 :
-               if st2.getState().getName() == 'State.COMPLETED' :
+               if st2.getState() == 'State.COMPLETED' :
                    htmltext = "31328-00.htm"
        if id < 5 :
            if st.getQuestItemsCount(CROSS) == 0 :
@@ -190,7 +190,7 @@ class Quest (JQuest) :
            htmltext = "31328-14.htm"
        elif id == 14 :
            st.playSound("ItemSound.quest_finish")
-           st.setState(State.COMPLETED)
+           st.exitQuest(False) 
            st.unset("id")
            if player.getLevel() < 64 :
                htmltext = "31328-23.htm"

@@ -54,7 +54,7 @@ class Quest (JQuest) :
          st.takeItems(ELF_SKULL,-1)
          st.takeItems(BONE_FRAGMENT3,-1)
          st.unset("cond")
-         st.setState(State.COMPLETED)
+         st.exitQuest(False) 
          st.playSound("ItemSound.quest_finish")
    return htmltext
 

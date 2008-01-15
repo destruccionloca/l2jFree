@@ -65,7 +65,7 @@ class Quest (JQuest) :
      st.takeItems(SUCCUBUS_BLOOD,-1)
      st.giveItems(956,1)
      st.unset("cond")
-     st.setState(State.COMPLETED)
+     st.exitQuest(False) 
      st.playSound("ItemSound.quest_finish")
    return htmltext
 
