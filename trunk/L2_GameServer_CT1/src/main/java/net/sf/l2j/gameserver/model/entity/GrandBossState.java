@@ -14,7 +14,6 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -92,7 +91,7 @@ public class GrandBossState
     public void load()
     {
 
-    	Connection con = null;
+    	java.sql.Connection con = null;
     	
     	try
     	{
@@ -140,7 +139,7 @@ public class GrandBossState
     
     public void save()
     {
-        Connection con = null;
+    	java.sql.Connection con = null;
         
         try
         {
@@ -164,7 +163,7 @@ public class GrandBossState
 
     public void update()
     {
-        Connection con = null;
+    	java.sql.Connection con = null;
         
         try
         {
