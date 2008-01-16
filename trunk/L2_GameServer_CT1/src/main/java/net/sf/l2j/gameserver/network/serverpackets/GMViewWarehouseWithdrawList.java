@@ -51,6 +51,7 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 		for (L2ItemInstance item : _items)
 		{
 			writeH(item.getItem().getType1());
+
 			writeD(item.getObjectId());
 			writeD(item.getItemDisplayId());
 			writeD(item.getCount());
@@ -114,6 +115,16 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 					writeD(0);
 				}
 			}
+			writeD(item.getAttackAttrElement());
+			writeD(item.getAttackAttrElementVal());
+			writeD(item.getDefAttrFire());
+			writeD(item.getDefAttrWater());
+			writeD(item.getDefAttrWind());
+			writeD(item.getDefAttrEarth());
+			writeD(item.getDefAttrHoly()); 
+			writeD(item.getDefAttrUnholy());
+
+			writeD(item.getMana());
 		}
 	}
 

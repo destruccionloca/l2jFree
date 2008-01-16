@@ -48,6 +48,7 @@ public class GMViewPledgeInfo extends L2GameServerPacket
 		writeD(_clan.getLevel());
 		writeD(_clan.getHasCastle());
 		writeD(_clan.getHasHideout());
+		writeD(_clan.getHasFortress());
 		writeD(_clan.getRank()); // Ashitaka fix
 		writeD(_clan.getReputationScore());//writeD(_activeChar.getLevel()); Ashitaka Fix 		
 		writeD(0);
@@ -60,16 +61,17 @@ public class GMViewPledgeInfo extends L2GameServerPacket
 		
 		L2ClanMember[] members = _clan.getMembers();
 		writeD(members.length);
-        
-		for (L2ClanMember element : members) {
-            writeS(element.getName());
-            writeD(element.getLevel());
-            writeD(element.getClassId());
-            writeD(0); 
-            writeD(1);
-            writeD(element.isOnline() ? element.getObjectId() : 0);
-            writeD(0); // Ashitaka fix
-		}		
+
+		for (L2ClanMember element : members)
+		{
+			writeS(element.getName());
+			writeD(element.getLevel());
+			writeD(element.getClassId());
+			writeD(element.getSex()); 
+			writeD(element.getRace());
+			writeD(element.isOnline() ? element.getObjectId() : 0);
+			writeD(element.getSponsor());
+		}
 	}
 
 	/* (non-Javadoc)
