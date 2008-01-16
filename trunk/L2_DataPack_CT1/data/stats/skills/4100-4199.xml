@@ -451,13 +451,17 @@
   </for>
 </skill>
 <skill id="4125" levels="1" name="Antharas Regeneration">
-  <!-- NOT USED IN C4 -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="WEAKNESS"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="1" name="Buff" time="1800" val="0"> 
+       <mul order="0x30" stat="regHp" val="0.05"/>
+    </effect>
   </for>
 </skill>
 <skill id="4126" levels="1" name="Reduction in recovery time">
@@ -509,7 +513,7 @@
   <set name="power" val="4000.0"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="250"/>
-  set name="coolTime" val="2500"/>
+  <set name="coolTime" val="2500"/>
   <set name="hitTime" val="1500"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -541,7 +545,7 @@
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="150"/>
-  set name="coolTime" val="1400"/>
+  <set name="coolTime" val="1400"/>
   <set name="hitTime" val="3600"/>
   <set name="skillType" val="PARALYZE"/>
   <set name="operateType" val="OP_ACTIVE"/>
