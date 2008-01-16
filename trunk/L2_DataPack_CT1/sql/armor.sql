@@ -1329,3 +1329,4 @@ INSERT INTO `armor` VALUES
 -- Update
 UPDATE `armor` SET `dropable` = 'false',`tradeable` = 'false',`destroyable` = 'false',`price` = '0',`sellable` = 'false' WHERE `item_id` IN 
 ( 6834,6835,6836,6837,6838,6839,6840,6841,8181,8182,8183 );
+UPDATE `armor` SET `bodypart` = 'belt' WHERE `item_id` = 10273;
