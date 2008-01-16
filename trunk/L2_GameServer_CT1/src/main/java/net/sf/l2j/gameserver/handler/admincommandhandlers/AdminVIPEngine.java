@@ -330,37 +330,37 @@ public class AdminVIPEngine implements IAdminCommandHandler {
         replyMSG.append("<table><tr><td><edit var=\"input1\" width=\"50\"></td><td><edit var=\"input2\" width=\"50\"></td><td><edit var=\"input3\" width\"50\"></td></tr></table>");
         
         replyMSG.append("<table border=\"0\"><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Set Team\" action=\"bypass -h admin_vip_setteam $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Random Team\" action=\"bypass -h admin_vip_randomteam\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Set Team\" action=\"bypass -h admin_vip_setteam $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Random Team\" action=\"bypass -h admin_vip_randomteam\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
         replyMSG.append("</tr><tr>");
         
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Set Time\" action=\"bypass -h admin_vip_settime $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Set Delay\" action=\"bypass -h admin_vip_setdelay $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Set Area\" action=\"bypass -h admin_vip_setarea $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Set Time\" action=\"bypass -h admin_vip_settime $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Set Delay\" action=\"bypass -h admin_vip_setdelay $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Set Area\" action=\"bypass -h admin_vip_setarea $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
         replyMSG.append("</tr><tr>");
         
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"End NPC\" action=\"bypass -h admin_vip_endnpc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Join NPC\" action=\"bypass -h admin_vip_joinnpc $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");   
-        replyMSG.append("<td width=\"100\"><button value=\"Join LOC\" action=\"bypass -h admin_vip_joinlocxyz $input1 $input2 $input3\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"End NPC\" action=\"bypass -h admin_vip_endnpc $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Join NPC\" action=\"bypass -h admin_vip_joinnpc $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");   
+        replyMSG.append("<td width=\"100\"><button value=\"Join LOC\" action=\"bypass -h admin_vip_joinlocxyz $input1 $input2 $input3\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
         replyMSG.append("</tr><tr>");
         
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"VIP Reward\" action=\"bypass -h admin_vip_vipreward $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"VIP Reward Am\" action=\"bypass -h admin_vip_viprewardamount $input1\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"VIP Reward\" action=\"bypass -h admin_vip_vipreward $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"VIP Reward Am\" action=\"bypass -h admin_vip_viprewardamount $input1\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
         
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Not VIP Reward\" action=\"bypass -h admin_vip_notvipreward $input1\" width=130 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"Not VIP Reward Am\" action=\"bypass -h admin_vip_notviprewardamount $input1\" width=130 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Not VIP Reward\" action=\"bypass -h admin_vip_notvipreward $input1\" width=130 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Not VIP Reward Am\" action=\"bypass -h admin_vip_notviprewardamount $input1\" width=130 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
         
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"The VIP Reward\" action=\"bypass -h admin_vip_thevipreward $input1\" width=130 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
-        replyMSG.append("<td width=\"100\"><button value=\"The VIP Reward Am\" action=\"bypass -h admin_vip_theviprewardamount $input1\" width=130 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"The VIP Reward\" action=\"bypass -h admin_vip_thevipreward $input1\" width=130 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"The VIP Reward Am\" action=\"bypass -h admin_vip_theviprewardamount $input1\" width=130 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
         replyMSG.append("</tr><tr>");
         
         replyMSG.append("</tr></table><br><table><tr>");
-        replyMSG.append("<td width=\"100\"><button value=\"Start Join\" action=\"bypass -h admin_vip_joininit\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+        replyMSG.append("<td width=\"100\"><button value=\"Start Join\" action=\"bypass -h admin_vip_joininit\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
         replyMSG.append("</tr></table><br><br>");
         
         replyMSG.append("<font color=\"LEVEL\">VIP Settings...</font><br1>");

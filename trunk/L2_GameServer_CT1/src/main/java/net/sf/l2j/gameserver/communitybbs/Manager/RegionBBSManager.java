@@ -55,7 +55,7 @@ public class RegionBBSManager extends BaseBBSManager
     private final static String trClose = "</tr>";
     private final static String trOpen = "<tr>";
     private final static String colSpacer = "<td FIXWIDTH=15></td>";
-    private final static String smallButton = "\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">";
+    private final static String smallButton = "\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">";
     
 
     /**
@@ -174,7 +174,7 @@ public class RegionBBSManager extends BaseBBSManager
                 htmlCode.append(trOpen+tdOpen+"<br>"+tdClose+trClose);
             }
             
-            htmlCode.append(trOpen+tdOpen+"<multiedit var=\"pm\" width=240 height=40><button value=\"Send PM\" action=\"Write Region PM "+player.getName()+" pm pm pm\" width=110 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">"+tdClose+trClose+trOpen+tdOpen+"<br><button value=\"Back\" action=\"bypass _bbsloc"+smallButton+tdClose+trClose+"</table>");
+            htmlCode.append(trOpen+tdOpen+"<multiedit var=\"pm\" width=240 height=40><button value=\"Send PM\" action=\"Write Region PM "+player.getName()+" pm pm pm\" width=110 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">"+tdClose+trClose+trOpen+tdOpen+"<br><button value=\"Back\" action=\"bypass _bbsloc"+smallButton+tdClose+trClose+"</table>");
             htmlCode.append(tdClose+trClose+"</table>");          
             htmlCode.append("</body></html>");
             separateAndSend(htmlCode.toString(),activeChar);
@@ -422,18 +422,18 @@ public class RegionBBSManager extends BaseBBSManager
             htmlCode.append("<table border=0 width=600>");
             
             htmlCode.append("<tr>");
-            if (page == 1) htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+            if (page == 1) htmlCode.append("<td align=right width=190><button value=\"Prev\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
             else htmlCode.append("<td align=right width=190><button value=\"Prev\" action=\"bypass _bbsloc;page;"
                 + (page - 1)
-                + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+                + "\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
             htmlCode.append("<td FIXWIDTH=10></td>");
             htmlCode.append("<td align=center valign=top width=200>Displaying " + (((page - 1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD) + 1) + " - "
                 + (((page -1) * Config.NAME_PAGE_SIZE_COMMUNITYBOARD) + getOnlinePlayers(page).size()) + " player(s)</td>");
             htmlCode.append("<td FIXWIDTH=10></td>");
-            if (getOnlineCount(type) <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD)) htmlCode.append("<td align=left width=190><button value=\"Next\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+            if (getOnlineCount(type) <= (page * Config.NAME_PAGE_SIZE_COMMUNITYBOARD)) htmlCode.append("<td align=left width=190><button value=\"Next\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
             else htmlCode.append("<td align=left width=190><button value=\"Next\" action=\"bypass _bbsloc;page;"
                 + (page + 1)
-                + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+                + "\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
             htmlCode.append("</tr>");
             htmlCode.append("</table>");
         }

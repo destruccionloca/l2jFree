@@ -632,7 +632,7 @@ public class FortressSiege
 						replyMSG.append("You are already participating!<br><br>");
 					replyMSG.append("<table border=\"0\"><tr>");
 					replyMSG.append("<td width=\"200\">Wait util the event starts or</td>");
-					replyMSG.append("<td width=\"60\"><center><button value=\"Remove\" action=\"bypass -h npc_" + objectId + "_fos_player_leave\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></td>");
+					replyMSG.append("<td width=\"60\"><center><button value=\"Remove\" action=\"bypass -h npc_" + objectId + "_fos_player_leave\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></td>");
 					replyMSG.append("<td width=\"100\">your participation!</td>");
 					replyMSG.append("</tr></table>");
 				}
@@ -647,7 +647,7 @@ public class FortressSiege
 						for (String team : _teams)
 						{
 							replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font>&nbsp;(" + teamPlayersCount(team) + " joined)</td>");
-							replyMSG.append("<td width=\"60\"><button value=\"Join\" action=\"bypass -h npc_" + objectId + "_fos_player_join " + team + "\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+							replyMSG.append("<td width=\"60\"><button value=\"Join\" action=\"bypass -h npc_" + objectId + "_fos_player_join " + team + "\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
 						}
 						replyMSG.append("</table></center>");
 					}
@@ -657,7 +657,7 @@ public class FortressSiege
 						for (String team : _teams)
 							replyMSG.append("<tr><td width=\"100\"><font color=\"LEVEL\">" + team + "</font></td>");
 						replyMSG.append("</table></center><br>");
-						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_fos_player_join eventShuffle\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_fos_player_join eventShuffle\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 						replyMSG.append("Teams will be generated randomly!");
 					}
 				}

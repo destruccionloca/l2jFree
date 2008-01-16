@@ -371,7 +371,7 @@ public final class L2UrnInstance extends L2FolkInstance
         msg.append("<font color=\"LEVEL\">Success!</font><br>");
         msg.append("You may yet become a " +rankName+ " !<br>");
         msg.append("<table width=200>");
-        msg.append("<tr><td><button value=\"Back\" action=\"bypass -h npc_%objectId%_urn_main\" width=80 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+        msg.append("<tr><td><button value=\"Back\" action=\"bypass -h npc_%objectId%_urn_main\" width=80 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
         msg.append("</table>");
         msg.append("</body></html>");
 
@@ -387,7 +387,7 @@ public final class L2UrnInstance extends L2FolkInstance
         msg.append("You peer into the urn to see nothing remains, the temperature was too hot!<br>");
         msg.append("<font color=\"LEVEL\">You have failed!</font><br>");
         msg.append("<table width=200>");
-        msg.append("<tr><td><button value=\"Back\" action=\"bypass -h npc_%objectId%_urn_main\" width=80 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+        msg.append("<tr><td><button value=\"Back\" action=\"bypass -h npc_%objectId%_urn_main\" width=80 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
         msg.append("</table>");
         msg.append("</body></html>");
 

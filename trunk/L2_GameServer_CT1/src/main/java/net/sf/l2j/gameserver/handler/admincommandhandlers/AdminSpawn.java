@@ -548,12 +548,12 @@ public class AdminSpawn implements IAdminCommandHandler
 		
 		replyMSG.append("<table width=260><tr>");
 		if (page==0)
-			replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawn_menu\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+			replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawn_menu\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		else
-			replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawnsearch_menu "+ mode + " " + string + " " + (page-1) +"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+			replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawnsearch_menu "+ mode + " " + string + " " + (page-1) +"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		replyMSG.append("<td width=180><center>NPC Search Result<br>Found:" + result.length + "</center></td>");
 		if ((page + 1)<maxPages)
-			replyMSG.append("<td width=40><button value=\"Next\" action=\"bypass -h admin_spawnsearch_menu "+ mode + " " + string + " " + (page+1) +"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+			replyMSG.append("<td width=40><button value=\"Next\" action=\"bypass -h admin_spawnsearch_menu "+ mode + " " + string + " " + (page+1) +"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 		else
 			replyMSG.append("<td width=40></td>");   
 		
@@ -658,12 +658,12 @@ public class AdminSpawn implements IAdminCommandHandler
 		
 			replyMSG.append("<table width=260><tr>");
 			if (page==0)
-				replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawn_menu\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+				replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawn_menu\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 			else
-				replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawnlist_menu "+ npcId + " " + (page-1) +"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+				replyMSG.append("<td width=40><button value=\"Back\" action=\"bypass -h admin_spawnlist_menu "+ npcId + " " + (page-1) +"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 			replyMSG.append("<td width=180><center>Spawns Search Result<br>Found:" + result.length + "</center></td>");
 			if ((page + 1)<maxPages)
-				replyMSG.append("<td width=40><button value=\"Next\" action=\"bypass -h admin_spawnlist_menu "+ npcId + " " + (page+1) +"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>");
+				replyMSG.append("<td width=40><button value=\"Next\" action=\"bypass -h admin_spawnlist_menu "+ npcId + " " + (page+1) +"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
 			else
 				replyMSG.append("<td width=40></td>");   
 		

@@ -423,7 +423,7 @@ public class VIP {
 			{
 				replyMSG.append("You have made it to the end. All you have to do is hit the finish button to reward yourself and your team. Congrats!<br>");
 				replyMSG.append("<center>");
-				replyMSG.append("<button value=\"Finish\" action=\"bypass -h npc_" + objectId + "_vip_finishVIP\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+				replyMSG.append("<button value=\"Finish\" action=\"bypass -h npc_" + objectId + "_vip_finishVIP\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 				replyMSG.append("</center>");
 			}
 			else
@@ -702,7 +702,7 @@ public class VIP {
 						replyMSG.append("It seems you are on the VIP race! Be prepared to protect the VIP when it is decided<br1>");
 						replyMSG.append("The VIP will be decided on when the event starts. It's completely random.<br>");
 						replyMSG.append("<center>");
-						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 						replyMSG.append("</center>");
 					}
 					else if (eventPlayer.getRace() == Race.Elf && _team == 2)
@@ -710,7 +710,7 @@ public class VIP {
 						replyMSG.append("It seems you are on the VIP race! Be prepared to protect the VIP when it is decided<br1>");
 						replyMSG.append("The VIP will be decided on when the event starts. It's completely random.<br>");
 						replyMSG.append("<center>");
-						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 						replyMSG.append("</center>");
 					}
 					else if (eventPlayer.getRace() == Race.Darkelf && _team == 3)
@@ -718,7 +718,7 @@ public class VIP {
 						replyMSG.append("It seems you are on the VIP race! Be prepared to protect the VIP when it is decided<br1>");
 						replyMSG.append("The VIP will be decided on when the event starts. It's completely random.<br>");
 						replyMSG.append("<center>");
-						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 						replyMSG.append("</center>");
 					}
 					else if (eventPlayer.getRace() == Race.Orc && _team == 4)
@@ -726,7 +726,7 @@ public class VIP {
 						replyMSG.append("It seems you are on the VIP race! Be prepared to protect the VIP when it is decided<br1>");
 						replyMSG.append("The VIP will be decided on when the event starts. It's completely random.<br>");
 						replyMSG.append("<center>");
-						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 						replyMSG.append("</center>");
 					}
 					else if (eventPlayer.getRace() == Race.Dwarf && _team == 5)
@@ -734,7 +734,7 @@ public class VIP {
 						replyMSG.append("It seems you are on the VIP race! Be prepared to protect the VIP when it is decided<br1>");
 						replyMSG.append("The VIP will be decided on when the event starts. It's completely random.<br>");
 						replyMSG.append("<center>");
-						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinVIPTeam\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 						replyMSG.append("</center>");
 					}
 					else
@@ -744,7 +744,7 @@ public class VIP {
 						replyMSG.append("Be sure to cooperate with your team to destroy the VIP.<br1>");
 						replyMSG.append("The VIP will be announced when the event starts.<br>");
 						replyMSG.append("<center>");
-						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinNotVIPTeam\" width=50 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+						replyMSG.append("<button value=\"Join\" action=\"bypass -h npc_" + objectId + "_vip_joinNotVIPTeam\" width=50 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 						replyMSG.append("</center>");
 					}
 				}

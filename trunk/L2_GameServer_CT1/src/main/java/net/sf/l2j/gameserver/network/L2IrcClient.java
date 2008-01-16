@@ -299,7 +299,7 @@ public class L2IrcClient extends Thread {
 
 			if(msg.equals("!rates"))
 			{
-				sendChan("XP Rate: "+ Config.RATE_XP +" | " + "SP Rate: " + Config.RATE_SP +" | " + "Spoil Rate: " + Config.RATE_DROP_SPOIL +" | " + "Adena Rate: " + Config.RATE_DROP_ADENA +" | " + "Drop Rate: " + Config.RATE_DROP_ITEMS +" | " + "Party XP Rate: " + Config.RATE_PARTY_XP +" | " + "Party SP Rate: " + Config.RATE_PARTY_SP);
+				sendChan("XP Rate: " + Config.RATE_XP + " | " + "SP Rate: " + Config.RATE_SP + " | " + "Spoil Rate: " + Config.RATE_DROP_SPOIL + " | " + "Adena Rate: " + Config.RATE_DROP_ADENA + " | " + "Drop Rate: " + Config.RATE_DROP_ITEMS + " | " + "Party XP Rate: " + Config.RATE_PARTY_XP + " | " + "Party SP Rate: " + Config.RATE_PARTY_SP);
 			}
 
 			if(msg.equals("!showon"))

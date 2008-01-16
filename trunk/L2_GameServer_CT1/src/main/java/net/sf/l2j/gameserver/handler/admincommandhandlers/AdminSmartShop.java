@@ -211,15 +211,15 @@ public class AdminSmartShop implements IAdminCommandHandler
         	"<center><font color=\"LEVEL\">[Smart Shop by Darki699]</font></center><br><br>"+
         	"<center><edit var=\"input1\" width=\"125\"></center><br1>"+
         	"<table><tr>" +
-    		"<td width=\"100\"><button value=\"Create\" action=\"bypass -h admin_smartshop &&_buyItem="+ itemId +" _get="+ itemId +" &&_get=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    		"<td width=\"100\"><button value=\"Edit\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_editItem=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    		"<td width=\"100\"><button value=\"Detail\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_detailItem=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
+    		"<td width=\"100\"><button value=\"Create\" action=\"bypass -h admin_smartshop &&_buyItem="+ itemId +" _get="+ itemId +" &&_get=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    		"<td width=\"100\"><button value=\"Edit\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_editItem=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    		"<td width=\"100\"><button value=\"Detail\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_detailItem=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
     		"</tr><tr>"+
-			"<td width=\"100\"><button value=\"Quests\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_getQuestItem=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-			"<td width=\"100\"><button value=\"Skills\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_getSkillItem=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-			"<td width=\"100\"><button value=\"Buylist\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_getBuyListItem="  + itemId + " && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
+			"<td width=\"100\"><button value=\"Quests\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_getQuestItem=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+			"<td width=\"100\"><button value=\"Skills\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_getSkillItem=" + itemId + " && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+			"<td width=\"100\"><button value=\"Buylist\" action=\"bypass -h admin_smartshop &&_get="+ itemId +" &&_getBuyListItem="  + itemId + " && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
 			"</tr></table><br><center>"+
-			"<button value=\"-main-\" action=\"bypass -h admin_smartshop\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center><br>"+
+			"<button value=\"-main-\" action=\"bypass -h admin_smartshop\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center><br>"+
         	itemText(marks , itemId , actor);
     	replyMSG.append(text);
         
@@ -307,25 +307,25 @@ public class AdminSmartShop implements IAdminCommandHandler
     	"<table><tr><td width=\"125\"><font color =\"LEVEL\"><center>Value 1</center></font></td><td width=\"125\"><font color =\"LEVEL\"><center>Value 2</center></font></td></tr></table>"+
     	"<table><tr><td><edit var=\"input1\" width=\"125\"></td><td><edit var=\"input2\" width=\"125\"></td></tr></table>"+
     	"<table><tr>"+
-    	"<td width=\"100\"><button value=\"Weapon\" action=\"bypass -h admin_smartshop &&" + marks + " &&_weapn && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    	"<td width=\"100\"><button value=\"Items\"  action=\"bypass -h admin_smartshop &&" + marks + " &&_items && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    	"<td width=\"100\"><button value=\"Armor\"  action=\"bypass -h admin_smartshop &&" + marks + " &&_armor && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
+    	"<td width=\"100\"><button value=\"Weapon\" action=\"bypass -h admin_smartshop &&" + marks + " &&_weapn && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    	"<td width=\"100\"><button value=\"Items\"  action=\"bypass -h admin_smartshop &&" + marks + " &&_items && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    	"<td width=\"100\"><button value=\"Armor\"  action=\"bypass -h admin_smartshop &&" + marks + " &&_armor && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
     	"</tr><tr>"+
-    	"<td width=\"100\"><button value=\"Quest\"  action=\"bypass -h admin_smartshop &&" +   marks + " &&_quest && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    	"<td width=\"100\"><button value=\"View#\"  action=\"bypass -h admin_smartshop &&" +   marks + " &&_view && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    	"<td width=\"100\"><button value=\"Help\"   action=\"bypass -h admin_smartshop &&" +   marks + " &&_help && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
+    	"<td width=\"100\"><button value=\"Quest\"  action=\"bypass -h admin_smartshop &&" +   marks + " &&_quest && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    	"<td width=\"100\"><button value=\"View#\"  action=\"bypass -h admin_smartshop &&" +   marks + " &&_view && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    	"<td width=\"100\"><button value=\"Help\"   action=\"bypass -h admin_smartshop &&" +   marks + " &&_help && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
     	"</tr><tr>"+
-    	"<td width=\"100\"><button value=\"Item Id\"  action=\"bypass -h admin_smartshop &&" +   marks + " &&_ids && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    	"<td width=\"100\"><button value=\"Equipped\" action=\"bypass -h admin_smartshop &&" + marks + " &&_equip && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    	"<td width=\"100\"><button value=\"Grade\"    action=\"bypass -h admin_smartshop &&" + marks + " &&_grade && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>" +
+    	"<td width=\"100\"><button value=\"Item Id\"  action=\"bypass -h admin_smartshop &&" +   marks + " &&_ids && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    	"<td width=\"100\"><button value=\"Equipped\" action=\"bypass -h admin_smartshop &&" + marks + " &&_equip && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    	"<td width=\"100\"><button value=\"Grade\"    action=\"bypass -h admin_smartshop &&" + marks + " &&_grade && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>" +
     	"</tr></table><br1>"+
     	// Now the item list the character needs to see:
     	showMarkItems(marks)+
     	// <- Back // Main screen // Next -> buttons
     	"<br1><table><tr>"+
-    	"<td width=\"100\"><button value=\"<-back\" action=\"bypass -h admin_smartshop &&" + marks + " &&_back && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    	"<td width=\"100\"><button value=\"-main-\" action=\"bypass -h admin_smartshop\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>"+
-    	"<td width=\"100\"><button value=\"next->\" action=\"bypass -h admin_smartshop &&" + marks + " &&_next && $input1 && $input2\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td>" +
+    	"<td width=\"100\"><button value=\"<-back\" action=\"bypass -h admin_smartshop &&" + marks + " &&_back && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    	"<td width=\"100\"><button value=\"-main-\" action=\"bypass -h admin_smartshop\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>"+
+    	"<td width=\"100\"><button value=\"next->\" action=\"bypass -h admin_smartshop &&" + marks + " &&_next && $input1 && $input2\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>" +
     	"</tr></table>";
 
     	

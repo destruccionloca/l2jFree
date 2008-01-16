@@ -80,7 +80,7 @@ public class L2DoormenInstance extends L2FolkInstance
                                                          getObjectId(),
                                                          "<html><body>You have <font color=\"LEVEL\">opened</font> the clan hall door.<br>Outsiders may enter the clan hall while the door is open. Please close it when you've finished your business.<br><center><button value=\"Close\" action=\"bypass -h npc_"
                                                              + getObjectId()
-                                                             + "_close_doors\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
+                                                             + "_close_doors\" width=70 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></body></html>"));
                 }
                 else
                 {
@@ -108,7 +108,7 @@ public class L2DoormenInstance extends L2FolkInstance
                                                          getObjectId(),
                                                          "<html><body>You have <font color=\"LEVEL\">closed</font> the clan hall door.<br>Good day!<br><center><button value=\"To Begining\" action=\"bypass -h npc_"
                                                              + getObjectId()
-                                                             + "_Chat\" width=90 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></center></body></html>"));
+                                                             + "_Chat\" width=90 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></center></body></html>"));
                 }
                 else
                 {
@@ -192,8 +192,8 @@ public class L2DoormenInstance extends L2FolkInstance
             {
                 str = "<html><body>Hello!<br><font color=\"55FFFF\">" + getName()
                     + "</font> I am honored to serve your clan.<br>How may i serve you?<br>";
-                str += "<center><table><tr><td><button value=\"Open Door\" action=\"bypass -h npc_%objectId%_open_doors\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"><br1></td></tr></table><br>";
-                str += "<table><tr><td><button value=\"Close Door\" action=\"bypass -h npc_%objectId%_close_doors\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table></center></body></html>";
+                str += "<center><table><tr><td><button value=\"Open Door\" action=\"bypass -h npc_%objectId%_open_doors\" width=70 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"><br1></td></tr></table><br>";
+                str += "<table><tr><td><button value=\"Close Door\" action=\"bypass -h npc_%objectId%_close_doors\" width=70 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table></center></body></html>";
             }
             else
             {

@@ -150,7 +150,7 @@ public class FriendsBBSManager extends BaseBBSManager
                 htmlCode.append("<tr><td><br></td></tr>");
             }
             
-            htmlCode.append("<tr><td><multiedit var=\"pm\" width=240 height=40><button value=\"Send PM\" action=\"Write Region PM "+player.getName()+" pm pm pm\" width=110 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr><tr><td><br><button value=\"Back\" action=\"bypass _bbsgetfav\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr></table>");
+            htmlCode.append("<tr><td><multiedit var=\"pm\" width=240 height=40><button value=\"Send PM\" action=\"Write Region PM "+player.getName()+" pm pm pm\" width=110 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr><tr><td><br><button value=\"Back\" action=\"bypass _bbsgetfav\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr></table>");
             htmlCode.append("</td></tr></table>");          
             htmlCode.append("</body></html>");
             separateAndSend(htmlCode.toString(),activeChar);
@@ -172,7 +172,7 @@ public class FriendsBBSManager extends BaseBBSManager
         TextBuilder htmlCode = new TextBuilder("<html><body><br>");
         //add new friend
         htmlCode.append("<table border=0>");
-        //htmlCode.append("<tr><td>Add new friend:</td><td><edit var= \"friendname\" width=50></td><td><button value=\"Add Friend\" action=\"bypass -h _bbsgetfav;playeradd;$friendname\" width=70 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\"></td></tr>");
+        //htmlCode.append("<tr><td>Add new friend:</td><td><edit var= \"friendname\" width=50></td><td><button value=\"Add Friend\" action=\"bypass -h _bbsgetfav;playeradd;$friendname\" width=70 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td></tr>");
         htmlCode.append("<tr><td>To add someone to your friendlist type '/addfriend friendname'</td></tr>");
         htmlCode.append("<tr><td>You can remove someone from your friendlist only when your friend is online</td></tr>");
         htmlCode.append("</table><br>");
@@ -235,7 +235,7 @@ public class FriendsBBSManager extends BaseBBSManager
                     L2PcInstance reciever = L2World.getInstance().getPlayer(ar2);
                     if (reciever == null)
                     {
-                        htmlCode.append("Player not found!<br><button value=\"Back\" action=\"bypass _bbsgetfav;playerinfo;"+ar2+"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+                        htmlCode.append("Player not found!<br><button value=\"Back\" action=\"bypass _bbsgetfav;playerinfo;"+ar2+"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
                         htmlCode.append("</td></tr></table></body></html>");
                         separateAndSend(htmlCode.toString(),activeChar);
                         return;
@@ -250,7 +250,7 @@ public class FriendsBBSManager extends BaseBBSManager
                     {
                         reciever.sendPacket(cs);
                         activeChar.sendPacket(cs);
-                        htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsgetfav;playerinfo;"+reciever.getName()+"\" width=40 height=15 back=\"sek.cbui94\" fore=\"sek.cbui92\">");
+                        htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsgetfav;playerinfo;"+reciever.getName()+"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
                         htmlCode.append("</td></tr></table></body></html>");
                         separateAndSend(htmlCode.toString(),activeChar)  ;
                     }
