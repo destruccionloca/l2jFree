@@ -173,13 +173,13 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             else if (actualCommand.equalsIgnoreCase("bidding"))
             {
                 if (val == "") return;               
-                if(_log.isDebugEnabled()) player.sendMessage("bidding show successful");
+                if(_log.isDebugEnabled()) _log.warn("bidding show successful");
 
                 try
                 {
-                	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                     int auctionId = Integer.parseInt(val);
-                    if(_log.isDebugEnabled()) player.sendMessage("auction test started");
+                    if(_log.isDebugEnabled()) _log.warn("auction test started");
                     String filename = "data/html/auction/AgitAuctionInfo.htm";
                     Auction a = AuctionManager.getInstance().getAuction(auctionId);
 
@@ -290,7 +290,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
             		start = limit*(Integer.parseInt(val)-1)+1;
             		limit *= Integer.parseInt(val);
             	}
-            	if (_log.isDebugEnabled()) player.sendMessage("cmd list: auction test started");
+            	if (_log.isDebugEnabled()) _log.warn("cmd list: auction test started");
                 String items = "";
             	items+= "<table width=280 border=0><tr>";
                 for(int j=1;j<=npage;j++)
@@ -334,7 +334,7 @@ public final class L2AuctioneerInstance extends L2FolkInstance
                 }
                 else
                     auctionId = Integer.parseInt(val);
-                if (_log.isDebugEnabled()) player.sendMessage("cmd bidlist: auction test started");
+                if (_log.isDebugEnabled()) _log.warn("cmd bidlist: auction test started");
                 String biders = "";
                 Map<Integer, Bidder> bidders = AuctionManager.getInstance().getAuction(auctionId).getBidders();
                 for(Bidder b :bidders.values())

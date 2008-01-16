@@ -439,6 +439,10 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
         // If this is a festival monster, then it remains in the same location.
         if (_actor instanceof L2FestivalMonsterInstance) return;
 
+        // Check if the mob should not return to spawn point
+        if (!npc.canReturnToSpawnPoint()) return;
+
+
         // Minions following leader
         if (_actor instanceof L2MinionInstance && ((L2MinionInstance)_actor).getLeader() != null)
         {

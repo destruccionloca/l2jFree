@@ -194,9 +194,10 @@ public final class L2BossInstance extends L2MonsterInstance
                 if ((getStatus().getCurrentHp() - damage) < getMaxHp() / 2 && !getTeleported())
                 {
                     clearAggroList();
+                    setCanReturnToSpawnPoint(false);
+                    setTeleported(true);
                     getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
                     teleToLocation(43577,15985,-4396, false);
-                    setTeleported(true);
                 }
                 break;
             // [L2J_JP ADD SANDMAN]
