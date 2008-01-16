@@ -136,7 +136,7 @@ class Quest (JQuest) :
       htmltext = "30649-03.htm"
       for var in STATS:
         st.unset(var)
-      st.exitQuest(False) 
+      st.exitQuest(False)
       st.playSound("ItemSound.quest_finish")
     return htmltext
 
@@ -313,8 +313,8 @@ class Quest (JQuest) :
     if not st : return 
     npcId=npc.getNpcId()
 
-    if (st.getState() == State.Started) and (st.get("progress")=="PART1") and not (npcId in PART1_MOBS) : return 
-    if (st.getState() == State.Started) and (st.get("progress")=="PART2") and not (npcId in PART2_MOBS) : return 
+    if (st.getState() == State.STARTED) and (st.get("progress")=="PART1") and not (npcId in PART1_MOBS) : return 
+    if (st.getState() == State.STARTED) and (st.get("progress")=="PART2") and not (npcId in PART2_MOBS) : return 
 
 #    [accepted values for this part],variable for the current part from the mob,maxcount,chance in %, items to give(one per kill max)=DROPLIST[npcId]
     value,var,maxcount,chance,itemList=DROPLIST[npcId]
