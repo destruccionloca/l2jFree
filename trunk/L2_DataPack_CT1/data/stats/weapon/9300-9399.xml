@@ -19,6 +19,8 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Guidance -->
+   <add val='4' order='0x40' stat='accCombat'/>
   </for>
 </item>
 
@@ -30,6 +32,12 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!--SA: Miser--> 
+   <set val='9' order='0x08' stat='soulShotCount'> 
+      <and>
+         <game chance="30"/> 
+      </and> 
+   </set>
   </for>
 </item>
 
@@ -41,6 +49,12 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Cheap Shot -->
+   <set val='1' order='0x08' stat='MpConsume'> 
+      <and>
+         <game skill="false" chance="12"/> 
+      </and> 
+   </set>
   </for>
 </item>
 
@@ -63,10 +77,12 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Guidance -->
+   <add val='5' order='0x40' stat='accCombat'/>
   </for>
 </item>
 
-<item id='9306' name="Military Fleuret - Critical Damage">
+<item id='9306' name="Military Fleuret - Focus">
   <for>
    <set val='159' order='0x08' stat='pAtk'/>
    <set val='91' order='0x08' stat='mAtk'/>
@@ -74,10 +90,12 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='68' order='0x40' stat='rCrit'/>
   </for>
 </item>
 
-<item id='9307' name="Military Fleuret - Focus">
+<item id='9307' name="Military Fleuret - Back Blow">
   <for>
    <set val='159' order='0x08' stat='pAtk'/>
    <set val='91' order='0x08' stat='mAtk'/>
@@ -85,6 +103,12 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Back Blow -->
+   <add order='0x40' stat='rCrit' val='56'>
+     <and>
+       <player behind='True'/>
+     </and>
+   </add>
   </for>
 </item>
 
@@ -100,7 +124,7 @@
   </for>
 </item>
 
-<item id='9309' name="Innominate Victory - Evasion">
+<item id='9309' name="Innominate Victory - Health">
   <for>
    <set val='190' order='0x08' stat='pAtk'/>
    <set val='91' order='0x08' stat='mAtk'/>
@@ -109,10 +133,12 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
   </for>
 </item>
 
-<item id='9310' name="Innominate Victory - Critical Bleed">
+<item id='9310' name="Innominate Victory - Critical Damage">
   <for>
    <set val='190' order='0x08' stat='pAtk'/>
    <set val='91' order='0x08' stat='mAtk'/>
@@ -121,10 +147,12 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Critical Damage -->
+   <add val='247' order='0x40' stat='cAtk'/>
   </for>
 </item>
 
-<item id='9311' name="Innominate Victory - Miser">
+<item id='9311' name="Innominate Victory - Focus">
   <for>
    <set val='190' order='0x08' stat='pAtk'/>
    <set val='91' order='0x08' stat='mAtk'/>
@@ -133,6 +161,8 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='68' order='0x40' stat='rCrit'/>
   </for>
 </item>
 
@@ -155,6 +185,8 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Evasion -->
+   <add val='2' order='0x40' stat='rEvas'/>
   </for>
 </item>
 
@@ -166,6 +198,8 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- Critical Bleed -->
+   <skill onCrit='1' id='96' lvl='4' chance='30'/>
   </for>
 </item>
 
@@ -177,6 +211,12 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!--SA: Miser--> 
+   <set val='2' order='0x08' stat='soulShotCount'> 
+      <and>
+         <game chance="30"/> 
+      </and> 
+   </set>
   </for>
 </item>
 
@@ -199,6 +239,8 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='64' order='0x40' stat='rCrit'/>
   </for>
 </item>
 
@@ -210,6 +252,8 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Critical Damage -->
+   <add val='262' order='0x40' stat='cAtk'/>
   </for>
 </item>
 
@@ -221,6 +265,8 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Haste -->
+   <mul val='1.06' order='0x30' stat='pAtkSpd'/>
   </for>
 </item>
 
@@ -245,6 +291,8 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- Critical Bleed -->
+   <skill onCrit='1' id='96' lvl='4' chance='24'/>
   </for>
 </item>
 
@@ -257,6 +305,8 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
   </for>
 </item>
 
@@ -269,6 +319,8 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- Critical Drain -->
+   <skill onCrit='1' id='3022' lvl='1'/>
   </for>
 </item>
 
@@ -291,6 +343,8 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Guidance -->
+   <add val='3' order='0x40' stat='accCombat'/>
   </for>
 </item>
 
@@ -302,10 +356,12 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Quick Recovery -->
+   <mul val='0.87' order='0x30' stat='atkReuse'/>
   </for>
 </item>
 
-<item id='9327' name="Hell Hound - Cheap Sho">
+<item id='9327' name="Hell Hound - Cheap Shot">
   <for>
    <set val='245' order='0x08' stat='pAtk'/>
    <set val='99' order='0x08' stat='mAtk'/>
@@ -313,6 +369,12 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Cheap Shot -->
+   <set val='2' order='0x08' stat='MpConsume'> 
+      <and>
+       	 <game skill="false" chance="12"/> 
+      </and> 
+   </set>
   </for>
 </item>
 
@@ -335,6 +397,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- Critical Poison -->
+   <skill onCrit='1' id='1168' lvl='6' chance='10'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -346,6 +413,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Haste -->
+   <mul val='1.06' order='0x30' stat='pAtkSpd'/>
+       <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -357,6 +429,12 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Anger -->
+   <add val='31' order='0x40' stat='pAtk'/>
+   <mul val='0.85' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -381,6 +459,8 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Haste -->
+   <mul val='1.06' order='0x30' stat='pAtkSpd'/>
   </for>
 </item>
 
@@ -393,6 +473,8 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Critical Damage -->
+   <add val='297' order='0x08' stat='cAtk'/>
   </for>
 </item>
 
@@ -405,6 +487,8 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='61' order='0x40' stat='rCrit'/>
   </for>
 </item>
 
@@ -427,6 +511,9 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -438,6 +525,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Critical Bleed -->
+   <skill onCrit='1' id='96' lvl='5' chance='35'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -471,6 +563,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Critical Damage -->
+   <add val='326' order='0x40' stat='cAtk'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -482,6 +579,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -493,6 +595,15 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Rsk. Focus -->
+   <add order='0x40' stat='rCrit' val='130'>
+		<and>        
+			<player hp='60'/>
+		</and>
+   </add>
+	<!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -517,6 +628,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -529,6 +645,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Critical Bleed -->
+   <skill onCrit='1' id='96' lvl='5' chance='24'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -541,6 +662,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Critical Drain -->
+   <skill onCrit='1' id='3022' lvl='4'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -563,6 +689,15 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Cheap Shot -->
+   <set val='2' order='0x08' stat='MpConsume'> 
+      <and>
+         <game skill="false" chance="12"/> 
+      </and> 
+   </set>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -574,6 +709,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Quick Recovery -->
+   <mul val='0.85' order='0x30' stat='atkReuse'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -585,6 +725,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- Critical Poison -->
+   <skill onCrit='1' id='1168' lvl='6' chance='18'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -607,6 +752,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Haste -->
+   <mul val='1.06' order='0x30' stat='pAtkSpd'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -618,6 +768,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -629,6 +784,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- Critical Poison -->
+   <skill onCrit='1' id='1168' lvl='7' chance='15'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -653,6 +813,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='61' order='0x40' stat='rCrit'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -665,6 +830,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Haste -->
+   <mul val='1.06' order='0x30' stat='pAtkSpd'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -677,6 +847,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -699,6 +874,15 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+   	<!-- SA: Cheap Shot -->
+   <sub val='1' order='0x40' stat='MpConsume'> 
+      <and>
+         <game skill="false" chance="12"/> 
+      </and> 
+   </sub>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -710,6 +894,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='61' order='0x40' stat='rCrit'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -721,6 +910,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Quick Recovery -->
+   <mul val='0.87' order='0x30' stat='atkReuse'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -743,6 +937,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Haste -->
+   <mul val='1.07' order='0x30' stat='pAtkSpd'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -754,6 +953,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -765,6 +969,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='84' order='0x40' stat='rCrit'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -789,6 +998,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Haste -->
+   <mul val='1.07' order='0x30' stat='pAtkSpd'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -801,6 +1015,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -813,6 +1032,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='84' order='0x40' stat='rCrit'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -835,6 +1059,15 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Cheap Shot -->
+   <set val='1' order='0x08' stat='MpConsume'> 
+      <and>
+         <game skill="false" chance="12"/> 
+      </and> 
+   </set>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -846,6 +1079,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='88' order='0x40' stat='rCrit'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -857,6 +1095,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Critical Slow -->
+   <skill onCrit='1' id='3594' lvl='1' chance='7'/> 
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -879,6 +1122,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+          <!-- SA: Focus -->
+   <add val='67' order='0x40' stat='rCrit'/>
+       <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -890,6 +1138,11 @@
    <set val='406' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -925,6 +1178,11 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+             <!-- SA: Focus -->
+   <add val='67' order='0x40' stat='rCrit'/>
+       <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -937,10 +1195,15 @@
    <set val='350' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+          <!-- SA: Health -->
+   <mul val='1.25' order='0x30' stat='maxHp'/>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
-<item id='9383' name="Dynasty Ancient Sword - Evasion">
+<item id='9383' name="Dynasty Ancient Sword - Light">
   <for>
    <set val='332' order='0x08' stat='pAtk'/>
    <set val='140' order='0x08' stat='mAtk'/>
@@ -971,6 +1234,15 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+      	<!-- SA: Cheap Shot -->
+   <sub val='1' order='0x40' stat='MpConsume'> 
+      <and>
+         <game skill="false" chance="12"/> 
+      </and> 
+   </sub>
+    <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
@@ -982,10 +1254,15 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Guidance -->
+    <add val='3.4' order='0x40' stat='accCombat'/>
+	       <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
-<item id='9387' name="Dynasty Crossbow - Evasion">
+<item id='9387' name="Dynasty Crossbow - Focus">
   <for>
    <set val='389' order='0x08' stat='pAtk'/>
    <set val='140' order='0x08' stat='mAtk'/>
@@ -993,6 +1270,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
+       <!-- SA: Focus -->
+   <add val='70' order='0x40' stat='rCrit'/>
+          <!-- Enhances damage to target during PvP -->
+   <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
+   <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
 </item>
 
