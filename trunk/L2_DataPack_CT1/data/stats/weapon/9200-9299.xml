@@ -360,7 +360,7 @@
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Quick Recovery -->
-   <mul val='0.83' order='0x30' stat='atkReuse'/>
+   <mul val='0.83' order='0x30' stat='bowReuse'/>
   </for>
 </item>
 
@@ -622,7 +622,7 @@
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Quick Recovery -->
-   <mul val='0.8' order='0x30' stat='atkReuse'/>
+   <mul val='0.8' order='0x30' stat='bowReuse'/>
   </for>
 </item>
 
