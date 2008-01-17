@@ -20,6 +20,8 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ExAutoSoulShot;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
+import net.sf.l2j.gameserver.templates.L2Item;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -90,9 +92,11 @@ public class RequestAutoSoulShot extends L2GameClientPacket
                         }
                         else
                         {
-                        	// is the on Blessed Spiritshots not allowed ?? added to check SoulShots and SpiritShots all grades. remove it if i'm not correct
+                            int shotType = item.getItem().getCrystalType();
+                            // is the on Blessed Spiritshots not allowed ?? added to check SoulShots and SpiritShots all grades. remove it if i'm not correct
                             if (activeChar.getActiveWeaponItem() != activeChar.getFistsWeaponItem()
-                                    && item.getItem().getCrystalType() == activeChar.getActiveWeaponItem().getCrystalType())
+                                    && (shotType == activeChar.getActiveWeaponItem().getCrystalType()
+                                    || (shotType == L2Item.CRYSTAL_S && activeChar.getActiveWeaponItem().getCrystalType() == L2Item.CRYSTAL_S80)))
                             {
                                 if(((_itemId >= 3947 && _itemId <= 3952) || (_itemId >= 2509 && _itemId <= 2514) || (_itemId >= 1463 && _itemId <= 1467)) && activeChar.isInOlympiadMode())
                                 {
