@@ -271,10 +271,7 @@ public abstract class Inventory extends ItemContainer
 			L2Skill enchant4Skill = null;
 			
 			L2Item it = item.getItem();
-			
-			if (it.isS80() && player.getLevel()<80)
-				return;
-			
+
 			if (it instanceof L2Weapon)
 			{
 				passiveSkill = ((L2Weapon) it).getSkill();
@@ -1330,6 +1327,7 @@ public abstract class Inventory extends ItemContainer
 				arrowsId = 1344;
 				break; // Mithril arrow
 			case L2Item.CRYSTAL_S:
+			case L2Item.CRYSTAL_S80:
 				arrowsId = 1345;
 				break; // Shining arrow
 		}
@@ -1361,6 +1359,7 @@ public abstract class Inventory extends ItemContainer
 				arrowsId = 9636;
 				break;
 			case L2Item.CRYSTAL_S:
+			case L2Item.CRYSTAL_S80:
 				arrowsId = 9637;
 				break;
 		}

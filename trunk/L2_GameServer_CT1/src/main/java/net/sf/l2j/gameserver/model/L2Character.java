@@ -1652,8 +1652,15 @@ public abstract class L2Character extends L2Object
 		}
 		
 		// AURA skills should always be using caster as target
-		if (skill.getTargetType() == SkillTargetType.TARGET_AURA)
-			target = this;
+		switch(skill.getTargetType())
+		{
+			case TARGET_AURA:
+			case TARGET_FRONT_AURA:
+			case TARGET_BEHIND_AURA:
+				target = this;
+				target = this;
+				break;
+		}
 		
 		if (target == null)
 		{
@@ -2132,6 +2139,8 @@ public abstract class L2Character extends L2Object
 		switch (skill.getTargetType())
 		{
 			case TARGET_AURA: // AURA, SELF should be cast even if no target has been found
+			case TARGET_FRONT_AURA:
+			case TARGET_BEHIND_AURA:
 			case TARGET_SELF:
 				target = this;
 				break;

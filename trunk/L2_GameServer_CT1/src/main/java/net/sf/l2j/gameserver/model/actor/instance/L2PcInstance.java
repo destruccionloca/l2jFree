@@ -7502,6 +7502,8 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             // Target the player if skill type is AURA, PARTY, CLAN or SELF
             case TARGET_AURA:
+            case TARGET_FRONT_AURA:
+            case TARGET_BEHIND_AURA:
             case TARGET_PARTY:
             case TARGET_ALLY:
             case TARGET_CLAN:
@@ -7735,16 +7737,24 @@ public final class L2PcInstance extends L2PlayableInstance
             }
 
             // Check if a Forced ATTACK is in progress on non-attackable target
-            if (!target.isAutoAttackable(this) && !forceUse && !(_inEventTvT && TvT._started) && !(_inEventFOS && FortressSiege._started) && !(_inEventDM && DM._started) && !(_inEventCTF && CTF._started) && !(_inEventVIP && VIP._started) &&
-                   sklTargetType != SkillTargetType.TARGET_AURA &&
-                   sklTargetType != SkillTargetType.TARGET_CLAN &&
-                   sklTargetType != SkillTargetType.TARGET_ALLY &&
-                   sklTargetType != SkillTargetType.TARGET_PARTY &&
-                   sklTargetType != SkillTargetType.TARGET_SELF)
+            if (!target.isAutoAttackable(this) && !forceUse && !isInFunEvent())
             {
-                // Send a Server->Client packet ActionFailed to the L2PcInstance
-                sendPacket(new ActionFailed());
-                return;
+                switch(sklTargetType)
+                {
+                    case TARGET_AURA:
+                    case TARGET_FRONT_AURA:
+                    case TARGET_BEHIND_AURA:
+                    case TARGET_CLAN:
+                    case TARGET_ALLY:
+                    case TARGET_PARTY:
+                    case TARGET_SELF:
+                        // everything okay
+                        break;
+                    default:
+                        // Send a Server->Client packet ActionFailed to the L2PcInstance
+                        sendPacket(new ActionFailed());
+                        return;
+                }
             }
 
             // Check if the target is in the skill cast range
@@ -7767,22 +7777,35 @@ public final class L2PcInstance extends L2PlayableInstance
         if (!skill.isOffensive())
         {
             // check if the target is a monster and if force attack is set.. if not then we don't want to cast.
-            if ((target instanceof L2MonsterInstance) && !forceUse
-                    && (sklTargetType != SkillTargetType.TARGET_PET)
-                    && (sklTargetType != SkillTargetType.TARGET_AURA)
-                    && (sklTargetType != SkillTargetType.TARGET_CLAN)
-                    && (sklTargetType != SkillTargetType.TARGET_SELF)
-                    && (sklTargetType != SkillTargetType.TARGET_PARTY)
-                    && (sklTargetType != SkillTargetType.TARGET_ALLY)
-                    && (sklTargetType != SkillTargetType.TARGET_CORPSE_MOB)
-                    && (sklTargetType != SkillTargetType.TARGET_AREA_CORPSE_MOB)
-                    && (sklType != SkillType.BEAST_FEED)
+            if ((target instanceof L2MonsterInstance) && !forceUse)
+            {
+                switch(sklTargetType)
+                {
+                    case TARGET_PET:
+                    case TARGET_AURA:
+                    case TARGET_FRONT_AURA:
+                    case TARGET_BEHIND_AURA:
+                    case TARGET_CLAN:
+                    case TARGET_SELF:
+                    case TARGET_PARTY:
+                    case TARGET_ALLY:
+                    case TARGET_CORPSE_MOB:
+                    case TARGET_AREA_CORPSE_MOB:
+                        // everything okay
+                        break;
+                    default:
+                        // send the action failed so that the skill doens't go off.
+                        sendPacket(new ActionFailed());
+                        return;
+                }
+                if ((sklType != SkillType.BEAST_FEED)
                     && (sklType != SkillType.DELUXE_KEY_UNLOCK)
                     && (sklType != SkillType.UNLOCK))
-            {
-                // send the action failed so that the skill doens't go off.
-                sendPacket(new ActionFailed());
-                return;
+                {
+                    // send the action failed so that the skill doens't go off.
+                    sendPacket(new ActionFailed());
+                    return;
+                }
             }
         }
 
@@ -7849,6 +7872,8 @@ public final class L2PcInstance extends L2PlayableInstance
             case TARGET_ALLY: // For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
             case TARGET_CLAN: // For such skills, checkPvpSkill() is called from L2Skill.getTargetList()
             case TARGET_AURA:
+            case TARGET_FRONT_AURA:
+            case TARGET_BEHIND_AURA:
             case TARGET_SELF:
                 break;
             default:
@@ -9367,6 +9392,9 @@ public final class L2PcInstance extends L2PlayableInstance
         //_macroses.sendUpdate();
         _shortCuts.restore();
         sendPacket(new ShortCutInit(this));
+
+        // Method untransform() already check if player is transformed
+        untransform();
 
         broadcastPacket(new SocialAction(getObjectId(), 15));
 

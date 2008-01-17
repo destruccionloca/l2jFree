@@ -32,8 +32,9 @@ public class QuestTimer
 
             try
             {
-            	getQuest().notifyEvent(getName(), getNpc(), getPlayer());
-                cancel();
+                getQuest().notifyEvent(getName(), getNpc(), getPlayer());
+                if (!getIsRepeating())
+                    cancel();
             }
             catch (Throwable t)
             {
@@ -48,26 +49,32 @@ public class QuestTimer
     private Quest _quest;
     private L2NpcInstance _npc;
     private L2PcInstance _player;
+    private boolean _isRepeating;
     private ScheduledFuture<?> _scheduler;
 
     // =========================================================
     // Constructor
-    public QuestTimer(Quest quest, String name, long time, L2NpcInstance npc, L2PcInstance player)
+    public QuestTimer(Quest quest, String name, long time, L2NpcInstance npc, L2PcInstance player, boolean repeating)
     {
         _name = name;
         _quest = quest;
         _player = player;
         _npc = npc;
-        _scheduler = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTimerTask(), time); // Prepare auto end task
+        _isRepeating = repeating;
+        if (repeating)
+            _scheduler = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new ScheduleTimerTask(), time, time); // Prepare auto end task
+        else
+            _scheduler = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTimerTask(), time); // Prepare auto end task
+    }
+
+    public QuestTimer(Quest quest, String name, long time, L2NpcInstance npc, L2PcInstance player)
+    {
+        this(quest, name, time, npc, player, false);
     }
 
     public QuestTimer(QuestState qs, String name, long time)
     {
-        _name = name;
-        _quest = qs.getQuest();
-        _player = qs.getPlayer();
-        _npc = null;
-        _scheduler = ThreadPoolManager.getInstance().scheduleGeneral(new ScheduleTimerTask(), time); // Prepare auto end task
+        this(qs.getQuest(), name, time, null, qs.getPlayer(), false);
     }
 
     // =========================================================
@@ -100,9 +107,14 @@ public class QuestTimer
         return _isActive;
     }
 
+    public final boolean getIsRepeating()
+    {
+        return _isRepeating;
+    }
+
     public final Quest getQuest()
     {
-    	return _quest;
+        return _quest;
     }
     
     public final String getName()

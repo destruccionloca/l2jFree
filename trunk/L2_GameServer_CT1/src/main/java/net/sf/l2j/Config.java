@@ -1077,6 +1077,7 @@ public final class Config
 	public static int		CACHE_MAX_ELEM_IN_MEMORY;
 	public static boolean	GM_AUDIT;
 	public static String	COMMUNITY_TYPE;						// Community Board
+	public static boolean	BBS_SHOW_PLAYERLIST;
 	public static String	BBS_DEFAULT;
 	public static boolean	SHOW_LEVEL_COMMUNITYBOARD;
 	public static boolean	SHOW_STATUS_COMMUNITYBOARD;
@@ -1183,6 +1184,7 @@ public final class Config
 			GM_AUDIT = Boolean.parseBoolean(optionsSettings.getProperty("GMAudit", "False"));
 			
 			COMMUNITY_TYPE = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
+			BBS_SHOW_PLAYERLIST = Boolean.valueOf(optionsSettings.getProperty("BBSShowPlayerList", "false"));
 			BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");
 			SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
 			SHOW_STATUS_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
@@ -2808,6 +2810,8 @@ public final class Config
 			ALLOW_RENTPET = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CommunityType"))
 			COMMUNITY_TYPE = pValue.toLowerCase();
+		else if (pName.equalsIgnoreCase("BBSShowPlayerList"))
+			BBS_SHOW_PLAYERLIST = Boolean.valueOf(pValue);
 		else if (pName.equalsIgnoreCase("BBSDefault"))
 			BBS_DEFAULT = pValue;
 		else if (pName.equalsIgnoreCase("AllowBoat"))

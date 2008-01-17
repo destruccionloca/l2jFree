@@ -21,11 +21,14 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
+import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 
 /** 
 * Thanks to L2Fortress and balancer.ru - kombat
@@ -59,7 +62,16 @@ public class DimensionalRift
 		_choosenRoom = roomId;
 		party.setDimensionalRift(this);
 		for(L2PcInstance p : party.getPartyMembers())
+		{
+			Quest riftQuest = QuestManager.getInstance().getQuest(635);
+			if (riftQuest != null)
+			{
+				QuestState qs = riftQuest.newQuestState(p);
+				qs.set("cond", "1");
+				qs.playSound("ItemSound.quest_accept");
+			}
 			p.teleToLocation(getRoomCoord(roomId), false);
+		}
 		createSpawnTimer(_choosenRoom);
 		createTeleporterTimer(true);
 	}
@@ -235,7 +247,10 @@ public class DimensionalRift
 
 	protected void teleportToWaitingRoom(L2PcInstance player)
 	{
-        player.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
+		player.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
+		QuestState qs = player.getQuestState("RiftQuest");
+		if (qs != null)
+			qs.exitQuest(true);
 	}
 
 	public void killRift()

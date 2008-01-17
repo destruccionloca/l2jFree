@@ -111,11 +111,11 @@ public abstract class L2Item
     public static final int CRYSTAL_B = 0x03; // ??
     public static final int CRYSTAL_A = 0x04; // ??
     public static final int CRYSTAL_S = 0x05; // ??
-    public static final int CRYSTAL_S80 = 0x06; // ??    
-    
-    private static final int[] crystalItemId = {0, 1458, 1459, 1460, 1461, 1462};
-    private static final int[] crystalEnchantBonusArmor = {0, 11, 6, 11, 19, 25};
-    private static final int[] crystalEnchantBonusWeapon = {0, 90, 45, 67, 144, 250};
+    public static final int CRYSTAL_S80 = 0x06; // ??
+
+    private static final int[] crystalItemId = {0, 1458, 1459, 1460, 1461, 1462, 1462};
+    private static final int[] crystalEnchantBonusArmor = {0, 11, 6, 11, 19, 25, 25};
+    private static final int[] crystalEnchantBonusWeapon = {0, 90, 45, 67, 144, 250, 250};
 
     private final int _itemId;
     private final int _itemDisplayId;
@@ -266,19 +266,9 @@ public abstract class L2Item
      */
     public final int getCrystalType()
     {
-        return (_crystalType != CRYSTAL_S80)? _crystalType : CRYSTAL_S;
+        return _crystalType;
     }
 
-    /**
-     * Returns true if the item is S80 item
-     * This is done here and not in getCrystalType() since s80 has special abilities
-     * available to use in s-grade, but abilities received only when reached level 80.
-     */
-    public final boolean isS80()
-    {
-    	return (_crystalType == CRYSTAL_S80);
-    }
-    
     /**
      * Return the type of crystal if item is crystallizable
      * @return int

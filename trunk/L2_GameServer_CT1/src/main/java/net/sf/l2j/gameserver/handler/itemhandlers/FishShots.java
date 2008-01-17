@@ -64,12 +64,13 @@ public class FishShots implements IItemHandler
         int grade = weaponItem.getCrystalType();        
         int count = item.getCount();        
 
-        if ((grade == L2Item.CRYSTAL_NONE && FishshotId != 6535) ||  
-        (grade == L2Item.CRYSTAL_D && FishshotId != 6536) ||  
-        (grade == L2Item.CRYSTAL_C && FishshotId != 6537) ||  
-        (grade == L2Item.CRYSTAL_B && FishshotId != 6538) ||  
-        (grade == L2Item.CRYSTAL_A && FishshotId != 6539) ||  
-        (grade == L2Item.CRYSTAL_S && FishshotId != 6540)) 
+        if ((grade == L2Item.CRYSTAL_NONE && FishshotId != 6535) ||
+        (grade == L2Item.CRYSTAL_D && FishshotId != 6536) ||
+        (grade == L2Item.CRYSTAL_C && FishshotId != 6537) ||
+        (grade == L2Item.CRYSTAL_B && FishshotId != 6538) ||
+        (grade == L2Item.CRYSTAL_A && FishshotId != 6539) ||
+        (grade == L2Item.CRYSTAL_S && FishshotId != 6540) ||
+        (grade == L2Item.CRYSTAL_S80 && FishshotId != 6540))
         { 
             //1479 - This fishing shot is not fit for the fishing pole crystal.             
             activeChar.sendPacket(new SystemMessage(SystemMessageId.WRONG_FISHINGSHOT_GRADE));

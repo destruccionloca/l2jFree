@@ -22,11 +22,13 @@ import java.util.concurrent.ScheduledFuture;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
+import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
+import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.NullKnownList;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -1320,7 +1322,15 @@ public final class L2ItemInstance extends L2Object
 	{
 		if (Config.ASSERT)
 			assert getPosition().getWorldRegion() == null;
-		
+
+		if (Config.GEODATA)
+		{
+			Location dropDest = GeoData.getInstance().moveCheck(dropper.getX(), dropper.getY(), dropper.getZ(), x, y, z);
+			x = dropDest.getX();
+			y = dropDest.getY();
+			z = dropDest.getZ();
+		}
+
 		synchronized (this)
 		{
 			// Set the x,y,z position of the L2ItemInstance dropped and update its _worldregion

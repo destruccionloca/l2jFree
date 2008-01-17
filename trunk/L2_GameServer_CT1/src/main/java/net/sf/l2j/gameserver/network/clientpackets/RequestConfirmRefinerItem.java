@@ -104,11 +104,12 @@ public class RequestConfirmRefinerItem extends L2GameClientPacket
 				sm.addString("Gemstone C");
 				break;
 			case L2Item.CRYSTAL_S:
+			case L2Item.CRYSTAL_S80:
 				if (lifeStoneLevel != 10)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.THIS_IS_NOT_A_SUITABLE_ITEM));
 					return;
-				}				
+				}
 				gemstoneCount = 25;
 				gemstoneItemId = GEMSTONE_C;
 				sm.addNumber(gemstoneCount);

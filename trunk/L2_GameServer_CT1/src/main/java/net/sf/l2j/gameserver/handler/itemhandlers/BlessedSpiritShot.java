@@ -72,12 +72,13 @@ public class BlessedSpiritShot implements IItemHandler
 
         // Check for correct grade
         int weaponGrade = weaponItem.getCrystalType(); 
-		if ((weaponGrade == L2Item.CRYSTAL_NONE && itemId != 3947) ||  
-    		(weaponGrade == L2Item.CRYSTAL_D && itemId != 3948) ||  
-    		(weaponGrade == L2Item.CRYSTAL_C && itemId != 3949) ||  
-    		(weaponGrade == L2Item.CRYSTAL_B && itemId != 3950) ||  
-    		(weaponGrade == L2Item.CRYSTAL_A && itemId != 3951) ||  
-    		(weaponGrade == L2Item.CRYSTAL_S && itemId != 3952)) 
+        if ((weaponGrade == L2Item.CRYSTAL_NONE && itemId != 3947) ||
+            (weaponGrade == L2Item.CRYSTAL_D && itemId != 3948) ||
+            (weaponGrade == L2Item.CRYSTAL_C && itemId != 3949) ||
+            (weaponGrade == L2Item.CRYSTAL_B && itemId != 3950) ||
+            (weaponGrade == L2Item.CRYSTAL_A && itemId != 3951) ||
+            (weaponGrade == L2Item.CRYSTAL_S && itemId != 3952) ||
+            (weaponGrade == L2Item.CRYSTAL_S80 && itemId != 3952))
         { 
             if(!activeChar.getAutoSoulShot().containsKey(itemId)) 
                 activeChar.sendPacket(new SystemMessage(SystemMessageId.SPIRITSHOTS_GRADE_MISMATCH));

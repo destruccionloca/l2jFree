@@ -167,6 +167,7 @@ public class RequestEnchantItem extends L2GameClientPacket
                 }
                 break;
             case L2Item.CRYSTAL_S:
+            case L2Item.CRYSTAL_S80:
                 crystalId = 1462;
                 switch(scroll.getItemId())
                 {

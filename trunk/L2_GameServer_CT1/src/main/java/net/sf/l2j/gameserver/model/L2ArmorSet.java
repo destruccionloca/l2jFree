@@ -68,10 +68,10 @@ public final class L2ArmorSet
         int gloves = 0;
         int feet = 0;
 
-        if(legsItem != null)   legs = (legsItem.getItem().isS80() && player.getLevel()<80) ? -1 : legsItem.getItemId();
-        if(headItem != null)   head = (headItem.getItem().isS80() && player.getLevel()<80) ? -1 : headItem.getItemId();
-        if(glovesItem != null) gloves = (glovesItem.getItem().isS80() && player.getLevel()<80) ? -1 : glovesItem.getItemId();
-        if(feetItem != null)   feet = (feetItem.getItem().isS80() && player.getLevel()<80) ? -1 : feetItem.getItemId();
+        if(legsItem != null)   legs = legsItem.getItemId();
+        if(headItem != null)   head = headItem.getItemId();
+        if(glovesItem != null) gloves = glovesItem.getItemId();
+        if(feetItem != null)   feet = feetItem.getItemId();
         
         return containAll(_chest,legs,head,gloves,feet);
         

@@ -449,45 +449,50 @@ public class RegionBBSManager extends BaseBBSManager
         htmlCode.append("<table border=0>");
         htmlCode.append(trOpen + tdOpen + "<table border=0>");
         
-        int cell;
-        cell = 0;
-        for (L2PcInstance player : getOnlinePlayers(page))
+        int cell = 0;
+
+        if (Config.BBS_SHOW_PLAYERLIST)
         {
-            // player can't see invisible players, gm can
-            if ( type.equals("pl"))
+            for (L2PcInstance player : getOnlinePlayers(page))
             {
-                if ((player == null) || (player.getAppearance().getInvisible()))
-                    continue;                           // Go to next
+                // player can't see invisible players, gm can
+                if ( type.equals("pl"))
+                {
+                    if ((player == null) || (player.getAppearance().getInvisible()))
+                        continue;                           // Go to next
+                }
+   
+                cell++;
+   
+                if (cell == 1) htmlCode.append(trOpen);
+   
+                htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;"
+                    + player.getName() + "\">");
+   
+                if (player.isGM())
+                    htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
+                else if (player.isCursedWeaponEquiped() && Config.SHOW_CURSED_WEAPON_OWNER)
+                    htmlCode.append("<font color=\"FF0000\">" + player.getName() + "</font>");
+                else
+                    htmlCode.append(player.getName());
+   
+                htmlCode.append("</a>"+ tdClose);
+   
+                if (cell < Config.NAME_PER_ROW_COMMUNITYBOARD) htmlCode.append(colSpacer);
+   
+                if (cell == Config.NAME_PER_ROW_COMMUNITYBOARD)
+                {
+                    cell = 0;
+                    htmlCode.append(trClose);
+                }
             }
-   
-            cell++;
-   
-            if (cell == 1) htmlCode.append(trOpen);
-   
-            htmlCode.append("<td align=left valign=top FIXWIDTH=110><a action=\"bypass _bbsloc;playerinfo;"
-                + player.getName() + "\">");
-   
-            if (player.isGM())
-            	htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
-            else if (player.isCursedWeaponEquiped() && Config.SHOW_CURSED_WEAPON_OWNER)
-            	htmlCode.append("<font color=\"FF0000\">" + player.getName() + "</font>");
-            else
-            	htmlCode.append(player.getName());
-   
-            htmlCode.append("</a>"+ tdClose);
-   
-            if (cell < Config.NAME_PER_ROW_COMMUNITYBOARD) htmlCode.append(colSpacer);
-   
-            if (cell == Config.NAME_PER_ROW_COMMUNITYBOARD)
-            {
-                cell = 0;
-                htmlCode.append(trClose);
-            }
+            if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD) htmlCode.append(trClose);
+            htmlCode.append("</table><br>"+ tdClose + trClose);
+            htmlCode.append(trOpen);
+            htmlCode.append("<td><img src=\"sek.cbui355\" width=600 height=1><br></td>");
+            htmlCode.append(trClose);
+            htmlCode.append("</table>");
         }
-        if (cell > 0 && cell < Config.NAME_PER_ROW_COMMUNITYBOARD) htmlCode.append(trClose);
-        htmlCode.append("</table><br>"+ tdClose + trClose);
-        
-        htmlCode.append("</table>");
     }
 
     /**
