@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `etcitem` (
   `weight` decimal(4,0) default NULL,
   `consume_type` varchar(9) default NULL,
   `material` varchar(11) default NULL,
-  `crystal_type` varchar(4) NOT NULL default 'none', 
+  `crystal_type` varchar(4) NOT NULL default 'none',
   `duration` decimal(3,0) default NULL,
   `price` decimal(11,0) default NULL,
   `crystal_count` int(4) default NULL,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `etcitem` (
   PRIMARY KEY (`item_id`)
 ) DEFAULT CHARSET=utf8;
 
-INSERT INTO `etcitem` VALUES 
+INSERT INTO `etcitem` VALUES
 (17,'Wooden Arrow','false','arrow',6,'stackable','wood','none',-1,2,0,'true','true','true','true','wooden_arrow','arrow'),
 (57,'Adena','false','none',0,'asset','gold','none',-1,1,0,'true','true','true','true','adena','none'),
 (65,'Red Potion','false','potion',80,'stackable','liquid','none',-1,40,0,'true','true','true','true','red_potion','potion'),
@@ -72,8 +72,8 @@ INSERT INTO `etcitem` VALUES
 (728,'Mana Potion','false','potion',180,'stackable','liquid','none',-1,2000,0,'true','true','true','true','mana_potion','potion'),
 (729,'Scroll: Enchant Weapon (A)','false','scroll',120,'stackable','paper','none',-1,1800000,0,'true','true','true','true','scrl_of_ench_wp_a','scroll'),
 (730,'Scroll: Enchant Armor (A)','false','scroll',120,'stackable','paper','none',-1,240000,0,'true','true','true','true','scrl_of_ench_am_a','scroll'),
-(731,'Crystal Scroll: Enchant Weapon (A)','false','scroll',120,'normal','paper','none',-1,240000,0,'true','true','true','true','cry_scrl_of_ench_wp_a','scroll'),
-(732,'Crystal Scroll: Enchant Armor (A)','false','scroll',120,'normal','paper','none',-1,240000,0,'true','true','true','true','cry_scrl_of_ench_am_a','scroll'),
+(731,'Crystal Scroll: Enchant Weapon (A)','false','scroll',120,'stackable','paper','none',-1,240000,0,'true','true','true','true','cry_scrl_of_ench_wp_a','scroll'),
+(732,'Crystal Scroll: Enchant Armor (A)','false','scroll',120,'stackable','paper','none',-1,240000,0,'true','true','true','true','cry_scrl_of_ench_am_a','scroll'),
 (733,'Endeavor Potion','false','potion',180,'stackable','liquid','none',-1,500,0,'true','true','true','true','endeavor_potion','potion'),
 (734,'Haste Potion','false','potion',20,'stackable','liquid','none',-1,1200,0,'true','true','true','true','quick_step_potion','potion'),
 (735,'Potion of Alacrity','false','potion',20,'stackable','liquid','none',-1,2400,0,'true','true','true','true','swift_attack_potion','potion'),
@@ -189,20 +189,20 @@ INSERT INTO `etcitem` VALUES
 (944,'Deathknight Skull','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','deathknight_skull','none'),
 (947,'Scroll: Enchant Weapon (B)','false','scroll',120,'stackable','paper','none',-1,500000,0,'true','true','true','true','scrl_of_ench_wp_b','scroll'),
 (948,'Scroll: Enchant Armor (B)','false','scroll',120,'stackable','paper','none',-1,80000,0,'true','true','true','true','scrl_of_ench_am_b','scroll'),
-(949,'Crystal Scroll: Enchant Weapon (B)','false','scroll',120,'normal','paper','none',-1,80000,0,'true','true','true','true','cry_scrl_of_ench_wp_b','scroll'),
-(950,'Crystal Scroll: Enchant Armor (B)','false','scroll',120,'normal','paper','none',-1,80000,0,'true','true','true','true','cry_scrl_of_ench_am_b','scroll'),
+(949,'Crystal Scroll: Enchant Weapon (B)','false','scroll',120,'stackable','paper','none',-1,80000,0,'true','true','true','true','cry_scrl_of_ench_wp_b','scroll'),
+(950,'Crystal Scroll: Enchant Armor (B)','false','scroll',120,'stackable','paper','none',-1,80000,0,'true','true','true','true','cry_scrl_of_ench_am_b','scroll'),
 (951,'Scroll: Enchant Weapon (C)','false','scroll',120,'stackable','paper','none',-1,110000,0,'true','true','true','true','scrl_of_ench_wp_c','scroll'),
 (952,'Scroll: Enchant Armor (C)','false','scroll',120,'stackable','paper','none',-1,15000,0,'true','true','true','true','scrl_of_ench_am_c','scroll'),
-(953,'Crystal Scroll: Enchant Weapon (C)','false','scroll',120,'normal','paper','none',-1,15000,0,'true','true','true','true','cry_scrl_of_ench_wp_c','scroll'),
-(954,'Crystal Scroll: Enchant Armor (C)','false','scroll',120,'normal','paper','none',-1,15000,0,'true','true','true','true','cry_scrl_of_ench_am_c','scroll'),
+(953,'Crystal Scroll: Enchant Weapon (C)','false','scroll',120,'stackable','paper','none',-1,15000,0,'true','true','true','true','cry_scrl_of_ench_wp_c','scroll'),
+(954,'Crystal Scroll: Enchant Armor (C)','false','scroll',120,'stackable','paper','none',-1,15000,0,'true','true','true','true','cry_scrl_of_ench_am_c','scroll'),
 (955,'Scroll: Enchant Weapon (D)','false','scroll',120,'stackable','paper','none',-1,50000,0,'true','true','true','true','scrl_of_ench_wp_d','scroll'),
 (956,'Scroll: Enchant Armor (D)','false','scroll',120,'stackable','paper','none',-1,6000,0,'true','true','true','true','scrl_of_ench_am_d','scroll'),
-(957,'Crystal Scroll: Enchant Weapon (D)','false','scroll',120,'normal','paper','none',-1,6000,0,'true','true','true','true','cry_scrl_of_ench_wp_d','scroll'),
-(958,'Crystal Scroll: Enchant Armor (D)','false','scroll',120,'normal','paper','none',-1,6000,0,'true','true','true','true','cry_scrl_of_ench_am_d','scroll'),
+(957,'Crystal Scroll: Enchant Weapon (D)','false','scroll',120,'stackable','paper','none',-1,6000,0,'true','true','true','true','cry_scrl_of_ench_wp_d','scroll'),
+(958,'Crystal Scroll: Enchant Armor (D)','false','scroll',120,'stackable','paper','none',-1,6000,0,'true','true','true','true','cry_scrl_of_ench_am_d','scroll'),
 (959,'Scroll: Enchant Weapon (S)','false','scroll',120,'stackable','paper','none',-1,5000000,0,'true','true','true','true','scrl_of_ench_wp_s','scroll'),
 (960,'Scroll: Enchant Armor (S)','false','scroll',120,'stackable','paper','none',-1,500000,0,'true','true','true','true','scrl_of_ench_am_s','scroll'),
-(961,'Crystal Scroll: Enchant Weapon (S)','false','scroll',120,'normal','paper','none',-1,500000,0,'true','true','true','true','cry_scrl_of_ench_wp_s','scroll'),
-(962,'Crystal Scroll: Enchant Armor (S)','false','scroll',120,'normal','paper','none',-1,500000,0,'true','true','true','true','cry_scrl_of_ench_am_s','scroll'),
+(961,'Crystal Scroll: Enchant Weapon (S)','false','scroll',120,'stackable','paper','none',-1,500000,0,'true','true','true','true','cry_scrl_of_ench_wp_s','scroll'),
+(962,'Crystal Scroll: Enchant Armor (S)','false','scroll',120,'stackable','paper','none',-1,500000,0,'true','true','true','true','cry_scrl_of_ench_am_s','scroll'),
 (963,'Orcish Arrowhead','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','orcish_arrowhead','none'),
 (964,'Alberius\'s Letter','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','alberryus_letter','none'),
 (965,'Evergreen Amulet','false','quest',0,'stackable','steel','none',-1,0,0,'false','false','true','false','evergreen_amulet','none'),
@@ -5023,7 +5023,7 @@ INSERT INTO `etcitem` VALUES
 (6751,'Seed: Alternative Golden Coba','false','seed',1,'stackable','paper','none',-1,650,0,'true','true','true','true','C5Item','none'),
 (6752,'Seed: Alternative Golden Coba','false','seed',1,'stackable','paper','none',-1,650,0,'true','true','true','true','C5Item','none'),
 (6753,'Seed: Great Coba','false','seed',1,'stackable','paper','none',-1,1200,0,'true','true','true','true','C5Item','none');
-INSERT INTO `etcitem` VALUES 
+INSERT INTO `etcitem` VALUES
 (6754,'Seed: Sea Coba','false','seed',1,'stackable','paper','none',-1,900,0,'true','true','true','true','C5Item','none'),
 (6755,'Seed: Sea Coba','false','seed',1,'stackable','paper','none',-1,900,0,'true','true','true','true','C5Item','none'),
 (6756,'Seed: Sea Coba','false','seed',1,'stackable','paper','none',-1,900,0,'true','true','true','true','C5Item','none'),
@@ -7419,3 +7419,4 @@ INSERT INTO `etcitem` VALUES
 
 UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` = 6353; -- Blue Gemstone
 UPDATE `etcitem` SET `weight` = 10 WHERE `item_id` IN ( 2515, 4038, 5168, 5169, 6316, 7208, 7209, 9668 ); -- Update weight for pets' food for CT1
+UPDATE `etcitem` SET `consume_type` = 'normal' WHERE `item_id` IN (731,732,949,950,953,954,957,958,961,962); -- Crystal Enchant scrools are not stackable
