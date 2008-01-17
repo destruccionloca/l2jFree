@@ -1658,7 +1658,6 @@ public abstract class L2Character extends L2Object
 			case TARGET_FRONT_AURA:
 			case TARGET_BEHIND_AURA:
 				target = this;
-				target = this;
 				break;
 		}
 		
