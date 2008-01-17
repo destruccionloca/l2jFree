@@ -272,6 +272,9 @@ public abstract class Inventory extends ItemContainer
 			
 			L2Item it = item.getItem();
 			
+			if (it.isS80() && player.getLevel()<80)
+				return;
+			
 			if (it instanceof L2Weapon)
 			{
 				passiveSkill = ((L2Weapon) it).getSkill();
