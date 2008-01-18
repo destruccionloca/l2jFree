@@ -102,7 +102,7 @@ public class TestL2NpcTemplate extends TestCase
         assertEquals(72,template.getNpcFaction());
         assertEquals("faction name",template.getNpcFactionName());
         assertEquals("class",template.getJClass());
-        assertEquals(Race.UNKNOWN,template.getRace());
+        assertEquals(Race.NONE,template.getRace());
 
     }
     
@@ -165,6 +165,6 @@ public class TestL2NpcTemplate extends TestCase
         assertEquals(null,template.getFactionId());
         assertEquals(0,template.getAbsorbLevel());
         assertEquals("Devine Clan",template.getNpcFactionName());
-        assertEquals(Race.UNKNOWN,template.getRace());
+        assertEquals(Race.NONE,template.getRace());
     }
 }
