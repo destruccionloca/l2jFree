@@ -991,6 +991,7 @@ public final class Config
 	public static int				HERB_AUTO_DESTROY_TIME;										// Auto destroy herb time
 	public static String			PROTECTED_ITEMS;
 	public static FastList<Integer>	LIST_PROTECTED_ITEMS	= new FastList<Integer>();			// List of items that will not be destroyed
+	public static int				CHAR_STORE_INTERVAL;										// Interval that the gameserver will update and store character information
 	public static boolean			DESTROY_DROPPED_PLAYER_ITEM;								// Auto destroy nonequipable items dropped by players
 	public static boolean			DESTROY_PLAYER_INVENTORY_DROP;								// Auto destroy items dropped by players from inventory
 	public static boolean			DESTROY_EQUIPABLE_PLAYER_ITEM;								// Auto destroy equipable items dropped by players
@@ -1136,6 +1137,7 @@ public final class Config
 			{
 				LIST_PROTECTED_ITEMS.add(Integer.parseInt(id.trim()));
 			}
+			CHAR_STORE_INTERVAL = Integer.parseInt(optionsSettings.getProperty("CharacterDataStoreInterval", "15"));
 			DESTROY_DROPPED_PLAYER_ITEM = Boolean.parseBoolean(optionsSettings.getProperty("DestroyPlayerDroppedItem", "false"));
 			DESTROY_PLAYER_INVENTORY_DROP = Boolean.parseBoolean(optionsSettings.getProperty("DestroyPlayerInventoryDrop", "false"));
 			DESTROY_EQUIPABLE_PLAYER_ITEM = Boolean.parseBoolean(optionsSettings.getProperty("DestroyEquipableItem", "false"));
