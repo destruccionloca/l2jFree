@@ -539,7 +539,9 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
   <cond msg="Recharge cannot be used due to unsuitable terms.">
-  <target class_id_restriction="29, 30, 105, 42, 43, 112"/>
+  <not>
+    <target class_id_restriction="29, 30, 105, 42, 43, 112"/>
+  </not>
   </cond>
   <for>
   </for>
@@ -702,7 +704,7 @@
   <enchant1 name="power" val="#ench1Power"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <enchant2 name="mpInitialConsume" val="#ench2MpConsume_Init"/>
-  <cond msg="Your target is not undead"><target undead="true"/></cond>  
+  <cond msg="Your target is not undead"><target undead="true"/></cond>
   <for>
   </for>
 </skill>
@@ -724,7 +726,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
-  <cond msg="Your target is not undead"><target undead="true"/></cond>  
+  <cond msg="Your target is not undead"><target undead="true"/></cond>
   <for>
   </for>
 </skill>
@@ -839,7 +841,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <cond msg="Your target is not undead"><target undead="true"/></cond>  
+  <cond msg="Your target is not undead"><target undead="true"/></cond>
   <for>
   </for>
 </skill>
@@ -1012,7 +1014,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
-  <cond msg="Your target is not undead"><target undead="true"/></cond>  
+  <cond msg="Your target is not undead"><target undead="true"/></cond>
   <for>
     <effect count="1" name="Paralyze" time="120" val="0"/>
   </for>

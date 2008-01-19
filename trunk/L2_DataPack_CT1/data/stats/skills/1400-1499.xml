@@ -30,7 +30,7 @@
   <table name="#power"> 690 722 753 783 812 840 867 892 915 936 946 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="itemConsumeId" val="3031"/>
-  <set name="itemConsumeCount" val="1"/>   
+  <set name="itemConsumeCount" val="1"/>
   <set name="power" val="#power"/>
   <set name="hitTime" val="5000"/>
   <!-- reuse is meant to be "almost instant" -->
@@ -51,7 +51,7 @@
   <table name="#power"> 902 979 1050 1115 1170 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="itemConsumeId" val="3031"/>
-  <set name="itemConsumeCount" val="4"/>     
+  <set name="itemConsumeCount" val="4"/>
   <set name="power" val="#power"/>
   <!-- reuse time needs verifying... left this high to be safe -->
   <set name="reuseDelay" val="19000"/>
@@ -244,14 +244,14 @@
   <for>
   </for>
 </skill>
-<skill id="1410" levels="1" name="Salvation"> 
+<skill id="1410" levels="1" name="Salvation">
 <!-- Dony by KID, L2J-b Project -->
   <set name="mp_consume2" val="87"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="itemConsumeId" val="8874"/> <!-- Einhasad's Holy Water -->
-  <set name="itemConsumeCount" val="2"/>  
+  <set name="itemConsumeCount" val="2"/>
   <set name="skill_hit_time" val="4000"/>
-  <set name="reuse_delay" val="600000"/>  
+  <set name="reuse_delay" val="600000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="cast_range" val="400"/>
@@ -260,7 +260,7 @@
     <effect count="1" name="Buff" time="1200" val="0"/>
   </for>
 </skill>
-<skill id="1411" levels="1" name="Mystic Immunity"> 
+<skill id="1411" levels="1" name="Mystic Immunity">
 <!-- Dony by KID, L2J-b Project -->
   <set name="mp_consume2" val="73"/>
   <set name="target" val="TARGET_ONE"/>
@@ -275,7 +275,7 @@
      <set order="0x30" stat="block_receive;buff" val="1"/>
      <set order="0x30" stat="block_receive;debuff" val="1"/>
     </effect>
-  </for>  
+  </for>
 </skill>
 <skill id="1412" levels="1" name="Spell Turning">
 <!--
@@ -386,7 +386,7 @@
   <set name="mpInitialConsume" val="57"/> <!-- Guessing -->
   <set name="mpConsume" val="284"/>
   <set name="itemConsumeId" val="3031"/>
-  <set name="itemConsumeCount" val="20"/> 
+  <set name="itemConsumeCount" val="20"/>
   <set name="power" val="800.0"/>
   <set name="target" val="TARGET_CLAN"/>
   <set name="skillRadius" val="1000"/>
@@ -439,7 +439,7 @@
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="buffDuration" val="30000"/>
-  <set name="castRange" val="400"/> 
+  <set name="castRange" val="400"/>
   <for>
     <effect count="1" name="Invincible" time="10" val="0"/>
   </for>
@@ -569,7 +569,7 @@
   <cond msg="Proper force required.">
     <player spell_force="2"/>
   </cond>
-  <for> 
+  <for>
   </for>
 </skill>
 <skill id="1427" levels="1" name="Flames of Invincibility">
@@ -1175,16 +1175,37 @@
 </skill>
 <skill id="1444" levels="1" name="Pride of Kamael">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Enhance Kamael abilities. Increases P. Atk, M. Atk, and Mortal Blow chances when a Kamael-only weapon is used. Consumes 3 Souls. Usable only on Kamael party members.
+  Enhance Kamael abilities. Increases P. Atk, M. Atk, and Mortal Blow chances when a Kamael-only weapon is used. Consumes 3 Souls. Usable only on Kamael party members.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="power" val="0.0"/>
+  <set name="mpConsume" val="44"/>
+  <set name="magicLvl" val="49"/>
+  <set name="soulConsumeCount" val="3"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="8000"/>
+  <set name="hitTime" val="3000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_PARTY_OTHER"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <cond msg="Incorrect target."><!-- Need retail msg -->
+    <target class_id_restriction="123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136"/>
+  </cond>
   <for>
+    <effect count="1" name="Buff" time="1200" val="0"><!-- Need retail duration -->
+      <mul order="0x30" stat="mAtk" val="1.05"><!-- Need retail values -->
+        <and>
+          <using kind="Ancient,Crossbow,Rapier"/>
+        </and>
+      </mul>
+      <mul order="0x30" stat="pAtk" val="1.05"><!-- Need retail values -->
+        <and>
+          <using kind="Ancient,Crossbow,Rapier"/>
+        </and>
+      </mul>
+     <!-- Bonus for "Mortal Blow Chance" ? -->
+    </effect>
   </for>
 </skill>
 <skill id="1445" levels="18" name="Surrender to the Unholy">
