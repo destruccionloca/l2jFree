@@ -34,6 +34,7 @@ import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
@@ -676,7 +677,7 @@ public class L2Attackable extends L2NpcInstance
                             {
                                 long addexp = Math.round(attacker.calcStat(Stats.EXPSP_RATE, exp, null, null));
                                 int addsp = (int)attacker.calcStat(Stats.EXPSP_RATE, sp, null, null);
-                                if (attacker instanceof L2PcInstance)
+                                if (attacker instanceof L2PcInstance && !(this instanceof L2ChestInstance))
                                 {
                                     // Soul Mastery skill
                                     if (((L2PcInstance)attacker).getSkillLevel(467) > 0)
