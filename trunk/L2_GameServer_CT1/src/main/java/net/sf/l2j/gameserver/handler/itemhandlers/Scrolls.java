@@ -74,12 +74,13 @@ public class Scrolls implements IItemHandler
 		{
 			if (activeChar.getKarma() > 0) return; // Chaotic can not use it
 
-			if ((itemId == 8594 && activeChar.getExpertiseIndex()==0) || // Scroll: Recovery (No Grade)
-				(itemId == 8595 && activeChar.getExpertiseIndex()==1) || // Scroll: Recovery (D Grade)
-				(itemId == 8596 && activeChar.getExpertiseIndex()==2) || // Scroll: Recovery (C Grade)
-				(itemId == 8597 && activeChar.getExpertiseIndex()==3) || // Scroll: Recovery (B Grade)
-				(itemId == 8598 && activeChar.getExpertiseIndex()==4) || // Scroll: Recovery (A Grade)
-				(itemId == 8599 && activeChar.getExpertiseIndex()==5))   // Scroll: Recovery (S Grade)
+			int exp = activeChar.getExpertiseIndex();
+			if ((itemId == 8594 && exp == 0) || // Scroll: Recovery (No Grade)
+				(itemId == 8595 && exp == 1) || // Scroll: Recovery (D Grade)
+				(itemId == 8596 && exp == 2) || // Scroll: Recovery (C Grade)
+				(itemId == 8597 && exp == 3) || // Scroll: Recovery (B Grade)
+				(itemId == 8598 && exp == 4) || // Scroll: Recovery (A Grade)
+				(itemId == 8599 && (exp == 5 || exp == 6)))   // Scroll: Recovery (S Grade)
 			{
 				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 					return;
@@ -100,13 +101,14 @@ public class Scrolls implements IItemHandler
 			}
 		}
 		else if (itemId == 5703 || itemId >= 5803 && itemId <= 5807) 
-		{ 
-			if ((itemId == 5703 && activeChar.getExpertiseIndex()==0) ||     // Lucky Charm (No Grade) 
-					(itemId == 5803 && activeChar.getExpertiseIndex()==1) || // Lucky Charm (D Grade) 
-					(itemId == 5804 && activeChar.getExpertiseIndex()==2) || // Lucky Charm (C Grade) 
-					(itemId == 5805 && activeChar.getExpertiseIndex()==3) || // Lucky Charm (B Grade) 
-					(itemId == 5806 && activeChar.getExpertiseIndex()==4) || // Lucky Charm (A Grade) 
-					(itemId == 5807 && activeChar.getExpertiseIndex()==5))   // Lucky Charm (S Grade) 
+		{
+			int exp = activeChar.getExpertiseIndex();
+			if ((itemId == 5703 && exp == 0) ||     // Lucky Charm (No Grade) 
+					(itemId == 5803 && exp == 1) || // Lucky Charm (D Grade) 
+					(itemId == 5804 && exp == 2) || // Lucky Charm (C Grade) 
+					(itemId == 5805 && exp == 3) || // Lucky Charm (B Grade) 
+					(itemId == 5806 && exp == 4) || // Lucky Charm (A Grade) 
+					(itemId == 5807 && (exp == 5 || exp == 6)))   // Lucky Charm (S Grade) 
 			{ 
 				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) 
 					return; 
@@ -120,12 +122,13 @@ public class Scrolls implements IItemHandler
 		} 
 		else if (itemId >= 8515 && itemId <= 8520) // Charm of Courage XML: 5041
 		{
-			if ((itemId == 8515 && activeChar.getExpertiseIndex()==0) || // Charm of Courage (No Grade)
-				(itemId == 8516 && activeChar.getExpertiseIndex()==1) || // Charm of Courage (D Grade)
-				(itemId == 8517 && activeChar.getExpertiseIndex()==2) || // Charm of Courage (C Grade)
-				(itemId == 8518 && activeChar.getExpertiseIndex()==3) || // Charm of Courage (B Grade)
-				(itemId == 8519 && activeChar.getExpertiseIndex()==4) || // Charm of Courage (A Grade)
-				(itemId == 8520 && activeChar.getExpertiseIndex()==5))   // Charm of Courage (S Grade)
+			int exp = activeChar.getExpertiseIndex();
+			if ((itemId == 8515 && exp == 0) || // Charm of Courage (No Grade)
+				(itemId == 8516 && exp == 1) || // Charm of Courage (D Grade)
+				(itemId == 8517 && exp == 2) || // Charm of Courage (C Grade)
+				(itemId == 8518 && exp == 3) || // Charm of Courage (B Grade)
+				(itemId == 8519 && exp == 4) || // Charm of Courage (A Grade)
+				(itemId == 8520 && (exp == 5 || exp == 6)))   // Charm of Courage (S Grade)
 			{
 				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false))
 					return;
