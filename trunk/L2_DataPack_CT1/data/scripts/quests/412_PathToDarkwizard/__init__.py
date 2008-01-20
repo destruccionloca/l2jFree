@@ -85,7 +85,6 @@ class Quest (JQuest) :
    if npcId == 30421 and st.getInt("cond")==0 :
       if st.getQuestItemsCount(JEWEL_OF_DARKNESS) == 0 :
         htmltext = "30421-01.htm"
-        st.set("cond","0")
         return htmltext
       else:
         htmltext = "30421-04.htm"
@@ -98,7 +97,7 @@ class Quest (JQuest) :
             st.takeItems(SEEDS_OF_DESPAIR,1)
             st.giveItems(JEWEL_OF_DARKNESS,1)
             st.set("cond","0")
-            st.exitQuest(False) 
+            st.exitQuest(False)
             st.playSound("ItemSound.quest_finish")
         elif st.getQuestItemsCount(SEEDS_OF_DESPAIR) == 1 and st.getQuestItemsCount(FAMILYS_ASHES) == 0 and st.getQuestItemsCount(LUCKY_KEY) == 0 and st.getQuestItemsCount(CANDLE) == 0 and st.getQuestItemsCount(HUB_SCENT) == 0 and st.getQuestItemsCount(KNEE_BONE) == 0 and st.getQuestItemsCount(HEART_OF_LUNACY) == 0 :
           htmltext = "30421-17.htm"
@@ -145,9 +144,9 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
-   
+   if not st : return
+   if st.getState() != State.STARTED : return
+
    npcId = npc.getNpcId()
    if npcId == 20015 :
         st.set("id","0")

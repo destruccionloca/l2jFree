@@ -1,6 +1,6 @@
-#NOTES: 
+#NOTES:
 #All Castle doors and gates are found in the castledoor.sql
-#All thrones and signs are found in the staticobject.csv
+#All thrones and signs are found in the staticobjects.csv
 #To make a door unlockable through the unlock skill, add true to the end of the string
 #Table Description:
 #name;static_object_id;posx;posy;posz;pos_minx;pos_miny;pos_minz;pos_maxx;pos_maxy;pos_maxz;hp;physical_defence;magic_defence;unlockable;autoopen
@@ -237,7 +237,7 @@ rune_clan_hall_12;21160011;38559;-46356;899;0;0;0;0;0;0;158250;644;518;False;Fal
 rune_clan_hall_13;21160014;37766;-46060;899;0;0;0;0;0;0;158250;644;518;False;False
 rune_clan_hall_14;21160013;37718;-46058;899;0;0;0;0;0;0;158250;644;518;False;False
 
-# Unknown - skeleton's contrib 
+# Unknown - skeleton's contrib
 H_Door_MV_219;570622981;17616;145184;-3025;0;0;0;0;0;0;158250;644;518;False;False
 H_Door_MV_220;570622981;18872;143278;-2998;0;0;0;0;0;0;158250;644;518;False;False
 H_Door_MV_221;570622981;18879;143353;-2998;0;0;0;0;0;0;158250;644;518;False;False

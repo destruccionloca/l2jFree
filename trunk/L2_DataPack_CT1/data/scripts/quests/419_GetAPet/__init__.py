@@ -29,7 +29,7 @@ SPIDER_LE2 = 20308 # Hook Spider
 SPIDER_LE3 = 20466 # Pincer Spider
 #3 dark elves
 SPIDER_DE1 = 20025 # Lesser Dark Horror
-SPIDER_DE2 = 20105 # Dark Horror 
+SPIDER_DE2 = 20105 # Dark Horror
 SPIDER_DE3 = 20034 # Prowler
 #4 orcs
 SPIDER_O1 = 20474 # Kasha Spider
@@ -62,7 +62,7 @@ def getCount_proof(st) :
   return proofs
 
 def check_questions(st) :
-  question = 1  
+  question = 1
   quiz = st.get("quiz")
   answers = st.getInt("answers")
   if answers < 10 :
@@ -79,9 +79,9 @@ def check_questions(st) :
     st.giveItems(WOLF_COLLAR,1)
     st.exitQuest(1)
     st.playSound("ItemSound.quest_finish")
-    htmltext="State.COMPLETED.htm"
+    htmltext="Completed.htm"
   return htmltext
-  
+
 # Main Quest Code
 class Quest (JQuest):
 
@@ -143,7 +143,7 @@ class Quest (JQuest):
         return "419_metty_2.htm"
     elif id == State.STARTED and st.get("step")=="TALKED" :
       if event == "tryme" :
-        return check_questions(st) 
+        return check_questions(st)
       elif event == "wrong" :
         st.set("step","SLAYED")
         st.set("progress","0")
@@ -175,7 +175,7 @@ class Quest (JQuest):
          return "Start.htm"
       if id == State.STARTED and st.get("step")=="STARTED" :
          if getCount_proof(st) == 0 :
-            return "419_no_slay.htm"  
+            return "419_no_slay.htm"
          elif getCount_proof(st) < REQUIRED_SPIDER_LEGS :
             return "419_pending_slay.htm"
          else :
@@ -221,9 +221,9 @@ class Quest (JQuest):
 
   def onKill(self,npc,player,isPet):
       st = player.getQuestState(qn)
-      if not st : return 
-      if st.getState() != State.STARTED : return 
-   
+      if not st : return
+      if st.getState() != State.STARTED : return
+
       npcId = npc.getNpcId()
       collected = getCount_proof(st)
       if collected < REQUIRED_SPIDER_LEGS:
