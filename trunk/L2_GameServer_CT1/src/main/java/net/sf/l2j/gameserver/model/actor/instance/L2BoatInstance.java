@@ -29,8 +29,8 @@ import net.sf.l2j.gameserver.model.actor.knownlist.BoatKnownList;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.OnVehicleCheckLocation;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
+import net.sf.l2j.gameserver.network.serverpackets.VehicleCheckLocation;
 import net.sf.l2j.gameserver.network.serverpackets.VehicleDeparture;
 import net.sf.l2j.gameserver.network.serverpackets.VehicleInfo;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
@@ -263,7 +263,7 @@ public class L2BoatInstance extends L2Character
 				{
 					if(needOnVehicleCheckLocation == true)
 					{
-						OnVehicleCheckLocation vcl = new OnVehicleCheckLocation(this,x,y,z);
+						VehicleCheckLocation vcl = new VehicleCheckLocation(this,x,y,z);
 						player.sendPacket(vcl);
 					}
 				}

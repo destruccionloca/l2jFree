@@ -22,17 +22,19 @@ package net.sf.l2j.gameserver.network.clientpackets;
  */
 public class RequestSiegeInfo extends L2GameClientPacket
 {
-
+    @Override
     protected void readImpl()
     {
-    	// trigger 
+        // trigger 
     }
 
+    @Override
     protected void runImpl()
     {
         // TODO this
     }
 
+    @Override
     public String getType()
     {
         return "[C] 0x47 RequestSiegeInfo";

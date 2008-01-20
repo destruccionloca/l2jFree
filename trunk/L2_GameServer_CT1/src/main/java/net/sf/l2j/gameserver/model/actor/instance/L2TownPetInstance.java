@@ -38,6 +38,7 @@ public class L2TownPetInstance extends L2NpcInstance
         ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new RandomWalkTask(), 2000, 4000);
     }
 
+    @Override
     public void onAction(L2PcInstance player)
     {
         if (!canTarget(player)) return;
@@ -68,12 +69,14 @@ public class L2TownPetInstance extends L2NpcInstance
         player.sendPacket(new ActionFailed());
     }
 
+    @Override
     public void onSpawn()
     {
         super.onSpawn();
         spawnX = getX();
         spawnY = getY();
     }
+
     public class RandomWalkTask implements Runnable
     {
         public void run()
@@ -81,7 +84,7 @@ public class L2TownPetInstance extends L2NpcInstance
             randomX = spawnX + Rnd.get(2)*50-50;
             randomY = spawnY + Rnd.get(2)*50-50;
 
-            if ((randomX != getX()) && (randomY != getY()))
+            if ((randomX != getX()) || (randomY != getY()))
                 getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(randomX,randomY,getZ(),0));
         }
     }

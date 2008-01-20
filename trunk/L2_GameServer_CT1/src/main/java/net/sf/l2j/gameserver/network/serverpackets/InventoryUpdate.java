@@ -63,7 +63,7 @@ public class InventoryUpdate extends L2GameServerPacket
 		{
 			showDebug();
 		}
-	}	
+	}
 	
 	/**
 	 * @param items
@@ -115,15 +115,14 @@ public class InventoryUpdate extends L2GameServerPacket
 			writeH(item.getCustomType2());          // Pet name exists or not shown in control item
 			writeD(item.getAugemtationBonus());
 			writeD(item.getMana());
-            writeD(item.getAttackAttrElement());
-            writeD(item.getAttackAttrElementVal()); 
-            writeD(item.getDefAttrFire());
-            writeD(item.getDefAttrWater()); 
-            writeD(item.getDefAttrWind());
-            writeD(item.getDefAttrEarth());
-            writeD(item.getDefAttrHoly()); 
-            writeD(item.getDefAttrUnholy());
-
+			writeD(item.getAttackAttrElement());
+			writeD(item.getAttackAttrElementVal()); 
+			writeD(item.getDefAttrFire());
+			writeD(item.getDefAttrWater()); 
+			writeD(item.getDefAttrWind());
+			writeD(item.getDefAttrEarth());
+			writeD(item.getDefAttrHoly()); 
+			writeD(item.getDefAttrUnholy());
 		}
 	}
 

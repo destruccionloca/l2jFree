@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
  * @author Maktakien
  *
  */
-public class OnVehicleCheckLocation extends L2GameServerPacket
+public class VehicleCheckLocation extends L2GameServerPacket
 {
 	private L2BoatInstance _boat;
 	private int _x;
@@ -32,7 +32,7 @@ public class OnVehicleCheckLocation extends L2GameServerPacket
 	 * @param y
 	 * @param z
 	 */
-	public OnVehicleCheckLocation(L2BoatInstance instance, int x, int y, int z)
+	public VehicleCheckLocation(L2BoatInstance instance, int x, int y, int z)
 	{
 		_boat = instance;
 		_x = x;
@@ -47,7 +47,7 @@ public class OnVehicleCheckLocation extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		
-		writeC(0x80);
+		writeC(0x6d);
 		writeD(_boat.getObjectId());
 		writeD(_x);
 		writeD(_y);

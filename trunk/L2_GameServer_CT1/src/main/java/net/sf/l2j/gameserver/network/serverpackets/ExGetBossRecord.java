@@ -38,7 +38,7 @@ public class ExGetBossRecord extends L2GameServerPacket {
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xFE);
+		writeC(0xfe);
 		writeH(0x34);
 		
 		writeD(_ranking); // char ranking

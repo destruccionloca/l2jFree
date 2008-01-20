@@ -11462,7 +11462,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         public long getRemaining()
         {
-            return Math.max(System.currentTimeMillis() - stamp, 0);
+            return Math.max(stamp - System.currentTimeMillis(), 0);
         }
 
         /* Check if the reuse delay has passed and

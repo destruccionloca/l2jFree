@@ -30,7 +30,7 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 	private int _skillId;
 	private int _skillLvl;
 	
-	
+	@Override
 	protected void readImpl()
 	{
 		_skillId = readD();
@@ -41,8 +41,7 @@ public final class RequestExEnchantSkillUntrain extends L2GameClientPacket
 	 * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
 	 */
 	@Override
-	protected
-	void runImpl()
+	protected void runImpl()
 	{
 
 		L2PcInstance player = getClient().getActiveChar();

@@ -58,21 +58,19 @@ public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 	@Override
     protected void runImpl()
 	{
-		L2PcInstance activeChar = getClient().getActiveChar();		
+		L2PcInstance activeChar = getClient().getActiveChar();
 		if (activeChar == null)
-			return;		
+			return;
 		else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
 		{
 			activeChar.sendPacket(new ActionFailed());
 		}
 		else 
 		{
-			if(!activeChar.isInBoat())
-			{
-				activeChar.setInBoat(true);						
-			}
 			L2BoatInstance boat = boatService.getBoat(_boatId);
+			if (boat == null) return;
 			activeChar.setBoat(boat);
+			activeChar.setInBoat(true);
 			activeChar.setInBoatPosition(_pos);
 			activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO_IN_A_BOAT, new L2CharPosition(_pos.getX(),_pos.getY(), _pos.getZ(), 0), new L2CharPosition(_origin_pos.getX(),_origin_pos.getY(),_origin_pos.getZ(), 0));	        
 		}	

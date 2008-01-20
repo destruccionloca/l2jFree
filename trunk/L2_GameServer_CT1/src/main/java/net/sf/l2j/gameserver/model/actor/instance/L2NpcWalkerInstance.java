@@ -46,12 +46,14 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 	 * AI can't be deattached, npc must move always with the same AI instance.
 	 * @param newAI AI to set for this L2NpcWalkerInstance
 	 */
+	@Override
 	public void setAI(L2CharacterAI newAI)
 	{
 		if(_ai == null || !(_ai instanceof L2NpcWalkerAI))
 			_ai = newAI;
 	}
 
+	@Override
 	public void onSpawn()
 	{
 		getAI().setHomeX(getX());
@@ -93,6 +95,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 	 * @param attacker  ignore it
 	 * @param awake  ignore it
 	 */
+	@Override
 	public void reduceCurrentHp(double i, L2Character attacker, boolean awake)
 	{}
 
@@ -101,11 +104,13 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 	 * @param killer ignore it
 	 * @return false
 	 */
+	@Override
 	public boolean doDie(L2Character killer)
 	{
 		return false;
 	}
 
+	@Override
 	public L2NpcWalkerAI getAI()
 	{
 		return (L2NpcWalkerAI)_ai;
@@ -116,6 +121,7 @@ public class L2NpcWalkerInstance extends L2NpcInstance
 		/**
 		 * AI can't be deattached.
 		 */
+		@Override
 		public void detachAI()
 		{}
 	}
