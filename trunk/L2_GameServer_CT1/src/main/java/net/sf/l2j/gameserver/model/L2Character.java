@@ -1144,7 +1144,7 @@ public abstract class L2Character extends L2Object
 			sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET)); // msg miss the target
 			
 		// Consumme arrows
-		reduceArrowCount();
+		reduceArrowCount(false);
 		
 		_move = null;
 		
@@ -1215,8 +1215,8 @@ public abstract class L2Character extends L2Object
 		// Calculate if hit is missed or not
 		boolean miss1 = Formulas.getInstance().calcHitMiss(this, target);
 
-		// Consumme arrows
-		reduceBoltCount();
+		// Consumme bows
+		reduceArrowCount(true);
 
 		_move = null;
 
@@ -5848,12 +5848,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <BR>
 	 */
-	protected void reduceArrowCount()
-	{
-		// default is to do nothin
-	}
-
-	protected void reduceBoltCount()
+	protected void reduceArrowCount(boolean bolts)
 	{
 		// default is to do nothin
 	}
