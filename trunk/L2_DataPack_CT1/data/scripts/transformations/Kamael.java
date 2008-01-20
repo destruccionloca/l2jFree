@@ -15,7 +15,7 @@ public class Kamael extends L2Transformation
 	public Kamael()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(251, 3600, 9.0, 30.0);
+		super(251, 3600, 10.0, 32.5);
 	}
 
 	public void onTransform()

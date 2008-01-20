@@ -14,7 +14,7 @@ public class Yeti extends L2Transformation
 	public Yeti()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(102, 3600, 18.0, 32.0);
+		super(102, 3600, 15.0, 27.5);
 	}
 
 	public void onTransform()

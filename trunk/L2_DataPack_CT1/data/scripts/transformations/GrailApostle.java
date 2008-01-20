@@ -14,7 +14,7 @@ public class GrailApostle extends L2Transformation
 	public GrailApostle()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(201, 3600, 8.0, 22.0);
+		super(201, 3600, 10.0, 35.0);
 	}
 
 	public void onTransform()

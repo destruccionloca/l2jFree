@@ -14,7 +14,7 @@ public class LilimKnight extends L2Transformation
 	public LilimKnight()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(207, 3600, 8.0, 22.0);
+		super(207, 3600, 12.0, 25.5);
 	}
 
 	public void onTransform()
