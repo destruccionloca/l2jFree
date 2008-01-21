@@ -63,7 +63,6 @@ public class Quest extends ManagedScript
 
 	private final int _questId;
 	private final String _name;
-	private final String _prefixPath;	// used only for admin_quest_reload
 	private final String _descr;
 	private final byte _initialState = State.CREATED;
 	// NOTE: questItemIds will be overriden by child classes.  Ideally, it should be
@@ -92,17 +91,7 @@ public class Quest extends ManagedScript
 		_questId = questId;
 		_name = name;
 		_descr = descr;
-        
-    	// Given the quest instance, create a string representing the path and questName 
-    	// like a simplified version of a canonical class name.  That is, if a script is in 
-    	// DATAPACK_PATH/scripts/quests/abc the result will be quests.abc
-    	// Similarly, for a script in DATAPACK_PATH/scripts/ai/individual/myClass.py
-    	// the result will be ai.individual.myClass
-    	// All quests are to be indexed, processed, and reloaded by this form of pathname.
-    	StringBuffer temp = new StringBuffer(getClass().getCanonicalName());
-    	temp.delete(0, temp.indexOf(".scripts.")+9);
-    	temp.delete(temp.indexOf(getClass().getSimpleName()), temp.length());
-    	_prefixPath = temp.toString();
+
 		if (questId != 0)
 		{
 			QuestManager.getInstance().addQuest(Quest.this);
@@ -193,16 +182,7 @@ public class Quest extends ManagedScript
 	public String getName() {
 		return _name;
 	}
-	
-	/**
-	 * Return name of the prefix path for the quest, down to the last "."
-	 * For example "quests." or "ai.individual."
-	 * @return String
-	 */
-	public String getPrefixPath() {
-		return _prefixPath;
-	}
-	
+
 	/**
 	 * Return description of the quest
 	 * @return String
@@ -469,11 +449,13 @@ public class Quest extends ManagedScript
             invalidQuestData.close();
             statement.close();
 
-            // Get list of quests owned by the player from the DB in order to add variables used in the quest.
-            statement = con.prepareStatement("SELECT name,var,value FROM character_quests WHERE char_id=?");
-            statement.setInt(1,player.getObjectId());
+			// Get list of quests owned by the player from the DB in order to add variables used in the quest.
+			statement = con.prepareStatement("SELECT name,var,value FROM character_quests WHERE char_id=? AND var<>?");
+			statement.setInt(1, player.getObjectId());
+			statement.setString(2, "<state>");
 			rs = statement.executeQuery();
-			while (rs.next()) {
+			while (rs.next())
+			{
 				String questId = rs.getString("name");
 				String var     = rs.getString("var");
 				String value   = rs.getString("value");
@@ -1121,7 +1103,7 @@ public class Quest extends ManagedScript
     @Override
     public boolean reload()
     {
-        this.saveGlobalData();
+        unload();
         return super.reload();
     }
 
@@ -1132,6 +1114,14 @@ public class Quest extends ManagedScript
     public boolean unload()
     {
         this.saveGlobalData();
+        // cancel all pending timers before reloading.
+        // if timers ought to be restarted, the quest can take care of it
+        // with its code (example: save global data indicating what timer must 
+        // be restarted).
+        for (FastList<QuestTimer> timers : _allEventTimers.values())
+            for(QuestTimer timer :timers)
+                timer.cancel();
+        _allEventTimers.clear();
         return QuestManager.getInstance().removeQuest(this);
     }
 

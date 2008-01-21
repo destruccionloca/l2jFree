@@ -1167,131 +1167,82 @@ public final class L2ItemInstance extends L2Object
 	 *            int designating the objectID of the item
 	 * @return L2ItemInstance
 	 */
-	public static L2ItemInstance restoreFromDb(int objectId)
+	public static L2ItemInstance restoreFromDb(int ownerId, ResultSet rs)
 	{
 		L2ItemInstance inst = null;
-		java.sql.Connection con = null;
+		int objectId, item_id, count, loc_data, enchant_level, custom_type1, custom_type2, price_sell, price_buy, manaLeft;
+		int attrAtkType = 0, attrAtkVal = 0, ad_water = 0, ad_fire = 0, ad_wind = 0, ad_holy = 0, ad_unholy = 0, ad_earth = 0, attrEnchantLvl = 0;
+		ItemLocation loc;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con
-					.prepareStatement("SELECT owner_id, object_id, item_id, count, enchant_level, loc, loc_data, price_sell, price_buy, custom_type1, custom_type2, mana_left, attributes FROM items WHERE object_id = ?");
-			statement.setInt(1, objectId);
-			ResultSet rs = statement.executeQuery();
-			if (rs.next())
+			objectId = rs.getInt(1);
+			item_id = rs.getInt("item_id");
+			count = rs.getInt("count");
+			loc = ItemLocation.valueOf(rs.getString("loc"));
+			loc_data = rs.getInt("loc_data");
+			enchant_level = rs.getInt("enchant_level");
+			custom_type1 =  rs.getInt("custom_type1");
+			custom_type2 =  rs.getInt("custom_type2");
+			price_sell = rs.getInt("price_sell");
+			price_buy = rs.getInt("price_buy");
+			manaLeft = rs.getInt("mana_left");
+			String at[] = rs.getString("attributes").split(",");
+			if (at != null && at.length >= 7)
 			{
-				int owner_id = rs.getInt("owner_id");
-				int item_id = rs.getInt("item_id");
-				int count = rs.getInt("count");
-				ItemLocation loc = ItemLocation.valueOf(rs.getString("loc"));
-				int loc_data = rs.getInt("loc_data");
-				int enchant_level = rs.getInt("enchant_level");
-				int custom_type1 = rs.getInt("custom_type1");
-				int custom_type2 = rs.getInt("custom_type2");
-				int price_sell = rs.getInt("price_sell");
-				int price_buy = rs.getInt("price_buy");
-				int manaLeft = rs.getInt("mana_left");
-				boolean hasAttrs = true;
-				int attrAtkType = 0;
-				int attrAtkVal = 0;
-				int ad_water = 0;
-				int ad_fire = 0;
-				int ad_wind = 0;
-				int ad_holy = 0;
-				int ad_unholy = 0;
-				int ad_earth = 0;
-				int attrEnchantLvl = 0;
-				String at[] = rs.getString("attributes").split(",");
-				if (at == null || at.length < 7)
-					hasAttrs = false;
-				if (hasAttrs)
-				{
-					attrAtkType = Integer.parseInt(at[0]);
-					attrAtkVal = Integer.parseInt(at[1]);
-					ad_fire = Integer.parseInt(at[2]);
-					ad_water = Integer.parseInt(at[3]);
-					ad_earth = Integer.parseInt(at[4]);
-					ad_wind = Integer.parseInt(at[5]);
-					ad_holy = Integer.parseInt(at[6]);
-					ad_unholy = Integer.parseInt(at[7]);
-					attrEnchantLvl = Integer.parseInt(at[8]);
-				}
-				L2Item item = ItemTable.getInstance().getTemplate(item_id);
-				if (item == null)
-				{
-					_log.fatal("Item item_id=" + item_id + " not known, object_id=" + objectId);
-					rs.close();
-					statement.close();
-					return null;
-				}
-				inst = new L2ItemInstance(objectId, item);
-				inst._existsInDb = true;
-				inst._storedInDb = true;
-				inst._ownerId = owner_id;
-				inst.setCount(count);
-				inst._enchantLevel = enchant_level;
-				inst._type1 = custom_type1;
-				inst._type2 = custom_type2;
-				inst._loc = loc;
-				inst._locData = loc_data;
-				inst._priceSell = price_sell;
-				inst._priceBuy = price_buy;
-				
-				inst.ae_enchantVal = attrAtkVal;
-				inst.ae_enchantElement = attrAtkType;
-				inst.ae_enchantLvl = attrEnchantLvl;
-				inst.setEnchantAttrDef(0, ad_fire);
-				inst.setEnchantAttrDef(1, ad_water);
-				inst.setEnchantAttrDef(3, ad_earth);
-				inst.setEnchantAttrDef(2, ad_wind);
-				inst.setEnchantAttrDef(4, ad_holy);
-				inst.setEnchantAttrDef(5, ad_unholy);
-				
-				// Setup life time for shadow weapons
-				inst._mana = manaLeft;
-				
-				// consume 1 mana
-				if (inst._mana > 0 && inst.getLocation() == ItemLocation.PAPERDOLL)
-					inst.decreaseMana(false);
-				
-				// if mana left is 0 delete this item
-				if (inst._mana == 0)
-				{
-					inst.removeFromDb();
-					rs.close();
-					statement.close();
-					return null;
-				}
-				else if (inst._mana > 0 && inst.getLocation() == ItemLocation.PAPERDOLL)
-					inst.scheduleConsumeManaTask();
+				attrAtkType = Integer.parseInt(at[0]);
+				attrAtkVal = Integer.parseInt(at[1]);
+				ad_fire = Integer.parseInt(at[2]);
+				ad_water = Integer.parseInt(at[3]);
+				ad_earth = Integer.parseInt(at[4]);
+				ad_wind = Integer.parseInt(at[5]);
+				ad_holy = Integer.parseInt(at[6]);
+				ad_unholy = Integer.parseInt(at[7]);
+				attrEnchantLvl = Integer.parseInt(at[8]);
 			}
-			else
-			{
-				_log.fatal("Item object_id=" + objectId + " not found");
-				rs.close();
-				statement.close();
-				return null;
-			}
-			rs.close();
-			statement.close();
-			
-			inst.restoreAugmentation();
-			
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Could not restore item " + objectId + " from DB:", e);
+			_log.fatal("Could not restore an item owned by "+ownerId+" from DB:", e);
+			return null;
 		}
-		finally
+		L2Item item = ItemTable.getInstance().getTemplate(item_id);
+		if (item == null)
 		{
-			try
-			{
-				con.close();
-			}
-			catch (Exception e)
-			{
-			}
+			_log.fatal("Item item_id="+item_id+" not known, object_id="+objectId);
+			return null;
 		}
+		inst = new L2ItemInstance(objectId, item);
+		inst._existsInDb = true;
+		inst._storedInDb = true;
+		inst._ownerId = ownerId;
+		inst.setCount(count);
+		inst._enchantLevel = enchant_level;
+		inst._type1 = custom_type1;
+		inst._type2 = custom_type2;
+		inst._loc = loc;
+		inst._locData = loc_data;
+		inst._priceSell = price_sell;
+		inst._priceBuy  = price_buy;
+		
+		// Setup life time for shadow weapons
+		inst._mana = manaLeft;
+
+		// consume 1 mana
+		if (inst._mana > 0 && inst.getLocation() == ItemLocation.PAPERDOLL)
+			inst.decreaseMana(false);
+
+		// if mana left is 0 delete this item
+		if (inst._mana == 0)
+		{
+			inst.removeFromDb();
+			return null;
+		}
+		else if (inst._mana > 0 && inst.getLocation() == ItemLocation.PAPERDOLL)
+			inst.scheduleConsumeManaTask();
+
+		//load augmentation
+		inst.restoreAugmentation();
+
 		return inst;
 	}
 	

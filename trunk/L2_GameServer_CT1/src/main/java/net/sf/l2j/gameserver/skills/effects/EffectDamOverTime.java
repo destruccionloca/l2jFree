@@ -40,23 +40,24 @@ class EffectDamOverTime extends L2Effect
 			return false;
 		
 		double damage = calc();
-		if(getSkill().getId() < 2000) { // fix for players' poison and bleed weak effect 
-		    if(getSkill().getSkillType() == SkillType.POISON)
-            {
-                if (getEffected().isPetrified())
-                    damage= 0;
-                else
-                damage = damage * 2; 
-            }
-		    if(getSkill().getSkillType() == SkillType.BLEED)
-            {
-                if (getEffected().isPetrified())
-                    damage= 0;
-                else
-                damage = damage * 2; 
-            }
-                         if(damage > 300) damage = 300; 
-		} 
+		if(getSkill().getId() < 2000)
+		{ // fix for players' poison and bleed weak effect 
+			if(getSkill().getSkillType() == SkillType.POISON)
+			{
+				if (getEffected().isPetrified())
+					damage= 0;
+				else
+					damage = damage * 2; 
+			}
+			else if(getSkill().getSkillType() == SkillType.BLEED)
+			{
+				if (getEffected().isPetrified())
+					damage= 0;
+				else
+					damage = damage * 2; 
+			}
+			if(damage > 300) damage = 300; 
+		}
 		if (damage >= getEffected().getStatus().getCurrentHp())
 		{
 			if (getSkill().isToggle())
@@ -65,31 +66,17 @@ class EffectDamOverTime extends L2Effect
 				getEffected().sendPacket(sm);
 				return false;
 			}
-            
-            // ** This is just hotfix, needs better solution **
-            // 1947: "DOT skills shouldn't kill"
-            // Well, some of them should ;-)
-            if (getSkill().getId() != 4082) damage = getEffected().getStatus().getCurrentHp() - 1;
+
+			// For DOT skills that will not kill effected player.
+			if (!getSkill().killByDOT()) damage = getEffected().getStatus().getCurrentHp() - 1;
 		}
 
-        boolean awake = !(getEffected() instanceof L2Attackable)
-        					&& !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF 
-        							&& getSkill().isToggle());
-        
-        if(getSkill().getSkillType() == SkillType.POISON &&
-                getEffected().getStatus().getCurrentHp() > damage)
-        {
-            if (getEffected().isPetrified())
-            {damage= 0;}
-            getEffected().reduceCurrentHp(damage, getEffector(),awake);
-        }
-        else
-        {
-            if (getEffected().isPetrified())
-            {damage= 0;}
-            getEffected().reduceCurrentHp(damage, getEffector(),awake);
-        }
-		
+		boolean awake = !(getEffected() instanceof L2Attackable)
+			&& !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF 
+				&& getSkill().isToggle());
+
+		getEffected().reduceCurrentHp(damage, getEffector(),awake);
+
 		return true;
 	}
 }

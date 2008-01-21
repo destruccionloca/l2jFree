@@ -282,6 +282,7 @@ public abstract class L2Skill
 	private final int				_summonTimeLostActive;
 	// item consume time in milliseconds
 	private final int				_itemConsumeTime;
+
 	private final int				_castRange;
 	private final int				_effectRange;
 	
@@ -296,7 +297,10 @@ public abstract class L2Skill
 	private final double			_power;
 	private final int				_effectPoints;
 	private final int				_levelDepend;
-	
+
+	// Kill by damage over time
+	private final boolean			_killByDOT;
+
 	// Effecting area of the skill, in radius.
 	// The radius center varies according to the _targetType:
 	// "caster" if targetType = AURA/PARTY/CLAN or "target" if targetType = AREA
@@ -404,7 +408,9 @@ public abstract class L2Skill
 		_iKill = set.getBool("iKill", false);
 		_castRange = set.getInteger("castRange", 0);
 		_effectRange = set.getInteger("effectRange", -1);
-		
+
+		_killByDOT = set.getBool("killByDOT", false);
+
 		_hitTime = set.getInteger("hitTime", 0);
 		_coolTime = set.getInteger("coolTime", 0);
 		_skillInterruptTime = (_hitTime / 2);
@@ -613,7 +619,12 @@ public abstract class L2Skill
 	{
 		return _overhit;
 	}
-	
+
+	public final boolean killByDOT()
+	{
+		return _killByDOT;
+	}
+
 	public final boolean isSuicideAttack()
 	{
 		return _isSuicideAttack;
