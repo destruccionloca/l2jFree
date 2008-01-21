@@ -192,10 +192,7 @@ public abstract class L2Transformation implements Cloneable, Runnable
     
     public void stop()
     {
-        if (this.getRemainingTime() > 0)
-        {
-            this.getPlayer().untransform();
-        }
+        this.getPlayer().untransform();
     }
     
     public L2Transformation createTransformationForPlayer(L2PcInstance player)
