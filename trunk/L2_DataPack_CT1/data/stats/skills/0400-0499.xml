@@ -1383,13 +1383,10 @@
 </skill>
 <skill id="465" levels="50" name="Light Armor Mastery">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Increases P. Def. when wearing light armor.
 -->
   <table name="#pDef"> 4.2 5.3 6.5 7.7 9 9.9 10.8 12.7 13.7 14.8 16.9 18 19.1 21.5 22.7 24 25.3 26.6 27.9 29.3 30.7 32.1 33.6 35 36.5 38.1 39.6 41.2 42.8 44.5 46.1 47.8 49.5 51.3 53.0 54.8 56.6 58.4 60.2 62.1 64.0 65.8 67.7 69.7 71.6 73.5 75.5 77.4 79.4 81.3 </table>
-  <table name="#rEvas"> 3 3 5 5 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 6 </table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1612,139 +1609,80 @@
 </skill>
 <skill id="476" levels="15" name="Dark Strike">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl	1	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 90.
-      Lvl	2	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 97.
-      Lvl	3	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 105.
-      Lvl	4	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 123.
-      Lvl	5	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 132.
-      Lvl	6	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 143.
-      Lvl	7	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 165.
-      Lvl	8	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 177.
-      Lvl	9	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 191.
-      Lvl	10	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 219.
-      Lvl	11	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 235.
-      Lvl	12	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 251.
-      Lvl	13	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 287.
-      Lvl	14	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 306.
-      Lvl	15	Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 326.
+  Done by theREALizzy - need to check values:
+      Summon soul power for a lethal strike. Consumes 1 Soul. A sword, blunt, or ancient sword weapon must be equipped to use this skill. Over-hit is possible. Power 90-326.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#power"> 
+  90 110 130 140 150 
+  160 190 200 225 250 
+  260 275 290 310 326 </table> 
+  <table name="#mpConsume"> 
+  20 21 22 23 24
+  25 26 27 28 29
+  30 31 32 33 34 </table> 
+  <table name="#magicLvl"> 
+  20 21 22 24 25 
+  26 28 29 30 32 
+  33 34 36 37 38 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="power" val="#power"/>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="weaponsAllowed" val="32788"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="13000"/>
+  <set name="hitTime" val="1500"/>
+  <set name="coolTime" val="720" />
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
   </for>
 </skill>
-<skill id="477" levels="37" name="Dark Smash" enchantLevels1="30" enchantLevels2="30">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl	1	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 615.
-      Lvl	2	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 654.
-      Lvl	3	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 694.
-      Lvl	4	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 737.
-      Lvl	5	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 781.
-      Lvl	6	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 827.
-      Lvl	7	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 875.
-      Lvl	8	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 924.
-      Lvl	9	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 976.
-      Lvl	10	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1030.
-      Lvl	11	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1085.
-      Lvl	12	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1143.
-      Lvl	13	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1202.
-      Lvl	14	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1264.
-      Lvl	15	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1327.
-      Lvl	16	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1392.
-      Lvl	17	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1459.
-      Lvl	18	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1527.
-      Lvl	19	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1597.
-      Lvl	20	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1669.
-      Lvl	21	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1743.
-      Lvl	22	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1817.
-      Lvl	23	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1894.
-      Lvl	24	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 1971.
-      Lvl	25	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2050.
-      Lvl	26	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2130.
-      Lvl	27	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2211.
-      Lvl	28	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2293.
-      Lvl	29	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2375.
-      Lvl	30	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2459.
-      Lvl	31	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2542.
-      Lvl	32	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2626.
-      Lvl	33	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2710.
-      Lvl	34	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2794.
-      Lvl	35	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2878.
-      Lvl	36	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 2961.
-      Lvl	37	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Power 3044.
-      Lvl	101	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3230.	+1 Power	Maximizes the skill's power. Power is increased.
-      Lvl	102	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3252.	+2 Power	The power is increased.
-      Lvl	103	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3274.	+3 Power	The power is increased.
-      Lvl	104	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3296.	+4 Power	The power is increased.
-      Lvl	105	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3318.	+5 Power	The power is increased.
-      Lvl	106	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3340.	+6 Power	The power is increased.
-      Lvl	107	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3362.	+7 Power	The power is increased.
-      Lvl	108	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3384.	+8 Power	The power is increased.
-      Lvl	109	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3405.	+9 Power	The power is increased.
-      Lvl	110	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3427.	+10 Power	The power is increased.
-      Lvl	111	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3449.	+11 Power	The power is increased.
-      Lvl	112	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3471.	+12 Power	The power is increased.
-      Lvl	113	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3493.	+13 Power	The power is increased.
-      Lvl	114	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3515.	+14 Power	The power is increased.
-      Lvl	115	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3537.	+15 Power	The power is increased.
-      Lvl	116	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3559.	+16 Power	The power is increased.
-      Lvl	117	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3581.	+17 Power	The power is increased.
-      Lvl	118	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3603.	+18 Power	The power is increased.
-      Lvl	119	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3625.	+19 Power	The power is increased.
-      Lvl	120	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3647.	+20 Power	The power is increased.
-      Lvl	121	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3669.	+21 Power	The power is increased.
-      Lvl	122	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3691.	+22 Power	The power is increased.
-      Lvl	123	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3713.	+23 Power	The power is increased.
-      Lvl	124	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3735.	+24 Power	The power is increased.
-      Lvl	125	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3757.	+25 Power	The power is increased.
-      Lvl	126	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3779.	+26 Power	The power is increased.
-      Lvl	127	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3801.	+27 Power	The power is increased.
-      Lvl	128	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3823.	+28 Power	The power is increased.
-      Lvl	129	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3845.	+29 Power	The power is increased.
-      Lvl	130	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Power: Power is increased. Power 3867.	+30 Power	The power is increased.
-      Lvl	201	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
-      Lvl	202	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+2 Cost	The MP consumption is decreased.
-      Lvl	203	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+3 Cost	The MP consumption is decreased.
-      Lvl	204	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+4 Cost	The MP consumption is decreased.
-      Lvl	205	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+5 Cost	The MP consumption is decreased.
-      Lvl	206	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+6 Cost	The MP consumption is decreased.
-      Lvl	207	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+7 Cost	The MP consumption is decreased.
-      Lvl	208	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+8 Cost	The MP consumption is decreased.
-      Lvl	209	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+9 Cost	The MP consumption is decreased.
-      Lvl	210	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+10 Cost	The MP consumption is decreased.
-      Lvl	211	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+11 Cost	The MP consumption is decreased.
-      Lvl	212	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+12 Cost	The MP consumption is decreased.
-      Lvl	213	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+13 Cost	The MP consumption is decreased.
-      Lvl	214	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+14 Cost	The MP consumption is decreased.
-      Lvl	215	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+15 Cost	The MP consumption is decreased.
-      Lvl	216	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+16 Cost	The MP consumption is decreased.
-      Lvl	217	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+17 Cost	The MP consumption is decreased.
-      Lvl	218	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+18 Cost	The MP consumption is decreased.
-      Lvl	219	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+19 Cost	The MP consumption is decreased.
-      Lvl	220	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+20 Cost	The MP consumption is decreased.
-      Lvl	221	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+21 Cost	The MP consumption is decreased.
-      Lvl	222	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+22 Cost	The MP consumption is decreased.
-      Lvl	223	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+23 Cost	The MP consumption is decreased.
-      Lvl	224	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+24 Cost	The MP consumption is decreased.
-      Lvl	225	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+25 Cost	The MP consumption is decreased.
-      Lvl	226	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+26 Cost	The MP consumption is decreased.
-      Lvl	227	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+27 Cost	The MP consumption is decreased.
-      Lvl	228	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+28 Cost	The MP consumption is decreased.
-      Lvl	229	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+29 Cost	The MP consumption is decreased.
-      Lvl	230	Summon power for a lethal strike. Consumes 1 Soul. An ancient sword weapon has to be equipped to use this skill. Over-hit is possible. Enchant Cost: MP consumption is decreased. Power 3044.	+30 Cost	The MP consumption is decreased.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<skill id="477" levels="37" name="Dark Smash">
+<!-- Done by theREALizzy - Need retail accuracy check. -->
+  <table name="#power"> 
+  615 730 855 989 1020 
+  1056 1175 1190 1250 1350 
+  1460 1575 1690 1710 1844
+  1915 2030 2155 2289 2220 
+  2356 2375 2490 2450 2550 
+  2560 2675 2690 2710 2744 
+  2756 2875 2890 2920 2950 
+  3000 3044
+  </table> 
+  <table name="#mpConsume"> 
+  60 60 60 62 62
+  63 63 63 65 65
+  68 72 72 76 76 
+  78 81 81 85 89
+  95 96 96 99 100
+  103 104 108 110 115
+  116 117 120 123 125
+  128 130</table>  
+  <table name="#magicLvl"> 
+  20 21 22 24 25 
+  26 28 29 30 32 
+  33 34 36 37 38 
+  39 40 41 42 43
+  44 45 46 47 48
+  49 50 51 52 53
+  54 55 56 57 58
+  59 60</table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="power" val="#power"/>  
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="weaponsAllowed" val="32768"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="13000"/>
+  <set name="hitTime" val="1500"/>
+  <set name="coolTime" val="720" />
+  <set name="castRange" val="40"/>
+  <set name="effectRange" val="400"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
   </for>
 </skill>
@@ -1793,29 +1731,38 @@
 <skill id="480" levels="1" name="Dark Blade">
 <!--
   Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Grants the ability to do dark damage. Consumes 1 Soul.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_TOGGLE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
+     <!-- require core support
+     <mul order="0x30" stat="darkPower" val="1.1"/>
+     -->
   </for>
+
 </skill>
 <skill id="481" levels="2" name="Dark Armor">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Increases resistance to dark attacks. Consumes 1 Soul.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#darkVuln"> 0.93 0.9 </table>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_TOGGLE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
+     <mul order="0x30" stat="darkVuln" val="#darkVuln"/>
   </for>
 </skill>
 <skill id="482" levels="2" name="Furious Soul">
@@ -1946,18 +1893,20 @@
   </for>
 </skill>
 <skill id="486" levels="2" name="Increase Range">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl	1	Increases crossbow range.
-      Lvl	2	Increases crossbow range.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <table name="#range"> 75 125 </table>
+  <set name="weaponsAllowed" val="65536"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <add order="0x40" stat="pAtkRange" val="#range">
+      <and>       
+        <using kind="Crossbow"/>
+      </and>
+    </add>
   </for>
 </skill>
 <skill id="487" levels="15" name="Penetrate Shot">
@@ -2000,80 +1949,27 @@
   <for>
   </for>
 </skill>
-<skill id="490" levels="2" name="Fast Shot" enchantLevels1="30" enchantLevels2="30">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl	1	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Effect 1.
-      Lvl	2	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Effect 2.
-      Lvl	101	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+1 Time	Maximizes the skill's duration. Increases the duration.
-      Lvl	102	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+2 Time	Increases the duration.
-      Lvl	103	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+3 Time	Increases the duration.
-      Lvl	104	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+4 Time	Increases the duration.
-      Lvl	105	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+5 Time	Increases the duration.
-      Lvl	106	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+6 Time	Increases the duration.
-      Lvl	107	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+7 Time	Increases the duration.
-      Lvl	108	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+8 Time	Increases the duration.
-      Lvl	109	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+9 Time	Increases the duration.
-      Lvl	110	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+10 Time	Increases the duration.
-      Lvl	111	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+11 Time	Increases the duration.
-      Lvl	112	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+12 Time	Increases the duration.
-      Lvl	113	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+13 Time	Increases the duration.
-      Lvl	114	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+14 Time	Increases the duration.
-      Lvl	115	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+15 Time	Increases the duration.
-      Lvl	116	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+16 Time	Increases the duration.
-      Lvl	117	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+17 Time	Increases the duration.
-      Lvl	118	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+18 Time	Increases the duration.
-      Lvl	119	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+19 Time	Increases the duration.
-      Lvl	120	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+20 Time	Increases the duration.
-      Lvl	121	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+21 Time	Increases the duration.
-      Lvl	122	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+22 Time	Increases the duration.
-      Lvl	123	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+23 Time	Increases the duration.
-      Lvl	124	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+24 Time	Increases the duration.
-      Lvl	125	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+25 Time	Increases the duration.
-      Lvl	126	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+26 Time	Increases the duration.
-      Lvl	127	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+27 Time	Increases the duration.
-      Lvl	128	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+28 Time	Increases the duration.
-      Lvl	129	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+29 Time	Increases the duration.
-      Lvl	130	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Time: Skill duration is increased. Effect 2.	+30 Time	Increases the duration.
-      Lvl	201	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
-      Lvl	202	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+2 Cost	The MP consumption is decreased.
-      Lvl	203	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+3 Cost	The MP consumption is decreased.
-      Lvl	204	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+4 Cost	The MP consumption is decreased.
-      Lvl	205	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+5 Cost	The MP consumption is decreased.
-      Lvl	206	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+6 Cost	The MP consumption is decreased.
-      Lvl	207	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+7 Cost	The MP consumption is decreased.
-      Lvl	208	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+8 Cost	The MP consumption is decreased.
-      Lvl	209	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+9 Cost	The MP consumption is decreased.
-      Lvl	210	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+10 Cost	The MP consumption is decreased.
-      Lvl	211	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+11 Cost	The MP consumption is decreased.
-      Lvl	212	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+12 Cost	The MP consumption is decreased.
-      Lvl	213	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+13 Cost	The MP consumption is decreased.
-      Lvl	214	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+14 Cost	The MP consumption is decreased.
-      Lvl	215	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+15 Cost	The MP consumption is decreased.
-      Lvl	216	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+16 Cost	The MP consumption is decreased.
-      Lvl	217	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+17 Cost	The MP consumption is decreased.
-      Lvl	218	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+18 Cost	The MP consumption is decreased.
-      Lvl	219	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+19 Cost	The MP consumption is decreased.
-      Lvl	220	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+20 Cost	The MP consumption is decreased.
-      Lvl	221	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+21 Cost	The MP consumption is decreased.
-      Lvl	222	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+22 Cost	The MP consumption is decreased.
-      Lvl	223	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+23 Cost	The MP consumption is decreased.
-      Lvl	224	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+24 Cost	The MP consumption is decreased.
-      Lvl	225	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+25 Cost	The MP consumption is decreased.
-      Lvl	226	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+26 Cost	The MP consumption is decreased.
-      Lvl	227	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+27 Cost	The MP consumption is decreased.
-      Lvl	228	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+28 Cost	The MP consumption is decreased.
-      Lvl	229	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+29 Cost	The MP consumption is decreased.
-      Lvl	230	Temporarily increases your crossbow attack speed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 2.	+30 Cost	The MP consumption is decreased.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<skill id="490" levels="2" name="Fast Shot">
+<!-- Missing Enchant Values, and needs retail accuracy check -->
+  <table name="#atkspd"> 75 125 </table>
+  <table name="#mpConsume"> 14 25 </table>
+  <set name="weaponsAllowed" val="65536"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="0.0"/>
+  <set name="hitTime" val="2500"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
-  </for>
+    <add order="0x40" stat="pAtkRange" val="#atkspd">
+      <and>       
+        <using kind="Crossbow"/>
+      </and>
+    </add>
+  </for> 
 </skill>
 <skill id="491" levels="1" name="Not In Use">
   <set name="target" val="TARGET_NONE"/>

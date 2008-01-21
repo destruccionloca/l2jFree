@@ -569,11 +569,9 @@
 <skill id="239" levels="6" name="Expertise S80">
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
-  <!-- cannot be learned, given -->
-  <set name="canLearn" val=""/>
   <for>
   </for>
 </skill>
@@ -1727,12 +1725,16 @@
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
     <effect name="Buff" time="120" count="1" val="0">
-      <mul order="0x30" stat="pAtk-undead" val="1.3"/>
+     <!-- require core support
+     <mul order="0x30" stat="holyPower" val="1.2"/>
+     -->
     </effect>
   </for>
   <enchant1for>
     <effect name="Buff" time="#ench1time" count="1" val="0">
-      <mul order="0x30" stat="pAtk-undead" val="1.3"/>
+     <!-- require core support
+     <mul order="0x30" stat="holyPower" val="1.2"/>
+     -->
     </effect>
   </enchant1for>
 </skill>
