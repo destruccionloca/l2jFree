@@ -74,7 +74,7 @@ class Quest (JQuest) :
               else :
                   htmltext = "31370-05.htm"
           #else:
-              #htmltext="<html><body>This quest has already been State.COMPLETED</body></html>"
+              #htmltext="<html><body>This quest has already been completed</body></html>"
     return htmltext
 
  def onKill(self,npc,player,isPet):
