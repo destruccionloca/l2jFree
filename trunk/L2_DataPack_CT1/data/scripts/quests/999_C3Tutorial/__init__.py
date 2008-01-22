@@ -1,5 +1,6 @@
 # Made by Mr. Have fun! - version 0.2 by Rolarga
 # C5 addons by DrLecter
+# CT1 addons by nigHt
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
@@ -18,6 +19,7 @@ SPIRITSHOT_NOVICE = 5790
 BLUE_GEM=6353
 TOKEN = 8542
 SCROLL= 8594
+DIPLOMA = 9881
 # event:[htmlfile,radarX,radarY,radarZ,item,classId1,gift1,count1,classId2,gift2,count2]
 EVENTS={
 "30008_02":["30008-03.htm",-84058, 243239,-3730,RECOMMENDATION_01 ,0x00,SOULSHOT_NOVICE  ,200,0x00,              0,  0],
@@ -25,7 +27,8 @@ EVENTS={
 "30370_02":["30370-03.htm", 45491,  48359,-3086,LEAF_OF_MOTHERTREE,0x19,SPIRITSHOT_NOVICE,100,0x12,SOULSHOT_NOVICE,200],
 "30129_02":["30129-03.htm", 12116,  16666,-4610,BLOOD_OF_JUNDIN   ,0x26,SPIRITSHOT_NOVICE,100,0x1f,SOULSHOT_NOVICE,200],
 "30528_02":["30528-03.htm",115642,-178046, -941,LICENSE_OF_MINER  ,0x35,SOULSHOT_NOVICE  ,200,0x00,              0,  0],
-"30573_02":["30573-03.htm",-45067,-113549, -235,VOUCHER_OF_FLAME  ,0x31,SPIRITSHOT_NOVICE,100,0x2c,SOULSHOT_NOVICE,200]
+"30573_02":["30573-03.htm",-45067,-113549, -235,VOUCHER_OF_FLAME  ,0x31,SPIRITSHOT_NOVICE,100,0x2c,SOULSHOT_NOVICE,200],
+"32133_02":["32133-03.htm",-119747, 44467, 367,DIPLOMA ,0x7b,SOULSHOT_NOVICE ,200,0x7C,SOULSHOT_NOVICE ,200]
 }
 
 # npcId:[raceId,[htmlfiles],npcTyp,item]
@@ -36,6 +39,7 @@ TALKS={
 30129:[2,["30129-01.htm","30129-02.htm","30129-04.htm"],0,0],
 30573:[3,["30573-01.htm","30573-02.htm","30573-04.htm"],0,0],
 30528:[4,["30528-01.htm","30528-02.htm","30528-04.htm"],0,0],
+32133:[5,["32133-01.htm","32133-02.htm","32133-04.htm"],0,0],
 30018:[0,["30131-01.htm",0,"30019-03a.htm","30019-04.htm",],1,RECOMMENDATION_02],
 30019:[0,["30131-01.htm",0,"30019-03a.htm","30019-04.htm",],1,RECOMMENDATION_02],
 30020:[0,["30131-01.htm",0,"30019-03a.htm","30019-04.htm",],1,RECOMMENDATION_02],
@@ -52,8 +56,9 @@ TALKS={
 30404:[2,["30131-01.htm","30131-03.htm","30131-03a.htm","30131-04.htm",],1,BLOOD_OF_JUNDIN],
 30574:[3,["30575-01.htm","30575-03.htm","30575-03a.htm","30575-04.htm",],1,VOUCHER_OF_FLAME],
 30575:[3,["30575-01.htm","30575-03.htm","30575-03a.htm","30575-04.htm",],1,VOUCHER_OF_FLAME],
-30530:[4,["30530-01.htm","30530-03.htm",0,"30530-04.htm",],1,LICENSE_OF_MINER]
-}    
+30530:[4,["30530-01.htm","30530-03.htm",0,"30530-04.htm",],1,LICENSE_OF_MINER],
+32134:[5,["32134-01.htm","32134-03.htm",0,"32134-04.htm",],1,DIPLOMA]
+}
 
 class Quest (JQuest) :
 
@@ -74,7 +79,7 @@ class Quest (JQuest) :
            st.giveItems(gift2,count2)
       st.unset("cond")
       st.set("onlyone","1")
-      st.exitQuest(False) 
+      st.exitQuest(False)
       st.playSound("ItemSound.quest_finish")
     return htmltext
 
@@ -154,7 +159,7 @@ class Quest (JQuest) :
         elif cond==2 :
           htmltext = htmlfiles[1]
         elif cond==3 :
-          htmltext = htmlfiles[2] 
+          htmltext = htmlfiles[2]
    else:
        htmltext = "<html><body>You are too experienced now.</body></html>"
    return htmltext
@@ -162,7 +167,7 @@ class Quest (JQuest) :
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
    if not st : return
-   if st.getState() != State.STARTED : return 
+   if st.getState() != State.STARTED : return
    if st.getInt("cond")==1 and st.getRandom(100) < 25 and st.getQuestItemsCount(BLUE_GEM) == 0 :
       st.giveItems(BLUE_GEM,1)
       st.playSound("ItemSound.quest_itemget")
@@ -173,11 +178,11 @@ QUEST       = Quest(999,qn,"Interlude Tutorial")
 
 
 
-for startNpc in [30008,30009,30017,30019,30129,30131,30573,30575,30370,30528,30530,30400,30401,30402,30403,30404]:
+for startNpc in [30008,30009,30017,30019,30129,30131,30573,30575,30370,30528,30530,30400,30401,30402,30403,30404,32133,32134]:
   QUEST.addStartNpc(startNpc)
   QUEST.addTalkId(startNpc)
 
-for npc in [30600, 30601, 30602, 30598, 30599]:
+for npc in [30600, 30601, 30602, 30598, 30599, 32135]:
   QUEST.addFirstTalkId(npc)
 
 QUEST.addKillId(18342)
