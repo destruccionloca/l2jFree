@@ -10,12 +10,14 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="#itemConsumeCount"/>
+  <table name="#lethal2"> 5 9 13 17 21 25 29 33 37 41</table>
   <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="9000"/>
   <set name="target" val="TARGET_AREA_UNDEAD"/>
   <set name="skillRadius" val="200"/>
   <set name="skillType" val="FEAR"/>
   <set name="operateType" val="OP_ACTIVE"/>
+  <set name="lethal2" val="#lethal2"/>
   <set name="castRange" val="900"/>
   <set name="effectRange" val="1400"/>
   <set name="isMagic" val="true"/>
