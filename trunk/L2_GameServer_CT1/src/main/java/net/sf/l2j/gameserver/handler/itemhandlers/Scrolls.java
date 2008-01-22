@@ -72,7 +72,11 @@ public class Scrolls implements IItemHandler
 
 		if (itemId >= 8594 && itemId <= 8599) //Scrolls of recovery XML: 2286
 		{
-			if (activeChar.getKarma() > 0) return; // Chaotic can not use it
+			if (activeChar.getKarma() > 0)
+				{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addItemName(item));
+				return; // Chaotic can not use it
+				}
 
 			byte expIndex = (byte)activeChar.getExpertiseIndex();
 			if ((itemId == 8594 && expIndex == 0) || // Scroll: Recovery (No Grade)
