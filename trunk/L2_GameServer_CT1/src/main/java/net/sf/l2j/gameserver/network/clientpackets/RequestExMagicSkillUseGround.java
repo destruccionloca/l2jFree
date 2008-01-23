@@ -57,7 +57,7 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 	protected void runImpl()
 	{
 		//TODO: implementation missing
-		System.out.println("C6: RequestExMagicSkillUseGround. x: "+_x+" y: "+_y+" z: "+_z+" skill: "+_skillId+" crtl: "+_ctrlPressed+" shift: "+_shiftPressed);
+		//System.out.println("C6: RequestExMagicSkillUseGround. x: "+_x+" y: "+_y+" z: "+_z+" skill: "+_skillId+" crtl: "+_ctrlPressed+" shift: "+_shiftPressed);
 		
 		L2PcInstance activeChar = getClient().getActiveChar();
 		
@@ -80,8 +80,9 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 			return;
 		}
 		
-		// TODO: Handler for that skills... 
-		activeChar.sendPacket(new ActionFailed());
+		// TODO: Handler for that skills...
+		// TODO: x,y,z fix for these skills, right now they are shot from the caster... need a shot from x,y,z instead.
+		activeChar.doCast(skill);
 	}
 
 	/**

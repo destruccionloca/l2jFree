@@ -31,6 +31,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 /**
@@ -61,7 +62,8 @@ public class Continuous implements ISkillHandler
 		L2Skill.SkillType.REFLECT,
 		L2Skill.SkillType.UNDEAD_DEFENSE,
 		L2Skill.SkillType.AGGDEBUFF,
-		L2Skill.SkillType.FORCE_BUFF
+		L2Skill.SkillType.FORCE_BUFF,
+		L2Skill.SkillType.RADIUS_SKILL
 		};
 	
 	/* (non-Javadoc)
@@ -86,6 +88,10 @@ public class Continuous implements ISkillHandler
 				case BUFF: case HOT: case CPHOT: case MPHOT:
 				case AGGDEBUFF: case CONT: case UNDEAD_DEFENSE:
 					break;
+				case RADIUS_SKILL:
+					EffectRadiusSkill.getInstance().addRadiusSkill(activeChar , skill);
+					EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar);
+					return;
 				default:
 					if(target.reflectSkill(skill))
 						target = activeChar;

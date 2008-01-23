@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocationInVehicle;
+import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -175,6 +176,7 @@ public class ValidatePosition extends L2GameClientPacket
 		if (!activeChar.isInWater() && !activeChar.isFlying())
 			activeChar.isFalling(true,0); // Check if the L2Character isFalling
 
+		EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar);
 		
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 		{

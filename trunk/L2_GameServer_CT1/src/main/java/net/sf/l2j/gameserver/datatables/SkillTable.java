@@ -15,11 +15,13 @@
 package net.sf.l2j.gameserver.datatables;
 
 import java.util.Map;
+import java.util.concurrent.Future;
 
 import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.SkillsEngine;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 
 /**
  * This class ...
@@ -43,8 +45,39 @@ public class SkillTable
 	{
 		_skills = new FastMap<Integer, L2Skill>();
 		SkillsEngine.getInstance().loadAllSkills(_skills);
+		
+		attachSkillsTogether initSkills = new attachSkillsTogether();
+		Future task = ThreadPoolManager.getInstance().scheduleGeneral(initSkills, 1000);
+		initSkills.setTask(task);
 	}
     
+	class attachSkillsTogether implements Runnable
+	{
+		Future _task = null;
+		
+		public void setTask(Future task)
+		{
+			_task = task;
+		}
+		
+		public void run()
+		{
+			if (_task != null)
+			{
+				_task.cancel(true);
+				_task = null;
+			}
+			
+			for (L2Skill skill : _skills.values())
+			{
+				if (skill != null)
+				{
+					skill.attachOnCastFromSkillTable();
+				}
+			}
+		}
+	}
+	
     public void reload()
     {
    		_instance = new SkillTable();

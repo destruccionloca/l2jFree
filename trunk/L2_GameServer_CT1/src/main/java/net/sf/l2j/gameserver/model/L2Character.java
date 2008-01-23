@@ -134,6 +134,7 @@ public abstract class L2Character extends L2Object
 	
 	// =========================================================
 	// Data Field
+	private Integer[]				_radiusSkillsAffect;
 	private FastList<L2Character>	_attackByList;
 	private L2Character				_attackingChar;
 	private L2Skill					_lastSkillCast;
@@ -6751,6 +6752,8 @@ public abstract class L2Character extends L2Object
 	{
 		try
 		{
+			//Launch a skill's Special ability skill effect if available
+			skill.skillEffects(this);
 			
 			// Do initial checkings for skills and set pvp flag/draw aggro when needed
 			for (L2Object target : targets)
@@ -7444,5 +7447,94 @@ public abstract class L2Character extends L2Object
     public int getAttackElementValue(int attackAttribute)
     {
     	return getStat().getAttackElementValue(attackAttribute);
+    }
+    
+    public L2Object[] getCastTargets(L2Skill skill)
+    {
+		// Get all possible targets of the skill in a table in function of the skill target type
+		L2Object[] targets = skill.getTargetList(this);
+		
+		if (targets == null || targets.length == 0)
+		{
+			return null;
+		}
+		
+		if (FortressSiege._started
+				&& this instanceof L2PcInstance
+				&& ((L2PcInstance) this)._inEventFOS
+				&& (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY))
+			targets = getFOSTargets(skill);
+		
+		if (this instanceof L2PlayableInstance)
+		{
+			if (FortressSiege._started && skill.isOffensive())
+				targets = eventBlocker(targets, true); // Special check made here, to not allow players in protected zone to be hit by players IN THE EVENT
+														// (a.k.a. safe zone)
+			else
+				targets = eventBlocker(targets, false); // A Filter to take out any playables not in events or vice versa.
+		}
+		if (targets == null || (targets.length == 0))
+		{
+			return null;
+		}
+		// Set the target of the skill in function of Skill Type and Target Type
+		L2Character target = null;
+		
+		if (skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.COMBATPOINTHEAL
+				|| skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.REFLECT || skill.getSkillType() == SkillType.SEED
+				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PET
+				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN
+				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY)
+		{
+			target = (L2Character) targets[0];
+		}
+		else if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET)
+		{
+			if (this instanceof L2PetInstance)
+			{
+				target = ((L2PetInstance) this).getOwner();
+			}
+		}
+		else
+		{
+			target = (L2Character) getTarget();
+			
+			// Prevent usage of skills on NPCs that shouldn't allow this (teleporters, merchants, trainers, etc)
+			if ((target instanceof L2NpcInstance))
+			{
+				String mobtype = ((L2NpcInstance) target).getTemplate().getType();
+				if (!Config.LIST_ALLOWED_NPC_TYPES.contains(mobtype) && !(this instanceof L2PcInstance && ((L2PcInstance) this).checkFOS()))
+				{
+					sendMessage("You cannot use skills on this npc!");
+					return null;
+				}
+			}
+		}
+		
+		// AURA skills should always be using caster as target
+		switch(skill.getTargetType())
+		{
+			case TARGET_AURA:
+			case TARGET_FRONT_AURA:
+			case TARGET_BEHIND_AURA:
+				target = this;
+				break;
+		}
+		
+		if (target == null)
+		{
+			return null;
+		}
+		return targets;
+    }
+    
+    public Integer[] getRadiusSkillsAffect()
+    {
+    	return _radiusSkillsAffect;
+    }
+    
+    public void setRadiusSkillsAffect(Integer[] skillList)
+    {
+    	_radiusSkillsAffect = skillList;
     }
 }

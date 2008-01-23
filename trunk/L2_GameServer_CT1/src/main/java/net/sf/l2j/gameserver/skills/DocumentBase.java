@@ -250,6 +250,19 @@ abstract class DocumentBase
         {
             lvl = Integer.decode(getValue(attrs.getNamedItem("lvl").getNodeValue(), template));
         }
+        if (template instanceof L2Skill)
+        {
+        	if (attrs.getNamedItem("trigger") != null)
+        	{
+        		((L2Skill) template).attachOnCast(id,lvl); // Attach as skill triggered on cast
+        		((L2Skill) template).setTriggeredTimes(Integer.decode(getValue(attrs.getNamedItem("trigger").getNodeValue(), template)));
+        		if (attrs.getNamedItem("time") != null)
+        		{
+        			((L2Skill) template).setTriggeredDuration(Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template)));
+        		}
+        	}
+        	return;
+        }
         L2Skill skill = SkillTable.getInstance().getInfo(id, lvl);
         if (attrs.getNamedItem("chance") != null) 
         {
