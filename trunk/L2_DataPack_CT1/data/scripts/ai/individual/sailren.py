@@ -1,12 +1,16 @@
 # By L2J_JP SANDMAN
-
 import sys
 from net.sf.l2j.gameserver.instancemanager import SailrenManager
-from net.sf.l2j.gameserver.instancemanager import ZoneManager
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.network.serverpackets import SocialAction
+
+#ENTRY_SATAT 0 = Sailren is not spawned
+#ENTRY_SATAT 1 = Sailren is already dead
+#ENTRY_SATAT 2 = Sailren is already entered by a other party
+#ENTRY_SATAT 3 = Sailren is in interval
+#ENTRY_SATAT 4 = You have no Party
 
 #NPC
 STATUE          =   32109
@@ -51,17 +55,16 @@ class sailren (JQuest):
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("sailren")
     if not st: return
-    if ZoneManager.getInstance().checkIfInZone("LairofSailren", player) :
-      npcId = npc.getNpcId()
-      if npcId == VELOCIRAPTOR :
-        SailrenManager.getInstance().setSailrenSpawnTask(PTEROSAUR)
-      elif npcId == PTEROSAUR :
-        SailrenManager.getInstance().setSailrenSpawnTask(TYRANNOSAURUS)
-      elif npcId == TYRANNOSAURUS :
-        SailrenManager.getInstance().setSailrenSpawnTask(SAILREN)
-      elif npcId == SAILREN :
-        SailrenManager.getInstance().setCubeSpawn()
-        st.exitQuest(1)
+    npcId = npc.getNpcId()
+    if npcId == VELOCIRAPTOR :
+      SailrenManager.getInstance().setSailrenSpawnTask(PTEROSAUR)
+    elif npcId == PTEROSAUR :
+      SailrenManager.getInstance().setSailrenSpawnTask(TYRANNOSAURUS)
+    elif npcId == TYRANNOSAURUS :
+      SailrenManager.getInstance().setSailrenSpawnTask(SAILREN)
+    elif npcId == SAILREN :
+      SailrenManager.getInstance().setCubeSpawn()
+      st.exitQuest(1)
     return
 
 # Quest class and state definition
