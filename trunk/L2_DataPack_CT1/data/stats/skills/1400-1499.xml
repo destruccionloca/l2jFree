@@ -500,17 +500,28 @@
 </skill>
 <skill id="1421" levels="1" name="Raging Waves">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Consecutive strikes inflict a great amount of water damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
-  <set name="element" val="3"/> <!-- Water -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="magicLvl" val="80"/>
+  <set name="mpConsume" val="73"/>
+  <set name="power" val="500"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillRadius" val="500"/>
+  <set name="hitTime" val="150"/>
+  <set name="reuseDelay" val="600000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="500"/>
+  <set name="effectRange" val="500"/>
+  <cond msg="Proper force required.">
+    <player spell_force="3"/>
+  </cond>
   <for>
+     <skill trigger="16" id="5131" lvl="1" time="16"/> <!-- calling Tsunami -->
+     <effect count="1" name="ImobileBuff" time="16" val="0"/>
   </for>
 </skill>
 <skill id="1422" levels="1" name="Day of Doom">
