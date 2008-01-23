@@ -63,7 +63,7 @@ public class Continuous implements ISkillHandler
 		L2Skill.SkillType.UNDEAD_DEFENSE,
 		L2Skill.SkillType.AGGDEBUFF,
 		L2Skill.SkillType.FORCE_BUFF,
-		L2Skill.SkillType.RADIUS_SKILL
+		L2Skill.SkillType.RADIUS
 		};
 	
 	/* (non-Javadoc)
@@ -88,7 +88,7 @@ public class Continuous implements ISkillHandler
 				case BUFF: case HOT: case CPHOT: case MPHOT:
 				case AGGDEBUFF: case CONT: case UNDEAD_DEFENSE:
 					break;
-				case RADIUS_SKILL:
+				case RADIUS:
 					EffectRadiusSkill.getInstance().addRadiusSkill(activeChar , skill);
 					EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar);
 					return;

@@ -28,7 +28,7 @@ import net.sf.l2j.tools.geometry.Point3D;
 
 /**
  * 
- * @author nBd
+ * @author darki699
  */
 
 public class EffectRadiusSkill
@@ -106,25 +106,16 @@ public class EffectRadiusSkill
     
     public void checkRadiusSkills(L2Character activeChar)
     {
-    	/* Remove radius skills from the character */
-    	if (activeChar.getRadiusSkillsAffect() != null)
-    	{
-       		for (Integer id : activeChar.getRadiusSkillsAffect())
-        	{
-       			activeChar.stopSkillEffects(id.intValue());
-       		}
-       		activeChar.setRadiusSkillsAffect(null);
-    	}
+    	List<Integer> skillIds = new FastList<Integer>();
     	
     	if (!radiusSkillUsers.isEmpty())
     	{
-        	List<Integer> skillIds = new FastList<Integer>(); 
-    		/* Check to add radius skills to this character */
+        	/* Check to add radius skills to this character */
     		for (FastMap.Entry<Point3D, L2Skill> e = radiusSkillUsers.head(), end = radiusSkillUsers.tail(); (e = e.getNext()) != end;)
     		{
     	          
     			Point3D key 	= e.getKey(); 
-    	        L2Skill value = e.getValue();
+    	        L2Skill value 	= e.getValue();
     	          
     	          if (key == null || value == null)
     	        	  continue;
@@ -137,16 +128,48 @@ public class EffectRadiusSkill
     	        	  {
     	        		  for (L2Skill skill : skills)
     	        		  {
-    	        			activeChar.doCast(skill);
-    	        			skillIds.add(skill.getId());
+    	        			  if (skill == null)
+    	        				  continue;
+    	        			  
+    	        			  boolean replace = true;
+    	        			  for (L2Effect effectExist : activeChar.getAllEffects())
+    	        			  {
+    	        				  if (effectExist.getSkill() == skill)
+    	        				  {
+    	        					  replace = false;
+    	        					  break;
+    	        				  }
+    	        			  }
+    	        			  
+    	        			  if (replace)
+    	        			  {
+    	        				  activeChar.doCast(skill);
+    	        			  }
+    	        			  
+    	        			  skillIds.add(skill.getId());
     	        		  }
     	        	  }
     	          }
     		}
-    		if (!skillIds.isEmpty())
-    		{
-    			activeChar.setRadiusSkillsAffect(skillIds.toArray(new Integer[skillIds.size()]));
-    		}
     	}
+    	
+    	/* Skills to remove from the L2Character */
+    	if (activeChar.getRadiusSkillsAffect() != null)
+    	{
+       		for (Integer id : activeChar.getRadiusSkillsAffect())
+        	{
+				if (!skillIds.contains(id))
+       			{
+       				activeChar.stopSkillEffects(id.intValue());       				
+       			}
+       		}
+     
+       		activeChar.setRadiusSkillsAffect(null);
+    	}
+
+		if (!skillIds.isEmpty())
+		{
+			activeChar.setRadiusSkillsAffect(skillIds.toArray(new Integer[skillIds.size()]));
+		}
     }	
 }
