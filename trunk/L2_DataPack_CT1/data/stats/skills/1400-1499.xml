@@ -582,22 +582,33 @@
 </skill>
 <skill id="1425" levels="1" name="Purification Field">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Cancels all debuff of nearby allies. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
+      Cancels all debuff of nearby clan members. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpConsume" val="70"/>
+  <set name="target" val="TARGET_CLAN"/>
+  <set name="skillRadius" val="900"/>
+  <set name="skillType" val="NEGATE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="1800000"/>
+  <set name="isMagic" val="false"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="negateStats" val="ROOT PARALYZE POISON BLEED STUN DEBUFF CONFUSION FEAR MUTE SLEEP WEAKNESS"/>
+  <set name="negatePower" val="80.0"/>
+  <cond msg="Proper force required.">
+    <player spell_force="2"/>
+  </cond>
   <for>
   </for>
 </skill>
 <skill id="1426" levels="1" name="Miracle">
 <!--
   Description(s):
-      Heartily regenerates the HP of all alliance members in the applicable area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
+      Heartily regenerates the HP of all clan members in the applicable area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
@@ -611,7 +622,6 @@
   <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="3600000"/> <!-- reuse 60 minutes -->
   <set name="isMagic" val="false"/> <!-- skill won't be affected by Casting speed -->
-  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <cond msg="Proper force required.">
@@ -622,16 +632,28 @@
 </skill>
 <skill id="1427" levels="1" name="Flames of Invincibility">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Blesses nearby allies with fire and makes them invincible. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
+      Blesses nearby clan members with fire and makes them invincible. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpConsume" val="73"/>
+  <set name="power" val="80"/>
+  <set name="target" val="TARGET_CLAN"/>
+  <set name="skillRadius" val="400"/>
+  <set name="reuseDelay" val="1800000"/>
+  <set name="hitTime" val="2500"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="aggroPoints" val="900"/>
+  <cond msg="Proper force required.">
+    <player spell_force="2"/>
+  </cond>
   <for>
+    <effect count="1" name="Invincible" time="30" val="0"/>
   </for>
 </skill>
 <skill id="1428" levels="1" name="Mass Recharge">
