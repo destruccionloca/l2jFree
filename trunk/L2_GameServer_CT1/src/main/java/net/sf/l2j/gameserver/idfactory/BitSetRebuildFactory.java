@@ -46,6 +46,7 @@ public class BitSetRebuildFactory extends IdFactory
     public synchronized void initialize()
     {
     	_log.info("starting db rebuild, good luck");
+    	_log.info("this will take a while, dont kill the process or power off youre machine!");
         try
         {
             _freeIds     = new BitSet(PrimeFinder.nextPrime(100000));
