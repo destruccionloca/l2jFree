@@ -1210,7 +1210,7 @@
   <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="1800000"/> <!-- reuse 30 min -->
-  <set name="skillType" val="RADIUS_SKILL"/>
+  <set name="skillType" val="RADIUS"/>
   <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
