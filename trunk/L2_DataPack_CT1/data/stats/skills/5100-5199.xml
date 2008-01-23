@@ -314,16 +314,21 @@
 </skill>
 <skill id="5123" levels="1" name="Maximum Defense">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Temporarily maximizes P. Def./M. Def and shield defense power.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="power" val="0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_TOGGLE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
+      <add order="0x40" stat="pDef" val="1000"/>
+      <add order="0x40" stat="mDef" val="800"/>
+      <mul order="0x30" stat="sDef" val="2"/>
+    </effect>
   </for>
 </skill>
 <skill id="5124" levels="1" name="Anti-Music">

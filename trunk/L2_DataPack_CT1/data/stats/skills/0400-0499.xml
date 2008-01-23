@@ -1201,17 +1201,26 @@
 </skill>
 <skill id="454" levels="1" name="Symbol of Defense">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Generates a signet that maximizes the defense abilities of those nearby. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 2 or higher Battle Force required. Consumes 1 Battle Symbol.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="itemConsumeId" val="8875"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpConsume" val="60"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="120000"/>
+  <set name="skillType" val="RADIUS_SKILL"/>
+  <set name="isMagic" val="false"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <for>
-<!-- needs core support -->
+  <set name="effectRange" val="400"/>
+  <cond msg="Proper force required.">
+    <player battle_force="2"/>
+  </cond>
+    <for>
+    <skill trigger="1" id="5123" lvl="1"/>
+    <effect count="1" name="Buff" time="120" val="0"/>
   </for>
 </skill>
 <skill id="455" levels="1" name="Symbol of Noise">
