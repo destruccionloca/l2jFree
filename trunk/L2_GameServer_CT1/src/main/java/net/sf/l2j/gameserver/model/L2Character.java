@@ -1668,6 +1668,19 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 		
+		if (skill.isDance())
+		{
+			/* Symbol of Noise - Fusion skill */
+			if (getFirstEffect(5124) != null)
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_DO_THAT);
+				sendPacket(sm);
+				getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+				return;
+			}
+
+		}
+		
 		setAttackingChar(this);
 		// setLastSkillCast(skill);
 		

@@ -37,6 +37,19 @@ class EffectManaDamOverTime extends L2Effect
 		if(getEffected().isDead())
 			return false;
 		
+		if(getSkill().getId() == 5127) /* "Recover Force" is the Fusion Skill */
+		{
+			/* If the target has the chargers 50 (Focused Force) or 8 (Sonic Focus) */
+			if (getEffected().getKnownSkill(8) != null || getEffected().getKnownSkill(50) != null)
+			{
+				/* First we must check if he still deserves to receive the force... */
+				EffectRadiusSkill.getInstance().checkRadiusSkills(getEffected());
+				/* We give him the skill 2165 : Energy Stone to raise Force by one */
+				getEffected().doCast(net.sf.l2j.gameserver.datatables.SkillTable.getInstance().getInfo(2165, 1));
+			}
+			
+		}
+		
 		double manaDam = calc();
 		
 		if(manaDam > getEffected().getStatus().getCurrentMp())
