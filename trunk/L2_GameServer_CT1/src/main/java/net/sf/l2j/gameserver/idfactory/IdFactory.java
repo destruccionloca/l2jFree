@@ -66,7 +66,22 @@ public abstract class IdFactory
         "UPDATE posts                SET post_ownerid = ?  WHERE post_ownerid = ?",
         "UPDATE seven_signs          SET char_obj_id = ?   WHERE char_obj_id = ?",
         "UPDATE topic                SET topic_ownerid = ? WHERE topic_ownerid = ?",
-        "UPDATE itemsonground        SET object_id = ?   WHERE object_id = ?"
+        "UPDATE itemsonground        SET object_id = ?   WHERE object_id = ?",
+        // added by GDL
+        "UPDATE olympiad_nobles          SET char_id = ?        WHERE char_id = ?",
+        "UPDATE clan_privs               SET clan_id = ?        WHERE clan_id = ?",
+        "UPDATE clan_skills              SET clan_id = ?        WHERE clan_id = ?",
+        "UPDATE clan_subpledges          SET clan_id = ?        WHERE clan_id = ?",
+        "UPDATE character_recommends     SET char_id = ?        WHERE char_id = ?",
+        "UPDATE character_recommends     SET target_id = ?      WHERE target_id = ?",
+        "UPDATE character_raidpoints     SET owner_id = ?       WHERE owner_id = ?",
+        "UPDATE couples                  SET id = ?             WHERE id = ?",
+        "UPDATE couples                  SET player1Id = ?      WHERE player1Id = ?",
+        "UPDATE couples                  SET player2Id = ?      WHERE player2Id = ?",
+        "UPDATE cursed_weapons           SET playerId = ?       WHERE playerId = ?",
+        "UPDATE character_faction_quests SET char_id = ?        WHERE char_id = ?",
+        "UPDATE forums                   SET forum_owner_id = ? WHERE forum_owner_id = ?",
+        "UPDATE heroes                   SET char_id = ?        WHERE char_id = ?"        
 	};
 
     protected static final String[] ID_CHECKS = 
@@ -125,6 +140,10 @@ public abstract class IdFactory
                 break;
             case Increment:
                 _instance   = new IncrementIDFactory();
+                break;
+            case Rebuild:
+                _instance   = new BitSetRebuildFactory();
+                break;
         }
     }
 

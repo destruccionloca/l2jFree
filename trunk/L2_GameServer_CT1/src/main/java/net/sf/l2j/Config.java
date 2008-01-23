@@ -727,7 +727,7 @@ public final class Config
 	
 	public static enum IdFactoryType
 	{
-		Compaction, BitSet, Stack, Increment
+		Compaction, BitSet, Stack, Increment, Rebuild
 	}
 	
 	public static IdFactoryType	IDFACTORY_TYPE;	// ID Factory type
@@ -746,7 +746,7 @@ public final class Config
 			
 			MAP_TYPE = ObjectMapType.valueOf(idSettings.getProperty("L2Map", "WorldObjectMap"));
 			SET_TYPE = ObjectSetType.valueOf(idSettings.getProperty("L2Set", "WorldObjectSet"));
-			IDFACTORY_TYPE = IdFactoryType.valueOf(idSettings.getProperty("IDFactory", "Compaction"));
+			IDFACTORY_TYPE = IdFactoryType.valueOf(idSettings.getProperty("IDFactory", "BitSet"));
 			BAD_ID_CHECKING = Boolean.parseBoolean(idSettings.getProperty("BadIdChecking", "True"));
 		}
 		catch (Exception e)
