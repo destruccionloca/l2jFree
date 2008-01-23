@@ -79,7 +79,6 @@ public abstract class IdFactory
         "UPDATE couples                  SET player1Id = ?      WHERE player1Id = ?",
         "UPDATE couples                  SET player2Id = ?      WHERE player2Id = ?",
         "UPDATE cursed_weapons           SET playerId = ?       WHERE playerId = ?",
-        "UPDATE character_faction_quests SET char_id = ?        WHERE char_id = ?",
         "UPDATE forums                   SET forum_owner_id = ? WHERE forum_owner_id = ?",
         "UPDATE heroes                   SET char_id = ?        WHERE char_id = ?"        
 	};
