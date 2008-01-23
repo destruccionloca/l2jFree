@@ -29,13 +29,13 @@ import org.apache.commons.logging.LogFactory;
  * @author Yme
  * @version $Revision: 1.3.2.1.2.5 $ $Date: 2005/03/27 15:29:57 $
  * Rebuild 23.2.2006 by Advi
-*/
+ */
 public class PetInventoryUpdate extends L2GameServerPacket
 {
 	private final static Log _log = LogFactory.getLog(PetInventoryUpdate.class.getName());
 	private static final String _S__37_INVENTORYUPDATE = "[S] b3 InventoryUpdate";
 	private List<ItemInfo> _items;
-	
+
 	/**
 	 * @param items
 	 */
@@ -47,12 +47,12 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			showDebug();
 		}
 	}
-	
+
 	public PetInventoryUpdate()
 	{
 		this(new FastList<ItemInfo>());
 	}
-	
+
 	public void addItem(L2ItemInstance item) { _items.add(new ItemInfo(item)); }
 	public void addNewItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 1)); }
 	public void addModifiedItem(L2ItemInstance item) { _items.add(new ItemInfo(item, 2)); }
@@ -67,11 +67,11 @@ public class PetInventoryUpdate extends L2GameServerPacket
 					" item:" + item.getItem().getName()+" last change:" + item.getChange());
 		}
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x9e);
+		writeC(0xb4);
 		int count = _items.size(); 
 		writeH(count);
 		for (ItemInfo item : _items)
@@ -87,15 +87,15 @@ public class PetInventoryUpdate extends L2GameServerPacket
 			writeD(item.getItem().getBodyPart());	// rev 415   slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
 			writeH(item.getEnchant());	// enchant level
 			writeH(0x00);	// ?
-            
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
+
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
 		}
 	}
 

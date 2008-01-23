@@ -44,16 +44,16 @@ public class PetItemList extends L2GameServerPacket
 			}
 		}
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xB3);
-		
+		writeC(0xb3);
+
 		L2ItemInstance[] items = _activeChar.getInventory().getItems();
 		int count = items.length; 
 		writeH(count);
-		
+
 		for (L2ItemInstance temp : items)
 		{
 			writeH(temp.getItem().getType1()); // item type1
@@ -66,15 +66,15 @@ public class PetItemList extends L2GameServerPacket
 			writeD(temp.getItem().getBodyPart());	// rev 415  slot    0006-lr.ear  0008-neck  0030-lr.finger  0040-head  0080-??  0100-l.hand  0200-gloves  0400-chest  0800-pants  1000-feet  2000-??  4000-r.hand  8000-r.hand
 			writeH(temp.getEnchantLevel());	// enchant level
 			writeH(0x00);	// ?
-            
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
-            writeD(0x00); // T1
+
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
+			writeD(0x00); // T1
 		}
 	}
 
