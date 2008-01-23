@@ -18,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
@@ -881,5 +880,20 @@ public class ItemTable implements ItemTableMBean
     public int getNbWeapons()
     {
         return _weapons.size();
-    }    
+    }
+    
+    public Map<Integer, L2EtcItem> getEtcItems()
+    {
+    	return _etcItems;
+    }
+
+    public Map<Integer, L2Weapon> getWeapons()
+    {
+    	return _weapons;
+    }
+
+    public Map<Integer, L2Armor> getArmors()
+    {
+    	return _armors;
+    }
 }

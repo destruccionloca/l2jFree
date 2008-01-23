@@ -52,18 +52,17 @@ public class BitSetRebuildFactory extends IdFactory
             _freeIds.clear();
             _freeIdCount = new AtomicInteger(FREE_OBJECT_ID_SIZE);
             List<Integer> used_ids = new FastList<Integer>();
-            // first get all ids to get the first free oid 
+            // first get all used ids
             for (int usedObjectId : extractUsedObjectIDTable())
             	used_ids.add(usedObjectId);
 
-            //_freeIds.set(LAST_OID);
             _nextFreeId  = new AtomicInteger(_freeIds.nextClearBit(0));
 
             java.sql.Connection con = null;
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			int nextid;
 			int changedids = 0;
-			// now loop through all already used oids and assing a new clean one
+			// now loop through all already used oid´s and assign a new clean one
     		for(int i:extractUsedObjectIDTable())
     		{
     			for(;;) //danger ;)
@@ -82,12 +81,12 @@ public class BitSetRebuildFactory extends IdFactory
                     changedids++;
                 }
     		}
-            _log.info("database rebuild done, " + changedids + " ids changed,set idfactory config to BitSet! ^o^/");
+            _log.info("database rebuild done, changed " + changedids + " id´s, set idfactory config to BitSet! ^o^/");
             System.exit(0);
         }
         catch (Exception e)
         {
-            _log.fatal("could not rebuild database! :(",e);
+            _log.fatal("could not rebuild database! :",e);
             e.printStackTrace();
             System.exit(0);
         }
