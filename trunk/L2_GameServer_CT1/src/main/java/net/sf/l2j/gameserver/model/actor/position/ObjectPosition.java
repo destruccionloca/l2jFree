@@ -89,8 +89,8 @@ public class ObjectPosition
         catch (Exception e)
         {
             _log.warn("Object Id at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
-            _log.warn("Exception:",e);
-            e.printStackTrace();
+            //_log.warn("Exception:",e);
+            //e.printStackTrace();
             if (getActiveObject() instanceof L2Character)
                 getActiveObject().decayMe();
             else if (getActiveObject() instanceof L2PcInstance)

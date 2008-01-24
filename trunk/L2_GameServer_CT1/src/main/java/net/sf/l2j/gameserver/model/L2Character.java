@@ -528,9 +528,6 @@ public abstract class L2Character extends L2Object
 		// Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
 		getPosition().setXYZ(x, y, z);
 		decayMe();
-		setClientX(x);
-		setClientY(y);
-		setClientZ(z);
 		isFalling(false, 0);
 		
 		if (!(this instanceof L2PcInstance))
@@ -581,14 +578,16 @@ public abstract class L2Character extends L2Object
 		// If the boolean falling is set to false, just initialize this fall
 		if (!falling || (lastPosition[0] == 0 && lastPosition[1] == 0 && lastPosition[2] == 0))
 		{
-			lastPosition = new int[] { getClientX(), getClientY(), getClientZ() };
+			lastPosition[0] = getPosition().getX();
+			lastPosition[1] = getPosition().getY();
+			lastPosition[2] = getPosition().getZ();			
 			setIsFallsdown(false);
 			return -1;
 		}
 		
-		int moveChangeX = Math.abs(lastPosition[0] - getClientX()), moveChangeY = Math.abs(lastPosition[1] - getClientY()),
+		int moveChangeX = Math.abs(lastPosition[0] - getPosition().getX()), moveChangeY = Math.abs(lastPosition[1] - getPosition().getY()),
 		// Z has a Positive value ONLY if the L2Character is moving down!
-		moveChangeZ = Math.max(lastPosition[2] - getClientZ(), lastPosition[2] - getZ());
+		moveChangeZ = Math.max(lastPosition[2] - getPosition().getZ(), lastPosition[2] - getZ());
 		
 		// Add acumulated damage to this fall, calling this function at a short delay while the fall is in progress
 		if (moveChangeZ > fallSafeHeight() && moveChangeY < moveChangeZ && moveChangeX < moveChangeZ && !isFlying())
@@ -599,7 +598,9 @@ public abstract class L2Character extends L2Object
 			fallHeight += moveChangeZ;
 			
 			// set the last position to the current one for the next future calculation
-			lastPosition = new int[] { getClientX(), getClientY(), getClientZ() };
+			lastPosition[0] = getPosition().getX();
+			lastPosition[1] = getPosition().getY();
+			lastPosition[2] = getPosition().getZ();			
 			getPosition().setXYZ(lastPosition[0], lastPosition[1], lastPosition[2]);
 			
 			// Call this function for further checks in the short future (next time we either keep falling, or finalize the fall)
@@ -615,7 +616,9 @@ public abstract class L2Character extends L2Object
 		else
 		// Stopped falling or is not falling at all.
 		{
-			lastPosition = new int[] { getClientX(), getClientY(), getClientZ() };
+			lastPosition[0] = getPosition().getX();
+			lastPosition[1] = getPosition().getY();
+			lastPosition[2] = getPosition().getZ();			
 			getPosition().setXYZ(lastPosition[0], lastPosition[1], lastPosition[2]);
 			
 			if (fallHeight > fallSafeHeight())
@@ -676,10 +679,9 @@ public abstract class L2Character extends L2Object
 				setIsFallsdown(false);
 				
 				// For some reason this is needed since the client side changes back to last airborn position after 1 second
-				lastPosition = new int[] { getX(), getY(), getZ() };
-				setClientX(lastPosition[0]);
-				setClientY(lastPosition[1]);
-				setClientZ(lastPosition[2]);
+				lastPosition[0] = getPosition().getX();
+				lastPosition[1] = getPosition().getY();
+				lastPosition[2] = getPosition().getZ();			
 			}
 		}, 1100);
 		
