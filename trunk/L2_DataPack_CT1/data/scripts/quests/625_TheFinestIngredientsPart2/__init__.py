@@ -70,7 +70,7 @@ class Quest (JQuest) :
            st.takeItems(FOOD,1)
            npc.setBusy(True)
            st.set("cond","2")
-           self.startQuestTimer("Icicle Emperor Bumbalump has despawned",1200000,spawnId,None)
+           self.startQuestTimer("Icicle Emperor Bumbalump has despawned",1200000,spawnId,player)
            AutoChat(spawnId,"I will crush you!")
    elif event == "31521-04.htm" :
       if st.getQuestItemsCount(MEAT) >= 1 :
@@ -111,7 +111,7 @@ class Quest (JQuest) :
                htmltext = "31542-02.htm"
                spawnId = st.addSpawn(BUMPALUMP,158240,-121536,-2253)
                npc.setBusy(True)
-               self.startQuestTimer("Icicle Emperor Bumbalump has despawned",1200000,spawnId,None)
+               self.startQuestTimer("Icicle Emperor Bumbalump has despawned",1200000,spawnId,player)
                AutoChat(spawnId,"I will crush you!")
      elif cond == 3 :
        if npcId == JEREMY :
@@ -124,7 +124,7 @@ class Quest (JQuest) :
     npcId = npc.getNpcId()
     if npcId == BUMPALUMP :
         FindTemplate(TABLE).setBusy(False)
-        self.getQuestTimer("Icicle Emperor Bumbalump has despawned",npc,None).cancel()
+        self.getQuestTimer("Icicle Emperor Bumbalump has despawned",npc,player).cancel()
         party = player.getParty()
         if party :
             PartyQuestMembers = []
