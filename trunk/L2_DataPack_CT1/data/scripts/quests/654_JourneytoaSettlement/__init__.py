@@ -88,7 +88,7 @@ class Quest (JQuest) :
         return
 
 
-QUEST       = Quest(654,qn,"Journey to a Settlement")
+QUEST = Quest(654,qn,"Journey to a Settlement")
 QUEST.addStartNpc(SPIRIT)
 
 QUEST.addTalkId(SPIRIT)

@@ -82,7 +82,7 @@ class Quest (JQuest) :
         htmltext = "<html><body>Quest is not accomplished or the condition is not suitable.</body></html>"
         return htmltext
 
-QUEST       = Quest(119,qn,"Last Imperial Prince")
+QUEST = Quest(119,qn,"Last Imperial Prince")
 
 QUEST.addStartNpc(SPIRIT)
 
