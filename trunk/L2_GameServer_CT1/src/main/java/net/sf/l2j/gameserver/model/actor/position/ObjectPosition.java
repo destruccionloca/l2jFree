@@ -89,16 +89,15 @@ public class ObjectPosition
         catch (Exception e)
         {
             _log.warn("Object Id at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
-            //_log.warn("Exception:",e);
-            //e.printStackTrace();
-            if (getActiveObject() instanceof L2Character)
-                getActiveObject().decayMe();
-            else if (getActiveObject() instanceof L2PcInstance)
+            _log.warn("Exception: Character " + getActiveObject().getName()+ " in Bad coordinates: x: " + getActiveObject().getX() + " y: " + getActiveObject().getY() + " z: " + getActiveObject().getZ(),e);
+            if (getActiveObject() instanceof L2PcInstance)
             {
                 //((L2PcInstance)obj).deleteMe();
                 ((L2PcInstance)getActiveObject()).teleToLocation(0,0,0, false);
                 ((L2PcInstance)getActiveObject()).sendMessage("Error with your coords, Please ask a GM for help!");
             }
+            else if (getActiveObject() instanceof L2Character)
+                getActiveObject().decayMe();
         }
     }
 

@@ -3755,7 +3755,7 @@ public final class L2PcInstance extends L2PlayableInstance
             
             if (!L2PcInstance.this.getClient().isAuthedGG() && L2PcInstance.this.isOnline() == 1)
             {
-                GmListTable.broadcastMessageToGMs("Client "+L2PcInstance.this.getClient()+" failed to reply GameGuard query and is being kicked!");
+                //GmListTable.broadcastMessageToGMs("Client "+L2PcInstance.this.getClient()+" failed to reply GameGuard query and is being kicked!");
                 _log.info("Client "+L2PcInstance.this.getClient()+" failed to reply GameGuard query and is being kicked!");
                 L2PcInstance.this.getClient().close(new LeaveWorld());
             }
