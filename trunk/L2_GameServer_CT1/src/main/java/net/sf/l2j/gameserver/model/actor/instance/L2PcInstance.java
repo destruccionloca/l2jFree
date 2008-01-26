@@ -83,6 +83,7 @@ import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.model.BlockList;
+import net.sf.l2j.gameserver.model.CursedWeapon;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.ForceBuff;
 import net.sf.l2j.gameserver.model.Inventory;
@@ -1711,7 +1712,10 @@ public final class L2PcInstance extends L2PlayableInstance
     			_zoneValidateCounter = 4;
     		else return;
     	}
-    	
+
+        if (Config.ALLOW_WATER)
+            checkWaterState();
+
     	setInSiegeZone(SiegeManager.getInstance().checkIfInZone(getX(), getY(), getZ()));
     	setInPvpZone(getInSiegeZone() || ZoneManager.getInstance().checkIfInZonePvP(this));
    		setInPeaceZone(ZoneManager.getInstance().checkIfInZonePeace(this));
@@ -4666,6 +4670,13 @@ public final class L2PcInstance extends L2PlayableInstance
         if (isCursedWeaponEquiped())
         {
             CursedWeaponsManager.getInstance().increaseKills(_cursedWeaponEquipedId);
+            // Custom message for time left
+            // CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId);
+            // SystemMessage msg = new SystemMessage(SystemMessageId.THERE_IS_S1_HOUR_AND_S2_MINUTE_LEFT_OF_THE_FIXED_USAGE_TIME);
+            // int timeLeftInHours = (int)(((cw.getTimeLeft()/60000)/60));
+            // msg.addItemName(_cursedWeaponEquipedId);
+            // msg.addNumber(timeLeftInHours);
+            // sendPacket(msg);
             return;
         }
 
@@ -5547,6 +5558,20 @@ public final class L2PcInstance extends L2PlayableInstance
 
         return _boltItem != null;
     }
+
+	public boolean dismount()
+	{
+		if (setMountType(0))
+		{
+			if (isFlying()) 
+				removeSkill(SkillTable.getInstance().getInfo(4289, 1));
+			Ride dismount = new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0);
+			broadcastPacket(dismount);
+			setMountObjectID(0);
+			return true;
+		}
+		return false;
+	}
 
     /**
      * Return True if the L2PcInstance use a dual weapon.<BR><BR>
@@ -9470,13 +9495,27 @@ public final class L2PcInstance extends L2PlayableInstance
             // (e.g. catacombs players swim down and then they fell when they got out of the water).
             isFalling(false,0); 
         }
+
+        broadcastUserInfo();
     }
 
     public void startWaterTask()
     {
+        // temp fix here
+        if (isMounted())
+            dismount();
+
+        if (isTransformed() && !isCursedWeaponEquiped())
+        {
+            untransform();
+        }
+        // TODO: update to only send speed status when that packet is known
+        else
+            broadcastUserInfo();
+
         if (!isDead() && _taskWater == null)
         {
-            int timeinwater = 86000;
+            int timeinwater = (int)calcStat(Stats.BREATH, 60000, this, null);
             
             sendPacket(new SetupGauge(2, timeinwater));
             _taskWater = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new WaterTask(), timeinwater, 1000);
@@ -9648,7 +9687,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (ZoneManager.getInstance().checkIfInZone(ZoneType.Water,getX(),getY(),getZ()))
         {
             startWaterTask();
-        }      
+        }
         else
         {
             stopWaterTask();
@@ -9817,8 +9856,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (Config.PLAYER_SPAWN_PROTECTION > 0) setProtection(true);
 
-        if (Config.ALLOW_WATER) checkWaterState();
-        
 		// Modify the position of the tamed beast if necessary (normal pets are handled by super...though
         // L2PcInstance is the only class that actually has pets!!! )
 		if(getTrainedBeast() != null)
@@ -10295,7 +10332,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
-        // If a Party is in progress, leave it
+        // If a Party is in progress, leave it (and festival party)
         if (isInParty())
         {
             try
@@ -10314,6 +10351,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 _log.fatal( "deleteMe()", t);
             }
         }
+
+        if (getOlympiadGameId() != -1) // handle removal from olympiad game
+            Olympiad.getInstance().removeDisconnectedCompetitor(this);
 
         if (getClanId() != 0 && getClan() != null)
         {

@@ -588,6 +588,9 @@ public class CharStat
             val += Config.STRIDER_SPEED;
             return val;
         }
+        // TODO: check if sharks/fish should be affected ;)
+        if (_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isInWater()) val /= 2;
+
         val /= _activeChar.getArmourExpertisePenalty();
         return val;
     }

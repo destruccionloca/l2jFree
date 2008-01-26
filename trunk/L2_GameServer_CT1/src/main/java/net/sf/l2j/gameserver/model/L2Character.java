@@ -6187,7 +6187,10 @@ public abstract class L2Character extends L2Object
 		
 		// Remove all its Func objects from the L2Character calculator set
 		if (oldSkill != null)
+		{
 			removeStatsOwner(oldSkill);
+			stopSkillEffects(oldSkill.getId());
+		}
 		
 		return oldSkill;
 	}
