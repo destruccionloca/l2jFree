@@ -25,7 +25,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -79,7 +79,7 @@ public class Recall implements ISkillHandler
 					L2PcInstance targetChar = (L2PcInstance) target;
 
 					// [L2J_JP ADD]
-					if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, targetChar) || ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, targetChar))
+					if (targetChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 					{
 						targetChar.sendMessage("You can not escape from here.");
 						targetChar.sendPacket(new ActionFailed());
@@ -103,7 +103,7 @@ public class Recall implements ISkillHandler
 					}
 
 					// Check to see if player is in jail
-					if (targetChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, targetChar))
+					if (targetChar.isInJail() || targetChar.isInsideZone(L2Zone.FLAG_JAIL))
 					{
 						targetChar.sendMessage("You can not escape from jail.");
 						continue;

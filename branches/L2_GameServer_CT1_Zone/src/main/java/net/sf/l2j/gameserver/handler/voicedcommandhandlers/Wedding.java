@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -249,7 +249,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check to see if player is in jail
-        else if (activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar))
+        else if (activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL))
         {
             activeChar.sendMessage("You can't escape from jail.");
             return false;
@@ -273,11 +273,11 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check if player is in a Monster Derby Track
-        else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
+        /*else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
         {
             activeChar.sendMessage("You can't escape from a Monster Derby Track.");
             return false;
-        }
+        }*/
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
@@ -291,7 +291,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
 
-        if (partner.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, partner))
+        if (partner.isInJail() || partner.isInsideZone(L2Zone.FLAG_JAIL))
         {
             activeChar.sendMessage("Your partner is in jail.");
             return false;
@@ -340,11 +340,11 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
             return false;
         }
-        else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, partner))
+        /*else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, partner))
         {
             activeChar.sendMessage("Your partner is in a Monster Derby Track.");
             return false;
-        }
+        }*/
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;
         

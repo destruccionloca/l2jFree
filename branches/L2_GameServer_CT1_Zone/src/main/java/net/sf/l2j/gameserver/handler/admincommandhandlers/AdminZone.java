@@ -32,8 +32,7 @@ import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 
 public class AdminZone implements IAdminCommandHandler
 {
@@ -59,7 +58,7 @@ public class AdminZone implements IAdminCommandHandler
         //String val = "";
         //if (st.countTokens() >= 1) {val = st.nextToken();}
  
-        if (actualCommand.equalsIgnoreCase("admin_zone_check"))
+        /*if (actualCommand.equalsIgnoreCase("admin_zone_check"))
         {
            	FastList <IZone> zones;
         	for (ZoneType zt: ZoneType.values())
@@ -86,7 +85,7 @@ public class AdminZone implements IAdminCommandHandler
 
             loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
             activeChar.sendMessage("TeleToLocation (Town): x:" + loc.getX() + " y:" + loc.getY() + " z:" + loc.getZ());
-        } else if (actualCommand.equalsIgnoreCase("admin_zone_reload"))
+        } else*/ if (actualCommand.equalsIgnoreCase("admin_zone_reload"))
         {
         	ZoneManager.getInstance().reload();
         	GmListTable.broadcastMessageToGMs("Zones reloaded.");

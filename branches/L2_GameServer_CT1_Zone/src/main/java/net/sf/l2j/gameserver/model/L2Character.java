@@ -5989,7 +5989,7 @@ public abstract class L2Character extends L2Object
 	
 	public static boolean isInsidePeaceZone(L2Object attacker, L2Object target)
 	{
-		if (target == null || !(attacker instanceof L2Character) && !(target instanceof L2Character))
+		if (target == null || !(attacker instanceof L2Character) || !(target instanceof L2Character))
 			return false;
 		if (target instanceof L2MonsterInstance)
 			return false;

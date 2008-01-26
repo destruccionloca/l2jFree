@@ -366,9 +366,6 @@ public class EnterWorld extends L2GameClientPacket
             sendPacket(d);
         }
 
-        if (Config.ALLOW_WATER)
-            activeChar.checkWaterState();
-
         //add char to online characters
         activeChar.setOnlineStatus(true);
 
@@ -415,7 +412,7 @@ public class EnterWorld extends L2GameClientPacket
 
         if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
         {
-            activeChar.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
+            DimensionalRiftManager.getInstance().teleportToWaitingRoom(activeChar);
         }
 
         if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())

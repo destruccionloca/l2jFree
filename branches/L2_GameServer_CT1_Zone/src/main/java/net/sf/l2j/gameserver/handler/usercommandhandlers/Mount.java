@@ -14,10 +14,10 @@
  */
 package net.sf.l2j.gameserver.handler.usercommandhandlers;
 
-import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.Ride;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -65,7 +65,7 @@ public class Mount implements IUserCommandHandler
                 SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
                 activeChar.sendPacket(msg);
             }
-            else if (activeChar.isSitting() || activeChar.isMoving())
+            else if (activeChar.isSitting() || activeChar.isMoving() || activeChar.isInsideZone(L2Zone.FLAG_WATER))
             {
                 // A strider can be ridden only when player is standing.
                 SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING);

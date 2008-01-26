@@ -1575,7 +1575,10 @@ public final class L2PcInstance extends L2PlayableInstance
     	}
     	
     	getWorldRegion().revalidateZones(this);
-    	
+
+        if (Config.ALLOW_WATER)
+            checkWaterState();
+
     	if (isInsideZone(L2Zone.FLAG_SIEGE))
         {
         	if (_lastCompassZone == ExSetCompassZoneCode.SIEGEWARZONE2) return;
@@ -9330,7 +9333,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (!isDead() && _taskWater == null)
         {
-            int timeinwater = 86000;
+            int timeinwater = (int)calcStat(Stats.BREATH, 60000, this, null);
             
             sendPacket(new SetupGauge(2, timeinwater));
             _taskWater = ThreadPoolManager.getInstance().scheduleEffectAtFixedRate(new WaterTask(), timeinwater, 1000);
@@ -9498,7 +9501,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (isInsideZone(L2Zone.FLAG_WATER))
         {
             startWaterTask();
-        }      
+        }
         else
         {
             stopWaterTask();
@@ -9666,8 +9669,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (Config.PLAYER_SPAWN_PROTECTION > 0) setProtection(true);
 
-        if (Config.ALLOW_WATER) checkWaterState();
-        
 		// Modify the position of the tamed beast if necessary (normal pets are handled by super...though
         // L2PcInstance is the only class that actually has pets!!! )
 		if(getTrainedBeast() != null)
