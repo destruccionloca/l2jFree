@@ -45,10 +45,10 @@ CLASSPATH=${CLASSPATH}:commons-io-1.2.jar
 CLASSPATH=${CLASSPATH}:dom4j-1.6.1.jar
 
 # for performance usage
-CLASSPATH=${CLASSPATH}:javolution-1.5.5.2.6.jar
+CLASSPATH=${CLASSPATH}:javolution-1.5.4.2.6.jar
 
 # main jar
-CLASSPATH=${CLASSPATH}:l2j-commons-1.1.0.jar
+CLASSPATH=${CLASSPATH}:l2j-commons-1.1.1.jar
 CLASSPATH=${CLASSPATH}:l2j-gameserver-1.0.0.jar
 
 CLASSPATH=${CLASSPATH}:core-3.3.0.jar
