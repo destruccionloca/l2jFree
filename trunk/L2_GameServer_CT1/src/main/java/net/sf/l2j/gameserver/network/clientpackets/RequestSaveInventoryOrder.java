@@ -42,9 +42,16 @@ public final class RequestSaveInventoryOrder extends L2GameClientPacket
         _order = new ArrayList<InventoryOrder>(sz);
         for (int i = 0; i < sz; i++)
         {
-            int objectId = readD();
-            int order = readD();
-            _order.add(new InventoryOrder(objectId, order));
+        	try
+        	{
+        		int objectId = readD();
+        		int order = readD();
+        		_order.add(new InventoryOrder(objectId, order));
+        	}
+        	catch (Throwable t) 
+        	{	
+        		continue;	
+        	}
         }
     }
     

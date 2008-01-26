@@ -25,6 +25,8 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.templates.L2Item;
+import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -505,6 +507,19 @@ public abstract class ItemContainer
     protected void removeItem(L2ItemInstance item)
     {
         _items.remove(item);
+        if (getOwner() instanceof L2PcInstance && this instanceof Inventory)
+        {
+			InventoryUpdate iu = new InventoryUpdate();
+			for (L2ItemInstance element : _items)
+			{
+				if (element != null)
+				{
+					iu.addModifiedItem(element);
+				}
+			}
+			getOwner().sendPacket(iu);
+			getOwner().sendPacket(new ItemList(((L2PcInstance)getOwner()), true));        	
+        }
     }
 
 	/**

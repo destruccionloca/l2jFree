@@ -3130,7 +3130,7 @@ public final class L2PcInstance extends L2PlayableInstance
             return false;
         }
         
-        item.dropMe(this, getClientX() + Rnd.get(50) - 25, getClientY() + Rnd.get(50) - 25, getClientZ() + 20);
+        item.dropMe(this, getPosition().getX() + Rnd.get(50) - 25, getPosition().getY() + Rnd.get(50) - 25, getPosition().getZ() + 20);
 
         if (Config.AUTODESTROY_ITEM_AFTER >0 && Config.DESTROY_DROPPED_PLAYER_ITEM && !Config.LIST_PROTECTED_ITEMS.contains(item.getItemId()))
         {
@@ -4629,8 +4629,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 // drop only adena this time
                 if (itemDrop.getItemId() == 57) // Adena
                 {
-                    dropItem("DieDrop", itemDrop.getObjectId(), iCount, getClientX() + Rnd.get(50) - 25,
-                             getClientY() + Rnd.get(50) - 25, getClientZ() + 20, killer, true);
+                	dropItem("DieDrop", itemDrop.getObjectId(), iCount, getPosition().getX() + Rnd.get(50) - 25,
+                    		getPosition().getY() + Rnd.get(50) - 25, getPosition().getZ() + 20, killer, true);
                 }
             }
         }
