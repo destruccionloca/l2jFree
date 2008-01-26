@@ -296,27 +296,27 @@
     <!-- Recipe: Soulshot: D-Grade -->
     <recipe id="1804" level="2" />
     <dwarven />
-    <mpCost>40</mpCost>
+    <mpCost>72</mpCost>
     <successRate>100</successRate>
     <!-- Soulshot: D-grade -->
-    <production id="1463" count="156" />
+    <production id="1463" count="468" />
     <!-- Soul Ore -->
-    <ingredient id="1785" count="3" />
+    <ingredient id="1785" count="9" />
     <!-- Crystal: D-Grade -->
-    <ingredient id="1458" count="1" />
+    <ingredient id="1458" count="3" />
   </item>
   <item id="21" name="mk_soulshot_c">
     <!-- Recipe: Soulshot: C-Grade -->
     <recipe id="1805" level="4" />
     <dwarven />
-    <mpCost>70</mpCost>
+    <mpCost>84</mpCost>
     <successRate>100</successRate>
     <!-- Soulshot: C-grade -->
-    <production id="1464" count="476" />
+    <production id="1464" count="952" />
     <!-- Soul Ore -->
-    <ingredient id="1785" count="15" />
+    <ingredient id="1785" count="30" />
     <!-- Crystal: C-Grade -->
-    <ingredient id="1459" count="1" />
+    <ingredient id="1459" count="2" />
   </item>
   <item id="22" name="mk_soulshot_b">
     <!-- Recipe: Soulshot: B-Grade -->
