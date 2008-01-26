@@ -20,54 +20,67 @@ import javolution.util.FastList;
 
 public class ExEnchantSkillList extends L2GameServerPacket
 {
-    private static final String _S__FE_29_EXENCHANTSKILLLIST = "[S] FE:29 ExEnchantSkillList [d(dddq)]";
-    private List<Skill> _skills;
+    public enum EnchantSkillType
+    {
+        NORMAL,
+        SAFE,
+        UNTRAIN,
+        CHANGE_ROUTE,
+    }
+    
+    private static final String _S__FE_17_EXENCHANTSKILLLIST = "[S] FE:29 ExEnchantSkillList";
+    private final EnchantSkillType _type;
+    private final List<Skill> _skills;
 
     class Skill
     {
         public int id;
         public int nextLevel;
-        public int sp;
-        public int exp;
 
-        Skill(int pId, int pNextLevel, int pSp, int pExp)
+        Skill(int pId, int pNextLevel)
         {
             id = pId;
             nextLevel = pNextLevel;
-            sp = pSp;
-            exp = pExp;
         }
     }
 
-    public void addSkill(int id, int level, int sp, int exp)
+    public void addSkill(int id, int level)
     {
-        _skills.add(new Skill(id, level, sp, exp));
+        _skills.add(new Skill(id, level));
     }
 
-    public ExEnchantSkillList()
+    public ExEnchantSkillList(EnchantSkillType type)
     {
+        _type = type;
         _skills = new FastList<Skill>();
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
+     */
     @Override
-	protected void writeImpl()
+    protected void writeImpl()
     {
         writeC(0xfe);
         writeH(0x29);
-
+        
+        writeD(_type.ordinal());
         writeD(_skills.size());
         for (Skill sk : _skills)
         {
             writeD(sk.id);
             writeD(sk.nextLevel);
-            writeD(sk.sp);
-            writeQ(sk.exp);
         }
+
     }
 
+    /* (non-Javadoc)
+     * @see net.sf.l2j.gameserver.BasePacket#getType()
+     */
     @Override
     public String getType()
     {
-        return _S__FE_29_EXENCHANTSKILLLIST;
+        return _S__FE_17_EXENCHANTSKILLLIST;
     }
+
 }

@@ -95,7 +95,7 @@ public class Say2 extends L2GameClientPacket
             }
         }
 
-        if (activeChar.isCursedWeaponEquiped())
+        if (activeChar.isCursedWeaponEquipped())
         {
             switch(_type)
             {

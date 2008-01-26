@@ -471,7 +471,7 @@ public class RegionBBSManager extends BaseBBSManager
    
                 if (player.isGM())
                     htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
-                else if (player.isCursedWeaponEquiped() && Config.SHOW_CURSED_WEAPON_OWNER)
+                else if (player.isCursedWeaponEquipped() && Config.SHOW_CURSED_WEAPON_OWNER)
                     htmlCode.append("<font color=\"FF0000\">" + player.getName() + "</font>");
                 else
                     htmlCode.append(player.getName());

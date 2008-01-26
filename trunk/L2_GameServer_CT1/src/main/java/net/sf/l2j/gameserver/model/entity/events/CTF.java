@@ -1680,7 +1680,7 @@ public class CTF
 					replyMSG.append("<font color=\"FFFF00\">You can't participate to this event.</font><br>");
 				}
 			}
-			else if (eventPlayer.isCursedWeaponEquiped() && !Config.TVT_JOIN_CURSED)
+			else if (eventPlayer.isCursedWeaponEquipped() && !Config.TVT_JOIN_CURSED)
 			{
 				replyMSG.append("<font color=\"FFFF00\">You can't participate to this event with a cursed Weapon.</font><br>");
 			}

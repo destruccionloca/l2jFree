@@ -34,7 +34,6 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ChairSit;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeShopManageList;
-import net.sf.l2j.gameserver.network.serverpackets.Ride;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -257,7 +256,7 @@ public class RequestActionUse extends L2GameClientPacket
                         activeChar.sendPacket(msg);
                         msg = null;
                     }
-                    else if (activeChar.isCursedWeaponEquiped())
+                    else if (activeChar.isCursedWeaponEquipped())
                      {
                          //You can't mount, dismount, break and drop items while weilding a cursed weapon
                          SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CANT_BE_RIDDEN_WHILE_IN_BATTLE);
@@ -265,12 +264,7 @@ public class RequestActionUse extends L2GameClientPacket
                     }
                     else if (!pet.isDead() && !activeChar.isMounted())
                     {
-                        if(!activeChar.disarmWeapons()) return;
-                        Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, pet.getTemplate().getNpcId());
-                        activeChar.broadcastPacket(mount);
-                        activeChar.setMountType(mount.getMountType());
-                        activeChar.setMountObjectID(pet.getControlItemId());
-                        pet.unSummon(activeChar);
+                        activeChar.mount(pet);
                     }
                 }
                 else if (activeChar.isMounted())

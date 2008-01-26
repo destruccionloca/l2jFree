@@ -395,7 +395,7 @@ public class MapRegionManager
             if (teleportWhere == TeleportWhereType.Town)
             {
                 // Karma player land out of city
-                if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
+                if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
                 {
                 	return getLocationFromPoint3D(getChaosRestartPoint(player));
                 }
@@ -437,7 +437,7 @@ public class MapRegionManager
                     if (castle.getSiege() != null && castle.getSiege().getIsInProgress())
                     {
                         // Karma player respawns out of siege zone
-                        if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
+                        if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
                         {
                             zone = castle.getZone();
                             if (zone != null)
@@ -469,7 +469,7 @@ public class MapRegionManager
                     if (siege != null && siege.checkIsAttacker(clan) && siege.checkIfInZone(player))
                     {
                         // Karma player respawns out of siege zone
-                        if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
+                        if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
                         {
                             IZone zone = siege.getCastle().getZone();
                             if (zone != null)

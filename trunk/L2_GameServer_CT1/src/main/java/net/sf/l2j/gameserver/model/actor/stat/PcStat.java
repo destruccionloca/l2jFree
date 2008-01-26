@@ -57,7 +57,7 @@ public class PcStat extends PlayableStat
     {
         L2PcInstance activeChar = getActiveChar();
         // Set new karma
-        if (!activeChar.isCursedWeaponEquiped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !activeChar.getInPvpZone()))
+        if (!activeChar.isCursedWeaponEquipped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !activeChar.getInPvpZone()))
         {
             int karmaLost = activeChar.calculateKarmaLost((int) value);
             if (karmaLost > 0) activeChar.setKarma(activeChar.getKarma() - karmaLost);

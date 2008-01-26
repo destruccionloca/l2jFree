@@ -313,7 +313,7 @@ public class UseItem extends L2GameClientPacket
 			}
 
 			// Don't allow weapon/shield equipment if a cursed weapon is equiped
-			if (activeChar.isCursedWeaponEquiped()
+			if (activeChar.isCursedWeaponEquipped()
 					&& ((bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND) || itemId == 6408)) // Don't allow to put formal wear
 				return;
 			

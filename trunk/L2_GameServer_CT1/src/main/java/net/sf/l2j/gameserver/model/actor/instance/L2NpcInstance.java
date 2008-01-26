@@ -2037,7 +2037,7 @@ public class L2NpcInstance extends L2Character
     public void makeCPRecovery(L2PcInstance player)
     {
         if (getNpcId() != 31225 && getNpcId() != 31226) return;
-        if (player.isCursedWeaponEquiped())
+        if (player.isCursedWeaponEquipped())
         {
            player.sendMessage("Go away, you're not welcome here.");
            return;
@@ -2070,7 +2070,7 @@ public class L2NpcInstance extends L2Character
     public void makeSupportMagic(L2PcInstance player)
     {
         // Prevent a cursed weapon weilder of being buffed
-        if (player.isCursedWeaponEquiped())
+        if (player.isCursedWeaponEquipped())
            return;
       
         int _newbieBuffsId = BuffTemplateTable.getInstance().getTemplateIdByName("SupportMagic");
@@ -2140,7 +2140,7 @@ public class L2NpcInstance extends L2Character
      */
     public void showChatWindow(L2PcInstance player, int val)
     {
-        if(player.isCursedWeaponEquiped() && !( player.getTarget() instanceof L2ClanHallManagerInstance
+        if(player.isCursedWeaponEquipped() && !( player.getTarget() instanceof L2ClanHallManagerInstance
                                             || player.getTarget() instanceof L2DoormenInstance))
         {
             player.setTarget(player);

@@ -537,7 +537,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	// protects a char from agro mobs when getting up from fake death
 	private long _recentFakeDeathEndTime = 0;
     
-    /** The fists L2Weapon of the L2PcInstance (used when no weapon is equiped) */
+    /** The fists L2Weapon of the L2PcInstance (used when no weapon is equipped) */
     private L2Weapon _fistsWeaponItem;
 
     private long _uptime;
@@ -550,6 +550,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private Map<Integer, L2Recipe> _commonRecipeBook = new FastMap<Integer, L2Recipe>();
 
     private int _mountType;
+    private int _mountNpcId;
 
     /** The current higher Expertise of the L2PcInstance (None=0, D=1, C=2, B=3, A=4, S=5)*/
     private int _expertiseIndex; // index in EXPERTISE_LEVELS
@@ -1488,7 +1489,7 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Return the L2ShortCut of the L2PcInstance corresponding to the position (page-slot).<BR><BR>
      *
-     * @param slot The slot in wich the shortCuts is equiped
+     * @param slot The slot in wich the shortCuts is equipped
      * @param page The page of shortCuts containing the slot
      *
      */
@@ -2116,7 +2117,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Set the fists weapon of the L2PcInstance (used when no weapon is equiped).<BR><BR>
+     * Set the fists weapon of the L2PcInstance (used when no weapon is equipped).<BR><BR>
      *
      * @param weaponItem The fists L2Weapon to set to the L2PcInstance
      *
@@ -2127,7 +2128,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Return the fists weapon of the L2PcInstance (used when no weapon is equiped).<BR><BR>
+     * Return the fists weapon of the L2PcInstance (used when no weapon is equipped).<BR><BR>
      */
     public L2Weapon getFistsWeaponItem()
     {
@@ -2135,7 +2136,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Return the fists weapon of the L2PcInstance Class (used when no weapon is equiped).<BR><BR>
+     * Return the fists weapon of the L2PcInstance Class (used when no weapon is equipped).<BR><BR>
      */
     public L2Weapon findFistsWeaponItem(int classId)
     {
@@ -3427,8 +3428,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
-                    if ((isCursedWeaponEquiped() && player.getLevel() < 21)
-                            || (player.isCursedWeaponEquiped() && getLevel() < 21))
+                    if ((isCursedWeaponEquipped() && player.getLevel() < 21)
+                            || (player.isCursedWeaponEquipped() && getLevel() < 21))
                     {
                         player.sendPacket(new ActionFailed());
                     }
@@ -4042,7 +4043,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Return the active weapon instance (always equiped in the right hand).<BR><BR>
+     * Return the active weapon instance (always equipped in the right hand).<BR><BR>
      */
     @Override
     public L2ItemInstance getActiveWeaponInstance()
@@ -4051,7 +4052,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Return the active weapon item (always equiped in the right hand).<BR><BR>
+     * Return the active weapon item (always equipped in the right hand).<BR><BR>
      */
     @Override
     public L2Weapon getActiveWeaponItem()
@@ -4162,7 +4163,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Return the secondary weapon instance (always equiped in the left hand).<BR><BR>
+     * Return the secondary weapon instance (always equipped in the left hand).<BR><BR>
      */
     @Override
     public L2ItemInstance getSecondaryWeaponInstance()
@@ -4171,7 +4172,7 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
-     * Return the secondary weapon item (always equiped in the left hand) or the fists weapon.<BR><BR>
+     * Return the secondary weapon item (always equipped in the left hand) or the fists weapon.<BR><BR>
      */
     @Override
     public L2Weapon getSecondaryWeaponItem()
@@ -4213,9 +4214,9 @@ public final class L2PcInstance extends L2PlayableInstance
         // Clear resurrect xp calculation
         setExpBeforeDeath(0);
 
-        if (isCursedWeaponEquiped())
+        if (isCursedWeaponEquipped())
         {
-            CursedWeaponsManager.getInstance().drop(_cursedWeaponEquipedId, killer);
+            CursedWeaponsManager.getInstance().drop(_cursedWeaponEquippedId, killer);
         }
 
         if (killer != null)
@@ -4412,7 +4413,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             if (!srcInPvP)
             {
-                if (pk == null || !pk.isCursedWeaponEquiped())
+                if (pk == null || !pk.isCursedWeaponEquipped())
                 {
                     //if (getKarma() > 0)
                     onDieDropItem(killer);  // Check if any item should be dropped
@@ -4667,14 +4668,14 @@ public final class L2PcInstance extends L2PlayableInstance
         if (targetPlayer == null) return; // Target player is null
         if (targetPlayer == this) return; // Target player is self
         
-        if (isCursedWeaponEquiped())
+        if (isCursedWeaponEquipped())
         {
-            CursedWeaponsManager.getInstance().increaseKills(_cursedWeaponEquipedId);
+            CursedWeaponsManager.getInstance().increaseKills(_cursedWeaponEquippedId);
             // Custom message for time left
-            // CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId);
+            // CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquippedId);
             // SystemMessage msg = new SystemMessage(SystemMessageId.THERE_IS_S1_HOUR_AND_S2_MINUTE_LEFT_OF_THE_FIXED_USAGE_TIME);
             // int timeLeftInHours = (int)(((cw.getTimeLeft()/60000)/60));
-            // msg.addItemName(_cursedWeaponEquipedId);
+            // msg.addItemName(_cursedWeaponEquippedId);
             // msg.addNumber(timeLeftInHours);
             // sendPacket(msg);
             return;
@@ -5361,7 +5362,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean disarmWeapons()
 	{
         // Don't allow disarming a cursed weapon
-        if (isCursedWeaponEquiped()) return false;
+        if (isCursedWeaponEquipped()) return false;
 
         // Unequip the weapon
         L2ItemInstance wpn = getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
@@ -5374,9 +5375,9 @@ public final class L2PcInstance extends L2PlayableInstance
             if (wpn.isAugmented())
                 wpn.getAugmentation().removeBoni(this);
             
-            L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
+            L2ItemInstance[] unequipped = getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
             InventoryUpdate iu = new InventoryUpdate();
-            for (L2ItemInstance element : unequiped)
+            for (L2ItemInstance element : unequipped)
 				iu.addModifiedItem(element);
             sendPacket(iu);
 
@@ -5385,19 +5386,19 @@ public final class L2PcInstance extends L2PlayableInstance
             broadcastUserInfo();
 
             // this can be 0 if the user pressed the right mousebutton twice very fast
-            if (unequiped.length > 0)
+            if (unequipped.length > 0)
             {
                 SystemMessage sm = null;
-                if (unequiped[0].getEnchantLevel() > 0)
+                if (unequipped[0].getEnchantLevel() > 0)
                 {
                     sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-                    sm.addNumber(unequiped[0].getEnchantLevel());
-                    sm.addItemName(unequiped[0]);
+                    sm.addNumber(unequipped[0].getEnchantLevel());
+                    sm.addItemName(unequipped[0]);
                 }
                 else
                 {
                     sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-                    sm.addItemName(unequiped[0]);
+                    sm.addItemName(unequipped[0]);
                 }
                 sendPacket(sm);
             }
@@ -5410,9 +5411,9 @@ public final class L2PcInstance extends L2PlayableInstance
         	if (sld.isWear())
         		return false;
         	
-            L2ItemInstance[] unequiped = getInventory().unEquipItemInBodySlotAndRecord(sld.getItem().getBodyPart());
+            L2ItemInstance[] unequipped = getInventory().unEquipItemInBodySlotAndRecord(sld.getItem().getBodyPart());
             InventoryUpdate iu = new InventoryUpdate();
-            for (L2ItemInstance element : unequiped)
+            for (L2ItemInstance element : unequipped)
 				iu.addModifiedItem(element);
             sendPacket(iu);
 
@@ -5421,19 +5422,19 @@ public final class L2PcInstance extends L2PlayableInstance
             broadcastUserInfo();
 
             // this can be 0 if the user pressed the right mousebutton twice very fast
-            if (unequiped.length > 0)
+            if (unequipped.length > 0)
             {
                 SystemMessage sm = null;
-                if (unequiped[0].getEnchantLevel() > 0)
+                if (unequipped[0].getEnchantLevel() > 0)
                 {
                     sm = new SystemMessage(SystemMessageId.EQUIPMENT_S1_S2_REMOVED);
-                    sm.addNumber(unequiped[0].getEnchantLevel());
-                    sm.addItemName(unequiped[0]);
+                    sm.addNumber(unequipped[0].getEnchantLevel());
+                    sm.addItemName(unequipped[0]);
                 }
                 else
                 {
                     sm = new SystemMessage(SystemMessageId.S1_DISARMED);
-                    sm.addItemName(unequiped[0]);
+                    sm.addItemName(unequipped[0]);
                 }
                 sendPacket(sm);
             }
@@ -5505,7 +5506,7 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     protected boolean checkAndEquipArrows()
     {
-        // Check if nothing is equiped in left hand
+        // Check if nothing is equipped in left hand
         if (getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND) == null)
         {
             // Get the L2ItemInstance of the arrows needed for this bow
@@ -5521,7 +5522,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         else
         {
-            // Get the L2ItemInstance of arrows equiped in left hand
+            // Get the L2ItemInstance of arrows equipped in left hand
             _arrowItem = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
         }
 
@@ -5534,7 +5535,7 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     protected boolean checkAndEquipBolts()
     {
-        // Check if nothing is equiped in left hand
+        // Check if nothing is equipped in left hand
         if (getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND) == null)
         {
             // Get the L2ItemInstance of the arrows needed for this bow
@@ -5552,20 +5553,49 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         else
         {
-            // Get the L2ItemInstance of arrows equiped in left hand
+            // Get the L2ItemInstance of arrows equipped in left hand
             _boltItem = getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND);
         }
 
         return _boltItem != null;
     }
 
+    public boolean mount(L2Summon pet)
+    {
+        if (!this.disarmWeapons())
+        {
+            return false;
+        }
+        
+        Ride mount = new Ride(this, true, pet.getTemplate().getNpcId());
+        this.setMount(pet.getTemplate().getNpcId(), mount.getMountType());
+        this.setMountObjectID(pet.getControlItemId());
+        this.broadcastPacket(mount);
+        pet.unSummon(this);
+        return true;
+    }
+
+    public boolean mount(int npcId, int controlItemObjId)
+    {
+        if (!this.disarmWeapons())
+        {
+            return false;
+        }
+
+        Ride mount = new Ride(this, true, npcId);
+        this.setMount(npcId, mount.getMountType());
+        this.setMountObjectID(controlItemObjId);
+        this.broadcastPacket(mount);
+        return true;
+    }
+
 	public boolean dismount()
 	{
-		if (setMountType(0))
+		if (setMount(0, 0))
 		{
 			if (isFlying()) 
 				removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-			Ride dismount = new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0);
+			Ride dismount = new Ride(this, false, 0);
 			broadcastPacket(dismount);
 			setMountObjectID(0);
 			return true;
@@ -6828,7 +6858,7 @@ public final class L2PcInstance extends L2PlayableInstance
 	        	if(isHero() && HeroSkillTable.getHeroSkills().contains(skill))
 	        		foundskill = true;
 	        	// exclude cursed weapon skills
-	        	if(isCursedWeaponEquiped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquipedId).getSkillId())
+	        	if(isCursedWeaponEquipped() && skillid == CursedWeaponsManager.getInstance().getCursedWeapon(_cursedWeaponEquippedId).getSkillId())
 	        		foundskill = true;
 	        	// exclude clan skills
 	        	if(getClan()!=null && (skillid >= 370 && skillid <= 391))
@@ -8065,9 +8095,9 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     // returns false if the change of mount type fails.
-    public boolean setMountType(int mountType)
+    public boolean setMount(int npcId, int mountType)
     {
-        if (checkLandingState() && mountType == 2) return false;
+        if (checkLandingState() && mountType == 2)
 
         switch (mountType)
         {
@@ -8090,6 +8120,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         _mountType = mountType;
+        _mountNpcId = npcId;
 
         // Send a Server->Client packet InventoryUpdate to the L2PcInstance in order to update speed
         UserInfo ui = new UserInfo(this);
@@ -8871,7 +8902,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (isDead() || isAlikeDead() || (getStatus().getCurrentHp() < getStat().getMaxHp()/2 || getStatus().getCurrentMp() < getStat().getMaxMp()/2)) { _noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1S_HP_OR_MP_IS_BELOW_50_PERCENT.getId(); return false; }
 		if (isInDuel()) { _noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_ALREADY_ENGAGED_IN_A_DUEL.getId(); return false;}
 		if (isInOlympiadMode()) { _noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_PARTICIPATING_IN_THE_OLYMPIAD.getId(); return false; }
-		if (isCursedWeaponEquiped()) { _noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_IN_A_CHAOTIC_STATE.getId(); return false; }
+		if (isCursedWeaponEquipped()) { _noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_IN_A_CHAOTIC_STATE.getId(); return false; }
 		if (getPrivateStoreType() != STORE_PRIVATE_NONE) { _noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_ENGAGED_IN_A_PRIVATE_STORE_OR_MANUFACTURE.getId(); return false; }
 		if (isMounted() || isInBoat()) { _noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_RIDING_A_BOAT_WYVERN_OR_STRIDER.getId(); return false; }
 		if (isFishing()) { _noDuelReason = SystemMessageId.S1_CANNOT_DUEL_BECAUSE_S1_IS_CURRENTLY_FISHING.getId(); return false; }
@@ -9364,8 +9395,8 @@ public final class L2PcInstance extends L2PlayableInstance
             super.removeSkill(oldSkill);
 
         // Yesod: Rebind CursedWeapon passive. 
-        if (isCursedWeaponEquiped())
-           CursedWeaponsManager.getInstance().givePassive(_cursedWeaponEquipedId);
+        if (isCursedWeaponEquipped())
+           CursedWeaponsManager.getInstance().givePassive(_cursedWeaponEquippedId);
 
         for (L2Effect effect : getAllEffects())
             effect.exit();
@@ -9459,11 +9490,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			if (checkLandingState() && getMountType()==2)
 				teleToLocation(TeleportWhereType.Town);
 
-			if(setMountType(0))  // this should always be true now, since we teleported already
+			if (this.dismount())  // this should always be true now, since we teleported already
 			{
 				_taskRentPet.cancel(true);
-				Ride dismount = new Ride(getObjectId(), Ride.ACTION_DISMOUNT, 0);
-				broadcastPacket(dismount);
 				_taskRentPet = null;
 			}
 		}
@@ -9505,7 +9534,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (isMounted())
             dismount();
 
-        if (isTransformed() && !isCursedWeaponEquiped())
+        if (isTransformed() && !isCursedWeaponEquipped())
         {
             untransform();
         }
@@ -10857,6 +10886,14 @@ public final class L2PcInstance extends L2PlayableInstance
         return recclim;
     }
 
+    /**
+     * @return Returns the mountNpcId.
+     */
+    public int getMountNpcId()
+    {
+        return _mountNpcId;
+    }
+
     public void setMountObjectID(int newID)
     {
         _mountObjectID = newID;
@@ -11151,7 +11188,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private ScheduledFuture<?> _jailTask;
     @SuppressWarnings("unused")
-    private int _cursedWeaponEquipedId = 0;
+    private int _cursedWeaponEquippedId = 0;
 
     private int _reviveRequested = 0;
     private double _revivePower = 0;
@@ -11186,19 +11223,19 @@ public final class L2PcInstance extends L2PlayableInstance
         getStatus().setCurrentHpMp(getMaxHp(), getMaxMp());
     }
     
-    public boolean isCursedWeaponEquiped()
+    public boolean isCursedWeaponEquipped()
     {
-        return _cursedWeaponEquipedId != 0;
+        return _cursedWeaponEquippedId != 0;
     }
    
-    public void setCursedWeaponEquipedId(int value)
+    public void setCursedWeaponEquippedId(int value)
     {
-        _cursedWeaponEquipedId = value;
+        _cursedWeaponEquippedId = value;
     }
    
-    public int getCursedWeaponEquipedId()
+    public int getCursedWeaponEquippedId()
     {
-        return _cursedWeaponEquipedId;
+        return _cursedWeaponEquippedId;
     }
     
     public void setNPCFaction(FactionMember fm)

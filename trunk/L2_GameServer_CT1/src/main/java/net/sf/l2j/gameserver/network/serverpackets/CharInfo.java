@@ -99,7 +99,7 @@ public class CharInfo extends L2GameServerPacket
 				writeD(0x00);
 				writeD(_mAtkSpd);
 				writeD(_pAtkSpd);
-				writeD(_runSpd);
+				writeD(_runSpd); // TODO: the order of the speeds should be confirmed
 				writeD(_walkSpd);
 				writeD(_swimRunSpd);  // swimspeed
 				writeD(_swimWalkSpd);  // swimspeed
@@ -260,7 +260,7 @@ public class CharInfo extends L2GameServerPacket
 			writeD(_activeChar.getPvpFlag());
 			writeD(_activeChar.getKarma());
 	
-			writeD(_runSpd);
+			writeD(_runSpd); // TODO: the order of the speeds should be confirmed
 			writeD(_walkSpd);
 			writeD(_swimRunSpd);
 			writeD(_swimWalkSpd);
@@ -324,7 +324,7 @@ public class CharInfo extends L2GameServerPacket
 				writeC(_appearance.getInvisible() ? 1 : 0);	// invisible = 1  visible =0
 			}
 			
-			writeC(_activeChar.getMountType());	// 1 on strider   2 on wyvern   0 no mount
+			writeC(0/*_activeChar.getMountType()*/); // 1 on strider   2 on wyvern   0 no mount
 			writeC(_activeChar.getPrivateStoreType());   //  1 - sellshop
 			
 			writeH(_activeChar.getCubics().size());
@@ -375,8 +375,8 @@ public class CharInfo extends L2GameServerPacket
 			
 			writeD(_appearance.getTitleColor());
 			
-			if (_activeChar.isCursedWeaponEquiped())
-				writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquipedId()));
+			if (_activeChar.isCursedWeaponEquipped())
+				writeD(CursedWeaponsManager.getInstance().getLevel(_activeChar.getCursedWeaponEquippedId()));
 			else
 				writeD(0x00);
 			

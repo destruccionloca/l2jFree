@@ -282,7 +282,7 @@ public class CursedWeaponsManager
                )
                   return;
 
-            if (player.isCursedWeaponEquiped())
+            if (player.isCursedWeaponEquipped())
                 return;
             for (CursedWeapon cw : _cursedWeapons.values())
             {
@@ -299,11 +299,11 @@ public class CursedWeaponsManager
         {
         	CursedWeapon cw = _cursedWeapons.get(item.getItemId());
         
-        	if (player.isCursedWeaponEquiped()) // cannot own 2 cursed swords
+        	if (player.isCursedWeaponEquipped()) // cannot own 2 cursed swords
         	{
-        		CursedWeapon cw2 = _cursedWeapons.get(player.getCursedWeaponEquipedId());
+        		CursedWeapon cw2 = _cursedWeapons.get(player.getCursedWeaponEquippedId());
 
-        		cw2.setNbKills(cw2.getStageKills()-1);        		
+        		cw2.setNbKills(cw2.getStageKills()-1);
 	        		cw2.increaseKills();
 				
 				// erase the newly obtained cursed weapon
@@ -360,7 +360,7 @@ public class CursedWeaponsManager
                 cw.setPlayer(player);
                 cw.setItem(player.getInventory().getItemByItemId(cw.getItemId()));
                 cw.giveSkill();
-                player.setCursedWeaponEquipedId(cw.getItemId());
+                player.setCursedWeaponEquippedId(cw.getItemId());
                 
                 SystemMessage sm = new SystemMessage(SystemMessageId.S2_MINUTE_OF_USAGE_TIME_ARE_LEFT_FOR_S1);
                 sm.addString(cw.getName());

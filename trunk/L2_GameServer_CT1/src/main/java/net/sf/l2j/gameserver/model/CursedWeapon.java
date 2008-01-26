@@ -100,7 +100,7 @@ public class CursedWeapon
                 
                 _player.setKarma(_playerKarma);
                 _player.setPkKills(_playerPkKills);
-                _player.setCursedWeaponEquipedId(0);
+                _player.setCursedWeaponEquippedId(0);
                 removeSkillAndAppearance();
     
                 // Remove 
@@ -257,7 +257,7 @@ public class CursedWeapon
 
             _player.setKarma(_playerKarma);
             _player.setPkKills(_playerPkKills);
-            _player.setCursedWeaponEquipedId(0);
+            _player.setCursedWeaponEquippedId(0);
             removeSkillAndAppearance();
             _player.abortAttack();      
         }
@@ -378,7 +378,7 @@ public class CursedWeapon
         saveData();
 
         // Change player stats
-        _player.setCursedWeaponEquipedId(_itemId);
+        _player.setCursedWeaponEquippedId(_itemId);
         _player.setKarma(9000000);
         _player.setPkKills(0);
         if (_player.isInParty())
@@ -486,7 +486,7 @@ public class CursedWeapon
             // Reset player stats
             _player.setKarma(_playerKarma);
             _player.setPkKills(_playerPkKills);
-            _player.setCursedWeaponEquipedId(0);
+            _player.setCursedWeaponEquippedId(0);
             removeSkillAndAppearance();
 
             _player.abortAttack();

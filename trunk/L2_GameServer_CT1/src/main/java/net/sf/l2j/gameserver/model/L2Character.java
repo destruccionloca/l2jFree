@@ -768,7 +768,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Get the active weapon (always equiped in the right hand) </li>
+	 * <li>Get the active weapon (always equipped in the right hand) </li>
 	 * <BR>
 	 * <BR>
 	 * <li>If weapon is a bow, check for arrows, MP and bow re-use delay (if necessary, equip the L2PcInstance with arrows in left hand)</li>
@@ -837,13 +837,13 @@ public abstract class L2Character extends L2Object
 			
 			if (target instanceof L2PcInstance)
 			{
-				if (((L2PcInstance) target).isCursedWeaponEquiped() && ((L2PcInstance) this).getLevel() <= 20)
+				if (((L2PcInstance) target).isCursedWeaponEquipped() && ((L2PcInstance) this).getLevel() <= 20)
 				{
 					((L2PcInstance) this).sendMessage("Can't attack a cursed player when under level 21.");
 					sendPacket(new ActionFailed());
 					return;
 				}
-				if (((L2PcInstance) this).isCursedWeaponEquiped() && ((L2PcInstance) target).getLevel() <= 20)
+				if (((L2PcInstance) this).isCursedWeaponEquipped() && ((L2PcInstance) target).getLevel() <= 20)
 				{
 					((L2PcInstance) this).sendMessage("Can't attack a newbie player using a cursed weapon.");
 					sendPacket(new ActionFailed());
@@ -880,10 +880,10 @@ public abstract class L2Character extends L2Object
 			}
 		}
 
-		// Get the active weapon instance (always equiped in the right hand)
+		// Get the active weapon instance (always equipped in the right hand)
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
 		
-		// Get the active weapon item corresponding to the active weapon instance (always equiped in the right hand)
+		// Get the active weapon item corresponding to the active weapon instance (always equipped in the right hand)
 		L2Weapon weaponItem = getActiveWeaponItem();
 		
 		if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.ROD))
@@ -1090,14 +1090,14 @@ public abstract class L2Character extends L2Object
 				weaponInst.setChargedSoulshot(L2ItemInstance.CHARGED_NONE);
 			if (player != null)
 			{
-				if (player.isCursedWeaponEquiped())
+				if (player.isCursedWeaponEquipped())
 				{
 					if (!target.isInvul())
 						target.getStatus().setCurrentCp(0);
 				}
 				else if (player.isHero())
 				{
-					if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquiped())
+					if (target instanceof L2PcInstance && ((L2PcInstance) target).isCursedWeaponEquipped())
 						target.getStatus().setCurrentCp(0); // If Zariche is hitted by a Hero, Cp is reduced to 0
 				}
 			}
@@ -5590,7 +5590,7 @@ public abstract class L2Character extends L2Object
 	}
 	
 	/**
-	 * Return the active weapon instance (always equiped in the right hand).<BR>
+	 * Return the active weapon instance (always equipped in the right hand).<BR>
 	 * <BR>
 	 * <B><U> Overriden in </U> :</B><BR>
 	 * <BR>
@@ -5601,7 +5601,7 @@ public abstract class L2Character extends L2Object
 	public abstract L2ItemInstance getActiveWeaponInstance();
 	
 	/**
-	 * Return the active weapon item (always equiped in the right hand).<BR>
+	 * Return the active weapon item (always equipped in the right hand).<BR>
 	 * <BR>
 	 * <B><U> Overriden in </U> :</B><BR>
 	 * <BR>
@@ -5612,7 +5612,7 @@ public abstract class L2Character extends L2Object
 	public abstract L2Weapon getActiveWeaponItem();
 	
 	/**
-	 * Return the secondary weapon instance (always equiped in the left hand).<BR>
+	 * Return the secondary weapon instance (always equipped in the left hand).<BR>
 	 * <BR>
 	 * <B><U> Overriden in </U> :</B><BR>
 	 * <BR>
@@ -5623,7 +5623,7 @@ public abstract class L2Character extends L2Object
 	public abstract L2ItemInstance getSecondaryWeaponInstance();
 	
 	/**
-	 * Return the secondary weapon item (always equiped in the left hand).<BR>
+	 * Return the secondary weapon item (always equipped in the left hand).<BR>
 	 * <BR>
 	 * <B><U> Overriden in </U> :</B><BR>
 	 * <BR>

@@ -267,7 +267,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check if player is a Cursed Weapon owner
-        else if (activeChar.isCursedWeaponEquiped())
+        else if (activeChar.isCursedWeaponEquipped())
         {
             activeChar.sendMessage("You are currently holding a cursed weapon.");
             return false;
@@ -335,7 +335,7 @@ public class Wedding implements IVoicedCommandHandler
                 activeChar.sendMessage("Your partner is in siege, you can't go to him.");
             return false;
         }
-        else if (partner.isCursedWeaponEquiped())
+        else if (partner.isCursedWeaponEquipped())
         {
             activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
             return false;

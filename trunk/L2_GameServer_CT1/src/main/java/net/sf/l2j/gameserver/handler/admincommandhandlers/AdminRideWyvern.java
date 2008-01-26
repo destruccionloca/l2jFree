@@ -17,7 +17,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.Ride;
 
 /**
  * @author 
@@ -59,19 +58,11 @@ public class AdminRideWyvern implements IAdminCommandHandler
                 activeChar.sendMessage("Command '"+command+"' not recognized");
                 return false;
             }
-            if(!activeChar.disarmWeapons()) return false;
-            Ride mount = new Ride(activeChar.getObjectId(), Ride.ACTION_MOUNT, _petRideId);
-            activeChar.sendPacket(mount);
-            activeChar.broadcastPacket(mount);
-            activeChar.setMountType(mount.getMountType());
+            activeChar.mount(_petRideId, 0);
         }
         else if(command.startsWith("admin_unride"))
         {
-            if(activeChar.setMountType(0))
-            {
-                Ride dismount = new Ride(activeChar.getObjectId(), Ride.ACTION_DISMOUNT,0);
-                activeChar.broadcastPacket(dismount);
-            }
+            activeChar.dismount();
         }
         return true;
     }
