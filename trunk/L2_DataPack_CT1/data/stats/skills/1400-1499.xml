@@ -75,8 +75,9 @@
   <set name="mpConsume" val="180"/>
   <set name="hitTime" val="15000"/>
   <set name="reuseDelay" val="20000"/>
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
+  <set name="castRange" val="-2"/>
+  <set name="effectRange" val="-2"/>
+  <set name="isMagic" val="true"/>
   <for>
   </for>
 </skill>
@@ -90,8 +91,9 @@
   <set name="mpConsume" val="320"/>
   <set name="hitTime" val="15000"/>
   <set name="reuseDelay" val="60000"/>
-  <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
+  <set name="castRange" val="-2"/>
+  <set name="effectRange" val="-2"/>
+  <set name="isMagic" val="true"/>
   <for>
   </for>
 </skill>
@@ -440,8 +442,8 @@
   <set name="reuseDelay" val="2600000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="30000"/>
   <set name="castRange" val="400"/>
+  <set name="isMagic" val="true"/>
   <for>
     <effect count="1" name="Invincible" time="10" val="0"/>
   </for>
@@ -451,7 +453,6 @@
   Description(s):
       Consecutive strikes inflict a great amount of fire damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
-  
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="magicLvl" val="80"/>
@@ -508,7 +509,6 @@
   Description(s):
       Consecutive strikes inflict a great amount of water damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
-  
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="magicLvl" val="80"/>
@@ -565,7 +565,6 @@
   Description(s):
       Consecutive strikes inflict a great amount of dark damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
-  
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="magicLvl" val="80"/>
@@ -655,9 +654,9 @@
   <set name="skillRadius" val="900"/>
   <set name="skillType" val="HEAL_PERCENT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="hitTime" val="4000"/>
-  <set name="reuseDelay" val="3600000"/> <!-- reuse 60 minutes -->
-  <set name="isMagic" val="false"/> <!-- skill won't be affected by Casting speed -->
+  <set name="hitTime" val="5000"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <cond msg="Proper force required.">
@@ -705,9 +704,9 @@
   <set name="power" val="1500"/>
   <set name="skillRadius" val="900"/>
   <set name="skillType" val="MANARECHARGE"/>
-  <set name="hitTime" val="4000"/>
-  <set name="reuseDelay" val="3600000"/> <!-- reuse 60 minutes -->
-  <set name="isMagic" val="false"/> <!-- skill won't be affected by Casting speed -->
+  <set name="hitTime" val="5000"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -1292,6 +1291,7 @@
   <set name="reuseDelay" val="8000"/>
   <set name="hitTime" val="3000"/>
   <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
   <set name="target" val="TARGET_PARTY_OTHER"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
@@ -1453,6 +1453,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="8000"/>
+  <set name="isMagic" val="true"/>
   <set name="skillType" val="MDAM"/>
   <set name="hitTime" val="4000"/>
   <set name="element" val="2"/> <!-- Fire -->
@@ -1520,6 +1521,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="8000"/>
+  <set name="isMagic" val="true"/>
   <set name="skillType" val="MDAM"/>
   <set name="hitTime" val="4000"/>
   <set name="element" val="3"/> <!-- Water -->
@@ -1582,6 +1584,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="8000"/>
+  <set name="isMagic" val="true"/>
   <set name="skillType" val="MDAM"/>
   <set name="hitTime" val="4000"/>
   <set name="element" val="1"/> <!-- Wind -->
