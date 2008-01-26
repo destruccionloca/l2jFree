@@ -160,8 +160,6 @@ public class GameServer
 					_log.debug("GeoPathFinding initialized");
 			}
 		}
-		MapRegionManager.getInstance();
-		ZoneManager.getInstance();
 		ClanHallManager.getInstance();
 		DoorTable.getInstance();
 		StaticObjects.getInstance();
@@ -241,6 +239,9 @@ public class GameServer
 		ValakasManager.getInstance().init();
 		VanHalterManager.getInstance().init();
 		FrintezzaManager.getInstance().init();
+		Util.printSection("Zones");
+		MapRegionManager.getInstance();
+		ZoneManager.getInstance();
 		Util.printSection("Quests");
 		QuestManager.getInstance();
 		TransformationManager.getInstance();

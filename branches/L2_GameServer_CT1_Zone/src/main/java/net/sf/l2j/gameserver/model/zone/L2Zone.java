@@ -41,18 +41,19 @@ public abstract class L2Zone
 
 	public static enum ZoneType
 	{
+		Arena,
 		Boss,
 		Castle,
 		CastleDef,
 		CastleHQ,
-		CastleSiege,
 		Clanhall,
-		Damage,
 		Default,
 		Fishing,
 		Jail,
 		Mothertree,
+		Siege,
 		Stadium,
+		Town,
 		Water
 	}
 
@@ -62,6 +63,13 @@ public abstract class L2Zone
 		GENERAL,
 		PVP,
 		PEACE
+	}
+
+	public static enum RestartType
+	{
+		CHAOTIC,
+		OWNER
+		// Others are handled by mapregion manager
 	}
 	
 	public static enum Boss
@@ -97,6 +105,8 @@ public abstract class L2Zone
 	protected Shape[] _shapes;
 	protected Shape[] _exShapes;
 	protected FastMap<Integer, L2Character> _characterList;
+
+	protected FastMap<RestartType, FastList<Location>> _restarts;
 
 	protected int _castleId;
 	protected int _clanhallId;
@@ -166,6 +176,18 @@ public abstract class L2Zone
 	public int getClanhallId()
 	{
 		return _clanhallId;
+	}
+
+	public Location getRestartPoint(RestartType type)
+	{
+		if(_restarts.containsKey(type) && !_restarts.get(type).isEmpty())
+		{
+			FastList<Location> rts = _restarts.get(type);
+			return rts.get(Rnd.nextInt(rts.size()-1));
+		}
+
+		// No restartpoint defined
+		return getRandomLocation();
 	}
 
 	public void revalidateInZone(L2Character character)
@@ -465,6 +487,30 @@ public abstract class L2Zone
 					return null;
 				}
 			}
+			else if ("restart_chaotic".equalsIgnoreCase(n.getNodeName()))
+			{
+				try
+				{
+					zone.parseRestart(n, RestartType.CHAOTIC);
+				}
+				catch(Exception e)
+				{
+					_log.error("Cannot parse chaotic restart point for zone "+zone.getName()+" ("+zone.getId()+")");
+					return null;
+				}
+			}
+			else if ("restart_owner".equalsIgnoreCase(n.getNodeName()))
+			{
+				try
+				{
+					zone.parseRestart(n, RestartType.OWNER);
+				}
+				catch(Exception e)
+				{
+					_log.error("Cannot parse owner restart point for zone "+zone.getName()+" ("+zone.getId()+")");
+					return null;
+				}
+			}
 		}
 		zone._shapes = shapes.toArray(new Shape[shapes.size()]);
 		if(exShapes.size() > 0)
@@ -477,6 +523,21 @@ public abstract class L2Zone
 		return zone;
 	}
 
+	private void parseRestart(Node n, RestartType t) throws Exception
+	{
+		Node xn = n.getAttributes().getNamedItem("x");
+		Node yn = n.getAttributes().getNamedItem("y");
+		Node zn = n.getAttributes().getNamedItem("z");
+		
+		int x = Integer.parseInt(xn.getNodeValue());
+		int y = Integer.parseInt(yn.getNodeValue());
+		int z = Integer.parseInt(zn.getNodeValue());
+
+		if(!_restarts.containsKey(t))
+			_restarts.put(t, new FastList<Location>());
+
+		_restarts.get(t).add(new Location(x, y, z));
+	}
 
 	private void parseEntity(Node n) throws Exception
 	{

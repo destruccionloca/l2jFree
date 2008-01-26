@@ -89,7 +89,7 @@ public class Fishing implements ISkillHandler
         int x = activeChar.getX() - dx;
         int y = activeChar.getY() + dy;
         
-        L2Zone water = ZoneManager.getInstance().isInsideWaterZone(x, y);
+        L2Zone water = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Water, x, y);
         
         // float must be in water
         if (water == null)

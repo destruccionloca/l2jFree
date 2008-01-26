@@ -14,11 +14,18 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class L2StadiumZone extends L2DefaultZone
 {
+	@Override
+	protected void register()
+	{
+		ZoneManager.getInstance().getZones(ZoneType.Stadium).add(this);
+	}
+
 	@Override
 	protected void onEnter(L2Character character)
 	{

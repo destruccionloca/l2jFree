@@ -23,7 +23,7 @@ public class L2FishingZone extends L2DefaultZone
 	@Override
 	protected void register()
 	{
-		ZoneManager.getInstance().getFishingZones().add(this);
+		ZoneManager.getInstance().getZones(ZoneType.Fishing).add(this);
 	}
 
 	@Override

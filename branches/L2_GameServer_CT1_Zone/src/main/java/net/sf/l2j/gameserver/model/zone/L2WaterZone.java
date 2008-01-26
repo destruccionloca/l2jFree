@@ -25,7 +25,7 @@ public class L2WaterZone extends L2DefaultZone
 	@Override
 	protected void register()
 	{
-		ZoneManager.getInstance().getWaterZones().add(this);
+		ZoneManager.getInstance().getZones(ZoneType.Water).add(this);
 	}
 
 	@Override

@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.model.mapregion.L2MapArea;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegionRestart;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.tools.geometry.Point3D;
 
@@ -378,16 +379,14 @@ public class MapRegionManager
             }
             
             // Checking if in arena
-            /*for (IZone arena : ZoneManager.getInstance().getZones(ZoneType.Arena, player.getX(), player.getY()))
+            L2Zone arena = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Arena, player.getX(), player.getY());
+            if (arena != null && arena.isInsideZone(player))
             {
-                if (arena != null && arena.checkIfInZone(player))
-                {
-                    Location loc = arena.getRestartPoint(RestartType.RestartNormal);
-                    if (loc == null)
-                        loc = arena.getRestartPoint(RestartType.RestartRandom);
-                    return loc;
-                }
-            }*/
+                Location loc = arena.getRestartPoint(L2Zone.RestartType.OWNER);
+                if (loc == null)
+                    loc = arena.getRandomLocation();
+                return loc;
+            }
 
             if (teleportWhere == TeleportWhereType.Town)
             {
@@ -408,15 +407,15 @@ public class MapRegionManager
                     clanhall = ClanHallManager.getInstance().getClanHallByOwner(clan);
                     if (clanhall != null)
                     {
-                        /*IZone zone = clanhall.getZone();
+                        L2Zone zone = clanhall.getZone();
 
                         if (zone != null)
                         {
-                            Location loc = zone.getRestartPoint(RestartType.RestartOwner);
+                            Location loc = zone.getRestartPoint(L2Zone.RestartType.OWNER);
                             if (loc == null)
-                                loc = zone.getRestartPoint(RestartType.RestartRandom);
+                                loc = zone.getRandomLocation();
                             return loc;
-                        }*/
+                        }
                     }
                 }
 
@@ -427,8 +426,7 @@ public class MapRegionManager
                 // If Teleporting to castle or
                 if (castle != null && teleportWhere == TeleportWhereType.Castle)
                 {
-
-                    /*IZone zone = castle.getZone();
+                    L2Zone zone = castle.getZone();
 
                     // If is on castle with siege and player's clan is defender
                     if (castle.getSiege() != null && castle.getSiege().getIsInProgress())
@@ -436,18 +434,17 @@ public class MapRegionManager
                         // Karma player respawns out of siege zone
                         if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
                         {
-                            zone = castle.getZone();
                             if (zone != null)
                             {
-                                return zone.getRestartPoint(RestartType.RestartChaotic);
+                                return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
                             }
-                        } else
+                        }
+                        else
                         {
-
-                            zone = castle.getDefenderSpawn();
+                            zone = castle.getDefenderSpawn().getZone();
                             if (zone != null)
                             {
-                                return zone.getRestartPoint(RestartType.RestartRandom);
+                                return zone.getRandomLocation();
                             }
                         }
                     }
@@ -455,8 +452,8 @@ public class MapRegionManager
                     zone = castle.getZone();
                     if (zone != null)
                     {
-                        return zone.getRestartPoint(RestartType.RestartOwner);
-                    }*/
+                        return zone.getRestartPoint(L2Zone.RestartType.OWNER);
+                    }
                 }
                 else if (teleportWhere == TeleportWhereType.SiegeFlag)
                 {
@@ -468,11 +465,11 @@ public class MapRegionManager
                         // Karma player respawns out of siege zone
                         if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
                         {
-                            /*IZone zone = siege.getCastle().getZone();
+                            L2Zone zone = siege.getCastle().getZone();
                             if (zone != null)
                             {
-                                return zone.getRestartPoint(RestartType.RestartChaotic);
-                            }*/
+                                return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
+                            }
                         }
                         // get nearest flag
                         L2NpcInstance flag = siege.getClosestFlag(player);
