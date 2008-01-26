@@ -14,48 +14,19 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
-/**
- * @author G1ta0
- * 
- */
+import net.sf.l2j.gameserver.model.L2Character;
 
-public final class ZoneEnum
+public class L2ClanhallZone extends L2BasicZone
 {
-	public enum ZoneType
+	@Override
+	protected void onEnter(L2Character character)
 	{
-		Default,
-		Arena,
-		MonsterDerbyTrack,
-		OlympiadStadia,
-		CastleArea,
-		CastleHQ,
-		DefenderSpawn,
-		SiegeBattleField,
-		ClanHall,
-		Newbie,
-		Fishing,
-		Peace,
-		Dungeon,
-		Water, 
-		NoLanding,
-		NoEscape,
-		Jail,
-		MotherTree,
-		BossDungeon;
-
-
-		public final static ZoneType getZoneTypeEnum(String typeName)
-		{
-			for (ZoneType zt : ZoneType.values())
-				if (zt.toString().equalsIgnoreCase(typeName))
-					return zt;
-
-			return null;
-		}
+		character.sendMessage("Entered your clanhall");
 	}
-	public static enum RestartType
+	
+	@Override
+	protected void onExit(L2Character character)
 	{
-		RestartNormal, RestartChaotic, RestartOwner, RestartRandom
+		character.sendMessage("Left your clanhall");
 	}
-
 }
