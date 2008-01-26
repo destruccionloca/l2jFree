@@ -96,7 +96,7 @@
 		</repository>
 		<repository>
 			<id>ibiblio maven2</id>
-			<url>http://www.ibiblio.org/maven2/</url>
+			<url>http://www.ibiblio.org/maven/</url>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -182,6 +182,11 @@
 			<groupId>org.schwering</groupId>
 			<artifactId>irclib</artifactId>
 			<version>1.10</version>
+		</dependency>			
+		<dependency>
+		  <groupId>sshtools</groupId>
+		  <artifactId>j2ssh-daemon</artifactId>
+		  <version>0.2.2</version>
 		</dependency>			
 		
 	</dependencies>

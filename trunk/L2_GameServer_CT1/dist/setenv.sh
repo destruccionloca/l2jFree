@@ -2,7 +2,7 @@
 CLASSPATH=${CLASSPATH}:antlr-2.7.6.jar
 CLASSPATH=${CLASSPATH}:asm-1.5.3.jar
 CLASSPATH=${CLASSPATH}:cglib-2.1_3.jar
-CLASSPATH=${CLASSPATH}:hibernate-3.2.2.ga.jar
+CLASSPATH=${CLASSPATH}:hibernate-3.2.5.ga.jar
 CLASSPATH=${CLASSPATH}:jta-1.0.1B.jar
 CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 
