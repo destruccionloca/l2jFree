@@ -47,7 +47,9 @@ public class RequestTargetCanceld extends L2GameClientPacket
 		{
 			if (_unselect == 0)
 			{
-				if (activeChar.isCastingNow())
+				if (net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().abortRadiusSkill(activeChar))
+					return;
+				else if (activeChar.isCastingNow())
 					activeChar.abortCast();
 				else if (activeChar.getTarget() != null)
 					activeChar.setTarget(null);

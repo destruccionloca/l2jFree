@@ -20,11 +20,9 @@ import java.util.concurrent.Future;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import javolution.text.TextBuilder;
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GeoData;
-import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
@@ -45,12 +43,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Couple;
-import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
@@ -110,7 +106,7 @@ public abstract class L2Skill
 	{
 		TARGET_NONE, TARGET_SELF, TARGET_ONE, TARGET_PARTY, TARGET_ALLY, TARGET_CLAN, TARGET_PET, TARGET_AREA, TARGET_FRONT_AREA, TARGET_BEHIND_AREA, TARGET_AURA, TARGET_FRONT_AURA, TARGET_BEHIND_AURA, TARGET_CORPSE, TARGET_AREA_UNDEAD, TARGET_MULTIFACE,
 		TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN, TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_ITEM, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB, TARGET_UNLOCKABLE, TARGET_HOLY, TARGET_PARTY_MEMBER, TARGET_PARTY_OTHER, TARGET_ENEMY_SUMMON, TARGET_OWNER_PET, TARGET_ENEMY_ALLY, TARGET_ENEMY_PET,
-		TARGET_GATE, TARGET_MOB, TARGET_AREA_MOB, TARGET_KNOWNLIST, TARGET_COUPLE
+		TARGET_GATE, TARGET_MOB, TARGET_AREA_MOB, TARGET_KNOWNLIST, TARGET_COUPLE, TARGET_RADIUS
 		// TARGET_BOSS
 	}
 	
@@ -2617,6 +2613,8 @@ public abstract class L2Skill
 					return null;
 				return targetList.toArray(new L2Character[targetList.size()]);
 			}
+			case TARGET_RADIUS:
+				return net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().getTargetList(activeChar,this, onlyFirst);			
 			default:
 			{
 				if (activeChar instanceof L2PcInstance || _log.isDebugEnabled()) // normally log only player skills errors
@@ -3415,7 +3413,15 @@ public abstract class L2Skill
     		_task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, triggerDuration/timesTriggered);
     		triggerSkill.setTask(_task);
     		_task = null;
-    		getEffectsOnce(_caster , _target , _skill);
+    		
+    		if (_skill.getSkillType() == SkillType.MDAM)
+    		{
+    			net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().checkRadiusDamageSkills(_caster , _skill);
+    		}
+    		else
+    		{
+    			getEffectsOnce(_caster , _target , _skill);
+    		}
     	}
     }
     
@@ -3424,6 +3430,11 @@ public abstract class L2Skill
     {
     	if (_skillsOnCast == null)
     		return;
+    	
+    	if (getId() == 455)
+    	{
+    		return;
+    	}
     	
         for (L2Skill skill : _skillsOnCast)
         {

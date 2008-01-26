@@ -89,8 +89,18 @@ public class Continuous implements ISkillHandler
 				case AGGDEBUFF: case CONT: case UNDEAD_DEFENSE:
 					break;
 				case RADIUS:
-					EffectRadiusSkill.getInstance().addRadiusSkill(activeChar , skill);
-					EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar);
+					L2Skill[] skills = skill.getTriggeredSkills();
+					if (skills != null)
+					{
+						// These skills are triggered from RequestExMagicSkillUseGround.java in ClientPacket
+						if (skills[0].getSkillType() == L2Skill.SkillType.MDAM)
+							return;
+						else if (skill.getId() != 455)
+						{
+							EffectRadiusSkill.getInstance().addRadiusSkill(activeChar , skill);
+						}
+						EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar);
+					}
 					return;
 				default:
 					if(target.reflectSkill(skill))

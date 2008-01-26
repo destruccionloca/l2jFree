@@ -151,6 +151,7 @@ public class L2NpcInstance extends L2Character
                   _isEventVIPNPCEnd = false;
 
     private boolean _isInTown = false;
+    private boolean _radiusSkillAffect = false;
     private int _isSpoiledBy = 0;
 
     protected RandomAnimationTask _rAniTask = null;
@@ -561,7 +562,7 @@ public class L2NpcInstance extends L2Character
 
     protected boolean canTarget(L2PcInstance player)
     {
-        if (player.isOutOfControl())
+        if (player.isOutOfControl() || _radiusSkillAffect)
         {
             player.sendPacket(new ActionFailed());
             return false;
@@ -2702,5 +2703,10 @@ public class L2NpcInstance extends L2Character
     public int getCollisionRadius()
     {
         return _currentCollisionRadius;
+    }
+    
+    public void setRadiusSkillsAffect(boolean value)
+    {
+    	_radiusSkillAffect = value;
     }
 }

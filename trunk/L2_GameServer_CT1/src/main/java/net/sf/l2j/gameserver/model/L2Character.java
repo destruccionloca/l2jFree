@@ -98,6 +98,7 @@ import net.sf.l2j.gameserver.skills.Calculator;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
+import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -135,6 +136,7 @@ public abstract class L2Character extends L2Object
 	// =========================================================
 	// Data Field
 	private Integer[]				_radiusSkillsAffect;
+	private int[]					_magicSkillUseGround;
 	private FastList<L2Character>	_attackByList;
 	private L2Character				_attackingChar;
 	private L2Skill					_lastSkillCast;
@@ -1627,7 +1629,8 @@ public abstract class L2Character extends L2Object
 				|| skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.REFLECT || skill.getSkillType() == SkillType.SEED
 				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PET
 				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN
-				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY)
+				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY
+				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_RADIUS)
 		{
 			target = (L2Character) targets[0];
 		}
@@ -6402,7 +6405,7 @@ public abstract class L2Character extends L2Object
 			{
 				if (element instanceof L2Character)
 				{
-					if (!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element))
+					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element)) && skill.getTargetType() != SkillTargetType.TARGET_RADIUS)
 						continue;
 					if (skill.isOffensive())
 					{
@@ -6767,6 +6770,16 @@ public abstract class L2Character extends L2Object
 	{
 		try
 		{
+			if (_magicSkillUseGround != null && _magicSkillUseGround[3] != 0)
+			{
+				if (skill.getSkillType() == SkillType.RADIUS)
+				{
+					EffectRadiusSkill.getInstance().addRadiusSkill(_magicSkillUseGround[0], _magicSkillUseGround[1], _magicSkillUseGround[2], this, skill);
+					setMagicSkillUseGround(0,0,0,0);
+					EffectRadiusSkill.getInstance().checkRadiusSkills(this);
+				}
+			}
+			
 			//Launch a skill's Special ability skill effect if available
 			skill.skillEffects(this);
 			
@@ -7551,5 +7564,18 @@ public abstract class L2Character extends L2Object
     public void setRadiusSkillsAffect(Integer[] skillList)
     {
     	_radiusSkillsAffect = skillList;
+    }
+    
+    public void setMagicSkillUseGround(int x , int y , int z , int skillId)
+    {
+    	if (_magicSkillUseGround == null)
+    	{
+    		_magicSkillUseGround = new int[4];
+    	}
+    	
+    	_magicSkillUseGround[0] = x;
+    	_magicSkillUseGround[1] = y;
+    	_magicSkillUseGround[2] = z;
+    	_magicSkillUseGround[3] = skillId;
     }
 }

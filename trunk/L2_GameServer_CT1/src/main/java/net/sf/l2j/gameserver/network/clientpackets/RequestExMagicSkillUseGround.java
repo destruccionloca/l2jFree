@@ -18,7 +18,10 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -79,10 +82,19 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 			activeChar.sendPacket(new ActionFailed());
 			return;
 		}
+
+		int distance = (int)Math.sqrt(Math.pow(_x - activeChar.getX(),2) + Math.pow(_y - activeChar.getY(),2));
 		
-		// TODO: Handler for that skills...
-		// TODO: x,y,z fix for these skills, right now they are shot from the caster... need a shot from x,y,z instead.
-		activeChar.doCast(skill);
+		if (distance > ((skill.getCastRange() > 0)? skill.getCastRange() : 900))
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_TOO_FAR));
+			activeChar.sendPacket(new ActionFailed());
+			return;
+		}
+		
+		EffectRadiusSkill.getInstance().setInitialTarget(activeChar, _x , _y , _z , skill.getEffectRange());
+		activeChar.setMagicSkillUseGround(_x,_y,_z,skill.getId());		
+		activeChar.useMagic(skill, (_ctrlPressed || _shiftPressed), false);
 	}
 
 	/**

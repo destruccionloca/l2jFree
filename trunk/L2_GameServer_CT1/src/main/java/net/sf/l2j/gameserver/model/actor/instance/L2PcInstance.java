@@ -4203,7 +4203,9 @@ public final class L2PcInstance extends L2PlayableInstance
         // Kill the L2PcInstance
         if (!super.doDie(killer))
             return false;
-
+		
+        net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().checkRadiusSkills(this);
+        
         // Clear resurrect xp calculation
         setExpBeforeDeath(0);
 
