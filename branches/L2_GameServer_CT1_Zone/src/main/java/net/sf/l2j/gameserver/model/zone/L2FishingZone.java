@@ -14,19 +14,29 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-public class L2FishingZone extends L2BasicZone
+public class L2FishingZone extends L2DefaultZone
 {
+	@Override
+	protected void register()
+	{
+		ZoneManager.getInstance().getFishingZones().add(this);
+	}
+
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered fishing zone "+getId());
+		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
+			character.sendMessage("Entered fishing zone "+getId());
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left fishing zone "+getId());
+		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
+			character.sendMessage("Left fishing zone "+getId());
 	}
 }

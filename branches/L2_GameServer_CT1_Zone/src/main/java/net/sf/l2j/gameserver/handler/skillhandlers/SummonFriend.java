@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
@@ -52,7 +53,7 @@ public class SummonFriend implements ISkillHandler
 		}
 
 		// Checks summoner not in arenas, siege zones, jail
-		if (activePlayer.getInPvpZone())
+		if (activePlayer.isInsideZone(L2Zone.FLAG_PVP))
 		{
 			activePlayer.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_SUMMON_IN_COMBAT));
 			return;
@@ -128,19 +129,21 @@ public class SummonFriend implements ISkillHandler
 					}
 					
 					// Check for the the target's festival status
-					if (targetChar.isInOlympiadMode()) {
+					if (targetChar.isInOlympiadMode())
+					{
 						activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_SUMMON_PLAYERS_WHO_ARE_IN_OLYMPIAD));
 						continue;
 					}
 					
 					// Check for the the target's festival status
-					if (targetChar.isFestivalParticipant()) {
+					if (targetChar.isFestivalParticipant())
+					{
 						activeChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
 						continue;
 					}
 					
 					// Check for the target's jail status, arenas and siege zones
-					if (targetChar.getInPvpZone())
+					if (targetChar.isInsideZone(L2Zone.FLAG_PVP))
 					{
 						activeChar.sendPacket(new SystemMessage(SystemMessageId.YOUR_TARGET_IS_IN_AN_AREA_WHICH_BLOCKS_SUMMONING));
 						continue;

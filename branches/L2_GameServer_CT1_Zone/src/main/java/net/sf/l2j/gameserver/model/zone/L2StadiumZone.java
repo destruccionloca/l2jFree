@@ -15,18 +15,21 @@
 package net.sf.l2j.gameserver.model.zone;
 
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-public class L2StadiumZone extends L2BasicZone
+public class L2StadiumZone extends L2DefaultZone
 {
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered stadium zone "+getId());
+		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
+			character.sendMessage("Entered stadium zone "+getId());
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left stadium zone "+getId());
+		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
+			character.sendMessage("Left stadium zone "+getId());
 	}
 }

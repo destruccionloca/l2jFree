@@ -21,6 +21,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -55,7 +56,7 @@ public abstract class L2Zone
 		Water
 	}
 
-	// Overridden in siege zones
+	// Overridden in siege zones, jail zone and town zone
 	public static enum PvpSettings
 	{
 		GENERAL,
@@ -113,7 +114,18 @@ public abstract class L2Zone
 	
 	protected int _abnormal;
 
+	protected boolean _exitOnDeath;
+
 	protected FastList<L2Skill> _applyEnter, _applyExit, _removeEnter, _removeExit;
+
+	public L2Zone()
+	{
+		// Constructor
+	}
+
+	protected void register()
+	{
+	}
 
 	public int getId()
 	{
@@ -333,6 +345,14 @@ public abstract class L2Zone
 		return z;
 	}
 
+	public Location getRandomLocation()
+	{
+		if(_shapes.length == 0)
+			throw new NullPointerException();
+		
+		return _shapes[Rnd.nextInt(_shapes.length)].getRandomLocation();
+	}
+
 	public static L2Zone parseZone(Node zn)
 	{
 		String type = "Default";
@@ -351,7 +371,7 @@ public abstract class L2Zone
 
 			name = (nn != null) ? nn.getNodeValue() : new Integer(id).toString();
 
-            clazz = Class.forName("net.sf.l2j.gameserver.model.zone.L2"+type+"Zone");
+			clazz = Class.forName("net.sf.l2j.gameserver.model.zone.L2"+type+"Zone");
 			constructor = clazz.getConstructor();
 			zone = (L2Zone)constructor.newInstance();
 		}
@@ -435,7 +455,9 @@ public abstract class L2Zone
 			zone._exShapes = exShapes.toArray(new Shape[exShapes.size()]);
 		shapes.clear();
 		exShapes.clear();
-		
+
+		zone.register();
+
 		return zone;
 	}
 
@@ -451,8 +473,8 @@ public abstract class L2Zone
 		this._castleId = (castle != null) ? Integer.parseInt(castle.getNodeValue()) : -1;
 		this._clanhallId = (clanhall != null) ? Integer.parseInt(clanhall.getNodeValue()) : -1;
 		this._redirectId = (redirect != null) ? Integer.parseInt(redirect.getNodeValue()) : -1;
-		this._taxById = (taxById != null) ? Integer.parseInt(taxById.getNodeValue()) : -1;		
-		this._townId = (town != null) ? Integer.parseInt(town.getNodeValue()) : -1;		
+		this._taxById = (taxById != null) ? Integer.parseInt(taxById.getNodeValue()) : -1;
+		this._townId = (town != null) ? Integer.parseInt(town.getNodeValue()) : -1;
 	}
 
 	private void parseSettings(Node n) throws Exception
@@ -462,22 +484,15 @@ public abstract class L2Zone
 		Node noescape = n.getAttributes().getNamedItem("noescape");
 		Node boss = n.getAttributes().getNamedItem("boss");
 		Node abnorm = n.getAttributes().getNamedItem("abnormal");
+		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
 		
 		this._pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
 		this._noLanding = (nolanding != null) ? Boolean.parseBoolean(nolanding.getNodeValue()) : false;
 		this._noEscape = (noescape != null) ? Boolean.parseBoolean(noescape.getNodeValue()) : false;
 		this._abnormal = (abnorm != null) ? Integer.parseInt(abnorm.getNodeValue()) : 0;
+		this._exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
 		if(boss != null)
-			attachBossZone(boss.getNodeValue());
-	}
-
-	private void attachBossZone(String lair)
-	{
-		     if("Antharas".equalsIgnoreCase(lair)) AntharasManager.getInstance().registerZone(this);
-		else if("Baium".equalsIgnoreCase(lair)) BaiumManager.getInstance().registerZone(this);
-		else if("Sailren".equalsIgnoreCase(lair)) SailrenManager.getInstance().registerZone(this);
-		else if("Valakas".equalsIgnoreCase(lair)) ValakasManager.getInstance().registerZone(this);
-		else if("VanHalter".equalsIgnoreCase(lair)) VanHalterManager.getInstance().registerZone(this);
+			this._boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
 	}
 
 	private void parseMessages(Node n) throws Exception

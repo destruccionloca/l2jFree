@@ -15,18 +15,40 @@
 package net.sf.l2j.gameserver.model.zone;
 
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.base.Race;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
-public class L2MothertreeZone extends L2BasicZone
+public class L2MothertreeZone extends L2DefaultZone
 {
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered tree zone "+getId());
+		if (character instanceof L2PcInstance)
+		{
+			L2PcInstance player = (L2PcInstance)character;
+
+			if (player.getRace() != Race.Elf) return;
+
+			if (player.isInParty())
+			{
+				for (L2PcInstance member : player.getParty().getPartyMembers())
+					if (member.getRace() != Race.Elf) return;
+			}
+
+			player.setInsideZone(FLAG_MOTHERTREE, true);
+			player.sendPacket(new SystemMessage(SystemMessageId.ENTER_SHADOW_MOTHER_TREE));
+		}
 	}
-	
+
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left tree zone "+getId());
+		if (character instanceof L2PcInstance && character.isInsideZone(L2Zone.FLAG_MOTHERTREE))
+		{
+			character.setInsideZone(FLAG_MOTHERTREE, false);
+			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));
+		}
 	}
 }

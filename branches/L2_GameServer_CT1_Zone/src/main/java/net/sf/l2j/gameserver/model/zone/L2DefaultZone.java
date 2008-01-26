@@ -14,19 +14,97 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Skill;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
-public class L2DefaultZone extends L2BasicZone
+public class L2DefaultZone extends L2Zone
 {
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered default zone "+getId());
+		if(_onEnterMsg != null && character instanceof L2PcInstance)
+			character.sendPacket(_onEnterMsg);
+		
+		if(_abnormal > 0)
+			character.startAbnormalEffect(_abnormal);
+		
+		if(_applyEnter != null)
+		{
+			for(L2Skill sk : _applyEnter)
+				sk.getEffects(character, character);
+		}
+		if(_removeEnter != null)
+		{
+			for(L2Skill sk : _removeEnter)
+				character.stopSkillEffects(sk.getId());
+		}
+
+		if (_pvp == PvpSettings.PVP)
+		{
+			character.setInsideZone(FLAG_PVP, true);
+			if (character instanceof L2PcInstance)
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+		}
+		else if (_pvp == PvpSettings.PEACE)
+		{
+			boolean peace = true;
+			if (character instanceof L2PcInstance)
+			{
+				if (((L2PcInstance)character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
+				{
+					peace = false;
+				}
+			}
+
+			if (Config.ZONE_TOWN == 2)
+				peace = false;
+			
+			if (peace == true)
+				character.setInsideZone(FLAG_PEACE, true);
+		}
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left default zone "+getId());
+		if(_onExitMsg != null && character instanceof L2PcInstance)
+			character.sendPacket(_onExitMsg);
+
+		if(_abnormal > 0)
+			character.stopAbnormalEffect(_abnormal);
+
+		if(_applyExit != null)
+		{
+			for(L2Skill sk : _applyExit)
+				sk.getEffects(character, character);
+		}
+		if(_removeExit != null)
+		{
+			for(L2Skill sk : _removeExit)
+				character.stopSkillEffects(sk.getId());
+		}
+		
+		if (_pvp == PvpSettings.PVP)
+			character.setInsideZone(FLAG_PVP, false);
+		else if (_pvp == PvpSettings.PEACE)
+			character.setInsideZone(FLAG_PEACE, false);
+	}
+
+	@Override
+	public final void onDieInside(L2Character character)
+	{
+		if (_exitOnDeath)
+			onExit(character);
+	}
+	
+	@Override
+	public final void onReviveInside(L2Character character)
+	{
+		if (_exitOnDeath)
+			onEnter(character);
 	}
 }

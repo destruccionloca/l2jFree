@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.usercommandhandlers;
 
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;

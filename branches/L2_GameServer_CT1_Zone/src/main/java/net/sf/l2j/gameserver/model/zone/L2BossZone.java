@@ -14,19 +14,49 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import net.sf.l2j.gameserver.instancemanager.AntharasManager;
+import net.sf.l2j.gameserver.instancemanager.BaiumManager;
+import net.sf.l2j.gameserver.instancemanager.SailrenManager;
+import net.sf.l2j.gameserver.instancemanager.ValakasManager;
+import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
 import net.sf.l2j.gameserver.model.L2Character;
 
-public class L2BossZone extends L2BasicZone
+public class L2BossZone extends L2DefaultZone
 {
+	@Override
+	protected void register()
+	{
+		switch(_boss)
+		{
+			case ANTHARAS:
+				AntharasManager.getInstance().registerZone(this);
+				break;
+			case BAIUM:
+				BaiumManager.getInstance().registerZone(this);
+				break;
+			case SAILREN:
+				SailrenManager.getInstance().registerZone(this);
+				break;
+			case VALAKAS:
+				ValakasManager.getInstance().registerZone(this);
+				break;
+			case VANHALTER:
+				VanHalterManager.getInstance().registerZone(this);
+				break;
+		}
+	}
+
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered boss zone "+getId());
+		if (_boss == Boss.SUNLIGHTROOM)
+			character.setInsideZone(FLAG_SUNLIGHTROOM, true);
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left boss zone "+getId());
+		if (_boss == Boss.SUNLIGHTROOM)
+			character.setInsideZone(FLAG_SUNLIGHTROOM, false);
 	}
 }

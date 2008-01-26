@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.instancemanager.FishingZoneManager;
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.GeoData;
 import net.sf.l2j.gameserver.model.Inventory;
@@ -89,7 +89,7 @@ public class Fishing implements ISkillHandler
         int x = activeChar.getX() - dx;
         int y = activeChar.getY() + dy;
         
-        L2Zone water = FishingZoneManager.getInstance().isInsideWaterZone(x, y);
+        L2Zone water = ZoneManager.getInstance().isInsideWaterZone(x, y);
         
         // float must be in water
         if (water == null)

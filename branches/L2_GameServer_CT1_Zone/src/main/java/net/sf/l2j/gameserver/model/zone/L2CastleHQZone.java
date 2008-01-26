@@ -14,19 +14,31 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Castle;
 
-public class L2CastleHQZone extends L2BasicZone
+public class L2CastleHQZone extends L2CastleZone
 {
+	@Override
+	protected void register()
+	{
+		_castle = CastleManager.getInstance().getCastleById(_castleId);
+		_castle.getHeadQuarters().registerZone(this);
+	}
+
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered castle hq zone "+getId());
+		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
+			character.sendMessage("Entered castle HQ zone "+getId());
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left castle hq zone "+getId());
+		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
+			character.sendMessage("Left castle HQ zone "+getId());
 	}
 }

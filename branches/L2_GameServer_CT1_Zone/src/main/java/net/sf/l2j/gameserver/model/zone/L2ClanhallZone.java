@@ -14,19 +14,52 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.network.serverpackets.AgitDecoInfo;
 
-public class L2ClanhallZone extends L2BasicZone
+public class L2ClanhallZone extends L2DefaultZone
 {
+	protected ClanHall _clanhall;
+
+	@Override
+	protected void register()
+	{
+		_clanhall = ClanHallManager.getInstance().getClanHallById(_clanhallId);
+		_clanhall.registerZone(this);
+	}
+
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered your clanhall");
+		if (character instanceof L2PcInstance)
+		{
+			// Set as in clan hall
+			character.setInsideZone(FLAG_CLANHALL, true);
+
+			// Send decoration packet
+			AgitDecoInfo deco = new AgitDecoInfo(_clanhall);
+			((L2PcInstance)character).sendPacket(deco);
+
+			// Send a message
+			if (_clanhall.getOwnerId() != 0 && _clanhall.getOwnerId() == ((L2PcInstance)character).getClanId())
+				((L2PcInstance)character).sendMessage("You have entered your clan hall");
+		}
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left your clanhall");
+		if (character instanceof L2PcInstance)
+		{
+			// Unset clanhall zone
+			character.setInsideZone(FLAG_CLANHALL, false);
+
+			// Send a message
+			if (_clanhall.getOwnerId() != 0 && _clanhall.getOwnerId() == ((L2PcInstance)character).getClanId())
+				((L2PcInstance)character).sendMessage("You have left your clan hall");
+		}
 	}
 }

@@ -14,19 +14,39 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
-public class L2JailZone extends L2BasicZone
+public class L2JailZone extends L2DefaultZone
 {
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered jail zone "+getId());
+		if (character instanceof L2PcInstance)
+		{
+			character.setInsideZone(FLAG_JAIL, true);
+			if(Config.JAIL_IS_PVP)
+			{
+				character.setInsideZone(FLAG_PVP, true);
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+			}
+		}
 	}
-	
+
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left jail zone "+getId());
+		if (character instanceof L2PcInstance)
+		{
+			character.setInsideZone(FLAG_JAIL, false);
+			if(Config.JAIL_IS_PVP)
+			{
+				character.setInsideZone(FLAG_PVP, false);
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+			}
+		}
 	}
 }

@@ -14,19 +14,62 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
+import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.NpcInfo;
 
-public class L2WaterZone extends L2BasicZone
+public class L2WaterZone extends L2DefaultZone
 {
+	@Override
+	protected void register()
+	{
+		ZoneManager.getInstance().getWaterZones().add(this);
+	}
+
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		character.sendMessage("Entered water zone "+getId());
+		character.setInsideZone(FLAG_WATER, true);
+
+		if (character instanceof L2PcInstance)
+		{
+			//if (((L2PcInstance) character).isMounted())
+				//((L2PcInstance) character).dismount();
+
+			if (((L2PcInstance) character).isTransformed()
+				&& !((L2PcInstance) character).isCursedWeaponEquiped())
+			{
+				((L2PcInstance) character).untransform();
+			}
+			// TODO: update to only send speed status when that packet is known
+			else
+				((L2PcInstance) character).broadcastUserInfo();
+		}
+		else if (character instanceof L2NpcInstance)
+		{
+			for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
+				if (player != null)
+					player.sendPacket(new NpcInfo((L2NpcInstance)character, player));
+		}
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.sendMessage("Left water zone "+getId());
+		character.setInsideZone(FLAG_WATER, false);
+
+		// TODO: update to only send speed status when that packet is known
+		if (character instanceof L2PcInstance)
+		{
+			((L2PcInstance) character).broadcastUserInfo();
+		}
+		else if (character instanceof L2NpcInstance)
+		{
+			for (L2PcInstance player : character.getKnownList().getKnownPlayers().values())
+				if (player != null)
+					player.sendPacket(new NpcInfo((L2NpcInstance)character, player));
+		}
 	}
 }
