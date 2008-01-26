@@ -96,7 +96,7 @@
 		</repository>
 		<repository>
 			<id>ibiblio maven2</id>
-			<url>http://www.ibiblio.org/maven/</url>
+			<url>http://www.ibiblio.org/maven2/</url>
 		</repository>
 	</repositories>
 	<dependencies>
