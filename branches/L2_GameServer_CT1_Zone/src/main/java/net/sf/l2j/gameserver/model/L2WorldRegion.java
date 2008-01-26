@@ -76,6 +76,11 @@ public final class L2WorldRegion
         _zones = new FastList<L2Zone>();
     }
 
+    public FastList<L2Zone> getZones()
+    {
+        return _zones;
+    }
+
     public void addZone(L2Zone zone)
     {
         _zones.add(zone);

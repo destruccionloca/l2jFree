@@ -59,10 +59,23 @@ public class ZoneManager
         return _instance;
     }
 
-    public void reload()
-    {
-        //load(); TODO
-    }
+	public void reload()
+	{
+		int zoneCount = 0;
+		
+		// Get the world regions
+		L2WorldRegion[][] worldRegions = L2World.getInstance().getAllWorldRegions();
+		for (int x=0; x < worldRegions.length; x++)
+		{
+			for (int y=0; y < worldRegions[x].length; y++)
+			{
+				worldRegions[x][y].getZones().clear();
+			}
+		}
+
+		// Load the zones
+		load();
+	}
 
     private void load()
     {
@@ -77,7 +90,7 @@ public class ZoneManager
                 factory.setIgnoringComments(true);
                 doc = factory.newDocumentBuilder().parse(f);
             }
-			catch (Exception e)
+            catch (Exception e)
             {
                 _log.fatal("ZoneManager: Error loading file " + f.getAbsolutePath(), e);
             }
@@ -85,7 +98,7 @@ public class ZoneManager
             {
                 parseDocument(doc);
             }
-			catch (Exception e)
+            catch (Exception e)
             {
                 _log.fatal("ZoneManager: Error in file " + f.getAbsolutePath(), e);
             }

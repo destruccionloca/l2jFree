@@ -31,11 +31,9 @@ public class Town extends Entity
 	private L2MapRegion _region;
 	private int _townId;
 
-	@Override
-	public void registerZone(L2Zone zone)
+	public Town(L2Zone zone)
 	{
-		_zone = zone;
-		_region = findMapRegion();
+		_region = findMapRegion(zone);
 	}
 
 	public final Castle getCastle()
@@ -48,58 +46,12 @@ public class Town extends Entity
 		return TownManager.getInstance().getTownName(getTownId());
 	}
 
-	
-	/*public final Location getSpawn()
-	{
-		Town town = this;
-		
-        // If a redirect to town id is avail, town belongs to a castle,
-		// and castle is under siege then redirect		
-		if (TownManager.getInstance().townHasCastleInSiege(getTownId()))
-			town = TownManager.getInstance().getTown(TownManager.getInstance().getRedirectTownNumber(getTownId()));
-		
-		Location loc = null;
-		for(L2Zone zone : town.getTerritory())
-		{
-			loc = zone.getRestartPoint(RestartType.RestartNormal);
-			if (loc != null) break;
-		}
-		return loc;
-	}
-
-	public final Location getKarmaSpawn()
-	{
-		Town town = this;
-		
-        // If a redirect to town id is avail, town belongs to a castle,
-		// and castle is under siege then redirect
-		if (TownManager.getInstance().townHasCastleInSiege(getTownId()))
-			town = TownManager.getInstance().getTown(TownManager.getInstance().getRedirectTownNumber(getTownId()));
-		
-		Location loc = null;
-		for(L2Zone zone: town.getTerritory())
-		{
-			loc = zone.getRestartPoint(RestartType.RestartChaotic);
-			if (loc != null) break;
-		}
-		return loc;
-	}*/
-
-	public final boolean isInPeace()
-	{
-        if (Config.ZONE_TOWN == 2) return false;
-		if (Config.ZONE_TOWN == 1 && 
-			TownManager.getInstance().townHasCastleInSiege(getTownId())) return false;
-           
-		return true;
-	}
-	
 	public L2MapRegion getMapRegion()
 	{
 		return _region;
 	}
 	
-	private L2MapRegion findMapRegion()
+	private L2MapRegion findMapRegion(L2Zone zone)
 	{
 		int middleX = _zone.getMiddleX();
 		int middleY = _zone.getMiddleY();

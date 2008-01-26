@@ -75,7 +75,7 @@ public class Loc implements IUserCommandHandler
         			activeChar.sendPacket(message);
         		}
         		else
-        			activeChar.sendMessage("Restart at the Town of Gludio.");        			
+        			activeChar.sendMessage("Restart at the Town of Gludio.");
         	}
         	else
         		if (SystemMessageId.LOC_GM_CONSULATION_SERVICE_S1_S2_S3.getId() == restart.getLocName())

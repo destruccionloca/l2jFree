@@ -51,19 +51,7 @@ public class L2DefaultZone extends L2Zone
 		}
 		else if (_pvp == PvpSettings.PEACE)
 		{
-			boolean peace = true;
-			if (character instanceof L2PcInstance)
-			{
-				if (((L2PcInstance)character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
-				{
-					peace = false;
-				}
-			}
-
-			if (Config.ZONE_TOWN == 2)
-				peace = false;
-			
-			if (peace == true)
+			if (Config.ZONE_TOWN != 2)
 				character.setInsideZone(FLAG_PEACE, true);
 		}
 	}

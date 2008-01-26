@@ -137,6 +137,12 @@ public abstract class L2Zone
 		return _name;
 	}
 
+	public String getClassName()
+	{
+		String[] parts = this.getClass().toString().split(".");
+		return parts[parts.length-1];
+	}
+
 	public int getCastleId()
 	{
 		return _castleId;
@@ -323,6 +329,16 @@ public abstract class L2Zone
 				return true;
 		}
 		return false;
+	}
+
+	public int getMaxZ(L2Object obj)
+	{
+		return getMaxZ(obj.getX(), obj.getY(), obj.getZ());
+	}
+
+	public int getMinZ(L2Object obj)
+	{
+		return getMinZ(obj.getX(), obj.getY(), obj.getZ());
 	}
 
 	public int getMaxZ(int x, int y, int z)
