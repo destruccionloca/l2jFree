@@ -52,7 +52,7 @@ public class L2DoormenInstance extends L2FolkInstance
     {
         //_log.warn(this.getName()+" searching ch");
         if (_clanHall == null)
-            _clanHall = ClanHallManager.getInstance().getClanHall(getX(), getY(), 500);
+            _clanHall = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
         //if (_ClanHall != null)
         //    _log.warn(this.getName()+" found ch "+_ClanHall.getName());
         return _clanHall;

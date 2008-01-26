@@ -1075,7 +1075,7 @@ public final class Formulas
             if (player.isSitting()) init *= 2.5;      // Sitting.
             else if (!player.isRunning()) init *= 1.5; // Not running
             else if (!player.isMoving()) init *= 1.1; // Staying
-            else init *= 0.7; // Running
+            else if (player.isRunning()) init *= 0.7; // Running
 
             // Add MEN bonus
             init *= cha.getLevelMod() * MENbonus[cha.getStat().getMEN()];

@@ -25,8 +25,6 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegionRestart;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,8 +70,10 @@ public class TownManager
     private final void load()
     {
         // go through all world zones and search for town zones
-        for (short region : ZoneManager.getInstance().getZoneMap().keySet())
+        /*for (short region : ZoneManager.getInstance().getZoneMap().keySet())
+		{
             for (Map.Entry<ZoneType, FastList<IZone>> zt : ZoneManager.getInstance().getZoneMap().get(region).entrySet())
+			{
                 for (IZone zone : zt.getValue())
                 {
                     if (zone.getTownId() > -1)
@@ -89,6 +89,8 @@ public class TownManager
                         getTowns().get(zone.getTownId()).addTerritory(zone);
                     }
                 }
+			}
+		}*/
         _log.info("TownManager: Loaded " + getTowns().size() + " towns.");
     }
 

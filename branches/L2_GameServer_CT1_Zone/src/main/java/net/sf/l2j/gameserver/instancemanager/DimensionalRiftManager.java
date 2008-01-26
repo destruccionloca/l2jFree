@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Spawn;
+import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.DimensionalRift;
@@ -72,8 +73,7 @@ public class DimensionalRiftManager
 
     private DimensionalRiftManager()
     {
-        loadRooms();
-        loadSpawns();
+        load();
     }
 
     public DimensionalRiftRoom getRoom(byte type, byte room)
@@ -81,67 +81,7 @@ public class DimensionalRiftManager
         return _rooms.get(type) == null ? null : _rooms.get(type).get(room);
     }
 
-    private void loadRooms()
-    {
-        Connection con = null;
-
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement s = con.prepareStatement("SELECT * FROM dimensional_rift");
-            ResultSet rs = s.executeQuery();
-
-            while(rs.next())
-            {
-                // 0 waiting room, 1 recruit, 2 soldier, 3 officer, 4 captain , 5 commander, 6 hero
-                byte type = rs.getByte("type");
-                byte room_id = rs.getByte("room_id");
-
-                //coords related
-                int xMin = rs.getInt("xMin");
-                int xMax = rs.getInt("xMax");
-                int yMin = rs.getInt("yMin");
-                int yMax = rs.getInt("yMax");
-                int z1 = rs.getInt("zMin");
-                int z2 = rs.getInt("zMax");
-                int xT = rs.getInt("xT");
-                int yT = rs.getInt("yT");
-                int zT = rs.getInt("zT");
-                boolean isBossRoom = rs.getByte("boss") > 0;
-
-                if(!_rooms.containsKey(type))
-                    _rooms.put(type, new FastMap<Byte, DimensionalRiftRoom>());
-
-                _rooms.get(type).put(room_id, new DimensionalRiftRoom(type, room_id, xMin, xMax, yMin, yMax, z1, z2, xT, yT, zT, isBossRoom));
-            }
-
-            s.close();
-            con.close();
-        }
-        catch (Exception e)
-        {
-            _log.warn("Can't load Dimension Rift zones. " + e);
-        }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            { /*do nothing */}
-        }
-
-        int typeSize = _rooms.keySet().size();
-        int roomSize = 0;
-
-        for(Byte b : _rooms.keySet())
-            roomSize += _rooms.get(b).keySet().size();
-
-        _log.info("DimensionalRiftManager: Loaded " + typeSize + " room types with " + roomSize + " rooms.");
-    }
-
-    public void loadSpawns()
+    public void load()
     {
         int countGood = 0, countBad = 0;
         try
@@ -160,6 +100,8 @@ public class DimensionalRiftManager
             int mobId, x, y, z, delay, count;
             L2Spawn spawnDat;
             L2NpcTemplate template;
+            int xMin, xMax, yMin, yMax, zMin, zMax, xT, yT, zT;
+            boolean isBossRoom;
 
             for (Node rift = doc.getFirstChild(); rift != null; rift = rift.getNextSibling())
             {
@@ -178,6 +120,22 @@ public class DimensionalRiftManager
                                 {
                                     attrs = room.getAttributes();
                                     roomId = Byte.parseByte(attrs.getNamedItem("id").getNodeValue());
+
+                                    xMin = Integer.parseInt(attrs.getNamedItem("xMin").getNodeValue());
+                                    xMax = Integer.parseInt(attrs.getNamedItem("xMax").getNodeValue());
+                                    yMin = Integer.parseInt(attrs.getNamedItem("yMin").getNodeValue());
+                                    yMax = Integer.parseInt(attrs.getNamedItem("yMax").getNodeValue());
+                                    zMin = Integer.parseInt(attrs.getNamedItem("zMin").getNodeValue());
+                                    zMax = Integer.parseInt(attrs.getNamedItem("zMax").getNodeValue());
+                                    xT = Integer.parseInt(attrs.getNamedItem("xT").getNodeValue());
+                                    yT = Integer.parseInt(attrs.getNamedItem("yT").getNodeValue());
+                                    zT = Integer.parseInt(attrs.getNamedItem("zT").getNodeValue());
+                                    isBossRoom = Boolean.parseBoolean(attrs.getNamedItem("isBossRoom").getNodeValue());
+
+                                    if(!_rooms.containsKey(type))
+                                        _rooms.put(type, new FastMap<Byte, DimensionalRiftRoom>());
+
+                                    _rooms.get(type).put(roomId, new DimensionalRiftRoom(type, roomId, xMin, xMax, yMin, yMax, zMin, zMax, xT, yT, zT, isBossRoom));
 
                                     for (Node spawn = room.getFirstChild(); spawn != null; spawn = spawn.getNextSibling())
                                     {
@@ -204,28 +162,28 @@ public class DimensionalRiftManager
                                             
                                             for (int i = 0; i < count; i++)
                                             {
-	                                            DimensionalRiftRoom riftRoom = _rooms.get(type).get(roomId);
-	                                            x = riftRoom.getRandomX();
-	                                            y = riftRoom.getRandomY();
-	                                            z = riftRoom.getTeleportCoords()[2];
+                                                DimensionalRiftRoom riftRoom = _rooms.get(type).get(roomId);
+                                                x = riftRoom.getRandomX();
+                                                y = riftRoom.getRandomY();
+                                                z = riftRoom.getTeleportCoords()[2];
 
-	                                            if (template != null && _rooms.containsKey(type) && _rooms.get(type).containsKey(roomId))
-	                                            {
-	                                                spawnDat = new L2Spawn(template);
-	                                                spawnDat.setAmount(1);
-	                                                spawnDat.setLocx(x);
-	                                                spawnDat.setLocy(y);
-	                                                spawnDat.setLocz(z);
-	                                                spawnDat.setHeading(-1);
-	                                                spawnDat.setRespawnDelay(delay);
-	                                                SpawnTable.getInstance().addNewSpawn(spawnDat, false);
-	                                                _rooms.get(type).get(roomId).getSpawns().add(spawnDat);
-	                                                countGood++;
-	                                            }
-	                                            else
-	                                            {
-	                                                countBad++;
-	                                            }
+                                                if (template != null && _rooms.containsKey(type) && _rooms.get(type).containsKey(roomId))
+                                                {
+                                                    spawnDat = new L2Spawn(template);
+                                                    spawnDat.setAmount(1);
+                                                    spawnDat.setLocx(x);
+                                                    spawnDat.setLocy(y);
+                                                    spawnDat.setLocz(z);
+                                                    spawnDat.setHeading(-1);
+                                                    spawnDat.setRespawnDelay(delay);
+                                                    SpawnTable.getInstance().addNewSpawn(spawnDat, false);
+                                                    _rooms.get(type).get(roomId).getSpawns().add(spawnDat);
+                                                    countGood++;
+                                                }
+                                                else
+                                                {
+                                                    countBad++;
+                                                }
                                             }
                                         }
                                     }
@@ -241,6 +199,13 @@ public class DimensionalRiftManager
             _log.warn("Error on loading dimensional rift spawns: " + e);
             e.printStackTrace();
         }
+        int typeSize = _rooms.keySet().size();
+        int roomSize = 0;
+
+        for(Byte b : _rooms.keySet())
+            roomSize += _rooms.get(b).keySet().size();
+
+        _log.info("DimensionalRiftManager: Loaded " + typeSize + " room types with " + roomSize + " rooms.");
         _log.info("DimensionalRiftManager: Loaded " + countGood + " dimensional rift spawns, "+countBad + " errors.");
     }
 
@@ -255,8 +220,7 @@ public class DimensionalRiftManager
             _rooms.get(b).clear();
        }
         _rooms.clear();
-        loadRooms();
-        loadSpawns();
+        load();
     }
 
     public boolean checkIfInRiftZone(int x, int y, int z, boolean ignorePeaceZone)
@@ -277,6 +241,12 @@ public class DimensionalRiftManager
         int[] coords = getRoom((byte) 0, (byte) 0).getTeleportCoords();
         player.teleToLocation(coords[0], coords[1], coords[2]);
     }
+
+	public Location getWaitingRoomTeleport()
+	{
+		int[] coords = getRoom((byte) 0, (byte) 0).getTeleportCoords();
+		return new Location(coords[0], coords[1], coords[2]);
+	}
 
     public void start(L2PcInstance player, byte type, L2NpcInstance npc)
     {

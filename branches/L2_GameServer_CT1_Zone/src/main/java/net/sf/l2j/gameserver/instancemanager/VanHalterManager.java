@@ -305,12 +305,6 @@ public class VanHalterManager extends Entity
 
     }
 
-	@Override
-	public boolean checkBanish(L2PcInstance player)
-	{
-		return false;
-	}
-
     protected void spawnRoyalGuard()
     {
     	if (!_royalGuard.isEmpty()) deleteRoyalGuard();

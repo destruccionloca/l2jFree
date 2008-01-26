@@ -78,9 +78,9 @@ public class Castle extends Entity
 	private int _taxPercent					= 0;
 	private double _taxRate					= 0;
 	private int _treasury					= 0;
-	private L2Zone _zoneHQ;
-	private L2Zone _zoneBF;
-	private L2Zone _zoneDS;
+	private Entity _zoneHQ;
+	private Entity _zoneBF;
+	private Entity _zoneDS;
 	private L2Clan _formerOwner;
 	private int _nbArtifact					= 1;
 	private Map<Integer, Integer> _engrave  = new FastMap<Integer, Integer>();
@@ -95,6 +95,11 @@ public class Castle extends Entity
 
 		load();
 		loadDoor();
+		
+		// Dummy entities the zones will register to
+		_zoneHQ = new Entity();
+		_zoneBF = new Entity();
+		_zoneDS = new Entity();
 	}
 
 	public void Engrave(L2Clan clan, int objId) 
@@ -205,7 +210,7 @@ public class Castle extends Entity
 	 */
 	public boolean checkIfInZoneBattlefield(int x, int y, int z)
 	{
-		return getBattlefield().isInsideZone(x, y, z);
+		return getBattlefield().checkIfInZone(x, y, z);
 	}
 	
 	/**
@@ -221,7 +226,7 @@ public class Castle extends Entity
 	 */
 	public boolean checkIfInZoneHeadQuarters(int x, int y, int z)
 	{
-		return getHeadQuarters().isInsideZone(x, y, z);
+		return getHeadQuarters().checkIfInZone(x, y, z);
 	}
 	
 	public void closeDoor(L2PcInstance activeChar, int doorId)
@@ -688,24 +693,18 @@ public class Castle extends Entity
 		return _treasury;
 	}
 
-	public final L2Zone getHeadQuarters()
+	public final Entity getHeadQuarters()
 	{
-		//if (_zoneHQ == null)
-		//	_zoneHQ = ZoneManager.getInstance().getZone(ZoneType.CastleHQ, getCastleId());
 		return _zoneHQ;
 	}
 	
-	public final L2Zone getBattlefield()
+	public final Entity getBattlefield()
 	{
-		//if (_zoneBF == null)
-		//	_zoneBF = ZoneManager.getInstance().getZone(ZoneType.SiegeBattleField, getCastleId());
 		return _zoneBF;
 	}
 
-	public final L2Zone getDefenderSpawn()
+	public final Entity getDefenderSpawn()
 	{
-		//if (_zoneDS == null)
-		//	_zoneDS = ZoneManager.getInstance().getZone(ZoneType.DefenderSpawn, getCastleId());
 		return _zoneDS;
 	}
 

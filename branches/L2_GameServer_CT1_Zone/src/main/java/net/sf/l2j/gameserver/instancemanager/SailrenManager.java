@@ -317,12 +317,6 @@ public class SailrenManager extends Entity
     	_isAlreadyEnteredOtherParty = false;
     }
 
-	@Override
-	public boolean checkBanish(L2PcInstance player)
-	{
-		return false;
-	}
-    
     // clean up sailren's lair.
     public void setUnspawn()
 	{

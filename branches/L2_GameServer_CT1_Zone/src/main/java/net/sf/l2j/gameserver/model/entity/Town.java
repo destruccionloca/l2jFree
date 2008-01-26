@@ -48,11 +48,6 @@ public class Town extends Entity
 		return TownManager.getInstance().getTownName(getTownId());
 	}
 
-	@Override
-	public boolean checkBanish(L2PcInstance player)
-	{
-		return false;
-	}
 	
 	/*public final Location getSpawn()
 	{

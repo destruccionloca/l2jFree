@@ -27,7 +27,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-public abstract class Entity
+public class Entity
 {
 	protected static Log _log = LogFactory.getLog(Entity.class.getName());
 
@@ -36,6 +36,11 @@ public abstract class Entity
 	public void registerZone(L2Zone zone)
 	{
 		_zone = zone;
+	}
+
+	public L2Zone getZone()
+	{
+		return _zone;
 	}
 
 	public int getTownId()
@@ -88,53 +93,56 @@ public abstract class Entity
 		return _zone.isInsideZone(x, y);
 	}
 
-    public double getDistanceToZone(int x, int y) 
-    { 
+	public double getDistanceToZone(int x, int y) 
+	{
 		if(_zone == null)
 		{
 			_log.error("No zone"); //Proper message needed
 			return Double.MAX_VALUE;
 		}
-        else
-            return _zone.getDistanceToZone(x, y);
-    }
+		else
+			return _zone.getDistanceToZone(x, y);
+	}
 
-	protected abstract boolean checkBanish(L2PcInstance cha);
+	protected boolean checkBanish(L2PcInstance cha)
+	{
+		return false;
+	}
 
 	public void banishForeigner(L2PcInstance activeChar)
-    {
-        // Get players from this and nearest world regions
-        for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
-        {
-            if(!(player instanceof L2PcInstance))
+	{
+		// Get players from this and nearest world regions
+		for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
+		{
+			if(!(player instanceof L2PcInstance))
 				continue;
 
-            if (!checkBanish((L2PcInstance)player))
-                continue;
+			if (!checkBanish((L2PcInstance)player))
+				continue;
 
-            if (checkIfInZone(player))
+			if (checkIfInZone(player))
 				player.teleToLocation(TeleportWhereType.Town); 
-        }
-    }
+		}
+	}
 
 	public void broadcastToPlayers(String message)
 	{
 		SystemMessage msg = SystemMessage.sendString(message);
-        // Get players from this and nearest world regions
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-        {
+		// Get players from this and nearest world regions
+		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		{
 			if (checkIfInZone(player))
 				player.sendPacket(msg);
-        }
+		}
 	}
 
 	public void broadcastToPlayers(L2GameServerPacket gsp)
 	{
-        // Get players from this and nearest world regions
-        for (L2PcInstance player : L2World.getInstance().getAllPlayers())
-        {
+		// Get players from this and nearest world regions
+		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+		{
 			if (checkIfInZone(player))
 				player.sendPacket(gsp); 
-        }
+		}
 	}
 }

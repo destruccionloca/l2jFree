@@ -255,12 +255,6 @@ public class ValakasManager extends Entity
     	}
     	_playersInLair.clear();
     }
-
-	@Override
-	public boolean checkBanish(L2PcInstance player)
-	{
-		return false;
-	}
     
     // do spawn teleport cube.
     public void spawnCube()

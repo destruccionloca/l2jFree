@@ -5991,9 +5991,7 @@ public abstract class L2Character extends L2Object
 	{
 		if (target == null || !(attacker instanceof L2Character) || !(target instanceof L2Character))
 			return false;
-		if (target instanceof L2MonsterInstance)
-			return false;
-		if (attacker instanceof L2MonsterInstance)
+		if (target instanceof L2MonsterInstance || attacker instanceof L2MonsterInstance)
 			return false;
 		if (Config.ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE)
 		{
@@ -6017,27 +6015,14 @@ public abstract class L2Character extends L2Object
 					return false;
 			}
 		}
-		// Right now only L2PcInstance has up-to-date zone status...
-		if (attacker instanceof L2PcInstance)
-		{
-			if (target instanceof L2PcInstance)
-			{
-				return (((L2PcInstance) target).getInPeaceZone() || ((L2PcInstance) attacker).getInPeaceZone());
-			}
-			else
-				return (((L2PcInstance) attacker).getInPeaceZone() || ((L2Character)target).isInsideZone(L2Zone.FLAG_PEACE));
-		}
-		if (target instanceof L2PcInstance)
-		{
-			return (((L2PcInstance) target).getInPeaceZone() || ((L2Character)attacker).isInsideZone(L2Zone.FLAG_PEACE));
-		}
+
 		return (((L2Character)attacker).isInsideZone(L2Zone.FLAG_PEACE) || ((L2Character)target).isInsideZone(L2Zone.FLAG_PEACE));
 	}
 	
 	/**
 	 * return true if this character is inside an active grid.
 	 */
-	public Boolean isInActiveRegion()
+	public boolean isInActiveRegion()
 	{
 		try
 		{

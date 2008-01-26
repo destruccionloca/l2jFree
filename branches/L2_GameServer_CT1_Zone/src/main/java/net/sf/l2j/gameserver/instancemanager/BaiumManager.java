@@ -117,7 +117,7 @@ public class BaiumManager extends Entity
     protected GrandBossState _state = new GrandBossState(29020);
     protected String _questName;
     protected long _lastAttackTime = 0;
-    protected String _Words = "Don't obstruct my sleep! Die!";
+    protected String _words = "Don't obstruct my sleep! Die!";
 
     // location of banishment
     private final int _banishmentLocation[][] =
@@ -422,12 +422,6 @@ public class BaiumManager extends Entity
     	}
     	_playersInLair.clear();
     }
-
-	@Override
-	public boolean checkBanish(L2PcInstance player)
-	{
-		return false;
-	}
 
     // at end of activity time.
     private class ActivityTimeEnd implements Runnable

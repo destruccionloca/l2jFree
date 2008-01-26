@@ -1737,7 +1737,7 @@ public abstract class L2Skill
 									src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
 
-								if(trg.getInPeaceZone()) continue;
+								if(trg.isInsideZone(L2Zone.FLAG_PEACE)) continue;
 								
 								if(!srcInPvP && !targetInPvP)
 								{
@@ -1778,7 +1778,7 @@ public abstract class L2Skill
 										continue;
 								}
 								
-								if (trg.getInPeaceZone()) continue;
+								if (trg.isInsideZone(L2Zone.FLAG_PEACE)) continue;
 							}
 						}
 						else
@@ -1857,7 +1857,7 @@ public abstract class L2Skill
 									src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
 
-								if(trg.getInPeaceZone()) continue;
+								if(trg.isInsideZone(L2Zone.FLAG_PEACE)) continue;
 								
 								if(!srcInArena && !targetInPvP)
 								{
@@ -1898,7 +1898,7 @@ public abstract class L2Skill
 										continue;
 								}
 								
-								if (trg.getInPeaceZone()) continue;
+								if (trg.isInsideZone(L2Zone.FLAG_PEACE)) continue;
 							}
 						}
 						else
@@ -1978,7 +1978,7 @@ public abstract class L2Skill
 										&& src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
 								
-								if (trg.getInPeaceZone())
+								if (trg.isInsideZone(L2Zone.FLAG_PEACE))
 									continue;
 								
 								if (!srcInArena && !targetInPvP)
@@ -2011,7 +2011,7 @@ public abstract class L2Skill
 									if (src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
 										continue;
 									
-									if (trg.getInPeaceZone())
+									if (trg.isInsideZone(L2Zone.FLAG_PEACE))
 										continue;
 									
 									if (src.getClan() != null && trg.getClan() != null)
@@ -2505,7 +2505,7 @@ public abstract class L2Skill
 										&& src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
 								
-								if (trg.getInPeaceZone())
+								if (trg.isInsideZone(L2Zone.FLAG_PEACE))
 									continue;
 								
 								if (!srcInPvP && !targetInPvP)
@@ -2534,7 +2534,7 @@ public abstract class L2Skill
 										&& src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
 								
-								if (trg.getInPeaceZone())
+								if (trg.isInsideZone(L2Zone.FLAG_PEACE))
 									continue;
 								
 								if (!srcInPvP && !targetInPvP)
@@ -2594,7 +2594,7 @@ public abstract class L2Skill
 					L2Summon targetSummon = (L2Summon) target;
 					if (activeChar instanceof L2PcInstance && activeChar.getPet() != targetSummon && !targetSummon.isDead()
 							&& (targetSummon.getOwner().getPvpFlag() != 0 || targetSummon.getOwner().getKarma() > 0)
-							|| (targetSummon.getOwner().getInPvpZone() == true && ((L2PcInstance) activeChar).getInPvpZone() == true))
+							|| (targetSummon.getOwner().isInsideZone(L2Zone.FLAG_PVP) && ((L2PcInstance) activeChar).isInsideZone(L2Zone.FLAG_PVP)))
 						return new L2Character[] { targetSummon };
 				}
 				return null;

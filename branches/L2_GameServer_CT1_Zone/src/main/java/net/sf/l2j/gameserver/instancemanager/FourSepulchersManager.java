@@ -1157,12 +1157,6 @@ public class FourSepulchersManager extends Entity
     	}
     }
 
-	@Override
-	public boolean checkBanish(L2PcInstance player)
-	{
-		return false;
-	}
-
     public void checkAnnihilated(L2PcInstance player)
     {
     	if(isPartyAnnihilated(player))

@@ -658,7 +658,7 @@ public class Siege
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
             // quick check from player states, which don't include siege number however
-        	if (!player.getInSiegeZone()) continue;
+            if (!player.isInsideZone(L2Zone.FLAG_SIEGE)) continue;
         	if (checkIfInZone(player.getX(), player.getY(), player.getZ())) players.add(player);
         }
 
@@ -690,7 +690,7 @@ public class Siege
         for (L2PcInstance player : L2World.getInstance().getAllPlayers())
         {
             // quick check from player states, which don't include siege number however
-            if (!player.getInSiegeZone() || player.getSiegeState() != 0) continue;
+            if (!player.isInsideZone(L2Zone.FLAG_SIEGE) || player.getSiegeState() != 0) continue;
             if ( checkIfInZone(player.getX(), player.getY(), player.getZ()))
                 players.add(player);
         }
@@ -1435,6 +1435,6 @@ public class Siege
 
     public final L2Zone getZone()
     {
-        return getCastle().getBattlefield();
+        return getCastle().getBattlefield().getZone();
     }
 }
