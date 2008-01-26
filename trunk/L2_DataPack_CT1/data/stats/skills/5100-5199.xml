@@ -460,88 +460,91 @@
 <skill id="5130" levels="1" name="Volcano">
 <!--
   Description(s):
-      Shot Fusion skill. Hits for skill 1419, called 16 times and hits the targets with fire element. additional mp is used each time this skill is called upon.
+      Shot Fusion skill. Hits for skill 1419, called at regular intervals and hits the targets with fire element. additional mp is used each time this skill is called upon.
 -->
   <set name="mpInitialConsume" val="0"/>
   <set name="mpConsume" val="36"/>
   <set name="magicLvl" val="80"/>
   <set name="power" val="240"/>
-  <set name="target" val="TARGET_AREA"/>
-  <set name="skillRadius" val="500"/>
+  <set name="target" val="TARGET_RADIUS"/>
+  <set name="skillRadius" val="230"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>
   <set name="element" val="2"/> <!-- Fire -->
-  <set name="isMagic" val="true"/>
+  <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="500"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
   <for>
   </for>
 </skill>
+
 <skill id="5131" levels="1" name="Tsunami">
 <!--
   Description(s):
-      none
+      Shot Fusion skill. Hits for skill 1421, called at regular intervals and hits the targets with water element. additional mp is used each time this skill is called upon.
 -->
   <set name="mpInitialConsume" val="0"/>
   <set name="mpConsume" val="36"/>
   <set name="magicLvl" val="80"/>
   <set name="power" val="240"/>
-  <set name="target" val="TARGET_AREA"/>
-  <set name="skillRadius" val="500"/>
+  <set name="target" val="TARGET_RADIUS"/>
+  <set name="skillRadius" val="230"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>
   <set name="element" val="3"/>    <!-- Water -->
-  <set name="isMagic" val="true"/>
+  <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="500"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
   <for>
   </for>
 </skill>
+
 <skill id="5132" levels="1" name="Cyclone">
 <!--
   Description(s):
-      none
+      Shot Fusion skill. Hits for skill 1420, called at regular intervals and hits the targets with wind element. additional mp is used each time this skill is called upon. 
 -->
   <set name="mpInitialConsume" val="0"/>
   <set name="mpConsume" val="36"/>
   <set name="magicLvl" val="80"/>
   <set name="power" val="240"/>
-  <set name="target" val="TARGET_AREA"/>
-  <set name="skillRadius" val="500"/>
+  <set name="target" val="TARGET_RADIUS"/>
+  <set name="skillRadius" val="230"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>
   <set name="element" val="1"/> <!-- Wind -->
-  <set name="isMagic" val="true"/>
+  <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="500"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
   <for>
   </for>
 </skill>
+
 <skill id="5133" levels="1" name="Gehenna">
 <!--
   Description(s):
-      none
+      Shot Fusion skill. Hits for skill 1423, called at regular intervals and hits the targets with dark element. additional mp is used each time this skill is called upon.
 -->
   <set name="mpInitialConsume" val="0"/>
   <set name="mpConsume" val="36"/>
   <set name="magicLvl" val="80"/>
   <set name="power" val="240"/>
-  <set name="target" val="TARGET_AREA"/>
-  <set name="skillRadius" val="500"/>
+  <set name="target" val="TARGET_RADIUS"/>
+  <set name="skillRadius" val="230"/>
   <set name="skillType" val="MDAM"/>
   <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>
   <set name="element" val="6"/> <!-- Dark -->
-  <set name="isMagic" val="true"/>
+  <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="500"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
   <for>
   </for>
 </skill>

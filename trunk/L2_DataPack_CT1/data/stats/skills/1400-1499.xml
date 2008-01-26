@@ -451,27 +451,30 @@
   Description(s):
       Consecutive strikes inflict a great amount of fire damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
+  
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="magicLvl" val="80"/>
   <set name="mpConsume" val="73"/>
   <set name="power" val="500"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillRadius" val="500"/>
+  <set name="skillRadius" val="230"/>
   <set name="hitTime" val="150"/>
-  <set name="reuseDelay" val="600000"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="skillType" val="RADIUS"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="500"/>
+  <set name="isMagic" val="false"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
   <cond msg="Proper force required.">
     <player spell_force="3"/>
   </cond>
   <for>
-     <skill trigger="16" id="5130" lvl="1" time="16"/>
+     <skill trigger="15" id="5130" lvl="1" time="16"/>
      <effect count="1" name="ImobileBuff" time="16" val="0"/>
   </for>
 </skill>
+
 <skill id="1420" levels="1" name="Cyclone">
 <!--
   Description(s):
@@ -483,67 +486,113 @@
   <set name="mpConsume" val="73"/>
   <set name="power" val="500"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillRadius" val="500"/>
+  <set name="skillRadius" val="230"/>
   <set name="hitTime" val="150"/>
-  <set name="reuseDelay" val="600000"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="skillType" val="RADIUS"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="500"/>
+  <set name="isMagic" val="false"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
   <cond msg="Proper force required.">
     <player spell_force="3"/>
   </cond>
   <for>
-     <skill trigger="16" id="5132" lvl="1" time="16"/>
+     <skill trigger="15" id="5132" lvl="1" time="16"/>
      <effect count="1" name="ImobileBuff" time="16" val="0"/>
   </for>
 </skill>
+
 <skill id="1421" levels="1" name="Raging Waves">
 <!--
   Description(s):
       Consecutive strikes inflict a great amount of water damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
+  
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
   <set name="magicLvl" val="80"/>
   <set name="mpConsume" val="73"/>
   <set name="power" val="500"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillRadius" val="500"/>
+  <set name="skillRadius" val="230"/>
   <set name="hitTime" val="150"/>
-  <set name="reuseDelay" val="600000"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="skillType" val="RADIUS"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="500"/>
+  <set name="isMagic" val="false"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
   <cond msg="Proper force required.">
     <player spell_force="3"/>
   </cond>
   <for>
-     <skill trigger="16" id="5131" lvl="1" time="16"/> <!-- calling Tsunami -->
+     <skill trigger="15" id="5131" lvl="1" time="16"/> <!-- calling Tsunami -->
      <effect count="1" name="ImobileBuff" time="16" val="0"/>
   </for>
 </skill>
+
 <skill id="1422" levels="1" name="Day of Doom">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Generates a signet that produces a strong curse that decreases all abilities. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="magicLvl" val="80"/>
+  <set name="mpConsume" val="73"/>
+  <set name="power" val="500"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillRadius" val="230"/>
+  <set name="hitTime" val="150"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="skillType" val="RADIUS"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isMagic" val="false"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
+  <cond msg="Proper force required.">
+    <player spell_force="3"/>
+  </cond>
   <for>
+     <skill trigger="15" id="5145" lvl="1" time="16"/>
+     <effect count="1" name="ImobileBuff" time="16" val="0"/>
   </for>
 </skill>
+
 <skill id="1423" levels="1" name="Gehenna">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Consecutive strikes inflict a great amount of dark damage. You cannot move while casting the magic, and additional MP is consumed every time the effect is produced. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
+-->
+  
+  <set name="itemConsumeId" val="8876"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="magicLvl" val="80"/>
+  <set name="mpConsume" val="73"/>
+  <set name="power" val="500"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillRadius" val="230"/>
+  <set name="hitTime" val="150"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="skillType" val="RADIUS"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isMagic" val="false"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
+  <cond msg="Proper force required.">
+    <player spell_force="3"/>
+  </cond>
+  <for>
+     <skill trigger="15" id="5133" lvl="1" time="16"/>
+     <effect count="1" name="ImobileBuff" time="16" val="0"/>
+  </for>
+</skill>
+
+<skill id="1424" levels="1" name="Anti-Summoning Field">
+<!--
+  Description(s):
+      Generates a signet that sends a servitor to another dimension at regular intervals. Applies to all servitors in the affected area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
   <set name="itemConsumeId" val="8876"/>
   <set name="itemConsumeCount" val="1"/>
@@ -551,33 +600,20 @@
   <set name="mpConsume" val="73"/>
   <set name="power" val="500"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillRadius" val="500"/>
+  <set name="skillRadius" val="230"/>
   <set name="hitTime" val="150"/>
-  <set name="reuseDelay" val="600000"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="reuseDelay" val="1800000"/>
+  <set name="skillType" val="RADIUS"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="500"/>
-  <set name="effectRange" val="500"/>
+  <set name="isMagic" val="false"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="230"/>
   <cond msg="Proper force required.">
-    <player spell_force="3"/>
+    <player spell_force="2"/>
   </cond>
   <for>
-     <skill trigger="16" id="5133" lvl="1" time="16"/>
+     <skill trigger="15" id="5134" lvl="1" time="16"/>
      <effect count="1" name="ImobileBuff" time="16" val="0"/>
-  </for>
-</skill>
-<skill id="1424" levels="1" name="Anti-Summoning Field">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Generates a signet that sends a servitor to another dimension at regular intervals. Applies to all servitors in the affected area. Level 2 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
   </for>
 </skill>
 <skill id="1425" levels="1" name="Purification Field">
