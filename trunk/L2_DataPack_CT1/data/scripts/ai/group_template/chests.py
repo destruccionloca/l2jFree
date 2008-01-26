@@ -5,7 +5,7 @@
 import sys
 from net.sf.l2j.gameserver.ai import CtrlIntention
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.lib import Rnd;
+from net.sf.l2j.tools.random import Rnd
 
 SKILL_DELUXE_KEY = 2229
 
@@ -66,7 +66,7 @@ class chests(JQuest) :
                         npc.setSpecialDrop();
                         npc.reduceCurrentHp(99999999, player)
                         return
-                # used a skill other than chest-key, or used a chest-key but failed to open: disappear with no rewards    
+                # used a skill other than chest-key, or used a chest-key but failed to open: disappear with no rewards
                 npc.onDecay()
             else :
                 attacker = player

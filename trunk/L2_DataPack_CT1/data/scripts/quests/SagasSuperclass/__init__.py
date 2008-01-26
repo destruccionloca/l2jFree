@@ -8,7 +8,7 @@ from net.sf.l2j.gameserver.datatables import SpawnTable
 from net.sf.l2j.gameserver.ai import CtrlIntention
 from net.sf.l2j.gameserver.network.serverpackets import MagicSkillUse
 from net.sf.l2j.gameserver.model import L2World
-from net.sf.l2j.gameserver.lib import Rnd
+from net.sf.l2j.tools.random import Rnd
 
 qn = "SagasSuperclass"
 Archon_Minions = range(21646,21652)
