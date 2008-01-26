@@ -51,7 +51,7 @@ public class Ride extends L2GameServerPacket
         else if (PetDataTable.isGreatWolf(npcId))
             _rideType = 3;
         else
-            throw new IllegalArgumentException("Unsupported mount NpcId: "+npcId);
+            _rideType = 0;
     }
 
     public int getMountType()
