@@ -41,9 +41,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
+import net.sf.l2j.gameserver.model.entity.Entity;
 import net.sf.l2j.gameserver.model.entity.GrandBossState;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -59,7 +58,7 @@ import org.apache.commons.logging.LogFactory;
  @author L2J_JP SANDMAN
 **/
 
-public class VanHalterManager
+public class VanHalterManager extends Entity
 {
 	private final static Log _log = LogFactory.getLog(VanHalterManager.class.getName());
     private static VanHalterManager _instance = new VanHalterManager();
@@ -113,13 +112,6 @@ public class VanHalterManager
     boolean _isCaptainSpawned = false;
     boolean _isHelperCalled = false;
     protected GrandBossState _state = new GrandBossState(29062);
-    protected IZone  _zone;
-    protected String _zoneName;
-    
-    public VanHalterManager()
-    {
-    	
-    }
     
     public static VanHalterManager getInstance()
     {
@@ -133,7 +125,6 @@ public class VanHalterManager
     {
     	// clear intruder.
     	_playersInLair.clear();
-    	_zoneName = "Altar of Sacrifice";
 
     	// clear flag.
         _isLocked = false;
@@ -259,13 +250,6 @@ public class VanHalterManager
     {
     	return _state.getState();
     }
-    
-    public boolean checkIfInZone(L2PcInstance pc)
-    {
-    	if ( _zone == null )
-    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDungeon, _zoneName );
-    	return _zone.checkIfInZone(pc);
-    }
 
     // load Royal Guard.
     protected void loadRoyalGuard()
@@ -320,6 +304,12 @@ public class VanHalterManager
         }
 
     }
+
+	@Override
+	public boolean checkBanish(L2PcInstance player)
+	{
+		return false;
+	}
 
     protected void spawnRoyalGuard()
     {

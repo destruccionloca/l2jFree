@@ -37,7 +37,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SepulcherMonsterInstance;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.entity.Entity;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -52,7 +52,7 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  sandman
  */
-public class FourSepulchersManager
+public class FourSepulchersManager extends Entity
 {
     private final static Log _log = LogFactory.getLog(FourSepulchersManager.class.getName());
 
@@ -144,7 +144,6 @@ public class FourSepulchersManager
     protected Map<Integer,L2Spawn> _executionerSpawns = new FastMap<Integer,L2Spawn>();
     
     protected List<L2NpcInstance> _allMobs = new FastList<L2NpcInstance>();
-    protected String _zoneName = "Four Sepulcher";
     
     public FourSepulchersManager() {}
 
@@ -1158,6 +1157,12 @@ public class FourSepulchersManager
     	}
     }
 
+	@Override
+	public boolean checkBanish(L2PcInstance player)
+	{
+		return false;
+	}
+
     public void checkAnnihilated(L2PcInstance player)
     {
     	if(isPartyAnnihilated(player))
@@ -1312,7 +1317,6 @@ public class FourSepulchersManager
 
     protected class ChangeCoolDownTime implements Runnable
     {
-        
         public void run()
         {
             //_log.info("FourSepulchersManager:In Cool-Down Time");
@@ -1324,7 +1328,7 @@ public class FourSepulchersManager
             
             for(L2PcInstance player :L2World.getInstance().getAllPlayers())
             {
-            	if ( checkIfInDungeon(player) &&
+            	if ( checkIfInZone(player) &&
             		(player.getZ() >= -7250 && player.getZ() <= -6841) &&
             		!player.isGM())
             	{
@@ -1382,11 +1386,6 @@ public class FourSepulchersManager
 				_onPartyAnnihilatedTask = null;
 			}
 		}
-	}
-	
-	public boolean checkIfInDungeon(L2Object obj)
-	{
-		return ZoneManager.getInstance().checkIfInZone(ZoneType.BossDungeon, _zoneName, obj);
 	}
 
 	public Map<Integer,Integer> getHallGateKeepers()

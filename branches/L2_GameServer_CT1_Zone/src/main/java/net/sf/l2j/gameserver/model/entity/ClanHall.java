@@ -35,18 +35,12 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-public class ClanHall
+public class ClanHall extends Entity
 {
-    protected static Log _log = LogFactory.getLog(ClanHall.class.getName());
     private int _clanHallId;
     private List<L2DoorInstance> _doors;
     private List<String> _doorDefault;
@@ -56,7 +50,6 @@ public class ClanHall
     private String _desc;
     private String _location;
     protected long _paidUntil;
-    private IZone _zone;
     private int _grade;
     protected final int _chRate = 604800000;
     protected boolean _isFree = true;
@@ -234,14 +227,6 @@ public class ClanHall
         return _ownerId;
     }
 
-    /** Return zone */
-    public final IZone getZone()
-    {
-        if (_zone == null) 
-            _zone = ZoneManager.getInstance().getZone(ZoneType.ClanHall, _clanHallId);
-        return _zone;
-    }
-
     /** Return lease*/
     public final int getLease()
     {
@@ -297,34 +282,6 @@ public class ClanHall
         if(_functions.get(type) != null)
             return _functions.get(type);
         return null;
-    }
-
-    /** Return true if object is inside the zone */
-    public boolean checkIfInZone(L2Object obj) 
-    { 
-        return checkIfInZone(obj.getX(), obj.getY()); 
-    }
-
-    /** Return true if object is inside the zone */
-    public boolean checkIfInZone(int x, int y) 
-    {
-        IZone zone = getZone();
-        if (zone == null)
-            return false;
-        else 
-            return zone.checkIfInZone(x, y); 
-    }
-
-    /** Calculate distance to zone */
-    public double findDistanceToZone(int x, int y, int z, boolean checkZ) 
-    { 
-        IZone zone = getZone();
-        if (zone == null)
-            return Double.MAX_VALUE;
-        else if (checkZ)
-            return zone.getZoneDistance(x, y, z);
-        else
-            return zone.getZoneDistance(x, y);
     }
 
     /** Free this clan hall */
@@ -417,19 +374,11 @@ public class ClanHall
         }
     }
 
-    /** Banish Foreigner */
-    public void banishForeigner(L2PcInstance activeChar)
-    {
-        // Get players from this and nearest world regions
-        for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
-        {
-            if(!(player instanceof L2PcInstance)) continue;
-            // Skip if player is in clan
-            if (((L2PcInstance)player).getClanId() == getOwnerId())
-                continue;
-            if (checkIfInZone(player)) player.teleToLocation(TeleportWhereType.Town); 
-        }
-    }
+	@Override
+	public boolean checkBanish(L2PcInstance cha)
+	{
+		return cha.getClanId() != getOwnerId();
+	}
 
     /** Load All Functions */
     private void loadFunctions()

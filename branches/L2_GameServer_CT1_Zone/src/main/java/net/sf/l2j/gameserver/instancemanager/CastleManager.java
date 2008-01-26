@@ -25,8 +25,6 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,15 +57,15 @@ public class CastleManager
 			double closestDistance = Double.MAX_VALUE;
 			double distance;
 			
-			for (Castle castle_check : getCastles().values())
+			for (Castle castleToCheck : getCastles().values())
 			{
-				if (castle_check  == null)
+				if (castleToCheck  == null)
 					continue;
-				distance = castle_check.getZone().getZoneDistance(activeObject.getX(), activeObject.getY());
+				distance = castleToCheck.getDistanceToZone(activeObject.getX(), activeObject.getY());
 				if (closestDistance > distance)
 				{
 					closestDistance = distance;
-					castle = castle_check;
+					castle = castleToCheck;
 				}
 			}
 		}
@@ -82,10 +80,10 @@ public class CastleManager
 
 	private final void load()
 	{
-		for (IZone zone : ZoneManager.getInstance().getZones(ZoneType.CastleArea))
-			if (zone != null)
-				getCastles().put(zone.getId(), new Castle(zone.getId()));
-		_log.info("CastleManager: loaded " + getCastles().size() + " castles.");
+		//for (IZone zone : ZoneManager.getInstance().getZones(ZoneType.CastleArea))
+		//	if (zone != null)
+		//		getCastles().put(zone.getId(), new Castle(zone.getId()));
+		//_log.info("CastleManager: loaded " + getCastles().size() + " castles.");
 	}
 
 	public final Castle getCastleById(int castleId)

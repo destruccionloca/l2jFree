@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
-import net.sf.l2j.gameserver.model.zone.IZone;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -276,7 +275,7 @@ public class ClanHallManager
 		int id = -1;
 		for (Map.Entry<Integer, ClanHall> ch : clanHall.entrySet())
 		{
-			IZone zone = ch.getValue().getZone();
+			/*IZone zone = ch.getValue().getZone();
 			if (zone != null)
 			{
 			 	if (clanHall != null && zone.getZoneDistance(x, y) < offset)
@@ -284,7 +283,7 @@ public class ClanHallManager
 					id = ch.getKey();
 					offset = (int)zone.getZoneDistance(x, y);
 				}
-			}
+			}*/
 		}
 		return id;
 	}

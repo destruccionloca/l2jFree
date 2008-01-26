@@ -42,7 +42,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
-import net.sf.l2j.gameserver.model.zone.IZone;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.RelationChanged;
 import net.sf.l2j.gameserver.network.serverpackets.SiegeInfo;
@@ -515,7 +515,7 @@ public class Siege
     {
         Town town = TownManager.getInstance().getTown(x, y, z);
     	return (getIsInProgress() && (getCastle().checkIfInZone(x, y, z) || // Castle Zone
-            getZone().checkIfInZone(x, y) || // Siege Zone
+            getZone().isInsideZone(x, y) || // Siege Zone
         (town != null && getCastle().getCastleId() == town.getCastleId()) // Castle Town
         ));
     }
@@ -1433,7 +1433,7 @@ public class Siege
         return _siegeGuardManager;
     }
 
-    public final IZone getZone()
+    public final L2Zone getZone()
     {
         return getCastle().getBattlefield();
     }
