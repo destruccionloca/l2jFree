@@ -18,29 +18,29 @@ import java.util.Map;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.tools.geometry.Point3D;
+import net.sf.l2j.tools.random.Rnd;
+
 /**
- * @author G1ta0
- * This class is base class for ingame Zone
+ * @author G1ta0 This class is base class for ingame Zone
  */
 
 public abstract class ZoneBase implements IZone
 {
 
-	private Point3D _min;
-	private Point3D _max;
-	FastList<Point3D> _points2D;
-	private Map<RestartType, FastList<Point3D> > _restarts;
-	private int _id;
-	private int _castleId;
-	private int _townId;
-	private ZoneType _zoneType;
-	private String _zoneName;
+	private Point3D								_min;
+	private Point3D								_max;
+	FastList<Point3D>							_points2D;
+	private Map<RestartType, FastList<Point3D>>	_restarts;
+	private int									_id;
+	private int									_castleId;
+	private int									_townId;
+	private ZoneType							_zoneType;
+	private String								_zoneName;
 
 	public ZoneBase()
 	{
@@ -66,12 +66,11 @@ public abstract class ZoneBase implements IZone
 		if (getMax() == null)
 			setMax(point);
 
-		setMax(new Point3D(Math.max(point.getX(), getMax().getX()), Math.max(point.getY(), getMax().getY()), Math.max(point
-				.getZ(), getMax().getZ())));
-		setMin(new Point3D(Math.min(point.getX(), getMin().getX()), Math.min(point.getY(), getMin().getY()), Math.min(point
-				.getZ(), getMin().getZ())));
+		setMax(new Point3D(Math.max(point.getX(), getMax().getX()), Math.max(point.getY(), getMax().getY()), Math.max(point.getZ(), getMax().getZ())));
+		setMin(new Point3D(Math.min(point.getX(), getMin().getX()), Math.min(point.getY(), getMin().getY()), Math.min(point.getZ(), getMin().getZ())));
 
-		if (_points2D == null) _points2D = new FastList<Point3D>();
+		if (_points2D == null)
+			_points2D = new FastList<Point3D>();
 		getPoints().add(point);
 	}
 
@@ -85,10 +84,10 @@ public abstract class ZoneBase implements IZone
 	{
 		if (_restarts == null)
 			_restarts = new FastMap<RestartType, FastList<Point3D>>();
-		
+
 		if (_restarts.get(restartType) == null)
 			_restarts.put(restartType, new FastList<Point3D>());
-		
+
 		_restarts.get(restartType).add(point);
 	}
 
@@ -142,7 +141,7 @@ public abstract class ZoneBase implements IZone
 	{
 		return _min;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -152,7 +151,7 @@ public abstract class ZoneBase implements IZone
 	{
 		return _points2D;
 	}
-	
+
 	@SuppressWarnings("unused")
 	protected void setMax(Point3D point)
 	{
@@ -206,7 +205,7 @@ public abstract class ZoneBase implements IZone
 	{
 		return _townId;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -271,7 +270,7 @@ public abstract class ZoneBase implements IZone
 	{
 		_townId = townId;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 

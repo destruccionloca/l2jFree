@@ -19,38 +19,38 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- *
- * @author  LBaldi
+ * 
+ * @author LBaldi
  */
 final class EffectBigHead extends L2Effect
 {
 
-    public EffectBigHead(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
+	public EffectBigHead(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public EffectType getEffectType()
-    {
-        return EffectType.BUFF;
-    }
-    
-    @Override
-    public void onStart()
-    {
-    	getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
-    }
-    
-    @Override
-    public void onExit()
-    {
-    	getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
-    }
-    
-    @Override
-    public boolean onActionTime()
-    {
-        return false;
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.BUFF;
+	}
+
+	@Override
+	public void onStart()
+	{
+		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
+	}
+
+	@Override
+	public void onExit()
+	{
+		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_BIG_HEAD);
+	}
+
+	@Override
+	public boolean onActionTime()
+	{
+		return false;
+	}
 }

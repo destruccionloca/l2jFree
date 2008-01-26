@@ -32,7 +32,6 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient;
@@ -50,8 +49,9 @@ import net.sf.l2j.gameserver.network.loginserverpackets.InitLS;
 import net.sf.l2j.gameserver.network.loginserverpackets.KickPlayer;
 import net.sf.l2j.gameserver.network.loginserverpackets.LoginServerFail;
 import net.sf.l2j.gameserver.network.loginserverpackets.PlayerAuthResponse;
-import net.sf.l2j.gameserver.network.serverpackets.LoginFail;
 import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
+import net.sf.l2j.gameserver.network.serverpackets.LoginFail;
+import net.sf.l2j.tools.random.Rnd;
 import net.sf.l2j.tools.security.NewCrypt;
 import net.sf.l2j.tools.util.Util;
 

@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocationInVehicle;
 import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -75,7 +76,7 @@ public class ValidatePosition extends L2GameClientPacket
         		{ 15670,142983,-2705 },		{ -44836,-112524,-235 },	{ 115113,-178212,-901 },
         		{ -84318,244579,-3730 },	{ 46934,51467,-2977 },		{ 9745,15606,-4574 },
         		{ -12672,122776,-3116 }},
-        		i = net.sf.l2j.gameserver.lib.Rnd.get(10);
+        		i = Rnd.get(10);
         	_x = location[i][0];
         	_y = location[i][1];
         	_z = location[i][2];

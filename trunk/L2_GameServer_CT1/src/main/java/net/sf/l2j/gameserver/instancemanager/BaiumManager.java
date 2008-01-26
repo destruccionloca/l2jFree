@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
@@ -39,6 +38,7 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -120,8 +120,7 @@ public class BaiumManager
     protected String _zoneName;
     protected String _questName;
     protected long _lastAttackTime = 0;
-    protected String _words = ",éÑÇÃñ∞ÇËÇñWÇ∞ÇÈÇ∆ÇÕÅIÅAéÄÇ Ç™Ç¢Ç¢ÅI";
-    //protected String _Words = ",Don't obstruct my sleep! Die!";
+    protected String _words = ",Don't obstruct my sleep! Die!";
 
     // location of banishment
     private final int _banishmentLocation[][] =

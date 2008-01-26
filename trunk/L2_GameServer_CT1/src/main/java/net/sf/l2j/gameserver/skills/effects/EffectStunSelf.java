@@ -23,22 +23,22 @@ public class EffectStunSelf extends L2Effect
 	{
 		super(env, template);
 	}
-	
+
 	public EffectType getEffectType()
 	{
 		return EffectType.STUN_SELF;
 	}
-	
+
 	public void onStart()
 	{
 		getEffector().startStunning();
 	}
-	
+
 	public void onExit()
 	{
 		getEffector().stopStunning(this);
 	}
-	
+
 	public boolean onActionTime()
 	{
 		// just stop this effect

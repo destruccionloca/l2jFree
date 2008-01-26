@@ -20,7 +20,6 @@ package net.sf.l2j.gameserver.util;
   */
 
 import java.io.File;
-import java.nio.ByteBuffer;
 import java.util.Collection;
 
 import net.sf.l2j.Config;
@@ -28,6 +27,7 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.tools.util.CustomFileNameFilter;
 
 import org.python.core.Py;
 import org.python.core.PyModule;
@@ -319,13 +319,4 @@ public final class Util
     		s = "="+s;
     	System.out.println(s);
     }
-/*
-	public static String printData(ByteBuffer buf)
-	{
-		byte[] data = new byte[buf.remaining()];
-		buf.get(data);
-		String hex = Util.printData(data, data.length);
-		buf.position(buf.position() - data.length);
-		return hex;
-	}*/
 }

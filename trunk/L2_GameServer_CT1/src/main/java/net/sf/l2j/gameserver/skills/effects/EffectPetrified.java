@@ -13,9 +13,10 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.skills.effects;
+
 /**
  * @author decad
- *
+ * 
  * Implementation of the Petrified effect
  */
 
@@ -23,34 +24,35 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
-final class EffectPetrified extends L2Effect {
+final class EffectPetrified extends L2Effect
+{
 
-    public EffectPetrified(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
+	public EffectPetrified(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    public EffectType getEffectType()
-    {
-        return EffectType.PETRIFIED;
-    }
-    
-    public void onStart()
-    {
-        getEffected().abortAttack();
-        getEffected().abortCast();
-        getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-        getEffected().setIsParalyzed(true);
-    }
-    
-    public void onExit()
-    {
-        getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
-        getEffected().setIsParalyzed(false);
-    }
-    
-    public boolean onActionTime()
-    {
-        return false;
-    }
+	public EffectType getEffectType()
+	{
+		return EffectType.PETRIFIED;
+	}
+
+	public void onStart()
+	{
+		getEffected().abortAttack();
+		getEffected().abortCast();
+		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
+		getEffected().setIsParalyzed(true);
+	}
+
+	public void onExit()
+	{
+		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_2);
+		getEffected().setIsParalyzed(false);
+	}
+
+	public boolean onActionTime()
+	{
+		return false;
+	}
 }

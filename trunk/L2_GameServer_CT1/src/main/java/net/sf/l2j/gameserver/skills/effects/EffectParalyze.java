@@ -29,7 +29,7 @@ final class EffectParalyze extends L2Effect
 	{
 		return EffectType.PARALYZE;
 	}
-	
+
 	public void onStart()
 	{
 		getEffected().abortAttack();
@@ -37,7 +37,7 @@ final class EffectParalyze extends L2Effect
 		getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);
 		getEffected().setIsParalyzed(true);
 	}
-	
+
 	public void onExit()
 	{
 		getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_HOLD_1);

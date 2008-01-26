@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
-import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.tools.random.Rnd;
 
 public class Unlock implements ISkillHandler
 {

@@ -14,11 +14,11 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.tools.random.Rnd;
 /**
  * @author G1ta0
  * This class implements Polygon Zone

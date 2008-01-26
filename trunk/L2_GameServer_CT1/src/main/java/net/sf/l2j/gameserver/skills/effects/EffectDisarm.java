@@ -19,43 +19,43 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- *
- * @author  nBd
+ * 
+ * @author nBd
  */
 
 final class EffectDisarm extends L2Effect
 {
-    public EffectDisarm(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
-    
-    @Override
-    public EffectType getEffectType()
-    {
-        return EffectType.DISARM;
-    }
-    
-    @Override
-    public void onStart()
-    {
-        if (!(getEffected() instanceof L2PcInstance))
-            return;
-        
-        ((L2PcInstance)getEffected()).disarmWeapons();
-        getEffected().setIsDisarmed(true);
-        
-    }
+	public EffectDisarm(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    @Override
-    public void onExit()
-    {
-        getEffected().setIsDisarmed(false);
-    }
+	@Override
+	public EffectType getEffectType()
+	{
+		return EffectType.DISARM;
+	}
 
-    @Override
-    public boolean onActionTime()
-    {
-        return false;
-    }
+	@Override
+	public void onStart()
+	{
+		if (!(getEffected() instanceof L2PcInstance))
+			return;
+
+		((L2PcInstance) getEffected()).disarmWeapons();
+		getEffected().setIsDisarmed(true);
+
+	}
+
+	@Override
+	public void onExit()
+	{
+		getEffected().setIsDisarmed(false);
+	}
+
+	@Override
+	public boolean onActionTime()
+	{
+		return false;
+	}
 }

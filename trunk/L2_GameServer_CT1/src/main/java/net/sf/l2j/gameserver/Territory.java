@@ -15,8 +15,8 @@
 package net.sf.l2j.gameserver;
 
 import javolution.util.FastMap;
-import net.sf.l2j.gameserver.lib.SqlUtils;
 import net.sf.l2j.gameserver.model.L2Territory;
+import net.sf.l2j.gameserver.util.SqlUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

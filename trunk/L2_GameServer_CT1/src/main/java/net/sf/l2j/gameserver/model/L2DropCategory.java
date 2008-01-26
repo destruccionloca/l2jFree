@@ -18,7 +18,7 @@ import java.util.List;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.lib.Rnd;
+import net.sf.l2j.tools.random.Rnd;
 
 /**
  *

@@ -35,7 +35,7 @@ public class EffectInvincible extends L2Effect
 	{
 		getEffected().setIsInvul(true);
 	}
-	
+
 	@Override
 	public boolean onActionTime()
 	{
@@ -43,7 +43,6 @@ public class EffectInvincible extends L2Effect
 		getEffected().setIsInvul(false);
 		return false;
 	}
-
 
 	@Override
 	public void onExit()

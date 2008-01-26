@@ -19,49 +19,57 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 
-
 class EffectManaDamOverTime extends L2Effect
-{		
+{
 	public EffectManaDamOverTime(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-	
+
 	public EffectType getEffectType()
 	{
 		return EffectType.MANA_DMG_OVER_TIME;
 	}
 
 	public boolean onActionTime()
-	{	
-		if(getEffected().isDead())
+	{
+		if (getEffected().isDead())
 			return false;
-		
-		if(getSkill().getId() == 5127) /* "Recover Force" is the Fusion Skill */
+
+		if (getSkill().getId() == 5127) /* "Recover Force" is the Fusion Skill */
 		{
-			/* If the target has the chargers 50 (Focused Force) or 8 (Sonic Focus) */
+			/*
+			 * If the target has the chargers 50 (Focused Force) or 8 (Sonic
+			 * Focus)
+			 */
 			if (getEffected().getKnownSkill(8) != null || getEffected().getKnownSkill(50) != null)
 			{
-				/* First we must check if he still deserves to receive the force... */
+				/*
+				 * First we must check if he still deserves to receive the
+				 * force...
+				 */
 				EffectRadiusSkill.getInstance().checkRadiusSkills(getEffected());
-				/* We give him the skill 2165 : Energy Stone to raise Force by one */
+				/*
+				 * We give him the skill 2165 : Energy Stone to raise Force by
+				 * one
+				 */
 				getEffected().doCast(net.sf.l2j.gameserver.datatables.SkillTable.getInstance().getInfo(2165, 1));
 			}
-			
+
 		}
-		
+
 		double manaDam = calc();
-		
-		if(manaDam > getEffected().getStatus().getCurrentMp())
+
+		if (manaDam > getEffected().getStatus().getCurrentMp())
 		{
-			if(getSkill().isToggle())
+			if (getSkill().isToggle())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 				getEffected().sendPacket(sm);
 				return false;
 			}
 		}
-		
+
 		getEffected().reduceCurrentMp(manaDam);
 		return true;
 	}

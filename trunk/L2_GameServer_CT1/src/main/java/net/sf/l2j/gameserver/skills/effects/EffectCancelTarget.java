@@ -18,42 +18,43 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
-
 /**
  * @author decad
- *
+ * 
  * Implementation of the CANCEL TARGET
  */
-public class EffectCancelTarget extends L2Effect {
+public class EffectCancelTarget extends L2Effect
+{
 
-    public EffectCancelTarget(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
+	public EffectCancelTarget(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    public EffectType getEffectType()
-    {
-        return EffectType.CANCEL_TARGET;
-    }
-    
-    /** Notify started */
-    public void onStart() {
-        getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
-        getEffected().setTarget(null);
-        getEffected().breakAttack();
-        getEffected().breakCast();
-        getEffected().abortAttack();
-        getEffected().abortCast();
-        onActionTime();
-    }
-    
-    public void onExit()
-    {
- 
-    }
-   public boolean onActionTime()
-    {
-       return false;
-    }
+	public EffectType getEffectType()
+	{
+		return EffectType.CANCEL_TARGET;
+	}
+
+	/** Notify started */
+	public void onStart()
+	{
+		getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
+		getEffected().setTarget(null);
+		getEffected().breakAttack();
+		getEffected().breakCast();
+		getEffected().abortAttack();
+		getEffected().abortCast();
+		onActionTime();
+	}
+
+	public void onExit()
+	{
+
+	}
+
+	public boolean onActionTime()
+	{
+		return false;
+	}
 }
-

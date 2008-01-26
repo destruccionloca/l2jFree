@@ -22,41 +22,42 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author demonia
  */
-final class EffectImobilePetBuff extends L2Effect {
-     private L2Summon _pet;
+final class EffectImobilePetBuff extends L2Effect
+{
+	private L2Summon _pet;
 
-   public EffectImobilePetBuff(Env env, EffectTemplate template)
-   {
-       super(env, template);
-   }
+	public EffectImobilePetBuff(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-   public EffectType getEffectType()
-   {
-       return EffectType.BUFF;
-   }
-   
-   /** Notify started */
-   public void onStart() {
-       _pet = null;
+	public EffectType getEffectType()
+	{
+		return EffectType.BUFF;
+	}
 
-       if (getEffected() instanceof L2Summon
-               && getEffector() instanceof L2PcInstance
-               && ((L2Summon)getEffected()).getOwner() == getEffector())
-       {
-           _pet = (L2Summon)getEffected();
-           _pet.setIsImobilised(true);
-       } 
-   }
-   
-   /** Notify exited */
-   public void onExit() {
-       if (_pet != null) 
-           _pet.setIsImobilised(false);
-   }   
+	/** Notify started */
+	public void onStart()
+	{
+		_pet = null;
 
-   public boolean onActionTime()
-    {
-       // just stop this effect
-       return false;
-    }
+		if (getEffected() instanceof L2Summon && getEffector() instanceof L2PcInstance && ((L2Summon) getEffected()).getOwner() == getEffector())
+		{
+			_pet = (L2Summon) getEffected();
+			_pet.setIsImobilised(true);
+		}
+	}
+
+	/** Notify exited */
+	public void onExit()
+	{
+		if (_pet != null)
+			_pet.setIsImobilised(false);
+	}
+
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
+	}
 }

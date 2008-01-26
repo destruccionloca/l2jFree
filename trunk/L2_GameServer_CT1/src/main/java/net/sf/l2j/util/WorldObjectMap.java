@@ -13,11 +13,12 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.util;
- /**
-  * 
-  * @author luisantonioa
-  * 
-  */
+
+/**
+ * 
+ * @author luisantonioa
+ * 
+ */
 
 import java.util.Iterator;
 
@@ -32,74 +33,90 @@ import net.sf.l2j.gameserver.model.L2Object;
 
 public class WorldObjectMap<T extends L2Object> extends L2ObjectMap<T>
 {
-    FastMap<Integer, T> _objectMap = new FastMap<Integer, T>().setShared(true);
-    
-    /* (non-Javadoc)
-     * @see net.sf.l2j.util.L2ObjectMap#size()
-     */
-    public int size()
-    {
-        return _objectMap.size();
-    }
+	FastMap<Integer, T>	_objectMap	= new FastMap<Integer, T>().setShared(true);
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.util.L2ObjectMap#isEmpty()
-     */
-    public boolean isEmpty()
-    {
-        return _objectMap.isEmpty();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.util.L2ObjectMap#size()
+	 */
+	public int size()
+	{
+		return _objectMap.size();
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.util.L2ObjectMap#clear()
-     */
-    public void clear()
-    {
-        _objectMap.clear();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.util.L2ObjectMap#isEmpty()
+	 */
+	public boolean isEmpty()
+	{
+		return _objectMap.isEmpty();
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.util.L2ObjectMap#put(T)
-     */
-    public void put(T obj)
-    {
-        if (obj != null)
-            _objectMap.put(obj.getObjectId(), obj);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.util.L2ObjectMap#clear()
+	 */
+	public void clear()
+	{
+		_objectMap.clear();
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.util.L2ObjectMap#remove(T)
-     */
-    public void remove(T obj)
-    {
-        if (obj != null)
-            _objectMap.remove(obj.getObjectId());
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.util.L2ObjectMap#put(T)
+	 */
+	public void put(T obj)
+	{
+		if (obj != null)
+			_objectMap.put(obj.getObjectId(), obj);
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.util.L2ObjectMap#get(int)
-     */
-    public T get(int id)
-    {
-        return _objectMap.get(id);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.util.L2ObjectMap#remove(T)
+	 */
+	public void remove(T obj)
+	{
+		if (obj != null)
+			_objectMap.remove(obj.getObjectId());
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.util.L2ObjectMap#contains(T)
-     */
-    public boolean contains(T obj)
-    {
-        if (obj == null)
-            return false;
-        return _objectMap.get(obj.getObjectId()) != null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.util.L2ObjectMap#get(int)
+	 */
+	public T get(int id)
+	{
+		return _objectMap.get(id);
+	}
 
-    /* (non-Javadoc)
-     * @see net.sf.l2j.util.L2ObjectMap#iterator()
-     */
-    public Iterator<T> iterator()
-    {
-        return _objectMap.values().iterator();
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.util.L2ObjectMap#contains(T)
+	 */
+	public boolean contains(T obj)
+	{
+		if (obj == null)
+			return false;
+		return _objectMap.get(obj.getObjectId()) != null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see net.sf.l2j.util.L2ObjectMap#iterator()
+	 */
+	public Iterator<T> iterator()
+	{
+		return _objectMap.values().iterator();
+	}
 
 }

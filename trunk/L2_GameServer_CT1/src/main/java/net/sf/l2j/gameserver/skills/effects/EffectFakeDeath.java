@@ -18,10 +18,12 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
+
 /**
  * @author mkizub
  */
-final class EffectFakeDeath extends L2Effect {
+final class EffectFakeDeath extends L2Effect
+{
 
 	public EffectFakeDeath(Env env, EffectTemplate template)
 	{
@@ -32,64 +34,67 @@ final class EffectFakeDeath extends L2Effect {
 	{
 		return EffectType.FAKE_DEATH;
 	}
-	
+
 	/** Notify started */
-	public void onStart() {
+	public void onStart()
+	{
 		getEffected().startFakeDeath();
-     }
-	
+	}
+
 	/** Notify exited */
-	public void onExit() {
+	public void onExit()
+	{
 		getEffected().stopFakeDeath(this);
 	}
-	
-    public boolean onActionTime()
-    {
-		if(getEffected().isDead())
+
+	public boolean onActionTime()
+	{
+		if (getEffected().isDead())
 			return false;
-        
-        /*for (L2Object obj : getEffected().getKnownList().getKnownCharacters())
-        {
-            
-            if ((obj != null) &&
-                    (obj instanceof L2MonsterInstance 
-                            || obj instanceof L2SiegeGuardInstance 
-                            || obj instanceof L2GuardInstance
-                            ))
-                continue;
-            
-            if (((L2NpcInstance)obj).getTarget() == getEffected() && (!((L2NpcInstance)obj) instanceof L2DoorInstance) && ((L2NpcInstance)obj).getTarget() != null && !((L2NpcInstance)obj).isDead())
-            {
-                ((L2NpcInstance)obj).setTarget(null);
-                ((L2NpcInstance)obj).getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, // Move Npc to Spawn Location
-                                         new L2CharPosition(((L2NpcInstance)obj).getSpawn().getLocx(), ((L2NpcInstance)obj).getSpawn().getLocy(), ((L2NpcInstance)obj).getSpawn().getLocz(),0));
-            }
-        }
-        
-        if (!((L2PcInstance)obj).isDead() && ((L2PcInstance)obj) != null && ((L2PcInstance)obj) != getEffected() && ((L2PcInstance)obj).isInsideRadius(getEffected(),130,true,false))  //check if PC you Train is Close to you
-        { 
-            if (((L2PcInstance)obj).isMoving() && (NPC.getTemplate().aggroRange > 0) && (Rnd.get(100) < 75)); //If PC is moving give a chance to move agrro mobs on him.
-            {
-                NPC.setTarget(((L2PcInstance)obj));
-                NPC.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK); //Train him!
-            }
-        }*/
-        
-        double manaDam = calc();
-		
-		if(manaDam > getEffected().getStatus().getCurrentMp())
+
+		/*
+		 * for (L2Object obj :
+		 * getEffected().getKnownList().getKnownCharacters()) {
+		 * 
+		 * if ((obj != null) && (obj instanceof L2MonsterInstance || obj
+		 * instanceof L2SiegeGuardInstance || obj instanceof L2GuardInstance ))
+		 * continue;
+		 * 
+		 * if (((L2NpcInstance)obj).getTarget() == getEffected() &&
+		 * (!((L2NpcInstance)obj) instanceof L2DoorInstance) &&
+		 * ((L2NpcInstance)obj).getTarget() != null &&
+		 * !((L2NpcInstance)obj).isDead()) {
+		 * ((L2NpcInstance)obj).setTarget(null);
+		 * ((L2NpcInstance)obj).getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, //
+		 * Move Npc to Spawn Location new
+		 * L2CharPosition(((L2NpcInstance)obj).getSpawn().getLocx(),
+		 * ((L2NpcInstance)obj).getSpawn().getLocy(),
+		 * ((L2NpcInstance)obj).getSpawn().getLocz(),0)); } }
+		 * 
+		 * if (!((L2PcInstance)obj).isDead() && ((L2PcInstance)obj) != null &&
+		 * ((L2PcInstance)obj) != getEffected() &&
+		 * ((L2PcInstance)obj).isInsideRadius(getEffected(),130,true,false))
+		 * //check if PC you Train is Close to you { if
+		 * (((L2PcInstance)obj).isMoving() && (NPC.getTemplate().aggroRange > 0) &&
+		 * (Rnd.get(100) < 75)); //If PC is moving give a chance to move agrro
+		 * mobs on him. { NPC.setTarget(((L2PcInstance)obj));
+		 * NPC.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK); //Train
+		 * him! } }
+		 */
+
+		double manaDam = calc();
+
+		if (manaDam > getEffected().getStatus().getCurrentMp())
 		{
-			if(getSkill().isToggle())
+			if (getSkill().isToggle())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 				getEffected().sendPacket(sm);
 				return false;
 			}
 		}
-		
+
 		getEffected().reduceCurrentMp(manaDam);
 		return true;
-    }
+	}
 }
-
-

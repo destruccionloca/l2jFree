@@ -20,7 +20,7 @@ import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * @author kerberos_20
- *
+ * 
  */
 public class EffectCharmOfLuck extends L2Effect
 {
@@ -40,7 +40,7 @@ public class EffectCharmOfLuck extends L2Effect
 	public void onStart()
 	{
 		if (getEffected() instanceof L2PlayableInstance)
-			((L2PlayableInstance)getEffected()).startCharmOfLuck();
+			((L2PlayableInstance) getEffected()).startCharmOfLuck();
 	}
 
 	/** Notify exited */
@@ -48,7 +48,7 @@ public class EffectCharmOfLuck extends L2Effect
 	public void onExit()
 	{
 		if (getEffected() instanceof L2PlayableInstance)
-			((L2PlayableInstance)getEffected()).stopCharmOfLuck (this);
+			((L2PlayableInstance) getEffected()).stopCharmOfLuck(this);
 	}
 
 	@Override

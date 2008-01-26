@@ -12,11 +12,10 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.handler.skillhandlers; 
+package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
@@ -29,30 +28,33 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @author  l3x
+ * @author l3x
  */
 public class Harvest implements ISkillHandler
-{ 
-	private static Log _log = LogFactory.getLog(Harvest.class.getName()); 
-	private static final SkillType[] SKILL_IDS = {SkillType.HARVEST};
-	
+{
+	private static Log _log = LogFactory.getLog(Harvest.class.getName());
+	private static final SkillType[] SKILL_IDS =
+	{ SkillType.HARVEST };
+
 	private L2PcInstance _activeChar;
 	private L2MonsterInstance _target;
-	
-	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
+
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
+	L2Object[] targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
 
 		_activeChar = (L2PcInstance) activeChar;
-		
+
 		L2Object[] targetList = skill.getTargetList(activeChar);
-		
+
 		InventoryUpdate iu = Config.FORCE_INVENTORY_UPDATE ? null : new InventoryUpdate();
 
 		if (targetList == null)
@@ -60,43 +62,45 @@ public class Harvest implements ISkillHandler
 			return;
 		}
 
-		if(_log.isDebugEnabled())
+		if (_log.isDebugEnabled())
 			_log.info("Casting harvest");
-		
+
 		for (L2Object element : targetList)
 		{
 			if (!(element instanceof L2MonsterInstance))
 				continue;
-	
+
 			_target = (L2MonsterInstance) element;
-			
+
 			if (_activeChar != _target.getSeeder())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.YOU_ARE_NOT_AUTHORIZED_TO_HARVEST);
 				_activeChar.sendPacket(sm);
 				continue;
 			}
-			
+
 			boolean send = false;
 			int total = 0;
 			int cropId = 0;
-	
+
 			if (_target.isSeeded())
 			{
-			 	if (calcSuccess())
+				if (calcSuccess())
 				{
-			 		L2Attackable.RewardItem[] items = _target.takeHarvest();
+					L2Attackable.RewardItem[] items = _target.takeHarvest();
 					if (items != null && items.length > 0)
 					{
 						for (L2Attackable.RewardItem ritem : items)
 						{
-							cropId = ritem.getItemId(); // always got 1 type of crop as reward
-							if (_activeChar.isInParty()) 
+							cropId = ritem.getItemId(); // always got 1 type of
+														// crop as reward
+							if (_activeChar.isInParty())
 								_activeChar.getParty().distributeItem(_activeChar, ritem, true, _target);
 							else
 							{
 								L2ItemInstance item = _activeChar.getInventory().addItem("Manor", ritem.getItemId(), ritem.getCount(), _activeChar, _target);
-								if (iu != null) iu.addItem(item);
+								if (iu != null)
+									iu.addItem(item);
 								send = true;
 								total += ritem.getCount();
 							}
@@ -116,8 +120,10 @@ public class Harvest implements ISkillHandler
 								_activeChar.getParty().broadcastToPartyMembers(_activeChar, smsg);
 							}
 
-							if (iu != null) _activeChar.sendPacket(iu);
-							else _activeChar.sendPacket(new ItemList(_activeChar, false));
+							if (iu != null)
+								_activeChar.sendPacket(iu);
+							else
+								_activeChar.sendPacket(new ItemList(_activeChar, false));
 						}
 					}
 				}
@@ -128,7 +134,7 @@ public class Harvest implements ISkillHandler
 			}
 			else
 			{
-				 _activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN));
+				_activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_HARVEST_FAILED_BECAUSE_THE_SEED_WAS_NOT_SOWN));
 			}
 		}
 	}
@@ -140,28 +146,29 @@ public class Harvest implements ISkillHandler
 		int levelTarget = _target.getLevel();
 
 		int diff = (levelPlayer - levelTarget);
-		if(diff < 0)
+		if (diff < 0)
 			diff = -diff;
-				
+
 		// apply penalty, target <=> player levels
 		// 5% penalty for each level
-		if(diff > 5) {
-			basicSuccess -= (diff-5) * 5;
+		if (diff > 5)
+		{
+			basicSuccess -= (diff - 5) * 5;
 		}
-		
+
 		// success rate cant be less than 1%
-		if(basicSuccess < 1)
+		if (basicSuccess < 1)
 			basicSuccess = 1;
-		
+
 		int rate = Rnd.nextInt(99);
-		
-		if(rate < basicSuccess)
+
+		if (rate < basicSuccess)
 			return true;
 		return false;
 	}
 
 	public SkillType[] getSkillIds()
 	{
-		return SKILL_IDS; 
-	} 
+		return SKILL_IDS;
+	}
 }

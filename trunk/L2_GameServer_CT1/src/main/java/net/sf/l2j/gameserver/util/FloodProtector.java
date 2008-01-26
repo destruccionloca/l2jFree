@@ -29,8 +29,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class FloodProtector
 {
-	private static final Log _log = LogFactory.getLog(FloodProtector.class.getName());
-	private static FloodProtector _instance;
+	private static final Log		_log	= LogFactory.getLog(FloodProtector.class.getName());
+	private static FloodProtector	_instance;
 
 	public static final FloodProtector getInstance()
 	{
@@ -41,66 +41,69 @@ public class FloodProtector
 
 	// =========================================================
 	// Data Field
-	private FastMap<Integer,Integer[]> _floodClient;
+	private FastMap<Integer, Integer[]>	_floodClient;
 
 	// =========================================================
-	
+
 	// reuse delays for protected actions (in game ticks 1 tick = 100ms)
-	private static final int[] REUSEDELAY = new int[]{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME, 16, 100 };
+	private static final int[]			REUSEDELAY				= new int[]
+																{ 4, 42, 42, Config.GLOBAL_CHAT_TIME, Config.TRADE_CHAT_TIME, 16, 100 };
 
 	// protected actions
-	public static final int PROTECTED_USEITEM		= 0;
-	public static final int PROTECTED_ROLLDICE		= 1;
-	public static final int PROTECTED_FIREWORK		= 2;
-	public static final int PROTECTED_GLOBAL_CHAT	= 3;
-	public static final int PROTECTED_TRADE_CHAT	= 4;
-	public static final int PROTECTED_ITEMPETSUMMON	= 5;
-	public static final int PROTECTED_HEROVOICE		= 6;
-	
+	public static final int				PROTECTED_USEITEM		= 0;
+	public static final int				PROTECTED_ROLLDICE		= 1;
+	public static final int				PROTECTED_FIREWORK		= 2;
+	public static final int				PROTECTED_GLOBAL_CHAT	= 3;
+	public static final int				PROTECTED_TRADE_CHAT	= 4;
+	public static final int				PROTECTED_ITEMPETSUMMON	= 5;
+	public static final int				PROTECTED_HEROVOICE		= 6;
 
 	// =========================================================
 	// Constructor
 	private FloodProtector()
 	{
-        _log.info("FloodProtector: initalized.");
+		_log.info("FloodProtector: initalized.");
 		_floodClient = new FastMap<Integer, Integer[]>(Config.FLOODPROTECTOR_INITIALSIZE).setShared(true);
 	}
-	
+
 	/**
-	 * Add a new player to the flood protector
-	 * (should be done for all players when they enter the world)
+	 * Add a new player to the flood protector (should be done for all players
+	 * when they enter the world)
+	 * 
 	 * @param playerObjId
 	 */
 	public void registerNewPlayer(int playerObjId)
 	{
 		// create a new array
 		Integer[] array = new Integer[REUSEDELAY.length];
-		for (int i=0; i<array.length; i++)
+		for (int i = 0; i < array.length; i++)
 			array[i] = 0;
-		
+
 		// register the player with an empty array
 		_floodClient.put(playerObjId, array);
 	}
-	
+
 	/**
-	 * Remove a player from the flood protector
-	 * (should be done if player loggs off)
+	 * Remove a player from the flood protector (should be done if player loggs
+	 * off)
+	 * 
 	 * @param playerObjId
 	 */
 	public void removePlayer(int playerObjId)
 	{
 		_floodClient.remove(playerObjId);
 	}
-	
+
 	/**
 	 * Return the size of the flood protector
+	 * 
 	 * @return size
 	 */
 	public int getSize()
 	{
 		return _floodClient.size();
 	}
-	
+
 	/**
 	 * Try to perform the requested action
 	 * 
@@ -115,7 +118,7 @@ public class FloodProtector
 
 		if (value[action] < GameTimeController.getGameTicks())
 		{
-			value[action] = GameTimeController.getGameTicks()+REUSEDELAY[action];
+			value[action] = GameTimeController.getGameTicks() + REUSEDELAY[action];
 			entry.setValue(value);
 			return true;
 		}

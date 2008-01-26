@@ -31,29 +31,29 @@ public class EffectGrow extends L2Effect
 	{
 		return EffectType.BUFF;
 	}
-	
+
 	@Override
-	public void onStart() 
+	public void onStart()
 	{
-		if(getEffected() instanceof L2NpcInstance)
+		if (getEffected() instanceof L2NpcInstance)
 		{
-			L2NpcInstance npc = (L2NpcInstance)getEffected();
-			npc.setCollisionHeight((int)(npc.getCollisionHeight()*1.24));
-			npc.setCollisionRadius((int)(npc.getCollisionRadius()*1.19));
-			
+			L2NpcInstance npc = (L2NpcInstance) getEffected();
+			npc.setCollisionHeight((int) (npc.getCollisionHeight() * 1.24));
+			npc.setCollisionRadius((int) (npc.getCollisionRadius() * 1.19));
+
 			getEffected().startAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
 		}
 	}
-	
+
 	@Override
-	public boolean onActionTime() 
+	public boolean onActionTime()
 	{
-		if(getEffected() instanceof L2NpcInstance)
+		if (getEffected() instanceof L2NpcInstance)
 		{
-			L2NpcInstance npc = (L2NpcInstance)getEffected();
+			L2NpcInstance npc = (L2NpcInstance) getEffected();
 			npc.setCollisionHeight(npc.getTemplate().getCollisionHeight());
 			npc.setCollisionRadius(npc.getTemplate().getCollisionRadius());
-			
+
 			getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
 		}
 		return false;
@@ -62,12 +62,12 @@ public class EffectGrow extends L2Effect
 	@Override
 	public void onExit()
 	{
-		if(getEffected() instanceof L2NpcInstance)
+		if (getEffected() instanceof L2NpcInstance)
 		{
-			L2NpcInstance npc = (L2NpcInstance)getEffected();
+			L2NpcInstance npc = (L2NpcInstance) getEffected();
 			npc.setCollisionHeight(npc.getTemplate().getCollisionHeight());
 			npc.setCollisionRadius(npc.getTemplate().getCollisionRadius());
-			
+
 			getEffected().stopAbnormalEffect(L2Character.ABNORMAL_EFFECT_GROW);
 		}
 	}

@@ -19,34 +19,37 @@ import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * @author tomciaaa
- *
+ * 
  */
-final class EffectLuckNoblesse extends L2Effect {
+final class EffectLuckNoblesse extends L2Effect
+{
 
-    public EffectLuckNoblesse(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
+	public EffectLuckNoblesse(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    public EffectType getEffectType()
-    {
-        return EffectType.LUCKNOBLESSE;
-    }
-    
-    /** Notify started */
-    public void onStart() {
-        getEffected().startLuckNoblesse();
-    }
-    
-    /** Notify exited */
-    public void onExit() {
-        getEffected().stopLuckNoblesse();
-    }
-    
-    public boolean onActionTime()
-    {
-        getEffected().stopLuckNoblesse();
-        // just stop this effect
-        return false;
-    }
+	public EffectType getEffectType()
+	{
+		return EffectType.LUCKNOBLESSE;
+	}
+
+	/** Notify started */
+	public void onStart()
+	{
+		getEffected().startLuckNoblesse();
+	}
+
+	/** Notify exited */
+	public void onExit()
+	{
+		getEffected().stopLuckNoblesse();
+	}
+
+	public boolean onActionTime()
+	{
+		getEffected().stopLuckNoblesse();
+		// just stop this effect
+		return false;
+	}
 }

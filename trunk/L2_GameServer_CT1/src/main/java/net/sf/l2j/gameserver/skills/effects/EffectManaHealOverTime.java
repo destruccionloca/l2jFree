@@ -18,9 +18,8 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.skills.Env;
 
-
 class EffectManaHealOverTime extends L2Effect
-{		
+{
 	public EffectManaHealOverTime(Env env, EffectTemplate template)
 	{
 		super(env, template);
@@ -32,20 +31,20 @@ class EffectManaHealOverTime extends L2Effect
 	}
 
 	public boolean onActionTime()
-	{	
-		if(getEffected().isDead())
+	{
+		if (getEffected().isDead())
 			return false;
-		
-		double mp = getEffected().getStatus().getCurrentMp(); 
+
+		double mp = getEffected().getStatus().getCurrentMp();
 		double maxmp = getEffected().getMaxMp();
-		mp += calc(); 
-		if(mp > maxmp)
+		mp += calc();
+		if (mp > maxmp)
 		{
 			mp = maxmp;
 		}
-		getEffected().getStatus().setCurrentMp(mp); 
-		StatusUpdate sump = new StatusUpdate(getEffected().getObjectId()); 
-		sump.addAttribute(StatusUpdate.CUR_MP, (int)mp); 
+		getEffected().getStatus().setCurrentMp(mp);
+		StatusUpdate sump = new StatusUpdate(getEffected().getObjectId());
+		sump.addAttribute(StatusUpdate.CUR_MP, (int) mp);
 		getEffected().sendPacket(sump);
 		return true;
 	}

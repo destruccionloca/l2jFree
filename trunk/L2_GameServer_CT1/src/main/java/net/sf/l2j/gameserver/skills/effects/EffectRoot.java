@@ -20,7 +20,8 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-final class EffectRoot extends L2Effect {
+final class EffectRoot extends L2Effect
+{
 
 	public EffectRoot(Env env, EffectTemplate template)
 	{
@@ -31,21 +32,22 @@ final class EffectRoot extends L2Effect {
 	{
 		return EffectType.ROOT;
 	}
-	
-	/** Notify started */
-	public void onStart() {
-		getEffected().startRooted();
-    }
-	
-	/** Notify exited */
-	public void onExit() {
-		getEffected().stopRooting(this);
-    }
-	
-    public boolean onActionTime()
-    {
-    	// just stop this effect
-    	return false;
-    }
-}
 
+	/** Notify started */
+	public void onStart()
+	{
+		getEffected().startRooted();
+	}
+
+	/** Notify exited */
+	public void onExit()
+	{
+		getEffected().stopRooting(this);
+	}
+
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
+	}
+}

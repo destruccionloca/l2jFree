@@ -18,11 +18,11 @@ import net.sf.l2j.gameserver.skills.Env;
 
 /**
  * @author kombat
- *
+ * 
  */
 public final class EffectSpellForce extends EffectForce
 {
-	public EffectSpellForce(Env env, EffectTemplate template) 
+	public EffectSpellForce(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}

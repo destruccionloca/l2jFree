@@ -23,40 +23,41 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 
 class EffectDamOverTime extends L2Effect
-{		
+{
 	public EffectDamOverTime(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-	
+
 	public EffectType getEffectType()
 	{
 		return EffectType.DMG_OVER_TIME;
 	}
 
 	public boolean onActionTime()
-	{	
+	{
 		if (getEffected().isDead())
 			return false;
-		
+
 		double damage = calc();
-		if(getSkill().getId() < 2000)
-		{ // fix for players' poison and bleed weak effect 
-			if(getSkill().getSkillType() == SkillType.POISON)
+		if (getSkill().getId() < 2000)
+		{ // fix for players' poison and bleed weak effect
+			if (getSkill().getSkillType() == SkillType.POISON)
 			{
 				if (getEffected().isPetrified())
-					damage= 0;
+					damage = 0;
 				else
-					damage = damage * 2; 
+					damage = damage * 2;
 			}
-			else if(getSkill().getSkillType() == SkillType.BLEED)
+			else if (getSkill().getSkillType() == SkillType.BLEED)
 			{
 				if (getEffected().isPetrified())
-					damage= 0;
+					damage = 0;
 				else
-					damage = damage * 2; 
+					damage = damage * 2;
 			}
-			if(damage > 300) damage = 300; 
+			if (damage > 300)
+				damage = 300;
 		}
 		if (damage >= getEffected().getStatus().getCurrentHp())
 		{
@@ -68,14 +69,13 @@ class EffectDamOverTime extends L2Effect
 			}
 
 			// For DOT skills that will not kill effected player.
-			if (!getSkill().killByDOT()) damage = getEffected().getStatus().getCurrentHp() - 1;
+			if (!getSkill().killByDOT())
+				damage = getEffected().getStatus().getCurrentHp() - 1;
 		}
 
-		boolean awake = !(getEffected() instanceof L2Attackable)
-			&& !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF 
-				&& getSkill().isToggle());
+		boolean awake = !(getEffected() instanceof L2Attackable) && !(getSkill().getTargetType() == SkillTargetType.TARGET_SELF && getSkill().isToggle());
 
-		getEffected().reduceCurrentHp(damage, getEffector(),awake);
+		getEffected().reduceCurrentHp(damage, getEffector(), awake);
 
 		return true;
 	}

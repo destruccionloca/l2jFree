@@ -20,7 +20,8 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-final class EffectStun extends L2Effect {
+final class EffectStun extends L2Effect
+{
 
 	public EffectStun(Env env, EffectTemplate template)
 	{
@@ -31,21 +32,22 @@ final class EffectStun extends L2Effect {
 	{
 		return EffectType.STUN;
 	}
-	
+
 	/** Notify started */
-	public void onStart() {
+	public void onStart()
+	{
 		getEffected().startStunning();
 	}
-	
+
 	/** Notify exited */
-	public void onExit() {
+	public void onExit()
+	{
 		getEffected().stopStunning(this);
 	}
-	
-    public boolean onActionTime()
-    {
-    	// just stop this effect
-    	return false;
-    }
-}
 
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
+	}
+}

@@ -20,7 +20,8 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-final class EffectSleep extends L2Effect {
+final class EffectSleep extends L2Effect
+{
 
 	public EffectSleep(Env env, EffectTemplate template)
 	{
@@ -31,22 +32,23 @@ final class EffectSleep extends L2Effect {
 	{
 		return EffectType.SLEEP;
 	}
-	
+
 	/** Notify started */
-	public void onStart() {
+	public void onStart()
+	{
 		getEffected().startSleeping();
 	}
-	
-	/** Notify exited */
-	public void onExit() {
-		getEffected().stopSleeping(this);
-    }
-	
-    public boolean onActionTime()
-    {
-    	getEffected().stopSleeping(this);
-        // just stop this effect
-    	return false;
-    }
-}
 
+	/** Notify exited */
+	public void onExit()
+	{
+		getEffected().stopSleeping(this);
+	}
+
+	public boolean onActionTime()
+	{
+		getEffected().stopSleeping(this);
+		// just stop this effect
+		return false;
+	}
+}

@@ -16,66 +16,66 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.tools.random.Rnd;
 
 public class L2PenaltyMonsterInstance extends L2MonsterInstance
 {
-    private L2PcInstance _ptk;
+	private L2PcInstance	_ptk;
 
-    public L2PenaltyMonsterInstance(int objectId, L2NpcTemplate template)
-    {
-        super(objectId, template);
-    }
+	public L2PenaltyMonsterInstance(int objectId, L2NpcTemplate template)
+	{
+		super(objectId, template);
+	}
 
-    @Override
-    public L2Character getMostHated()
-    {
-        return _ptk;
-    }
+	@Override
+	public L2Character getMostHated()
+	{
+		return _ptk;
+	}
 
-    @Deprecated
-    public void notifyPlayerDead()
-    {
-        // Monster kill player and can by deleted
-        deleteMe();
+	@Deprecated
+	public void notifyPlayerDead()
+	{
+		// Monster kill player and can by deleted
+		deleteMe();
 
-        L2Spawn spawn = getSpawn();
-        if (spawn != null)
-        {
-            spawn.stopRespawn();
-            SpawnTable.getInstance().deleteSpawn(spawn, false);
-        }
-    }
+		L2Spawn spawn = getSpawn();
+		if (spawn != null)
+		{
+			spawn.stopRespawn();
+			SpawnTable.getInstance().deleteSpawn(spawn, false);
+		}
+	}
 
-    public void setPlayerToKill(L2PcInstance ptk)
-    {
-        if (Rnd.nextInt(100) <= 80)
-        {
-            CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal.getId(), getName(), "Mmm, your bait was delicious!");
-            broadcastPacket(cs);
-        }
-        _ptk = ptk;
-        addDamageHate(ptk, 10, 10);
-        getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, ptk);
-        addAttackerToAttackByList(ptk);
-    }
+	public void setPlayerToKill(L2PcInstance ptk)
+	{
+		if (Rnd.nextInt(100) <= 80)
+		{
+			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal.getId(), getName(), "Mmm, your bait was delicious!");
+			broadcastPacket(cs);
+		}
+		_ptk = ptk;
+		addDamageHate(ptk, 10, 10);
+		getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, ptk);
+		addAttackerToAttackByList(ptk);
+	}
 
-    @Override
-    public boolean doDie(L2Character killer)
-    {
-        if (!super.doDie(killer))
-            return false;
+	@Override
+	public boolean doDie(L2Character killer)
+	{
+		if (!super.doDie(killer))
+			return false;
 
-        if (Rnd.nextInt(100) <= 75)
-        {
-            CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal.getId(), getName(), "I will tell fishes not to take your bait!");
-            broadcastPacket(cs);
-        }
-        return true;
-    }
+		if (Rnd.nextInt(100) <= 75)
+		{
+			CreatureSay cs = new CreatureSay(getObjectId(), SystemChatChannelId.Chat_Normal.getId(), getName(), "I will tell fishes not to take your bait!");
+			broadcastPacket(cs);
+		}
+		return true;
+	}
 }

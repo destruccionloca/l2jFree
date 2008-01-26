@@ -108,9 +108,9 @@ import net.sf.l2j.gameserver.util.PathCreator;
 import net.sf.l2j.gameserver.util.Util;
 import net.sf.l2j.status.Status;
 import net.sf.l2j.tools.L2Registry;
+import net.sf.l2j.tools.random.RandomIntGenerator;
 import net.sf.l2j.tools.versionning.model.Version;
 import net.sf.l2j.tools.versionning.service.VersionningService;
-import net.sf.l2j.util.RandomIntGenerator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

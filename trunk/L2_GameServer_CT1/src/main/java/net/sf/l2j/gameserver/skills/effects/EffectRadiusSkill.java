@@ -12,8 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.skills.effects; 
-
+package net.sf.l2j.gameserver.skills.effects;
 
 import java.util.List;
 import java.util.concurrent.Future;
@@ -33,14 +32,14 @@ import net.sf.l2j.tools.geometry.Point3D;
 
 public class EffectRadiusSkill
 {
-	private static FastMap<Point3D , L2Skill> radiusSkillUsers;
+	private static FastMap<Point3D, L2Skill> radiusSkillUsers;
 	private static EffectRadiusSkill _instance;
 
 	public EffectRadiusSkill()
 	{
-		radiusSkillUsers = new FastMap<Point3D , L2Skill>();
+		radiusSkillUsers = new FastMap<Point3D, L2Skill>();
 	}
-	
+
 	public static EffectRadiusSkill getInstance()
 	{
 		if (_instance == null)
@@ -49,127 +48,127 @@ public class EffectRadiusSkill
 		}
 		return _instance;
 	}
-	
-	public void addRadiusSkill(L2Character activeChar , L2Skill skill)
-    {
-		Point3D point = new Point3D(activeChar.getX() , activeChar.getY(), activeChar.getZ());
-    	radiusSkillUsers.put(point, skill);
-		
-    	L2Effect effects[] = skill.getEffects(activeChar, activeChar);
-    	
-		RemoveRadiusSkill removeRadiusSkill = new RemoveRadiusSkill(point,skill); 
-		Future task = ThreadPoolManager.getInstance().scheduleGeneral(removeRadiusSkill, effects[0].getTotalTaskTime()*1000);
-		removeRadiusSkill.setTask(task);
-		
-		activeChar.removeEffect(effects[0]);
-    }
-    
-    private class RemoveRadiusSkill implements Runnable
-    {
-    	Future 	_task 	= null;
-    	Point3D _point;
-    	L2Skill _skill;
-    	
-    	void setTask(Future task)
-    	{
-    		_task = task;
-    	}
-    	
-    	RemoveRadiusSkill(Point3D p, L2Skill s)
-    	{
-    		_point = p;
-    		_skill = s;
-    	}
-    	
-    	public void run()
-    	{
-    		if (_task != null)
-    		{
-    			_task.cancel(true);
-    			_task = null;
-    		}
-    		
-    		for (FastMap.Entry<Point3D, L2Skill> e = radiusSkillUsers.head(), end = radiusSkillUsers.tail(); (e = e.getNext()) != end;)
-    		{
-    	          Point3D key 	= e.getKey(); 
-    	          L2Skill value = e.getValue();
 
-    	          if (key.equals(_point) && value.equals(_skill))
-    	          {
-    	        	  e.setValue(null);
-    	        	  break;
-    	          }
-    		}
-    		radiusSkillUsers.remove(null);
-    	}
-    }
-    
-    public void checkRadiusSkills(L2Character activeChar)
-    {
-    	List<Integer> skillIds = new FastList<Integer>();
-    	
-    	if (!radiusSkillUsers.isEmpty())
-    	{
-        	/* Check to add radius skills to this character */
-    		for (FastMap.Entry<Point3D, L2Skill> e = radiusSkillUsers.head(), end = radiusSkillUsers.tail(); (e = e.getNext()) != end;)
-    		{
-    	          
-    			Point3D key 	= e.getKey(); 
-    	        L2Skill value 	= e.getValue();
-    	          
-    	          if (key == null || value == null)
-    	        	  continue;
-    	          
-    	          if (activeChar.isInsideRadius(key.getX(), key.getY(), key.getZ(), value.getEffectRange(), true, false))
-    	          {
-    	        	  L2Skill skills[] = value.getTriggeredSkills();
-    	        	  
-    	        	  if (skills != null)
-    	        	  {
-    	        		  for (L2Skill skill : skills)
-    	        		  {
-    	        			  if (skill == null)
-    	        				  continue;
-    	        			  
-    	        			  boolean replace = true;
-    	        			  for (L2Effect effectExist : activeChar.getAllEffects())
-    	        			  {
-    	        				  if (effectExist.getSkill() == skill)
-    	        				  {
-    	        					  replace = false;
-    	        					  break;
-    	        				  }
-    	        			  }
-    	        			  
-    	        			  if (replace)
-    	        			  {
-    	        				  activeChar.doCast(skill);
-    	        			  }
-    	        			  
-    	        			  skillIds.add(skill.getId());
-    	        		  }
-    	        	  }
-    	          }
-    		}
-    	}
-    	
-    	/* Skills to remove from the L2Character */
-    	if (activeChar.getRadiusSkillsAffect() != null)
-    	{
-       		for (Integer id : activeChar.getRadiusSkillsAffect())
-        	{
+	public void addRadiusSkill(L2Character activeChar, L2Skill skill)
+	{
+		Point3D point = new Point3D(activeChar.getX(), activeChar.getY(), activeChar.getZ());
+		radiusSkillUsers.put(point, skill);
+
+		L2Effect effects[] = skill.getEffects(activeChar, activeChar);
+
+		RemoveRadiusSkill removeRadiusSkill = new RemoveRadiusSkill(point, skill);
+		Future task = ThreadPoolManager.getInstance().scheduleGeneral(removeRadiusSkill, effects[0].getTotalTaskTime() * 1000);
+		removeRadiusSkill.setTask(task);
+
+		activeChar.removeEffect(effects[0]);
+	}
+
+	private class RemoveRadiusSkill implements Runnable
+	{
+		Future _task = null;
+		Point3D _point;
+		L2Skill _skill;
+
+		void setTask(Future task)
+		{
+			_task = task;
+		}
+
+		RemoveRadiusSkill(Point3D p, L2Skill s)
+		{
+			_point = p;
+			_skill = s;
+		}
+
+		public void run()
+		{
+			if (_task != null)
+			{
+				_task.cancel(true);
+				_task = null;
+			}
+
+			for (FastMap.Entry<Point3D, L2Skill> e = radiusSkillUsers.head(), end = radiusSkillUsers.tail(); (e = e.getNext()) != end;)
+			{
+				Point3D key = e.getKey();
+				L2Skill value = e.getValue();
+
+				if (key.equals(_point) && value.equals(_skill))
+				{
+					e.setValue(null);
+					break;
+				}
+			}
+			radiusSkillUsers.remove(null);
+		}
+	}
+
+	public void checkRadiusSkills(L2Character activeChar)
+	{
+		List<Integer> skillIds = new FastList<Integer>();
+
+		if (!radiusSkillUsers.isEmpty())
+		{
+			/* Check to add radius skills to this character */
+			for (FastMap.Entry<Point3D, L2Skill> e = radiusSkillUsers.head(), end = radiusSkillUsers.tail(); (e = e.getNext()) != end;)
+			{
+
+				Point3D key = e.getKey();
+				L2Skill value = e.getValue();
+
+				if (key == null || value == null)
+					continue;
+
+				if (activeChar.isInsideRadius(key.getX(), key.getY(), key.getZ(), value.getEffectRange(), true, false))
+				{
+					L2Skill skills[] = value.getTriggeredSkills();
+
+					if (skills != null)
+					{
+						for (L2Skill skill : skills)
+						{
+							if (skill == null)
+								continue;
+
+							boolean replace = true;
+							for (L2Effect effectExist : activeChar.getAllEffects())
+							{
+								if (effectExist.getSkill() == skill)
+								{
+									replace = false;
+									break;
+								}
+							}
+
+							if (replace)
+							{
+								activeChar.doCast(skill);
+							}
+
+							skillIds.add(skill.getId());
+						}
+					}
+				}
+			}
+		}
+
+		/* Skills to remove from the L2Character */
+		if (activeChar.getRadiusSkillsAffect() != null)
+		{
+			for (Integer id : activeChar.getRadiusSkillsAffect())
+			{
 				if (!skillIds.contains(id))
-       			{
-       				activeChar.stopSkillEffects(id.intValue());       				
-       			}
-       		}
-     
-       		activeChar.setRadiusSkillsAffect(null);
-    	}
+				{
+					activeChar.stopSkillEffects(id.intValue());
+				}
+			}
+
+			activeChar.setRadiusSkillsAffect(null);
+		}
 
 		if (!skillIds.isEmpty())
 		{
 			activeChar.setRadiusSkillsAffect(skillIds.toArray(new Integer[skillIds.size()]));
 		}
-    }	
+	}
 }

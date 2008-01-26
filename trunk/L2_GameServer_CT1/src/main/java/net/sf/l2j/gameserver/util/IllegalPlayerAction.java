@@ -13,11 +13,12 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.util;
- /**
-  * 
-  * @author luisantonioa
-  * 
-  */
+
+/**
+ * 
+ * @author luisantonioa
+ * 
+ */
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.GmListTable;
@@ -33,59 +34,59 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class IllegalPlayerAction implements Runnable
 {
-	private static Log _logAudit = LogFactory.getLog("audit");
+	private static Log		_logAudit			= LogFactory.getLog("audit");
 
-    protected String _message;
-    protected int _punishment;
-    protected L2PcInstance _actor;
-    
-    public static final int PUNISH_BROADCAST = 1;
-    public static final int PUNISH_KICK = 2;
-    public static final int PUNISH_KICKBAN = 3;
-    public static final int PUNISH_JAIL = 4;
-    
-    public IllegalPlayerAction(L2PcInstance actor, String message, int punishment)
-    {
-        _message        = message;
-        _punishment     = punishment;
-        _actor          = actor;
-        
-        switch(punishment)
-        {
-            case PUNISH_KICK:
-            	_actor.sendMessage("You will be kicked for illegal action, GM informed.");
-                break;
-            case PUNISH_KICKBAN:
-                _actor.sendMessage("You are banned for illegal action, GM informed.");
-                break;
-            case PUNISH_JAIL:
-            	_actor.sendMessage("Illegal action performed!");
-            	_actor.sendMessage("You will be teleported to GM Consultation Service area and jailed.");
-            	break;
-        }
-    }
-    
-    public void run()
-    {
-		_logAudit.info("AUDIT:"+ _message + ","+_actor + " "+_punishment);
+	protected String		_message;
+	protected int			_punishment;
+	protected L2PcInstance	_actor;
 
-        GmListTable.broadcastMessageToGMs(_message);
+	public static final int	PUNISH_BROADCAST	= 1;
+	public static final int	PUNISH_KICK			= 2;
+	public static final int	PUNISH_KICKBAN		= 3;
+	public static final int	PUNISH_JAIL			= 4;
 
-        switch(_punishment)
-        {
-            case PUNISH_BROADCAST:
-                return;
-            case PUNISH_KICK:
-                _actor.closeNetConnection();
-                break;
-            case PUNISH_KICKBAN:
-                _actor.setAccessLevel(-100);
-                _actor.setAccountAccesslevel(-100);
-                _actor.closeNetConnection();
-                break;
-            case PUNISH_JAIL:
-                _actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM);
-                break;
-        }
-    }
+	public IllegalPlayerAction(L2PcInstance actor, String message, int punishment)
+	{
+		_message = message;
+		_punishment = punishment;
+		_actor = actor;
+
+		switch (punishment)
+		{
+		case PUNISH_KICK:
+			_actor.sendMessage("You will be kicked for illegal action, GM informed.");
+			break;
+		case PUNISH_KICKBAN:
+			_actor.sendMessage("You are banned for illegal action, GM informed.");
+			break;
+		case PUNISH_JAIL:
+			_actor.sendMessage("Illegal action performed!");
+			_actor.sendMessage("You will be teleported to GM Consultation Service area and jailed.");
+			break;
+		}
+	}
+
+	public void run()
+	{
+		_logAudit.info("AUDIT:" + _message + "," + _actor + " " + _punishment);
+
+		GmListTable.broadcastMessageToGMs(_message);
+
+		switch (_punishment)
+		{
+		case PUNISH_BROADCAST:
+			return;
+		case PUNISH_KICK:
+			_actor.closeNetConnection();
+			break;
+		case PUNISH_KICKBAN:
+			_actor.setAccessLevel(-100);
+			_actor.setAccountAccesslevel(-100);
+			_actor.closeNetConnection();
+			break;
+		case PUNISH_JAIL:
+			_actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM);
+			break;
+		}
+	}
 }

@@ -18,35 +18,34 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.skills.Env;
 
-
 class EffectCombatPointHealOverTime extends L2Effect
-{       
-    public EffectCombatPointHealOverTime(Env env, EffectTemplate template)
-    {
-        super(env, template);
-    }
+{
+	public EffectCombatPointHealOverTime(Env env, EffectTemplate template)
+	{
+		super(env, template);
+	}
 
-    public EffectType getEffectType()
-    {
-        return EffectType.COMBAT_POINT_HEAL_OVER_TIME;
-    }
+	public EffectType getEffectType()
+	{
+		return EffectType.COMBAT_POINT_HEAL_OVER_TIME;
+	}
 
-    public boolean onActionTime()
-    {   
-        if(getEffected().isDead())
-            return false;
-        
-        double cp = getEffected().getStatus().getCurrentCp(); 
-        double maxcp = getEffected().getMaxCp();
-        cp += calc(); 
-        if(cp > maxcp)
-        {
-            cp = maxcp;
-        }
-        getEffected().getStatus().setCurrentCp(cp); 
-        StatusUpdate sump = new StatusUpdate(getEffected().getObjectId()); 
-        sump.addAttribute(StatusUpdate.CUR_CP, (int)cp); 
-        getEffected().sendPacket(sump);
-        return true;
-    }
+	public boolean onActionTime()
+	{
+		if (getEffected().isDead())
+			return false;
+
+		double cp = getEffected().getStatus().getCurrentCp();
+		double maxcp = getEffected().getMaxCp();
+		cp += calc();
+		if (cp > maxcp)
+		{
+			cp = maxcp;
+		}
+		getEffected().getStatus().setCurrentCp(cp);
+		StatusUpdate sump = new StatusUpdate(getEffected().getObjectId());
+		sump.addAttribute(StatusUpdate.CUR_CP, (int) cp);
+		getEffected().sendPacket(sump);
+		return true;
+	}
 }

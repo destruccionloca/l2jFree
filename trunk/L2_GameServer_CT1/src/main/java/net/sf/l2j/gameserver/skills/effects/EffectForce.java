@@ -25,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * @author kombat
- *
+ * 
  */
 public class EffectForce extends L2Effect
 {
@@ -34,7 +34,7 @@ public class EffectForce extends L2Effect
 	public int forces = 0;
 	private int _range = -1;
 
-	public EffectForce(Env env, EffectTemplate template) 
+	public EffectForce(Env env, EffectTemplate template)
 	{
 		super(env, template);
 		forces = getSkill().getLevel();
@@ -62,7 +62,7 @@ public class EffectForce extends L2Effect
 	public void decreaseForce()
 	{
 		forces--;
-		if(forces < 1)
+		if (forces < 1)
 		{
 			exit();
 		}
@@ -76,9 +76,9 @@ public class EffectForce extends L2Effect
 	{
 		exit();
 		L2Skill newSkill = SkillTable.getInstance().getInfo(getSkill().getId(), forces);
-		if(newSkill == null)
+		if (newSkill == null)
 		{
-			_log.error("Triggered skill "+getSkill().getId()+" doesn't have level "+forces+" defined");
+			_log.error("Triggered skill " + getSkill().getId() + " doesn't have level " + forces + " defined");
 		}
 		else
 			newSkill.getEffects(getEffector(), getEffected());
@@ -86,12 +86,12 @@ public class EffectForce extends L2Effect
 
 	public void onExit()
 	{
-		//try
-		//{
-		//	getEffector().abortCast();
-		//	if(getEffector().getForceBuff() != null)
-		//		getEffector().getForceBuff().delete();
-		//}
-		//catch(Exception e){}
+		// try
+		// {
+		// getEffector().abortCast();
+		// if(getEffector().getForceBuff() != null)
+		// getEffector().getForceBuff().delete();
+		// }
+		// catch(Exception e){}
 	}
 }

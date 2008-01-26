@@ -20,8 +20,8 @@ import net.sf.l2j.gameserver.skills.Env;
 public class EffectSeed extends L2Effect
 {
 	private int _power = 1;
-    
-    public EffectSeed(Env env, EffectTemplate template)
+
+	public EffectSeed(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
@@ -32,18 +32,18 @@ public class EffectSeed extends L2Effect
 	}
 
 	public boolean onActionTime()
-    {
-    	// just stop this effect
-    	return false;
-    }
-    
-    public int getPower()
-    {
-        return _power;
-    }
+	{
+		// just stop this effect
+		return false;
+	}
 
-    public void increasePower()
-    {
-        _power++;
-    }
+	public int getPower()
+	{
+		return _power;
+	}
+
+	public void increasePower()
+	{
+		_power++;
+	}
 }

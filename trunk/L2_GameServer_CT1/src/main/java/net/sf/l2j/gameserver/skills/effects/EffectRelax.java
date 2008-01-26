@@ -21,14 +21,13 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
 
-
 class EffectRelax extends L2Effect
-{		
+{
 	public EffectRelax(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
-	
+
 	public EffectType getEffectType()
 	{
 		return EffectType.RELAXING;
@@ -37,61 +36,65 @@ class EffectRelax extends L2Effect
 	/** Notify started */
 	public void onStart()
 	{
-		if(getEffected() instanceof L2PcInstance)
+		if (getEffected() instanceof L2PcInstance)
 		{
 			setRelax(true);
-			((L2PcInstance)getEffected()).sitDown();
+			((L2PcInstance) getEffected()).sitDown();
 		}
 		else
 			getEffected().getAI().setIntention(CtrlIntention.AI_INTENTION_REST);
 		super.onStart();
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see net.sf.l2j.gameserver.model.L2Effect#onExit()
 	 */
 	@Override
-	public void onExit() {
-        setRelax(false);
+	public void onExit()
+	{
+		setRelax(false);
 		super.onExit();
 	}
 
 	public boolean onActionTime()
 	{
 		boolean retval = true;
-		if(getEffected().isDead())
+		if (getEffected().isDead())
 			retval = false;
 
-		if(getEffected() instanceof L2PcInstance)
+		if (getEffected() instanceof L2PcInstance)
 		{
-			if(!((L2PcInstance)getEffected()).isSitting())
+			if (!((L2PcInstance) getEffected()).isSitting())
 				retval = false;
 		}
 
-		if (getEffected().getStatus().getCurrentHp()+1 > getEffected().getMaxHp()) {
-			if(getSkill().isToggle())
+		if (getEffected().getStatus().getCurrentHp() + 1 > getEffected().getMaxHp())
+		{
+			if (getSkill().isToggle())
 			{
 				getEffected().sendMessage("Fully rested. Effect of " + getSkill().getName() + " has been removed.");
-				//if (getEffected() instanceof L2PcInstance)
-					//((L2PcInstance)getEffected()).standUp();
+				// if (getEffected() instanceof L2PcInstance)
+				// ((L2PcInstance)getEffected()).standUp();
 				retval = false;
 			}
 		}
-		
+
 		double manaDam = calc();
-		
-		if(manaDam > getEffected().getStatus().getCurrentMp())
+
+		if (manaDam > getEffected().getStatus().getCurrentMp())
 		{
-			if(getSkill().isToggle())
+			if (getSkill().isToggle())
 			{
 				SystemMessage sm = new SystemMessage(SystemMessageId.SKILL_REMOVED_DUE_LACK_MP);
 				getEffected().sendPacket(sm);
-				//if (getEffected() instanceof L2PcInstance)
-					//((L2PcInstance)getEffected()).standUp();
+				// if (getEffected() instanceof L2PcInstance)
+				// ((L2PcInstance)getEffected()).standUp();
 				retval = false;
 			}
 		}
-		
+
 		if (!retval)
 			setRelax(retval);
 		else
@@ -102,7 +105,7 @@ class EffectRelax extends L2Effect
 
 	private void setRelax(boolean val)
 	{
-		if(getEffected() instanceof L2PcInstance)
-			((L2PcInstance)getEffected()).setRelax(val);
+		if (getEffected() instanceof L2PcInstance)
+			((L2PcInstance) getEffected()).setRelax(val);
 	}
 }

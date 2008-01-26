@@ -12,11 +12,10 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.handler.skillhandlers; 
+package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
-import net.sf.l2j.gameserver.lib.Rnd;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Manor;
@@ -29,27 +28,30 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * @author  l3x
+ * @author l3x
  */
 public class Sow implements ISkillHandler
 {
-	private static Log _log = LogFactory.getLog(Sow.class.getName()); 
-	private static final SkillType[] SKILL_IDS = {SkillType.SOW};
-	
-	private L2PcInstance _activeChar;
-	private L2MonsterInstance _target;
-	private int _seedId;
-	
-	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused") L2Object[] targets)
+	private static Log					_log		= LogFactory.getLog(Sow.class.getName());
+	private static final SkillType[]	SKILL_IDS	=
+													{ SkillType.SOW };
+
+	private L2PcInstance				_activeChar;
+	private L2MonsterInstance			_target;
+	private int							_seedId;
+
+	public void useSkill(L2Character activeChar, L2Skill skill, @SuppressWarnings("unused")
+	L2Object[] targets)
 	{
 		if (!(activeChar instanceof L2PcInstance))
 			return;
-		
+
 		_activeChar = (L2PcInstance) activeChar;
 
 		L2Object[] targetList = skill.getTargetList(activeChar);
@@ -59,45 +61,45 @@ public class Sow implements ISkillHandler
 			return;
 		}
 
-		if(_log.isDebugEnabled())
+		if (_log.isDebugEnabled())
 			_log.info("Casting sow");
-		
+
 		for (L2Object element : targetList)
 		{
 			if (!(element instanceof L2MonsterInstance))
 				continue;
-	
+
 			_target = (L2MonsterInstance) element;
-	
+
 			if (_target.isSeeded())
 			{
 				_activeChar.sendPacket(new ActionFailed());
 				continue;
 			}
-	
-			if ( _target.isDead())
+
+			if (_target.isDead())
 			{
 				_activeChar.sendPacket(new ActionFailed());
 				continue;
 			}
-			
+
 			if (_target.getSeeder() != _activeChar)
 			{
 				_activeChar.sendPacket(new ActionFailed());
 				continue;
 			}
-			
+
 			_seedId = _target.getSeedType();
 			if (_seedId == 0)
 			{
 				_activeChar.sendPacket(new ActionFailed());
 				continue;
 			}
-			
+
 			L2ItemInstance item = _activeChar.getInventory().getItemByItemId(_seedId);
-			//Consuming used seed
+			// Consuming used seed
 			_activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false);
-			 
+
 			SystemMessage sm = null;
 			if (calcSuccess())
 			{
@@ -117,14 +119,15 @@ public class Sow implements ISkillHandler
 			{
 				_activeChar.getParty().broadcastToPartyMembers(sm);
 			}
-			//FIXME: Mob should not become aggro against player, this way doesn't work really nice
+			// FIXME: Mob should not become aggro against player, this way
+			// doesn't work really nice
 			_target.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		}
 	}
-	
+
 	private boolean calcSuccess()
 	{
-		int basicSuccess = (L2Manor.getInstance().isAlternative(_seedId)?20:90);
+		int basicSuccess = (L2Manor.getInstance().isAlternative(_seedId) ? 20 : 90);
 		int minlevelSeed = 0;
 		int maxlevelSeed = 0;
 		minlevelSeed = L2Manor.getInstance().getSeedMinLevel(_seedId);
@@ -133,32 +136,32 @@ public class Sow implements ISkillHandler
 		int levelPlayer = _activeChar.getLevel(); // Attacker Level
 		int levelTarget = _target.getLevel(); // taret Level
 
-		// 5% decrease in chance if player level 
+		// 5% decrease in chance if player level
 		// is more then +/- 5 levels to _seed's_ level
-		if (levelTarget < minlevelSeed) 
+		if (levelTarget < minlevelSeed)
 			basicSuccess -= 5;
 		if (levelTarget > maxlevelSeed)
 			basicSuccess -= 5;
-		
+
 		// 5% decrease in chance if player level
 		// is more than +/- 5 levels to _target's_ level
 		int diff = (levelPlayer - levelTarget);
-		if(diff < 0)
+		if (diff < 0)
 			diff = -diff;
 		if (diff > 5)
-			basicSuccess -= 5 * (diff-5);
-		
-		//chance can't be less than 1%
+			basicSuccess -= 5 * (diff - 5);
+
+		// chance can't be less than 1%
 		if (basicSuccess < 1)
 			basicSuccess = 1;
-		
+
 		int rate = Rnd.nextInt(99);
 
 		return (rate < basicSuccess);
 	}
 
 	public SkillType[] getSkillIds()
-	{ 
-		return SKILL_IDS; 
-	} 
+	{
+		return SKILL_IDS;
+	}
 }

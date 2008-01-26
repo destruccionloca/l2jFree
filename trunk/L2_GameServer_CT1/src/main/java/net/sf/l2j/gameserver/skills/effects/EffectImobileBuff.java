@@ -20,7 +20,8 @@ import net.sf.l2j.gameserver.skills.Env;
 /**
  * @author mkizub
  */
-final class EffectImobileBuff extends L2Effect {
+final class EffectImobileBuff extends L2Effect
+{
 
 	public EffectImobileBuff(Env env, EffectTemplate template)
 	{
@@ -31,21 +32,22 @@ final class EffectImobileBuff extends L2Effect {
 	{
 		return EffectType.BUFF;
 	}
-	
+
 	/** Notify started */
-	public void onStart() {
+	public void onStart()
+	{
 		getEffector().setIsImobilised(true);
 	}
-	
+
 	/** Notify exited */
-	public void onExit() {
+	public void onExit()
+	{
 		getEffector().setIsImobilised(false);
-	}	
+	}
 
 	public boolean onActionTime()
-    {
-    	// just stop this effect
-    	return false;
-    }
+	{
+		// just stop this effect
+		return false;
+	}
 }
-

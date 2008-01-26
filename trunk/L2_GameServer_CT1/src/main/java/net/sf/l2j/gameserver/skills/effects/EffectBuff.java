@@ -33,12 +33,10 @@ final class EffectBuff extends L2Effect
 		return EffectType.BUFF;
 	}
 
-    @Override
-    public boolean onActionTime()
-    {
-    	// just stop this effect
-    	return false;
-    }
+	@Override
+	public boolean onActionTime()
+	{
+		// just stop this effect
+		return false;
+	}
 }
-
-

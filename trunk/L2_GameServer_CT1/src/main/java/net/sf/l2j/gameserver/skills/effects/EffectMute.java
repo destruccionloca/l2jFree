@@ -33,7 +33,7 @@ public class EffectMute extends L2Effect
 	{
 		getEffected().startMuted();
 	}
-	
+
 	public boolean onActionTime()
 	{
 		// Simply stop the effect

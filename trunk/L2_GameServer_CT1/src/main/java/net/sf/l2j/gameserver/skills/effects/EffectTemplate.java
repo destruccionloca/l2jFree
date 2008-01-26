@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class EffectTemplate
 {
-    private static Log _log = LogFactory.getLog(EffectTemplate.class.getName());
+	private static Log _log = LogFactory.getLog(EffectTemplate.class.getName());
 
 	private final Class<?> _func;
 	private final Constructor<?> _constructor;
@@ -43,13 +43,12 @@ public final class EffectTemplate
 	public final int period; // in seconds
 	public final int abnormalEffect;
 	public FuncTemplate[] funcTemplates;
-	
+
 	public final String stackType;
 	public final float stackOrder;
-	
-	public EffectTemplate(Condition pAttachCond, Condition pApplayCond,
-			String func, Lambda pLambda, int pCounter, int pPeriod, 
-			int pAbnormalEffect, String pStackType, float pStackOrder)
+
+	public EffectTemplate(Condition pAttachCond, Condition pApplayCond, String func, Lambda pLambda, int pCounter, int pPeriod, int pAbnormalEffect,
+			String pStackType, float pStackOrder)
 	{
 		attachCond = pAttachCond;
 		applayCond = pApplayCond;
@@ -61,7 +60,7 @@ public final class EffectTemplate
 		stackOrder = pStackOrder;
 		try
 		{
-			_func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect"+func);
+			_func = Class.forName("net.sf.l2j.gameserver.skills.effects.Effect" + func);
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -76,16 +75,16 @@ public final class EffectTemplate
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public L2Effect getEffect(Env env)
 	{
 		if (attachCond != null && !attachCond.test(env))
 			return null;
 		try
 		{
-			L2Effect effect = (L2Effect)_constructor.newInstance(env, this);
-			//if (_applayCond != null)
-			//	effect.setCondition(_applayCond);
+			L2Effect effect = (L2Effect) _constructor.newInstance(env, this);
+			// if (_applayCond != null)
+			// effect.setCondition(_applayCond);
 			return effect;
 		}
 		catch (IllegalAccessException e)
@@ -100,26 +99,27 @@ public final class EffectTemplate
 		}
 		catch (InvocationTargetException e)
 		{
-            _log.warn("Error creating new instance of Class "+_func+" Exception was:");
+			_log.warn("Error creating new instance of Class " + _func + " Exception was:");
 			e.getTargetException().printStackTrace();
 			return null;
 		}
-	
+
 	}
 
-    public void attach(FuncTemplate f)
-    {
-    	if (funcTemplates == null)
-    	{
-    		funcTemplates = new FuncTemplate[]{f};
-    	}
-    	else
-    	{
-    		int len = funcTemplates.length;
-    		FuncTemplate[] tmp = new FuncTemplate[len+1];
-    		System.arraycopy(funcTemplates, 0, tmp, 0, len);
-    		tmp[len] = f;
-    		funcTemplates = tmp;
-    	}
-    }
+	public void attach(FuncTemplate f)
+	{
+		if (funcTemplates == null)
+		{
+			funcTemplates = new FuncTemplate[]
+			{ f };
+		}
+		else
+		{
+			int len = funcTemplates.length;
+			FuncTemplate[] tmp = new FuncTemplate[len + 1];
+			System.arraycopy(funcTemplates, 0, tmp, 0, len);
+			tmp[len] = f;
+			funcTemplates = tmp;
+		}
+	}
 }
