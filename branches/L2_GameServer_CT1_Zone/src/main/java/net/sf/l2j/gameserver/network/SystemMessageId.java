@@ -13656,6 +13656,6 @@ public enum SystemMessageId
 			if (sysmsgid.getId() == id)
 				return sysmsgid;
 
-		return SystemMessageId.S2_S1;
+		return SystemMessageId.S1;
 	}
 }

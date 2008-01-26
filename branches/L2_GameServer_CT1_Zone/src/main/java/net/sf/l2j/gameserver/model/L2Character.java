@@ -67,6 +67,7 @@ import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.Attack;
@@ -252,6 +253,21 @@ public abstract class L2Character extends L2Object
 			Formulas.getInstance().addFuncsToNewCharacter(this);
 		}
 	}
+
+	private int _currentZones = 0;
+
+	public boolean isInsideZone(int zone)
+	{
+		return ((_currentZones & zone) != 0);
+	}
+
+	public void setInsideZone(int zone, boolean state)
+	{
+		if (state)
+			_currentZones |= zone;
+		else if (isInsideZone(zone)) // zone overlap possible
+			_currentZones ^= zone;
+	}
 	
 	protected void initCharStatusUpdateValues()
 	{
@@ -271,7 +287,16 @@ public abstract class L2Character extends L2Object
 	 */
 	public void onDecay()
 	{
+		L2WorldRegion reg = getWorldRegion();
+		if(reg != null) reg.removeFromZones(this);
 		decayMe();
+	}
+
+	@Override
+	public void onSpawn()
+	{
+		super.onSpawn();
+		this.revalidateZone();
 	}
 	
 	public void onTeleported()
@@ -4777,12 +4802,20 @@ public abstract class L2Character extends L2Object
 			super.getPosition().setXYZ(m._xMoveFrom + (int) (elapsed * m._xSpeedTicks), m._yMoveFrom + (int) (elapsed * m._ySpeedTicks), super.getZ());
 			if (this instanceof L2PcInstance)
 				((L2PcInstance) this).revalidateZone(false);
+			else
+				revalidateZone();
 		}
 		
 		// Set the timer of last position update to now
 		m._moveTimestamp = gameTicks;
 		
 		return false;
+	}
+
+	public void revalidateZone()
+	{
+		if (getWorldRegion() == null) return;
+		getWorldRegion().revalidateZones(this);
 	}
 	
 	/**
@@ -5956,7 +5989,7 @@ public abstract class L2Character extends L2Object
 	
 	public static boolean isInsidePeaceZone(L2Object attacker, L2Object target)
 	{
-		if (target == null)
+		if (target == null || !(attacker instanceof L2Character) && !(target instanceof L2Character))
 			return false;
 		if (target instanceof L2MonsterInstance)
 			return false;
@@ -5992,10 +6025,13 @@ public abstract class L2Character extends L2Object
 				return (((L2PcInstance) target).getInPeaceZone() || ((L2PcInstance) attacker).getInPeaceZone());
 			}
 			else
-				return (((L2PcInstance) attacker).getInPeaceZone() || ZoneManager.getInstance().checkIfInZonePeace(target));
+				return (((L2PcInstance) attacker).getInPeaceZone() || ((L2Character)target).isInsideZone(L2Zone.FLAG_PEACE));
 		}
-		if (target instanceof L2PcInstance) { return (((L2PcInstance) target).getInPeaceZone() || ZoneManager.getInstance().checkIfInZonePeace(attacker)); }
-		return (ZoneManager.getInstance().checkIfInZonePeace(attacker) || ZoneManager.getInstance().checkIfInZonePeace(target));
+		if (target instanceof L2PcInstance)
+		{
+			return (((L2PcInstance) target).getInPeaceZone() || ((L2Character)attacker).isInsideZone(L2Zone.FLAG_PEACE));
+		}
+		return (((L2Character)attacker).isInsideZone(L2Zone.FLAG_PEACE) || ((L2Character)target).isInsideZone(L2Zone.FLAG_PEACE));
 	}
 	
 	/**
