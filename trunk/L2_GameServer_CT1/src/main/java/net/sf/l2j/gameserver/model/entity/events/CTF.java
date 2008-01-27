@@ -368,7 +368,7 @@ public class CTF
 			}
 			catch(Exception e)
 			{
-				_log.warn("CTF Engine[spawnAllFlags()]: exception: " + e.getStackTrace());
+				_log.warn("CTF Engine[spawnAllFlags()]: exception: " + e.getMessage());
 			}
 		}
 	}

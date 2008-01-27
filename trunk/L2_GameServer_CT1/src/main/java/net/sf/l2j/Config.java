@@ -1193,8 +1193,8 @@ public final class Config
 			SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
 			SHOW_STATUS_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
 			NAME_PAGE_SIZE_COMMUNITYBOARD = Integer.parseInt(optionsSettings.getProperty("NamePageSizeOnCommunityBoard", "50"));
-			if (NAME_PAGE_SIZE_COMMUNITYBOARD > 25)
-				NAME_PAGE_SIZE_COMMUNITYBOARD = 25;
+			if (NAME_PAGE_SIZE_COMMUNITYBOARD > 70)
+				NAME_PAGE_SIZE_COMMUNITYBOARD = 70; //can be displayed more then 70 but for best window showup limited to 70
 			NAME_PER_ROW_COMMUNITYBOARD = Integer.parseInt(optionsSettings.getProperty("NamePerRowOnCommunityBoard", "5"));
 			if (NAME_PER_ROW_COMMUNITYBOARD > 5)
 				NAME_PER_ROW_COMMUNITYBOARD = 5;
