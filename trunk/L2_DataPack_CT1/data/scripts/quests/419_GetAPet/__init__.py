@@ -29,7 +29,7 @@ SPIDER_LE2 = 20308 # Hook Spider
 SPIDER_LE3 = 20466 # Pincer Spider
 #3 dark elves
 SPIDER_DE1 = 20025 # Lesser Dark Horror
-SPIDER_DE2 = 20105 # Dark Horror
+SPIDER_DE2 = 20105 # Dark Horror 
 SPIDER_DE3 = 20034 # Prowler
 #4 orcs
 SPIDER_O1 = 20474 # Kasha Spider
@@ -62,7 +62,7 @@ def getCount_proof(st) :
   return proofs
 
 def check_questions(st) :
-  question = 1
+  question = 1  
   quiz = st.get("quiz")
   answers = st.getInt("answers")
   if answers < 10 :
@@ -132,26 +132,26 @@ class Quest (JQuest):
         st.set("step","SLAYED")
         st.set("progress","0")
         race = player.getRace().ordinal()
-      if race == 0:
-          st.takeItems(SPIDER_LEG1,REQUIRED_SPIDER_LEGS)
-          st.takeItems(ANIMAL_SLAYER_LIST1,1)
-      elif race == 1:
-          st.takeItems(SPIDER_LEG2,REQUIRED_SPIDER_LEGS)
-          st.takeItems(ANIMAL_SLAYER_LIST2,1)
-      elif race == 2:
-          st.takeItems(SPIDER_LEG3,REQUIRED_SPIDER_LEGS)
-          st.takeItems(ANIMAL_SLAYER_LIST3,1)
-      elif race == 3:
-          st.takeItems(SPIDER_LEG4,REQUIRED_SPIDER_LEGS)
-          st.takeItems(ANIMAL_SLAYER_LIST4,1)
-      elif race == 4:
-          st.takeItems(SPIDER_LEG5,REQUIRED_SPIDER_LEGS)
-          st.takeItems(ANIMAL_SLAYER_LIST5,1)
-      elif race == 5:
-          st.takeItems(SPIDER_LEG6,REQUIRED_SPIDER_LEGS)
-          st.takeItems(ANIMAL_SLAYER_LIST6,1)
-      st.giveItems(ANIMAL_LOVERS_LIST1,1)
-      return "419_talk.htm"
+        if race == 0:
+            st.takeItems(SPIDER_LEG1,REQUIRED_SPIDER_LEGS)
+            st.takeItems(ANIMAL_SLAYER_LIST1,1)
+        elif race == 1:
+            st.takeItems(SPIDER_LEG2,REQUIRED_SPIDER_LEGS)
+            st.takeItems(ANIMAL_SLAYER_LIST2,1)
+        elif race == 2:
+            st.takeItems(SPIDER_LEG3,REQUIRED_SPIDER_LEGS)
+            st.takeItems(ANIMAL_SLAYER_LIST3,1)
+        elif race == 3:
+            st.takeItems(SPIDER_LEG4,REQUIRED_SPIDER_LEGS)
+            st.takeItems(ANIMAL_SLAYER_LIST4,1)
+        elif race == 4:
+            st.takeItems(SPIDER_LEG5,REQUIRED_SPIDER_LEGS)
+            st.takeItems(ANIMAL_SLAYER_LIST5,1)
+        elif race == 5:
+            st.takeItems(SPIDER_LEG6,REQUIRED_SPIDER_LEGS)
+            st.takeItems(ANIMAL_SLAYER_LIST6,1)
+        st.giveItems(ANIMAL_LOVERS_LIST1,1)
+        return "419_talk.htm"
       if event == "talk1" :
         return "419_bella_2.htm"
       if event == "talk2" :
@@ -167,7 +167,7 @@ class Quest (JQuest):
       if event == "tryme" :
         st.set("quiz","1 2 3 4 5 6 7 8 9 10 11 12 13 14")
         st.set("answers","0")
-        return check_questions(st)
+        return check_questions(st) 
       elif event == "wrong" :
         st.set("step","SLAYED")
         st.set("progress","0")
@@ -198,7 +198,7 @@ class Quest (JQuest):
          return "Start.htm"
       if id == State.STARTED and st.get("step")=="STARTED" :
          if getCount_proof(st) == 0 :
-            return "419_no_slay.htm"
+            return "419_no_slay.htm"  
          elif getCount_proof(st) < REQUIRED_SPIDER_LEGS :
             return "419_pending_slay.htm"
          else :
@@ -218,9 +218,9 @@ class Quest (JQuest):
 
   def onKill(self,npc,player,isPet):
       st = player.getQuestState(qn)
-      if not st : return
-      if st.getState() != State.STARTED : return
-
+      if not st : return 
+      if st.getState() != State.STARTED : return 
+   
       npcId = npc.getNpcId()
       collected = getCount_proof(st)
       if collected < REQUIRED_SPIDER_LEGS:
