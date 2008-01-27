@@ -8077,11 +8077,11 @@ public final class L2PcInstance extends L2PlayableInstance
     /**
      * Set the type of Pet mounted (0 : none, 1 : Stridder, 2 : Wyvern) and send a Server->Client packet InventoryUpdate to the L2PcInstance.<BR><BR>
      */
-    public boolean checkLandingState()
+    public boolean checkCanLand()
     {
         // Check if char is in a no landing zone 
-        if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoLanding, this)) return true;
-        else
+        if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoLanding, this)) return false;
+
         // if this is a castle that is currently being sieged, and the rider is NOT a castle owner
         // he cannot land.
         // castle owner is the leader of the clan that owns the castle where the pc is
@@ -8089,29 +8089,30 @@ public final class L2PcInstance extends L2PlayableInstance
             && !(getClan() != null
                 && CastleManager.getInstance().getCastle(this) == CastleManager.getInstance().getCastleByOwner(getClan()) 
                 && this == getClan().getLeader().getPlayerInstance()))
-            return true;
+            return false;
 
-        return false;
+        return true;
     }
 
     // returns false if the change of mount type fails.
     public boolean setMount(int npcId, int mountType)
     {
-        if (checkLandingState() && mountType == 2)
+        if (mountType == 2 && !checkCanLand())
+            return false;
 
         switch (mountType)
         {
             case 0:
                 setIsRiding(false);
                 setIsFlying(false);
-             	 isFalling(false,0); // Initialize the fall just incase dismount was made while in-air
+                isFalling(false,0); // Initialize the fall just incase dismount was made while in-air
                 break; //Dismounted
             case 1:
                 setIsRiding(true);
                 if(isNoble()) 
                 {
-                   L2Skill striderAssaultSkill = SkillTable.getInstance().getInfo(325, 1);
-                   addSkill(striderAssaultSkill); // not saved to DB
+                    L2Skill striderAssaultSkill = SkillTable.getInstance().getInfo(325, 1);
+                    addSkill(striderAssaultSkill); // not saved to DB
                 }
                 break;
             case 2:
@@ -9487,7 +9488,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if (_taskRentPet != null)
 		{
 			// if the rent of a wyvern expires while over a flying zone, tp to down before unmounting
-			if (checkLandingState() && getMountType()==2)
+			if (getMountType() == 2 && !checkCanLand())
 				teleToLocation(TeleportWhereType.Town);
 
 			if (this.dismount())  // this should always be true now, since we teleported already
