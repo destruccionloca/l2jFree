@@ -273,11 +273,11 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check if player is in a Monster Derby Track
-        /*else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
+        else if (activeChar.isInsideZone(L2Zone.FLAG_MONSTERTRACK))
         {
             activeChar.sendMessage("You can't escape from a Monster Derby Track.");
             return false;
-        }*/
+        }
 
         L2PcInstance partner;
         partner = (L2PcInstance)L2World.getInstance().findObject(activeChar.getPartnerId());
@@ -340,11 +340,11 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
             return false;
         }
-        /*else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, partner))
+        else if (partner.isInsideZone(L2Zone.FLAG_MONSTERTRACK))
         {
             activeChar.sendMessage("Your partner is in a Monster Derby Track.");
             return false;
-        }*/
+        }
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;
         

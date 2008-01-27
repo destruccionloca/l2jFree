@@ -202,11 +202,7 @@ public class ClanHallManager
 	/** Get Clan Hall by Id */
 	public final ClanHall getClanHallById(int clanHallId)
 	{
-		if(_clanHall.containsKey(clanHallId))
-			return _clanHall.get(clanHallId);
-		if(_freeClanHall.containsKey(clanHallId))
-			return _freeClanHall.get(clanHallId);
-		return null;
+		return _allClanHalls.get(clanHallId);
 	}
 
 	/** Get Clan Hall by Object */
@@ -218,10 +214,7 @@ public class ClanHallManager
 	/** Get Clan Hall by region x,y,offset */
 	public final ClanHall getClanHall(int x, int y)
 	{
-		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
-			if (ch.getValue().checkIfInZone(x, y)) return ch.getValue();
-
-		for (Map.Entry<Integer, ClanHall> ch : _freeClanHall.entrySet())
+		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
 			if (ch.getValue().checkIfInZone(x, y)) return ch.getValue();
 
 		return null;
@@ -230,10 +223,7 @@ public class ClanHallManager
 	/** Get Clan Hall by name */
 	public final ClanHall getClanHall(String name)
 	{
-		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
-			if (ch.getValue().getName().equals(name)) return ch.getValue();
-
-		for (Map.Entry<Integer, ClanHall> ch : _freeClanHall.entrySet())
+		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
 			if (ch.getValue().getName().equals(name)) return ch.getValue();
 
 		return null;
@@ -250,10 +240,7 @@ public class ClanHallManager
 
 	public final ClanHall getNearbyClanHall(int x, int y, int maxDist)
 	{
-		for (Map.Entry<Integer, ClanHall> ch : _clanHall.entrySet())
-			if (ch.getValue().getDistanceToZone(x, y) < maxDist) return ch.getValue();
-
-		for (Map.Entry<Integer, ClanHall> ch : _freeClanHall.entrySet())
+		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
 			if (ch.getValue().getDistanceToZone(x, y) < maxDist) return ch.getValue();
 
 		return null;

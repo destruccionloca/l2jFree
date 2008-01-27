@@ -81,6 +81,7 @@ public class ZoneManager
 
 		for (File f : Util.getDatapackFiles("zone", ".xml"))
 		{
+            int count = 0;
 			try
 			{
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -91,15 +92,19 @@ public class ZoneManager
 			catch (Exception e)
 			{
 				_log.fatal("ZoneManager: Error loading file " + f.getAbsolutePath(), e);
+                continue;
 			}
 			try
 			{
-				parseDocument(doc);
+				count = parseDocument(doc);
 			}
 			catch (Exception e)
 			{
 				_log.fatal("ZoneManager: Error in file " + f.getAbsolutePath(), e);
+                e.printStackTrace();
+                continue;
 			}
+            _log.info("ZoneManager: "+f.getName()+" loaded with "+count+" zones");
 		}
 	}
 
@@ -115,7 +120,7 @@ public class ZoneManager
 			{
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
-					if ("item".equalsIgnoreCase(d.getNodeName()))
+					if ("zone".equalsIgnoreCase(d.getNodeName()))
 					{
 						L2Zone zone = L2Zone.parseZone(d);
 						if(zone == null)continue;

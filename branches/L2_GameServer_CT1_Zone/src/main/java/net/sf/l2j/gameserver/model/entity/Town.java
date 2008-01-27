@@ -53,8 +53,8 @@ public class Town extends Entity
 	
 	private L2MapRegion findMapRegion(L2Zone zone)
 	{
-		int middleX = _zone.getMiddleX();
-		int middleY = _zone.getMiddleY();
+		int middleX = zone.getMiddleX();
+		int middleY = zone.getMiddleY();
 
 		L2MapRegion region = MapRegionManager.getInstance().getRegion(middleX, middleY);
 		

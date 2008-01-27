@@ -51,7 +51,7 @@ public class TownManager
     {
         Town t = new Town(zone);
         t.registerZone(zone);
-        _towns.put(zone.getTownId(), t);
+        getTowns().put(zone.getTownId(), t);
     }
 
     /** Return true if object is inside zone */

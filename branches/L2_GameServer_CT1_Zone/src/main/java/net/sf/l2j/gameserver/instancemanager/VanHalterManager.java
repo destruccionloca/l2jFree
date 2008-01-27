@@ -897,7 +897,14 @@ public class VanHalterManager extends Entity
     {
     	for (L2DoorInstance door : _doorOfAltar)
     	{
-    		door.openMe();
+    		try
+    		{
+    			door.openMe();
+    		}
+    		catch(Exception e)
+    		{
+    			e.printStackTrace();
+    		}
     	}
     	
     	if (loop)

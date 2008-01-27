@@ -43,7 +43,7 @@ public class L2DefaultZone extends L2Zone
 				character.stopSkillEffects(sk.getId());
 		}
 
-		if (_pvp == PvpSettings.PVP)
+		if (_pvp == PvpSettings.ARENA)
 		{
 			character.setInsideZone(FLAG_PVP, true);
 			if (character instanceof L2PcInstance)
@@ -76,8 +76,12 @@ public class L2DefaultZone extends L2Zone
 				character.stopSkillEffects(sk.getId());
 		}
 		
-		if (_pvp == PvpSettings.PVP)
+		if (_pvp == PvpSettings.ARENA)
+		{
 			character.setInsideZone(FLAG_PVP, false);
+			if (character instanceof L2PcInstance)
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+		}
 		else if (_pvp == PvpSettings.PEACE)
 			character.setInsideZone(FLAG_PEACE, false);
 	}

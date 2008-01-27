@@ -48,6 +48,7 @@ public abstract class L2Zone
 		CastleHQ,
 		Clanhall,
 		Default,
+		Derby,
 		Fishing,
 		Jail,
 		Mothertree,
@@ -61,7 +62,7 @@ public abstract class L2Zone
 	public static enum PvpSettings
 	{
 		GENERAL,
-		PVP,
+		ARENA,
 		PEACE
 	}
 
@@ -111,8 +112,8 @@ public abstract class L2Zone
 	protected int _castleId;
 	protected int _clanhallId;
 	protected int _townId;
-	protected int _redirectId;
-	protected int _taxById;
+	//protected int _redirectId;
+	//protected int _taxById;
 
 	protected ZoneType _type;
 	protected PvpSettings _pvp;
@@ -131,6 +132,7 @@ public abstract class L2Zone
 	public L2Zone()
 	{
 		// Constructor
+		_characterList = new FastMap<Integer, L2Character>();
 	}
 
 	protected void register()
@@ -149,8 +151,9 @@ public abstract class L2Zone
 
 	public String getClassName()
 	{
-		String[] parts = this.getClass().toString().split(".");
-		return parts[parts.length-1];
+		//String[] parts = this.getClass().toString().split(".");
+		//return parts[parts.length-1];
+        return getClass().toString();
 	}
 
 	public int getCastleId()
@@ -163,7 +166,7 @@ public abstract class L2Zone
 		return _townId;
 	}
 
-	public int getRedirectId()
+	/*public int getRedirectId()
 	{
 		return _redirectId;
 	}
@@ -171,11 +174,19 @@ public abstract class L2Zone
 	public int getTaxById()
 	{
 		return _taxById;
-	}
+	}*/
 
 	public int getClanhallId()
 	{
 		return _clanhallId;
+	}
+
+	public FastMap<RestartType, FastList<Location>> getRestartMap()
+	{
+		if (_restarts == null)
+			_restarts = new FastMap<RestartType, FastList<Location>>();
+
+		return _restarts;
 	}
 
 	public Location getRestartPoint(RestartType type)
@@ -187,7 +198,7 @@ public abstract class L2Zone
 		}
 
 		// No restartpoint defined
-		return getRandomLocation();
+		return null;
 	}
 
 	public void revalidateInZone(L2Character character)
@@ -325,6 +336,9 @@ public abstract class L2Zone
 
 	public int getMiddleX()
 	{
+		if(_shapes.length == 0)
+			throw new NullPointerException();
+
 		int sum = 0;
 		for(Shape sh : _shapes)
 		{
@@ -335,6 +349,9 @@ public abstract class L2Zone
 
 	public int getMiddleY()
 	{
+		if(_shapes.length == 0)
+			throw new NullPointerException();
+
 		int sum = 0;
 		for(Shape sh : _shapes)
 		{
@@ -421,6 +438,7 @@ public abstract class L2Zone
 
 		zone._id = id;
 		zone._type = ZoneType.valueOf(type);
+		zone._name = name;
 
 		FastList<Shape> shapes = new FastList<Shape>();
 		FastList<Shape> exShapes = new FastList<Shape>();
@@ -533,24 +551,24 @@ public abstract class L2Zone
 		int y = Integer.parseInt(yn.getNodeValue());
 		int z = Integer.parseInt(zn.getNodeValue());
 
-		if(!_restarts.containsKey(t))
-			_restarts.put(t, new FastList<Location>());
+		if(!getRestartMap().containsKey(t))
+			getRestartMap().put(t, new FastList<Location>());
 
-		_restarts.get(t).add(new Location(x, y, z));
+		getRestartMap().get(t).add(new Location(x, y, z));
 	}
 
 	private void parseEntity(Node n) throws Exception
 	{
-		Node castle = n.getAttributes().getNamedItem("castle");
-		Node clanhall = n.getAttributes().getNamedItem("clanhall");
-		Node redirect = n.getAttributes().getNamedItem("redirect");
-		Node taxById = n.getAttributes().getNamedItem("taxById");
+		Node castle = n.getAttributes().getNamedItem("castleId");
+		Node clanhall = n.getAttributes().getNamedItem("clanhallId");
+		//Node redirect = n.getAttributes().getNamedItem("redirect");
+		//Node taxById = n.getAttributes().getNamedItem("taxById");
 		Node town = n.getAttributes().getNamedItem("townId");
 		
 		this._castleId = (castle != null) ? Integer.parseInt(castle.getNodeValue()) : -1;
 		this._clanhallId = (clanhall != null) ? Integer.parseInt(clanhall.getNodeValue()) : -1;
-		this._redirectId = (redirect != null) ? Integer.parseInt(redirect.getNodeValue()) : -1;
-		this._taxById = (taxById != null) ? Integer.parseInt(taxById.getNodeValue()) : -1;
+		//this._redirectId = (redirect != null) ? Integer.parseInt(redirect.getNodeValue()) : -1;
+		//this._taxById = (taxById != null) ? Integer.parseInt(taxById.getNodeValue()) : -1;
 		this._townId = (town != null) ? Integer.parseInt(town.getNodeValue()) : -1;
 	}
 

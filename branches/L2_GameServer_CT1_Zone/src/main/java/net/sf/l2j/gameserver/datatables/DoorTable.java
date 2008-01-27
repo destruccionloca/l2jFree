@@ -58,7 +58,7 @@ public class DoorTable
 		parseData();
 		checkAutoOpen();
 	}
-        
+
 	public void reloadAll() 
 	{
 	    respawn();
@@ -93,13 +93,14 @@ public class DoorTable
 				ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(),door.getY(),500);
 				if (clanhall != null)
 				{
-				    clanhall.getDoors().add(door);
-				    door.setClanHall(clanhall);
-                    if (_log.isDebugEnabled())
-                        _log.debug("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
+					clanhall.getDoors().add(door);
+					door.setClanHall(clanhall);
+					if (_log.isDebugEnabled())
+						_log.debug("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
 				}
 			}
-
+			
+			_initialized = true;
 			_log.info("DoorTable: Loaded " + _staticItems.size() + " Door Templates.");
 		} 
 		catch (FileNotFoundException e) 
@@ -111,7 +112,8 @@ public class DoorTable
 		{
 			_initialized = false;
 			_log.warn("error while creating door table " + e);
-		} 
+			e.printStackTrace();
+		}
 		finally 
 		{
 			try { lnr.close(); } catch (Exception e1) { /* ignore problems */ }
@@ -178,8 +180,8 @@ public class DoorTable
 		npcDat.set("sex", "male");
 		npcDat.set("type", "");
 		npcDat.set("baseAtkRange", 0);
-        npcDat.set("baseMpMax", 0);
-        npcDat.set("baseCpMax", 0);
+		npcDat.set("baseMpMax", 0);
+		npcDat.set("baseCpMax", 0);
 		npcDat.set("rewardExp", 0);
 		npcDat.set("rewardSp", 0);
 		npcDat.set("basePAtk", 0);
@@ -217,12 +219,12 @@ public class DoorTable
 		return door;
 	}
         
-	public boolean isInitialized() 
+	public static boolean isInitialized()
 	{
 		return _initialized;
 	}
 
-	private boolean _initialized = true;
+	private static boolean _initialized = false;
 
 	public L2DoorInstance getDoor(Integer id) 
 	{

@@ -100,7 +100,7 @@ public class DimensionalRiftManager
             int mobId, x, y, z, delay, count;
             L2Spawn spawnDat;
             L2NpcTemplate template;
-            int xMin, xMax, yMin, yMax, zMin, zMax, xT, yT, zT;
+            int xMin = 0, xMax = 0, yMin = 0, yMax = 0, zMin = 0, zMax = 0, xT = 0, yT = 0, zT = 0;
             boolean isBossRoom;
 
             for (Node rift = doc.getFirstChild(); rift != null; rift = rift.getNextSibling())
@@ -120,17 +120,29 @@ public class DimensionalRiftManager
                                 {
                                     attrs = room.getAttributes();
                                     roomId = Byte.parseByte(attrs.getNamedItem("id").getNodeValue());
+                                    Node boss = attrs.getNamedItem("isBossRoom");
+                                    isBossRoom = boss != null ? Boolean.parseBoolean(boss.getNodeValue()) : false;
 
-                                    xMin = Integer.parseInt(attrs.getNamedItem("xMin").getNodeValue());
-                                    xMax = Integer.parseInt(attrs.getNamedItem("xMax").getNodeValue());
-                                    yMin = Integer.parseInt(attrs.getNamedItem("yMin").getNodeValue());
-                                    yMax = Integer.parseInt(attrs.getNamedItem("yMax").getNodeValue());
-                                    zMin = Integer.parseInt(attrs.getNamedItem("zMin").getNodeValue());
-                                    zMax = Integer.parseInt(attrs.getNamedItem("zMax").getNodeValue());
-                                    xT = Integer.parseInt(attrs.getNamedItem("xT").getNodeValue());
-                                    yT = Integer.parseInt(attrs.getNamedItem("yT").getNodeValue());
-                                    zT = Integer.parseInt(attrs.getNamedItem("zT").getNodeValue());
-                                    isBossRoom = Boolean.parseBoolean(attrs.getNamedItem("isBossRoom").getNodeValue());
+                                    for (Node coord = room.getFirstChild(); coord != null; coord = coord.getNextSibling())
+                                    {
+                                        if ("teleport".equalsIgnoreCase(coord.getNodeName()))
+                                        {
+                                            attrs = coord.getAttributes();
+                                            xT = Integer.parseInt(attrs.getNamedItem("x").getNodeValue());
+                                            yT = Integer.parseInt(attrs.getNamedItem("y").getNodeValue());
+                                            zT = Integer.parseInt(attrs.getNamedItem("z").getNodeValue());
+                                        }
+                                        else if ("zone".equalsIgnoreCase(coord.getNodeName()))
+                                        {
+                                            attrs = coord.getAttributes();
+                                            xMin = Integer.parseInt(attrs.getNamedItem("xMin").getNodeValue());
+                                            xMax = Integer.parseInt(attrs.getNamedItem("xMax").getNodeValue());
+                                            yMin = Integer.parseInt(attrs.getNamedItem("yMin").getNodeValue());
+                                            yMax = Integer.parseInt(attrs.getNamedItem("yMax").getNodeValue());
+                                            zMin = Integer.parseInt(attrs.getNamedItem("zMin").getNodeValue());
+                                            zMax = Integer.parseInt(attrs.getNamedItem("zMax").getNodeValue());
+                                        }
+                                    }
 
                                     if(!_rooms.containsKey(type))
                                         _rooms.put(type, new FastMap<Byte, DimensionalRiftRoom>());

@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 public class Entity
 {
 	protected static Log _log = LogFactory.getLog(Entity.class.getName());
@@ -45,63 +44,32 @@ public class Entity
 
 	public int getTownId()
 	{
-		if(_zone == null)
-		{
-			_log.error("No zone"); //Proper message needed
-			return -1;
-		}
 		return _zone.getTownId();
 	}
 
 	public int getCastleId()
 	{
-		if(_zone == null)
-		{
-			_log.error("No zone"); //Proper message needed
-			return -1;
-		}
 		return _zone.getCastleId();
 	}
 
 	public boolean checkIfInZone(L2Character cha)
 	{
-		if(_zone == null)
-		{
-			_log.error("No zone"); //Proper message needed
-			return false;
-		}
 		return _zone.isInsideZone(cha);
 	}
 
 	public boolean checkIfInZone(int x, int y, int z)
 	{
-		if(_zone == null)
-		{
-			_log.error("No zone"); //Proper message needed
-			return false;
-		}
 		return _zone.isInsideZone(x, y, z);
 	}
 
 	public boolean checkIfInZone(int x, int y)
 	{
-		if(_zone == null)
-		{
-			_log.error("No zone"); //Proper message needed
-			return false;
-		}
 		return _zone.isInsideZone(x, y);
 	}
 
 	public double getDistanceToZone(int x, int y) 
 	{
-		if(_zone == null)
-		{
-			_log.error("No zone"); //Proper message needed
-			return Double.MAX_VALUE;
-		}
-		else
-			return _zone.getDistanceToZone(x, y);
+		return _zone.getDistanceToZone(x, y);
 	}
 
 	protected boolean checkBanish(L2PcInstance cha)
