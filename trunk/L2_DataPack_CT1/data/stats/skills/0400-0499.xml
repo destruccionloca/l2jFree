@@ -606,17 +606,19 @@
 </skill>
 <skill id="428" levels="1" name="Inner Rhythm">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  By Darki699
+
   Description(s):
       MP consumption for singing and dancing is decreased.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-<!-- needs core support -->
+    <mul order="0x30" stat="DanceMpConsumeRate" val="0.95"/>
   </for>
 </skill>
 <skill id="429" levels="1" name="Knighthood">
@@ -724,7 +726,7 @@
 </skill>
 <skill id="433" levels="1" name="Arcane Roar"> <!-- perhaps "Arcane Lore" -->
 <!--
-  Needs to be finished.
+  Values By Darki699
 
   Description(s):
       Increases resistance to elemental attacks and increases magic power.
@@ -736,20 +738,18 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-<!-- need to add resistance increase to elemental attacks
-    <mul order="0x30" stat="fireVuln" val="?"/>
-    <mul order="0x30" stat="windVuln" val="?"/>
-    <mul order="0x30" stat="waterVuln" val="?"/>
-    <mul order="0x30" stat="earthVuln" val="?"/>
-    <mul order="0x30" stat="holyVuln" val="?"/>
-    <mul order="0x30" stat="darkVuln" val="?"/>
--->
+    <mul order="0x30" stat="fireVuln" val="0.97"/>
+    <mul order="0x30" stat="windVuln" val="0.97"/>
+    <mul order="0x30" stat="waterVuln" val="0.97"/>
+    <mul order="0x30" stat="earthVuln" val="0.97"/>
+    <mul order="0x30" stat="holyVuln" val="0.97"/>
+    <mul order="0x30" stat="darkVuln" val="0.97"/>
     <mul order="0x30" stat="mAtk" val="1.03"/>
   </for>
 </skill>
 <skill id="434" levels="1" name="Necromancy">
 <!--
-  Needs to be finished.
+  Fixed By Darki699
 
   Description(s):
       Increases resistance to dark attacks and increases magic power.
@@ -761,9 +761,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-<!-- need to add resistance increase to dark attacks
-    <mul order="0x30" stat="darkVuln" val="?"/>
--->
+    <mul order="0x30" stat="darkVuln" val="0.93"/>
     <mul order="0x30" stat="mAtk" val="1.03"/>
   </for>
 </skill>
@@ -837,7 +835,7 @@
 </skill>
 <skill id="438" levels="1" name="Soul of the Phoenix">
 <!--
-  Needs to be finished.
+  By Darki699
 
   Description(s):
       Revives target from death and restores them to full health, retaining all buff/debuff effects except for Noblesse Blessing and Lucky Charm. Consumes 1 Blood of the Phoenix.
@@ -853,10 +851,10 @@
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="400"/>
-  <set name="effectRange" val="900"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-<!-- needs core support - similiar effect to Blessing of Noblesse -->
+    <effect count="1" name="PhoenixSoul" time="1800" val="0"/>
   </for>
 </skill>
 <skill id="439" levels="1" name="Shield of Revenge">
@@ -896,17 +894,31 @@
 </skill>
 <skill id="441" levels="1" name="Force Meditation">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  By Darki699
+
   Description(s):
       Meditate to increase HP/MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked. Level 3 Focused Force charge required.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpConsume" val="0"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="1800000"/>
+  <set name="skillType" val="CHARGE_EFFECT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="num_charges" val="3"/>
+  <set name="charge_skill_id" val="50"/>
+  <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
+  <using kind="Fist, Dual Fist"/>
+  </cond>
   <for>
-<!-- needs core support for effect stopping when attacked -->
+    <effect count="1" name="Relax" time="30" val="0">
+      <mul order="0x30" stat="pDef" val="0.2"/>
+      <mul order="0x30" stat="regMp" val="10"/>
+      <mul order="0x30" stat="regHp" val="15"/>
+    </effect>
   </for>
 </skill>
 <skill id="442" levels="1" name="Sonic Barrier">
@@ -1368,18 +1380,34 @@
 </skill>
 <skill id="461" levels="2" name="Break Duress">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
+  By Darki699
   Description(s):
       Lvl 1 - Uses Focused Force to escape from an immobile state. Level 2 Focused Force charge required.
       Lvl 2 - Uses Focused Force to escape from a slow or immobile state. Level 3 Focused Force charge required.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#mpConsume"> 33 37 </table>
+  <table name="#magicLvl"> 60 66 </table>
+  <table name="#power"> 3.0 5.0 </table>
+  <table name="#numcharge"> 2 3 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="condition" val="128"/>
+  <set name="reuseDelay" val="600000"/>
+  <set name="hitTime" val="1667"/>
+  <set name="skillType" val="CHARGE_NEGATE"/>
+  <set name="negateStats" val="ROOT PARALYZE SLOW"/>
+  <set name="negatePower" val="#power"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <cond msg="An equipped hand-to-hand combat weapon is required to use this skill.">
+    <using kind="Fist, Dual Fist"/>
+  </cond>
+  <!-- charge values -->
+  <set name="num_charges" val="#numcharge"/>
+  <set name="charge_skill_id" val="50"/> <!-- Force Focus is the charger -->
   <for>
-<!-- how can I use num_charges when skillType is not CHARGEDAM ? -->
   </for>
 </skill>
 <skill id="462" levels="1" name="Guilted Body">
