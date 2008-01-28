@@ -257,6 +257,7 @@ public class CharSelectionInfo extends L2GameServerPacket
 	private CharSelectInfoPackage restoreChar(ResultSet chardata) throws Exception
 	{
 		int objectId = chardata.getInt("obj_id");
+		L2PcInstance cha = L2PcInstance.load(objectId);
 
 		// See if the char must be deleted
 		long deletetime = chardata.getLong("deletetime");
@@ -264,7 +265,6 @@ public class CharSelectionInfo extends L2GameServerPacket
 		{
 			if (System.currentTimeMillis() > deletetime) 
 			{
-				L2PcInstance cha = L2PcInstance.load(objectId);
 				L2Clan clan = cha.getClan();
 				if(clan != null)
 					clan.removeClanMember(cha.getName(), 0);
@@ -322,6 +322,8 @@ public class CharSelectionInfo extends L2GameServerPacket
 			else
 				charInfopackage.setTransformationId(cw.getTransformId());
 		}
+		else if (cha.transformId() > 0)
+			charInfopackage.setTransformationId(cha.transformId());
 		else
 			charInfopackage.setTransformationId(0);
 		

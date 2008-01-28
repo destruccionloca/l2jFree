@@ -30,7 +30,10 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 public final class RequestSaveInventoryOrder extends L2GameClientPacket
 {
     private List<InventoryOrder> _order;
-    
+
+    /** client limit */
+    private static final int LIMIT  = 125;
+
     /**
      * @see net.sf.l2j.gameserver.clientpackets.L2GameClientPacket#readImpl()
      */
@@ -38,7 +41,7 @@ public final class RequestSaveInventoryOrder extends L2GameClientPacket
     protected void readImpl()
     {
         int sz = readD();
-        sz = Math.min(sz, this.getClient().getActiveChar().getInventoryLimit());
+        sz = Math.min(sz, LIMIT);
         _order = new ArrayList<InventoryOrder>(sz);
         for (int i = 0; i < sz; i++)
         {
@@ -49,8 +52,8 @@ public final class RequestSaveInventoryOrder extends L2GameClientPacket
         		_order.add(new InventoryOrder(objectId, order));
         	}
         	catch (Throwable t) 
-        	{	
-        		continue;	
+        	{
+        		continue;
         	}
         }
     }

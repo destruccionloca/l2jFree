@@ -23,7 +23,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
-public class Transform implements ISkillHandler
+public class Transformation implements ISkillHandler
 {
 	private static final SkillType[] SKILL_IDS = { SkillType.TRANSFORM };
 

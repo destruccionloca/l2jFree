@@ -205,29 +205,42 @@ public class PcInventory extends Inventory
         return list.toArray(new TradeList.TradeItem[list.size()]);
     }
 
-    /**
-     * Adjust TradeItem according his status in inventory
-     * @param item : L2ItemInstance to be adjusten
-     * @return TradeItem representing adjusted item 
-     */
-    public void adjustAvailableItem(TradeItem item) 
-    { 
-        for (L2ItemInstance adjItem: _items) 
-        {
-            if (adjItem.getItemId() == item.getItem().getItemId())
-            {
-                item.setObjectId(adjItem.getObjectId());
-                item.setEnchant(adjItem.getEnchantLevel());
-                
-                if (adjItem.getCount() < item.getCount()) 
-                    item.setCount(adjItem.getCount());
-                
-                return;
-            }
-        }
-        
-        item.setCount(0);
-    }
+	/**
+	* Adjust TradeItem according his status in inventory
+	* @param item : L2ItemInstance to be adjusten
+	* @return TradeItem representing adjusted item 
+	*/
+	public void adjustAvailableItem(TradeItem item) 
+	{
+		boolean notAllEquipped = false;
+		for(L2ItemInstance adjItem: getItemsByItemId(item.getItem().getItemId()))
+		{
+			if(adjItem.isEquipable())
+			{
+				if(!adjItem.isEquipped())
+					notAllEquipped |= true;
+			}
+			else
+			{
+				notAllEquipped |= true;
+				break;
+			}
+		}
+
+		if(notAllEquipped)
+		{
+			L2ItemInstance adjItem = getItemByItemId(item.getItem().getItemId());
+			item.setObjectId(adjItem.getObjectId());
+			item.setEnchant(adjItem.getEnchantLevel());
+			
+			if (adjItem.getCount() < item.getCount()) 
+				item.setCount(adjItem.getCount());
+			
+			return;
+		}
+
+		item.setCount(0);
+	}
 
     /**
      * Adds adena to PCInventory

@@ -59,7 +59,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 	
 	class DeathTask implements Runnable
 	{
-		L2PcInstance activeChar;
+		final L2PcInstance activeChar;
 		DeathTask (L2PcInstance _activeChar)
 		{
 			activeChar = _activeChar;
@@ -166,7 +166,10 @@ public class RequestRestartPoint extends L2GameClientPacket
 				activeChar.setIsPendingRevive(true);
 				activeChar.teleToLocation(loc, true);
 			}
-			catch (Throwable e) {}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -213,7 +216,9 @@ public class RequestRestartPoint extends L2GameClientPacket
 			return;
 		}
 		
-		ThreadPoolManager.getInstance().scheduleGeneral(new DeathTask(activeChar), 1);
+
+		// run immediatelly (no need to schedule)
+		new DeathTask(activeChar).run();
 	}
 
 	/* (non-Javadoc)

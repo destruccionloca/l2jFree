@@ -213,6 +213,7 @@ import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
+import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
@@ -263,6 +264,10 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_CHAR_HENNA = "DELETE FROM character_hennas WHERE char_obj_id=? AND slot=? AND class_index=?";
     private static final String DELETE_CHAR_HENNAS = "DELETE FROM character_hennas WHERE char_obj_id=? AND class_index=?";
     private static final String DELETE_CHAR_SHORTCUTS = "DELETE FROM character_shortcuts WHERE char_obj_id=? AND class_index=?";
+
+    // Transformation SQL String definitions:
+    private static final String SELECT_CHAR_TRANSFORM = "SELECT transform_id FROM characters WHERE obj_id=?";
+    private static final String UPDATE_CHAR_TRANSFORM = "UPDATE characters SET transform_id=? WHERE obj_Id=?";
 
     public static final int REQUEST_TIMEOUT = 15;
 
@@ -744,6 +749,8 @@ public final class L2PcInstance extends L2PlayableInstance
     protected ForceBuff _forceBuff;
 
     private L2Transformation _transformation;
+
+    private static int _transformationId;
 
     // Absorbed Souls
     private int _souls = 0;
@@ -2271,6 +2278,9 @@ public final class L2PcInstance extends L2PlayableInstance
         // Auto-Learn skills if activated
         if (Config.AUTO_LEARN_SKILLS)
         {
+            if (this.isTransformed() || this.isCursedWeaponEquipped())
+                return;
+
             giveAvailableSkills();
         }
         refreshOverloaded();
@@ -4208,12 +4218,13 @@ public final class L2PcInstance extends L2PlayableInstance
         // Kill the L2PcInstance
         if (!super.doDie(killer))
             return false;
-		
-        net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().checkRadiusSkills(this , true);
+
+        EffectRadiusSkill.getInstance().checkRadiusSkills(this , true);
         
         // Clear resurrect xp calculation
         setExpBeforeDeath(0);
 
+        // Issues drop of Cursed Weapon.
         if (isCursedWeaponEquipped())
         {
             CursedWeaponsManager.getInstance().drop(_cursedWeaponEquippedId, killer);
@@ -4468,6 +4479,10 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
+        // Untransforms character.
+        if (isTransformed())
+            untransform();
+
         setPvpFlag(0); // Clear the pvp flag
         //Pet shouldn't get unsummoned after masters death.
         // Unsummon the Pet
@@ -4517,8 +4532,9 @@ public final class L2PcInstance extends L2PlayableInstance
         return true;
     }
 
-    public void removeCTFFlagOnDie(){
-    	CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
+    public void removeCTFFlagOnDie()
+    {
+        CTF._flagsTaken.set(CTF._teams.indexOf(_teamNameHaveFlagCTF), false);
         CTF.spawnFlag(_teamNameHaveFlagCTF);
         CTF.removeFlagFromPlayer(this);
         broadcastUserInfo();
@@ -5571,7 +5587,12 @@ public final class L2PcInstance extends L2PlayableInstance
         this.setMount(pet.getTemplate().getNpcId(), mount.getMountType());
         this.setMountObjectID(pet.getControlItemId());
         this.broadcastPacket(mount);
+
+        // Notify self and others about speed change
+        this.broadcastUserInfo();
+
         pet.unSummon(this);
+
         return true;
     }
 
@@ -5586,6 +5607,9 @@ public final class L2PcInstance extends L2PlayableInstance
         this.setMount(npcId, mount.getMountType());
         this.setMountObjectID(controlItemObjId);
         this.broadcastPacket(mount);
+
+        // Notify self and others about speed change
+        this.broadcastUserInfo();
         return true;
     }
 
@@ -5598,6 +5622,9 @@ public final class L2PcInstance extends L2PlayableInstance
 			Ride dismount = new Ride(this, false, 0);
 			broadcastPacket(dismount);
 			setMountObjectID(0);
+
+			// Notify self and others about speed change
+			this.broadcastUserInfo();
 			return true;
 		}
 		return false;
@@ -6722,6 +6749,7 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public L2Skill removeSkill(L2Skill skill)
     {
+        L2PcInstance player = null;
         // Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
         L2Skill oldSkill = super.removeSkill(skill);
 
@@ -6757,13 +6785,16 @@ public final class L2PcInstance extends L2PlayableInstance
             {
             }
         }
-        
-        L2ShortCut[] allShortCuts = getAllShortCuts();
-        for (L2ShortCut sc : allShortCuts)  
-        {  
-        	if (sc != null && skill != null && sc.getId() == skill.getId() && sc.getType() == L2ShortCut.TYPE_SKILL) 
-				deleteShortCut(sc.getSlot(), sc.getPage());
-		}
+
+        if(!(transformId() > 0 || isCursedWeaponEquipped()))
+        {
+            L2ShortCut[] allShortCuts = getAllShortCuts();
+            for (L2ShortCut sc : allShortCuts)  
+            {
+                if (sc != null && skill != null && sc.getId() == skill.getId() && sc.getType() == L2ShortCut.TYPE_SKILL) 
+                    deleteShortCut(sc.getSlot(), sc.getPage());
+            }
+        }
 
         return oldSkill;
     }
@@ -8123,9 +8154,6 @@ public final class L2PcInstance extends L2PlayableInstance
         _mountType = mountType;
         _mountNpcId = npcId;
 
-        // Send a Server->Client packet InventoryUpdate to the L2PcInstance in order to update speed
-        UserInfo ui = new UserInfo(this);
-        sendPacket(ui);
         return true;
     }
 
@@ -9311,6 +9339,10 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean setActiveClass(int classIndex)
     {
+        //  Cannot switch or change subclasses while transformed
+        if (isTransformed())
+            return false;
+
         /*
          * 1. Call store() before modifying _classIndex to avoid skill effects rollover.
          * 2. Register the correct _classId against applied 'classIndex'.
@@ -9395,10 +9427,6 @@ public final class L2PcInstance extends L2PlayableInstance
         for (L2Skill oldSkill : getAllSkills())
             super.removeSkill(oldSkill);
 
-        // Yesod: Rebind CursedWeapon passive. 
-        if (isCursedWeaponEquipped())
-           CursedWeaponsManager.getInstance().givePassive(_cursedWeaponEquippedId);
-
         for (L2Effect effect : getAllEffects())
             effect.exit();
 
@@ -9453,9 +9481,6 @@ public final class L2PcInstance extends L2PlayableInstance
         //_macroses.sendUpdate();
         _shortCuts.restore();
         sendPacket(new ShortCutInit(this));
-
-        // Method untransform() already check if player is transformed
-        untransform();
 
         broadcastPacket(new SocialAction(getObjectId(), 15));
 
@@ -11773,6 +11798,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (this.isTransformed())
         {
+            restoreSkills();
             _transformation.onUntransform();
             _transformation = null;
             this.broadcastUserInfo();
@@ -11792,5 +11818,85 @@ public final class L2PcInstance extends L2PlayableInstance
             return 0;
         }
         return transformation.getId();
+    }
+
+    public void transformInsertInfo()
+    {
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement;
+
+            statement = con.prepareStatement(UPDATE_CHAR_TRANSFORM);
+            statement.setInt(1, getTranformationId());
+            statement.setInt(2, getObjectId());
+            statement.execute();
+            statement.close();
+        }
+        catch (Exception e)
+        {
+            _log.fatal(e.toString());
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+    }
+
+    public int transformId()
+    {
+       return transformSelectInfo();
+    }
+
+    private int transformSelectInfo()
+    {
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement;
+
+            statement = con.prepareStatement(SELECT_CHAR_TRANSFORM);
+            statement.setInt(1, getObjectId());
+            ResultSet rset = statement.executeQuery();
+            rset.next();
+            _transformationId = rset.getInt("transform_id");
+            statement.close();
+            return _transformationId;
+        }
+        catch (Exception e)
+        {
+            _log.fatal(e.toString());
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
+        return _transformationId = 0;
+    }
+
+    public void transformUpdateInfo()
+    {
+        java.sql.Connection con = null;
+        try
+        {
+            con = L2DatabaseFactory.getInstance().getConnection(con);
+            PreparedStatement statement;
+
+            statement = con.prepareStatement(UPDATE_CHAR_TRANSFORM);
+            statement.setInt(1, 0);
+            statement.setInt(2, getObjectId());
+            statement.execute();
+            statement.close();
+        }
+        catch (Exception e)
+        {
+            _log.fatal(e.toString());
+        }
+        finally
+        {
+            try { con.close(); } catch (Exception e) {}
+        }
     }
 }

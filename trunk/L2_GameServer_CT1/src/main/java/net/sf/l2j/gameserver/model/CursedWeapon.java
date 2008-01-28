@@ -309,11 +309,33 @@ public class CursedWeapon
     
 	public void removeSkillAndAppearance()
 	{
-		if(_player.isTransformed())
-			_player.untransform();
+		_player.untransform();
+		if (_player.transformId() > 0)
+		{
+			TransformationManager.getInstance().transformPlayer(_player.transformId(), _player, Long.MAX_VALUE);
+			return;
+		}
+		else
+		{
+			for (L2Skill sk : _player.getAllSkills())
+			{
+				if (sk != null)
+				_player.addSkill(sk, false);
+			}
+		}
 		_player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
 		_player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
 		_player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
+		_player.sendSkillList();
+	}
+	
+	public void disableAllSkills()
+	{
+		for (L2Skill sk : _player.getAllSkills())
+		{
+			if (sk != null)
+				_player.removeSkill(sk, false);
+		}
 		_player.sendSkillList();
 	}
     
@@ -384,6 +406,9 @@ public class CursedWeapon
         if (_player.isInParty())
             _player.getParty().oustPartyMember(_player);
 
+        // Disable All Skills
+        disableAllSkills();
+
         // Add skill
         giveSkill();
         
@@ -410,13 +435,13 @@ public class CursedWeapon
         else _player.sendPacket(new ItemList(_player, false));
         
         // Refresh player stats
+        transform();
         _player.broadcastUserInfo();
 
 		//SocialAction atk = new SocialAction(_player.getObjectId(), 17);
 		
 		//_player.broadcastPacket(atk);
 
-		transform();
         sm = new SystemMessage(SystemMessageId.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION);
 		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
 		sm.addItemName(_item);
