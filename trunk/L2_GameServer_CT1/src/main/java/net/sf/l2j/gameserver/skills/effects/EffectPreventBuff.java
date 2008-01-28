@@ -15,44 +15,41 @@
 package net.sf.l2j.gameserver.skills.effects;
 
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- * @author earendil
+ * 
+ * @author Darki699
  */
-final class EffectNoblesseBless extends L2Effect
+final class EffectPreventBuff extends L2Effect
 {
 
-	public EffectNoblesseBless(Env env, EffectTemplate template)
+	public EffectPreventBuff(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 
+	@Override
 	public EffectType getEffectType()
 	{
-		return EffectType.NOBLESSE_BLESSING;
+		return EffectType.PREVENT_BUFF;
 	}
 
-	/** Notify started */
+	@Override
 	public void onStart()
 	{
-		if (getEffected() instanceof L2PlayableInstance)
-			((L2PlayableInstance) getEffected()).startNoblesseBlessing();
+		getEffected().setPreventedFromReceivingBuffs(true);
 	}
 
-	/** Notify exited */
+	@Override
 	public void onExit()
 	{
-		if (getEffected() instanceof L2PlayableInstance && getEffected().getFirstEffect(438) == null)
-		{
-			((L2PlayableInstance) getEffected()).stopNoblesseBlessing(this);
-		}
+		getEffected().setPreventedFromReceivingBuffs(false);
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
-		// just stop this effect
 		return false;
 	}
 }

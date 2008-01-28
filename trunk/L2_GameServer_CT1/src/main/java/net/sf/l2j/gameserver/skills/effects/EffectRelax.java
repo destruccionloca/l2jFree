@@ -66,7 +66,14 @@ class EffectRelax extends L2Effect
 
 		if (getEffected() instanceof L2PcInstance)
 		{
-			if (!((L2PcInstance) getEffected()).isSitting())
+			if (getSkill().getId() == 1430 || getSkill().getId() == 441)
+			{
+				/* Meditation Skills */
+				((L2PcInstance) getEffected()).standUp();
+				return false;
+			}
+			
+			else if (!((L2PcInstance) getEffected()).isSitting())
 				retval = false;
 		}
 

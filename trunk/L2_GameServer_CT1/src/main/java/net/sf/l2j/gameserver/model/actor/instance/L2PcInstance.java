@@ -1111,7 +1111,7 @@ public final class L2PcInstance extends L2PlayableInstance
         // [L2J_JP ADD END]
         
         // prevent player to disconnect when in combat
-        if(AttackStanceTaskManager.getInstance().getAttackStanceTask(this))
+        if(AttackStanceTaskManager.getInstance().getAttackStanceTask(this) && !isGM())
         {
             if (_log.isDebugEnabled()) _log.debug("Player " + getName() + " tried to logout while fighting.");
             
@@ -4209,7 +4209,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (!super.doDie(killer))
             return false;
 		
-        net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().checkRadiusSkills(this);
+        net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().checkRadiusSkills(this , true);
         
         // Clear resurrect xp calculation
         setExpBeforeDeath(0);

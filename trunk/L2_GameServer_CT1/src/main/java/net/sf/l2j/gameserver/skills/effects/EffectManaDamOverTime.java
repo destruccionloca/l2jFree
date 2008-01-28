@@ -48,7 +48,7 @@ class EffectManaDamOverTime extends L2Effect
 				 * First we must check if he still deserves to receive the
 				 * force...
 				 */
-				EffectRadiusSkill.getInstance().checkRadiusSkills(getEffected());
+				EffectRadiusSkill.getInstance().checkRadiusSkills(getEffected() , false);
 				/*
 				 * We give him the skill 2165 : Energy Stone to raise Force by
 				 * one

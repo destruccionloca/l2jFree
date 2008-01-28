@@ -60,6 +60,7 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillChangeWeapon;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCharge;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeDmg;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeEffect;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeNegate;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCreateItem;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
@@ -117,7 +118,7 @@ public abstract class L2Skill
 				L2SkillChargeDmg.class), CHARGE_EFFECT(L2SkillChargeEffect.class), CONFUSE_MOB_ONLY, DEATHLINK, BLOW, FATALCOUNTER, DETECT_WEAKNESS, ENCHANT_ARMOR, ENCHANT_WEAPON, FEED_PET, HEAL_PERCENT, HEAL_STATIC, LUCK, MANADAM, MDOT, MUTE, RECALL, REFLECT, SUMMON_FRIEND, SOULSHOT, SPIRITSHOT, SPOIL, SWEEP, SUMMON(
 				L2SkillSummon.class), WEAKNESS, DISARM, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, UNDEAD_DEFENSE, SEED(
 				L2SkillSeed.class), BEAST_FEED, FORCE_BUFF, PARALYZE, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, CHARGESOUL, GET_PLAYER, CHANGEWEAPON (L2SkillChangeWeapon.class), // Kamael WeaponChange
-
+				CHARGE_NEGATE(L2SkillChargeNegate.class),
 		FISHING, PUMPING, REELING, CANCEL_TARGET, CREATE_ITEM(L2SkillCreateItem.class), AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, LUCKNOBLESSE(
 				L2SkillCreateItem.class), RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, RADIUS, NOTDONE;
 		
@@ -3414,7 +3415,7 @@ public abstract class L2Skill
     		triggerSkill.setTask(_task);
     		_task = null;
     		
-    		if (_skill.getSkillType() == SkillType.MDAM)
+    		if (_skill.getTargetType() == SkillTargetType.TARGET_RADIUS && _skill.isOffensive())
     		{
     			net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().checkRadiusDamageSkills(_caster , _skill);
     		}

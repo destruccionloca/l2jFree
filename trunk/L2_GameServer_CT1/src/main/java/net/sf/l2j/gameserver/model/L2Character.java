@@ -140,6 +140,7 @@ public abstract class L2Character extends L2Object
 	private FastList<L2Character>	_attackByList;
 	private L2Character				_attackingChar;
 	private L2Skill					_lastSkillCast;
+	private boolean 				_canBeBuffed						= false;
 	private boolean					_isAfraid							= false;											// Flee in a random direction
 	private boolean					_isConfused							= false;											// Attack anyone randomly
 	private boolean					_isFakeDeath						= false;											// Fake death
@@ -6779,7 +6780,11 @@ public abstract class L2Character extends L2Object
 				{
 					EffectRadiusSkill.getInstance().addRadiusSkill(_magicSkillUseGround[0], _magicSkillUseGround[1], _magicSkillUseGround[2], this, skill);
 					setMagicSkillUseGround(0,0,0,0);
-					EffectRadiusSkill.getInstance().checkRadiusSkills(this);
+					EffectRadiusSkill.getInstance().checkRadiusSkills(this , true);
+				}
+				else 
+				{
+					setMagicSkillUseGround(0,0,0,0);
 				}
 			}
 			
@@ -7437,6 +7442,17 @@ public abstract class L2Character extends L2Object
 			{
 				e.exit();
 			}
+			else if (e.getEffectType() == L2Effect.EffectType.RELAXING)
+			{
+				L2Skill skill = e.getSkill();
+				if (skill != null)
+				{
+					if (skill.getId() == 441 /* Force Meditation */ || skill.getId() == 1430 /* Invocation */)
+					{
+						e.exit();
+					}
+				}
+			}
 		}
 	}
 
@@ -7580,5 +7596,15 @@ public abstract class L2Character extends L2Object
     	_magicSkillUseGround[1] = y;
     	_magicSkillUseGround[2] = z;
     	_magicSkillUseGround[3] = skillId;
+    }
+    
+    public void setPreventedFromReceivingBuffs(boolean value)
+    {
+    	_canBeBuffed = value;
+    }
+
+    public boolean isPreventedFromReceivingBuffs()
+    {
+    	return _canBeBuffed;
     }
 }

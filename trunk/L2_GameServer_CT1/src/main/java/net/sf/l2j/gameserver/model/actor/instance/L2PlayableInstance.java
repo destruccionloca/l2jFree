@@ -83,7 +83,13 @@ public abstract class L2PlayableInstance extends L2Character
     @Override
     public boolean doDie(L2Character killer)
     {
-        if (!super.doDie(killer))
+    	L2Effect SoulOfThePhoenix = getFirstEffect(438);
+    	if (SoulOfThePhoenix != null)
+    	{
+    		SoulOfThePhoenix.exit();
+    	}
+    	
+    	if (!super.doDie(killer))
             return false;
 
         if (killer != null)

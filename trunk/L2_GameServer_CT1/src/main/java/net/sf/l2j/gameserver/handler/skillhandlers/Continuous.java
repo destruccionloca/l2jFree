@@ -94,13 +94,13 @@ public class Continuous implements ISkillHandler
 					if (skills != null)
 					{
 						// These skills are triggered from RequestExMagicSkillUseGround.java in ClientPacket
-						if (skills[0].getSkillType() == L2Skill.SkillType.MDAM)
+						if (skills[0].isOffensive())
 							return;
 						else if (skill.getId() != 455)
 						{
 							EffectRadiusSkill.getInstance().addRadiusSkill(activeChar , skill);
 						}
-						EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar);
+						EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar , true);
 					}
 					return;
 				default:
@@ -116,7 +116,17 @@ public class Continuous implements ISkillHandler
 			// Player holding a cursed weapon can't be buffed and can't buff
 			if (skill.getSkillType() == L2Skill.SkillType.BUFF && !(activeChar instanceof L2ClanHallManagerInstance))
 			{
-				if (target != activeChar)
+				if (target.isPreventedFromReceivingBuffs())
+					continue;
+				else if (skill.isDance() && target.getFirstEffect(5124) != null) // Anti Music Fusion skill effect
+				{
+					if (target instanceof L2PcInstance)
+					{
+						((L2PcInstance)target).sendMessage("You are prevented from receiving song/dance at this time.");
+					}
+					continue;
+				}
+				else if (target != activeChar)
 				{
 					if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquipped())
 						continue;
