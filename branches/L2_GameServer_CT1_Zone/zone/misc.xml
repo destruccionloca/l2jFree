@@ -1,0 +1,20 @@
+<list>
+
+  <zone id="1" name="ToI">
+    <settings nolanding="true"/>
+    <shape type="Rect">
+      <point x="109448" y="10233"/>
+      <point x="118547" y="21446"/>
+    </shape>
+  </zone>
+
+  <zone id="2" name="GM Consultation Service" type="Jail">
+    <shape type="Poly" zMin="-2992" zMax="-2792">
+      <point x="-116390" y="-251581"/>
+      <point x="-112756" y="-251617"/>
+      <point x="-112720" y="-248199"/>
+      <point x="-116354" y="-248217"/>
+    </shape>
+  </zone>
+
+</list>

@@ -115,6 +115,7 @@ import net.sf.l2j.gameserver.model.ShortCuts;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.L2WorldRegion;
 import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
 import net.sf.l2j.gameserver.model.actor.knownlist.PcKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
@@ -10130,6 +10131,9 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         catch(Throwable t) {_log.fatal("deleteMe()", t); }
 
+        // Remove from world regions zones
+        L2WorldRegion oldRegion = getWorldRegion();
+
         // Remove the L2PcInstance from the world
         if (isVisible())
         {
@@ -10142,6 +10146,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 _log.fatal( "deleteMe()", t);
             }
         }
+
+        if (oldRegion != null) oldRegion.removeFromZones(this);
 
         // If a Party is in progress, leave it
         if (isInParty())

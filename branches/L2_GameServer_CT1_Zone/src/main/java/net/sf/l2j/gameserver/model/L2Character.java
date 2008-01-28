@@ -288,8 +288,8 @@ public abstract class L2Character extends L2Object
 	public void onDecay()
 	{
 		L2WorldRegion reg = getWorldRegion();
-		if(reg != null) reg.removeFromZones(this);
 		decayMe();
+		if(reg != null) reg.removeFromZones(this);
 	}
 
 	@Override
@@ -530,10 +530,11 @@ public abstract class L2Character extends L2Object
 		// Stop movement
 		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		setTarget(this);
-		disableAllSkills();
+
 		abortAttack();
 		abortCast();
 		isFalling(false, 0);
+		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 		setIsTeleporting(true);
 		
 		if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
@@ -546,23 +547,29 @@ public abstract class L2Character extends L2Object
 		
 		if (_log.isDebugEnabled())
 			_log.debug("Teleporting to: " + x + ", " + y + ", " + z);
-		
+
+		L2WorldRegion oldRegion = getWorldRegion();
+
 		// Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
 		broadcastPacket(new TeleportToLocation(this, x, y, z));
 		
 		// Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
 		getPosition().setXYZ(x, y, z);
 		decayMe();
+
+		// Remove from world regions zones
+		if (oldRegion != null)
+			oldRegion.removeFromZones(this);
+
 		isFalling(false, 0);
 		
-		if (!(this instanceof L2PcInstance))
+		if (this instanceof L2PcInstance)
+		{
+			if (((L2PcInstance)this)._inEventFOS)
+				FortressSiege.setTitleSiegeFlags((L2PcInstance)this);
+		}
+		else
 			onTeleported();
-		
-		else if (FortressSiege._started && (this instanceof L2PcInstance) && ((L2PcInstance)this)._inEventFOS)
-			FortressSiege.setTitleSiegeFlags((L2PcInstance)this);
-		
-		enableAllSkills();
-		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 	}
 	
 	public void teleToLocation(int x, int y, int z)
