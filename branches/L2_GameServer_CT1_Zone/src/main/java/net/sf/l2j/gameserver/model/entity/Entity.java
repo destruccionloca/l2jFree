@@ -44,32 +44,50 @@ public class Entity
 
 	public int getTownId()
 	{
-		return _zone.getTownId();
+		if (_zone != null) return _zone.getTownId();
+
+		_log.error(getClassName()+" has no zone defined");
+		return 0; // Talking Island
 	}
 
 	public int getCastleId()
 	{
-		return _zone.getCastleId();
+		if (_zone != null) return _zone.getCastleId();
+
+		_log.error(getClassName()+" has no zone defined");
+		return 1; // Gludio
 	}
 
 	public boolean checkIfInZone(L2Character cha)
 	{
-		return _zone.isInsideZone(cha);
+		if (_zone != null) return _zone.isInsideZone(cha);
+
+		_log.error(getClassName()+" has no zone defined");
+		return false;
 	}
 
 	public boolean checkIfInZone(int x, int y, int z)
 	{
-		return _zone.isInsideZone(x, y, z);
+		if (_zone != null) return _zone.isInsideZone(x, y, z);
+
+		_log.error(getClassName()+" has no zone defined");
+		return false;
 	}
 
 	public boolean checkIfInZone(int x, int y)
 	{
-		return _zone.isInsideZone(x, y);
+		if (_zone != null) return _zone.isInsideZone(x, y);
+
+		_log.error(getClassName()+" has no zone defined");
+		return false;
 	}
 
 	public double getDistanceToZone(int x, int y) 
 	{
-		return _zone.getDistanceToZone(x, y);
+		if (_zone != null) return _zone.getDistanceToZone(x, y);
+
+		_log.error(getClassName()+" has no zone defined");
+		return Double.MAX_VALUE;
 	}
 
 	protected boolean checkBanish(L2PcInstance cha)
@@ -112,5 +130,11 @@ public class Entity
 			if (checkIfInZone(player))
 				player.sendPacket(gsp); 
 		}
+	}
+
+	public String getClassName()
+	{
+		String[] parts = this.getClass().toString().split("\\.");
+		return parts[parts.length-1];
 	}
 }

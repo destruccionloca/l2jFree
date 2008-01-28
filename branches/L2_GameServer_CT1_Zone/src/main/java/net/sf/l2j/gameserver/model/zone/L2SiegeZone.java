@@ -28,7 +28,7 @@ public class L2SiegeZone extends L2CastleZone
 	protected void register()
 	{
 		_castle = CastleManager.getInstance().getCastleById(_castleId);
-		_castle.getBattlefield().registerZone(this);
+		_castle.registerSiegeZone(this);
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public abstract class L2Zone
 		Water
 	}
 
-	// Overridden in siege zones, jail zone and town zone
+	// Overridden by siege zones, jail zone and town zones
 	public static enum PvpSettings
 	{
 		GENERAL,
@@ -112,8 +112,6 @@ public abstract class L2Zone
 	protected int _castleId;
 	protected int _clanhallId;
 	protected int _townId;
-	//protected int _redirectId;
-	//protected int _taxById;
 
 	protected ZoneType _type;
 	protected PvpSettings _pvp;
@@ -151,9 +149,8 @@ public abstract class L2Zone
 
 	public String getClassName()
 	{
-		//String[] parts = this.getClass().toString().split(".");
-		//return parts[parts.length-1];
-        return getClass().toString();
+		String[] parts = this.getClass().toString().split("\\.");
+		return parts[parts.length-1];
 	}
 
 	public int getCastleId()
@@ -165,16 +162,6 @@ public abstract class L2Zone
 	{
 		return _townId;
 	}
-
-	/*public int getRedirectId()
-	{
-		return _redirectId;
-	}
-
-	public int getTaxById()
-	{
-		return _taxById;
-	}*/
 
 	public int getClanhallId()
 	{
@@ -337,7 +324,10 @@ public abstract class L2Zone
 	public int getMiddleX()
 	{
 		if(_shapes.length == 0)
-			throw new NullPointerException();
+		{
+			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
+			return 0;
+		}
 
 		int sum = 0;
 		for(Shape sh : _shapes)
@@ -350,7 +340,10 @@ public abstract class L2Zone
 	public int getMiddleY()
 	{
 		if(_shapes.length == 0)
-			throw new NullPointerException();
+		{
+			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
+			return 0;
+		}
 
 		int sum = 0;
 		for(Shape sh : _shapes)
@@ -403,7 +396,10 @@ public abstract class L2Zone
 	public Location getRandomLocation()
 	{
 		if(_shapes.length == 0)
-			throw new NullPointerException();
+		{
+			_log.error(getClassName()+" \""+getName()+"\" "+getId()+" has no shapes defined");
+			return new Location(0, 0, 0);
+		}
 		
 		return _shapes[Rnd.nextInt(_shapes.length)].getRandomLocation();
 	}
@@ -561,15 +557,11 @@ public abstract class L2Zone
 	{
 		Node castle = n.getAttributes().getNamedItem("castleId");
 		Node clanhall = n.getAttributes().getNamedItem("clanhallId");
-		//Node redirect = n.getAttributes().getNamedItem("redirect");
-		//Node taxById = n.getAttributes().getNamedItem("taxById");
 		Node town = n.getAttributes().getNamedItem("townId");
 		
-		this._castleId = (castle != null) ? Integer.parseInt(castle.getNodeValue()) : -1;
-		this._clanhallId = (clanhall != null) ? Integer.parseInt(clanhall.getNodeValue()) : -1;
-		//this._redirectId = (redirect != null) ? Integer.parseInt(redirect.getNodeValue()) : -1;
-		//this._taxById = (taxById != null) ? Integer.parseInt(taxById.getNodeValue()) : -1;
-		this._townId = (town != null) ? Integer.parseInt(town.getNodeValue()) : -1;
+		_castleId = (castle != null) ? Integer.parseInt(castle.getNodeValue()) : -1;
+		_clanhallId = (clanhall != null) ? Integer.parseInt(clanhall.getNodeValue()) : -1;
+		_townId = (town != null) ? Integer.parseInt(town.getNodeValue()) : -1;
 	}
 
 	private void parseSettings(Node n) throws Exception
@@ -581,13 +573,13 @@ public abstract class L2Zone
 		Node abnorm = n.getAttributes().getNamedItem("abnormal");
 		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
 		
-		this._pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
-		this._noLanding = (nolanding != null) ? Boolean.parseBoolean(nolanding.getNodeValue()) : false;
-		this._noEscape = (noescape != null) ? Boolean.parseBoolean(noescape.getNodeValue()) : false;
-		this._abnormal = (abnorm != null) ? Integer.parseInt(abnorm.getNodeValue()) : 0;
-		this._exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
+		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
+		_noLanding = (nolanding != null) ? Boolean.parseBoolean(nolanding.getNodeValue()) : false;
+		_noEscape = (noescape != null) ? Boolean.parseBoolean(noescape.getNodeValue()) : false;
+		_abnormal = (abnorm != null) ? Integer.parseInt(abnorm.getNodeValue()) : 0;
+		_exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
 		if(boss != null)
-			this._boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
+			_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
 	}
 
 	private void parseMessages(Node n) throws Exception

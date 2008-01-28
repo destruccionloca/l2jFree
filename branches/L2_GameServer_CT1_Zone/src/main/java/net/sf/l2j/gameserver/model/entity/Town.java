@@ -29,7 +29,6 @@ import net.sf.l2j.tools.geometry.Point3D;
 public class Town extends Entity
 {
 	private L2MapRegion _region;
-	private int _townId;
 
 	public Town(L2Zone zone)
 	{

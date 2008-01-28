@@ -25,7 +25,7 @@ public class L2CastleHQZone extends L2CastleZone
 	protected void register()
 	{
 		_castle = CastleManager.getInstance().getCastleById(_castleId);
-		_castle.getHeadQuarters().registerZone(this);
+		_castle.registerHeadquartersZone(this);
 	}
 
 	@Override

@@ -441,7 +441,7 @@ public class MapRegionManager
                         }
                         else
                         {
-                            zone = castle.getDefenderSpawn().getZone();
+                            zone = castle.getDefenderSpawn();
                             if (zone != null)
                             {
                                 return zone.getRandomLocation();

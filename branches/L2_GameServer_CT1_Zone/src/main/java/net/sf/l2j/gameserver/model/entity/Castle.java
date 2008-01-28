@@ -78,9 +78,9 @@ public class Castle extends Entity
 	private int _taxPercent					= 0;
 	private double _taxRate					= 0;
 	private int _treasury					= 0;
-	private Entity _zoneHQ;
-	private Entity _zoneBF;
-	private Entity _zoneDS;
+	private L2Zone _zoneHQ;
+	private L2Zone _zoneBF;
+	private L2Zone _zoneDS;
 	private L2Clan _formerOwner;
 	private int _nbArtifact					= 1;
 	private Map<Integer, Integer> _engrave  = new FastMap<Integer, Integer>();
@@ -95,11 +95,21 @@ public class Castle extends Entity
 
 		load();
 		loadDoor();
-		
-		// Dummy entities the zones will register to
-		_zoneHQ = new Entity();
-		_zoneBF = new Entity();
-		_zoneDS = new Entity();
+	}
+
+	public void registerHeadquartersZone(L2Zone zone)
+	{
+		_zoneHQ = zone;
+	}
+
+	public void registerSiegeZone(L2Zone zone)
+	{
+		_zoneBF = zone;
+	}
+
+	public void registerDefenderSpawn(L2Zone zone)
+	{
+		_zoneDS = zone;
 	}
 
 	public void Engrave(L2Clan clan, int objId) 
@@ -210,7 +220,7 @@ public class Castle extends Entity
 	 */
 	public boolean checkIfInZoneBattlefield(int x, int y, int z)
 	{
-		return getBattlefield().checkIfInZone(x, y, z);
+		return getBattlefield().isInsideZone(x, y, z);
 	}
 	
 	/**
@@ -226,7 +236,7 @@ public class Castle extends Entity
 	 */
 	public boolean checkIfInZoneHeadQuarters(int x, int y, int z)
 	{
-		return getHeadQuarters().checkIfInZone(x, y, z);
+		return getHeadQuarters().isInsideZone(x, y, z);
 	}
 	
 	public void closeDoor(L2PcInstance activeChar, int doorId)
@@ -631,7 +641,8 @@ public class Castle extends Entity
 			try { con.close(); } catch (Exception e) {}
 		}
 	}
-	
+
+	@Override
 	public final int getCastleId()
 	{
 		return _castleId;
@@ -693,17 +704,17 @@ public class Castle extends Entity
 		return _treasury;
 	}
 
-	public final Entity getHeadQuarters()
+	public final L2Zone getHeadQuarters()
 	{
 		return _zoneHQ;
 	}
 	
-	public final Entity getBattlefield()
+	public final L2Zone getBattlefield()
 	{
 		return _zoneBF;
 	}
 
-	public final Entity getDefenderSpawn()
+	public final L2Zone getDefenderSpawn()
 	{
 		return _zoneDS;
 	}
