@@ -88,7 +88,7 @@ public class CharInfo extends L2GameServerPacket
 			
 			if (template != null)
 			{
-				writeC(0x16);
+				writeC(0x0c);
 				writeD(_activeChar.getObjectId());
 				writeD(_activeChar.getPoly().getPolyId()+1000000);  // npctype id
 				writeD(_activeChar.getKarma() > 0 ? 1 : 0);
@@ -156,14 +156,15 @@ public class CharInfo extends L2GameServerPacket
 				writeD(0x00);
 				writeD(_activeChar.getAllyCrestId());
 				writeC(0x00);
-/*                writeC(_activeChar.getTeam());
-                writeF(0x00);
-                writeF(0x00);
-                writeD(0x00);
-                writeD(0x00);
-                writeD(0x00);
-                writeD(0x00);*/
-			} else
+				writeC(_activeChar.getTeam());
+				writeF(template.getCollisionRadius());
+				writeF(template.getCollisionHeight());
+				writeD(0x00);
+				writeD(0x00);
+				writeD(0x00);
+				writeD(0x00);
+			}
+			else
 			{
 				_log.warn("Character "+_activeChar.getName()+" ("+_activeChar.getObjectId()+") morphed in a Npc ("+_activeChar.getPoly().getPolyId()+") w/o template.");
 			}
