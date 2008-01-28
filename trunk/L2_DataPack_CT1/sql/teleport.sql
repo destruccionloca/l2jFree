@@ -258,7 +258,7 @@ INSERT INTO teleport VALUES
 ('Aden(hall) -> in)',416,148580,4578,-408,0,0),
 ('Aden(hall) -> outofcastle)',417,147582,8753,-496,0,0),
 ('Lair Of Valakas',420,208884,-113705,-256,0,0),
-('Disciples Necropolis -> Anakim/Lilith',450,184397,-11957,-5493,0,0),
+('Disciples Necropolis -> Anakim/Lilith',450,185061,-9612,-5492,0,0),
 ('Anakim/Lilith -> Disciples Necropolis',451,183225,-11911,-4897,0,0),
 ('TI -> Dark Elven Village',1005,9745,15606,-4574,24000,0),
 ('TI -> Dwarven Village',1006,115113,-178212,-901,46000,0),
@@ -717,13 +717,13 @@ INSERT INTO teleport VALUES
 ('Clan Hall -> North of Goddard Castle Town',12047,147731,-58930,-2976,0,0),
 ('Clan Hall -> East of Goddard Castle Town',12048,150561,-57489,-2976,0,0),
 ('Clan Hall -> West of Goddard Castle Town',12049,144866,-57464,-2976,0,0),
-('Gludio -> Kamael Village',             12050, -117251, 46771, 360, 12000, 0),
-('Dark Elf Village -> Kamael Village',   12051, -117251, 46771, 360, 13000, 0),
-('Orc Village -> Kamael Village',        12052, -117251, 46771, 360, 17000, 0),
-('Elven Village -> Kamael Village',      12053, -117251, 46771, 360, 16000, 0),
-('Town of Aden -> Kamael Village',       12054, -117251, 46771, 360, 26000, 0),
-('Talking Village -> Kamael Village',    12055, -117251, 46771, 360, 20000, 0),
-('Dwarven Village -> Kamael Village',    12056, -117251, 46771, 360, 32000, 0);
+('Gludio -> Kamael Village',12050,-117251,46771,360,12000,0),
+('Dark Elf Village -> Kamael Village',12051,-117251,46771,360,13000,0),
+('Orc Village -> Kamael Village',12052,-117251,46771,360,17000,0),
+('Elven Village -> Kamael Village',12053,-117251,46771,360,16000,0),
+('Town of Aden -> Kamael Village',12054,-117251,46771,360,26000,0),
+('Talking Village -> Kamael Village',12055,-117251,46771,360,20000,0),
+('Dwarven Village -> Kamael Village',12056,-117251,46771,360,32000,0);
 
 --
 -- L2J-Free Add-ons
