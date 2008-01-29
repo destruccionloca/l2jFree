@@ -2,7 +2,7 @@ REM Hibernate and associated jars
 SET CLASSPATH=%CLASSPATH%;antlr-2.7.6.jar
 SET CLASSPATH=%CLASSPATH%;asm-1.5.3.jar
 SET CLASSPATH=%CLASSPATH%;cglib-2.1_3.jar
-SET CLASSPATH=%CLASSPATH%;hibernate-3.2.5.ga.jar
+SET CLASSPATH=%CLASSPATH%;hibernate-3.2.2.ga.jar
 SET CLASSPATH=%CLASSPATH%;jta-1.0.1B.jar
 SET CLASSPATH=%CLASSPATH%;commons-collections-2.1.1.jar
 
