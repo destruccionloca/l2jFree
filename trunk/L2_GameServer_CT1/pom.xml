@@ -9,13 +9,13 @@
 
 	<scm>
 		<connection>
-			scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/L2_GameServer_IL
+			scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/L2_GameServer_CT1
 		</connection>
 		<developerConnection>
-			scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/L2_GameServer_IL
+			scm:svn:svn://www.l2jfree.com/repo/l2j-free/trunk/L2_GameServer_CT1
 		</developerConnection>
 		<url>
-			http://l2jfree.com:8080/l2j-free/browser/trunk/L2_GameServer_IL
+			http://l2jfree.com:8080/l2j-free/browser/trunk/L2_GameServer_CT1
 		</url>
 	</scm>
 
