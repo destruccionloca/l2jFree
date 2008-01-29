@@ -98,6 +98,7 @@ import net.sf.l2j.gameserver.skills.Calculator;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
+import net.sf.l2j.gameserver.skills.effects.EffectConditionHit;
 import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
@@ -7454,6 +7455,11 @@ public abstract class L2Character extends L2Object
 		{
 			if (e.getEffectType() == L2Effect.EffectType.FEAR)
 			{
+				e.exit();
+			}
+			else if (e.getEffectType() == L2Effect.EffectType.CONDITION_HIT)
+			{
+				((EffectConditionHit)e).setWasHit(true);
 				e.exit();
 			}
 			else if (e.getEffectType() == L2Effect.EffectType.RELAXING)
