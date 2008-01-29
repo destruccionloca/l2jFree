@@ -505,6 +505,7 @@ public class AutoSpawnHandler
 			} 
 			catch (Exception e) {
 				_log.warn("AutoSpawnHandler: An error occurred while initializing spawn instance (Object ID = " + _objectId + "): " + e,e);
+				e.printStackTrace();
 			}
 		}
 	}
