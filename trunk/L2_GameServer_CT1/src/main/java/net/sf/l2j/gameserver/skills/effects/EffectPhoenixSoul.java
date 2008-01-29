@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.skills.effects;
 
 import java.util.concurrent.Future;
 
+import net.sf.l2j.gameserver.model.L2Effect.EffectType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
@@ -36,7 +37,7 @@ final class EffectPhoenixSoul extends L2Effect
 	@Override
 	public EffectType getEffectType()
 	{
-		return EffectType.BUFF;
+		return EffectType.PHEONIX_SOUL;
 	}
 
 	@Override
@@ -61,7 +62,7 @@ final class EffectPhoenixSoul extends L2Effect
 		else 
 		{
 			// if not dead, and doesn't have Nobless Bless buff (id 1323), just remove the effect...
-			if (getEffected().getFirstEffect(1323) == null && getEffected() instanceof L2PlayableInstance)
+			if (getEffected().getFirstEffect(EffectType.NOBLESSE_BLESSING) == null && getEffected() instanceof L2PlayableInstance)
 			{
 				((L2PlayableInstance) getEffected()).stopNoblesseBlessing(this);
 			}

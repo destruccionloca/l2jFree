@@ -75,6 +75,7 @@ public class Pdam implements ISkillHandler
 				target.stopFakeDeath(null);
 			}
 			else if (target.isAlikeDead()) continue;
+			else if (f.canEvadeMeleeSkill(target, skill)) continue;
 
 			boolean dual = activeChar.isUsingDualWeapon();
 			boolean shld = f.calcShldUse(activeChar, target);

@@ -138,9 +138,12 @@ public enum Stats
     REFLECT_DAMAGE_PERCENT  ("reflectDam"),
     REFLECT_SKILL_MAGIC     ("reflectSkillMagic"),
     REFLECT_SKILL_PHYSIC    ("reflectSkillPhysic"),
+    REFLECT_SKILL_MELEE_PHYSIC ("reflectSkillMeleePhysic"),
     ABSORB_DAMAGE_PERCENT   ("absorbDam"),
     TRANSFER_DAMAGE_PERCENT ("transDam"),
     ABSORB_CP_PERCENT       ("absorbCpPercent"),
+    EVADE_MELEE_SKILL		("evadeMeleeSkill"),
+    CANCEL_ATTACKER_TARGET  ("cancelAttackerTarget"),
     
     MAX_LOAD        ("maxLoad"),
     

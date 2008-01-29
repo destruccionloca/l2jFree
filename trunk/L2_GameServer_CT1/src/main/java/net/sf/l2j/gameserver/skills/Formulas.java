@@ -2129,5 +2129,27 @@ public final class Formulas
         }
         
         return false;
-    }    
+    }
+    
+    public boolean canEvadeMeleeSkill(L2Character target, L2Skill skill)
+    {
+    	if (!skill.isMagic() && skill.getCastRange() < 100)
+    	{
+    		double evade = target.calcStat(Stats.EVADE_MELEE_SKILL, 0, null, null);
+    		return (Rnd.get(100) < evade);
+    	}
+    	return false;
+    }
+    
+    public boolean canCancelAttackerTarget(L2Character attacker , L2Character target)
+    {
+    	if (Rnd.get(100) < target.calcStat(Stats.CANCEL_ATTACKER_TARGET, 0, null, null))
+    	{
+    		attacker.setTarget(null);
+    		attacker.abortAttack();
+    		attacker.abortCast();
+    		return true;
+    	}
+    	return false;
+    }
 }

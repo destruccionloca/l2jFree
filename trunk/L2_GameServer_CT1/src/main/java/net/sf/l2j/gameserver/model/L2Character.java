@@ -140,7 +140,7 @@ public abstract class L2Character extends L2Object
 	private FastList<L2Character>	_attackByList;
 	private L2Character				_attackingChar;
 	private L2Skill					_lastSkillCast;
-	private boolean 				_canBeBuffed						= false;
+	private boolean 				_block_buffs						= false;
 	private boolean					_isAfraid							= false;											// Flee in a random direction
 	private boolean					_isConfused							= false;											// Attack anyone randomly
 	private boolean					_isFakeDeath						= false;											// Fake death
@@ -806,7 +806,8 @@ public abstract class L2Character extends L2Object
 		if (isAlikeDead() || target == null || (this instanceof L2NpcInstance && target.isAlikeDead())
 				|| (this instanceof L2PcInstance && target.isDead() && !target.isFakeDeath()) || !getKnownList().knowsObject(target)
 				|| (this instanceof L2PcInstance && isDead())
-				|| (target instanceof L2PcInstance && ((L2PcInstance) target).getDuelState() == Duel.DUELSTATE_DEAD))
+				|| (target instanceof L2PcInstance && ((L2PcInstance) target).getDuelState() == Duel.DUELSTATE_DEAD)
+				|| Formulas.getInstance().canCancelAttackerTarget(this, target))
 		{
 			// If L2PcInstance is dead or the target is dead, the action is stoped
 			getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
@@ -2168,6 +2169,15 @@ public abstract class L2Character extends L2Object
 				// Get the first target of the list
 				target = skill.getFirstOfTargetList(this);
 				break;
+		}
+		
+		if (skill.isOffensive() && target instanceof L2Character)
+		{
+			if (Formulas.getInstance().canCancelAttackerTarget(this, (L2Character)target))
+			{
+				getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+				return;
+			}
 		}
 		
 		// Notify the AI with AI_INTENTION_CAST and target
@@ -7354,10 +7364,14 @@ public abstract class L2Character extends L2Object
 	public boolean reflectSkill(L2Skill skill)
 	{
 		double reflect = calcStat(skill.isMagic() ? Stats.REFLECT_SKILL_MAGIC : Stats.REFLECT_SKILL_PHYSIC, 0, null, null);
-		if (Rnd.get(100) < reflect)
-			return true;
 		
-		return false;
+		if (!skill.isMagic() && skill.getCastRange() < 100) // is 100 maximum range for melee skills?
+		{
+			double reflectMeleeSkill = calcStat(Stats.REFLECT_SKILL_MELEE_PHYSIC , 0 , null , null);
+			reflect = (reflectMeleeSkill > reflect) ? reflectMeleeSkill : reflect; 
+		}
+		
+		return (Rnd.get(100) < reflect);
 	}
 	
 	protected void refreshSkills()
@@ -7600,11 +7614,11 @@ public abstract class L2Character extends L2Object
     
     public void setPreventedFromReceivingBuffs(boolean value)
     {
-    	_canBeBuffed = value;
+    	_block_buffs = value;
     }
 
     public boolean isPreventedFromReceivingBuffs()
     {
-    	return _canBeBuffed;
+    	return _block_buffs;
     }
 }

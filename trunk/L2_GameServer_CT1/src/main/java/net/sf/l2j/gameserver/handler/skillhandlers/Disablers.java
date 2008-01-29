@@ -270,6 +270,8 @@ public class Disablers implements ISkillHandler
                 case CONFUSION:
                 case DEBUFF:
                 {    
+                    if (Formulas.getInstance().receiveBlock(target, "debuff"))
+                    	continue;
                     if (target instanceof L2NpcInstance){
                     target.getAI().notifyEvent(CtrlEvent.EVT_AGGRESSION, activeChar,50);}
                     if (Formulas.getInstance().calcSkillSuccess(activeChar, target, skill, ss, sps, bss))

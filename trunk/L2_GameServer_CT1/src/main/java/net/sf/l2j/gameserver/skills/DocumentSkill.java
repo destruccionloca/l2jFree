@@ -314,7 +314,15 @@ final class DocumentSkill extends DocumentBase {
 				}
 				if ("for".equalsIgnoreCase(n.getNodeName()))
 				{
-					parseTemplate(n, _currentSkill.currentSkills.get(i));
+					try
+					{
+						parseTemplate(n, _currentSkill.currentSkills.get(i));
+					}
+					catch(Throwable t)
+					{
+						_log.error(skillName + " (id: "+skillId+") has errors.");
+						t.printStackTrace();
+					}
 				}
 			}
 		}
