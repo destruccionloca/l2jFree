@@ -268,7 +268,7 @@
 <skill id="1411" levels="1" name="Mystic Immunity">
 <!-- Dony by KID, L2J-b Project -->
 <!-- Fixed by Darki699, L2JFree -->
-  <set name="mp_consume" val="73"/>
+  <set name="mpConsume" val="73"/>
   <set name="target" val="TARGET_PARTY_MEMBER"/>
   <set name="reuseDelay" val="60000"/>
   <set name="hitTime" val="4000"/>
@@ -288,7 +288,7 @@
   Description(s):
       Cancels a nearby target's magic casting.
 -->
-  <set name="mp_consume" val="25"/>
+  <set name="mpConsume" val="25"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="120000"/>
   <set name="hitTime" val="150"/>
