@@ -305,8 +305,6 @@
 </skill>
 <skill id="1413" levels="1" name="Magnus' Chant">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Allows the Ancient Soul of Magnus to temporarily possess a party member. Consumes 40 Spirit Ores.
 -->
@@ -337,8 +335,6 @@
 </skill>
 <skill id="1414" levels="1" name="Victories of Pa'agrio">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Allows the Ancient Hero's Soul to temporarily possesses an alliance member. Consumes 40 Spirit Ores.
 -->
@@ -358,7 +354,7 @@
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="Buff" time="300" val="0" stackOrder="1" stackType="CoV">
-    <!-- This skills seems to be exacly same as CoV but it applies on ally -->
+    <!-- This skills seems to be exacly same as CoV but it applies on ally (ally ? target set to CLAN !!!) -->
       <mul order="0x30" stat="pAtk" val="1.1"/>
       <mul order="0x30" stat="pDef" val="1.2"/>
       <mul order="0x30" stat="rCrit" val="1.2"/>
@@ -403,7 +399,6 @@
 <skill id="1416" levels="1" name="Pa'agrio's Fist">
 <!--
   By Darki699
-
   Description(s):
       Increases an clan member's maximum CP and fully restores it. Consumes 20 Spirit Ores.
 -->
@@ -554,7 +549,6 @@
 <skill id="1422" levels="1" name="Day of Doom">
 <!--
   By Darki699
-
   Description(s):
       Generates a signet that produces a strong curse that decreases all abilities. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
 -->
@@ -758,12 +752,6 @@
 <skill id="1430" levels="5" name="Invocation">
 <!--
   By Darki699
-  Description(s):
-      Lvl 1 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
-	  Lvl 2 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
-	  Lvl 3 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
-	  Lvl 4 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
-	  Lvl 5 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
 -->
   <table name="#mpConsume"> 27 28 30 33 34 </table>
   <table name="#power"> 56 60 64 68 72 </table>
@@ -788,7 +776,6 @@
 </skill>
 <skill id="1431" levels="6" name="Fallen Arrow">
 <!--
-
   Description(s):
       SRelease an arrow infused with darkness. Consumes 1 Soul. Power 13-22.
 -->
