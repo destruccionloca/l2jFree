@@ -854,22 +854,26 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="PhoenixSoul" time="1800" val="0"/>
+    <effect count="1" name="PhoenixSoul" time="1800" val="0" stackOrder="1" stackType="resurrectionBuffs"/>
   </for>
 </skill>
 <skill id="439" levels="1" name="Shield of Revenge">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Temporarily reflects damage from melee attack skills back to the enemy.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpConsume" val="35"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="3600000"/>
+  <set name="hitTime" val="4000"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-<!-- needs core support - not really a reflect -> http://www.l2guru.com/forum/showthread.php?t=74337 -->
+    <effect count="1" name="Buff" time="300" val="0">
+      <add order="0x40" stat="reflectSkillMeleePhysic" val="40"/>
+    </effect>
   </for>
 </skill>
 <skill id="440" levels="1" name="Braveheart">
@@ -984,47 +988,62 @@
 </skill>
 <skill id="445" levels="1" name="Mirage">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Has a chance to cancel the target of an enemy who attacks you.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpConsume" val="43"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isMagic" val="false"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="hitTime" val="1000"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-<!-- needs core support -->
+    <effect count="1" name="Buff" time="6" val="0">
+      <add order="0x40" stat="cancelAttackerTarget" val="40"/>
+    </effect>
   </for>
 </skill>
 <skill id="446" levels="1" name="Dodge">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Allows you to temporarily evade a melee attack skill.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpConsume" val="29"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isMagic" val="false"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="hitTime" val="1000"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-<!-- needs core support or a BIG physical only evasion rate -->
+    <effect count="1" name="Buff" time="6" val="0">
+      <add order="0x40" stat="evadeMeleeSkill" val="100"/>
+    </effect>
   </for>
 </skill>
 <skill id="447" levels="1" name="Counterattack">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Temporarily allows you to reflect damage caused by a melee attack skill back to the enemy.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpConsume" val="29"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="isMagic" val="false"/>
+  <set name="reuseDelay" val="300000"/>
+  <set name="hitTime" val="1000"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
-<!-- needs core support - not really a reflect -> http://www.l2guru.com/forum/showthread.php?t=74337 -->
+    <effect count="1" name="Buff" time="6" val="0">
+      <add order="0x40" stat="reflectSkillMeleePhysic" val="100"/>
+    </effect>
   </for>
 </skill>
 <skill id="448" levels="1" name="Summon Swoop Cannon">
