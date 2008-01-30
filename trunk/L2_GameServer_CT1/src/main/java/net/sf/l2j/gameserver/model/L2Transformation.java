@@ -49,7 +49,7 @@ public abstract class L2Transformation implements Cloneable, Runnable
         _graphicalId = graphicalId;
         _collisionRadius = collisionRadius;
         _collisionHeight = collisionHeight;
-        this.setDuration(duration * 1000);
+        this.setDuration(duration);
     }
     
     /**
@@ -101,7 +101,7 @@ public abstract class L2Transformation implements Cloneable, Runnable
      */
     public void setDuration(long duration)
     {
-        _duration = duration;
+        _duration = duration * 1000;
     }
     
     /**
