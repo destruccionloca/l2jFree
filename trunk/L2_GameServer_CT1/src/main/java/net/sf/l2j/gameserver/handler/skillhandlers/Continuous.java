@@ -118,14 +118,6 @@ public class Continuous implements ISkillHandler
 			{
 				if (target.isPreventedFromReceivingBuffs())
 					continue;
-				else if (skill.isDance() && target.getFirstEffect(5124) != null) // Anti Music Fusion skill effect
-				{
-					if (target instanceof L2PcInstance)
-					{
-						((L2PcInstance)target).sendMessage("You are prevented from receiving song/dance at this time.");
-					}
-					continue;
-				}
 				else if (target != activeChar)
 				{
 					if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquipped())

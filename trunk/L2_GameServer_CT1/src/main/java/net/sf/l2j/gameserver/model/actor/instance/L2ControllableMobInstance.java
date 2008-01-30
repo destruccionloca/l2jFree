@@ -101,7 +101,11 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 			return;
 		
 		if (awake)
-			stopSleeping(null);
+		{
+			if(isSleeping()) stopSleeping(null);
+			if(isMeditating()) stopMeditation(null);
+		}
+
 		if (isPetrified())
         {i= 0;}
         i = getStatus().getCurrentHp() - i;

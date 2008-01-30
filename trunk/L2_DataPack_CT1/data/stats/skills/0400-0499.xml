@@ -918,7 +918,7 @@
   <using kind="Fist, Dual Fist"/>
   </cond>
   <for>
-    <effect count="1" name="Relax" time="30" val="0">
+    <effect count="1" name="Meditation" time="30" val="0">
       <mul order="0x30" stat="pDef" val="0.2"/>
       <mul order="0x30" stat="regMp" val="10"/>
       <mul order="0x30" stat="regHp" val="15"/>

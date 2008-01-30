@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
@@ -91,11 +92,11 @@ public class GrandBossState
     public void load()
     {
 
-    	java.sql.Connection con = null;
+    	Connection con = null;
     	
     	try
     	{
-            con = L2DatabaseFactory.getInstance().getConnection(null);
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             
             PreparedStatement statement = con.prepareStatement("SELECT * FROM grandboss_intervallist WHERE bossId = ?");
             statement.setInt(1, _bossId);
@@ -124,7 +125,7 @@ public class GrandBossState
             	}
             }
             rset.close();
-            statement.close();            
+            statement.close();
     	}
         catch (Exception e)
         {
@@ -134,21 +135,20 @@ public class GrandBossState
         {
             try {con.close();} catch(Exception e) {}
         }
-    	
     }
     
     public void save()
     {
-    	java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection(null);
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("INSERT INTO grandboss_intervallist (bossId,respawnDate,state) VALUES(?,?,?)");
             statement.setInt(1, _bossId);
             statement.setLong(2, _respawnDate);
             statement.setInt(3, _state.ordinal());
-            statement.executeUpdate();
+            statement.execute();
             statement.close();
         }
         catch (Exception e)
@@ -163,16 +163,16 @@ public class GrandBossState
 
     public void update()
     {
-    	java.sql.Connection con = null;
+        Connection con = null;
         
         try
         {
-            con = L2DatabaseFactory.getInstance().getConnection(null);
+            con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement = con.prepareStatement("UPDATE grandboss_intervallist SET respawnDate = ?,state = ? WHERE bossId = ?");
             statement.setLong(1, _respawnDate);
             statement.setInt(2, _state.ordinal());
             statement.setInt(3, _bossId);
-            statement.executeUpdate();
+            statement.execute();
             statement.close();
             _log.info("update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString());
         }
@@ -184,7 +184,6 @@ public class GrandBossState
         {
             try { con.close(); } catch (Exception e) {}
         }
-    	
     }
     
     public void setNextRespawnDate(long newRespawnDate)
@@ -201,5 +200,4 @@ public class GrandBossState
     	else
     		return interval;
     }
-
 }

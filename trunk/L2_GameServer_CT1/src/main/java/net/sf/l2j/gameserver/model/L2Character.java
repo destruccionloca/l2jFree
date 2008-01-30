@@ -158,6 +158,7 @@ public abstract class L2Character extends L2Object
 	private boolean					_isRooted							= false;											// Cannot move until root timed out
 	private boolean					_isRunning							= true;
 	private boolean					_isSleeping							= false;											// Cannot move/attack until sleep
+	private boolean					_isMeditating						= false;
 																															// timed out or monster is attacked
 	private boolean					_isBlessedByNoblesse				= false;
 	private boolean					_isLuckByNoblesse					= false;
@@ -2299,13 +2300,13 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
 	public boolean isAllSkillsDisabled()
 	{
-		return _allSkillsDisabled || isStunned() || isSleeping() || isParalyzed();
+		return _allSkillsDisabled || isStunned() || isSleeping() || isMeditating() || isParalyzed();
 	}
 	
 	/** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
 	public boolean isAttackingDisabled()
 	{
-		return isStunned() || isSleeping() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown();
+		return isStunned() || isSleeping() || isMeditating() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown();
 	}
 	
 	public final Calculator[] getCalculators()
@@ -2407,7 +2408,7 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
 	public boolean isMovementDisabled()
 	{
-		return isStunned() || isRooted() || isSleeping() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath() || isFallsdown();
+		return isStunned() || isRooted() || isSleeping() || isMeditating() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath() || isFallsdown();
 	}
 	
 	/** Return True if the L2Character can be controlled by the player (confused, afraid). */
@@ -2517,11 +2518,21 @@ public abstract class L2Character extends L2Object
 		return _isSleeping;
 	}
 	
+	public final void setIsMeditating(boolean value)
+	{
+		_isMeditating = value;
+	}
+
+	public final boolean isMeditating()
+	{
+		return _isMeditating;
+	}
+	
 	public final void setIsSleeping(boolean value)
 	{
 		_isSleeping = value;
 	}
-	
+
 	public final boolean isBlessedByNoblesse()
 	{
 		return _isBlessedByNoblesse;
@@ -3413,7 +3424,13 @@ public abstract class L2Character extends L2Object
 		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
 		updateAbnormalEffect();
 	}
-	
+
+	public final void startMeditation()
+	{
+		setIsMeditating(true);
+		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
+	}
+
 	public final void startLuckNoblesse()
 	{
 		setIsBlessedByNoblesse(true);
@@ -3711,7 +3728,18 @@ public abstract class L2Character extends L2Object
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
 	}
-	
+
+	public final void stopMeditation(L2Effect effect)
+	{
+		if (effect == null)
+			stopEffects(L2Effect.EffectType.MEDITATION);
+		else
+			removeEffect(effect);
+		
+		setIsMeditating(false);
+		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
+	}
+
 	public final void stopNoblesse()
 	{
 		stopEffects(L2Effect.EffectType.NOBLESSE_BLESSING);
@@ -7488,17 +7516,6 @@ public abstract class L2Character extends L2Object
 			{
 				((EffectConditionHit)e).setWasHit(true);
 				e.exit();
-			}
-			else if (e.getEffectType() == L2Effect.EffectType.RELAXING)
-			{
-				L2Skill skill = e.getSkill();
-				if (skill != null)
-				{
-					if (skill.getId() == 441 /* Force Meditation */ || skill.getId() == 1430 /* Invocation */)
-					{
-						e.exit();
-					}
-				}
 			}
 		}
 	}
