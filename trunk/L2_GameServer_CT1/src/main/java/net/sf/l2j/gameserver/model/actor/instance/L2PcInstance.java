@@ -3889,7 +3889,16 @@ public final class L2PcInstance extends L2PlayableInstance
                 return;
             }
 
-           if (target.getOwnerId() != 0 && target.getOwnerId() != getObjectId() && !isInLooterParty(target.getOwnerId()))
+            if (isInvul() && !isGM())
+            {
+                sendPacket(new ActionFailed());
+                SystemMessage smsg = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
+                smsg.addItemName(target);
+                sendPacket(smsg);
+                return;
+            }
+
+            if (target.getOwnerId() != 0 && target.getOwnerId() != getObjectId() && !isInLooterParty(target.getOwnerId()))
             {
                 sendPacket(new ActionFailed());
                 
@@ -9800,72 +9809,82 @@ public final class L2PcInstance extends L2PlayableInstance
         doRevive();
     }
 
-   public void reviveRequest(L2PcInstance Reviver, L2Skill skill, boolean Pet)
-   {
-       if (_reviveRequested == 1)
-       {
-           if (_revivePet == Pet)
-           {
-        	   Reviver.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
-           }
-           else
-           {
-               if (Pet)
-            	   Reviver.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RES_PET2)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
-               else
-            	   Reviver.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
-           }
-           return;
-       }
-       if((Pet && getPet() != null && getPet().isDead()) || (!Pet && isDead()))
-       {
-           _reviveRequested = 1;
-           _revivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), Reviver.getStat().getWIT()); 
-           _revivePet = Pet;
-           sendPacket(new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST.getId(), Reviver.getName()));
-       }
-   }
+    public void reviveRequest(L2PcInstance Reviver, L2Skill skill, boolean Pet)
+    {
+        if (_reviveRequested == 1)
+        {
+            if (_revivePet == Pet)
+            {
+                Reviver.sendPacket(new SystemMessage(SystemMessageId.RES_HAS_ALREADY_BEEN_PROPOSED)); // Resurrection is already been proposed.
+            }
+            else
+            {
+                if (Pet)
+                    Reviver.sendPacket(new SystemMessage(SystemMessageId.CANNOT_RES_PET2)); // A pet cannot be resurrected while it's owner is in the process of resurrecting.
+                else
+                    Reviver.sendPacket(new SystemMessage(SystemMessageId.MASTER_CANNOT_RES)); // While a pet is attempting to resurrect, it cannot help in resurrecting its master.
+            }
+            return;
+        }
+        if((Pet && getPet() != null && getPet().isDead()) || (!Pet && isDead()))
+        {
+            _reviveRequested = 1;
+            if (isPhoenixBlessed())
+                _revivePower = 100;
+            else
+                _revivePower = Formulas.getInstance().calculateSkillResurrectRestorePercent(skill.getPower(), Reviver.getStat().getWIT()); 
+            _revivePet = Pet;
+            sendPacket(new ConfirmDlg(SystemMessageId.RESSURECTION_REQUEST.getId(), Reviver.getName()));
+        }
+    }
    
-   public void reviveAnswer(int answer)
-   {
-       if (_reviveRequested != 1 || (!isDead() && !_revivePet) || (_revivePet && getPet() != null && !getPet().isDead()))
-           return;
-       if (answer == 1)
-       {
-           if (!_revivePet)
-           {
-               if (_revivePower != 0)
-                   doRevive(_revivePower);
-               else
-                   doRevive();
-           }
-           else if (getPet() != null)
-           {
-               if (_revivePower != 0)
-                   getPet().doRevive(_revivePower);
-               else
-                   getPet().doRevive();
-           }
-       }
-       _reviveRequested = 0;
-       _revivePower = 0;
-   }
+    public void reviveAnswer(int answer)
+    {
+        if (_reviveRequested != 1 || (!isDead() && !_revivePet) || (_revivePet && getPet() != null && !getPet().isDead()))
+            return;
+        //If character refuses a PhoenixBless autoress, cancell all buffs he had
+        if (answer == 0 && isPhoenixBlessed())
+        {
+            stopPhoenixBlessing(null);
+            stopAllEffects();
+        }
 
-   public boolean isReviveRequested()
-   {
-       return (_reviveRequested == 1);
-   }
+        if (answer == 1)
+        {
+            if (!_revivePet)
+            {
+                if (_revivePower != 0)
+                    doRevive(_revivePower);
+                else
+                    doRevive();
+            }
+            else if (getPet() != null)
+            {
+                if (_revivePower != 0)
+                    getPet().doRevive(_revivePower);
+                else
+                    getPet().doRevive();
+            }
+        }
+        _reviveRequested = 0;
+        _revivePower = 0;
+    }
 
-   public boolean isRevivingPet()
-   {
-       return _revivePet;
-   }
+    public boolean isReviveRequested()
+    {
+        return (_reviveRequested == 1);
+    }
 
-   public void removeReviving()
-   {
-       _reviveRequested = 0;
-       _revivePower = 0;
-   }
+    public boolean isRevivingPet()
+    {
+        return _revivePet;
+    }
+
+    public void removeReviving()
+    {
+        _reviveRequested = 0;
+        _revivePower = 0;
+    }
 
     public void onActionRequest()
     {

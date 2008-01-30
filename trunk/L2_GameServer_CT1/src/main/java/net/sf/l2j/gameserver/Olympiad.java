@@ -821,6 +821,9 @@ public class Olympiad
 	
 	public List<L2PcInstance> getSpectators(int id)
 	{
+		if (_manager == null || _manager.getOlympiadInstance(id) == null)
+			return null;
+
 		return _manager.getOlympiadInstance(id).getSpectators();
 	}
 	

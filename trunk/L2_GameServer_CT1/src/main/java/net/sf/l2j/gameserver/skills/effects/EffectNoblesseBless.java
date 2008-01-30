@@ -44,10 +44,8 @@ final class EffectNoblesseBless extends L2Effect
 	/** Notify exited */
 	public void onExit()
 	{
-		if (getEffected() instanceof L2PlayableInstance && getEffected().getFirstEffect(L2Effect.EffectType.PHEONIX_SOUL) == null)
-		{
+		if (getEffected() instanceof L2PlayableInstance)
 			((L2PlayableInstance) getEffected()).stopNoblesseBlessing(this);
-		}
 	}
 
 	public boolean onActionTime()
