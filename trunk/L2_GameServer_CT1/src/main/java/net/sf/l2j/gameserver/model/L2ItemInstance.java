@@ -336,20 +336,9 @@ public final class L2ItemInstance extends L2Object
 	}
 
 	// No logging (function designed for shots only)
-	public void changeCountWithoutTrace(String process, int count, L2PcInstance creator, L2Object reference)
+	public void changeCountWithoutTrace(int count, L2PcInstance creator, L2Object reference)
 	{
-		if (count == 0)
-			return;
-		
-		if ( count > 0 && getCount() > Integer.MAX_VALUE - count)
-			setCount(Integer.MAX_VALUE);
-		else
-			setCount(getCount() + count);
-		
-		if (getCount() < 0)
-			setCount(0);
-		
-		_storedInDb = false;
+		this.changeCount(null, count, creator, reference);
 	}
 	
 	/**
@@ -381,7 +370,7 @@ public final class L2ItemInstance extends L2Object
 		
 		_storedInDb = false;
 		
-		if (Config.LOG_ITEMS)
+		if (Config.LOG_ITEMS && process != null)
 		{
 			List<Object> param = new ArrayList<Object>();
 			param.add("CHANGE:" + process);
@@ -872,7 +861,7 @@ public final class L2ItemInstance extends L2Object
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Could not restore Augmentation data for item " + getObjectId() + " from DB:", e);
+			_log.fatal("Could not restore Augmentation data for item " + getObjectId() + " from DB:"+e.getMessage(), e);
 		}
 		finally
 		{
@@ -1127,27 +1116,26 @@ public final class L2ItemInstance extends L2Object
 	
 	/**
 	 * Updates database.<BR>
-	 * <BR>
-	 * <U><I>Concept : </I></U><BR>
-	 * <B>IF</B> the item exists in database :
-	 * <UL>
-	 * <LI><B>IF</B> the item has no owner, or has no location, or has a null quantity : remove item from database</LI>
-	 * <LI><B>ELSE</B> : update item in database</LI>
-	 * </UL>
-	 * <B> Otherwise</B> :
-	 * <UL>
-	 * <LI><B>IF</B> the item hasn't a null quantity, and has a correct location, and has a correct owner : insert item in database</LI>
-	 * </UL>
 	 */
 	public void updateDatabase()
 	{
-		if (isWear()) // avoid saving weared items
-		{ return; }
+		this.updateDatabase(false);
+	}
+
+	/**
+	* Updates the database.<BR>
+	* 
+	* @param force if the update should necessarilly be done.
+	*/
+	public void updateDatabase(boolean force)
+	{
+		if (isWear()) //avoid saving weared items
+			return;
 		if (_existsInDb)
 		{
 			if (_ownerId == 0 || _loc == ItemLocation.VOID || (getCount() == 0 && _loc != ItemLocation.LEASE))
 				removeFromDb();
-			else
+			else if (!Config.LAZY_ITEMS_UPDATE || force)
 				updateInDb();
 		}
 		else
@@ -1202,7 +1190,7 @@ public final class L2ItemInstance extends L2Object
 		}
 		catch (Exception e)
 		{
-			_log.fatal("Could not restore an item owned by "+ownerId+" from DB:", e);
+			_log.fatal("Could not restore an item owned by "+ownerId+" from DB:"+e.getMessage(), e);
 			return null;
 		}
 		L2Item item = ItemTable.getInstance().getTemplate(item_id);

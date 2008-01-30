@@ -994,6 +994,8 @@ public final class Config
 	public static String			PROTECTED_ITEMS;
 	public static FastList<Integer>	LIST_PROTECTED_ITEMS	= new FastList<Integer>();			// List of items that will not be destroyed
 	public static int				CHAR_STORE_INTERVAL;										// Interval that the gameserver will update and store character information
+	public static boolean			UPDATE_ITEMS_ON_CHAR_STORE;									// Update items owned by this char when storing the char on DB
+	public static boolean			LAZY_ITEMS_UPDATE;											// Update items only when strictly necessary
 	public static boolean			DESTROY_DROPPED_PLAYER_ITEM;								// Auto destroy nonequipable items dropped by players
 	public static boolean			DESTROY_PLAYER_INVENTORY_DROP;								// Auto destroy items dropped by players from inventory
 	public static boolean			DESTROY_EQUIPABLE_PLAYER_ITEM;								// Auto destroy equipable items dropped by players
@@ -1140,6 +1142,9 @@ public final class Config
 				LIST_PROTECTED_ITEMS.add(Integer.parseInt(id.trim()));
 			}
 			CHAR_STORE_INTERVAL = Integer.parseInt(optionsSettings.getProperty("CharacterDataStoreInterval", "15"));
+			UPDATE_ITEMS_ON_CHAR_STORE = Boolean.parseBoolean(optionsSettings.getProperty("UpdateItemsOnCharStore", "false"));
+			LAZY_ITEMS_UPDATE = Boolean.parseBoolean(optionsSettings.getProperty("LazyItemsUpdate", "false"));
+
 			DESTROY_DROPPED_PLAYER_ITEM = Boolean.parseBoolean(optionsSettings.getProperty("DestroyPlayerDroppedItem", "false"));
 			DESTROY_PLAYER_INVENTORY_DROP = Boolean.parseBoolean(optionsSettings.getProperty("DestroyPlayerInventoryDrop", "false"));
 			DESTROY_EQUIPABLE_PLAYER_ITEM = Boolean.parseBoolean(optionsSettings.getProperty("DestroyEquipableItem", "false"));

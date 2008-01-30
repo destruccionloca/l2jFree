@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.model.L2Multisell.MultiSellEntry;
 import net.sf.l2j.gameserver.model.L2Multisell.MultiSellIngredient;
 import net.sf.l2j.gameserver.model.L2Multisell.MultiSellListContainer;
+import net.sf.l2j.gameserver.templates.L2Item;
 
 
 /**
@@ -70,13 +71,22 @@ public class MultiSellList extends L2GameServerPacket
                 writeH(ent.getProducts().size());
                 writeH(ent.getIngredients().size());
     
-            	for(MultiSellIngredient i: ent.getProducts())
-            	{
-            		writeD(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId());
-	            	writeD(0x00);
-	            	writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
-	            	writeD(i.getItemCount());
-	        	    writeH(i.getEnchantmentLevel()); //enchant lvl
+                for(MultiSellIngredient i: ent.getProducts())
+                {
+                    L2Item tpl = ItemTable.getInstance().getTemplate(i.getItemId());
+                    if (tpl == null)
+                        writeD(0x00);
+                    else
+                        writeD(tpl.getItemDisplayId());
+
+                    writeD(0x00);
+                    if (tpl == null)
+                        writeH(0x00);
+                    else
+                        writeH(tpl.getType2());
+
+                    writeD(i.getItemCount());
+                    writeH(i.getEnchantmentLevel());
                     writeD(i.getAugmentationId());
                     writeD(i.getManaLeft());
                     writeD(0x00);
@@ -87,12 +97,21 @@ public class MultiSellList extends L2GameServerPacket
                     writeD(0x00);
                     writeD(0x00);
                     writeD(0x00);
-            	}
+                }
 
                 for(MultiSellIngredient i : ent.getIngredients())
                 {
-                    writeD(ItemTable.getInstance().getTemplate(i.getItemId()).getItemDisplayId()); //ID
-                    writeH(ItemTable.getInstance().getTemplate(i.getItemId()).getType2());
+                    L2Item tpl = ItemTable.getInstance().getTemplate(i.getItemId());
+                    if (tpl == null)
+                        writeD(0x00);
+                    else
+                        writeD(tpl.getItemDisplayId());
+
+                    if (tpl == null)
+                        writeH(0x00);
+                    else
+                        writeH(tpl.getType2());
+
                     writeD(i.getItemCount()); //Count
                     writeH(i.getEnchantmentLevel()); //Enchant Level
                     writeD(i.getAugmentationId());

@@ -80,7 +80,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	private List<Integer> _charSlotMapping = new FastList<Integer>();
 
 	// Task
-	protected/* final */ScheduledFuture<?> _autoSaveInDB;
+	protected final ScheduledFuture<?> _autoSaveInDB;
 
 	// Crypt
 	public GameCrypt crypt;
@@ -97,7 +97,17 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		state = GameClientState.CONNECTED;
 		_connectionStartTime = System.currentTimeMillis();
 		crypt = new GameCrypt();
-		_autoSaveInDB = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new AutoSaveTask(), 300000L, (Config.CHAR_STORE_INTERVAL * 60000L));
+
+		if (Config.CHAR_STORE_INTERVAL > 0)
+		{
+			_autoSaveInDB = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate( 
+				new AutoSaveTask(), 300000L, (Config.CHAR_STORE_INTERVAL*60000L)
+			);
+		}
+		else
+		{
+			_autoSaveInDB = null;
+		}
 	}
 
 	public byte[] enableCrypt()
@@ -267,6 +277,10 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		try
 		{
 			cha.store();
+			if (Config.UPDATE_ITEMS_ON_CHAR_STORE)
+			{
+				cha.getInventory().updateDatabase();
+			}
 		}
 		catch (Exception e)
 		{
@@ -556,9 +570,11 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 					e.printStackTrace();
 				}
 
-				// we are going to mannually save the char bellow thus we can
-				// force the cancel
-				_autoSaveInDB.cancel(true);
+				// we are going to mannually save the char bellow thus we can force the cancel
+				if (_autoSaveInDB != null)
+				{
+					_autoSaveInDB.cancel(true);
+				}
 
 				L2PcInstance player = L2GameClient.this.getActiveChar();
 				if (player != null) // this should only happen on connection

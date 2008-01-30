@@ -649,7 +649,7 @@ public abstract class Inventory extends ItemContainer
 	 *            L2ItemInstance to be removed from inventory
 	 */
 	@Override
-	protected void removeItem(L2ItemInstance item)
+	protected boolean removeItem(L2ItemInstance item)
 	{
 		// Unequip item if equiped
 		// if (item.isEquipped()) unEquipItemInSlotAndRecord(item.getLocationSlot());
@@ -657,7 +657,7 @@ public abstract class Inventory extends ItemContainer
 			if (_paperdoll[i] == item)
 				unEquipItemInSlot(i);
 		
-		super.removeItem(item);
+		return super.removeItem(item);
 	}
 	
 	/**
