@@ -1,6 +1,5 @@
 # Contributed by t0rm3nt0r (tormentor2000@mail.ru) to the Official L2J Datapack Project
 # Visit http://forum.l2jdp.com for more details.
-
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
@@ -10,18 +9,16 @@ from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 qn = "172_NewHorizons"
 
 #NPC'S
-ZENYA = 32140 
+ZENYA = 32140
 RAGARA = 32163
 
 #ITEM'S
-SCROLL_OF_ESCAPE_GIRAN = 7559 
-MARK_OF_TRAVELER       = 7570 
+SCROLL_OF_ESCAPE_GIRAN = 7559
+MARK_OF_TRAVELER       = 7570
  
 class Quest (JQuest) :
 
- def __init__(self,id,name,descr):
-     JQuest.__init__(self,id,name,descr)
-     self.questItemIds = [MARK_OF_TRAVELER]
+ def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st) :
      htmltext = event
@@ -51,21 +48,19 @@ class Quest (JQuest) :
          htmltext = "32140-01.htm"
        else :
          htmltext = "32140-02.htm"
-         st.exitQuest(1)       
+         st.exitQuest(1)
      elif id == State.STARTED :
-       if npcId == ZENYA : 
+       if npcId == ZENYA :
          if cond == 1 :
            htmltext = "32140-04.htm"
        elif npcId == RAGARA :
          if cond == 1 :
            htmltext = "32163-01.htm"
      return htmltext
- 
-QUEST     = Quest(172,qn,"New Horizons") 
- 
-QUEST.addStartNpc(ZENYA) 
 
-QUEST.addTalkId(ZENYA) 
-QUEST.addTalkId(RAGARA) 
- 
+QUEST = Quest(172,qn,"New Horizons")
 
+QUEST.addStartNpc(ZENYA)
+
+QUEST.addTalkId(ZENYA)
+QUEST.addTalkId(RAGARA)
