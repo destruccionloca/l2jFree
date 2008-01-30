@@ -51,7 +51,7 @@ class Quest (JQuest) :
     #confirm that quest can be executed.
     preQn = "119_LastImperialPrince"
     preSt = player.getQuestState(preQn)
-    if not preQn: return htmltext
+    if not preSt: return htmltext
     preId = preSt.getState()
     if player.getLevel() < 74 :
       htmltext = "<html><body>Quest for characters level 74 and above.</body></html>"

@@ -495,7 +495,7 @@ class Quest (JQuest) :
           players = npc.getKnownList().getKnownPlayers().values().toArray()
           if len(players) :
             playerToTP = players[Rnd.get(int(len(players)))]
-            playerToTP.setXYZ(185462,20342,-3250)
+            playerToTP.getPosition().setXYZ(185462,20342,-3250)
     return
 
   def onKill(self,npc,player,isPet):
