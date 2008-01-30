@@ -262,7 +262,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="PhoenixSoul" time="1800" val="0" stackOrder="1" stackType="resurrectionBuffs"/>
+    <effect count="1" name="PhoenixBless" time="3600" val="0"/>
   </for>
 </skill>
 <skill id="1411" levels="1" name="Mystic Immunity">
