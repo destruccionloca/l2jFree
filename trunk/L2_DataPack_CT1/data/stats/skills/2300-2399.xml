@@ -748,74 +748,146 @@
   </for>
 </skill>
 <skill id="2370" levels="1" name="Transform Sealbook - Pig">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into a cute pig.  
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="104"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="2371" levels="1" name="Transform Sealbook - Onyx Beast">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into an Onyx Beast.  
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="1"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="2372" levels="1" name="Transform Sealbook - Death Blader">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into a Death Blader.  
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="2"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="2373" levels="1" name="Transform Sealbook - Grail Apostle">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into an Apostle Grail.  
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="201"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="2374" levels="1" name="Transform Sealbook - Unicorn">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into a Unicorn. 
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="204"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="2375" levels="1" name="Transform Sealbook - Lilim Knight">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into a Lilim Knight.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="207"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="2376" levels="1" name="Transform Sealbook - Golem Guardian">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into a Golem Guardian.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="210"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="2377" levels="1" name="Transform Sealbook - Inferno Drake">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into an Inferno Drake.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="213"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="2378" levels="1" name="Transform Sealbook - Dragon Bomber">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into a Dragon Bomber.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="216"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -940,10 +1012,18 @@
   </for>
 </skill>
 <skill id="2394" levels="1" name="Scroll of Battlefield Transformation">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into a Pixy.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="304"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>

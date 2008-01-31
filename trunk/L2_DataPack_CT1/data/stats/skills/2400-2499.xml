@@ -226,10 +226,18 @@
   </for>
 </skill>
 <skill id="2428" levels="1" name="Scroll of Transformation  - Rabbit">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!--
+  Done by Skatershi
+  Description:
+      Transform into a cute bunny.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="105"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
