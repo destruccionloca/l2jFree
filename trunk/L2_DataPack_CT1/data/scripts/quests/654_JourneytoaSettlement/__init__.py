@@ -57,7 +57,7 @@ class Quest (JQuest) :
       htmltext = "<html><body>Quest for characters level 74 and above.</body></html>"
       st.exitQuest(1)
       return htmltext
-    elif repr(preId) != "Completed" :
+    elif preId != State.COMPLETED :
       htmltext = "<html><body>Quest is not accomplished or the condition is not suitable.</body></html>"
       st.exitQuest(1)
       return htmltext
