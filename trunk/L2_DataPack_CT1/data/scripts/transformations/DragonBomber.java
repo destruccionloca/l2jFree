@@ -22,7 +22,8 @@ public class DragonBomber extends L2Transformation
 	public DragonBomber()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(216, 3600, 8.0, 22.0);
+                // Retail Like 30 min - Skatershi
+		super(216, 1800, 8.0, 22.0);
 	}
 
 	public void onTransform()

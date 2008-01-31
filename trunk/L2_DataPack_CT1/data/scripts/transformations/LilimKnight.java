@@ -14,7 +14,8 @@ public class LilimKnight extends L2Transformation
 	public LilimKnight()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(207, 3600, 12.0, 25.5);
+                // Retail Like 30 min - Skatershi
+		super(207, 1800, 12.0, 25.5);
 	}
 
 	public void onTransform()

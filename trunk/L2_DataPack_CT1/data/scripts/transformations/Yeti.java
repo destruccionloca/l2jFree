@@ -14,7 +14,8 @@ public class Yeti extends L2Transformation
 	public Yeti()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(102, 3600, 15.0, 27.5);
+                // Retail Like 30 min - Skatershi
+		super(102, 1800, 15.0, 27.5);
 	}
 
 	public void onTransform()

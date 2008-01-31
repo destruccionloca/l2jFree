@@ -14,7 +14,8 @@ public class Pixy extends L2Transformation
 	public Pixy()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(304, 3600, 5.0, 25.0);
+                // Retail Like 30 min - Skatershi
+		super(304, 1800, 5.0, 25.0);
 	}
 
 	public void onTransform()

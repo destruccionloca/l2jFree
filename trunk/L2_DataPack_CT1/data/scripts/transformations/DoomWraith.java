@@ -14,7 +14,8 @@ public class DoomWraith extends L2Transformation
 	public DoomWraith()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(2, 3600, 13.0, 25.0);
+                // Retail Like 30 min - Skatershi
+		super(2, 1800, 13.0, 25.0);
 	}
 
 	public void onTransform()

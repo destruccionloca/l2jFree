@@ -22,7 +22,8 @@ public class Kamael extends L2Transformation
 	public Kamael()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(251, 3600, 9.0, 32.5);
+                // Retail Like 4 min - Skatershi
+		super(251, 240, 9.0, 32.5);
 	}
 
 	public void onTransform()

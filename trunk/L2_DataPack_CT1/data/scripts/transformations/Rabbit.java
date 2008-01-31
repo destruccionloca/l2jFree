@@ -14,7 +14,8 @@ public class Rabbit extends L2Transformation
 	public Rabbit()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(105, 3600, 5.0, 4.2);
+                // Retail Like 30 min - Skatershi
+		super(105, 1800, 5.0, 4.2);
 	}
 
 	public void onTransform()

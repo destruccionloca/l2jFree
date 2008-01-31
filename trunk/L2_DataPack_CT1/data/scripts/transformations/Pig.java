@@ -14,7 +14,8 @@ public class Pig extends L2Transformation
 	public Pig()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(104, 3600, 15.0, 18.0);
+                // Retail Like 30 min - Skatershi
+		super(104, 1800, 15.0, 18.0);
 	}
 
 	public void onTransform()

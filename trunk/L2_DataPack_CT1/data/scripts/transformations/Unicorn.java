@@ -22,7 +22,8 @@ public class Unicorn extends L2Transformation
 	public Unicorn()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(204, 3600, 8.0, 28.0);
+                // Retail Like 30 min - Skatershi
+		super(204, 1800, 8.0, 28.0);
 	}
 
 	public void onTransform()

@@ -14,7 +14,8 @@ public class InfernoDrake extends L2Transformation
 	public InfernoDrake()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(213, 3600, 8.0, 22.0);
+                // Retail Like 30 min - Skatershi
+		super(213, 1800, 8.0, 22.0);
 	}
 
 	public void onTransform()

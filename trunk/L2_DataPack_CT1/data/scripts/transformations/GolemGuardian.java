@@ -22,7 +22,8 @@ public class GolemGuardian extends L2Transformation
 	public GolemGuardian()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(210, 3600, 8.0, 22.0);
+                // Retail Like 30 min - Skatershi
+		super(210, 1800, 8.0, 22.0);
 	}
 
 	public void onTransform()

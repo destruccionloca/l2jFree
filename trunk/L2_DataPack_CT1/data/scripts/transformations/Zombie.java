@@ -14,7 +14,8 @@ public class Zombie extends L2Transformation
 	public Zombie()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(303, 3600, 11.0, 24.5);
+                // Retail Like 30 min - Skatershi
+		super(303, 1800, 11.0, 24.5);
 	}
 
 	public void onTransform()

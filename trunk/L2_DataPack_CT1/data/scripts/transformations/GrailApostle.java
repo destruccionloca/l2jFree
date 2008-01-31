@@ -22,7 +22,8 @@ public class GrailApostle extends L2Transformation
 	public GrailApostle()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(201, 3600, 8.0, 35.0);
+                // Retail Like 30 min - Skatershi
+		super(201, 1800, 8.0, 35.0);
 	}
 
 	public void onTransform()

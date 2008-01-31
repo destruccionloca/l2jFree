@@ -14,7 +14,8 @@ public class Native extends L2Transformation
 	public Native()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(101, 3600, 8.0, 23.5);
+                // Retail Like 30 min - Skatershi
+		super(101, 1800, 8.0, 23.5);
 	}
 
 	public void onTransform()

@@ -22,7 +22,8 @@ public class OnyxBeast extends L2Transformation
 	public OnyxBeast()
 	{
 		// id, duration (secs), colRadius, colHeight
-		super(1, 3600, 14.0, 14.5);
+                // Retail Like 30 min - Skatershi
+		super(1, 1800, 14.0, 14.5);
 	}
 
 	public void onTransform()
