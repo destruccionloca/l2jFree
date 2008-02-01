@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -20,6 +20,8 @@ package net.sf.l2j.gameserver.model.actor.instance;
  *
  */
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
@@ -40,12 +42,12 @@ import org.apache.commons.logging.LogFactory;
 public final class L2TeleporterInstance extends L2FolkInstance
 {
     private final static Log _log = LogFactory.getLog(L2TeleporterInstance.class.getName());
-    
+
 	private static final int COND_ALL_FALSE = 0;
 	private static final int COND_BUSY_BECAUSE_OF_SIEGE = 1;
 	private static final int COND_OWNER = 2;
 	private static final int COND_REGULAR = 3;
-	
+
 	/**
 	 * @param template
 	 */
@@ -53,7 +55,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	{
 		super(objectId, template);
 	}
-	
+
 	@Override
 	public void onBypassFeedback(L2PcInstance player, String command)
 	{
@@ -65,7 +67,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		if (actualCommand.equalsIgnoreCase("goto"))
 		{
             int npcId = getTemplate().getNpcId();
-            
+
             switch (npcId)
             {
                 case 31095: //
@@ -74,7 +76,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
                 case 31098: // Enter Necropolises
                 case 31099: //
                 case 31100: //
-                case 31101: // 
+                case 31101: //
                 case 31102: //
 
                 case 31114: //
@@ -91,7 +93,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
                 case 31106: // Exit Necropolises
                 case 31107: //
                 case 31108: //
-                case 31109: // 
+                case 31109: //
                 case 31110: //
 
                 case 31120: //
@@ -103,12 +105,13 @@ public final class L2TeleporterInstance extends L2FolkInstance
                     player.setIsIn7sDungeon(false);
                     break;
             }
-            
+
 			if (st.countTokens() <= 0) {return;}
 			int whereTo = Integer.parseInt(st.nextToken());
 			if (condition == COND_REGULAR)
 			{
-				doTeleport(player, whereTo);
+				if (player!=null)
+					doTeleport(player, whereTo);
 				return;
 			}
 			else if (condition == COND_OWNER)
@@ -133,12 +136,12 @@ public final class L2TeleporterInstance extends L2FolkInstance
 		if (val == 0)
 		{
 			pom = "" + npcId;
-		} 
-		else 
+		}
+		else
 		{
 			pom = npcId + "-" + val;
 		}
-		
+
 		return "data/html/teleporter/" + pom + ".htm";
 	}
 
@@ -146,7 +149,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	public void showChatWindow(L2PcInstance player)
 	{
 		String filename = "data/html/teleporter/castleteleporter-no.htm";
-		
+
 		int condition = validateCondition(player);
 		if (condition == COND_REGULAR)
 		{
@@ -171,6 +174,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
 	private void doTeleport(L2PcInstance player, int val)
 	{
 		L2TeleportLocation list = TeleportLocationTable.getInstance().getTemplate(val);
+		Calendar cal = new GregorianCalendar();
 		if (list != null)
 		{
             //you cannot teleport to village that is in siege
@@ -198,7 +202,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
             {
                 return;
             }
-            else if (!list.isForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.reduceAdena("Teleport", list.getPrice(), this, true)))
+            else if (!list.isForNoble() && (Config.ALT_GAME_FREE_TELEPORT || (cal.get(Calendar.HOUR_OF_DAY)>=20 && cal.get(Calendar.HOUR_OF_DAY)<=23 && (cal.get(Calendar.DAY_OF_WEEK) == 1 || cal.get(Calendar.DAY_OF_WEEK) == 7)) ? player.reduceAdena("Teleport", (int)list.getPrice()/2, this, true) : player.reduceAdena("Teleport", list.getPrice(), this, true)))
             {
                 if (_log.isDebugEnabled())
                     _log.debug("Teleporting player " + player.getName() + " to new location: " + list.getLocX() + ":" + list.getLocY() + ":" + list.getLocZ());
@@ -206,7 +210,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
             }
             else if(list.isForNoble() && (Config.ALT_GAME_FREE_TELEPORT || player.destroyItemByItemId("Noble Teleport", 6651, list.getPrice(), this, true)))
             {
-                if (_log.isDebugEnabled())                    
+                if (_log.isDebugEnabled())
                     _log.debug("Teleporting player "+player.getName()+" to new location: "+list.getLocX()+":"+list.getLocY()+":"+list.getLocZ());
                 player.teleToLocation(list.getLocX(), list.getLocY(), list.getLocZ());
             }
@@ -229,7 +233,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
             if (getCastle().getOwnerId() == player.getClanId())      // Clan owns castle
                 return COND_OWNER;                                   // Owner
         }
-        
+
         return COND_ALL_FALSE;
     }
 }
