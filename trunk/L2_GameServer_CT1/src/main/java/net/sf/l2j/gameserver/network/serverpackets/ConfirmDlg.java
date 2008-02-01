@@ -22,24 +22,22 @@ public class ConfirmDlg extends L2GameServerPacket
 	private static final String _S__F3_CONFIRMDLG = "[S] f3 ConfirmDlg [dddsdddd{d}d]";
 	private int _requestId;
 	private String _name;
-    private int _time;
-    private int _loc[];	
+	private int _param;
 
 	public ConfirmDlg(int requestId, String requestorName)
 	{
 		_requestId = requestId;
 		_name = requestorName;
+		_param = 0;
 	}
 
-	public ConfirmDlg(int requestId, String requestorName, int time, int loc[], int id)
-    {
+	public ConfirmDlg(int requestId, String requestorName, int param)
+	{
 		_requestId = requestId;
-        _name = requestorName;
-        _time = time;
-        _loc = loc;
-        _requestId = id;
-    }
-	
+		_name = requestorName;
+		_param = param;
+	}
+
 	@Override
 	protected final void writeImpl()
 	{
@@ -48,13 +46,8 @@ public class ConfirmDlg extends L2GameServerPacket
 		writeD(0x02); // ??
 		writeD(0x00); // ??
 		writeS(_name);
-        writeD(_time == 0 ? 6 : 7);
-        writeD(_loc != null ? _loc[0] : 0);
-        writeD(_loc != null ? _loc[1] : 0);
-        writeD(_loc != null ? _loc[2] : 0);
-        if(_time != 0)
-            writeD(_time);
-        writeD(_requestId);
+		writeD(0x01);
+		writeD(_param); // Value: Restore Percent, old values
 	}
 
 	/* (non-Javadoc)

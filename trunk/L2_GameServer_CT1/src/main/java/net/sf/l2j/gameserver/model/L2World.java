@@ -116,6 +116,11 @@ public final class L2World implements L2WorldMBean
         _allObjects.put(object);
     }
 
+    public void forceObject(L2Object object)
+    {
+        _allObjects.put(object);
+    }
+
     /**
      * Remove L2Object object from _allObjects of L2World.<BR><BR>
      *
