@@ -15,7 +15,7 @@ class Quest (JQuest) :
  def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
  def onEvent (self,event,st):
-   
+
    htmltext = event
 
    if event == "30358-01.htm":
@@ -32,7 +32,7 @@ class Quest (JQuest) :
 
    if event == "30358-05.htm":
      return "30358-05.htm"
-   
+
    if event == "30358-06.htm":
      return "30358-06.htm"
 
@@ -51,30 +51,30 @@ class Quest (JQuest) :
  def onTalk (Self,npc,player):
    st = player.getQuestState(qn)
    npcId = npc.getNpcId()
-   
+
    Race    = st.getPlayer().getRace()
    ClassId = st.getPlayer().getClassId()
-   
-   # DarkElfs got accepted
+
+   # Darkelfs got accepted
    if npcId == TETRARCH_THIFIELL and Race in [Race.Darkelf]:
-     if ClassId in [ClassId.darkFighter]: 
+     if ClassId in [ClassId.darkFighter]:
        st.setState(State.STARTED)
        return "30358-01.htm"
      if ClassId in [ClassId.darkMage]:
        st.setState(State.STARTED)
        return "30358-02.htm"
      if ClassId in [ClassId.darkWizard, ClassId.shillienOracle, ClassId.palusKnight, ClassId.assassin]:
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.exitQuest(1)
        return "30358-12.htm"
      else:
-       st.exitQuest(False) 
+       st.exitQuest(False)
        st.exitQuest(1)
        return "30358-13.htm"
 
    # All other Races must be out
    if npcId == TETRARCH_THIFIELL and Race in [Race.Dwarf, Race.Human, Race.Elf, Race.Orc, Race.Kamael]:
-     st.exitQuest(False) 
+     st.exitQuest(False)
      st.exitQuest(1)
      return "30358-11.htm"
 
