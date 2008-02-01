@@ -351,36 +351,54 @@
   <for> 
   </for> 
 </skill> 
-<skill id="3335" levels="1" name="Transform Yeti"> 
-  <set name="power" val="0.0"/> 
-  <set name="target" val="TARGET_NONE"/> 
-  <set name="skillType" val="NOTDONE"/> 
-  <set name="operateType" val="OP_PASSIVE"/> 
-  <set name="castRange" val="-1"/> 
-  <set name="effectRange" val="-1"/> 
-  <for> 
-  </for> 
-</skill> 
-<skill id="3336" levels="1" name="Transform NOTDONEalo"> 
-  <set name="power" val="0.0"/> 
-  <set name="target" val="TARGET_NONE"/> 
-  <set name="skillType" val="NOTDONE"/> 
-  <set name="operateType" val="OP_PASSIVE"/> 
-  <set name="castRange" val="-1"/> 
-  <set name="effectRange" val="-1"/> 
-  <for> 
-  </for> 
-</skill> 
-<skill id="3337" levels="1" name="Transform Cutie Pig"> 
-  <set name="power" val="0.0"/> 
-  <set name="target" val="TARGET_NONE"/> 
-  <set name="skillType" val="NOTDONE"/> 
-  <set name="operateType" val="OP_PASSIVE"/> 
-  <set name="castRange" val="-1"/> 
-  <set name="effectRange" val="-1"/> 
-  <for> 
-  </for> 
-</skill> 
+<skill id="3335" levels="1" name="Transform Yeti">
+<!--
+  Done by Skatershi 
+  Description:
+      Transforms into Yeti.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="102"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3336" levels="1" name="Transform Buffalo">
+<!--
+  Done by Skatershi 
+  Description:
+      Transform into a Yeti. There is no effect from the Mystery Potion while in Yeti form.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="103"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+  </for>
+</skill>
+<skill id="3337" levels="1" name="Transform Cutie Pig">
+<!--
+  Done by Skatershi 
+  Description:
+      Transforms into cute pig.
+-->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="TRANSFORM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
+  <set name="transformId" val="104"/>
+  <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <for>
+  </for>
+</skill>
 <skill id="3338" levels="1" name="Shield Master"> 
   <set name="power" val="0.0"/> 
   <set name="target" val="TARGET_NONE"/> 

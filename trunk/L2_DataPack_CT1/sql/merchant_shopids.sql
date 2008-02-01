@@ -466,7 +466,6 @@ INSERT INTO merchant_shopids VALUES (9155,'gm');
 INSERT INTO merchant_shopids VALUES (9156,'gm');
 INSERT INTO merchant_shopids VALUES (9157,'gm');
 INSERT INTO merchant_shopids VALUES (9158,'gm');
-
 INSERT INTO merchant_shopids VALUES (30040,'gm');
 INSERT INTO merchant_shopids VALUES (30041,'gm');
 INSERT INTO merchant_shopids VALUES (30042,'gm');
@@ -488,9 +487,7 @@ INSERT INTO merchant_shopids VALUES (30057,'gm');
 INSERT INTO merchant_shopids VALUES (30058,'gm');
 INSERT INTO merchant_shopids VALUES (30059,'gm');
 INSERT INTO merchant_shopids VALUES (71021,'gm');
-INSERT INTO merchant_shopids VALUES (71022,'gm');
 INSERT INTO merchant_shopids VALUES (71023,'gm');
-INSERT INTO merchant_shopids VALUES (71024,'gm');
 INSERT INTO merchant_shopids VALUES (71025,'gm');
 INSERT INTO merchant_shopids VALUES (71026,'gm');
 INSERT INTO merchant_shopids VALUES (71027,'gm');
@@ -523,6 +520,19 @@ INSERT INTO merchant_shopids VALUES (300410,'gm');
 INSERT INTO merchant_shopids VALUES (300542,'gm');
 INSERT INTO merchant_shopids VALUES (71031, 'gm');
 INSERT INTO merchant_shopids VALUES (71032, 'gm');
+-- L2J-Free GMShop Add-ons (IL/CT1)
+-- By Skatershi
+INSERT INTO merchant_shopids VALUES (71040, 'gm'); -- Interlude Spellbooks
+INSERT INTO merchant_shopids VALUES (71041, 'gm'); -- Interlude Recipes
+INSERT INTO merchant_shopids VALUES (71042, 'gm'); -- CT1 Battle Manuals
+INSERT INTO merchant_shopids VALUES (71043, 'gm'); -- CT1 Spellbooks
+INSERT INTO merchant_shopids VALUES (71044, 'gm'); -- CT1 Recipes
+INSERT INTO merchant_shopids VALUES (71045, 'gm'); -- CT1 Transformation Scrolls
+INSERT INTO merchant_shopids VALUES (71046, 'gm'); -- CT1 Shadow Items
+INSERT INTO merchant_shopids VALUES (71047, 'gm'); -- CT1 Bracelet
+INSERT INTO merchant_shopids VALUES (71048, 'gm'); -- CT1 Special Jewels
+INSERT INTO merchant_shopids VALUES (71049, 'gm'); -- CT1 Talisman
+INSERT INTO merchant_shopids VALUES (71050, 'gm'); -- CT1 Hair Accessories
 --
 -- Castle 
 --
