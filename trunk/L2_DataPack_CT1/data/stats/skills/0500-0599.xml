@@ -176,7 +176,7 @@ description(s) :
   Description(s):
       Shoots a sharp bolt that causes the enemy to bleed. Consumes 2 Souls. An equipped crossbow is required to use this skill. Over-hit is possible. Power 530-2192.
 -->
-  <table name="#power"> 530 562 595 630 666 703 742 782 823 866 910 955 1002 1050 1100 1150 1202 1255 1309 1364 1420 1476 1534 1592 1651 1710 1770 1830 1891 1951 2012 2072 2132 2192</table>  
+  <table name="#power"> 530 562 595 630 666 703 742 782 823 866 910 955 1002 1050 1100 1150 1202 1255 1309 1364 1420 1476 1534 1592 1651 1710 1770 1830 1891 1951 2012 2072 2132 2192</table>
   <table name="#magicLvl"> 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76</table>
   <table name="#mpConsume"> 60 62 64 66 68 70 71 73 75 77 78 80 82 84 86 87 89 91 93 95 96 98 99 101 103 105 106 108 110 111 113 114 116 117</table>
   <set name="weaponsAllowed" val="65536"/>
@@ -572,25 +572,26 @@ description(s) :
   </for>
 </skill>
 <skill id="538" levels="1" name="Final Form">
-<!--
-  Description:
-  Transform into a final battle form. Consumes 20 soul.  
--->
   <set name="mpConsume" val="70"/>
   <set name="hpConsume" val="200"/>
-  <set name="power" val="0.0"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="false"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="TRANSFORM"/>
-  <set name="hitTime" val="1500"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="hitTime" val="2500"/>
   <set name="reuseDelay" val="3600000"/>
   <set name="transformId" val="251"/>
-  <set name="duration" val="3600"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="soulConsumeCount" val="20"/>
   <for>
+    <mul order="0x30" stat="maxHp" val="1.22"/> <!-- Max Hp +22% -->
+    <mul order="0x30" stat="maxCp" val="1.22"/> <!-- Max Cp +22% -->
+    <mul order="0x30" stat="maxMp" val="0.80"/> <!-- Max Mp -20% -->
+    <add order="0x40" stat="STR" val="2"/> <!-- STR +2 -->
+    <add order="0x40" stat="CON" val="1"/> <!-- CON +1 -->
+    <add order="0x40" stat="INT" val="1"/> <!-- INT +1 -->
+    <sub order="0x40" stat="DEX" val="2"/> <!-- DEX -2 -->
+    <sub order="0x40" stat="MEN" val="2"/> <!-- MEN -2 -->
   </for>
 </skill>
 <skill id="539" levels="1" name="Nail Attack">
