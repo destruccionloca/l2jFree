@@ -534,6 +534,9 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 	                case 0xb0:
 	                    msg = new MultiSellChoose();
 	                    break;
+	                case 0xb2:
+	                    msg = new RequestRemainTime();
+	                    break;
 	                case 0xb3:
 	                    msg = new RequestUserCommand();
 	                    break;
