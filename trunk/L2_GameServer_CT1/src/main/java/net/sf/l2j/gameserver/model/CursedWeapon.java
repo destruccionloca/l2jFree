@@ -272,12 +272,22 @@ public class CursedWeapon
 
     public void transform()
     {
-        if(_player.isTransformed())
-            _player.untransform();
-
         if(_transformId == 0) return;
 
-        TransformationManager.getInstance().transformPlayer(_transformId, _player, Long.MAX_VALUE);
+        if (_player.isTransformed())
+        {
+            _player.untransform();
+            
+            ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
+            {
+                public void run()
+                {
+                    TransformationManager.getInstance().transformPlayer(_transformId, _player, Long.MAX_VALUE);
+                }
+            }, 500);
+        }
+        else
+            TransformationManager.getInstance().transformPlayer(_transformId, _player, Long.MAX_VALUE);
     }
     
    /**
@@ -296,50 +306,49 @@ public class CursedWeapon
         // To properly support subclasses this skill can not be stored.
         _player.addSkill(skill, false);
 
-		// Void Burst, Void Flow
-		skill = SkillTable.getInstance().getInfo(3630, 1);
-		_player.addSkill(skill, false);
-		skill = SkillTable.getInstance().getInfo(3631, 1);
-		_player.addSkill(skill, false);
+        // Void Burst, Void Flow
+        skill = SkillTable.getInstance().getInfo(3630, 1);
+        _player.addSkill(skill, false);
+        skill = SkillTable.getInstance().getInfo(3631, 1);
+        _player.addSkill(skill, false);
 
         if (_log.isDebugEnabled())
             _log.debug("Player "+_player.getName() +" has been awarded with skill "+skill);
         _player.sendSkillList();
     }
     
-	public void removeSkillAndAppearance()
-	{
-		_player.untransform();
-		if (_player.transformId() > 0)
-		{
-			TransformationManager.getInstance().transformPlayer(_player.transformId(), _player, Long.MAX_VALUE);
-			return;
-		}
-		else
-		{
-			for (L2Skill sk : _player.getAllSkills())
-			{
-				if (sk != null)
-				_player.addSkill(sk, false);
-			}
-		}
-		_player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
-		_player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
-		_player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
-		_player.sendSkillList();
-	}
-	
-	public void disableAllSkills()
-	{
-		for (L2Skill sk : _player.getAllSkills())
-		{
-			if (sk != null)
-				_player.removeSkill(sk, false);
-		}
-		_player.sendSkillList();
-	}
-    
-    
+    public void removeSkillAndAppearance()
+    {
+        _player.untransform();
+        if (_player.transformId() > 0)
+        {
+            TransformationManager.getInstance().transformPlayer(_player.transformId(), _player, Long.MAX_VALUE);
+            return;
+        }
+        else
+        {
+            for (L2Skill sk : _player.getAllSkills())
+            {
+                if (sk != null)
+                    _player.addSkill(sk, false);
+            }
+        }
+        _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
+        _player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
+        _player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
+        _player.sendSkillList();
+    }
+
+    public void disableAllSkills()
+    {
+        for (L2Skill sk : _player.getAllSkills())
+        {
+            if (sk != null)
+                _player.removeSkill(sk, false);
+        }
+        _player.sendSkillList();
+    }
+
     // =========================================================
     // Public
     public void reActivate()

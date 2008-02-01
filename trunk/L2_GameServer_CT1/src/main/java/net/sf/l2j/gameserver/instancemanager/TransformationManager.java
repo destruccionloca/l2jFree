@@ -31,11 +31,11 @@ public class TransformationManager
 {
     private static final Logger _log = Logger.getLogger(TransformationManager.class.getName());
     
-    private static final TransformationManager INSTANCE = new TransformationManager();
+    private static final TransformationManager _instance = new TransformationManager();
     
     public static TransformationManager getInstance()
     {
-        return INSTANCE;
+        return _instance;
     }
     
     private Map<Integer, L2Transformation> _transformations;

@@ -70,7 +70,7 @@ public class L2SkillChargeDmg extends L2Skill
 			activeChar.sendPacket(sm);
 			return;
 		}
-		double modifier = 0.8 + 0.201 * getNumCharges(); // thanks Diego Vargas of L2Guru: 70*((0.8+0.201*No.Charges) * (PATK+POWER)) / PDEF
+		double modifier = 0.8 + 0.201 * effect.numCharges; // thanks Diego Vargas of L2Guru: 70*((0.8+0.201*No.Charges) * (PATK+POWER)) / PDEF
 
 		if (getTargetType() != SkillTargetType.TARGET_AREA && getTargetType() != SkillTargetType.TARGET_MULTIFACE)
 			effect.numCharges -= getNumCharges();

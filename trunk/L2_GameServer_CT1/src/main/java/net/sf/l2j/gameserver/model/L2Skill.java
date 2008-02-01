@@ -358,7 +358,7 @@ public abstract class L2Skill
 
 	//Stats for transformation skills
 	private final int				_transformId;
-	private final long				_duration;
+	private final int				_transformDuration;
 
 	private final int				_baseCritRate;								// percent of success for skill critical hit (especially for PDAM & BLOW -
 																				// they're not affected by rCrit values or buffs). Default loads -1 for all
@@ -498,7 +498,7 @@ public abstract class L2Skill
 
 		// Stats for transformation Skill
 		_transformId = set.getInteger("transformId", 0);
-		_duration = set.getLong("duration", 0);
+		_transformDuration = set.getInteger("transformDuration", 0);
 
 		_baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM || _skillType == SkillType.BLOW) ? 0 : -1);
 		_lethalEffect1 = set.getInteger("lethal1", 0);
@@ -1146,9 +1146,9 @@ public abstract class L2Skill
 		return _transformId;
 	}
 
-	public final long getDuration()
+	public final int getTransformDuration()
 	{
-		return _duration;
+		return _transformDuration;
 	}
 
 	public final static boolean skillLevelExists(int skillId, int level)

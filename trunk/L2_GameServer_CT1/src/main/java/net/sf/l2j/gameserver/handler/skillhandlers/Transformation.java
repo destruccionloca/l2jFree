@@ -25,19 +25,45 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 public class Transformation implements ISkillHandler
 {
-	private static final SkillType[] SKILL_IDS = { SkillType.TRANSFORM };
+    private static final SkillType[] SKILL_IDS = { SkillType.TRANSFORM };
 
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
-	{
-		if(!(activeChar instanceof L2PcInstance)) return;
-
-		L2PcInstance player = (L2PcInstance)activeChar;
-		int id = skill.getTransformId();
-		long duration = skill.getDuration();
-		if(duration < 1)
-			duration = Long.MAX_VALUE;
-		
-		TransformationManager.getInstance().transformPlayer(id, player, duration);
+    public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+    {
+        if (activeChar.isAlikeDead())
+            return;
+        
+        for (L2Object target : targets)
+        {
+            if (!(target instanceof L2PcInstance))
+                continue;
+            
+            L2PcInstance trg = (L2PcInstance)target;
+            
+            if (trg.isAlikeDead() || trg.isCursedWeaponEquipped())
+                continue;
+            
+            int transformId = skill.getTransformId();
+            int duration = skill.getTransformDuration();
+            
+            if (duration < -1)
+                duration = -1;
+            
+            if (!trg.isTransformed())
+            {
+                switch (duration)
+                {
+                    case 0:
+                        TransformationManager.getInstance().transformPlayer(transformId, trg);
+                        break;
+                    case -1:
+                        TransformationManager.getInstance().transformPlayer(transformId, trg, Integer.MAX_VALUE);
+                        break;
+                    default:
+                        TransformationManager.getInstance().transformPlayer(transformId, trg, duration);
+                        break;
+                }
+            }
+        }
 	}
 
 	public SkillType[] getSkillIds()
