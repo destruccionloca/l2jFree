@@ -60,6 +60,9 @@ public class L2FishermanInstance extends L2MerchantInstance
     {
         if (command.startsWith("FishSkillList"))
         {
+            if (player.isTransformed())
+                return;
+
             player.setSkillLearningClassId(player.getClassId());
             showSkillList(player);
         }

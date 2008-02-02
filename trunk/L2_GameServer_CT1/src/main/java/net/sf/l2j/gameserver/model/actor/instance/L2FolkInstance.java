@@ -74,7 +74,7 @@ public class L2FolkInstance extends L2NpcInstance
             return;
         }
         
-		if (!getTemplate().canTeach(classId))
+		if (!getTemplate().canTeach(classId) || player.isTransformed())
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
@@ -151,7 +151,7 @@ public class L2FolkInstance extends L2NpcInstance
             return;
         }
         
-        if (!getTemplate().canTeach(player.getClassId()))
+        if (!getTemplate().canTeach(player.getClassId()) || player.isTransformed())
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
@@ -238,7 +238,7 @@ public class L2FolkInstance extends L2NpcInstance
             return;
         }
 
-        if (!getTemplate().canTeach(player.getClassId()))
+        if (!getTemplate().canTeach(player.getClassId()) || player.isTransformed())
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
@@ -317,7 +317,7 @@ public class L2FolkInstance extends L2NpcInstance
             return;
         }
 
-        if (!getTemplate().canTeach(classId))
+        if (!getTemplate().canTeach(classId) || player.isTransformed())
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();

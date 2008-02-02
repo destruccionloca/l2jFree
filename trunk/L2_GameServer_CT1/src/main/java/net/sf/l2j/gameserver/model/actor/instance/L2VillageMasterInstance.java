@@ -171,7 +171,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             int cmdChoice = Integer.parseInt(command.substring(9, 10).trim());
 
             // Subclasses may not be changed while a skill is in use.
-            if (player.isCastingNow() || player.isAllSkillsDisabled())
+            if (player.isCastingNow() || player.isAllSkillsDisabled() || player.isTransformed())
             {
                 player.sendPacket(new SystemMessage(SystemMessageId.SUBCLASS_NO_CHANGE_OR_CREATE_WHILE_SKILL_IN_USE));
                 return;
