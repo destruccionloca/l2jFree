@@ -29,21 +29,21 @@
 <skill id="4701" levels="13" name="Cure of Queen">
   <table name="#mpConsume"> 62 79 98 102 104 107 108 110 113 115 117 119 122 </table>
   <table name="#power"> 541 611 659 666 669 673 676 679 681 684 687 689 692 </table>
-  <set name="mpConsume" val="#mpConsume"/> 
-  <set name="power" val="0.0"/> 
-  <set name="target" val="TARGET_PARTY"/> 
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_PARTY"/>
   <set name="skillRadius" val="1000"/>
-  <set name="reuseDelay" val="8000"/> 
-  <set name="hitTime" val="2000"/> 
-  <set name="skillType" val="NEGATE"/> 
-  <set name="isMagic" val="true"/> 
-  <set name="operateType" val="OP_ACTIVE"/> 
+  <set name="reuseDelay" val="8000"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillType" val="NEGATE"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/> 
+  <set name="effectRange" val="-1"/>
   <set name="negateStats" val="DEBUFF"/>
-  <set name="negatePower" val="9.0"/> 
+  <set name="negatePower" val="9.0"/>
   <set name="aggroPoints" val="#power"/>
-  <for> 
+  <for>
   </for>
 </skill>
 <skill id="4702" levels="13" name="Blessing of Seraphim">

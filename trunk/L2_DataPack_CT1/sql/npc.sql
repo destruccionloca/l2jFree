@@ -2962,15 +2962,15 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(21828,21828,'Alpen Cougar',0,'',0,'Monster.saber_toothed_tiger',20.00,31.00,69,'male','L2FeedableBeast',80,15139,9999,13.43,3.09,40,43,30,21,20,10,0,0,1392,5000,746,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), -- correct HP, other stats to be done
 	(21829,21829,'Alpen Cougar',0,'',0,'Monster.saber_toothed_tiger',20.00,31.00,69,'male','L2FeedableBeast',80,15139,9999,13.43,3.09,40,43,30,21,20,10,0,0,1392,5000,746,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'); -- correct HP, other stats to be done
 
--- 
+--
 -- work in progress C5 stats - 22xxx mobs
--- 
+--
 -- HP, MP, level, aggro is from Korean L2 site (NOTE: ncsoft has changed skill IDs for HP mults)
 -- SP, patk, pdef, matk, mdef are averages of existing clean data (based on level)
 -- other values are defaults or based on known formulas
--- 
+--
 -- if you have questions/problems, ask HeXa in DP forums
--- 
+--
 INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
 	(22001,22001,'Grim Wolf',0,'',0,'Monster.dire_wolf',13.00,11.00,25,'male','L2Monster',80,728,316,5.53,1.53,40,43,30,21,20,10,1199,60,99,112,37,94,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(22002,22002,'Grim Grizzly',0,'',0,'Monster.grizzly',21.00,40.00,26,'male','L2Monster',80,770,333,5.53,1.53,40,43,30,21,20,10,879,44,115,114,41,98,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
@@ -5938,8 +5938,8 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(32029,32029,'Freya''s Steward',0,'',0,'NPC.a_common_people_MElf',9.50,29.00,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(32030,32030,'Garden Sculpture',0,'',0,'NpcEV.ice_sculpture_c',9.50,29.00,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(32031,32031,'Ice Fairy Sculpture',0,'',0,'NpcEV.ice_sculpture_b',9.50,29.00,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
-	(32032,32032,'Strange Machine',0,'',0,'NpcEV.strange_mechanical_instrument',9.50,10.00,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
-	(32033,32033,'Doctor Chaos',0,'',0,'NPC2.doctor_chaos',9.50,14.00,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
+	(32032,32032,'Strange Machine',0,'',0,'NpcEV.strange_mechanical_instrument',9.50,10.00,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
+	(32033,32033,'Doctor Chaos',0,'',0,'NPC2.doctor_chaos',9.50,14.00,70,'male','L2Npc',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(32034,32034,'Temple Gatekeeper',0,'',0,'NpcEV.heretical_sanctuary_gatekeeper_a',80.00,182.50,70,'male','L2Teleporter',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(32035,32035,'Temple Gatekeeper',0,'',0,'NpcEV.heretical_sanctuary_openner_a',28.00,70.00,70,'male','L2Teleporter',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(32036,32036,'Temple Gatekeeper',0,'',0,'NpcEV.heretical_sanctuary_gatekeeper_b',80.00,203.50,70,'male','L2Teleporter',40,3862,1493,11.85,2.78,40,43,30,21,20,10,0,0,1314,470,780,382,278,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
@@ -6577,7 +6577,7 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(35546,35546,'Gatekeeper',0,'Schuttgart ',0,'NPC.e_elmore_guard_Mhuman',8.00,24.00,56,'male','L2CastleTeleporter',40,2724,44,13.43,3.09,40,43,30,21,20,10,490,10,2703,470,6964,764,409,0,3819,14,0,0,81,259,NULL,0,1,0,'LAST_HIT'),
 	(35547,35547,'Group Gatekeeper',0,'Schuttgart ',0,'NPC.e_elmore_guard_Mhuman',8.00,23.50,56,'male','L2CastleTeleporter',40,2724,44,13.43,3.09,40,43,30,21,20,10,490,10,2703,470,6964,764,409,0,3819,14,0,0,81,259,NULL,0,1,0,'LAST_HIT'),
 	(35548,35548,'Outer Doorman',0,'Schuttgart ',0,'NPC.e_elmore_guard_Mhuman',7.00,23.00,70,'female','L2Doormen',40,3862,44,13.43,3.09,40,43,30,21,20,10,490,10,2703,470,6964,764,409,0,3819,14,0,0,81,259,NULL,0,1,0,'LAST_HIT'),
-	(35549,35549,'Inner Doorman',0,'Schuttgart ',0,'NPC.e_elmore_guard_Mhuman',8.00,23.00,70,'male','L2Doormen',40,3862,44,13.43,3.09,40,43,30,21,20,10,490,10,2703,470,6964,764,409,0,3819,14,0,0,81,259,NULL,0,1,0,'LAST_HIT'), 
+	(35549,35549,'Inner Doorman',0,'Schuttgart ',0,'NPC.e_elmore_guard_Mhuman',8.00,23.00,70,'male','L2Doormen',40,3862,44,13.43,3.09,40,43,30,21,20,10,490,10,2703,470,6964,764,409,0,3819,14,0,0,81,259,NULL,0,1,0,'LAST_HIT'),
 	(35550,35550,'Inner Doorman',0,'Schuttgart ',0,'NPC.e_elmore_guard_Mhuman',8.00,23.00,70,'male','L2Doormen',40,3862,44,13.43,3.09,40,43,30,21,20,10,490,10,2703,470,6964,764,409,0,3819,14,0,0,81,259,NULL,0,1,0,'LAST_HIT'),
 	(35551,35551,'Doorman  ',0,'Schuttgart ',0,'NPC.e_elmore_guard_Mhuman',10.00,23.00,70,'male','L2Doormen',40,3862,44,13.43,3.09,40,43,30,21,20,10,30,2,4,40,3,31,253,0,333,0,0,0,22,55,NULL,0,0,0,'LAST_HIT'),
 	(35552,35552,'Doorman  ',0,'Schuttgart ',0,'NPC.e_elmore_guard_Mhuman',10.00,23.00,70,'male','L2Doormen',40,3862,44,13.43,3.09,40,43,30,21,20,10,30,2,4,40,3,31,253,0,333,0,0,0,22,55,NULL,0,0,0,'LAST_HIT'),
@@ -6624,13 +6624,13 @@ INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSide
 	(35593,35593,'Treasure Chest',0,'',0,'Monster.mimic',20.00,31.00,52,'male','L2Npc',40,2402,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(35594,35594,'Treasure Chest',0,'',0,'Monster.mimic',20.00,31.00,52,'male','L2Npc',40,2402,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(35595,35595,'Treasure Chest',0,'',0,'Monster.mimic',20.00,31.00,52,'male','L2Npc',40,600,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
-	(35596,35596,'Hot Springs Yeti',0,'Maitre ''D',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
-	(35597,35597,'Hot Springs Yeti',0,'Maitre ''D',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
-	(35598,35598,'Hot Springs Yeti',0,'Maitre ''D',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
-	(35599,35599,'Hot Springs Yeti',0,'Maitre ''D',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
-	(35600,35600,'Manager',0,'',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
-	(35601,35601,'Doorman',0,'',0,'NPC.yeti_cute',5.00,11.50,70,'male','L2Npc',40,3862,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
-	(35602,35602,'Doorman',0,'',0,'NPC.yeti_cute',5.00,11.50,70,'male','L2Npc',40,3862,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'), 
+	(35596,35596,'Hot Springs Yeti',0,'Maitre ''D',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
+	(35597,35597,'Hot Springs Yeti',0,'Maitre ''D',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
+	(35598,35598,'Hot Springs Yeti',0,'Maitre ''D',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
+	(35599,35599,'Hot Springs Yeti',0,'Maitre ''D',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
+	(35600,35600,'Manager',0,'',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
+	(35601,35601,'Doorman',0,'',0,'NPC.yeti_cute',5.00,11.50,70,'male','L2Npc',40,3862,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
+	(35602,35602,'Doorman',0,'',0,'NPC.yeti_cute',5.00,11.50,70,'male','L2Npc',40,3862,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(35603,35603,'Coordinator',0,'',0,'Monster.yeti',15.00,27.50,70,'male','L2Npc',40,3862,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(35604,35604,'Messenger',0,'',0,'NPC.yeti_cute',5.00,11.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
 	(35605,35605,'Angout',0,'Steward',0,'Monster.yeti',15.00,27.50,56,'male','L2Npc',40,2724,9999,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,0,'LAST_HIT'),
@@ -6700,7 +6700,7 @@ UPDATE `npc` SET `runspd` = '50', `walkspd` = '50' WHERE `id` = '32070';
 UPDATE `npc` SET `collision_height` = '17.00', `runspd` = '12', `walkspd` = '12' WHERE `id` = '32072';
 
 -- Kamael update - require corrections
-insert into `npc`(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) values 
+insert into `npc`(`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) values
 ('13036',0,'Alchemist\'s Chest',0,'',0,'LineageMonster.mimic_even','8.50','8.50','1','male','L2Npc',40,'2444.00','2444.00',0.00,0.00,'40','43','30','21','35','25','0','0','500','500','500','500','253','0','253','0','0','80','120',NULL,'0',0,'0','LAST_HIT'),
 ('22281',0,'Plaza Caiman',0,'',0,'LineageMonster3.Crokian_Officer','40.00','47.00','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
 ('22283',0,'Plaza Alligot',0,'',0,'LineageMonster3.Crokian_Officer','40.00','47.00','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
@@ -8366,7 +8366,7 @@ INSERT INTO `npc` VALUES
 
 -- Update Boss Manager
 UPDATE `npc` SET `type` = 'L2Npc' WHERE `id` = 31385;
-UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` = 29065;	
+UPDATE `npc` SET `type` = 'L2RaidBoss' WHERE `id` = 29065;
 UPDATE `npc` SET `type` = 'L2Teleporter' WHERE `id` IN ( 32107,31759,31859 );
 
 UPDATE `npc` SET `aggro` = 800 WHERE `id` IN ( 29019,29066,29067,29068,29028 );
@@ -8395,3 +8395,7 @@ INSERT INTO npc VALUES
 (29049,29049,'Evil Spirit',0,'',0,'Monster3.Evilate',20,56,87,'male','L2Boss',70,350000,9999,414.12,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,0,0,'frintezza_clan',6000,0,0,'LAST_HIT'),
 (29050,29050,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT'),
 (29051,29051,'Breath of Halisha',0,'',0,'Monster3.portrait_spirit_winged',10,20,85,'male','L2Monster',40,350000,9999,13.43,3.09,40,43,30,21,20,10,30,2,9000,2350,7133,2045,253,6000,333,0,0,0,55,66,'frintezza_clan',6000,0,0,'LAST_HIT');
+
+-- L2Trap NPC by Darki699
+REPLACE INTO `npc` VALUES
+(13037, 13037, "Trap", 0, "", 0, "LineageNpc2.trap_mark", 5, 10, 1, "male", "L2Trap", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 0, 0, "", 0, 0, 0, "LAST_HIT");

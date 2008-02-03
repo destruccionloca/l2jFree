@@ -751,7 +751,7 @@
 <!--
   Done by Skatershi
   Description:
-      Transform into a cute pig.  
+      Transform into a cute pig.
 -->
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="TRANSFORM"/>
@@ -767,7 +767,7 @@
 <!--
   Done by Skatershi
   Description:
-      Transform into an Onyx Beast.  
+      Transform into an Onyx Beast.
 -->
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="TRANSFORM"/>
@@ -783,7 +783,7 @@
 <!--
   Done by Skatershi
   Description:
-      Transform into a Death Blader.  
+      Transform into a Death Blader.
 -->
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="TRANSFORM"/>
@@ -799,7 +799,7 @@
 <!--
   Done by Skatershi
   Description:
-      Transform into an Apostle Grail.  
+      Transform into an Apostle Grail.
 -->
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="TRANSFORM"/>
@@ -815,7 +815,7 @@
 <!--
   Done by Skatershi
   Description:
-      Transform into a Unicorn. 
+      Transform into a Unicorn.
 -->
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="TRANSFORM"/>

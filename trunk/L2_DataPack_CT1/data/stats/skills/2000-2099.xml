@@ -38,7 +38,7 @@
   <set name="buffDuration" val="20000"/>
   <set name="isPotion" val="true"/>
   <for>
-    <effect count="4" name="ManaHealOverTime" time="5" val="1.5" stackOrder="1.5" stackType="MpRecover"/> 
+    <effect count="4" name="ManaHealOverTime" time="5" val="1.5" stackOrder="1.5" stackType="MpRecover"/>
   </for>
 </skill>
 <skill id="2004" levels="1" name="Large Squash Seed">
@@ -715,7 +715,7 @@
       <mul order="0x30" stat="pDef" val="1.15"/>
     </effect>
   </for>
-</skill> 
+</skill>
 <skill id="2060" levels="1" name="Healing Medicine">
   <set name="power" val="1.0"/>
   <set name="target" val="TARGET_SELF"/>

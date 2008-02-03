@@ -52,7 +52,7 @@
   <set name="effectRange" val="-1"/>
    <for>
      <mul order="0x50" stat="bowWpnVuln" val="0.3"/>
-   </for>  
+   </for>
 </skill>
 <skill id="4004" levels="1" name="Fragile Skull">
 <!-- Done by KID [C4sources] -->
@@ -63,7 +63,7 @@
   <set name="effectRange" val="-1"/>
    <for>
      <mul order="0x30" stat="bluntWpnVuln" val="1.1"/>
-   </for>    
+   </for>
 </skill>
 <skill id="4005" levels="1" name="Floating Target">
   <!-- NOT USED IN C4 -->
@@ -286,14 +286,14 @@
 </skill>
 <skill id="4021" levels="1" name="Queen Ant">
   <!-- Queen Ant Skills -->
-  <set name="magicLvl" val="40"/> 
+  <set name="magicLvl" val="40"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="WEAKNESS"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <for> 
+  <for>
     <mul stat="fireVuln" val="1.5" order="0x30"/>
     <mul stat="bowWpnVuln" val="0.2" order="0x30"/>
   </for>
@@ -725,7 +725,7 @@
       <mul order="0x30" stat="confusionVuln" val="0.0"/>
       <mul order="0x30" stat="paralyzeVuln" val="0.1"/>
       <mul order="0x30" stat="derangementVuln" val="0.0"/>
-  </for>  
+  </for>
 </skill>
 <skill id="4046" levels="12" name="Sleep">
   <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 75 77 78 </table>
@@ -961,7 +961,7 @@
 </skill>
 <skill id="4062" levels="1" name="Orfen">
   <!-- Orfen Skills -->
-  <set name="magicLvl" val="40"/> 
+  <set name="magicLvl" val="40"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="WEAKNESS"/>
@@ -1001,7 +1001,7 @@
   <set name="isMagic" val="false"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="800"/>
-  <set name="effectRange" val="1300"/>  
+  <set name="effectRange" val="1300"/>
   <for>
     <effect count="1" name="Paralyze" time="120" val="0"/>
   </for>

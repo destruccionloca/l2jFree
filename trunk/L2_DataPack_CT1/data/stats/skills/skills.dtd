@@ -19,12 +19,12 @@
 
 
 <!--
-	The document item. 
+	The document item.
 	add, sub, div and mul can modify a stat
 	set set some values
 	cond specified a condition of use
-	enchant1 define enchantement of skill 
-	enchant2 define enchantement of skill	
+	enchant1 define enchantement of skill
+	enchant2 define enchantement of skill
 -->
 <!ELEMENT skill (for|add|sub|div|mul|set|table|cond|enchant1|enchant2)*>
 
@@ -73,7 +73,7 @@
 
 <!ATTLIST table name CDATA #REQUIRED>
 <!--
- all operations must specified val order and stat 
+ all operations must specified val order and stat
  Setters could set a bunch of value with specific name.
 -->
 <!ATTLIST set name (
@@ -92,7 +92,7 @@
  minPledgeClass|skill_class|
  overHit|reuseDelay|skillTime|skillType|operateType|
  castRange|effectRange|isMagic
- 
+
 )
  #IMPLIED>
 <!ATTLIST set val CDATA #REQUIRED>
@@ -134,7 +134,7 @@
 	mAtk|mAtkSpd|runSpd|mDef|pAtk|cAtk|pDef|sDef|accCombat|
 	pAtk-dragons|pAtk-plants|pAtkSpd|pAtk-animals|pAtk-insects|pAtk-undead|pAtk-monsters|
 	pDef-valakas|pAtk-valakas
-	) 
+	)
 	#REQUIRED>
 
 <!--

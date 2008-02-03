@@ -47,9 +47,9 @@ Orc Soldier who is Commander Tayr's right arm and respected by so many Ketra Orc
 </skill>
 <skill id="4904" levels="1" name="Raid Boss - Level 84">
 <!--
-Commander who has led Ketra Orcs for a long time. He is a merciless and reckless 
+Commander who has led Ketra Orcs for a long time. He is a merciless and reckless
 player who enjoys gambling. Rather than elaborate plans, he personally leads his i
-nferiors in the front line, marches INTo the enemy's post, and tramples on the enemy. 
+nferiors in the front line, marches INTo the enemy's post, and tramples on the enemy.
 He is faithful to his instincts. He is keeping the score of one win against one defeat
  with Varka's Commander Mos
 -->
@@ -62,9 +62,9 @@ He is faithful to his instincts. He is keeping the score of one win against one 
 </skill>
 <skill id="4905" levels="1" name="Raid Boss - Level 87">
 <!--
-Ketra Orc's brave chief who obtained the power of Soul of FIRE NaSTRon and changed 
-his body like a beast. with just the STRong power and wildness, he is leading the Ketra 
-Orc family. He thinks his inferiors are burdensome during a fight, and enjoys 
+Ketra Orc's brave chief who obtained the power of Soul of FIRE NaSTRon and changed
+his body like a beast. with just the STRong power and wildness, he is leading the Ketra
+Orc family. He thinks his inferiors are burdensome during a fight, and enjoys
 fighting alone. He fought against Varka's Chief Horus several times, but never won
 -->
   <set name="target" val="TARGET_SELF"/>
@@ -76,8 +76,8 @@ fighting alone. He fought against Varka's Chief Horus several times, but never w
 </skill>
 <skill id="4906" levels="1" name="Raid Boss - Level 87">
 <!--
-Soul of FIRE summoned by Ketra Orcs' Soul Guide Asefa. with the STRong propensity 
-to wildness and violence, he is the spirit existing to burn down everything near him. 
+Soul of FIRE summoned by Ketra Orcs' Soul Guide Asefa. with the STRong propensity
+to wildness and violence, he is the spirit existing to burn down everything near him.
 He gave Ketra's Chief Braki the power of beast, and is the power source of spells used by Asefa
 -->
   <set name="target" val="TARGET_SELF"/>
@@ -89,9 +89,9 @@ He gave Ketra's Chief Braki the power of beast, and is the power source of spell
 </skill>
 <skill id="4907" levels="1" name="Raid Boss - Level 80">
 <!--
-Shaman who is a Great Sage called Varka Silenos' Hope. He prophesied that the future 
-of Varka Silenos was in the land of Goddard, and persuaded Chief Horus to lead Silenos 
-to the Goddard land. Against the powerful Ketra Orcs, he led the front line of the army 
+Shaman who is a Great Sage called Varka Silenos' Hope. He prophesied that the future
+of Varka Silenos was in the land of Goddard, and persuaded Chief Horus to lead Silenos
+to the Goddard land. Against the powerful Ketra Orcs, he led the front line of the army
 with his old and weak limbs to help Commander Mos
 -->
   <set name="target" val="TARGET_SELF"/>
@@ -147,8 +147,8 @@ Valakas' Hound. It is a monster created with lava by Valakas to look like him in
 </skill>
 <skill id="4912" levels="1" name="Raid Boss - Level 66">
 <!--
-Elmore's Noble dispatched by Devil Triol's followers to steal Grail of Shine which is Einhasad's relic. 
-He was an excellent knight in his lifetime, but became a vampire after selling his soul to Devil Triol 
+Elmore's Noble dispatched by Devil Triol's followers to steal Grail of Shine which is Einhasad's relic.
+He was an excellent knight in his lifetime, but became a vampire after selling his soul to Devil Triol
 for eternal life and power
 -->
   <set name="target" val="TARGET_SELF"/>
@@ -303,9 +303,9 @@ Basilisk that obtained INTelligence after mutating based on the influence of dar
 </skill>
 <skill id="4926" levels="1" name="Raid Boss - Level 35">
 <!--
-Gargoyle Lord living in the Wasteland and ruling the Gargoyles. with very STRong competitiveness, 
-he is resisting the CONtrol of Ancient Gargoyles. Rather than waiting for the goddess's resurrection 
-that may not ever take place, he is trying to build a kingdom for Gargoyles with the power that 
+Gargoyle Lord living in the Wasteland and ruling the Gargoyles. with very STRong competitiveness,
+he is resisting the CONtrol of Ancient Gargoyles. Rather than waiting for the goddess's resurrection
+that may not ever take place, he is trying to build a kingdom for Gargoyles with the power that
 they possess at present
 -->
   <set name="target" val="TARGET_SELF"/>
@@ -372,8 +372,8 @@ Priest of a newly emerged religion lately spreading among LizardMEN in the south
 </skill>
 <skill id="4932" levels="1" name="Raid Boss - Level 25">
 <!--
-Ghosts wandering about in the Ruins of Agony. They held the souls of residents who were 
-killed at war held by Beleth's followers with the powerful dark magic. They wander about in 
+Ghosts wandering about in the Ruins of Agony. They held the souls of residents who were
+killed at war held by Beleth's followers with the powerful dark magic. They wander about in
 the Ruins of Agony, and extort souls from careless adventurers
 -->
   <set name="target" val="TARGET_SELF"/>

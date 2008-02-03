@@ -1179,7 +1179,7 @@
 <skill id="3567" levels="2" name="Special Ability: Focus">
 <!--
   Description(s):
-  1:Increases critical attack success rate and damage inflicted during PvP.	none	
+  1:Increases critical attack success rate and damage inflicted during PvP.	none
   2:Increases critical attack success rate. Increases damage inflicted during PvP.
 
 -->
@@ -1277,7 +1277,7 @@
 <!---
   Descriptions:
   1: Increases Accuracy. Increases damage inflicted during PvP.
--->  
+-->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>

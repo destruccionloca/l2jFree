@@ -417,7 +417,7 @@
          <and>
            <using kind="Bow"/>
          </and>
-       </mul>	
+       </mul>
        <add order="0x40" stat="accCombat" val="10">
          <and>
            <using kind="Bow"/>
@@ -506,7 +506,7 @@
 <skill id="5132" levels="1" name="Cyclone">
 <!--
   Description(s):
-      Shot Fusion skill. Hits for skill 1420, called at regular intervals and hits the targets with wind element. additional mp is used each time this skill is called upon. 
+      Shot Fusion skill. Hits for skill 1420, called at regular intervals and hits the targets with wind element. additional mp is used each time this skill is called upon.
 -->
   <set name="mpInitialConsume" val="0"/>
   <set name="mpConsume" val="36"/>

@@ -297,7 +297,7 @@
 </skill>
 <skill id="3023" levels="6" name="Special Ability: Critical Damage">
 <!--
-  Descriptions: 
+  Descriptions:
     Causes additional damage when launching a critical attack.
 -->
   <table name="#val"> 174 194 213 231 247 262</table>
@@ -380,7 +380,7 @@
 </skill>
 <skill id="3028" levels="6" name="Special Ability: Rsk. Evasion">
 <!--
-  Descriptions: 
+  Descriptions:
     Evasion increases when HP falls.
 -->
   <table name="#val"> 7.63 7.29 6.95 6.6 6.24 5.87 </table>
@@ -538,7 +538,7 @@
   Descriptions:
    Increases ATK Spd.
 -->
-  <table name="#val">1.08 1.07 1.07 1.07 1.06 1.06</table> 
+  <table name="#val">1.08 1.07 1.07 1.07 1.06 1.06</table>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -656,7 +656,7 @@
 </skill>
 <skill id="3043" levels="6" name="Special Ability: Critical Damage">
 <!--
-  Descriptions: 
+  Descriptions:
     Causes additional damage when launching a critical attack.
 -->
   <table name="#val"> 140 160 140 140 140 140</table>
@@ -1035,7 +1035,7 @@
 <!--
   Descriptions:
   1: Increases Accuracy. Increases damage inflicted during PvP.
--->  
+-->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1208,7 +1208,7 @@
   <set name="effectRange" val="-1"/>
   <for>
     <add val='#val' order='0x40' stat='mAtk'/>
-    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+    <mul val='1.15' order='0x30' stat='MpConsume'/>
   </for>
 </skill>
 <skill id="3074" levels="2" name="Special Ability: Magic Silence">
@@ -1272,7 +1272,7 @@
   <set name="effectRange" val="-1"/>
   <for>
     <add val='#val' order='0x40' stat='mAtk'/>
-    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+    <mul val='1.15' order='0x30' stat='MpConsume'/>
   </for>
 </skill>
 <skill id="3078" levels="6" name="Special Ability: Magic Silence">

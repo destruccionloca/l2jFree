@@ -196,18 +196,30 @@
   </for>
 </skill>
 <skill id="623" levels="1" name="Find Trap">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpConsume" val="67"/>
+  <set name="power" val="78"/>
+  <set name="reuseDelay" val="120000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="DETECT_TRAP"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="skillRadius" val="400"/>
   <set name="castRange" val="-1"/>
+  <set name="soulConsumeCount" val="1"/>
+  <set name="skill_landing_percent" val="100"/> <!-- Guessing -->
   <for>
   </for>
 </skill>
 <skill id="624" levels="1" name="Remove Trap">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="mpConsume" val="17"/>
+  <set name="power" val="78"/>
+  <set name="reuseDelay" val="120000"/>
+  <set name="target" val="TARGET_ONE"/> <!-- Guessing -->
+  <set name="skillType" val="REMOVE_TRAP"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="effectRange" val="400"/>
+  <set name="castRange" val="400"/>
+  <set name="soulConsumeCount" val="1"/>
+  <set name="skill_landing_percent" val="100"/> <!-- Guessing -->
   <for>
   </for>
 </skill>
