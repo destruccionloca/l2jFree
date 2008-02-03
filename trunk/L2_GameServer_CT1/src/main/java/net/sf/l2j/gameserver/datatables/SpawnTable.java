@@ -263,9 +263,6 @@ public class SpawnTable implements SpawnTableMBean
 
 	public void addNewSpawn(L2Spawn spawn, boolean storeInDb)
 	{
-		if (spawn == null)
-			return;
-
 		_npcSpawnCount++;
 		if (spawn.isCustom())
 		{

@@ -47,38 +47,34 @@ public class SummonTrap implements ISkillHandler
 		switch (skill.getSkillType())
 		{
 			case SUMMON_TRAP:
-
 				if (skill.getTriggeredSkill() == null) return;
 
 				try
 				{
 					EffectTrap.getInstance().addTrap(activeChar , skill);
+					return;
 				}
 				catch(Throwable t)
 				{
 					_log.warn("Failed to summon trap for "+activeChar.getName()+", from skill "+skill.getName()+"(Id: "+skill.getId()+"): "+t);
 				}
-
-				return;
+				break;
 
 			case DETECT_TRAP:
-
 				if (Rnd.get(100) < ((skill.getLandingPercent() > 0) ? skill.getLandingPercent() : 100))
 				{
 					if (EffectTrap.getInstance().detectTrap(activeChar.getX(), activeChar.getY(), activeChar.getZ(), skill.getSkillRadius(), (int)skill.getPower()))
 					{
-
 						if (activeChar instanceof L2PcInstance)
 						{
 							((L2PcInstance)activeChar).sendMessage("A trap device has been detected.");
 						}
-
 						return;
 					}
 				}
+				break;
 
 			case REMOVE_TRAP:
-
 				if (activeChar.getTarget() == null)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_CANT_FOUND));
@@ -97,13 +93,11 @@ public class SummonTrap implements ISkillHandler
 				{
 					if (Rnd.get(100) < ((skill.getLandingPercent() > 0) ? skill.getLandingPercent() : 100))
 					{
-
 						if (EffectTrap.getInstance().removeOneTrap(activeChar.getTarget(), (int)skill.getPower()))
 						{
 							activeChar.sendPacket(new SystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED));
 							return;
 						}
-
 					}
 				}
 
@@ -112,19 +106,17 @@ public class SummonTrap implements ISkillHandler
 				{
 					if (Rnd.get(100) < ((skill.getLandingPercent() > 0) ? skill.getLandingPercent() : 100))
 					{
-
 						if (EffectTrap.getInstance().removeTrap(activeChar.getX(), activeChar.getY(), activeChar.getZ(), skill.getSkillRadius(), (int)skill.getPower()))
 						{
 							activeChar.sendPacket(new SystemMessage(SystemMessageId.A_TRAP_DEVICE_HAS_BEEN_STOPPED));
 							return;
 						}
-
 					}
 				}
+				break;
 		}
 
 		activeChar.sendPacket(new SystemMessage(SystemMessageId.NOTHING_HAPPENED));
-		return;
 	}
 
 	public SkillType[] getSkillIds()

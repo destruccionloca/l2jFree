@@ -398,29 +398,17 @@ public class UseItem extends L2GameClientPacket
 			activeChar.sendPacket(new EtcStatusUpdate(activeChar));
 			// if an "invisible" item has changed (Jewels, helmet),
 			// we dont need to send broadcast packet to all other users
-			if (!((item.getItem().getBodyPart() & L2Item.SLOT_HEAD) > 0 || (item.getItem().getBodyPart() & L2Item.SLOT_NECK) > 0
+			if ((item.getItem().getBodyPart() & L2Item.SLOT_HEAD) > 0 || (item.getItem().getBodyPart() & L2Item.SLOT_NECK) > 0
 					|| (item.getItem().getBodyPart() & L2Item.SLOT_L_EAR) > 0 || (item.getItem().getBodyPart() & L2Item.SLOT_R_EAR) > 0
-					|| (item.getItem().getBodyPart() & L2Item.SLOT_L_FINGER) > 0 || (item.getItem().getBodyPart() & L2Item.SLOT_R_FINGER) > 0))
+					|| (item.getItem().getBodyPart() & L2Item.SLOT_L_FINGER) > 0 || (item.getItem().getBodyPart() & L2Item.SLOT_R_FINGER) > 0)
 			{
-				activeChar.broadcastUserInfo();
-				InventoryUpdate iu = new InventoryUpdate();
-				iu.addItem(item);
-				activeChar.sendPacket(iu);
-			}
-			else if ((item.getItem().getBodyPart() & L2Item.SLOT_HEAD) > 0)
-			{
-				InventoryUpdate iu = new InventoryUpdate();
-				iu.addItem(item);
-				activeChar.sendPacket(iu);
 				activeChar.sendPacket(new UserInfo(activeChar));
 			}
 			else
 			{
-				// because of complicated jewels problem i'm forced to resend the item list :(
-				activeChar.sendPacket(new UserInfo(activeChar));
-				activeChar.sendPacket(new ItemList(activeChar, false));
+				activeChar.broadcastUserInfo();
 			}
-			//activeChar.sendPacket(new ItemList(activeChar, false));
+			activeChar.sendPacket(new ItemList(activeChar, false));
 		}
 		else
 		{
