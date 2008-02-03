@@ -36,14 +36,4 @@
     <add val='0' order='0x10' stat='pDef'/>
   </for>
 </item>
-<item id='7836' name="Santa's Hat">
-  <for>
-    <add val='0' order='0x10' stat='pDef'/>
-  </for>
-</item>
-<item id='7837' name="Gold-line Mask">
-  <for>
-    <add val='0' order='0x10' stat='pDef'/>
-  </for>
-</item>
 </list>
