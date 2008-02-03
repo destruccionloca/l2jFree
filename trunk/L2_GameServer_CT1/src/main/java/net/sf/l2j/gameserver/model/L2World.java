@@ -108,7 +108,8 @@ public final class L2World implements L2WorldMBean
     {
         if(_allObjects.get(object.getObjectId()) != null)
         {
-            _log.warn("[L2World] objectId "+object.getObjectId()+" already exist in OID map!");
+        	if (_log.isDebugEnabled())
+        		_log.warn("[L2World] objectId "+object.getObjectId()+" already exist in OID map!");
             return;
         }
 

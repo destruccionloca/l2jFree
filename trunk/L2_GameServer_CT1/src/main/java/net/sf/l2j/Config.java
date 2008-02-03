@@ -3078,6 +3078,8 @@ public final class Config
 			SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("LifeCrystalNeeded"))
 			LIFE_CRYSTAL_NEEDED = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("EnchantSkillSpBookNeeded"))
+			ES_SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLoot"))
 			AUTO_LOOT = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AutoLootAdena"))
