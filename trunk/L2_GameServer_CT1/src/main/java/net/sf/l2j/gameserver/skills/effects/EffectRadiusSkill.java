@@ -3,16 +3,16 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package net.sf.l2j.gameserver.skills.effects; 
+package net.sf.l2j.gameserver.skills.effects;
 
 
 import java.util.List;
@@ -40,13 +40,13 @@ import net.sf.l2j.tools.geometry.Point3D;
  * This class handles Radius-Buff skills, which are Symbol of... and massive area
  * damage skills, which are MDAM skills.
  * MDAM skills are (like land-mines) called upon when you enter the radius of the
- * casted skill.  
+ * casted skill.
  * @author darki699
  */
 
 public class EffectRadiusSkill
 {
-	
+
 	private class RadiusSkill
 	{
 		private L2Spawn 	_effect;
@@ -54,7 +54,7 @@ public class EffectRadiusSkill
 		private Point3D		_point;
 		private long 		_lifeCycle;
 		private Future 		_effectTask;
-		
+
 		/**
 		 * Constructor - receives the caster and the spell radius
 		 * @param caster
@@ -65,7 +65,7 @@ public class EffectRadiusSkill
 			_caster 	= caster;
 			_point 		= point;
 		}
-		
+
 		/**
 		 * @return the x,y,z of this radius, contained inside a Point3D object
 		 */
@@ -73,7 +73,7 @@ public class EffectRadiusSkill
 		{
 			return _point;
 		}
-		
+
 		/**
 		 * @return the caster of this radius skill
 		 */
@@ -81,7 +81,7 @@ public class EffectRadiusSkill
 		{
 			return _caster;
 		}
-		
+
 		/**
 		 * Set the life time for this object. Time is received in seconds, converted to milliseconds
 		 * and added to System.currentTimeMillis() so we know when to kill it
@@ -92,7 +92,7 @@ public class EffectRadiusSkill
 			_lifeCycle 	= (time*1000) + System.currentTimeMillis();
             _caster.sendPacket(new SetupGauge(1, time*1000));
 		}
-		
+
 		/**
 		 * @return true if the life cycle is over and process should sigterm
 		 */
@@ -100,7 +100,7 @@ public class EffectRadiusSkill
 		{
 			return (System.currentTimeMillis() > _lifeCycle);
 		}
-		
+
 		/**
 		 * Destroys <b>this</b> instance of RadiusSkill
 		 * @return <b>this</b> object
@@ -116,14 +116,14 @@ public class EffectRadiusSkill
 			unspawnEffect();
 			return this;
 		}
-		
+
 		public L2Character getEffect()
 		{
 			if (_effect == null)
 				return null;
 			return _effect.getLastSpawn();
 		}
-		
+
 		/**
 		 * Initialize the radius skill effect  -  tnx for the tip Apocalipce =)
 		 * @param id - the skill id
@@ -138,13 +138,13 @@ public class EffectRadiusSkill
 			{
 				id = 13018;
 			}
-			else 
+			else
 			{
 				return;
 			}
 			spawnEffect(id);
 		}
-		
+
 		/**
 		 * Spawns the Radius skill effect
 		 */
@@ -163,26 +163,26 @@ public class EffectRadiusSkill
 				_effect.getLastSpawn().getStatus().setCurrentHp(999999999);
 				_effect.getLastSpawn().decayMe();
 				_effect.getLastSpawn().spawnMe();
-				_effect.getLastSpawn().setRadiusSkillsAffect(true);
+				_effect.getLastSpawn().setUnTargetable(true);
 				if (id == 13030)
 				{
 					EffectTask effectTask = new EffectTask();
 					_effectTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(effectTask, 1000, 1000);
 				}
 			}
-			catch(Throwable t){}			
+			catch(Throwable t){}
 		}
-		
+
 		private class EffectTask implements Runnable
 		{
-			
+
 			public void run()
 			{
 				if (_effect == null || _effectTask == null)
 				{
 					return;
 				}
-				
+
 				for (L2Character cha : _effect.getLastSpawn().getKnownList().getKnownCharacters())
 				{
 					if (cha != null)
@@ -191,9 +191,9 @@ public class EffectRadiusSkill
 					}
 				}
 			}
-			
+
 		}
-		
+
 		/**
 		 * Unspawns the Radius skill effect
 		 */
@@ -224,7 +224,7 @@ public class EffectRadiusSkill
 			}
 		}
 	}
-	
+
 	private static FastMap<RadiusSkill , L2Skill> radiusSkillUsers;
 	private static EffectRadiusSkill _instance;
 
@@ -236,7 +236,7 @@ public class EffectRadiusSkill
 	{
 		radiusSkillUsers = new FastMap<RadiusSkill , L2Skill>();
 	}
-	
+
 	/**
 	 * This should be a static instance, since one queue holds all radius skills.
 	 */
@@ -248,7 +248,7 @@ public class EffectRadiusSkill
 		}
 		return _instance;
 	}
-	
+
 	/**
 	 * Override to add a Radius-Skill with no actual cast location to the radius-skill-queue.
 	 * The function uses the radius around the activeChar, instead of a given x,y,z
@@ -259,11 +259,11 @@ public class EffectRadiusSkill
 	{
 		addRadiusSkill(activeChar.getX() , activeChar.getY() , activeChar.getZ() , activeChar , skill);
 	}
-	
+
 	/**
 	 * Adds a radius skill to the queue, using a given x,y,z for the center of the radius, the
 	 * activeChar is the caster, and the skill with the radius.
-	 * @param spellX - int x location 
+	 * @param spellX - int x location
 	 * @param spellY - int y location
 	 * @param spellZ - int z location
 	 * @param activeChar - the L2Character caster
@@ -274,15 +274,15 @@ public class EffectRadiusSkill
 		// Place the skill in the given x,y,z coords, it's cast from that point.
 		RadiusSkill radiusSkill = new RadiusSkill(activeChar , new Point3D(spellX , spellY, spellZ));
 		radiusSkillUsers.put(radiusSkill, skill);
-		
+
     	// Caster gets the initial skill effects.
     	L2Effect effects[] = skill.getEffects(activeChar, activeChar);
-    	
+
     	// Set the time to remove this skill from the radius-skill-queue
-		RemoveRadiusSkill removeRadiusSkill = new RemoveRadiusSkill(radiusSkill,skill); 
+		RemoveRadiusSkill removeRadiusSkill = new RemoveRadiusSkill(radiusSkill,skill);
 		Future task = ThreadPoolManager.getInstance().scheduleGeneral(removeRadiusSkill, effects[0].getTotalTaskTime()*1000);
 		removeRadiusSkill.setTask(task);
-		
+
 		//Set the time in order to kill the object
 		radiusSkill.setLifeCycle(effects[0].getTotalTaskTime());
 
@@ -291,9 +291,9 @@ public class EffectRadiusSkill
 
 		// At this point we need to make a first seperation between BUFF radius skills, to MDAM radius skills.
 		// This seperation is made in the triggered/shot skills and not the calling skill.
-		// While the BUFF skills remove the trigger skill effect, the MDAM shot skills do not.   
+		// While the BUFF skills remove the trigger skill effect, the MDAM shot skills do not.
 		L2Skill tSkills[] = skill.getTriggeredSkills();
-		
+
 		if (tSkills != null)
 		{
 			if (!tSkills[0].isOffensive())
@@ -302,9 +302,9 @@ public class EffectRadiusSkill
 			}
 		}
     }
-    
+
     /**
-     * Class removes a radius skill from the queue at a given time 
+     * Class removes a radius skill from the queue at a given time
      * @author darki699
      */
 	private class RemoveRadiusSkill implements Runnable
@@ -312,18 +312,18 @@ public class EffectRadiusSkill
     	Future 		_task 	= null;
     	RadiusSkill _radiusSkill;
     	L2Skill 	_skill;
-    	
+
     	void setTask(Future task)
     	{
     		_task = task;
     	}
-    	
+
     	RemoveRadiusSkill(RadiusSkill radiusSkill, L2Skill s)
     	{
     		_radiusSkill 	= radiusSkill;
     		_skill 			= s;
     	}
-    	
+
     	public void run()
     	{
     		if (_task != null)
@@ -331,11 +331,11 @@ public class EffectRadiusSkill
     			_task.cancel(true);
     			_task = null;
     		}
-    		
+
     		removeRadiusSkill(_radiusSkill , _skill);
     	}
     }
-    
+
     /**
      * Removes a radius skill from the radius-skill-queue, and destroys the RadiusSkill object
      */
@@ -350,13 +350,13 @@ public class EffectRadiusSkill
 				_radiusSkill.destroyMe();
 			}
 
-			radiusSkillUsers.remove(null);			
+			radiusSkillUsers.remove(null);
 		}
 		catch(Throwable t){}
 	}
-	
+
 	/**
-     * Core of this class - For Fusion except MDAM fusion skills. 
+     * Core of this class - For Fusion except MDAM fusion skills.
      * Checks radius skill effects on characters.
      * Function decides if a radius skill should be removed, replaced, executed, etc...
      * @param activeChar - the character being checked.
@@ -366,21 +366,21 @@ public class EffectRadiusSkill
     	// No need to check null characters ;]
 		if (activeChar == null)
     		return;
-    	
+
     	if (checkKnownListAsWell)
     	{
         	// Let's check the L2Characters it knows as well
     		for (L2Character knownChar : activeChar.getKnownList().getKnownCharacters())
     		{
-        		// This "false" is done to save us from deadlocks (x->y->x->y->x->... is bad) 
+        		// This "false" is done to save us from deadlocks (x->y->x->y->x->... is bad)
     			checkRadiusSkills(knownChar , false);
     		}
     	}
-    	
+
     	List<Integer> skillIds = new FastList<Integer>();
-    	
+
     	refreshRadiusSkillList();
-    	
+
     	// If the queue is empty we don't need to check all this. If the queue is not empty, let's do the math:
     	// We add to the skillIds list all the skills that affect this L2Character. if a skill should affect but doesn't
     	// We cast it here. All these skill IDs are saved in the list initiated above.
@@ -389,27 +389,27 @@ public class EffectRadiusSkill
         	/* Check to add radius skills to this character */
     		for (FastMap.Entry<RadiusSkill, L2Skill> e = radiusSkillUsers.head(), end = radiusSkillUsers.tail(); (e = e.getNext()) != end;)
     		{
-    	          
-    			Point3D 	key 	= e.getKey().getLocation(); 
+
+    			Point3D 	key 	= e.getKey().getLocation();
     	        L2Skill 	value 	= e.getValue();
-    	          
+
     	          if (key == null || value == null)
     	        	  continue;
-    	          
+
     	          // is the checked char inside the radius of the effect.
     	          if (activeChar.isInsideRadius(key.getX(), key.getY(), key.getZ(), value.getEffectRange(), true, false))
     	          {
     	        	  L2Skill skills[] = value.getTriggeredSkills();
-    	        	  
+
     	        	  if (skills != null)
     	        	  {
     	        		  for (L2Skill skill : skills)
     	        		  {
     	        			  if (skill == null)
     	        				  continue;
-    	        			  else if (skill.isOffensive()) 
+    	        			  else if (skill.isOffensive())
     	        				  continue;
-    	        			  
+
     	        			  boolean replace = true;
     	        			  for (L2Effect effectExist : activeChar.getAllEffects())
     	        			  {
@@ -420,25 +420,25 @@ public class EffectRadiusSkill
     	        					  break;
     	        				  }
     	        			  }
-    	        			  
+
     	        			  if (replace)
     	        			  {
-   	        					  activeChar.doCast(skill);    	        					  
+   	        					  activeChar.doCast(skill);
     	        			  }
-    	        			  
+
     	        			  skillIds.add(skill.getId());
     	        		  }
     	        	  }
     	          }
     		}
     	}
-    	
+
     	/* Skills to remove from the L2Character */
     	if (activeChar.getRadiusSkillsAffect() != null)
     	{
        		for (Integer id : activeChar.getRadiusSkillsAffect())
         	{
-				//If the skill isn't contained inside the skillIds list, then this checked char shouldn't have it 
+				//If the skill isn't contained inside the skillIds list, then this checked char shouldn't have it
        			if (!skillIds.contains(id))
        			{
        				activeChar.stopSkillEffects(id.intValue());
@@ -446,7 +446,7 @@ public class EffectRadiusSkill
        		}
        		//all invalid effects are already removed, we init the character's list of skill effects
        		activeChar.setRadiusSkillsAffect(null);
-			activeChar.updateEffectIcons();       		
+			activeChar.updateEffectIcons();
     	}
 
 		// The list contains the new skills that affect this char, we need to save it.
@@ -455,7 +455,7 @@ public class EffectRadiusSkill
 			activeChar.setRadiusSkillsAffect(skillIds.toArray(new Integer[skillIds.size()]));
 		}
     }
-	
+
 	/**
 	 * If the caster or a running Radius Effect is dead, offline, null or the effect finished it's life cycle
 	 * and should be terminated, this function will terminate it.
@@ -464,13 +464,13 @@ public class EffectRadiusSkill
 	{
 		if (radiusSkillUsers.isEmpty())
 			return;
-		
+
 		boolean changed = false;
 		for (FastMap.Entry<RadiusSkill, L2Skill> e = radiusSkillUsers.head(), end = radiusSkillUsers.tail(); (e = e.getNext()) != end;)
 		{
 	        L2Character	caster	= e.getKey().getCaster();
 			boolean kill		= e.getKey().isLifeCycleOver();
-	        
+
 			if (caster == null)
 				kill = true;
 			else if (caster.isAlikeDead())
@@ -480,7 +480,7 @@ public class EffectRadiusSkill
 				if (((L2PcInstance)caster).isOnline() == 0)
 					kill = true;
 			}
-			
+
 			if (kill)
 	        {
 	        	e.setValue(null);
@@ -488,9 +488,9 @@ public class EffectRadiusSkill
 	        	changed = true;
 	        	continue;
 	        }
-	        
+
 		}
-		
+
 		if (changed)
 		{
 			FastMap<RadiusSkill , L2Skill> tempMap = new FastMap<RadiusSkill , L2Skill>();
@@ -515,7 +515,7 @@ public class EffectRadiusSkill
 	{
 		  L2Object[] targets = new L2Object[1];
 		  targets[0] = (L2Object)target;
-		  
+
 		  //For animation purposes only
 		  for (L2Character knownChar : target.getKnownList().getKnownPlayers().values())
 		  {
@@ -523,10 +523,10 @@ public class EffectRadiusSkill
 		  }
 
 	}
-	
-	
+
+
 	/**
-     * Core of this class for Fusion Damage skills ONLY. 
+     * Core of this class for Fusion Damage skills ONLY.
      * Checks radius skill effects on characters.
      * Function decides if a radius skill should be removed, replaced, executed, etc...
      * @param caster - Only the caster may call this function, or the damage will be wrong
@@ -539,16 +539,16 @@ public class EffectRadiusSkill
 
     	/* Check to match radius skills to this caster */
 		FastMap.Entry<RadiusSkill, L2Skill> e = fetchEntry(caster , skill);
-		
+
 		if (e == null)
 			return;
 
-		Point3D key 	= e.getKey().getLocation(); 
+		Point3D key 	= e.getKey().getLocation();
 		L2Skill	value 	= e.getValue();
 
 		if (key == null || value == null)
       	  return;
-   		
+
         for (L2Character activeChar : caster.getKnownList().getKnownCharacters())
    		{
    			if (activeChar == null)
@@ -562,10 +562,10 @@ public class EffectRadiusSkill
    	    		}
 	    	}
    		}
-        
+
         caster.doCast(skill);
     }
-	
+
 	/**
 	 * returns a FastMap.Entry<RadiusSkill, L2Skill> of the Radius Skill in the radius-skill-queue
 	 * if one exists. If no entry matching exists returns null
@@ -595,12 +595,12 @@ public class EffectRadiusSkill
 				}
 				continue;
 			}
-	        
+
 	        return e;
-		}   
+		}
 		return null;
 	}
-	
+
 	/**
 	 * Returns a target list for the caster's radius skill
 	 * @param caster - the caster
@@ -611,7 +611,7 @@ public class EffectRadiusSkill
 	public L2Object[] getTargetList(L2Character caster, L2Skill skill, boolean onlyFirst)
 	{
 		FastMap.Entry<RadiusSkill, L2Skill> e = fetchEntry(caster , skill);
-		
+
 		if (e == null)
 		{
 			return null;
@@ -620,14 +620,14 @@ public class EffectRadiusSkill
 		{
 			return null;
 		}
-		
+
 		int 	x 		= e.getKey().getLocation().getX(),
 				y 		= e.getKey().getLocation().getY(),
 				z 		= e.getKey().getLocation().getZ(),
 				radius 	= e.getValue().getEffectRange();
-		
+
 		FastList<L2Character> targetList = new FastList<L2Character>();
-		
+
 		for (L2Character target : caster.getKnownList().getKnownCharacters())
 		{
 			if (target == null)
@@ -643,15 +643,15 @@ public class EffectRadiusSkill
 				}
 			}
 		}
-		
+
 		if (!targetList.isEmpty())
 		{
 			return targetList.toArray(new L2Character[targetList.size()]);
 		}
 		return null;
 	}
-	
-	
+
+
 	/**
 	 * Sets the cast target of the caster = new target is the closest character to the pointed target
 	 * @param caster
@@ -664,7 +664,7 @@ public class EffectRadiusSkill
 	{
 		L2Character selectedTarget = null;
 		int closest = -1;
-		
+
 		for (L2Character target : caster.getKnownList().getKnownCharacters())
 		{
 			if (target == null)
@@ -679,15 +679,15 @@ public class EffectRadiusSkill
 				}
 			}
 		}
-		
+
 		if (selectedTarget != null)
 		{
 			setTarget(caster , selectedTarget);
 		}
 	}
-	
+
 	/**
-	 * Sets the activeChar's target 
+	 * Sets the activeChar's target
 	 * @param activeChar
 	 * @param target
 	 */
@@ -705,18 +705,18 @@ public class EffectRadiusSkill
 		activeChar.sendPacket(su);
 		target.setAttackingChar(activeChar);
 	}
-	
+
 	/**
-	 * Checks if the activeChar has a active radius skill, if so and only if the radius skill has an 
-	 * abnormal affect on the caster, removes the radius skill and effect from the caster 
+	 * Checks if the activeChar has a active radius skill, if so and only if the radius skill has an
+	 * abnormal affect on the caster, removes the radius skill and effect from the caster
 	 * @param activeChar - the caster
 	 * @return boolean true if the radius skill was removed, false if not.
-	 */	
+	 */
 	public boolean abortRadiusSkill(L2Character activeChar)
 	{
 		if (activeChar == null || radiusSkillUsers.isEmpty())
 			return false;
-		
+
 		// Can only abort Radius Skills in control of the caster, such as those that immoblize
 		for (FastMap.Entry<RadiusSkill, L2Skill> e = radiusSkillUsers.head(), end = radiusSkillUsers.tail(); (e = e.getNext()) != end;)
 		{
@@ -737,9 +737,9 @@ public class EffectRadiusSkill
 				}
 			}
 		}
-		
+
 		return false;
 	}
-	
-	
+
+
 }

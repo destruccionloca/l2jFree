@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocationInVehicle;
 import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
+import net.sf.l2j.gameserver.skills.effects.EffectTrap;
 import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
@@ -36,17 +37,17 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class ...
- * 
+ *
  * @version $Revision: 1.13.4.7 $ $Date: 2005/03/27 15:29:30 $
  */
 public class ValidatePosition extends L2GameClientPacket
 {
     private final static Log _log = LogFactory.getLog(ValidatePosition.class.getName());
     private static final String _C__48_VALIDATEPOSITION = "[C] 48 ValidatePosition";
-    
+
     /** urgent messages, execute immediatly */
     public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
-    
+
     private int _x;
     private int _y;
     private int _z;
@@ -84,13 +85,13 @@ public class ValidatePosition extends L2GameClientPacket
         	getClient().getActiveChar().teleToLocation(_x, _y, _z);
         }
     }
-    
+
     @Override
     protected void runImpl()
     {
         L2PcInstance activeChar = getClient().getActiveChar();
         if (activeChar == null || activeChar.isTeleporting()) return;
-        
+
         if (Config.COORD_SYNCHRONIZE > 0)
         {
             activeChar.setClientX(_x);
@@ -100,15 +101,15 @@ public class ValidatePosition extends L2GameClientPacket
             int realX = activeChar.getX();
             int realY = activeChar.getY();
             // int realZ = activeChar.getZ();
-            
+
             double dx = _x - realX;
             double dy = _y - realY;
             double diffSq = (dx*dx + dy*dy);
 
             /*
-            if (_log.isDebugEnabled() ) 
+            if (_log.isDebugEnabled() )
             {
-            	int dxs = (_x - activeChar._lastClientPosition.x); 
+            	int dxs = (_x - activeChar._lastClientPosition.x);
             	int dys = (_y - activeChar._lastClientPosition.y);
             	int dist = (int)Math.sqrt(dxs*dxs + dys*dys);
             	int heading = dist > 0 ? (int)(Math.atan2(-dys/dist, -dxs/dist) * 10430.378350470452724949566316381) + 32768 : 0;
@@ -127,10 +128,10 @@ public class ValidatePosition extends L2GameClientPacket
                     if (diffSq < 2500) // 50*50 - attack won't work fluently if even small differences are corrected
                     	activeChar.getPosition().setXYZ(realX, realY, _z);
                     else
-                    	activeChar.getPosition().setXYZ(_x, _y, _z);                    
+                    	activeChar.getPosition().setXYZ(_x, _y, _z);
                     activeChar.setHeading(_heading);
                 }
-                else if ((Config.COORD_SYNCHRONIZE & 2) == 2 
+                else if ((Config.COORD_SYNCHRONIZE & 2) == 2
                         && diffSq > 10000) // more than can be considered to be result of latency
                 {
                     if (_log.isDebugEnabled())  _log.debug(activeChar.getName() + ": Synchronizing position Server --> Client");
@@ -164,16 +165,16 @@ public class ValidatePosition extends L2GameClientPacket
                  activeChar.getPosition().setXYZ(realX,realY,_z);
 
             int realHeading = activeChar.getHeading();
-        
+
             if (_log.isDebugEnabled()) {
                 _log.debug("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
                 _log.debug("server pos: "+ realX + " "+realY+ " "+realZ +" head "+realHeading);
             }
-            
+
             if (Config.DEVELOPER)
             {
                 if (diffSq > 1000000) {
-                    if (_log.isDebugEnabled()) _log.info("client/server dist diff "+ (int)Math.sqrt(diffSq));            	
+                    if (_log.isDebugEnabled()) _log.info("client/server dist diff "+ (int)Math.sqrt(diffSq));
                     if (activeChar.isInBoat())
                     {
                         sendPacket(new ValidateLocationInVehicle(activeChar));
@@ -192,11 +193,12 @@ public class ValidatePosition extends L2GameClientPacket
 			activeChar.isFalling(true,0); // Check if the L2Character isFalling
 
 		EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar , true);
-		
+		EffectTrap.getInstance().checkTraps(activeChar, true);
+
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 		{
-			if (GeoEditorListener.getInstance().getThread() != null 
-				&& GeoEditorListener.getInstance().getThread().isWorking() 
+			if (GeoEditorListener.getInstance().getThread() != null
+				&& GeoEditorListener.getInstance().getThread().isWorking()
 				&& GeoEditorListener.getInstance().getThread().isSend(activeChar))
 			{
 				GeoEditorListener.getInstance().getThread().sendGmPosition(_x,_y,(short)_z);
@@ -211,7 +213,7 @@ public class ValidatePosition extends L2GameClientPacket
 		{
             Siege siege = SiegeManager.getInstance().getSiege(activeChar.getClan());
             if (siege != null
-	            && (!(activeChar.getClan().getHasCastle() == siege.getCastle().getCastleId()) && 
+	            && (!(activeChar.getClan().getHasCastle() == siege.getCastle().getCastleId()) &&
                     (activeChar.getClan().getLeaderId() == activeChar.getObjectId())))
 
 		    {
@@ -221,11 +223,11 @@ public class ValidatePosition extends L2GameClientPacket
 		        activeChar.teleToLocation(TeleportWhereType.Town);
 		    }
 		}
-		
+
 		// [L2J_JP ADD END]
 		ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(activeChar));
     }
-    
+
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()
      */

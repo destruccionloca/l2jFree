@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -76,32 +76,32 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This class...
- * 
+ *
  * @version $Revision: 1.3.2.8.2.22 $ $Date: 2005/04/06 16:13:42 $
  */
 public abstract class L2Skill
 {
 	protected static Log	_log					= LogFactory.getLog(L2Skill.class.getName());
-	
+
 	public static final int	SKILL_CUBIC_MASTERY		= 143;
 	public static final int	SKILL_LUCKY				= 194;
 	public static final int	SKILL_CREATE_COMMON		= 1320;
 	public static final int	SKILL_CREATE_DWARVEN	= 172;
 	public static final int	SKILL_CRYSTALLIZE		= 248;
 	public static final int	SKILL_DIVINE_INSPIRATION= 1405;
-	
+
 	public static final int	SKILL_FAKE_INT			= 9001;
 	public static final int	SKILL_FAKE_WIT			= 9002;
 	public static final int	SKILL_FAKE_MEN			= 9003;
 	public static final int	SKILL_FAKE_CON			= 9004;
 	public static final int	SKILL_FAKE_DEX			= 9005;
 	public static final int	SKILL_FAKE_STR			= 9006;
-	
+
 	public static enum SkillOpType
 	{
 		OP_PASSIVE, OP_ACTIVE, OP_TOGGLE
 	}
-	
+
 	/** Target types of skills : SELF, PARTY, CLAN, PET... */
 	public static enum SkillTargetType
 	{
@@ -110,7 +110,7 @@ public abstract class L2Skill
 		TARGET_GATE, TARGET_MOB, TARGET_AREA_MOB, TARGET_KNOWNLIST, TARGET_COUPLE, TARGET_RADIUS
 		// TARGET_BOSS
 	}
-	
+
 	public static enum SkillType
 	{
 		PDAM, MDAM, CPDAM, DOT, BLEED, POISON, HEAL, HOT, COMBATPOINTHEAL, CPHOT, MANAHEAL, MANAHEAL_PERCENT, MANARECHARGE, MPHOT, AGGDAMAGE, BUFF, DEBUFF, STUN, ROOT, RESURRECT, PASSIVE, CONT, SIGNET, CONFUSION, UNLOCK, CHARGE(
@@ -120,16 +120,16 @@ public abstract class L2Skill
 				L2SkillSeed.class), BEAST_FEED, FORCE_BUFF, PARALYZE, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, CHARGESOUL, GET_PLAYER, CHANGEWEAPON (L2SkillChangeWeapon.class), // Kamael WeaponChange
 				CHARGE_NEGATE(L2SkillChargeNegate.class),
 		FISHING, PUMPING, REELING, CANCEL_TARGET, CREATE_ITEM(L2SkillCreateItem.class), AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, LUCKNOBLESSE(
-				L2SkillCreateItem.class), RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, TRANSFORMDISPEL, RADIUS, NOTDONE;
-		
+				L2SkillCreateItem.class), RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, TRANSFORMDISPEL, RADIUS, SUMMON_TRAP, DETECT_TRAP, REMOVE_TRAP, NOTDONE;
+
 		private final Class<? extends L2Skill>	_class;
-		
+
 		public L2Skill makeSkill(StatsSet set)
 		{
 			try
 			{
 				Constructor<? extends L2Skill> c = _class.getConstructor(StatsSet.class);
-				
+
 				return c.newInstance(set);
 			}
 			catch (Exception e)
@@ -137,18 +137,18 @@ public abstract class L2Skill
 				throw new RuntimeException(e);
 			}
 		}
-		
+
 		private SkillType()
 		{
 			_class = L2SkillDefault.class;
 		}
-		
+
 		private SkillType(Class<? extends L2Skill> classType)
 		{
 			_class = classType;
 		}
 	}
-	
+
 	// elements
 	public final static int			ELEMENT_WIND			= 1;
 	public final static int			ELEMENT_FIRE			= 2;
@@ -158,7 +158,7 @@ public abstract class L2Skill
 	public final static int			ELEMENT_DARK			= 6;
 	public final static int			ELEMENT_UNHOLY			= 5;
 	public final static int			ELEMENT_SACRED			= 6;
-	
+
 	// save vs
 	public final static int			SAVEVS_INT				= 1;
 	public final static int			SAVEVS_WIT				= 2;
@@ -166,7 +166,7 @@ public abstract class L2Skill
 	public final static int			SAVEVS_CON				= 4;
 	public final static int			SAVEVS_DEX				= 5;
 	public final static int			SAVEVS_STR				= 6;
-	
+
 	// stat effected
 	public final static int			STAT_PATK				= 301;				// pAtk
 	public final static int			STAT_PDEF				= 302;				// pDef
@@ -234,7 +234,7 @@ public abstract class L2Skill
 	public final static int			COMBAT_MOD_STUN			= 221;
 	public final static int			COMBAT_MOD_CONFUSION	= 222;
 	public final static int			COMBAT_MOD_DARK			= 223;
-	
+
 	// conditional values
 	public final static int			COND_RUNNING			= 0x0001;
 	public final static int			COND_WALKING			= 0x0002;
@@ -250,21 +250,21 @@ public abstract class L2Skill
 	public final static int			COND_GRADEC				= 0x040000;
 	public final static int			COND_GRADED				= 0x080000;
 	public final static int			COND_GRADES				= 0x100000;
-	
+
 	private static final Func[]		_emptyFunctionSet		= new Func[0];
 	private static final L2Effect[]	_emptyEffectSet			= new L2Effect[0];
-	
+
 	// these two build the primary key
 	private final int				_id;
 	private final int				_level;
-	
+
 	/** Instant Kill Rate (iRate) * */
 	private final int				_iRate;
 	private final boolean			_iKill;
-	
+
 	/** Identifier for a skill that client can't display */
 	private int						_displayId;
-	
+
 	// not needed, just for easier debug
 	private final String			_name;
 	private final SkillOpType		_operateType;
@@ -292,13 +292,13 @@ public abstract class L2Skill
 
 	private final int				_castRange;
 	private final int				_effectRange;
-	
+
 	// all times in milliseconds
 	private final int				_hitTime;
 	private final int				_skillInterruptTime;
 	private final int				_coolTime;
 	private final int				_reuseDelay;
-	
+
 	/** Target type of the skill : SELF, PARTY, CLAN, PET... */
 	private final SkillTargetType	_targetType;
 	private final double			_power;
@@ -312,13 +312,13 @@ public abstract class L2Skill
 	// The radius center varies according to the _targetType:
 	// "caster" if targetType = AURA/PARTY/CLAN or "target" if targetType = AREA
 	private final int				_skillRadius;
-	
+
 	private final SkillType			_skillType;
 	private final SkillType			_effectType;
 	private final int				_effectPower;
 	private final int				_effectLvl;
 	private final int				_skill_landing_percent;
-	
+
 	private final boolean			_ispotion;
 	private final int				_element;
 	private final int				_savevs;
@@ -329,9 +329,9 @@ public abstract class L2Skill
 	private final String[]			_negateStats;
 	private final float				_negatePower;
 	private final int				_negateId;
-	
+
 	private final Stats				_stat;
-	
+
 	private final int				_condition;
 	private final int				_conditionValue;
 	private final boolean			_overhit;
@@ -339,7 +339,7 @@ public abstract class L2Skill
 	private final boolean			_ignoreShld;
 	private final int				_weaponsAllowed;
 	private final int				_armorsAllowed;
-	
+
 	private final int				_addCrossLearn;							// -1 disable, otherwice SP price for others classes, default 1000
 	private final float				_mulCrossLearn;							// multiplay for others classes, default 2
 	private final float				_mulCrossLearnRace;						// multiplay for others races, default 2
@@ -371,36 +371,36 @@ public abstract class L2Skill
 	private final boolean			_isDance;									// If true then casting more dances will cost more MP
 	private final int				_nextDanceCost;
 	private final float				_sSBoost;									// If true skill will have SoulShot boost (power*2)
-																				
+
 	private final int				_timeMulti;
-	
+
 	private final boolean			_isAdvanced;								// Used by siege flag summon skills
-																				
+
 	private final float				_successRate;
 	private final int				_minPledgeClass;
-	
+
 	private final int				_aggroPoints;
-	
+
 	private final float				_pvpMulti;
-	
+
 	protected Condition				_preCondition;
 	protected Condition				_itemPreCondition;
 	protected FuncTemplate[]		_funcTemplates;
 	protected EffectTemplate[]		_effectTemplates;
 	protected EffectTemplate[]		_effectTemplatesSelf;
-	
+
 	//Attached skills for Special Abilities
     protected L2Skill[] _skillsOnCast;
     protected int[]		_skillsOnCastId,
     					_skillsOnCastLvl;
     protected int 		timesTriggered = 1,
     					triggerDuration;
-	
+
 	protected L2Skill(StatsSet set)
 	{
 		_id = set.getInteger("skill_id");
 		_level = set.getInteger("level");
-		
+
 		_displayId = set.getInteger("displayId", _id);
 		_name = set.getString("name");
 		_operateType = set.getEnum("operateType", SkillOpType.class);
@@ -429,7 +429,7 @@ public abstract class L2Skill
 		_coolTime = set.getInteger("coolTime", 0);
 		_skillInterruptTime = (_hitTime / 2);
 		_reuseDelay = set.getInteger("reuseDelay", 0);
-		
+
 		_skillType = set.getEnum("skillType", SkillType.class);
 		_isDance = set.getBool("isDance", false);
 		if (_isDance)
@@ -438,9 +438,9 @@ public abstract class L2Skill
 			_timeMulti = Config.ALT_SEED_TIME;
 		else
 			_timeMulti = Config.ALT_BUFF_TIME;
-		
+
 		_skillRadius = set.getInteger("skillRadius", 80);
-		
+
 		_targetType = set.getEnum("target", SkillTargetType.class);
 		_power = set.getFloat("power", 0.f);
 		_effectPoints = set.getInteger("effectPoints", 0);
@@ -449,9 +449,9 @@ public abstract class L2Skill
 		_negateId = set.getInteger("negateId", 0);
 		_levelDepend = set.getInteger("lvlDepend", 0);
 		_stat = set.getEnum("stat", Stats.class, null);
-		
+
 		_isAdvanced = set.getBool("isAdvanced", false); // Used by siege flag summon skills
-		
+
 		_effectType = set.getEnum("effectType", SkillType.class, null);
 		_effectPower = set.getInteger("effectPower", 0);
 		_effectLvl = set.getInteger("effectLevel", 0);
@@ -461,7 +461,7 @@ public abstract class L2Skill
 		_activateRate = set.getInteger("activateRate", -1);
 		_levelModifier = set.getInteger("levelModifier", 1);
 		_magicLevel = set.getInteger("magicLvl", SkillTreeTable.getInstance().getMinSkillLevel(_id, _level));
-		
+
 		_ignoreShld = set.getBool("ignoreShld", false);
 		_critical = set.getBool("critcal", false);
 		_condition = set.getInteger("condition", 0);
@@ -470,7 +470,7 @@ public abstract class L2Skill
 		_isSuicideAttack = set.getBool("isSuicideAttack", false);
 		_weaponsAllowed = set.getInteger("weaponsAllowed", 0);
 		_armorsAllowed = set.getInteger("armorsAllowed", 0);
-		
+
 		_addCrossLearn = set.getInteger("addCrossLearn", 1000);
 		_mulCrossLearn = set.getFloat("mulCrossLearn", 2.f);
 		_mulCrossLearnRace = set.getFloat("mulCrossLearnRace", 2.f);
@@ -479,10 +479,10 @@ public abstract class L2Skill
 		_numCharges = set.getInteger("num_charges", getLevel());
 		_successRate = set.getFloat("rate", 1);
 		_minPledgeClass = set.getInteger("minPledgeClass", 0);
-		
+
 		_triggeredId = set.getInteger("triggeredId", 0);
 		int triggeredCount = set.getInteger("triggeredCount", 1);
-		
+
 		if (_triggeredId == 0) // no triggered skill
 			_triggeredCount = 0; // so set count to zero
 		else if (triggeredCount == 0) // there is a skill, but count is zero
@@ -506,11 +506,11 @@ public abstract class L2Skill
 		_directHpDmg = set.getBool("dmgDirectlyToHp", false);
 		_nextDanceCost = set.getInteger("nextDanceCost", 0);
 		_sSBoost = set.getFloat("SSBoost", 0.f);
-		
+
 		_aggroPoints = set.getInteger("aggroPoints", 0);
-		
+
 		_pvpMulti = set.getFloat("pvpMulti", 1.f);
-		
+
 		String canLearn = set.getString("canLearn", null);
 		if (canLearn == null)
 		{
@@ -533,7 +533,7 @@ public abstract class L2Skill
 				}
 			}
 		}
-		
+
 		String teachers = set.getString("teachers", null);
 		if (teachers == null)
 		{
@@ -557,54 +557,54 @@ public abstract class L2Skill
 			}
 		}
 	}
-	
+
 	public abstract void useSkill(L2Character caster, L2Object[] targets);
-	
+
 	public final boolean isPotion()
 	{
 		return _ispotion;
 	}
-	
+
 	public final int getArmorsAllowed()
 	{
 		return _armorsAllowed;
 	}
-	
+
 	public final int getConditionValue()
 	{
 		return _conditionValue;
 	}
-	
+
 	public final SkillType getSkillType()
 	{
 		return _skillType;
 	}
-	
+
 	public final int getSavevs()
 	{
 		return _savevs;
 	}
-	
+
 	public final int getActivateRate()
 	{
 		return _activateRate;
 	}
-	
+
 	public final int getLevelModifier()
 	{
 		return _levelModifier;
 	}
-	
+
 	public final int getMagicLevel()
 	{
 		return _magicLevel;
 	}
-	
+
 	public final int getElement()
 	{
 		return _element;
 	}
-	
+
 	/**
 	 * Return the target type of the skill : SELF, PARTY, CLAN, PET...<BR>
 	 * <BR>
@@ -613,22 +613,22 @@ public abstract class L2Skill
 	{
 		return _targetType;
 	}
-	
+
 	public final int getCondition()
 	{
 		return _condition;
 	}
-	
+
 	public final boolean isCritical()
 	{
 		return _critical;
 	}
-	
+
 	public final boolean ignoreShld()
 	{
 		return _ignoreShld;
 	}
-	
+
 	public final boolean isOverhit()
 	{
 		return _overhit;
@@ -643,19 +643,19 @@ public abstract class L2Skill
 	{
 		return _isSuicideAttack;
 	}
-	
+
 	/** INSTANT KILL * */
 	public final boolean isInstantKill()
 	{
 		return _iKill;
 	}
-	
+
 	/** Return the rate in Perecent% of chance to InstantKill* */
 	public final int getInstantKillRate()
 	{
 		return _iRate;
 	}
-	
+
 	/**
 	 * Return the power of the skill.<BR>
 	 * <BR>
@@ -664,57 +664,57 @@ public abstract class L2Skill
 	{
 		return _power;
 	}
-	
+
 	public final double getPower()
 	{
 		return _power;
 	}
-	
+
 	public final int getEffectPoints()
 	{
 		return _effectPoints;
 	}
-	
+
 	public final String[] getNegateStats()
 	{
 		return _negateStats;
 	}
-	
+
 	public final float getNegatePower()
 	{
 		return _negatePower;
 	}
-	
+
 	public final int getNegateId()
 	{
 		return _negateId;
 	}
-	
+
 	public final int getMagicLvl()
 	{
 		return _magicLevel;
 	}
-	
+
 	public int getTriggeredId()
 	{
 		return _triggeredId;
 	}
-	
+
 	public int getTriggeredCount()
 	{
 		return _triggeredCount;
 	}
-	
+
 	public L2Skill getTriggeredSkill()
 	{
 		return SkillTable.getInstance().getInfo(_triggeredId, 1); // is there any skill with bigger level than one?! :$
 	}
-	
+
 	public final int getLevelDepend()
 	{
 		return _levelDepend;
 	}
-	
+
 	/**
 	 * Return the skill landing percent probability.<BR>
 	 * <BR>
@@ -723,7 +723,7 @@ public abstract class L2Skill
 	{
 		return _skill_landing_percent;
 	}
-	
+
 	/**
 	 * Return the additional effect power or base probability.<BR>
 	 * <BR>
@@ -732,7 +732,7 @@ public abstract class L2Skill
 	{
 		return _effectPower;
 	}
-	
+
 	/**
 	 * Return the additional effect level.<BR>
 	 * <BR>
@@ -741,7 +741,7 @@ public abstract class L2Skill
 	{
 		return _effectLvl;
 	}
-	
+
 	/**
 	 * Return the additional effect skill type (ex : STUN, PARALYZE,...).<BR>
 	 * <BR>
@@ -750,7 +750,7 @@ public abstract class L2Skill
 	{
 		return _effectType;
 	}
-	
+
 	/**
 	 * @return Returns the timeMulti.
 	 */
@@ -758,7 +758,7 @@ public abstract class L2Skill
 	{
 		return _timeMulti;
 	}
-	
+
 	/**
 	 * @return Returns the castRange.
 	 */
@@ -766,7 +766,7 @@ public abstract class L2Skill
 	{
 		return _castRange;
 	}
-	
+
 	/**
 	 * @return Returns the effectRange.
 	 */
@@ -774,7 +774,7 @@ public abstract class L2Skill
 	{
 		return _effectRange;
 	}
-	
+
 	/**
 	 * @return Returns the hitTime.
 	 */
@@ -782,7 +782,7 @@ public abstract class L2Skill
 	{
 		return _hitTime;
 	}
-	
+
 	/**
 	 * @return Returns the hpConsume.
 	 */
@@ -790,7 +790,7 @@ public abstract class L2Skill
 	{
 		return _hpConsume;
 	}
-	
+
 	/**
 	 * @return Returns the id.
 	 */
@@ -798,27 +798,27 @@ public abstract class L2Skill
 	{
 		return _id;
 	}
-	
+
 	public int getDisplayId()
 	{
 		return _displayId;
 	}
-	
+
 	public void setDisplayId(int id)
 	{
 		_displayId = id;
 	}
-	
+
 	public float getSuccessRate()
 	{
 		return _successRate;
 	}
-	
+
 	public int getMinPledgeClass()
 	{
 		return _minPledgeClass;
 	}
-	
+
 	/**
 	 * Return the skill type (ex : BLEED, SLEEP, WATER...).<BR>
 	 * <BR>
@@ -827,7 +827,7 @@ public abstract class L2Skill
 	{
 		return _stat;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsume.
 	 */
@@ -835,7 +835,7 @@ public abstract class L2Skill
 	{
 		return _itemConsume;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsumeId.
 	 */
@@ -843,7 +843,7 @@ public abstract class L2Skill
 	{
 		return _itemConsumeId;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsume count over time.
 	 */
@@ -851,7 +851,7 @@ public abstract class L2Skill
 	{
 		return _itemConsumeOT;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsumeId over time.
 	 */
@@ -859,7 +859,7 @@ public abstract class L2Skill
 	{
 		return _itemConsumeIdOT;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsume count over time.
 	 */
@@ -867,7 +867,7 @@ public abstract class L2Skill
 	{
 		return _itemConsumeSteps;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsume count over time.
 	 */
@@ -875,7 +875,7 @@ public abstract class L2Skill
 	{
 		return _summonTotalLifeTime;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsume count over time.
 	 */
@@ -883,7 +883,7 @@ public abstract class L2Skill
 	{
 		return _summonTimeLostIdle;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsumeId over time.
 	 */
@@ -891,7 +891,7 @@ public abstract class L2Skill
 	{
 		return _summonTimeLostActive;
 	}
-	
+
 	/**
 	 * @return Returns the itemConsume time in milliseconds.
 	 */
@@ -899,7 +899,7 @@ public abstract class L2Skill
 	{
 		return _itemConsumeTime;
 	}
-	
+
 	/**
 	 * @return Returns the level.
 	 */
@@ -907,7 +907,7 @@ public abstract class L2Skill
 	{
 		return _level;
 	}
-	
+
 	/**
 	 * @return Returns the magic.
 	 */
@@ -915,7 +915,7 @@ public abstract class L2Skill
 	{
 		return _magic;
 	}
-	
+
 	/**
 	 * @return Returns the mpConsume.
 	 */
@@ -923,7 +923,7 @@ public abstract class L2Skill
 	{
 		return _mpConsume;
 	}
-	
+
 	/**
 	 * @return Returns the mpInitialConsume.
 	 */
@@ -931,7 +931,7 @@ public abstract class L2Skill
 	{
 		return _mpInitialConsume;
 	}
-	
+
 	/**
 	 * @return Returns the name.
 	 */
@@ -939,7 +939,7 @@ public abstract class L2Skill
 	{
 		return _name;
 	}
-	
+
 	/**
 	 * @return Returns the reuseDelay.
 	 */
@@ -947,117 +947,117 @@ public abstract class L2Skill
 	{
 		return _reuseDelay;
 	}
-	
+
 	public final int getCoolTime()
 	{
 		return _coolTime;
 	}
-	
+
 	public final int getSkillInterruptTime()
 	{
 		return _skillInterruptTime;
 	}
-	
+
 	public final int getSkillRadius()
 	{
 		return _skillRadius;
 	}
-	
+
 	public final boolean isActive()
 	{
 		return _operateType == SkillOpType.OP_ACTIVE;
 	}
-	
+
 	public final boolean isPassive()
 	{
 		return _operateType == SkillOpType.OP_PASSIVE;
 	}
-	
+
 	public final boolean isToggle()
 	{
 		return _operateType == SkillOpType.OP_TOGGLE;
 	}
-	
+
 	public final boolean isDance()
 	{
 		return _isDance;
 	}
-	
+
 	public final int getNextDanceMpCost()
 	{
 		return _nextDanceCost;
 	}
-	
+
 	public final boolean isAdvanced()
 	{
 		return _isAdvanced;
 	}
-	
+
 	public final float getSSBoost()
 	{
 		return _sSBoost;
 	}
-	
+
 	public final int getAggroPoints()
 	{
 		return _aggroPoints;
 	}
-	
+
 	public final float getPvpMulti()
 	{
 		return _pvpMulti;
 	}
-	
+
 	public final boolean useSoulShot()
 	{
 		return ((getSkillType() == SkillType.PDAM) || (getSkillType() == SkillType.STUN) || (getSkillType() == SkillType.CHARGEDAM));
 	}
-	
+
 	public final boolean useSpiritShot()
 	{
 		return isMagic();
 	}
-	
+
 	public final boolean useFishShot()
 	{
 		return ((getSkillType() == SkillType.PUMPING) || (getSkillType() == SkillType.REELING));
 	}
-	
+
 	public final int getWeaponsAllowed()
 	{
 		return _weaponsAllowed;
 	}
-	
+
 	public final int getCrossLearnAdd()
 	{
 		return _addCrossLearn;
 	}
-	
+
 	public final float getCrossLearnMul()
 	{
 		return _mulCrossLearn;
 	}
-	
+
 	public final float getCrossLearnRace()
 	{
 		return _mulCrossLearnRace;
 	}
-	
+
 	public final float getCrossLearnProf()
 	{
 		return _mulCrossLearnProf;
 	}
-	
+
 	public final boolean getCanLearn(ClassId cls)
 	{
 		return _canLearn == null || _canLearn.contains(cls);
 	}
-	
+
 	public final boolean canTeachBy(int npcId)
 	{
 		return _teachers == null || _teachers.contains(npcId);
 	}
-	
+
 	public final boolean isPvpSkill()
 	{
 		switch (_skillType)
@@ -1090,12 +1090,12 @@ public abstract class L2Skill
 				return false;
 		}
 	}
-	
+
 	public final boolean isOffensive()
 	{
 		return _isOffensive;
 	}
-	
+
 	public final int getNumCharges()
 	{
 		return _numCharges;
@@ -1110,7 +1110,7 @@ public abstract class L2Skill
 	{
 		return _soulConsume;
 	}
-	
+
 	public final int getExpNeeded()
 	{
 		return _expNeeded;
@@ -1125,17 +1125,17 @@ public abstract class L2Skill
 	{
 		return _baseCritRate;
 	}
-	
+
 	public final int getLethalChance1()
 	{
 		return _lethalEffect1;
 	}
-	
+
 	public final int getLethalChance2()
 	{
 		return _lethalEffect2;
 	}
-	
+
 	public final boolean getDmgDirectlyToHP()
 	{
 		return _directHpDmg;
@@ -1155,7 +1155,7 @@ public abstract class L2Skill
 	{
 		return SkillTable.getInstance().getInfo(skillId, level) != null;
 	}
-	
+
 	public final boolean isSkillTypeOffensive()
 	{
 		switch (_skillType)
@@ -1210,7 +1210,7 @@ public abstract class L2Skill
 				return false;
 		}
 	}
-	
+
 	public final boolean isPositive()
 	{
 		switch (_skillType)
@@ -1233,17 +1233,17 @@ public abstract class L2Skill
 				return false;
 		}
 	}
-	
+
 	public final boolean isNeedWeapon()
 	{
 		return (_skillType == SkillType.MDAM) ? true : false;
 	}
-	
+
 	// int weapons[] = {L2Weapon.WEAPON_TYPE_ETC, L2Weapon.WEAPON_TYPE_BOW,
 	// L2Weapon.WEAPON_TYPE_POLE, L2Weapon.WEAPON_TYPE_DUALFIST,
 	// L2Weapon.WEAPON_TYPE_DUAL, L2Weapon.WEAPON_TYPE_BLUNT,
 	// L2Weapon.WEAPON_TYPE_SWORD, L2Weapon.WEAPON_TYPE_DAGGER};
-	
+
 	public final boolean getWeaponDependancy(L2Character activeChar)
 	{
 		int weaponsAllowed = getWeaponsAllowed();
@@ -1269,30 +1269,30 @@ public abstract class L2Skill
 		SystemMessage message = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 		message.addString(getName());
 		activeChar.sendPacket(message);
-		
+
 		return false;
 	}
-	
+
 	public boolean checkCondition(L2Character activeChar, L2Object target, boolean itemOrWeapon)
 	{
 		if ((getCondition() & L2Skill.COND_SHIELD) != 0)
 		{
 			// TODO: add checks for shield here.
-			
+
 		}
-		
+
 		Condition preCondition = _preCondition;
 		if (itemOrWeapon)
 			preCondition = _itemPreCondition;
 		if (preCondition == null)
 			return true;
-		
+
 		Env env = new Env();
 		env.player = activeChar;
 		if (target instanceof L2Character)
 			env.target = (L2Character) target;
 		env.skill = this;
-		
+
 		if (!preCondition.test(env))
 		{
 			String msg = preCondition.getMessage();
@@ -1304,7 +1304,7 @@ public abstract class L2Skill
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Return all targets of the skill in a table in function a the skill type.<BR>
 	 * <BR>
@@ -1323,34 +1323,34 @@ public abstract class L2Skill
 	 * <li>ITEM</li>
 	 * <BR>
 	 * <BR>
-	 * 
+	 *
 	 * @param activeChar
 	 *            The L2Character who use the skill
 	 */
 	public final L2Object[] getTargetList(L2Character activeChar, boolean onlyFirst)
 	{
 		FastList<L2Character> targetList = new FastList<L2Character>();
-		
+
 		// Get the target type of the skill
 		// (ex : ONE, SELF, HOLY, PET, AURA, AURA_CLOSE, AREA, MULTIFACE, PARTY, CLAN, CORPSE_PLAYER, CORPSE_MOB, CORPSE_CLAN, UNLOCKABLE, ITEM, UNDEAD)
 		SkillTargetType targetType = getTargetType();
-		
+
 		// Init to null the target of the skill
 		L2Character target = null;
-		
+
 		// Get the L2Objcet targeted by the user of the skill at this moment
 		L2Object objTarget = activeChar.getTarget();
-		
+
 		// Get the type of the skill
 		// (ex : PDAM, MDAM, DOT, BLEED, POISON, HEAL, HOT, MANAHEAL, MANARECHARGE, AGGDAMAGE, BUFF, DEBUFF, STUN, ROOT, RESURRECT, PASSIVE...)
 		SkillType skillType = getSkillType();
-		
+
 		// If the L2Object targeted is a L2Character, it becomes the L2Character target
 		if (objTarget instanceof L2Character)
 		{
 			target = (L2Character) objTarget;
 		}
-		
+
 		switch (targetType)
 		{
 			// The skill can only be used on the L2Character targeted, or on the caster itself
@@ -1359,7 +1359,7 @@ public abstract class L2Skill
 				// automaticly selects caster if no target is selected (only positive skills)
 				if (isPositive() && target == null)
 					target = activeChar;
-				
+
 				boolean canTargetSelf = false;
 				switch (skillType)
 				{
@@ -1384,7 +1384,7 @@ public abstract class L2Skill
 						canTargetSelf = true;
 						break;
 				}
-				
+
 				// Check for null target or any other invalid target
 				if (target == null || target.isDead() || (target == activeChar && !canTargetSelf))
 				{
@@ -1412,7 +1412,7 @@ public abstract class L2Skill
 					else if (((L2PcInstance) activeChar).checkFOS())
 						return new L2Character[] { (L2NpcInstance) activeChar.getTarget() };
 				}
-				
+
 				return null;
 			}
 			case TARGET_COUPLE:
@@ -1427,7 +1427,7 @@ public abstract class L2Skill
 							return new L2Character[] { target };
 					}
 				}
-				
+
 				return null;
 			}
 			case TARGET_PET:
@@ -1435,7 +1435,7 @@ public abstract class L2Skill
 				target = activeChar.getPet();
 				if (target != null && !target.isDead())
 					return new L2Character[] { target };
-				
+
 				return null;
 			}
 			case TARGET_OWNER_PET:
@@ -1446,7 +1446,7 @@ public abstract class L2Skill
 					if (target != null && !target.isDead())
 						return new L2Character[] { target };
 				}
-				
+
 				return null;
 			}
 			case TARGET_ENEMY_PET:
@@ -1466,27 +1466,27 @@ public abstract class L2Skill
 					target = activeChar.getPet();
 					if (target != null && target.isDead()) { return new L2Character[] { target }; }
 				}
-				
+
 				return null;
 			}
 			case TARGET_AURA:
 			{
 				int radius = getSkillRadius();
 				boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(activeChar) && !SiegeManager.getInstance().checkIfInZone(activeChar);
-				
+
 				L2PcInstance src = null;
 				if (activeChar instanceof L2PcInstance)
 					src = (L2PcInstance) activeChar;
 				if (activeChar instanceof L2Summon)
 					src = ((L2Summon) activeChar).getOwner();
-				
+
 				// Go through the L2Character _knownList
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
 					if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
 					{
 						boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj) && !SiegeManager.getInstance().checkIfInZone(obj);
-						
+
 						// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
 						if (obj == activeChar || obj == src)
 							continue;
@@ -1527,7 +1527,7 @@ public abstract class L2Skill
 						}
 						if (!Util.checkIfInRange(radius, activeChar, obj, true))
 							continue;
-						
+
 						if (onlyFirst == false)
 							targetList.add((L2Character) obj);
 						else
@@ -1673,13 +1673,13 @@ public abstract class L2Skill
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return null;
 				}
-				
+
 				L2Character cha;
-				
+
 				if (getCastRange() >= 0)
 				{
 					cha = target;
-					
+
 					if (!onlyFirst)
 						targetList.add(cha); // Add target to target list
 					else
@@ -1687,19 +1687,19 @@ public abstract class L2Skill
 				}
 				else
 					cha = activeChar;
-				
+
 				boolean effectOriginIsL2PlayableInstance = (cha instanceof L2PlayableInstance);
-				
+
 				L2PcInstance src = null;
 				if (activeChar instanceof L2PcInstance)
 					src = (L2PcInstance) activeChar;
 				else if (activeChar instanceof L2Summon)
 					src = ((L2Summon) activeChar).getOwner();
-				
+
 				int radius = getSkillRadius();
-				
+
 				boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(activeChar) && !SiegeManager.getInstance().checkIfInZone(activeChar);
-				
+
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
 					if (obj == null)
@@ -1710,15 +1710,15 @@ public abstract class L2Skill
 						continue;
 					target = (L2Character) obj;
 					boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj) && !SiegeManager.getInstance().checkIfInZone(obj);
-					
+
 					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 						continue;
-					
+
 					if (!target.isAlikeDead() && (target != activeChar))
 					{
 						if (!Util.checkIfInRange(radius, obj, cha, true))
 							continue;
-						
+
 						if (src != null) // caster is l2playableinstance and exists
 						{
 							if(obj instanceof L2PcInstance)
@@ -1730,7 +1730,7 @@ public abstract class L2Skill
 									continue;
 
 								if(trg.getInPeaceZone()) continue;
-								
+
 								if(!srcInPvP && !targetInPvP)
 								{
 									if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
@@ -1769,7 +1769,7 @@ public abstract class L2Skill
 									if(!src.checkPvpSkill(trg, this))
 										continue;
 								}
-								
+
 								if (trg.getInPeaceZone()) continue;
 							}
 						}
@@ -1850,7 +1850,7 @@ public abstract class L2Skill
 									continue;
 
 								if(trg.getInPeaceZone()) continue;
-								
+
 								if(!srcInArena && !targetInPvP)
 								{
 									if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
@@ -1889,7 +1889,7 @@ public abstract class L2Skill
 									if(!src.checkPvpSkill(trg, this))
 										continue;
 								}
-								
+
 								if (trg.getInPeaceZone()) continue;
 							}
 						}
@@ -1969,21 +1969,21 @@ public abstract class L2Skill
 								if ((src.getParty() != null && trg.getParty() != null)
 										&& src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
-								
+
 								if (trg.getInPeaceZone())
 									continue;
-								
+
 								if (!srcInArena && !targetInPvP)
 								{
 									if (src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
 										continue;
-									
+
 									if (src.getClan() != null && trg.getClan() != null)
 									{
 										if (src.getClan().getClanId() == trg.getClan().getClanId())
 											continue;
 									}
-									
+
 									if (!src.checkPvpSkill(obj, this))
 										continue;
 								}
@@ -1993,28 +1993,28 @@ public abstract class L2Skill
 								L2PcInstance trg = ((L2Summon) obj).getOwner();
 								if (trg == src)
 									continue;
-								
+
 								if ((src.getParty() != null && trg.getParty() != null)
 										&& src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
-								
+
 								if (!srcInArena && !targetInPvP)
 								{
 									if (src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
 										continue;
-									
+
 									if (trg.getInPeaceZone())
 										continue;
-									
+
 									if (src.getClan() != null && trg.getClan() != null)
 									{
 										if (src.getClan().getClanId() == trg.getClan().getClanId())
 											continue;
 									}
-									
+
 									if (!src.checkPvpSkill(trg, this))
 										continue;
-									
+
 								}
 							}
 						}
@@ -2025,14 +2025,14 @@ public abstract class L2Skill
 							if (effectOriginIsL2PlayableInstance && !(obj instanceof L2PlayableInstance))
 								continue;
 						}
-						
+
 						targetList.add((L2Character) obj);
 					}
 				}
-				
+
 				if (targetList.size() == 0)
 					return null;
-				
+
 				return targetList.toArray(new L2Character[targetList.size()]);
 			}
 			case TARGET_AREA_UNDEAD:
@@ -2043,16 +2043,16 @@ public abstract class L2Skill
 						&& !target.isAlikeDead())
 				{
 					cha = target;
-					
+
 					if (onlyFirst == false)
 						targetList.add(cha); // Add target to target list
 					else
 						return new L2Character[] { cha };
-					
+
 				}
 				else
 					cha = activeChar;
-				
+
 				if (cha != null && cha.getKnownList() != null)
 					for (L2Object obj : cha.getKnownList().getKnownObjects().values())
 					{
@@ -2064,24 +2064,24 @@ public abstract class L2Skill
 							target = (L2SummonInstance) obj;
 						else
 							continue;
-						
+
 						if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(activeChar, target))
 							continue;
-						
+
 						if (!target.isAlikeDead()) // If target is not dead/fake death and not self
 						{
 							if (!target.isUndead())
 								continue;
 							if (!Util.checkIfInRange(radius, cha, obj, true)) // Go to next obj if obj isn't in range
 								continue;
-							
+
 							if (onlyFirst == false)
 								targetList.add((L2Character) obj); // Add obj to target lists
 							else
 								return new L2Character[] { (L2Character) obj };
 						}
 					}
-				
+
 				if (targetList.size() == 0)
 					return null;
 				return targetList.toArray(new L2Character[targetList.size()]);
@@ -2090,11 +2090,11 @@ public abstract class L2Skill
 			{
 				if (onlyFirst)
 					return new L2Character[] { activeChar };
-				
+
 				targetList.add(activeChar);
-				
+
 				L2PcInstance player = null;
-				
+
 				if (activeChar instanceof L2Summon)
 				{
 					player = ((L2Summon) activeChar).getOwner();
@@ -2106,24 +2106,24 @@ public abstract class L2Skill
 					if (activeChar.getPet() != null)
 						targetList.add(activeChar.getPet());
 				}
-				
+
 				if (activeChar.getParty() != null)
 				{
 					// Get all visible objects in a spheric area near the L2Character
 					// Get a list of Party Members
 					List<L2PcInstance> partyList = activeChar.getParty().getPartyMembers();
-					
+
 					for (L2PcInstance partyMember : partyList)
 					{
 						if (partyMember == null || partyMember == player)
 							continue;
 						if (player != null && player.isInDuel() && player.getDuelId() != partyMember.getDuelId())
 							continue;
-						
+
 						if (!partyMember.isDead() && Util.checkIfInRange(getSkillRadius(), activeChar, partyMember, true))
 						{
 							targetList.add(partyMember);
-							
+
 							if (partyMember.getPet() != null && !partyMember.getPet().isDead())
 							{
 								targetList.add(partyMember.getPet());
@@ -2182,10 +2182,10 @@ public abstract class L2Skill
 					int radius = getSkillRadius();
 					L2PcInstance player = (L2PcInstance) activeChar;
 					L2Clan clan = player.getClan();
-					
+
 					if (player.isInOlympiadMode())
 						return new L2Character[] { player };
-					
+
 					if (targetType != SkillTargetType.TARGET_CORPSE_ALLY)
 					{
 						if (onlyFirst == false)
@@ -2193,7 +2193,7 @@ public abstract class L2Skill
 						else
 							return new L2Character[] { player };
 					}
-					
+
 					if (clan != null)
 					{
 						// Get all visible objects in a spheric area near the L2Character
@@ -2221,19 +2221,19 @@ public abstract class L2Skill
 										continue;
 								}
 							}
-							
+
 							if (!Util.checkIfInRange(radius, activeChar, newTarget, true))
 								continue;
-							
+
 							// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
 							if (!player.checkPvpSkill(newTarget, this))
 								continue;
-							
+
 							if (onlyFirst == false)
 								targetList.add((L2Character) newTarget);
 							else
 								return new L2Character[] { (L2Character) newTarget };
-							
+
 						}
 					}
 				}
@@ -2244,22 +2244,22 @@ public abstract class L2Skill
 				// int charX, charY, charZ, targetX, targetY, targetZ, dx, dy, dz;
 				int radius = getSkillRadius();
 				L2Character newTarget;
-				
+
 				if (getCastRange() > -1 && target != null)
 				{
 					newTarget = target;
 				}
 				else
 					newTarget = activeChar;
-				
+
 				if (newTarget != activeChar || isSkillTypeOffensive())
 					targetList.add(newTarget);
-				
+
 				for (L2Character obj : activeChar.getKnownList().getKnownCharactersInRadius(radius))
 				{
 					if (obj == newTarget || obj == activeChar)
 						continue;
-					
+
 					if (obj instanceof L2Attackable)
 					{
 						if (!obj.isAlikeDead())
@@ -2267,14 +2267,14 @@ public abstract class L2Skill
 							// Don't add this target if this is a PC->PC pvp casting and pvp condition not met
 							if (activeChar instanceof L2PcInstance && !((L2PcInstance) activeChar).checkPvpSkill(obj, this))
 								continue;
-							
+
 							// check if both attacker and target are L2PcInstances and if they are in same party or clan
 							if ((activeChar instanceof L2PcInstance && obj instanceof L2PcInstance)
 									&& (((L2PcInstance) activeChar).getClanId() != ((L2PcInstance) obj).getClanId() || (((L2PcInstance) activeChar).getAllyId() != ((L2PcInstance) obj)
 											.getAllyId() && ((((L2PcInstance) activeChar).getParty() != null && ((L2PcInstance) obj).getParty() != null) && ((L2PcInstance) activeChar)
 											.getParty().getPartyLeaderOID() != ((L2PcInstance) obj).getParty().getPartyLeaderOID()))))
 								continue;
-							
+
 							targetList.add(obj);
 						}
 					}
@@ -2287,17 +2287,17 @@ public abstract class L2Skill
 				{
 					int radius = getSkillRadius();
 					L2PcInstance player = null;
-					if (activeChar instanceof L2Summon) 
+					if (activeChar instanceof L2Summon)
 						player = ((L2Summon)activeChar).getOwner();
 					else
 						player = (L2PcInstance) activeChar;
 					if (player == null) return null;
 
 					L2Clan clan = player.getClan();
-					
+
 					if (player.isInOlympiadMode())
 						return new L2Character[] { player };
-					
+
 					if (targetType != SkillTargetType.TARGET_CORPSE_CLAN)
 					{
 						if (onlyFirst == false)
@@ -2305,7 +2305,7 @@ public abstract class L2Skill
 						else
 							return new L2Character[] { player };
 					}
-					
+
 					if (clan != null)
 					{
 						// Get all visible objects in a spheric area near the L2Character
@@ -2313,10 +2313,10 @@ public abstract class L2Skill
 						for (L2ClanMember member : clan.getMembers())
 						{
 							L2PcInstance newTarget = member.getPlayerInstance();
-							
+
 							if (newTarget == null)
 								continue;
-							
+
 							if (targetType == SkillTargetType.TARGET_CORPSE_CLAN)
 							{
 								if (!newTarget.isDead())
@@ -2329,28 +2329,28 @@ public abstract class L2Skill
 										continue;
 								}
 							}
-							
+
 							if (player.isInDuel()
 									&& (player.getDuelId() != newTarget.getDuelId() || (player.getParty() != null && !player.getParty().getPartyMembers()
 											.contains(newTarget))))
 								continue;
-							
+
 							if (!Util.checkIfInRange(radius, activeChar, newTarget, true))
 								continue;
-							
+
 							// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
 							if (!player.checkPvpSkill(newTarget, this))
 								continue;
-							
+
 							if (onlyFirst == false)
 								targetList.add(newTarget);
 							else
 								return new L2Character[] { newTarget };
-							
+
 						}
 					}
 				}
-				
+
 				return targetList.toArray(new L2Character[targetList.size()]);
 			}
 			case TARGET_CORPSE_PLAYER:
@@ -2358,38 +2358,38 @@ public abstract class L2Skill
 				if (target != null && target.isDead())
 				{
 					L2PcInstance player = null;
-					
+
 					if (activeChar instanceof L2PcInstance)
 						player = (L2PcInstance) activeChar;
 					L2PcInstance targetPlayer = null;
-					
+
 					if (target instanceof L2PcInstance)
 						targetPlayer = (L2PcInstance) target;
 					L2PetInstance targetPet = null;
-					
+
 					if (target instanceof L2PetInstance)
 						targetPet = (L2PetInstance) target;
-					
+
 					if (player != null && (targetPlayer != null || targetPet != null))
 					{
 						boolean condGood = true;
-						
+
 						if (getSkillType() == SkillType.RESURRECT)
 						{
 							// check target is not in a active siege zone
 							Siege siege = null;
-							
+
 							if (targetPlayer != null)
 								siege = SiegeManager.getInstance().getSiege(targetPlayer);
 							else if (targetPet != null)
 								siege = SiegeManager.getInstance().getSiege(targetPet);
-							
+
 							if (siege != null && siege.getIsInProgress())
 							{
 								condGood = false;
 								player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_BE_RESURRECTED_DURING_SIEGE));
 							}
-							
+
 							if (targetPlayer != null)
 							{
 								if (targetPlayer.isReviveRequested())
@@ -2413,7 +2413,7 @@ public abstract class L2Skill
 								}
 							}
 						}
-						
+
 						if (condGood)
 						{
 							if (onlyFirst == false)
@@ -2423,7 +2423,7 @@ public abstract class L2Skill
 							}
 							else
 								return new L2Character[] { target };
-							
+
 						}
 					}
 				}
@@ -2437,7 +2437,7 @@ public abstract class L2Skill
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return null;
 				}
-				
+
 				if (onlyFirst == false)
 				{
 					targetList.add(target);
@@ -2445,7 +2445,7 @@ public abstract class L2Skill
 				}
 				else
 					return new L2Character[] { target };
-				
+
 			}
 			case TARGET_AREA_CORPSE_MOB:
 			{
@@ -2454,102 +2454,102 @@ public abstract class L2Skill
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return null;
 				}
-				
+
 				if (onlyFirst == false)
 					targetList.add(target);
 				else
 					return new L2Character[] { target };
-				
+
 				boolean srcInPvP = ZoneManager.getInstance().checkIfInZonePvP(activeChar);
-				
+
 				L2PcInstance src = null;
 				if (activeChar instanceof L2PcInstance)
 					src = (L2PcInstance) activeChar;
 				L2PcInstance trg = null;
-				
+
 				int radius = getSkillRadius();
 				if (activeChar.getKnownList() != null)
 					for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 					{
 						boolean targetInPvP = ZoneManager.getInstance().checkIfInZonePvP(obj) && !SiegeManager.getInstance().checkIfInZone(obj);
-						
+
 						if (obj == null)
 							continue;
 						if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance) || ((L2Character) obj).isDead()
 								|| ((L2Character) obj) == activeChar)
 							continue;
-						
+
 						if (!Util.checkIfInRange(radius, target, obj, true))
 							continue;
-						
+
 						if (!(target instanceof L2DoorInstance) && !GeoData.getInstance().canSeeTarget(activeChar, obj))
 							continue;
-						
+
 						if (src != null) // caster is l2playableinstance and exists
 						{
 							if (obj instanceof L2PcInstance)
 							{
 								trg = (L2PcInstance) obj;
-								
+
 								if ((src.getParty() != null && trg.getParty() != null)
 										&& src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
-								
+
 								if (trg.getInPeaceZone())
 									continue;
-								
+
 								if (!srcInPvP && !targetInPvP)
 								{
 									if (src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
 										continue;
-									
+
 									if (src.getClan() != null && trg.getClan() != null)
 									{
 										if (src.getClan().getClanId() == trg.getClan().getClanId())
 											continue;
 									}
-									
+
 									if (!src.checkPvpSkill(obj, this))
 										continue;
 								}
-								
+
 								if (ZoneManager.getInstance().checkIfInZonePeace(obj))
 									continue;
 							}
 							else if (obj instanceof L2Summon)
 							{
 								trg = ((L2Summon) obj).getOwner();
-								
+
 								if ((src.getParty() != null && trg.getParty() != null)
 										&& src.getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 									continue;
-								
+
 								if (trg.getInPeaceZone())
 									continue;
-								
+
 								if (!srcInPvP && !targetInPvP)
 								{
 									if (src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
 										continue;
-									
+
 									if (src.getClan() != null && trg.getClan() != null)
 									{
 										if (src.getClan().getClanId() == trg.getClan().getClanId())
 											continue;
 									}
-									
+
 									if (!src.checkPvpSkill(trg, this))
 										continue;
 								}
-								
+
 								if (ZoneManager.getInstance().checkIfInZonePeace(obj))
 									continue;
 							}
 						}
-						
+
 						targetList.add((L2Character) obj);
 					}
-				
+
 				if (targetList.size() == 0)
 					return null;
 				return targetList.toArray(new L2Character[targetList.size()]);
@@ -2561,7 +2561,7 @@ public abstract class L2Skill
 					// activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 					return null;
 				}
-				
+
 				if (onlyFirst == false)
 				{
 					targetList.add(target);
@@ -2569,7 +2569,7 @@ public abstract class L2Skill
 				}
 				else
 					return new L2Character[] { target };
-				
+
 			}
 			case TARGET_ITEM:
 			{
@@ -2609,13 +2609,13 @@ public abstract class L2Skill
 						if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
 							return new L2Character[] { (L2Character) obj };
 					}
-				
+
 				if (targetList.size() == 0)
 					return null;
 				return targetList.toArray(new L2Character[targetList.size()]);
 			}
 			case TARGET_RADIUS:
-				return net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().getTargetList(activeChar,this, onlyFirst);			
+				return net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().getTargetList(activeChar,this, onlyFirst);
 			default:
 			{
 				if (activeChar instanceof L2PcInstance || _log.isDebugEnabled()) // normally log only player skills errors
@@ -2624,7 +2624,7 @@ public abstract class L2Skill
 			}
 		}// end switch
 	}
-	
+
 	// [L2J_JP ADD SANDMAN START]
 	public final L2Object[] getAreaTargetList(L2Character activeChar)
 	{
@@ -2635,18 +2635,18 @@ public abstract class L2Skill
 		L2Clan tgClan;
 		L2Party acPt = activeChar.getParty();
 		int radius = getSkillRadius();
-		
+
 		if (getCastRange() <= 0 || (getTargetType() == SkillTargetType.TARGET_AURA))
 			target = activeChar;
 		else
 			target = activeChar.getTarget();
-		
+
 		if (target == null || !(target instanceof L2Character))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return null;
 		}
-		
+
 		if ((getTargetType() == SkillTargetType.TARGET_AREA) && (target.getObjectId() != activeChar.getObjectId()))
 		{
 			if (!((L2Character) target).isAlikeDead())
@@ -2657,7 +2657,7 @@ public abstract class L2Skill
 				return null;
 			}
 		}
-		
+
 		if (!(activeChar instanceof L2PlayableInstance))
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -2674,7 +2674,7 @@ public abstract class L2Skill
 				return null;
 			return targetList.toArray(new L2Character[targetList.size()]);
 		}
-		
+
 		if (activeChar instanceof L2PcInstance)
 			acClan = ((L2PcInstance) activeChar).getClan();
 		else if (activeChar instanceof L2Summon)
@@ -2684,18 +2684,18 @@ public abstract class L2Skill
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return null;
 		}
-		
+
 		if (SiegeManager.getInstance().checkIfInZone(activeChar))
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 			{
 				if (!(Util.checkIfInRange(radius, target, obj, true)))
 					continue;
-				
+
 				if (obj instanceof L2PcInstance)
 				{
 					tgClan = ((L2PcInstance) obj).getClan();
-					
+
 					if (acPt != null)
 					{
 						if (activeChar.getParty().getPartyMembers().contains(obj))
@@ -2719,7 +2719,7 @@ public abstract class L2Skill
 				{
 					tgOwner = ((L2Summon) obj).getOwner();
 					tgClan = tgOwner.getClan();
-					
+
 					if (acPt != null)
 					{
 						if (activeChar.getParty().getPartyMembers().contains(tgOwner))
@@ -2759,7 +2759,7 @@ public abstract class L2Skill
 			{
 				if (!(Util.checkIfInRange(radius, target, obj, true)))
 					continue;
-				
+
 				if (obj instanceof L2PcInstance)
 				{
 					if (acPt != null)
@@ -2775,7 +2775,7 @@ public abstract class L2Skill
 				else if (obj instanceof L2Summon)
 				{
 					tgOwner = ((L2Summon) obj).getOwner();
-					
+
 					if (acPt != null)
 					{
 						if (activeChar.getParty().getPartyMembers().contains(tgOwner))
@@ -2803,7 +2803,7 @@ public abstract class L2Skill
 			{
 				if (!(Util.checkIfInRange(radius, target, obj, true)))
 					continue;
-				
+
 				if (obj instanceof L2MonsterInstance)
 				{
 					if (!((L2Character) obj).isAlikeDead())
@@ -2811,16 +2811,16 @@ public abstract class L2Skill
 				}
 			}
 		}
-		
+
 		if (targetList.size() == 0)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return null;
 		}
-		
+
 		return targetList.toArray(new L2Character[targetList.size()]);
 	}
-	
+
 	public final L2Object[] getMultiFaceTargetList(L2Character activeChar)
 	{
 		List<L2Character> targetList = new FastList<L2Character>();
@@ -2831,21 +2831,21 @@ public abstract class L2Skill
 		L2Clan tgClan;
 		L2Party acPt = activeChar.getParty();
 		int radius = getSkillRadius();
-		
+
 		if (getCastRange() <= 0)
 			target = activeChar;
 		else
 			target = activeChar.getTarget();
 		FirstTarget = target;
-		
+
 		if (target == null || !(target instanceof L2Character))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return null;
 		}
-		
+
 		int newHeading = getNewHeadingToTarget(activeChar, (L2Character) target);
-		
+
 		if (target.getObjectId() != activeChar.getObjectId())
 		{
 			if (!((L2Character) target).isAlikeDead())
@@ -2856,7 +2856,7 @@ public abstract class L2Skill
 				return null;
 			}
 		}
-		
+
 		if (!(activeChar instanceof L2PlayableInstance))
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -2869,14 +2869,14 @@ public abstract class L2Skill
 						continue;
 					else if (!((L2Character) obj).isAlikeDead())
 						targetList.add((L2Character) obj);
-					
+
 				}
 			}
 			if (targetList.size() == 0)
 				return null;
 			return targetList.toArray(new L2Character[targetList.size()]);
 		}
-		
+
 		if (activeChar instanceof L2PcInstance)
 			acClan = ((L2PcInstance) activeChar).getClan();
 		else if (activeChar instanceof L2Summon)
@@ -2886,7 +2886,7 @@ public abstract class L2Skill
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return null;
 		}
-		
+
 		if (SiegeManager.getInstance().checkIfInZone(activeChar))
 		{
 			for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -2897,11 +2897,11 @@ public abstract class L2Skill
 					continue;
 				else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj))
 					continue;
-				
+
 				if (obj instanceof L2PcInstance)
 				{
 					tgClan = ((L2PcInstance) obj).getClan();
-					
+
 					if (acPt != null)
 					{
 						if (activeChar.getParty().getPartyMembers().contains(obj))
@@ -2925,7 +2925,7 @@ public abstract class L2Skill
 				{
 					tgOwner = ((L2Summon) obj).getOwner();
 					tgClan = tgOwner.getClan();
-					
+
 					if (acPt != null)
 					{
 						if (activeChar.getParty().getPartyMembers().contains(tgOwner))
@@ -2968,7 +2968,7 @@ public abstract class L2Skill
 					continue;
 				else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj))
 					continue;
-				
+
 				if (obj instanceof L2PcInstance)
 				{
 					if (acPt != null)
@@ -2984,7 +2984,7 @@ public abstract class L2Skill
 				else if (obj instanceof L2Summon)
 				{
 					tgOwner = ((L2Summon) obj).getOwner();
-					
+
 					if (acPt != null)
 					{
 						if (activeChar.getParty().getPartyMembers().contains(tgOwner))
@@ -3016,7 +3016,7 @@ public abstract class L2Skill
 					continue;
 				else if (isBehindFromCaster(newHeading, (L2Character) FirstTarget, (L2Character) obj))
 					continue;
-				
+
 				if (obj instanceof L2MonsterInstance)
 				{
 					if (!((L2Character) obj).isAlikeDead())
@@ -3024,101 +3024,101 @@ public abstract class L2Skill
 				}
 			}
 		}
-		
+
 		if (targetList.size() == 0)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
 			return null;
 		}
-		
+
 		return targetList.toArray(new L2Character[targetList.size()]);
 	}
-	
+
 	protected int getNewHeadingToTarget(L2Character caster, L2Character target)
 	{
 		if (caster == null || target == null)
 			return 0;
-		
+
 		double befHeading = Util.convertHeadingToDegree(caster.getHeading());
 		if (befHeading > 360)
 			befHeading -= 360;
-		
+
 		int dx = caster.getX() - target.getX();
 		int dy = caster.getY() - target.getY();
-		
+
 		double dist = Math.sqrt(dx * dx + dy * dy);
-		
+
 		if (dist == 0)
 			dist = 0.01;
-		
+
 		double sin = dy / dist;
 		double cos = dx / dist;
 		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
-		
+
 		return heading;
-		
+
 	}
-	
+
 	public boolean isBehindFromCaster(int heading, L2Character caster, L2Character target)
 	{
 		if (caster == null || target == null)
 			return true;
-		
+
 		double befHeading = Util.convertHeadingToDegree(heading);
 		if (befHeading > 360)
 			befHeading -= 360;
 		else if (befHeading < 0)
 			befHeading += 360;
-		
+
 		int dx = caster.getX() - target.getX();
 		int dy = caster.getY() - target.getY();
-		
+
 		double dist = Math.sqrt(dx * dx + dy * dy);
-		
+
 		if (dist == 0)
 			dist = 0.01;
-		
+
 		double sin = dy / dist;
 		double cos = dx / dist;
 		int newheading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
-		
+
 		double aftHeading = Util.convertHeadingToDegree(newheading);
 		if (aftHeading > 360)
 			aftHeading -= 360;
 		else if (aftHeading < 0)
 			aftHeading += 360;
-		
+
 		double diffHeading = Math.abs(aftHeading - befHeading);
 		if (diffHeading > 360)
 			diffHeading -= 360;
 		else if (diffHeading < 0)
 			diffHeading += 360;
-		
+
 		if ((diffHeading > 90) && (diffHeading < 270))
 			return true;
 		else
 			return false;
-		
+
 	}
-	
+
 	// [L2J_JP ADD SANDMAN END]
 	public final L2Object[] getTargetList(L2Character activeChar)
 	{
 		return getTargetList(activeChar, false);
 	}
-	
+
 	public final L2Object getFirstOfTargetList(L2Character activeChar)
 	{
 		L2Object[] targets;
-		
+
 		targets = getTargetList(activeChar, true);
-		
+
 		if (targets == null || targets.length == 0)
 			return null;
 		else
 			return targets[0];
 	}
-	
+
 	public final Func[] getStatFuncs(@SuppressWarnings("unused")
 	L2Effect effect, L2Character player)
 	{
@@ -3140,25 +3140,25 @@ public abstract class L2Skill
 			return _emptyFunctionSet;
 		return funcs.toArray(new Func[funcs.size()]);
 	}
-	
+
 	public boolean hasEffects()
 	{
 		return (_effectTemplates != null && _effectTemplates.length > 0);
 	}
-	
+
 	public final L2Effect[] getEffects(L2Character effector, L2Character effected)
 	{
 		if (isPassive())
 			return _emptyEffectSet;
-		
+
 		if (_effectTemplates == null)
 			return _emptyEffectSet;
-		
+
 		if ((effector != effected) && effected.isInvul())
 			return _emptyEffectSet;
-		
+
 		FastList<L2Effect> effects = new FastList<L2Effect>();
-		
+
 		for (EffectTemplate et : _effectTemplates)
 		{
 			Env env = new Env();
@@ -3169,23 +3169,23 @@ public abstract class L2Skill
 			if (e != null)
 				effects.add(e);
 		}
-		
+
 		if (effects.size() == 0)
 			return _emptyEffectSet;
-		
+
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
-	
+
 	public final L2Effect[] getEffectsSelf(L2Character effector)
 	{
 		if (isPassive())
 			return _emptyEffectSet;
-		
+
 		if (_effectTemplatesSelf == null)
 			return _emptyEffectSet;
-		
+
 		FastList<L2Effect> effects = new FastList<L2Effect>();
-		
+
 		for (EffectTemplate et : _effectTemplatesSelf)
 		{
 			Env env = new Env();
@@ -3223,10 +3223,10 @@ public abstract class L2Skill
 		}
 		if (effects.size() == 0)
 			return _emptyEffectSet;
-		
+
 		return effects.toArray(new L2Effect[effects.size()]);
 	}
-	
+
 	public final void attach(FuncTemplate f)
 	{
 		if (_funcTemplates == null)
@@ -3242,7 +3242,7 @@ public abstract class L2Skill
 			_funcTemplates = tmp;
 		}
 	}
-	
+
 	public final void attach(EffectTemplate effect)
 	{
 		if (_effectTemplates == null)
@@ -3258,7 +3258,7 @@ public abstract class L2Skill
 			_effectTemplates = tmp;
 		}
 	}
-	
+
 	public final void attachSelf(EffectTemplate effect)
 	{
 		if (_effectTemplatesSelf == null)
@@ -3274,7 +3274,7 @@ public abstract class L2Skill
 			_effectTemplatesSelf = tmp;
 		}
 	}
-	
+
 	public final void attach(Condition c, boolean itemOrWeapon)
 	{
 		if (itemOrWeapon)
@@ -3282,11 +3282,11 @@ public abstract class L2Skill
 		else
 			_preCondition = c;
 	}
-	
+
 	/**
      * Add the L2Skill skill to the list of skills generated by casting this skill
      * This is done <b>before</b> the SkillTable is made... Later we move it to a real skill
-     * Right now it's just pointing out that a skill needs to be triggered from this parent 
+     * Right now it's just pointing out that a skill needs to be triggered from this parent
      * skill.
      * @param skill : L2Skill
      */
@@ -3311,12 +3311,12 @@ public abstract class L2Skill
             _skillsOnCastLvl = tmpLvl;
         }
 	}
-	
+
 	/**
 	 * Function attaches the triggered skills to this skill on run time.
 	 * This is called upon once from SkillTable during server run time.
 	 * If the already parsed skill contains triggered skill data, it is now
-	 * attached. 
+	 * attached.
 	 */
 	public void attachOnCastFromSkillTable()
 	{
@@ -3328,7 +3328,7 @@ public abstract class L2Skill
         {
         	return;
         }
-        
+
         for (int x = 0 ; x < _skillsOnCastId.length ; x++)
         {
         	int skillId = _skillsOnCastId[x] ,
@@ -3336,11 +3336,11 @@ public abstract class L2Skill
         	L2Skill attachedSkill = SkillTable.getInstance().getInfo(skillId, level);
         	attachOnCast(attachedSkill);
         }
-        
+
         _skillsOnCastId  = null;
         _skillsOnCastLvl = null;
 	}
-	
+
 	/**
      * Add the L2Skill skill to the list of skills generated by casting this skill
      * @param skill : L2Skill
@@ -3362,15 +3362,15 @@ public abstract class L2Skill
             _skillsOnCast = tmp;
         }
     }
-	
-    
+
+
     private class TriggerSkill implements Runnable
     {
     	private Future _task = null;
     	private final int _count;
     	private final L2Character _target , _caster;
     	private final L2Skill _skill;
-    	
+
     	public TriggerSkill(L2Character caster , L2Character target , L2Skill skill , int times)
     	{
     		_caster = caster;
@@ -3378,19 +3378,19 @@ public abstract class L2Skill
     		_skill  = skill;
     		_count 	= times;
     	}
-    	
+
     	public void setTask(Future task)
     	{
     		_task = task;
     	}
-    	
+
     	public void run()
     	{
     		if (_task != null)
     		{
     			_task.cancel(true);
     		}
-    		
+
     		if (_count == 0 || _caster == null || _target == null)
     		{
     			return;
@@ -3409,12 +3409,12 @@ public abstract class L2Skill
     			if (((L2PcInstance)_target).isOnline()==0)
     				return;
     		}
-    		
+
     		TriggerSkill triggerSkill = new TriggerSkill(_caster , _target , _skill , _count-1);
     		_task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, triggerDuration/timesTriggered);
     		triggerSkill.setTask(_task);
     		_task = null;
-    		
+
     		if (_skill.getTargetType() == SkillTargetType.TARGET_RADIUS && _skill.isOffensive())
     		{
     			net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().checkRadiusDamageSkills(_caster , _skill);
@@ -3425,45 +3425,45 @@ public abstract class L2Skill
     		}
     	}
     }
-    
-    
+
+
     public void skillEffects(L2Character caster)
     {
     	if (_skillsOnCast == null)
     		return;
-    	
+
     	if (getId() == 455)
     	{
     		return;
     	}
-    	
+
         for (L2Skill skill : _skillsOnCast)
         {
         	net.sf.l2j.gameserver.model.L2Object targets[] = caster.getCastTargets(skill);
-        	
+
         	if (targets == null)
         		continue;
-        	
+
         	for (net.sf.l2j.gameserver.model.L2Object targetObject : targets)
         	{
             	if (!(targetObject instanceof L2Character))
             		continue;
-            	
+
             	L2Character target = (L2Character)targetObject;
-            	
+
         		if (timesTriggered == 1)
             	{
             		getEffectsOnce(caster , target, skill);
             		return;
             	}
-            	
-            	TriggerSkill triggerSkill = new TriggerSkill(caster , target , skill , timesTriggered-1); 
+
+            	TriggerSkill triggerSkill = new TriggerSkill(caster , target , skill , timesTriggered-1);
             	Future task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, triggerDuration/timesTriggered);
             	triggerSkill.setTask(task);
         	}
         }
     }
-    
+
     /**
      * Returns effects of skills associated with the item to be triggered onCast.
      * @param caster : L2Character pointing out the caster
@@ -3473,15 +3473,15 @@ public abstract class L2Skill
      */
     private void getEffectsOnce(L2Character caster, L2Character target, L2Skill skill)
     {
-        if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT)) 
+        if (target.isRaid() && (skill.getSkillType() == SkillType.CONFUSION || skill.getSkillType() == SkillType.MUTE || skill.getSkillType() == SkillType.PARALYZE || skill.getSkillType() == SkillType.ROOT))
             return; // These skills should not work on RaidBoss
 
         if (isToggle() && skill.getSkillType() == SkillType.BUFF)
             return; // No buffing with toggle skills
-        
+
         if (!skill.checkCondition(caster, target, true))
             return; // Skill condition not met
-        
+
         try
         {
             // Get the skill handler corresponding to the skill type
@@ -3489,11 +3489,11 @@ public abstract class L2Skill
 
             L2Character[] targets = new L2Character[1];
             targets[0] = target;
-            
+
             int hitTime = (skill.getHitTime()>1000)? skill.getHitTime() : 1000;
-            hitTime = (triggerDuration > 0) ? triggerDuration/timesTriggered : hitTime; 
+            hitTime = (triggerDuration > 0) ? triggerDuration/timesTriggered : hitTime;
             target.broadcastPacket(new MagicSkillUse(caster, target, skill.getId(), skill.getLevel(), hitTime, 0));
-            
+
             // Launch the magic skill and calculate its effects
             if (handler != null)
                 handler.useSkill(caster, skill, targets);
@@ -3511,11 +3511,11 @@ public abstract class L2Skill
         {
         }
     }
-    
+
     /**
      * Sets the number of times triggered skills will be called upon
      * Right now all the triggered skills will be called the same number of times
-     * @param times - int value, the number of times a skill is triggered  
+     * @param times - int value, the number of times a skill is triggered
      */
     public void setTriggeredTimes(int times)
     {
@@ -3527,19 +3527,19 @@ public abstract class L2Skill
     {
     	triggerDuration = time*1000;
     }
-	
+
 	@Override
 	public String toString()
 	{
 		return "" + _name + "[id=" + _id + ",lvl=" + _level + "]";
 	}
-	
+
 	/**
      * @return the skills that are triggered when <b>this</b> skill is cast
      */
     public L2Skill[] getTriggeredSkills()
     {
-    	return _skillsOnCast; 
+    	return _skillsOnCast;
     }
 
 }

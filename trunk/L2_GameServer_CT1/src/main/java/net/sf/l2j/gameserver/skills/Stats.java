@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -18,15 +18,15 @@ import java.util.NoSuchElementException;
 
 /**
  * Enum of basic stats.
- * 
+ *
  * @author mkizub
  */
-public enum Stats 
+public enum Stats
 {
     //
     // Base stats, for each in Calculator a slot is allocated
     //
-    
+
     // HP & MP
     MAX_HP              ("maxHp"),
     MAX_MP              ("maxMp"),
@@ -65,13 +65,13 @@ public enum Stats
     POWER_ATTACK_ANGLE  ("pAtkAngle"),
     ATTACK_COUNT_MAX    ("atkCountMax"),
     POLE_ATTACK_ANGLE   ("poleAngle"),
-    
+
     // Run speed,
     // walk & escape speed are calculated proportionally,
     // magic speed is a buff
     RUN_SPEED           ("runSpd"),
-    WALK_SPEED          ("walkSpd"), 
-    
+    WALK_SPEED          ("walkSpd"),
+
     //
     // Player-only stats
     //
@@ -84,7 +84,7 @@ public enum Stats
     //
     // Special stats, share one slot in Calculator
     //
-    
+
     // stats of various abilities
     BREATH      ("breath"),
     //
@@ -108,10 +108,10 @@ public enum Stats
     BLEED_VULN       ("bleedVuln"),
     POISON_VULN      ("poisonVuln"),
     STUN_VULN        ("stunVuln"),
-    PARALYZE_VULN    ("paralyzeVuln"), 
+    PARALYZE_VULN    ("paralyzeVuln"),
     ROOT_VULN        ("rootVuln"),
     SLEEP_VULN       ("sleepVuln"),
-    CONFUSION_VULN   ("confusionVuln"), 
+    CONFUSION_VULN   ("confusionVuln"),
     MOVEMENT_VULN    ("movementVuln"),
     FIRE_VULN        ("fireVuln"),
     WIND_VULN        ("windVuln"),
@@ -122,7 +122,8 @@ public enum Stats
     CANCEL_VULN      ("cancelVuln"), // Resistance for cancel type skills
     DERANGEMENT_VULN ("derangementVuln"),
     DEBUFF_VULN      ("debuffVuln"),
-    
+    FALL_VULN        ("fallVuln"),
+
     NONE_WPN_VULN     ("noneWpnVuln"), // Shields!!!
     SWORD_WPN_VULN    ("swordWpnVuln"),
     BLUNT_WPN_VULN    ("bluntWpnVuln"),
@@ -134,7 +135,7 @@ public enum Stats
     FIST_WPN_VULN     ("fistWpnVuln"),
     DUAL_WPN_VULN     ("dualWpnVuln"),
     DUALFIST_WPN_VULN ("dualFistWpnVuln"),
-    
+
     REFLECT_DAMAGE_PERCENT  ("reflectDam"),
     REFLECT_SKILL_MAGIC     ("reflectSkillMagic"),
     REFLECT_SKILL_PHYSIC    ("reflectSkillPhysic"),
@@ -144,9 +145,9 @@ public enum Stats
     ABSORB_CP_PERCENT       ("absorbCpPercent"),
     EVADE_MELEE_SKILL		("evadeMeleeSkill"),
     CANCEL_ATTACKER_TARGET  ("cancelAttackerTarget"),
-    
+
     MAX_LOAD        ("maxLoad"),
-    
+
     PATK_PLANTS     ("pAtk-plants"),
     PATK_INSECTS    ("pAtk-insects"),
     PATK_ANIMALS    ("pAtk-animals"),
@@ -155,7 +156,7 @@ public enum Stats
     PATK_GIANTS     ("pAtk-giants"),
     PATK_UNDEAD     ("pAtk-undead"),
     PDEF_UNDEAD     ("pDef-undead"),
-    
+
     PATK_VALAKAS    ("pAtk-valakas"),
     PDEF_VALAKAS    ("pDef-valakas"),
 
@@ -172,7 +173,7 @@ public enum Stats
     P_BUY_LIM       ("PrivateBuyLimit"),
     REC_D_LIM       ("DwarfRecipeLimit"),
     REC_C_LIM       ("CommonRecipeLimit"),
-    
+
     //C4 Stats
     PHYSICAL_CONSUME_RATE  ("PhysicalMpConsumeRate"),
     MAGIC_CONSUME_RATE     ("MagicalMpConsumeRate"),
@@ -180,18 +181,18 @@ public enum Stats
     HP_CONSUME_RATE        ("HpConsumeRate"),
     MP_CONSUME             ("MpConsume"),
     SOULSHOT_COUNT         ("soulShotCount"),
-    
+
     BLOCK_RECEIVE_DAMAGE   ("block_receive;damage"),
     BLOCK_RECEIVE_BUFF     ("block_receive;buff"),
     BLOCK_RECEIVE_DEBUFF   ("block_receive;debuff"),
-    
+
     transformId            ("transformId")
     ;
-    
-    public static final int NUM_STATS = values().length; 
+
+    public static final int NUM_STATS = values().length;
 
     private String _value;
-   
+
     public String getValue()
     {
         return _value;
