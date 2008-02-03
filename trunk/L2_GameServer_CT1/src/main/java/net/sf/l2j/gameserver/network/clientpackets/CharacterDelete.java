@@ -18,6 +18,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.CharDeleteFail;
 import net.sf.l2j.gameserver.network.serverpackets.CharDeleteSuccess;
+import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -35,25 +36,24 @@ public class CharacterDelete extends L2GameClientPacket
 	// cd
 	private int _charSlot;
 
-    @Override
-    protected void readImpl()
-    {
-        _charSlot = readD();
-    }
+	@Override
+	protected void readImpl()
+	{
+		_charSlot = readD();
+	}
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void runImpl()
 	{
 		if (_log.isDebugEnabled()) _log.debug("deleting slot:" + _charSlot);
 
 		L2PcInstance character = null;
 		try
 		{
-		    if (Config.DELETE_DAYS == 0)
-		    	character = getClient().deleteChar(_charSlot);
-		    else
-		    	character = getClient().markToDeleteChar(_charSlot);
-		    
+			if (Config.DELETE_DAYS == 0)
+				character = getClient().deleteChar(_charSlot);
+			else
+				character = getClient().markToDeleteChar(_charSlot);
 		}
 		catch (Exception e)
 		{
@@ -73,7 +73,12 @@ public class CharacterDelete extends L2GameClientPacket
 			{
 				sendPacket(new CharDeleteFail(CharDeleteFail.REASON_YOU_MAY_NOT_DELETE_CLAN_MEMBER));
 			}
+			character.deleteMe();
 		}
+
+		CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1, 0);
+		sendPacket(cl);
+		getClient().setCharSelection(cl.getCharInfo());
 	}
 
 	/* (non-Javadoc)

@@ -355,7 +355,7 @@ public class CursedWeaponsManager
 
         for (CursedWeapon cw : _cursedWeapons.values())
         {
-        	if (cw.isActivated() && player.getObjectId() == cw.getPlayerId())
+            if (cw.isActivated() && player.getObjectId() == cw.getPlayerId())
             {
                 cw.setPlayer(player);
                 cw.setItem(player.getInventory().getItemByItemId(cw.getItemId()));

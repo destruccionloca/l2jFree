@@ -219,6 +219,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		if (character.getClanId() != 0)
 			return character;
 
+		character.deleteMe();
+
 		java.sql.Connection con = null;
 		try
 		{
@@ -264,6 +266,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		L2PcInstance character = L2PcInstance.load(objid);
 		if (character.getClanId() != 0)
 			return character;
+		character.deleteMe();
 
 		deleteCharByObjId(objid);
 		return null;

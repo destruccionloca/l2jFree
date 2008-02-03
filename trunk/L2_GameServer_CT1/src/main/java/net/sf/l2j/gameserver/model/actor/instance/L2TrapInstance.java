@@ -116,7 +116,7 @@ public final class L2TrapInstance extends L2NpcInstance
 		_caster 		= caster;
 		_shotSkill		= SkillTable.getInstance().getInfo(skill.getTriggeredSkill().getId(), skill.getLevel());
 		_radius 		= skill.getSkillRadius();
-		_activityTime	= System.currentTimeMillis() + ((skill.getTrapDuration() > 0) ? skill.getTrapDuration() : 60000 );
+		_activityTime	= System.currentTimeMillis() + ((skill.getDuration() > 0) ? skill.getDuration() : 60000 );
 		_trapLevel		= _caster.getLevel();
 
 		if (!onSpawn(caster.getX() , caster.getY() , caster.getZ()))

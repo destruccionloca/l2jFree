@@ -43,7 +43,7 @@ public class Transformation implements ISkillHandler
                 continue;
             
             int transformId = skill.getTransformId();
-            int duration = skill.getTransformDuration();
+            int duration = skill.getDuration();
             
             if (duration < -1)
                 duration = -1;

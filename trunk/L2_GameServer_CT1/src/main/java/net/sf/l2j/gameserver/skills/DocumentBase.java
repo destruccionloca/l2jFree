@@ -260,7 +260,7 @@ abstract class DocumentBase
         		((L2Skill) template).setTriggeredTimes(Integer.decode(getValue(attrs.getNamedItem("trigger").getNodeValue(), template)));
         		if (attrs.getNamedItem("time") != null)
         		{
-        			((L2Skill) template).setTriggeredDuration(Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template)));
+        			((L2Skill) template).setDuration(Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template)) * 1000);
         		}
         	}
         	return;

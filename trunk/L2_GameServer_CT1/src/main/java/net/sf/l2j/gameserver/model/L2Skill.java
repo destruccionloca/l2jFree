@@ -358,7 +358,8 @@ public abstract class L2Skill
 
 	//Stats for transformation skills
 	private final int				_transformId;
-	private final int				_transformDuration;
+
+	private int						_duration;
 
 	private final int				_baseCritRate;								// percent of success for skill critical hit (especially for PDAM & BLOW -
 																				// they're not affected by rCrit values or buffs). Default loads -1 for all
@@ -393,8 +394,7 @@ public abstract class L2Skill
     protected L2Skill[] _skillsOnCast;
     protected int[]		_skillsOnCastId,
     					_skillsOnCastLvl;
-    protected int 		timesTriggered = 1,
-    					triggerDuration;
+    protected int 		timesTriggered = 1;
 
 	protected L2Skill(StatsSet set)
 	{
@@ -498,7 +498,8 @@ public abstract class L2Skill
 
 		// Stats for transformation Skill
 		_transformId = set.getInteger("transformId", 0);
-		_transformDuration = set.getInteger("transformDuration", 0);
+
+		_duration = set.getInteger("duration", 0);
 
 		_baseCritRate = set.getInteger("baseCritRate", (_skillType == SkillType.PDAM || _skillType == SkillType.BLOW) ? 0 : -1);
 		_lethalEffect1 = set.getInteger("lethal1", 0);
@@ -1146,9 +1147,14 @@ public abstract class L2Skill
 		return _transformId;
 	}
 
-	public final int getTransformDuration()
+	public final int getDuration()
 	{
-		return _transformDuration;
+		return _duration;
+	}
+
+	public final void setDuration(int dur)
+	{
+		_duration = dur;
 	}
 
 	public final static boolean skillLevelExists(int skillId, int level)
@@ -3411,7 +3417,7 @@ public abstract class L2Skill
     		}
 
     		TriggerSkill triggerSkill = new TriggerSkill(_caster , _target , _skill , _count-1);
-    		_task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, triggerDuration/timesTriggered);
+    		_task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, _duration/timesTriggered);
     		triggerSkill.setTask(_task);
     		_task = null;
 
@@ -3458,7 +3464,7 @@ public abstract class L2Skill
             	}
 
             	TriggerSkill triggerSkill = new TriggerSkill(caster , target , skill , timesTriggered-1);
-            	Future task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, triggerDuration/timesTriggered);
+            	Future task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, _duration / timesTriggered);
             	triggerSkill.setTask(task);
         	}
         }
@@ -3491,7 +3497,7 @@ public abstract class L2Skill
             targets[0] = target;
 
             int hitTime = (skill.getHitTime()>1000)? skill.getHitTime() : 1000;
-            hitTime = (triggerDuration > 0) ? triggerDuration/timesTriggered : hitTime;
+            hitTime = (_duration > 0) ? _duration / timesTriggered : hitTime;
             target.broadcastPacket(new MagicSkillUse(caster, target, skill.getId(), skill.getLevel(), hitTime, 0));
 
             // Launch the magic skill and calculate its effects
@@ -3523,11 +3529,6 @@ public abstract class L2Skill
     	timesTriggered = (timesTriggered > 0) ? timesTriggered : 1;
     }
 
-    public void setTriggeredDuration(int time)
-    {
-    	triggerDuration = time*1000;
-    }
-
 	@Override
 	public String toString()
 	{
@@ -3541,5 +3542,4 @@ public abstract class L2Skill
     {
     	return _skillsOnCast;
     }
-
 }

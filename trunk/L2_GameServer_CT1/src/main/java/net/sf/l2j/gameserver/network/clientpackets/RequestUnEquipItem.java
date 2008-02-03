@@ -112,9 +112,6 @@ public class RequestUnEquipItem extends L2GameClientPacket
 				sm.addItemName(unequiped[0]);
 			}
 			activeChar.sendPacket(sm);
-			sm = null;
-			if(unequiped[0].isAugmented())
-				unequiped[0].getAugmentation().removeBoni(activeChar);
 		}
 	}
 

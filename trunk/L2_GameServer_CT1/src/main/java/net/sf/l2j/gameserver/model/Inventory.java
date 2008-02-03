@@ -209,7 +209,7 @@ public abstract class Inventory extends ItemContainer
 		}
 	}
 	
-	final class ItemPassiveSkillsListener implements PaperdollListener
+	final class ItemSkillsListener implements PaperdollListener
 	{
 		public void notifyUnequiped(int slot, L2ItemInstance item)
 		{
@@ -229,6 +229,10 @@ public abstract class Inventory extends ItemContainer
 			
 			if (it instanceof L2Weapon)
 			{
+				// Remove augmentation bonuses on unequip
+				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
+					item.getAugmentation().removeBonus((L2PcInstance)getOwner());
+
 				passiveSkill = ((L2Weapon) it).getSkill();
 				enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
 				if (it.getItemId() == 9140 || it.getItemId() == 9141)
@@ -252,8 +256,6 @@ public abstract class Inventory extends ItemContainer
 				player.removeSkill(enchant4Skill, false);
 				player.sendSkillList();
 			}
-			if (item.isAugmented())
-				item.getAugmentation().removeBoni(player);
 		}
 		
 		public void notifyEquiped(int slot, L2ItemInstance item)
@@ -274,6 +276,10 @@ public abstract class Inventory extends ItemContainer
 
 			if (it instanceof L2Weapon)
 			{
+				// Apply augmentation bonuses on equip
+				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
+					item.getAugmentation().applyBonus((L2PcInstance)getOwner());
+
 				passiveSkill = ((L2Weapon) it).getSkill();
 				
 				if (item.getEnchantLevel() >= 4)
@@ -300,8 +306,6 @@ public abstract class Inventory extends ItemContainer
 				player.addSkill(enchant4Skill, false);
 				player.sendSkillList();
 			}
-			if (item.isAugmented())
-				item.getAugmentation().applyBoni(player);
 		}
 	}
 	
@@ -502,7 +506,7 @@ public abstract class Inventory extends ItemContainer
 		_paperdollListeners = new FastList<PaperdollListener>();
 		addPaperdollListener(new AmmunationListener());
 		addPaperdollListener(new StatsListener());
-		addPaperdollListener(new ItemPassiveSkillsListener());
+		addPaperdollListener(new ItemSkillsListener());
 		addPaperdollListener(new ArmorSetListener());
 		addPaperdollListener(new FormalWearListener());
 	}
@@ -1455,7 +1459,7 @@ public abstract class Inventory extends ItemContainer
 						item.setLocation(ItemLocation.INVENTORY);
 				}
 				
-				L2World.getInstance().forceObject(item);
+				L2World.getInstance().storeObject(item);
 				
 				// If stackable item is found in inventory just add to current quantity
 				if (item.isStackable() && getItemByItemId(item.getItemId()) != null)

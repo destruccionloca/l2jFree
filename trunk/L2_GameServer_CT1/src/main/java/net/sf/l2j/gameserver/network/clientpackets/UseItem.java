@@ -355,18 +355,12 @@ public class UseItem extends L2GameClientPacket
 						sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
 						sm.addItemName(item);
 					}
-					if(ae.isAugmented())
-						ae.getAugmentation().removeBoni(activeChar);
-					activeChar.getInventory().equipItemAndRecord(item);
-					if(item.isAugmented())
-						item.getAugmentation().applyBoni(activeChar);
 					activeChar.sendPacket(sm);
+					activeChar.getInventory().equipItemAndRecord(item);
 				}
 				else
 				{
 					activeChar.getInventory().equipItemAndRecord(item);
-					if(item.isAugmented())
-						item.getAugmentation().applyBoni(activeChar);
 				}
 			}
 			else
@@ -423,10 +417,10 @@ public class UseItem extends L2GameClientPacket
 			else
 			{
 				// because of complicated jewels problem i'm forced to resend the item list :(
-				activeChar.sendPacket(new ItemList(activeChar, true));
 				activeChar.sendPacket(new UserInfo(activeChar));
+				activeChar.sendPacket(new ItemList(activeChar, false));
 			}
-			activeChar.sendPacket(new ItemList(activeChar, false));
+			//activeChar.sendPacket(new ItemList(activeChar, false));
 		}
 		else
 		{
