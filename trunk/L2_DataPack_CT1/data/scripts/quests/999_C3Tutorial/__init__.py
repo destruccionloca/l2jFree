@@ -106,7 +106,7 @@ class Quest (JQuest) :
    if not st : return htmltext
    npcId = npc.getNpcId()
    id = st.getState()
-   cond=st.getInt("step")
+   step=st.getInt("step")
    onlyone=st.getInt("onlyone")
    level=player.getLevel()
    isMage = player.getClassId().isMage()
