@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Decoy;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.knownlist.DecoyKnownList;
+import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -69,6 +70,7 @@ public class L2DecoyInstance extends L2Decoy
             _HateSpam = null;
         }
         _totalLifeTime = 0;
+        DecayTaskManager.getInstance().addDecayTask(this);
         return true;
     }
     
