@@ -714,7 +714,6 @@
   <set name="power" val="240"/>
   <set name="target" val="TARGET_RADIUS"/>
   <set name="skillRadius" val="230"/>
-  <set name="skillTime" val="0"/>
   <set name="skillType" val="DEBUFF"/>
   <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>

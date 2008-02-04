@@ -1216,7 +1216,7 @@
       Allows you to escape from a captured state.
 -->
   <set name="mpConsume" val="60"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="hitTime" val="4000"/>
   <set name="reuseDelay" val="120000"/> <!-- guessed -->
   <set name="skillType" val="NEGATE"/>

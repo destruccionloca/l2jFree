@@ -1,6 +1,6 @@
 DELETE FROM `teleport` WHERE `id` >= '50001' AND `id` <= '50174';
 
-INSERT INTO `teleport` VALUES 
+INSERT INTO `teleport` VALUES
 ('Dark Elven Village', 50001, 9745, 15606, -4574, 15000, 0),
 ('Dwarven Village', 50002, 115113, -178212, -901, 15000, 0),
 ('Elven Village', 50003, 46934, 51467, -2977, 15000, 0),
@@ -128,7 +128,7 @@ INSERT INTO `teleport` VALUES
 ('TOI - 8th Floor', 50125, 111063, 16118, 3967, 15000, 0),
 ('TOI - 9th Floor', 50126, 117147, 18415, 4977, 15000, 0),
 ('TOI - 10th Floor', 50127, 118374, 15973, 5987, 15000, 0),
-('TOI - 11th Floor', 50128, 112209, 16078, 7028, 15000, 0),
+('TOI - 11th Floor', 50128, 112716, 14150, 6997, 15000, 0),
 ('TOI - 12th Floor', 50129, 114809, 18711, 7996, 15000, 0),
 ('TOI - 13th Floor', 50130, 115178, 16989, 9007, 15000, 0),
 ('TOI - 14th Floor Outside Door', 50131, 112714, 14111, 10077, 15000, 0),
