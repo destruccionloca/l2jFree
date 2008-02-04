@@ -92,6 +92,7 @@ import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2ClanMember;
+import net.sf.l2j.gameserver.model.L2Decoy;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2Fishing;
 import net.sf.l2j.gameserver.model.L2FriendList;
@@ -484,9 +485,11 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** The L2Summon of the L2PcInstance */
     private L2Summon _summon = null;
-	// apparently, a L2PcInstance CAN have both a summon AND a tamed beast at the same time!!
-	private L2TamedBeastInstance _tamedBeast = null;
-	
+    /** The L2Decoy of the L2PcInstance */
+    private L2Decoy _decoy = null;
+    // apparently, a L2PcInstance CAN have both a summon AND a tamed beast at the same time!!
+    private L2TamedBeastInstance _tamedBeast = null;
+
     // client radar
     private L2Radar _radar;
 
@@ -5070,11 +5073,27 @@ public final class L2PcInstance extends L2PlayableInstance
     }
 
     /**
+     * Return the L2Decoy of the L2PcInstance or null.<BR><BR>
+     */
+    public L2Decoy getDecoy()
+    {
+        return _decoy;
+    }
+
+    /**
      * Set the L2Summon of the L2PcInstance.<BR><BR>
      */
     public void setPet(L2Summon summon)
     {
         _summon = summon;
+    }
+
+    /**
+     * Set the L2Decoy of the L2PcInstance.<BR><BR>
+     */
+    public void setDecoy(L2Decoy decoy)
+    {
+        _decoy = decoy;
     }
 
 	/**
@@ -5850,9 +5869,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void setIsIn7sDungeon(boolean isIn7sDungeon)
     {
-        if (_isIn7sDungeon != isIn7sDungeon) _isIn7sDungeon = isIn7sDungeon;
-
-        updateIsIn7sDungeonStatus();
+        _isIn7sDungeon = isIn7sDungeon;
     }
 
     /**
@@ -5905,36 +5922,6 @@ public final class L2PcInstance extends L2PlayableInstance
         catch (Exception e)
         {
             _log.warn("could not set char online status:" + e);
-        }
-        finally
-        {
-            try
-            {
-                con.close();
-            }
-            catch (Exception e)
-            {
-            }
-        }
-    }
-
-    public void updateIsIn7sDungeonStatus()
-    {
-        java.sql.Connection con = null;
-
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("UPDATE characters SET isIn7sDungeon=?, lastAccess=? WHERE obj_id=?");
-            statement.setInt(1, isIn7sDungeon() ? 1 : 0);
-            statement.setLong(2, System.currentTimeMillis());
-            statement.setInt(3, getObjectId());
-            statement.execute();
-            statement.close();
-        }
-        catch (Exception e)
-        {
-            _log.warn("could not set char isIn7sDungeon status:" + e);
         }
         finally
         {
@@ -6137,8 +6124,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 }
                 else player._activeClass = activeClassId;
 
-                player.setIsIn7sDungeon((rset.getInt("isin7sdungeon") == 1) ? true : false);
-                player.setInJail((rset.getInt("in_jail") == 1) ? true : false);
+                player.setIsIn7sDungeon(rset.getInt("isin7sdungeon") == 1);
+                player.setInJail(rset.getInt("in_jail") == 1);
                 player.setJailTimer(rset.getLong("jail_timer"));
                 player.setBanChatTimer(rset.getLong("banchat_timer"));
                 if(player.getBanChatTimer() > 0) player.setChatBanned(true);
@@ -6596,6 +6583,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             int buff_index = 0;
 
+            statement = con.prepareStatement(ADD_SKILL_SAVE);
             // Store all effect data along with calulated remaining
             // reuse delays for matching skills. 'restore_type'= 0.
             for (L2Effect effect : getAllEffects())
@@ -6608,7 +6596,6 @@ public final class L2PcInstance extends L2PlayableInstance
                     int skillId = effect.getSkill().getId();
                     buff_index++;
                     
-                    statement = con.prepareStatement(ADD_SKILL_SAVE);
                     statement.setInt(1, getObjectId());
                     statement.setInt(2, skillId);
                     statement.setInt(3, effect.getSkill().getLevel());
@@ -6618,7 +6605,8 @@ public final class L2PcInstance extends L2PlayableInstance
                     {
                         TimeStamp t = _reuseTimeStamps.remove(skillId);
                         statement.setLong(6, t.hasNotPassed() ? t.getReuse() : 0 );
-                    } else
+                    }
+                    else
                     {
                         statement.setLong(6, 0);
                     }
@@ -6626,7 +6614,6 @@ public final class L2PcInstance extends L2PlayableInstance
                     statement.setInt(8, getClassIndex());
                     statement.setInt(9, buff_index);
                     statement.execute();
-                    statement.close();
                 }
             }
             // Store the reuse delays of remaining skills which
@@ -6636,7 +6623,6 @@ public final class L2PcInstance extends L2PlayableInstance
                 if (t.hasNotPassed())
                 {
                     buff_index++;
-                    statement = con.prepareStatement(ADD_SKILL_SAVE);
                     statement.setInt (1, getObjectId());
                     statement.setInt (2, t.getSkill());
                     statement.setInt (3, -1);
@@ -6647,10 +6633,10 @@ public final class L2PcInstance extends L2PlayableInstance
                     statement.setInt (8, getClassIndex());
                     statement.setInt(9, buff_index);
                     statement.execute();
-                    statement.close();
                 }
             }
             _reuseTimeStamps.clear();
+            statement.close();
         }
         catch (Exception e)
         {

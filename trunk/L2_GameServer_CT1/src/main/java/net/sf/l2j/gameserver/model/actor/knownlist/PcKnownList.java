@@ -17,10 +17,12 @@ package net.sf.l2j.gameserver.model.actor.knownlist;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Decoy;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2DecoyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -125,6 +127,10 @@ public class PcKnownList extends PlayableKnownList
             {
                 getActiveChar().sendPacket(new StaticObject((L2StaticObjectInstance) object));
             }
+            else if (object instanceof L2Decoy || object instanceof L2DecoyInstance)
+            {
+                getActiveChar().sendPacket(new NpcInfo((L2Decoy) object));
+            }
             else if (object instanceof L2NpcInstance)
             {
                 if (Config.TEST_KNOWNLIST && getActiveChar().isGM()) getActiveChar().sendMessage("Knownlist, added NPC: "+((L2NpcInstance) object).getName());
@@ -214,7 +220,7 @@ public class PcKnownList extends PlayableKnownList
                 	getActiveChar().sendPacket(new RecipeShopMsg(otherPlayer));
             }
 
-            if (object instanceof L2Character)
+            if (object instanceof L2Character || object instanceof L2Decoy || object instanceof L2DecoyInstance)
             {
                 // Update the state of the L2Character object client side by sending Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance
                 L2Character obj = (L2Character) object;

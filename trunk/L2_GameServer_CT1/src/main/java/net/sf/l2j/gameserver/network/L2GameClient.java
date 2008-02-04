@@ -88,6 +88,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	// Flood protection
 	public byte packetsSentInSec = 0;
 	public int packetsSentStartTick = 0;
+	public byte packetsReceivedInSec = 0;
+	public int packetsReceivedStartTick = 0;
 
 	private boolean _disconnected;
 

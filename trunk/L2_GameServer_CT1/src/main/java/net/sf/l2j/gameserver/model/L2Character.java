@@ -1601,13 +1601,20 @@ public abstract class L2Character extends L2Object
 				((L2Summon) this).getOwner().rechargeAutoSoulShot(false, true, true);
 		}
 
+		// Set the target of the skill in function of Skill Type and Target Type
+		L2Character target = null;
+
 		// Get all possible targets of the skill in a table in function of the skill target type
 		L2Object[] targets = skill.getTargetList(this);
 
-		if (targets == null || targets.length == 0)
+		if ((targets == null || targets.length == 0)  && skill.getTargetType() != SkillTargetType.TARGET_AURA)
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			return;
+		}
+		else if ((targets == null || targets.length == 0)  && skill.getTargetType() == SkillTargetType.TARGET_AURA)
+		{
+			target = this;
 		}
 
 		if (this instanceof L2TrapInstance) // Can a trap damage the caster?
@@ -1634,8 +1641,6 @@ public abstract class L2Character extends L2Object
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			return;
 		}
-		// Set the target of the skill in function of Skill Type and Target Type
-		L2Character target = null;
 
 		if (skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.COMBATPOINTHEAL
 				|| skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.REFLECT || skill.getSkillType() == SkillType.SEED
