@@ -204,7 +204,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="skillRadius" val="400"/>
   <set name="castRange" val="-1"/>
-  <set name="soulConsumeCount" val="1"/>
   <set name="skill_landing_percent" val="100"/> <!-- Guessing -->
   <for>
   </for>
