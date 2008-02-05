@@ -123,9 +123,9 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
             if (player.getExp() >= requiredExp)
             {
                 // only first lvl requires book
-                boolean usesBook = _skillLvl % 100 == 1; // 101, 201, 301 ...
+                //boolean usesBook = _skillLvl % 100 == 1; // 101, 201, 301 ...
                 L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
-                if (Config.ES_SP_BOOK_NEEDED && usesBook) 
+                if (Config.ES_SP_BOOK_NEEDED) 
                 {
                     if (spb == null)// Haven't spellbook
                     {
@@ -136,7 +136,7 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
                 
                 boolean check;
                 check = player.getStat().removeExpAndSp(requiredExp, requiredSp);
-                if (Config.ES_SP_BOOK_NEEDED && usesBook)
+                if (Config.ES_SP_BOOK_NEEDED)
                 {
                     check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
                 }
