@@ -27,13 +27,13 @@ public class GrailApostle extends L2Transformation
 		// Retail Like 30 min - Skatershi
 		super(201, 1800, 8.0, 35.0);
 	}
-	
+
 	public void onTransform()
 	{
 		// Disable all character skills.
 		for (L2Skill sk : this.getPlayer().getAllSkills())
 		{
-			if (sk != null)
+			if (sk != null && !sk.isPassive())
 				this.getPlayer().removeSkill(sk, false);
 		}
 		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
@@ -77,14 +77,14 @@ public class GrailApostle extends L2Transformation
 		// Enable all character skills
 		for (L2Skill sk : this.getPlayer().getAllSkills())
 		{
-			if (sk != null)
+			if (sk != null && !sk.isPassive())
 				this.getPlayer().addSkill(sk, false);
 		}
 		// Only remove transformation skills. Keeps transformation id for restoration after CW is no longer equipped.
 		if (this.getPlayer().isCursedWeaponEquipped())
 		{
 			removeSkills();
-				return;
+			return;
 		}
 		// Remove transformation skills
 		removeSkills();

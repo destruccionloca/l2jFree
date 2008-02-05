@@ -33,7 +33,7 @@ public class InfernoDrake extends L2Transformation
 		// Disable all character skills.
 		for (L2Skill sk : this.getPlayer().getAllSkills())
 		{
-			if (sk != null)
+			if (sk != null && !sk.isPassive())
 				this.getPlayer().removeSkill(sk, false);
 		}
 		if (this.getPlayer().transformId() > 0 && !this.getPlayer().isCursedWeaponEquipped())
@@ -63,20 +63,20 @@ public class InfernoDrake extends L2Transformation
 		// Send a Server->Client packet StatusUpdate to the L2PcInstance.
 		this.getPlayer().sendSkillList();
 	}
-	
+
 	public void onUntransform()
 	{
 		// Enable all character skills
 		for (L2Skill sk : this.getPlayer().getAllSkills())
 		{
-			if (sk != null)
+			if (sk != null && !sk.isPassive())
 				this.getPlayer().addSkill(sk, false);
 		}
 		// Only remove transformation skills. Keeps transformation id for restoration after CW is no longer equipped.
 		if (this.getPlayer().isCursedWeaponEquipped())
 		{
 			removeSkills();
-				return;
+			return;
 		}
 		// Remove transformation skills
 		removeSkills();

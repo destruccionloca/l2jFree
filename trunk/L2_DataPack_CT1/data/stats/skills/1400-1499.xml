@@ -144,7 +144,7 @@
   <!-- Summon-specific -->
   <table name="#npcIds"> 14836 </table>
   <set name="npcId" val="#npcIds"/>
-  <set name="expPenalty" val="0.1"/>
+  <set name="expPenalty" val="0.0"/>
   <set name="isCubic" val="false"/>
   <for>
   </for>
@@ -182,7 +182,7 @@
   <!-- Summon-specific -->
   <table name="#npcIds"> 14837 </table>
   <set name="npcId" val="#npcIds"/>
-  <set name="expPenalty" val="0.1"/>
+  <set name="expPenalty" val="0.0"/>
   <set name="isCubic" val="false"/>
   <for>
   </for>
@@ -220,7 +220,7 @@
   <!-- Summon-specific -->
   <table name="#npcIds"> 14838 </table>
   <set name="npcId" val="#npcIds"/>
-  <set name="expPenalty" val="0.1"/>
+  <set name="expPenalty" val="0.0"/>
   <set name="isCubic" val="false"/>
   <for>
   </for>
@@ -494,7 +494,7 @@
   </cond>
   <for>
      <skill trigger="15" id="5130" lvl="1" time="16"/>
-     <effect count="1" name="ImobileBuff" time="16" val="0"/>
+     <effect count="1" name="ImmobileBuff" time="16" val="0"/>
   </for>
 </skill>
 <skill id="1420" levels="1" name="Cyclone">
@@ -521,7 +521,7 @@
   </cond>
   <for>
      <skill trigger="15" id="5132" lvl="1" time="16"/>
-     <effect count="1" name="ImobileBuff" time="16" val="0"/>
+     <effect count="1" name="ImmobileBuff" time="16" val="0"/>
   </for>
 </skill>
 <skill id="1421" levels="1" name="Raging Waves">
@@ -548,7 +548,7 @@
   </cond>
   <for>
      <skill trigger="15" id="5131" lvl="1" time="16"/> <!-- calling Tsunami -->
-     <effect count="1" name="ImobileBuff" time="16" val="0"/>
+     <effect count="1" name="ImmobileBuff" time="16" val="0"/>
   </for>
 </skill>
 <skill id="1422" levels="1" name="Day of Doom">
@@ -603,7 +603,7 @@
   </cond>
   <for>
      <skill trigger="15" id="5133" lvl="1" time="16"/>
-     <effect count="1" name="ImobileBuff" time="16" val="0"/>
+     <effect count="1" name="ImmobileBuff" time="16" val="0"/>
   </for>
 </skill>
 <skill id="1424" levels="1" name="Anti-Summoning Field">
@@ -630,7 +630,7 @@
   </cond>
   <for>
      <skill trigger="15" id="5134" lvl="1" time="16"/>
-     <effect count="1" name="ImobileBuff" time="16" val="0"/>
+     <effect count="1" name="ImmobileBuff" time="16" val="0"/>
   </for>
 </skill>
 <skill id="1425" levels="1" name="Purification Field">
@@ -772,7 +772,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="666"/>
   <for>
-    <effect count="1" name="Meditation" time="30" val="0">
+    <effect count="1" name="ImmobileUntilAttacked" time="30" val="0">
       <mul order="0x30" stat="pDef" val="0.1"/>
       <mul order="0x30" stat="regMp" val="#regmp"/>
     </effect>
