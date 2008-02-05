@@ -34,7 +34,7 @@ public class DecayTaskManager
     
     public DecayTaskManager()
     {
-    	ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new DecayScheduler(),10000,5000);
+        ThreadPoolManager.getInstance().scheduleAiAtFixedRate(new DecayScheduler(),10000,5000);
     }
     
     public static DecayTaskManager getInstance()
@@ -57,20 +57,20 @@ public class DecayTaskManager
     
     public void cancelDecayTask(L2Character actor)
     {
-    	try
-    	{
-    		_decayTasks.remove(actor);
-    	}
-    	catch(NoSuchElementException e){}
+        try
+        {
+            _decayTasks.remove(actor);
+        }
+        catch(NoSuchElementException e){}
     }
     
     private class DecayScheduler implements Runnable
     {
-    	protected DecayScheduler()
-    	{
-    		// Do nothing
-    	}
-    	
+        protected DecayScheduler()
+        {
+            // Do nothing
+        }
+        
         public void run()
         {
             Long current = System.currentTimeMillis();
@@ -78,52 +78,53 @@ public class DecayTaskManager
             if(_decayTasks.isEmpty()) return;
             for(L2Character actor : _decayTasks.keySet())
             {
-            	// [L2J_JP ADD SANDMAN]
-            	if(actor instanceof L2MonsterInstance)
-            	{
-            		if(actor instanceof L2RaidBossInstance)
-            			forDecay = 30000;
-            		else
-            		{
-            			L2MonsterInstance monster = (L2MonsterInstance) actor;
-            			switch(monster.getNpcId())
-            			{
-            				case 29028:     // Valakas
-            					forDecay = 18000;
-            					break;
-            				case 29019:     // Antharas
-            				case 29066:     // Antharas
-            				case 29067:     // Antharas
-            				case 29068:     // Antharas
-            					forDecay = 12000;
-            					break;
-            				case 29014:     // Orfen
-            					forDecay = 150000;
-            					break;
-            				case 29001:     // Queen Ant
-            					forDecay = 150000;
-            					break;
-            				case 29046:     // Scarlet Van Halisha lvl 85 -> Morphing
-            					forDecay = 2000;
-            					break;
-            				case 29045:     // Frintezza
-            					forDecay = 9500;
-            					break;
-            				case 29047:     // Scarlet Van Halisha lvl 90
-            					forDecay = 7500;
-            					break;
-            				default:
-            					forDecay = 8500;
-            			}
-            		}
-            	}
-            	else forDecay = 8500; // [L2J_JP EDIT END]
-                	
-            	if((current - _decayTasks.get(actor)) > forDecay)
-            	{
-            		actor.onDecay();
-            		_decayTasks.remove(actor);
-            	}
+                // [L2J_JP ADD SANDMAN]
+                if(actor instanceof L2MonsterInstance)
+                {
+                    if(actor instanceof L2RaidBossInstance)
+                        forDecay = 30000;
+                    else
+                    {
+                        L2MonsterInstance monster = (L2MonsterInstance) actor;
+                        switch(monster.getNpcId())
+                        {
+                            case 29028:     // Valakas
+                                forDecay = 18000;
+                                break;
+                            case 29019:     // Antharas
+                            case 29066:     // Antharas
+                            case 29067:     // Antharas
+                            case 29068:     // Antharas
+                                forDecay = 12000;
+                                break;
+                            case 29014:     // Orfen
+                                forDecay = 150000;
+                                break;
+                            case 29001:     // Queen Ant
+                                forDecay = 150000;
+                                break;
+                            case 29046:     // Scarlet Van Halisha lvl 85 -> Morphing
+                                forDecay = 2000;
+                                break;
+                            case 29045:     // Frintezza
+                                forDecay = 9500;
+                                break;
+                            case 29047:     // Scarlet Van Halisha lvl 90
+                                forDecay = 7500;
+                                break;
+                            default:
+                                forDecay = 8500;
+                        }
+                    }
+                }
+                else
+                    forDecay = 8500; // [L2J_JP EDIT END]
+
+                if((current - _decayTasks.get(actor)) > forDecay)
+                {
+                    actor.onDecay();
+                    _decayTasks.remove(actor);
+                }
             }
         }
     }

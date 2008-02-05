@@ -376,7 +376,7 @@ public class AntharasManager
 					antharasSpawn = _monsterSpawn.get(npcId);
 					_antharas = (L2BossInstance) antharasSpawn.doSpawn();
 					_monsters.add(_antharas);
-					_antharas.setIsImobilised(true);
+					_antharas.setIsImmobilized(true);
 					_antharas.setIsInSocialAction(true);
 					
 					_state.setRespawnDate(Rnd.get(Config.FWA_FIXINTERVALOFANTHARAS,Config.FWA_FIXINTERVALOFANTHARAS + Config.FWA_RANDOMINTERVALOFANTHARAS) + Config.FWA_ACTIVITYTIMEOFANTHARAS);  
@@ -897,7 +897,7 @@ public class AntharasManager
 
         public void run()
         {
-        	_boss.setIsImobilised(false);
+        	_boss.setIsImmobilized(false);
         	_boss.setIsInSocialAction(false);
             
             // When it is possible to act, a social action is canceled.

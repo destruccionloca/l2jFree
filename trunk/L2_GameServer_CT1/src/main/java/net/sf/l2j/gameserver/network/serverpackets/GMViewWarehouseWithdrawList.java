@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.templates.L2Item;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
 /**
@@ -57,73 +56,45 @@ public class GMViewWarehouseWithdrawList extends L2GameServerPacket
 			writeD(item.getCount());
 			writeH(item.getItem().getType2());
 			writeH(item.getCustomType1());
-
-			switch (item.getItem().getType2())
+			if (item.getItem().isEquipable())
 			{
-				case L2Item.TYPE2_WEAPON:
+				writeD(item.getItem().getBodyPart());
+				writeH(item.getEnchantLevel());
+				
+				if (item.getItem() instanceof L2Weapon)
 				{
-					writeD(item.getItem().getBodyPart());
-					writeH(item.getEnchantLevel());
 					writeH(((L2Weapon)item.getItem()).getSoulShotCount());
 					writeH(((L2Weapon)item.getItem()).getSpiritShotCount());
-					break;
 				}
-
-				case L2Item.TYPE2_SHIELD_ARMOR: 
-				case L2Item.TYPE2_ACCESSORY:
-				case L2Item.TYPE2_PET_WOLF:
-				case L2Item.TYPE2_PET_HATCHLING:
-				case L2Item.TYPE2_PET_STRIDER:
-				case L2Item.TYPE2_PET_BABY:
+				else
 				{
-					writeD(item.getItem().getBodyPart());
-					writeH(item.getEnchantLevel());
 					writeH(0x00);
 					writeH(0x00);
-					break;
 				}
-			}
-
-			writeD(item.getObjectId());
-
-			switch (item.getItem().getType2())
-			{
-				case L2Item.TYPE2_WEAPON:
+				
+				
+				if (item.isAugmented())
 				{
-					if (item.isAugmented())
-					{
-						writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
-						writeD(item.getAugmentation().getAugmentationId() >> 16);
-					}
-					else
-					{
-						writeD(0);
-						writeD(0);
-					}
-
-					break;
+					writeD(0x0000FFFF & item.getAugmentation().getAugmentationId());
+					writeD(item.getAugmentation().getAugmentationId() >> 16);
 				}
-
-				case L2Item.TYPE2_SHIELD_ARMOR: 
-				case L2Item.TYPE2_ACCESSORY:
-				case L2Item.TYPE2_PET_WOLF:
-				case L2Item.TYPE2_PET_HATCHLING:
-				case L2Item.TYPE2_PET_STRIDER:
-				case L2Item.TYPE2_PET_BABY:
+				else
 				{
-					writeD(0);
-					writeD(0);
+					writeQ(0);
 				}
+				writeD(item.getObjectId());
+				
+				writeD(item.getAttackAttrElement());
+				writeD(item.getAttackAttrElementVal());
+				writeD(item.getDefAttrFire());
+				writeD(item.getDefAttrWater());
+				writeD(item.getDefAttrWind());
+				writeD(item.getDefAttrEarth());
+				writeD(item.getDefAttrHoly()); 
+				writeD(item.getDefAttrUnholy());
+				
 			}
-			writeD(item.getAttackAttrElement());
-			writeD(item.getAttackAttrElementVal());
-			writeD(item.getDefAttrFire());
-			writeD(item.getDefAttrWater());
-			writeD(item.getDefAttrWind());
-			writeD(item.getDefAttrEarth());
-			writeD(item.getDefAttrHoly()); 
-			writeD(item.getDefAttrUnholy());
-
+			
 			writeD(item.getMana());
 		}
 	}

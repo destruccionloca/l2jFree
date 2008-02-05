@@ -151,7 +151,7 @@ public final class L2TrapInstance extends L2NpcInstance
 			_trapSpawn.getLastSpawn().decayMe();
 			_trapSpawn.getLastSpawn().spawnMe();
 
-			_trapSpawn.getLastSpawn().setIsImobilised(true);
+			_trapSpawn.getLastSpawn().setIsImmobilized(true);
 			_trapSpawn.getLastSpawn().setUnTargetable(true);
 
 			TrapTask trapTask = new TrapTask();
@@ -284,7 +284,7 @@ public final class L2TrapInstance extends L2NpcInstance
 			return;
 		}
 
-		_trapSpawn.getLastSpawn().setIsImobilised(false);
+		_trapSpawn.getLastSpawn().setIsImmobilized(false);
 		doCast(target);
 
 		// Add hate damage toward the caster from all the trap's targets

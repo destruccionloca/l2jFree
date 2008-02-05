@@ -151,15 +151,15 @@ public abstract class L2Character extends L2Object
 	private boolean					_isMuted							= false;											// Cannot use magic
 	private boolean					_isPsychicalMuted					= false;											// Cannot use psychical attack
 	private boolean					_isKilledAlready					= false;
-	private boolean					_isImobilised						= false;
+	private boolean					_isImmobilized						= false;
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
 	private boolean					_isParalyzed						= false;
 	private boolean					_isRiding							= false;											// Is Riding strider?
 	private boolean					_isPendingRevive					= false;
 	private boolean					_isRooted							= false;											// Cannot move until root timed out
 	private boolean					_isRunning							= true;
+	private boolean					_isImmobileUntilAttacked			= false;
 	private boolean					_isSleeping							= false;											// Cannot move/attack until sleep
-	private boolean					_isMeditating						= false;
 																															// timed out or monster is attacked
 	private boolean					_isBlessedByNoblesse				= false;
 	private boolean					_isLuckByNoblesse					= false;
@@ -2314,13 +2314,13 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
 	public boolean isAllSkillsDisabled()
 	{
-		return _allSkillsDisabled || isStunned() || isSleeping() || isMeditating() || isParalyzed();
+		return _allSkillsDisabled || isStunned() || isSleeping() || isImmobileUntilAttacked() || isParalyzed();
 	}
 
 	/** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
 	public boolean isAttackingDisabled()
 	{
-		return isStunned() || isSleeping() || isMeditating() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown();
+		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown();
 	}
 
 	public final Calculator[] getCalculators()
@@ -2379,14 +2379,14 @@ public abstract class L2Character extends L2Object
 		_isFlying = mode;
 	}
 
-	public boolean isImobilised()
+	public boolean isImmobilized()
 	{
-		return _isImobilised;
+		return _isImmobilized;
 	}
 
-	public void setIsImobilised(boolean value)
+	public void setIsImmobilized(boolean value)
 	{
-		_isImobilised = value;
+		_isImmobilized = value;
 	}
 
 	public final boolean isKilledAlready()
@@ -2422,7 +2422,7 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
 	public boolean isMovementDisabled()
 	{
-		return isStunned() || isRooted() || isSleeping() || isMeditating() || isOverloaded() || isParalyzed() || isImobilised() || isFakeDeath() || isFallsdown();
+		return isStunned() || isRooted() || isSleeping() || isImmobileUntilAttacked() || isOverloaded() || isParalyzed() || isImmobilized() || isFakeDeath() || isFallsdown();
 	}
 
 	/** Return True if the L2Character can be controlled by the player (confused, afraid). */
@@ -2532,14 +2532,14 @@ public abstract class L2Character extends L2Object
 		return _isSleeping;
 	}
 
-	public final void setIsMeditating(boolean value)
+	public final void setIsImmobileUntilAttacked(boolean value)
 	{
-		_isMeditating = value;
+		_isImmobileUntilAttacked = value;
 	}
 
-	public final boolean isMeditating()
+	public final boolean isImmobileUntilAttacked()
 	{
-		return _isMeditating;
+		return _isImmobileUntilAttacked;
 	}
 
 	public final void setIsSleeping(boolean value)
@@ -2960,7 +2960,7 @@ public abstract class L2Character extends L2Object
 
 	// Method - Public
 	/**
-	 * Launch and add L2Effect (including Stack Group management) to L2Character and update client magic icone.<BR>
+	 * Launch and add L2Effect (including Stack Group management) to L2Character and update client magic icon.<BR>
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
@@ -2978,7 +2978,7 @@ public abstract class L2Character extends L2Object
 	 * <li>If this effect has higher priority in its Stack Group, add its Funcs to the Calculator set of the L2Character (remove previous stacked effect Funcs
 	 * if necessary)</li>
 	 * <li>If this effect has NOT higher priority in its Stack Group, set the effect to Not In Use</li>
-	 * <li>Update active skills in progress icones on player client</li>
+	 * <li>Update active skills in progress icons on player client</li>
 	 * <BR>
 	 */
 	public final void addEffect(L2Effect newEffect)
@@ -3042,7 +3042,7 @@ public abstract class L2Character extends L2Object
 				// Add Funcs of this effect to the Calculator set of the L2Character
 				addStatFuncs(newEffect.getStatFuncs());
 
-				// Update active skills in progress icones on player client
+				// Update active skills in progress icons on player client
 				updateEffectIcons();
 				return;
 			}
@@ -3102,7 +3102,7 @@ public abstract class L2Character extends L2Object
 			// Add all Func objects corresponding to this stacked effect to the Calculator set of the L2Character
 			addStatFuncs(tempEffect.getStatFuncs());
 		}
-		// Update active skills in progress (In Use and Not In Use because stacked) icones on client
+		// Update active skills in progress (In Use and Not In Use because stacked) icons on client
 		updateEffectIcons();
 	}
 
@@ -3169,7 +3169,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Stop and remove L2Effect (including Stack Group management) from L2Character and update client magic icone.<BR>
+	 * Stop and remove L2Effect (including Stack Group management) from L2Character and update client magic icon.<BR>
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
@@ -3185,7 +3185,7 @@ public abstract class L2Character extends L2Object
 	 * <li>Remove Func added by this effect from the L2Character Calculator (Stop L2Effect)</li>
 	 * <li>If the L2Effect belongs to a not empty Stack Group, replace theses Funcs by next stacked effect Funcs</li>
 	 * <li>Remove the L2Effect from _effects of the L2Character</li>
-	 * <li>Update active skills in progress icones on player client</li>
+	 * <li>Update active skills in progress icons on player client</li>
 	 * <BR>
 	 */
 	public final void removeEffect(L2Effect effect, boolean doStatusUpdate)
@@ -3263,7 +3263,7 @@ public abstract class L2Character extends L2Object
 			}
 
 		}
-		// Update active skills in progress (In Use and Not In Use because stacked) icones on client
+		// Update active skills in progress (In Use and Not In Use because stacked) icons on client
 		if (doStatusUpdate)
 			updateEffectIcons();
 	}
@@ -3439,10 +3439,13 @@ public abstract class L2Character extends L2Object
 		updateAbnormalEffect();
 	}
 
-	public final void startMeditation()
+	public final void startImmobileUntilAttacked()
 	{
-		setIsMeditating(true);
+		setIsImmobileUntilAttacked(true);
+		abortAttack();
+		abortCast();
 		getAI().notifyEvent(CtrlEvent.EVT_SLEEPING, null);
+		updateAbnormalEffect();
 	}
 
 	public final void startLuckNoblesse()
@@ -3527,7 +3530,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Delete a specified/all (if effect=null) Confused abnormal L2Effect from L2Character and update client magic icone </li>
+	 * <li>Delete a specified/all (if effect=null) Confused abnormal L2Effect from L2Character and update client magic icon </li>
 	 * <li>Set the abnormal effect flag _confused to False </li>
 	 * <li>Notify the L2Character AI</li>
 	 * <li>Send Server->Client UserInfo/CharInfo packet</li>
@@ -3547,7 +3550,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Stop and remove the L2Effects corresponding to the L2Skill Identifier and update client magic icone.<BR>
+	 * Stop and remove the L2Effects corresponding to the L2Skill Identifier and update client magic icon.<BR>
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
@@ -3573,7 +3576,7 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Stop and remove all L2Effect of the selected type (ex : BUFF, DMG_OVER_TIME...) from the L2Character and update client magic icone.<BR>
+	 * Stop and remove all L2Effect of the selected type (ex : BUFF, DMG_OVER_TIME...) from the L2Character and update client magic icon.<BR>
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
@@ -3584,7 +3587,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <li>Remove Func added by this effect from the L2Character Calculator (Stop L2Effect)</li>
 	 * <li>Remove the L2Effect from _effects of the L2Character</li>
-	 * <li>Update active skills in progress icones on player client</li>
+	 * <li>Update active skills in progress icons on player client</li>
 	 * <BR>
 	 * <BR>
 	 *
@@ -3613,7 +3616,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Delete a specified/all (if effect=null) Fake Death abnormal L2Effect from L2Character and update client magic icone </li>
+	 * <li>Delete a specified/all (if effect=null) Fake Death abnormal L2Effect from L2Character and update client magic icon </li>
 	 * <li>Set the abnormal effect flag _fake_death to False </li>
 	 * <li>Notify the L2Character AI</li>
 	 * <BR>
@@ -3643,7 +3646,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Delete a specified/all (if effect=null) Fear abnormal L2Effect from L2Character and update client magic icone </li>
+	 * <li>Delete a specified/all (if effect=null) Fear abnormal L2Effect from L2Character and update client magic icon </li>
 	 * <li>Set the abnormal effect flag _affraid to False </li>
 	 * <li>Notify the L2Character AI</li>
 	 * <li>Send Server->Client UserInfo/CharInfo packet</li>
@@ -3666,7 +3669,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Delete a specified/all (if effect=null) Muted abnormal L2Effect from L2Character and update client magic icone </li>
+	 * <li>Delete a specified/all (if effect=null) Muted abnormal L2Effect from L2Character and update client magic icon </li>
 	 * <li>Set the abnormal effect flag _muted to False </li>
 	 * <li>Notify the L2Character AI</li>
 	 * <li>Send Server->Client UserInfo/CharInfo packet</li>
@@ -3700,7 +3703,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Delete a specified/all (if effect=null) Root abnormal L2Effect from L2Character and update client magic icone </li>
+	 * <li>Delete a specified/all (if effect=null) Root abnormal L2Effect from L2Character and update client magic icon </li>
 	 * <li>Set the abnormal effect flag _rooted to False </li>
 	 * <li>Notify the L2Character AI</li>
 	 * <li>Send Server->Client UserInfo/CharInfo packet</li>
@@ -3724,7 +3727,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Delete a specified/all (if effect=null) Sleep abnormal L2Effect from L2Character and update client magic icone </li>
+	 * <li>Delete a specified/all (if effect=null) Sleep abnormal L2Effect from L2Character and update client magic icon </li>
 	 * <li>Set the abnormal effect flag _sleeping to False </li>
 	 * <li>Notify the L2Character AI</li>
 	 * <li>Send Server->Client UserInfo/CharInfo packet</li>
@@ -3743,15 +3746,15 @@ public abstract class L2Character extends L2Object
 		updateAbnormalEffect();
 	}
 
-	public final void stopMeditation(L2Effect effect)
+	public final void stopImmobileUntilAttacked(L2Effect effect)
 	{
 		if (effect == null)
-			stopEffects(L2Effect.EffectType.MEDITATION);
+			stopEffects(L2Effect.EffectType.IMMOBILEUNTILATTACKED);
 		else
 			removeEffect(effect);
 
-		setIsMeditating(false);
-		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
+		setIsImmobileUntilAttacked(false);
+		updateAbnormalEffect();
 	}
 
 	public final void stopNoblesse()
@@ -3768,7 +3771,7 @@ public abstract class L2Character extends L2Object
 	 * <BR>
 	 * <B><U> Actions</U> :</B><BR>
 	 * <BR>
-	 * <li>Delete a specified/all (if effect=null) Stun abnormal L2Effect from L2Character and update client magic icone </li>
+	 * <li>Delete a specified/all (if effect=null) Stun abnormal L2Effect from L2Character and update client magic icon </li>
 	 * <li>Set the abnormal effect flag _stuned to False </li>
 	 * <li>Notify the L2Character AI</li>
 	 * <li>Send Server->Client UserInfo/CharInfo packet</li>
@@ -3802,11 +3805,11 @@ public abstract class L2Character extends L2Object
 	public abstract void updateAbnormalEffect();
 
 	/**
-	 * Update active skills in progress (In Use and Not In Use because stacked) icones on client.<BR>
+	 * Update active skills in progress (In Use and Not In Use because stacked) icons on client.<BR>
 	 * <BR>
 	 * <B><U> Concept</U> :</B><BR>
 	 * <BR>
-	 * All active skills effects in progress (In Use and Not In Use because stacked) are represented by an icone on the client.<BR>
+	 * All active skills effects in progress (In Use and Not In Use because stacked) are represented by an icon on the client.<BR>
 	 * <BR>
 	 * <FONT COLOR=#FF0000><B> <U>Caution</U> : This method ONLY UPDATE the client of the player and not clients of all players in the party.</B></FONT><BR>
 	 * <BR>

@@ -182,8 +182,10 @@ public class CharStatus
 
         if (awake)
         {
-            if(getActiveChar().isSleeping()) getActiveChar().stopSleeping(null);
-            if(getActiveChar().isMeditating()) getActiveChar().stopMeditation(null);
+            if(getActiveChar().isSleeping())
+                getActiveChar().stopSleeping(null);
+            if(getActiveChar().isImmobileUntilAttacked())
+                getActiveChar().stopImmobileUntilAttacked(null);
         }
 
         if (getActiveChar().isStunned() && Rnd.get(10) == 0) getActiveChar().stopStunning(null);

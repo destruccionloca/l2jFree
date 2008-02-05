@@ -139,10 +139,10 @@ abstract class AbstractAI implements Ctrl
     protected L2Character _attackTarget;
     protected L2Character _followTarget;
 
-    /** The skill we are curently casting by INTENTION_CAST */
+    /** The skill we are currently casting by INTENTION_CAST */
     L2Skill _skill;
 
-    /** Diferent internal state flags */
+    /** Different internal state flags */
     private int _moveToPawnTimeout;
 
     protected Future<?> _followTask = null;
@@ -320,7 +320,7 @@ abstract class AbstractAI implements Ctrl
      * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR><BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change
-     * (ex : If the character attack and is stunned, he will attack again after the stunned periode)</B></FONT><BR><BR>
+     * (ex : If the character attack and is stunned, he will attack again after the stunned period)</B></FONT><BR><BR>
      *
      * @param evt The event whose the AI must be notified
      *
@@ -334,7 +334,7 @@ abstract class AbstractAI implements Ctrl
      * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR><BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change
-     * (ex : If the character attack and is stunned, he will attack again after the stunned periode)</B></FONT><BR><BR>
+     * (ex : If the character attack and is stunned, he will attack again after the stunned period)</B></FONT><BR><BR>
      *
      * @param evt The event whose the AI must be notified
      * @param arg0 The first parameter of the Event (optional target)
@@ -349,7 +349,7 @@ abstract class AbstractAI implements Ctrl
      * Launch the L2CharacterAI onEvt method corresponding to the Event.<BR><BR>
      *
      * <FONT COLOR=#FF0000><B> <U>Caution</U> : The current general intention won't be change
-     * (ex : If the character attack and is stunned, he will attack again after the stunned periode)</B></FONT><BR><BR>
+     * (ex : If the character attack and is stunned, he will attack again after the stunned period)</B></FONT><BR><BR>
      *
      * @param evt The event whose the AI must be notified
      * @param arg0 The first parameter of the Event (optional target)
@@ -499,7 +499,7 @@ abstract class AbstractAI implements Ctrl
      */
     protected void moveToPawn(L2Object pawn, int offset)
     {
-        // Chek if actor can move
+        // Check if actor can move
         if (!_actor.isMovementDisabled())
         {
             if (offset < 10) offset = 10;
@@ -567,7 +567,7 @@ abstract class AbstractAI implements Ctrl
      */
     protected void moveTo(int x, int y, int z)
     {
-        // Chek if actor can move
+        // Check if actor can move
         if (!_actor.isMovementDisabled())
         {
             // Set AI movement data

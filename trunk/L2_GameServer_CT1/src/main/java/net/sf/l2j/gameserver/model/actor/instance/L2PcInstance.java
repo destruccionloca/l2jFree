@@ -2482,7 +2482,7 @@ public final class L2PcInstance extends L2PlayableInstance
             sendMessage("Cannot sit while casting");
             return;
         }
-        if ( !(_waitTypeSitting || super.isAttackingDisabled() || isOutOfControl() || isImobilised() || (!force && _protectedSitStand)))
+        if ( !(_waitTypeSitting || super.isAttackingDisabled() || isOutOfControl() || isImmobilized() || (!force && _protectedSitStand)))
         {
             breakAttack();
             _waitTypeSitting = true;
@@ -6726,7 +6726,6 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public L2Skill removeSkill(L2Skill skill)
     {
-        L2PcInstance player = null;
         // Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
         L2Skill oldSkill = super.removeSkill(skill);
 
@@ -6763,7 +6762,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
-        if(!(transformId() > 0 || isCursedWeaponEquipped()))
+        if (transformId() == 0 && !isCursedWeaponEquipped())
         {
             L2ShortCut[] allShortCuts = getAllShortCuts();
             for (L2ShortCut sc : allShortCuts)  
@@ -8523,7 +8522,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		stopMove(null);
 		setIsParalyzed(true);
 		if(!isGM())setIsInvul(true);
-		setIsImobilised(true);
+		setIsImmobilized(true);
 		sendPacket(new CameraMode(1));
 	}
 
@@ -8533,7 +8532,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		stopMove(null);
 		setIsParalyzed(false);
 		if(!isGM())setIsInvul(false);
-		setIsImobilised(false);
+		setIsImmobilized(false);
 		sendPacket(new CameraMode(0));
 	}
 
@@ -10514,7 +10513,7 @@ public final class L2PcInstance extends L2PlayableInstance
         _fishz = z;
 
         stopMove(null);
-        setIsImobilised(true);
+        setIsImmobilized(true);
         _fishing = true;
         broadcastUserInfo();
         //Starts fishing
@@ -10784,7 +10783,7 @@ public final class L2PcInstance extends L2PlayableInstance
         _lure = null;
         //Ends fishing
         sendPacket(new SystemMessage(SystemMessageId.REEL_LINE_AND_STOP_FISHING));
-        setIsImobilised(false);
+        setIsImmobilized(false);
         stopLookingForFishTask();
     }
 

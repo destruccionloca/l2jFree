@@ -102,8 +102,10 @@ public class L2ControllableMobInstance extends L2MonsterInstance
 		
 		if (awake)
 		{
-			if(isSleeping()) stopSleeping(null);
-			if(isMeditating()) stopMeditation(null);
+			if(isSleeping())
+				stopSleeping(null);
+			if(isImmobileUntilAttacked())
+				stopImmobileUntilAttacked(null);
 		}
 
 		if (isPetrified())

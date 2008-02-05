@@ -62,14 +62,15 @@ public class Manadam implements ISkillHandler
 				weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
-		for (L2Object element : targets) {
+		for (L2Object element : targets)
+		{
 			target = (L2Character) element;
 			
 			if(target.reflectSkill(skill))
 				target = activeChar;
 
 			boolean acted = Formulas.getInstance().calcMagicAffected(activeChar, target, skill);
-			if (!acted)
+			if (target.isInvul() || !acted)
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.MISSED_TARGET));
 			}
@@ -81,8 +82,10 @@ public class Manadam implements ISkillHandler
 				target.reduceCurrentMp(mp);
 				if (damage > 0)
 				{
-					if (target.isSleeping()) target.stopSleeping(null);
-					if (target.isMeditating()) target.stopMeditation(null);
+					if (target.isSleeping())
+						target.stopSleeping(null);
+					if (target.isImmobileUntilAttacked())
+						target.stopImmobileUntilAttacked(null);
 				}
 
 				StatusUpdate sump = new StatusUpdate(target.getObjectId());
