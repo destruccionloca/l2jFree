@@ -15,16 +15,37 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jserver.mmocore.network;
+package org.mmocore.network;
 
-import java.nio.ByteBuffer;
-
+import java.net.InetAddress;
 
 /**
  * @author KenM
  *
  */
-public interface IPacketHandler<T extends MMOClient>
+public class SelectorServerConfig extends SelectorConfig
 {
-    public ReceivablePacket<T> handlePacket(ByteBuffer buf, T client);
+    private final int SERVER_PORT;
+    private final InetAddress SERVER_ADDRESS;
+    
+    public SelectorServerConfig(int port)
+    {
+        this(null, port);
+    }
+    
+    public SelectorServerConfig(InetAddress address, int port)
+    {
+        SERVER_PORT = port;
+        SERVER_ADDRESS = address;
+    }
+    
+    public int getPort()
+    {
+        return SERVER_PORT;
+    }
+    
+    public InetAddress getAddress()
+    {
+        return SERVER_ADDRESS;
+    }
 }

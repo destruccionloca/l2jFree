@@ -15,10 +15,10 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jserver.mmocore.network;
+package org.mmocore.network;
 
 
-import com.l2jserver.mmocore.network.SelectorConfig.HeaderSize;
+import org.mmocore.network.SelectorConfig.HeaderSize;
 
 /**
  * @author KenM

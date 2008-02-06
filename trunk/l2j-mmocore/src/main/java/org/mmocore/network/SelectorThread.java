@@ -15,7 +15,7 @@
  *
  * http://www.gnu.org/copyleft/gpl.html
  */
-package com.l2jserver.mmocore.network;
+package org.mmocore.network;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -31,7 +31,8 @@ import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.l2jserver.mmocore.network.SelectorConfig.HeaderSize;
+import org.mmocore.network.SelectorConfig.HeaderSize;
+
 
 
 import javolution.util.FastList;
