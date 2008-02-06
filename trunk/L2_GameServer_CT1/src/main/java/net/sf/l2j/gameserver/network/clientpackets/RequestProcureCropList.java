@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -116,7 +116,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			int itemId  = _items[i * 4 + 1];
 			int manorId = _items[i * 4 + 2];
 			int count   = _items[i * 4 + 3];
-			
+
 			if (itemId == 0 || manorId == 0 || count == 0)
 				continue;
 			if (count < 1)
@@ -133,8 +133,8 @@ public class RequestProcureCropList extends L2GameClientPacket
 				sendPacket(sm);
 				return;
 			}
-			
-			try 
+
+			try
 			{
 				CropProcure crop = CastleManager.getInstance().getCastleById(manorId).getCrop(itemId, CastleManorManager.PERIOD_CURRENT);
 				int rewardItemId = L2Manor.getInstance().getRewardItem(itemId,crop.getReward());
@@ -145,8 +145,8 @@ public class RequestProcureCropList extends L2GameClientPacket
 					slots += count;
 				else if (player.getInventory().getItemByItemId(itemId) == null)
 					slots++;
-			} 
-			catch (NullPointerException e) 
+			}
+			catch (NullPointerException e)
 			{
 				continue;
 			}
@@ -176,17 +176,17 @@ public class RequestProcureCropList extends L2GameClientPacket
 
 			if (objId == 0 || cropId == 0 || manorId == 0 || count == 0)
 				continue;
-			
+
 			if (count < 1)
 				continue;
-			
+
 			CropProcure crop = null;
-			
-			try 
+
+			try
 			{
 				crop = CastleManager.getInstance().getCastleById(manorId).getCrop(cropId, CastleManorManager.PERIOD_CURRENT);
 			}
-			catch (NullPointerException e) 
+			catch (NullPointerException e)
 			{
 				continue;
 			}
@@ -200,8 +200,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 			if (count > crop.getAmount())
 				continue;
 
-			int sellPrice = (count * L2Manor.getInstance().getCropBasicPrice(
-					cropId));
+			int sellPrice = (count * crop.getPrice());
 			int rewardPrice = ItemTable.getInstance().getTemplate(rewardItem)
 					.getReferencePrice();
 
@@ -217,8 +216,8 @@ public class RequestProcureCropList extends L2GameClientPacket
 				player.sendPacket(sm);
 				continue;
 			}
-				
-			
+
+
 			if (manorId != currentManorId)
 				fee = sellPrice * 5 / 100; // 5% fee for selling to other manor
 
@@ -232,7 +231,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 				player.sendPacket(sm);
 				continue;
 			}
-			
+
 			// Add item to Inventory and adjust update packet
 			L2ItemInstance itemDel = null;
 			L2ItemInstance itemAdd = null;
@@ -242,7 +241,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 				L2ItemInstance item = player.getInventory().getItemByObjectId(objId);
 				if (item.getCount() < count)
 					continue;
-					
+
 				itemDel = player.getInventory().destroyItem("Manor", objId, count, player, manorManager);
 				if (itemDel == null)
 					continue;
@@ -252,7 +251,7 @@ public class RequestProcureCropList extends L2GameClientPacket
 				if (Config.ALT_MANOR_SAVE_ALL_ACTIONS)
 					CastleManager.getInstance().getCastleById(manorId).updateCrop(crop.getId(), crop.getAmount(), CastleManorManager.PERIOD_CURRENT);
 				itemAdd = player.getInventory().addItem("Manor", rewardItem,rewardItemCount, player, manorManager);
-			} 
+			}
 			else
 			{
 				continue;
