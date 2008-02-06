@@ -179,11 +179,13 @@ class Quest (JQuest) :
  def onAdvEvent (self,event,npc, player) :
    st = player.getQuestState(self.qn)
    if not st: return
-   htmltext = event
+   htmltext = ""  # simple initialization...if none of the events match, return nothing.
    cond = st.getInt("cond")
    id = st.getInt("id")
    player = st.getPlayer()
-   if event == "accept" :
+   if event in ["0-011.htm", "0-012.htm", "0-013.htm", "0-014.htm", "0-015.htm"]:
+       htmltext = event
+   elif event == "accept" :
        st.set("cond","1")
        st.setState(State.STARTED)
        st.playSound("ItemSound.quest_accept")
@@ -197,7 +199,7 @@ class Quest (JQuest) :
            htmltext = "0-05.htm"
    elif event == "0-2" :
        if player.getLevel() >= 76 :
-           st.exitQuest(False) 
+           st.exitQuest(False)
            st.set("cond","0")
            htmltext = "0-07.htm"
            st.takeItems(self.Items[10],-1)
@@ -224,7 +226,7 @@ class Quest (JQuest) :
        if self.Items[11] != 0 :
            st.takeItems(self.Items[11],1)
        st.giveItems(self.Items[1],1)
-       htmltext = "1-06.htm" 
+       htmltext = "1-06.htm"
    elif event == "2-1" :
        st.set("cond","2")
        htmltext = "2-05.htm"
@@ -488,7 +490,7 @@ class Quest (JQuest) :
               if npcId == self.NPC[9] :
                   htmltext = "9-04.htm"
               elif npcId == self.NPC[10] :
-                  htmltext = "10-01.htm"   
+                  htmltext = "10-01.htm"
           elif cond == 18 :
               if npcId == self.NPC[10] :
                   htmltext = "10-05.htm"
@@ -502,7 +504,7 @@ class Quest (JQuest) :
                   if player.getLevel() >= 76 :
                       htmltext = "0-09.htm"
                       if not self.getClassId(player) in range(131,135) : #in Kamael quests, npc wants to chat for a bit before changing class
-                          st.exitQuest(False) 
+                          st.exitQuest(False)
                           st.set("cond","0")
                           st.addExpAndSp(2299404,0)
                           st.giveItems(57,5000000)
