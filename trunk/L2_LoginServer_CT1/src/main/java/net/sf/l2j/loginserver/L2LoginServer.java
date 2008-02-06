@@ -36,8 +36,7 @@ import net.sf.l2j.tools.L2Registry;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.mmocore.network.SelectorConfig;
+import org.mmocore.network.SelectorServerConfig;
 import org.mmocore.network.SelectorThread;
 
 /**
@@ -47,92 +46,92 @@ import org.mmocore.network.SelectorThread;
 public class L2LoginServer
 {
 	/** Protocol revision */
-	public static final int PROTOCOL_REV = 0x0102;
-	
+	public static final int					PROTOCOL_REV	= 0x0102;
+
 	/**instance */
-    private static L2LoginServer _instance;
-    /**Logger */
-    private static Log _log = LogFactory.getLog(L2LoginServer.class);
-    /**the gameserver listener store all gameserver connected to the client*/
-    private GameServerListener _gameServerListener;
-    private SelectorThread<L2LoginClient> _selectorThread;
-    public static Status statusServer;
-    
-    /**
-     * @return the instance of L2LoginServer
-     */
-    public static L2LoginServer getInstance()
-    {
-        return _instance;
-    }    
-    
-    /**
-     * Instantiate loginserver and launch it
-     * Initialize log folder, telnet console and registry
-     * @param args
-     * @throws Exception
-     */
-    public static void main(String[] args) throws Throwable
-    {
-        _instance = new L2LoginServer();
-    }
-    
-    public L2LoginServer() throws Throwable 
-    {        
-        // Local Constants
-        // ----------------
-        final String LOG_FOLDER = "log"; // Name of folder for log file
-        final String LOG_NAME = "./config/logging.properties"; // Name of log file
+	private static L2LoginServer			_instance;
+	/**Logger */
+	private static Log						_log			= LogFactory.getLog(L2LoginServer.class);
+	/**the gameserver listener store all gameserver connected to the client*/
+	private GameServerListener				_gameServerListener;
+	private SelectorThread<L2LoginClient>	_selectorThread;
+	public static Status					statusServer;
 
-        // Create log folder
-        // ------------------
-        File logFolder = new File(LOG_FOLDER);
-        logFolder.mkdir();
+	/**
+	 * @return the instance of L2LoginServer
+	 */
+	public static L2LoginServer getInstance()
+	{
+		return _instance;
+	}
 
-        // Create input stream for log file -- or store file data into memory
-        // ------------------------------------------------------------------
-        InputStream is = new FileInputStream(new File(LOG_NAME));
-        LogManager.getLogManager().readConfiguration(is);
-        is.close();
+	/**
+	 * Instantiate loginserver and launch it
+	 * Initialize log folder, telnet console and registry
+	 * @param args
+	 * @throws Exception
+	 */
+	public static void main(String[] args) throws Throwable
+	{
+		_instance = new L2LoginServer();
+	}
 
-        // Initialize config 
-        // ------------------
-        Config.load();
-        
-        // Initialize Application context (registry of beans)
-        // ---------------------------------------------------
-        L2Registry.loadRegistry(new String[]{"spring.xml"});
-        
-        
-        // o Initialize LoginManager
-        // -------------------------
-        LoginManager.load();        
-        
-        // o Initialize GameServer Manager
-        // ------------------------------
-        GameServerManager.getInstance();
-        
-        // o Initialize ban list
-        // ----------------------
-        BanManager.getInstance();
-        
-        // o Initialize SelectorThread
-        // ----------------------------
-        initNetworkLayer();
-        
-        // o Initialize GS listener
-        // ----------------------------
-        initGSListener();        
-        
-        // o Start status telnet server
-        // --------------------------
-        initTelnetServer();
-        
-        // o Start the server
-        // ------------------
-        startServer();
-        _log.info("Login Server ready on "+Config.LOGIN_SERVER_HOSTNAME+":"+Config.LOGIN_SERVER_PORT);
-    }
+	public L2LoginServer() throws Throwable
+	{
+		// Local Constants
+		// ----------------
+		final String LOG_FOLDER = "log"; // Name of folder for log file
+		final String LOG_NAME = "./config/logging.properties"; // Name of log file
+
+		// Create log folder
+		// ------------------
+		File logFolder = new File(LOG_FOLDER);
+		logFolder.mkdir();
+
+		// Create input stream for log file -- or store file data into memory
+		// ------------------------------------------------------------------
+		InputStream is = new FileInputStream(new File(LOG_NAME));
+		LogManager.getLogManager().readConfiguration(is);
+		is.close();
+
+		// Initialize config 
+		// ------------------
+		Config.load();
+
+		// Initialize Application context (registry of beans)
+		// ---------------------------------------------------
+		L2Registry.loadRegistry(new String[]
+		{ "spring.xml" });
+
+		// o Initialize LoginManager
+		// -------------------------
+		LoginManager.load();
+
+		// o Initialize GameServer Manager
+		// ------------------------------
+		GameServerManager.getInstance();
+
+		// o Initialize ban list
+		// ----------------------
+		BanManager.getInstance();
+
+		// o Initialize SelectorThread
+		// ----------------------------
+		initNetworkLayer();
+
+		// o Initialize GS listener
+		// ----------------------------
+		initGSListener();
+
+		// o Start status telnet server
+		// --------------------------
+		initTelnetServer();
+
+		// o Start the server
+		// ------------------
+		startServer();
+		_log.info("Login Server ready on " + Config.LOGIN_SERVER_HOSTNAME + ":" + Config.LOGIN_SERVER_PORT);
+	}
 
 	/**
 	 * 
@@ -140,15 +139,15 @@ public class L2LoginServer
 	private void startServer()
 	{
 		try
-        {
-            _selectorThread.openServerSocket(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_SERVER_PORT);
-        }
-        catch (IOException e)
-        {
-            _log.fatal("FATAL: Failed to open server socket. Reason: "+e.getMessage(),e);
-            System.exit(1);
-        }
-        _selectorThread.start();
+		{
+			_selectorThread.openServerSocket();
+		}
+		catch (IOException e)
+		{
+			_log.fatal("FATAL: Failed to open server socket. Reason: " + e.getMessage(), e);
+			System.exit(1);
+		}
+		_selectorThread.start();
 	}
 
 	/**
@@ -157,14 +156,14 @@ public class L2LoginServer
 	private void initTelnetServer() throws IOException
 	{
 		if (Config.IS_TELNET_ENABLED)
-        {
-            statusServer = new Status();
-            statusServer.start();
-        }
-        else
-        {
-            _log.info("Telnet server is currently disabled.");
-        }
+		{
+			statusServer = new Status();
+			statusServer.start();
+		}
+		else
+		{
+			_log.info("Telnet server is currently disabled.");
+		}
 	}
 
 	/**
@@ -173,16 +172,16 @@ public class L2LoginServer
 	private void initGSListener()
 	{
 		try
-        {
-            _gameServerListener = new GameServerListener();
-            _gameServerListener.start();
-            _log.info("Listening for GameServers on "+Config.LOGIN_HOSTNAME+":"+Config.LOGIN_PORT);
-        }
-        catch (IOException e)
-        {
-            _log.fatal("FATAL: Failed to start the Game Server Listener. Reason: "+e.getMessage(),e);
-            System.exit(1);
-        }
+		{
+			_gameServerListener = new GameServerListener();
+			_gameServerListener.start();
+			_log.info("Listening for GameServers on " + Config.LOGIN_HOSTNAME + ":" + Config.LOGIN_PORT);
+		}
+		catch (IOException e)
+		{
+			_log.fatal("FATAL: Failed to start the Game Server Listener. Reason: " + e.getMessage(), e);
+			System.exit(1);
+		}
 	}
 
 	/**
@@ -190,21 +189,29 @@ public class L2LoginServer
 	 */
 	private void initNetworkLayer()
 	{
-        L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
-        SelectorHelper sh = new SelectorHelper();
-        SelectorConfig ssc = new SelectorConfig(null, sh);
-        try
-        {
-            _selectorThread = new SelectorThread<L2LoginClient>(ssc, null, loginPacketHandler, sh, sh, sh);
-            _selectorThread.setAcceptFilter(sh);
-        }
-        catch (IOException e)
-        {
-            _log.fatal("FATAL: Failed to open Selector. Reason: "+e.getMessage(),e);
-            System.exit(1);
-        }
+		SelectorServerConfig ssc = null;
+		try
+		{
+			ssc = new SelectorServerConfig(InetAddress.getByName(Config.LOGIN_SERVER_HOSTNAME), Config.LOGIN_SERVER_PORT);
+		}
+		catch (UnknownHostException e1)
+		{
+			e1.printStackTrace();
+		}
+		L2LoginPacketHandler loginPacketHandler = new L2LoginPacketHandler();
+		SelectorHelper sh = new SelectorHelper();
+		try
+		{
+			_selectorThread = new SelectorThread<L2LoginClient>(ssc, loginPacketHandler, sh, sh);
+			_selectorThread.setAcceptFilter(sh);
+		}
+		catch (IOException e)
+		{
+			_log.fatal("FATAL: Failed to open Selector. Reason: " + e.getMessage(), e);
+			System.exit(1);
+		}
 	}
-    
+
 	public Status getStatusServer()
 	{
 		return statusServer;

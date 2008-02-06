@@ -72,7 +72,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	{
 		super(con);
 		_state = LoginClientState.CONNECTED;
-		_ip = getConnection().getSocket().getInetAddress().getHostAddress();
+		_ip = this.getConnection().getSocketChannel().socket().getInetAddress().getHostAddress();
 		
 		_scrambledPair = LoginManager.getInstance().getScrambledRSAKeyPair();
 		_blowfishKey = LoginManager.getInstance().getBlowfishKey();
@@ -234,7 +234,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
     
     public InetAddress getInetAddress ()
     {
-        return getConnection().getSocket().getInetAddress();
+    	return this.getConnection().getSocketChannel().socket().getInetAddress();
     }
 	
 	@Override
@@ -254,7 +254,7 @@ public class L2LoginClient extends MMOClient<MMOConnection<L2LoginClient>>
 	
 	public String toString()
 	{
-		InetAddress address = getConnection().getSocket().getInetAddress();
+		InetAddress address = this.getConnection().getSocketChannel().socket().getInetAddress();
 		if (this.getState() == LoginClientState.AUTHED_LOGIN)
 		{
 			return "["+this.getAccount()+" ("+(address == null ? "disconnected" : address.getHostAddress())+")]";
