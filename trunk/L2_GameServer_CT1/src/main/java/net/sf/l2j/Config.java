@@ -382,6 +382,8 @@ public final class Config
 	public static int			WEDDING_TELEPORT_INTERVAL;
 	public static boolean		WEDDING_SAMESEX;
 	public static boolean		WEDDING_FORMALWEAR;
+	public static boolean		WEDDING_GIVE_CUPID_BOW;
+	public static boolean		WEDDING_HONEYMOON_PORT;
 	public static int			WEDDING_DIVORCE_COSTS;
 	
 	// *******************************************************************************************
@@ -403,6 +405,8 @@ public final class Config
 			WEDDING_SAMESEX = Boolean.parseBoolean(weddingSettings.getProperty("WeddingAllowSameSex", "true"));
 			WEDDING_FORMALWEAR = Boolean.parseBoolean(weddingSettings.getProperty("WeddingFormalWear", "true"));
 			WEDDING_DIVORCE_COSTS = Integer.parseInt(weddingSettings.getProperty("WeddingDivorceCosts", "20"));
+			WEDDING_GIVE_CUPID_BOW = Boolean.parseBoolean(weddingSettings.getProperty("WeddingGiveBow", "true"));
+			WEDDING_HONEYMOON_PORT = Boolean.parseBoolean(weddingSettings.getProperty("WeddingHoneyMoon", "false"));
 		}
 		catch (Exception e)
 		{
