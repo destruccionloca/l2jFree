@@ -52,7 +52,7 @@ import org.mmocore.network.MMOConnection;
  */
 public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 {
-	protected static final Log _log = LogFactory.getLog(L2GameClient.class.getName());
+	protected static final Log	_log	= LogFactory.getLog(L2GameClient.class.getName());
 
 	/**
 	 * CONNECTED - client has just connected AUTHED - client has authed but
@@ -66,32 +66,32 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		CONNECTED, AUTHED, IN_GAME
 	};
 
-	public GameClientState state;
+	public GameClientState				state;
 
 	// Info
-	public String accountName;
-	public SessionKey sessionId;
-	public L2PcInstance activeChar;
-	private ReentrantLock _activeCharLock = new ReentrantLock();
+	public String						accountName;
+	public SessionKey					sessionId;
+	public L2PcInstance					activeChar;
+	private ReentrantLock				_activeCharLock				= new ReentrantLock();
 
 	@SuppressWarnings("unused")
-	private boolean _isAuthedGG;
-	private long _connectionStartTime;
-	private List<Integer> _charSlotMapping = new FastList<Integer>();
+	private boolean						_isAuthedGG;
+	private long						_connectionStartTime;
+	private List<Integer>				_charSlotMapping			= new FastList<Integer>();
 
 	// Task
-	protected final ScheduledFuture<?> _autoSaveInDB;
+	protected final ScheduledFuture<?>	_autoSaveInDB;
 
 	// Crypt
-	public GameCrypt crypt;
+	public GameCrypt					crypt;
 
 	// Flood protection
-	public byte packetsSentInSec = 0;
-	public int packetsSentStartTick = 0;
-	public byte packetsReceivedInSec = 0;
-	public int packetsReceivedStartTick = 0;
+	public byte							packetsSentInSec			= 0;
+	public int							packetsSentStartTick		= 0;
+	public byte							packetsReceivedInSec		= 0;
+	public int							packetsReceivedStartTick	= 0;
 
-	private boolean _disconnected;
+	private boolean						_disconnected;
 
 	public L2GameClient(MMOConnection<L2GameClient> con)
 	{
@@ -102,9 +102,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 		if (Config.CHAR_STORE_INTERVAL > 0)
 		{
-			_autoSaveInDB = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate( 
-				new AutoSaveTask(), 300000L, (Config.CHAR_STORE_INTERVAL*60000L)
-			);
+			_autoSaveInDB = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new AutoSaveTask(), 300000L, (Config.CHAR_STORE_INTERVAL * 60000L));
 		}
 		else
 		{
@@ -229,8 +227,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con.prepareStatement("UPDATE characters SET deletetime=? WHERE obj_id=?");
 			statement.setLong(1, System.currentTimeMillis() + Config.DELETE_DAYS * 86400000L); // 24*60*60*1000
-																								// =
-																								// 86400000
+			// =
+			// 86400000
 			statement.setInt(2, objid);
 			statement.execute();
 			statement.close();
@@ -532,7 +530,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 	{
 		try
 		{
-			InetAddress address = getConnection().getSocket().getInetAddress();
+			InetAddress address = getConnection().getSocketChannel().socket().getInetAddress();
 			switch (getState())
 			{
 			case CONNECTED:
@@ -583,7 +581,7 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 
 				L2PcInstance player = L2GameClient.this.getActiveChar();
 				if (player != null) // this should only happen on connection
-									// loss
+				// loss
 				{
 
 					// we store all data from players who are disconnected while

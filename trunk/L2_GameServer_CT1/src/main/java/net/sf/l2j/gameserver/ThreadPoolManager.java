@@ -76,7 +76,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 	
 	private final static Log			_log	= LogFactory.getLog(ThreadPoolManager.class);
 	
-	public ScheduledThreadPoolExecutor	_effectsScheduledThreadPool; //??
+	private ScheduledThreadPoolExecutor	_effectsScheduledThreadPool;
 	private ScheduledThreadPoolExecutor	_generalScheduledThreadPool;
 	
 	private ThreadPoolExecutor			_generalPacketsThreadPool;
