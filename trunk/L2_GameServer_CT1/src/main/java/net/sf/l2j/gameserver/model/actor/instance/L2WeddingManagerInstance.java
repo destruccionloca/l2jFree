@@ -132,6 +132,10 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     player.setMaryAccepted(true);
                     Couple couple = CoupleManager.getInstance().getCouple(player.getCoupleId());
                     couple.marry();
+                    
+                    //port both players to disneyland for happy time
+                    player.teleToLocation(-59703, -56061, -2036);
+                    ptarget.teleToLocation(-59703, -56061, -2036);
 
                     //messages to the couple
                     player.sendMessage("Congratulations, you are married!");
