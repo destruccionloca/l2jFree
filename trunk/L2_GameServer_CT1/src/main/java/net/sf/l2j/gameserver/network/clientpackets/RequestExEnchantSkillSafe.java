@@ -122,25 +122,17 @@ public final class RequestExEnchantSkillSafe extends L2GameClientPacket
         {
             if (player.getExp() >= requiredExp)
             {
-                // only first lvl requires book - realy ??
-            	//need more info about it and if it's true then there is exploit with Safe Enchant option 
-                //boolean usesBook = _skillLvl % 100 == 1; // 101, 201, 301 ... 
-            	L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
-                if (Config.ES_SP_BOOK_NEEDED) //if (Config.ES_SP_BOOK_NEEDED && usesBook) //(currently dissabled and it will ask for book each time that you will choose this option)
+                // No config option for safe enchant book consume
+                L2ItemInstance spb = player.getInventory().getItemByItemId(reqItemId);
+                if (spb == null)// Haven't spellbook
                 {
-                    if (spb == null)// Haven't spellbook
-                    {
-                        player.sendPacket(new SystemMessage(SystemMessageId.YOU_DONT_HAVE_ALL_OF_THE_ITEMS_NEEDED_TO_ENCHANT_THAT_SKILL));
-                        return;
-                    }
+                    player.sendPacket(new SystemMessage(SystemMessageId.YOU_DONT_HAVE_ALL_OF_THE_ITEMS_NEEDED_TO_ENCHANT_THAT_SKILL));
+                    return;
                 }
-                
+
                 boolean check;
                 check = player.getStat().removeExpAndSp(requiredExp, requiredSp);
-                if (Config.ES_SP_BOOK_NEEDED) //if (Config.ES_SP_BOOK_NEEDED && usesBook) //(currently dissabled and it will ask for book each time that you will choose this option)
-                {
-                    check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
-                }
+                check &= player.destroyItem("Consume", spb.getObjectId(), 1, trainer, true);
                 
                 if (!check)
                 {

@@ -34,7 +34,7 @@ public class EffectImmobileUntilAttacked extends L2Effect
     @Override
     public EffectType getEffectType()
     {
-        return EffectType.BUFF;
+        return EffectType.IMMOBILEUNTILATTACKED;
     }
     
     /** Notify started */

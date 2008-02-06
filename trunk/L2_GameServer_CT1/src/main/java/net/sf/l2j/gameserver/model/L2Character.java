@@ -3754,6 +3754,7 @@ public abstract class L2Character extends L2Object
 			removeEffect(effect);
 
 		setIsImmobileUntilAttacked(false);
+		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
 	}
 
