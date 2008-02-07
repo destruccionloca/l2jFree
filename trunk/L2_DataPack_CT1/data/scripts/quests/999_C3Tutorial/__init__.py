@@ -1,10 +1,12 @@
-# Made by Mr. Have fun! - version 0.2 by Rolarga
+# Made by Mr. Have fun! - version 0.3 by Rolarga
 # C5 addons by DrLecter
 # CT1 addons by nigHt
+# C4 addons by Kerberos
 import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j.gameserver.network.serverpackets import PlaySound
 
 qn = "999_C3Tutorial"
 
@@ -66,6 +68,7 @@ class Quest (JQuest) :
 
  def onEvent (self,event,st) :
     htmltext = event
+    player = st.getPlayer()
     htmlfile,radarX,radarY,radarZ,item,classId1,gift1,count1,classId2,gift2,count2 = EVENTS[event]
     st.addRadar(radarX,radarY,radarZ);
     htmltext=htmlfile
@@ -74,13 +77,17 @@ class Quest (JQuest) :
       st.takeItems(item,1)
       if st.getPlayer().getClassId().getId() == classId1 :
         st.giveItems(gift1,count1)
+        if gift1 == SPIRITSHOT_NOVICE :
+            player.sendPacket(PlaySound(2,"tutorial_voice_027",0,player.getObjectId(),player.getX(),player.getY(),player.getZ()))
+        else:
+            player.sendPacket(PlaySound(2,"tutorial_voice_026",0,player.getObjectId(),player.getX(),player.getY(),player.getZ()))
       elif st.getPlayer().getClassId().getId() == classId2 :
         if gift2:
            st.giveItems(gift2,count2)
+           player.sendPacket(PlaySound(2,"tutorial_voice_026",0,player.getObjectId(),player.getX(),player.getY(),player.getZ()))
       st.unset("step")
       st.set("onlyone","1")
-      st.exitQuest(False)
-      st.playSound("ItemSound.quest_finish")
+      st.setState(State.COMPLETED)
     return htmltext
 
  def onFirstTalk (self,npc,player):
@@ -89,14 +96,15 @@ class Quest (JQuest) :
      id = st.getState()
      onlyone=st.getInt("onlyone")
      if id == State.COMPLETED and onlyone == 1:
-       st.set("onlyone","2")
        if player.getClassId().isMage() :
+         player.sendPacket(PlaySound(2,"tutorial_voice_027",0,player.getObjectId(),player.getX(),player.getY(),player.getZ()))
          st.giveItems(SPIRITSHOT_NOVICE,100)
        else:
+         player.sendPacket(PlaySound(2,"tutorial_voice_026",0,player.getObjectId(),player.getX(),player.getY(),player.getZ()))
          st.giveItems(SOULSHOT_NOVICE,200)
        st.giveItems(TOKEN,12)
-       if st.getRandom(2):
-         st.giveItems(SCROLL,2)
+       st.giveItems(SCROLL,5)
+       st.exitQuest(False)
    return
 
 
@@ -133,13 +141,14 @@ class Quest (JQuest) :
            st.takeItems(BLUE_GEM,st.getQuestItemsCount(BLUE_GEM))
            st.giveItems(item,1)
            st.set("step","2")
-           st.playSound("ItemSound.quest_middle")
            if isMage :
+             player.sendPacket(PlaySound(2,"tutorial_voice_027",0,player.getObjectId(),player.getX(),player.getY(),player.getZ()))
              st.giveItems(SPIRITSHOT_NOVICE,100)
              htmltext = htmlfiles[2]
              if htmltext == 0 :
                  htmltext = "<html><body>I am sorry.  I only help warriors.  Please go to another Newbie Helper who may assist you.</body></html>"
            else:
+             player.sendPacket(PlaySound(2,"tutorial_voice_026",0,player.getObjectId(),player.getX(),player.getY(),player.getZ()))
              st.giveItems(SOULSHOT_NOVICE,200)
              htmltext = htmlfiles[1]
              if htmltext == 0 :
@@ -170,7 +179,7 @@ class Quest (JQuest) :
    if st.getState() != State.STARTED : return
    if st.getInt("step")==1 and st.getRandom(100) < 25 and st.getQuestItemsCount(BLUE_GEM) == 0 :
       st.giveItems(BLUE_GEM,1)
-      st.playSound("ItemSound.quest_itemget")
+      player.sendPacket(PlaySound(2,"tutorial_voice_013",0,player.getObjectId(),player.getX(),player.getY(),player.getZ()))
       st.playSound("ItemSound.quest_tutorial")
    return
 
