@@ -2083,7 +2083,7 @@ public class L2NpcInstance extends L2Character
         int _highestLevel = BuffTemplateTable.getInstance().getHighestLevel(_newbieBuffsId);
 
         // If the player is too high level, display a message and return
-        if ((player.getLevel()>0 && player.getLevel() > _highestLevel) || !player.isNewbie())
+        if (player.getLevel() > _highestLevel)
         {
             String content = "<html><body>Newbie Guide:<br>Only a <font color=\"LEVEL\">novice character of level "+ _highestLevel +" or less</font> can receive my support magic.<br>Your novice character is the first one that you created and raised in this world.</body></html>";
             insertObjectIdAndShowChatWindow(player, content);
