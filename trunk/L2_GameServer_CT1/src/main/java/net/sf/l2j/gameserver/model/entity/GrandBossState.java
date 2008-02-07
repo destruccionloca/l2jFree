@@ -18,9 +18,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Calendar;
-import java.util.logging.Logger;
 
 import net.sf.l2j.L2DatabaseFactory;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * This class is 
@@ -40,7 +42,7 @@ public class GrandBossState
     private long _respawnDate;
     private StateEnum _state;
     
-    protected static Logger _log = Logger.getLogger(GrandBossState.class.getName());
+    private static final Log _log = LogFactory.getLog(GrandBossState.class.getName());
 
     public int getBossId()
     {
@@ -178,6 +180,7 @@ public class GrandBossState
         }
         catch (Exception e)
         {
+        	_log.warn("Exeption on update GrandBossState : ID-" + _bossId + ",RespawnDate-" + _respawnDate + ",State-" + _state.toString());
         	e.printStackTrace();
         }
         finally

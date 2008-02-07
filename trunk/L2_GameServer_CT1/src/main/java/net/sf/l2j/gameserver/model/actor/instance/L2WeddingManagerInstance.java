@@ -136,8 +136,8 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     if(Config.WEDDING_HONEYMOON_PORT)
                     {
                     	//port both players to disneyland for happy time
-                    	player.teleToLocation(-59703, -56061, -2036);
-                    	ptarget.teleToLocation(-59703, -56061, -2036);
+                    	player.teleToLocation(-56641, -56345, -2005);
+                    	ptarget.teleToLocation(-56641, -56345, -2005);
                     }
 
                     //messages to the couple
