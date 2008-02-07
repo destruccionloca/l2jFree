@@ -138,6 +138,13 @@ public class L2WeddingManagerInstance extends L2NpcInstance
                     	//port both players to disneyland for happy time
                     	player.teleToLocation(-56641, -56345, -2005);
                     	ptarget.teleToLocation(-56641, -56345, -2005);
+                    	//wait 20 seconds after teleport before all wedding actions
+                    	try
+            			{
+            				wait(20000);
+            			}
+            			catch (InterruptedException e){}
+                    	
                     }
 
                     //messages to the couple
