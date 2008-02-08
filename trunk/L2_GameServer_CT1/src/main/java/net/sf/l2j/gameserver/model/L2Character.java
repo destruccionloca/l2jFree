@@ -76,6 +76,8 @@ import net.sf.l2j.gameserver.network.serverpackets.ChangeWaitType;
 import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ExAutoSoulShot;
+import net.sf.l2j.gameserver.network.serverpackets.FlyToLocation;
+import net.sf.l2j.gameserver.network.serverpackets.FlyToLocation.FlyType;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillCanceled;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillLaunched;
@@ -1851,6 +1853,12 @@ public abstract class L2Character extends L2Object
 		if (forceBuff)
 		{
 			startForceBuff(target, skill);
+		}
+
+		// Before start AI Cast Broadcast Fly Effect is Need
+		if (skill.getFlyType() != null && (this instanceof L2PcInstance))
+		{
+			ThreadPoolManager.getInstance().scheduleEffect(new FlyToLocationTask(this, target, skill), 50);
 		}
 
 		// launch the magic in hitTime milliseconds
@@ -7694,5 +7702,33 @@ public abstract class L2Character extends L2Object
     public boolean isPreventedFromReceivingBuffs()
     {
     	return _block_buffs;
+    }
+
+    class FlyToLocationTask implements Runnable
+    {
+        @SuppressWarnings("hiding")
+        L2Object _target;
+        L2Character _actor;
+        L2Skill _skill;
+
+        public FlyToLocationTask(L2Character actor, L2Object target, L2Skill skill)
+        {
+            _actor = actor;
+            _target = target;
+            _skill = skill;
+        }
+
+        public void run()
+        {
+            try
+            {
+                FlyType _flyType = FlyType.valueOf(_skill.getFlyType());
+                broadcastPacket(new FlyToLocation(_actor,_target,_flyType));
+            }
+            catch (Exception e)
+            {
+                _log.fatal("", e);
+            }
+        }
     }
 }

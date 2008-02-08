@@ -403,10 +403,14 @@ public abstract class L2Skill
 	protected EffectTemplate[]		_effectTemplatesSelf;
 
 	//Attached skills for Special Abilities
-    protected L2Skill[] _skillsOnCast;
-    protected int[]		_skillsOnCastId,
-    					_skillsOnCastLvl;
-    protected int 		timesTriggered = 1;
+	protected L2Skill[] _skillsOnCast;
+	protected int[]		_skillsOnCastId,
+						_skillsOnCastLvl;
+	protected int 		timesTriggered = 1;
+
+	// Flying support
+	private final String _flyType;
+	private final int _flyRadius;
 
 	protected L2Skill(StatsSet set)
 	{
@@ -523,6 +527,9 @@ public abstract class L2Skill
 		_aggroPoints = set.getInteger("aggroPoints", 0);
 
 		_pvpMulti = set.getFloat("pvpMulti", 1.f);
+
+		_flyType = set.getString("flyType", null); 
+		_flyRadius = set.getInteger("flyRadius", 200);
 
 		String canLearn = set.getString("canLearn", null);
 		if (canLearn == null)
@@ -1154,6 +1161,16 @@ public abstract class L2Skill
 		return _directHpDmg;
 	}
 
+	public final String getFlyType()
+	{
+		return _flyType;
+	}
+
+	public final int getFlyRadius()
+	{
+		return _flyRadius;
+	}
+
 	public final int getTransformId()
 	{
 		return _transformId;
@@ -1583,10 +1600,10 @@ public abstract class L2Skill
 						if (obj == activeChar || obj == src) continue;
 						if (src != null)
 						{
-							if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
+							if (!((L2Character) obj).isFront(activeChar))
 								continue;
 
-							if (!((L2Character) obj).isFront(activeChar))
+							if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
 								continue;
 
 							boolean objInPvpZone = ZoneManager.getInstance().checkIfInZonePvP(obj) && !SiegeManager.getInstance().checkIfInZone(obj);
@@ -1643,10 +1660,10 @@ public abstract class L2Skill
 						if (obj == activeChar || obj == src) continue;
 						if (src != null)
 						{
-							if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
+							if (!((L2Character) obj).isBehind(activeChar))
 								continue;
 
-							if (!((L2Character) obj).isBehind(activeChar))
+							if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
 								continue;
 
 							boolean objInPvpZone = ZoneManager.getInstance().checkIfInZonePvP(((L2Character)obj)) && !SiegeManager.getInstance().checkIfInZone(((L2Character)obj));
@@ -1842,20 +1859,23 @@ public abstract class L2Skill
 
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (obj == null) continue;
-					if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance)) continue;
-					if (obj == cha) continue;
-					target = (L2Character) obj;
-
-					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+					if (obj == null || obj == cha)
 						continue;
+
+					if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+						continue;
+
+					target = (L2Character) obj;
 
 					if(!target.isAlikeDead() && (target != activeChar))
 					{
-						if (!Util.checkIfInRange(radius, obj, activeChar, true))
-						continue;
+						if (!Util.checkIfInRange(radius, target, activeChar, true))
+							continue;
 
 						if (!target.isFront(activeChar))
+							continue;
+
+						if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 							continue;
 
 						if (src != null) // caster is l2playableinstance and exists
@@ -1962,20 +1982,21 @@ public abstract class L2Skill
 
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (obj == null) continue;
-					if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance)) continue;
-					if (obj == cha) continue;
-					target = (L2Character) obj;
-
-					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
+					if (obj == null || obj == cha)
 						continue;
+					if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+						continue;
+					target = (L2Character) obj;
 
 					if(!target.isAlikeDead() && (target != activeChar))
 					{
 						if (!Util.checkIfInRange(radius, obj, activeChar, true))
-						continue;
+							continue;
 
 						if (!target.isBehind(activeChar))
+							continue;
+
+						if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 							continue;
 
 						if (src != null) // caster is l2playableinstance and exists
@@ -2046,7 +2067,7 @@ public abstract class L2Skill
 								continue;
 						}
 
-						targetList.add((L2Character) obj);
+						targetList.add(target);
 					}
 				}
 
@@ -2096,9 +2117,9 @@ public abstract class L2Skill
 								continue;
 
 							if (onlyFirst == false)
-								targetList.add((L2Character) obj); // Add obj to target lists
+								targetList.add(target); // Add obj to target lists
 							else
-								return new L2Character[] { (L2Character) obj };
+								return new L2Character[] {target};
 						}
 					}
 
