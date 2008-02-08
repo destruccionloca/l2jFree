@@ -1977,16 +1977,26 @@
 </skill>
 <skill id="484" levels="1" name="Rush">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Charge an enemy.  An ancient sword or short sword must be equipped to use this skill. Consumes 1 Soul.
+  Description:
+  Charge an enemy.  An ancient sword or short sword must be equipped to use this skill. Consumes 1 Soul.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <set name="magicLvl" val="32"/>
+  <set name="mpInitialConsume" val="6"/>
+  <set name="mpConsume" val="14"/>
+  <set name="power" val="80"/>
+  <set name="weaponsAllowed" val="32772"/>
+  <set name="hitTime" val="800"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="DEBUFF"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="800"/>
+  <set name="reuseDelay" val="60000"/>
+  <set name="soulConsumeCount" val="1"/>
+  <set name="flyType" val="CHARGE"/>
+  <set name="flyRadius" val="300"/>
   <for>
+    <effect count="1" name="EnemyCharge" time="1" val="0"/>
   </for>
 </skill>
 <skill id="485" levels="7" name="Disarm" enchantLevels1="30" enchantLevels2="30">
@@ -2149,7 +2159,8 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_FRONT_AREA"/>
+  <set name="skillRadius" val="#castRange"/>
   <set name="SSBoost" val="2.0"/>
   <set name="reuseDelay" val="13000"/>
   <set name="hitTime" val="800"/>
@@ -2159,134 +2170,76 @@
   <set name="castRange" val="#castRange"/>
   <set name="effectRange" val="900"/>
   <set name="soulConsumeCount" val="3"/>
+  <set name="flyType" val="CHARGE"/>
   <for>
   </for>
 </skill>
 <skill id="494" levels="37" name="Shoulder Charge">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Attack with a powerful charge, ramming an enemy with your shoulder. Instantly puts the enemy into shock. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill.
+  Description:
+  Attack with a powerful charge, ramming an enemy with your shoulder. Instantly puts the enemy into
+  shock. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill.   
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume_Init">
+  8 9 9 9 9 10 10 10 11 11
+  11 11 12 12 12 12 13 13 13 14
+  14 14 14 14 15 15 15 15 16 16
+  16 17 17 17 17 17 17
+  </table>
+  <table name="#mpConsume">
+  20 20 21 21 22 22 23 24 24 25
+  26 27 27 27 28 29 29 30 31 31
+  32 33 33 34 34 34 35 36 36 37
+  38 38 38 39 40 41 41
+  </table>
+  <table name="#magicLvl"> 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </table>
+  <set name="magicLvl" val="#magicLvl"/><!-- 40,76 -->
+  <set name="weaponsAllowed" val="32768"/>
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="50"/>
+  <set name="hitTime" val="800"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="STUN"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="560"/>
+  <set name="reuseDelay" val="36000"/>
+  <set name="soulConsumeCount" val="1"/>
+  <set name="flyType" val="CHARGE"/>
   <for>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="495" levels="10" name="Blade Rush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-	Lvl	1	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 6.	none	none
-	Lvl	2	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 6.	none	none
-	Lvl	3	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
-	Lvl	4	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
-	Lvl	5	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
-	Lvl	6	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
-	Lvl	7	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 7.	none	none
-	Lvl	8	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 8.	none	none
-	Lvl	9	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 8.	none	none
-	Lvl	10	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 8.	none	none
-	Lvl	101	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 8.	+1 Power	Maximizes the skill's effect. The effect is increased.
-	Lvl	102	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+2 Power	The effect is increased.
-	Lvl	103	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+3 Power	The effect is increased.
-	Lvl	104	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+4 Power	The effect is increased.
-	Lvl	105	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+5 Power	The effect is increased.
-	Lvl	106	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+6 Power	The effect is increased.
-	Lvl	107	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+7 Power	The effect is increased.
-	Lvl	108	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+8 Power	The effect is increased.
-	Lvl	109	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+9 Power	The effect is increased.
-	Lvl	110	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+10 Power	The effect is increased.
-	Lvl	111	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+11 Power	The effect is increased.
-	Lvl	112	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+12 Power	The effect is increased.
-	Lvl	113	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 9.	+13 Power	The effect is increased.
-	Lvl	114	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+14 Power	The effect is increased.
-	Lvl	115	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+15 Power	The effect is increased.
-	Lvl	116	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+16 Power	The effect is increased.
-	Lvl	117	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+17 Power	The effect is increased.
-	Lvl	118	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+18 Power	The effect is increased.
-	Lvl	119	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+19 Power	The effect is increased.
-	Lvl	120	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+20 Power	The effect is increased.
-	Lvl	121	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+21 Power	The effect is increased.
-	Lvl	122	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+22 Power	The effect is increased.
-	Lvl	123	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+23 Power	The effect is increased.
-	Lvl	124	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+24 Power	The effect is increased.
-	Lvl	125	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 10.	+25 Power	The effect is increased.
-	Lvl	126	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+26 Power	The effect is increased.
-	Lvl	127	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+27 Power	The effect is increased.
-	Lvl	128	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+28 Power	The effect is increased.
-	Lvl	129	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+29 Power	The effect is increased.
-	Lvl	130	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Power: Effect is increased. Effect 11.	+30 Power	The effect is increased.
-	Lvl	201	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+1 Chance	Maximizes the skill's success rate. The success rate is increased.
-	Lvl	202	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+2 Chance	The success rate is increased.
-	Lvl	203	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+3 Chance	The success rate is increased.
-	Lvl	204	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+4 Chance	The success rate is increased.
-	Lvl	205	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+5 Chance	The success rate is increased.
-	Lvl	206	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+6 Chance	The success rate is increased.
-	Lvl	207	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+7 Chance	The success rate is increased.
-	Lvl	208	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+8 Chance	The success rate is increased.
-	Lvl	209	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+9 Chance	The success rate is increased.
-	Lvl	210	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+10 Chance	The success rate is increased.
-	Lvl	211	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+11 Chance	The success rate is increased.
-	Lvl	212	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+12 Chance	The success rate is increased.
-	Lvl	213	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+13 Chance	The success rate is increased.
-	Lvl	214	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+14 Chance	The success rate is increased.
-	Lvl	215	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+15 Chance	The success rate is increased.
-	Lvl	216	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+16 Chance	The success rate is increased.
-	Lvl	217	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+17 Chance	The success rate is increased.
-	Lvl	218	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+18 Chance	The success rate is increased.
-	Lvl	219	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+19 Chance	The success rate is increased.
-	Lvl	220	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+20 Chance	The success rate is increased.
-	Lvl	221	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+21 Chance	The success rate is increased.
-	Lvl	222	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+22 Chance	The success rate is increased.
-	Lvl	223	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+23 Chance	The success rate is increased.
-	Lvl	224	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+24 Chance	The success rate is increased.
-	Lvl	225	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+25 Chance	The success rate is increased.
-	Lvl	226	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+26 Chance	The success rate is increased.
-	Lvl	227	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+27 Chance	The success rate is increased.
-	Lvl	228	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+28 Chance	The success rate is increased.
-	Lvl	229	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+29 Chance	The success rate is increased.
-	Lvl	230	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Chance: Success rate is increased. Effect 8.	+30 Chance	The success rate is increased.
-	Lvl	301	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
-	Lvl	302	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+2 Cost	The MP consumption is decreased.
-	Lvl	303	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+3 Cost	The MP consumption is decreased.
-	Lvl	304	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+4 Cost	The MP consumption is decreased.
-	Lvl	305	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+5 Cost	The MP consumption is decreased.
-	Lvl	306	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+6 Cost	The MP consumption is decreased.
-	Lvl	307	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+7 Cost	The MP consumption is decreased.
-	Lvl	308	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+8 Cost	The MP consumption is decreased.
-	Lvl	309	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+9 Cost	The MP consumption is decreased.
-	Lvl	310	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+10 Cost	The MP consumption is decreased.
-	Lvl	311	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+11 Cost	The MP consumption is decreased.
-	Lvl	312	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+12 Cost	The MP consumption is decreased.
-	Lvl	313	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+13 Cost	The MP consumption is decreased.
-	Lvl	314	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+14 Cost	The MP consumption is decreased.
-	Lvl	315	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+15 Cost	The MP consumption is decreased.
-	Lvl	316	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+16 Cost	The MP consumption is decreased.
-	Lvl	317	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+17 Cost	The MP consumption is decreased.
-	Lvl	318	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+18 Cost	The MP consumption is decreased.
-	Lvl	319	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+19 Cost	The MP consumption is decreased.
-	Lvl	320	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+20 Cost	The MP consumption is decreased.
-	Lvl	321	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+21 Cost	The MP consumption is decreased.
-	Lvl	322	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+22 Cost	The MP consumption is decreased.
-	Lvl	323	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+23 Cost	The MP consumption is decreased.
-	Lvl	324	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+24 Cost	The MP consumption is decreased.
-	Lvl	325	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+25 Cost	The MP consumption is decreased.
-	Lvl	326	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+26 Cost	The MP consumption is decreased.
-	Lvl	327	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+27 Cost	The MP consumption is decreased.
-	Lvl	328	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+28 Cost	The MP consumption is decreased.
-	Lvl	329	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+29 Cost	The MP consumption is decreased.
-	Lvl	330	Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul. Enchant Cost: MP consumption is decreased.Effect 8.	+30 Cost	The MP consumption is decreased.
+  Description:
+  Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 6. 
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume_Init"> 22 23 24 25 26 27 28 29 29 30 </table>
+  <table name="#mpConsume"> 51 55 57 58 60 62 64 66 68 70 </table>
+  <table name="#power"> 3.0 3.0 4.0 4.0 5.0 6.0 6.0 7.0 8.0 8.0 </table>
+  <table name="#dmg"> 39 51 66 81 93 102 111 120 129 138 </table>
+  <table name="#magicLvl"> 55 57 59 61 63 66 68 70 72 74 </table>
+  <set name="magicLvl" val="#magicLvl"/><!-- 55,76 -->
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="weaponsAllowed" val="32768"/>
+  <set name="hitTime" val="800"/>
+  <set name="target" val="TARGET_FRONT_AREA"/>
+  <set name="skillRadius" val="400"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="#power"/>
+  <set name="lvlDepend" val="2"/>
+  <set name="skillType" val="BLEED"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="800"/>
+  <set name="reuseDelay" val="36000"/>
+  <set name="flyType" val="CHARGE"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
+    <!-- retail value: 13 17 22 27 31 34/sec; stat update every 5 units (3 1/3 sec) -->
+    <effect count="7" name="DamOverTime" time="3" val="#dmg" abnormal="bleeding"/>
   </for>
 </skill>
 <skill id="496" levels="31" name="Slashing Blade">
