@@ -79,7 +79,7 @@ class Quest (JQuest) :
        return htmltext
 
    # All other Races must be out
-   if npcId == KAKAI_LORD_OF_FLAME and Race in [Race.Dwarf, Race.Darkelf, Race.Elf, Race.Human, Race.Kamael]:
+   if npcId == KAKAI_LORD_OF_FLAME and Race in [Race.Dwarf, Race.DarkElf, Race.Elf, Race.Human, Race.Kamael]:
      st.exitQuest(False) 
      st.exitQuest(1)
      return "30565-11.htm"

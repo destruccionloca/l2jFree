@@ -74,7 +74,7 @@ class Quest (JQuest) :
        return "30154-13.htm"
 
    # All other Races must be out
-   if npcId == HIERARCH_ASTERIOS and Race in [Race.Dwarf, Race.Human, Race.Darkelf, Race.Orc, Race.Kamael]:
+   if npcId == HIERARCH_ASTERIOS and Race in [Race.Dwarf, Race.Human, Race.DarkElf, Race.Orc, Race.Kamael]:
      st.exitQuest(False) 
      st.exitQuest(1)
      return "30154-11.htm"

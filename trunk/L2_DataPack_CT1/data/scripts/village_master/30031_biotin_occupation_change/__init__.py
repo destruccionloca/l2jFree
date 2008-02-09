@@ -62,7 +62,7 @@ class Quest (JQuest) :
      return htmltext
 
    # All other Races must be out
-   if npcId == HIGH_PRIEST_BIOTIN and Race in [Race.Dwarf, Race.Darkelf, Race.Elf, Race.Orc, Race.Kamael]:
+   if npcId == HIGH_PRIEST_BIOTIN and Race in [Race.Dwarf, Race.DarkElf, Race.Elf, Race.Orc, Race.Kamael]:
      st.exitQuest(False) 
      st.exitQuest(1)
      return "30031-08.htm"

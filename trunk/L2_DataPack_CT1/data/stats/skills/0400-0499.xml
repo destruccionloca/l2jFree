@@ -174,6 +174,7 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
+  <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="150"/>
   <set name="SSBoost" val="2.0"/>
@@ -198,6 +199,7 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
+  <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="150"/>
   <set name="SSBoost" val="2.0"/>
@@ -438,7 +440,7 @@
   <set name="itemConsumeId" val="1661"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="hitTime" val="3000"/>
-  <set name="reuseDelay" val="15000"/>
+  <set name="reuseDelay" val="1800000"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="SUMMON_TREASURE_KEY"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -2178,7 +2180,7 @@
 <!--
   Description:
   Attack with a powerful charge, ramming an enemy with your shoulder. Instantly puts the enemy into
-  shock. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill.   
+  shock. Consumes 1 Soul. An equipped ancient sword weapon is required to use this skill.
 -->
   <table name="#mpConsume_Init">
   8 9 9 9 9 10 10 10 11 11
@@ -2214,7 +2216,7 @@
 <skill id="495" levels="10" name="Blade Rush" enchantLevels1="30" enchantLevels2="30" enchantLevels3="30">
 <!--
   Description:
-  Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 6. 
+  Charges forward with sword brandished. Causes all enemies in your path to bleed. Consumes 1 Soul.  An equipped ancient sword weapon is required to use this skill. Effect 6.
 -->
   <table name="#mpConsume_Init"> 22 23 24 25 26 27 28 29 29 30 </table>
   <table name="#mpConsume"> 51 55 57 58 60 62 64 66 68 70 </table>
