@@ -4451,7 +4451,7 @@ INSERT INTO `etcitem` VALUES
 (6034, 'Nightmare Oil', 'false', 'none', 0, 'stackable', 'liquid', 'none', -1, 5000, 0, 'true', 'true', 'true', 'true', 'nightmare_oil', 'none'),
 (6035, 'Magic Haste Potion', 'false', 'potion', 20, 'stackable', 'liquid', 'none', -1, 2400, 0, 'true', 'true', 'true', 'true', 'potion_of_acumen2', 'potion'),
 (6036, 'Greater Magic Haste Potion', 'false', 'potion', 20, 'stackable', 'liquid', 'none', -1, 7200, 0, 'true', 'true', 'true', 'true', 'potion_of_acumen3', 'potion'),
-(6037, 'Waking Scroll', 'false', 'scroll', 5, 'stackable', 'paper', 'none', -1, 120, 0, 'true', 'true', 'true', 'true', 'scroll_of_awake', 'scroll'),
+(6037, 'Waking Scroll', 'false', 'scroll', 5, 'stackable', 'paper', 'none', -1, 100, 0, 'true', 'true', 'true', 'true', 'scroll_of_awake', 'scroll'),
 (6038, 'Greater Mercenary Posting Ticket (Sword/Stationary)', 'false', 'castle_guard', 0, 'stackable', 'paper', 'none', -1, 0, 0, 'true', 'true', 'true', 'true', 'adv_mticket_gludio_sword_fix', 'castle_guard'),
 (6039, 'Greater Mercenary Posting Ticket (Spear/Stationary)', 'false', 'castle_guard', 0, 'stackable', 'paper', 'none', -1, 0, 0, 'true', 'true', 'true', 'true', 'adv_mticket_gludio_pole_fix', 'castle_guard'),
 (6040, 'Greater Mercenary Posting Ticket (Bow/Stationary)', 'false', 'castle_guard', 0, 'stackable', 'paper', 'none', -1, 0, 0, 'true', 'true', 'true', 'true', 'adv_mticket_gludio_bow_fix', 'castle_guard'),
