@@ -111,6 +111,16 @@ public class AdminSpawn implements IAdminCommandHandler
 			"<num> - NPC amount to spawn, Default: 1",
 			"<radius> - radius for NPC spawns, Default: 300"
 		},
+		{"admin_spawn_once", 									// spawn NPC, do not store in db and do not respawn
+			
+			"Spawn NPC and do not store in DB, do not respawn, too.",
+			"Usage: //spawn_once <id|name> <num> <radius>",
+			"Options:",
+			"id - NPC template ID",
+			"name - NPC name (use underscope to separate words in npc name)",
+			"<num> - NPC amount to spawn, Default: 1",
+			"<radius> - radius for NPC spawns, Default: 300"
+		},
 		{"admin_unspawnall",									// delete all spawned NPC's
 				
 			"Delete all spawned NPC's.",
@@ -295,8 +305,12 @@ public class AdminSpawn implements IAdminCommandHandler
 			else
 				showAdminCommandHelp(activeChar,cmd);
 		}
-		else if (cmd.equals("admin_spawn") || cmd.equals("admin_cspawn") || cmd.equals("admin_otspawn"))
+		else if (cmd.equals("admin_spawn") || cmd.equals("admin_cspawn") || cmd.equals("admin_otspawn") || cmd.equals("admin_spawn_once"))
 		{
+			boolean custom = cmd.equals("admin_cspawn");
+			boolean respawn = !cmd.equals("admin_spawn_once");
+			boolean storeInDb = !cmd.equals("admin_otspawn") && respawn;
+
 			int npcId = 0;
 			String npcName = "";
 			int count = 1;
@@ -310,8 +324,7 @@ public class AdminSpawn implements IAdminCommandHandler
 				{
 					npcId =  Integer.parseInt(npcName);
 				}
-				catch (NumberFormatException  e)
-				{}
+				catch (NumberFormatException  e){}
 				
 				if (st.hasMoreTokens())
 					count = Integer.parseInt(st.nextToken());
@@ -319,12 +332,11 @@ public class AdminSpawn implements IAdminCommandHandler
 					radius = Integer.parseInt(st.nextToken());
 				
 				if (npcId > 0)
-					spawnNpc(activeChar, npcId, count, radius, !cmd.equals("admin_otspawn"), cmd.equals("admin_cspawn"));
+					spawnNpc(activeChar, npcId, count, radius, storeInDb, respawn, custom);
+				else if (npcName.length() > 0)
+					spawnNpc(activeChar, npcName, count, radius, storeInDb, respawn, custom);
 				else
-					if (npcName.length() > 0)
-						spawnNpc(activeChar, npcName, count, radius, !cmd.equals("admin_otspawn"), cmd.equals("admin_cspawn"));
-					else
-						showAdminCommandHelp(activeChar,cmd);
+					showAdminCommandHelp(activeChar,cmd);
 			}
 			catch (Exception e)
 			{
@@ -399,7 +411,7 @@ public class AdminSpawn implements IAdminCommandHandler
 	 * @param respawn if false spawn only once
 	 * @param custom if true then spawn will be custom
 	 */
-	private void spawnNpc(L2PcInstance activeChar, int npcId, int count, int radius, boolean respawn, boolean custom)
+	private void spawnNpc(L2PcInstance activeChar, int npcId, int count, int radius, boolean saveInDb, boolean respawn, boolean custom)
 	{
 		L2Object target = activeChar.getTarget();
 		if (target == null)
@@ -449,24 +461,26 @@ public class AdminSpawn implements IAdminCommandHandler
 				spawn.setHeading(heading);
 				spawn.setRespawnDelay(Config.STANDARD_RESPAWN_DELAY);
 
-				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && 
-						respawn && 
-						!Config.ALT_DEV_NO_SPAWNS)
+				if (RaidBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS)
+				{
 					activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
+				}
 				else
 				{
-					if(respawn==true && Config.ALT_DEV_NO_SPAWNS==false)
+					if(saveInDb && !Config.ALT_DEV_NO_SPAWNS)
 					{
 						if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcId()) != null)
 							RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getBaseHpMax(), template.getBaseMpMax(), true);
-					else
-						SpawnTable.getInstance().addNewSpawn(spawn, respawn);
+						else
+							SpawnTable.getInstance().addNewSpawn(spawn, respawn);
 					}
 					else
 						spawn.spawnOne();
-				
-				spawn.init();
-				activeChar.sendMessage("Created " + template.getName() + " on " + target.getObjectId() + ".");
+
+					if(!respawn)
+						spawn.stopRespawn();
+					spawn.init();
+					activeChar.sendMessage("Created " + template.getName() + " on "+target.getX()+" "+target.getY()+" "+target.getZ()+".");
 				}
 			} 
 		}
@@ -483,12 +497,12 @@ public class AdminSpawn implements IAdminCommandHandler
 	 * @param respawn if false spawn only once
 	 * @param custom if true then spawn will be custom
 	 */
-	private void spawnNpc(L2PcInstance activeChar, String npcName, int count, int radius, boolean respawn, boolean custom)
+	private void spawnNpc(L2PcInstance activeChar, String npcName, int count, int radius, boolean saveInDb, boolean respawn, boolean custom)
 	{
 		int npcId = getNpcIdByName(npcName);
 		
 		if (npcId > 0)
-			spawnNpc(activeChar, npcId, count, radius, respawn, custom);
+			spawnNpc(activeChar, npcId, count, radius, saveInDb, respawn, custom);
 		else
 			activeChar.sendMessage("NPC template with name " +npcName + " not found.");
 	}

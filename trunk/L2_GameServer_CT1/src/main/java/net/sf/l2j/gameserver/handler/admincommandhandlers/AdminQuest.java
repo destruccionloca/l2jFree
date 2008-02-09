@@ -34,7 +34,7 @@ public class AdminQuest implements IAdminCommandHandler
     private static final int REQUIRED_LEVEL = Config.GM_TEST;
     private static final String[] ADMIN_COMMANDS =
     {
-        "admin_quest_reload"
+        "admin_quest_reload", "admin_script_load"
     };
 
     /* (non-Javadoc)
