@@ -4351,7 +4351,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // [L2J_JP ADD SANDMAN]
         // When the player has been annihilated, the player is banished from the Four Sepulcher. 
-        if (FourSepulchersManager.getInstance().checkIfInZone(this) && (getZ() >= -7250 && getZ() <= -6841))
+        if (FourSepulchersManager.getInstance().checkIfInZone(this))
             FourSepulchersManager.getInstance().checkAnnihilated(this);
         // When the player has been annihilated, the player is banished from the lair. 
         else if (SailrenManager.getInstance().checkIfInZone(this))

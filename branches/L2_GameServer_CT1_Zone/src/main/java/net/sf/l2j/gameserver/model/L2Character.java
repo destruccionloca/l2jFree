@@ -548,18 +548,14 @@ public abstract class L2Character extends L2Object
 		if (_log.isDebugEnabled())
 			_log.debug("Teleporting to: " + x + ", " + y + ", " + z);
 
-		L2WorldRegion oldRegion = getWorldRegion();
+		// remove the object from its old location
+		decayMe();
 
 		// Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
 		broadcastPacket(new TeleportToLocation(this, x, y, z));
 		
 		// Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
 		getPosition().setXYZ(x, y, z);
-		decayMe();
-
-		// Remove from world regions zones
-		if (oldRegion != null)
-			oldRegion.removeFromZones(this);
 
 		isFalling(false, 0);
 		
@@ -2111,6 +2107,9 @@ public abstract class L2Character extends L2Object
 		// Notify L2Character AI
 		getAI().notifyEvent(CtrlEvent.EVT_DEAD, null);
 		
+		if (getWorldRegion() != null)
+			getWorldRegion().onDeath(this);
+		
 		// Notify Quest of character's death
 		for (QuestState qs : getNotifyQuestOfDeath())
 		{
@@ -2139,6 +2138,9 @@ public abstract class L2Character extends L2Object
 			
 			// Start broadcast status
 			broadcastPacket(new Revive(this));
+			
+			if (getWorldRegion() != null)
+				getWorldRegion().onRevive(this);
 		}
 		else
 			setIsPendingRevive(true);

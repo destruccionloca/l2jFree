@@ -208,11 +208,12 @@ public class GameServer
 		CrownManager.getInstance();
 		TownManager.getInstance();
 		ClanHallManager.getInstance();
-		ZoneManager.getInstance();
 		DoorTable.getInstance();
-		MercTicketManager.getInstance();
 		CastleManager.getInstance();
 		SiegeManager.getInstance();
+		ZoneManager.getInstance();
+		MercTicketManager.getInstance();
+		DoorTable.getInstance().registerToClanHalls();
 		Util.printSection("Spawns");
 		SpawnTable.getInstance();
 		DayNightSpawnManager.getInstance().notifyChangeMode();

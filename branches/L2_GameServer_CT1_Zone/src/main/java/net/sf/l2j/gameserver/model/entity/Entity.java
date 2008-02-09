@@ -114,7 +114,6 @@ public class Entity
 	public void broadcastToPlayers(String message)
 	{
 		SystemMessage msg = SystemMessage.sendString(message);
-		// Get players from this and nearest world regions
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
 			if (checkIfInZone(player))
@@ -124,7 +123,6 @@ public class Entity
 
 	public void broadcastToPlayers(L2GameServerPacket gsp)
 	{
-		// Get players from this and nearest world regions
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
 			if (checkIfInZone(player))

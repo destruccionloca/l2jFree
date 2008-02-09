@@ -75,16 +75,17 @@ public abstract class L2Zone
 	
 	public static enum Boss
 	{
+		ANAKIM,
 		ANTHARAS,
 		BAIUM,
-		VALAKAS,
-		SAILREN,
 		FOURSEPULCHERS,
+		FRINTEZZA,
 		LILITH,
-		ANAKIM,
-		ZAKEN,
+		SAILREN,
 		SUNLIGHTROOM,
-		VANHALTER
+		VALAKAS,
+		VANHALTER,
+		ZAKEN
 	}
 
 	public static final int FLAG_PVP = 1;
@@ -96,8 +97,7 @@ public abstract class L2Zone
 	public static final int FLAG_NOLANDING = 64;
 	public static final int FLAG_WATER = 128;
 	public static final int FLAG_JAIL = 256;
-	public static final int FLAG_MONSTERTRACK = 512;
-	public static final int FLAG_STADIUM = 1024;
+	public static final int FLAG_STADIUM = 512;
 	public static final int FLAG_SUNLIGHTROOM = 1024;
 	
 	protected int _id;

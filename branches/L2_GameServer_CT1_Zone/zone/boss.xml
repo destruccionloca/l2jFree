@@ -92,4 +92,11 @@
     </shape>
   </zone>
 
+  <zone id="14" name="Lair of Scarlet van Halisha" type="Boss">
+    <settings boss="Frintezza"/>
+    <shape type="Cylinder" radius="2100" zMin="-5116" zMax="-2319">
+      <point x="174234" y="-88015"/>
+    </shape>
+  </zone>
+
 </list>

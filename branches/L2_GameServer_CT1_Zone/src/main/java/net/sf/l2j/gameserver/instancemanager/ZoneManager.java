@@ -81,7 +81,7 @@ public class ZoneManager
 
 		for (File f : Util.getDatapackFiles("zone", ".xml"))
 		{
-            int count = 0;
+			int count = 0;
 			try
 			{
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -92,7 +92,7 @@ public class ZoneManager
 			catch (Exception e)
 			{
 				_log.fatal("ZoneManager: Error loading file " + f.getAbsolutePath(), e);
-                continue;
+				continue;
 			}
 			try
 			{
@@ -101,10 +101,10 @@ public class ZoneManager
 			catch (Exception e)
 			{
 				_log.fatal("ZoneManager: Error in file " + f.getAbsolutePath(), e);
-                e.printStackTrace();
-                continue;
+				e.printStackTrace();
+				continue;
 			}
-            _log.info("ZoneManager: "+f.getName()+" loaded with "+count+" zones");
+			_log.info("ZoneManager: "+f.getName()+" loaded with "+count+" zones");
 		}
 	}
 
@@ -125,8 +125,7 @@ public class ZoneManager
 						L2Zone zone = L2Zone.parseZone(d);
 						if(zone == null)continue;
 						
-						// Register the zone into any world region it intersects with...
-						// currently 11136 test for each zone :>
+						// Register the zone to any intersecting world region
 						int ax,ay,bx,by;
 						for (int x=0; x < worldRegions.length; x++)
 						{
@@ -135,7 +134,7 @@ public class ZoneManager
 								ax = (x-L2World.OFFSET_X) << L2World.SHIFT_BY;
 								bx = ((x+1)-L2World.OFFSET_X) << L2World.SHIFT_BY;
 								ay = (y-L2World.OFFSET_Y) << L2World.SHIFT_BY;
-								by	= ((y+1)-L2World.OFFSET_Y) << L2World.SHIFT_BY;
+								by = ((y+1)-L2World.OFFSET_Y) << L2World.SHIFT_BY;
 								
 								if (zone.intersectsRectangle(ax, bx, ay, by))
 								{

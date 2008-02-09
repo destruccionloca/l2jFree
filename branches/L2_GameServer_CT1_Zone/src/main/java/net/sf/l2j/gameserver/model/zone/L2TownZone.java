@@ -35,13 +35,22 @@ public class L2TownZone extends L2DefaultZone
 		{
 			if (((L2PcInstance)character).getSiegeState() != 0 && Config.ZONE_TOWN == 1)
 			{
+				// PvP allowed for siege participants
+				// TODO: PvP zone with debuffs etc. allowed or just general zone?
+				character.setInsideZone(FLAG_PVP, true);
 				peace = false;
 			}
 		}
 
+		// PvP in towns all the time
 		if (Config.ZONE_TOWN == 2)
+		{
 			peace = false;
-		
+
+			// TODO: PvP zone with debuffs etc. allowed or just general zone?
+			character.setInsideZone(FLAG_PVP, true);
+		}
+
 		if (peace == true)
 			character.setInsideZone(FLAG_PEACE, true);
 	}
@@ -50,5 +59,6 @@ public class L2TownZone extends L2DefaultZone
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(FLAG_PEACE, false);
+		character.setInsideZone(FLAG_PVP, false);
 	}
 }

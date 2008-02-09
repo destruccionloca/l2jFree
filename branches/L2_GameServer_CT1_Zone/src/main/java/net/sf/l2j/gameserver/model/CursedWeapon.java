@@ -121,7 +121,8 @@ public class CursedWeapon
                 else _player.sendPacket(new ItemList(_player, true));
                 
                 _player.broadcastUserInfo();
-            } else
+            }
+            else
             {
                 // Remove from Db
                 _log.info(_name + " being removed offline." );
@@ -160,28 +161,29 @@ public class CursedWeapon
                     try { con.close(); } catch (Exception e) {}
                 }
             }
-        } else
+        }
+        else
         {
-			// either this cursed weapon is in the inventory of someone who has another cursed weapon equipped, 
-			// OR this cursed weapon is on the ground.
-			if ((_player != null) && (_player.getInventory().getItemByItemId(_itemId) != null))
-			{
-	    		// Destroy 
-	    		L2ItemInstance removedItem = _player.getInventory().destroyItemByItemId("", _itemId, 1, _player, null);
-	    		if (!Config.FORCE_INVENTORY_UPDATE)
-	    		{
-	    			InventoryUpdate iu = new InventoryUpdate();
-	    			if (removedItem.getCount() == 0) iu.addRemovedItem(removedItem);
-	    			else iu.addModifiedItem(removedItem);
-	    	
-	    			_player.sendPacket(iu);
-	    		}
-	    		else _player.sendPacket(new ItemList(_player, true));
-	    		
-	    		_player.broadcastUserInfo();
-			}
+            // either this cursed weapon is in the inventory of someone who has another cursed weapon equipped, 
+            // OR this cursed weapon is on the ground.
+            if ((_player != null) && (_player.getInventory().getItemByItemId(_itemId) != null))
+            {
+                // Destroy 
+                L2ItemInstance removedItem = _player.getInventory().destroyItemByItemId("", _itemId, 1, _player, null);
+                if (!Config.FORCE_INVENTORY_UPDATE)
+                {
+                    InventoryUpdate iu = new InventoryUpdate();
+                    if (removedItem.getCount() == 0) iu.addRemovedItem(removedItem);
+                    else iu.addModifiedItem(removedItem);
+            
+                    _player.sendPacket(iu);
+                }
+                else _player.sendPacket(new ItemList(_player, true));
+                
+                _player.broadcastUserInfo();
+            }
             //  is dropped on the ground
-			else if (_item != null)
+            else if (_item != null)
             {
                 _item.decayMe();
                 L2World.getInstance().removeObject(_item);
@@ -236,6 +238,7 @@ public class CursedWeapon
     {
         dropIt(attackable, player, null, true);
     }
+
     private void dropIt(L2Attackable attackable, L2PcInstance player, L2Character killer, boolean fromMonster)
     {
         _isActivated = false;
@@ -247,12 +250,14 @@ public class CursedWeapon
             
             // RedSky and Earthquake
             ExRedSky packet = new ExRedSky(10);
-			Earthquake eq = new Earthquake(player.getX(), player.getY(), player.getZ(), 14, 3);
-			for (L2PcInstance aPlayer : L2World.getInstance().getAllPlayers()) {
+            Earthquake eq = new Earthquake(player.getX(), player.getY(), player.getZ(), 14, 3);
+            for (L2PcInstance aPlayer : L2World.getInstance().getAllPlayers())
+            {
                 aPlayer.sendPacket(packet);
-				aPlayer.sendPacket(eq);
-			}
-        } else
+                aPlayer.sendPacket(eq);
+            }
+        }
+        else
         {
             _player.dropItem("DieDrop", _item, killer, true);
 
@@ -297,26 +302,26 @@ public class CursedWeapon
         // To properly support subclasses this skill can not be stored.
         _player.addSkill(skill, false);
 
-		// Void Burst, Void Flow
-		skill = SkillTable.getInstance().getInfo(3630, 1);
-		_player.addSkill(skill, false);
-		skill = SkillTable.getInstance().getInfo(3631, 1);
-		_player.addSkill(skill, false);
+        // Void Burst, Void Flow
+        skill = SkillTable.getInstance().getInfo(3630, 1);
+        _player.addSkill(skill, false);
+        skill = SkillTable.getInstance().getInfo(3631, 1);
+        _player.addSkill(skill, false);
 
         if (_log.isDebugEnabled())
             _log.debug("Player "+_player.getName() +" has been awarded with skill "+skill);
         _player.sendSkillList();
     }
     
-	public void removeSkillAndAppearance()
-	{
-		if(_player.isTransformed())
-			_player.untransform();
-		_player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
-		_player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
-		_player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
-		_player.sendSkillList();
-	}
+    public void removeSkillAndAppearance()
+    {
+        if(_player.isTransformed())
+            _player.untransform();
+        _player.removeSkill(SkillTable.getInstance().getInfo(_skillId, _player.getSkillLevel(_skillId)), false);
+        _player.removeSkill(SkillTable.getInstance().getInfo(3630, 1), false);
+        _player.removeSkill(SkillTable.getInstance().getInfo(3631, 1), false);
+        _player.sendSkillList();
+    }
     
     
     // =========================================================
@@ -369,10 +374,10 @@ public class CursedWeapon
 
         if((player._inEventTvT && !Config.TVT_JOIN_CURSED) || (player._inEventCTF && !Config.CTF_JOIN_CURSED))
         {
-        	if(player._inEventTvT)
-        		TvT.removePlayer(player);
-        	if(player._inEventCTF)
-        		CTF.removePlayer(player);
+            if(player._inEventTvT)
+                TvT.removePlayer(player);
+            if(player._inEventCTF)
+                CTF.removePlayer(player);
         }
         
         _isActivated = true;
@@ -419,15 +424,15 @@ public class CursedWeapon
         // Refresh player stats
         _player.broadcastUserInfo();
 
-		//SocialAction atk = new SocialAction(_player.getObjectId(), 17);
-		
-		//_player.broadcastPacket(atk);
+        //SocialAction atk = new SocialAction(_player.getObjectId(), 17);
+        
+        //_player.broadcastPacket(atk);
 
-		transform();
+        transform();
         sm = new SystemMessage(SystemMessageId.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION);
-		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
-		sm.addItemName(_item);
-		CursedWeaponsManager.announce(sm);
+        sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
+        sm.addItemName(_item);
+        CursedWeaponsManager.announce(sm);
     }
     
     public void saveData()

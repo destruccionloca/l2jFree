@@ -1,66 +1,6 @@
 <list>
-  <zone id="1" name="Monster Race Track" type="Derby">
-    <settings pvp="Arena"/>
-    <restart_owner x="12312" y="182752" z="-3558"/>
-    <shape type="Poly" zMin="-3596" zMax="-3596">
-      <point x="11947" y="183019"/>
-      <point x="12937" y="183019"/>
-      <point x="12943" y="184010"/>
-      <point x="11941" y="184010"/>
-    </shape>
-  </zone>
 
-  <zone id="2" name="Monster Race Track" type="Derby">
-    <settings pvp="Peace"/>
-    <shape type="Poly" zMin="-3652" zMax="-3452">
-      <point x="11714" y="181568"/>
-      <point x="14406" y="181571"/>
-      <point x="14405" y="182673"/>
-      <point x="11714" y="182673"/>
-    </shape>
-    <shape type="Rect" zMin="-3610" zMax="-3410">
-      <point x="13309" y="181324"/>
-      <point x="14061" y="181610"/>
-    </shape>
-    <shape type="Poly" zMin="-3608" zMax="-3408">
-      <point x="13559" y="182641"/>
-      <point x="14073" y="182640"/>
-      <point x="14073" y="182919"/>
-      <point x="13560" y="182918"/>
-    </shape>
-    <shape type="Poly" zMin="-3612" zMax="-3412">
-      <point x="12196" y="182662"/>
-      <point x="12447" y="182663"/>
-      <point x="12447" y="182766"/>
-      <point x="12197" y="182766"/>
-    </shape>
-    <shape type="Poly" zMin="-3624" zMax="-3424">
-      <point x="11706" y="182774"/>
-      <point x="13194" y="182769"/>
-      <point x="13194" y="183006"/>
-      <point x="11701" y="183017"/>
-    </shape>
-    <shape type="Poly" zMin="-3616" zMax="-3416">
-      <point x="11701" y="184017"/>
-      <point x="13188" y="184011"/>
-      <point x="13194" y="184265"/>
-      <point x="11701" y="184260"/>
-    </shape>
-    <shape type="Poly" zMin="-3620" zMax="-3420">
-      <point x="11697" y="183013"/>
-      <point x="11945" y="183019"/>
-      <point x="11940" y="184015"/>
-      <point x="11697" y="184015"/>
-    </shape>
-    <shape type="Poly" zMin="-3624" zMax="-3424">
-      <point x="12945" y="183013"/>
-      <point x="13193" y="183008"/>
-      <point x="13193" y="184009"/>
-      <point x="12945" y="184009"/>
-    </shape>
-  </zone>
-
-  <zone id="3" name="Gludin Arena">
+  <zone id="1" name="Gludin Arena">
     <settings pvp="Arena"/>
     <restart_owner x="-86979" y="142402" z="-3643"/>
     <shape type="Poly" zMin="-3752" zMax="-3352">
@@ -71,7 +11,7 @@
     </shape>
   </zone>
 
-  <zone id="4" name="Gludin Arena">
+  <zone id="2" name="Gludin Arena">
     <settings pvp="Peace"/>
     <shape type="Poly" zMin="-3723" zMax="-3223">
       <point x="-88445" y="141473"/>
@@ -99,7 +39,7 @@
     </shape>
   </zone>
 
-  <zone id="5" name="Giran Arena">
+  <zone id="3" name="Giran Arena">
     <settings pvp="Arena"/>
     <restart_owner x="73890" y="142656" z="-3778"/>
     <shape type="Poly" zMin="-3850" zMax="-3350">
@@ -114,7 +54,7 @@
     </shape>
   </zone>
 
-  <zone id="6" name="Giran Arena">
+  <zone id="4" name="Giran Arena">
     <settings pvp="Peace"/>
     <shape type="Poly" zMin="-3851" zMax="3351">
       <point x="73490" y="142231"/>
@@ -142,7 +82,7 @@
     </shape>
   </zone>
 
-  <zone id="7" name="Olympiad Stadium" type="Stadium">
+  <zone id="5" name="Olympiad Stadium" type="Stadium">
     <settings pvp="Arena"/>
     <restart_owner x="147451" y="46728" z="-3410"/>
     <shape type="Poly" zMin="-3498" zMax="-3298">
@@ -173,7 +113,7 @@
     </shape>
   </zone>
 
-  <zone id="8" name="Olympiad Stadium" type="Stadium">
+  <zone id="6" name="Olympiad Stadium" type="Stadium">
     <settings pvp="Peace"/>
     <shape type="Poly" zMin="-3468" zMax="-3268">
       <point x="147779" y="46196"/>

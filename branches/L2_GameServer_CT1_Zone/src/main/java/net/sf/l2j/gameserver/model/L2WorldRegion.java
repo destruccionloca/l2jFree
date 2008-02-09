@@ -93,6 +93,12 @@ public final class L2WorldRegion
 
     public void revalidateZones(L2Character character)
     {
+        // do NOT update the world region while the character is still in the process of teleporting
+        // Once the teleport is COMPLETED, revalidation occurs safely, at that time.
+
+        if (character.isTeleporting())
+            return;
+
         for (L2Zone z : _zones)
         {
             z.revalidateInZone(character);

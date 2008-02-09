@@ -273,9 +273,9 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check if player is in a Monster Derby Track
-        else if (activeChar.isInsideZone(L2Zone.FLAG_MONSTERTRACK))
+        else if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
         {
-            activeChar.sendMessage("You can't escape from a Monster Derby Track.");
+            activeChar.sendMessage("You cannot escape from here.");
             return false;
         }
 
@@ -340,9 +340,9 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
             return false;
         }
-        else if (partner.isInsideZone(L2Zone.FLAG_MONSTERTRACK))
+        else if (partner.isInsideZone(L2Zone.FLAG_NOESCAPE))
         {
-            activeChar.sendMessage("Your partner is in a Monster Derby Track.");
+            activeChar.sendMessage("Your partner is in a unsuitable area for teleporting.");
             return false;
         }
         

@@ -90,14 +90,6 @@ public class DoorTable
 				L2DoorInstance door = parseList(line);
 				_staticItems.put(door.getDoorId(), door);
 				door.spawnMe(door.getX(), door.getY(),door.getZ());
-				ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(),door.getY(),500);
-				if (clanhall != null)
-				{
-					clanhall.getDoors().add(door);
-					door.setClanHall(clanhall);
-					if (_log.isDebugEnabled())
-						_log.debug("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
-				}
 			}
 			
 			_initialized = true;
@@ -120,6 +112,24 @@ public class DoorTable
 		}
 	}
 
+	public void registerToClanHalls()
+	{
+		if(_staticItems == null)
+			return;
+
+		for(L2DoorInstance door : _staticItems.values())
+		{
+			ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(),door.getY(),500);
+			if (clanhall != null)
+			{
+				clanhall.getDoors().add(door);
+				door.setClanHall(clanhall);
+				if (_log.isDebugEnabled())
+					_log.debug("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
+			}
+		}
+	}
+
 	public static L2DoorInstance parseList(String line) 
 	{
 		StringTokenizer st = new StringTokenizer(line, ";");
@@ -134,7 +144,7 @@ public class DoorTable
 		int rangeZMin = Integer.parseInt(st.nextToken());
 		int rangeXMax = Integer.parseInt(st.nextToken());
 		int rangeYMax = Integer.parseInt(st.nextToken());
-		int rangeZMax = Integer.parseInt(st.nextToken());		
+		int rangeZMax = Integer.parseInt(st.nextToken());
 		int hp = Integer.parseInt(st.nextToken());
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());
@@ -211,7 +221,7 @@ public class DoorTable
 		catch (Exception e) 
 		{ 
 			_log.fatal("Error in door data, ID:"+id); 
-		}		
+		}
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 		door.setOpen(autoopen?0:1);
 		door.getPosition().setXYZInvisible(x,y,z);

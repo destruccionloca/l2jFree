@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.model.zone;
 
 import net.sf.l2j.gameserver.instancemanager.AntharasManager;
 import net.sf.l2j.gameserver.instancemanager.BaiumManager;
+import net.sf.l2j.gameserver.instancemanager.FrintezzaManager;
 import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
@@ -42,6 +43,9 @@ public class L2BossZone extends L2DefaultZone
 				break;
 			case VANHALTER:
 				VanHalterManager.getInstance().registerZone(this);
+				break;
+			case FRINTEZZA:
+				FrintezzaManager.getInstance().registerZone(this);
 				break;
 		}
 	}

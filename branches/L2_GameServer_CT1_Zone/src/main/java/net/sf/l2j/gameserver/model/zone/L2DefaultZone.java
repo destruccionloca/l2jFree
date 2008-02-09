@@ -54,6 +54,15 @@ public class L2DefaultZone extends L2Zone
 			if (Config.ZONE_TOWN != 2)
 				character.setInsideZone(FLAG_PEACE, true);
 		}
+
+		if (_noLanding)
+		{
+			character.setInsideZone(FLAG_NOLANDING, true);
+		}
+		if (_noEscape)
+		{
+			character.setInsideZone(FLAG_NOESCAPE, true);
+		}
 	}
 	
 	@Override
@@ -83,7 +92,18 @@ public class L2DefaultZone extends L2Zone
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 		}
 		else if (_pvp == PvpSettings.PEACE)
+		{
 			character.setInsideZone(FLAG_PEACE, false);
+		}
+
+		if (_noLanding)
+		{
+			character.setInsideZone(FLAG_NOLANDING, false);
+		}
+		if (_noEscape)
+		{
+			character.setInsideZone(FLAG_NOESCAPE, false);
+		}
 	}
 
 	@Override
