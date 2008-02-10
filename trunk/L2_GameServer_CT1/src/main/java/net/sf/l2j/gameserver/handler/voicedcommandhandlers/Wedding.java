@@ -195,7 +195,8 @@ public class Wedding implements IVoicedCommandHandler
         }
         
         ptarget.setEngageRequest(true, activeChar.getObjectId());
-        ptarget.sendPacket(new ConfirmDlg(1983, activeChar.getName()+" asking you to engage. Do you want to start a new relationship?"));
+        ConfirmDlg dlg = new ConfirmDlg(1983);
+        ptarget.sendPacket(dlg.addString(activeChar.getName()+" asking you to engage. Do you want to start a new relationship?"));
         return true;
     }
     
