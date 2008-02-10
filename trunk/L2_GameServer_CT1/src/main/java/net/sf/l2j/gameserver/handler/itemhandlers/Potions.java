@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -24,6 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
+import net.sf.l2j.gameserver.network.serverpackets.ShortBuffStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
@@ -41,6 +43,8 @@ public class Potions implements IItemHandler
                 8193, 8194, 8195, 8196, 8197, 8198, 8199, 8200, 8201, 8202,
                 8600, 8601, 8602, 8603, 8604, 8605, 8606, 8607, 8608, 8609,
 				8610, 8611, 8612, 8613, 8614,
+				//Attribute Potion
+				9997, 9998, 9999, 10000, 10001,10002,
 				//elixir of life
 				8622, 8623, 8624, 8625, 8626, 8627,
 				//elixir of Strength
@@ -173,6 +177,39 @@ public class Potions implements IItemHandler
 					return;
         		res = usePotion(activeChar, 2169, (itemId == 6035) ? 1 : 2);
         		break;
+        		
+        	// ATTRIBUTE POTION
+        	case 9997: // Fire Resist Potion, xml: 2335
+        		if (!isUseable(activeChar, item, 2335))
+					return;
+        		res = usePotion(activeChar, 2335, 1);
+        	break;
+        	case 9998: // Water Resist Potion, xml: 2336
+        		if (!isUseable(activeChar, item, 2336))
+					return;
+        		res = usePotion(activeChar, 2336, 1);
+        	break;
+        	case 9999: // Earth Resist Potion, xml: 2338
+        		if (!isUseable(activeChar, item, 2338))
+					return;
+        		res = usePotion(activeChar, 2338, 1);
+        	break;
+        	case 10000: // Wind Resist Potion, xml: 2337
+        		if (!isUseable(activeChar, item, 2337))
+					return;
+        		res = usePotion(activeChar, 2337, 1);
+        	break;
+        	case 10001: // Dark Resist Potion, xml: 2340
+        		if (!isUseable(activeChar, item, 2340))
+					return;
+        		res = usePotion(activeChar, 2340, 1);
+        	break;
+        	case 10002: // Divine Resist Potion, xml: 2339
+        		if (!isUseable(activeChar, item, 2339))
+					return;
+        		res = usePotion(activeChar, 2339, 1);
+        	break;
+        	
             // ELIXIR 
             case 8622:  
             case 8623:  
@@ -443,6 +480,12 @@ public class Potions implements IItemHandler
         if (skill != null)
         {
             activeChar.doCast(skill);
+            // only for Heal potions
+            if (magicId == 2031 ||magicId == 2032 ||magicId == 2037)
+            {
+            	activeChar.sendPacket(new ShortBuffStatusUpdate(magicId, level, 15));
+            	ThreadPoolManager.getInstance().scheduleGeneral(new ShortBuffTask(activeChar), 15000);
+            }
             if (!(activeChar.isSitting() && !skill.isPotion()))
                 return true;
         }
@@ -452,5 +495,19 @@ public class Potions implements IItemHandler
     public int[] getItemIds()
     {
         return ITEM_IDS;
+    }
+    class ShortBuffTask implements Runnable
+    {
+    	private L2PcInstance player = null;
+    public ShortBuffTask(L2PcInstance activeChar)
+    {
+    	player = activeChar;
+    }
+    	public void run()
+    	{
+    		if (player == null)
+    			return;
+    		player.sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
+    	}
     }
 }
