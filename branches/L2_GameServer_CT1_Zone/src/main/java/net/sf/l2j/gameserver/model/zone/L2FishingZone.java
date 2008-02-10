@@ -29,14 +29,10 @@ public class L2FishingZone extends L2DefaultZone
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
-			character.sendMessage("Entered fishing zone "+getId());
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
-			character.sendMessage("Left fishing zone "+getId());
 	}
 }

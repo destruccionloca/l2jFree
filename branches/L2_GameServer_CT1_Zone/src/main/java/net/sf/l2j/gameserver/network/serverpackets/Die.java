@@ -71,15 +71,15 @@ public class Die extends L2GameServerPacket
             _showCastle = clan.getHasCastle() <= 0 ? 0 : 1;
             _showFortress = clan.getHasFortress() <= 0 ? 0 : 1;
             L2SiegeClan siegeClan = null;
-            Boolean isInDefense = Boolean.valueOf(false);
+            boolean isInDefense = false;
             Castle castle = CastleManager.getInstance().getCastle(_activeChar);
             if(castle != null && castle.getSiege().getIsInProgress())
             {
                 siegeClan = castle.getSiege().getAttackerClan(clan);
                 if(siegeClan == null && castle.getSiege().checkIsDefender(clan))
-                    isInDefense = Boolean.valueOf(true);
+                    isInDefense = true;
             }
-            _showFlag = siegeClan == null || isInDefense.booleanValue() || siegeClan.getFlag().size() <= 0 ? 0 : 1;
+            _showFlag = siegeClan == null || isInDefense || siegeClan.getFlag().size() <= 0 ? 0 : 1;
         }
         _showVillage = 1;
 	}

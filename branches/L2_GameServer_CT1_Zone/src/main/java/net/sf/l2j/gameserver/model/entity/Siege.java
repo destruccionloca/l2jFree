@@ -514,10 +514,9 @@ public class Siege
     public boolean checkIfInZone(int x, int y, int z)
     {
         Town town = TownManager.getInstance().getTown(x, y, z);
-    	return (getIsInProgress() && (getCastle().checkIfInZone(x, y, z) || // Castle Zone
-            getZone().isInsideZone(x, y) || // Siege Zone
-        (town != null && getCastle().getCastleId() == town.getCastleId()) // Castle Town
-        ));
+        return (getIsInProgress() &&
+                    (getCastle().checkIfInZone(x, y, z) || getZone().isInsideZone(x, y)
+                        || (town != null && getCastle().getCastleId() == town.getCastleId())));
     }
 
     /**

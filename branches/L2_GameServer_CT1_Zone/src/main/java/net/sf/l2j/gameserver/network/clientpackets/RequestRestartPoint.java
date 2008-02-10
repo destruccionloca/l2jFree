@@ -95,7 +95,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 						break;
 
 					case 2: // to castle
-						Boolean isInDefense = false;
+						boolean isInDefense = false;
 						castle = CastleManager.getInstance().getCastle(activeChar);
 						if (castle != null && castle.getSiege().getIsInProgress())
 						{

@@ -36,7 +36,7 @@ public class L2StadiumZone extends L2DefaultZone
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.setInsideZone(FLAG_STADIUM, true);
+		character.setInsideZone(FLAG_STADIUM, false);
 		super.onEnter(character);
 	}
 }

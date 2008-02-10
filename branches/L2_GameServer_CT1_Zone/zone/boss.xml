@@ -20,7 +20,7 @@
     </shape>
   </zone>
 
-  <zone id="5" name="Lair of Zaken" type="Boss">
+  <zone id="2" name="Lair of Zaken" type="Boss">
     <settings boss="Zaken"/>
     <shape type="Rect" zMin="-3775" zMax="-2690">
       <point x="53182" y="216945"/>
@@ -28,7 +28,7 @@
     </shape>
   </zone>
 
-  <zone id="6" name="Lair of Anakim" type="Boss">
+  <zone id="3" name="Lair of Anakim" type="Boss">
     <settings boss="Anakim"/>
     <shape type="Rect" zMin="-5500" zMax="-3895">
       <point x="184008" y="-10681"/>
@@ -36,7 +36,7 @@
     </shape>
   </zone>
 
-  <zone id="7" name="Lair of Lilith" type="Boss">
+  <zone id="4" name="Lair of Lilith" type="Boss">
     <settings boss="Lilith"/>
     <shape type="Rect" zMin="-5500" zMax="-3895">
       <point x="183986" y="-13716"/>
@@ -44,7 +44,7 @@
     </shape>
   </zone>
 
-  <zone id="8" name="Lair of Antharas" type="Boss">
+  <zone id="5" name="Lair of Antharas" type="Boss">
     <settings boss="Antharas"/>
     <shape type="Rect" zMin="-8220" zMax="-4870">
       <point x="173439" y="110176"/>
@@ -52,7 +52,7 @@
     </shape>
   </zone>
 
-  <zone id="9" name="Lair of Baium" type="Boss">
+  <zone id="6" name="Lair of Baium" type="Boss">
     <settings boss="Baium"/>
     <shape type="Rect" zMin="10070" zMax="12480">
       <point x="109448" y="10233"/>
@@ -60,7 +60,7 @@
     </shape>
   </zone>
 
-  <zone id="10" name="Lair of Sailren" type="Boss">
+  <zone id="7" name="Lair of Sailren" type="Boss">
     <settings boss="Sailren"/>
     <shape type="Rect" zMin="-1975" zMax="-1944">
       <point x="26095" y="-8084"/>
@@ -68,7 +68,7 @@
     </shape>
   </zone>
 
-  <zone id="11" name="Sunlight Room" type="Boss">
+  <zone id="8" name="Sunlight Room" type="Boss">
     <settings boss="SunLightRoom"/>
     <shape type="Rect" zMin="-2952" zMax="-2690">
       <point x="55794" y="219633"/>
@@ -76,7 +76,7 @@
     </shape>
   </zone>
 
-  <zone id="12" name="Lair of Valakas" type="Boss">
+  <zone id="9" name="Lair of Valakas" type="Boss">
     <settings boss="Valakas"/>
     <shape type="Rect" zMin="-1640" zMax="9880">
       <point x="199755" y="-124724"/>
@@ -84,7 +84,7 @@
     </shape>
   </zone>
 
-  <zone id="13" name="Altar of Sacrifice" type="Boss">
+  <zone id="10" name="Altar of Sacrifice" type="Boss">
     <settings boss="VanHalter"/>
     <shape type="Rect" zMin="-10730" zMax="-10290">
       <point x="-18176" y="-54972"/>
@@ -92,7 +92,7 @@
     </shape>
   </zone>
 
-  <zone id="14" name="Lair of Scarlet van Halisha" type="Boss">
+  <zone id="11" name="Lair of Scarlet van Halisha" type="Boss">
     <settings boss="Frintezza"/>
     <shape type="Cylinder" radius="2100" zMin="-5116" zMax="-2319">
       <point x="174234" y="-88015"/>

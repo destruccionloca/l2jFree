@@ -25,6 +25,7 @@ public class L2WaterZone extends L2DefaultZone
 	@Override
 	protected void register()
 	{
+		// Required for fishing
 		ZoneManager.getInstance().getZones(ZoneType.Water).add(this);
 	}
 
