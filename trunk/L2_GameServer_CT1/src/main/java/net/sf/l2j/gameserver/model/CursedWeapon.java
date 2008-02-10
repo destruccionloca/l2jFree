@@ -428,7 +428,6 @@ public class CursedWeapon
         saveData();
 
         // Change player stats
-        _player.setCursedWeaponEquippedId(_itemId);
         _player.setKarma(9000000);
         _player.setPkKills(0);
         if (_player.isInParty())
@@ -465,15 +464,15 @@ public class CursedWeapon
         // Refresh player stats
         transform();
         _player.broadcastUserInfo();
+        _player.setCursedWeaponEquippedId(_itemId);
+        //SocialAction atk = new SocialAction(_player.getObjectId(), 17);
 
-		//SocialAction atk = new SocialAction(_player.getObjectId(), 17);
-
-		//_player.broadcastPacket(atk);
+        //_player.broadcastPacket(atk);
 
         sm = new SystemMessage(SystemMessageId.THE_OWNER_OF_S2_HAS_APPEARED_IN_THE_S1_REGION);
-		sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
-		sm.addItemName(_item);
-		CursedWeaponsManager.announce(sm);
+        sm.addZoneName(_player.getX(), _player.getY(), _player.getZ()); // Region Name
+        sm.addItemName(_item);
+        CursedWeaponsManager.announce(sm);
     }
 
     public void saveData()
