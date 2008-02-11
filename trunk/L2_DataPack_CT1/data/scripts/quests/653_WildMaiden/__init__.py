@@ -28,7 +28,7 @@ class Quest (JQuest) :
         st.playSound("ItemSound.quest_accept")
         st.takeItems(SOE,1)
         htmltext = "32013-03.htm"
-        npc.broadcastPacket(MagicSkillUser(npc,npc,2013,1,20000,0))
+        npc.broadcastPacket(MagicSkillUse(npc,npc,2013,1,20000,0))
         st.startQuestTimer("suki_timer",20000,npc)
     elif event == "32013-04a.htm" :
         st.exitQuest(1)
