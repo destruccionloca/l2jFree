@@ -1053,7 +1053,7 @@
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<mul order="0x30" stat="fallVuln" val="#resist"/>
+    <mul order="0x30" stat="fallVuln" val="#resist"/>
   </for>
 </skill>
 <skill id="176" levels="3" name="Frenzy">

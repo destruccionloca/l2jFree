@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	L2J XML skills DTD
+  L2J XML skills DTD
 
-	This defines a simple and consistent way of creating a namespace
-	of skills objects, managed by L2J
+  This defines a simple and consistent way of creating a namespace
+  of skills objects, managed by L2J
 
-	Each "item" element in this document defines a skill.
+  Each "item" element in this document defines a skill.
 
-	XML documents that conform to this DTD should declare the following doctype:
+  XML documents that conform to this DTD should declare the following doctype:
 
-	<!DOCTYPE list SYSTEM "skills.dtd">
+  <!DOCTYPE list SYSTEM "skills.dtd">
 -->
 
 <!--
-	The document root. A document can contain item definitions only.
+  The document root. A document can contain item definitions only.
 -->
 <!ELEMENT list (skill)*>
 
 
 <!--
-	The document item.
-	add, sub, div and mul can modify a stat
-	set set some values
-	cond specified a condition of use
-	enchant1 define enchantement of skill
-	enchant2 define enchantement of skill
+  The document item.
+  add, sub, div and mul can modify a stat
+  set set some values
+  cond specified a condition of use
+  enchant1 define enchantement of skill
+  enchant2 define enchantement of skill
 -->
 <!ELEMENT skill (for|add|sub|div|mul|set|table|cond|enchant1|enchant2)*>
 
 <!--
-	The document for. A item can contain "add,mull,sub and div" element
+  The document for. A item can contain "add,mull,sub and div" element
 -->
 <!ELEMENT for (effect|add|sub|div|mul|cond|using)*>
 
 
 <!--
-	this operations could specified a condition (using a specific weapon)
+  this operations could specified a condition (using a specific weapon)
 -->
 <!ELEMENT add (using|and|player)*>
 <!ELEMENT div (using|and)*>
@@ -123,19 +123,19 @@
 <!ATTLIST mul val CDATA #REQUIRED>
 <!ATTLIST mul order CDATA #IMPLIED>
 <!ATTLIST mul stat (
-	stunRes|earthRes|sleepRes|fireRes|rootRes|windRes|waterRes|bowWpnRes|
-	maxMp|maxLoad|maxCp|maxHp|
-	regMp|regHp|regCp|
-	gainHp|reflectDam|
-	atkReuse|mReuse|
-	pAtkRange|
-	breath|
-	rExp|rEvas|rShld|rCrit|MpConsumeRate|mpConsumeRate|mCritRate|
-	mAtk|mAtkSpd|runSpd|mDef|pAtk|cAtk|pDef|sDef|accCombat|
-	pAtk-dragons|pAtk-plants|pAtkSpd|pAtk-animals|pAtk-insects|pAtk-undead|pAtk-monsters|
-	pDef-valakas|pAtk-valakas
-	)
-	#REQUIRED>
+  stunRes|earthRes|sleepRes|fireRes|rootRes|windRes|waterRes|bowWpnRes|
+  maxMp|maxLoad|maxCp|maxHp|
+  regMp|regHp|regCp|
+  gainHp|reflectDam|
+  atkReuse|mReuse|
+  pAtkRange|
+  breath|
+  rExp|rEvas|rShld|rCrit|MpConsumeRate|mpConsumeRate|mCritRate|
+  mAtk|mAtkSpd|runSpd|mDef|pAtk|cAtk|pDef|sDef|accCombat|
+  pAtk-dragons|pAtk-plants|pAtkSpd|pAtk-animals|pAtk-insects|pAtk-undead|pAtk-monsters|
+  pDef-valakas|pAtk-valakas
+  )
+  #REQUIRED>
 
 <!--
  the use of an item could be specified for a kind of item or a dependency with another item

@@ -4,9 +4,9 @@
 <item id='6656' name="Earring of Antharas">
   <for>
     <add val='71' order='0x10' stat='mDef'/>
-	<add val='31' order='0x40' stat='maxMp'/>
+  <add val='31' order='0x40' stat='maxMp'/>
     <enchant val='0' order='0x0C' stat='mDef'/>
-  </for> 
+  </for>
 </item>
 <item id='6657' name="Necklace of Valakas">
   <for>

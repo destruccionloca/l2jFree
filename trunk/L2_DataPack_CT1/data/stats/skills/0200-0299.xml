@@ -235,7 +235,7 @@
     <!-- retail value: 13HP/sec; stat update every 2 units (1 1/3 sec) -->
     <effect count="0x7fffffff" name="DamOverTime" time="1" val="13">
       <mul order="0x30" stat="pAtkSpd" val="1.25">
-      	<using kind="Fist, Dual Fist"/>
+        <using kind="Fist, Dual Fist"/>
       </mul>
     </effect>
   </for>
@@ -2184,13 +2184,13 @@
   </for>
 </skill>
 <skill id="295" levels="1" name="Iron Body">
-	<set name="power" val="0.0"/>
-	<set name="target" val="TARGET_SELF"/>
-	<set name="skillType" val="BUFF"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<mul order="0x30" stat="fallVuln" val="1.3"/>
+    <mul order="0x30" stat="fallVuln" val="1.3"/>
   </for>
 </skill>
 <skill id="296" levels="1" name="Chameleon Rest">

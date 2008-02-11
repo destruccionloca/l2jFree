@@ -1591,15 +1591,15 @@
 </skill>
 <skill id="470" levels="7" name="Detect Trap">
 <!--
-	By Darki699
+  By Darki699
   Description(s):
-      Lvl	1	Detect traps below Level 18. Consumes 1 Soul.
-      Lvl	2	Detect traps below Level 28. Consumes 1 Soul.
-      Lvl	3	Detect traps below Level 38. Consumes 1 Soul.
-      Lvl	4	Detect traps below Level 48. Consumes 1 Soul.
-      Lvl	5	Detect traps below Level 58. Consumes 1 Soul.
-      Lvl	6	Detect traps below Level 68. Consumes 1 Soul.
-      Lvl	7	Detect traps below Level 78. Consumes 1 Soul.
+      Lvl 1 Detect traps below Level 18. Consumes 1 Soul.
+      Lvl 2 Detect traps below Level 28. Consumes 1 Soul.
+      Lvl 3 Detect traps below Level 38. Consumes 1 Soul.
+      Lvl 4 Detect traps below Level 48. Consumes 1 Soul.
+      Lvl 5 Detect traps below Level 58. Consumes 1 Soul.
+      Lvl 6 Detect traps below Level 68. Consumes 1 Soul.
+      Lvl 7 Detect traps below Level 78. Consumes 1 Soul.
 -->
   <table name="#mp"> 15 10 11 13 17 18 19 </table>
   <table name="#power"> 18 28 38 48 58 68 78 </table>
@@ -1618,15 +1618,15 @@
 </skill>
 <skill id="471" levels="7" name="Defuse Trap">
 <!--
-	By Darki699
+  By Darki699
   Description(s):
-      Lvl	1	Disarm traps below Level 18. Consumes 1 Soul.
-      Lvl	2	Disarm traps below Level 28. Consumes 1 Soul.
-      Lvl	3	Disarm traps below Level 38. Consumes 1 Soul.
-      Lvl	4	Disarm traps below Level 48. Consumes 1 Soul.
-      Lvl	5	Disarm traps below Level 58. Consumes 1 Soul.
-      Lvl	6	Disarm traps below Level 68. Consumes 1 Soul.
-      Lvl	7	Disarm traps below Level 78. Consumes 1 Soul.
+      Lvl 1 Disarm traps below Level 18. Consumes 1 Soul.
+      Lvl 2 Disarm traps below Level 28. Consumes 1 Soul.
+      Lvl 3 Disarm traps below Level 38. Consumes 1 Soul.
+      Lvl 4 Disarm traps below Level 48. Consumes 1 Soul.
+      Lvl 5 Disarm traps below Level 58. Consumes 1 Soul.
+      Lvl 6 Disarm traps below Level 68. Consumes 1 Soul.
+      Lvl 7 Disarm traps below Level 78. Consumes 1 Soul.
 -->
   <table name="#mp"> 4 10 11 13 17 18 19 </table>
   <table name="#power"> 18 28 38 48 58 68 78 </table>
@@ -2285,9 +2285,9 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl	1	Courage	Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 1.
-      Lvl	2	Courage	Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 2.
-      Lvl	3	Courage	Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 3.
+      Lvl 1 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 1.
+      Lvl 2 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 2.
+      Lvl 3 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 3.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>

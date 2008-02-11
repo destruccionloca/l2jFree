@@ -69,7 +69,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='accCombat'/>
+  <add val='#val' order='0x40' stat='accCombat'/>
   </for>
 </skill>
 <skill id="3008" levels="6" name="Special Ability: Guidance">
@@ -85,7 +85,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='accCombat'/>
+  <add val='#val' order='0x40' stat='accCombat'/>
   </for>
 </skill>
 <skill id="3009" levels="6" name="Special Ability: Evasion">
@@ -101,7 +101,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='rEvas'/>
+  <add val='#val' order='0x40' stat='rEvas'/>
   </for>
 </skill>
 <skill id="3010" levels="6" name="Special Ability: Focus">
@@ -546,7 +546,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<mul val='#val' order='0x30' stat='pAtkSpd'/>
+  <mul val='#val' order='0x30' stat='pAtkSpd'/>
   </for>
 </skill>
 <skill id="3037" levels="6" name="Special Ability: Haste">
@@ -562,7 +562,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<mul val='#val' order='0x30' stat='pAtkSpd'/>
+  <mul val='#val' order='0x30' stat='pAtkSpd'/>
   </for>
 </skill>
 <skill id="3038" levels="6" name="Special Ability: Haste">
@@ -1043,7 +1043,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='4' order='0x40' stat='accCombat'/>
+  <add val='4' order='0x40' stat='accCombat'/>
   </for>
 </skill>
 <skill id="3065" levels="1" name="Special Ability: Guidance">
@@ -1075,7 +1075,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='cAtk'/>
+  <add val='#val' order='0x40' stat='cAtk'/>
   </for>
 </skill>
 <skill id="3067" levels="2" name="Special Ability: Critical Damage">
@@ -1092,7 +1092,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='cAtk'/>
+  <add val='#val' order='0x40' stat='cAtk'/>
   </for>
 </skill>
 <skill id="3068" levels="2" name="Special Ability: Haste">
@@ -1109,7 +1109,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<mul val='#val' order='0x30' stat='pAtkSpd'/>
+  <mul val='#val' order='0x30' stat='pAtkSpd'/>
   </for>
 </skill>
 <skill id="3069" levels="1" name="Special Ability: Risky Evasion">
@@ -1190,7 +1190,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='mAtk'/>
+  <add val='#val' order='0x40' stat='mAtk'/>
   </for>
 </skill>
 <skill id="3073" levels="2" name="Special Ability: Magic Power">

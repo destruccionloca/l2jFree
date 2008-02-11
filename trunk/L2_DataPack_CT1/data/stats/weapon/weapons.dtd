@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-	L2J XML armors DTD
+  L2J XML armors DTD
 
-	This defines a simple and consistent way of creating a namespace
-	of weapons objects, managed by L2J
+  This defines a simple and consistent way of creating a namespace
+  of weapons objects, managed by L2J
 
-	Each "item" element in this document defines a weapon item.
+  Each "item" element in this document defines a weapon item.
 
-	XML documents that conform to this DTD should declare the following doctype:
+  XML documents that conform to this DTD should declare the following doctype:
 
-	<!DOCTYPE list SYSTEM "weapons.dtd">
+  <!DOCTYPE list SYSTEM "weapons.dtd">
 -->
 
 <!--
-	The document root. A document can contain item definitions only.
+  The document root. A document can contain item definitions only.
 -->
 <!ELEMENT list (item)*>
 
 
 <!--
-	The document item. A item can contain "for, add, sub, div, set or mul" element.
-	add, sub, div and mul can modify a stat
+  The document item. A item can contain "for, add, sub, div, set or mul" element.
+  add, sub, div and mul can modify a stat
 -->
 <!ELEMENT item (for|add|sub|div|mul|set)*>
 
 <!--
-	The document for. A item can contain "add,mull,enchant,sub and div" element
+  The document for. A item can contain "add,mull,enchant,sub and div" element
 -->
 <!ELEMENT for (add|mul|enchant|sub|div|set|skill)*>
 
 
 <!--
-	add, div, sub, mul could coutain condition "and" and "or"
+  add, div, sub, mul could coutain condition "and" and "or"
 -->
 <!ELEMENT add (and|or)*>
 <!ELEMENT div (and|or)*>
@@ -40,24 +40,24 @@
 <!ELEMENT set (and|or)*>
 
 <!--
-	enchant are empty
+  enchant are empty
 -->
 <!ELEMENT enchant EMPTY>
 
 <!--
-	and conditions could specified use of an item or his kind, the target or a not condition
+  and conditions could specified use of an item or his kind, the target or a not condition
 -->
 <!ELEMENT and (using|target|not|player|game)*>
 <!--
-	the "not" condition could specified the use of an item
+  the "not" condition could specified the use of an item
 -->
 <!ELEMENT not (using)*>
 <!--
-	the "or" could specified several "and" condition
+  the "or" could specified several "and" condition
 -->
 <!ELEMENT or (and)*>
 <!--
-	target specified the type of the target (dagger ?)
+  target specified the type of the target (dagger ?)
 -->
 <!ELEMENT target EMPTY>
 
@@ -67,8 +67,8 @@
 <!ELEMENT game EMPTY>
 
 <!--
-	using specified the item, the position on paperdoll and the level of enchant
-	(should used three attributes instead of one...)
+  using specified the item, the position on paperdoll and the level of enchant
+  (should used three attributes instead of one...)
 -->
 <!ELEMENT using EMPTY>
 
@@ -79,7 +79,7 @@
 <!ATTLIST item name CDATA #REQUIRED>
 
 <!--
- all operations must specified val order and stat 
+ all operations must specified val order and stat
 -->
 <!ATTLIST set val CDATA #REQUIRED>
 <!ATTLIST set order CDATA #REQUIRED>
@@ -133,7 +133,7 @@
 <!ATTLIST using kind CDATA #IMPLIED>
 
 <!--
- 
+
 -->
 <!ATTLIST target using CDATA #IMPLIED>
 

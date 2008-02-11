@@ -801,7 +801,7 @@
   <set name="displayId" val="96"/>
   <set name="abnormal_type" val="bleeding"/>
   <for>
-	<effect count="6" name="DamOverTime" time="5" val="#damage"/>
+  <effect count="6" name="DamOverTime" time="5" val="#damage"/>
   </for>
 </skill>
 <skill id="4150" levels="12" name="Flame">

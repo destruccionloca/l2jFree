@@ -38,10 +38,10 @@
 </for>
 </item>
 <item id='6373' name="Imperial Crusader Breastplate">
-  <for> 
-    <add val='205' order='0x10' stat='pDef'/> 
-  <enchant val='0' order='0x0C' stat='pDef'/> 
-  </for> 
+  <for>
+    <add val='205' order='0x10' stat='pDef'/>
+  <enchant val='0' order='0x0C' stat='pDef'/>
+  </for>
 </item>
 <item id='6374' name="Imperial Crusader Gaiters">
   <for>
@@ -67,11 +67,11 @@
   <enchant val='0' order='0x0C' stat='pDef'/>
   </for>
 </item>
-<item id='6379' name="Draconic Leather Armor"> 
-  <for> 
-	<add val='249' order='0x10' stat='pDef'/> 
+<item id='6379' name="Draconic Leather Armor">
+  <for>
+  <add val='249' order='0x10' stat='pDef'/>
   <enchant val='0' order='0x0C' stat='pDef'/>
-  </for> 
+  </for>
 </item>
 <item id='6380' name="Draconic Leather Gloves">
   <for>
@@ -92,11 +92,11 @@
   </for>
 </item>
 <item id='6383' name="Major Arcana Robe">
-  <for> 
-	<add val='166' order='0x10' stat='pDef'/> 
-	<add val='866' order='0x60' stat='maxMp'/> 
+  <for>
+  <add val='166' order='0x10' stat='pDef'/>
+  <add val='866' order='0x60' stat='maxMp'/>
   <enchant val='0' order='0x0C' stat='pDef'/>
-  </for> 
+  </for>
 </item>
 <item id='6384' name="Major Arcana Gloves">
   <for>

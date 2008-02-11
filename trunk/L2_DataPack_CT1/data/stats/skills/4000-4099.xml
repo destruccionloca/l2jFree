@@ -177,8 +177,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<mul stat="fireVuln" val="0.5" order="0x30"/>
-  	<div stat="waterVuln" val="0.85" order="0x30"/>
+    <mul stat="fireVuln" val="0.5" order="0x30"/>
+    <div stat="waterVuln" val="0.85" order="0x30"/>
   </for>
 </skill>
 <skill id="4014" levels="1" name="Resistance To Water, Vulnerable To Fire">
@@ -190,8 +190,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<div stat="fireVuln" val="0.85" order="0x30"/>
-  	<mul stat="waterVuln" val="0.5" order="0x30"/>
+    <div stat="fireVuln" val="0.85" order="0x30"/>
+    <mul stat="waterVuln" val="0.5" order="0x30"/>
   </for>
 </skill>
 <skill id="4015" levels="1" name="Resistance To Wind, Vulnerable To Earth">
@@ -202,8 +202,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<mul stat="windVuln" val="0.5" order="0x30"/>
-  	<div stat="earthVuln" val="0.85" order="0x30"/>
+    <mul stat="windVuln" val="0.5" order="0x30"/>
+    <div stat="earthVuln" val="0.85" order="0x30"/>
   </for>
 </skill>
 <skill id="4016" levels="1" name="Resistance To Earth, Vulnerable To Wind">
@@ -214,8 +214,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  	<div stat="windVuln" val="0.85" order="0x50"/>
-  	<mul stat="earthVuln" val="0.5" order="0x50"/>
+    <div stat="windVuln" val="0.85" order="0x50"/>
+    <mul stat="earthVuln" val="0.5" order="0x50"/>
   </for>
 </skill>
 <skill id="4017" levels="1" name="Queen Ant Brandish">

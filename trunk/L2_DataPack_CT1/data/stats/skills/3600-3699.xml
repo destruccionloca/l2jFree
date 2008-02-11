@@ -5,7 +5,7 @@
 <!--
   Description(s):
       Lvl 1-6 - Decreases the character's Maximum HP but increases P. Atk. Allows the character to attack multiple opponents.
-	Lvl 7-9 - Decreases the character's Maximum HP but increases P. Atk., and allows the character to attack multiple opponents and inflicts additional damage during PvP.
+  Lvl 7-9 - Decreases the character's Maximum HP but increases P. Atk., and allows the character to attack multiple opponents and inflicts additional damage during PvP.
 -->
   <table name="#val"> 20.44 22.64 24.77 26.78 28.59 30.12 31.30 39.00 45.00</table>
   <set name="power" val="0.0"/>
@@ -40,7 +40,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<mul val='#val' order='0x30' stat='pAtkSpd'/>
+  <mul val='#val' order='0x30' stat='pAtkSpd'/>
   </for>
 </skill>
 <skill id="3602" levels="9" name="Special Ability: Guidance">
@@ -64,7 +64,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<add val='#val' order='0x40' stat='accCombat'/>
+  <add val='#val' order='0x40' stat='accCombat'/>
   </for>
 </skill>
 <skill id="3603" levels="10" name="Demonic Sword Zariche">

@@ -905,96 +905,96 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl	1	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 50.
-      Lvl	2	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 52.
-      Lvl	3	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 55.
-      Lvl	4	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 57.
-      Lvl	5	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 60.
-      Lvl	6	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 61.
-      Lvl	7	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 65.
-      Lvl	8	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 66.
-      Lvl	9	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 70.
-      Lvl	10	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 72.
-      Lvl	11	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 75.
-      Lvl	12	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 77.
-      Lvl	13	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 80.
-      Lvl	14	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 82.
-      Lvl	15	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 84.
-      Lvl	16	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 85.
-      Lvl	17	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 87.
-      Lvl	18	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 89.
-      Lvl	19	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 90.
-      Lvl	20	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 92.
-      Lvl	21	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 94.
-      Lvl	22	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 96.
-      Lvl	23	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 97.
-      Lvl	24	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 99.
-      Lvl	25	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 100.
-      Lvl	26	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 102.
-      Lvl	27	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 104.
-      Lvl	28	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 105.
-      Lvl	29	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 107.
-      Lvl	30	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 108.
-      Lvl	101	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 111.	+1 Power	Maximizes the skill's effect. The effect is increased.
-      Lvl	102	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.	+2 Power	The effect is increased.
-      Lvl	103	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.	+3 Power	The effect is increased.
-      Lvl	104	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.	+4 Power	The effect is increased.
-      Lvl	105	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.	+5 Power	The effect is increased.
-      Lvl	106	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.	+6 Power	The effect is increased.
-      Lvl	107	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.	+7 Power	The effect is increased.
-      Lvl	108	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 114.	+8 Power	The effect is increased.
-      Lvl	109	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 114.	+9 Power	The effect is increased.
-      Lvl	110	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.	+10 Power	The effect is increased.
-      Lvl	111	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.	+11 Power	The effect is increased.
-      Lvl	112	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.	+12 Power	The effect is increased.
-      Lvl	113	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.	+13 Power	The effect is increased.
-      Lvl	114	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.	+14 Power	The effect is increased.
-      Lvl	115	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.	+15 Power	The effect is increased.
-      Lvl	116	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.	+16 Power	The effect is increased.
-      Lvl	117	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.	+17 Power	The effect is increased.
-      Lvl	118	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.	+18 Power	The effect is increased.
-      Lvl	119	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 118.	+19 Power	The effect is increased.
-      Lvl	120	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 118.	+20 Power	The effect is increased.
-      Lvl	121	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.	+21 Power	The effect is increased.
-      Lvl	122	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.	+22 Power	The effect is increased.
-      Lvl	123	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.	+23 Power	The effect is increased.
-      Lvl	124	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.	+24 Power	The effect is increased.
-      Lvl	125	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.	+25 Power	The effect is increased.
-      Lvl	126	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.	+26 Power	The effect is increased.
-      Lvl	127	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.	+27 Power	The effect is increased.
-      Lvl	128	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.	+28 Power	The effect is increased.
-      Lvl	129	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.	+29 Power	The effect is increased.
-      Lvl	130	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 122.	+30 Power	The effect is increased.
-      Lvl	201	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+1 Cost	Maximizes the skill's efficiency. The MP consumption is decreased.
-      Lvl	202	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+2 Cost	The MP consumption is decreased.
-      Lvl	203	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+3 Cost	The MP consumption is decreased.
-      Lvl	204	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+4 Cost	The MP consumption is decreased.
-      Lvl	205	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+5 Cost	The MP consumption is decreased.
-      Lvl	206	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+6 Cost	The MP consumption is decreased.
-      Lvl	207	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+7 Cost	The MP consumption is decreased.
-      Lvl	208	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+8 Cost	The MP consumption is decreased.
-      Lvl	209	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+9 Cost	The MP consumption is decreased.
-      Lvl	210	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+10 Cost	The MP consumption is decreased.
-      Lvl	211	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+11 Cost	The MP consumption is decreased.
-      Lvl	212	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+12 Cost	The MP consumption is decreased.
-      Lvl	213	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+13 Cost	The MP consumption is decreased.
-      Lvl	214	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+14 Cost	The MP consumption is decreased.
-      Lvl	215	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+15 Cost	The MP consumption is decreased.
-      Lvl	216	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+16 Cost	The MP consumption is decreased.
-      Lvl	217	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+17 Cost	The MP consumption is decreased.
-      Lvl	218	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+18 Cost	The MP consumption is decreased.
-      Lvl	219	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+19 Cost	The MP consumption is decreased.
-      Lvl	220	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+20 Cost	The MP consumption is decreased.
-      Lvl	221	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+21 Cost	The MP consumption is decreased.
-      Lvl	222	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+22 Cost	The MP consumption is decreased.
-      Lvl	223	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+23 Cost	The MP consumption is decreased.
-      Lvl	224	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+24 Cost	The MP consumption is decreased.
-      Lvl	225	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+25 Cost	The MP consumption is decreased.
-      Lvl	226	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+26 Cost	The MP consumption is decreased.
-      Lvl	227	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+27 Cost	The MP consumption is decreased.
-      Lvl	228	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+28 Cost	The MP consumption is decreased.
-      Lvl	229	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+29 Cost	The MP consumption is decreased.
-      Lvl	230	Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99.	+30 Cost	The MP consumption is decreased.
+      Lvl 1 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 50.
+      Lvl 2 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 52.
+      Lvl 3 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 55.
+      Lvl 4 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 57.
+      Lvl 5 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 60.
+      Lvl 6 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 61.
+      Lvl 7 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 65.
+      Lvl 8 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 66.
+      Lvl 9 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 70.
+      Lvl 10  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 72.
+      Lvl 11  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 75.
+      Lvl 12  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 77.
+      Lvl 13  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 80.
+      Lvl 14  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 82.
+      Lvl 15  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 84.
+      Lvl 16  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 85.
+      Lvl 17  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 87.
+      Lvl 18  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 89.
+      Lvl 19  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 90.
+      Lvl 20  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 92.
+      Lvl 21  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 94.
+      Lvl 22  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 96.
+      Lvl 23  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 97.
+      Lvl 24  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 99.
+      Lvl 25  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 100.
+      Lvl 26  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 102.
+      Lvl 27  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 104.
+      Lvl 28  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 105.
+      Lvl 29  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 107.
+      Lvl 30  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 108.
+      Lvl 101 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 111.  +1 Power  Maximizes the skill's effect. The effect is increased.
+      Lvl 102 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.  +2 Power  The effect is increased.
+      Lvl 103 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.  +3 Power  The effect is increased.
+      Lvl 104 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.  +4 Power  The effect is increased.
+      Lvl 105 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.  +5 Power  The effect is increased.
+      Lvl 106 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.  +6 Power  The effect is increased.
+      Lvl 107 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.  +7 Power  The effect is increased.
+      Lvl 108 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 114.  +8 Power  The effect is increased.
+      Lvl 109 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 114.  +9 Power  The effect is increased.
+      Lvl 110 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.  +10 Power The effect is increased.
+      Lvl 111 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.  +11 Power The effect is increased.
+      Lvl 112 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.  +12 Power The effect is increased.
+      Lvl 113 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.  +13 Power The effect is increased.
+      Lvl 114 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.  +14 Power The effect is increased.
+      Lvl 115 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.  +15 Power The effect is increased.
+      Lvl 116 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.  +16 Power The effect is increased.
+      Lvl 117 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.  +17 Power The effect is increased.
+      Lvl 118 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.  +18 Power The effect is increased.
+      Lvl 119 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 118.  +19 Power The effect is increased.
+      Lvl 120 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 118.  +20 Power The effect is increased.
+      Lvl 121 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.  +21 Power The effect is increased.
+      Lvl 122 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.  +22 Power The effect is increased.
+      Lvl 123 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.  +23 Power The effect is increased.
+      Lvl 124 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.  +24 Power The effect is increased.
+      Lvl 125 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.  +25 Power The effect is increased.
+      Lvl 126 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.  +26 Power The effect is increased.
+      Lvl 127 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.  +27 Power The effect is increased.
+      Lvl 128 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.  +28 Power The effect is increased.
+      Lvl 129 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.  +29 Power The effect is increased.
+      Lvl 130 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 122.  +30 Power The effect is increased.
+      Lvl 201 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +1 Cost Maximizes the skill's efficiency. The MP consumption is decreased.
+      Lvl 202 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +2 Cost The MP consumption is decreased.
+      Lvl 203 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +3 Cost The MP consumption is decreased.
+      Lvl 204 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +4 Cost The MP consumption is decreased.
+      Lvl 205 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +5 Cost The MP consumption is decreased.
+      Lvl 206 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +6 Cost The MP consumption is decreased.
+      Lvl 207 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +7 Cost The MP consumption is decreased.
+      Lvl 208 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +8 Cost The MP consumption is decreased.
+      Lvl 209 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +9 Cost The MP consumption is decreased.
+      Lvl 210 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +10 Cost  The MP consumption is decreased.
+      Lvl 211 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +11 Cost  The MP consumption is decreased.
+      Lvl 212 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +12 Cost  The MP consumption is decreased.
+      Lvl 213 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +13 Cost  The MP consumption is decreased.
+      Lvl 214 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +14 Cost  The MP consumption is decreased.
+      Lvl 215 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +15 Cost  The MP consumption is decreased.
+      Lvl 216 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +16 Cost  The MP consumption is decreased.
+      Lvl 217 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +17 Cost  The MP consumption is decreased.
+      Lvl 218 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +18 Cost  The MP consumption is decreased.
+      Lvl 219 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +19 Cost  The MP consumption is decreased.
+      Lvl 220 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +20 Cost  The MP consumption is decreased.
+      Lvl 221 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +21 Cost  The MP consumption is decreased.
+      Lvl 222 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +22 Cost  The MP consumption is decreased.
+      Lvl 223 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +23 Cost  The MP consumption is decreased.
+      Lvl 224 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +24 Cost  The MP consumption is decreased.
+      Lvl 225 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +25 Cost  The MP consumption is decreased.
+      Lvl 226 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +26 Cost  The MP consumption is decreased.
+      Lvl 227 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +27 Cost  The MP consumption is decreased.
+      Lvl 228 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +28 Cost  The MP consumption is decreased.
+      Lvl 229 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +29 Cost  The MP consumption is decreased.
+      Lvl 230 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +30 Cost  The MP consumption is decreased.
 
 -->
   <set name="target" val="TARGET_NONE"/>
@@ -1078,11 +1078,11 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl 	1	Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 96
-      Lvl	2	Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 99
-      Lvl	3	Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 102
-      Lvl	4	Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 105
-      Lvl	5	Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 108
+      Lvl   1 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 96
+      Lvl 2 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 99
+      Lvl 3 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 102
+      Lvl 4 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 105
+      Lvl 5 Inflict damage according to number of abnormal state of enemy. Consumes 2 soul. Power 108
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1096,11 +1096,11 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl 	1	Steals abnormal state of enemy. Consumes 4 soul.
-      Lvl	2	Steals abnormal state of enemy. Consumes 4 soul.
-      Lvl	3	Steals abnormal state of enemy. Consumes 4 soul.
-      Lvl	4	Steals abnormal state of enemy. Consumes 4 soul.
-      Lvl	5	Steals abnormal state of enemy. Consumes 4 soul.
+      Lvl   1 Steals abnormal state of enemy. Consumes 4 soul.
+      Lvl 2 Steals abnormal state of enemy. Consumes 4 soul.
+      Lvl 3 Steals abnormal state of enemy. Consumes 4 soul.
+      Lvl 4 Steals abnormal state of enemy. Consumes 4 soul.
+      Lvl 5 Steals abnormal state of enemy. Consumes 4 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1169,67 +1169,67 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl	1	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member.
-      Lvl	101	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+1 Power	Maximizes the skill's effect. Strengthens the effect.
-      Lvl	102	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+2 Power	Strengthens the effect.
-      Lvl	103	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+3 Power	Strengthens the effect.
-      Lvl	104	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+4 Power	Strengthens the effect.
-      Lvl	105	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+5 Power	Strengthens the effect.
-      Lvl	106	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+6 Power	Strengthens the effect.
-      Lvl	107	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+7 Power	Strengthens the effect.
-      Lvl	108	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+8 Power	Strengthens the effect.
-      Lvl	109	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+9 Power	Strengthens the effect.
-      Lvl	110	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+10 Power	Strengthens the effect.
-      Lvl	111	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+11 Power	Strengthens the effect.
-      Lvl	112	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+12 Power	Strengthens the effect.
-      Lvl	113	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+13 Power	Strengthens the effect.
-      Lvl	114	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+14 Power	Strengthens the effect.
-      Lvl	115	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+15 Power	Strengthens the effect.
-      Lvl	116	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+16 Power	Strengthens the effect.
-      Lvl	117	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+17 Power	Strengthens the effect.
-      Lvl	118	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+18 Power	Strengthens the effect.
-      Lvl	119	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+19 Power	Strengthens the effect.
-      Lvl	120	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+20 Power	Strengthens the effect.
-      Lvl	121	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+21 Power	Strengthens the effect.
-      Lvl	122	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+22 Power	Strengthens the effect.
-      Lvl	123	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+23 Power	Strengthens the effect.
-      Lvl	124	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+24 Power	Strengthens the effect.
-      Lvl	125	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+25 Power	Strengthens the effect.
-      Lvl	126	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+26 Power	Strengthens the effect.
-      Lvl	127	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+27 Power	Strengthens the effect.
-      Lvl	128	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+28 Power	Strengthens the effect.
-      Lvl	129	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+29 Power	Strengthens the effect.
-      Lvl	130	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.	+30 Power	Strengthens the effect.
-      Lvl	201	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+1 Time	Maximizes the skill's duration. Increases the duration.
-      Lvl	202	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+2 Time	Increases the duration.
-      Lvl	203	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+3 Time	Increases the duration.
-      Lvl	204	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+4 Time	Increases the duration.
-      Lvl	205	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+5 Time	Increases the duration.
-      Lvl	206	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+6 Time	Increases the duration.
-      Lvl	207	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+7 Time	Increases the duration.
-      Lvl	208	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+8 Time	Increases the duration.
-      Lvl	209	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+9 Time	Increases the duration.
-      Lvl	210	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+10 Time	Increases the duration.
-      Lvl	211	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+11 Time	Increases the duration.
-      Lvl	212	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+12 Time	Increases the duration.
-      Lvl	213	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+13 Time	Increases the duration.
-      Lvl	214	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+14 Time	Increases the duration.
-      Lvl	215	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+15 Time	Increases the duration.
-      Lvl	216	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+16 Time	Increases the duration.
-      Lvl	217	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+17 Time	Increases the duration.
-      Lvl	218	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+18 Time	Increases the duration.
-      Lvl	219	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+19 Time	Increases the duration.
-      Lvl	220	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+20 Time	Increases the duration.
-      Lvl	221	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+21 Time	Increases the duration.
-      Lvl	222	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+22 Time	Increases the duration.
-      Lvl	223	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+23 Time	Increases the duration.
-      Lvl	224	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+24 Time	Increases the duration.
-      Lvl	225	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+25 Time	Increases the duration.
-      Lvl	226	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+26 Time	Increases the duration.
-      Lvl	227	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+27 Time	Increases the duration.
-      Lvl	228	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+28 Time	Increases the duration.
-      Lvl	229	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+29 Time	Increases the duration.
-      Lvl	230	Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased.	+30 Time	Increases the duration.
+      Lvl 1 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member.
+      Lvl 101 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +1 Power  Maximizes the skill's effect. Strengthens the effect.
+      Lvl 102 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +2 Power  Strengthens the effect.
+      Lvl 103 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +3 Power  Strengthens the effect.
+      Lvl 104 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +4 Power  Strengthens the effect.
+      Lvl 105 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +5 Power  Strengthens the effect.
+      Lvl 106 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +6 Power  Strengthens the effect.
+      Lvl 107 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +7 Power  Strengthens the effect.
+      Lvl 108 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +8 Power  Strengthens the effect.
+      Lvl 109 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +9 Power  Strengthens the effect.
+      Lvl 110 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +10 Power Strengthens the effect.
+      Lvl 111 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +11 Power Strengthens the effect.
+      Lvl 112 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +12 Power Strengthens the effect.
+      Lvl 113 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +13 Power Strengthens the effect.
+      Lvl 114 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +14 Power Strengthens the effect.
+      Lvl 115 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +15 Power Strengthens the effect.
+      Lvl 116 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +16 Power Strengthens the effect.
+      Lvl 117 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +17 Power Strengthens the effect.
+      Lvl 118 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +18 Power Strengthens the effect.
+      Lvl 119 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +19 Power Strengthens the effect.
+      Lvl 120 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +20 Power Strengthens the effect.
+      Lvl 121 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +21 Power Strengthens the effect.
+      Lvl 122 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +22 Power Strengthens the effect.
+      Lvl 123 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +23 Power Strengthens the effect.
+      Lvl 124 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +24 Power Strengthens the effect.
+      Lvl 125 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +25 Power Strengthens the effect.
+      Lvl 126 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +26 Power Strengthens the effect.
+      Lvl 127 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +27 Power Strengthens the effect.
+      Lvl 128 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +28 Power Strengthens the effect.
+      Lvl 129 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +29 Power Strengthens the effect.
+      Lvl 130 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Power: Effect is increased.  +30 Power Strengthens the effect.
+      Lvl 201 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +1 Time Maximizes the skill's duration. Increases the duration.
+      Lvl 202 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +2 Time Increases the duration.
+      Lvl 203 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +3 Time Increases the duration.
+      Lvl 204 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +4 Time Increases the duration.
+      Lvl 205 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +5 Time Increases the duration.
+      Lvl 206 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +6 Time Increases the duration.
+      Lvl 207 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +7 Time Increases the duration.
+      Lvl 208 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +8 Time Increases the duration.
+      Lvl 209 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +9 Time Increases the duration.
+      Lvl 210 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +10 Time  Increases the duration.
+      Lvl 211 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +11 Time  Increases the duration.
+      Lvl 212 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +12 Time  Increases the duration.
+      Lvl 213 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +13 Time  Increases the duration.
+      Lvl 214 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +14 Time  Increases the duration.
+      Lvl 215 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +15 Time  Increases the duration.
+      Lvl 216 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +16 Time  Increases the duration.
+      Lvl 217 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +17 Time  Increases the duration.
+      Lvl 218 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +18 Time  Increases the duration.
+      Lvl 219 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +19 Time  Increases the duration.
+      Lvl 220 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +20 Time  Increases the duration.
+      Lvl 221 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +21 Time  Increases the duration.
+      Lvl 222 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +22 Time  Increases the duration.
+      Lvl 223 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +23 Time  Increases the duration.
+      Lvl 224 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +24 Time  Increases the duration.
+      Lvl 225 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +25 Time  Increases the duration.
+      Lvl 226 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +26 Time  Increases the duration.
+      Lvl 227 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +27 Time  Increases the duration.
+      Lvl 228 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +28 Time  Increases the duration.
+      Lvl 229 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +29 Time  Increases the duration.
+      Lvl 230 Temporarily bestow a dark elemental. Consumes 2 Souls. This can be used on any party member. Enchant Time: Skill duration is increased. +30 Time  Increases the duration.
 
 -->
   <set name="target" val="TARGET_NONE"/>
@@ -1811,9 +1811,9 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	Cures the death mark for up to Effect 3.
-	Lvl	2	Cures death mark up to Effect 7.
-	Lvl	3	Cures the death mark for up to Effect 10.
+  Lvl 1 Cures the death mark for up to Effect 3.
+  Lvl 2 Cures death mark up to Effect 7.
+  Lvl 3 Cures the death mark for up to Effect 10.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1827,9 +1827,9 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
-	Lvl	2	Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
-	Lvl	3	Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
+  Lvl 1 Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
+  Lvl 2 Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
+  Lvl 3 Awakens the destructive instincts of a party member. Instantly increases P. Atk., Critical Rate, and Damage. Consumes 5 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1843,9 +1843,9 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
-	Lvl	2	Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
-	Lvl	3	Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
+  Lvl 1 Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
+  Lvl 2 Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
+  Lvl 3 Draws a vampiric urge from a party member. Instantly bestows ability to recover HP with part of inflicted damage redirected to the enemy. It does not include damage from skill or ranged attacks. Consumes 5 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1859,8 +1859,8 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	Awakens the defensive instincts of a party member. Instantly increases P. Def. and Magic Resistance by great amount. Consumes 5 soul.
-	Lvl	2	Awakens the defensive instincts of a party member. Instantly increases P. Def. and Magic Resistance by great amount. Consumes 5 soul.
+  Lvl 1 Awakens the defensive instincts of a party member. Instantly increases P. Def. and Magic Resistance by great amount. Consumes 5 soul.
+  Lvl 2 Awakens the defensive instincts of a party member. Instantly increases P. Def. and Magic Resistance by great amount. Consumes 5 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1874,9 +1874,9 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
-	Lvl	2	Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
-	Lvl	3	Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
+  Lvl 1 Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
+  Lvl 2 Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
+  Lvl 3 Draws a magic urge from a party member. Instantly increases M. Atk, Cast Speed, and Magic Critical Rate. Consumes 5 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1890,7 +1890,7 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Consumes a large amount of your soul to communicate with party members' souls. Communicating to party members' souls while they are immobilized recovers MP. Consumes 20 Souls.
+  Consumes a large amount of your soul to communicate with party members' souls. Communicating to party members' souls while they are immobilized recovers MP. Consumes 20 Souls.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1904,13 +1904,13 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
-	Lvl	2	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
-	Lvl	3	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
-	Lvl	4	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
-	Lvl	5	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
-	Lvl	6	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
-	Lvl	7	When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+  Lvl 1 When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+  Lvl 2 When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+  Lvl 3 When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+  Lvl 4 When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+  Lvl 5 When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+  Lvl 6 When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
+  Lvl 7 When damage is received by the curse of Forsaken on an enemy, there is a chance that the target will be lost. Consumes 2 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1924,10 +1924,10 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
-	Lvl	2	When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
-	Lvl	3	When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
-	Lvl	4	When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
+  Lvl 1 When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
+  Lvl 2 When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
+  Lvl 3 When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
+  Lvl 4 When damage is received by the curse of Weakness on an enemy, there is a chance that the target will faint. Consumes 3 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1941,13 +1941,13 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
-	Lvl	2	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
-	Lvl	3	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
-	Lvl	4	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
-	Lvl	5	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
-	Lvl	6	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
-	Lvl	7	Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+  Lvl 1 Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+  Lvl 2 Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+  Lvl 3 Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+  Lvl 4 Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+  Lvl 5 Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+  Lvl 6 Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
+  Lvl 7 Casts curse to weaken the enemy's skin so that they are wounded when damaged. Consumes 2 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1961,10 +1961,10 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
-	Lvl	2	May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
-	Lvl	3	May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
-	Lvl	4	May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
+  Lvl 1 May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
+  Lvl 2 May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
+  Lvl 3 May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
+  Lvl 4 May cause the enemy to forfeit their desire to decrease your attack speed/speed/casting speed when damaged. Consumes 3 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1978,9 +1978,9 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
-	Lvl	2	Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
-	Lvl	3	Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
+  Lvl 1 Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
+  Lvl 2 Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
+  Lvl 3 Casts a curse to hold a grudge against a target so that an enemy receives higher critical damage by chance when damaged. Consumes 3 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -1994,10 +1994,10 @@
   Needs to be finished.
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-	Lvl	1	Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
-	Lvl	2	Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
-	Lvl	3	Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
-	Lvl	4	Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
+  Lvl 1 Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
+  Lvl 2 Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
+  Lvl 3 Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
+  Lvl 4 Impoverishes an enemy's mind, potentially eliminating their MP when damaged. Consumes 2 soul.
 -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
@@ -2009,7 +2009,7 @@
 <skill id="1487" levels="8" name="Restoration">
 <!--
   Description(s):
-	Continually recover HP. Consumes 1 Soul.
+  Continually recover HP. Consumes 1 Soul.
 -->
   <table name="#mpConsume_Init"> 21 25 14 16 17 19 20 20 </table>
   <table name="#mpConsume"> 49 57 34 38 41 43 45 48 </table>
@@ -2032,9 +2032,9 @@
 <skill id="1488" levels="3" name="Restoration Impact">
 <!--
   Description(s):
-	Lvl	1	Recovers 10% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
-	Lvl	2	Recovers 15% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
-	Lvl	3	Recovers 20% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
+  Lvl 1 Recovers 10% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
+  Lvl 2 Recovers 15% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
+  Lvl 3 Recovers 20% of maximum HP by catalysis under restoration. Restoration will disappear. Consumes 3 soul.
 -->
   <table name="#mpConsume_Init"> 7 8 10 </table>
   <table name="#mpConsume"> 16 20 23 </table>

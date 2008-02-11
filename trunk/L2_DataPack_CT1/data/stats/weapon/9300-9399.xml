@@ -32,11 +32,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
-       <!--SA: Miser--> 
-   <set val='9' order='0x08' stat='soulShotCount'> 
+       <!--SA: Miser-->
+   <set val='9' order='0x08' stat='soulShotCount'>
       <and>
-         <game chance="30"/> 
-      </and> 
+         <game chance="30"/>
+      </and>
    </set>
   </for>
 </item>
@@ -50,10 +50,10 @@
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Cheap Shot -->
-   <set val='1' order='0x08' stat='MpConsume'> 
+   <set val='1' order='0x08' stat='MpConsume'>
       <and>
-         <game skill="false" chance="12"/> 
-      </and> 
+         <game skill="false" chance="12"/>
+      </and>
    </set>
   </for>
 </item>
@@ -211,11 +211,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
-       <!--SA: Miser--> 
-   <set val='2' order='0x08' stat='soulShotCount'> 
+       <!--SA: Miser-->
+   <set val='2' order='0x08' stat='soulShotCount'>
       <and>
-         <game chance="30"/> 
-      </and> 
+         <game chance="30"/>
+      </and>
    </set>
   </for>
 </item>
@@ -370,10 +370,10 @@
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Cheap Shot -->
-   <set val='2' order='0x08' stat='MpConsume'> 
+   <set val='2' order='0x08' stat='MpConsume'>
       <and>
-       	 <game skill="false" chance="12"/> 
-      </and> 
+         <game skill="false" chance="12"/>
+      </and>
    </set>
   </for>
 </item>
@@ -597,11 +597,11 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Rsk. Focus -->
    <add order='0x40' stat='rCrit' val='130'>
-		<and>        
-			<player hp='60'/>
-		</and>
+    <and>
+      <player hp='60'/>
+    </and>
    </add>
-	<!-- Enhances damage to target during PvP -->
+  <!-- Enhances damage to target during PvP -->
    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>
@@ -690,10 +690,10 @@
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Cheap Shot -->
-   <set val='2' order='0x08' stat='MpConsume'> 
+   <set val='2' order='0x08' stat='MpConsume'>
       <and>
-         <game skill="false" chance="12"/> 
-      </and> 
+         <game skill="false" chance="12"/>
+      </and>
    </set>
     <!-- Enhances damage to target during PvP -->
    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
@@ -874,11 +874,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
-   	<!-- SA: Cheap Shot -->
-   <sub val='1' order='0x40' stat='MpConsume'> 
+    <!-- SA: Cheap Shot -->
+   <sub val='1' order='0x40' stat='MpConsume'>
       <and>
-         <game skill="false" chance="12"/> 
-      </and> 
+         <game skill="false" chance="12"/>
+      </and>
    </sub>
     <!-- Enhances damage to target during PvP -->
    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
@@ -1060,10 +1060,10 @@
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Cheap Shot -->
-   <set val='1' order='0x08' stat='MpConsume'> 
+   <set val='1' order='0x08' stat='MpConsume'>
       <and>
-         <game skill="false" chance="12"/> 
-      </and> 
+         <game skill="false" chance="12"/>
+      </and>
    </set>
     <!-- Enhances damage to target during PvP -->
    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
@@ -1096,7 +1096,7 @@
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Critical Slow -->
-   <skill onCrit='1' id='3594' lvl='1' chance='7'/> 
+   <skill onCrit='1' id='3594' lvl='1' chance='7'/>
     <!-- Enhances damage to target during PvP -->
    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
@@ -1234,11 +1234,11 @@
    <set val='303' order='0x08' stat='pAtkSpd'/>
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
-      	<!-- SA: Cheap Shot -->
-   <sub val='1' order='0x40' stat='MpConsume'> 
+        <!-- SA: Cheap Shot -->
+   <sub val='1' order='0x40' stat='MpConsume'>
       <and>
-         <game skill="false" chance="12"/> 
-      </and> 
+         <game skill="false" chance="12"/>
+      </and>
    </sub>
     <!-- Enhances damage to target during PvP -->
    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
@@ -1256,7 +1256,7 @@
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Guidance -->
     <add val='3.4' order='0x40' stat='accCombat'/>
-	       <!-- Enhances damage to target during PvP -->
+         <!-- Enhances damage to target during PvP -->
    <mul val='1.05' order='0x30' stat='pvpPhysDmg'/>
    <mul val='1.05' order='0x30' stat='pvpMagicalDmg'/>
   </for>

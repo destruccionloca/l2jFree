@@ -481,8 +481,8 @@
 </skill>
 <skill id="313" levels="8" name="Snipe" enchantLevels1="30" enchantLevels2="30" >
 <!--
-	Changed some values related to http://l2p.bravehost.com/buffs.html...
-	Since the upgraded enchant patk values are unknown, i made it with an extra ADD.
+  Changed some values related to http://l2p.bravehost.com/buffs.html...
+  Since the upgraded enchant patk values are unknown, i made it with an extra ADD.
 -->
   <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
   <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
@@ -542,7 +542,7 @@
         <using kind="Bow"/>
       </add>
       <!-- Temporary fix -->
-	  <add order="0x40" stat="pAtk" val="20">
+    <add order="0x40" stat="pAtk" val="20">
         <using kind="Bow"/>
       </add>
       <add order="0x40" stat="accCombat" val="6">

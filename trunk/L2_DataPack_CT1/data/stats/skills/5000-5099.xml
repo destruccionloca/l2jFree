@@ -89,7 +89,7 @@
 </skill>
 <skill id="5006" levels="1" name="Frintezza's Melody">
 <!--
-	Implemented on Java Core
+  Implemented on Java Core
   Description(s):
       A general performance. Starts the symphony when the raid movie begins.
 -->
@@ -102,7 +102,7 @@
 </skill>
 <skill id="5007" levels="5" name="Frintezza's Songs">
 <!--
-	Implemented on Java Core
+  Implemented on Java Core
   Description(s):
       Lvl 1 - Frintezza's Healing Rhapsody      Music to soothe the soul.
       Lvl 2 - Frintezza's Rampaging Opus        A Consecutive Dash + Portrait Replay Performance
@@ -119,7 +119,7 @@
 </skill>
 <skill id="5008" levels="5" name="Frintezza's Songs">
 <!--
-	Implemented on Java Core
+  Implemented on Java Core
   Description(s):
       Lvl 1 - Frintezza's Concert Hall Melody        Music that makes you feel oh so good inside.
       Lvl 2 - Frintezza's Rampaging Opus en masse    Consecutive Dash + Portrait Replay Performance

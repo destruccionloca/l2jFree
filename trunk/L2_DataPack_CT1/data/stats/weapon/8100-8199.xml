@@ -134,9 +134,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-	<!-- SA: Magic Power -->
+  <!-- SA: Magic Power -->
     <add val='75' order='0x40' stat='mAtk'/>
-    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+    <mul val='1.15' order='0x30' stat='MpConsume'/>
   </for>
 </item>
 <item id='8113' name="mysterious_sword_magic_weakness">
@@ -172,9 +172,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-	<!-- SA: Magic Power -->
+  <!-- SA: Magic Power -->
     <add val='112' order='0x40' stat='mAtk'/>
-    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+    <mul val='1.15' order='0x30' stat='MpConsume'/>
   </for>
 </item>
 <item id='8116' name="ecliptic_sword_magic_silence">
@@ -210,9 +210,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-	<!-- SA: Magic Power -->
+  <!-- SA: Magic Power -->
     <add val='139' order='0x40' stat='mAtk'/>
-    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+    <mul val='1.15' order='0x30' stat='MpConsume'/>
   </for>
 </item>
 <item id='8119' name="Wizard\'s Tear - Conversion">
@@ -481,9 +481,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-	<!-- SA: Magic Power -->
+  <!-- SA: Magic Power -->
     <add val='112' order='0x40' stat='mAtk'/>
-    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+    <mul val='1.15' order='0x30' stat='MpConsume'/>
   </for>
 </item>
 <item id='8140' name="ecliptic_axe_magic_hold">
@@ -624,9 +624,9 @@
     <set val='379' order='0x08' stat='pAtkSpd'/>
     <enchant val='0' order='0x0C' stat='pAtk'/>
     <enchant val='0' order='0x0C' stat='mAtk'/>
-	<!-- SA: Magic Power -->
+  <!-- SA: Magic Power -->
     <add val='167' order='0x40' stat='mAtk'/>
-    <mul val='1.15' order='0x30' stat='MpConsume'/> 
+    <mul val='1.15' order='0x30' stat='MpConsume'/>
   </for>
 </item>
 <item id='8152' name="flaming_dragon_skull_magic_silence">

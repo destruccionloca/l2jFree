@@ -2,10 +2,10 @@
 <!DOCTYPE list SYSTEM "armors.dtd">
 <list>
 <item id='400' name="Theca Leather Armor">
-	<for>
-		<add stat='pDef' order='0x10'  val='106'/>
-		<enchant val='0' order='0x0C' stat='pDef'/>
-	</for>
+  <for>
+    <add stat='pDef' order='0x10'  val='106'/>
+    <enchant val='0' order='0x0C' stat='pDef'/>
+  </for>
 </item>
 <item id='401' name="Drake Leather Armor">
   <for>
