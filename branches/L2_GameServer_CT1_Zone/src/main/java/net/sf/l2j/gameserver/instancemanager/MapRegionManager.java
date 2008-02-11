@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javolution.util.FastMap;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
@@ -269,8 +270,11 @@ public class MapRegionManager
     
     public Point3D getRestartPoint(L2PcInstance activeChar)
     {
-        L2MapRegion region = getRegion(activeChar);
-        
+        return getRestartPoint(getRegion(activeChar), activeChar);
+    }
+
+    public Point3D getRestartPoint(L2MapRegion region, L2PcInstance activeChar)
+    {
         if (region != null)
         {
             int restartId = region.getRestartId(activeChar.getRace());
@@ -356,6 +360,23 @@ public class MapRegionManager
     {
         return getRegion(x, y, -1);
     }
+
+    public int getNextAccessibleRestartId(L2MapRegionRestart restart, L2PcInstance activeChar)
+    {
+        Town town = TownManager.getInstance().getTownByMaprestart(restart);
+
+        if (town.hasCastleInSiege())
+        {
+            int newTownId = TownManager.getInstance().getRedirectTownNumber(town.getTownId());
+            town = TownManager.getInstance().getTown(newTownId);
+            L2MapRegion region = town.getMapRegion();
+            if (region != null)
+            {
+                return region.getRestartId(activeChar.getRace());
+            }
+        }
+        return restart.getId();
+    }
     
     //TODO: Needs to be clean rewritten
     public Location getTeleToLocation(L2Character activeChar, TeleportWhereType teleportWhere)
@@ -390,13 +411,20 @@ public class MapRegionManager
 
             if (teleportWhere == TeleportWhereType.Town)
             {
+                L2MapRegionRestart restart = getRestartLocation(player);
+                int restartId = getNextAccessibleRestartId(restart, player);
+
+                Location loc = null;
                 // Karma player land out of city
                 if (player.getKarma() > 1 || player.isCursedWeaponEquiped())
                 {
-                    return getLocationFromPoint3D(getChaosRestartPoint(player));
+                    loc = getLocationFromPoint3D(getChaosRestartPoint(restartId));
                 }
-
-                return getLocationFromPoint3D(getRestartPoint(player));
+                if (loc == null)
+                {
+                    loc = getLocationFromPoint3D(getRestartPoint(restartId));
+                }
+                return loc;
             }
 
             if (clan != null)
@@ -482,7 +510,7 @@ public class MapRegionManager
         }
         
         // teleport to Aden if nothing else will work
-        return getLocationFromPoint3D(getRestartPoint(9));
+        return getLocationFromPoint3D(getRestartPoint(Config.ALT_DEFAULT_RESTARTTOWN));
     }
     
     public Location getLocationFromPoint3D(Point3D point)

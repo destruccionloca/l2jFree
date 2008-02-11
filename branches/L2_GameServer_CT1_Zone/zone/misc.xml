@@ -1,7 +1,7 @@
 <list>
 
   <zone id="1" name="ToI">
-    <settings nolanding="true"/>
+    <settings noLanding="true"/>
     <shape type="Rect">
       <point x="109448" y="10233"/>
       <point x="118547" y="21446"/>
@@ -9,7 +9,7 @@
   </zone>
 
   <zone id="2" name="GM Consultation Service" type="Jail">
-    <shape type="Poly" zMin="-2992" zMax="-2792">
+    <shape type="Poly" zMin="-3050" zMax="-2792">
       <point x="-116390" y="-251581"/>
       <point x="-112756" y="-251617"/>
       <point x="-112720" y="-248199"/>
@@ -18,7 +18,7 @@
   </zone>
 
   <zone id="3" name="Monster Race Track">
-    <settings pvp="Arena" noescape="true"/>
+    <settings pvp="Arena" noEscape="true"/>
     <restart_owner x="12312" y="182752" z="-3558"/>
     <shape type="Poly" zMin="-3596" zMax="-3596">
       <point x="11947" y="183019"/>
@@ -29,7 +29,7 @@
   </zone>
 
   <zone id="4" name="Monster Race Track">
-    <settings pvp="Peace" noescape="true"/>
+    <settings pvp="Peace" noEscape="true"/>
     <shape type="Poly" zMin="-3652" zMax="-3452">
       <point x="11714" y="181568"/>
       <point x="14406" y="181571"/>
@@ -161,5 +161,17 @@
       <point x="57404" y="85785"/>
     </shape>
   </zone>
+
+  <!-- Zones to forbid players to create private stores or manufacture stores inside.
+      If your players tend to build walls of private stores in small passages or around gate keepers, use such zones.
+  <zone id="xx" name="No Store example">
+    <settings noPrivateStore="true">
+    <shape type="Poly" zMin="-3050" zMax="-2792">
+      <point x="-116390" y="-251581"/>
+      <point x="-112756" y="-251617"/>
+      <point x="-112720" y="-248199"/>
+      <point x="-116354" y="-248217"/>
+    </shape>
+  </zone>-->
 
 </list>

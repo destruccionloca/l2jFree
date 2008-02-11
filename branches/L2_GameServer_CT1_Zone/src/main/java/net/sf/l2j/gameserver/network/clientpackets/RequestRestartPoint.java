@@ -70,8 +70,8 @@ public class RequestRestartPoint extends L2GameClientPacket
 			try
 			{
 				Location loc = null;
-				Castle castle = null;
-				
+				Siege siege = null;
+
 				if (activeChar.isInJail()) _requestedPointType = 27;
 				else if (activeChar.isFestivalParticipant()) _requestedPointType = 5;
 
@@ -96,11 +96,11 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 					case 2: // to castle
 						boolean isInDefense = false;
-						castle = CastleManager.getInstance().getCastle(activeChar);
-						if (castle != null && castle.getSiege().getIsInProgress())
+						siege = SiegeManager.getInstance().getSiege(activeChar);
+						if (siege != null && siege.getIsInProgress())
 						{
 							//siege in progress
-							if (castle.getSiege().checkIsDefender(activeChar.getClan()))
+							if (siege.checkIsDefender(activeChar.getClan()))
 								isInDefense = true;
 						}
 						if (activeChar.getClan() == null || (activeChar.getClan().getHasCastle() == 0 && !isInDefense))
@@ -119,7 +119,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 					case 4: // to siege HQ
 						L2SiegeClan siegeClan = null;
-						Siege siege = SiegeManager.getInstance().getSiege(activeChar);
+						siege = SiegeManager.getInstance().getSiege(activeChar);
 						
 						if (siege != null && siege.getIsInProgress())
 							siegeClan = siege.getAttackerClan(activeChar.getClan());

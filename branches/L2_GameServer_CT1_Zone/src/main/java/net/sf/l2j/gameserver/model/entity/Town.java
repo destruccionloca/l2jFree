@@ -59,4 +59,16 @@ public class Town extends Entity
 		
 		return region;
 	}
+
+	public boolean hasCastleInSiege()
+	{
+		if (getCastleId() < 1)
+			return false;
+
+		Castle castle = CastleManager.getInstance().getCastles().get(getCastleId());
+		if (castle == null)
+			return false;
+
+		return castle.getSiege().getIsInProgress();
+	}
 }

@@ -189,69 +189,66 @@ public class TownManager
         return getClosestTown(activeObject.getPosition().getX(), activeObject.getPosition().getY(), activeObject.getPosition().getZ());
     }
 
+    public final Town getTownByMaprestart(L2MapRegionRestart restart)
+    {
+        if (restart == null)
+            return getTown(Config.ALT_DEFAULT_RESTARTTOWN);
+
+        switch (restart.getBbsId())
+        {
+            case 1: //Talking Island
+                return getTown(0);
+            case 2: //Gludin
+                return getTown(6);
+            case 3: //Darkelfen Village
+                return getTown(2);
+            case 4: //Elfen Village
+                return getTown(1);
+            case 5: //Dion
+                return getTown(7);
+            case 6: //Giran
+                return getTown(12);
+            case 7: //Dimensional Gap
+                return getTown(17); 
+            case 8: //Orc Village
+                return getTown(3);
+            case 9: //Dwarfen Village
+                return getTown(4);
+            case 10: //Oren Villag
+                return getTown(9);
+            case 11: //Hunters Village
+                return getTown(11);
+            case 12: //Heine
+                return getTown(13);
+            case 13: //Aden
+                return getTown(10);
+            case 14: //Rune
+                return getTown(14);
+            case 15: //Goddard
+                return getTown(15);
+            case 25: //Schuttgart - FIXME
+                return getTown(16);
+            default:
+                return getTown(Config.ALT_DEFAULT_RESTARTTOWN);
+        }
+    }
+
     public final Town getClosestTown(int x, int y, int z)
     {
         L2MapRegion region = MapRegionManager.getInstance().getRegion(x, y, z);
-        Town town = getTown(Config.ALT_DEFAULT_RESTARTTOWN);
-        
+
+        L2MapRegionRestart restart = null;
         if (region != null)
         {
-            L2MapRegionRestart restart = MapRegionManager.getInstance().getRestartLocation(region.getRestartId());
-            
-            if (restart != null)
-                switch (restart.getBbsId())
-                {
-                    case 1: //Talking Island
-                        return getTown(0);
-                    case 2: //Gludin
-                        return getTown(6);
-                    case 3: //Darkelfen Village
-                        return getTown(2);
-                    case 4: //Elfen Village
-                        return getTown(1);
-                    case 5: //Dion
-                        return getTown(7);
-                    case 6: //Giran
-                        return getTown(12);
-                    case 7: //Dimensional Gap
-                        return getTown(17); 
-                    case 8: //Orc Village
-                        return getTown(3);
-                    case 9: //Dwarfen Village
-                        return getTown(4);
-                    case 10: //Oren Villag
-                        return getTown(9);
-                    case 11: //Hunters Village
-                        return getTown(11);
-                    case 12: //Heine
-                        return getTown(13);
-                    case 13: //Aden
-                        return getTown(10);
-                    case 14: //Rune
-                        return getTown(14);
-                    case 15: //Goddard
-                        return getTown(15);
-                    case 25: //Schuttgart - FIXME
-                        return getTown(16);
-                }
+            restart = MapRegionManager.getInstance().getRestartLocation(region.getRestartId());
         }
-        
-        return town;
+        return getTownByMaprestart(restart);
     }
 
     public final boolean townHasCastleInSiege(int townId)
     {
-        if (getTown(townId) == null)
-            return false;
-        
-        int castleIndex = getTown(townId).getCastleId();
-        if (castleIndex > 0)
-        {
-            Castle castle = CastleManager.getInstance().getCastles().get(castleIndex);
-            if (castle != null)
-                return castle.getSiege().getIsInProgress();
-        }
-        return false;
+        Town town = getTown(townId);
+        return (town != null && town.hasCastleInSiege());
     }
 
     public final boolean townHasCastleInSiege(int x, int y, int z)
