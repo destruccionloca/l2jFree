@@ -475,6 +475,7 @@ public class Siege
                 {
                     player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
                 }
+                member.revalidateZone();
             }
         }
         for(L2SiegeClan siegeclan : getDefenderClans())
@@ -489,6 +490,7 @@ public class Siege
                 {
                     player.sendPacket(new RelationChanged(member, member.getRelation(player), member.isAutoAttackable(player)));
                 }
+                member.revalidateZone();
             }
         }
     }

@@ -95,10 +95,11 @@ public abstract class L2Zone
 	public static final int FLAG_CLANHALL = 16;
 	public static final int FLAG_NOESCAPE = 32;
 	public static final int FLAG_NOLANDING = 64;
-	public static final int FLAG_WATER = 128;
-	public static final int FLAG_JAIL = 256;
-	public static final int FLAG_STADIUM = 512;
-	public static final int FLAG_SUNLIGHTROOM = 1024;
+	public static final int FLAG_NOSTORE = 128;
+	public static final int FLAG_WATER = 256;
+	public static final int FLAG_JAIL = 512;
+	public static final int FLAG_STADIUM = 1024;
+	public static final int FLAG_SUNLIGHTROOM = 2048;
 	
 	protected int _id;
 	protected String _name;
@@ -117,7 +118,7 @@ public abstract class L2Zone
 	protected PvpSettings _pvp;
 	protected Boss _boss;
 	
-	protected boolean _noEscape, _noLanding;
+	protected boolean _noEscape, _noLanding, _noPrivateStore;
 
 	protected SystemMessage _onEnterMsg, _onExitMsg;
 	
@@ -459,7 +460,7 @@ public abstract class L2Zone
 				{
 					zone.parseEntity(n);
 				}
-				catch(Exception nfe)
+				catch(Exception e)
 				{
 					_log.error("Cannot parse entity for zone "+zone.getName()+" ("+zone.getId()+")");
 					return null;
@@ -567,16 +568,18 @@ public abstract class L2Zone
 	private void parseSettings(Node n) throws Exception
 	{
 		Node pvp = n.getAttributes().getNamedItem("pvp");
-		Node nolanding = n.getAttributes().getNamedItem("nolanding");
-		Node noescape = n.getAttributes().getNamedItem("noescape");
+		Node noLanding = n.getAttributes().getNamedItem("noLanding");
+		Node noEscape = n.getAttributes().getNamedItem("noEscape");
+		Node noPrivateStore = n.getAttributes().getNamedItem("noPrivateStore");
 		Node boss = n.getAttributes().getNamedItem("boss");
 		Node abnorm = n.getAttributes().getNamedItem("abnormal");
 		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
 		
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
-		_noLanding = (nolanding != null) ? Boolean.parseBoolean(nolanding.getNodeValue()) : false;
-		_noEscape = (noescape != null) ? Boolean.parseBoolean(noescape.getNodeValue()) : false;
-		_abnormal = (abnorm != null) ? Integer.parseInt(abnorm.getNodeValue()) : 0;
+		_noLanding = (noLanding != null) ? Boolean.parseBoolean(noLanding.getNodeValue()) : false;
+		_noEscape = (noEscape != null) ? Boolean.parseBoolean(noEscape.getNodeValue()) : false;
+		_noPrivateStore = (noPrivateStore != null) ? Boolean.parseBoolean(noPrivateStore.getNodeValue()) : false;
+		_abnormal = (abnorm != null) ? Integer.decode("0x"+abnorm.getNodeValue()) : 0;
 		_exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
 		if(boss != null)
 			_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
@@ -644,12 +647,12 @@ public abstract class L2Zone
 		}
 		if(ren != null)
 		{
-			_applyEnter = new FastList<L2Skill>();
+			_removeEnter = new FastList<L2Skill>();
 			parseRemoveSkill(_removeEnter, ren.getNodeValue());
 		}
 		if(rex != null)
 		{
-			_applyExit = new FastList<L2Skill>();
+			_removeExit = new FastList<L2Skill>();
 			parseRemoveSkill(_removeExit, rex.getNodeValue());
 		}
 	}

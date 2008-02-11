@@ -34,16 +34,8 @@ public class L2CastleZone extends L2DefaultZone
 	}
 
 	@Override
-	protected void onEnter(L2Character character)
-	{
-		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
-			character.sendMessage("Entered castle zone "+getId());
-	}
+	protected void onEnter(L2Character character){}
 	
 	@Override
-	protected void onExit(L2Character character)
-	{
-		if(character instanceof L2PcInstance && ((L2PcInstance)character).isGM())
-			character.sendMessage("Left castle zone "+getId());
-	}
+	protected void onExit(L2Character character){}
 }

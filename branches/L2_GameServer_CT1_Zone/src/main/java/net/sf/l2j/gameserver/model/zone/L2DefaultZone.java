@@ -63,6 +63,10 @@ public class L2DefaultZone extends L2Zone
 		{
 			character.setInsideZone(FLAG_NOESCAPE, true);
 		}
+		if (_noPrivateStore)
+		{
+			character.setInsideZone(FLAG_NOSTORE, true);
+		}
 	}
 	
 	@Override
@@ -103,6 +107,10 @@ public class L2DefaultZone extends L2Zone
 		if (_noEscape)
 		{
 			character.setInsideZone(FLAG_NOESCAPE, false);
+		}
+		if (_noPrivateStore)
+		{
+			character.setInsideZone(FLAG_NOSTORE, false);
 		}
 	}
 

@@ -11480,6 +11480,12 @@ public final class L2PcInstance extends L2PlayableInstance
         // Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
         if (this.canOpenPrivateStore())
         {
+            if (isInsideZone(L2Zone.FLAG_NOSTORE))
+            {
+                sendMessage("No private store or manufacture allowed here.");
+                sendPacket(new ActionFailed());
+                return;
+            }
             if (this.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY || this.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_BUY +1)
             {
                 this.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
@@ -11505,6 +11511,12 @@ public final class L2PcInstance extends L2PlayableInstance
         // Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
         if (this.canOpenPrivateStore())
         {
+            if (isInsideZone(L2Zone.FLAG_NOSTORE))
+            {
+                sendMessage("No private store or manufacture allowed here.");
+                sendPacket(new ActionFailed());
+                return;
+            }
             if (this.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL
                     || this.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_SELL + 1
                     || this.getPrivateStoreType() == L2PcInstance.STORE_PRIVATE_PACKAGE_SELL)
