@@ -1888,93 +1888,48 @@
   </for>
 </skill>
 <skill id="482" levels="2" name="Furious Soul">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Communicates with absorbed soul to increase critical rate and critical damage. Evasion/Defense power is decreased while the effect lasts. Consumes 2 soul.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <!-- Needs retail value checks -->
+  <table name="#rCrit"> 65 80 </table>
+  <table name="#cAtk"> 457 513 </table>
+  <table name="#pDef"> 0.87 0.81 </table>
+  <table name="#rEvas"> 3 4 </table>
+  <table name="#mpConsume"> 11 25 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="hitTime" val="2000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="soulConsumeCount" val="2"/>
   <for>
+    <effect count="1" name="Buff" time="120" val="0">
+      <add order="0x40" stat="rCrit" val="#rCrit"/>
+      <add order="0x40" stat="cAtk" val="#cAtk"/>
+      <mul order="0x30" stat="pDef" val="#pDef"/>
+      <sub order="0x40" stat="rEvas" val="#rEvas"/>
+    </effect>
   </for>
 </skill>
 <skill id="483" levels="2" name="Sword Shield" enchantLevels1="30" enchantLevels2="30">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Lvl	1	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Effect 1.
-      Lvl	2	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Effect 2.
-      Lvl	101	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+1 Power	Maximizes the skill's effect. The effect is increased.
-      Lvl	102	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+2 Power	The effect is increased.
-      Lvl	103	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+3 Power	The effect is increased.
-      Lvl	104	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+4 Power	The effect is increased.
-      Lvl	105	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+5 Power	The effect is increased.
-      Lvl	106	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+6 Power	The effect is increased.
-      Lvl	107	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+7 Power	The effect is increased.
-      Lvl	108	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+8 Power	The effect is increased.
-      Lvl	109	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+9 Power	The effect is increased.
-      Lvl	110	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+10 Power	The effect is increased.
-      Lvl	111	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+11 Power	The effect is increased.
-      Lvl	112	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+12 Power	The effect is increased.
-      Lvl	113	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+13 Power	The effect is increased.
-      Lvl	114	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+14 Power	The effect is increased.
-      Lvl	115	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+15 Power	The effect is increased.
-      Lvl	116	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+16 Power	The effect is increased.
-      Lvl	117	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+17 Power	The effect is increased.
-      Lvl	118	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+18 Power	The effect is increased.
-      Lvl	119	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+19 Power	The effect is increased.
-      Lvl	120	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+20 Power	The effect is increased.
-      Lvl	121	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+21 Power	The effect is increased.
-      Lvl	122	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+22 Power	The effect is increased.
-      Lvl	123	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+23 Power	The effect is increased.
-      Lvl	124	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+24 Power	The effect is increased.
-      Lvl	125	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+25 Power	The effect is increased.
-      Lvl	126	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+26 Power	The effect is increased.
-      Lvl	127	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+27 Power	The effect is increased.
-      Lvl	128	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+28 Power	The effect is increased.
-      Lvl	129	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+29 Power	The effect is increased.
-      Lvl	130	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Power: Effect is increased. Effect 2.	+30 Power	The effect is increased.
-      Lvl	201	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+1 Cost	Maximizes the skill's efficiency. Decreases the penalty.
-      Lvl	202	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+2 Cost	Decreases the penalty.
-      Lvl	203	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+3 Cost	Decreases the penalty.
-      Lvl	204	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+4 Cost	Decreases the penalty.
-      Lvl	205	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+5 Cost	Decreases the penalty.
-      Lvl	206	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+6 Cost	Decreases the penalty.
-      Lvl	207	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+7 Cost	Decreases the penalty.
-      Lvl	208	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+8 Cost	Decreases the penalty.
-      Lvl	209	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+9 Cost	Decreases the penalty.
-      Lvl	210	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+10 Cost	Decreases the penalty.
-      Lvl	211	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+11 Cost	Decreases the penalty.
-      Lvl	212	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+12 Cost	Decreases the penalty.
-      Lvl	213	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+13 Cost	Decreases the penalty.
-      Lvl	214	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+14 Cost	Decreases the penalty.
-      Lvl	215	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+15 Cost	Decreases the penalty.
-      Lvl	216	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+16 Cost	Decreases the penalty.
-      Lvl	217	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+17 Cost	Decreases the penalty.
-      Lvl	218	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+18 Cost	Decreases the penalty.
-      Lvl	219	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+19 Cost	Decreases the penalty.
-      Lvl	220	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+20 Cost	Decreases the penalty.
-      Lvl	221	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+21 Cost	Decreases the penalty.
-      Lvl	222	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+22 Cost	Decreases the penalty.
-      Lvl	223	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+23 Cost	Decreases the penalty.
-      Lvl	224	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+24 Cost	Decreases the penalty.
-      Lvl	225	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+25 Cost	Decreases the penalty.
-      Lvl	226	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+26 Cost	Decreases the penalty.
-      Lvl	227	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+27 Cost	Decreases the penalty.
-      Lvl	228	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+28 Cost	Decreases the penalty.
-      Lvl	229	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+29 Cost	Decreases the penalty.
-      Lvl	230	Greatly increases own P. Def instantly. Greatly decreases own speed while duration of effect lasts. Consumes 2 soul. Enchant Cost: Speed penalty is decreased. Effect 2.	+30 Cost	Decreases the penalty.
-
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <!-- Needs retail value checks -->
+  <table name="#runSpd"> 0.8 0.7 </table>
+  <table name="#pDef"> 1.2 1.3 </table>
+  <table name="#mpConsume"> 16 24 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="reuseDelay" val="180000"/>
+  <set name="hitTime" val="1000"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="soulConsumeCount" val="2"/>
   <for>
+    <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="pDefSpec">
+      <mul order="0x30" stat="pDef" val="#pDef"/>
+      <mul order="0x30" stat="runSpd" val="#runSpd"/>
+    </effect>
   </for>
 </skill>
 <skill id="484" levels="1" name="Rush">
