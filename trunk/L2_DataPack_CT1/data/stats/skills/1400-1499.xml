@@ -879,7 +879,7 @@
   <for>
   </for>
 </skill>
-<skill id="1435" levels="2" name="Death Mark" enchantLevels1="30" enchantLevels2="30">
+<skill id="1435" levels="10" name="Death Mark" enchantLevels1="30" enchantLevels2="30">
   <table name="#dmg"> 14 21 30 40 51 61 68 68 75 75 </table>
   <table name="#mpConsume"> 12 14 18 22 24 28 29 32 33 35 </table>
   <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 </table>
