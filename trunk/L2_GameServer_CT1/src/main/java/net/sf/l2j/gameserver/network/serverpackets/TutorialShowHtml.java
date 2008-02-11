@@ -16,7 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 public class TutorialShowHtml extends L2GameServerPacket
 {
-	private static final String _S__A0_TUTORIALSHOWHTML = "[S] a0 TutorialShowHtml";
+	private static final String _S__A6_TUTORIALSHOWHTML = "[S] a6 TutorialShowHtml";
 	private String _html;
 	
 	public TutorialShowHtml(String html)
@@ -40,6 +40,6 @@ public class TutorialShowHtml extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__A0_TUTORIALSHOWHTML;
+		return _S__A6_TUTORIALSHOWHTML;
 	}
 }

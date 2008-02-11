@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.entity.Duel;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.tools.random.Rnd;
@@ -262,6 +263,12 @@ public class CharStatus
 
             // now reset currentHp to zero
             setCurrentHp(0);
+            if (getActiveChar() instanceof L2PcInstance)
+            {
+                QuestState qs = ((L2PcInstance)getActiveChar()).getQuestState("255_Tutorial");
+                if(qs != null)
+                    qs.getQuest().notifyEvent("CE30",null,((L2PcInstance)getActiveChar()));
+            }
         }
         else
         {
@@ -436,11 +443,10 @@ public class CharStatus
     */   
     public final void setCurrentHp(double newHp, boolean broadcastPacket)
     {
-    	synchronized (this)
+        // Get the Max HP of the L2Character
+        double maxHp = getActiveChar().getStat().getMaxHp();
+        synchronized (this)
         {
-            // Get the Max HP of the L2Character
-            double maxHp = getActiveChar().getStat().getMaxHp();
-
             if (newHp >= maxHp)
             {
                 // Set the RegenActive flag to false
@@ -460,6 +466,16 @@ public class CharStatus
 
                 // Start the HP/MP/CP Regeneration task with Medium priority
                 startHpMpRegeneration();
+            }
+        }
+
+        if (getActiveChar() instanceof L2PcInstance)
+        {
+            if (getCurrentHp() <= maxHp * .3)
+            {
+                QuestState qs = ((L2PcInstance) getActiveChar()).getQuestState("255_Tutorial");
+                if (qs != null)
+                    qs.getQuest().notifyEvent("CE45", null, ((L2PcInstance) getActiveChar()));
             }
         }
 

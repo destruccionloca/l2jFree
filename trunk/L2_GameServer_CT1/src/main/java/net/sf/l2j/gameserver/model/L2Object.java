@@ -17,12 +17,14 @@ package net.sf.l2j.gameserver.model;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
+import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.ObjectKnownList;
 import net.sf.l2j.gameserver.model.actor.poly.ObjectPoly;
 import net.sf.l2j.gameserver.model.actor.position.ObjectPosition;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.GetItem;
@@ -216,6 +218,23 @@ public abstract class L2Object
         {
             _isVisible = false;
             getPosition().setWorldRegion(null);
+        }
+
+        // if this item is a mercenary ticket, remove the spawns!
+        if (this instanceof L2ItemInstance)
+        {
+            ItemsOnGroundManager.getInstance().removeObject(this);
+            int itemId = ((L2ItemInstance)this).getItemId();
+            if (MercTicketManager.getInstance().getTicketCastleId(itemId) > 0)
+            {
+                MercTicketManager.getInstance().removeTicket((L2ItemInstance)this);
+            }
+            else if (itemId == 57 || itemId == 6353)
+            {
+                QuestState qs = ((L2PcInstance) player).getQuestState("255_Tutorial");
+                if(qs != null)
+                    qs.getQuest().notifyEvent("CE"+itemId+"",null,(L2PcInstance)player);
+            }
         }
         
         ItemsOnGroundManager.getInstance().removeObject(this);

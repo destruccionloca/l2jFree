@@ -40,6 +40,7 @@ public final class L2Radar
         RadarMarker newMarker = new RadarMarker(x, y, z);
         
         _markers.add(newMarker);
+        _player.sendPacket(new RadarControl(2, 2, x, y, z));
         _player.sendPacket(new RadarControl(0, 1, x, y, z));
     }
 
@@ -49,7 +50,7 @@ public final class L2Radar
         RadarMarker newMarker = new RadarMarker(x, y, z);
         
         _markers.remove(newMarker);
-        _player.sendPacket(new RadarControl(1, 1, x, y, z));
+        _player.sendPacket(new RadarControl(2, 2, x, y, z));
     }
 
     public void removeAllMarkers()

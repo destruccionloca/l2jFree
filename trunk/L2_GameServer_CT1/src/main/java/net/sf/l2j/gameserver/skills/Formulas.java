@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
@@ -1202,11 +1203,13 @@ public final class Formulas
     public final double calcPhysDam(L2Character attacker, L2Character target, L2Skill skill,
                                      boolean shld, boolean crit, boolean dual, boolean ss)
     {
+       boolean transformed = false;
        if (attacker instanceof L2PcInstance)
        {
            L2PcInstance pcInst = (L2PcInstance)attacker;
            if (pcInst.isGM() && pcInst.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
                    return 0;
+           transformed = pcInst.isTransformed();
        }
 
         double damage = attacker.getPAtk(target);
@@ -1235,7 +1238,7 @@ public final class Formulas
         // defence modifier depending of the attacker weapon
         L2Weapon weapon = attacker.getActiveWeaponItem();
         Stats stat = null;
-        if (weapon != null)
+        if (weapon != null && !transformed)
         {
             switch (weapon.getItemType())
             {

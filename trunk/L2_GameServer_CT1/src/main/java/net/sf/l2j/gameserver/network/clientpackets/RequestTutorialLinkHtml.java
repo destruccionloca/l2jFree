@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 
 /**
  * 7B 74 00 75 00 74 00 6F 00 72 00 69 00 61 00 6C 
@@ -42,6 +44,13 @@ public class RequestTutorialLinkHtml extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
+        L2PcInstance player = getClient().getActiveChar();
+        if(player == null)
+            return;
+
+        QuestState qs = player.getQuestState("255_Tutorial");
+        if(qs != null)
+            qs.getQuest().notifyEvent(_link, null, player);
     }
 
     /**

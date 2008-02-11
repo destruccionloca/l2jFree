@@ -58,6 +58,7 @@ import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
+import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.Die;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
@@ -147,6 +148,7 @@ public class EnterWorld extends L2GameClientPacket
 
         Quest.playerEnter(activeChar);
         activeChar.sendPacket(new QuestList());
+        loadTutorial(activeChar);
 
         // Register in flood protector
         FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());
@@ -669,6 +671,13 @@ public class EnterWorld extends L2GameClientPacket
             // huh, UTF-8 is not supported? :)
             return null;
         }
+    }
+
+    private void loadTutorial(L2PcInstance player)
+    {
+        QuestState qs = player.getQuestState("255_Tutorial");
+        if(qs != null)
+            qs.getQuest().notifyEvent("UC", null, player);
     }
 
     /* (non-Javadoc)

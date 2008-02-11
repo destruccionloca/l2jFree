@@ -16,12 +16,12 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 public class TutorialShowQuestionMark extends L2GameServerPacket
 {
-	private static final String _S__A1_TUTORIALSHOWQUESTIONMARK = "[S] a1 TutorialShowQuestionMark";
-	private int _blink;
+	private static final String _S__A7_TUTORIALSHOWQUESTIONMARK = "[S] a7 TutorialShowQuestionMark";
+	private int _mark;
 
-	public TutorialShowQuestionMark(int blink)
+	public TutorialShowQuestionMark(int mark)
 	{
-		_blink = blink; //this influences the blinking frequancy :S
+		_mark = mark; //this influences the blinking frequancy :S
 	}
 
 	/* (non-Javadoc)
@@ -31,8 +31,7 @@ public class TutorialShowQuestionMark extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xa7);
-		writeD(_blink);
-		
+		writeD(_mark);
 	}
 
 	/* (non-Javadoc)
@@ -41,6 +40,6 @@ public class TutorialShowQuestionMark extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__A1_TUTORIALSHOWQUESTIONMARK;
+		return _S__A7_TUTORIALSHOWQUESTIONMARK;
 	}
 }

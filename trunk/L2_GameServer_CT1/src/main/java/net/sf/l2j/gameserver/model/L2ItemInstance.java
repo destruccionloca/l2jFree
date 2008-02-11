@@ -1289,25 +1289,7 @@ public final class L2ItemInstance extends L2Object
 		if (Config.SAVE_DROPPED_ITEM)
 			ItemsOnGroundManager.getInstance().save(this);
 	}
-	
-	/**
-	 * Remove a L2Object from the world and if this item is a mercenary ticket, remove the spawns! Remove this object from items on ground.
-	 * 
-	 * @see net.sf.l2j.gameserver.model.L2Object#decayMe()
-	 */
-	@Override
-	public void decayMe()
-	{
-		int itemId = getItemId();
-		if (MercTicketManager.getInstance().getTicketCastleId(itemId) > 0)
-		{
-			MercTicketManager.getInstance().removeTicket(this);
-		}
-		ItemsOnGroundManager.getInstance().removeObject(this);
-		
-		super.decayMe();
-	}
-	
+
 	/**
 	 * Update the database with values of the item
 	 */
