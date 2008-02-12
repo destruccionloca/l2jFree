@@ -76,15 +76,8 @@ public class RequestActionUse extends L2GameClientPacket
         if (_log.isDebugEnabled())
             _log.debug(activeChar.getName()+" request Action use: id "+_actionId + " 2:" + _ctrlPressed + " 3:"+_shiftPressed);
         
-        // dont do anything if player is dead
-        if (activeChar.isAlikeDead())
-        {
-            activeChar.sendPacket(new ActionFailed());
-            return;
-        }
-
-        // don't do anything if player is confused
-        if (activeChar.isOutOfControl())
+        // dont do anything if player is dead/confused/transformed
+        if (activeChar.isAlikeDead() || activeChar.isOutOfControl() || activeChar.isTransformed())
         {
             activeChar.sendPacket(new ActionFailed());
             return;
@@ -221,6 +214,13 @@ public class RequestActionUse extends L2GameClientPacket
                         activeChar.sendPacket(msg);
                         msg = null;
                     }
+                    else if (activeChar.isTransformed())
+                    {
+                        // You cannot mount a steed while transformed.
+                        SystemMessage msg = new SystemMessage(SystemMessageId.YOU_CANNOT_MOUNT_A_STEED_WHILE_TRANSFORMED);
+                        activeChar.sendPacket(msg);
+                        msg = null;
+                     }
                     else if (pet.isDead())
                     {   
                         //A dead strider cannot be ridden.
@@ -271,6 +271,7 @@ public class RequestActionUse extends L2GameClientPacket
                 {
                     activeChar.dismount();
                 }
+                getClient().sendPacket(new ActionFailed());
                 break;
             case 28:
                 activeChar.tryOpenPrivateBuyStore();
