@@ -20,9 +20,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
 
 import javolution.text.TextBuilder;
 import javolution.util.FastList;
@@ -41,9 +38,12 @@ import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.ShowBoard;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 public class RegionBBSManager extends BaseBBSManager
 {
-    private static Logger _logChat = Logger.getLogger("chat");
+    private static Log _logChat = LogFactory.getLog("chat");
     private static RegionBBSManager _instance = null;
     private int _onlineCount = 0;
     private int _onlineCountGm = 0; 
@@ -235,13 +235,6 @@ public class RegionBBSManager extends BaseBBSManager
                     return;
                 }
                 
-                if (Config.LOG_CHAT)  
-                { 
-                    LogRecord record = new LogRecord(Level.INFO, ar3); 
-                    record.setLoggerName("chat"); 
-                    record.setParameters(new Object[]{"TELL", "[" + activeChar.getName() + " to "+receiver.getName()+"]"}); 
-                    _logChat.log(record); 
-                } 
                 CreatureSay cs = new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), activeChar.getName(), ar3);
                 if (!BlockList.isBlocked(receiver, activeChar))
                 {
@@ -265,6 +258,10 @@ public class RegionBBSManager extends BaseBBSManager
                         return;
                     }
 
+                    if (Config.LOG_CHAT)
+                    {
+                        _logChat.info( "WHISPER[" + activeChar.getName() + " to " + receiver.getName() + "] " + ar3);
+                    }
                     receiver.sendPacket(cs);
                     activeChar.sendPacket(new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), "->" + receiver.getName(), ar3));
                     htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsloc;playerinfo;"+receiver.getName()+smallButton);

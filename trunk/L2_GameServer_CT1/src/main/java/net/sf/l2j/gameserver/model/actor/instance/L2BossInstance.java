@@ -285,4 +285,14 @@ public final class L2BossInstance extends L2MonsterInstance
     	else super.doCast(skill);
     }
     // [L2J_JP ADD END SANDMAN]
+
+    @Override
+    protected boolean canInteract(L2PcInstance player)
+    {
+        // TODO: NPC busy check etc...
+        if (!isInsideRadius(player, BOSS_INTERACTION_DISTANCE, false, false))
+            return false;
+
+        return true;
+    }
 }

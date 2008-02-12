@@ -241,13 +241,13 @@ public class FriendsBBSManager extends BaseBBSManager
                         return;
                     }
                     
-                    if (Config.LOG_CHAT)  
-                    { 
-                        _logChat.info("TELL" + "[" + activeChar.getName() + " to "+reciever.getName()+"]" + ar3); 
-                    } 
-                    CreatureSay cs = new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), activeChar.getName(), ar3);
                     if (!reciever.getMessageRefusal())
                     {
+                        if (Config.LOG_CHAT)  
+                        { 
+                            _logChat.info("WHISPER[" + activeChar.getName() + " to "+reciever.getName()+"]" + ar3); 
+                        }
+                        CreatureSay cs = new CreatureSay(activeChar.getObjectId(), SystemChatChannelId.Chat_Tell.getId(), activeChar.getName(), ar3);
                         reciever.sendPacket(cs);
                         activeChar.sendPacket(cs);
                         htmlCode.append("Message Sent<br><button value=\"Back\" action=\"bypass _bbsgetfav;playerinfo;"+reciever.getName()+"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
@@ -256,7 +256,7 @@ public class FriendsBBSManager extends BaseBBSManager
                     }
                     else
                     {
-                        SystemMessage sm = new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);        
+                        SystemMessage sm = new SystemMessage(SystemMessageId.THE_PERSON_IS_IN_MESSAGE_REFUSAL_MODE);
                         activeChar.sendPacket(sm);
                         parsecmd("_bbsgetfav;playerinfo;"+reciever.getName(), activeChar);
                     }
