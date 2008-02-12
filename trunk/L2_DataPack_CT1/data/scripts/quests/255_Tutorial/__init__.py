@@ -152,18 +152,43 @@ class Quest (JQuest) :
                     st.playTutorialVoice("tutorial_voice_007")
                     st.set("ucMemo","1")
                     st.set("Ex","-5")
-            elif event_id == 30 :
+            elif event_id == 2144337408 :
                 if playerLevel < 6 and st.getInt("Die") == 0:
                     st.playTutorialVoice("tutorial_voice_016")
                     st.playSound("ItemSound.quest_tutorial")
                     st.set("Die","1")
                     st.showQuestionMark(8)
+            elif event_id == 40 :
+                if playerLevel == 5 :
+                   if st.getInt("lvl") < 5:
+                     if player.getClassId().isMage() :
+                      #st.playTutorialVoice("tutorial_voice_???")
+                      st.showQuestionMark(30)
+                     else :
+                      #st.playTutorialVoice("tutorial_voice_???")
+                      st.showQuestionMark(31)
+                     st.playSound("ItemSound.quest_tutorial")
+                     st.set("lvl","5")
+                elif playerLevel == 7 and player.getClassId().isMage() :
+                   if st.getInt("lvl") < 7:
+                      #st.playTutorialVoice("tutorial_voice_???")
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","7")
+                      st.showQuestionMark(32)
+                elif playerLevel == 15 :
+                   if st.getInt("lvl") < 15:
+                      #st.playTutorialVoice("tutorial_voice_???")
+                      st.playSound("ItemSound.quest_tutorial")
+                      st.set("lvl","15")
+                      st.showQuestionMark(33)
             elif event_id == 45 :
-                if playerLevel < 6 and st.getInt("HP") == 0:
+                if playerLevel < 6 :
+                   if st.getInt("HP") == 0:
                     st.playTutorialVoice("tutorial_voice_017")
                     st.playSound("ItemSound.quest_tutorial")
                     st.set("HP","1")
                     st.showQuestionMark(10)
+                   st.onTutorialClientEvent(2144337408)
             elif event_id == 57 :
                 if playerLevel < 6 and st.getInt("Adena") == 0:
                     st.playTutorialVoice("tutorial_voice_012")
@@ -213,6 +238,14 @@ class Quest (JQuest) :
                     htmltext = "tutorial_newbie004b.htm"
                 else :
                     htmltext = "tutorial_newbie004a.htm"
+            elif MarkId == 30 :
+                htmltext = "tutorial_mage017.htm"
+            elif MarkId == 31 :
+                htmltext = "tutorial_fighter017.htm"
+            elif MarkId == 32 :
+                htmltext = "tutorial_mage020.htm"
+            elif MarkId == 33 :
+                htmltext = "tutorial_27.htm"
         if htmltext == "": return
         st.showTutorialHTML(htmltext)
         return
