@@ -137,7 +137,7 @@ public class MultiSellChoose extends L2GameClientPacket
                 _ingredientsList = null;
                 return;
             }
-            if(e.getItemId() !=65336)
+            if(e.getItemId() != -200)
             {
                 // if this is not a list that maintains enchantment, check the count of all items that have the given id.
                 // otherwise, check only the count of items with exactly the needed enchantment level
@@ -176,9 +176,9 @@ public class MultiSellChoose extends L2GameClientPacket
 
 		for(MultiSellIngredient e : entry.getIngredients())
 		{
-			if(e.getItemId() != 65336)
+			if(e.getItemId() != -200)
 			{
-				L2ItemInstance itemToTake = inv.getItemByItemId(e.getItemId());		// initialize and initial guess for the item to take.
+				L2ItemInstance itemToTake = inv.getItemByItemId(e.getItemId()); // initialize and initial guess for the item to take.
 				if (itemToTake == null) 
 				{ //this is a cheat, transaction will be aborted and if any items already tanken will not be returned back to inventory!
 					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchatnt id:" + merchant.getNpcId());
