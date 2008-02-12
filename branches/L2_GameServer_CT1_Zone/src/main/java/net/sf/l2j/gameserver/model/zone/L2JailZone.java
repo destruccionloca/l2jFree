@@ -34,6 +34,8 @@ public class L2JailZone extends L2DefaultZone
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 			}
 		}
+
+		super.onEnter(character);
 	}
 
 	@Override
@@ -48,5 +50,7 @@ public class L2JailZone extends L2DefaultZone
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
 			}
 		}
+
+		super.onExit(character);
 	}
 }

@@ -54,6 +54,8 @@ public class L2WaterZone extends L2DefaultZone
 				if (player != null)
 					player.sendPacket(new NpcInfo((L2NpcInstance)character, player));
 		}
+
+		super.onEnter(character);
 	}
 	
 	@Override
@@ -72,5 +74,7 @@ public class L2WaterZone extends L2DefaultZone
 				if (player != null)
 					player.sendPacket(new NpcInfo((L2NpcInstance)character, player));
 		}
+
+		super.onExit(character);
 	}
 }

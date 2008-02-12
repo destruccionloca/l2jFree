@@ -60,6 +60,8 @@ public class L2BossZone extends L2DefaultZone
 	{
 		if (_boss == Boss.SUNLIGHTROOM)
 			character.setInsideZone(FLAG_SUNLIGHTROOM, true);
+
+		super.onEnter(character);
 	}
 	
 	@Override
@@ -67,5 +69,7 @@ public class L2BossZone extends L2DefaultZone
 	{
 		if (_boss == Boss.SUNLIGHTROOM)
 			character.setInsideZone(FLAG_SUNLIGHTROOM, false);
+
+		super.onExit(character);
 	}
 }

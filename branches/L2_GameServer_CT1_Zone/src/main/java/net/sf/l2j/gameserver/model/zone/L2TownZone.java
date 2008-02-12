@@ -53,12 +53,19 @@ public class L2TownZone extends L2DefaultZone
 
 		if (peace == true)
 			character.setInsideZone(FLAG_PEACE, true);
+
+		super.onEnter(character);
 	}
 	
 	@Override
 	protected void onExit(L2Character character)
 	{
-		character.setInsideZone(FLAG_PEACE, false);
-		character.setInsideZone(FLAG_PVP, false);
+		if (character.isInsideZone(FLAG_PVP))
+			character.setInsideZone(FLAG_PVP, false);
+
+		if (character.isInsideZone(FLAG_PEACE))
+			character.setInsideZone(FLAG_PEACE, false);
+
+		super.onExit(character);
 	}
 }

@@ -1563,6 +1563,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void revalidateZone(boolean force)
     {
+        // Cannot validate if not in  a world region (happens during teleport)
+        if (getWorldRegion() == null)
+            return;
+
         // This function is called very often from movement code
         if (force) _zoneValidateCounter = 4;
         else 
@@ -5924,9 +5928,12 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setInJail((rset.getInt("in_jail") == 1) ? true : false);
                 player.setJailTimer(rset.getLong("jail_timer"));
                 player.setBanChatTimer(rset.getLong("banchat_timer"));
-                if(player.getBanChatTimer() > 0) player.setChatBanned(true);
-                if (player.isInJail()) player.setJailTimer(rset.getLong("jail_timer"));
-                else player.setJailTimer(0);
+                if(player.getBanChatTimer() > 0)
+                    player.setChatBanned(true);
+                if (player.isInJail())
+                    player.setJailTimer(rset.getLong("jail_timer"));
+                else
+                    player.setJailTimer(0);
                 
                 CursedWeaponsManager.getInstance().checkPlayer(player);
 
@@ -9666,16 +9673,20 @@ public final class L2PcInstance extends L2PlayableInstance
         super.onTeleported();
         ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(this));
 
-        if (Config.PLAYER_SPAWN_PROTECTION > 0) setProtection(true);
+        // Force a revalidation
+        revalidateZone(true);
 
-		// Modify the position of the tamed beast if necessary (normal pets are handled by super...though
+        if (Config.PLAYER_SPAWN_PROTECTION > 0)
+            setProtection(true);
+
+        // Modify the position of the tamed beast if necessary (normal pets are handled by super...though
         // L2PcInstance is the only class that actually has pets!!! )
-		if(getTrainedBeast() != null)
-		{
-			getTrainedBeast().getAI().stopFollow();
-			getTrainedBeast().teleToLocation(getPosition().getX() + Rnd.get(-100,100), getPosition().getY() + Rnd.get(-100,100), getPosition().getZ(), false);
-			getTrainedBeast().getAI().startFollow(this);
-		}        
+        if(getTrainedBeast() != null)
+        {
+            getTrainedBeast().getAI().stopFollow();
+            getTrainedBeast().teleToLocation(getPosition().getX() + Rnd.get(-100,100), getPosition().getY() + Rnd.get(-100,100), getPosition().getZ(), false);
+            getTrainedBeast().getAI().startFollow(this);
+        }
     }
 
     @Override
@@ -10928,7 +10939,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             // If player escaped, put him back in jail
             if (!isInsideZone(L2Zone.FLAG_JAIL))
-				teleToLocation(-114356, -249645, -2984);
+                teleToLocation(-114356, -249645, -2984);
         }
     }
 

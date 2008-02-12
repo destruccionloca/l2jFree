@@ -47,6 +47,8 @@ public class L2ClanhallZone extends L2DefaultZone
 			if (_clanhall.getOwnerId() != 0 && _clanhall.getOwnerId() == ((L2PcInstance)character).getClanId())
 				((L2PcInstance)character).sendMessage("You have entered your clan hall");
 		}
+
+		super.onEnter(character);
 	}
 	
 	@Override
@@ -61,5 +63,7 @@ public class L2ClanhallZone extends L2DefaultZone
 			if (_clanhall.getOwnerId() != 0 && _clanhall.getOwnerId() == ((L2PcInstance)character).getClanId())
 				((L2PcInstance)character).sendMessage("You have left your clan hall");
 		}
+
+		super.onExit(character);
 	}
 }

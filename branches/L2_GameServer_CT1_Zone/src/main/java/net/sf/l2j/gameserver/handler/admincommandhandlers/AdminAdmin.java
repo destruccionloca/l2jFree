@@ -391,7 +391,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			try
 			{
 				String type = st.nextToken();
-				if(type.equals("multisell"))
+				if(type.startsWith("multisell"))
 				{
 					L2Multisell.getInstance().reload();
 					activeChar.sendMessage("Multisell reloaded");
@@ -406,7 +406,7 @@ public class AdminAdmin implements IAdminCommandHandler
 					SkillTable.getInstance().reload();
 					activeChar.sendMessage("Skills reloaded");
 				}
-				else if(type.equals("npc"))
+				else if(type.startsWith("npc"))
 				{
 					NpcTable.getInstance().cleanUp();
 					NpcTable.getInstance().reloadAll();
@@ -427,35 +427,35 @@ public class AdminAdmin implements IAdminCommandHandler
 					Manager.reloadAll();
 					activeChar.sendMessage("All instance manager has been reloaded");
 				}
-				else if(type.startsWith("npcwalkers"))
+				else if(type.startsWith("npcwalker"))
 				{
 					NpcWalkerRoutesTable.getInstance().load();
 					activeChar.sendMessage("All NPC walker routes have been reloaded");
 					
-				}				
-				else if(type.equals("tradelist"))
+				}
+				else if(type.startsWith("tradelist"))
 				{
 					TradeListTable.getInstance().reloadAll();
 					activeChar.sendMessage("TradeList Table reloaded.");
 				}
-				else if(type.equals("zones"))
+				else if(type.startsWith("zone"))
 				{
 					ZoneManager.getInstance().reload();
 					activeChar.sendMessage("Zones reloaded.");
 				}
-				else if(type.equals("mapregion"))
+				else if(type.startsWith("mapregion"))
 				{
 					MapRegionManager.getInstance().reload();
 					activeChar.sendMessage("MapRegions reloaded.");
 				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zones|mapregion|npcwalkers>");
+					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|npcwalkers>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zones|mapregion>");
+				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion>");
 			}
 		}
 

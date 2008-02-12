@@ -28,6 +28,7 @@ public class L2CastleDefZone extends L2CastleZone
 		_castle.registerDefenderSpawn(this);
 	}
 
+	// They just define a respawn area
 	@Override
 	protected void onEnter(L2Character character){}
 	

@@ -42,6 +42,8 @@ public class L2SiegeZone extends L2CastleZone
 			if (character instanceof L2PcInstance)
 				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
+
+		super.onEnter(character);
 	}
 	
 	@Override
@@ -65,5 +67,7 @@ public class L2SiegeZone extends L2CastleZone
 		{
 			((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
 		}
+
+		super.onExit(character);
 	}
 }

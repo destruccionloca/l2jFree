@@ -29,8 +29,14 @@ public class L2CastleHQZone extends L2CastleZone
 	}
 
 	@Override
-	protected void onEnter(L2Character character){}
+	protected void onEnter(L2Character character)
+	{
+		super.onEnter(character);
+	}
 	
 	@Override
-	protected void onExit(L2Character character){}
+	protected void onExit(L2Character character)
+	{
+		super.onExit(character);
+	}
 }

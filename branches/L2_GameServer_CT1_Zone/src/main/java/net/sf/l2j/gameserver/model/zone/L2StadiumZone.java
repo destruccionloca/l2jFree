@@ -30,6 +30,7 @@ public class L2StadiumZone extends L2DefaultZone
 	protected void onEnter(L2Character character)
 	{
 		character.setInsideZone(FLAG_STADIUM, true);
+
 		super.onEnter(character);
 	}
 	
@@ -37,6 +38,7 @@ public class L2StadiumZone extends L2DefaultZone
 	protected void onExit(L2Character character)
 	{
 		character.setInsideZone(FLAG_STADIUM, false);
+
 		super.onEnter(character);
 	}
 }

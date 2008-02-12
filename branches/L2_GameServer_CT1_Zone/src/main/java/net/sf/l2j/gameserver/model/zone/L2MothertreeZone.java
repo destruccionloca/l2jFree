@@ -40,6 +40,8 @@ public class L2MothertreeZone extends L2DefaultZone
 			player.setInsideZone(FLAG_MOTHERTREE, true);
 			player.sendPacket(new SystemMessage(SystemMessageId.ENTER_SHADOW_MOTHER_TREE));
 		}
+
+		super.onEnter(character);
 	}
 
 	@Override
@@ -50,5 +52,7 @@ public class L2MothertreeZone extends L2DefaultZone
 			character.setInsideZone(FLAG_MOTHERTREE, false);
 			((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.EXIT_SHADOW_MOTHER_TREE));
 		}
+
+		super.onExit(character);
 	}
 }
