@@ -775,8 +775,9 @@
   <set name="effectRange" val="400"/>
   <set name="aggroPoints" val="0"/>
   <for>
-    <effect count="1" name="Buff" time="300" val="0" stackOrder="#mpConsume" stackType="MPrate">
-      <mul order="0x30" stat="MpConsumeRate" val="#MpConsumeRate"/>
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#mpConsume" stackType="MPrate">
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="#MpConsumeRate"/>
+      <mul order="0x30" stat="PhysicalMpConsumeRate" val="#MpConsumeRate"/>
     </effect>
   </for>
 </skill>
