@@ -1055,7 +1055,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
 
     private final ClassType getVillageMasterTeachType()
     {
-        String npcClass = getTemplate().getJClass();
+        String npcClass = getTemplate().getJClass().toLowerCase();
 
         if (npcClass.indexOf("sanctuary") > -1 || npcClass.indexOf("clergyman") > -1)
             return ClassType.Priest;

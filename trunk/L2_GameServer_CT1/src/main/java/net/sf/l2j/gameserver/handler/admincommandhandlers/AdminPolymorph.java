@@ -53,7 +53,13 @@ public class AdminPolymorph implements IAdminCommandHandler
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-		
+
+		if (activeChar.isMounted())
+		{
+			activeChar.sendMessage("You can't transform while mounted, please dismount and try again.");
+			return false;
+		}
+
 		if (command.startsWith("admin_untransform"))
 		{
 			L2Object obj = activeChar.getTarget();

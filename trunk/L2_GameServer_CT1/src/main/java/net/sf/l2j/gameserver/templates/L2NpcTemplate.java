@@ -88,10 +88,10 @@ public final class L2NpcTemplate extends L2CharTemplate
     private Race _race;
     
     /** The table containing all Item that can be dropped by L2NpcInstance using this L2NpcTemplate*/
-    private final List<L2DropCategory> _categories = new FastList<L2DropCategory>();   
+    private List<L2DropCategory> _categories = null;
     
     /** The table containing all Minions that must be spawn with the L2NpcInstance using this L2NpcTemplate*/
-    private final List<L2MinionData> _minions     = new FastList<L2MinionData>(0);
+    private List<L2MinionData> _minions = null;
     
     /** The list of class that this NpcTemplate can Teach */
     private List<ClassId> _teachInfo;
@@ -225,14 +225,16 @@ public final class L2NpcTemplate extends L2CharTemplate
     public void addDropData(L2DropData drop, int categoryType)
     {
         if (drop.isQuestDrop())
-		{
+        {
 //          if (_questDrops == null)
 //              _questDrops = new FastList<L2DropData>(0);
 //          _questDrops.add(drop);
         }
-		else
-		{
+        else
+        {
             // if the category doesn't already exist, create it first
+            if (_categories == null)
+                _categories = new FastList<L2DropCategory>();
             synchronized (_categories)
             {
                 boolean catExists = false;
@@ -257,6 +259,8 @@ public final class L2NpcTemplate extends L2CharTemplate
     
     public void addRaidData(L2MinionData minion)
     {
+        if (_minions == null)
+            _minions = new FastList<L2MinionData>();
         _minions.add(minion);
     }
     
@@ -301,6 +305,8 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public List<L2DropData> getAllDropData()
     {
+        if (_categories == null)
+            return null;
         FastList<L2DropData> lst = new FastList<L2DropData>();
         for (L2DropCategory tmp:_categories)
         {
@@ -314,6 +320,8 @@ public final class L2NpcTemplate extends L2CharTemplate
      */
     public synchronized void clearAllDropData()
     {
+        if (_categories == null)
+            return;
         while (_categories.size() > 0)
         {
             _categories.get(0).clearAllDrops();

@@ -1268,7 +1268,7 @@ public class Siege
             template.setBaseHpMax(_sp.getHp());
             
             ct = new L2ControlTowerInstance(IdFactory.getInstance().getNextId(), template);
-            ct.getStatus().setCurrentHpMp(ct.getMaxHp(), ct.getMaxMp());
+            ct.getStatus().setCurrentHpMp(_sp.getHp(), ct.getMaxMp());
             ct.spawnMe(_sp.getLocation().getX(),_sp.getLocation().getY(),_sp.getLocation().getZ() + 20);
         	
             _controlTowers.add(ct);

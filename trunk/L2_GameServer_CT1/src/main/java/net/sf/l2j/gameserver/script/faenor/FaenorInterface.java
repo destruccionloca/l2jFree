@@ -93,10 +93,13 @@ public class FaenorInterface implements EngineInterface
         else
         {
             int maxCategory = -1;
-            for(L2DropCategory cat:npc.getDropData())
+            if (npc.getDropData()!=null)
             {
-                if(maxCategory<cat.getCategoryType())
-                    maxCategory = cat.getCategoryType();
+                for(L2DropCategory cat:npc.getDropData())
+                {
+                    if(maxCategory<cat.getCategoryType())
+                        maxCategory = cat.getCategoryType();
+                }
             }
             maxCategory++;
             npc.addDropData(drop, maxCategory);
@@ -146,7 +149,7 @@ public class FaenorInterface implements EngineInterface
                 context.declareBean("level", new Double(level), Double.TYPE); 
                 for (String stat : stats.keySet())
                 {
-    				value = ((Number)Expression.eval(context, "beanshell", stats.get(stat))).intValue(); 
+                    value = ((Number)Expression.eval(context, "beanshell", stats.get(stat))).intValue(); 
                     petData[level - 1].setStat(stat, value);
                 }
                 context.undeclareBean("level"); 

@@ -173,6 +173,8 @@ public class MinionList
     {
         if(master == null || master.isAlikeDead()) return;
         List<L2MinionData> minions = master.getTemplate().getMinionData();
+        if (minions == null)
+            return;
 
         synchronized (minionReferences)
         {

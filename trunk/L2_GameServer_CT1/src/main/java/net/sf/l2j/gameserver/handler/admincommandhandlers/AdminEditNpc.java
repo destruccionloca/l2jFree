@@ -1060,16 +1060,19 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("<table>");
 		replyMSG.append("<tr><td>npc_id itemId category</td><td>item[id]</td><td>type</td><td>del</td></tr>");
 		
-		for(L2DropCategory cat : npcData.getDropData())
+		if (npcData.getDropData() != null)
 		{
-			if(cat == null)	continue;
-			for(L2DropData drop : cat.getAllDrops())
+			for(L2DropCategory cat : npcData.getDropData())
 			{
-				if(drop == null) continue;
-				replyMSG.append("<tr><td><a action=\"bypass -h admin_edit_drop " + npcData.getNpcId() + " " + drop.getItemId()+ " " + cat.getCategoryType() + "\">"
+				if(cat == null)	continue;
+				for(L2DropData drop : cat.getAllDrops())
+				{
+					if(drop == null) continue;
+					replyMSG.append("<tr><td><a action=\"bypass -h admin_edit_drop " + npcData.getNpcId() + " " + drop.getItemId()+ " " + cat.getCategoryType() + "\">"
 						+ npcData.getNpcId() + " " + drop.getItemId() + " " + cat.getCategoryType() + "</a></td>" +
 						"<td>" + ItemTable.getInstance().getTemplate(drop.getItemId()).getName() + "[" + drop.getItemId() + "]" + "</td><td>" + (drop.isQuestDrop()?"Q":(cat.isSweep()?"S":"D")) + "</td><td>" +
 						"<a action=\"bypass -h admin_del_drop " + npcData.getNpcId() + " " + drop.getItemId() +" "+ cat.getCategoryType() +"\">del</a></td></tr>");
+				}
 			}
 		}
 		
@@ -1276,7 +1279,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		finally
 		{
 			try { con.close(); } catch (Exception e) {}
-		}			
+		}
 		
 	}
 	
@@ -1293,10 +1296,10 @@ public class AdminEditNpc implements IAdminCommandHandler
 		java.sql.Connection con = null;
 		try
 		{
-			con = L2DatabaseFactory.getInstance().getConnection(con);		
+			con = L2DatabaseFactory.getInstance().getConnection(con);
 			L2DropData dropData = null;
 			
-			npcData.getDropData().clear();				
+			npcData.clearAllDropData();
 			
 			PreparedStatement statement = con.prepareStatement("SELECT " + L2DatabaseFactory.getInstance().safetyString(new String[] {"mobId", "itemId", "min", "max", "category", "chance"}) + " FROM droplist WHERE mobId=?");
 			statement.setInt(1, npcId);

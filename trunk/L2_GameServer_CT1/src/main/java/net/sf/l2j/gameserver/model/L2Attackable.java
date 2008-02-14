@@ -1378,70 +1378,78 @@ public class L2Attackable extends L2NpcInstance
 
 
         // now throw all categorized drops and handle spoil.
-        for(L2DropCategory cat:npcTemplate.getDropData())
+        if (npcTemplate.getDropData() != null)
         {
-            RewardItem item = null;
-            if (cat.isSweep())
+            for(L2DropCategory cat:npcTemplate.getDropData())
             {
-                // according to sh1ny, seeded mobs CAN be spoiled and swept.
-                if ( isSpoil()/* && !isSeeded() */)
-                { 
-                    FastList<RewardItem> sweepList = new FastList<RewardItem>();
-
-                    for(L2DropData drop: cat.getAllDrops() )
-                    {
-                        item = calculateRewardItem(player, drop, levelModifier, true);
-                        if (item == null) continue;
-
-                        if (_log.isDebugEnabled()) _log.info("Item id to spoil: " + item.getItemId() + " amount: " + item.getCount());
-                        sweepList.add(item);
-                    }
-                    
-                    // Set the table _sweepItems of this L2Attackable
-                    if (!sweepList.isEmpty()) 
-                        _sweepItems = sweepList.toArray(new RewardItem[sweepList.size()]);
-                }
-            }
-            else
-            {
-                if (isSeeded())
+                RewardItem item = null;
+                if (cat.isSweep())
                 {
-                    L2DropData drop = cat.dropSeedAllowedDropsOnly();
-                    if(drop == null)
-                        continue;
-                    
-                    item = calculateRewardItem(player, drop, levelModifier, false);
+                    // according to sh1ny, seeded mobs CAN be spoiled and swept.
+                    if ( isSpoil()/* && !isSeeded() */)
+                    { 
+                        FastList<RewardItem> sweepList = new FastList<RewardItem>();
+
+                        for(L2DropData drop: cat.getAllDrops() )
+                        {
+                            item = calculateRewardItem(player, drop, levelModifier, true);
+                            if (item == null)
+                                continue;
+
+                            if (_log.isDebugEnabled())
+                                _log.info("Item id to spoil: " + item.getItemId() + " amount: " + item.getCount());
+                            sweepList.add(item);
+                        }
+
+                        // Set the table _sweepItems of this L2Attackable
+                        if (!sweepList.isEmpty()) 
+                            _sweepItems = sweepList.toArray(new RewardItem[sweepList.size()]);
+                    }
                 }
                 else
                 {
-                    item = calculateCategorizedRewardItem(player, cat, levelModifier);
-                }  
-                
-                if (item != null)
-                {
-                    if (_log.isDebugEnabled()) _log.info("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
-                
-                    // Check if the autoLoot mode for items/Adena is active
-                    if (item.getItemId() == 57 || item.getItemId() == 5575 || item.getItemId() == 6360 || item.getItemId() == 6361 || item.getItemId() == 6362)
+                    if (isSeeded())
                     {
-                        if (Config.AUTO_LOOT_ADENA) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                        else DropItem(player, item); // drop the item on the ground
+                        L2DropData drop = cat.dropSeedAllowedDropsOnly();
+                        if(drop == null)
+                            continue;
+
+                        item = calculateRewardItem(player, drop, levelModifier, false);
                     }
                     else
                     {
-                        if (Config.AUTO_LOOT) player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
-                        else DropItem(player, item); // drop the item on the ground
+                        item = calculateCategorizedRewardItem(player, cat, levelModifier);
                     }
 
-                    // Broadcast message if RaidBoss was defeated
-                    if(this instanceof L2RaidBossInstance)
+                    if (item != null)
                     {
-                        SystemMessage sm;
-                        sm = new SystemMessage(SystemMessageId.S1_DIED_DROPPED_S3_S2);
-                        sm.addString(getName());
-                        sm.addItemNameById(item.getItemId());
-                        sm.addNumber(item.getCount());
-                        broadcastPacket(sm);
+                        if (_log.isDebugEnabled()) _log.info("Item id to drop: " + item.getItemId() + " amount: " + item.getCount());
+
+                        // Check if the autoLoot mode for items/Adena is active
+                        if (item.getItemId() == 57 || item.getItemId() == 5575 || item.getItemId() == 6360 || item.getItemId() == 6361 || item.getItemId() == 6362)
+                        {
+                            if (Config.AUTO_LOOT_ADENA)
+                                player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+                            else
+                                DropItem(player, item); // drop the item on the ground
+                        }
+                        else
+                        {
+                            if (Config.AUTO_LOOT)
+                                player.doAutoLoot(this, item); // Give this or these Item(s) to the L2PcInstance that has killed the L2Attackable
+                            else
+                                DropItem(player, item); // drop the item on the ground
+                        }
+
+                        // Broadcast message if RaidBoss was defeated
+                        if(this instanceof L2RaidBossInstance)
+                        {
+                            SystemMessage sm = new SystemMessage(SystemMessageId.S1_DIED_DROPPED_S3_S2);
+                            sm.addString(getName());
+                            sm.addItemNameById(item.getItemId());
+                            sm.addNumber(item.getCount());
+                            broadcastPacket(sm);
+                        }
                     }
                 }
             }
