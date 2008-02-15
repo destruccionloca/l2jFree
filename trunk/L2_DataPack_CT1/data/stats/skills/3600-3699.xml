@@ -181,7 +181,7 @@ Description(s):
   <for>
     <add val='232' order='0x40' stat='maxCp'/>
     <mul val='1.40' order='0x30' stat='regCp'/>
-    <!-- decreases experience value penalty if killed by another player -->
+    <mul val='0.7' order='0x30' stat='lostExp'/><!-- Retail value needed -->
     <!-- Casts a hold on an attacking player at a certain rate -->
   </for>
 </skill>
@@ -201,7 +201,7 @@ Description(s):
   <for>
     <add val='195' order='0x40' stat='maxCp'/>
     <mul val='1.40' order='0x30' stat='regCp'/>
-    <!-- decreases experience value penalty if killed by another player -->
+    <mul val='0.7' order='0x30' stat='lostExp'/><!-- Retail value needed -->
     <!-- Casts a Speed reduction curse on an attacking player -->
   </for>
 </skill>
@@ -221,7 +221,7 @@ Description(s):
   <for>
     <add val='177' order='0x40' stat='maxCp'/>
     <mul val='1.40' order='0x30' stat='regCp'/>
-    <!-- decreases experience value penalty if killed by a player -->
+    <mul val='0.7' order='0x30' stat='lostExp'/><!-- Retail value needed -->
     <!-- Casts an Atk. Spd. reduction curse on attacking player -->
   </for>
 </skill>

@@ -81,6 +81,7 @@ public enum Stats
     STAT_INT    ("INT"),
     STAT_WIT    ("WIT"),
     STAT_MEN    ("MEN"),
+    LOST_EXP    ("lostExp"),
     //
     // Special stats, share one slot in Calculator
     //

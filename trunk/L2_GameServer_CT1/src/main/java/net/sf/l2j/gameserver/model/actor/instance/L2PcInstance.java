@@ -2226,7 +2226,7 @@ public final class L2PcInstance extends L2PlayableInstance
         int lvl = getLevel();
 
         // Remove beginner Lucky skill
-        if (lvl == 10)
+        if (lvl > 9)
         {
             L2Skill skill = SkillTable.getInstance().getInfo(194, 1);
             skill = removeSkill(skill);
@@ -4232,6 +4232,7 @@ public final class L2PcInstance extends L2PlayableInstance
             L2PcInstance pk = null;
 
             boolean clanWarKill = false;
+            boolean playerKill = false;
 
             if ((killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventFOS) && _inEventFOS)
             {
@@ -4409,6 +4410,7 @@ public final class L2PcInstance extends L2PlayableInstance
                             && !(pk.isAcademyMember())
                             && _clan.isAtWarWith(pk.getClanId())
                             && pk.getClan().isAtWarWith(_clan.getClanId()));
+                playerKill = true;
             }
 
             if (atEvent && pk != null)
@@ -4433,7 +4435,7 @@ public final class L2PcInstance extends L2PlayableInstance
                             // Reduce the Experience of the L2PcInstance in function of the calculated Death Penalty
                             // NOTE: deathPenalty +- Exp will update karma
                             if (getSkillLevel(L2Skill.SKILL_LUCKY) < 0 || getStat().getLevel() > 9)
-                                deathPenalty(clanWarKill);
+                                deathPenalty(clanWarKill, playerKill);
                         }
                         else
                         {
@@ -4931,7 +4933,7 @@ public final class L2PcInstance extends L2PlayableInstance
      * <li>Send a Server->Client StatusUpdate packet with its new Experience </li><BR><BR>
      *
      */
-    public void deathPenalty(boolean atwar)
+    public void deathPenalty(boolean atwar, boolean byPc)
     {
         //FIXME: Need Correct Penalty
 
@@ -4959,6 +4961,9 @@ public final class L2PcInstance extends L2PlayableInstance
             else
                 lostExp = Math.round((getStat().getExpForLevel(Experience.MAX_LEVEL) - getStat().getExpForLevel(Experience.MAX_LEVEL - 1)) * percentLost /100);
         }
+
+        if (byPc)
+            lostExp = (long)calcStat(Stats.LOST_EXP, lostExp, null, null);
 
         // Get the Experience before applying penalty
         setExpBeforeDeath(getExp());
