@@ -29,7 +29,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocationInVehicle;
 import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
-import net.sf.l2j.gameserver.skills.effects.EffectTrap;
 import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
@@ -193,7 +192,6 @@ public class ValidatePosition extends L2GameClientPacket
 			activeChar.isFalling(true,0); // Check if the L2Character isFalling
 
 		EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar , true);
-		EffectTrap.getInstance().checkTraps(activeChar, true);
 
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 		{

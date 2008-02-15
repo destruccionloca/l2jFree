@@ -12993,7 +12993,7 @@ public enum SystemMessageId
 	* ID: 2167<br>
 	* Message: A malicious skill cannot be used in a peace zone.
 	*/
-	CANT_USE_BAD_MAGIC_IN_PEACE_ZONE(2167),
+	A_MALICIOUS_SKILL_CANNOT_BE_USED_IN_PEACE_ZONE(2167),
 
 	/**
 	* ID: 2168<br>

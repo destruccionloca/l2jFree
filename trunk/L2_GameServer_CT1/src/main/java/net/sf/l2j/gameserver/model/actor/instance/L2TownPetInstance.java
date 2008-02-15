@@ -81,6 +81,8 @@ public class L2TownPetInstance extends L2NpcInstance
     {
         public void run()
         {
+            if(!isInActiveRegion()) return; // but rather the AI should be turned off completely
+
             randomX = spawnX + Rnd.get(2)*50-50;
             randomY = spawnY + Rnd.get(2)*50-50;
 

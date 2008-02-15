@@ -499,9 +499,16 @@ public class L2Attackable extends L2NpcInstance
         // Notify the Quest Engine of the L2Attackable death if necessary
         try
         {
-            if (killer instanceof L2PcInstance || killer instanceof L2Summon)
+            if (killer instanceof L2PcInstance || killer instanceof L2Summon || killer instanceof L2Trap)
             {
-                L2PcInstance player = killer instanceof L2PcInstance?(L2PcInstance)killer:((L2Summon)killer).getOwner();
+                L2PcInstance player = null;
+                
+                if (killer instanceof L2PcInstance)
+                    player = (L2PcInstance)killer;
+                else if (killer instanceof L2Summon)
+                    player = ((L2Summon)killer).getOwner();
+                else if (killer instanceof L2Trap)
+                    player = ((L2Trap)killer).getOwner();
                 
                 if (getTemplate().getEventQuests(Quest.QuestEventType.MOBKILLED) != null)
                 {
@@ -1367,6 +1374,7 @@ public class L2Attackable extends L2NpcInstance
         L2PcInstance player = null;
         if (lastAttacker instanceof L2PcInstance) player = (L2PcInstance)lastAttacker;
         else if (lastAttacker instanceof L2Summon) player = ((L2Summon)lastAttacker).getOwner();
+        else if (lastAttacker instanceof L2Trap) player = ((L2Trap)lastAttacker).getOwner();
 
         if (player == null) return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance
 
@@ -1634,6 +1642,8 @@ public class L2Attackable extends L2NpcInstance
             player = (L2PcInstance)lastAttacker;
         else if (lastAttacker instanceof L2Summon)
             player = ((L2Summon)lastAttacker).getOwner();
+        else if (lastAttacker instanceof L2Trap)
+            player = ((L2Trap)lastAttacker).getOwner();
 
         if (player == null) return; // Don't drop anything if the last attacker or ownere isn't L2PcInstance
         

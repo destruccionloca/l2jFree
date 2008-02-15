@@ -47,11 +47,11 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Sow;
 import net.sf.l2j.gameserver.handler.skillhandlers.Spoil;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
-import net.sf.l2j.gameserver.handler.skillhandlers.SummonTrap;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
 import net.sf.l2j.gameserver.handler.skillhandlers.TransformDispel;
+import net.sf.l2j.gameserver.handler.skillhandlers.Trap;
 import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -112,11 +112,11 @@ public class SkillHandler
         registerSkillHandler(new Spoil());
         registerSkillHandler(new StrSiegeAssault());
         registerSkillHandler(new SummonFriend());
-        registerSkillHandler(new SummonTrap());
         registerSkillHandler(new SummonTreasureKey());
         registerSkillHandler(new Sweep());
         registerSkillHandler(new TakeCastle());
         registerSkillHandler(new TransformDispel());
+        registerSkillHandler(new Trap());
         registerSkillHandler(new Unlock());
         _log.info("SkillHandler: Loaded " + _datatable.size() + " handlers.");
     }

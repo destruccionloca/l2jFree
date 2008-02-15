@@ -21,6 +21,7 @@ import net.sf.l2j.gameserver.model.L2Decoy;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.model.L2Trap;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DecoyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
@@ -28,6 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2TrapInstance;
 import net.sf.l2j.gameserver.network.serverpackets.CharInfo;
 import net.sf.l2j.gameserver.network.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.network.serverpackets.DropItem;
@@ -130,6 +132,10 @@ public class PcKnownList extends PlayableKnownList
             {
                 getActiveChar().sendPacket(new NpcInfo((L2Decoy) object));
             }
+            else if (object instanceof L2Trap || object instanceof L2TrapInstance)
+            {
+                getActiveChar().sendPacket(new NpcInfo((L2Trap) object, getActiveChar()));
+            }
             else if (object instanceof L2NpcInstance)
             {
                 if (Config.TEST_KNOWNLIST && getActiveChar().isGM()) getActiveChar().sendMessage("Knownlist, added NPC: "+((L2NpcInstance) object).getName());
@@ -215,7 +221,7 @@ public class PcKnownList extends PlayableKnownList
                 	getActiveChar().sendPacket(new RecipeShopMsg(otherPlayer));
             }
 
-            if (object instanceof L2Character || object instanceof L2Decoy || object instanceof L2DecoyInstance)
+            if (object instanceof L2Character || object instanceof L2DecoyInstance || object instanceof L2TrapInstance)
             {
                 // Update the state of the L2Character object client side by sending Server->Client packet MoveToPawn/MoveToLocation and AutoAttackStart to the L2PcInstance
                 L2Character obj = (L2Character) object;

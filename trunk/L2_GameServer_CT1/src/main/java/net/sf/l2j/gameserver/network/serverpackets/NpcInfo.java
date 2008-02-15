@@ -21,6 +21,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Decoy;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Transformation;
+import net.sf.l2j.gameserver.model.L2Trap;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -117,6 +118,28 @@ public class NpcInfo extends L2GameServerPacket
         _x = _activeChar.getX();
         _y = _activeChar.getY();
         _z = _activeChar.getZ();
+        _heading = _activeChar.getHeading();
+        _mAtkSpd = _activeChar.getMAtkSpd();
+        _pAtkSpd = _activeChar.getPAtkSpd();
+        _runSpd = _activeChar.getRunSpeed();
+        _walkSpd = _activeChar.getStat().getWalkSpeed();
+        _swimRunSpd = _flRunSpd = _flyRunSpd = _runSpd;
+        _swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
+    }
+
+    public NpcInfo(L2Trap cha, L2Character attacker)
+    {
+        _activeChar = cha;
+        _idTemplate = cha.getTemplate().getIdTemplate();
+        _isAttackable = cha.isAutoAttackable(attacker);
+        _rhand = 0;
+        _lhand = 0;
+        _collisionHeight = _activeChar.getTemplate().getCollisionHeight();
+        _collisionRadius = _activeChar.getTemplate().getCollisionRadius();
+        _x = _activeChar.getX();
+        _y = _activeChar.getY();
+        _z = _activeChar.getZ();
+        _title = cha.getOwner().getName();
         _heading = _activeChar.getHeading();
         _mAtkSpd = _activeChar.getMAtkSpd();
         _pAtkSpd = _activeChar.getPAtkSpd();

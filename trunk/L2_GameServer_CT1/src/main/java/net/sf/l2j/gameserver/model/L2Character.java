@@ -41,7 +41,6 @@ import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.tools.random.Rnd;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
@@ -55,7 +54,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
-import net.sf.l2j.gameserver.model.actor.instance.L2TrapInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
@@ -109,6 +107,7 @@ import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -1076,6 +1075,8 @@ public abstract class L2Character extends L2Object
 			player = (L2PcInstance) this;
 		else if (this instanceof L2Summon)
 			player = ((L2Summon) this).getOwner();
+		else if (this instanceof L2Trap)
+			player = ((L2Trap)this).getOwner();
 
 		if (player != null)
 			player.updatePvPStatus(target);
@@ -1566,6 +1567,22 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 
+		switch (skill.getSkillType())
+		{
+			case SUMMON_TRAP:
+			{
+				if (ZoneManager.getInstance().checkIfInZonePeace(this))
+				{
+					if (this instanceof L2PcInstance)
+						((L2PcInstance)this).sendPacket(new SystemMessage(SystemMessageId.A_MALICIOUS_SKILL_CANNOT_BE_USED_IN_PEACE_ZONE));
+					return;
+				}
+				if (this instanceof L2PcInstance && ((L2PcInstance)this).getTrap() != null)
+					return;
+				break;
+			}
+		}
+
 		// Check if the skill is a magic spell and if the L2Character is not muted
 		if (skill.isMagic() && isMuted() && !skill.isPotion())
 		{
@@ -1617,11 +1634,6 @@ public abstract class L2Character extends L2Object
 		else if ((targets == null || targets.length == 0)  && skill.getTargetType() == SkillTargetType.TARGET_AURA)
 		{
 			target = this;
-		}
-
-		if (this instanceof L2TrapInstance) // Can a trap damage the caster?
-		{
-			targets = L2TrapInstance.doNotIncludeCaster((L2TrapInstance)this, targets);
 		}
 
 		if (FortressSiege._started
@@ -1924,6 +1936,8 @@ public abstract class L2Character extends L2Object
 				caster = (L2PcInstance) this;
 			else if (this instanceof L2Summon)
 				caster = ((L2Summon) this).getOwner();
+			else if (this instanceof L2Trap)
+				caster = ((L2Trap)this).getOwner();
 
 			if (caster == null)
 				return targets;
@@ -6111,28 +6125,10 @@ public abstract class L2Character extends L2Object
 	/**
 	 * return true if this character is inside an active grid.
 	 */
-	public Boolean isInActiveRegion()
+	public boolean isInActiveRegion()
 	{
-		try
-		{
-			L2WorldRegion region = L2World.getInstance().getRegion(getX(), getY());
-			return ((region != null) && (region.isActive()));
-		}
-		catch (Exception e)
-		{
-			if (this instanceof L2PcInstance)
-			{
-				_log.warn("Player " + getName() + " at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
-				((L2PcInstance) this).sendMessage("Error with your coordinates! Please reboot your game fully!");
-				((L2PcInstance) this).teleToLocation(80753, 145481, -3532, false); // Near Giran luxury shop
-			}
-			else
-			{
-				_log.warn("Object " + getName() + " at bad coords: (x: " + getX() + ", y: " + getY() + ", z: " + getZ() + ").");
-				decayMe();
-			}
-			return false;
-		}
+		L2WorldRegion region = getWorldRegion();
+		return  ((region !=null) && (region.isActive()));
 	}
 
 	/**
@@ -6921,15 +6917,15 @@ public abstract class L2Character extends L2Object
 						activeChar = (L2PcInstance) this;
 					else if (this instanceof L2Summon)
 						activeChar = ((L2Summon) this).getOwner();
-					else if (this instanceof L2TrapInstance)
-						activeChar = ((L2TrapInstance) this).getCaster();
+					else if (this instanceof L2Trap)
+						activeChar = ((L2Trap)this).getOwner();
 
 					if (activeChar != null && skill.getSkillType() != L2Skill.SkillType.AGGREMOVE && skill.getSkillType() != L2Skill.SkillType.AGGREDUCE
-							&& skill.getSkillType() != L2Skill.SkillType.AGGREDUCE_CHAR)
+						&& skill.getSkillType() != L2Skill.SkillType.AGGREDUCE_CHAR)
 					{
 						if (skill.isOffensive() && skill != null)
 						{
-							if (player instanceof L2PcInstance || player instanceof L2Summon)
+							if (player instanceof L2PcInstance || player instanceof L2Summon || player instanceof L2Trap)
 							{
 								player.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 								if (player instanceof L2Summon)
@@ -6937,8 +6933,6 @@ public abstract class L2Character extends L2Object
 								else
 								{
 									activeChar.updatePvPStatus(player);
-									if (this instanceof L2TrapInstance)
-										L2TrapInstance.sendDamageMessage((L2PcInstance)player, skill);
 								}
 							}
 							else if (player instanceof L2Attackable)

@@ -671,11 +671,15 @@ public class L2CharacterAI extends AbstractAI
         //else _accessor.getActor().revalidateZone();
 
         if (_accessor.getActor().moveToNextRoutePoint())
-		{
-			clientActionFailed();
-			return;
-		}
+        {
+            clientActionFailed();
+            return;
+        }
 
+        if (_accessor.getActor() instanceof L2Attackable)
+        {
+            ((L2Attackable)_accessor.getActor()).setisReturningToSpawnPoint(false);
+        }
         clientStoppedMoving();
 
         // If the Intention was AI_INTENTION_MOVE_TO, set the Intention to AI_INTENTION_ACTIVE

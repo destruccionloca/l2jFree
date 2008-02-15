@@ -709,8 +709,6 @@ public class L2NpcInstance extends L2Character
                        VIP.showJoinHTML(player, String.valueOf(getObjectId()));
                     else if (_isEventVIPNPCEnd)
                        VIP.showEndHTML(player, String.valueOf(getObjectId()));
-                    else if (this instanceof L2TrapInstance)
-                       player.sendPacket(new ActionFailed());
                     else
                     {
                         Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.NPC_FIRST_TALK);

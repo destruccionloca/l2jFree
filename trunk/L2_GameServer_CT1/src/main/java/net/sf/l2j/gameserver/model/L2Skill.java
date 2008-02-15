@@ -67,6 +67,7 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSeed;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSummon;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillTrap;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
 import net.sf.l2j.gameserver.ThreadPoolManager;
@@ -119,7 +120,7 @@ public abstract class L2Skill
 		HEAL, COMBATPOINTHEAL, MANAHEAL, MANAHEAL_PERCENT, MANARECHARGE, RESURRECT, PASSIVE, UNLOCK,
 		NEGATE, CANCEL,  AGGREDUCE, AGGREMOVE, AGGREDUCE_CHAR, CONFUSE_MOB_ONLY, DEATHLINK, BLOW, FATALCOUNTER, DETECT_WEAKNESS, ENCHANT_ARMOR, ENCHANT_WEAPON, FEED_PET,
 		HEAL_PERCENT, HEAL_STATIC, LUCK, MANADAM, MDOT, MUTE, RECALL, REFLECT, SUMMON_FRIEND, SOULSHOT, SPIRITSHOT, SPOIL, SWEEP, WEAKNESS, DISARM, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, UNDEAD_DEFENSE,  BEAST_FEED, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, CHARGESOUL, GET_PLAYER,
-		FISHING, PUMPING, REELING, CANCEL_TARGET,  AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, TRANSFORMDISPEL, RADIUS, SUMMON_TRAP, DETECT_TRAP, REMOVE_TRAP, NOTDONE,
+		FISHING, PUMPING, REELING, CANCEL_TARGET,  AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, TRANSFORMDISPEL, DETECT_TRAP, REMOVE_TRAP, RADIUS, NOTDONE,
 
 		CHANGEWEAPON (L2SkillChangeWeapon.class),
 		CHARGE(L2SkillCharge.class),
@@ -131,7 +132,8 @@ public abstract class L2Skill
 		DRAIN(L2SkillDrain.class),
 		LUCKNOBLESSE(L2SkillCreateItem.class),
 		SEED(L2SkillSeed.class),
-		SUMMON(L2SkillSummon.class);
+		SUMMON(L2SkillSummon.class),
+		SUMMON_TRAP(L2SkillTrap.class);
 
 
 		private final Class<? extends L2Skill> _class;
@@ -1516,6 +1518,8 @@ public abstract class L2Skill
 					src = ((L2Summon) activeChar).getOwner();
 				if (activeChar instanceof L2Decoy)
 					src = ((L2Decoy)activeChar).getOwner();
+				if (activeChar instanceof L2Trap)
+					src = ((L2Trap)activeChar).getOwner();
 
 				// Go through the L2Character _knownList
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -1562,6 +1566,12 @@ public abstract class L2Skill
 								}
 							}
 						}
+						else // Skill user is not L2PlayableInstance
+						{
+							if (!(obj instanceof L2PlayableInstance) // Target is not L2PlayableInstance
+									&& !activeChar.isConfused()) // and caster not confused (?)
+										continue;
+						}
 						if (!Util.checkIfInRange(radius, activeChar, obj, true))
 							continue;
 
@@ -1589,7 +1599,8 @@ public abstract class L2Skill
 
 				L2PcInstance src = null;
 				if (activeChar instanceof L2PcInstance) src = (L2PcInstance)activeChar;
-				if (activeChar instanceof L2Summon) src = ((L2Summon)activeChar).getOwner();
+				else if (activeChar instanceof L2Summon) src = ((L2Summon)activeChar).getOwner();
+				else if (activeChar instanceof L2Trap) src = ((L2Trap)activeChar).getOwner();
 
 				// Go through the L2Character _knownList
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -1634,6 +1645,12 @@ public abstract class L2Skill
 								}
 							}
 						}
+						else // Skill user is not L2PlayableInstance
+						{
+							if (!(obj instanceof L2PlayableInstance) // Target is not L2PlayableInstance
+								&& !activeChar.isConfused()) // and caster not confused (?)
+									continue;
+						}
 						if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
 
 						if (onlyFirst == false) targetList.add((L2Character) obj);
@@ -1649,7 +1666,8 @@ public abstract class L2Skill
 
 				L2PcInstance src = null;
 				if (activeChar instanceof L2PcInstance) src = (L2PcInstance)activeChar;
-				if (activeChar instanceof L2Summon) src = ((L2Summon)activeChar).getOwner();
+				else if (activeChar instanceof L2Summon) src = ((L2Summon)activeChar).getOwner();
+				else if (activeChar instanceof L2Trap) src = ((L2Trap)activeChar).getOwner();
 
 				// Go through the L2Character _knownList
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
@@ -1693,6 +1711,12 @@ public abstract class L2Skill
 										continue;
 								}
 							}
+						}
+						else // Skill user is not L2PlayableInstance
+						{
+							if (!(obj instanceof L2PlayableInstance) // Target is not L2PlayableInstance
+								&& !activeChar.isConfused()) // and caster not confused (?)
+									continue;
 						}
 						if (!Util.checkIfInRange(radius, activeChar, obj, true)) continue;
 
@@ -1852,6 +1876,7 @@ public abstract class L2Skill
 				L2PcInstance src = null;
 				if (activeChar instanceof L2PcInstance) src = (L2PcInstance)activeChar;
 				else if (activeChar instanceof L2Summon) src = ((L2Summon)activeChar).getOwner();
+				else if (activeChar instanceof L2Trap) src = ((L2Trap)activeChar).getOwner();
 
 				int radius = getSkillRadius();
 
@@ -1975,6 +2000,7 @@ public abstract class L2Skill
 				L2PcInstance src = null;
 				if (activeChar instanceof L2PcInstance) src = (L2PcInstance)activeChar;
 				else if (activeChar instanceof L2Summon) src = ((L2Summon)activeChar).getOwner();
+				else if (activeChar instanceof L2Trap) src = ((L2Trap)activeChar).getOwner();
 
 				int radius = getSkillRadius();
 

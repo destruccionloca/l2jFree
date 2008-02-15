@@ -180,8 +180,14 @@ public class MultiSellChoose extends L2GameClientPacket
 			{
 				L2ItemInstance itemToTake = inv.getItemByItemId(e.getItemId()); // initialize and initial guess for the item to take.
 				if (itemToTake == null) 
-				{ //this is a cheat, transaction will be aborted and if any items already tanken will not be returned back to inventory!
-					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchatnt id:" + merchant.getNpcId());
+				{ //this is a cheat, transaction will be aborted and if any items already taken will not be returned back to inventory!
+					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
+					return;
+				}
+				
+				if(itemToTake.isWear())
+				{//Player trying to buy something from the Multisell store with an item that's just being used from the Wear option from merchants.
+					_log.fatal("Character: " + player.getName() + " is trying to cheat in multisell, merchant id:" + merchant.getNpcId());
 					return;
 				}
 
