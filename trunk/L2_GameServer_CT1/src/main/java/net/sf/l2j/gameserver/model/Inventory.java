@@ -1071,10 +1071,8 @@ public abstract class Inventory extends ItemContainer
 		{
 			L2PcInstance player = (L2PcInstance) getOwner();
 			
-			if (Config.ALT_STRICT_HERO_SYSTEM && !player.isGM() && !player.isHero())
-			{
-				if (item.isHeroItem()) { return; }
-			}
+			if (Config.ALT_STRICT_HERO_SYSTEM && !player.isGM() && !player.isHero() && item.isHeroItem())
+				return;
 		}
 		
 		int targetSlot = item.getItem().getBodyPart();
@@ -1082,10 +1080,19 @@ public abstract class Inventory extends ItemContainer
 		{
 			case L2Item.SLOT_LR_HAND:
 			{
-				L2ItemInstance slot = getPaperdollItem(7);
-				if (slot != null)
+				if (setPaperdollItem(PAPERDOLL_LHAND, null) != null)
+				{
+					// exchange 2h for 2h
+					setPaperdollItem(PAPERDOLL_RHAND, null);
 					setPaperdollItem(PAPERDOLL_LHAND, null);
+				}
+				else
+				{
+					setPaperdollItem(PAPERDOLL_RHAND, null);
+				}
+				
 				setPaperdollItem(PAPERDOLL_RHAND, item);
+				setPaperdollItem(PAPERDOLL_LRHAND, item);
 				if (item.getItem().getItemType() == L2WeaponType.BOW)
 				{
 					L2ItemInstance arrow = findArrowForBow(item.getItem());
@@ -1094,43 +1101,41 @@ public abstract class Inventory extends ItemContainer
 				}
 				if (item.getItem().getItemType() == L2WeaponType.CROSSBOW)
 				{
-					L2ItemInstance bold = findBoltForCrossBow(item.getItem());
-					if (bold != null)
-						setPaperdollItem(PAPERDOLL_LHAND, bold);
+					L2ItemInstance bolt = findBoltForCrossBow(item.getItem());
+					if (bolt != null)
+						setPaperdollItem(PAPERDOLL_LHAND, bolt);
 				}
 				break;
 			}
 			case L2Item.SLOT_L_HAND:
 			{
-				if (!(item.getItem() instanceof L2EtcItem) || item.getItem().getItemType() != L2EtcItemType.ARROW
-						|| item.getItem().getItemType() != L2EtcItemType.BOLT)
+				if (!(item.getItem() instanceof L2EtcItem) || item.getItem().getItemType() != L2EtcItemType.ARROW)
 				{
-					L2ItemInstance slot = getPaperdollItem(PAPERDOLL_RHAND);
-					if (slot != null && slot.getItem().getBodyPart() == L2Item.SLOT_LR_HAND)
+					L2ItemInstance old1 = setPaperdollItem(PAPERDOLL_LRHAND, null);
+
+					if (old1 != null)
 					{
 						setPaperdollItem(PAPERDOLL_RHAND, null);
-						setPaperdollItem(PAPERDOLL_LHAND, null);
-					}
-					else
-					{
-						setPaperdollItem(PAPERDOLL_LHAND, null);
 					}
 				}
+
+				setPaperdollItem(PAPERDOLL_LHAND, null);
 				setPaperdollItem(PAPERDOLL_LHAND, item);
 				break;
 			}
 			case L2Item.SLOT_R_HAND:
 			{
-				L2ItemInstance slot = getPaperdollItem(5);
-				if (slot != null && slot.getItem().getBodyPart() == L2Item.SLOT_LR_HAND)
+				if (_paperdoll[PAPERDOLL_LRHAND] != null)
 				{
-					setPaperdollItem(PAPERDOLL_RHAND, null);
+					setPaperdollItem(PAPERDOLL_LRHAND, null);
 					setPaperdollItem(PAPERDOLL_LHAND, null);
+					setPaperdollItem(PAPERDOLL_RHAND, null);
 				}
 				else
 				{
 					setPaperdollItem(PAPERDOLL_RHAND, null);
 				}
+
 				setPaperdollItem(PAPERDOLL_RHAND, item);
 				break;
 			}
@@ -1235,8 +1240,9 @@ public abstract class Inventory extends ItemContainer
 				setPaperdollItem(PAPERDOLL_LBRACELET, item);
 				break;
 			case L2Item.SLOT_UNDERWEAR:
-			case L2Item.SLOT_BACK:
 				setPaperdollItem(PAPERDOLL_UNDER, item);
+			case L2Item.SLOT_BACK:
+				setPaperdollItem(PAPERDOLL_BACK, item);
 				break;
 			case L2Item.SLOT_DECO:
 				if (_paperdoll[PAPERDOLL_DECO1] == null)
