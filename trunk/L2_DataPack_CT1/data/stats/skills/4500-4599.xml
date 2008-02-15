@@ -614,7 +614,8 @@ Might spell can remove the curse.-->
   <for>
    <effect count="1" name="Buff" time="3600" val="0" abnormal="poison"> <!-- needs core support for abnormal = spa_disease_d -->
      <mul order="0x30" stat="mAtkSpd" val="#mAtkSpd"/>
-     <mul order="0x30" stat="MpConsumeRate" val="#MpConsumeRate"/>
+     <mul order="0x30" stat="PhysicalMpConsumeRate" val="#MpConsumeRate"/>
+     <mul order="0x30" stat="MagicalMpConsumeRate" val="#MpConsumeRate"/>
    </effect>
   </for>
 </skill>
