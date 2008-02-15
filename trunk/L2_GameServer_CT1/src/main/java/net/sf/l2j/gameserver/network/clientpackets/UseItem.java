@@ -318,11 +318,12 @@ public class UseItem extends L2GameClientPacket
 				return;
 			
 			activeChar.abortCast();
-
+			if (activeChar.getAI().getIntention() == CtrlIntention.AI_INTENTION_CAST)
+				activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 			
 			// Don't allow weapon/shield hero equipment during Olympiads
 			if (activeChar.isInOlympiadMode() && (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND)
-					&& item.isHeroItem())
+					&& ((item.getItemId() >= 6611 && item.getItemId() <= 6621) || (item.getItemId() >= 9388 && item.getItemId() <= 9390) || item.getItemId() == 6842))
 				return;
 			
 			// Equip or unEquip
@@ -331,34 +332,8 @@ public class UseItem extends L2GameClientPacket
 			if(!isEquiped)
 			{
 				L2ItemInstance ae = activeChar.getInventory().getPaperdollItemByL2ItemId(bodyPart);
-				L2ItemInstance tempItem;
 				if(ae != null)
 				{
-					//check if the item replaces a wear-item
-					if (ae.isWear())
-					{
-						// dont allow an item to replace a wear-item
-						return;
-					}
-					else if (bodyPart == 0x4000) // left+right hand equipment
-					{
-						// this may not remove left OR right hand equipment
-						tempItem = activeChar.getInventory().getPaperdollItem(7);
-						if (tempItem != null && tempItem.isWear()) return;
-
-						tempItem = activeChar.getInventory().getPaperdollItem(8);
-						if (tempItem != null && tempItem.isWear()) return;
-					}
-					else if (bodyPart == 0x8000) // fullbody armor
-					{
-						// this may not remove chest or leggins
-						tempItem = activeChar.getInventory().getPaperdollItem(10);
-						if (tempItem != null && tempItem.isWear()) return;
-
-						tempItem = activeChar.getInventory().getPaperdollItem(11);
-						if (tempItem != null && tempItem.isWear()) return;
-					}
-
 					//Find Arrows if arrows are equipped in LHand:
 					if (activeChar.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LHAND) == 
 						activeChar.getInventory().findArrowForBow(ae.getItem()))
@@ -369,25 +344,34 @@ public class UseItem extends L2GameClientPacket
 					}
 					activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
 					activeChar.checkSSMatch(item, ae);
-				}
-				activeChar.getInventory().equipItemAndRecord(item);
-
-				if (item.getEnchantLevel() > 0)
-				{
-					sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
-					sm.addNumber(item.getEnchantLevel());
-					sm.addItemName(item);
+					if (ae.getEnchantLevel() > 0)
+					{
+						sm = new SystemMessage(SystemMessageId.S1_S2_EQUIPPED);
+						sm.addNumber(item.getEnchantLevel());
+						sm.addItemName(item);
+					}
+					else
+					{
+						sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
+						sm.addItemName(item);
+					}
+					activeChar.sendPacket(sm);
+					activeChar.getInventory().equipItemAndRecord(item);
 				}
 				else
 				{
-					sm = new SystemMessage(SystemMessageId.S1_EQUIPPED);
-					sm.addItemName(item);
+					activeChar.getInventory().equipItemAndRecord(item);
 				}
-				activeChar.sendPacket(sm);
-				item.decreaseMana(false);
 			}
 			else
 			{
+				if(item.isWear())
+					return;
+
+				if (bodyPart == L2Item.SLOT_L_EAR || bodyPart == L2Item.SLOT_LR_EAR ||
+					bodyPart == L2Item.SLOT_L_FINGER || bodyPart == L2Item.SLOT_LR_FINGER)
+						activeChar.getInventory().setPaperdollItem(item.getLocationSlot(), null);
+
 				activeChar.getInventory().unEquipItemInBodySlotAndRecord(bodyPart);
 				if (item.getEnchantLevel() > 0)
 				{
@@ -402,6 +386,7 @@ public class UseItem extends L2GameClientPacket
 				}
 				activeChar.sendPacket(sm);
 			}
+			item.decreaseMana(false);
 
 			activeChar.refreshExpertisePenalty();
 
