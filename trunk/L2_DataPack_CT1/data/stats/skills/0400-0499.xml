@@ -1590,56 +1590,38 @@
   </for>
 </skill>
 <skill id="470" levels="7" name="Detect Trap">
-<!--
-  By Darki699
-  Description(s):
-      Lvl 1 Detect traps below Level 18. Consumes 1 Soul.
-      Lvl 2 Detect traps below Level 28. Consumes 1 Soul.
-      Lvl 3 Detect traps below Level 38. Consumes 1 Soul.
-      Lvl 4 Detect traps below Level 48. Consumes 1 Soul.
-      Lvl 5 Detect traps below Level 58. Consumes 1 Soul.
-      Lvl 6 Detect traps below Level 68. Consumes 1 Soul.
-      Lvl 7 Detect traps below Level 78. Consumes 1 Soul.
--->
-  <table name="#mp"> 15 10 11 13 17 18 19 </table>
+  <!-- By Darki699 -->
+  <!-- Needs retail value corrections -->
+  <table name="#mpConsume"> 15 20 30 40 49 59 67 </table>
   <table name="#power"> 18 28 38 48 58 68 78 </table>
-  <set name="mpConsume" val="#mp"/>
+  <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
   <set name="reuseDelay" val="120000"/>
-  <set name="target" val="TARGET_SELF"/>
+  <set name="target" val="TARGET_AURA"/>
+  <set name="hitTime" val="2500"/>
   <set name="skillType" val="DETECT_TRAP"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="skillRadius" val="400"/>
   <set name="castRange" val="-1"/>
   <set name="soulConsumeCount" val="1"/>
-  <set name="skill_landing_percent" val="100"/> <!-- Guessing -->
   <for>
   </for>
 </skill>
 <skill id="471" levels="7" name="Defuse Trap">
-<!--
-  By Darki699
-  Description(s):
-      Lvl 1 Disarm traps below Level 18. Consumes 1 Soul.
-      Lvl 2 Disarm traps below Level 28. Consumes 1 Soul.
-      Lvl 3 Disarm traps below Level 38. Consumes 1 Soul.
-      Lvl 4 Disarm traps below Level 48. Consumes 1 Soul.
-      Lvl 5 Disarm traps below Level 58. Consumes 1 Soul.
-      Lvl 6 Disarm traps below Level 68. Consumes 1 Soul.
-      Lvl 7 Disarm traps below Level 78. Consumes 1 Soul.
--->
-  <table name="#mp"> 4 10 11 13 17 18 19 </table>
+  <!-- By Darki699 -->
+  <!-- Needs retail value corrections -->
+  <table name="#mp"> 4 5 8 10 13 15 17 </table>
   <table name="#power"> 18 28 38 48 58 68 78 </table>
   <set name="mpConsume" val="#mp"/>
   <set name="power" val="#power"/>
   <set name="reuseDelay" val="120000"/>
   <set name="target" val="TARGET_ONE"/>
+  <set name="hitTime" val="4000"/>
   <set name="skillType" val="REMOVE_TRAP"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="400"/>
   <set name="soulConsumeCount" val="1"/>
-  <set name="skill_landing_percent" val="100"/> <!-- Guessing -->
   <for>
   </for>
 </skill>
