@@ -43,8 +43,8 @@ public class RequestReplySurrenderPledgeWar extends L2GameClientPacket
         
         if (_answer == 1)
         {
-            requestor.deathPenalty(false);
-            ClanTable.getInstance().deleteclanswars(requestor.getClanId(), activeChar.getClanId());            
+            requestor.deathPenalty(false, false);
+            ClanTable.getInstance().deleteclanswars(requestor.getClanId(), activeChar.getClanId());
         } 
         else
         {

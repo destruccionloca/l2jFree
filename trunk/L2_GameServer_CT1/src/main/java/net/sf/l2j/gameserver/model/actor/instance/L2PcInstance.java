@@ -4963,6 +4963,8 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         if (byPc)
+            lostExp = (long)calcStat(Stats.LOST_EXP_PVP, lostExp, null, null);
+        else
             lostExp = (long)calcStat(Stats.LOST_EXP, lostExp, null, null);
 
         // Get the Experience before applying penalty

@@ -82,6 +82,7 @@ public enum Stats
     STAT_WIT    ("WIT"),
     STAT_MEN    ("MEN"),
     LOST_EXP    ("lostExp"),
+    LOST_EXP_PVP("lostExpPvp"),
     //
     // Special stats, share one slot in Calculator
     //
