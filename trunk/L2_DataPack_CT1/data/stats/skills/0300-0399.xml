@@ -975,7 +975,7 @@
   <!-- Skill for dagger and archer Need to be chance/corrected -->
   <set name="mpConsume" val="36"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
+  <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_TOGGLE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
@@ -2048,10 +2048,9 @@
   <set name="mpConsume" val="72"/>
   <set name="itemConsumeId" val="1785"/>
   <set name="itemConsumeCount" val="40"/>
-<!--  <set name="weaponsAllowed" val="2"/> -->
   <set name="hitTime" val="1000"/>
   <set name="reuseDelay" val="1200000"/>
-  <set name="power" val="80"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
@@ -2063,8 +2062,7 @@
       <add order="0x40" stat="pDef" val="5400"/>
       <add order="0x40" stat="mDef" val="4050"/>
       <add order="0x40" stat="runSpd" val="5"/>
-      <add order="0x40" stat="cancel" val="30"/>
-      <!-- Missing resistance to buff attacks (cancel custom 30) -->
+      <!-- Missing resistance to buff canceling attacks -->
     </effect>
   </for>
 </skill>
@@ -2074,7 +2072,7 @@
   <set name="itemConsumeCount" val="40"/>
   <set name="hitTime" val="1000"/>
   <set name="reuseDelay" val="1200000"/>
-  <set name="power" val="80"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
