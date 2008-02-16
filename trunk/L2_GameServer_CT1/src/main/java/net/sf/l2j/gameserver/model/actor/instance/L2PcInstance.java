@@ -7426,7 +7426,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (getClan() != null && attacker != null && getClan().isMember(attacker.getName()))
             return false;
         
-        if(attacker instanceof L2PlayableInstance && getInPeaceZone())
+        if(attacker instanceof L2PlayableInstance && getInPeaceZone() && !isOlympiadStart())
             return false;
 
         // Check if the L2PcInstance has Karma
