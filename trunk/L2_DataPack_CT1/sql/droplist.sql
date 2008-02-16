@@ -23227,7 +23227,10 @@ INSERT INTO `droplist` VALUES
 (22288,57,6113,9156,0,700000), -- Adena
 (22288,1868,9,9,2,133000), -- Thread
 (22288,1873,3,6,2,250000), -- Silver Nugget
-(22288,1876,1,1,2,133000); -- Mithril Ore
+(22288,1876,1,1,2,133000), -- Mithril Ore
+(22260,10099,1,1,2,1656), -- Spellbook: Count of Fire
+(22260,10100,1,1,2,820), -- Spellbook: Diamond Dust
+(22260,10101,1,1,2,1263); -- Spellbook: Throne of Ice
 
 --
 -- Category Explanation (RaidBoss & their minions)
