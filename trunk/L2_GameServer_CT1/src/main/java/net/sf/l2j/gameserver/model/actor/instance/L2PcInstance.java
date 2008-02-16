@@ -5116,8 +5116,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /**
      * Set the L2Trap of this L2PcInstance<BR><BR>
-+     * @param trap
-    */
+     * @param trap
+     */
     public void setTrap(L2Trap trap)
     {
         _trap = trap;
