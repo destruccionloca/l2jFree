@@ -43,17 +43,11 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-public class Castle
+public class Castle extends Entity
 {
-	protected static Log _log = LogFactory.getLog(Castle.class.getName());
-
 	private FastList<CropProcure>	_procure		= new FastList<CropProcure>();
 	private FastList<SeedProduction> _production	 = new FastList<SeedProduction>();
 	private FastList<CropProcure>	_procureNext	= new FastList<CropProcure>();
@@ -84,10 +78,9 @@ public class Castle
 	private int _taxPercent					= 0;
 	private double _taxRate					= 0;
 	private int _treasury					= 0;
-	private IZone _zone;
-	private IZone _zoneHQ;
-	private IZone _zoneBF;
-	private IZone _zoneDS;
+	private L2Zone _zoneHQ;
+	private L2Zone _zoneBF;
+	private L2Zone _zoneDS;
 	private L2Clan _formerOwner;
 	private int _nbArtifact					= 1;
 	private Map<Integer, Integer> _engrave  = new FastMap<Integer, Integer>();
@@ -102,6 +95,21 @@ public class Castle
 
 		load();
 		loadDoor();
+	}
+
+	public void registerHeadquartersZone(L2Zone zone)
+	{
+		_zoneHQ = zone;
+	}
+
+	public void registerSiegeZone(L2Zone zone)
+	{
+		_zoneBF = zone;
+	}
+
+	public void registerDefenderSpawn(L2Zone zone)
+	{
+		_zoneDS = zone;
 	}
 
 	public void Engrave(L2Clan clan, int objId) 
@@ -192,23 +200,11 @@ public class Castle
 		finally {try { con.close(); } catch (Exception e) {}}
 		return true;
 	}
-	
-	/**
-	 * Move non clan members off castle area and to nearest town.<BR><BR>
-	 */
-	public void banishForeigner(L2PcInstance activeChar)
+
+	@Override
+	public boolean checkBanish(L2PcInstance cha)
 	{
-		// Get players from this and nearest world regions
-		for (L2PlayableInstance player : L2World.getInstance().getVisiblePlayable(activeChar))
-		{
-			if(!(player instanceof L2PcInstance)) continue;
-			
-			// Skip if player is in clan
-			if (((L2PcInstance)player).getClanId() == getOwnerId())
-				continue;
-			
-			if (checkIfInZone(player)) player.teleToLocation(TeleportWhereType.Town); 
-		}
+		return cha.getClanId() != getOwnerId();
 	}
  
 	/**
@@ -224,7 +220,7 @@ public class Castle
 	 */
 	public boolean checkIfInZoneBattlefield(int x, int y, int z)
 	{
-		return getBattlefield().checkIfInZone(x, y, z);
+		return getBattlefield().isInsideZone(x, y, z);
 	}
 	
 	/**
@@ -240,25 +236,9 @@ public class Castle
 	 */
 	public boolean checkIfInZoneHeadQuarters(int x, int y, int z)
 	{
-		return getHeadQuarters().checkIfInZone(x, y, z);
+		return getHeadQuarters().isInsideZone(x, y, z);
 	}
 	
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZone(L2Object obj)
-	{
-		return checkIfInZone(obj.getX(), obj.getY(), obj.getZ());
-	}
-
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZone(int x, int y, int z)
-	{
-		return getZone().checkIfInZone(x, y, z);
-	}
-  
 	public void closeDoor(L2PcInstance activeChar, int doorId)
 	{
 		openCloseDoor(activeChar, doorId, false);
@@ -661,7 +641,8 @@ public class Castle
 			try { con.close(); } catch (Exception e) {}
 		}
 	}
-	
+
+	@Override
 	public final int getCastleId()
 	{
 		return _castleId;
@@ -723,31 +704,18 @@ public class Castle
 		return _treasury;
 	}
 
-	public final IZone getZone()
+	public final L2Zone getHeadQuarters()
 	{
-		if (_zone == null)
-			_zone = ZoneManager.getInstance().getZone(ZoneType.CastleArea, getCastleId());
-		return _zone;
-	}
-
-	public final IZone getHeadQuarters()
-	{
-		if (_zoneHQ == null)
-			_zoneHQ = ZoneManager.getInstance().getZone(ZoneType.CastleHQ, getCastleId());
 		return _zoneHQ;
 	}
 	
-	public final IZone getBattlefield()
+	public final L2Zone getBattlefield()
 	{
-		if (_zoneBF == null)
-			_zoneBF = ZoneManager.getInstance().getZone(ZoneType.SiegeBattleField, getCastleId());
 		return _zoneBF;
 	}
 
-	public final IZone getDefenderSpawn()
+	public final L2Zone getDefenderSpawn()
 	{
-		if (_zoneDS == null)
-			_zoneDS = ZoneManager.getInstance().getZone(ZoneType.DefenderSpawn, getCastleId());
 		return _zoneDS;
 	}
 

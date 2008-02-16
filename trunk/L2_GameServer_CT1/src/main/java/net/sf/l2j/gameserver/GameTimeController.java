@@ -311,23 +311,26 @@ public class GameTimeController
 	{
 		public void run()
 		{
-			DoorTable _doorTable = DoorTable.getInstance();
 			int _OpenTime = Config.TIME_IN_A_DAY_OF_OPEN_A_DOOR;
 			int _CloseTime = Config.TIME_OF_OPENING_A_DOOR;
 			int h = (getGameTime() / 60) % 24;
 			
 			if (h == _OpenTime)
 			{
+				// Avoid problems during server startup
+				if(!DoorTable.isInitialized())
+					return;
+
 				try
 				{
-					_doorTable.getDoor(21240006).openMe();
+					DoorTable.getInstance().getDoor(21240006).openMe();
 					// The door will be closed in '_CloseTime' minutes.
-					ThreadPoolManager.getInstance().scheduleEffect(new ClosePiratesRoom(), (_CloseTime * 60 * 1000));
-				} catch (Exception e)
+					ThreadPoolManager.getInstance().scheduleGeneral(new ClosePiratesRoom(), (_CloseTime * 60 * 1000));
+				}
+				catch (Exception e)
 				{
 					_log.warn(e.getMessage());
 				}
-				
 			}
 		}
 	}

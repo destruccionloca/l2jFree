@@ -21,39 +21,18 @@ import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.Location;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.RestartType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.tools.geometry.Point3D;
 
-public class Town
+public class Town extends Entity
 {
-	private FastList<IZone> _territory;
 	private L2MapRegion _region;
-	private int _townId;
-	private int _castleId;
-	
-	public Town(int townId, IZone zone)
+
+	public Town(L2Zone zone)
 	{
-		_townId = townId;
-		_castleId = 0;
-		_territory = new FastList<IZone>();
-		
 		_region = findMapRegion(zone);
-	}
-
-	/** Return true if object is inside the zone */
-	public boolean checkIfInZone(L2Object obj)
-	{
-		return checkIfInZone(obj.getX(), obj.getY(), obj.getZ());
-	}
-
-	/** Return true if object is inside the zone */
-	public boolean checkIfInZone(int x, int y, int z)
-	{
-		for(IZone zone: getTerritory())
-			if (zone.checkIfInZone(x, y, z)) return true;
-		return false;
 	}
 
 	public final Castle getCastle()
@@ -65,95 +44,31 @@ public class Town
 	{
 		return TownManager.getInstance().getTownName(getTownId());
 	}
-	
-	public final Location getSpawn()
-	{
-		Town town = this;
-		
-        // If a redirect to town id is avail, town belongs to a castle,
-		// and castle is under siege then redirect		
-		if (TownManager.getInstance().townHasCastleInSiege(getTownId()))
-			town = TownManager.getInstance().getTown(TownManager.getInstance().getRedirectTownNumber(getTownId()));
-		
-		Location loc = null;
-		for(IZone zone: town.getTerritory())
-		{
-			loc = zone.getRestartPoint(RestartType.RestartNormal);
-			if (loc != null) break;
-		}
-		return loc;
-	}
 
-	public final Location getKarmaSpawn()
-	{
-		Town town = this;
-		
-        // If a redirect to town id is avail, town belongs to a castle,
-		// and castle is under siege then redirect
-		if (TownManager.getInstance().townHasCastleInSiege(getTownId()))
-			town = TownManager.getInstance().getTown(TownManager.getInstance().getRedirectTownNumber(getTownId()));
-		
-		Location loc = null;
-		for(IZone zone: town.getTerritory())
-		{
-			loc = zone.getRestartPoint(RestartType.RestartChaotic);
-			if (loc != null) break;
-		}
-		return loc;
-	}
-	
-	public final int getTownId()
-	{
-		return _townId;
-	}
-
-	public final int getCastleId()
-	{
-		return _castleId;
-	}
-
-	public final boolean isInPeace()
-	{
-        if (Config.ZONE_TOWN == 2) return false;
-		if (Config.ZONE_TOWN == 1 && 
-			TownManager.getInstance().townHasCastleInSiege(getTownId())) return false;
-           
-		return true;
-	}
-	
-	public final void addTerritory(IZone zone)
-	{
-        if (zone.getCastleId() > 0) 
-		_castleId = zone.getCastleId();
-		getTerritory().add(zone);
-	}
-	
-	public final FastList<IZone> getTerritory()
-	{
-		return _territory;
-	}
-	
 	public L2MapRegion getMapRegion()
 	{
 		return _region;
 	}
 	
-	private L2MapRegion findMapRegion(IZone zone)
+	private L2MapRegion findMapRegion(L2Zone zone)
 	{
-		int middleX = 0;
-		int middleY = 0;
-		
-		for (Point3D point : zone.getPoints())
-		{
-			middleX += point.getX();
-			middleY += point.getY();
-		}
-		
-		middleX /= zone.getPoints().size();
-		middleY /= zone.getPoints().size();
+		int middleX = zone.getMiddleX();
+		int middleY = zone.getMiddleY();
 
 		L2MapRegion region = MapRegionManager.getInstance().getRegion(middleX, middleY);
 		
 		return region;
+	}
+
+	public boolean hasCastleInSiege()
+	{
+		if (getCastleId() < 1)
+			return false;
+
+		Castle castle = CastleManager.getInstance().getCastles().get(getCastleId());
+		if (castle == null)
+			return false;
+
+		return castle.getSiege().getIsInProgress();
 	}
 }

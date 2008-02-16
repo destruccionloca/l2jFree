@@ -668,7 +668,8 @@ public class L2CharacterAI extends AbstractAI
         {
             ((L2PcInstance) _accessor.getActor()).revalidateZone(true);
         }
-        //else _accessor.getActor().revalidateZone();
+        else
+            _accessor.getActor().revalidateZone();
 
         if (_accessor.getActor().moveToNextRoutePoint())
         {

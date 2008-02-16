@@ -17,8 +17,6 @@ package net.sf.l2j.gameserver.instancemanager;
  * @author Darki699
  */
 
-/** *****************************************- imports -******************************************** */
-
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -42,6 +40,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Entity;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -67,7 +66,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Darki699
  */
 
-public class FrintezzaManager
+public class FrintezzaManager extends Entity
 {
 	
 	private final static Log		_log		= LogFactory.getLog(FrintezzaManager.class.getName());
@@ -290,21 +289,7 @@ public class FrintezzaManager
 		return _playersInLair;
 		
 	}
-	
-	/**
-	 * Checks if a player is in this zone (Frintezza's Lair)
-	 * 
-	 * @param pc
-	 *            L2PcInstance of the player
-	 * @return boolean true if the player is inside this zone.
-	 */
-	public boolean checkIfInZone(L2PcInstance pc)
-	{
-		
-		return pc.isInsideRadius(174234, -88015, -5116, 2100, true, false);
-		
-	}
-	
+
 	// Whether it lairs is confirmed.
 	public boolean isEnableEnterToLair()
 	{

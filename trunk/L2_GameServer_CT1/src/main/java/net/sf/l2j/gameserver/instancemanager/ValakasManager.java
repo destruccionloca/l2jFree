@@ -31,9 +31,8 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Entity;
 import net.sf.l2j.gameserver.model.entity.GrandBossState;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.tools.random.Rnd;
@@ -48,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  L2J_JP SANDMAN
  */
-public class ValakasManager
+public class ValakasManager extends Entity
 {
     private final static Log _log = LogFactory.getLog(ValakasManager.class.getName());
     private static ValakasManager _instance = new ValakasManager();
@@ -98,8 +97,6 @@ public class ValakasManager
     
     // status in lair.
     protected GrandBossState _state = new GrandBossState(29028);
-    protected IZone  _zone;
-    protected String _zoneName;
     protected String _questName;
     
     // location of banishment
@@ -125,7 +122,6 @@ public class ValakasManager
     {
     	// initialize status in lair.
     	_playersInLair.clear();
-        _zoneName = "Lair of Valakas";
         _questName = "valakas";
 
         // setting spawn data of monsters.
@@ -212,13 +208,6 @@ public class ValakasManager
 		return _playersInLair;
 	}
 
-    public boolean checkIfInZone(L2PcInstance pc)
-    {
-    	if ( _zone == null )
-    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDungeon, _zoneName );
-    	return _zone.checkIfInZone(pc);
-    }
-    
     // Whether it lairs is confirmed.
     public boolean isEnableEnterToLair()
     {

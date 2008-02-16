@@ -20,7 +20,6 @@ public class Manager
 	{
 		MapRegionManager.getInstance().reload();
 		ZoneManager.getInstance().reload();
-		TownManager.getInstance().reload();
 		AuctionManager.getInstance().reload();
 		CastleManager.getInstance().reload();
 		ClanHallManager.getInstance().reload();

@@ -66,6 +66,7 @@ import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.Attack;
@@ -260,6 +261,21 @@ public abstract class L2Character extends L2Object
 		}
 	}
 
+	private int _currentZones = 0;
+
+	public boolean isInsideZone(int zone)
+	{
+		return ((_currentZones & zone) != 0);
+	}
+
+	public void setInsideZone(int zone, boolean state)
+	{
+		if (state)
+			_currentZones |= zone;
+		else if (isInsideZone(zone)) // zone overlap possible
+			_currentZones ^= zone;
+	}
+
 	protected void initCharStatusUpdateValues()
 	{
 		_hpUpdateInterval = getMaxHp() / 352.0; // MAX_HP div MAX_HP_BAR_PX
@@ -278,7 +294,16 @@ public abstract class L2Character extends L2Object
 	 */
 	public void onDecay()
 	{
+		L2WorldRegion reg = getWorldRegion();
 		decayMe();
+		if(reg != null) reg.removeFromZones(this);
+	}
+
+	@Override
+	public void onSpawn()
+	{
+		super.onSpawn();
+		this.revalidateZone();
 	}
 
 	public void onTeleported()
@@ -510,12 +535,11 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Stop movement
-		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		setTarget(this);
-		disableAllSkills();
 		abortAttack();
 		abortCast();
 		isFalling(false, 0);
+		getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
 		setIsTeleporting(true);
 
 		if (Config.RESPAWN_RANDOM_ENABLED && allowRandomOffset)
@@ -529,22 +553,23 @@ public abstract class L2Character extends L2Object
 		if (_log.isDebugEnabled())
 			_log.debug("Teleporting to: " + x + ", " + y + ", " + z);
 
+		// remove the object from its old location
+		decayMe();
+
 		// Send a Server->Client packet TeleportToLocationt to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
 		broadcastPacket(new TeleportToLocation(this, x, y, z));
 
 		// Set the x,y,z position of the L2Object and if necessary modify its _worldRegion
 		getPosition().setXYZ(x, y, z);
-		decayMe();
 		isFalling(false, 0);
 
-		if (!(this instanceof L2PcInstance))
+		if (this instanceof L2PcInstance)
+		{
+			if (((L2PcInstance)this)._inEventFOS)
+				FortressSiege.setTitleSiegeFlags((L2PcInstance)this);
+		}
+		else
 			onTeleported();
-
-		else if (FortressSiege._started && (this instanceof L2PcInstance) && ((L2PcInstance)this)._inEventFOS)
-			FortressSiege.setTitleSiegeFlags((L2PcInstance)this);
-
-		enableAllSkills();
-		getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
 	}
 
 	public void teleToLocation(int x, int y, int z)
@@ -1571,7 +1596,7 @@ public abstract class L2Character extends L2Object
 		{
 			case SUMMON_TRAP:
 			{
-				if (ZoneManager.getInstance().checkIfInZonePeace(this))
+				if (isInsideZone(L2Zone.FLAG_PEACE))
 				{
 					if (this instanceof L2PcInstance)
 						((L2PcInstance)this).sendPacket(new SystemMessage(SystemMessageId.A_MALICIOUS_SKILL_CANNOT_BE_USED_IN_PEACE_ZONE));
@@ -2122,6 +2147,9 @@ public abstract class L2Character extends L2Object
 		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
 		broadcastStatusUpdate();
 
+		if (getWorldRegion() != null)
+			getWorldRegion().onDeath(this);
+
 		// Notify L2Character AI
 		getAI().notifyEvent(CtrlEvent.EVT_DEAD, null);
 
@@ -2166,6 +2194,9 @@ public abstract class L2Character extends L2Object
 
 			// Start broadcast status
 			broadcastPacket(new Revive(this));
+			
+			if (getWorldRegion() != null)
+				getWorldRegion().onRevive(this);
 		}
 		else
 			setIsPendingRevive(true);
@@ -4901,12 +4932,20 @@ public abstract class L2Character extends L2Object
 			super.getPosition().setXYZ(m._xMoveFrom + (int) (elapsed * m._xSpeedTicks), m._yMoveFrom + (int) (elapsed * m._ySpeedTicks), super.getZ());
 			if (this instanceof L2PcInstance)
 				((L2PcInstance) this).revalidateZone(false);
+			else
+				revalidateZone();
 		}
 
 		// Set the timer of last position update to now
 		m._moveTimestamp = gameTicks;
 
 		return false;
+	}
+
+	public void revalidateZone()
+	{
+		if (getWorldRegion() == null) return;
+		getWorldRegion().revalidateZones(this);
 	}
 
 	/**
@@ -6080,9 +6119,9 @@ public abstract class L2Character extends L2Object
 
 	public static boolean isInsidePeaceZone(L2Object attacker, L2Object target)
 	{
-		if (target == null)
+		if (target == null || !(attacker instanceof L2Character) || !(target instanceof L2Character))
 			return false;
-		if (target instanceof L2MonsterInstance)
+		if (target instanceof L2MonsterInstance || attacker instanceof L2MonsterInstance)
 			return false;
 		if (attacker instanceof L2MonsterInstance)
 			return false;
@@ -6108,18 +6147,8 @@ public abstract class L2Character extends L2Object
 					return false;
 			}
 		}
-		// Right now only L2PcInstance has up-to-date zone status...
-		if (attacker instanceof L2PcInstance)
-		{
-			if (target instanceof L2PcInstance)
-			{
-				return (((L2PcInstance) target).getInPeaceZone() || ((L2PcInstance) attacker).getInPeaceZone());
-			}
-			else
-				return (((L2PcInstance) attacker).getInPeaceZone() || ZoneManager.getInstance().checkIfInZonePeace(target));
-		}
-		if (target instanceof L2PcInstance) { return (((L2PcInstance) target).getInPeaceZone() || ZoneManager.getInstance().checkIfInZonePeace(attacker)); }
-		return (ZoneManager.getInstance().checkIfInZonePeace(attacker) || ZoneManager.getInstance().checkIfInZonePeace(target));
+
+		return (((L2Character)attacker).isInsideZone(L2Zone.FLAG_PEACE) || ((L2Character)target).isInsideZone(L2Zone.FLAG_PEACE));
 	}
 
 	/**

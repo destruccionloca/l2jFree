@@ -31,7 +31,7 @@ import net.sf.l2j.gameserver.model.L2FriendList;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ConfirmDlg;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -250,7 +250,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check to see if player is in jail
-        else if (activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar))
+        else if (activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL))
         {
             activeChar.sendMessage("You can't escape from jail.");
             return false;
@@ -274,9 +274,9 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
         // Check if player is in a Monster Derby Track
-        else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
+        else if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
         {
-            activeChar.sendMessage("You can't escape from a Monster Derby Track.");
+            activeChar.sendMessage("You cannot escape from here.");
             return false;
         }
 
@@ -292,7 +292,7 @@ public class Wedding implements IVoicedCommandHandler
             return false;
         }
 
-        if (partner.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, partner))
+        if (partner.isInJail() || partner.isInsideZone(L2Zone.FLAG_JAIL))
         {
             activeChar.sendMessage("Your partner is in jail.");
             return false;
@@ -341,9 +341,9 @@ public class Wedding implements IVoicedCommandHandler
             activeChar.sendMessage("Your partner is currently holding a cursed weapon.");
             return false;
         }
-        else if (ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, partner))
+        else if (partner.isInsideZone(L2Zone.FLAG_NOESCAPE))
         {
-            activeChar.sendMessage("Your partner is in a Monster Derby Track.");
+            activeChar.sendMessage("Your partner is in a unsuitable area for teleporting.");
             return false;
         }
         

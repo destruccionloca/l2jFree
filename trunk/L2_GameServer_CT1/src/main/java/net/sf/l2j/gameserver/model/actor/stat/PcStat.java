@@ -23,6 +23,7 @@ import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
@@ -58,7 +59,7 @@ public class PcStat extends PlayableStat
     {
         L2PcInstance activeChar = getActiveChar();
         // Set new karma
-        if (!activeChar.isCursedWeaponEquipped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !activeChar.getInPvpZone()))
+        if (!activeChar.isCursedWeaponEquipped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !activeChar.isInsideZone(L2Zone.FLAG_PVP)))
         {
             int karmaLost = activeChar.calculateKarmaLost((int) value);
             if (karmaLost > 0) activeChar.setKarma(activeChar.getKarma() - karmaLost);

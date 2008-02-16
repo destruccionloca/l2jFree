@@ -22,7 +22,7 @@ import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -52,7 +52,7 @@ public class Escape implements IUserCommandHandler
             return false;
 
         // [L2J_JP ADD]
-        if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,activeChar))
+        if(activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
         {
             activeChar.sendMessage("You can not escape from here.");
             activeChar.sendPacket(new ActionFailed());

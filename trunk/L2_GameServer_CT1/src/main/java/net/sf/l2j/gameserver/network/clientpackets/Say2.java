@@ -24,7 +24,7 @@ import net.sf.l2j.gameserver.handler.IVoicedCommandHandler;
 import net.sf.l2j.gameserver.handler.VoicedCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemChatChannelId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -108,7 +108,7 @@ public class Say2 extends L2GameClientPacket
         }
 
         // If player is jailed
-        if ((activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
+        if ((activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL)) && Config.JAIL_DISABLE_CHAT && !activeChar.isGM())
         {
             if (_type != SystemChatChannelId.Chat_User_Pet && _type != SystemChatChannelId.Chat_Normal)
             {

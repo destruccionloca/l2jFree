@@ -738,10 +738,14 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
     {
         if (_clanHallId < 0)
         {
-            _clanHallId = ClanHallManager.getInstance().getClanHall(getX(), getY()).getId();
+            ClanHall temp = ClanHallManager.getInstance().getNearbyClanHall(getX(), getY(), 500);
+
+            if (temp != null)
+                _clanHallId = temp.getId();
+
             if (_clanHallId < 0) return null;
         }
-        return ClanHallManager.getInstance().getClanHall(_clanHallId);
+        return ClanHallManager.getInstance().getClanHallById(_clanHallId);
     }
     
     private void showVaultWindowDeposit(L2PcInstance player)

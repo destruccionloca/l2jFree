@@ -28,9 +28,8 @@ import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Entity;
 import net.sf.l2j.gameserver.model.entity.GrandBossState;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.util.Util;
@@ -46,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  L2J_JP SANDMAN
  */
-public class SailrenManager
+public class SailrenManager extends Entity
 {
     private final static Log _log = LogFactory.getLog(SailrenManager.class.getName());
     private static SailrenManager _instance = new SailrenManager();
@@ -83,13 +82,7 @@ public class SailrenManager
     protected GrandBossState _state = new GrandBossState(29065);
     protected boolean _isAlreadyEnteredOtherParty = false;
 
-    protected IZone  _zone;
-    protected String _zoneName;
     protected String _questName;
-    
-    public SailrenManager()
-    {
-    }
 
     public static SailrenManager getInstance()
     {
@@ -104,7 +97,6 @@ public class SailrenManager
     	// init state.
     	_playersInSailrenLair.clear();
     	_isAlreadyEnteredOtherParty = false;
-        _zoneName = "Lair of Sailren";
     	_questName = "sailren";
     	
         // setting spawn data of monsters.
@@ -207,13 +199,6 @@ public class SailrenManager
 		return _playersInSailrenLair;
 	}
 
-    public boolean checkIfInZone(L2PcInstance pc)
-    {
-    	if ( _zone == null )
-    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDungeon, _zoneName );
-    	return _zone.checkIfInZone(pc);
-    }
-    
     // whether it is permitted to enter the sailren's lair is confirmed. 
     public int canIntoSailrenLair(L2PcInstance pc)
     {
@@ -329,7 +314,7 @@ public class SailrenManager
     	_playersInSailrenLair.clear();
     	_isAlreadyEnteredOtherParty = false;
     }
-    
+
     // clean up sailren's lair.
     public void setUnspawn()
 	{

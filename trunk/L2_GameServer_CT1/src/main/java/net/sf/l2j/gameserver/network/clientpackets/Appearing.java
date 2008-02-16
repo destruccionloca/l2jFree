@@ -33,23 +33,22 @@ public class Appearing extends L2GameClientPacket
 
 	// c
 
-    @Override
-    protected void readImpl()
-    {
-        
-    }
-	
-	/** urgent messages, execute immediatly */
-    public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
+	@Override
+	protected void readImpl()
+	{
+	}
 
-    @Override
-    protected void runImpl()
+	/** urgent messages, execute immediatly */
+	public TaskPriority getPriority() { return TaskPriority.PR_HIGH; }
+
+	@Override
+	protected void runImpl()
 	{
 		L2PcInstance activeChar = getClient().getActiveChar();
-        if(activeChar == null) return;
-        if (activeChar.isTeleporting()) activeChar.onTeleported();
+		if(activeChar == null) return;
+		if (activeChar.isTeleporting()) activeChar.onTeleported();
 
-        sendPacket(new UserInfo(activeChar));
+		sendPacket(new UserInfo(activeChar));
 	}
 
 	/* (non-Javadoc)

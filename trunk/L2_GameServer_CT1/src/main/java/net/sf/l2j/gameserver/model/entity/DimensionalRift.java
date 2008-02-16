@@ -21,7 +21,6 @@ import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
-import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager.RoomType;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
@@ -35,7 +34,7 @@ import net.sf.l2j.tools.random.Rnd;
 */ 
 public class DimensionalRift
 {
-	protected RoomType _roomType;
+	protected byte _roomType;
 	protected L2Party _party;
 	protected FastList<Byte> _completedRooms = new FastList<Byte>();
 	private static final long seconds_5 = 5000L;
@@ -55,11 +54,12 @@ public class DimensionalRift
 
 	//private final static Log _log = LogFactory.getLog(DimensionalRift.class.getName());
 	
-	public DimensionalRift(L2Party party, RoomType roomType, byte roomId)
+	public DimensionalRift(L2Party party, byte roomType, byte roomId)
 	{
 		_roomType = roomType;
 		_party = party;
 		_choosenRoom = roomId;
+		int[] coords = getRoomCoord(roomId);
 		party.setDimensionalRift(this);
 		for(L2PcInstance p : party.getPartyMembers())
 		{
@@ -70,13 +70,13 @@ public class DimensionalRift
 				qs.set("cond", "1");
 				qs.playSound("ItemSound.quest_accept");
 			}
-			p.teleToLocation(getRoomCoord(roomId), false);
+			p.teleToLocation(coords[0], coords[1], coords[2]);
 		}
 		createSpawnTimer(_choosenRoom);
 		createTeleporterTimer(true);
 	}
 	
-	public RoomType getType()
+	public byte getType()
 	{
 		return _roomType;
 	}
@@ -242,12 +242,13 @@ public class DimensionalRift
 		}
 
 		checkBossRoom(_choosenRoom);
-		player.teleToLocation(getRoomCoord(_choosenRoom), false);
+		int[] coords = getRoomCoord(_choosenRoom);
+		player.teleToLocation(coords[0], coords[1], coords[2]);
 	}
 
 	protected void teleportToWaitingRoom(L2PcInstance player)
 	{
-		player.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
+		DimensionalRiftManager.getInstance().teleportToWaitingRoom(player);
 		QuestState qs = player.getQuestState("RiftQuest");
 		if (qs != null)
 			qs.exitQuest(true);
@@ -362,12 +363,12 @@ public class DimensionalRift
 
 	public void checkBossRoom(byte roomId)
 	{
-		isBossRoom = DimensionalRiftManager.getInstance().getRoom(_roomType, roomId).isBoss();
+		isBossRoom = DimensionalRiftManager.getInstance().getRoom(_roomType, roomId).isBossRoom();
 	}
 
-	public Location getRoomCoord(byte roomId)
+	public int[] getRoomCoord(byte roomId)
 	{
-		return DimensionalRiftManager.getInstance().getRoom(_roomType, roomId).getTeleport();
+		return DimensionalRiftManager.getInstance().getRoom(_roomType, roomId).getTeleportCoords();
 	}
 
 	public byte getMaxJumps()

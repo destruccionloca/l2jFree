@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Trap;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.model.actor.knownlist.TrapKnownList;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
@@ -156,10 +157,10 @@ public class L2TrapInstance extends L2Trap
 				continue;
 			
 			if ((getOwner().getParty() != null && trg.getParty() != null)
-			        && getOwner().getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
+					&& getOwner().getParty().getPartyLeaderOID() == trg.getParty().getPartyLeaderOID())
 				continue;
 			
-			if (ZoneManager.getInstance().checkIfInZonePeace(trg))
+			if (trg.isInsideZone(L2Zone.FLAG_PEACE))
 				continue;
 			
 			return trg;

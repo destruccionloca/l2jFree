@@ -27,7 +27,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -69,7 +69,7 @@ public class ScrollOfEscape implements IItemHandler
 			return;
 
 		// [L2J_JP ADD]
-		if (ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape, activeChar) || ZoneManager.getInstance().checkIfInZone(ZoneType.MonsterDerbyTrack, activeChar))
+		if (activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 		{
 			activeChar.sendMessage("You can not escape from here.");
 			activeChar.sendPacket(new ActionFailed());
@@ -103,7 +103,7 @@ public class ScrollOfEscape implements IItemHandler
 		}
 
 		// Check to see if player is in jail
-		if (activeChar.isInJail() || ZoneManager.getInstance().checkIfInZone(ZoneType.Jail, activeChar))
+		if (activeChar.isInJail() || activeChar.isInsideZone(L2Zone.FLAG_JAIL))
 		{
 			activeChar.sendMessage("You can not escape from jail.");
 			return;

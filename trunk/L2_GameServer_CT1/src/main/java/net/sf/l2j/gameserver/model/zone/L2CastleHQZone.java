@@ -14,48 +14,29 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
-/**
- * @author G1ta0
- * 
- */
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Castle;
 
-public final class ZoneEnum
+public class L2CastleHQZone extends L2CastleZone
 {
-	public enum ZoneType
+	@Override
+	protected void register()
 	{
-		Default,
-		Arena,
-		MonsterDerbyTrack,
-		OlympiadStadia,
-		CastleArea,
-		CastleHQ,
-		DefenderSpawn,
-		SiegeBattleField,
-		ClanHall,
-		Newbie,
-		Fishing,
-		Peace,
-		Dungeon,
-		Water, 
-		NoLanding,
-		NoEscape,
-		Jail,
-		MotherTree,
-		BossDungeon;
-
-
-		public final static ZoneType getZoneTypeEnum(String typeName)
-		{
-			for (ZoneType zt : ZoneType.values())
-				if (zt.toString().equalsIgnoreCase(typeName))
-					return zt;
-
-			return null;
-		}
-	}
-	public static enum RestartType
-	{
-		RestartNormal, RestartChaotic, RestartOwner, RestartRandom
+		_castle = CastleManager.getInstance().getCastleById(_castleId);
+		_castle.registerHeadquartersZone(this);
 	}
 
+	@Override
+	protected void onEnter(L2Character character)
+	{
+		super.onEnter(character);
+	}
+	
+	@Override
+	protected void onExit(L2Character character)
+	{
+		super.onExit(character);
+	}
 }

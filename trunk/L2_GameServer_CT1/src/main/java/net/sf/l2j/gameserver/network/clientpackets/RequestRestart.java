@@ -16,11 +16,11 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
+import net.sf.l2j.gameserver.model.zone.L2Zone.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -124,7 +124,7 @@ public class RequestRestart extends L2GameClientPacket
         // [L2J_JP ADD START]
         if (!(player.isGM()))
         {
-            if(ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape,player))
+            if(player.isInsideZone(L2Zone.FLAG_NOESCAPE))
             {
                 player.sendMessage("You can not restart in here.");
                 player.sendPacket(new ActionFailed());

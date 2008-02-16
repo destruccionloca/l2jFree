@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.handler.IUserCommandHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
@@ -39,7 +40,7 @@ public class Mount implements IUserCommandHandler
         
         L2Summon pet = activeChar.getPet();
 
-        if (pet != null && pet.isMountable() && !activeChar.isMounted())
+        if (pet != null && pet.isMountable() && !activeChar.isMounted() && !activeChar.isBetrayed())
         {
             if (activeChar.isTransformed())
             {
@@ -118,7 +119,7 @@ public class Mount implements IUserCommandHandler
                 activeChar.stopRentPet();
                 return false;
             }
-            else if (activeChar.isMoving() || activeChar.isInWater())
+            else if (activeChar.isMoving() || activeChar.isInsideZone(L2Zone.FLAG_WATER))
             {
                 // A strider can be ridden only when player is standing.
                 SystemMessage msg = new SystemMessage(SystemMessageId.STRIDER_CAN_BE_RIDDEN_ONLY_WHILE_STANDING);

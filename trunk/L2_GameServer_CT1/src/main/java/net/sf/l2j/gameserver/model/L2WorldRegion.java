@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.util.L2ObjectSet;
 
 import org.apache.commons.logging.Log;
@@ -53,7 +54,9 @@ public final class L2WorldRegion
     public static final int MAP_MAX_X = 228608;
     public static final int MAP_MIN_Y = -262144;
     public static final int MAP_MAX_Y = 262144;
-    
+
+    private final FastList<L2Zone> _zones;
+
     public L2WorldRegion(int pTileX, int pTileY)
     {
         _allPlayable = L2ObjectSet.createL2PlayerSet(); //new L2ObjectHashSet<L2PcInstance>();
@@ -69,6 +72,73 @@ public final class L2WorldRegion
             _active = true;
         else
             _active = false;
+
+        _zones = new FastList<L2Zone>();
+    }
+
+    public FastList<L2Zone> getZones()
+    {
+        return _zones;
+    }
+
+    public void addZone(L2Zone zone)
+    {
+        _zones.add(zone);
+    }
+
+    public void removeZone(L2Zone zone)
+    {
+        _zones.remove(zone);
+    }
+
+    public void revalidateZones(L2Character character)
+    {
+        // do NOT update the world region while the character is still in the process of teleporting
+        // Once the teleport is COMPLETED, revalidation occurs safely, at that time.
+
+        if (character.isTeleporting())
+            return;
+
+        for (L2Zone z : _zones)
+        {
+            z.revalidateInZone(character);
+        }
+    }
+
+    public void removeFromZones(L2Character character)
+    {
+        for (L2Zone z : _zones)
+        {
+            z.removeCharacter(character);
+        }
+    }
+    
+    public boolean containsZone(int zoneId)
+    {
+        for (L2Zone z : _zones)
+        {
+            if (z.getId() == zoneId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void onDeath(L2Character character)
+    {
+        for (L2Zone z : _zones)
+        {
+            z.onDieInside(character);
+        }
+    }
+
+    public void onRevive(L2Character character)
+    {
+        for (L2Zone z : _zones)
+        {
+            z.onReviveInside(character);
+        }
     }
     
     /** Task of AI and geodata notification */
@@ -85,8 +155,8 @@ public final class L2WorldRegion
         {
             if (_isActivating)
             {
-				for (L2WorldRegion neighbor: getSurroundingRegions())
-					neighbor.setActive(true);
+                for (L2WorldRegion neighbor: getSurroundingRegions())
+                    neighbor.setActive(true);
             }
             else
             {

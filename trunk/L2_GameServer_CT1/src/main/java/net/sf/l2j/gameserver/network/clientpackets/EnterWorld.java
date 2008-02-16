@@ -202,7 +202,7 @@ public class EnterWorld extends L2GameClientPacket
             else
                 GmListTable.getInstance().addGm(activeChar, true);
         }
-        if(activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
+        if(!activeChar.isGM() && activeChar.getClan() != null && activeChar.isClanLeader() && Config.CLAN_LEADER_COLOR_ENABLED && activeChar.getClan().getLevel() >= Config.CLAN_LEADER_COLOR_CLAN_LEVEL)
         {
             if(Config.CLAN_LEADER_COLORED == Config.ClanLeaderColored.name)
                 activeChar.getAppearance().setNameColor(Config.CLAN_LEADER_COLOR);
@@ -411,7 +411,7 @@ public class EnterWorld extends L2GameClientPacket
 
         if (DimensionalRiftManager.getInstance().checkIfInRiftZone(activeChar.getX(), activeChar.getY(), activeChar.getZ(), false))
         {
-            activeChar.teleToLocation(DimensionalRiftManager.getInstance().getWaitingRoomTeleport(), true);
+            DimensionalRiftManager.getInstance().teleportToWaitingRoom(activeChar);
         }
 
         if (activeChar.getClanJoinExpiryTime() > System.currentTimeMillis())

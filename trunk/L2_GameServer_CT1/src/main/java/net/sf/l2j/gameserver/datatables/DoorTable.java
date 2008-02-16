@@ -58,7 +58,7 @@ public class DoorTable
 		parseData();
 		checkAutoOpen();
 	}
-        
+
 	public void reloadAll() 
 	{
 	    respawn();
@@ -90,16 +90,9 @@ public class DoorTable
 				L2DoorInstance door = parseList(line);
 				_staticItems.put(door.getDoorId(), door);
 				door.spawnMe(door.getX(), door.getY(),door.getZ());
-				ClanHall clanhall = ClanHallManager.getInstance().getClanHall(door.getX(),door.getY(),500);
-				if (clanhall != null)
-				{
-				    clanhall.getDoors().add(door);
-				    door.setClanHall(clanhall);
-                    if (_log.isDebugEnabled())
-                        _log.debug("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
-				}
 			}
-
+			
+			_initialized = true;
 			_log.info("DoorTable: Loaded " + _staticItems.size() + " Door Templates.");
 		} 
 		catch (FileNotFoundException e) 
@@ -111,10 +104,29 @@ public class DoorTable
 		{
 			_initialized = false;
 			_log.warn("error while creating door table " + e);
-		} 
+			e.printStackTrace();
+		}
 		finally 
 		{
 			try { lnr.close(); } catch (Exception e1) { /* ignore problems */ }
+		}
+	}
+
+	public void registerToClanHalls()
+	{
+		if(_staticItems == null)
+			return;
+
+		for(L2DoorInstance door : _staticItems.values())
+		{
+			ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(),door.getY(),500);
+			if (clanhall != null)
+			{
+				clanhall.getDoors().add(door);
+				door.setClanHall(clanhall);
+				if (_log.isDebugEnabled())
+					_log.debug("door "+door.getDoorName()+" attached to ch "+clanhall.getName());
+			}
 		}
 	}
 
@@ -132,7 +144,7 @@ public class DoorTable
 		int rangeZMin = Integer.parseInt(st.nextToken());
 		int rangeXMax = Integer.parseInt(st.nextToken());
 		int rangeYMax = Integer.parseInt(st.nextToken());
-		int rangeZMax = Integer.parseInt(st.nextToken());		
+		int rangeZMax = Integer.parseInt(st.nextToken());
 		int hp = Integer.parseInt(st.nextToken());
 		int pdef = Integer.parseInt(st.nextToken());
 		int mdef = Integer.parseInt(st.nextToken());
@@ -178,8 +190,8 @@ public class DoorTable
 		npcDat.set("sex", "male");
 		npcDat.set("type", "");
 		npcDat.set("baseAtkRange", 0);
-        npcDat.set("baseMpMax", 0);
-        npcDat.set("baseCpMax", 0);
+		npcDat.set("baseMpMax", 0);
+		npcDat.set("baseCpMax", 0);
 		npcDat.set("rewardExp", 0);
 		npcDat.set("rewardSp", 0);
 		npcDat.set("basePAtk", 0);
@@ -209,7 +221,7 @@ public class DoorTable
 		catch (Exception e) 
 		{ 
 			_log.fatal("Error in door data, ID:"+id); 
-		}		
+		}
 		door.getStatus().setCurrentHpMp(door.getMaxHp(), door.getMaxMp());
 		door.setOpen(autoopen?0:1);
 		door.getPosition().setXYZInvisible(x,y,z);
@@ -217,12 +229,12 @@ public class DoorTable
 		return door;
 	}
         
-	public boolean isInitialized() 
+	public static boolean isInitialized()
 	{
 		return _initialized;
 	}
 
-	private boolean _initialized = true;
+	private static boolean _initialized = false;
 
 	public L2DoorInstance getDoor(Integer id) 
 	{

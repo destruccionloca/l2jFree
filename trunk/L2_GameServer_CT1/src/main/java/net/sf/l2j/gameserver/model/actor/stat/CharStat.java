@@ -18,6 +18,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.skills.Calculator;
 import net.sf.l2j.gameserver.skills.Env;
 import net.sf.l2j.gameserver.skills.Stats;
@@ -589,7 +590,7 @@ public class CharStat
             return val;
         }
         // TODO: check if sharks/fish should be affected ;)
-        if (_activeChar instanceof L2PcInstance && ((L2PcInstance)_activeChar).isInWater()) val /= 2;
+        if (_activeChar.isInsideZone(L2Zone.FLAG_WATER)) val *= 0.5;
 
         val /= _activeChar.getArmourExpertisePenalty();
         return val;

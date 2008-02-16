@@ -31,9 +31,8 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.Entity;
 import net.sf.l2j.gameserver.model.entity.GrandBossState;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.Earthquake;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -50,7 +49,7 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: $ $Date: $
  * @author  L2J_JP SANDMAN
  */
-public class BaiumManager
+public class BaiumManager extends Entity
 {
     private final static Log _log = LogFactory.getLog(BaiumManager.class.getName());
     private static BaiumManager _instance = new BaiumManager();
@@ -116,11 +115,9 @@ public class BaiumManager
 
     // status in lair.
     protected GrandBossState _state = new GrandBossState(29020);
-    protected IZone  _zone;
-    protected String _zoneName;
     protected String _questName;
     protected long _lastAttackTime = 0;
-    protected String _words = ",Don't obstruct my sleep! Die!";
+    protected String _words = "Don't obstruct my sleep! Die!";
 
     // location of banishment
     private final int _banishmentLocation[][] =
@@ -144,9 +141,8 @@ public class BaiumManager
     // initialize
     public void init()
     {
-    	// initialize status in lair.
-    	_playersInLair.clear();
-        _zoneName = "Lair of Baium";
+        // initialize status in lair.
+        _playersInLair.clear();
         _questName = "baium";
 
         // setting spawn data of monsters.
@@ -276,14 +272,7 @@ public class BaiumManager
 	{
 		return _playersInLair;
 	}
-    
-    public boolean checkIfInZone(L2PcInstance pc)
-    {
-    	if ( _zone == null )
-    		_zone = ZoneManager.getInstance().getZone(ZoneType.BossDungeon, _zoneName );
-    	return _zone.checkIfInZone(pc);
-    }
-    
+
     // Arcangel advent.
     protected synchronized void adventArcAngel()
     {

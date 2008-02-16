@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
-import net.sf.l2j.gameserver.model.zone.IZone;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -191,23 +190,19 @@ public class ClanHallManager
 	/** Return true if object is inside zone */
 	public final boolean checkIfInZone(L2Object obj)
 	{
-		return (getClanHall(obj) != null); 
+		return (getClanHall(obj) != null);
 	}
 
 	/** Return true if object is inside zone */
 	public final boolean checkIfInZone(int x, int y)
 	{
-		return (getClanHall(x, y) != null); 
+		return (getClanHall(x, y) != null);
 	}
 
 	/** Get Clan Hall by Id */
-	public final ClanHall getClanHall(int clanHallId)
+	public final ClanHall getClanHallById(int clanHallId)
 	{
-		if(_clanHall.containsKey(clanHallId))
-			return _clanHall.get(clanHallId);
-		if(_freeClanHall.containsKey(clanHallId))
-			return _freeClanHall.get(clanHallId);
-		return null;
+		return _allClanHalls.get(clanHallId);
 	}
 
 	/** Get Clan Hall by Object */
@@ -216,33 +211,21 @@ public class ClanHallManager
 		return getClanHall(activeObject.getPosition().getX(), activeObject.getPosition().getY()); 
 	}
 
-	/** Get Clan Hall by region x,y */
+	/** Get Clan Hall by region x,y,offset */
 	public final ClanHall getClanHall(int x, int y)
 	{
-		int index = getClanHallIndex(x, y,_clanHall);
-		if (index >= 0) return _clanHall.get(index);
-		index = getClanHallIndex(x, y,_freeClanHall);
-		if (index >= 0) return _freeClanHall.get(index);
-		return null;
-	}
+		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
+			if (ch.getValue().checkIfInZone(x, y)) return ch.getValue();
 
-	/** Get Clan Hall by region x,y,offset */
-	public final ClanHall getClanHall(int x, int y, int offset)
-	{
-		int index = getClanHallIndex(x, y, offset,_clanHall);
-		if (index >= 0) return _clanHall.get(index);
-		index = getClanHallIndex(x, y, offset,_freeClanHall);
-		if (index >= 0) return _freeClanHall.get(index);
 		return null;
 	}
 
 	/** Get Clan Hall by name */
 	public final ClanHall getClanHall(String name)
 	{
-		int index = getClanHallIndex(name,_clanHall);
-		if (index >= 0) return getClanHalls().get(index);
-		index = getClanHallIndex(name,_freeClanHall);
-		if (index >= 0) return _freeClanHall.get(index);
+		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
+			if (ch.getValue().getName().equals(name)) return ch.getValue();
+
 		return null;
 	}
 
@@ -255,46 +238,11 @@ public class ClanHallManager
 		return null;
 	}
 
-	/** ClanHallId By Region x,y */
-	private final int getClanHallIndex(int x, int y, Map<Integer,ClanHall> clanHall)
+	public final ClanHall getNearbyClanHall(int x, int y, int maxDist)
 	{
-		for (Map.Entry<Integer, ClanHall> ch : clanHall.entrySet())
-		{
-			try
-			{
-				if (ch.getValue().checkIfInZone(x, y))
-					return ch.getKey();
-			}
-			catch (NullPointerException e) {}
-		}
-		return -1;
-	}
+		for (Map.Entry<Integer, ClanHall> ch : _allClanHalls.entrySet())
+			if (ch.getValue().getDistanceToZone(x, y) < maxDist) return ch.getValue();
 
-	/** ClanHallId by region x,y,offset */
-	private final int getClanHallIndex(int x, int y, int offset, Map<Integer,ClanHall> clanHall)
-	{
-		int id = -1;
-		for (Map.Entry<Integer, ClanHall> ch : clanHall.entrySet())
-		{
-			IZone zone = ch.getValue().getZone();
-			if (zone != null)
-			{
-			 	if (clanHall != null && zone.getZoneDistance(x, y) < offset)
-				{ 
-					id = ch.getKey();
-					offset = (int)zone.getZoneDistance(x, y);
-				}
-			}
-		}
-		return id;
-	}
-
-	/** ClanHallId by name */
-	private final int getClanHallIndex(String name, Map<Integer,ClanHall> clanHall)
-	{
-		for (Map.Entry<Integer, ClanHall> ch : clanHall.entrySet())
-			if (ch.getValue().getName().equalsIgnoreCase(name.trim())) 
-				return ch.getKey();
-		return -1;
+		return null;
 	}
 }

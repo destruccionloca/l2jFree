@@ -20,7 +20,6 @@ import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -28,6 +27,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.Revive;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -70,8 +70,8 @@ public class RequestRestartPoint extends L2GameClientPacket
 			try
 			{
 				Location loc = null;
-				Castle castle=null;
-				
+				Siege siege = null;
+
 				if (activeChar.isInJail()) _requestedPointType = 27;
 				else if (activeChar.isFestivalParticipant()) _requestedPointType = 5;
 
@@ -95,12 +95,12 @@ public class RequestRestartPoint extends L2GameClientPacket
 						break;
 
 					case 2: // to castle
-						Boolean isInDefense = false;
-						castle = CastleManager.getInstance().getCastle(activeChar);
-						if (castle != null && castle.getSiege().getIsInProgress())
+						boolean isInDefense = false;
+						siege = SiegeManager.getInstance().getSiege(activeChar);
+						if (siege != null && siege.getIsInProgress())
 						{
 							//siege in progress
-							if (castle.getSiege().checkIsDefender(activeChar.getClan()))
+							if (siege.checkIsDefender(activeChar.getClan()))
 								isInDefense = true;
 						}
 						if (activeChar.getClan() == null || (activeChar.getClan().getHasCastle() == 0 && !isInDefense))
@@ -119,7 +119,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 
 					case 4: // to siege HQ
 						L2SiegeClan siegeClan = null;
-						Siege siege = SiegeManager.getInstance().getSiege(activeChar);
+						siege = SiegeManager.getInstance().getSiege(activeChar);
 						
 						if (siege != null && siege.getIsInProgress())
 							siegeClan = siege.getAttackerClan(activeChar.getClan());
@@ -152,8 +152,7 @@ public class RequestRestartPoint extends L2GameClientPacket
 						break;
 
 					default: // 0
-						if (ZoneManager.getInstance().checkIfInZone(ZoneType.Jail , activeChar) ||
-							ZoneManager.getInstance().checkIfInZone(ZoneType.NoEscape , activeChar) )
+						if (activeChar.isInsideZone(L2Zone.FLAG_JAIL) || activeChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 						{
 							if (loc == null)
 								loc = new Location(activeChar.getX(), activeChar.getY(), activeChar.getZ()); // spawn them where they died

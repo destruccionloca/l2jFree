@@ -122,9 +122,10 @@ public class L2Trap extends L2Character
      */
     public synchronized void unSummon(L2PcInstance owner)
     {
-        
         if (isVisible() && !isDead())
         {
+            if (getWorldRegion() != null)
+                getWorldRegion().removeFromZones(this);
             owner.setTrap(null);
             decayMe();
             getKnownList().removeAllKnownObjects();

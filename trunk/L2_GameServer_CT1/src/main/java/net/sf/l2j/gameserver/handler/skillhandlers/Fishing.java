@@ -25,8 +25,7 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.zone.IZone;
-import net.sf.l2j.gameserver.model.zone.ZoneEnum.ZoneType;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
@@ -73,13 +72,13 @@ public class Fishing implements ISkillHandler
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_ON_BOAT));
 			return;
 		}
-		if (!ZoneManager.getInstance().checkIfInZone(ZoneType.Fishing, player))
+		/*if (!player.isInsideZone(L2Zone.FLAG_FISHING))
 		{
 			//You can't fish here
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));
 			return;
-		}
-		if (ZoneManager.getInstance().checkIfInZone(ZoneType.Water, player))
+		}*/
+		if (player.isInsideZone(L2Zone.FLAG_WATER))
 		{
 			//You can't fish in water
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_UNDER_WATER));
@@ -96,7 +95,7 @@ public class Fishing implements ISkillHandler
 		int x = activeChar.getX() - dx;
 		int y = activeChar.getY() + dy;
 
-		IZone water = ZoneManager.getInstance().getIfInZone(ZoneType.Water, x, y);
+		L2Zone water = ZoneManager.getInstance().isInsideZone(L2Zone.ZoneType.Water, x, y);
 
 		// float must be in water
 		if (water == null)
@@ -105,7 +104,7 @@ public class Fishing implements ISkillHandler
 			return;
 		}
 
-		int z = water.getMax().getZ();
+		int z = water.getMaxZ(x, y, activeChar.getZ());
 
 		if (Config.GEODATA && !GeoData.getInstance().canSeeTarget(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z)
 				|| (!Config.GEODATA && (Util.calculateDistance(activeChar.getX(), activeChar.getY(), activeChar.getZ(), x, y, z, true) > d * 1.73)))

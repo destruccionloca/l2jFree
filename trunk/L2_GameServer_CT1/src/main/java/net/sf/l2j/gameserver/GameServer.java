@@ -138,6 +138,7 @@ public class GameServer
 		Util.printSection("World");
 		RandomIntGenerator.getInstance();
 		L2World.getInstance();
+		MapRegionManager.getInstance();
 		Announcements.getInstance();
 		_idFactory = IdFactory.getInstance();
 		if (!_idFactory.isInitialized())
@@ -160,10 +161,6 @@ public class GameServer
 					_log.debug("GeoPathFinding initialized");
 			}
 		}
-		MapRegionManager.getInstance();
-		ZoneManager.getInstance();
-		ClanHallManager.getInstance();
-		DoorTable.getInstance();
 		StaticObjects.getInstance();
 		GameTimeController.getInstance();
 		BoatService boatService = (BoatService) L2Registry.getBean(IServiceRegistry.BOAT);
@@ -207,6 +204,16 @@ public class GameServer
 		if (Config.ALLOW_NPC_WALKERS)
 			NpcWalkerRoutesTable.getInstance().load();
 		PetDataTable.getInstance().loadPetsData();
+		Util.printSection("Entities and zones");
+		CrownManager.getInstance();
+		TownManager.getInstance();
+		ClanHallManager.getInstance();
+		DoorTable.getInstance();
+		CastleManager.getInstance();
+		SiegeManager.getInstance();
+		ZoneManager.getInstance();
+		MercTicketManager.getInstance();
+		DoorTable.getInstance().registerToClanHalls();
 		Util.printSection("Spawns");
 		SpawnTable.getInstance();
 		DayNightSpawnManager.getInstance().notifyChangeMode();
@@ -214,12 +221,6 @@ public class GameServer
 		RaidPointsManager.getInstance();
 		AutoChatHandler.getInstance();
 		AutoSpawnHandler.getInstance();
-		Util.printSection("Castles and Towns");
-		CastleManager.getInstance();
-		CrownManager.getInstance();
-		MercTicketManager.getInstance();
-		TownManager.getInstance();
-		SiegeManager.getInstance();
 		Util.printSection("Economy");
 		TradeListTable.getInstance();
 		CastleManorManager.getInstance();
