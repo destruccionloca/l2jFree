@@ -97,9 +97,10 @@ public abstract class L2Zone
 	public static final int FLAG_NOLANDING = 64;
 	public static final int FLAG_NOSTORE = 128;
 	public static final int FLAG_WATER = 256;
-	public static final int FLAG_JAIL = 512;
-	public static final int FLAG_STADIUM = 1024;
-	public static final int FLAG_SUNLIGHTROOM = 2048;
+	public static final int FLAG_FISHING = 512;
+	public static final int FLAG_JAIL = 1024;
+	public static final int FLAG_STADIUM = 2048;
+	public static final int FLAG_SUNLIGHTROOM = 4096;
 	
 	protected int _id;
 	protected String _name;

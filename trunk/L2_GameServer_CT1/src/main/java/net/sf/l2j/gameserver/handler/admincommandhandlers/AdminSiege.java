@@ -169,14 +169,14 @@ public class AdminSiege implements IAdminCommandHandler
 			{
 				clanhall.openCloseDoors(false);
 			}
-			/*else if (command.equalsIgnoreCase("admin_clanhallteleportself"))
+			else if (command.equalsIgnoreCase("admin_clanhallteleportself"))
 			{
-				IZone zone = clanhall.getZone();
+				L2Zone zone = clanhall.getZone();
 				if (zone != null)
 				{
-					activeChar.teleToLocation(zone.getRestartPoint(RestartType.RestartRandom), true); 
+					activeChar.teleToLocation(zone.getRandomLocation(), false); 
 				}
-			}*/
+			}
 			else if (command.equalsIgnoreCase("admin_spawn_doors"))
 			{
 				castle.spawnDoor();
