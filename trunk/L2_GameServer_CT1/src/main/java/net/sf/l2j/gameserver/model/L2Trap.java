@@ -1,19 +1,16 @@
-/* This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2, or (at your option)
- * any later version.
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
- * 02111-1307, USA.
- *
- * http://www.gnu.org/copyleft/gpl.html
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package net.sf.l2j.gameserver.model;
 
@@ -44,9 +41,9 @@ public class L2Trap extends L2Character
 		_owner = owner;
 		getPosition().setXYZInvisible(owner.getX(), owner.getY(), owner.getZ());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Character#onSpawn()
 	 */
 	@Override
@@ -54,9 +51,9 @@ public class L2Trap extends L2Character
     {
         super.onSpawn();
     }
-	
+
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Object#onAction(net.sf.l2j.gameserver.model.actor.instance.L2PcInstance)
 	 */
 	@Override
@@ -66,18 +63,18 @@ public class L2Trap extends L2Character
         MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
         player.sendPacket(my);
     }
-	
+
 	/**
-	 * 
+	 *
 	 *
 	 */
 	public void stopDecay()
     {
         DecayTaskManager.getInstance().cancelDecayTask(this);
     }
-	
+
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Character#onDecay()
 	 */
 	@Override
@@ -85,18 +82,18 @@ public class L2Trap extends L2Character
     {
         deleteMe(_owner);
     }
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public final int getNpcId()
     {
         return getTemplate().getNpcId();
     }
-	
+
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Object#isAutoAttackable(net.sf.l2j.gameserver.model.L2Character)
 	 */
 	@Override
@@ -104,9 +101,9 @@ public class L2Trap extends L2Character
     {
         return _owner.isAutoAttackable(attacker);
     }
-	
+
 	/**
-	 * 
+	 *
 	 * @param owner
 	 */
     public void deleteMe(L2PcInstance owner)
@@ -115,9 +112,9 @@ public class L2Trap extends L2Character
         getKnownList().removeAllKnownObjects();
         owner.setTrap(null);
     }
-    
+
     /**
-     * 
+     *
      * @param owner
      */
     public synchronized void unSummon(L2PcInstance owner)
@@ -133,7 +130,7 @@ public class L2Trap extends L2Character
     }
 
     /**
-     * 
+     *
      * @see net.sf.l2j.gameserver.model.L2Character#getActiveWeaponInstance()
      */
 	@Override
@@ -143,7 +140,7 @@ public class L2Trap extends L2Character
 	}
 
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Character#getActiveWeaponItem()
 	 */
 	@Override
@@ -151,9 +148,9 @@ public class L2Trap extends L2Character
 	{
 		return null;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Character#getLevel()
 	 */
 	@Override
@@ -161,18 +158,18 @@ public class L2Trap extends L2Character
 	{
 		return getTemplate().getLevel();
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public final L2PcInstance getOwner()
     {
         return _owner;
     }
-    
+
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Character#getTemplate()
 	 */
     @Override
@@ -180,9 +177,9 @@ public class L2Trap extends L2Character
     {
         return (L2NpcTemplate) super.getTemplate();
     }
-	
+
     /**
-     * 
+     *
      * @see net.sf.l2j.gameserver.model.L2Character#getSecondaryWeaponInstance()
      */
 	@Override
@@ -190,9 +187,9 @@ public class L2Trap extends L2Character
 	{
 		return null;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Character#getSecondaryWeaponItem()
 	 */
 	@Override
@@ -200,28 +197,28 @@ public class L2Trap extends L2Character
 	{
 		return null;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @see net.sf.l2j.gameserver.model.L2Character#updateAbnormalEffect()
 	 */
 	@Override
 	public void updateAbnormalEffect()
 	{
-		
+
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean isDetected()
 	{
 		return false;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 *
 	 */
 	public void setDetected()

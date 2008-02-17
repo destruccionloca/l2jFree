@@ -3,12 +3,12 @@
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * This class handles following admin commands:
  * - enchant_armor
- * 
+ *
  * @version $Revision: 1.3.2.1.2.10 $ $Date: 2005/08/24 21:06:06 $
  */
 public class AdminEnchant implements IAdminCommandHandler
@@ -56,7 +56,7 @@ public class AdminEnchant implements IAdminCommandHandler
     private static final int REQUIRED_LEVEL = Config.GM_ENCHANT;
 
     private final static Log _log = LogFactory.getLog(AdminEnchant.class);
-    
+
     public boolean useAdminCommand(String command, L2PcInstance activeChar)
     {
         if (!Config.ALT_PRIVILEGES_ADMIN)
@@ -69,7 +69,7 @@ public class AdminEnchant implements IAdminCommandHandler
         } else
         {
             int armorType = -1;
-            
+
             if (command.startsWith("admin_seteh"))
                 armorType = Inventory.PAPERDOLL_HEAD;
             else if (command.startsWith("admin_setec"))
@@ -96,13 +96,13 @@ public class AdminEnchant implements IAdminCommandHandler
                 armorType = Inventory.PAPERDOLL_NECK;
             else if (command.startsWith("admin_setun"))
                 armorType = Inventory.PAPERDOLL_UNDER;
-            
+
             if (armorType != -1)
             {
                 try
                 {
                     int ench = Integer.parseInt(command.substring(12));
-                    
+
                     // check value
                     if (ench < 0 || ench > 65535)
                         activeChar.sendMessage("You must set the enchant level to be between 0-65535.");
@@ -120,11 +120,11 @@ public class AdminEnchant implements IAdminCommandHandler
                     activeChar.sendMessage("Please specify a valid new enchant value.");
                 }
             }
-            
+
             // show the enchant menu after an action
             showMainPage(activeChar);
         }
-        
+
         return true;
     }
 
@@ -153,18 +153,18 @@ public class AdminEnchant implements IAdminCommandHandler
         if (parmorInstance != null && parmorInstance.getLocationSlot() == armorType)
         {
             itemInstance = parmorInstance;
-        } else 
+        } else
         {
             // for bows and double handed weapons
-            parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-            if (parmorInstance != null && parmorInstance.getLocationSlot() == Inventory.PAPERDOLL_RHAND)
+            parmorInstance = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_LRHAND);
+            if (parmorInstance != null && parmorInstance.getLocationSlot() == Inventory.PAPERDOLL_LRHAND)
                 itemInstance = parmorInstance;
         }
-        
+
         if (itemInstance != null)
         {
             curEnchant = itemInstance.getEnchantLevel();
-            
+
             // set enchant value
             player.getInventory().unEquipItemInSlotAndRecord(armorType);
             itemInstance.setEnchantLevel(ench);
