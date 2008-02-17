@@ -2,9 +2,9 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
- 
+
 qn = "255_Tutorial"
- 
+
 # table for Quest Timer ( Ex == -2 ) [voice, html]
 QTEXMTWO = {
     0  : ["tutorial_voice_001a","tutorial_human_fighter001.htm"],
@@ -123,15 +123,15 @@ TCLc = {
     50 : ["tutorial_22kb.htm"]
     }
 class Quest (JQuest) :
- 
+
     def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
- 
+
     def onAdvEvent(self,event,npc,player):
         st = player.getQuestState(qn)
         string = event[0:2]
         htmltext = ""
         # USER CONNECTED #
- 
+
         if string == "UC" :
             playerLevel = player.getLevel()
             if playerLevel < 6 and st.getInt("onlyone") == 0 :
@@ -158,10 +158,10 @@ class Quest (JQuest) :
                     st.onTutorialClientEvent(0)
                 else :
                     return
- 
- 
+
+
         # QUEST TIMER #
- 
+
         elif string == "QT" :
             Ex = st.getInt("Ex")
             if Ex == -2 :
@@ -178,9 +178,9 @@ class Quest (JQuest) :
             elif Ex == -4 :
                 st.playTutorialVoice("tutorial_voice_008")
                 st.set("Ex","-5")
- 
+
         # TUTORIAL CLOSE [N] #
- 
+
         elif string == "TE" :
             event_id = int(event[2:])
             if event_id == 0 :
@@ -230,7 +230,7 @@ class Quest (JQuest) :
             elif event_id == 28 :
                 htmltext = "tutorial_28.htm"
         # CLIENT EVENT ENABLE [N] #
- 
+
         elif string == "CE" :
             event_id = int(event[2:])
             playerLevel = player.getLevel()
@@ -272,7 +272,7 @@ class Quest (JQuest) :
             elif event_id == 40 :
                 if playerLevel == 5 and player.getClassId().level() == 0:
                    if st.getInt("lvl") < 5 :
-                    if not player.getClassId().isMage() or classId == 49:
+                    if not player.getClassId().isMage() or player.getClassId().getId() == 49:
                      st.playTutorialVoice("tutorial_voice_014")
                      st.showQuestionMark(9)
                      st.playSound("ItemSound.quest_tutorial")
@@ -282,7 +282,7 @@ class Quest (JQuest) :
                    st.playSound("ItemSound.quest_tutorial")
                    st.showQuestionMark(24)
                    st.set("lvl","6")
-                elif playerLevel == 7 and player.getClassId().isMage() and classId != 49:
+                elif playerLevel == 7 and player.getClassId().isMage() and player.getClassId().getId() != 49:
                    if st.getInt("lvl") < 7 and player.getClassId().level() == 0:
                       st.playTutorialVoice("tutorial_voice_019")
                       st.playSound("ItemSound.quest_tutorial")
@@ -335,9 +335,9 @@ class Quest (JQuest) :
                     st.set("Gemstone","1")
                     st.showQuestionMark(5)
 
- 
+
         # QUESTION MARK CLICKED [N] #
- 
+
         elif string == "QM" :
             classId = int(st.getPlayer().getClassId().getId())
             MarkId = int(event[2:])
@@ -378,7 +378,7 @@ class Quest (JQuest) :
                 classId = int(st.getPlayer().getClassId().getId())
                 htmltext = QMCb[classId]
             elif MarkId == 26 :
-                if st.getPlayer().getClassId().isMage() and classId != 49 :
+                if st.getPlayer().getClassId().isMage() and st.getPlayer().getClassId().getId() != 49 :
                     htmltext = "tutorial_newbie004b.htm"
                 else :
                     htmltext = "tutorial_newbie004a.htm"
@@ -392,5 +392,5 @@ class Quest (JQuest) :
         if htmltext == "": return
         st.showTutorialHTML(htmltext)
         return
- 
+
 QUEST = Quest(255,qn,"Tutorial")
