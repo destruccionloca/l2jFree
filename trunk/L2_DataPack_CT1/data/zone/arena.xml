@@ -1,6 +1,6 @@
 <list>
 
-  <zone id="1" name="Gludin Arena">
+  <zone id="1" name="Gludin Arena" type="Arena">
     <settings pvp="Arena"/>
     <restart_owner x="-86979" y="142402" z="-3643"/>
     <shape type="Poly" zMin="-3752" zMax="-3352">
@@ -39,7 +39,7 @@
     </shape>
   </zone>
 
-  <zone id="3" name="Giran Arena">
+  <zone id="3" name="Giran Arena" type="Arena">
     <settings pvp="Arena"/>
     <restart_owner x="73890" y="142656" z="-3778"/>
     <shape type="Poly" zMin="-3850" zMax="-3350">
@@ -82,7 +82,7 @@
     </shape>
   </zone>
 
-  <zone id="5" name="Olympiad Stadium" type="Stadium">
+  <zone id="5" name="Olympiad Stadium" type="Stadium" type="Arena">
     <settings pvp="Arena"/>
     <restart_owner x="147451" y="46728" z="-3410"/>
     <shape type="Poly" zMin="-3498" zMax="-3298">

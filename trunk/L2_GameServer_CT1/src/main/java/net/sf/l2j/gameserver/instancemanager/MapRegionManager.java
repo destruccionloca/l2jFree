@@ -469,7 +469,8 @@ public class MapRegionManager
                             {
                                 return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
                             }
-                        } else
+                        }
+                        else
                         {
 
                             zone = castle.getDefenderSpawn();
