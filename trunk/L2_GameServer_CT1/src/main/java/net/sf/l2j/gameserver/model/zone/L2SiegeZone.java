@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.zone;
 
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.FortressManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
@@ -22,25 +23,35 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
-public class L2SiegeZone extends L2CastleZone
+public class L2SiegeZone extends EntityZone
 {
 	@Override
 	protected void register()
 	{
-		_castle = CastleManager.getInstance().getCastleById(_castleId);
-		_castle.registerSiegeZone(this);
+		if (_castleId > 0)
+		{
+			_entity = CastleManager.getInstance().getCastleById(_castleId);
+		}
+		else if(_fortressId > 0)
+		{
+			_entity = FortressManager.getInstance().getFortressById(_fortressId);
+		}
+		_entity.registerSiegeZone(this);
 	}
 
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (_castle.getSiege().getIsInProgress())
+		if (_entity instanceof Castle)
 		{
-			character.setInsideZone(FLAG_PVP, true);
-			character.setInsideZone(FLAG_SIEGE, true);
+			if (((Castle)_entity).getSiege().getIsInProgress())
+			{
+				character.setInsideZone(FLAG_PVP, true);
+				character.setInsideZone(FLAG_SIEGE, true);
 
-			if (character instanceof L2PcInstance)
-				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+				if (character instanceof L2PcInstance)
+					((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
+			}
 		}
 
 		super.onEnter(character);
@@ -49,23 +60,26 @@ public class L2SiegeZone extends L2CastleZone
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if (_castle.getSiege().getIsInProgress())
+		if (_entity instanceof Castle)
 		{
-			character.setInsideZone(FLAG_PVP, false);
-			character.setInsideZone(FLAG_SIEGE, false);
-
-			if (character instanceof L2PcInstance)
+			if (((Castle)_entity).getSiege().getIsInProgress())
 			{
-				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+				character.setInsideZone(FLAG_PVP, false);
+				character.setInsideZone(FLAG_SIEGE, false);
 
-				// Set pvp flag
-				if (((L2PcInstance)character).getPvpFlag() == 0)
-					((L2PcInstance)character).startPvPFlag();
+				if (character instanceof L2PcInstance)
+				{
+					((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+
+					// Set pvp flag
+					if (((L2PcInstance)character).getPvpFlag() == 0)
+						((L2PcInstance)character).startPvPFlag();
+				}
 			}
-		}
-		if (character instanceof L2SiegeSummonInstance)
-		{
-			((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
+			if (character instanceof L2SiegeSummonInstance)
+			{
+				((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
+			}
 		}
 
 		super.onExit(character);

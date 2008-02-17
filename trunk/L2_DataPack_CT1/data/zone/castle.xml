@@ -36,7 +36,7 @@
     </shape>
   </zone>
 
-  <zone id="2" name="Gludio HQ" type="CastleHQ">
+  <zone id="2" name="Gludio HQ" type="HeadQuarters">
     <entity castleId="1"/>
     <shape type="Poly" zMin="-4484" zMax="3611">
       <point x="-22052" y="114025"/>
@@ -54,7 +54,7 @@
     </shape>
   </zone>
 
-  <zone id="3" name="Gludio Defender Spawn" type="CastleDef">
+  <zone id="3" name="Gludio Defender Spawn" type="DefenderSpawn">
     <entity castleId="1"/>
     <shape type="Rect" zMin="-2245" zMax="-2245">
       <point x="-18183" y="110224"/>
@@ -108,7 +108,7 @@
     </shape>
   </zone>
 
-  <zone id="6" name="Dion HQ" type="CastleHQ">
+  <zone id="6" name="Dion HQ" type="HeadQuarters">
     <entity castleId="2"/>
     <shape type="Poly" zMin="-4678" zMax="4000">
       <point x="26012" y="155725"/>
@@ -126,7 +126,7 @@
     </shape>
   </zone>
 
-  <zone id="7" name="Dion Defender Spawn" type="CastleDef">
+  <zone id="7" name="Dion Defender Spawn" type="DefenderSpawn">
     <entity castleId="2"/>
     <shape type="Rect" zMin="-2474" zMax="-2474">
       <point x="20266" y="160533"/>
@@ -171,7 +171,7 @@
     </shape>
   </zone>
 
-  <zone id="10" name="Giran HQ" type="CastleHQ">
+  <zone id="10" name="Giran HQ" type="HeadQuarters">
     <entity castleId="3"/>
     <shape type="Poly" zMin="-4551" zMax="19995">
       <point x="111897" y="141157"/>
@@ -189,7 +189,7 @@
     </shape>
   </zone>
 
-  <zone id="11" name="Giran Defender Spawn" type="CastleDef">
+  <zone id="11" name="Giran Defender Spawn" type="DefenderSpawn">
     <entity castleId="3"/>
     <shape type="Rect" zMin="-2347" zMax="-2347">
       <point x="116708" y="146911"/>
@@ -234,7 +234,7 @@
     </shape>
   </zone>
 
-  <zone id="14" name="Oren HQ" type="CastleHQ">
+  <zone id="14" name="Oren HQ" type="HeadQuarters">
     <entity castleId="4"/>
     <shape type="Poly" zMin="-4278" zMax="19995">
       <point x="77973" y="33252"/>
@@ -252,7 +252,7 @@
     </shape>
   </zone>
 
-  <zone id="15" name="Oren Defender Spawn" type="CastleDef">
+  <zone id="15" name="Oren Defender Spawn" type="DefenderSpawn">
     <entity castleId="4"/>
     <shape type="Rect" zMin="-2074" zMax="-2074">
       <point x="82785" y="39001"/>
@@ -298,7 +298,7 @@
     </shape>
   </zone>
 
-  <zone id="18" name="Aden HQ" type="CastleHQ">
+  <zone id="18" name="Aden HQ" type="HeadQuarters">
     <entity castleId="5"/>
     <shape type="Poly" zMin="-1158" zMax="42">
       <point x="144365" y="9902"/>
@@ -320,7 +320,7 @@
     </shape>
   </zone>
 
-  <zone id="19" name="Aden Defender Spawn" type="CastleDef">
+  <zone id="19" name="Aden Defender Spawn" type="DefenderSpawn">
     <entity castleId="5"/>
     <shape type="Rect" zMin="155" zMax="155">
       <point x="147456" y="6048"/>
@@ -365,7 +365,7 @@
     </shape>
   </zone>
 
-  <zone id="22" name="Innadril HQ" type="CastleHQ">
+  <zone id="22" name="Innadril HQ" type="HeadQuarters">
     <entity castleId="6"/>
     <shape type="Poly" zMin="-2774" zMax="4000">
       <point x="119963" y="244504"/>
@@ -383,7 +383,7 @@
     </shape>
   </zone>
 
-  <zone id="23" name="Innadril Defender Spawn" type="CastleDef">
+  <zone id="23" name="Innadril Defender Spawn" type="DefenderSpawn">
     <entity castleId="6"/>
     <shape type="Rect" zMin="-570" zMax="-570">
       <point x="114214" y="249316"/>
@@ -441,7 +441,7 @@
     </shape>
   </zone>
 
-  <zone id="26" name="Goddard HQ" type="CastleHQ">
+  <zone id="26" name="Goddard HQ" type="HeadQuarters">
     <entity castleId="7"/>
     <shape type="Poly" zMin="-2625" zMax="1875">
       <point x="144715" y="-43884"/>
@@ -456,7 +456,7 @@
     </shape>
   </zone>
 
-  <zone id="27" name="Goddard Defender Spawn" type="CastleDef"> <!-- mass GK -->
+  <zone id="27" name="Goddard Defender Spawn" type="DefenderSpawn"> <!-- mass GK -->
     <entity castleId="7"/>
     <shape type="Rect" zMin="-961" zMax="-961">
       <point x="147617" y="-46305"/>
@@ -501,7 +501,7 @@
     </shape>
   </zone>
 
-  <zone id="30" name="Rune HQ" type="CastleHQ">
+  <zone id="30" name="Rune HQ" type="HeadQuarters">
     <entity castleId="8"/>
     <shape type="Poly" zMin="-2500" zMax="2000">
       <point x="27144" y="-47640"/>
@@ -512,7 +512,7 @@
     </shape>
   </zone>
 
-  <zone id="31" name="Rune Defender Spawn" type="CastleDef">
+  <zone id="31" name="Rune Defender Spawn" type="DefenderSpawn">
     <entity castleId="8"/>
     <shape type="Rect" zMin="-537" zMax="-537">
       <point x="11128" y="-49550"/>
@@ -542,7 +542,7 @@
     </shape>
   </zone>
 
-  <zone id="34" name="Schuttgart HQ" type="CastleHQ">
+  <zone id="34" name="Schuttgart HQ" type="HeadQuarters">
     <entity castleId="9"/>
     <shape type="Rect" zMin="-700" zMax="1750">
       <point x="73694" y="-156000"/>
@@ -550,7 +550,7 @@
     </shape>
   </zone>
 
-  <zone id="35" name="Schuttgart Defender Spawn" type="CastleDef"> <!-- throne room -->
+  <zone id="35" name="Schuttgart Defender Spawn" type="DefenderSpawn"> <!-- throne room -->
     <entity castleId="9"/>
     <shape type="Rect" zMin="-545" zMax="-545">
       <point x="77168" y="-152883"/>
@@ -567,7 +567,7 @@
   </zone>
 
 <!--
-  <zone id="37" name="Devastated Castle HQ" type="CastleHQ">
+  <zone id="37" name="Devastated Castle HQ" type="HeadQuarters">
     <shape type="Poly" zMin="-2405" zMax="595">
       <point x="176740" y="-13838"/>
       <point x="180040" y="-13838"/>

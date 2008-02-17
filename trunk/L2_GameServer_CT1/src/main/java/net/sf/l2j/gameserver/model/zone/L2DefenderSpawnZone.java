@@ -15,28 +15,32 @@
 package net.sf.l2j.gameserver.model.zone;
 
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.FortressManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 
-public class L2CastleHQZone extends L2CastleZone
+public class L2DefenderSpawnZone extends EntityZone
 {
 	@Override
 	protected void register()
 	{
-		_castle = CastleManager.getInstance().getCastleById(_castleId);
-		_castle.registerHeadquartersZone(this);
+		if (_castleId > 0)
+		{
+			_entity = CastleManager.getInstance().getCastleById(_castleId);
+		}
+		else if(_fortressId > 0)
+		{
+			_entity = FortressManager.getInstance().getFortressById(_fortressId);
+		}
+
+		_entity.registerDefenderSpawn(this);
 	}
 
+	// They just define a respawn area
 	@Override
-	protected void onEnter(L2Character character)
-	{
-		super.onEnter(character);
-	}
+	protected void onEnter(L2Character character){}
 	
 	@Override
-	protected void onExit(L2Character character)
-	{
-		super.onExit(character);
-	}
+	protected void onExit(L2Character character){}
 }

@@ -14,29 +14,19 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
-import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.model.entity.Siegeable;
 
-public class L2CastleZone extends EntityZone
+public class EntityZone extends L2DefaultZone
 {
-	@Override
-	protected void register()
-	{
-		_entity = CastleManager.getInstance().getCastleById(_castleId);
-		_entity.registerZone(this);
-	}
+	protected Siegeable _entity;
 
 	@Override
 	protected void onEnter(L2Character character)
 	{
 		super.onEnter(character);
 	}
-	
+
 	@Override
 	protected void onExit(L2Character character)
 	{

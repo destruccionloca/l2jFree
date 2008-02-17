@@ -43,10 +43,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
-import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 
-public class Castle extends Entity
+public class Castle extends Siegeable
 {
 	private FastList<CropProcure>	_procure		= new FastList<CropProcure>();
 	private FastList<SeedProduction> _production	 = new FastList<SeedProduction>();
@@ -70,7 +69,6 @@ public class Castle extends Entity
 	private FastList<L2DoorInstance> _doors		= new FastList<L2DoorInstance>();
 	private FastList<String> _doorDefault		  = new FastList<String>();
 	private int _castleId					= 0;
-	private int _ownerId					= 0;
 	private Siege _siege					= null;
 	private Calendar _siegeDate;
 	private int _siegeDayOfWeek				= 7; // Default to saturday
@@ -78,14 +76,9 @@ public class Castle extends Entity
 	private int _taxPercent					= 0;
 	private double _taxRate					= 0;
 	private int _treasury					= 0;
-	private L2Zone _zoneHQ;
-	private L2Zone _zoneBF;
-	private L2Zone _zoneDS;
 	private L2Clan _formerOwner;
 	private int _nbArtifact					= 1;
 	private Map<Integer, Integer> _engrave  = new FastMap<Integer, Integer>();
-
-	private String _name;
 
 	public Castle(int castleId)
 	{
@@ -95,21 +88,6 @@ public class Castle extends Entity
 
 		load();
 		loadDoor();
-	}
-
-	public void registerHeadquartersZone(L2Zone zone)
-	{
-		_zoneHQ = zone;
-	}
-
-	public void registerSiegeZone(L2Zone zone)
-	{
-		_zoneBF = zone;
-	}
-
-	public void registerDefenderSpawn(L2Zone zone)
-	{
-		_zoneDS = zone;
 	}
 
 	public void Engrave(L2Clan clan, int objId) 
@@ -201,44 +179,7 @@ public class Castle extends Entity
 		return true;
 	}
 
-	@Override
-	public boolean checkBanish(L2PcInstance cha)
-	{
-		return cha.getClanId() != getOwnerId();
-	}
- 
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZoneBattlefield(L2Object obj)
-	{
-		return checkIfInZoneBattlefield(obj.getX(), obj.getY(), obj.getZ());
-	}
 
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZoneBattlefield(int x, int y, int z)
-	{
-		return getBattlefield().isInsideZone(x, y, z);
-	}
-	
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZoneHeadQuarters(L2Object obj)
-	{
-		return checkIfInZoneHeadQuarters(obj.getX(), obj.getY(), obj.getZ());
-	}
-
-	/**
-	 * Return true if object is inside the zone
-	 */
-	public boolean checkIfInZoneHeadQuarters(int x, int y, int z)
-	{
-		return getHeadQuarters().isInsideZone(x, y, z);
-	}
-	
 	public void closeDoor(L2PcInstance activeChar, int doorId)
 	{
 		openCloseDoor(activeChar, doorId, false);
@@ -667,16 +608,6 @@ public class Castle extends Entity
 		return _doors;
 	}
 
-	public final String getName()
-	{
-		return _name;
-	}
-
-	public final int getOwnerId()
-	{
-		return _ownerId;
-	}
-
 	public final Siege getSiege()
 	{
 		if (_siege == null) _siege = new Siege(this);
@@ -702,21 +633,6 @@ public class Castle extends Entity
 	public final int getTreasury()
 	{
 		return _treasury;
-	}
-
-	public final L2Zone getHeadQuarters()
-	{
-		return _zoneHQ;
-	}
-	
-	public final L2Zone getBattlefield()
-	{
-		return _zoneBF;
-	}
-
-	public final L2Zone getDefenderSpawn()
-	{
-		return _zoneDS;
 	}
 
 	public FastList<SeedProduction> getSeedProduction(int period)

@@ -58,6 +58,14 @@ public class Entity
 		return 1; // Gludio
 	}
 
+	public int getFortressId()
+	{
+		if (_zone != null) return _zone.getFortressId();
+
+		_log.error(getClassName()+" has no zone defined");
+		return 0;
+	}
+
 	public boolean checkIfInZone(L2Character cha)
 	{
 		if (_zone != null) return _zone.isInsideZone(cha);
