@@ -281,6 +281,7 @@ public abstract class L2Skill
 
 	// not needed, just for easier debug
 	private final String			_name;
+
 	private final SkillOpType		_operateType;
 	private final boolean			_magic;
 	private final int				_mpConsume;
@@ -306,6 +307,9 @@ public abstract class L2Skill
 
 	private final int				_castRange;
 	private final int				_effectRange;
+
+	// Remove Skill Effect
+	private final int				_cancelEffect;
 
 	// all times in milliseconds
 	private final int				_hitTime;
@@ -440,6 +444,8 @@ public abstract class L2Skill
 		_iKill = set.getBool("iKill", false);
 		_castRange = set.getInteger("castRange", 0);
 		_effectRange = set.getInteger("effectRange", -1);
+
+		_cancelEffect = set.getInteger("cancelEffect", 0);
 
 		_killByDOT = set.getBool("killByDOT", false);
 
@@ -659,6 +665,11 @@ public abstract class L2Skill
 	public final boolean killByDOT()
 	{
 		return _killByDOT;
+	}
+
+	public final int cancelEffect()
+	{
+		return _cancelEffect;
 	}
 
 	public final boolean isSuicideAttack()

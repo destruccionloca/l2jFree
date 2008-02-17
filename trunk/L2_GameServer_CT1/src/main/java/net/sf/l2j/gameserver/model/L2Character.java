@@ -1651,16 +1651,6 @@ public abstract class L2Character extends L2Object
 		// Get all possible targets of the skill in a table in function of the skill target type
 		L2Object[] targets = skill.getTargetList(this);
 
-		if ((targets == null || targets.length == 0)  && skill.getTargetType() != SkillTargetType.TARGET_AURA)
-		{
-			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-			return;
-		}
-		else if ((targets == null || targets.length == 0)  && skill.getTargetType() == SkillTargetType.TARGET_AURA)
-		{
-			target = this;
-		}
-
 		if (FortressSiege._started
 				&& this instanceof L2PcInstance
 				&& ((L2PcInstance) this)._inEventFOS
@@ -1675,43 +1665,6 @@ public abstract class L2Character extends L2Object
 			else
 				targets = eventBlocker(targets, false); // A Filter to take out any playables not in events or vice versa.
 		}
-		if (targets == null || (targets.length == 0))
-		{
-			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-			return;
-		}
-
-		if (skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.COMBATPOINTHEAL
-				|| skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.REFLECT || skill.getSkillType() == SkillType.SEED
-				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PET
-				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN
-				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY
-				|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_RADIUS)
-		{
-			target = (L2Character) targets[0];
-		}
-		else if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET)
-		{
-			if (this instanceof L2PetInstance)
-			{
-				target = ((L2PetInstance) this).getOwner();
-			}
-		}
-		else
-		{
-			target = (L2Character) getTarget();
-
-			// Prevent usage of skills on NPCs that shouldn't allow this (teleporters, merchants, trainers, etc)
-			if ((target instanceof L2NpcInstance))
-			{
-				String mobtype = ((L2NpcInstance) target).getTemplate().getType();
-				if (!Config.LIST_ALLOWED_NPC_TYPES.contains(mobtype) && !(this instanceof L2PcInstance && ((L2PcInstance) this).checkFOS()))
-				{
-					sendMessage("You cannot use skills on this npc!");
-					return;
-				}
-			}
-		}
 
 		// AURA skills should always be using caster as target
 		switch(skill.getTargetType())
@@ -1719,8 +1672,50 @@ public abstract class L2Character extends L2Object
 			case TARGET_AURA:
 			case TARGET_FRONT_AURA:
 			case TARGET_BEHIND_AURA:
+			{
 				target = this;
 				break;
+			}
+			default:
+			{
+				if (targets == null || (targets.length == 0))
+				{
+					getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+					return;
+				}
+
+				if (skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.COMBATPOINTHEAL
+						|| skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.REFLECT || skill.getSkillType() == SkillType.SEED
+						|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PET
+						|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN
+						|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY
+						|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_RADIUS)
+				{
+					target = (L2Character) targets[0];
+				}
+				else if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET)
+				{
+					if (this instanceof L2PetInstance)
+					{
+						target = ((L2PetInstance) this).getOwner();
+					}
+				}
+				else
+				{
+					target = (L2Character) getTarget();
+
+					// Prevent usage of skills on NPCs that shouldn't allow this (teleporters, merchants, trainers, etc)
+					if ((target instanceof L2NpcInstance))
+					{
+						String mobtype = ((L2NpcInstance) target).getTemplate().getType();
+						if (!Config.LIST_ALLOWED_NPC_TYPES.contains(mobtype) && !(this instanceof L2PcInstance && ((L2PcInstance) this).checkFOS()))
+						{
+							sendMessage("You cannot use skills on this npc!");
+							return;
+						}
+					}
+				}
+			}
 		}
 
 		if (target == null)
@@ -3793,7 +3788,10 @@ public abstract class L2Character extends L2Object
 		if (effect == null)
 			stopEffects(L2Effect.EffectType.IMMOBILEUNTILATTACKED);
 		else
+		{
+			stopSkillEffects(effect.getSkill().cancelEffect());
 			removeEffect(effect);
+		}
 
 		setIsImmobileUntilAttacked(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
@@ -6923,18 +6921,18 @@ public abstract class L2Character extends L2Object
 			skill.skillEffects(this);
 
 			// Do initial checkings for skills and set pvp flag/draw aggro when needed
-			for (L2Object target : targets)
+			for (L2Object trg : targets)
 			{
-				if (target instanceof L2Character)
+				if (trg instanceof L2Character)
 				{
 					// Set some values inside target's instance for later use
-					L2Character player = (L2Character) target;
+					L2Character target = (L2Character) trg;
 
 					L2Weapon activeWeapon = getActiveWeaponItem();
 					// Launch weapon Special ability skill effect if available
-					if (activeWeapon != null && !((L2Character) target).isDead())
+					if (activeWeapon != null && !target.isDead())
 					{
-						if (activeWeapon.getSkillEffects(this, player, skill).length > 0 && this instanceof L2PcInstance)
+						if (activeWeapon.getSkillEffects(this, target, skill).length > 0 && this instanceof L2PcInstance)
 						{
 							sendMessage("Target affected by weapon special ability!");
 						}
@@ -6943,9 +6941,9 @@ public abstract class L2Character extends L2Object
 					L2PcInstance activeChar = null;
 
 					if (this instanceof L2PcInstance)
-						activeChar = (L2PcInstance) this;
+						activeChar = (L2PcInstance)this;
 					else if (this instanceof L2Summon)
-						activeChar = ((L2Summon) this).getOwner();
+						activeChar = ((L2Summon)this).getOwner();
 					else if (this instanceof L2Trap)
 						activeChar = ((L2Trap)this).getOwner();
 
@@ -6954,39 +6952,48 @@ public abstract class L2Character extends L2Object
 					{
 						if (skill.isOffensive() && skill != null)
 						{
-							if (player instanceof L2PcInstance || player instanceof L2Summon || player instanceof L2Trap)
+							if (target instanceof L2PcInstance || target instanceof L2Summon || target instanceof L2Trap)
 							{
-								player.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
-								if (player instanceof L2Summon)
-									activeChar.updatePvPStatus(((L2Summon) player).getOwner());
+								target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
+
+								if (target instanceof L2Summon)
+								{
+									activeChar.updatePvPStatus(((L2Summon)target).getOwner());
+								}
+								else if (target instanceof L2Trap)
+								{
+									activeChar.updatePvPStatus(((L2Trap)target).getOwner());
+								}
 								else
 								{
-									activeChar.updatePvPStatus(player);
+									activeChar.updatePvPStatus(target);
 								}
 							}
-							else if (player instanceof L2Attackable)
+							else if (target instanceof L2Attackable)
 							{
 								// notify the AI that she is attacked
-								player.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
+								target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 							}
 						}
 						else
 						{
-							if (player instanceof L2PcInstance)
+							if (target instanceof L2PcInstance)
 							{
 								// Casting non offensive skill on player with pvp flag set or with karma
-								if (!player.equals(this) && (((L2PcInstance) player).getPvpFlag() > 0 || ((L2PcInstance) player).getKarma() > 0))
+								if (!target.equals(this) && (((L2PcInstance)target).getPvpFlag() > 0 || ((L2PcInstance)target).getKarma() > 0))
 									activeChar.updatePvPStatus();
 							}
-							else if (player instanceof L2Attackable && !(skill.getSkillType() == L2Skill.SkillType.SUMMON)
-									&& !(skill.getSkillType() == L2Skill.SkillType.BEAST_FEED) && !(skill.getSkillType() == L2Skill.SkillType.UNLOCK)
+							else if (target instanceof L2Attackable
+									&& !(skill.getSkillType() == L2Skill.SkillType.SUMMON)
+									&& !(skill.getSkillType() == L2Skill.SkillType.BEAST_FEED)
+									&& !(skill.getSkillType() == L2Skill.SkillType.UNLOCK)
 									&& !(skill.getSkillType() == L2Skill.SkillType.DELUXE_KEY_UNLOCK))
 								activeChar.updatePvPStatus();
 						}
 					}
 
 					if (skill != null && skill.isOffensive())
-						player.checkRemovalOnHit();
+						target.checkRemovalOnHit();
 				}
 			}
 
