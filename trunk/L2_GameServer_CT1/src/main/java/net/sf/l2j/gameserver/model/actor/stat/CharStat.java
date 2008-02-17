@@ -178,13 +178,13 @@ public class CharStat
         if (_activeChar == null)
             return 1;
 
-		int criticalHit = (int) calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, skill);
-		
-		// Set a cap of Critical Hit at ALT_CRITICAL_CAP
-		if(criticalHit > Config.ALT_CRITICAL_CAP)
-			criticalHit = Config.ALT_CRITICAL_CAP;
-		
-		return criticalHit;
+        int criticalHit = (int) calcStat(Stats.CRITICAL_RATE, _activeChar.getTemplate().getBaseCritRate(), target, skill);
+
+        // Set a cap of Critical Hit at ALT_PCRITICAL_CAP
+        if(criticalHit > Config.ALT_PCRITICAL_CAP)
+            criticalHit = Config.ALT_PCRITICAL_CAP;
+
+        return criticalHit;
     }
 
     /** Return the DEX of the L2Character (base+modifier). */
@@ -384,6 +384,11 @@ public class CharStat
             return 1;
 
         double mrate = calcStat(Stats.MCRITICAL_RATE, _activeChar.getTemplate().getBaseMCritRate(), target, skill);
+
+        // Set a cap of Critical Hit at ALT_MCRITICAL_CAP
+        if(mrate > Config.ALT_MCRITICAL_CAP)
+            mrate = Config.ALT_MCRITICAL_CAP;
+
         return (int) mrate;
     }
 

@@ -436,7 +436,7 @@
     </shape>
   </zone>
 
-  <zone id="14" name="Giran Castle Town">
+  <zone id="14" name="Giran Castle Town" type="Town">
     <!--<settings pvp="Peace"/> Overriden -->
     <entity townId="8" castleId="3"/>
     <shape type="Poly" zMin="-3464" zMax="-3264">
@@ -566,7 +566,7 @@
     </shape>
   </zone>
 
-  <zone id="16" name="Hardin\'s Academy">
+  <zone id="16" name="Hardin's Academy">
     <settings pvp="Peace"/>
     <shape type="Poly" zMin="-3434" zMax="-2934">
       <point x="106216" y="112467"/>
