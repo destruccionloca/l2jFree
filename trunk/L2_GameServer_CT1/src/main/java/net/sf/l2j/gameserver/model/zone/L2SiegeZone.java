@@ -84,4 +84,41 @@ public class L2SiegeZone extends EntityZone
 
 		super.onExit(character);
 	}
+
+	public void updateSiegeStatus()
+	{
+		if (_entity instanceof Castle)
+		{
+			if (((Castle)_entity).getSiege().getIsInProgress())
+			{
+				for (L2Character character : _characterList.values())
+				{
+					try
+					{
+						onEnter(character);
+					}
+					catch(Exception e){}
+				}
+			}
+			else
+			{
+				for (L2Character character : _characterList.values())
+				{
+					try
+					{
+						character.setInsideZone(FLAG_PVP, false);
+						character.setInsideZone(FLAG_SIEGE, false);
+
+						if (character instanceof L2PcInstance)
+							((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+						if (character instanceof L2SiegeSummonInstance)
+						{
+							((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
+						}
+					}
+					catch(Exception e){}
+				}
+			}
+		}
+	}
 }

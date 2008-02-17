@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
+import net.sf.l2j.gameserver.model.zone.L2SiegeZone;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.RelationChanged;
@@ -278,6 +279,7 @@ public class Siege
             teleportPlayer(Siege.TeleportWhoType.Spectator, TeleportWhereType.Town); // Teleport to the second closest town
             _isInProgress = false; // Flag so that siege instance can be started
             updatePlayerSiegeStateFlags(true);
+            getZone().updateSiegeStatus();
             saveCastleSiege(); // Save castle specific data
             clearSiegeClan(); // Clear siege clan from db
             removeArtifact(); // Remove artifact from this castle
@@ -433,6 +435,8 @@ public class Siege
             spawnSiegeGuard(); // Spawn siege guard
             MercTicketManager.getInstance().deleteTickets(getCastle().getCastleId()); // remove the tickets from the ground
             _defenderRespawnDelayPenalty = 0; // Reset respawn delay
+
+            getZone().updateSiegeStatus();
 
             // Schedule a task to prepare auto siege end
             _siegeEndDate = Calendar.getInstance();
@@ -1434,8 +1438,8 @@ public class Siege
         return _siegeGuardManager;
     }
 
-    public final L2Zone getZone()
+    public final L2SiegeZone getZone()
     {
-        return getCastle().getBattlefield();
+        return (L2SiegeZone)getCastle().getBattlefield();
     }
 }
