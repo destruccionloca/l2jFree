@@ -38,56 +38,57 @@ public class TradeDone extends L2GameClientPacket
 
 	private int _response;
 	
-    @Override
-    protected void readImpl()
-    {
-        _response = readD();
-    }
-
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-        L2PcInstance player = getClient().getActiveChar();
-        if (player == null) return;
+		_response = readD();
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null) return;
 		
-        if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
-        		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
-        {
+		if (Config.SAFE_REBOOT && Config.SAFE_REBOOT_DISABLE_TRANSACTION && Shutdown.getCounterInstance() != null 
+				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
+		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.cancelActiveTrade();
 			sendPacket(new ActionFailed());
 			return;
-        }
+		}
 		
-        TradeList trade = player.getActiveTradeList();
-        if (trade == null && _log.isDebugEnabled())
-        {
-            _log.warn("player.getTradeList == null in "+getType()+" for player "+player.getName());
+		TradeList trade = player.getActiveTradeList();
+		if (trade == null)
+		{
+			if(_log.isDebugEnabled())
+				_log.warn("player.getTradeList == null in "+getType()+" for player "+player.getName());
 			return;
-        }
-        if (trade.isLocked()) return;
+		}
+		if (trade.isLocked()) return;
 
 		if (_response == 1)
 		{
-	        if (trade.getPartner() == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null)
-	        {
-	            // Trade partner not found, cancel trade
-	            player.cancelActiveTrade();
-	            SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
-	            player.sendPacket(msg);
-	            msg = null;
-	            return;
-	        }
+			if (trade.getPartner() == null || L2World.getInstance().findObject(trade.getPartner().getObjectId()) == null)
+			{
+				// Trade partner not found, cancel trade
+				player.cancelActiveTrade();
+				SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
+				player.sendPacket(msg);
+				msg = null;
+				return;
+			}
 
-	        if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
-	            && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
-	        {
-	            player.sendMessage("Transactions are disable for your Access Level");
-	            player.cancelActiveTrade();
-	            sendPacket(new ActionFailed());
-	            return;
-	        }
-	        trade.confirm();
+			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
+				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
+			{
+				player.sendMessage("Transactions are disabled for your access level.");
+				player.cancelActiveTrade();
+				sendPacket(new ActionFailed());
+				return;
+			}
+			trade.confirm();
 		}
 		else player.cancelActiveTrade();
 	}
