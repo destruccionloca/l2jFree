@@ -664,12 +664,7 @@ public class L2CharacterAI extends AbstractAI
     protected void onEvtArrived()
     {
         // Launch an explore task if necessary
-        if (_accessor.getActor() instanceof L2PcInstance)
-        {
-            ((L2PcInstance) _accessor.getActor()).revalidateZone(true);
-        }
-        else
-            _accessor.getActor().revalidateZone();
+        _accessor.getActor().revalidateZone(true);
 
         if (_accessor.getActor().moveToNextRoutePoint())
         {

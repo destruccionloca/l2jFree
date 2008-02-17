@@ -196,6 +196,8 @@ public abstract class L2Character extends L2Object
 	/** FastMap(Integer, L2Skill) containing all skills of the L2Character */
 	protected Map<Integer, L2Skill>	_skills;
 
+	protected byte _zoneValidateCounter = 4;
+
 	// =========================================================
 	// Constructor
 	/**
@@ -303,7 +305,8 @@ public abstract class L2Character extends L2Object
 	public void onSpawn()
 	{
 		super.onSpawn();
-		this.revalidateZone();
+		// Force a revalidation
+		revalidateZone(true);
 	}
 
 	public void onTeleported()
@@ -4928,10 +4931,7 @@ public abstract class L2Character extends L2Object
 		else
 		{
 			super.getPosition().setXYZ(m._xMoveFrom + (int) (elapsed * m._xSpeedTicks), m._yMoveFrom + (int) (elapsed * m._ySpeedTicks), super.getZ());
-			if (this instanceof L2PcInstance)
-				((L2PcInstance) this).revalidateZone(false);
-			else
-				revalidateZone();
+			revalidateZone(false);
 		}
 
 		// Set the timer of last position update to now
@@ -4940,8 +4940,18 @@ public abstract class L2Character extends L2Object
 		return false;
 	}
 
-	public void revalidateZone()
+	public void revalidateZone(boolean force)
 	{
+		// This function is called very often from movement code
+		if (force) _zoneValidateCounter = 4;
+		else 
+		{
+			_zoneValidateCounter--;
+			if (_zoneValidateCounter < 0)
+				_zoneValidateCounter = 4;
+			else return;
+		}
+
 		if (getWorldRegion() == null) return;
 		getWorldRegion().revalidateZones(this);
 	}
@@ -4979,8 +4989,7 @@ public abstract class L2Character extends L2Object
 		{
 			getPosition().setXYZ(pos.x, pos.y, pos.z);
 			setHeading(pos.heading);
-			if (this instanceof L2PcInstance)
-				((L2PcInstance) this).revalidateZone(true);
+			revalidateZone(true);
 		}
 		sendPacket(new StopMove(this));
 		if (updateKnownObjects)

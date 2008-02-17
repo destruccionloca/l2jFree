@@ -407,7 +407,6 @@ public final class L2PcInstance extends L2PlayableInstance
     private byte _siegeState = 0;
 
     private int _lastCompassZone; // the last compass zone update send to the client
-    private byte _zoneValidateCounter = 4;
     
     private boolean _isIn7sDungeon = false;
     
@@ -1584,6 +1583,7 @@ public final class L2PcInstance extends L2PlayableInstance
         return _pvpFlag;
     }
 
+    @Override
     public void revalidateZone(boolean force)
     {
         // This function is called very often from movement code
@@ -9789,9 +9789,6 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         super.onTeleported();
         ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(this));
-
-        // Force a revalidation
-        revalidateZone(true);
 
         if (Config.PLAYER_SPAWN_PROTECTION > 0)
             setProtection(true);

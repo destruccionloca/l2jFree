@@ -82,7 +82,7 @@
     </shape>
   </zone>
 
-  <zone id="5" name="Olympiad Stadium" type="Stadium" type="Arena">
+  <zone id="5" name="Coliseum" type="Arena">
     <settings pvp="Arena"/>
     <restart_owner x="147451" y="46728" z="-3410"/>
     <shape type="Poly" zMin="-3498" zMax="-3298">
@@ -113,7 +113,7 @@
     </shape>
   </zone>
 
-  <zone id="6" name="Olympiad Stadium" type="Stadium">
+  <zone id="6" name="Coliseum">
     <settings pvp="Peace"/>
     <shape type="Poly" zMin="-3468" zMax="-3268">
       <point x="147779" y="46196"/>
