@@ -248,6 +248,17 @@ public class UseItem extends L2GameClientPacket
 			if (activeChar.isDisarmed())
 				return;
 			
+			if (item.isArmor() && !item.getArmorItem().allowEquip(activeChar.getRace().ordinal(), activeChar.getClassId().getId(), activeChar.getAppearance().getSex()))
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+				return;
+			}
+			else if (item.isWeapon() && !item.getWeaponItem().allowEquip(activeChar.getRace().ordinal(), activeChar.getClassId().getId(), activeChar.getAppearance().getSex()))
+			{
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+				return;
+			}
+			
 			if (activeChar.isKamaelic())
 			{
 				if (item.getItemType() == L2ArmorType.HEAVY && !Config.KAMAEL_CAN_USE_HEAVY)

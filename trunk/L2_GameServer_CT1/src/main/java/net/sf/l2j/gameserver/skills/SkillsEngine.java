@@ -83,7 +83,7 @@ public class SkillsEngine {
 	{
 		if (file == null)
 		{
-			_log.info("File not found: " + file.getName());
+			_log.info("Skill file not found (NULL passed)");
 			return null;
 		}
 		DocumentSkill doc = new DocumentSkill(file);

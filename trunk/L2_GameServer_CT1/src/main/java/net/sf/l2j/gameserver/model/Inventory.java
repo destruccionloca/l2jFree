@@ -222,7 +222,7 @@ public abstract class Inventory extends ItemContainer
 			else
 				return;
 			
-			L2Skill passiveSkill = null;
+			FastList<L2Skill> passiveSkills = null;
 			L2Skill enchant4Skill = null;
 			
 			L2Item it = item.getItem();
@@ -233,22 +233,16 @@ public abstract class Inventory extends ItemContainer
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().removeBonus((L2PcInstance)getOwner());
 
-				passiveSkill = ((L2Weapon) it).getSkill();
+				passiveSkills = ((L2Weapon) it).getSkills();
 				enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
-				if (it.getItemId() == 9140 || it.getItemId() == 9141)
-				{
-					player.removeSkill(SkillTable.getInstance().getInfo(3260, 1), false);
-					player.removeSkill(SkillTable.getInstance().getInfo(3261, 1), false);
-					player.removeSkill(SkillTable.getInstance().getInfo(3262, 1), false);
-					player.sendSkillList();
-				}
 			}
 			else if (it instanceof L2Armor)
-				passiveSkill = ((L2Armor) it).getSkill();
+				passiveSkills = ((L2Armor) it).getSkills();
 			
-			if (passiveSkill != null)
+			if (passiveSkills != null)
 			{
-				player.removeSkill(passiveSkill, false);
+				for (L2Skill itemSkill : passiveSkills)
+					player.removeSkill(itemSkill, false);
 				player.sendSkillList();
 			}
 			if (enchant4Skill != null)
@@ -269,7 +263,7 @@ public abstract class Inventory extends ItemContainer
 			else
 				return;
 			
-			L2Skill passiveSkill = null;
+			FastList<L2Skill> passiveSkills = null;
 			L2Skill enchant4Skill = null;
 			
 			L2Item it = item.getItem();
@@ -280,25 +274,18 @@ public abstract class Inventory extends ItemContainer
 				if (item.isAugmented() && getOwner() instanceof L2PcInstance)
 					item.getAugmentation().applyBonus((L2PcInstance)getOwner());
 
-				passiveSkill = ((L2Weapon) it).getSkill();
+				passiveSkills = ((L2Weapon) it).getSkills();
 				
 				if (item.getEnchantLevel() >= 4)
 					enchant4Skill = ((L2Weapon) it).getEnchant4Skill();
-				
-				if (it.getItemId() == 9140 || it.getItemId() == 9141)
-				{
-					player.addSkill(SkillTable.getInstance().getInfo(3260, 1), false);
-					player.addSkill(SkillTable.getInstance().getInfo(3261, 1), false);
-					player.addSkill(SkillTable.getInstance().getInfo(3262, 1), false);
-					player.sendSkillList();
-				}
 			}
 			else if (it instanceof L2Armor)
-				passiveSkill = ((L2Armor) it).getSkill();
+				passiveSkills = ((L2Armor) it).getSkills();
 			
-			if (passiveSkill != null)
+			if (passiveSkills != null)
 			{
-				player.addSkill(passiveSkill, false);
+				for (L2Skill itemSkill : passiveSkills)
+					player.addSkill(itemSkill, false);
 				player.sendSkillList();
 			}
 			if (enchant4Skill != null)

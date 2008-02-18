@@ -1913,22 +1913,23 @@ public class AdminSmartShop implements IAdminCommandHandler
 					message += "<br1>" + e.getSkill().getName() + "(" + e.getSkill().getId() + ") Level: " + e.getSkill().getLevel();
 				}
 			}
-			L2Skill moreSkill = null;
+			FastList<L2Skill> moreSkills = null;
 			L2Skill enchantSkill = null;
 			if (item instanceof net.sf.l2j.gameserver.templates.L2Weapon)
 			{
-				moreSkill = ((net.sf.l2j.gameserver.templates.L2Weapon)item).getSkill();
+				moreSkills = ((net.sf.l2j.gameserver.templates.L2Weapon)item).getSkills();
 				enchantSkill = ((net.sf.l2j.gameserver.templates.L2Weapon)item).getEnchant4Skill();
 			}
 			else if (item instanceof net.sf.l2j.gameserver.templates.L2Armor)
 			{
-				moreSkill = ((net.sf.l2j.gameserver.templates.L2Armor)item).getSkill();
+				moreSkills = ((net.sf.l2j.gameserver.templates.L2Armor)item).getSkills();
 			}
 			
-			if (moreSkill != null)
+			if (moreSkills != null)
 			{
-				message += "<br1><font color=\"00FF00\">Instance Skill:</font>";
-				message += "<br1>" + moreSkill.getName() + "(" + moreSkill.getId() + ") Level: " + moreSkill.getLevel();
+				message += "<br1><font color=\"00FF00\">Instance Skill(s):</font>";
+				for (L2Skill itemSkill : moreSkills)
+					message += "<br1>" + itemSkill.getName() + "(" + itemSkill.getId() + ") Level: " + itemSkill.getLevel();
 			}
 			if (enchantSkill != null)
 			{

@@ -37,8 +37,17 @@ public final class L2Armor extends L2Item
 	private final int _mDef;
 	private final int _mpBonus;
 	private final int _hpBonus;
+	private String _races;
+	private String _classes;
+	private String _sIds;
+	private String _sLvls;
+	private final int _sex;
+	private FastList<Integer> _racesAllowed = null;
+	private FastList<Integer> _classesAllowed = null;
+	private FastList<Integer> _sId = null;
+	private FastList<Integer> _sLvl = null;
     
-    private  L2Skill _itemSkill = null; // for passive skill
+	private FastList<L2Skill> _itemSkills = null;
 	
     /**
      * Constructor for Armor.<BR><BR>
@@ -46,8 +55,10 @@ public final class L2Armor extends L2Item
      * <LI>_avoidModifier</LI>
      * <LI>_pDef & _mDef</LI>
      * <LI>_mpBonus & _hpBonus</LI>
+     * <LI>_races & _classes & _sex</LI>
+     * <LI>_sIds & _sLvls</LI>
      * @param type : L2ArmorType designating the type of armor
-     * @param set : StatsSet designating the set of couples (key,value) caracterizing the armor
+     * @param set : StatsSet designating the set of couples (key,value) characterizing the armor
      * @see L2Item constructor
      */
 	public L2Armor(L2ArmorType type, StatsSet set)
@@ -58,11 +69,78 @@ public final class L2Armor extends L2Item
 		_mDef          = set.getInteger("m_def");
 		_mpBonus       = set.getInteger("mp_bonus", 0);
 		_hpBonus       = set.getInteger("hp_bonus", 0);
-       
-		int sId = set.getInteger("item_skill_id");
-		int sLv = set.getInteger("item_skill_lvl");
-		if(sId > 0 && sLv > 0)
-		    _itemSkill = SkillTable.getInstance().getInfo(sId,sLv);
+		_races         = set.getString("races");
+		_classes       = set.getString("classes");
+		_sex           = set.getInteger("sex");
+		_sIds          = set.getString("item_skill_id");
+		_sLvls         = set.getString("item_skill_lvl");
+		
+		if (_races.length()>0)
+		{
+			try
+			{
+				int _checker = Integer.parseInt(_races);
+				if (_checker != -1) { _racesAllowed = new FastList<Integer>(); _racesAllowed.add(_checker); }
+			}
+			catch (Throwable t)
+			{
+				_racesAllowed = new FastList<Integer>();
+		        for (String id : _races.split(",")) 
+		        	_racesAllowed.add(Integer.parseInt(id));
+			}
+		}
+		if (_classes.length()>0)
+		{
+			try
+			{
+				int _checker = Integer.parseInt(_classes);
+				if (_checker != -1) { _classesAllowed = new FastList<Integer>(); _classesAllowed.add(_checker); }
+			}
+			catch (Throwable t)
+			{
+				_classesAllowed = new FastList<Integer>();
+				for (String id : _classes.split(",")) 
+	                _classesAllowed.add(Integer.parseInt(id));
+			}
+		}
+		if (_sIds.length()>0 && _sLvls.length()>0)
+		{
+			try
+			{
+				int _checker = Integer.parseInt(_sIds);
+				if (_checker > 0) { _sId = new FastList<Integer>(); _sId.add(_checker); }
+			}
+			catch (Throwable t)
+			{
+				_sId = new FastList<Integer>();
+				for (String id : _sIds.split(",")) 
+	                _sId.add(Integer.parseInt(id));
+			}
+			try
+			{
+				int _checker = Integer.parseInt(_sLvls);
+				if (_checker > 0) { _sLvl = new FastList<Integer>(); _sLvl.add(_checker); }
+			}
+			catch (Throwable t)
+			{
+				_sLvl = new FastList<Integer>();
+				for (String id : _sLvls.split(",")) 
+	                _sLvl.add(Integer.parseInt(id));
+			}
+		}
+		
+		if (_sId != null && _sLvl != null)
+		{
+			_itemSkills = new FastList<L2Skill>();
+			for (int i = 0; i < _sId.size(); i++)
+				if (_sId.get(i) > 0 && _sLvl.get(i) > 0) // Some people might try to experiment with negative skills lol
+					if (SkillTable.getInstance().getInfo(_sId.get(i),_sLvl.get(i)) != null)
+						_itemSkills.add(SkillTable.getInstance().getInfo(_sId.get(i),_sLvl.get(i)));
+					else System.out.println("Adding: id "+String.valueOf(_sId.get(i))+" lvl "+String.valueOf(_sLvl.get(i))+"skill is NULL");
+				else System.out.println("Adding: id "+String.valueOf(_sId.get(i))+" lvl "+String.valueOf(_sLvl.get(i))+"skill id/level value is NEGATIVE");
+		}
+		_sId = null; _sLvl = null; //not needed any longer
+		if (_itemSkills.size() < 1) _itemSkills = null; //if negative/wrong skill id(s)/level(s)
 	}
 	
 	/**
@@ -129,12 +207,12 @@ public final class L2Armor extends L2Item
 	}
 
     /** 
-     * Returns passive skill linked to that armor
+     * Returns passive skills linked to that armor
      * @return
      */
-    public L2Skill getSkill()
+    public FastList<L2Skill> getSkills()
     {
-        return _itemSkill;
+        return _itemSkills;
     }
 
 	/**
@@ -158,5 +236,39 @@ public final class L2Armor extends L2Item
     		}
     	}
     	return funcs.toArray(new Func[funcs.size()]);
+    }
+	
+	/** 
+     * Returns true if player can equip the item
+     * @param raceId: player's race
+     * @param classId: player's class
+     * @param isFemale: player's sex
+     * @return boolean: ability to equip
+     */
+    public boolean allowEquip(int raceId, int classId, boolean isFemale)
+    {
+    	return allowEquipForRace(raceId) && allowEquipForClass(classId) && allowEquipForSex(isFemale);
+    }
+    
+    public boolean allowEquipForRace(int raceId)
+    {
+    	if (_racesAllowed == null) return true;
+    	else if (_racesAllowed.contains(raceId)) return true;
+    	return false;
+    }
+    
+    public boolean allowEquipForClass(int classId)
+    {
+    	if (_classesAllowed == null) return true;
+    	else if (_classesAllowed.contains(classId)) return true;
+    	return false;
+    }
+    
+    public boolean allowEquipForSex(boolean isFemale)
+    {
+    	int serial;
+    	if (isFemale) serial = 1; else serial = 0;
+    	if (_sex == -1) return true;
+    	else return (serial == _sex);
     }
 }

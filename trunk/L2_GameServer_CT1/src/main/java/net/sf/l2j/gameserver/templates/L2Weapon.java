@@ -54,8 +54,17 @@ public final class L2Weapon  extends L2Item
 	private final int _atkReuse;
 	private final int _mpConsume;
 	private final int _mDam;
-
-    private L2Skill _itemSkill = null;     // for passive skill
+	private String _races;
+	private String _classes;
+	private String _sIds;
+	private String _sLvls;
+	private final int _sex;
+	private FastList<Integer> _racesAllowed = null;
+	private FastList<Integer> _classesAllowed = null;
+	private FastList<Integer> _sId = null;
+	private FastList<Integer> _sLvl = null;
+    
+	private FastList<L2Skill> _itemSkills = null;
     private L2Skill _enchant4Skill = null; // skill that activates when item is enchanted +4 (for duals)
     private final int _changeWeaponId;
 
@@ -74,8 +83,10 @@ public final class L2Weapon  extends L2Item
      * <LI>_shieldDes & _shieldDefRate</LI>
      * <LI>_atkSpeed & _AtkReuse</LI>
      * <LI>_mpConsume</LI>
+     * <LI>_races & _classes & _sex</LI>
+     * <LI>_sIds & _sLvls</LI>
      * @param type : L2ArmorType designating the type of armor
-     * @param set : StatsSet designating the set of couples (key,value) caracterizing the armor
+     * @param set : StatsSet designating the set of couples (key,value) characterizing the weapon
      * @see L2Item constructor
      */
 	public L2Weapon(L2WeaponType type, StatsSet set)
@@ -94,14 +105,81 @@ public final class L2Weapon  extends L2Item
 		_atkReuse		= set.getInteger("atk_reuse", initAtkReuse(type));
 		_mpConsume       = set.getInteger("mp_consume");
 		_mDam            = set.getInteger("m_dam");
+		_races         = set.getString("races");
+		_classes       = set.getString("classes");
+		_sex           = set.getInteger("sex");
+		_sIds          = set.getString("item_skill_id");
+		_sLvls         = set.getString("item_skill_lvl");
+		
+		if (_races.length()>0)
+		{
+			try
+			{
+				int _checker = Integer.parseInt(_races);
+				if (_checker != -1) { _racesAllowed = new FastList<Integer>(); _racesAllowed.add(_checker); }
+			}
+			catch (Throwable t)
+			{
+				_racesAllowed = new FastList<Integer>();
+		        for (String id : _races.split(",")) 
+		        	_racesAllowed.add(Integer.parseInt(id));
+			}
+		}
+		if (_classes.length()>0)
+		{
+			try
+			{
+				int _checker = Integer.parseInt(_classes);
+				if (_checker != -1) { _classesAllowed = new FastList<Integer>(); _classesAllowed.add(_checker); }
+			}
+			catch (Throwable t)
+			{
+				_classesAllowed = new FastList<Integer>();
+				for (String id : _classes.split(",")) 
+	                _classesAllowed.add(Integer.parseInt(id));
+			}
+		}
+		if (_sIds.length()>0 && _sLvls.length()>0)
+		{
+			try
+			{
+				int _checker = Integer.parseInt(_sIds);
+				if (_checker > 0) { _sId = new FastList<Integer>(); _sId.add(_checker); }
+			}
+			catch (Throwable t)
+			{
+				_sId = new FastList<Integer>();
+				for (String id : _sIds.split(",")) 
+	                _sId.add(Integer.parseInt(id));
+			}
+			try
+			{
+				int _checker = Integer.parseInt(_sLvls);
+				if (_checker > 0) { _sLvl = new FastList<Integer>(); _sLvl.add(_checker); }
+			}
+			catch (Throwable t)
+			{
+				_sLvl = new FastList<Integer>();
+				for (String id : _sLvls.split(",")) 
+	                _sLvl.add(Integer.parseInt(id));
+			}
+		}
+		
+		if (_sId != null && _sLvl != null)
+		{
+			_itemSkills = new FastList<L2Skill>();
+			for (int i = 0; i < _sId.size(); i++)
+				if (_sId.get(i) > 0 && _sLvl.get(i) > 0) // Some people might try to experiment with negative skills lol
+					if (SkillTable.getInstance().getInfo(_sId.get(i),_sLvl.get(i)) != null)
+						_itemSkills.add(SkillTable.getInstance().getInfo(_sId.get(i),_sLvl.get(i)));
+					else System.out.println("Adding: id "+String.valueOf(_sId.get(i))+" lvl "+String.valueOf(_sLvl.get(i))+"skill is NULL");
+				else System.out.println("Adding: id "+String.valueOf(_sId.get(i))+" lvl "+String.valueOf(_sLvl.get(i))+"skill id/level value is NEGATIVE");
+		}
+		_sId = null; _sLvl = null; //not needed any longer
+		if (_itemSkills.size() < 1) _itemSkills = null; //if negative/wrong skill id(s)/level(s)
        
-		int sId = set.getInteger("item_skill_id");
-		int sLv = set.getInteger("item_skill_lvl");
-		if(sId > 0 && sLv > 0)
-		    _itemSkill = SkillTable.getInstance().getInfo(sId,sLv);
-       
-		sId = set.getInteger("enchant4_skill_id");
-		sLv = set.getInteger("enchant4_skill_lvl");
+		int sId = set.getInteger("enchant4_skill_id");
+		int sLv = set.getInteger("enchant4_skill_lvl");
 		if(sId > 0 && sLv > 0)
 		    _enchant4Skill = SkillTable.getInstance().getInfo(sId, sLv);
        
@@ -287,9 +365,9 @@ public final class L2Weapon  extends L2Item
      * Returns passive skill linked to that weapon
      * @return
      */
-	public L2Skill getSkill()
+	public FastList<L2Skill> getSkills()
 	{
-	    return _itemSkill;
+	    return _itemSkills;
 	}
     /**
      * Returns skill that player get when has equiped weapon +4  or more  (for duals SA)
@@ -468,5 +546,39 @@ public final class L2Weapon  extends L2Item
             tmp[len] = skill;
             _skillsOnCast = tmp;
         }
+    }
+    
+    /** 
+     * Returns true if player can equip the item
+     * @param raceId: player's race
+     * @param classId: player's class
+     * @param isFemale: player's sex
+     * @return boolean: ability to equip
+     */
+    public boolean allowEquip(int raceId, int classId, boolean isFemale)
+    {
+    	return allowEquipForRace(raceId) && allowEquipForClass(classId) && allowEquipForSex(isFemale);
+    }
+    
+    public boolean allowEquipForRace(int raceId)
+    {
+    	if (_racesAllowed == null) return true;
+    	else if (_racesAllowed.contains(raceId)) return true;
+    	return false;
+    }
+    
+    public boolean allowEquipForClass(int classId)
+    {
+    	if (_classesAllowed == null) return true;
+    	else if (_classesAllowed.contains(classId)) return true;
+    	return false;
+    }
+    
+    public boolean allowEquipForSex(boolean isFemale)
+    {
+    	int serial;
+    	if (isFemale) serial = 1; else serial = 0;
+    	if (_sex == -1) return true;
+    	else return (serial == _sex);
     }
 }

@@ -172,12 +172,14 @@ public class ItemTable implements ItemTableMBean
         
         "SELECT item_id, name, bodypart, crystallizable, armor_type, weight," +
         " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," +
-        " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM armor",
+        " price, crystal_count, sellable, dropable, destroyable, tradeable," +
+        "item_skill_id, item_skill_lvl, races, classes, sex FROM armor",
         
         "SELECT item_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
            " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
            " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
-           " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
+           " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl, races, classes," +
+           " sex, enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
            " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance, change_weaponId FROM weapon"
     };
     
@@ -187,12 +189,14 @@ public class ItemTable implements ItemTableMBean
         
         "SELECT item_id, item_display_id, name, bodypart, crystallizable, armor_type, weight," +
         " material, crystal_type, avoid_modify, duration, p_def, m_def, mp_bonus," +
-        " price, crystal_count, sellable, dropable, destroyable, tradeable, item_skill_id, item_skill_lvl FROM custom_armor",
+        " price, crystal_count, sellable, dropable, destroyable, tradeable," +
+        "item_skill_id, item_skill_lvl, races, classes, sex FROM custom_armor",
         
         "SELECT item_id, item_display_id, name, bodypart, crystallizable, weight, soulshots, spiritshots," +
            " material, crystal_type, p_dam, rnd_dam, weaponType, critical, hit_modify, avoid_modify," +
            " shield_def, shield_def_rate, atk_speed, mp_consume, m_dam, duration, price, crystal_count," +
-           " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl,enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
+           " sellable,  dropable, destroyable, tradeable, item_skill_id, item_skill_lvl, races, classes," +
+           " sex, enchant4_skill_id,enchant4_skill_lvl, onCast_skill_id, onCast_skill_lvl," +
            " onCast_skill_chance, onCrit_skill_id, onCrit_skill_lvl, onCrit_skill_chance, change_weaponId FROM custom_weapon"
     };
     
@@ -387,9 +391,12 @@ public class ItemTable implements ItemTableMBean
         item.set.set("destroyable",    	Boolean.valueOf(rset.getString("destroyable")));
         item.set.set("tradeable",       Boolean.valueOf(rset.getString("tradeable")));
         
+        item.set.set("races", rset.getString("races"));
+        item.set.set("classes", rset.getString("classes"));
+        item.set.set("sex", rset.getInt("sex"));
 
-        item.set.set("item_skill_id", 	rset.getInt("item_skill_id"));
-        item.set.set("item_skill_lvl", 	rset.getInt("item_skill_lvl"));
+        item.set.set("item_skill_id",  rset.getString("item_skill_id"));
+        item.set.set("item_skill_lvl", rset.getString("item_skill_lvl"));
         
         item.set.set("enchant4_skill_id", rset.getInt("enchant4_skill_id"));
         item.set.set("enchant4_skill_lvl", rset.getInt("enchant4_skill_lvl"));
@@ -448,8 +455,12 @@ public class ItemTable implements ItemTableMBean
         item.set.set("destroyable",       Boolean.valueOf(rset.getString("destroyable")));
         item.set.set("tradeable",       Boolean.valueOf(rset.getString("tradeable")));
         
-        item.set.set("item_skill_id", rset.getInt("item_skill_id"));
-        item.set.set("item_skill_lvl", rset.getInt("item_skill_lvl"));
+        item.set.set("item_skill_id", rset.getString("item_skill_id"));
+        item.set.set("item_skill_lvl", rset.getString("item_skill_lvl"));
+        
+        item.set.set("races", rset.getString("races"));
+        item.set.set("classes", rset.getString("classes"));
+        item.set.set("sex", rset.getInt("sex"));
 
         if (bodypart == L2Item.SLOT_NECK ||
             bodypart == L2Item.SLOT_HAIR ||

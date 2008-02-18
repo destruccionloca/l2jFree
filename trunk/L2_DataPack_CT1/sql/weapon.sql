@@ -1650,3 +1650,17 @@ INSERT INTO `weapon` VALUES
 (10253, 'Dynasty Crusher', 'rhand', 'true', 1740, 1, 1, 'steel', 's80', 307, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 140, -1, 0, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (10277, 'Monster Only (Behamah Pole)', 'rhand', 'true', 2140, 2, 2, 'steel', 'none', 24, 10, 'sword', 8, -3.00000, 0, 0, 0, 325, 0, 17, -1, 0, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (10278, 'Monster Only (Behamah Dual)', 'rhand', 'true', 2530, 2, 2, 'steel', 'd', 73, 10, 'sword', 8, 0.00000, 0, 0, 0, 325, 0, 37, -1, 0, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+--
+-- L2J-Free Add-ons
+--
+
+-- Multiple skills and race/sex/class restriction
+
+ALTER TABLE `weapon` ADD `races` VARCHAR(20) NOT NULL DEFAULT '-1';
+ALTER TABLE `weapon` ADD `classes` VARCHAR(255) NOT NULL DEFAULT '-1';
+ALTER TABLE `weapon` ADD `sex` INT (1) NOT NULL DEFAULT -1;
+
+ALTER TABLE `weapon`
+CHANGE `item_skill_id` `item_skill_id` VARCHAR(60) NOT NULL DEFAULT '0',
+CHANGE `item_skill_lvl` `item_skill_lvl` VARCHAR(30) NOT NULL DEFAULT '0';
