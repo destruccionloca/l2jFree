@@ -4,10 +4,10 @@
 CREATE TABLE IF NOT EXISTS `gm_audit` (
   `id` INT(10) NOT NULL AUTO_INCREMENT,
   `gm_name` varchar(45),
-  `target` varchar(45),
+  `target` varchar(255),
   `type` varchar(20),
-  `action` varchar(200),
-  `param` varchar(200),
+  `action` varchar(255),
+  `param` varchar(255),
   `date` date,
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
