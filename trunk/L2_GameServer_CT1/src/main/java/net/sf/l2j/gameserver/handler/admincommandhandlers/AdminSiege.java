@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
+import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
@@ -174,7 +175,10 @@ public class AdminSiege implements IAdminCommandHandler
 				L2Zone zone = clanhall.getZone();
 				if (zone != null)
 				{
-					activeChar.teleToLocation(zone.getRandomLocation(), false); 
+					Location loc = zone.getRestartPoint(L2Zone.RestartType.OWNER);
+					if (loc == null)
+						loc = zone.getRandomLocation();
+					activeChar.teleToLocation(loc, false); 
 				}
 			}
 			else if (command.equalsIgnoreCase("admin_spawn_doors"))

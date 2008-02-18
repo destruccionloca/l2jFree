@@ -176,7 +176,7 @@ public final class L2Weapon  extends L2Item
 				else System.out.println("Adding: id "+String.valueOf(_sId.get(i))+" lvl "+String.valueOf(_sLvl.get(i))+"skill id/level value is NEGATIVE");
 		}
 		_sId = null; _sLvl = null; //not needed any longer
-		if (_itemSkills.size() < 1) _itemSkills = null; //if negative/wrong skill id(s)/level(s)
+		if (_itemSkills != null && _itemSkills.size() < 1) _itemSkills = null; //if negative/wrong skill id(s)/level(s)
        
 		int sId = set.getInteger("enchant4_skill_id");
 		int sLv = set.getInteger("enchant4_skill_lvl");

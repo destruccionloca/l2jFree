@@ -13,7 +13,7 @@
     </shape>
   </zone>
 
-  <zone id="2" name="Gludio 1" type="Clanhall">
+  <zone id="2" name="Gludio Moonstone Hall" type="Clanhall">
     <entity castleId="1" clanhallId="22"/>
     <restart_owner x="-16029" y="123642" z="-3101"/>
 
@@ -25,7 +25,7 @@
     </shape>
   </zone>
 
-  <zone id="3" name="Gludio 2" type="Clanhall">
+  <zone id="3" name="Gludio Onyx Hall" type="Clanhall">
     <entity castleId="1" clanhallId="23"/>
     <restart_owner x="-14848" y="125552" z="-3128"/>
 
@@ -37,7 +37,7 @@
     </shape>
   </zone>
 
-  <zone id="4" name="Gludio 3" type="Clanhall">
+  <zone id="4" name="Gludio Topaz Hall" type="Clanhall">
     <entity castleId="1" clanhallId="24"/>
     <restart_owner x="-13879" y="125413" z="-3128"/>
 
@@ -49,7 +49,7 @@
     </shape>
   </zone>
 
-  <zone id="5" name="Gludio 4" type="Clanhall">
+  <zone id="5" name="Gludio Ruby Hall" type="Clanhall">
     <entity castleId="1" clanhallId="25"/>
     <restart_owner x="-12710" y="124029" z="-3096"/>
 
@@ -61,7 +61,7 @@
     </shape>
   </zone>
 
-  <zone id="6" name="Gludin 1" type="Clanhall">
+  <zone id="6" name="Gludin Crystal Hall" type="Clanhall">
     <entity castleId="1" clanhallId="26"/>
     <restart_owner x="-84416" y="152192" z="-3123"/>
 
@@ -77,7 +77,7 @@
     </shape>
   </zone>
 
-  <zone id="7" name="Gludin 2" type="Clanhall">
+  <zone id="7" name="Gludin Onyx Hall" type="Clanhall">
     <entity castleId="1" clanhallId="27"/>
     <restart_owner x="-84171" y="153385" z="-3159"/>
 
@@ -91,7 +91,7 @@
     </shape>
   </zone>
 
-  <zone id="8" name="Gludin 3" type="Clanhall">
+  <zone id="8" name="Gludin Sapphire Hall" type="Clanhall">
     <entity castleId="1" clanhallId="28"/>
     <restart_owner x="-84236" y="155520" z="-3160"/>
 
@@ -107,7 +107,7 @@
     </shape>
   </zone>
 
-  <zone id="9" name="Gludin 4" type="Clanhall">
+  <zone id="9" name="Gludin Moonstone Hall" type="Clanhall">
     <entity castleId="1" clanhallId="29"/>
     <restart_owner x="-79544" y="150181" z="-3038"/>
 
@@ -123,7 +123,7 @@
     </shape>
   </zone>
 
-  <zone id="10" name="Gludin 5" type="Clanhall">
+  <zone id="10" name="Gludin Emerald Hall" type="Clanhall">
     <entity castleId="1" clanhallId="30"/>
     <restart_owner x="-79513" y="151506" z="-3041"/>
 
@@ -139,7 +139,7 @@
     </shape>
   </zone>
 
-  <zone id="11" name="Dion 1" type="Clanhall">
+  <zone id="11" name="Dion Atramental Barracks Hall" type="Clanhall">
     <entity castleId="2" clanhallId="31"/>
     <restart_owner x="17760" y="145200" z="-3036"/>
 
@@ -151,7 +151,7 @@
     </shape>
   </zone>
 
-  <zone id="12" name="Dion 2" type="Clanhall">
+  <zone id="12" name="Dion Scarlet Barracks Hall" type="Clanhall">
     <entity castleId="2" clanhallId="32"/>
     <restart_owner x="18800" y="143248" z="-3010"/>
 
@@ -163,7 +163,7 @@
     </shape>
   </zone>
 
-  <zone id="13" name="Dion 3" type="Clanhall">
+  <zone id="13" name="Dion Viridian Barracks Hall" type="Clanhall">
     <entity castleId="2" clanhallId="33"/>
     <restart_owner x="20096" y="146064" z="-3111"/>
 
@@ -175,7 +175,7 @@
     </shape>
   </zone>
 
-  <zone id="14" name="devastated_castle" type="Clanhall"><!-- Not Done -->
+  <zone id="14" name="Devastated Castle" type="Clanhall"><!-- Not Done -->
     <entity castleId="-1" clanhallId="34"/>
     <restart x="146494" y="30584" z="-2420"/>
     <restart x="146038" y="30519" z="-2420"/>
@@ -258,7 +258,7 @@
     </shape>
   </zone>
 
-  <zone id="16" name="Aden 1" type="Clanhall">
+  <zone id="16" name="Aden The Golden Chamber Hall" type="Clanhall">
     <entity castleId="5" clanhallId="36"/>
     <restart_owner x="149134" y="23140" z="-2160"/>
 
@@ -270,7 +270,7 @@
     </shape>
   </zone>
 
-  <zone id="17" name="Aden 2" type="Clanhall">
+  <zone id="17" name="Aden The Silver Chamber Hall" type="Clanhall">
     <entity castleId="5" clanhallId="37"/>
     <restart_owner x="150644" y="23653" z="-2150"/>
 
@@ -282,7 +282,7 @@
     </shape>
   </zone>
 
-  <zone id="18" name="Aden 3" type="Clanhall">
+  <zone id="18" name="Aden The Mithril Chamber Hall" type="Clanhall">
     <entity castleId="5" clanhallId="38"/>
     <restart_owner x="145667" y="25356" z="-2150"/>
 
@@ -294,7 +294,7 @@
     </shape>
   </zone>
 
-  <zone id="19" name="Aden 4" type="Clanhall">
+  <zone id="19" name="Aden Silver Manor Hall" type="Clanhall">
     <entity castleId="5" clanhallId="39"/>
     <restart_owner x="150748" y="26540" z="-2280"/>
 
@@ -306,7 +306,7 @@
     </shape>
   </zone>
 
-  <zone id="20" name="Aden 5" type="Clanhall">
+  <zone id="20" name="Aden Golden Manor Hall" type="Clanhall">
     <entity castleId="5" clanhallId="40"/>
     <restart_owner x="143992" y="27092" z="-2290"/>
 
@@ -318,7 +318,7 @@
     </shape>
   </zone>
 
-  <zone id="21" name="Aden 6" type="Clanhall">
+  <zone id="21" name="Aden The Bronze Chamber Hall" type="Clanhall">
     <entity castleId="5" clanhallId="41"/>
     <restart_owner x="144014" y="28202" z="-2280"/>
 
@@ -330,7 +330,7 @@
     </shape>
   </zone>
 
-  <zone id="22" name="Giran 1" type="Clanhall">
+  <zone id="22" name="Giran The Golden Chamber Hall" type="Clanhall">
     <entity castleId="3" clanhallId="42"/>
     <restart_owner x="78592" y="148080" z="-3581"/>
 
@@ -342,7 +342,7 @@
     </shape>
   </zone>
 
-  <zone id="23" name="Giran 2" type="Clanhall">
+  <zone id="23" name="Giran The Silver Chamber Hall" type="Clanhall">
     <entity castleId="3" clanhallId="43"/>
     <restart_owner x="82032" y="145328" z="-3520"/>
 
@@ -354,7 +354,7 @@
     </shape>
   </zone>
 
-  <zone id="24" name="Giran 3" type="Clanhall">
+  <zone id="24" name="Giran The Mithril Chamber Hall" type="Clanhall">
     <entity castleId="3" clanhallId="44"/>
     <restart_owner x="83392" y="145328" z="-3389"/>
 
@@ -366,7 +366,7 @@
     </shape>
   </zone>
 
-  <zone id="25" name="Giran 4" type="Clanhall">
+  <zone id="25" name="Giran The Bronze Chamber Hall" type="Clanhall">
     <entity castleId="3" clanhallId="45"/>
     <restart_owner x="80960" y="151600" z="-3517"/>
 
@@ -378,7 +378,7 @@
     </shape>
   </zone>
 
-  <zone id="26" name="Giran 5" type="Clanhall">
+  <zone id="26" name="Giran Silver Manor Hall" type="Clanhall">
     <entity castleId="3" clanhallId="46"/>
     <restart_owner x="82064" y="151904" z="-3520"/>
 
