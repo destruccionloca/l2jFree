@@ -2039,7 +2039,7 @@ public class L2NpcInstance extends L2Character
     public void makeCPRecovery(L2PcInstance player)
     {
         if (getNpcId() != 31225 && getNpcId() != 31226) return;
-        if (player.isCursedWeaponEquipped())
+        if (!cwCheck(player))
         {
            player.sendMessage("Go away, you're not welcome here.");
            return;
@@ -2072,7 +2072,7 @@ public class L2NpcInstance extends L2Character
     public void makeSupportMagic(L2PcInstance player)
     {
         // Prevent a cursed weapon weilder of being buffed
-        if (player.isCursedWeaponEquipped())
+        if (!cwCheck(player))
            return;
 
         int _newbieBuffsId = BuffTemplateTable.getInstance().getTemplateIdByName("SupportMagic");
@@ -2142,7 +2142,7 @@ public class L2NpcInstance extends L2Character
      */
     public void showChatWindow(L2PcInstance player, int val)
     {
-        if(player.isCursedWeaponEquipped() && !( player.getTarget() instanceof L2ClanHallManagerInstance
+        if(!cwCheck(player) && !( player.getTarget() instanceof L2ClanHallManagerInstance
                                             || player.getTarget() instanceof L2DoormenInstance))
         {
             player.setTarget(player);
@@ -2718,5 +2718,12 @@ public class L2NpcInstance extends L2Character
     public void setUnTargetable(boolean value)
     {
     	_unTargetable = value;
+    }
+    private boolean cwCheck(L2PcInstance player)
+    {
+    	if(Config.CURSED_WEAPON_NPC_INTERACT || !player.isCursedWeaponEquipped())
+    		return true;
+    	else
+    		return false;
     }
 }

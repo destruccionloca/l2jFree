@@ -114,8 +114,8 @@ import net.sf.l2j.tools.versionning.service.VersionningService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.mmocore.network.SelectorServerConfig;
 import org.mmocore.network.SelectorThread;
+import org.mmocore.network.SelectorConfig;
 
 public class GameServer
 {
@@ -304,11 +304,13 @@ public class GameServer
 		_loginThread = LoginServerThread.getInstance();
 		_loginThread.start();
 		
-		SelectorServerConfig ssc = new SelectorServerConfig(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
 		L2GamePacketHandler gph = new L2GamePacketHandler();
-		_selectorThread = new SelectorThread<L2GameClient>(ssc, gph, gph, gph);
-		_selectorThread.openServerSocket();
-		_selectorThread.start();
+		SelectorConfig<L2GameClient> sc = new SelectorConfig<L2GameClient>(null, null, gph, gph);
+		sc.setMaxSendPerPass(12);
+		sc.setSelectorSleepTime(20);
+		_selectorThread = new SelectorThread<L2GameClient>(sc, gph, gph, null);
+		_selectorThread.openServerSocket(InetAddress.getByName(Config.GAMESERVER_HOSTNAME), Config.PORT_GAME);
+		_selectorThread.start(); 
 		
 		if (Config.IRC_ENABLED)
 			IrcManager.getInstance().getConnection().sendChan("GameServer Started");

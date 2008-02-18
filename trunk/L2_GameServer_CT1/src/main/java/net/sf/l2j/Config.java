@@ -673,6 +673,7 @@ public final class Config
 																										// after hitting an innocent
 	public static int				PVP_PVP_TIME;														// Duration (in ms) while a player stay in PVP mode
 																										// after hitting a purple player
+	public static boolean			CURSED_WEAPON_NPC_INTERACT;
 	
 	// *******************************************************************************************
 	public static void loadPvpConfig()
@@ -717,6 +718,8 @@ public final class Config
 			PVP_NORMAL_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsNormalTime", "15000"));
 			PVP_PVP_TIME = Integer.parseInt(pvpSettings.getProperty("PvPVsPvPTime", "30000"));
 			PVP_TIME = PVP_NORMAL_TIME;
+			CURSED_WEAPON_NPC_INTERACT = Boolean.parseBoolean(pvpSettings.getProperty("CursedWeaponNpcInteract", "false"));
+			
 		}
 		catch (Exception e)
 		{

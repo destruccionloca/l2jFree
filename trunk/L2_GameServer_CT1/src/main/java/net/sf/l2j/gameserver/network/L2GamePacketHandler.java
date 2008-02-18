@@ -15,8 +15,10 @@
 package net.sf.l2j.gameserver.network;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
 import java.util.concurrent.RejectedExecutionException;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
 import net.sf.l2j.gameserver.network.clientpackets.*;
@@ -24,11 +26,13 @@ import net.sf.l2j.tools.util.Util;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.mmocore.network.HeaderInfo;
 import org.mmocore.network.IClientFactory;
 import org.mmocore.network.IMMOExecutor;
 import org.mmocore.network.IPacketHandler;
 import org.mmocore.network.MMOConnection;
 import org.mmocore.network.ReceivablePacket;
+import org.mmocore.network.TCPHeaderHandler;
 
 /**
  * Stateful Packet Handler<BR>
@@ -39,16 +43,27 @@ import org.mmocore.network.ReceivablePacket;
  * Note: If for a given exception a packet needs to be handled on more then one state, then it should be added to all these states.
  * @author  KenM
  */
-public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>, IMMOExecutor<L2GameClient>
+public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> implements IPacketHandler<L2GameClient>, IClientFactory<L2GameClient>,
+		IMMOExecutor<L2GameClient>
 {
+	/**
+	* @param subHeaderHandler
+	*/
+	public L2GamePacketHandler()
+	{
+		super(null);
+	}
+
 	private static final Log	_log	= LogFactory.getLog(L2GamePacketHandler.class.getName());
 
+	// implementation
 	public ReceivablePacket<L2GameClient> handlePacket(ByteBuffer buf, L2GameClient client)
 	{
 		int opcode = buf.get() & 0xFF;
 
 		ReceivablePacket<L2GameClient> msg = null;
 		GameClientState state = client.getState();
+
 		switch (state)
 		{
 		case CONNECTED:
@@ -71,7 +86,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 		case AUTHED:
 			switch (opcode)
 			{
-			case 0:
+			case 0x00:
 				msg = new Logout();
 				break;
 			case 0x0c:
@@ -93,10 +108,10 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 				msg = new CharacterRestore();
 				break;
 			case 0xd0:
-				int idx = -1;
+				int id2 = -1;
 				if (buf.remaining() >= 2)
 				{
-					idx = buf.getShort() & 0xffff;
+					id2 = buf.getShort() & 0xffff;
 				}
 				else
 				{
@@ -104,17 +119,19 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					break;
 				}
 
-				switch (idx)
+				// single packet
+				if (id2 == 0x39)
 				{
-				case 0x39:
 					msg = new CharacterPrevState();
-					break;
-				default:
-					printDebugDoubleOpcode(opcode, idx, buf, state, client);
 				}
+				else
+				{
+					this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
+				}
+
 				break;
 			default:
-				printDebug(opcode, buf, state, client);
+				this.printDebug(opcode, buf, state, client);
 				break;
 			}
 			break;
@@ -140,7 +157,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 				msg = new RequestReplyStopPledgeWar();
 				break;
 			case 0x07:
-				msg = new GameGuardReply();
+				msg = new RequestSurrenderPledgeWar();
 				break;
 			case 0x08:
 				msg = new RequestReplySurrenderPledgeWar();
@@ -163,7 +180,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 				msg = new RequestItemList();
 				break;
 			case 0x16:
-				msg = new RequestUnEquipItem();
+				msg = new RequestUnEquipItem(); // confirm
 				break;
 			case 0x17:
 				msg = new RequestDropItem();
@@ -216,12 +233,12 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0x30: // t1 ??
 				msg = new RequestPrivateStoreManageSell();
 				break;
-			case 0x31:
+			case 0x31: // t1 ??
 				msg = new SetPrivateStoreListSell();
 				break;
-			//case 0x32:
-			//msg = new RequestPrivateStoreManageCancel(data, _client);
-			//break;
+			//                  case 0x32:
+			//                      msg = new RequestPrivateStoreManageCancel(data, _client);
+			//                      break;
 			case 0x34:
 				msg = new RequestSocialAction();
 				break;
@@ -234,17 +251,15 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0x37:
 				msg = new RequestSellItem();
 				break;
-			case 0x38:
-				msg = new RequestMagicSkillList();
-				break;
 			case 0x39:
 				msg = new RequestMagicSkillUse();
 				break;
 			case 0x3a:
-				msg = new Appearing();
+				msg = new Appearing(); //  (after death)
 				break;
 			case 0x3b:
-				msg = new SendWareHouseDepositList();
+				if (Config.ALLOW_WAREHOUSE)
+					msg = new SendWareHouseDepositList();
 				break;
 			case 0x3c:
 				msg = new SendWareHouseWithDrawList();
@@ -255,7 +270,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0x3f:
 				msg = new RequestShortCutDel();
 				break;
-			case 0x40:
+			case 0x40: // t1 ??
 				msg = new RequestBuyItem();
 				break;
 			case 0x42:
@@ -289,7 +304,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 				msg = new DummyPacket();
 				break;
 			case 0x50:
-				msg = new RequestMagicSkillList();
+				msg = new RequestSkillList();
 				break;
 			case 0x52:
 				msg = new MoveWithDelta();
@@ -312,14 +327,18 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0x58:
 				msg = new RequestSiegeInfo();
 				break;
-			case 0x59:
+			case 0x59: // t1 ??
 				msg = new ValidatePosition();
 				break;
+			//					case 0x5a:
+			//						// RequestSEKCustom
+			//						break;
+			//						THESE ARE NOW TEMPORARY DISABLED
 			case 0x5b:
-				msg = new StartRotating();
+				//new StartRotating();
 				break;
 			case 0x5c:
-				msg = new FinishRotating();
+				//new FinishRotating();
 				break;
 			case 0x5e:
 				msg = new RequestShowBoard();
@@ -345,35 +364,11 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0x67:
 				msg = new RequestPledgeCrest();
 				break;
-			case 0x6b:
-				msg = new RequestSendFriendMsg();
-				break;
-			case 0x6c:
-				msg = new RequestOpenMinimap();
-				break;
-			case 0x6d: // MSN dialogs so that you dont see them in the console.
-				break;
-			case 0x6e:
-				msg = new RequestRecordInfo();
-				break;
 			case 0x6f:
 				msg = new RequestHennaEquip();
 				break;
-			/*
-				                case 112:
-				                    msg = new RequestHennaUnequipList();
-				                    break;
-
-				                case 113:
-				                    msg = new RequestHennaUnequipItemInfo();
-				                    break;
-
-				                case 114:
-				                    msg = new RequestHennaUnEquip();
-				                    break;
-			*/
-			case 0x73:
-				msg = new RequestAquireSkillInfo();
+			case 0x73: // send when talking to trainer npc, to show list of available skills
+				msg = new RequestAquireSkillInfo();//  --> [s] 0xa4;
 				break;
 			case 0x74:
 				msg = new SendBypassBuildCmd();
@@ -382,7 +377,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 				msg = new RequestMoveToLocationInVehicle();
 				break;
 			case 0x76:
-				msg = new CannotMoveAnymoreInVehicle(); // ?
+				msg = new CannotMoveAnymoreInVehicle();
 				break;
 			case 0x77:
 				msg = new RequestFriendInvite();
@@ -396,7 +391,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0x7a:
 				msg = new RequestFriendDel();
 				break;
-			case 0x7c:
+			case 0x7c: // send when a skill to be learned is selected
 				msg = new RequestAquireSkill();
 				break;
 			case 0x7d:
@@ -414,9 +409,9 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0x81:
 				msg = new RequestPartyMatchDetail();
 				break;
-			//case 0x82:
-			// RequestPrivateStoreList
-			//break;
+			//                      case 0x82:
+			//                      // RequestPrivateStoreList
+			//                      break;
 			case 0x83:
 				msg = new RequestPrivateStoreBuy();
 				break;
@@ -486,17 +481,44 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0x9a:
 				msg = new SetPrivateStoreListBuy();
 				break;
+			//					case 0x92:
+			//						// RequestPrivateStoreBuyManageCancel
+			//						break;
 			case 0x9c:
 				msg = new RequestPrivateStoreQuitBuy();
 				break;
 			case 0x9d:
 				msg = new SetPrivateStoreMsgBuy();
 				break;
+			//					case 0x95:
+			//						// RequestPrivateStoreBuyList
+			//						break;
 			case 0x9f:
 				msg = new RequestPrivateStoreSell();
 				break;
+			//					case 0x97:
+			//						// SendTimeCheckPacket
+			//						break;
+			//					case 0x98:
+			//						// RequestStartAllianceWar
+			//						break;
+			//					case 0x99:
+			//						// ReplyStartAllianceWar
+			//						break;
+			//					case 0x9a:
+			//						// RequestStopAllianceWar
+			//						break;
+			//					case 0x9b:
+			//		 				// ReplyStopAllianceWar
+			//						break;
+			//					case 0x9c:
+			//						// RequestSurrenderAllianceWar
+			//						break;
 			case 0xa6:
-				msg = new RequestSkillCoolTime();
+				// RequestSkillCoolTime
+				/*if (Config.DEBUG)
+					_log.info("Request Skill Cool Time .. ignored");
+				msg = null;*/
 				break;
 			case 0xa7:
 				msg = new RequestPackageSendableItemList();
@@ -522,19 +544,22 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0xae:
 				msg = new RequestConfirmSiegeWaitingList();
 				break;
+			//					case 0xaf:
+			//						// RequestSetCastleSiegeTime
+			//						break;
 			case 0xb0:
 				msg = new MultiSellChoose();
 				break;
-			case 0xb2:
-				msg = new RequestRemainTime();
-				break;
+			//					case 0xb1:
+			//						// NetPing
+			//						break;
 			case 0xb3:
 				msg = new RequestUserCommand();
 				break;
 			case 0xb4:
 				msg = new SnoopQuit();
 				break;
-			case 0xb5:
+			case 0xb5: // we still need this packet to handle BACK button of craft dialog
 				msg = new RequestRecipeBookOpen();
 				break;
 			case 0xb6:
@@ -546,6 +571,9 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0xb8:
 				msg = new RequestRecipeItemMakeSelf();
 				break;
+			//case 0xb9:
+			//	msg = new RequestRecipeShopManageList(data, client);
+			//    break;
 			case 0xba:
 				msg = new RequestRecipeShopMessageSet();
 				break;
@@ -576,6 +604,20 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0xc4:
 				msg = new RequestHennaItemInfo();
 				break;
+			case 0xcc:
+				// Clan Privileges
+				msg = new RequestPledgePower();
+				break;
+			case 0xcd:
+				msg = new RequestMakeMacro();
+				break;
+			case 0xce:
+				msg = new RequestDeleteMacro();
+				break;
+			// Manor
+			case 0xcf:
+				msg = new RequestBuyProcure();
+				break;
 			case 0xc5:
 				msg = new RequestBuySeed();
 				break;
@@ -591,18 +633,18 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			case 0xcb:
 				msg = new GameGuardReply();
 				break;
-			case 0xcc:
-				msg = new RequestPledgePower();
+			case 0x6b:
+				msg = new RequestSendFriendMsg();
 				break;
-			case 0xcd:
-				msg = new RequestMakeMacro();
+			case 0x6c:
+				msg = new RequestShowMiniMap();
 				break;
-			case 0xce:
-				msg = new RequestDeleteMacro();
+			case 0x6d: // MSN dialogs so that you dont see them in the console.
 				break;
-			case 0xcf:
-				msg = new RequestBuyProcure();
+			case 0x6e: //record video
+				msg = new RequestRecordInfo();
 				break;
+
 			case 0xd0:
 				int id2 = -1;
 				if (buf.remaining() >= 2)
@@ -614,6 +656,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					_log.warn("Client: " + client.toString() + " sent a 0xd0 without the second opcode.");
 					break;
 				}
+
 				switch (id2)
 				{
 				case 0x01:
@@ -704,7 +747,7 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					msg = new RequestKeyMapping();
 					break;
 				case 0x22:
-					msg = new RequestSaveKeyMapping();
+					// TODO implement me (just disabling warnings for this packet)
 					break;
 				case 0x24:
 					msg = new RequestSaveInventoryOrder();
@@ -760,9 +803,6 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 				case 0x36:
 					msg = new ExGetOnAirShip();
 					break;
-				//case 0x38:
-				//msg = new RequestEnchantItemAttribute();
-				//break;
 				case 0x3f:
 					msg = new RequestAllCastleInfo();
 					break;
@@ -797,13 +837,15 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 					msg = new RequestExEnchantSkillInfoDetail();
 					break;
 				default:
-					printDebugDoubleOpcode(opcode, id2, buf, state, client);
+					this.printDebugDoubleOpcode(opcode, id2, buf, state, client);
 					break;
 				}
 				break;
-
+			/*case 0xee:
+				msg = new RequestChangePartyLeader(data, _client);
+				break;*/
 			default:
-				printDebug(opcode, buf, state, client);
+				this.printDebug(opcode, buf, state, client);
 				break;
 			}
 			break;
@@ -856,6 +898,26 @@ public final class L2GamePacketHandler implements IPacketHandler<L2GameClient>, 
 			{
 				_log.fatal("Failed executing: " + rp.getClass().getSimpleName() + " for Client: " + rp.getClient().toString());
 			}
+		}
+	}
+
+	/**
+	 * @see org.mmocore.network.TCPHeaderHandler#handleHeader(java.nio.channels.SelectionKey, java.nio.ByteBuffer)
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public HeaderInfo handleHeader(SelectionKey key, ByteBuffer buf)
+	{
+		if (buf.remaining() >= 2)
+		{
+			int dataPending = (buf.getShort() & 0xffff) - 2;
+			L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient();
+			return this.getHeaderInfoReturn().set(0, dataPending, false, client);
+		}
+		else
+		{
+			L2GameClient client = ((MMOConnection<L2GameClient>) key.attachment()).getClient();
+			return this.getHeaderInfoReturn().set(2 - buf.remaining(), 0, false, client);
 		}
 	}
 }

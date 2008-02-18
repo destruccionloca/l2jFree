@@ -11,7 +11,7 @@ CLASSPATH=${CLASSPATH}:jmxremote_optional-1.0.1_03-b57.jar
 CLASSPATH=${CLASSPATH}:jmxri-1.2.1-b14.jar
 CLASSPATH=${CLASSPATH}:jmxtools-1.2.8.jar
 
-CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.6.jar
+CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.7.jar
 
 CLASSPATH=${CLASSPATH}:bsf-2.0.jar
 CLASSPATH=${CLASSPATH}:bsh-2.0b4.jar
