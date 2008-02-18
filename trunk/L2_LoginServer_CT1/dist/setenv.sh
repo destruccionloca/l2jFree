@@ -9,7 +9,7 @@ CLASSPATH=${CLASSPATH}:commons-collections-2.1.1.jar
 # for second level cache (hibernate)
 CLASSPATH=${CLASSPATH}:ehcache-1.2.3.jar
 
-CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.6.jar
+CLASSPATH=${CLASSPATH}:l2j-mmocore-1.0.7.jar
 
 # for bean use
 CLASSPATH=${CLASSPATH}:commons-beanutils-1.7.0.jar

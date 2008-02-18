@@ -21,6 +21,7 @@ import net.sf.l2j.loginserver.L2LoginClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.mmocore.network.ReceivablePacket;
 
 /**
@@ -29,8 +30,8 @@ import org.mmocore.network.ReceivablePacket;
  */
 public abstract class L2LoginClientPacket extends ReceivablePacket<L2LoginClient>
 {
-	private static Log	_log	= LogFactory.getLog(L2LoginClientPacket.class.getName());
-
+	private static Log _log = LogFactory.getLog(L2LoginClientPacket.class.getName());
+	
 	/**
 	 * @see com.l2jserver.mmocore.network.ReceivablePacket#read()
 	 */
@@ -43,10 +44,10 @@ public abstract class L2LoginClientPacket extends ReceivablePacket<L2LoginClient
 		}
 		catch (Exception e)
 		{
-			_log.fatal("ERROR READING: " + this.getClass().getSimpleName(), e);
+			_log.fatal("ERROR READING: "+this.getClass().getSimpleName(),e);
 			return false;
 		}
 	}
-
+	
 	protected abstract boolean readImpl();
 }
