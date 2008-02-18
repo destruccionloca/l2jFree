@@ -257,7 +257,13 @@ public class MapRegionManager
     public L2MapRegionRestart getRestartLocation(L2PcInstance activeChar)
     {
         L2MapRegion region = getRegion(activeChar);
-        
+
+        // Temporary fix for new hunting grounds
+        if (region == null)
+        {
+            return _mapRegionRestart.get(Config.ALT_DEFAULT_RESTARTTOWN);
+        }
+
         int restartId = region.getRestartId(activeChar.getRace());
         
         return _mapRegionRestart.get(restartId);

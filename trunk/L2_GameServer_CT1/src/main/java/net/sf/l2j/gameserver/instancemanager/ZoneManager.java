@@ -139,10 +139,10 @@ public class ZoneManager
 								if (zone.intersectsRectangle(ax, bx, ay, by))
 								{
 									worldRegions[x][y].addZone(zone);
-									zoneCount++;
 								}
 							}
 						}
+						zoneCount++;
 					}
 				}
 			}
