@@ -45,6 +45,7 @@ public class ClanHall extends Entity
     private List<String> _doorDefault;
     private String _name;
     private int _ownerId;
+    private L2Clan _ownerClan;
     private int _lease;
     private String _desc;
     private String _location;
@@ -113,7 +114,7 @@ public class ClanHall extends Entity
                 {
                     if(_isFree)
                         return;
-                    if(ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= _fee)
+                    if(getOwnerClan().getWarehouse().getAdena() >= _fee)
                     {
                         int fee = _fee;
                         boolean newfc = true;
@@ -129,7 +130,7 @@ public class ClanHall extends Entity
                             newfc = false;
                         setEndTime(System.currentTimeMillis()+getRate());
                         dbSave(newfc);
-                        ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_function_fee", 57, fee, null, null);
+                        getOwnerClan().getWarehouse().destroyItemByItemId("CH_function_fee", 57, fee, null, null);
                         if (_log.isDebugEnabled())
                             _log.warn("deducted "+fee+" adena from "+getName()+" owner's cwh for function id : "+getType());
                         ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(), getRate());
@@ -433,7 +434,7 @@ public class ClanHall extends Entity
             _log.warn("Called ClanHall.updateFunctions(int type, int lvl, int lease, long rate, boolean addNew) Owner : "+getOwnerId());
         if (addNew)
         {
-            if (ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() < lease)
+            if (getOwnerClan().getWarehouse().getAdena() < lease)
                 return false;
             _functions.put(type,new ClanHallFunction(type, lvl, lease,0, rate, 0));
         }
@@ -448,7 +449,7 @@ public class ClanHall extends Entity
                     _log.warn("Called ClanHall.updateFunctions diffLease : "+diffLease);
                 if(diffLease>0)
                 {
-                    if (ClanTable.getInstance().getClan(_ownerId).getWarehouse().getAdena() < diffLease)
+                    if (getOwnerClan().getWarehouse().getAdena() < diffLease)
                         return false;
                     _functions.remove(type);
                     _functions.put(type,new ClanHallFunction(type, lvl, lease,diffLease, rate, -1));
@@ -519,14 +520,14 @@ public class ClanHall extends Entity
             {
                 if(_isFree)
                     return;
-                L2Clan Clan = ClanTable.getInstance().getClan(getOwnerId());
-                if (ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().getAdena() >= getLease())
+                L2Clan Clan = getOwnerClan();
+                if (getOwnerClan().getWarehouse().getAdena() >= getLease())
                 {
                     if(_paidUntil != 0)
                         while(_paidUntil<System.currentTimeMillis())_paidUntil += _chRate;
                     else
                         _paidUntil = System.currentTimeMillis()+_chRate;
-                    ClanTable.getInstance().getClan(getOwnerId()).getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
+                    getOwnerClan().getWarehouse().destroyItemByItemId("CH_rental_fee", 57, getLease(), null, null);
                     if (_log.isDebugEnabled())
                         _log.warn("deducted "+getLease()+" adena from "+getName()+" owner's cwh for ClanHall _paidUntil"+_paidUntil);
                     ThreadPoolManager.getInstance().scheduleGeneral(new FeeTask(), _paidUntil-System.currentTimeMillis());
@@ -562,5 +563,12 @@ public class ClanHall extends Entity
             }
             catch (Throwable t){}
         }
+    }
+
+    public L2Clan getOwnerClan()
+    {
+        if (_ownerClan == null)
+            _ownerClan = ClanTable.getInstance().getClan(getOwnerId());
+        return _ownerClan;
     }
 }
