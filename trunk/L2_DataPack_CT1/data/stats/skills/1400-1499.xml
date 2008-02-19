@@ -763,24 +763,24 @@
       Lvl 4 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
       Lvl 5 - Meditate to increase MP regeneration.  Your body is immobilized and your P. Def. decreased while meditating. The effect is cancelled if you are attacked.
 -->
-  <table name="#pDef"> 0.8 0.8 0.8 0.8 0.8 </table>
-  <table name="#mhot"> 90 110 130 150 170 </table>
   <table name="#mpConsume"> 27 28 30 33 34 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="0.0"/>
+  <table name="#power"> 56 60 64 68 72 </table>
+  <table name="#regmp"> 5 6 8 11 12 </table>
+  <set name="power" val="#power"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="hitTime" val="1000"/>
-  <set name="reuseDelay" val="1200000"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="900000"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="buffDuration" val="25000"/>
+  <set name="isMagic" val="false"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
-  <set name="cancelEffect" val="1430"/>
+  <set name="aggroPoints" val="666"/>
   <for>
-    <effect count="10" name="ManaHealOverTime" time="3" val="#mhot"/>
     <effect count="1" name="ImmobileUntilAttacked" time="30" val="0">
-      <mul order="0x30" stat="pDef" val="#pDef"/>
+      <mul order="0x30" stat="pDef" val="0.1"/>
+      <mul order="0x30" stat="regMp" val="#regmp"/>
     </effect>
   </for>
 </skill>
