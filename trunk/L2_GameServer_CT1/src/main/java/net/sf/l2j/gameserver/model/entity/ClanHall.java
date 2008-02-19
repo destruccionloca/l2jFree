@@ -288,6 +288,7 @@ public class ClanHall extends Entity
     public void free()
     {
         _ownerId = 0;
+        _ownerClan = null;
         _isFree = true;
         for (Map.Entry<Integer, ClanHallFunction> fc : _functions.entrySet())
             removeFunction(fc.getKey());
@@ -304,6 +305,7 @@ public class ClanHall extends Entity
             return;
 
         _ownerId = clan.getClanId();
+        _ownerClan = null;
         _isFree = false;
         _paidUntil = System.currentTimeMillis();
         initialyzeTask(true);
@@ -567,8 +569,12 @@ public class ClanHall extends Entity
 
     public L2Clan getOwnerClan()
     {
+        if (_ownerId == 0)
+            return null;
+
         if (_ownerClan == null)
             _ownerClan = ClanTable.getInstance().getClan(getOwnerId());
+
         return _ownerClan;
     }
 }
