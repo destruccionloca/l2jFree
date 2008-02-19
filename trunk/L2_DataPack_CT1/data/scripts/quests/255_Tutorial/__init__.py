@@ -410,7 +410,7 @@ class Quest (JQuest) :
                 else :
                    print "Incorrect class ID: "+str(classId)+" for table QMCb, please report me at http://www.l2jdp.com/trac/timeline/"
             elif MarkId == 26 :
-                if st.getPlayer().getClassId().isMage() and classId != 49 :
+                if st.getPlayer().getClassId().isMage() and int(st.getPlayer().getClassId().getId()) != 49 :
                     htmltext = "tutorial_newbie004b.htm"
                 else :
                     htmltext = "tutorial_newbie004a.htm"
