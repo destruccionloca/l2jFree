@@ -390,7 +390,7 @@
     </shape>
   </zone>
 
-  <zone id="27" name="Goddard 1" type="Clanhall">
+  <zone id="27" name="Goddard Moonstone Hall" type="Clanhall">
     <entity castleId="7" clanhallId="47"/>
     <restart_owner x="146022" y="-55560" z="-2765"/>
 
@@ -402,7 +402,7 @@
     </shape>
   </zone>
 
-  <zone id="28" name="Goddard 2" type="Clanhall">
+  <zone id="28" name="Goddard Onyx Hall" type="Clanhall">
     <entity castleId="7" clanhallId="48"/>
     <restart_owner x="146960" y="-56768" z="-2765"/>
 
@@ -414,7 +414,7 @@
     </shape>
   </zone>
 
-  <zone id="29" name="Goddard 3" type="Clanhall">
+  <zone id="29" name="Goddard Emerald Hall" type="Clanhall">
     <entity castleId="7" clanhallId="49"/>
     <restart_owner x="148480" y="-56848" z="-2765"/>
 
@@ -426,7 +426,7 @@
     </shape>
   </zone>
 
-  <zone id="30" name="Goddard 4" type="Clanhall">
+  <zone id="30" name="Goddard Sapphire Hall" type="Clanhall">
     <entity castleId="7" clanhallId="50"/>
     <restart_owner x="149376" y="-55568" z="-2765"/>
 
@@ -438,7 +438,7 @@
     </shape>
   </zone>
 
-  <zone id="31" name="Rune 1" type="Clanhall">
+  <zone id="31" name="Rune Mont Chamber Hall" type="Clanhall">
     <entity castleId="8" clanhallId="51"/>
     <restart_owner x="37733" y="-50736" z="894"/><!-- custom spawn point -->
 
@@ -448,7 +448,7 @@
     </shape>
   </zone>
 
-  <zone id="32" name="Rune 2" type="Clanhall">
+  <zone id="32" name="Rune Astaire Chamber Hall" type="Clanhall">
     <entity castleId="8" clanhallId="52"/>
     <restart_owner x="38722" y="-50428" z="894"/><!-- custom spawn point -->
 
@@ -468,7 +468,7 @@
     </shape>
   </zone>
 
-  <zone id="33" name="Rune 3" type="Clanhall">
+  <zone id="33" name="Rune Aria Chamber Hall" type="Clanhall">
     <entity castleId="8" clanhallId="53"/>
     <restart_owner x="39431" y="-49668" z="873"/><!-- custom spawn point -->
 
@@ -478,7 +478,7 @@
     </shape>
   </zone>
 
-  <zone id="34" name="Rune 4" type="Clanhall">
+  <zone id="34" name="Rune Yiana Chamber Hall" type="Clanhall">
     <entity castleId="8" clanhallId="54"/>
     <restart_owner x="39573" y="-48251" z="892"/><!-- custom spawn point -->
 
@@ -488,7 +488,7 @@
     </shape>
   </zone>
 
-  <zone id="35" name="Rune 5" type="Clanhall">
+  <zone id="35" name="Rune Roien Chamber Hall" type="Clanhall">
     <entity castleId="8" clanhallId="55"/>
     <restart_owner x="39456" y="-46815" z="894"/><!-- custom spawn point -->
 
@@ -508,7 +508,7 @@
     </shape>
   </zone>
 
-  <zone id="36" name="Rune 6" type="Clanhall">
+  <zone id="36" name="Rune Luna Chamber Hall" type="Clanhall">
     <entity castleId="8" clanhallId="56"/>
     <restart_owner x="38730" y="-46056" z="894"/><!-- custom spawn point -->
 
@@ -518,7 +518,7 @@
     </shape>
   </zone>
 
-  <zone id="37" name="Rune 7" type="Clanhall">
+  <zone id="37" name="Rune Traban Chamber Hall" type="Clanhall">
     <entity castleId="8" clanhallId="57"/>
     <restart_owner x="37738" y="-45691" z="894"/><!-- custom spawn point -->
 
@@ -538,7 +538,7 @@
     </shape>
   </zone>
 
-  <zone id="38" name="Schuttgart 1" type="Clanhall">
+  <zone id="38" name="Schuttgart Eisen Hall" type="Clanhall">
     <entity castleId="9" clanhallId="58"/>
     <restart_owner x="85765" y="-143152" z="-1332"/><!-- custom spawn point -->
 
@@ -548,7 +548,7 @@
     </shape>
   </zone>
 
-  <zone id="39" name="Schuttgart 2" type="Clanhall">
+  <zone id="39" name="Schuttgart Heavy Metal Hall" type="Clanhall">
     <entity castleId="9" clanhallId="59"/>
     <restart_owner x="86594" y="-141868" z="-1332"/><!-- custom spawn point -->
 
@@ -564,7 +564,7 @@
     </shape>
   </zone>
 
-  <zone id="40" name="Schuttgart 3" type="Clanhall">
+  <zone id="40" name="Schuttgart Molten Ore Hall" type="Clanhall">
     <entity castleId="9" clanhallId="60"/>
     <restart_owner x="88127" y="-141888" z="-1332"/><!-- custom spawn point -->
 
@@ -580,7 +580,7 @@
     </shape>
   </zone>
 
-  <zone id="41" name="Schuttgart 4" type="Clanhall">
+  <zone id="41" name="Schuttgart Titan Hall" type="Clanhall">
     <entity castleId="9" clanhallId="61"/>
     <restart_owner x="88998" y="-143156" z="-1332"/><!-- custom spawn point -->
 

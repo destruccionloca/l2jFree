@@ -206,7 +206,8 @@ public class L2PlayerAI extends L2CharacterAI
     private void thinkCast()
     {
         L2Character target = getCastTarget();
-        //if (_log.isDebugEnabled()) _log.warn("L2PlayerAI: thinkCast -> Start");
+        if (_log.isDebugEnabled())
+            _log.warn("L2PlayerAI: thinkCast -> Start");
 
         if (checkTargetLost(target))
         {
