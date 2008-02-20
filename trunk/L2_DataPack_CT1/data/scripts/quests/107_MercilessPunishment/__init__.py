@@ -20,7 +20,14 @@ CRYSTAL_LOVE = 4413
 CRYSTAL_SOLITUDE = 4414 
 CRYSTAL_FEAST = 4415 
 CRYSTAL_CELEBRATION = 4416 
-SOULSHOT_NO_GRADE_FOR_BEGINNERS_ID = 5789 
+#Newbie/one time rewards section
+#Any quest should rely on a unique bit, but
+#it could be shared among quest that were mutually
+#exclusive or race restricted.
+#Bit #1 isn't used for backwards compatibility.
+NEWBIE_REWARD = 2
+SPIRITSHOT_NO_GRADE_FOR_BEGINNERS = 5790 
+SOULSHOT_NO_GRADE_FOR_BEGINNERS = 5789
 
 class Quest (JQuest) : 
 
@@ -73,7 +80,7 @@ class Quest (JQuest) :
  def onTalk (self,npc,player): 
 
    npcId = npc.getNpcId() 
-   htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
+   htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>" 
    st = player.getQuestState(qn) 
    if not st : return htmltext 
 
@@ -111,10 +118,16 @@ class Quest (JQuest) :
             st.giveItems(CRYSTAL_SOLITUDE,int(10*Config.RATE_QUESTS_REWARD)) 
             st.giveItems(CRYSTAL_FEAST,int(10*Config.RATE_QUESTS_REWARD)) 
             st.giveItems(CRYSTAL_CELEBRATION,int(10*Config.RATE_QUESTS_REWARD))
-            if player.getLevel() < 25 and st.getInt("onlyone") == 0 and player.isNewbie():
-                st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS_ID,7000) 
+            # check the player state against this quest newbie rewarding mark.
+            newbie = player.getNewbie()
+            if newbie | NEWBIE_REWARD != newbie :
+               player.setNewbie(newbie|NEWBIE_REWARD)
+               if player.getClassId().isMage() :
+                  st.giveItems(SPIRITSHOT_NO_GRADE_FOR_BEGINNERS,3000)
+               else :
+                  st.giveItems(SOULSHOT_NO_GRADE_FOR_BEGINNERS,7000)
             st.set("cond","0") 
-            st.exitQuest(False)  
+            st.exitQuest(False) 
             st.playSound("ItemSound.quest_finish") 
             st.set("onlyone","1") 
    elif npcId == 30580 and st.getInt("cond")==1 and id == State.STARTED and (st.getQuestItemsCount(HATOSS_ORDER1_ID) or st.getQuestItemsCount(HATOSS_ORDER2_ID) or st.getQuestItemsCount(HATOSS_ORDER3_ID)) : 
