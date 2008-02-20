@@ -1359,7 +1359,7 @@ public final class Config
 																									// quest completion.
 	public static int					MAX_SUBCLASS;												// Allow to change max number of subclasses
 	public static boolean				ALT_GAME_VIEWNPC;											// View npc stats/drop by shift-cliking it for nongm-players
-	public static boolean				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE;							// Alternative gaming - all new characters always are newbies.
+	public static boolean				ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = true;					// Alternative gaming - all new characters always are newbies.
 	public static boolean				ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH;						// Alternative gaming - clan members with see privilege can
 																									// also withdraw from clan warehouse.
 	public static boolean				CASTLE_SHIELD; // Alternative gaming - Castle Shield can be equiped by all clan members if they own a castle. - default True
@@ -1542,7 +1542,7 @@ public final class Config
 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(altSettings.getProperty("AltSubClassWithoutQuests", "False"));
 			MAX_SUBCLASS = Integer.parseInt(altSettings.getProperty("MaxSubclass", "3"));
 			ALT_GAME_VIEWNPC = Boolean.parseBoolean(altSettings.getProperty("AltGameViewNpc", "False"));
-			ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
+			//ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(altSettings.getProperty("AltNewCharAlwaysIsNewbie", "False"));
 			ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH = Boolean.parseBoolean(altSettings.getProperty("AltMembersCanWithdrawFromClanWH", "False"));
 			ALT_CREATE_ALLY_DAYS_WHEN_DISSOLVED  = Integer.parseInt(altSettings.getProperty("DaysBeforeCreateNewAllyWhenDissolved", "10"));
 			CASTLE_SHIELD = Boolean.parseBoolean(altSettings.getProperty("CastleShieldRestriction", "True"));
@@ -3122,8 +3122,8 @@ public final class Config
 			ALT_GAME_SUBCLASS_WITHOUT_QUESTS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("MaxSubclass"))
 			MAX_SUBCLASS = Integer.parseInt(pValue);
-		else if (pName.equalsIgnoreCase("AltNewCharAlwaysIsNewbie"))
-			ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(pValue);
+		//else if (pName.equalsIgnoreCase("AltNewCharAlwaysIsNewbie"))
+			//ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("DwarfRecipeLimit"))
 			DWARF_RECIPE_LIMIT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("CommonRecipeLimit"))

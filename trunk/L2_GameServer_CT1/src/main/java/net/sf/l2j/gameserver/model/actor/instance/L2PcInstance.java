@@ -448,8 +448,8 @@ public final class L2PcInstance extends L2PlayableInstance
     /** Last NPC Id talked on a quest */
     private int _questNpcObject = 0;
 
-    /** True if the L2PcInstance is newbie */
-    private boolean _newbie;
+    /** Bitmask used to keep track of one-time/newbie quest rewards */
+    private int _newbie;
 
     /** The table containing all Quests began by the L2PcInstance */
     private Map<String, QuestState> _quests = new FastMap<String, QuestState>();
@@ -842,7 +842,8 @@ public final class L2PcInstance extends L2PlayableInstance
         // Set the base class ID to that of the actual class ID.
         player.setBaseClass(player.getClassId());
 
-        if (Config.ALT_GAME_NEW_CHAR_ALWAYS_IS_NEWBIE) player.setNewbie(true);
+        //Kept for backwards compabitility.
+        player.setNewbie(1);
 
         // Add the player in the characters table of the database
         boolean ok = player.createDb();
@@ -1059,21 +1060,30 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /**
      * Return the _newbie state of the L2PcInstance.<BR><BR>
+     * @deprecated Use {@link #getNewbie()} instead
      */
-    public boolean isNewbie()
+    public int isNewbie()
+    {
+        return getNewbie();
+    }
+
+    /**
+     * Return the _newbie rewards state of the L2PcInstance.<BR><BR>
+     */
+    public int getNewbie()
     {
         return _newbie;
     }
 
     /**
-     * Set the _newbie state of the L2PcInstance.<BR><BR>
+     * Set the _newbie rewards state of the L2PcInstance.<BR><BR>
      *
-     * @param isNewbie The Identifier of the _newbie state<BR><BR>
+     * @param newbieRewards The Identifier of the _newbie state<BR><BR>
      *
      */
-    public void setNewbie(boolean isNewbie)
+    public void setNewbie(int newbieRewards)
     {
-        _newbie = isNewbie;
+        _newbie = newbieRewards;
     }
 
     public void setBaseClass(int baseClass)
@@ -1919,9 +1929,17 @@ public final class L2PcInstance extends L2PlayableInstance
         }
         setClassTemplate(Id);
 
+        setTarget(this);
         // Animation: Production - Clan / Transfer
         MagicSkillUse msu = new MagicSkillUse(this, 5103, 1, 1196, 0);
         broadcastPacket(msu);
+
+        // Update class icon in party and clan
+        if (isInParty())
+            getParty().broadcastToPartyMembers(new PartySmallWindowUpdate(this));
+
+        if (getClan() != null)
+            getClan().broadcastToOnlineMembers(new PledgeShowMemberListUpdate(this));
     }
 
     public void checkIfWeaponIsAllowed()
@@ -5874,7 +5892,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(29, getClanPrivileges());
             statement.setInt(30, getWantsPeace());
             statement.setInt(31, getBaseClass());
-            statement.setInt(32, isNewbie() ? 1 : 0);
+            statement.setInt(32, getNewbie());
             statement.setInt(33, isNoble() ? 1 :0);
             statement.setLong(34, 0);
             statement.setLong(35,System.currentTimeMillis());
@@ -5974,7 +5992,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
                 player.setDeleteTimer(rset.getLong("deletetime"));
                 player.setOnlineTime(rset.getLong("onlinetime"));
-                player.setNewbie(rset.getInt("newbie") == 1);
+                player.setNewbie(rset.getInt("newbie"));
                 player.setNoble(rset.getInt("nobless")==1);
 
                 player.setTitle(rset.getString("title"));
@@ -6378,7 +6396,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setLong(34, totalOnlineTime);
             statement.setInt(35, isInJail() ? 1 : 0);
             statement.setLong(36, getJailTimer());
-            statement.setInt(37, isNewbie() ? 1 : 0);
+            statement.setInt(37, getNewbie());
             statement.setInt(38, isNoble() ? 1 : 0);
             statement.setLong(39, getPledgeRank());
             statement.setInt(40, getSubPledgeType());

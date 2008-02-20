@@ -6121,17 +6121,16 @@ public abstract class L2Character extends L2Object
 
 	public static boolean isInsidePeaceZone(L2PcInstance attacker, L2Object target)
 	{
-		return ((attacker.getAccessLevel() < Config.GM_PEACEATTACK) && isInsidePeaceZone((L2Object) attacker, target));
+		return ((attacker.getAccessLevel() < Config.GM_PEACEATTACK) && isInsidePeaceZone(attacker, target));
 	}
 
 	public static boolean isInsidePeaceZone(L2Object attacker, L2Object target)
 	{
-		if (target == null || !(attacker instanceof L2Character) || !(target instanceof L2Character))
+		if (target == null)
 			return false;
-		if (target instanceof L2MonsterInstance || attacker instanceof L2MonsterInstance)
+		if (!(target instanceof L2PlayableInstance) || !(attacker instanceof L2PlayableInstance))
 			return false;
-		if (attacker instanceof L2MonsterInstance)
-			return false;
+
 		if (Config.ALT_GAME_KARMA_PLAYER_CAN_BE_KILLED_IN_PEACEZONE)
 		{
 			// allows red to be attacked and red to attack flagged players

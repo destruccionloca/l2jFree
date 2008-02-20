@@ -22,7 +22,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.RadarControl;
-import net.sf.l2j.gameserver.network.serverpackets.ShowMiniMap;
 
 public class Book implements IItemHandler
 {
@@ -41,8 +40,7 @@ public class Book implements IItemHandler
 		// Quest item: Lidia's diary
 		if (itemId == 7064 )
 		{
-			activeChar.sendPacket(new ShowMiniMap(1665));
-			activeChar.sendPacket(new RadarControl(0, 1, 51995, -51265, -3104));
+			activeChar.sendPacket(new RadarControl(0, 2, 51995, -51265, -3104));
 		}
 
 		if (content == null)
