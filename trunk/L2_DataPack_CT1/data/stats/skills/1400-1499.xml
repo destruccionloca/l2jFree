@@ -282,10 +282,7 @@
   <set name="castRange" val="400"/>
   <set name="effecRange" val="900"/>
   <for>
-    <effect count="1" name="PreventBuff" time="30" val="0">
-     <set order="0x30" stat="block_receive;buff" val="1"/>
-     <set order="0x30" stat="block_receive;debuff" val="1"/>
-    </effect>
+    <effect count="1" name="PreventBuff" time="30" val="0"/>
   </for>
 </skill>
 <skill id="1412" levels="1" name="Spell Turning">

@@ -113,12 +113,14 @@ public class Continuous implements ISkillHandler
 			if(target instanceof L2DoorInstance && (skill.getSkillType() == L2Skill.SkillType.BUFF || skill.getSkillType() == L2Skill.SkillType.HOT))
 				continue;
 
+			// With Mystic Immunity you can't be buffed/debuffed
+			if (target.isPreventedFromReceivingBuffs())
+				continue;
+
 			// Player holding a cursed weapon can't be buffed and can't buff
 			if (skill.getSkillType() == L2Skill.SkillType.BUFF && !(activeChar instanceof L2ClanHallManagerInstance))
 			{
-				if (target.isPreventedFromReceivingBuffs())
-					continue;
-				else if (target != activeChar)
+				if (target != activeChar)
 				{
 					if (target instanceof L2PcInstance && ((L2PcInstance)target).isCursedWeaponEquipped())
 						continue;

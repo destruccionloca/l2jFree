@@ -145,7 +145,7 @@ public enum Stats
     ABSORB_DAMAGE_PERCENT   ("absorbDam"),
     TRANSFER_DAMAGE_PERCENT ("transDam"),
     ABSORB_CP_PERCENT       ("absorbCpPercent"),
-    EVADE_MELEE_SKILL		("evadeMeleeSkill"),
+    EVADE_MELEE_SKILL       ("evadeMeleeSkill"),
     CANCEL_ATTACKER_TARGET  ("cancelAttackerTarget"),
 
     MAX_LOAD        ("maxLoad"),
@@ -183,10 +183,6 @@ public enum Stats
     HP_CONSUME_RATE        ("HpConsumeRate"),
     MP_CONSUME             ("MpConsume"),
     SOULSHOT_COUNT         ("soulShotCount"),
-
-    BLOCK_RECEIVE_DAMAGE   ("block_receive;damage"),
-    BLOCK_RECEIVE_BUFF     ("block_receive;buff"),
-    BLOCK_RECEIVE_DEBUFF   ("block_receive;debuff"),
 
     transformId            ("transformId")
     ;

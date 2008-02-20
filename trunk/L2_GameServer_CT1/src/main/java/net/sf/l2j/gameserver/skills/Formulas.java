@@ -1905,6 +1905,9 @@ public final class Formulas
  
     public boolean calcSkillSuccess(L2Character attacker, L2Character target, L2Skill skill, boolean ss, boolean sps, boolean bss)
     {
+        if (skill.isMagic() && target.isPreventedFromReceivingBuffs())
+            return false;
+
         if (!target.checkSkillCanAffectMyself(skill))
             return false;
         
@@ -2114,27 +2117,7 @@ public final class Formulas
     {
         return STRbonus[activeChar.getStat().getSTR()];
     }
-    
-    public boolean receiveBlock(L2Character cha, String type)
-    {
-        if(type.equalsIgnoreCase("buff"))
-        {
-            return cha.calcStat(Stats.BLOCK_RECEIVE_BUFF, 0, null, null) > 0;
-        }
-        
-        if(type.equalsIgnoreCase("debuff"))
-        {
-            return cha.calcStat(Stats.BLOCK_RECEIVE_DEBUFF, 0, null, null) > 0;
-        }
-        
-        if(type.equalsIgnoreCase("damage"))
-        {
-            return cha.calcStat(Stats.BLOCK_RECEIVE_DAMAGE, 0, null, null) > 0;
-        }
-        
-        return false;
-    }
-    
+
     public boolean canEvadeMeleeSkill(L2Character target, L2Skill skill)
     {
     	if (!skill.isMagic() && skill.getCastRange() < 100)
