@@ -39,7 +39,6 @@
 
   <zone id="2" name="Talking Island (Mage Start)">
     <settings pvp="Peace"/>
-    <entity townId="0" castleId="1"/>
     <shape type="Poly" zMin="-3699" zMax="-2699">
       <point x="-90034" y="248143"/>
       <point x="-89960" y="248698"/>
@@ -88,7 +87,6 @@
 
   <zone id="3" name="Talking Island (Fighter Start)">
     <settings pvp="Peace"/>
-    <entity townId="0" castleId="1"/>
     <shape type="Poly" zMin="-3284" zMax="-2284">
       <point x="-73436" y="257725"/>
       <point x="-71668" y="256229"/>
@@ -192,7 +190,6 @@
 
   <zone id="6" name="DE Village (Start)">
     <settings pvp="Peace"/>
-    <entity townId="2" castleId="4"/>
     <shape type="Poly" zMin="-4571" zMax="-2071">
       <point x="28422" y="8936"/>
       <point x="30282" y="10670"/>
@@ -237,8 +234,7 @@
   </zone>
 
   <zone id="8" name="Elven Village (Start)">
-    <type>Newbie</type>
-    <entity townId="1" castleId="4"/>
+    <settings pvp="Peace"/>
     <shape type="Poly" zMin="-4071" zMax="-2571">
       <point x="47987" y="40688"/>
       <point x="47644" y="41254"/>
@@ -582,7 +578,6 @@
 
   <zone id="17" name="Orc Village (Start)">
     <settings pvp="Peace"/>
-    <entity townId="3" castleId="9"/>
     <shape type="Poly" zMin="-1483" zMax="516">
       <point x="-58952" y="-115543"/>
       <point x="-52769" y="-115553"/>
@@ -620,7 +615,6 @@
 
   <zone id="19" name="Dwarven Village (Start)">
     <settings pvp="Peace"/>
-    <entity townId="4" castleId="9"/>
     <shape type="Poly" zMin="-652" zMax="348">
       <point x="110063" y="-175794"/>
       <point x="110565" y="-173944"/>
@@ -703,8 +697,8 @@
     </shape>
   </zone>
 
-  <zone id="22" name="Ivory Tower" type="Town">
-    <!--<settings pvp="Peace"/> Overriden -->
+  <zone id="22" name="Ivory Tower">
+    <settings pvp="Peace"/>
     <shape type="Poly" zMin="-4652" zMax="347">
       <point x="86094" y="16382"/>
       <point x="85888" y="16744"/>
@@ -721,10 +715,10 @@
     </shape>
   </zone>
 
-  <zone id="23" name="Hunter Village" type="Town">
+  <zone id="23" name="Hunters Village" type="Town">
     <!--<settings pvp="Peace"/> Overriden -->
     <entity townId="11" castleId="5"/>
-    <shape type="Poly" zMin="-2749" zMax="-1249">
+    <shape type="Poly" zMin="-2769" zMax="-1249">
       <point x="120837" y="78996"/>
       <point x="118917" y="80603"/>
       <point x="116981" y="80412"/>
