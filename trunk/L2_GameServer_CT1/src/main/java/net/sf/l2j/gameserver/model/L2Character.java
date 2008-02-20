@@ -3792,8 +3792,8 @@ public abstract class L2Character extends L2Object
 			stopEffects(L2Effect.EffectType.IMMOBILEUNTILATTACKED);
 		else
 		{
-			stopSkillEffects(effect.getSkill().cancelEffect());
 			removeEffect(effect);
+			stopSkillEffects(effect.getSkill().cancelEffect());
 		}
 
 		setIsImmobileUntilAttacked(false);
