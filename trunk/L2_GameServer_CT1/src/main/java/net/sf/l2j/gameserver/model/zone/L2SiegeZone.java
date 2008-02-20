@@ -31,6 +31,8 @@ public class L2SiegeZone extends EntityZone
 		if (_castleId > 0)
 		{
 			_entity = CastleManager.getInstance().getCastleById(_castleId);
+			// Init siege task
+			((Castle)_entity).getSiege();
 		}
 		else if(_fortressId > 0)
 		{

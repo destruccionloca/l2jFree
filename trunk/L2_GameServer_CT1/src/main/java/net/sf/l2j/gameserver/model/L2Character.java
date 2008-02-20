@@ -6121,7 +6121,7 @@ public abstract class L2Character extends L2Object
 
 	public static boolean isInsidePeaceZone(L2PcInstance attacker, L2Object target)
 	{
-		return ((attacker.getAccessLevel() < Config.GM_PEACEATTACK) && isInsidePeaceZone(attacker, target));
+		return ((attacker.getAccessLevel() < Config.GM_PEACEATTACK) && isInsidePeaceZone((L2Object)attacker, target));
 	}
 
 	public static boolean isInsidePeaceZone(L2Object attacker, L2Object target)
