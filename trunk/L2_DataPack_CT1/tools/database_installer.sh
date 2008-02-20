@@ -345,6 +345,7 @@ $MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null
 $MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
 $MYG < ../sql/tvt.sql &> /dev/null
 $MYG < ../sql/tvt_teams.sql &> /dev/null
+$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
 $MYG < ../sql/version.sql &> /dev/null
 $MYG < ../sql/vip.sql &> /dev/null
 $MYG < ../sql/custom/custom_armor.sql &> /dev/null

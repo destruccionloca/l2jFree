@@ -260,7 +260,7 @@ public class VanHalterManager extends Entity
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(null);
-            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM spawnlist Where npc_templateid between ? and ? ORDER BY id");
+            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid between ? and ? ORDER BY id");
             statement.setInt(1, 22175);
             statement.setInt(2, 22176);
             ResultSet rset = statement.executeQuery();
@@ -335,7 +335,7 @@ public class VanHalterManager extends Entity
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(null);
-            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM spawnlist Where npc_templateid between ? and ? ORDER BY id");
+            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid between ? and ? ORDER BY id");
             statement.setInt(1, 32058);
             statement.setInt(2, 32068);
             ResultSet rset = statement.executeQuery();
@@ -417,7 +417,7 @@ public class VanHalterManager extends Entity
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(null);
-            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM spawnlist Where npc_templateid = ? ORDER BY id");
+            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
             statement.setInt(1, 22188);
             ResultSet rset = statement.executeQuery();
 
@@ -494,7 +494,7 @@ public class VanHalterManager extends Entity
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(null);
-            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM spawnlist Where npc_templateid = ? ORDER BY id");
+            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
             statement.setInt(1, 22191);
             ResultSet rset = statement.executeQuery();
 
@@ -568,7 +568,7 @@ public class VanHalterManager extends Entity
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(null);
-            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM spawnlist Where npc_templateid = ? ORDER BY id");
+            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
             statement.setInt(1, 32051);
             ResultSet rset = statement.executeQuery();
 
@@ -645,7 +645,7 @@ public class VanHalterManager extends Entity
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(null);
-            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM spawnlist Where npc_templateid = ? ORDER BY id");
+            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
             statement.setInt(1, 29062);
             ResultSet rset = statement.executeQuery();
 
@@ -714,7 +714,7 @@ public class VanHalterManager extends Entity
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(null);
-            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM spawnlist Where npc_templateid = ? ORDER BY id");
+            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
             statement.setInt(1, 32038);
             ResultSet rset = statement.executeQuery();
 
@@ -784,7 +784,7 @@ public class VanHalterManager extends Entity
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(null);
-            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM spawnlist Where npc_templateid = ? ORDER BY id");
+            PreparedStatement statement = con.prepareStatement("SELECT id, count, npc_templateid, locx, locy, locz, heading, respawn_delay FROM vanhalter_spawnlist Where npc_templateid = ? ORDER BY id");
             statement.setInt(1, 22195);
             ResultSet rset = statement.executeQuery();
 
@@ -1734,5 +1734,6 @@ public class VanHalterManager extends Entity
 	            	_movieTask = null;
     		}
         }
-    }   
+    }
+    
 }
