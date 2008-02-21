@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
-import net.sf.l2j.gameserver.network.serverpackets.ShortBuffStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
@@ -483,8 +482,7 @@ public class Potions implements IItemHandler
             // only for Heal potions
             if (magicId == 2031 ||magicId == 2032 ||magicId == 2037)
             {
-            	activeChar.sendPacket(new ShortBuffStatusUpdate(magicId, level, 15));
-            	ThreadPoolManager.getInstance().scheduleGeneral(new ShortBuffTask(activeChar), 15000);
+                activeChar.shortBuffStatusUpdate(magicId, level, 15);
             }
             if (!(activeChar.isSitting() && !skill.isPotion()))
                 return true;
@@ -495,19 +493,5 @@ public class Potions implements IItemHandler
     public int[] getItemIds()
     {
         return ITEM_IDS;
-    }
-    class ShortBuffTask implements Runnable
-    {
-    	private L2PcInstance player = null;
-    public ShortBuffTask(L2PcInstance activeChar)
-    {
-    	player = activeChar;
-    }
-    	public void run()
-    	{
-    		if (player == null)
-    			return;
-    		player.sendPacket(new ShortBuffStatusUpdate(0, 0, 0));
-    	}
     }
 }

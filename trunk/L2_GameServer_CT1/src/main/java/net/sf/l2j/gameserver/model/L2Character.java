@@ -1088,7 +1088,7 @@ public abstract class L2Character extends L2Object
 			hitted = doAttackHitByCrossBow(attack, target, timeAtk, reuse);
 
 		else if (weaponItem.getItemType() == L2WeaponType.POLE)
-			hitted = doAttackHitByPole(attack, timeToHit);
+			hitted = doAttackHitByPole(attack, target, timeToHit);
 
 		else if (isUsingDualWeapon())
 			hitted = doAttackHitByDual(attack, target, timeToHit);
@@ -1394,16 +1394,11 @@ public abstract class L2Character extends L2Object
 	 *            Server->Client packet Attack in which the hit will be added
 	 * @return True if one hit isn't missed
 	 */
-	private boolean doAttackHitByPole(Attack attack, int sAtk)
+	private boolean doAttackHitByPole(Attack attack, L2Character target, int sAtk)
 	{
-		boolean hitted = false;
-
 		double angleChar, angleTarget;
-		int maxRadius = (int) getStat().calcStat(Stats.POWER_ATTACK_RANGE, 66, null, null);
+		int maxRadius = getPhysicalAttackRange();
 		int maxAngleDiff = (int) getStat().calcStat(Stats.POWER_ATTACK_ANGLE, 120, null, null);
-
-		if (getTarget() == null)
-			return false;
 
 		if (_log.isDebugEnabled())
 		{
@@ -1434,22 +1429,25 @@ public abstract class L2Character extends L2Object
 
 		// ===========================================================
 		// Make sure that char is facing selected target
-		angleTarget = Util.calculateAngleFrom(this, getTarget());
+		angleTarget = Util.calculateAngleFrom(this, target);
 		setHeading((int) ((angleTarget / 9.0) * 1610.0)); // = this.setHeading((int)((angleTarget / 360.0) * 64400.0));
 
 		// Update char's heading degree
 		angleChar = Util.convertHeadingToDegree(getHeading());
-		double attackpercent = 85;
-		int attackcountmax = (int) getStat().calcStat(Stats.ATTACK_COUNT_MAX, 3, null, null);
+		int attackRandomCountMax = (int)getStat().calcStat(Stats.ATTACK_COUNT_MAX, 3, null, null) - 1;
 		int attackcount = 0;
 
 		if (angleChar <= 0)
 			angleChar += 360;
 		// ===========================================================
 
-		L2Character target;
+		boolean hitted = doAttackHitSimple(attack, target, 100, sAtk);
+		double attackpercent = 85;
+		L2Character temp;
 		for (L2Object obj : getKnownList().getKnownObjects().values())
 		{
+			if (obj == target) continue; // do not hit twice
+
 			// Check if the L2Object is a L2Character
 			if (obj instanceof L2Character)
 			{
@@ -1472,18 +1470,18 @@ public abstract class L2Character extends L2Object
 				)
 					continue;
 
-				target = (L2Character) obj;
+				temp = (L2Character) obj;
 
 				// Launch a simple attack against the L2Character targeted
-				if (!target.isAlikeDead())
+				if (!temp.isAlikeDead())
 				{
 					attackcount += 1;
-					if (attackcount <= attackcountmax)
+					if (attackcount <= attackRandomCountMax)
 					{
-						if (target == getAI().getAttackTarget() || target.isAutoAttackable(this))
+						if (temp == getAI().getAttackTarget() || temp.isAutoAttackable(this))
 						{
 
-							hitted |= doAttackHitSimple(attack, target, attackpercent, sAtk);
+							hitted |= doAttackHitSimple(attack, temp, attackpercent, sAtk);
 							attackpercent /= 1.15;
 						}
 					}

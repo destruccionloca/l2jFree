@@ -281,6 +281,8 @@ public final class Config
 	public static final String	CHAMPIONS_FILE	= "./config/champions.properties";
 	// *******************************************************************************************
 	public static int			CHAMPION_FREQUENCY;									// Frequency of spawn
+	public static boolean		CHAMPION_PASSIVE;
+	public static String		CHAMPION_TITLE;
 	public static int			CHAMPION_HP;										// Hp multiplier
 	public static float			CHAMPION_HP_REGEN;									// Hp.reg multiplier
 	public static float			CHAMPION_ATK;										// P.Atk & M.Atk multiplier
@@ -310,8 +312,10 @@ public final class Config
 			is.close();
 			
 			CHAMPION_FREQUENCY = Integer.parseInt(championsSettings.getProperty("ChampionFrequency", "0"));
+			CHAMPION_PASSIVE = Boolean.parseBoolean(championsSettings.getProperty("ChampionPassive", "false"));
+			CHAMPION_TITLE = championsSettings.getProperty("ChampionTitle", "Champion").trim();
 			CHAMPION_HP = Integer.parseInt(championsSettings.getProperty("ChampionHp", "7"));
-			CHAMPION_HP_REGEN = Float.parseFloat(championsSettings.getProperty("ChampionRegenHp", "1."));
+			CHAMPION_HP_REGEN = Float.parseFloat(championsSettings.getProperty("ChampionHpRegen", "1."));
 			CHAMPION_REWARDS = Integer.parseInt(championsSettings.getProperty("ChampionRewards", "8"));
 			CHAMPION_ADENA = Integer.parseInt(championsSettings.getProperty("ChampionAdenasRewards", "1"));
 			CHAMPION_ATK = Float.parseFloat(championsSettings.getProperty("ChampionAtk", "1."));

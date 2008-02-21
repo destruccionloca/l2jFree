@@ -1269,11 +1269,12 @@ public class L2NpcInstance extends L2Character
                     L2Spawn spawn = SpawnTable.getInstance().getTemplate(Integer.parseInt(command.substring(12).trim()));
                     if (spawn != null)
                     {
-                        player.sendPacket(new RadarControl(0,1,spawn.getLocx(),spawn.getLocy(),spawn.getLocz()));
+                        player.sendPacket(new RadarControl(2, 2, spawn.getLocx(), spawn.getLocy(), spawn.getLocz()));
+                        player.sendPacket(new RadarControl(0, 1, spawn.getLocx(), spawn.getLocy(), spawn.getLocz()));
                     }
                     else
                     {
-                        player.sendMessage("Boss isnt in Game - Blame Datapack Developer, Boss ID: "+Integer.parseInt(command.substring(12).trim()));
+                        player.sendMessage("Boss not implemented yet");
                     }
                 }
                 catch (NumberFormatException nfe)
