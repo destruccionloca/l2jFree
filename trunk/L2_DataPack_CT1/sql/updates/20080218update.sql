@@ -28,4 +28,4 @@ CHANGE `item_skill_lvl` `item_skill_lvl` VARCHAR(30) NOT NULL DEFAULT '0';
 -- Armor dual-skill fix example
 UPDATE `armor` SET `item_skill_id` = '3632,3633', `item_skill_lvl` = '1,2' WHERE `item_id` = 6841;
 -- Wedding System part
-UPDATE `armor` SET `item_skill_id` = '3260,3261,3262', `item_skill_lvl` = '1,1,1' WHERE `item_id` IN (9140,9141);
+UPDATE `weapon` SET `item_skill_id` = '3260,3261,3262', `item_skill_lvl` = '1,1,1' WHERE `item_id` IN (9140,9141);
