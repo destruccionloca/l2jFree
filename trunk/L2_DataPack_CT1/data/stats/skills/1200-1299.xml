@@ -2316,7 +2316,7 @@
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="0.0"/>
+  <set name="power" val="20"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="20000"/>
@@ -2327,7 +2327,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="5" name="Fear" time="6" val="0"/>
+    <effect count="5" name="Fear" time="3" val="0"/>
   </for>
 </skill>
 <skill id="1273" levels="13" name="Serenade of Eva">

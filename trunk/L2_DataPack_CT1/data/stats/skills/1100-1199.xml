@@ -1034,7 +1034,7 @@
   <set name="mpInitialConsume" val="#mpConsume_Init"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="40.0"/>
+  <set name="power" val="20"/>
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="10000"/>
@@ -1045,7 +1045,7 @@
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
   <for>
-    <effect count="5" name="Fear" time="6" val="0"/>
+    <effect count="5" name="Fear" time="3" val="0"/>
   </for>
 </skill>
 <skill id="1170" levels="13" name="Anchor" enchantLevels1="30" enchantLevels2="30" >
