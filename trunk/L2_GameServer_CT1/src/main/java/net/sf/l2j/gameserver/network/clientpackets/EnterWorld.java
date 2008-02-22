@@ -71,7 +71,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListAll;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
-import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeStatusChanged;
 import net.sf.l2j.gameserver.network.serverpackets.QuestList;
 import net.sf.l2j.gameserver.network.serverpackets.ShortCutInit;
@@ -397,8 +396,6 @@ public class EnterWorld extends L2GameClientPacket
         //notify sponsor or apprentice
         notifySponsorOrApprentice(activeChar);
 
-        showPledgeSkillList(activeChar);
-
         activeChar.onPlayerEnter();
 
         sendPacket(new SkillCoolTime(activeChar));
@@ -422,19 +419,8 @@ public class EnterWorld extends L2GameClientPacket
 
         if (activeChar.getClan() != null)
         {
-            try
-            {
-                //Sets the apropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz)
-                activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
-
-                //Restores clan skills on world entry (they don't show up for themselves) :)
-                activeChar.getClan().addSkillEffects(activeChar , false);
-
-            }
-            catch(Throwable t){}
-
-            PledgeSkillList psl = new PledgeSkillList(activeChar.getClan());
-            activeChar.sendPacket(psl);
+            //Sets the apropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz)
+            activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
 
             for (Castle castle : CastleManager.getInstance().getCastles().values())
             {
@@ -634,28 +620,6 @@ public class EnterWorld extends L2GameClientPacket
           activeChar.sendPacket(new ShortCutRegister(sc));
        }
    }
-
-    /**
-     * @param activeChar
-     */
-    private void showPledgeSkillList(L2PcInstance activeChar)
-    {
-        L2Clan clan = activeChar.getClan();
-        if (clan != null && clan.getReputationScore() >= 0)
-        {
-            PledgeSkillList response = new PledgeSkillList(clan);
-            L2Skill[] skills = clan.getAllSkills();
-
-            for (L2Skill s : skills) {
-                if (s == null)
-                    continue;
-
-                response.addSkill(s.getId(), s.getLevel());
-            }
-
-            sendPacket(response);
-        }
-    }
 
     /**
      * @param string

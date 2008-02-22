@@ -994,8 +994,12 @@ public final class L2VillageMasterInstance extends L2FolkInstance
     {
         if (_log.isDebugEnabled()) 
             _log.info("PledgeSkillList activated on: "+getObjectId());
-        if(player.getClan() == null) return;
+        if(player.getClan() == null)
+            return;
         
+        if (player.isTransformed())
+            return;
+
         L2PledgeSkillLearn[] skills = SkillTreeTable.getInstance().getAvailablePledgeSkills(player);
         AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.skillType.Clan);
         int counts = 0;

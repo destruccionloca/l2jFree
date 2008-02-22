@@ -295,6 +295,10 @@ public abstract class L2Skill
 	private final int				_itemConsumeIdOT;
 	// how many times to consume an item
 	private final int				_itemConsumeSteps;
+
+	private final int _targetConsume;
+	private final int _targetConsumeId;
+
 	// for summon spells:
 	// a) What is the total lifetime of summons (in millisecs)
 	private final int				_summonTotalLifeTime;
@@ -437,6 +441,8 @@ public abstract class L2Skill
 		_itemConsumeIdOT = set.getInteger("itemConsumeIdOT", 0);
 		_itemConsumeTime = set.getInteger("itemConsumeTime", 0);
 		_itemConsumeSteps = set.getInteger("itemConsumeSteps", 0);
+		_targetConsume = set.getInteger("targetConsumeCount", 0);
+		_targetConsumeId = set.getInteger("targetConsumeId", 0);
 		_summonTotalLifeTime = set.getInteger("summonTotalLifeTime", 1200000); // 20 minutes default
 		_summonTimeLostIdle = set.getInteger("summonTimeLostIdle", 0);
 		_summonTimeLostActive = set.getInteger("summonTimeLostActive", 0);
@@ -859,6 +865,22 @@ public abstract class L2Skill
 	public final Stats getStat()
 	{
 		return _stat;
+	}
+
+	/**
+	* @return Returns the _targetConsumeId.
+	*/
+	public final int getTargetConsumeId()
+	{
+		return _targetConsumeId;
+	}
+
+	/**
+	* @return Returns the targetConsume.
+	*/
+	public final int getTargetConsume()
+	{
+		return _targetConsume;
 	}
 
 	/**

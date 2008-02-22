@@ -186,6 +186,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PartySpelled;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.PrivateStoreListBuy;
 import net.sf.l2j.gameserver.network.serverpackets.PrivateStoreListSell;
 import net.sf.l2j.gameserver.network.serverpackets.PrivateStoreManageListBuy;
@@ -2201,6 +2202,34 @@ public final class L2PcInstance extends L2PlayableInstance
 
     /** Set the Experience value of the L2PcInstance. */
     public void setExp(long exp) { getStat().setExp(exp); }
+
+	/**
+	 * Regive all skills which aren't saved to database, like Noble, Hero, Clan Skills<BR><BR>
+	 *
+	 */
+	public void regiveTemporarySkills()
+	{
+		// Do not call this on enterworld or char load
+
+		// Add noble skills if noble
+		if (isNoble())
+			setNoble(true);
+
+		// Add Hero skills if hero
+		if (isHero())
+			setHero(true);
+
+		if (getClan() != null)
+		{
+			setPledgeClass(L2ClanMember.getCurrentPledgeClass(this));
+			getClan().addSkillEffects(this , false);
+			PledgeSkillList psl = new PledgeSkillList(getClan());
+			sendPacket(psl);
+		}
+		
+		// Reload passive skills from armors / jewels / weapons
+		getInventory().reloadEquippedItems();
+	}
 
 	/**
 	 * Give all available skills to the player.<br><br>
@@ -6876,12 +6905,6 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             catch (Exception e){}
         }
-        // Update Noble Skills after subclass change
-        if (isNoble())
-            setNoble(true);
-        // Update Hero Skills after subclass change
-        if (isHero())
-            setHero(true);
     }
 
     /**
@@ -9357,11 +9380,11 @@ public final class L2PcInstance extends L2PlayableInstance
         restoreDeathPenaltyBuffLevel();
 
         restoreSkills();
+        regiveTemporarySkills();
         rewardSkills();
         restoreEffects();
         sendPacket(new EtcStatusUpdate(this));
 
-        
         //if player has quest 422: Repent Your Sins, remove it
         QuestState st = getQuestState("422_RepentYourSins");
         
@@ -9530,7 +9553,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (_isInvul) // isInvul() is always true on login if login protection is activated...
             sendMessage("Entering world in Invulnerable mode.");
-        if (getAppearance().getInvisible()) 
+        if (getAppearance().getInvisible())
             sendMessage("Entering world in Invisible mode.");
         if (getMessageRefusal())
             sendMessage("Entering world in Message Refusal mode.");
@@ -11856,5 +11879,11 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             try { con.close(); } catch (Exception e) {}
         }
+    }
+
+    @Override
+    public boolean mustFallDownOnDeath()
+    {
+        return super.mustFallDownOnDeath() && !isInFunEvent();
     }
 }

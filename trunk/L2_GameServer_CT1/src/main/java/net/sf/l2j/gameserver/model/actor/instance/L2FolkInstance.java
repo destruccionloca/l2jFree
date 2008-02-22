@@ -56,12 +56,12 @@ public class L2FolkInstance extends L2NpcInstance
      */
     public void showSkillList(L2PcInstance player, ClassId classId)
     {
-		if (_log.isDebugEnabled()) 
+        if (_log.isDebugEnabled()) 
             _log.debug("SkillList activated on: "+getObjectId());
         
         int npcId = getTemplate().getNpcId();
         
-		if (_classesToTeach == null)
+        if (_classesToTeach == null)
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
@@ -74,7 +74,7 @@ public class L2FolkInstance extends L2NpcInstance
             return;
         }
         
-		if (!getTemplate().canTeach(classId) || player.isTransformed())
+        if (!getTemplate().canTeach(classId) || player.isTransformed())
         {
             NpcHtmlMessage html = new NpcHtmlMessage(getObjectId());
             TextBuilder sb = new TextBuilder();
@@ -89,7 +89,7 @@ public class L2FolkInstance extends L2NpcInstance
         
         L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player, classId);
         AcquireSkillList asl = new AcquireSkillList(AcquireSkillList.skillType.Usual);
-		int counts = 0;
+        int counts = 0;
         
         for (L2SkillLearn s: skills)
         {           
@@ -104,26 +104,26 @@ public class L2FolkInstance extends L2NpcInstance
             asl.addSkill(s.getId(), s.getLevel(), s.getLevel(), cost, 0);
         }
         
-		if (counts == 0)
-		{
+        if (counts == 0)
+        {
             int minlevel = SkillTreeTable.getInstance().getMinLevelForNewSkill(player, classId);
-		    
-		    if (minlevel > 0)
-		    {
+            
+            if (minlevel > 0)
+            {
                 SystemMessage sm = new SystemMessage(SystemMessageId.DO_NOT_HAVE_FURTHER_SKILLS_TO_LEARN);
-		        sm.addNumber(minlevel);
-		        player.sendPacket(sm);
+                sm.addNumber(minlevel);
+                player.sendPacket(sm);
             }
-		    else
-		    {
-		        SystemMessage sm = new SystemMessage(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
-		        player.sendPacket(sm);
-		    }
-		} 
-		else 
-		{
+            else
+            {
+                SystemMessage sm = new SystemMessage(SystemMessageId.NO_MORE_SKILLS_TO_LEARN);
+                player.sendPacket(sm);
+            }
+        } 
+        else 
+        {
             player.sendPacket(asl);
-		}
+        }
         
         player.sendPacket(new ActionFailed());
     }
@@ -376,20 +376,20 @@ public class L2FolkInstance extends L2NpcInstance
             {
                 String id = command.substring(9).trim(); 
                 
-				if (id.length() != 0) 
+                if (id.length() != 0) 
                 {
                     player.setSkillLearningClassId(ClassId.values()[Integer.parseInt(id)]);
                     showSkillList(player, ClassId.values()[Integer.parseInt(id)]);
-				} 
+                } 
                 else 
                 {
                     boolean own_class = false;
                     
-					if (_classesToTeach != null) 
+                    if (_classesToTeach != null) 
                     {
-						for (ClassId cid : _classesToTeach) 
+                        for (ClassId cid : _classesToTeach) 
                         {
-							if (cid.equalsOrChildOf(player.getClassId())) 
+                            if (cid.equalsOrChildOf(player.getClassId())) 
                             {
                                 own_class = true;
                                 break;
@@ -399,20 +399,18 @@ public class L2FolkInstance extends L2NpcInstance
                     
                     String text = "<html><body><center>Skill learning:</center><br>";
                     
-					if (!own_class) 
+                    if (!own_class) 
                     {
-                        String mages = player.getClassId().isMage() ? "fighters" : "mages";
+                        String charType = player.getClassId().isMage() ? "fighter" : "mage";
                         text +=
                             "Skills of your class are the easiest to learn.<br>\n"+
-                            "Skills of another class are harder.<br>\n"+
-                            "Skills for another race are even more harder to learn.<br>\n"+
-                            "You can also learn skills of "+mages+", and they are"+
-                            " the harders to learn!<br>\n"+
-                            "<br>\n";
+                            "Skills of another class of your race are a little harder.<br>"+
+                            "Skills for classes of another race are extremely difficult.<br>"+
+                            "But the hardest of all to learn are the " + charType + " skills!<br>";
                     }
                     
                     // make a list of classes
-					if (_classesToTeach != null) 
+                    if (_classesToTeach != null) 
                     {
                        int count = 0;
                        ClassId classCheck = player.getClassId();
@@ -445,7 +443,7 @@ public class L2FolkInstance extends L2NpcInstance
                     insertObjectIdAndShowChatWindow(player, text);
                     player.sendPacket( new ActionFailed() );
                 }
-			} 
+            } 
             else 
             {
                 player.setSkillLearningClassId(player.getClassId());
