@@ -46,10 +46,7 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2DecoyInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2FriendlyMobInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2GuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcWalkerInstance;
@@ -58,10 +55,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2TrapInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
@@ -271,9 +265,8 @@ public abstract class L2Character extends L2Object
 		}
 
 		if (!(this instanceof L2PlayableInstance) && !(this instanceof L2Attackable) &&
-			!(this instanceof L2GuardInstance) && !(this instanceof L2SiegeGuardInstance) &&
 			!(this instanceof L2ControlTowerInstance) && !(this instanceof L2DoorInstance) &&
-			!(this instanceof L2Trap) && !(this instanceof L2FriendlyMobInstance) &&
+			!(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) &&
 			!(this instanceof L2Decoy))
 				setIsInvul(true);
 	}
