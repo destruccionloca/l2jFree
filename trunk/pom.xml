@@ -239,7 +239,7 @@
 		<module>l2j-test-tools</module>
 		<module>l2j-commons</module>
         <module>l2j-mmocore</module>
-		<module>L2_LoginServer_IL</module>
-		<module>L2_GameServer_IL</module>
+		<module>L2_LoginServer_CT1</module>
+		<module>L2_GameServer_CT1</module>
 	</modules>
 </project>
