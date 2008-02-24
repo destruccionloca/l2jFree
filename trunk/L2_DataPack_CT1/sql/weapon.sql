@@ -990,7 +990,7 @@ INSERT INTO `weapon` VALUES
 (6610, 'Arcana Mace - Mana Up', 'rhand', 'true', 1300, 1, 1, 'adamantaite', 's', 225, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 175, -1, 48800000, 2440, 'true', 'true', 'true', 'true', 3014, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (6611, 'Infinity Blade', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 316, 10, 'sword', 8, 0.00000, 0, 0, 0, 379, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3578, 1, 0, 0, 0, 0, 0, 3579, 1, 4, 0),
 (6612, 'Infinity Cleaver', 'lrhand', 'false', 1300, 1, 1, 'adamantaite', 's', 385, 10, 'bigsword', 8, 0.00000, 0, 0, 0, 325, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3582, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-(6613, 'Infinity Axe', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 316, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3580, 1, 0, 0, 0, 0, 0, 3581, 1, 4, 0),
+(6613, 'Infinity Axe', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 316, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3580, 1, 0, 0, 0, 0, 0, 3581, 1, 20, 0),
 (6614, 'Infinity Rod', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 253, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 189, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3597, 1, 0, 0, 3598, 1, 15, 0, 0, 0, 0);
 INSERT INTO `weapon` VALUES
 (6615, 'Infinity Crusher', 'lrhand', 'false', 1300, 1, 1, 'adamantaite', 's', 385, 20, 'bigblunt', 4, 4.00000, 0, 0, 0, 325, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3583, 1, 0, 0, 0, 0, 0, 3584, 1, 5, 0),

@@ -25,7 +25,6 @@ BLOODY_QUEEN = 18001
 BLOODY_QUEEN2 = 18002
 SACRIFICE_OF_THE_SACRIFICED = 27171
 HARIT_LIZARDMAN_SHAMAN = 20644
-HARIT_LIZARDMAN_MATRIARCH = 20645
 HARIT_LIZARDMAN_ZEALOT = 27172
 MARSH_STALKER = 20679
 MARSH_DRAKE = 20680
@@ -39,7 +38,7 @@ CAVE_KEEPER = 20277
 CAVE_MAIDEN = 20287
 CAVE_KEEPER1 = 20246
 CAVE_MAIDEN1 = 20134
-MOBS = [18001, 18002, 20277, 20287, 20246, 20134, 20644, 20645, 20649, 20650, 20679, 20680] + range(27165, 27173)
+MOBS = [18001, 18002, 20277, 20287, 20246, 20134, 20644, 20649, 20650, 20679, 20680] + range(27165, 27173)
 
 FEATHER_OF_GABRIELLE,MARSH_STALKER_HORN,MARSH_DRAKE_TALONS,KRANROT_SKIN,\
 HAMRUT_LEG,REMAINS_OF_SACRIFICED,TOTEM_OF_LAND_DRAGON,FIRST_FRAGMENT_OF_ABYSS_JEWEL,\
@@ -323,7 +322,7 @@ class Quest (JQuest) :
             elif npcId == SACRIFICE_OF_THE_SACRIFICED and st.getQuestItemsCount(REMAINS_OF_SACRIFICED)==0 and st.getInt("orven")== 0 :
                 st.giveItems(REMAINS_OF_SACRIFICED,1)
                 st.playSound("ItemSound.quest_itemget")
-            elif npcId in (HARIT_LIZARDMAN_SHAMAN, HARIT_LIZARDMAN_MATRIARCH) and st.getRandom(5) == 0 and st.getQuestItemsCount(TOTEM_OF_LAND_DRAGON)==0 and st.getInt("kendra")== 0 :
+            elif npcId == HARIT_LIZARDMAN_SHAMAN and st.getRandom(5) == 0 and st.getQuestItemsCount(TOTEM_OF_LAND_DRAGON)==0 and st.getInt("kendra")== 0 :
                 for i in range(3) :
                     st.addSpawn(HARIT_LIZARDMAN_ZEALOT,180000)
             elif npcId == HARIT_LIZARDMAN_ZEALOT and st.getQuestItemsCount(TOTEM_OF_LAND_DRAGON)==0 and st.getInt("kendra")== 0 :

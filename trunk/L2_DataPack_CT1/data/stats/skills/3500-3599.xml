@@ -719,7 +719,7 @@
   <for>
     <mul order="0x30" stat="pAtk" val="1.08"> <!-- Archery P. Atk. +8% -->
       <and>
-        <using kind='Bow, Crossbow'/>
+        <using kind="Bow, Crossbow"/>
       </and>
     </mul>
     <add order="0x40" stat="maxMp" val="240"/> <!-- MP +240 -->
@@ -1355,6 +1355,7 @@
   Description(s):
       Decreases enemy's P. Def. during critical attacks. Also increases MaxHP, MaxMP, MaxCP, shield defense capability and damage inflicted during PvP.  Reflects some of the damage received back to the enemy (does not include damage from skill or range attacks).
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1375,6 +1376,7 @@
   Description(s):
       Temporarily decreases P. Def. Effect 3
 -->
+  <set name="magicLvl" val="80"/>
   <set name="save" val="4"/>
   <set name="magicLvl" val="74"/>
   <set name="lvlDepend" val="2"/>
@@ -1386,7 +1388,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="0.77" stackType="pDefDown">
+    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.77" stackType="pDefDown">
       <mul order="0x30" stat="pDef" val="0.77"/>
     </effect>
   </for>
@@ -1397,6 +1399,7 @@
   Description(s):
       Dazzles the enemy to distraction during a critical attack. Also increases MaxHP, MaxMP, MaxCP, shield defense capability and damage inflicted during PvP. Reflects some of the damage received back to the enemy (does not include damage from skill or range attacks).
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1416,6 +1419,7 @@
   Description(s):
       none
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="350.0"/>
   <set name="save" val="6"/>
   <set name="magicLvl" val="74"/>
@@ -1427,7 +1431,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Confusion" time="6" val="0"/>
+    <effect count="1" name="Confusion" time="4" val="0"/>
   </for>
 </skill>
 <skill id="3582" levels="1" name="Special Ability: Infinity Cleaver">
@@ -1436,6 +1440,7 @@
   Description(s):
       Increases critical attack success rate/power, MaxHP, MaxCP and damage inflicted during PvP. Inflicts extra damage on critical attack. Reflects debuff attack back on enemy.
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1477,7 +1482,8 @@
   Description(s):
       Instantly throws enemy into a state of shock, immobilizing them.
 -->
-  <set name="magicLvl" val="90"/>
+  
+  <set name="magicLvl" val="80"/>
   <set name="lvlDepend" val="1"/>
   <set name="save" val="4"/>
   <set name="power" val="800"/>
@@ -1499,6 +1505,7 @@
   Description(s):
       Blocks enemy's ability to use physical skills during a critical attack. Increases MaxHP, MaxMP, MaxCP, critical attack rate and damage inflicted during PvP. Reflects debuff attack back on enemy.
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1520,7 +1527,7 @@
   Description(s):
       Temporarily blocks opponent's ability to use physical skills.
 -->
-  <set name="magicLvl" val="77"/>
+  <set name="magicLvl" val="80"/>
   <set name="power" val="80"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
@@ -1580,6 +1587,7 @@
   Description(s):
       Blocks enemy's ability to use magic skills during a critical attack. Increases MaxMP, MaxCP, Atk. Spd., MP regeneration rate, critical attack rate when attacking the enemy from behind, and damage inflicted during PvP. Restores HP by using some of the damage inflicted upon the enemy (does not include damage from skill or range attacks).
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1606,7 +1614,7 @@
       Temporarily blocks the use of magic skills.
 -->
   <set name="save" val="2"/>
-  <set name="magicLvl" val="74"/>
+  <set name="magicLvl" val="80"/>
   <set name="power" val="80"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
@@ -1625,6 +1633,7 @@
   Description(s):
       During a critical attack, this ability removes one or more of the enemy's buffs. It increases the character's Maximum HP, Maximum CP, Atk. Spd., and Accuracy, and gives a bonus to damage inflicted on an enemy during PvP. It reflects debuffs targeted upon the character back upon the enemy. It enables the character to attack multiple enemies.
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1647,6 +1656,7 @@
   Description(s):
       none
 -->
+  <set name="magicLvl" val="80"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1660,6 +1670,7 @@
   Description(s):
       Decreases enemy's Speed during a critical attack. Increases MaxMP, MaxCP and damage inflicted during PvP. The skill re-use time is shortened, and MP consumption is reduced.
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1678,7 +1689,7 @@
       Temporarily reduces target's Speed. Effect 3.
 -->
   <set name="save" val="5"/>
-  <set name="magicLvl" val="74"/>
+  <set name="magicLvl" val="80"/>
   <set name="power" val="80"/>
   <set name="lvlDepend" val="2"/>
   <set name="target" val="TARGET_ONE"/>
@@ -1688,7 +1699,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="30" val="0" stackOrder="0.5" stackType="RunSpeedDown">
+    <effect count="1" name="Buff" time="120" val="0" stackOrder="0.5" stackType="RunSpeedDown">
       <mul order="0x30" stat="runSpd" val="0.5"/>
     </effect>
   </for>
@@ -1699,6 +1710,7 @@
   Description(s):
       When using good magic, regenerates HP by 100%. Also increases MaxHP, MaxCP, M. Atk., damage magic critical attack rate and damage inflicted during PvP. When casting magic, reduces MP consumption and cancel rate.
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1735,6 +1747,7 @@
   Description(s):
       When using good magic, regenerates HP by 100%. Also increases MaxHP, MaxCP, Casting Spd., MP regeneration rate and damage inflicted during PvP.
 -->
+  <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1755,6 +1768,7 @@
   Description(s):
       none
 -->
+  <set name="magicLvl" val="80"/>
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
