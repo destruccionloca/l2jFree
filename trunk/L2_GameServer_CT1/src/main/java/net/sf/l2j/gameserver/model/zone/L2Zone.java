@@ -132,7 +132,7 @@ public abstract class L2Zone
 	public L2Zone()
 	{
 		// Constructor
-		_characterList = new FastMap<Integer, L2Character>();
+		_characterList = new FastMap<Integer, L2Character>().setShared(true);
 	}
 
 	protected void register()

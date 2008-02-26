@@ -116,12 +116,13 @@
   <set name="power" val="0.0"/>
   <set name="reuseDelay" val="60000"/>
   <set name="hitTime" val="2000"/>
-  <set name="target" val="TARGET_AREA_UNDEAD"/>
+  <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="FEAR"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="lethal2" val="#lethal2"/>
   <set name="castRange" val="150"/>
   <set name="effectRange" val="550"/>
+  <cond msg="Your target is not undead"><target undead="true"/></cond>
   <for>
     <effect count="5" name="Fear" time="3" val="0"/>
   </for>

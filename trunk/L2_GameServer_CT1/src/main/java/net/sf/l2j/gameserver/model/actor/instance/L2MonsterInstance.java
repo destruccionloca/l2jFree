@@ -46,7 +46,7 @@ public class L2MonsterInstance extends L2Attackable
     
     private static final int MONSTER_MAINTENANCE_INTERVAL = 1000;
     // [L2J_JP ADD SANDMAN]
-    private ScheduledFuture<?> _hideTask;
+    //private ScheduledFuture<?> _hideTask;
     
     /**
      * Constructor of L2MonsterInstance (use L2Character and L2NpcInstance constructor).<BR><BR>
@@ -64,7 +64,7 @@ public class L2MonsterInstance extends L2Attackable
         super(objectId, template);
         getKnownList();	// init knownlist
         _minionList  = new MinionList(this);
-        hasRandomAnimation();
+
         // [L2J_JP ADD]
         if (getNpcId() == 29002)   // Queen Ant Larva is invulnerable.
         {
@@ -108,14 +108,14 @@ public class L2MonsterInstance extends L2Attackable
         // [L2J_JP ADD SANDMAN]
         // in Restless Forest
         // They are repeat themselves it visible or invisible.
-        switch (getNpcId())
+        /*switch (getNpcId())
         {
             case 21548:
             case 21551:
             case 21552:
                 _hideTask = ThreadPoolManager.getInstance().scheduleEffect(new doHide(this), (getSpawn().getRespawnDelay()));
                 break;
-        }
+        }*/
         
         if (getTemplate().getMinionData() != null)
         {
@@ -266,8 +266,8 @@ public class L2MonsterInstance extends L2Attackable
     public void deleteMe()
     {
         // [L2J_JP ADD SANDMAN]
-        if(_hideTask != null)
-            _hideTask.cancel(true);
+        //if(_hideTask != null)
+           // _hideTask.cancel(true);
     	
         if (hasMinions())
         {
@@ -292,7 +292,7 @@ public class L2MonsterInstance extends L2Attackable
        _minionList.clearRespawnList();
     }
     // [L2J_JP ADD SANDMAN START]
-    public void hideMe()
+    /*public void hideMe()
     {
         if(hasMinions())
         {
@@ -340,5 +340,5 @@ public class L2MonsterInstance extends L2Attackable
             if(_me.getSpawn().IsRespawnable())
                 _me.shownMe();
         }
-    }
+    }*/
 }
