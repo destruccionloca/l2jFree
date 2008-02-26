@@ -11884,6 +11884,6 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public boolean mustFallDownOnDeath()
     {
-        return super.mustFallDownOnDeath() && !isInFunEvent();
+    	return (super.mustFallDownOnDeath()) || (isInFunEvent() && Config.FALLDOWNONDEATH);
     }
 }

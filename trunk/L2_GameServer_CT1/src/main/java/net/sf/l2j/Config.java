@@ -2159,6 +2159,7 @@ public final class Config
 	public static boolean		DM_ALLOW_SUMMON;
 	public static boolean		DM_ON_START_REMOVE_ALL_EFFECTS;
 	public static boolean		DM_ON_START_UNSUMMON_PET;
+	public static boolean		FALLDOWNONDEATH;
 	
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -2210,6 +2211,7 @@ public final class Config
 			DM_ALLOW_SUMMON = Boolean.parseBoolean(funEnginesSettings.getProperty("DMAllowSummon", "false"));
 			DM_ON_START_REMOVE_ALL_EFFECTS = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartRemoveAllEffects", "true"));
 			DM_ON_START_UNSUMMON_PET = Boolean.parseBoolean(funEnginesSettings.getProperty("DMOnStartUnsummonPet", "true"));
+			FALLDOWNONDEATH = Boolean.parseBoolean(funEnginesSettings.getProperty("FallDownOnDeath", "true"));
 		}
 		catch (Exception e)
 		{

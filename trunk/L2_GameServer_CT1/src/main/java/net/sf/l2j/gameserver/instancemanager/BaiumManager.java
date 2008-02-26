@@ -56,7 +56,7 @@ public class BaiumManager extends Entity
 
     //location of Statue of Baium  
     private final int _StatueofBaiumId = 29025;  
-    private final int _StatueofBaiumLocation[] = {116067,17484,10110,41740};  
+    private final int _StatueofBaiumLocation[] = {115996,17417,10106,41740};
     protected L2Spawn _StatueofBaiumSpawn = null; 
 
 

@@ -484,6 +484,8 @@ public class EnterWorld extends L2GameClientPacket
         {
             TransformationManager.getInstance().transformPlayer(activeChar.transformId(), activeChar, Long.MAX_VALUE);
         }
+        
+        activeChar.regiveTemporarySkills();
     }
 
 
