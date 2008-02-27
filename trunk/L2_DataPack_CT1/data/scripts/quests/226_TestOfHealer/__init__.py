@@ -42,6 +42,7 @@ TATOMA = 27134
 LETO_LEADER = 27123
 LETO_ASSASSIN = 27124
 LETO_SNIPER = 27125
+LETO_WIZARD = 27126
 LETO_LORD = 27127
 
 #this handles all dropdata, npcId:[condition,maxcount,item,next condition]
@@ -270,11 +271,11 @@ class Quest (JQuest) :
 
  def onKill(self,npc,player,isPet):
    st = player.getQuestState(qn)
-   if not st : return 
-   if st.getState() != State.STARTED : return 
-   
+   if not st : return
+   if st.getState() != State.STARTED : return
+
    npcId = npc.getNpcId()
-   condition,maxcount,item,next_condition=DROPLIST[npcId] 
+   condition,maxcount,item,next_condition=DROPLIST[npcId]
    if st.getInt("cond")==condition and st.getQuestItemsCount(item)<maxcount:
      if item != 0:
        st.giveItems(item,1)

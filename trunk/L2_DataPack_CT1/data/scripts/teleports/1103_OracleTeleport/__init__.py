@@ -69,7 +69,7 @@ class Quest (JQuest) :
 
  def __init__(self, id, name, descr): JQuest.__init__(self, id, name, descr)
 
- def onEvent (self,event,st) : 
+ def onEvent (self,event,st) :
     htmltext = event
     id=st.getInt("id")
     count=st.getInt("count")
@@ -101,11 +101,12 @@ class Quest (JQuest) :
  def onTalk (Self, npc, player):
     st = player.getQuestState(qn)
     if not st: return
+    htmltext = None
     npcId = npc.getNpcId()
     ##################
     # Dawn Locations #
     ##################
-    if npcId in TOWN_DAWN: 
+    if npcId in TOWN_DAWN:
        st.setState(State.STARTED)
        st.set("id",str(TELEPORTERS[npcId]))
        st.playSound("ItemSound.quest_accept")
@@ -113,12 +114,12 @@ class Quest (JQuest) :
     ##################
     # Dusk Locations #
     ##################
-    elif npcId in TOWN_DUSK: 
+    elif npcId in TOWN_DUSK:
        st.setState(State.STARTED)
        st.set("id",str(TELEPORTERS[npcId]))
        st.playSound("ItemSound.quest_accept")
        st.getPlayer().teleToLocation(-81261,86531,-5157)
-    elif npcId in range(31494,31508) +range(31095,31112)+range(31114,31125):
+    elif npcId in range(31494,31508) +range(31095,31111)+range(31114,31125):
        if player.getLevel() < 20 :
           st.exitQuest(1)
           htmltext="1.htm"
@@ -142,14 +143,14 @@ class Quest (JQuest) :
        else :
           #st.setState(State.CREATED)
           htmltext="ziggurats not supported yet"
-    return
+    return htmltext
 
 QUEST      = Quest(1103, qn, "Teleports")
 
 for i in TELEPORTERS :
     QUEST.addStartNpc(i)
     QUEST.addTalkId(i)
-for k in range(31494,31508)+range(31095,31112)+range(31114,31125):
+for k in range(31494,31508)+range(31095,31111)+range(31114,31125):
     QUEST.addStartNpc(k)
     QUEST.addTalkId(k)
 for j in TEMPLE_PRIEST :
