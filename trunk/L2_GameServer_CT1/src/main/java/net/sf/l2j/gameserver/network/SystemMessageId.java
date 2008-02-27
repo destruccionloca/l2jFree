@@ -4950,7 +4950,7 @@ public enum SystemMessageId
 	* ID: 836<br>
 	* Message: You have exceeded your inventory volume limit and cannot take this item.
 	*/
-	INVENTORY_VOLUME_EXCEEDED(836),
+	YOU_HAVE_EXCEEDED_YOUR_INVENTORY_VOLUME_LIMIT_AND_CANNOT_TAKE_THIS_ITEM(836),
 
 	/**
 	* ID: 837<br>
@@ -12234,7 +12234,7 @@ public enum SystemMessageId
 	* Message: You have exceeded your inventory volume limit and may not take this quest item.
 	* Please make room in your inventory and try again
 	*/
-	CANT_TAKE_QUEST_ITEM_INVENTORY_FULL(2043),
+	YOU_HAVE_EXCEEDED_YOUR_INVENTORY_VOLUME_LIMIT_AND_CANNOT_TAKE_THIS_QUESTITEM(2043),
 
 	/**
 	* ID: 2044<br>

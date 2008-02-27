@@ -623,8 +623,8 @@ public class Disablers implements ISkillHandler
 
                     if(skill.getId() == 1056 && target != activeChar) //can't cancel your self
                     {
-                        int lvlmodifier= 52+skill.getMagicLevel()*2;
-                        if(skill.getMagicLevel()==12) lvlmodifier = (Experience.MAX_LEVEL - 1);
+                        int lvlmodifier= 52+skill.getLevel()*2;
+                        if(skill.getLevel()==12) lvlmodifier = (Experience.MAX_LEVEL - 1);
                         int landrate = 90;
                         if((target.getLevel() - lvlmodifier)>0) landrate = 90-4*(target.getLevel()-lvlmodifier);
 

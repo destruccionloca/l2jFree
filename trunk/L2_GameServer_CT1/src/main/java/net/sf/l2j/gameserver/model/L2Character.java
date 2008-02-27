@@ -870,6 +870,8 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 
+		boolean transformed = false;
+
 		if (this instanceof L2PcInstance)
 		{
 			if (((L2PcInstance) this).inObserverMode())
@@ -922,6 +924,8 @@ public abstract class L2Character extends L2Object
 				sendPacket(new ActionFailed());
 				return;
 			}
+
+			transformed = ((L2PcInstance)this).isTransformed();
 		}
 
 		// Get the active weapon instance (always equipped in the right hand)
@@ -942,7 +946,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		// Check for a bow
-		if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.BOW))
+		if (weaponItem != null && weaponItem.getItemType() == L2WeaponType.BOW && !transformed)
 		{
 			// Check for arrows and MP
 			if (this instanceof L2PcInstance)
@@ -997,7 +1001,7 @@ public abstract class L2Character extends L2Object
 			}
 		}
 		// Check for a crossbow
-		if ((weaponItem != null && weaponItem.getItemType() == L2WeaponType.CROSSBOW))
+		if (weaponItem != null && weaponItem.getItemType() == L2WeaponType.CROSSBOW && !transformed)
 		{
 			//Check for bolts
 			if (this instanceof L2PcInstance)
@@ -1086,7 +1090,7 @@ public abstract class L2Character extends L2Object
 		setAttackingBodypart();
 
 		// Select the type of attack to start
-		if (weaponItem == null)
+		if (weaponItem == null || transformed)
 			hitted = doAttackHitSimple(attack, target, timeToHit);
 
 		else if (weaponItem.getItemType() == L2WeaponType.BOW)
@@ -5905,7 +5909,7 @@ public abstract class L2Character extends L2Object
 				L2Weapon weapon = getActiveWeaponItem();
 				boolean isBow = (weapon != null && weapon.getItemType() == L2WeaponType.BOW);
 
-				if (!isBow) // Do not reflect or absorb if weapon is of type bow
+				if (!isBow || (this instanceof L2PcInstance && ((L2PcInstance)this).isTransformed())) // Do not reflect or absorb if weapon is of type bow
 				{
 					// Reduce HP of the target and calculate reflection damage to reduce HP of attacker if necessary
 					double reflectPercent = target.getStat().calcStat(Stats.REFLECT_DAMAGE_PERCENT, 0, null, null);
@@ -6207,7 +6211,7 @@ public abstract class L2Character extends L2Object
 		// The SA "Quick Recovery" reduces the red bar Weapon Delay on a bow to the following:
 		// Reuse goes from 639 EB QR, to 1500 Normal...
 
-		if (weapon == null)
+		if (weapon == null || (this instanceof L2PcInstance && ((L2PcInstance)this).isTransformed()))
 			return 0;
 
 		double reuse = weapon.getAttackReuseDelay();

@@ -306,12 +306,19 @@ public class UseItem extends L2GameClientPacket
 			int bodyPart = item.getItem().getBodyPart();
 			
 			// Prevent player to remove the weapon on special conditions
-			if ((activeChar.isAttackingNow() || activeChar.isCastingNow() || activeChar.isMounted() || (activeChar._inEventCTF && activeChar._haveFlagCTF))
-					&& (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND))
+			if (bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND)
 			{
-				if (activeChar._inEventCTF && activeChar._haveFlagCTF)
-					activeChar.sendMessage("This item can not be equipped when you have the flag.");
-				return;
+				if (activeChar.isCastingNow())
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ITEM_WHILE_USING_MAGIC));
+					return;
+				}
+				if (activeChar.isAttackingNow() || activeChar.isMounted() || (activeChar._inEventCTF && activeChar._haveFlagCTF))
+				{
+					if (activeChar._inEventCTF && activeChar._haveFlagCTF)
+						activeChar.sendMessage("This item can not be equipped when you have the flag.");
+					return;
+				}
 			}
 
 			if (activeChar.isDisarmed()
