@@ -1436,8 +1436,9 @@ public final class Config
 	public static int					ALT_OLY_BATTLE;												// Olympiad Battle Period
 	public static int					ALT_OLY_BWAIT;												// Olympiad Battle Wait
 	public static int					ALT_OLY_IWAIT;												// Olympiad Inital Wait
-	public static int					ALT_OLY_WPERIOD;											// Olympaid Weekly Period
-	public static int					ALT_OLY_VPERIOD;											// Olympaid Validation Period
+	public static int					ALT_OLY_WPERIOD;											// Olympiad Weekly Period
+	public static int					ALT_OLY_VPERIOD;											// Olympiad Validation Period
+	public static boolean				ALT_OLY_SAME_IP;											// Olympiad allow Matches from same Ip
 	public static float					ALT_GAME_SUMMON_PENALTY_RATE;								// Alternative game summon penalty
 	public static int					ALT_MANOR_REFRESH_TIME;										// Manor Refresh Starting time
 	public static int					ALT_MANOR_REFRESH_MIN;										// Manor Refresh Min
@@ -1593,6 +1594,7 @@ public final class Config
 			ALT_OLY_IWAIT = Integer.parseInt(altSettings.getProperty("AltOlyPwait", "300000"));
 			ALT_OLY_WPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyWperiod", "604800000"));
 			ALT_OLY_VPERIOD = Integer.parseInt(altSettings.getProperty("AltOlyVperiod", "86400000"));
+			ALT_OLY_SAME_IP = Boolean.parseBoolean(altSettings.getProperty("AltOlySameIp", "true"));
 			
 			ALT_MANOR_REFRESH_TIME = Integer.parseInt(altSettings.getProperty("AltManorRefreshTime", "20"));
 			ALT_MANOR_REFRESH_MIN = Integer.parseInt(altSettings.getProperty("AltManorRefreshMin", "00"));

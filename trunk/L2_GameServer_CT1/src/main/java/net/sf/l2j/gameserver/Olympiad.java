@@ -616,9 +616,7 @@ public class Olympiad
 	
 	private long getMillisToOlympiadEnd()
 	{
-		// if (_olympiadEnd > Calendar.getInstance().getTimeInMillis())
 		return (_olympiadEnd - Calendar.getInstance().getTimeInMillis());
-		// return 10L;
 	}
 	
 	public void manualSelectHeroes()
@@ -738,9 +736,7 @@ public class Olympiad
 	
 	protected long getMillisToCompEnd()
 	{
-		// if (_compEnd > Calendar.getInstance().getTimeInMillis())
 		return (_compEnd - Calendar.getInstance().getTimeInMillis());
-		// return 10L;
 	}
 	
 	private long getMillisToWeekChange()
@@ -984,8 +980,6 @@ public class Olympiad
 	
 	public FastList<String> getClassLeaderBoard(int classId)
 	{
-		// if (_period != 1) return;
-		
 		FastList<String> names = new FastList<String>();
 		
 		Connection con = null;
@@ -1180,8 +1174,6 @@ public class Olympiad
 			
 			if (!inCompPeriod())
 				return;
-			
-			// Announcements.getInstance().announceToAll("Comp Match Init");
 			
 			if (_nobles.size() == 0)
 				return;
@@ -1898,7 +1890,19 @@ public class Olympiad
 			_playerTwo =  L2World.getInstance().getPlayer(_playerTwoName);
 			_players.set(1, _playerTwo);
 
-			if ((playerTwoHp == 0 && playerOneHp != 0) || (hpDiffOne < hpDiffTwo && playerTwoHp != 0))
+			String ip1 = _playerOne.getClient().getConnection().getSocket().getInetAddress().getHostAddress();
+			String ip2 = _playerTwo.getClient().getConnection().getSocket().getInetAddress().getHostAddress();
+			
+			if(ip1.equals(ip2) && !Config.ALT_OLY_SAME_IP)
+			{
+				_log.warn("Match from same ip " + _playerOneName + " vs " + _playerTwoName);
+				result = " tie";
+				_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
+				broadcastMessage(_sm, true);
+				_playerOne.sendMessage("Matches from same Ip are forbidden.");
+				_playerTwo.sendMessage("Matches from same Ip are forbidden.");
+			}
+			else if ((playerTwoHp == 0 && playerOneHp != 0) || (hpDiffOne < hpDiffTwo && playerTwoHp != 0))
 			{
 				int pointDiff;
 				pointDiff = (playerTwoPoints / 3);
