@@ -1902,90 +1902,93 @@ public class Olympiad
 				_playerOne.sendMessage("Matches from same Ip are forbidden.");
 				_playerTwo.sendMessage("Matches from same Ip are forbidden.");
 			}
-			else if ((playerTwoHp == 0 && playerOneHp != 0) || (hpDiffOne < hpDiffTwo && playerTwoHp != 0))
-			{
-				int pointDiff;
-				pointDiff = (playerTwoPoints / 3);
-				playerOneStat.set(POINTS, playerOnePoints + pointDiff);
-				playerTwoStat.set(POINTS, playerTwoPoints - pointDiff);
-				
-				_sm.addString(_playerOneName);
-				broadcastMessage(_sm, true);
-				_sm2.addString(_playerOneName);
-				_sm2.addNumber(pointDiff);
-				broadcastMessage(_sm2, true);
-				_sm3.addString(_playerTwoName);
-				_sm3.addNumber(pointDiff);
-				broadcastMessage(_sm3, true);
-				
-				try
-				{
-					result = " (" + playerOneHp + "hp vs " + playerTwoHp + "hp - " + hpDiffOne + " vs " + hpDiffTwo + ") " + _playerOneName + " win "
-							+ pointDiff + " points";
-					L2ItemInstance item = _playerOne.getInventory().addItem("Olympiad", 6651, 30, _playerOne, null);
-					InventoryUpdate iu = new InventoryUpdate();
-					iu.addModifiedItem(item);
-					_playerOne.sendPacket(iu);
-					
-					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-					sm.addItemName(item);
-					sm.addNumber(30);
-					_playerOne.sendPacket(sm);
-				}
-				catch (Exception e)
-				{
-				}
-			}
-			else if ((playerOneHp == 0 && playerTwoHp != 0) || (hpDiffOne > hpDiffTwo && playerOneHp != 0))
-			{
-				int pointDiff;
-				pointDiff = (playerOnePoints / 3);
-				playerTwoStat.set(POINTS, playerTwoPoints + pointDiff);
-				playerOneStat.set(POINTS, playerOnePoints - pointDiff);
-				
-				_sm.addString(_playerTwoName);
-				broadcastMessage(_sm, true);
-				_sm2.addString(_playerTwoName);
-				_sm2.addNumber(pointDiff);
-				broadcastMessage(_sm2, true);
-				_sm3.addString(_playerOneName);
-				_sm3.addNumber(pointDiff);
-				broadcastMessage(_sm3, true);
-				
-				try
-				{
-					result = " (" + playerOneHp + "hp vs " + playerTwoHp + "hp - " + hpDiffOne + " vs " + hpDiffTwo + ") " + _playerTwoName + " win "
-							+ pointDiff + " points";
-					L2ItemInstance item = _playerTwo.getInventory().addItem("Olympiad", 6651, 30, _playerTwo, null);
-					InventoryUpdate iu = new InventoryUpdate();
-					iu.addModifiedItem(item);
-					_playerTwo.sendPacket(iu);
-					
-					SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
-					sm.addItemName(item);
-					sm.addNumber(30);
-					_playerTwo.sendPacket(sm);
-				}
-				catch (Exception e)
-				{
-				}
-			}
 			else
 			{
-				result = " tie";
-				_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
-				broadcastMessage(_sm, true);
+				if ((playerTwoHp == 0 && playerOneHp != 0) || (hpDiffOne < hpDiffTwo && playerTwoHp != 0))
+				{
+					int pointDiff;
+					pointDiff = (playerTwoPoints / 3);
+					playerOneStat.set(POINTS, playerOnePoints + pointDiff);
+					playerTwoStat.set(POINTS, playerTwoPoints - pointDiff);
+					
+					_sm.addString(_playerOneName);
+					broadcastMessage(_sm, true);
+					_sm2.addString(_playerOneName);
+					_sm2.addNumber(pointDiff);
+					broadcastMessage(_sm2, true);
+					_sm3.addString(_playerTwoName);
+					_sm3.addNumber(pointDiff);
+					broadcastMessage(_sm3, true);
+					
+					try
+					{
+						result = " (" + playerOneHp + "hp vs " + playerTwoHp + "hp - " + hpDiffOne + " vs " + hpDiffTwo + ") " + _playerOneName + " win "
+								+ pointDiff + " points";
+						L2ItemInstance item = _playerOne.getInventory().addItem("Olympiad", 6651, 30, _playerOne, null);
+						InventoryUpdate iu = new InventoryUpdate();
+						iu.addModifiedItem(item);
+						_playerOne.sendPacket(iu);
+						
+						SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+						sm.addItemName(item);
+						sm.addNumber(30);
+						_playerOne.sendPacket(sm);
+					}
+					catch (Exception e)
+					{
+					}
+				}
+				else if ((playerOneHp == 0 && playerTwoHp != 0) || (hpDiffOne > hpDiffTwo && playerOneHp != 0))
+				{
+					int pointDiff;
+					pointDiff = (playerOnePoints / 3);
+					playerTwoStat.set(POINTS, playerTwoPoints + pointDiff);
+					playerOneStat.set(POINTS, playerOnePoints - pointDiff);
+					
+					_sm.addString(_playerTwoName);
+					broadcastMessage(_sm, true);
+					_sm2.addString(_playerTwoName);
+					_sm2.addNumber(pointDiff);
+					broadcastMessage(_sm2, true);
+					_sm3.addString(_playerOneName);
+					_sm3.addNumber(pointDiff);
+					broadcastMessage(_sm3, true);
+					
+					try
+					{
+						result = " (" + playerOneHp + "hp vs " + playerTwoHp + "hp - " + hpDiffOne + " vs " + hpDiffTwo + ") " + _playerTwoName + " win "
+								+ pointDiff + " points";
+						L2ItemInstance item = _playerTwo.getInventory().addItem("Olympiad", 6651, 30, _playerTwo, null);
+						InventoryUpdate iu = new InventoryUpdate();
+						iu.addModifiedItem(item);
+						_playerTwo.sendPacket(iu);
+						
+						SystemMessage sm = new SystemMessage(SystemMessageId.EARNED_S2_S1_S);
+						sm.addItemName(item);
+						sm.addNumber(30);
+						_playerTwo.sendPacket(sm);
+					}
+					catch (Exception e)
+					{
+					}
+				}
+				else
+				{
+					result = " tie";
+					_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
+					broadcastMessage(_sm, true);
+				}
+				_log.info("Olympia Result: " + _playerOneName + " vs " + _playerTwoName + " ... " + result);
+				
+				playerOneStat.set(COMP_DONE, playerOnePlayed + 1);
+				playerTwoStat.set(COMP_DONE, playerTwoPlayed + 1);
+				
+				_nobles.remove(_playerOneID);
+				_nobles.remove(_playerTwoID);
+				
+				_nobles.put(_playerOneID, playerOneStat);
+				_nobles.put(_playerTwoID, playerTwoStat);
 			}
-			_log.info("Olympia Result: " + _playerOneName + " vs " + _playerTwoName + " ... " + result);
-			
-			playerOneStat.set(COMP_DONE, playerOnePlayed + 1);
-			playerTwoStat.set(COMP_DONE, playerTwoPlayed + 1);
-			
-			_nobles.remove(_playerOneID);
-			_nobles.remove(_playerTwoID);
-			
-			_nobles.put(_playerOneID, playerOneStat);
-			_nobles.put(_playerTwoID, playerTwoStat);
 			
 			_sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
 			_sm.addNumber(20);
