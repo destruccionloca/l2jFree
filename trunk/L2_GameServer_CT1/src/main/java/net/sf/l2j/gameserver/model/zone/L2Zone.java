@@ -178,7 +178,7 @@ public abstract class L2Zone
 	public FastMap<RestartType, FastList<Location>> getRestartMap()
 	{
 		if (_restarts == null)
-			_restarts = new FastMap<RestartType, FastList<Location>>();
+			_restarts = new FastMap<RestartType, FastList<Location>>().setShared(true);
 
 		return _restarts;
 	}
