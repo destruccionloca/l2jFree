@@ -1899,8 +1899,8 @@ public class Olympiad
 				result = " tie";
 				_sm = new SystemMessage(SystemMessageId.THE_GAME_ENDED_IN_A_TIE);
 				broadcastMessage(_sm, true);
-				_playerOne.sendMessage("Matches from same Ip are forbidden.");
-				_playerTwo.sendMessage("Matches from same Ip are forbidden.");
+				_playerOne.sendMessage("Match suspected of Illegal Violation: GM informed");
+				_playerTwo.sendMessage("Match suspected of Illegal Violation: GM informed");
 			}
 			else
 			{

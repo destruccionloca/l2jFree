@@ -32,6 +32,8 @@ import net.sf.l2j.gameserver.templates.L2EtcItemType;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import net.sf.l2j.gameserver.util.IllegalPlayerAction;
+import net.sf.l2j.gameserver.util.Util;
 
 /**
  * This class ...
@@ -100,6 +102,12 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			sendPacket(new ActionFailed());
 			return;
 		}
+        
+		if (player.getActiveEnchantItem() != null)
+        {
+        	Util.handleIllegalPlayerAction(player,"Player "+player.getName()+" tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
+        	return;
+        }		
 
 		// Alt game - Karma punishment
 		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0) return;
