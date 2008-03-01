@@ -7439,6 +7439,6 @@ INSERT INTO `etcitem` VALUES
 -- L2J-Free Add-ons allready implemented so there is no point run updates that is bellow
 --
 
-UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` = 6353; -- Blue Gemstone
+UPDATE `etcitem` SET `item_type` = 'quest' WHERE `item_id` IN ( 6353, 10164 ); -- Blue Gemstone and Animal Slayer's List
 UPDATE `etcitem` SET `weight` = 10 WHERE `item_id` IN ( 2515, 4038, 5168, 5169, 6316, 7208, 7209, 9668 ); -- Update weight for pets' food for CT1
 UPDATE `etcitem` SET `consume_type` = 'normal' WHERE `item_id` IN (731,732,949,950,953,954,957,958,961,962); -- Crystal Enchant scrools are not stackable
