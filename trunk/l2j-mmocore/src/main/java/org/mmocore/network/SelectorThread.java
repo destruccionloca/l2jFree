@@ -480,7 +480,7 @@ public class SelectorThread<T extends MMOClient> extends Thread
         
         boolean ret = client.decrypt(buf, size - HEADER_SIZE);
         
-        buf.position(pos);
+        //buf.position(pos); //can be annoying for some decrypt impl decrypt should place the pos at the right place itself 
        
         if (buf.hasRemaining() && ret)
         {

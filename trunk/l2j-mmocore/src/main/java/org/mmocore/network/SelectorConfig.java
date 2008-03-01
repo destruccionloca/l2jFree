@@ -52,7 +52,7 @@ public class SelectorConfig
     
     public int getReadBufferSize()
     {
-        return READ_BUFFER_SIZE;
+    	return WRITE_BUFFER_SIZE;
     }
     
     public int getWriteBufferSize()
