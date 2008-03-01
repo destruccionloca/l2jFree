@@ -1618,7 +1618,7 @@ public class Olympiad
 					L2ItemInstance wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
 					if (wpn == null)
 						wpn = player.getInventory().getPaperdollItem(Inventory.PAPERDOLL_RHAND);
-					if (wpn != null && ((wpn.getItemId() >= 6611 && wpn.getItemId() <= 6621) || (wpn.getItemId() >= 9388 && wpn.getItemId() <= 9390) || wpn.getItemId() == 6842))
+					if (wpn != null && wpn.isHeroItem())
 					{
 						L2ItemInstance[] unequiped = player.getInventory().unEquipItemInBodySlotAndRecord(wpn.getItem().getBodyPart());
 						InventoryUpdate iu = new InventoryUpdate();
