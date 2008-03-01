@@ -9430,13 +9430,13 @@ public enum SystemMessageId
 	* ID: 1576<br>
 	* Message: Pet uses the power of spirit.
 	*/
-	PET_USE_THE_POWER_OF_SPIRIT(1575),
+	PET_USE_THE_POWER_OF_SPIRIT(1576),
 
 	/**
 	* ID: 1577<br>
 	* Message: Servitor uses the power of spirit.
 	*/
-	SERVITOR_USE_THE_POWER_OF_SPIRIT(1575),
+	SERVITOR_USE_THE_POWER_OF_SPIRIT(1576),
 
 	/**
 	* ID: 1578<br>
