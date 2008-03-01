@@ -17,15 +17,32 @@
  */
 package org.mmocore.network;
 
-
-import org.mmocore.network.SelectorConfig.HeaderSize;
-
 /**
  * @author KenM
  *
  */
 public abstract class SendablePacket<T extends MMOClient> extends AbstractPacket<T>
 {
+    protected void putShort(int value)
+    {
+        this.getByteBuffer().putShort((short) value);
+    }
+    
+    protected void putInt(int value)
+    {
+        this.getByteBuffer().putInt(value);
+    }
+    
+    protected void putDouble(double value)
+    {
+        this.getByteBuffer().putDouble(value);
+    }
+    
+    protected void putFloat(float value)
+    {
+        this.getByteBuffer().putFloat(value);
+    }
+    
     protected void writeC(int data)
     {
         this.getByteBuffer().put((byte) data);
@@ -73,19 +90,7 @@ public abstract class SendablePacket<T extends MMOClient> extends AbstractPacket
     
     protected abstract void write();
     
-    protected void writeHeader(HeaderSize ht, int pos)
-    {
-        switch (ht)
-        {
-            case BYTE_HEADER:
-                this.getByteBuffer().put(pos, (byte) this.getByteBuffer().position());
-                break;
-            case SHORT_HEADER:
-                this.getByteBuffer().putShort(pos, (short) this.getByteBuffer().position());
-                break;
-            case INT_HEADER:
-                this.getByteBuffer().putInt(pos, this.getByteBuffer().position());
-                break;
-        }
-    }
+    protected abstract int getHeaderSize();
+    
+    protected abstract void writeHeader(int dataSize);
 }

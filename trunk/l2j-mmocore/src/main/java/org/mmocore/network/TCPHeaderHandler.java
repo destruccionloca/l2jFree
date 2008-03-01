@@ -18,51 +18,31 @@
 package org.mmocore.network;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.SelectionKey;
 
 /**
  * @author KenM
  *
  */
-public abstract class MMOClient<T extends MMOConnection>
+public abstract class TCPHeaderHandler<T extends MMOClient> extends HeaderHandler<T, TCPHeaderHandler<T>>
 {
-	private T	_connection;
-
-	@SuppressWarnings("unchecked")
-	public MMOClient(T con)
+	/**
+	 * @param subHeaderHandler
+	 */
+	public TCPHeaderHandler(TCPHeaderHandler<T> subHeaderHandler)
 	{
-		this.setConnection(con);
-		con.setClient(this);
+		super(subHeaderHandler);
 	}
 
-	protected void setConnection(T con)
+	private final HeaderInfo<T>	_headerInfoReturn	= new HeaderInfo<T>();
+
+	public abstract HeaderInfo handleHeader(SelectionKey key, ByteBuffer buf);
+
+	/**
+	 * @return the headerInfoReturn
+	 */
+	protected final HeaderInfo<T> getHeaderInfoReturn()
 	{
-		_connection = con;
-	}
-
-	public T getConnection()
-	{
-		return _connection;
-	}
-
-	public void closeNow()
-	{
-		this.getConnection().closeNow();
-	}
-
-	public void closeLater()
-	{
-		this.getConnection().closeLater();
-	}
-
-	public abstract boolean decrypt(ByteBuffer buf, int size);
-
-	public abstract boolean encrypt(ByteBuffer buf, int size);
-
-	protected void onDisconnection()
-	{
-	}
-
-	protected void onForcedDisconnection()
-	{
+		return _headerInfoReturn;
 	}
 }

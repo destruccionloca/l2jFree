@@ -17,52 +17,22 @@
  */
 package org.mmocore.network;
 
-import java.nio.ByteBuffer;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
 
 /**
  * @author KenM
  *
  */
-public abstract class MMOClient<T extends MMOConnection>
+public interface ISocket
 {
-	private T	_connection;
+	public void close() throws IOException;
 
-	@SuppressWarnings("unchecked")
-	public MMOClient(T con)
-	{
-		this.setConnection(con);
-		con.setClient(this);
-	}
+	public WritableByteChannel getWritableByteChannel();
 
-	protected void setConnection(T con)
-	{
-		_connection = con;
-	}
+	public ReadableByteChannel getReadableByteChannel();
 
-	public T getConnection()
-	{
-		return _connection;
-	}
-
-	public void closeNow()
-	{
-		this.getConnection().closeNow();
-	}
-
-	public void closeLater()
-	{
-		this.getConnection().closeLater();
-	}
-
-	public abstract boolean decrypt(ByteBuffer buf, int size);
-
-	public abstract boolean encrypt(ByteBuffer buf, int size);
-
-	protected void onDisconnection()
-	{
-	}
-
-	protected void onForcedDisconnection()
-	{
-	}
+	public InetAddress getInetAddress();
 }

@@ -17,35 +17,35 @@
  */
 package org.mmocore.network;
 
-import java.net.InetAddress;
+import java.net.SocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.channels.DatagramChannel;
 
 /**
  * @author KenM
  *
  */
-public class SelectorServerConfig extends SelectorConfig
+public abstract class UDPHeaderHandler<T extends MMOClient>  extends HeaderHandler<T, UDPHeaderHandler<T>>
 {
-    private final int SERVER_PORT;
-    private final InetAddress SERVER_ADDRESS;
-    
-    public SelectorServerConfig(int port)
+    /**
+     * @param subHeaderHandler
+     */
+    public UDPHeaderHandler(UDPHeaderHandler<T> subHeaderHandler)
     {
-        this(null, port);
+        super(subHeaderHandler);
     }
+
+    private final HeaderInfo<T> _headerInfoReturn = new HeaderInfo<T>();
     
-    public SelectorServerConfig(InetAddress address, int port)
-    {
-        SERVER_PORT = port;
-        SERVER_ADDRESS = address;
-    }
+    protected abstract HeaderInfo handleHeader(ByteBuffer buf);
     
-    public int getPort()
-    {
-        return SERVER_PORT;
-    }
+    protected abstract void onUDPConnection(SelectorThread<T> selector, DatagramChannel dc, SocketAddress key, ByteBuffer buf);
     
-    public InetAddress getAddress()
+    /**
+     * @return the headerInfoReturn
+     */
+    protected final HeaderInfo<T> getHeaderInfoReturn()
     {
-        return SERVER_ADDRESS;
+        return _headerInfoReturn;
     }
 }
