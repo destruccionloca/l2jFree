@@ -1228,6 +1228,7 @@ public abstract class Inventory extends ItemContainer
 				break;
 			case L2Item.SLOT_UNDERWEAR:
 				setPaperdollItem(PAPERDOLL_UNDER, item);
+				break;
 			case L2Item.SLOT_BACK:
 				setPaperdollItem(PAPERDOLL_BACK, item);
 				break;

@@ -42,6 +42,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
+import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 
 public class Castle extends Siegeable
@@ -565,6 +566,7 @@ public class Castle extends Siegeable
 				clan.setHasCastle(getCastleId()); // Set has castle flag for new owner
 				Announcements.getInstance().announceToAll(clan.getName() + " has taken " + getName() + " castle!");
 				clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
+				clan.broadcastToOnlineMembers(new PlaySound(1, "Siege_Victory", 0, 0, 0, 0, 0));
 
 				// give crowns
 				CrownManager.getInstance().checkCrowns(clan);

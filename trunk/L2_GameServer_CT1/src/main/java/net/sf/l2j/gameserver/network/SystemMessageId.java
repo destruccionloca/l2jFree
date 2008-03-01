@@ -6780,13 +6780,13 @@ public enum SystemMessageId
 	* ID: 1140<br>
 	* Message: Would you like to open the gate?
 	*/
-	WISH_OPEN_THE_GATE(1140),
+	WOULD_YOU_LIKE_TO_OPEN_THE_GATE(1140),
 
 	/**
 	* ID: 1141<br>
 	* Message: Would you like to close the gate?
 	*/
-	WISH_CLOSE_THE_GATE(1141),
+	WOULD_YOU_LIKE_TO_CLOSE_THE_GATE(1141),
 
 	/**
 	* ID: 1142<br>
