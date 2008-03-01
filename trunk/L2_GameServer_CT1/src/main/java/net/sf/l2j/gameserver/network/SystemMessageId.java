@@ -9436,7 +9436,7 @@ public enum SystemMessageId
 	* ID: 1577<br>
 	* Message: Servitor uses the power of spirit.
 	*/
-	SERVITOR_USE_THE_POWER_OF_SPIRIT(1576),
+	SERVITOR_USE_THE_POWER_OF_SPIRIT(1577),
 
 	/**
 	* ID: 1578<br>
