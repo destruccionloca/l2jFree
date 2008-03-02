@@ -49,17 +49,12 @@ public class SplendorKey implements IItemHandler
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 			activeChar.sendPacket(new ActionFailed());
+			return;
 		}
 		else
 		{
 			L2DoorInstance door = (L2DoorInstance) target;
-			if (door.getDoorId() == 23150003 || door.getDoorId() == 23150004)
-			{
-				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-				activeChar.sendPacket(new ActionFailed());
-				return;
-			}
-			else if (door.getOpen()==1)
+			if ((door.getDoorId() != 23150003 && door.getDoorId() != 23150004) && door.getOpen()==0)
 			{
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 				activeChar.sendPacket(new ActionFailed());
