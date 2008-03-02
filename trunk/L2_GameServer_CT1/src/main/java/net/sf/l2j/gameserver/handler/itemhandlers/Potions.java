@@ -282,7 +282,7 @@ public class Potions implements IItemHandler
 		case 8627:
 		{
 			// elixir of Life
-			if (!isUseable(activeChar, item, 2136))
+			if (!isUseable(activeChar, item, 2287))
 				return;
 			byte expIndex = (byte) activeChar.getExpertiseIndex();
 			if ((itemId == 8622 && expIndex == 0) || (itemId == 8623 && expIndex == 1) || (itemId == 8624 && expIndex == 2)
