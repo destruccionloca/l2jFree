@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.PetitionManager;
+import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -29,23 +30,34 @@ import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
  */
 public class AdminPetition implements IAdminCommandHandler
 {
-	private static final String[] ADMIN_COMMANDS = {"admin_view_petitions", "admin_view_petition",
-	        "admin_accept_petition", "admin_reject_petition", "admin_reset_petitions"};
-	private static final int REQUIRED_LEVEL = Config.GM_MIN;
+	private static final String[]	ADMIN_COMMANDS	=
+													{
+			"admin_view_petitions",
+			"admin_view_petition",
+			"admin_accept_petition",
+			"admin_reject_petition",
+			"admin_reset_petitions",
+			"admin_force_peti"						};
+	private static final int		REQUIRED_LEVEL	= Config.GM_MIN;
 
 	public boolean useAdminCommand(String command, L2PcInstance activeChar)
 	{
 		if (!Config.ALT_PRIVILEGES_ADMIN)
 			if (!(checkLevel(activeChar.getAccessLevel()) && activeChar.isGM()))
 				return false;
-		
+
+		L2Object targetChar = activeChar.getTarget();
+
 		int petitionId = -1;
-		
-		try {
+
+		try
+		{
 			petitionId = Integer.parseInt(command.split(" ")[1]);
 		}
-		catch (Exception e) { }
-		
+		catch (Exception e)
+		{
+		}
+
 		if (command.equals("admin_view_petitions"))
 			PetitionManager.getInstance().sendPendingPetitionList(activeChar);
 		else if (command.startsWith("admin_view_petition"))
@@ -54,32 +66,54 @@ public class AdminPetition implements IAdminCommandHandler
 		{
 			if (PetitionManager.getInstance().isPlayerInConsultation(activeChar))
 			{
-				activeChar.sendPacket( new SystemMessage(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.ONLY_ONE_ACTIVE_PETITION_AT_TIME));
 				return true;
 			}
-			
+
 			if (PetitionManager.getInstance().isPetitionInProcess(petitionId))
 			{
-				activeChar.sendPacket( new SystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
 				return true;
 			}
-			
+
 			if (!PetitionManager.getInstance().acceptPetition(activeChar, petitionId))
-				activeChar.sendPacket( new SystemMessage(SystemMessageId.NOT_UNDER_PETITION_CONSULTATION));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.NOT_UNDER_PETITION_CONSULTATION));
 		}
 		else if (command.startsWith("admin_reject_petition"))
 		{
 			if (!PetitionManager.getInstance().rejectPetition(activeChar, petitionId))
-				activeChar.sendPacket( new SystemMessage(SystemMessageId.FAILED_CANCEL_PETITION_TRY_LATER));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.FAILED_CANCEL_PETITION_TRY_LATER));
 		}
 		else if (command.equals("admin_reset_petitions"))
 		{
 			if (PetitionManager.getInstance().isPetitionInProcess())
 			{
-				activeChar.sendPacket( new SystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
+				activeChar.sendPacket(new SystemMessage(SystemMessageId.PETITION_UNDER_PROCESS));
 				return false;
 			}
 			PetitionManager.getInstance().clearPendingPetitions();
+		}
+		else if (command.startsWith("admin_force_peti"))
+		{
+			try
+			{
+				if (targetChar == null || !(targetChar instanceof L2PcInstance))
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT)); // incorrect target!
+					return false;
+				}
+				L2PcInstance targetPlayer = (L2PcInstance) targetChar;
+
+				String val = command.substring(15);
+
+				petitionId = PetitionManager.getInstance().submitPetition(targetPlayer, val, 9);
+				PetitionManager.getInstance().acceptPetition(activeChar, petitionId);
+			}
+			catch (StringIndexOutOfBoundsException e)
+			{
+				activeChar.sendMessage("Usage: //force_peti text");
+				return false;
+			}
 		}
 		return true;
 	}
