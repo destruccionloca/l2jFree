@@ -195,7 +195,7 @@ public class CursedWeapon
 
         SystemMessage sm = new SystemMessage(SystemMessageId.S1_HAS_DISAPPEARED);
         sm.addString(_name);
-        sm.addItemName(_item);
+        sm.addItemNameById(_itemId);
         CursedWeaponsManager.announce(sm);
 
         // Reset  state
@@ -271,7 +271,6 @@ public class CursedWeapon
         sm.addZoneName(player.getX(), player.getY(), player.getZ()); // Region Name
         sm.addItemName(_item);
         CursedWeaponsManager.announce(sm);
-        _item = null;
     }
 
     public void transform()
