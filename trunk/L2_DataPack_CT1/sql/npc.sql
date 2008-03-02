@@ -8399,3 +8399,15 @@ INSERT INTO npc VALUES
 -- L2Trap NPC by Darki699
 REPLACE INTO `npc` VALUES
 (13037, 13037, "Trap", 0, "", 0, "LineageNpc2.trap_mark", 5, 10, 1, "male", "L2Trap", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 0, 0, "", 0, 0, 0, "LAST_HIT");
+
+-- Master anays fixes:
+UPDATE `npc` SET `collision_radius`=16 WHERE `id`=25517;
+UPDATE `npc` SET `collision_height`=41.8 WHERE `id`=25517;
+
+
+-- Minon fixes:
+UPDATE `npc` SET `collision_height`=43 WHERE `id`=25518;
+UPDATE `npc` SET `collision_radius`=20,`collision_height`=43 WHERE `id`=29097;
+UPDATE `npc` SET `collision_height`=43 WHERE `id`=25519; 
+UPDATE `npc` SET `collision_radius`=20,`collision_height`=43 WHERE `id`=29098;
+UPDATE `npc` SET `collision_radius`=22,`collision_height`=23 WHERE `id`=25524;
