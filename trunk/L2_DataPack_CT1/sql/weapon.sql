@@ -991,10 +991,10 @@ INSERT INTO `weapon` VALUES
 (6611, 'Infinity Blade', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 316, 10, 'sword', 8, 0.00000, 0, 0, 0, 379, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3578, 1, 0, 0, 0, 0, 0, 3579, 1, 4, 0),
 (6612, 'Infinity Cleaver', 'lrhand', 'false', 1300, 1, 1, 'adamantaite', 's', 385, 10, 'bigsword', 8, 0.00000, 0, 0, 0, 325, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3582, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (6613, 'Infinity Axe', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 316, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3580, 1, 0, 0, 0, 0, 0, 3581, 1, 20, 0),
-(6614, 'Infinity Rod', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 253, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 189, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3597, 1, 0, 0, 3598, 1, 15, 0, 0, 0, 0);
+(6614, 'Infinity Rod', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 253, 20, 'blunt', 4, 4.00000, 0, 0, 0, 379, 0, 189, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3597, 1, 0, 0, 3598, 1, 3, 0, 0, 0, 0);
 INSERT INTO `weapon` VALUES
 (6615, 'Infinity Crusher', 'lrhand', 'false', 1300, 1, 1, 'adamantaite', 's', 385, 20, 'bigblunt', 4, 4.00000, 0, 0, 0, 325, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3583, 1, 0, 0, 0, 0, 0, 3584, 1, 5, 0),
-(6616, 'Infinity Scepter', 'lrhand', 'false', 1300, 1, 1, 'adamantaite', 's', 308, 20, 'bigblunt', 4, 4.00000, 0, 0, 0, 325, 0, 189, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3595, 1, 0, 0, 3596, 1, 15, 0, 0, 0, 0),
+(6616, 'Infinity Scepter', 'lrhand', 'false', 1300, 1, 1, 'adamantaite', 's', 308, 20, 'bigblunt', 4, 4.00000, 0, 0, 0, 325, 0, 189, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3595, 1, 0, 0, 3596, 1, 3, 0, 0, 0, 0),
 (6617, 'Infinity Stinger', 'rhand', 'false', 1300, 1, 1, 'adamantaite', 's', 276, 5, 'dagger', 12, -3.00000, 0, 0, 0, 433, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3589, 1, 0, 0, 0, 0, 0, 3590, 1, 5, 0),
 (6618, 'Infinity Fang', 'lrhand', 'false', 1300, 1, 1, 'adamantaite', 's', 385, 5, 'dualfist', 4, 4.00000, 0, 0, 0, 325, 0, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3587, 1, 0, 0, 0, 0, 0, 3588, 1, 25, 0),
 (6619, 'Infinity Bow', 'lrhand', 'false', 1300, 1, 1, 'adamantaite', 's', 653, 5, 'bow', 12, -3.00000, 0, 0, 0, 293, 11, 142, -1, 57000000, 2850, 'false', 'false', 'false', 'false', 3593, 1, 0, 0, 0, 0, 0, 3594, 1, 7, 0),
