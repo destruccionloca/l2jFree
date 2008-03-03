@@ -315,7 +315,7 @@ public class NpcInfo extends L2GameServerPacket
 
             writeC(owner.getAppearance().getInvisible() ? 1 : 0); // invisible = 1  visible =0
 
-            writeC(owner.getMountType()); // 1 on strider   2 on wyvern   0 no mount
+            writeC(owner.getMountType()); // 1 on strider   2 on wyvern  3 on Great Wolf  0 no mount
             writeC(owner.getPrivateStoreType());   //  1 - sellshop
 
             writeH(owner.getCubics().size());

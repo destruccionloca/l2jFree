@@ -22,13 +22,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
  * @author 
  *
  */
-public class AdminRideWyvern implements IAdminCommandHandler
+public class AdminRide implements IAdminCommandHandler
 {
     private static final String[] ADMIN_COMMANDS = {
         "admin_ride_wyvern",
         "admin_ride_strider",
+        "admin_ride_wolf",
         "admin_unride_wyvern",
         "admin_unride_strider",
+        "admin_unride_wolf",
         "admin_unride",
     };
     private static final int REQUIRED_LEVEL = Config.GM_RIDER;
@@ -50,8 +52,13 @@ public class AdminRideWyvern implements IAdminCommandHandler
             {
                 _petRideId = 12621;
             }
-            else if (command.startsWith("admin_ride_strider")) {
+            else if (command.startsWith("admin_ride_strider"))
+            {
                 _petRideId = 12526;
+            }
+            else if (command.startsWith("admin_ride_wolf"))
+            {
+                _petRideId = 16030;
             }
             else
             {

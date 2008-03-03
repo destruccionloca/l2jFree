@@ -701,7 +701,7 @@ public final class Config
 			
 			KARMA_PK_LIMIT = Integer.parseInt(pvpSettings.getProperty("MinimumPKRequiredToDrop", "5"));
 			
-			KARMA_NONDROPPABLE_PET_ITEMS = pvpSettings.getProperty("ListOfPetItems", "2375,3500,3501,3502,4422,4423,4424,4425,6648,6649,6650");
+			KARMA_NONDROPPABLE_PET_ITEMS = pvpSettings.getProperty("ListOfPetItems", "2375,3500,3501,3502,4422,4423,4424,4425,6648,6649,6650,9882");
 			KARMA_NONDROPPABLE_ITEMS = pvpSettings.getProperty("ListOfNonDroppableItems", "57,1147,425,1146,461,10,2368,7,6,2370,2369");
 			
 			KARMA_LIST_NONDROPPABLE_PET_ITEMS = new FastList<Integer>();
@@ -778,6 +778,7 @@ public final class Config
 	public static FastList<String>	LIST_ALLOWED_NPC_TYPES		= new FastList<String>();		// List of NPC types that won't allow casting
 	public static int				WYVERN_SPEED;
 	public static int				STRIDER_SPEED;
+	public static int				GREAT_WOLF_SPEED;
 	public static boolean			ALLOW_WYVERN_UPGRADER;
 	public static boolean			PETITIONING_ALLOWED;
 	public static int				MAX_PETITIONS_PER_PLAYER;
@@ -859,6 +860,7 @@ public final class Config
 			EFFECT_CANCELING = Boolean.parseBoolean(otherSettings.getProperty("CancelLesserEffect", "True"));
 			WYVERN_SPEED = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));
 			STRIDER_SPEED = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
+			GREAT_WOLF_SPEED = Integer.parseInt(otherSettings.getProperty("GreatWolfSpeed", "80"));
 			ALLOW_WYVERN_UPGRADER = Boolean.parseBoolean(otherSettings.getProperty("AllowWyvernUpgrader", "False"));
 			
 			/* Inventory slots limits */
@@ -2891,6 +2893,8 @@ public final class Config
 			WYVERN_SPEED = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("StriderSpeed"))
 			STRIDER_SPEED = Integer.parseInt(pValue);
+		else if (pName.equalsIgnoreCase("WolfSpeed"))
+			GREAT_WOLF_SPEED = Integer.parseInt(pValue);
 		
 		else if (pName.equalsIgnoreCase("MaximumSlotsForNoDwarf"))
 			INVENTORY_MAXIMUM_NO_DWARF = Integer.parseInt(pValue);

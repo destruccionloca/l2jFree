@@ -184,7 +184,7 @@ public class SiegeManager
             sm.addString("You can only use strider siege assault during a siege.");
         else if (!(player.getTarget() instanceof L2DoorInstance))
             sm.addString("You can only use strider siege assault on doors and walls.");
-        else if (!activeChar.isRiding())
+        else if (!activeChar.isRidingStrider())
             sm.addString("You can only use strider siege assault when on strider.");
         else
             return true;

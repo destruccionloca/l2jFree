@@ -83,7 +83,7 @@ public final class L2RaidBossInstance extends L2MonsterInstance
 			type == SkillType.ROOT		||	type == SkillType.FEAR		||	type == SkillType.SLEEP		||
 			type == SkillType.STUN		||	type == SkillType.DEBUFF	||	type == SkillType.AGGDEBUFF
 		)
-			return false;
+			return Rnd.get(1000) == 1;
 		
 		return true;
 	}

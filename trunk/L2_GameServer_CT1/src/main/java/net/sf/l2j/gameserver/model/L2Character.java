@@ -158,7 +158,8 @@ public abstract class L2Character extends L2Object
 	private boolean					_isImmobilized						= false;
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
 	private boolean					_isParalyzed						= false;
-	private boolean					_isRiding							= false;											// Is Riding strider?
+	private boolean					_isRidingGreatWolf					= false;
+	private boolean					_isRidingStrider					= false;
 	private boolean					_isPendingRevive					= false;
 	private boolean					_isRooted							= false;											// Cannot move until root timed out
 	private boolean					_isRunning							= true;
@@ -2540,16 +2541,24 @@ public abstract class L2Character extends L2Object
 		return null;
 	}
 
-	/** Return True if the L2Character is ridding. */
-	public final boolean isRiding()
-	{
-		return _isRiding;
+	/** Return True if the L2Character is riding. */
+	public final boolean isRidingGreatWolf()
+	{ 
+		return _isRidingGreatWolf;
+	}
+	public final boolean isRidingStrider()
+	{ 
+		return _isRidingStrider;
 	}
 
 	/** Set the L2Character riding mode to True. */
-	public final void setIsRiding(boolean mode)
+	public final void setIsRidingGreatWolf(boolean mode)
 	{
-		_isRiding = mode;
+		_isRidingGreatWolf = mode;
+	}
+	public final void setIsRidingStrider(boolean mode)
+	{
+		_isRidingStrider = mode;
 	}
 
 	public final boolean isRooted()

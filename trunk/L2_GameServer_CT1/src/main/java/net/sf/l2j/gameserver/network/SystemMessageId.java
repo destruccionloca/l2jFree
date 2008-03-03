@@ -13543,7 +13543,7 @@ public enum SystemMessageId
 
 	/**
 	* ID: 2258<br>
-	* Message: You have already moutned another steed.
+	* Message: You have already mounted another steed.
 	*/
 	YOU_HAVE_ALREADY_MOUNTED_ANOTHER_STEED(2258),
 

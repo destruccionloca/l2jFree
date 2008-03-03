@@ -170,6 +170,9 @@ public class SummonItems implements IItemHandler
         case 2: // wyvern
             activeChar.mount(sitem.getNpcId(), item.getObjectId());
             break;
+        case 3: // Great Wolf
+            activeChar.mount(sitem.getNpcId(), item.getObjectId());
+            break;
         }
     }
     

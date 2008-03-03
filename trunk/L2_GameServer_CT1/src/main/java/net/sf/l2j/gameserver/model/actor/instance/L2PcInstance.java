@@ -7615,19 +7615,9 @@ public final class L2PcInstance extends L2PlayableInstance
                     found = true;
             }
 
-            if(found)
+            if(found || getPet() != null || isRidingStrider() || isRidingGreatWolf() || isFlying())
             {
-            	sendPacket(new SystemMessage(1518));
-                return;
-            }
-            if(getPet() != null)
-            {
-            	sendPacket(new SystemMessage(1518));
-                return;
-            }
-            if(isRiding() || isFlying())
-            {
-            	sendPacket(new SystemMessage(1518));
+                sendPacket(new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED).addSkillName(skill.getId()));
                 return;
             }
         }
@@ -8060,12 +8050,13 @@ public final class L2PcInstance extends L2PlayableInstance
         switch (mountType)
         {
             case 0:
-                setIsRiding(false);
+                setIsRidingGreatWolf(false);
+                setIsRidingStrider(false);
                 setIsFlying(false);
                 isFalling(false,0); // Initialize the fall just incase dismount was made while in-air
                 break; //Dismounted
             case 1:
-                setIsRiding(true);
+                setIsRidingStrider(true);
                 if(isNoble()) 
                 {
                     L2Skill striderAssaultSkill = SkillTable.getInstance().getInfo(325, 1);
@@ -8075,6 +8066,9 @@ public final class L2PcInstance extends L2PlayableInstance
             case 2:
                 setIsFlying(true);
                 break; //Flying Wyvern
+            case 3:
+                setIsRidingGreatWolf(true);
+                break; // Riding a Great Wolf
         }
 
         _mountType = mountType;

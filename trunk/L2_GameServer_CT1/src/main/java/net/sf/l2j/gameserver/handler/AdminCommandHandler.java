@@ -65,7 +65,7 @@ import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminQuest;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRegion;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRepairChar;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRes;
-import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRideWyvern;
+import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminRide;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSendHome;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminShop;
 import net.sf.l2j.gameserver.handler.admincommandhandlers.AdminSortMultisellItems;
@@ -155,7 +155,7 @@ public class AdminCommandHandler
         registerAdminCommandHandler(new AdminRegion());
         registerAdminCommandHandler(new AdminRepairChar());
         registerAdminCommandHandler(new AdminRes());
-        registerAdminCommandHandler(new AdminRideWyvern());
+        registerAdminCommandHandler(new AdminRide());
         registerAdminCommandHandler(new AdminSendHome());
         registerAdminCommandHandler(new AdminShop());
         registerAdminCommandHandler(new AdminSortMultisellItems());
