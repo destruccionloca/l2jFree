@@ -110,6 +110,11 @@ public class RequestEnchantItem extends L2GameClientPacket
         	case INVENTORY:
         	case PAPERDOLL:
         	{
+        		if (item.getOwnerId() != activeChar.getObjectId())
+        		{
+        			activeChar.setActiveEnchantItem(null);
+        			return;
+        		}
         		break;
         	}
         	default:

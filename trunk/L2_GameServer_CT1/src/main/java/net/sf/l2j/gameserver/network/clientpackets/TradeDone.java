@@ -80,6 +80,9 @@ public class TradeDone extends L2GameClientPacket
 				return;
 			}
 
+			if (trade.getOwner().getActiveEnchantItem() != null || trade.getPartner().getActiveEnchantItem() != null)
+				return;
+
 			if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN
 				&& player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 			{

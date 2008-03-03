@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.skills;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -500,7 +501,7 @@ abstract class DocumentBase
             }
             else if ("race_id".equalsIgnoreCase(a.getNodeName()))
             {
-                FastList<Integer> array = new FastList<Integer>();
+                ArrayList<Integer> array = new ArrayList<Integer>();
                 StringTokenizer st = new StringTokenizer(a.getNodeValue(), ",");
                 while (st.hasMoreTokens())
                 {

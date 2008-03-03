@@ -14,9 +14,10 @@
  */
 package net.sf.l2j.gameserver.skills.conditions;
 
+import java.util.ArrayList;
+
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.skills.Env;
-import javolution.util.FastList;
 
 /**
  * @author nBd
@@ -24,9 +25,9 @@ import javolution.util.FastList;
 
 public class ConditionTargetRaceId extends Condition
 {
-	private final FastList<Integer> _raceIds;
+	private final ArrayList<Integer> _raceIds;
 	
-	public ConditionTargetRaceId(FastList<Integer> raceId)
+	public ConditionTargetRaceId(ArrayList<Integer> raceId)
 	{
 		_raceIds = raceId;
 	}
@@ -34,7 +35,7 @@ public class ConditionTargetRaceId extends Condition
 	@Override
 	public boolean testImpl(Env env)
 	{
-		if (!(env.target instanceof L2NpcInstance))
+		if (!(env.target instanceof L2NpcInstance) || _raceIds == null || _raceIds.isEmpty())
 			return false;
 		
 		return (_raceIds.contains(((L2NpcInstance)env.target).getTemplate().getRace().ordinal()));
