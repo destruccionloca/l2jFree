@@ -8534,8 +8534,8 @@ UPDATE `npc` SET `absorb_type` = 'FULL_PARTY' WHERE `id` IN ( 29066,29067,29068 
 UPDATE `npc` SET `type` = 'L2CastleTeleporter' WHERE `id` = 35137;
 UPDATE `npc` SET `class` = 'Monster.mimic', `armor` = NULL , `faction_id` = NULL WHERE `id` = 13098;
 
-INSERT INTO `npc` VALUES
-(25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11.00,27.00,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,NULL,0,1,0,'LAST_HIT'),
+INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
+ (25164,25164,'Pet of Skylancer',0,'Raid Fighter',0,'Monster.skeleton_archer',11.00,27.00,69,'male','L2Minion',500,21176,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,19755,1840,15424,747,249,0,227,279,0,0,80,120,NULL,0,1,0,'LAST_HIT'),
 (25165,25165,'Slave Warrior of Skylancer',0,'Raid Fighter',0,'Monster.bugbear',17.00,35.00,69,'male','L2Minion',40,15898,1493,223.73,8.75,40,43,30,41,35,10,22852,2260,6668,1840,8676,747,278,0,253,0,0,0,80,120,NULL,0,0,0,'LAST_HIT'),
 (27198,27198,'Gremlin',0,'',0,'Monster.gremlin',10.00,15.00,1,'male','L2Monster',40,62,44,3.16,0.91,40,43,30,21,35,10,29,2,9,39,3,32,278,0,253,0,0,0,20,50,NULL,0,0,0,'LAST_HIT'),
 (35001,35001,'Royal Gatekeeper',0,'Gludio',0,'NPC.a_guard_MHuman',8.00,24.00,70,'male','L2CastleTeleporter',40,3862,1493,11.85,2.78,40,43,30,21,35,10,490,10,1314,470,780,382,282,0,257,0,0,0,80,120,NULL,60,1,0,'LAST_HIT'),
@@ -8557,7 +8557,7 @@ UPDATE `npc` SET `aggro` = 800 WHERE `id` IN ( 29019,29066,29067,29068,29028 );
 UPDATE `npc` SET `aggro` = 500 WHERE `id` IN ( 29014,29020,29021,29022 );
 
 DELETE FROM `npc` WHERE `id` BETWEEN 29066 AND 29076;
-INSERT INTO `npc` VALUES
+INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
 (29066, 29066, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 11506110, 19511, 2092.02, 233.22, 60, 57, 73, 76, 70, 80, 230931687, 25593295, 11698, 7088, 24699, 1442, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
 (29067, 29067, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 13090000, 22197, 2380, 265.32, 60, 57, 73, 76, 70, 80, 262720918, 29116376, 13308, 8064, 28099, 1641, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
 (29068, 29068, 'Antharas', 0, '', 0, 'Monster.antaras', 300, 300, 79, 'male', 'L2Boss', 40, 14307370, 24261, 2601.34, 289.99, 60, 57, 73, 76, 70, 80, 287153963, 31824199, 14546, 8814, 30712, 1794, 333, 0, 3819, 0, 0, 0, 81, 301, '', 0, 0, 13,'LAST_HIT'),
