@@ -2,10 +2,6 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="3500" levels="1" name="Wooden Set">
-<!--
-  Description(s):
-      Increases P. Def. and MaxHP.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -19,10 +15,6 @@
   </for>
 </skill>
 <skill id="3501" levels="1" name="Devotion Set">
-<!--
-  Description(s):
-      Increases Casting Spd.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -35,10 +27,6 @@
   </for>
 </skill>
 <skill id="3502" levels="1" name="Mithril Heavy Armor Set">
-<!--
-  Description(s):
-      Increases resistance to poison attack.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -51,10 +39,6 @@
   </for>
 </skill>
 <skill id="3503" levels="1" name="Reinforced Leather Set">
-<!--
-  Description(s):
-      Increases Maximum MP.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -67,10 +51,6 @@
   </for>
 </skill>
 <skill id="3504" levels="1" name="Knowledge Set">
-<!--
-  Description(s):
-      Decreases MP regeneration and increases M. Atk.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -84,10 +64,6 @@
   </for>
 </skill>
 <skill id="3505" levels="1" name="Manticore Set">
-<!--
-  Description(s):
-      Increases Maximum MP.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -100,10 +76,6 @@
   </for>
 </skill>
 <skill id="3506" levels="1" name="Brigandine Set">
-<!--
-  Description(s):
-      Increases P. Def. and MaxHP.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -117,10 +89,6 @@
   </for>
 </skill>
 <skill id="3507" levels="1" name="Elven Mithril Set">
-<!--
-  Description(s):
-      Increases Speed. INT-1, WIT+1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -135,10 +103,6 @@
   </for>
 </skill>
 <skill id="3508" levels="1" name="Mithril Light Armor Set">
-<!--
-  Description(s):
-      Increases Evasion.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -151,10 +115,6 @@
   </for>
 </skill>
 <skill id="3509" levels="1" name="Chain Mail Set">
-<!--
-  Description(s):
-      Increases resistance to Dagger attacks.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -173,10 +133,6 @@
   </for>
 </skill>
 <skill id="3510" levels="1" name="Karmian Set">
-<!--
-  Description(s):
-      Increases P. Def. and Casting Spd.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -190,10 +146,6 @@
   </for>
 </skill>
 <skill id="3511" levels="1" name="Plated Leather Set">
-<!--
-  Description(s):
-      STR+4, CON-1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -207,10 +159,6 @@
   </for>
 </skill>
 <skill id="3512" levels="1" name="Composite Heavy Armor Set">
-<!--
-  Description(s):
-      Increases your weight capacity.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -223,10 +171,6 @@
   </for>
 </skill>
 <skill id="3513" levels="1" name="Demon's Set">
-<!--
-  Description(s):
-      Reduces maximum HP. INT+4, WIT-1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -241,10 +185,6 @@
   </for>
 </skill>
 <skill id="3514" levels="1" name="Theca Leather Light Armor Set">
-<!--
-  Description(s):
-      Increases P. Def.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -257,10 +197,6 @@
   </for>
 </skill>
 <skill id="3515" levels="1" name="Drake Leather Set">
-<!--
-  Description(s):
-      Increases M. Def.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -273,10 +209,6 @@
   </for>
 </skill>
 <skill id="3516" levels="1" name="Full Plate Set">
-<!--
-  Description(s):
-      Increases maximum HP.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -289,10 +221,6 @@
   </for>
 </skill>
 <skill id="3517" levels="1" name="Divine Set">
-<!--
-  Description(s):
-      Increases P. Def. and MaxMP. INT-1, WIT+1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -308,10 +236,6 @@
   </for>
 </skill>
 <skill id="3518" levels="1" name="Zubei's Heavy Armor Set">
-<!--
-  Description(s):
-      Increases P. Def. and MaxHP.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -325,10 +249,6 @@
   </for>
 </skill>
 <skill id="3519" levels="1" name="Avadon Breastplate Heavy Armor Set">
-<!--
-  Description(s):
-      Increases maximum HP.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -341,11 +261,7 @@
   </for>
 </skill>
 <skill id="3520" levels="1" name="Zubei's Leather Shirt Light Armor Set">
-<!--
-  Description(s):
-      Increases Evasion.
--->
-<!-- Done by DJ MELERIX -->
+  <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -357,10 +273,6 @@
   </for>
 </skill>
 <skill id="3521" levels="1" name="Avadon Light Armor Set">
-<!--
-  Description(s):
-      Increases M. Def. and maximum weight limit.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -374,12 +286,6 @@
   </for>
 </skill>
 <skill id="3522" levels="1" name="Tunic of Zubei Robe Set">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Decreases MP regeneration and increases M. Atk.
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -410,10 +316,6 @@
   </for>
 </skill>
 <skill id="3524" levels="1" name="Blue Wolf Heavy Armor Set">
-<!--
-  Description(s):
-      Increases Speed and HP recovery rate. STR+3, CON-1, DEX-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -445,10 +347,6 @@
   </for>
 </skill>
 <skill id="3526" levels="1" name="Blue Wolf Light Armor Set">
-<!--
-  Description(s):
-      Increases P. Def. and Casting Spd. INT-2, MEN+3, WIT-1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -483,10 +381,6 @@
   </for>
 </skill>
 <skill id="3528" levels="1" name="Blue Wolf Robe Set">
-<!--
-  Description(s):
-      Increases MaxMP and MP recovery rate. INT-2, MEN-1, WIT+3
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -520,10 +414,6 @@
   </for>
 </skill>
 <skill id="3530" levels="1" name="Dark Crystal Breastplate Heavy Armor Set">
-<!--
-  Description(s):
-      Increases resistance to paralysis attacks and improves effectiveness of HP recovery magic. STR-2, CON+2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -539,10 +429,6 @@
   </for>
 </skill>
 <skill id="3531" levels="1" name="Tallum Heavy Armor Set">
-<!--
-  Description(s):
-      Increases resistance to poison/bleeding attacks. Atk. Spd. and maximum weight limit are also increased. STR+2, CON-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -560,10 +446,6 @@
   </for>
 </skill>
 <skill id="3532" levels="1" name="Dark Crystal Light Armor Set">
-<!--
-  Description(s):
-      Increases resistance to paralysis attacks. Atk. Spd. and P. Atk. are also increased. STR+1, CON-1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -580,10 +462,6 @@
   </for>
 </skill>
 <skill id="3533" levels="1" name="Tallum Light Armor Set">
-<!--
-  Description(s):
-      Increases resistance to poison/bleeding attacks. MP recovery rate and MaxMP are also increased. MEN+2, WIT-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -601,10 +479,6 @@
   </for>
 </skill>
 <skill id="3534" levels="1" name="Tallum Robe Set">
-<!--
-  Description(s):
-      Increases resistance to poison/bleeding attacks. Casting Spd. and M. Def. are also increased. INT-2, WIT+2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -622,10 +496,6 @@
   </for>
 </skill>
 <skill id="3535" levels="1" name="Dark Crystal Robe Set">
-<!--
-  Description(s):
-      Decreases magic cancel rate and increases resistance to paralysis attacks. P. Def., Casting Spd. and Speed are also increased. WIT+2, MEN-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -644,10 +514,6 @@
   </for>
 </skill>
 <skill id="3536" levels="1" name="Nightmare Heavy Armor Set">
-<!--
-  Description(s):
-      Increases P. Atk. and resistance to Sleep/Hold attack.. CON+2, DEX-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -664,10 +530,6 @@
   </for>
 </skill>
 <skill id="3537" levels="1" name="Majestic Heavy Armor Set">
-<!--
-  Description(s):
-      Increases resistance to shock attacks. P. Atk. and Accuracy are also increased. STR+2. CON-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -684,10 +546,6 @@
   </for>
 </skill>
 <skill id="3538" levels="1" name="Nightmarish Leather Light Armor Set">
-<!--
-  Description(s):
-      Increases resistance to Sleep/Hold attack and M. Def. Restores HP by using part of the damage inflicted upon the enemy, excluding damage caused by skill or remote attack. DEX+1, CON-1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -705,10 +563,6 @@
   </for>
 </skill>
 <skill id="3539" levels="1" name="Majestic Light Armor Set">
-<!--
-  Description(s):
-      Increases resistance to shock attacks. P. Atk., MaxMP and maximum weight limit are also increased. DEX+1, CON-1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -730,10 +584,6 @@
   </for>
 </skill>
 <skill id="3540" levels="1" name="Nightmare Robe Set">
-<!--
-  Description(s):
-      Increases MP regeneration, M. Atk. and resistance to sleep/hold attacks. INT+2, WIT-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -751,10 +601,6 @@
   </for>
 </skill>
 <skill id="3541" levels="1" name="Majestic Robe Set">
-<!--
-  Description(s):
-      Increases resistance to shock attacks. MaxMP, Casting Spd. and MP recovery rate are also increased. MEN+1, INT-1
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -941,10 +787,6 @@
   </for>
 </skill>
 <skill id="3553" levels="1" name="Imperial Crusader Heavy Armor Set">
-<!--
-  Description(s):
-      Increases MaxHP, P. Def and resistance to sleep/hold attacks. STR+2, DEX-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -978,10 +820,6 @@
   </for>
 </skill>
 <skill id="3555" levels="1" name="Draconic Light Armor Set">
-<!--
-  Description(s):
-      Increases MaxHP, Atk. Spd, P. Atk, and maximum weight limit. DEX+1, STR+1, CON-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1000,10 +838,6 @@
   </for>
 </skill>
 <skill id="3556" levels="1" name="Major Arcana Robe Set">
-<!--
-  Description(s):
-      Decreases chance of magic casting being canceled. Increases resistance to shock attacks, M. Atk., Speed and maximum weight limit. WIT+1, INT+1, MEN-2
--->
   <!-- Done by DJ MELERIX -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1371,11 +1205,7 @@
   </for>
 </skill>
 <skill id="3579" levels="1" name="Decrease P. Def.">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Temporarily decreases P. Def. Effect 3
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="save" val="4"/>
   <set name="magicLvl" val="74"/>
@@ -1394,11 +1224,7 @@
   </for>
 </skill>
 <skill id="3580" levels="1" name="Special Ability: Infinity Axe">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Dazzles the enemy to distraction during a critical attack. Also increases MaxHP, MaxMP, MaxCP, shield defense capability and damage inflicted during PvP. Reflects some of the damage received back to the enemy (does not include damage from skill or range attacks).
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1414,11 +1240,7 @@
   </for>
 </skill>
 <skill id="3581" levels="1" name="Discord">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      none
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="350.0"/>
   <set name="save" val="6"/>
@@ -1435,11 +1257,7 @@
   </for>
 </skill>
 <skill id="3582" levels="1" name="Special Ability: Infinity Cleaver">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Increases critical attack success rate/power, MaxHP, MaxCP and damage inflicted during PvP. Inflicts extra damage on critical attack. Reflects debuff attack back on enemy.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1457,11 +1275,7 @@
   </for>
 </skill>
 <skill id="3583" levels="1" name="Special Ability: Infinity Crusher">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Throws enemy into a state of shock during a critical attack. Increases MaxHP, MaxCP, Atk. Spd. and damage inflicted during PvP. Reflects debuff attack back on enemy.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1477,12 +1291,7 @@
   </for>
 </skill>
 <skill id="3584" levels="1" name="Shock">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Instantly throws enemy into a state of shock, immobilizing them.
--->
-  
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="lvlDepend" val="1"/>
   <set name="save" val="4"/>
@@ -1500,11 +1309,7 @@
   </for>
 </skill>
 <skill id="3585" levels="1" name="Infinity Wing">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Blocks enemy's ability to use physical skills during a critical attack. Increases MaxHP, MaxMP, MaxCP, critical attack rate and damage inflicted during PvP. Reflects debuff attack back on enemy.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1522,11 +1327,7 @@
   </for>
 </skill>
 <skill id="3586" levels="1" name="Physical Skill Restraint">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Temporarily blocks opponent's ability to use physical skills.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="80"/>
   <set name="lvlDepend" val="2"/>
@@ -1541,11 +1342,7 @@
   </for>
 </skill>
 <skill id="3587" levels="1" name="Special Ability: Infinity Fang">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Throws the enemy into a state of shock during a critical attack. Increases MaxHP, MaxMP, MaxCP, Evasion and damage inflicted during PvP. Reflects debuff attack back on enemy.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -1560,11 +1357,7 @@
   </for>
 </skill>
 <skill id="3588" levels="1" name="Shock">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Instantly throws enemy into a state of shock, immobilizing them.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="90"/>
   <set name="lvlDepend" val="1"/>
   <set name="save" val="4"/>
@@ -1582,11 +1375,7 @@
   </for>
 </skill>
 <skill id="3589" levels="1" name="Special Ability: Infinity Stinger">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Blocks enemy's ability to use magic skills during a critical attack. Increases MaxMP, MaxCP, Atk. Spd., MP regeneration rate, critical attack rate when attacking the enemy from behind, and damage inflicted during PvP. Restores HP by using some of the damage inflicted upon the enemy (does not include damage from skill or range attacks).
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1608,11 +1397,7 @@
   </for>
 </skill>
 <skill id="3590" levels="1" name="Silence">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Temporarily blocks the use of magic skills.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="save" val="2"/>
   <set name="magicLvl" val="80"/>
   <set name="power" val="80"/>
@@ -1628,11 +1413,7 @@
   </for>
 </skill>
 <skill id="3591" levels="1" name="Special Ability: Infinity Spear">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      During a critical attack, this ability removes one or more of the enemy's buffs. It increases the character's Maximum HP, Maximum CP, Atk. Spd., and Accuracy, and gives a bonus to damage inflicted on an enemy during PvP. It reflects debuffs targeted upon the character back upon the enemy. It enables the character to attack multiple enemies.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1650,26 +1431,21 @@
   </for>
 </skill>
 <skill id="3592" levels="1" name="Dispell">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      none
--->
+  <!-- Infinity Spear Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="CANCEL"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="negateStats" val="BUFF"/>
+  <set name="negatePower" val="8.0"/>
   <for>
   </for>
 </skill>
 <skill id="3593" levels="1" name="Special Ability: Infinity Bow">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Decreases enemy's Speed during a critical attack. Increases MaxMP, MaxCP and damage inflicted during PvP. The skill re-use time is shortened, and MP consumption is reduced.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1683,11 +1459,7 @@
   </for>
 </skill>
 <skill id="3594" levels="1" name="Slow">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      Temporarily reduces target's Speed. Effect 3.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="save" val="5"/>
   <set name="magicLvl" val="80"/>
   <set name="power" val="80"/>
@@ -1705,11 +1477,7 @@
   </for>
 </skill>
 <skill id="3595" levels="1" name="Special Ability: Infinity Scepter">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      When using good magic, regenerates HP by 100%. Also increases MaxHP, MaxCP, M. Atk., damage magic critical attack rate and damage inflicted during PvP. When casting magic, reduces MP consumption and cancel rate.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1727,8 +1495,9 @@
   </for>
 </skill>
 <skill id="3596" levels="1" name="Full Recover">
+  <!-- Infinity Scepter Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="target" val="TARGET_SELF"/> <!-- Needs to be Checked -->
+  <set name="target" val="TARGET_SELF"/>
   <set name="power" val="100"/>
   <set name="skillType" val="HEAL_PERCENT"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1739,11 +1508,7 @@
   </for>
 </skill>
 <skill id="3597" levels="1" name="Special Ability: Infinity Rod">
-<!--
-  Done by SarutrA - SqueezeD
-  Description(s):
-      When using good magic, regenerates HP by 100%. Also increases MaxHP, MaxCP, Casting Spd., MP regeneration rate and damage inflicted during PvP.
--->
+  <!-- Done by SarutrA - SqueezeD -->
   <set name="magicLvl" val="80"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
@@ -1759,8 +1524,9 @@
   </for>
 </skill>
 <skill id="3598" levels="1" name="Full Recover">
+  <!-- Infinity Rod Skill -->
   <set name="magicLvl" val="80"/>
-  <set name="target" val="TARGET_SELF"/> <!-- Needs to be Checked -->
+  <set name="target" val="TARGET_SELF"/>
   <set name="power" val="100"/>
   <set name="skillType" val="HEAL_PERCENT"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -1776,7 +1542,7 @@
   Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Enables the character to attack multiple opponents.
-+-->
+-->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
