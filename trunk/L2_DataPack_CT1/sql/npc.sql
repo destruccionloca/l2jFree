@@ -46,9 +46,9 @@ CREATE TABLE `npc`(
   `absorb_level` decimal(2,0) default 0,
   `absorb_type` enum('FULL_PARTY','LAST_HIT','PARTY_ONE_RANDOM') DEFAULT 'LAST_HIT' NOT NULL,
   `ss` int(4) default 0,
-`bss` int(4) default 0,
-`ss_rate` int(3) default 0,
-`AI` varchar(8) default "fighter",
+  `bss` int(4) default 0,
+  `ss_rate` int(3) default 0,
+  `AI` varchar(8) default "fighter",
   PRIMARY KEY (`id`)
 ) DEFAULT CHARSET=utf8;
 
