@@ -289,7 +289,6 @@ public class L2Attackable extends L2NpcInstance
 
     /** Have this L2Attackable to reward Exp and SP on Die? **/
     private boolean _mustGiveExpSp;
-    private boolean _isUsingShots = false;
     /**
      * Constructor of L2Attackable (use L2Character and L2NpcInstance constructor).<BR><BR>
      *  
@@ -306,18 +305,6 @@ public class L2Attackable extends L2NpcInstance
         super(objectId, template);
         getKnownList(); // init knownlist
         _mustGiveExpSp = true;
-        if (getLevel()>70 && !(this instanceof L2RaidBossInstance))
-        {
-            if (template.getRhand() > 0 && Rnd.get(100)<10+getLevel()-70)
-            { // Set % chance to 10% + mob level - 70, so mob lvl 71->11%, 72->12% etc...
-                _isUsingShots = true;
-            }
-        }
-    }
-
-    public boolean isUsingShots()
-    {
-        return _isUsingShots;
     }
 
     @Override
@@ -1042,6 +1029,43 @@ public class L2Attackable extends L2NpcInstance
         }
         return mostHated;
     }
+
+    /**
+     * Return the 2 most hated L2Character of the L2Attackable _aggroList.<BR><BR>
+     */
+    public List<L2Character> get2MostHated()
+    {
+        if (getAggroListRP().isEmpty() || isAlikeDead()) return null;
+
+        L2Character mostHated = null;
+        L2Character secondMostHated = null;
+        int maxHate = 0;
+        List<L2Character> result = new FastList<L2Character>();
+
+        // While Interating over This Map Removing Object is Not Allowed
+        synchronized (getAggroList())
+        {
+            // Go through the aggroList of the L2Attackable
+            for (AggroInfo ai : getAggroListRP().values())
+            {
+                if (ai == null) continue;
+                if (ai._attacker.isAlikeDead() || !getKnownList().knowsObject(ai._attacker) ||!ai._attacker.isVisible())
+                    ai._hate = 0;
+                if (ai._hate > maxHate)
+                {
+                    secondMostHated = mostHated;
+                    mostHated = ai._attacker;
+                    maxHate = ai._hate;
+                }
+            }
+        }
+        result.add(mostHated);
+        if (getAttackByList().contains(secondMostHated)) 
+        		result.add(secondMostHated);
+        else result.add(null);
+        return result;
+    }
+
     
     /**
      * Return the hate level of the L2Attackable against this L2Character contained in _aggroList.<BR><BR>

@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -106,7 +107,7 @@ public class Heal implements ISkillHandler
 					}
 				}
 				
-				if (weaponInst != null && weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT)
+				else if (activeChar instanceof L2Summon)
 				{
 					L2Summon activeSummon = (L2Summon)activeChar;
 					
@@ -120,6 +121,11 @@ public class Heal implements ISkillHandler
 						hp *= 1.3;
 						activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 					}
+				}
+				else if (activeChar instanceof L2NpcInstance)
+				{
+					if(((L2NpcInstance)activeChar).isUsingShot(false))
+						hp *= 1.5;
 				}
 			}
 

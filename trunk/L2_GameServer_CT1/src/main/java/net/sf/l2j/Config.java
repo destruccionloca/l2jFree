@@ -1335,7 +1335,6 @@ public final class Config
 	public static int					ALT_PARTY_RANGE2;
 	public static boolean				ALT_GAME_SHIELD_BLOCKS;										// Alternative shield defence
 	public static int					ALT_PERFECT_SHLD_BLOCK;										// Alternative Perfect shield defence rate
-	public static boolean				ALT_GAME_MOB_ATTACK_AI;										// Alternative game mob ATTACK AI
 	public static boolean				ALT_MOB_AGRO_IN_PEACEZONE;									// -
 	public static float					ALT_INSTANT_KILL_EFFECT_2;									// Rate of Instant kill effect 2(CP no change ,HP =1,no kill
 	public static float					ALT_DAGGER_DMG_VS_HEAVY;									// Alternative damage for dagger skills VS heavy
@@ -1498,7 +1497,6 @@ public final class Config
 			ALT_PERFECT_SHLD_BLOCK = Integer.parseInt(altSettings.getProperty("AltPerfectShieldBlockRate", "10"));
 			ALT_GAME_DELEVEL = Boolean.parseBoolean(altSettings.getProperty("Delevel", "true"));
 			ALT_GAME_MAGICFAILURES = Boolean.parseBoolean(altSettings.getProperty("MagicFailures", "false"));
-			ALT_GAME_MOB_ATTACK_AI = Boolean.parseBoolean(altSettings.getProperty("AltGameMobAttackAI", "false"));
 			ALT_MOB_AGRO_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltMobAgroInPeaceZone", "true"));
 			ALT_INSTANT_KILL_EFFECT_2 = Float.parseFloat(altSettings.getProperty("InstantKillEffect2", "2"));
 			ALT_DAGGER_DMG_VS_HEAVY = Float.parseFloat(altSettings.getProperty("DaggerVSHeavy", "2.50"));
@@ -3078,8 +3076,6 @@ public final class Config
 			ALT_GAME_DELEVEL = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("MagicFailures"))
 			ALT_GAME_MAGICFAILURES = Boolean.parseBoolean(pValue);
-		else if (pName.equalsIgnoreCase("AltGameMobAttackAI"))
-			ALT_GAME_MOB_ATTACK_AI = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltMobAgroInPeaceZone"))
 			ALT_MOB_AGRO_IN_PEACEZONE = Boolean.parseBoolean(pValue);
 		

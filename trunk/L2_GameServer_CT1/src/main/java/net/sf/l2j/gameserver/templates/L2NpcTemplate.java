@@ -81,9 +81,13 @@ public final class L2NpcTemplate extends L2CharTemplate
     private int     _factionRange;
     private int     _absorbLevel;
     private AbsorbCrystalType _absorbType;
+    private short   _ss;
+    private short   _bss;
+    private short   _ssRate;
     private int     _npcFaction;
     private String  _npcFactionName;
     private String  _jClass;
+    private AIType  _ai;
     
     private Race _race;
     
@@ -110,6 +114,14 @@ public final class L2NpcTemplate extends L2CharTemplate
         LAST_HIT,
         FULL_PARTY,
         PARTY_ONE_RANDOM
+    }
+
+    public static enum AIType
+    {
+        FIGHTER,
+        ARCHER,
+        BALANCED,
+        MAGE
     }
 
     public static enum Race
@@ -145,7 +157,7 @@ public final class L2NpcTemplate extends L2CharTemplate
     /**
      * Constructor of L2Character.<BR><BR>
      * 
-     * @param set The StatsSet object to transfert data to the method
+     * @param set The StatsSet object to transfer data to the method
      * 
      */
     public L2NpcTemplate(StatsSet set)
@@ -170,9 +182,19 @@ public final class L2NpcTemplate extends L2CharTemplate
         _factionRange  = set.getInteger("factionRange");
         _absorbLevel  = set.getInteger("absorb_level", 0);
         _absorbType = AbsorbCrystalType.valueOf(set.getString("absorb_type"));
+        _ss  = (short)set.getInteger("ss", 0);
+        _bss  = (short)set.getInteger("bss", 0);
+        _ssRate  = (short)set.getInteger("ssRate", 0);
         _npcFaction = set.getInteger("NPCFaction", 0);
         _npcFactionName = set.getString("NPCFactionName", "Devine Clan");
         _jClass= set.getString("jClass");
+
+        String ai = set.getString("AI", "fighter");
+        if (ai.equalsIgnoreCase("archer")) _ai = AIType.ARCHER;
+        else if (ai.equalsIgnoreCase("balanced")) _ai = AIType.BALANCED;
+        else if (ai.equalsIgnoreCase("mage")) _ai = AIType.MAGE;
+        else _ai = AIType.FIGHTER;
+
         _race = null;
         _teachInfo = null;
     }
@@ -836,5 +858,45 @@ public final class L2NpcTemplate extends L2CharTemplate
     public void setJClass(String class1)
     {
         _jClass = class1;
+    }
+
+    public short getSS()
+    {
+        return _ss;
+    }
+
+    public short getBSS()
+    {
+        return _bss;
+    }
+
+    public short getSSRate()
+    {
+        return _ssRate;
+    }
+
+    public AIType getAI()
+    {
+        return _ai;
+    }
+
+    public void setSS(short ss)
+    {
+        _ss = ss;
+    }
+
+    public void setBSS(short bss)
+    {
+        _bss = bss;
+    }
+
+    public void setSSRate(short ssrate)
+    {
+        _ssRate = ssrate;
+    }
+
+    public void setAI(AIType type)
+    {
+        _ai = type;
     }
 }

@@ -58,6 +58,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2WorldRegion;
 import net.sf.l2j.gameserver.model.MobGroupTable;
+import net.sf.l2j.gameserver.model.NpcInventory;
 import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.knownlist.NpcKnownList;
@@ -123,6 +124,8 @@ public class L2NpcInstance extends L2Character
 
     /** The L2Spawn object that manage this L2NpcInstance */
     private L2Spawn _spawn;
+
+    private NpcInventory _inventory = null;
 
     /** The flag to specify if this L2NpcInstance is busy */
     private boolean _isBusy = false;
@@ -309,6 +312,9 @@ public class L2NpcInstance extends L2Character
         // Set the name and the title of the L2Character
         setName(template.getName());
         setTitle(template.getTitle());
+
+        if ((template.getSS() > 0 || template.getBSS() > 0) && template.getSSRate() > 0)
+            _inventory = new NpcInventory(this);
     }
 
     @Override
@@ -2582,6 +2588,9 @@ public class L2NpcInstance extends L2Character
     @Override
     public void onSpawn()
     {
+        if (_inventory != null)
+            _inventory.Reset();
+
         super.onSpawn();
 
         if (getTemplate().getEventQuests(Quest.QuestEventType.NPC_SPAWNED) != null)
@@ -2714,6 +2723,60 @@ public class L2NpcInstance extends L2Character
     public int getCollisionRadius()
     {
         return _currentCollisionRadius;
+    }
+
+    public boolean rechargeAutoSoulShot(boolean physical, boolean magic)
+    {
+        if (this.getTemplate().getSSRate() == 0) return false;
+
+        L2Weapon weaponItem = getActiveWeaponItem();
+        if (weaponItem == null)
+        {
+            //_log.warn("NpcId "+getNpcId()+" missing weaponItem definition in DP - or wrong use of shots.");
+            return false;
+        }
+        if (magic)
+        {
+            if (this.getTemplate().getSSRate() < Rnd.get(100))
+            {
+                _inventory.bshotInUse = false;
+                return false;
+            }
+            if (null != _inventory.destroyItemByItemId("Consume", 3947, weaponItem.getSpiritShotCount(), null, null))
+            {
+                _inventory.bshotInUse = true;
+                broadcastPacket(new MagicSkillUse(this, this, 2061, 1, 0, 0), 360000); // no grade
+                return true;
+            }
+            else
+                _inventory.bshotInUse = false;
+        }
+        if (physical)
+        {
+            if (this.getTemplate().getSSRate() < Rnd.get(100))
+            {
+                _inventory.sshotInUse = false;
+                return false;
+            }
+            
+            if (null != _inventory.destroyItemByItemId("Consume", 1835, weaponItem.getSoulShotCount(), null, null))
+            {
+                _inventory.sshotInUse = true;
+                broadcastPacket(new MagicSkillUse(this, this, 2039, 1, 0, 0), 360000); // no grade
+                return true;
+            }
+            else
+                _inventory.sshotInUse = false;
+        }
+        return false;
+    }
+
+    public boolean isUsingShot(boolean physical)
+    {
+        if (_inventory == null) return false;
+        if (physical && _inventory.sshotInUse) return true;
+        if (!physical && _inventory.bshotInUse) return true;
+        return false;
     }
 
     public void setUnTargetable(boolean value)

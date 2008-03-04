@@ -100,6 +100,11 @@ public class Mdam implements ISkillHandler
                 activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
             }
         }
+        else if (activeChar instanceof L2NpcInstance)
+        {
+            bss = ((L2NpcInstance)activeChar).isUsingShot(false);
+            ss = ((L2NpcInstance)activeChar).isUsingShot(true);
+        }
 
         for (L2Object element : targets)
         {

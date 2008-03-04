@@ -20,6 +20,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
+import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.templates.StatsSet;
@@ -92,8 +93,13 @@ public class L2SkillElemental extends L2Skill
 				activeSummon.setChargedSpiritShot(L2ItemInstance.CHARGED_NONE);
 			}
 		}
-		
-        for (L2Object element : targets)
+		else if (activeChar instanceof L2NpcInstance)
+		{
+			bss = ((L2NpcInstance)activeChar).isUsingShot(false);
+			ss = ((L2NpcInstance)activeChar).isUsingShot(true);
+		}
+
+		for (L2Object element : targets)
 		{
 			L2Character target = (L2Character)element;
 			if (target.isAlikeDead())
