@@ -261,8 +261,6 @@ public class CharStatus
             // Start the doDie process
             getActiveChar().doDie(attacker);
 
-            // now reset currentHp to zero
-            setCurrentHp(0);
             if (getActiveChar() instanceof L2PcInstance) 
             { 
                 QuestState qs = ((L2PcInstance) getActiveChar()).getQuestState("255_Tutorial"); 
@@ -447,12 +445,12 @@ public class CharStatus
         double maxHp = getActiveChar().getStat().getMaxHp();
         synchronized (this)
         {
+            if (getActiveChar().isKilledAlready()) return;
             if (newHp >= maxHp)
             {
                 // Set the RegenActive flag to false
                 _currentHp = maxHp;
                 _flagsRegenActive &= ~REGEN_FLAG_HP;
-                getActiveChar().setIsKilledAlready(false);
 
                 // Stop the HP/MP/CP Regeneration task
                 if (_flagsRegenActive == 0) stopHpMpRegeneration();
@@ -462,7 +460,6 @@ public class CharStatus
                 // Set the RegenActive flag to true
                 _currentHp = newHp;
                 _flagsRegenActive |= REGEN_FLAG_HP;
-                if (!getActiveChar().isDead()) getActiveChar().setIsKilledAlready(false);
 
                 // Start the HP/MP/CP Regeneration task with Medium priority
                 startHpMpRegeneration();

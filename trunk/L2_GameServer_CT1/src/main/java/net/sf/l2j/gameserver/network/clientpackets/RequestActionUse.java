@@ -76,8 +76,8 @@ public class RequestActionUse extends L2GameClientPacket
         if (_log.isDebugEnabled())
             _log.debug(activeChar.getName()+" request Action use: id "+_actionId + " 2:" + _ctrlPressed + " 3:"+_shiftPressed);
         
-        // dont do anything if player is dead/confused/transformed/casting
-        if (activeChar.isAlikeDead() || activeChar.isOutOfControl() || activeChar.isTransformed() || activeChar.isCastingNow())
+        // dont do anything if player is dead/confused/transformed
+        if (activeChar.isAlikeDead() || activeChar.isOutOfControl() || activeChar.isTransformed())
         {
             activeChar.sendPacket(new ActionFailed());
             return;

@@ -134,9 +134,23 @@ public class NpcHtmlMessage extends L2GameServerPacket
 	private static Logger _log = Logger.getLogger(RequestBypassToServer.class.getName());
 	private int _npcObjId;
 	private String _html;
+	private int _itemId = 0;
 
 	/**
-	 * @param _characters
+	 * 
+	 * @param npcObjId
+	 * @param itemId
+	 */
+	public NpcHtmlMessage(int npcObjId, int itemId)
+	{
+		_npcObjId = npcObjId;
+		_itemId = itemId;
+	}
+
+	/**
+	 * 
+	 * @param npcObjId
+	 * @param text
 	 */
 	public NpcHtmlMessage(int npcObjId, String text)
 	{
@@ -220,7 +234,7 @@ public class NpcHtmlMessage extends L2GameServerPacket
 
 		writeD(_npcObjId);
 		writeS(_html);
-		writeD(0x00);
+		writeD(_itemId);
 	}
 	
 	/* (non-Javadoc)

@@ -14,6 +14,8 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import java.util.StringTokenizer;
+
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.communitybbs.CommunityBoard;
@@ -300,10 +302,25 @@ public class RequestBypassToServer extends L2GameClientPacket
         if (path.indexOf("..") != -1)
             return;
 
-        String filename = "data/html/help/"+path;
-        NpcHtmlMessage html = new NpcHtmlMessage(1);
-        html.setFile(filename);
-        activeChar.sendPacket(html);
+        StringTokenizer st = new StringTokenizer(path);
+        String[] cmd = st.nextToken().split("#");
+        
+        if (cmd.length > 1)
+        {
+            int itemId = 0;
+            itemId = Integer.parseInt(cmd[1]);
+            String filename = "data/html/help/"+cmd[0];
+            NpcHtmlMessage html = new NpcHtmlMessage(1,itemId);
+            html.setFile(filename);
+            activeChar.sendPacket(html);
+        }
+        else
+        {
+            String filename = "data/html/help/"+path;
+            NpcHtmlMessage html = new NpcHtmlMessage(1);
+            html.setFile(filename);
+            activeChar.sendPacket(html);
+        }
     }
 
     /* (non-Javadoc)

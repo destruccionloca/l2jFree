@@ -88,6 +88,7 @@ public final class L2NpcTemplate extends L2CharTemplate
     private String  _npcFactionName;
     private String  _jClass;
     private AIType  _ai;
+    private boolean _isQuestMonster;
     
     private Race _race;
     
@@ -169,6 +170,10 @@ public final class L2NpcTemplate extends L2CharTemplate
         _name      = set.getString("name");
         _serverSideName = set.getBool("serverSideName");
         _title     = set.getString("title");
+        if (_title.equalsIgnoreCase("Quest Monster"))
+            _isQuestMonster = true;
+        else
+            _isQuestMonster = false;
         _serverSideTitle = set.getBool("serverSideTitle");
         _sex       = set.getString("sex");
         _level     = set.getByte("level");
@@ -898,5 +903,10 @@ public final class L2NpcTemplate extends L2CharTemplate
     public void setAI(AIType type)
     {
         _ai = type;
+    }
+
+    public boolean isQuestMonster()
+    {
+        return _isQuestMonster;
     }
 }

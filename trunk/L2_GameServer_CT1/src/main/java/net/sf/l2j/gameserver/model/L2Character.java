@@ -2112,6 +2112,8 @@ public abstract class L2Character extends L2Object
 		{
 			if (isKilledAlready())
 				return false;
+			// now reset currentHp to zero
+			getStatus().setCurrentHp(0);
 			setIsKilledAlready(true);
 		}
 		// Set target to null and cancel Attack or Cast
@@ -2186,9 +2188,11 @@ public abstract class L2Character extends L2Object
 	/** Sets HP, MP and CP and revives the L2Character. */
 	public void doRevive()
 	{
+		if (!isKilledAlready()) return;
 		if (!isTeleporting())
 		{
 			setIsPendingRevive(false);
+			setIsKilledAlready(false);
 
 			if (this instanceof L2PlayableInstance && ((L2PlayableInstance)this).isPhoenixBlessed())
 			{
@@ -2470,7 +2474,10 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
 	public boolean isMovementDisabled()
 	{
-		return isStunned() || isRooted() || isSleeping() || isImmobileUntilAttacked() || isOverloaded() || isParalyzed() || isImmobilized() || isFakeDeath() || isFallsdown();
+		// check for isTeleporting to prevent teleport cheating (if appear packet not received)
+		return isStunned() || isRooted() || isSleeping() || isTeleporting()
+				|| isImmobileUntilAttacked() || isOverloaded() || isParalyzed()
+				|| isImmobilized() || isFakeDeath() || isFallsdown();
 	}
 
 	/** Return True if the L2Character can be controlled by the player (confused, afraid). */
@@ -6342,6 +6349,15 @@ public abstract class L2Character extends L2Object
 		// Remove all its Func objects from the L2Character calculator set
 		if (oldSkill != null)
 		{
+			// Stop casting if this skill is used right now
+			if (this instanceof L2PcInstance)
+			{
+				if (((L2PcInstance)this).getCurrentSkill() != null && isCastingNow())
+				{
+					if (oldSkill.getId() == ((L2PcInstance)this).getCurrentSkill().getSkillId())
+						abortCast();
+				}
+			}
 			removeStatsOwner(oldSkill);
 			stopSkillEffects(oldSkill.getId());
 		}

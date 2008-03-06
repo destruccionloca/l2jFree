@@ -568,26 +568,24 @@ public class L2Spawn
         }
         
         // setting up champion mobs
-        if ( (  ((mob instanceof L2MonsterInstance) && !((mob instanceof L2BossInstance) 
-                || (mob instanceof L2RaidBossInstance))) 
-                || ( ((mob instanceof L2BossInstance) || (mob instanceof L2RaidBossInstance))) 
-                && Config.CHAMPION_BOSS ) 
-                && (Config.CHAMPION_FREQUENCY > 0) 
-                && (mob.getLevel() >= Config.CHAMPION_MIN_LEVEL) && (mob.getLevel() <= Config.CHAMPION_MAX_LEVEL) )
+        if (       ((mob instanceof L2MonsterInstance && !(mob instanceof L2BossInstance || mob instanceof L2RaidBossInstance))
+                || ((mob instanceof L2BossInstance || mob instanceof L2RaidBossInstance) && Config.CHAMPION_BOSS))
+                && Config.CHAMPION_FREQUENCY > 0 && !mob.getTemplate().isQuestMonster()
+                && mob.getLevel() >= Config.CHAMPION_MIN_LEVEL && mob.getLevel() <= Config.CHAMPION_MAX_LEVEL)
         {
             if (Rnd.get(100000) <= Config.CHAMPION_FREQUENCY)
             {
                 mob.setChampion(true);
-                //String msg = "Spawning Champion: "+mob.getTemplate().name+" ["+mob.getNpcId()+"] "+mob.getLevel()+" lvl at ("+newlocx+","+newlocy+","+newlocz+")";
-                //_log.info(msg);
-                //GmListTable.broadcastMessageToGMs(msg);
             }
         }
         else
         {
             mob.setChampion(false);
         }
-        
+
+        mob.setIsKilledAlready(false);
+        // Reset decay info
+        mob.setDecayed(false);
         // Set the HP and MP of the L2NpcInstance to the max
         mob.getStatus().setCurrentHpMp(mob.getMaxHp(), mob.getMaxMp());
         
@@ -600,9 +598,6 @@ public class L2Spawn
         {
             mob.setHeading(getHeading());
         }
-
-        // Reset decay info
-        mob.setDecayed(false);
 
         // Link the L2NpcInstance to this L2Spawn
         mob.setSpawn(this);
