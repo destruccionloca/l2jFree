@@ -48,6 +48,8 @@ public class PcStatus extends PlayableStatus
         double realValue = value;
         
         if (getActiveChar().isInvul()) return;
+        if (getActiveChar().isDead()) return;
+
         if ( attacker instanceof L2PcInstance)
         {
 			if (getActiveChar().isInDuel())
@@ -60,14 +62,11 @@ public class PcStatus extends PlayableStatus
 				if (((L2PcInstance)attacker).getDuelId() != getActiveChar().getDuelId())
 					getActiveChar().setDuelState(Duel.DUELSTATE_INTERRUPTED);
 			}
-			
-			if (getActiveChar().isDead() && !getActiveChar().isFakeDeath()) return;
         } 
         else 
         {
 			// if attacked by a non L2PcInstance & non L2SummonInstance the duel gets canceled
         	if (getActiveChar().isInDuel() && !(attacker instanceof L2SummonInstance)) getActiveChar().setDuelState(Duel.DUELSTATE_INTERRUPTED);
-			if (getActiveChar().isDead()) return;
         }
 
         if (attacker != null && attacker != getActiveChar())

@@ -295,7 +295,7 @@ public class CharStat
         
         float bonusAtk = 1;
         if (_activeChar.isChampion())
-            bonusAtk = Config.CHAMPION_ATK;        
+            bonusAtk = Config.CHAMPION_ATK;
         
         // Get the base MAtk of the L2Character
         double attack = _activeChar.getTemplate().getBaseMAtk() * bonusAtk;
@@ -483,7 +483,7 @@ public class CharStat
         
         float bonusAtk = 1;
         if  (_activeChar.isChampion())
-            bonusAtk = Config.CHAMPION_ATK;        
+            bonusAtk = Config.CHAMPION_ATK;
         
         return (int) calcStat(Stats.POWER_ATTACK, _activeChar.getTemplate().getBasePAtk() * bonusAtk, target, null);
     }
@@ -539,7 +539,7 @@ public class CharStat
         
         float bonusSpdAtk = 1;
         if  (_activeChar.isChampion())
-            bonusSpdAtk = Config.CHAMPION_SPD_ATK;        
+            bonusSpdAtk = Config.CHAMPION_SPD_ATK;
         
         return (int) (calcStat(Stats.POWER_ATTACK_SPEED, _activeChar.getTemplate().getBasePAtkSpd() * bonusSpdAtk, null, null) / _activeChar.getArmourExpertisePenalty());
     }

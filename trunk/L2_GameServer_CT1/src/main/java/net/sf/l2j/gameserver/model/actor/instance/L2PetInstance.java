@@ -807,20 +807,20 @@ public class L2PetInstance extends L2Summon
             pet.getStat().setSp(rset.getInt("sp"));
             pet.setKarma(rset.getInt("karma"));
             pet.setPkKills(rset.getInt("pkkills"));
-            
-            double curHp = rset.getDouble("curHp");
-            double curMp = rset.getDouble("curMp");
-            int curFed = rset.getInt("fed");
-            
-            if(curHp == 0)
+
+            if (rset.getDouble("curHp") < 0.5) 
             {
-                pet.doDie(null);
-                curMp = 0;
+                pet.setIsDead(true);
+                pet.getStatus().stopHpMpRegeneration();
             }
 
-           	pet.getStatus().setCurrentHp(curHp);
-            pet.getStatus().setCurrentMp(curMp);
-            pet.getStatus().setCurrentCp(pet.getMaxCp());    
+            int curFed = rset.getInt("fed");
+            
+            pet.getStatus().setCurrentHp(rset.getDouble("curHp"));
+            pet.getStatus().setCurrentMp(rset.getDouble("curMp"));
+            pet.getStatus().setCurrentCp(pet.getMaxCp());
+
+
 
             // hack for zero food
         	if (curFed == 0)

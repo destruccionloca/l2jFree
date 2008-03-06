@@ -360,7 +360,10 @@ public class EnterWorld extends L2GameClientPacket
 			sendPacket(psc);
 		}
 
-		if (activeChar.isAlikeDead())
+		if (activeChar.getStatus().getCurrentHp() < 0.5) // is dead
+			activeChar.setIsDead(true);
+
+		if (activeChar.isAlikeDead()) // dead or fake dead
 		{
 			// no broadcast needed since the player will already spawn dead to others
 			Die d = new Die(activeChar);

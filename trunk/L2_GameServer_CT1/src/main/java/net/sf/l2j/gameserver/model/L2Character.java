@@ -154,7 +154,7 @@ public abstract class L2Character extends L2Object
 	private boolean					_isFlying							= false;											// Is flying Wyvern?
 	private boolean					_isMuted							= false;											// Cannot use magic
 	private boolean					_isPsychicalMuted					= false;											// Cannot use psychical attack
-	private boolean					_isKilledAlready					= false;
+	private boolean					_isDead								= false;
 	private boolean					_isImmobilized						= false;
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
 	private boolean					_isParalyzed						= false;
@@ -2110,11 +2110,12 @@ public abstract class L2Character extends L2Object
 		// killing is only possible one time
 		synchronized (this)
 		{
-			if (isKilledAlready())
+			if (isDead())
 				return false;
 			// now reset currentHp to zero
 			getStatus().setCurrentHp(0);
-			setIsKilledAlready(true);
+			if (isFakeDeath()) stopFakeDeath(null);
+			setIsDead(true);
 		}
 		// Set target to null and cancel Attack or Cast
 		setTarget(null);
@@ -2188,11 +2189,11 @@ public abstract class L2Character extends L2Object
 	/** Sets HP, MP and CP and revives the L2Character. */
 	public void doRevive()
 	{
-		if (!isKilledAlready()) return;
+		if (!isDead()) return;
 		if (!isTeleporting())
 		{
 			setIsPendingRevive(false);
-			setIsKilledAlready(false);
+			setIsDead(false);
 
 			if (this instanceof L2PlayableInstance && ((L2PlayableInstance)this).isPhoenixBlessed())
 			{
@@ -2357,12 +2358,6 @@ public abstract class L2Character extends L2Object
 		_isAfraid = value;
 	}
 
-	/** Return True if the L2Character is dead or use fake death. */
-	public final boolean isAlikeDead()
-	{
-		return isFakeDeath() || !(getStatus().getCurrentHp() > 0.5);
-	}
-
 	/** Return True if the L2Character can't use its skills (ex : stun, sleep...). */
 	public boolean isAllSkillsDisabled()
 	{
@@ -2390,10 +2385,20 @@ public abstract class L2Character extends L2Object
 		_isConfused = value;
 	}
 
-	/** Return True if the L2Character is dead. */
 	public final boolean isDead()
 	{
-		return !isFakeDeath() && getStatus().getCurrentHp() <= 0.5;
+		return _isDead;
+	}
+
+	public final void setIsDead(boolean value)
+	{
+		_isDead = value;
+	}
+
+	/** Return True if the L2Character is dead or use fake death.  */
+	public final boolean isAlikeDead()
+	{
+		return isFakeDeath() || _isDead;
 	}
 
 	public final boolean isFakeDeath()
@@ -2439,16 +2444,6 @@ public abstract class L2Character extends L2Object
 	public void setIsImmobilized(boolean value)
 	{
 		_isImmobilized = value;
-	}
-
-	public final boolean isKilledAlready()
-	{
-		return _isKilledAlready;
-	}
-
-	public final void setIsKilledAlready(boolean value)
-	{
-		_isKilledAlready = value;
 	}
 
 	public final boolean isMuted()

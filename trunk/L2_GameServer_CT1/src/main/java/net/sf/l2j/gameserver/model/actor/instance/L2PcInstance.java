@@ -6057,6 +6057,12 @@ public final class L2PcInstance extends L2PlayableInstance
                 currentMp = rset.getDouble("curMp");
                 player.getStatus().setCurrentMp(rset.getDouble("curMp"));
 
+                if (currentHp < 0.5)
+                {
+                    player.setIsDead(true);
+                    player.getStatus().stopHpMpRegeneration();
+                }
+
                 //Check recs
                 player.checkRecom(rset.getInt("rec_have"), rset.getInt("rec_left"));
 

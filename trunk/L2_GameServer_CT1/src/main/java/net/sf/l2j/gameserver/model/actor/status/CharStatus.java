@@ -134,7 +134,10 @@ public class CharStatus
      */    
     public void reduceHp(double value, L2Character attacker, boolean awake)
     {
-        if (getActiveChar().isInvul()) return;
+        if (getActiveChar().isInvul())
+            return;
+        if (getActiveChar().isDead())
+            return; 
 
     	if (getActiveChar() instanceof L2PcInstance)
     	{
@@ -160,25 +163,15 @@ public class CharStatus
 					((L2PcInstance)getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
 				}
 			}
-    		
-    		if (getActiveChar().isDead() && !getActiveChar().isFakeDeath())
-                return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
-    	} 
+    	}
     	else 
         {
-    	    if (getActiveChar().isDead())
-                return; // Disabled == null check so skills like Body to Mind work again untill another solution is found
-    	}
-    	
-    	if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInDuel() && (getActiveChar() instanceof L2SummonInstance &&
-	    		!(((L2SummonInstance)getActiveChar()).getOwner().getDuelId() == ((L2PcInstance)attacker).getDuelId())) ) // Duelling player attacks summon
-    	{
-    		((L2PcInstance)attacker).setDuelState(Duel.DUELSTATE_INTERRUPTED);
-    	}
-    	
-    	if (attacker instanceof L2PcInstance && ((L2PcInstance)attacker).isInDuel() && getActiveChar() instanceof L2NpcInstance ) // Duelling player attacks mob
-    	{
-    		((L2PcInstance)attacker).setDuelState(Duel.DUELSTATE_INTERRUPTED);
+             if (attacker instanceof L2PcInstance
+                     && ((L2PcInstance) attacker).isInDuel()
+                     && !(getActiveChar() instanceof L2SummonInstance && ((L2SummonInstance) getActiveChar()).getOwner().getDuelId() == ((L2PcInstance) attacker).getDuelId())) // Duelling player attacks mob
+             {
+                 ((L2PcInstance) attacker).setDuelState(Duel.DUELSTATE_INTERRUPTED);
+             }
     	}
 
         if (awake)
@@ -243,7 +236,7 @@ public class CharStatus
             }
         }
 
-        if (getActiveChar().isDead())
+        if (getActiveChar().getStatus().getCurrentHp() < 0.5) // Die
         {
             if (getActiveChar() instanceof L2PcInstance)
             {
@@ -385,8 +378,9 @@ public class CharStatus
      */
     public final void setCurrentCp(double newCp, boolean broadcastPacket)
     {
-    	synchronized (this)
+        synchronized (this)
         {
+            if (getActiveChar().isDead()) return;
             // Get the Max CP of the L2Character
             int maxCp = getActiveChar().getStat().getMaxCp();
 
@@ -445,7 +439,7 @@ public class CharStatus
         double maxHp = getActiveChar().getStat().getMaxHp();
         synchronized (this)
         {
-            if (getActiveChar().isKilledAlready()) return;
+            if (getActiveChar().isDead()) return;
             if (newHp >= maxHp)
             {
                 // Set the RegenActive flag to false
@@ -516,8 +510,9 @@ public class CharStatus
      */
     public final void setCurrentMp(double newMp, boolean broadcastPacket)
     {
-    	synchronized (this)
+        synchronized (this)
         {
+            if (getActiveChar().isDead()) return;
             // Get the Max MP of the L2Character
             int maxMp = getActiveChar().getStat().getMaxMp();
 

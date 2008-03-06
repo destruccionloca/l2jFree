@@ -1486,7 +1486,7 @@ public class L2Attackable extends L2NpcInstance
         }
 
         // Apply Special Item drop with rnd qty for champions
-        if (Config.CHAMPION_FREQUENCY > 0 && isChampion() && Math.abs(getLevel() - player.getLevel()) <= Config.CHAMPION_SPCL_LVL_DIFF && Config.CHAMPION_SPCL_CHANCE > 0 && Rnd.get(100) < Config.CHAMPION_SPCL_CHANCE)
+        if (isChampion() && Math.abs(getLevel() - player.getLevel()) <= Config.CHAMPION_SPCL_LVL_DIFF && Config.CHAMPION_SPCL_CHANCE > 0 && Rnd.get(100) < Config.CHAMPION_SPCL_CHANCE)
         {
             int champqty = Rnd.get(Config.CHAMPION_SPCL_QTY);
             champqty++; //quantity should actually vary between 1 and whatever admin specified as max, inclusive.
