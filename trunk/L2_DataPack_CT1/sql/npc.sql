@@ -8333,7 +8333,8 @@ UPDATE npc SET AI = 'balanced' WHERE patk*0.65 < matk AND AI = 'fighter';
 UPDATE npc SET AI = 'mage' WHERE name LIKE 'court sorce%';
 UPDATE npc SET AI = 'mage' WHERE id = 21796;
 UPDATE npc SET AI = 'balanced' WHERE type LIKE '%boss%';
-UPDATE npc n, weapon w SET n.AI = 'archer' WHERE n.rhand = w.item_id AND w.weaponType =  'bow';
+UPDATE npc n, weapon w SET n.AI = 'archer' WHERE n.rhand = w.item_id AND w.weaponType = 'bow';
+UPDATE npc n, weapon w SET n.AI = 'archer' WHERE n.rhand = w.item_id AND w.weaponType = 'crossbow'; 
 
 --
 -- L2J-Free Add-ons

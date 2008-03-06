@@ -905,108 +905,39 @@
 </skill>
 <skill id="1436" levels="30" name="Soul of Pain" enchantLevels1="30" enchantLevels2="30">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
-      Lvl 1 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 50.
-      Lvl 2 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 52.
-      Lvl 3 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 55.
-      Lvl 4 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 57.
-      Lvl 5 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 60.
-      Lvl 6 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 61.
-      Lvl 7 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 65.
-      Lvl 8 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 66.
-      Lvl 9 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 70.
-      Lvl 10  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 72.
-      Lvl 11  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 75.
-      Lvl 12  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 77.
-      Lvl 13  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 80.
-      Lvl 14  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 82.
-      Lvl 15  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 84.
-      Lvl 16  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 85.
-      Lvl 17  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 87.
-      Lvl 18  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 89.
-      Lvl 19  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 90.
-      Lvl 20  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 92.
-      Lvl 21  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 94.
-      Lvl 22  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 96.
-      Lvl 23  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 97.
-      Lvl 24  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 99.
-      Lvl 25  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 100.
-      Lvl 26  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 102.
-      Lvl 27  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 104.
-      Lvl 28  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 105.
-      Lvl 29  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 107.
-      Lvl 30  Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 108.
-      Lvl 101 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 111.  +1 Power  Maximizes the skill's effect. The effect is increased.
-      Lvl 102 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.  +2 Power  The effect is increased.
-      Lvl 103 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.  +3 Power  The effect is increased.
-      Lvl 104 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 112.  +4 Power  The effect is increased.
-      Lvl 105 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.  +5 Power  The effect is increased.
-      Lvl 106 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.  +6 Power  The effect is increased.
-      Lvl 107 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 113.  +7 Power  The effect is increased.
-      Lvl 108 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 114.  +8 Power  The effect is increased.
-      Lvl 109 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 114.  +9 Power  The effect is increased.
-      Lvl 110 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.  +10 Power The effect is increased.
-      Lvl 111 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.  +11 Power The effect is increased.
-      Lvl 112 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 115.  +12 Power The effect is increased.
-      Lvl 113 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.  +13 Power The effect is increased.
-      Lvl 114 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.  +14 Power The effect is increased.
-      Lvl 115 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 116.  +15 Power The effect is increased.
-      Lvl 116 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.  +16 Power The effect is increased.
-      Lvl 117 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.  +17 Power The effect is increased.
-      Lvl 118 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 117.  +18 Power The effect is increased.
-      Lvl 119 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 118.  +19 Power The effect is increased.
-      Lvl 120 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 118.  +20 Power The effect is increased.
-      Lvl 121 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.  +21 Power The effect is increased.
-      Lvl 122 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.  +22 Power The effect is increased.
-      Lvl 123 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 119.  +23 Power The effect is increased.
-      Lvl 124 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.  +24 Power The effect is increased.
-      Lvl 125 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.  +25 Power The effect is increased.
-      Lvl 126 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 120.  +26 Power The effect is increased.
-      Lvl 127 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.  +27 Power The effect is increased.
-      Lvl 128 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.  +28 Power The effect is increased.
-      Lvl 129 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 121.  +29 Power The effect is increased.
-      Lvl 130 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Power: Power is increased. Power 122.  +30 Power The effect is increased.
-      Lvl 201 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +1 Cost Maximizes the skill's efficiency. The MP consumption is decreased.
-      Lvl 202 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +2 Cost The MP consumption is decreased.
-      Lvl 203 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +3 Cost The MP consumption is decreased.
-      Lvl 204 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +4 Cost The MP consumption is decreased.
-      Lvl 205 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +5 Cost The MP consumption is decreased.
-      Lvl 206 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +6 Cost The MP consumption is decreased.
-      Lvl 207 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +7 Cost The MP consumption is decreased.
-      Lvl 208 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +8 Cost The MP consumption is decreased.
-      Lvl 209 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +9 Cost The MP consumption is decreased.
-      Lvl 210 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +10 Cost  The MP consumption is decreased.
-      Lvl 211 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +11 Cost  The MP consumption is decreased.
-      Lvl 212 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +12 Cost  The MP consumption is decreased.
-      Lvl 213 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +13 Cost  The MP consumption is decreased.
-      Lvl 214 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +14 Cost  The MP consumption is decreased.
-      Lvl 215 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +15 Cost  The MP consumption is decreased.
-      Lvl 216 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +16 Cost  The MP consumption is decreased.
-      Lvl 217 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +17 Cost  The MP consumption is decreased.
-      Lvl 218 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +18 Cost  The MP consumption is decreased.
-      Lvl 219 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +19 Cost  The MP consumption is decreased.
-      Lvl 220 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +20 Cost  The MP consumption is decreased.
-      Lvl 221 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +21 Cost  The MP consumption is decreased.
-      Lvl 222 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +22 Cost  The MP consumption is decreased.
-      Lvl 223 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +23 Cost  The MP consumption is decreased.
-      Lvl 224 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +24 Cost  The MP consumption is decreased.
-      Lvl 225 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +25 Cost  The MP consumption is decreased.
-      Lvl 226 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +26 Cost  The MP consumption is decreased.
-      Lvl 227 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +27 Cost  The MP consumption is decreased.
-      Lvl 228 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +28 Cost  The MP consumption is decreased.
-      Lvl 229 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +29 Cost  The MP consumption is decreased.
-      Lvl 230 Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Enchant Cost: MP consumption is decreased. Power 99. +30 Cost  The MP consumption is decreased.
-
+      Unleash a soul to attack an enemy. Has a chance to remove the enemy's target. Consumes 1 Soul. Power 50-108.
+      Enchant1 + Power. Enchant2 +Cost.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#enchantMagicLvl"> 76 76 76 77 77 77 78 78 78 79 79 79 80 80 80 81 81 81 82 82 82 82 83 83 83 84 84 85 85 85 </table>
+  <table name="#ench1Power"> 111 112 112 112 113 113 113 114 114 115 115 115 116 116 116 117 117 117 118 118 119 119 119 120 120 120 121 121 121 122 </table>
+  <table name="#ench2MpConsume"> 69 68 67 65 64 63 62 60 60 59 58 57 55 54 53 52 50 49 48 48 47 45 44 43 42 40 39 38 37 37 </table>
+  <table name="#mpConsume">28 29 30 30 33 33 35 35 38 38 40 40 43 43 44 45 45 47 48 48 49 49 50 52 52 53 53 54 54 55</table>
+  <table name="#power">50 52 55 57 60 61 65 66 70 72 75 77 80 82 84 85 87 88 90 92 94 96 97 99 100 102 104 105 107 108</table>
+  <table name="#magicLvl">38 40 42 43 45 46 48 49 51 52 54 55 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74</table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="power" val="#power"/>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="lvlDepend" val="1"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="element" val="6" /><!-- Dark -->
+  <set name="reuseDelay" val="15000"/>
+  <set name="hitTime" val="1200"/>
+  <set name="coolTime" val="300" />
+  <set name="skillType" val="MDAM"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="700"/>
+  <set name="effectRange" val="1100"/>
+  <set name="soulConsumeCount" val="1"/>
+  <enchant1 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant1 name="power" val="#ench1Power"/>
+  <enchant2 name="magicLvl" val="#enchantMagicLvl"/>
+  <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
-  </for>
-</skill>
+    <effect count="1" name="RemoveTarget" time="1" val="0"/>
+   </for>
+ </skill>
 <skill id="1437" levels="26" name="Dark Flame" enchantLevels1="30" enchantLevels2="30">
 <!--
   Description:

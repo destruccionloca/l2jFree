@@ -441,7 +441,7 @@
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4725" levels="12" name="Shock">
@@ -456,7 +456,7 @@
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4726" levels="12" name="Shock">
@@ -472,7 +472,7 @@
   <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4727" levels="12" name="Shock">
@@ -488,7 +488,7 @@
   <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4728" levels="12" name="Shock">
@@ -504,7 +504,7 @@
   <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4729" levels="12" name="BOSS Mortal Blow">
@@ -735,7 +735,7 @@
   <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4745" levels="12" name="Shock">
@@ -751,7 +751,7 @@
   <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4746" levels="12" name="Shock">
@@ -767,7 +767,7 @@
   <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4747" levels="12" name="Shock">
@@ -783,7 +783,7 @@
   <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4748" levels="12" name="Shock">
@@ -799,7 +799,7 @@
   <set name="effectRange" val="200"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4749" levels="12" name="BOSS Mortal Blow">
@@ -955,7 +955,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4760" levels="12" name="Shock">
@@ -971,7 +971,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4761" levels="12" name="Shock">
@@ -987,7 +987,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4762" levels="12" name="Shock">
@@ -1003,7 +1003,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4763" levels="12" name="Shock">
@@ -1019,7 +1019,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4764" levels="12" name="BOSS Power Shot">
@@ -1105,7 +1105,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4770" levels="12" name="Shock">
@@ -1121,7 +1121,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4771" levels="12" name="Shock">
@@ -1137,7 +1137,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4772" levels="12" name="Shock">
@@ -1153,7 +1153,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4773" levels="12" name="Shock">
@@ -1169,7 +1169,7 @@
   <set name="effectRange" val="1400"/>
   <set name="effectType" val="STUN"/>
   <for>
-    <effect count="1" name="Stun" time="9" val="0"/>
+    <effect count="1" name="Stun" time="9" val="0" stackOrder="1" stackType="Stun"/>
   </for>
 </skill>
 <skill id="4774" levels="12" name="BOSS Spear Attack">
