@@ -1172,7 +1172,7 @@
     <using kind="Dual Sword"/>
   </cond>
   <for>
-    <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="SpeedUpS"> <!-- changed to 15s duration - retail info -->
+    <effect name="Buff" time="15" count="1" val="0" stackOrder="#spd" stackType="speed_up_special"> <!-- changed to 15s duration - retail info -->
       <add order="0x40" stat="runSpd" val="#spd"/>
     </effect>
   </for>

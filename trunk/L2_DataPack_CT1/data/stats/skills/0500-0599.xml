@@ -623,7 +623,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="22" stackType="SpeedUp"/>
+    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="22" stackType="speed_up">
   </for>
 </skill>
 <skill id="535" levels="1" name="Counter Mind">
@@ -1299,7 +1299,7 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="438"/>
   <for>
-    <effect count="1" name="Buff" time="15" val="0" stackOrder="#spd" stackType="SpeedUpS">
+    <effect count="1" name="Buff" time="15" val="0" stackOrder="#spd" stackType="speed_up_special">
       <add order="0x40" stat="runSpd" val="66"/>
     </effect>
   </for>
