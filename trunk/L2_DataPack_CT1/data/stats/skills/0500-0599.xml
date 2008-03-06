@@ -623,7 +623,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="22" stackType="speed_up">
+    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="22" stackType="speed_up"/>
   </for>
 </skill>
 <skill id="535" levels="1" name="Counter Mind">
