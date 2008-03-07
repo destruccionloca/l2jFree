@@ -1651,6 +1651,9 @@ INSERT INTO `weapon` VALUES
 (10277, 'Monster Only (Behamah Pole)', 'rhand', 'true', 2140, 2, 2, 'steel', 'none', 24, 10, 'sword', 8, -3.00000, 0, 0, 0, 325, 0, 17, -1, 0, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (10278, 'Monster Only (Behamah Dual)', 'rhand', 'true', 2530, 2, 2, 'steel', 'd', 73, 10, 'sword', 8, 0.00000, 0, 0, 0, 325, 0, 37, -1, 0, 0, 'true', 'true', 'true', 'true', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
+UPDATE npc n, weapon w SET n.AI = 'archer' WHERE n.rhand = w.item_id AND w.weaponType = 'bow';
+UPDATE npc n, weapon w SET n.AI = 'archer' WHERE n.rhand = w.item_id AND w.weaponType = 'crossbow'; 
+
 --
 -- L2J-Free Add-ons
 --

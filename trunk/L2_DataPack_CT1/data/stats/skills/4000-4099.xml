@@ -393,7 +393,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pAtk">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
   </for>
@@ -414,7 +414,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pDef">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pd_up">
       <mul order="0x30" stat="pDef" val="#pDef"/>
     </effect>
   </for>
@@ -439,7 +439,7 @@
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pAtk">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pAtk" stackType="pa_up">
       <mul order="0x30" stat="pAtk" val="#pAtk"/>
     </effect>
     <effect count="1" name="Grow" time="1200" val="0"/>
@@ -465,7 +465,7 @@
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="100"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pDef">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#pDef" stackType="pd_up">
       <mul order="0x30" stat="pDef" val="#pDef"/>
     </effect>
   </for>
