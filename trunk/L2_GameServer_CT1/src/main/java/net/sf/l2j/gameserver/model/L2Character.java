@@ -3041,8 +3041,6 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void addEffect(L2Effect newEffect)
 	{
-		L2Effect tempEffect = null;
-
 		if (newEffect == null)
 			return;
 
@@ -3056,11 +3054,27 @@ public abstract class L2Character extends L2Object
 		}
 		synchronized (_effects)
 		{
-			// Make sure there's no same effect previously
-			for (int i = 0; i < _effects.size(); i++)
+			L2Effect tempEffect = null;
+
+			// Check for same effects
+			for (int i=0; i<_effects.size(); i++)
 			{
-				if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId() && _effects.get(i).getEffectType() == newEffect.getEffectType())
-					return;
+				if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId()
+						&& _effects.get(i).getEffectType() == newEffect.getEffectType()
+						&& _effects.get(i).getStackOrder() == newEffect.getStackOrder())
+				{
+					if (newEffect.getSkill().getSkillType() == L2Skill.SkillType.BUFF)
+					{
+						// renew buffs, exit old
+						_effects.get(i).exit();
+					}
+					else
+					{
+						// Started scheduled timer needs to be canceled.
+						newEffect.stopEffectTask();
+						return;
+					}
+				}
 			}
 
 			// Remove first Buff if number of buffs > getMaxBuffCount()
