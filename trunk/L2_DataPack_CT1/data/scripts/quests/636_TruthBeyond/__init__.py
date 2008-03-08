@@ -29,7 +29,7 @@ class Quest (JQuest) :
        st.playSound("ItemSound.quest_finish")
        st.giveItems(MARK,1)
        st.unset("cond")
-       st.exitQuest(False) 
+       st.exitQuest(1) 
     return htmltext
 
  def onTalk (self,npc,player):
