@@ -159,6 +159,7 @@ public class Couple
             statement = con.prepareStatement("DELETE FROM couples WHERE id=?");
             statement.setInt(1, _id);
             statement.execute();
+            statement.close();
         }
         catch (Exception e)
         {

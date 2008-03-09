@@ -8377,33 +8377,37 @@ public final class L2PcInstance extends L2PlayableInstance
 
     class LookingForFishTask implements Runnable
     {
-       boolean _isNoob, _isUpperGrade;
-       int _fishType, _fishGutsCheck, _gutsCheckTime;
-       long _endTaskTime;
-       
-       protected LookingForFishTask(int fishWaitTime, int fishGutsCheck, int fishType, boolean isNoob, boolean isUpperGrade)
-       {
-           _fishGutsCheck = fishGutsCheck;
-           _endTaskTime = System.currentTimeMillis() + fishWaitTime + 10000;
-           _fishType = fishType;
-           _isNoob = isNoob;
-           _isUpperGrade = isUpperGrade;
-       }
-       
-       public void run()
-       {
-            if (System.currentTimeMillis() >= _endTaskTime) {
+        boolean _isNoob, _isUpperGrade;
+        int _fishType, _fishGutsCheck, _gutsCheckTime;
+        long _endTaskTime;
+
+        protected LookingForFishTask(int fishWaitTime, int fishGutsCheck, int fishType, boolean isNoob, boolean isUpperGrade)
+        {
+            _fishGutsCheck = fishGutsCheck;
+            _endTaskTime = System.currentTimeMillis() + fishWaitTime + 10000;
+            _fishType = fishType;
+            _isNoob = isNoob;
+            _isUpperGrade = isUpperGrade;
+        }
+
+        public void run()
+        {
+            if (System.currentTimeMillis() >= _endTaskTime)
+            {
                 endFishing(false);
                 return;
             }
+
             if (_fishType == -1)
                 return;
+
             int check = Rnd.get(1000);
-            if(_fishGutsCheck > check)            {
+            if(_fishGutsCheck > check)
+            {
                 stopLookingForFishTask();
-                startFishCombat(_isNoob, _isUpperGrade);              
+                startFishCombat(_isNoob, _isUpperGrade);
             }
-       }
+        }
     }
 
     public int getClanPrivileges()
@@ -9281,14 +9285,15 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Delete a force buff upon class change.
         if(_forceBuff != null)
-			_forceBuff.delete();
+            _forceBuff.delete();
 
         // Stop casting for any player that may be casting a force buff on this l2pcinstance.
-		for(L2Character character : getKnownList().getKnownCharacters())
-		{
-			if(character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
-				character.abortCast();
-		}
+        for(L2Character character : getKnownList().getKnownCharacters())
+        {
+            if(character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+                character.abortCast();
+        }
+
 
         /*
          * 1. Call store() before modifying _classIndex to avoid skill effects rollover.

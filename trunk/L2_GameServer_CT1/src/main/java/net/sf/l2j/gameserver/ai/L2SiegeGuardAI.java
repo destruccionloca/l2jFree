@@ -74,7 +74,7 @@ public class L2SiegeGuardAI extends L2CharacterAI implements Runnable
     {
         super(accessor);
 
-        _selfAnalysis.Init();
+        _selfAnalysis.init();
         _attackTimeout = Integer.MAX_VALUE;
         _globalAggro = -10; // 10 seconds timeout of ATTACK after respawn
 

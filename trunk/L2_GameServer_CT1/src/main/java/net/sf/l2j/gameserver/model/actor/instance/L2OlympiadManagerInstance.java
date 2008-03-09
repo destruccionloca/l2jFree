@@ -140,7 +140,7 @@ public class L2OlympiadManagerInstance extends L2FolkInstance
                     }
                     break;
                 case 7:
-                    L2Multisell.getInstance().SeparateAndSend(102, player, false, getCastle().getTaxRate());
+                    L2Multisell.getInstance().separateAndSend(102, player, false, getCastle().getTaxRate());
                     break;
                     default:
                         _log.warn("Olympiad System: Couldnt send packet for request " + val);

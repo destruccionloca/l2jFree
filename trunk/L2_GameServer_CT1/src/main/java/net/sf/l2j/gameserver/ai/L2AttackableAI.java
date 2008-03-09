@@ -94,7 +94,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 	{
 		super(accessor);
 
-		_selfAnalysis.Init();
+		_selfAnalysis.init();
 		_attackTimeout = Integer.MAX_VALUE;
 		_globalAggro = -10; // 10 seconds timeout of ATTACK after respawn
 	}
@@ -807,8 +807,8 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 		{
 			setAttackTarget(hated.get(0));
 		}
-		_mostHatedAnalysis.Update(hated.get(0));
-		_secondMostHatedAnalysis.Update(hated.get(1));
+		_mostHatedAnalysis.update(hated.get(0));
+		_secondMostHatedAnalysis.update(hated.get(1));
 		
 		// Get all information needed to choose between physical or magical attack
 		_actor.setTarget(_mostHatedAnalysis.character);

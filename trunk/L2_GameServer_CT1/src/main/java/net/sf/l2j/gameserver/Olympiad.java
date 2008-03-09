@@ -62,7 +62,7 @@ import org.apache.commons.logging.LogFactory;
 
 public class Olympiad
 {
-	protected static Log								_log					= LogFactory.getLog(Olympiad.class);
+	protected final static Log							_log					= LogFactory.getLog(Olympiad.class);
 	
 	private static Olympiad								_instance;
 	

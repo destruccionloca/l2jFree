@@ -51,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class MercTicketManager
 {
-    protected static Log _log = LogFactory.getLog(CastleManager.class.getName());
+    protected static final Log _log = LogFactory.getLog(CastleManager.class.getName());
 
     // =========================================================
     private static MercTicketManager _instance;

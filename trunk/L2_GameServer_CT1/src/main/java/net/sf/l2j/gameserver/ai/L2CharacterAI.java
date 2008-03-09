@@ -1055,7 +1055,7 @@ public class L2CharacterAI extends AbstractAI
         {
         }
         
-        public void Init()
+        public void init()
         {
             switch (((L2NpcTemplate)_actor.getTemplate()).getAI())
             {
@@ -1182,7 +1182,7 @@ public class L2CharacterAI extends AbstractAI
         {
         }
             
-        public void Update(L2Character target)
+        public void update(L2Character target)
         {
             // update status once in 4 seconds
             if (target == character && Rnd.nextInt(100) > 25)

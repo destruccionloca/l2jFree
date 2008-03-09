@@ -201,11 +201,15 @@ public class Continuous implements ISkillHandler
 					L2Effect[] effects = target.getAllEffects();
 					if (effects != null)
 					{
-						for (L2Effect e : effects) {
-		                    if (e != null && skill != null)
-		                        if (e.getSkill().getId() == skill.getId()) {
-								e.exit();
-								return;
+						for (L2Effect e : effects)
+						{
+							if (e != null && skill != null)
+							{
+								if (e.getSkill().getId() == skill.getId())
+								{
+									e.exit();
+									return;
+								}
 							}
 						}
 					}

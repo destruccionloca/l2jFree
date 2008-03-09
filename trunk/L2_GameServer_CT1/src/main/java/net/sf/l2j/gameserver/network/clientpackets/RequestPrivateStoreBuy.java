@@ -143,7 +143,7 @@ public class RequestPrivateStoreBuy extends L2GameClientPacket
            }
         }
 
-        if (!storeList.PrivateStoreBuy(player, _items, (int) priceTotal))
+        if (!storeList.privateStoreBuy(player, _items, (int) priceTotal))
         {
             sendPacket(new ActionFailed());
             return;

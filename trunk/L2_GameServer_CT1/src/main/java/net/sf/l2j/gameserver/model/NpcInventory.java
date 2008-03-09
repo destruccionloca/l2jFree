@@ -38,11 +38,13 @@ public class NpcInventory extends Inventory
 		_owner = owner;
 	}
 
-	public void Reset()
+	public void reset()
 	{
-		this.destroyAllItems("Reset", null, null);
-		if (_owner.getTemplate().getSS() > 0) this.addItem("Reset", 1835, _owner.getTemplate().getSS(), null, null);
-		if (_owner.getTemplate().getBSS() > 0) this.addItem("Reset", 3947, _owner.getTemplate().getBSS(), null, null);
+		destroyAllItems("Reset", null, null);
+		if (_owner.getTemplate().getSS() > 0)
+			addItem("Reset", 1835, _owner.getTemplate().getSS(), null, null);
+		if (_owner.getTemplate().getBSS() > 0)
+			addItem("Reset", 3947, _owner.getTemplate().getBSS(), null, null);
 	}
 	
 	@Override

@@ -160,7 +160,7 @@ public class L2Multisell
         {
         	// if no taxes are applied, no modifications are needed
     		for (MultiSellEntry ent : listTemplate.getEntries())
-    			list.addEntry(prepareEntry(ent, listTemplate.getApplyTaxes(), false, 0, 0, -1, taxRate));        			
+    			list.addEntry(prepareEntry(ent, listTemplate.getApplyTaxes(), false, 0, 0, -1, taxRate));
         }
         
         return list;
@@ -203,7 +203,7 @@ public class L2Multisell
             	{
             		newIngredient.setEnchantmentLevel(enchantLevel);
                     newIngredient.setAugmentationId(augmentId);
-                    newIngredient.setManaLeft(mana);            		
+                    newIngredient.setManaLeft(mana);
             	}
         	}
         	
@@ -231,7 +231,7 @@ public class L2Multisell
             	{
             		newIngredient.setEnchantmentLevel(enchantLevel);
                     newIngredient.setAugmentationId(augmentId);
-                    newIngredient.setManaLeft(mana);            		
+                    newIngredient.setManaLeft(mana);
             	}
             }
         	newEntry.addProduct(newIngredient);
@@ -239,7 +239,7 @@ public class L2Multisell
         return newEntry;
     }
 
-    public void SeparateAndSend(int listId, L2PcInstance player, boolean inventoryOnly, double taxRate)
+    public void separateAndSend(int listId, L2PcInstance player, boolean inventoryOnly, double taxRate)
     {
 		MultiSellListContainer list = generateMultiSell(listId, inventoryOnly, player, taxRate);
 		MultiSellListContainer temp = new MultiSellListContainer();

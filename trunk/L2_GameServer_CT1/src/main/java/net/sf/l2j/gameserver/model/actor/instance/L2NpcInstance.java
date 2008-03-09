@@ -1247,11 +1247,11 @@ public class L2NpcInstance extends L2Character
             }
             else if (command.startsWith("multisell"))
             {
-            	L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(9).trim()), player, false, getCastle().getTaxRate());
+            	L2Multisell.getInstance().separateAndSend(Integer.parseInt(command.substring(9).trim()), player, false, getCastle().getTaxRate());
             }
             else if (command.startsWith("exc_multisell"))
             {
-            	L2Multisell.getInstance().SeparateAndSend(Integer.parseInt(command.substring(13).trim()), player, true, getCastle().getTaxRate());
+            	L2Multisell.getInstance().separateAndSend(Integer.parseInt(command.substring(13).trim()), player, true, getCastle().getTaxRate());
             }
             else if (command.startsWith("Augment"))
             {
@@ -2589,7 +2589,7 @@ public class L2NpcInstance extends L2Character
     public void onSpawn()
     {
         if (_inventory != null)
-            _inventory.Reset();
+            _inventory.reset();
 
         super.onSpawn();
 
