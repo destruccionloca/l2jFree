@@ -196,24 +196,21 @@ public class Continuous implements ISkillHandler
 
 			if (acted)
 			{
-				if (skill.isToggle())
+				boolean stopped = false;
+				L2Effect[] effects = target.getAllEffects();
+				if (effects != null)
 				{
-					L2Effect[] effects = target.getAllEffects();
-					if (effects != null)
+					for (L2Effect e : effects)
 					{
-						for (L2Effect e : effects)
+						if (e != null && skill != null && e.getSkill().getId() == skill.getId())
 						{
-							if (e != null && skill != null)
-							{
-								if (e.getSkill().getId() == skill.getId())
-								{
-									e.exit();
-									return;
-								}
-							}
+							e.exit();
+							stopped = true;
 						}
 					}
 				}
+				if (skill.isToggle() && stopped)
+					return;
 
 				// if this is a debuff let the duel manager know about it
 				// so the debuff can be removed after the duel
