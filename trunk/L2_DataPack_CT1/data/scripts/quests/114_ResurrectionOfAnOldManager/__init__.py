@@ -48,16 +48,6 @@ class Quest (JQuest) :
              break
     return
 
- def FindTemplate (self, npcId) :
-    for spawn in SpawnTable.getInstance().getSpawnTable().values():
-       if spawn :
-          if spawn.getNpcid() == npcId:
-             npcinstance = spawn.getLastSpawn()
-             break
-       else :
-          return
-    return npcinstance
-
  def onEvent(self, event, st):
     htmltext = event
     if event == "31961-02.htm" :
@@ -368,6 +358,7 @@ QUEST = Quest(114,qn,"Resurrection Of An Old Manager")
 
 QUEST.addStartNpc(Yumi)
 QUEST.addFirstTalkId(Stones)
+
 QUEST.addTalkId(Yumi)
 QUEST.addTalkId(Wendy)
 QUEST.addTalkId(Box)
