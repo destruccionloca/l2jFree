@@ -1848,10 +1848,11 @@ public class Olympiad
 			{
 				if (_playerOne != null && !_playerOneDisconnected)
 				{
-					playerOneHp = _playerOne.getStatus().getCurrentHp() + _playerOne.getStatus().getCurrentCp();
-					hpDiffOne = (_playerOne.getMaxHp() + _playerOne.getMaxCp()) - playerOneHp;
-					if (_playerOne.getStatus().getCurrentHp() == 0)
-						hpDiffOne = 9999999;
+					if (!_playerOne.isDead())
+					{
+						playerOneHp = _playerOne.getStatus().getCurrentHp() + _playerOne.getStatus().getCurrentCp();
+						hpDiffOne = (_playerOne.getMaxHp() + _playerOne.getMaxCp()) - playerOneHp;
+					}
 				}
 			}
 			catch (Exception e)
@@ -1866,10 +1867,11 @@ public class Olympiad
 			{
 				if (_playerTwo != null && !_playerTwoDisconnected)
 				{
-					playerTwoHp = _playerTwo.getStatus().getCurrentHp() + _playerTwo.getStatus().getCurrentCp();
-					hpDiffTwo = (_playerTwo.getMaxHp() + _playerTwo.getMaxCp()) - playerTwoHp;
-					if (_playerTwo.getStatus().getCurrentHp() == 0)
-						hpDiffTwo = 9999999;
+					if (!_playerTwo.isDead())
+					{
+						playerTwoHp = _playerTwo.getStatus().getCurrentHp() + _playerTwo.getStatus().getCurrentCp();
+						hpDiffTwo = (_playerTwo.getMaxHp() + _playerTwo.getMaxCp()) - playerTwoHp;
+					}
 				}
 			}
 			catch (Exception e)

@@ -59,8 +59,7 @@ public class Escape implements IUserCommandHandler
             return false;                   
         }
  
-        int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 5000 : 
-                                                    Config.UNSTUCK_INTERVAL * 1000 );
+        int unstuckTimer = (activeChar.getAccessLevel() >= Config.GM_ESCAPE ? 5000 : Config.UNSTUCK_INTERVAL * 1000 );
         
         // Check to see if the player is in a festival.
         if (activeChar.isFestivalParticipant()) 
@@ -75,12 +74,18 @@ public class Escape implements IUserCommandHandler
             activeChar.sendMessage("You can not escape from jail.");
             return false;
         }
-        
-        SystemMessage sm = new SystemMessage(SystemMessageId.YOU_WILL_BE_MOVED_TO_TOWN_IN_S1_SECONDS);
-        sm.addNumber(unstuckTimer/1000);
-        activeChar.sendPacket(sm);
-        sm = null;
-        
+
+        if(activeChar.getAccessLevel() >= Config.GM_ESCAPE)
+        {
+            activeChar.sendMessage("You use Fast Escape: 5 seconds.");
+        }
+        else if(Config.UNSTUCK_INTERVAL > 100)
+        {
+            activeChar.sendMessage("You use Escape: " + unstuckTimer/60000 + " minutes.");
+        }
+        else
+            activeChar.sendMessage("You use Escape: " + unstuckTimer/1000 + " seconds.");
+
         activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_IDLE);
         //SoE Animation section
         activeChar.setTarget(activeChar);

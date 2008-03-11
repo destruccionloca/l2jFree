@@ -243,6 +243,8 @@ public class CharStatus
                 if(((L2PcInstance)getActiveChar()).isInOlympiadMode())
                 {
                     stopHpMpRegeneration();
+                    getActiveChar().setIsDead(true);
+                    getActiveChar().setIsPendingRevive(true);
                     return;
                 }
             }
@@ -254,12 +256,12 @@ public class CharStatus
             // Start the doDie process
             getActiveChar().doDie(attacker);
 
-            if (getActiveChar() instanceof L2PcInstance) 
-            { 
+            if (getActiveChar() instanceof L2PcInstance)
+            {
                 QuestState qs = ((L2PcInstance) getActiveChar()).getQuestState("255_Tutorial"); 
                 if (qs != null) 
                     qs.getQuest().notifyEvent("CE30", null, ((L2PcInstance) getActiveChar())); 
-            } 
+            }
         }
         else
         {
