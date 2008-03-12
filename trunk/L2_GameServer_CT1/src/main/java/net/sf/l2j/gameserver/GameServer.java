@@ -394,7 +394,7 @@ public class GameServer
 	
 	public static void main(String[] args) throws Throwable
 	{
-		System.setProperty("python.cachedir", "../cachedir");
+		System.setProperty("python.home", ".");
 		gameServer = new GameServer();
 	}
 }
