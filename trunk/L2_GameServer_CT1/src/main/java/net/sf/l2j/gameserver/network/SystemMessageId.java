@@ -10064,7 +10064,7 @@ public enum SystemMessageId
 	* ID: 1685<br>
 	* Message: You are unable to equip this item when your PK count is greater or equal to one.
 	*/
-	UNABLE_TO_EQUIP_WITH_PK(1685),
+	YOU_ARE_UNABLE_TO_EQUIP_THIS_ITEM_WHEN_YOUR_PK_COUNT_IS_GREATER_THAN_OR_EQUAL_TO_ONE(1685),
 
 	/**
 	* ID: 1686<br>
@@ -12501,25 +12501,25 @@ public enum SystemMessageId
 	* ID: 2087<br>
 	* Message: A fortress is under attack!
 	*/
-	FORTRESS_UNDER_ATTACK(2087),
+	A_FORTRESS_IS_UNDER_ATTACK(2087),
 
 	/**
 	* ID: 2088<br>
 	* Message: $s1 minute(s) until the fortress battle starts.
 	*/
-	FORTRESS_BATTLE_IN_S1_MINUTES1(2088),
+	S1_MINUTES_UNTIL_THE_FORTRESS_BATTLE_STARTS(2088),
 
 	/**
 	* ID: 2089<br>
 	* Message: $s1 minute(s) until the fortress battle starts.
 	*/
-	FORTRESS_BATTLE_IN_S1_MINUTES2(2089),
+	S1_MINUTES_UNTIL_THE_FORTRESS_BATTLE_STARTS2(2089),
 
 	/**
 	* ID: 2090<br>
 	* Message: The fortress battle $s1 has begun.
 	*/
-	FORTRESS_BATTLE_BEGUN(2090),
+	THE_FORTRESS_BATTLE_S1_AS_BEGUN(2090),
 
 	/**
 	* ID: 2091<br>
@@ -12909,19 +12909,19 @@ public enum SystemMessageId
 	* ID: 2154<br>
 	* Message: The target is not a flagpole so a flag cannot be displayed.
 	*/
-	TARGET_NO_FLAGPOLE_CANT_DISPLAY_FLAG(2154),
+	THE_TARGET_IS_NOT_A_FLAGPOLE_SO_A_FLAG_CANNOT_BE_DISPLAYED(2154),
 
 	/**
 	* ID: 2155<br>
 	* Message: A flag is already being displayed, another flag cannot be displayed.
 	*/
-	CANNOT_DISPLAY_ANOTHER_FLAG(2155),
+	A_FLAG_IS_ALREADY_BEING_DISPLAYED_ANOTHER_FLAG_CANNOT_BE_DISPLAYED(2155),
 
 	/**
 	* ID: 2156<br>
 	* Message: There are not enough necessary items to use the skill.
 	*/
-	NOT_ENOUGH_ITEMS_FOR_SKILL(2156),
+	THERE_ARE_NOT_ENOUGH_NECESSARY_ITEMS_TO_USE_THE_SKILL(2156),
 
 	/**
 	* ID: 2157<br>
@@ -12933,7 +12933,7 @@ public enum SystemMessageId
 	* ID: 2158<br>
 	* Message: Forced attack is impossible against siege side temporary allied members.
 	*/
-	CANT_FORCE_ATTACK_TEMPORARY_ALLIED_MEMBERS(2158),
+	FORCED_ATTACK_IS_IMPOSSIBLE_AGAINST_SIEGE_SIDE_TEMPORARY_ALLIED_MEMBERS(2158),
 
 	/**
 	* ID: 2159<br>
@@ -13089,13 +13089,13 @@ public enum SystemMessageId
 	* ID: 2183<br>
 	* Message: The fortress battle of $s1 has finished.
 	*/
-	FORTRESS_BATTLE_OF_S1_FINISHED(2183),
+	THE_FORTRESS_BATTLE_OF_S1_HAS_FINISHED(2183),
 
 	/**
 	* ID: 2184<br>
 	* Message: $s1 clan is victorious in the fortress battle of $s2.
 	*/
-	S1_CLAN_WON_FORTRESS_BATTLE_S2(2184),
+	S1_CLAN_IS_VICTORIOUS_IN_THE_FORTRESS_BATTLE_OF_S2(2184),
 
 	/**
 	* ID: 2185<br>

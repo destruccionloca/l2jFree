@@ -207,6 +207,12 @@ public class UseItem extends L2GameClientPacket
 			}
 		}
 
+		if(activeChar.getPkKills() > 0 && item.getItemId() >= 7816 && item.getItemId() <= 7831)
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_UNABLE_TO_EQUIP_THIS_ITEM_WHEN_YOUR_PK_COUNT_IS_GREATER_THAN_OR_EQUAL_TO_ONE));
+			return;
+		}
+
 		// Items that cannot be used
 		if (itemId == 57)
 			return;

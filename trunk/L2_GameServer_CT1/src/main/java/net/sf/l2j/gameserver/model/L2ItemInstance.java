@@ -720,7 +720,7 @@ public final class L2ItemInstance extends L2Object
 				&& (getItem().getType2() != 4 || getItem().getType1() != 1) // Not Money or Shield Armor
 				&& (player.getPet() == null || getObjectId() != player.getPet().getControlItemId()) // Not Control item of currently summoned pet
 				&& (player.getActiveEnchantItem() != this) // Not momentarily used enchant scroll
-				&& (allowAdena || getItemId() != 57)
+				&& (allowAdena || getItemId() != 57) // Not adena
 				&& (player.getCurrentSkill() == null || player.getCurrentSkill().getSkill().getItemConsumeId() != getItemId()) && (isTradeable()));
 	}
 	

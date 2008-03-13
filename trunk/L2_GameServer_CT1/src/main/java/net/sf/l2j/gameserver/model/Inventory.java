@@ -1451,6 +1451,11 @@ public abstract class Inventory extends ItemContainer
 					
 					if (!player.isGM() && Config.ALT_STRICT_HERO_SYSTEM && !player.isHero() && item.isHeroItem())
 						item.setLocation(ItemLocation.INVENTORY);
+
+					if(player.getPkKills() > 0 && item.getItemId() >= 7816 && item.getItemId() <= 7831)
+					{
+						item.setLocation(ItemLocation.INVENTORY);
+					}
 				}
 				
 				L2World.getInstance().storeObject(item);
