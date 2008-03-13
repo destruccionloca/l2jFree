@@ -319,6 +319,15 @@ public class CTF
 		addOrSet(_teams.indexOf(teamName),null,false,_FlagNPC,activeChar.getX(),activeChar.getY(),activeChar.getZ());
 	}
 
+	public static void setTeamFlag(String teamName, int x, int y, int z)
+	{
+		int index = _teams.indexOf(teamName);
+		
+		if (index == -1)
+			return;
+		addOrSet(_teams.indexOf(teamName),null,false,_FlagNPC,x,y,z);
+	}
+	
 	public static void spawnAllFlags()
 	{
 		while (_flagSpawns.size()<_teams.size())
