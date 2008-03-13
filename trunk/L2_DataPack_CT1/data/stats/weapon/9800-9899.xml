@@ -523,7 +523,7 @@
    <enchant val='0' order='0x0C' stat='pAtk'/>
    <enchant val='0' order='0x0C' stat='mAtk'/>
        <!-- SA: Rsk. Haste -->
-    <mul order='0x30' stat='pAtkSpd' val='1.9'>
+    <mul order='0x30' stat='pAtkSpd' val='1.09'>
       <and>
         <player hp='60'/>
       </and>
