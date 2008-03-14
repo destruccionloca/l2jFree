@@ -15,7 +15,6 @@
 package net.sf.l2j.gameserver.handler.admincommandhandlers;
 
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
 
 import javolution.text.TextBuilder;
 import net.sf.l2j.Config;
@@ -175,16 +174,16 @@ public class AdminPForge implements IAdminCommandHandler
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/pforge2.htm");
-		adminReply.replace("%format%", Matcher.quoteReplacement(format));
+		adminReply.replace("%format%", format);
 
 		TextBuilder replyMSG = new TextBuilder();
 		for(int i = 0; i < format.length();i++)
 			replyMSG.append(format.charAt(i)+" : <edit var=\"v"+i+"\" width=100><br1>");
-		adminReply.replace("%valueditors%", Matcher.quoteReplacement(replyMSG.toString()));
+		adminReply.replace("%valueditors%", replyMSG.toString());
 		replyMSG.clear();
 		for(int i = 0; i < format.length();i++)
 			replyMSG.append(" \\$v"+i);
-		adminReply.replace("%send%", Matcher.quoteReplacement(replyMSG.toString()));
+		adminReply.replace("%send%", replyMSG.toString());
 		activeChar.sendPacket(adminReply);
 	}
 
@@ -192,8 +191,8 @@ public class AdminPForge implements IAdminCommandHandler
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		adminReply.setFile("data/html/admin/pforge3.htm");
-		adminReply.replace("%format%", Matcher.quoteReplacement(format));
-		adminReply.replace("%command%", Matcher.quoteReplacement(command));
+		adminReply.replace("%format%", format);
+		adminReply.replace("%command%", command);
 		activeChar.sendPacket(adminReply); 
 	}
 
