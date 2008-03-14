@@ -1488,7 +1488,7 @@ public final class L2PcInstance extends L2PlayableInstance
                                 retval = qs;
                             }
                         }
-                        sendPacket(new QuestList());
+                        sendPacket(new QuestList(this));
                     }
                 }
             }
@@ -3266,10 +3266,10 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void closeNetConnection()
     {
-		L2GameClient client = _client;
-		if (client != null && !client.getConnection().isClosed())
-		{
-			client.close(new LeaveWorld());
+        L2GameClient client = _client;
+        if (client != null && !client.getConnection().isClosed())
+        {
+            client.close(new LeaveWorld());
         }
     }
 
@@ -3694,8 +3694,8 @@ public final class L2PcInstance extends L2PlayableInstance
         @SuppressWarnings("synthetic-access")
         public void run()
         {
-        	L2GameClient client = L2PcInstance.this.getClient();
-        	if (client != null && !client.isAuthedGG() && L2PcInstance.this.isOnline() == 1)
+            L2GameClient client = L2PcInstance.this.getClient();
+            if (client != null && !client.isAuthedGG() && L2PcInstance.this.isOnline() == 1)
             {
                 //GmListTable.broadcastMessageToGMs("Client "+client+" failed to reply GameGuard query and is being kicked!");
                 _log.info("Client "+client+" failed to reply GameGuard query and is being kicked!");
@@ -10253,6 +10253,9 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void deleteMe()
     {
+        abortCast();
+        abortAttack();
+
         try
         {
             if(isFlying())
@@ -10268,9 +10271,9 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             try
             {
-                //getPet().decayMe();
                 getPet().unSummon(this); 
-            } catch (Throwable t) {}// returns pet to control item
+            }
+            catch (Throwable t) {}// returns pet to control item
         }
 
         // Cancel trade
@@ -10321,7 +10324,6 @@ public final class L2PcInstance extends L2PlayableInstance
             _log.fatal( "deleteMe()", t);
         }
 
-        // Cancel Attak or Cast
         try
         {
             setTarget(null);
@@ -10342,6 +10344,8 @@ public final class L2PcInstance extends L2PlayableInstance
                     character.abortCast();
         }
         catch(Throwable t) {_log.fatal("deleteMe()", t); }
+
+        stopAllEffects();
 
         // Remove from world regions zones
         L2WorldRegion oldRegion = getWorldRegion();
@@ -11685,15 +11689,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		_forceBuff = fb;
 	}
 
-	public void removeAllEffects()
-	{
-		for (L2Effect currenteffect : getAllEffects())
-		{
-			currenteffect.destroy();
-		}
-		stopAllEffects(); 
-	}
-	
 	public boolean checkFOS(){
 		return FortressSiege.checkIfOkToCastSealOfRule(this);
 	}

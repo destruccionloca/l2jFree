@@ -40,23 +40,14 @@ public class QuestList extends L2GameServerPacket
 	private static final String _S__98_QUESTLIST = "[S] 80 QuestList";
 
 	private Quest[] _quests;
-    private L2PcInstance _activeChar;
-	
-	public QuestList()
+	private L2PcInstance _activeChar;
+
+	public QuestList(L2PcInstance player)
 	{
-        
+		_activeChar = player;
+		_quests = player.getAllActiveQuests();
 	}
-	
-	@Override
-	public void runImpl()
-	{
-		if (getClient() != null && getClient().getActiveChar() != null)
-        {
-            _activeChar = getClient().getActiveChar();
-            _quests = _activeChar.getAllActiveQuests();
-        }
-	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{

@@ -28,7 +28,7 @@ public class SSQInfo extends L2GameServerPacket
 {
     private static final String S_73_SSQINFO = "[S] 73 SSQInfo";
 
-    private static int _state = 0;
+    private int _state = 0;
 
     public SSQInfo()
     {

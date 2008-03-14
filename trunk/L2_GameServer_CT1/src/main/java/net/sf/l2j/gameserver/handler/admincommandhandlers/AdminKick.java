@@ -17,7 +17,6 @@ package net.sf.l2j.gameserver.handler.admincommandhandlers;
 import java.util.StringTokenizer;
 
 import net.sf.l2j.Config;
-import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -46,9 +45,8 @@ public class AdminKick implements IAdminCommandHandler
                 L2PcInstance player = L2World.getInstance().getPlayer(plyr);
                 if (player != null)
                 {
-                    kickPlayer (player);
-                    RegionBBSManager.getInstance().changeCommunityBoard();
-					activeChar.sendMessage("You kicked " + player.getName() + " from the game.");
+                    kickPlayer(player);
+                    activeChar.sendMessage("You kicked " + player.getName() + " from the game.");
                 }
             }
         }
@@ -60,7 +58,7 @@ public class AdminKick implements IAdminCommandHandler
                 if(!player.isGM())
                 {
                     counter++;
-                    kickPlayer (player);
+                    kickPlayer(player);
                 }
             }
             activeChar.sendMessage("Kicked "+counter+" players");
@@ -71,21 +69,14 @@ public class AdminKick implements IAdminCommandHandler
     private void kickPlayer (L2PcInstance player)
     {
         try
-		{
-            L2GameClient.saveCharToDisk(player);
-            player.sendPacket(new LeaveWorld());
+        {
+            L2GameClient client = player.getClient();
+            L2GameClient.saveCharToDisk(player, true); // Store character
             player.deleteMe();
-            player.logout();
+            // prevent deleteMe from being called a second time on disconnection
+            client.setActiveChar(null);
         }
-		catch (Throwable t)
-		{}
- 
-        try
-		{
-            player.closeNetConnection();
-        }
-		catch (Throwable t)
-		{} 
+        catch (Throwable t){}
     }
     public String[] getAdminCommandList()
     {

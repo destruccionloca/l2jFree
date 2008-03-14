@@ -156,9 +156,8 @@ public final class QuestState
 		_state = state;
 
 		Quest.updateQuestInDb(this);
-		QuestList ql = new QuestList();
 
-		getPlayer().sendPacket(ql);
+		getPlayer().sendPacket(new QuestList(getPlayer()));
 		return state;
 	}
 
@@ -321,8 +320,7 @@ public final class QuestState
 		}
 
 		// send a packet to the client to inform it of the quest progress (step change)
-		QuestList ql = new QuestList();
-		getPlayer().sendPacket(ql);
+		getPlayer().sendPacket(new QuestList(getPlayer()));
 
 		int questId = getQuest().getQuestIntId();
 		if (questId > 0 && questId < 999 && cond > 0)

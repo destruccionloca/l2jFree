@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.LeaveWorld;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Env;
@@ -1497,10 +1496,7 @@ public class AdminSmartShop implements IAdminCommandHandler
     						 // Prevent hlApex users from abusing this...
     						 if (actor.getAccessLevel() < REQUIRED_LEVEL || !actor.isGM())
     						 {
-    					         actor.sendPacket(new LeaveWorld());
     					         actor.deleteMe();
-    					         actor.logout();
-    					         actor.closeNetConnection();
     						 }
     						 
     						 if (!ItemTable.getInstance().getTemplate(itemId).isStackable() && count > 10)

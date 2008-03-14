@@ -60,15 +60,6 @@ public class Ride extends L2GameServerPacket
     }
 
     @Override
-    public void runImpl()
-    {
-        L2PcInstance cha = getClient().getActiveChar();
-        if (cha == null) return;
-        // Don't allow ride with Zariche equiped
-        if (cha.isCursedWeaponEquipped()) return;
-    }
-
-    @Override
     protected final void writeImpl()
     {
         L2PcInstance cha = getClient().getActiveChar();

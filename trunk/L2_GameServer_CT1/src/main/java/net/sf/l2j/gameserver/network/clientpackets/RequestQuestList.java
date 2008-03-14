@@ -40,8 +40,8 @@ public class RequestQuestList extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        QuestList ql = new QuestList();
-        sendPacket(ql);
+        if (getClient().getActiveChar() != null)
+            sendPacket(new QuestList(getClient().getActiveChar()));
     }
 
     /* (non-Javadoc)

@@ -25,27 +25,37 @@ package net.sf.l2j.gameserver.network.serverpackets;
 public class SetupGauge extends L2GameServerPacket
 {
 	private static final String _S__85_SETUPGAUGE = "[S] 6d SetupGauge";
-	public static final int BLUE = 0; 
-	public static final int RED = 1; 
-	public static final int CYAN = 2; 
+	public static final int BLUE = 0;
+	public static final int RED = 1;
+	public static final int CYAN = 2;
+	public static final int GREEN = 3;
 
-	private int _dat1;
-	private int _time;
+	private int _color;
+	private int _time1;
+	private int _time2;
 
-	public SetupGauge(int dat1, int time)
+	public SetupGauge(int color, int time)
 	{
-		_dat1 = dat1;// color  0-blue   1-red  2-cyan  3-
-		_time = time;
+		_color = color;
+		_time1 = time;
+		_time2 = time;
 	}
-	
+
+	public SetupGauge(int color, int time1, int time2)
+	{
+		_color = color;
+		_time1 = time1;
+		_time2 = time2;
+	}
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0x6b);
-		writeD(_dat1);
-		writeD(_time);
 
-		writeD(_time); //c2
+		writeD(_color);
+		writeD(_time1);
+		writeD(_time2); //c2
 	}
 
 	/* (non-Javadoc)

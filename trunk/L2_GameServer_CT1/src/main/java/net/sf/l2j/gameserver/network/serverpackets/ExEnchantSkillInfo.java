@@ -37,7 +37,7 @@ public final class ExEnchantSkillInfo extends L2GameServerPacket
         _xpSpCostMultiplier = (type == EnchantSkillType.SAFE ? SkillTreeTable.SAFE_ENCHANT_COST_MULTIPLIER : SkillTreeTable.NORMAL_ENCHANT_COST_MULTIPLIER);
     }
     
-    static class SkillEnchantDetailElement
+    private static class SkillEnchantDetailElement
     {
         public final int _level;
         public final int _rate;
@@ -83,7 +83,7 @@ public final class ExEnchantSkillInfo extends L2GameServerPacket
      * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
      */
     @Override
-	protected void writeImpl()
+    protected void writeImpl()
     {
         writeC(0xfe);
         writeH(0x2a);

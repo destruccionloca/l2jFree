@@ -74,6 +74,7 @@ public class AdminPForge implements IAdminCommandHandler
 					broadcast = true;
 				}
 				AdminForgePacket sp = new AdminForgePacket();
+				byte[] bytes = format.getBytes();
 				for(int i = 0; i < format.length();i++)
 				{
 					String val = st.nextToken();
@@ -90,7 +91,7 @@ public class AdminPForge implements IAdminCommandHandler
 						if(activeChar.getBoat() != null)
 						{
 							val = String.valueOf(activeChar.getBoat().getObjectId());
-						}                		  
+						}
 					}
 					else if(val.toLowerCase().equals("$clanid"))
 					{
@@ -139,14 +140,13 @@ public class AdminPForge implements IAdminCommandHandler
 					else if(val.toLowerCase().equals("$theading"))
 					{
 						val = String.valueOf(((L2PcInstance) activeChar.getTarget()).getHeading());
-					} 
+					}
 
-					sp.addPart(format.getBytes()[i],val);
+					sp.addPart(bytes[i],val);
 				}
 				if(broadcast == true)
 				{
 					activeChar.broadcastPacket(sp);
-					activeChar.sendPacket(sp);
 				}
 				else
 				{

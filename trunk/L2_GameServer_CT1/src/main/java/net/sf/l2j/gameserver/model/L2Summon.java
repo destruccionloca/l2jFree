@@ -371,40 +371,46 @@ public abstract class L2Summon extends L2PlayableInstance
     public void deleteMe(L2PcInstance owner)
     {   
         getAI().stopFollow();
-        //getAI().stopMoveTask();
         owner.sendPacket(new PetDelete(getObjectId(), 2));
-        L2Party party;
-        if ((party = owner.getParty()) != null)
-        {
-             party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
-        }
-        
-        giveAllToOwner(); 
+        L2Party party = owner.getParty();
+        if (party != null)
+            party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
+
+        giveAllToOwner();
+
+        stopAllEffects();
+
+        L2WorldRegion oldRegion = getWorldRegion();
         decayMe();
+        if (oldRegion != null)
+            oldRegion.removeFromZones(this);
+
         getKnownList().removeAllKnownObjects();
-        owner.setPet(null); 
+        owner.setPet(null);
+        setTarget(null);
     }
 
     public synchronized void unSummon(L2PcInstance owner)
     {
-        //if (isVisible() && !isDead())
         if (isVisible())
         {
             getAI().stopFollow();
-            //getAI().stopMoveTask();
             owner.sendPacket(new PetDelete(getObjectId(), 2));
-            L2Party party;
-            if ((party = owner.getParty()) != null)
-            {
+            L2Party party = owner.getParty();
+            if (party != null)
                 party.broadcastToPartyMembers(owner, new ExPartyPetWindowDelete(this));
-            }
+
             store();
             
             giveAllToOwner();
 
+            stopAllEffects();
+
             L2WorldRegion oldRegion = getWorldRegion();
             decayMe();
-            if (oldRegion != null) oldRegion.removeFromZones(this);
+            if (oldRegion != null)
+                oldRegion.removeFromZones(this);
+
             getKnownList().removeAllKnownObjects();
             owner.setPet(null);
             setTarget(null);

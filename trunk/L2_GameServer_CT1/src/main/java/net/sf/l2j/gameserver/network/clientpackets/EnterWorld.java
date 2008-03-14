@@ -152,7 +152,6 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(new UserInfo(activeChar));
 
 		Quest.playerEnter(activeChar);
-		activeChar.sendPacket(new QuestList());
 		loadTutorial(activeChar);
 
 		// Register in flood protector
@@ -478,8 +477,7 @@ public class EnterWorld extends L2GameClientPacket
 		if (DM._savePlayers.contains(activeChar.getName()))
 			DM.addDisconnectedPlayer(activeChar);
 
-		QuestList ql = new QuestList();
-		activeChar.sendPacket(ql);
+		activeChar.sendPacket(new QuestList(activeChar));
 
 		ExBasicActionList ba = new ExBasicActionList();
 		activeChar.sendPacket(ba);

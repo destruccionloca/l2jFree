@@ -19,7 +19,6 @@ import java.sql.ResultSet;
 
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.SevenSignsFestival;
-import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.L2World;
@@ -72,10 +71,10 @@ public class Logout extends L2GameClientPacket
         if (!(player.isGM()))
         {
             if(player.isInsideZone(L2Zone.FLAG_NOESCAPE))
-			{
-                player.sendMessage("You can not log out in here.");
+            {
+                player.sendPacket(new SystemMessage(SystemMessageId.NO_LOGOUT_HERE));
                 player.sendPacket(new ActionFailed());
-                return;                   
+                return;
             }
         }
 
@@ -83,7 +82,7 @@ public class Logout extends L2GameClientPacket
         {
             player.sendMessage("You can not log out while flying.");
             player.sendPacket(new ActionFailed());
-            return;                   
+            return;
         }
         // [L2J_JP ADD END]
 
@@ -154,59 +153,17 @@ public class Logout extends L2GameClientPacket
             player.onTradeCancel(player.getActiveRequester());
         }
 
-        RegionBBSManager.getInstance().changeCommunityBoard();
-
-        player.getInventory().updateDatabase();
+        //save character
+        L2GameClient.saveCharToDisk(player, true);
+        sendPacket(new LeaveWorld());
         player.deleteMe();
 
-        // notify friends
-        notifyFriends(player);
-
-        //save character
-        L2GameClient.saveCharToDisk(player);
+        // prevent deleteMe from being called a second time on disconnection
+        getClient().setActiveChar(null);
 
         // normally the server would send serveral "delete object" before "leaveWorld"
         // we skip that for now
-        sendPacket(new LeaveWorld());
     }
-
-	private void notifyFriends(L2PcInstance cha)
-	{
-		java.sql.Connection con = null;
-	
-		try {
-			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement;
-			statement = con.prepareStatement("SELECT friend_name FROM character_friends WHERE char_id=?");
-			statement.setInt(1, cha.getObjectId());
-			ResultSet rset = statement.executeQuery();
-	
-			L2PcInstance friend;
-			String friendName;
-	
-			while (rset.next())
-			{
-				friendName = rset.getString("friend_name");
-	
-				friend = L2World.getInstance().getPlayer(friendName);
-	
-				if (friend != null) //friend logged in.
-				{
-					friend.sendPacket(new FriendList(friend));
-				}
-			}
-			
-			rset.close();
-			statement.close();
-		} 
-		catch (Exception e) {
-			_log.warn("could not restore friend data:"+e);
-		} 
-		finally
-		{
-			try {con.close();} catch (Exception e){}
-		}
-	}
 
     /* (non-Javadoc)
      * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#getType()

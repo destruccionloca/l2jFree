@@ -269,15 +269,20 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		return null;
 	}
 
+	public static void saveCharToDisk(L2PcInstance cha)
+	{
+		saveCharToDisk(cha, false);
+	}
+
 	/**
 	 * Save the L2PcInstance to the database.
 	 */
-	public static void saveCharToDisk(L2PcInstance cha)
+	public static void saveCharToDisk(L2PcInstance cha, boolean storeItems)
 	{
 		try
 		{
 			cha.store();
-			if (Config.UPDATE_ITEMS_ON_CHAR_STORE)
+			if (Config.UPDATE_ITEMS_ON_CHAR_STORE || storeItems)
 			{
 				cha.getInventory().updateDatabase();
 			}
@@ -547,9 +552,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 		}
 	}
 
-	class DisconnectTask implements Runnable
+	private class DisconnectTask implements Runnable
 	{
-
 		/**
 		 * @see java.lang.Runnable#run()
 		 */
@@ -558,18 +562,9 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			if (_disconnected)
 				return;
 			_disconnected = true;
+
 			try
 			{
-				// Update BBS
-				try
-				{
-					RegionBBSManager.getInstance().changeCommunityBoard();
-				}
-				catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-
 				// we are going to mannually save the char bellow thus we can force the cancel
 				if (_autoSaveInDB != null)
 				{
@@ -577,10 +572,8 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 				}
 
 				L2PcInstance player = L2GameClient.this.getActiveChar();
-				if (player != null) // this should only happen on connection
-				// loss
+				if (player != null) // this should only happen on connection loss
 				{
-
 					// we store all data from players who are disconnected while
 					// in an event in order to restore it in the next login
 					if (player.atEvent)
@@ -589,23 +582,16 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 								player.eventPkKills, player.eventTitle, player.kills, player.eventSitForced);
 						L2Event.connectionLossData.put(player.getName(), data);
 					}
-					if (player.isFlying())
-					{
-						player.removeSkill(SkillTable.getInstance().getInfo(4289, 1));
-					}
-					// notify the world about our disconnect
-					player.deleteMe();
 
 					try
 					{
 						saveCharToDisk(player);
+						player.getInventory().updateDatabase(); // Force item update in db
 					}
-					catch (Exception e2)
-					{ /* ignore any problems here */
-					}
-					// remove all effects
-					player.removeAllEffects();
-					player = null;
+					catch (Exception e2){}
+
+					// notify the world about our disconnect
+					player.deleteMe();
 				}
 				L2GameClient.this.setActiveChar(null);
 			}
@@ -617,10 +603,20 @@ public final class L2GameClient extends MMOClient<MMOConnection<L2GameClient>>
 			{
 				LoginServerThread.getInstance().sendLogout(L2GameClient.this.getAccountName());
 			}
+
+			// Update BBS
+			try
+			{
+				RegionBBSManager.getInstance().changeCommunityBoard();
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
-	class AutoSaveTask implements Runnable
+	private class AutoSaveTask implements Runnable
 	{
 		public void run()
 		{

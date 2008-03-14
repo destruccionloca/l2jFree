@@ -40,7 +40,7 @@ public final class ExShowTrace extends L2GameServerPacket
         this.addTrace(obj.getX(), obj.getY(), obj.getZ(), time);
     }
     
-    static final class Trace
+    private static class Trace
     {
         public final int _x;
         public final int _y;
@@ -83,5 +83,4 @@ public final class ExShowTrace extends L2GameServerPacket
             writeH(t._time);
         }
     }
-    
 }

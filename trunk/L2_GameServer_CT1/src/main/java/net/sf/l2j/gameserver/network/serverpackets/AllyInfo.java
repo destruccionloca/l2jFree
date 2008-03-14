@@ -26,12 +26,12 @@ public class AllyInfo extends L2GameServerPacket
 {
 	//private final static Log _log = LogFactory.getLog(AllyInfo.class.getName());
 	private static final String _S__B5_ALLYINFO = "[S] b5 AllyInfo";
-	private static L2PcInstance _cha ;
+	private L2PcInstance _cha ;
 
 	public AllyInfo(L2PcInstance cha)
 	{
 		_cha=cha;
-	}	
+	}
 
 	@Override
 	protected final void writeImpl()

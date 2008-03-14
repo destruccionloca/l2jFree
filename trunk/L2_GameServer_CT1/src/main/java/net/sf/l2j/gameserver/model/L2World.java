@@ -24,6 +24,7 @@ import javolution.util.FastMap;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.tools.geometry.Point3D;
 import net.sf.l2j.util.L2ObjectMap;
 
@@ -319,13 +320,19 @@ public final class L2World implements L2WorldMBean
             L2PcInstance player = (L2PcInstance) object;
 
             L2PcInstance tmp = _allPlayers.get(player.getName().toLowerCase());
-            if (tmp!= null && tmp != player)
+            if (tmp != null && tmp != player)
             {
                 _log.warn("Duplicate character!? Closing both characters ("+player.getName()+")");
+                L2GameClient client = player.getClient();
+                L2GameClient.saveCharToDisk(player); // Store character
                 player.deleteMe();
-                player.closeNetConnection();
+                client.setActiveChar(null); // prevent deleteMe from being called a second time on disconnection
+
+                client = tmp.getClient();
+                L2GameClient.saveCharToDisk(tmp, true); // Store character and items
                 tmp.deleteMe();
-                tmp.closeNetConnection();
+                client.setActiveChar(null); // prevent deleteMe from being called a second time on disconnection
+
                 return;
             }
 

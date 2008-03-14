@@ -23,11 +23,11 @@ import java.util.StringTokenizer;
 import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.LoginServerThread;
-import net.sf.l2j.gameserver.communitybbs.Manager.RegionBBSManager;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
@@ -70,13 +70,13 @@ public class AdminBan implements IAdminCommandHandler
 				else
 					activeChar.sendMessage("Usage: //ban [account_name] (if none, target char's account gets banned)");
 			}
-			if (plyr != null && plyr.equals(activeChar))
+			if (plyr != null && plyr == activeChar)
 			{
 				plyr.sendPacket(new SystemMessage(SystemMessageId.CANNOT_USE_ON_YOURSELF));
 			}
 			else if (plyr == null)
 			{
-				account_name=player;
+				account_name = player;
 				LoginServerThread.getInstance().sendAccessLevel(account_name, -100);
 				activeChar.sendMessage("Ban request sent for account "+account_name+". If you need a playername based commmand, see //ban_menu");
 			}
@@ -84,8 +84,15 @@ public class AdminBan implements IAdminCommandHandler
 			{
 				plyr.setAccountAccesslevel(-100);
 				account_name = plyr.getAccountName();
-				RegionBBSManager.getInstance().changeCommunityBoard();
-				plyr.logout();
+				try
+				{
+					L2GameClient client = plyr.getClient();
+					L2GameClient.saveCharToDisk(plyr, true); // Store character
+					plyr.deleteMe();
+					// prevent deleteMe from being called a second time on disconnection
+					client.setActiveChar(null);
+				}
+				catch (Throwable t){}
 				activeChar.sendMessage("Account "+account_name+" banned.");
 			}
 		}
@@ -112,11 +119,11 @@ public class AdminBan implements IAdminCommandHandler
 				{
 					delay = Integer.parseInt(st.nextToken());
 				}
-				catch (NumberFormatException nfe)
+				catch (Exception nfe)
 				{
 					activeChar.sendMessage("Usage: //jail <charname> [penalty_minutes]");
 				}
-				catch (NoSuchElementException nsee) {}
+
 				L2PcInstance playerObj = L2World.getInstance().getPlayer(player);
 				if (playerObj != null)
 				{
@@ -133,7 +140,7 @@ public class AdminBan implements IAdminCommandHandler
 			catch(Exception e)
 			{
 				e.printStackTrace();
-			}			
+			}
 		}
 		else if (command.startsWith("admin_unjail"))
 		{
@@ -157,7 +164,7 @@ public class AdminBan implements IAdminCommandHandler
 			catch(Exception e)
 			{
 				e.printStackTrace();
-			}			
+			}
 		}
 		return true;
 	}
@@ -184,7 +191,7 @@ public class AdminBan implements IAdminCommandHandler
 			if (count == 0)
 				activeChar.sendMessage("Character not found!");
 			else
-				activeChar.sendMessage("Character "+name+" jailed for "+(delay>0 ? delay+" minutes." : "ever!"));
+				activeChar.sendMessage("Character "+name+" jailed for"+((delay > 0) ? (" "+delay+" minutes.") : "ever!"));
 		}
 		catch (SQLException se)
 		{
@@ -224,7 +231,7 @@ public class AdminBan implements IAdminCommandHandler
 		}
 		catch (SQLException se)
 		{
-			activeChar.sendMessage("SQLException while jailing player");
+			activeChar.sendMessage("SQLException while unjailing player");
 			se.printStackTrace();
 		}
 		finally

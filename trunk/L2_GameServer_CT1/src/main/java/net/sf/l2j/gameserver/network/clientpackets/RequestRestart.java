@@ -23,11 +23,11 @@ import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.model.zone.L2Zone.ZoneType;
 import net.sf.l2j.gameserver.network.L2GameClient;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
+import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.CharSelectionInfo;
 import net.sf.l2j.gameserver.network.serverpackets.RestartResponse;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.Olympiad;
 
@@ -126,9 +126,9 @@ public class RequestRestart extends L2GameClientPacket
         {
             if(player.isInsideZone(L2Zone.FLAG_NOESCAPE))
             {
-                player.sendMessage("You can not restart in here.");
+                player.sendPacket(new SystemMessage(SystemMessageId.NO_RESTART_HERE));
                 player.sendPacket(new ActionFailed());
-                return;                   
+                return;
             }
         }
         
@@ -157,25 +157,26 @@ public class RequestRestart extends L2GameClientPacket
 
         // detach the client from the char so that the connection isnt closed in the deleteMe
         player.setClient(null);
-        
-        RegionBBSManager.getInstance().changeCommunityBoard();
-        
-        player.deleteMe();
-        L2GameClient.saveCharToDisk(getClient().getActiveChar());
 
-        // removing player from the world
+        //save character
+        L2GameClient.saveCharToDisk(player, true);
+        player.deleteMe();
+
+        // prevent deleteMe from being called a second time on disconnection
         getClient().setActiveChar(null);
         
         // return the client to the authed status
         client.setState(GameClientState.AUTHED);
 
         RestartResponse response = new RestartResponse();
-        sendPacket(response);    
+        sendPacket(response);
         
         // send char list
         CharSelectionInfo cl = new CharSelectionInfo(getClient().getAccountName(), getClient().getSessionId().playOkID1);
         sendPacket(cl);
         getClient().setCharSelection(cl.getCharInfo());
+
+        RegionBBSManager.getInstance().changeCommunityBoard();
     }
 
     /* (non-Javadoc)
