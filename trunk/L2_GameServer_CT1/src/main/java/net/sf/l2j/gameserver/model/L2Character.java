@@ -55,6 +55,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2SepulcherNpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
@@ -268,7 +269,7 @@ public abstract class L2Character extends L2Object
 		if (!(this instanceof L2PlayableInstance) && !(this instanceof L2Attackable) &&
 			!(this instanceof L2ControlTowerInstance) && !(this instanceof L2DoorInstance) &&
 			!(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) &&
-			!(this instanceof L2Decoy))
+			!(this instanceof L2Decoy) && !(this instanceof L2SepulcherNpcInstance))
 				setIsInvul(true);
 	}
 
