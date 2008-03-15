@@ -132,6 +132,8 @@ public class Shutdown extends Thread implements ShutdownMBean
 		}
 		if (this == _instance)
 		{
+			saveData();
+
 			// ensure all services are stopped
 			try
 			{
@@ -140,17 +142,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 			catch (Throwable t)
 			{
 			}
-			// stop all threadpolls
-			try
-			{
-				ThreadPoolManager.getInstance().shutdown();
-			}
-			catch (Throwable t)
-			{
-			}
-			// last byebye, save all data and quit this server
-			// logging doesnt work here :(
-			saveData();
+
 			try
 			{
 				LoginServerThread.getInstance().interrupt();
@@ -158,7 +150,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 			catch (Throwable t)
 			{
 			}
-			
+
 			// saveData sends messages to exit players, so shutdown selector after it
 			try
 			{
@@ -168,7 +160,16 @@ public class Shutdown extends Thread implements ShutdownMBean
 			catch (Throwable t)
 			{
 			}
-			
+
+			// stop all threadpools
+			try
+			{
+				ThreadPoolManager.getInstance().shutdown();
+			}
+			catch (Throwable t)
+			{
+			}
+
 			// server will quit, when this function ends.
 			if (_instance._shutdownMode == shutdownModeType.RESTART)
 				Runtime.getRuntime().halt(2);
@@ -369,9 +370,8 @@ public class Shutdown extends Thread implements ShutdownMBean
 		}
 		catch (Throwable t)
 		{
-			_log.info("", t);
 		}
-		
+
 		if (Config.IRC_ENABLED && !Config.IRC_ANNOUNCE)
 			IrcManager.getInstance().getConnection().sendChan("Server is " + _shutdownMode.getText().toLowerCase() + " NOW!");
 		
@@ -384,22 +384,22 @@ public class Shutdown extends Thread implements ShutdownMBean
 		
 		// Save Seven Signs data before closing. :)
 		SevenSigns.getInstance().saveSevenSignsData(null, true);
-		System.err.println("SevenSigns: Data saved.");
+		System.out.println("SevenSigns: Data saved.");
 		// Save all raidboss status ^_^
 		RaidPointsManager.getInstance().cleanUp();
-		System.err.println("RaidPointsManager: All character raid points saved.");
+		System.out.println("RaidPointsManager: All character raid points saved.");
 		RaidBossSpawnManager.getInstance().cleanUp();
-		System.err.println("RaidBossSpawnManager: All raidboss info saved.");
+		System.out.println("RaidBossSpawnManager: All raidboss info saved.");
 		TradeListTable.getInstance().dataCountStore();
-		System.err.println("TradeController: All count Item Saved");
+		System.out.println("TradeController: All count Item Saved");
 		try
 		{
 			Olympiad.getInstance().save();
-			System.err.println("Olympiad: Data saved.");
+			System.out.println("Olympiad: Data saved.");
 		}
 		catch (Exception e)
 		{
-			_log.error(e.getMessage(), e);
+			System.err.println(e.getMessage(), e);
 		}
 		
 		// Save all manor data
@@ -410,7 +410,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 		
 		// Save Cursed Weapons data before closing.
 		CursedWeaponsManager.getInstance().saveData();
-		System.err.println("CursedWeaponsManager: Data saved.");
+		System.out.println("CursedWeaponsManager: Data saved.");
 		// Save items on ground before closing
 		if (Config.SAVE_DROPPED_ITEM)
 		{
@@ -418,7 +418,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 			ItemsOnGroundManager.getInstance().cleanUp();
 			System.err.println("ItemsOnGroundManager: All items on ground saved.");
 		}
-		System.err.println("Data saved. All players disconnected, " + _shutdownMode.getText().toLowerCase() + ".");
+		System.out.println("Data saved. All players disconnected, " + _shutdownMode.getText().toLowerCase() + ".");
 		
 		try
 		{
@@ -448,7 +448,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 				ServerClose ql = new ServerClose();
 				player.sendPacket(ql);
 				
-				// make shure to save ALL data
+				// make sure to save ALL data
 				player.deleteMe();
 			}
 			catch (Throwable t)
@@ -460,9 +460,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 			Thread.sleep(1000);
 		}
 		catch (Throwable t)
-		{
-			_log.info("", t);
-		}
+		{}
 		
 		for (L2PcInstance player : L2World.getInstance().getAllPlayers())
 		{
