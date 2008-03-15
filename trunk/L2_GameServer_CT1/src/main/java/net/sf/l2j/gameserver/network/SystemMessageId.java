@@ -1827,7 +1827,7 @@ public enum SystemMessageId
 	 * ID: 301<br>
 	 * Message: $s2 $s1 has disappeared.
 	 */
-	DISSAPEARED_ITEM(301),
+	S2_S1_DISAPPEARED(301),
 
 	/**
 	* ID: 302<br>
@@ -3963,7 +3963,7 @@ public enum SystemMessageId
 	 * ID: 672<br>
 	 * Message: $s1 adena disappeared.
 	 */
-	DISSAPEARED_ADENA(672),
+	DISAPPEARED_ADENA(672),
 
 	/**
 	 * ID: 673<br>

@@ -172,8 +172,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                                                                    SevenSigns.CERTIFICATE_OF_APPROVAL_ID,
                                                                    1, this, false))
                                     {
-                                        sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-                                        sm.addNumber(1);
+                                        sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
                                         sm.addItemNameById(SevenSigns.CERTIFICATE_OF_APPROVAL_ID);
                                         player.sendPacket(sm);
                                         allowJoinDawn = true;
@@ -182,7 +181,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
                                                                 SevenSigns.ADENA_JOIN_DAWN_COST, this,
                                                                 false))
                                     {
-                                        sm = new SystemMessage(SystemMessageId.DISSAPEARED_ADENA);
+                                        sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
                                         sm.addNumber(SevenSigns.ADENA_JOIN_DAWN_COST);
                                         player.sendPacket(sm);
                                         allowJoinDawn = true;
@@ -200,8 +199,7 @@ public class L2SignsPriestInstance extends L2FolkInstance
 
                     SevenSigns.getInstance().setPlayerInfo(player, cabal, newSeal);
 
-                    if (cabal == SevenSigns.CABAL_DAWN) player.sendPacket(new SystemMessage(
-                                                                                            SystemMessageId.SEVENSIGNS_PARTECIPATION_DAWN)); // Joined Dawn
+                    if (cabal == SevenSigns.CABAL_DAWN) player.sendPacket(new SystemMessage(SystemMessageId.SEVENSIGNS_PARTECIPATION_DAWN)); // Joined Dawn
                     else player.sendPacket(new SystemMessage(SystemMessageId.SEVENSIGNS_PARTECIPATION_DUSK)); // Joined Dusk
 
                     // Show a confirmation message to the user, indicating which seal they chose.
@@ -282,19 +280,37 @@ public class L2SignsPriestInstance extends L2FolkInstance
                         {
                             if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_RED_ID,
                                                            redContribCount, this, false))
+                            {
                                 stonesFound = true;
+                                SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                                msg.addItemNameById(SevenSigns.SEAL_STONE_RED_ID);
+                                msg.addNumber(redContribCount);
+                                player.sendPacket(msg);
+                            }
                         }
                         if (greenContribCount > 0)
                         {
                             if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_GREEN_ID,
                                                            greenContribCount, this, false))
+                            {
                                 stonesFound = true;
+                                SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                                msg.addItemNameById(SevenSigns.SEAL_STONE_GREEN_ID);
+                                msg.addNumber(greenContribCount);
+                                player.sendPacket(msg);
+                            }
                         }
                         if (blueContribCount > 0)
                         {
                             if (player.destroyItemByItemId("SevenSigns", SevenSigns.SEAL_STONE_BLUE_ID,
                                                            blueContribCount, this, false))
+                            {
                                 stonesFound = true;
+                                SystemMessage msg = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                                msg.addItemNameById(SevenSigns.SEAL_STONE_BLUE_ID);
+                                msg.addNumber(blueContribCount);
+                                player.sendPacket(msg);
+                            }
                         }
 
                         if (!stonesFound)

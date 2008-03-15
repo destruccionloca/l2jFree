@@ -279,14 +279,14 @@ public class RequestProcureCropList extends L2GameClientPacket
 				player.sendPacket(sm);
 			}
 
-			sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
+			sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
 			sm.addItemNameById(cropId);
 			sm.addNumber(count);
 			player.sendPacket(sm);
 
 			if (fee > 0)
 			{
-				sm = new SystemMessage(SystemMessageId.DISSAPEARED_ADENA);
+				sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
 				sm.addNumber(fee);
 				player.sendPacket(sm);
 			}

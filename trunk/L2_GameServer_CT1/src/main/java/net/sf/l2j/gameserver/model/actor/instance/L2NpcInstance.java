@@ -2019,7 +2019,7 @@ public class L2NpcInstance extends L2Character
             if (item == null || item.getItemId() != 4442 || item.getCustomType1() >= lotonumber) return;
             int[] check = Lottery.getInstance().checkTicket(item);
 
-            sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
+            sm = new SystemMessage(SystemMessageId.S1_DISAPPEARED);
             sm.addItemNameById(4442);
             player.sendPacket(sm);
 

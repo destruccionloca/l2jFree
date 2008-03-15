@@ -2592,7 +2592,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
             if (sendMessage)
             {
-                SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ADENA);
+                SystemMessage sm = new SystemMessage(SystemMessageId.DISAPPEARED_ADENA);
                 sm.addNumber(count);
                 sendPacket(sm);
             }
@@ -2649,9 +2649,9 @@ public final class L2PcInstance extends L2PlayableInstance
             _inventory.updateInventory(_inventory.getAncientAdenaInstance());
             if (sendMessage)
             {
-                SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-                sm.addNumber(count);
+                SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
                 sm.addItemNameById(PcInventory.ANCIENT_ADENA_ID);
+                sm.addNumber(count);
                 sendPacket(sm);
             }
         }
@@ -2879,9 +2879,9 @@ public final class L2PcInstance extends L2PlayableInstance
         // Sends message to client if requested
         if (sendMessage)
         {
-            SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-            sm.addNumber(count);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
             sm.addItemName(item);
+            sm.addNumber(count);
             sendPacket(sm);
         }
 
@@ -2962,9 +2962,9 @@ public final class L2PcInstance extends L2PlayableInstance
         // Sends message to client if requested
         if (sendMessage)
         {
-            SystemMessage sm = new SystemMessage(SystemMessageId.DISSAPEARED_ITEM);
-            sm.addNumber(count);
+            SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
             sm.addItemName(item);
+            sm.addNumber(count);
             sendPacket(sm);
         }
         return true;
