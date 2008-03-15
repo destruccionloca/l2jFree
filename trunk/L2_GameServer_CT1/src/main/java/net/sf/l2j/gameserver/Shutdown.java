@@ -399,7 +399,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 		}
 		catch (Exception e)
 		{
-			System.err.println(e.getMessage(), e);
+			System.err.println(e.getMessage());
 		}
 		
 		// Save all manor data
