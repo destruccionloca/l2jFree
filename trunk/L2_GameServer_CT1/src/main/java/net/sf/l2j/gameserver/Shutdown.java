@@ -180,8 +180,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 		{
 			// gm shutdown: send warnings and then call exit to start shutdown sequence
 			countdown();
-			// last point where logging is operational :(
-			_log.warn("Shutdown countdown is over. " + _instance._shutdownMode.getText() + " NOW!");
+			System.out.println("Shutdown countdown is over. " + _instance._shutdownMode.getText() + " NOW!");
 			switch (_shutdownMode)
 			{
 				case SHUTDOWN:

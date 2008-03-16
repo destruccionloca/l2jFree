@@ -1662,47 +1662,38 @@ public class L2NpcInstance extends L2Character
      */
     public void showQuestWindow(L2PcInstance player, String questId)
     {
-        String content;
+        String content = null;
 
         Quest q = QuestManager.getInstance().getQuest(questId);
-
-        if ((player.getWeightPenalty() >= 3 || player.getInventoryLimit() * 0.8 <= player.getInventory().getSize())
-                && q != null && q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000)
-        {
-            player.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
-            return;
-        }
-
-        //FileInputStream fis = null;
 
         // Get the state of the selected quest
         QuestState qs = player.getQuestState(questId);
 
-        if (qs != null)
+        if (q == null)
         {
-            // If the quest is alreday started, no need to show a window
-            if (!qs.getQuest().notifyTalk(this, qs))
-                return;
+            // no quests found
+            content = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
         }
         else
         {
-            if (q != null)
+            if ((q.getQuestIntId() >= 1 && q.getQuestIntId() < 1000) && (player.getWeightPenalty() >= 3 || player.getInventoryLimit() * 0.8 <= player.getInventory().getSize()))
+            {
+                player.sendPacket(new SystemMessage(SystemMessageId.INVENTORY_LESS_THAN_80_PERCENT));
+                return;
+            }
+
+            if (qs == null)
             {
                 // check for start point
                 Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
-
-                if (qlst != null && qlst.length > 0)
+                
+                if (qlst != null && qlst.length > 0) 
                 {
-                    for (Quest element : qlst) {
-                        if (element == q)
+                    for (int i=0; i < qlst.length; i++) 
+                    {
+                        if (qlst[i] == q) 
                         {
                             qs = q.newQuestState(player);
-                            //disabled by mr. becouse quest dialog only show on second click.
-                            //if(qs.getState().getName().equalsIgnoreCase("completed"))
-                            //{
-                            if (!qs.getQuest().notifyTalk(this, qs))
-                                return; // no need to show a window
-                            //}
                             break;
                         }
                     }
@@ -1710,13 +1701,12 @@ public class L2NpcInstance extends L2Character
             }
         }
 
-        if (qs == null)
+        if (qs != null)
         {
-            // no quests found
-            content = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>";
-        }
-        else
-        {
+            // If the quest is alreday started, no need to show a window
+            if (!qs.getQuest().notifyTalk(this, qs))
+                return;
+
             questId = qs.getQuest().getName();
             String stateId = State.getStateName(qs.getState());
             String path = "data/scripts/quests/"+questId+"/"+stateId+".htm";
@@ -1740,7 +1730,7 @@ public class L2NpcInstance extends L2Character
             insertObjectIdAndShowChatWindow(player, content);
 
         // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-        player.sendPacket( new ActionFailed() );
+        player.sendPacket(new ActionFailed());
     }
 
     /**
@@ -2404,6 +2394,7 @@ public class L2NpcInstance extends L2Character
                             if (playerCabal != compWinner || playerCabal != sealAvariceOwner)
                             {
                                 player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+                                player.sendPacket(new ActionFailed());
                                 return;
                             }
                             break;
@@ -2411,6 +2402,7 @@ public class L2NpcInstance extends L2Character
                             if (playerCabal != compWinner || playerCabal != sealAvariceOwner)
                             {
                                 player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+                                player.sendPacket(new ActionFailed());
                                 return;
                             }
                             break;
@@ -2427,6 +2419,7 @@ public class L2NpcInstance extends L2Character
                             if (playerCabal != compWinner || playerCabal != sealGnosisOwner)
                             {
                                 player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DAWN));
+                                player.sendPacket(new ActionFailed());
                                 return;
                             }
                             break;
@@ -2434,6 +2427,7 @@ public class L2NpcInstance extends L2Character
                             if (playerCabal != compWinner || playerCabal != sealGnosisOwner)
                             {
                                 player.sendPacket(new SystemMessage(SystemMessageId.CAN_BE_USED_BY_DUSK));
+                                player.sendPacket(new ActionFailed());
                                 return;
                             }
                             break;

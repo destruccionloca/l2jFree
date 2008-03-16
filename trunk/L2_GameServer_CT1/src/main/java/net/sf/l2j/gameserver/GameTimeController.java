@@ -167,7 +167,7 @@ public class GameTimeController
 	
 	class TimerThread extends Thread
 	{
-		protected Exception	_error;
+		protected Exception _error;
 		
 		public TimerThread()
 		{

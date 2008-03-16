@@ -159,7 +159,7 @@ public class Disablers implements ISkillHandler
    
             L2Character target = (L2Character) element;
                        
-            if (target == null || target.isDead()) //bypass if target is null or dead
+            if (target == null || target.isDead() || target.isInvul()) //bypass if target is null, invul or dead
                 continue;
             //check if skill is allowed on other.properties for raidbosses
             if(!target.checkSkillCanAffectMyself(skill))

@@ -324,7 +324,7 @@ public class ThreadPoolManager implements ThreadPoolManagerMBean
 			_ioPacketsThreadPool.shutdown();
 			_generalThreadPool.shutdown();
 			_aiThreadPool.shutdown();
-			_log.info("All ThreadPools are now stoped");
+			System.out.println("All ThreadPools are now stopped");
 			
 		}
 		catch (InterruptedException e)
