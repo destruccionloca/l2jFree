@@ -17,4 +17,5 @@ INSERT INTO `grandboss_intervallist` (`bossId`, `respawnDate`, `state`) VALUES
 (29020,0,0),
 (29028,0,0),
 (29062,0,0),
-(29065,0,0);
+(29065,0,0),
+(29099,0,0);

@@ -37,9 +37,9 @@
   Description(s):
       None.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="STUN"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
   </for>
@@ -51,9 +51,9 @@
   Description(s):
       None.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="STUN"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
   </for>
@@ -65,9 +65,9 @@
   Description(s):
       None.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="STUN"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
   </for>

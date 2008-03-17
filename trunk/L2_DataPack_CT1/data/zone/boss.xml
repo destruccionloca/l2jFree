@@ -99,4 +99,10 @@
     </shape>
   </zone>
 
+  <zone id="12" name="Lair of Baylor" type="Boss">
+    <settings boss="Baylor"/>
+    <shape type="Cylinder" radius="4000" zMin="-12650" zMax="-12800">
+      <point x="153569" y="142075"/>
+    </shape>
+  </zone>
 </list>

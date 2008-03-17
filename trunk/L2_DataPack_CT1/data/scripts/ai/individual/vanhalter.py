@@ -3,7 +3,7 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.instancemanager import VanHalterManager
+from net.sf.l2j.gameserver.instancemanager.grandbosses import VanHalterManager
 
 # Main Quest Code
 class vanhalter(JQuest):
