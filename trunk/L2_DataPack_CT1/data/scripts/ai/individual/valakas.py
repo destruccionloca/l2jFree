@@ -39,10 +39,24 @@ class valakas(JQuest):
 
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("valakas")
+    #give the valakas slayer circlet to ALL PARTY MEMBERS who help kill valakas,
+    party = player.getParty()
+    if party :
+       for partyMember in party.getPartyMembers().toArray() :
+           pst = partyMember.getQuestState("valakas")
+           if pst :
+               if pst.getQuestItemsCount(8567) < 1 :
+                   pst.giveItems(8567,1)
+                   pst.exitQuest(1)
+    else :
+       pst = player.getQuestState("valakas")
+       if pst :
+           if pst.getQuestItemsCount(8567) < 1 :
+               pst.giveItems(8567,1)
+               pst.exitQuest(1)
     ValakasManager.getInstance().setCubeSpawn()
     if not st: return
     st.exitQuest(1)
-
 # Quest class and state definition
 QUEST = valakas(-1,"valakas","ai")
 

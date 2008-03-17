@@ -41,11 +41,25 @@ class antharas(JQuest):
 
   def onKill (self,npc,player,isPet):
     st = player.getQuestState("antharas")
+    #give the antharas slayer circlet to ALL PARTY MEMBERS who help kill anthy,
+    party = player.getParty()
+    if party :
+       for partyMember in party.getPartyMembers().toArray() :
+           pst = partyMember.getQuestState("antharas")
+           if pst :
+               if pst.getQuestItemsCount(8568) < 1 :
+                   pst.giveItems(8568,1)
+                   pst.exitQuest(1)
+    else :
+       pst = player.getQuestState("antharas")
+       if pst :
+           if pst.getQuestItemsCount(8568) < 1 :
+               pst.giveItems(8568,1)
+               pst.exitQuest(1)
     if not st: return
     AntharasManager.getInstance().setCubeSpawn()
     st.exitQuest(1)
     return
-
 # Quest class and state definition
 QUEST = antharas(-1, "antharas", "ai")
 # Quest NPC starter initialization
