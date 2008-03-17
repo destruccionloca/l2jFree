@@ -14,13 +14,14 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
-import net.sf.l2j.gameserver.instancemanager.AntharasManager;
-import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
-import net.sf.l2j.gameserver.instancemanager.FrintezzaManager;
-import net.sf.l2j.gameserver.instancemanager.SailrenManager;
-import net.sf.l2j.gameserver.instancemanager.ValakasManager;
-import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.AntharasManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.BaylorManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.FrintezzaManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.SailrenManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.ValakasManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.model.L2Character;
 
 public class L2BossZone extends L2DefaultZone
@@ -28,29 +29,32 @@ public class L2BossZone extends L2DefaultZone
 	@Override
 	protected void register()
 	{
-		switch(_boss)
+		switch (_boss)
 		{
-			case ANTHARAS:
-				AntharasManager.getInstance().registerZone(this);
-				break;
-			case BAIUM:
-				BaiumManager.getInstance().registerZone(this);
-				break;
-			case FRINTEZZA:
-				FrintezzaManager.getInstance().registerZone(this);
-				break;
-			case FOURSEPULCHERS:
-				FourSepulchersManager.getInstance().registerZone(this);
-				break;
-			case SAILREN:
-				SailrenManager.getInstance().registerZone(this);
-				break;
-			case VALAKAS:
-				ValakasManager.getInstance().registerZone(this);
-				break;
-			case VANHALTER:
-				VanHalterManager.getInstance().registerZone(this);
-				break;
+		case ANTHARAS:
+			AntharasManager.getInstance().registerZone(this);
+			break;
+		case BAIUM:
+			BaiumManager.getInstance().registerZone(this);
+			break;
+		case BAYLOR:
+			BaylorManager.getInstance().registerZone(this);
+			break;
+		case FRINTEZZA:
+			FrintezzaManager.getInstance().registerZone(this);
+			break;
+		case FOURSEPULCHERS:
+			FourSepulchersManager.getInstance().registerZone(this);
+			break;
+		case SAILREN:
+			SailrenManager.getInstance().registerZone(this);
+			break;
+		case VALAKAS:
+			ValakasManager.getInstance().registerZone(this);
+			break;
+		case VANHALTER:
+			VanHalterManager.getInstance().registerZone(this);
+			break;
 
 		}
 	}
@@ -63,7 +67,7 @@ public class L2BossZone extends L2DefaultZone
 
 		super.onEnter(character);
 	}
-	
+
 	@Override
 	protected void onExit(L2Character character)
 	{

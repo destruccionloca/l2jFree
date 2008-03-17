@@ -2327,6 +2327,15 @@ public final class Config
     public static int FWV_ACTIVITYTIMEOFVALAKAS; 
     public static int FWV_CAPACITYOFLAIR; 
     public static boolean FWV_MOVEATRANDOM; 
+
+    /******************************************* 
+     * baylor CONFIG                          * 
+     *******************************************/
+    public static boolean FWBA_ENABLESINGLEPLAYER; 
+    public static int FWBA_FIXINTERVALOFBAYLORSPAWN; 
+    public static int FWBA_RANDOMINTERVALOFBAYLORSPAWN; 
+    public static int FWBA_INTERVALOFNEXTMONSTER; 
+    public static int FWBA_ACTIVITYTIMEOFMOBS;
     
     /******************************************* 
      * sailren CONFIG                          * 
@@ -2412,7 +2421,22 @@ public final class Config
             FWB_LIMITUNTILSLEEP = Integer.parseInt(bossSettings.getProperty("LimitUntilSleep", "30"));
             if(FWB_LIMITUNTILSLEEP < 30 || FWB_LIMITUNTILSLEEP > 90) FWB_LIMITUNTILSLEEP = 30;
             FWB_LIMITUNTILSLEEP = FWB_LIMITUNTILSLEEP * 60000;
-            
+
+            //baylor
+            FWBA_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayerBaylor", "False")); 
+            FWBA_FIXINTERVALOFBAYLORSPAWN = Integer.parseInt(bossSettings.getProperty("FixIntervalOfBaylorSpawn", "1440")); 
+            if(FWBA_FIXINTERVALOFBAYLORSPAWN < 5 || FWBA_FIXINTERVALOFBAYLORSPAWN > 2880) FWBA_FIXINTERVALOFBAYLORSPAWN = 1440; 
+            FWBA_FIXINTERVALOFBAYLORSPAWN = FWBA_FIXINTERVALOFBAYLORSPAWN * 60000; 
+            FWBA_RANDOMINTERVALOFBAYLORSPAWN = Integer.parseInt(bossSettings.getProperty("RandomIntervalOfBaylorSpawn", "1440")); 
+            if(FWBA_RANDOMINTERVALOFBAYLORSPAWN < 5 || FWBA_RANDOMINTERVALOFBAYLORSPAWN > 2880) FWBA_RANDOMINTERVALOFBAYLORSPAWN = 1440; 
+            FWBA_RANDOMINTERVALOFBAYLORSPAWN = FWBA_RANDOMINTERVALOFBAYLORSPAWN * 60000; 
+            FWBA_INTERVALOFNEXTMONSTER = Integer.parseInt(bossSettings.getProperty("IntervalOfNextMonsterBaylor", "1")); 
+            if(FWBA_INTERVALOFNEXTMONSTER < 1 || FWBA_INTERVALOFNEXTMONSTER > 10) FWBA_INTERVALOFNEXTMONSTER = 1; 
+            FWBA_INTERVALOFNEXTMONSTER = FWBA_INTERVALOFNEXTMONSTER * 60000; 
+            FWBA_ACTIVITYTIMEOFMOBS = Integer.parseInt(bossSettings.getProperty("ActivityTimeOfMobsBaylor", "120")); 
+            if(FWBA_ACTIVITYTIMEOFMOBS < 1 || FWBA_ACTIVITYTIMEOFMOBS > 120) FWS_ACTIVITYTIMEOFMOBS = 120; 
+            FWBA_ACTIVITYTIMEOFMOBS = FWBA_ACTIVITYTIMEOFMOBS * 60000;            
+
             //sailren
             FWS_ENABLESINGLEPLAYER = Boolean.parseBoolean(bossSettings.getProperty("EnableSinglePlayer", "False")); 
             FWS_FIXINTERVALOFSAILRENSPAWN = Integer.parseInt(bossSettings.getProperty("FixIntervalOfSailrenSpawn", "1440")); 

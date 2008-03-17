@@ -65,20 +65,21 @@ import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
-import net.sf.l2j.gameserver.instancemanager.AntharasManager;
-import net.sf.l2j.gameserver.instancemanager.BaiumManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
-import net.sf.l2j.gameserver.instancemanager.FrintezzaManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
-import net.sf.l2j.gameserver.instancemanager.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.ValakasManager;
-import net.sf.l2j.gameserver.instancemanager.VanHalterManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.AntharasManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.BaiumManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.BaylorManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.FrintezzaManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.SailrenManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.ValakasManager;
+import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.model.BlockList;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.ForceBuff;
@@ -4462,6 +4463,8 @@ public final class L2PcInstance extends L2PlayableInstance
             ValakasManager.getInstance().checkAnnihilated();
         else if (BaiumManager.getInstance().checkIfInZone(this))
             BaiumManager.getInstance().checkAnnihilated();
+        else if (BaylorManager.getInstance().checkIfInZone(this))
+            BaylorManager.getInstance().checkAnnihilated(this);         
         else if (FrintezzaManager.getInstance().checkIfInZone(this))
             FrintezzaManager.getInstance().checkAnnihilated();
 
@@ -9683,7 +9686,12 @@ public final class L2PcInstance extends L2PlayableInstance
     	    		teleToLocation(TeleportWhereType.Town);
     	    	}
     		}
-
+    		// Baylor
+	    	else if (BaylorManager.getInstance().checkIfInZone(this))
+    		{
+        		if (getQuestState("baylor") != null) getQuestState("baylor").exitQuest(true);
+        		teleToLocation(TeleportWhereType.Town);
+    		}
     		// Sailren
 	    	else if (SailrenManager.getInstance().checkIfInZone(this))
     		{

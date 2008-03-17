@@ -19,7 +19,6 @@ import java.util.StringTokenizer;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -30,10 +29,9 @@ import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.tools.random.Rnd;
 
-import org.w3c.dom.Node;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.w3c.dom.Node;
 
 public abstract class L2Zone
 {
@@ -77,6 +75,7 @@ public abstract class L2Zone
 		ANAKIM,
 		ANTHARAS,
 		BAIUM,
+		BAYLOR,
 		FOURSEPULCHERS,
 		FRINTEZZA,
 		LILITH,
