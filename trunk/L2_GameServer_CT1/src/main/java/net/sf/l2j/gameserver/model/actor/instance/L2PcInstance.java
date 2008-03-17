@@ -4572,14 +4572,14 @@ public final class L2PcInstance extends L2PlayableInstance
             }
             // player can drop adena against other player
             if (Config.ALT_PLAYER_CAN_DROP_ADENA && !isKillerNpc && Config.PLAYER_RATE_DROP_ADENA > 0
-                && 100 >= Config.PLAYER_RATE_DROP_ADENA)
+            		&& 100 >= Config.PLAYER_RATE_DROP_ADENA && !(killer instanceof L2PcInstance && ((L2PcInstance)killer).isGM()))
             {
                 L2ItemInstance itemDrop = getInventory().getAdenaInstance();
                 int iCount = getInventory().getAdena();
                 // adena count depends on config
                 iCount = iCount * Config.PLAYER_RATE_DROP_ADENA / 100;
                 // drop only adena this time
-                if (itemDrop.getItemId() == 57) // Adena
+                if (itemDrop!=null && itemDrop.getItemId() == 57) // Adena
                 {
                 	dropItem("DieDrop", itemDrop.getObjectId(), iCount, getPosition().getX() + Rnd.get(50) - 25,
                     		getPosition().getY() + Rnd.get(50) - 25, getPosition().getZ() + 20, killer, true);
