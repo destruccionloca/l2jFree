@@ -1495,10 +1495,17 @@ public final class Formulas
         if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
             && (target instanceof L2PcInstance || target instanceof L2Summon))
         {
-            if(skill.isMagic())
-                damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
-            else if (!(skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED))
-                damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+        	if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
+        	{
+        		//if the skill is an itemskill and ALT_ITEM_SKILLS_NOT_INFLUENCED is true do.. nothing
+        	}
+        	else
+        	{
+	            if(skill.isMagic())
+	                damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
+	            else 
+	                damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+        	}
         }        
 
         if (attacker instanceof L2PcInstance)
@@ -1654,10 +1661,10 @@ public final class Formulas
     public final int calcMAtkSpd(L2Character attacker, @SuppressWarnings("unused")
     L2Character target, L2Skill skill, double time)
     {
-        if (skill.isMagic()) 
+    	if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
+    		return (int) time;
+    	else if (skill.isMagic()) 
         	return (int) (time * 333 / attacker.getMAtkSpd());
-        else if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
-        	return (int) time;
         else
         	return (int) (time * 333 / attacker.getPAtkSpd());
 
@@ -1666,10 +1673,10 @@ public final class Formulas
     /** Calculate delay (in milliseconds) for skills cast */
     public final int calcMAtkSpd(L2Character attacker, L2Skill skill, double time)
     {
-        if (skill.isMagic())
-        	return (int) (time * 333 / attacker.getMAtkSpd());
-        else if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
+    	if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
         	return (int) time;
+    	else if (skill.isMagic())
+        	return (int) (time * 333 / attacker.getMAtkSpd());
         else
         	return (int) (time * 333 / attacker.getPAtkSpd());
     }

@@ -1816,8 +1816,42 @@ public abstract class L2Character extends L2Object
 		// Init the reuse time of the skill
 		int reuseDelay;
 
-		if(skill.isMagic())
+		if(skill.getSkillType() == SkillType.PDAM && getSkillLevel(330) >= 1)
 		{
+			int chance = (int) ((100 + getStat().getSTR())*1.5)-200;
+			int finalchance = Rnd.get(100);
+			if (finalchance < chance)
+			{
+				reuseDelay = 0;
+			}
+			else if (finalchance > (100 - chance))
+			{
+				reuseDelay = (int)(2 * skill.getReuseDelay() * getStat().getPReuseRate(skill));
+			}
+			else
+			{
+				reuseDelay = (int)(skill.getReuseDelay() * getStat().getPReuseRate(skill));
+			}
+		}
+		else if(skill.getSkillType() == SkillType.MDAM && getSkillLevel(331) >= 1)
+		{
+			int chance = (int) ((100 + getStat().getINT())*1.5)-200;
+			int finalchance = Rnd.get(100);
+			if (finalchance < chance)
+			{
+				reuseDelay = 0;
+			}
+			else if (finalchance > (100 - chance))
+			{
+				reuseDelay = (int)(2 * skill.getReuseDelay() * getStat().getMReuseRate(skill));
+			}
+			else
+			{
+				reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
+			}
+		}
+		else if(skill.isMagic())
+		{			
 			reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
 		}
 		else
