@@ -87,9 +87,17 @@ public class BaylorManager extends Entity
 	protected ScheduledFuture<?>	_cubeSpawnTask				= null;
 	protected ScheduledFuture<?>	_baylorSpawnTask			= null;
 	protected ScheduledFuture<?>	_intervalEndTask			= null;
-	protected ScheduledFuture<?>	_activityTimeEndTask		= null;
+	protected ScheduledFuture<?>	_activityTimeEndTask0		= null;
 	protected ScheduledFuture<?>	_onPartyAnnihilatedTask		= null;
 	protected ScheduledFuture<?>	_socialTask					= null;
+	protected ScheduledFuture<?>	_socialTask1				= null;
+	protected ScheduledFuture<?>	_socialTask2				= null;
+	protected ScheduledFuture<?>	_socialTask3				= null;
+	protected ScheduledFuture<?>	_socialTask4				= null;
+	protected ScheduledFuture<?>	_socialTask5				= null;
+	protected ScheduledFuture<?>	_socialTask6				= null;
+	protected ScheduledFuture<?>	_socialTask7				= null;
+	protected ScheduledFuture<?>	_socialTask8				= null;
 
 	// State of baylor's lair.
 	protected GrandBossState		_state						= new GrandBossState(29099);
@@ -292,7 +300,17 @@ public class BaylorManager extends Entity
 	{
 		if (_baylorSpawnTask == null)
 		{
-			_baylorSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new BaylorSpawn(NpcId), Config.FWBA_INTERVALOFNEXTMONSTER);
+			switch (NpcId)
+			{
+			case 29100:
+				_baylorSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new BaylorSpawn(NpcId), 20000);
+				break;
+			case 29099:
+				_baylorSpawnTask = ThreadPoolManager.getInstance().scheduleGeneral(new BaylorSpawn(NpcId), 50000);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -420,10 +438,10 @@ public class BaylorManager extends Entity
 			_intervalEndTask.cancel(true);
 			_intervalEndTask = null;
 		}
-		if (_activityTimeEndTask != null)
+		if (_activityTimeEndTask0 != null)
 		{
-			_activityTimeEndTask.cancel(true);
-			_activityTimeEndTask = null;
+			_activityTimeEndTask0.cancel(true);
+			_activityTimeEndTask0 = null;
 		}
 
 		// init state of baylor's lair.
@@ -500,7 +518,7 @@ public class BaylorManager extends Entity
 		{
 			switch (_NpcId)
 			{
-			case 29099:
+			case 29100:
 				_crystaline1 = _crystalineSpawn1.doSpawn();
 				_crystaline2 = _crystalineSpawn2.doSpawn();
 				_crystaline3 = _crystalineSpawn3.doSpawn();
@@ -545,20 +563,36 @@ public class BaylorManager extends Entity
 				_crystaline7.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
 				_crystaline8.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, _pos);
 
+				_socialTask1 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline1, 2), 10000);
+				_socialTask2 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline2, 2), 10000);
+				_socialTask3 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline3, 2), 10000);
+				_socialTask4 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline4, 2), 10000);
+				_socialTask5 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline5, 2), 10000);
+				_socialTask6 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline6, 2), 10000);
+				_socialTask7 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline7, 2), 10000);
+				_socialTask8 = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline8, 2), 10000);
+
+			case 29099:
+				_baylor = _baylorSapwn.doSpawn();
+
+				_state.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
+						+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN)
+						+ Config.FWBA_ACTIVITYTIMEOFMOBS);
+				_state.setState(GrandBossState.StateEnum.ALIVE);
+				_state.update();
+
 				if (_socialTask != null)
 				{
 					_socialTask.cancel(true);
 					_socialTask = null;
 				}
-
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline1, 2), 50);
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline2, 2), 50);
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline3, 2), 50);
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline4, 2), 50);
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline5, 2), 50);
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline6, 2), 50);
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline7, 2), 50);
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_crystaline8, 2), 50);
+				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_baylor, 1), 500);
+				if (_activityTimeEndTask0 != null)
+				{
+					_activityTimeEndTask0.cancel(true);
+					_activityTimeEndTask0 = null;
+				}
+				_activityTimeEndTask0 = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_baylor), Config.FWBA_ACTIVITYTIMEOFMOBS);
 
 				_crystalineSpawn1.stopRespawn();
 				_crystalineSpawn2.stopRespawn();
@@ -569,41 +603,6 @@ public class BaylorManager extends Entity
 				_crystalineSpawn7.stopRespawn();
 				_crystalineSpawn8.stopRespawn();
 
-				if (_activityTimeEndTask != null)
-				{
-					_activityTimeEndTask.cancel(true);
-					_activityTimeEndTask = null;
-				}
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_crystaline1), Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_crystaline2), Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_crystaline3), Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_crystaline4), Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_crystaline5), Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_crystaline6), Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_crystaline7), Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_crystaline8), Config.FWBA_ACTIVITYTIMEOFMOBS);
-
-				_baylor = _baylorSapwn.doSpawn();
-
-				_state.setRespawnDate(Rnd.get(Config.FWBA_FIXINTERVALOFBAYLORSPAWN, Config.FWBA_FIXINTERVALOFBAYLORSPAWN
-						+ Config.FWBA_RANDOMINTERVALOFBAYLORSPAWN)
-						+ Config.FWBA_ACTIVITYTIMEOFMOBS);
-				_state.setState(GrandBossState.StateEnum.ALIVE);
-				_state.update();
-
-				//_baylor.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,_pos);
-				if (_socialTask != null)
-				{
-					_socialTask.cancel(true);
-					_socialTask = null;
-				}
-				_socialTask = ThreadPoolManager.getInstance().scheduleGeneral(new Social(_baylor, 1), 50);
-				if (_activityTimeEndTask != null)
-				{
-					_activityTimeEndTask.cancel(true);
-					_activityTimeEndTask = null;
-				}
-				_activityTimeEndTask = ThreadPoolManager.getInstance().scheduleGeneral(new ActivityTimeEnd(_baylor), Config.FWBA_ACTIVITYTIMEOFMOBS);
 				break;
 			default:
 				break;
