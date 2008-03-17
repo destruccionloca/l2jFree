@@ -16,13 +16,14 @@ package net.sf.l2j.gameserver.model;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
-import java.util.concurrent.Future;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.concurrent.Future;
 
 import javolution.util.FastList;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.GeoData;
+import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.SkillTreeTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
@@ -30,7 +31,6 @@ import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
@@ -42,9 +42,9 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.entity.Couple;
+import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
-import net.sf.l2j.gameserver.model.zone.L2Zone.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.EtcStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -70,7 +70,6 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillSummon;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillTrap;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.templates.StatsSet;
-import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.util.Util;
 
 import org.apache.commons.logging.Log;
@@ -284,6 +283,8 @@ public abstract class L2Skill
 
 	private final SkillOpType		_operateType;
 	private final boolean			_magic;
+	private final boolean			_itemSkill;
+	private final boolean			_physic;
 	private final int				_mpConsume;
 	private final int				_mpInitialConsume;
 	private final int				_hpConsume;
@@ -431,6 +432,8 @@ public abstract class L2Skill
 		_name = set.getString("name");
 		_operateType = set.getEnum("operateType", SkillOpType.class);
 		_magic = set.getBool("isMagic", false);
+		_itemSkill = set.getBool("isItem", false);
+		_physic = set.getBool("isPhysic", false);
 		_ispotion = set.getBool("isPotion", false);
 		_mpConsume = set.getInteger("mpConsume", 0);
 		_mpInitialConsume = set.getInteger("mpInitialConsume", 0);
@@ -969,6 +972,19 @@ public abstract class L2Skill
 	public final boolean isMagic()
 	{
 		return _magic;
+	}
+	
+	public final boolean isItemSkill()
+	{
+		return _itemSkill;
+	}
+
+	/**
+	 * @return Returns if the skill is Physical.
+	 */
+	public final boolean isPhysical()
+	{
+		return _physic;
 	}
 
 	/**

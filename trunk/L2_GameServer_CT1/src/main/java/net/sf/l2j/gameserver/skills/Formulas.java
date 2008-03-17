@@ -20,10 +20,8 @@ import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
-import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.Inventory;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
@@ -37,7 +35,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
-import net.sf.l2j.gameserver.model.zone.L2Zone.ZoneType;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState;
@@ -1492,7 +1489,7 @@ public final class Formulas
                 }
             }
         }
-        else if (mcrit) damage *= 4;
+        else if (mcrit) damage *= Config.ALT_MCRIT_RATE;
         
         // Pvp bonusses for dmg
         if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
@@ -1500,7 +1497,7 @@ public final class Formulas
         {
             if(skill.isMagic())
                 damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
-            else
+            else if (!(skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED))
                 damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
         }        
 
@@ -1657,16 +1654,24 @@ public final class Formulas
     public final int calcMAtkSpd(L2Character attacker, @SuppressWarnings("unused")
     L2Character target, L2Skill skill, double time)
     {
-        if (skill.isMagic()) return (int) (time * 333 / attacker.getMAtkSpd());
-        return (int) (time * 333 / attacker.getPAtkSpd());
+        if (skill.isMagic()) 
+        	return (int) (time * 333 / attacker.getMAtkSpd());
+        else if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
+        	return (int) time;
+        else
+        	return (int) (time * 333 / attacker.getPAtkSpd());
 
     }
 
     /** Calculate delay (in milliseconds) for skills cast */
     public final int calcMAtkSpd(L2Character attacker, L2Skill skill, double time)
     {
-        if (skill.isMagic()) return (int) (time * 333 / attacker.getMAtkSpd());
-        return (int) (time * 333 / attacker.getPAtkSpd());
+        if (skill.isMagic())
+        	return (int) (time * 333 / attacker.getMAtkSpd());
+        else if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
+        	return (int) time;
+        else
+        	return (int) (time * 333 / attacker.getPAtkSpd());
     }
     
     /** Returns true if hit missed (taget evaded) */

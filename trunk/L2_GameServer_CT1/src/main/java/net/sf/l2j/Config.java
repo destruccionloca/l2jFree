@@ -1327,6 +1327,7 @@ public final class Config
 	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;							// Disable Raidboss Petrification
 	public static int					ALT_PCRITICAL_CAP;											// Critical Cap
 	public static int					ALT_MCRITICAL_CAP;											// Critical Cap
+	public static float					ALT_MCRIT_RATE;
 	public static boolean				ALT_GAME_SKILL_LEARN;										// Alternative game skill learning
 	public static boolean				ALT_GAME_CANCEL_BOW;										// Cancel attack bow by hit
 	public static boolean				ALT_GAME_CANCEL_CAST;										// Cancel cast by hit
@@ -1464,6 +1465,8 @@ public final class Config
 	public static int					RIFT_ENTER_COST_COMMANDER;
 	public static int					RIFT_ENTER_COST_HERO;
 	public static float					RIFT_BOSS_ROOM_TIME_MUTIPLY;								// Time multiplier for boss room
+	
+	public static boolean				ALT_ITEM_SKILLS_NOT_INFLUENCED;
 																									
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1495,6 +1498,7 @@ public final class Config
 					|| altSettings.getProperty("AltGameCancelByHit", "Cast").trim().equalsIgnoreCase("all");
 			ALT_GAME_SHIELD_BLOCKS = Boolean.parseBoolean(altSettings.getProperty("AltShieldBlocks", "false"));
 			ALT_PERFECT_SHLD_BLOCK = Integer.parseInt(altSettings.getProperty("AltPerfectShieldBlockRate", "10"));
+			ALT_ITEM_SKILLS_NOT_INFLUENCED = Boolean.parseBoolean(altSettings.getProperty("AltItemSkillsNotInfluenced", "false"));
 			ALT_GAME_DELEVEL = Boolean.parseBoolean(altSettings.getProperty("Delevel", "true"));
 			ALT_GAME_MAGICFAILURES = Boolean.parseBoolean(altSettings.getProperty("MagicFailures", "false"));
 			ALT_MOB_AGRO_IN_PEACEZONE = Boolean.parseBoolean(altSettings.getProperty("AltMobAgroInPeaceZone", "true"));
@@ -1585,6 +1589,7 @@ public final class Config
 			ALT_DISABLE_RAIDBOSS_PETRIFICATION = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
 			ALT_PCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltPCriticalCap", "500"));
 			ALT_MCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltMCriticalCap", "300"));
+			ALT_MCRIT_RATE = Float.parseFloat(altSettings.getProperty("AltMCritRate","4.0"));
 			
 			ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));
 			ALT_OLY_MIN = Integer.parseInt(altSettings.getProperty("AltOlyMin", "00"));
