@@ -8595,7 +8595,6 @@ REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSid
 ('29105',29105,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','47.00','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT');
 
 
-
 -- Mob AI types
 UPDATE npc SET AI = 'mage' WHERE class LIKE '%wizard%';
 UPDATE npc SET AI = 'mage' WHERE class LIKE '%witch%';

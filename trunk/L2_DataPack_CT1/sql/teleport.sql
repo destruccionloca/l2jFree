@@ -827,3 +827,7 @@ INSERT INTO teleport VALUES
 ('Rune Inside',60031,17252,-49160,-1125,0,0),
 ('Rune Artefacts Room',60032,10133,-49152,997,0,0),
 ('Rune Out of the Castle',60033,19118,-49136,-1266,0,0);
+
+-- Baylor Teleport
+INSERT INTO teleport VALUES 
+('Baylors room',800001,153743,142103,-9775,0,0);

@@ -2265,18 +2265,30 @@
 </skill>
 <skill id="499" levels="3" name="Courage">
 <!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
   Description(s):
       Lvl 1 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 1.
       Lvl 2 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 2.
       Lvl 3 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 3.
 -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <table name="#resistVuln"> 16 20 25 </table>
+  <table name="#mpConsume"> 16 22 29 </table>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="hitTime" val="20000"/>
+  <set name="isMagic" val="true"/>
+  <set name="reuseDelay" val="55000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="buffDuration" val="1200"/>
   <for>
+   	<effect count="1" name="Buff" val="0" time="1200" stackorder="1" stacktype="mental_up">
+      <sub order="0x30" stat="sleepVuln" val="#resistVuln" />
+	  <sub order="0x30" stat="confusionVuln" val="#resistVuln" />
+	  <sub order="0x30" stat="derangementVuln" val="#resistVuln" />
+	  <sub order="0x30" stat="debuffVuln" val="#resistVuln" />
+	  <sub order="0x30" stat="paralyzeVuln" val="#resistVuln"/>
+    </effect>
   </for>
 </skill>
 </list>
