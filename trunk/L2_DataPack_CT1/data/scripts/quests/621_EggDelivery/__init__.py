@@ -1,5 +1,6 @@
 # Made by disKret
 import sys
+from net.sf.l2j import Config 
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
@@ -108,8 +109,8 @@ class Quest (JQuest) :
         if st.getRandom(100) < RPCHANCE :
           st.giveItems(range(6847+ALT_RP100,6853,2)[st.getRandom(3)],1)
         else:
-          st.giveItems(ADENA,18800)
-          st.giveItems(HASTE_POTION,1)
+          st.giveItems(ADENA,int(18800 * Config.RATE_QUESTS_REWARD))
+          st.giveItems(HASTE_POTION, int(Config.RATE_QUESTS_REWARD))
         st.playSound("ItemSound.quest_finish")
         st.exitQuest(1)
      else:

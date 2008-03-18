@@ -8320,19 +8320,7 @@ UPDATE npc SET ss = 100, ss_rate = 50 WHERE idTemplate = 21792;
 UPDATE npc SET ss = 100, ss_rate = 50 WHERE idTemplate = 21793;
 UPDATE npc SET ss = 100, ss_rate = 50 WHERE idTemplate = 21794;
 UPDATE npc SET ss = 100, ss_rate = 50 WHERE idTemplate = 21795;
-UPDATE npc SET AI = 'mage' WHERE class LIKE '%wizard%';
-UPDATE npc SET AI = 'mage' WHERE class LIKE '%witch%';
-UPDATE npc SET AI = 'mage' WHERE class LIKE '%mage%';
-UPDATE npc SET AI = 'balanced' WHERE class LIKE '%shaman%';
-UPDATE npc SET AI = 'balanced' WHERE bss > 0 AND AI = 'fighter';
-UPDATE npc SET AI = 'mage' WHERE AI = 'fighter' AND class LIKE '%banshee%' AND (name LIKE '%witch%' OR name LIKE '%magus%');
-UPDATE npc SET AI = 'balanced' WHERE id = 21182;
-UPDATE npc SET AI = 'balanced' WHERE id = 21179;
-UPDATE npc SET AI = 'balanced' WHERE id = 21586;
-UPDATE npc SET AI = 'balanced' WHERE patk*0.65 < matk AND AI = 'fighter';
-UPDATE npc SET AI = 'mage' WHERE name LIKE 'court sorce%';
-UPDATE npc SET AI = 'mage' WHERE id = 21796;
-UPDATE npc SET AI = 'balanced' WHERE type LIKE '%boss%';
+
 
 --
 -- L2J-Free Add-ons
@@ -8595,14 +8583,30 @@ UPDATE `npc` SET `collision_height`=43 WHERE `id`=25519;
 UPDATE `npc` SET `collision_radius`=20,`collision_height`=43 WHERE `id`=29098;
 UPDATE `npc` SET `collision_radius`=22,`collision_height`=23 WHERE `id`=25524;
 
-REPLACE INTO npc values 
-(29065,29065,'Sailren',0,'Sealed Evil Power',0,'Monster3.sailren',100.00,83.10,87,'male','L2RaidBoss',40,4068372,7347,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,12,'LAST_HIT'),
-('25595',0,'Gerg\'s Henchman',0,'',0,'LineageMonster.batur_orc','9.00','21.50','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
-('29099',0,'Baylor',0,'Warden',0,'LineageMonster4.Barler','54.00','77.50','83','male','L2Boss',40,'850000','2444.00',0.00,0.00,'10','10','30','30','10','10','0','0','500','500','500','500','540','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
-('29100',0,'Crystal Prison Guard',0,'',0,'LineageMonster4.eyeless','36.00','43.50','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
-('29101',0,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','22.00','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
-('29102',0,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','47.00','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
-('29103',0,'Baylor',0,'Warden',0,'LineageMonster4.Barler','54.00','77.50','83','male','L2Boss',40,'850000','2444.00',0.00,0.00,'10','10','30','30','10','10','0','0','500','500','500','500','540','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
-('29104',0,'Crystal Prison Guard',0,'',0,'LineageMonster4.eyeless','36.00','43.50','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT'),
-('29105',0,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','47.00','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','80','120','','0',0,'0','LAST_HIT');
+INSERT INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSideTitle`,`class`,`collision_radius`,`collision_height`,`level`,`sex`,`type`,`attackrange`,`hp`,`mp`,`hpreg`,`mpreg`,`str`,`con`,`dex`,`int`,`wit`,`men`,`exp`,`sp`,`patk`,`pdef`,`matk`,`mdef`,`atkspd`,`aggro`,`matkspd`,`rhand`,`lhand`,`armor`,`walkspd`,`runspd`,`faction_id`,`faction_range`,`isUndead`,`absorb_level`,`absorb_type`) VALUES
+('29065',29065,'Sailren',0,'Sealed Evil Power',0,'Monster3.sailren',100.00,83.10,87,'male','L2RaidBoss',40,4068372,7347,13.43,3.09,40,43,30,21,20,10,0,0,9000,5000,6000,6000,300,0,333,0,0,0,88,132,NULL,0,0,12,'LAST_HIT'),
+('25595',25595,'Gerg\'s Henchman',0,'',0,'LineageMonster.batur_orc','9.00','21.50','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
+('29099',29099,'Baylor',0,'Warden',0,'LineageMonster4.Barler','54.00','77.50','83','male','L2Boss',40,'850000','2444.00',0.00,0.00,'10','10','30','30','10','10','0','0','500','500','500','500','540','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
+('29100',29100,'Crystal Prison Guard',0,'',0,'LineageMonster4.eyeless','36.00','43.50','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
+('29101',29101,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','22.00','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
+('29102',29102,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','47.00','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
+('29103',29103,'Baylor',0,'Warden',0,'LineageMonster4.Barler','54.00','77.50','83','male','L2Boss',40,'850000','2444.00',0.00,0.00,'10','10','30','30','10','10','0','0','500','500','500','500','540','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
+('29104',29104,'Crystal Prison Guard',0,'',0,'LineageMonster4.eyeless','36.00','43.50','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
+('29105',29105,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','47.00','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT');
 
+
+
+-- Mob AI types
+UPDATE npc SET AI = 'mage' WHERE class LIKE '%wizard%';
+UPDATE npc SET AI = 'mage' WHERE class LIKE '%witch%';
+UPDATE npc SET AI = 'mage' WHERE class LIKE '%mage%';
+UPDATE npc SET AI = 'balanced' WHERE class LIKE '%shaman%';
+UPDATE npc SET AI = 'balanced' WHERE bss > 0 AND AI = 'fighter';
+UPDATE npc SET AI = 'mage' WHERE AI = 'fighter' AND class LIKE '%banshee%' AND (name LIKE '%witch%' OR name LIKE '%magus%');
+UPDATE npc SET AI = 'balanced' WHERE id = 21182;
+UPDATE npc SET AI = 'balanced' WHERE id = 21179;
+UPDATE npc SET AI = 'balanced' WHERE id = 21586;
+UPDATE npc SET AI = 'balanced' WHERE patk*0.65 < matk AND AI = 'fighter';
+UPDATE npc SET AI = 'mage' WHERE name LIKE 'court sorce%';
+UPDATE npc SET AI = 'mage' WHERE id = 21796;
+UPDATE npc SET AI = 'balanced' WHERE type LIKE '%boss%';
