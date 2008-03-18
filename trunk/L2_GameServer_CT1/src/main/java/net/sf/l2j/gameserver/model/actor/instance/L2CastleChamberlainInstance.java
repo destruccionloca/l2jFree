@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.BuyList;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowCropInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowCropSetting;
@@ -100,7 +99,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.sendPacket(new ActionFailed());
+		player.actionFailed();
 	}
 	
 	@Override
@@ -247,7 +246,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 							+ " attempting to buy from chamberlain that don't have buylist!");
 					_log.warn("buylist id:" + buy);
 				}
-				player.sendPacket(new ActionFailed());
+				player.actionFailed();
 			}
 			else if (actualCommand.equalsIgnoreCase("manage_vault"))
 			{
@@ -337,7 +336,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 			{ // input string format:  manor_menu_select?ask=X&state=Y&time=X
 				if (CastleManorManager.getInstance().isUnderMaintenance())
 				{
-					player.sendPacket(new ActionFailed());
+					player.actionFailed();
 					player.sendPacket(new SystemMessage(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE));
 					return;
 				}
@@ -440,7 +439,7 @@ public class L2CastleChamberlainInstance extends L2FolkInstance
 	
 	private void showMessageWindow(L2PcInstance player)
 	{
-		player.sendPacket( new ActionFailed() );
+		player.actionFailed();
 		String filename = "data/html/chamberlain/chamberlain-no.htm";
 		
 		int condition = validateCondition(player);

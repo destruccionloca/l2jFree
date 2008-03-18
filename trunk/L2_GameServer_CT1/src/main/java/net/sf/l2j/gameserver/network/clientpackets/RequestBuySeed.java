@@ -98,7 +98,7 @@ public class RequestBuySeed extends L2GameClientPacket
 
 		if (_count < 1) 
 		{
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 

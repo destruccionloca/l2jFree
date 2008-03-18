@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -83,7 +82,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
 		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 		
@@ -95,7 +94,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		if (warehouse instanceof ClanWarehouse && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disabled for your access level.");
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 

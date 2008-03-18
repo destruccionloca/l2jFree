@@ -17,7 +17,6 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 public class RequestStopPledgeWar extends L2GameClientPacket
 {
@@ -45,14 +44,14 @@ public class RequestStopPledgeWar extends L2GameClientPacket
 		if (clan == null)
 		{
 			player.sendMessage("No such clan.");
-			player.sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 
 		if (!playerClan.isAtWarWith(clan.getClanId()))
 		{
 			player.sendMessage("You aren't at war with this clan.");
-			player.sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 

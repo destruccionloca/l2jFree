@@ -39,7 +39,6 @@ import net.sf.l2j.gameserver.model.base.SubClass;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AcquireSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeReceiveSubPledgeCreated;
@@ -1038,7 +1037,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
             player.sendPacket(asl);
         }
         
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
 
     private final Race getVillageMasterRace()

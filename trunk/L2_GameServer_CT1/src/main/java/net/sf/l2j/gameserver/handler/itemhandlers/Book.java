@@ -19,7 +19,6 @@ import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.RadarControl;
 
@@ -64,7 +63,7 @@ public class Book implements IItemHandler
 			activeChar.sendPacket(itemReply);
 		}
 		
-		activeChar.sendPacket( new ActionFailed() );
+		activeChar.actionFailed();
 	}
 
 	public int[] getItemIds()

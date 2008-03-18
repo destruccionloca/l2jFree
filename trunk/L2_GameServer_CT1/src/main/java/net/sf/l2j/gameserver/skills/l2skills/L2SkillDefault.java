@@ -18,7 +18,6 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.StatsSet;
 
@@ -32,6 +31,6 @@ public class L2SkillDefault extends L2Skill
 	public void useSkill(L2Character caster, @SuppressWarnings("unused") L2Object[] targets)
 	{
 		caster.sendMessage("Skill not implemented.  Skill ID: " + getId() + " " + getSkillType());
-		caster.sendPacket(new ActionFailed());
+		caster.actionFailed();
 	}
 }

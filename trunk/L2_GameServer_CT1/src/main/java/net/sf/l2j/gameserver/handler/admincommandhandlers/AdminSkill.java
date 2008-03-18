@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeSkillList;
@@ -521,20 +520,18 @@ public class AdminSkill implements IAdminCommandHandler
             if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF)
             {
                 activeChar.setTarget(activeChar);
-                MagicSkillUse msk = new MagicSkillUse(activeChar, skillid, 1, skill.getHitTime() , skill.getReuseDelay());
+                MagicSkillUse msk = new MagicSkillUse(activeChar, skillid, 1, skill.getHitTime(), 0);
                 activeChar.broadcastPacket(msk);
                 if (_log.isDebugEnabled()) _log.debug("showing self skill, id: "+skill.getId()+" named: "+skill.getName());
             }
             else if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ONE)
             {
-                if (_log.isDebugEnabled()) _log.debug("showing ATTACK skill, id: "+skill.getId()+" named: "+skill.getName());               
+                if (_log.isDebugEnabled()) _log.debug("showing ATTACK skill, id: "+skill.getId()+" named: "+skill.getName());
             }
         }
         else
         {
             if (_log.isDebugEnabled()) _log.debug("no such skill id: "+skillid);
-            ActionFailed af = new ActionFailed();
-            activeChar.broadcastPacket(af);
         }
     }
 }

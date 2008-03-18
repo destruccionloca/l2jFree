@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AcquireSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.ExEnchantSkillList;
 import net.sf.l2j.gameserver.network.serverpackets.ExEnchantSkillList.EnchantSkillType;
@@ -125,7 +124,7 @@ public class L2FolkInstance extends L2NpcInstance
             player.sendPacket(asl);
         }
         
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
     
     /**
@@ -207,7 +206,7 @@ public class L2FolkInstance extends L2NpcInstance
         {
             player.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
         }
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
     
     /**
@@ -286,7 +285,7 @@ public class L2FolkInstance extends L2NpcInstance
         {
             player.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
         }
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
     
     /**
@@ -364,7 +363,7 @@ public class L2FolkInstance extends L2NpcInstance
         {
             player.sendPacket(new SystemMessage(SystemMessageId.THERE_IS_NO_SKILL_THAT_ENABLES_ENCHANT));
         }
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
 
     @Override
@@ -441,7 +440,7 @@ public class L2FolkInstance extends L2NpcInstance
                         "</body></html>";
                     
                     insertObjectIdAndShowChatWindow(player, text);
-                    player.sendPacket( new ActionFailed() );
+                    player.actionFailed();
                 }
             } 
             else 

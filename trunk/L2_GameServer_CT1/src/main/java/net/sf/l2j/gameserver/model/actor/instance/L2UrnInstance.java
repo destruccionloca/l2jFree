@@ -21,7 +21,6 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
@@ -78,7 +77,7 @@ public final class L2UrnInstance extends L2FolkInstance
 				showMessageWindow(player);
 			}
 		}
-		player.sendPacket(new ActionFailed());
+		player.actionFailed();
 	}
 
     @Override
@@ -97,7 +96,7 @@ public final class L2UrnInstance extends L2FolkInstance
         {
             if (val != "")
             {
-                player.sendPacket( new ActionFailed() );
+                player.actionFailed();
                 String filename = "data/html/urn/low" +val+ ".htm";
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile(filename);
@@ -107,7 +106,7 @@ public final class L2UrnInstance extends L2FolkInstance
                 return;
             }
             
-            player.sendPacket( new ActionFailed() );
+            player.actionFailed();
             String filename = "data/html/urn/low.htm";
             NpcHtmlMessage html = new NpcHtmlMessage(1);
             html.setFile(filename);
@@ -121,7 +120,7 @@ public final class L2UrnInstance extends L2FolkInstance
         {
             if (val != "")
             {
-                player.sendPacket( new ActionFailed() );
+                player.actionFailed();
                 String filename = "data/html/urn/high" +val+ ".htm";
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile(filename);
@@ -131,7 +130,7 @@ public final class L2UrnInstance extends L2FolkInstance
                 return;
             }
             
-            player.sendPacket( new ActionFailed() );
+            player.actionFailed();
             String filename = "data/html/urn/high.htm";
             NpcHtmlMessage html = new NpcHtmlMessage(1);
             html.setFile(filename);
@@ -146,7 +145,7 @@ public final class L2UrnInstance extends L2FolkInstance
             if (getUrnItemsCount(player, 5904) >= 1)
             {
                 // show urn mix menu with low - high options
-                player.sendPacket( new ActionFailed() );
+                player.actionFailed();
                 String filename = "data/html/urn/insertstone.htm";
                 NpcHtmlMessage html = new NpcHtmlMessage(1);
                 html.setFile(filename);
@@ -156,7 +155,7 @@ public final class L2UrnInstance extends L2FolkInstance
                 
                 return;
             }
-            player.sendPacket( new ActionFailed() );
+            player.actionFailed();
             String filename = "data/html/urn/nostone.htm";
             NpcHtmlMessage html = new NpcHtmlMessage(1);
             html.setFile(filename);

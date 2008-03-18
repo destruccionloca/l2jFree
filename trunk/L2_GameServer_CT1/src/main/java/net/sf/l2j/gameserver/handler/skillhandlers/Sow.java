@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.tools.random.Rnd;
@@ -73,26 +72,26 @@ public class Sow implements ISkillHandler
 
 			if (_target.isSeeded())
 			{
-				_activeChar.sendPacket(new ActionFailed());
+				_activeChar.actionFailed();
 				continue;
 			}
 
 			if (_target.isDead())
 			{
-				_activeChar.sendPacket(new ActionFailed());
+				_activeChar.actionFailed();
 				continue;
 			}
 
 			if (_target.getSeeder() != _activeChar)
 			{
-				_activeChar.sendPacket(new ActionFailed());
+				_activeChar.actionFailed();
 				continue;
 			}
 
 			_seedId = _target.getSeedType();
 			if (_seedId == 0)
 			{
-				_activeChar.sendPacket(new ActionFailed());
+				_activeChar.actionFailed();
 				continue;
 			}
 

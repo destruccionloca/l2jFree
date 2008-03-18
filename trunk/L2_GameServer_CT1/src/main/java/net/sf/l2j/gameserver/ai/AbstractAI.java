@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStart;
 import net.sf.l2j.gameserver.network.serverpackets.AutoAttackStop;
 import net.sf.l2j.gameserver.network.serverpackets.Die;
@@ -489,7 +488,7 @@ abstract class AbstractAI implements Ctrl
      */
     protected void clientActionFailed()
     {
-        if (_actor instanceof L2PcInstance) _actor.sendPacket(new ActionFailed());
+        if (_actor instanceof L2PcInstance) _actor.actionFailed();
     }
 
     /**
@@ -536,7 +535,7 @@ abstract class AbstractAI implements Ctrl
 
             if (!_actor.isMoving())
             {
-                _actor.sendPacket(new ActionFailed());
+                _actor.actionFailed();
                 return;
             }
 

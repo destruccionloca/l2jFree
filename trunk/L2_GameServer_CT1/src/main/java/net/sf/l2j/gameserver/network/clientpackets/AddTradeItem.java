@@ -66,7 +66,7 @@ public class AddTradeItem extends L2GameClientPacket
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			player.cancelActiveTrade();
             return;
         }

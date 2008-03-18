@@ -29,7 +29,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -167,7 +166,7 @@ public class RequestBuyItem extends L2GameClientPacket
             }
             else
             {
-            	list = TradeListTable.getInstance().getBuyList(_listId);            
+                list = TradeListTable.getInstance().getBuyList(_listId);
             }
         }
         else
@@ -175,14 +174,14 @@ public class RequestBuyItem extends L2GameClientPacket
         
         if (list == null)
         {
-        	if (!player.isGM())
-        	{
-        		Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
-        		return;
-        	}
-       	player.sendMessage("Buylist "+_listId+" empty or not exists.");
-       		sendPacket(new ActionFailed());
-       		return;
+            if (!player.isGM())
+            {
+                Util.handleIllegalPlayerAction(player,"Warning!! Character "+player.getName()+" of account "+player.getAccountName()+" sent a false BuyList list_id.",Config.DEFAULT_PUNISH);
+                return;
+            }
+            player.sendMessage("Buylist "+_listId+" empty or not exists.");
+            player.actionFailed();
+            return;
         }
         
         if (list.isGm() && !player.isGM())
@@ -197,14 +196,14 @@ public class RequestBuyItem extends L2GameClientPacket
         {
             if (merchant != null && merchant.getTemplate().getNpcId() != _listId-1000000)
             {
-                sendPacket(new ActionFailed());
+                player.actionFailed();
                 return;
             }
         }
 
         if(_count < 1)
         {
-            sendPacket(new ActionFailed());
+            player.actionFailed();
             return;
         }
 
@@ -253,7 +252,7 @@ public class RequestBuyItem extends L2GameClientPacket
             if (price < 0)
             {
                 _log.warn("ERROR, no price found .. wrong buylist ??");
-                sendPacket(new ActionFailed());
+                player.actionFailed();
                 return;
 			}
 			
@@ -306,7 +305,7 @@ public class RequestBuyItem extends L2GameClientPacket
         if (list.isGm() && player.getAccessLevel() < Config.GM_CREATE_ITEM)
         {
     		player.sendMessage("Shoping from GM Shop isn't allowed with your access level.");
-    		sendPacket(new ActionFailed());
+    		player.actionFailed();
     		return;
         }
   

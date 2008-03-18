@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.model.PcFreight;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.PackageToList;
 import net.sf.l2j.gameserver.network.serverpackets.SortedWareHouseWithdrawalList;
@@ -69,7 +68,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
     private void showRetrieveWindow(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
     {
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
         player.setActiveWarehouse(player.getWarehouse());
 
         if (player.getActiveWarehouse().getSize() == 0)
@@ -84,7 +83,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
     private void showRetrieveWindow(L2PcInstance player)
     {
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
         player.setActiveWarehouse(player.getWarehouse());
         
         if (player.getActiveWarehouse().getSize() == 0)
@@ -99,7 +98,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
     private void showDepositWindow(L2PcInstance player)
     {
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
         player.setActiveWarehouse(player.getWarehouse());
         player.tempInvetoryDisable();
         if (_log.isDebugEnabled()) _log.debug("Showing items to deposit");
@@ -109,7 +108,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
     private void showDepositWindowClan(L2PcInstance player)
     {
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
         if (player.getClan() != null)
         {
             if (player.getClan().getLevel() == 0)
@@ -149,7 +148,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
             if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan"); 
             player.sendPacket(new SortedWareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN, itemtype, sortorder));
         }
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
 
     private void showWithdrawWindowClan(L2PcInstance player)
@@ -169,12 +168,12 @@ public final class L2WarehouseInstance extends L2FolkInstance
             if (_log.isDebugEnabled()) _log.debug("Showing items to deposit - clan");
             player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN));
         }
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
 
     private void showWithdrawWindowFreight(L2PcInstance player, WarehouseListType itemtype, byte sortorder)
     {
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
         if (_log.isDebugEnabled()) _log.debug("Showing freightened items");
 
         PcFreight freight = player.getFreight();
@@ -208,7 +207,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
     private void showWithdrawWindowFreight(L2PcInstance player)
     {
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
         if (_log.isDebugEnabled()) _log.debug("Showing freightened items");
 
         PcFreight freight = player.getFreight();
@@ -253,7 +252,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
             if (chars.size() < 1)
             {
-                player.sendPacket(new ActionFailed());
+                player.actionFailed();
                 return;
             }
             
@@ -266,7 +265,7 @@ public final class L2WarehouseInstance extends L2FolkInstance
 
     private void showDepositWindowFreight(L2PcInstance player, int obj_Id)
     {
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
         L2PcInstance destChar = L2PcInstance.load(obj_Id);
         if (destChar == null)
         {

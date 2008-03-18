@@ -26,7 +26,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ManorManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -91,16 +90,13 @@ public class RequestProcureCropList extends L2GameClientPacket
 			target = player.getLastFolkNPC();
 
 		if (!player.isGM()
-				&& (target == null
-						|| !(target instanceof L2ManorManagerInstance) || !player
-						.isInsideRadius(target,
-								L2NpcInstance.INTERACTION_DISTANCE, false,
-								false)))
+				&& (target == null || !(target instanceof L2ManorManagerInstance)
+					|| !player.isInsideRadius(target, L2NpcInstance.INTERACTION_DISTANCE, false, false)))
 			return;
 
 		if (_size < 1)
 		{
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 		L2ManorManagerInstance manorManager = (L2ManorManagerInstance) target;

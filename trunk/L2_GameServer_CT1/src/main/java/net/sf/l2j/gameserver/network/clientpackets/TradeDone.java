@@ -20,7 +20,6 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -55,7 +54,7 @@ public class TradeDone extends L2GameClientPacket
 		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
 			player.cancelActiveTrade();
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 		
@@ -88,7 +87,7 @@ public class TradeDone extends L2GameClientPacket
 			{
 				player.sendMessage("Transactions are disabled for your access level.");
 				player.cancelActiveTrade();
-				sendPacket(new ActionFailed());
+				player.actionFailed();
 				return;
 			}
 			trade.confirm();

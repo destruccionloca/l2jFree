@@ -19,7 +19,6 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 
@@ -71,7 +70,7 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 		
 		if (level <= 0 || activeChar.isOutOfControl())
 		{
-			activeChar.sendPacket(new ActionFailed());
+			activeChar.actionFailed();
 			return;
 		}
 		
@@ -79,7 +78,7 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 		
 		if (skill == null || skill.getSkillType() == SkillType.NOTDONE)
 		{
-			activeChar.sendPacket(new ActionFailed());
+			activeChar.actionFailed();
 			return;
 		}
 
@@ -88,7 +87,7 @@ public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 		if (distance > ((skill.getCastRange() > 0)? skill.getCastRange() : 900))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_TOO_FAR));
-			activeChar.sendPacket(new ActionFailed());
+			activeChar.actionFailed();
 			return;
 		}
 		

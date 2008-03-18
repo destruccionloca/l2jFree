@@ -25,7 +25,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -59,21 +58,19 @@ public class SoulCrystals implements IItemHandler
 		if (!(target instanceof L2MonsterInstance))
 		{
 			// Send a System Message to the caster
-            SystemMessage sm = new SystemMessage(SystemMessageId.INCORRECT_TARGET);
+			SystemMessage sm = new SystemMessage(SystemMessageId.INCORRECT_TARGET);
 			activeChar.sendPacket(sm);
 			
 			// Send a Server->Client packet ActionFailed to the L2PcInstance 
-            ActionFailed af = new ActionFailed();
-            activeChar.sendPacket(af);
+			activeChar.actionFailed();
 			
-            return;
+			return;
 		}
         
         // u can use soul crystal only when target hp goes below <50%
         if(((L2MonsterInstance)target).getStatus().getCurrentHp() > ((L2MonsterInstance)target).getMaxHp()/2.0)
         {
-            ActionFailed af = new ActionFailed();
-            activeChar.sendPacket(af);
+            activeChar.actionFailed();
             return;
         }
         

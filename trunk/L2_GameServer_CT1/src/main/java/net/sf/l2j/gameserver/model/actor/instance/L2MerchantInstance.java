@@ -24,7 +24,6 @@ import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.BuyList;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -97,7 +96,7 @@ public class L2MerchantInstance extends L2FolkInstance
         else
         {
             _log.warn("no buylist with id:" + val);
-            player.sendPacket(new ActionFailed());
+            player.actionFailed();
         }
     }
 
@@ -128,7 +127,7 @@ public class L2MerchantInstance extends L2FolkInstance
             _log.warn("buylist id:" + val);
         }
 
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
 
     protected final void showSellWindow(L2PcInstance player)
@@ -139,7 +138,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
         if (_log.isDebugEnabled()) _log.debug("Showing sell window");
 
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
 
     @Override
@@ -255,11 +254,8 @@ public class L2MerchantInstance extends L2FolkInstance
 	}
 	
     @Override
-    public final void onActionShift(L2GameClient client)
+    public final void onActionShift(L2PcInstance player)
     {
-        L2PcInstance player = client.getActiveChar();
-        if (player == null) return;
-
         if (player.getAccessLevel() >= Config.GM_ACCESSLEVEL)
         {
             player.setTarget(this);
@@ -322,6 +318,6 @@ public class L2MerchantInstance extends L2FolkInstance
             html.setHtml(html1.toString());
             player.sendPacket(html);
         }
-        player.sendPacket(new ActionFailed());
+        player.actionFailed();
     }
 }

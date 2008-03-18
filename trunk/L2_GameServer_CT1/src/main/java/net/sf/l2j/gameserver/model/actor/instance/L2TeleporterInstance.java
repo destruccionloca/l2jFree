@@ -31,7 +31,6 @@ import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2TeleportLocation;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -219,7 +218,7 @@ public final class L2TeleporterInstance extends L2FolkInstance
         {
             _log.warn("No teleport destination with id:" +val);
         }
-        player.sendPacket( new ActionFailed() );
+        player.actionFailed();
     }
 
     private int validateCondition(L2PcInstance player)

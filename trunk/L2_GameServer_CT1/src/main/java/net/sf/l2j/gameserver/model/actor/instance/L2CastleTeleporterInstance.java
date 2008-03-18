@@ -25,7 +25,6 @@ import java.util.StringTokenizer;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2TeleportLocation;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -144,7 +143,7 @@ public final class L2CastleTeleporterInstance extends L2FolkInstance
 		{
 			_log.warn("No teleport destination with id:" +val);
 		}
-		player.sendPacket( new ActionFailed() );
+		player.actionFailed();
 	}
 
 	private int validateCondition(L2PcInstance player)

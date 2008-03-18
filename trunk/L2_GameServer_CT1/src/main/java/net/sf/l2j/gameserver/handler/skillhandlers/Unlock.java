@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.skills.Formulas;
@@ -51,7 +50,7 @@ public class Unlock implements ISkillHandler
 				if (!door.isUnlockable())
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.UNABLE_TO_UNLOCK_DOOR));
-					activeChar.sendPacket(new ActionFailed());
+					activeChar.actionFailed();
 					return;
 				}
 
@@ -71,7 +70,7 @@ public class Unlock implements ISkillHandler
 				L2ChestInstance chest = (L2ChestInstance) element;
 				if (chest.getStatus().getCurrentHp() <= 0 || chest.isInteracted())
 				{
-					activeChar.sendPacket(new ActionFailed());
+					activeChar.actionFailed();
 					return;
 				}
 				else

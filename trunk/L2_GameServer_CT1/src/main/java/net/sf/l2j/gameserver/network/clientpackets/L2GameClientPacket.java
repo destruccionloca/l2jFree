@@ -18,7 +18,6 @@ import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.network.L2GameClient;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 
 import org.apache.commons.logging.Log;
@@ -66,24 +65,27 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 			{
 				getClient().packetsSentInSec++;
 				// Client sends NORMALLY very often 50+ packets...
-				if (getClient().packetsSentInSec > 50)
+				if (getClient().packetsSentInSec > 50 && getClient().getActiveChar() != null)
 				{
-					sendPacket(new ActionFailed());
+					getClient().getActiveChar().actionFailed();
 					return;
 				}
 			}
 			
 			runImpl();
-            if (this instanceof MoveBackwardToLocation 
-            	|| this instanceof AttackRequest 
-            	|| this instanceof RequestMagicSkillUse)
-            	// could include pickup and talk too, but less is better
-            {
-            	// Removes onspawn protection - player has faster computer than
-            	// average
-            	if (getClient().getActiveChar() != null)
-            		getClient().getActiveChar().onActionRequest();
-            }
+
+			if (getClient().getActiveChar() != null && getClient().getActiveChar().getProtection() > 0)
+			{
+				if (this instanceof MoveBackwardToLocation 
+					|| this instanceof AttackRequest 
+					|| this instanceof RequestMagicSkillUse)
+					// could include pickup and talk too, but less is better
+				{
+					// Removes onspawn protection - player has faster computer than
+					// average
+					getClient().getActiveChar().onActionRequest();
+				}
+			}
 		}
 		catch (Throwable t)
 		{

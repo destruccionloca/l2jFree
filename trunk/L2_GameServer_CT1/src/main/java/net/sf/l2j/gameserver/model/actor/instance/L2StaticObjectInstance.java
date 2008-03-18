@@ -19,7 +19,6 @@ import net.sf.l2j.gameserver.cache.HtmCache;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.knownlist.NullKnownList;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ShowTownMap;
@@ -118,7 +117,7 @@ public class L2StaticObjectInstance extends L2Object
                 player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
                 
                 // Send a Server->Client packet ActionFailed (target is out of interaction range) to the L2PcInstance player
-                player.sendPacket(new ActionFailed());
+                player.actionFailed();
             }
             else
             {
@@ -132,13 +131,13 @@ public class L2StaticObjectInstance extends L2Object
                     else html.setHtml(content);
 
                     player.sendPacket(html);
-                    player.sendPacket(new ActionFailed());
+                    player.actionFailed();
                 }
                 else if(_type == 0)
                 {
                     player.sendPacket(new ShowTownMap(_texture, getMapX(), getMapY()));
                     // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-                    player.sendPacket(new ActionFailed());
+                    player.actionFailed();
                 }
             }
         }

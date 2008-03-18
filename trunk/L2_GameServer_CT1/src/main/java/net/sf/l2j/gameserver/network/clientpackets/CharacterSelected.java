@@ -16,7 +16,6 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.L2GameClient.GameClientState;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.CharSelected;
 
 import org.apache.commons.logging.Log;
@@ -87,7 +86,6 @@ public class CharacterSelected extends L2GameClientPacket
 					if (cha == null)
 					{
 						_log.fatal("Character could not be loaded (slot:"+_charSlot+")");
-						sendPacket(new ActionFailed());
 						return;
 					}
 					if (cha.getAccessLevel() < 0)

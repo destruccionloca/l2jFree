@@ -36,7 +36,6 @@ import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -787,7 +786,7 @@ public class TvT
 					player.sendPacket(nhm);
 					
 					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-					player.sendPacket( new ActionFailed() );
+					player.actionFailed();
 				}
 			}
 		}
@@ -1175,7 +1174,7 @@ public class TvT
 			eventPlayer.sendPacket(adminReply);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-			eventPlayer.sendPacket( new ActionFailed() );
+			eventPlayer.actionFailed();
 		}
 		catch (Exception e)
 		{

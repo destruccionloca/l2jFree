@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
@@ -31,31 +32,37 @@ public class RequestPetGetItem extends L2GameClientPacket
 
 	//private final static Log _log = LogFactory.getLog(RequestPetGetItem.class.getName());
 	private static final String _C__8f_REQUESTPETGETITEM= "[C] 8F RequestPetGetItem";
-	
-	private int _objectId;
-	
-    @Override
-    protected void readImpl()
-    {
-        _objectId = readD();
-    }
 
-    @Override
-    protected void runImpl()
+	private int _objectId;
+
+	@Override
+	protected void readImpl()
 	{
+		_objectId = readD();
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+
 		L2World world = L2World.getInstance();
 		L2ItemInstance item = (L2ItemInstance)world.findObject(_objectId);
-		if (item == null || getClient().getActiveChar() == null)
-		    return;
-		if(getClient().getActiveChar().getPet() instanceof L2SummonInstance)
+		if (item == null)
+			return;
+
+		if(player.getPet() == null || player.getPet() instanceof L2SummonInstance)
 		{
-		    sendPacket(new ActionFailed());
-		    return;
-		}        
-		L2PetInstance pet = (L2PetInstance)getClient().getActiveChar().getPet();
-		if (pet == null || pet.isDead() || pet.isOutOfControl())
+			player.actionFailed();
+			return;
+		}
+	
+		L2PetInstance pet = (L2PetInstance)player.getPet();
+		if (pet.isDead() || pet.isOutOfControl())
 		{
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 		pet.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, item);

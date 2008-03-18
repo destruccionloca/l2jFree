@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -47,7 +46,7 @@ public class Harvester implements IItemHandler
         if(_activeChar.getTarget() == null || !(_activeChar.getTarget() instanceof L2MonsterInstance))
         {
             _activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
-            _activeChar.sendPacket(new ActionFailed());
+            _activeChar.actionFailed();
             return;
         }
 
@@ -55,7 +54,7 @@ public class Harvester implements IItemHandler
         
         if (_target == null || !_target.isDead())
         {
-            _activeChar.sendPacket(new ActionFailed());
+            _activeChar.actionFailed();
             return;
         }
         

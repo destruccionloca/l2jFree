@@ -22,7 +22,6 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.util.Util;
 
@@ -97,7 +96,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
         }
 		
@@ -115,7 +114,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
             player.sendMessage("Transactions are disable for your Access Level");
-            sendPacket(new ActionFailed());
+            player.actionFailed();
             return;
         }
         
@@ -123,7 +122,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         {
 			// [L2J_JP EDIT]
 			sendPacket(new SystemMessage(SystemMessageId.YOU_NOT_ENOUGH_ADENA));
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			storePlayer.setPrivateStoreType(L2PcInstance.STORE_PRIVATE_NONE);
 			storePlayer.broadcastUserInfo();
 			return;
@@ -131,7 +130,7 @@ public class RequestPrivateStoreSell extends L2GameClientPacket
         
         if (!storeList.privateStoreSell(player, _items, _price))
         {
-            sendPacket(new ActionFailed());
+            player.actionFailed();
             _log.warn("PrivateStore sell has failed due to invalid list or request. Player: " + player.getName() + ", Private store of: " + storePlayer.getName());
             return;
         }

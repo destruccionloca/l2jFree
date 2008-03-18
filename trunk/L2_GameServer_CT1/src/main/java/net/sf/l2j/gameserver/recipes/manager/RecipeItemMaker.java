@@ -29,7 +29,6 @@ import net.sf.l2j.gameserver.model.L2ManufactureItem;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeItemMakeInfo;
@@ -80,7 +79,7 @@ public class RecipeItemMaker implements Runnable
 		if (player.isAlikeDead())
 		{
 			player.sendMessage("Dead people don't craft.");
-			player.sendPacket(new ActionFailed());
+			player.actionFailed();
 			abort();
 			return;
 		}
@@ -88,7 +87,7 @@ public class RecipeItemMaker implements Runnable
 		if (target.isAlikeDead())
 		{
 			target.sendMessage("Dead customers can't use manufacture.");
-			target.sendPacket(new ActionFailed());
+			target.actionFailed();
 			abort();
 			return;
 		}
@@ -96,7 +95,7 @@ public class RecipeItemMaker implements Runnable
 		if (target.isProcessingTransaction())
 		{
 			target.sendMessage("You are busy.");
-			target.sendPacket(new ActionFailed());
+			target.actionFailed();
 			abort();
 			return;
 		}
@@ -107,7 +106,7 @@ public class RecipeItemMaker implements Runnable
 			{
 				target.sendMessage("Manufacturer " + player.getName() + " is busy.");
 			}
-			player.sendPacket(new ActionFailed());
+			player.actionFailed();
 			abort();
 			return;
 		}
@@ -116,7 +115,7 @@ public class RecipeItemMaker implements Runnable
 		if ((recipe == null) || (recipe.getRecipeComponents().length == 0))
 		{
 			player.sendMessage("No such recipe");
-			player.sendPacket(new ActionFailed());
+			player.actionFailed();
 			abort();
 			return;
 		}
@@ -127,7 +126,7 @@ public class RecipeItemMaker implements Runnable
 		if (recipe.getLevel() > skillLevel)
 		{
 			player.sendMessage("Need skill level " + recipe.getLevel());
-			player.sendPacket(new ActionFailed());
+			player.actionFailed();
 			abort();
 			return;
 		}

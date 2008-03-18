@@ -21,7 +21,6 @@ import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 
@@ -97,19 +96,19 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         {
             if (activeChar.getTeleMode() == 1)
                 activeChar.setTeleMode(0);
-            activeChar.sendPacket(new ActionFailed());
+            activeChar.actionFailed();
             activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
             return;
         }
         
         if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
         {
-            activeChar.sendPacket(new ActionFailed());
+            activeChar.actionFailed();
         }
         else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null &&
             ((activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW) || (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.CROSSBOW)))
         {
-            activeChar.sendPacket(new ActionFailed());
+            activeChar.actionFailed();
         }
         else 
         {
@@ -118,7 +117,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
             // Can't move if character is confused, or trying to move a huge distance
             if (activeChar.isOutOfControl() || ((dx*dx+dy*dy) > 98010000)) // 9900*9900
             {
-                activeChar.sendPacket(new ActionFailed());
+                activeChar.actionFailed();
                 return;
             }
             activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,

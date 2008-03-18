@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.DoorTable;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -149,7 +148,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 				{
 					// Send a Server->Client packet ActionFailed (target is out
 					// of attack range) to the L2PcInstance player
-					player.sendPacket(new ActionFailed());
+					player.actionFailed();
 				}
 			}
 
@@ -176,7 +175,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 			}
 			// Send a Server->Client ActionFailed to the L2PcInstance in order
 			// to avoid that the client wait another packet
-			player.sendPacket(new ActionFailed());
+			player.actionFailed();
 		}
 	}
 
@@ -184,7 +183,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 	{
 		if (isDead())
 		{
-			player.sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 
@@ -236,7 +235,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		default:
 			showChatWindow(player, 0);
 		}
-		player.sendPacket(new ActionFailed());
+		player.actionFailed();
 	}
 
 	@Override
@@ -263,7 +262,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		html.setFile(filename);
 		html.replace("%objectId%", String.valueOf(getObjectId()));
 		player.sendPacket(html);
-		player.sendPacket(new ActionFailed());
+		player.actionFailed();
 	}
 
 	@Override

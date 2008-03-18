@@ -30,7 +30,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 /**
@@ -85,7 +84,7 @@ public class Seed implements IItemHandler
         if(!(target instanceof L2NpcInstance))
         {
             _activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-            _activeChar.sendPacket(new ActionFailed());
+            _activeChar.actionFailed();
             return;
         }
 
@@ -95,7 +94,7 @@ public class Seed implements IItemHandler
             (target instanceof L2RaidBossInstance))
         {
             _activeChar.sendPacket(new SystemMessage(SystemMessageId.THE_TARGET_IS_UNAVAILABLE_FOR_SEEDING));
-            _activeChar.sendPacket(new ActionFailed());
+            _activeChar.actionFailed();
             return;
         }
 
@@ -104,13 +103,13 @@ public class Seed implements IItemHandler
         if(_target == null || _target.isDead())
         {
             _activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-            _activeChar.sendPacket(new ActionFailed());
+            _activeChar.actionFailed();
             return;
         }
 
         if(_target.isSeeded())
         {
-            _activeChar.sendPacket(new ActionFailed());
+            _activeChar.actionFailed();
             return;
         }
 

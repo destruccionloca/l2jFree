@@ -23,7 +23,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -90,7 +89,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 				&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
 		{
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
 		
@@ -99,18 +98,22 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		if ((warehouse instanceof ClanWarehouse) && Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
 		{
 			player.sendMessage("Transactions are disabled for your access level.");
-			sendPacket(new ActionFailed());
+			player.actionFailed();
 			return;
 		}
-        
+
 		if (player.getActiveEnchantItem() != null)
-        {
-        	Util.handleIllegalPlayerAction(player,"Player "+player.getName()+" tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
-        	return;
-        }		
+		{
+			Util.handleIllegalPlayerAction(player,"Player "+player.getName()+" tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
+			return;
+		}
 
 		// Alt game - Karma punishment
-		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0) return;
+		if (!Config.ALT_GAME_KARMA_PLAYER_CAN_USE_WAREHOUSE && player.getKarma() > 0)
+		{
+			player.actionFailed();
+			return;
+		}
 		
 		// Freight price from config or normal price per item slot (30)
 		int fee = _count * 30;
@@ -125,21 +128,24 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 			// Check validity of requested item
 			L2ItemInstance item = player.checkItemManipulation(objectId, count, "deposit");
 			if (item == null)
-				{
+			{
 				_log.warn("Error depositing a warehouse object for char "+player.getName()+" (validity check)");
 				_items[i * 2 + 0] = 0;
 				_items[i * 2 + 1] = 0;
 				continue;
-				}
+			}
 
 			if(Config.ALT_STRICT_HERO_SYSTEM)
 			{
-			   
 				if (item.isHeroItem())
 					continue;
 			}
 			
-			if ((warehouse instanceof ClanWarehouse) && !item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST) return;
+			if ((warehouse instanceof ClanWarehouse) && !item.isTradeable() || item.getItemType() == L2EtcItemType.QUEST)
+			{
+				player.actionFailed();
+				return;
+			}
 			// Calculate needed adena and slots
 			if (item.getItemId() == 57) currentAdena -= count;
 			if (!item.isStackable()) slots += count;
@@ -149,7 +155,7 @@ public class SendWareHouseDepositList extends L2GameClientPacket
 		// Item Max Limit Check 
 		if (!warehouse.validateCapacity(slots))
 		{
-			sendPacket(new SystemMessage(SystemMessageId.YOU_HAVE_EXCEEDED_QUANTITY_THAT_CAN_BE_INPUTTED));
+			sendPacket(new SystemMessage(SystemMessageId.WAREHOUSE_FULL));
 			return;
 		}
 
