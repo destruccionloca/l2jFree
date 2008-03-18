@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 
@@ -25,15 +26,15 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 public class PetInfo extends L2GameServerPacket
 {
 	//private final static Log _log = LogFactory.getLog(PetInfo.class.getName());
-	
-	private static final String _S__CA_PETINFO = "[S] b1 PetInfo";
-	private L2Summon _summon;
-	private int _x, _y, _z, _heading;
-	private boolean _isSummoned;
-	private int _mAtkSpd, _pAtkSpd;
-	private int _runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
-	private int _maxHp, _maxMp;
-	private int _maxFed, _curFed;
+
+	private static final String	_S__CA_PETINFO	= "[S] b1 PetInfo";
+	private L2Summon			_summon;
+	private int					_x, _y, _z, _heading;
+	private boolean				_isSummoned;
+	private int					_mAtkSpd, _pAtkSpd;
+	private int					_runSpd, _walkSpd, _swimRunSpd, _swimWalkSpd, _flRunSpd, _flWalkSpd, _flyRunSpd, _flyWalkSpd;
+	private int					_maxHp, _maxMp;
+	private int					_maxFed, _curFed;
 
 	/**
 	 * rev 478  dddddddddddddddddddffffdddcccccSSdddddddddddddddddddddddddddhc
@@ -55,30 +56,30 @@ public class PetInfo extends L2GameServerPacket
 		_swimWalkSpd = _flWalkSpd = _flyWalkSpd = _walkSpd;
 		_maxHp = _summon.getMaxHp();
 		_maxMp = _summon.getMaxMp();
-		if (_summon instanceof L2PetInstance) 
-        {
-			L2PetInstance pet = (L2PetInstance)_summon;
+		if (_summon instanceof L2PetInstance)
+		{
+			L2PetInstance pet = (L2PetInstance) _summon;
 			_curFed = pet.getCurrentFed(); // how fed it is
 			_maxFed = pet.getMaxFed(); //max fed it can be
 		}
 	}
-	
+
 	@Override
 	protected final void writeImpl()
 	{
 		writeC(0xb2);
-		writeD(_summon.getSummonType()); 
+		writeD(_summon.getSummonType());
 		writeD(_summon.getObjectId());
-        writeD(_summon.getTemplate().getIdTemplate()+1000000);
+		writeD(_summon.getTemplate().getIdTemplate() + 1000000);
 		writeD(0x00);
 		writeD(_x);
 		writeD(_y);
 		writeD(_z);
 		writeD(_heading);
 		writeD(0x00);
-		writeD(_mAtkSpd);	
+		writeD(_mAtkSpd);
 		writeD(_pAtkSpd);
-		writeD(_runSpd);	
+		writeD(_runSpd);
 		writeD(_walkSpd);
 		writeD(_swimRunSpd);
 		writeD(_swimWalkSpd);
@@ -94,57 +95,67 @@ public class PetInfo extends L2GameServerPacket
 		writeD(0x00); // right hand weapon
 		writeD(0x00);
 		writeD(0x00); // left hand weapon
-		writeC(0x01);	// name above char 1=true ... ??
-		writeC(_summon.isRunning() ? 1 : 0);	// running=1  
-		writeC(_summon.isInCombat() ? 1 : 0);	// attacking 1=true
-		writeC(_summon.isAlikeDead() ? 1 : 0);  // dead 1=true
+		writeC(0x01); // name above char 1=true ... ??
+		writeC(_summon.isRunning() ? 1 : 0); // running=1  
+		writeC(_summon.isInCombat() ? 1 : 0); // attacking 1=true
+		writeC(_summon.isAlikeDead() ? 1 : 0); // dead 1=true
 		writeC(_isSummoned ? 2 : 0); // invisible ?? 0=false  1=true   2=summoned (only works if model has a summon animation)
 		writeS(_summon.getName());
 		writeS(_summon.getTitle());
 		writeD(0x01);
-		writeD(_summon.getPvpFlag());	//0 = white,2= purpleblink, if its greater then karma = purple 
-		writeD(_summon.getKarma());  // hmm karma ??
+		writeD(_summon.getPvpFlag()); //0 = white,2= purpleblink, if its greater then karma = purple 
+		writeD(_summon.getKarma()); // hmm karma ??
 		writeD(_curFed); // how fed it is
 		writeD(_maxFed); //max fed it can be
-		writeD((int)_summon.getStatus().getCurrentHp());//current hp
+		writeD((int) _summon.getStatus().getCurrentHp());//current hp
 		writeD(_maxHp);// max hp
-		writeD((int)_summon.getStatus().getCurrentMp());//current mp
+		writeD((int) _summon.getStatus().getCurrentMp());//current mp
 		writeD(_maxMp);//max mp
 		writeD(_summon.getStat().getSp()); //sp
 		writeD(_summon.getLevel());// lvl 
-		writeQ(_summon.getStat().getExp()); 
+		writeQ(_summon.getStat().getExp());
 		writeQ(_summon.getExpForThisLevel());// 0%  absolute value	
 		writeQ(_summon.getExpForNextLevel());// 100% absoulte value
 		writeD(_summon instanceof L2PetInstance ? _summon.getInventory().getTotalWeight() : 0);//weight
 		writeD(_summon.getMaxLoad());//max weight it can carry
 		writeD(_summon.getPAtk(null));//patk
 		writeD(_summon.getPDef(null));//pdef
-		writeD(_summon.getMAtk(null,null));//matk
-		writeD(_summon.getMDef(null,null));//mdef
+		writeD(_summon.getMAtk(null, null));//matk
+		writeD(_summon.getMDef(null, null));//mdef
 		writeD(_summon.getAccuracy());//accuracy
 		writeD(_summon.getEvasionRate(null));//evasion
-		writeD(_summon.getCriticalHit(null,null));//critical
+		writeD(_summon.getCriticalHit(null, null));//critical
 		writeD(_runSpd);//speed
 		writeD(_summon.getPAtkSpd());//atkspeeds
 		writeD(_summon.getMAtkSpd());//casting speed
-		
+
 		writeD(0);//c2  abnormal visual effect... bleed=1; poison=2; poison & bleed=3; flame=4;
 		int npcId = _summon.getTemplate().getNpcId();
-        
-		if ((npcId >= 12526 && npcId <= 12528) || npcId == 16030)
-			writeH(1);//c2    ride button
-		else
-			writeH(0);
-        
-        writeC(0); // c2
 
-        // Following all added in C4.
-        writeH(0); // ??
-        writeC(0); // team aura (1 = blue, 2 = red)
-        writeD(_summon.getSoulShotsPerHit()); // How many soulshots this servitor uses per hit
-        writeD(_summon.getSpiritShotsPerHit()); // How many spiritshots this servitor uses per hit
+		int canMount = 0;
+		if ((npcId >= 12526 && npcId <= 12528) || npcId == 16030)
+		{
+			if (npcId == 16030)
+			{
+				if (_summon.getLevel() >= Config.GREAT_WOLF_MOUNT_LEVEL)
+					canMount = 1;
+			}
+			else
+				canMount = 1;
+
+		}
+
+		writeH(canMount); // ride button
+
+		writeC(0); // c2
+
+		// Following all added in C4.
+		writeH(0); // ??
+		writeC(0); // team aura (1 = blue, 2 = red)
+		writeD(_summon.getSoulShotsPerHit()); // How many soulshots this servitor uses per hit
+		writeD(_summon.getSpiritShotsPerHit()); // How many spiritshots this servitor uses per hit
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */

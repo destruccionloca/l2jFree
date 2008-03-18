@@ -26,8 +26,8 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeSummonInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -206,6 +206,11 @@ public class RequestActionUse extends L2GameClientPacket
                 // mount
                 if (pet != null && pet.isMountable() && !activeChar.isMounted() && !activeChar.isBetrayed()) 
                 {
+        			if (pet.getNpcId()==16030 && pet.getLevel()<Config.GREAT_WOLF_MOUNT_LEVEL)
+        			{
+        				activeChar.sendMessage("Your Wolf needs minimum level " + Config.GREAT_WOLF_MOUNT_LEVEL);
+        				return;
+        			}
                     if (activeChar.isTransformed())
                     {
                         // You cannot mount a steed while transformed.
@@ -556,5 +561,5 @@ public class RequestActionUse extends L2GameClientPacket
     public String getType()
     {
         return _C__45_REQUESTACTIONUSE;
-    }
+	}
 }

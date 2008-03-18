@@ -779,6 +779,7 @@ public final class Config
 	public static int				WYVERN_SPEED;
 	public static int				STRIDER_SPEED;
 	public static int				GREAT_WOLF_SPEED;
+	public static int				GREAT_WOLF_MOUNT_LEVEL;
 	public static boolean			ALLOW_WYVERN_UPGRADER;
 	public static boolean			PETITIONING_ALLOWED;
 	public static int				MAX_PETITIONS_PER_PLAYER;
@@ -861,6 +862,8 @@ public final class Config
 			WYVERN_SPEED = Integer.parseInt(otherSettings.getProperty("WyvernSpeed", "100"));
 			STRIDER_SPEED = Integer.parseInt(otherSettings.getProperty("StriderSpeed", "80"));
 			GREAT_WOLF_SPEED = Integer.parseInt(otherSettings.getProperty("GreatWolfSpeed", "80"));
+			GREAT_WOLF_MOUNT_LEVEL = Integer.parseInt(otherSettings.getProperty("GreatWolfMountLevel", "70"));
+			
 			ALLOW_WYVERN_UPGRADER = Boolean.parseBoolean(otherSettings.getProperty("AllowWyvernUpgrader", "False"));
 			
 			/* Inventory slots limits */
