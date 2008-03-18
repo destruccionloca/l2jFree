@@ -27613,7 +27613,7 @@ INSERT INTO `droplist` VALUES
 (22123,8742,1,1,200,53), -- Monastic Crusader
 (21164,8742,1,1,200,49), -- Guardian Spirit of Ancient Holy Ground
 (21427,8742,1,1,200,34), -- Abraxion
-(22142,8742,1,1,200,21); -- Triol's Layperson
+(22142,8742,1,1,200,21), -- Triol's Layperson
 --  Life Stone: level 76 (by Sandro - IL and T1 values)
 (21325,8732,1,1,200,297), -- Ketra's War Hound
 (21327,8732,1,1,200,410), -- Ketra Orc Raider
