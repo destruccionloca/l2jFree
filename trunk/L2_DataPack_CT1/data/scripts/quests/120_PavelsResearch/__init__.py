@@ -27,7 +27,7 @@ Flower = 8290
 Heart = 8291
 Necklace = 8292
 
-class Quest (JQuest) : 
+class Quest (JQuest) :
 
  def __init__(self,id,name,descr):
     JQuest.__init__(self,id,name,descr)
@@ -221,8 +221,12 @@ class Quest (JQuest) :
     elif npcId == Stones :
        if state == State.CREATED :
           Pavel = player.getQuestState("114_ResurrectionOfAnOldManager")
-          if st.getPlayer().getLevel() >= 49 and Pavel.getState() == State.COMPLETED :
-             htmltext = "32046-01.htm"
+          if Pavel :
+              if player.getLevel() >= 49 and Pavel.getState() == State.COMPLETED :
+                 htmltext = "32046-01.htm"
+              else :
+                 htmltext = "32046-00.htm"
+                 st.exitQuest(1)
           else :
              htmltext = "32046-00.htm"
              st.exitQuest(1)
