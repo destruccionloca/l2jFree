@@ -210,6 +210,12 @@ abstract class DocumentBase
         	if (Integer.decode(getValue(attrs.getNamedItem("self").getNodeValue(),template)) == 1)
                 self = true;
         }
+        boolean icon = true;
+        if (attrs.getNamedItem("noicon") !=null)
+        {
+            if (Integer.decode(getValue(attrs.getNamedItem("noicon").getNodeValue(),template)) == 1)
+                icon = false;
+        }
         Lambda lambda = getLambda(n, template);
         Condition applayCond = parseCondition(n.getFirstChild(), template);
         int abnormal = 0;
@@ -234,7 +240,7 @@ abstract class DocumentBase
         }
         
         EffectTemplate lt = new EffectTemplate(attachCond, applayCond, name, lambda, count, time,
-                                               abnormal, stackType, stackOrder);
+                                               abnormal, stackType, stackOrder, icon);
         parseTemplate(n, lt);
         if (template instanceof L2Item) ((L2Item) template).attach(lt);
         else if (template instanceof L2Skill && !self) ((L2Skill) template).attach(lt);

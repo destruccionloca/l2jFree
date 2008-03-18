@@ -1177,9 +1177,9 @@ public final class Config
 			COORD_SYNCHRONIZE = Integer.parseInt(optionsSettings.getProperty("CoordSynchronize", "-1"));
 			
 			ALLOW_WAREHOUSE = Boolean.parseBoolean(optionsSettings.getProperty("AllowWarehouse", "True"));
-			ENABLE_WAREHOUSESORTING_CLAN = Boolean.valueOf(optionsSettings.getProperty("EnableWarehouseSortingClan", "False"));
-			ENABLE_WAREHOUSESORTING_PRIVATE = Boolean.valueOf(optionsSettings.getProperty("EnableWarehouseSortingPrivate", "False"));
-			ENABLE_WAREHOUSESORTING_FREIGHT = Boolean.valueOf(optionsSettings.getProperty("EnableWarehouseSortingFreight", "False"));
+			ENABLE_WAREHOUSESORTING_CLAN = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingClan", "False"));
+			ENABLE_WAREHOUSESORTING_PRIVATE = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingPrivate", "False"));
+			ENABLE_WAREHOUSESORTING_FREIGHT = Boolean.parseBoolean(optionsSettings.getProperty("EnableWarehouseSortingFreight", "False"));
 			WAREHOUSE_CACHE = Boolean.parseBoolean(optionsSettings.getProperty("WarehouseCache", "False"));
 			WAREHOUSE_CACHE_TIME = Integer.parseInt(optionsSettings.getProperty("WarehouseCacheTime", "15"));
 			ALLOW_FREIGHT = Boolean.parseBoolean(optionsSettings.getProperty("AllowFreight", "True"));
@@ -1194,7 +1194,7 @@ public final class Config
 			ALLOW_FISHING = Boolean.parseBoolean(optionsSettings.getProperty("AllowFishing", "True"));
 			ALLOW_MANOR = Boolean.parseBoolean(optionsSettings.getProperty("AllowManor", "False"));
 			ALLOW_BOAT = Boolean.parseBoolean(optionsSettings.getProperty("AllowBoat", "False"));
-			ALLOW_NPC_WALKERS = Boolean.valueOf(optionsSettings.getProperty("AllowNpcWalkers", "true"));
+			ALLOW_NPC_WALKERS = Boolean.parseBoolean(optionsSettings.getProperty("AllowNpcWalkers", "true"));
 			ALLOW_CURSED_WEAPONS = Boolean.parseBoolean(optionsSettings.getProperty("AllowCursedWeapons", "False"));
 			ALLOW_WEDDING = Boolean.parseBoolean(optionsSettings.getProperty("AllowWedding", "False"));
 			ALLOW_GUARDS = Boolean.parseBoolean(optionsSettings.getProperty("AllowGuards", "False"));
@@ -1211,7 +1211,7 @@ public final class Config
 			GM_AUDIT = Boolean.parseBoolean(optionsSettings.getProperty("GMAudit", "False"));
 			
 			COMMUNITY_TYPE = optionsSettings.getProperty("CommunityType", "old").toLowerCase();
-			BBS_SHOW_PLAYERLIST = Boolean.valueOf(optionsSettings.getProperty("BBSShowPlayerList", "false"));
+			BBS_SHOW_PLAYERLIST = Boolean.parseBoolean(optionsSettings.getProperty("BBSShowPlayerList", "false"));
 			BBS_DEFAULT = optionsSettings.getProperty("BBSDefault", "_bbshome");
 			SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowLevelOnCommunityBoard", "False"));
 			SHOW_STATUS_COMMUNITYBOARD = Boolean.parseBoolean(optionsSettings.getProperty("ShowStatusOnCommunityBoard", "True"));
@@ -2871,7 +2871,7 @@ public final class Config
 		else if (pName.equalsIgnoreCase("CommunityType"))
 			COMMUNITY_TYPE = pValue.toLowerCase();
 		else if (pName.equalsIgnoreCase("BBSShowPlayerList"))
-			BBS_SHOW_PLAYERLIST = Boolean.valueOf(pValue);
+			BBS_SHOW_PLAYERLIST = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("BBSDefault"))
 			BBS_DEFAULT = pValue;
 		else if (pName.equalsIgnoreCase("AllowBoat"))
@@ -2879,9 +2879,9 @@ public final class Config
 		else if (pName.equalsIgnoreCase("AllowCursedWeapons"))
 			ALLOW_CURSED_WEAPONS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowManor"))
-			ALLOW_MANOR = Boolean.valueOf(pValue);
+			ALLOW_MANOR = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("BypassValidation"))
-			BYPASS_VALIDATION = Boolean.valueOf(pValue);
+			BYPASS_VALIDATION = Boolean.parseBoolean(pValue);
 		
 		else if (pName.equalsIgnoreCase("ShowLevelOnCommunityBoard"))
 			SHOW_LEVEL_COMMUNITYBOARD = Boolean.parseBoolean(pValue);
@@ -3093,7 +3093,7 @@ public final class Config
 		else if (pName.equalsIgnoreCase("GradePenalty"))
 			GRADE_PENALTY = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("RemoveCastleCirclets"))
-			REMOVE_CASTLE_CIRCLETS = Boolean.valueOf(pValue);
+			REMOVE_CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltGameCancelByHit"))
 		{
 			ALT_GAME_CANCEL_BOW = pValue.equalsIgnoreCase("bow") || pValue.equalsIgnoreCase("all");
@@ -3169,17 +3169,17 @@ public final class Config
 		else if (pName.equalsIgnoreCase("CommonRecipeLimit"))
 			COMMON_RECIPE_LIMIT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("CastleShieldRestriction"))
-			CASTLE_SHIELD = Boolean.valueOf(pValue);
+			CASTLE_SHIELD = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("ClanHallShieldRestriction"))
-			CLANHALL_SHIELD = Boolean.valueOf(pValue);
+			CLANHALL_SHIELD = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("ApellaArmorsRestriction"))
-			APELLA_ARMORS = Boolean.valueOf(pValue);
+			APELLA_ARMORS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("OathArmorsRestriction"))
-			OATH_ARMORS = Boolean.valueOf(pValue);
+			OATH_ARMORS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CastleLordsCrownRestriction"))
-			CASTLE_CROWN = Boolean.valueOf(pValue);
+			CASTLE_CROWN = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CastleCircletsRestriction"))
-			CASTLE_CIRCLETS = Boolean.valueOf(pValue);
+			CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
 		
 		// PvP settings
 		else if (pName.equalsIgnoreCase("MinKarma"))
@@ -3192,9 +3192,9 @@ public final class Config
 			KARMA_LOST_BASE = Integer.parseInt(pValue);
 		
 		else if (pName.equalsIgnoreCase("CanGMDropEquipment"))
-			KARMA_DROP_GM = Boolean.valueOf(pValue);
+			KARMA_DROP_GM = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AwardPKKillPVPPoint"))
-			KARMA_AWARD_PK_KILL = Boolean.valueOf(pValue);
+			KARMA_AWARD_PK_KILL = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("MinimumPKRequiredToDrop"))
 			KARMA_PK_LIMIT = Integer.parseInt(pValue);
 		
@@ -3262,7 +3262,7 @@ public final class Config
 		else if (pName.equalsIgnoreCase("FailFakeDeath"))
 			FAIL_FAKEDEATH = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AltFlyingWyvernInSiege")) 
-			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.valueOf(pValue); 
+			ALT_FLYING_WYVERN_IN_SIEGE = Boolean.parseBoolean(pValue); 
         else if (pName.equalsIgnoreCase("TimeInADayOfOpenADoor")) 
         	TIME_IN_A_DAY_OF_OPEN_A_DOOR = Integer.parseInt(pValue); 
         else if (pName.equalsIgnoreCase("TimeOfOpeningADoor")) 

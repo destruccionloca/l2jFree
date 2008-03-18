@@ -51,7 +51,7 @@ public abstract class L2Effect
 	
 	public static enum EffectType
 	{
-		BUFF, CHARGE, DMG_OVER_TIME, HEAL_OVER_TIME, COMBAT_POINT_HEAL_OVER_TIME, MANA_DMG_OVER_TIME, MP_CONSUME_PER_LEVEL,
+		BUFF, DEBUFF, CHARGE, DMG_OVER_TIME, HEAL_OVER_TIME, COMBAT_POINT_HEAL_OVER_TIME, MANA_DMG_OVER_TIME, MP_CONSUME_PER_LEVEL,
 		MANA_HEAL_OVER_TIME, RELAXING, STUN, ROOT, SLEEP, IMMOBILEUNTILATTACKED, HATE, FAKE_DEATH, CONFUSION, CONFUSE_MOB_ONLY,
 		MUTE, FEAR, SILENT_MOVE, SEED, PARALYZE, STUN_SELF, BLUFF, BETRAY, NOBLESSE_BLESSING, PHOENIX_BLESSING, PETRIFICATION,
 		CANCEL_TARGET, SILENCE_MAGIC_PHYSICAL, ERASE, PETRIFIED, LUCKNOBLESSE, PSYCHICAL_MUTE, TARGET_ME, REMOVE_TARGET,
@@ -99,6 +99,9 @@ public abstract class L2Effect
 	
 	// abnormal effect mask
 	private int						_abnormalEffect;
+	
+	// show icon
+	private boolean					_icon;
 	
 	public boolean					preventExitUpdate;
 	
@@ -158,6 +161,7 @@ public abstract class L2Effect
 		_stackOrder = template.stackOrder;
 		_periodStartTicks = GameTimeController.getGameTicks();
 		_periodfirsttime = 0;
+		_icon = template.icon;
 		scheduleEffect();
 	}
 	
@@ -191,7 +195,12 @@ public abstract class L2Effect
 			_currentFuture = ThreadPoolManager.getInstance().scheduleEffect(_currentTask, duration * 1000);
 		}
 	}
-	
+
+	public boolean getShowIcon()
+	{
+		return _icon;
+	}
+
 	public int getPeriod()
 	{
 		return _period;

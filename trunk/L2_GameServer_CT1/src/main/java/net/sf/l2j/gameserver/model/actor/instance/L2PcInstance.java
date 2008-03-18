@@ -3568,7 +3568,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 L2Effect effect = effects[i];
 
-                if (effect == null)
+                if (effect == null || !effect.getShowIcon())
                 {
                     continue;
                 }
@@ -11882,7 +11882,6 @@ public final class L2PcInstance extends L2PlayableInstance
             rset.next();
             _transformationId = rset.getInt("transform_id");
             statement.close();
-            return _transformationId;
         }
         catch (Exception e)
         {
@@ -11892,7 +11891,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             try { con.close(); } catch (Exception e) {}
         }
-        return _transformationId = 0;
+        return _transformationId;
     }
 
     public void transformUpdateInfo()
