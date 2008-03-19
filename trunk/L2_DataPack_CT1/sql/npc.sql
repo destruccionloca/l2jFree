@@ -8333,6 +8333,12 @@ UPDATE npc SET ss = 100, ss_rate = 50 WHERE idTemplate = 21795;
 
 UPDATE `npc` SET `type` = 'L2Boss' WHERE `type` = 'L2GrandBoss';
 
+-- greater wolf start level 55 not 70, thx dorban for the hint
+UPDATE `npc` SET `level` = 50 WHERE `id` = 16030;
+
+-- Fix for Triol's High Priest
+UPDATE `npc` SET `lhand` = 8206 WHERE `id` in (22163,22171);
+
 UPDATE `npc` SET `type` = 'L2SepulcherNpc' WHERE `id` IN
 ( 31452,31453,31454,31455,31456,31457,31458,31459,31460,31461,31462,31463,31464,31465,31466,
   31467,31468,31469,31470,31471,31472,31473,31474,31475,31476,31477,31478,31479,31480,31481,

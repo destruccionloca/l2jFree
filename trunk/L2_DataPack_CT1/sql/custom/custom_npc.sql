@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `custom_npc` (
   `type` varchar(20) default NULL,
   `attackrange` int(11) default NULL,
   `hp` decimal(8,0) default NULL,
-  `mp` decimal(5,0) default NULL,
+  `mp` decimal(8,0) default NULL,
   `hpreg` decimal(8,2) default NULL,
   `mpreg` decimal(5,2) default NULL,
   `str` decimal(7,0) default NULL,
