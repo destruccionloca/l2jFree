@@ -56,6 +56,7 @@ import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.skills.effects.EffectTemplate;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.skills.funcs.FuncTemplate;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillAgathion;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillChangeWeapon;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillCharge;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillChargeDmg;
@@ -132,7 +133,8 @@ public abstract class L2Skill
 		LUCKNOBLESSE(L2SkillCreateItem.class),
 		SEED(L2SkillSeed.class),
 		SUMMON(L2SkillSummon.class),
-		SUMMON_TRAP(L2SkillTrap.class);
+		SUMMON_TRAP(L2SkillTrap.class),
+		AGATHION(L2SkillAgathion.class);
 
 
 		private final Class<? extends L2Skill> _class;

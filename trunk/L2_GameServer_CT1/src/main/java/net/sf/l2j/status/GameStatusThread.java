@@ -75,6 +75,10 @@ import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.util.DynamicExtension;
 import net.sf.l2j.gameserver.util.Util;
 
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -85,6 +89,7 @@ import org.apache.commons.logging.LogFactory;
 public class GameStatusThread extends Thread
 {
 	private static final Log	_log	= LogFactory.getLog(GameStatusThread.class.getName());
+    	private static String gmname = null; 
 
 	private Socket				_cSocket;
 
@@ -182,7 +187,7 @@ public class GameStatusThread extends Thread
 		if (isValidIP(client))
 		{
 			telnetOutput(1, client.getInetAddress().getHostAddress() + " accepted!");
-			_print.println("Welcome to the L2j-Free Telnet Server...");
+			_print.println("Welcome to the L2j-free Telnet Server...");
 			_print.println("Please insert your Password!");
 			_print.print("Password: ");
 			_print.flush();
@@ -205,11 +210,38 @@ public class GameStatusThread extends Thread
 				}
 				else
 				{
-					_print.println("Connection accepted... Welcome!");
-					_print.println("[L2j-Free Telnet Console]");
-					_print.print("");
-					_print.flush();
-					start();
+                    _print.println("Password Correct!");
+                    _print.print("GM name: ");
+                    _print.flush();
+                    gmname = _read.readLine();
+                    String RESTORE_CHARACTER = "SELECT char_name, accesslevel FROM characters WHERE char_name = '"+gmname+"' AND accesslevel >= 100";
+                    try {
+                    	Class.forName("com.mysql.jdbc.Driver"); //select the MySQL driver
+                    	Connection con = DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_LOGIN, Config.DATABASE_PASSWORD);
+                    	Statement stmt = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                    	ResultSet rs = stmt.executeQuery(RESTORE_CHARACTER);
+                    	int x = 0;
+                    	while(rs.next()) {
+                    		x++;
+                    	}
+                    	if(x != 1) {
+                    		_print.println("No GMs of that name, disconnected...");
+                    		_print.flush();
+                    		_cSocket.close();
+                    	}
+                    	else {
+                    		_print.println("Welcome, "+gmname);
+                    	}
+                    } catch (Exception e) {
+                    	_print.println("Error, disconnected...");
+                    	_print.flush();
+                    	_cSocket.close();
+                    }
+                    telnetOutput(4, gmname+" successfully connected to Telnet.");
+                    _print.println("L2j-free...");
+                    _print.print("");
+                    _print.flush();
+                    start();
 				}
 			}
 		}
@@ -397,7 +429,7 @@ public class GameStatusThread extends Thread
 					try
 					{
 						_usrCommand = _usrCommand.substring(9);
-						Announcements.getInstance().announceToAll(_usrCommand);
+						Announcements.getInstance().announceToAll(_usrCommand+" ["+gmname+"(offline)]");
 						_print.println("Announcement Sent!");
 					}
 					catch (StringIndexOutOfBoundsException e)
@@ -414,11 +446,11 @@ public class GameStatusThread extends Thread
 						String name = st.nextToken();
 						String message = val.substring(name.length() + 1);
 						L2PcInstance reciever = L2World.getInstance().getPlayer(name);
-						CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), "Telnet Priv", message);
+						CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), gmname+"(offline)", message);
 						if (reciever != null)
 						{
 							reciever.sendPacket(cs);
-							_print.println("Telnet Priv->" + name + ": " + message);
+							_print.println(gmname+"(offline): " + name + ": " + message);
 							_print.println("Message Sent!");
 						}
 						else

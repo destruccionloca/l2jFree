@@ -2183,6 +2183,9 @@ public abstract class L2Character extends L2Object
 		else
 			stopAllEffects();
 
+        if (this instanceof L2PcInstance && ((L2PcInstance)this).getAgathionId() != 0)
+        	((L2PcInstance)this).setAgathionId(0);
+
 		calculateRewards(killer);
 
 		// Send the Server->Client packet StatusUpdate with current HP and MP to all other L2PcInstance to inform
