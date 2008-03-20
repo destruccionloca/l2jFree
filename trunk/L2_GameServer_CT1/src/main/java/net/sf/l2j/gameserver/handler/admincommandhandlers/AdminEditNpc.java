@@ -108,12 +108,22 @@ public class AdminEditNpc implements IAdminCommandHandler
 			{
 				String[] commandSplit = command.split(" "); 
 				int npcId = Integer.valueOf(commandSplit[1]);
+				int pageId = 1;
+
+				try
+				{
+					pageId = Integer.valueOf(commandSplit[2]);
+				}
+				catch (Exception e)
+				{
+				}
+
 				L2NpcTemplate npc = NpcTable.getInstance().getTemplate(npcId);
-				Show_Npc_Property(activeChar, npc);
+				Show_Npc_Property(activeChar, npc, pageId);
 			}
 			catch (Exception e)
 			{
-				activeChar.sendMessage("Wrong usage: //edit_npc <npcId>");
+				activeChar.sendMessage("Wrong usage: //edit_npc <npcId> [<pageId>]");
 			}
 		}
 		else if(command.startsWith("admin_load_npc"))
@@ -861,10 +871,10 @@ public class AdminEditNpc implements IAdminCommandHandler
 		return ADMIN_COMMANDS;
 	}
 
-	private void Show_Npc_Property(L2PcInstance activeChar, L2NpcTemplate npc)
+	private void Show_Npc_Property(L2PcInstance activeChar, L2NpcTemplate npc, int pageId)
 	{
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
-		String content = HtmCache.getInstance().getHtm("data/html/admin/editnpc.htm");
+		String content = HtmCache.getInstance().getHtm("data/html/admin/editnpc-" + pageId + ".htm");
 
 		if (content != null)
 		{
@@ -912,7 +922,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			adminReply.replace("%absorbType%", String.valueOf(npc.getAbsorbType()));
 		}
 		else
-			adminReply.setHtml("<html><body>File not found: data/html/admin/editnpc.htm</body></html>");
+			adminReply.setHtml("<html><body>File not found: " + content + "</body></html>");
 
 		activeChar.sendPacket(adminReply);		
 	}
@@ -1040,7 +1050,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		int npcId = newNpcData.getInteger("npcId");
 
 		NpcTable.getInstance().reloadNpc(npcId);
-		Show_Npc_Property(activeChar, NpcTable.getInstance().getTemplate(npcId));
+		Show_Npc_Property(activeChar, NpcTable.getInstance().getTemplate(npcId), 1);
 	}
 
 	private void showNpcDropList(L2PcInstance activeChar, int npcId)

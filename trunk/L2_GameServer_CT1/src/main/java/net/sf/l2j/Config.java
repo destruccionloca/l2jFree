@@ -1004,6 +1004,7 @@ public final class Config
 	public static boolean			SHOW_L2J_LICENSE;											// Show License at login
 	public static boolean			SHOW_HTML_WELCOME;											// Show html window at login
 	public static boolean			SHOW_HTML_NEWBIE;
+	public static boolean			SHOW_HTML_GM;
 	public static int				LEVEL_HTML_NEWBIE;											// Show newbie html when player's level is < to define level
 	public static boolean			USE_SAY_FILTER;												// Config for use chat filter
 	public static ArrayList<String>	FILTER_LIST				= new ArrayList<String>();
@@ -1281,6 +1282,7 @@ public final class Config
 			SHOW_L2J_LICENSE = Boolean.parseBoolean(optionsSettings.getProperty("ShowL2JLicense", "false"));
 			SHOW_HTML_WELCOME = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLWelcome", "false"));
 			SHOW_HTML_NEWBIE = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLNewbie", "False"));
+			SHOW_HTML_GM = Boolean.parseBoolean(optionsSettings.getProperty("ShowHTMLGm", "False"));
 			LEVEL_HTML_NEWBIE = Integer.parseInt(optionsSettings.getProperty("LevelShowHTMLNewbie", "10"));
 			USE_SAY_FILTER = Boolean.parseBoolean(optionsSettings.getProperty("UseSayFilter", "false"));
 			
@@ -1719,6 +1721,7 @@ public final class Config
 	public static int			STANDARD_RESPAWN_DELAY;								// Standard Respawn Delay
 	public static boolean		GM_HERO_AURA;										// Place an aura around the GM ?
 	public static boolean		GM_STARTUP_INVULNERABLE;							// Set the GM invulnerable at startup ?
+	public static boolean		GM_ANNOUNCER_NAME;
 	
 	// *******************************************************************************************
 	public static void loadGmAccess()
@@ -1779,6 +1782,7 @@ public final class Config
 			GM_HERO_AURA = Boolean.parseBoolean(gmSettings.getProperty("GMHeroAura", "True"));
 			GM_STARTUP_INVULNERABLE = Boolean.parseBoolean(gmSettings.getProperty("GMStartupInvulnerable", "True"));
 			STANDARD_RESPAWN_DELAY = Integer.parseInt(gmSettings.getProperty("StandardRespawnDelay", "0"));
+			GM_ANNOUNCER_NAME = Boolean.parseBoolean(gmSettings.getProperty("GMShowAnnouncerName", "false"));
 			
 			String gmTrans = gmSettings.getProperty("GMDisableTransaction", "False");
 			

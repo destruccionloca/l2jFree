@@ -307,6 +307,19 @@ public class EnterWorld extends L2GameClientPacket
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(Newbie_Path);
+				html.replace("%name%", activeChar.getName()); // replaces %name% with activeChar.getName(), so you can say like "welcome to the server %name%"
+				sendPacket(html);
+			}
+		}
+		else if (Config.SHOW_HTML_GM && activeChar.isGM())
+		{
+			String Gm_Path = "data/html/gm.htm";
+			File mainText = new File(Config.DATAPACK_ROOT, Gm_Path); // Return the pathfile of the HTML file
+			if (mainText.exists())
+			{
+				NpcHtmlMessage html = new NpcHtmlMessage(1);
+				html.setFile(Gm_Path);
+				html.replace("%name%", activeChar.getName()); // replaces %name% with activeChar.getName(), so you can say like "welcome to the server %name%"
 				sendPacket(html);
 			}
 		}
@@ -318,6 +331,7 @@ public class EnterWorld extends L2GameClientPacket
 			{
 				NpcHtmlMessage html = new NpcHtmlMessage(1);
 				html.setFile(Welcome_Path);
+				html.replace("%name%", activeChar.getName()); // replaces %name% with activeChar.getName(), so you can say like "welcome to the server %name%"
 				sendPacket(html);
 			}
 		}

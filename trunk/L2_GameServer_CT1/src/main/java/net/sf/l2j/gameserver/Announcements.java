@@ -87,7 +87,7 @@ public class Announcements implements AnnouncementsMBean
 	{
 		for (int i = 0; i < _announcements.size(); i++)
 		{
-			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), _announcements.get(i));
+			CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Announce.getId(), activeChar.getName(), _announcements.get(i).replace("%name%", activeChar.getName()).toString());
 			activeChar.sendPacket(cs);
 		}
 		if (leaderboardAnnouncement != null)

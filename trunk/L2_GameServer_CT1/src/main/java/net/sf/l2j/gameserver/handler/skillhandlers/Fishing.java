@@ -72,7 +72,7 @@ public class Fishing implements ISkillHandler
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_ON_BOAT));
 			return;
 		}
-		if (!player.isInsideZone(L2Zone.FLAG_FISHING))
+		if (!player.isInsideZone(L2Zone.FLAG_FISHING) || player.isInsideZone(L2Zone.FLAG_PEACE))
 		{
 			//You can't fish here
 			player.sendPacket(new SystemMessage(SystemMessageId.CANNOT_FISH_HERE));

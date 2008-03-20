@@ -98,6 +98,8 @@ public class AdminAnnouncements implements IAdminCommandHandler {
 		else if (command.startsWith("admin_announce"))
 		{
 			// Call method from another class
+			if (Config.GM_ANNOUNCER_NAME)
+            			command += " ["+activeChar.getName()+"]";
 			Announcements.getInstance().handleAnnounce(command, 15);
 		}
 		
