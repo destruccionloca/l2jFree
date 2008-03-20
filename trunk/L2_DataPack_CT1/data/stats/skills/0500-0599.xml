@@ -141,11 +141,24 @@ description(s) :
   </for>
 </skill>
 <skill id="506" levels="4" name="Checkmate">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <!-- by Sephiroth for team umbrella -->
+  <table name="#power"> 2388 3408 4275 5180 </table>
+  <table name="#mpConsume"> 40 47 52 57 </table>
+  <set name="weaponsAllowed" val="131072"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
   <set name="baseCritRate" val="15"/>
+  <set name="reuseDelay" val="22000"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="ignoreShield" val="true"/>
+  <set name="SSBoost" val="2.0"/>
+  <set name="soulConsumeCount" val="2"/>
+  <set name="power" val="#power"/>
+  <cond>
+	<target active_effect_id="1435"/>
+  </cond>
   <for>
   </for>
 </skill>
@@ -230,19 +243,52 @@ description(s) :
     <effect count="7" name="DamOverTime" time="3" val="74" abnormal="bleeding"/>
   </for>
 </skill>
-<skill id="510" levels="5" name="Deadly Roulette">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<skill id="510" levels="5" name="Deadly Roulette" enchantLevels1="30" enchantLevels2="30">
+  <!-- by Sephiroth for team umbrella -->
+  <table name="#mpConsume"> 111 115 118 122 125 </table>
+  <table name="#power"> 4732 4869 4915 5097 5212 </table>
+  <table name="#ench1Chance1"> 6 6 6 6 6 6 7 7 7 7 7 7 8 8 8 8 8 8 9 9 9 9 9 9 10 10 10 10 10 10 </table>
+  <table name="#ench1Chance2"> 3 3 6 3 3 3 4 4 4 4 4 4 5 5 5 5 5 5 6 6 6 6 6 6 7 7 7 7 7 7 </table>
+  <table name="#ench2MpConsume"> 122 120 118 116 113 111 109 107 104 102 100 98 95 93 91 89 87 84 82 80 78 75 73 71 69 66 64 62 60 58 </table>
+  <set name="itemConsumeId" val="10113"/>
+  <set name="itemConsumeCount" val="1"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="weaponsAllowed" val="9212"/>
+  <set name="magicLvl" val="72"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="PDAM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="900"/>
+  <set name="effectRange" val="1400"/>
+  <set name="reuseDelay" val="30000"/>
+  <set name="SSBoost" val="2.0"/>
+  <set name="lethal1" val="5"/>
+  <set name="lethal2" val="2"/>
+  <set name="hitTime" val="3000"/>
+  <set name="soulConsumeCount" val="2"/>
+  <ench1 name="lethal1" val="#ench1Chance1"/>
+  <ench1 name="lethal2" val="#ench1Chance2"/>
+  <ench1 name="mpConsume" val="#ench2MpConsume"/>
+  <cond msg="Condition is not valid to use this skill">
+	<player hp="10"/>
+  </cond>
   <for>
   </for>
 </skill>
 <skill id="511" levels="1" name="Temptation">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <!-- by Sephiroth for team umbrella -->
+  <set name="magicLvl" val="52"/>
+  <set name="mpConsume" val="44"/>
+  <set name="power" val="500.0"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="10000"/>
+  <set name="hitTime" val="1500"/>
+  <set name="skillType" val="AGGDAMAGE"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
   </for>
 </skill>
@@ -255,10 +301,17 @@ description(s) :
   </for>
 </skill>
 <skill id="513" levels="1" name="Create Dark Seed">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <!-- by Sephiroth for team umbrella -->
+  <set name="mpConsume" val="58"/>
+  <set name="hitTime" val="3000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="CREATE_ITEM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="create_item_id" val="10001"/>
+  <set name="create_item_count" val="1"/>
+  <set name="soulConsumeCount" val="1"/>
   <for>
   </for>
 </skill>

@@ -972,18 +972,15 @@
   </for>
 </skill>
 <skill id="444" levels="1" name="Festive Sweeper">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      When used on nearby corpses that are in a Spoil state, extra items may be obtained.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="mpConsume" val="12"/>
+  <set name="skillRadius" val="85"/>
+  <set name="target" val="TARGET_AREA_CORPSE_MOB"/>
+  <set name="skillType" val="SWEEP"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="reuseDelay" val="23000"/>
+  <set name="hitTime" val="5000"/>
   <for>
-<!-- needs core support -->
   </for>
 </skill>
 <skill id="445" levels="1" name="Mirage">
