@@ -1824,6 +1824,8 @@ public final class Config
 	public static final String	TELNET_FILE	= "./config/telnet.properties";
 	// *******************************************************************************************
 	public static boolean		IS_TELNET_ENABLED;							// Is telnet enabled ?
+	public static boolean		ALT_TELNET;							// Use alternative telnet ?
+	public static boolean		ALT_TELNET_GM_ANNOUNCER_NAME;							// Show GM's name behind his announcement ? (only works if AltTelnet = true)
 	
 	// *******************************************************************************************
 	public static void loadTelnetConfig()
@@ -1837,6 +1839,8 @@ public final class Config
 			is.close();
 			
 			IS_TELNET_ENABLED = Boolean.parseBoolean(telnetSettings.getProperty("EnableTelnet", "false"));
+			ALT_TELNET = Boolean.parseBoolean(telnetSettings.getProperty("AltTelnet", "false"));
+			ALT_TELNET_GM_ANNOUNCER_NAME = Boolean.parseBoolean(telnetSettings.getProperty("AltTelnetGmAnnouncerName", "false"));
 		}
 		catch (Exception e)
 		{
