@@ -549,10 +549,17 @@ public class NpcTable implements NpcTableMBean
 	    }
 	    catch (Exception e)
 	    {
+	    }
+
+	    try
+	    {
 		PreparedStatement statement = con.prepareStatement(query_custom);
             	statement.setInt(1, npc.getInteger("npcId"));
             	statement.execute();
             	statement.close();
+	    }
+	    catch (Exception e)
+	    {
 	    }
         }
         catch (Exception e)
