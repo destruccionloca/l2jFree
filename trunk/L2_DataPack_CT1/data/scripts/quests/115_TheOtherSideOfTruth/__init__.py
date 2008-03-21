@@ -5,6 +5,7 @@ import sys
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
+from net.sf.l2j.gameserver.network.serverpackets import CreatureSay
 
 qn = "115_TheOtherSideOfTruth"
 
@@ -65,7 +66,7 @@ class Quest (JQuest) :
           st.set("cond","11")
           htmltext = "32020-19.htm"
        else:
-          st.exitQuest(false)
+          st.exitQuest(0)
           st.playSound("ItemSound.quest_finish")
           st.giveItems(57,60044)
     elif event == "32020-19.htm" :
@@ -82,7 +83,7 @@ class Quest (JQuest) :
        st.set("talk","1")
        htmltext = "Sculpture-05.htm"
        st.set(str(npc.getNpcId()),"1")
-    elif event == "Sculpture-04a" :
+    elif event == "Sculpture-04a.htm" :
        st.playSound("ItemSound.quest_middle")
        st.set("cond","8")
        man = st.addSpawn(Suspicious,117890,-126478,-2584,0,False,4000)
