@@ -508,16 +508,7 @@ public class Disablers implements ISkillHandler
                 }  
                 case UNPOISON:
                 {
-                    L2Effect[] effects = target.getAllEffects();
-                    for (L2Effect e : effects)
-                    {
-                        if (e.getSkill().getSkillType() == SkillType.POISON &&
-                                skill.getPower() >= e.getSkill().getPower()) 
-                        {
-                            e.exit();
-                            break;
-                        }  
-                    }
+                    negateEffect(target,SkillType.POISON,skill.getPower());
                     break;
                 }
 
@@ -761,9 +752,10 @@ public class Disablers implements ISkillHandler
                             if (stat == "confusion") negateEffect(target,SkillType.CONFUSION,-1);
                             if (stat == "mute") negateEffect(target,SkillType.MUTE,-1);
                             if (stat == "fear") negateEffect(target,SkillType.FEAR,-1);
+                            if (stat == "paralyze") negateEffect(target,SkillType.PARALYZE,-1);
                             if (stat == "poison") negateEffect(target,SkillType.POISON,_negatePower);
                             if (stat == "bleed") negateEffect(target,SkillType.BLEED,_negatePower);
-                            if (stat == "paralyze") negateEffect(target,SkillType.PARALYZE,-1);
+                            if (stat == "death_mark") negateEffect(target,SkillType.DEATH_MARK,_negatePower);
                             if (stat == "heal")
                             {
                                 ISkillHandler Healhandler = SkillHandler.getInstance().getSkillHandler(SkillType.HEAL);

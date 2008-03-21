@@ -116,7 +116,7 @@ public abstract class L2Skill
 	public static enum SkillType
 	{
 		PDAM, MDAM, CPDAM, AGGDAMAGE,
-		DOT, HOT, MHOT, BLEED, POISON, CPHOT, MPHOT, BUFF, DEBUFF, STUN, ROOT, CONT, SIGNET, CONFUSION, FORCE_BUFF, PARALYZE, FEAR, SLEEP,
+		DOT, HOT, MHOT, BLEED, POISON, CPHOT, MPHOT, BUFF, DEBUFF, STUN, ROOT, CONT, SIGNET, CONFUSION, FORCE_BUFF, PARALYZE, FEAR, SLEEP, DEATH_MARK,
 		HEAL, COMBATPOINTHEAL, MANAHEAL, MANAHEAL_PERCENT, MANARECHARGE, RESURRECT, PASSIVE, UNLOCK,
 		NEGATE, CANCEL,  AGGREDUCE, AGGREMOVE, AGGREDUCE_CHAR, CONFUSE_MOB_ONLY, DEATHLINK, BLOW, FATALCOUNTER, DETECT_WEAKNESS, ENCHANT_ARMOR, ENCHANT_WEAPON, FEED_PET,
 		HEAL_PERCENT, HEAL_STATIC, LUCK, MANADAM, MDOT, MUTE, RECALL, REFLECT, SUMMON_FRIEND, SOULSHOT, SPIRITSHOT, SPOIL, SWEEP, WEAKNESS, DISARM, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, UNDEAD_DEFENSE,  BEAST_FEED, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, CHARGESOUL, GET_PLAYER,
@@ -341,7 +341,7 @@ public abstract class L2Skill
 	private final SkillType			_skillType;
 	private final SkillType			_effectType;
 	private final int				_effectPower;
-	private final int				_effectLvl;
+	private final float				_effectLvl;
 	private final int				_skill_landing_percent;
 
 	private final boolean			_ispotion;
@@ -489,7 +489,7 @@ public abstract class L2Skill
 
 		_effectType = set.getEnum("effectType", SkillType.class, null);
 		_effectPower = set.getInteger("effectPower", 0);
-		_effectLvl = set.getInteger("effectLevel", 0);
+		_effectLvl = set.getFloat("effectLevel", 0.f);
 		_skill_landing_percent = set.getInteger("skill_landing_percent", 0);
 		_element = set.getInteger("element", 0);
 		_savevs = set.getInteger("save", 0);
@@ -781,7 +781,7 @@ public abstract class L2Skill
 	 * Return the additional effect level.<BR>
 	 * <BR>
 	 */
-	public final int getEffectLvl()
+	public final float getEffectLvl()
 	{
 		return _effectLvl;
 	}
