@@ -514,6 +514,7 @@ public class NpcTable implements NpcTableMBean
     {
         java.sql.Connection con = null;
         String query = "";
+        String query_custom = "";
         
         try
         {
@@ -537,10 +538,22 @@ public class NpcTable implements NpcTableMBean
             }
             
             query = "UPDATE npc SET " + values + " WHERE id = ?";
-            PreparedStatement statement = con.prepareStatement(query);
-            statement.setInt(1, npc.getInteger("npcId"));
-            statement.execute();
-            statement.close();
+	    query_custom = "UPDATE custom_npc SET " + values + " WHERE id = ?";
+
+	    try
+	    {
+		PreparedStatement statement = con.prepareStatement(query);
+            	statement.setInt(1, npc.getInteger("npcId"));
+            	statement.execute();
+            	statement.close();
+	    }
+	    catch (Exception e)
+	    {
+		PreparedStatement statement = con.prepareStatement(query_custom);
+            	statement.setInt(1, npc.getInteger("npcId"));
+            	statement.execute();
+            	statement.close();
+	    }
         }
         catch (Exception e)
         {

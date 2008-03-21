@@ -720,9 +720,20 @@ public class AdminEditNpc implements IAdminCommandHandler
 			stmt.execute();
 			stmt.close();
 		}
-		catch (SQLException esql)
+		catch (SQLException esql1)
 		{
-			esql.printStackTrace();
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement stmt = con.prepareStatement("INSERT INTO custom_merchant_buylists (`item_id`,`price`,`shop_id`,`order`) values ("+itemID+","+price+","+tradeListID+","+order+")");
+				stmt.execute();
+				stmt.close();
+			}
+			catch (SQLException esql2)
+			{
+				esql1.printStackTrace();
+				esql2.printStackTrace();
+			}
 		}
 		finally
 		{
@@ -783,12 +794,22 @@ public class AdminEditNpc implements IAdminCommandHandler
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
 			stmt.execute();
-
 			stmt.close();
 		}
-		catch (SQLException esql)
+		catch (SQLException esql1)
 		{
-			esql.printStackTrace();
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement stmt = con.prepareStatement("DELETE FROM custom_merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
+				stmt.execute();
+				stmt.close();
+			}
+			catch (SQLException esql2)
+			{
+				esql1.printStackTrace();
+				esql2.printStackTrace();
+			}
 		}
 		finally
 		{
@@ -819,9 +840,20 @@ public class AdminEditNpc implements IAdminCommandHandler
 			stmt.close();
 			rs.close();
 		}
-		catch (SQLException esql)
+		catch (SQLException esql1)
 		{
-			esql.printStackTrace();
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement stmt = con.prepareStatement("SELECT * FROM custom_merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `item_id` ='"+itemID+"' AND `price` = '"+price+"'");
+				stmt.execute();
+				stmt.close();
+			}
+			catch (SQLException esql2)
+			{
+				esql1.printStackTrace();
+				esql2.printStackTrace();
+			}
 		}
 		finally
 		{
