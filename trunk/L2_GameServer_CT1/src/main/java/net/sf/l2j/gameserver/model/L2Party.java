@@ -690,7 +690,8 @@ public class L2Party
         
         float penalty;
         double sqLevel;
-        double preCalculation;
+        double preCalculationExp;
+        double preCalculationSp;
 
 		xpReward *= getExpBonus(validMembers.size());
 		spReward *= getSpBonus(validMembers.size());
@@ -727,13 +728,14 @@ public class L2Party
 				if (validMembers.contains(member))
 				{
 					sqLevel = member.getLevel() * member.getLevel();
-					preCalculation = (sqLevel / sqLevelSum) * (1 - penalty);
+					preCalculationExp = (sqLevel / sqLevelSum) * (1 - penalty);
+					preCalculationSp = (sqLevel / sqLevelSum);
 					
 					// Add the XP/SP points to the requested party member
 					if (!member.isDead())
 					{
-						long addexp = Math.round(member.calcStat(Stats.EXPSP_RATE, xpReward * preCalculation, null, null));
-						int addsp = (int)member.calcStat(Stats.EXPSP_RATE, spReward * preCalculation, null, null);
+						long addexp = Math.round(member.calcStat(Stats.EXPSP_RATE, xpReward * preCalculationExp, null, null));
+						int addsp = (int)member.calcStat(Stats.EXPSP_RATE, spReward * preCalculationSp, null, null);
 						if (target != null && member instanceof L2PcInstance)
 						{
 							// Soul Mastery skill
