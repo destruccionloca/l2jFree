@@ -54,6 +54,7 @@ public class Say2 extends L2GameClientPacket
     protected void readImpl()
     {
         _text = readS();
+        _text = _text.replaceAll("\\\\n","");
         try
         {
             _type = SystemChatChannelId.getChatType(readD());
