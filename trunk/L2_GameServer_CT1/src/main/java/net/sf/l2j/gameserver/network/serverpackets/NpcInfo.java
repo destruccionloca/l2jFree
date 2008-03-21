@@ -330,8 +330,8 @@ public class NpcInfo extends L2GameServerPacket
             writeH(owner.getCharRecommendationStatus().getRecomHave()); //Blue value for name (0 = white, 255 = pure blue)
             writeD(owner.getMountNpcId() + 1000000);
 
-            writeD(owner.getMaxCp());
-            writeD((int) owner.getStatus().getCurrentCp());
+            writeD(owner.getClassId().getId());
+            writeD(0x00); //?
             writeC(owner.isMounted() ? 0 : owner.getEnchantEffect());
 
             if(owner.getTeam()==1)
@@ -352,14 +352,12 @@ public class NpcInfo extends L2GameServerPacket
 
             writeD(owner.getAppearance().getNameColor());
 
-            writeD(0x00); // isRunning() as in UserInfo?
+            writeD(_heading);
 
             writeD(owner.getPledgeClass());
-            writeD(0x00); // ??
+            writeD(owner.getSubPledgeType());
 
             writeD(owner.getAppearance().getTitleColor());
-
-            //writeD(0x00); // ??
 
             if (owner.isCursedWeaponEquipped())
                 writeD(CursedWeaponsManager.getInstance().getLevel(owner.getCursedWeaponEquippedId()));
@@ -367,9 +365,14 @@ public class NpcInfo extends L2GameServerPacket
                 writeD(0x00);
 
             // T1 
-            writeD(0x00); 
-            
-            writeD(owner.getTranformationId()); 
+            if (owner.getClan() != null)
+                writeD(owner.getClan().getReputationScore());
+            else
+                writeD(0x00); 
+
+            // T1
+            writeD(0x00); // Can Decoys be transformed?
+            writeD(0x00); // Can Decoys have Agathions?
         }
         else
         {
