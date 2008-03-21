@@ -3365,7 +3365,21 @@ public final class Config
 			SIEGE_CLAN_MIN_LEVEL = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("SiegeLength"))
 			SIEGE_LENGTH_MINUTES = Integer.parseInt(pValue);
-		
+
+		// Telnet settings
+		else if (pName.equalsIgnoreCase("AltTelnet")) 
+			ALT_TELNET = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("AltTelnetGmAnnouncerName")) 
+			ALT_TELNET_GM_ANNOUNCER_NAME = Boolean.parseBoolean(pValue); 
+
+		// GM options
+		else if (pName.equalsIgnoreCase("GMShowAnnouncerName")) 
+			GM_ANNOUNCER_NAME = Boolean.parseBoolean(pValue); 
+
+		// Options
+		else if (pName.equalsIgnoreCase("ShowHTMLGm")) 
+			SHOW_HTML_GM = Boolean.parseBoolean(pValue); 
+	
 		else
 			return false;
 		return true;
