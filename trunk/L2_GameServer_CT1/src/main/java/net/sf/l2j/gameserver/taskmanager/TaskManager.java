@@ -185,7 +185,7 @@ public final class TaskManager
 
     public void registerTask(Task task)
     {
-        int key = task.getName().hashCode();
+        int key = task.getName().trim().toLowerCase().hashCode();
         if (!_tasks.containsKey(key))
         {
             _tasks.put(key, task);

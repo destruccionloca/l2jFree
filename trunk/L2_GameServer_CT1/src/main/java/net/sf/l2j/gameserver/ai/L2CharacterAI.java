@@ -1130,6 +1130,7 @@ public class L2CharacterAI extends AbstractAI
                         hasHealOrResurrect = true;
                         break;
                     case NOTDONE:
+                    case COREDONE:
                         continue; // won't be considered something for fighting
                     default:
                         if (!sk.isPassive()) {
