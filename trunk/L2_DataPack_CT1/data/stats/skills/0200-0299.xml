@@ -263,6 +263,10 @@
   60 61 62 63 64 65 66 67 68 68
   69 70 71 72 73 74 75 76 77 78
   </table>
+  <table name="#effectLevel">
+  3.0 3.0 3.0 3.0 3.0 3.0 4.0 4.0 4.0 4.0 4.0 4.0 4.0 4.0 5.0 5.0 5.0
+  5.0 5.0 5.0 5.0 5.0 5.0 5.0 6.0 6.0 6.0 6.0 6.0 6.0 6.0 6.0 6.0 6.0
+  7.0 7.0 7.0 7.0 7.0 7.0 7.0 7.0 7.0 7.0 8.0 8.0 8.0 8.0 8.0 </table>
   <set name="weaponsAllowed" val="2580"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="magicLvl" val="#magicLvl"/>
@@ -280,6 +284,7 @@
   <set name="effectRange" val="400"/>
   <set name="effectType" val="BLEED"/>
   <set name="effectPower" val="50"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <enchant1 name="effectPower" val="#ench1Chance"/>
   <enchant1 name="power" val="1218"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>

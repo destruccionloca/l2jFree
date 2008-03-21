@@ -38,13 +38,15 @@
   </for>
 </skill>
 <skill id="3005" levels="1" name="Bleed">
-  <set name="power" val="5.0"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BLEED"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectType" val="BLEED"/>
+  <set name="effectLevel" val="5.0"/>
   <for>
-    <effect count="7" name="DamOverTime" time="3" val="66"/>
+    <effect count="7" name="DamOverTime" time="3" val="66" abnormal="bleeding"/>
   </for>
 </skill>
 <skill id="3006" levels="1" name="Equip Set Items">
@@ -264,15 +266,17 @@
 <!-- Done by SarutrA - SqueezeD -->
   <table name="#magicLvl"> 24 32 49 58 66 70 </table>
   <table name="#dmg"> 13 17 22 27 31 34 </table>
-  <table name="#power"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
+  <table name="#effectLevel"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="2"/>
-  <set name="power" val="#power"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BLEED"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
+  <set name="effectType" val="BLEED"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <effect count="4" name="DamOverTime" time="5" val="#dmg" abnormal="bleeding"/>
   </for>
@@ -316,9 +320,9 @@
 <!-- Done by SarutrA - SqueezeD -->
   <table name="#magicLvl"> 20 30 44 52 62 72 </table>
   <table name="#dmg"> 18 24 31 38 44 48 </table>
-  <table name="#power"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
+  <table name="#effectLevel"> 3.0 4.0 5.0 6.0 7.0 8.0 </table>
   <set name="magicLvl" val="#magicLvl"/>
-  <set name="power" val="#power"/>
+  <set name="power" val="0.0"/>
   <set name="lvlDepend" val="1"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="POISON"/>
@@ -326,6 +330,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
+  <set name="effectType" val="POISON"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
   </for>

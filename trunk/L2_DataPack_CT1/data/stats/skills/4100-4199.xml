@@ -777,8 +777,8 @@
 <skill id="4148" levels="12" name="Poison">
   <!-- Done by KID -->
   <table name="#dmg"> 30 50 60 80 110 130 140 140 145 150 165 170 </table>
-  <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
-  <set name="power" val="#power"/>
+  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="POISON"/>
   <set name="stat" val="POISON"/>
@@ -786,6 +786,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="effectType" val="POISON"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <effect count="6" name="DamOverTime" time="5" val="#dmg" abnormal="poison"/>
   </for>
@@ -793,17 +795,18 @@
 <skill id="4149" levels="12" name="Bleed">
   <!-- Done by KID [C4sources] -->
   <table name="#damage"> 9 13 17 22 27 31 34 34 35 35 34 34 </table>
-  <table name="#bleedEffectPower"> 2 3 4 5 6 7 8 8 9 9 10 10 </table>
-  <set name="bleedEffectPower" val="#bleedEffectPower"/>
+  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BLEED"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
   <set name="displayId" val="96"/>
-  <set name="abnormal_type" val="bleeding"/>
+  <set name="effectType" val="BLEED"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
-  <effect count="6" name="DamOverTime" time="5" val="#damage"/>
+  <effect count="6" name="DamOverTime" time="5" val="#damage" abnormal="bleeding"/>
   </for>
 </skill>
 <skill id="4150" levels="12" name="Flame">
@@ -1408,13 +1411,13 @@
 <skill id="4182" levels="12" name="Poison">
   <table name="#dmg"> 36 54 72 93 114 132 144 144 147 147 144 144 </table>
   <table name="#mpConsume"> 17 29 39 53 67 83 97 103 108 112 115 116 </table>
-  <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
   <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="save" val="3"/>
-  <set name="power" val="#power"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
@@ -1424,6 +1427,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="effectType" val="POISON"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
   </for>
@@ -1538,13 +1543,13 @@
 <skill id="4188" levels="12" name="Bleed">
   <table name="#damage"> 27 39 51 66 81 93 102 102 105 105 102 102 </table>
   <table name="#mpConsume"> 17 29 39 53 67 83 97 103 108 112 115 116 </table>
-  <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
   <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="save" val="4"/>
-  <set name="power" val="#power"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_AURA"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
@@ -1553,6 +1558,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
+  <set name="effectType" val="BLEED"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <effect count="7" name="DamOverTime" time="3" val="#damage"/>
   </for>
@@ -1741,13 +1748,13 @@
 <skill id="4198" levels="12" name="Poison">
   <table name="#dmg"> 36 54 72 93 114 132 144 144 147 147 144 144 </table>
   <table name="#mpConsume"> 17 29 39 53 67 83 97 103 108 112 115 116 </table>
-  <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
   <table name="#magicLvl"> 14 24 34 44 54 64 74 79 84 89 94 99 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="save" val="3"/>
-  <set name="power" val="#power"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="hitTime" val="2500"/>
@@ -1755,6 +1762,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="750"/>
   <set name="effectRange" val="1250"/>
+  <set name="effectType" val="POISON"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
   </for>

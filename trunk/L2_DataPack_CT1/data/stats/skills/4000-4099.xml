@@ -559,12 +559,12 @@
 <skill id="4035" levels="12" name="Poison">
   <table name="#dmg"> 36 54 72 93 114 132 144 144 150 150 153 153 </table>
   <table name="#mpConsume"> 13 20 27 35 45 55 65 69 73 83 77 78 </table>
-  <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
   <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="#power"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="8000"/>
   <set name="hitTime" val="2000"/>
@@ -573,6 +573,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
+  <set name="effectType" val="POISON"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
   </for>
@@ -580,12 +582,12 @@
 <skill id="4036" levels="12" name="Poison">
   <table name="#dmg"> 36 54 72 93 114 132 144 144 150 150 153 153 </table>
   <table name="#mpConsume"> 18 29 40 53 68 83 98 104 109 113 115 117 </table>
-  <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
   <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="#power"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="8000"/>
@@ -595,6 +597,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="500"/>
   <set name="effectRange" val="1000"/>
+  <set name="effectType" val="POISON"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
   </for>
@@ -858,6 +862,7 @@
   <!-- Cubic skill -->
   <table name="#dmg"> 93 114 132 132 132 144 </table>
   <table name="#magicLvl"> 49 55 60 64 68 72 </table>
+  <table name="#effectLevel"> 5.0 6.0 7.0 7.0 7.0 8.0 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="power" val="70"/>
@@ -867,6 +872,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
+  <set name="effectType" val="POISON"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
     <!-- retail value: 31 38 44 44 44 48/sec; stat update every 5 units (3 1/3 sec) -->
     <effect count="10" name="DamOverTime" time="3" val="#dmg" abnormal="poison"/>
@@ -1435,12 +1442,12 @@
 <skill id="4088" levels="12" name="Bleed">
   <table name="#damage">27 39 51 66 81 93 102 102 105 105 108 108 </table>
   <table name="#mpConsume"> 9 13 17 22 27 31 34 34 35 35 36 36 </table>
-  <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
+  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 10.0 10.0 </table>
   <table name="#magicLvl"> 10 20 30 40 50 60 70 75 80 85 90 95 </table>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="#power"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="reuseDelay" val="6000"/>
   <set name="hitTime" val="1000"/>
@@ -1449,8 +1456,10 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="200"/>
+  <set name="effectType" val="BLEED"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
-    <effect count="7" name="DamOverTime" time="3" val="#damage"/>
+    <effect count="7" name="DamOverTime" time="3" val="#damage" abnormal="bleeding"/>
   </for>
 </skill>
 <skill id="4089" levels="1" name="NPC Bear Spirit Totem">
