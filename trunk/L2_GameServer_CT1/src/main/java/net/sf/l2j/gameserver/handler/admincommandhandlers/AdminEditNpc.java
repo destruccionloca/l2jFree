@@ -747,9 +747,20 @@ public class AdminEditNpc implements IAdminCommandHandler
 			stmt.execute();
 			stmt.close();
 		}
-		catch (SQLException esql)
+		catch (SQLException esql1)
 		{
-			esql.printStackTrace();
+			try
+			{
+				con = L2DatabaseFactory.getInstance().getConnection(con);
+				PreparedStatement stmt = con.prepareStatement("UPDATE custom_merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
+				stmt.execute();
+				stmt.close();
+			}
+			catch (SQLException esql2)
+			{
+				esql1.printStackTrace();
+				esql2.printStackTrace();
+			}
 		}
 		finally
 		{
