@@ -226,7 +226,7 @@ public class VanHalterManager extends Entity
         
     	// set time up.
     	if (_timeUpTask != null) _timeUpTask.cancel(true);
-    	_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(),Config.HPH_ACTIVITYTIMEOFHALTER * 1000);
+    	_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(),Config.HPH_ACTIVITYTIMEOFHALTER);
         
     	// set bleeding to palyers.
 		if (_setBleedTask != null) _setBleedTask.cancel(true);
@@ -872,7 +872,7 @@ public class VanHalterManager extends Entity
     	if (!_playersInLair.contains(intruder)) _playersInLair.add(intruder);
     	if (_lockUpDoorOfAltarTask == null && !_isLocked && _isCaptainSpawned)
     	{
-    		_lockUpDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleGeneral(new LockUpDoorOfAltar(),Config.HPH_TIMEOFLOCKUPDOOROFALTAR * 1000);
+    		_lockUpDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleGeneral(new LockUpDoorOfAltar(),Config.HPH_TIMEOFLOCKUPDOOROFALTAR);
     	}
     }
     
@@ -911,7 +911,7 @@ public class VanHalterManager extends Entity
 
     		if (_closeDoorOfAltarTask != null) _closeDoorOfAltarTask.cancel(true);
     		_closeDoorOfAltarTask = null;
-    		_closeDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleGeneral(new CloseDoorOfAltar(),Config.HPH_INTERVALOFDOOROFALTER * 1000);
+    		_closeDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleGeneral(new CloseDoorOfAltar(),Config.HPH_INTERVALOFDOOROFALTER);
     	}
     	else
     	{
@@ -944,7 +944,7 @@ public class VanHalterManager extends Entity
     	{
     		if(_openDoorOfAltarTask != null) _openDoorOfAltarTask.cancel(true);
     		_openDoorOfAltarTask = null;
-    		_openDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleGeneral(new OpenDoorOfAltar(),Config.HPH_INTERVALOFDOOROFALTER * 1000);
+    		_openDoorOfAltarTask = ThreadPoolManager.getInstance().scheduleGeneral(new OpenDoorOfAltar(),Config.HPH_INTERVALOFDOOROFALTER);
     	}
     	else
     	{
@@ -1039,7 +1039,7 @@ public class VanHalterManager extends Entity
     	if (_timeUpTask != null) _timeUpTask.cancel(true);
     	_timeUpTask = null;
     	
-    	_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(1),Config.HPH_APPTIMEOFHALTER * 1000);
+    	_movieTask = ThreadPoolManager.getInstance().scheduleGeneral(new Movie(1),Config.HPH_APPTIMEOFHALTER);
     }
     
     // update knownlist.
@@ -1056,7 +1056,7 @@ public class VanHalterManager extends Entity
     protected void combatBeginning()
     {
     	if (_timeUpTask != null) _timeUpTask.cancel(true);
-    	_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(),Config.HPH_FIGHTTIMEOFHALTER * 1000);
+    	_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(),Config.HPH_FIGHTTIMEOFHALTER);
 
     	Map<Integer, L2PcInstance> _targets = new FastMap<Integer, L2PcInstance>();
     	int i = 0;
@@ -1097,7 +1097,7 @@ public class VanHalterManager extends Entity
     		if (_royalGuardHepler.size() <= Config.HPH_CALLROYALGUARDHELPERCOUNT && !_vanHalter.isDead())
     		{
 	    		if (_callRoyalGuardHelperTask != null) _callRoyalGuardHelperTask.cancel(true);
-    			_callRoyalGuardHelperTask = ThreadPoolManager.getInstance().scheduleGeneral(new CallRoyalGuardHelper(),Config.HPH_CALLROYALGUARDHELPERINTERVAL * 1000);
+    			_callRoyalGuardHelperTask = ThreadPoolManager.getInstance().scheduleGeneral(new CallRoyalGuardHelper(),Config.HPH_CALLROYALGUARDHELPERINTERVAL);
     		}
     		else
     		{
@@ -1262,7 +1262,7 @@ public class VanHalterManager extends Entity
 
     	if (!_state.getState().equals(GrandBossState.StateEnum.INTERVAL))
     	{
-        	int interval = Rnd.get(Config.HPH_FIXINTERVALOFHALTER,Config.HPH_FIXINTERVALOFHALTER + Config.HPH_RANDOMINTERVALOFHALTER) * 1000;
+        	int interval = Rnd.get(Config.HPH_FIXINTERVALOFHALTER,Config.HPH_FIXINTERVALOFHALTER + Config.HPH_RANDOMINTERVALOFHALTER);
         	_state.setRespawnDate(interval);
         	_state.setState(GrandBossState.StateEnum.INTERVAL);
         	_state.update();
@@ -1347,7 +1347,7 @@ public class VanHalterManager extends Entity
     	
     	// set time up.
     	if (_timeUpTask != null) _timeUpTask.cancel(true);
-    	_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), Config.HPH_ACTIVITYTIMEOFHALTER * 1000);
+    	_timeUpTask = ThreadPoolManager.getInstance().scheduleGeneral(new TimeUp(), Config.HPH_ACTIVITYTIMEOFHALTER);
     }
 
     // time up.
