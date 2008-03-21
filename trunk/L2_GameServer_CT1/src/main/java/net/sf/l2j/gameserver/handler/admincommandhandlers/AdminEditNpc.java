@@ -719,21 +719,13 @@ public class AdminEditNpc implements IAdminCommandHandler
 			PreparedStatement stmt = con.prepareStatement("INSERT INTO merchant_buylists (`item_id`,`price`,`shop_id`,`order`) values ("+itemID+","+price+","+tradeListID+","+order+")");
 			stmt.execute();
 			stmt.close();
+			stmt = con.prepareStatement("INSERT INTO custom_merchant_buylists (`item_id`,`price`,`shop_id`,`order`) values ("+itemID+","+price+","+tradeListID+","+order+")");
+			stmt.execute();
+			stmt.close();
 		}
-		catch (SQLException esql1)
+		catch (SQLException esql)
 		{
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement stmt = con.prepareStatement("INSERT INTO custom_merchant_buylists (`item_id`,`price`,`shop_id`,`order`) values ("+itemID+","+price+","+tradeListID+","+order+")");
-				stmt.execute();
-				stmt.close();
-			}
-			catch (SQLException esql2)
-			{
-				esql1.printStackTrace();
-				esql2.printStackTrace();
-			}
+			esql.printStackTrace();
 		}
 		finally
 		{
@@ -757,21 +749,13 @@ public class AdminEditNpc implements IAdminCommandHandler
 			PreparedStatement stmt = con.prepareStatement("UPDATE merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
 			stmt.execute();
 			stmt.close();
+			stmt = con.prepareStatement("UPDATE custom_merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
+			stmt.execute();
+			stmt.close();
 		}
-		catch (SQLException esql1)
+		catch (SQLException esql)
 		{
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement stmt = con.prepareStatement("UPDATE custom_merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
-				stmt.execute();
-				stmt.close();
-			}
-			catch (SQLException esql2)
-			{
-				esql1.printStackTrace();
-				esql2.printStackTrace();
-			}
+			esql.printStackTrace();
 		}
 		finally
 		{
@@ -795,21 +779,13 @@ public class AdminEditNpc implements IAdminCommandHandler
 			PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
 			stmt.execute();
 			stmt.close();
+			stmt = con.prepareStatement("DELETE FROM custom_merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
+			stmt.execute();
+			stmt.close();
 		}
-		catch (SQLException esql1)
+		catch (SQLException esql)
 		{
-			try
-			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement stmt = con.prepareStatement("DELETE FROM custom_merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
-				stmt.execute();
-				stmt.close();
-			}
-			catch (SQLException esql2)
-			{
-				esql1.printStackTrace();
-				esql2.printStackTrace();
-			}
+			esql.printStackTrace();
 		}
 		finally
 		{
@@ -840,20 +816,37 @@ public class AdminEditNpc implements IAdminCommandHandler
 			stmt.close();
 			rs.close();
 		}
-		catch (SQLException esql1)
+		catch (SQLException esql)
+		{
+			esql.printStackTrace();
+		}
+		finally
 		{
 			try
 			{
-				con = L2DatabaseFactory.getInstance().getConnection(con);
-				PreparedStatement stmt = con.prepareStatement("SELECT * FROM custom_merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `item_id` ='"+itemID+"' AND `price` = '"+price+"'");
-				stmt.execute();
-				stmt.close();
+				con.close();
 			}
-			catch (SQLException esql2)
+			catch (SQLException e)
 			{
-				esql1.printStackTrace();
-				esql2.printStackTrace();
+				e.printStackTrace();
 			}
+		}
+
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM custom_merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `item_id` ='"+itemID+"' AND `price` = '"+price+"'");
+			ResultSet rs = stmt.executeQuery();
+			rs.first();
+			
+			order = rs.getInt("order");
+			
+			stmt.close();
+			rs.close();
+		}
+		catch (SQLException esql)
+		{
+			esql.printStackTrace();
 		}
 		finally
 		{
