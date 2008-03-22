@@ -1013,6 +1013,7 @@ public abstract class Inventory extends ItemContainer
 				setPaperdollItem(PAPERDOLL_LHAND, null);
 				setPaperdollItem(PAPERDOLL_RHAND, null);// this should be the same as in LRHAND
 				pdollSlot = PAPERDOLL_RHAND;
+				pdollSlot = PAPERDOLL_LRHAND;
 				break;
 
 			case L2Item.SLOT_L_BRACELET:
