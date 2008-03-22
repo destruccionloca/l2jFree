@@ -8380,7 +8380,6 @@ UPDATE `npc` SET `type` = 'L2Minion' WHERE `id` = 29064;
 
 -- EXP / SP fix for Minons
 UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` = 25080;
-UPDATE `npc` SET `exp` = 1329218, `sp` = 122342 WHERE `id` = 25081;
 UPDATE `npc` SET `exp` = 20912, `sp` = 1972 WHERE `id` = 25264;
 UPDATE `npc` SET `exp` = 0, `sp` = 0 WHERE `id` = 25265;
 UPDATE `npc` SET `exp` = 4108, `sp` = 220 WHERE `id` = 25353;
