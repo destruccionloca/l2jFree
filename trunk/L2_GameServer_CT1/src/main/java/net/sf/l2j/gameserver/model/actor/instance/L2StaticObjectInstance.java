@@ -40,6 +40,8 @@ public class L2StaticObjectInstance extends L2Object
     private int _x;
     private int _y;
     private String _texture;
+
+    private boolean _isBusy;
     
     /**
      * @return Returns the StaticObjectId.
@@ -63,6 +65,15 @@ public class L2StaticObjectInstance extends L2Object
         setKnownList(new NullKnownList(this));
     }
     
+    public boolean isBusy()
+    {
+    	return _isBusy;
+    }
+    public void setBusyStatus(boolean bool)
+    {
+    	_isBusy = bool;
+    }
+
     public int getType()
     {
         return _type;

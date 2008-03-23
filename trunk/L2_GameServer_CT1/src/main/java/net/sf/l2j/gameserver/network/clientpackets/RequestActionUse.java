@@ -18,6 +18,7 @@ import java.util.Map;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -99,8 +100,12 @@ public class RequestActionUse extends L2GameClientPacket
                         && target instanceof L2StaticObjectInstance
                         && ((L2StaticObjectInstance)target).getType() == 1
                         && activeChar.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
+                        && CastleManager.getInstance().getCastle(target) != null
+                        && !((L2StaticObjectInstance)target).isBusy()
                    )
                 {
+                    ((L2StaticObjectInstance)target).setBusyStatus(true);
+                    activeChar.setObjectSittingOn((L2StaticObjectInstance)target);
                     ChairSit cs = new ChairSit(activeChar,((L2StaticObjectInstance)target).getStaticObjectId());
                     activeChar.sendPacket(cs);
                     activeChar.sitDown();
@@ -109,7 +114,14 @@ public class RequestActionUse extends L2GameClientPacket
                 }
                 
                 if (activeChar.isSitting())
+		{
                     activeChar.standUp(false); // false - No forced standup but user requested - Checks if animation already running.
+                    if(activeChar.getObjectSittingOn() != null)
+		    {
+                    	activeChar.getObjectSittingOn().setBusyStatus(false);
+                    	activeChar.setObjectSittingOn(null);
+                    }
+                }
                 else
                     activeChar.sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
                 

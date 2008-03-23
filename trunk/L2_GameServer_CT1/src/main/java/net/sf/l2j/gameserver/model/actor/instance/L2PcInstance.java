@@ -760,6 +760,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private static int _transformationId;
 
+    private L2StaticObjectInstance _objectSittingOn;
+
     // Absorbed Souls
     private int _souls = 0;
     private ScheduledFuture<?> _soulTask = null;
@@ -11933,5 +11935,14 @@ public final class L2PcInstance extends L2PlayableInstance
     public int getAgathionId()
     {
 	    return _agathionId;
+    }
+
+    public L2StaticObjectInstance getObjectSittingOn()
+    {
+    	return _objectSittingOn;
+    }
+    public void setObjectSittingOn(L2StaticObjectInstance id)
+    {
+    	_objectSittingOn=id;
     }
 }
