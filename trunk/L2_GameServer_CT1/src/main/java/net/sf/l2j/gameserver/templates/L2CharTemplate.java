@@ -94,10 +94,10 @@ public class L2CharTemplate
     private  int baseMpConsumeRate;
     private  int baseHpConsumeRate;
 	
-	private  int collisionRadius;   
-	private  int collisionHeight;
-	private  int fCollisionRadius;   
-	private  int fCollisionHeight;
+	private  double collisionRadius;   
+	private  double collisionHeight;
+	private  double fCollisionRadius;   
+	private  double fCollisionHeight;
 
     /**
      * Empty constructor (we have to use setter to initialize the object).
@@ -177,10 +177,10 @@ public class L2CharTemplate
         baseHpConsumeRate      = set.getInteger("baseHpConsumeRate",        0);
 		
 		// Geometry
-		collisionRadius    = set.getInteger("collision_radius");
-		collisionHeight    = set.getInteger("collision_height");
-		fCollisionRadius    = set.getInteger("fcollision_radius");
-		fCollisionHeight    = set.getInteger("fcollision_height");
+		collisionRadius    = set.getDouble("collision_radius");
+		collisionHeight    = set.getDouble("collision_height");
+		fCollisionRadius    = set.getDouble("fcollision_radius");
+		fCollisionHeight    = set.getDouble("fcollision_height");
 	}
 
     /**
@@ -1072,17 +1072,25 @@ public class L2CharTemplate
     }
 
     /**
-     * @return the collisionHeight
+     * @return the integer collisionHeight
      */
     public int getCollisionHeight()
     {
-        return collisionHeight;
+        return (int)collisionHeight;
     }
 
     /**
      * @return the collisionHeight
      */
-    public int getFCollisionHeight()
+    public double getdCollisionHeight()
+    {
+        return collisionHeight;
+    }
+
+    /**
+     * @return the fCollisionHeight
+     */
+    public double getFCollisionHeight()
     {
         return fCollisionHeight;
     }
@@ -1090,23 +1098,31 @@ public class L2CharTemplate
     /**
      * @param collisionHeight the collisionHeight to set
      */
-    public void setCollisionHeight(int _collisionHeight)
+    public void setCollisionHeight(double _collisionHeight)
     {
         collisionHeight = _collisionHeight;
     }
 
     /**
-     * @return the collisionRadius
+     * @return the integer collisionRadius
      */
     public int getCollisionRadius()
     {
-        return collisionRadius;
+        return (int)collisionRadius;
     }
 
     /**
      * @return the collisionRadius
      */
-    public int getFCollisionRadius()
+    public double getdCollisionRadius()
+    {
+        return collisionRadius;
+    }
+
+    /**
+     * @return the fCollisionRadius
+     */
+    public double getFCollisionRadius()
     {
         return fCollisionRadius;
     }
@@ -1114,7 +1130,7 @@ public class L2CharTemplate
     /**
      * @param collisionRadius the collisionRadius to set
      */
-    public void setCollisionRadius(int _collisionRadius)
+    public void setCollisionRadius(double _collisionRadius)
     {
         collisionRadius = _collisionRadius;
     }
