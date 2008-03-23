@@ -1215,7 +1215,11 @@ public class TvT
 				}
 			}
 		}
-		catch (Exception e){}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return;
+		}
 	}
 
 	public static boolean checkShufflePlayers(L2PcInstance eventPlayer)

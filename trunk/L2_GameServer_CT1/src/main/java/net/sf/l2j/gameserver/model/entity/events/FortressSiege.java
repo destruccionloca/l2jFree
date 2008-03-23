@@ -865,9 +865,14 @@ public class FortressSiege
 		{
 			if(_playersShuffle== null || _playersShuffle.isEmpty())
 				return;
-			for(L2PcInstance player: _playersShuffle)
-				if(player==null || player.isOnline()==0)
-					_playersShuffle.remove(player);
+			if(_playersShuffle!= null && !_playersShuffle.isEmpty())
+			{
+				for(L2PcInstance player: _playersShuffle)
+				{
+					if(player==null || player.isOnline()==0)
+						_playersShuffle.remove(player);
+				}
+			}
 		}
 		catch (Exception e)
 		{
