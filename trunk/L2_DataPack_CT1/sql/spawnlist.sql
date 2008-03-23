@@ -40466,16 +40466,8 @@ INSERT INTO spawnlist VALUES
 -- Deleting Rune and Schuttgart castle npc's incase that was custom spawned
 DELETE FROM spawnlist WHERE npc_templateid IN ( 35509,35511,35513,35510,35505,35504,35503,35501,35500,35499,35498,35497,35555,35556,35557,35559,35550,35548,35546,35545,35544 );
 
--- Wyvern_Manager spawns
+-- Missing Wyvern_Manager spawns
 INSERT INTO `spawnlist` VALUES
-(NULL,'Wyvern_Manager',1,35101,-17952,108142,-2032,0,0,-16384,60,0,0),
-(NULL,'Wyvern_Manager',1,35185,117780,145257,-2099,0,0,49000,60,0,0),
-(NULL,'Wyvern_Manager',1,35143,21912,161608,-2226,0,0,0,60,0,0),
-(NULL,'Wyvern_Manager',1,35227,83853,37192,-1835,0,0,49000,60,0,0),
-(NULL,'Wyvern_Manager',1,35317,115863,250387,-322,0,0,0,60,0,0),
-(NULL,'Wyvern_Manager',1,35275,147449,1899,216,0,0,49000,60,0,0),
-(NULL,'Wyvern_Manager',1,35364,147470,-49083,-503,0,0,16500,60,0,0),
-(NULL,'Wyvern_Manager',1,35419,177408,-17904,-2229,0,0,6000,60,0,0),
 (NULL,'Wyvern_Manager',1,35556,77552,-152208,1226,0,0,48792,60,0,0),
 (NULL,'Wyvern_Manager',1,35510,14257,-49152,986,0,0,32907,60, 0,0);
 
