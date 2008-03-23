@@ -571,6 +571,7 @@ public final class Config
 	public static int			ENCHANT_CHANCE_WEAPON_BLESSED;
 	public static int			ENCHANT_CHANCE_ARMOR_BLESSED;
 	public static int			ENCHANT_CHANCE_JEWELRY_BLESSED;
+	public static boolean		ALLOW_CRYSTAL_SCROLL;
 	public static boolean		ENCHANT_BREAK_WEAPON;									// If an enchant fails - will the item break or only reset to 0?
 	public static boolean		ENCHANT_BREAK_ARMOR;
 	public static boolean		ENCHANT_BREAK_JEWELRY;
@@ -614,6 +615,7 @@ public final class Config
 			ENCHANT_BREAK_ARMOR = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakArmor", "True"));
 			ENCHANT_BREAK_JEWELRY = Boolean.parseBoolean(enchantSettings.getProperty("EnchantBreakJewelry", "True"));
 			/* chance to enchant an item crystal scroll */
+			ALLOW_CRYSTAL_SCROLL = Boolean.parseBoolean(enchantSettings.getProperty("AllowCrystalScroll", "False"));
 			ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(enchantSettings.getProperty("EnchantChanceWeaponCrystal", "75"));
 			ENCHANT_CHANCE_ARMOR_CRYSTAL = Integer.parseInt(enchantSettings.getProperty("EnchantChanceArmorCrystal", "75"));
 			ENCHANT_CHANCE_JEWELRY_CRYSTAL = Integer.parseInt(enchantSettings.getProperty("EnchantChanceJewelryCrystal", "75"));
@@ -3038,6 +3040,8 @@ public final class Config
 			ENCHANT_BREAK_WEAPON = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("EnchantBreakArmor"))
 			ENCHANT_BREAK_ARMOR = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AllowCrystalScroll"))
+			ALLOW_CRYSTAL_SCROLL = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("EnchantChanceWeaponCrystal"))
 			ENCHANT_CHANCE_WEAPON_CRYSTAL = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("EnchantChanceArmorCrystal"))
