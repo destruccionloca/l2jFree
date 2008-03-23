@@ -96,6 +96,8 @@ public class L2CharTemplate
 	
 	private  int collisionRadius;   
 	private  int collisionHeight;
+	private  int fCollisionRadius;   
+	private  int fCollisionHeight;
 
     /**
      * Empty constructor (we have to use setter to initialize the object).
@@ -177,6 +179,8 @@ public class L2CharTemplate
 		// Geometry
 		collisionRadius    = set.getInteger("collision_radius");
 		collisionHeight    = set.getInteger("collision_height");
+		fCollisionRadius    = set.getInteger("fcollision_radius");
+		fCollisionHeight    = set.getInteger("fcollision_height");
 	}
 
     /**
@@ -1076,6 +1080,14 @@ public class L2CharTemplate
     }
 
     /**
+     * @return the collisionHeight
+     */
+    public int getFCollisionHeight()
+    {
+        return fCollisionHeight;
+    }
+
+    /**
      * @param collisionHeight the collisionHeight to set
      */
     public void setCollisionHeight(int _collisionHeight)
@@ -1089,6 +1101,14 @@ public class L2CharTemplate
     public int getCollisionRadius()
     {
         return collisionRadius;
+    }
+
+    /**
+     * @return the collisionRadius
+     */
+    public int getFCollisionRadius()
+    {
+        return fCollisionRadius;
     }
 
     /**

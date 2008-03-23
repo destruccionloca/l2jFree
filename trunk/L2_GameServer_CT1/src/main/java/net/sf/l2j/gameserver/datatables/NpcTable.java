@@ -351,6 +351,8 @@ public class NpcTable implements NpcTableMBean
             npcDat.set("serverSideTitle",NpcData.getBoolean("serverSideTitle"));
             npcDat.set("collision_radius", NpcData.getDouble("collision_radius"));
             npcDat.set("collision_height", NpcData.getDouble("collision_height"));
+            npcDat.set("fcollision_radius", NpcData.getDouble("collision_radius"));
+            npcDat.set("fcollision_height", NpcData.getDouble("collision_height"));
             npcDat.set("sex", NpcData.getString("sex"));
             if(!Config.ALLOW_NPC_WALKERS && NpcData.getString("type").equalsIgnoreCase("L2NpcWalker"))
             	npcDat.set("type", "L2Npc");

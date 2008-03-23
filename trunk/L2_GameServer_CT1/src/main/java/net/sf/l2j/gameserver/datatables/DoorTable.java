@@ -187,6 +187,8 @@ public class DoorTable
 		//npcDat.set("name", "");
 		npcDat.set("collision_radius", collisionRadius);
 		npcDat.set("collision_height", rangeZMax - rangeZMin);
+		npcDat.set("fcollision_radius", collisionRadius);
+		npcDat.set("fcollision_height", rangeZMax - rangeZMin);
 		npcDat.set("sex", "male");
 		npcDat.set("type", "");
 		npcDat.set("baseAtkRange", 0);
