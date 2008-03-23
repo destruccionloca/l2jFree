@@ -57,9 +57,9 @@ public class EnchantScrolls implements IItemHandler
 				(itemId == 957 || itemId == 958 || itemId == 953 || itemId == 954 ||	// Crystal scrolls D and C Grades
 				 itemId == 949 || itemId == 950 || itemId == 931 || itemId == 732 ||	// Crystal scrolls B and A Grades
 				 itemId == 961 || itemId == 962))										// Crystal scrolls S Grade
-			activeChar.sendPacket(new ChooseInventoryItem(itemId));
+			activeChar.sendPacket(new ChooseInventoryItem(itemId - 2));
 		else
-			activeChar.sendPacket(new ChooseInventoryItem(item.getItemId()));
+			activeChar.sendPacket(new ChooseInventoryItem(itemId));
 
 		return;
 	}
