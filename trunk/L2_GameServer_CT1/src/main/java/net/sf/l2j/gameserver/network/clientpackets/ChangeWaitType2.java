@@ -68,15 +68,26 @@ public class ChangeWaitType2 extends L2GameClientPacket
 					&& target instanceof L2StaticObjectInstance
 					&& ((L2StaticObjectInstance)target).getType() == 1
 					&& player.isInsideRadius(target, L2StaticObjectInstance.INTERACTION_DISTANCE, false, false)
+					&& CastleManager.getInstance().getCastle(target) != null
+					&& !((L2StaticObjectInstance)target).isBusy()
 			)
 			{
+				((L2StaticObjectInstance)target).setBusyStatus(true);
+				player.setObjectSittingOn((L2StaticObjectInstance)target);
 				ChairSit cs = new ChairSit(player,((L2StaticObjectInstance)target).getStaticObjectId());
-				player.sendPacket(cs);
-				player.sitDown();
+				player.sitDown(true);
 				player.broadcastPacket(cs);
+				return;
 			}
 			if (_typeStand)
+			{
+				if(player.getObjectSittingOn() != null)
+				{
+					player.getObjectSittingOn().setBusyStatus(false);
+					player.setObjectSittingOn(null);
+				}
 				player.standUp(false); // false - No forced standup but user requested - Checks if animation already running.
+			}
 			else
 				player.sitDown(false); // false - No forced sitdown but user requested - Checks if animation already running.
 		}

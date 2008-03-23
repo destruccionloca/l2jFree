@@ -107,19 +107,18 @@ public class RequestActionUse extends L2GameClientPacket
                     ((L2StaticObjectInstance)target).setBusyStatus(true);
                     activeChar.setObjectSittingOn((L2StaticObjectInstance)target);
                     ChairSit cs = new ChairSit(activeChar,((L2StaticObjectInstance)target).getStaticObjectId());
-                    activeChar.sendPacket(cs);
                     activeChar.sitDown();
                     activeChar.broadcastPacket(cs);
                     break;
                 }
                 
                 if (activeChar.isSitting())
-		{
+                {
                     activeChar.standUp(false); // false - No forced standup but user requested - Checks if animation already running.
                     if(activeChar.getObjectSittingOn() != null)
-		    {
-                    	activeChar.getObjectSittingOn().setBusyStatus(false);
-                    	activeChar.setObjectSittingOn(null);
+                    {
+                        activeChar.getObjectSittingOn().setBusyStatus(false);
+                        activeChar.setObjectSittingOn(null);
                     }
                 }
                 else

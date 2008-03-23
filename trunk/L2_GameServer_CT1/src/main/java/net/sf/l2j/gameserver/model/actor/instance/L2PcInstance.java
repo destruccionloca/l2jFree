@@ -10421,6 +10421,10 @@ public final class L2PcInstance extends L2PlayableInstance
             _log.fatal( "deleteMe()", t);
         }
 
+        if (_objectSittingOn != null)
+            _objectSittingOn.setBusyStatus(false);
+        _objectSittingOn = null;
+
         try
         {
             if(_forceBuff != null)
