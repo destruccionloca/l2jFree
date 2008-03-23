@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
+import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -141,7 +142,19 @@ public class GeoEngine extends GeoData
 		else
 			return canSeeTarget(target.getX(), target.getY(), z2, cha.getX(), cha.getY(), z);
 	}
-	
+
+	/**
+	* @see net.sf.l2j.gameserver.GeoData#canSeeTarget(L2Object, Point3D)
+	*/
+	@Override
+	public boolean canSeeTarget(L2Object cha, Point3D target)
+	{
+		if(cha.getZ() >= target.getZ())
+			return canSeeTarget(cha.getX(),cha.getY(),cha.getZ(),target.getX(),target.getY(),target.getZ());
+		else
+			return canSeeTarget(target.getX(),target.getY(),target.getZ(), cha.getX(),cha.getY(),cha.getZ());
+	}
+
 	/**
 	 * @see net.sf.l2j.gameserver.GeoData#canSeeTargetDebug(net.sf.l2j.gameserver.model.actor.instance.L2PcInstance, net.sf.l2j.gameserver.model.L2Object)
 	 */

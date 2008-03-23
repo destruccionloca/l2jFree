@@ -174,6 +174,11 @@ public abstract class L2Zone
 		return _fortressId;
 	}
 
+	public boolean isPeace()
+	{
+		return _pvp == PvpSettings.PEACE;
+	}
+
 	public FastMap<RestartType, FastList<Location>> getRestartMap()
 	{
 		if (_restarts == null)

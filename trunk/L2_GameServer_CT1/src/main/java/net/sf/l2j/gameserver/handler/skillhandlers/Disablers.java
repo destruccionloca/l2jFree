@@ -618,7 +618,17 @@ public class Disablers implements ISkillHandler
                     if(target.reflectSkill(skill))
                        target = activeChar;
 
-                    if(skill.getId() == 1056 && target != activeChar) //can't cancel your self
+                    if (skill.cancelEffect() > 0)
+                    {
+                        L2Effect[] effects = target.getAllEffects();
+                        for (L2Effect e : effects)
+                        {
+                            if (e.getSkill().getId() == skill.cancelEffect())
+                                e.exit();
+                        }
+                    }
+
+                    else if(skill.getId() == 1056 && target != activeChar) //can't cancel your self
                     {
                         int lvlmodifier= 52+skill.getLevel()*2;
                         if(skill.getLevel()==12) lvlmodifier = (Experience.MAX_LEVEL - 1);
@@ -632,7 +642,15 @@ public class Disablers implements ISkillHandler
                             L2Effect[] effects = target.getAllEffects();
                             int maxfive = 5;
                             for (L2Effect e : effects)
-                            { 
+                            {
+                                // do not delete signet effects!
+                                switch (e.getEffectType())
+                                {
+                                    case SIGNET_GROUND:
+                                    case SIGNET_EFFECT:
+                                        continue;
+                                }
+
                                 switch(e.getSkill().getId())
                                 {
                                     case 4082:

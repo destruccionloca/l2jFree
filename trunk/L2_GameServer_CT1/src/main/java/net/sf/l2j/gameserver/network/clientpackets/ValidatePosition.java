@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.network.serverpackets.PartyMemberPosition;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocationInVehicle;
-import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
@@ -152,7 +151,7 @@ public class ValidatePosition extends L2GameClientPacket
             activeChar.setClientX(_x);
             activeChar.setClientY(_y);
             activeChar.setClientZ(_z);
-            activeChar.setClientHeading(_heading);
+            activeChar.setClientHeading(_heading); // No real need to validate heading.
             int realX = activeChar.getX();
             int realY = activeChar.getY();
             int realZ = activeChar.getZ();
@@ -163,11 +162,11 @@ public class ValidatePosition extends L2GameClientPacket
             if (diffSq < 250000)
                  activeChar.getPosition().setXYZ(realX,realY,_z);
 
-            int realHeading = activeChar.getHeading();
 
-            if (_log.isDebugEnabled()) {
+            if (_log.isDebugEnabled())
+            {
                 _log.debug("client pos: "+ _x + " "+ _y + " "+ _z +" head "+ _heading);
-                _log.debug("server pos: "+ realX + " "+realY+ " "+realZ +" head "+realHeading);
+                _log.debug("server pos: "+ realX + " "+realY+ " "+realZ +" head "+activeChar.getHeading());
             }
 
             if (Config.DEVELOPER)
@@ -190,8 +189,6 @@ public class ValidatePosition extends L2GameClientPacket
 
 		if (!activeChar.isInWater() && !activeChar.isFlying())
 			activeChar.isFalling(true,0); // Check if the L2Character isFalling
-
-		EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar , true);
 
 		if (Config.ACCEPT_GEOEDITOR_CONN)
 		{

@@ -16,11 +16,10 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
-import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
+import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
+import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.tools.geometry.Point3D;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,77 +30,73 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class RequestExMagicSkillUseGround extends L2GameClientPacket
 {
-	private static final String _C__D0_2F_REQUESTEXMAGICSKILLUSEGROUND = "[C] D0:2F RequestExMagicSkillUseGround";
-	private final static Log _log = LogFactory.getLog(RequestExMagicSkillUseGround.class.getName());
+    private static final String _C__D0_2F_REQUESTEXMAGICSKILLUSEGROUND = "[C] D0:2F RequestExMagicSkillUseGround";
+    private static Log _log = LogFactory.getLog(RequestExMagicSkillUseGround.class.getName());
 
-	private int _x;
-	private int _y;
-	private int _z;
-	private int _skillId;
-	private boolean _ctrlPressed;
-	private boolean _shiftPressed;
+    private int _x;
+    private int _y;
+    private int _z;
+    private int _skillId;
+    private boolean _ctrlPressed;
+    private boolean _shiftPressed;
 
-	@Override
-	protected void readImpl()
-	{
-		_x	= readD();
-		_y	= readD();
-		_z	= readD();
-		_skillId		= readD();
-		_ctrlPressed	= readD() != 0;
-		_shiftPressed	= readC() != 0;
-	}
+    @Override
+    protected void readImpl()
+    {
+        _x = readD();
+        _y = readD();
+        _z = readD();
+        _skillId = readD();
+        _ctrlPressed = readD() != 0;
+        _shiftPressed = readC() != 0;
+    }
 
-	/**
-	 * @see net.sf.l2j.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-	 */
-	@Override
-	protected void runImpl()
-	{
-		//TODO: implementation missing
-		//System.out.println("C6: RequestExMagicSkillUseGround. x: "+_x+" y: "+_y+" z: "+_z+" skill: "+_skillId+" crtl: "+_ctrlPressed+" shift: "+_shiftPressed);
-		
-		L2PcInstance activeChar = getClient().getActiveChar();
-		
-		if (activeChar == null)
-			return;
-		
-		int level = activeChar.getSkillLevel(_skillId);
-		
-		if (level <= 0 || activeChar.isOutOfControl())
-		{
-			activeChar.actionFailed();
-			return;
-		}
-		
-		L2Skill skill = SkillTable.getInstance().getInfo(_skillId, level);
-		
-		if (skill == null || skill.getSkillType() == SkillType.NOTDONE)
-		{
-			activeChar.actionFailed();
-			return;
-		}
+    /**
+     * @see net.sf.l2j.gameserver.clientpackets.ClientBasePacket#runImpl()
+     */
+    @Override
+    protected void runImpl()
+    {
+        // Get the current L2PcInstance of the player
+        L2PcInstance activeChar = getClient().getActiveChar();
+        
+        if (activeChar == null)
+            return;
 
-		int distance = (int)Math.sqrt(Math.pow(_x - activeChar.getX(),2) + Math.pow(_y - activeChar.getY(),2));
-		
-		if (distance > ((skill.getCastRange() > 0)? skill.getCastRange() : 900))
-		{
-			activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_TOO_FAR));
-			activeChar.actionFailed();
-			return;
-		}
-		
-		EffectRadiusSkill.getInstance().setInitialTarget(activeChar, _x , _y , _z , skill.getEffectRange());
-		activeChar.setMagicSkillUseGround(_x,_y,_z,skill.getId());		
-		activeChar.useMagic(skill, (_ctrlPressed || _shiftPressed), false);
-	}
+        // Get the level of the used skill
+        int level = activeChar.getSkillLevel(_skillId);
+        if (level <= 0) 
+        {
+            activeChar.actionFailed();
+            return;
+        }
 
-	/**
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
-	 */
-	@Override
-	public String getType()
-	{
-		return _C__D0_2F_REQUESTEXMAGICSKILLUSEGROUND;
-	}
+        // Get the L2Skill template corresponding to the skillID received from the client
+        L2Skill skill = SkillTable.getInstance().getInfo(_skillId, level);
+        
+        // Check the validity of the skill
+        if (skill != null)
+        {
+            activeChar.setCurrentSkillWorldPosition(new Point3D(_x , _y, _z));
+
+            // normally magicskilluse packet turns char client side but for these skills, it doesn't (even with correct target)
+            activeChar.setHeading(Util.calculateHeadingFrom(activeChar.getX(), activeChar.getY(), _x , _y));
+            activeChar.broadcastPacket(new ValidateLocation(activeChar));
+            activeChar.useMagic(skill, _ctrlPressed, _shiftPressed);
+        }
+        else
+        {
+            activeChar.actionFailed();
+            _log.warn("No skill found!!");
+        }
+    }
+
+    /**
+     * @see net.sf.l2j.gameserver.BasePacket#getType()
+     */
+    @Override
+    public String getType()
+    {
+        return _C__D0_2F_REQUESTEXMAGICSKILLUSEGROUND;
+    }
 }

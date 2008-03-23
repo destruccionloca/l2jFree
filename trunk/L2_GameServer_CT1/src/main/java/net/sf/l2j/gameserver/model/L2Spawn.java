@@ -485,13 +485,15 @@ public class L2Spawn
 		try
 		{
 			// Check if the L2Spawn is not a L2Pet or L2Minion or L2Decoy spawn
-            if (_template.getType().equalsIgnoreCase("L2Pet") || _template.getType().equalsIgnoreCase("L2Minion") || _template.getType().equalsIgnoreCase("L2Decoy"))
-            {
-                _currentCount++;
-				
-                return mob;
-            }
-            
+			if (_template.getType().equalsIgnoreCase("L2Pet") ||
+				_template.getType().equalsIgnoreCase("L2Minion") ||
+				_template.getType().equalsIgnoreCase("L2Decoy") ||
+				_template.getType().equalsIgnoreCase("L2EffectPoint"))
+			{
+				_currentCount++;
+				return mob;
+			}
+
 			// Get L2NpcInstance Init parameters and its generate an Identifier
 			Object[] parameters = {IdFactory.getInstance().getNextId(), _template};
 			

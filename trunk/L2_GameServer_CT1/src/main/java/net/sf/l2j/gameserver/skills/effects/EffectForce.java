@@ -16,82 +16,54 @@ package net.sf.l2j.gameserver.skills.effects;
 
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Effect;
-import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.skills.Env;
-import net.sf.l2j.gameserver.util.Util;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * @author kombat
- * 
  */
-public class EffectForce extends L2Effect
+public final class EffectForce extends L2Effect
 {
-	protected static final Log _log = LogFactory.getLog(EffectForce.class.getName());
+    public int forces;
 
-	public int forces = 0;
-	private int _range = -1;
+    public EffectForce(Env env, EffectTemplate template) 
+    {
+        super(env, template);
+        forces = getSkill().getLevel();
+    }
 
-	public EffectForce(Env env, EffectTemplate template)
-	{
-		super(env, template);
-		forces = getSkill().getLevel();
-		_range = getSkill().getCastRange();
-	}
+    @Override
+    public boolean onActionTime()
+    {
+        return true;
+    }
 
-	@Override
-	public boolean onActionTime()
-	{
-		return Util.checkIfInRange(_range, getEffector(), getEffected(), true);
-	}
+    @Override
+    public EffectType getEffectType()
+    {
+        return EffectType.BUFF;
+    }
 
-	@Override
-	public EffectType getEffectType()
-	{
-		return EffectType.BUFF;
-	}
+    public void increaseForce()
+    {
+        if (forces < 3)
+        {
+            forces++;
+            updateBuff();
+        }
+    }
 
-	public void increaseForce()
-	{
-		forces++;
-		updateBuff();
-	}
+    public void decreaseForce()
+    {
+        forces--;
+        if (forces < 1)
+            exit();
+        else
+            updateBuff();
+    }
 
-	public void decreaseForce()
-	{
-		forces--;
-		if (forces < 1)
-		{
-			exit();
-		}
-		else
-		{
-			updateBuff();
-		}
-	}
-
-	public void updateBuff()
-	{
-		exit();
-		L2Skill newSkill = SkillTable.getInstance().getInfo(getSkill().getId(), forces);
-		if (newSkill == null)
-		{
-			_log.error("Triggered skill " + getSkill().getId() + " doesn't have level " + forces + " defined");
-		}
-		else
-			newSkill.getEffects(getEffector(), getEffected());
-	}
-
-	public void onExit()
-	{
-		// try
-		// {
-		// getEffector().abortCast();
-		// if(getEffector().getForceBuff() != null)
-		// getEffector().getForceBuff().delete();
-		// }
-		// catch(Exception e){}
-	}
+    private void updateBuff()
+    {
+        exit();
+        SkillTable.getInstance().getInfo(getSkill().getId(), forces).getEffects(getEffector(), getEffected());
+    }
 }

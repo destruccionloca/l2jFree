@@ -33,7 +33,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 import net.sf.l2j.gameserver.skills.Formulas;
 
 /**
@@ -62,8 +61,7 @@ public class Continuous implements ISkillHandler
 		L2Skill.SkillType.REFLECT,
 		L2Skill.SkillType.UNDEAD_DEFENSE,
 		L2Skill.SkillType.AGGDEBUFF,
-		L2Skill.SkillType.FORCE_BUFF,
-		L2Skill.SkillType.RADIUS
+		L2Skill.SkillType.FORCE_BUFF
 		};
 	
 	/* (non-Javadoc)
@@ -89,20 +87,6 @@ public class Continuous implements ISkillHandler
 				case BUFF: case HOT: case CPHOT: case MPHOT:
 				case AGGDEBUFF: case CONT: case UNDEAD_DEFENSE:
 					break;
-				case RADIUS:
-					L2Skill[] skills = skill.getTriggeredSkills();
-					if (skills != null)
-					{
-						// These skills are triggered from RequestExMagicSkillUseGround.java in ClientPacket
-						if (skills[0].isOffensive())
-							return;
-						else if (skill.getId() != 455)
-						{
-							EffectRadiusSkill.getInstance().addRadiusSkill(activeChar , skill);
-						}
-						EffectRadiusSkill.getInstance().checkRadiusSkills(activeChar , true);
-					}
-					return;
 				default:
 					if(target.reflectSkill(skill))
 						target = activeChar;

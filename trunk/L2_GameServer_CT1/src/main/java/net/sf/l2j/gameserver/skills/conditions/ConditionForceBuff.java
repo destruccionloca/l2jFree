@@ -16,51 +16,39 @@ package net.sf.l2j.gameserver.skills.conditions;
 
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
-import net.sf.l2j.gameserver.skills.effects.EffectBattleForce;
-import net.sf.l2j.gameserver.skills.effects.EffectSpellForce;
+import net.sf.l2j.gameserver.skills.effects.EffectForce;
 
 
 /**
- * @author kombat
+ * @author kombat, Forsaiken
  *
  */
-public class ConditionForceBuff extends Condition
+public final class ConditionForceBuff extends Condition
 {
-	private static int BATTLE_FORCE = 5104;
-	private static int SPELL_FORCE = 5105;
+	private static final short BATTLE_FORCE = 5104;
+	private static final short SPELL_FORCE = 5105;
 
-	private int _battleForces;
-	private int _spellForces;
+	private final byte[] _forces;
 
-	public ConditionForceBuff(int[] forces)
+	public ConditionForceBuff(byte[] forces)
 	{
-		_battleForces = forces[0];
-		_spellForces = forces[1];
-	}
-
-	public ConditionForceBuff(int battle, int spell)
-	{
-		_battleForces = battle;
-		_spellForces = spell;
+		_forces = forces;
 	}
 
 	@Override
 	public boolean testImpl(Env env)
 	{
-		int neededBattle = _battleForces;
-		if (neededBattle > 0)
+		if (_forces[0] > 0)
 		{
-			L2Effect battleForce = env.player.getFirstEffect(BATTLE_FORCE);
-			if (!(battleForce instanceof EffectBattleForce) || 
-			  ((EffectBattleForce)battleForce).forces < neededBattle)
+			L2Effect force = env.player.getFirstEffect(BATTLE_FORCE);
+			if (force == null || ((EffectForce)force).forces < _forces[0])
 				return false;
 		}
-		int neededSpell = _spellForces;
-		if (neededSpell > 0)
+
+		if (_forces[1] > 0)
 		{
-			L2Effect spellForce = env.player.getFirstEffect(SPELL_FORCE);
-			if (!(spellForce instanceof EffectSpellForce) || 
-			  ((EffectSpellForce)spellForce).forces < neededSpell)
+			L2Effect force = env.player.getFirstEffect(SPELL_FORCE);
+			if (force == null || ((EffectForce)force).forces < _forces[1])
 				return false;
 		}
 		return true;

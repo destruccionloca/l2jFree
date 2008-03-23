@@ -203,6 +203,7 @@ import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StopMove;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.network.serverpackets.TargetSelected;
+import net.sf.l2j.gameserver.network.serverpackets.TargetUnselected;
 import net.sf.l2j.gameserver.network.serverpackets.TradeDone;
 import net.sf.l2j.gameserver.network.serverpackets.TradeStart;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
@@ -213,7 +214,7 @@ import net.sf.l2j.gameserver.recipes.service.L2RecipeService;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
-import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
+import net.sf.l2j.gameserver.skills.effects.EffectForce;
 import net.sf.l2j.gameserver.taskmanager.AttackStanceTaskManager;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
@@ -336,26 +337,40 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
-        @Override
-        public void doCast(L2Skill skill)
-        {
-           super.doCast(skill);
-           
-           // cancel the recent fake-death protection instantly if the player attacks or casts spells 
-           getPlayer().setRecentFakeDeath(false);
-           if(skill == null) return;
-           if(!skill.isOffensive()) return;
-           L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
-           // the code doesn't now support multiple targets
-           if(mainTarget == null || !(mainTarget instanceof L2Character)) return;
-           L2Effect silentMove = getPlayer().getFirstEffect(EffectType.SILENT_MOVE);
-           if (silentMove != null)
-        	   silentMove.exit();
-           for (L2CubicInstance cubic : getCubics().values())
-               if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
-                    cubic.doAction((L2Character)mainTarget);
-        }
-    }
+		@Override
+		public void doCast(L2Skill skill)
+		{
+			super.doCast(skill);
+
+			// cancel the recent fake-death protection instantly if the player attacks or casts spells 
+			getPlayer().setRecentFakeDeath(false);
+			if(skill == null) return;
+			if(!skill.isOffensive()) return;
+
+			if (getPlayer().isSilentMoving())
+			{
+				L2Effect silentMove = getPlayer().getFirstEffect(EffectType.SILENT_MOVE);
+				if (silentMove != null)
+					silentMove.exit();
+			}
+
+			switch (skill.getTargetType())
+			{
+				case TARGET_GROUND:
+					return;
+				default:
+				{
+					L2Object mainTarget = skill.getFirstOfTargetList(L2PcInstance.this);
+					if (mainTarget == null || !(mainTarget instanceof L2Character))
+						return;
+					for (L2CubicInstance cubic : getCubics().values())
+						if (cubic.getId() != L2CubicInstance.LIFE_CUBIC)
+							cubic.doAction((L2Character)mainTarget);
+				}
+				break;
+			}
+		}
+	}
 
 	/**
 	* Starts battle force / spell force on target.<br><br>
@@ -765,7 +780,10 @@ public final class L2PcInstance extends L2PlayableInstance
     // Absorbed Souls
     private int _souls = 0;
     private ScheduledFuture<?> _soulTask = null;
-    
+
+    // WorldPosition used by TARGET_SIGNET_GROUND
+    private Point3D _currentSkillWorldPosition;
+
     /** Skill casting information (used to queue when several skills are cast in a short time) **/
     public class SkillDat
     {
@@ -3283,6 +3301,16 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
+    public Point3D getCurrentSkillWorldPosition()
+    {
+        return _currentSkillWorldPosition;
+    }
+
+    public void setCurrentSkillWorldPosition(Point3D worldPosition)
+    {
+        _currentSkillWorldPosition = worldPosition;
+    }
+
     /**
      * Manage actions when a player click on this L2PcInstance.<BR><BR>
      *
@@ -3577,10 +3605,11 @@ public final class L2PcInstance extends L2PlayableInstance
                     continue;
                 }
                 
-                if (effect.getEffectType() == EffectType.CHARGE)
+                switch (effect.getEffectType())
                 {
-                    // handled by EtcStatusUpdate
-                    continue;
+                    case CHARGE: // handled by EtcStatusUpdate
+                    case SIGNET_GROUND:
+                        continue;
                 }
                 
                 if (effect.getInUse())
@@ -4000,6 +4029,11 @@ public final class L2PcInstance extends L2PlayableInstance
             broadcastPacket(my);
         }
 
+        if (newTarget == null && getTarget() != null)
+        {
+            broadcastPacket(new TargetUnselected(this));
+        }
+
         // Target the new L2Object (add the target to the L2PcInstance _target, _knownObject and L2PcInstance to _KnownObject of the L2Object)
         super.setTarget(newTarget);
 
@@ -4172,8 +4206,6 @@ public final class L2PcInstance extends L2PlayableInstance
         if (!super.doDie(killer))
             return false;
 
-        EffectRadiusSkill.getInstance().checkRadiusSkills(this , true);
-        
         // Clear resurrect xp calculation
         setExpBeforeDeath(0);
 
@@ -4453,11 +4485,11 @@ public final class L2PcInstance extends L2PlayableInstance
             _cubics.clear();
         }
 
-        if(_forceBuff != null)
+        if (_forceBuff != null)
             _forceBuff.delete();
 
-        for(L2Character character : getKnownList().getKnownCharacters())
-            if(character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
+        for (L2Character character : getKnownList().getKnownCharacters())
+            if (character.getForceBuff() != null && character.getForceBuff().getTarget() == this)
                 character.abortCast();
 
         if (isInParty() && getParty().isInDimensionalRift())
@@ -6590,8 +6622,7 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 if (effect != null && !effect.isHerbEffect() && effect.getInUse() && !effect.getSkill().isToggle())
                 {
-                    if (effect.getEffectType() == EffectType.BATTLE_FORCE
-                          || effect.getEffectType() == EffectType.SPELL_FORCE)
+                    if (effect instanceof EffectForce)
                         continue;
                     int skillId = effect.getSkill().getId();
                     buff_index++;
@@ -7556,7 +7587,16 @@ public final class L2PcInstance extends L2PlayableInstance
 
         SkillTargetType sklTargetType = skill.getTargetType();
         SkillType sklType = skill.getSkillType();
+
+        Point3D worldPosition = getCurrentSkillWorldPosition();
         
+        if (sklTargetType == SkillTargetType.TARGET_GROUND && worldPosition == null)
+        {
+            _log.info("WorldPosition is null for skill: "+skill.getName() + ", player: " + getName() + ".");
+            actionFailed();
+            return;
+        }
+
         switch (sklTargetType)
         {
             // Target the player if skill type is AURA, PARTY, CLAN or SELF
@@ -7566,6 +7606,7 @@ public final class L2PcInstance extends L2PlayableInstance
             case TARGET_PARTY:
             case TARGET_ALLY:
             case TARGET_CLAN:
+            case TARGET_GROUND:
             case TARGET_SELF:
                 target = this;
                 break;
@@ -7797,6 +7838,7 @@ public final class L2PcInstance extends L2PlayableInstance
                     case TARGET_ALLY:
                     case TARGET_PARTY:
                     case TARGET_SELF:
+                    case TARGET_GROUND:
                         // everything okay
                         break;
                     default:
@@ -7810,7 +7852,19 @@ public final class L2PcInstance extends L2PlayableInstance
             if (dontMove)
             {
                 // Calculate the distance between the L2PcInstance and the target
-                if (skill.getCastRange() > 0 && !isInsideRadius(target, skill.getCastRange()+getTemplate().getCollisionRadius(), false, false))
+                if (sklTargetType == SkillTargetType.TARGET_GROUND)
+                {
+                    if (!isInsideRadius(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), skill.getCastRange()+getTemplate().getCollisionRadius(), false, false))
+                    {
+                        // Send a System Message to the caster
+                        sendPacket(new SystemMessage(SystemMessageId.TARGET_TOO_FAR));
+
+                        // Send a Server->Client packet ActionFailed to the L2PcInstance
+                        actionFailed();
+                        return;
+                    }
+                }
+                else if (skill.getCastRange() > 0 && !isInsideRadius(target, skill.getCastRange()+getTemplate().getCollisionRadius(), false, false))
                 {
                     // Send a System Message to the caster
                     sendPacket(new SystemMessage(SystemMessageId.TARGET_TOO_FAR));
@@ -7823,39 +7877,36 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // Check if the skill is defensive
-        if (!skill.isOffensive())
+        if (!skill.isOffensive() && target instanceof L2MonsterInstance && !forceUse)
         {
-            // check if the target is a monster and if force attack is set.. if not then we don't want to cast.
-            if ((target instanceof L2MonsterInstance) && !forceUse)
+            switch(sklTargetType)
             {
-                switch(sklTargetType)
-                {
-                    case TARGET_PET:
-                    case TARGET_AURA:
-                    case TARGET_FRONT_AURA:
-                    case TARGET_BEHIND_AURA:
-                    case TARGET_CLAN:
-                    case TARGET_SELF:
-                    case TARGET_PARTY:
-                    case TARGET_ALLY:
-                    case TARGET_CORPSE_MOB:
-                    case TARGET_AREA_CORPSE_MOB:
-                        // everything okay
-                        break;
-                    default:
-                        switch(sklType)
-                        {
-                            case BEAST_FEED:
-                            case DELUXE_KEY_UNLOCK:
-                            case UNLOCK:
-                                // everything okay
-                                break;
-                            default:
-                                // send the action failed so that the skill doens't go off.
-                                actionFailed();
-                                return;
-                        }
-                }
+                case TARGET_PET:
+                case TARGET_AURA:
+                case TARGET_FRONT_AURA:
+                case TARGET_BEHIND_AURA:
+                case TARGET_CLAN:
+                case TARGET_SELF:
+                case TARGET_PARTY:
+                case TARGET_ALLY:
+                case TARGET_CORPSE_MOB:
+                case TARGET_AREA_CORPSE_MOB:
+                case TARGET_GROUND:
+                    // everything okay
+                    break;
+                default:
+                    switch(sklType)
+                    {
+                        case BEAST_FEED:
+                        case DELUXE_KEY_UNLOCK:
+                        case UNLOCK:
+                            // everything okay
+                            break;
+                        default:
+                            // send the action failed so that the skill doens't go off.
+                            actionFailed();
+                            return;
+                    }
             }
         }
 
@@ -7924,6 +7975,7 @@ public final class L2PcInstance extends L2PlayableInstance
             case TARGET_AURA:
             case TARGET_FRONT_AURA:
             case TARGET_BEHIND_AURA:
+            case TARGET_GROUND:
             case TARGET_SELF:
                 break;
             default:
@@ -7966,11 +8018,23 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         // GeoData Los Check here
-        if (!(target instanceof L2DoorInstance) && skill.getCastRange() > 0 && !GeoData.getInstance().canSeeTarget(this, target))
+        if (skill.getCastRange() > 0)
         {
-            sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
-            actionFailed();
-            return;
+            if (sklTargetType == SkillTargetType.TARGET_GROUND)
+            {
+                if (!GeoData.getInstance().canSeeTarget(this, worldPosition))
+                {
+                    sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
+                    actionFailed();
+                    return;
+                }
+            }
+            else if (!GeoData.getInstance().canSeeTarget(this, target))
+            {
+                sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
+                actionFailed();
+                return;
+            }
         }
 
         // If all conditions are checked, create a new SkillDat object and set the player _currentSkill
@@ -11707,7 +11771,6 @@ public final class L2PcInstance extends L2PlayableInstance
 		return _forceBuff;
 	}
 
-	@Override
 	public void setForceBuff(ForceBuff fb)
 	{
 		_forceBuff = fb;

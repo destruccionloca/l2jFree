@@ -140,7 +140,38 @@ public final class L2WorldRegion
             z.onReviveInside(character);
         }
     }
-    
+
+    public boolean checkEffectRangeInsidePeaceZone(L2Skill skill, final int x, final int y, final int z)
+    {
+        final int range = skill.getEffectRange();
+        final int up = y + range;
+        final int down = y - range;
+        final int left = x + range;
+        final int right = x - range;
+
+        for (L2Zone e : _zones)
+        {
+            if (e.isPeace())
+            {
+                if (e.isInsideZone(x, up, z))
+                    return false;
+
+                if (e.isInsideZone(x, down, z))
+                    return false;
+
+                if (e.isInsideZone(left, y, z))
+                    return false;
+
+                if (e.isInsideZone(right, y, z))
+                    return false;
+
+                if (e.isInsideZone(x, y, z))
+                    return false;
+            }
+        }
+        return true;
+    }
+
     /** Task of AI and geodata notification */
     public class NeighborsTask implements Runnable
     {

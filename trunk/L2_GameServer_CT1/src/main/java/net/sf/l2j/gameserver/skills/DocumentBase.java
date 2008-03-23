@@ -259,19 +259,6 @@ abstract class DocumentBase
         {
             lvl = Integer.decode(getValue(attrs.getNamedItem("lvl").getNodeValue(), template));
         }
-        if (template instanceof L2Skill)
-        {
-        	if (attrs.getNamedItem("trigger") != null)
-        	{
-        		((L2Skill) template).attachOnCast(id,lvl); // Attach as skill triggered on cast
-        		((L2Skill) template).setTriggeredTimes(Integer.decode(getValue(attrs.getNamedItem("trigger").getNodeValue(), template)));
-        		if (attrs.getNamedItem("time") != null)
-        		{
-        			((L2Skill) template).setDuration(Integer.decode(getValue(attrs.getNamedItem("time").getNodeValue(), template)) * 1000);
-        		}
-        	}
-        	return;
-        }
         L2Skill skill = SkillTable.getInstance().getInfo(id, lvl);
         if (attrs.getNamedItem("chance") != null) 
         {
@@ -355,7 +342,7 @@ abstract class DocumentBase
     {
         Condition cond = null;
         int[] ElementSeeds = new int[5];
-        int[] forces = new int[2];
+        byte[] forces = new byte[2];
         NamedNodeMap attrs = n.getAttributes();
         for (int i = 0; i < attrs.getLength(); i++)
         {
@@ -442,11 +429,11 @@ abstract class DocumentBase
             }
             else if ("battle_force".equalsIgnoreCase(a.getNodeName()))
             {
-                forces[0] = Integer.decode(getValue(a.getNodeValue(), null));
+                forces[0] = Byte.decode(getValue(a.getNodeValue(), null));
             }
             else if ("spell_force".equalsIgnoreCase(a.getNodeName()))
             {
-                forces[1] = Integer.decode(getValue(a.getNodeValue(), null));
+                forces[1] = Byte.decode(getValue(a.getNodeValue(), null));
             }            
         }
 

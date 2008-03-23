@@ -46,7 +46,7 @@ public abstract class IdFactory
         "UPDATE character_shortcuts   SET shortcut_id = ? WHERE shortcut_id = ? AND type = 1", // items
         "UPDATE character_macroses    SET char_obj_id = ? WHERE char_obj_id = ?",
         "UPDATE character_skills      SET char_obj_id = ? WHERE char_obj_id = ?",
-		"UPDATE character_skills_save SET char_obj_id = ? WHERE char_obj_id = ?",
+        "UPDATE character_skills_save SET char_obj_id = ? WHERE char_obj_id = ?",
         "UPDATE character_subclasses  SET char_obj_id = ? WHERE char_obj_id = ?",
         "UPDATE characters            SET obj_Id = ?      WHERE obj_Id = ?",
         "UPDATE characters            SET clanid = ?      WHERE clanid = ?",

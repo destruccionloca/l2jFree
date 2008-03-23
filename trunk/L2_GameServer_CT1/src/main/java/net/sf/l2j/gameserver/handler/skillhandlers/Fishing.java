@@ -87,10 +87,11 @@ public class Fishing implements ISkillHandler
 
 		// calculate point of a float
 		int d = Rnd.get(50) + 150;
-		double angle = Math.toRadians(Util.convertHeadingToDegree(activeChar.getHeading())) - 90;
+		double angle = Util.convertHeadingToDegree(player.getHeading());
+		double radian = Math.toRadians(angle);
 
-		int dx = (int) (d * Math.sin(angle));
-		int dy = (int) (d * Math.cos(angle));
+		int dx = (int) (d * Math.sin(radian));
+		int dy = (int) (d * Math.cos(radian));
 
 		int x = activeChar.getX() - dx;
 		int y = activeChar.getY() + dy;

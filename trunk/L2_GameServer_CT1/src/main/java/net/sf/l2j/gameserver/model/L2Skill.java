@@ -67,6 +67,8 @@ import net.sf.l2j.gameserver.skills.l2skills.L2SkillDecoy;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDefault;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillDrain;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSeed;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignet;
+import net.sf.l2j.gameserver.skills.l2skills.L2SkillSignetCasttime;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillSummon;
 import net.sf.l2j.gameserver.skills.l2skills.L2SkillTrap;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -107,21 +109,30 @@ public abstract class L2Skill
 	/** Target types of skills : SELF, PARTY, CLAN, PET... */
 	public static enum SkillTargetType
 	{
-		TARGET_NONE, TARGET_SELF, TARGET_ONE, TARGET_PARTY, TARGET_ALLY, TARGET_CLAN, TARGET_PET, TARGET_AREA, TARGET_FRONT_AREA, TARGET_BEHIND_AREA, TARGET_AURA, TARGET_FRONT_AURA, TARGET_BEHIND_AURA, TARGET_CORPSE, TARGET_AREA_UNDEAD, TARGET_MULTIFACE,
-		TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN, TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_ITEM, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB, TARGET_UNLOCKABLE, TARGET_HOLY, TARGET_PARTY_MEMBER, TARGET_PARTY_OTHER, TARGET_ENEMY_SUMMON, TARGET_OWNER_PET, TARGET_ENEMY_ALLY, TARGET_ENEMY_PET,
-		TARGET_GATE, TARGET_MOB, TARGET_AREA_MOB, TARGET_KNOWNLIST, TARGET_COUPLE, TARGET_RADIUS
+		TARGET_NONE, TARGET_SELF, TARGET_ONE, TARGET_PET,
+		TARGET_PARTY, TARGET_ALLY, TARGET_CLAN,
+		TARGET_AREA, TARGET_FRONT_AREA, TARGET_BEHIND_AREA,
+		TARGET_AURA, TARGET_FRONT_AURA, TARGET_BEHIND_AURA,
+		TARGET_CORPSE, TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN, TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB,
+		TARGET_MULTIFACE, TARGET_AREA_UNDEAD,
+		TARGET_ITEM,  TARGET_UNLOCKABLE, TARGET_HOLY,
+		TARGET_PARTY_MEMBER, TARGET_PARTY_OTHER,
+		TARGET_ENEMY_SUMMON, TARGET_OWNER_PET, TARGET_ENEMY_ALLY, TARGET_ENEMY_PET,
+		TARGET_GATE, TARGET_COUPLE,
+		TARGET_MOB, TARGET_AREA_MOB, TARGET_KNOWNLIST, TARGET_GROUND
 		// TARGET_BOSS
 	}
 
 	public static enum SkillType
 	{
 		PDAM, MDAM, CPDAM, AGGDAMAGE,
-		DOT, HOT, MHOT, BLEED, POISON, CPHOT, MPHOT, BUFF, DEBUFF, STUN, ROOT, CONT, SIGNET, CONFUSION, FORCE_BUFF, PARALYZE, FEAR, SLEEP, DEATH_MARK,
+		DOT, HOT, MHOT, BLEED, POISON, CPHOT, MPHOT, BUFF, DEBUFF, STUN, ROOT, CONT, CONFUSION, FORCE_BUFF, PARALYZE, FEAR, SLEEP, DEATH_MARK,
 		HEAL, COMBATPOINTHEAL, MANAHEAL, MANAHEAL_PERCENT, MANARECHARGE, RESURRECT, PASSIVE, UNLOCK,
 		NEGATE, CANCEL,  AGGREDUCE, AGGREMOVE, AGGREDUCE_CHAR, CONFUSE_MOB_ONLY, DEATHLINK, BLOW, FATALCOUNTER, DETECT_WEAKNESS, ENCHANT_ARMOR, ENCHANT_WEAPON, FEED_PET,
 		HEAL_PERCENT, HEAL_STATIC, LUCK, MANADAM, MDOT, MUTE, RECALL, REFLECT, SUMMON_FRIEND, SOULSHOT, SPIRITSHOT, SPOIL, SWEEP, WEAKNESS, DISARM, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, UNDEAD_DEFENSE,  BEAST_FEED, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, CHARGESOUL, GET_PLAYER,
-		FISHING, PUMPING, REELING, CANCEL_TARGET,  AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, TRANSFORMDISPEL, DETECT_TRAP, REMOVE_TRAP, RADIUS,
+		FISHING, PUMPING, REELING, CANCEL_TARGET,  AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, TRANSFORMDISPEL, DETECT_TRAP, REMOVE_TRAP,
 
+		AGATHION(L2SkillAgathion.class),
 		CHANGEWEAPON (L2SkillChangeWeapon.class),
 		CHARGE(L2SkillCharge.class),
 		CHARGEDAM(L2SkillChargeDmg.class),
@@ -132,9 +143,10 @@ public abstract class L2Skill
 		DRAIN(L2SkillDrain.class),
 		LUCKNOBLESSE(L2SkillCreateItem.class),
 		SEED(L2SkillSeed.class),
+		SIGNET(L2SkillSignet.class),
+		SIGNET_CASTTIME(L2SkillSignetCasttime.class),
 		SUMMON(L2SkillSummon.class),
 		SUMMON_TRAP(L2SkillTrap.class),
-		AGATHION(L2SkillAgathion.class),
 		
 		// Skill is done within the core.
 		COREDONE,
@@ -400,6 +412,7 @@ public abstract class L2Skill
 																			// for PDAM skills)
 	private final boolean			_directHpDmg;								// If true then dmg is being make directly
 	private final boolean			_isDance;									// If true then casting more dances will cost more MP
+	private final boolean			_isSong;									// If true then casting more songs will cost more MP
 	private final int				_nextDanceCost;
 	private final float				_sSBoost;									// If true skill will have SoulShot boost (power*2)
 
@@ -472,7 +485,8 @@ public abstract class L2Skill
 
 		_skillType = set.getEnum("skillType", SkillType.class);
 		_isDance = set.getBool("isDance", false);
-		if (_isDance)
+		_isSong = set.getBool("isSong", false);
+		if (_isDance || _isSong)
 			_timeMulti = Config.ALT_DANCE_TIME;
 		else if (_skillType == SkillType.SEED)
 			_timeMulti = Config.ALT_SEED_TIME;
@@ -1061,6 +1075,11 @@ public abstract class L2Skill
 		return _isDance;
 	}
 
+	public final boolean isSong()
+	{
+		return _isSong;
+	}
+
 	public final int getNextDanceMpCost()
 	{
 		return _nextDanceCost;
@@ -1320,7 +1339,6 @@ public abstract class L2Skill
 			case UNBLEED:
 			case UNPOISON:
 			case SEED:
-			case RADIUS:
 				return true;
 			default:
 				return false;
@@ -1489,6 +1507,7 @@ public abstract class L2Skill
 				return new L2Character[] { target };
 			}
 			case TARGET_SELF:
+			case TARGET_GROUND:
 			{
 				return new L2Character[] { activeChar };
 			}
@@ -1670,7 +1689,7 @@ public abstract class L2Skill
 						if (obj == activeChar || obj == src) continue;
 						if (src != null)
 						{
-							if (!cha.isFront(activeChar))
+							if (!cha.isInFrontOf(activeChar))
 								continue;
 
 							if (!GeoData.getInstance().canSeeTarget(activeChar, obj))
@@ -1958,7 +1977,7 @@ public abstract class L2Skill
 						if (!Util.checkIfInRange(radius, target, activeChar, true))
 							continue;
 
-						if (!target.isFront(activeChar))
+						if (!target.isInFrontOf(activeChar))
 							continue;
 
 						if (!GeoData.getInstance().canSeeTarget(activeChar, target))
@@ -2285,13 +2304,31 @@ public abstract class L2Skill
 			}
 			case TARGET_PARTY_OTHER:
 			{
-				if (target != null && target != activeChar && target instanceof L2PcInstance && activeChar.getParty() != null && target.getParty() != null
+				if (target != null && target != activeChar
+						&& activeChar.getParty() != null && target.getParty() != null
 						&& activeChar.getParty().getPartyLeaderOID() == target.getParty().getPartyLeaderOID())
 				{
 					if (!target.isDead())
 					{
-						// If a target is found, return it in a table else send a system message TARGET_IS_INCORRECT
-						return new L2Character[] { target };
+						if (target instanceof L2PcInstance)
+						{
+							L2PcInstance player = (L2PcInstance)target;
+							switch (getId())
+							{
+								// FORCE BUFFS may cancel here but there should be a proper condition
+								case 426: 
+									if (!player.isMageClass())
+										return new L2Character[]{target};
+									else
+										return null;
+								case 427:
+									if (player.isMageClass())
+										return new L2Character[]{target};
+									else
+										return null;
+							}
+						}
+						return new L2Character[]{target};
 					}
 					else
 						return null;
@@ -2766,8 +2803,6 @@ public abstract class L2Skill
 					return null;
 				return targetList.toArray(new L2Character[targetList.size()]);
 			}
-			case TARGET_RADIUS:
-				return net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().getTargetList(activeChar,this, onlyFirst);
 			default:
 			{
 				if (activeChar instanceof L2PcInstance || _log.isDebugEnabled()) // normally log only player skills errors
@@ -3432,187 +3467,6 @@ public abstract class L2Skill
 			_preCondition = c;
 	}
 
-	/**
-     * Add the L2Skill skill to the list of skills generated by casting this skill
-     * This is done <b>before</b> the SkillTable is made... Later we move it to a real skill
-     * Right now it's just pointing out that a skill needs to be triggered from this parent
-     * skill.
-     * @param skill : L2Skill
-     */
-	public void attachOnCast(int skill_id , int skill_lvl)
-	{
-        if (_skillsOnCastId == null || _skillsOnCastLvl == null)
-        {
-            _skillsOnCastId  = new int[]{skill_id };
-            _skillsOnCastLvl = new int[]{skill_lvl};
-        }
-        else
-        {
-            int len = _skillsOnCastId.length;
-            int[] tmpId = new int[len+1], tmpLvl = new int[len+1];
-            // Definition : arraycopy(array source, begins copy at this position of source, array destination, begins copy at this position in dest,
-            //                        number of components to be copied)
-            System.arraycopy(_skillsOnCastId , 0, tmpId , 0, len);
-            System.arraycopy(_skillsOnCastLvl, 0, tmpLvl, 0, len);
-            tmpId[len]  = skill_id ;
-            tmpLvl[len] = skill_lvl;
-            _skillsOnCastId  = tmpId ;
-            _skillsOnCastLvl = tmpLvl;
-        }
-	}
-
-	/**
-	 * Function attaches the triggered skills to this skill on run time.
-	 * This is called upon once from SkillTable during server run time.
-	 * If the already parsed skill contains triggered skill data, it is now
-	 * attached.
-	 */
-	public void attachOnCastFromSkillTable()
-	{
-        if (_skillsOnCastId == null || _skillsOnCastLvl == null)
-        {
-        	return;
-        }
-        if (_skillsOnCastId.length == 0 || _skillsOnCastLvl.length == 0)
-        {
-        	return;
-        }
-
-        for (int x = 0 ; x < _skillsOnCastId.length ; x++)
-        {
-        	int skillId = _skillsOnCastId[x] ,
-        		level	= _skillsOnCastLvl[x];
-        	L2Skill attachedSkill = SkillTable.getInstance().getInfo(skillId, level);
-        	attachOnCast(attachedSkill);
-        }
-
-        _skillsOnCastId  = null;
-        _skillsOnCastLvl = null;
-	}
-
-	/**
-     * Add the L2Skill skill to the list of skills generated by casting this skill
-     * @param skill : L2Skill
-     */
-    private void attachOnCast(L2Skill skill)
-    {
-        if (_skillsOnCast == null)
-        {
-            _skillsOnCast = new L2Skill[]{skill};
-        }
-        else
-        {
-            int len = _skillsOnCast.length;
-            L2Skill[] tmp = new L2Skill[len+1];
-            // Definition : arraycopy(array source, begins copy at this position of source, array destination, begins copy at this position in dest,
-            //                        number of components to be copied)
-            System.arraycopy(_skillsOnCast, 0, tmp, 0, len);
-            tmp[len] = skill;
-            _skillsOnCast = tmp;
-        }
-    }
-
-
-    private class TriggerSkill implements Runnable
-    {
-    	private Future _task = null;
-    	private final int _count;
-    	private final L2Character _target , _caster;
-    	private final L2Skill _skill;
-
-    	public TriggerSkill(L2Character caster , L2Character target , L2Skill skill , int times)
-    	{
-    		_caster = caster;
-    		_target = target;
-    		_skill  = skill;
-    		_count 	= times;
-    	}
-
-    	public void setTask(Future task)
-    	{
-    		_task = task;
-    	}
-
-    	public void run()
-    	{
-    		if (_task != null)
-    		{
-    			_task.cancel(true);
-    		}
-
-    		if (_count == 0 || _caster == null || _target == null)
-    		{
-    			return;
-    		}
-    		else if (_caster.isAlikeDead() || _target.isAlikeDead())
-    		{
-    			return;
-    		}
-    		else if (_caster instanceof L2PcInstance)
-    		{
-    			if (((L2PcInstance)_caster).isOnline()==0)
-    				return;
-    		}
-    		else if (_target instanceof L2PcInstance)
-    		{
-    			if (((L2PcInstance)_target).isOnline()==0)
-    				return;
-    		}
-
-    		TriggerSkill triggerSkill = new TriggerSkill(_caster , _target , _skill , _count-1);
-    		_task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, _duration/timesTriggered);
-    		triggerSkill.setTask(_task);
-    		_task = null;
-
-    		if (_skill.getTargetType() == SkillTargetType.TARGET_RADIUS && _skill.isOffensive())
-    		{
-    			net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill.getInstance().checkRadiusDamageSkills(_caster , _skill);
-    		}
-    		else
-    		{
-    			getEffectsOnce(_caster , _target , _skill);
-    		}
-    	}
-    }
-
-
-    public void skillEffects(L2Character caster)
-    {
-    	if (_skillsOnCast == null)
-    		return;
-
-    	if (getId() == 455)
-    	{
-    		return;
-    	}
-
-        for (L2Skill skill : _skillsOnCast)
-        {
-        	net.sf.l2j.gameserver.model.L2Object targets[] = caster.getCastTargets(skill);
-
-        	if (targets == null)
-        		continue;
-
-        	for (net.sf.l2j.gameserver.model.L2Object targetObject : targets)
-        	{
-            	if (!(targetObject instanceof L2Character))
-            		continue;
-
-            	L2Character target = (L2Character)targetObject;
-
-        		if (timesTriggered == 1)
-            	{
-            		getEffectsOnce(caster , target, skill);
-            		return;
-            	}
-
-            	TriggerSkill triggerSkill = new TriggerSkill(caster , target , skill , timesTriggered-1);
-            	Future task = ThreadPoolManager.getInstance().scheduleGeneral(triggerSkill, _duration / timesTriggered);
-            	triggerSkill.setTask(task);
-        	}
-        }
-    }
-
     /**
      * Returns effects of skills associated with the item to be triggered onCast.
      * @param caster : L2Character pointing out the caster
@@ -3661,28 +3515,9 @@ public abstract class L2Skill
         }
     }
 
-    /**
-     * Sets the number of times triggered skills will be called upon
-     * Right now all the triggered skills will be called the same number of times
-     * @param times - int value, the number of times a skill is triggered
-     */
-    public void setTriggeredTimes(int times)
-    {
-    	timesTriggered = times;
-    	timesTriggered = (timesTriggered > 0) ? timesTriggered : 1;
-    }
-
 	@Override
 	public String toString()
 	{
 		return "" + _name + "[id=" + _id + ",lvl=" + _level + "]";
 	}
-
-	/**
-     * @return the skills that are triggered when <b>this</b> skill is cast
-     */
-    public L2Skill[] getTriggeredSkills()
-    {
-    	return _skillsOnCast;
-    }
 }

@@ -175,7 +175,7 @@ public class NpcInfo extends L2GameServerPacket
             writeD(_x);
             writeD(_y);
             writeD(_z);
-            writeD(_heading);
+            writeD(0x00);
             writeD(_activeChar.getObjectId());
             writeS(owner.getAppearance().getVisibleName());
             writeD(owner.getRace().ordinal());

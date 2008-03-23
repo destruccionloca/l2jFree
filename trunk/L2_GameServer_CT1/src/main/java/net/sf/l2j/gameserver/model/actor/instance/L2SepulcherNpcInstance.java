@@ -209,6 +209,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		case 31485:
 		case 31486:
 		case 31487:
+			setIsInvul(false);
 			reduceCurrentHp(getMaxHp() + 1, player);
 			if (_spawnMonsterTask != null)
 				_spawnMonsterTask.cancel(true);
@@ -228,6 +229,7 @@ public class L2SepulcherNpcInstance extends L2NpcInstance
 		case 31465:
 		case 31466:
 		case 31467:
+			setIsInvul(false);
 			reduceCurrentHp(getMaxHp() + 1, player);
 			player.addItem("Quest", HALLS_KEY, 1, player, true);
 			break;

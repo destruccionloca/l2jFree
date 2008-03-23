@@ -359,7 +359,7 @@ public class UserInfo extends L2GameServerPacket
         writeC(_activeChar.isRunning() ? 0x01 : 0x00); //changes the Speed display on Status Window 
         
         writeD(_activeChar.getPledgeClass()); //changes the text above CP on Status Window
-        writeD(0x00); // ??
+        writeD(_activeChar.getSubPledgeType());
         
         writeD(_appearance.getTitleColor());
         

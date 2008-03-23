@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ArtefactInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ControlTowerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2EffectPointInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcWalkerInstance;
@@ -54,7 +55,6 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance.SkillDat;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SepulcherNpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList;
 import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
@@ -92,7 +92,6 @@ import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StopMove;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
-import net.sf.l2j.gameserver.network.serverpackets.TargetUnselected;
 import net.sf.l2j.gameserver.network.serverpackets.TeleportToLocation;
 import net.sf.l2j.gameserver.network.serverpackets.UserInfo;
 import net.sf.l2j.gameserver.pathfinding.AbstractNodeLoc;
@@ -102,13 +101,13 @@ import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.gameserver.skills.Stats;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 import net.sf.l2j.gameserver.skills.effects.EffectConditionHit;
-import net.sf.l2j.gameserver.skills.effects.EffectRadiusSkill;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2CharTemplate;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.gameserver.util.Util;
+import net.sf.l2j.tools.geometry.Point3D;
 import net.sf.l2j.tools.random.Rnd;
 
 import org.apache.commons.logging.Log;
@@ -140,8 +139,6 @@ public abstract class L2Character extends L2Object
 
 	// =========================================================
 	// Data Field
-	private Integer[]				_radiusSkillsAffect;
-	private int[]					_magicSkillUseGround;
 	private FastList<L2Character>	_attackByList;
 	private L2Character				_attackingChar;
 	private L2Skill					_lastSkillCast;
@@ -267,7 +264,7 @@ public abstract class L2Character extends L2Object
 		if (!(this instanceof L2PlayableInstance) && !(this instanceof L2Attackable) &&
 			!(this instanceof L2ControlTowerInstance) && !(this instanceof L2DoorInstance) &&
 			!(this instanceof L2Trap) && !(this instanceof L2SiegeFlagInstance) &&
-			!(this instanceof L2Decoy) && !(this instanceof L2SepulcherNpcInstance))
+			!(this instanceof L2Decoy) && !(this instanceof L2EffectPointInstance))
 				setIsInvul(true);
 	}
 
@@ -1087,7 +1084,8 @@ public abstract class L2Character extends L2Object
 
 		// Set the Attacking Body part to CHEST
 		setAttackingBodypart();
-
+		// Make sure that char is facing selected target
+		setHeading(Util.convertDegreeToClientHeading(Util.calculateAngleFrom(this, target)));
 		// Select the type of attack to start
 		if (weaponItem == null || transformed)
 			hitted = doAttackHitSimple(attack, target, timeToHit);
@@ -1407,7 +1405,7 @@ public abstract class L2Character extends L2Object
 	 */
 	private boolean doAttackHitByPole(Attack attack, L2Character target, int sAtk)
 	{
-		double angleChar, angleTarget;
+		double angleChar;
 		int maxRadius = getPhysicalAttackRange();
 		int maxAngleDiff = (int) getStat().calcStat(Stats.POWER_ATTACK_ANGLE, 120, null, null);
 
@@ -1438,12 +1436,7 @@ public abstract class L2Character extends L2Object
 		// o1 has a heading of -80 (280) degree from horizontal (facing north east)
 		// Degree of o2 in respect to 01 = -40 (320) degree
 
-		// ===========================================================
-		// Make sure that char is facing selected target
-		angleTarget = Util.calculateAngleFrom(this, target);
-		setHeading((int) ((angleTarget / 9.0) * 1610.0)); // = this.setHeading((int)((angleTarget / 360.0) * 64400.0));
-
-		// Update char's heading degree
+		// Get char's heading degree
 		angleChar = Util.convertHeadingToDegree(getHeading());
 		int attackRandomCountMax = (int)getStat().calcStat(Stats.ATTACK_COUNT_MAX, 3, null, null) - 1;
 		int attackcount = 0;
@@ -1473,13 +1466,7 @@ public abstract class L2Character extends L2Object
 				// otherwise hit too high/low. 650 because mob z coord sometimes wrong on hills
 				if (Math.abs(obj.getZ() - getZ()) > 650)
 					continue;
-				angleTarget = Util.calculateAngleFrom(this, obj);
-				if (Math.abs(angleChar - angleTarget) > maxAngleDiff && Math.abs((angleChar + 360) - angleTarget) > maxAngleDiff && // Example: char is at 1
-																																	// degree and target is at
-																																	// 359 degree
-						Math.abs(angleChar - (angleTarget + 360)) > maxAngleDiff // Example: target is at 1 degree and char is at 359 degree
-				)
-					continue;
+				if (!isFacing(obj, maxAngleDiff)) continue;
 
 				temp = (L2Character) obj;
 
@@ -1633,6 +1620,29 @@ public abstract class L2Character extends L2Object
 			return;
 		}
 
+		// prevent casting signets to peace zone
+		if (skill.getSkillType() == SkillType.SIGNET || skill.getSkillType() == SkillType.SIGNET_CASTTIME)
+		{
+			L2WorldRegion region = getWorldRegion();
+			if (region == null) return;
+			boolean canCast = true;
+			if (skill.getTargetType() == SkillTargetType.TARGET_GROUND && this instanceof L2PcInstance)
+			{
+				Point3D wp = ((L2PcInstance) this).getCurrentSkillWorldPosition();
+				if (!region.checkEffectRangeInsidePeaceZone(skill, wp.getX(), wp.getY(), wp.getZ()))
+					canCast = false;
+			}
+			else if (!region.checkEffectRangeInsidePeaceZone(skill, getX(), getY(), getZ()))
+				canCast = false;
+			if (!canCast)
+			{
+				SystemMessage sm = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
+				sm.addSkillName(skill.getId());
+				sendPacket(sm);
+				return;
+			}
+		}
+
 		// Recharge AutoSoulShot
 		if (skill.useSoulShot())
 		{
@@ -1678,6 +1688,7 @@ public abstract class L2Character extends L2Object
 			case TARGET_AURA:
 			case TARGET_FRONT_AURA:
 			case TARGET_BEHIND_AURA:
+			case TARGET_GROUND:
 			{
 				target = this;
 				break;
@@ -1690,34 +1701,46 @@ public abstract class L2Character extends L2Object
 					return;
 				}
 
-				if (skill.getSkillType() == SkillType.BUFF || skill.getSkillType() == SkillType.HEAL || skill.getSkillType() == SkillType.COMBATPOINTHEAL
-						|| skill.getSkillType() == SkillType.MANAHEAL || skill.getSkillType() == SkillType.REFLECT || skill.getSkillType() == SkillType.SEED
-						|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_SELF || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PET
-						|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_PARTY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_CLAN
-						|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ALLY || skill.getTargetType() == L2Skill.SkillTargetType.TARGET_ENEMY_ALLY
-						|| skill.getTargetType() == L2Skill.SkillTargetType.TARGET_RADIUS)
+				switch (skill.getSkillType())
 				{
-					target = (L2Character) targets[0];
-				}
-				else if (skill.getTargetType() == L2Skill.SkillTargetType.TARGET_OWNER_PET)
-				{
-					if (this instanceof L2PetInstance)
+					case BUFF: case HEAL: case COMBATPOINTHEAL: case MANAHEAL:
+					case REFLECT: case SEED:
+						target = (L2Character) targets[0];
+						break;
+					default:
 					{
-						target = ((L2PetInstance) this).getOwner();
-					}
-				}
-				else
-				{
-					target = (L2Character) getTarget();
-
-					// Prevent usage of skills on NPCs that shouldn't allow this (teleporters, merchants, trainers, etc)
-					if ((target instanceof L2NpcInstance))
-					{
-						String mobtype = ((L2NpcInstance) target).getTemplate().getType();
-						if (!Config.LIST_ALLOWED_NPC_TYPES.contains(mobtype) && !(this instanceof L2PcInstance && ((L2PcInstance) this).checkFOS()))
+						switch (skill.getTargetType())
 						{
-							sendMessage("You cannot use skills on this npc!");
-							return;
+							case TARGET_SELF:
+							case TARGET_PET:
+							case TARGET_PARTY:
+							case TARGET_CLAN:
+							case TARGET_ALLY:
+							case TARGET_ENEMY_ALLY:
+								target = (L2Character) targets[0];
+								break;
+							case TARGET_OWNER_PET:
+								if (this instanceof L2PetInstance)
+								{
+									target = ((L2PetInstance) this).getOwner();
+								}
+								break;
+							default:
+							{
+								target = (L2Character) getTarget();
+
+								// Prevent usage of skills on NPCs that shouldn't allow this (teleporters, merchants, trainers, etc)
+								if ((target instanceof L2NpcInstance))
+								{
+									String mobtype = ((L2NpcInstance) target).getTemplate().getType();
+									if (!Config.LIST_ALLOWED_NPC_TYPES.contains(mobtype) && !(this instanceof L2PcInstance && ((L2PcInstance) this).checkFOS()))
+									{
+										sendMessage("You cannot use skills on this npc!");
+										return;
+									}
+								}
+								break;
+							}
 						}
 					}
 				}
@@ -1752,11 +1775,12 @@ public abstract class L2Character extends L2Object
 		// Get the delay under wich the cast can be aborted (base)
 		int skillInterruptTime = skill.getSkillInterruptTime();
 
-		boolean forceBuff = skill.getSkillType() == SkillType.FORCE_BUFF && (target instanceof L2PcInstance);
+		boolean effectWhileCasting = skill.getSkillType() == SkillType.FORCE_BUFF
+									|| skill.getSkillType() == SkillType.SIGNET_CASTTIME;
 
 		// Calculate the casting time of the skill (base + modifier of MAtkSpd)
 		// Don't modify the skill time for FORCE_BUFF skills. The skill time for those skills represent the buff time.
-		if (!forceBuff)
+		if(!effectWhileCasting)
 		{
 			hitTime = Formulas.getInstance().calcMAtkSpd(this, skill, hitTime);
 			if (coolTime > 0)
@@ -1771,7 +1795,7 @@ public abstract class L2Character extends L2Object
 
 		// Calculate altered Cast Speed due to BSpS/SpS
 		L2ItemInstance weaponInst = getActiveWeaponInstance();
-		if (weaponInst != null && skill.isMagic() && !forceBuff && skill.getTargetType() != SkillTargetType.TARGET_SELF)
+		if (weaponInst != null && skill.isMagic() && !effectWhileCasting && skill.getTargetType() != SkillTargetType.TARGET_SELF)
 		{
 			if ((weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_BLESSED_SPIRITSHOT)
 					|| (weaponInst.getChargedSpiritshot() == L2ItemInstance.CHARGED_SPIRITSHOT))
@@ -1783,20 +1807,19 @@ public abstract class L2Character extends L2Object
 
 				// Because the following are magic skills that do not actively 'eat' BSpS/SpS,
 				// I must 'eat' them here so players don't take advantage of infinite speed increase
-				if ((skill.getSkillType() == SkillType.BUFF) || (skill.getSkillType() == SkillType.MANAHEAL) || (skill.getSkillType() == SkillType.RESURRECT)
-						|| (skill.getSkillType() == SkillType.RECALL) ||
-						// (skill.getSkillType() == SkillType.POISON)||
-						// (skill.getSkillType() == SkillType.DEBUFF)||
-						// (skill.getSkillType() == SkillType.PARALYZE)||
-						// (skill.getSkillType() == SkillType.ROOT)||
-						// (skill.getSkillType() == SkillType.SLEEP)||
-						(skill.getSkillType() == SkillType.DOT))
+				switch (skill.getSkillType())
 				{
-					weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+					case BUFF:
+					case MANAHEAL:
+					case RESURRECT:
+					case RECALL:
+					case DOT:
+						weaponInst.setChargedSpiritshot(L2ItemInstance.CHARGED_NONE);
+						break;
 				}
 			}
 		}
-		else if (this instanceof L2NpcInstance && skill.useSpiritShot() && !forceBuff)
+		else if (this instanceof L2NpcInstance && skill.useSpiritShot() && !effectWhileCasting)
 		{
 			if(((L2NpcInstance)this).rechargeAutoSoulShot(false, true))
 			{
@@ -1813,6 +1836,7 @@ public abstract class L2Character extends L2Object
 		// Init the reuse time of the skill
 		int reuseDelay;
 
+		// TODO: Duration doubled by chance for effects when Skill Mastery (330/331) is active.
 		if(skill.getSkillType() == SkillType.PDAM && getSkillLevel(330) >= 1)
 		{
 			int chance = (int) ((100 + getStat().getSTR())*1.5)-200;
@@ -1820,10 +1844,6 @@ public abstract class L2Character extends L2Object
 			if (finalchance < chance)
 			{
 				reuseDelay = 0;
-			}
-			else if (finalchance > (100 - chance))
-			{
-				reuseDelay = (int)(2 * skill.getReuseDelay() * getStat().getPReuseRate(skill));
 			}
 			else
 			{
@@ -1838,17 +1858,13 @@ public abstract class L2Character extends L2Object
 			{
 				reuseDelay = 0;
 			}
-			else if (finalchance > (100 - chance))
-			{
-				reuseDelay = (int)(2 * skill.getReuseDelay() * getStat().getMReuseRate(skill));
-			}
 			else
 			{
 				reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
 			}
 		}
 		else if(skill.isMagic())
-		{			
+		{
 			reuseDelay = (int)(skill.getReuseDelay() * getStat().getMReuseRate(skill));
 		}
 		else
@@ -1857,6 +1873,63 @@ public abstract class L2Character extends L2Object
 		}
 
 		reuseDelay *= 333.0 / (skill.isMagic() ? getMAtkSpd() : getPAtkSpd());
+
+		// Skill reuse check
+		if (reuseDelay > 30000) addTimeStamp(skill.getId(),reuseDelay);
+
+		// Check if this skill consume mp on start casting
+		int initmpcons = getStat().getMpInitialConsume(skill);
+		if (initmpcons > 0)
+		{
+			StatusUpdate su = new StatusUpdate(getObjectId());
+			if(skill.isDance() || skill.isSong())
+			{
+				getStatus().reduceMp(calcStat(Stats.DANCE_CONSUME_RATE, initmpcons, null, null));
+			}
+			else if(skill.isMagic())
+			{
+				getStatus().reduceMp(calcStat(Stats.MAGIC_CONSUME_RATE, initmpcons, null, null));
+			}
+			else
+			{
+				getStatus().reduceMp(calcStat(Stats.PHYSICAL_CONSUME_RATE, initmpcons, null, null));
+			}
+			su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
+			sendPacket(su);
+		}
+
+		// Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
+		if (reuseDelay > 10)
+		{
+			disableSkill(skill.getId(), reuseDelay);
+		}
+
+		// Make sure that char is facing selected target
+		setHeading(Util.calculateHeadingFrom(this, target));
+		
+		// For force buff skills, start the effect as long as the player is casting.
+		if(effectWhileCasting)
+		{
+			// Consume Items if necessary and Send the Server->Client packet InventoryUpdate with Item modification to all the L2Character
+			if (skill.getItemConsume() > 0)
+				consumeItem(skill.getItemConsumeId(), skill.getItemConsume());
+
+			// Consume Souls if necessary
+			if (skill.getSoulConsumeCount() > 0)
+			{
+				if (this instanceof L2PcInstance)
+				{
+					((L2PcInstance)this).decreaseSouls(skill.getSoulConsumeCount());
+					sendPacket(new EtcStatusUpdate((L2PcInstance)this));
+				}
+			}
+			
+			if (skill.getSkillType() == SkillType.FORCE_BUFF)
+				startForceBuff(target, skill);
+			else
+				callSkill(skill, targets);
+		}
+		
 
 		// Send a Server->Client packet MagicSkillUse with target, displayId, level, skillTime, reuseDelay
 		// to the L2Character AND to all L2PcInstance in the _knownPlayers of the L2Character
@@ -1882,43 +1955,6 @@ public abstract class L2Character extends L2Object
 			sendPacket(sm);
 		}
 
-		// Skill reuse check
-		if (reuseDelay > 30000)
-			addTimeStamp(skill.getId(), reuseDelay);
-
-		// Check if this skill consume mp on start casting
-		int initmpcons = getStat().getMpInitialConsume(skill);
-		if (initmpcons > 0)
-		{
-			StatusUpdate su = new StatusUpdate(getObjectId());
-			if(skill.isDance())
-			{
-				getStatus().reduceMp(calcStat(Stats.DANCE_CONSUME_RATE, initmpcons, null, null));
-			}
-			else if(skill.isMagic())
-			{
-				getStatus().reduceMp(calcStat(Stats.MAGIC_CONSUME_RATE, initmpcons, null, null));
-			}
-			else
-			{
-				getStatus().reduceMp(calcStat(Stats.PHYSICAL_CONSUME_RATE, initmpcons, null, null));
-			}
-			su.addAttribute(StatusUpdate.CUR_MP, (int) getStatus().getCurrentMp());
-			sendPacket(su);
-		}
-
-		// Disable the skill during the re-use delay and create a task EnableSkill with Medium priority to enable it at the end of the re-use delay
-		if (reuseDelay > 10)
-		{
-			disableSkill(skill.getId(), reuseDelay);
-		}
-
-		// For force buff skills, start the effect as long as the player is casting.
-		if (forceBuff)
-		{
-			startForceBuff(target, skill);
-		}
-
 		// Before start AI Cast Broadcast Fly Effect is Need
 		if (skill.getFlyType() != null && (this instanceof L2PcInstance))
 		{
@@ -1929,7 +1965,7 @@ public abstract class L2Character extends L2Object
 		if (hitTime > 210)
 		{
 			// Send a Server->Client packet SetupGauge with the color of the gauge and the casting time
-			if (this instanceof L2PcInstance && !forceBuff)
+			if (this instanceof L2PcInstance && !effectWhileCasting)
 			{
 				SetupGauge sg = new SetupGauge(SetupGauge.BLUE, hitTime);
 				sendPacket(sg);
@@ -1946,7 +1982,7 @@ public abstract class L2Character extends L2Object
 
 			// Create a task MagicUseTask to launch the MagicSkill at the end of the casting time (hitTime)
 			// For client animation reasons (party buffs especially) 200 ms before!
-			if (getForceBuff() != null)
+			if (effectWhileCasting)
 				_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 2), hitTime);
 			else
 				_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 1), hitTime - 200);
@@ -2292,6 +2328,7 @@ public abstract class L2Character extends L2Object
 			case TARGET_AURA: // AURA, SELF should be cast even if no target has been found
 			case TARGET_FRONT_AURA:
 			case TARGET_BEHIND_AURA:
+			case TARGET_GROUND:
 			case TARGET_SELF:
 				target = this;
 				break;
@@ -2901,7 +2938,7 @@ public abstract class L2Character extends L2Object
 						onMagicHitTimer(_targets, _skill, _coolTime, false);
 						break;
 					case 3:
-						onMagicFinalizer(_targets, _skill);
+						onMagicFinalizer(_skill);
 						break;
 					default:
 						break;
@@ -3104,7 +3141,15 @@ public abstract class L2Character extends L2Object
 					&& ((tempskill.getSkillType() == L2Skill.SkillType.BUFF || tempskill.getSkillType() == L2Skill.SkillType.DEBUFF
 							|| tempskill.getSkillType() == L2Skill.SkillType.REFLECT || tempskill.getSkillType() == L2Skill.SkillType.HEAL_PERCENT || tempskill
 							.getSkillType() == L2Skill.SkillType.MANAHEAL_PERCENT) && !(tempskill.getId() > 4360 && tempskill.getId() < 4367)))
+			{
+				// if max buffs, no herb effects are used, even if they would replace one old
+				if (newEffect.isHerbEffect()) 
+				{ 
+					newEffect.stopEffectTask(); 
+					return; 
+				}
 				removeFirstBuff(tempskill.getId());
+			}
 
 			// Add the L2Effect to all effect in progress on the L2Character
 			if (!newEffect.getSkill().isToggle())
@@ -4897,6 +4942,10 @@ public abstract class L2Character extends L2Object
 			if (getForceBuff() != null)
 				getForceBuff().delete();
 
+			L2Effect mog = getFirstEffect(L2Effect.EffectType.SIGNET_GROUND);
+			if (mog != null)
+				mog.exit();
+
 			// cancels the skill hit scheduled task
 			enableAllSkills(); // re-enables the skills
 			if (this instanceof L2PcInstance)
@@ -5081,27 +5130,6 @@ public abstract class L2Character extends L2Object
 		{
 			getKnownList().addKnownObject(object);
 			object.getKnownList().addKnownObject(this);
-		}
-
-		// If object==null, Cancel Attak or Cast
-		if (object == null)
-		{
-			if (_target != null)
-			{
-				broadcastPacket(new TargetUnselected(this));
-			}
-			/*
-			 * if (isAttackingNow() && getAI().getAttackTarget() == _target) { abortAttack();
-			 *
-			 * getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-			 *
-			 * if (this instanceof L2PcInstance) { sendPacket(new ActionFailed()); SystemMessage sm = new SystemMessage(SystemMessageId.S1_S2);
-			 * sm.addString("Attack is aborted"); sendPacket(sm); } }
-			 *
-			 * if (isCastingNow() && canAbortCast() && getAI().getCastTarget() == _target) { abortCast();
-			 * getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE); if (this instanceof L2PcInstance) { sendPacket(new ActionFailed()); SystemMessage sm =
-			 * new SystemMessage(SystemMessageId.S1_S2); sm.addString("Casting is aborted"); sendPacket(sm); } }
-			 */
 		}
 		_target = object;
 	}
@@ -5401,7 +5429,7 @@ public abstract class L2Character extends L2Object
 		m._ySpeedTicks = (float) (sin * speed / GameTimeController.TICKS_PER_SECOND);
 
 		// Calculate and set the heading of the L2Character
-		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
+		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378);
 		heading += 32768;
 		setHeading(heading);
 
@@ -5500,7 +5528,7 @@ public abstract class L2Character extends L2Object
 		m._ySpeedTicks = (float) (sin * speed / GameTimeController.TICKS_PER_SECOND);
 
 		// Calculate and set the heading of the L2Character
-		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378350470452724949566316381);
+		int heading = (int) (Math.atan2(-sin, -cos) * 10430.378);
 		heading += 32768;
 		setHeading(heading);
 		m._heading = 0; // ?
@@ -6516,7 +6544,7 @@ public abstract class L2Character extends L2Object
 			removeMe.exit();
 	}
 
-	public int getDanceCount()
+	public int getDanceCount(boolean song)
 	{
 		int danceCount = 0;
 		L2Effect[] effects = getAllEffects();
@@ -6524,7 +6552,7 @@ public abstract class L2Character extends L2Object
 		{
 			if (effect == null)
 				continue;
-			if (effect.getSkill().isDance() && effect.getInUse())
+			if (((effect.getSkill().isDance() && !song) || (effect.getSkill().isSong() && song)) && effect.getInUse())
 				danceCount++;
 		}
 		return danceCount;
@@ -6607,7 +6635,7 @@ public abstract class L2Character extends L2Object
 			{
 				if (element instanceof L2Character)
 				{
-					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element)) && skill.getTargetType() != SkillTargetType.TARGET_RADIUS)
+					if ((!Util.checkIfInRange(escapeRange, this, element, true) || !GeoData.getInstance().canSeeTarget(this, element)))
 						continue;
 					if (skill.isOffensive())
 					{
@@ -6687,8 +6715,16 @@ public abstract class L2Character extends L2Object
 		{
 			_skillCast = null;
 			enableAllSkills();
-
 			getForceBuff().delete();
+			return;
+		}
+
+		L2Effect mog = getFirstEffect(L2Effect.EffectType.SIGNET_GROUND);
+		if (mog != null)
+		{
+			_skillCast = null;
+			enableAllSkills();
+			mog.exit();
 			return;
 		}
 
@@ -6783,7 +6819,7 @@ public abstract class L2Character extends L2Object
 		}
 
 		if (instant || coolTime == 0)
-			onMagicFinalizer(targets, skill);
+			onMagicFinalizer(skill);
 		else
 			_skillCast = ThreadPoolManager.getInstance().scheduleEffect(new MagicUseTask(targets, skill, coolTime, 3), coolTime);
 	}
@@ -6791,7 +6827,7 @@ public abstract class L2Character extends L2Object
 	/*
 	 * Runs after skill hitTime+coolTime
 	 */
-	public void onMagicFinalizer(L2Object[] targets, L2Skill skill)
+	public void onMagicFinalizer(L2Skill skill)
 	{
 		_skillCast = null;
 		_castEndTime = 0;
@@ -6972,23 +7008,6 @@ public abstract class L2Character extends L2Object
 	{
 		try
 		{
-			if (_magicSkillUseGround != null && _magicSkillUseGround[3] != 0)
-			{
-				if (skill.getSkillType() == SkillType.RADIUS)
-				{
-					EffectRadiusSkill.getInstance().addRadiusSkill(_magicSkillUseGround[0], _magicSkillUseGround[1], _magicSkillUseGround[2], this, skill);
-					setMagicSkillUseGround(0,0,0,0);
-					EffectRadiusSkill.getInstance().checkRadiusSkills(this , true);
-				}
-				else
-				{
-					setMagicSkillUseGround(0,0,0,0);
-				}
-			}
-
-			//Launch a skill's Special ability skill effect if available
-			skill.skillEffects(this);
-
 			// Do initial checkings for skills and set pvp flag/draw aggro when needed
 			for (L2Object trg : targets)
 			{
@@ -7023,19 +7042,22 @@ public abstract class L2Character extends L2Object
 						{
 							if (target instanceof L2PcInstance || target instanceof L2Summon || target instanceof L2Trap)
 							{
-								target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
+								if (skill.getSkillType() != L2Skill.SkillType.SIGNET && skill.getSkillType() != L2Skill.SkillType.SIGNET_CASTTIME)
+								{
+									target.getAI().notifyEvent(CtrlEvent.EVT_ATTACKED, activeChar);
 
-								if (target instanceof L2Summon)
-								{
-									activeChar.updatePvPStatus(((L2Summon)target).getOwner());
-								}
-								else if (target instanceof L2Trap)
-								{
-									activeChar.updatePvPStatus(((L2Trap)target).getOwner());
-								}
-								else
-								{
-									activeChar.updatePvPStatus(target);
+									if (target instanceof L2Summon)
+									{
+										activeChar.updatePvPStatus(((L2Summon)target).getOwner());
+									}
+									else if (target instanceof L2Trap)
+									{
+										activeChar.updatePvPStatus(((L2Trap)target).getOwner());
+									}
+									else
+									{
+										activeChar.updatePvPStatus(target);
+									}
 								}
 							}
 							else if (target instanceof L2Attackable)
@@ -7163,7 +7185,7 @@ public abstract class L2Character extends L2Object
 		if (target instanceof L2Character)
 		{
 			L2Character target1 = (L2Character) target;
-			angleChar = Util.calculateAngleFrom(target1, this);
+			angleChar = Util.calculateAngleFrom(this, target1);
 			angleTarget = Util.convertHeadingToDegree(target1.getHeading());
 			angleDiff = angleChar - angleTarget;
 			if (angleDiff <= -360 + maxAngleDiff)
@@ -7191,56 +7213,45 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Return True if the L2Character is behind the target and can't be seen.<BR>
-	 * <BR>
+	 * Return True if the target is facing th L2Character.<BR><BR>
 	 */
-	public boolean isFront(L2Object target)
+	public boolean isInFrontOf(L2Character target)
 	{
 		double angleChar, angleTarget, angleDiff, maxAngleDiff = 45;
 
 		if (target == null)
 			return false;
 
+		angleTarget = Util.calculateAngleFrom(target, this);
+		angleChar = Util.convertHeadingToDegree(target.getHeading());
+		angleDiff = angleChar - angleTarget;
+		if (angleDiff <= -360 + maxAngleDiff) angleDiff += 360;
+		if (angleDiff >= 360 - maxAngleDiff) angleDiff -= 360;
+		return (Math.abs(angleDiff) <= maxAngleDiff);
+	}
+
+	public boolean isInFrontOfTarget()
+	{
+		L2Object target = getTarget();
 		if (target instanceof L2Character)
-		{
-			L2Character target1 = (L2Character) target;
-			angleChar = Util.calculateAngleFrom(target1, this);
-			angleTarget = Util.convertHeadingToDegree(target1.getHeading());
-			angleDiff = angleChar - angleTarget;
-			if (angleDiff <= -180 + maxAngleDiff)
-				angleDiff += 180;
-			if (angleDiff >= 180 - maxAngleDiff)
-				angleDiff -= 180;
-			if (Math.abs(angleDiff) <= maxAngleDiff)
-			{
-				if (_log.isDebugEnabled())
-					_log.info("Char " + this.getName() + " is side " + target.getName());
-				return true;
-			}
-		}
+			return isInFrontOf((L2Character)target);
 		else
-		{
-			_log.info("isFront's target not an L2 Character.");
-		}
-		return false;
+			return false;
 	}
 
-	public boolean isFrontTarget()
+	/** Returns true if target is in front of L2Character (shield def etc) */
+	public boolean isFacing(L2Object target, int maxAngle)
 	{
-		return isFront(getTarget());
-	}
-
-	/**
-	 * Return True if the target is front L2Character and can be seen.<BR>
-	 * <BR>
-	 * degrees = 0..180, front->sides->back
-	 */
-	public boolean isInFront(L2Character target, double degrees)
-	{
-		double head = getHeadingTo(target, false);
-		if (head <= 32768 * degrees / 180 || head >= (65536 - 32768 * degrees / 180))
-			return true;
-		return false;
+		double angleChar, angleTarget, angleDiff, maxAngleDiff;
+		if(target == null)
+			return false;
+		maxAngleDiff = maxAngle / 2;
+		angleTarget = Util.calculateAngleFrom(this, target);
+		angleChar = Util.convertHeadingToDegree(this.getHeading());
+		angleDiff = angleChar - angleTarget;
+		if (angleDiff <= -360 + maxAngleDiff) angleDiff += 360;
+		if (angleDiff >= 360 - maxAngleDiff) angleDiff -= 360;
+		return (Math.abs(angleDiff) <= maxAngleDiff);
 	}
 
 	/**
@@ -7637,15 +7648,8 @@ public abstract class L2Character extends L2Object
 		return null;
 	}
 
-	public void setForceBuff(ForceBuff fb)
-	{
-	}
-
 	public void checkRemovalOnHit()
 	{
-		if (getForceBuff() != null)
-			abortCast();
-
 		L2Effect[] effects = getAllEffects();
 
 		if (effects == null)
@@ -7787,29 +7791,6 @@ public abstract class L2Character extends L2Object
 			return null;
 		}
 		return targets;
-    }
-
-    public Integer[] getRadiusSkillsAffect()
-    {
-    	return _radiusSkillsAffect;
-    }
-
-    public void setRadiusSkillsAffect(Integer[] skillList)
-    {
-    	_radiusSkillsAffect = skillList;
-    }
-
-    public void setMagicSkillUseGround(int x , int y , int z , int skillId)
-    {
-    	if (_magicSkillUseGround == null)
-    	{
-    		_magicSkillUseGround = new int[4];
-    	}
-
-    	_magicSkillUseGround[0] = x;
-    	_magicSkillUseGround[1] = y;
-    	_magicSkillUseGround[2] = z;
-    	_magicSkillUseGround[3] = skillId;
     }
 
     public void setPreventedFromReceivingBuffs(boolean value)

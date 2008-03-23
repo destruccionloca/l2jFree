@@ -1600,7 +1600,7 @@ public final class Formulas
         {
             if(attacker.isBehindTarget())
                 critHit = Rnd.get(700);
-            else if(!attacker.isInFront(target, 60) && !attacker.isBehindTarget())
+            else if(!attacker.isFacing(target, 60) && !attacker.isBehindTarget())
                 critHit = Rnd.get(800);
             critHit = Rnd.get(900);
         }
@@ -1616,6 +1616,12 @@ public final class Formulas
    public final boolean calcAtkBreak(L2Character target, double dmg)
    {
         if (target.isRaid()) return false;
+
+        if (target instanceof L2PcInstance)
+        {
+            if (((L2PcInstance)target).getForceBuff() != null)
+                return true;
+        }
 
         double init = 0;
 
@@ -1692,7 +1698,7 @@ public final class Formulas
         {
             if(attacker.isBehindTarget())
                 acc_attacker +=10;
-            else if(!attacker.isInFront(target, 60) && !attacker.isBehindTarget())
+            else if(!attacker.isFacing(target, 60) && !attacker.isBehindTarget())
                 acc_attacker +=5;
             if(attacker.getZ()-target.getZ() >= 32)
                 acc_attacker +=3;
@@ -1708,27 +1714,27 @@ public final class Formulas
         return Rnd.get(100) > (100 - d);
 	}
 
-    /** Returns true if shield defence successfull */
-    public boolean calcShldUse(L2Character attacker, L2Character target) 
-    {
-        double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null)
-            * DEXbonus[target.getStat().getDEX()];
-        
+	/** Returns true if shield defence successful */
+	public boolean calcShldUse(L2Character attacker, L2Character target) 
+	{
+		double shldRate = target.calcStat(Stats.SHIELD_RATE, 0, attacker, null)
+			* DEXbonus[target.getStat().getDEX()];
+
 		if (shldRate == 0.0) return false;
 		
 		double shldAngle = target.calcStat(Stats.SHIELD_ANGLE, 60, null, null);
 		
-        if (!target.isInFront(attacker, shldAngle))
-            return false;
-		
-        // if attacker use bow and target wear shield, shield block rate is multiplied by 1.5 (50%)
+		if (shldAngle < 360 && (!target.isFacing(attacker, (int)shldAngle)))
+			return false;
+
+		// if attacker use bow and target wear shield, shield block rate is multiplied by 1.5 (50%)
 		if (attacker != null && attacker.getActiveWeaponItem() != null 
 			&& attacker.getActiveWeaponItem().getItemType() == L2WeaponType.BOW
 		)
-            shldRate *= 1.5;
+			shldRate *= 1.5;
 		
-        return Rnd.get(100) < shldRate;
-    }
+		return Rnd.get(100) < shldRate;
+	}
 
 	// This should be deprecated and calcSkillSuccess() should be used instead
     public boolean calcMagicAffected(L2Character actor, L2Character target, L2Skill skill)
