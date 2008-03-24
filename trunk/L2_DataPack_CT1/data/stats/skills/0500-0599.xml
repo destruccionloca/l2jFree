@@ -744,20 +744,19 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="buffDuration" val="300"/>
   <for>
-	<!-- Proper stats needs to be confirmed -->
-	<effect count="1" name="Buff" val="0" time="300" stackorder="120" stacktype="bodylimit"/>
-		<mul order="0x40" stat="pDef" val="1.08"/>
-		<mul order="0x40" stat="pAtk" val="1.08"/>
-		<mul order="0x40" stat="mDef" val="1.08"/>
-		<mul order="0x40" stat="mAtk" val="1.08"/>
-		<add order="0x40" stat="rEvas" val="6"/>
-		<add order="0x40" stat="runSpd" val="25"/>
-		<mul order="0x40" stat="pAtkSpd" val="1.08"/>
-		<mul order="0x40" stat="mAtkSpd" val="1.08"/>
-		<mul order="0x40" stat="maxHp" val="1.08"/>
-		<mul order="0x40" stat="maxMp" val="1.08"/>
-	</effect>
-  <for>
+    <!-- Proper stats needs to be confirmed -->
+    <effect count="1" name="Buff" val="0" time="300" stackorder="120" stacktype="bodylimit">
+      <mul order="0x40" stat="pDef" val="1.08"/>
+      <mul order="0x40" stat="pAtk" val="1.08"/>
+      <mul order="0x40" stat="mDef" val="1.08"/>
+      <mul order="0x40" stat="mAtk" val="1.08"/>
+      <add order="0x40" stat="rEvas" val="6"/>
+      <add order="0x40" stat="runSpd" val="25"/>
+      <mul order="0x40" stat="pAtkSpd" val="1.08"/>
+      <mul order="0x40" stat="mAtkSpd" val="1.08"/>
+      <mul order="0x40" stat="maxHp" val="1.08"/>
+      <mul order="0x40" stat="maxMp" val="1.08"/>
+    </effect>
   </for>
 </skill>
 <skill id="537" levels="1" name="Spoil Bomb">
@@ -858,7 +857,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val=202/>
+  <set name="transformId" val="202"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1107,8 +1106,8 @@ description(s) :
 </skill>
 <skill id="559" levels="4" name="Spear">
   <!-- Done by Sephiroth for L2Umbrella -->
-  <table name="#power"> 900 1013 1129 </table>
-  <table name="mpConsume"> 68 70 74</table>
+  <table name="#power"> 900 1013 1129 1248 </table>
+  <table name="#mpConsume"> 68 70 74 78 </table>
   <set name="weaponsAllowed" val="72"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
