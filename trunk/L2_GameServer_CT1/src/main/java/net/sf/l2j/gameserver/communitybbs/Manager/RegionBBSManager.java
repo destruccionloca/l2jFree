@@ -379,6 +379,8 @@ public class RegionBBSManager extends BaseBBSManager
                 + " Object count"+ tdClose + trClose);
     
             htmlCode.append(trOpen + tdOpen + getOnlineCount("gm") + " Player(s) Online" + tdClose + trClose);
+	    if (Config.SHOW_LEGEND)
+            	htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font> <font color=\"FF0000\">Cursedweapon</font> <font color=\"FF00FF\">Karma</font> <font color=\"999999\">Jailed</font>" + tdClose + trClose);
             htmlCode.append("</table>");
     
             showOnlinePlayers("gm",page, htmlCode);
