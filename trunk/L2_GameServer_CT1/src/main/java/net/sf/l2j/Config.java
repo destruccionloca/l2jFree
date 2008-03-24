@@ -1109,7 +1109,10 @@ public final class Config
 	public static boolean	SHOW_STATUS_COMMUNITYBOARD;
 	public static int		NAME_PAGE_SIZE_COMMUNITYBOARD;
 	public static int		NAME_PER_ROW_COMMUNITYBOARD;
+	public static boolean	SHOW_LEGEND;
 	public static boolean	SHOW_CURSED_WEAPON_OWNER;			// Show Owner(s) of Cursed Weapons in CB ?
+	public static boolean	SHOW_KARMA_PLAYERS;				// Show Player(s) with karma in CB ?
+	public static boolean	SHOW_JAILED_PLAYERS;				// Show player(s) in jail in CB ?
 	public static int		ZONE_TOWN;							// Zone Setting
 	public static int		MIN_NPC_ANIMATION;					// random animation interval
 	public static int		MAX_NPC_ANIMATION;
@@ -1224,7 +1227,10 @@ public final class Config
 			NAME_PER_ROW_COMMUNITYBOARD = Integer.parseInt(optionsSettings.getProperty("NamePerRowOnCommunityBoard", "5"));
 			if (NAME_PER_ROW_COMMUNITYBOARD > 5)
 				NAME_PER_ROW_COMMUNITYBOARD = 5;
+			SHOW_LEGEND = Boolean.parseBoolean(optionsSettings.getProperty("ShowLegend", "False"));
 			SHOW_CURSED_WEAPON_OWNER = Boolean.parseBoolean(optionsSettings.getProperty("ShowCursedWeaponOwner", "False"));
+			SHOW_KARMA_PLAYERS = Boolean.parseBoolean(optionsSettings.getProperty("ShowKarmaPlayers", "False"));
+			SHOW_JAILED_PLAYERS = Boolean.parseBoolean(optionsSettings.getProperty("ShowJailedPlayers", "False"));
 			
 			ZONE_TOWN = Integer.parseInt(optionsSettings.getProperty("ZoneTown", "0"));
 			
