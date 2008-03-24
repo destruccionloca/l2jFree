@@ -2268,6 +2268,8 @@ public final class Config
 	public static String		IRC_TO_GAME_SPECIAL_CHAR;
 	public static String		IRC_TO_GAME_DISPLAY;
 	public static boolean		IRC_ANNOUNCE;
+	public static boolean		IRC_ME_SUPPORT;
+	public static String		IRC_TO_GAME_ME_DISPLAY;
 	
 	// *******************************************************************************************
 	public static void loadIrcConfig()
@@ -2299,6 +2301,8 @@ public final class Config
 			IRC_TO_GAME_TYPE = ircSettings.getProperty("IrcToGameType", "off");
 			IRC_TO_GAME_SPECIAL_CHAR = ircSettings.getProperty("IrcToGameSpecialChar", "#");
 			IRC_TO_GAME_DISPLAY = ircSettings.getProperty("IrcToGameDisplay", "tade");
+			IRC_ME_SUPPORT = Boolean.parseBoolean(ircSettings.getProperty("IrcMeSupport", "false"));
+			IRC_TO_GAME_ME_DISPLAY = ircSettings.getProperty("IrcToGameMeDisplay", "tade");
 		}
 		catch (Exception e)
 		{
@@ -3475,6 +3479,12 @@ public final class Config
 			SHOW_KARMA_PLAYERS = Boolean.parseBoolean(pValue); 
 		else if (pName.equalsIgnoreCase("ShowJailedPlayers")) 
 			SHOW_JAILED_PLAYERS = Boolean.parseBoolean(pValue); 
+
+		// IRC options
+		else if (pName.equalsIgnoreCase("IrcMeSupport")) 
+			IRC_ME_SUPPORT = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("IrcToGameMeDisplay"))
+			IRC_TO_GAME_ME_DISPLAY = pValue;
 	
 		else
 			return false;

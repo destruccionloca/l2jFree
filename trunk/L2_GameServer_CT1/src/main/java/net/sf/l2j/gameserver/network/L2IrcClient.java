@@ -258,7 +258,24 @@ public class L2IrcClient extends Thread
 			if (Config.IRC_LOG_CHAT)
 				_logChat.info("IRC: " + chan + "> " + u.getNick() + ": " + msg);
 
-			if (chan.equals(channel))
+			if (msg.startsWith("ACTION") && Config.IRC_ME_SUPPORT)
+			{
+				Integer MeType = 1;
+				if (Config.IRC_TO_GAME_ME_DISPLAY.equals("trade"))
+					MeType = 8;
+				if (Config.IRC_TO_GAME_ME_DISPLAY.equals("hero"))
+					MeType = 17;
+
+				String me;
+				me = u.getNick() + msg.substring(6, msg.length());
+				CreatureSay cs = new CreatureSay(0, MeType, "[IRC]", me);
+
+				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
+				{
+					player.sendPacket(cs);
+				}
+			}
+			else if (chan.equals(channel))
 			{
 				if (Config.IRC_TO_GAME_TYPE.equals("global") || Config.IRC_TO_GAME_TYPE.equals("special"))
 				{
