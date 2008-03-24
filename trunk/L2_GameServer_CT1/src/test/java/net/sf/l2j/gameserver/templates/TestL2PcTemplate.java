@@ -53,6 +53,8 @@ public class TestL2PcTemplate extends TestCase
         // Geometry
         set.set("collision_radius",56.0);
         set.set("collision_height",57.0);
+        set.set("fcollision_radius",56.0);
+        set.set("fcollision_height",57.0);
         
         set.set("classId",60);
         set.set("raceId",4);

@@ -54,6 +54,8 @@ public class TestL2NpcTemplate extends TestCase
         // Geometry
         set.set("collision_radius",56.0);
         set.set("collision_height",57.0);
+        set.set("fcollision_radius",56.0);
+        set.set("fcollision_height",57.0);
         
         set.set("npcId",60);
         set.set("idTemplate",61);
@@ -139,6 +141,8 @@ public class TestL2NpcTemplate extends TestCase
         // Geometry
         set.set("collision_radius",56.0);
         set.set("collision_height",57.0);
+        set.set("fcollision_radius",56.0);
+        set.set("fcollision_height",57.0);
         
         set.set("npcId",60);
         set.set("idTemplate",61);
