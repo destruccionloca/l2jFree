@@ -3469,6 +3469,12 @@ public final class Config
 		// Options
 		else if (pName.equalsIgnoreCase("ShowHTMLGm")) 
 			SHOW_HTML_GM = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("ShowLegend")) 
+			SHOW_LEGEND = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("ShowKarmaPlayers")) 
+			SHOW_KARMA_PLAYERS = Boolean.parseBoolean(pValue); 
+		else if (pName.equalsIgnoreCase("ShowJailedPlayers")) 
+			SHOW_JAILED_PLAYERS = Boolean.parseBoolean(pValue); 
 	
 		else
 			return false;
