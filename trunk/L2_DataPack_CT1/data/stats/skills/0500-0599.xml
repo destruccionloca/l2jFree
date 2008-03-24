@@ -558,7 +558,7 @@ description(s) :
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
-  <set name="soulConsumeCounte="7"/>
+  <set name="soulConsumeCount" val="7"/>
   <set name="overhit" val="true"/>
   <for>
   </for>
