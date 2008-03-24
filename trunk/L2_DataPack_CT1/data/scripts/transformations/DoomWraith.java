@@ -46,6 +46,14 @@ public class DoomWraith extends L2Transformation
 
 	public void transformedSkills()
 	{
+		// Rolling Attack
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(586, 2), false);
+		// Curse of Darkness
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(588, 2), false);
+		// Dig Attack
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(587, 2), false);
+		// Darkness Energy Drain
+		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(589, 2), false);
 		// Transfrom Dispel
 		this.getPlayer().addSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed
@@ -76,6 +84,14 @@ public class DoomWraith extends L2Transformation
 
 	public void removeSkills()
 	{
+		// Rolling Attack
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(586, 2), false);
+		// Curse of Darkness
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(588, 2), false);
+		// Dig Attack
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(587, 2), false);
+		// Darkness Energy Drain
+		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(589, 2), false);
 		// Transfrom Dispel
 		this.getPlayer().removeSkill(SkillTable.getInstance().getInfo(619, 1), false);
 		// Decrease Bow/Crossbow Attack Speed

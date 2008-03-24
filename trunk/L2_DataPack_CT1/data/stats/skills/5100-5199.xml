@@ -61,7 +61,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
-    <effect count="0x7fffffff" name="BattleForce" time="3" val="15" stackOrder="0" stackType="BattleForce">
+    <effect count="0x7fffffff" name="Force" time="600" val="15" stackOrder="0" stackType="BattleForce">
        <mul order="0x30" stat="pAtk" val="1.10"/>
     </effect>
   </for>
@@ -72,7 +72,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1000"/> <!-- Must be validated -->
   <for>
-    <effect count="0x7fffffff" name="SpellForce" time="3" val="15" stackOrder="0" stackType="SpellForce">
+    <effect count="0x7fffffff" name="Force" time="600" val="15" stackOrder="0" stackType="SpellForce">
       <mul order="0x30" stat="mAtk" val="1.10"/>
     </effect>
   </for>
@@ -317,68 +317,62 @@
   Description(s):
       Temporarily maximizes P. Def./M. Def and shield defense power.
 -->
-  <set name="power" val="0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
-      <add order="0x40" stat="pDef" val="1000"/>
-      <add order="0x40" stat="mDef" val="800"/>
-      <mul order="0x30" stat="sDef" val="2"/>
+  	<effect count="1" name="Buff" time="8" val="0">
+  	  <add order="0x40" stat="pDef" val="500"/>
+      <add order="0x40" stat="mDef" val="300"/>
     </effect>
   </for>
 </skill>
 <skill id="5124" levels="1" name="Anti-Music">
 <!--
   Description(s):
-      Blocks song/dance
+      none
 -->
-  <set name="power" val="0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
-  <for>
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0"/>
-  </for>
 </skill>
 <skill id="5125" levels="1" name="Maximum Resist Status">
 <!--
   Description(s):
       Maximizes resistance to all debuff attacks.
 -->
-  <set name="power" val="0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
-      <mul order="0x30" stat="cancelVuln" val="0.01"/>
-      <mul order="0x30" stat="debuffVuln" val="0.01"/>
+  	<effect count="1" name="Buff" time="8" val="0">
+  	  <mul order="0x30" stat="cancelVuln" val="0.8"/>
+  	  <mul order="0x30" stat="rootVuln" val="0.8"/>
+      <mul order="0x30" stat="sleepVuln" val="0.8"/>
+      <mul order="0x30" stat="poisonVuln" val="0.8"/>
+      <mul order="0x30" stat="derangementVuln" val="0.8"/>
+      <mul order="0x30" stat="bleedVuln" val="0.8"/>
+      <mul order="0x30" stat="confusionVuln" val="0.8"/>
+      <mul order="0x30" stat="stunVuln" val="0.8"/>
     </effect>
-  </for>
+  </for>  
 </skill>
 <skill id="5126" levels="1" name="Maximum Recovery">
 <!--
   Description(s):
       Maximizes HP and CP recovery.
 -->
-  <set name="power" val="0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
-      <mul order="0x30" stat="regHp" val="50"/>
-      <mul order="0x30" stat="regCp" val="50"/>
+  	<effect count="1" name="Buff" time="8" val="0">
+  	  <mul stat="regHp" val="1.2" order="0x30"/>
+  	  <mul stat="regCp" val="1.2" order="0x30"/>
     </effect>
   </for>
 </skill>
@@ -387,16 +381,13 @@
   Description(s):
       Maximizes P. Atk. and increases force by 1 every 5 seconds.
 -->
-  <set name="power" val="0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
-    <!-- Core support added for force increase -->
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
-      <mul order="0x30" stat="pAtk" val="1.2"/>
+  	<effect count="1" name="RecoverForce" time="8" val="0">
+  	  <mul order="0x30" stat="pAtk" val="1.10"/> <!-- Guessed -->
     </effect>
   </for>
 </skill>
@@ -405,162 +396,56 @@
   Description(s):
       Maximizes archery ability.
 -->
-  <set name="power" val="0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
-       <mul order="0x30" stat="pAtk" val="1.1">
-         <and>
-           <using kind="Bow"/>
-         </and>
-       </mul>
-       <add order="0x40" stat="accCombat" val="10">
-         <and>
-           <using kind="Bow"/>
-         </and>
-       </add>
+    <effect count="1" name="Buff" time="8" val="0">
+      <add order="0x40" stat="accCombat" val="40"/>
     </effect>
   </for>
 </skill>
 <skill id="5129" levels="1" name="Smokescreen">
 <!--
+  Needs to be finished.
   Description(s):
       Maximizes Evasion and assassination skill.
 -->
-  <set name="power" val="0"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_TOGGLE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
-  <set name="effectRange" val="-1"/>
   <for>
-    <effect count="0x7fffffff" name="ManaDamOverTime" time="5" val="0">
-      <add order="0x40" stat="rEvas" val="15">
-        <and>
-          <using kind="Dagger"/>
-        </and>
-      </add>
-      <mul order="0x30" stat="cAtk" val="1.1">
-        <and>
-          <using kind="Dagger"/>
-        </and>
-      </mul>
-      <mul order="0x30" stat="rCrit" val="1.1">
-        <and>
-          <using kind="Dagger"/>
-        </and>
-      </mul>
+  	<effect count="1" name="Buff" time="8" val="0">
+<!-- NOT DONE -->
     </effect>
   </for>
 </skill>
 <skill id="5130" levels="1" name="Volcano">
-<!--
-  Description(s):
-      Shot Fusion skill. Hits for skill 1419, called at regular intervals and hits the targets with fire element. additional mp is used each time this skill is called upon.
--->
-  <set name="mpInitialConsume" val="0"/>
-  <set name="mpConsume" val="36"/>
-  <set name="magicLvl" val="80"/>
-  <set name="power" val="240"/>
-  <set name="target" val="TARGET_RADIUS"/>
-  <set name="skillRadius" val="230"/>
-  <set name="skillType" val="MDAM"/>
-  <set name="reuseDelay" val="0"/>
-  <set name="hitTime" val="0"/>
-  <set name="element" val="2"/> <!-- Fire -->
-  <set name="isMagic" val="false"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="900"/>
-  <set name="effectRange" val="230"/>
-  <for>
-  </for>
 </skill>
-
 <skill id="5131" levels="1" name="Tsunami">
-<!--
-  Description(s):
-      Shot Fusion skill. Hits for skill 1421, called at regular intervals and hits the targets with water element. additional mp is used each time this skill is called upon.
--->
-  <set name="mpInitialConsume" val="0"/>
-  <set name="mpConsume" val="36"/>
-  <set name="magicLvl" val="80"/>
-  <set name="power" val="240"/>
-  <set name="target" val="TARGET_RADIUS"/>
-  <set name="skillRadius" val="230"/>
-  <set name="skillType" val="MDAM"/>
-  <set name="reuseDelay" val="0"/>
-  <set name="hitTime" val="0"/>
-  <set name="element" val="3"/>    <!-- Water -->
-  <set name="isMagic" val="false"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="900"/>
-  <set name="effectRange" val="230"/>
-  <for>
-  </for>
 </skill>
-
 <skill id="5132" levels="1" name="Cyclone">
-<!--
-  Description(s):
-      Shot Fusion skill. Hits for skill 1420, called at regular intervals and hits the targets with wind element. additional mp is used each time this skill is called upon.
--->
-  <set name="mpInitialConsume" val="0"/>
-  <set name="mpConsume" val="36"/>
-  <set name="magicLvl" val="80"/>
-  <set name="power" val="240"/>
-  <set name="target" val="TARGET_RADIUS"/>
-  <set name="skillRadius" val="230"/>
-  <set name="skillType" val="MDAM"/>
-  <set name="reuseDelay" val="0"/>
-  <set name="hitTime" val="0"/>
-  <set name="element" val="1"/> <!-- Wind -->
-  <set name="isMagic" val="false"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="900"/>
-  <set name="effectRange" val="230"/>
-  <for>
-  </for>
 </skill>
-
 <skill id="5133" levels="1" name="Gehenna">
-<!--
-  Description(s):
-      Shot Fusion skill. Hits for skill 1423, called at regular intervals and hits the targets with dark element. additional mp is used each time this skill is called upon.
--->
-  <set name="mpInitialConsume" val="0"/>
-  <set name="mpConsume" val="36"/>
-  <set name="magicLvl" val="80"/>
-  <set name="power" val="240"/>
-  <set name="target" val="TARGET_RADIUS"/>
-  <set name="skillRadius" val="230"/>
-  <set name="skillType" val="MDAM"/>
-  <set name="reuseDelay" val="0"/>
-  <set name="hitTime" val="0"/>
-  <set name="element" val="6"/> <!-- Dark -->
-  <set name="isMagic" val="false"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="900"/>
-  <set name="effectRange" val="230"/>
-  <for>
-  </for>
 </skill>
 <skill id="5134" levels="1" name="Anti-Summoning Field">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      none
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
-  <for>
-  </for>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="CONT"/>
+  <set name="operateType" val="OP_ACTIVE"/>
 </skill>
 <skill id="5135" levels="1" name="Slash">
 <!--

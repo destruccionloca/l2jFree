@@ -1323,7 +1323,7 @@ INSERT INTO `armor` VALUES
 (10250, 'Explorer Hat', 'hairall', 'true', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
 (10251, 'Medieval Party Mask', 'hairall', 'true', 'none', 10, 'wood', 'none', 0, -1, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
 (10170, 'Baylor\'s Earring', 'rear,lear', 'true', 'none', 150, 'wood', 's80', 0, -1, 0, 71, 31, 0, 0, 'true', 'true', 'true', 'true', 0, 0),
-(10273, 'Wolf Summoning Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, 0, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0);
+(10273, 'Wolf Summoning Bracelet', 'rbracelet', 'true', 'none', 150, 'wood', 'none', 0, 120, 0, 0, 0, 0, 0, 'true', 'true', 'true', 'true', 0, 0);
 
 --
 -- L2J-Free Add-ons

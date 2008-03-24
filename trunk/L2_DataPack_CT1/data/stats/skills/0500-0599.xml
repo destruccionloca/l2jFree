@@ -127,7 +127,7 @@ description(s) :
   <set name="power" val="#power"/>
   <set name="magicLvl" val="#magicLvl"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="condition" val="131072"/>
+  <set name="condition" val="16"/>
   <set name="reuseDelay" val="13000"/>
   <set name="hitTime" val="1500"/>
   <set name="coolTime" val="720" />
@@ -135,7 +135,6 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <set name="effectRange" val="400"/>
-  <set name="baseCritRate" val="100"/>
   <set name="soulConsumeCount" val="2"/>
   <for>
   </for>
@@ -811,7 +810,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="201"/>
+  <set name="transformId" val=202/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -826,7 +825,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="201"/>
+  <set name="transformId" val="203"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -856,7 +855,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="204"/>
+  <set name="transformId" val="205"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -871,7 +870,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="204"/>
+  <set name="transformId" val="206"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -901,7 +900,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="207"/>
+  <set name="transformId" val="208"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -916,7 +915,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="207"/>
+  <set name="transformId" val="209"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -946,7 +945,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="210"/>
+  <set name="transformId" val="211"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -961,7 +960,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="210"/>
+  <set name="transformId" val="212"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -991,7 +990,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="213"/>
+  <set name="transformId" val="214"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1006,7 +1005,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="213"/>
+  <set name="transformId" val="215"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1036,7 +1035,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="216"/>
+  <set name="transformId" val="217"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
@@ -1051,14 +1050,14 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="hitTime" val="1500"/>
   <set name="reuseDelay" val="3600000"/>
-  <set name="transformId" val="216"/>
+  <set name="transformId" val="218"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
     <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
-<skill id="559" levels="3" name="Spear">
+<skill id="559" levels="4" name="Spear">
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>
   <set name="operateType" val="OP_PASSIVE"/>
@@ -1419,7 +1418,7 @@ description(s) :
   <for>
   </for>
 </skill>
-<skill id="589" levels="1" name="Darkness Energy Drain">
+<skill id="589" levels="2" name="Darkness Energy Drain">
   <set name="element" val="6"/> <!-- Dark -->
   <set name="target" val="TARGET_NONE"/>
   <set name="skillType" val="NOTDONE"/>

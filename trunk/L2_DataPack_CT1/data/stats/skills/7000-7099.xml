@@ -332,9 +332,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -354,9 +352,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -376,9 +372,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -398,9 +392,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -420,9 +412,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -430,7 +420,7 @@
   <set name="effectRange" val="400"/>
   <set name="aggroPoints" val="0"/>
   <for>
-    <effect count="1" name="Buff" time="300" val="0" stackOrder="#Tab-maxHp" stackType="MaxHPUp">
+    <effect count="1" name="Buff" time="300" val="0" stackOrder="#Tab-maxHp" stackType="max_hp_up">
       <mul order="0x30" stat="maxHp" val="#Tab-maxHp"/>
     </effect>
   </for>
@@ -442,9 +432,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -464,9 +452,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -486,9 +472,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -508,9 +492,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -530,9 +512,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -552,9 +532,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -574,9 +552,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -596,9 +572,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -618,9 +592,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -640,9 +612,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -669,9 +639,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -697,9 +665,7 @@
   <set name="mpConsume" val="2"/>
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
@@ -719,9 +685,7 @@
   <set name="mpConsume" val="2"/>
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
@@ -742,9 +706,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -764,9 +726,7 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
@@ -787,9 +747,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -814,9 +772,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -842,9 +798,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -877,9 +831,7 @@
   <set name="power" val="0.0"/>
   <set name="magicLvl" val="1"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="2500"/>
-  <set name="coolTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>

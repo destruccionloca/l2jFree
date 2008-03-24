@@ -170,7 +170,6 @@
   <set name="power" val="#power"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="200"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="2000"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -188,7 +187,6 @@
   <set name="power" val="70"/>
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="300"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="hitTime" val="2500"/>
   <set name="skillType" val="ROOT"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -209,7 +207,6 @@
   <set name="target" val="TARGET_AREA"/>
   <set name="skillRadius" val="150"/>
   <set name="element" val="6"/> <!-- Dark -->
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="2500"/>
   <set name="skillType" val="DRAIN"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -228,7 +225,6 @@
   <set name="power" val="0.0"/>
   <set name="mpConsume" val="50"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="hitTime" val="1800"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -248,7 +244,6 @@
   <set name="power" val="0.0"/>
   <set name="mpConsume" val="50"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="hitTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -273,7 +268,6 @@
   <set name="mpConsume" val="50"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="0"/>
   <set name="hitTime" val="0"/>
   <set name="skillType" val="PARALYZE"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -294,7 +288,6 @@
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="hitTime" val="0"/>
   <set name="skillType" val="POISON"/>
   <set name="isMagic" val="true"/>
@@ -312,7 +305,6 @@
   <set name="lvlDepend" val="1"/>
   <set name="mpConsume" val="50"/>
   <set name="power" val="0.0"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="hitTime" val="0"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="skillType" val="BUFF"/>
@@ -372,7 +364,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.35" stackType="MaxHPUp">
+    <effect count="1" name="Buff" time="3600" val="0" stackOrder="1.35" stackType="max_hp_up">
       <mul order="0x30" stat="maxHp" val="1.35"/>
     </effect>
   </for>
@@ -596,7 +588,6 @@
   <set name="power" val="0.0"/>
   <set name="mpConsume" val="50"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="hitTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -615,7 +606,6 @@
   <set name="power" val="0.0"/>
   <set name="mpConsume" val="50"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="reuseDelay" val="8000"/> <!-- SHOULD BE 0 -->
   <set name="hitTime" val="0"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -737,7 +727,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-maxHp" stackType="MaxHPUp">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="#Tab-maxHp" stackType="max_hp_up">
       <mul order="0x30" stat="maxHp" val="#Tab-maxHp"/>
     </effect>
   </for>
@@ -1330,7 +1320,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <for>
-    <effect count="1" name="BigHead" time="300" val="0" abnormal="bighead"/>
+    <effect count="1" name="BigHead" time="300" val="0" abnormal="bighead" stackOrder="300" stackType="big_head"/>
   </for>
 </skill>
 <skill id="4383" levels="1" name="NPC Hate Stone">
@@ -1499,7 +1489,7 @@
   <set name="castRange" val="400"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-maxHp" stackType="MaxHPUp">
+    <effect count="1" name="Buff" time="3600" val="0" stackOrder="#Tab-maxHp" stackType="max_hp_up">
       <mul order="0x30" stat="maxHp" val="#Tab-maxHp"/>
     </effect>
   </for>
