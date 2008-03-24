@@ -113,7 +113,8 @@ public abstract class L2Skill
 		TARGET_PARTY, TARGET_ALLY, TARGET_CLAN,
 		TARGET_AREA, TARGET_FRONT_AREA, TARGET_BEHIND_AREA,
 		TARGET_AURA, TARGET_FRONT_AURA, TARGET_BEHIND_AURA,
-		TARGET_CORPSE, TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN, TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB,
+		TARGET_CORPSE, TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN,
+		TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB, TARGET_AREA_CORPSES,
 		TARGET_MULTIFACE, TARGET_AREA_UNDEAD,
 		TARGET_ITEM,  TARGET_UNLOCKABLE, TARGET_HOLY,
 		TARGET_PARTY_MEMBER, TARGET_PARTY_OTHER,
@@ -2736,6 +2737,42 @@ public abstract class L2Skill
 						}
 
 						targetList.add((L2Character) obj);
+					}
+				}
+
+				if (targetList.size() == 0)
+					return null;
+				return targetList.toArray(new L2Character[targetList.size()]);
+			}
+			case TARGET_AREA_CORPSES:
+			{
+				if (!(target instanceof L2Attackable) || !target.isDead())
+				{
+					activeChar.sendPacket(new SystemMessage(SystemMessageId.TARGET_IS_INCORRECT));
+					return null;
+				}
+
+				if (onlyFirst == false)
+					targetList.add(target);
+				else
+					return new L2Character[] { target };
+
+				int radius = getSkillRadius();
+				if (activeChar.getKnownList() != null)
+				{
+					for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
+					{
+						if (obj == null || !(obj instanceof L2Attackable))
+							continue;
+						L2Character cha = (L2Character)obj;
+
+						if (!cha.isDead() || !Util.checkIfInRange(radius, target, cha, true))
+							continue;
+
+						if (!GeoData.getInstance().canSeeTarget(activeChar, cha))
+							continue;
+
+						targetList.add(cha);
 					}
 				}
 
