@@ -1108,6 +1108,7 @@ description(s) :
   <!-- Done by Sephiroth for L2Umbrella -->
   <table name="#power"> 900 1013 1129 1248 </table>
   <table name="#mpConsume"> 68 70 74 78 </table>
+  <table name="#effectLevel"> 6.0 6.0 7.0 7.0 </table>
   <set name="weaponsAllowed" val="72"/>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="#power"/>
@@ -1120,7 +1121,7 @@ description(s) :
   <set name="skillRadius" val="100"/>
   <set name="effectRange" val="400"/>
   <set name="effectType" val="BLEED"/>
-  <set name="effectPower" val="44"/>
+  <set name="effectLevel" val="#effectLevel"/>
   <for>
   </for>
 </skill>
