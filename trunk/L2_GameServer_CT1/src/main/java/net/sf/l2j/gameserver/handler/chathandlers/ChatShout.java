@@ -54,7 +54,7 @@ public class ChatShout implements IChatHandler
 			return;
 		}
 
-		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout"))
+		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("shout") || Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("all"))
 		{
 			IrcManager.getInstance().getConnection().sendChan("07!"+ activeChar.getName() +": " + text);
 		}

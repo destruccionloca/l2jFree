@@ -54,7 +54,7 @@ public class ChatTrade implements IChatHandler
 			return;
 		}
 
-		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("trade"))
+		if(Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("trade") || Config.IRC_ENABLED && Config.IRC_FROM_GAME_TYPE.equalsIgnoreCase("all"))
 		{
 			IrcManager.getInstance().getConnection().sendChan("13+"+ activeChar.getName() +": " + text);
 		}
