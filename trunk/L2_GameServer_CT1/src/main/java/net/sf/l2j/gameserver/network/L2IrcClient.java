@@ -107,7 +107,7 @@ public class L2IrcClient extends Thread
 		{
 			conn.doPrivmsg(channel, Text);
 			if (Config.IRC_LOG_CHAT)
-				_logChat.info("IRC: " + channel + "> text");
+				_logChat.info("IRC: " + channel + "> " + Text);
 		}
 	}
 
@@ -267,7 +267,7 @@ public class L2IrcClient extends Thread
 					MeType = 17;
 
 				String me;
-				me = u.getNick() + msg.substring(6, msg.length());
+				me = " * " + u.getNick() + msg.substring(6);
 				CreatureSay cs = new CreatureSay(0, MeType, "[IRC]", me);
 
 				for (L2PcInstance player : L2World.getInstance().getAllPlayers())
@@ -375,7 +375,7 @@ public class L2IrcClient extends Thread
 
 		public void unknown(String a, String b, String c, String d)
 		{
-			_log.warn("IRC UNKNOWN: " + a + " b " + c + " " + d);
+			_log.warn("IRC UNKNOWN: " + a + " " + b + " " + c + " " + d);
 		}
 
 		public boolean isConnected()
