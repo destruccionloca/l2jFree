@@ -80,6 +80,8 @@ public class TestL2Skill extends TestCase
         statsSetForTestNpc.set("baseWalkSpd",1);
         statsSetForTestNpc.set("collision_radius",1);
         statsSetForTestNpc.set("collision_height",1);        
+        statsSetForTestNpc.set("fcollision_radius",1);
+        statsSetForTestNpc.set("fcollision_height",1);
     }
     
     
