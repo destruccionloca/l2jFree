@@ -554,31 +554,11 @@
   </for>
 </skill>
 <skill id="1422" levels="1" name="Day of Doom">
-<!--
-  By Darki699
-  Description(s):
-      Generates a signet that produces a strong curse that decreases all abilities. Applies to all targets within the affected area. The effect disappears if you leave the area. Level 3 or higher Spell Force required. Consumes 1 Magic Symbol.
--->
-  <set name="itemConsumeId" val="8876"/>
-  <set name="itemConsumeCount" val="1"/>
-  <set name="magicLvl" val="80"/>
-  <set name="mpConsume" val="73"/>
-  <set name="power" val="500"/>
-  <set name="target" val="TARGET_SELF"/>
-  <set name="skillRadius" val="230"/>
-  <set name="hitTime" val="150"/>
-  <set name="reuseDelay" val="3600000"/>
-  <set name="skillType" val="RADIUS"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="false"/>
-  <set name="castRange" val="900"/>
-  <set name="effectRange" val="230"/>
-  <cond msg="Proper force required.">
-    <player spell_force="3"/>
-  </cond>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
   <for>
-     <skill trigger="15" id="5145" lvl="1" time="16"/>
-     <effect count="1" name="Buff" time="16" val="0"/>
   </for>
 </skill>
 <skill id="1423" levels="1" name="Gehenna">

@@ -840,7 +840,7 @@
   <set name="skillType" val="DEBUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="power" val="0.0"/>
-  <set name="isDance" val="true"/>
+  <set name="isSong" val="true"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="hitTime" val="2500"/>
