@@ -588,45 +588,11 @@
   </for>
 </skill>
 <skill id="5145" levels="1" name="Day of Doom">
-<!--
-  By Darki699
-  Description(s):
-      Shot Fusion skill. Hits for skill 1422, called at regular intervals and hits the targets with strong debuff. additional mp is used each time this skill is called upon.
-
--->
-  <set name="mpConsume" val="36"/>
-  <set name="magicLvl" val="80"/>
-  <set name="power" val="240"/>
-  <set name="target" val="TARGET_RADIUS"/>
-  <set name="skillRadius" val="230"/>
-  <set name="skillType" val="DEBUFF"/>
-  <set name="reuseDelay" val="0"/>
-  <set name="hitTime" val="0"/>
-  <set name="isMagic" val="true"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="castRange" val="900"/>
-  <set name="effectRange" val="230"/>
+  <set name="target" val="TARGET_NONE"/>
+  <set name="skillType" val="NOTDONE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
+  <set name="castRange" val="-1"/>
   <for>
-    <effect count="1" name="PreventBuff" time="120" val="0">
-      <mul order="0x30" stat="pAtk" val="0.8"/>
-      <mul order="0x30" stat="pDef" val="0.8"/>
-      <mul order="0x30" stat="runSpd" val="0.5"/>
-      <mul order="0x30" stat="regHp" val="0.8"/>
-      <mul order="0x30" stat="mDef" val="0.8"/>
-      <mul order="0x30" stat="mReuse" val="1.3"/>
-      <mul order="0x30" stat="pReuse" val="1.3"/>
-      <sub order="0x40" stat="rEvas" val="6"/>
-      <add order="0x40" stat="PhysicalMpConsumeRate" val="10"/>
-      <add order="0x40" stat="MagicalMpConsumeRate" val="10"/>
-      <add order="0x40" stat="cancelVuln" val="-10"/>
-      <add stat="stunVuln" val="-10" order="0x40"/>
-      <add stat="rootVuln" val="-10" order="0x40"/>
-      <add stat="sleepVuln" val="-10" order="0x40"/>
-      <add stat="paralyzeVuln" val="-10" order="0x40"/>
-      <mul order="0x30" stat="cancelVuln" val="0.1"/>
-      <mul order="0x30" stat="debuffVuln" val="0.1"/>
-      <mul order="0x30" stat="cancel" val="40"/>
-    </effect>
   </for>
 </skill>
 <skill id="5146" levels="10" name="Heal">
