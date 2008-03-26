@@ -648,7 +648,7 @@ description(s) :
 <skill id="531" levels="1" name="Critical Wound">
   <!-- Done by Sephiroth for L2Umbrella -->
   <set name="mpConsume" val="43"/>
-  <set name="weaponsAllowed" val="10"/>
+  <set name="weaponsAllowed" val="16"/>
   <set name="target" val="TARGET_ONE"/>
   <set name="hitTime" val="1200"/>
   <set name="reuseDelay" val="30000"/>
