@@ -99,6 +99,7 @@ public class TradeListTable
                 L2TradeList buylist = new L2TradeList(rset1.getInt("shop_id"));
                 
                 buylist.setNpcId(rset1.getString("npc_id"));
+                buylist.setCustom(custom);
                 int _itemId = 0;
                 int _itemCount = 0;
                 int _price = 0;

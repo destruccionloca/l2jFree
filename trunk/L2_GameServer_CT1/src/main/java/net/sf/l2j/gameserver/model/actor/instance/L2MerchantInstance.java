@@ -304,6 +304,9 @@ public class L2MerchantInstance extends L2FolkInstance
                 html1.append("<button value=\"View Shop\" action=\"bypass -h admin_showShop "
                     + getTemplate().getNpcId()
                     + "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></br>");
+                html1.append("<button value=\"View Custom Shop\" action=\"bypass -h admin_showCustomShop "
+                    + getTemplate().getNpcId()
+                    + "\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></br>");
                 html1.append("<button value=\"Lease next week\" action=\"bypass -h npc_" + getObjectId()
                     + "_Lease\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
                 html1.append("<button value=\"Abort current leasing\" action=\"bypass -h npc_"

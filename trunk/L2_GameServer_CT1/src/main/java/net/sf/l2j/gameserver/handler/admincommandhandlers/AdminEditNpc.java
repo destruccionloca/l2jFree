@@ -79,7 +79,11 @@ public class AdminEditNpc implements IAdminCommandHandler
 		"admin_add_skill_npc",
 		"admin_edit_skill_npc",
 		"admin_del_skill_npc",
-		"admin_load_npc"
+		"admin_load_npc",
+		"admin_editCustomShopItem",
+		"admin_delCustomShopItem",
+		"admin_addCustomShopItem",
+		"admin_showCustomShop"
 	};
 	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 	private static final int REQUIRED_LEVEL2 = Config.GM_NPC_VIEW;
@@ -95,6 +99,12 @@ public class AdminEditNpc implements IAdminCommandHandler
 			String[] args = command.split(" ");
 			if (args.length > 1)
 				showShop(activeChar, Integer.parseInt(command.split(" ")[1]));
+		}
+		else if (command.startsWith("admin_showCustomShop "))
+		{
+			String[] args = command.split(" ");
+			if (args.length > 1)
+				showCustomShop(activeChar, Integer.parseInt(command.split(" ")[1]));
 		}
 		else if(command.startsWith("admin_showShopList "))
 		{
@@ -184,6 +194,24 @@ public class AdminEditNpc implements IAdminCommandHandler
 			String[] args = command.split(" ");
 			if (args.length > 2)
 				editShopItem(activeChar, args);
+		}
+		else if(command.startsWith("admin_addCustomShopItem "))
+		{
+			String[] args = command.split(" ");
+			if (args.length > 1)
+				addCustomShopItem(activeChar, args);
+		}
+		else if(command.startsWith("admin_delCustomShopItem "))
+		{
+			String[] args = command.split(" ");
+			if (args.length > 2)
+				delCustomShopItem(activeChar, args);
+		}
+		else if(command.startsWith("admin_editCustomShopItem "))
+		{
+			String[] args = command.split(" ");
+			if (args.length > 2)
+				editCustomShopItem(activeChar, args);
 		}
 		else if(command.startsWith("admin_save_npc "))
 		{
@@ -626,6 +654,146 @@ public class AdminEditNpc implements IAdminCommandHandler
 		activeChar.sendPacket(adminReply);
 	}
 	
+
+	private void editCustomShopItem(L2PcInstance activeChar, String[] args)
+	{
+		int tradeListID = Integer.parseInt(args[1]);
+		int itemID = Integer.parseInt(args[2]);
+		L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
+
+		L2Item item = ItemTable.getInstance().getTemplate(itemID);
+		if (tradeList.getPriceForItemId(itemID) < 0)
+		{
+			return;
+		}
+
+		if (args.length > 3)
+		{
+			int price = Integer.parseInt(args[3]);
+			int order =  findOrderTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
+
+			tradeList.replaceItem(itemID, Integer.parseInt(args[3]));
+			updateCustomTradeList(itemID, price, tradeListID, order);
+
+			activeChar.sendMessage("Updated price for "+item.getName()+" in Trade List "+tradeListID);
+			showShopList(activeChar, tradeListID, 1);
+			return;
+		}
+
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+
+		TextBuilder replyMSG = new TextBuilder();
+		replyMSG.append("<html><title>Merchant Shop Item Edit</title>");
+		replyMSG.append("<body>");
+		replyMSG.append("<br>Edit an entry in merchantList.");
+		replyMSG.append("<br>Editing Item: "+item.getName());
+		replyMSG.append("<table>");
+		replyMSG.append("<tr><td width=100>Property</td><td width=100>Edit Field</td><td width=100>Old Value</td></tr>");
+		replyMSG.append("<tr><td><br></td><td></td></tr>");
+		replyMSG.append("<tr><td>Price</td><td><edit var=\"price\" width=80></td><td>"+tradeList.getPriceForItemId(itemID)+"</td></tr>");
+		replyMSG.append("</table>");
+		replyMSG.append("<center><br><br><br>");
+		replyMSG.append("<button value=\"Save\" action=\"bypass -h admin_editCustomShopItem " + tradeListID + " " + itemID + " $price\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("</center>");
+		replyMSG.append("</body></html>");
+
+		adminReply.setHtml(replyMSG.toString());		
+		activeChar.sendPacket(adminReply);
+	}
+
+	private void delCustomShopItem(L2PcInstance activeChar, String[] args)
+	{
+		int tradeListID = Integer.parseInt(args[1]);
+		int itemID = Integer.parseInt(args[2]);
+		L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
+
+		if (tradeList.getPriceForItemId(itemID) < 0)
+			return;
+		if (args.length > 3)
+		{
+			int order =  findOrderTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
+
+			tradeList.removeItem(itemID);
+			deleteCustomTradeList(tradeListID, order);
+
+			activeChar.sendMessage("Deleted "+ItemTable.getInstance().getTemplate(itemID).getName()+" from Trade List "+tradeListID);
+			showShopList(activeChar, tradeListID, 1);
+			return;
+		}
+
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+
+		TextBuilder replyMSG = new TextBuilder();
+		replyMSG.append("<html><title>Merchant Shop Item Delete</title>");
+		replyMSG.append("<body>");
+		replyMSG.append("<br>Delete entry in merchantList.");
+		replyMSG.append("<br>Item to Delete: "+ItemTable.getInstance().getTemplate(itemID).getName());
+		replyMSG.append("<table>");
+		replyMSG.append("<tr><td width=100>Property</td><td width=100>Value</td></tr>");
+		replyMSG.append("<tr><td><br></td><td></td></tr>");
+		replyMSG.append("<tr><td>Price</td><td>"+tradeList.getPriceForItemId(itemID)+"</td></tr>");
+		replyMSG.append("</table>");
+		replyMSG.append("<center><br><br><br>");
+		replyMSG.append("<button value=\"Confirm\" action=\"bypass -h admin_delCustomShopItem " + tradeListID + " " + itemID + " 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("</center>");
+		replyMSG.append("</body></html>");
+
+		adminReply.setHtml(replyMSG.toString());		
+		activeChar.sendPacket(adminReply);
+	}
+
+	private void addCustomShopItem(L2PcInstance activeChar, String[] args)
+	{
+		int tradeListID = Integer.parseInt(args[1]);
+
+		L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
+		if (tradeList == null)
+		{
+			activeChar.sendMessage("TradeList not found!");
+			return;
+		}
+
+		if (args.length > 3)
+		{
+			int order = tradeList.getItems().size() + 1; // last item order + 1
+			int itemID = Integer.parseInt(args[2]);
+			int price = Integer.parseInt(args[3]);
+
+			L2ItemInstance newItem = ItemTable.getInstance().createDummyItem(itemID);
+			newItem.setPriceToSell(price);
+			newItem.setCount(-1);
+			tradeList.addItem(newItem);
+			storeCustomTradeList(itemID, price, tradeListID, order);
+
+			activeChar.sendMessage("Added "+newItem.getItem().getName()+" to Trade List "+tradeList.getListId());
+			showShopList(activeChar, tradeListID, 1);
+			return;
+		}
+
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+
+		TextBuilder replyMSG = new TextBuilder();
+		replyMSG.append("<html><title>Merchant Shop Item Add</title>");
+		replyMSG.append("<body>");
+		replyMSG.append("<br>Add a new entry in merchantList.");
+		replyMSG.append("<table>");
+		replyMSG.append("<tr><td width=100>Property</td><td>Edit Field</td></tr>");
+		replyMSG.append("<tr><td><br></td><td></td></tr>");
+		replyMSG.append("<tr><td>ItemID</td><td><edit var=\"itemID\" width=80></td></tr>");
+		replyMSG.append("<tr><td>Price</td><td><edit var=\"price\" width=80></td></tr>");
+		replyMSG.append("</table>");
+		replyMSG.append("<center><br><br><br>");
+		replyMSG.append("<button value=\"Save\" action=\"bypass -h admin_addCustomShopItem " + tradeListID + " $itemID $price\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("</center>");
+		replyMSG.append("</body></html>");
+
+		adminReply.setHtml(replyMSG.toString());		
+		activeChar.sendPacket(adminReply);
+	}
+
 	private void showShopList(L2PcInstance activeChar, int tradeListID, int page)
 	{
 		L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
@@ -709,6 +877,38 @@ public class AdminEditNpc implements IAdminCommandHandler
 		adminReply.setHtml(replyMSG.toString());		
 		activeChar.sendPacket(adminReply);
 	}
+
+	private void showCustomShop(L2PcInstance activeChar, int merchantID)
+	{
+		List<L2TradeList> tradeLists = getCustomTradeLists(merchantID);
+		if(tradeLists == null)
+		{
+			activeChar.sendMessage("Unknown npc template ID" + merchantID);
+			return ;
+		}
+		
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		
+		TextBuilder replyMSG = new TextBuilder("<html><title>Merchant Shop Lists</title>");
+		replyMSG.append("<body>");
+		replyMSG.append("<br>Select a list to view");
+		replyMSG.append("<table>");
+		replyMSG.append("<tr><td>Mecrchant List ID</td></tr>");
+		
+		for (L2TradeList tradeList : tradeLists)
+		{
+			if (tradeList != null)
+				replyMSG.append("<tr><td><a action=\"bypass -h admin_showShopList "+tradeList.getListId()+" 1\">Trade List "+tradeList.getListId()+"</a></td></tr>");
+		}
+		
+		replyMSG.append("</table>");
+		replyMSG.append("<center>");
+		replyMSG.append("<button value=\"Close\" action=\"bypass -h admin_close_window\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("</center></body></html>");
+		
+		adminReply.setHtml(replyMSG.toString());		
+		activeChar.sendPacket(adminReply);
+	}
 	
 	private void storeTradeList(int itemID, int price, int tradeListID, int order)
 	{
@@ -717,9 +917,6 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement stmt = con.prepareStatement("INSERT INTO merchant_buylists (`item_id`,`price`,`shop_id`,`order`) values ("+itemID+","+price+","+tradeListID+","+order+")");
-			stmt.execute();
-			stmt.close();
-			stmt = con.prepareStatement("INSERT INTO custom_merchant_buylists (`item_id`,`price`,`shop_id`,`order`) values ("+itemID+","+price+","+tradeListID+","+order+")");
 			stmt.execute();
 			stmt.close();
 		}
@@ -749,9 +946,6 @@ public class AdminEditNpc implements IAdminCommandHandler
 			PreparedStatement stmt = con.prepareStatement("UPDATE merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
 			stmt.execute();
 			stmt.close();
-			stmt = con.prepareStatement("UPDATE custom_merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
-			stmt.execute();
-			stmt.close();
 		}
 		catch (SQLException esql)
 		{
@@ -777,9 +971,6 @@ public class AdminEditNpc implements IAdminCommandHandler
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement stmt = con.prepareStatement("DELETE FROM merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
-			stmt.execute();
-			stmt.close();
-			stmt = con.prepareStatement("DELETE FROM custom_merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
 			stmt.execute();
 			stmt.close();
 		}
@@ -831,7 +1022,94 @@ public class AdminEditNpc implements IAdminCommandHandler
 				e.printStackTrace();
 			}
 		}
+		return order;
+	}
 
+	private void storeCustomTradeList(int itemID, int price, int tradeListID, int order)
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement stmt = con.prepareStatement("INSERT INTO custom_merchant_buylists (`item_id`,`price`,`shop_id`,`order`) values ("+itemID+","+price+","+tradeListID+","+order+")");
+			stmt.execute();
+			stmt.close();
+		}
+		catch (SQLException esql)
+		{
+			esql.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void updateCustomTradeList(int itemID, int price, int tradeListID, int order)
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement stmt = con.prepareStatement("UPDATE custom_merchant_buylists SET `price`='"+price+"' WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
+			stmt.execute();
+			stmt.close();
+		}
+		catch (SQLException esql)
+		{
+			esql.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void deleteCustomTradeList(int tradeListID, int order)
+	{
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement stmt = con.prepareStatement("DELETE FROM custom_merchant_buylists WHERE `shop_id`='"+tradeListID+"' AND `order`='"+order+"'");
+			stmt.execute();
+			stmt.close();
+		}
+		catch (SQLException esql)
+		{
+			esql.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				con.close();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private int  findOrderCustomTradeList(int itemID, int price, int tradeListID)
+	{
+		java.sql.Connection con = null;
+		int order = 0;
 		try
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
@@ -887,7 +1165,42 @@ public class AdminEditNpc implements IAdminCommandHandler
 			if (pos >= 0)
 			{
 				int tradeListID = Integer.decode((line.substring(pos+target.length()+1)).split("\"")[0]);
-				tradeLists.add(TradeListTable.getInstance().getBuyList(tradeListID));
+				L2TradeList tl = TradeListTable.getInstance().getBuyList(tradeListID);
+				if (!tl.isCustom())
+					tradeLists.add(tl);
+			}
+		}
+		return tradeLists;
+	}
+
+	private List<L2TradeList> getCustomTradeLists(int merchantID)
+	{
+		String target = "npc_%objectId%_Buy";
+		
+		String content = HtmCache.getInstance().getHtm("data/html/merchant/"+merchantID+".htm");
+
+		if (content == null)
+		{
+			content = HtmCache.getInstance().getHtm("data/html/merchant/30001.htm");
+			
+			if (content == null)
+				return null;
+		}
+
+		List<L2TradeList> tradeLists = new FastList<L2TradeList>();
+		
+		String[] lines = content.split("\n");
+		int pos = 0;
+		
+		for (String line : lines)
+		{
+			pos = line.indexOf(target); 
+			if (pos >= 0)
+			{
+				int tradeListID = Integer.decode((line.substring(pos+target.length()+1)).split("\"")[0]);
+				L2TradeList tl = TradeListTable.getInstance().getBuyList(tradeListID);
+				if (tl.isCustom())
+					tradeLists.add(tl);
 			}
 		}
 		return tradeLists;

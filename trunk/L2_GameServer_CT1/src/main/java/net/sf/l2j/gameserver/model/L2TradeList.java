@@ -40,6 +40,7 @@ public class L2TradeList
 	private boolean _confirmed;
 	private boolean _gm;
 	private String _buystorename,_sellstorename;
+	private boolean _custom;
     
     private int _npcId;
 	
@@ -62,6 +63,16 @@ public class L2TradeList
     		if (id.equalsIgnoreCase("gm"))
     			_gm = true;
     	}
+    }
+
+    public void setCustom(boolean custom)
+    {
+	_custom = custom;
+    }
+
+    public boolean isCustom()
+    {
+	return _custom;
     }
     
     public int getNpcId()
