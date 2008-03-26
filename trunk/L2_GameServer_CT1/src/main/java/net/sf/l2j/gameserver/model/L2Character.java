@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.ai.L2AttackableAI;
 import net.sf.l2j.gameserver.ai.L2CharacterAI;
 import net.sf.l2j.gameserver.datatables.DoorTable;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
@@ -5951,6 +5952,30 @@ public abstract class L2Character extends L2Object
 		{
 			if(target.isPetrified() || target.isInvul()) damage = 0;
 
+			// Check Raidboss attack
+			// Character will be petrified if attacking a raid that's more
+			// than 8 levels lower
+			if (target.isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
+			{
+				int level = 0;
+				if (this instanceof L2PcInstance)
+					level = getLevel();
+				else if (this instanceof L2Summon)
+					level = ((L2Summon)this).getOwner().getLevel();
+
+				if (level > target.getLevel() + 8)
+				{
+					L2Skill skill = SkillTable.getInstance().getInfo(4515, 1);
+
+					if (skill != null)
+						skill.getEffects(target, this);
+					else
+						_log.warn("Skill 4515 at level 1 is missing in DP.");
+					
+					damage = 0; // prevents messing up drop calculation
+				}
+			}
+
 			sendDamageMessage(target, damage, false, crit, miss);
 
 			// If L2Character target is a L2PcInstance, send a system message
@@ -7025,6 +7050,41 @@ public abstract class L2Character extends L2Object
 							sendMessage("Target affected by weapon special ability!");
 						}
 					}
+
+					// Check Raidboss attack and
+					// check buffing chars who attack raidboss. Results in mute.
+					L2Object target2 = target.getTarget();
+					if ((target.isRaid() && getLevel() > target.getLevel() + 8)
+							|| (target2 instanceof L2Character && (((L2Character)target2).isRaid() 
+							&& getLevel() > ((L2Character)target2).getLevel() + 8)))
+					{
+						if (skill.isMagic())
+						{
+							L2Skill tempSkill = SkillTable.getInstance().getInfo(4215, 1);
+							if(tempSkill != null)
+							{
+								tempSkill.getEffects(target, this);
+							}
+							else
+							{
+								_log.warn("Skill 4215 at level 1 is missing in DP.");
+							}
+						}
+						else
+						{
+							L2Skill tempSkill = SkillTable.getInstance().getInfo(4515, 1);
+							if(tempSkill != null)
+							{
+								tempSkill.getEffects(target, this);
+							}
+							else
+							{
+								_log.warn("Skill 4515 at level 1 is missing in DP.");
+							}
+						}
+						return;
+					}
+
 
 					L2PcInstance activeChar = null;
 

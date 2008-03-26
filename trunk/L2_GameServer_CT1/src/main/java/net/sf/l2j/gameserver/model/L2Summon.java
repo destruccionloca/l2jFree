@@ -38,6 +38,7 @@ import net.sf.l2j.gameserver.network.serverpackets.PetDelete;
 import net.sf.l2j.gameserver.network.serverpackets.PetInfo;
 import net.sf.l2j.gameserver.network.serverpackets.PetStatusShow;
 import net.sf.l2j.gameserver.network.serverpackets.PetStatusUpdate;
+import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.taskmanager.DecayTaskManager;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -191,10 +192,16 @@ public abstract class L2Summon extends L2PlayableInstance
             player.setTarget(this);
             MyTargetSelected my = new MyTargetSelected(getObjectId(), player.getLevel() - getLevel());
             player.sendPacket(my);
+
+            //sends HP/MP status of the summon to other characters
+            StatusUpdate su = new StatusUpdate(getObjectId());
+            su.addAttribute(StatusUpdate.CUR_HP, (int) getStatus().getCurrentHp());
+            su.addAttribute(StatusUpdate.MAX_HP, getMaxHp());
+            player.sendPacket(su);
         }
     }
-    
-	public long getExpForThisLevel()
+
+    public long getExpForThisLevel()
     {
         if(getLevel() >= Experience.LEVEL.length)
         {

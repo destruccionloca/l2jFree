@@ -526,7 +526,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 			}
 		}
 		// Order to the L2MonsterInstance to random walk (1/100)
-		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0)
+		else if (npc.getSpawn() != null && Rnd.nextInt(RANDOM_WALK_RATE) == 0&& !(_actor instanceof L2RaidBossInstance || _actor instanceof L2MinionInstance))
 		{
 			// [L2J_JP ADD SANDMAN]
 			// Instant move of zaken

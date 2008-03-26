@@ -365,29 +365,6 @@ public class L2Attackable extends L2NpcInstance
 	@Override
 	public void reduceCurrentHp(double damage, L2Character attacker)
 	{
-		// Check Raidboss attack
-		// Character will be petrified if attacking a raid that's more
-		// than 8 levels lower
-		if (isRaid() && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
-		{
-			int level = 0;
-			if (attacker instanceof L2PcInstance)
-				level = attacker.getLevel();
-			else if (attacker instanceof L2Summon)
-				level = ((L2Summon)attacker).getOwner().getLevel();
-
-			if (level > getLevel() + 8)
-			{
-				L2Skill skill = SkillTable.getInstance().getInfo(4515, 99);
-
-				if (skill != null)
-					skill.getEffects(this, attacker);
-				else
-					_log.warn("Skill 4515 at level 99 is missing in DP.");
-				
-				damage = 0; // prevents messing up drop calculation
-			}
-		}
 		reduceCurrentHp(damage, attacker, true);
 	}
 
