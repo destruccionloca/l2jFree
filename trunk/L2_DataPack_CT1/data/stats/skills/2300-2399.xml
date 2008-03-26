@@ -784,13 +784,14 @@
       Transform into a cute pig.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="104"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2371" levels="1" name="Transform Sealbook - Onyx Beast">
@@ -800,13 +801,14 @@
       Transform into an Onyx Beast.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="1"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2372" levels="1" name="Transform Sealbook - Death Blader">
@@ -816,13 +818,14 @@
       Transform into a Death Blader.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="2"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2373" levels="1" name="Transform Sealbook - Grail Apostle">
@@ -832,13 +835,14 @@
       Transform into an Apostle Grail.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="201"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2374" levels="1" name="Transform Sealbook - Unicorn">
@@ -848,13 +852,14 @@
       Transform into a Unicorn.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="204"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2375" levels="1" name="Transform Sealbook - Lilim Knight">
@@ -864,13 +869,14 @@
       Transform into a Lilim Knight.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="207"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2376" levels="1" name="Transform Sealbook - Golem Guardian">
@@ -880,13 +886,14 @@
       Transform into a Golem Guardian.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="210"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2377" levels="1" name="Transform Sealbook - Inferno Drake">
@@ -896,13 +903,14 @@
       Transform into an Inferno Drake.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="213"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2378" levels="1" name="Transform Sealbook - Dragon Bomber">
@@ -912,13 +920,14 @@
       Transform into a Dragon Bomber.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="216"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2379" levels="1" name="Wind">
@@ -1048,13 +1057,14 @@
       Transform into a Pixy.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="304"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2395" levels="1" name="Lesser Battlefield Healing Potion">

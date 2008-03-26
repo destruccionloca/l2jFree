@@ -232,13 +232,14 @@
       Transform into a cute bunny.
 -->
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="TRANSFORM"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="reuseDelay" val="14400000"/> <!-- Retail Like 4Hours -->
   <set name="transformId" val="105"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
+	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
   </for>
 </skill>
 <skill id="2429" levels="1" name="Haste Juice">
