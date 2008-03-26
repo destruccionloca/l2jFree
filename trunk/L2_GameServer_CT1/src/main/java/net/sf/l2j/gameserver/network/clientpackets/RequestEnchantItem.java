@@ -403,8 +403,11 @@ public class RequestEnchantItem extends L2GameClientPacket
                 if (count < 1) count = 1;
     
                 L2ItemInstance destroyItem = activeChar.getInventory().destroyItem("Enchant", item, activeChar, null);
+                L2ItemInstance forceDestroyItem;
                 if (destroyItem == null)
                 {
+			if (item.getLocation() != null)
+				forceDestroyItem = activeChar.getWarehouse().destroyItem("Enchant", item, activeChar, null);
                 	activeChar.setActiveEnchantItem(null);
                 	return;
                 }
