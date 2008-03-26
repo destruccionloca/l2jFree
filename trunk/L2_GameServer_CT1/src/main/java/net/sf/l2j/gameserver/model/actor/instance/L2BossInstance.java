@@ -51,6 +51,8 @@ public final class L2BossInstance extends L2MonsterInstance
     protected L2Object _target;
     protected L2Character _Atacker;
     protected static final int NurseAntRespawnDelay = Config.NURSEANT_RESPAWN_DELAY;
+    private long _lastNurseAntHealTime = 0;
+    private L2Skill _nurseAntHeal = null;
 
     protected Future<?> minionMaintainTask = null;
     
@@ -218,18 +220,17 @@ public final class L2BossInstance extends L2MonsterInstance
                         }
                     }
                 }
-                else
+                else if ((_lastNurseAntHealTime + 5000) < System.currentTimeMillis())
                 {
-                    L2Skill _heal1 = SkillTable.getInstance().getInfo(4020, 1);
-                    L2Skill _heal2 = SkillTable.getInstance().getInfo(4024, 1);
+                    _lastNurseAntHealTime = System.currentTimeMillis();
+                    if (_nurseAntHeal == null)
+                        _nurseAntHeal = SkillTable.getInstance().getInfo(4020, 1);
 
+                    callMinions();
                     for (L2MinionInstance m : _minions)
                     {
-                        callMinions();
                         m.setTarget(this);
-                        m.doCast(_heal1);
-                        m.setTarget(this);
-                        m.doCast(_heal2);
+                        m.doCast(_nurseAntHeal);
                     }
                 }
                 break;

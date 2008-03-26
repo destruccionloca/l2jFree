@@ -119,7 +119,7 @@ public class DoorTable
 
 		for(L2DoorInstance door : _staticItems.values())
 		{
-			ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(),door.getY(),500);
+			ClanHall clanhall = ClanHallManager.getInstance().getNearbyClanHall(door.getX(),door.getY(), 700);
 			if (clanhall != null)
 			{
 				clanhall.getDoors().add(door);
