@@ -106,25 +106,6 @@ public class RequestEnchantItem extends L2GameClientPacket
             return;
         }
         
-        switch (item.getLocation())
-        {
-        	case INVENTORY:
-        	case PAPERDOLL:
-        	{
-        		if (item.getOwnerId() != activeChar.getObjectId())
-        		{
-        			activeChar.setActiveEnchantItem(null);
-        			return;
-        		}
-        		break;
-        	}
-        	default:
-        	{
-        		Util.handleIllegalPlayerAction(activeChar,"Player "+activeChar.getName()+" tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
-        		return;
-        	}
-        }
-        
         int itemType2 = item.getItem().getType2();
         boolean enchantItem = false;
         boolean enchantBreak = false;
@@ -329,6 +310,26 @@ public class RequestEnchantItem extends L2GameClientPacket
                 chance = chance + Config.ENCHANT_DWARF_3_CHANCE;
         }
         
+        switch (item.getLocation())
+        {
+        	case INVENTORY:
+        	case PAPERDOLL:
+        	{
+        		if (item.getOwnerId() != activeChar.getObjectId())
+        		{
+        			activeChar.setActiveEnchantItem(null);
+        			return;
+        		}
+        		break;
+        	}
+        	default:
+        	{
+			chance = 0;
+        		Util.handleIllegalPlayerAction(activeChar,"Player "+activeChar.getName()+" tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
+        		return;
+        	}
+        }
+
         if (Rnd.get(100) < chance)
         {
             synchronized(item)
