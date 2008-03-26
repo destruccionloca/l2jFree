@@ -324,7 +324,8 @@ public class RequestEnchantItem extends L2GameClientPacket
         	}
         	default:
         	{
-			chance = 0;
+        		chance = 0;
+        		activeChar.setActiveEnchantItem(null);
         		Util.handleIllegalPlayerAction(activeChar,"Player "+activeChar.getName()+" tried to use enchant Exploit!", IllegalPlayerAction.PUNISH_KICKBAN);
         		return;
         	}
