@@ -365,7 +365,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
+	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="3336" levels="1" name="Transform Buffalo">
@@ -382,7 +382,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
+	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="3337" levels="1" name="Transform Cutie Pig">
@@ -399,7 +399,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="240" val="0"/> <!-- Transformation lasts 4 minutes -->
+	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="3338" levels="1" name="Shield Master">
