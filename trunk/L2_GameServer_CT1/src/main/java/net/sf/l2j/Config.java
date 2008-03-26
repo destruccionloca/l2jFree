@@ -2300,9 +2300,9 @@ public final class Config
 			IRC_FROM_GAME_TYPE = ircSettings.getProperty("GameToIrcType", "off");
 			IRC_TO_GAME_TYPE = ircSettings.getProperty("IrcToGameType", "off");
 			IRC_TO_GAME_SPECIAL_CHAR = ircSettings.getProperty("IrcToGameSpecialChar", "#");
-			IRC_TO_GAME_DISPLAY = ircSettings.getProperty("IrcToGameDisplay", "tade");
+			IRC_TO_GAME_DISPLAY = ircSettings.getProperty("IrcToGameDisplay", "trade");
 			IRC_ME_SUPPORT = Boolean.parseBoolean(ircSettings.getProperty("IrcMeSupport", "false"));
-			IRC_TO_GAME_ME_DISPLAY = ircSettings.getProperty("IrcToGameMeDisplay", "tade");
+			IRC_TO_GAME_ME_DISPLAY = ircSettings.getProperty("IrcToGameMeDisplay", "trade");
 		}
 		catch (Exception e)
 		{
