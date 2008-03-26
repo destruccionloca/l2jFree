@@ -228,7 +228,7 @@ public abstract class L2Object
             {
                 MercTicketManager.getInstance().removeTicket((L2ItemInstance)this);
             }
-            else if (itemId == 57 || itemId == 6353)
+            else if ((player instanceof L2PcInstance) && (itemId == 57 || itemId == 6353))
             {
                 QuestState qs = ((L2PcInstance) player).getQuestState("255_Tutorial");
                 if(qs != null)
