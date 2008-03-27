@@ -716,11 +716,8 @@
   </for>
 </skill>
 <skill id="432" levels="1" name="Assassination">
-<!--
-  Needs to be finished.
-
-  Description(s):
-      Increases attack strength and the rate of deadly attack while using a dagger.
+<!-- By Sephiropth
+  Core support added, maybe Attack value added is too low....
 -->
   <set name="weaponsAllowed" val="16"/>
   <set name="power" val="0.0"/>
@@ -733,11 +730,6 @@
     <add order="0x40" stat="pAtk" val="70">
       <using kind="Dagger"/>
     </add>
-<!-- need to add increase of deadly attack rate (Criticial Attack afaik)
-    <add order="0x40" stat="rCrit" val="?">
-      <using kind="Dagger"/>
-    </add>
--->
   </for>
 </skill>
 <skill id="433" levels="1" name="Arcane Roar"> <!-- perhaps "Arcane Lore" -->

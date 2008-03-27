@@ -2,99 +2,164 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="600" levels="1" name="Residence Guidance">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <add stat="accCombat" val="3" order="0x40"/>
   </for>
 </skill>
 <skill id="601" levels="1" name="Residence Agility">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <add stat="rEvas" val="3" order="0x40"/>
   </for>
 </skill>
 <skill id="602" levels="1" name="Residence Shield Block">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="rShld" val="1.06" order="0x30"/>
   </for>
 </skill>
 <skill id="603" levels="1" name="Residence Shield Defense">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="sDef" val="1.06" order="0x30"/>
   </for>
 </skill>
 <skill id="604" levels="1" name="Residence Resist Typhoon">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="windVuln" val="0.94" order="0x30"/>
+    <mul stat="waterVuln" val="0.94" order="0x30"/>
   </for>
 </skill>
 <skill id="605" levels="1" name="Residence Resist Lava">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="fireVuln" val="0.94" order="0x30"/>
+    <mul stat="earthVuln" val="0.94" order="0x30"/>
   </for>
 </skill>
 <skill id="606" levels="1" name="Residence Fortitude">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="stunVuln" val="0.94" order="0x30"/>
   </for>
 </skill>
 <skill id="607" levels="1" name="Residence Freedom">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="rootVuln" val="0.94" order="0x30"/>
   </for>
 </skill>
 <skill id="608" levels="1" name="Residence Vigilance">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="sleepVuln" val="0.94" order="0x30"/>
   </for>
 </skill>
 <skill id="609" levels="1" name="Residence Movement">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
+  <set name="minPledgeClass" val="7"/>
   <for>
+    <add stat="runSpd" val="6" order="0x40"/>
   </for>
 </skill>
 <skill id="610" levels="1" name="Residence Death Fortune">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- by Sephiroth -->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
+  <set name="isMagic" val="true"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul stat="lostExp" val="0.7" order="0x30"/>
   </for>
 </skill>
 <skill id="611" levels="3" name="Fire Squad">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth - This affects a whole party, just dont know when and how is used or applied -->
+  <table name="#pAtk"> 1.04 1.06 1.09 </table>
+  <table name="#rCrit"> 1 1.08 1.12 </table>
+  <table name="#cAtk"> 1 1 1.10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
+	<mul order="0x30" val="#pAtk" stat="pAtk"/>
+ 	<mul order="0x40" val="#rCrit" stat="rCrit"/>
+	<mul order="0x40" val="#cAtk" stat="cAtk"/>
   </for>
 </skill>
 <skill id="612" levels="3" name="Water Squad">
