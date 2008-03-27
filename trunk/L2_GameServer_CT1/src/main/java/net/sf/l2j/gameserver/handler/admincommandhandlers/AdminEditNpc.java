@@ -670,20 +670,20 @@ public class AdminEditNpc implements IAdminCommandHandler
 		if (args.length > 3)
 		{
 			int price = Integer.parseInt(args[3]);
-			int order =  findOrderTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
+			int order =  findOrderCustomTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
 
 			tradeList.replaceItem(itemID, Integer.parseInt(args[3]));
 			updateCustomTradeList(itemID, price, tradeListID, order);
 
 			activeChar.sendMessage("Updated price for "+item.getName()+" in Trade List "+tradeListID);
-			showShopList(activeChar, tradeListID, 1);
+			showCustomShopList(activeChar, tradeListID, 1);
 			return;
 		}
 
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 
 		TextBuilder replyMSG = new TextBuilder();
-		replyMSG.append("<html><title>Merchant Shop Item Edit</title>");
+		replyMSG.append("<html><title>Merchant Custom Shop Item Edit</title>");
 		replyMSG.append("<body>");
 		replyMSG.append("<br>Edit an entry in merchantList.");
 		replyMSG.append("<br>Editing Item: "+item.getName());
@@ -694,7 +694,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("</table>");
 		replyMSG.append("<center><br><br><br>");
 		replyMSG.append("<button value=\"Save\" action=\"bypass -h admin_editCustomShopItem " + tradeListID + " " + itemID + " $price\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showCustomShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 		replyMSG.append("</center>");
 		replyMSG.append("</body></html>");
 
@@ -712,13 +712,13 @@ public class AdminEditNpc implements IAdminCommandHandler
 			return;
 		if (args.length > 3)
 		{
-			int order =  findOrderTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
+			int order =  findOrderCustomTradeList(itemID, tradeList.getPriceForItemId(itemID), tradeListID);
 
 			tradeList.removeItem(itemID);
 			deleteCustomTradeList(tradeListID, order);
 
 			activeChar.sendMessage("Deleted "+ItemTable.getInstance().getTemplate(itemID).getName()+" from Trade List "+tradeListID);
-			showShopList(activeChar, tradeListID, 1);
+			showCustomShopList(activeChar, tradeListID, 1);
 			return;
 		}
 
@@ -736,7 +736,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("</table>");
 		replyMSG.append("<center><br><br><br>");
 		replyMSG.append("<button value=\"Confirm\" action=\"bypass -h admin_delCustomShopItem " + tradeListID + " " + itemID + " 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showCustomShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 		replyMSG.append("</center>");
 		replyMSG.append("</body></html>");
 
@@ -768,7 +768,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 			storeCustomTradeList(itemID, price, tradeListID, order);
 
 			activeChar.sendMessage("Added "+newItem.getItem().getName()+" to Trade List "+tradeList.getListId());
-			showShopList(activeChar, tradeListID, 1);
+			showCustomShopList(activeChar, tradeListID, 1);
 			return;
 		}
 
@@ -786,7 +786,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("</table>");
 		replyMSG.append("<center><br><br><br>");
 		replyMSG.append("<button value=\"Save\" action=\"bypass -h admin_addCustomShopItem " + tradeListID + " $itemID $price\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
-		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<br><button value=\"Back\" action=\"bypass -h admin_showCustomShopList " + tradeListID +" 1\"  width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 		replyMSG.append("</center>");
 		replyMSG.append("</body></html>");
 
@@ -802,6 +802,19 @@ public class AdminEditNpc implements IAdminCommandHandler
 		
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		TextBuilder html = itemListHtml(tradeList, page);
+		
+		adminReply.setHtml(html.toString());		
+		activeChar.sendPacket(adminReply);
+	}
+	
+	private void showCustomShopList(L2PcInstance activeChar, int tradeListID, int page)
+	{
+		L2TradeList tradeList = TradeListTable.getInstance().getBuyList(tradeListID);
+		if (page > tradeList.getItems().size() / PAGE_LIMIT + 1 || page < 1)
+			return;
+		
+		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
+		TextBuilder html = customItemListHtml(tradeList, page);
 		
 		adminReply.setHtml(html.toString());		
 		activeChar.sendPacket(adminReply);
@@ -840,6 +853,45 @@ public class AdminEditNpc implements IAdminCommandHandler
 		replyMSG.append("</table>");
 		replyMSG.append("<center>");
 		replyMSG.append("<button value=\"Add\" action=\"bypass -h admin_addShopItem "+tradeList.getListId()+"\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("<button value=\"Close\" action=\"bypass -h admin_close_window\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
+		replyMSG.append("</center></body></html>");
+
+		return replyMSG;
+	}
+
+	private TextBuilder customItemListHtml(L2TradeList tradeList, int page)
+	{
+		TextBuilder replyMSG = new TextBuilder();
+
+		replyMSG.append("<html><title>Merchant Shop List Page: "+page+"</title>");
+		replyMSG.append("<body>");
+		replyMSG.append("<br>Edit, add or delete entries in a merchantList.");
+		replyMSG.append("<table>");
+		replyMSG.append("<tr><td width=150>Item Name</td><td width=60>Price</td><td width=40>Delete</td></tr>");
+		int start = ((page-1) * PAGE_LIMIT);
+		int end = Math.min(((page-1) * PAGE_LIMIT) + (PAGE_LIMIT-1), tradeList.getItems().size() - 1);
+		for (L2ItemInstance item : tradeList.getItems(start, end+1))
+		{
+			replyMSG.append("<tr><td><a action=\"bypass -h admin_editCustomShopItem "+tradeList.getListId()+" "+item.getItemId()+"\">"+item.getItem().getName()+"</a></td>");
+			replyMSG.append("<td>"+item.getPriceToSell()+"</td>");
+			replyMSG.append("<td><button value=\"Del\" action=\"bypass -h admin_delCustomShopItem "+tradeList.getListId()+" "+item.getItemId()+"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+			replyMSG.append("</tr>");
+		}
+		replyMSG.append("<tr>");
+		int min = 1;
+		int max = tradeList.getItems().size() / PAGE_LIMIT + 1;
+		if (page > 1)
+			replyMSG.append("<td><button value=\"Page"+(page - 1)+"\" action=\"bypass -h admin_showCustomShopList "+tradeList.getListId()+" "+(page - 1)+"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		if (page < max)
+		{
+			if (page <= min)
+				replyMSG.append("<td></td>");
+			replyMSG.append("<td><button value=\"Page"+(page + 1)+"\" action=\"bypass -h admin_showCustomShopList "+tradeList.getListId()+" "+(page + 1)+"\" width=40 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\"></td>");
+		}
+		replyMSG.append("</tr><tr><td>.</td></tr>");
+		replyMSG.append("</table>");
+		replyMSG.append("<center>");
+		replyMSG.append("<button value=\"Add\" action=\"bypass -h admin_addCustomShopItem "+tradeList.getListId()+"\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 		replyMSG.append("<button value=\"Close\" action=\"bypass -h admin_close_window\" width=100 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">");
 		replyMSG.append("</center></body></html>");
 
