@@ -2,121 +2,132 @@
 <!DOCTYPE list SYSTEM "skills.dtd">
 <list>
 <skill id="4500" levels="1" name="Treasure Chest - Level 27">
-<!-- TODO
-  1: A locked chest that could contain treasure or a nasty surprise.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4501" levels="1" name="Treasure Chest - Level 29">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4502" levels="1" name="Treasure Chest - Level 31">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4503" levels="1" name="Treasure Chest - Level 32">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4504" levels="1" name="Treasure Chest - Level 33">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4505" levels="1" name="Treasure Chest - Level 35">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4506" levels="1" name="Treasure Chest - Level 39">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4507" levels="1" name="Treasure Chest - Level 42">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4508" levels="1" name="Treasure Chest - Level 43">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4509" levels="1" name="Treasure Chest - Level 45">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4510" levels="1" name="Treasure Chest - Level 47">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4511" levels="1" name="Treasure Chest - Level 49">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
 <skill id="4512" levels="1" name="Treasure Chest - Level 52">
-<!-- TODO -->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!-- This Skill Is Only For Description In The Client -->
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="PASSIVE"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
   </for>
 </skill>
@@ -138,8 +149,8 @@
   <for>
   </for>
 </skill>
-<skill id="4515" levels="99" name="Petrification">
-<!-- TODO
+<skill id="4515" levels="1" name="Raid Curse">
+<!--
 Curse of the guardian spirit of a Raid Boss.  It's a state in which
 one's body is temporarily petrified like a stone.  One can receive
 this curse when trying to kill a raid monster whose level is lower than
@@ -149,9 +160,9 @@ one's level by 9 or more. This curse cannot be undone. -->
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="isMagic" val="true"/>
   <set name="castRange" val="1500"/>
-  <set name="effectRange" val="1700"/>
+  <set name="effectRange" val="2000"/>
   <for>
-    <effect count="1" name="Petrified" time="130" val="0" stackOrder="1" stackType="Paralyze"/>
+    <effect count="1" name="Petrification" time="120" val="0" stackOrder="120" stackType="turn_stone"/>
   </for>
 </skill>
 <skill id="4516" levels="1" name="Orfen Heal">
@@ -997,14 +1008,19 @@ chances and the success rate of dagger skills. -->
   </for>
 </skill>
 <skill id="4578" levels="1" name="Petrification">
-<!-- TODO -->
-  <set name="mpConsume" val="73"/>
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_ACTIVE"/>
-  <set name="isMagic" val="true"/>
+  <!-- Done by DJ MELERIX -->
   <set name="castRange" val="600"/>
+  <set name="effectRange" val="1100"/>
+  <set name="isMagic" val="true"/>
+  <set name="magicLvl" val="80"/>
+  <set name="mpInitialConsume" val="15"/>
+  <set name="mpConsume" val="58"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="power" val="0.0"/>
+  <set name="skillType" val="PARALYZE"/>
+  <set name="target" val="TARGET_ONE"/>
   <for>
+    <effect count="1" name="Petrification" time="20" val="0" stackOrder="20" stackType="turn_stone"/>
   </for>
 </skill>
 <skill id="4579" levels="12" name="Bleed">

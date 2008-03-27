@@ -299,11 +299,14 @@
   </for>
 </skill>
 <skill id="4215" levels="1" name="Raid Curse">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="skillType" val="MUTE"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="1500"/>
+  <set name="effectRange" val="2000"/>
   <for>
+    <effect count="1" name="Mute" time="3600" val="0" stackOrder="3600" stackType="silence_all"/>
+    <effect count="1" name="PsychicalMute" time="3600" val="0" noicon="1"/>
   </for>
 </skill>
 <skill id="4216" levels="1" name="Scatter Enemy">
@@ -917,13 +920,16 @@
   </for>
 </skill>
 <skill id="4256" levels="1" name="100% Stun Resistance.">
-  <!-- NOT USED IN C4 -->
+  <!-- Done by DJ MELERIX -->
+  <set name="magicLvl" val="1"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
-  <set name="skillType" val="WEAKNESS"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul order="0x30" stat="stunVuln" val="0.0"/>
   </for>
 </skill>
 <skill id="4257" levels="12" name="NPC Hydroblast - Magic">

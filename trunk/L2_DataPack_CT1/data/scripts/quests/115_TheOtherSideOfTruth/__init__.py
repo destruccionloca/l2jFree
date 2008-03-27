@@ -140,7 +140,7 @@ class Quest (JQuest) :
           htmltext = "32020-20.htm"
        elif cond == 12:
           htmltext = "32020-18.htm"
-          st.exitQuest(false)
+          st.exitQuest(0)
           st.playSound("ItemSound.quest_finish")
           st.giveItems(57,60044)
     elif npcId == Misa :

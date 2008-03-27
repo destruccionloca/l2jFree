@@ -568,7 +568,7 @@
       <zone xMin="-114304" xMax="-113408" yMin="-185536" yMax="-184000" zMin="-6816" zMax="-6240"/>
     </room>
     <room id="7" name="Dimensional Rift (Hero Room 7)">
-      <teleport x="-115728" y="-185560" z="-6752" />
+      <teleport x="-115728" y="-186560" z="-6752" />
       <!-- Messenger Invader Elite Soldier -->
       <spawn mobId="21792" count="4" delay="100" />
       <!-- Messenger Invader Elite Soldier -->
