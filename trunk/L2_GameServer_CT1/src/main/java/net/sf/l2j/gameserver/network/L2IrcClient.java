@@ -67,6 +67,7 @@ public class L2IrcClient extends Thread
 		conn.setPong(true);
 		conn.setDaemon(false);
 		conn.setColors(false);
+		conn.setTimeout(300000); // Let's try a 5 minute timeout
 		start();
 	}
 

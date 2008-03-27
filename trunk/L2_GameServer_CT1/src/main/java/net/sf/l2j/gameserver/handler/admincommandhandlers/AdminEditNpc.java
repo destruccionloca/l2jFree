@@ -83,7 +83,8 @@ public class AdminEditNpc implements IAdminCommandHandler
 		"admin_editCustomShopItem",
 		"admin_delCustomShopItem",
 		"admin_addCustomShopItem",
-		"admin_showCustomShop"
+		"admin_showCustomShop",
+		"admin_showCustomShopList"
 	};
 	private static final int REQUIRED_LEVEL = Config.GM_NPC_EDIT;
 	private static final int REQUIRED_LEVEL2 = Config.GM_NPC_VIEW;
@@ -111,6 +112,12 @@ public class AdminEditNpc implements IAdminCommandHandler
 			String[] args = command.split(" ");
 			if (args.length > 2)
 				showShopList(activeChar, Integer.parseInt(command.split(" ")[1]), Integer.parseInt(command.split(" ")[2]));
+		}
+		else if(command.startsWith("admin_showCustomShopList "))
+		{
+			String[] args = command.split(" ");
+			if (args.length > 2)
+				showCustomShopList(activeChar, Integer.parseInt(command.split(" ")[1]), Integer.parseInt(command.split(" ")[2]));
 		}
 		else if(command.startsWith("admin_edit_npc "))
 		{
@@ -941,7 +948,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		
 		NpcHtmlMessage adminReply = new NpcHtmlMessage(5);
 		
-		TextBuilder replyMSG = new TextBuilder("<html><title>Merchant Shop Lists</title>");
+		TextBuilder replyMSG = new TextBuilder("<html><title>Merchant Custom Shop Lists</title>");
 		replyMSG.append("<body>");
 		replyMSG.append("<br>Select a list to view");
 		replyMSG.append("<table>");
@@ -950,7 +957,7 @@ public class AdminEditNpc implements IAdminCommandHandler
 		for (L2TradeList tradeList : tradeLists)
 		{
 			if (tradeList != null)
-				replyMSG.append("<tr><td><a action=\"bypass -h admin_showShopList "+tradeList.getListId()+" 1\">Trade List "+tradeList.getListId()+"</a></td></tr>");
+				replyMSG.append("<tr><td><a action=\"bypass -h admin_showCustomShopList "+tradeList.getListId()+" 1\">Trade List "+tradeList.getListId()+"</a></td></tr>");
 		}
 		
 		replyMSG.append("</table>");
