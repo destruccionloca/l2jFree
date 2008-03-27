@@ -1421,8 +1421,12 @@ public final class Formulas
            damage *= Config.ALT_PETS_PHYSICAL_DAMAGE_MULTI;
         else if (attacker instanceof L2NpcInstance)
             damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
-        
-        return damage;
+
+        if (target.getSkillLevel(528)>0)
+	  {
+		return damage * 0.93;
+	  }
+	  else return damage;
     }
     
     public final double calcMagicDam(L2Character attacker, L2Character target, L2Skill skill,
@@ -1545,7 +1549,12 @@ public final class Formulas
 	/** Calcul value of lethal chance */
 	public final double calcLethal(L2Character activeChar, L2Character target, int baseLethal)
 	{
-		return activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
+		if (activeChar.getSkillLevel(432) > 0)
+		{
+			//Setting 4% chance for Assassination Skill. I think is fair enough...
+			return 4 + activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
+		}
+		else return activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
 	}
 
     public final boolean calcLethalHit(L2Character activeChar, L2Character target, L2Skill skill)
