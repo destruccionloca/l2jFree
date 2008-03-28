@@ -503,7 +503,7 @@ public class L2Spawn
 			
 			// Check if the Instance is a L2NpcInstance
 			if (!(tmp instanceof L2NpcInstance))
-				return mob;			
+				return mob;
 			mob = (L2NpcInstance)tmp;
 			return intializeNpcInstance(mob);
 		}

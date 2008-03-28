@@ -1592,6 +1592,11 @@ public class Olympiad
 						}
 					}
 					
+					// Heal Player fully
+					player.getStatus().setCurrentCp(player.getMaxCp());
+					player.getStatus().setCurrentHp(player.getMaxHp());
+					player.getStatus().setCurrentMp(player.getMaxMp());
+					
 					player.sendSkillList();
 					
 					// Remove Buffs

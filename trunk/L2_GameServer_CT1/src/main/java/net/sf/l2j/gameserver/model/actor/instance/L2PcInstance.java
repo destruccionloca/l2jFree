@@ -9315,7 +9315,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public boolean isSubClassActive()
     {
-        return _classIndex > 0;
+        return getBaseClass() != getClassId().getId();
     }
 
     public Map<Integer, SubClass> getSubClasses()
@@ -11736,10 +11736,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		{
 			sendPacket(new SystemMessage(SystemMessageId.CRITICAL_HIT));
 
+			int soulMasteryLevel = getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
 			// Soul Mastery skill
-			if (getSkillLevel(467) > 0 && target instanceof L2NpcInstance)
+			if (soulMasteryLevel > 0 && target instanceof L2NpcInstance)
 			{
-				L2Skill skill = SkillTable.getInstance().getInfo(467, getSkillLevel(467));
+				L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
 				if (Rnd.get(100) < skill.getCritChance())
 				{
 					absorbSoulFromNpc(skill,((L2NpcInstance)target));

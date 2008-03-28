@@ -140,7 +140,7 @@ public class RequestJoinParty extends L2GameClientPacket
 		if (!target.isProcessingRequest()) 
 		{
 			requestor.onTransactionRequest(target);
-			target.sendPacket(new AskJoinParty(requestor.getName(), _itemDistribution));
+			target.sendPacket(new AskJoinParty(requestor.getName(), requestor.getParty().getLootDistribution()));
 			requestor.getParty().increasePendingInvitationNumber();
 
 			if (_log.isDebugEnabled()) 

@@ -23,6 +23,7 @@ package net.sf.l2j.gameserver.util;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.L2GameClient;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -71,18 +72,21 @@ public final class IllegalPlayerAction implements Runnable
 		_logAudit.info("AUDIT:" + _message + "," + _actor + " " + _punishment);
 
 		GmListTable.broadcastMessageToGMs(_message);
+		L2GameClient client = _actor.getClient();
+		L2GameClient.saveCharToDisk(_actor, true); // Store character
 
 		switch (_punishment)
 		{
 		case PUNISH_BROADCAST:
 			return;
 		case PUNISH_KICK:
-			_actor.closeNetConnection();
+			_actor.deleteMe();
+			client.setActiveChar(null);
 			break;
 		case PUNISH_KICKBAN:
-			_actor.setAccessLevel(-100);
 			_actor.setAccountAccesslevel(-100);
-			_actor.closeNetConnection();
+			_actor.deleteMe();
+			client.setActiveChar(null);
 			break;
 		case PUNISH_JAIL:
 			_actor.setInJail(true, Config.DEFAULT_PUNISH_PARAM);

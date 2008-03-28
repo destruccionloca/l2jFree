@@ -56,20 +56,39 @@ import net.sf.l2j.gameserver.util.Util;
  * - reload = reloads specified component from multisell|skill|npc|htm|item|instancemanager 
  * - set/set_menu/set_mod = alters specified server setting
  * - saveolymp = saves olympiad state manually 
- * - manualhero = cycles olympiad and calculate new heroes. 
  * @version $Revision: 1.3.2.1.2.4 $ $Date: 2007/07/28 10:06:06 $
  */
 public class AdminAdmin implements IAdminCommandHandler
 {
 	//private final static Log _log = LogFactory.getLog(AdminAdmin.class);
 
-	private static final String[] ADMIN_COMMANDS = {"admin_admin", "admin_admin1", "admin_admin2", "admin_admin3", "admin_admin4", "admin_admin5",
-				"admin_gmliston", "admin_gmlistoff", "admin_silence", "admin_diet", "admin_tradeoff", "admin_reload", "admin_set", "admin_set_menu", "admin_set_mod",
-				"admin_saveolymp", "admin_manualhero",
-				// L2J-FREE
-				"admin_camera",	// test for moviemode.
-				"admin_reload_config", "admin_config_server",
-				"admin_summon", "admin_unsummon", "admin_memusage"};
+	private static final String[] ADMIN_COMMANDS =
+	{
+		"admin_admin",
+		"admin_admin1",
+		"admin_admin2",
+		"admin_admin3",
+		"admin_admin4",
+		"admin_admin5",
+		"admin_gmliston",
+		"admin_gmlistoff",
+		"admin_silence",
+		"admin_diet",
+		"admin_tradeoff",
+		"admin_reload",
+		"admin_set",
+		"admin_set_menu",
+		"admin_set_mod",
+		"admin_saveolymp",
+		"admin_endolympiad",
+		// L2J-FREE
+		"admin_camera",	// test for moviemode.
+		"admin_reload_config",
+		"admin_config_server",
+		"admin_summon",
+		"admin_unsummon",
+		"admin_memusage"
+	};
 
 	private static final int REQUIRED_LEVEL = Config.GM_MENU;
 
@@ -310,7 +329,7 @@ public class AdminAdmin implements IAdminCommandHandler
 			catch(Exception e){e.printStackTrace();}
 			activeChar.sendMessage("Olympiad stuff saved!");
 		}
-		else if(command.startsWith("admin_manualhero"))
+		else if(command.startsWith("admin_endolympiad"))
 		{
 			try 
 			{

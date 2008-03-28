@@ -80,7 +80,7 @@ public class AdminEditChar implements IAdminCommandHandler
 		"admin_find_ip", // find all the player connections from a given IPv4 number
 		"admin_find_account", //list all the characters from an account (useful for GMs w/o DB access)
 		"admin_save_modifications", //consider it deprecated...
-		"admin_rec",	  // gives recommendation points
+		"admin_rec",  // gives recommendation points
 		"admin_settitle", // changes char title
 		"admin_setname",  // changes char name
 		"admin_setsex",   // changes characters' sex
@@ -90,7 +90,8 @@ public class AdminEditChar implements IAdminCommandHandler
 		
 		// L2JFREE
 		"admin_remclanwait",
-		"admin_sethero"		
+		"admin_sethero",
+		"admin_manualhero"
 	};
 
 
@@ -387,7 +388,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 		}
 		// [L2J_JP ADD START]
-		else if (command.startsWith("admin_sethero"))
+		else if (command.startsWith("admin_sethero") || command.startsWith("admin_manualhero"))
 		{
 			L2Object target = activeChar.getTarget();
 			L2PcInstance player = null;

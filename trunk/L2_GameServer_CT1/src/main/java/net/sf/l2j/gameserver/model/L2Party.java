@@ -749,10 +749,11 @@ public class L2Party
 						int addsp = (int)member.calcStat(Stats.EXPSP_RATE, spReward * preCalculationSp, null, null);
 						if (target != null && member instanceof L2PcInstance)
 						{
+							int soulMasteryLevel = ((L2PcInstance)member).getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
 							// Soul Mastery skill
-							if (((L2PcInstance)member).getSkillLevel(467) > 0)
+							if (soulMasteryLevel > 0)
 							{
-								L2Skill skill = SkillTable.getInstance().getInfo(467,((L2PcInstance)member).getSkillLevel(467));
+								L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
 								if (skill.getExpNeeded() <= addexp && Rnd.get(100) < 20)
 								{
 									((L2PcInstance)member).absorbSoulFromNpc(skill,target);

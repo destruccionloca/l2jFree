@@ -40,7 +40,7 @@ public class Soul implements ISkillHandler
         
         L2PcInstance player = (L2PcInstance)activeChar;
         
-        L2Skill soulmastery = SkillTable.getInstance().getInfo(467, player.getSkillLevel(467));
+        L2Skill soulmastery = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, player.getSkillLevel(L2Skill.SKILL_SOUL_MASTERY));
         
         if (soulmastery != null)
         {

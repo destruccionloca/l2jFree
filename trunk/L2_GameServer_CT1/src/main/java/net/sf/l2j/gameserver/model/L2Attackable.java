@@ -652,9 +652,10 @@ public class L2Attackable extends L2NpcInstance
                                 if (attacker instanceof L2PcInstance && !(this instanceof L2ChestInstance))
                                 {
                                     // Soul Mastery skill
-                                    if (((L2PcInstance)attacker).getSkillLevel(467) > 0)
+                                    int soulMasteryLevel = ((L2PcInstance)attacker).getSkillLevel(L2Skill.SKILL_SOUL_MASTERY);
+                                    if (soulMasteryLevel > 0)
                                     {
-                                        L2Skill skill = SkillTable.getInstance().getInfo(467,((L2PcInstance)attacker).getSkillLevel(467));
+                                        L2Skill skill = SkillTable.getInstance().getInfo(L2Skill.SKILL_SOUL_MASTERY, soulMasteryLevel);
                                         if (skill.getExpNeeded() <= addexp)
                                         {
                                             ((L2PcInstance)attacker).absorbSoulFromNpc(skill,this);

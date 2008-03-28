@@ -150,7 +150,8 @@ public abstract class L2Character extends L2Object
 	private boolean					_isFallsdown						= false;											// Falls down [L2J_JP_ADD]
 	private boolean					_isFlying							= false;											// Is flying Wyvern?
 	private boolean					_isMuted							= false;											// Cannot use magic
-	private boolean					_isPsychicalMuted					= false;											// Cannot use psychical attack
+	private boolean					_isPhysicalMuted					= false;											// Cannot use physical attack
+	private boolean					_isPhysicalAttackMuted				= false;											// Cannot use attack
 	private boolean					_isDead								= false;
 	private boolean					_isImmobilized						= false;
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
@@ -1614,10 +1615,17 @@ public abstract class L2Character extends L2Object
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			return;
 		}
-		// Check if the skill is psychical and if the L2Character is not psychical_muted
-		if (!skill.isMagic() && isPsychicalMuted() && !skill.isPotion())
+		// Check if the skill is physical and if the L2Character is not physicalMuted
+		if (!skill.isMagic() && isPhysicalMuted() && !skill.isPotion())
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+			return;
+		}
+
+		// Prevent use attack
+		if (isPhysicalAttackMuted() && !skill.isMagic() && !skill.isPotion())
+		{
+			actionFailed();
 			return;
 		}
 
@@ -2440,7 +2448,7 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
 	public boolean isAttackingDisabled()
 	{
-		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown();
+		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown() || isPhysicalAttackMuted();
 	}
 
 	public final Calculator[] getCalculators()
@@ -2529,14 +2537,24 @@ public abstract class L2Character extends L2Object
 		_isMuted = value;
 	}
 
-	public final boolean isPsychicalMuted()
+	public final boolean isPhysicalMuted()
 	{
-		return _isPsychicalMuted;
+		return _isPhysicalMuted;
 	}
 
-	public final void setIsPsychicalMuted(boolean value)
+	public final void setIsPhysicalMuted(boolean value)
 	{
-		_isPsychicalMuted = value;
+		_isPhysicalMuted = value;
+	}
+
+	public final boolean isPhysicalAttackMuted()
+	{
+		return _isPhysicalAttackMuted;
+	}
+
+	public final void setIsPhysicalAttackMuted(boolean value)
+	{
+		_isPhysicalAttackMuted = value;
 	}
 
 	/** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
@@ -3114,8 +3132,6 @@ public abstract class L2Character extends L2Object
 	 */
 	public final void addEffect(L2Effect newEffect)
 	{
-		L2Effect tempEffect = null;
-
 		if (newEffect == null)
 			return;
 
@@ -3127,13 +3143,30 @@ public abstract class L2Character extends L2Object
 			if (_stackedEffects == null)
 				_stackedEffects = new FastMap<String, FastList<L2Effect>>();
 		}
-		synchronized (_effects)
+		synchronized(_effects)
 		{
-			// Make sure there's no same effect previously
-			for (int i = 0; i < _effects.size(); i++)
+			L2Effect tempEffect, tempEffect2;
+
+			// Check for same effects
+			for (int i=0; i<_effects.size(); i++)
 			{
-				if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId() && _effects.get(i).getEffectType() == newEffect.getEffectType())
-					return;
+				if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId()
+						&& _effects.get(i).getEffectType() == newEffect.getEffectType()
+						&& _effects.get(i).getStackOrder() == newEffect.getStackOrder())
+				{
+					if (newEffect.getSkill().getSkillType() == L2Skill.SkillType.BUFF
+							|| newEffect.getEffectType() == L2Effect.EffectType.BUFF)
+					{
+						// renew buffs, exit old (could consider only reschedule and stop new but then effector would be wrong)
+						_effects.get(i).exit();
+					}
+					else
+					{
+						// Started scheduled timer needs to be canceled.
+						newEffect.stopEffectTask();
+						return;
+					}
+				}
 			}
 
 			// Remove first Buff if number of buffs > getMaxBuffCount()
@@ -3152,50 +3185,16 @@ public abstract class L2Character extends L2Object
 				removeFirstBuff(tempskill.getId());
 			}
 
-			// Add the L2Effect to all effect in progress on the L2Character
-			if (!newEffect.getSkill().isToggle())
-			{
-				int pos = 0;
-				for (int i = 0; i < _effects.size(); i++)
-				{
-					if (_effects.get(i) != null)
-					{
-						int skillid = _effects.get(i).getSkill().getId();
-						if (!_effects.get(i).getSkill().isToggle() && !(skillid > 4360 && skillid < 4367))
-							pos++;
-					}
-					else
-						break;
-				}
-				_effects.add(pos, newEffect);
-			}
-			else
-				_effects.addLast(newEffect);
-
-			// Check if a stack group is defined for this effect
-			if (newEffect.getStackType().equals("none"))
-			{
-				// Set this L2Effect to In Use
-				newEffect.setInUse(true);
-
-				// Add Funcs of this effect to the Calculator set of the L2Character
-				addStatFuncs(newEffect.getStatFuncs());
-
-				// Update active skills in progress icons on player client
-				updateEffectIcons();
-				return;
-			}
-
 			// Get the list of all stacked effects corresponding to the stack type of the L2Effect to add
 			FastList<L2Effect> stackQueue = _stackedEffects.get(newEffect.getStackType());
 
 			if (stackQueue == null)
 				stackQueue = new FastList<L2Effect>();
 
+			tempEffect = null;
 			if (stackQueue.size() > 0)
 			{
 				// Get the first stacked effect of the Stack group selected
-				tempEffect = null;
 				for (int i = 0; i < _effects.size(); i++)
 				{
 					if (_effects.get(i) == stackQueue.get(0))
@@ -3204,7 +3203,29 @@ public abstract class L2Character extends L2Object
 						break;
 					}
 				}
+			}
 
+			// Add the new effect to the stack group selected at its position
+			stackQueue = effectQueueInsert(newEffect, stackQueue);
+
+			if (stackQueue == null) return;
+
+			// Update the Stack Group table _stackedEffects of the L2Character
+			_stackedEffects.put(newEffect.getStackType(), stackQueue);
+
+			// Get the first stacked effect of the Stack group selected
+			tempEffect2 = null;
+			for (int i=0; i<_effects.size(); i++)
+			{
+				if (_effects.get(i) == stackQueue.get(0))
+				{
+					tempEffect2 = _effects.get(i);
+					break;
+				}
+			}
+
+			if (tempEffect != tempEffect2)
+			{
 				if (tempEffect != null)
 				{
 					// Remove all Func objects corresponding to this stacked effect from the Calculator set of the L2Character
@@ -3213,33 +3234,15 @@ public abstract class L2Character extends L2Object
 					// Set the L2Effect to Not In Use
 					tempEffect.setInUse(false);
 				}
-			}
-
-			// Add the new effect to the stack group selected at its position
-			stackQueue = effectQueueInsert(newEffect, stackQueue);
-
-			if (stackQueue == null)
-				return;
-
-			// Update the Stack Group table _stackedEffects of the L2Character
-			_stackedEffects.put(newEffect.getStackType(), stackQueue);
-
-			// Get the first stacked effect of the Stack group selected
-			tempEffect = null;
-			for (int i = 0; i < _effects.size(); i++)
-			{
-				if (_effects.get(i) == stackQueue.get(0))
+				if (tempEffect2 != null)
 				{
-					tempEffect = _effects.get(i);
-					break;
+					// Set this L2Effect to In Use
+					tempEffect2.setInUse(true);
+
+					// Add all Func objects corresponding to this stacked effect to the Calculator set of the L2Character
+					addStatFuncs(tempEffect2.getStatFuncs());
 				}
 			}
-
-			// Set this L2Effect to In Use
-			tempEffect.setInUse(true);
-
-			// Add all Func objects corresponding to this stacked effect to the Calculator set of the L2Character
-			addStatFuncs(tempEffect.getStatFuncs());
 		}
 		// Update active skills in progress (In Use and Not In Use because stacked) icons on client
 		updateEffectIcons();
@@ -3542,12 +3545,12 @@ public abstract class L2Character extends L2Object
 	}
 
 	/**
-	 * Active the abnormal effect Psychical_Muted flag, notify the L2Character AI and send Server->Client UserInfo/CharInfo packet.<BR>
+	 * Active the abnormal effect Physical_Muted flag, notify the L2Character AI and send Server->Client UserInfo/CharInfo packet.<BR>
 	 * <BR>
 	 */
-	public final void startPsychicalMuted()
+	public final void startPhysicalMuted()
 	{
-		setIsPsychicalMuted(true);
+		setIsPhysicalMuted(true);
 		getAI().notifyEvent(CtrlEvent.EVT_MUTED);
 		updateAbnormalEffect();
 	}
@@ -3685,6 +3688,20 @@ public abstract class L2Character extends L2Object
 		setIsConfused(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
+	}
+
+	public final void startPhysicalAttackMuted()
+	{
+		setIsPhysicalAttackMuted(true);
+	}
+
+	public final void stopPhysicalAttackMuted(L2Effect effect)
+	{
+		if (effect == null)
+			stopEffects(L2Effect.EffectType.PHYSICAL_ATTACK_MUTE);
+		else
+			removeEffect(effect);
+		setIsPhysicalAttackMuted(false);
 	}
 
 	/**
@@ -3825,14 +3842,14 @@ public abstract class L2Character extends L2Object
 		updateAbnormalEffect();
 	}
 
-	public final void stopPsychicalMuted(L2Effect effect)
+	public final void stopPhysicalMuted(L2Effect effect)
 	{
 		if (effect == null)
-			stopEffects(L2Effect.EffectType.PSYCHICAL_MUTE);
+			stopEffects(L2Effect.EffectType.PHYSICAL_MUTE);
 		else
 			removeEffect(effect);
 
-		setIsPsychicalMuted(false);
+		setIsPhysicalMuted(false);
 		updateAbnormalEffect();
 	}
 
@@ -4030,7 +4047,7 @@ public abstract class L2Character extends L2Object
 			ae |= ABNORMAL_EFFECT_MUTED;
 		if (isAfraid())
 			ae |= ABNORMAL_EFFECT_AFRAID;
-		if (isPsychicalMuted())
+		if (isPhysicalMuted())
 			ae |= ABNORMAL_EFFECT_MUTED;
 		return ae;
 	}

@@ -18,36 +18,40 @@ import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
 /**
- * @author -Nemesiss-
- * 
+ * @author -Rnn-
+ *
  */
-public class EffectPsychicalMute extends L2Effect
+public class EffectPhysicalAttackMute extends L2Effect
 {
-
-	public EffectPsychicalMute(Env env, EffectTemplate template)
+	public EffectPhysicalAttackMute(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 
+
+	@Override
 	public EffectType getEffectType()
 	{
-		return L2Effect.EffectType.PSYCHICAL_MUTE;
+		return L2Effect.EffectType.PHYSICAL_ATTACK_MUTE;
 	}
 
+	@Override
 	public void onStart()
 	{
-		getEffected().startPsychicalMuted();
+		getEffected().startPhysicalAttackMuted();
 	}
 
+	@Override
 	public boolean onActionTime()
 	{
 		// Simply stop the effect
-		getEffected().stopPsychicalMuted(this);
+		getEffected().stopPhysicalAttackMuted(this);
 		return false;
 	}
 
+	@Override
 	public void onExit()
 	{
-		getEffected().stopPsychicalMuted(this);
+		getEffected().stopPhysicalAttackMuted(this);
 	}
 }

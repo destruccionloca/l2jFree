@@ -17,35 +17,37 @@ package net.sf.l2j.gameserver.skills.effects;
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.skills.Env;
 
-public class EffectSilenceMagicPhysical extends L2Effect
+/**
+ * @author -Nemesiss-
+ * 
+ */
+public class EffectPhysicalMute extends L2Effect
 {
 
-	public EffectSilenceMagicPhysical(Env env, EffectTemplate template)
+	public EffectPhysicalMute(Env env, EffectTemplate template)
 	{
 		super(env, template);
 	}
 
 	public EffectType getEffectType()
 	{
-		return L2Effect.EffectType.SILENCE_MAGIC_PHYSICAL;
+		return L2Effect.EffectType.PHYSICAL_MUTE;
 	}
 
 	public void onStart()
 	{
-		getEffected().startMuted();
 		getEffected().startPhysicalMuted();
 	}
 
 	public boolean onActionTime()
 	{
-		getEffected().stopMuted(this);
+		// Simply stop the effect
 		getEffected().stopPhysicalMuted(this);
 		return false;
 	}
 
 	public void onExit()
 	{
-		getEffected().stopMuted(this);
 		getEffected().stopPhysicalMuted(this);
 	}
 }

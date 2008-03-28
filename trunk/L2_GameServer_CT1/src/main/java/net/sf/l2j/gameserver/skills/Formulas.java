@@ -1422,11 +1422,7 @@ public final class Formulas
         else if (attacker instanceof L2NpcInstance)
             damage *= Config.ALT_NPC_PHYSICAL_DAMAGE_MULTI;
 
-        if (target.getSkillLevel(528)>0)
-	  {
-		return damage * 0.93;
-	  }
-	  else return damage;
+        return damage;
     }
     
     public final double calcMagicDam(L2Character attacker, L2Character target, L2Skill skill,
@@ -1456,13 +1452,12 @@ public final class Formulas
         {
             if (attacker instanceof L2PcInstance)
             {
-                if (calcMagicSuccess(attacker, target, skill)
-                    && (target.getLevel() - attacker.getLevel()) <= 9)
+                if (calcMagicSuccess(attacker, target, skill) && (target.getLevel() - attacker.getLevel()) <= 9)
                 {
-                    if (skill.getSkillType() == SkillType.DRAIN) attacker.sendPacket(new SystemMessage(
-
-                                                                                                        SystemMessageId.DRAIN_HALF_SUCCESFUL));
-                    else attacker.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
+                    if (skill.getSkillType() == SkillType.DRAIN)
+                        attacker.sendPacket(new SystemMessage(SystemMessageId.DRAIN_HALF_SUCCESFUL));
+                    else
+                        attacker.sendPacket(new SystemMessage(SystemMessageId.ATTACK_FAILED));
 
                     damage /= 2;
                 }
@@ -1499,18 +1494,18 @@ public final class Formulas
         if((attacker instanceof L2PcInstance || attacker instanceof L2Summon)
             && (target instanceof L2PcInstance || target instanceof L2Summon))
         {
-        	if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
-        	{
-        		//if the skill is an itemskill and ALT_ITEM_SKILLS_NOT_INFLUENCED is true do.. nothing
-        	}
-        	else
-        	{
-	            if(skill.isMagic())
-	                damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
-	            else 
-	                damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
-        	}
-        }        
+            if (skill.isItemSkill() && Config.ALT_ITEM_SKILLS_NOT_INFLUENCED)
+            {
+                //if the skill is an itemskill and ALT_ITEM_SKILLS_NOT_INFLUENCED is true do.. nothing
+            }
+            else
+            {
+                if(skill.isMagic())
+                    damage *= attacker.calcStat(Stats.PVP_MAGICAL_DMG, 1, null, null);
+                else 
+                    damage *= attacker.calcStat(Stats.PVP_PHYS_SKILL_DMG, 1, null, null);
+            }
+        }
 
         if (attacker instanceof L2PcInstance)
         {
@@ -1549,12 +1544,13 @@ public final class Formulas
 	/** Calcul value of lethal chance */
 	public final double calcLethal(L2Character activeChar, L2Character target, int baseLethal)
 	{
-		if (activeChar.getSkillLevel(432) > 0)
+		if (activeChar.getSkillLevel(L2Skill.SKILL_ASSASSINATION) > 0)
 		{
 			//Setting 4% chance for Assassination Skill. I think is fair enough...
 			return 4 + activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
 		}
-		else return activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
+		else
+			return activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
 	}
 
     public final boolean calcLethalHit(L2Character activeChar, L2Character target, L2Skill skill)

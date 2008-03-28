@@ -1231,7 +1231,7 @@ public final class Config
 				NAME_PER_ROW_COMMUNITYBOARD = 5;
 			SHOW_LEGEND = Boolean.parseBoolean(optionsSettings.getProperty("ShowLegend", "False"));
 			SHOW_CLAN_LEADER = Boolean.parseBoolean(optionsSettings.getProperty("ShowClanLeader", "False"));
-			SHOW_CLAN_LEADER_CLAN_LEVEL = Integer.parseInt(optionsSettings.getProperty("ShowClanLeaderAtClanLevel" "3"));
+			SHOW_CLAN_LEADER_CLAN_LEVEL = Integer.parseInt(optionsSettings.getProperty("ShowClanLeaderAtClanLevel", "3"));
 			SHOW_CURSED_WEAPON_OWNER = Boolean.parseBoolean(optionsSettings.getProperty("ShowCursedWeaponOwner", "False"));
 			SHOW_KARMA_PLAYERS = Boolean.parseBoolean(optionsSettings.getProperty("ShowKarmaPlayers", "False"));
 			SHOW_JAILED_PLAYERS = Boolean.parseBoolean(optionsSettings.getProperty("ShowJailedPlayers", "False"));

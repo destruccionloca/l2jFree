@@ -22,7 +22,6 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.serverpackets.PartyMemberPosition;
-import net.sf.l2j.gameserver.templates.L2WeaponType;
 
 /**
  * This class ...
@@ -102,11 +101,6 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         }
         
         if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
-        {
-            activeChar.actionFailed();
-        }
-        else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null &&
-            ((activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW) || (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.CROSSBOW)))
         {
             activeChar.actionFailed();
         }

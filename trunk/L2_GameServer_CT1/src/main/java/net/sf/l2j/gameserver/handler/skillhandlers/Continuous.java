@@ -45,7 +45,8 @@ public class Continuous implements ISkillHandler
 {
 	//private static Logger _log = Logger.getLogger(Continuous.class.getName());
 	
-	private static final SkillType[] SKILL_IDS = {
+	private static final SkillType[] SKILL_IDS =
+	{
 		L2Skill.SkillType.BUFF,
 		L2Skill.SkillType.DEBUFF,
 		L2Skill.SkillType.DOT,
@@ -62,7 +63,7 @@ public class Continuous implements ISkillHandler
 		L2Skill.SkillType.UNDEAD_DEFENSE,
 		L2Skill.SkillType.AGGDEBUFF,
 		L2Skill.SkillType.FORCE_BUFF
-		};
+	};
 	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -86,6 +87,7 @@ public class Continuous implements ISkillHandler
 			{
 				case BUFF: case HOT: case CPHOT: case MPHOT:
 				case AGGDEBUFF: case CONT: case UNDEAD_DEFENSE:
+					// No reflect possible
 					break;
 				default:
 					if(target.reflectSkill(skill))
@@ -180,21 +182,24 @@ public class Continuous implements ISkillHandler
 
 			if (acted)
 			{
-				boolean stopped = false;
-				L2Effect[] effects = target.getAllEffects();
-				if (effects != null)
+				if (skill.isToggle())
 				{
-					for (L2Effect e : effects)
+					L2Effect[] effects = target.getAllEffects();
+					if (effects != null)
 					{
-						if (e != null && skill != null && e.getSkill().getId() == skill.getId())
+						for (L2Effect e : effects)
 						{
-							e.exit();
-							stopped = true;
+							if (e != null)
+							{
+								if (e.getSkill().getId() == skill.getId())
+								{
+									e.exit();
+									return;
+								}
+							}
 						}
 					}
 				}
-				if (skill.isToggle() && stopped)
-					return;
 
 				// if this is a debuff let the duel manager know about it
 				// so the debuff can be removed after the duel

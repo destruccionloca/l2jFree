@@ -54,7 +54,7 @@ public abstract class L2Effect
 		BUFF, DEBUFF, CHARGE, DMG_OVER_TIME, HEAL_OVER_TIME, COMBAT_POINT_HEAL_OVER_TIME, MANA_DMG_OVER_TIME, MP_CONSUME_PER_LEVEL,
 		MANA_HEAL_OVER_TIME, RELAXING, STUN, ROOT, SLEEP, IMMOBILEUNTILATTACKED, HATE, FAKE_DEATH, CONFUSION, CONFUSE_MOB_ONLY,
 		MUTE, FEAR, SILENT_MOVE, SEED, PARALYZE, STUN_SELF, BLUFF, BETRAY, NOBLESSE_BLESSING, PHOENIX_BLESSING, PETRIFICATION,
-		CANCEL_TARGET, SILENCE_MAGIC_PHYSICAL, ERASE, PETRIFIED, LUCKNOBLESSE, PSYCHICAL_MUTE, TARGET_ME, REMOVE_TARGET,
+		CANCEL_TARGET, SILENCE_MAGIC_PHYSICAL, ERASE, PETRIFIED, LUCKNOBLESSE, PHYSICAL_MUTE, PHYSICAL_ATTACK_MUTE, TARGET_ME, REMOVE_TARGET,
 		CHARM_OF_LUCK, INVINCIBLE, BAND_OF_DARKNESS, DARK_SEED, TRANSFORM, DISARM, CHARMOFCOURAGE,
 		PREVENT_BUFF, CONDITION_HIT, TRANSFORMATION, SIGNET_EFFECT, SIGNET_GROUND
 	}
@@ -239,6 +239,10 @@ public abstract class L2Effect
 	public void setInUse(boolean inUse)
 	{
 		_inUse = inUse;
+		if (_inUse)
+			onStart();
+		else
+			onExit();
 	}
 	
 	public String getStackType()
@@ -403,7 +407,6 @@ public abstract class L2Effect
 		if (_state == EffectState.CREATED)
 		{
 			_state = EffectState.ACTING;
-			onStart();
 			
 			if (_skill.isPvpSkill())
 			{
@@ -443,7 +446,7 @@ public abstract class L2Effect
 		if (_state == EffectState.FINISHING)
 		{
 			// Cancel the effect in the the abnormal effect map of the L2Character
-			onExit();
+			if (getInUse()) onExit();
 			
 			// If the time left is equal to zero, send the message
 			if (_count == 0)
