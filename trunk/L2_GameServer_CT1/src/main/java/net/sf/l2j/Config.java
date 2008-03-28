@@ -1110,6 +1110,8 @@ public final class Config
 	public static int		NAME_PAGE_SIZE_COMMUNITYBOARD;
 	public static int		NAME_PER_ROW_COMMUNITYBOARD;
 	public static boolean	SHOW_LEGEND;
+	public static boolean	SHOW_CLAN_LEADER;
+	public static int		SHOW_CLAN_LEADER_CLAN_LEVEL;
 	public static boolean	SHOW_CURSED_WEAPON_OWNER;			// Show Owner(s) of Cursed Weapons in CB ?
 	public static boolean	SHOW_KARMA_PLAYERS;				// Show Player(s) with karma in CB ?
 	public static boolean	SHOW_JAILED_PLAYERS;				// Show player(s) in jail in CB ?
@@ -1228,6 +1230,8 @@ public final class Config
 			if (NAME_PER_ROW_COMMUNITYBOARD > 5)
 				NAME_PER_ROW_COMMUNITYBOARD = 5;
 			SHOW_LEGEND = Boolean.parseBoolean(optionsSettings.getProperty("ShowLegend", "False"));
+			SHOW_CLAN_LEADER = Boolean.parseBoolean(optionsSettings.getProperty("ShowClanLeader", "False"));
+			SHOW_CLAN_LEADER_CLAN_LEVEL = Integer.parseInt(optionsSettings.getProperty("ShowClanLeaderAtClanLevel" "3"));
 			SHOW_CURSED_WEAPON_OWNER = Boolean.parseBoolean(optionsSettings.getProperty("ShowCursedWeaponOwner", "False"));
 			SHOW_KARMA_PLAYERS = Boolean.parseBoolean(optionsSettings.getProperty("ShowKarmaPlayers", "False"));
 			SHOW_JAILED_PLAYERS = Boolean.parseBoolean(optionsSettings.getProperty("ShowJailedPlayers", "False"));

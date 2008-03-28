@@ -29,6 +29,8 @@ import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.datatables.RecordTable;
 import net.sf.l2j.gameserver.model.BlockList;
+import net.sf.l2j.gameserver.model.L2Clan;
+import net.sf.l2j.gameserver.model.L2ClanMember;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Experience;
@@ -175,7 +177,7 @@ public class RegionBBSManager extends BaseBBSManager
             }
             
             htmlCode.append(trOpen+tdOpen+"<multiedit var=\"pm\" width=240 height=40><button value=\"Send PM\" action=\"Write Region PM "+player.getName()+" pm pm pm\" width=110 height=15 back=\"L2UI_ct1.button_df\" fore=\"L2UI_ct1.button_df\">"+tdClose+trClose+trOpen+tdOpen+"<br><button value=\"Back\" action=\"bypass _bbsloc"+smallButton+tdClose+trClose+"</table>");
-            htmlCode.append(tdClose+trClose+"</table>");          
+            htmlCode.append(tdClose+trClose+"</table>");
             htmlCode.append("</body></html>");
             separateAndSend(htmlCode.toString(),activeChar);
         }
@@ -379,8 +381,8 @@ public class RegionBBSManager extends BaseBBSManager
                 + " Object count"+ tdClose + trClose);
     
             htmlCode.append(trOpen + tdOpen + getOnlineCount("gm") + " Player(s) Online" + tdClose + trClose);
-	    if (Config.SHOW_LEGEND)
-            	htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font> <font color=\"FF0000\">Cursedweapon</font> <font color=\"FF00FF\">Karma</font> <font color=\"999999\">Jailed</font>" + tdClose + trClose);
+            if (Config.SHOW_LEGEND)
+                htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>" + tdClose + trClose);
             htmlCode.append("</table>");
     
             showOnlinePlayers("gm",page, htmlCode);
@@ -395,8 +397,8 @@ public class RegionBBSManager extends BaseBBSManager
             writeHeader(htmlCode);
             
             htmlCode.append(trOpen + tdOpen + getOnlineCount("pl") + " Player(s) Online" + tdClose + trClose);
-	    if (Config.SHOW_LEGEND)
-            	htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font> <font color=\"FF0000\">Cursedweapon</font> <font color=\"FF00FF\">Karma</font> <font color=\"999999\">Jailed</font>" + tdClose + trClose);
+            if (Config.SHOW_LEGEND)
+                htmlCode.append(trOpen + tdOpen + "<font color=\"LEVEL\">GM</font><font color=\"00FF00\">Clan Leader</font><font color=\"FF0000\">Cursedweapon</font><font color=\"FF00FF\">Karma</font><font color=\"999999\">Jailed</font>" + tdClose + trClose);
             htmlCode.append("</table>");
     
             showOnlinePlayers("pl",page, htmlCode);
@@ -472,6 +474,9 @@ public class RegionBBSManager extends BaseBBSManager
    
                 if (player.isGM())
                     htmlCode.append("<font color=\"LEVEL\">" + player.getName() + "</font>");
+                else if (player.getClan() != null && player.isClanLeader() && Config.SHOW_CLAN_LEADER
+                        && player.getClan().getLevel() >= Config.SHOW_CLAN_LEADER_CLAN_LEVEL)
+                    htmlCode.append("<font color=\"00FF00\">" + player.getName() + "</font>");
                 else if (player.isCursedWeaponEquipped() && Config.SHOW_CURSED_WEAPON_OWNER)
                     htmlCode.append("<font color=\"FF0000\">" + player.getName() + "</font>");
                 else if (player.getKarma() > 0 && Config.SHOW_KARMA_PLAYERS)
@@ -515,7 +520,7 @@ public class RegionBBSManager extends BaseBBSManager
         cal.set(Calendar.HOUR_OF_DAY, t / 60);
         cal.set(Calendar.MINUTE, t % 60);
         htmlCode.append(tdOpen + "Game Time: " + format.format(cal.getTime()) + tdClose + colSpacer);
-        htmlCode.append("<td align=left valign=top>Server Restarted: " + GameServer.dateTimeServerStarted.getTime() + tdClose + trClose);
+        htmlCode.append(tdOpen + "Server Restarted: " + GameServer.dateTimeServerStarted.getTime() + tdClose + trClose);
         htmlCode.append("</table>");
    
         htmlCode.append("<table>");
