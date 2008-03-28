@@ -1063,14 +1063,6 @@ public abstract class Inventory extends ItemContainer
 		if ((getOwner() instanceof L2PcInstance) && ((L2PcInstance) getOwner()).getPrivateStoreType() != 0)
 			return;
 		
-		if (getOwner() instanceof L2PcInstance)
-		{
-			L2PcInstance player = (L2PcInstance) getOwner();
-			
-			if (Config.ALT_STRICT_HERO_SYSTEM && !player.isGM() && !player.isHero() && item.isHeroItem())
-				return;
-		}
-		
 		int targetSlot = item.getItem().getBodyPart();
 		switch (targetSlot)
 		{
@@ -1453,19 +1445,6 @@ public abstract class Inventory extends ItemContainer
 				item = L2ItemInstance.restoreFromDb(getOwner().getObjectId(), inv);
 				if (item == null)
 					continue;
-				
-				if (getOwner() instanceof L2PcInstance)
-				{
-					L2PcInstance player = (L2PcInstance) getOwner();
-					
-					if (!player.isGM() && Config.ALT_STRICT_HERO_SYSTEM && !player.isHero() && item.isHeroItem())
-						item.setLocation(ItemLocation.INVENTORY);
-
-					if(player.getPkKills() > 0 && item.getItemId() >= 7816 && item.getItemId() <= 7831)
-					{
-						item.setLocation(ItemLocation.INVENTORY);
-					}
-				}
 				
 				L2World.getInstance().storeObject(item);
 				
