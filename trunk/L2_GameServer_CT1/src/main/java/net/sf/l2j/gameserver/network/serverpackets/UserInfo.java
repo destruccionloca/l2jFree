@@ -273,10 +273,15 @@ public class UserInfo extends L2GameServerPacket
             writeF(trans.getCollisionRadius());
             writeF(trans.getCollisionHeight());
         }
+        else if (_appearance.getSex())
+        {
+            writeF(_activeChar.getBaseTemplate().getFCollisionRadius());
+            writeF(_activeChar.getBaseTemplate().getFCollisionHeight());
+        }
         else
         {
-            writeF(_activeChar.getBaseTemplate().getCollisionRadius());
-            writeF(_activeChar.getBaseTemplate().getCollisionHeight());
+            writeF(_activeChar.getBaseTemplate().getdCollisionRadius());
+            writeF(_activeChar.getBaseTemplate().getdCollisionHeight());
         }
 
         writeD(_appearance.getHairStyle());
