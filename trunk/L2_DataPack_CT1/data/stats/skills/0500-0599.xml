@@ -1230,7 +1230,7 @@ description(s) :
 <skill id="571" levels="4" name="Poison Dust">
   <table name="#dmg"> 114 114 132 132 </table>
   <table name="#mpConsume"> 23 27 29 33 </table>
-  <table name="#effecLevel"> 6.0 6.0 7.0 7.0 </table>
+  <table name="#effectLevel"> 6.0 6.0 7.0 7.0 </table>
   <set name="hitTime" val="3000"/>
   <set name="power" val="0.0"/>
   <set name="lvlDepend" val="1"/>
@@ -1358,7 +1358,7 @@ description(s) :
   <table name="#power"> 625 703 784 867 </table>
   <table name="#effectLevel"> 6.0 6.0 7.0 7.0 </table>
   <table name="#dmg"> 114 120 129 132 </table>
-  <set name="hitTime" val="3000"/~>
+  <set name="hitTime" val="3000"/>
   <set name="reuseDelay" val="15000"/>
   <set name="power" val="#power"/>
   <set name="element" val="2"/> <!-- maybe we need a better way to use elemental damage on physical skills...-->
@@ -1552,7 +1552,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <for>
-	<effect name="buff" count="1" val="0" time="30" stackOrder="700" stackType="curse">
+	<effect name="Buff" count="1" val="0" time="30" stackOrder="700" stackType="curse">
 	  <mul order="0x30" val="#power" stat="darkVuln"/>
 	  <sub order="0x40" val="#reduce" stat="runSpd"/>
 	  <mul order="0x30" val="#power" stat="pAtkSpd"/>
@@ -1564,7 +1564,7 @@ description(s) :
 </skill>
 <skill id="589" levels="2" name="Darkness Energy Drain">
 <!-- by Sephiroth -->
-  <table name="#mpConsume"> </table>
+  <table name="#mpConsume"> 54 58 </table>
   <table name="#power"> 46 48 </table>
   <set name="element" val="6"/> <!-- Dark -->
   <set name="mpConsume" val="#mpConsume"/>
