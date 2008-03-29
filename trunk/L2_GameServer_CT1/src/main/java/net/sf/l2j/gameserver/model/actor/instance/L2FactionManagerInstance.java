@@ -95,7 +95,7 @@ public class L2FactionManagerInstance extends L2NpcInstance
         String replace = "";
         if(factionId!=0)
         {
-            String path = "data/html/faction" + String.valueOf(factionId) + "/";
+            String path = "data/html/faction/" + String.valueOf(factionId) + "/";
             replace = String.valueOf(factionPrice);
             
             if(player.getNPCFaction()!=null)

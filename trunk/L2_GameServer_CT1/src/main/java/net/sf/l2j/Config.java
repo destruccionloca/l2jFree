@@ -2810,8 +2810,8 @@ public final class Config
 		L2ObjectHashSet, WorldObjectSet
 	}
 	
-	public static boolean	FACTION_ENABLED		= false;
-	public static boolean	FACTION_KILL_REWARD	= false;
+	public static boolean	FACTION_ENABLED		= true;
+	public static boolean	FACTION_KILL_REWARD	= true;
 	public static int		FACTION_KILL_RATE	= 1000;
 	public static int		FACTION_QUEST_RATE	= 1;
 	

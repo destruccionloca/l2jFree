@@ -96,7 +96,7 @@ public class FactionMember
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
             PreparedStatement statement;
-            statement = con.prepareStatement("INSERT INTO faction_members (player_id, facion_id, faction_points, contributions, join_date) VALUES (?, ?, 0, 0, ?)");
+            statement = con.prepareStatement("INSERT INTO faction_members (player_id, faction_id, faction_points, contributions, join_date) VALUES (?, ?, 0, 0, ?)");
             statement.setInt(1, _playerId);
             statement.setInt(2, _factionId);
             statement.setLong(3, _joinDate.getTimeInMillis());            
