@@ -150,7 +150,8 @@ public abstract class L2Character extends L2Object
 	private boolean					_isFallsdown						= false;											// Falls down [L2J_JP_ADD]
 	private boolean					_isFlying							= false;											// Is flying Wyvern?
 	private boolean					_isMuted							= false;											// Cannot use magic
-	private boolean					_isPhysicalMuted					= false;											// Cannot use psychical attack
+	private boolean					_isPhysicalMuted					= false;											// Cannot use physical attack
+	private boolean					_isPhysicalAttackMuted				= false;											// Cannot use attack
 	private boolean					_isDead								= false;
 	private boolean					_isImmobilized						= false;
 	private boolean					_isOverloaded						= false;											// the char is carrying too much
@@ -1614,10 +1615,17 @@ public abstract class L2Character extends L2Object
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
 			return;
 		}
-		// Check if the skill is psychical and if the L2Character is not psychical_muted
+		// Check if the skill is physical and if the L2Character is not physicalMuted
 		if (!skill.isMagic() && isPhysicalMuted() && !skill.isPotion())
 		{
 			getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
+			return;
+		}
+
+		// Prevent use attack
+		if (isPhysicalAttackMuted() && !skill.isMagic() && !skill.isPotion())
+		{
+			actionFailed();
 			return;
 		}
 
@@ -2440,7 +2448,7 @@ public abstract class L2Character extends L2Object
 	/** Return True if the L2Character can't attack (stun, sleep, attackEndTime, fakeDeath, paralyse). */
 	public boolean isAttackingDisabled()
 	{
-		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown();
+		return isStunned() || isSleeping() || isImmobileUntilAttacked() || _attackEndTime > GameTimeController.getGameTicks() || isFakeDeath() || isParalyzed() || isFallsdown() || isPhysicalAttackMuted();
 	}
 
 	public final Calculator[] getCalculators()
@@ -2537,6 +2545,16 @@ public abstract class L2Character extends L2Object
 	public final void setIsPhysicalMuted(boolean value)
 	{
 		_isPhysicalMuted = value;
+	}
+
+	public final boolean isPhysicalAttackMuted()
+	{
+		return _isPhysicalAttackMuted;
+	}
+
+	public final void setIsPhysicalAttackMuted(boolean value)
+	{
+		_isPhysicalAttackMuted = value;
 	}
 
 	/** Return True if the L2Character can't move (stun, root, sleep, overload, paralyzed). */
@@ -3685,6 +3703,20 @@ public abstract class L2Character extends L2Object
 		setIsConfused(false);
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();
+	}
+
+	public final void startPhysicalAttackMuted()
+	{
+		setIsPhysicalAttackMuted(true);
+	}
+
+	public final void stopPhysicalAttackMuted(L2Effect effect)
+	{
+		if (effect == null)
+			stopEffects(L2Effect.EffectType.PHYSICAL_ATTACK_MUTE);
+		else
+			removeEffect(effect);
+		setIsPhysicalAttackMuted(false);
 	}
 
 	/**
