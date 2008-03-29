@@ -503,7 +503,7 @@
   </for>
 </skill>
 <skill id="3348" levels="1" name="Dynasty Breast Plate - Shield Master">
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/> 
   <set name="target" val="TARGET_SELF"/> 
   <set name="skillType" val="BUFF"/> 
@@ -521,7 +521,7 @@
   </for> 
 </skill> 
 <skill id="3349" levels="1" name="Dynasty Breast Plate - Weapon Master"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/> 
   <set name="target" val="TARGET_SELF"/> 
   <set name="skillType" val="BUFF"/> 
@@ -539,7 +539,7 @@
   </for> 
 </skill> 
 <skill id="3350" levels="1" name="Dynasty Breast Plate - Force Master"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -556,7 +556,7 @@
   </for>
 </skill> 
 <skill id="3351" levels="1" name="Dynasty Breast Plate - Bard"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -574,7 +574,7 @@
   </for>
 </skill> 
 <skill id="3352" levels="1" name="Dynasty Leather Armor - Dagger Master"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -592,7 +592,7 @@
   </for> 
 </skill> 
 <skill id="3353" levels="1" name="Dynasty Leather Armor - Bow Master"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -610,7 +610,7 @@
   </for> 
 </skill> 
 <skill id="3354" levels="1" name="Dynasty Tunic - Healer"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -628,7 +628,7 @@
   </for> 
 </skill> 
 <skill id="3355" levels="1" name="Dynasty Tunic - Enchanter"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -646,7 +646,7 @@
   </for>
 </skill> 
 <skill id="3356" levels="1" name="Dynasty Tunic - Summoner"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -664,7 +664,7 @@
   </for>
 </skill>
 <skill id="3357" levels="1" name="Dynasty Tunic - Human Wizard"> 
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>

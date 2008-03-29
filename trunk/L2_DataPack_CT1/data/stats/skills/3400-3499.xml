@@ -98,7 +98,7 @@
   </for>
 </skill>
 <skill id="3412" levels="1" name="Dynasty Breast Plate">
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
 <!--
   Description(s):
       Con-1, Str+1, P. Def +4.6%, MaxHP +418. Darkness Resistance +6.
@@ -118,7 +118,7 @@
   </for>
 </skill>
 <skill id="3413" levels="1" name="Dynasty Leather Armor">
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
 <!--
   Description(s):
       Con-1, Dex+1, Accuracy +1.72, Evasion +1.72, MaxHP +418. Darkness Resistance +6.
@@ -139,7 +139,7 @@
   </for>
 </skill>
 <skill id="3414" levels="1" name="Dynasty Leather Armor - Force Master">
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
 <!--
   Description(s):
       Dex-1, Con-1, Str+2, Physical P. Attack +5.4%, maximum HP +492.
@@ -162,7 +162,7 @@
   </for>
 </skill>
 <skill id="3415" levels="1" name="Dynasty Leather Armor - Weapon Master">
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
 <!--
   Description(s):
       Kamael Exclusive Armor.
@@ -185,7 +185,7 @@
   </for>
 </skill>
 <skill id="3416" levels="1" name="Dynasty Tunic">
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
 <!--
   Description(s):      
       Int-1, Men+1, Casting Spd. +12%, Maximum MP +257. Darkness Resistance +6.
@@ -238,7 +238,7 @@
   </for>
 </skill>
 <skill id="3420" levels="1" name="Dynasty Leather Armor - Summoner">
-  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+  <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
 <!--
   Description(s):      
       Str-2, Con+2, increase Atk. Spd., MaxHP +492. Increase Darkness Resistance +8, increase P. Atk., P. Def.
