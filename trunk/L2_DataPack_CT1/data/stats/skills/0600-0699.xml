@@ -148,7 +148,7 @@
   </for>
 </skill>
 <skill id="611" levels="3" name="Fire Squad">
-<!-- by Sephiroth - This affects a whole party, just dont know when and how is used or applied -->
+<!-- by Sephiroth -->
   <table name="#pAtk"> 1.04 1.06 1.09 </table>
   <table name="#rCrit"> 1 1.08 1.12 </table>
   <table name="#cAtk"> 1 1 1.10 </table>
@@ -163,43 +163,72 @@
   </for>
 </skill>
 <skill id="612" levels="3" name="Water Squad">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth -->
+  <table name="#pDef"> 1.04 1.06 1.09 </table>
+  <table name="#mDef"> 1 1.08 1.12 </table>
+  <table name="#sDef"> 1 1 1.10 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
+	<mul order="0x30" val="#pDef" stat="pDef"/>
+ 	<mul order="0x40" val="#mDef" stat="mDef"/>
+	<mul order="0x40" val="#sDef" stat="sDef"/>
   </for>
 </skill>
 <skill id="613" levels="3" name="Wind Squad">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth -->
+  <table name="#acc"> 6 9 12 </table>
+  <table name="#evas"> 0 3 4 </table>
+  <table name="#rSpd"> 0 0 8 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
+	<add order="0x30" val="#acc" stat="accCombat"/>
+ 	<add order="0x40" val="#evas" stat="rEvas"/>
+	<add order="0x40" val="#rSpd" stat="runSpd"/>
   </for>
 </skill>
 <skill id="614" levels="3" name="Earth Squad">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth -->
+  <table name="#mDef"> 55 74 91 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
+	<add order="0x30" val="#mDef" stat="mDef"/>
   </for>
 </skill>
 <skill id="615" levels="3" name="Holy Squad">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth -->
+  <table name="#gainHp"> 1.05 1.08 1.11 </table>
+  <table name="#mpConsume"> 1 1 0.97 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
+	<mul order="0x30" val="#gainHp" stat="gainHp"/>
+	<mul order="0x30" val="#mpConsume" stat="PhysicalMpConsumeRate"/>
+	<mul order="0x30" val="#mpConsume" stat="MagicalMpConsumeRate"/>
+	<mul order="0x30" val="#mpConsume" stat="DanceMpConsumeRate"/>
   </for>
 </skill>
 <skill id="616" levels="3" name="Dark Squad">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth -->
+  <table name="#mAtk"> 1.09 1.12 1.14 </table>
+  <table name="#mCrit"> 1 1 3 </table>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
+	<mul order="0x30" val="#mAtk" stat="mAtk"/>
+	<mul order="0x30" val="#mCrit" stat="mCritRate"/>
   </for>
 </skill>
 <skill id="617" levels="1" name="Transform Onyx Beast">
@@ -257,19 +286,34 @@
   </for>
 </skill>
 <skill id="621" levels="1" name="Create Special Bolt">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth -->
+  <set name="mpConsume" val="38"/>
+  <set name="hitTime" val="2800"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="CREATE_ITEM"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="create_item_id" val="10113"/>
+  <set name="create_item_count" val="1"/>
   <for>
   </for>
 </skill>
 <skill id="622" levels="1" name="Ultimate Escape">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth -->
+  <set name="mpConsume" val="38"/>
+  <set name="hitTime" val="4000"/>
+  <set name="reuseDelay" val="22000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="target" val="TARGET_SELF"/>
   <set name="castRange" val="-1"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="soulConsumeCount" val="3"/>
   <for>
+	<effect name="Buff" count="1" time="15" val="0" stackOrder="50" stackType="UltimateEscape">
+	  <add order="0x40" stat="rEvas" val="8"/>
+  	  <add order="0x30" stat="runSpd" val="25"/>
+ 	</effect>
   </for>
 </skill>
 <skill id="623" levels="1" name="Find Trap">
@@ -300,15 +344,11 @@
   </for>
 </skill>
 <skill id="625" levels="1" name="Soul Gathering">
-<!--
-  Description(s):
-      Gather nearby souls. The maximum number of souls can be absorbed at once. Consumes 10 Spirit Ores.
--->
   <set name="hpConsume" val="200"/>
   <set name="hitTime" val="1500"/>
   <set name="itemConsumeId" val="3031"/>
   <set name="itemConsumeCount" val="10"/>
-  <set name="reuseDelay" val="1800000"/> <!-- TODO: must not be affected by casting/attack speed -->
+  <set name="reuseDelay" val="28000"/> <!-- TODO: must not be affected by casting/attack speed -->
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="CHARGESOUL"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -317,11 +357,20 @@
   <set name="num_souls" val="35"/>
  </skill>
 <skill id="626" levels="4" name="Critical Sense">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
+<!-- by Sephiroth -->
+  <table name="#cAtk"> 1.05 1.09 1.13 1.16 </table>
+  <table name="#rCrit"> 1.10 1.14 1.17 1.21 </table>
+  <set name="hitTime" val="5000"/>
+  <set name="reuseDelay" val="11000"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
+	<effect name="Buff" count="1" val="0" time="300" stackOrder="50" stackType="CritUp">
+	  <mul order="0x30" val="#rCrit" stat="rCrit"/>
+	  <mul order="0x40" val="#cAtk" stat="cAtk"/>
+	</effect>
   </for>
 </skill>
 <skill id="627" levels="40" name="Soul Shock">
