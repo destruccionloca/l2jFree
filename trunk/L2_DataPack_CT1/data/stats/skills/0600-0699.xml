@@ -158,8 +158,8 @@
   <set name="castRange" val="-1"/>
   <for>
 	<mul order="0x30" val="#pAtk" stat="pAtk"/>
- 	<mul order="0x40" val="#rCrit" stat="rCrit"/>
-	<mul order="0x40" val="#cAtk" stat="cAtk"/>
+ 	<mul order="0x30" val="#rCrit" stat="rCrit"/>
+	<mul order="0x30" val="#cAtk" stat="cAtk"/>
   </for>
 </skill>
 <skill id="612" levels="3" name="Water Squad">

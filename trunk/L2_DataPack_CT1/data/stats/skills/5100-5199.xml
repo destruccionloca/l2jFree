@@ -505,6 +505,7 @@
   <set name="power" val="4000"/> <!-- Guessing -->
   <set name="target" val="TARGET_ONE"/>
   <set name="hitTime" val="2000"/>
+  <set name="overHit" val="true"/>
   <set name="reuseDelay" val="16000"/>
   <set name="skillType" val="PDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>
@@ -522,6 +523,7 @@
   <set name="power" val="54.0"/> <!-- Guessing -->
   <set name="target" val="TARGET_AREA"/>
   <set name="hitTime" val="3500"/>
+  <set name="element" val="3"/> <!-- Water -->
   <set name="reuseDelay" val="20000"/>
   <set name="skillType" val="MDAM"/>
   <set name="operateType" val="OP_ACTIVE"/>

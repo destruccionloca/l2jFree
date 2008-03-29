@@ -1657,7 +1657,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul stat="regMp" val=".106" order="0x30"/>
+    <mul stat="regMp" val="1.06" order="0x30"/>
   </for>
 </skill>
 <skill id="596" levels="1" name="Residence Might">
