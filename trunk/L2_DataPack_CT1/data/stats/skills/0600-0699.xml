@@ -173,8 +173,8 @@
   <set name="castRange" val="-1"/>
   <for>
 	<mul order="0x30" val="#pDef" stat="pDef"/>
- 	<mul order="0x40" val="#mDef" stat="mDef"/>
-	<mul order="0x40" val="#sDef" stat="sDef"/>
+ 	<mul order="0x30" val="#mDef" stat="mDef"/>
+	<mul order="0x30" val="#sDef" stat="sDef"/>
   </for>
 </skill>
 <skill id="613" levels="3" name="Wind Squad">
@@ -188,8 +188,8 @@
   <set name="castRange" val="-1"/>
   <for>
 	<add order="0x30" val="#acc" stat="accCombat"/>
- 	<add order="0x40" val="#evas" stat="rEvas"/>
-	<add order="0x40" val="#rSpd" stat="runSpd"/>
+ 	<add order="0x30" val="#evas" stat="rEvas"/>
+	<add order="0x30" val="#rSpd" stat="runSpd"/>
   </for>
 </skill>
 <skill id="614" levels="3" name="Earth Squad">
@@ -312,7 +312,7 @@
   <for>
 	<effect name="Buff" count="1" time="15" val="0" stackOrder="50" stackType="UltimateEscape">
 	  <add order="0x40" stat="rEvas" val="8"/>
-  	  <add order="0x30" stat="runSpd" val="25"/>
+  	  <add order="0x40" stat="runSpd" val="25"/>
  	</effect>
   </for>
 </skill>
@@ -369,7 +369,7 @@
   <for>
 	<effect name="Buff" count="1" val="0" time="300" stackOrder="50" stackType="CritUp">
 	  <mul order="0x30" val="#rCrit" stat="rCrit"/>
-	  <mul order="0x40" val="#cAtk" stat="cAtk"/>
+	  <mul order="0x30" val="#cAtk" stat="cAtk"/>
 	</effect>
   </for>
 </skill>
