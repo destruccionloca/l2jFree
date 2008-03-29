@@ -98,43 +98,110 @@
   </for>
 </skill>
 <skill id="3412" levels="1" name="Dynasty Breast Plate">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+<!--
+  Description(s):
+      Con-1, Str+1, P. Def +4.6%, MaxHP +418. Darkness Resistance +6.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <sub order="0x40" stat="CON" val="1"/>
+    <add order="0x40" stat="STR" val="1"/>
+    <mul order="0x30" stat="pDef" val="1.046"/>
+    <add order="0x40" stat="maxHp" val="418"/>
+    <mul order="0x30" stat="darkVuln" val="0.94"/> <!-- Dark Vuln +6% -->
   </for>
 </skill>
 <skill id="3413" levels="1" name="Dynasty Leather Armor">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+<!--
+  Description(s):
+      Con-1, Dex+1, Accuracy +1.72, Evasion +1.72, MaxHP +418. Darkness Resistance +6.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <sub order="0x40" stat="CON" val="1"/>
+    <add order="0x40" stat="DEX" val="1"/>
+    <add order="0x40" stat="accCombat" val="1.72"/>
+    <add order="0x40" stat="rEvas" val="1.72"/>
+    <add order="0x40" stat="maxHp" val="418"/>
+    <mul order="0x30" stat="darkVuln" val="0.94"/> <!-- Dark Vuln +6% -->
   </for>
 </skill>
-<skill id="3414" levels="1" name="Dynasty Leather Armor">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<skill id="3414" levels="1" name="Dynasty Leather Armor - Force Master">
+  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+<!--
+  Description(s):
+      Dex-1, Con-1, Str+2, Physical P. Attack +5.4%, maximum HP +492.
+      Increases Darkness Resistance +8. Decreases active skill MP consumption.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <sub order="0x40" stat="DEX" val="1"/>
+    <sub order="0x40" stat="CON" val="1"/>
+    <add order="0x40" stat="STR" val="2"/>
+    <mul order="0x30" stat="pAtk" val="1.054"/>
+    <add order="0x40" stat="maxHp" val="492"/>
+    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
+    <mul order="0x30" stat="regMp" val="1.10"/> <!-- MP Regeneration +10% -->
   </for>
 </skill>
-<skill id="3415" levels="1" name="Dynasty Leather Armor">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<skill id="3415" levels="1" name="Dynasty Leather Armor - Weapon Master">
+  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+<!--
+  Description(s):
+      Kamael Exclusive Armor.
+      Con-2, Str+2, P. Atk +5.4%, MaxHP +492. Increase Darkness Resistance +8, Critical Damage Chance.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <sub order="0x40" stat="CON" val="2"/>
+    <add order="0x40" stat="STR" val="2"/>
+    <mul order="0x30" stat="pAtk" val="1.054"/>
+    <add order="0x40" stat="maxHp" val="492"/>
+    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
+    <mul order="0x30" stat="cAtk" val="1.10"/> <!-- Critical Damage +10% -->
+    <add order="0x40" stat="rCrit" val="61"/> <!-- Critical +61 -->
   </for>
 </skill>
 <skill id="3416" levels="1" name="Dynasty Tunic">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+<!--
+  Description(s):      
+      Int-1, Men+1, Casting Spd. +12%, Maximum MP +257. Darkness Resistance +6.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <sub order="0x40" stat="INT" val="1"/>
+    <add order="0x40" stat="MEN" val="1"/>
+    <mul order="0x30" stat="mAtkSpd" val="1.12"/>
+    <add order="0x40" stat="maxMp" val="257"/>
+    <mul order="0x30" stat="darkVuln" val="0.94"/> <!-- Dark Vuln +6% -->
   </for>
 </skill>
 <skill id="3417" levels="1" name="Equipped with Shield">
@@ -170,12 +237,26 @@
   <for>
   </for>
 </skill>
-<skill id="3420" levels="1" name="Dynasty Leather Armor">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<skill id="3420" levels="1" name="Dynasty Leather Armor - Summoner">
+  <!--Done by BoDiE --> <!-- Retail accuracy verified -->
+<!--
+  Description(s):      
+      Str-2, Con+2, increase Atk. Spd., MaxHP +492. Increase Darkness Resistance +8, increase P. Atk., P. Def.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <sub order="0x40" stat="STR" val="2"/>
+    <add order="0x40" stat="CON" val="2"/>
+    <mul order="0x30" stat="pAtkSpd" val="1.05"/>
+    <add order="0x40" stat="maxHp" val="492"/>
+    <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
+    <mul order="0x30" stat="pAtk" val="1.054"/> <!-- P.Atk +5.4% -->
+    <mul order="0x30" stat="pDef" val="1.027"/> <!-- P.Def +2.7% -->
   </for>
 </skill>
 <skill id="3421" levels="1" name="Wolf Mount">

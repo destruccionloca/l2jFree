@@ -1544,13 +1544,7 @@ public final class Formulas
 	/** Calcul value of lethal chance */
 	public final double calcLethal(L2Character activeChar, L2Character target, int baseLethal)
 	{
-		if (activeChar.getSkillLevel(L2Skill.SKILL_ASSASSINATION) > 0)
-		{
-			//Setting 4% chance for Assassination Skill. I think is fair enough...
-			return 4 + activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
-		}
-		else
-			return activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
+		return activeChar.calcStat(Stats.LETHAL_RATE, (baseLethal*((double)activeChar.getLevel()/target.getLevel())), target, null);
 	}
 
     public final boolean calcLethalHit(L2Character activeChar, L2Character target, L2Skill skill)
