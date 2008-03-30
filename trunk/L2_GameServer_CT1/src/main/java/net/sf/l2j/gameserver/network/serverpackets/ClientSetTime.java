@@ -18,12 +18,12 @@ import net.sf.l2j.gameserver.GameTimeController;
 
 public class ClientSetTime extends L2GameServerPacket
 {
-	private static final String _S__EC_CLIENTSETTIME = "[S] ec ClientSetTime [dd]";
+	private static final String _S__EC_CLIENTSETTIME = "[S] f2 ClientSetTime [dd]";
 
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0xec);
+		writeC(0xf2);
         writeD(GameTimeController.getInstance().getGameTime()); // time in client minutes
         writeD(6); //constant to match the server time( this determines the speed of the client clock)
 	}

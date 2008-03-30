@@ -127,9 +127,6 @@ public class EnterWorld extends L2GameClientPacket
 			return;
 		}
 
-		// Send Game Time
-		activeChar.sendPacket(new ClientSetTime());
-
 		// Send Macro List
 		activeChar.getMacroses().sendUpdate();
 
@@ -277,6 +274,10 @@ public class EnterWorld extends L2GameClientPacket
 
 		SystemMessage sm = new SystemMessage(SystemMessageId.WELCOME_TO_LINEAGE);
 		sendPacket(sm);
+		
+		// Send client time
+		ClientSetTime cst = new ClientSetTime();
+		sendPacket(cst);
 
 		if (Config.SHOW_L2J_LICENSE)
 		{
