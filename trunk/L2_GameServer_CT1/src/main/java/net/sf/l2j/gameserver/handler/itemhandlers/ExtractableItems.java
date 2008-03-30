@@ -82,7 +82,6 @@ public class ExtractableItems implements IItemHandler
 		if (createItemID == 0)
 		{
 			activeChar.sendMessage("Nothing happened.");
-			return;
 		}
 
 		if (createItemID > 0)
