@@ -205,11 +205,22 @@
   </for>
 </skill>
 <skill id="3417" levels="1" name="Equipped with Shield">
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
+<!-- Done by BoDiE --> <!-- Retail accuracy verified -->
+<!--
+  Description(s):      
+      Shield P. Def is additionally increased.
+      Increases probability of Poison and Bleed Prevention.
+-->
+  <set name="power" val="0.0"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <for>
+    <mul order="0x30" stat="rShld" val="1.25"/>
+    <mul order="0x30" stat="poisonVuln" val="0.8"/> <!-- Poison Vuln +20% -->
+    <mul order="0x30" stat="bleedVuln" val="0.8"/> <!-- Bleed Vuln +20% -->
   </for>
 </skill>
 <skill id="3418" levels="1" name="Active Skill: Transform Pig">
