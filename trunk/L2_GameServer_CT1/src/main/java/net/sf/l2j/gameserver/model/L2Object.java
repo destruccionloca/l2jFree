@@ -228,11 +228,21 @@ public abstract class L2Object
             {
                 MercTicketManager.getInstance().removeTicket((L2ItemInstance)this);
             }
-            else if ((player instanceof L2PcInstance) && (itemId == 57 || itemId == 6353))
+            else if (itemId == 57 || itemId == 6353)
             {
-                QuestState qs = ((L2PcInstance) player).getQuestState("255_Tutorial");
-                if(qs != null)
-                    qs.getQuest().notifyEvent("CE"+itemId+"",null,(L2PcInstance)player);
+                QuestState qs = null;
+                if (player instanceof L2Summon)
+                {
+                    qs = ((L2Summon)player).getOwner().getQuestState("255_Tutorial");
+                    if (qs != null)
+                        qs.getQuest().notifyEvent("CE"+itemId+"",null,((L2Summon)player).getOwner());
+                }
+                else if (player instanceof L2PcInstance)
+                {
+                    qs = ((L2PcInstance)player).getQuestState("255_Tutorial");
+                    if(qs != null)
+                        qs.getQuest().notifyEvent("CE"+itemId+"",null,(L2PcInstance)player);
+                }
             }
         }
         

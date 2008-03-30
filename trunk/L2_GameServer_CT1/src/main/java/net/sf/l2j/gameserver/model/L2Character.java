@@ -2876,9 +2876,9 @@ public abstract class L2Character extends L2Object
 			{
 				enableSkill(_skillId);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-				_log.fatal("", e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -2963,9 +2963,9 @@ public abstract class L2Character extends L2Object
 						break;
 				}
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-				_log.fatal("", e);
+				e.printStackTrace();
 				enableAllSkills();
 			}
 		}
@@ -2993,9 +2993,9 @@ public abstract class L2Character extends L2Object
 			{
 				_currPlayer.useMagic(_queuedSkill, _isCtrlPressed, _isShiftPressed);
 			}
-			catch (Throwable e)
+			catch (Exception e)
 			{
-				_log.fatal("", e);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -3016,9 +3016,9 @@ public abstract class L2Character extends L2Object
 			{
 				getAI().notifyEvent(_evt, null);
 			}
-			catch (Throwable t)
+			catch (Exception e)
 			{
-				_log.warn("", t);
+				e.printStackTrace();
 			}
 		}
 	}
@@ -7277,7 +7277,7 @@ public abstract class L2Character extends L2Object
 		}
 		catch (Exception e)
 		{
-			_log.warn("", e);
+			e.printStackTrace();
 		}
 	}
 
@@ -7942,7 +7942,7 @@ public abstract class L2Character extends L2Object
             }
             catch (Exception e)
             {
-                _log.fatal("", e);
+                e.printStackTrace();
             }
         }
     }

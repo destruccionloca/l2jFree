@@ -133,7 +133,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				int page = Integer.parseInt(val);
 				listCharacters(activeChar, page);
 			}
-			catch (StringIndexOutOfBoundsException e)
+			catch (Exception e)
 			{
 				//Case of empty page number
 				activeChar.sendMessage("Usage: //show_characters <page_number>");
@@ -150,7 +150,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			{	//Case of empty character name
 				activeChar.sendMessage("Usage: //find_character <character_name>");
 				listCharacters(activeChar, 0);
-			}			
+			}
 		}
 		else if (command.startsWith("admin_find_ip"))
 		{
@@ -192,10 +192,8 @@ public class AdminEditChar implements IAdminCommandHandler
 
 				setTargetKarma(activeChar, karma);
 			}
-			catch (StringIndexOutOfBoundsException e)
+			catch (Exception e)
 			{
-				if (Config.DEVELOPER )
-					_log.debug("Set karma error: "+e);
 				activeChar.sendMessage("Usage: //setkarma <new_karma_value>");
 			}
 		}
@@ -210,7 +208,7 @@ public class AdminEditChar implements IAdminCommandHandler
 			{	//Case of empty character name
 				activeChar.sendMessage("Error while modifying character.");
 				listCharacters(activeChar, 0);
-			}			
+			}
 		}
 		else if (command.startsWith("admin_rec"))
 		{
@@ -266,7 +264,7 @@ public class AdminEditChar implements IAdminCommandHandler
 				}
 				activeChar.sendMessage("Usage: //setclass <valid_new_classid>");
 			}
-			catch (StringIndexOutOfBoundsException e)
+			catch (Exception e)
 			{   
 				AdminHelpPage.showHelpPage(activeChar, "charclasses.htm");
 			}
@@ -362,16 +360,15 @@ public class AdminEditChar implements IAdminCommandHandler
 				L2PcInstance player = null;
 				if (activeChar != target && activeChar.getAccessLevel()<REQUIRED_LEVEL2)
 					return false;
-				if (target instanceof L2PcInstance) {
+				if (target instanceof L2PcInstance)
 					player = (L2PcInstance)target;
-				} else {
+				else
 					return false;
-				}
 				player.getAppearance().setNameColor(Integer.decode("0x"+val));
 				player.sendMessage("Your name color has been changed by a GM");
 				player.broadcastUserInfo();
 			}
-			catch (StringIndexOutOfBoundsException e)
+			catch (Exception e)
 			{   //Case of empty color
 				activeChar.sendMessage("You need to specify the new color.");
 			}
