@@ -725,18 +725,18 @@
      <set name="effectRange" val="-1"/>
      <set name="weaponsAllowed" val="16"/>
      <for> <!-- Verified -->
-       <mul order="0x40" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from front -->>
+       <mul order="0x30" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from front -->>
         <and>
          <player front="True"/>
         </and>
       </mul>
-      <mul order="0x40" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from side -->>
+      <mul order="0x30" stat="blowRate" val="1.1"> <!-- Blow land rate +10% from side -->>
         <and>
           <player front="False"/>
           <player behind="False"/>
         </and>
       </mul>
-      <mul order="0x40" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from back-->>
+      <mul order="0x30" stat="blowRate" val="1.2"> <!-- Blow land rate +20% from back-->>
        <and>
          <player behind="True"/>
        </and>
