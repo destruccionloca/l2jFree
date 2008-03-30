@@ -18,7 +18,7 @@ import net.sf.l2j.gameserver.GameTimeController;
 
 public class ClientSetTime extends L2GameServerPacket
 {
-	private static final String _S__EC_CLIENTSETTIME = "[S] f2 ClientSetTime [dd]";
+	private static final String _S__F2_CLIENTSETTIME = "[S] f2 ClientSetTime [dd]";
 
 	@Override
 	protected final void writeImpl()
@@ -34,6 +34,6 @@ public class ClientSetTime extends L2GameServerPacket
 	@Override
 	public String getType()
 	{
-		return _S__EC_CLIENTSETTIME;
+		return _S__F2_CLIENTSETTIME;
 	}
 }
