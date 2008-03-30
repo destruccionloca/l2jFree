@@ -2324,7 +2324,7 @@
   <table name="#resistVuln"> 0.84 0.8 0.75 </table>
   <table name="#mpConsume"> 16 22 29 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="20000"/>
+  <set name="hitTime" val="2400"/>
   <set name="isMagic" val="true"/>
   <set name="reuseDelay" val="55000"/>
   <set name="target" val="TARGET_SELF"/>
