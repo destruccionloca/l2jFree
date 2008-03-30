@@ -14,46 +14,25 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.model.L2Party;
-import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-
 /**
- * Format:(ch) d [sdd]
+ * Format:(ch)
  * @author  Crion/kombat
  */
-public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket
+public class ExClosePartyRoom extends L2GameServerPacket
 {
-	private static final String _S__FE_4B_EXMPCCSHOWPARTYMEMBERINFO = "[S] FE:4b ExMPCCShowPartyMemberInfo []";
-
-	public ExMPCCShowPartyMemberInfo(L2Party party)
-	{
-		_party = party;
-	}
-
-	private L2Party _party;
-
-	/**
-	 * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-	 */
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xfe);
-		writeH(0x4b);
-
-		writeD(_party.getMemberCount());
-		for (L2PcInstance mem : _party.getPartyMembers())
-		{
-			writeS(mem.getName());
-			writeD(mem.getObjectId());
-			writeD(mem.getClassId().getId());
-		}
+		writeC(0xFE);
+		writeH(0x09);
 	}
 
+	/**
+	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_4B_EXMPCCSHOWPARTYMEMBERINFO;
+		return "FE_09_ExClosePartyRoom";
 	}
-	
 }

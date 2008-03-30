@@ -17,59 +17,34 @@ package net.sf.l2j.gameserver.network.serverpackets;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * 
- *
- * sample
- * b0 
- * d8 a8 10 48  objectId 
- * 00 00 00 00 
- * 00 00 00 00 
- * 00 00  
- * 
- * format   ddddS
- * 
- * @version $Revision: 1.1.2.1.2.3 $ $Date: 2005/03/27 15:29:39 $
+ * Format:(c) dddddds
+ * @author  Crion/kombat
  */
 public class PartyMatchDetail extends L2GameServerPacket
 {
 	private static final String _S__B0_PARTYMATCHDETAIL = "[S] 97 PartyMatchDetail";
-	private L2PcInstance _activeChar;
 	
 	/**
 	 * @param allPlayers
 	 */
-	public PartyMatchDetail(L2PcInstance player)
+	public PartyMatchDetail()
 	{
-		_activeChar = player;
 	}
 	
 	@Override
 	protected final void writeImpl()
 	{
-		writeC(0x97);
+		writeC(0x9d);
 		
-		writeD(_activeChar.getObjectId());
-		if (_activeChar.isPartyMatchingShowLevel())
-		{
-			writeD(1); // show level
-		}
-		else
-		{
-			writeD(0); // hide level 
-		}
+		// This packet shows the inside of a party matching room
 		
-		if (_activeChar.isPartyMatchingShowClass())
-		{
-			writeD(1); // show class
-		}
-		else
-		{
-			writeD(0); // hide class
-		}
-		
-		writeD(0); //c2
-		
-		writeS("  " + _activeChar.getPartyMatchingMemo()); // seems to be bugged.. first 2 chars get stripped away
+		// D   room id
+		// D   room max member count
+		// D   room min level
+		// D   room max level
+		// D   loot distri - 0 Finders Keepers, 1 Random, 2 Random Inc, 3 By Turn, 4 By Turn Inc
+		// D   room location (from 0 to 15) 1 Talking, 2 Gludio, 3 Dark Elven, 4 Elven, 5 Dion, 6 Giran, 7 Neutral Zone, 9 Schuttgart, 10 Oren, 11 Hunters, 12 Innadril, 13 Aden, 14 Rune, 15 Goddard
+		//  S  room title
 	}
 
 	/* (non-Javadoc)

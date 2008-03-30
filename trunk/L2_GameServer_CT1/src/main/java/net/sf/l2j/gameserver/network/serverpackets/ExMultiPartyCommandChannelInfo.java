@@ -14,32 +14,53 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
+import net.sf.l2j.gameserver.model.L2CommandChannel;
+import net.sf.l2j.gameserver.model.L2Party;
+
 /**
- * Format:(ch)
+ * Format:(ch) sdd d[sdd]
  * @author  Crion/kombat
  */
-public class ExOpenMPCC extends L2GameServerPacket
+
+public class ExMultiPartyCommandChannelInfo extends L2GameServerPacket
 {
+	private L2CommandChannel _cc;
+	
+	public ExMultiPartyCommandChannelInfo(L2CommandChannel cc)
+	{
+		_cc = cc;
+	}
 
-	private static final String _S__FE_25_EXOPENMPCC = "[S] FE:25 ExOpenMPCC []";
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-	 */
+	
 	@Override
 	protected void writeImpl()
 	{
-		writeC(0xfe);
-		writeH(0x12);
+		writeC(0xFE);
+		writeH(0x31);
+
+		writeS(_cc.getChannelLeader().getName());
+
+		// Looting rights
+		// possible values: 1 and 0
+		writeD(0x00);
+		
+
+		writeD(_cc.getMemberCount());
+		writeD(_cc.getPartys().size());
+		for(L2Party party : _cc.getPartys())
+		{
+			writeS(party.getLeader().getName());
+			writeD(party.getLeader().getObjectId());
+			writeD(party.getMemberCount());
+		}
 	}
 
-	/* (non-Javadoc)
+	/**
 	 * @see net.sf.l2j.gameserver.BasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_25_EXOPENMPCC;
+		return "FE_31_ExMultiPartyCommandChannelInfo";
 	}
-	
 }

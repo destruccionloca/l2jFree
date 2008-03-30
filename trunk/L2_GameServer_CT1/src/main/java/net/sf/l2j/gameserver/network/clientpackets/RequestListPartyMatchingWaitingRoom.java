@@ -14,39 +14,59 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * Format: (ch)
- * this is just a trigger : no data
- * @author  -Wooden-
+ * Format: (ch) dddd
+ * @author  Crion/kombat
  * 
  */
 public class RequestListPartyMatchingWaitingRoom extends L2GameClientPacket
 {
-    private static final String _C__D0_16_REQUESTLISTPARTYMATCHINGWAITINGROOM = "[C] D0:16 RequestListPartyMatchingWaitingRoom";
+	private static final String _C__D0_16_REQUESTLISTPARTYMATCHINGWAITINGROOM = "[C] D0:16 RequestListPartyMatchingWaitingRoom";
 
-    @Override
-    protected void readImpl()
-    {
-        // trigger
-    }
+	private int _page;
+	private boolean _showAll;
+	private int _minLevel;
+	private int _maxLevel;
 
-    /**
-     * @see net.sf.l2j.gameserver.network.clientpackets.ClientBasePacket#runImpl()
-     */
-    @Override
-    protected void runImpl()
-    {
-        //TODO: implementation missing
-        System.out.println("C5: RequestListPartyMatchingWaitingRoom");
-    }
+	@Override
+	protected void readImpl()
+	{
+		_page = readD();
+		_minLevel = readD();
+		_maxLevel = readD();
+		_showAll = readD() == 1; // client sends 0 if in party room, 1 if not in party room. If you are in party room, only players with matching level are shown.
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.network.BasePacket#getType()
-     */
-    @Override
-    public String getType()
-    {
-        return _C__D0_16_REQUESTLISTPARTYMATCHINGWAITINGROOM;
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.network.clientpackets.ClientBasePacket#runImpl()
+	 */
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+
+		if (_minLevel < 1)
+			_minLevel = 1;
+		else if (_minLevel > 80)
+			_minLevel = 80;
+		if (_maxLevel < _minLevel)
+			_maxLevel = _minLevel;
+		else if (_maxLevel > 80)
+			_maxLevel = 80;
+
+		// Send waiting list packet here
+	}
+
+	/**
+	 * @see net.sf.l2j.gameserver.network.BasePacket#getType()
+	 */
+	@Override
+	public String getType()
+	{
+		return _C__D0_16_REQUESTLISTPARTYMATCHINGWAITINGROOM;
+	}
 }

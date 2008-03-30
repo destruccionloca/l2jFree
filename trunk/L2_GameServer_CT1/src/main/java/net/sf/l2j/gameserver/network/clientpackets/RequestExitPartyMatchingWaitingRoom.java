@@ -16,9 +16,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 /**
  * Format: (ch)
- * this is just a trigger : no data
- * @author  -Wooden-
- * 
+ * @author  Crion/kombat
  */
 public class RequestExitPartyMatchingWaitingRoom extends L2GameClientPacket
 {
@@ -36,8 +34,7 @@ public class RequestExitPartyMatchingWaitingRoom extends L2GameClientPacket
     @Override
     protected void runImpl()
     {
-        //TODO: implementation missing
-        System.out.println("C5: RequestExitPartyMatchingWaitingRoom");
+        // This packet is sent if you close the party matching window. Remove player from party matching list here.
     }
 
     /**

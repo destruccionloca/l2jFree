@@ -15,31 +15,27 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 /**
- * Format:(ch)
+ * Format:(c)c
  * @author  Crion/kombat
  */
-public class ExOpenMPCC extends L2GameServerPacket
+
+public class HideBoard extends L2GameServerPacket
 {
+	private static final String _S__6E_SHOWBOARD = "[S] 6e ShowBoard";
 
-	private static final String _S__FE_25_EXOPENMPCC = "[S] FE:25 ExOpenMPCC []";
-
-	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
-	 */
 	@Override
-	protected void writeImpl()
+	protected final void writeImpl()
 	{
-		writeC(0xfe);
-		writeH(0x12);
+		writeC(0x7b);
+		writeC(0x00); //c4 1 to show community 00 to hide 
 	}
 
 	/* (non-Javadoc)
-	 * @see net.sf.l2j.gameserver.BasePacket#getType()
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
 	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_25_EXOPENMPCC;
+		return _S__6E_SHOWBOARD;
 	}
-	
 }

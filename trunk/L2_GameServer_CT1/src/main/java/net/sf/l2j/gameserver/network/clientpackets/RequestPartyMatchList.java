@@ -16,76 +16,48 @@ package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.ListPartyWaiting;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Packetformat  Rev650  cdddddS
- * 
- * @version $Revision: 1.1.4.4 $ $Date: 2005/03/27 15:29:30 $
+ * Format:(ch) ddddds
+ * @author  Crion/kombat
  */
 
 public class RequestPartyMatchList extends L2GameClientPacket
 {
-	private static final String _C__70_REQUESTPARTYMATCHLIST = "[C] 70 RequestPartyMatchList";
+	private static final String _C__80_REQUESTPARTYMATCHLIST = "[C] 80 RequestPartyMatchList";
 	private final static Log _log = LogFactory.getLog(RequestPartyMatchList.class.getName());
 
-	private int _status;
-	@SuppressWarnings("unused")
-	private int _unk1;
-	@SuppressWarnings("unused")
-	private int _unk2;
-	@SuppressWarnings("unused")
-	private int _unk3;
-	@SuppressWarnings("unused")
-	private int _unk4;
-	@SuppressWarnings("unused")
-	private String _unk5;
-	/**
-	 * packet type id 0x70
-	 * 
-	 * sample
-	 * 
-	 * 70
-	 * 01 00 00 00 
-	 * 
-	 * format:		cd 
-	 * @param decrypt
-	 */
+
 	@Override
 	protected void readImpl()
 	{
-		_status = readD();
+		_roomId = readD();
+		_maxMembers = readD();
+		_minLevel = readD();
+		_maxLevel = readD();
+		_lootDist = readD();
+		_roomTitle = readS();
 	}
+
+	private int _lootDist;
+	private int _maxMembers;
+	private int _minLevel;
+	private int _maxLevel;
+	private int _roomId;
+	private String _roomTitle;
 
 	@Override
 	protected void runImpl()
 	{
-		if (_status == 1)
-		{
-			// window is open fill the list  
-			// actually the client should get automatic updates for the list
-			// for now we only fill it once
-
-			//TODO: Needs rewrite
-			/*
-			Collection<L2PcInstance> players = L2World.getInstance().getAllPlayers(); 
-			L2PcInstance[] allPlayers = players.toArray(new L2PcInstance[players.size()]);
-			L2PcInstance[] empty = new L2PcInstance[] { };
-			ListPartyWaiting matchList = new ListPartyWaiting(empty);
-			sendPacket(matchList);*/
-		}
-		else if (_status == 3)
-		{
-			// client does not need any more updates
-			if (_log.isDebugEnabled()) _log.debug("PartyMatch window was closed.");
-		}
-		else
-		{
-			if (_log.isDebugEnabled()) _log.debug("party match status: "+_status);
-		}
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
+		
+		
+		// This packet is used to create a party room.
 	}
 
 	/* (non-Javadoc)
@@ -94,6 +66,6 @@ public class RequestPartyMatchList extends L2GameClientPacket
 	@Override
 	public String getType()
 	{
-		return _C__70_REQUESTPARTYMATCHLIST;
+		return _C__80_REQUESTPARTYMATCHLIST;
 	}
 }

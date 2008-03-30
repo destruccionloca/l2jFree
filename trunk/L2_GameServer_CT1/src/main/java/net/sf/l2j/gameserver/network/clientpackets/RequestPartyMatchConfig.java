@@ -14,11 +14,11 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.1.4.2 $ $Date: 2005/03/27 15:29:30 $
+ * Format:(ch) ddd
+ * @author  Crion/kombat
  */
 
 public class RequestPartyMatchConfig extends L2GameClientPacket
@@ -26,41 +26,24 @@ public class RequestPartyMatchConfig extends L2GameClientPacket
 	private static final String _C__6F_REQUESTPARTYMATCHCONFIG = "[C] 6F RequestPartyMatchConfig";
 	//private final static Log _log = LogFactory.getLog(RequestPartyMatchConfig.class.getName());
 
-	private int _automaticRegistration;
-	private int _showLevel;
-	private int _showClass;
-	private String _memo;
-	/**
-	 * packet type id 0x6f
-	 * 
-	 * sample
-	 * 
-	 * 6f
-	 * 01 00 00 00 
-	 * 00 00 00 00 
-	 * 00 00 00 00 
-	 * 00 00 
-	 * 
-	 * format:		cdddS 
-	 * @param decrypt
-	 */
-    @Override
-    protected void readImpl()
-    {
-        _automaticRegistration    = readD();
-        _showLevel                = readD();
-        _showClass                = readD();
-    }
+	private int _unk;
+	private int _region;
+	private int _allLevels;
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-		if (getClient().getActiveChar() == null)
-		    return;
-		getClient().getActiveChar().setPartyMatchingAutomaticRegistration(_automaticRegistration == 1);
-		getClient().getActiveChar().setPartyMatchingShowLevel(_showLevel == 1);
-		getClient().getActiveChar().setPartyMatchingShowClass(_showClass == 1);
-		getClient().getActiveChar().setPartyMatchingMemo(_memo);
+		_unk = readD();
+		_region = readD(); // 0 to 15, or -1
+		_allLevels = readD(); // 1 -> all levels, 0 -> only levels matching my level
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
+		if (player == null)
+			return;
 	}
 
 	/* (non-Javadoc)

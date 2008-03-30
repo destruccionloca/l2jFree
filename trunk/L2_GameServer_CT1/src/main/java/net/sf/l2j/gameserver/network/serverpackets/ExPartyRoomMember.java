@@ -14,46 +14,46 @@
  */
 package net.sf.l2j.gameserver.network.serverpackets;
 
-import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 
 /**
- * Format:(ch) d [sdd]
+ * Format:(ch) d d [dsdddd]
  * @author  Crion/kombat
  */
-public class ExMPCCShowPartyMemberInfo extends L2GameServerPacket
+
+public class ExPartyRoomMember extends L2GameServerPacket
 {
-	private static final String _S__FE_4B_EXMPCCSHOWPARTYMEMBERINFO = "[S] FE:4b ExMPCCShowPartyMemberInfo []";
-
-	public ExMPCCShowPartyMemberInfo(L2Party party)
+	public ExPartyRoomMember()
 	{
-		_party = party;
 	}
-
-	private L2Party _party;
-
-	/**
-	 * @see net.sf.l2j.gameserver.network.serverpackets.ServerBasePacket#writeImpl()
-	 */
+	
 	@Override
-	protected void writeImpl()
+	protected final void writeImpl()
 	{
-		writeC(0xfe);
-		writeH(0x4b);
+		writeC(0xFE);
+		writeH(0x08);
 
-		writeD(_party.getMemberCount());
-		for (L2PcInstance mem : _party.getPartyMembers())
-		{
-			writeS(mem.getName());
-			writeD(mem.getObjectId());
-			writeD(mem.getClassId().getId());
-		}
+		// 0x01 - we are leader
+		// 0x00 - we are not leader
+		writeD(0x00);
+
+		writeD(0x00);   // D     size
+		// [
+		//     D    player object id
+		//     S    player name
+		//     D    player class id
+		//     D    player level
+		//     D    player region (from 0 to 15)
+		//     D     1 leader     2  party member    0 not party member
+		// ]
 	}
 
+	/* (non-Javadoc)
+	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#getType()
+	 */
 	@Override
 	public String getType()
 	{
-		return _S__FE_4B_EXMPCCSHOWPARTYMEMBERINFO;
+		return "FE_08_ExPartyRoomMember";
 	}
-	
 }

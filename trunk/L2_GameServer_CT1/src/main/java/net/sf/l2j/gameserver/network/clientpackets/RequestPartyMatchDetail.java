@@ -14,50 +14,42 @@
  */
 package net.sf.l2j.gameserver.network.clientpackets;
 
-import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.network.serverpackets.PartyMatchDetail;
 
 /**
- * This class ...
- * 
- * @version $Revision: 1.1.4.3 $ $Date: 2005/03/27 15:29:30 $
+ * Format: (ch) dd
+ * @author  Crion/kombat
  */
 
 public class RequestPartyMatchDetail extends L2GameClientPacket
 {
 	private static final String _C__71_REQUESTPARTYMATCHDETAIL = "[C] 71 RequestPartyMatchDetail";
-	//private final static Log _log = LogFactory.getLog(RequestPartyMatchDetail.class.getName());
 
-	private int _objectId;
-    @SuppressWarnings("unused")
-	private int _unk1;				//TODO: analyse value unk1
-	/**
-	 * packet type id 0x71
-	 * 
-	 * sample
-	 * 
-	 * 71
-	 * d8 a8 10 41  object id 
-	 * 
-	 * packet format rev650  	cdd
-	 * @param decrypt
-	 */
-    @Override
-    protected void readImpl()
-    {
-        _objectId = readD();
-        _unk1 = readD();
-    }
+	private int _roomId;
+	private int _mode;
 
-    @Override
-    protected void runImpl()
+	@Override
+	protected void readImpl()
 	{
-		L2PcInstance player = (L2PcInstance) L2World.getInstance().findObject(_objectId);
+		_roomId = readD();
+		_mode = readD();
+	}
+
+	@Override
+	protected void runImpl()
+	{
+		L2PcInstance player = getClient().getActiveChar();
 		if (player == null)
-		    return;
-		PartyMatchDetail details = new PartyMatchDetail(player);
-		sendPacket(details);
+			return;
+
+		if (_roomId > 0)
+		{
+			// Join the room with this number and send PartyMatchDetail
+		}
+		else
+		{
+			// Player clicked "Auto Join" button
+		}
 	}
 
 	/* (non-Javadoc)
