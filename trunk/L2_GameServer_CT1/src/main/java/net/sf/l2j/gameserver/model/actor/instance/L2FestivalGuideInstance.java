@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.SevenSignsFestival;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Party;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
@@ -440,7 +441,7 @@ public final class L2FestivalGuideInstance extends L2FolkInstance
         player.sendPacket(html);
         
         // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
     
     private final String getStatsTable()

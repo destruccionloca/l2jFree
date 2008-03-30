@@ -28,6 +28,7 @@ import net.sf.l2j.gameserver.model.actor.stat.SummonStat;
 import net.sf.l2j.gameserver.model.actor.status.SummonStatus;
 import net.sf.l2j.gameserver.model.base.Experience;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowAdd;
 import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowDelete;
 import net.sf.l2j.gameserver.network.serverpackets.ExPartyPetWindowUpdate;
@@ -184,7 +185,7 @@ public abstract class L2Summon extends L2PlayableInstance
         if (player == _owner && player.getTarget() == this)
         {
             player.sendPacket(new PetStatusShow(this));
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
         }
         else
         {
@@ -693,7 +694,7 @@ public abstract class L2Summon extends L2PlayableInstance
 			if (getOwner() != null && getOwner().isInOlympiadMode() && !getOwner().isOlympiadStart())
 			{
 				// if L2PcInstance is in Olympia and the match isn't already start, send a Server->Client packet ActionFailed
-				actionFailed();
+				sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 

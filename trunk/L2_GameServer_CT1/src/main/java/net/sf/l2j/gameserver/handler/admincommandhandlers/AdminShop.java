@@ -19,6 +19,7 @@ import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.BuyList;
 
 import org.apache.commons.logging.Log;
@@ -97,6 +98,6 @@ public class AdminShop implements IAdminCommandHandler {
 		{
 			_log.warn("no buylist with id:" +val);
 		}
-		activeChar.actionFailed();
+		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

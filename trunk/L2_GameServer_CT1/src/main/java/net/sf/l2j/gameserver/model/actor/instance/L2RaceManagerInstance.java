@@ -21,6 +21,7 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.RaceManagerKnownList;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.DeleteObject;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
@@ -292,7 +293,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
         html.replace("1race", String.valueOf(_raceNumber));
         html.replace("%objectId%", String.valueOf(getObjectId()));
         player.sendPacket(html);
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     public void showMonsterInfo(L2PcInstance player)
@@ -310,7 +311,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
         }
         html.replace("%objectId%", String.valueOf(getObjectId()));
         player.sendPacket(html);
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     public void showBuyTicket(L2PcInstance player, int val)
@@ -402,7 +403,7 @@ public class L2RaceManagerInstance extends L2NpcInstance
         html.replace("1race", String.valueOf(_raceNumber));
         html.replace("%objectId%", String.valueOf(getObjectId()));
         player.sendPacket(html);
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     public class Race

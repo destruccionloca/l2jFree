@@ -20,6 +20,7 @@ import net.sf.l2j.gameserver.boat.service.BoatService;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.actor.instance.L2BoatInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.registry.IServiceRegistry;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
 import net.sf.l2j.tools.L2Registry;
@@ -62,7 +63,7 @@ public class RequestMoveToLocationInVehicle extends L2GameClientPacket
 			return;
 		else if (activeChar.isAttackingNow() && activeChar.getActiveWeaponItem() != null && (activeChar.getActiveWeaponItem().getItemType() == L2WeaponType.BOW))
 		{
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else 
 		{

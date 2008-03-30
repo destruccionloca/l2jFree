@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.L2TeleportLocation;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.AgitDecoInfo;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -694,7 +695,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
     private void sendHtmlMessage(L2PcInstance player, NpcHtmlMessage html)
@@ -707,7 +708,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
     
     private void showMessageWindow(L2PcInstance player)
     {
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
         String filename = "data/html/clanHallManager/chamberlain-no.htm";
         
         int condition = validateCondition(player);
@@ -754,14 +755,14 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
     
     private void showVaultWindowDeposit(L2PcInstance player)
     {
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
         player.setActiveWarehouse(player.getClan().getWarehouse());
         player.sendPacket(new WareHouseDepositList(player, WareHouseDepositList.CLAN)); //Or Clan Hall??
     }
 
     private void showVaultWindowWithdraw(L2PcInstance player)
     {
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
         player.setActiveWarehouse(player.getClan().getWarehouse());
         player.sendPacket(new WareHouseWithdrawalList(player, WareHouseWithdrawalList.CLAN)); //Or Clan Hall ??
     }
@@ -790,7 +791,7 @@ public class L2ClanHallManagerInstance extends L2MerchantInstance
         {
             _log.warn("No teleport destination with id:" +val);
         }
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     private void revalidateDeco(L2PcInstance player)

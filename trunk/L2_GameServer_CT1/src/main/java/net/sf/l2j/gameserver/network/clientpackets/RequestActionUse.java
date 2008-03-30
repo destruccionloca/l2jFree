@@ -32,6 +32,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ChairSit;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeShopManageList;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -79,7 +80,7 @@ public class RequestActionUse extends L2GameClientPacket
         // dont do anything if player is dead/confused/transformed
         if (activeChar.isAlikeDead() || activeChar.isOutOfControl() || activeChar.isTransformed())
         {
-            activeChar.actionFailed();
+            activeChar.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
 
@@ -153,7 +154,7 @@ public class RequestActionUse extends L2GameClientPacket
                     if (activeChar.isInOlympiadMode() && !activeChar.isOlympiadStart())
                     {
                         // if L2PcInstance is in Olympia and the match isn't already start, send a Server->Client packet ActionFailed
-                        activeChar.actionFailed();
+                        activeChar.sendPacket(ActionFailed.STATIC_PACKET);
                         return;
                     }
 
@@ -318,7 +319,7 @@ public class RequestActionUse extends L2GameClientPacket
                 {
                     activeChar.dismount();
                 }
-                activeChar.actionFailed();
+                activeChar.sendPacket(ActionFailed.STATIC_PACKET);
                 break;
             case 28:
                 activeChar.tryOpenPrivateBuyStore();
@@ -332,7 +333,7 @@ public class RequestActionUse extends L2GameClientPacket
             case 37: // Manufacture - Dwarven
                 if (activeChar.isAlikeDead())
                 {
-                    activeChar.actionFailed();
+                    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
                     return;
                 }
                 if(activeChar.getPrivateStoreType() != 0)
@@ -381,7 +382,7 @@ public class RequestActionUse extends L2GameClientPacket
                 // Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
                 if (activeChar.isAlikeDead())
                 {
-                    activeChar.actionFailed();
+                    activeChar.sendPacket(ActionFailed.STATIC_PACKET);
                     return;
                 }
                 if(activeChar.getPrivateStoreType() != 0)

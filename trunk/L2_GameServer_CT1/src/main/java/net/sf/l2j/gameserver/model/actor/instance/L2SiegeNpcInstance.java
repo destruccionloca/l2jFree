@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
@@ -70,7 +71,7 @@ public class L2SiegeNpcInstance extends L2FolkInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
     /**
@@ -89,7 +90,7 @@ public class L2SiegeNpcInstance extends L2FolkInstance
             html.replace("%castlename%",getCastle().getName());
             html.replace("%objectId%",String.valueOf(getObjectId()));
             player.sendPacket(html);
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
         }
 	}
     

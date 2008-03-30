@@ -19,6 +19,7 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
@@ -122,7 +123,7 @@ public class L2SiegeFlagInstance extends L2NpcInstance
 			else
 			{
 				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-				player.actionFailed();
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
 	}

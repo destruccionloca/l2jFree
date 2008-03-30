@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.PetInventory;
 import net.sf.l2j.gameserver.model.actor.stat.PetStat;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
@@ -275,7 +276,7 @@ public class L2PetInstance extends L2Summon
                 updateRefOwner(player);
             }
             player.sendPacket(new PetStatusShow(this));
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
         }
         else
         {
@@ -437,7 +438,7 @@ public class L2PetInstance extends L2Summon
         {
             // dont try to pickup anything that is not an item :)
             _log.warn("trying to pickup wrong target."+object);
-            getOwner().actionFailed();
+            getOwner().sendPacket(ActionFailed.STATIC_PACKET);
             return;
        }
        
@@ -473,13 +474,13 @@ public class L2PetInstance extends L2Summon
         {
             if (!target.isVisible())
             {
-                getOwner().actionFailed();
+                getOwner().sendPacket(ActionFailed.STATIC_PACKET);
                 return;
             }
             
             if (target.getOwnerId() != 0 && target.getOwnerId() != getOwner().getObjectId() && !getOwner().isInLooterParty(target.getOwnerId()))
             {
-                getOwner().actionFailed();
+                getOwner().sendPacket(ActionFailed.STATIC_PACKET);
                 
                 if (target.getItemId() == 57)
                 {

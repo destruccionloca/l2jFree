@@ -276,8 +276,7 @@ public class EnterWorld extends L2GameClientPacket
 		sendPacket(sm);
 		
 		// Send client time
-		ClientSetTime cst = new ClientSetTime();
-		sendPacket(cst);
+		sendPacket(ClientSetTime.STATIC_PACKET);
 
 		if (Config.SHOW_L2J_LICENSE)
 		{
@@ -483,8 +482,7 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (Config.GAMEGUARD_ENFORCE)
 		{
-			GameGuardQuery ggq = new GameGuardQuery();
-			activeChar.sendPacket(ggq);
+			activeChar.sendPacket(GameGuardQuery.STATIC_PACKET);
 		}
 
 		if (TvT._savePlayers.contains(activeChar.getName()))

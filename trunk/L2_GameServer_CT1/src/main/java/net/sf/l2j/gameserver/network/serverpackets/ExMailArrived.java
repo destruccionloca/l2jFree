@@ -20,6 +20,11 @@ package net.sf.l2j.gameserver.network.serverpackets;
 public class ExMailArrived extends L2GameServerPacket
 {
 	private static final String _S__FE_2E_EXMAILARRIVED = "[S] FE:2e ExMailArrived []";
+	public static final ExMailArrived STATIC_PACKET = new ExMailArrived();
+
+	private ExMailArrived()
+	{
+	}
 
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()

@@ -26,6 +26,12 @@ public class ExCloseMPCC extends L2GameServerPacket
 
 	private static final String _S__FE_13_EXCLOSEMPCC = "[S] FE:13 ExCloseMPCC []";
 
+	public static final ExCloseMPCC STATIC_PACKET = new ExCloseMPCC();
+
+	private ExCloseMPCC()
+	{
+	}
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
@@ -33,7 +39,7 @@ public class ExCloseMPCC extends L2GameServerPacket
 	protected void writeImpl()
 	{
 		writeC(0xFE);
-		writeH(0x13);		
+		writeH(0x13);
 	}
 
 	/* (non-Javadoc)

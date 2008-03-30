@@ -37,6 +37,7 @@ import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
 import net.sf.l2j.gameserver.model.mapregion.L2MapRegion;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.StaticObject;
@@ -427,7 +428,7 @@ public class L2DoorInstance extends L2Character
             }
         }
         // Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     @Override
@@ -473,7 +474,7 @@ public class L2DoorInstance extends L2Character
             // ATTACK the mob without moving?
         }
 
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     @Override

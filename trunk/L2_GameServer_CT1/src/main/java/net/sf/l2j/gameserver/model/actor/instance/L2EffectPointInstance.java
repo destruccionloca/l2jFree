@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 public class L2EffectPointInstance extends L2NpcInstance
@@ -40,12 +41,12 @@ public class L2EffectPointInstance extends L2NpcInstance
 	public void onAction(L2PcInstance player)
 	{
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	@Override
 	public void onActionShift(L2PcInstance player)
 	{
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 }

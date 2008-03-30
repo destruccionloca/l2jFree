@@ -21,6 +21,7 @@ import net.sf.l2j.gameserver.TaskPriority;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.PartyMemberPosition;
 
 /**
@@ -95,14 +96,14 @@ public class MoveBackwardToLocation extends L2GameClientPacket
         {
             if (activeChar.getTeleMode() == 1)
                 activeChar.setTeleMode(0);
-            activeChar.actionFailed();
+            activeChar.sendPacket(ActionFailed.STATIC_PACKET);
             activeChar.teleToLocation(_targetX, _targetY, _targetZ, false);
             return;
         }
         
         if (_moveMovement == 0 && !Config.GEO_MOVE_PC) // cursor movement without geodata movement check is disabled
         {
-            activeChar.actionFailed();
+            activeChar.sendPacket(ActionFailed.STATIC_PACKET);
         }
         else 
         {
@@ -111,7 +112,7 @@ public class MoveBackwardToLocation extends L2GameClientPacket
             // Can't move if character is confused, or trying to move a huge distance
             if (activeChar.isOutOfControl() || ((dx*dx+dy*dy) > 98010000)) // 9900*9900
             {
-                activeChar.actionFailed();
+                activeChar.sendPacket(ActionFailed.STATIC_PACKET);
                 return;
             }
             activeChar.getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO,

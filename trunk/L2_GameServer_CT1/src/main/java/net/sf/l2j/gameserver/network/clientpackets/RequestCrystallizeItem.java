@@ -22,6 +22,7 @@ import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.PcInventory;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -97,7 +98,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
-            activeChar.actionFailed();
+            activeChar.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
             
@@ -108,7 +109,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
 
             if (item == null || item.isWear())
             {
-                activeChar.actionFailed();
+                activeChar.sendPacket(ActionFailed.STATIC_PACKET);
                 return;
             }
                 
@@ -181,7 +182,7 @@ public class RequestCrystallizeItem extends L2GameClientPacket
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.CRYSTALLIZE_LEVEL_TOO_LOW);
             activeChar.sendPacket(sm);
-            activeChar.actionFailed();
+            activeChar.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
 

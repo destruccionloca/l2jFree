@@ -19,6 +19,7 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,13 +64,13 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		int level = activeChar.getSkillLevel(_magicId);
 		if (level <= 0) 
 		{
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
 		if (activeChar.isOutOfControl())
 		{
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return; 
 		}
 
@@ -87,7 +88,7 @@ public class RequestMagicSkillUse extends L2GameClientPacket
 		}
 		else
 		{
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			if (_log.isDebugEnabled()) _log.debug("No skill Id "+_magicId+" found!");
 		}
 	}

@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.actor.poly.ObjectPoly;
 import net.sf.l2j.gameserver.model.actor.position.ObjectPosition;
 import net.sf.l2j.gameserver.model.quest.QuestState;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.GetItem;
 
 /**
@@ -84,7 +85,7 @@ public abstract class L2Object
      */
     public void onAction(L2PcInstance player)
     {
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     /**
@@ -93,7 +94,7 @@ public abstract class L2Object
      */
     public void onActionShift(L2PcInstance player)
     {
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
     
     /**
@@ -102,7 +103,7 @@ public abstract class L2Object
      */
     public void onForcedAttack(L2PcInstance player)
     {
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     /**

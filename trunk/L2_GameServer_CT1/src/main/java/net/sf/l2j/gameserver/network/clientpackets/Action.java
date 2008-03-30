@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -76,7 +77,7 @@ public final class Action extends L2GameClientPacket
 		{
 			// pressing e.g. pickup many times quickly would get you here 
 			//_log.warn("Character: " + activeChar.getName() + " request action with non existent ObjectID:" + _objectId);
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		// Check if the target is valid, if the player haven't a shop or isn't the requester of a transaction (ex : FriendInvite, JoinAlly, JoinParty...)
@@ -96,13 +97,13 @@ public final class Action extends L2GameClientPacket
 				default:
 					// Ivalid action detected (probably client cheating), log this
 					_log.warn("Character: " + activeChar.getName() + " requested invalid action: " + _actionId);
-					activeChar.actionFailed();
+					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 					break;
 			}
 		}
 		else
 			// Actions prohibited when in trade
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	/* (non-Javadoc)

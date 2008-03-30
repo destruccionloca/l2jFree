@@ -19,6 +19,7 @@ import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 
@@ -50,14 +51,14 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER);
             player.sendPacket(sm);
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             sm = null;
             return;
         }
         else if (!player.isClanLeader())
         {
             player.sendMessage("You can't declare war. You are not clan leader.");
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
 
@@ -66,14 +67,14 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         {
         	SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_CANNOT_DECLARED_CLAN_NOT_EXIST);
             player.sendPacket(sm);
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
         else if (_clan.getAllyId() == clan.getAllyId() && _clan.getAllyId() != 0)
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_AGAINST_A_ALLIED_CLAN_NOT_WORK);
             player.sendPacket(sm);
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             sm = null;
             return;
         }
@@ -82,7 +83,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
         {
             SystemMessage sm = new SystemMessage(SystemMessageId.CLAN_WAR_DECLARED_IF_CLAN_LVL3_OR_15_MEMBER);
             player.sendPacket(sm);
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             sm = null;
             return;
         }
@@ -91,7 +92,7 @@ public class RequestStartPledgeWar extends L2GameClientPacket
             SystemMessage sm = new SystemMessage(SystemMessageId.ALREADY_AT_WAR_WITH_S1_WAIT_5_DAYS); //msg id 628
             sm.addString(clan.getName());
             player.sendPacket(sm);
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             sm = null;
             return;
         }

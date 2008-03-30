@@ -22,9 +22,10 @@ public class GameGuardQuery extends L2GameServerPacket
 {
     private static final String _S__F9_GAMEGUARDQUERY = "[S] F9 GameGuardQuery";
 
-    public GameGuardQuery()
+    public static final GameGuardQuery STATIC_PACKET = new GameGuardQuery();
+
+    private GameGuardQuery()
     {
-    	
     }
     
     @Override

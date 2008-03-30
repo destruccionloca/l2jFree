@@ -50,6 +50,7 @@ import javolution.util.FastList;
 import javolution.util.FastSet;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
@@ -278,7 +279,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		html.setHtml(content);
 		player.sendPacket(html);
 
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private void showDepositWindow(L2PcInstance player, String command)
@@ -328,7 +329,7 @@ public class L2BoxInstance extends L2NpcInstance {
 		html.setHtml(content);
 		player.sendPacket(html);
 
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	private Set<L2BoxItem> getItems(String drawer)

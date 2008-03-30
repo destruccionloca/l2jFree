@@ -48,7 +48,7 @@ public class L2CommandChannel
 		_partys.add(leader.getParty());
 		_channelLvl = leader.getParty().getLevel();
 		leader.getParty().setCommandChannel(this);
-		leader.getParty().broadcastToPartyMembers(new ExOpenMPCC());
+		leader.getParty().broadcastToPartyMembers(ExOpenMPCC.STATIC_PACKET);
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class L2CommandChannel
 		if (party.getLevel() > _channelLvl)
 			_channelLvl = party.getLevel();
 		party.setCommandChannel(this);
-		party.broadcastToPartyMembers(new ExOpenMPCC());
+		party.broadcastToPartyMembers(ExOpenMPCC.STATIC_PACKET);
 	}
 	
 	/**
@@ -78,7 +78,7 @@ public class L2CommandChannel
 				_channelLvl = pty.getLevel();
 		}
 		party.setCommandChannel(null);
-		party.broadcastToPartyMembers(new ExCloseMPCC());
+		party.broadcastToPartyMembers(ExCloseMPCC.STATIC_PACKET);
 		if(_partys.size() < 2)
 		{
 			SystemMessage sm = SystemMessage.sendString("The Command Channel was disbanded.");

@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 public class ChestKey implements IItemHandler
@@ -45,7 +46,7 @@ public class ChestKey implements IItemHandler
 		if (target == null || !(target instanceof L2ChestInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else
 		{
@@ -53,7 +54,7 @@ public class ChestKey implements IItemHandler
 			if (chest.isDead() || chest.isInteracted())
 			{
 				activeChar.sendMessage("The chest is empty.");
-				activeChar.actionFailed();
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			activeChar.useMagic(skill,false,false);

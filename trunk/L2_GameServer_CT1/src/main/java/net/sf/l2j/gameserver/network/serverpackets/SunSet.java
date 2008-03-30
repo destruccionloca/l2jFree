@@ -22,7 +22,13 @@ package net.sf.l2j.gameserver.network.serverpackets;
 public class SunSet extends L2GameServerPacket
 {
 	private static final String _S__29_SUNSET = "[S] 1d SunSet";
-	
+
+	public static final SunSet STATIC_PACKET = new SunSet();
+
+	private SunSet()
+	{
+	}
+
 	@Override
 	protected final void writeImpl()
 	{

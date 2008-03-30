@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -180,7 +181,7 @@ public class RequestBuyItem extends L2GameClientPacket
                 return;
             }
             player.sendMessage("Buylist "+_listId+" empty or not exists.");
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
         
@@ -196,14 +197,14 @@ public class RequestBuyItem extends L2GameClientPacket
         {
             if (merchant != null && merchant.getTemplate().getNpcId() != _listId-1000000)
             {
-                player.actionFailed();
+                player.sendPacket(ActionFailed.STATIC_PACKET);
                 return;
             }
         }
 
         if(_count < 1)
         {
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
 
@@ -252,7 +253,7 @@ public class RequestBuyItem extends L2GameClientPacket
             if (price < 0)
             {
                 _log.warn("ERROR, no price found .. wrong buylist ??");
-                player.actionFailed();
+                player.sendPacket(ActionFailed.STATIC_PACKET);
                 return;
 			}
 			
@@ -305,7 +306,7 @@ public class RequestBuyItem extends L2GameClientPacket
         if (list.isGm() && player.getAccessLevel() < Config.GM_CREATE_ITEM)
         {
     		player.sendMessage("Shoping from GM Shop isn't allowed with your access level.");
-    		player.actionFailed();
+    		player.sendPacket(ActionFailed.STATIC_PACKET);
     		return;
         }
   

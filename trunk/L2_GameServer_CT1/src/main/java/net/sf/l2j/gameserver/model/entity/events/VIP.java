@@ -33,6 +33,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.base.Race;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.templates.L2Item;
@@ -431,7 +432,7 @@ public class VIP {
 			eventPlayer.sendPacket(adminReply);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-			eventPlayer.actionFailed();
+			eventPlayer.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		catch (Exception e)
 		{
@@ -471,7 +472,7 @@ public class VIP {
 				player.sendPacket(nhm);
 
 				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-				player.actionFailed();
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
 	}
@@ -507,7 +508,7 @@ public class VIP {
 				player.sendPacket(nhm);
 
 				// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-				player.actionFailed();
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
 	}
@@ -752,7 +753,7 @@ public class VIP {
 			eventPlayer.sendPacket(adminReply);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-			eventPlayer.actionFailed();
+			eventPlayer.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		catch (Exception e)
 		{

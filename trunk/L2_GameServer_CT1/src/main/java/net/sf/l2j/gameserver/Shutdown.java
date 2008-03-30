@@ -444,8 +444,7 @@ public class Shutdown extends Thread implements ShutdownMBean
 				L2GameClient.saveCharToDisk(player);
 				
 				// close server
-				ServerClose ql = new ServerClose();
-				player.sendPacket(ql);
+				player.sendPacket(ServerClose.STATIC_PACKET);
 				
 				// make sure to save ALL data
 				player.deleteMe();

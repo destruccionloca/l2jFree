@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
@@ -104,7 +105,7 @@ public class RequestSellItem extends L2GameClientPacket
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.actionFailed();
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			player.cancelActiveTrade();
             return;
         }
@@ -141,7 +142,7 @@ public class RequestSellItem extends L2GameClientPacket
 		{
 			if (merchant.getTemplate().getNpcId() != _listId-1000000)
 			{
-				player.actionFailed();
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 		}

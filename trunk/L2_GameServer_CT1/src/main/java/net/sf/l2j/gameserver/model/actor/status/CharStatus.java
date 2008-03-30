@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.quest.QuestState;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.skills.Formulas;
 import net.sf.l2j.tools.random.Rnd;
 
@@ -216,7 +217,7 @@ public class CharStatus
             		getActiveChar().disableAllSkills();
             		stopHpMpRegeneration();
            			attacker.getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE);
-           			attacker.actionFailed();
+           			attacker.sendPacket(ActionFailed.STATIC_PACKET);
 
             		// let the DuelManager know of his defeat
             		DuelManager.getInstance().onPlayerDefeat((L2PcInstance)getActiveChar());

@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 
@@ -49,7 +50,7 @@ public class FishingSkill implements ISkillHandler
                 //Reeling skill is available only while fishing
                 player.sendPacket(new SystemMessage(SystemMessageId.CAN_USE_REELING_ONLY_WHILE_FISHING));
             }
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
         L2Weapon weaponItem = player.getActiveWeaponItem();

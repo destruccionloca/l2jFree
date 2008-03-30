@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.model.actor.instance;
 
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.ValidateLocation;
@@ -79,7 +80,7 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 	
 	public void onBypassFeedback(L2PcInstance player, String command)
@@ -122,7 +123,7 @@ public class L2CastleBlacksmithInstance extends L2FolkInstance
 
 	private void showMessageWindow(L2PcInstance player, int val)
 	{
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 		String filename = "data/html/castleblacksmith/castleblacksmith-no.htm";
 		
 		int condition = validateCondition(player);

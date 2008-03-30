@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.base.ClassId;
 import net.sf.l2j.gameserver.model.quest.Quest;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -165,7 +166,7 @@ public final class L2ClassMasterInstance extends L2FolkInstance
             player.sendPacket(html);
             
         }
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
     
     @Override

@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManorManager.SeedProduction;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.BuyListSeed;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowCropInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ExShowManorDefaultInfo;
@@ -105,7 +106,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 			}
 		}
 		// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-		player.actionFailed();
+		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	public void onBypassFeedback(L2PcInstance player, String command)
@@ -122,7 +123,7 @@ public class L2ManorManagerInstance extends L2MerchantInstance
 			if (CastleManorManager.getInstance().isUnderMaintenance())
 			{
 				player.sendPacket(new SystemMessage(SystemMessageId.THE_MANOR_SYSTEM_IS_CURRENTLY_UNDER_MAINTENANCE));
-				player.actionFailed();
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			

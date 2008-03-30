@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.model.L2ManufactureList;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeShopManageList;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
@@ -46,14 +47,14 @@ public class RequestRecipeShopManageList extends L2GameClientPacket
 		// Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
 		if (player.isAlikeDead())
 		{
-			player.actionFailed();
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 
 		if (player.isInsideZone(L2Zone.FLAG_NOSTORE))
 		{
 			player.sendPacket(new SystemMessage(SystemMessageId.NO_PRIVATE_WORKSHOP_HERE));
-			player.actionFailed();
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 

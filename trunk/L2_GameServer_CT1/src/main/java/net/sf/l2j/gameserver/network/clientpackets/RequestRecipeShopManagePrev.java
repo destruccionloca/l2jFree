@@ -15,6 +15,7 @@
 package net.sf.l2j.gameserver.network.clientpackets;
 
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.RecipeShopSellList;
 
 /**
@@ -42,7 +43,7 @@ public class RequestRecipeShopManagePrev extends L2GameClientPacket
         // Player shouldn't be able to set stores if he/she is alike dead (dead or fake death)
         if (player.isAlikeDead())
         {
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
 	

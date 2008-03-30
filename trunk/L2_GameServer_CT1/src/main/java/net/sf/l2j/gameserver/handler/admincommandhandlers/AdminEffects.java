@@ -677,9 +677,9 @@ public class AdminEffects implements IAdminCommandHandler
 		else if(type.equals("sky"))
 		{
 			if(state.equals("night"))
-				packet = new SunSet();
+				packet = SunSet.STATIC_PACKET;
 			else if(state.equals("day"))
-				packet = new SunRise();
+				packet = SunRise.STATIC_PACKET;
 			else if (state.equals("red"))
 				packet = new ExRedSky(10);
 		}

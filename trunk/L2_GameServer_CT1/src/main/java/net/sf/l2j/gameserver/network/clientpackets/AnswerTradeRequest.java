@@ -50,14 +50,14 @@ public class AnswerTradeRequest extends L2GameClientPacket{
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			player.sendMessage("Transactions are not allowed during restart/shutdown.");
-			player.actionFailed();
+			player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
 		
         if (Config.GM_DISABLE_TRANSACTION && player.getAccessLevel() >= Config.GM_TRANSACTION_MIN && player.getAccessLevel() <= Config.GM_TRANSACTION_MAX)
         {
         	player.sendMessage("Transactions are disable for your Access Level");
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
 
@@ -70,7 +70,7 @@ public class AnswerTradeRequest extends L2GameClientPacket{
             SystemMessage msg = new SystemMessage(SystemMessageId.TARGET_IS_NOT_FOUND_IN_THE_GAME);
             player.sendPacket(msg);
             player.setActiveRequester(null);
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
 
@@ -80,7 +80,7 @@ public class AnswerTradeRequest extends L2GameClientPacket{
 			SystemMessage msg = new SystemMessage(SystemMessageId.S1_DENIED_TRADE_REQUEST);
 			msg.addString(player.getName());
 			partner.sendPacket(msg);
-			player.actionFailed();
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 
 		// Clears requesting status

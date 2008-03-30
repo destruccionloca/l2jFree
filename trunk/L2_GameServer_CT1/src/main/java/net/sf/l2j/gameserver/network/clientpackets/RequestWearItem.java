@@ -30,6 +30,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2MerchantInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.StatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -125,7 +126,7 @@ public class RequestWearItem extends L2GameClientPacket
         		&& Shutdown.getCounterInstance().getCountdown() <= Config.SAFE_REBOOT_TIME)
         {
 			_activeChar.sendMessage("Transactions are not allowed during restart/shutdown.");
-			_activeChar.actionFailed();
+			_activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			_activeChar.cancelActiveTrade();
             return;
         }
@@ -172,7 +173,7 @@ public class RequestWearItem extends L2GameClientPacket
         // Check if the quantity of Item to Wear
         if(_count < 1 || _listId >= 1000000)
         {
-            _activeChar.actionFailed();
+            _activeChar.sendPacket(ActionFailed.STATIC_PACKET);
             return;
         }
         

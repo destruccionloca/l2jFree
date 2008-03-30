@@ -55,14 +55,14 @@ public class RequestPetGetItem extends L2GameClientPacket
 
 		if(player.getPet() == null || player.getPet() instanceof L2SummonInstance)
 		{
-			player.actionFailed();
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 	
 		L2PetInstance pet = (L2PetInstance)player.getPet();
 		if (pet.isDead() || pet.isOutOfControl())
 		{
-			player.actionFailed();
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		pet.getAI().setIntention(CtrlIntention.AI_INTENTION_PICK_UP, item);

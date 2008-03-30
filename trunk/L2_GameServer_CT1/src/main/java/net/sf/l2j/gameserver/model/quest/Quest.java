@@ -36,6 +36,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Spawn;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 import net.sf.l2j.gameserver.scripting.ManagedScript;
 import net.sf.l2j.gameserver.scripting.ScriptManager;
@@ -387,7 +388,7 @@ public class Quest extends ManagedScript
 			NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
 			npcReply.setHtml(res);
 			player.sendPacket(npcReply);
-			player.actionFailed();
+			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		else
 		{
@@ -986,7 +987,7 @@ public class Quest extends ManagedScript
              NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
              npcReply.setHtml(content);
              player.sendPacket(npcReply);
-             player.actionFailed();
+             player.sendPacket(ActionFailed.STATIC_PACKET);
          }
          
          return content;

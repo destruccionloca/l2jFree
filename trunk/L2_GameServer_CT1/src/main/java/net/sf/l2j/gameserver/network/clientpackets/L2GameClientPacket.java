@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.GameServer;
 import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.exception.L2JFunctionnalException;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.L2GameServerPacket;
 
 import org.apache.commons.logging.Log;
@@ -67,7 +68,7 @@ public abstract class L2GameClientPacket extends ReceivablePacket<L2GameClient>
 				// Client sends NORMALLY very often 50+ packets...
 				if (getClient().packetsSentInSec > 50 && getClient().getActiveChar() != null)
 				{
-					getClient().getActiveChar().actionFailed();
+					getClient().getActiveChar().sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 			}

@@ -24,6 +24,7 @@ import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2TradeList;
 import net.sf.l2j.gameserver.network.L2GameClient;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.BuyList;
 import net.sf.l2j.gameserver.network.serverpackets.MyTargetSelected;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
@@ -96,7 +97,7 @@ public class L2MerchantInstance extends L2FolkInstance
         else
         {
             _log.warn("no buylist with id:" + val);
-            player.actionFailed();
+            player.sendPacket(ActionFailed.STATIC_PACKET);
         }
     }
 
@@ -127,7 +128,7 @@ public class L2MerchantInstance extends L2FolkInstance
             _log.warn("buylist id:" + val);
         }
 
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     protected final void showSellWindow(L2PcInstance player)
@@ -138,7 +139,7 @@ public class L2MerchantInstance extends L2FolkInstance
 
         if (_log.isDebugEnabled()) _log.debug("Showing sell window");
 
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 
     @Override
@@ -321,6 +322,6 @@ public class L2MerchantInstance extends L2FolkInstance
             html.setHtml(html1.toString());
             player.sendPacket(html);
         }
-        player.actionFailed();
+        player.sendPacket(ActionFailed.STATIC_PACKET);
     }
 }

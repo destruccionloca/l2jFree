@@ -520,11 +520,10 @@ public class GameStatusThread extends Thread
 						L2PcInstance player = L2World.getInstance().getPlayer(_usrCommand);
 						if (player != null)
 						{
-							player.sendMessage("You are kicked by gm");
 							try
 							{
 								L2GameClient.saveCharToDisk(player);
-								player.sendPacket(new LeaveWorld());
+								player.sendPacket(LeaveWorld.STATIC_PACKET);
 								player.deleteMe();
 								player.logout();
 							}

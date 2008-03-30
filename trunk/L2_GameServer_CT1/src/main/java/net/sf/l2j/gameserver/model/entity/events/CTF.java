@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.InventoryUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
@@ -1332,7 +1333,7 @@ public class CTF
 					player.sendPacket(nhm);
 
 					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-					player.actionFailed();
+					player.sendPacket(ActionFailed.STATIC_PACKET);
 				}
 			}
 		}
@@ -1754,7 +1755,7 @@ public class CTF
 			eventPlayer.sendPacket(adminReply);
 
 			// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-			eventPlayer.actionFailed();
+			eventPlayer.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		catch (Exception e)
 		{

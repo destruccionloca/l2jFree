@@ -19,6 +19,7 @@ import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.NpcHtmlMessage;
 
 public class Book implements IItemHandler
@@ -57,7 +58,7 @@ public class Book implements IItemHandler
 			activeChar.sendPacket(itemReply);
 		}
 		
-		activeChar.actionFailed();
+		activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 	}
 
 	public int[] getItemIds()

@@ -46,6 +46,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 import net.sf.l2j.gameserver.network.serverpackets.ItemList;
 import net.sf.l2j.gameserver.network.serverpackets.MagicSkillUse;
@@ -671,7 +672,7 @@ public class FortressSiege
 			replyMSG.append("</body></html>");
 			adminReply.setHtml(replyMSG.toString());
 			eventPlayer.sendPacket(adminReply);
-			eventPlayer.actionFailed();
+			eventPlayer.sendPacket(ActionFailed.STATIC_PACKET);
 		}
 		catch (Exception e)
 		{
@@ -1419,7 +1420,7 @@ public class FortressSiege
 					ItemList il = new ItemList(player, true);
 					player.sendPacket(il);
 					// Send a Server->Client ActionFailed to the L2PcInstance in order to avoid that the client wait another packet
-					player.actionFailed();
+					player.sendPacket(ActionFailed.STATIC_PACKET);
 				}
 			}
 		}
@@ -1561,7 +1562,7 @@ public class FortressSiege
 		{
 			attacker.sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
 			attacker.getAI().notifyEvent(CtrlEvent.EVT_CANCEL);
-			attacker.actionFailed();
+			attacker.sendPacket(ActionFailed.STATIC_PACKET);
 			return true;
 		}
 		return false;

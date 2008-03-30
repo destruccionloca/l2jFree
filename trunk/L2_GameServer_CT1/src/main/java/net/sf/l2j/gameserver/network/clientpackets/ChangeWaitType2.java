@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2StaticObjectInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.ChairSit;
 
 /**
@@ -57,7 +58,7 @@ public class ChangeWaitType2 extends L2GameClientPacket
 		{
 			if (player.isOutOfControl())
 			{
-				player.actionFailed();
+				player.sendPacket(ActionFailed.STATIC_PACKET);
 				return;
 			}
 			

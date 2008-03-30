@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -55,7 +56,7 @@ public class DoorKey implements IItemHandler
 		if (target == null || !(target instanceof L2DoorInstance))
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		L2DoorInstance door = (L2DoorInstance)target;
@@ -63,13 +64,13 @@ public class DoorKey implements IItemHandler
 		if (!(activeChar.isInsideRadius(door, INTERACTION_DISTANCE, false, false)))
 		{
 			activeChar.sendMessage("Too far.");
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		if (activeChar.getAbnormalEffect() > 0 || activeChar.isInCombat())
 		{
 			activeChar.sendMessage("You are currently engaged in combat.");
-			activeChar.actionFailed();
+			activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			return;
 		}
 		
@@ -167,7 +168,7 @@ public class DoorKey implements IItemHandler
 				if ((door.getDoorId() != 23150003 && door.getDoorId() != 23150004) && door.getOpen() == 0)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
-					activeChar.actionFailed();
+					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 					return;
 				}
 				if (!playable.destroyItem("Consume", item.getObjectId(), 1, null, false)) return;

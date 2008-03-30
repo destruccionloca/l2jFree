@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 
 /**
  * This class ...
@@ -76,7 +77,7 @@ public class AttackRequest extends L2GameClientPacket
 			} 
 			else
 			{
-				activeChar.actionFailed();
+				activeChar.sendPacket(ActionFailed.STATIC_PACKET);
 			}
 		}
 	}

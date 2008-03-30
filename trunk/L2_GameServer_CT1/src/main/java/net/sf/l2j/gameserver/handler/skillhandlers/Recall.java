@@ -26,6 +26,7 @@ import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.ActionFailed;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 
 import org.apache.commons.logging.Log;
@@ -80,7 +81,7 @@ public class Recall implements ISkillHandler
 					if (targetChar.isInsideZone(L2Zone.FLAG_NOESCAPE))
 					{
 						targetChar.sendMessage("You can not escape from here.");
-						targetChar.actionFailed();
+						targetChar.sendPacket(ActionFailed.STATIC_PACKET);
 						break;
 					}
 

@@ -23,6 +23,12 @@ public class ExOpenMPCC extends L2GameServerPacket
 
 	private static final String _S__FE_25_EXOPENMPCC = "[S] FE:25 ExOpenMPCC []";
 
+	public static final ExOpenMPCC STATIC_PACKET = new ExOpenMPCC();
+
+	private ExOpenMPCC()
+	{
+	}
+
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.serverpackets.ServerBasePacket#writeImpl()
 	 */
