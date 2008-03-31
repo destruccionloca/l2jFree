@@ -6933,7 +6933,7 @@ public abstract class L2Character extends L2Object
 				break;
 		}
 
-		if (skill.isOffensive() && !(skill.getSkillType() == SkillType.UNLOCK) && !(skill.getSkillType() == SkillType.DELUXE_KEY_UNLOCK))
+		if (skill.isOffensive() && skill.getSkillType() != SkillType.UNLOCK && skill.getSkillType() != SkillType.DELUXE_KEY_UNLOCK)
 			getAI().clientStartAutoAttack();
 
 		// Notify the AI of the L2Character with EVT_FINISH_CASTING

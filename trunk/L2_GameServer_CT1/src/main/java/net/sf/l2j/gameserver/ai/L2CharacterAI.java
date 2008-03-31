@@ -57,6 +57,24 @@ import net.sf.l2j.tools.random.Rnd;
  */
 public class L2CharacterAI extends AbstractAI
 {
+    class IntentionCommand
+    {
+        protected CtrlIntention _crtlIntention;
+        protected Object _arg0, _arg1;
+
+        protected IntentionCommand(CtrlIntention pIntention, Object pArg0, Object pArg1)
+        {
+            _crtlIntention = pIntention;
+            _arg0 = pArg0;
+            _arg1 = pArg1;
+        }
+    }
+
+    public IntentionCommand getNextIntention()
+    {
+        return null;
+    } 
+
     @Override
     protected void onEvtAttacked(L2Character attacker)
     {
@@ -1150,7 +1168,19 @@ public class L2CharacterAI extends AbstractAI
                         continue; // won't be considered something for fighting
                     case PARALYZE:
                     case STUN:
-                        generalDisablers.add(sk);
+                        // hardcoding petrification until improvements are made to
+                        // EffectTemplate... petrification is totally different for
+                        // AI than paralyze
+                        switch(sk.getId())
+                        {
+                            case 367: case 4111: case 4383:
+                            case 4616: case 4578:
+                                sleepSkills.add(sk);
+                                break;
+                            default:
+                                generalDisablers.add(sk);
+                                break;
+                        }
                         break;
                     case MUTE:
                         muteSkills.add(sk);

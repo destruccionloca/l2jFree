@@ -125,6 +125,7 @@ public enum Stats
     DERANGEMENT_VULN ("derangementVuln"),
     DEBUFF_VULN      ("debuffVuln"),
     FALL_VULN        ("fallVuln"),
+    CRIT_VULN        ("critVuln"), // Resistence to Crit DMG.
 
     NONE_WPN_VULN     ("noneWpnVuln"), // Shields!!!
     SWORD_WPN_VULN    ("swordWpnVuln"),

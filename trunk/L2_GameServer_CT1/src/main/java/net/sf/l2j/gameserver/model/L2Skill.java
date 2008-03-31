@@ -1607,7 +1607,7 @@ public abstract class L2Skill
 						boolean targetInPvP = cha.isInsideZone(L2Zone.FLAG_PVP) && !cha.isInsideZone(L2Zone.FLAG_SIEGE);
 
 						// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
-						if (obj == activeChar || obj == src)
+						if (obj == activeChar || obj == src || ((L2Character)obj).isDead())
 							continue;
 						if (src != null)
 						{
@@ -1623,7 +1623,9 @@ public abstract class L2Skill
 									continue;
 								if (!srcInPvP && !targetInPvP)
 								{
-									if (src.getClanId() != 0 && src.getClanId() == ((L2PcInstance) obj).getClanId())
+									if(src.getAllyId() == ((L2PcInstance)obj).getAllyId() && src.getAllyId() != 0)
+										continue;
+									if(src.getClanId() != 0 && src.getClanId() == ((L2PcInstance)obj).getClanId())
 										continue;
 								}
 							}
@@ -1639,7 +1641,9 @@ public abstract class L2Skill
 									continue;
 								if (!srcInPvP && !targetInPvP)
 								{
-									if (src.getClanId() != 0 && src.getClanId() == trg.getClanId())
+									if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
+										continue;
+									if(src.getClanId() != 0 && src.getClanId() == trg.getClanId())
 										continue;
 								}
 							}
@@ -1688,7 +1692,8 @@ public abstract class L2Skill
 						L2Character cha = (L2Character)obj;
 
 						// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
-						if (obj == activeChar || obj == src) continue;
+						if (obj == activeChar || obj == src || ((L2Character)obj).isDead())
+							continue;
 						if (src != null)
 						{
 							if (!cha.isInFrontOf(activeChar))
@@ -1706,6 +1711,8 @@ public abstract class L2Skill
 									continue;
 								if(!srcInArena && !objInPvpZone)
 								{
+									if(src.getAllyId() == ((L2PcInstance)obj).getAllyId() && src.getAllyId() != 0)
+										continue;
 									if(src.getClanId() != 0 && src.getClanId() == ((L2PcInstance)obj).getClanId())
 										continue;
 								}
@@ -1720,6 +1727,8 @@ public abstract class L2Skill
 									continue;
 								if(!srcInArena && !objInPvpZone)
 								{
+									if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
+										continue;
 									if(src.getClanId() != 0 && src.getClanId() == trg.getClanId())
 										continue;
 								}
@@ -1757,7 +1766,7 @@ public abstract class L2Skill
 						L2Character cha = (L2Character)obj;
 
 						// Don't add this target if this is a Pc->Pc pvp casting and pvp condition not met
-						if (obj == activeChar || obj == src) continue;
+						if (obj == activeChar || obj == src || ((L2Character)obj).isDead()) continue;
 						if (src != null)
 						{
 							if (!cha.isBehind(activeChar))
@@ -1775,6 +1784,8 @@ public abstract class L2Skill
 									continue;
 								if(!srcInArena && !objInPvpZone)
 								{
+									if(src.getAllyId() == ((L2PcInstance)obj).getAllyId() && src.getAllyId() != 0)
+										continue;
 									if(src.getClanId() != 0 && src.getClanId() == ((L2PcInstance)obj).getClanId())
 										continue;
 								}
@@ -1789,6 +1800,8 @@ public abstract class L2Skill
 									continue;
 								if(!srcInArena && !objInPvpZone)
 								{
+									if(src.getAllyId() == trg.getAllyId() && src.getAllyId() != 0)
+										continue;
 									if(src.getClanId() != 0 && src.getClanId() == trg.getClanId())
 										continue;
 								}
@@ -1857,7 +1870,7 @@ public abstract class L2Skill
 					if (!GeoData.getInstance().canSeeTarget(activeChar, target))
 						continue;
 
-					if (!target.isAlikeDead() && (target != activeChar))
+					if(!target.isDead() && (target != activeChar))
 					{
 						if (!Util.checkIfInRange(radius, obj, cha, true))
 							continue;
@@ -1974,7 +1987,7 @@ public abstract class L2Skill
 
 					target = (L2Character) obj;
 
-					if(!target.isAlikeDead() && (target != activeChar))
+					if(!target.isDead() && (target != activeChar))
 					{
 						if (!Util.checkIfInRange(radius, target, activeChar, true))
 							continue;
@@ -2096,7 +2109,7 @@ public abstract class L2Skill
 						continue;
 					target = (L2Character) obj;
 
-					if(!target.isAlikeDead() && (target != activeChar))
+					if(!target.isDead() && (target != activeChar))
 					{
 						if (!Util.checkIfInRange(radius, obj, activeChar, true))
 							continue;
