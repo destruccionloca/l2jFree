@@ -81,6 +81,7 @@ import net.sf.l2j.gameserver.instancemanager.grandbosses.SailrenManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.ValakasManager;
 import net.sf.l2j.gameserver.instancemanager.grandbosses.VanHalterManager;
 import net.sf.l2j.gameserver.model.BlockList;
+import net.sf.l2j.gameserver.model.CursedWeapon;
 import net.sf.l2j.gameserver.model.FishData;
 import net.sf.l2j.gameserver.model.ForceBuff;
 import net.sf.l2j.gameserver.model.Inventory;
@@ -3862,16 +3863,6 @@ public final class L2PcInstance extends L2PlayableInstance
 
             }
 
-            // Cursed Weapons : don't allow the player to pick up a cursed weapon if he already has one
-            if (CursedWeaponsManager.getInstance().isCursed(target.getItemId()) && isCursedWeaponEquipped())
-            {
-            	SystemMessage message = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
-            	message.addItemName(target);
-            	sendPacket(message);
-            	sendPacket(ActionFailed.STATIC_PACKET);
-            	return;
-            }
-
             if (((isInParty() && getParty().getLootDistribution() == L2Party.ITEM_LOOTER) || !isInParty())
                 && !_inventory.validateCapacity(target))
             {
@@ -3915,6 +3906,16 @@ public final class L2PcInstance extends L2PlayableInstance
                 
                 return;
             }
+
+            // Cursed Weapons
+            if (CursedWeaponsManager.getInstance().isCursed(target.getItemId()) && isCursedWeaponEquipped())
+            {
+            	ItemTable.getInstance().destroyItem("Pickup CW", target, this, null);
+            	CursedWeapon cw = CursedWeaponsManager.getInstance().getCursedWeapon(getCursedWeaponEquippedId());
+            	cw.increaseKills(cw.getStageKills());
+            	return;
+            }
+
            if(target.getItemLootShedule() != null
                    && (target.getOwnerId() == getObjectId() || isInLooterParty(target.getOwnerId())))
                target.resetOwnerTimer();

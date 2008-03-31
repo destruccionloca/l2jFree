@@ -383,8 +383,7 @@ public class CursedWeapon
             _removeTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new RemoveTask(), _durationLost*12000L, _durationLost*12000L);
     }
 
-    public boolean checkDrop(L2Attackable attackable,
-            L2PcInstance player)
+    public boolean checkDrop(L2Attackable attackable, L2PcInstance player)
     {
         if (Rnd.get(100000) < _dropRate)
         {
@@ -564,17 +563,27 @@ public class CursedWeapon
         _player.broadcastUserInfo();
 
         if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
-        {
-            giveSkill();
-        }
+        	giveSkill();
 
         // Reduce time-to-live
         _endTime -= _durationLost * 60000;
         saveData();
     }
 
+    public void increaseKills(int kills)
+    {
+    	_nbKills += kills;
 
+    	_player.setPkKills(_nbKills);
+    	_player.broadcastUserInfo();
 
+    	if (_nbKills % _stageKills == 0 && _nbKills <= _stageKills*(_skillMaxLevel-1))
+    		giveSkill();
+
+    	// Reduce time-to-live
+    	_endTime -= _durationLost * 60000;
+    	saveData();
+    }
 
     // =========================================================
     // Setter
