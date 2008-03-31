@@ -241,6 +241,8 @@ public abstract class L2Effect
 		_inUse = inUse;
 		if (_inUse)
 			onStart();
+		else
+			onExit();
 	}
 	
 	public String getStackType()
@@ -445,6 +447,8 @@ public abstract class L2Effect
 		{
 			// Cancel the effect in the the abnormal effect map of the L2Character
 			if (!getInUse()) onExit();
+			if (_skill.getTransformId() < 1)
+				setInUse(false);
 			
 			// If the time left is equal to zero, send the message
 			if (_count == 0)
