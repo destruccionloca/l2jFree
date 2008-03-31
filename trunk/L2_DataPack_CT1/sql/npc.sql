@@ -8414,19 +8414,3 @@ REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSid
 ('29103',29103,'Baylor',0,'Warden',0,'LineageMonster4.Barler','54.00','77.50','83','male','L2Boss',40,'850000','2444.00',0.00,0.00,'10','10','30','30','10','10','0','0','500','500','500','500','540','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
 ('29104',29104,'Crystal Prison Guard',0,'',0,'LineageMonster4.eyeless','36.00','43.50','78','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT'),
 ('29105',29105,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','47.00','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT');
-
-
--- Mob AI types
-UPDATE npc SET AI = 'mage' WHERE class LIKE '%wizard%';
-UPDATE npc SET AI = 'mage' WHERE class LIKE '%witch%';
-UPDATE npc SET AI = 'mage' WHERE class LIKE '%mage%';
-UPDATE npc SET AI = 'balanced' WHERE class LIKE '%shaman%';
-UPDATE npc SET AI = 'balanced' WHERE bss > 0 AND AI = 'fighter';
-UPDATE npc SET AI = 'mage' WHERE AI = 'fighter' AND class LIKE '%banshee%' AND (name LIKE '%witch%' OR name LIKE '%magus%');
-UPDATE npc SET AI = 'balanced' WHERE id = 21182;
-UPDATE npc SET AI = 'balanced' WHERE id = 21179;
-UPDATE npc SET AI = 'balanced' WHERE id = 21586;
-UPDATE npc SET AI = 'balanced' WHERE patk*0.65 < matk AND AI = 'fighter';
-UPDATE npc SET AI = 'mage' WHERE name LIKE 'court sorce%';
-UPDATE npc SET AI = 'mage' WHERE id = 21796;
-UPDATE npc SET AI = 'balanced' WHERE type LIKE '%boss%';
