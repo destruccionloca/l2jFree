@@ -232,7 +232,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestAllyInfo();
 				break;
 			case 0x2f:
-				msg = new RequestCrystallizeItem();
+				msg = new RequestGMCommand();
 				break;
 			case 0x30: // t1 ??
 				msg = new RequestPrivateStoreManageSell();
@@ -397,7 +397,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestDeleteMacro();
 				break;
 			case 0x7e:
-				msg = new RequestGMCommand();
+				msg = new RequestTutorialLinkHtml();
 				break;
 			case 0x7f:
 				msg = new RequestPartyMatchConfig();
@@ -415,7 +415,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestPrivateStoreBuy();
 				break;
 			case 0x85:
-				msg = new RequestTutorialLinkHtml();
 				break;
 			case 0x86:
 				msg = new RequestTutorialPassCmdToServer();
@@ -590,7 +589,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					_log.warn("Client: " + client.toString() + " sent a 0xbd without the second opcode.");
 					break;
 				}
-					System.out.println("bd : " + id6);
+
 				switch (id6)
 				{
 				case 291:
@@ -612,7 +611,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					_log.warn("Client: " + client.toString() + " sent a 0xbe without the second opcode.");
 					break;
 				}
-					System.out.println("be : " + id4);
+
 				switch (id4)
 				{
 				case 0x0c:
@@ -620,6 +619,9 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					break;
 				case 0x0e:
 					msg = new RequestSaveInventoryOrder();
+					break;
+				case 0x17:
+					msg = new RequestAutoSoulShot();
 					break;
 				case 0x28:
 					msg = new RequestCursedWeaponList();
@@ -707,7 +709,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				switch (id2)
 				{
 				case 0x01:
-					//msg = new RequestManorList();
 					break;
 				case 0x02:
 					msg = new RequestProcureCropList();
@@ -743,7 +744,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					msg = new RequestChangePartyLeader();
 					break;
 				case 0x0d:
-					msg = new RequestAutoSoulShot();
 					break;
 				case 0x0e:
 					msg = new RequestExEnchantSkillInfo();
@@ -791,7 +791,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					msg = new RequestExRqItemLink();
 					break;
 				case 0x21:
-					//msg = new RequestKeyMapping();
 					break;
 				case 0x22:
 					// TODO implement me (just disabling warnings for this packet)
