@@ -3862,6 +3862,16 @@ public final class L2PcInstance extends L2PlayableInstance
 
             }
 
+            // Cursed Weapons : don't allow the player to pick up a cursed weapon if he already has one
+            if (CursedWeaponsManager.getInstance().isCursed(target.getItemId()) && isCursedWeaponEquipped())
+            {
+            	SystemMessage message = new SystemMessage(SystemMessageId.FAILED_TO_PICKUP_S1);
+            	message.addItemName(target);
+            	sendPacket(message);
+            	sendPacket(ActionFailed.STATIC_PACKET);
+            	return;
+            }
+
             if (((isInParty() && getParty().getLootDistribution() == L2Party.ITEM_LOOTER) || !isInParty())
                 && !_inventory.validateCapacity(target))
             {
