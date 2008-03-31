@@ -75,7 +75,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			case 0x0e:
 				msg = new ProtocolVersion();
 				break;
-			case 0x2b:
+			case 0x48:
 				msg = new AuthLogin();
 				break;
 			default:
@@ -89,16 +89,16 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			case 0x00:
 				msg = new Logout();
 				break;
-			case 0x0c:
+			case 0x95:
 				msg = new CharacterCreate();
 				break;
-			case 0x0d:
+			case 0x10:
 				msg = new CharacterDelete();
 				break;
 			case 0x12:
 				msg = new CharacterSelected();
 				break;
-			case 0x13:
+			case 0xc4:
 				msg = new NewCharacter();
 				break;
 			case 0x67:
@@ -107,7 +107,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			case 0x7b:
 				msg = new CharacterRestore();
 				break;
-			case 0xd0:
+			case 0xbe:
 				int id2 = -1;
 				if (buf.remaining() >= 2)
 				{
@@ -120,7 +120,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				}
 
 				// single packet
-				if (id2 == 0x39)
+				if (id2 == 0x41)
 				{
 					msg = new CharacterPrevState();
 				}
@@ -139,7 +139,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			switch (opcode)
 			{
 			case 0x00:
-				msg = new Logout();
 				break;
 			case 0x01:
 				msg = new AttackRequest();
@@ -148,10 +147,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestStartPledgeWar();
 				break;
 			case 0x04:
-				msg = new RequestReplyStartPledgeWar();
+				msg = new RequestRestart();
 				break;
 			case 0x05:
-				msg = new RequestStopPledgeWar();
+				msg = new RequestMagicSkillUse();
 				break;
 			case 0x06:
 				msg = new RequestReplyStopPledgeWar();
@@ -160,7 +159,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestSurrenderPledgeWar();
 				break;
 			case 0x08:
-				msg = new RequestReplySurrenderPledgeWar();
+				msg = new SetPrivateStoreListBuy();
 				break;
 			case 0x09:
 				msg = new RequestSetPledgeCrest();
@@ -172,21 +171,21 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new MoveBackwardToLocation();
 				break;
 			case 0x11:
-				msg = new EnterWorld();
 				break;
 			case 0x12:
 				break;
+			case 0x13:
+				msg = new GameGuardReply();
+				break;
 			case 0x14:
-				msg = new RequestItemList();
 				break;
 			case 0x16:
 				msg = new RequestUnEquipItem(); // confirm
 				break;
 			case 0x17:
-				msg = new RequestDropItem();
 				break;
 			case 0x19:
-				msg = new UseItem();
+				msg = new RequestDropItem();
 				break;
 			case 0x1a:
 				msg = new TradeRequest();
@@ -198,19 +197,17 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new TradeDone();
 				break;
 			case 0x1f:
-				msg = new Action();
 				break;
 			case 0x22:
 				msg = new RequestLinkHtml();
 				break;
 			case 0x23:
-				msg = new RequestBypassToServer();
 				break;
 			case 0x24:
 				msg = new RequestBBSwrite();
 				break;
 			case 0x26:
-				msg = new RequestJoinPledge();
+				msg = new RequestPrivateStoreQuitSell();
 				break;
 			case 0x27:
 				msg = new RequestAnswerJoinPledge();
@@ -221,9 +218,16 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			case 0x29:
 				msg = new RequestOustPledgeMember();
 				break;
-			case 0x2c:
-				msg = new RequestGetItemFromPet();
+			case 0x2b:
+				msg = new RequestBypassToServer();
 				break;
+			case 0x2c:
+				msg = new SetPrivateStoreListSell();
+				break;
+			case 0x2d:
+				msg = new Say2();
+				break;
+
 			case 0x2e:
 				msg = new RequestAllyInfo();
 				break;
@@ -234,7 +238,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestPrivateStoreManageSell();
 				break;
 			case 0x31: // t1 ??
-				msg = new SetPrivateStoreListSell();
 				break;
 			//                  case 0x32:
 			//                      msg = new RequestPrivateStoreManageCancel(data, _client);
@@ -249,13 +252,12 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new ChangeWaitType2();
 				break;
 			case 0x37:
-				msg = new RequestSellItem();
+				msg = new RequestDestroyItem();
 				break;
 			case 0x39:
-				msg = new RequestMagicSkillUse();
 				break;
 			case 0x3a:
-				msg = new Appearing(); //  (after death)
+				msg = new RequestBuyItem();
 				break;
 			case 0x3b:
 				if (Config.ALLOW_WAREHOUSE)
@@ -265,19 +267,16 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new SendWareHouseWithDrawList();
 				break;
 			case 0x3d:
-				msg = new RequestShortCutReg();
 				break;
 			case 0x3f:
-				msg = new RequestShortCutDel();
 				break;
 			case 0x40: // t1 ??
-				msg = new RequestBuyItem();
 				break;
 			case 0x42:
 				msg = new RequestJoinParty();
 				break;
 			case 0x43:
-				msg = new RequestAnswerJoinParty();
+				msg = new MoveBackwardToLocation();
 				break;
 			case 0x44:
 				msg = new RequestWithDrawalParty();
@@ -295,16 +294,14 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestTargetCanceld();
 				break;
 			case 0x49:
-				msg = new Say2();
 				break;
 			case 0x4d:
-				msg = new RequestPledgeMemberList();
+				msg = new Appearing();
 				break;
 			case 0x4f:
 				msg = new DummyPacket();
 				break;
 			case 0x50:
-				msg = new RequestSkillList();
 				break;
 			case 0x52:
 				msg = new MoveWithDelta();
@@ -319,10 +316,8 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new AnswerTradeRequest();
 				break;
 			case 0x56:
-				msg = new RequestActionUse();
 				break;
 			case 0x57:
-				msg = new RequestRestart();
 				break;
 			case 0x58:
 				msg = new RequestSiegeInfo();
@@ -347,13 +342,15 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestEnchantItem();
 				break;
 			case 0x60:
-				msg = new RequestDestroyItem();
 				break;
 			case 0x62:
 				msg = new RequestQuestList();
 				break;
 			case 0x63:
 				msg = new RequestQuestAbort();
+				break;
+			case 0x64:
+				msg = new RequestShowMiniMap();
 				break;
 			case 0x65:
 				msg = new RequestPledgeInfo();
@@ -364,6 +361,9 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			case 0x67:
 				msg = new RequestPledgeCrest();
 				break;
+			case 0x6c:
+				msg = new RequestGmList();
+				break;
 			case 0x6f:
 				msg = new RequestHennaEquip();
 				break;
@@ -371,7 +371,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestAquireSkillInfo();//  --> [s] 0xa4;
 				break;
 			case 0x74:
-				msg = new SendBypassBuildCmd();
 				break;
 			case 0x75:
 				msg = new RequestMoveToLocationInVehicle();
@@ -395,7 +394,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestAquireSkill();
 				break;
 			case 0x7d:
-				msg = new RequestRestartPoint();
+				msg = new RequestDeleteMacro();
 				break;
 			case 0x7e:
 				msg = new RequestGMCommand();
@@ -404,10 +403,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestPartyMatchConfig();
 				break;
 			case 0x80:
-				msg = new RequestPartyMatchList();
+				msg = new ValidatePosition();
 				break;
 			case 0x81:
-				msg = new RequestPartyMatchDetail();
+				// Do nothing ??
 				break;
 			//                      case 0x82:
 			//                      // RequestPrivateStoreList
@@ -434,7 +433,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestPetitionCancel();
 				break;
 			case 0x8b:
-				msg = new RequestGmList();
+				msg = new RequestUserCommand();
 				break;
 			case 0x8c:
 				msg = new RequestJoinAlly();
@@ -452,13 +451,13 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestDismissAlly();
 				break;
 			case 0x91:
-				msg = new RequestSetAllyCrest();
+				msg = new Action();
 				break;
 			case 0x92:
 				msg = new RequestAllyCrest();
 				break;
 			case 0x93:
-				msg = new RequestChangePetName();
+				msg = new SetPrivateStoreMsgSell();
 				break;
 			case 0x94:
 				msg = new RequestPetUseItem();
@@ -467,32 +466,30 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestGiveItemToPet();
 				break;
 			case 0x96:
-				msg = new RequestPrivateStoreQuitSell();
 				break;
 			case 0x97:
-				msg = new SetPrivateStoreMsgSell();
 				break;
 			case 0x98:
 				msg = new RequestPetGetItem();
 				break;
 			case 0x99:
-				msg = new RequestPrivateStoreManageBuy();
+				msg = new RequestShortCutDel();
 				break;
 			case 0x9a:
-				msg = new SetPrivateStoreListBuy();
 				break;
 			//					case 0x92:
 			//						// RequestPrivateStoreBuyManageCancel
 			//						break;
 			case 0x9c:
-				msg = new RequestPrivateStoreQuitBuy();
 				break;
 			case 0x9d:
-				msg = new SetPrivateStoreMsgBuy();
 				break;
 			//					case 0x95:
 			//						// RequestPrivateStoreBuyList
 			//						break;
+			case 0x9e:
+				msg = new RequestPrivateStoreQuitBuy();
+				break;
 			case 0x9f:
 				msg = new RequestPrivateStoreSell();
 				break;
@@ -514,11 +511,11 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			//					case 0x9c:
 			//						// RequestSurrenderAllianceWar
 			//						break;
+			case 0xa2:
+				msg = new SendBypassBuildCmd();
+				break;
 			case 0xa6:
-				// RequestSkillCoolTime
-				/*if (Config.DEBUG)
-					_log.info("Request Skill Cool Time .. ignored");
-				msg = null;*/
+				msg = new UseItem();
 				break;
 			case 0xa7:
 				msg = new RequestPackageSendableItemList();
@@ -530,13 +527,13 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestBlock();
 				break;
 			case 0xaa:
-				// RequestCastleSiegeInfo
+				msg = new Logout();
 				break;
 			case 0xab:
 				msg = new RequestSiegeAttackerList();
 				break;
 			case 0xac:
-				msg = new RequestSiegeDefenderList();
+				msg = new RequestShortCutReg();
 				break;
 			case 0xad:
 				msg = new RequestJoinSiege();
@@ -548,13 +545,12 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			//						// RequestSetCastleSiegeTime
 			//						break;
 			case 0xb0:
-				msg = new MultiSellChoose();
+				msg = new RequestSkillList();
 				break;
 			//					case 0xb1:
 			//						// NetPing
 			//						break;
 			case 0xb3:
-				msg = new RequestUserCommand();
 				break;
 			case 0xb4:
 				msg = new SnoopQuit();
@@ -563,7 +559,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestRecipeBookOpen();
 				break;
 			case 0xb6:
-				msg = new RequestRecipeBookDestroy();
+				msg = new RequestRestartPoint();
 				break;
 			case 0xb7:
 				msg = new RequestRecipeItemMakeInfo();
@@ -571,11 +567,11 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			case 0xb8:
 				msg = new RequestRecipeItemMakeSelf();
 				break;
-			//case 0xb9:
-			//	msg = new RequestRecipeShopManageList(data, client);
-			//    break;
+			case 0xb9:
+				msg = new RequestActionUse();
+			    	break;
 			case 0xba:
-				msg = new RequestRecipeShopMessageSet();
+				msg = new RequestMakeMacro();
 				break;
 			case 0xbb:
 				msg = new RequestRecipeShopListSet();
@@ -583,11 +579,67 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 			case 0xbc:
 				msg = new RequestRecipeShopManageQuit();
 				break;
+			case 0xbd:
+				int id6 = -1;
+				if (buf.remaining() >= 2)
+				{
+					id6 = buf.getShort() & 0xffff;
+				}
+				else
+				{
+					_log.warn("Client: " + client.toString() + " sent a 0xbd without the second opcode.");
+					break;
+				}
+					System.out.println("bd : " + id6);
+				switch (id6)
+				{
+				case 291:
+					msg = new EnterWorld();
+					break;
+				default:
+					this.printDebugDoubleOpcode(opcode, id6, buf, state, client);
+					break;
+				}
+				break;
 			case 0xbe:
-				msg = new RequestRecipeShopMakeInfo();
+				int id4 = -1;
+				if (buf.remaining() >= 2)
+				{
+					id4 = buf.getShort() & 0xffff;
+				}
+				else
+				{
+					_log.warn("Client: " + client.toString() + " sent a 0xbe without the second opcode.");
+					break;
+				}
+					System.out.println("be : " + id4);
+				switch (id4)
+				{
+				case 0x0c:
+					msg = new RequestCursedWeaponLocation();
+					break;
+				case 0x0e:
+					msg = new RequestSaveInventoryOrder();
+					break;
+				case 0x28:
+					msg = new RequestCursedWeaponList();
+					break;
+				case 0x3a:
+					msg = new RequestKeyMapping();
+					break;
+				case 0x44:
+					msg = new RequestManorList();
+					break;
+				case 0x49:
+					msg = new RequestFortressSiegeInfo();
+					break;
+				default:
+					this.printDebugDoubleOpcode(opcode, id4, buf, state, client);
+					break;
+				}
 				break;
 			case 0xbf:
-				msg = new RequestRecipeShopMakeItem();
+				msg = new RequestItemList();
 				break;
 			case 0xc0:
 				msg = new RequestRecipeShopManagePrev();
@@ -602,17 +654,15 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestHennaList();
 				break;
 			case 0xc4:
-				msg = new RequestHennaItemInfo();
+				msg = new NewCharacter();
 				break;
 			case 0xcc:
 				// Clan Privileges
 				msg = new RequestPledgePower();
 				break;
 			case 0xcd:
-				msg = new RequestMakeMacro();
 				break;
 			case 0xce:
-				msg = new RequestDeleteMacro();
 				break;
 			// Manor
 			case 0xcf:
@@ -631,13 +681,10 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestSSQStatus();
 				break;
 			case 0xcb:
-				msg = new GameGuardReply();
+				msg = new SetPrivateStoreMsgBuy();
 				break;
 			case 0x6b:
 				msg = new RequestSendFriendMsg();
-				break;
-			case 0x6c:
-				msg = new RequestShowMiniMap();
 				break;
 			case 0x6d: // MSN dialogs so that you dont see them in the console.
 				break;
@@ -660,7 +707,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				switch (id2)
 				{
 				case 0x01:
-					msg = new RequestManorList();
+					//msg = new RequestManorList();
 					break;
 				case 0x02:
 					msg = new RequestProcureCropList();
@@ -744,7 +791,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 					msg = new RequestExRqItemLink();
 					break;
 				case 0x21:
-					msg = new RequestKeyMapping();
+					//msg = new RequestKeyMapping();
 					break;
 				case 0x22:
 					// TODO implement me (just disabling warnings for this packet)
