@@ -747,16 +747,16 @@ description(s) :
   <for>
     <!-- Proper stats needs to be confirmed -->
     <effect count="1" name="Buff" val="0" time="300" stackorder="120" stacktype="bodylimit">
-      <mul order="0x40" stat="pDef" val="1.08"/>
-      <mul order="0x40" stat="pAtk" val="1.08"/>
-      <mul order="0x40" stat="mDef" val="1.08"/>
-      <mul order="0x40" stat="mAtk" val="1.08"/>
+      <mul order="0x30" stat="pDef" val="1.08"/>
+      <mul order="0x30" stat="pAtk" val="1.08"/>
+      <mul order="0x30" stat="mDef" val="1.08"/>
+      <mul order="0x30" stat="mAtk" val="1.08"/>
       <add order="0x40" stat="rEvas" val="6"/>
       <add order="0x40" stat="runSpd" val="25"/>
-      <mul order="0x40" stat="pAtkSpd" val="1.08"/>
-      <mul order="0x40" stat="mAtkSpd" val="1.08"/>
-      <mul order="0x40" stat="maxHp" val="1.08"/>
-      <mul order="0x40" stat="maxMp" val="1.08"/>
+      <mul order="0x30" stat="pAtkSpd" val="1.08"/>
+      <mul order="0x30" stat="mAtkSpd" val="1.08"/>
+      <mul order="0x30" stat="maxHp" val="1.08"/>
+      <mul order="0x30" stat="maxMp" val="1.08"/>
     </effect>
   </for>
 </skill>
