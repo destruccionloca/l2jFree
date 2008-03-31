@@ -51,6 +51,7 @@ final class EffectImmobileBuff extends L2Effect
 	public boolean onActionTime()
 	{
 		// just stop this effect
+		getEffector().setIsImmobilized(false);
 		return false;
 	}
 }
