@@ -239,10 +239,6 @@ public abstract class L2Effect
 	public void setInUse(boolean inUse)
 	{
 		_inUse = inUse;
-		if (_inUse)
-			onStart();
-		else
-			onExit();
 	}
 	
 	public String getStackType()
@@ -407,6 +403,7 @@ public abstract class L2Effect
 		if (_state == EffectState.CREATED)
 		{
 			_state = EffectState.ACTING;
+			onStart();
 			
 			if (_skill.isPvpSkill())
 			{
@@ -446,7 +443,7 @@ public abstract class L2Effect
 		if (_state == EffectState.FINISHING)
 		{
 			// Cancel the effect in the the abnormal effect map of the L2Character
-			if (getInUse()) onExit();
+			onExit();
 			
 			// If the time left is equal to zero, send the message
 			if (_count == 0)
