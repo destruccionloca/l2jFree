@@ -1415,6 +1415,7 @@ public final class Config
 	public static int					ALT_BUFFER_HATE;											// Buffer Hate
 	public static int					ALT_DIFF_CUTOFF;											// No exp cutoff
 	public static boolean				SPAWN_WYVERN_MANAGER;
+	public static int					MANAGER_CRYSTAL_COUNT;
 	public static boolean				SPAWN_CLASS_MASTER;
 	public static boolean				CLASS_MASTER_STRIDER_UPDATE;
 	public static String				CLASS_MASTER_SETTINGS_LINE;
@@ -1533,6 +1534,7 @@ public final class Config
 			ALT_GAME_EXPONENT_SP = Float.parseFloat(altSettings.getProperty("AltGameExponentSp", "0."));
 			
 			SPAWN_WYVERN_MANAGER = Boolean.parseBoolean(altSettings.getProperty("SpawnWyvernManager", "True"));
+			MANAGER_CRYSTAL_COUNT = Integer.parseInt(altSettings.getProperty("ManagerCrystalCount", "10"));
 			SPAWN_CLASS_MASTER = Boolean.parseBoolean(altSettings.getProperty("SpawnClassMaster", "False"));
 			CLASS_MASTER_STRIDER_UPDATE = Boolean.parseBoolean(altSettings.getProperty("ClassMasterUpdateStrider", "False"));
 			if (!altSettings.getProperty("ConfigClassMaster").trim().equalsIgnoreCase("False"))
@@ -3233,6 +3235,8 @@ public final class Config
 		
 		else if (pName.equalsIgnoreCase("CraftingEnabled"))
 			IS_CRAFTING_ENABLED = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("ManagerCrystalCount"))
+			MANAGER_CRYSTAL_COUNT = Integer.parseInt(pValue);
 		else if (pName.equalsIgnoreCase("SpBookNeeded"))
 			SP_BOOK_NEEDED = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("LifeCrystalNeeded"))

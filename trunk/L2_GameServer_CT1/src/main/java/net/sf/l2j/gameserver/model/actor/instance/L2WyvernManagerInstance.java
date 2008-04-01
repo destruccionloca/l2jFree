@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.PetDataTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -55,7 +56,8 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
                 {
                     petItem = (L2ItemInstance)L2World.getInstance().findObject(player.getMountObjectID());
                     
-                    if (petItem!=null) petItemId=petItem.getItemId();
+                    if (petItem!=null)
+                    	petItemId=petItem.getItemId();
                 }
             }
             else 
@@ -78,29 +80,27 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
             
             // Wyvern requires 10B crystal for ride...
             if(player.getInventory().getItemByItemId(1460) != null &&
-                    player.getInventory().getItemByItemId(1460).getCount() >= 10)
+                    player.getInventory().getItemByItemId(1460).getCount() >= Config.MANAGER_CRYSTAL_COUNT)
             {
-                if(!player.disarmWeapons()) return;
-                player.getInventory().destroyItemByItemId("WyvernManager", 1460, 10, player, this);
+                if(!player.disarmWeapons())
+                	return;
+                player.getInventory().destroyItemByItemId("WyvernManager", 1460, Config.MANAGER_CRYSTAL_COUNT, player, this);
                 
                 if (player.isMounted())
-                {
-                    player.dismount();
-                }
+                	player.dismount();
                 
-                if (player.getPet() != null) player.getPet().unSummon(player);
+                if (player.getPet() != null)
+                	player.getPet().unSummon(player);
 
                 if (player.mount(12621, 0))
                 {
-                    player.getInventory().destroyItemByItemId("Wyvern", 1460, 10, player, player.getTarget());
+                    player.getInventory().destroyItemByItemId("Wyvern", 1460, Config.MANAGER_CRYSTAL_COUNT, player, player.getTarget());
                     player.addSkill(SkillTable.getInstance().getInfo(4289, 1));
                     player.sendMessage("The Wyvern has been summoned successfully!");
                 }
             }
             else
-            {
-                player.sendMessage("You need 10 Crystals: B Grade.");
-            }
+            	player.sendMessage("You need " + Config.MANAGER_CRYSTAL_COUNT + " Crystals: B Grade.");
         }
     }
 
@@ -126,14 +126,10 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
 		{
 			// Calculate the distance between the L2PcInstance and the L2NpcInstance
 			if (!canInteract(player))
-			{
 				// Notify the L2PcInstance AI with AI_INTENTION_INTERACT
 				player.getAI().setIntention(CtrlIntention.AI_INTENTION_INTERACT, this);
-			}
 			else
-			{
 				showMessageWindow(player);
-			}
 		}
 		player.sendPacket(ActionFailed.STATIC_PACKET);
 	}
@@ -153,6 +149,7 @@ public class L2WyvernManagerInstance extends L2CastleChamberlainInstance
         html.setFile(filename);
         html.replace("%objectId%", String.valueOf(getObjectId()));
         html.replace("%npcname%", getName());
+        html.replace("%count%", String.valueOf(Config.MANAGER_CRYSTAL_COUNT));
         player.sendPacket(html);
     }
 }
