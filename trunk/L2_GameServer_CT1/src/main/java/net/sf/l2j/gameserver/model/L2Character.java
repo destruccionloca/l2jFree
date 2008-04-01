@@ -6020,7 +6020,7 @@ public abstract class L2Character extends L2Object
 				else if (this instanceof L2Summon)
 					level = ((L2Summon)this).getOwner().getLevel();
 
-				if (level > target.getLevel() + 8)
+				if ((level > target.getLevel() + 8) && !Config.ALT_DISABLE_RAIDBOSS_PETRIFICATION)
 				{
 					L2Skill skill = SkillTable.getInstance().getInfo(4515, 1);
 
