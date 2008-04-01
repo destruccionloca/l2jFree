@@ -1944,23 +1944,23 @@
   </for>
 </skill>
 <skill id="483" levels="2" name="Sword Shield" enchantLevels1="30" enchantLevels2="30">
-  <!-- Needs retail value checks -->
-  <table name="#runSpd"> 0.8 0.7 </table>
-  <table name="#pDef"> 1.2 1.3 </table>
+  <!-- Needs retail value checks for lvl2-->
+  <table name="#runSpd"> 0.7 0.7 </table>
+  <table name="#pDef"> 1600 1800 </table>
   <table name="#mpConsume"> 16 24 </table>
   <set name="mpConsume" val="#mpConsume"/>
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
   <set name="operateType" val="OP_ACTIVE"/>
-  <set name="reuseDelay" val="180000"/>
+  <set name="reuseDelay" val="1800000"/>
   <set name="hitTime" val="1000"/>
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <set name="soulConsumeCount" val="2"/>
   <for>
-    <effect count="1" name="Buff" time="120" val="0" stackOrder="1" stackType="pDefSpec">
-      <mul order="0x30" stat="pDef" val="#pDef"/>
+    <effect count="1" name="Buff" time="30" val="0" stackOrder="1" stackType="pDefSpec">
+      <add order="0x30" stat="pDef" val="#pDef"/>
       <mul order="0x30" stat="runSpd" val="#runSpd"/>
     </effect>
   </for>
@@ -2318,28 +2318,25 @@
 <skill id="499" levels="3" name="Courage">
 <!--
   Description(s):
-      Lvl 1 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 1.
-      Lvl 2 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 2.
-      Lvl 3 Courage Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 3.
+     Greatly increases resistance to mental attacks. Consumes 2 soul. Effect 1-3.
 -->
-  <table name="#resistVuln"> 0.84 0.8 0.75 </table>
-  <table name="#mpConsume"> 16 22 29 </table>
+  <table name="#mpConsume"> 16 22 29</table>
+  <table name="#vuln"> 0.5 0.4 0.3</table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="hitTime" val="2400"/>
-  <set name="isMagic" val="true"/>
-  <set name="reuseDelay" val="55000"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
+  <set name="hitTime" val="2000"/>
+  <set name="reuseDelay" val="500000"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
+  <set name="effectRange" val="-1"/>
   <set name="soulConsumeCount" val="2"/>
   <for>
-    <effect count="1" name="Buff" val="0" time="1200" stackorder="1" stacktype="mental_up">
-      <mul order="0x30" stat="sleepVuln" val="#resistVuln" />
-      <mul order="0x30" stat="confusionVuln" val="#resistVuln" />
-      <mul order="0x30" stat="derangementVuln" val="#resistVuln" />
-      <mul order="0x30" stat="debuffVuln" val="#resistVuln" />
-      <mul order="0x30" stat="paralyzeVuln" val="#resistVuln"/>
+    <effect count="1" name="Buff" time="60" val="0">
+      <mul stat="rootVuln" val="#vuln" order="0x30"/>
+      <mul stat="sleepVuln" val="#vuln" order="0x30"/>
+      <mul stat="confusionVuln" val="#vuln" order="0x30"/>
+      <mul stat="derangementVuln" val="#vuln" order="0x30"/>
     </effect>
   </for>
 </skill>
