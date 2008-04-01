@@ -308,194 +308,242 @@
 </item>
 
 <item id='9458' name="Dynasty Earrings - Stun Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="stunVuln" val="0.88"/>
   </for>
 </item>
 
 <item id='9459' name="Dynasty Necklace - Stun Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="stunVuln" val="0.82"/>
   </for>
 </item>
 
 <item id='9460' name="Dynasty Ring - Stun Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="stunVuln" val="0.92"/>
   </for>
 </item>
 
 <item id='9461' name="Dynasty Earrings - Poison Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="poisonVuln" val="0.92"/>
   </for>
 </item>
 
 <item id='9462' name="Dynasty Necklace - Poison Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="poisonVuln" val="0.84"/>
   </for>
 </item>
 
 <item id='9463' name="Dynasty Ring - Poison Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="poisonVuln" val="0.93"/>
   </for>
 </item>
 
 <item id='9464' name="Dynasty Earrings - Bleeding Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="bleedVuln" val="0.92"/>
   </for>
 </item>
 
 <item id='9465' name="Dynasty Necklace - Bleeding Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="bleedVuln" val="0.89"/>
   </for>
 </item>
 
 <item id='9466' name="Dynasty Ring - Bleeding Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="bleedVuln" val="0.95"/>
   </for>
 </item>
 
 <item id='9467' name="Dynasty Earrings - Sleep Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="sleepVuln" val="0.88"/>
   </for>
 </item>
 
 <item id='9468' name="Dynasty Necklace - Sleep Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="sleepVuln" val="0.82"/>
   </for>
 </item>
 
 <item id='9469' name="Dynasty Ring - Sleep Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="sleepVuln" val="0.92"/>
   </for>
 </item>
 
 <item id='9470' name="Dynasty Earrings - Paralysis Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="paralyzeVuln" val="0.94"/>
   </for>
 </item>
 
 <item id='9471' name="Dynasty Necklace - Paralysis Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="paralyzeVuln" val="0.91"/> 
   </for>
 </item>
 
 <item id='9472' name="Dynasty Ring - Paralysis Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="paralyzeVuln" val="0.96"/>
   </for>
 </item>
 
 <item id='9473' name="Dynasty Earrings - Hold Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="rootVuln" val="0.88"/>
   </for>
 </item>
 
 <item id='9474' name="Dynasty Necklace - Hold Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="rootVuln" val="0.82"/>
   </for>
 </item>
 
 <item id='9475' name="Dynasty Ring - Hold Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="rootVuln" val="0.92"/>
   </for>
 </item>
 
 <item id='9476' name="Dynasty Earrings - Fear Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="derangementVuln" val="0.94"/>
   </for>
 </item>
 
 <item id='9477' name="Dynasty Necklace - Fear Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="derangementVuln" val="0.91"/>
   </for>
 </item>
 
 <item id='9478' name="Dynasty Ring - Fear Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="derangementVuln" val="0.96"/>
   </for>
 </item>
 
 <item id='9479' name="Dynasty Earrings - Darkness Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="darkVuln" val="0.94"/>
   </for>
 </item>
 
 <item id='9480' name="Dynasty Necklace - Darkness Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="darkVuln" val="0.93"/>
   </for>
 </item>
 
 <item id='9481' name="Dynasty Ring - Darkness Resistance">
+<!-- Done by BoDiE --> <!-- Retail verified values -->
   <for>
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
+   <mul order="0x30" stat="darkVuln" val="0.95"/>
   </for>
 </item>
 </list>
