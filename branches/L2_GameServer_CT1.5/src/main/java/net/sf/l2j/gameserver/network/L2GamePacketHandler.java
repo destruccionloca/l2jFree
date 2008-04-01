@@ -86,7 +86,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 		case AUTHED:
 			switch (opcode)
 			{
-			case 0x00:
+			case 0xaa:
 				msg = new Logout();
 				break;
 			case 0x95:
