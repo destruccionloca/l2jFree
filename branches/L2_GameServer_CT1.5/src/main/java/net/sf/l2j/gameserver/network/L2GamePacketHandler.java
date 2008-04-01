@@ -291,7 +291,6 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new CannotMoveAnymore();
 				break;
 			case 0x48:
-				msg = new RequestTargetCanceld();
 				break;
 			case 0x49:
 				break;
@@ -663,6 +662,7 @@ public final class L2GamePacketHandler extends TCPHeaderHandler<L2GameClient> im
 				msg = new RequestPledgePower();
 				break;
 			case 0xcd:
+				msg = new RequestTargetCanceld();
 				break;
 			case 0xce:
 				break;
