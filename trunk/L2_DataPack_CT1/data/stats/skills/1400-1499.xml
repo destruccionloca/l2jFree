@@ -875,27 +875,25 @@
   </for>
 </skill>
 <skill id="1435" levels="10" name="Death Mark">
-  <table name="#dmg"> 14 21 30 40 51 61 68 68 75 75 </table>
   <table name="#mpConsume"> 12 14 18 22 24 28 29 32 33 35 </table>
-  <table name="#effectLevel"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 </table>
+  <table name="#power"> 2.0 3.0 4.0 5.0 6.0 7.0 8.0 8.0 9.0 9.0 </table>
   <table name="#soulConsumeCount"> 1 1 2 2 2 2 2 2 2 2 </table>
+  <table name="#EffectLvl"> 1 2 3 4 5 6 7 8 9 10 </table>
   <set name="mpConsume" val="#mpConsume"/>
-  <set name="power" val="0.0"/>
+  <set name="power" val="#power"/>
   <set name="target" val="TARGET_ONE"/>
-  <set name="element" val="6"/> <!-- Dark -->
   <set name="lvlDepend" val="3"/>
   <set name="reuseDelay" val="8000"/>
   <set name="hitTime" val="1200"/>
-  <set name="skillType" val="DOT"/>
+  <set name="skillType" val="DEBUFF"/>
   <set name="isMagic" val="true"/>
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="600"/>
   <set name="effectRange" val="1100"/>
+  <set name="effectId" val="5264"/>
+  <set name="effectLvl" val="#EffectLvl"/>
   <set name="soulConsumeCount" val="#soulConsumeCount"/>
-  <set name="effectType" val="DEATH_MARK"/>
-  <set name="effectLevel" val="#effectLevel"/>
   <for>
-    <effect count="45" name="DamOverTime" time="1" val="#dmg"/>
   </for>
 </skill>
 <skill id="1436" levels="30" name="Soul of Pain" enchantLevels1="30" enchantLevels2="30">
@@ -1471,15 +1469,22 @@
   </for>
 </skill>
 <skill id="1457" levels="1" name="Empowering Echo">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <!-- Retail Accuracy check needed -->
+  <table name="#Tab-mAtk"> 1.55 </table>
+  <set name="mpConsume" val="145"/>
+  <set name="target" val="TARGET_SELF"/>
+  <set name="reuseDelay" val="100"/>
+  <set name="hitTime" val="4000"/>
+  <set name="skillType" val="BUFF"/>
+  <set name="isMagic" val="true"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="400"/>
+  <set name="effectRange" val="900"/>
   <for>
+    <effect count="1" name="Buff" time="3600" val="0">
+      <mul order="0x30" stat="mAtk" val="#Tab-mAtk"/>
+      <mul order="0x30" stat="MpConsumeRate" val="2"/>
+    </effect>
   </for>
 </skill>
 <skill id="1458" levels="1" name="Throne of Wind">
@@ -1654,7 +1659,8 @@
   <set name="mpConsume" val="105"/>
   <set name="power" val="224"/>
   <set name="magicLvl" val="78"/>
-  <set name="target" val="TARGET_ONE"/>
+  <set name="target" val="TARGET_AREA"/>
+  <set name="skillRadius" val="200"/>
   <set name="reuseDelay" val="300000"/>
   <set name="hitTime" val="4000"/>
   <set name="isMagic" val="true"/>
@@ -1750,18 +1756,22 @@
   </for>
 </skill>
 <skill id="1475" levels="3" name="Erase Mark">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-  Lvl 1 Cures the death mark for up to Effect 3.
-  Lvl 2 Cures death mark up to Effect 7.
-  Lvl 3 Cures the death mark for up to Effect 10.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+  <table name="#mpConsume_Init"> 4 7 11 </table>
+  <table name="#mpConsume"> 15 29 44 </table>
+  <table name="#magicLvl"> 24 46 66 </table> 
+  <table name="#power"> 3.0 7.0 10.0 </table>
+  <set name="mpInitialConsume" val="#mpConsume_Init"/>
+  <set name="mpConsume" val="#mpConsume"/>
+  <set name="magicLvl" val="#magicLvl"/>
+  <set name="power" val="#power"/>
+  <set name="target" val="TARGET_ONE"/>
+  <set name="reuseDelay" val="15000"/>
+  <set name="hitTime" val="4000"/>
+  <set name="skillType" val="NEGATE"/>
+  <set name="isMagic" val="true"/>
+  <set name="cancelEffect" val="5264"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="600"/>
   <for>
   </for>
 </skill>
