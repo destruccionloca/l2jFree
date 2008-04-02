@@ -301,6 +301,19 @@ public class MercTicketManager
     	return MERCS_MAX_PER_CASTLE[castleId-1];
     }
 
+    public boolean isTooCloseToAnotherTicket(int x, int y, int z)
+    {
+        for (L2ItemInstance item : getDroppedTickets())
+        {
+            double dx = x - item.getX();
+            double dy = y - item.getY();
+            double dz = z - item.getZ();
+
+            if ((dx*dx + dy*dy + dz*dz) < 25*25) return true;
+        }
+        return false;
+    }
+
     /**
      * addTicket actions 
      * 1) find the npc that needs to be saved in the mercenary spawns, given this item
@@ -323,21 +336,6 @@ public class MercTicketManager
         int count = 0;
         int castleId = castle.getCastleId();
 
-        // Added second check for maximum allowed siege guards. Some players found a way to bypass this
-        // Hopefully this will prevent the cheat.
-        for (L2ItemInstance t : _droppedTickets)
-        {
-        	if (getTicketCastleId(t.getItemId()) == castleId)
-        		count++;
-        }
-
-        if (count > MERCS_MAX_PER_CASTLE [ castleId - 1 ])
-        {
-        	activeChar.sendMessage("You cannot hire any more mercenaries.");
-        	return -1;
-        }
-
-        //check if this item can be added here
         for (int i = 0; i < ITEM_IDS.length; i++)
         {
             if (ITEM_IDS[i] == itemId) // Find the index of the item used

@@ -448,7 +448,7 @@ public abstract class L2Effect
 		if (_state == EffectState.FINISHING)
 		{
 			// Cancel the effect in the the abnormal effect map of the L2Character
-			if (getInUse() && !(_count > 1 || _period > 0))
+			if (getInUse() || !(_count > 1 || _period > 0))
 				onExit();
 			
 			// If the time left is equal to zero, send the message

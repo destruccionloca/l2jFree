@@ -3853,37 +3853,37 @@ public enum SystemMessageId
 	* ID: 653<br>
 	* Message: You do not have the authority to position mercenaries.
 	*/
-	NO_RIGHT_TO_POSITION_MERCS(653),
+	YOU_DO_NOT_HAVE_AUTHORITY_TO_POSITION_MERCENARIES(653),
 
 	/**
 	* ID: 654<br>
 	* Message: You do not have the authority to cancel mercenary positioning.
 	*/
-	NO_RIGHT_TO_CANCEL_MERCS(654),
+	YOU_DO_NOT_HAVE_AUTHORITY_TO_CANCEL_MERCENARY_POSITIONING(654),
 
 	/**
 	* ID: 655<br>
 	* Message: Mercenaries cannot be positioned here.
 	*/
-	MERCS_WRONG_POSITION(655),
+	MERCENARIES_CANNOT_BE_POSITIONED_HERE(655),
 
 	/**
 	* ID: 656<br>
 	* Message: This mercenary cannot be positioned anymore.
 	*/
-	MERC_CANNOT_BE_POSITIONED(656),
+	THIS_MERCENARY_CANNOT_BE_POSITIONED_ANYMORE(656),
 
 	/**
 	* ID: 657<br>
 	* Message: Positioning cannot be done here because the distance between mercenaries is too short.
 	*/
-	MERC_CANNOT_BE_POSITIONED_DISTANCE_TOO_SHORT(657),
+	POSITIONING_CANNOT_BE_DONE_BECAUSE_DISTANCE_BETWEEN_MERCENARIES_TOO_SHORT(657),
 
 	/**
 	* ID: 658<br>
 	* Message: This is not a mercenary of a castle that you own and so you cannot cancel its positioning.
 	*/
-	MERC_CANNOT_BE_CANCELED_NOT_YOUR_CASTLE(658),
+	THIS_IS_NOT_A_MERCENARY_OF_A_CASTLE_THAT_YOU_OWN_AND_SO_CANNOT_CANCEL_POSITIONING(658),
 
 	/**
 	* ID: 659<br>
