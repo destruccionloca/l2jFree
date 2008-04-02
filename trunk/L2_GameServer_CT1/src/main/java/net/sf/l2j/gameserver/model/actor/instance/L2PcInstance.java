@@ -259,6 +259,7 @@ public final class L2PcInstance extends L2PlayableInstance
     // Character Character SQL String Definitions:
     private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=? WHERE obj_id=?";
     private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level FROM characters WHERE obj_id=?";
+    private static double _restoredHp = -1;
 
     // Character Subclass SQL String Definitions:
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
@@ -6126,6 +6127,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.getStatus().setCurrentCp(rset.getDouble("curCp"));
                 currentMp = rset.getDouble("curMp");
                 player.getStatus().setCurrentMp(rset.getDouble("curMp"));
+                _restoredHp = currentHp;
 
                 if (currentHp < 0.5)
                 {
@@ -7095,6 +7097,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
         updateEffectIcons();
         checkIfWeaponIsAllowed();
+
+        getStatus().setCurrentHp(_restoredHp);
     }
 
     /**
