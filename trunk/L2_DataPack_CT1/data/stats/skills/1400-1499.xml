@@ -1483,7 +1483,7 @@
   <for>
     <effect count="1" name="Buff" time="3600" val="0">
       <mul order="0x30" stat="mAtk" val="#Tab-mAtk"/>
-      <mul order="0x30" stat="MpConsumeRate" val="2"/>
+      <mul order="0x30" stat="MagicalMpConsumeRate" val="2"/>
     </effect>
   </for>
 </skill>
