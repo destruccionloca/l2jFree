@@ -78,6 +78,15 @@ public class RequestEnchantItem extends L2GameClientPacket
             activeChar.sendMessage("Enchanting items is not allowed during restart/shutdown.");
             return;
         }
+
+        // Restrict enchant during a trade (bug if enchant fails)
+        if (activeChar.getActiveRequester() != null)
+        {
+        	// Cancel trade
+        	activeChar.cancelActiveTrade();
+        	activeChar.sendMessage("Enchanting items is not allowed during a trade.");
+        	return;
+        }
         
         L2ItemInstance item = activeChar.getInventory().getItemByObjectId(_objectId);
         L2ItemInstance scroll = activeChar.getActiveEnchantItem();
