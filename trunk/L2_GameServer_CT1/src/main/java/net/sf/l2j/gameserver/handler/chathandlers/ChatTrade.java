@@ -36,7 +36,7 @@ public class ChatTrade implements IChatHandler
 	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Market };
 
 	/**
-	 * @see de.dc.l2j.gameserver.handler.IChatHandler#getChatType()
+	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatType()
 	 */
 	public SystemChatChannelId[] getChatTypes()
 	{
@@ -44,7 +44,7 @@ public class ChatTrade implements IChatHandler
 	}
 
 	/**
-	 * @see de.dc.l2j.gameserver.handler.IChatHandler#useChatHandler(de.dc.l2j.gameserver.character.player.L2PcInstance, java.lang.String, de.dc.l2j.gameserver.network.enums.SystemChatChannelId, java.lang.String)
+	 * @see net.sf.l2j.gameserver.handler.IChatHandler#useChatHandler(net.sf.l2j.gameserver.character.player.L2PcInstance, java.lang.String, net.sf.l2j.gameserver.network.enums.SystemChatChannelId, java.lang.String)
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{

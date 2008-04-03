@@ -33,7 +33,7 @@ public class ChatHero implements IChatHandler
 	private SystemChatChannelId[] _chatTypes = { SystemChatChannelId.Chat_Hero };
 
 	/**
-	 * @see de.dc.l2j.gameserver.handler.IChatHandler#getChatTypes()
+	 * @see net.sf.l2j.gameserver.handler.IChatHandler#getChatTypes()
 	 */
 	public SystemChatChannelId[] getChatTypes()
 	{
@@ -41,7 +41,7 @@ public class ChatHero implements IChatHandler
 	}
 
 	/**
-	 * @see de.dc.l2j.gameserver.handler.IChatHandler#useChatHandler(de.dc.l2j.gameserver.character.player.L2PcInstance, java.lang.String, de.dc.l2j.gameserver.network.enums.SystemChatChannelId, java.lang.String)
+	 * @see net.sf.l2j.gameserver.handler.IChatHandler#useChatHandler(net.sf.l2j.gameserver.character.player.L2PcInstance, java.lang.String, net.sf.l2j.gameserver.network.enums.SystemChatChannelId, java.lang.String)
 	 */
 	public void useChatHandler(L2PcInstance activeChar, String target, SystemChatChannelId chatType, String text)
 	{
