@@ -313,7 +313,7 @@
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="stunVuln" val="12"/>
+   <sub order="0x40" stat="stunVuln" val="12"/>
   </for>
 </item>
 
@@ -323,7 +323,7 @@
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="stunVuln" val="18"/>
+   <sub order="0x40" stat="stunVuln" val="18"/>
   </for>
 </item>
 
@@ -333,7 +333,7 @@
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="stunVuln" val="8"/>
+   <sub order="0x40" stat="stunVuln" val="8"/>
   </for>
 </item>
 
@@ -343,7 +343,7 @@
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="poisonVuln" val="8"/>
+   <sub order="0x40" stat="poisonVuln" val="8"/>
   </for>
 </item>
 
@@ -353,7 +353,7 @@
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="poisonVuln" val="16"/>
+   <sub order="0x40" stat="poisonVuln" val="16"/>
   </for>
 </item>
 
@@ -363,7 +363,7 @@
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="poisonVuln" val="7"/>
+   <sub order="0x40" stat="poisonVuln" val="7"/>
   </for>
 </item>
 
@@ -373,7 +373,7 @@
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="bleedVuln" val="8"/>
+   <sub order="0x40" stat="bleedVuln" val="8"/>
   </for>
 </item>
 
@@ -383,7 +383,7 @@
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="bleedVuln" val="11"/>
+   <sub order="0x40" stat="bleedVuln" val="11"/>
   </for>
 </item>
 
@@ -393,7 +393,7 @@
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="bleedVuln" val="5"/>
+   <sub order="0x40" stat="bleedVuln" val="5"/>
   </for>
 </item>
 
@@ -403,7 +403,7 @@
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="sleepVuln" val="12"/>
+   <sub order="0x40" stat="sleepVuln" val="12"/>
   </for>
 </item>
 
@@ -413,7 +413,7 @@
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="sleepVuln" val="18"/>
+   <sub order="0x40" stat="sleepVuln" val="18"/>
   </for>
 </item>
 
@@ -423,7 +423,7 @@
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="sleepVuln" val="8"/>
+   <sub order="0x40" stat="sleepVuln" val="8"/>
   </for>
 </item>
 
@@ -433,7 +433,7 @@
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="paralyzeVuln" val="6"/>
+   <sub order="0x40" stat="paralyzeVuln" val="6"/>
   </for>
 </item>
 
@@ -443,7 +443,7 @@
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="paralyzeVuln" val="9"/> 
+   <sub order="0x40" stat="paralyzeVuln" val="9"/> 
   </for>
 </item>
 
@@ -453,7 +453,7 @@
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="paralyzeVuln" val="4"/>
+   <sub order="0x40" stat="paralyzeVuln" val="4"/>
   </for>
 </item>
 
@@ -463,7 +463,7 @@
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="rootVuln" val="12"/>
+   <sub order="0x40" stat="rootVuln" val="12"/>
   </for>
 </item>
 
@@ -473,7 +473,7 @@
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="rootVuln" val="18"/>
+   <sub order="0x40" stat="rootVuln" val="18"/>
   </for>
 </item>
 
@@ -483,7 +483,7 @@
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="rootVuln" val="8"/>
+   <sub order="0x40" stat="rootVuln" val="8"/>
   </for>
 </item>
 
@@ -493,7 +493,7 @@
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="derangementVuln" val="6"/>
+   <sub order="0x40" stat="derangementVuln" val="6"/>
   </for>
 </item>
 
@@ -503,7 +503,7 @@
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="derangementVuln" val="9"/>
+   <sub order="0x40" stat="derangementVuln" val="9"/>
   </for>
 </item>
 
@@ -513,7 +513,7 @@
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="derangementVuln" val="4"/>
+   <sub order="0x40" stat="derangementVuln" val="4"/>
   </for>
 </item>
 
@@ -523,7 +523,7 @@
    <add val='27' order='0x10' stat='mDef'/>
    <add val='35' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="darkVuln" val="6"/>
+   <sub order="0x40" stat="darkVuln" val="6"/>
   </for>
 </item>
 
@@ -533,7 +533,7 @@
    <add val='36' order='0x10' stat='mDef'/>
    <add val='46' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="darkVuln" val="7"/>
+   <sub order="0x40" stat="darkVuln" val="7"/>
   </for>
 </item>
 
@@ -543,7 +543,7 @@
    <add val='18' order='0x10' stat='mDef'/>
    <add val='23' order='0x10' stat='maxMp'/>
    <enchant val='0' order='0x0C' stat='mDef'/>
-   <add order="0x40" stat="darkVuln" val="5"/>
+   <sub order="0x40" stat="darkVuln" val="5"/>
   </for>
 </item>
 </list>
