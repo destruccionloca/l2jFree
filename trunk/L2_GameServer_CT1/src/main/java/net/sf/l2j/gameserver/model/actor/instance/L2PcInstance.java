@@ -7696,7 +7696,7 @@ public final class L2PcInstance extends L2PlayableInstance
             return;
         }
 
-        if(skill.getSkillType() == SkillType.TRANSFORM)
+        if(skill.getTransformId() > 0)
         {
             boolean found = false;
             L2Effect al2effect[] = getAllEffects();
@@ -7704,7 +7704,7 @@ public final class L2PcInstance extends L2PlayableInstance
             for(int k = al2effect.length; i < k; i++)
             {
                 L2Effect ef = al2effect[i];
-                if(ef.getEffectType() == EffectType.TRANSFORM)
+                if(ef.getEffectType() == EffectType.TRANSFORMATION)
                     found = true;
             }
 
