@@ -16,7 +16,7 @@ class Quest (JQuest):
 
   def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
-  def onEvent (self,event,st) :
+  def onAdvEvent (self,event,npc,player):
     if event == "Close_Door1" :
        DoorTable.getInstance().getDoor(19160001).closeMe()
     elif event == "Close_Door2" :
@@ -29,31 +29,30 @@ class Quest (JQuest):
     npcId = npc.getNpcId()
     htmltext = ""
     if npcId == 32034 :
-      for item in [8064,8065,8067] :
-        if not st.getQuestItemsCount(item):
-          return "<html><body>The Temple Gatekeeper:<br>You have nothing that would cover the holes.<br>(You must have a Visitor's Mark, a Faded Visitor's Mark, or a Pagan's Mark in order to open this door.)</body></html>"
+      if st.getQuestItemsCount(8064) == 0 and st.getQuestItemsCount(8065) == 0 and st.getQuestItemsCount(8067) == 0:
+        return "<html><body>The Temple Gatekeeper:<br>You have nothing that would cover the holes.<br>(You must have a Visitor's Mark, a Faded Visitor's Mark, or a Pagan's Mark in order to open this door.)</body></html>"
       if st.getQuestItemsCount(8064) :
-         st.takeItems(8064,1) # TODO: this part must happen when u walk through doors >.<
-         st.giveItems(8065,1)
+        st.takeItems(8064,1) # TODO: this part must happen when u walk through doors >.<
+        st.giveItems(8065,1)
       htmltext = "FadedMark.htm"
       DoorTable.getInstance().getDoor(19160001).openMe()
-      self.startQuestTimer("Close_Door1",10000,none,none)
+      self.startQuestTimer("Close_Door1",10000,npc,None)
     elif npcId == 32035:
       DoorTable.getInstance().getDoor(19160001).openMe()
-      self.startQuestTimer("Close_Door1",10000,none,none)
+      self.startQuestTimer("Close_Door1",10000,npc,None)
       htmltext = "FadedMark.htm"
     elif npcId == 32036:
       if not st.getQuestItemsCount(8067) :
         htmltext = "<html><body>The Temple Gatekeeper:<br>Show your Mark or be gone from my sight!<br>Only those who possess the Pagan's Mark may pass through this gate!</body></html>"
       else:
         htmltext = "<html><body>The Temple Gatekeeper:<br>On seeing the Pagan's Mark, the statue's probing eyes go blank.<br>With the quiet whir of an engine, the gate swings open...</body></html>"
-        self.startQuestTimer("Close_Door2",10000,none,none)
+        self.startQuestTimer("Close_Door2",10000,npc,None)
         DoorTable.getInstance().getDoor(19160010).openMe()
         DoorTable.getInstance().getDoor(19160010).openMe()
     elif npcId == 32037:
       DoorTable.getInstance().getDoor(19160010).openMe()
       DoorTable.getInstance().getDoor(19160010).openMe()
-      self.startQuestTimer("Close_Door2",10000,none,none)
+      self.startQuestTimer("Close_Door2",10000,npc,None)
       htmltext = "FadedMark.htm"
     else :
       if npcId == 32039 :
