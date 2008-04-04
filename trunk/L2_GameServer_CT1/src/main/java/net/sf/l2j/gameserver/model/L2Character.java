@@ -3160,7 +3160,7 @@ public abstract class L2Character extends L2Object
 							|| newEffect.getEffectType() == L2Effect.EffectType.BUFF)
 					{
 						// renew buffs, exit old (could consider only reschedule and stop new but then effector would be wrong)
-						_effects.get(i).exit();
+						// _effects.get(i).exit(); // why exit ? they stack anyhow...
 					}
 					else
 					{
