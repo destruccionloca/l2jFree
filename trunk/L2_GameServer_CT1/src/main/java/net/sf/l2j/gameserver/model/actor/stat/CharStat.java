@@ -555,6 +555,42 @@ public class CharStat
         return calcStat(Stats.PDEF_UNDEAD, 1, target, null);
     }
 
+    /** Return the PDef Modifier against animals. */
+    public final double getPDefAnimals(L2Character target)
+    {
+        return calcStat(Stats.PDEF_ANIMALS, 1, target, null);
+    }
+
+    /** Return the PDef Modifier against dragons. */
+    public final double getPDefDragons(L2Character target)
+    {
+        return calcStat(Stats.PDEF_DRAGONS, 1, target, null);
+    }
+
+    /** Return the PDef Modifier against insects. */
+    public final double getPDefInsects(L2Character target)
+    {
+        return calcStat(Stats.PDEF_INSECTS, 1, target, null);
+    }
+
+    /** Return the PDef Modifier against monsters. */
+    public final double getPDefMonsters(L2Character target)
+    {
+        return calcStat(Stats.PDEF_MONSTERS, 1, target, null);
+    }
+
+    /** Return the PDef Modifier against plants. */
+    public final double getPDefPlants(L2Character target)
+    {
+        return calcStat(Stats.PDEF_PLANTS, 1, target, null);
+    }
+
+    /** Return the PDef Modifier against giants. */
+    public final double getPDefGiants(L2Character target)
+    {
+        return calcStat(Stats.PDEF_GIANTS, 1, target, null);
+    }
+
     /** Return the PDef (base+modifier) of the L2Character. */
     public int getPDef(L2Character target)
     {
@@ -607,9 +643,15 @@ public class CharStat
             return val;
         }
         // TODO: check if sharks/fish should be affected ;)
-        if (_activeChar.isInsideZone(L2Zone.FLAG_WATER)) val *= 0.5;
+        if (_activeChar.isInsideZone(L2Zone.FLAG_WATER))
+            val /= 2;
 
         val /= _activeChar.getArmourExpertisePenalty();
+
+        // Apply max run speed cap.
+        if (val > Config.MAX_RUN_SPEED)
+            val = Config.MAX_RUN_SPEED;
+
         return val;
     }
 

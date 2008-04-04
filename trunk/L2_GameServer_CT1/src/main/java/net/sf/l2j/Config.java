@@ -1342,8 +1342,9 @@ public final class Config
 	public static int					ALT_MINIMUM_FALL_HEIGHT;									// Minimum Height(Z) that a character needs to fall, in
 	// order for it to be considered a fall.
 	public static boolean				ALT_DISABLE_RAIDBOSS_PETRIFICATION;							// Disable Raidboss Petrification
-	public static int					ALT_PCRITICAL_CAP;											// Critical Cap
-	public static int					ALT_MCRITICAL_CAP;											// Critical Cap
+	public static int					ALT_PCRITICAL_CAP;											// PCritical Cap
+	public static int					ALT_MCRITICAL_CAP;											// MCritical Cap
+	public static int					MAX_RUN_SPEED;												// Runspeed limit
 	public static float					ALT_MCRIT_RATE;
 	public static boolean				ALT_GAME_SKILL_LEARN;										// Alternative game skill learning
 	public static boolean				ALT_GAME_CANCEL_BOW;										// Cancel attack bow by hit
@@ -1608,6 +1609,7 @@ public final class Config
 			ALT_DISABLE_RAIDBOSS_PETRIFICATION = Boolean.parseBoolean(altSettings.getProperty("DisableRaidBossPetrification", "false"));
 			ALT_PCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltPCriticalCap", "500"));
 			ALT_MCRITICAL_CAP = Integer.parseInt(altSettings.getProperty("AltMCriticalCap", "300"));
+			MAX_RUN_SPEED = Integer.parseInt(altSettings.getProperty("MaxRunSpeed", "250"));
 			ALT_MCRIT_RATE = Float.parseFloat(altSettings.getProperty("AltMCritRate","4.0"));
 
 			ALT_OLY_START_TIME = Integer.parseInt(altSettings.getProperty("AltOlyStartTime", "18"));

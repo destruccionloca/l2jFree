@@ -42,7 +42,6 @@ import net.sf.l2j.gameserver.skills.conditions.ConditionUsingItemType;
 import net.sf.l2j.gameserver.skills.conditions.ConditionPlayerState.CheckPlayerState;
 import net.sf.l2j.gameserver.skills.funcs.Func;
 import net.sf.l2j.gameserver.templates.L2Armor;
-import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 import net.sf.l2j.gameserver.templates.L2PcTemplate;
 import net.sf.l2j.gameserver.templates.L2Weapon;
 import net.sf.l2j.gameserver.templates.L2WeaponType;
@@ -1336,12 +1335,9 @@ public final class Formulas
 
         if (attacker instanceof L2NpcInstance)
         {
-            //Skill Race : Undead
-            if (((L2NpcInstance)attacker).getTemplate().getRace() == L2NpcTemplate.Race.UNDEAD)
-                damage /= attacker.getStat().getPDefUndead(target);
             //Skill Valakas
-            if (((L2NpcInstance)attacker).getTemplate().getIdTemplate() == 12899)  damage /= attacker.getStat().getPDefValakas(target); 
-            
+            if (((L2NpcInstance)attacker).getTemplate().getIdTemplate() == 29028)
+                damage /= target.getStat().getPDefValakas(attacker);
         }
         if (target instanceof L2NpcInstance)
         {
@@ -1372,8 +1368,39 @@ public final class Formulas
                     // nothing
                     break;
             }
+        }
+        if (attacker instanceof L2NpcInstance)
+        {
+            switch (((L2NpcInstance) target).getTemplate().getRace())
+            {
+                case UNDEAD:
+                    damage /= target.getStat().getPDefUndead(attacker);
+                    break;
+                case BEAST:
+                    damage /= target.getStat().getPDefMonsters(attacker);
+                    break;
+                case ANIMAL:
+                    damage /= target.getStat().getPDefAnimals(attacker);
+                    break;
+                case PLANT:
+                    damage /= target.getStat().getPDefPlants(attacker);
+                    break;
+                case DRAGON:
+                    damage /= target.getStat().getPDefDragons(attacker);
+                    break;
+                case BUG:
+                    damage /= target.getStat().getPDefInsects(attacker);
+                    break;
+                case GIANT:
+                    damage /= target.getStat().getPDefGiants(attacker);
+                    break;
+                default:
+                    // nothing
+                    break;
+            }
             //Skill Valakas
-            if ( ((L2NpcInstance) target).getTemplate().getIdTemplate() == 12899) damage *= attacker.getStat().getPAtkValakas(target); 
+            if (((L2NpcInstance) target).getTemplate().getIdTemplate() == 29028)
+                damage *= attacker.getStat().getPAtkValakas(target);
         }
         
         if (skill != null) 

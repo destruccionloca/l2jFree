@@ -120,7 +120,7 @@ public class Seed implements IItemHandler
         {
             //FIXME: get right skill level
             _target.setSeeded(_seedId, _activeChar);
-            L2Skill skill = SkillTable.getInstance().getInfo(2097, 3); //sowing skill
+            L2Skill skill = SkillTable.getInstance().getInfo(2097, 3); // Sowing skill
             _activeChar.useMagic(skill,false,false);
         }
         else

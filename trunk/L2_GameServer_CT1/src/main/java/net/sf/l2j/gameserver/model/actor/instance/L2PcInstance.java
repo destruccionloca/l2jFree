@@ -3981,11 +3981,22 @@ public final class L2PcInstance extends L2PlayableInstance
      * @param newTarget The L2Object to target
      *
      */
-    @Override
-    public void setTarget(L2Object newTarget)
-    {
-        // Check if the new target is visible
-        if (newTarget != null && !newTarget.isVisible()) newTarget = null;
+	@Override
+	public void setTarget(L2Object newTarget)
+	{
+		
+		if(newTarget!=null)
+		{
+			boolean isParty = (((newTarget instanceof L2PcInstance) && isInParty() && getParty().getPartyMembers().contains(newTarget)));
+		
+			// Check if the new target is visible
+			if (!isParty && !newTarget.isVisible())
+				newTarget = null;
+
+			// Prevents /target exploiting
+			if (newTarget != null && !isParty && Math.abs(newTarget.getZ() - getZ()) > 1000)
+				newTarget = null;
+		}
 
 		if(!isGM())
 		{
@@ -4003,11 +4014,6 @@ public final class L2PcInstance extends L2PlayableInstance
 					newTarget = null;
 			}
 		}
- 
-        // Prevents /target exploiting
-        //if (newTarget != null && !GeoData.getInstance().canSeeTarget(this, newTarget))
-        if (newTarget != null && Math.abs(newTarget.getZ() - getZ()) > 1000)
-             newTarget = null;
 
         // Get the current target
         L2Object oldTarget = getTarget();
