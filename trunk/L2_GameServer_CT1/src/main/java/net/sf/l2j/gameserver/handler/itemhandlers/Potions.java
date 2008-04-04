@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.itemhandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -144,6 +145,19 @@ public class Potions implements IItemHandler
 
 		switch (itemId)
 		{
+		// Mana potions
+		case 726: // mana drug, xml: 2003
+			if (!Config.ALT_MANA_POTIONS)
+				return;
+			res = usePotion(activeChar, 2003, 1); // configurable through xml
+			break;
+		// till handler implemented
+		case 728: // mana_potion, xml: 2005
+			if (!Config.ALT_MANA_POTIONS)
+				return;
+			res = usePotion(activeChar, 2005, 1);
+			break;
+
 		// Healing and speed potions
 		case 65: // red_potion, xml: 2001
 			if (!isUseable(activeChar, item, 2001))

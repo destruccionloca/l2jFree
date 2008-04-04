@@ -1486,6 +1486,7 @@ public final class Config
 	public static float					RIFT_BOSS_ROOM_TIME_MUTIPLY;								// Time multiplier for boss room
 
 	public static boolean				ALT_ITEM_SKILLS_NOT_INFLUENCED;
+	public static boolean				ALT_MANA_POTIONS;
 
 	// *******************************************************************************************
 	// *******************************************************************************************
@@ -1662,6 +1663,8 @@ public final class Config
 			RIFT_ENTER_COST_COMMANDER = Integer.parseInt(altSettings.getProperty("CommanderCost", "30"));
 			RIFT_ENTER_COST_HERO = Integer.parseInt(altSettings.getProperty("HeroCost", "33"));
 			RIFT_BOSS_ROOM_TIME_MUTIPLY = Float.parseFloat(altSettings.getProperty("BossRoomTimeMultiply", "1.5"));
+
+			ALT_MANA_POTIONS = Boolean.parseBoolean(altSettings.getProperty("AllowManaPotions", "false"));
 		}
 		catch (Exception e)
 		{
@@ -3292,6 +3295,8 @@ public final class Config
 			CASTLE_CROWN = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("CastleCircletsRestriction"))
 			CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AllowManaPotions"))
+			ALT_MANA_POTIONS = Boolean.parseBoolean(pValue);
 
 		// PvP settings
 		else if (pName.equalsIgnoreCase("MinKarma"))
