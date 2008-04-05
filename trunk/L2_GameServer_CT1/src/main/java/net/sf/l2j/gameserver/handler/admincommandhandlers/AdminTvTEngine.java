@@ -75,12 +75,12 @@ public class AdminTvTEngine implements IAdminCommandHandler
 			showMainPage(activeChar);
 		else if (command.startsWith("admin_tvt_name "))
 		{
-			TvT._eventName = command.substring(15);
+			TvT._eventName = command.substring(255);
 			showMainPage(activeChar);
 		}
 		else if (command.startsWith("admin_tvt_desc "))
 		{
-			TvT._eventDesc = command.substring(15);
+			TvT._eventDesc = command.substring(255);
 			showMainPage(activeChar);
 		}
 		else if (command.startsWith("admin_tvt_minlvl "))
