@@ -88,15 +88,20 @@ public class TvT
 					  _maxPlayers = 0,
   					  _playerWon = 0;					  
 
-	public static void AnnounceToPlayers(String announce)
+	public static void AnnounceToPlayers(Boolean toall,String announce)
 	{
-		CreatureSay cs = new CreatureSay(0, 2, "", "Announcements : " + announce);
-		if (_players!=null && !_players.isEmpty())
+		if(toall)
+			Announcements.getInstance().announceToAll(announce);
+		else
 		{
-			for (L2PcInstance player: _players)
+			CreatureSay cs = new CreatureSay(0, 2, "", "Announcements : " + announce);
+			if (_players!=null && !_players.isEmpty())
 			{
-				if (player != null && player.isOnline()!=0)
-					player.sendPacket(cs);
+				for (L2PcInstance player: _players)
+				{
+					if (player != null && player.isOnline()!=0)
+						player.sendPacket(cs);
+				}
 			}
 		}
 	}
@@ -280,10 +285,10 @@ public class TvT
 		
 		_joining = true;
 		spawnEventNpc(activeChar);
-		Announcements.getInstance().announceToAll(_eventName + " (TvT)!");
-		Announcements.getInstance().announceToAll("Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
-		Announcements.getInstance().announceToAll("Recruiting levels " + _minlvl + " to " + _maxlvl);
-		Announcements.getInstance().announceToAll("Joinable in " + _joiningLocationName + "!");
+		AnnounceToPlayers(true,_eventName + " (TvT)!");
+		AnnounceToPlayers(true,"Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		AnnounceToPlayers(true,"Recruiting levels " + _minlvl + " to " + _maxlvl);
+		AnnounceToPlayers(true,"Joinable in " + _joiningLocationName + "!");
 	}
 
 	public static void startJoin()
@@ -297,8 +302,8 @@ public class TvT
 		
 		_joining = true;
 		spawnEventNpc();
-		Announcements.getInstance().announceToAll("Recruiting levels " + _minlvl + " to " + _maxlvl);
-		Announcements.getInstance().announceToAll("Joinable in " + _joiningLocationName + "!");
+		AnnounceToPlayers(true,"Recruiting levels " + _minlvl + " to " + _maxlvl);
+		AnnounceToPlayers(true,"Joinable in " + _joiningLocationName + "!");
 	}
 
 	public static boolean startAutoJoin()
@@ -311,10 +316,10 @@ public class TvT
 		
 		_joining = true;
 		spawnEventNpc();
-		Announcements.getInstance().announceToAll(_eventName + " (TvT)!");
-		Announcements.getInstance().announceToAll("Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
-		Announcements.getInstance().announceToAll("Recruiting levels " + _minlvl + " to " + _maxlvl);
-		Announcements.getInstance().announceToAll("Joinable in " + _joiningLocationName + "!");
+		AnnounceToPlayers(true,_eventName + " (TvT)!");
+		AnnounceToPlayers(true,"Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		AnnounceToPlayers(true,"Recruiting levels " + _minlvl + " to " + _maxlvl);
+		AnnounceToPlayers(true,"Joinable in " + _joiningLocationName + "!");
 		return true;
 	}
 
@@ -407,12 +412,12 @@ public class TvT
 		}
 		else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && !checkMinPlayers(_playersShuffle.size()))
 		{
-			Announcements.getInstance().announceToAll("Not enough players for event. Min Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
+			AnnounceToPlayers(true,"Not enough players for event. Min Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
 			return;
 		}
 		
 		_joining = false;
-		AnnounceToPlayers(_eventName + "(TvT): Teleport to team spot in 20 seconds!");
+		AnnounceToPlayers(false,_eventName + "(TvT): Teleport to team spot in 20 seconds!");
 
 		setUserData();
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
@@ -474,12 +479,12 @@ public class TvT
 		}
 		else if (Config.TVT_EVEN_TEAMS.equals("SHUFFLE") && !checkMinPlayers(_playersShuffle.size()))
 		{
-			Announcements.getInstance().announceToAll("Not enough players for event. Min Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
+			AnnounceToPlayers(true,"Not enough players for event. Min Requested : " + _minPlayers +", Participating : " + _playersShuffle.size());
 			return false;
 		}
 		
 		_joining = false;
-		AnnounceToPlayers(_eventName + "(TvT): Teleport to team spot in 20 seconds!");
+		AnnounceToPlayers(false,_eventName + "(TvT): Teleport to team spot in 20 seconds!");
 
 		setUserData();
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
@@ -540,7 +545,7 @@ public class TvT
 		
 		_teleport = false;
 		sit();
-		AnnounceToPlayers(_eventName + "(TvT): Started. Go to kill your enemies!");
+		AnnounceToPlayers(false,_eventName + "(TvT): Started. Go to kill your enemies!");
 		_started = true;
 	}
 
@@ -564,7 +569,7 @@ public class TvT
 		
 		_teleport = false;
 		sit();
-		AnnounceToPlayers(_eventName + "(TvT): Started. Go to kill your enemies!");
+		AnnounceToPlayers(false,_eventName + "(TvT): Started. Go to kill your enemies!");
 		_started = true;
 		return true;
 	}
@@ -611,12 +616,12 @@ public class TvT
 					case 3600: // 1 hour left
 						if (_joining)
 						{
-							Announcements.getInstance().announceToAll("(TvT): Joinable in " + _joiningLocationName + "!");
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 / 60 + " hour(s) till registration ends!");
+							AnnounceToPlayers(true,"(TvT): Joinable in " + _joiningLocationName + "!");
+							AnnounceToPlayers(true,"TvT Event: " + seconds / 60 / 60 + " hour(s) till registration ends!");
 							
 						}
 						else if (_started)
-							AnnounceToPlayers("TvT Event: " + seconds / 60 / 60 + " hour(s) till event ends!");
+							AnnounceToPlayers(false,"TvT Event: " + seconds / 60 / 60 + " hour(s) till event ends!");
 
 						break;
 					case 1800: // 30 minutes left
@@ -627,11 +632,11 @@ public class TvT
 						if (_joining)
 						{
 							removeOfflinePlayers();
-							Announcements.getInstance().announceToAll("(TvT): Joinable in " + _joiningLocationName + "!");
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds / 60 + " minute(s) till registration ends!");
+							AnnounceToPlayers(true,"(TvT): Joinable in " + _joiningLocationName + "!");
+							AnnounceToPlayers(true,"TvT Event: " + seconds / 60 + " minute(s) till registration ends!");
 						}
 						else if (_started)
-							AnnounceToPlayers("TvT Event: " + seconds / 60 + " minute(s) till event ends!");
+							AnnounceToPlayers(false,"TvT Event: " + seconds / 60 + " minute(s) till event ends!");
 						
 						break;
 					case 30: // 30 seconds left
@@ -640,11 +645,11 @@ public class TvT
 					case 2: // 2 seconds left
 					case 1: // 1 seconds left
 						if (_joining)
-							Announcements.getInstance().announceToAll("TvT Event: " + seconds + " second(s) till registration ends!");
+							AnnounceToPlayers(true,"TvT Event: " + seconds + " second(s) till registration ends!");
 						else if (_teleport)
-							AnnounceToPlayers("TvT Event: " + seconds + " seconds(s) till fight starts!");
+							AnnounceToPlayers(false,"TvT Event: " + seconds + " seconds(s) till fight starts!");
 						else if (_started)
-							AnnounceToPlayers("TvT Event: " + seconds + " second(s) till event ends!");
+							AnnounceToPlayers(false,"TvT Event: " + seconds + " second(s) till event ends!");
 						
 						break;
 				}
@@ -753,21 +758,21 @@ public class TvT
 		processTopTeam();
 
 		if (_topKills == 0)
-			Announcements.getInstance().announceToAll(_eventName + "(TvT): No team wins the match(nobody killed).");
+			AnnounceToPlayers(true,_eventName + "(TvT): No team wins the match(nobody killed).");
 		else
 		{
-			Announcements.getInstance().announceToAll(_eventName + "(TvT): " + _topTeam + "'s win the match! " + _topKills + " kills.");
+			AnnounceToPlayers(true,_eventName + "(TvT): " + _topTeam + "'s win the match! " + _topKills + " kills.");
 			rewardTeam(_topTeam);
 			playKneelAnimation(_topTeam);
 		}
 		
 		if(Config.TVT_ANNOUNCE_TEAM_STATS)
 		{
-			Announcements.getInstance().announceToAll(_eventName + " Team Statistics:");
+			AnnounceToPlayers(true,_eventName + " Team Statistics:");
 			for (String team : _teams)
 			{
 				int _kills = teamKillsCount(team);
-				Announcements.getInstance().announceToAll("Team: " + team + " - Kills: " + _kills);
+				AnnounceToPlayers(true,"Team: " + team + " - Kills: " + _kills);
 			}
 		}
 
@@ -848,14 +853,14 @@ public class TvT
 			unspawnEventNpc();
 			cleanTvT();
 			_joining = false;
-			Announcements.getInstance().announceToAll(_eventName + "(TvT): Match aborted!");
+			AnnounceToPlayers(true,_eventName + "(TvT): Match aborted!");
 			return;
 		}
 		_joining = false;
 		_teleport = false;
 		_started = false;
 		unspawnEventNpc();
-		Announcements.getInstance().announceToAll(_eventName + "(TvT): Match aborted!");
+		AnnounceToPlayers(true,_eventName + "(TvT): Match aborted!");
 		teleportFinish();
 	}
 
@@ -1528,7 +1533,7 @@ public class TvT
 
 	public static void teleportFinish()
 	{
-		AnnounceToPlayers(_eventName + "(TvT): Teleport back to participation NPC in 20 seconds!");
+		AnnounceToPlayers(false,_eventName + "(TvT): Teleport back to participation NPC in 20 seconds!");
 
 		ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
 		{
