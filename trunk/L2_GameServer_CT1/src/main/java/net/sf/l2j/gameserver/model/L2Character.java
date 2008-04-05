@@ -3150,7 +3150,7 @@ public abstract class L2Character extends L2Object
 			L2Effect tempEffect, tempEffect2;
 
 			// Check for same effects
-			for (int i=0; i<_effects.size(); i++)
+			for (int i = 0; i < _effects.size(); i++)
 			{
 				if (_effects.get(i).getSkill().getId() == newEffect.getSkill().getId()
 						&& _effects.get(i).getEffectType() == newEffect.getEffectType()
@@ -3160,7 +3160,8 @@ public abstract class L2Character extends L2Object
 							|| newEffect.getEffectType() == L2Effect.EffectType.BUFF)
 					{
 						// renew buffs, exit old (could consider only reschedule and stop new but then effector would be wrong)
-						// _effects.get(i).exit(); // why exit ? they stack anyhow...
+						newEffect.stopEffectTask();
+						_effects.get(i).rescheduleEffect();
 					}
 					else
 					{
@@ -3195,7 +3196,7 @@ public abstract class L2Character extends L2Object
 			if (!newEffect.getSkill().isToggle())
 			{
 				int pos=0;
-				for (int i=0; i<_effects.size(); i++)
+				for (int i = 0; i < _effects.size(); i++)
 				{
 					if (_effects.get(i) != null)
 					{
