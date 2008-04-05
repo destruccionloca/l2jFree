@@ -1785,9 +1785,11 @@ public class CTF
 	{
 		try
 		{
-			if(_playersShuffle== null || _playersShuffle.isEmpty())
+			if(_playersShuffle == null)
 				return;
-			if(_playersShuffle!= null && !_playersShuffle.isEmpty())
+			else if (_playersShuffle.isEmpty())
+				return;
+			else if (_playersShuffle.size() > 0)
 			{
 				for(L2PcInstance player: _playersShuffle)
 				{

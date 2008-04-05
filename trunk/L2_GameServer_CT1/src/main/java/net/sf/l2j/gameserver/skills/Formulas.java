@@ -1400,7 +1400,7 @@ public final class Formulas
                     break;
             }
             //Skill Valakas
-            if (((L2NpcInstance) target).getTemplate().getIdTemplate() == 29028)
+            if (((L2NpcInstance) attacker).getTemplate().getIdTemplate() == 29028)
                 damage *= attacker.getStat().getPAtkValakas(target);
         }
         

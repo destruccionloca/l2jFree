@@ -864,9 +864,9 @@ public class FortressSiege
 	{
 		try
 		{
-			if(_playersShuffle== null || _playersShuffle.isEmpty())
-				return;
-			if(_playersShuffle!= null && !_playersShuffle.isEmpty())
+			if(_playersShuffle == null) return;
+			else if (_playersShuffle.isEmpty()) return;
+			else if (_playersShuffle.size() > 0)
 			{
 				for(L2PcInstance player: _playersShuffle)
 				{
@@ -1088,7 +1088,7 @@ public class FortressSiege
 				return;
 			for (L2PcInstance same : _playersShuffle)
 			{
-				if (same == null)
+				if (same == null || same.isOnline() == 0)
 				{
 					_playersShuffle.remove(same);
 					continue;

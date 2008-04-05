@@ -1205,9 +1205,9 @@ public class TvT
 	{
 		try
 		{
-			if(_playersShuffle== null || _playersShuffle.isEmpty())
-				return;
-			if(_playersShuffle!= null && !_playersShuffle.isEmpty())
+			if(_playersShuffle == null)	return;
+			else if (_playersShuffle.isEmpty())	return;
+			else if (_playersShuffle.size() > 0)
 			{
 				for(L2PcInstance player: _playersShuffle)
 				{
