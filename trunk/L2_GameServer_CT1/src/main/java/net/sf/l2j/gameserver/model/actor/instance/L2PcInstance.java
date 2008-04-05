@@ -181,6 +181,7 @@ import net.sf.l2j.gameserver.network.serverpackets.ObservationMode;
 import net.sf.l2j.gameserver.network.serverpackets.ObservationReturn;
 import net.sf.l2j.gameserver.network.serverpackets.PartySmallWindowUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.PartySpelled;
+import net.sf.l2j.gameserver.network.serverpackets.PlaySound;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowInfoUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListDelete;
 import net.sf.l2j.gameserver.network.serverpackets.PledgeShowMemberListUpdate;
@@ -4274,8 +4275,11 @@ public final class L2PcInstance extends L2PlayableInstance
                 {
                     if (!(((L2PcInstance)killer)._teamNameTvT.equals(_teamNameTvT)))
                     {
+                    	PlaySound ps;
+                    	ps = new PlaySound(0, "ItemSound.quest_itemget", 1, getObjectId(), getX(), getY(), getZ());                    	
                         _countTvTdies++;
                         ((L2PcInstance)killer)._countTvTkills++;
+                        ((L2PcInstance)killer).sendPacket(ps);
                         TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
                     }
                     else
