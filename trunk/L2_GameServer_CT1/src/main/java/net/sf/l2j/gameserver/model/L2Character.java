@@ -3160,7 +3160,6 @@ public abstract class L2Character extends L2Object
 							|| newEffect.getEffectType() == L2Effect.EffectType.BUFF)
 					{
 						// renew buffs, exit old (could consider only reschedule and stop new but then effector would be wrong)
-						newEffect.stopEffectTask();
 						_effects.get(i).rescheduleEffect();
 					}
 					else
