@@ -1171,8 +1171,6 @@ public final class L2ItemInstance extends L2Object
 			enchant_level = rs.getInt("enchant_level");
 			custom_type1 =  rs.getInt("custom_type1");
 			custom_type2 =  rs.getInt("custom_type2");
-			price_sell = rs.getInt("price_sell");
-			price_buy = rs.getInt("price_buy");
 			manaLeft = rs.getInt("mana_left");
 			String at[] = rs.getString("attributes").split(",");
 			if (at != null && at.length >= 7)
@@ -1207,8 +1205,6 @@ public final class L2ItemInstance extends L2Object
 		inst._type2 = custom_type2;
 		inst._loc = loc;
 		inst._locData = loc_data;
-		inst._priceSell = price_sell;
-		inst._priceBuy  = price_buy;
 		inst._existsInDb = true;
 		inst._storedInDb = true;
 		
@@ -1307,20 +1303,18 @@ public final class L2ItemInstance extends L2Object
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("UPDATE items SET owner_id=?,count=?,loc=?,loc_data=?,enchant_level=?,price_sell=?,price_buy=?,custom_type1=?,custom_type2=?,mana_left=?,attributes=? "
+					.prepareStatement("UPDATE items SET owner_id=?,count=?,loc=?,loc_data=?,enchant_level=?,custom_type1=?,custom_type2=?,mana_left=?,attributes=? "
 							+ "WHERE object_id = ?");
 			statement.setInt(1, _ownerId);
 			statement.setInt(2, getCount());
 			statement.setString(3, _loc.name());
 			statement.setInt(4, _locData);
 			statement.setInt(5, getEnchantLevel());
-			statement.setInt(6, _priceSell);
-			statement.setInt(7, _priceBuy);
-			statement.setInt(8, getCustomType1());
-			statement.setInt(9, getCustomType2());
-			statement.setInt(10, getMana());
-			statement.setString(11, getAttrString());
-			statement.setInt(12, getObjectId());
+			statement.setInt(6, getCustomType1());
+			statement.setInt(7, getCustomType2());
+			statement.setInt(8, getMana());
+			statement.setString(9, getAttrString());
+			statement.setInt(10, getObjectId());
 			statement.executeUpdate();
 			_existsInDb = true;
 			_storedInDb = true;
@@ -1356,21 +1350,19 @@ public final class L2ItemInstance extends L2Object
 		{
 			con = L2DatabaseFactory.getInstance().getConnection(con);
 			PreparedStatement statement = con
-					.prepareStatement("INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,price_sell,price_buy,object_id,custom_type1,custom_type2,mana_left,attributes) "
-							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+					.prepareStatement("INSERT INTO items (owner_id,item_id,count,loc,loc_data,enchant_level,object_id,custom_type1,custom_type2,mana_left,attributes) "
+							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 			statement.setInt(1, _ownerId);
 			statement.setInt(2, _itemId);
 			statement.setInt(3, getCount());
 			statement.setString(4, _loc.name());
 			statement.setInt(5, _locData);
 			statement.setInt(6, getEnchantLevel());
-			statement.setInt(7, _priceSell);
-			statement.setInt(8, _priceBuy);
-			statement.setInt(9, getObjectId());
-			statement.setInt(10, _type1);
-			statement.setInt(11, _type2);
-			statement.setInt(12, getMana());
-			statement.setString(13, getAttrString());
+			statement.setInt(7, getObjectId());
+			statement.setInt(8, _type1);
+			statement.setInt(9, _type2);
+			statement.setInt(10, getMana());
+			statement.setString(11, getAttrString());
 			
 			statement.executeUpdate();
 			_existsInDb = true;

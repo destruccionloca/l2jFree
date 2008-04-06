@@ -5631,10 +5631,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public boolean mount(L2Summon pet)
     {
-        if (!this.disarmWeapons())
-        {
+        if (!disarmWeapons())
             return false;
-        }
+        if (isTransformed())
+            return false;
         
         Ride mount = new Ride(this, true, pet.getTemplate().getNpcId());
         this.setMount(pet.getTemplate().getNpcId(), mount.getMountType());
@@ -5651,10 +5651,10 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public boolean mount(int npcId, int controlItemObjId)
     {
-        if (!this.disarmWeapons())
-        {
+        if (!disarmWeapons())
             return false;
-        }
+        if (isTransformed())
+            return false;
 
         Ride mount = new Ride(this, true, npcId);
         this.setMount(npcId, mount.getMountType());

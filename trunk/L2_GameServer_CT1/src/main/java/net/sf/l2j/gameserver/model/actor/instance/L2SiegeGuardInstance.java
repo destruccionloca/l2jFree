@@ -43,10 +43,6 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@SuppressWarnings("hiding")
 	private final static Log	_log	= LogFactory.getLog(L2GuardInstance.class.getName());
 
-	private int					_homeX;
-	private int					_homeY;
-	private int					_homeZ;
-
 	public L2SiegeGuardInstance(int objectId, L2NpcTemplate template)
 	{
 		super(objectId, template);
@@ -96,37 +92,12 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	}
 
 	/**
-	 * Sets home location of guard. Guard will always try to return to this
-	 * location after it has killed all PK's in range.
-	 * 
-	 */
-	public void getHomeLocation()
-	{
-		_homeX = getX();
-		_homeY = getY();
-		_homeZ = getZ();
-
-		if (_log.isDebugEnabled())
-			_log.debug(getObjectId() + ": Home location set to" + " X:" + _homeX + " Y:" + _homeY + " Z:" + _homeZ);
-	}
-
-	public int getHomeX()
-	{
-		return _homeX;
-	}
-
-	public int getHomeY()
-	{
-		return _homeY;
-	}
-
-	/**
 	 * This method forces guard to return to home location previously set
 	 * 
 	 */
 	public void returnHome()
 	{
-		if (!isInsideRadius(_homeX, _homeY, 40, false))
+		if (!isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 40, false))
 		{
 			if (_log.isDebugEnabled())
 				_log.debug(getObjectId() + ": moving home");
@@ -134,7 +105,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 			clearAggroList();
 
 			if (hasAI())
-				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(_homeX, _homeY, _homeZ, 0));
+				getAI().setIntention(CtrlIntention.AI_INTENTION_MOVE_TO, new L2CharPosition(getSpawn().getLocx(), getSpawn().getLocy(), getSpawn().getLocz(), 0));
 		}
 	}
 

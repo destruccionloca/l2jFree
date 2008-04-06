@@ -1151,8 +1151,9 @@ public class L2CharacterAI extends AbstractAI
             // skill analysis
             for (L2Skill sk : _actor.getAllSkills())
             {
+                if (sk.isPassive()) continue;
                 int castRange = sk.getCastRange();
-                boolean isLongRangeDamageSkill = false;
+                boolean hasLongRangeDamageSkill = false;
                 switch(sk.getSkillType())
                 {
                     case HEAL:
@@ -1211,15 +1212,14 @@ public class L2CharacterAI extends AbstractAI
                     case COREDONE:
                         continue; // won't be considered something for fighting
                     default:
-                        if (!sk.isPassive()) {
-                            generalSkills.add(sk);
-                            isLongRangeDamageSkill = true;
-                        }
-                        break;  
+                        generalSkills.add(sk);
+                        hasLongRangeDamageSkill = true;
+                        break;
                 }
-                if (castRange > 70) {
+                if (castRange > 70)
+                {
                     hasLongRangeSkills = true;
-                    if (isLongRangeDamageSkill) 
+                    if (hasLongRangeDamageSkill) 
                         hasLongRangeDamageSkills = true;
                 }
                 if (castRange > maxCastRange) maxCastRange = castRange;
