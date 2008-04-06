@@ -74,8 +74,9 @@ public class ClanHall extends Entity
         private long _rate;
         private long _endDate;
         protected boolean _inDebt;
-	
-        public ClanHallFunction(int type, int lvl, int lease, int tempLease, long rate, long time)
+        public boolean _cwh; // first activating clanhall function is payed from player inventory, any others from clan warehouse
+
+        public ClanHallFunction(int type, int lvl, int lease, int tempLease, long rate, long time, boolean cwh)
         {
             _type = type;
             _lvl = lvl;
@@ -83,7 +84,7 @@ public class ClanHall extends Entity
             _tempFee = tempLease;
             _rate = rate;
             _endDate = time;
-            initialyzeTask();
+            initialyzeTask(cwh);
         }
 
         public int getType(){ return _type;}
@@ -94,20 +95,25 @@ public class ClanHall extends Entity
         public void setLvl(int lvl){_lvl = lvl;}
         public void setLease(int lease){_fee = lease;}
         public void setEndTime(long time){_endDate = time;}
-        private void initialyzeTask()
+
+        private void initializeTask(boolean cwh)
         {
             if(_isFree)
                 return;
             long currentTime = System.currentTimeMillis();
             if(_endDate>currentTime)
-                ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(),  _endDate-currentTime);
+                ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(cwh),  _endDate-currentTime);
             else
-                ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(),  0);
+                ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(cwh),  0);
         }
 
         private class FunctionTask implements Runnable
         {
-            public FunctionTask(){}
+            public FunctionTask(boolean cwh)
+            {
+                _cwh = cwh;
+            }
+
             public void run()
             {
                 try
@@ -130,10 +136,11 @@ public class ClanHall extends Entity
                             newfc = false;
                         setEndTime(System.currentTimeMillis()+getRate());
                         dbSave(newfc);
-                        getOwnerClan().getWarehouse().destroyItemByItemId("CH_function_fee", 57, fee, null, null);
+                        if (_cwh)
+                            getOwnerClan().getWarehouse().destroyItemByItemId("CH_function_fee", 57, fee, null, null);
                         if (_log.isDebugEnabled())
                             _log.warn("deducted "+fee+" adena from "+getName()+" owner's cwh for function id : "+getType());
-                        ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(), getRate());
+                        ThreadPoolManager.getInstance().scheduleGeneral(new FunctionTask(true), getRate());
                     }
                     else
                         removeFunction(getType());
@@ -396,7 +403,7 @@ public class ClanHall extends Entity
             rs = statement.executeQuery();
             while (rs.next())
             {
-                _functions.put(rs.getInt("type"), new ClanHallFunction(rs.getInt("type"), rs.getInt("lvl"), rs.getInt("lease"),0, rs.getLong("rate"), rs.getLong("endTime")));
+                _functions.put(rs.getInt("type"), new ClanHallFunction(rs.getInt("type"), rs.getInt("lvl"), rs.getInt("lease"),0, rs.getLong("rate"), rs.getLong("endTime"), true));
             }
             statement.close();
         }
@@ -429,17 +436,16 @@ public class ClanHall extends Entity
         finally {try { con.close(); } catch (Exception e) {}}
     }
 
-    /** Update Function */
-    public boolean updateFunctions(int type, int lvl, int lease, long rate, boolean addNew)
+    public boolean updateFunctions(L2PcInstance player,int type, int lvl, int lease, long rate, boolean addNew)
     {
+        if (player == null) 
+            return false;
         if (_log.isDebugEnabled())
             _log.warn("Called ClanHall.updateFunctions(int type, int lvl, int lease, long rate, boolean addNew) Owner : "+getOwnerId());
+        if (!player.destroyItemByItemId("Consume", 57, lease, null, true))
+            return false;
         if (addNew)
-        {
-            if (getOwnerClan().getWarehouse().getAdena() < lease)
-                return false;
-            _functions.put(type,new ClanHallFunction(type, lvl, lease,0, rate, 0));
-        }
+            _functions.put(type,new ClanHallFunction(type, lvl, lease,0, rate, 0, false));
         else
         {
             if(lvl == 0 && lease == 0)
@@ -451,10 +457,8 @@ public class ClanHall extends Entity
                     _log.warn("Called ClanHall.updateFunctions diffLease : "+diffLease);
                 if(diffLease>0)
                 {
-                    if (getOwnerClan().getWarehouse().getAdena() < diffLease)
-                        return false;
                     _functions.remove(type);
-                    _functions.put(type,new ClanHallFunction(type, lvl, lease,diffLease, rate, -1));
+                    _functions.put(type,new ClanHallFunction(type, lvl, lease,0, rate, -1,false));
                 }
                 else
                 {
