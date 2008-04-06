@@ -125,6 +125,7 @@ public class TvT
 			{
 				playerToKick.getAppearance().setNameColor(playerToKick._originalNameColorTvT);
 				playerToKick.setKarma(playerToKick._originalKarmaTvT);
+				playerToKick.setTitle(playerToKick._originalTitleTvT);
 				playerToKick.broadcastUserInfo();
 				playerToKick.sendMessage("You have been kicked from the TvT.");
 				playerToKick.teleToLocation(_npcX, _npcY, _npcZ, false);
@@ -459,6 +460,7 @@ public class TvT
 							party.removePartyMember(player);
 						}
 
+						player.setTitle("Kills: " + player._countTvTkills);
 						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
 					}
 				}
@@ -525,7 +527,7 @@ public class TvT
 							L2Party party = player.getParty();
 							party.removePartyMember(player);
 						}
-
+						player.setTitle("Kills: " + player._countTvTkills);
 						player.teleToLocation(_teamsX.get(_teams.indexOf(player._teamNameTvT)), _teamsY.get(_teams.indexOf(player._teamNameTvT)), _teamsZ.get(_teams.indexOf(player._teamNameTvT)));
 					}
 				}
@@ -718,6 +720,7 @@ public class TvT
 			L2PcInstance player=null;
 			player = _playersShuffle.get(playerToAddIndex);
 			player._originalNameColorTvT = player.getAppearance().getNameColor();
+			player._originalTitleTvT = player.getTitle();
 			player._originalKarmaTvT = player.getKarma();
 			
 			_players.add(player);
@@ -1442,6 +1445,7 @@ public class TvT
 				else if (p.getName().equals(player.getName()))
 				{
 					player._originalNameColorTvT = player.getAppearance().getNameColor();
+					player._originalTitleTvT = player.getTitle();
 					player._originalKarmaTvT = player.getKarma();
 					player._inEventTvT = true;
 					player._countTvTkills=p._countTvTkills;
@@ -1465,6 +1469,7 @@ public class TvT
 			if(!_joining)
 			{
 				player.getAppearance().setNameColor(player._originalNameColorTvT);
+				player.setTitle(player._originalTitleTvT);
 				player.setKarma(player._originalKarmaTvT);
 				player.broadcastUserInfo();
 			}
@@ -1552,10 +1557,11 @@ public class TvT
 							{
 								con = L2DatabaseFactory.getInstance().getConnection(con);
 	
-								PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=?");
+								PreparedStatement statement = con.prepareStatement("UPDATE characters SET x=?, y=?, z=? WHERE char_name=?");
 								statement.setInt(1, _npcX);
 								statement.setInt(2, _npcY);
 								statement.setInt(3, _npcZ);
+								statement.setString(4, player.getName());
 								statement.execute();
 								statement.close();
 							}

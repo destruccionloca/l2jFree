@@ -247,7 +247,9 @@ public class L2ControllableMobAI extends L2AttackableAI
 			_actor.setTarget(getForcedTarget());
 			skills = _actor.getAllSkills();
 			dist2 = _actor.getPlanDistanceSq(getForcedTarget().getX(), getForcedTarget().getY());
-			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius() + getAttackTarget().getTemplate().getCollisionRadius();
+			range = _actor.getPhysicalAttackRange() + _actor.getTemplate().getCollisionRadius();
+			if(getAttackTarget()!=null)
+				range = range + getAttackTarget().getTemplate().getCollisionRadius();
 			max_range = range;
 		}
 		catch (NullPointerException e)

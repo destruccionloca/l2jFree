@@ -635,7 +635,8 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean _inEvent = false;
 
     /** TvT Engine parameters */
-    public String _teamNameTvT;
+    public String _teamNameTvT,
+    			  _originalTitleTvT;
     public int _originalNameColorTvT,
                _countTvTkills,
                _countTvTdies,
@@ -4279,6 +4280,7 @@ public final class L2PcInstance extends L2PlayableInstance
                     	ps = new PlaySound(0, "ItemSound.quest_itemget", 1, getObjectId(), getX(), getY(), getZ());                    	
                         _countTvTdies++;
                         ((L2PcInstance)killer)._countTvTkills++;
+                        ((L2PcInstance)killer).setTitle("Kills: " + ((L2PcInstance)killer)._countTvTkills);
                         ((L2PcInstance)killer).sendPacket(ps);
                         TvT.setTeamKillsCount(((L2PcInstance)killer)._teamNameTvT, TvT.teamKillsCount(((L2PcInstance)killer)._teamNameTvT)+1);
                     }
