@@ -5,11 +5,10 @@ from net.sf.l2j.gameserver.datatables import SkillTable
 from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
-from net.sf.l2j.gameserver.network.serverpackets import ActionFailed
 from net.sf.l2j.gameserver.network.serverpackets import WareHouseWithdrawalList
+from net.sf.l2j.gameserver.network.serverpackets import ActionFailed
 
 qn = "6051_VarkaSilenosSupport"
-
 
 Ashas = 31377 #Hierarch
 Naran = 31378 #Messenger
@@ -54,7 +53,7 @@ class Quest (JQuest) :
         if player.getWarehouse().getSize() == 0 :
             htmltext = "31381-0.htm"
         else :
-            player.sendPacket(ActionFailed())
+            player.sendPacket(ActionFailed.STATIC_PACKET)
             player.setActiveWarehouse(player.getWarehouse())
             player.sendPacket(WareHouseWithdrawalList(player, 1))
     elif event == "Teleport" :
@@ -134,7 +133,6 @@ class Quest (JQuest) :
     return htmltext
 
 QUEST       = Quest(6051, qn, "custom")
-
 
 for i in NPCS:
    QUEST.addFirstTalkId(i)

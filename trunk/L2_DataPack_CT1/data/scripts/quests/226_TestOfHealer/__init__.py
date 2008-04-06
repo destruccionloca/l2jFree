@@ -134,7 +134,6 @@ class Quest (JQuest) :
           st.set("cond","22")
     return htmltext
 
-
  def onTalk (self,npc,player):
    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
    st = player.getQuestState(qn)
@@ -273,8 +272,8 @@ class Quest (JQuest) :
    st = player.getQuestState(qn)
    if not st : return
    if st.getState() != State.STARTED : return
-
    npcId = npc.getNpcId()
+   if not npcId in DROPLIST.keys() : return
    condition,maxcount,item,next_condition=DROPLIST[npcId]
    if st.getInt("cond")==condition and st.getQuestItemsCount(item)<maxcount:
      if item != 0:
@@ -293,5 +292,5 @@ QUEST.addTalkId(BANDELLOS)
 for npcId in [SORIUS,ALLANA,PERRIN,GUPU,ORPHAN,WINDY,MYSTERIOUS,PIPER,SLEIN,KEIN,KRISTINA,DAURIN]:
   QUEST.addTalkId(npcId)
 
-for mobId in [LETO_LEADER,LETO_ASSASSIN,LETO_SNIPER,LETO_LORD,TATOMA]:
+for mobId in DROPLIST.keys():
   QUEST.addKillId(mobId)
