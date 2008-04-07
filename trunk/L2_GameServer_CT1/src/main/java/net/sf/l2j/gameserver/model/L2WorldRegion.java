@@ -25,6 +25,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
+import net.sf.l2j.gameserver.taskmanager.KnownListUpdateTaskManager;
 import net.sf.l2j.util.L2ObjectSet;
 
 import org.apache.commons.logging.Log;
@@ -259,6 +260,7 @@ public final class L2WorldRegion
                     ((L2NpcInstance)o).startRandomAnimationTimer();
                 }
             }
+            KnownListUpdateTaskManager.getInstance().updateRegion(this, true, false);
             if(_log.isDebugEnabled()) _log.debug(c+ " mobs were turned on");
         }
         
@@ -418,6 +420,11 @@ public final class L2WorldRegion
     public L2ObjectSet<L2Object> getVisibleObjects()
     {
         return _visibleObjects;
+    }
+
+    public L2ObjectSet<L2PlayableInstance> getVisiblePlayable()
+    {
+        return _allPlayable;
     }
 
     public String getName()

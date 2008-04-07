@@ -72,8 +72,9 @@ public class AttackableKnownList extends NpcKnownList
     @Override
     public int getDistanceToForgetObject(L2Object object)
     {
-        if (getActiveChar().getAggroListRP() != null)        
-            if (getActiveChar().getAggroListRP().get(object) != null) return 3000;            
+        if (getActiveChar().getAggroListRP() != null)
+            if (getActiveChar().getAggroListRP().get(object) != null)
+                return 3000;
         return Math.min(2200, 2 * getDistanceToWatchObject(object));
     }
 
@@ -89,9 +90,9 @@ public class AttackableKnownList extends NpcKnownList
         if (getActiveChar().getAggroRange() > getActiveChar().getFactionRange())
             return getActiveChar().getAggroRange();
         
-        if (getActiveChar().getFactionRange() > 200)
+        if (getActiveChar().getFactionRange() > 300)
             return getActiveChar().getFactionRange();
         
-        return 200;
+        return 300;
     }
 }

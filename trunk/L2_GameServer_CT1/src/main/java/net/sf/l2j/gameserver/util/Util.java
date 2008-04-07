@@ -184,7 +184,10 @@ public final class Util
        
         return result;
     }
-    
+
+    /**
+     *  Checks if object is within range, adding collisionRadius
+     */
     public static boolean checkIfInRange(int range, L2Object obj1, L2Object obj2, boolean includeZAxis)
     {
         if (range == -1) return true; // not limited
@@ -210,6 +213,31 @@ public final class Util
             double d = dx*dx + dy*dy;
            
             return d <= range*range + 2*range*rad +rad*rad;
+        }
+    }
+
+    /*
+     *  Checks if object is within short (sqrt(int.max_value)) radius, 
+     *  not using collisionRadius. Faster calculation than checkIfInRange
+     *  if distance is short and collisionRadius isn't needed.
+     *  Not for long distance checks (potential teleports, far away castles etc)
+     */
+    public static boolean checkIfInShortRadius(int radius, L2Object obj1, L2Object obj2, boolean includeZAxis)
+    {
+        if (obj1 == null || obj2 == null) return false;
+        if (radius == -1) return true; // not limited
+
+        int dx = obj1.getX() - obj2.getX();
+        int dy = obj1.getY() - obj2.getY();
+
+        if (includeZAxis)
+        {
+            int dz = obj1.getZ() - obj2.getZ();
+            return dx*dx + dy*dy + dz*dz <= radius*radius;
+        }
+        else
+        {
+            return dx*dx + dy*dy <= radius*radius;
         }
     }
 

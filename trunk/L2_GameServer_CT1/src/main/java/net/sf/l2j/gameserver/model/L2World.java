@@ -339,6 +339,9 @@ public final class L2World implements L2WorldMBean
             _allPlayers.put(player.getName().toLowerCase(), player);
         }
 
+        if (!newRegion.isActive())
+            return;
+
         // Get all visible objects contained in the _visibleObjects of L2WorldRegions
         // in a circular area of 2000 units
         FastList<L2Object> visible = getVisibleObjects(object, 2000);
@@ -423,7 +426,7 @@ public final class L2World implements L2WorldMBean
                     // Remove the L2Object from the L2ObjectHashSet(L2Object) _knownObjects of the surrounding L2WorldRegion L2Characters
                     // If object is a L2PcInstance, remove the L2Object from the L2ObjectHashSet(L2PcInstance) _knownPlayer of the surrounding L2WorldRegion L2Characters
                     // If object is targeted by one of the surrounding L2WorldRegion L2Characters, cancel ATTACK and cast
-                    if (obj != null && obj.getKnownList() != null)
+                    if (obj.getKnownList() != null)
                         obj.getKnownList().removeKnownObject(object);
                     
                     // Remove surrounding L2WorldRegion L2Characters from the L2ObjectHashSet(L2Object) _knownObjects of object
@@ -482,8 +485,6 @@ public final class L2World implements L2WorldMBean
             // Go through visible objects of the selected region
             for (L2Object _object : regi.getVisibleObjects())
             {
-            	if (_object == null)
-            		continue;
             	if (_object.equals(object))
             		continue;   // skip our own character
             	if (!_object.isVisible())
@@ -531,7 +532,6 @@ public final class L2World implements L2WorldMBean
             // Go through visible objects of the selected region
             for (L2Object _object : regi.getVisibleObjects())
             {
-                if (_object == null) continue;
                 if (_object.equals(object)) continue;   // skip our own character
                 
                 int x1 = _object.getX();
@@ -588,7 +588,6 @@ public final class L2World implements L2WorldMBean
         {
         	for (L2Object _object : regi.getVisibleObjects())
             {
-        		if (_object == null) continue;
         		if (_object.equals(object)) continue;   // skip our own character
 
                 int x1 = _object.getX();

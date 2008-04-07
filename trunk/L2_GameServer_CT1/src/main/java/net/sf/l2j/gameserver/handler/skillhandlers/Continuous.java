@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.ai.CtrlEvent;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
+import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
@@ -64,6 +65,7 @@ public class Continuous implements ISkillHandler
 		L2Skill.SkillType.AGGDEBUFF,
 		L2Skill.SkillType.FORCE_BUFF
 	};
+	private L2Skill _skill;
 	
 	/* (non-Javadoc)
 	 * @see net.sf.l2j.gameserver.handler.IItemHandler#useItem(net.sf.l2j.gameserver.model.L2PcInstance, net.sf.l2j.gameserver.model.L2ItemInstance)
@@ -76,8 +78,27 @@ public class Continuous implements ISkillHandler
 		L2PcInstance player = null;
 		if (activeChar instanceof L2PcInstance)
 			player = (L2PcInstance)activeChar;
-		
-		for (L2Object element : targets) {
+
+		if (skill.getEffectId() != 0)
+		{
+			int skillLevel = (int)skill.getEffectLvl();
+			int skillEffectId = skill.getEffectId();
+
+			if (skillLevel == 0)
+			{
+				_skill = SkillTable.getInstance().getInfo(skillEffectId, 1);
+			}
+			else
+			{
+				_skill = SkillTable.getInstance().getInfo(skillEffectId, skillLevel);
+			}
+
+			if (_skill != null)
+				skill = _skill;
+		}
+
+		for (L2Object element : targets)
+		{
 			target = (L2Character)element;
 			//check if skill is allowed on other.properties for raidbosses
 			if(!target.checkSkillCanAffectMyself(skill))

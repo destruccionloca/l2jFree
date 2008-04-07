@@ -247,7 +247,6 @@ public class GameTimeController
 		{
 			try
 			{
-				_ended.getKnownList().updateKnownObjects();
 				_ended.getAI().notifyEvent(CtrlEvent.EVT_ARRIVED);
 			}
 			catch (NullPointerException e)

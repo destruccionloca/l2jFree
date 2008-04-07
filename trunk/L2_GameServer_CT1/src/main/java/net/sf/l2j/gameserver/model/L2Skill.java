@@ -360,6 +360,7 @@ public abstract class L2Skill
 	private final SkillType			_skillType;
 	private final SkillType			_effectType;
 	private final int				_effectPower;
+	private final int				_effectId;
 	private final float				_effectLvl;
 	private final int				_skill_landing_percent;
 
@@ -510,6 +511,7 @@ public abstract class L2Skill
 
 		_effectType = set.getEnum("effectType", SkillType.class, null);
 		_effectPower = set.getInteger("effectPower", 0);
+		_effectId = set.getInteger("effectId", 0);
 		_effectLvl = set.getFloat("effectLevel", 0.f);
 		_skill_landing_percent = set.getInteger("skill_landing_percent", 0);
 		_element = set.getInteger("element", 0);
@@ -796,6 +798,14 @@ public abstract class L2Skill
 	public final int getEffectPower()
 	{
 		return _effectPower;
+	}
+
+	/**
+	* Return the additional effect Id.<BR><BR>
+	*/
+	public final int getEffectId()
+	{
+		return _effectId;
 	}
 
 	/**
@@ -1601,7 +1611,7 @@ public abstract class L2Skill
 				// Go through the L2Character _knownList
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+					if (obj instanceof L2Attackable || obj instanceof L2PlayableInstance)
 					{
 						L2Character cha = (L2Character)obj;
 						boolean targetInPvP = cha.isInsideZone(L2Zone.FLAG_PVP) && !cha.isInsideZone(L2Zone.FLAG_SIEGE);
@@ -1687,7 +1697,7 @@ public abstract class L2Skill
 				// Go through the L2Character _knownList
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+					if (obj instanceof L2Attackable || obj instanceof L2PlayableInstance)
 					{
 						L2Character cha = (L2Character)obj;
 
@@ -1761,7 +1771,7 @@ public abstract class L2Skill
 				// Go through the L2Character _knownList
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+					if (obj instanceof L2Attackable || obj instanceof L2PlayableInstance)
 					{
 						L2Character cha = (L2Character)obj;
 
@@ -2844,9 +2854,7 @@ public abstract class L2Skill
 				if (target != null && target.getKnownList() != null)
 					for (L2Object obj : target.getKnownList().getKnownObjects().values())
 					{
-						if (obj == null)
-							continue;
-						if (obj != null && (obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
+						if (obj instanceof L2Attackable || obj instanceof L2PlayableInstance)
 							return new L2Character[] { (L2Character) obj };
 					}
 

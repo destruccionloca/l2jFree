@@ -121,7 +121,6 @@ import net.sf.l2j.gameserver.model.L2Skill.SkillTargetType;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.appearance.PcAppearance;
 import net.sf.l2j.gameserver.model.actor.knownlist.PcKnownList;
-import net.sf.l2j.gameserver.model.actor.knownlist.CharKnownList.KnownListAsynchronousUpdateTask;
 import net.sf.l2j.gameserver.model.actor.stat.PcStat;
 import net.sf.l2j.gameserver.model.actor.status.PcStatus;
 import net.sf.l2j.gameserver.model.base.ClassId;
@@ -1814,11 +1813,10 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             for (L2Object object : getKnownList().getKnownObjects().values())
             {
-                if (object == null || !(object instanceof L2GuardInstance)) continue;
+                if (!(object instanceof L2GuardInstance)) continue;
 
                 if (((L2GuardInstance) object).getAI().getIntention() == CtrlIntention.AI_INTENTION_IDLE)
-                    ((L2GuardInstance) object).getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE,
-                                                                    null);
+                    ((L2GuardInstance) object).getAI().setIntention(CtrlIntention.AI_INTENTION_ACTIVE, null);
             }
         }
         else if (_karma > 0 && karma == 0)
@@ -9991,7 +9989,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public final void onTeleported()
     {
         super.onTeleported();
-        ThreadPoolManager.getInstance().executeTask(new KnownListAsynchronousUpdateTask(this));
 
         if (Config.PLAYER_SPAWN_PROTECTION > 0)
             setProtection(true);
