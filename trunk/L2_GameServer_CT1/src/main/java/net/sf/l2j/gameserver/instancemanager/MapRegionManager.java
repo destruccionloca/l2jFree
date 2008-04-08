@@ -507,10 +507,10 @@ public class MapRegionManager
                     // If is on castle with siege and player's clan is defender
                     if (fort.getSiege() != null && fort.getSiege().getIsInProgress())
                     {
+                        zone = fort.getZone();
                         // Karma player respawns out of siege zone
                         if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
                         {
-                            zone = fort.getZone();
                             if (zone != null)
                             {
                                 return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
@@ -518,11 +518,9 @@ public class MapRegionManager
                         }
                         else
                         {
-
-                            zone = fort.getDefenderSpawn();
                             if (zone != null)
                             {
-                                return zone.getRandomLocation();
+                                return zone.getRestartPoint(L2Zone.RestartType.OWNER);
                             }
                         }
                     }

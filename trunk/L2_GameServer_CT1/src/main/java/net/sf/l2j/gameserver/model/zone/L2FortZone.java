@@ -16,14 +16,22 @@ package net.sf.l2j.gameserver.model.zone;
 
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.model.L2Character;
+import net.sf.l2j.gameserver.model.entity.Fort;
 
 public class L2FortZone extends EntityZone
 {
 	@Override
 	protected void register()
 	{
-		_entity = FortManager.getInstance().getFortById(_fortressId);
-		_entity.registerZone(this);
+		_entity = FortManager.getInstance().getFortById(_fortId);
+		if (_entity != null)
+		{
+			// Forts: One zone for multiple purposes (could expand this later and add defender spawn areas)
+			_entity.registerZone(this);
+			_entity.registerHeadquartersZone(this);
+		}
+		else
+			_log.warn("Invalid fortId: "+_fortId);
 	}
 
 	@Override

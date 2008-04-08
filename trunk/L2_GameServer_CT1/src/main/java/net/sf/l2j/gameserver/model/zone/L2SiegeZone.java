@@ -32,29 +32,40 @@ public class L2SiegeZone extends EntityZone
 		if (_castleId > 0)
 		{
 			_entity = CastleManager.getInstance().getCastleById(_castleId);
-			// Init siege task
-			((Castle)_entity).getSiege();
+			if (_entity != null)
+			{
+				// Init siege task
+				((Castle)_entity).getSiege();
+				_entity.registerSiegeZone(this);
+			}
+			else
+				_log.warn("Invalid castleId: "+_castleId);
 		}
-		else if(_fortressId > 0)
+		else if (_fortId > 0)
 		{
-			_entity = FortManager.getInstance().getFortById(_fortressId);
+			_entity = FortManager.getInstance().getFortById(_fortId);
+			if (_entity != null)
+			{
+				// Init siege task
+				((Fort)_entity).getSiege();
+				_entity.registerSiegeZone(this);
+			}
+			else
+				_log.warn("Invalid fortId: "+_castleId);
 		}
-		_entity.registerSiegeZone(this);
 	}
 
 	@Override
 	protected void onEnter(L2Character character)
 	{
-		if (_entity instanceof Castle)
+		if ((_entity instanceof Castle && ((Castle)_entity).getSiege().getIsInProgress())
+			|| (_entity instanceof Fort && ((Fort)_entity).getSiege().getIsInProgress()))
 		{
-			if (((Castle)_entity).getSiege().getIsInProgress())
-			{
-				character.setInsideZone(FLAG_PVP, true);
-				character.setInsideZone(FLAG_SIEGE, true);
+			character.setInsideZone(FLAG_PVP, true);
+			character.setInsideZone(FLAG_SIEGE, true);
 
-				if (character instanceof L2PcInstance)
-					((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
-			}
+			if (character instanceof L2PcInstance)
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.ENTERED_COMBAT_ZONE));
 		}
 
 		super.onEnter(character);
@@ -63,26 +74,24 @@ public class L2SiegeZone extends EntityZone
 	@Override
 	protected void onExit(L2Character character)
 	{
-		if (_entity instanceof Castle)
+		if ((_entity instanceof Castle && ((Castle)_entity).getSiege().getIsInProgress())
+			|| (_entity instanceof Fort && ((Fort)_entity).getSiege().getIsInProgress()))
 		{
-			if (((Castle)_entity).getSiege().getIsInProgress())
-			{
-				character.setInsideZone(FLAG_PVP, false);
-				character.setInsideZone(FLAG_SIEGE, false);
+			character.setInsideZone(FLAG_PVP, false);
+			character.setInsideZone(FLAG_SIEGE, false);
 
-				if (character instanceof L2PcInstance)
-				{
-					((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-
-					// Set pvp flag
-					if (((L2PcInstance)character).getPvpFlag() == 0)
-						((L2PcInstance)character).startPvPFlag();
-				}
-			}
-			if (character instanceof L2SiegeSummonInstance)
+			if (character instanceof L2PcInstance)
 			{
-				((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
+				((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+
+				// Set pvp flag
+				if (((L2PcInstance)character).getPvpFlag() == 0)
+					((L2PcInstance)character).startPvPFlag();
 			}
+		}
+		if (character instanceof L2SiegeSummonInstance)
+		{
+			((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
 		}
 
 		super.onExit(character);
@@ -90,70 +99,35 @@ public class L2SiegeZone extends EntityZone
 
 	public void updateSiegeStatus()
 	{
-		if (_entity instanceof Castle)
+		if ((_entity instanceof Castle && ((Castle)_entity).getSiege().getIsInProgress())
+			|| (_entity instanceof Fort && ((Fort)_entity).getSiege().getIsInProgress()))
 		{
-			if (((Castle)_entity).getSiege().getIsInProgress())
+			for (L2Character character : _characterList.values())
 			{
-				for (L2Character character : _characterList.values())
+				try
 				{
-					try
-					{
-						onEnter(character);
-					}
-					catch(Exception e){}
+					onEnter(character);
 				}
-			}
-			else
-			{
-				for (L2Character character : _characterList.values())
-				{
-					try
-					{
-						character.setInsideZone(FLAG_PVP, false);
-						character.setInsideZone(FLAG_SIEGE, false);
-
-						if (character instanceof L2PcInstance)
-							((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-						if (character instanceof L2SiegeSummonInstance)
-						{
-							((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
-						}
-					}
-					catch(Exception e){}
-				}
+				catch(Exception e){}
 			}
 		}
-		else if (_entity instanceof Fort)
+		else
 		{
-			if (((Fort)_entity).getSiege().getIsInProgress())
+			for (L2Character character : _characterList.values())
 			{
-				for (L2Character character : _characterList.values())
+				try
 				{
-					try
-					{
-						onEnter(character);
-					}
-					catch(Exception e){}
-				}
-			}
-			else
-			{
-				for (L2Character character : _characterList.values())
-				{
-					try
-					{
-						character.setInsideZone(FLAG_PVP, false);
-						character.setInsideZone(FLAG_SIEGE, false);
+					character.setInsideZone(FLAG_PVP, false);
+					character.setInsideZone(FLAG_SIEGE, false);
 
-						if (character instanceof L2PcInstance)
-							((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
-						if (character instanceof L2SiegeSummonInstance)
-						{
-							((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
-						}
+					if (character instanceof L2PcInstance)
+						((L2PcInstance)character).sendPacket(new SystemMessage(SystemMessageId.LEFT_COMBAT_ZONE));
+					if (character instanceof L2SiegeSummonInstance)
+					{
+						((L2SiegeSummonInstance)character).unSummon(((L2SiegeSummonInstance)character).getOwner());
 					}
-					catch(Exception e){}
 				}
+				catch(Exception e){}
 			}
 		}
 	}

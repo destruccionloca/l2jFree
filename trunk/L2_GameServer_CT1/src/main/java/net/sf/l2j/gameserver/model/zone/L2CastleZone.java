@@ -28,7 +28,12 @@ public class L2CastleZone extends EntityZone
 	protected void register()
 	{
 		_entity = CastleManager.getInstance().getCastleById(_castleId);
-		_entity.registerZone(this);
+		if (_entity != null)
+		{
+			_entity.registerZone(this);
+		}
+		else
+			_log.warn("Invalid castleId: "+_castleId);
 	}
 
 	@Override

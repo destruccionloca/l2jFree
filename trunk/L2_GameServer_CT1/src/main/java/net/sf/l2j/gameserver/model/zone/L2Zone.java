@@ -112,7 +112,7 @@ public abstract class L2Zone
 	protected int _castleId;
 	protected int _clanhallId;
 	protected int _townId;
-	protected int _fortressId;
+	protected int _fortId;
 
 	protected ZoneType _type;
 	protected PvpSettings _pvp;
@@ -169,9 +169,9 @@ public abstract class L2Zone
 		return _clanhallId;
 	}
 
-	public int getFortressId()
+	public int getFortId()
 	{
-		return _fortressId;
+		return _fortId;
 	}
 
 	public boolean isPeace()
@@ -569,12 +569,12 @@ public abstract class L2Zone
 		Node castle = n.getAttributes().getNamedItem("castleId");
 		Node clanhall = n.getAttributes().getNamedItem("clanhallId");
 		Node town = n.getAttributes().getNamedItem("townId");
-		Node fortress = n.getAttributes().getNamedItem("fortressId");
+		Node fort = n.getAttributes().getNamedItem("fortId");
 		
 		_castleId = (castle != null) ? Integer.parseInt(castle.getNodeValue()) : -1;
 		_clanhallId = (clanhall != null) ? Integer.parseInt(clanhall.getNodeValue()) : -1;
 		_townId = (town != null) ? Integer.parseInt(town.getNodeValue()) : -1;
-		_fortressId = (fortress != null) ? Integer.parseInt(fortress.getNodeValue()) : -1;
+		_fortId = (fort != null) ? Integer.parseInt(fort.getNodeValue()) : -1;
 	}
 
 	private void parseSettings(Node n) throws Exception

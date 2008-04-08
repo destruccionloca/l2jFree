@@ -58,9 +58,9 @@ public class Entity
 		return 1; // Gludio
 	}
 
-	public int getFortressId()
+	public int getFortId()
 	{
-		if (_zone != null) return _zone.getFortressId();
+		if (_zone != null) return _zone.getFortId();
 
 		_log.error(getClassName()+" has no zone defined");
 		return 0;

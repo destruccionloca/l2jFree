@@ -27,12 +27,8 @@ public class L2HeadQuartersZone extends EntityZone
 		if (_castleId > 0)
 		{
 			_entity = CastleManager.getInstance().getCastleById(_castleId);
+			_entity.registerHeadquartersZone(this);
 		}
-		else if(_fortressId > 0)
-		{
-			_entity = FortManager.getInstance().getFortById(_fortressId);
-		}
-		_entity.registerHeadquartersZone(this);
 	}
 
 	@Override

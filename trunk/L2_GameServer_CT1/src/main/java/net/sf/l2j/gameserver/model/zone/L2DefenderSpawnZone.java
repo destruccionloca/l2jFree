@@ -24,16 +24,11 @@ public class L2DefenderSpawnZone extends EntityZone
 	@Override
 	protected void register()
 	{
-		if (_castleId > 0)
-		{
-			_entity = CastleManager.getInstance().getCastleById(_castleId);
-		}
-		else if(_fortressId > 0)
-		{
-			_entity = FortManager.getInstance().getFortById(_fortressId);
-		}
-
-		_entity.registerDefenderSpawn(this);
+		_entity = CastleManager.getInstance().getCastleById(_castleId);
+		if (_entity != null)
+			_entity.registerDefenderSpawn(this);
+		else
+			_log.warn("Invalid castleId: "+_castleId);
 	}
 
 	// They just define a respawn area
