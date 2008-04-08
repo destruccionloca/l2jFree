@@ -165,7 +165,7 @@ public class DoorKey implements IItemHandler
 
 			case 8056: //Splendor room
 			{
-				if ((door.getDoorId() != 23150003 && door.getDoorId() != 23150004) && door.getOpen() == 0)
+				if ((door.getDoorId() != 23150003 && door.getDoorId() != 23150004) || door.getOpen() == 0)
 				{
 					activeChar.sendPacket(new SystemMessage(SystemMessageId.INCORRECT_TARGET));
 					activeChar.sendPacket(ActionFailed.STATIC_PACKET);
