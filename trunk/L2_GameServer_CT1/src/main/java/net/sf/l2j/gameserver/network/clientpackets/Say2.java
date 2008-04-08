@@ -126,7 +126,7 @@ public class Say2 extends L2GameClientPacket
         {
             for(String pattern : Config.FILTER_LIST)
             {
-                _text = _text.replaceAll(pattern,"^_^");
+                _text = _text.replaceAll("(?i)" + pattern,"^_^");
             }
         }
 

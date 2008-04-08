@@ -22,7 +22,7 @@
             </column>
         </property>
         <property name="accessLevel" type="java.lang.Integer">
-            <column name="access_level">
+            <column name="accesslevel">
             </column>
         </property>
         <property name="lastIp" type="string">

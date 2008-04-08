@@ -2714,6 +2714,35 @@ public final class Config
 	}
 
 	// *******************************************************************************************
+	public static final String	ELAYNE_FILE	= "./config/elayne.properties";
+	// *******************************************************************************************
+	public static boolean	ALLOW_RMI_SERVER;
+	public static String	RMI_SERVER_PASSWORD;
+	public static int		RMI_SERVER_PORT;
+	// *******************************************************************************************
+	// *******************************************************************************************
+	public static void loadElayneConfig()
+	{
+		_log.info("loading " + ELAYNE_FILE);
+		try
+		{
+			Properties elayneSettings = new L2Properties();
+			InputStream is = new FileInputStream(new File(ELAYNE_FILE));
+			elayneSettings.load(is);
+			is.close();
+			
+			ALLOW_RMI_SERVER = Boolean.valueOf(elayneSettings.getProperty("AllowRMIServer","False"));
+			RMI_SERVER_PASSWORD = elayneSettings.getProperty("RMIServerPassword", "******");
+			RMI_SERVER_PORT = Integer.parseInt(elayneSettings.getProperty("RMIServerPort", "1099"));
+		}
+		catch (Exception e)
+		{
+			_log.error(e);
+			throw new Error("Failed to Load " + ELAYNE_FILE + " File.");
+		}
+	}
+
+	// *******************************************************************************************
 
 	public static class ClassMasterSettings
 	{

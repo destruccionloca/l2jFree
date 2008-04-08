@@ -53,7 +53,7 @@ public class SummonFriend implements ISkillHandler
 		}
 
 		// Checks summoner not in arenas, siege zones, jail
-		if (activePlayer.isInsideZone(L2Zone.FLAG_PVP))
+		if (activePlayer.isInsideZone(L2Zone.FLAG_PVP) || activePlayer.isInFunEvent())
 		{
 			activePlayer.sendPacket(new SystemMessage(SystemMessageId.YOU_CANNOT_SUMMON_IN_COMBAT));
 			return;

@@ -51,6 +51,7 @@ import net.sf.l2j.gameserver.datatables.StaticObjects;
 import net.sf.l2j.gameserver.datatables.SummonItemsData;
 import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
+import net.sf.l2j.gameserver.elayne.RemoteAdministrationImpl;
 import net.sf.l2j.gameserver.geoeditorcon.GeoEditorListener;
 import net.sf.l2j.gameserver.handler.AdminCommandHandler;
 import net.sf.l2j.gameserver.handler.ChatHandler;
@@ -293,6 +294,7 @@ public class GameServer
 		Util.printSection("Misc");
 		TaskManager.getInstance();
 		GmListTable.getInstance();
+		RemoteAdministrationImpl.getInstance().startServer();
 		PetitionManager.getInstance();
 		if (Config.ONLINE_PLAYERS_ANNOUNCE_INTERVAL > 0)
 			OnlinePlayers.getInstance();
