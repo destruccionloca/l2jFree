@@ -296,7 +296,8 @@ $MYG < ../sql/fort_door.sql &> /dev/null
 $MYG < ../sql/fort_doorupgrade.sql &> /dev/null
 $MYG < ../sql/fort_siege_guards.sql &> /dev/null
 $MYG < ../sql/fort.sql &> /dev/null
-$MYG < ../sql/fortsiege_clans.sql &> /dev/null$MYG < ../sql/forums.sql &> /dev/null
+$MYG < ../sql/fortsiege_clans.sql &> /dev/null
+$MYG < ../sql/forums.sql &> /dev/null
 $MYG < ../sql/games.sql &> /dev/null
 $MYG < ../sql/global_tasks.sql &> /dev/null
 $MYG < ../sql/gm_audit.sql &> /dev/null
