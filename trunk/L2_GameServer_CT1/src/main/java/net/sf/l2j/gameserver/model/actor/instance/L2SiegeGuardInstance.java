@@ -80,9 +80,19 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	@Override
 	public boolean isAutoAttackable(L2Character attacker)
 	{
-		// Attackable during siege by all except defenders
-		return (attacker != null && attacker instanceof L2PcInstance && getCastle() != null && getCastle().getCastleId() > 0
-				&& getCastle().getSiege().getIsInProgress() && !getCastle().getSiege().checkIsDefender(((L2PcInstance) attacker).getClan()));
+		if (attacker == null || !(attacker instanceof L2PcInstance))
+			return false;
+
+		boolean isCastle = ( getCastle() != null && getCastle().getCastleId() > 0 
+				&& getCastle().getSiege().getIsInProgress()
+				&& !getCastle().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
+
+		boolean isFort = ( getFort() != null && getFort().getFortId() > 0 
+				&& getFort().getSiege().getIsInProgress()
+				&& !getFort().getSiege().checkIsDefender(((L2PcInstance)attacker).getClan()));
+
+		// Attackable during siege by all except defenders ( Castle or Fort )
+		return (isCastle || isFort);
 	}
 
 	@Override
@@ -97,7 +107,7 @@ public final class L2SiegeGuardInstance extends L2Attackable
 	 */
 	public void returnHome()
 	{
-		if (!isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 40, false))
+		if (getSpawn() != null && !isInsideRadius(getSpawn().getLocx(), getSpawn().getLocy(), 40, false))
 		{
 			if (_log.isDebugEnabled())
 				_log.debug(getObjectId() + ": moving home");

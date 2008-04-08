@@ -71,6 +71,8 @@ import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.FactionManager;
 import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
@@ -214,6 +216,8 @@ public class GameServer
 		DoorTable.getInstance();
 		CastleManager.getInstance();
 		SiegeManager.getInstance();
+		FortManager.getInstance();
+		FortSiegeManager.getInstance();
 		ZoneManager.getInstance();
 		MercTicketManager.getInstance();
 		DoorTable.getInstance().registerToClanHalls();

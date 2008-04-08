@@ -40,6 +40,7 @@ import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.games.Lottery;
@@ -65,11 +66,11 @@ import net.sf.l2j.gameserver.model.actor.knownlist.NpcKnownList;
 import net.sf.l2j.gameserver.model.actor.stat.NpcStat;
 import net.sf.l2j.gameserver.model.actor.status.NpcStatus;
 import net.sf.l2j.gameserver.model.entity.Castle;
+import net.sf.l2j.gameserver.model.entity.Fort;
 import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
-import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -141,6 +142,9 @@ public class L2NpcInstance extends L2Character
     /** The castle index in the array of L2Castle this L2NpcInstance belongs to */
     private int _castleIndex = -2;
 
+    /** The fortress index in the array of L2Fort this L2NpcInstance belongs to */
+    private int _fortIndex = -2;
+
     public String _CTF_FlagTeamName;
     public boolean isEventMob = false,
                   _isEventMobTvT = false,
@@ -148,8 +152,6 @@ public class L2NpcInstance extends L2Character
                   _isEventMobCTF = false,
                   _isCTF_throneSpawn = false,
                   _isCTF_Flag = false,
-                  _isEventMobFOS = false,
-                  _isFOS_Artifact = false,
                   _isEventVIPNPC = false,
                   _isEventVIPNPCEnd = false;
 
@@ -698,10 +700,6 @@ public class L2NpcInstance extends L2Character
                        TvT.showEventHtml(player, String.valueOf(getObjectId()));
                     else if (_isEventMobDM)
                         DM.showEventHtml(player, String.valueOf(getObjectId()));
-                    else if (_isEventMobFOS)
-                        FortressSiege.showEventHtml(player, String.valueOf(getObjectId()));
-                    else if (_isFOS_Artifact)
-                    	FortressSiege.showArtifactHtml(player, String.valueOf(getObjectId()));
                     else if (_isEventMobCTF)
                        CTF.showEventHtml(player, String.valueOf(getObjectId()));
                     else if (_isCTF_Flag && player._inEventCTF)
@@ -909,19 +907,39 @@ public class L2NpcInstance extends L2Character
             // Npc was spawned in town
             _isInTown = (town != null);
 
-            if (! _isInTown )
-            {
-            	_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
-            }
+            if (!_isInTown)
+                _castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
+            else if (town.getCastle() != null)
+                _castleIndex = town.getCastle().getCastleId();
             else
-            	if (town.getCastle() != null)
-            		_castleIndex = town.getCastle().getCastleId();
-            	else
-            		_castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
+                _castleIndex = CastleManager.getInstance().getClosestCastle(this).getCastleId();
         }
 
         return CastleManager.getInstance().getCastleById(_castleIndex);
     }
+
+    /** Return the L2Fort this L2NpcInstance belongs to. */
+    public final Fort getFort()
+    {
+        // Get Fort this NPC belongs to (excluding L2Attackable)
+        if (_fortIndex < 0)
+        {
+            Fort fort = FortManager.getInstance().getFort(getX(), getY(), getZ());
+            if (fort != null)
+            {
+                _fortIndex = FortManager.getInstance().getFortIndex(fort.getFortId());
+            }
+            if (_fortIndex < 0)
+            {
+                _fortIndex = FortManager.getInstance().findNearestFortIndex(this);
+            }
+        }
+        if (_fortIndex < 0)
+        {
+            return null;
+        }
+        return FortManager.getInstance().getForts().get(_fortIndex);
+     }
 
     public final boolean getIsInTown()
     {
@@ -2465,7 +2483,7 @@ public class L2NpcInstance extends L2Character
             case 31770:
             case 31771:
             case 31772:
-                if (player.isHero() && !player.isFakeHero())
+                if (player.isHero())
                     filename = Olympiad.OLYMPIAD_HTML_FILE + "hero_main.htm";
                 else
                     filename = (getHtmlPath(npcId, val));

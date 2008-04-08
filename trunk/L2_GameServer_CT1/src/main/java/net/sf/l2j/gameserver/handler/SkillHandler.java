@@ -49,6 +49,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
+import net.sf.l2j.gameserver.handler.skillhandlers.TakeFort;
 import net.sf.l2j.gameserver.handler.skillhandlers.TransformDispel;
 import net.sf.l2j.gameserver.handler.skillhandlers.Trap;
 import net.sf.l2j.gameserver.handler.skillhandlers.Unlock;
@@ -113,6 +114,7 @@ public class SkillHandler
         registerSkillHandler(new SummonTreasureKey());
         registerSkillHandler(new Sweep());
         registerSkillHandler(new TakeCastle());
+        registerSkillHandler(new TakeFort());
         registerSkillHandler(new TransformDispel());
         registerSkillHandler(new Trap());
         registerSkillHandler(new Unlock());

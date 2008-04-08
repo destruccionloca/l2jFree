@@ -14,15 +14,15 @@
  */
 package net.sf.l2j.gameserver.model.zone;
 
-import net.sf.l2j.gameserver.instancemanager.FortressManager;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.model.L2Character;
 
-public class L2FortressZone extends EntityZone
+public class L2FortZone extends EntityZone
 {
 	@Override
 	protected void register()
 	{
-		_entity = FortressManager.getInstance().getFortressById(_fortressId);
+		_entity = FortManager.getInstance().getFortById(_fortressId);
 		_entity.registerZone(this);
 	}
 

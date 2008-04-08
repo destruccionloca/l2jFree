@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -47,7 +48,8 @@ public class StrSiegeAssault implements ISkillHandler
 
 		L2PcInstance player = (L2PcInstance) activeChar;
 
-		if (!SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
+		if (SiegeManager.checkIfOkToUseStriderSiegeAssault(player, false)
+			|| FortSiegeManager.checkIfOkToUseStriderSiegeAssault(player, false))
 		{
 			try
 			{

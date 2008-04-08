@@ -34,7 +34,6 @@ import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
-import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -141,8 +140,6 @@ public class SiegeManager
 
         SystemMessage sm = new SystemMessage(SystemMessageId.S1);
         
-        if (FortressSiege._started && ((L2PcInstance)activeChar)._inEventFOS && ((L2PcInstance)activeChar)._teamNameFOS.equals(FortressSiege._teams.get(0)) && activeChar.isInsideRadius(FortressSiege.eventCenterX, FortressSiege.eventCenterY, 10000, false))
-            return true;
         if (siege == null)
             sm.addString("You must be on castle ground to summon this.");
         else if (!siege.getIsInProgress())

@@ -664,7 +664,7 @@ public class Siege
         {
             // quick check from player states, which don't include siege number however
             if (!player.isInsideZone(L2Zone.FLAG_SIEGE)) continue;
-        	if (checkIfInZone(player.getX(), player.getY(), player.getZ())) players.add(player);
+            if (checkIfInZone(player.getX(), player.getY(), player.getZ())) players.add(player);
         }
 
         return players;

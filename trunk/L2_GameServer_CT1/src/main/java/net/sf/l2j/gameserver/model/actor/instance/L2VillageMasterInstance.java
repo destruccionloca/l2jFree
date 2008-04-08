@@ -291,7 +291,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                         allowAddition = false;
                     }
                     
-                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP || player._inEventFOS)
+                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
                     {
                         player.sendMessage("You can't add a subclass while in an event.");
                         return;
@@ -389,7 +389,7 @@ public final class L2VillageMasterInstance extends L2FolkInstance
                      *
                      * Note: paramOne = classIndex
                      */
-                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP || player._inEventFOS)
+                    if (player._inEventCTF || player._inEventDM || player._inEventTvT || player._inEventVIP)
                     {
                          player.sendMessage("You can't change subclass while in an event.");  
                          return;  

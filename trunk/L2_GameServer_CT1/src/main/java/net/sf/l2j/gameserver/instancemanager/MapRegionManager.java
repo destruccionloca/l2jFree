@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javolution.util.FastMap;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.TownManager;
 import net.sf.l2j.gameserver.instancemanager.ZoneManager;
 import net.sf.l2j.gameserver.model.L2Character;
@@ -31,6 +32,8 @@ import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.entity.Fort;
+import net.sf.l2j.gameserver.model.entity.FortSiege;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.Town;
 import net.sf.l2j.gameserver.model.mapregion.L2MapArea;
@@ -394,6 +397,7 @@ public class MapRegionManager
             L2PcInstance player = (L2PcInstance)activeChar;
             L2Clan clan = player.getClan();
             Castle castle = null;
+            Fort fort = null;
             ClanHall clanhall = null;
 
             // Checking if in Dimensinal Gap
@@ -459,6 +463,9 @@ public class MapRegionManager
                 if (teleportWhere == TeleportWhereType.Castle)
                     castle = CastleManager.getInstance().getCastleByOwner(clan);
 
+                else if(teleportWhere == TeleportWhereType.Fortress)
+                    fort = FortManager.getInstance().getFortByOwner(clan);
+
                 // If Teleporting to castle or
                 if (castle != null && teleportWhere == TeleportWhereType.Castle)
                 {
@@ -493,6 +500,39 @@ public class MapRegionManager
                         return zone.getRestartPoint(L2Zone.RestartType.OWNER);
                     }
                 }
+                else if (fort != null && teleportWhere == TeleportWhereType.Fortress)
+                {
+                    L2Zone zone = fort.getZone();
+
+                    // If is on castle with siege and player's clan is defender
+                    if (fort.getSiege() != null && fort.getSiege().getIsInProgress())
+                    {
+                        // Karma player respawns out of siege zone
+                        if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
+                        {
+                            zone = fort.getZone();
+                            if (zone != null)
+                            {
+                                return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
+                            }
+                        }
+                        else
+                        {
+
+                            zone = fort.getDefenderSpawn();
+                            if (zone != null)
+                            {
+                                return zone.getRandomLocation();
+                            }
+                        }
+                    }
+
+                    zone = fort.getZone();
+                    if (zone != null)
+                    {
+                        return zone.getRestartPoint(L2Zone.RestartType.OWNER);
+                    }
+                }
                 else if (teleportWhere == TeleportWhereType.SiegeFlag)
                 {
                     Siege siege = SiegeManager.getInstance().getSiege(clan);
@@ -514,6 +554,29 @@ public class MapRegionManager
                         // spawn to flag
                         if (flag != null)
                             return new Location(flag.getX(), flag.getY(), flag.getZ());
+                    }
+                    else
+                    {
+                        FortSiege fsiege = FortSiegeManager.getInstance().getSiege(clan);
+
+                        // Check if player's clan is attacker
+                        if (fsiege != null && fsiege.checkIsAttacker(clan) && fsiege.checkIfInZone(player))
+                        {
+                            // Karma player respawns out of siege zone
+                            if (player.getKarma() > 1 || player.isCursedWeaponEquipped())
+                            {
+                                L2Zone zone = fsiege.getFort().getZone();
+                                if (zone != null)
+                                {
+                                    return zone.getRestartPoint(L2Zone.RestartType.CHAOTIC);
+                                }
+                            }
+                            // get nearest flag
+                            L2NpcInstance flag = siege.getClosestFlag(player);
+                            // spawn to flag
+                            if (flag != null)
+                                return new Location(flag.getX(), flag.getY(), flag.getZ());
+                        }
                     }
                 }
             }

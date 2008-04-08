@@ -65,11 +65,13 @@ import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.handler.ItemHandler;
 import net.sf.l2j.gameserver.handler.SkillHandler;
 import net.sf.l2j.gameserver.handler.skillhandlers.TakeCastle;
+import net.sf.l2j.gameserver.handler.skillhandlers.TakeFort;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.CoupleManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.instancemanager.DuelManager;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
 import net.sf.l2j.gameserver.instancemanager.QuestManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -136,7 +138,6 @@ import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
-import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.entity.events.VIP;
 import net.sf.l2j.gameserver.model.entity.faction.FactionMember;
@@ -641,15 +642,7 @@ public final class L2PcInstance extends L2PlayableInstance
                _countTvTdies,
                _originalKarmaTvT;
     public boolean _inEventTvT = false;
-   
-    /** FOS Engine parameters */
-    public String 	_teamNameFOS;
-    public int 		_originalNameColorFOS,
-    				_countFOSKills,
-    				_originalKarmaFOS;
-    public boolean 	_inEventFOS = false,
-    				_FOSRulerSkills = false;
-    
+
     /** CTF Engine parameters */
     public String _teamNameCTF,
                  _teamNameHaveFlagCTF,
@@ -698,7 +691,6 @@ public final class L2PcInstance extends L2PlayableInstance
     //Death Penalty Buff Level
     private int _deathPenaltyBuffLevel = 0;
 
-    private boolean _fakeHero = false;
     private boolean _hero = false;
     private boolean _noble = false;
     private boolean _inOlympiadMode = false;
@@ -2467,7 +2459,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             sendMessage("A dark force beyond your mortal understanding makes your knees to shake when you try to stand up ...");
         }
-        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP || FortressSiege._sitForced && _inEventFOS)
+        else if (TvT._sitForced && _inEventTvT || CTF._sitForced && _inEventCTF || DM._sitForced && _inEventDM || VIP._sitForced && _inEventVIP)
            sendMessage("The Admin/GM handle if you sit or stand in this match!");
         else if (_waitTypeSitting && !isInStoreMode() && !isAlikeDead() && (!_protectedSitStand || force))
         {
@@ -2770,6 +2762,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		else if(CursedWeaponsManager.getInstance().isCursed(newitem.getItemId()))
 		{
 			CursedWeaponsManager.getInstance().activate(this, newitem);
+		}
+		// Combat Flag
+		else if(FortSiegeManager.getInstance().isCombat(newitem.getItemId()))
+		{
+			FortSiegeManager.getInstance().activateCombatFlag(this, newitem);
 		}
 
 		//Auto use herbs - autoloot
@@ -3348,7 +3345,7 @@ public final class L2PcInstance extends L2PlayableInstance
             return;
         }
         
-        if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE) || (FortressSiege._started && !Config.FortressSiege_ALLOW_INTERFERENCE))
+        if ((TvT._started && !Config.TVT_ALLOW_INTERFERENCE) || (CTF._started && !Config.CTF_ALLOW_INTERFERENCE) || (DM._started && !Config.DM_ALLOW_INTERFERENCE))
         {
             if ((_inEventTvT && !player._inEventTvT) || (!_inEventTvT && player._inEventTvT))
             {
@@ -3356,13 +3353,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 return;
             }
 
-            if ((_inEventFOS && !player._inEventFOS) || (!_inEventFOS && player._inEventFOS))
-            {
-                sendPacket(ActionFailed.STATIC_PACKET);
-                return;
-            }
-            
-            else if ((_inEventCTF && !player._inEventCTF) || (!_inEventCTF && player._inEventCTF))
+            if ((_inEventCTF && !player._inEventCTF) || (!_inEventCTF && player._inEventCTF))
             {
                 sendPacket(ActionFailed.STATIC_PACKET);
                 return;
@@ -3403,7 +3394,7 @@ public final class L2PcInstance extends L2PlayableInstance
             else
             {
                 // Check if this L2PcInstance is autoAttackable
-                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started) || (player._inEventFOS && FortressSiege._started))
+                if (isAutoAttackable(player) || (player._inEventTvT && TvT._started) || (player._inEventCTF && CTF._started) || (player._inEventDM && DM._started) || (player._inEventVIP && VIP._started))
                 {
                     // Player with lvl < 21 can't attack a cursed weapon holder
                     // And a cursed weapon holder  can't attack players with lvl < 21
@@ -3446,7 +3437,7 @@ public final class L2PcInstance extends L2PlayableInstance
     @Override
     public boolean isInFunEvent()
     {
-    	return(atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || (FortressSiege._started && _inEventFOS));
+    	return(atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP));
     }
 
 	/**
@@ -3919,9 +3910,16 @@ public final class L2PcInstance extends L2PlayableInstance
             	return;
             }
 
+            // You can pickup only 1 combat flag
+            if(FortSiegeManager.getInstance().isCombat(target.getItemId()))
+            {
+                if (!FortSiegeManager.getInstance().checkIfCanPickup(this))
+                    return;
+            }
+
            if(target.getItemLootShedule() != null
                    && (target.getOwnerId() == getObjectId() || isInLooterParty(target.getOwnerId())))
-               target.resetOwnerTimer();
+                target.resetOwnerTimer();
 
             // Remove the L2ItemInstance from the world and send server->client GetItem packets
             target.pickupMe(this);
@@ -3934,6 +3932,15 @@ public final class L2PcInstance extends L2PlayableInstance
                 _log.warn("No item handler registered for item ID " + target.getItemId() + ".");
             else 
                 handler.useItem(this, target);
+        }
+        // Cursed Weapons are not distributed
+        else if(CursedWeaponsManager.getInstance().isCursed(target.getItemId()))
+        {
+            addItem("Pickup", target, null, true);
+        }
+        else if(FortSiegeManager.getInstance().isCombat(target.getItemId()))
+        {
+            addItem("Pickup", target, null, true);
         }
         else 
         {
@@ -3958,7 +3965,7 @@ public final class L2PcInstance extends L2PlayableInstance
 				// restoring Augmentation data from DB
 				if(target.getItemType() instanceof L2WeaponType) target.restoreAugmentation();
 			}
-        	
+
             // Check if a Party is in progress
             if (isInParty()) getParty().distributeItem(this, target);
             // Target is adena 
@@ -4227,6 +4234,10 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             CursedWeaponsManager.getInstance().drop(_cursedWeaponEquippedId, killer);
         }
+        else if (isCombatFlagEquipped())
+        {
+            FortSiegeManager.getInstance().dropCombatFlag(this);
+        }
 
         if (killer != null)
         {
@@ -4235,39 +4246,6 @@ public final class L2PcInstance extends L2PlayableInstance
             boolean clanWarKill = false;
             boolean playerKill = false;
 
-            if ((killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventFOS) && _inEventFOS)
-            {
-                if (FortressSiege._teleport || FortressSiege._started)
-                {
-                    if (!(((L2PcInstance)killer)._teamNameFOS.equals(_teamNameFOS)))
-                        ((L2PcInstance)killer)._countFOSKills++;
-                    else{
-                        ((L2PcInstance)killer).sendMessage("Team Kills do not count as kills. They will only harm you in this event");
-                        ((L2PcInstance)killer)._countFOSKills--;
-                    }
-                    sendMessage("You will be revived and teleported to team spot in 10 seconds!");
-                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable(){
-                        public void run(){
-                            teleToLocation(FortressSiege._teamsX.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsY.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(_teamNameFOS)), false);
-                            doRevive();
-                            updateFOSTitleFlag();
-                        }
-                    }, 10000);
-                }
-            }
-            else if (_inEventFOS){
-                if (FortressSiege._teleport || FortressSiege._started){
-                    sendMessage("You will be revived and teleported to team spot in 10 seconds!");
-                    ThreadPoolManager.getInstance().scheduleGeneral(new Runnable(){
-                        public void run(){
-                        	teleToLocation(FortressSiege._teamsX.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsY.get(FortressSiege._teams.indexOf(_teamNameFOS)), FortressSiege._teamsZ.get(FortressSiege._teams.indexOf(_teamNameFOS)), false);                            
-                            doRevive();
-                            updateFOSTitleFlag();
-                        }
-                    }, 10000);
-                }
-            }
-            
             if ((killer instanceof L2PcInstance &&((L2PcInstance)killer)._inEventTvT) && _inEventTvT)
             {
                 if (TvT._teleport || TvT._started)
@@ -4554,8 +4532,8 @@ public final class L2PcInstance extends L2PlayableInstance
     
     private void onDieDropItem(L2Character killer)
     {
-        if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || (FortressSiege._started && _inEventFOS) || killer == null)
-        return;
+        if (atEvent || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (VIP._started && _inEventVIP) || killer == null)
+            return;
 
         if (getKarma() <= 0 && killer instanceof L2PcInstance
             && ((L2PcInstance) killer).getClan() != null && getClan() != null
@@ -4679,7 +4657,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (target == null) return;
         if (!(target instanceof L2PlayableInstance)) return;
-        if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM || _inEventFOS) return;
+        if (_inEventCTF || _inEventTvT || _inEventVIP || _inEventDM) return;
 
         L2PcInstance targetPlayer = null;
         if (target instanceof L2PcInstance) targetPlayer = (L2PcInstance) target;
@@ -4809,7 +4787,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePvpKills()
     {
-        if ((FortressSiege._started && _inEventFOS) || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
             return;
 
         // Add karma to attacker and increase its PK counter
@@ -4826,7 +4804,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void increasePkKillsAndKarma(int targLVL)
     {
-        if ((FortressSiege._started && _inEventFOS) || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (VIP._started && _inEventVIP) || (CTF._started && _inEventCTF))
             return;
 
         int baseKarma = Config.KARMA_MIN_KARMA;
@@ -4893,7 +4871,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void updatePvPStatus()
     {
-        if ((FortressSiege._started && _inEventFOS) || (TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
+        if ((TvT._started && _inEventTvT) || (DM._started && _inEventDM) || (CTF._started && _inEventCTF) || (_inEventVIP && VIP._started))
             return;
 
         if (isInsideZone(L2Zone.FLAG_PVP)) return;
@@ -4914,7 +4892,7 @@ public final class L2PcInstance extends L2PlayableInstance
            
         if (player_target == null)
            return;
-        if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM) || (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP) || (_inEventFOS && FortressSiege._started && player_target._inEventFOS))  
+        if ((TvT._started && _inEventTvT && player_target._inEventTvT) || (DM._started && _inEventDM && player_target._inEventDM) || (CTF._started && _inEventCTF && player_target._inEventCTF) || (_inEventVIP && VIP._started && player_target._inEventVIP))
            return; 
         
         if ((isInDuel() && player_target.getDuelId() == getDuelId())) return;
@@ -4974,7 +4952,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Calculate the Experience loss
         long lostExp = 0;
-        if (!atEvent && !_inEventTvT && !_inEventFOS && !_inEventDM && !_inEventCTF && (!_inEventVIP && !VIP._started))
+        if (!atEvent && !_inEventTvT && !_inEventDM && !_inEventCTF && (!_inEventVIP && !VIP._started))
         {
             if (lvl < Experience.MAX_LEVEL) 
                 lostExp = Math.round((getStat().getExpForLevel(lvl+1) - getStat().getExpForLevel(lvl)) * percentLost /100);
@@ -7581,8 +7559,15 @@ public final class L2PcInstance extends L2PlayableInstance
 
         // Check if it's ok to summon
         // siege golem (13), Wild Hog Cannon (299), Swoop Cannon (448)
-        if ((skill.getId() == 13 || skill.getId() == 299 || skill.getId() == 448) && !SiegeManager.getInstance().checkIfOkToSummon(this, false))
-            return;
+        switch(skill.getId())
+        {
+            case 13: case 299: case 448:
+                if(!SiegeManager.getInstance().checkIfOkToSummon(this, false)
+                        && !FortSiegeManager.getInstance().checkIfOkToSummon(this, false))
+                {
+                    return;
+                }
+        }
 
         //************************************* Check Casting in Progress *******************************************
 
@@ -8020,14 +8005,19 @@ public final class L2PcInstance extends L2PlayableInstance
         }
 
         if (sklTargetType == SkillTargetType.TARGET_HOLY && 
-               (!FortressSiege.checkIfOkToCastSealOfRule(this) && !TakeCastle.checkIfOkToCastSealOfRule(this, false)))
+               (!TakeCastle.checkIfOkToCastSealOfRule(this, false)))
         {
             sendPacket(ActionFailed.STATIC_PACKET);
             abortCast();
             return;
         }
-        if (sklTargetType == SkillTargetType.TARGET_HOLY && FortressSiege.checkIfOkToCastSealOfRule(this))
-            FortressSiege.Announcements(getName()+" from team "+FortressSiege._teams.get(0)+" has begun engraving the Artifact.");
+        if (sklTargetType == SkillTargetType.TARGET_FLAGPOLE &&
+                !TakeFort.checkIfOkToCastFlagDisplay(this, false))
+        {
+            sendPacket(ActionFailed.STATIC_PACKET);
+            abortCast();
+            return;
+        }
 
         if (sklType == SkillType.SIEGEFLAG && !SiegeManager.checkIfOkToPlaceFlag(this, false))
         {
@@ -8093,7 +8083,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public boolean checkPvpSkill(L2Object target, L2Skill skill)
     {
-        if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started)  || (_inEventFOS && FortressSiege._started))
+        if ((_inEventTvT && TvT._started) || (_inEventDM && DM._started) || (_inEventCTF && CTF._started) || (_inEventVIP && VIP._started))
             return true;
         
 		// check for PC->PC Pvp status
@@ -8862,11 +8852,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return _friendList;
     }
-    
-    public void setFakeHero(boolean hero){
-    	_fakeHero = hero;
-    }
-    
+
     public void setHero(boolean hero)
     {
         if (hero && _baseClass == _activeClass)
@@ -8892,11 +8878,6 @@ public final class L2PcInstance extends L2PlayableInstance
     public boolean isOlympiadStart()
     {
         return _olympiadStart;
-    }
-
-    public boolean isFakeHero()
-    {
-        return _fakeHero;
     }
 
     public boolean isHero()
@@ -9869,7 +9850,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 getParty().getDimensionalRift().memberRessurected(this);
         }
         
-        if((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventFOS && FortressSiege._started && Config.FortressSiege_REVIVE_RECOVERY) || (_inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY))
+        if((_inEventTvT && TvT._started && Config.TVT_REVIVE_RECOVERY) || (_inEventCTF && CTF._started && Config.CTF_REVIVE_RECOVERY))
         {
             getStatus().setCurrentHp(getMaxHp());
             getStatus().setCurrentMp(getMaxMp());
@@ -10100,24 +10081,26 @@ public final class L2PcInstance extends L2PlayableInstance
     public void reduceCurrentHp(double i, L2Character attacker)
     {
         if (isPetrified())
-        {i=0;}
+            i = 0;
+
         getStatus().reduceHp(i, attacker);
-        
-    	// notify the tamed beast of attacks
-    	if (getTrainedBeast() != null )
-    		getTrainedBeast().onOwnerGotAttacked(attacker);        
+
+        // notify the tamed beast of attacks
+        if (getTrainedBeast() != null )
+            getTrainedBeast().onOwnerGotAttacked(attacker);
     }
 
     @Override
     public void reduceCurrentHp(double value, L2Character attacker, boolean awake)
     {
         if (isPetrified())
-        {value=0;}
+            value = 0;
+
         getStatus().reduceHp(value, attacker, awake);
-        
-    	// notify the tamed beast of attacks
-    	if (getTrainedBeast() != null )
-    		getTrainedBeast().onOwnerGotAttacked(attacker);        
+
+        // notify the tamed beast of attacks
+        if (getTrainedBeast() != null )
+            getTrainedBeast().onOwnerGotAttacked(attacker);        
     }
 
     /**
@@ -11310,6 +11293,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private ScheduledFuture<?> _jailTask;
     @SuppressWarnings("unused")
     private int _cursedWeaponEquippedId = 0;
+    private boolean _combatFlagEquipped = false;
 
     private int _reviveRequested = 0;
     private double _revivePower = 0;
@@ -11357,6 +11341,16 @@ public final class L2PcInstance extends L2PlayableInstance
     public int getCursedWeaponEquippedId()
     {
         return _cursedWeaponEquippedId;
+    }
+
+    public boolean isCombatFlagEquipped()
+    {
+        return _combatFlagEquipped;
+    }
+
+    public void setCombatFlagEquipped(boolean value)
+    {
+        _combatFlagEquipped = value;
     }
     
     public void setNPCFaction(FactionMember fm)
@@ -11806,18 +11800,11 @@ public final class L2PcInstance extends L2PlayableInstance
 		_forceBuff = fb;
 	}
 
-	public boolean checkFOS(){
-		return FortressSiege.checkIfOkToCastSealOfRule(this);
-	}
-	
-	public Map<Integer,L2Skill> returnSkills(){
+	public Map<Integer,L2Skill> returnSkills()
+	{
 		return _skills;
 	}
-	
-	public void updateFOSTitleFlag(){
-		FortressSiege.setTitleSiegeFlags(this);
-	}
-	
+
     public boolean isKamaelic()
     {
         return getRace() == Race.Kamael;

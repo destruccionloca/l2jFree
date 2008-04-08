@@ -15,10 +15,9 @@
 package net.sf.l2j.gameserver.model.zone;
 
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
-import net.sf.l2j.gameserver.instancemanager.FortressManager;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.entity.Castle;
 
 public class L2HeadQuartersZone extends EntityZone
 {
@@ -31,7 +30,7 @@ public class L2HeadQuartersZone extends EntityZone
 		}
 		else if(_fortressId > 0)
 		{
-			_entity = FortressManager.getInstance().getFortressById(_fortressId);
+			_entity = FortManager.getInstance().getFortById(_fortressId);
 		}
 		_entity.registerHeadquartersZone(this);
 	}

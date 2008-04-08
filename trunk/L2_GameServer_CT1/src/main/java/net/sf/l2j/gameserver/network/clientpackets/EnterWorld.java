@@ -52,7 +52,6 @@ import net.sf.l2j.gameserver.model.entity.L2Event;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.entity.events.CTF;
 import net.sf.l2j.gameserver.model.entity.events.DM;
-import net.sf.l2j.gameserver.model.entity.events.FortressSiege;
 import net.sf.l2j.gameserver.model.entity.events.TvT;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.quest.Quest;
@@ -484,9 +483,6 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (TvT._savePlayers.contains(activeChar.getName()))
 			TvT.addDisconnectedPlayer(activeChar);
-
-		if (FortressSiege._savePlayers.contains(activeChar.getName()))
-			FortressSiege.addDisconnectedPlayer(activeChar);
 
 		if (CTF._savePlayers.contains(activeChar.getName()))
 			CTF.addDisconnectedPlayer(activeChar);

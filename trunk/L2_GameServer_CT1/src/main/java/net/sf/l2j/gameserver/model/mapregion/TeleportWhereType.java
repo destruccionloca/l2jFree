@@ -22,6 +22,7 @@ public enum TeleportWhereType
 {
     Castle,
     ClanHall,
+    Fortress,
     SiegeFlag,
     Town
 }

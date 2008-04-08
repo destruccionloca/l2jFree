@@ -66,7 +66,6 @@ public class Castle extends Siegeable
 	private int							_taxPercent								= 0;
 	private double						_taxRate								= 0;
 	private int							_treasury								= 0;
-	private L2Clan						_formerOwner;
 	private int							_nbArtifact								= 1;
 	private Map<Integer, Integer>		_engrave								= new FastMap<Integer, Integer>();
 

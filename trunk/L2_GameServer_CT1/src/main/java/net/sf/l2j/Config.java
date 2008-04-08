@@ -1910,6 +1910,47 @@ public final class Config
 	}
 
 	// *******************************************************************************************
+	public static final String	FORTSIEGE_CONFIGURATION_FILE	= "./config/fortsiege.properties";
+	// *******************************************************************************************
+
+	public static int			FORTSIEGE_MAX_ATTACKER;
+	public static int			FORTSIEGE_MAX_DEFENDER;
+	public static int			FORTSIEGE_RESPAWN_DELAY_ATTACKER;
+	public static int			FORTSIEGE_RESPAWN_DELAY_DEFENDER;
+
+	public static int			FORTSIEGE_CT_LOSS_PENALTY;
+	public static int			FORTSIEGE_FLAG_MAX_COUNT;
+	public static int			FORTSIEGE_CLAN_MIN_LEVEL;
+	public static int			FORTSIEGE_LENGTH_MINUTES;
+
+	public static void loadFortSiegeConfig()
+	{
+		_log.info("loading " + FORTSIEGE_CONFIGURATION_FILE);
+		try
+		{
+			Properties fortSiegeSettings = new L2Properties();
+			InputStream is = new FileInputStream(SIEGE_CONFIGURATION_FILE);
+			fortSiegeSettings.load(is);
+			is.close();
+
+			FORTSIEGE_MAX_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerMaxClans", "500"));
+			FORTSIEGE_MAX_DEFENDER = Integer.parseInt(fortSiegeSettings.getProperty("DefenderMaxClans", "500"));
+			FORTSIEGE_RESPAWN_DELAY_ATTACKER = Integer.parseInt(fortSiegeSettings.getProperty("AttackerRespawn", "30000"));
+			FORTSIEGE_RESPAWN_DELAY_DEFENDER = Integer.parseInt(fortSiegeSettings.getProperty("DefenderRespawn", "30000"));
+
+			FORTSIEGE_CT_LOSS_PENALTY = Integer.parseInt(fortSiegeSettings.getProperty("CTLossPenalty", "20000"));
+			FORTSIEGE_FLAG_MAX_COUNT = Integer.parseInt(fortSiegeSettings.getProperty("MaxFlags", "1"));
+			FORTSIEGE_CLAN_MIN_LEVEL = Integer.parseInt(fortSiegeSettings.getProperty("SiegeClanMinLevel", "4"));
+			FORTSIEGE_LENGTH_MINUTES = Integer.parseInt(fortSiegeSettings.getProperty("SiegeLength", "120"));
+		}
+		catch (Exception e)
+		{
+			_log.error(e);
+			throw new Error("Failed to Load " + FORTSIEGE_CONFIGURATION_FILE + " File.");
+		}
+	}
+
+	// *******************************************************************************************
 	public static final String	HEXID_FILE	= "./config/hexid.txt";
 	// *******************************************************************************************
 	public static byte[]		HEX_ID;							// Hexadecimal ID of the game server
@@ -2869,6 +2910,7 @@ public final class Config
 		loadLotteryConfig();
 		loadWeddingConfig();
 		loadSiegeConfig();
+		loadFortSiegeConfig();
 		loadSepulchersConfig();
 		loadClanHallConfig();
 		loadIdFactoryConfig();

@@ -67,7 +67,7 @@ public class L2Clan
     private int _level;
     private int _hasCastle;
     private int _hasHideout;
-    private int _hasFortress;
+    private int _hasFort;
     private boolean _hasCrest;
     private int _hiredGuards;
     private int _crestId;
@@ -535,9 +535,9 @@ public class L2Clan
     /**
      * @return
      */
-    public int getHasFortress()
+    public int getHasFort()
     {
-        return _hasFortress;
+        return _hasFort;
     }
     
     /**
@@ -603,9 +603,9 @@ public class L2Clan
     /**
      * @param has Fortress The hasFortress to set.
      */
-    public void setHasFortress(int hasFortress)
+    public void setHasFort(int hasFort)
     {
-        _hasFortress = hasFortress;
+        _hasFort = hasFort;
     }
 
     /**

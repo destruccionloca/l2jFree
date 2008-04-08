@@ -29,6 +29,7 @@ import net.sf.l2j.gameserver.datatables.TeleportLocationTable;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.Manager;
 import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
@@ -239,7 +240,8 @@ public class AdminAdmin implements IAdminCommandHandler
 				else if(type.equals("siege"))
 				{
 					SiegeManager.getInstance().reload();
-					activeChar.sendMessage("Siege config reloaded");
+					FortSiegeManager.getInstance().reload();
+					activeChar.sendMessage("Castle/Fortress Siege config reloaded");
 				}
 				else if(type.equals("wedding"))
 				{

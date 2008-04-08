@@ -17,6 +17,7 @@ package net.sf.l2j.gameserver.handler.skillhandlers;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
@@ -24,6 +25,7 @@ import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeFlagInstance;
+import net.sf.l2j.gameserver.model.entity.FortSiege;
 import net.sf.l2j.gameserver.model.entity.Siege;
 
 /** 
@@ -43,6 +45,24 @@ public class SiegeFlag implements ISkillHandler
         if (SiegeManager.checkIfOkToPlaceFlag(activeChar, false))
         {
             Siege siege = SiegeManager.getInstance().getSiege(player);
+
+            try
+            {
+                // spawn a new flag
+                L2SiegeFlagInstance flag = new L2SiegeFlagInstance(player, IdFactory.getInstance().getNextId(), NpcTable.getInstance().getTemplate(35062), skill.isAdvanced());
+                flag.setTitle(player.getClan().getName());
+                flag.getStatus().setCurrentHpMp(flag.getMaxHp(), flag.getMaxMp());
+                flag.setHeading(player.getHeading());
+                flag.spawnMe(player.getX(), player.getY(), player.getZ() + 50);
+                siege.getFlag(player.getClan()).add(flag);
+            }
+            catch (Exception e)
+            {
+            }
+        }
+        else if (FortSiegeManager.checkIfOkToPlaceFlag(activeChar, false))
+        {
+            FortSiege siege = FortSiegeManager.getInstance().getSiege(player);
 
             try
             {

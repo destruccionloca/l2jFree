@@ -17,6 +17,8 @@ package net.sf.l2j.gameserver.network.clientpackets;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
@@ -24,6 +26,8 @@ import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Castle;
 import net.sf.l2j.gameserver.model.entity.ClanHall;
+import net.sf.l2j.gameserver.model.entity.Fort;
+import net.sf.l2j.gameserver.model.entity.FortSiege;
 import net.sf.l2j.gameserver.model.entity.Siege;
 import net.sf.l2j.gameserver.model.mapregion.TeleportWhereType;
 import net.sf.l2j.gameserver.model.zone.L2Zone;
@@ -69,6 +73,8 @@ public class RequestRestartPoint extends L2GameClientPacket
 			{
 				Location loc = null;
 				Siege siege = null;
+				FortSiege fsiege = null;
+				boolean isInDefense = false;
 
 				if (activeChar.isInJail()) _requestedPointType = 27;
 				else if (activeChar.isFestivalParticipant()) _requestedPointType = 5;
@@ -93,7 +99,6 @@ public class RequestRestartPoint extends L2GameClientPacket
 						break;
 
 					case 2: // to castle
-						boolean isInDefense = false;
 						siege = SiegeManager.getInstance().getSiege(activeChar);
 						if (siege != null && siege.getIsInProgress())
 						{
@@ -111,8 +116,22 @@ public class RequestRestartPoint extends L2GameClientPacket
 						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Castle);
 						break;
 
-					case 3: // to Fortress - not implemented
-						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Town);
+					case 3: // to Fortress
+						fsiege = FortSiegeManager.getInstance().getSiege(activeChar);
+						if (fsiege != null && fsiege.getIsInProgress())
+						{
+							//siege in progress
+							if (fsiege.checkIsDefender(activeChar.getClan()))
+								isInDefense = true;
+						}
+						if (activeChar.getClan() == null || (activeChar.getClan().getHasFort() == 0 && !isInDefense))
+						{
+							//cheater
+							activeChar.sendMessage("You may not use this respawn point!");
+							Util.handleIllegalPlayerAction(activeChar, "Player " + activeChar.getName() + " used respawn cheat.", IllegalPlayerAction.PUNISH_KICK);
+							return;
+						}
+						loc = MapRegionManager.getInstance().getTeleToLocation(activeChar, TeleportWhereType.Fortress);
 						break;
 
 					case 4: // to siege HQ
@@ -121,6 +140,12 @@ public class RequestRestartPoint extends L2GameClientPacket
 						
 						if (siege != null && siege.getIsInProgress())
 							siegeClan = siege.getAttackerClan(activeChar.getClan());
+						else
+						{
+							fsiege = FortSiegeManager.getInstance().getSiege(activeChar);
+							if (fsiege != null && fsiege.getIsInProgress())
+								siegeClan = siege.getAttackerClan(activeChar.getClan());
+						}
 						
 						if (siegeClan == null || siegeClan.getFlag().size() == 0)
 						{

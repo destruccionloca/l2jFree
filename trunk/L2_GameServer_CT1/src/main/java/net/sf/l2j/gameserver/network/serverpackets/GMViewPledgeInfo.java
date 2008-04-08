@@ -48,7 +48,7 @@ public class GMViewPledgeInfo extends L2GameServerPacket
 		writeD(_clan.getLevel());
 		writeD(_clan.getHasCastle());
 		writeD(_clan.getHasHideout());
-		writeD(_clan.getHasFortress());
+		writeD(_clan.getHasFort());
 		writeD(_clan.getRank()); // Ashitaka fix
 		writeD(_clan.getReputationScore());//writeD(_activeChar.getLevel()); Ashitaka Fix
 		writeD(0);

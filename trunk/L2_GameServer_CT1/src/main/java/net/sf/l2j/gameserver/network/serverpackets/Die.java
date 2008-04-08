@@ -15,12 +15,14 @@
 package net.sf.l2j.gameserver.network.serverpackets;
 
 import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.entity.FortSiege;
 import net.sf.l2j.gameserver.model.entity.Siege;
 
 /**
@@ -69,7 +71,7 @@ public class Die extends L2GameServerPacket
 		{
 			_showClanhall = clan.getHasHideout() <= 0 ? 0 : 1;
 			_showCastle = clan.getHasCastle() <= 0 ? 0 : 1;
-			_showFortress = clan.getHasFortress() <= 0 ? 0 : 1;
+			_showFortress = clan.getHasFort() <= 0 ? 0 : 1;
 			L2SiegeClan siegeClan = null;
 			boolean isInDefense = false;
 			Siege siege = SiegeManager.getInstance().getSiege(_activeChar);
@@ -79,7 +81,17 @@ public class Die extends L2GameServerPacket
 				if(siegeClan == null && siege.checkIsDefender(clan))
 					isInDefense = true;
 			}
-			_showFlag = siegeClan == null || isInDefense || siegeClan.getFlag().size() <= 0 ? 0 : 1;
+			else
+			{
+				FortSiege fsiege = FortSiegeManager.getInstance().getSiege(_activeChar);
+				if (fsiege != null && fsiege.getIsInProgress())
+				{
+					siegeClan = fsiege.getAttackerClan(clan);
+					if(siegeClan == null && fsiege.checkIsDefender(clan))
+						isInDefense = true;
+				}
+			}
+			_showFlag = (siegeClan == null || isInDefense || siegeClan.getFlag().size() <= 0) ? 0 : 1;
 		}
 		_showVillage = 1;
 	}

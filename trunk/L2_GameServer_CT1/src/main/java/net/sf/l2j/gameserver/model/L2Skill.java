@@ -117,7 +117,7 @@ public abstract class L2Skill
 		TARGET_CORPSE, TARGET_CORPSE_ALLY, TARGET_CORPSE_CLAN,
 		TARGET_CORPSE_PLAYER, TARGET_CORPSE_PET, TARGET_AREA_CORPSE_MOB, TARGET_CORPSE_MOB, TARGET_AREA_CORPSES,
 		TARGET_MULTIFACE, TARGET_AREA_UNDEAD,
-		TARGET_ITEM,  TARGET_UNLOCKABLE, TARGET_HOLY,
+		TARGET_ITEM,  TARGET_UNLOCKABLE, TARGET_HOLY, TARGET_FLAGPOLE,
 		TARGET_PARTY_MEMBER, TARGET_PARTY_OTHER,
 		TARGET_ENEMY_SUMMON, TARGET_OWNER_PET, TARGET_ENEMY_ALLY, TARGET_ENEMY_PET,
 		TARGET_GATE, TARGET_COUPLE,
@@ -131,7 +131,7 @@ public abstract class L2Skill
 		DOT, HOT, MHOT, BLEED, POISON, CPHOT, MPHOT, BUFF, DEBUFF, STUN, ROOT, CONT, CONFUSION, FORCE_BUFF, PARALYZE, FEAR, SLEEP, DEATH_MARK,
 		HEAL, COMBATPOINTHEAL, MANAHEAL, MANAHEAL_PERCENT, MANARECHARGE, RESURRECT, PASSIVE, UNLOCK,
 		NEGATE, CANCEL,  AGGREDUCE, AGGREMOVE, AGGREDUCE_CHAR, CONFUSE_MOB_ONLY, DEATHLINK, BLOW, FATALCOUNTER, DETECT_WEAKNESS, ENCHANT_ARMOR, ENCHANT_WEAPON, FEED_PET,
-		HEAL_PERCENT, HEAL_STATIC, LUCK, MANADAM, MDOT, MUTE, RECALL, REFLECT, SUMMON_FRIEND, SOULSHOT, SPIRITSHOT, SPOIL, SWEEP, WEAKNESS, DISARM, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, UNDEAD_DEFENSE,  BEAST_FEED, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, CHARGESOUL, GET_PLAYER,
+		HEAL_PERCENT, HEAL_STATIC, LUCK, MANADAM, MDOT, MUTE, RECALL, REFLECT, SUMMON_FRIEND, SOULSHOT, SPIRITSHOT, SPOIL, SWEEP, WEAKNESS, DISARM, DEATHLINK_PET, MANA_BY_LEVEL, FAKE_DEATH, UNBLEED, UNPOISON, SIEGEFLAG, TAKECASTLE, TAKEFORT, UNDEAD_DEFENSE,  BEAST_FEED, DRAIN_SOUL, COMMON_CRAFT, DWARVEN_CRAFT, WEAPON_SA, DELUXE_KEY_UNLOCK, SOW, HARVEST, CHARGESOUL, GET_PLAYER,
 		FISHING, PUMPING, REELING, CANCEL_TARGET,  AGGDEBUFF, COMBATPOINTPERHEAL, SUMMONCP, SUMMON_TREASURE_KEY, SUMMON_CURSED_BONES, ERASE, MAGE_BANE, WARRIOR_BANE, STRSIEGEASSAULT, RAID_DESCRIPTION, UNSUMMON_ENEMY_PET, BETRAY, BALANCE_LIFE, SERVER_SIDE, TRANSFORM, TRANSFORMDISPEL, DETECT_TRAP, REMOVE_TRAP,
 
 		AGATHION(L2SkillAgathion.class),
@@ -1533,11 +1533,13 @@ public abstract class L2Skill
 				{
 					if (activeChar.getTarget() instanceof L2ArtefactInstance)
 						return new L2Character[] { (L2ArtefactInstance) activeChar.getTarget() };
-					else if (((L2PcInstance) activeChar).checkFOS())
-						return new L2Character[] { (L2NpcInstance) activeChar.getTarget() };
 				}
 
 				return null;
+			}
+			case TARGET_FLAGPOLE:
+			{
+				return new L2Character[] {activeChar};
 			}
 			case TARGET_COUPLE:
 			{
@@ -2390,7 +2392,7 @@ public abstract class L2Skill
 						// Get Clan Members
 						for (L2Object newTarget : activeChar.getKnownList().getKnownObjects().values())
 						{
-							if (newTarget == null || !(newTarget instanceof L2PcInstance))
+							if (newTarget == null || newTarget == player || !(newTarget instanceof L2PcInstance))
 								continue;
 							if ((((L2PcInstance) newTarget).getAllyId() == 0 || ((L2PcInstance) newTarget).getAllyId() != player.getAllyId())
 									&& (((L2PcInstance) newTarget).getClan() == null || ((L2PcInstance) newTarget).getClanId() != player.getClanId()))
@@ -2504,7 +2506,7 @@ public abstract class L2Skill
 						{
 							L2PcInstance newTarget = member.getPlayerInstance();
 
-							if (newTarget == null)
+							if (newTarget == null || newTarget == player)
 								continue;
 
 							if (targetType == SkillTargetType.TARGET_CORPSE_CLAN)

@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.entity;
 
+import net.sf.l2j.gameserver.model.L2Clan;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -23,6 +24,7 @@ public class Siegeable extends Entity
 {
 	protected String _name;
 	protected int _ownerId = 0;
+	protected L2Clan _formerOwner = null;
 
 	private L2Zone _zoneHQ;
 	private L2Zone _zoneBF;
