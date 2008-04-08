@@ -172,9 +172,9 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="#pDef" stat="pDef"/>
- 	<mul order="0x30" val="#mDef" stat="mDef"/>
-	<mul order="0x30" val="#sDef" stat="sDef"/>
+    <mul order="0x30" val="#pDef" stat="pDef"/>
+    <mul order="0x30" val="#mDef" stat="mDef"/>
+    <mul order="0x30" val="#sDef" stat="sDef"/>
   </for>
 </skill>
 <skill id="613" levels="3" name="Wind Squad">
@@ -187,9 +187,9 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<add order="0x30" val="#acc" stat="accCombat"/>
- 	<add order="0x30" val="#evas" stat="rEvas"/>
-	<add order="0x30" val="#rSpd" stat="runSpd"/>
+    <add order="0x40" val="#acc" stat="accCombat"/>
+    <add order="0x40" val="#evas" stat="rEvas"/>
+    <add order="0x40" val="#rSpd" stat="runSpd"/>
   </for>
 </skill>
 <skill id="614" levels="3" name="Earth Squad">
@@ -200,7 +200,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<add order="0x30" val="#mDef" stat="mDef"/>
+    <add order="0x40" val="#mDef" stat="mDef"/>
   </for>
 </skill>
 <skill id="615" levels="3" name="Holy Squad">
@@ -212,9 +212,9 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="#gainHp" stat="gainHp"/>
-	<mul order="0x30" val="#mpConsume" stat="PhysicalMpConsumeRate"/>
-	<mul order="0x30" val="#mpConsume" stat="MagicalMpConsumeRate"/>
+    <mul order="0x30" val="#gainHp" stat="gainHp"/>
+    <mul order="0x30" val="#mpConsume" stat="PhysicalMpConsumeRate"/>
+    <mul order="0x30" val="#mpConsume" stat="MagicalMpConsumeRate"/>
 	<mul order="0x30" val="#mpConsume" stat="DanceMpConsumeRate"/>
   </for>
 </skill>
@@ -227,8 +227,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="#mAtk" stat="mAtk"/>
-	<mul order="0x30" val="#mCrit" stat="mCritRate"/>
+    <mul order="0x30" val="#mAtk" stat="mAtk"/>
+    <mul order="0x30" val="#mCrit" stat="mCritRate"/>
   </for>
 </skill>
 <skill id="617" levels="1" name="Transform Onyx Beast">
@@ -242,7 +242,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="618" levels="1" name="Transform Death Blader">
@@ -256,7 +256,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-  <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="619" levels="1" name="Transform Dispel">

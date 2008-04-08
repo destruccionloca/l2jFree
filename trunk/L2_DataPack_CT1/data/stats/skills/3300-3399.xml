@@ -521,7 +521,7 @@
     <add order="0x40" stat="maxHp" val="492"/> <!--MaxHP +492-->
     <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
     <mul order="0x30" stat="mDef" val="1.054"/> <!-- M.Def +5.4%-->
-    <mul order="0x40" stat="sleepVuln" val="0.7"/> <!-- Sleep Vuln +30% -->
+    <mul order="0x30" stat="sleepVuln" val="0.7"/> <!-- Sleep Vuln +30% -->
   </for> 
 </skill> 
 <skill id="3349" levels="1" name="Dynasty Breast Plate - Weapon Master"> 
@@ -602,9 +602,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/> 
   <for> 
-   <sub order="0x40" stat="CON" val="2"/>
+    <sub order="0x40" stat="CON" val="2"/>
     <add order="0x40" stat="DEX" val="2"/>
-    <add order="0x30" stat="accCombat" val="4.3"/> <!-- Accuracy +4.3% -->
+    <add order="0x40" stat="accCombat" val="4.3"/> <!-- Accuracy +4.3% -->
     <add order="0x40" stat="maxHp" val="492"/> <!--MaxHP +492-->
     <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
     <mul order="0x30" stat="rootVuln" val="0.93"/> <!-- Hold Vuln +17% -->
@@ -624,9 +624,9 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/> 
   <for> 
-   <sub order="0x40" stat="CON" val="2"/>
+    <sub order="0x40" stat="CON" val="2"/>
     <add order="0x40" stat="DEX" val="2"/>
-    <add order="0x30" stat="rEvas" val="4.3"/> <!-- Evasion +4.3% -->
+    <add order="0x40" stat="rEvas" val="4.3"/> <!-- Evasion +4.3% -->
     <add order="0x40" stat="maxHp" val="321"/> <!--MaxHP +321-->
     <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
     <mul order="0x30" stat="pAtkSpd" val="1.08"/> <!-- P. AtkSpd +8% -->
