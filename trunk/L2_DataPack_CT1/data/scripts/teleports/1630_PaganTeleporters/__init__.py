@@ -16,7 +16,7 @@ class Quest (JQuest):
 
   def __init__(self,id,name,descr): JQuest.__init__(self,id,name,descr)
 
-  def onAdvEvent (self,event,npc,player):
+  def onAdvEvent (self,event,npc,pc) :
     if event == "Close_Door1" :
        DoorTable.getInstance().getDoor(19160001).closeMe()
     elif event == "Close_Door2" :

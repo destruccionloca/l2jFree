@@ -110,8 +110,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <sub order="0x40" stat="CON" val="1"/>
-    <add order="0x40" stat="STR" val="1"/>
+    <sub order="0x40" stat="CON" val="1"/> <!-- CON -1 -->
+    <add order="0x40" stat="STR" val="1"/> <!-- STR +1 -->
     <mul order="0x30" stat="pDef" val="1.046"/> <!-- P.Def +4.6%-->
     <add order="0x40" stat="maxHp" val="418"/> <!--MaxHP +418-->
     <mul order="0x30" stat="darkVuln" val="0.94"/> <!-- Dark Vuln +6% -->
@@ -130,8 +130,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <sub order="0x40" stat="CON" val="1"/>
-    <add order="0x40" stat="DEX" val="1"/>
+    <sub order="0x40" stat="CON" val="1"/> <!-- CON -1 -->
+    <add order="0x40" stat="DEX" val="1"/> <!-- DEX +1 -->
     <add order="0x40" stat="accCombat" val="1.72"/> <!--Accuracy +1.72-->
     <add order="0x40" stat="rEvas" val="1.72"/> <!--Evasion +1.72-->
     <add order="0x40" stat="maxHp" val="418"/> <!--MaxHP +418-->
@@ -197,8 +197,8 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <sub order="0x40" stat="INT" val="1"/>
-    <add order="0x40" stat="MEN" val="1"/>
+    <sub order="0x40" stat="INT" val="1"/> <!-- INT -1 -->
+    <add order="0x40" stat="MEN" val="1"/> <!-- MEN +1 -->
     <mul order="0x30" stat="mAtkSpd" val="1.12"/> <!-- Casting Spd. +12% -->
     <add order="0x40" stat="maxMp" val="257"/> <!--MaxMP +257-->
     <mul order="0x30" stat="darkVuln" val="0.94"/> <!-- Dark Vuln +6% -->
