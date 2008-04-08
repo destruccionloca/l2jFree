@@ -103,7 +103,7 @@
     login CDATA #REQUIRED
     password CDATA #IMPLIED
     lastactive CDATA #IMPLIED
-    accesslevel CDATA #IMPLIED
+    accessLevel CDATA #IMPLIED
     lastIP CDATA #IMPLIED
 >
 
