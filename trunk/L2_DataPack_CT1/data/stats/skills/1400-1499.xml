@@ -1244,9 +1244,9 @@
   <set name="castRange" val="400"/>
   <set name="soulConsumeCount" val="1"/>
   <for>
-	<effect name="Buff" count="1" time="20" val="0" stackOrder="2" stackType="runSpdDown">
-	  <mul order="0x30" val="0.80" stat="runSpd"/>
-      </effect>
+    <effect name="Buff" count="1" time="20" val="0" stackOrder="2" stackType="runSpdDown">
+      <mul order="0x30" val="0.80" stat="runSpd"/>
+    </effect>
   </for>
 </skill>
 <skill id="1447" levels="1" name="Voice Bind">
@@ -1262,7 +1262,7 @@
   <set name="target" val="TARGET_ONE"/>
   <set name="soulConsumeCount" val="1"/>
   <for>
-	<effect name="Mute" val="0" count="1" time="60" stackOrder="1" stackType="mute"/>
+    <effect name="Mute" val="0" count="1" time="60" stackOrder="1" stackType="mute"/>
   </for>
 </skill>
 <skill id="1448" levels="1" name="Blink">

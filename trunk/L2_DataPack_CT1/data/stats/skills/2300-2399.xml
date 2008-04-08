@@ -791,7 +791,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2371" levels="1" name="Transform Sealbook - Onyx Beast">
@@ -808,7 +808,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2372" levels="1" name="Transform Sealbook - Death Blader">
@@ -825,7 +825,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2373" levels="1" name="Transform Sealbook - Grail Apostle">
@@ -842,7 +842,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2374" levels="1" name="Transform Sealbook - Unicorn">
@@ -859,7 +859,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2375" levels="1" name="Transform Sealbook - Lilim Knight">
@@ -876,7 +876,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2376" levels="1" name="Transform Sealbook - Golem Guardian">
@@ -893,7 +893,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2377" levels="1" name="Transform Sealbook - Inferno Drake">
@@ -910,7 +910,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2378" levels="1" name="Transform Sealbook - Dragon Bomber">
@@ -927,7 +927,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2379" levels="1" name="Wind">
@@ -1064,7 +1064,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="2395" levels="1" name="Lesser Battlefield Healing Potion">

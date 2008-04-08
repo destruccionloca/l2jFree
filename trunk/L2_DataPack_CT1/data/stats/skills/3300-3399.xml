@@ -365,7 +365,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="3336" levels="1" name="Transform Buffalo">
@@ -382,7 +382,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="3337" levels="1" name="Transform Cutie Pig">
@@ -399,7 +399,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-	<effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
+    <effect count="1" name="Transformation" time="1800" val="0"/> <!-- Transformation lasts 30 minutes -->
   </for>
 </skill>
 <skill id="3338" levels="1" name="Shield Master">
@@ -538,12 +538,12 @@
   <set name="effectRange" val="-1"/> 
   <for> 
    <sub order="0x40" stat="CON" val="2"/>
-    <add order="0x40" stat="STR" val="2"/>	
+    <add order="0x40" stat="STR" val="2"/>
     <mul order="0x30" stat="pAtk" val="1.054"/> <!-- P.Atk +5.4%-->
     <add order="0x40" stat="maxHp" val="492"/> <!--MaxHP +492-->
     <mul order="0x30" stat="darkVuln" val="0.92"/> <!-- Dark Vuln +8% -->
     <mul order="0x30" stat="cAtk" val="1.10"/> <!-- Critical Damage +10% -->
-	<add order="0x40" stat="rCrit" val="61"/> <!-- Critical Rate +61 -->
+    <add order="0x40" stat="rCrit" val="61"/> <!-- Critical Rate +61 -->
   </for> 
 </skill> 
 <skill id="3350" levels="1" name="Dynasty Breast Plate - Force Master"> 

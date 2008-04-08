@@ -157,9 +157,9 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<mul order="0x30" val="#pAtk" stat="pAtk"/>
- 	<mul order="0x30" val="#rCrit" stat="rCrit"/>
-	<mul order="0x30" val="#cAtk" stat="cAtk"/>
+    <mul order="0x30" val="#pAtk" stat="pAtk"/>
+    <mul order="0x30" val="#rCrit" stat="rCrit"/>
+    <mul order="0x30" val="#cAtk" stat="cAtk"/>
   </for>
 </skill>
 <skill id="612" levels="3" name="Water Squad">
@@ -215,7 +215,7 @@
     <mul order="0x30" val="#gainHp" stat="gainHp"/>
     <mul order="0x30" val="#mpConsume" stat="PhysicalMpConsumeRate"/>
     <mul order="0x30" val="#mpConsume" stat="MagicalMpConsumeRate"/>
-	<mul order="0x30" val="#mpConsume" stat="DanceMpConsumeRate"/>
+    <mul order="0x30" val="#mpConsume" stat="DanceMpConsumeRate"/>
   </for>
 </skill>
 <skill id="616" levels="3" name="Dark Squad">
@@ -310,10 +310,10 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="soulConsumeCount" val="3"/>
   <for>
-	<effect name="Buff" count="1" time="15" val="0" stackOrder="50" stackType="UltimateEscape">
-	  <add order="0x40" stat="rEvas" val="8"/>
-  	  <add order="0x40" stat="runSpd" val="25"/>
- 	</effect>
+    <effect name="Buff" count="1" time="15" val="0" stackOrder="50" stackType="UltimateEscape">
+      <add order="0x40" stat="rEvas" val="8"/>
+      <add order="0x40" stat="runSpd" val="25"/>
+    </effect>
   </for>
 </skill>
 <skill id="623" levels="1" name="Find Trap">
@@ -367,10 +367,10 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-	<effect name="Buff" count="1" val="0" time="300" stackOrder="50" stackType="CritUp">
-	  <mul order="0x30" val="#rCrit" stat="rCrit"/>
-	  <mul order="0x30" val="#cAtk" stat="cAtk"/>
-	</effect>
+    <effect name="Buff" count="1" val="0" time="300" stackOrder="50" stackType="CritUp">
+      <mul order="0x30" val="#rCrit" stat="rCrit"/>
+      <mul order="0x30" val="#cAtk" stat="cAtk"/>
+    </effect>
   </for>
 </skill>
 <skill id="627" levels="40" name="Soul Shock">

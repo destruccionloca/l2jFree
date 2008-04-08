@@ -270,7 +270,7 @@ description(s) :
   <ench1 name="lethal2" val="#ench1Chance2"/>
   <ench1 name="mpConsume" val="#ench2MpConsume"/>
   <cond msg="Condition is not valid to use this skill">
-	<player hp="10"/>
+    <player hp="10"/>
   </cond>
   <for>
   </for>
@@ -575,9 +575,9 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="buffDuration" val="1200"/>
   <for>
-	<effect name="Buff" val="0" time="1200" stackorder="90" stacktype="shieldup_onhit">
-		<mul order="0x30" stat="sDef" val="1.25"/>
-	</effect>
+    <effect name="Buff" val="0" time="1200" stackorder="90" stacktype="shieldup_onhit">
+      <mul order="0x30" stat="sDef" val="1.25"/>
+    </effect>
   </for>
 </skill>
 <skill id="528" levels="1" name="Shield of Faith">
@@ -658,7 +658,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <for>
-	<effect name="Buff" count="1" val="0" time="40" stackorder="1" stacktype="criticalsuffered_up"/>
+    <effect name="Buff" count="1" val="0" time="40" stackorder="1" stacktype="criticalsuffered_up"/>
   </for>
 </skill>
 <skill id="532" levels="1" name="Counter Chance">
@@ -1212,10 +1212,10 @@ description(s) :
   <set name="castRange" val="40"/>
   <set name="effectRange" val="40"/>
   <for>
-	<effect name="Buff" count="1" val="0" time="60" stackorder="200" stacktype="gravitycontrol">
-		<mul order="0x30" stat="pAtkSpd" val="0.90"/>
-		<sub order="0x40" stat="runSpd" val="35"/>
-	</effect>
+    <effect name="Buff" count="1" val="0" time="60" stackorder="200" stacktype="gravitycontrol">
+      <mul order="0x30" stat="pAtkSpd" val="0.90"/>
+      <sub order="0x40" stat="runSpd" val="35"/>
+    </effect>
   </for>
 </skill>
 <skill id="565" levels="4" name="Horn Assault">
@@ -1463,8 +1463,8 @@ description(s) :
   <set name="castRange" val="-1"/>
   <for>
     <effect count="1" name="ImmobileBuff" time="30" val="0" stackOrder="1" stackType="fireArmor">
-	<mul order="0x30" val="#powerDef" stat="pDef"/>
-	<add order="0x40" val="#power" stat="reflectDam"/>
+      <mul order="0x30" val="#powerDef" stat="pDef"/>
+      <add order="0x40" val="#power" stat="reflectDam"/>
     </effect>
   </for>
 </skill>
@@ -1627,14 +1627,14 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <for>
-	<effect name="Buff" count="1" val="0" time="30" stackOrder="700" stackType="curse">
-	  <mul order="0x30" val="#power" stat="darkVuln"/>
-	  <sub order="0x40" val="#reduce" stat="runSpd"/>
-	  <mul order="0x30" val="#power" stat="pAtkSpd"/>
-	  <mul order="0x30" val="#power" stat="mAtkSpd"/>
-	  <mul order="0x30" val="#power" stat="pDef"/>
-	  <mul order="0x30" val="#power" stat="mDef"/>
-	</effect>
+    <effect name="Buff" count="1" val="0" time="30" stackOrder="700" stackType="curse">
+      <mul order="0x30" val="#power" stat="darkVuln"/>
+      <sub order="0x40" val="#reduce" stat="runSpd"/>
+      <mul order="0x30" val="#power" stat="pAtkSpd"/>
+      <mul order="0x30" val="#power" stat="mAtkSpd"/>
+      <mul order="0x30" val="#power" stat="pDef"/>
+      <mul order="0x30" val="#power" stat="mDef"/>
+    </effect>
   </for>
 </skill>
 <skill id="589" levels="2" name="Darkness Energy Drain">

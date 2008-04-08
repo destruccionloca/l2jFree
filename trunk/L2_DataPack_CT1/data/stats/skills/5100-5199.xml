@@ -322,8 +322,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="1" name="Buff" time="8" val="0">
-  	  <add order="0x40" stat="pDef" val="500"/>
+    <effect count="1" name="Buff" time="8" val="0">
+      <add order="0x40" stat="pDef" val="500"/>
       <add order="0x40" stat="mDef" val="300"/>
     </effect>
   </for>
@@ -348,9 +348,9 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="1" name="Buff" time="8" val="0">
-  	  <mul order="0x30" stat="cancelVuln" val="0.8"/>
-  	  <mul order="0x30" stat="rootVuln" val="0.8"/>
+    <effect count="1" name="Buff" time="8" val="0">
+      <mul order="0x30" stat="cancelVuln" val="0.8"/>
+      <mul order="0x30" stat="rootVuln" val="0.8"/>
       <mul order="0x30" stat="sleepVuln" val="0.8"/>
       <mul order="0x30" stat="poisonVuln" val="0.8"/>
       <mul order="0x30" stat="derangementVuln" val="0.8"/>
@@ -370,9 +370,9 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="1" name="Buff" time="8" val="0">
-  	  <mul stat="regHp" val="1.2" order="0x30"/>
-  	  <mul stat="regCp" val="1.2" order="0x30"/>
+    <effect count="1" name="Buff" time="8" val="0">
+      <mul stat="regHp" val="1.2" order="0x30"/>
+      <mul stat="regCp" val="1.2" order="0x30"/>
     </effect>
   </for>
 </skill>
@@ -386,8 +386,8 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="1" name="RecoverForce" time="8" val="0">
-  	  <mul order="0x30" stat="pAtk" val="1.10"/> <!-- Guessed -->
+    <effect count="1" name="RecoverForce" time="8" val="0">
+      <mul order="0x30" stat="pAtk" val="1.10"/> <!-- Guessed -->
     </effect>
   </for>
 </skill>
@@ -417,7 +417,7 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-  	<effect count="1" name="Buff" time="8" val="0">
+    <effect count="1" name="Buff" time="8" val="0">
 <!-- NOT DONE -->
     </effect>
   </for>
