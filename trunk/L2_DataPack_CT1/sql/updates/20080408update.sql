@@ -1,0 +1,1 @@
+ALTER TABLE accounts CHANGE `access_level` `accesslevel` INT NOT NULL default 0;
