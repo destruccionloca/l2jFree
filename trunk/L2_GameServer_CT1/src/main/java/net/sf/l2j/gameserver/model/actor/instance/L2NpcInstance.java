@@ -1998,7 +1998,6 @@ public class L2NpcInstance extends L2Character
                     message += "</a><br>";
                 }
             }
-		
             if (message == "")
             {
                 message += "There is no winning lottery ticket...<br>";
@@ -2026,7 +2025,7 @@ public class L2NpcInstance extends L2Character
         {
             filename = (getHtmlPath(npcId, 2));
             html.setFile(filename);
-	}
+        }
         html.replace("%objectId%", String.valueOf(getObjectId()));
         html.replace("%race%", "" + Lottery.getInstance().getId());
         html.replace("%adena%", "" + Lottery.getInstance().getPrize());
@@ -2470,12 +2469,6 @@ public class L2NpcInstance extends L2Character
                     filename = Olympiad.OLYMPIAD_HTML_FILE + "hero_main.htm";
                 else
                     filename = (getHtmlPath(npcId, val));
-                break;
-            case 36402:
-            	if (player.OlyBuff > 0)
-                    filename = Olympiad.OLYMPIAD_HTML_FILE + "olympiad_buffs.htm";
-            	else
-            		filename = Olympiad.OLYMPIAD_HTML_FILE + "olympiad_nobuffs.htm";
                 break;
             default:
                 if (npcId >= 31865 && npcId <= 31918)
