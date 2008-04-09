@@ -90,7 +90,8 @@ public class BalanceLife implements ISkillHandler
 			double newHP = target.getMaxHp() * percentHP;
 			double totalHeal = newHP - target.getStatus().getCurrentHp();
 
-			target.getStatus().setCurrentHp(newHP);
+			//target.getStatus().setCurrentHp(newHP);
+			target.getStatus().increaseHp(totalHeal);
 
 			if (totalHeal > 0)
 				target.setLastHealAmount((int) totalHeal);

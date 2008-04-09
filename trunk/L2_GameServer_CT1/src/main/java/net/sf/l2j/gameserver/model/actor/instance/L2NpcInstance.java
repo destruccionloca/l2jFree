@@ -2488,6 +2488,12 @@ public class L2NpcInstance extends L2Character
                 else
                     filename = (getHtmlPath(npcId, val));
                 break;
+            case 36402:
+            	if (player.OlyBuff > 0)
+                    filename = Olympiad.OLYMPIAD_HTML_FILE + "olympiad_buffs.htm";
+            	else
+            		filename = Olympiad.OLYMPIAD_HTML_FILE + "olympiad_nobuffs.htm";
+                break;
             default:
                 if (npcId >= 31865 && npcId <= 31918)
                 {

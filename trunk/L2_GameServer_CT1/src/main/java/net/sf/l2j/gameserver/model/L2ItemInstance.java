@@ -28,7 +28,6 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MercTicketManager;
-import net.sf.l2j.gameserver.model.Location;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.NullKnownList;
 import net.sf.l2j.gameserver.network.SystemMessageId;
@@ -1660,4 +1659,9 @@ public final class L2ItemInstance extends L2Object
 	{
 		return "none";
 	}
+	
+    public boolean isOlyRestrictedItem()
+    {
+        return Config.LIST_OLY_RESTRICTED_ITEMS.contains(_itemId);
+    }	
 }

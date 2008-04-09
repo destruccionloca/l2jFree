@@ -200,6 +200,8 @@ public abstract class L2Character extends L2Object
 
 	protected byte _zoneValidateCounter = 4;
 
+	private int						_olyDamage							= 0;
+
 	// =========================================================
 	// Constructor
 	/**
@@ -5890,6 +5892,10 @@ public abstract class L2Character extends L2Object
 
 			sendDamageMessage(target, damage, false, crit, miss);
 
+			// add olympiad damage
+			if(this instanceof L2PcInstance && ((L2PcInstance) this).isInOlympiadMode())
+				addOlyDamage(damage);
+			
 			// If L2Character target is a L2PcInstance, send a system message
 			if (target instanceof L2PcInstance)
 			{
@@ -7778,4 +7784,27 @@ public abstract class L2Character extends L2Object
             }
         }
     }
+
+    public int getOlyDamage()
+	{
+		return this._olyDamage;
+	}
+
+	public void setOlyDamage(int dmg)
+	{
+		_olyDamage = dmg;
+	}
+
+	public void addOlyDamage(int dmg)
+	{
+		_olyDamage = _olyDamage + dmg;
+	}
+
+	public void reduceOlyDamage(int dmg)
+	{
+		if (_olyDamage - dmg < 0)
+			_olyDamage = 0;
+		else
+			_olyDamage = _olyDamage - dmg;
+	}
 }

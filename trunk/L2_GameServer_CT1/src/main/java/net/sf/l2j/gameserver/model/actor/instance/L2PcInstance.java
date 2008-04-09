@@ -161,7 +161,6 @@ import net.sf.l2j.gameserver.network.serverpackets.ExFishingEnd;
 import net.sf.l2j.gameserver.network.serverpackets.ExFishingStart;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadMode;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadSpelledInfo;
-import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadUserInfo;
 import net.sf.l2j.gameserver.network.serverpackets.ExOlympiadUserInfoSpectator;
 import net.sf.l2j.gameserver.network.serverpackets.ExSetCompassZoneCode;
 import net.sf.l2j.gameserver.network.serverpackets.ExSpawnEmitter;
@@ -697,6 +696,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private boolean _olympiadStart = false;
     private int _olympiadGameId = -1;
     private int _olympiadSide = -1;
+    private int _olympiadOpponentId = 0;
+    public int OlyBuff = 0;
     
     /** Duel */
     private int _duelState = Duel.DUELSTATE_NODUEL;
@@ -3539,17 +3540,16 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (isInOlympiadMode())
         {
-            //FIXME: implement new OlympiadUserInfo
-            for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+        	for (L2PcInstance player : getKnownList().getKnownPlayers().values())
             {
-                if (player.getOlympiadGameId()==getOlympiadGameId())
+            	if (player.getOlympiadGameId()==getOlympiadGameId() && player.isOlympiadStart())
                 {
                     if (_log.isDebugEnabled())
                         _log.info("Send status for Olympia window of " + getObjectId() + "(" + getName() + ") to " + player.getObjectId() + "(" + player.getName() +"). CP: " + getStatus().getCurrentCp() + " HP: " + getStatus().getCurrentHp() + " MP: " + getStatus().getCurrentMp());
-                    player.sendPacket(new ExOlympiadUserInfo(this));
+                    player.sendPacket(new ExOlympiadUserInfoSpectator(this, 1));
                 }
             }
-            if (Olympiad.getInstance().getSpectators(_olympiadGameId) != null)
+        	if(Olympiad.getInstance().getSpectators(_olympiadGameId) != null && this.isOlympiadStart())
             {
                 for (L2PcInstance spectator : Olympiad.getInstance().getSpectators(_olympiadGameId))
                 {
@@ -3583,7 +3583,7 @@ public final class L2PcInstance extends L2PlayableInstance
         
         // Create the olympiad spectator packet if needed
         ExOlympiadSpelledInfo os = null;
-        if (this.isInOlympiadMode())
+        if (this.isInOlympiadMode() && this.isOlympiadStart())
         {
             os = new ExOlympiadSpelledInfo(this);
         }
@@ -8873,6 +8873,9 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setIsOlympiadStart(boolean b)
     {
         _olympiadStart = b;
+        // clear olympiad damage incase its not the first match since init of l2pcisntance
+        if(b)
+        	this.setOlyDamage(0);
     }
 
     public boolean isOlympiadStart()
@@ -9971,7 +9974,7 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         super.onTeleported();
 
-        if (Config.PLAYER_SPAWN_PROTECTION > 0)
+        if ((Config.PLAYER_SPAWN_PROTECTION > 0) && !isInOlympiadMode())
             setProtection(true);
 
         // Modify the position of the tamed beast if necessary (normal pets are handled by super...though
@@ -12024,5 +12027,15 @@ public final class L2PcInstance extends L2PlayableInstance
     public void setObjectSittingOn(L2StaticObjectInstance id)
     {
     	_objectSittingOn=id;
+    }
+    
+    public int getOlympiadOpponentId()
+    {
+    	return _olympiadOpponentId;
+    }
+    
+    public void setOlympiadOpponentId(int value)
+    {
+    	_olympiadOpponentId = value;
     }
 }
