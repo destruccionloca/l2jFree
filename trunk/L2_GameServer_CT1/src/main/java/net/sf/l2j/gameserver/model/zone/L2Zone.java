@@ -46,6 +46,7 @@ public abstract class L2Zone
 		Default,
 		DefenderSpawn,
 		Fishing,
+		Fort,
 		HeadQuarters,
 		Jail,
 		Mothertree,
