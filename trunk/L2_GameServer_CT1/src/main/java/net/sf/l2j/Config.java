@@ -2922,6 +2922,7 @@ public final class Config
 		loadBossConfig();
 		loadSayFilter();
 		loadKamaelConfig();
+		loadElayneConfig();
 
 		initDBProperties();
 	}
