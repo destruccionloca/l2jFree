@@ -540,7 +540,7 @@ public class RegionBBSManager extends BaseBBSManager
         htmlCode.append("<table>");
         htmlCode.append(trOpen + tdOpen + " Record of Player(s) Online:" +  recordTableInstance.getMaxPlayer() + tdClose + trClose);
         htmlCode.append(trOpen + tdOpen + " On date : " + recordTableInstance.getDateMaxPlayer() + tdClose + trClose);
-        htmlCode.append("</table>");
+
     }
     
     private int getOnlineCount(String type)
