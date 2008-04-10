@@ -1014,7 +1014,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <effect count="1" name="Buff" time="6" val="0">
+    <effect count="1" name="Buff" time="60" val="0">
       <add order="0x40" stat="cancelAttackerTarget" val="40"/>
     </effect>
   </for>
