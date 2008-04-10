@@ -76,6 +76,10 @@ public class RequestUnEquipItem extends L2GameClientPacket
 			return;
 		}
 
+		// Fortress siege combat flags can't be unequipped
+		if (item.getItemId() == 9819)
+			return;
+
 		// Prevent player from unequipping items in special conditions
 		if (activeChar.isStunned() || activeChar.isSleeping() 
 				|| activeChar.isParalyzed() || activeChar.isAlikeDead())

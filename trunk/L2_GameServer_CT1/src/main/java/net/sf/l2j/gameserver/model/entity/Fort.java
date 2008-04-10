@@ -151,7 +151,7 @@ public class Fort extends Siegeable
         {
             _formerOwner = clan;
             clan.setHasFort(0);
-             Announcements.getInstance().announceToAll(clan.getName() + " has lost " +getName() + " fort");
+             Announcements.getInstance().announceToAll(clan.getName() + " has lost " +getName() + " fortress!");
             clan.broadcastToOnlineMembers(new PledgeShowInfoUpdate(clan));
         }
 
@@ -247,7 +247,7 @@ public class Fort extends Siegeable
 
             con = L2DatabaseFactory.getInstance().getConnection(con);
 
-            statement = con.prepareStatement("Select * from fort where id = ?");
+            statement = con.prepareStatement("SELECT * FROM fort WHERE id = ?");
             statement.setInt(1, getFortId());
             rs = statement.executeQuery();
 

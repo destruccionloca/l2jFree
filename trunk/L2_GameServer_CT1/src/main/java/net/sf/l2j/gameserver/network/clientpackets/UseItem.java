@@ -334,6 +334,10 @@ public class UseItem extends L2GameClientPacket
 					&& ((bodyPart == L2Item.SLOT_LR_HAND || bodyPart == L2Item.SLOT_L_HAND || bodyPart == L2Item.SLOT_R_HAND) || itemId == 6408)) // Don't allow to put formal wear
 				return;
 
+			// Fortress siege combat flags can't be unequipped
+			if (itemId == 9819)
+				return;
+
 			activeChar.abortCast();
 
 			// Don't allow weapon/shield hero equipment during Olympiads
