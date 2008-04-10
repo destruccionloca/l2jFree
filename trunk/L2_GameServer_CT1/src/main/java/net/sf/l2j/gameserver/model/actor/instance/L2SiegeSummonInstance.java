@@ -18,6 +18,7 @@ import net.sf.l2j.gameserver.instancemanager.SiegeManager;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.entity.Siege;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
  
 public class L2SiegeSummonInstance extends L2SummonInstance
@@ -36,9 +37,8 @@ public class L2SiegeSummonInstance extends L2SummonInstance
 	{
 		super.onSpawn();
 		Siege siege = SiegeManager.getInstance().getSiege(this);
-		if (!getOwner().isGM() && (siege == null || !siege.getIsInProgress()))
+		if (!getOwner().isGM() && (siege == null || !siege.getIsInProgress()) && !isInsideZone(L2Zone.FLAG_SIEGE))
 		{
-			//TODO: Implement zone handler and unsummon it when leaving zone
 			unSummon(getOwner());
 			getOwner().sendMessage("Summon was unsummoned because it exited siege zone");
 		}
