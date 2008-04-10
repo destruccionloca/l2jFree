@@ -976,6 +976,15 @@ public class Olympiad
 			return false;
 		}
 
+		for (L2OlympiadGame game : _manager.getOlympiadGames().values())
+		{
+			if (game._playerOne.getObjectId() == noble.getObjectId() || game._playerTwo.getObjectId() == noble.getObjectId())
+			{
+				noble.sendMessage("Cant Unregister whilst you are already selected for a game");
+				return false;
+			}
+		}
+
 		if (_nonClassBasedRegisters.contains(noble))
 			_nonClassBasedRegisters.remove(noble);
 		else
@@ -985,15 +994,6 @@ public class Olympiad
 
 			_classBasedRegisters.remove(noble.getClassId().getId());
 			_classBasedRegisters.put(noble.getClassId().getId(), classed);
-		}
-
-		for (L2OlympiadGame game : _manager.getOlympiadGames().values())
-		{
-			if (game._playerOne.getObjectId() == noble.getObjectId() || game._playerTwo.getObjectId() == noble.getObjectId())
-			{
-				noble.sendMessage("Cant Unregister whilst you are already selected for a game");
-				return false;
-			}
 		}
 
 		sm = new SystemMessage(SystemMessageId.YOU_HAVE_BEEN_DELETED_FROM_THE_WAITING_LIST_OF_A_GAME);
@@ -2339,7 +2339,7 @@ public class Olympiad
 			{
 				try
 				{
-					if (player.isDead() == true)
+					if (player.isDead())
 					{
 						player.setIsDead(false);
 					}
