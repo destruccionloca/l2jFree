@@ -8416,4 +8416,4 @@ REPLACE INTO `npc` (`id`,`idTemplate`,`name`,`serverSideName`,`title`,`serverSid
 ('29105',29105,'Crystaline Golem',0,'',0,'LineageMonster4.Crystal_Golem','40.00','47.00','1','male','L2Monster',40,'2444.00','2444.00',0.00,0.00,'10','10','10','10','10','10','0','0','500','500','500','500','253','0','253','0','0','0','80','120','','0',0,'0','LAST_HIT');
 
 REPLACE INTO `npc` VALUES 
-(36402, 36402, "Olympiad Host", 0, "", 0, "LineageNPC.a_fighterguild_master_Mhuman", 8, 23.5, 1, "male", "L2OlympiadManager", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced"),
+(36402, 36402, "Olympiad Host", 0, "", 0, "LineageNPC.a_fighterguild_master_Mhuman", 8, 23.5, 1, "male", "L2OlympiadManager", 40, 2444, 2444, 0, 0, 10, 10, 10, 10, 10, 10, 0, 0, 500, 500, 500, 500, 253, 0, 253, 0, 0, NULL, 80, 120, "", 0, 0, 0, "LAST_HIT", 0, 0, 0, "balanced");
