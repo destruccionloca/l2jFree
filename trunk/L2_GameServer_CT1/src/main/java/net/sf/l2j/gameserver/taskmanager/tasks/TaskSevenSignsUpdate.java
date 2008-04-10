@@ -34,7 +34,7 @@ public class TaskSevenSignsUpdate extends Task
 {
     private static final Log _log = LogFactory.getLog(TaskSevenSignsUpdate.class);
     
-    public static final String NAME = "SevenSignsUpdate";
+    public static final String NAME = "seven_signs_update";
     
     public String getName()
     {

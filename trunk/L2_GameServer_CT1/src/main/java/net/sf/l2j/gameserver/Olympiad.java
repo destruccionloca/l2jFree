@@ -2534,7 +2534,7 @@ public class Olympiad
 			}
 			else
 			{
-				if (_playerTwo.isOnline() == 0 || (playerTwoHp == 0 && playerOneHp != 0) || (_playerOne.getOlyDamage() > _playerTwo.getOlyDamage() && playerTwoHp != 0))
+				if (_playerTwo.isOnline() == 0 || (playerTwoHp == 0 && playerOneHp != 0) || (_playerOne.getOlyDamage() > _playerTwo.getOlyDamage() && playerTwoHp != 0 && playerOneHp != 0))
 				{
 					int pointDiff;
 					pointDiff = playerTwoPoints / _div;
@@ -2567,7 +2567,7 @@ public class Olympiad
 					{
 					}
 				}
-				else if (_playerOne.isOnline() == 0 || (playerOneHp == 0 && playerTwoHp != 0) || (_playerTwo.getOlyDamage() > _playerOne.getOlyDamage() && playerOneHp != 0))
+				else if (_playerOne.isOnline() == 0 || (playerOneHp == 0 && playerTwoHp != 0) || (_playerTwo.getOlyDamage() > _playerOne.getOlyDamage() && playerOneHp != 0 && playerTwoHp != 0))
 				{
 					int pointDiff;
 					pointDiff = playerOnePoints / _div;

@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
 public class TaskOlympiadSave extends Task
 {
     private static final Log _log = LogFactory.getLog(TaskOlympiadSave.class.getName());
-    public static final String NAME = "OlympiadSave";
+    public static final String NAME = "olympiad_save";
     
     public String getName()
     {
