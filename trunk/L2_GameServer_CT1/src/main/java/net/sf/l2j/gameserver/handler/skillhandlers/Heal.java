@@ -134,7 +134,7 @@ public class Heal implements ISkillHandler
 			else if (skill.getSkillType() != SkillType.HEAL_PERCENT)
 				hp *= target.calcStat(Stats.HEAL_EFFECTIVNESS, 100, null, null) / 100;
 
-			target.getStatus().setCurrentHp(hp);// + target.getStatus().getCurrentHp()); 
+			target.getStatus().setCurrentHp(hp + target.getStatus().getCurrentHp()); 
 			target.setLastHealAmount((int)hp);
 			StatusUpdate su = new StatusUpdate(target.getObjectId());
 			su.addAttribute(StatusUpdate.CUR_HP, (int)target.getStatus().getCurrentHp());
