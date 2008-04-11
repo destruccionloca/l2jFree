@@ -180,4 +180,9 @@ public class GeoData
 	{
 		return GeoEngine.loadGeodataFile(rx, ry);
 	}
+
+	public boolean hasGeo(int x, int y)
+	{
+		return false;
+	}
 }

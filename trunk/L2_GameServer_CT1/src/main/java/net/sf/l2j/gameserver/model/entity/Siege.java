@@ -937,8 +937,7 @@ public class Siege
         }
         else if (getIsRegistrationOver()) 
         {
-            player.sendMessage("The deadline to register for the siege of "
-            + getCastle().getName() + " has passed.");
+            player.sendMessage("The deadline to register for the siege of " + getCastle().getName() + " has passed.");
             return false;
         }
         else if (getIsInProgress()) 
@@ -948,12 +947,17 @@ public class Siege
         }
         else if (clan.getHasCastle() > 0) 
         {
-            player.sendMessage("You cannot register because your clan already own a castle.");
+            player.sendMessage("You cannot register because your clan already owns a castle.");
             return false;
         }
         else if (clan.getClanId() == getCastle().getOwnerId())
         {
             player.sendPacket(new SystemMessage(SystemMessageId.CLAN_THAT_OWNS_CASTLE_IS_AUTOMATICALLY_REGISTERED_DEFENDING));
+            return false;
+        }
+        else if (checkIfAlreadyRegisteredForSameDay(player.getClan()))
+        {
+            player.sendPacket(new SystemMessage(SystemMessageId.APPLICATION_DENIED_BECAUSE_ALREADY_SUBMITTED_A_REQUEST_FOR_ANOTHER_SIEGE_BATTLE));
             return false;
         }
         else 
@@ -962,7 +966,7 @@ public class Siege
             {
                 if (SiegeManager.getInstance().checkIsRegistered(player.getClan(), i))
                 {
-                    player.sendMessage("You are already registered in a Siege.");
+                    player.sendPacket(new SystemMessage(SystemMessageId.ALREADY_REQUESTED_SIEGE_BATTLE));
                     return false;
                 }
             }
@@ -986,6 +990,25 @@ public class Siege
         }
 
         return true;
+    }
+
+    /**
+     * Return true if the clan has already registered to a siege for the same day.<BR><BR>
+     * @param clan The L2Clan of the player trying to register
+     */
+    public boolean checkIfAlreadyRegisteredForSameDay(L2Clan clan)
+    {
+        for (Siege siege : SiegeManager.getInstance().getSieges())
+        {
+            if (siege == this) continue;
+            if (siege.getSiegeDate().get(Calendar.DAY_OF_WEEK) == this.getSiegeDate().get(Calendar.DAY_OF_WEEK))
+            {
+                if (siege.checkIsAttacker(clan)) return true;
+                if (siege.checkIsDefender(clan)) return true;
+                if (siege.checkIsDefenderWaiting(clan)) return true;
+            }
+        }
+        return false;
     }
 
     /**

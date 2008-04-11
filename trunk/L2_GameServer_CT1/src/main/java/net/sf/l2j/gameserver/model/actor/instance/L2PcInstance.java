@@ -5635,13 +5635,15 @@ public final class L2PcInstance extends L2PlayableInstance
             return false;
 
         Ride mount = new Ride(this, true, npcId);
-        this.setMount(npcId, mount.getMountType());
-        this.setMountObjectID(controlItemObjId);
-        this.broadcastPacket(mount);
-
-        // Notify self and others about speed change
-        this.broadcastUserInfo();
-        return true;
+        if (setMount(npcId, mount.getMountType()))
+        {
+            setMountObjectID(controlItemObjId);
+            broadcastPacket(mount);
+            // Notify self and others about speed change
+            broadcastUserInfo();
+            return true;
+        }
+        return false;
     }
 
 	public boolean dismount()
@@ -5871,10 +5873,14 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void broadcastKarma()
     {
-		sendPacket(new UserInfo(this));
-		for (L2PcInstance player : getKnownList().getKnownPlayers().values()) {
-			player.sendPacket(new RelationChanged(this, getRelation(player), isAutoAttackable(player)));
-		}
+        StatusUpdate su = new StatusUpdate(getObjectId());
+        su.addAttribute(StatusUpdate.KARMA, getKarma());
+        sendPacket(su);
+
+        for (L2PcInstance player : getKnownList().getKnownPlayers().values())
+        {
+            player.sendPacket(new RelationChanged(this, getRelation(player), isAutoAttackable(player)));
+        }
     }
 
     /**
@@ -8100,7 +8106,8 @@ public final class L2PcInstance extends L2PlayableInstance
 			{
 				if(getClan() != null && ((L2PcInstance)target).getClan() != null)
 				{
-					if(getClan().isAtWarWith(((L2PcInstance)target).getClan().getClanId()))
+					if(getClan().isAtWarWith(((L2PcInstance)target).getClan().getClanId())
+						&& ((L2PcInstance)target).getClan().isAtWarWith(getClan().getClanId()))
 						return true; // in clan war player can attack whites even with sleep etc.
 				}
 				if (

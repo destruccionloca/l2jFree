@@ -1170,8 +1170,9 @@ public final class Formulas
 			power *= skill.getSSBoost();
 		
 		//Multiplier should be removed, it's false ??
-		damage += 1.5*attacker.calcStat(Stats.CRITICAL_DAMAGE, damage+power, target, skill);
-		//damage *= (double)attacker.getLevel()/target.getLevel();
+		// TODO: Check if CritVuln effects whole part of CritDmg.
+		damage += 1.5*(attacker.calcStat(Stats.CRITICAL_DAMAGE, damage+power, target, skill)
+			* target.calcStat(Stats.CRIT_VULN, target.getTemplate().baseCritVuln, target, skill != null ? skill : null));
 
 		// get the natural vulnerability for the template
 		if (target instanceof L2NpcInstance)
@@ -1328,10 +1329,10 @@ public final class Formulas
                 if(((L2PcInstance)target).isWearingHeavyArmor())
                     damage /= Config.ALT_DAGGER_DMG_VS_HEAVY;
                 if(((L2PcInstance)target).isWearingLightArmor())
-                    damage /= Config.ALT_DAGGER_DMG_VS_LIGHT;  
+                    damage /= Config.ALT_DAGGER_DMG_VS_LIGHT;
                 if(((L2PcInstance)target).isWearingMagicArmor())
-                    damage /= Config.ALT_DAGGER_DMG_VS_ROBE;   
-            }            
+                    damage /= Config.ALT_DAGGER_DMG_VS_ROBE;
+            }
         }
 
         if (attacker instanceof L2NpcInstance)
@@ -1716,32 +1717,66 @@ public final class Formulas
         	return (int) (time * 333 / attacker.getPAtkSpd());
     }
     
-    /** Returns true if hit missed (taget evaded) */
-    public boolean calcHitMiss(L2Character attacker, L2Character target) 
-    {
-        // accuracy+dexterity => probability to hit in percents
-        int acc_attacker;
-        int evas_target;
-        acc_attacker = attacker.getAccuracy();
-        if(attacker instanceof L2PcInstance)
-        {
-            if(attacker.isBehindTarget())
-                acc_attacker +=10;
-            else if(!attacker.isFacing(target, 60) && !attacker.isBehindTarget())
-                acc_attacker +=5;
-            if(attacker.getZ()-target.getZ() >= 32)
-                acc_attacker +=3;
-            else if(attacker.getZ()-target.getZ() <= -32)
-                acc_attacker -=3;
-            if(GameTimeController.getInstance().isNowNight())
-                acc_attacker -=10;
-        }
-        evas_target = target.getEvasionRate(attacker);
-        int d = (int) (10 * Math.pow(1.1, evas_target - acc_attacker));
-        if(d > 75) d = 75; // max chance
-        if(d < 5) d = 5;  // min chance
-        return Rnd.get(100) > (100 - d);
-	}
+	/** Returns true if hit missed (target evaded)
+	*  Formula based on http://l2p.l2wh.com/nonskillattacks.html
+	*/
+	public boolean calcHitMiss(L2Character attacker, L2Character target) 
+	{
+		int delta = attacker.getAccuracy() - target.getEvasionRate(attacker);
+		int chance;
+		if (delta >= 10) chance = 980;
+		else 
+		{
+			switch (delta)
+			{
+				case 9: chance = 975; break; 
+				case 8: chance = 970; break;
+				case 7: chance = 965; break;
+				case 6: chance = 960; break;
+				case 5: chance = 955; break;
+				case 4: chance = 945; break;
+				case 3: chance = 935; break;
+				case 2: chance = 925; break;
+				case 1: chance = 915; break;
+				case 0: chance = 905; break;
+				case -1: chance = 890; break;
+				case -2: chance = 875; break;
+				case -3: chance = 860; break;
+				case -4: chance = 845; break;
+				case -5: chance = 830; break;
+				case -6: chance = 815; break;
+				case -7: chance = 800; break;
+				case -8: chance = 785; break;
+				case -9: chance = 770; break;
+				case -10: chance = 755; break;
+				case -11: chance = 735; break;
+				case -12: chance = 715; break;
+				case -13: chance = 695; break;
+				case -14: chance = 675; break;
+				case -15: chance = 655; break;
+				case -16: chance = 625; break;
+				case -17: chance = 595; break;
+				case -18: chance = 565; break;
+				case -19: chance = 535; break;
+				case -20: chance = 505; break;
+				case -21: chance = 455; break;
+				case -22: chance = 405; break;
+				case -23: chance = 355; break;
+				case -24: chance = 305; break;
+				default: chance = 275;
+			}
+			if(!attacker.isInFrontOfTarget())
+			{
+				if(attacker.isBehindTarget())
+					chance *= 1.2;
+				else // side
+					chance *= 1.1;
+				if (chance > 980)
+					chance = 980;
+			}
+		}
+		return chance < Rnd.get(1000);
+ 	}
 
 	/** Returns true if shield defence successful */
 	public boolean calcShldUse(L2Character attacker, L2Character target) 

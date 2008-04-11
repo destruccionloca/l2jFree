@@ -20,6 +20,7 @@ import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.handler.IItemHandler;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
+import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.ClanHallManager;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Skill;
@@ -49,7 +50,7 @@ public class ScrollOfEscape implements IItemHandler
 	// all the items ids that this handler knowns
 	private static final int[] ITEM_IDS =
 	{ 736, 1830, 1829, 1538, 3958, 5858, 5859, 7117, 7118, 7119, 7120, 7121, 7122, 7123, 7124, 7125, 7126, 7127, 7128, 7129,
-			7130, 7131, 7132, 7133, 7134, 7135, 7554, 7555, 7556, 7557, 7558, 7559, 7618, 7619, 9716 };
+			7130, 7131, 7132, 7133, 7134, 7135, 7554, 7555, 7556, 7557, 7558, 7559, 7618, 7619, 9716, 10129, 10130 };
 
 	/*
 	 * (non-Javadoc)
@@ -130,7 +131,7 @@ public class ScrollOfEscape implements IItemHandler
 		// Check if this is a blessed scroll, if it is then shorten the cast
 		// time.
 		int itemId = item.getItemId();
-		int escapeSkill = (itemId == 1538 || itemId == 5858 || itemId == 5859 || itemId == 3958) ? 2036 : 2013;
+		int escapeSkill = (itemId == 1538 || itemId == 5858 || itemId == 5859 || itemId == 3958 || itemId == 10130) ? 2036 : 2013;
 
 		if (!activeChar.destroyItem("Consume", item.getObjectId(), 1, null, false))
 			return;
@@ -183,6 +184,11 @@ public class ScrollOfEscape implements IItemHandler
 				{
 					_activeChar.teleToLocation(TeleportWhereType.Castle);
 				}
+				// escape to fortress if own's one
+				else if ((_itemId == 10129 || _itemId == 10130) && FortManager.getInstance().getFortByOwner(_activeChar.getClan()) != null)
+				{ 
+					_activeChar.teleToLocation(TeleportWhereType.Fortress); 
+				}
 				// escape to clan hall if own's one
 				else if ((_itemId == 1829 || _itemId == 5858) && _activeChar.getClan() != null
 						&& ClanHallManager.getInstance().getClanHallByOwner(_activeChar.getClan()) != null)
@@ -197,6 +203,11 @@ public class ScrollOfEscape implements IItemHandler
 				else if (_itemId == 5859) // do nothing
 				{
 					_activeChar.sendMessage("The clan does not own a castle.");
+					return;
+				}
+				else if(_itemId == 10130) // do nothing
+				{
+					_activeChar.sendMessage("The clan does not own a fortress.");
 					return;
 				}
 				else

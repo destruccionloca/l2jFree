@@ -53,12 +53,6 @@ public class PcStat extends PlayableStat
     public boolean addExp(long value)
     {
         L2PcInstance activeChar = getActiveChar();
-        // Set new karma
-        if (!activeChar.isCursedWeaponEquipped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !activeChar.isInsideZone(L2Zone.FLAG_PVP)))
-        {
-            int karmaLost = activeChar.calculateKarmaLost((int) value);
-            if (karmaLost > 0) activeChar.setKarma(activeChar.getKarma() - karmaLost);
-        }
 
         //Player is Gm and acces level is below or equal to GM_DONT_TAKE_EXPSP and is in party, don't give Xp
         if (getActiveChar().isGM() && getActiveChar().getAccessLevel() <= Config.GM_DONT_TAKE_EXPSP && getActiveChar().isInParty())
@@ -66,11 +60,16 @@ public class PcStat extends PlayableStat
 
         if (!super.addExp(value)) return false;
         
-        /* Micht : Use of PetInfo for C5
-        StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
-        su.addAttribute(StatusUpdate.EXP, getExp());
-        activeChar.sendPacket(su);
-        */
+        // Set new karma
+        if (!activeChar.isCursedWeaponEquipped() && activeChar.getKarma() > 0 && (activeChar.isGM() || !activeChar.isInsideZone(L2Zone.FLAG_PVP)))
+        {
+            int karmaLost = activeChar.calculateKarmaLost((int) value);
+            if (karmaLost > 0) activeChar.setKarma(activeChar.getKarma() - karmaLost);
+        }
+
+        //StatusUpdate su = new StatusUpdate(activeChar.getObjectId());
+        //su.addAttribute(StatusUpdate.EXP, getExp());
+        //activeChar.sendPacket(su);
         activeChar.sendPacket(new UserInfo(activeChar));
 
         return true;

@@ -321,6 +321,9 @@ public class L2DoorInstance extends L2Character
         if (isUnlockable())
             return true;
 
+        // Doors can't be attacked by NPCs
+        if (attacker == null || !(attacker instanceof L2PcInstance)) return false;
+
         // Attackable during siege by attacker only
         boolean isCastle = (getCastle() != null
                            && getCastle().getCastleId() > 0
@@ -332,8 +335,7 @@ public class L2DoorInstance extends L2Character
                 && getFort().getSiege().getIsInProgress()
                 && getFort().getSiege().checkIsAttacker(((L2PcInstance)attacker).getClan()));
 
-        return (attacker != null && attacker instanceof L2PcInstance
-                && ( isCastle || isFort));
+        return (isCastle || isFort);
     }
 
     public boolean isAttackable(L2Character attacker)

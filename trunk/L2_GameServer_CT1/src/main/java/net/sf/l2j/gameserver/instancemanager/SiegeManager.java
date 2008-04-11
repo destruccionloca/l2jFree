@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
@@ -378,6 +379,15 @@ public class SiegeManager
                 return castle.getSiege();
         return null;
     }
+
+    public final List<Siege> getSieges()
+    {
+        FastList<Siege> sieges = new FastList<Siege>();
+        for (Castle castle: CastleManager.getInstance().getCastles().values())
+            sieges.add(castle.getSiege());
+        return sieges;
+    }
+
 
     public class SiegeSpawn
     {

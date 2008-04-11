@@ -3783,13 +3783,13 @@ public enum SystemMessageId
 	* ID: 638<br>
 	* Message: You have already requested a Siege Battle.
 	*/
-	ALREADY_REQUESTED_SIEGE(638),
+	ALREADY_REQUESTED_SIEGE_BATTLE(638),
 
 	/**
 	* ID: 639<br>
 	* Message: Your application has been denied because you have already submitted a request for another Siege Battle.
 	*/
-	APPLICTION_DENIED_ALREADY_REQUESTED_SIEGE(639),
+	APPLICATION_DENIED_BECAUSE_ALREADY_SUBMITTED_A_REQUEST_FOR_ANOTHER_SIEGE_BATTLE(639),
 
 	// 640 - 641: empty
 

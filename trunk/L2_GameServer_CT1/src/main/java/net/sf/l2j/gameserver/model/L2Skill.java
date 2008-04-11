@@ -1870,8 +1870,6 @@ public abstract class L2Skill
 
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (obj == null)
-						continue;
 					if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
 						continue;
 					if (obj == cha)
@@ -1991,7 +1989,7 @@ public abstract class L2Skill
 
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (obj == null || obj == cha)
+					if (obj == cha)
 						continue;
 
 					if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
@@ -2115,7 +2113,7 @@ public abstract class L2Skill
 
 				for (L2Object obj : activeChar.getKnownList().getKnownObjects().values())
 				{
-					if (obj == null || obj == cha)
+					if (obj == cha)
 						continue;
 					if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance))
 						continue;
@@ -2230,8 +2228,6 @@ public abstract class L2Skill
 				if (cha != null && cha.getKnownList() != null)
 					for (L2Object obj : cha.getKnownList().getKnownObjects().values())
 					{
-						if (obj == null)
-							continue;
 						if (obj instanceof L2NpcInstance)
 							target = (L2NpcInstance) obj;
 						else if (obj instanceof L2SummonInstance)
@@ -2392,7 +2388,7 @@ public abstract class L2Skill
 						// Get Clan Members
 						for (L2Object newTarget : activeChar.getKnownList().getKnownObjects().values())
 						{
-							if (newTarget == null || newTarget == player || !(newTarget instanceof L2PcInstance))
+							if (newTarget == player || !(newTarget instanceof L2PcInstance))
 								continue;
 							if ((((L2PcInstance) newTarget).getAllyId() == 0 || ((L2PcInstance) newTarget).getAllyId() != player.getAllyId())
 									&& (((L2PcInstance) newTarget).getClan() == null || ((L2PcInstance) newTarget).getClanId() != player.getClanId()))
@@ -2688,8 +2684,6 @@ public abstract class L2Skill
 					{
 						boolean targetInPvP = target.isInsideZone(L2Zone.FLAG_PVP) && !target.isInsideZone(L2Zone.FLAG_SIEGE);
 
-						if (obj == null)
-							continue;
 						if (!(obj instanceof L2Attackable || obj instanceof L2PlayableInstance) || ((L2Character) obj).isDead()
 								|| ((L2Character) obj) == activeChar)
 							continue;

@@ -15,7 +15,9 @@
 package net.sf.l2j.gameserver.handler.voicedcommandhandlers;
 
 import net.sf.l2j.Config;
+
 import net.sf.l2j.gameserver.GameTimeController;
+import net.sf.l2j.gameserver.SevenSigns;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -344,6 +346,29 @@ public class Wedding implements IVoicedCommandHandler
         {
             activeChar.sendMessage("Your partner is in a unsuitable area for teleporting.");
             return false;
+        }
+        else if (partner.isIn7sDungeon() && !activeChar.isIn7sDungeon())
+        {
+            int playerCabal = SevenSigns.getInstance().getPlayerCabal(activeChar);
+            boolean isSealValidationPeriod = SevenSigns.getInstance().isSealValidationPeriod();
+            int compWinner = SevenSigns.getInstance().getCabalHighestScore();
+            
+            if (isSealValidationPeriod)
+            {
+                if (playerCabal != compWinner)
+                {
+                    activeChar.sendMessage("Your Partner is in a Seven Signs Dungeon and you are not in the winner Cabal!");
+                    return false;
+                }
+            }
+            else
+            {
+                if (playerCabal == SevenSigns.CABAL_NULL)
+                {
+                    activeChar.sendMessage("Your Partner is in a Seven Signs Dungeon and you are not registered!");
+                    return false;
+                }
+            }
         }
         
         int teleportTimer = Config.WEDDING_TELEPORT_INTERVAL*1000;

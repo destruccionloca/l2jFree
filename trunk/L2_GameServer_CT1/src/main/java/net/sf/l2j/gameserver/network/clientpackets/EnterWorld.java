@@ -125,43 +125,9 @@ public class EnterWorld extends L2GameClientPacket
 			return;
 		}
 
-		// Send Macro List
-		activeChar.getMacroses().sendUpdate();
-
-		// Send Item List
-		sendPacket(new ItemList(activeChar, false));
-
-		// Send gg check (even if we are not going to check for reply)
-		activeChar.queryGameGuard();
-
-		// Send Shortcuts
-		sendPacket(new ShortCutInit(activeChar));
-
-		// Send Action list
-		activeChar.sendPacket(new ExBasicActionList());
-
-		activeChar.sendSkillList();
-
-		activeChar.sendPacket(new HennaInfo(activeChar));
-
-		sendPacket(new UserInfo(activeChar));
-
-		Quest.playerEnter(activeChar);
-		loadTutorial(activeChar);
-
 		// Register in flood protector
 		FloodProtector.getInstance().registerNewPlayer(activeChar.getObjectId());
 
-		//        if(!getClient().getAccountName().equalsIgnoreCase(getClient().getAccountName(activeChar.getName())))
-		//        {
-		//            _log.fatal("Possible Hacker Account:"+getClient().getAccountName()+" tried to login with char: "+activeChar.getName() + "of Account:" + getClient().getAccountName(activeChar.getName()));
-		//            activeChar.closeNetConnection();
-		//        }
-		//        if(!getClient().isAuthed())
-		//        {
-		//            _log.fatal("Possible Hacker Account:"+getClient().getAccountName()+" is not authed");
-		//            activeChar.closeNetConnection();
-		//        }
 		if (activeChar.isGM())
 		{
 			if (Config.SHOW_GM_LOGIN)
@@ -221,6 +187,51 @@ public class EnterWorld extends L2GameClientPacket
 			if (Config.CHAR_VIP_COLOR_ENABLED)
 				activeChar.getAppearance().setNameColor(Config.CHAR_VIP_COLOR);
 		}
+
+		if (activeChar.getStatus().getCurrentHp() < 0.5) // is dead
+			activeChar.setIsDead(true);
+
+		if (activeChar.getClan() != null)
+		{
+			for (Siege siege : SiegeManager.getInstance().getSieges())
+			{
+				if (!siege.getIsInProgress())
+					continue;
+				if (siege.checkIsAttacker(activeChar.getClan()))
+					activeChar.setSiegeState((byte)1);
+				else if (siege.checkIsDefender(activeChar.getClan()))
+					activeChar.setSiegeState((byte)2);
+			}
+		}
+
+		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
+			activeChar.setHero(true);
+
+		sendPacket(new UserInfo(activeChar));
+
+		// Send Macro List
+		activeChar.getMacroses().sendUpdate();
+
+		// Send Item List
+		sendPacket(new ItemList(activeChar, false));
+
+		// Send gg check (even if we are not going to check for reply)
+		activeChar.queryGameGuard();
+
+		// Send Shortcuts
+		sendPacket(new ShortCutInit(activeChar));
+
+		// Send Action list
+		activeChar.sendPacket(new ExBasicActionList());
+
+		activeChar.sendSkillList();
+
+		activeChar.sendPacket(new HennaInfo(activeChar));
+
+
+		Quest.playerEnter(activeChar);
+		activeChar.sendPacket(new QuestList(activeChar));
+		loadTutorial(activeChar);
 
 		if (Config.PLAYER_SPAWN_PROTECTION > 0)
 			activeChar.setProtection(true);
@@ -339,10 +350,6 @@ public class EnterWorld extends L2GameClientPacket
 			}
 		}
 
-		// set hero status to character if character is Hero
-		if (Hero.getInstance().getHeroes() != null && Hero.getInstance().getHeroes().containsKey(activeChar.getObjectId()))
-			activeChar.setHero(true);
-
 		// check player skills
 		if (Config.CHECK_SKILLS_ON_ENTER && !Config.ALT_GAME_SKILL_LEARN)
 			activeChar.checkAllowedSkills();
@@ -376,18 +383,12 @@ public class EnterWorld extends L2GameClientPacket
 			sendPacket(psc);
 		}
 
-		if (activeChar.getStatus().getCurrentHp() < 0.5) // is dead
-			activeChar.setIsDead(true);
-
 		if (activeChar.isAlikeDead()) // dead or fake dead
 		{
 			// no broadcast needed since the player will already spawn dead to others
 			Die d = new Die(activeChar);
 			sendPacket(d);
 		}
-
-		//add char to online characters
-		activeChar.setOnlineStatus(true);
 
 		// engage and notify Partner
 		if (Config.ALLOW_WEDDING)
@@ -444,18 +445,7 @@ public class EnterWorld extends L2GameClientPacket
 			//Sets the apropriate Pledge Class for the clannie (e.g. Viscount, Count, Baron, Marquiz)
 			activeChar.setPledgeClass(L2ClanMember.getCurrentPledgeClass(activeChar));
 
-			for (Castle castle : CastleManager.getInstance().getCastles().values())
-			{
-				Siege siege = castle.getSiege();
-				if (!siege.getIsInProgress())
-					continue;
-				if (siege.checkIsAttacker(activeChar.getClan()))
-					activeChar.setSiegeState((byte) 1);
-				else if (siege.checkIsDefender(activeChar.getClan()))
-					activeChar.setSiegeState((byte) 2);
-			}
-			// Add message at connexion if clanHall not paid.
-			// Possibly this is custom...
+			// Add message if clanHall not paid. Possibly this is custom...
 			ClanHall clanHall = ClanHallManager.getInstance().getClanHallByOwner(activeChar.getClan());
 			if (clanHall != null)
 			{
@@ -489,11 +479,6 @@ public class EnterWorld extends L2GameClientPacket
 
 		if (DM._savePlayers.contains(activeChar.getName()))
 			DM.addDisconnectedPlayer(activeChar);
-
-		activeChar.sendPacket(new QuestList(activeChar));
-
-		ExBasicActionList ba = new ExBasicActionList();
-		activeChar.sendPacket(ba);
 
 		if (activeChar.isCursedWeaponEquipped())
 		{
