@@ -98,7 +98,7 @@ public class FactionQuestManager
         }
         catch (Exception e)
         {
-            _log.error("Exception: FactionQuestManager.load(): " + e.getMessage(),e);
+            _log.warn("Exception: FactionQuestManager.load(): " + e.getMessage(),e);
         }
         
         finally {try { con.close(); } catch (Exception e) {}}

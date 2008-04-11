@@ -78,7 +78,7 @@ public class L2FactionManagerInstance extends L2NpcInstance
         String factionName = getTemplate().getNpcFactionName();
         if(factionId!=0)
         {
-            filename = "data/html/faction/" + String.valueOf(factionId)  +  "/start.htm";
+            filename = "data/html/custom/faction/" + String.valueOf(factionId)  +  "/start.htm";
             replace = getName();
         }
         sendHtmlMessage(player, filename, replace, factionName);
@@ -96,7 +96,7 @@ public class L2FactionManagerInstance extends L2NpcInstance
         String replace = "";
         if(factionId!=0)
         {
-            String path = "data/html/faction/" + String.valueOf(factionId) + "/";
+            String path = "data/html/custom/faction" + String.valueOf(factionId) + "/";
             replace = String.valueOf(factionPrice);
             
             if(player.getNPCFaction()!=null)
@@ -135,7 +135,7 @@ public class L2FactionManagerInstance extends L2NpcInstance
                 filename = path + "story.htm";
             else if (command.startsWith("Quit"))
             {
-                player.getNPCFaction().quitFaction();
+                player.quitNPCFaction();
                 filename = path + "quited.htm";
             }
             else if (command.startsWith("Quest"))

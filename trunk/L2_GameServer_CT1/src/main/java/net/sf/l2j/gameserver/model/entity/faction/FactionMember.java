@@ -78,7 +78,7 @@ public class FactionMember
         }
         catch (Exception e)
         {
-            _log.error("Exception: FactionMember.load(): " + e.getMessage(),e);
+            _log.warn("Exception: FactionMember.load(): " + e.getMessage(),e);
         }
         finally {try { con.close(); } catch (Exception e) {}}
     }
@@ -99,13 +99,13 @@ public class FactionMember
             statement = con.prepareStatement("INSERT INTO faction_members (player_id, faction_id, faction_points, contributions, join_date) VALUES (?, ?, 0, 0, ?)");
             statement.setInt(1, _playerId);
             statement.setInt(2, _factionId);
-            statement.setLong(3, _joinDate.getTimeInMillis());            
+            statement.setLong(3, _joinDate.getTimeInMillis());
             statement.execute();
             statement.close();
         }
         catch (Exception e)
         {
-            _log.error("",e);
+            _log.warn("",e);
         }
         finally
         {
@@ -130,7 +130,7 @@ public class FactionMember
         }
         catch (Exception e)
         {
-            _log.error("Exception: FactionMember.quitFaction(): " + e.getMessage(),e);
+            _log.warn("Exception: FactionMember.quitFaction(): " + e.getMessage(),e);
         }
         finally
         {
@@ -155,7 +155,7 @@ public class FactionMember
         }
         catch (Exception e)
         {
-            _log.error("Exception: FactionMember.updateDb(): " + e.getMessage(),e);
+            _log.warn("Exception: FactionMember.updateDb(): " + e.getMessage(),e);
         }
         finally
         {
