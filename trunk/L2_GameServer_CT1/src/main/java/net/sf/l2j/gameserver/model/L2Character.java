@@ -6079,57 +6079,72 @@ public abstract class L2Character extends L2Object
 	 */
 	public void onForcedAttack(L2PcInstance player)
 	{
+		if (player.getTarget() == null || !(player.getTarget() instanceof L2Character))
+		{
+			// If target is not attackable, send a Server->Client packet ActionFailed
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
+		}
+		L2Character target = (L2Character)player.getTarget();
+
 		if (isInsidePeaceZone(player))
 		{
-			if (!player.isInFunEvent() || !player.getTarget().isInFunEvent())
+			if (!player.isInFunEvent() || !target.isInFunEvent())
 			{
 				// If L2Character or target is in a peace zone, send a system message TARGET_IN_PEACEZONE a Server->Client packet ActionFailed
 				player.sendPacket(new SystemMessage(SystemMessageId.TARGET_IN_PEACEZONE));
 				player.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
 			}
 		}
-		else if (player.isInOlympiadMode() && player.getTarget() != null)
-		{
-			L2PcInstance target;
-			if (player.getTarget() instanceof L2Summon)
-				target = ((L2Summon) player.getTarget()).getOwner();
-			else
-				target = (L2PcInstance) player.getTarget();
 
-			if (target.isInOlympiadMode() && !player.isOlympiadStart() && player.getOlympiadGameId() != target.getOlympiadGameId())
+		if (player.isInOlympiadMode() && target instanceof L2PlayableInstance)
+		{
+			L2PcInstance ptarget;
+			if (target instanceof L2Summon)
+				ptarget = ((L2Summon) target).getOwner();
+			else
+				ptarget = (L2PcInstance) target;
+
+			if ((ptarget.isInOlympiadMode() && !player.isOlympiadStart()) || (player.getOlympiadGameId() != ptarget.getOlympiadGameId()))
 			{
 				// if L2PcInstance is in Olympia and the match isn't already start, send a Server->Client packet ActionFailed
 				player.sendPacket(ActionFailed.STATIC_PACKET);
+				return;
 			}
 		}
-		else if (player.getTarget() != null && !player.getTarget().isAttackable() && (player.getAccessLevel() < Config.GM_PEACEATTACK))
+
+		if (!target.isAttackable() && (player.getAccessLevel() < Config.GM_PEACEATTACK))
 		{
 			// If target is not attackable, send a Server->Client packet ActionFailed
 			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
-		else if (player.isConfused())
+
+		if (player.isConfused())
 		{
 			// If target is confused, send a Server->Client packet ActionFailed
 			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
-		else if (this instanceof L2ArtefactInstance)
+
+		if (this instanceof L2ArtefactInstance)
 		{
 			// If L2Character is a L2ArtefactInstance, send a Server->Client packet ActionFailed
 			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
-		else
-		{
-			// GeoData Los Check or dz > 1000
-			if (!GeoData.getInstance().canSeeTarget(player, this))
-			{
-				player.sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
-				player.sendPacket(ActionFailed.STATIC_PACKET);
-				return;
-			}
 
-			// Notify AI with AI_INTENTION_ATTACK
-			player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
+		// GeoData Los Check or dz > 1000
+		if (!GeoData.getInstance().canSeeTarget(player, this))
+		{
+			player.sendPacket(new SystemMessage(SystemMessageId.CANT_SEE_TARGET));
+			player.sendPacket(ActionFailed.STATIC_PACKET);
+			return;
 		}
+
+		// Notify AI with AI_INTENTION_ATTACK
+		player.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, this);
 	}
 
 	/**
