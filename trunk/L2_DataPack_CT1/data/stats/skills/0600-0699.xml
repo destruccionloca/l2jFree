@@ -357,20 +357,20 @@
   <set name="num_souls" val="35"/>
  </skill>
 <skill id="626" levels="4" name="Critical Sense">
-<!-- by Sephiroth -->
+<!-- 
+  Description(s): 
+      Increases critical rate and critical attack power. 
+--> 
   <table name="#cAtk"> 1.05 1.09 1.13 1.16 </table>
   <table name="#rCrit"> 1.10 1.14 1.17 1.21 </table>
-  <set name="hitTime" val="5000"/>
-  <set name="reuseDelay" val="11000"/>
+  <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
-  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="operateType" val="OP_PASSIVE"/>
   <set name="castRange" val="-1"/>
   <for>
-    <effect name="Buff" count="1" val="0" time="300" stackOrder="50" stackType="CritUp">
-      <mul order="0x30" val="#rCrit" stat="rCrit"/>
-      <mul order="0x30" val="#cAtk" stat="cAtk"/>
-    </effect>
+    <mul order="0x30" val="#rCrit" stat="rCrit"/>
+    <mul order="0x30" val="#cAtk" stat="cAtk"/>
   </for>
 </skill>
 <skill id="627" levels="40" name="Soul Shock">
