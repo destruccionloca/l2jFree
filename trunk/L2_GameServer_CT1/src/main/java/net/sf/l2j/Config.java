@@ -1401,6 +1401,7 @@ public final class Config
 	public static int					ALT_BUFF_TIME;
 	public static int					ALT_DANCE_TIME;
 	public static int					ALT_SEED_TIME;
+	public static boolean				ALT_REGAIN_BUFF_HP;
 	public static boolean				ALT_DANCE_MP_CONSUME;
 	public static int					MAX_PATK_SPEED;												// Config for limit physical attack speed
 	public static int					MAX_MATK_SPEED;												// Config for limit magical attack speed
@@ -1602,6 +1603,7 @@ public final class Config
 			ALT_BUFF_TIME = Integer.parseInt(altSettings.getProperty("AltBuffTime", "1"));
 			ALT_DANCE_TIME = Integer.parseInt(altSettings.getProperty("AltDanceTime", "1"));
 			ALT_SEED_TIME = Integer.parseInt(altSettings.getProperty("AltSeedTime", "1"));
+			ALT_REGAIN_BUFF_HP = Boolean.parseBoolean(altSettings.getProperty("AltRegainBuffHp", "false"));
 			ALT_DANCE_MP_CONSUME = Boolean.parseBoolean(altSettings.getProperty("AltDanceMpConsume", "false"));
 			SPAWN_SIEGE_GUARD = Boolean.parseBoolean(altSettings.getProperty("SpawnSiegeGuard", "true"));
 			AUTO_LEARN_SKILLS = Boolean.parseBoolean(altSettings.getProperty("AutoLearnSkills", "false"));
@@ -3397,6 +3399,8 @@ public final class Config
 			CASTLE_CIRCLETS = Boolean.parseBoolean(pValue);
 		else if (pName.equalsIgnoreCase("AllowManaPotions"))
 			ALT_MANA_POTIONS = Boolean.parseBoolean(pValue);
+		else if (pName.equalsIgnoreCase("AltRegainBuffHp"))
+			ALT_REGAIN_BUFF_HP = Boolean.parseBoolean(pValue);
 
 		// PvP settings
 		else if (pName.equalsIgnoreCase("MinKarma"))

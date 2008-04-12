@@ -69,7 +69,7 @@ public class FortManager
                 if (closestDistance > distance)
                 {
                     closestDistance = distance;
-                    index = fort.getFortId();
+                    index = getFortIndex(fort.getFortId());
                 }
             }
         }
