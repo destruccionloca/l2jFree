@@ -205,11 +205,6 @@ public abstract class L2Effect
 	{
 		return _period;
 	}
-
-	public void setPeriod(int pPeriod)
-	{
-		_period = pPeriod;
-	}
 	
 	public int getTime()
 	{
@@ -247,7 +242,7 @@ public abstract class L2Effect
 		if (_inUse)
 			onStart();
 		else
-			();
+			onExit();
 	}
 	
 	public String getStackType()
