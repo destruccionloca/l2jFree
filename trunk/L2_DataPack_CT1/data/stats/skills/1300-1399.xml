@@ -1291,7 +1291,7 @@
   <set name="effectRange" val="900"/>
   <set name="aggroPoints" val="666"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="multiple_buff">
       <mul stat="darkVuln" val="0.7" order="0x30"/>
       <mul stat="holyVuln" val="0.8" order="0x30"/>
     </effect>
@@ -2100,7 +2100,7 @@
   <set name="effectRange" val="900"/>
   <set name="isMagic" val="true"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="darkVuln_buff">
       <mul order="0x30" stat="darkVuln" val="#darkVuln"/>
     </effect>
   </for>
