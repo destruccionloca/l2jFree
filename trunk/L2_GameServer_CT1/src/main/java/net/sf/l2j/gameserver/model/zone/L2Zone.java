@@ -43,6 +43,7 @@ public abstract class L2Zone
 		Boss,
 		Castle,
 		Clanhall,
+		Damage,
 		Default,
 		DefenderSpawn,
 		Fishing,
@@ -100,7 +101,8 @@ public abstract class L2Zone
 	public static final int FLAG_JAIL = 1024;
 	public static final int FLAG_STADIUM = 2048;
 	public static final int FLAG_SUNLIGHTROOM = 4096;
-	
+	public static final int FLAG_DANGER = 8192;
+
 	protected int _id;
 	protected String _name;
 
@@ -122,8 +124,9 @@ public abstract class L2Zone
 	protected boolean _noEscape, _noLanding, _noPrivateStore;
 
 	protected SystemMessage _onEnterMsg, _onExitMsg;
-	
+
 	protected int _abnormal;
+	protected int _damage;
 
 	protected boolean _exitOnDeath;
 
@@ -173,6 +176,11 @@ public abstract class L2Zone
 	public int getFortId()
 	{
 		return _fortId;
+	}
+
+	public int getDamagePerSecond()
+	{
+		return _damage;
 	}
 
 	public boolean isPeace()
@@ -587,6 +595,7 @@ public abstract class L2Zone
 		Node boss = n.getAttributes().getNamedItem("boss");
 		Node abnorm = n.getAttributes().getNamedItem("abnormal");
 		Node exitOnDeath = n.getAttributes().getNamedItem("exitOnDeath");
+		Node damage = n.getAttributes().getNamedItem("damage");
 		
 		_pvp = (pvp != null) ? PvpSettings.valueOf(pvp.getNodeValue().toUpperCase()) : PvpSettings.GENERAL;
 		_noLanding = (noLanding != null) ? Boolean.parseBoolean(noLanding.getNodeValue()) : false;
@@ -594,6 +603,7 @@ public abstract class L2Zone
 		_noPrivateStore = (noPrivateStore != null) ? Boolean.parseBoolean(noPrivateStore.getNodeValue()) : false;
 		_abnormal = (abnorm != null) ? Integer.decode("0x"+abnorm.getNodeValue()) : 0;
 		_exitOnDeath = (exitOnDeath != null) ? Boolean.parseBoolean(exitOnDeath.getNodeValue()) : false;
+		_damage = (damage != null) ? Integer.parseInt(damage.getNodeValue()) : 0;
 		if(boss != null)
 			_boss = Boss.valueOf(boss.getNodeValue().toUpperCase());
 	}

@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 import net.sf.l2j.gameserver.model.L2Effect;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.zone.L2Zone;
 import net.sf.l2j.gameserver.skills.effects.EffectCharge;
 
 /**
@@ -48,7 +49,7 @@ public class EtcStatusUpdate extends L2GameServerPacket
 			writeD(0x00); 										// 1-7 increase force, lvl
         writeD(_activeChar.getWeightPenalty());
         writeD(_activeChar.getMessageRefusal() ? 1 : 0);
-        writeD(0x00); 											// danger area TODO: core support
+        writeD(_activeChar.isInsideZone(L2Zone.FLAG_DANGER) ? 1 : 0);
         writeD(_activeChar.getExpertisePenalty());
         writeD(_activeChar.getCharmOfCourage() ? 1 : 0);
         writeD(_activeChar.getDeathPenaltyBuffLevel());
