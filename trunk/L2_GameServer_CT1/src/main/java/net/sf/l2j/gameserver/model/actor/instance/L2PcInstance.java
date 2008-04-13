@@ -6116,8 +6116,8 @@ public final class L2PcInstance extends L2PlayableInstance
 
 		// Only 1 line needed for each and their values only have to be set once as long as you don't die before it's set. 
                 _restoredHp = rset.getDouble("curHp");
-                _restoredMp = rset.getDouble("curHp");
-                _restoredCp = rset.getDouble("curHp");
+                _restoredMp = rset.getDouble("curMp");
+                _restoredCp = rset.getDouble("curCp");
 
                 //Check recs
                 player.checkRecom(rset.getInt("rec_have"), rset.getInt("rec_left"));
