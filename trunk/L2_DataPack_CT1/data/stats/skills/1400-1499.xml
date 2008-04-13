@@ -416,7 +416,7 @@
   <set name="effectRange" val="-1"/>
   <!-- Core support added for CP Heal & Buff at once -->
   <for>
-    <effect count="1" name="Buff" time="1200" val="0">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="pa_fist">
       <add order="0x40" stat="maxCp" val="800"/>
     </effect>
     <effect count="1" name="HealCp" val="0"/>
