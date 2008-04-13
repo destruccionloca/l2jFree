@@ -1369,25 +1369,26 @@ public abstract class L2Skill
 
 	public final boolean getWeaponDependancy(L2Character activeChar)
 	{
+		L2WeaponType playerWeapon;
+		int mask;
 		int weaponsAllowed = getWeaponsAllowed();
 		// check to see if skill has a weapon dependency.
 		if (weaponsAllowed == 0)
 			return true;
 		if (activeChar.getActiveWeaponItem() != null)
 		{
-			L2WeaponType playerWeapon;
 			playerWeapon = activeChar.getActiveWeaponItem().getItemType();
-			int mask = playerWeapon.mask();
+			mask = playerWeapon.mask();
 			if ((mask & weaponsAllowed) != 0)
 				return true;
-			// can be on the secondary weapon
-			if (activeChar.getSecondaryWeaponItem() != null)
-			{
-				playerWeapon = activeChar.getSecondaryWeaponItem().getItemType();
-				mask = playerWeapon.mask();
-				if ((mask & weaponsAllowed) != 0)
-					return true;
-			}
+		}
+		// can be on the secondary weapon
+		if (activeChar.getSecondaryWeaponItem() != null)
+		{
+			playerWeapon = activeChar.getSecondaryWeaponItem().getItemType();
+			mask = playerWeapon.mask();
+			if ((mask & weaponsAllowed) != 0)
+				return true;
 		}
 		SystemMessage message = new SystemMessage(SystemMessageId.S1_CANNOT_BE_USED);
 		message.addString(getName());
