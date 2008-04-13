@@ -3017,8 +3017,8 @@ public abstract class L2Character extends L2Object
 					if (newEffect.getSkill().getSkillType() == L2Skill.SkillType.BUFF
 							|| newEffect.getEffectType() == L2Effect.EffectType.BUFF)
 					{
-						// renew buffs, exit old (could consider only reschedule and stop new but then effector would be wrong)
-						_effects.get(i).exit();
+						// New buff should stack on the old one to "renew" it. 
+						continue;
 					}
 					else
 					{
