@@ -6062,9 +6062,6 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(1, objectId);
             ResultSet rset = statement.executeQuery();
 
-            double currentCp = 0;
-            double currentHp = 0;
-            double currentMp = 0;
             while (rset.next())
             {
                 final int activeClassId = rset.getInt("classid");
@@ -6117,21 +6114,10 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setFistsWeaponItem(player.findFistsWeaponItem(activeClassId));
                 player.setUptime(System.currentTimeMillis());
 
-                currentHp = rset.getDouble("curHp");
-                player.getStatus().setCurrentHp(rset.getDouble("curHp"));
-                currentCp = rset.getDouble("curCp");
-                player.getStatus().setCurrentCp(rset.getDouble("curCp"));
-                currentMp = rset.getDouble("curMp");
-                player.getStatus().setCurrentMp(rset.getDouble("curMp"));
-                _restoredHp = currentHp;
-                _restoredMp = currentMp;
-                _restoredCp = currentCp;
-
-                if (currentHp < 0.5)
-                {
-                    player.setIsDead(true);
-                    player.getStatus().stopHpMpRegeneration();
-                }
+		// Only 1 line needed for each and their values only have to be set once as long as you don't die before it's set. 
+                _restoredHp = rset.getDouble("curHp");
+                _restoredMp = rset.getDouble("curHp");
+                _restoredCp = rset.getDouble("curHp");
 
                 //Check recs
                 player.checkRecom(rset.getInt("rec_have"), rset.getInt("rec_left"));
@@ -6232,11 +6218,6 @@ public final class L2PcInstance extends L2PlayableInstance
             // and reward expertise/lucky skills if necessary.
             player.restoreCharData();
             player.rewardSkills();
-
-            // Restore current Cp, HP and MP values
-            player.getStatus().setCurrentCp(currentCp);
-            player.getStatus().setCurrentHp(currentHp);
-            player.getStatus().setCurrentMp(currentMp);
             
             // Restore pet if exists in the world
             player.setPet(L2World.getInstance().getPet(player.getObjectId()));
@@ -7096,12 +7077,15 @@ public final class L2PcInstance extends L2PlayableInstance
         updateEffectIcons();
         checkIfWeaponIsAllowed();
 
-	if (Config.ALT_REGAIN_BUFF_HP) // for the people who want to use this, taking the risk (some people seem to not have it at all) of characters spawning with a wrong amount of hp. 
-	{
-        	getStatus().setCurrentHp(_restoredHp);
-        	getStatus().setCurrentMp(_restoredMp);
-        	getStatus().setCurrentCp(_restoredCp);
-	}
+        getStatus().setCurrentHp(_restoredHp);
+        getStatus().setCurrentMp(_restoredMp);
+        getStatus().setCurrentCp(_restoredCp);
+
+        if (getStatus().getCurrentHp() < 0.5)
+        {
+            setIsDead(true);
+            getStatus().stopHpMpRegeneration();
+        }
     }
 
     /**
