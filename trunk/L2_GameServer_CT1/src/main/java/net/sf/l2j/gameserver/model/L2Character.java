@@ -3867,7 +3867,9 @@ public abstract class L2Character extends L2Object
 		// if this is a player instance, then untransform.
 		if (this instanceof L2PcInstance)
 		{
-			((L2PcInstance) this).untransform();
+			if (((L2PcInstance) this).getTransformation() != null)
+				// gm effect because removing skill didn't do it
+				((L2PcInstance) this).untransform();
 		}
 		getAI().notifyEvent(CtrlEvent.EVT_THINK, null);
 		updateAbnormalEffect();

@@ -23,10 +23,12 @@ import net.sf.l2j.gameserver.model.L2PledgeSkillLearn;
 import net.sf.l2j.gameserver.model.L2ShortCut;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2SkillLearn;
+import net.sf.l2j.gameserver.model.L2TransformSkillLearn;
 import net.sf.l2j.gameserver.model.actor.instance.L2FishermanInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2TransformManagerInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2VillageMasterInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.ExStorageMaxCount;
@@ -74,9 +76,14 @@ public class RequestAquireSkill extends L2GameClientPacket
         L2PcInstance player = getClient().getActiveChar();
         if (player == null)
             return;
-        if (player.isGM())
-            player.sendMessage("Request for skill received");
-        
+
+        if (player.isTransformed())
+        {
+            _log.warn("possible cheater: "+player.getName()+" attempting to learn a skill while he/she is transformed! < Ban him/her!");
+            Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " attempting to learn a skill while he/she is transformed!", IllegalPlayerAction.PUNISH_KICK);
+            return;
+        }
+
         L2FolkInstance trainer = player.getLastFolkNPC();
         if (trainer == null)
         {
@@ -106,6 +113,56 @@ public class RequestAquireSkill extends L2GameClientPacket
         {
             case 0:
             {
+                if (trainer instanceof L2TransformManagerInstance) // transform skills
+                {
+                    int costid = 0;
+                    // Skill Learn bug Fix
+                    L2TransformSkillLearn[] skillst = SkillTreeTable.getInstance().getAvailableTransformSkills(player);
+
+                    for (L2TransformSkillLearn s : skillst)
+                    {
+                        L2Skill sk = SkillTable.getInstance().getInfo(s.getId(),s.getLevel());
+
+                        if (sk == null || sk != skill)
+                            continue;
+
+                        counts++;
+                        costid = s.getItemId();
+                        _requiredSp = s.getSpCost();
+                    }
+
+                    if (counts == 0)
+                    {
+                        player.sendMessage("You are trying to learn skill that u can't..");
+                        Util.handleIllegalPlayerAction(player, "Player " + player.getName() + " tried to learn skill that he can't!!!", IllegalPlayerAction.PUNISH_KICK);
+                        return;
+                    }
+
+                    if (player.getSp() >= _requiredSp)
+                    {
+                        if (!player.destroyItemByItemId("Consume", costid, 1, trainer, false))
+                        {
+                            // Haven't spellbook
+                            player.sendPacket(new SystemMessage(SystemMessageId.ITEM_MISSING_TO_LEARN_SKILL));
+                            return;
+                        }
+
+                        SystemMessage sm = new SystemMessage(SystemMessageId.S2_S1_DISAPPEARED);
+                        sm.addNumber(1);
+                        sm.addItemNameById(costid);
+                        sendPacket(sm);
+                        sm = null;
+                    }
+                    else
+                    {
+                        SystemMessage sm = new SystemMessage(SystemMessageId.NOT_ENOUGH_SP_TO_LEARN_SKILL);
+                        player.sendPacket(sm);
+                        sm = null;
+                        return;
+                    }
+                    break;
+                }
+                // normal skills
                 L2SkillLearn[] skills = SkillTreeTable.getInstance().getAvailableSkills(player, player.getSkillLearningClassId());
 
                 for (L2SkillLearn s : skills)
@@ -336,6 +393,8 @@ public class RequestAquireSkill extends L2GameClientPacket
         
         if (trainer instanceof L2FishermanInstance)
             ((L2FishermanInstance)trainer).showSkillList(player);
+        else if (trainer instanceof L2TransformManagerInstance)
+            ((L2TransformManagerInstance) trainer).showTransformSkillList(player);
         else
             trainer.showSkillList(player, player.getSkillLearningClassId());
 

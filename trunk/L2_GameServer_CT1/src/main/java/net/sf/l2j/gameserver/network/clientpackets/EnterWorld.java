@@ -243,32 +243,7 @@ public class EnterWorld extends L2GameClientPacket
 		else if (L2Event.connectionLossData.containsKey(activeChar.getName()))
 			L2Event.restoreAndTeleChar(activeChar);
 
-		// Buff and status icons
-		if (Config.STORE_SKILL_COOLTIME)
-			activeChar.restoreEffects();
-
-		if (activeChar.getAllEffects() != null)
-		{
-			for (L2Effect e : activeChar.getAllEffects())
-			{
-				if (e.getEffectType() == L2Effect.EffectType.HEAL_OVER_TIME)
-				{
-					activeChar.stopEffects(L2Effect.EffectType.HEAL_OVER_TIME);
-					activeChar.removeEffect(e);
-				}
-				else if (e.getEffectType() == L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME)
-				{
-					activeChar.stopEffects(L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME);
-					activeChar.removeEffect(e);
-				}
-
-				//  Charges are gone after relog.
-				else if (e.getEffectType() == L2Effect.EffectType.CHARGE)
-				{
-					e.exit();
-				}
-			}
-		}
+		activeChar.updateEffectIcons();
 
 		activeChar.sendPacket(new EtcStatusUpdate(activeChar));
 
@@ -484,7 +459,7 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquippedId()).cursedOnLogin();
 		}
-		else if (activeChar.transformId() > 0)
+		else if (activeChar.transformSelectInfo() > 0)
 		{
 			TransformationManager.getInstance().transformPlayer(activeChar.transformId(), activeChar, Long.MAX_VALUE);
 		}

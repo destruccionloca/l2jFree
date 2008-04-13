@@ -208,9 +208,9 @@ public class L2Party
 	 * @param msg
 	 */
 	public void broadcastToPartyMembers(L2GameServerPacket msg) 
-    {
+	{
 		for(L2PcInstance member : getPartyMembers())
-            member.sendPacket(msg);
+			member.sendPacket(msg);
 	}
 
 	/**
@@ -218,10 +218,11 @@ public class L2Party
 	 * @param msg
 	 */
 	public void broadcastSnoopToPartyMembers(int objid, int type, String name, String text) 
-    {
-		for(L2PcInstance member : getPartyMembers()){
-            if (member == null)
-            	continue;
+	{
+		for(L2PcInstance member : getPartyMembers())
+		{
+			if (member == null)
+				continue;
 			member.broadcastSnoop(objid, type, name, text);
 		}
 	}
@@ -248,13 +249,13 @@ public class L2Party
 			int _min = _partyLvl;
 			int _max = _partyLvl;
 			
-            boolean invalidMember = false;
+			boolean invalidMember = false;
 			
 			for (int i = 0; i < getMemberCount(); i++)
 			{
-                int _lvl = getPartyMembers().get(i).getLevel();
-                if (_lvl<_min) _min = _lvl;
-                if (_lvl>_max) _max = _lvl;
+				int _lvl = getPartyMembers().get(i).getLevel();
+				if (_lvl<_min) _min = _lvl;
+				if (_lvl>_max) _max = _lvl;
 			} 
 			
 			if (player.getLevel()>_max)
@@ -263,12 +264,13 @@ public class L2Party
 				invalidMember = (_max - player.getLevel())>Config.MAX_PARTY_LEVEL_DIFFERENCE;
 
 			if (invalidMember)
-		    {
-			    getLeader().sendMessage("Level difference too high, you can't invite "+player.getName()+" this party.");
-			    player.sendMessage("Level difference too high, you can't join this party.");
-			    return false;
-		    }
+			{
+				getLeader().sendMessage("Level difference too high, you can't invite "+player.getName()+" this party.");
+				player.sendMessage("Level difference too high, you can't join this party.");
+				return false;
+			}
 		}
+
 		//sends new member party window for all members
 		//we do all actions before adding member to a list, this speeds things up a little
 		PartySmallWindowAll window = new PartySmallWindowAll();
@@ -550,7 +552,7 @@ public class L2Party
             {
                 // No more party needed
                 _members = null;
-            }            
+            }
 		}
 	}
 	
@@ -725,7 +727,7 @@ public class L2Party
     			{
 					summon     = (L2SummonInstance)member.getPet();
 					penalty    = summon.getExpPenalty();
-    			}                    
+    			}
 				// Pets that leech xp from the owner (like babypets) do not get rewarded directly
 				if (member instanceof L2PetInstance)
 				{

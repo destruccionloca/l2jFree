@@ -196,6 +196,7 @@ import net.sf.l2j.gameserver.network.serverpackets.Ride;
 import net.sf.l2j.gameserver.network.serverpackets.SetupGauge;
 import net.sf.l2j.gameserver.network.serverpackets.ShortBuffStatusUpdate;
 import net.sf.l2j.gameserver.network.serverpackets.ShortCutInit;
+import net.sf.l2j.gameserver.network.serverpackets.SkillCoolTime;
 import net.sf.l2j.gameserver.network.serverpackets.SkillList;
 import net.sf.l2j.gameserver.network.serverpackets.Snoop;
 import net.sf.l2j.gameserver.network.serverpackets.SocialAction;
@@ -259,9 +260,6 @@ public final class L2PcInstance extends L2PlayableInstance
     // Character Character SQL String Definitions:
     private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=? WHERE obj_id=?";
     private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level FROM characters WHERE obj_id=?";
-    private static double _restoredHp = 1;
-    private static double _restoredMp = 1;
-    private static double _restoredCp = 1;
 
     // Character Subclass SQL String Definitions:
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
@@ -771,7 +769,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private L2Transformation _transformation;
 
-    private static int _transformationId;
+    private int _transformationId = 0;
 
     private L2StaticObjectInstance _objectSittingOn;
 
@@ -6062,6 +6060,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(1, objectId);
             ResultSet rset = statement.executeQuery();
 
+            double currentHp = 1, currentMp = 1, currentCp = 1;
             while (rset.next())
             {
                 final int activeClassId = rset.getInt("classid");
@@ -6114,15 +6113,15 @@ public final class L2PcInstance extends L2PlayableInstance
                 player.setFistsWeaponItem(player.findFistsWeaponItem(activeClassId));
                 player.setUptime(System.currentTimeMillis());
 
-		// Only 1 line needed for each and their values only have to be set once as long as you don't die before it's set. 
-                _restoredHp = rset.getDouble("curHp");
-                _restoredMp = rset.getDouble("curMp");
-                _restoredCp = rset.getDouble("curCp");
+                // Only 1 line needed for each and their values only have to be set once as long as you don't die before it's set. 
+                currentHp = rset.getDouble("curHp");
+                currentMp = rset.getDouble("curMp");
+                currentCp = rset.getDouble("curCp");
 
                 //Check recs
                 player.checkRecom(rset.getInt("rec_have"), rset.getInt("rec_left"));
 
-                player._classIndex = 0;             
+                player._classIndex = 0;
                 try { player.setBaseClass(rset.getInt("base_class")); }
                 catch (Exception e) { player.setBaseClass(activeClassId); }
 
@@ -6218,7 +6217,42 @@ public final class L2PcInstance extends L2PlayableInstance
             // and reward expertise/lucky skills if necessary.
             player.restoreCharData();
             player.rewardSkills();
-            
+
+            // buff and status icons
+            if (Config.STORE_SKILL_COOLTIME)
+                player.restoreEffects();
+
+            if (player.getAllEffects() != null)
+            {
+                for (L2Effect e : player.getAllEffects())
+                {
+                    if (e.getEffectType() == L2Effect.EffectType.HEAL_OVER_TIME)
+                    {
+                        player.stopEffects(L2Effect.EffectType.HEAL_OVER_TIME);
+                        player.removeEffect(e);
+                    }
+                    else if (e.getEffectType() == L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME)
+                    {
+                        player.stopEffects(L2Effect.EffectType.COMBAT_POINT_HEAL_OVER_TIME);
+                        player.removeEffect(e);
+                    }
+                    //  Charges are gone after relog.
+                    else if (e.getEffectType() == L2Effect.EffectType.CHARGE)
+                        e.exit();
+                }
+            }
+
+            // Restore current Cp, HP and MP values
+            player.getStatus().setCurrentCp(currentCp);
+            player.getStatus().setCurrentHp(currentHp);
+            player.getStatus().setCurrentMp(currentMp);
+
+            if (currentHp < 0.5)
+            {
+                player.setIsDead(true);
+                player.getStatus().stopHpMpRegeneration();
+            }
+
             // Restore pet if exists in the world
             player.setPet(L2World.getInstance().getPet(player.getObjectId()));
             if(player.getPet() != null) player.getPet().setOwner(player);
@@ -7074,18 +7108,7 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
-        updateEffectIcons();
         checkIfWeaponIsAllowed();
-
-        getStatus().setCurrentHp(_restoredHp);
-        getStatus().setCurrentMp(_restoredMp);
-        getStatus().setCurrentCp(_restoredCp);
-
-        if (getStatus().getCurrentHp() < 0.5)
-        {
-            setIsDead(true);
-            getStatus().stopHpMpRegeneration();
-        }
     }
 
     /**
@@ -9493,6 +9516,7 @@ public final class L2PcInstance extends L2PlayableInstance
         regiveTemporarySkills();
         rewardSkills();
         restoreEffects();
+        updateEffectIcons();
         sendPacket(new EtcStatusUpdate(this));
 
         //if player has quest 422: Repent Your Sins, remove it
@@ -11901,7 +11925,8 @@ public final class L2PcInstance extends L2PlayableInstance
             restoreSkills();
             _transformation.onUntransform();
             _transformation = null;
-            this.broadcastUserInfo();
+            broadcastUserInfo();
+            sendPacket(new SkillCoolTime(this));
         }
     }
     
@@ -11920,8 +11945,15 @@ public final class L2PcInstance extends L2PlayableInstance
         return transformation.getId();
     }
 
+    // TODO: Clean code. Looks like this is used for non-cursedweapon transformations
+    public int transformId()
+    {
+       return _transformationId;
+    }
+
     public void transformInsertInfo()
     {
+        _transformationId = getTranformationId();
         java.sql.Connection con = null;
         try
         {
@@ -11929,7 +11961,7 @@ public final class L2PcInstance extends L2PlayableInstance
             PreparedStatement statement;
 
             statement = con.prepareStatement(UPDATE_CHAR_TRANSFORM);
-            statement.setInt(1, getTranformationId());
+            statement.setInt(1, _transformationId);
             statement.setInt(2, getObjectId());
             statement.execute();
             statement.close();
@@ -11944,12 +11976,7 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
-    public int transformId()
-    {
-       return transformSelectInfo();
-    }
-
-    private int transformSelectInfo()
+    public int transformSelectInfo()
     {
         java.sql.Connection con = null;
         try
@@ -11977,6 +12004,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     public void transformUpdateInfo()
     {
+        _transformationId = 0;
         java.sql.Connection con = null;
         try
         {

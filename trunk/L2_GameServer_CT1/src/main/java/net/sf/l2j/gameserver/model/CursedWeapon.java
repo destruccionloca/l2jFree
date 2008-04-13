@@ -279,7 +279,7 @@ public class CursedWeapon
 
         if (_player.isTransformed())
         {
-            _player.untransform();
+            _player.stopTransformation(null);
 
             ThreadPoolManager.getInstance().scheduleGeneral(new Runnable()
             {

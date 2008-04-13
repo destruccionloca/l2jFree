@@ -42,7 +42,7 @@ public class L2WaterZone extends L2DefaultZone
 			if (((L2PcInstance) character).isTransformed()
 				&& !((L2PcInstance) character).isCursedWeaponEquipped())
 			{
-				((L2PcInstance) character).untransform();
+				character.stopTransformation(null);
 			}
 			// TODO: update to only send speed status when that packet is known
 			else
