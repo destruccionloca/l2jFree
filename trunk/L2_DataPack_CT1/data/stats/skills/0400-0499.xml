@@ -469,7 +469,7 @@
     <player hp="30"/>
   </cond>
   <for>
-    <effect count="1" name="Buff" time="60" val="0">
+    <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="zealot">
       <add order="0x40" stat="accCombat" val="6"/>
       <add order="0x40" stat="runSpd" val="#runSpd"/>
       <mul order="0x30" stat="pAtkSpd" val="#pAtkSpd"/>

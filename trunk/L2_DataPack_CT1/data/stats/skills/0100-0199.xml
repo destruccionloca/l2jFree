@@ -385,12 +385,12 @@
   <set name="aggroPoints" val="#aggro"/>
   <enchant2 name="mpConsume" val="#ench2MpConsume"/>
   <for>
-    <effect count="1" name="Buff" time="1200" val="0">
+    <effect count="1" name="Buff" time="1200" val="0" stackOrder="1" stackType="deflect">
       <mul order="0x30" stat="bowWpnVuln" val="#Tab-bowVuln"/>
     </effect>
   </for>
   <enchant1for>
-    <effect count="1" name="Buff" time="#ench1time" val="0">
+    <effect count="1" name="Buff" time="#ench1time" val="0" stackOrder="1" stackType="deflect">
       <mul order="0x30" stat="bowWpnVuln" val="0.60"/>
     </effect>
   </enchant1for>

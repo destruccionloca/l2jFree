@@ -1752,7 +1752,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="#aggro"/>
   <for>
-    <effect name="Buff" time="300" count="1" val="0">
+    <effect name="Buff" time="300" count="1" val="0" stackOrder="1" stackType="majesty">
       <mul order="0x30" stat="pDef" val="#Tab-pDef"/>
       <sub order="0x40" stat="rEvas" val="#Tab-rEvas"/>
     </effect>

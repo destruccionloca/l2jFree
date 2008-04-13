@@ -1989,7 +1989,7 @@
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="#aggro"/>
   <for>
-    <effect count="1" name="Buff" time="60" val="0">
+    <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="lionheart">
       <mul order="0x30" stat="cancelVuln" val="0.9"/> <!-- value to be confirmed -->
       <mul order="0x30" stat="stunVuln" val="#vuln"/>
       <mul order="0x30" stat="rootVuln" val="#vuln"/>
@@ -2224,7 +2224,7 @@
     <using kind="Dual Sword"/>
   </cond>
   <for>
-    <effect count="1" name="Buff" time="60" val="0">
+    <effect count="1" name="Buff" time="60" val="0" stackOrder="1" stackType="duelist_spirit">
       <mul order="0x30" stat="pAtkSpd" val="#Tab-pAtkSpd">
         <using kind="Dual Sword"/>
       </mul>
