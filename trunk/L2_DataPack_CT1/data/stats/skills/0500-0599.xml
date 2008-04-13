@@ -575,7 +575,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="buffDuration" val="1200"/>
   <for>
-    <effect name="Buff" val="0" time="1200" stackorder="90" stacktype="shieldup_onhit">
+    <effect name="Buff" val="0" time="1200" stackOrder="90" stackType="shieldup_onhit">
       <mul order="0x30" stat="sDef" val="1.25"/>
     </effect>
   </for>
@@ -658,7 +658,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="40"/>
   <for>
-    <effect name="Buff" count="1" val="0" time="40" stackorder="1" stacktype="criticalsuffered_up"/>
+    <effect name="Buff" count="1" val="0" time="40" stackOrder="1" stackType="criticalsuffered_up"/>
   </for>
 </skill>
 <skill id="532" levels="1" name="Counter Chance">
@@ -1212,7 +1212,7 @@ description(s) :
   <set name="castRange" val="40"/>
   <set name="effectRange" val="40"/>
   <for>
-    <effect name="Buff" count="1" val="0" time="60" stackorder="200" stacktype="gravitycontrol">
+    <effect name="Buff" count="1" val="0" time="60" stackOrder="200" stackType="gravitycontrol">
       <mul order="0x30" stat="pAtkSpd" val="0.90"/>
       <sub order="0x40" stat="runSpd" val="35"/>
     </effect>
