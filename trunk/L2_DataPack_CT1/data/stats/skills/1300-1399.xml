@@ -85,7 +85,7 @@
     </effect>
   </for>
   <enchant1for>
-    <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="#mCrit" stackType="mCrit">
+    <effect name="Buff" time="#ench1time" count="1" val="0" stackOrder="4" stackType="mCrit">
       <mul order="0x30" stat="mCritRate" val="4"/>
     </effect>
   </enchant1for>
