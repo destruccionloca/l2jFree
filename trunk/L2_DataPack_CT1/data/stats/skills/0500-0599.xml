@@ -747,7 +747,7 @@ description(s) :
   <set name="buffDuration" val="300"/>
   <for>
     <!-- Proper stats needs to be confirmed -->
-    <effect count="1" name="Buff" val="0" time="300" stackorder="120" stacktype="bodylimit">
+    <effect count="1" name="Buff" val="0" time="300" stackOrder="120" stackType="bodylimit">
       <mul order="0x30" stat="pDef" val="1.08"/>
       <mul order="0x30" stat="pAtk" val="1.08"/>
       <mul order="0x30" stat="mDef" val="1.08"/>
