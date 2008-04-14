@@ -9,9 +9,9 @@ import java.rmi.server.UnicastRemoteObject;
 import javolution.util.FastMap;
 import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.Announcements;
-import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.Shutdown;
 import net.sf.l2j.gameserver.cache.HtmCache;
+import net.sf.l2j.gameserver.datatables.GmListTable;
 import net.sf.l2j.gameserver.datatables.ItemTable;
 import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SkillTable;
@@ -23,6 +23,8 @@ import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Multisell;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.network.SystemChatChannelId;
+import net.sf.l2j.gameserver.network.clientpackets.Say2;
 import net.sf.l2j.gameserver.network.serverpackets.CreatureSay;
 
 public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRemoteAdministration
@@ -126,8 +128,8 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
     @Override
     public void abortServerRestart(String password) throws RemoteException
     {
-	//if (password.equals(pass))
-	    /*Shutdown.getInstance().telnetAbort("127.0.0.1"); */
+	if (password.equals(pass))
+	    Shutdown.getInstance().abort("127.0.0.1");
     }
 
     /**
@@ -202,8 +204,8 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
     @Override
     public void scheduleServerRestart(String password, int secondsUntilRestart) throws RemoteException
     {
-	//if (password.equals(pass))
-	    //Shutdown.getInstance().startTelnetShutdown("127.0.0.1", secondsUntilRestart, true);
+	if (password.equals(pass))
+	    Shutdown.getInstance().startShutdown("127.0.0.1", secondsUntilRestart, Shutdown.shutdownModeType.SHUTDOWN);
     }
 
     /**
@@ -212,8 +214,8 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
     @Override
     public void scheduleServerShutDown(String password, int secondsUntilShutDown) throws RemoteException
     {
-	//if (password.equals(pass))
-	    //Shutdown.getInstance().startTelnetShutdown("127.0.0.1", secondsUntilShutDown, false);
+	if (password.equals(pass))
+	    Shutdown.getInstance().startShutdown("127.0.0.1", secondsUntilShutDown, Shutdown.shutdownModeType.RESTART);
 
     }
 
@@ -239,10 +241,10 @@ public class RemoteAdministrationImpl extends UnicastRemoteObject implements IRe
 	if (!password.equals(pass))
 	    return 2;
 	L2PcInstance reciever = L2World.getInstance().getPlayer(player);
-	//CreatureSay cs = new CreatureSay(0, 2, "Elayne GM Tool MSG", message);
+	CreatureSay cs = new CreatureSay(0, SystemChatChannelId.Chat_Tell.getId(), "Elayne GM Tool MSG", message);
 	if (reciever != null)
 	{
-	//    reciever.sendPacket(cs);
+	    reciever.sendPacket(cs);
 	    return 1;
 	}
 	else
