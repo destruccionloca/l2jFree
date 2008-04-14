@@ -28,6 +28,7 @@ class Quest (JQuest) :
     else :
       htmltext="nobleteleporter-no.htm"
     st.exitQuest(1)
+    htmltext=htmltext.replace("%objectId%",str(npc.getObjectId()))
     return htmltext
 
 QUEST       = Quest(2000,qn,"Teleports")

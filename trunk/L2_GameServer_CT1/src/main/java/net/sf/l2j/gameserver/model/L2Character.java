@@ -3018,7 +3018,7 @@ public abstract class L2Character extends L2Object
 							|| newEffect.getEffectType() == L2Effect.EffectType.BUFF)
 					{
 						// New buff should stack on the old one to "renew" it. 
-						continue;
+						_effects.get(i).exit();
 					}
 					else
 					{

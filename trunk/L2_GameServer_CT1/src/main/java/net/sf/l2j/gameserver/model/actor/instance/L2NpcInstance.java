@@ -1473,32 +1473,19 @@ public class L2NpcInstance extends L2Character
                         sm.addSkillName(_buff.getSkill().getId());
                         player.sendPacket(sm);
                         sm = null;
-                        if (_buff.getSkill().getTargetType() == SkillTargetType.TARGET_SELF)
-                        {
-                            // Ignore skill cast time, using 100ms for NPC buffer's animation
-                            MagicSkillUse msu = new MagicSkillUse(player, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
-                            broadcastPacket(msu);
 
-                            for (L2Effect effect : _buff.getSkill().getEffectsSelf(player))
-                            {
-                                player.addEffect(effect);
-                            }
-                            // hack for newbie summons
-                            if (_buff.getSkill().getSkillType() == SkillType.SUMMON)
-                            {
-                                player.doCast(_buff.getSkill());
-                            }
+                        // hack for newbie summons
+                        if (_buff.getSkill().getSkillType() == SkillType.SUMMON)
+                        {
+                            player.doCast(_buff.getSkill());
                         }
                         else
                         {   // Ignore skill cast time, using 100ms for NPC buffer's animation
                             MagicSkillUse msu = new MagicSkillUse(this, player, _buff.getSkill().getId(), _buff.getSkill().getLevel(), 100, 0);
                             broadcastPacket(msu);
+                            _buff.getSkill().getEffects(this, player);
                         }
 
-                        for (L2Effect effect : _buff.getSkill().getEffects(this, player))
-                        {
-                            player.addEffect(effect);
-                        }
                         //  Pause between buffs
                         try{
                             Thread.sleep(1000);
