@@ -325,10 +325,6 @@ public class SkillTreeTable
         {
             _log.fatal("Error while creating fishing skill table: " + e);
         } 
-        finally 
-        {
-            try { con.close(); } catch (Exception e) {}
-        }
 
         int count6   = 0;
         try

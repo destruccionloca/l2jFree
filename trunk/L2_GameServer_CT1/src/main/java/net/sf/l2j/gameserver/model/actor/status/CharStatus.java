@@ -227,7 +227,8 @@ public class CharStatus
 		if (value > 0) // Reduce Hp if any
 		{
 			// add olympiad damage
-			if((getActiveChar() instanceof L2PcInstance && ((L2PcInstance)getActiveChar()).isInOlympiadMode()))
+			if((getActiveChar() instanceof L2PcInstance && ((L2PcInstance)getActiveChar()).isInOlympiadMode())
+				|| (getActiveChar() instanceof L2Summon && ((L2Summon)getActiveChar()).getOwner().isInOlympiadMode()))
 			{
 				attacker.addOlyDamage((int)value);
 			}
