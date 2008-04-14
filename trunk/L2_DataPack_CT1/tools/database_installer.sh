@@ -1,399 +1,415 @@
 #!/bin/bash
+
 ############################################
-## WARNING!  WARNING!  WARNING!  WARNING! ##
+##           WARNING!  WARNING!           ##
 ##                                        ##
-## DON'T USE NOTEPAD TO CHANGE THIS FILE  ##
-## INSTEAD USE SOME DECENT TEXT EDITOR.   ##
-## NEWLINE CHARACTERS DIFFER BETWEEN DOS  ##
-## AND UNIX.                              ##
-##                                        ##
-## USING NOTEPAD TO SAVE THIS FILE LEAVE  ##
-## IT IN A BROKEN STATE!!!                ##
+## Don't edit this script on Windows OS   ##
+## Or use a software which allows you to  ##
+## write in UNIX type                     ##
 ############################################
-## Writen by DrLecter                     ##
+## Written by Respawner                   ##
 ## License: GNU GPL                       ##
-## Based on Tiago Tagliaferri's script    ##
-## E-mail: tiago_tagliaferri@msn.com      ##
-## From "L2J-DataPack"                    ##
-## Modified for L2JFree                   ##
+## Based on L2JDP script                  ##
 ############################################
-trap finish 2
 
-configure() {
-echo "#############################################"
-echo "# You entered script configuration area     #"
-echo "# No change will be performed in your DB    #"
-echo "# I will just ask you some questions about  #"
-echo "# your hosts and DB.                        #"
-echo "#############################################"
-MYSQLDUMPPATH=`which -a mysqldump 2>/dev/null`
-MYSQLPATH=`which -a mysql 2>/dev/null`
-if [ $? -ne 0 ]; then
-echo "We were unable to find MySQL binaries on your path"
-while :
- do
-  echo -ne "\nPlease enter MySQL binaries directory (no trailing slash): "
-  read MYSQLBINPATH
-    if [ -e "$MYSQLBINPATH" ] && [ -d "$MYSQLBINPATH" ] && [ -e "$MYSQLBINPATH/mysqldump" ] && [ -e "$MYSQLBINPATH/mysql" ]; then
-       MYSQLDUMPPATH="$MYSQLBINPATH/mysqldump"
-       MYSQLPATH="$MYSQLBINPATH/mysql"
-       break
-    else
-       echo "The data you entered is invalid. Please verify and try again."
-       exit 1
-    fi
- done
-fi
-#LS
-echo -ne "\nPlease enter MySQL Login Server hostname (default localhost): "
-read LSDBHOST
-if [ -z "$LSDBHOST" ]; then
-  LSDBHOST="localhost"
-fi
-echo -ne "\nPlease enter MySQL Login Server database name (default l2jdb): "
-read LSDB
-if [ -z "$LSDB" ]; then
-  LSDB="l2jdb"
-fi
-echo -ne "\nPlease enter MySQL Login Server user (default root): "
-read LSUSER
-if [ -z "$LSUSER" ]; then
-  LSUSER="root"
-fi
-echo -ne "\nPlease enter MySQL Login Server $LSUSER's password (won't be displayed) :"
-stty -echo
-read LSPASS
-stty echo
-echo ""
-if [ -z "$LSPASS" ]; then
-  echo "Hum.. i'll let it be but don't be stupid and avoid empty passwords"
-elif [ "$LSUSER" == "$LSPASS" ]; then
-  echo "You're not too brilliant choosing passwords huh?"
-fi
-#GS
-echo -ne "\nPlease enter MySQL Game Server hostname (default $LSDBHOST): "
-read GSDBHOST
-if [ -z "$GSDBHOST" ]; then
-  GSDBHOST="$LSDBHOST"
-fi
-echo -ne "\nPlease enter MySQL Game Server database name (default $LSDB): "
-read GSDB
-if [ -z "$GSDB" ]; then
-  GSDB="$LSDB"
-fi
-echo -ne "\nPlease enter MySQL Game Server user (default $LSUSER): "
-read GSUSER
-if [ -z "$GSUSER" ]; then
-  GSUSER="$LSUSER"
-fi
-echo -ne "\nPlease enter MySQL Game Server $GSUSER's password (won't be displayed): "
-stty -echo
-read GSPASS
-stty echo
-echo ""
-if [ -z "$GSPASS" ]; then
-  echo "Hum.. i'll let it be but don't be stupid and avoid empty passwords"
-elif [ "$GSUSER" == "$GSPASS" ]; then
-  echo "You're not too brilliant choosing passwords huh?"
-fi
-save_config $1
+# Catch kill signals
+trap finish 1 2 15
+
+# Configure the database access
+configure()
+{
+	echo "#################################################"
+	echo "#               Configuration area              #"
+	echo "#         Please answer to the questions        #"
+	echo "#################################################"
+	MYSQLDUMPPATH=`which -a mysqldump 2>/dev/null`
+	MYSQLPATH=`which -a mysql 2>/dev/null`
+	if [ $? -ne 0 ]; then
+		echo "Unable to find MySQL binaries on your PATH"
+		while :
+		do
+			echo -ne "\nPlease enter MySQL binaries directory (no trailing slash): "
+			read MYSQLBINPATH
+			if [ -e "$MYSQLBINPATH" ] && [ -d "$MYSQLBINPATH" ] && [ -e "$MYSQLBINPATH/mysqldump" ] && [ -e "$MYSQLBINPATH/mysql" ]; then
+				MYSQLDUMPPATH="$MYSQLBINPATH/mysqldump"
+				MYSQLPATH="$MYSQLBINPATH/mysql"
+				break
+			else
+				echo "Invalid data. Please verify and try again."
+				exit 1
+			fi
+		done
+	fi
+
+	# LoginServer
+	echo -ne "\nPlease enter MySQL LoginServer hostname (default localhost): "
+	read LSDBHOST
+	if [ -z "$LSDBHOST" ]; then
+		LSDBHOST="localhost"
+	fi
+	echo -ne "\nPlease enter MySQL Login Server database name (default l2jdb): "
+	read LSDB
+	if [ -z "$LSDB" ]; then
+		LSDB="l2jdb"
+	fi
+	echo -ne "\nPlease enter MySQL Login Server user (default root): "
+	read LSUSER
+	if [ -z "$LSUSER" ]; then
+		LSUSER="root"
+	fi
+	echo -ne "\nPlease enter MySQL Login Server $LSUSER's password (won't be displayed) :"
+	stty -echo
+	read LSPASS
+	stty echo
+	echo ""
+	if [ -z "$LSPASS" ]; then
+		echo "Please avoid empty password else you will have a security problem."
+	fi
+
+	# GameServer
+	echo -ne "\nPlease enter MySQL Game Server hostname (default $LSDBHOST): "
+	read GSDBHOST
+	if [ -z "$GSDBHOST" ]; then
+		GSDBHOST="$LSDBHOST"
+	fi
+	echo -ne "\nPlease enter MySQL Game Server database name (default $LSDB): "
+	read GSDB
+	if [ -z "$GSDB" ]; then
+		GSDB="$LSDB"
+	fi
+	echo -ne "\nPlease enter MySQL Game Server user (default $LSUSER): "
+	read GSUSER
+	if [ -z "$GSUSER" ]; then
+		GSUSER="$LSUSER"
+	fi
+	echo -ne "\nPlease enter MySQL Game Server $GSUSER's password (won't be displayed): "
+	stty -echo
+	read GSPASS
+	stty echo
+	echo ""
+	if [ -z "$GSPASS" ]; then
+		echo "Please avoid empty password else you will have a security problem."
+	fi
 }
 
-save_config() {
-if [ -n "$1" ]; then
-CONF="$1"
-else 
-CONF="database_installer.rc"
-fi
-echo ""
-echo "With these data i can generate a configuration file which can be read"
-echo "on future updates. WARNING: this file will contain clear text passwords!"
-echo -ne "Shall i generate config file $CONF? (Y/n):"
-read SAVE
-if [ "$SAVE" == "y" -o "$SAVE" == "Y" -o "$SAVE" == "" ];then 
-cat <<EOF>$CONF
-#Configuration settings for L2J-Datapack database installer script
-MYSQLDUMPPATH=$MYSQLDUMPPATH
-MYSQLPATH=$MYSQLPATH
-LSDBHOST=$LSDBHOST
-LSDB=$LSDB
-LSUSER=$LSUSER
-LSPASS=$LSPASS
-GSDBHOST=$GSDBHOST
-GSDB=$GSDB
-GSUSER=$GSUSER
-GSPASS=$GSPASS
-EOF
-chmod 600 $CONF
-echo "Configuration saved as $CONF"
-echo "Permissions changed to 600 (rw- --- ---)"
-elif [ "$SAVE" != "n" -a "$SAVE" != "N" ]; then
-  save_config
-fi
+# Actions which can be performed
+action_type()
+{
+	echo "#################################################"
+	echo "#           Database Installer Script           #"
+	echo "#################################################"
+	echo ""
+	echo "What do you want to do?"
+	echo "Database backup           [b] (make a backup of the existing tables)"
+	echo "Insert backups            [r] (Erase all the tables and insert the backups)"
+	echo "Full installation         [f] (for first installation, this will erase all the existing tables)"
+	echo "Update non critical data  [u] (Only erase and reinsert tables without players' data)"
+	echo "Database update           [d] (Update tables which contain player's data using update files)"
+	echo "Complete update           [c] (Update your database without data loss)"
+	echo "Insert on table           [t] (Only insert one table in your database)"
+	echo "Quit this script          [q]"
+	echo -ne "Choice: "
+	read ACTION_CHOICE
+	case "$ACTION_CHOICE" in
+		"b"|"B") backup_db; finish;;
+		"r"|"R") insert_backup; finish;;
+		"f"|"F") full_install; finish;;
+		"u"|"U") update_db noncritical; finish;;
+		"d"|"D") update_db critical; finish;;
+		"c"|"C") update_db noncritical; update_db critical; finish;;
+		"t"|"T") table_insert;;
+		"q"|"Q") finish;;
+		*)       action_type;;
+	esac
 }
 
-load_config() {
-if [ -n "$1" ]; then
-CONF="$1"
-else 
-CONF="database_installer.rc"
-fi
-if [ -e "$CONF" ] && [ -f "$CONF" ]; then
-. $CONF
-else
-echo "Settings file not found: $CONF"
-echo "You can specify an alternate settings filename:"
-echo $0 config_filename
-echo ""
-echo "If file doesn't exist it can be created"
-echo "If nothing is specified script will try to work with ./database_installer.rc"
-echo ""
-configure $CONF
-fi
+# Make a backup of the LS and GS database
+backup_db()
+{
+	echo "#################################################"
+	echo "#                Database Backup                #"
+	echo "#################################################"
+	echo ""
+	echo "LoginServer backup"
+	$MYSQLDUMPPATH --add-drop-table -h $LSDBHOST -u $LSUSER --password=$LSPASS $LSDB > loginserver_backup.sql
+	echo "GameServer backup"
+	$MYSQLDUMPPATH --add-drop-table -h $GSDBHOST -u $GSUSER --password=$GSPASS $GSDB > gameserver_backup.sql
 }
 
-asklogin(){
-echo "#############################################"
-echo "# WARNING: This section of the script CAN   #"
-echo "# destroy your characters and accounts      #"
-echo "# information. Read questions carefully     #"
-echo "# before you reply.                         #"
-echo "#############################################"
-echo ""
-#echo "Choose upgrade (u) if you already have an 'accounts' table but no"
-#echo "'gameserver' table (ie. your server is a pre LS/GS split version.)"
-echo "Choose skip (s) to skip LoginServer database installation and go to"
-echo "GameServer database installation/upgrade."
-echo -ne "LOGINSERVER DB install type: (f) full, (s) skip or (q) quit? "
-read LOGINPROMPT
-case "$LOGINPROMPT" in
-	"f"|"F") logininstall; gsbackup; asktype;;
-	"s"|"S") gsbackup; asktype;;
-	"q"|"Q") finish;;
-	*) asklogin;;
-esac
+# Insert backups
+insert_backup()
+{
+	echo "#################################################"
+	echo "#                Database Backup                #"
+	echo "#################################################"
+	echo ""
+	echo "What backups do you want to insert?"
+	echo "Enter the full path of your backups."
+	echo "LoginServer backup: "
+	read LS_BACKUP
+	echo "GameServer backup: "
+	read GS_BACKUP
+	echo "Deleting old tables"
+	$MYL < login_install.sql &> /dev/null
+	$MYG < full_install.sql &> /dev/null
+	echo "Inserting Backups"
+	$MYL < ../sql/$LS_BACKUP &> /dev/null
+	$MYG < ../sql/$GS_BACKUP &> /dev/null
+	echo "Backup restore completed"
 }
 
-logininstall(){
-echo "Deleting LoginServer tables for new content."
-$MYL < login_install.sql &> /dev/null
-echo "Installing LoginServer tables"
-$MYG < ../sql/accounts.sql &> /dev/null
-$MYG < ../sql/gameservers.sql &> /dev/null
+# Full installation (erase and insert all tables)
+full_install()
+{
+	echo "#################################################"
+	echo "#          Full Database Installation           #"
+	echo "#################################################"
+	echo ""
+	echo "LoginServer database"
+	$MYL < login_install.sql &> /dev/null
+	$MYG < ../sql/accounts.sql &> /dev/null
+	$MYG < ../sql/gameservers.sql &> /dev/null
+	echo "GameServer database"
+	$MYG < full_install.sql &> /dev/null
+	$MYG < ../sql/account_data.sql &> /dev/null
+	$MYG < ../sql/armor.sql &> /dev/null
+	$MYG < ../sql/armorsets.sql &> /dev/null
+	$MYG < ../sql/auction.sql &> /dev/null
+	$MYG < ../sql/auction_bid.sql &> /dev/null
+	$MYG < ../sql/auction_watch.sql &> /dev/null
+	$MYG < ../sql/augmentations.sql &> /dev/null
+	$MYG < ../sql/auto_chat.sql &> /dev/null
+	$MYG < ../sql/auto_chat_text.sql &> /dev/null
+	$MYG < ../sql/boxaccess.sql &> /dev/null
+	$MYG < ../sql/boxes.sql &> /dev/null
+	$MYG < ../sql/castle.sql &> /dev/null
+	$MYG < ../sql/castle_door.sql &> /dev/null
+	$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
+	$MYG < ../sql/castle_manor_procure.sql &> /dev/null
+	$MYG < ../sql/castle_manor_production.sql &> /dev/null
+	$MYG < ../sql/castle_siege_guards.sql &> /dev/null
+	$MYG < ../sql/char_templates.sql &> /dev/null
+	$MYG < ../sql/character_friends.sql &> /dev/null
+	$MYG < ../sql/character_hennas.sql &> /dev/null
+	$MYG < ../sql/character_macroses.sql &> /dev/null
+	$MYG < ../sql/character_quests.sql &> /dev/null
+	$MYG < ../sql/character_recipebook.sql &> /dev/null
+	$MYG < ../sql/character_recommends.sql &> /dev/null
+	$MYG < ../sql/character_shortcuts.sql &> /dev/null
+	$MYG < ../sql/character_skills.sql &> /dev/null
+	$MYG < ../sql/character_skills_save.sql &> /dev/null
+	$MYG < ../sql/character_subclasses.sql &> /dev/null
+	$MYG < ../sql/characters.sql &> /dev/null
+	$MYG < ../sql/clan_data.sql &> /dev/null
+	$MYG < ../sql/clan_privs.sql &> /dev/null
+	$MYG < ../sql/clan_skills.sql &> /dev/null
+	$MYG < ../sql/clan_subpledges.sql &> /dev/null
+	$MYG < ../sql/clan_wars.sql &> /dev/null
+	$MYG < ../sql/clanhall.sql &> /dev/null
+	$MYG < ../sql/clanhall_functions.sql &> /dev/null
+	$MYG < ../sql/class_list.sql &> /dev/null
+	$MYG < ../sql/cursed_weapons.sql &> /dev/null
+	$MYG < ../sql/droplist.sql &> /dev/null
+	$MYG < ../sql/enchant_skill_trees.sql &> /dev/null
+	$MYG < ../sql/etcitem.sql &> /dev/null
+	$MYG < ../sql/fish.sql &> /dev/null
+	$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
+	$MYG < ../sql/forums.sql &> /dev/null
+	$MYG < ../sql/fort_door.sql &> /dev/null
+	$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
+	$MYG < ../sql/fort_siege_guards.sql &> /dev/null
+	$MYG < ../sql/fort.sql &> /dev/null
+	$MYG < ../sql/fortsiege_clans.sql &> /dev/null
+	$MYG < ../sql/games.sql &> /dev/null
+	$MYG < ../sql/global_tasks.sql &> /dev/null
+	$MYG < ../sql/gm_audit.sql &> /dev/null
+	$MYG < ../sql/henna.sql &> /dev/null
+	$MYG < ../sql/henna_trees.sql &> /dev/null
+	$MYG < ../sql/heroes.sql &> /dev/null
+	$MYG < ../sql/items.sql &> /dev/null
+	$MYG < ../sql/items_on_ground.sql &> /dev/null
+	$MYG < ../sql/locations.sql &> /dev/null
+	$MYG < ../sql/lvlupgain.sql &> /dev/null
+	$MYG < ../sql/merchant_areas_list.sql &> /dev/null
+	$MYG < ../sql/merchant_buylists.sql &> /dev/null
+	$MYG < ../sql/merchant_shopids.sql &> /dev/null
+	$MYG < ../sql/merchants.sql &> /dev/null
+	$MYG < ../sql/minions.sql &> /dev/null
+	$MYG < ../sql/npc.sql &> /dev/null
+	$MYG < ../sql/npcskills.sql &> /dev/null
+	$MYG < ../sql/olympiad_nobles.sql&> /dev/null 
+	$MYG < ../sql/petitions.sql &> /dev/null
+	$MYG < ../sql/pets.sql &> /dev/null
+	$MYG < ../sql/pets_stats.sql &> /dev/null
+	$MYG < ../sql/pledge_skill_trees.sql &> /dev/null
+	$MYG < ../sql/posts.sql &> /dev/null
+	$MYG < ../sql/quest_global_data.sql &> /dev/null
+	$MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
+	$MYG < ../sql/random_spawn.sql &> /dev/null
+	$MYG < ../sql/random_spawn_loc.sql &> /dev/null
+	$MYG < ../sql/record.sql &> /dev/null
+	$MYG < ../sql/seven_signs.sql &> /dev/null
+	$MYG < ../sql/seven_signs_festival.sql &> /dev/null
+	$MYG < ../sql/seven_signs_status.sql &> /dev/null
+	$MYG < ../sql/siege_clans.sql &> /dev/null
+	$MYG < ../sql/skill_learn.sql &> /dev/null
+	$MYG < ../sql/skill_spellbooks.sql &> /dev/null
+	$MYG < ../sql/skill_trees.sql &> /dev/null
+	$MYG < ../sql/spawnlist.sql &> /dev/null
+	$MYG < ../sql/teleport.sql &> /dev/null
+	$MYG < ../sql/topic.sql &> /dev/null
+	$MYG < ../sql/transform_skill_trees.sql &> /dev/null
+	$MYG < ../sql/walker_routes.sql &> /dev/null
+	$MYG < ../sql/weapon.sql &> /dev/null
+	# L2JFree tables
+	$MYG < ../sql/buff_templates.sql &> /dev/null
+	$MYG < ../sql/character_raidpoints.sql &> /dev/null
+	$MYG < ../sql/couples.sql &> /dev/null
+	$MYG < ../sql/ctf.sql &> /dev/null
+	$MYG < ../sql/ctf_teams.sql &> /dev/null
+	$MYG < ../sql/custom/custom_armor.sql &> /dev/null
+	$MYG < ../sql/custom/custom_droplist.sql &> /dev/null
+	$MYG < ../sql/custom/custom_etcitem.sql &> /dev/null
+	$MYG < ../sql/custom/custom_merchant_buylists.sql &> /dev/null
+	$MYG < ../sql/custom/custom_merchant_shopids.sql &> /dev/null
+	$MYG < ../sql/custom/custom_npc.sql &> /dev/null
+	$MYG < ../sql/custom/custom_npcskills.sql &> /dev/null
+	$MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
+	$MYG < ../sql/custom/custom_weapon.sql &> /dev/null
+	$MYG < ../sql/dm.sql &> /dev/null
+	$MYG < ../sql/fortress_siege.sql &> /dev/null
+	$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
+	$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
+	$MYG < ../sql/tvt.sql &> /dev/null
+	$MYG < ../sql/tvt_teams.sql &> /dev/null
+	$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
+	$MYG < ../sql/version.sql &> /dev/null
+	$MYG < ../sql/vip.sql &> /dev/null
+	$MYG < ../sql/forced_updates.sql &> /dev/null
 }
 
-gsbackup(){
-while :
-  do
-   echo ""
-   echo -ne "Do you want to make a backup copy of your GameServer database? (y/n): "
-   read LSB
-   if [ "$LSB" == "Y" -o "$LSB" == "y" ]; then
-     echo "Making a backup of the original GameServer database."
-     $MYSQLDUMPPATH --add-drop-table -h $GSDBHOST -u $GSUSER --password=$GSPASS $GSDB > gameserver_backup.sql
-     if [ $? -ne 0 ];then
-     echo ""
-     echo "There was a problem accesing your GameServer database, either it wasnt created or authentication data is incorrect."
-     exit 1
-     fi
-     break
-   elif [ "$LSB" == "n" -o "$LSB" == "N" ]; then 
-     break
-   fi
-  done 
+# Database update
+update_db()
+{
+	# Update only tables without players' data
+	if [ "$1" = "noncritical" ]; then
+		$MYG < ../sql/armor.sql &> /dev/null
+		$MYG < ../sql/armorsets.sql &> /dev/null
+		$MYG < ../sql/auto_chat.sql &> /dev/null
+		$MYG < ../sql/auto_chat_text.sql &> /dev/null
+		$MYG < ../sql/boxaccess.sql &> /dev/null
+		$MYG < ../sql/boxes.sql &> /dev/null
+		$MYG < ../sql/castle_door.sql &> /dev/null
+		$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
+		$MYG < ../sql/castle_siege_guards.sql &> /dev/null
+		$MYG < ../sql/char_templates.sql &> /dev/null
+		$MYG < ../sql/class_list.sql &> /dev/null
+		$MYG < ../sql/droplist.sql &> /dev/null
+		$MYG < ../sql/enchant_skill_trees.sql &> /dev/null
+		$MYG < ../sql/etcitem.sql &> /dev/null
+		$MYG < ../sql/fish.sql &> /dev/null
+		$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
+		$MYG < ../sql/fort_door.sql &> /dev/null
+		$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
+		$MYG < ../sql/fort_siege_guards.sql &> /dev/null
+		$MYG < ../sql/henna.sql &> /dev/null
+		$MYG < ../sql/henna_trees.sql &> /dev/null
+		$MYG < ../sql/locations.sql &> /dev/null
+		$MYG < ../sql/lvlupgain.sql &> /dev/null
+		$MYG < ../sql/merchant_areas_list.sql &> /dev/null
+		$MYG < ../sql/merchant_buylists.sql &> /dev/null
+		$MYG < ../sql/merchant_shopids.sql &> /dev/null
+		$MYG < ../sql/merchants.sql &> /dev/null
+		$MYG < ../sql/minions.sql &> /dev/null
+		$MYG < ../sql/npc.sql &> /dev/null
+		$MYG < ../sql/npcskills.sql &> /dev/null
+		$MYG < ../sql/pets_stats.sql &> /dev/null
+		$MYG < ../sql/pledge_skill_trees.sql &> /dev/null
+		$MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
+		$MYG < ../sql/random_spawn.sql &> /dev/null
+		$MYG < ../sql/random_spawn_loc.sql &> /dev/null
+		$MYG < ../sql/skill_learn.sql &> /dev/null
+		$MYG < ../sql/skill_spellbooks.sql &> /dev/null
+		$MYG < ../sql/skill_trees.sql &> /dev/null
+		$MYG < ../sql/spawnlist.sql &> /dev/null
+		$MYG < ../sql/teleport.sql &> /dev/null
+		$MYG < ../sql/topic.sql &> /dev/null
+		$MYG < ../sql/transform_skill_trees.sql &> /dev/null
+		$MYG < ../sql/walker_routes.sql &> /dev/null
+		$MYG < ../sql/weapon.sql &> /dev/null
+		# L2JFree tables
+		$MYG < ../sql/buff_templates.sql &> /dev/null
+		$MYG < ../sql/ctf.sql &> /dev/null
+		$MYG < ../sql/ctf_teams.sql &> /dev/null
+		$MYG < ../sql/custom/custom_armor.sql &> /dev/null
+		$MYG < ../sql/custom/custom_droplist.sql &> /dev/null
+		$MYG < ../sql/custom/custom_etcitem.sql &> /dev/null
+		$MYG < ../sql/custom/custom_merchant_buylists.sql &> /dev/null
+		$MYG < ../sql/custom/custom_merchant_shopids.sql &> /dev/null
+		$MYG < ../sql/custom/custom_npc.sql &> /dev/null
+		$MYG < ../sql/custom/custom_npcskills.sql &> /dev/null
+		$MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
+		$MYG < ../sql/custom/custom_weapon.sql &> /dev/null
+		$MYG < ../sql/dm.sql &> /dev/null
+		$MYG < ../sql/fortress_siege.sql &> /dev/null
+		$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
+		$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
+		$MYG < ../sql/tvt.sql &> /dev/null
+		$MYG < ../sql/tvt_teams.sql &> /dev/null
+		$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
+		$MYG < ../sql/version.sql &> /dev/null
+		$MYG < ../sql/vip.sql &> /dev/null
+		$MYG < ../sql/forced_updates.sql &> /dev/null
+	# Insert update files
+	elif [ "$1" = "critical" ]; then
+		$MYG < ../sql/updates/il_to_ct1_update.sql
+		$MYG < ../sql/updates/20080107update.sql
+		$MYG < ../sql/updates/20080109update.sql
+		$MYG < ../sql/updates/20080128update.sql
+		$MYG < ../sql/updates/20080218update.sql
+		$MYG < ../sql/updates/20080220update.sql
+		$MYG < ../sql/updates/20080303update.sql
+		$MYG < ../sql/updates/20080404update.sql
+		$MYG < ../sql/updates/20080408update.sql
+	# Bad argument O_o
+	else
+		echo "DEBUG: Wrong parameter in function update_db"
+		exit 1
+	fi
 }
 
-lsbackup(){
-while :
-  do
-   echo ""
-   echo -ne "Do you want to make a backup copy of your LSDB? (y/n): "
-   read LSB
-   if [ "$LSB" == "Y" -o "$LSB" == "y" ]; then
-     echo "Making a backup of the original loginserver database."
-     $MYSQLDUMPPATH --add-drop-table -h $LSDBHOST -u $LSUSER --password=$LSPASS $LSDB > loginserver_backup.sql
-     if [ $? -ne 0 ];then
-        echo ""
-        echo "There was a problem accesing your LS database, either it wasnt created or authentication data is incorrect."
-        exit 1
-     fi
-     break
-   elif [ "$LSB" == "n" -o "$LSB" == "N" ]; then 
-     break
-   fi
-  done 
+# Insert only one table the user want
+table_insert()
+{
+	echo "#################################################"
+	echo "#                 Table insertion               #"
+	echo "#################################################"
+	echo ""
+	echo -ne "What table do you want to insert? (don't add .sql extension) "
+	read TABLE
+	echo "Insertion of file $TABLE"
+	$MYG < ../sql/$TABLE.sql &> /dev/null
+	echo "Insertion completed"
+	action_type
 }
 
-asktype(){
-echo ""
-echo ""
-echo "WARNING: A full install (f) will destroy all existing character data."
-echo -ne "GAMESERVER DB install type: (f) full install or (u) upgrade or (s) skip or (q) quit?"
-read INSTALLTYPE
-case "$INSTALLTYPE" in
-	"f"|"F") fullinstall; upgradeinstall I; askupdatedb;;
-	"u"|"U") upgradeinstall U; askupdatedb;;
-	"q"|"Q") finish;;
-	*) asktype;;
-esac
+# End of the script
+finish()
+{
+	echo ""
+	echo "Script execution finished."
+	exit 0
 }
 
-fullinstall(){
-echo "Deleting all GameServer tables for new content."
-$MYG < full_install.sql &> /dev/null
-}
-
-upgradeinstall(){
-if [ "$1" == "I" ]; then 
-echo "Installing new GameServer content."
-else
-echo "Upgrading GameServer content"
-fi
-$MYG < ../sql/account_data.sql &> /dev/null
-$MYG < ../sql/armor.sql &> /dev/null
-$MYG < ../sql/armorsets.sql &> /dev/null
-$MYG < ../sql/auction.sql &> /dev/null
-$MYG < ../sql/auction_bid.sql &> /dev/null
-$MYG < ../sql/auction_watch.sql &> /dev/null
-$MYG < ../sql/augmentations.sql &> /dev/null
-$MYG < ../sql/auto_chat.sql &> /dev/null
-$MYG < ../sql/auto_chat_text.sql &> /dev/null
-$MYG < ../sql/boxaccess.sql &> /dev/null
-$MYG < ../sql/boxes.sql &> /dev/null
-$MYG < ../sql/castle.sql &> /dev/null
-$MYG < ../sql/castle_door.sql &> /dev/null
-$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
-$MYG < ../sql/castle_manor_procure.sql &> /dev/null
-$MYG < ../sql/castle_manor_production.sql &> /dev/null
-$MYG < ../sql/castle_siege_guards.sql &> /dev/null
-$MYG < ../sql/char_templates.sql &> /dev/null
-$MYG < ../sql/character_friends.sql &> /dev/null
-$MYG < ../sql/character_hennas.sql &> /dev/null
-$MYG < ../sql/character_macroses.sql &> /dev/null
-$MYG < ../sql/character_quests.sql &> /dev/null
-$MYG < ../sql/character_recipebook.sql &> /dev/null
-$MYG < ../sql/character_recommends.sql &> /dev/null
-$MYG < ../sql/character_shortcuts.sql &> /dev/null
-$MYG < ../sql/character_skills.sql &> /dev/null
-$MYG < ../sql/character_skills_save.sql &> /dev/null
-$MYG < ../sql/character_subclasses.sql &> /dev/null
-$MYG < ../sql/characters.sql &> /dev/null
-$MYG < ../sql/clan_data.sql &> /dev/null
-$MYG < ../sql/clan_privs.sql &> /dev/null
-$MYG < ../sql/clan_skills.sql &> /dev/null
-$MYG < ../sql/clan_subpledges.sql &> /dev/null
-$MYG < ../sql/clan_wars.sql &> /dev/null
-$MYG < ../sql/clanhall.sql &> /dev/null
-$MYG < ../sql/clanhall_functions.sql &> /dev/null
-$MYG < ../sql/class_list.sql &> /dev/null
-$MYG < ../sql/cursed_weapons.sql &> /dev/null
-$MYG < ../sql/droplist.sql &> /dev/null
-$MYG < ../sql/enchant_skill_trees.sql &> /dev/null
-$MYG < ../sql/etcitem.sql &> /dev/null
-$MYG < ../sql/fish.sql &> /dev/null
-$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
-$MYG < ../sql/fort_door.sql &> /dev/null
-$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
-$MYG < ../sql/fort_siege_guards.sql &> /dev/null
-$MYG < ../sql/fort.sql &> /dev/null
-$MYG < ../sql/fortsiege_clans.sql &> /dev/null
-$MYG < ../sql/forums.sql &> /dev/null
-$MYG < ../sql/games.sql &> /dev/null
-$MYG < ../sql/global_tasks.sql &> /dev/null
-$MYG < ../sql/gm_audit.sql &> /dev/null
-$MYG < ../sql/henna.sql &> /dev/null
-$MYG < ../sql/henna_trees.sql &> /dev/null
-$MYG < ../sql/heroes.sql &> /dev/null
-$MYG < ../sql/items.sql &> /dev/null
-$MYG < ../sql/items_on_ground.sql &> /dev/null
-$MYG < ../sql/locations.sql &> /dev/null
-$MYG < ../sql/lvlupgain.sql &> /dev/null
-$MYG < ../sql/merchant_areas_list.sql &> /dev/null
-$MYG < ../sql/merchant_buylists.sql &> /dev/null
-$MYG < ../sql/merchant_shopids.sql &> /dev/null
-$MYG < ../sql/merchants.sql &> /dev/null
-$MYG < ../sql/minions.sql &> /dev/null
-$MYG < ../sql/npc.sql &> /dev/null
-$MYG < ../sql/npcskills.sql &> /dev/null
-$MYG < ../sql/olympiad_nobles.sql&> /dev/null 
-$MYG < ../sql/petitions.sql &> /dev/null
-$MYG < ../sql/pets.sql &> /dev/null
-$MYG < ../sql/pets_stats.sql &> /dev/null
-$MYG < ../sql/pledge_skill_trees.sql &> /dev/null
-$MYG < ../sql/posts.sql &> /dev/null
-$MYG < ../sql/quest_global_data.sql &> /dev/null
-$MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
-$MYG < ../sql/random_spawn.sql &> /dev/null
-$MYG < ../sql/random_spawn_loc.sql &> /dev/null
-$MYG < ../sql/record.sql &> /dev/null
-$MYG < ../sql/seven_signs.sql &> /dev/null
-$MYG < ../sql/seven_signs_festival.sql &> /dev/null
-$MYG < ../sql/seven_signs_status.sql &> /dev/null
-$MYG < ../sql/siege_clans.sql &> /dev/null
-$MYG < ../sql/skill_learn.sql &> /dev/null
-$MYG < ../sql/skill_spellbooks.sql &> /dev/null
-$MYG < ../sql/skill_trees.sql &> /dev/null
-$MYG < ../sql/spawnlist.sql &> /dev/null
-$MYG < ../sql/teleport.sql &> /dev/null
-$MYG < ../sql/topic.sql &> /dev/null
-$MYG < ../sql/walker_routes.sql &> /dev/null
-$MYG < ../sql/weapon.sql &> /dev/null
-echo "Installing L2JFree content"
-$MYG < ../sql/buff_templates.sql &> /dev/null
-$MYG < ../sql/character_raidpoints.sql &> /dev/null
-$MYG < ../sql/couples.sql &> /dev/null
-$MYG < ../sql/ctf.sql &> /dev/null
-$MYG < ../sql/ctf_teams.sql &> /dev/null
-$MYG < ../sql/dm.sql &> /dev/null
-$MYG < ../sql/fortress_siege.sql &> /dev/null
-$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
-$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
-$MYG < ../sql/tvt.sql &> /dev/null
-$MYG < ../sql/tvt_teams.sql &> /dev/null
-$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
-$MYG < ../sql/version.sql &> /dev/null
-$MYG < ../sql/vip.sql &> /dev/null
-$MYG < ../sql/custom/custom_armor.sql &> /dev/null
-$MYG < ../sql/custom/custom_droplist.sql &> /dev/null
-$MYG < ../sql/custom/custom_etcitem.sql &> /dev/null
-$MYG < ../sql/custom/custom_merchant_buylists.sql &> /dev/null
-$MYG < ../sql/custom/custom_merchant_shopids.sql &> /dev/null
-$MYG < ../sql/custom/custom_npc.sql &> /dev/null
-$MYG < ../sql/custom/custom_npcskills.sql &> /dev/null
-$MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
-$MYG < ../sql/custom/custom_weapon.sql &> /dev/null
-
-$MYG < ../sql/forced_updates.sql &> /dev/null
-
-}
-
-askupdatedb(){
-echo ""
-echo "Do you want to update your database with files in update folder, which are already included in the main files? (RECOMMENDED: NO)"
-echo -ne "UPDATE your database: (y) yes or (n) no?"
-read UPDATETYPE
-case "$UPDATETYPE" in
-	"y"|"Y") updatedb;;
-	"n"|"N") finish;;
-	*) asklogin;;
-esac
-}
-
-updatedb(){
-$MYG < ../sql/updates/il_to_ct1_update.sql &> /dev/null
-$MYG < ../sql/updates/20080107update.sql &> /dev/null
-$MYG < ../sql/updates/20080109update.sql &> /dev/null
-}
-
-finish(){
-echo ""
-echo "Script execution finished."
-exit 0
-}
-
+# Clear console
 clear
-load_config $1
+
+# Call configure function
+configure
+
+# Open MySQL connections
 MYL="$MYSQLPATH -h $LSDBHOST -u $LSUSER --password=$LSPASS -D $LSDB"
 MYG="$MYSQLPATH -h $GSDBHOST -u $GSUSER --password=$GSPASS -D $GSDB"
-lsbackup
-asklogin
+
+# Ask action to do
+action_type
