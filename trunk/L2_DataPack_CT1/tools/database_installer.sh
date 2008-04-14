@@ -167,8 +167,8 @@ full_install()
 	echo ""
 	echo "LoginServer database"
 	$MYL < login_install.sql &> /dev/null
-	$MYG < ../sql/accounts.sql &> /dev/null
-	$MYG < ../sql/gameservers.sql &> /dev/null
+	$MYL < ../sql/accounts.sql &> /dev/null
+	$MYL < ../sql/gameservers.sql &> /dev/null
 	echo "GameServer database"
 	$MYG < full_install.sql &> /dev/null
 	$MYG < ../sql/account_data.sql &> /dev/null
@@ -291,90 +291,106 @@ full_install()
 # Database update
 update_db()
 {
-	# Update only tables without players' data
-	if [ "$1" = "noncritical" ]; then
-		$MYG < ../sql/armor.sql &> /dev/null
-		$MYG < ../sql/armorsets.sql &> /dev/null
-		$MYG < ../sql/auto_chat.sql &> /dev/null
-		$MYG < ../sql/auto_chat_text.sql &> /dev/null
-		$MYG < ../sql/boxaccess.sql &> /dev/null
-		$MYG < ../sql/boxes.sql &> /dev/null
-		$MYG < ../sql/castle_door.sql &> /dev/null
-		$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
-		$MYG < ../sql/castle_siege_guards.sql &> /dev/null
-		$MYG < ../sql/char_templates.sql &> /dev/null
-		$MYG < ../sql/class_list.sql &> /dev/null
-		$MYG < ../sql/droplist.sql &> /dev/null
-		$MYG < ../sql/enchant_skill_trees.sql &> /dev/null
-		$MYG < ../sql/etcitem.sql &> /dev/null
-		$MYG < ../sql/fish.sql &> /dev/null
-		$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
-		$MYG < ../sql/fort_door.sql &> /dev/null
-		$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
-		$MYG < ../sql/fort_siege_guards.sql &> /dev/null
-		$MYG < ../sql/henna.sql &> /dev/null
-		$MYG < ../sql/henna_trees.sql &> /dev/null
-		$MYG < ../sql/locations.sql &> /dev/null
-		$MYG < ../sql/lvlupgain.sql &> /dev/null
-		$MYG < ../sql/merchant_areas_list.sql &> /dev/null
-		$MYG < ../sql/merchant_buylists.sql &> /dev/null
-		$MYG < ../sql/merchant_shopids.sql &> /dev/null
-		$MYG < ../sql/merchants.sql &> /dev/null
-		$MYG < ../sql/minions.sql &> /dev/null
-		$MYG < ../sql/npc.sql &> /dev/null
-		$MYG < ../sql/npcskills.sql &> /dev/null
-		$MYG < ../sql/pets_stats.sql &> /dev/null
-		$MYG < ../sql/pledge_skill_trees.sql &> /dev/null
-		$MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
-		$MYG < ../sql/random_spawn.sql &> /dev/null
-		$MYG < ../sql/random_spawn_loc.sql &> /dev/null
-		$MYG < ../sql/skill_learn.sql &> /dev/null
-		$MYG < ../sql/skill_spellbooks.sql &> /dev/null
-		$MYG < ../sql/skill_trees.sql &> /dev/null
-		$MYG < ../sql/spawnlist.sql &> /dev/null
-		$MYG < ../sql/teleport.sql &> /dev/null
-		$MYG < ../sql/topic.sql &> /dev/null
-		$MYG < ../sql/transform_skill_trees.sql &> /dev/null
-		$MYG < ../sql/walker_routes.sql &> /dev/null
-		$MYG < ../sql/weapon.sql &> /dev/null
-		# L2JFree tables
-		$MYG < ../sql/buff_templates.sql &> /dev/null
-		$MYG < ../sql/ctf.sql &> /dev/null
-		$MYG < ../sql/ctf_teams.sql &> /dev/null
-		$MYG < ../sql/custom/custom_armor.sql &> /dev/null
-		$MYG < ../sql/custom/custom_droplist.sql &> /dev/null
-		$MYG < ../sql/custom/custom_etcitem.sql &> /dev/null
-		$MYG < ../sql/custom/custom_merchant_buylists.sql &> /dev/null
-		$MYG < ../sql/custom/custom_merchant_shopids.sql &> /dev/null
-		$MYG < ../sql/custom/custom_npc.sql &> /dev/null
-		$MYG < ../sql/custom/custom_npcskills.sql &> /dev/null
-		$MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
-		$MYG < ../sql/custom/custom_weapon.sql &> /dev/null
-		$MYG < ../sql/dm.sql &> /dev/null
-		$MYG < ../sql/fortress_siege.sql &> /dev/null
-		$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
-		$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
-		$MYG < ../sql/tvt.sql &> /dev/null
-		$MYG < ../sql/tvt_teams.sql &> /dev/null
-		$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
-		$MYG < ../sql/version.sql &> /dev/null
-		$MYG < ../sql/vip.sql &> /dev/null
-		$MYG < ../sql/forced_updates.sql &> /dev/null
-	# Insert update files
-	elif [ "$1" = "critical" ]; then
-		$MYG < ../sql/updates/il_to_ct1_update.sql
-		$MYG < ../sql/updates/20080107update.sql
-		$MYG < ../sql/updates/20080109update.sql
-		$MYG < ../sql/updates/20080128update.sql
-		$MYG < ../sql/updates/20080218update.sql
-		$MYG < ../sql/updates/20080220update.sql
-		$MYG < ../sql/updates/20080303update.sql
-		$MYG < ../sql/updates/20080404update.sql
-		$MYG < ../sql/updates/20080408update.sql
-	# Bad argument O_o
-	else
-		echo "DEBUG: Wrong parameter in function update_db"
+	echo "#################################################"
+	echo "#                Database Update                #"
+	echo "#################################################"
+	echo ""
+	echo "Please don't forget to make a backup before updating your database"
+	echo "Do you want to proceed? (y) yes or (n) no: "
+	read ANSWER
+	if [ "$ANSWER" = "n" ];
+		echo "Script aborted, make a backup before each update"
 		exit 1
+	else
+		# Update only tables without players' data
+		if [ "$1" = "noncritical" ]; then
+			echo "Updating the database"
+			$MYG < ../sql/armor.sql &> /dev/null
+			$MYG < ../sql/armorsets.sql &> /dev/null
+			$MYG < ../sql/auto_chat.sql &> /dev/null
+			$MYG < ../sql/auto_chat_text.sql &> /dev/null
+			$MYG < ../sql/boxaccess.sql &> /dev/null
+			$MYG < ../sql/boxes.sql &> /dev/null
+			$MYG < ../sql/castle_door.sql &> /dev/null
+			$MYG < ../sql/castle_doorupgrade.sql &> /dev/null
+			$MYG < ../sql/castle_siege_guards.sql &> /dev/null
+			$MYG < ../sql/char_templates.sql &> /dev/null
+			$MYG < ../sql/class_list.sql &> /dev/null
+			$MYG < ../sql/droplist.sql &> /dev/null
+			$MYG < ../sql/enchant_skill_trees.sql &> /dev/null
+			$MYG < ../sql/etcitem.sql &> /dev/null
+			$MYG < ../sql/fish.sql &> /dev/null
+			$MYG < ../sql/fishing_skill_trees.sql &> /dev/null
+			$MYG < ../sql/fort_door.sql &> /dev/null
+			$MYG < ../sql/fort_doorupgrade.sql &> /dev/null
+			$MYG < ../sql/fort_siege_guards.sql &> /dev/null
+			$MYG < ../sql/henna.sql &> /dev/null
+			$MYG < ../sql/henna_trees.sql &> /dev/null
+			$MYG < ../sql/locations.sql &> /dev/null
+			$MYG < ../sql/lvlupgain.sql &> /dev/null
+			$MYG < ../sql/merchant_areas_list.sql &> /dev/null
+			$MYG < ../sql/merchant_buylists.sql &> /dev/null
+			$MYG < ../sql/merchant_shopids.sql &> /dev/null
+			$MYG < ../sql/merchants.sql &> /dev/null
+			$MYG < ../sql/minions.sql &> /dev/null
+			$MYG < ../sql/npc.sql &> /dev/null
+			$MYG < ../sql/npcskills.sql &> /dev/null
+			$MYG < ../sql/pets_stats.sql &> /dev/null
+			$MYG < ../sql/pledge_skill_trees.sql &> /dev/null
+			$MYG < ../sql/raidboss_spawnlist.sql &> /dev/null
+			$MYG < ../sql/random_spawn.sql &> /dev/null
+			$MYG < ../sql/random_spawn_loc.sql &> /dev/null
+			$MYG < ../sql/skill_learn.sql &> /dev/null
+			$MYG < ../sql/skill_spellbooks.sql &> /dev/null
+			$MYG < ../sql/skill_trees.sql &> /dev/null
+			$MYG < ../sql/spawnlist.sql &> /dev/null
+			$MYG < ../sql/teleport.sql &> /dev/null
+			$MYG < ../sql/topic.sql &> /dev/null
+			$MYG < ../sql/transform_skill_trees.sql &> /dev/null
+			$MYG < ../sql/walker_routes.sql &> /dev/null
+			$MYG < ../sql/weapon.sql &> /dev/null
+			# L2JFree tables
+			$MYG < ../sql/buff_templates.sql &> /dev/null
+			$MYG < ../sql/ctf.sql &> /dev/null
+			$MYG < ../sql/ctf_teams.sql &> /dev/null
+			$MYG < ../sql/custom/custom_armor.sql &> /dev/null
+			$MYG < ../sql/custom/custom_droplist.sql &> /dev/null
+			$MYG < ../sql/custom/custom_etcitem.sql &> /dev/null
+			$MYG < ../sql/custom/custom_merchant_buylists.sql &> /dev/null
+			$MYG < ../sql/custom/custom_merchant_shopids.sql &> /dev/null
+			$MYG < ../sql/custom/custom_npc.sql &> /dev/null
+			$MYG < ../sql/custom/custom_npcskills.sql &> /dev/null
+			$MYG < ../sql/custom/custom_spawnlist.sql &> /dev/null
+			$MYG < ../sql/custom/custom_weapon.sql &> /dev/null
+			$MYG < ../sql/dm.sql &> /dev/null
+			$MYG < ../sql/fortress_siege.sql &> /dev/null
+			$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
+			$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
+			$MYG < ../sql/tvt.sql &> /dev/null
+			$MYG < ../sql/tvt_teams.sql &> /dev/null
+			$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 
+			$MYG < ../sql/version.sql &> /dev/null
+			$MYG < ../sql/vip.sql &> /dev/null
+			$MYG < ../sql/forced_updates.sql &> /dev/null
+			echo "Update completed"
+		# Insert update files
+		elif [ "$1" = "critical" ]; then
+			echo "Updating the database"
+			$MYG < ../sql/updates/il_to_ct1_update.sql
+			$MYG < ../sql/updates/20080107update.sql
+			$MYG < ../sql/updates/20080109update.sql
+			$MYG < ../sql/updates/20080128update.sql
+			$MYG < ../sql/updates/20080218update.sql
+			$MYG < ../sql/updates/20080220update.sql
+			$MYG < ../sql/updates/20080303update.sql
+			$MYG < ../sql/updates/20080404update.sql
+			$MYG < ../sql/updates/20080408update.sql
+			echo "Update completed"
+		# Bad argument O_o
+		else
+			echo "DEBUG: Wrong parameter in function update_db"
+			exit 1
+		fi
 	fi
 }
 
