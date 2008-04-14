@@ -121,7 +121,9 @@ public class L2SkillDrain extends L2Skill
 			double hpAdd = _absorbAbs + _absorbPart * _drain;
 			double hp = ((activeChar.getStatus().getCurrentHp() + hpAdd) > activeChar.getMaxHp() ? activeChar.getMaxHp() : (activeChar.getStatus().getCurrentHp() + hpAdd));
 			
-			activeChar.getStatus().setCurrentHp(hp); 
+			double hpDiff = hp - activeChar.getStatus().getCurrentHp();
+
+			activeChar.getStatus().increaseHp(hpDiff);
 
 			StatusUpdate suhp = new StatusUpdate(activeChar.getObjectId()); 
 			suhp.addAttribute(StatusUpdate.CUR_HP, (int)hp); 

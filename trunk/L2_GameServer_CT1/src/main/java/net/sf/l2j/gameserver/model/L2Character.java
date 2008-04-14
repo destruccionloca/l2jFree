@@ -5897,10 +5897,6 @@ public abstract class L2Character extends L2Object
 
 			sendDamageMessage(target, damage, false, crit, miss);
 
-			// add olympiad damage
-			if(this instanceof L2PcInstance && ((L2PcInstance) this).isInOlympiadMode())
-				addOlyDamage(damage);
-			
 			// If L2Character target is a L2PcInstance, send a system message
 			if (target instanceof L2PcInstance)
 			{
@@ -5966,7 +5962,7 @@ public abstract class L2Character extends L2Object
 
 						if (absorbDamage > 0)
 						{
-							getStatus().setCurrentHp(getStatus().getCurrentHp() + absorbDamage);
+							getStatus().increaseHp(absorbDamage);
 						}
 					}
 

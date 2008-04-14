@@ -134,7 +134,7 @@ public class CharStatus
 			if ((getActiveChar() instanceof L2PcInstance) && ((L2PcInstance) getActiveChar()).isInOlympiadMode())
 			{
 				L2Object obj = L2World.getInstance().findObject(((L2PcInstance) getActiveChar()).getOlympiadOpponentId());
-				if (obj == null || !(obj instanceof L2PcInstance))
+				if (obj != null && obj instanceof L2PcInstance)
 				{
 					((L2PcInstance) obj).reduceOlyDamage((int) value);
 				}
@@ -226,6 +226,12 @@ public class CharStatus
 
 		if (value > 0) // Reduce Hp if any
 		{
+			// add olympiad damage
+			if((getActiveChar() instanceof L2PcInstance && ((L2PcInstance)getActiveChar()).isInOlympiadMode()))
+			{
+				attacker.addOlyDamage((int)value);
+			}
+
 			// If we're dealing with an L2Attackable Instance and the attacker hit it with an over-hit enabled skill, set the over-hit values.
 			// Anything else, clear the over-hit flag
 			if (getActiveChar() instanceof L2Attackable)
