@@ -134,7 +134,7 @@ public class Blow implements ISkillHandler
 							player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
 							// add olympiad damage
 							if(player.isInOlympiadMode())
-								activeChar.addOlyDamage((int)damage);
+								player.addOlyDamage((int)damage);
 						}
 					}
 					SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
