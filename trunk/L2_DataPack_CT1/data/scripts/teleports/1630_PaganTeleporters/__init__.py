@@ -24,10 +24,18 @@ class Quest (JQuest):
        DoorTable.getInstance().getDoor(19160011).closeMe()
     return
 
+  def onFirstTalk (self,npc,player):
+    npcId = npc.getNpcId()
+    if npcId == 32039 :
+       player.teleToLocation(-12766,-35840,-10856)
+    elif npcId == 32040 :
+       player.teleToLocation(36640,-51218,718)
+    return "none"
+
   def onTalk (self,npc,player):
     st = player.getQuestState(qn)
     npcId = npc.getNpcId()
-    htmltext = ""
+    htmltext = None
     if npcId == 32034 :
       if st.getQuestItemsCount(8064) == 0 and st.getQuestItemsCount(8065) == 0 and st.getQuestItemsCount(8067) == 0:
         return "<html><body>The Temple Gatekeeper:<br>You have nothing that would cover the holes.<br>(You must have a Visitor's Mark, a Faded Visitor's Mark, or a Pagan's Mark in order to open this door.)</body></html>"
@@ -54,11 +62,6 @@ class Quest (JQuest):
       DoorTable.getInstance().getDoor(19160011).openMe()
       self.startQuestTimer("Close_Door2",10000,npc,None)
       htmltext = "FadedMark.htm"
-    else :
-      if npcId == 32039 :
-        player.teleToLocation(-12766,-35840,-10856)
-      elif npcId == 32040 :
-        player.teleToLocation(36640,-51218,718)
     st.exitQuest(1)
     return htmltext
 
@@ -69,3 +72,5 @@ QUEST       = Quest(1630, qn, "Teleports")
 for npc in NPCS :
     QUEST.addStartNpc(npc)
     QUEST.addTalkId(npc)
+QUEST.addFirstTalkId(32039)
+QUEST.addFirstTalkId(32040)
