@@ -2050,16 +2050,15 @@
   </for>
 </skill>
 <skill id="489" levels="1" name="Shift Target">
-<!--
-  Needs to be finished.
-  Target is set to TARGET_NONE, skillType to NOTDONE for server compatability.
-  Description(s):
-      Transfers the Aggression of nearby enemies to a selected party member. Consumes 3 soul. An equipped crossbow is required to use this skill. Can be used on party members only.
--->
-  <set name="target" val="TARGET_NONE"/>
-  <set name="skillType" val="NOTDONE"/>
-  <set name="operateType" val="OP_PASSIVE"/>
-  <set name="castRange" val="-1"/>
+<!-- by Sephiroth -->
+  <set name="mpConsume" val="53"/>
+  <set name="hitTime" val="2000"/>
+  <set name="reuseDelay" val="30000"/>
+  <set name="target" val="TARGET_PARTY_MEMBER"/>
+  <set name="skillType" val="SHIFT_TARGET"/>
+  <set name="operateType" val="OP_ACTIVE"/>
+  <set name="castRange" val="40"/>
+  <set name="power" val="1515.0"/>
   <for>
   </for>
 </skill>

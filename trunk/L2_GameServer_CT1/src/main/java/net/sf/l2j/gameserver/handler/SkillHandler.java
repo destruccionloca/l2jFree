@@ -45,6 +45,7 @@ import net.sf.l2j.gameserver.handler.skillhandlers.Soul;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sow;
 import net.sf.l2j.gameserver.handler.skillhandlers.Spoil;
 import net.sf.l2j.gameserver.handler.skillhandlers.StrSiegeAssault;
+import net.sf.l2j.gameserver.handler.skillhandlers.ShiftTarget;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonFriend;
 import net.sf.l2j.gameserver.handler.skillhandlers.SummonTreasureKey;
 import net.sf.l2j.gameserver.handler.skillhandlers.Sweep;
@@ -105,6 +106,7 @@ public class SkillHandler
         registerSkillHandler(new Pdam());
         registerSkillHandler(new Recall());
         registerSkillHandler(new Resurrect());
+        registerSkillHandler(new ShiftTarget());
         registerSkillHandler(new SiegeFlag());
         registerSkillHandler(new Soul());
         registerSkillHandler(new Sow());
