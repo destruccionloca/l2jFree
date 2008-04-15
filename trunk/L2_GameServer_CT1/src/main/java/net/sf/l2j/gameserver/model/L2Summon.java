@@ -804,10 +804,4 @@ public abstract class L2Summon extends L2PlayableInstance
 		else
 			super.doCast(skill);
 	}
-
-	@Override
-	public void addOlyDamage(int dmg)
-	{
-		getOwner().addOlyDamage(dmg);
-	}
 }

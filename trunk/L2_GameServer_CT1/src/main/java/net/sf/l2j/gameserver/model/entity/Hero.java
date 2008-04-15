@@ -359,14 +359,10 @@ public class Hero
                     sm.addNumber(1000);
                     clan.broadcastToOnlineMembers(sm);
                 }
-                player.sendPacket(new UserInfo(player));
                 player.broadcastUserInfo();
 
-                player.setHero(true); 
                 for(L2Skill skill : HeroSkillTable.getHeroSkills())
                     player.addSkill(skill);
-                player.sendPacket(new UserInfo(player));
-                player.broadcastUserInfo();
             }
             else
             {

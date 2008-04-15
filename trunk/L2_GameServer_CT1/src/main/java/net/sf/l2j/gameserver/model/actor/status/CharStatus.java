@@ -29,7 +29,7 @@ import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
 import net.sf.l2j.gameserver.model.actor.stat.CharStat;
 import net.sf.l2j.gameserver.model.entity.Duel;
 import net.sf.l2j.gameserver.model.quest.QuestState;
@@ -161,43 +161,44 @@ public class CharStatus
 		if (getActiveChar().isDead())
 			return;
 
+		L2PcInstance player = null;
+		L2PcInstance attackerPlayer = null;
+
 		if (getActiveChar() instanceof L2PcInstance)
+			player = (L2PcInstance)getActiveChar();
+		else if (getActiveChar() instanceof L2Summon)
+			player = ((L2Summon)getActiveChar()).getOwner();
+
+		if (attacker instanceof L2PcInstance)
+			attackerPlayer = (L2PcInstance)attacker;
+		else if (attacker instanceof L2Summon)
+			attackerPlayer = ((L2Summon)attacker).getOwner();
+
+		if (player != null)
 		{
-			if (((L2PcInstance) getActiveChar()).isInDuel())
+			if (player.isInDuel())
 			{
-				// the duel is finishing - players do not recive damage
-				if (((L2PcInstance) getActiveChar()).getDuelState() == Duel.DUELSTATE_DEAD)
+				// the duel is finishing - players do not receive damage
+				if (player.getDuelState() == Duel.DUELSTATE_DEAD)
 					return;
-				else if (((L2PcInstance) getActiveChar()).getDuelState() == Duel.DUELSTATE_WINNER)
+				else if (player.getDuelState() == Duel.DUELSTATE_WINNER)
 					return;
 
 				// cancel duel if player got hit by a monster or NPC
-				if (!(attacker instanceof L2SummonInstance) && !(attacker instanceof L2PcInstance))
+				if (!(attacker instanceof L2PlayableInstance))
 				{
-					((L2PcInstance) getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
+					player.setDuelState(Duel.DUELSTATE_INTERRUPTED);
 				}
-				// cancel duel if player got hit by another player's summon and that is not part of the duel
-				else if (attacker instanceof L2SummonInstance
-						&& !(((L2SummonInstance) attacker).getOwner().getDuelId() == ((L2PcInstance) getActiveChar()).getDuelId()))
+				// cancel duel if player got hit by another player or his summon and that is not part of the duel
+				else if (attackerPlayer != null && attackerPlayer.getDuelId() != player.getDuelId())
 				{
-					((L2PcInstance) getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
-				}
-				// cancel duel if player got hit by another player that is not part of the duel
-				else if (attacker instanceof L2PcInstance && !(((L2PcInstance) attacker).getDuelId() == ((L2PcInstance) getActiveChar()).getDuelId()))
-				{
-					((L2PcInstance) getActiveChar()).setDuelState(Duel.DUELSTATE_INTERRUPTED);
+					player.setDuelState(Duel.DUELSTATE_INTERRUPTED);
 				}
 			}
 		}
-		else
+		else if (attackerPlayer != null && attackerPlayer.isInDuel())
 		{
-			if (attacker instanceof L2PcInstance
-					&& ((L2PcInstance) attacker).isInDuel()
-					&& !(getActiveChar() instanceof L2SummonInstance && ((L2SummonInstance) getActiveChar()).getOwner().getDuelId() == ((L2PcInstance) attacker)
-							.getDuelId())) // Duelling player attacks mob
-			{
-				((L2PcInstance) attacker).setDuelState(Duel.DUELSTATE_INTERRUPTED);
-			}
+			attackerPlayer.setDuelState(Duel.DUELSTATE_INTERRUPTED);
 		}
 
 		if (awake)
@@ -217,21 +218,20 @@ public class CharStatus
 
 		// Additional prevention
 		// Check if player is GM and has sufficient rights to make damage
-		if (attacker instanceof L2PcInstance)
+		if (attackerPlayer != null)
 		{
-			L2PcInstance activeCaster = (L2PcInstance) attacker;
-
-			if (activeCaster.isGM() && activeCaster.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
-				value = 0;
+			if (attackerPlayer.isGM() && attackerPlayer.getAccessLevel() < Config.GM_CAN_GIVE_DAMAGE)
+				return;
 		}
 
 		if (value > 0) // Reduce Hp if any
 		{
 			// add olympiad damage
-			if((getActiveChar() instanceof L2PcInstance && ((L2PcInstance)getActiveChar()).isInOlympiadMode())
-				|| (getActiveChar() instanceof L2Summon && ((L2Summon)getActiveChar()).getOwner().isInOlympiadMode()))
+			if(player != null && player.isInOlympiadMode() && attackerPlayer != null && attackerPlayer.isInOlympiadMode())
 			{
-				attacker.addOlyDamage((int)value);
+				if (Config.ALT_OLY_SUMMON_DAMAGE_COUNTS
+						|| (attacker instanceof L2PcInstance && getActiveChar() instanceof L2PcInstance))
+					attackerPlayer.addOlyDamage((int)value);
 			}
 
 			// If we're dealing with an L2Attackable Instance and the attacker hit it with an over-hit enabled skill, set the over-hit values.
@@ -247,7 +247,7 @@ public class CharStatus
 			if (value <= 0)
 			{
 				// is the dieing one a duelist? if so change his duel state to dead
-				if (getActiveChar() instanceof L2PcInstance && ((L2PcInstance) getActiveChar()).isInDuel())
+				if (player != null && player.isInDuel())
 				{
 					getActiveChar().disableAllSkills();
 					stopHpMpRegeneration();
@@ -255,7 +255,7 @@ public class CharStatus
 					attacker.sendPacket(ActionFailed.STATIC_PACKET);
 
 					// let the DuelManager know of his defeat
-					DuelManager.getInstance().onPlayerDefeat((L2PcInstance) getActiveChar());
+					DuelManager.getInstance().onPlayerDefeat(player);
 					value = 1;
 				}
 				else
@@ -274,13 +274,13 @@ public class CharStatus
 
 		if (getActiveChar().getStatus().getCurrentHp() < 0.5) // Die
 		{
-			if (getActiveChar() instanceof L2PcInstance)
+			if (player != null)
 			{
-				if (((L2PcInstance) getActiveChar()).isInOlympiadMode())
+				if (player.isInOlympiadMode())
 				{
 					stopHpMpRegeneration();
-					getActiveChar().setIsDead(true);
-					getActiveChar().setIsPendingRevive(true);
+					player.setIsDead(true);
+					player.setIsPendingRevive(true);
 					return;
 				}
 			}
@@ -293,11 +293,11 @@ public class CharStatus
 			// Start the doDie process
 			getActiveChar().doDie(attacker);
 
-			if (getActiveChar() instanceof L2PcInstance)
+			if (player != null)
 			{
-				QuestState qs = ((L2PcInstance) getActiveChar()).getQuestState("255_Tutorial");
+				QuestState qs = player.getQuestState("255_Tutorial");
 				if (qs != null)
-					qs.getQuest().notifyEvent("CE30", null, ((L2PcInstance) getActiveChar()));
+					qs.getQuest().notifyEvent("CE30", null, player);
 			}
 		}
 		else

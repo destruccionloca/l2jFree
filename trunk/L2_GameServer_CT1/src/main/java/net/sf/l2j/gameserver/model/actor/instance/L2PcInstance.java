@@ -611,6 +611,9 @@ public final class L2PcInstance extends L2PlayableInstance
     private int _obsZ;
     private boolean _observerMode = false;
 
+    /** Total amount of damage dealt during a olympiad fight */
+    private int _olyDamage = 0;
+
     /** Event parameters */
 
     public int eventX;
@@ -8690,6 +8693,29 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return _olympiadGameId;
     }
+
+    public int getOlyDamage()
+	{
+		return this._olyDamage;
+	}
+
+	public void setOlyDamage(int dmg)
+	{
+		_olyDamage = dmg;
+	}
+
+	public void addOlyDamage(int dmg)
+	{
+		_olyDamage = _olyDamage + dmg;
+	}
+
+	public void reduceOlyDamage(int dmg)
+	{
+		if (_olyDamage - dmg < 0)
+			_olyDamage = 0;
+		else
+			_olyDamage = _olyDamage - dmg;
+	}
 
     public int getObsX()
     {

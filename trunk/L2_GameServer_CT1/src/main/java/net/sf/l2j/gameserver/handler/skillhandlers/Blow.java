@@ -42,7 +42,8 @@ public class Blow implements ISkillHandler
 	public final static int SIDE = 60;
 	public final static int BEHIND = 70;
 	
-	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets){
+	public void useSkill(L2Character activeChar, L2Skill skill, L2Object[] targets)
+	{
 		if(activeChar.isAlikeDead())
 			return;
 

@@ -200,8 +200,6 @@ public abstract class L2Character extends L2Object
 
 	protected byte _zoneValidateCounter = 4;
 
-	private int						_olyDamage							= 0;
-
 	// =========================================================
 	// Constructor
 	/**
@@ -5128,7 +5126,23 @@ public abstract class L2Character extends L2Object
 		double dx = (x - curX);
 		double dy = (y - curY);
 		double dz = (z - curZ);
-		double distance = Math.sqrt(dx * dx + dy * dy);
+		//double distance = Math.sqrt(dx * dx + dy * dy);
+		double distSq = dx * dx + dy * dy;
+
+		// make water move short and use no geodata checks for swimming chars
+		// distance in a click can easily be over 3000
+		if (Config.GEODATA && isInsideZone(L2Zone.FLAG_WATER) && distSq > 250000)
+		{
+			double divider = 250000/distSq;
+			x = curX + (int)(divider * dx);
+			y = curY + (int)(divider * dy);
+			z = curZ + (int)(divider * dz);
+			dx = (x - curX);
+			dy = (y - curY);
+			dz = (z - curZ);
+			distSq = dx*dx + dy*dy;
+		}
+		double distance = Math.sqrt(distSq);
 
 		if (_log.isDebugEnabled())
 			_log.debug("distance to target:" + distance);
@@ -5198,6 +5212,7 @@ public abstract class L2Character extends L2Object
 
 		if (Config.GEODATA
 			&& !isFlying() // flying chars not checked - even canSeeTarget doesn't work yet
+			&& !isInsideZone(L2Zone.FLAG_WATER)
 			&& !(this instanceof L2NpcWalkerInstance)) // npc walkers not checked
 		{
 			double originalDistance = distance;
@@ -5238,8 +5253,7 @@ public abstract class L2Character extends L2Object
 				// location different if destination wasn't reached (or just z coord is different)
 				x = destiny.getX();
 				y = destiny.getY();
-				if (!isInsideZone(L2Zone.FLAG_WATER)) // check: perhaps should be inside moveCheck
-					z = destiny.getZ();
+				z = destiny.getZ();
 				distance = Math.sqrt((x - curX) * (x - curX) + (y - curY) * (y - curY));
 			}
 			// Pathfinding checks. Only when geo-pathfinding is enabled, the LoS check gives shorter result
@@ -7800,27 +7814,4 @@ public abstract class L2Character extends L2Object
             }
         }
     }
-
-    public int getOlyDamage()
-	{
-		return this._olyDamage;
-	}
-
-	public void setOlyDamage(int dmg)
-	{
-		_olyDamage = dmg;
-	}
-
-	public void addOlyDamage(int dmg)
-	{
-		_olyDamage = _olyDamage + dmg;
-	}
-
-	public void reduceOlyDamage(int dmg)
-	{
-		if (_olyDamage - dmg < 0)
-			_olyDamage = 0;
-		else
-			_olyDamage = _olyDamage - dmg;
-	}
 }
