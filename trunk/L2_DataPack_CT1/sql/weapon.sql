@@ -1667,3 +1667,6 @@ CHANGE `item_skill_lvl` `item_skill_lvl` VARCHAR(30) NOT NULL DEFAULT '0';
 
 -- Wedding System part
 UPDATE `weapon` SET `item_skill_id` = '3260,3261,3262', `item_skill_lvl` = '1,1,1' WHERE `item_id` IN (9140,9141);
+
+-- Fix for Dynasty Bagh-Nakh  Rsk. Evasion
+UPDATE `weapon` SET `item_skill_id` = '3031' WHERE (`item_id`='9878');
