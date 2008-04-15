@@ -308,7 +308,7 @@ description(s) :
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="castRange" val="-1"/>
   <set name="reuseDelay" val="15000"/>
-  <set name="create_item_id" val="10001"/>
+  <set name="create_item_id" val="10112"/>
   <set name="create_item_count" val="1"/>
   <set name="soulConsumeCount" val="1"/>
   <for>
