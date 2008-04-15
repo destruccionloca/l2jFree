@@ -16,6 +16,7 @@ package net.sf.l2j.gameserver.network.serverpackets;
 
 import java.util.Map;
 
+import net.sf.l2j.gameserver.datatables.ClanTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManager;
 import net.sf.l2j.gameserver.model.entity.Castle;
 
@@ -48,7 +49,7 @@ public class ExShowCastleInfo extends L2GameServerPacket
         for (Castle castle : castles.values())
         {
             writeD(castle.getCastleId());
-            writeS(castle.getName());
+            writeS(castle.getOwnerId() <= 0 ? "" : ClanTable.getInstance().getClan(castle.getOwnerId()).getName()); // owner clan name
             writeD(castle.getTaxPercent());
             writeD((int) (castle.getSiege().getSiegeDate().getTimeInMillis()/1000));
         }

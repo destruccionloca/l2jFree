@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.handler.skillhandlers;
 
+import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Effect;
@@ -21,6 +22,7 @@ import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.network.SystemMessageId;
 import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
@@ -133,8 +135,11 @@ public class Blow implements ISkillHandler
 						{
 							player.getStatus().setCurrentHp(player.getStatus().getCurrentHp() - damage);
 							// add olympiad damage
-							if(player.isInOlympiadMode())
-								player.addOlyDamage((int)damage);
+							if(activeChar instanceof L2PcInstance && ((L2PcInstance)activeChar).isInOlympiadMode())
+								((L2PcInstance)activeChar).addOlyDamage((int)damage);
+							else if(activeChar instanceof L2Summon && ((L2Summon)activeChar).getOwner().isInOlympiadMode()
+										&& Config.ALT_OLY_SUMMON_DAMAGE_COUNTS)
+								((L2Summon)activeChar).getOwner().addOlyDamage((int)damage);
 						}
 					}
 					SystemMessage smsg = new SystemMessage(SystemMessageId.S1_GAVE_YOU_S2_DMG);
