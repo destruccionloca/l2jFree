@@ -789,6 +789,10 @@ public class CTF
 		
 		_joining = true;
 		spawnEventNpc(activeChar);
+		Announcements(_eventName + " (CTF)!");
+		if(Config.CTF_ANNOUNCE_REWARD)
+			Announcements("Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		Announcements("Recruiting levels " + _minlvl + " to " + _maxlvl);
 		Announcements(_eventName + "(CTF): Joinable in " + _joiningLocationName + "!");
 	}
 
@@ -803,6 +807,10 @@ public class CTF
 		
 		_joining = true;
 		spawnEventNpc();
+		Announcements(_eventName + " (CTF)!");
+		if(Config.CTF_ANNOUNCE_REWARD)
+			Announcements("Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		Announcements("Recruiting levels " + _minlvl + " to " + _maxlvl);
 		Announcements(_eventName + "(CTF): Joinable in " + _joiningLocationName + "!");
 	}
 

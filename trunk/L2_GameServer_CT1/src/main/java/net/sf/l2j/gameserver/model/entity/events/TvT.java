@@ -287,7 +287,8 @@ public class TvT
 		_joining = true;
 		spawnEventNpc(activeChar);
 		AnnounceToPlayers(true,_eventName + " (TvT)!");
-		AnnounceToPlayers(true,"Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
+		if(Config.TVT_ANNOUNCE_REWARD)
+			AnnounceToPlayers(true,"Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
 		AnnounceToPlayers(true,"Recruiting levels " + _minlvl + " to " + _maxlvl);
 		AnnounceToPlayers(true,"Joinable in " + _joiningLocationName + "!");
 	}
@@ -303,6 +304,9 @@ public class TvT
 		
 		_joining = true;
 		spawnEventNpc();
+		AnnounceToPlayers(true,_eventName + " (TvT)!");
+		if(Config.TVT_ANNOUNCE_REWARD)
+			AnnounceToPlayers(true,"Reward: " + _rewardAmount + " " + ItemTable.getInstance().getTemplate(_rewardId).getName());
 		AnnounceToPlayers(true,"Recruiting levels " + _minlvl + " to " + _maxlvl);
 		AnnounceToPlayers(true,"Joinable in " + _joiningLocationName + "!");
 	}
