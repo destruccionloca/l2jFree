@@ -2538,6 +2538,8 @@ public class Olympiad
 				{
 					int pointDiff;
 					pointDiff = playerTwoPoints / _div;
+					if (pointDiff < 1)
+						pointDiff = 1;
 					playerOneStat.set(POINTS, playerOnePoints + pointDiff);
 					playerTwoStat.set(POINTS, playerTwoPoints - pointDiff);
 
@@ -2571,6 +2573,8 @@ public class Olympiad
 				{
 					int pointDiff;
 					pointDiff = playerOnePoints / _div;
+					if (pointDiff < 1)
+						pointDiff = 1;
 					playerTwoStat.set(POINTS, playerTwoPoints + pointDiff);
 					playerOneStat.set(POINTS, playerOnePoints - pointDiff);
 
