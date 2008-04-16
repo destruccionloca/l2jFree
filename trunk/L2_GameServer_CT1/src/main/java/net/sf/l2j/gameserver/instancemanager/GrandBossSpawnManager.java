@@ -158,34 +158,26 @@ public class GrandBossSpawnManager extends BossSpawnManager
     @Override
     protected void updateDb()
     {
-        System.out.println("1");
         for (Integer bossId : _storedInfo.keySet())
         {
-            System.out.println("2: "+bossId);
             Connection con = null;
             try
             {
                 con = L2DatabaseFactory.getInstance().getConnection(con);
-                System.out.println("3");
                 L2Boss boss = _bosses.get(bossId);
                 L2Spawn spawnDat = _spawns.get(bossId);
-                System.out.println("3");
-                if (boss == null)
+                if (boss == null || spawnDat == null)
 				{
-					System.out.println("4");continue;
+					continue;
 				}
-				if (spawnDat == null)
-				{
-					System.out.println("5");continue;
-				}
-				System.out.println("7");
+
                 if (boss.getRaidStatus().equals(StatusEnum.ALIVE))
                     updateStatus(boss, false);
 
                 StatsSet info = _storedInfo.get(bossId);
                 if (info == null)
 				{
-					System.out.println("6");continue;
+					continue;
 				}
 
                 PreparedStatement statement = con.prepareStatement("UPDATE grandboss_spawnlist SET respawn_time = ?, currentHp = ?, currentMp = ? WHERE boss_id = ?");
@@ -193,15 +185,8 @@ public class GrandBossSpawnManager extends BossSpawnManager
                 statement.setDouble(2, info.getDouble("currentHp"));
                 statement.setDouble(3, info.getDouble("currentMp"));
                 statement.setInt(4, bossId);
-				System.out.println("8");
                 statement.execute();
-				System.out.println("9");
                 statement.close();
-				System.out.println("10");
-                System.out.println("UPDATE grandboss_spawnlist SET respawn_time = "+info.getLong("respawnTime")
-                    +", currentHp = "+info.getDouble("currentHp")
-                    +", currentMp = "+info.getDouble("currentMp")
-                    +" WHERE boss_id = "+bossId);
             }
             catch (SQLException e)
             {
