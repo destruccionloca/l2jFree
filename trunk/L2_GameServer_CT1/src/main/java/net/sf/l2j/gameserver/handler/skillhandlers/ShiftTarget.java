@@ -57,7 +57,7 @@ public class ShiftTarget implements ISkillHandler
 			}
 		}
 		
-		for (L2Object nearby : activeChar.getKnownList().getKnownCharactersInRadius(120))
+		for (L2Object nearby : activeChar.getKnownList().getKnownCharactersInRadius(skill.getSkillRadius()))
 		{
 			if (!targetShifted)
 			{
