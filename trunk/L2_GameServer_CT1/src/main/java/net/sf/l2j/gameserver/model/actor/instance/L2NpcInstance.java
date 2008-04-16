@@ -1815,6 +1815,7 @@ public class L2NpcInstance extends L2Character
      * @param val The number of the page of the L2NpcInstance to display
      *
      */
+    // -1 - lottery instructions
     // 0 - first buy lottery ticket window
     // 1-20 - buttons
     // 21 - second buy lottery ticket window
@@ -2026,7 +2027,7 @@ public class L2NpcInstance extends L2Character
             player.destroyItem("Loto", item, this, false);
             return;
         }
-        else if (val == 25) // 25 - Lottery Instrucions
+        else if (val == -1) // -1 - Lottery Instrucions
         {
             filename = (getHtmlPath(npcId, 2));
             html.setFile(filename);
