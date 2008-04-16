@@ -431,7 +431,6 @@ public class AdminAdmin implements IAdminCommandHandler
 				{
 					NpcWalkerRoutesTable.getInstance().load();
 					activeChar.sendMessage("All NPC walker routes have been reloaded");
-					
 				}
 				else if(type.startsWith("npc"))
 				{
