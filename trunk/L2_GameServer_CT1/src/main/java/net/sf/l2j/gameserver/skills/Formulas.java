@@ -26,7 +26,7 @@ import net.sf.l2j.gameserver.model.L2SiegeClan;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
@@ -954,9 +954,9 @@ public final class Formulas
 
 		// [L2J_JP ADD SANDMAN]
 		// The recovery power of Zaken decreases under sunlight.
-		if (cha instanceof L2BossInstance)
+		if (cha instanceof L2GrandBossInstance)
 		{
-			L2BossInstance boss = (L2BossInstance) cha;
+			L2GrandBossInstance boss = (L2GrandBossInstance) cha;
 			if ((boss.getNpcId() == 29022) && boss.isInsideZone(L2Zone.FLAG_SUNLIGHTROOM))
 				hpRegenMultiplier *= 0.75;
 		}

@@ -18,6 +18,7 @@ import net.sf.l2j.Config;
 import net.sf.l2j.gameserver.datatables.TradeListTable;
 import net.sf.l2j.gameserver.instancemanager.CastleManorManager;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
+import net.sf.l2j.gameserver.instancemanager.GrandBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
@@ -389,6 +390,8 @@ public class Shutdown extends Thread implements ShutdownMBean
 		System.out.println("RaidPointsManager: All character raid points saved.");
 		RaidBossSpawnManager.getInstance().cleanUp();
 		System.out.println("RaidBossSpawnManager: All raidboss info saved.");
+		GrandBossSpawnManager.getInstance().cleanUp();
+		System.out.println("GrandBossSpawnManager: All grandboss info saved.");
 		TradeListTable.getInstance().dataCountStore();
 		System.out.println("TradeController: All count Item Saved");
 		try

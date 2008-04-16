@@ -22,35 +22,24 @@ import net.sf.l2j.gameserver.GameTimeController;
 import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.datatables.SkillTable;
+import net.sf.l2j.gameserver.instancemanager.GrandBossSpawnManager;
+import net.sf.l2j.gameserver.model.L2Boss;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
-import net.sf.l2j.gameserver.network.SystemMessageId;
-import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * This class manages all Bosses. 
  * 
  * @version $Revision: 1.0.0.0 $ $Date: 2006/06/16 $
  */
-public final class L2BossInstance extends L2MonsterInstance
+public final class L2GrandBossInstance extends L2Boss
 {
-	private boolean _teleportedToNest;
-    
-    private static final int BOSS_MAINTENANCE_INTERVAL = 10000;
+    // [L2J_JP ADD SANDMAN]
+    private boolean _teleportedToNest;
 
-    // [L2J_JP ADD START SANDMAN]
-    final static Log _log = LogFactory.getLog(L2BossInstance.class.getName());
-
-    protected int doTeleport = 0;
-    protected L2Object _target;
-    protected L2Character _Atacker;
-    protected static final int NurseAntRespawnDelay = Config.NURSEANT_RESPAWN_DELAY;
     private long _lastNurseAntHealTime = 0;
     private L2Skill _nurseAntHeal = null;
 
@@ -71,7 +60,7 @@ public final class L2BossInstance extends L2MonsterInstance
     // [L2J_JP ADD END SANDMAN]
 
     /**
-     * Constructor for L2BossInstance. This represent all grandbosses:
+     * Constructor for L2GrandBossInstance. This represent all grandbosses:
      * <ul>
      * <li>29001    Queen Ant</li>
      * <li>29014    Orfen</li>
@@ -87,19 +76,16 @@ public final class L2BossInstance extends L2MonsterInstance
      * <li>29047    Scarlet Van Halisha 3rd Morph</li>
      * </ul>
      * <br>
-     * <b>For now it's nothing more than a L2Monster but there'll be a scripting<br>
+     * <b>For now it's (mostly) nothing more than a L2Monster but there'll be a scripting<br>
      * engine for AI soon and we could add special behaviour for those boss</b><br>
      * <br>
      * @param objectId ID of the instance
      * @param template L2NpcTemplate of the instance
      */
-    public L2BossInstance(int objectId, L2NpcTemplate template)
+    public L2GrandBossInstance(int objectId, L2NpcTemplate template)
     {
         super(objectId, template);
     }
-
-    @Override
-    protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
 
     @Override
     public boolean doDie(L2Character killer)
@@ -107,16 +93,10 @@ public final class L2BossInstance extends L2MonsterInstance
         if (!super.doDie(killer))
             return false;
 
-        // [L2J_JP ADD START SANDMAN]
-        if (killer instanceof L2PlayableInstance)
-        {
-            SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
-            broadcastPacket(msg);
-        }
-        // [L2J_JP ADD END SANDMAN]
-
+        GrandBossSpawnManager.getInstance().updateStatus(this, true);
         return true;
     }
+
     /**
      * Used by Orfen to set 'teleported' flag, when hp goes to <50%
      * @param flag
@@ -125,57 +105,24 @@ public final class L2BossInstance extends L2MonsterInstance
     {
         _teleportedToNest = flag;
     }
-    
+
     private boolean getTeleported()
     {
         return _teleportedToNest;
     }
-    
-    /**
-     * Boss are not affected by some type of skills (confusion, mute, paralyze, root
-     * and a list of skills define in the configuration)
-
-     * @param skill the casted skill
-     * @see L2Character#checkSkillCanAffectMyself(L2Skill)
-     */
-	@Override
-	public boolean checkSkillCanAffectMyself(L2Skill skill)
-	{
-		if (!checkSkillCanAffectMyself(skill.getSkillType()) || Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId()))
-			return false;
-		
-		return true;
-	}
-	
-	@Override
-	public boolean checkSkillCanAffectMyself(SkillType type)
-	{
-		if (type == SkillType.CONFUSION	||	type == SkillType.MUTE		||	type == SkillType.PARALYZE	||
-			type == SkillType.ROOT		||	type == SkillType.FEAR		||	type == SkillType.SLEEP		||
-			type == SkillType.STUN		||	type == SkillType.DEBUFF	||	type == SkillType.AGGDEBUFF
-		)
-			return false;
-		
-		return true;
-	}    
 
     @Override
     public void onSpawn()
     {
-        // [L2J_JP ADD START SANDMAN]
-        // get players in lair and update known list.
-    	//getKnownList().getKnownPlayers().clear();
-    	switch (getNpcId())
-		{
-			case 29022:	// Zaken (Note:teleport-out of instant-move execute onSpawn.)
-				if(GameTimeController.getInstance().isNowNight())
-					setIsInvul(true);
-				else
-					setIsInvul(false);
-				break;				
-			default:
-				break;
-		}
+        switch (getNpcId())
+        {
+            case 29022: // Zaken (Note:teleport-out of instant-move execute onSpawn.)
+                if(GameTimeController.getInstance().isNowNight())
+                    setIsInvul(true);
+                else
+                    setIsInvul(false);
+                break;
+        }
         super.onSpawn();
     }
 
@@ -186,13 +133,13 @@ public final class L2BossInstance extends L2MonsterInstance
     @Override
     public void reduceCurrentHp(double damage, L2Character attacker, boolean awake)
     {
-
         // [L2J_JP ADD SANDMAN]
-    	if (IsInSocialAction() || isInvul()) return;
+        if (IsInSocialAction() || isInvul()) return;
 
         switch (getTemplate().getNpcId())
         {
             case 29014: // Orfen
+            {
                 if ((getStatus().getCurrentHp() - damage) < getMaxHp() / 2 && !getTeleported())
                 {
                     clearAggroList();
@@ -202,22 +149,18 @@ public final class L2BossInstance extends L2MonsterInstance
                     teleToLocation(43577,15985,-4396, false);
                 }
                 break;
+            }
             // [L2J_JP ADD SANDMAN]
             case 29001: // Queen ant
+            {
                 List<L2MinionInstance> _minions = _minionList.getSpawnedMinions();
 
                 if (_minions.isEmpty())
                 {
                     if (_minionMaintainTask == null)
                     {
-                        try
-                        {
-                            _minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneral(
-                            			new RespawnNurseAnts(),NurseAntRespawnDelay);
-                        }
-                        catch (NullPointerException e)
-                        {
-                        }
+                        _minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneral(
+                            new RespawnNurseAnts(), Config.NURSEANT_RESPAWN_DELAY);
                     }
                 }
                 else if ((_lastNurseAntHealTime + 5000) < System.currentTimeMillis())
@@ -234,66 +177,47 @@ public final class L2BossInstance extends L2MonsterInstance
                     }
                 }
                 break;
-            default:
-                break;
+            }
         }
 
         super.reduceCurrentHp(damage, attacker, awake);
-    }
-    
-    @Override
-    public boolean isRaid()
-    {
-        return true;
     }
 
     // [L2J_JP ADD START SANDMAN]
     // respawn nurse ants.
     private class RespawnNurseAnts implements Runnable
     {
-
-        public RespawnNurseAnts()
-        {
-        }
-
         public void run()
         {
             try
             {
                 _minionList.maintainMinions();
             }
-            catch (Throwable e)
+            catch (Exception e)
             {
-                _log.fatal("", e);
+                e.printStackTrace();
             }
             finally
             {
-            	_minionMaintainTask = null;
+                _minionMaintainTask = null;
             }
         }
     }
+
     @Override
     public void doAttack(L2Character target)
     {
-    	if(_isInSocialAction) return;
-    	else super.doAttack(target);
+        if(_isInSocialAction)
+            return;
+        super.doAttack(target);
     }
 
     @Override
     public void doCast(L2Skill skill)
     {
-    	if(_isInSocialAction) return;
-    	else super.doCast(skill);
+        if(_isInSocialAction)
+            return;
+        super.doCast(skill);
     }
     // [L2J_JP ADD END SANDMAN]
-
-    @Override
-    protected boolean canInteract(L2PcInstance player)
-    {
-        // TODO: NPC busy check etc...
-        if (!isInsideRadius(player, BOSS_INTERACTION_DISTANCE, false, false))
-            return false;
-
-        return true;
-    }
 }

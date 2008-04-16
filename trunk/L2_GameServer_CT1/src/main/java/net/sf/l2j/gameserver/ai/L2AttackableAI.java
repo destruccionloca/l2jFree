@@ -31,12 +31,12 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.instancemanager.DimensionalRiftManager;
 import net.sf.l2j.gameserver.model.L2Attackable;
+import net.sf.l2j.gameserver.model.L2Boss;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Summon;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
@@ -172,7 +172,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 				return false;
 			
 			// Check if the AI isn't a Raid Boss and the target isn't in silent move mode
-			if (!(me instanceof L2RaidBossInstance) && player.isSilentMoving() && !player.isCastingNow() && !player.isAttackingNow())
+			if (!(me instanceof L2Boss) && player.isSilentMoving() && !player.isCastingNow() && !player.isAttackingNow())
 				return false;
 			
 			// Check if player is an ally (comparing mem addr)
@@ -767,7 +767,7 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 											chance = 6;
 										else chance = 3;
 									}
-									if (npc instanceof L2BossInstance)
+									if (npc instanceof L2Boss)
 										chance = 6;
 									if (chance >= Rnd.get(100)) // chance
 										continue;

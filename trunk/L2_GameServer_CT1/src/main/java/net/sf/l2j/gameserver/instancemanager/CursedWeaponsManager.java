@@ -30,10 +30,10 @@ import net.sf.l2j.Config;
 import net.sf.l2j.L2DatabaseFactory;
 import net.sf.l2j.gameserver.model.CursedWeapon;
 import net.sf.l2j.gameserver.model.L2Attackable;
+import net.sf.l2j.gameserver.model.L2Boss;
 import net.sf.l2j.gameserver.model.L2Character;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2World;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FeedableBeastInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2GuardInstance;
@@ -283,7 +283,7 @@ public class CursedWeaponsManager
                || attackable instanceof L2RiftInvaderInstance
                || attackable instanceof L2FestivalMonsterInstance
                || attackable instanceof L2GuardInstance
-               || attackable instanceof L2BossInstance
+               || attackable instanceof L2Boss
                || attackable instanceof L2FeedableBeastInstance
                )
                   return;

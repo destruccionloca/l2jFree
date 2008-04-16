@@ -120,7 +120,6 @@ public class L2NpcInstance extends L2Character
 
     /** The interaction distance of the L2NpcInstance(is used as offset in MovetoLocation method) */
     public static final int INTERACTION_DISTANCE = 150;
-    public static final int BOSS_INTERACTION_DISTANCE = 500;
 
     /** The L2Spawn object that manage this L2NpcInstance */
     private L2Spawn _spawn;

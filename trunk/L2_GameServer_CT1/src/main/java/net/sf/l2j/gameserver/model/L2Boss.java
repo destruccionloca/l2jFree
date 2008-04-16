@@ -1,0 +1,149 @@
+/*
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ * 
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ * 
+ * You should have received a copy of the GNU General Public License along with
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+package net.sf.l2j.gameserver.model;
+
+import net.sf.l2j.Config;
+import net.sf.l2j.gameserver.ThreadPoolManager;
+import net.sf.l2j.gameserver.instancemanager.BossSpawnManager;
+import net.sf.l2j.gameserver.model.L2Skill.SkillType;
+import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
+import net.sf.l2j.gameserver.network.SystemMessageId;
+import net.sf.l2j.gameserver.network.serverpackets.SystemMessage;
+import net.sf.l2j.gameserver.templates.L2NpcTemplate;
+import net.sf.l2j.tools.random.Rnd;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public abstract class L2Boss extends L2MonsterInstance
+{
+    private static final int BOSS_MAINTENANCE_INTERVAL = 10000;
+
+    public static final int BOSS_INTERACTION_DISTANCE = 500;
+
+    protected final static Log _log = LogFactory.getLog(L2Boss.class.getName());
+
+    public L2Boss(int objectId, L2NpcTemplate template)
+    {
+        super(objectId, template);
+    }
+
+    private BossSpawnManager.StatusEnum _raidStatus;
+
+    @Override
+    protected int getMaintenanceInterval() { return BOSS_MAINTENANCE_INTERVAL; }
+
+    @Override
+    public boolean doDie(L2Character killer)
+    {
+        if (!super.doDie(killer))
+            return false;
+
+        if (killer instanceof L2PlayableInstance)
+        {
+            SystemMessage msg = new SystemMessage(SystemMessageId.RAID_WAS_SUCCESSFUL);
+            broadcastPacket(msg);
+        }
+        return true;
+    }
+
+    /**
+     * Boss are not affected by some type of skills (confusion, mute, paralyze, root
+     * and a list of skills define in the configuration)
+
+     * @param skill the casted skill
+     * @see L2Character#checkSkillCanAffectMyself(L2Skill)
+     */
+    @Override
+    public boolean checkSkillCanAffectMyself(L2Skill skill)
+    {
+        return checkSkillCanAffectMyself(skill.getSkillType()) && !Config.FORBIDDEN_RAID_SKILLS_LIST.contains(skill.getId());
+    }
+
+    @Override
+    public boolean checkSkillCanAffectMyself(SkillType type)
+    {
+        switch(type)
+        {
+            case CONFUSION: case MUTE: case PARALYZE: case ROOT: case SHIFT_TARGET:
+            case DEBUFF: case AGGDEBUFF: case FEAR: case SLEEP: case STUN:
+                return Rnd.get(1000) == 1;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isRaid()
+    {
+        return true;
+    }
+
+    @Override
+    protected boolean canInteract(L2PcInstance player)
+    {
+        // TODO: NPC busy check etc...
+        if (!isInsideRadius(player, BOSS_INTERACTION_DISTANCE, false, false))
+            return false;
+
+        return true;
+    }
+
+    public void setRaidStatus (BossSpawnManager.StatusEnum status)
+    {
+        _raidStatus = status;
+    }
+
+    public BossSpawnManager.StatusEnum getRaidStatus()
+    {
+        return _raidStatus;
+    }
+
+    /**
+     * Spawn all minions at a regular interval
+     * if minions are not near the raid boss, teleport them 
+     * 
+     */
+    @Override
+    protected void manageMinions()
+    {
+        _minionList.spawnMinions();
+        _minionMaintainTask = ThreadPoolManager.getInstance().scheduleGeneralAtFixedRate(new Runnable()
+        {
+            public void run()
+            {
+                // teleport raid boss home if it's too far from home location
+                L2Spawn bossSpawn = getSpawn();
+                if(!isInsideRadius(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), 5000, true, false))
+                {
+                    teleToLocation(bossSpawn.getLocx(),bossSpawn.getLocy(),bossSpawn.getLocz(), true);
+                    healFull(); // prevents minor exploiting with it
+                }
+                _minionList.maintainMinions();
+            }
+        }, 60000, getMaintenanceInterval()+Rnd.get(5000));
+    }
+
+    /**
+     * Restore full Amount of HP and MP 
+     * 
+     */
+    public void healFull()
+    {
+        super.getStatus().setCurrentHp(super.getMaxHp());
+        super.getStatus().setCurrentMp(super.getMaxMp());
+    }
+}

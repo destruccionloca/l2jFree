@@ -407,7 +407,6 @@ public class Olympiad
 					{
 						_game.validateWinner();
 						_game.PlayersStatusBack();
-						_game.removals();
 						_game.portPlayersBack();
 						_game.clearSpectators();
 					}

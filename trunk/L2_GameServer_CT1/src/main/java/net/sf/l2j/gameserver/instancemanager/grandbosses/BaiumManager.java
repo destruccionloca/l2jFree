@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Entity;
@@ -318,7 +318,7 @@ public class BaiumManager extends Entity
         //delete statue.  
         _npcBaium.deleteMe();  
 
-        L2BossInstance baium = (L2BossInstance)baiumSpawn.doSpawn();
+        L2GrandBossInstance baium = (L2GrandBossInstance)baiumSpawn.doSpawn();
         _monsters.add(baium);
 
         _state.setRespawnDate(Rnd.get(Config.FWB_FIXINTERVALOFBAIUM,Config.FWB_FIXINTERVALOFBAIUM + Config.FWB_RANDOMINTERVALOFBAIUM)+ Config.FWB_ACTIVITYTIMEOFBAIUM);  
@@ -663,8 +663,8 @@ public class BaiumManager extends Entity
     // action is enabled the boss.
     private class SetMobilised implements Runnable
     {
-        private L2BossInstance _boss;
-        public SetMobilised(L2BossInstance boss)
+        private L2GrandBossInstance _boss;
+        public SetMobilised(L2GrandBossInstance boss)
         {
         	_boss = boss;
         }
@@ -732,8 +732,8 @@ public class BaiumManager extends Entity
     private class KillPc  implements Runnable
     {
     	L2PcInstance _target;
-    	L2BossInstance _boss;
-    	public KillPc(L2PcInstance target,L2BossInstance boss)
+    	L2GrandBossInstance _boss;
+    	public KillPc(L2PcInstance target, L2GrandBossInstance boss)
     	{
     		_target = target;
     		_boss = boss;
@@ -788,9 +788,9 @@ public class BaiumManager extends Entity
     private class Speak implements Runnable
     {
         L2PcInstance _target;
-        L2BossInstance _boss;
+        L2GrandBossInstance _boss;
 
-        public Speak(L2PcInstance target,L2BossInstance boss)
+        public Speak(L2PcInstance target, L2GrandBossInstance boss)
         {
         	_target = target;
         	_boss = boss;

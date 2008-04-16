@@ -33,17 +33,16 @@ import net.sf.l2j.gameserver.datatables.SkillTable;
 import net.sf.l2j.gameserver.datatables.EventDroplist.DateDrop;
 import net.sf.l2j.gameserver.instancemanager.CursedWeaponsManager;
 import net.sf.l2j.gameserver.instancemanager.RaidPointsManager;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2ChestInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2DoorInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PetInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PlayableInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SiegeGuardInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2SummonInstance;
 import net.sf.l2j.gameserver.model.actor.knownlist.AttackableKnownList;
@@ -793,7 +792,7 @@ public class L2Attackable extends L2NpcInstance
             
             
             // rewarding with Raid Points according to % of hate from all which are making raid
-            if(this instanceof L2RaidBossInstance || this instanceof L2BossInstance)
+            if(this instanceof L2Boss)
             {
                 int points;
                 long total_damage = 0;
@@ -1450,7 +1449,7 @@ public class L2Attackable extends L2NpcInstance
                         }
 
                         // Broadcast message if RaidBoss was defeated
-                        if(this instanceof L2RaidBossInstance)
+                        if(this instanceof L2Boss)
                         {
                             SystemMessage sm = new SystemMessage(SystemMessageId.S1_DIED_DROPPED_S3_S2);
                             sm.addString(getName());
@@ -1486,7 +1485,7 @@ public class L2Attackable extends L2NpcInstance
             //ptk - patk type enhance
             int random = Rnd.get(1000); // note *10
             if ((random < Config.RATE_DROP_SPECIAL_HERBS) && !_spec) // && !_spec useless yet
-            {                  
+            {
                 RewardItem item = new RewardItem(8612, 1); // Herb of Warrior
                 if (Config.AUTO_LOOT && Config.AUTO_LOOT_HERBS) player.addItem("Loot", item.getItemId(), item.getCount(), this, true);
                 else dropItem(player, item);
@@ -2385,7 +2384,7 @@ public class L2Attackable extends L2NpcInstance
     @Override
     public boolean hasRandomAnimation()
     {
-        return ((Config.MAX_MONSTER_ANIMATION > 0) && !(this instanceof L2BossInstance));
+        return ((Config.MAX_MONSTER_ANIMATION > 0) && !(this instanceof L2GrandBossInstance));
     }
 
     @Override

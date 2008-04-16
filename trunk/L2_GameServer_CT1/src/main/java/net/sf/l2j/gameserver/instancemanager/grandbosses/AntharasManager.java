@@ -31,7 +31,7 @@ import net.sf.l2j.tools.random.Rnd;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Entity;
@@ -333,9 +333,9 @@ public class AntharasManager extends Entity
     {
     	int _distance = 6502500;
     	int _taskId = 0;
-		L2BossInstance _antharas = null;
+		L2GrandBossInstance _antharas = null;
 
-		AntharasSpawn(int taskId,L2BossInstance antharas)
+		AntharasSpawn(int taskId, L2GrandBossInstance antharas)
 		{
 			_taskId = taskId;
 			_antharas = antharas;
@@ -363,7 +363,7 @@ public class AntharasManager extends Entity
 	
 					// do spawn.
 					antharasSpawn = _monsterSpawn.get(npcId);
-					_antharas = (L2BossInstance) antharasSpawn.doSpawn();
+					_antharas = (L2GrandBossInstance) antharasSpawn.doSpawn();
 					_monsters.add(_antharas);
 					_antharas.setIsImmobilized(true);
 					_antharas.setIsInSocialAction(true);
@@ -878,8 +878,8 @@ public class AntharasManager extends Entity
     // action is enabled the boss.
     private class SetMobilised implements Runnable
     {
-        private L2BossInstance _boss;
-        public SetMobilised(L2BossInstance boss)
+        private L2GrandBossInstance _boss;
+        public SetMobilised(L2GrandBossInstance boss)
         {
         	_boss = boss;
         }

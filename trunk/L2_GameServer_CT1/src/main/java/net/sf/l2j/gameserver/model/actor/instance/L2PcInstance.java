@@ -277,7 +277,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_CHAR_SHORTCUTS = "DELETE FROM character_shortcuts WHERE char_obj_id=? AND class_index=?";
 
     // Character Transformation SQL String Definitions:
-    private static final String SELECT_CHAR_TRANSFORM = "SELECT transform_id FROM characters WHERE obj_id=?";
+    private static final String SELECT_CHAR_TRANSFORM = "SELECT transform_id FROM characters WHERE obj_Id=?";
     private static final String UPDATE_CHAR_TRANSFORM = "UPDATE characters SET transform_id=? WHERE obj_Id=?";
 
     public static final int REQUEST_TIMEOUT = 15;

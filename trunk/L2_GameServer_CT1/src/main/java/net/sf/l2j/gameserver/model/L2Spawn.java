@@ -25,10 +25,8 @@ import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.tools.random.Rnd;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.actor.instance.L2FolkInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.templates.L2NpcTemplate;
 
 import org.apache.commons.logging.Log;
@@ -278,7 +276,7 @@ public class L2Spawn
     }
 
     /** 
-     * Return Min RaidBoss Spawn delay.<BR><BR>
+     * Return Min <Boss Spawn delay.<BR><BR>
     */
     public int getRespawnMinDelay()
     {
@@ -570,8 +568,8 @@ public class L2Spawn
         }
         
         // setting up champion mobs
-        if (       ((mob instanceof L2MonsterInstance && !(mob instanceof L2BossInstance || mob instanceof L2RaidBossInstance))
-                || ((mob instanceof L2BossInstance || mob instanceof L2RaidBossInstance) && Config.CHAMPION_BOSS))
+        if (((mob instanceof L2MonsterInstance && !(mob instanceof L2Boss))
+                || (mob instanceof L2Boss && Config.CHAMPION_BOSS))
                 && Config.CHAMPION_FREQUENCY > 0 && !mob.getTemplate().isQuestMonster()
                 && mob.getLevel() >= Config.CHAMPION_MIN_LEVEL && mob.getLevel() <= Config.CHAMPION_MAX_LEVEL)
         {

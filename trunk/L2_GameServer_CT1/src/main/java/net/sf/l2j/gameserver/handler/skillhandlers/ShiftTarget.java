@@ -20,15 +20,8 @@ import net.sf.l2j.gameserver.handler.ISkillHandler;
 import net.sf.l2j.gameserver.ai.CtrlIntention;
 import net.sf.l2j.gameserver.model.L2Attackable;
 import net.sf.l2j.gameserver.model.L2Character;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2FestivalMonsterInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2GuardInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2MinionInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2MonsterInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2RiftInvaderInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Skill;
 import net.sf.l2j.gameserver.model.L2Skill.SkillType;
@@ -61,7 +54,7 @@ public class ShiftTarget implements ISkillHandler
 		{
 			if (!targetShifted)
 			{
-				if (nearby instanceof L2BossInstance || nearby instanceof L2FestivalMonsterInstance|| nearby instanceof L2GuardInstance|| nearby instanceof L2MinionInstance|| nearby instanceof L2MonsterInstance|| nearby instanceof L2RaidBossInstance || nearby instanceof L2RiftInvaderInstance ||  nearby instanceof L2Attackable)
+				if (nearby instanceof L2Attackable)
 				{
 					_attacker = (L2Attackable) nearby;
 					targetShifted = true;

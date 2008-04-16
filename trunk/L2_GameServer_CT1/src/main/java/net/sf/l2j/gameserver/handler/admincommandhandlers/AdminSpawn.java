@@ -23,6 +23,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.handler.IAdminCommandHandler;
 import net.sf.l2j.gameserver.instancemanager.DayNightSpawnManager;
+import net.sf.l2j.gameserver.instancemanager.GrandBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.RaidBossSpawnManager;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2Spawn;
@@ -465,21 +466,27 @@ public class AdminSpawn implements IAdminCommandHandler
 				{
 					activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
 				}
+				else if (GrandBossSpawnManager.getInstance().isDefined(spawn.getNpcId()) && respawn && !Config.ALT_DEV_NO_SPAWNS)
+				{
+					activeChar.sendMessage("You cannot spawn another instance of " + template.getName() + ".");
+				}
 				else
 				{
 					if(saveInDb && !Config.ALT_DEV_NO_SPAWNS)
 					{
 						if (RaidBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcId()) != null)
 							RaidBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getBaseHpMax(), template.getBaseMpMax(), true);
+						else if (GrandBossSpawnManager.getInstance().getValidTemplate(spawn.getNpcId()) != null)
+							GrandBossSpawnManager.getInstance().addNewSpawn(spawn, 0, template.getBaseHpMax(), template.getBaseMpMax(), true);
 						else
 							SpawnTable.getInstance().addNewSpawn(spawn, respawn);
 					}
 					else
 						spawn.spawnOne();
 
+					spawn.init();
 					if(!respawn)
 						spawn.stopRespawn();
-					spawn.init();
 					activeChar.sendMessage("Created " + template.getName() + " on "+target.getX()+" "+target.getY()+" "+target.getZ()+".");
 				}
 			} 
@@ -587,7 +594,7 @@ public class AdminSpawn implements IAdminCommandHandler
 			replyMSG.append("<font color=\"LEVEL\">**</font> Click on name to spawn NPC.<br1>");
 		}
 		
-		replyMSG.append("</body></html>");		
+		replyMSG.append("</body></html>");
 		activeChar.sendPacket(new NpcHtmlMessage(5, replyMSG.toString()));
 	}
 
@@ -694,7 +701,7 @@ public class AdminSpawn implements IAdminCommandHandler
 				replyMSG.append("</table>");
 			}
 			
-			replyMSG.append("</body></html>");		
+			replyMSG.append("</body></html>");
 			activeChar.sendPacket(new NpcHtmlMessage(5, replyMSG.toString()));
 			}
 		else

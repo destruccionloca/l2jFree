@@ -28,7 +28,7 @@ import net.sf.l2j.gameserver.datatables.NpcTable;
 import net.sf.l2j.gameserver.datatables.SpawnTable;
 import net.sf.l2j.gameserver.model.L2CharPosition;
 import net.sf.l2j.gameserver.model.L2Spawn;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
+import net.sf.l2j.gameserver.model.actor.instance.L2GrandBossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2NpcInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
 import net.sf.l2j.gameserver.model.entity.Entity;
@@ -313,9 +313,9 @@ public class ValakasManager extends Entity
     {
     	int _distance = 6502500;
     	int _taskId;
-    	L2BossInstance _valakas = null;
+    	L2GrandBossInstance _valakas = null;
     	
-    	ValakasSpawn(int taskId,L2BossInstance valakas)
+    	ValakasSpawn(int taskId, L2GrandBossInstance valakas)
     	{
     		_taskId = taskId;
     		_valakas = valakas;
@@ -330,7 +330,7 @@ public class ValakasManager extends Entity
 	    		case 1:
 	            	// do spawn.
 	            	L2Spawn valakasSpawn = _monsterSpawn.get(29028);
-	            	_valakas = (L2BossInstance)valakasSpawn.doSpawn();
+	            	_valakas = (L2GrandBossInstance)valakasSpawn.doSpawn();
 	            	_monsters.add(_valakas);
 	            	_valakas.setIsImmobilized(true);
 	            	_valakas.setIsInSocialAction(true);
@@ -760,29 +760,25 @@ public class ValakasManager extends Entity
     // do spawn teleport cube.
     private class CubeSpawn implements Runnable
     {
-    	public CubeSpawn()
-    	{
-    	}
-    	
         public void run()
         {
-        	spawnCube();
+            spawnCube();
         }
     }
     
     // action is enabled the boss.
     private class SetMobilised implements Runnable
     {
-        private L2BossInstance _boss;
-        public SetMobilised(L2BossInstance boss)
+        private L2GrandBossInstance _boss;
+        public SetMobilised(L2GrandBossInstance boss)
         {
-        	_boss = boss;
+            _boss = boss;
         }
 
         public void run()
         {
-        	_boss.setIsImmobilized(false);
-        	_boss.setIsInSocialAction(false);
+            _boss.setIsImmobilized(false);
+            _boss.setIsInSocialAction(false);
             
             // When it is possible to act, a social action is canceled.
             if (_socialTask != null)

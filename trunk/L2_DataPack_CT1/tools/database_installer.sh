@@ -280,6 +280,7 @@ full_install()
 	$MYG < ../sql/fortress_siege.sql &> /dev/null
 	$MYG < ../sql/four_sepulchers_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/grandboss_intervallist.sql &> /dev/null 
+	$MYG < ../sql/grandboss_spawnlist.sql &> /dev/null 
 	$MYG < ../sql/tvt.sql &> /dev/null
 	$MYG < ../sql/tvt_teams.sql &> /dev/null
 	$MYG < ../sql/vanhalter_spawnlist.sql &> /dev/null 

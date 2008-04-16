@@ -74,6 +74,7 @@ import net.sf.l2j.gameserver.instancemanager.FactionQuestManager;
 import net.sf.l2j.gameserver.instancemanager.FortManager;
 import net.sf.l2j.gameserver.instancemanager.FortSiegeManager;
 import net.sf.l2j.gameserver.instancemanager.FourSepulchersManager;
+import net.sf.l2j.gameserver.instancemanager.GrandBossSpawnManager;
 import net.sf.l2j.gameserver.instancemanager.IrcManager;
 import net.sf.l2j.gameserver.instancemanager.ItemsOnGroundManager;
 import net.sf.l2j.gameserver.instancemanager.MapRegionManager;
@@ -225,6 +226,7 @@ public class GameServer
 		SpawnTable.getInstance();
 		DayNightSpawnManager.getInstance().notifyChangeMode();
 		RaidBossSpawnManager.getInstance();
+		GrandBossSpawnManager.getInstance();
 		RaidPointsManager.getInstance();
 		AutoChatHandler.getInstance();
 		AutoSpawnHandler.getInstance();

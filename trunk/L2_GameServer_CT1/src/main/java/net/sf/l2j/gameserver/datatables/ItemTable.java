@@ -29,13 +29,12 @@ import net.sf.l2j.gameserver.ThreadPoolManager;
 import net.sf.l2j.gameserver.idfactory.IdFactory;
 import net.sf.l2j.gameserver.items.model.Item;
 import net.sf.l2j.gameserver.model.L2Attackable;
+import net.sf.l2j.gameserver.model.L2Boss;
 import net.sf.l2j.gameserver.model.L2ItemInstance;
 import net.sf.l2j.gameserver.model.L2Object;
 import net.sf.l2j.gameserver.model.L2World;
 import net.sf.l2j.gameserver.model.L2ItemInstance.ItemLocation;
-import net.sf.l2j.gameserver.model.actor.instance.L2BossInstance;
 import net.sf.l2j.gameserver.model.actor.instance.L2PcInstance;
-import net.sf.l2j.gameserver.model.actor.instance.L2RaidBossInstance;
 import net.sf.l2j.gameserver.skills.SkillsEngine;
 import net.sf.l2j.gameserver.templates.L2Armor;
 import net.sf.l2j.gameserver.templates.L2ArmorType;
@@ -705,7 +704,7 @@ public class ItemTable implements ItemTableMBean
             ScheduledFuture<?> itemLootShedule;
             long delay = 0;
             // if in CommandChannel and was killing a World/RaidBoss
-            if (reference != null && reference instanceof L2BossInstance || reference instanceof L2RaidBossInstance)
+            if (reference != null && reference instanceof L2Boss)
             {
                 if(((L2Attackable)reference).getFirstCommandChannelAttacked() != null 
                         && ((L2Attackable)reference).getFirstCommandChannelAttacked().meetRaidWarCondition(reference))
