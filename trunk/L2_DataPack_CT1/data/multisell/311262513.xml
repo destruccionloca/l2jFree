@@ -1,0 +1,235 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Seven Signs - Blacksmith of Mammon - SA: S-Grade -->
+<list maintainEnchantment="true">
+	<!-- Dynasty Bow - Focus  -->
+	<item id="1">
+		<production id="9865" count="1"/>
+		<ingredient id="9445" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Bow - Cheap Shot  -->
+	<item id="2">
+		<production id="9863" count="1"/>
+		<ingredient id="9445" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Bow - Gudiance  -->
+	<item id="3">
+		<production id="9864" count="1"/>
+		<ingredient id="9445" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Crossbow - Gudiance  -->
+	<item id="4">
+		<production id="9386" count="1"/>
+		<ingredient id="9384" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Crossbow - Focus  -->
+	<item id="5">
+		<production id="9387" count="1"/>
+		<ingredient id="9384" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Crossbow - Cheap Shot  -->
+	<item id="6">
+		<production id="9385" count="1"/>
+		<ingredient id="9384" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Knife -  Focus  -->
+	<item id="7">
+		<production id="9866" count="1"/>
+		<ingredient id="9446" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Knife -  Evasion  -->
+	<item id="8">
+		<production id="9867" count="1"/>
+		<ingredient id="9446" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Knife -  Critical Damage  -->
+	<item id="9">
+		<production id="9868" count="1"/>
+		<ingredient id="9446" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Bagh-Nakh - Haste   -->
+	<item id="10">
+		<production id="9880" count="1"/>
+		<ingredient id="9450" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Bagh-Nakh - Rsk. Evasion   -->
+	<item id="11">
+		<production id="9878" count="1"/>
+		<ingredient id="9450" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Bagh-Nakh - Rsk Haste   -->
+	<item id="12">
+		<production id="9879" count="1"/>
+		<ingredient id="9450" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Rapier - Focus   -->
+	<item id="13">
+		<production id="9377" count="1"/>
+		<ingredient id="9376" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Rapier - Health   -->
+	<item id="14">
+		<production id="9378" count="1"/>
+		<ingredient id="9376" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Rapier - Light   -->
+	<item id="15">
+		<production id="9379" count="1"/>
+		<ingredient id="9376" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Halberd - Anger   -->
+	<item id="16">
+		<production id="9869" count="1"/>
+		<ingredient id="9447" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Halberd - Critical Stun   -->
+	<item id="17">
+		<production id="9870" count="1"/>
+		<ingredient id="9447" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Halberd - Light   -->
+	<item id="18">
+		<production id="9871" count="1"/>
+		<ingredient id="9447" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Mace- Acumen   -->
+	<item id="19">
+		<production id="9877" count="1"/>
+		<ingredient id="9449" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Mace- Concersion  -->
+	<item id="20">
+		<production id="9876" count="1"/>
+		<ingredient id="9449" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Mace- Mana Up  -->
+	<item id="21">
+		<production id="9875" count="1"/>
+		<ingredient id="9449" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Cudgel - Anger -->
+	<item id="22">
+		<production id="9872" count="1"/>
+		<ingredient id="9448" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Cudgel - Health -->
+	<item id="23">
+		<production id="9873" count="1"/>
+		<ingredient id="9448" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Cudgel - Rsk.Focus -->
+	<item id="24">
+		<production id="9874" count="1"/>
+		<ingredient id="9448" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Sword-  Focus -->
+	<item id="25">
+		<production id="9854" count="1"/>
+		<ingredient id="9442" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Sword-  Health -->
+	<item id="26">
+		<production id="9855" count="1"/>
+		<ingredient id="9442" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Sword-  Light -->
+	<item id="27">
+		<production id="9856" count="1"/>
+		<ingredient id="9442" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Phantom -  Acumen -->
+	<item id="28">
+		<production id="9860" count="1"/>
+		<ingredient id="9444" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Phantom -  Conversin -->
+	<item id="29">
+		<production id="9862" count="1"/>
+		<ingredient id="9444" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Phantom -  Mana up -->
+	<item id="30">
+		<production id="9861" count="1"/>
+		<ingredient id="9444" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Blade - Focus -->
+    <item id="31">
+		<production id="9857" count="1"/>
+		<ingredient id="9443" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Blade - Health -->
+	<item id="32">
+		<production id="9858" count="1"/>
+		<ingredient id="9443" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Blade - Light -->
+	<item id="33">
+		<production id="9859" count="1"/>
+		<ingredient id="9443" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+</list>

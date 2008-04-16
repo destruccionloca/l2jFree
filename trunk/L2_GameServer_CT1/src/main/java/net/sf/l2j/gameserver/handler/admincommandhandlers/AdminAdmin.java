@@ -427,6 +427,12 @@ public class AdminAdmin implements IAdminCommandHandler
 					SkillTable.getInstance().reload();
 					activeChar.sendMessage("Skills reloaded");
 				}
+				else if(type.startsWith("npcwalker"))
+				{
+					NpcWalkerRoutesTable.getInstance().load();
+					activeChar.sendMessage("All NPC walker routes have been reloaded");
+					
+				}
 				else if(type.startsWith("npc"))
 				{
 					NpcTable.getInstance().cleanUp();
@@ -447,12 +453,6 @@ public class AdminAdmin implements IAdminCommandHandler
 				{
 					Manager.reloadAll();
 					activeChar.sendMessage("All instance manager has been reloaded");
-				}
-				else if(type.startsWith("npcwalker"))
-				{
-					NpcWalkerRoutesTable.getInstance().load();
-					activeChar.sendMessage("All NPC walker routes have been reloaded");
-					
 				}
 				else if(type.startsWith("tradelist"))
 				{

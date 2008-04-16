@@ -66,6 +66,7 @@ of this directory a little bit.
 311262510.xml -> Seven Signs - Blacksmith of Mammon - SA: A-grade
 311262511.xml -> Seven Signs - Blacksmith of Mammon - Weapon Upgrade
 311262512.xml -> Seven Signs - Blacksmith of Mammon - Weapon Exchange
+311262513.xml -> Seven Signs - Blacksmith of Mammon - SA: S-Grade
 
 306893001.xml -> Shadow weaponry system. D-grade coupons exchange
 306893002.xml -> Shadow weaponry system. C-grade coupons exchange
