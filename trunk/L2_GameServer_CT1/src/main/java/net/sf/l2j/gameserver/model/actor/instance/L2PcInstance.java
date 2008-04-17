@@ -12052,6 +12052,7 @@ public final class L2PcInstance extends L2PlayableInstance
         {
             try { con.close(); } catch (Exception e) {}
         }
+        regiveTemporarySkills();
     }
 
     @Override

@@ -455,6 +455,8 @@ public class EnterWorld extends L2GameClientPacket
 		if (DM._savePlayers.contains(activeChar.getName()))
 			DM.addDisconnectedPlayer(activeChar);
 
+		activeChar.regiveTemporarySkills();
+
 		if (activeChar.isCursedWeaponEquipped())
 		{
 			CursedWeaponsManager.getInstance().getCursedWeapon(activeChar.getCursedWeaponEquippedId()).cursedOnLogin();
@@ -463,8 +465,6 @@ public class EnterWorld extends L2GameClientPacket
 		{
 			TransformationManager.getInstance().transformPlayer(activeChar.transformId(), activeChar, Long.MAX_VALUE);
 		}
-
-		activeChar.regiveTemporarySkills();
 	}
 
 	/**
