@@ -678,7 +678,7 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="549"/>
   <for>
-    <effect count="1" name="ConditionHit" time="1200" val="0"/>
+    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="1" stackType="conditionhit"/>
   </for>
 </skill>
 <skill id="533" levels="1" name="Counter Rapid Shot">
@@ -698,7 +698,7 @@ description(s) :
   <set name="effectRange" val="-1"/>
   <set name="aggroPoints" val="549"/>
   <for>
-    <effect count="1" name="ConditionHit" time="1200" val="0"/>
+    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="1" stackType="conditionhit"/>
   </for>
 </skill>
 <skill id="534" levels="1" name="Counter Dash">
@@ -732,7 +732,7 @@ description(s) :
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="900"/>
   <for>
-    <effect count="1" name="ConditionHit" time="1200" val="0"/>
+    <effect count="1" name="ConditionHit" time="1200" val="0" stackOrder="1" stackType="conditionhit"/>
   </for>
 </skill>
 <skill id="536" levels="1" name="Over the Body">
