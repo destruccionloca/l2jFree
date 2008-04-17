@@ -34,6 +34,16 @@ public class PlayableStat extends CharStat
     // Method - Public
     public boolean addExp(long value)
     {
+        byte minimumLevel = 1;
+        if (getActiveChar() instanceof L2PetInstance)
+        {
+            // get minimum level from L2NpcTemplate
+            minimumLevel = ((L2PetInstance)getActiveChar()).getTemplate().getLevel();
+        }
+
+        if ((value < 0) && (getLevel() <= minimumLevel) && ((getExp() + value) <= getExpForLevel(minimumLevel)))
+            return true;
+
         if ((getExp() + value) < 0 || getExp() == (getExpForLevel(Experience.MAX_LEVEL) - 1)) 
             return true;
         
@@ -42,19 +52,14 @@ public class PlayableStat extends CharStat
 
         setExp(getExp() + value);
 
-        byte minimumLevel = 1;
-        if (getActiveChar() instanceof L2PetInstance)
-        {
-            // get minimum level from L2NpcTemplate
-            minimumLevel = ((L2PetInstance)getActiveChar()).getTemplate().getLevel();
-        }
-
         byte level = minimumLevel; // minimum level
-        for (byte tmp = level; tmp <= Experience.MAX_LEVEL; tmp++)
+        byte tmp;
+        for (tmp = level; tmp <= Experience.MAX_LEVEL; tmp++)
         {
             if (getExp() >= getExpForLevel(tmp))
                 continue;
-            level = --tmp;
+            tmp--;
+            level = tmp;
             break;
         }
         if (level != getLevel() && level >= minimumLevel)
@@ -78,11 +83,13 @@ public class PlayableStat extends CharStat
         }
 
         byte level = minimumLevel;
-        for (byte tmp = level; tmp <= Experience.MAX_LEVEL; tmp++)
+        byte tmp;
+        for (tmp = level; tmp <= Experience.MAX_LEVEL; tmp++)
         {
             if (getExp() >= getExpForLevel(tmp))
                 continue;
-            level = --tmp;
+            tmp--;
+            level = tmp;
             break;
         }
         if (level != getLevel() && level >= minimumLevel)
