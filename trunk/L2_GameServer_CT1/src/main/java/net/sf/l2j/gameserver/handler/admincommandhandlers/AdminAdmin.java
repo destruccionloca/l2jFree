@@ -243,6 +243,11 @@ public class AdminAdmin implements IAdminCommandHandler
 					FortSiegeManager.getInstance().reload();
 					activeChar.sendMessage("Castle/Fortress Siege config reloaded");
 				}
+				else if(type.equals("fortsiege"))
+				{
+					Config.loadFortSiegeConfig();
+					activeChar.sendMessage("FortSiege config reloaded");
+				}
 				else if(type.equals("wedding"))
 				{
 					Config.loadWeddingConfig();
@@ -253,14 +258,19 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadKamaelConfig();
 					activeChar.sendMessage("Kamael config reloaded");
 				}
+				else if(type.equals("elayne"))
+				{
+					Config.loadElayneConfig();
+					activeChar.sendMessage("Elayne config reloaded");
+				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding|kamael>");
+					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|kamael|elayne>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|wedding>");
+				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|kamael|elayne>");
 			}
 		}
 
