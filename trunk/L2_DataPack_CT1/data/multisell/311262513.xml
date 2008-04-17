@@ -212,7 +212,7 @@
 		<ingredient id="2134" count="220"/>
 	</item>
 	<!-- Dynasty Blade - Focus -->
-    <item id="31">
+	<item id="31">
 		<production id="9857" count="1"/>
 		<ingredient id="9443" count="1"/>
 		<ingredient id="9570" count="1"/>
@@ -229,6 +229,27 @@
 	<item id="33">
 		<production id="9859" count="1"/>
 		<ingredient id="9443" count="1"/>
+		<ingredient id="9571" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Ancient Sword - Focus -->
+	<item id="34">
+		<production id="9381" count="1"/>
+		<ingredient id="9380" count="1"/>
+		<ingredient id="9570" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Ancient Sword - Health -->
+	<item id="35">
+		<production id="9382" count="1"/>
+		<ingredient id="9380" count="1"/>
+		<ingredient id="9572" count="1"/>
+		<ingredient id="2134" count="220"/>
+	</item>
+	<!-- Dynasty Ancient Sword - Light -->
+	<item id="36">
+		<production id="9383" count="1"/>
+		<ingredient id="9380" count="1"/>
 		<ingredient id="9571" count="1"/>
 		<ingredient id="2134" count="220"/>
 	</item>
