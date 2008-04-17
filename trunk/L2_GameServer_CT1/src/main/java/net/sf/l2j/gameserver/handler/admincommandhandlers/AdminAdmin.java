@@ -237,11 +237,15 @@ public class AdminAdmin implements IAdminCommandHandler
 					Config.loadPrivilegesConfig();
 					activeChar.sendMessage("Access config reloaded");
 				}
+				else if(type.equals("fortsiege"))
+				{
+					Config.loadFortSiegeConfig();
+					activeChar.sendMessage("FortSiege config reloaded");
+				}
 				else if(type.equals("siege"))
 				{
-					SiegeManager.getInstance().reload();
-					FortSiegeManager.getInstance().reload();
-					activeChar.sendMessage("Castle/Fortress Siege config reloaded");
+					Config.loadSiegeConfig();
+					activeChar.sendMessage("Siege config reloaded");
 				}
 				else if(type.equals("wedding"))
 				{
@@ -260,12 +264,12 @@ public class AdminAdmin implements IAdminCommandHandler
 				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege/fortsiege|wedding|kamael|elayne>");
+					activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|kamael|elayne>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege/fortsiege|wedding|kamael|elayne>");
+				activeChar.sendMessage("Usage:  //reload_config <all|rates|enchant|pvp|options|other|alt|olympiad|clans|champions|lottery|sepulchers|clanhall|funengines|sevensigns|gmconf|access|irc|boss|sayfilter|siege|fortsiege|wedding|kamael|elayne>");
 			}
 		}
 
@@ -473,14 +477,25 @@ public class AdminAdmin implements IAdminCommandHandler
 					MapRegionManager.getInstance().reload();
 					activeChar.sendMessage("MapRegions reloaded.");
 				}
+				else if(type.startsWith("siege"))
+				{
+					SiegeManager.getInstance().reload();
+					FortSiegeManager.getInstance().reload();
+					activeChar.sendMessage("Castle/Fortress Siege config reloaded");
+				}
+				else if(type.startsWith("fortsiege"))
+				{
+					FortSiegeManager.getInstance().reload();
+					activeChar.sendMessage("Castle/Fortress Siege config reloaded");
+				}
 				else
 				{
-					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|npcwalkers>");
+					activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|npcwalkers|siege|fortsiege>");
 				}
 			}
 			catch(Exception e)
 			{
-				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion>");
+				activeChar.sendMessage("Usage:  //reload <multisell|skill|npc|htm|item|instancemanager|teleport|tradelist|zone|mapregion|siege|fortsiege>");
 			}
 		}
 
