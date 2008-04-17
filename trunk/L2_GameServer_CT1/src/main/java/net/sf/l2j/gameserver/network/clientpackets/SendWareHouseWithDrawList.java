@@ -104,7 +104,7 @@ public class SendWareHouseWithDrawList extends L2GameClientPacket
 		
 		if (!Config.ALT_MEMBERS_CAN_WITHDRAW_FROM_CLANWH)
 		{
-			if (warehouse instanceof ClanWarehouse && (player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) != L2Clan.CP_CL_VIEW_WAREHOUSE)
+			if (warehouse instanceof ClanWarehouse && !((player.getClanPrivileges() & L2Clan.CP_CL_VIEW_WAREHOUSE) == L2Clan.CP_CL_VIEW_WAREHOUSE))
 				return;
 		}
 		
