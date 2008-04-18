@@ -337,7 +337,6 @@
   <set name="operateType" val="OP_ACTIVE"/>
   <set name="effectRange" val="400"/>
   <set name="castRange" val="400"/>
-  <set name="soulConsumeCount" val="1"/>
   <set name="skill_landing_percent" val="100"/> <!-- Guessing -->
   <for>
   </for>
