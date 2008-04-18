@@ -35,10 +35,13 @@ class chests(JQuest) :
                        21821,21822]
 
         for i in self.chests :
-            self.addSkillUseId(i)
+            self.addSkillSeeId(i)
             self.addAttackId(i)
 
-    def onSkillUse (self,npc,player,skill):
+    def onSkillSee (self,npc,player,skill,targets,isPet):
+        # this behavior is only run when the target of skill is the passed npc (chest)
+        # i.e. when the player is attempting to open the chest using a skill
+        if not npc in targets: return
         npcId = npc.getNpcId()
         skillId = skill.getId()
         skillLevel= skill.getLevel()

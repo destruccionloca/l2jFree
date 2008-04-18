@@ -94,7 +94,7 @@ class feedable_beasts(JQuest) :
         self.feedInfo = {} # : feedInfo[objectId of mob] = objectId of player feeding it
 
         for i in self.feedableBeasts :
-            self.addSkillUseId(i)
+            self.addSkillSeeId(i)
             self.addKillId(i)
 
     def onAdvEvent(self,event,npc,player) :
@@ -199,7 +199,10 @@ class feedable_beasts(JQuest) :
             nextNpc.addDamageHate(player,0,99999)
             nextNpc.getAI().setIntention(CtrlIntention.AI_INTENTION_ATTACK, player)
 
-    def onSkillUse (self,npc,player,skill):
+    def onSkillSee (self,npc,player,skill,targets,isPet):
+        # this behavior is only run when the target of skill is the passed npc (chest)
+        # i.e. when the player is attempting to open the chest using a skill
+        if not npc in targets: return
         # gather some values on local variables
         npcId = npc.getNpcId()
         skillId = skill.getId()

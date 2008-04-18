@@ -21,7 +21,7 @@ public class GrailApostleWeak extends L2Transformation
 	{
 		// id, duration (secs), colRadius, colHeight
 		// Retail Like 30 min - Skatershi
-		super(203, 1800, 8.0, 35.0);
+		super(203, 1800, 8.0, 30.0);
 	}
 
 	public void onTransform()

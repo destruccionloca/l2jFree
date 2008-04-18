@@ -21,7 +21,7 @@ public class UnicornStrong extends L2Transformation
 	{
 		// id, duration (secs), colRadius, colHeight
 		// Retail Like 30 min - Skatershi
-		super(204, 1800, 8.0, 28.0);
+		super(204, 1800, 8.0, 25.5);
 	}
 
 	public void onTransform()
