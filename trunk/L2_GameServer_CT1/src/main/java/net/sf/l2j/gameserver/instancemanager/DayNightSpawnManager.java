@@ -130,7 +130,7 @@ public class DayNightSpawnManager {
                     SpawnCreatures.remove(spawnDat);
                     SpawnCreatures.put(spawnDat, creature);
                     creature.getStatus().setCurrentHp(creature.getMaxHp());
-                    creature.getStatus().setCurrentMp(creature.getMaxMp());		
+                    creature.getStatus().setCurrentMp(creature.getMaxMp());
                     creature = SpawnCreatures.get(spawnDat);
                     creature.getSpawn().startRespawn();
                 }
@@ -209,13 +209,13 @@ public class DayNightSpawnManager {
                     L2NpcInstance npc = spawn.doSpawn();
                     if (npc instanceof L2RaidBossInstance)
                     {
-                        RaidBossSpawnManager.getInstance().notifySpawnNightBoss((L2Boss)boss);
                         boss = (L2Boss)npc;
+                        RaidBossSpawnManager.getInstance().notifySpawnNightBoss((L2Boss)boss);
                     }
                     else if (npc instanceof L2GrandBossInstance)
                     {
-                        GrandBossSpawnManager.getInstance().notifySpawnNightBoss((L2Boss)boss);
                         boss = (L2Boss)npc;
+                        GrandBossSpawnManager.getInstance().notifySpawnNightBoss((L2Boss)boss);
                     }
                     else
                         continue;
