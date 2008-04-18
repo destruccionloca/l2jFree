@@ -79,12 +79,12 @@ public class Quest extends ManagedScript
 		return _allEventsS.values();
 	}
 
-    /**
-     * (Constructor)Add values to class variables and put the quest in HashMaps.
-     * @param questId : int pointing out the ID of the quest
-     * @param name : String corresponding to the name of the quest
-     * @param descr : String for the description of the quest
-     */
+	/**
+	 * (Constructor)Add values to class variables and put the quest in HashMaps.
+	 * @param questId : int pointing out the ID of the quest
+	 * @param name : String corresponding to the name of the quest
+	 * @param descr : String for the description of the quest
+	 */
 	public Quest(int questId, String name, String descr)
 	{
 		_questId = questId;
@@ -123,30 +123,32 @@ public class Quest extends ManagedScript
 	}
 
 	public static enum QuestEventType 
-    {
-    	NPC_FIRST_TALK(false),  // control the first dialog shown by NPCs when they are clicked (some quests must override the default npc action)
-        QUEST_START(true),	// onTalk action from start npcs
-        QUEST_TALK(true),		// onTalk action from npcs participating in a quest
-        MOBGOTATTACKED(true),	// onAttack action triggered when a mob gets attacked by someone
-        MOBKILLED(true),		// onKill action triggered when a mob gets killed. 
-    	MOB_TARGETED_BY_SKILL(true),  // onSkillUse action triggered when a character uses a skill on a mob
-    	NPC_SPAWNED(true);            // onSpawn action triggered when an NPC is spawned or respawned.
-        
-        // control whether this event type is allowed for the same npc template in multiple quests
-        // or if the npc must be registered in at most one quest for the specified event 
-        private boolean _allowMultipleRegistration;
-    	
-        QuestEventType(boolean allowMultipleRegistration)
-        {
-        	_allowMultipleRegistration = allowMultipleRegistration;
-        }
-        
-        public boolean isMultipleRegistrationAllowed()
-        {
-        	return _allowMultipleRegistration;
-        }
-        
-    }	
+	{
+		ON_FIRST_TALK(false),	// control the first dialog shown by NPCs when they are clicked (some quests must override the default npc action)
+		QUEST_START(true),		// onTalk action from start npcs
+		ON_TALK(true),			// onTalk action from npcs participating in a quest
+		ON_ATTACK(true),		// onAttack action triggered when a mob gets attacked by someone
+		ON_KILL(true),			// onKill action triggered when a mob gets killed. 
+		ON_SPAWN(true),			// onSpawn action triggered when an NPC is spawned or respawned.
+		ON_SKILL_SEE(true),		// NPC or Mob saw a person casting a skill (regardless what the target is). 
+		ON_FACTION_CALL(true),	// NPC or Mob saw a person casting a skill (regardless what the target is). 
+		ON_AGGRO_RANGE_ENTER(true); // a person came within the Npc/Mob's range 
+		
+		// control whether this event type is allowed for the same npc template in multiple quests
+		// or if the npc must be registered in at most one quest for the specified event 
+		private boolean _allowMultipleRegistration;
+		
+		QuestEventType(boolean allowMultipleRegistration)
+		{
+			_allowMultipleRegistration = allowMultipleRegistration;
+		}
+		
+		public boolean isMultipleRegistrationAllowed()
+		{
+			return _allowMultipleRegistration;
+		}
+		
+	}	
 	/**
 	 * Return ID of the quest
 	 * @return int
@@ -173,7 +175,7 @@ public class Quest extends ManagedScript
 	public byte getInitialState() {
 		return _initialState;
 	}
-    
+	
 	/**
 	 * Return name of the quest
 	 * @return String
@@ -190,159 +192,189 @@ public class Quest extends ManagedScript
 		return _descr;
 	}
 
-    /**
-     * Add a timer to the quest, if it doesn't exist already
-     * @param name: name of the timer (also passed back as "event" in onAdvEvent)
-     * @param time: time in ms for when to fire the timer
-     * @param npc:  npc associated with this timer (can be null)
-     * @param player: player associated with this timer (can be null)
-     */
-    public void startQuestTimer(String name, long time, L2NpcInstance npc, L2PcInstance player)
-    {
-        startQuestTimer(name, time, npc, player, false);
-    }
-    
-    /**
-     * Add a timer to the quest, if it doesn't exist already.  If the timer is repeatable,
-     * it will auto-fire automatically, at a fixed rate, until explicitly canceled.
-     * @param name: name of the timer (also passed back as "event" in onAdvEvent)
-     * @param time: time in ms for when to fire the timer
-     * @param npc:  npc associated with this timer (can be null)
-     * @param player: player associated with this timer (can be null)
-     * @param repeatable: indicates if the timer is repeatable or one-time.
-     */
-    public void startQuestTimer(String name, long time, L2NpcInstance npc, L2PcInstance player, boolean repeating)
-    {
-        // Add quest timer if timer doesn't already exist
-        FastList<QuestTimer> timers = getQuestTimers(name);
-        // no timer exists with the same name, at all 
-        if (timers == null)
-        {
-            timers = new FastList<QuestTimer>();
-            timers.add(new QuestTimer(this, name, time, npc, player, repeating));
-            _allEventTimers.put(name, timers);
-        }
-        // a timer with this name exists, but may not be for the same set of npc and player
-        else
-        {
-            // if there exists a timer with this name, allow the timer only if the [npc, player] set is unique
-            // nulls act as wildcards
-            if(getQuestTimer(name, npc, player)==null)
-                timers.add(new QuestTimer(this, name, time, npc, player, repeating));
-        }
-        // ignore the startQuestTimer in all other cases (timer is already started)
-    }
-    
-    public QuestTimer getQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
-    {
-    	if (_allEventTimers.get(name)==null)
-    		return null;
-    	for(QuestTimer timer: _allEventTimers.get(name))
-    		if (timer.isMatch(this, name, npc, player))
-    			return timer;
-    	return null;
-    }
-
-    public FastList<QuestTimer> getQuestTimers(String name)
-    {
-    	return _allEventTimers.get(name);
-    }
-    
-    public void cancelQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
-    {
-    	QuestTimer timer = getQuestTimer(name, npc, player);
-    	if (timer != null)
-    		timer.cancel();
-    }
-
-    public void removeQuestTimer(QuestTimer timer)
-    {
-    	if (timer == null)
-    		return;
-    	FastList<QuestTimer> timers = getQuestTimers(timer.getName());
-    	if (timers == null)
-    		return;
-    	timers.remove(timer);    		
-    }
+	/**
+	 * Add a timer to the quest, if it doesn't exist already
+	 * @param name: name of the timer (also passed back as "event" in onAdvEvent)
+	 * @param time: time in ms for when to fire the timer
+	 * @param npc:  npc associated with this timer (can be null)
+	 * @param player: player associated with this timer (can be null)
+	 */
+	public void startQuestTimer(String name, long time, L2NpcInstance npc, L2PcInstance player)
+	{
+		startQuestTimer(name, time, npc, player, false);
+	}
 	
-    
+	/**
+	 * Add a timer to the quest, if it doesn't exist already.  If the timer is repeatable,
+	 * it will auto-fire automatically, at a fixed rate, until explicitly canceled.
+	 * @param name: name of the timer (also passed back as "event" in onAdvEvent)
+	 * @param time: time in ms for when to fire the timer
+	 * @param npc:  npc associated with this timer (can be null)
+	 * @param player: player associated with this timer (can be null)
+	 * @param repeatable: indicates if the timer is repeatable or one-time.
+	 */
+	public void startQuestTimer(String name, long time, L2NpcInstance npc, L2PcInstance player, boolean repeating)
+	{
+		// Add quest timer if timer doesn't already exist
+		FastList<QuestTimer> timers = getQuestTimers(name);
+		// no timer exists with the same name, at all 
+		if (timers == null)
+		{
+			timers = new FastList<QuestTimer>();
+			timers.add(new QuestTimer(this, name, time, npc, player, repeating));
+			_allEventTimers.put(name, timers);
+		}
+		// a timer with this name exists, but may not be for the same set of npc and player
+		else
+		{
+			// if there exists a timer with this name, allow the timer only if the [npc, player] set is unique
+			// nulls act as wildcards
+			if(getQuestTimer(name, npc, player)==null)
+				timers.add(new QuestTimer(this, name, time, npc, player, repeating));
+		}
+		// ignore the startQuestTimer in all other cases (timer is already started)
+	}
+	
+	public QuestTimer getQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
+	{
+		if (_allEventTimers.get(name)==null)
+			return null;
+		for(QuestTimer timer: _allEventTimers.get(name))
+			if (timer.isMatch(this, name, npc, player))
+				return timer;
+		return null;
+	}
+
+	public FastList<QuestTimer> getQuestTimers(String name)
+	{
+		return _allEventTimers.get(name);
+	}
+	
+	public void cancelQuestTimer(String name, L2NpcInstance npc, L2PcInstance player)
+	{
+		QuestTimer timer = getQuestTimer(name, npc, player);
+		if (timer != null)
+			timer.cancel();
+	}
+
+	public void removeQuestTimer(QuestTimer timer)
+	{
+		if (timer == null)
+			return;
+		FastList<QuestTimer> timers = getQuestTimers(timer.getName());
+		if (timers == null)
+			return;
+		timers.remove(timer);			
+	}
+
 	// these are methods to call from java
-    public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) {
-        String res = null;
-        try { res = onAttack(npc, attacker, damage, isPet); } catch (Exception e) { return showError(attacker, e); }
-        return showResult(attacker, res);
-    } 
-    public final boolean notifyDeath(L2Character killer, L2Character victim, QuestState qs) {
-        String res = null;
-        try { res = onDeath(killer, victim, qs); } catch (Exception e) { return showError(qs.getPlayer(), e); }
-        return showResult(qs.getPlayer(), res);
-    } 
-    public final boolean notifySpawn(L2NpcInstance npc) {
-        try { onSpawn(npc); } catch (Exception e) { _log.warn("", e); return true;}
-        return false;
-    } 
-    public final boolean notifyEvent(String event, L2NpcInstance npc, L2PcInstance player) {
-        String res = null;
-        try { res = onAdvEvent(event, npc, player); } catch (Exception e) { return showError(player, e); }
-        return showResult(player, res);
-    } 
-	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) {
+	public final boolean notifyAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet)
+	{
+		String res = null;
+		try { res = onAttack(npc, attacker, damage, isPet); } catch (Exception e) { return showError(attacker, e); }
+		return showResult(attacker, res);
+	}
+
+	public final boolean notifyDeath(L2Character killer, L2Character victim, QuestState qs)
+	{
+		String res = null;
+		try { res = onDeath(killer, victim, qs); } catch (Exception e) { return showError(qs.getPlayer(), e); }
+		return showResult(qs.getPlayer(), res);
+	}
+
+	public final boolean notifySpawn(L2NpcInstance npc)
+	{
+		try { onSpawn(npc); } catch (Exception e) { _log.warn("", e); return true;}
+		return false;
+	}
+
+	public final boolean notifyEvent(String event, L2NpcInstance npc, L2PcInstance player)
+	{
+		String res = null;
+		try { res = onAdvEvent(event, npc, player); } catch (Exception e) { return showError(player, e); }
+		return showResult(player, res);
+	}
+
+	public final boolean notifyKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet)
+	{
 		String res = null;
 		try { res = onKill(npc, killer, isPet); } catch (Exception e) { return showError(killer, e); }
 		return showResult(killer, res);
 	}
-	public final boolean notifyTalk (L2NpcInstance npc, QuestState qs) {
+
+	public final boolean notifyTalk (L2NpcInstance npc, QuestState qs)
+	{
 		String res = null;
 		try { res = onTalk(npc, qs.getPlayer()); } catch (Exception e) { return showError(qs.getPlayer(), e); }
 		qs.getPlayer().setLastQuestNpcObject(npc.getObjectId());
 		return showResult(qs.getPlayer(), res);
 	}
+
 	// override the default NPC dialogs when a quest defines this for the given NPC
-	public final boolean notifyFirstTalk (L2NpcInstance npc, L2PcInstance player) {
+	public final boolean notifyFirstTalk (L2NpcInstance npc, L2PcInstance player)
+	{
 		String res = null;
 		try { res = onFirstTalk(npc, player); } catch (Exception e) { return showError(player, e); }
 		player.setLastQuestNpcObject(npc.getObjectId());
 		// if the quest returns text to display, display it.  Otherwise, use the default npc text.
 		if (res!=null && res.length()>0)
 			return showResult(player, res);
-		npc.showChatWindow(player);
+		// note: if the default html for this npc needs to be shown, onFirstTalk should 
+		// call npc.showChatWindow(player) and then return null.
 		return true;
 	}
-	public final boolean notifySkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) {
+
+	public final boolean notifySkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet)
+	{
 		String res = null;
-		try { res = onSkillUse(npc, caster, skill); } catch (Exception e) { return showError(caster, e); }
+		try { res = onSkillSee(npc, caster, skill, targets, isPet); } catch (Exception e) { return showError(caster, e); }
 		return showResult(caster, res);
 	}
 
+	public final boolean notifyFactionCall(L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet)
+	{
+		String res = null;
+		try { res = onFactionCall(npc, caller, attacker, isPet); } catch (Exception e) { return showError(attacker, e); }
+		return showResult(attacker, res);
+	}
+
+	public final boolean notifyAggroRangeEnter(L2NpcInstance npc, L2PcInstance player, boolean isPet)
+	{
+		String res = null;
+		try { res = onAggroRangeEnter(npc, player, isPet); } catch (Exception e) { return showError(player, e); }
+		return showResult(player, res);
+	}
 
 	// these are methods that java calls to invoke scripts
-    @SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) { return null; } 
-    @SuppressWarnings("unused") public String onDeath (L2Character killer, L2Character victim, QuestState qs) 
-    { 	
-    	if (killer instanceof L2NpcInstance)
-    		return onAdvEvent("", (L2NpcInstance)killer,qs.getPlayer()); 
-    	else 
-    		return onAdvEvent("", null,qs.getPlayer());
-    }
-    
-    @SuppressWarnings("unused") public String onAdvEvent(String event, L2NpcInstance npc, L2PcInstance player) 
-    {
-    	// if not overriden by a subclass, then default to the returned value of the simpler (and older) onEvent override
-    	// if the player has a state, use it as parameter in the next call, else return null
-    	QuestState qs = player.getQuestState(getName());
-    	if (qs != null )
-    		return onEvent(event, qs);
+	@SuppressWarnings("unused") public String onAttack(L2NpcInstance npc, L2PcInstance attacker, int damage, boolean isPet) { return null; } 
+	@SuppressWarnings("unused") public String onDeath (L2Character killer, L2Character victim, QuestState qs) 
+	{
+		if (killer instanceof L2NpcInstance)
+			return onAdvEvent("", (L2NpcInstance)killer,qs.getPlayer()); 
+		else 
+			return onAdvEvent("", null,qs.getPlayer());
+	}
 
-    	return null; 
-    } 
-    
-    @SuppressWarnings("unused") public String onEvent(String event, QuestState qs) { return null; } 
-    @SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) { return null; }
-    @SuppressWarnings("unused") public String onTalk (L2NpcInstance npc, L2PcInstance talker) { return null; }
-    @SuppressWarnings("unused") public String onFirstTalk(L2NpcInstance npc, L2PcInstance player) { return null; } 
-    @SuppressWarnings("unused") public String onSkillUse (L2NpcInstance npc, L2PcInstance caster, L2Skill skill) { return null; }
-    @SuppressWarnings("unused") public String onSpawn (L2NpcInstance npc) { return null; }
-    
+	@SuppressWarnings("unused") public String onAdvEvent(String event, L2NpcInstance npc, L2PcInstance player) 
+	{
+		// if not overriden by a subclass, then default to the returned value of the simpler (and older) onEvent override
+		// if the player has a state, use it as parameter in the next call, else return null
+		QuestState qs = player.getQuestState(getName());
+		if (qs != null )
+			return onEvent(event, qs);
+
+		return null; 
+	}
+
+	@SuppressWarnings("unused") public String onEvent(String event, QuestState qs) { return null; } 
+	@SuppressWarnings("unused") public String onKill (L2NpcInstance npc, L2PcInstance killer, boolean isPet) { return null; }
+	@SuppressWarnings("unused") public String onTalk (L2NpcInstance npc, L2PcInstance talker) { return null; }
+	@SuppressWarnings("unused") public String onFirstTalk(L2NpcInstance npc, L2PcInstance player) { return null; } 
+	@SuppressWarnings("unused") public String onSkillSee (L2NpcInstance npc, L2PcInstance caster, L2Skill skill, L2Object[] targets, boolean isPet) { return null; }
+	@SuppressWarnings("unused") public String onSpawn (L2NpcInstance npc) { return null; }
+	@SuppressWarnings("unused") public String onFactionCall (L2NpcInstance npc, L2NpcInstance caller, L2PcInstance attacker, boolean isPet) { return null; }
+	@SuppressWarnings("unused") public String onAggroRangeEnter (L2NpcInstance npc, L2PcInstance player, boolean isPet) { return null; }
+
 	/**
 	 * Show message error to player who has an access level greater than 0
 	 * @param player : L2PcInstance
@@ -367,10 +399,9 @@ public class Quest extends ManagedScript
 	/**
 	 * Show a message to player.<BR><BR>
 	 * <U><I>Concept : </I></U><BR>
-	 * 4 cases are managed according to the value of the parameter "res" :<BR>
+	 * 3 cases are managed according to the value of the parameter "res" :<BR>
 	 * <LI><U>"res" ends with string ".html" :</U> an HTML is opened in order to be shown in a dialog box</LI>
 	 * <LI><U>"res" starts with "<html>" :</U> the message hold in "res" is shown in a dialog box</LI>
-	 * <LI><U>"res" is equal to string "none" :</U> HTML will not be opened</LI>
 	 * <LI><U>otherwise :</U> the message hold in "res" is shown in chat box</LI>
 	 * @param qs : QuestState 
 	 * @param res : String pointing out the message to show at the player
@@ -391,10 +422,6 @@ public class Quest extends ManagedScript
 			player.sendPacket(npcReply);
 			player.sendPacket(ActionFailed.STATIC_PACKET);
 		}
-		else if (res.equalsIgnoreCase("none"))
-		{
-			player.sendPacket(ActionFailed.STATIC_PACKET);
-		}
 		else
 		{
 			player.sendMessage(res);
@@ -410,19 +437,19 @@ public class Quest extends ManagedScript
 	 */
 	public final static void playerEnter(L2PcInstance player)
 	{
-        java.sql.Connection con = null;
-        try
-        {
-	    // Get list of quests owned by the player from database
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            
-            PreparedStatement invalidQuestData      = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? and name=?");
-            PreparedStatement invalidQuestDataVar   = con.prepareStatement("delete FROM character_quests WHERE char_id=? and name=? and var=?");
-            
-            statement = con.prepareStatement("SELECT name,value FROM character_quests WHERE char_id=? AND var=?");
-            statement.setInt(1, player.getObjectId());
-            statement.setString(2, "<state>");
+		java.sql.Connection con = null;
+		try
+		{
+		// Get list of quests owned by the player from database
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			
+			PreparedStatement invalidQuestData	  = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? and name=?");
+			PreparedStatement invalidQuestDataVar   = con.prepareStatement("delete FROM character_quests WHERE char_id=? and name=? and var=?");
+			
+			statement = con.prepareStatement("SELECT name,value FROM character_quests WHERE char_id=? AND var=?");
+			statement.setInt(1, player.getObjectId());
+			statement.setString(2, "<state>");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next())
 			{
@@ -451,8 +478,8 @@ public class Quest extends ManagedScript
 				new QuestState(q, player, State.getStateId(statename));
 			}
 			rs.close();
-            invalidQuestData.close();
-            statement.close();
+			invalidQuestData.close();
+			statement.close();
 
 			// Get list of quests owned by the player from the DB in order to add variables used in the quest.
 			statement = con.prepareStatement("SELECT name,var,value FROM character_quests WHERE char_id=? AND var<>?");
@@ -462,7 +489,7 @@ public class Quest extends ManagedScript
 			while (rs.next())
 			{
 				String questId = rs.getString("name");
-				String var     = rs.getString("var");
+				String var	 = rs.getString("var");
 				String value   = rs.getString("value");
 				// Get the QuestState saved in the loop before
 				QuestState qs = player.getQuestState(questId);
@@ -472,10 +499,10 @@ public class Quest extends ManagedScript
 						_log.info("Lost variable "+var+" in quest "+questId+" for player "+player.getName());
 					if (Config.AUTODELETE_INVALID_QUEST_DATA)
 					{
-					    invalidQuestDataVar.setInt   (1,player.getObjectId());
-                        invalidQuestDataVar.setString(2,questId);
-                        invalidQuestDataVar.setString(3,var);
-                        invalidQuestDataVar.executeUpdate();
+						invalidQuestDataVar.setInt   (1,player.getObjectId());
+						invalidQuestDataVar.setString(2,questId);
+						invalidQuestDataVar.setString(3,var);
+						invalidQuestDataVar.executeUpdate();
 					}
 					continue;
 				}
@@ -483,14 +510,14 @@ public class Quest extends ManagedScript
 				qs.setInternal(var, value);
 			}
 			rs.close();
-            invalidQuestDataVar.close();
-            statement.close();
+			invalidQuestDataVar.close();
+			statement.close();
 			
 		} catch (Exception e) {
 			_log.warn("could not insert char quest:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 		
 		// events
 		for (String name : _allEventsS.keySet()) {
@@ -509,22 +536,22 @@ public class Quest extends ManagedScript
 	 */
 	public final void saveGlobalQuestVar(String var, String value)
 	{
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("REPLACE INTO quest_global_data (quest_name,var,value) VALUES (?,?,?)");
-            statement.setString(1, getName());
-            statement.setString(2, var);
-            statement.setString(3, value);
-            statement.executeUpdate();
-            statement.close();
-        } catch (Exception e) {
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("REPLACE INTO quest_global_data (quest_name,var,value) VALUES (?,?,?)");
+			statement.setString(1, getName());
+			statement.setString(2, var);
+			statement.setString(3, value);
+			statement.executeUpdate();
+			statement.close();
+		} catch (Exception e) {
 			_log.warn("could not insert global quest variable:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }				
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}				
 	}
 	
 	/**
@@ -539,25 +566,25 @@ public class Quest extends ManagedScript
 	public final String loadGlobalQuestVar(String var)
 	{
 		String result = "";
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("SELECT value FROM quest_global_data WHERE quest_name = ? AND var = ?");
-            statement.setString(1, getName());
-            statement.setString(2, var);
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("SELECT value FROM quest_global_data WHERE quest_name = ? AND var = ?");
+			statement.setString(1, getName());
+			statement.setString(2, var);
 			ResultSet rs = statement.executeQuery();
 			if (rs.first())
 				result =  rs.getString(1);
 			rs.close();
-            statement.close();
-        } catch (Exception e) {
+			statement.close();
+		} catch (Exception e) {
 			_log.warn("could not load global quest variable:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }	
-        return result;
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}	
+		return result;
 	}
 
 	/**
@@ -566,21 +593,21 @@ public class Quest extends ManagedScript
 	 */
 	public final void deleteGlobalQuestVar(String var)
 	{
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ? AND var = ?");
-            statement.setString(1, getName());
-            statement.setString(2, var);
-            statement.executeUpdate();
-            statement.close();
-        } catch (Exception e) {
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ? AND var = ?");
+			statement.setString(1, getName());
+			statement.setString(2, var);
+			statement.executeUpdate();
+			statement.close();
+		} catch (Exception e) {
 			_log.warn("could not delete global quest variable:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }	
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}	
 	}
 
 	/**
@@ -588,20 +615,20 @@ public class Quest extends ManagedScript
 	 */
 	public final void deleteAllGlobalQuestVars()
 	{
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ?");
-            statement.setString(1, getName());
-            statement.executeUpdate();
-            statement.close();
-        } catch (Exception e) {
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("DELETE FROM quest_global_data WHERE quest_name = ?");
+			statement.setString(1, getName());
+			statement.executeUpdate();
+			statement.close();
+		} catch (Exception e) {
 			_log.warn("could not delete global quest variables:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }	
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}	
 	}	
 	/**
 	 * Insert in the database the quest for the player.
@@ -610,23 +637,23 @@ public class Quest extends ManagedScript
 	 * @param value : String designating the value of the variable for the quest
 	 */
 	public static void createQuestVarInDb(QuestState qs, String var, String value) {
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("INSERT INTO character_quests (char_id,name,var,value) VALUES (?,?,?,?)");
-            statement.setInt   (1, qs.getPlayer().getObjectId());
-            statement.setString(2, qs.getQuestName());
-            statement.setString(3, var);
-            statement.setString(4, value);
-	    statement.executeUpdate();
-            statement.close();
-        } catch (Exception e) {
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("INSERT INTO character_quests (char_id,name,var,value) VALUES (?,?,?,?)");
+			statement.setInt   (1, qs.getPlayer().getObjectId());
+			statement.setString(2, qs.getQuestName());
+			statement.setString(3, var);
+			statement.setString(4, value);
+		statement.executeUpdate();
+			statement.close();
+		} catch (Exception e) {
 			_log.fatal("could not insert char quest:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 	}
 	
 	/**
@@ -643,48 +670,48 @@ public class Quest extends ManagedScript
 	 * @param var : String designating the name of the variable for quest
 	 * @param value : String designating the value of the variable for quest
 	 */
-    public static void updateQuestVarInDb(QuestState qs, String var, String value) {
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("UPDATE character_quests SET value=? WHERE char_id=? AND name=? AND var = ?");
-            statement.setString(1, value);
-            statement.setInt   (2, qs.getPlayer().getObjectId());
-            statement.setString(3, qs.getQuestName());
-            statement.setString(4, var);
+	public static void updateQuestVarInDb(QuestState qs, String var, String value) {
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("UPDATE character_quests SET value=? WHERE char_id=? AND name=? AND var = ?");
+			statement.setString(1, value);
+			statement.setInt   (2, qs.getPlayer().getObjectId());
+			statement.setString(3, qs.getQuestName());
+			statement.setString(4, var);
 			statement.executeUpdate();
-            statement.close();
-        } catch (Exception e) {
+			statement.close();
+		} catch (Exception e) {
 			_log.fatal("could not update char quest:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 	}
 	
-    /**
-     * Delete a variable of player's quest from the database.
-     * @param qs : object QuestState pointing out the player's quest
-     * @param var : String designating the variable characterizing the quest
-     */
+	/**
+	 * Delete a variable of player's quest from the database.
+	 * @param qs : object QuestState pointing out the player's quest
+	 * @param var : String designating the variable characterizing the quest
+	 */
 	public static void deleteQuestVarInDb(QuestState qs, String var) {
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=? AND var=?");
-            statement.setInt   (1, qs.getPlayer().getObjectId());
-            statement.setString(2, qs.getQuestName());
-            statement.setString(3, var);
-	    statement.executeUpdate();
-            statement.close();
-        } catch (Exception e) {
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=? AND var=?");
+			statement.setInt   (1, qs.getPlayer().getObjectId());
+			statement.setString(2, qs.getQuestName());
+			statement.setString(3, var);
+		statement.executeUpdate();
+			statement.close();
+		} catch (Exception e) {
 			_log.warn("could not delete char quest:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 	}
 	
 	/**
@@ -692,21 +719,21 @@ public class Quest extends ManagedScript
 	 * @param qs : QuestState pointing out the player's quest
 	 */
 	public static void deleteQuestInDb(QuestState qs) {
-        java.sql.Connection con = null;
-        try
-        {
-            con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=?");
-            statement.setInt   (1, qs.getPlayer().getObjectId());
-            statement.setString(2, qs.getQuestName());
+		java.sql.Connection con = null;
+		try
+		{
+			con = L2DatabaseFactory.getInstance().getConnection(con);
+			PreparedStatement statement;
+			statement = con.prepareStatement("DELETE FROM character_quests WHERE char_id=? AND name=?");
+			statement.setInt   (1, qs.getPlayer().getObjectId());
+			statement.setString(2, qs.getQuestName());
 			statement.executeUpdate();
-            statement.close();
-        } catch (Exception e) {
+			statement.close();
+		} catch (Exception e) {
 			_log.fatal("could not delete char quest:", e);
-        } finally {
-            try { con.close(); } catch (Exception e) {}
-        }
+		} finally {
+			try { con.close(); } catch (Exception e) {}
+		}
 	}
 	
 	/**
@@ -715,8 +742,8 @@ public class Quest extends ManagedScript
 	 * Use fucntion createQuestVarInDb() with following parameters :<BR>
 	 * <LI>QuestState : parameter sq that puts in fields of database :
 	 * 	 <UL type="square">
-	 *     <LI>char_id : ID of the player</LI>
-	 *     <LI>name : name of the quest</LI>
+	 *	 <LI>char_id : ID of the player</LI>
+	 *	 <LI>name : name of the quest</LI>
 	 *   </UL>
 	 * </LI>
 	 * <LI>var : string "&lt;state&gt;" as the name of the variable for the quest</LI>
@@ -740,232 +767,258 @@ public class Quest extends ManagedScript
 		updateQuestVarInDb(qs, "<state>", val);
 	}
 	
-    /**
-     * Add this quest to the list of quests that the passed mob will respond to for the specified Event type.<BR><BR>
-     * @param npcId : id of the NPC to register
-     * @param eventType : type of event being registered 
-     * @return L2NpcTemplate : Npc Template corresponding to the npcId, or null if the id is invalid
-     */
+	/**
+	 * Add this quest to the list of quests that the passed mob will respond to for the specified Event type.<BR><BR>
+	 * @param npcId : id of the NPC to register
+	 * @param eventType : type of event being registered 
+	 * @return L2NpcTemplate : Npc Template corresponding to the npcId, or null if the id is invalid
+	 */
 	public L2NpcTemplate addEventId(int npcId, QuestEventType eventType)
 	{
-    	try
-    	{
+		try
+		{
 		L2NpcTemplate t = NpcTable.getInstance().getTemplate(npcId);
 		if (t != null) 
 		{
 			t.addQuestEvent(eventType, this);
 		}
 		return t;
-    	}
-    	catch(Exception e)
-    	{
-    		e.printStackTrace();
-    		return null;
-    	}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
-    /**
-     * Add the quest to the NPC's startQuest
-     * @param npcId
-     * @return L2NpcTemplate : Start NPC
-     */
-    public L2NpcTemplate addStartNpc(int npcId)
-    {
-    	return addEventId(npcId, Quest.QuestEventType.QUEST_START);
-    }
-
-    /**
-     * Add the quest to the NPC's first-talk (default action dialog)
-     * @param npcId
-     * @return L2NpcTemplate : Start NPC
-     */
-    public L2NpcTemplate addFirstTalkId(int npcId)
-    {
-    	return addEventId(npcId, Quest.QuestEventType.NPC_FIRST_TALK);
-    }
-
-    /**
-     * Add this quest to the list of quests that the passed mob will respond to for Attack Events.<BR><BR>
-     * @param attackId
-     * @return int : attackId
-     */
-    public L2NpcTemplate addAttackId(int attackId) {
-    	return addEventId(attackId, Quest.QuestEventType.MOBGOTATTACKED);
-    }
-    
 	/**
-     * Add this quest to the list of quests that the passed mob will respond to for Kill Events.<BR><BR>
+	 * Add the quest to the NPC's startQuest
+	 * @param npcId
+	 * @return L2NpcTemplate : Start NPC
+	 */
+	public L2NpcTemplate addStartNpc(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.QUEST_START);
+	}
+
+	/**
+	 * Add the quest to the NPC's first-talk (default action dialog)
+	 * @param npcId
+	 * @return L2NpcTemplate : Start NPC
+	 */
+	public L2NpcTemplate addFirstTalkId(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.ON_FIRST_TALK);
+	}
+
+	/**
+	 * Add this quest to the list of quests that the passed mob will respond to for Attack Events.<BR><BR>
+	 * @param attackId
+	 * @return int : attackId
+	 */
+	public L2NpcTemplate addAttackId(int attackId)
+	{
+		return addEventId(attackId, Quest.QuestEventType.ON_ATTACK);
+	}
+
+	/**
+	 * Add this quest to the list of quests that the passed mob will respond to for Kill Events.<BR><BR>
 	 * @param killId
 	 * @return int : killId
 	 */
-	public L2NpcTemplate addKillId(int killId) {
-    	return addEventId(killId, Quest.QuestEventType.MOBKILLED);
+	public L2NpcTemplate addKillId(int killId)
+	{
+		return addEventId(killId, Quest.QuestEventType.ON_KILL);
 	}
+
+	/**
+	 * Add this quest to the list of quests that the passed npc will respond to for Talk Events.<BR><BR>
+	 * @param talkId : ID of the NPC
+	 * @return int : ID of the NPC
+	 */
+	public L2NpcTemplate addTalkId(int talkId)
+	{
+		return addEventId(talkId, Quest.QuestEventType.ON_TALK);
+	}
+
+	/**
+	* Add this quest to the list of quests that the passed npc will respond to for Spawn Events.<BR><BR>
+	 * @param talkId : ID of the NPC
+	 * @return int : ID of the NPC
+	 */
+	public L2NpcTemplate addSpawnId(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.ON_SPAWN);
+	}
+
+	/**
+	* Add this quest to the list of quests that the passed npc will respond to for Skill-See Events.<BR><BR>
+	* @param talkId : ID of the NPC
+	* @return int : ID of the NPC
+	*/
+	public L2NpcTemplate addSkillSeeId(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.ON_SKILL_SEE);
+	}
+
+	/**
+	* Add this quest to the list of quests that the passed npc will respond to for Faction Call Events.<BR><BR>
+	* @param talkId : ID of the NPC
+	* @return int : ID of the NPC
+	*/
+	public L2NpcTemplate addFactionCallId(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.ON_FACTION_CALL);
+	}
+
+	/**
+	* Add this quest to the list of quests that the passed npc will respond to for Character See Events.<BR><BR>
+	* @param talkId : ID of the NPC
+	* @return int : ID of the NPC
+	*/
+	public L2NpcTemplate addAggroRangeEnterId(int npcId)
+	{
+		return addEventId(npcId, Quest.QuestEventType.ON_AGGRO_RANGE_ENTER);
+	}
+
 	
-    /**
-     * Add this quest to the list of quests that the passed npc will respond to for Talk Events.<BR><BR>
-     * @param talkId : ID of the NPC
-     * @return int : ID of the NPC
-     */
-    public L2NpcTemplate addTalkId(int talkId) {
-    	return addEventId(talkId, Quest.QuestEventType.QUEST_TALK);
-    }
-    
-    /**
-     * Add this quest to the list of quests that the passed npc will respond to for Skill-Use Events.<BR><BR>
-     * @param npcId : ID of the NPC
-     * @return int : ID of the NPC
-     */
-    public L2NpcTemplate addSkillUseId(int npcId) {
-    	return addEventId(npcId, Quest.QuestEventType.MOB_TARGETED_BY_SKILL);
-    }
-    
-    /**
-     * Add this quest to the list of quests that the passed npc will respond to for Talk Events.<BR><BR>
-     * @param talkId : ID of the NPC
-     * @return int : ID of the NPC
-     */
-    public L2NpcTemplate addSpawnId(int npcId) {
-        return addEventId(npcId, Quest.QuestEventType.NPC_SPAWNED);
-    }
-    
-    // returns a random party member's L2PcInstance for the passed player's party
-    // returns the passed player if he has no party.
-    public L2PcInstance getRandomPartyMember(L2PcInstance player)
-    {
-    	// NPE prevention.  If the player is null, there is nothing to return
-    	if (player == null )
-    		return null;
-    	if ((player.getParty() == null) || (player.getParty().getPartyMembers().size()==0))
-    		return player;
-    	L2Party party = player.getParty();
-    	return party.getPartyMembers().get(Rnd.get(party.getPartyMembers().size()));
-    }
+	// returns a random party member's L2PcInstance for the passed player's party
+	// returns the passed player if he has no party.
+	public L2PcInstance getRandomPartyMember(L2PcInstance player)
+	{
+		// NPE prevention.  If the player is null, there is nothing to return
+		if (player == null )
+			return null;
+		if ((player.getParty() == null) || (player.getParty().getPartyMembers().size()==0))
+			return player;
+		L2Party party = player.getParty();
+		return party.getPartyMembers().get(Rnd.get(party.getPartyMembers().size()));
+	}
 
-    /**
-     * Auxilary function for party quests. 
-     * Note: This function is only here because of how commonly it may be used by quest developers.
-     * For any variations on this function, the quest script can always handle things on its own
-     * @param player: the instance of a player whose party is to be searched
-     * @param value: the value of the "cond" variable that must be matched
-     * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
-     * 			condition, or null if no match.
-     */
-    public L2PcInstance getRandomPartyMember(L2PcInstance player, String value)
-    {
-    	return getRandomPartyMember(player, "cond", value);
-    }
+	/**
+	 * Auxilary function for party quests. 
+	 * Note: This function is only here because of how commonly it may be used by quest developers.
+	 * For any variations on this function, the quest script can always handle things on its own
+	 * @param player: the instance of a player whose party is to be searched
+	 * @param value: the value of the "cond" variable that must be matched
+	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
+	 * 			condition, or null if no match.
+	 */
+	public L2PcInstance getRandomPartyMember(L2PcInstance player, String value)
+	{
+		return getRandomPartyMember(player, "cond", value);
+	}
 
-    /**
-     * Auxilary function for party quests. 
-     * Note: This function is only here because of how commonly it may be used by quest developers.
-     * For any variations on this function, the quest script can always handle things on its own
-     * @param player: the instance of a player whose party is to be searched
-     * @param var/value: a tuple specifying a quest condition that must be satisfied for
-     *     a party member to be considered.
-     * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
-     * 				condition, or null if no match.  If the var is null, any random party 
-     * 				member is returned (i.e. no condition is applied).
-     * 				The party member must be within 1500 distance from the target of the reference
-     * 				player, or if no target exists, 1500 distance from the player itself.
-     */
-    public L2PcInstance getRandomPartyMember(L2PcInstance player, String var, String value)
-    {
-    	// if no valid player instance is passed, there is nothing to check...
-    	if (player == null)
-    		return null;
-    	
-    	// for null var condition, return any random party member.
-    	if (var == null) 
-    		return getRandomPartyMember(player);
-    	
-    	
-    	// normal cases...if the player is not in a party, check the player's state
-    	QuestState temp = null;
-    	L2Party party = player.getParty();
-    	// if this player is not in a party, just check if this player instance matches the conditions itself
-    	if ( (party == null) || (party.getPartyMembers().size()==0) )
-    	{
-    		temp = player.getQuestState(getName());
-    		if( (temp != null) && (temp.get(var)!=null) && ((String) temp.get(var)).equalsIgnoreCase(value) )
+	/**
+	 * Auxilary function for party quests. 
+	 * Note: This function is only here because of how commonly it may be used by quest developers.
+	 * For any variations on this function, the quest script can always handle things on its own
+	 * @param player: the instance of a player whose party is to be searched
+	 * @param var/value: a tuple specifying a quest condition that must be satisfied for
+	 *	 a party member to be considered.
+	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
+	 * 				condition, or null if no match.  If the var is null, any random party 
+	 * 				member is returned (i.e. no condition is applied).
+	 * 				The party member must be within 1500 distance from the target of the reference
+	 * 				player, or if no target exists, 1500 distance from the player itself.
+	 */
+	public L2PcInstance getRandomPartyMember(L2PcInstance player, String var, String value)
+	{
+		// if no valid player instance is passed, there is nothing to check...
+		if (player == null)
+			return null;
+		
+		// for null var condition, return any random party member.
+		if (var == null) 
+			return getRandomPartyMember(player);
+		
+		
+		// normal cases...if the player is not in a party, check the player's state
+		QuestState temp = null;
+		L2Party party = player.getParty();
+		// if this player is not in a party, just check if this player instance matches the conditions itself
+		if ( (party == null) || (party.getPartyMembers().size()==0) )
+		{
+			temp = player.getQuestState(getName());
+			if( (temp != null) && (temp.get(var)!=null) && ((String) temp.get(var)).equalsIgnoreCase(value) )
 				return player;  // match
-    		
-    		return null;	// no match
-    	}
-    	
-    	// if the player is in a party, gather a list of all matching party members (possibly 
-    	// including this player) 
-    	FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
-    	
-    	// get the target for enforcing distance limitations.
-    	L2Object target = player.getTarget();
-    	if (target == null) target = player;
-    	
-    	for(L2PcInstance partyMember: party.getPartyMembers())
-    	{
-    		temp = partyMember.getQuestState(getName());
-    		if( (temp != null) && (temp.get(var)!=null) && ((String) temp.get(var)).equalsIgnoreCase(value) 
-    				&& partyMember.isInsideRadius(target, 1500, true, false))
-    			candidates.add(partyMember);
-    	}
-    	// if there was no match, return null...
-    	if (candidates.size()==0)
-    		return null;
-    	
-    	// if a match was found from the party, return one of them at random.
-    	return candidates.get( Rnd.get(candidates.size()) );
-    }
+			
+			return null;	// no match
+		}
+		
+		// if the player is in a party, gather a list of all matching party members (possibly 
+		// including this player) 
+		FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
+		
+		// get the target for enforcing distance limitations.
+		L2Object target = player.getTarget();
+		if (target == null) target = player;
+		
+		for(L2PcInstance partyMember: party.getPartyMembers())
+		{
+			temp = partyMember.getQuestState(getName());
+			if( (temp != null) && (temp.get(var)!=null) && ((String) temp.get(var)).equalsIgnoreCase(value) 
+					&& partyMember.isInsideRadius(target, 1500, true, false))
+				candidates.add(partyMember);
+		}
+		// if there was no match, return null...
+		if (candidates.size()==0)
+			return null;
+		
+		// if a match was found from the party, return one of them at random.
+		return candidates.get( Rnd.get(candidates.size()) );
+	}
 
-    /**
-     * Auxilary function for party quests. 
-     * Note: This function is only here because of how commonly it may be used by quest developers.
-     * For any variations on this function, the quest script can always handle things on its own
-     * @param player: the instance of a player whose party is to be searched
-     * @param state: the state in which the party member's queststate must be in order to be considered.
-     * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
-     * 				condition, or null if no match.  If the var is null, any random party 
-     * 				member is returned (i.e. no condition is applied).
-     */
-    public L2PcInstance getRandomPartyMemberState(L2PcInstance player, byte state)
-    {
-    	// if no valid player instance is passed, there is nothing to check...
-    	if (player == null)
-    		return null;
-    	
-    	// normal cases...if the player is not in a partym check the player's state
-    	QuestState temp = null;
-    	L2Party party = player.getParty();
-    	// if this player is not in a party, just check if this player instance matches the conditions itself
-    	if ( (party == null) || (party.getPartyMembers().size()==0) )
-    	{
-    		temp = player.getQuestState(getName());
-    		if( (temp != null) && (temp.getState() == state) )
+	/**
+	 * Auxilary function for party quests. 
+	 * Note: This function is only here because of how commonly it may be used by quest developers.
+	 * For any variations on this function, the quest script can always handle things on its own
+	 * @param player: the instance of a player whose party is to be searched
+	 * @param state: the state in which the party member's queststate must be in order to be considered.
+	 * @return L2PcInstance: L2PcInstance for a random party member that matches the specified 
+	 * 				condition, or null if no match.  If the var is null, any random party 
+	 * 				member is returned (i.e. no condition is applied).
+	 */
+	public L2PcInstance getRandomPartyMemberState(L2PcInstance player, byte state)
+	{
+		// if no valid player instance is passed, there is nothing to check...
+		if (player == null)
+			return null;
+		
+		// normal cases...if the player is not in a partym check the player's state
+		QuestState temp = null;
+		L2Party party = player.getParty();
+		// if this player is not in a party, just check if this player instance matches the conditions itself
+		if ( (party == null) || (party.getPartyMembers().size()==0) )
+		{
+			temp = player.getQuestState(getName());
+			if( (temp != null) && (temp.getState() == state) )
 				return player;  // match
-    		
-    		return null;	// no match
-    	}
-    	
-    	// if the player is in a party, gather a list of all matching party members (possibly 
-    	// including this player) 
-    	FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
+			
+			return null;	// no match
+		}
+		
+		// if the player is in a party, gather a list of all matching party members (possibly 
+		// including this player) 
+		FastList<L2PcInstance> candidates = new FastList<L2PcInstance>();
 
-    	// get the target for enforcing distance limitations.
-    	L2Object target = player.getTarget();
-    	if (target == null) target = player;
-    	
-    	for(L2PcInstance partyMember: party.getPartyMembers())
-    	{
-    		temp = partyMember.getQuestState(getName());
-    		if( (temp != null) && (temp.getState() == state) && partyMember.isInsideRadius(target, 1500, true, false) )
-    			candidates.add(partyMember);
-    	}
-    	// if there was no match, return null...
-    	if (candidates.size()==0)
-    		return null;
-    	
-    	// if a match was found from the party, return one of them at random.
-    	return candidates.get( Rnd.get(candidates.size()) );
-    }
+		// get the target for enforcing distance limitations.
+		L2Object target = player.getTarget();
+		if (target == null) target = player;
+		
+		for(L2PcInstance partyMember: party.getPartyMembers())
+		{
+			temp = partyMember.getQuestState(getName());
+			if( (temp != null) && (temp.getState() == state) && partyMember.isInsideRadius(target, 1500, true, false) )
+				candidates.add(partyMember);
+		}
+		// if there was no match, return null...
+		if (candidates.size()==0)
+			return null;
+		
+		// if a match was found from the party, return one of them at random.
+		return candidates.get( Rnd.get(candidates.size()) );
+	}
 
 	/**
 	 * Show HTML file to client
@@ -973,170 +1026,170 @@ public class Quest extends ManagedScript
 	 * @return String : message sent to client 
 	 */
 	public String showHtmlFile(L2PcInstance player, String fileName) 
-    {
-        String questId = getName();
+	{
+		String questId = getName();
 
-        //Create handler to file linked to the quest
-        String directory    = getDescr().toLowerCase();
-        String content = HtmCache.getInstance().getHtm("data/scripts/" + directory + "/" + questId + "/"+fileName);
-        
-        if (content == null)
-            content = HtmCache.getInstance().getHtmForce("data/scripts/quests/"+questId+"/"+fileName);
+		//Create handler to file linked to the quest
+		String directory	= getDescr().toLowerCase();
+		String content = HtmCache.getInstance().getHtm("data/scripts/" + directory + "/" + questId + "/"+fileName);
+		
+		if (content == null)
+			content = HtmCache.getInstance().getHtmForce("data/scripts/quests/"+questId+"/"+fileName);
 
-        if (player != null && player.getTarget() != null)
-            content = content.replaceAll("%objectId%", String.valueOf(player.getTarget().getObjectId()));
+		if (player != null && player.getTarget() != null)
+			content = content.replaceAll("%objectId%", String.valueOf(player.getTarget().getObjectId()));
 
-        //Send message to client if message not empty     
-         if (content != null) 
-         {
-             NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
-             npcReply.setHtml(content);
-             player.sendPacket(npcReply);
-             player.sendPacket(ActionFailed.STATIC_PACKET);
-         }
-         
-         return content;
+		//Send message to client if message not empty	 
+		 if (content != null) 
+		 {
+			 NpcHtmlMessage npcReply = new NpcHtmlMessage(5);
+			 npcReply.setHtml(content);
+			 player.sendPacket(npcReply);
+			 player.sendPacket(ActionFailed.STATIC_PACKET);
+		 }
+		 
+		 return content;
 	}
 	
-    // =========================================================
-    //  QUEST SPAWNS
-    // =========================================================
+	// =========================================================
+	//  QUEST SPAWNS
+	// =========================================================
 
 	public class DeSpawnScheduleTimerTask implements Runnable
-    {
-        L2NpcInstance _npc = null;
-        public DeSpawnScheduleTimerTask(L2NpcInstance npc)
-        {
-        	_npc = npc;
-        }
-        
-        public void run()
-        {
-           _npc.onDecay();
-        }
-    }
+	{
+		L2NpcInstance _npc = null;
+		public DeSpawnScheduleTimerTask(L2NpcInstance npc)
+		{
+			_npc = npc;
+		}
+		
+		public void run()
+		{
+		   _npc.onDecay();
+		}
+	}
 
 	// Method - Public
-    /**
-     * Add a temporary (quest) spawn
-     * Return instance of newly spawned npc
-     */
+	/**
+	 * Add a temporary (quest) spawn
+	 * Return instance of newly spawned npc
+	 */
 	public L2NpcInstance addSpawn(int npcId, L2Character cha)
 	{
-	    return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0);
+		return addSpawn(npcId, cha.getX(), cha.getY(), cha.getZ(), cha.getHeading(), false, 0);
 	}
 	
-    public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay)
-    {
-    	L2NpcInstance result = null;
-        try 
-        {
-            L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
-            if (template != null)
-            {
-                // Sometimes, even if the quest script specifies some xyz (for example npc.getX() etc) by the time the code
-            	// reaches here, xyz have become 0!  Also, a questdev might have purposely set xy to 0,0...however,
-            	// the spawn code is coded such that if x=y=0, it looks into location for the spawn loc!  This will NOT work
-            	// with quest spawns!  For both of the above cases, we need a fail-safe spawn.  For this, we use the 
-                // default spawn location, which is at the player's loc.
-                if ((x == 0) && (y == 0))
-                {
-                	_log.fatal("Failed to adjust bad locks for quest spawn!  Spawn aborted!");
-                	return null;
-                }
-                if (randomOffset)
-                {
-                    int offset;
+	public L2NpcInstance addSpawn(int npcId, int x, int y, int z,int heading, boolean randomOffset, int despawnDelay)
+	{
+		L2NpcInstance result = null;
+		try 
+		{
+			L2NpcTemplate template = NpcTable.getInstance().getTemplate(npcId);
+			if (template != null)
+			{
+				// Sometimes, even if the quest script specifies some xyz (for example npc.getX() etc) by the time the code
+				// reaches here, xyz have become 0!  Also, a questdev might have purposely set xy to 0,0...however,
+				// the spawn code is coded such that if x=y=0, it looks into location for the spawn loc!  This will NOT work
+				// with quest spawns!  For both of the above cases, we need a fail-safe spawn.  For this, we use the 
+				// default spawn location, which is at the player's loc.
+				if ((x == 0) && (y == 0))
+				{
+					_log.fatal("Failed to adjust bad locks for quest spawn!  Spawn aborted!");
+					return null;
+				}
+				if (randomOffset)
+				{
+					int offset;
 
-                    offset = Rnd.get(2); // Get the direction of the offset
-                    if (offset == 0) {offset = -1;} // make offset negative
-                    offset *= Rnd.get(50, 100);
-                    x += offset;
+					offset = Rnd.get(2); // Get the direction of the offset
+					if (offset == 0) {offset = -1;} // make offset negative
+					offset *= Rnd.get(50, 100);
+					x += offset;
 
-                    offset = Rnd.get(2); // Get the direction of the offset
-                    if (offset == 0) {offset = -1;} // make offset negative
-                    offset *= Rnd.get(50, 100); 
-                    y += offset;
-                }       
-                L2Spawn spawn = new L2Spawn(template);
-                spawn.setHeading(heading);
-                spawn.setLocx(x);
-                spawn.setLocy(y);
-                spawn.setLocz(z+20);
-                spawn.stopRespawn();
-                result = spawn.spawnOne();
+					offset = Rnd.get(2); // Get the direction of the offset
+					if (offset == 0) {offset = -1;} // make offset negative
+					offset *= Rnd.get(50, 100); 
+					y += offset;
+				}	   
+				L2Spawn spawn = new L2Spawn(template);
+				spawn.setHeading(heading);
+				spawn.setLocx(x);
+				spawn.setLocy(y);
+				spawn.setLocz(z+20);
+				spawn.stopRespawn();
+				result = spawn.spawnOne();
 
-	            if (despawnDelay > 0)
-		            ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);
-	            
-	            return result;
-            }
-        }
-        catch (Exception e1)
-        {
-        	_log.warn("Could not spawn Npc " + npcId);
-        }
-          
-        return null;
-    }
-    
-    public int[] getRegisteredItemIds()
-    {
-        return questItemIds;
-    }
+				if (despawnDelay > 0)
+					ThreadPoolManager.getInstance().scheduleGeneral(new DeSpawnScheduleTimerTask(result), despawnDelay);
+				
+				return result;
+			}
+		}
+		catch (Exception e1)
+		{
+			_log.warn("Could not spawn Npc " + npcId);
+		}
+		  
+		return null;
+	}
+	
+	public int[] getRegisteredItemIds()
+	{
+		return questItemIds;
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.scripting.ManagedScript#getScriptName()
-     */
-    @Override
-    public String getScriptName()
-    {
-        return this.getName();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.scripting.ManagedScript#getScriptName()
+	 */
+	@Override
+	public String getScriptName()
+	{
+		return this.getName();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.scripting.ManagedScript#setActive(boolean)
-     */
-    @Override
-    public void setActive(boolean status)
-    {
-        // TODO implement me
-    }
-    
-    /**
-     * @see net.sf.l2j.gameserver.scripting.ManagedScript#reload()
-     */
-    @Override
-    public boolean reload()
-    {
-        unload();
-        return super.reload();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.scripting.ManagedScript#setActive(boolean)
+	 */
+	@Override
+	public void setActive(boolean status)
+	{
+		// TODO implement me
+	}
+	
+	/**
+	 * @see net.sf.l2j.gameserver.scripting.ManagedScript#reload()
+	 */
+	@Override
+	public boolean reload()
+	{
+		unload();
+		return super.reload();
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.scripting.ManagedScript#unload()
-     */
-    @Override
-    public boolean unload()
-    {
-        this.saveGlobalData();
-        // cancel all pending timers before reloading.
-        // if timers ought to be restarted, the quest can take care of it
-        // with its code (example: save global data indicating what timer must 
-        // be restarted).
-        for (FastList<QuestTimer> timers : _allEventTimers.values())
-            for(QuestTimer timer :timers)
-                timer.cancel();
-        _allEventTimers.clear();
-        return QuestManager.getInstance().removeQuest(this);
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.scripting.ManagedScript#unload()
+	 */
+	@Override
+	public boolean unload()
+	{
+		this.saveGlobalData();
+		// cancel all pending timers before reloading.
+		// if timers ought to be restarted, the quest can take care of it
+		// with its code (example: save global data indicating what timer must 
+		// be restarted).
+		for (FastList<QuestTimer> timers : _allEventTimers.values())
+			for(QuestTimer timer :timers)
+				timer.cancel();
+		_allEventTimers.clear();
+		return QuestManager.getInstance().removeQuest(this);
+	}
 
-    /**
-     * @see net.sf.l2j.gameserver.scripting.ManagedScript#getScriptManager()
-     */
-    @Override
-    public ScriptManager<?> getScriptManager()
-    {
-        return QuestManager.getInstance();
-    }
+	/**
+	 * @see net.sf.l2j.gameserver.scripting.ManagedScript#getScriptManager()
+	 */
+	@Override
+	public ScriptManager<?> getScriptManager()
+	{
+		return QuestManager.getInstance();
+	}
 }
