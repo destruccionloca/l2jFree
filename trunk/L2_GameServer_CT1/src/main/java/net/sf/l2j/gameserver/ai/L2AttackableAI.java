@@ -742,8 +742,11 @@ public class L2AttackableAI extends L2CharacterAI implements Runnable
 							{
 								L2PcInstance player = (originalAttackTarget instanceof L2PcInstance)?
 										(L2PcInstance)originalAttackTarget: ((L2Summon) originalAttackTarget).getOwner();
-								for (Quest quest: npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL))
-									quest.notifyFactionCall(npc, (L2NpcInstance) _actor, player, (originalAttackTarget instanceof L2Summon));
+								if (npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL) != null)
+								{
+									for (Quest quest: npc.getTemplate().getEventQuests(Quest.QuestEventType.ON_FACTION_CALL))
+										quest.notifyFactionCall(npc, (L2NpcInstance) _actor, player, (originalAttackTarget instanceof L2Summon));
+								}
 							}
 						}
 						// heal or resurrect friends
