@@ -711,6 +711,9 @@ public class L2NpcInstance extends L2Character
                        VIP.showEndHTML(player, String.valueOf(getObjectId()));
                     else
                     {
+                        Quest[] qlsa = getTemplate().getEventQuests(Quest.QuestEventType.QUEST_START);
+                        if (qlsa != null && qlsa.length == 1)
+                            player.setLastQuestNpcObject(getNpcId());
                         Quest[] qlst = getTemplate().getEventQuests(Quest.QuestEventType.NPC_FIRST_TALK);
                         if ( (qlst != null) && qlst.length == 1)
                             qlst[0].notifyFirstTalk(this, player);

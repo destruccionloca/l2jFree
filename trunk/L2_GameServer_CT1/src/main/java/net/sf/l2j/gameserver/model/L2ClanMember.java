@@ -212,7 +212,7 @@ public class L2ClanMember
 		try 
         {
 			con = L2DatabaseFactory.getInstance().getConnection(con);
-			PreparedStatement statement = con.prepareStatement("UPDATE characters SET subpledge=? WHERE obj_id=?");
+			PreparedStatement statement = con.prepareStatement("UPDATE characters SET subpledge=? WHERE obj_Id=?");
 			statement.setLong(1, _subPledgeType);
 			statement.setInt(2, getObjectId());
 			statement.execute();
@@ -262,7 +262,7 @@ public class L2ClanMember
         try 
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("UPDATE characters SET pledge_rank=? WHERE obj_id=?");
+            PreparedStatement statement = con.prepareStatement("UPDATE characters SET pledge_rank=? WHERE obj_Id=?");
             statement.setLong(1, _pledgeRank);
             statement.setInt(2, getObjectId());
             statement.execute();

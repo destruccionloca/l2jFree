@@ -761,6 +761,7 @@ public class Disablers implements ISkillHandler
                             if (stat == "mute") negateEffect(target,SkillType.MUTE,-1);
                             if (stat == "fear") negateEffect(target,SkillType.FEAR,-1);
                             if (stat == "paralyze") negateEffect(target,SkillType.PARALYZE,-1);
+                            if (stat == "root") negateEffect(target,SkillType.ROOT,-1);
                             if (stat == "poison") negateEffect(target,SkillType.POISON,_negatePower);
                             if (stat == "bleed") negateEffect(target,SkillType.BLEED,_negatePower);
                             if (stat == "death_mark") negateEffect(target,SkillType.DEATH_MARK,_negatePower);

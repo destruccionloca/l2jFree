@@ -14,6 +14,7 @@
  */
 package net.sf.l2j.gameserver.model.actor.instance;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collection;
@@ -258,8 +259,8 @@ public final class L2PcInstance extends L2PlayableInstance
     private static final String DELETE_SKILL_SAVE = "DELETE FROM character_skills_save WHERE char_obj_id=? AND class_index=?";
 
     // Character Character SQL String Definitions:
-    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=? WHERE obj_id=?";
-    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level FROM characters WHERE obj_id=?";
+    private static final String UPDATE_CHARACTER = "UPDATE characters SET level=?,maxHp=?,curHp=?,maxCp=?,curCp=?,maxMp=?,curMp=?,face=?,hairStyle=?,hairColor=?,heading=?,x=?,y=?,z=?,exp=?,expBeforeDeath=?,sp=?,karma=?,pvpkills=?,pkkills=?,rec_have=?,rec_left=?,clanid=?,race=?,classid=?,deletetime=?,title=?,accesslevel=?,online=?,isin7sdungeon=?,clan_privs=?,wantspeace=?,base_class=?,onlinetime=?,in_jail=?,jail_timer=?,newbie=?,nobless=?,pledge_rank=?,subpledge=?,last_recom_date=?,lvl_joined_academy=?,apprentice=?,sponsor=?,varka_ketra_ally=?,clan_join_expiry_time=?,clan_create_expiry_time=?,banchat_timer=?,char_name=?,death_penalty_level=? WHERE obj_Id=?";
+    private static final String RESTORE_CHARACTER = "SELECT account_name, obj_Id, char_name, level, maxHp, curHp, maxCp, curCp, maxMp, curMp, face, hairStyle, hairColor, sex, heading, x, y, z, exp, expBeforeDeath, sp, karma, pvpkills, pkkills, clanid, race, classid, deletetime, cancraft, title, rec_have, rec_left, accesslevel, online, char_slot, lastAccess, clan_privs, wantspeace, base_class, onlinetime, isin7sdungeon, in_jail, jail_timer, banchat_timer, newbie, nobless, pledge_rank, subpledge, last_recom_date, lvl_joined_academy, apprentice, sponsor, varka_ketra_ally, clan_join_expiry_time,clan_create_expiry_time,charViP,death_penalty_level FROM characters WHERE obj_Id=?";
 
     // Character Subclass SQL String Definitions:
     private static final String RESTORE_CHAR_SUBCLASSES = "SELECT class_id,exp,sp,level,class_index FROM character_subclasses WHERE char_obj_id=? ORDER BY class_index ASC";
@@ -2247,6 +2248,9 @@ public final class L2PcInstance extends L2PlayableInstance
 		
 		// Reload passive skills from armors / jewels / weapons
 		getInventory().reloadEquippedItems();
+
+		// Add Death Penalty Buff Level
+		restoreDeathPenaltyBuffLevel();
 	}
 
 	/**
@@ -3424,6 +3428,8 @@ public final class L2PcInstance extends L2PlayableInstance
                 } 
                 else
                 {
+                    // This Action Failed packet avoids player getting stuck when clicking three or more times
+                    player.sendPacket(ActionFailed.STATIC_PACKET);
                     if (Config.GEO_CHECK_LOS)
                     {
                         if(GeoData.getInstance().canSeeTarget(player, this))
@@ -5906,12 +5912,12 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     public void updateOnlineStatus()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE obj_id=?");
+            PreparedStatement statement = con.prepareStatement("UPDATE characters SET online=?, lastAccess=? WHERE obj_Id=?");
             statement.setInt(1, isOnline());
             statement.setLong(2, System.currentTimeMillis());
             statement.setInt(3, getObjectId());
@@ -5969,12 +5975,11 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private boolean createDb()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-            statement = con.prepareStatement("INSERT INTO characters "
+            PreparedStatement statement = con.prepareStatement("INSERT INTO characters "
                 + "(account_name,obj_Id,char_name,level,maxHp,curHp,maxCp,curCp,maxMp,curMp,"
                 + "face,hairStyle,hairColor,sex,exp,sp,karma,pvpkills,pkkills,clanid,race,"
                 + "classid,deletetime,cancraft,title,accesslevel,online,isin7sdungeon,clan_privs,"
@@ -6015,6 +6020,7 @@ public final class L2PcInstance extends L2PlayableInstance
             statement.setInt(33, isNoble() ? 1 :0);
             statement.setLong(34, 0);
             statement.setLong(35,System.currentTimeMillis());
+
             statement.executeUpdate();
             statement.close();
         }
@@ -6053,7 +6059,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private static L2PcInstance restore(int objectId)
     {
         L2PcInstance player = null;
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -6290,7 +6296,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private static boolean restoreSubClassData(L2PcInstance player)
     {
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -6378,7 +6384,7 @@ public final class L2PcInstance extends L2PlayableInstance
         if (isSubClassActive()) return;
         if (getCommonRecipeBook().length == 0 && getDwarvenRecipeBook().length == 0) return;
 
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -6429,7 +6435,7 @@ public final class L2PcInstance extends L2PlayableInstance
     private void restoreRecipeBook()
     {
         L2RecipeService l2RecipeService = (L2RecipeService) L2Registry.getBean(IServiceRegistry.RECIPE);
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -6482,7 +6488,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private void storeCharBase()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -6499,10 +6505,9 @@ public final class L2PcInstance extends L2PlayableInstance
                 totalOnlineTime += (System.currentTimeMillis() - _onlineBeginTime) / 1000;
 
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
 
             // Update base class
-            statement = con.prepareStatement(UPDATE_CHARACTER);
+            PreparedStatement statement = con.prepareStatement(UPDATE_CHARACTER);
             statement.setInt(1, level);
             statement.setInt(2, getMaxHp());
             statement.setDouble(3, getStatus().getCurrentHp());
@@ -6577,12 +6582,12 @@ public final class L2PcInstance extends L2PlayableInstance
 
     private void storeCharSub()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
+            PreparedStatement statement = con.prepareStatement(UPDATE_CHAR_SUBCLASS);
 
             if (getTotalSubClasses() > 0)
             {
@@ -6598,9 +6603,9 @@ public final class L2PcInstance extends L2PlayableInstance
                     statement.setInt(6, subClass.getClassIndex());
 
                     statement.execute();
-                    statement.close();
                 }
             }
+            statement.close();
         }
         catch (Exception e)
         {
@@ -6622,15 +6627,14 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (!Config.STORE_SKILL_COOLTIME) return;
 
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
 
             // Delete all current stored effects for char to avoid dupe
-            statement = con.prepareStatement(DELETE_SKILL_SAVE);
+            PreparedStatement statement = con.prepareStatement(DELETE_SKILL_SAVE);
             statement.setInt(1, getObjectId());
             statement.setInt(2, getClassIndex());
             statement.execute();
@@ -6783,23 +6787,22 @@ public final class L2PcInstance extends L2PlayableInstance
         // Remove a skill from the L2Character and its Func objects from calculator set of the L2Character
         L2Skill oldSkill = super.removeSkill(skill);
 
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
             // Remove or update a L2PcInstance skill from the character_skills table of the database
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
+            PreparedStatement statement = con.prepareStatement(DELETE_SKILL_FROM_CHAR);
 
             if (oldSkill != null)
             {
-                statement = con.prepareStatement(DELETE_SKILL_FROM_CHAR);
                 statement.setInt(1, oldSkill.getId());
                 statement.setInt(2, getObjectId());
                 statement.setInt(3, getClassIndex());
                 statement.execute();
-                statement.close();
             }
+            statement.close();
         }
         catch (Exception e)
         {
@@ -6816,14 +6819,14 @@ public final class L2PcInstance extends L2PlayableInstance
             }
         }
 
-        if (transformId() == 0 && !isCursedWeaponEquipped())
+        if (transformId() > 0 || isCursedWeaponEquipped())
+            return oldSkill;
+
+        L2ShortCut[] allShortCuts = getAllShortCuts();
+        for (L2ShortCut sc : allShortCuts)  
         {
-            L2ShortCut[] allShortCuts = getAllShortCuts();
-            for (L2ShortCut sc : allShortCuts)  
-            {
-                if (sc != null && skill != null && sc.getId() == skill.getId() && sc.getType() == L2ShortCut.TYPE_SKILL) 
-                    deleteShortCut(sc.getSlot(), sc.getPage());
-            }
+            if (sc != null && skill != null && sc.getId() == skill.getId() && sc.getType() == L2ShortCut.TYPE_SKILL) 
+                deleteShortCut(sc.getSlot(), sc.getPage());
         }
 
         return oldSkill;
@@ -6843,7 +6846,7 @@ public final class L2PcInstance extends L2PlayableInstance
 
         if (newClassIndex > -1) classIndex = newClassIndex;
 
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -6954,7 +6957,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void restoreSkills()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -7006,7 +7009,7 @@ public final class L2PcInstance extends L2PlayableInstance
     public void restoreEffects()
     {
         L2Object[] targets = new L2Character[] {this};
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -7120,7 +7123,7 @@ public final class L2PcInstance extends L2PlayableInstance
      */
     private void restoreHenna()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -7206,7 +7209,7 @@ public final class L2PcInstance extends L2PlayableInstance
         L2HennaInstance henna = _henna[slot];
         _henna[slot] = null;
 
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -7275,7 +7278,7 @@ public final class L2PcInstance extends L2PlayableInstance
                 // Calculate Henna modifiers of this L2PcInstance
                 recalcHennaStats();
 
-                java.sql.Connection con = null;
+                Connection con = null;
 
                 try
                 {
@@ -9220,7 +9223,7 @@ public final class L2PcInstance extends L2PlayableInstance
         newClass.setClassId(classId);
         newClass.setClassIndex(classIndex);
 
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -9303,7 +9306,7 @@ public final class L2PcInstance extends L2PlayableInstance
             _log.info(getName() + " has requested to modify sub class index " + classIndex
                 + " from class ID " + oldClassId + " to " + newClassId + ".");
 
-        java.sql.Connection con = null;
+        Connection con = null;
 
         try
         {
@@ -11677,11 +11680,7 @@ public final class L2PcInstance extends L2PlayableInstance
 		if(getDeathPenaltyBuffLevel() > 0)
 		{
 			addSkill(SkillTable.getInstance().getInfo(5076, getDeathPenaltyBuffLevel()), false);
-			// SystemMessage sm = new SystemMessage(SystemMessageId.DEATH_PENALTY_LEVEL_S1_ADDED);
-			// sm.addNumber(getDeathPenaltyBuffLevel());
-			// sendPacket(sm);
 		}
-		// sendPacket(new EtcStatusUpdate(this));
 	}
 
     private FastMap<Integer, TimeStamp> _reuseTimeStamps = new FastMap<Integer, TimeStamp>().setShared(true);
@@ -11938,7 +11937,9 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         if (this.isTransformed())
         {
-            this.untransform();
+            // You already polymorphed and cannot polymorph again.
+            sendPacket(new SystemMessage(SystemMessageId.YOU_ALREADY_POLYMORPHED_AND_CANNOT_POLYMORPH_AGAIN));
+            return;
         }
         _transformation = transformation;
         transformation.onTransform();
@@ -11952,6 +11953,7 @@ public final class L2PcInstance extends L2PlayableInstance
             restoreSkills();
             _transformation.onUntransform();
             _transformation = null;
+            regiveTemporarySkills();
             broadcastUserInfo();
             sendPacket(new SkillCoolTime(this));
         }
@@ -11961,7 +11963,13 @@ public final class L2PcInstance extends L2PlayableInstance
     {
         return _transformation;
     }
-    
+
+    /**
+     * This returns the transformation Id of the current transformation.
+     * For example, if a player is transformed as a Buffalo, and then picks up the Zariche,
+     * the transform Id returned will be that of the Zariche, and NOT the Buffalo.
+     * @return Transformation Id
+     */
     public int getTranformationId()
     {
         L2Transformation transformation = this.getTransformation();
@@ -11972,30 +11980,37 @@ public final class L2PcInstance extends L2PlayableInstance
         return transformation.getId();
     }
 
-    // TODO: Clean code. Looks like this is used for non-cursedweapon transformations
+    /**
+     * This returns the transformation Id stored inside the character table, selected by the method: transformSelectInfo()
+     * For example, if a player is transformed as a Buffalo, and then picks up the Zariche,
+     * the transform Id returned will be that of the Buffalo, and NOT the Zariche.
+     * @return Transformation Id
+     */
     public int transformId()
     {
        return _transformationId;
     }
 
+    /**
+     * This is a simple query that inserts the transform Id into the character table for future reference.
+     */
     public void transformInsertInfo()
     {
         _transformationId = getTranformationId();
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-
-            statement = con.prepareStatement(UPDATE_CHAR_TRANSFORM);
+            PreparedStatement statement = con.prepareStatement(UPDATE_CHAR_TRANSFORM);
             statement.setInt(1, _transformationId);
             statement.setInt(2, getObjectId());
+
             statement.execute();
             statement.close();
         }
         catch (Exception e)
         {
-            _log.fatal("Transformation insert info error:" + e.toString());
+            _log.fatal("Transformation insert info: "+e);
         }
         finally
         {
@@ -12003,19 +12018,24 @@ public final class L2PcInstance extends L2PlayableInstance
         }
     }
 
+    /**
+     * This selects the current 
+     * @return transformation Id
+     */
     public int transformSelectInfo()
     {
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-
-            statement = con.prepareStatement(SELECT_CHAR_TRANSFORM);
+            PreparedStatement statement = con.prepareStatement(SELECT_CHAR_TRANSFORM); 
             statement.setInt(1, getObjectId());
+
             ResultSet rset = statement.executeQuery();
-            rset.next();
-            _transformationId = rset.getInt("transform_id");
+            if (rset.next())
+                _transformationId = rset.getInt("transform_id");
+
+            rset.close();
             statement.close();
         }
         catch (Exception e)
@@ -12032,15 +12052,14 @@ public final class L2PcInstance extends L2PlayableInstance
     public void transformUpdateInfo()
     {
         _transformationId = 0;
-        java.sql.Connection con = null;
+        Connection con = null;
         try
         {
             con = L2DatabaseFactory.getInstance().getConnection(con);
-            PreparedStatement statement;
-
-            statement = con.prepareStatement(UPDATE_CHAR_TRANSFORM);
+            PreparedStatement statement = con.prepareStatement(UPDATE_CHAR_TRANSFORM);
             statement.setInt(1, 0);
             statement.setInt(2, getObjectId());
+
             statement.execute();
             statement.close();
         }
