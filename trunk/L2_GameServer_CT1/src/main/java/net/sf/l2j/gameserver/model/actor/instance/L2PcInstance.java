@@ -6602,9 +6602,9 @@ public final class L2PcInstance extends L2PlayableInstance
                     statement.setInt(6, subClass.getClassIndex());
 
                     statement.execute();
-                    statement.close();
                 }
             }
+            statement.close();
         }
         catch (Exception e)
         {

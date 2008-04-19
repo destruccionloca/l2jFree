@@ -48,10 +48,7 @@ class Quest (JQuest) :
     if npcId == NAMELESS_SPIRIT:
       if int(st.get("cond")) == 0 :
         if st.getPlayer().getLevel() >= 74 :
-          st.setState(State.STARTED)
-          st.playSound("ItemSound.quest_accept")
-          htmltext = "31453-SOK.htm"
-          st.set("cond","1")
+          htmltext = "31453-1.htm"
         else :
           htmltext = "31453-SNG.htm"
           st.exitQuest(1)
@@ -98,6 +95,7 @@ class Quest (JQuest) :
       return
 
   def onAdvEvent (self,event,npc,player) :
+    htmltext = "<html><body>You are either not on a quest that involves this NPC, or you don't meet this NPC's minimum quest requirements.</body></html>"
     st = player.getQuestState(qn)
 
     if event == "Enter" : 
@@ -105,6 +103,17 @@ class Quest (JQuest) :
       return
 
     if not st : return
+
+    elif event == "accept" :
+      if int(st.get("cond")) == 0 :
+        if st.getPlayer().getLevel() >= 74 :
+          st.setState(State.STARTED)
+          st.playSound("ItemSound.quest_accept")
+          htmltext = "31453-12.htm"
+          st.set("cond","1")
+        else :
+          htmltext = "31453-SNG.htm"
+          st.exitQuest(1)
 
     elif event == "11" :
       if st.getQuestItemsCount(SEALED_BOX) >= 1 :
@@ -148,7 +157,7 @@ class Quest (JQuest) :
           st.giveItems(REWARDS[11],1)
 
       else :
-        return "31454-NG.htm"
+        htmltext = "31454-NG.htm"
 
     elif event == "12" :
       if st.getQuestItemsCount(GOBLETS[0]) >= 1 and st.getQuestItemsCount(GOBLETS[1]) >= 1 and st.getQuestItemsCount(GOBLETS[2]) >= 1 and st.getQuestItemsCount(GOBLETS[3]) >= 1 :
@@ -159,57 +168,59 @@ class Quest (JQuest) :
         st.giveItems(ANTIQUE_BROOCH,1)
         st.set("cond","2")
         st.playSound("ItemSound.quest_finish")
-        return "31453-22.htm"
+        htmltext = "31453-22.htm"
       else :
-        return "31453-FNG.htm"
+        htmltext = "31453-FNG.htm"
 
     elif event == "13" :
       st.playSound("ItemSound.quest_accept")
       st.exitQuest(1)
-      return "END.htm"
+      htmltext = "END.htm"
 
     elif event == "14" :
       st.playSound("ItemSound.quest_accept")
-      return "CONTINUE.htm"
+      htmltext = "CONTINUE.htm"
 
     # Ghost Chamberlain of Elmoreden: Teleport to 4th sepulcher
     elif event == "15" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
         st.getPlayer().teleToLocation(178298,-84574,-7216)
-        return
+        htmltext = None
       elif st.getQuestItemsCount(GRAVE_PASS) >= 1 :
         st.takeItems(GRAVE_PASS,1)
         st.getPlayer().teleToLocation(178298,-84574,-7216)
-        return
+        htmltext = None
       else :
-        return "NG.htm"
+        htmltext = "NG.htm"
 
     # Ghost Chamberlain of Elmoreden: Teleport to Imperial Tomb entrance
     elif event == "16" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
         st.getPlayer().teleToLocation(186942,-75602,-2834)
-        return
+        htmltext = None
       elif st.getQuestItemsCount(GRAVE_PASS) >= 1 :
         st.takeItems(GRAVE_PASS,1)
         st.getPlayer().teleToLocation(186942,-75602,-2834)
-        return
+        htmltext = None
       else :
-        return "NG.htm"
+        htmltext = "NG.htm"
 
     # Teleport to Pilgrims Temple
     elif event == "17" :
       if st.getQuestItemsCount(ANTIQUE_BROOCH) >= 1 :
         st.getPlayer().teleToLocation(169590,-90218,-2914)
-        return
+        htmltext = None
       elif st.getQuestItemsCount(GRAVE_PASS) >= 1 :
         st.takeItems(GRAVE_PASS,1)
         st.getPlayer().teleToLocation(169590,-90218,-2914)
-        return
+        htmltext = None
       else :
-        return "NG.htm"
+        htmltext = "NG.htm"
+
+    return htmltext
 
 
-QUEST       = Quest(620,"620_FourGoblets","quest")
+QUEST       = Quest(620,"620_FourGoblets","Four Goblets")
 
 QUEST.addStartNpc(NAMELESS_SPIRIT) 
 QUEST.addTalkId(NAMELESS_SPIRIT) 
