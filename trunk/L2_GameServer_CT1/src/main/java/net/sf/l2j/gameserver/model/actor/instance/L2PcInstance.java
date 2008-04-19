@@ -6593,7 +6593,6 @@ public final class L2PcInstance extends L2PlayableInstance
             {
                 for (SubClass subClass : getSubClasses().values())
                 {
-                    statement = con.prepareStatement(UPDATE_CHAR_SUBCLASS);
                     statement.setLong(1, subClass.getExp());
                     statement.setInt(2, subClass.getSp());
                     statement.setInt(3, subClass.getLevel());
@@ -6603,9 +6602,9 @@ public final class L2PcInstance extends L2PlayableInstance
                     statement.setInt(6, subClass.getClassIndex());
 
                     statement.execute();
+                    statement.close();
                 }
             }
-            statement.close();
         }
         catch (Exception e)
         {
