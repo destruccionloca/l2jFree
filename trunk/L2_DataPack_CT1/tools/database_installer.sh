@@ -106,7 +106,7 @@ action_type()
 	echo "Update non critical data  [u] (Only erase and reinsert tables without players' data)"
 	echo "Database update           [d] (Update tables which contain player's data using update files)"
 	echo "Complete update           [c] (Update your database without data loss)"
-	echo "Insert on table           [t] (Only insert one table in your database)"
+	echo "Insert one table          [t] (Only insert one table in your database)"
 	echo "Quit this script          [q]"
 	echo -ne "Choice: "
 	read ACTION_CHOICE
@@ -299,7 +299,7 @@ update_db()
 	echo "Please don't forget to make a backup before updating your database"
 	echo "Do you want to proceed? (y) yes or (n) no: "
 	read ANSWER
-	if [ "$ANSWER" = "n" ];
+	if [ "$ANSWER" = "n" ]; then
 		echo "Script aborted, make a backup before each update"
 		exit 1
 	else
