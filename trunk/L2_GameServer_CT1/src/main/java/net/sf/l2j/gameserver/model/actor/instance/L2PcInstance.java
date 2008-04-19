@@ -9437,6 +9437,20 @@ public final class L2PcInstance extends L2PlayableInstance
         for (L2ItemInstance temp : getInventory().getAugmentedItems())
             if (temp != null && temp.isEquipped()) temp.getAugmentation().removeBonus(this);
 
+        // Remove class circlets (can't equip circlets while being in subclass)
+        L2ItemInstance circlet = getInventory().getPaperdollItem(Inventory.PAPERDOLL_HAIRALL);
+        if (circlet != null)
+        {
+        	if (((circlet.getItemId() >= 9397 && circlet.getItemId() <= 9408) || circlet.getItemId() == 10169) && circlet.isEquipped())
+        	{
+        		L2ItemInstance[] unequipped = getInventory().unEquipItemInBodySlotAndRecord(circlet.getItem().getBodyPart());
+        		InventoryUpdate iu = new InventoryUpdate();
+    			for (L2ItemInstance element : unequipped)
+    				iu.addModifiedItem(element);
+    			sendPacket(iu);
+        	}
+        }
+
         // Delete a force buff upon class change.
         if(_forceBuff != null)
             _forceBuff.delete();

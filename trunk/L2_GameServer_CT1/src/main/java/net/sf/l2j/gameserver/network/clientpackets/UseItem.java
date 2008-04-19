@@ -204,6 +204,13 @@ public class UseItem extends L2GameClientPacket
 			}
 		}
 
+		// Classes circlets can't be equipped while being in subclass
+		if (((itemId >= 9391 && itemId <= 9415) || itemId == 10169) && activeChar.isSubClassActive())
+		{
+			activeChar.sendPacket(new SystemMessage(SystemMessageId.NO_CONDITION_TO_EQUIP));
+			return;
+		}
+
 		if (activeChar.getPkKills() > 0 && item.getItemId() >= 7816 && item.getItemId() <= 7831)
 		{
 			activeChar.sendPacket(new SystemMessage(SystemMessageId.YOU_ARE_UNABLE_TO_EQUIP_THIS_ITEM_WHEN_YOUR_PK_COUNT_IS_GREATER_THAN_OR_EQUAL_TO_ONE));

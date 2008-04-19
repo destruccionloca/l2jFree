@@ -1341,3 +1341,18 @@ CHANGE `item_skill_lvl` `item_skill_lvl` VARCHAR(30) NOT NULL DEFAULT '0';
 
 -- Armor dual-skill fix example
 UPDATE `armor` SET `item_skill_id` = '3632,3633', `item_skill_lvl` = '1,2' WHERE `item_id` = 6841;
+
+-- Classes circlets
+UPDATE `armor` SET `classes` = '5,6,20,33,90,91,99,106' WHERE `item_id` = 9397;
+UPDATE `armor` SET `classes` = '21,34,100,107' WHERE `item_id` = 9398;
+UPDATE `armor` SET `classes` = '2,48,88,114' WHERE `item_id` = 9399;
+UPDATE `armor` SET `classes` = '3,46,55,57,89,113,117,118' WHERE `item_id` = 9400;
+UPDATE `armor` SET `classes` = '8,23,36,93,101,108' WHERE `item_id` = 9401;
+UPDATE `armor` SET `classes` = '9,24,37,92,102,109' WHERE `item_id` = 9402;
+UPDATE `armor` SET `classes` = '12,13,27,40,94,95,103,110' WHERE `item_id` = 9403;
+UPDATE `armor` SET `classes` = '14,28,41,96,104,111' WHERE `item_id` = 9404;
+UPDATE `armor` SET `classes` = '16,30,43,97,105,112' WHERE `item_id` = 9405;
+UPDATE `armor` SET `classes` = '17,51,52,98,115,116' WHERE `item_id` = 9406;
+UPDATE `armor` SET `classes` = '127,128,129,131,132,133' WHERE `item_id` = 9407;
+UPDATE `armor` SET `classes` = '130,134' WHERE `item_id` = 9408;
+UPDATE `armor` SET `classes` = '135,136' WHERE `item_id` = 10169;
