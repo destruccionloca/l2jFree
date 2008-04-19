@@ -455,7 +455,8 @@ public class EnterWorld extends L2GameClientPacket
 		if (DM._savePlayers.contains(activeChar.getName()))
 			DM.addDisconnectedPlayer(activeChar);
 
-		activeChar.regiveTemporarySkills();
+		if (!activeChar.isTransformed())
+			activeChar.regiveTemporarySkills();
 
 		if (activeChar.isCursedWeaponEquipped())
 		{
