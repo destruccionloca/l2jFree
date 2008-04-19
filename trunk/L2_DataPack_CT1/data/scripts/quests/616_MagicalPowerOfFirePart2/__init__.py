@@ -136,7 +136,7 @@ class Quest (JQuest) :
     npcId = npc.getNpcId()
     if npcId == Nastron :
         FindTemplate(Alter).setBusy(False)
-        self.getQuestTimer("Soul of Fire Nastron has despawned",npc,None).cancel()
+        self.cancelQuestTimer("Soul of Fire Nastron has despawned",npc,None)
         party = player.getParty()
         if party :
             PartyQuestMembers = []
@@ -149,7 +149,7 @@ class Quest (JQuest) :
             st = PartyQuestMembers[Rnd.get(len(PartyQuestMembers))]
             if st.getQuestItemsCount(Totem2) > 0 :
                 st.takeItems(Totem2,1)
-            st.giveItems(Fire_Heart,1) 
+            st.giveItems(Fire_Heart,1)
             st.set("cond","3")
             st.set("id","3")
             st.playSound("ItemSound.quest_middle")
@@ -159,7 +159,7 @@ class Quest (JQuest) :
             if st.getState() == State.STARTED and (st.getInt("cond") == 1 or st.getInt("cond") == 2) :
                 if st.getQuestItemsCount(Totem2) > 0 :
                     st.takeItems(Totem2,1)
-                st.giveItems(Fire_Heart,1) 
+                st.giveItems(Fire_Heart,1)
                 st.set("cond","3")
                 st.set("id","3")
                 st.playSound("ItemSound.quest_middle")

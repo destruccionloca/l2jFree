@@ -137,7 +137,7 @@ class Quest (JQuest) :
        npc.setBusy(True)
      else:
        htmltext = "30738-14.htm"
-#### WISH II : I want to become an extremely rich person. How about 100 million adena?! 
+#### WISH II : I want to become an extremely rich person. How about 100 million adena?!
    elif event == "30738-17.htm":
      if st.getQuestItemsCount(WISH_POTION) :
        st.set("wish","2")
@@ -236,7 +236,7 @@ class Quest (JQuest) :
    id = st.getState()
    if npcId != ALCHEMIST_MATILD and id == State.CREATED : return htmltext
    if npcId == TORAI and st.getQuestItemsCount(FORBIDDEN_LOVE_SCROLL) :
-       st.takeItems(FORBIDDEN_LOVE_SCROLL,1)     
+       st.takeItems(FORBIDDEN_LOVE_SCROLL,1)
        st.giveItems(ADENA,500000)
        htmltext = "30557-01.htm"
    elif npcId == WISDOM_CHEST :
@@ -268,7 +268,7 @@ class Quest (JQuest) :
      elif cond == 4 and check_ingredients(st,1):
        htmltext = "30738-08.htm"
      elif cond == 3 and not check_ingredients(st,1):
-       htmltext = "30738-07.htm"       
+       htmltext = "30738-07.htm"
      elif cond == 2 or (st.getQuestItemsCount(ALCHEMY_TEXT) and st.getQuestItemsCount(SECRET_BOOK)) :
        htmltext = "30738-05.htm"
      elif cond == 1 or (st.getQuestItemsCount(ALCHEMY_TEXT) and not st.getQuestItemsCount(SECRET_BOOK)) :
@@ -311,7 +311,8 @@ class Quest (JQuest) :
              st.giveItems(ADENA,900000)
      elif npcId == SANCHES :
        try :
-         st.getQuestTimer("sanches_timer1").cancel()
+         if st.getQuestTimer("sanches_timer1") :
+            st.getQuestTimer("sanches_timer1").cancel()
          if st.getRandom(100) <= 50 :
             autochat(npc,"It's time to come out my Remless... Bonaparterius!")
             spawnedNpc=st.addSpawn(BONAPARTERIUS,npc,True,0)
@@ -322,7 +323,8 @@ class Quest (JQuest) :
        except : pass
      elif npcId == BONAPARTERIUS:
        try :
-         st.getQuestTimer("bonaparterius_timer1").cancel()
+         if st.getQuestTimer("bonaparterius_timer1") :
+            st.getQuestTimer("bonaparterius_timer1").cancel()
          autochat(npc,"Only Ramsebalius would be able to avenge me!")
          if st.getRandom(100) <= 50 :
            spawnedNpc=st.addSpawn(RAMSEBALIUS,npc,True,0)
@@ -333,7 +335,8 @@ class Quest (JQuest) :
        except : pass
      elif npcId == RAMSEBALIUS:
        try :
-         st.getQuestTimer("ramsebalius_timer1").cancel()
+         if st.getQuestTimer("ramsebalius_timer1") :
+            st.getQuestTimer("ramsebalius_timer1").cancel()
          autochat(npc,"You evil piece of...")
          if st.getRandom(100) <= 50 :
            spawnedNpc=st.addSpawn(GREAT_DEMON_KING,npc,True,0)
@@ -344,7 +347,8 @@ class Quest (JQuest) :
        except: pass
      elif npcId == GREAT_DEMON_KING:
        try :
-         st.getQuestTimer("greatdemon_timer1").cancel()
+         if st.getQuestTimer("greatdemon_timer1") :
+            st.getQuestTimer("greatdemon_timer1").cancel()
          st.giveItems(ADENA,1412965)
          st.playSound("ItemSound.quest_itemget")
        except: pass

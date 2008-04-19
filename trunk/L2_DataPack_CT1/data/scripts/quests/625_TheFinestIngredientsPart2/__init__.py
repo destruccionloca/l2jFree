@@ -4,7 +4,7 @@ from net.sf.l2j.gameserver.model.quest import State
 from net.sf.l2j.gameserver.model.quest import QuestState
 from net.sf.l2j.gameserver.model.quest.jython import QuestJython as JQuest
 from net.sf.l2j.gameserver.datatables import SpawnTable
-from net.sf.l2j.gameserver.network.serverpackets import CreatureSay 
+from net.sf.l2j.gameserver.network.serverpackets import CreatureSay
 from net.sf.l2j.tools.random import Rnd
 
 qn = "625_TheFinestIngredientsPart2"
@@ -52,7 +52,7 @@ class Quest (JQuest) :
    cond = st.getInt("cond")
    htmltext = event
    if event == "31521-02.htm" :
-      if st.getPlayer().getLevel() < 73 : 
+      if st.getPlayer().getLevel() < 73 :
          htmltext = "31683-00b.htm"
          st.exitQuest(1)
       else:
@@ -71,7 +71,7 @@ class Quest (JQuest) :
            st.takeItems(FOOD,1)
            npc.setBusy(True)
            st.set("cond","2")
-           self.startQuestTimer("Icicle Emperor Bumbalump has despawned",1200000,spawnId,player)
+           self.startQuestTimer("Icicle Emperor Bumbalump has despawned",1200000,spawnId,None)
            AutoChat(spawnId,"I will crush you!")
    elif event == "31521-04.htm" :
       if st.getQuestItemsCount(MEAT) >= 1 :
@@ -112,7 +112,7 @@ class Quest (JQuest) :
                htmltext = "31542-02.htm"
                spawnId = st.addSpawn(BUMPALUMP,158240,-121536,-2253)
                npc.setBusy(True)
-               self.startQuestTimer("Icicle Emperor Bumbalump has despawned",1200000,spawnId,player)
+               self.startQuestTimer("Icicle Emperor Bumbalump has despawned",1200000,spawnId,None)
                AutoChat(spawnId,"I will crush you!")
      elif cond == 3 :
        if npcId == JEREMY :
@@ -125,7 +125,7 @@ class Quest (JQuest) :
     npcId = npc.getNpcId()
     if npcId == BUMPALUMP :
         FindTemplate(TABLE).setBusy(False)
-        self.getQuestTimer("Icicle Emperor Bumbalump has despawned",npc,player).cancel()
+        self.cancelQuestTimer("Icicle Emperor Bumbalump has despawned",npc,None)
         party = player.getParty()
         if party :
             PartyQuestMembers = []
