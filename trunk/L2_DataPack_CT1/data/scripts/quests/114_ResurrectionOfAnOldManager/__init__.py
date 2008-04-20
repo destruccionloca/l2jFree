@@ -198,7 +198,7 @@ class Quest (JQuest) :
 
  def onFirstTalk (self,npc,player): #atm custom, on retail it is when you walk to npcs radius
     st = player.getQuestState(qn)
-    if not st :
+    if not st : 
        npc.showChatWindow(player)
        return
     npcId = npc.getNpcId()
@@ -226,8 +226,12 @@ class Quest (JQuest) :
     elif npcId == Yumi :
        if state == State.CREATED :
           Pavel = player.getQuestState("121_PavelTheGiants")
-          if st.getPlayer().getLevel() >= 49 and Pavel.getState() == State.COMPLETED :
-             htmltext = "32041-01.htm"
+          if Pavel:
+             if st.getPlayer().getLevel() >= 49 and Pavel.getState() == State.COMPLETED :
+                htmltext = "32041-01.htm"
+             else :
+                htmltext = "32041-00.htm"
+                st.exitQuest(1)
           else :
              htmltext = "32041-00.htm"
              st.exitQuest(1)

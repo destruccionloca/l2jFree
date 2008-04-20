@@ -186,7 +186,7 @@
 </skill>
 <skill id="3416" levels="1" name="Dynasty Tunic">
 <!--
-  Description(s):      
+  Description(s):
       Int-1, Men+1, Casting Spd. +12%, Maximum MP +257. Darkness Resistance +6.
 -->
   <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
@@ -205,12 +205,7 @@
   </for>
 </skill>
 <skill id="3417" levels="1" name="Equipped with Shield">
-<!-- Done by BoDiE --> <!-- Retail accuracy verified -->
-<!--
-  Description(s):      
-      Shield P. Def is additionally increased.
-      Increases probability of Poison and Bleed Prevention.
--->
+  <!-- Dynasty Shield Skill -->
   <set name="power" val="0.0"/>
   <set name="target" val="TARGET_SELF"/>
   <set name="skillType" val="BUFF"/>
@@ -218,9 +213,7 @@
   <set name="castRange" val="-1"/>
   <set name="effectRange" val="-1"/>
   <for>
-    <mul order="0x30" stat="rShld" val="1.25"/>
-    <mul order="0x30" stat="poisonVuln" val="0.8"/> <!-- Poison Vuln +20% -->
-    <mul order="0x30" stat="bleedVuln" val="0.8"/> <!-- Bleed Vuln +20% -->
+    <mul order="0x30" stat="sDef" val="1.25"/> <!-- Needs to be checked -->
   </for>
 </skill>
 <skill id="3418" levels="1" name="Active Skill: Transform Pig">
@@ -251,7 +244,7 @@
 <skill id="3420" levels="1" name="Dynasty Leather Armor - Summoner">
   <!-- Done by BoDiE --> <!-- Retail accuracy verified -->
 <!--
-  Description(s):      
+  Description(s):
       Str-2, Con+2, increase Atk. Spd., MaxHP +492. Increase Darkness Resistance +8, increase P. Atk., P. Def.
 -->
   <set name="power" val="0.0"/>
